@@ -7,7 +7,7 @@
 			"path": "./modules"
 		},
 		{
-			"path": "../db_schemas/db_schemas"
+			"path": "../db_schemas/"
 		}
 	],
 	"settings": {
