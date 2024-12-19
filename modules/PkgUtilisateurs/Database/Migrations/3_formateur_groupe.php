@@ -17,7 +17,8 @@ return new class extends Migration {
     {
         Schema::create('formateur_groupe', function (Blueprint $table) {
 
-
+            $table->timestamps();
+           
             $table->foreignId('groupe_id')->constrained('groupes');
             $table->foreignId('formateur_id')->constrained('formateurs');
 

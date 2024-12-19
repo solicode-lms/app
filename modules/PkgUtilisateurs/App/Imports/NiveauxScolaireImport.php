@@ -6,12 +6,12 @@
 namespace Modules\PkgUtilisateurs\App\Imports;
 
 use Carbon\Carbon;
-use Modules\PkgUtilisateurs\Models\Niveaux_scolaire;
+use Modules\PkgUtilisateurs\Models\NiveauxScolaire;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class Niveaux_scolaireImport implements ToModel, WithHeadingRow
+class NiveauxScolaireImport implements ToModel, WithHeadingRow
 {
     /**
      * Vérifie si une tâche avec les mêmes attributs existe déjà dans la base de données.
@@ -21,14 +21,14 @@ class Niveaux_scolaireImport implements ToModel, WithHeadingRow
      */
     private function recordExists(array $row): bool
     {
-        return Niveaux_scolaire::where('nom', $row['nom'])->exists();
+        return NiveauxScolaire::where('nom', $row['nom'])->exists();
     }
 
     /**
      * Crée ou met à jour un enregistrement à partir des données importées.
      *
      * @param array $row Ligne de données importée.
-     * @return <Niveaux_scolaire|null
+     * @return <NiveauxScolaire|null
      */
     public function model(array $row)
     {
@@ -37,7 +37,7 @@ class Niveaux_scolaireImport implements ToModel, WithHeadingRow
         }
 
         // Crée un nouvel enregistrement à partir des données importées
-        return new Niveaux_scolaire([
+        return new NiveauxScolaire([
             'nom' => $row['nom'],
             'description' => $row['description'],
         ]);

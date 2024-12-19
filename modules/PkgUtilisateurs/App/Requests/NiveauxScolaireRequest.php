@@ -7,7 +7,7 @@ namespace Modules\PkgUtilisateurs\App\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class Niveaux_scolaireRequest extends FormRequest
+class NiveauxScolaireRequest extends FormRequest
 {
     public function authorize(): bool
     {

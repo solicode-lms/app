@@ -15,12 +15,17 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('specialites', function (Blueprint $table) {
+        Schema::create('formateurs', function (Blueprint $table) {
             $table->id();
             $table->string('nom');
-            $table->string('description');
+            $table->string('prenom');
+            $table->string('prenom_arab');
+            $table->string('nom_arab');
+            $table->string('tele_num');
+            $table->string('profile_image');
 
-
+            $table->timestamps();
+           
 
         });
     }
@@ -30,6 +35,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('specialites');
+        Schema::dropIfExists('formateurs');
     }
 };

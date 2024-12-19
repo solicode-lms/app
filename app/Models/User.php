@@ -15,7 +15,7 @@ class User extends Authenticatable
     use HasFactory, Notifiable, HasRoles;
 
     public const ADMIN = "admin";
-    public const MEMBRE = "membre";
+    public const MEMBRE = "formateur";
     
     /**
      * The attributes that are mass assignable.

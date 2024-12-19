@@ -1,7 +1,7 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @extends('layouts.admin')
-@section('title', curd_index_title('PkgUtilisateurs::niveaux_scolaire'))
+@section('title', curd_index_title('PkgUtilisateurs::niveauxScolaire'))
 @section('content')
     <div class="content-header">
         @if (session('success'))
@@ -14,15 +14,15 @@
             <div class="row mb-2">
                 <div class="col-sm-6">
                     <h1>
-                        {{ curd_index_title('PkgUtilisateurs::niveaux_scolaire') }}
+                        {{ curd_index_title('PkgUtilisateurs::niveauxScolaire') }}
                     </h1>
                 </div>
                 <div class="col-sm-6">
                     <div class="float-sm-right">
-                        @can('create-Niveaux_scolaireController')
-                            <a href="{{ route('niveaux_scolaires.create') }}" class="btn btn-info">
+                        @can('create-NiveauxScolaireController')
+                            <a href="{{ route('niveauxScolaires.create') }}" class="btn btn-info">
                                 <i class="fas fa-plus"></i>
-                                {{ curd_index_add_label('PkgUtilisateurs::niveaux_scolaire') }}
+                                {{ curd_index_add_label('PkgUtilisateurs::niveauxScolaire') }}
                             </a>
                         @endcan
                     </div>
@@ -49,7 +49,7 @@
                             </div>
                         </div>
                         <div id="data-container">
-                        @include('PkgUtilisateurs::niveaux_scolaire._table')
+                        @include('PkgUtilisateurs::niveauxScolaire._table')
                         </div>
                     </div>
                 </div>

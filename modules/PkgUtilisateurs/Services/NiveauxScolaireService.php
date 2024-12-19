@@ -5,16 +5,16 @@
 
 namespace Modules\PkgUtilisateurs\Services;
 
-use Modules\PkgUtilisateurs\Models\Niveaux_scolaire;
+use Modules\PkgUtilisateurs\Models\NiveauxScolaire;
 use Modules\Core\Services\BaseService;
 
 /**
- * Classe Niveaux_scolaireService pour gérer la persistance de l'entité Niveaux_scolaire.
+ * Classe NiveauxScolaireService pour gérer la persistance de l'entité NiveauxScolaire.
  */
-class Niveaux_scolaireService extends BaseService
+class NiveauxScolaireService extends BaseService
 {
     /**
-     * Les champs de recherche disponibles pour niveaux_scolaires.
+     * Les champs de recherche disponibles pour niveauxScolaires.
      *
      * @var array
      */
@@ -34,26 +34,26 @@ class Niveaux_scolaireService extends BaseService
     }
 
     /**
-     * Constructeur de la classe Niveaux_scolaireService.
+     * Constructeur de la classe NiveauxScolaireService.
      */
     public function __construct()
     {
-        parent::__construct(new Niveaux_scolaire());
+        parent::__construct(new NiveauxScolaire());
     }
 
     /**
-     * Crée une nouvelle instance de niveaux_scolaire.
+     * Crée une nouvelle instance de niveauxScolaire.
      *
      * @param array $data Données pour la création.
      * @return mixed
      */
     public function create(array $data)
     {
-        $niveaux_scolaire = parent::create([
+        $niveauxScolaire = parent::create([
             'nom' => $data['nom'],
             'description' => $data['description'],
         ]);
 
-        return $niveaux_scolaire;
+        return $niveauxScolaire;
     }
 }

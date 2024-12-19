@@ -3,8 +3,8 @@
 
 
 return [
-    'singular' => 'Niveaux_scolaire',
-    'plural' => 'Niveaux_scolaires',
+    'singular' => 'NiveauxScolaire',
+    'plural' => 'NiveauxScolaires',
     'nom' => 'nom',
     'description' => 'description',
 ];

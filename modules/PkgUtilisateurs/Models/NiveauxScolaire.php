@@ -7,7 +7,7 @@ namespace Modules\PkgUtilisateurs\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Niveaux_scolaire extends Model
+class NiveauxScolaire extends Model
 {
     use HasFactory;
 

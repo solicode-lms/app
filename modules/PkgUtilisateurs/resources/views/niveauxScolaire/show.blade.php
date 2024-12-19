@@ -1,7 +1,7 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @extends('layouts.admin')
-@section('title', __('Core::msg.show') . ' ' . __('PkgUtilisateurs::niveaux_scolaire.singular'))
+@section('title', __('Core::msg.show') . ' ' . __('PkgUtilisateurs::niveauxScolaire.singular'))
 @section('content')
     <div class="content-header">
         <div class="container-fluid">
@@ -10,7 +10,7 @@
                     <h1>{{ __('Core::msg.detail') }}</h1>
                 </div>
                 <div class="col-sm-6">
-                    <a href="{{ route('niveaux_scolaires.edit', $item->id) }}" class="btn btn-default float-right">
+                    <a href="{{ route('niveauxScolaires.edit', $item->id) }}" class="btn btn-default float-right">
                         <i class="far fa-edit"></i>
                         {{ __('Core::msg.edit') }}
                     </a>
@@ -25,11 +25,11 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="col-sm-12">
-                                <label for="nom">{{ ucfirst(__('PkgUtilisateurs::niveaux_scolaire.nom')) }}:</label>
+                                <label for="nom">{{ ucfirst(__('PkgUtilisateurs::niveauxScolaire.nom')) }}:</label>
                                 <p>{{ $item->nom }}</p>
                             </div>
                             <div class="col-sm-12">
-                                <label for="description">{{ ucfirst(__('PkgUtilisateurs::niveaux_scolaire.description')) }}:</label>
+                                <label for="description">{{ ucfirst(__('PkgUtilisateurs::niveauxScolaire.description')) }}:</label>
                                 <p>{{ $item->description }}</p>
                             </div>
                         </div>

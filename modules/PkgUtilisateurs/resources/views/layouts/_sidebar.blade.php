@@ -4,7 +4,7 @@
     <a href="#" class="nav-link nav-link {{ Request::is('PkgUtilisateurs*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-table"></i>
         <p>
-            {{__('PkgUtilisateurs::module.name')}}
+            PkgUtilisateurs
             <i class="fas fa-angle-left right"></i>
         </p>
     </a>
@@ -22,9 +22,9 @@
             </a>
         </li>
         <li class="nav-item">
-            <a href="{{ route('niveaux_scolaires.index') }}" class="nav-link {{ Request::is('PkgUtilisateurs/niveaux_scolaires') ? 'active' : '' }}">
+            <a href="{{ route('niveauxScolaires.index') }}" class="nav-link {{ Request::is('PkgUtilisateurs/niveauxScolaires') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-table"></i>
-                <p>Niveaux_scolaires</p>
+                <p>NiveauxScolaires</p>
             </a>
         </li>
         <li class="nav-item">

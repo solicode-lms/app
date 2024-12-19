@@ -1,7 +1,7 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @extends('layouts.admin')
-@section('title', curd_index_add_label('PkgUtilisateurs::niveaux_scolaire'))
+@section('title', __('Core::msg.edit') . ' ' . __('PkgUtilisateurs::niveauxScolaire.singular'))
 
 @section('content')
     <div class="content-header">
@@ -14,11 +14,11 @@
                         <div class="card-header">
                             <h3 class="card-title">
                                 <i class="nav-icon fas fa-table"></i>
-                                {{ curd_index_add_label('PkgUtilisateurs::niveaux_scolaire') }}
+                                {{ __('Core::msg.edit') }}
                             </h3>
                         </div>
-                        <!-- Obtenir le formulaire -->
-                        @include('PkgUtilisateurs::niveaux_scolaire._fields')
+                        <!-- Inclure le formulaire -->
+                        @include('PkgUtilisateurs::niveauxScolaire._fields')
                     </div>
                 </div>
             </div>

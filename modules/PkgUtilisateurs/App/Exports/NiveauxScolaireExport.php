@@ -5,7 +5,7 @@
 
 namespace Modules\PkgUtilisateurs\App\Exports;
 
-use Modules\PkgUtilisateurs\Models\Niveaux_scolaire;
+use Modules\PkgUtilisateurs\Models\NiveauxScolaire;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
@@ -13,7 +13,7 @@ use Maatwebsite\Excel\Concerns\WithStyles;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 
-class Niveaux_scolaireExport implements FromCollection, WithHeadings, ShouldAutoSize, WithStyles
+class NiveauxScolaireExport implements FromCollection, WithHeadings, ShouldAutoSize, WithStyles
 {
     protected $data;
 
@@ -32,10 +32,10 @@ class Niveaux_scolaireExport implements FromCollection, WithHeadings, ShouldAuto
 
     public function collection()
     {
-        return $this->data->map(function ($niveaux_scolaire) {
+        return $this->data->map(function ($niveauxScolaire) {
             return [
-                'nom' => $niveaux_scolaire->nom,
-                'description' => $niveaux_scolaire->description,
+                'nom' => $niveauxScolaire->nom,
+                'description' => $niveauxScolaire->description,
             ];
         });
     }
