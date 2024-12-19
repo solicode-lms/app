@@ -8,6 +8,9 @@
 		},
 		{
 			"path": "../db_schemas/"
+		},
+		{
+			"path": "../modelisation"
 		}
 	],
 	"settings": {
