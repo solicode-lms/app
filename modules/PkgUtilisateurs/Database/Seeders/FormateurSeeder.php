@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Schema;
 
 class FormateurSeeder extends Seeder
 {
-    public static int $order = 6;
+    public static int $order = 5;
 
     public function run(): void
     {

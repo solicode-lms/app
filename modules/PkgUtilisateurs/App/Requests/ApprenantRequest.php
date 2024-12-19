@@ -25,8 +25,8 @@ class ApprenantRequest extends FormRequest
             'profile_image' => 'required|max:255',
             'date_inscription' => 'required',
             'ville_id' => 'required',
-            'niveaux_scolaires_id' => 'required',
-            'groupe_id' => 'required'
+            'groupe_id' => 'required',
+            'niveaux_scolaires_id' => 'required'
         ];
     }
 
@@ -49,10 +49,10 @@ class ApprenantRequest extends FormRequest
             'date_inscription.max' => __('validation.date_inscriptionMax'),
             'ville_id.required' => __('validation.required', ['attribute' => __('PkgBlog::category.ville_id')]),
             'ville_id.max' => __('validation.ville_idMax'),
-            'niveaux_scolaires_id.required' => __('validation.required', ['attribute' => __('PkgBlog::category.niveaux_scolaires_id')]),
-            'niveaux_scolaires_id.max' => __('validation.niveaux_scolaires_idMax'),
             'groupe_id.required' => __('validation.required', ['attribute' => __('PkgBlog::category.groupe_id')]),
-            'groupe_id.max' => __('validation.groupe_idMax')
+            'groupe_id.max' => __('validation.groupe_idMax'),
+            'niveaux_scolaires_id.required' => __('validation.required', ['attribute' => __('PkgBlog::category.niveaux_scolaires_id')]),
+            'niveaux_scolaires_id.max' => __('validation.niveaux_scolaires_idMax')
         ];
     }
 }

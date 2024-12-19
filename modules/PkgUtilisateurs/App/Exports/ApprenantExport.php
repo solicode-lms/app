@@ -33,8 +33,8 @@ class ApprenantExport implements FromCollection, WithHeadings, ShouldAutoSize, W
             'profile_image',
             'date_inscription',
             'ville_id',
-            'niveaux_scolaires_id',
             'groupe_id',
+            'niveaux_scolaires_id',
         ];
     }
 
@@ -50,8 +50,8 @@ class ApprenantExport implements FromCollection, WithHeadings, ShouldAutoSize, W
                 'profile_image' => $apprenant->profile_image,
                 'date_inscription' => $apprenant->date_inscription,
                 'ville_id' => $apprenant->ville_id,
-                'niveaux_scolaires_id' => $apprenant->niveaux_scolaires_id,
                 'groupe_id' => $apprenant->groupe_id,
+                'niveaux_scolaires_id' => $apprenant->niveaux_scolaires_id,
             ];
         });
     }

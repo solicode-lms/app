@@ -27,8 +27,8 @@ class ApprenantService extends BaseService
         'profile_image',
         'date_inscription',
         'ville_id',
-        'niveaux_scolaires_id',
-        'groupe_id'
+        'groupe_id',
+        'niveaux_scolaires_id'
     ];
 
     /**
@@ -66,8 +66,8 @@ class ApprenantService extends BaseService
             'profile_image' => $data['profile_image'],
             'date_inscription' => $data['date_inscription'],
             'ville_id' => $data['ville_id'],
-            'niveaux_scolaires_id' => $data['niveaux_scolaires_id'],
             'groupe_id' => $data['groupe_id'],
+            'niveaux_scolaires_id' => $data['niveaux_scolaires_id'],
         ]);
 
         return $apprenant;

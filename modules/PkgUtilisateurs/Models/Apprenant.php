@@ -14,12 +14,8 @@ class Apprenant extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nom', 'prenom', 'prenom_arab', 'nom_arab', 'tele_num', 'profile_image', 'date_inscription', 'ville_id', 'niveaux_scolaires_id', 'groupe_id'];
+    protected $fillable = ['nom', 'prenom', 'prenom_arab', 'nom_arab', 'tele_num', 'profile_image', 'date_inscription', 'ville_id', 'groupe_id', 'niveaux_scolaires_id'];
 
-    public function ville()
-    {
-        return $this->belongsTo(Ville::class, 'ville_id', 'id');
-    }
     public function groupe()
     {
         return $this->belongsTo(Groupe::class, 'groupe_id', 'id');
@@ -27,6 +23,10 @@ class Apprenant extends Model
     public function niveauxScolaire()
     {
         return $this->belongsTo(NiveauxScolaire::class, 'niveaux_scolaires_id', 'id');
+    }
+    public function ville()
+    {
+        return $this->belongsTo(Ville::class, 'ville_id', 'id');
     }
 
     public function groupes()

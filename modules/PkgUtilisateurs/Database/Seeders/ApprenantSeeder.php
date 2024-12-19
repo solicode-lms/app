@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Schema;
 
 class ApprenantSeeder extends Seeder
 {
-    public static int $order = 4;
+    public static int $order = 10;
 
     public function run(): void
     {
@@ -37,8 +37,8 @@ class ApprenantSeeder extends Seeder
                     "profile_image" => $data[5] ,
                     "date_inscription" => $data[6] ,
                     "ville_id" => $data[7] ,
-                    "niveaux_scolaires_id" => $data[8] ,
-                    "groupe_id" => $data[9] 
+                    "groupe_id" => $data[8] ,
+                    "niveaux_scolaires_id" => $data[9] 
                 ]);
             }
             $firstline = false;

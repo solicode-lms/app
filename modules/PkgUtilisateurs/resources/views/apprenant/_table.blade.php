@@ -6,8 +6,8 @@
             <tr>
                 <th>{{ ucfirst(__('PkgUtilisateurs::apprenant.nom')) }}</th>
                 <th>{{ ucfirst(__('PkgUtilisateurs::ville.singular')) }}</th>
-                <th>{{ ucfirst(__('PkgUtilisateurs::niveauxScolaire.singular')) }}</th>
                 <th>{{ ucfirst(__('PkgUtilisateurs::groupe.singular')) }}</th>
+                <th>{{ ucfirst(__('PkgUtilisateurs::niveauxScolaire.singular')) }}</th>
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -16,8 +16,8 @@
                 <tr>
                     <td>{{ $apprenant->nom }}</td>
                     <td>{{ $apprenant->ville->nom ?? '-' }}</td>
-                    <td>{{ $apprenant->niveauxScolaire->nom ?? '-' }}</td>
                     <td>{{ $apprenant->groupe->nom ?? '-' }}</td>
+                    <td>{{ $apprenant->niveauxScolaire->nom ?? '-' }}</td>
                     <td class="text-center">
                         @can('show-ApprenantController')
                             <a href="{{ route('apprenants.show', $apprenant) }}" class="btn btn-default btn-sm">

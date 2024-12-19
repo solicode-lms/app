@@ -13,6 +13,6 @@ return [
     'profile_image' => 'profile_image',
     'date_inscription' => 'date_inscription',
     'ville_id' => 'ville_id',
-    'niveaux_scolaires_id' => 'niveaux_scolaires_id',
     'groupe_id' => 'groupe_id',
+    'niveaux_scolaires_id' => 'niveaux_scolaires_id',
 ];

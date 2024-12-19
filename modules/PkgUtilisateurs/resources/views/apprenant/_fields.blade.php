@@ -145,21 +145,6 @@
 
         
         <div class="form-group">
-            <label for="ville_id">
-                {{ ucfirst(__('PkgUtilisateurs::ville.singular')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <select id="ville_id" name="ville_id" class="form-control">
-                <option value="">Sélectionnez une option</option>
-            </select>
-            @error('ville_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-        </div>
-        
-        <div class="form-group">
             <label for="groupe_id">
                 {{ ucfirst(__('PkgUtilisateurs::groupe.singular')) }}
                 
@@ -185,6 +170,21 @@
                 <option value="">Sélectionnez une option</option>
             </select>
             @error('niveaux_scolaires_id')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+        </div>
+        
+        <div class="form-group">
+            <label for="ville_id">
+                {{ ucfirst(__('PkgUtilisateurs::ville.singular')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <select id="ville_id" name="ville_id" class="form-control">
+                <option value="">Sélectionnez une option</option>
+            </select>
+            @error('ville_id')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
         </div>
@@ -228,13 +228,6 @@
     window.dynamicSelectManyToOne = [
         
         {
-            fieldId: 'ville_id',
-            fetchUrl: "{{ route('villes.all') }}",
-            selectedValue: {{ $item->ville_id ? $item->ville_id : 'undefined' }},
-            fieldValue: 'nom'
-        },
-        
-        {
             fieldId: 'groupe_id',
             fetchUrl: "{{ route('groupes.all') }}",
             selectedValue: {{ $item->groupe_id ? $item->groupe_id : 'undefined' }},
@@ -245,6 +238,13 @@
             fieldId: 'niveaux_scolaires_id',
             fetchUrl: "{{ route('niveauxScolaires.all') }}",
             selectedValue: {{ $item->niveaux_scolaires_id ? $item->niveaux_scolaires_id : 'undefined' }},
+            fieldValue: 'nom'
+        },
+        
+        {
+            fieldId: 'ville_id',
+            fetchUrl: "{{ route('villes.all') }}",
+            selectedValue: {{ $item->ville_id ? $item->ville_id : 'undefined' }},
             fieldValue: 'nom'
         }
         

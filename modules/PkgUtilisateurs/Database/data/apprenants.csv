@@ -1,3 +1,3 @@
-nom,prenom,prenom_arab,nom_arab,tele_num,profile_image,date_inscription,ville_id,niveaux_scolaires_id,groupe_id
-nom 1,prenom 1,prenom_arab 1,nom_arab 1,tele_num 1,profile_image 1,12/12/12,1,1,1
-nom 2,prenom 2,prenom_arab 2,nom_arab 2,tele_num 2,profile_image 2,12/12/12,2,2,2
+nom,prenom,prenom_arab,nom_arab,tele_num,profile_image,ville_id,niveaux_scolaires_id,groupe_id
+nom 1,prenom 1,prenom_arab 1,nom_arab 1,tele_num 1,profile_image 1,1,1,1
+nom 2,prenom 2,prenom_arab 2,nom_arab 2,tele_num 2,profile_image 2,2,2,2
