@@ -11,8 +11,7 @@ return [
     'nom_arab' => 'nom_arab',
     'tele_num' => 'tele_num',
     'profile_image' => 'profile_image',
-    'date_inscription' => 'date_inscription',
-    'ville_id' => 'ville_id',
     'groupe_id' => 'groupe_id',
     'niveaux_scolaires_id' => 'niveaux_scolaires_id',
+    'ville_id' => 'ville_id',
 ];

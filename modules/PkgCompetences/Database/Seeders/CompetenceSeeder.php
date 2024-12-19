@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Schema;
 
 class CompetenceSeeder extends Seeder
 {
-    public static int $order = 3;
+    public static int $order = 9;
 
     public function run(): void
     {

@@ -123,25 +123,6 @@
             @enderror
         </div>
         
-        <div class="form-group">
-            <label for="date_inscription">
-                {{ ucfirst(__('PkgUtilisateurs::apprenant.date_inscription')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
-                name="date_inscription"
-                type="input"
-                class="form-control"
-                id="date_inscription"
-                placeholder="{{ __('Enter PkgUtilisateurs::apprenant.date_inscription') }}"
-                value="{{ $item ? $item->date_inscription : old('date_inscription') }}">
-            @error('date_inscription')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-        </div>
-        
 
         
         <div class="form-group">

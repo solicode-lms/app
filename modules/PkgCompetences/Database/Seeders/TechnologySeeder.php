@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Schema;
 
 class TechnologySeeder extends Seeder
 {
-    public static int $order = 13;
+    public static int $order = 10;
 
     public function run(): void
     {

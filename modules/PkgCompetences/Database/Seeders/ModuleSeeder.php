@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Schema;
 
 class ModuleSeeder extends Seeder
 {
-    public static int $order = 2;
+    public static int $order = 8;
 
     public function run(): void
     {

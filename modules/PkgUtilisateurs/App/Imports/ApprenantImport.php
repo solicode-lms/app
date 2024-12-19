@@ -44,10 +44,9 @@ class ApprenantImport implements ToModel, WithHeadingRow
             'nom_arab' => $row['nom_arab'],
             'tele_num' => $row['tele_num'],
             'profile_image' => $row['profile_image'],
-            'date_inscription' => $row['date_inscription'],
-            'ville_id' => $row['ville_id'],
             'groupe_id' => $row['groupe_id'],
             'niveaux_scolaires_id' => $row['niveaux_scolaires_id'],
+            'ville_id' => $row['ville_id'],
         ]);
     }
 }

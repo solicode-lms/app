@@ -49,20 +49,16 @@
                                 <p>{{ $item->profile_image }}</p>
                             </div>
                             <div class="col-sm-12">
-                                <label for="date_inscription">{{ ucfirst(__('PkgUtilisateurs::apprenant.date_inscription')) }}:</label>
-                                <p>{{ $item->date_inscription }}</p>
-                            </div>
-                            <div class="col-sm-12">
-                                <label for="ville_id">{{ ucfirst(__('PkgUtilisateurs::apprenant.ville_id')) }}:</label>
-                                <p>{{ $item->ville_id }}</p>
-                            </div>
-                            <div class="col-sm-12">
                                 <label for="groupe_id">{{ ucfirst(__('PkgUtilisateurs::apprenant.groupe_id')) }}:</label>
                                 <p>{{ $item->groupe_id }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="niveaux_scolaires_id">{{ ucfirst(__('PkgUtilisateurs::apprenant.niveaux_scolaires_id')) }}:</label>
                                 <p>{{ $item->niveaux_scolaires_id }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="ville_id">{{ ucfirst(__('PkgUtilisateurs::apprenant.ville_id')) }}:</label>
+                                <p>{{ $item->ville_id }}</p>
                             </div>
                         </div>
                     </div>

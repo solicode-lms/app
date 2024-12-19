@@ -25,10 +25,9 @@ class ApprenantService extends BaseService
         'nom_arab',
         'tele_num',
         'profile_image',
-        'date_inscription',
-        'ville_id',
         'groupe_id',
-        'niveaux_scolaires_id'
+        'niveaux_scolaires_id',
+        'ville_id'
     ];
 
     /**
@@ -64,10 +63,9 @@ class ApprenantService extends BaseService
             'nom_arab' => $data['nom_arab'],
             'tele_num' => $data['tele_num'],
             'profile_image' => $data['profile_image'],
-            'date_inscription' => $data['date_inscription'],
-            'ville_id' => $data['ville_id'],
             'groupe_id' => $data['groupe_id'],
             'niveaux_scolaires_id' => $data['niveaux_scolaires_id'],
+            'ville_id' => $data['ville_id'],
         ]);
 
         return $apprenant;

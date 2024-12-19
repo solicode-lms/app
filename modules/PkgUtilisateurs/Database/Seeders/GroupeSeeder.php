@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Schema;
 
 class GroupeSeeder extends Seeder
 {
-    public static int $order = 7;
+    public static int $order = 1;
 
     public function run(): void
     {

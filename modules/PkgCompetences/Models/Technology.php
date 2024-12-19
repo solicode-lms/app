@@ -22,7 +22,7 @@ class Technology extends Model
 
     public function competences()
     {
-        return $this->belongsToMany(Competence::class, 'competence_technologie');
+        return $this->belongsToMany(Competence::class, 'competence_technology');
     }
 
     public function __toString()

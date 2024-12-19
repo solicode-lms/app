@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Schema;
 
 class FiliereSeeder extends Seeder
 {
-    public static int $order = 1;
+    public static int $order = 7;
 
     public function run(): void
     {

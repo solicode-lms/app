@@ -14,7 +14,7 @@ class Apprenant extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nom', 'prenom', 'prenom_arab', 'nom_arab', 'tele_num', 'profile_image', 'date_inscription', 'ville_id', 'groupe_id', 'niveaux_scolaires_id'];
+    protected $fillable = ['nom', 'prenom', 'prenom_arab', 'nom_arab', 'tele_num', 'profile_image', 'groupe_id', 'niveaux_scolaires_id', 'ville_id'];
 
     public function groupe()
     {
