@@ -27,14 +27,14 @@ if (!function_exists('loadDynamicMenus')) {
 
         foreach ($modules as $module) {
             // Construire le chemin du menu pour le module
-            $menuPath = $module . '/resources/views/layouts/menu.blade.php';
+            $menuPath = $module . '/resources/views/layouts/_sidebar.blade.php';
 
             if (File::exists($menuPath)) {
                 // Extraire le nom du module
                 $moduleName = basename($module);
 
                 // Construire le chemin de la vue
-                $viewPath = $moduleName . '::layouts.menu';
+                $viewPath = $moduleName . '::layouts._sidebar';
 
                 // Ajouter la vue au tableau des menus
                 $menuItems[] = view($viewPath)->render();
