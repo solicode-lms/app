@@ -1,0 +1,25 @@
+/* Section principale */
+#section_crud {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+/* Conteneur de chargement */
+#loading {
+    position: absolute;
+    top: 100px;
+    left: 10px;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.557);
+    z-index: 9999;
+
+    /* Centrage */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+

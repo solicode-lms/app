@@ -1,0 +1,1 @@
+<!-- Voir dans lang\fr\validation.php -->
