@@ -9,6 +9,12 @@
         </p>
     </a>
     <ul class="nav nav-treeview">
+        <li class="nav-item">
+            <a href="{{ route('roles.index') }}" class="nav-link {{ Request::is('PkgAuthentification/roles') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-table"></i>
+                <p>Roles</p>
+            </a>
+        </li>
     </ul>
 </li>
 
