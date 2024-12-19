@@ -1,0 +1,393 @@
+{
+  "article_tag": {
+    "columns": [
+      {
+        "name": "article_id",
+        "type": "Integer",
+        "nullable": false,
+        "default": null,
+        "annotations": {
+          "example": "Exemple pour article_id"
+        }
+      },
+      {
+        "name": "tag_id",
+        "type": "Integer",
+        "nullable": false,
+        "default": null,
+        "annotations": {
+          "example": "Exemple pour tag_id"
+        }
+      }
+    ],
+    "relations": {
+      "oneToOne": [],
+      "manyToOne": [
+        {
+          "column": "article_id",
+          "referencedTable": "articles",
+          "referencedColumn": "id"
+        },
+        {
+          "column": "tag_id",
+          "referencedTable": "tags",
+          "referencedColumn": "id"
+        }
+      ],
+      "manyToMany": []
+    },
+    "isPivotTable": true
+  },
+  "articles": {
+    "columns": [
+      {
+        "name": "id",
+        "type": "Integer",
+        "nullable": false,
+        "default": null,
+        "annotations": {
+          "example": "Exemple pour id"
+        }
+      },
+      {
+        "name": "title",
+        "type": "String",
+        "nullable": false,
+        "default": null,
+        "annotations": {
+          "example": "Exemple pour title"
+        }
+      },
+      {
+        "name": "slug",
+        "type": "String",
+        "nullable": false,
+        "default": null,
+        "annotations": {
+          "example": "Exemple pour slug"
+        }
+      },
+      {
+        "name": "content",
+        "type": "String",
+        "nullable": false,
+        "default": null,
+        "annotations": {
+          "example": "Exemple pour content"
+        }
+      },
+      {
+        "name": "category_id",
+        "type": "Integer",
+        "nullable": true,
+        "default": null,
+        "annotations": {
+          "example": "Exemple pour category_id"
+        }
+      },
+      {
+        "name": "user_id",
+        "type": "Integer",
+        "nullable": true,
+        "default": null,
+        "annotations": {
+          "example": "Exemple pour user_id"
+        }
+      },
+      {
+        "name": "created_at",
+        "type": "Date",
+        "nullable": true,
+        "default": "CURRENT_TIMESTAMP",
+        "annotations": {
+          "example": "Exemple pour created_at"
+        }
+      },
+      {
+        "name": "updated_at",
+        "type": "Date",
+        "nullable": true,
+        "default": "CURRENT_TIMESTAMP",
+        "annotations": {
+          "example": "Exemple pour updated_at"
+        }
+      }
+    ],
+    "relations": {
+      "oneToOne": [],
+      "manyToOne": [
+        {
+          "column": "category_id",
+          "referencedTable": "categories",
+          "referencedColumn": "id"
+        },
+        {
+          "column": "user_id",
+          "referencedTable": "users",
+          "referencedColumn": "id"
+        }
+      ],
+      "manyToMany": [
+        {
+          "through": "article_tag",
+          "with": "tags"
+        }
+      ]
+    },
+    "isPivotTable": false
+  },
+  "categories": {
+    "columns": [
+      {
+        "name": "id",
+        "type": "Integer",
+        "nullable": false,
+        "default": null,
+        "annotations": {
+          "example": "Exemple pour id"
+        }
+      },
+      {
+        "name": "name",
+        "type": "String",
+        "nullable": false,
+        "default": null,
+        "annotations": {
+          "example": "Exemple pour name"
+        }
+      },
+      {
+        "name": "slug",
+        "type": "String",
+        "nullable": false,
+        "default": null,
+        "annotations": {
+          "example": "Exemple pour slug"
+        }
+      },
+      {
+        "name": "created_at",
+        "type": "Date",
+        "nullable": true,
+        "default": "CURRENT_TIMESTAMP",
+        "annotations": {
+          "example": "Exemple pour created_at"
+        }
+      },
+      {
+        "name": "updated_at",
+        "type": "Date",
+        "nullable": true,
+        "default": "CURRENT_TIMESTAMP",
+        "annotations": {
+          "example": "Exemple pour updated_at"
+        }
+      }
+    ],
+    "relations": {
+      "oneToOne": [],
+      "manyToOne": [],
+      "manyToMany": []
+    },
+    "isPivotTable": false
+  },
+  "comments": {
+    "columns": [
+      {
+        "name": "id",
+        "type": "Integer",
+        "nullable": false,
+        "default": null,
+        "annotations": {
+          "example": "Exemple pour id"
+        }
+      },
+      {
+        "name": "content",
+        "type": "String",
+        "nullable": false,
+        "default": null,
+        "annotations": {
+          "example": "Exemple pour content"
+        }
+      },
+      {
+        "name": "user_id",
+        "type": "Integer",
+        "nullable": true,
+        "default": null,
+        "annotations": {
+          "example": "Exemple pour user_id"
+        }
+      },
+      {
+        "name": "article_id",
+        "type": "Integer",
+        "nullable": true,
+        "default": null,
+        "annotations": {
+          "example": "Exemple pour article_id"
+        }
+      },
+      {
+        "name": "created_at",
+        "type": "Date",
+        "nullable": true,
+        "default": "CURRENT_TIMESTAMP",
+        "annotations": {
+          "example": "Exemple pour created_at"
+        }
+      },
+      {
+        "name": "updated_at",
+        "type": "Date",
+        "nullable": true,
+        "default": "CURRENT_TIMESTAMP",
+        "annotations": {
+          "example": "Exemple pour updated_at"
+        }
+      }
+    ],
+    "relations": {
+      "oneToOne": [],
+      "manyToOne": [
+        {
+          "column": "user_id",
+          "referencedTable": "users",
+          "referencedColumn": "id"
+        },
+        {
+          "column": "article_id",
+          "referencedTable": "articles",
+          "referencedColumn": "id"
+        }
+      ],
+      "manyToMany": []
+    },
+    "isPivotTable": false
+  },
+  "tags": {
+    "columns": [
+      {
+        "name": "id",
+        "type": "Integer",
+        "nullable": false,
+        "default": null,
+        "annotations": {
+          "example": "Exemple pour id"
+        }
+      },
+      {
+        "name": "name",
+        "type": "String",
+        "nullable": false,
+        "default": null,
+        "annotations": {
+          "example": "Exemple pour name"
+        }
+      },
+      {
+        "name": "slug",
+        "type": "String",
+        "nullable": false,
+        "default": null,
+        "annotations": {
+          "example": "Exemple pour slug"
+        }
+      },
+      {
+        "name": "created_at",
+        "type": "Date",
+        "nullable": true,
+        "default": "CURRENT_TIMESTAMP",
+        "annotations": {
+          "example": "Exemple pour created_at"
+        }
+      },
+      {
+        "name": "updated_at",
+        "type": "Date",
+        "nullable": true,
+        "default": "CURRENT_TIMESTAMP",
+        "annotations": {
+          "example": "Exemple pour updated_at"
+        }
+      }
+    ],
+    "relations": {
+      "oneToOne": [],
+      "manyToOne": [],
+      "manyToMany": [
+        {
+          "through": "article_tag",
+          "with": "articles"
+        }
+      ]
+    },
+    "isPivotTable": false
+  },
+  "users": {
+    "columns": [
+      {
+        "name": "id",
+        "type": "Integer",
+        "nullable": false,
+        "default": null,
+        "annotations": {
+          "example": "Exemple pour id"
+        }
+      },
+      {
+        "name": "name",
+        "type": "String",
+        "nullable": false,
+        "default": null,
+        "annotations": {
+          "example": "Exemple pour name"
+        }
+      },
+      {
+        "name": "email",
+        "type": "String",
+        "nullable": false,
+        "default": null,
+        "annotations": {
+          "example": "Exemple pour email"
+        }
+      },
+      {
+        "name": "password",
+        "type": "String",
+        "nullable": false,
+        "default": null,
+        "annotations": {
+          "example": "Exemple pour password"
+        }
+      },
+      {
+        "name": "created_at",
+        "type": "Date",
+        "nullable": true,
+        "default": "CURRENT_TIMESTAMP",
+        "annotations": {
+          "example": "Exemple pour created_at"
+        }
+      },
+      {
+        "name": "updated_at",
+        "type": "Date",
+        "nullable": true,
+        "default": "CURRENT_TIMESTAMP",
+        "annotations": {
+          "example": "Exemple pour updated_at"
+        }
+      }
+    ],
+    "relations": {
+      "oneToOne": [],
+      "manyToOne": [],
+      "manyToMany": []
+    },
+    "isPivotTable": false
+  }
+}

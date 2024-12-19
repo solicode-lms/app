@@ -1,0 +1,11 @@
+/* select2 doit être importé avant : adminlte.css */
+@import '/node_modules/select2/dist/css/select2.css'; 
+@import '/node_modules/admin-lte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css';
+@import '/node_modules/admin-lte/dist/css/adminlte.css';
+
+
+
+
+/* <link rel="stylesheet" href="http://[::1]:3000/node_modules/select2/dist/css/select2.min.css">
+<link rel="stylesheet" href="http://[::1]:3000/node_modules//admin-lte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+<link rel="stylesheet" href="http://[::1]:3000/node_modules/admin-lte/dist/css/adminlte.min.css"> */
