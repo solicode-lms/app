@@ -5,11 +5,11 @@
 @section('content')
 <div class="card card-outline card-primary">
     <div class="card-header text-center">
-        <a href="{{ url('/') }}" class="h1"><b>Prototype</b>Blog</a>
+        <a href="{{ url('/') }}" class="h1"><b>Soli</b>LMS</a>
     </div>
     <div class="card-body">
         {{-- TODO :  --}}
-        <p class="login-box-msg">Sign in to start your session</p>
+        <p class="login-box-msg">Connectez-vous pour démarrer votre session</p>
 
         <form method="POST" action="{{ route('login') }}">
             @csrf
