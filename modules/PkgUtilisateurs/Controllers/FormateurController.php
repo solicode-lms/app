@@ -8,6 +8,7 @@ use Modules\Core\Controllers\Base\AdminController;
 use Modules\PkgUtilisateurs\App\Requests\FormateurRequest;
 use Modules\PkgUtilisateurs\Services\FormateurService;
 use Modules\PkgUtilisateurs\Services\GroupeService;
+use Modules\PkgUtilisateurs\Services\SpecialiteService;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgUtilisateurs\App\Exports\FormateurExport;
@@ -17,11 +18,13 @@ class FormateurController extends AdminController
 {
     protected $formateurService;
     protected $groupeService;
+    protected $specialiteService;
 
-    public function __construct(FormateurService $formateurService, GroupeService $groupeService)
+    public function __construct(FormateurService $formateurService, GroupeService $groupeService, SpecialiteService $specialiteService)
     {
         $this->formateurService = $formateurService;
         $this->groupeService = $groupeService;
+        $this->specialiteService = $specialiteService;
     }
 
     public function index(Request $request)
@@ -48,7 +51,8 @@ class FormateurController extends AdminController
     {
         $item = $this->formateurService->createInstance();
         $groupes = $this->groupeService->all();
-        return view('PkgUtilisateurs::formateur.create', compact('item', 'groupes'));
+        $specialites = $this->specialiteService->all();
+        return view('PkgUtilisateurs::formateur.create', compact('item', 'groupes', 'specialites'));
     }
 
     public function store(FormateurRequest $request)
@@ -58,6 +62,9 @@ class FormateurController extends AdminController
 
         if ($request->has('groupes')) {
             $formateur->groupes()->sync($request->input('groupes'));
+        }
+        if ($request->has('specialites')) {
+            $formateur->specialites()->sync($request->input('specialites'));
         }
 
         return redirect()->route('formateurs.index')->with('success', __('Core::msg.addSuccess', [
@@ -75,7 +82,8 @@ class FormateurController extends AdminController
     {
         $item = $this->formateurService->find($id);
         $groupes = $this->groupeService->all();
-        return view('PkgUtilisateurs::formateur.edit', compact('item', 'groupes'));
+        $specialites = $this->specialiteService->all();
+        return view('PkgUtilisateurs::formateur.edit', compact('item', 'groupes', 'specialites'));
     }
 
     public function update(FormateurRequest $request, string $id)
@@ -86,6 +94,9 @@ class FormateurController extends AdminController
 
         if ($request->has('groupes')) {
             $formateur->groupes()->sync($request->input('groupes'));
+        }
+        if ($request->has('specialites')) {
+            $formateur->specialites()->sync($request->input('specialites'));
         }
 
         return redirect()->route('formateurs.index')->with(

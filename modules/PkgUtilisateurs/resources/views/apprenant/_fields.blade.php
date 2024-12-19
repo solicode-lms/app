@@ -1,6 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form action="{{ $item->id ? route('formateurs.update', $item->id) : route('formateurs.store') }}" method="POST">
+<form action="{{ $item->id ? route('apprenants.update', $item->id) : route('apprenants.store') }}" method="POST">
     @csrf
 
     @if ($item->id)
@@ -11,7 +11,7 @@
         
         <div class="form-group">
             <label for="nom">
-                {{ ucfirst(__('PkgUtilisateurs::formateur.nom')) }}
+                {{ ucfirst(__('PkgUtilisateurs::apprenant.nom')) }}
                 
                     <span class="text-danger">*</span>
                 
@@ -21,7 +21,7 @@
                 type="input"
                 class="form-control"
                 id="nom"
-                placeholder="{{ __('Enter PkgUtilisateurs::formateur.nom') }}"
+                placeholder="{{ __('Enter PkgUtilisateurs::apprenant.nom') }}"
                 value="{{ $item ? $item->nom : old('nom') }}">
             @error('nom')
                 <div class="text-danger">{{ $message }}</div>
@@ -30,7 +30,7 @@
         
         <div class="form-group">
             <label for="prenom">
-                {{ ucfirst(__('PkgUtilisateurs::formateur.prenom')) }}
+                {{ ucfirst(__('PkgUtilisateurs::apprenant.prenom')) }}
                 
                     <span class="text-danger">*</span>
                 
@@ -40,7 +40,7 @@
                 type="input"
                 class="form-control"
                 id="prenom"
-                placeholder="{{ __('Enter PkgUtilisateurs::formateur.prenom') }}"
+                placeholder="{{ __('Enter PkgUtilisateurs::apprenant.prenom') }}"
                 value="{{ $item ? $item->prenom : old('prenom') }}">
             @error('prenom')
                 <div class="text-danger">{{ $message }}</div>
@@ -49,7 +49,7 @@
         
         <div class="form-group">
             <label for="prenom_arab">
-                {{ ucfirst(__('PkgUtilisateurs::formateur.prenom_arab')) }}
+                {{ ucfirst(__('PkgUtilisateurs::apprenant.prenom_arab')) }}
                 
                     <span class="text-danger">*</span>
                 
@@ -59,7 +59,7 @@
                 type="input"
                 class="form-control"
                 id="prenom_arab"
-                placeholder="{{ __('Enter PkgUtilisateurs::formateur.prenom_arab') }}"
+                placeholder="{{ __('Enter PkgUtilisateurs::apprenant.prenom_arab') }}"
                 value="{{ $item ? $item->prenom_arab : old('prenom_arab') }}">
             @error('prenom_arab')
                 <div class="text-danger">{{ $message }}</div>
@@ -68,7 +68,7 @@
         
         <div class="form-group">
             <label for="nom_arab">
-                {{ ucfirst(__('PkgUtilisateurs::formateur.nom_arab')) }}
+                {{ ucfirst(__('PkgUtilisateurs::apprenant.nom_arab')) }}
                 
                     <span class="text-danger">*</span>
                 
@@ -78,7 +78,7 @@
                 type="input"
                 class="form-control"
                 id="nom_arab"
-                placeholder="{{ __('Enter PkgUtilisateurs::formateur.nom_arab') }}"
+                placeholder="{{ __('Enter PkgUtilisateurs::apprenant.nom_arab') }}"
                 value="{{ $item ? $item->nom_arab : old('nom_arab') }}">
             @error('nom_arab')
                 <div class="text-danger">{{ $message }}</div>
@@ -87,7 +87,7 @@
         
         <div class="form-group">
             <label for="tele_num">
-                {{ ucfirst(__('PkgUtilisateurs::formateur.tele_num')) }}
+                {{ ucfirst(__('PkgUtilisateurs::apprenant.tele_num')) }}
                 
                     <span class="text-danger">*</span>
                 
@@ -97,7 +97,7 @@
                 type="input"
                 class="form-control"
                 id="tele_num"
-                placeholder="{{ __('Enter PkgUtilisateurs::formateur.tele_num') }}"
+                placeholder="{{ __('Enter PkgUtilisateurs::apprenant.tele_num') }}"
                 value="{{ $item ? $item->tele_num : old('tele_num') }}">
             @error('tele_num')
                 <div class="text-danger">{{ $message }}</div>
@@ -106,7 +106,7 @@
         
         <div class="form-group">
             <label for="profile_image">
-                {{ ucfirst(__('PkgUtilisateurs::formateur.profile_image')) }}
+                {{ ucfirst(__('PkgUtilisateurs::apprenant.profile_image')) }}
                 
                     <span class="text-danger">*</span>
                 
@@ -116,14 +116,78 @@
                 type="input"
                 class="form-control"
                 id="profile_image"
-                placeholder="{{ __('Enter PkgUtilisateurs::formateur.profile_image') }}"
+                placeholder="{{ __('Enter PkgUtilisateurs::apprenant.profile_image') }}"
                 value="{{ $item ? $item->profile_image : old('profile_image') }}">
             @error('profile_image')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
         </div>
         
+        <div class="form-group">
+            <label for="date_inscription">
+                {{ ucfirst(__('PkgUtilisateurs::apprenant.date_inscription')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <input
+                name="date_inscription"
+                type="input"
+                class="form-control"
+                id="date_inscription"
+                placeholder="{{ __('Enter PkgUtilisateurs::apprenant.date_inscription') }}"
+                value="{{ $item ? $item->date_inscription : old('date_inscription') }}">
+            @error('date_inscription')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+        </div>
+        
 
+        
+        <div class="form-group">
+            <label for="ville_id">
+                {{ ucfirst(__('PkgUtilisateurs::ville.singular')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <select id="ville_id" name="ville_id" class="form-control">
+                <option value="">Sélectionnez une option</option>
+            </select>
+            @error('ville_id')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+        </div>
+        
+        <div class="form-group">
+            <label for="groupe_id">
+                {{ ucfirst(__('PkgUtilisateurs::groupe.singular')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <select id="groupe_id" name="groupe_id" class="form-control">
+                <option value="">Sélectionnez une option</option>
+            </select>
+            @error('groupe_id')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+        </div>
+        
+        <div class="form-group">
+            <label for="niveaux_scolaires_id">
+                {{ ucfirst(__('PkgUtilisateurs::niveauxScolaire.singular')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <select id="niveaux_scolaires_id" name="niveaux_scolaires_id" class="form-control">
+                <option value="">Sélectionnez une option</option>
+            </select>
+            @error('niveaux_scolaires_id')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+        </div>
         
 
         
@@ -149,41 +213,40 @@
 
         </div>
         
-        <div class="form-group">
-            <label for="specialites">
-                {{ ucfirst(__('PkgUtilisateurs::Specialite.plural')) }}
-            </label>
-            <select
-                id="specialites"
-                name="specialites[]"
-                class="form-control select2"
-                multiple="multiple">
-                @foreach ($specialites as $specialite)
-                    <option value="{{ $specialite->id }}"
-                        {{ (isset($item) && $item->specialites && $item->specialites->contains('id', $specialite->id)) || (is_array(old('specialites')) && in_array($specialite->id, old('specialites'))) ? 'selected' : '' }}>
-                        {{ $specialite->nom }}
-                    </option>
-                @endforeach
-            </select>
-            @error('specialites')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-
-        </div>
-        
 
 
 
     </div>
 
     <div class="card-footer">
-        <a href="{{ route('formateurs.index') }}" class="btn btn-default">{{ __('Core::msg.cancel') }}</a>
+        <a href="{{ route('apprenants.index') }}" class="btn btn-default">{{ __('Core::msg.cancel') }}</a>
         <button type="submit" class="btn btn-info ml-2">{{ $item->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
 
 <script>
     window.dynamicSelectManyToOne = [
+        
+        {
+            fieldId: 'ville_id',
+            fetchUrl: "{{ route('villes.all') }}",
+            selectedValue: {{ $item->ville_id ? $item->ville_id : 'undefined' }},
+            fieldValue: 'nom'
+        },
+        
+        {
+            fieldId: 'groupe_id',
+            fetchUrl: "{{ route('groupes.all') }}",
+            selectedValue: {{ $item->groupe_id ? $item->groupe_id : 'undefined' }},
+            fieldValue: 'nom'
+        },
+        
+        {
+            fieldId: 'niveaux_scolaires_id',
+            fetchUrl: "{{ route('niveauxScolaires.all') }}",
+            selectedValue: {{ $item->niveaux_scolaires_id ? $item->niveaux_scolaires_id : 'undefined' }},
+            fieldValue: 'nom'
+        }
         
     ];
 </script>

@@ -10,6 +10,12 @@
     </a>
     <ul class="nav nav-treeview">
         <li class="nav-item">
+            <a href="{{ route('apprenants.index') }}" class="nav-link {{ Request::is('PkgUtilisateurs/apprenants') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-table"></i>
+                <p>Apprenants</p>
+            </a>
+        </li>
+        <li class="nav-item">
             <a href="{{ route('formateurs.index') }}" class="nav-link {{ Request::is('PkgUtilisateurs/formateurs') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-table"></i>
                 <p>Formateurs</p>

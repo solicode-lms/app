@@ -7,6 +7,7 @@ namespace Modules\PkgUtilisateurs\Controllers;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\PkgUtilisateurs\App\Requests\SpecialiteRequest;
 use Modules\PkgUtilisateurs\Services\SpecialiteService;
+use Modules\PkgUtilisateurs\Services\FormateurService;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgUtilisateurs\App\Exports\SpecialiteExport;
@@ -15,10 +16,12 @@ use Modules\PkgUtilisateurs\App\Imports\SpecialiteImport;
 class SpecialiteController extends AdminController
 {
     protected $specialiteService;
+    protected $formateurService;
 
-    public function __construct(SpecialiteService $specialiteService)
+    public function __construct(SpecialiteService $specialiteService, FormateurService $formateurService)
     {
         $this->specialiteService = $specialiteService;
+        $this->formateurService = $formateurService;
     }
 
     public function index(Request $request)
@@ -44,7 +47,8 @@ class SpecialiteController extends AdminController
     public function create()
     {
         $item = $this->specialiteService->createInstance();
-        return view('PkgUtilisateurs::specialite.create', compact('item'));
+        $formateurs = $this->formateurService->all();
+        return view('PkgUtilisateurs::specialite.create', compact('item', 'formateurs'));
     }
 
     public function store(SpecialiteRequest $request)
@@ -52,6 +56,9 @@ class SpecialiteController extends AdminController
         $validatedData = $request->validated();
         $specialite = $this->specialiteService->create($validatedData);
 
+        if ($request->has('formateurs')) {
+            $specialite->formateurs()->sync($request->input('formateurs'));
+        }
 
         return redirect()->route('specialites.index')->with('success', __('Core::msg.addSuccess', [
             'entityToString' => $specialite,
@@ -67,7 +74,8 @@ class SpecialiteController extends AdminController
     public function edit(string $id)
     {
         $item = $this->specialiteService->find($id);
-        return view('PkgUtilisateurs::specialite.edit', compact('item'));
+        $formateurs = $this->formateurService->all();
+        return view('PkgUtilisateurs::specialite.edit', compact('item', 'formateurs'));
     }
 
     public function update(SpecialiteRequest $request, string $id)
@@ -76,6 +84,9 @@ class SpecialiteController extends AdminController
         $specialite = $this->specialiteService->update($id, $validatedData);
 
 
+        if ($request->has('formateurs')) {
+            $specialite->formateurs()->sync($request->input('formateurs'));
+        }
 
         return redirect()->route('specialites.index')->with(
             'success',

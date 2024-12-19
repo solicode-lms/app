@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Schema;
 
 class VilleSeeder extends Seeder
 {
-    public static int $order = 8;
+    public static int $order = 1;
 
     public function run(): void
     {

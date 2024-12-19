@@ -51,6 +51,28 @@
         
 
         
+        <div class="form-group">
+            <label for="formateurs">
+                {{ ucfirst(__('PkgUtilisateurs::Formateur.plural')) }}
+            </label>
+            <select
+                id="formateurs"
+                name="formateurs[]"
+                class="form-control select2"
+                multiple="multiple">
+                @foreach ($formateurs as $formateur)
+                    <option value="{{ $formateur->id }}"
+                        {{ (isset($item) && $item->formateurs && $item->formateurs->contains('id', $formateur->id)) || (is_array(old('formateurs')) && in_array($formateur->id, old('formateurs'))) ? 'selected' : '' }}>
+                        {{ $formateur->nom }}
+                    </option>
+                @endforeach
+            </select>
+            @error('formateurs')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+
+        </div>
+        
 
 
 

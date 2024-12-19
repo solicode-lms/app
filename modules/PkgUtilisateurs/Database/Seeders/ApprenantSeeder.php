@@ -5,15 +5,15 @@
 namespace Modules\PkgUtilisateurs\Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Modules\PkgUtilisateurs\Models\Formateur;
+use Modules\PkgUtilisateurs\Models\Apprenant;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Facades\Schema;
 
-class FormateurSeeder extends Seeder
+class ApprenantSeeder extends Seeder
 {
-    public static int $order = 6;
+    public static int $order = 4;
 
     public function run(): void
     {
@@ -21,20 +21,24 @@ class FormateurSeeder extends Seeder
         $MembreRole = User::MEMBRE;
 
         Schema::disableForeignKeyConstraints();
-        Formateur::truncate();
+        Apprenant::truncate();
         Schema::enableForeignKeyConstraints();
 
-        $csvFile = fopen(base_path("modules/PkgUtilisateurs/Database/data/formateurs.csv"), "r");
+        $csvFile = fopen(base_path("modules/PkgUtilisateurs/Database/data/apprenants.csv"), "r");
         $firstline = true;
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
-                Formateur::create([
+                Apprenant::create([
                     "nom" => $data[0] ,
                     "prenom" => $data[1] ,
                     "prenom_arab" => $data[2] ,
                     "nom_arab" => $data[3] ,
                     "tele_num" => $data[4] ,
-                    "profile_image" => $data[5] 
+                    "profile_image" => $data[5] ,
+                    "date_inscription" => $data[6] ,
+                    "ville_id" => $data[7] ,
+                    "niveaux_scolaires_id" => $data[8] ,
+                    "groupe_id" => $data[9] 
                 ]);
             }
             $firstline = false;
@@ -51,32 +55,32 @@ class FormateurSeeder extends Seeder
             'destroy',
             'export',
             'import',
-            'getFormateurs'
+            'getApprenants'
         ];
 
         foreach ($actions as $action) {
-            Permission::create(['name' => $action . '-FormateurController', 'guard_name' => 'web']);
+            Permission::create(['name' => $action . '-ApprenantController', 'guard_name' => 'web']);
         }
 
         $admin = Role::where('name', $AdminRole)->first();
         $membre = Role::where('name', $MembreRole)->first();
 
         $admin->givePermissionTo([
-            'index-FormateurController',
-            'show-FormateurController',
-            'create-FormateurController',
-            'store-FormateurController',
-            'edit-FormateurController',
-            'update-FormateurController',
-            'destroy-FormateurController',
-            'export-FormateurController',
-            'import-FormateurController',
-            'getFormateurs-FormateurController',
+            'index-ApprenantController',
+            'show-ApprenantController',
+            'create-ApprenantController',
+            'store-ApprenantController',
+            'edit-ApprenantController',
+            'update-ApprenantController',
+            'destroy-ApprenantController',
+            'export-ApprenantController',
+            'import-ApprenantController',
+            'getApprenants-ApprenantController',
         ]);
 
         $membre->givePermissionTo([
-            'index-FormateurController',
-            'show-FormateurController'
+            'index-ApprenantController',
+            'show-ApprenantController'
         ]);
     }
 }

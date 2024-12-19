@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Schema;
 
 class NiveauxScolaireSeeder extends Seeder
 {
-    public static int $order = 4;
+    public static int $order = 3;
 
     public function run(): void
     {
