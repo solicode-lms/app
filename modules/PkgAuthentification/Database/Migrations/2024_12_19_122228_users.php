@@ -1,4 +1,5 @@
 <?php
+// La migration est génrer par CORE
 
 
 
@@ -14,14 +15,16 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        // La création de la table role est génrer par Spatie
-
-        // Schema::create('roles', function (Blueprint $table) {
+        // Schema::create('users', function (Blueprint $table) {
         //     $table->id();
         //     $table->string('name');
-        //     $table->string('description');
+        //     $table->string('email');
+        //     $table->string('password');
+        //     $table->string('remember_token');
 
- 
+        //     $table->timestamps();
+
+
         // });
     }
 
@@ -30,6 +33,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        //  Schema::dropIfExists('roles');
+        // Schema::dropIfExists('users');
     }
 };
