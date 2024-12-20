@@ -11,6 +11,9 @@
 		},
 		{
 			"path": "../modelisation"
+		},
+		{
+			"path": "../../laravel-builders/gapp3"
 		}
 	],
 	"settings": {
