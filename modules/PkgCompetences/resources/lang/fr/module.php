@@ -3,5 +3,10 @@
 
 
 return [
-    'name' => 'PkgCompetences',
+    'singular' => 'Module',
+    'plural' => 'Modules',
+    'nom' => 'nom',
+    'description' => 'description',
+    'masse_horaire' => 'masse_horaire',
+    'filiere_id' => 'filiere_id',
 ];
