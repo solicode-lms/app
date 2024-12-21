@@ -57,57 +57,29 @@ class ApprenantSeeder extends Seeder
             'getApprenants'
         ];
 
-        $permissions = [];
         foreach ($actions as $action) {
-             $permissions[] =Permission::create(['name' => $action . '-ApprenantController', 'guard_name' => 'web']);
+            Permission::create(['name' => $action . '-ApprenantController', 'guard_name' => 'web']);
         }
-
-        // Créer les permissions parents
-        $manage = Permission::create([
-            'name' => 'manage-ApprenantController',
-            'module' => 'PkgUtilisateurs',
-            'type' => 'feature',
-            'guard_name' => 'web'
-        ]);
-
-        $readOnly = Permission::create([
-            'name' => 'readOnly-ApprenantController',
-            'module' => 'PkgUtilisateurs',
-            'type' => 'feature',
-            'guard_name' => 'web'
-        ]);
-
-        $importExport = Permission::create([
-            'name' => 'importExport-ApprenantController',
-            'module' => 'PkgUtilisateurs',
-            'type' => 'feature',
-            'guard_name' => 'web'
-        ]);
-
-
-        // Associer les permissions enfants aux parents
-        $manage->children()->sync(array_column($permissions, 'id')); // Toutes les permissions
-        $readOnly->children()->sync([
-            Permission::where('name', 'index-ApprenantController')->first()->id,
-            Permission::where('name', 'show-ApprenantController')->first()->id,
-        ]);
-        $importExport->children()->sync([
-            Permission::where('name', 'export-ApprenantController')->first()->id,
-            Permission::where('name', 'import-ApprenantController')->first()->id,
-        ]);
-
 
         $admin = Role::where('name', $AdminRole)->first();
         $membre = Role::where('name', $MembreRole)->first();
 
         $admin->givePermissionTo([
-            'manage-ApprenantController',
-            'importExport-ApprenantController',
-            'readOnly-ApprenantController',
+            'index-ApprenantController',
+            'show-ApprenantController',
+            'create-ApprenantController',
+            'store-ApprenantController',
+            'edit-ApprenantController',
+            'update-ApprenantController',
+            'destroy-ApprenantController',
+            'export-ApprenantController',
+            'import-ApprenantController',
+            'getApprenants-ApprenantController',
         ]);
 
         $membre->givePermissionTo([
-            'readOnly-ApprenantController',
+            'index-ApprenantController',
+            'show-ApprenantController'
         ]);
     }
 }

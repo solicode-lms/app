@@ -52,57 +52,29 @@ class ModuleSeeder extends Seeder
             'getModules'
         ];
 
-        $permissions = [];
         foreach ($actions as $action) {
-             $permissions[] =Permission::create(['name' => $action . '-ModuleController', 'guard_name' => 'web']);
+            Permission::create(['name' => $action . '-ModuleController', 'guard_name' => 'web']);
         }
-
-        // Créer les permissions parents
-        $manage = Permission::create([
-            'name' => 'manage-ModuleController',
-            'module' => 'PkgCompetences',
-            'type' => 'feature',
-            'guard_name' => 'web'
-        ]);
-
-        $readOnly = Permission::create([
-            'name' => 'readOnly-ModuleController',
-            'module' => 'PkgCompetences',
-            'type' => 'feature',
-            'guard_name' => 'web'
-        ]);
-
-        $importExport = Permission::create([
-            'name' => 'importExport-ModuleController',
-            'module' => 'PkgCompetences',
-            'type' => 'feature',
-            'guard_name' => 'web'
-        ]);
-
-
-        // Associer les permissions enfants aux parents
-        $manage->children()->sync(array_column($permissions, 'id')); // Toutes les permissions
-        $readOnly->children()->sync([
-            Permission::where('name', 'index-ModuleController')->first()->id,
-            Permission::where('name', 'show-ModuleController')->first()->id,
-        ]);
-        $importExport->children()->sync([
-            Permission::where('name', 'export-ModuleController')->first()->id,
-            Permission::where('name', 'import-ModuleController')->first()->id,
-        ]);
-
 
         $admin = Role::where('name', $AdminRole)->first();
         $membre = Role::where('name', $MembreRole)->first();
 
         $admin->givePermissionTo([
-            'manage-ModuleController',
-            'importExport-ModuleController',
-            'readOnly-ModuleController',
+            'index-ModuleController',
+            'show-ModuleController',
+            'create-ModuleController',
+            'store-ModuleController',
+            'edit-ModuleController',
+            'update-ModuleController',
+            'destroy-ModuleController',
+            'export-ModuleController',
+            'import-ModuleController',
+            'getModules-ModuleController',
         ]);
 
         $membre->givePermissionTo([
-            'readOnly-ModuleController',
+            'index-ModuleController',
+            'show-ModuleController'
         ]);
     }
 }

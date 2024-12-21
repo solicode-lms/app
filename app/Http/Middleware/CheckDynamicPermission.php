@@ -25,8 +25,7 @@ class CheckDynamicPermission
         $permission = "{$method}-{$controller}";
     
         // Vérifier si l'utilisateur a la permission ou une permission parent
-        $user = Auth::user();
-        if (!$this->hasPermissionOrParent($user, $permission)) {
+        if (!Auth::user()->can($permission)) {
             abort(403, 'Access Denied - Insufficient Permissions');
         }
     

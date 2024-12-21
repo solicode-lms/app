@@ -50,57 +50,29 @@ class GroupeSeeder extends Seeder
             'getGroupes'
         ];
 
-        $permissions = [];
         foreach ($actions as $action) {
-             $permissions[] =Permission::create(['name' => $action . '-GroupeController', 'guard_name' => 'web']);
+            Permission::create(['name' => $action . '-GroupeController', 'guard_name' => 'web']);
         }
-
-        // Créer les permissions parents
-        $manage = Permission::create([
-            'name' => 'manage-GroupeController',
-            'module' => 'PkgUtilisateurs',
-            'type' => 'feature',
-            'guard_name' => 'web'
-        ]);
-
-        $readOnly = Permission::create([
-            'name' => 'readOnly-GroupeController',
-            'module' => 'PkgUtilisateurs',
-            'type' => 'feature',
-            'guard_name' => 'web'
-        ]);
-
-        $importExport = Permission::create([
-            'name' => 'importExport-GroupeController',
-            'module' => 'PkgUtilisateurs',
-            'type' => 'feature',
-            'guard_name' => 'web'
-        ]);
-
-
-        // Associer les permissions enfants aux parents
-        $manage->children()->sync(array_column($permissions, 'id')); // Toutes les permissions
-        $readOnly->children()->sync([
-            Permission::where('name', 'index-GroupeController')->first()->id,
-            Permission::where('name', 'show-GroupeController')->first()->id,
-        ]);
-        $importExport->children()->sync([
-            Permission::where('name', 'export-GroupeController')->first()->id,
-            Permission::where('name', 'import-GroupeController')->first()->id,
-        ]);
-
 
         $admin = Role::where('name', $AdminRole)->first();
         $membre = Role::where('name', $MembreRole)->first();
 
         $admin->givePermissionTo([
-            'manage-GroupeController',
-            'importExport-GroupeController',
-            'readOnly-GroupeController',
+            'index-GroupeController',
+            'show-GroupeController',
+            'create-GroupeController',
+            'store-GroupeController',
+            'edit-GroupeController',
+            'update-GroupeController',
+            'destroy-GroupeController',
+            'export-GroupeController',
+            'import-GroupeController',
+            'getGroupes-GroupeController',
         ]);
 
         $membre->givePermissionTo([
-            'readOnly-GroupeController',
+            'index-GroupeController',
+            'show-GroupeController'
         ]);
     }
 }

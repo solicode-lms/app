@@ -50,57 +50,29 @@ class FiliereSeeder extends Seeder
             'getFilieres'
         ];
 
-        $permissions = [];
         foreach ($actions as $action) {
-             $permissions[] =Permission::create(['name' => $action . '-FiliereController', 'guard_name' => 'web']);
+            Permission::create(['name' => $action . '-FiliereController', 'guard_name' => 'web']);
         }
-
-        // Créer les permissions parents
-        $manage = Permission::create([
-            'name' => 'manage-FiliereController',
-            'module' => 'PkgCompetences',
-            'type' => 'feature',
-            'guard_name' => 'web'
-        ]);
-
-        $readOnly = Permission::create([
-            'name' => 'readOnly-FiliereController',
-            'module' => 'PkgCompetences',
-            'type' => 'feature',
-            'guard_name' => 'web'
-        ]);
-
-        $importExport = Permission::create([
-            'name' => 'importExport-FiliereController',
-            'module' => 'PkgCompetences',
-            'type' => 'feature',
-            'guard_name' => 'web'
-        ]);
-
-
-        // Associer les permissions enfants aux parents
-        $manage->children()->sync(array_column($permissions, 'id')); // Toutes les permissions
-        $readOnly->children()->sync([
-            Permission::where('name', 'index-FiliereController')->first()->id,
-            Permission::where('name', 'show-FiliereController')->first()->id,
-        ]);
-        $importExport->children()->sync([
-            Permission::where('name', 'export-FiliereController')->first()->id,
-            Permission::where('name', 'import-FiliereController')->first()->id,
-        ]);
-
 
         $admin = Role::where('name', $AdminRole)->first();
         $membre = Role::where('name', $MembreRole)->first();
 
         $admin->givePermissionTo([
-            'manage-FiliereController',
-            'importExport-FiliereController',
-            'readOnly-FiliereController',
+            'index-FiliereController',
+            'show-FiliereController',
+            'create-FiliereController',
+            'store-FiliereController',
+            'edit-FiliereController',
+            'update-FiliereController',
+            'destroy-FiliereController',
+            'export-FiliereController',
+            'import-FiliereController',
+            'getFilieres-FiliereController',
         ]);
 
         $membre->givePermissionTo([
-            'readOnly-FiliereController',
+            'index-FiliereController',
+            'show-FiliereController'
         ]);
     }
 }

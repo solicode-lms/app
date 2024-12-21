@@ -52,57 +52,29 @@ class CompetenceSeeder extends Seeder
             'getCompetences'
         ];
 
-        $permissions = [];
         foreach ($actions as $action) {
-             $permissions[] =Permission::create(['name' => $action . '-CompetenceController', 'guard_name' => 'web']);
+            Permission::create(['name' => $action . '-CompetenceController', 'guard_name' => 'web']);
         }
-
-        // Créer les permissions parents
-        $manage = Permission::create([
-            'name' => 'manage-CompetenceController',
-            'module' => 'PkgCompetences',
-            'type' => 'feature',
-            'guard_name' => 'web'
-        ]);
-
-        $readOnly = Permission::create([
-            'name' => 'readOnly-CompetenceController',
-            'module' => 'PkgCompetences',
-            'type' => 'feature',
-            'guard_name' => 'web'
-        ]);
-
-        $importExport = Permission::create([
-            'name' => 'importExport-CompetenceController',
-            'module' => 'PkgCompetences',
-            'type' => 'feature',
-            'guard_name' => 'web'
-        ]);
-
-
-        // Associer les permissions enfants aux parents
-        $manage->children()->sync(array_column($permissions, 'id')); // Toutes les permissions
-        $readOnly->children()->sync([
-            Permission::where('name', 'index-CompetenceController')->first()->id,
-            Permission::where('name', 'show-CompetenceController')->first()->id,
-        ]);
-        $importExport->children()->sync([
-            Permission::where('name', 'export-CompetenceController')->first()->id,
-            Permission::where('name', 'import-CompetenceController')->first()->id,
-        ]);
-
 
         $admin = Role::where('name', $AdminRole)->first();
         $membre = Role::where('name', $MembreRole)->first();
 
         $admin->givePermissionTo([
-            'manage-CompetenceController',
-            'importExport-CompetenceController',
-            'readOnly-CompetenceController',
+            'index-CompetenceController',
+            'show-CompetenceController',
+            'create-CompetenceController',
+            'store-CompetenceController',
+            'edit-CompetenceController',
+            'update-CompetenceController',
+            'destroy-CompetenceController',
+            'export-CompetenceController',
+            'import-CompetenceController',
+            'getCompetences-CompetenceController',
         ]);
 
         $membre->givePermissionTo([
-            'readOnly-CompetenceController',
+            'index-CompetenceController',
+            'show-CompetenceController'
         ]);
     }
 }

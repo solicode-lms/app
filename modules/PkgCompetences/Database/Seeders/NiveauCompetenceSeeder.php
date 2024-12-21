@@ -51,57 +51,29 @@ class NiveauCompetenceSeeder extends Seeder
             'getNiveauCompetences'
         ];
 
-        $permissions = [];
         foreach ($actions as $action) {
-             $permissions[] =Permission::create(['name' => $action . '-NiveauCompetenceController', 'guard_name' => 'web']);
+            Permission::create(['name' => $action . '-NiveauCompetenceController', 'guard_name' => 'web']);
         }
-
-        // Créer les permissions parents
-        $manage = Permission::create([
-            'name' => 'manage-NiveauCompetenceController',
-            'module' => 'PkgCompetences',
-            'type' => 'feature',
-            'guard_name' => 'web'
-        ]);
-
-        $readOnly = Permission::create([
-            'name' => 'readOnly-NiveauCompetenceController',
-            'module' => 'PkgCompetences',
-            'type' => 'feature',
-            'guard_name' => 'web'
-        ]);
-
-        $importExport = Permission::create([
-            'name' => 'importExport-NiveauCompetenceController',
-            'module' => 'PkgCompetences',
-            'type' => 'feature',
-            'guard_name' => 'web'
-        ]);
-
-
-        // Associer les permissions enfants aux parents
-        $manage->children()->sync(array_column($permissions, 'id')); // Toutes les permissions
-        $readOnly->children()->sync([
-            Permission::where('name', 'index-NiveauCompetenceController')->first()->id,
-            Permission::where('name', 'show-NiveauCompetenceController')->first()->id,
-        ]);
-        $importExport->children()->sync([
-            Permission::where('name', 'export-NiveauCompetenceController')->first()->id,
-            Permission::where('name', 'import-NiveauCompetenceController')->first()->id,
-        ]);
-
 
         $admin = Role::where('name', $AdminRole)->first();
         $membre = Role::where('name', $MembreRole)->first();
 
         $admin->givePermissionTo([
-            'manage-NiveauCompetenceController',
-            'importExport-NiveauCompetenceController',
-            'readOnly-NiveauCompetenceController',
+            'index-NiveauCompetenceController',
+            'show-NiveauCompetenceController',
+            'create-NiveauCompetenceController',
+            'store-NiveauCompetenceController',
+            'edit-NiveauCompetenceController',
+            'update-NiveauCompetenceController',
+            'destroy-NiveauCompetenceController',
+            'export-NiveauCompetenceController',
+            'import-NiveauCompetenceController',
+            'getNiveauCompetences-NiveauCompetenceController',
         ]);
 
         $membre->givePermissionTo([
-            'readOnly-NiveauCompetenceController',
+            'index-NiveauCompetenceController',
+            'show-NiveauCompetenceController'
         ]);
     }
 }

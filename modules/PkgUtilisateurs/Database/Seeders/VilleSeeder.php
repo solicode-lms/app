@@ -49,57 +49,29 @@ class VilleSeeder extends Seeder
             'getVilles'
         ];
 
-        $permissions = [];
         foreach ($actions as $action) {
-             $permissions[] =Permission::create(['name' => $action . '-VilleController', 'guard_name' => 'web']);
+            Permission::create(['name' => $action . '-VilleController', 'guard_name' => 'web']);
         }
-
-        // Créer les permissions parents
-        $manage = Permission::create([
-            'name' => 'manage-VilleController',
-            'module' => 'PkgUtilisateurs',
-            'type' => 'feature',
-            'guard_name' => 'web'
-        ]);
-
-        $readOnly = Permission::create([
-            'name' => 'readOnly-VilleController',
-            'module' => 'PkgUtilisateurs',
-            'type' => 'feature',
-            'guard_name' => 'web'
-        ]);
-
-        $importExport = Permission::create([
-            'name' => 'importExport-VilleController',
-            'module' => 'PkgUtilisateurs',
-            'type' => 'feature',
-            'guard_name' => 'web'
-        ]);
-
-
-        // Associer les permissions enfants aux parents
-        $manage->children()->sync(array_column($permissions, 'id')); // Toutes les permissions
-        $readOnly->children()->sync([
-            Permission::where('name', 'index-VilleController')->first()->id,
-            Permission::where('name', 'show-VilleController')->first()->id,
-        ]);
-        $importExport->children()->sync([
-            Permission::where('name', 'export-VilleController')->first()->id,
-            Permission::where('name', 'import-VilleController')->first()->id,
-        ]);
-
 
         $admin = Role::where('name', $AdminRole)->first();
         $membre = Role::where('name', $MembreRole)->first();
 
         $admin->givePermissionTo([
-            'manage-VilleController',
-            'importExport-VilleController',
-            'readOnly-VilleController',
+            'index-VilleController',
+            'show-VilleController',
+            'create-VilleController',
+            'store-VilleController',
+            'edit-VilleController',
+            'update-VilleController',
+            'destroy-VilleController',
+            'export-VilleController',
+            'import-VilleController',
+            'getVilles-VilleController',
         ]);
 
         $membre->givePermissionTo([
-            'readOnly-VilleController',
+            'index-VilleController',
+            'show-VilleController'
         ]);
     }
 }

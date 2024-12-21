@@ -1,13 +1,10 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 namespace Modules\PkgAutorisation\Controllers;
 
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\PkgAutorisation\App\Requests\PermissionRequest;
-use Modules\PkgAutorisation\Services\PermissionService;
-use Modules\PkgAutorisation\Services\PermissionService;
 use Modules\PkgAutorisation\Services\PermissionService;
 use Modules\PkgAutorisation\Services\RoleService;
 use Illuminate\Http\Request;
@@ -18,15 +15,11 @@ use Modules\PkgAutorisation\App\Imports\PermissionImport;
 class PermissionController extends AdminController
 {
     protected $permissionService;
-    protected $permissionService;
-    protected $permissionService;
     protected $roleService;
 
-    public function __construct(PermissionService $permissionService, PermissionService $permissionService, PermissionService $permissionService, RoleService $roleService)
+    public function __construct(PermissionService $permissionService, RoleService $roleService)
     {
         parent::__construct();
-        $this->permissionService = $permissionService;
-        $this->permissionService = $permissionService;
         $this->permissionService = $permissionService;
         $this->roleService = $roleService;
     }
