@@ -4,16 +4,16 @@
 
 namespace Modules\PkgUtilisateurs\Database\Seeders;
 
+App\Models\Ville
 use Illuminate\Database\Seeder;
-use Modules\PkgUtilisateurs\Models\Ville;
-use Spatie\Permission\Models\Permission;
 use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgAutorisation\Models\User;
 use Illuminate\Support\Facades\Schema;
+use Modules\PkgAutorisation\Models\Permission;
 
 class VilleSeeder extends Seeder
 {
-    public static int $order = 3;
+    public static int $order = 7;
 
     public function run(): void
     {

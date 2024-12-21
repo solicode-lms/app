@@ -1,3 +1,4 @@
 name,email,password,role
 admin,admin@solicode.co,admin,admin
+membre,membre@solicode.co,admin,membre
 formateur,formateur@solicode.co,formateur,formateur

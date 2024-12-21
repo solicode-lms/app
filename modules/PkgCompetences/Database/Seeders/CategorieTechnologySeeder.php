@@ -4,16 +4,16 @@
 
 namespace Modules\PkgCompetences\Database\Seeders;
 
+App\Models\CategorieTechnology
 use Illuminate\Database\Seeder;
-use Modules\PkgCompetences\Models\CategorieTechnology;
-use Spatie\Permission\Models\Permission;
 use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgAutorisation\Models\User;
 use Illuminate\Support\Facades\Schema;
+use Modules\PkgAutorisation\Models\Permission;
 
 class CategorieTechnologySeeder extends Seeder
 {
-    public static int $order = 6;
+    public static int $order = 17;
 
     public function run(): void
     {
