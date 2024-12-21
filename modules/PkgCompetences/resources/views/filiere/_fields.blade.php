@@ -21,7 +21,7 @@
                 type="input"
                 class="form-control"
                 id="nom"
-                placeholder="{{ __('Enter PkgCompetences::filiere.nom') }}"
+                placeholder="{{ __('PkgCompetences::filiere.nom') }}"
                 value="{{ $item ? $item->nom : old('nom') }}">
             @error('nom')
                 <div class="text-danger">{{ $message }}</div>
@@ -40,7 +40,7 @@
                 type="input"
                 class="form-control"
                 id="description"
-                placeholder="{{ __('Enter PkgCompetences::filiere.description') }}"
+                placeholder="{{ __('PkgCompetences::filiere.description') }}"
                 value="{{ $item ? $item->description : old('description') }}">
             @error('description')
                 <div class="text-danger">{{ $message }}</div>

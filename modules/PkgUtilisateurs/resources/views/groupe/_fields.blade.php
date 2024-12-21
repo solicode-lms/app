@@ -21,7 +21,7 @@
                 type="input"
                 class="form-control"
                 id="nom"
-                placeholder="{{ __('Enter PkgUtilisateurs::groupe.nom') }}"
+                placeholder="{{ __('PkgUtilisateurs::groupe.nom') }}"
                 value="{{ $item ? $item->nom : old('nom') }}">
             @error('nom')
                 <div class="text-danger">{{ $message }}</div>
@@ -40,7 +40,7 @@
                 type="input"
                 class="form-control"
                 id="description"
-                placeholder="{{ __('Enter PkgUtilisateurs::groupe.description') }}"
+                placeholder="{{ __('PkgUtilisateurs::groupe.description') }}"
                 value="{{ $item ? $item->description : old('description') }}">
             @error('description')
                 <div class="text-danger">{{ $message }}</div>

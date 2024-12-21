@@ -21,7 +21,7 @@
                 type="input"
                 class="form-control"
                 id="name"
-                placeholder="{{ __('Enter PkgAutorisation::role.name') }}"
+                placeholder="{{ __('PkgAutorisation::role.name') }}"
                 value="{{ $item ? $item->name : old('name') }}">
             @error('name')
                 <div class="text-danger">{{ $message }}</div>
@@ -40,7 +40,7 @@
                 type="input"
                 class="form-control"
                 id="guard_name"
-                placeholder="{{ __('Enter PkgAutorisation::role.guard_name') }}"
+                placeholder="{{ __('PkgAutorisation::role.guard_name') }}"
                 value="{{ $item ? $item->guard_name : old('guard_name') }}">
             @error('guard_name')
                 <div class="text-danger">{{ $message }}</div>

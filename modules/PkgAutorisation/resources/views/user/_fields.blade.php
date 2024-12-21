@@ -21,7 +21,7 @@
                 type="input"
                 class="form-control"
                 id="name"
-                placeholder="{{ __('Enter PkgAutorisation::user.name') }}"
+                placeholder="{{ __('PkgAutorisation::user.name') }}"
                 value="{{ $item ? $item->name : old('name') }}">
             @error('name')
                 <div class="text-danger">{{ $message }}</div>
@@ -40,7 +40,7 @@
                 type="input"
                 class="form-control"
                 id="email"
-                placeholder="{{ __('Enter PkgAutorisation::user.email') }}"
+                placeholder="{{ __('PkgAutorisation::user.email') }}"
                 value="{{ $item ? $item->email : old('email') }}">
             @error('email')
                 <div class="text-danger">{{ $message }}</div>
@@ -59,7 +59,7 @@
                 type="input"
                 class="form-control"
                 id="email_verified_at"
-                placeholder="{{ __('Enter PkgAutorisation::user.email_verified_at') }}"
+                placeholder="{{ __('PkgAutorisation::user.email_verified_at') }}"
                 value="{{ $item ? $item->email_verified_at : old('email_verified_at') }}">
             @error('email_verified_at')
                 <div class="text-danger">{{ $message }}</div>
@@ -78,7 +78,7 @@
                 type="input"
                 class="form-control"
                 id="password"
-                placeholder="{{ __('Enter PkgAutorisation::user.password') }}"
+                placeholder="{{ __('PkgAutorisation::user.password') }}"
                 value="{{ $item ? $item->password : old('password') }}">
             @error('password')
                 <div class="text-danger">{{ $message }}</div>
@@ -97,7 +97,7 @@
                 type="input"
                 class="form-control"
                 id="remember_token"
-                placeholder="{{ __('Enter PkgAutorisation::user.remember_token') }}"
+                placeholder="{{ __('PkgAutorisation::user.remember_token') }}"
                 value="{{ $item ? $item->remember_token : old('remember_token') }}">
             @error('remember_token')
                 <div class="text-danger">{{ $message }}</div>

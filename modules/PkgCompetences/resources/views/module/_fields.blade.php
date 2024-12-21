@@ -21,7 +21,7 @@
                 type="input"
                 class="form-control"
                 id="nom"
-                placeholder="{{ __('Enter PkgCompetences::module.nom') }}"
+                placeholder="{{ __('PkgCompetences::module.nom') }}"
                 value="{{ $item ? $item->nom : old('nom') }}">
             @error('nom')
                 <div class="text-danger">{{ $message }}</div>
@@ -40,7 +40,7 @@
                 type="input"
                 class="form-control"
                 id="description"
-                placeholder="{{ __('Enter PkgCompetences::module.description') }}"
+                placeholder="{{ __('PkgCompetences::module.description') }}"
                 value="{{ $item ? $item->description : old('description') }}">
             @error('description')
                 <div class="text-danger">{{ $message }}</div>
@@ -59,7 +59,7 @@
                 type="input"
                 class="form-control"
                 id="masse_horaire"
-                placeholder="{{ __('Enter PkgCompetences::module.masse_horaire') }}"
+                placeholder="{{ __('PkgCompetences::module.masse_horaire') }}"
                 value="{{ $item ? $item->masse_horaire : old('masse_horaire') }}">
             @error('masse_horaire')
                 <div class="text-danger">{{ $message }}</div>

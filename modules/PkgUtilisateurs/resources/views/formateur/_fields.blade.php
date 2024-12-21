@@ -21,7 +21,7 @@
                 type="input"
                 class="form-control"
                 id="nom"
-                placeholder="{{ __('Enter PkgUtilisateurs::formateur.nom') }}"
+                placeholder="{{ __('PkgUtilisateurs::formateur.nom') }}"
                 value="{{ $item ? $item->nom : old('nom') }}">
             @error('nom')
                 <div class="text-danger">{{ $message }}</div>
@@ -40,7 +40,7 @@
                 type="input"
                 class="form-control"
                 id="prenom"
-                placeholder="{{ __('Enter PkgUtilisateurs::formateur.prenom') }}"
+                placeholder="{{ __('PkgUtilisateurs::formateur.prenom') }}"
                 value="{{ $item ? $item->prenom : old('prenom') }}">
             @error('prenom')
                 <div class="text-danger">{{ $message }}</div>
@@ -59,7 +59,7 @@
                 type="input"
                 class="form-control"
                 id="prenom_arab"
-                placeholder="{{ __('Enter PkgUtilisateurs::formateur.prenom_arab') }}"
+                placeholder="{{ __('PkgUtilisateurs::formateur.prenom_arab') }}"
                 value="{{ $item ? $item->prenom_arab : old('prenom_arab') }}">
             @error('prenom_arab')
                 <div class="text-danger">{{ $message }}</div>
@@ -78,7 +78,7 @@
                 type="input"
                 class="form-control"
                 id="nom_arab"
-                placeholder="{{ __('Enter PkgUtilisateurs::formateur.nom_arab') }}"
+                placeholder="{{ __('PkgUtilisateurs::formateur.nom_arab') }}"
                 value="{{ $item ? $item->nom_arab : old('nom_arab') }}">
             @error('nom_arab')
                 <div class="text-danger">{{ $message }}</div>
@@ -97,7 +97,7 @@
                 type="input"
                 class="form-control"
                 id="tele_num"
-                placeholder="{{ __('Enter PkgUtilisateurs::formateur.tele_num') }}"
+                placeholder="{{ __('PkgUtilisateurs::formateur.tele_num') }}"
                 value="{{ $item ? $item->tele_num : old('tele_num') }}">
             @error('tele_num')
                 <div class="text-danger">{{ $message }}</div>
@@ -116,7 +116,7 @@
                 type="input"
                 class="form-control"
                 id="profile_image"
-                placeholder="{{ __('Enter PkgUtilisateurs::formateur.profile_image') }}"
+                placeholder="{{ __('PkgUtilisateurs::formateur.profile_image') }}"
                 value="{{ $item ? $item->profile_image : old('profile_image') }}">
             @error('profile_image')
                 <div class="text-danger">{{ $message }}</div>

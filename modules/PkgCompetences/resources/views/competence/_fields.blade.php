@@ -21,7 +21,7 @@
                 type="input"
                 class="form-control"
                 id="code"
-                placeholder="{{ __('Enter PkgCompetences::competence.code') }}"
+                placeholder="{{ __('PkgCompetences::competence.code') }}"
                 value="{{ $item ? $item->code : old('code') }}">
             @error('code')
                 <div class="text-danger">{{ $message }}</div>
@@ -40,7 +40,7 @@
                 type="input"
                 class="form-control"
                 id="nom"
-                placeholder="{{ __('Enter PkgCompetences::competence.nom') }}"
+                placeholder="{{ __('PkgCompetences::competence.nom') }}"
                 value="{{ $item ? $item->nom : old('nom') }}">
             @error('nom')
                 <div class="text-danger">{{ $message }}</div>
@@ -59,7 +59,7 @@
                 type="input"
                 class="form-control"
                 id="description"
-                placeholder="{{ __('Enter PkgCompetences::competence.description') }}"
+                placeholder="{{ __('PkgCompetences::competence.description') }}"
                 value="{{ $item ? $item->description : old('description') }}">
             @error('description')
                 <div class="text-danger">{{ $message }}</div>
