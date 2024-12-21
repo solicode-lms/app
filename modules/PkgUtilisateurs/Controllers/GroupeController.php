@@ -39,7 +39,7 @@ class GroupeController extends AdminController
         // Gestion AJAX
         if ($request->ajax()) {
             return response()->json([
-                'html' => view('PkgUtilisateurs::groupe.table', compact('data'))->render()
+                'html' => view('PkgUtilisateurs::_groupe.table', compact('data'))->render()
             ]);
         }
     

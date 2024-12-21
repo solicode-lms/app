@@ -19,8 +19,6 @@ class DatabaseSeeder extends Seeder
 
     public function run_modules_seeders():void{
 
-        // TODO: utilisation de l'odre depuis le fichier modules.json ou c'est mieu 
-        // d'ajouter l'ordre dans le schema
 
         $this->command->info('Parcourir tous les modules et exécuter leurs seeders');
 

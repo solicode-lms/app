@@ -33,7 +33,7 @@ class VilleController extends AdminController
         // Gestion AJAX
         if ($request->ajax()) {
             return response()->json([
-                'html' => view('PkgUtilisateurs::ville.table', compact('data'))->render()
+                'html' => view('PkgUtilisateurs::_ville.table', compact('data'))->render()
             ]);
         }
     

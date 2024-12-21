@@ -36,7 +36,7 @@ class UserController extends AdminController
         // Gestion AJAX
         if ($request->ajax()) {
             return response()->json([
-                'html' => view('PkgAutorisation::user.table', compact('data'))->render()
+                'html' => view('PkgAutorisation::_user.table', compact('data'))->render()
             ]);
         }
     

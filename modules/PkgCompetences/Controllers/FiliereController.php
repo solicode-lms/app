@@ -33,7 +33,7 @@ class FiliereController extends AdminController
         // Gestion AJAX
         if ($request->ajax()) {
             return response()->json([
-                'html' => view('PkgCompetences::filiere.table', compact('data'))->render()
+                'html' => view('PkgCompetences::_filiere.table', compact('data'))->render()
             ]);
         }
     

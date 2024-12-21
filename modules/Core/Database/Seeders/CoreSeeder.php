@@ -10,6 +10,7 @@ class CoreSeeder extends Seeder
 
     public function loadAndRun(string $moduleSeederDir, string $moduleNamespace): void
     {
+     
         // Extraire le nom du module à partir de l'espace de noms
         $parts = explode('\\', $moduleNamespace);
         $moduleName = $parts[1]; // Exemple : "PkgBlog" extrait de "Modules\PkgBlog\Database\Seeders"
@@ -30,7 +31,7 @@ class CoreSeeder extends Seeder
             ->pluck('class') // Récupérer uniquement les noms de classes triés
             ->toArray(); // Convertir en tableau
     
-        // Exécuter les seeders dans l'ordre spécifié
+    
         $this->call($seeders);
     }
     

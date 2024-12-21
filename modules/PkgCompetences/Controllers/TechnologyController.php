@@ -36,7 +36,7 @@ class TechnologyController extends AdminController
         // Gestion AJAX
         if ($request->ajax()) {
             return response()->json([
-                'html' => view('PkgCompetences::technology.table', compact('data'))->render()
+                'html' => view('PkgCompetences::_technology.table', compact('data'))->render()
             ]);
         }
     

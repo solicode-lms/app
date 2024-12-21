@@ -1,7 +1,8 @@
 <?php
-// USer dans : use App\Models\User;
+// Utilisation de 4 colonnes dans data.csv
+// affectation de role au utilisateurs
 
-namespace Modules\PkgAuthentification\Database\Seeders;
+namespace Modules\PkgAutorisation\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
@@ -22,7 +23,7 @@ class UserSeeder extends Seeder
         User::truncate();
         Schema::enableForeignKeyConstraints();
 
-        $csvFile = fopen(base_path("modules/PkgAuthentification/Database/data/users.csv"), "r");
+        $csvFile = fopen(base_path("modules/PkgAutorisation/Database/data/users.csv"), "r");
         $firstline = true;
 
         while (($data = fgetcsv($csvFile)) !== false) {

@@ -36,7 +36,7 @@ class ApprenantController extends AdminController
         // Gestion AJAX
         if ($request->ajax()) {
             return response()->json([
-                'html' => view('PkgUtilisateurs::apprenant.table', compact('data'))->render()
+                'html' => view('PkgUtilisateurs::_apprenant.table', compact('data'))->render()
             ]);
         }
     

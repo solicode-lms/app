@@ -36,7 +36,7 @@ class CompetenceController extends AdminController
         // Gestion AJAX
         if ($request->ajax()) {
             return response()->json([
-                'html' => view('PkgCompetences::competence.table', compact('data'))->render()
+                'html' => view('PkgCompetences::_competence.table', compact('data'))->render()
             ]);
         }
     
