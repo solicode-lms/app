@@ -1,11 +1,8 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
-
-
 return [
-    'singular' => 'Technology',
+    'singular' => 'Technologie',
     'plural' => 'Technologies',
-    'nom' => 'nom',
-    'description' => 'description',
-    'categorie_technologie_id' => 'categorie_technologie_id',
+    'nom' => 'Nom',
+    'description' => 'Description',
+    'categorie_technologie_id' => 'Identifiant de la catégorie de technologie',
 ];

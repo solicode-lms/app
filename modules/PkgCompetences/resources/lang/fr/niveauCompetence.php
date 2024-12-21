@@ -1,11 +1,8 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
-
-
 return [
-    'singular' => 'NiveauCompetence',
-    'plural' => 'NiveauCompetences',
-    'nom' => 'nom',
-    'description' => 'description',
-    'competence_id' => 'competence_id',
+    'singular' => 'Niveau de Compétence',
+    'plural' => 'Niveaux de Compétence',
+    'nom' => 'Nom',
+    'description' => 'Description',
+    'competence_id' => 'Identifiant de la compétence',
 ];

@@ -1,10 +1,8 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
-
 
 return [
-    'singular' => 'NiveauxScolaire',
-    'plural' => 'NiveauxScolaires',
-    'nom' => 'nom',
-    'description' => 'description',
+    'singular' => 'Niveau Scolaire',
+    'plural' => 'Niveaux Scolaires',
+    'nom' => 'Nom',
+    'description' => 'Description',
 ];
