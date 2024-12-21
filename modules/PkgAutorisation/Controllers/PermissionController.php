@@ -20,6 +20,7 @@ class PermissionController extends AdminController
 
     public function __construct(PermissionService $permissionService, RoleService $roleService)
     {
+        parent::__construct();
         $this->permissionService = $permissionService;
         $this->roleService = $roleService;
     }

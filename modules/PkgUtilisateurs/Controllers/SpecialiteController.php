@@ -20,6 +20,7 @@ class SpecialiteController extends AdminController
 
     public function __construct(SpecialiteService $specialiteService, FormateurService $formateurService)
     {
+        parent::__construct();
         $this->specialiteService = $specialiteService;
         $this->formateurService = $formateurService;
     }

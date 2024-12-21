@@ -88,7 +88,7 @@ class GenerateModulePermissions extends Command
 
             if (strpos($action, '@') !== false) {
                 [$controller, $method] = explode('@', class_basename($action));
-                $permissionName = strtolower("{$method}-{$controller}");
+                $permissionName = "{$method}-{$controller}";
 
                 if (!Permission::where('name', $permissionName)->exists()) {
                     Permission::create(['name' => $permissionName]);

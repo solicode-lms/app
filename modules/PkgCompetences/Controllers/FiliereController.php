@@ -18,6 +18,7 @@ class FiliereController extends AdminController
 
     public function __construct(FiliereService $filiereService)
     {
+        parent::__construct();
         $this->filiereService = $filiereService;
     }
 

@@ -18,6 +18,7 @@ class NiveauCompetenceController extends AdminController
 
     public function __construct(NiveauCompetenceService $niveauCompetenceService)
     {
+        parent::__construct();
         $this->niveauCompetenceService = $niveauCompetenceService;
     }
 

@@ -22,6 +22,7 @@ class FormateurController extends AdminController
 
     public function __construct(FormateurService $formateurService, GroupeService $groupeService, SpecialiteService $specialiteService)
     {
+        parent::__construct();
         $this->formateurService = $formateurService;
         $this->groupeService = $groupeService;
         $this->specialiteService = $specialiteService;

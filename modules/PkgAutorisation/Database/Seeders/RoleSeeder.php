@@ -37,6 +37,7 @@ class RoleSeeder extends Seeder
         }
         fclose($csvFile);
 
+       
         $actions = [
             'index',
             'show',
@@ -53,6 +54,7 @@ class RoleSeeder extends Seeder
         foreach ($actions as $action) {
             Permission::create(['name' => $action . '-RoleController', 'guard_name' => 'web']);
         }
+      
 
         $admin = Role::where('name', $AdminRole)->first();
         $membre = Role::where('name', $MembreRole)->first();

@@ -20,6 +20,7 @@ class UserController extends AdminController
 
     public function __construct(UserService $userService, RoleService $roleService)
     {
+        parent::__construct();
         $this->userService = $userService;
         $this->roleService = $roleService;
     }

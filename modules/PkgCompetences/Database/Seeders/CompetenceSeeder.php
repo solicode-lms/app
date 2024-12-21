@@ -1,6 +1,4 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
-
 
 namespace Modules\PkgCompetences\Database\Seeders;
 
@@ -29,10 +27,10 @@ class CompetenceSeeder extends Seeder
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
                 Competence::create([
-                    "code" => $data[0] ,
-                    "nom" => $data[1] ,
-                    "description" => $data[2] ,
-                    "module_id" => $data[3] 
+                    "code" => $data[0],
+                    "nom" => $data[1],
+                    "description" => $data[2],
+                    "module_id" => $data[3]
                 ]);
             }
             $firstline = false;
@@ -52,29 +50,61 @@ class CompetenceSeeder extends Seeder
             'getCompetences'
         ];
 
+        // Créer les permissions enfants
+        $permissions = [];
         foreach ($actions as $action) {
-            Permission::create(['name' => $action . '-CompetenceController', 'guard_name' => 'web']);
+            $permissions[] = Permission::create([
+                'name' => $action . '-CompetenceController',
+                'module' => 'PkgCompetences',
+                'guard_name' => 'web'
+            ]);
         }
 
+        // Créer les permissions parents
+        $manage = Permission::create([
+            'name' => 'manage-PkgCompetences',
+            'module' => 'PkgCompetences',
+            'type' => 'feature',
+            'guard_name' => 'web'
+        ]);
+
+        $readOnly = Permission::create([
+            'name' => 'readOnly-PkgCompetences',
+            'module' => 'PkgCompetences',
+            'type' => 'feature',
+            'guard_name' => 'web'
+        ]);
+
+        $importExport = Permission::create([
+            'name' => 'importExport-PkgCompetences',
+            'module' => 'PkgCompetences',
+            'type' => 'feature',
+            'guard_name' => 'web'
+        ]);
+
+        // Associer les permissions enfants aux parents
+        $manage->children()->sync(array_column($permissions, 'id')); // Toutes les permissions
+        $readOnly->children()->sync([
+            Permission::where('name', 'index-CompetenceController')->first()->id,
+            Permission::where('name', 'show-CompetenceController')->first()->id,
+        ]);
+        $importExport->children()->sync([
+            Permission::where('name', 'export-CompetenceController')->first()->id,
+            Permission::where('name', 'import-CompetenceController')->first()->id,
+        ]);
+
+        // Associer les permissions aux rôles
         $admin = Role::where('name', $AdminRole)->first();
         $membre = Role::where('name', $MembreRole)->first();
 
         $admin->givePermissionTo([
-            'index-CompetenceController',
-            'show-CompetenceController',
-            'create-CompetenceController',
-            'store-CompetenceController',
-            'edit-CompetenceController',
-            'update-CompetenceController',
-            'destroy-CompetenceController',
-            'export-CompetenceController',
-            'import-CompetenceController',
-            'getCompetences-CompetenceController',
+            'manage-PkgCompetences',
+            'importExport-PkgCompetences',
+            'readOnly-PkgCompetences',
         ]);
 
         $membre->givePermissionTo([
-            'index-CompetenceController',
-            'show-CompetenceController'
+            'readOnly-PkgCompetences',
         ]);
     }
 }

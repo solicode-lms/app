@@ -22,6 +22,7 @@ class GroupeController extends AdminController
 
     public function __construct(GroupeService $groupeService, ApprenantService $apprenantService, FormateurService $formateurService)
     {
+        parent::__construct();
         $this->groupeService = $groupeService;
         $this->apprenantService = $apprenantService;
         $this->formateurService = $formateurService;

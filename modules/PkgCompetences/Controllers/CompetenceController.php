@@ -20,6 +20,7 @@ class CompetenceController extends AdminController
 
     public function __construct(CompetenceService $competenceService, TechnologyService $technologyService)
     {
+        parent::__construct();
         $this->competenceService = $competenceService;
         $this->technologyService = $technologyService;
     }

@@ -1,5 +1,5 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
+// On doit pas supprimer les permission déja ajouter par les autres seeders
 
 
 namespace Modules\PkgAutorisation\Database\Seeders;
@@ -20,9 +20,10 @@ class PermissionSeeder extends Seeder
         $AdminRole = User::ADMIN;
         $MembreRole = User::MEMBRE;
 
-        Schema::disableForeignKeyConstraints();
-        Permission::truncate();
-        Schema::enableForeignKeyConstraints();
+        // Il faut pas supprimer les permission ajouter par les autres seeders
+        // Schema::disableForeignKeyConstraints();
+        // // Permission::truncate(); 
+        // Schema::enableForeignKeyConstraints();
 
         $csvFile = fopen(base_path("modules/PkgAutorisation/Database/data/permissions.csv"), "r");
         $firstline = true;

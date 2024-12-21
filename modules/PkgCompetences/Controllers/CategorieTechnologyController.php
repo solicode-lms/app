@@ -18,6 +18,7 @@ class CategorieTechnologyController extends AdminController
 
     public function __construct(CategorieTechnologyService $categorieTechnologyService)
     {
+        parent::__construct();
         $this->categorieTechnologyService = $categorieTechnologyService;
     }
 

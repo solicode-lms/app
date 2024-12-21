@@ -18,6 +18,7 @@ class NiveauxScolaireController extends AdminController
 
     public function __construct(NiveauxScolaireService $niveauxScolaireService)
     {
+        parent::__construct();
         $this->niveauxScolaireService = $niveauxScolaireService;
     }
 

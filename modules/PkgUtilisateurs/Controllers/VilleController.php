@@ -18,6 +18,7 @@ class VilleController extends AdminController
 
     public function __construct(VilleService $villeService)
     {
+        parent::__construct();
         $this->villeService = $villeService;
     }
 

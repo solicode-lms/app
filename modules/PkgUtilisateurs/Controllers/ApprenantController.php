@@ -20,6 +20,7 @@ class ApprenantController extends AdminController
 
     public function __construct(ApprenantService $apprenantService, GroupeService $groupeService)
     {
+        parent::__construct();
         $this->apprenantService = $apprenantService;
         $this->groupeService = $groupeService;
     }

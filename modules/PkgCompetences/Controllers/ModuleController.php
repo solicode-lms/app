@@ -18,6 +18,7 @@ class ModuleController extends AdminController
 
     public function __construct(ModuleService $moduleService)
     {
+        parent::__construct();
         $this->moduleService = $moduleService;
     }
 
