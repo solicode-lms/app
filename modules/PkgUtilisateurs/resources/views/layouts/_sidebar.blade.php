@@ -4,7 +4,7 @@
     <a href="#" class="nav-link nav-link {{ Request::is('PkgUtilisateurs*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-table"></i>
         <p>
-            PkgUtilisateurs
+            {{__('PkgUtilisateurs::module.name')}}
             <i class="fas fa-angle-left right"></i>
         </p>
     </a>

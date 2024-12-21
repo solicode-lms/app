@@ -4,7 +4,7 @@
     <a href="#" class="nav-link nav-link {{ Request::is('PkgCompetences*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-table"></i>
         <p>
-            PkgCompetences
+            {{__('PkgCompetences::module.name')}}
             <i class="fas fa-angle-left right"></i>
         </p>
     </a>

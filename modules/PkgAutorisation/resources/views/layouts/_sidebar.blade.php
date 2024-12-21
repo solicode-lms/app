@@ -4,7 +4,7 @@
     <a href="#" class="nav-link nav-link {{ Request::is('PkgAutorisation*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-table"></i>
         <p>
-            PkgAutorisation
+            {{__('PkgAutorisation::module.name')}}
             <i class="fas fa-angle-left right"></i>
         </p>
     </a>

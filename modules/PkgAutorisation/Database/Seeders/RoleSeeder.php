@@ -5,11 +5,11 @@
 namespace Modules\PkgAutorisation\Database\Seeders;
 
 use Illuminate\Database\Seeder;
-
+use Modules\PkgAutorisation\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Modules\PkgAutorisation\Models\Role;
-use Illuminate\Support\Facades\Schema;
 use Modules\PkgAutorisation\Models\User;
+use Illuminate\Support\Facades\Schema;
 
 class RoleSeeder extends Seeder
 {

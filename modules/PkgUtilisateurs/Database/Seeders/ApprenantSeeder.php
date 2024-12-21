@@ -7,8 +7,8 @@ namespace Modules\PkgUtilisateurs\Database\Seeders;
 use Illuminate\Database\Seeder;
 use Modules\PkgUtilisateurs\Models\Apprenant;
 use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role;
-use App\Models\User;
+use Modules\PkgAutorisation\Models\Role;
+use Modules\PkgAutorisation\Models\User;
 use Illuminate\Support\Facades\Schema;
 
 class ApprenantSeeder extends Seeder

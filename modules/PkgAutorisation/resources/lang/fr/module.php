@@ -3,5 +3,5 @@
 
 
 return [
-    'name' => 'PkgCompetences',
+    'name' => 'PkgAutorisation',
 ];
