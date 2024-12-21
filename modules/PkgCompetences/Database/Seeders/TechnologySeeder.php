@@ -51,29 +51,57 @@ class TechnologySeeder extends Seeder
             'getTechnologies'
         ];
 
+        $permissions = [];
         foreach ($actions as $action) {
-            Permission::create(['name' => $action . '-TechnologyController', 'guard_name' => 'web']);
+             $permissions[] =Permission::create(['name' => $action . '-TechnologyController', 'guard_name' => 'web']);
         }
+
+        // Créer les permissions parents
+        $manage = Permission::create([
+            'name' => 'manage-TechnologyController',
+            'module' => 'PkgCompetences',
+            'type' => 'feature',
+            'guard_name' => 'web'
+        ]);
+
+        $readOnly = Permission::create([
+            'name' => 'readOnly-TechnologyController',
+            'module' => 'PkgCompetences',
+            'type' => 'feature',
+            'guard_name' => 'web'
+        ]);
+
+        $importExport = Permission::create([
+            'name' => 'importExport-TechnologyController',
+            'module' => 'PkgCompetences',
+            'type' => 'feature',
+            'guard_name' => 'web'
+        ]);
+
+
+        // Associer les permissions enfants aux parents
+        $manage->children()->sync(array_column($permissions, 'id')); // Toutes les permissions
+        $readOnly->children()->sync([
+            Permission::where('name', 'index-TechnologyController')->first()->id,
+            Permission::where('name', 'show-TechnologyController')->first()->id,
+        ]);
+        $importExport->children()->sync([
+            Permission::where('name', 'export-TechnologyController')->first()->id,
+            Permission::where('name', 'import-TechnologyController')->first()->id,
+        ]);
+
 
         $admin = Role::where('name', $AdminRole)->first();
         $membre = Role::where('name', $MembreRole)->first();
 
         $admin->givePermissionTo([
-            'index-TechnologyController',
-            'show-TechnologyController',
-            'create-TechnologyController',
-            'store-TechnologyController',
-            'edit-TechnologyController',
-            'update-TechnologyController',
-            'destroy-TechnologyController',
-            'export-TechnologyController',
-            'import-TechnologyController',
-            'getTechnologies-TechnologyController',
+            'manage-TechnologyController',
+            'importExport-TechnologyController',
+            'readOnly-TechnologyController',
         ]);
 
         $membre->givePermissionTo([
-            'index-TechnologyController',
-            'show-TechnologyController'
+            'readOnly-TechnologyController',
         ]);
     }
 }

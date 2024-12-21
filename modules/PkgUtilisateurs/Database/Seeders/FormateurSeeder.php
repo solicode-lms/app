@@ -54,29 +54,57 @@ class FormateurSeeder extends Seeder
             'getFormateurs'
         ];
 
+        $permissions = [];
         foreach ($actions as $action) {
-            Permission::create(['name' => $action . '-FormateurController', 'guard_name' => 'web']);
+             $permissions[] =Permission::create(['name' => $action . '-FormateurController', 'guard_name' => 'web']);
         }
+
+        // Créer les permissions parents
+        $manage = Permission::create([
+            'name' => 'manage-FormateurController',
+            'module' => 'PkgUtilisateurs',
+            'type' => 'feature',
+            'guard_name' => 'web'
+        ]);
+
+        $readOnly = Permission::create([
+            'name' => 'readOnly-FormateurController',
+            'module' => 'PkgUtilisateurs',
+            'type' => 'feature',
+            'guard_name' => 'web'
+        ]);
+
+        $importExport = Permission::create([
+            'name' => 'importExport-FormateurController',
+            'module' => 'PkgUtilisateurs',
+            'type' => 'feature',
+            'guard_name' => 'web'
+        ]);
+
+
+        // Associer les permissions enfants aux parents
+        $manage->children()->sync(array_column($permissions, 'id')); // Toutes les permissions
+        $readOnly->children()->sync([
+            Permission::where('name', 'index-FormateurController')->first()->id,
+            Permission::where('name', 'show-FormateurController')->first()->id,
+        ]);
+        $importExport->children()->sync([
+            Permission::where('name', 'export-FormateurController')->first()->id,
+            Permission::where('name', 'import-FormateurController')->first()->id,
+        ]);
+
 
         $admin = Role::where('name', $AdminRole)->first();
         $membre = Role::where('name', $MembreRole)->first();
 
         $admin->givePermissionTo([
-            'index-FormateurController',
-            'show-FormateurController',
-            'create-FormateurController',
-            'store-FormateurController',
-            'edit-FormateurController',
-            'update-FormateurController',
-            'destroy-FormateurController',
-            'export-FormateurController',
-            'import-FormateurController',
-            'getFormateurs-FormateurController',
+            'manage-FormateurController',
+            'importExport-FormateurController',
+            'readOnly-FormateurController',
         ]);
 
         $membre->givePermissionTo([
-            'index-FormateurController',
-            'show-FormateurController'
+            'readOnly-FormateurController',
         ]);
     }
 }

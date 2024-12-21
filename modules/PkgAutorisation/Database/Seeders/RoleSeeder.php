@@ -37,7 +37,6 @@ class RoleSeeder extends Seeder
         }
         fclose($csvFile);
 
-       
         $actions = [
             'index',
             'show',
@@ -51,30 +50,57 @@ class RoleSeeder extends Seeder
             'getRoles'
         ];
 
+        $permissions = [];
         foreach ($actions as $action) {
-            Permission::create(['name' => $action . '-RoleController', 'guard_name' => 'web']);
+             $permissions[] =Permission::create(['name' => $action . '-RoleController', 'guard_name' => 'web']);
         }
-      
+
+        // Créer les permissions parents
+        $manage = Permission::create([
+            'name' => 'manage-RoleController',
+            'module' => 'PkgAutorisation',
+            'type' => 'feature',
+            'guard_name' => 'web'
+        ]);
+
+        $readOnly = Permission::create([
+            'name' => 'readOnly-RoleController',
+            'module' => 'PkgAutorisation',
+            'type' => 'feature',
+            'guard_name' => 'web'
+        ]);
+
+        $importExport = Permission::create([
+            'name' => 'importExport-RoleController',
+            'module' => 'PkgAutorisation',
+            'type' => 'feature',
+            'guard_name' => 'web'
+        ]);
+
+
+        // Associer les permissions enfants aux parents
+        $manage->children()->sync(array_column($permissions, 'id')); // Toutes les permissions
+        $readOnly->children()->sync([
+            Permission::where('name', 'index-RoleController')->first()->id,
+            Permission::where('name', 'show-RoleController')->first()->id,
+        ]);
+        $importExport->children()->sync([
+            Permission::where('name', 'export-RoleController')->first()->id,
+            Permission::where('name', 'import-RoleController')->first()->id,
+        ]);
+
 
         $admin = Role::where('name', $AdminRole)->first();
         $membre = Role::where('name', $MembreRole)->first();
 
         $admin->givePermissionTo([
-            'index-RoleController',
-            'show-RoleController',
-            'create-RoleController',
-            'store-RoleController',
-            'edit-RoleController',
-            'update-RoleController',
-            'destroy-RoleController',
-            'export-RoleController',
-            'import-RoleController',
-            'getRoles-RoleController',
+            'manage-RoleController',
+            'importExport-RoleController',
+            'readOnly-RoleController',
         ]);
 
         $membre->givePermissionTo([
-            'index-RoleController',
-            'show-RoleController'
+            'readOnly-RoleController',
         ]);
     }
 }

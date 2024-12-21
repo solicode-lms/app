@@ -7,6 +7,8 @@ namespace Modules\PkgAutorisation\Controllers;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\PkgAutorisation\App\Requests\PermissionRequest;
 use Modules\PkgAutorisation\Services\PermissionService;
+use Modules\PkgAutorisation\Services\PermissionService;
+use Modules\PkgAutorisation\Services\PermissionService;
 use Modules\PkgAutorisation\Services\RoleService;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
@@ -16,11 +18,15 @@ use Modules\PkgAutorisation\App\Imports\PermissionImport;
 class PermissionController extends AdminController
 {
     protected $permissionService;
+    protected $permissionService;
+    protected $permissionService;
     protected $roleService;
 
-    public function __construct(PermissionService $permissionService, RoleService $roleService)
+    public function __construct(PermissionService $permissionService, PermissionService $permissionService, PermissionService $permissionService, RoleService $roleService)
     {
         parent::__construct();
+        $this->permissionService = $permissionService;
+        $this->permissionService = $permissionService;
         $this->permissionService = $permissionService;
         $this->roleService = $roleService;
     }
@@ -48,8 +54,10 @@ class PermissionController extends AdminController
     public function create()
     {
         $item = $this->permissionService->createInstance();
+        $permissions = $this->permissionService->all();
+        $permissions = $this->permissionService->all();
         $roles = $this->roleService->all();
-        return view('PkgAutorisation::permission.create', compact('item', 'roles'));
+        return view('PkgAutorisation::permission.create', compact('item', 'permissions', 'permissions', 'roles'));
     }
 
     public function store(PermissionRequest $request)
@@ -57,6 +65,12 @@ class PermissionController extends AdminController
         $validatedData = $request->validated();
         $permission = $this->permissionService->create($validatedData);
 
+        if ($request->has('permissions')) {
+            $permission->permissions()->sync($request->input('permissions'));
+        }
+        if ($request->has('permissions')) {
+            $permission->permissions()->sync($request->input('permissions'));
+        }
         if ($request->has('roles')) {
             $permission->roles()->sync($request->input('roles'));
         }
@@ -75,8 +89,10 @@ class PermissionController extends AdminController
     public function edit(string $id)
     {
         $item = $this->permissionService->find($id);
+        $permissions = $this->permissionService->all();
+        $permissions = $this->permissionService->all();
         $roles = $this->roleService->all();
-        return view('PkgAutorisation::permission.edit', compact('item', 'roles'));
+        return view('PkgAutorisation::permission.edit', compact('item', 'permissions', 'permissions', 'roles'));
     }
 
     public function update(PermissionRequest $request, string $id)
@@ -85,6 +101,12 @@ class PermissionController extends AdminController
         $permission = $this->permissionService->update($id, $validatedData);
 
 
+        if ($request->has('permissions')) {
+            $permission->permissions()->sync($request->input('permissions'));
+        }
+        if ($request->has('permissions')) {
+            $permission->permissions()->sync($request->input('permissions'));
+        }
         if ($request->has('roles')) {
             $permission->roles()->sync($request->input('roles'));
         }

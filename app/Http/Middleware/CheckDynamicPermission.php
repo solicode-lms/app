@@ -1,20 +1,19 @@
 <?php
-
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Auth\Middleware\Authorize;
-use Illuminate\Support\Facades\Gate;
-use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
+use Modules\PkgAutorisation\Models\Permission;
 
 class CheckDynamicPermission
 {
     /**
      * Handle an incoming request.
      *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure  $next
+     * @return mixed
      */
     public function handle($request, Closure $next)
     {
@@ -22,23 +21,43 @@ class CheckDynamicPermission
         $action = $request->route()->getActionName();
         [$controller, $method] = explode('@', class_basename($action));
     
-        // Supprimer "Controller" du nom du contrôleur
-        $controllerName = str_replace('Controller', '', $controller);
-    
         // Construire dynamiquement le nom de la permission
         $permission = "{$method}-{$controller}";
     
-        // Vérifier si l'utilisateur a la permission
-        if (!Auth::user()->can($permission)) {
-            abort(403, 'Access Denied - Gate');
+        // Vérifier si l'utilisateur a la permission ou une permission parent
+        $user = Auth::user();
+        if (!$this->hasPermissionOrParent($user, $permission)) {
+            abort(403, 'Access Denied - Insufficient Permissions');
         }
-
-        // // Vérifier si l'utilisateur a la permission
-        // if (!Gate::allows($permission)) {
-        //     abort(403, 'Access Denied - Gate');
-        // }
     
         return $next($request);
     }
-    
+
+    /**
+     * Vérifie si l'utilisateur a la permission ou une permission parent.
+     *
+     * @param  \App\Models\User  $user
+     * @param  string  $permission
+     * @return bool
+     */
+    protected function hasPermissionOrParent($user, $permission)
+    {
+        // Vérifier si l'utilisateur a directement la permission
+        if ($user->can($permission)) {
+            return true;
+        }
+
+        // Vérifier si une permission parent contient cette permission
+        $permissionModel = Permission::where('name', $permission)->first();
+        if ($permissionModel) {
+            // Vérifier les parents de la permission
+            foreach ($permissionModel->parents as $parentPermission) {
+                if ($user->can($parentPermission->name)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
 }

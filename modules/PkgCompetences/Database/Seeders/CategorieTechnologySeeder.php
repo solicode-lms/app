@@ -50,29 +50,57 @@ class CategorieTechnologySeeder extends Seeder
             'getCategorieTechnologies'
         ];
 
+        $permissions = [];
         foreach ($actions as $action) {
-            Permission::create(['name' => $action . '-CategorieTechnologyController', 'guard_name' => 'web']);
+             $permissions[] =Permission::create(['name' => $action . '-CategorieTechnologyController', 'guard_name' => 'web']);
         }
+
+        // Créer les permissions parents
+        $manage = Permission::create([
+            'name' => 'manage-CategorieTechnologyController',
+            'module' => 'PkgCompetences',
+            'type' => 'feature',
+            'guard_name' => 'web'
+        ]);
+
+        $readOnly = Permission::create([
+            'name' => 'readOnly-CategorieTechnologyController',
+            'module' => 'PkgCompetences',
+            'type' => 'feature',
+            'guard_name' => 'web'
+        ]);
+
+        $importExport = Permission::create([
+            'name' => 'importExport-CategorieTechnologyController',
+            'module' => 'PkgCompetences',
+            'type' => 'feature',
+            'guard_name' => 'web'
+        ]);
+
+
+        // Associer les permissions enfants aux parents
+        $manage->children()->sync(array_column($permissions, 'id')); // Toutes les permissions
+        $readOnly->children()->sync([
+            Permission::where('name', 'index-CategorieTechnologyController')->first()->id,
+            Permission::where('name', 'show-CategorieTechnologyController')->first()->id,
+        ]);
+        $importExport->children()->sync([
+            Permission::where('name', 'export-CategorieTechnologyController')->first()->id,
+            Permission::where('name', 'import-CategorieTechnologyController')->first()->id,
+        ]);
+
 
         $admin = Role::where('name', $AdminRole)->first();
         $membre = Role::where('name', $MembreRole)->first();
 
         $admin->givePermissionTo([
-            'index-CategorieTechnologyController',
-            'show-CategorieTechnologyController',
-            'create-CategorieTechnologyController',
-            'store-CategorieTechnologyController',
-            'edit-CategorieTechnologyController',
-            'update-CategorieTechnologyController',
-            'destroy-CategorieTechnologyController',
-            'export-CategorieTechnologyController',
-            'import-CategorieTechnologyController',
-            'getCategorieTechnologies-CategorieTechnologyController',
+            'manage-CategorieTechnologyController',
+            'importExport-CategorieTechnologyController',
+            'readOnly-CategorieTechnologyController',
         ]);
 
         $membre->givePermissionTo([
-            'index-CategorieTechnologyController',
-            'show-CategorieTechnologyController'
+            'readOnly-CategorieTechnologyController',
         ]);
     }
 }

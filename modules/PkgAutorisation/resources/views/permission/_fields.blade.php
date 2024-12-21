@@ -29,6 +29,44 @@
         </div>
         
         <div class="form-group">
+            <label for="module">
+                {{ ucfirst(__('PkgAutorisation::permission.module')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <input
+                name="module"
+                type="input"
+                class="form-control"
+                id="module"
+                placeholder="{{ __('PkgAutorisation::permission.module') }}"
+                value="{{ $item ? $item->module : old('module') }}">
+            @error('module')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+        </div>
+        
+        <div class="form-group">
+            <label for="type">
+                {{ ucfirst(__('PkgAutorisation::permission.type')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <input
+                name="type"
+                type="input"
+                class="form-control"
+                id="type"
+                placeholder="{{ __('PkgAutorisation::permission.type') }}"
+                value="{{ $item ? $item->type : old('type') }}">
+            @error('type')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+        </div>
+        
+        <div class="form-group">
             <label for="guard_name">
                 {{ ucfirst(__('PkgAutorisation::permission.guard_name')) }}
                 
@@ -50,6 +88,50 @@
 
         
 
+        
+        <div class="form-group">
+            <label for="permissions">
+                {{ ucfirst(__('PkgAutorisation::Permission.plural')) }}
+            </label>
+            <select
+                id="permissions"
+                name="permissions[]"
+                class="form-control select2"
+                multiple="multiple">
+                @foreach ($permissions as $permission)
+                    <option value="{{ $permission->id }}"
+                        {{ (isset($item) && $item->permissions && $item->permissions->contains('id', $permission->id)) || (is_array(old('permissions')) && in_array($permission->id, old('permissions'))) ? 'selected' : '' }}>
+                        {{ $permission->name }}
+                    </option>
+                @endforeach
+            </select>
+            @error('permissions')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+
+        </div>
+        
+        <div class="form-group">
+            <label for="permissions">
+                {{ ucfirst(__('PkgAutorisation::Permission.plural')) }}
+            </label>
+            <select
+                id="permissions"
+                name="permissions[]"
+                class="form-control select2"
+                multiple="multiple">
+                @foreach ($permissions as $permission)
+                    <option value="{{ $permission->id }}"
+                        {{ (isset($item) && $item->permissions && $item->permissions->contains('id', $permission->id)) || (is_array(old('permissions')) && in_array($permission->id, old('permissions'))) ? 'selected' : '' }}>
+                        {{ $permission->name }}
+                    </option>
+                @endforeach
+            </select>
+            @error('permissions')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+
+        </div>
         
         <div class="form-group">
             <label for="roles">

@@ -50,29 +50,57 @@ class SpecialiteSeeder extends Seeder
             'getSpecialites'
         ];
 
+        $permissions = [];
         foreach ($actions as $action) {
-            Permission::create(['name' => $action . '-SpecialiteController', 'guard_name' => 'web']);
+             $permissions[] =Permission::create(['name' => $action . '-SpecialiteController', 'guard_name' => 'web']);
         }
+
+        // Créer les permissions parents
+        $manage = Permission::create([
+            'name' => 'manage-SpecialiteController',
+            'module' => 'PkgUtilisateurs',
+            'type' => 'feature',
+            'guard_name' => 'web'
+        ]);
+
+        $readOnly = Permission::create([
+            'name' => 'readOnly-SpecialiteController',
+            'module' => 'PkgUtilisateurs',
+            'type' => 'feature',
+            'guard_name' => 'web'
+        ]);
+
+        $importExport = Permission::create([
+            'name' => 'importExport-SpecialiteController',
+            'module' => 'PkgUtilisateurs',
+            'type' => 'feature',
+            'guard_name' => 'web'
+        ]);
+
+
+        // Associer les permissions enfants aux parents
+        $manage->children()->sync(array_column($permissions, 'id')); // Toutes les permissions
+        $readOnly->children()->sync([
+            Permission::where('name', 'index-SpecialiteController')->first()->id,
+            Permission::where('name', 'show-SpecialiteController')->first()->id,
+        ]);
+        $importExport->children()->sync([
+            Permission::where('name', 'export-SpecialiteController')->first()->id,
+            Permission::where('name', 'import-SpecialiteController')->first()->id,
+        ]);
+
 
         $admin = Role::where('name', $AdminRole)->first();
         $membre = Role::where('name', $MembreRole)->first();
 
         $admin->givePermissionTo([
-            'index-SpecialiteController',
-            'show-SpecialiteController',
-            'create-SpecialiteController',
-            'store-SpecialiteController',
-            'edit-SpecialiteController',
-            'update-SpecialiteController',
-            'destroy-SpecialiteController',
-            'export-SpecialiteController',
-            'import-SpecialiteController',
-            'getSpecialites-SpecialiteController',
+            'manage-SpecialiteController',
+            'importExport-SpecialiteController',
+            'readOnly-SpecialiteController',
         ]);
 
         $membre->givePermissionTo([
-            'index-SpecialiteController',
-            'show-SpecialiteController'
+            'readOnly-SpecialiteController',
         ]);
     }
 }

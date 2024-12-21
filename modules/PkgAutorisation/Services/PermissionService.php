@@ -20,6 +20,8 @@ class PermissionService extends BaseService
      */
     protected $fieldsSearchable = [
         'name',
+        'module',
+        'type',
         'guard_name'
     ];
 
