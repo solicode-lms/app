@@ -11,37 +11,37 @@
     <ul class="nav nav-treeview">
         <li class="nav-item">
             <a href="{{ route('apprenants.index') }}" class="nav-link {{ Request::is('PkgUtilisateurs/apprenants') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-circle"></i>
+                <i class="nav-icon fas fa-table"></i>
                 <p>Apprenants</p>
             </a>
         </li>
         <li class="nav-item">
             <a href="{{ route('formateurs.index') }}" class="nav-link {{ Request::is('PkgUtilisateurs/formateurs') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-circle"></i>
+                <i class="nav-icon fas fa-table"></i>
                 <p>Formateurs</p>
             </a>
         </li>
         <li class="nav-item">
             <a href="{{ route('groupes.index') }}" class="nav-link {{ Request::is('PkgUtilisateurs/groupes') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-circle"></i>
+                <i class="nav-icon fas fa-table"></i>
                 <p>Groupes</p>
             </a>
         </li>
         <li class="nav-item">
             <a href="{{ route('niveauxScolaires.index') }}" class="nav-link {{ Request::is('PkgUtilisateurs/niveauxScolaires') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-circle"></i>
+                <i class="nav-icon fas fa-table"></i>
                 <p>NiveauxScolaires</p>
             </a>
         </li>
         <li class="nav-item">
             <a href="{{ route('specialites.index') }}" class="nav-link {{ Request::is('PkgUtilisateurs/specialites') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-circle"></i>
+                <i class="nav-icon fas fa-table"></i>
                 <p>Specialites</p>
             </a>
         </li>
         <li class="nav-item">
             <a href="{{ route('villes.index') }}" class="nav-link {{ Request::is('PkgUtilisateurs/villes') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-circle"></i>
+                <i class="nav-icon fas fa-table"></i>
                 <p>Villes</p>
             </a>
         </li>
