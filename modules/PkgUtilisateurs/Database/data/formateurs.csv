@@ -1,21 +1,5 @@
 nom,prenom,prenom_arab,nom_arab,tele_num,profile_image
-nom 1,prenom 1,prenom_arab 1,nom_arab 1,tele_num 1,profile_image 1
-nom 2,prenom 2,prenom_arab 2,nom_arab 2,tele_num 2,profile_image 2
-nom 3,prenom 3,prenom_arab 3,nom_arab 3,tele_num 3,profile_image 3
-nom 4,prenom 4,prenom_arab 4,nom_arab 4,tele_num 4,profile_image 4
-nom 5,prenom 5,prenom_arab 5,nom_arab 5,tele_num 5,profile_image 5
-nom 6,prenom 6,prenom_arab 6,nom_arab 6,tele_num 6,profile_image 6
-nom 7,prenom 7,prenom_arab 7,nom_arab 7,tele_num 7,profile_image 7
-nom 8,prenom 8,prenom_arab 8,nom_arab 8,tele_num 8,profile_image 8
-nom 9,prenom 9,prenom_arab 9,nom_arab 9,tele_num 9,profile_image 9
-nom 10,prenom 10,prenom_arab 10,nom_arab 10,tele_num 10,profile_image 10
-nom 11,prenom 11,prenom_arab 11,nom_arab 11,tele_num 11,profile_image 11
-nom 12,prenom 12,prenom_arab 12,nom_arab 12,tele_num 12,profile_image 12
-nom 13,prenom 13,prenom_arab 13,nom_arab 13,tele_num 13,profile_image 13
-nom 14,prenom 14,prenom_arab 14,nom_arab 14,tele_num 14,profile_image 14
-nom 15,prenom 15,prenom_arab 15,nom_arab 15,tele_num 15,profile_image 15
-nom 16,prenom 16,prenom_arab 16,nom_arab 16,tele_num 16,profile_image 16
-nom 17,prenom 17,prenom_arab 17,nom_arab 17,tele_num 17,profile_image 17
-nom 18,prenom 18,prenom_arab 18,nom_arab 18,tele_num 18,profile_image 18
-nom 19,prenom 19,prenom_arab 19,nom_arab 19,tele_num 19,profile_image 19
-nom 20,prenom 20,prenom_arab 20,nom_arab 20,tele_num 20,profile_image 20
+El Bakkali,Ahmed,أحمد,البقالي,0612345678,el_bakkali.jpg
+El Fassi,Imane,إيمان,الفاسي,0698765432,el_fassi.jpg
+Chakib,Mohamed,محمد,شكيب,0671234567,chakib.jpg
+Bourhim,Salma,سلمى,بورحيم,0654321876,bourhim.jpg
