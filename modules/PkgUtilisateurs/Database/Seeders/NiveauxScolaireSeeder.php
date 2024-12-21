@@ -4,7 +4,7 @@
 
 namespace Modules\PkgUtilisateurs\Database\Seeders;
 
-App\Models\NiveauxScolaire
+use Modules\PkgUtilisateurs\Models\NiveauxScolaire;
 use Illuminate\Database\Seeder;
 use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgAutorisation\Models\User;
@@ -13,7 +13,7 @@ use Modules\PkgAutorisation\Models\Permission;
 
 class NiveauxScolaireSeeder extends Seeder
 {
-    public static int $order = 22;
+    public static int $order = 6;
 
     public function run(): void
     {

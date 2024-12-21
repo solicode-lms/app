@@ -4,7 +4,7 @@
 
 namespace Modules\PkgUtilisateurs\Database\Seeders;
 
-App\Models\Groupe
+use Modules\PkgUtilisateurs\Models\Groupe;
 use Illuminate\Database\Seeder;
 use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgAutorisation\Models\User;

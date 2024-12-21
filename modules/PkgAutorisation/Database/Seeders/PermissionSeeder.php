@@ -13,7 +13,7 @@ use Modules\PkgAutorisation\Models\Permission;
 
 class PermissionSeeder extends Seeder
 {
-    public static int $order = 2;
+    public static int $order = 3;
 
     public function run(): void
     {
