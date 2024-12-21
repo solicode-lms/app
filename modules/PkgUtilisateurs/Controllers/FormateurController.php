@@ -39,7 +39,7 @@ class FormateurController extends AdminController
         // Gestion AJAX
         if ($request->ajax()) {
             return response()->json([
-                'html' => view('PkgUtilisateurs::_formateur.table', compact('data'))->render()
+                'html' => view('PkgUtilisateurs::formateur._table', compact('data'))->render()
             ]);
         }
     

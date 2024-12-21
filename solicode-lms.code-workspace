@@ -13,6 +13,9 @@
 			"path": "../modelisation"
 		},
 		{
+			"path": "../db_connaissances"
+		},
+		{
 			"path": "../../laravel-builders/gapp3"
 		}
 	],

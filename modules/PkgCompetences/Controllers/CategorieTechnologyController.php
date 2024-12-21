@@ -33,7 +33,7 @@ class CategorieTechnologyController extends AdminController
         // Gestion AJAX
         if ($request->ajax()) {
             return response()->json([
-                'html' => view('PkgCompetences::_categorieTechnology.table', compact('data'))->render()
+                'html' => view('PkgCompetences::categorieTechnology._table', compact('data'))->render()
             ]);
         }
     

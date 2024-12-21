@@ -33,7 +33,7 @@ class ModuleController extends AdminController
         // Gestion AJAX
         if ($request->ajax()) {
             return response()->json([
-                'html' => view('PkgCompetences::_module.table', compact('data'))->render()
+                'html' => view('PkgCompetences::module._table', compact('data'))->render()
             ]);
         }
     

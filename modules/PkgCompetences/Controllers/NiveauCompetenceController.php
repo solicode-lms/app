@@ -33,7 +33,7 @@ class NiveauCompetenceController extends AdminController
         // Gestion AJAX
         if ($request->ajax()) {
             return response()->json([
-                'html' => view('PkgCompetences::_niveauCompetence.table', compact('data'))->render()
+                'html' => view('PkgCompetences::niveauCompetence._table', compact('data'))->render()
             ]);
         }
     

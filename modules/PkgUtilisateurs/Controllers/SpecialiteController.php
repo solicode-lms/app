@@ -36,7 +36,7 @@ class SpecialiteController extends AdminController
         // Gestion AJAX
         if ($request->ajax()) {
             return response()->json([
-                'html' => view('PkgUtilisateurs::_specialite.table', compact('data'))->render()
+                'html' => view('PkgUtilisateurs::specialite._table', compact('data'))->render()
             ]);
         }
     

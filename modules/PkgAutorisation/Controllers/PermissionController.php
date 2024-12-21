@@ -36,7 +36,7 @@ class PermissionController extends AdminController
         // Gestion AJAX
         if ($request->ajax()) {
             return response()->json([
-                'html' => view('PkgAutorisation::_permission.table', compact('data'))->render()
+                'html' => view('PkgAutorisation::permission._table', compact('data'))->render()
             ]);
         }
     

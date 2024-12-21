@@ -39,7 +39,7 @@ class RoleController extends AdminController
         // Gestion AJAX
         if ($request->ajax()) {
             return response()->json([
-                'html' => view('PkgAutorisation::_role.table', compact('data'))->render()
+                'html' => view('PkgAutorisation::role._table', compact('data'))->render()
             ]);
         }
     

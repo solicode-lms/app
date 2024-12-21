@@ -33,7 +33,7 @@ class NiveauxScolaireController extends AdminController
         // Gestion AJAX
         if ($request->ajax()) {
             return response()->json([
-                'html' => view('PkgUtilisateurs::_niveauxScolaire.table', compact('data'))->render()
+                'html' => view('PkgUtilisateurs::niveauxScolaire._table', compact('data'))->render()
             ]);
         }
     
