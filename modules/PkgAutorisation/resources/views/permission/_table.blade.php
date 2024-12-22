@@ -5,7 +5,7 @@
         <thead>
             <tr>
                 <th>{{ ucfirst(__('PkgAutorisation::permission.name')) }}</th>
-                <th>{{ ucfirst(__('PkgAutorisation::sysController.singular')) }}</th>
+                <th>{{ ucfirst(__('Core::sysController.singular')) }}</th>
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
