@@ -8,11 +8,11 @@ use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgAutorisation\Models\User;
 use Illuminate\Support\Facades\Schema;
 use Modules\PkgAutorisation\Models\Permission;
-use App\Models\SysController;
-use App\Models\FeatureDomain;
-use App\Models\Feature;
-use App\Models\SysModule;
 use Illuminate\Support\Str;
+use Modules\Core\Models\Feature;
+use Modules\Core\Models\FeatureDomain;
+use Modules\Core\Models\SysController;
+use Modules\Core\Models\SysModule;
 
 class CompetenceSeeder extends Seeder
 {
@@ -61,7 +61,7 @@ class CompetenceSeeder extends Seeder
     private function addDefaultControllerDomainFeatures(): void
     {
         // Trouver dynamiquement le module SysModule par son slug
-        $moduleSlug = 'PkgCompetence'; // Slug du module
+        $moduleSlug = 'PkgCompetences'; // Slug du module
         $sysModule = SysModule::where('slug', $moduleSlug)->first();
 
         if (!$sysModule) {
@@ -74,7 +74,7 @@ class CompetenceSeeder extends Seeder
 
         // Permissions spécifiques pour chaque type de fonctionnalité
         $featurePermissions = [
-            'manager' => ['create', 'edit', 'delete', 'index', 'show'],
+            'manager' => [ 'index','show','create','store','edit','update','destroy','getCompetences'],
             'readOnly' => ['index', 'show'],
             'importExport' => ['import', 'export'],
         ];
