@@ -16,7 +16,7 @@ use Modules\Core\Models\SysModule;
 
 class CompetenceSeeder extends Seeder
 {
-    public static int $order = 18;
+    public static int $order = 23;
 
     public function run(): void
     {

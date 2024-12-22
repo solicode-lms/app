@@ -13,7 +13,7 @@ use Modules\PkgAutorisation\Models\Permission;
 
 class GroupeSeeder extends Seeder
 {
-    public static int $order = 8;
+    public static int $order = 13;
 
     public function run(): void
     {

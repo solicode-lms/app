@@ -13,7 +13,7 @@ use Modules\PkgAutorisation\Models\Permission;
 
 class SysModuleSeeder extends Seeder
 {
-    public static int $order = 22;
+    public static int $order = 1;
 
     public function run(): void
     {

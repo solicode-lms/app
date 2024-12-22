@@ -13,7 +13,7 @@ use Modules\PkgAutorisation\Models\Permission;
 
 class TechnologySeeder extends Seeder
 {
-    public static int $order = 20;
+    public static int $order = 25;
 
     public function run(): void
     {

@@ -13,7 +13,7 @@ use Modules\PkgAutorisation\Models\Permission;
 
 class VilleSeeder extends Seeder
 {
-    public static int $order = 7;
+    public static int $order = 12;
 
     public function run(): void
     {

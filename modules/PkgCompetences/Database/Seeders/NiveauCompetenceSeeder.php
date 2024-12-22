@@ -13,7 +13,7 @@ use Modules\PkgAutorisation\Models\Permission;
 
 class NiveauCompetenceSeeder extends Seeder
 {
-    public static int $order = 19;
+    public static int $order = 24;
 
     public function run(): void
     {

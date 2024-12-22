@@ -13,7 +13,7 @@ use Modules\PkgAutorisation\Models\Permission;
 
 class FormateurSeeder extends Seeder
 {
-    public static int $order = 12;
+    public static int $order = 17;
 
     public function run(): void
     {

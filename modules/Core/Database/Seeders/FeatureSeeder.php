@@ -13,7 +13,7 @@ use Modules\PkgAutorisation\Models\Permission;
 
 class FeatureSeeder extends Seeder
 {
-    public static int $order = 25;
+    public static int $order = 4;
 
     public function run(): void
     {

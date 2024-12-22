@@ -13,7 +13,7 @@ use Modules\PkgAutorisation\Models\Permission;
 
 class FiliereSeeder extends Seeder
 {
-    public static int $order = 15;
+    public static int $order = 20;
 
     public function run(): void
     {
