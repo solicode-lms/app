@@ -70,7 +70,8 @@ class CompetenceSeeder extends Seeder
 
         // Configuration unique pour ce contrôleur et domaine
         $controllerName = 'CompetenceController';
-        $domainName = 'Gestion des compétences';
+        $controllerBaseName = 'competence';
+        $domainName = 'Compétences';
 
         // Permissions spécifiques pour chaque type de fonctionnalité
         $featurePermissions = [
@@ -85,6 +86,7 @@ class CompetenceSeeder extends Seeder
             [
                 'slug' => Str::slug($controllerName),
                 'description' => "Controller for $domainName",
+                'module_id' => $sysModule->id,
             ]
         );
 
@@ -93,8 +95,9 @@ class CompetenceSeeder extends Seeder
             ['slug' => Str::slug($domainName)],
             [
                 'name' => $domainName,
-                'description' => "Domain for $domainName",
+                'description' => "Gestion des $domainName",
                 'module_id' => $sysModule->id, // ID dynamique du module
+                
             ]
         );
 
@@ -103,10 +106,8 @@ class CompetenceSeeder extends Seeder
             $feature = Feature::firstOrCreate(
                 ['name' => "$domainName - $featureName"],
                 [
-                    'slug' => Str::slug("$domainName-$featureName"),
                     'description' => "Feature $featureName for $domainName",
                     'domain_id' => $featureDomain->id,
-                    'module_id' => $sysModule->id,
                 ]
             );
 
@@ -114,7 +115,7 @@ class CompetenceSeeder extends Seeder
             $permissionIds = [];
             foreach ($actions as $action) {
                 $permission = Permission::firstOrCreate(
-                    ['name' => "$action-$controllerName"],
+                    ['name' => "$action-$controllerBaseName"],
                     [
                         'guard_name' => 'web',
                         'controller_id' => $sysController->id,
@@ -140,8 +141,8 @@ class CompetenceSeeder extends Seeder
 
         // Permissions pour le membre (lecture seule)
         $memberPermissions = Permission::whereIn('name', [
-            'index-CompetenceController',
-            'show-CompetenceController',
+            'index-competence',
+            'show-competence',
         ])->pluck('name')->toArray();
 
         // Associer les permissions aux rôles

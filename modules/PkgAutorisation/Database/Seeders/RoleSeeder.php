@@ -13,7 +13,7 @@ use Modules\PkgAutorisation\Models\Permission;
 
 class RoleSeeder extends Seeder
 {
-    public static int $order = 6;
+    public static int $order = 2;
 
     public function run(): void
     {
