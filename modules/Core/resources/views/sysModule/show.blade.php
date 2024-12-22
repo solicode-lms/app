@@ -48,10 +48,6 @@
                                 <label for="version">{{ ucfirst(__('Core::sysModule.version')) }}:</label>
                                 <p>{{ $item->version }}</p>
                             </div>
-                            <div class="col-sm-12">
-                                <label for="deleted_at">{{ ucfirst(__('Core::sysModule.deleted_at')) }}:</label>
-                                <p>{{ $item->deleted_at }}</p>
-                            </div>
                         </div>
                     </div>
                 </div>

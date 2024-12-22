@@ -35,8 +35,7 @@ class SysModuleSeeder extends Seeder
                     "description" => $data[2] ,
                     "is_active" => $data[3] ,
                     "order" => $data[4] ,
-                    "version" => $data[5] ,
-                    "deleted_at" => $data[6] 
+                    "version" => $data[5] 
                 ]);
             }
             $firstline = false;

@@ -11,5 +11,4 @@ return [
     'is_active' => 'is_active',
     'order' => 'order',
     'version' => 'version',
-    'deleted_at' => 'deleted_at',
 ];

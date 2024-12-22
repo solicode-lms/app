@@ -123,25 +123,6 @@
             @enderror
         </div>
         
-        <div class="form-group">
-            <label for="deleted_at">
-                {{ ucfirst(__('Core::sysModule.deleted_at')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
-                name="deleted_at"
-                type="input"
-                class="form-control"
-                id="deleted_at"
-                placeholder="{{ __('Core::sysModule.deleted_at') }}"
-                value="{{ $item ? $item->deleted_at : old('deleted_at') }}">
-            @error('deleted_at')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-        </div>
-        
 
         
 

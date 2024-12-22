@@ -22,8 +22,7 @@ class SysModuleRequest extends FormRequest
             'description' => 'required|max:255',
             'is_active' => 'required',
             'order' => 'required',
-            'version' => 'required|max:255',
-            'deleted_at' => 'required'
+            'version' => 'required|max:255'
         ];
     }
 
@@ -41,9 +40,7 @@ class SysModuleRequest extends FormRequest
             'order.required' => __('validation.required', ['attribute' => __('PkgBlog::category.order')]),
             'order.max' => __('validation.orderMax'),
             'version.required' => __('validation.required', ['attribute' => __('PkgBlog::category.version')]),
-            'version.max' => __('validation.versionMax'),
-            'deleted_at.required' => __('validation.required', ['attribute' => __('PkgBlog::category.deleted_at')]),
-            'deleted_at.max' => __('validation.deleted_atMax')
+            'version.max' => __('validation.versionMax')
         ];
     }
 }

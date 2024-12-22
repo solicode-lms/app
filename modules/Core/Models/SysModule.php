@@ -11,7 +11,7 @@ class SysModule extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'slug', 'description', 'is_active', 'order', 'version', 'deleted_at'];
+    protected $fillable = ['name', 'slug', 'description', 'is_active', 'order', 'version'];
 
 
 
