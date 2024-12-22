@@ -48,7 +48,7 @@ class DatabaseSeeder extends Seeder
             ->pluck('class') // Récupérer uniquement les noms de classes triés
             ->toArray(); // Convertir en tableau
 
-        dd( $sortedSeeders);
+        // dd( $sortedSeeders);
         // Exécuter les seeders triés
         $this->call($sortedSeeders);
     }

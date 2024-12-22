@@ -7,7 +7,7 @@ namespace Modules\Core\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Modules\Core\Models\FeatureDomain;
-use Modules\Core\Models\Permission;
+use Modules\PkgAutorisation\Models\Permission;
 
 class Feature extends Model
 {

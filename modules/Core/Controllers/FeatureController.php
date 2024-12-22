@@ -7,7 +7,7 @@ namespace Modules\Core\Controllers;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Requests\FeatureRequest;
 use Modules\Core\Services\FeatureService;
-use Modules\Core\Services\PermissionService;
+use Modules\PkgAutorisation\Services\PermissionService;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\Core\App\Exports\FeatureExport;
