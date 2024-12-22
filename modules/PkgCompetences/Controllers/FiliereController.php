@@ -18,6 +18,7 @@ class FiliereController extends AdminController
 
     public function __construct(FiliereService $filiereService)
     {
+        parent::__construct();
         $this->filiereService = $filiereService;
     }
 
@@ -33,7 +34,7 @@ class FiliereController extends AdminController
         // Gestion AJAX
         if ($request->ajax()) {
             return response()->json([
-                'html' => view('PkgCompetences::_filiere.table', compact('data'))->render()
+                'html' => view('PkgCompetences::filiere._table', compact('data'))->render()
             ]);
         }
     

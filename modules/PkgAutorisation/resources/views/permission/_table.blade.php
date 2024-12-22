@@ -5,6 +5,7 @@
         <thead>
             <tr>
                 <th>{{ ucfirst(__('PkgAutorisation::permission.name')) }}</th>
+                <th>{{ ucfirst(__('Core::sysController.singular')) }}</th>
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -12,18 +13,19 @@
             @foreach ($data as $permission)
                 <tr>
                     <td>{{ $permission->name }}</td>
+                    <td>{{ $permission->sysController->name ?? '-' }}</td>
                     <td class="text-center">
-                        @can('show-PermissionController')
+                        @can('show-permission')
                             <a href="{{ route('permissions.show', $permission) }}" class="btn btn-default btn-sm">
                                 <i class="far fa-eye"></i>
                             </a>
                         @endcan
-                        @can('edit-PermissionController')
+                        @can('edit-permission')
                             <a href="{{ route('permissions.edit', $permission) }}" class="btn btn-sm btn-default">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endcan
-                        @can('destroy-PermissionController')
+                        @can('destroy-permission')
                             <form action="{{ route('permissions.destroy', $permission) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
@@ -42,7 +44,7 @@
 
 <div class="d-md-flex justify-content-between align-items-center p-2">
     <div class="d-flex align-items-center mb-2 ml-2 mt-2">
-        @can('import-PermissionController')
+        @can('import-permission')
             <form action="{{ route('permissions.import') }}" method="post" class="mt-2" enctype="multipart/form-data"
                 id="importForm">
                 @csrf
@@ -53,7 +55,7 @@
                 <input type="file" id="upload" name="file" style="display:none;" onchange="submitForm()" />
             </form>
         @endcan
-        @can('export-PermissionController')
+        @can('export-permission')
             <form class="">
                 <a href="{{ route('permissions.export') }}" class="btn btn-default btn-sm mt-0 mx-2">
                     <i class="fas fa-file-export"></i>

@@ -20,6 +20,7 @@ class ApprenantController extends AdminController
 
     public function __construct(ApprenantService $apprenantService, GroupeService $groupeService)
     {
+        parent::__construct();
         $this->apprenantService = $apprenantService;
         $this->groupeService = $groupeService;
     }
@@ -36,7 +37,7 @@ class ApprenantController extends AdminController
         // Gestion AJAX
         if ($request->ajax()) {
             return response()->json([
-                'html' => view('PkgUtilisateurs::_apprenant.table', compact('data'))->render()
+                'html' => view('PkgUtilisateurs::apprenant._table', compact('data'))->render()
             ]);
         }
     

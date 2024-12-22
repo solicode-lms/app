@@ -27,6 +27,7 @@ class PermissionExport implements FromCollection, WithHeadings, ShouldAutoSize, 
         return [
             'name',
             'guard_name',
+            'controller_id',
         ];
     }
 
@@ -36,6 +37,7 @@ class PermissionExport implements FromCollection, WithHeadings, ShouldAutoSize, 
             return [
                 'name' => $permission->name,
                 'guard_name' => $permission->guard_name,
+                'controller_id' => $permission->controller_id,
             ];
         });
     }

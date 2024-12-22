@@ -20,6 +20,7 @@ class SpecialiteController extends AdminController
 
     public function __construct(SpecialiteService $specialiteService, FormateurService $formateurService)
     {
+        parent::__construct();
         $this->specialiteService = $specialiteService;
         $this->formateurService = $formateurService;
     }
@@ -36,7 +37,7 @@ class SpecialiteController extends AdminController
         // Gestion AJAX
         if ($request->ajax()) {
             return response()->json([
-                'html' => view('PkgUtilisateurs::_specialite.table', compact('data'))->render()
+                'html' => view('PkgUtilisateurs::specialite._table', compact('data'))->render()
             ]);
         }
     

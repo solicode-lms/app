@@ -19,7 +19,7 @@
                 </div>
                 <div class="col-sm-6">
                     <div class="float-sm-right">
-                        @can('create-RoleController')
+                        @can('create-role')
                             <a href="{{ route('roles.create') }}" class="btn btn-info">
                                 <i class="fas fa-plus"></i>
                                 {{ curd_index_add_label('PkgAutorisation::role') }}

@@ -15,17 +15,17 @@
                     <td>{{ $filiere->nom }}</td>
                     <td>{{ $filiere->description }}</td>
                     <td class="text-center">
-                        @can('show-FiliereController')
+                        @can('show-filiere')
                             <a href="{{ route('filieres.show', $filiere) }}" class="btn btn-default btn-sm">
                                 <i class="far fa-eye"></i>
                             </a>
                         @endcan
-                        @can('edit-FiliereController')
+                        @can('edit-filiere')
                             <a href="{{ route('filieres.edit', $filiere) }}" class="btn btn-sm btn-default">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endcan
-                        @can('destroy-FiliereController')
+                        @can('destroy-filiere')
                             <form action="{{ route('filieres.destroy', $filiere) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
@@ -44,7 +44,7 @@
 
 <div class="d-md-flex justify-content-between align-items-center p-2">
     <div class="d-flex align-items-center mb-2 ml-2 mt-2">
-        @can('import-FiliereController')
+        @can('import-filiere')
             <form action="{{ route('filieres.import') }}" method="post" class="mt-2" enctype="multipart/form-data"
                 id="importForm">
                 @csrf
@@ -55,7 +55,7 @@
                 <input type="file" id="upload" name="file" style="display:none;" onchange="submitForm()" />
             </form>
         @endcan
-        @can('export-FiliereController')
+        @can('export-filiere')
             <form class="">
                 <a href="{{ route('filieres.export') }}" class="btn btn-default btn-sm mt-0 mx-2">
                     <i class="fas fa-file-export"></i>

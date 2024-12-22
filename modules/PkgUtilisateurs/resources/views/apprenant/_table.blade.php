@@ -19,17 +19,17 @@
                     <td>{{ $apprenant->niveauxScolaire->nom ?? '-' }}</td>
                     <td>{{ $apprenant->ville->nom ?? '-' }}</td>
                     <td class="text-center">
-                        @can('show-ApprenantController')
+                        @can('show-apprenant')
                             <a href="{{ route('apprenants.show', $apprenant) }}" class="btn btn-default btn-sm">
                                 <i class="far fa-eye"></i>
                             </a>
                         @endcan
-                        @can('edit-ApprenantController')
+                        @can('edit-apprenant')
                             <a href="{{ route('apprenants.edit', $apprenant) }}" class="btn btn-sm btn-default">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endcan
-                        @can('destroy-ApprenantController')
+                        @can('destroy-apprenant')
                             <form action="{{ route('apprenants.destroy', $apprenant) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
@@ -48,7 +48,7 @@
 
 <div class="d-md-flex justify-content-between align-items-center p-2">
     <div class="d-flex align-items-center mb-2 ml-2 mt-2">
-        @can('import-ApprenantController')
+        @can('import-apprenant')
             <form action="{{ route('apprenants.import') }}" method="post" class="mt-2" enctype="multipart/form-data"
                 id="importForm">
                 @csrf
@@ -59,7 +59,7 @@
                 <input type="file" id="upload" name="file" style="display:none;" onchange="submitForm()" />
             </form>
         @endcan
-        @can('export-ApprenantController')
+        @can('export-apprenant')
             <form class="">
                 <a href="{{ route('apprenants.export') }}" class="btn btn-default btn-sm mt-0 mx-2">
                     <i class="fas fa-file-export"></i>
