@@ -8,6 +8,7 @@ namespace Modules\PkgUtilisateurs\Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
+use Modules\Core\Database\Seeders\SysModuleSeeder;
 use Modules\Core\Models\Feature;
 use Modules\Core\Models\FeatureDomain;
 use Modules\Core\Models\SysController;
@@ -37,7 +38,7 @@ class ApprenantSeeder extends Seeder
         $this->assignPermissionsToRoles($AdminRole, $MembreRole);
     }
 
-    private function seedFromCsv(): void
+    public function seedFromCsv(): void
     {
         $csvFile = fopen(base_path("modules/PkgUtilisateurs/Database/data/apprenants.csv"), "r");
         $firstline = true;
@@ -69,7 +70,10 @@ class ApprenantSeeder extends Seeder
         $sysModule = SysModule::where('slug', $moduleSlug)->first();
 
         if (!$sysModule) {
-            throw new \Exception("Le module avec le slug '{$moduleSlug}' est introuvable.");
+            // résoudre le problème de l'ordre de chargement entre Role et SysModule
+            $sysModuleSeeder =  new SysModuleSeeder();
+            $sysModuleSeeder->seedFromCsv();
+            $sysModule = SysModule::where('slug', $moduleSlug)->first();
         }
 
         // Configuration unique pour ce contrôleur et domaine
