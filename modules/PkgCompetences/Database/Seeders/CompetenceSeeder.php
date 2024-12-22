@@ -1,18 +1,22 @@
 <?php
+// Ce fichier est maintenu par ESSARRAJ Fouad
+
+
 
 namespace Modules\PkgCompetences\Database\Seeders;
 
-use Modules\PkgCompetences\Models\Competence;
 use Illuminate\Database\Seeder;
-use Modules\PkgAutorisation\Models\Role;
-use Modules\PkgAutorisation\Models\User;
 use Illuminate\Support\Facades\Schema;
-use Modules\PkgAutorisation\Models\Permission;
 use Illuminate\Support\Str;
 use Modules\Core\Models\Feature;
 use Modules\Core\Models\FeatureDomain;
 use Modules\Core\Models\SysController;
 use Modules\Core\Models\SysModule;
+use Modules\PkgAutorisation\Models\Permission;
+use Modules\PkgAutorisation\Models\Role;
+use Modules\PkgAutorisation\Models\User;
+use Modules\PkgCompetences\Models\Competence;
+
 
 class CompetenceSeeder extends Seeder
 {
@@ -23,13 +27,8 @@ class CompetenceSeeder extends Seeder
         $AdminRole = User::ADMIN;
         $MembreRole = User::MEMBRE;
 
-        // Supprimer les anciennes données pour éviter les doublons
-        Schema::disableForeignKeyConstraints();
-        Competence::truncate();
-        Schema::enableForeignKeyConstraints();
-
-        // Ajouter les compétences à partir d'un fichier CSV
-        $this->seedCompetencesFromCsv();
+        // Ajouter les données à partir d'un fichier CSV
+        $this->seedFromCsv();
 
         // Ajouter le contrôleur, le domaine, les fonctionnalités et leurs permissions
         $this->addDefaultControllerDomainFeatures();
@@ -38,7 +37,7 @@ class CompetenceSeeder extends Seeder
         $this->assignPermissionsToRoles($AdminRole, $MembreRole);
     }
 
-    private function seedCompetencesFromCsv(): void
+    private function seedFromCsv(): void
     {
         $csvFile = fopen(base_path("modules/PkgCompetences/Database/data/competences.csv"), "r");
         $firstline = true;
@@ -46,10 +45,10 @@ class CompetenceSeeder extends Seeder
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
                 Competence::create([
-                    "code" => $data[0],
-                    "nom" => $data[1],
-                    "description" => $data[2],
-                    "module_id" => $data[3],
+                    "code" => $data[0] ,
+                    "nom" => $data[1] ,
+                    "description" => $data[2] ,
+                    "module_id" => $data[3] 
                 ]);
             }
             $firstline = false;
@@ -71,7 +70,7 @@ class CompetenceSeeder extends Seeder
         // Configuration unique pour ce contrôleur et domaine
         $controllerName = 'CompetenceController';
         $controllerBaseName = 'competence';
-        $domainName = 'Compétences';
+        $domainName = 'Competence';
 
         // Permissions spécifiques pour chaque type de fonctionnalité
         $featurePermissions = [
