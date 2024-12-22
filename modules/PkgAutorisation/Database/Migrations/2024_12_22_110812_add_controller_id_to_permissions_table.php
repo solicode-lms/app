@@ -13,10 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('add_controller_id_to_permissions', function (Blueprint $table) {
+        Schema::table('permissions', function (Blueprint $table) {
             $table->foreignId('controller_id')
             ->nullable()
-            ->constrained('sys_controller')
+            ->after('guard_name') // Place la colonne après "guard_name"
+            ->constrained('sys_controllers')
             ->onDelete('cascade'); // Clé étrangère vers "sys_controller"
         });
     }
