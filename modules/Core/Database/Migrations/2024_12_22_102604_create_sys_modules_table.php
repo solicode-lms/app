@@ -22,7 +22,6 @@ return new class extends Migration
             $table->integer('order')->default(0); // Ordre d'affichage ou de priorité
             $table->string('version')->nullable(); // Version du module
             $table->timestamps(); // Colonnes created_at et updated_at
-            $table->softDeletes(); // Ajoute une colonne deleted_at pour suppression douce
         });
     }
 
