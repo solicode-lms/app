@@ -4,9 +4,9 @@
 
 
 namespace Modules\PkgCompetences\Database\Seeders;
-use Modules\Core\Database\Seeders\CoreSeeder;
+use Modules\Core\Database\Seeders\BaseSeeder;
 
-class PkgCompetencesSeeder extends CoreSeeder
+class PkgCompetencesSeeder extends BaseSeeder
 {
     public function run(): void
     {

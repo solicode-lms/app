@@ -5,7 +5,7 @@ namespace Modules\Core\Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\File;
 
-class CoreSeeder extends Seeder
+class BaseSeeder extends Seeder
 {
 
     public function loadAndRun(string $moduleSeederDir, string $moduleNamespace): void

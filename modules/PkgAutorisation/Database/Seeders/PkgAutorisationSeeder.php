@@ -4,9 +4,9 @@
 
 
 namespace Modules\PkgAutorisation\Database\Seeders;
-use Modules\Core\Database\Seeders\CoreSeeder;
+use Modules\Core\Database\Seeders\BaseSeeder;
 
-class PkgAutorisationSeeder extends CoreSeeder
+class PkgAutorisationSeeder extends BaseSeeder
 {
     public function run(): void
     {
