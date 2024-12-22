@@ -68,7 +68,7 @@
         
         <div class="form-group">
             <label for="permissions">
-                {{ ucfirst(__('Core::Permission.plural')) }}
+                {{ ucfirst(__('PkgAutorisation::Permission.plural')) }}
             </label>
             <select
                 id="permissions"

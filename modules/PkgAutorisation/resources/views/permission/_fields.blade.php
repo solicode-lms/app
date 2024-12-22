@@ -51,7 +51,7 @@
         
         <div class="form-group">
             <label for="controller_id">
-                {{ ucfirst(__('PkgAutorisation::sysController.singular')) }}
+                {{ ucfirst(__('Core::sysController.singular')) }}
                 
                     <span class="text-danger">*</span>
                 
@@ -68,7 +68,7 @@
         
         <div class="form-group">
             <label for="features">
-                {{ ucfirst(__('PkgAutorisation::Feature.plural')) }}
+                {{ ucfirst(__('Core::Feature.plural')) }}
             </label>
             <select
                 id="features"
