@@ -32,8 +32,6 @@ class DatabaseSeeder extends Seeder
         // Parcourir tous les modules et exécuter leurs seeders
         foreach ($modules as $module) {
 
-            if(basename($module) == "Core") { continue;}
-            
             // Trouver le seeder principal du module en recherchant le fichier de seeder
             $seederFile = $module . '/Database/Seeders/' . Str::studly(basename($module)) . 'Seeder.php';
 

@@ -20,9 +20,10 @@ class NiveauCompetenceSeeder extends Seeder
         $AdminRole = User::ADMIN;
         $MembreRole = User::MEMBRE;
 
-        Schema::disableForeignKeyConstraints();
-        NiveauCompetence::truncate();
-        Schema::enableForeignKeyConstraints();
+        // La suppression des donnes déclenche le suppression en cascade
+        // Schema::disableForeignKeyConstraints();
+        // NiveauCompetence::truncate();
+        // Schema::enableForeignKeyConstraints();
 
         $csvFile = fopen(base_path("modules/PkgCompetences/Database/data/niveauCompetences.csv"), "r");
         $firstline = true;

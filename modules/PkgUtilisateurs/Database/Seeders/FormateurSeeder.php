@@ -20,9 +20,10 @@ class FormateurSeeder extends Seeder
         $AdminRole = User::ADMIN;
         $MembreRole = User::MEMBRE;
 
-        Schema::disableForeignKeyConstraints();
-        Formateur::truncate();
-        Schema::enableForeignKeyConstraints();
+        // La suppression des donnes déclenche le suppression en cascade
+        // Schema::disableForeignKeyConstraints();
+        // Formateur::truncate();
+        // Schema::enableForeignKeyConstraints();
 
         $csvFile = fopen(base_path("modules/PkgUtilisateurs/Database/data/formateurs.csv"), "r");
         $firstline = true;

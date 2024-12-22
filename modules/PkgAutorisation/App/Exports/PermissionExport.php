@@ -26,9 +26,8 @@ class PermissionExport implements FromCollection, WithHeadings, ShouldAutoSize, 
     {
         return [
             'name',
-            'module',
-            'type',
             'guard_name',
+            'controller_id',
         ];
     }
 
@@ -37,9 +36,8 @@ class PermissionExport implements FromCollection, WithHeadings, ShouldAutoSize, 
         return $this->data->map(function ($permission) {
             return [
                 'name' => $permission->name,
-                'module' => $permission->module,
-                'type' => $permission->type,
                 'guard_name' => $permission->guard_name,
+                'controller_id' => $permission->controller_id,
             ];
         });
     }

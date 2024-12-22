@@ -20,9 +20,10 @@ class ApprenantSeeder extends Seeder
         $AdminRole = User::ADMIN;
         $MembreRole = User::MEMBRE;
 
-        Schema::disableForeignKeyConstraints();
-        Apprenant::truncate();
-        Schema::enableForeignKeyConstraints();
+        // La suppression des donnes déclenche le suppression en cascade
+        // Schema::disableForeignKeyConstraints();
+        // Apprenant::truncate();
+        // Schema::enableForeignKeyConstraints();
 
         $csvFile = fopen(base_path("modules/PkgUtilisateurs/Database/data/apprenants.csv"), "r");
         $firstline = true;

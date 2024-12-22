@@ -20,9 +20,10 @@ class TechnologySeeder extends Seeder
         $AdminRole = User::ADMIN;
         $MembreRole = User::MEMBRE;
 
-        Schema::disableForeignKeyConstraints();
-        Technology::truncate();
-        Schema::enableForeignKeyConstraints();
+        // La suppression des donnes déclenche le suppression en cascade
+        // Schema::disableForeignKeyConstraints();
+        // Technology::truncate();
+        // Schema::enableForeignKeyConstraints();
 
         $csvFile = fopen(base_path("modules/PkgCompetences/Database/data/technologies.csv"), "r");
         $firstline = true;

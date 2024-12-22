@@ -20,9 +20,10 @@ class CompetenceSeeder extends Seeder
         $AdminRole = User::ADMIN;
         $MembreRole = User::MEMBRE;
 
-        Schema::disableForeignKeyConstraints();
-        Competence::truncate();
-        Schema::enableForeignKeyConstraints();
+        // La suppression des donnes déclenche le suppression en cascade
+        // Schema::disableForeignKeyConstraints();
+        // Competence::truncate();
+        // Schema::enableForeignKeyConstraints();
 
         $csvFile = fopen(base_path("modules/PkgCompetences/Database/data/competences.csv"), "r");
         $firstline = true;

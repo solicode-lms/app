@@ -18,9 +18,8 @@ class PermissionRequest extends FormRequest
     {
         return [
             'name' => 'required|max:255',
-            'module' => 'required|max:255',
-            'type' => 'required|max:255',
-            'guard_name' => 'required|max:255'
+            'guard_name' => 'required|max:255',
+            'controller_id' => 'required'
         ];
     }
 
@@ -29,12 +28,10 @@ class PermissionRequest extends FormRequest
         return [
             'name.required' => __('validation.required', ['attribute' => __('PkgBlog::category.name')]),
             'name.max' => __('validation.nameMax'),
-            'module.required' => __('validation.required', ['attribute' => __('PkgBlog::category.module')]),
-            'module.max' => __('validation.moduleMax'),
-            'type.required' => __('validation.required', ['attribute' => __('PkgBlog::category.type')]),
-            'type.max' => __('validation.typeMax'),
             'guard_name.required' => __('validation.required', ['attribute' => __('PkgBlog::category.guard_name')]),
-            'guard_name.max' => __('validation.guard_nameMax')
+            'guard_name.max' => __('validation.guard_nameMax'),
+            'controller_id.required' => __('validation.required', ['attribute' => __('PkgBlog::category.controller_id')]),
+            'controller_id.max' => __('validation.controller_idMax')
         ];
     }
 }

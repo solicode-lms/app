@@ -20,9 +20,10 @@ class NiveauxScolaireSeeder extends Seeder
         $AdminRole = User::ADMIN;
         $MembreRole = User::MEMBRE;
 
-        Schema::disableForeignKeyConstraints();
-        NiveauxScolaire::truncate();
-        Schema::enableForeignKeyConstraints();
+        // La suppression des donnes déclenche le suppression en cascade
+        // Schema::disableForeignKeyConstraints();
+        // NiveauxScolaire::truncate();
+        // Schema::enableForeignKeyConstraints();
 
         $csvFile = fopen(base_path("modules/PkgUtilisateurs/Database/data/niveauxScolaires.csv"), "r");
         $firstline = true;

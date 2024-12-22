@@ -5,6 +5,7 @@
         <thead>
             <tr>
                 <th>{{ ucfirst(__('PkgAutorisation::permission.name')) }}</th>
+                <th>{{ ucfirst(__('PkgAutorisation::sysController.singular')) }}</th>
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -12,6 +13,7 @@
             @foreach ($data as $permission)
                 <tr>
                     <td>{{ $permission->name }}</td>
+                    <td>{{ $permission->sysController->name ?? '-' }}</td>
                     <td class="text-center">
                         @can('show-PermissionController')
                             <a href="{{ route('permissions.show', $permission) }}" class="btn btn-default btn-sm">

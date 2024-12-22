@@ -39,9 +39,8 @@ class PermissionImport implements ToModel, WithHeadingRow
         // Crée un nouvel enregistrement à partir des données importées
         return new Permission([
             'name' => $row['name'],
-            'module' => $row['module'],
-            'type' => $row['type'],
             'guard_name' => $row['guard_name'],
+            'controller_id' => $row['controller_id'],
         ]);
     }
 }

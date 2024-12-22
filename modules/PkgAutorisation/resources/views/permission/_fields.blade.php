@@ -29,44 +29,6 @@
         </div>
         
         <div class="form-group">
-            <label for="module">
-                {{ ucfirst(__('PkgAutorisation::permission.module')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
-                name="module"
-                type="input"
-                class="form-control"
-                id="module"
-                placeholder="{{ __('PkgAutorisation::permission.module') }}"
-                value="{{ $item ? $item->module : old('module') }}">
-            @error('module')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-        </div>
-        
-        <div class="form-group">
-            <label for="type">
-                {{ ucfirst(__('PkgAutorisation::permission.type')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
-                name="type"
-                type="input"
-                class="form-control"
-                id="type"
-                placeholder="{{ __('PkgAutorisation::permission.type') }}"
-                value="{{ $item ? $item->type : old('type') }}">
-            @error('type')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-        </div>
-        
-        <div class="form-group">
             <label for="guard_name">
                 {{ ucfirst(__('PkgAutorisation::permission.guard_name')) }}
                 
@@ -87,47 +49,40 @@
         
 
         
-
-        
         <div class="form-group">
-            <label for="permissions">
-                {{ ucfirst(__('PkgAutorisation::Permission.plural')) }}
+            <label for="controller_id">
+                {{ ucfirst(__('PkgAutorisation::sysController.singular')) }}
+                
+                    <span class="text-danger">*</span>
+                
             </label>
-            <select
-                id="permissions"
-                name="permissions[]"
-                class="form-control select2"
-                multiple="multiple">
-                @foreach ($permissions as $permission)
-                    <option value="{{ $permission->id }}"
-                        {{ (isset($item) && $item->permissions && $item->permissions->contains('id', $permission->id)) || (is_array(old('permissions')) && in_array($permission->id, old('permissions'))) ? 'selected' : '' }}>
-                        {{ $permission->name }}
-                    </option>
-                @endforeach
+            <select id="controller_id" name="controller_id" class="form-control">
+                <option value="">Sélectionnez une option</option>
             </select>
-            @error('permissions')
+            @error('controller_id')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-
         </div>
         
+
+        
         <div class="form-group">
-            <label for="permissions">
-                {{ ucfirst(__('PkgAutorisation::Permission.plural')) }}
+            <label for="features">
+                {{ ucfirst(__('PkgAutorisation::Feature.plural')) }}
             </label>
             <select
-                id="permissions"
-                name="permissions[]"
+                id="features"
+                name="features[]"
                 class="form-control select2"
                 multiple="multiple">
-                @foreach ($permissions as $permission)
-                    <option value="{{ $permission->id }}"
-                        {{ (isset($item) && $item->permissions && $item->permissions->contains('id', $permission->id)) || (is_array(old('permissions')) && in_array($permission->id, old('permissions'))) ? 'selected' : '' }}>
-                        {{ $permission->name }}
+                @foreach ($features as $feature)
+                    <option value="{{ $feature->id }}"
+                        {{ (isset($item) && $item->features && $item->features->contains('id', $feature->id)) || (is_array(old('features')) && in_array($feature->id, old('features'))) ? 'selected' : '' }}>
+                        {{ $feature->name }}
                     </option>
                 @endforeach
             </select>
-            @error('permissions')
+            @error('features')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 
@@ -168,6 +123,13 @@
 
 <script>
     window.dynamicSelectManyToOne = [
+        
+        {
+            fieldId: 'controller_id',
+            fetchUrl: "{{ route('sysControllers.all') }}",
+            selectedValue: {{ $item->controller_id ? $item->controller_id : 'undefined' }},
+            fieldValue: 'name'
+        }
         
     ];
 </script>
