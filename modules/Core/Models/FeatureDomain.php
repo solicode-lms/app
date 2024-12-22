@@ -1,6 +1,9 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
-
+// il manque
+// public function features()
+// {
+//     return $this->hasMany(Feature::class, 'domain_id', 'id');
+// }
 
 namespace Modules\Core\Models;
 
@@ -19,6 +22,10 @@ class FeatureDomain extends Model
         return $this->belongsTo(SysModule::class, 'module_id', 'id');
     }
 
+    public function features()
+    {
+        return $this->hasMany(Feature::class, 'domain_id', 'id');
+    }
 
     public function __toString()
     {

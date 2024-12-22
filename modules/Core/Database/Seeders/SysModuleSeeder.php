@@ -1,6 +1,6 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
-
+// TODO : Il doit être appeler une seul foix  $this->seedFromCsv(); est 
+// Il est appele maintenant par RoleSeeder
 
 
 namespace Modules\Core\Database\Seeders;
@@ -27,7 +27,7 @@ class SysModuleSeeder extends Seeder
         $MembreRole = User::MEMBRE;
 
         // Ajouter les données à partir d'un fichier CSV
-        $this->seedFromCsv();
+        // $this->seedFromCsv();
 
         // Ajouter le contrôleur, le domaine, les fonctionnalités et leurs permissions
         $this->addDefaultControllerDomainFeatures();

@@ -45,36 +45,54 @@
             @enderror
         </div>
         
-
-        
-
         
         <div class="form-group">
             <label for="permissions">
                 {{ ucfirst(__('PkgAutorisation::Feature.plural')) }}
             </label>
+    
+            
+              <div class="features-list icheck-info d-inline">
            
+                @foreach ($sysModules as $sysModule)
 
-
-            <div class="features-list">
-                @foreach ($features as $feature)
-                    <div class="feature-item">
-                        <input 
-                            type="checkbox" 
-                            id="feature-{{ $feature->id }}" 
-                            name="features[]" 
-                            value="{{ $feature->id }}"
-                            {{ $item->permissions->pluck('id')->intersect($feature->permissions->pluck('id'))->isNotEmpty() ? 'checked' : '' }}>
-                        <label for="feature-{{ $feature->id }}">
-                            {{ $feature->name }}
-                            @if ($feature->description)
-                                <small class="text-muted">({{ $feature->description }})</small>
-                            @endif
-                        </label>
+                    <div class="sys-module card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            {{ $sysModule->name }}
+                        </h3>
+                    </div>
+                        
+                    <div class="card-body">
+                        @foreach ($sysModule->featureDomains as $featureDomain)
+                            <div class="feature-domain">
+                                <h5>{{ $featureDomain->name }}</h5>
+            
+                                @foreach ($featureDomain->features as $feature)
+                                    <div class="feature-item icheck-info ">
+                                       
+                                        <input 
+                                            type="checkbox" 
+                                            id="feature-{{ $feature->id }}" 
+                                            name="features[]" 
+                                            value="{{ $feature->id }}"
+                                            {{ $item->permissions->pluck('id')->intersect($feature->permissions->pluck('id'))->isNotEmpty() ? 'checked' : '' }}>
+                                        <label for="feature-{{ $feature->id }}">
+                                            {{ $feature->name }}
+                                            @if ($feature->description)
+                                                <small class="text-muted">({{ $feature->description }})</small>
+                                            @endif
+                                        </label>
+                                    </div>
+                                @endforeach
+                            </div>
+                        @endforeach
+                    </div>
+                  
                     </div>
                 @endforeach
             </div>
-
+            
 
 
             @error('features')
