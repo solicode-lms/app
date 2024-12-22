@@ -76,9 +76,9 @@ class PermissionSeeder extends Seeder
 
         // Permissions spécifiques pour chaque type de fonctionnalité
         $featurePermissions = [
-            'manager' => [ 'index','show','create','store','edit','update','destroy','getPermissions'],
-            'readOnly' => ['index', 'show'],
-            'importExport' => ['import', 'export'],
+            'Édition ' => [ 'create','store','edit','update','destroy','getPermissions'],
+            'Lecture' => ['index', 'show'],
+            'Extraction' => ['import', 'export'],
         ];
 
         // Ajouter le contrôleur

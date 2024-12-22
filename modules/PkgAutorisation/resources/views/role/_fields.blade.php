@@ -1,5 +1,3 @@
-{{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
-
 <form action="{{ $item->id ? route('roles.update', $item->id) : route('roles.store') }}" method="POST">
     @csrf
 
@@ -53,26 +51,58 @@
         
         <div class="form-group">
             <label for="permissions">
-                {{ ucfirst(__('PkgAutorisation::Permission.plural')) }}
+                {{ ucfirst(__('PkgAutorisation::Feature.plural')) }}
             </label>
-            <select
-                id="permissions"
-                name="permissions[]"
-                class="form-control select2"
-                multiple="multiple">
-                @foreach ($permissions as $permission)
-                    <option value="{{ $permission->id }}"
-                        {{ (isset($item) && $item->permissions && $item->permissions->contains('id', $permission->id)) || (is_array(old('permissions')) && in_array($permission->id, old('permissions'))) ? 'selected' : '' }}>
-                        {{ $permission->name }}
-                    </option>
+           
+
+
+            <div class="features-list">
+                @foreach ($features as $feature)
+                    <div class="feature-item">
+                        <input 
+                            type="checkbox" 
+                            id="feature-{{ $feature->id }}" 
+                            name="features[]" 
+                            value="{{ $feature->id }}"
+                            {{ $item->permissions->pluck('id')->intersect($feature->permissions->pluck('id'))->isNotEmpty() ? 'checked' : '' }}>
+                        <label for="feature-{{ $feature->id }}">
+                            {{ $feature->name }}
+                            @if ($feature->description)
+                                <small class="text-muted">({{ $feature->description }})</small>
+                            @endif
+                        </label>
+                    </div>
                 @endforeach
-            </select>
-            @error('permissions')
+            </div>
+
+
+
+            @error('features')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 
         </div>
         
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
         <div class="form-group">
             <label for="users">
                 {{ ucfirst(__('PkgAutorisation::User.plural')) }}

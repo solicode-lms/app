@@ -1,5 +1,4 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 namespace Modules\PkgAutorisation\Controllers;
@@ -11,22 +10,29 @@ use Modules\PkgAutorisation\Services\PermissionService;
 use Modules\PkgAutorisation\Services\UserService;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
+use Modules\Core\Services\FeatureService;
 use Modules\PkgAutorisation\App\Exports\RoleExport;
 use Modules\PkgAutorisation\App\Imports\RoleImport;
+use Modules\PkgAutorisation\Models\Permission;
+use Modules\PkgAutorisation\Models\Role;
 
 class RoleController extends AdminController
 {
     protected $roleService;
     protected $permissionService;
     protected $userService;
+    protected $featureService;
 
-    public function __construct(RoleService $roleService, PermissionService $permissionService, UserService $userService)
+    public function __construct(RoleService $roleService,FeatureService $featureService,  PermissionService $permissionService, UserService $userService)
     {
         parent::__construct();
         $this->roleService = $roleService;
         $this->permissionService = $permissionService;
         $this->userService = $userService;
+        $this->featureService = $featureService;
     }
+
+
 
     public function index(Request $request)
     {
@@ -51,19 +57,26 @@ class RoleController extends AdminController
     public function create()
     {
         $item = $this->roleService->createInstance();
-        $permissions = $this->permissionService->all();
         $users = $this->userService->all();
-        return view('PkgAutorisation::role.create', compact('item', 'permissions', 'users'));
+        $features = $this->featureService->all();
+        return view('PkgAutorisation::role.create', compact('item', 'features', 'users'));
     }
 
     public function store(RoleRequest $request)
     {
-        $validatedData = $request->validated();
-        $role = $this->roleService->create($validatedData);
 
-        if ($request->has('permissions')) {
-            $role->permissions()->sync($request->input('permissions'));
-        }
+        $role = $this->roleService->create($request->validated());
+
+     
+        // Add features and Permissions
+        $selectedFeatureIds = $request->input('features', []);
+        $permissionsToAdd = Permission::whereIn('id', function ($query) use ($selectedFeatureIds) {
+            $query->select('permission_id')
+                    ->from('feature_permission')
+                    ->whereIn('feature_id', $selectedFeatureIds);
+        })->get();
+        $role->givePermissionTo($permissionsToAdd);
+    
         if ($request->has('users')) {
             $role->users()->sync($request->input('users'));
         }
@@ -73,6 +86,7 @@ class RoleController extends AdminController
             'modelName' => __('PkgAutorisation::role.singular')
         ]));
     }
+
     public function show(string $id)
     {
         $item = $this->roleService->find($id);
@@ -82,9 +96,9 @@ class RoleController extends AdminController
     public function edit(string $id)
     {
         $item = $this->roleService->find($id);
-        $permissions = $this->permissionService->all();
+        $features = $this->featureService->all();
         $users = $this->userService->all();
-        return view('PkgAutorisation::role.edit', compact('item', 'permissions', 'users'));
+        return view('PkgAutorisation::role.edit', compact('item', 'features', 'users'));
     }
 
     public function update(RoleRequest $request, string $id)
@@ -93,9 +107,32 @@ class RoleController extends AdminController
         $role = $this->roleService->update($id, $validatedData);
 
 
-        if ($request->has('permissions')) {
-            $role->permissions()->sync($request->input('permissions'));
-        }
+        // Edition des permission par fonctionnalité
+
+        $request->validate([
+            'features' => 'array',
+            'features.*' => 'exists:features,id',
+        ]);
+    
+       
+            $selectedFeatureIds = $request->input('features', []);
+    
+            $newPermissions = Permission::whereIn('id', function ($query) use ($selectedFeatureIds) {
+                $query->select('permission_id')
+                      ->from('feature_permission')
+                      ->whereIn('feature_id', $selectedFeatureIds);
+            })->get();
+    
+            $currentPermissions = $role->permissions;
+    
+            $permissionsToRemove = $currentPermissions->diff($newPermissions);
+            $role->revokePermissionTo($permissionsToRemove);
+    
+            $permissionsToAdd = $newPermissions->diff($currentPermissions);
+            $role->givePermissionTo($permissionsToAdd);
+    
+    
+
         if ($request->has('users')) {
             $role->users()->sync($request->input('users'));
         }
