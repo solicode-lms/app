@@ -15,17 +15,17 @@
                     <td>{{ $groupe->nom }}</td>
                     <td>{{ $groupe->description }}</td>
                     <td class="text-center">
-                        @can('show-GroupeController')
+                        @can('show-groupe')
                             <a href="{{ route('groupes.show', $groupe) }}" class="btn btn-default btn-sm">
                                 <i class="far fa-eye"></i>
                             </a>
                         @endcan
-                        @can('edit-GroupeController')
+                        @can('edit-groupe')
                             <a href="{{ route('groupes.edit', $groupe) }}" class="btn btn-sm btn-default">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endcan
-                        @can('destroy-GroupeController')
+                        @can('destroy-groupe')
                             <form action="{{ route('groupes.destroy', $groupe) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
@@ -44,7 +44,7 @@
 
 <div class="d-md-flex justify-content-between align-items-center p-2">
     <div class="d-flex align-items-center mb-2 ml-2 mt-2">
-        @can('import-GroupeController')
+        @can('import-groupe')
             <form action="{{ route('groupes.import') }}" method="post" class="mt-2" enctype="multipart/form-data"
                 id="importForm">
                 @csrf
@@ -55,7 +55,7 @@
                 <input type="file" id="upload" name="file" style="display:none;" onchange="submitForm()" />
             </form>
         @endcan
-        @can('export-GroupeController')
+        @can('export-groupe')
             <form class="">
                 <a href="{{ route('groupes.export') }}" class="btn btn-default btn-sm mt-0 mx-2">
                     <i class="fas fa-file-export"></i>

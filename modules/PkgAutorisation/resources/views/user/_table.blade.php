@@ -15,17 +15,17 @@
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->password }}</td>
                     <td class="text-center">
-                        @can('show-UserController')
+                        @can('show-user')
                             <a href="{{ route('users.show', $user) }}" class="btn btn-default btn-sm">
                                 <i class="far fa-eye"></i>
                             </a>
                         @endcan
-                        @can('edit-UserController')
+                        @can('edit-user')
                             <a href="{{ route('users.edit', $user) }}" class="btn btn-sm btn-default">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endcan
-                        @can('destroy-UserController')
+                        @can('destroy-user')
                             <form action="{{ route('users.destroy', $user) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
@@ -44,7 +44,7 @@
 
 <div class="d-md-flex justify-content-between align-items-center p-2">
     <div class="d-flex align-items-center mb-2 ml-2 mt-2">
-        @can('import-UserController')
+        @can('import-user')
             <form action="{{ route('users.import') }}" method="post" class="mt-2" enctype="multipart/form-data"
                 id="importForm">
                 @csrf
@@ -55,7 +55,7 @@
                 <input type="file" id="upload" name="file" style="display:none;" onchange="submitForm()" />
             </form>
         @endcan
-        @can('export-UserController')
+        @can('export-user')
             <form class="">
                 <a href="{{ route('users.export') }}" class="btn btn-default btn-sm mt-0 mx-2">
                     <i class="fas fa-file-export"></i>

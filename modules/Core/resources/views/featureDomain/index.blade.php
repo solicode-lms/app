@@ -19,7 +19,7 @@
                 </div>
                 <div class="col-sm-6">
                     <div class="float-sm-right">
-                        @can('create-FeatureDomainController')
+                        @can('create-featureDomain')
                             <a href="{{ route('featureDomains.create') }}" class="btn btn-info">
                                 <i class="fas fa-plus"></i>
                                 {{ curd_index_add_label('Core::featureDomain') }}

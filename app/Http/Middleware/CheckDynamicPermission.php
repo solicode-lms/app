@@ -21,6 +21,9 @@ class CheckDynamicPermission
         $action = $request->route()->getActionName();
         [$controller, $method] = explode('@', class_basename($action));
     
+        // Supprimer "Controller" du nom du contrôleur
+        $controller = lcfirst(preg_replace('/Controller$/', '', $controller));
+
         // Construire dynamiquement le nom de la permission
         $permission = "{$method}-{$controller}";
     

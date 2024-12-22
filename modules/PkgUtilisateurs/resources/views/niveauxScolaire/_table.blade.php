@@ -15,17 +15,17 @@
                     <td>{{ $niveauxScolaire->nom }}</td>
                     <td>{{ $niveauxScolaire->description }}</td>
                     <td class="text-center">
-                        @can('show-NiveauxScolaireController')
+                        @can('show-niveauxScolaire')
                             <a href="{{ route('niveauxScolaires.show', $niveauxScolaire) }}" class="btn btn-default btn-sm">
                                 <i class="far fa-eye"></i>
                             </a>
                         @endcan
-                        @can('edit-NiveauxScolaireController')
+                        @can('edit-niveauxScolaire')
                             <a href="{{ route('niveauxScolaires.edit', $niveauxScolaire) }}" class="btn btn-sm btn-default">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endcan
-                        @can('destroy-NiveauxScolaireController')
+                        @can('destroy-niveauxScolaire')
                             <form action="{{ route('niveauxScolaires.destroy', $niveauxScolaire) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
@@ -44,7 +44,7 @@
 
 <div class="d-md-flex justify-content-between align-items-center p-2">
     <div class="d-flex align-items-center mb-2 ml-2 mt-2">
-        @can('import-NiveauxScolaireController')
+        @can('import-niveauxScolaire')
             <form action="{{ route('niveauxScolaires.import') }}" method="post" class="mt-2" enctype="multipart/form-data"
                 id="importForm">
                 @csrf
@@ -55,7 +55,7 @@
                 <input type="file" id="upload" name="file" style="display:none;" onchange="submitForm()" />
             </form>
         @endcan
-        @can('export-NiveauxScolaireController')
+        @can('export-niveauxScolaire')
             <form class="">
                 <a href="{{ route('niveauxScolaires.export') }}" class="btn btn-default btn-sm mt-0 mx-2">
                     <i class="fas fa-file-export"></i>
