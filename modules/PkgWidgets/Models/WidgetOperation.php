@@ -17,7 +17,7 @@ class WidgetOperation extends Model
 
     public function __toString()
     {
-        return $this->id;
+        return $this->operation;
     }
 
 }

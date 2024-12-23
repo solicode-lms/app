@@ -178,7 +178,7 @@
             fieldId: 'operation_id',
             fetchUrl: "{{ route('widgetOperations.all') }}",
             selectedValue: {{ $item->operation_id ? $item->operation_id : 'undefined' }},
-            fieldValue: 'id'
+            fieldValue: 'operation'
         },
         
         {
