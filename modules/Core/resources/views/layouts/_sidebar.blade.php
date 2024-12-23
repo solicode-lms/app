@@ -28,6 +28,12 @@
             </a>
         </li>
         <li class="nav-item">
+            <a href="{{ route('sysModels.index') }}" class="nav-link {{ Request::is('Core/sysModels') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-table"></i>
+                <p>SysModels</p>
+            </a>
+        </li>
+        <li class="nav-item">
             <a href="{{ route('sysModules.index') }}" class="nav-link {{ Request::is('Core/sysModules') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-table"></i>
                 <p>SysModules</p>

@@ -9,6 +9,24 @@
         </p>
     </a>
     <ul class="nav nav-treeview">
+        <li class="nav-item">
+            <a href="{{ route('widgets.index') }}" class="nav-link {{ Request::is('PkgWidgets/widgets') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-table"></i>
+                <p>Widgets</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ route('widgetOperations.index') }}" class="nav-link {{ Request::is('PkgWidgets/widgetOperations') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-table"></i>
+                <p>WidgetOperations</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ route('widgetTypes.index') }}" class="nav-link {{ Request::is('PkgWidgets/widgetTypes') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-table"></i>
+                <p>WidgetTypes</p>
+            </a>
+        </li>
     </ul>
 </li>
 
