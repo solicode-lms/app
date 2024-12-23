@@ -178,18 +178,18 @@ class WidgetService
         }
 
         // Limiter les résultats
-        if (!empty($query['limit'])) {
-            $queryBuilder->limit($query['limit']);
-        }
-
-        // Exécuter l’opération
         return match ($query['operation'] ?? 'get') {
             'count' => $queryBuilder->count(),
             'sum' => $queryBuilder->sum($query['column'] ?? '*'),
             'getGroupedByColumn' => $queryBuilder->get(),
             default => $queryBuilder->get(),
         };
-    }
+    }     if (!empty($query['limit'])) {
+            $queryBuilder->limit($query['limit']);
+        }
+
+        // Exécuter l’opération
+   
 }
 ```
 

@@ -20,8 +20,20 @@
             <!-- Main content -->
             <div class="content">
                 <div class="container-fluid">
+
+
+
+
+
                     <!-- Overview boxes -->
                     <div class="row">
+
+                    <!-- Afficher chaque widget -->
+                    @foreach ($widgets as $widget)
+                        <!-- Inclure une vue spécifique au type de widget -->
+                        @include('PkgWidgets::widget.types.' . $widget->widgetType->type, ['widget' => $widget])
+                    @endforeach
+
                         <!-- Box 1 -->
                         <div class="col-lg-3 col-6">
                             <div class="small-box bg-info">
@@ -35,6 +47,8 @@
                                 <a href="posts.html" class="small-box-footer">Voir les détails <i class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
+
+
                         <!-- Box 2 -->
                         <div class="col-lg-3 col-6">
                             <div class="small-box bg-success">
