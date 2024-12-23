@@ -27,11 +27,11 @@ Schema::create('widget_types', function (Blueprint $table) {
 
 ---
 
-#### **1.2. Table `model_classes`**
+#### **1.2. Table `sys_models`**
 Liste les modèles Laravel disponibles.
 
 ```php
-Schema::create('model_classes', function (Blueprint $table) {
+Schema::create('sys_models', function (Blueprint $table) {
     $table->id();
     $table->string('model'); // Exemple : App\Models\Article
     $table->string('description')->nullable();
@@ -52,7 +52,7 @@ Schema::create('model_classes', function (Blueprint $table) {
 Liste des opérations supportées.
 
 ```php
-Schema::create('operations', function (Blueprint $table) {
+Schema::create('widget_operations', function (Blueprint $table) {
     $table->id();
     $table->string('operation'); // Exemple : count, sum, group_by
     $table->string('description')->nullable();
@@ -77,7 +77,7 @@ Schema::create('widgets', function (Blueprint $table) {
     $table->id();
     $table->string('name'); // Nom du widget
     $table->foreignId('type_id')->constrained('widget_types')->onDelete('cascade');
-    $table->foreignId('model_id')->constrained('model_classes')->onDelete('cascade');
+    $table->foreignId('model_id')->constrained('sys_models')->onDelete('cascade');
     $table->foreignId('operation_id')->constrained('operations')->onDelete('cascade');
     $table->string('color')->nullable();
     $table->string('icon')->nullable();
@@ -120,7 +120,7 @@ class WidgetController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'type_id' => 'required|exists:widget_types,id',
-            'model_id' => 'required|exists:model_classes,id',
+            'model_id' => 'required|exists:sys_models,id',
             'operation_id' => 'required|exists:operations,id',
             'parameters' => 'nullable|array',
         ]);
