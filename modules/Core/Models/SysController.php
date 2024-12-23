@@ -22,7 +22,7 @@ class SysController extends Model
 
     public function __toString()
     {
-        return $this->id;
+        return $this->name;
     }
 
 }
