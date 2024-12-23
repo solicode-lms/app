@@ -171,7 +171,7 @@
             fieldId: 'model_id',
             fetchUrl: "{{ route('sysModels.all') }}",
             selectedValue: {{ $item->model_id ? $item->model_id : 'undefined' }},
-            fieldValue: 'id'
+            fieldValue: 'name'
         },
         
         {

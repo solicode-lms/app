@@ -17,7 +17,7 @@
                 <tr>
                     <td>{{ $widget->name }}</td>
                     <td>{{ $widget->widgetType->type ?? '-' }}</td>
-                    <td>{{ $widget->sysModel->id ?? '-' }}</td>
+                    <td>{{ $widget->sysModel->name ?? '-' }}</td>
                     <td>{{ $widget->widgetOperation->operation ?? '-' }}</td>
                     <td>{{ $widget->icon }}</td>
                     <td class="text-center">

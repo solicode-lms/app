@@ -25,6 +25,7 @@ class SysModelExport implements FromCollection, WithHeadings, ShouldAutoSize, Wi
     public function headings(): array
     {
         return [
+            'name',
             'model',
             'description',
         ];
@@ -34,6 +35,7 @@ class SysModelExport implements FromCollection, WithHeadings, ShouldAutoSize, Wi
     {
         return $this->data->map(function ($sysModel) {
             return [
+                'name' => $sysModel->name,
                 'model' => $sysModel->model,
                 'description' => $sysModel->description,
             ];

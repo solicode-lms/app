@@ -11,13 +11,13 @@ class SysModel extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['model', 'description'];
+    protected $fillable = ['name', 'model', 'description'];
 
 
 
     public function __toString()
     {
-        return $this->id;
+        return $this->name;
     }
 
 }

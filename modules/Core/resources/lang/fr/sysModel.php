@@ -5,6 +5,7 @@
 return [
     'singular' => 'SysModel',
     'plural' => 'SysModels',
+    'name' => 'name',
     'model' => 'model',
     'description' => 'description',
 ];

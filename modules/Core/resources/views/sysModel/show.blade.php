@@ -25,6 +25,10 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="col-sm-12">
+                                <label for="name">{{ ucfirst(__('Core::sysModel.name')) }}:</label>
+                                <p>{{ $item->name }}</p>
+                            </div>
+                            <div class="col-sm-12">
                                 <label for="model">{{ ucfirst(__('Core::sysModel.model')) }}:</label>
                                 <p>{{ $item->model }}</p>
                             </div>

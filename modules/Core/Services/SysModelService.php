@@ -19,6 +19,7 @@ class SysModelService extends BaseService
      * @var array
      */
     protected $fieldsSearchable = [
+        'name',
         'model',
         'description'
     ];

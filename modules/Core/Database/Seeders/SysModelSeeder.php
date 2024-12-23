@@ -46,8 +46,9 @@ class SysModelSeeder extends Seeder
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
                 SysModel::create([
-                    "model" => $data[0] ,
-                    "description" => $data[1] 
+                    "name" => $data[0] ,
+                    "model" => $data[1] ,
+                    "description" => $data[2] 
                 ]);
             }
             $firstline = false;

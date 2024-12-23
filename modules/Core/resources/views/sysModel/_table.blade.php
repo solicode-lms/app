@@ -4,6 +4,7 @@
     <table class="table table-striped text-nowrap">
         <thead>
             <tr>
+                <th>{{ ucfirst(__('Core::sysModel.name')) }}</th>
                 <th>{{ ucfirst(__('Core::sysModel.description')) }}</th>
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
@@ -11,6 +12,7 @@
         <tbody>
             @foreach ($data as $sysModel)
                 <tr>
+                    <td>{{ $sysModel->name }}</td>
                     <td>{{ $sysModel->description }}</td>
                     <td class="text-center">
                         @can('show-sysModel')

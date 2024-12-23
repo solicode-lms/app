@@ -21,7 +21,7 @@ class SysModelImport implements ToModel, WithHeadingRow
      */
     private function recordExists(array $row): bool
     {
-        return SysModel::where('id', $row['id'])->exists();
+        return SysModel::where('name', $row['name'])->exists();
     }
 
     /**
@@ -38,6 +38,7 @@ class SysModelImport implements ToModel, WithHeadingRow
 
         // Crée un nouvel enregistrement à partir des données importées
         return new SysModel([
+            'name' => $row['name'],
             'model' => $row['model'],
             'description' => $row['description'],
         ]);

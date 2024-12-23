@@ -10,6 +10,25 @@
     <div class="card-body">
         
         <div class="form-group">
+            <label for="name">
+                {{ ucfirst(__('Core::sysModel.name')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <input
+                name="name"
+                type="input"
+                class="form-control"
+                id="name"
+                placeholder="{{ __('Core::sysModel.name') }}"
+                value="{{ $item ? $item->name : old('name') }}">
+            @error('name')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+        </div>
+        
+        <div class="form-group">
             <label for="model">
                 {{ ucfirst(__('Core::sysModel.model')) }}
                 
