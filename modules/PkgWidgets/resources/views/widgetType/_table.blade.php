@@ -4,6 +4,7 @@
     <table class="table table-striped text-nowrap">
         <thead>
             <tr>
+                <th>{{ ucfirst(__('PkgWidgets::widgetType.type')) }}</th>
                 <th>{{ ucfirst(__('PkgWidgets::widgetType.description')) }}</th>
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
@@ -11,6 +12,7 @@
         <tbody>
             @foreach ($data as $widgetType)
                 <tr>
+                    <td>{{ $widgetType->type }}</td>
                     <td>{{ $widgetType->description }}</td>
                     <td class="text-center">
                         @can('show-widgetType')

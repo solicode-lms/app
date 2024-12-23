@@ -1,1 +1,4 @@
 model,description
+Modules\PkgUtilisateurs\Models\Formateur,Représente les articles du blog
+Modules\PkgUtilisateurs\Models\Ville,Représente les utilisateurs de l'application
+Modules\PkgUtilisateurs\Models\Apprenant,Représente les utilisateurs de l'application

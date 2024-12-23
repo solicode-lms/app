@@ -9,7 +9,6 @@
                 <th>{{ ucfirst(__('Core::sysModel.singular')) }}</th>
                 <th>{{ ucfirst(__('PkgWidgets::widgetOperation.singular')) }}</th>
                 <th>{{ ucfirst(__('PkgWidgets::widget.icon')) }}</th>
-                <th>{{ ucfirst(__('PkgWidgets::widget.label')) }}</th>
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -17,11 +16,10 @@
             @foreach ($data as $widget)
                 <tr>
                     <td>{{ $widget->name }}</td>
-                    <td>{{ $widget->widgetType->id ?? '-' }}</td>
+                    <td>{{ $widget->widgetType->type ?? '-' }}</td>
                     <td>{{ $widget->sysModel->id ?? '-' }}</td>
                     <td>{{ $widget->widgetOperation->id ?? '-' }}</td>
                     <td>{{ $widget->icon }}</td>
-                    <td>{{ $widget->label }}</td>
                     <td class="text-center">
                         @can('show-widget')
                             <a href="{{ route('widgets.show', $widget) }}" class="btn btn-default btn-sm">

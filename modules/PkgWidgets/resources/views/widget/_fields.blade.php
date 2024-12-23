@@ -185,7 +185,7 @@
             fieldId: 'type_id',
             fetchUrl: "{{ route('widgetTypes.all') }}",
             selectedValue: {{ $item->type_id ? $item->type_id : 'undefined' }},
-            fieldValue: 'id'
+            fieldValue: 'type'
         }
         
     ];
