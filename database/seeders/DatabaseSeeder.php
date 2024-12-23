@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // Chemin de base où se trouvent les modules
-        $baseModulePath = base_path('Modules'); // Adapter au chemin des modules
+        $baseModulePath = base_path('modules'); // Adapter au chemin des modules
         $modules = File::directories($baseModulePath);
 
         $allSeeders = collect();
