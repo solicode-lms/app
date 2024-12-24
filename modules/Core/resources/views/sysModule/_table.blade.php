@@ -7,6 +7,7 @@
                 <th>{{ ucfirst(__('Core::sysModule.name')) }}</th>
                 <th>{{ ucfirst(__('Core::sysModule.description')) }}</th>
                 <th>{{ ucfirst(__('Core::sysModule.is_active')) }}</th>
+                <th>{{ ucfirst(__('Core::sysColor.singular')) }}</th>
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -16,6 +17,7 @@
                     <td>{{ $sysModule->name }}</td>
                     <td>{{ $sysModule->description }}</td>
                     <td>{{ $sysModule->is_active }}</td>
+                    <td>{{ $sysModule->sysColor->name ?? '-' }}</td>
                     <td class="text-center">
                         @can('show-sysModule')
                             <a href="{{ route('sysModules.show', $sysModule) }}" class="btn btn-default btn-sm">

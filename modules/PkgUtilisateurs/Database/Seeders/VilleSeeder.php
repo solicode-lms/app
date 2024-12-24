@@ -21,7 +21,7 @@ use Modules\PkgUtilisateurs\Models\Ville;
 
 class VilleSeeder extends Seeder
 {
-    public static int $order = 12;
+    public static int $order = 13;
 
     public function run(): void
     {

@@ -9,4 +9,5 @@ return [
     'model' => 'model',
     'description' => 'description',
     'module_id' => 'module_id',
+    'color_id' => 'color_id',
 ];

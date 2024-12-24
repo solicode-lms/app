@@ -69,6 +69,21 @@
 
         
         <div class="form-group">
+            <label for="color_id">
+                {{ ucfirst(__('Core::sysColor.singular')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <select id="color_id" name="color_id" class="form-control">
+                <option value="">Sélectionnez une option</option>
+            </select>
+            @error('color_id')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+        </div>
+        
+        <div class="form-group">
             <label for="module_id">
                 {{ ucfirst(__('Core::sysModule.singular')) }}
                 
@@ -85,28 +100,6 @@
         
 
         
-        <div class="form-group">
-            <label for="sysColors">
-                {{ ucfirst(__('Core::SysColor.plural')) }}
-            </label>
-            <select
-                id="sysColors"
-                name="sysColors[]"
-                class="form-control select2"
-                multiple="multiple">
-                @foreach ($sysColors as $sysColor)
-                    <option value="{{ $sysColor->id }}"
-                        {{ (isset($item) && $item->sysColors && $item->sysColors->contains('id', $sysColor->id)) || (is_array(old('sysColors')) && in_array($sysColor->id, old('sysColors'))) ? 'selected' : '' }}>
-                        {{ $sysColor->name }}
-                    </option>
-                @endforeach
-            </select>
-            @error('sysColors')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-
-        </div>
-        
 
 
 
@@ -120,6 +113,13 @@
 
 <script>
     window.dynamicSelectManyToOne = [
+        
+        {
+            fieldId: 'color_id',
+            fetchUrl: "{{ route('sysColors.all') }}",
+            selectedValue: {{ $item->color_id ? $item->color_id : 'undefined' }},
+            fieldValue: 'name'
+        },
         
         {
             fieldId: 'module_id',

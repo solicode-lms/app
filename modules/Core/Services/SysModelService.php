@@ -22,7 +22,8 @@ class SysModelService extends BaseService
         'name',
         'model',
         'description',
-        'module_id'
+        'module_id',
+        'color_id'
     ];
 
     /**

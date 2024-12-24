@@ -24,7 +24,8 @@ class SysModuleService extends BaseService
         'description',
         'is_active',
         'order',
-        'version'
+        'version',
+        'color_id'
     ];
 
     /**

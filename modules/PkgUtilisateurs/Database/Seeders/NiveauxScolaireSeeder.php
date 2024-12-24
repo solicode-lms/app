@@ -21,7 +21,7 @@ use Modules\PkgUtilisateurs\Models\NiveauxScolaire;
 
 class NiveauxScolaireSeeder extends Seeder
 {
-    public static int $order = 11;
+    public static int $order = 12;
 
     public function run(): void
     {

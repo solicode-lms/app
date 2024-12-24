@@ -7,7 +7,6 @@ namespace Modules\Core\Controllers;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Requests\SysModuleRequest;
 use Modules\Core\Services\SysModuleService;
-use Modules\Core\Services\SysColorService;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\Core\App\Exports\SysModuleExport;
@@ -16,13 +15,11 @@ use Modules\Core\App\Imports\SysModuleImport;
 class SysModuleController extends AdminController
 {
     protected $sysModuleService;
-    protected $sysColorService;
 
-    public function __construct(SysModuleService $sysModuleService, SysColorService $sysColorService)
+    public function __construct(SysModuleService $sysModuleService)
     {
         parent::__construct();
         $this->sysModuleService = $sysModuleService;
-        $this->sysColorService = $sysColorService;
     }
 
     public function index(Request $request)
@@ -48,8 +45,7 @@ class SysModuleController extends AdminController
     public function create()
     {
         $item = $this->sysModuleService->createInstance();
-        $sysColors = $this->sysColorService->all();
-        return view('Core::sysModule.create', compact('item', 'sysColors'));
+        return view('Core::sysModule.create', compact('item'));
     }
 
     public function store(SysModuleRequest $request)
@@ -57,9 +53,6 @@ class SysModuleController extends AdminController
         $validatedData = $request->validated();
         $sysModule = $this->sysModuleService->create($validatedData);
 
-        if ($request->has('syscolors')) {
-            $sysModule->syscolors()->sync($request->input('syscolors'));
-        }
 
         return redirect()->route('sysModules.index')->with('success', __('Core::msg.addSuccess', [
             'entityToString' => $sysModule,
@@ -75,8 +68,7 @@ class SysModuleController extends AdminController
     public function edit(string $id)
     {
         $item = $this->sysModuleService->find($id);
-        $sysColors = $this->sysColorService->all();
-        return view('Core::sysModule.edit', compact('item', 'sysColors'));
+        return view('Core::sysModule.edit', compact('item'));
     }
 
     public function update(SysModuleRequest $request, string $id)
@@ -85,9 +77,6 @@ class SysModuleController extends AdminController
         $sysmodule = $this->sysModuleService->update($id, $validatedData);
 
 
-        if ($request->has('syscolors')) {
-            $sysModule->syscolors()->sync($request->input('syscolors'));
-        }
 
         return redirect()->route('sysmodules.index')->with(
             'success',

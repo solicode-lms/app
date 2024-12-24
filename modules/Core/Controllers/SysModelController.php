@@ -7,7 +7,6 @@ namespace Modules\Core\Controllers;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Requests\SysModelRequest;
 use Modules\Core\Services\SysModelService;
-use Modules\Core\Services\SysColorService;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\Core\App\Exports\SysModelExport;
@@ -16,13 +15,11 @@ use Modules\Core\App\Imports\SysModelImport;
 class SysModelController extends AdminController
 {
     protected $sysModelService;
-    protected $sysColorService;
 
-    public function __construct(SysModelService $sysModelService, SysColorService $sysColorService)
+    public function __construct(SysModelService $sysModelService)
     {
         parent::__construct();
         $this->sysModelService = $sysModelService;
-        $this->sysColorService = $sysColorService;
     }
 
     public function index(Request $request)
@@ -48,8 +45,7 @@ class SysModelController extends AdminController
     public function create()
     {
         $item = $this->sysModelService->createInstance();
-        $sysColors = $this->sysColorService->all();
-        return view('Core::sysModel.create', compact('item', 'sysColors'));
+        return view('Core::sysModel.create', compact('item'));
     }
 
     public function store(SysModelRequest $request)
@@ -57,9 +53,6 @@ class SysModelController extends AdminController
         $validatedData = $request->validated();
         $sysModel = $this->sysModelService->create($validatedData);
 
-        if ($request->has('syscolors')) {
-            $sysModel->syscolors()->sync($request->input('syscolors'));
-        }
 
         return redirect()->route('sysModels.index')->with('success', __('Core::msg.addSuccess', [
             'entityToString' => $sysModel,
@@ -75,8 +68,7 @@ class SysModelController extends AdminController
     public function edit(string $id)
     {
         $item = $this->sysModelService->find($id);
-        $sysColors = $this->sysColorService->all();
-        return view('Core::sysModel.edit', compact('item', 'sysColors'));
+        return view('Core::sysModel.edit', compact('item'));
     }
 
     public function update(SysModelRequest $request, string $id)
@@ -85,9 +77,6 @@ class SysModelController extends AdminController
         $sysmodel = $this->sysModelService->update($id, $validatedData);
 
 
-        if ($request->has('syscolors')) {
-            $sysModel->syscolors()->sync($request->input('syscolors'));
-        }
 
         return redirect()->route('sysmodels.index')->with(
             'success',

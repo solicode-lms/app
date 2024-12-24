@@ -29,6 +29,7 @@ class SysModelExport implements FromCollection, WithHeadings, ShouldAutoSize, Wi
             'model',
             'description',
             'module_id',
+            'color_id',
         ];
     }
 
@@ -40,6 +41,7 @@ class SysModelExport implements FromCollection, WithHeadings, ShouldAutoSize, Wi
                 'model' => $sysModel->model,
                 'description' => $sysModel->description,
                 'module_id' => $sysModel->module_id,
+                'color_id' => $sysModel->color_id,
             ];
         });
     }

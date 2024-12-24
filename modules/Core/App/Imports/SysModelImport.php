@@ -42,6 +42,7 @@ class SysModelImport implements ToModel, WithHeadingRow
             'model' => $row['model'],
             'description' => $row['description'],
             'module_id' => $row['module_id'],
+            'color_id' => $row['color_id'],
         ]);
     }
 }

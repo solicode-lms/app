@@ -13,17 +13,17 @@ class SysModel extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'model', 'description', 'module_id'];
+    protected $fillable = ['name', 'model', 'description', 'module_id', 'color_id'];
 
+    public function sysColor()
+    {
+        return $this->belongsTo(SysColor::class, 'color_id', 'id');
+    }
     public function sysModule()
     {
         return $this->belongsTo(SysModule::class, 'module_id', 'id');
     }
 
-    public function sysColors()
-    {
-        return $this->belongsToMany(SysColor::class, 'model_color');
-    }
 
     public function __toString()
     {

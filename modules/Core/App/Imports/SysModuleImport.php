@@ -44,6 +44,7 @@ class SysModuleImport implements ToModel, WithHeadingRow
             'is_active' => $row['is_active'],
             'order' => $row['order'],
             'version' => $row['version'],
+            'color_id' => $row['color_id'],
         ]);
     }
 }

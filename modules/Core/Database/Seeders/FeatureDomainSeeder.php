@@ -20,7 +20,7 @@ use Modules\PkgAutorisation\Models\User;
 
 class FeatureDomainSeeder extends Seeder
 {
-    public static int $order = 8;
+    public static int $order = 9;
 
     public function run(): void
     {

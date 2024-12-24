@@ -21,7 +21,7 @@ use Modules\PkgAutorisation\Models\User;
 
 class SysColorSeeder extends Seeder
 {
-    public static int $order = 32;
+    public static int $order = 6;
 
     public function run(): void
     {
