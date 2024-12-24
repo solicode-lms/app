@@ -87,7 +87,7 @@
         
         <div class="form-group">
             <label for="sysColors">
-                {{ ucfirst(__('default::SysColor.plural')) }}
+                {{ ucfirst(__('Core::SysColor.plural')) }}
             </label>
             <select
                 id="sysColors"
