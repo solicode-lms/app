@@ -18,6 +18,7 @@ class NiveauCompetenceController extends AdminController
 
     public function __construct(NiveauCompetenceService $niveauCompetenceService)
     {
+        parent::__construct();
         $this->niveauCompetenceService = $niveauCompetenceService;
     }
 
@@ -33,7 +34,7 @@ class NiveauCompetenceController extends AdminController
         // Gestion AJAX
         if ($request->ajax()) {
             return response()->json([
-                'html' => view('PkgCompetences::_niveauCompetence.table', compact('data'))->render()
+                'html' => view('PkgCompetences::niveauCompetence._table', compact('data'))->render()
             ]);
         }
     

@@ -20,6 +20,7 @@ class UserController extends AdminController
 
     public function __construct(UserService $userService, RoleService $roleService)
     {
+        parent::__construct();
         $this->userService = $userService;
         $this->roleService = $roleService;
     }
@@ -36,7 +37,7 @@ class UserController extends AdminController
         // Gestion AJAX
         if ($request->ajax()) {
             return response()->json([
-                'html' => view('PkgAutorisation::_user.table', compact('data'))->render()
+                'html' => view('PkgAutorisation::user._table', compact('data'))->render()
             ]);
         }
     

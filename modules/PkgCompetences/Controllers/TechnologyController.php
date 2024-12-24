@@ -20,6 +20,7 @@ class TechnologyController extends AdminController
 
     public function __construct(TechnologyService $technologyService, CompetenceService $competenceService)
     {
+        parent::__construct();
         $this->technologyService = $technologyService;
         $this->competenceService = $competenceService;
     }
@@ -36,7 +37,7 @@ class TechnologyController extends AdminController
         // Gestion AJAX
         if ($request->ajax()) {
             return response()->json([
-                'html' => view('PkgCompetences::_technology.table', compact('data'))->render()
+                'html' => view('PkgCompetences::technology._table', compact('data'))->render()
             ]);
         }
     

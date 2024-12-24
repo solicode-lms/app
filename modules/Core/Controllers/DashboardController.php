@@ -3,6 +3,8 @@
 namespace Modules\Core\Controllers;
 
 use Modules\Core\Controllers\Base\AppController;
+use Modules\PkgWidgets\Models\Widget;
+use Modules\PkgWidgets\Services\WidgetService;
 
 /**
  * DashboardController est responsable de la gestion de la logique et des affichages liés au tableau de bord de l'application.
@@ -12,18 +14,44 @@ use Modules\Core\Controllers\Base\AppController;
  */
 class DashboardController extends AppController
 {
+    protected $widgetService;
+
+        /**
+     * Injecter le service dans le contrôleur.
+     *
+     * @param WidgetService $widgetService
+     */
+    public function __construct(WidgetService $widgetService)
+    {
+        $this->widgetService = $widgetService;
+    }
+ 
+
     /**
-     * Affiche la page principale du tableau de bord.
-     * 
-     * - Charge la vue `dashboard.index`, qui contient l'interface utilisateur du tableau de bord.
-     * - Cette méthode peut être étendue pour ajouter des données dynamiques à la vue, comme des statistiques ou des notifications.
-     * 
-     * @return \Illuminate\View\View La vue du tableau de bord.
+     * Afficher le tableau de bord avec les widgets.
+     *
+     * @return \Illuminate\View\View
      */
     public function index()
     {
-        return view('Core::dashboard.index'); // Charge la vue `dashboard/index.blade.php`.
+        // Charger tous les widgets configurés avec leurs relations
+        $widgets = Widget::with(['widgetType', 'sysModel', 'widgetOperation'])->get();
+
+        // Exécuter la requête de chaque widget et récupérer les données
+        foreach ($widgets as $widget) {
+            try {
+                $widget->data = $this->widgetService->executeWidget($widget);
+            } catch (\Exception $e) {
+                // Si une erreur survient, capturer l'exception
+                $widget->data = ['error' => $e->getMessage()];
+            }
+        }
+
+        // Retourner la vue avec les widgets
+       
+        return view('Core::dashboard.index', compact('widgets')); // Charge la vue `dashboard/index.blade.php`.
     }
+
 
     public function adminlte_lab(){
         return view('Core::dashboard.adminlte-lab');

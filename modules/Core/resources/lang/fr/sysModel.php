@@ -1,0 +1,11 @@
+<?php
+// Ce fichier est maintenu par ESSARRAJ Fouad
+
+
+return [
+    'singular' => 'SysModel',
+    'plural' => 'SysModels',
+    'name' => 'name',
+    'model' => 'model',
+    'description' => 'description',
+];

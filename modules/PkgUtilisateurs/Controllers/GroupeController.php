@@ -22,6 +22,7 @@ class GroupeController extends AdminController
 
     public function __construct(GroupeService $groupeService, ApprenantService $apprenantService, FormateurService $formateurService)
     {
+        parent::__construct();
         $this->groupeService = $groupeService;
         $this->apprenantService = $apprenantService;
         $this->formateurService = $formateurService;
@@ -39,7 +40,7 @@ class GroupeController extends AdminController
         // Gestion AJAX
         if ($request->ajax()) {
             return response()->json([
-                'html' => view('PkgUtilisateurs::_groupe.table', compact('data'))->render()
+                'html' => view('PkgUtilisateurs::groupe._table', compact('data'))->render()
             ]);
         }
     

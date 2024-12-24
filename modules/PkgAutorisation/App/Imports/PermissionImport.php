@@ -40,6 +40,7 @@ class PermissionImport implements ToModel, WithHeadingRow
         return new Permission([
             'name' => $row['name'],
             'guard_name' => $row['guard_name'],
+            'controller_id' => $row['controller_id'],
         ]);
     }
 }

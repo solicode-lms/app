@@ -19,7 +19,7 @@
                 </div>
                 <div class="col-sm-6">
                     <div class="float-sm-right">
-                        @can('create-ApprenantController')
+                        @can('create-apprenant')
                             <a href="{{ route('apprenants.create') }}" class="btn btn-info">
                                 <i class="fas fa-plus"></i>
                                 {{ curd_index_add_label('PkgUtilisateurs::apprenant') }}

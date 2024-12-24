@@ -22,6 +22,7 @@ class FormateurController extends AdminController
 
     public function __construct(FormateurService $formateurService, GroupeService $groupeService, SpecialiteService $specialiteService)
     {
+        parent::__construct();
         $this->formateurService = $formateurService;
         $this->groupeService = $groupeService;
         $this->specialiteService = $specialiteService;
@@ -39,7 +40,7 @@ class FormateurController extends AdminController
         // Gestion AJAX
         if ($request->ajax()) {
             return response()->json([
-                'html' => view('PkgUtilisateurs::_formateur.table', compact('data'))->render()
+                'html' => view('PkgUtilisateurs::formateur._table', compact('data'))->render()
             ]);
         }
     

@@ -32,6 +32,10 @@
                                 <label for="guard_name">{{ ucfirst(__('PkgAutorisation::permission.guard_name')) }}:</label>
                                 <p>{{ $item->guard_name }}</p>
                             </div>
+                            <div class="col-sm-12">
+                                <label for="controller_id">{{ ucfirst(__('PkgAutorisation::permission.controller_id')) }}:</label>
+                                <p>{{ $item->controller_id }}</p>
+                            </div>
                         </div>
                     </div>
                 </div>

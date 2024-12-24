@@ -1,0 +1,7 @@
+name,type_id,model_id,operation_id,color,icon,label,parameters
+Nombre des formateurs,1,1,1,primary,fa-newspaper,Nombre total d'articles,"{}"
+Articles Publiés,1,1,1,success,fa-check-circle,Articles publiés,"{""published"":true}"
+Articles par Catégorie,2,1,3,info,fa-chart-bar,Articles par catégorie,"{""group_by"":""category_id""}"
+Utilisateurs Inscrits,1,2,1,primary,fa-users,Nombre d'utilisateurs inscrits,"{}"
+Commandes totales,1,3,1,warning,fa-shopping-cart,Nombre total de commandes,"{}"
+Commandes par Statut,2,3,3,info,fa-layer-group,Commandes par statut,"{""group_by"":""status""}"

@@ -27,7 +27,7 @@ class Formateur extends Model
 
     public function __toString()
     {
-        return $this->id;
+        return $this->nom;
     }
 
 }

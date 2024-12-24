@@ -1,0 +1,8 @@
+operation,description
+count,Compter les enregistrements
+sum,Calculer la somme d'une colonne
+getGroupedByColumn,Grouper les résultats par une colonne
+average,Calculer la moyenne d'une colonne
+min,Trouver la valeur minimale d'une colonne
+max,Trouver la valeur maximale d'une colonne
+distinct,Compter les valeurs distinctes d'une colonne
