@@ -21,7 +21,8 @@ class SysModelService extends BaseService
     protected $fieldsSearchable = [
         'name',
         'model',
-        'description'
+        'description',
+        'module_id'
     ];
 
     /**

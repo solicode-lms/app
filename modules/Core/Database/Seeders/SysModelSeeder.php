@@ -48,7 +48,8 @@ class SysModelSeeder extends Seeder
                 SysModel::create([
                     "name" => $data[0] ,
                     "model" => $data[1] ,
-                    "description" => $data[2] 
+                    "description" => $data[2] ,
+                    "module_id" => $data[3] 
                 ]);
             }
             $firstline = false;

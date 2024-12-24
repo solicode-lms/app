@@ -19,7 +19,8 @@ class SysModelRequest extends FormRequest
         return [
             'name' => 'required|max:255',
             'model' => 'required|max:255',
-            'description' => 'required|max:255'
+            'description' => 'required|max:255',
+            'module_id' => 'required'
         ];
     }
 
@@ -31,7 +32,9 @@ class SysModelRequest extends FormRequest
             'model.required' => __('validation.required', ['attribute' => __('PkgBlog::category.model')]),
             'model.max' => __('validation.modelMax'),
             'description.required' => __('validation.required', ['attribute' => __('PkgBlog::category.description')]),
-            'description.max' => __('validation.descriptionMax')
+            'description.max' => __('validation.descriptionMax'),
+            'module_id.required' => __('validation.required', ['attribute' => __('PkgBlog::category.module_id')]),
+            'module_id.max' => __('validation.module_idMax')
         ];
     }
 }

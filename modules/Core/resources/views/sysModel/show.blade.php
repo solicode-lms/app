@@ -36,6 +36,10 @@
                                 <label for="description">{{ ucfirst(__('Core::sysModel.description')) }}:</label>
                                 <p>{{ $item->description }}</p>
                             </div>
+                            <div class="col-sm-12">
+                                <label for="module_id">{{ ucfirst(__('Core::sysModel.module_id')) }}:</label>
+                                <p>{{ $item->module_id }}</p>
+                            </div>
                         </div>
                     </div>
                 </div>

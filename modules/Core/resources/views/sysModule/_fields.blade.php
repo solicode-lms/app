@@ -127,6 +127,28 @@
         
 
         
+        <div class="form-group">
+            <label for="sysColors">
+                {{ ucfirst(__('default::SysColor.plural')) }}
+            </label>
+            <select
+                id="sysColors"
+                name="sysColors[]"
+                class="form-control select2"
+                multiple="multiple">
+                @foreach ($sysColors as $sysColor)
+                    <option value="{{ $sysColor->id }}"
+                        {{ (isset($item) && $item->sysColors && $item->sysColors->contains('id', $sysColor->id)) || (is_array(old('sysColors')) && in_array($sysColor->id, old('sysColors'))) ? 'selected' : '' }}>
+                        {{ $sysColor->name }}
+                    </option>
+                @endforeach
+            </select>
+            @error('sysColors')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+
+        </div>
+        
 
 
 
