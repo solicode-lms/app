@@ -13,12 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('sys_models', function (Blueprint $table) {
+        Schema::create('model_color', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('model'); // Exemple : App\Models\Article
-            $table->string('description')->nullable();
-            $table->foreignId('module_id')->constrained('sys_modules')->onDelete('cascade'); // Clé étrangère vers sys_modules
+            $table->foreignId('sys_model_id')->constrained('sys_models')->onDelete('cascade');
+            $table->foreignId('sys_color_id')->constrained('sys_colors')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sys_models');
+        Schema::dropIfExists('model_color');
     }
 };

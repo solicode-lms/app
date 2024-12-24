@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -43,8 +44,12 @@ class AppServiceProvider extends ServiceProvider
             $providerClass = $this->getProviderClass($providerFile);
 
             // Vérifier si la classe existe avant de l'enregistrer.
+            // Vérifier si la classe existe avant de l'enregistrer.
             if (class_exists($providerClass)) {
                 $this->app->register($providerClass);
+                Log::info("ServiceProvider chargé : {$providerClass}");
+            } else {
+                Log::error("ServiceProvider non trouvé : {$providerClass}");
             }
         }
     }
@@ -57,20 +62,21 @@ class AppServiceProvider extends ServiceProvider
      */
     protected function getProviderClass(string $file): string
     {
-        
-        // Transformer le chemin de fichier en nom de classe PHP avec namespace
-        $relativePath = str_replace(base_path(), '', $file); // Obtenir le chemin relatif
-       
-        $relativePath = str_replace('/', '\\', $relativePath); // Convertir les / en \
-        $relativePath = trim($relativePath, '\\'); // Supprimer les \ en trop
-        $relativePath = str_replace('.php', '', $relativePath); 
-        // Remplacer uniquement "module" par "Module" au début du chemin
-       
-        if (substr($relativePath, 0, 7) === 'modules') {
-             $relativePath = 'Modules' . substr($relativePath, 7);
+        // Obtenir le chemin relatif à partir de base_path()
+        $relativePath = str_replace(base_path() . DIRECTORY_SEPARATOR, '', $file);
+    
+        // Normaliser les séparateurs de chemins en '\\' pour les namespaces
+        $relativePath = str_replace(['/', '\\'], '\\', $relativePath);
+    
+        // Supprimer l'extension .php
+        $relativePath = str_replace('.php', '', $relativePath);
+    
+        // Remplacer "modules" par "Modules" uniquement au début du chemin
+        if (str_starts_with($relativePath, 'modules\\')) {
+            $relativePath = 'Modules' . substr($relativePath, 7);
         }
     
-        // Exemple : Modules\PkgArticles\App\Providers\PkgArticlesServiceProvider
-        return  $relativePath;
+        return $relativePath;
     }
+    
 }
