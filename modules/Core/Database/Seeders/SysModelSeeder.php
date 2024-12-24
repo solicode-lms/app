@@ -1,8 +1,6 @@
 <?php
 // Charger dynamiquement les modèles
 
-
-
 namespace Modules\Core\Database\Seeders;
 
 use Illuminate\Database\Seeder;

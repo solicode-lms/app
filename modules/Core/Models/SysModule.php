@@ -32,4 +32,9 @@ class SysModule extends Model
         return $this->hasMany(FeatureDomain::class, 'module_id', 'id');
     }
 
+    public function sysColor()
+    {
+        return $this->belongsTo(SysColor::class, 'color_id', 'id');
+    }
+
 }

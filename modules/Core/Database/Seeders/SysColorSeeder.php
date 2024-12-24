@@ -1,6 +1,6 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
-
+// Il est exécuter par SysModyleSeeder
+// $this->seedFromCsv();
 
 
 namespace Modules\Core\Database\Seeders;
@@ -29,7 +29,10 @@ class SysColorSeeder extends Seeder
         $MembreRole = User::MEMBRE;
 
         // Ajouter les données à partir d'un fichier CSV
-        $this->seedFromCsv();
+
+        // Il est exécuter par SysModyleSeeder
+        // $this->seedFromCsv();
+
 
         // Ajouter le contrôleur, le domaine, les fonctionnalités et leurs permissions
         $this->addDefaultControllerDomainFeatures();
