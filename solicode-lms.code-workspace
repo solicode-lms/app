@@ -4,9 +4,6 @@
 			"path": "."
 		},
 		{
-			"path": "./modules"
-		},
-		{
 			"path": "../db_schemas/"
 		},
 		{
@@ -14,6 +11,9 @@
 		},
 		{
 			"path": "../../laravel-builders/gapp3"
+		},
+		{
+			"path": "./modules"
 		}
 	],
 	"settings": {
