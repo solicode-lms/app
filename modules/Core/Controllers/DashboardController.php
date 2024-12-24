@@ -40,8 +40,9 @@ class DashboardController extends AppController
         // Exécuter la requête de chaque widget et récupérer les données
         foreach ($widgets as $widget) {
             try {
+               
                 $widget->data = $this->widgetService->executeWidget($widget);
-                $widget->color = $widget->sysModel->sysColor->name;
+              
             } catch (\Exception $e) {
                 // Si une erreur survient, capturer l'exception
                 $widget->data = ['error' => $e->getMessage()];
