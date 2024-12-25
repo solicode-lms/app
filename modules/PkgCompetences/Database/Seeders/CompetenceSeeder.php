@@ -21,7 +21,7 @@ use Modules\PkgCompetences\Models\Competence;
 
 class CompetenceSeeder extends Seeder
 {
-    public static int $order = 23;
+    public static int $order = 24;
 
     public function run(): void
     {

@@ -1,7 +1,5 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
-
-
+// Charger dynamiquement les modèles
 
 namespace Modules\Core\Database\Seeders;
 
@@ -17,7 +15,8 @@ use Modules\Core\Models\SysModule;
 use Modules\PkgAutorisation\Models\Permission;
 use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgAutorisation\Models\User;
-
+use RecursiveIteratorIterator;
+use RecursiveDirectoryIterator;
 
 class SysModelSeeder extends Seeder
 {
@@ -29,7 +28,8 @@ class SysModelSeeder extends Seeder
         $MembreRole = User::MEMBRE;
 
         // Ajouter les données à partir d'un fichier CSV
-        $this->seedFromCsv();
+        // Charger dynamiquement les modèles
+        $this->seedFromModels();
 
         // Ajouter le contrôleur, le domaine, les fonctionnalités et leurs permissions
         $this->addDefaultControllerDomainFeatures();
@@ -38,24 +38,96 @@ class SysModelSeeder extends Seeder
         $this->assignPermissionsToRoles($AdminRole, $MembreRole);
     }
 
-    public function seedFromCsv(): void
+    public function seedFromModels(): void
     {
-        $csvFile = fopen(base_path("modules/Core/Database/data/sysModels.csv"), "r");
-        $firstline = true;
-
-        while (($data = fgetcsv($csvFile)) !== false) {
-            if (!$firstline) {
-                SysModel::create([
-                    "name" => $data[0] ,
-                    "model" => $data[1] ,
-                    "description" => $data[2] 
-                ]);
+        // Répertoire contenant vos modèles
+        $directories = [
+            base_path('Modules'), // Inclure les modules si vous utilisez des modules.
+        ];
+    
+        foreach ($directories as $directory) {
+            $files = $this->getPhpFiles($directory);
+    
+            foreach ($files as $file) {
+                $className = $this->getClassFromFile($file);
+    
+                if ($className && is_subclass_of($className, \Illuminate\Database\Eloquent\Model::class) && !(new \ReflectionClass($className))->isAbstract()) {
+                    SysModel::updateOrCreate(
+                        ['model' => $className],
+                        [
+                            'name' => class_basename($className),
+                            'description' => "Automatically added for model $className",
+                            'module_id' => $this->getModuleIdForModel($className), // Vous pouvez définir une logique pour le module_id.
+                        ]
+                    );
+                }
             }
-            $firstline = false;
         }
-
-        fclose($csvFile);
     }
+    
+    /**
+     * Obtenir les fichiers PHP d'un répertoire.
+     */
+    private function getPhpFiles(string $directory): array
+    {
+        $rii = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($directory));
+        $files = [];
+    
+        foreach ($rii as $file) {
+            if ($file->isDir()) {
+                continue;
+            }
+            if ($file->getExtension() === 'php') {
+                $files[] = $file->getPathname();
+            }
+        }
+    
+        return $files;
+    }
+    
+    /**
+     * Extraire le nom de la classe à partir d'un fichier.
+     */
+    private function getClassFromFile(string $file): ?string
+    {
+        $contents = file_get_contents($file);
+        $namespace = null;
+        $class = null;
+    
+        if (preg_match('/namespace\s+(.+?);/', $contents, $matches)) {
+            $namespace = $matches[1];
+        }
+    
+        if (preg_match('/class\s+([^\s]+)/', $contents, $matches)) {
+            $class = $matches[1];
+        }
+    
+        if ($namespace && $class) {
+            return "$namespace\\$class";
+        }
+    
+        return null;
+    }
+    
+    /**
+     * Obtenir le module_id pour un modèle (personnalisable).
+     */
+    private function getModuleIdForModel(string $model): ?int
+    {
+        // Logique pour associer un modèle à un module.
+        // Par exemple, en fonction du namespace ou d'autres conventions.
+        if (Str::startsWith($model, 'Modules\\')) {
+            $moduleName = explode('\\', $model)[1];
+            $sysModule = SysModule::where('slug', Str::slug($moduleName))->first();
+    
+            return $sysModule?->id;
+        }
+    
+        return null;
+    }
+    
+
+
 
     private function addDefaultControllerDomainFeatures(): void
     {

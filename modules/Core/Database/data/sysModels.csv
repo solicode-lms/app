@@ -1,4 +1,1 @@
-name,model,description
-Formateur,Modules\PkgUtilisateurs\Models\Formateur,Représente les articles du blog
-Ville,Modules\PkgUtilisateurs\Models\Ville,Représente les utilisateurs de l'application
-Apprenant,Modules\PkgUtilisateurs\Models\Apprenant,Représente les utilisateurs de l'application
+// Charger dynamiquement les modèles par SysModelSeeder

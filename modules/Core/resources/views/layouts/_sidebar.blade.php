@@ -22,6 +22,12 @@
             </a>
         </li>
         <li class="nav-item">
+            <a href="{{ route('sysColors.index') }}" class="nav-link {{ Request::is('Core/sysColors') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-table"></i>
+                <p>SysColors</p>
+            </a>
+        </li>
+        <li class="nav-item">
             <a href="{{ route('sysControllers.index') }}" class="nav-link {{ Request::is('Core/sysControllers') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-table"></i>
                 <p>SysControllers</p>

@@ -6,6 +6,8 @@
             <tr>
                 <th>{{ ucfirst(__('Core::sysModel.name')) }}</th>
                 <th>{{ ucfirst(__('Core::sysModel.description')) }}</th>
+                <th>{{ ucfirst(__('Core::sysModule.singular')) }}</th>
+                <th>{{ ucfirst(__('Core::sysColor.singular')) }}</th>
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -14,6 +16,8 @@
                 <tr>
                     <td>{{ $sysModel->name }}</td>
                     <td>{{ $sysModel->description }}</td>
+                    <td>{{ $sysModel->sysModule->name ?? '-' }}</td>
+                    <td>{{ $sysModel->sysColor->name ?? '-' }}</td>
                     <td class="text-center">
                         @can('show-sysModel')
                             <a href="{{ route('sysModels.show', $sysModel) }}" class="btn btn-default btn-sm">

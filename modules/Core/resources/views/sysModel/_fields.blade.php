@@ -68,6 +68,36 @@
         
 
         
+        <div class="form-group">
+            <label for="color_id">
+                {{ ucfirst(__('Core::sysColor.singular')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <select id="color_id" name="color_id" class="form-control">
+                <option value="">Sélectionnez une option</option>
+            </select>
+            @error('color_id')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+        </div>
+        
+        <div class="form-group">
+            <label for="module_id">
+                {{ ucfirst(__('Core::sysModule.singular')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <select id="module_id" name="module_id" class="form-control">
+                <option value="">Sélectionnez une option</option>
+            </select>
+            @error('module_id')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+        </div>
+        
 
         
 
@@ -83,6 +113,20 @@
 
 <script>
     window.dynamicSelectManyToOne = [
+        
+        {
+            fieldId: 'color_id',
+            fetchUrl: "{{ route('sysColors.all') }}",
+            selectedValue: {{ $item->color_id ? $item->color_id : 'undefined' }},
+            fieldValue: 'name'
+        },
+        
+        {
+            fieldId: 'module_id',
+            fetchUrl: "{{ route('sysModules.all') }}",
+            selectedValue: {{ $item->module_id ? $item->module_id : 'undefined' }},
+            fieldValue: 'name'
+        }
         
     ];
 </script>

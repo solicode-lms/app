@@ -29,7 +29,7 @@ class PkgWidgetsServiceProvider extends ServiceProvider
     public function boot()
     {
         // Charger les migrations
-        $this->loadMigrationsFrom(__DIR__ . '/../../database/migrations');
+        $this->loadMigrationsFrom(__DIR__ . '/../../Database/Migrations');
 
         // Charger les fichiers de routes du module
         $routeFiles = File::allFiles(__DIR__ . '/../../Routes');

@@ -26,6 +26,7 @@ class SysModuleSeeder extends Seeder
         $AdminRole = User::ADMIN;
         $MembreRole = User::MEMBRE;
 
+        // il est exécuter par RootSeeder : le premier seeder 
         // Ajouter les données à partir d'un fichier CSV
         // $this->seedFromCsv();
 
@@ -38,6 +39,9 @@ class SysModuleSeeder extends Seeder
 
     public function seedFromCsv(): void
     {
+        // Il doit seeder Color 
+        (new SysColorSeeder())->seedFromCsv();
+
         $csvFile = fopen(base_path("modules/Core/Database/data/sysModules.csv"), "r");
         $firstline = true;
 
@@ -49,7 +53,8 @@ class SysModuleSeeder extends Seeder
                     "description" => $data[2] ,
                     "is_active" => $data[3] ,
                     "order" => $data[4] ,
-                    "version" => $data[5] 
+                    "version" => $data[5],
+                    "color_id" => $data[6],
                 ]);
             }
             $firstline = false;
