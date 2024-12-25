@@ -19,9 +19,9 @@ return new class extends Migration
             $table->string('Nom', 100);
             $table->string('Prenom', 100);
             $table->char('Sexe', 1);
-            $table->boolean('EtudiantActif')->default(true);
+            $table->string('EtudiantActif');
             $table->string('Diplome', 100)->nullable();
-            $table->boolean('Principale')->default(false);
+            $table->string('Principale')->nullable();
             $table->string('LibelleLong', 255)->nullable();
             $table->string('CodeDiplome', 50)->nullable();
             $table->date('DateNaissance')->nullable();

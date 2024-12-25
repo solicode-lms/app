@@ -1,5 +1,5 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
+// TODO : utilisation de create de Service
 
 
 
@@ -17,7 +17,7 @@ use Modules\PkgAutorisation\Models\Permission;
 use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgAutorisation\Models\User;
 use Modules\PkgUtilisateurs\Models\ApprenantKonosy;
-
+use Modules\PkgUtilisateurs\Services\ApprenantKonosyService;
 
 class ApprenantKonosySeeder extends Seeder
 {
@@ -45,7 +45,7 @@ class ApprenantKonosySeeder extends Seeder
 
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
-                ApprenantKonosy::create([
+                (new ApprenantKonosyService())->create([
                     "MatriculeEtudiant" => $data[0] ,
                     "Nom" => $data[1] ,
                     "Prenom" => $data[2] ,

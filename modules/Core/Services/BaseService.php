@@ -185,6 +185,19 @@ abstract class BaseService implements ServiceInterface
     }
 
     /**
+     * Met à jour ou crée un nouvel enregistrement basé sur des critères spécifiques.
+     *
+     * @param array $attributes Critères pour rechercher l'enregistrement.
+     * @param array $values Données à mettre à jour ou à créer.
+     * @return Model
+     */
+    public function updateOrCreate(array $attributes, array $values)
+    {
+        return $this->model->updateOrCreate($attributes, $values);
+    }
+
+
+    /**
      * Supprime un élément par son identifiant.
      *
      * @param mixed $id Identifiant de l'élément à supprimer.

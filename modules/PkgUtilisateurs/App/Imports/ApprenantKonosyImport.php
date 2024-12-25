@@ -11,6 +11,7 @@ use Maatwebsite\Excel\Concerns\ToModel;
 use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Modules\PkgUtilisateurs\Models\Apprenant;
+use Modules\PkgUtilisateurs\Services\ApprenantKonosyService;
 
 class ApprenantKonosyImport implements ToModel, WithHeadingRow
 {
@@ -27,20 +28,12 @@ class ApprenantKonosyImport implements ToModel, WithHeadingRow
 
     public function model(array $row)
     {
-        // Gestion des dates
-        
-        $dateNaissance = Carbon::parse(str_replace('/', '-', $row['datenaissance']))->format('Y/m/d');
-        $dateInscription = Carbon::parse(str_replace('/', '-', $row['dateinscription']))->format('Y/m/d');
-
-       
-    
         // Retourner null si MatriculeEtudiant est manquant
         if (empty($row['matriculeetudiant'])) {
             return null;
         }
-    
-        // Rechercher ou créer un nouvel enregistrement
-        $apprenantKonosy = ApprenantKonosy::updateOrCreate(
+        
+        $apprenantKonosy = (new ApprenantKonosyService())->updateOrCreate(
             ['MatriculeEtudiant' => $row['matriculeetudiant']], // Critères de recherche
             [ // Données à insérer ou mettre à jour
                 'Nom' => $row['nom'],
@@ -51,8 +44,8 @@ class ApprenantKonosyImport implements ToModel, WithHeadingRow
                 'Principale' => strtolower($row['principale']) === 'oui',
                 'LibelleLong' => $row['libellelong'],
                 'CodeDiplome' => $row['codediplome'],
-                'DateNaissance' => $dateNaissance,
-                'DateInscription' =>  $dateInscription,
+                'DateNaissance' =>Carbon::parse(str_replace('/', '-', $row['datenaissance']))->format('Y/m/d'),
+                'DateInscription' =>  Carbon::parse(str_replace('/', '-', $row['dateinscription']))->format('Y/m/d'),
                 'LieuNaissance' => $row['lieunaissance'],
                 'CIN' => $row['cin'],
                 'NTelephone' => $row['ntelelephone'],
@@ -63,27 +56,6 @@ class ApprenantKonosyImport implements ToModel, WithHeadingRow
                 'NiveauScolaire' => $row['niveauscolaire'],
             ]
         );
-    
-        // Update Apprenant 
-        Apprenant::updateOrCreate(
-            ['matricule' => $row['matriculeetudiant']],
-            [
-            'nom' => $row['nom'],
-            'prenom' => $row['prenom'],
-            'prenom_arab' => $row['prenom_arabe'],
-            'nom_arab' => $row['nom_arabe'],
-            'tele_num' => $row['ntelelephone'],
-            'matricule' => $row['matriculeetudiant'],
-            'sexe' => $row['sexe'],
-            'actif' => $apprenantKonosy->EtudiantActif,
-            'diplome' => $row['diplome'],
-            'date_naissance' => $apprenantKonosy->DateNaissance,
-            'date_inscription' => $apprenantKonosy->DateInscription,
-            'lieu_naissance' => $row['lieunaissance'],
-            'cin' => $row['cin'],
-            'adresse' => $row['adresse']
-        ]);
-
 
         return $apprenantKonosy;
     }
