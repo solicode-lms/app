@@ -21,7 +21,7 @@ use Modules\PkgUtilisateurs\Models\ApprenantKonosy;
 
 class ApprenantKonosySeeder extends Seeder
 {
-    public static int $order = 0;
+    public static int $order = 33;
 
     public function run(): void
     {

@@ -1,5 +1,5 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
+// Modification des colonnes names par Maatwebsite
 
 
 
@@ -21,42 +21,53 @@ class ApprenantKonosyImport implements ToModel, WithHeadingRow
      */
     private function recordExists(array $row): bool
     {
-        return ApprenantKonosy::where('id', $row['id'])->exists();
+        return ApprenantKonosy::where('MatriculeEtudiant', $row['matriculeetudiant'])->exists();
     }
 
-    /**
-     * Crée ou met à jour un enregistrement à partir des données importées.
-     *
-     * @param array $row Ligne de données importée.
-     * @return <ApprenantKonosy|null
-     */
     public function model(array $row)
     {
-        if ($this->recordExists($row)) {
-            return null; // Enregistrement existant, aucune action
-        }
+        // Gestion des dates
+        
+        $dateNaissance = Carbon::parse(str_replace('/', '-', $row['datenaissance']))->format('Y/m/d');
+        $dateInscription = Carbon::parse(str_replace('/', '-', $row['dateinscription']))->format('Y/m/d');
 
-        // Crée un nouvel enregistrement à partir des données importées
-        return new ApprenantKonosy([
-            'MatriculeEtudiant' => $row['MatriculeEtudiant'],
-            'Nom' => $row['Nom'],
-            'Prenom' => $row['Prenom'],
-            'Sexe' => $row['Sexe'],
-            'EtudiantActif' => $row['EtudiantActif'],
-            'Diplome' => $row['Diplome'],
-            'Principale' => $row['Principale'],
-            'LibelleLong' => $row['LibelleLong'],
-            'CodeDiplome' => $row['CodeDiplome'],
-            'DateNaissance' => $row['DateNaissance'],
-            'DateInscription' => $row['DateInscription'],
-            'LieuNaissance' => $row['LieuNaissance'],
-            'CIN' => $row['CIN'],
-            'NTelephone' => $row['NTelephone'],
-            'Adresse' => $row['Adresse'],
-            'Nationalite' => $row['Nationalite'],
-            'Nom_Arabe' => $row['Nom_Arabe'],
-            'Prenom_Arabe' => $row['Prenom_Arabe'],
-            'NiveauScolaire' => $row['NiveauScolaire'],
-        ]);
+       
+    
+        // Retourner null si MatriculeEtudiant est manquant
+        if (empty($row['matriculeetudiant'])) {
+            return null;
+        }
+    
+        // Rechercher ou créer un nouvel enregistrement
+        $apprenant = ApprenantKonosy::updateOrCreate(
+            ['MatriculeEtudiant' => $row['matriculeetudiant']], // Critères de recherche
+            [ // Données à insérer ou mettre à jour
+                'Nom' => $row['nom'],
+                'Prenom' => $row['prenom'],
+                'Sexe' => $row['sexe'],
+                'EtudiantActif' => strtolower($row['etudiantactif']) === 'oui',
+                'Diplome' => $row['diplome'],
+                'Principale' => strtolower($row['principale']) === 'oui',
+                'LibelleLong' => $row['libellelong'],
+                'CodeDiplome' => $row['codediplome'],
+                'DateNaissance' => $dateNaissance,
+                'DateInscription' =>  $dateInscription,
+                'LieuNaissance' => $row['lieunaissance'],
+                'CIN' => $row['cin'],
+                'NTelephone' => $row['ntelelephone'],
+                'Adresse' => $row['adresse'],
+                'Nationalite' => $row['nationalite'],
+                'Nom_Arabe' => $row['nom_arabe'],
+                'Prenom_Arabe' => $row['prenom_arabe'],
+                'NiveauScolaire' => $row['niveauscolaire'],
+            ]
+        );
+    
+        // Update Apprenant 
+        
+
+
+        return $apprenant;
     }
+    
 }

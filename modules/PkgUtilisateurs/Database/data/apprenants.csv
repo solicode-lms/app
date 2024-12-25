@@ -1,21 +1,21 @@
-nom,prenom,prenom_arab,nom_arab,tele_num,profile_image,groupe_id,niveaux_scolaires_id,ville_id
-El Majid,Ahmed,أحمد,المجيد,0512345578,profile_ahmed.jpg,1,2,1
-Bensalah,Sara,سارة,بن صالح,0598755432,profile_sara.jpg,1,3,1
-Khalloufi,Youssef,يوسف,الخلوفي,0571234557,profile_youssef.jpg,1,4,1
-Ait Lahcen,Fatima,فاطمة,آيت لحسن,0511223344,profile_fatima.jpg,1,2,1
-El Fassi,Omar,عمر,الفاسي,0599887755,profile_omar.jpg,1,5,1
-Benjelloun,Imane,إيمان,بنجلون,0587554321,profile_imane.jpg,1,5,1
-Zahidi,Karim,كريم,الزهيدي,0572345578,profile_karim.jpg,1,3,1
-El Idrissi,Lamia,لمياء,الإدريسي,0514455557,profile_lamia.jpg,1,4,1
-Rachidi,Anas,أنس,الرشيدي,0592233445,profile_anas.jpg,1,5,1
-Hamdi,Nawal,نوال,حمدي,0575555778,profile_nawal.jpg,1,5,1
-Bennis,Samir,سمير,بنيس,0554433221,profile_samir.jpg,1,2,1
-El Khatib,Hajar,هاجر,الخطيب,0511345557,profile_hajar.jpg,1,3,1
-Touhami,Mohamed,محمد,التوهامي,0587554310,profile_mohamed.jpg,1,4,1
-El Mansouri,Fatima Zahra,فاطمة الزهراء,المنصوري,0599875543,profile_fatima_zahra.jpg,1,5,1
-Saidi,Khalid,خالد,السعيدي,0573344555,profile_khalid.jpg,1,5,1
-Benchekroun,Nour,نور,بن شقرون,0515555778,profile_nour.jpg,1,2,1
-Essam,Zakaria,زكريا,عصام,0554332211,profile_zakaria.jpg,1,3,1
-Oulad,Bouchra,بشرى,أولاد,0572233445,profile_bouchra.jpg,1,4,1
-El Arabi,Ali,علي,العربي,0512349875,profile_ali.jpg,1,5,1
-Khallouqi,Meryem,مريم,الخلوقي,0598875543,profile_meryem.jpg,1,5,1
+nom,prenom,prenom_arab,nom_arab,tele_num,profile_image,groupe_id,niveaux_scolaires_id,ville_id,matricule
+El Majid,Ahmed,أحمد,المجيد,0512345578,profile_ahmed.jpg,1,2,1,1
+Bensalah,Sara,سارة,بن صالح,0598755432,profile_sara.jpg,1,3,1,2
+Khalloufi,Youssef,يوسف,الخلوفي,0571234557,profile_youssef.jpg,1,4,1,3
+Ait Lahcen,Fatima,فاطمة,آيت لحسن,0511223344,profile_fatima.jpg,1,2,1,4
+El Fassi,Omar,عمر,الفاسي,0599887755,profile_omar.jpg,1,5,1,5
+Benjelloun,Imane,إيمان,بنجلون,0587554321,profile_imane.jpg,1,5,1,6
+Zahidi,Karim,كريم,الزهيدي,0572345578,profile_karim.jpg,1,3,1,7
+El Idrissi,Lamia,لمياء,الإدريسي,0514455557,profile_lamia.jpg,1,4,1,8
+Rachidi,Anas,أنس,الرشيدي,0592233445,profile_anas.jpg,1,5,1,9
+Hamdi,Nawal,نوال,حمدي,0575555778,profile_nawal.jpg,1,5,1,10
+Bennis,Samir,سمير,بنيس,0554433221,profile_samir.jpg,1,2,1,11
+El Khatib,Hajar,هاجر,الخطيب,0511345557,profile_hajar.jpg,1,3,1,12
+Touhami,Mohamed,محمد,التوهامي,0587554310,profile_mohamed.jpg,1,4,1,13
+El Mansouri,Fatima Zahra,فاطمة الزهراء,المنصوري,0599875543,profile_fatima_zahra.jpg,1,5,1,14
+Saidi,Khalid,خالد,السعيدي,0573344555,profile_khalid.jpg,1,5,1,15
+Benchekroun,Nour,نور,بن شقرون,0515555778,profile_nour.jpg,1,2,1,16
+Essam,Zakaria,زكريا,عصام,0554332211,profile_zakaria.jpg,1,3,1,17
+Oulad,Bouchra,بشرى,أولاد,0572233445,profile_bouchra.jpg,1,4,1,18
+El Arabi,Ali,علي,العربي,0512349875,profile_ali.jpg,1,5,1,19
+Khallouqi,Meryem,مريم,الخلوقي,0598875543,profile_meryem.jpg,1,5,1,20
