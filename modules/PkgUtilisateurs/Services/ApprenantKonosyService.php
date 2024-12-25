@@ -1,5 +1,5 @@
 <?php
-// add CreateOrUpdate méthode 
+// Update or create PkgUtilisateur data from ApprenantKonosys object on create méthode
 
 
 
@@ -7,6 +7,8 @@ namespace Modules\PkgUtilisateurs\Services;
 
 use Modules\PkgUtilisateurs\Models\ApprenantKonosy;
 use Modules\Core\Services\BaseService;
+use Carbon\Carbon;
+use Modules\PkgCompetences\Services\FiliereService;
 
 /**
  * Classe ApprenantKonosyService pour gérer la persistance de l'entité ApprenantKonosy.
@@ -88,8 +90,32 @@ class ApprenantKonosyService extends BaseService
 
     public function updateOrCreateDataFromApprenantKonosys($apprenantKonosy){
 
+
+
+        // Create Filière if not exist 
+        $codeDiplome = $apprenantKonosy->CodeDiplome;
+        // Diviser la chaîne
+        $code_filiere = substr($codeDiplome, 0, 3); // Prend les trois premiers caractères
+        $code_groupe = $codeDiplome; // Garde la chaîne complète
+        $nationalite_code = $apprenantKonosy->Nationalite;
+        $niveau_scolaire_code = $apprenantKonosy->NiveauScolaire;
+
+        // Create if not exist
+        $filiere = (new FiliereService())->updateOrCreate(["code" => $code_filiere ],[ "code" => $code_filiere]);
+
+        // Create if not exist
+        $groupe = (new GroupeService())->updateOrCreate(["code" => $code_groupe ],
+        [ "code" => $code_groupe ,
+           "filier_id" =>  $filiere->id
+        ]);
+
+
+        $nationalite = (new NationaliteService())->updateOrCreate(["code" => $nationalite_code ],[ "code" => $nationalite_code]);
+
+        $niveau_scolaire = (new NiveauxScolaireService())->updateOrCreate(["code" => $niveau_scolaire_code ],[ "code" => $niveau_scolaire_code]);
+
         // Create or Update Apprenant 
-        (new ApprenantService())->updateOrCreate(
+        $apprenant = (new ApprenantService())->updateOrCreate(
             ['matricule' => $apprenantKonosy->MatriculeEtudiant],
             [
             'nom' => $apprenantKonosy->Nom,
@@ -99,13 +125,18 @@ class ApprenantKonosyService extends BaseService
             'tele_num' => $apprenantKonosy->NTelephone,
             'matricule' => $apprenantKonosy->MatriculeEtudiant,
             'sexe' => $apprenantKonosy->Sexe,
-            'actif' => $apprenantKonosy->EtudiantActif,
+            'actif' =>strtolower($apprenantKonosy->EtudiantActif) === 'oui'  ,
             'diplome' => $apprenantKonosy->Diplome,
-            'date_naissance' => $apprenantKonosy->DateNaissance,
-            'date_inscription' => $apprenantKonosy->DateInscription,
+            'date_naissance' => Carbon::parse(str_replace('/', '-',$apprenantKonosy->DateNaissance ))->format('Y/m/d') ,
+            'date_inscription' => Carbon::parse(str_replace('/', '-',$apprenantKonosy->DateInscription ))->format('Y/m/d') ,
             'lieu_naissance' => $apprenantKonosy->LieuNaissance,
             'cin' => $apprenantKonosy->CIN,
-            'adresse' => $apprenantKonosy->Adresse,]
+            'adresse' => $apprenantKonosy->Adresse,
+            'groupe_id' => $groupe->id,
+            'nationalite_id' => $nationalite->id,
+            'niveau_scolaire_id' => $niveau_scolaire->id
+            ]
         );
+
     }
 }

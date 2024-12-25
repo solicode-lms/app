@@ -34,6 +34,12 @@
             </a>
         </li>
         <li class="nav-item">
+            <a href="{{ route('nationalites.index') }}" class="nav-link {{ Request::is('PkgUtilisateurs/nationalites') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-table"></i>
+                <p>Nationalites</p>
+            </a>
+        </li>
+        <li class="nav-item">
             <a href="{{ route('niveauxScolaires.index') }}" class="nav-link {{ Request::is('PkgUtilisateurs/niveauxScolaires') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-graduation-cap"></i>
                 <p>NiveauxScolaires</p>

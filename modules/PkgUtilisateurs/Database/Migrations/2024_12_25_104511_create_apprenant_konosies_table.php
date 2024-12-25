@@ -24,8 +24,8 @@ return new class extends Migration
             $table->string('Principale')->nullable();
             $table->string('LibelleLong', 255)->nullable();
             $table->string('CodeDiplome', 50)->nullable();
-            $table->date('DateNaissance')->nullable();
-            $table->date('DateInscription')->nullable();
+            $table->string('DateNaissance')->nullable();
+            $table->string('DateInscription')->nullable();
             $table->string('LieuNaissance', 255)->nullable();
             $table->string('CIN', 50)->nullable();
             $table->string('NTelephone', 15)->nullable();

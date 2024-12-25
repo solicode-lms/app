@@ -1,5 +1,5 @@
 <?php
-// Modification des colonnes names par Maatwebsite
+// TODO CreateOrUpdate ; utilisation d'un attribut unique : MatriculeEtudiant
 
 
 
@@ -39,13 +39,13 @@ class ApprenantKonosyImport implements ToModel, WithHeadingRow
                 'Nom' => $row['nom'],
                 'Prenom' => $row['prenom'],
                 'Sexe' => $row['sexe'],
-                'EtudiantActif' => strtolower($row['etudiantactif']) === 'oui',
+                'EtudiantActif' => $row['etudiantactif'],
                 'Diplome' => $row['diplome'],
-                'Principale' => strtolower($row['principale']) === 'oui',
+                'Principale' =>$row['principale']  ,
                 'LibelleLong' => $row['libellelong'],
                 'CodeDiplome' => $row['codediplome'],
-                'DateNaissance' =>Carbon::parse(str_replace('/', '-', $row['datenaissance']))->format('Y/m/d'),
-                'DateInscription' =>  Carbon::parse(str_replace('/', '-', $row['dateinscription']))->format('Y/m/d'),
+                'DateNaissance' =>$row['datenaissance'] ,
+                'DateInscription' =>  $row['dateinscription'] ,
                 'LieuNaissance' => $row['lieunaissance'],
                 'CIN' => $row['cin'],
                 'NTelephone' => $row['ntelelephone'],
