@@ -51,8 +51,6 @@
             <label for="email_verified_at">
                 {{ ucfirst(__('PkgAutorisation::user.email_verified_at')) }}
                 
-                    <span class="text-danger">*</span>
-                
             </label>
             <input
                 name="email_verified_at"
@@ -88,8 +86,6 @@
         <div class="form-group">
             <label for="remember_token">
                 {{ ucfirst(__('PkgAutorisation::user.remember_token')) }}
-                
-                    <span class="text-danger">*</span>
                 
             </label>
             <input

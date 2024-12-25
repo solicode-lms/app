@@ -78,7 +78,7 @@ class WidgetOperationController extends AdminController
 
 
 
-        return redirect()->route('widgetoperations.index')->with(
+        return redirect()->route('widgetOperations.index')->with(
             'success',
             __('Core::msg.updateSuccess', [
                 'entityToString' => $widgetoperation,
@@ -90,7 +90,7 @@ class WidgetOperationController extends AdminController
     public function destroy(string $id)
     {
         $widgetoperation = $this->widgetOperationService->destroy($id);
-        return redirect()->route('widgetoperations.index')->with(
+        return redirect()->route('widgetOperations.index')->with(
             'success',
             __('Core::msg.deleteSuccess', [
                 'entityToString' => $widgetoperation,

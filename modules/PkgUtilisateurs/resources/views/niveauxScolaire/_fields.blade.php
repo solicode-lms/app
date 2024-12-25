@@ -32,8 +32,6 @@
             <label for="nom">
                 {{ ucfirst(__('PkgUtilisateurs::niveauxScolaire.nom')) }}
                 
-                    <span class="text-danger">*</span>
-                
             </label>
             <input
                 name="nom"
@@ -50,8 +48,6 @@
         <div class="form-group">
             <label for="description">
                 {{ ucfirst(__('PkgUtilisateurs::niveauxScolaire.description')) }}
-                
-                    <span class="text-danger">*</span>
                 
             </label>
             <input

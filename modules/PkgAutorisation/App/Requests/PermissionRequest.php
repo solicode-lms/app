@@ -19,7 +19,7 @@ class PermissionRequest extends FormRequest
         return [
             'name' => 'required|max:255',
             'guard_name' => 'required|max:255',
-            'controller_id' => 'required'
+            'controller_id' => 'nullable'
         ];
     }
 

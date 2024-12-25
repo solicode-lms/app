@@ -19,9 +19,9 @@ class UserRequest extends FormRequest
         return [
             'name' => 'required|max:255',
             'email' => 'required|max:255',
-            'email_verified_at' => 'required',
+            'email_verified_at' => 'nullable',
             'password' => 'required|max:255',
-            'remember_token' => 'required|max:255'
+            'remember_token' => 'nullable|max:255'
         ];
     }
 

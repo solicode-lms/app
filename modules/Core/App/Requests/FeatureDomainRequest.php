@@ -19,7 +19,7 @@ class FeatureDomainRequest extends FormRequest
         return [
             'name' => 'required|max:255',
             'slug' => 'required|max:255',
-            'description' => 'required|max:255',
+            'description' => 'nullable|max:255',
             'module_id' => 'required'
         ];
     }

@@ -32,8 +32,6 @@
             <label for="description">
                 {{ ucfirst(__('PkgWidgets::widgetType.description')) }}
                 
-                    <span class="text-danger">*</span>
-                
             </label>
             <input
                 name="description"

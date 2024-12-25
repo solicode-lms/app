@@ -78,7 +78,7 @@ class FeatureDomainController extends AdminController
 
 
 
-        return redirect()->route('featuredomains.index')->with(
+        return redirect()->route('featureDomains.index')->with(
             'success',
             __('Core::msg.updateSuccess', [
                 'entityToString' => $featuredomain,
@@ -90,7 +90,7 @@ class FeatureDomainController extends AdminController
     public function destroy(string $id)
     {
         $featuredomain = $this->featureDomainService->destroy($id);
-        return redirect()->route('featuredomains.index')->with(
+        return redirect()->route('featureDomains.index')->with(
             'success',
             __('Core::msg.deleteSuccess', [
                 'entityToString' => $featuredomain,

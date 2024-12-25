@@ -32,8 +32,6 @@
             <label for="color">
                 {{ ucfirst(__('PkgWidgets::widget.color')) }}
                 
-                    <span class="text-danger">*</span>
-                
             </label>
             <input
                 name="color"
@@ -50,8 +48,6 @@
         <div class="form-group">
             <label for="icon">
                 {{ ucfirst(__('PkgWidgets::widget.icon')) }}
-                
-                    <span class="text-danger">*</span>
                 
             </label>
             <input
@@ -70,8 +66,6 @@
             <label for="label">
                 {{ ucfirst(__('PkgWidgets::widget.label')) }}
                 
-                    <span class="text-danger">*</span>
-                
             </label>
             <input
                 name="label"
@@ -88,8 +82,6 @@
         <div class="form-group">
             <label for="parameters">
                 {{ ucfirst(__('PkgWidgets::widget.parameters')) }}
-                
-                    <span class="text-danger">*</span>
                 
             </label>
             <input

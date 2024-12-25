@@ -21,10 +21,10 @@ class WidgetRequest extends FormRequest
             'type_id' => 'required',
             'model_id' => 'required',
             'operation_id' => 'required',
-            'color' => 'required|max:255',
-            'icon' => 'required|max:255',
-            'label' => 'required|max:255',
-            'parameters' => 'required'
+            'color' => 'nullable|max:255',
+            'icon' => 'nullable|max:255',
+            'label' => 'nullable|max:255',
+            'parameters' => 'nullable'
         ];
     }
 

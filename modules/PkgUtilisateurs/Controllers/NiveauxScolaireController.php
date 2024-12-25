@@ -78,7 +78,7 @@ class NiveauxScolaireController extends AdminController
 
 
 
-        return redirect()->route('niveauxscolaires.index')->with(
+        return redirect()->route('niveauxScolaires.index')->with(
             'success',
             __('Core::msg.updateSuccess', [
                 'entityToString' => $niveauxscolaire,
@@ -90,7 +90,7 @@ class NiveauxScolaireController extends AdminController
     public function destroy(string $id)
     {
         $niveauxscolaire = $this->niveauxScolaireService->destroy($id);
-        return redirect()->route('niveauxscolaires.index')->with(
+        return redirect()->route('niveauxScolaires.index')->with(
             'success',
             __('Core::msg.deleteSuccess', [
                 'entityToString' => $niveauxscolaire,

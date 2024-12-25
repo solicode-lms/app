@@ -78,7 +78,7 @@ class ApprenantKonosyController extends AdminController
 
 
 
-        return redirect()->route('apprenantkonosies.index')->with(
+        return redirect()->route('apprenantKonosies.index')->with(
             'success',
             __('Core::msg.updateSuccess', [
                 'entityToString' => $apprenantkonosy,
@@ -90,7 +90,7 @@ class ApprenantKonosyController extends AdminController
     public function destroy(string $id)
     {
         $apprenantkonosy = $this->apprenantKonosyService->destroy($id);
-        return redirect()->route('apprenantkonosies.index')->with(
+        return redirect()->route('apprenantKonosies.index')->with(
             'success',
             __('Core::msg.deleteSuccess', [
                 'entityToString' => $apprenantkonosy,

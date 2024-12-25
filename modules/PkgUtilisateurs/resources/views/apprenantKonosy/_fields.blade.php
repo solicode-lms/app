@@ -108,8 +108,6 @@
             <label for="Diplome">
                 {{ ucfirst(__('PkgUtilisateurs::apprenantKonosy.Diplome')) }}
                 
-                    <span class="text-danger">*</span>
-                
             </label>
             <input
                 name="Diplome"
@@ -126,8 +124,6 @@
         <div class="form-group">
             <label for="Principale">
                 {{ ucfirst(__('PkgUtilisateurs::apprenantKonosy.Principale')) }}
-                
-                    <span class="text-danger">*</span>
                 
             </label>
             <input
@@ -146,8 +142,6 @@
             <label for="LibelleLong">
                 {{ ucfirst(__('PkgUtilisateurs::apprenantKonosy.LibelleLong')) }}
                 
-                    <span class="text-danger">*</span>
-                
             </label>
             <input
                 name="LibelleLong"
@@ -164,8 +158,6 @@
         <div class="form-group">
             <label for="CodeDiplome">
                 {{ ucfirst(__('PkgUtilisateurs::apprenantKonosy.CodeDiplome')) }}
-                
-                    <span class="text-danger">*</span>
                 
             </label>
             <input
@@ -184,8 +176,6 @@
             <label for="DateNaissance">
                 {{ ucfirst(__('PkgUtilisateurs::apprenantKonosy.DateNaissance')) }}
                 
-                    <span class="text-danger">*</span>
-                
             </label>
             <input
                 name="DateNaissance"
@@ -202,8 +192,6 @@
         <div class="form-group">
             <label for="DateInscription">
                 {{ ucfirst(__('PkgUtilisateurs::apprenantKonosy.DateInscription')) }}
-                
-                    <span class="text-danger">*</span>
                 
             </label>
             <input
@@ -222,8 +210,6 @@
             <label for="LieuNaissance">
                 {{ ucfirst(__('PkgUtilisateurs::apprenantKonosy.LieuNaissance')) }}
                 
-                    <span class="text-danger">*</span>
-                
             </label>
             <input
                 name="LieuNaissance"
@@ -240,8 +226,6 @@
         <div class="form-group">
             <label for="CIN">
                 {{ ucfirst(__('PkgUtilisateurs::apprenantKonosy.CIN')) }}
-                
-                    <span class="text-danger">*</span>
                 
             </label>
             <input
@@ -260,8 +244,6 @@
             <label for="NTelephone">
                 {{ ucfirst(__('PkgUtilisateurs::apprenantKonosy.NTelephone')) }}
                 
-                    <span class="text-danger">*</span>
-                
             </label>
             <input
                 name="NTelephone"
@@ -278,8 +260,6 @@
         <div class="form-group">
             <label for="Adresse">
                 {{ ucfirst(__('PkgUtilisateurs::apprenantKonosy.Adresse')) }}
-                
-                    <span class="text-danger">*</span>
                 
             </label>
             <input
@@ -298,8 +278,6 @@
             <label for="Nationalite">
                 {{ ucfirst(__('PkgUtilisateurs::apprenantKonosy.Nationalite')) }}
                 
-                    <span class="text-danger">*</span>
-                
             </label>
             <input
                 name="Nationalite"
@@ -316,8 +294,6 @@
         <div class="form-group">
             <label for="Nom_Arabe">
                 {{ ucfirst(__('PkgUtilisateurs::apprenantKonosy.Nom_Arabe')) }}
-                
-                    <span class="text-danger">*</span>
                 
             </label>
             <input
@@ -336,8 +312,6 @@
             <label for="Prenom_Arabe">
                 {{ ucfirst(__('PkgUtilisateurs::apprenantKonosy.Prenom_Arabe')) }}
                 
-                    <span class="text-danger">*</span>
-                
             </label>
             <input
                 name="Prenom_Arabe"
@@ -354,8 +328,6 @@
         <div class="form-group">
             <label for="NiveauScolaire">
                 {{ ucfirst(__('PkgUtilisateurs::apprenantKonosy.NiveauScolaire')) }}
-                
-                    <span class="text-danger">*</span>
                 
             </label>
             <input

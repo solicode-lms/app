@@ -78,7 +78,7 @@ class CategorieTechnologyController extends AdminController
 
 
 
-        return redirect()->route('categorietechnologies.index')->with(
+        return redirect()->route('categorieTechnologies.index')->with(
             'success',
             __('Core::msg.updateSuccess', [
                 'entityToString' => $categorietechnology,
@@ -90,7 +90,7 @@ class CategorieTechnologyController extends AdminController
     public function destroy(string $id)
     {
         $categorietechnology = $this->categorieTechnologyService->destroy($id);
-        return redirect()->route('categorietechnologies.index')->with(
+        return redirect()->route('categorieTechnologies.index')->with(
             'success',
             __('Core::msg.deleteSuccess', [
                 'entityToString' => $categorietechnology,

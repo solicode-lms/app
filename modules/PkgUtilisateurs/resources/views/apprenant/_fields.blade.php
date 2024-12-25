@@ -108,8 +108,6 @@
             <label for="profile_image">
                 {{ ucfirst(__('PkgUtilisateurs::apprenant.profile_image')) }}
                 
-                    <span class="text-danger">*</span>
-                
             </label>
             <input
                 name="profile_image"
@@ -184,8 +182,6 @@
             <label for="diplome">
                 {{ ucfirst(__('PkgUtilisateurs::apprenant.diplome')) }}
                 
-                    <span class="text-danger">*</span>
-                
             </label>
             <input
                 name="diplome"
@@ -202,8 +198,6 @@
         <div class="form-group">
             <label for="date_naissance">
                 {{ ucfirst(__('PkgUtilisateurs::apprenant.date_naissance')) }}
-                
-                    <span class="text-danger">*</span>
                 
             </label>
             <input
@@ -222,8 +216,6 @@
             <label for="date_inscription">
                 {{ ucfirst(__('PkgUtilisateurs::apprenant.date_inscription')) }}
                 
-                    <span class="text-danger">*</span>
-                
             </label>
             <input
                 name="date_inscription"
@@ -240,8 +232,6 @@
         <div class="form-group">
             <label for="lieu_naissance">
                 {{ ucfirst(__('PkgUtilisateurs::apprenant.lieu_naissance')) }}
-                
-                    <span class="text-danger">*</span>
                 
             </label>
             <input
@@ -260,8 +250,6 @@
             <label for="cin">
                 {{ ucfirst(__('PkgUtilisateurs::apprenant.cin')) }}
                 
-                    <span class="text-danger">*</span>
-                
             </label>
             <input
                 name="cin"
@@ -278,8 +266,6 @@
         <div class="form-group">
             <label for="adresse">
                 {{ ucfirst(__('PkgUtilisateurs::apprenant.adresse')) }}
-                
-                    <span class="text-danger">*</span>
                 
             </label>
             <input

@@ -22,19 +22,19 @@ class ApprenantRequest extends FormRequest
             'prenom_arab' => 'required|max:255',
             'nom_arab' => 'required|max:255',
             'tele_num' => 'required|max:255',
-            'profile_image' => 'required|max:255',
+            'profile_image' => 'nullable|max:255',
             'matricule' => 'required|max:255',
             'sexe' => 'required|max:255',
             'actif' => 'required',
-            'diplome' => 'required|max:255',
-            'date_naissance' => 'required',
-            'date_inscription' => 'required',
-            'lieu_naissance' => 'required|max:255',
-            'cin' => 'required|max:255',
-            'adresse' => 'required|max:255',
-            'groupe_id' => 'required',
-            'niveaux_scolaire_id' => 'required',
-            'nationalite_id' => 'required'
+            'diplome' => 'nullable|max:255',
+            'date_naissance' => 'nullable',
+            'date_inscription' => 'nullable',
+            'lieu_naissance' => 'nullable|max:255',
+            'cin' => 'nullable|max:255',
+            'adresse' => 'nullable|max:255',
+            'groupe_id' => 'nullable',
+            'niveaux_scolaire_id' => 'nullable',
+            'nationalite_id' => 'nullable'
         ];
     }
 

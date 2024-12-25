@@ -78,7 +78,7 @@ class SysControllerController extends AdminController
 
 
 
-        return redirect()->route('syscontrollers.index')->with(
+        return redirect()->route('sysControllers.index')->with(
             'success',
             __('Core::msg.updateSuccess', [
                 'entityToString' => $syscontroller,
@@ -90,7 +90,7 @@ class SysControllerController extends AdminController
     public function destroy(string $id)
     {
         $syscontroller = $this->sysControllerService->destroy($id);
-        return redirect()->route('syscontrollers.index')->with(
+        return redirect()->route('sysControllers.index')->with(
             'success',
             __('Core::msg.deleteSuccess', [
                 'entityToString' => $syscontroller,

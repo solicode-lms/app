@@ -51,8 +51,6 @@
             <label for="description">
                 {{ ucfirst(__('Core::sysModel.description')) }}
                 
-                    <span class="text-danger">*</span>
-                
             </label>
             <input
                 name="description"

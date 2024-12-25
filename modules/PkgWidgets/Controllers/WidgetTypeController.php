@@ -78,7 +78,7 @@ class WidgetTypeController extends AdminController
 
 
 
-        return redirect()->route('widgettypes.index')->with(
+        return redirect()->route('widgetTypes.index')->with(
             'success',
             __('Core::msg.updateSuccess', [
                 'entityToString' => $widgettype,
@@ -90,7 +90,7 @@ class WidgetTypeController extends AdminController
     public function destroy(string $id)
     {
         $widgettype = $this->widgetTypeService->destroy($id);
-        return redirect()->route('widgettypes.index')->with(
+        return redirect()->route('widgetTypes.index')->with(
             'success',
             __('Core::msg.deleteSuccess', [
                 'entityToString' => $widgettype,

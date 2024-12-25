@@ -78,7 +78,7 @@ class SysColorController extends AdminController
 
 
 
-        return redirect()->route('syscolors.index')->with(
+        return redirect()->route('sysColors.index')->with(
             'success',
             __('Core::msg.updateSuccess', [
                 'entityToString' => $syscolor,
@@ -90,7 +90,7 @@ class SysColorController extends AdminController
     public function destroy(string $id)
     {
         $syscolor = $this->sysColorService->destroy($id);
-        return redirect()->route('syscolors.index')->with(
+        return redirect()->route('sysColors.index')->with(
             'success',
             __('Core::msg.deleteSuccess', [
                 'entityToString' => $syscolor,

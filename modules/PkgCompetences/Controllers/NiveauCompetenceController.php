@@ -78,7 +78,7 @@ class NiveauCompetenceController extends AdminController
 
 
 
-        return redirect()->route('niveaucompetences.index')->with(
+        return redirect()->route('niveauCompetences.index')->with(
             'success',
             __('Core::msg.updateSuccess', [
                 'entityToString' => $niveaucompetence,
@@ -90,7 +90,7 @@ class NiveauCompetenceController extends AdminController
     public function destroy(string $id)
     {
         $niveaucompetence = $this->niveauCompetenceService->destroy($id);
-        return redirect()->route('niveaucompetences.index')->with(
+        return redirect()->route('niveauCompetences.index')->with(
             'success',
             __('Core::msg.deleteSuccess', [
                 'entityToString' => $niveaucompetence,
