@@ -19,7 +19,8 @@ class GroupeRequest extends FormRequest
         return [
             'code' => 'required|max:255',
             'nom' => 'required|max:255',
-            'description' => 'required|max:255'
+            'description' => 'required|max:255',
+            'filiere_id' => 'required'
         ];
     }
 
@@ -31,7 +32,9 @@ class GroupeRequest extends FormRequest
             'nom.required' => __('validation.required', ['attribute' => __('PkgBlog::category.nom')]),
             'nom.max' => __('validation.nomMax'),
             'description.required' => __('validation.required', ['attribute' => __('PkgBlog::category.description')]),
-            'description.max' => __('validation.descriptionMax')
+            'description.max' => __('validation.descriptionMax'),
+            'filiere_id.required' => __('validation.required', ['attribute' => __('PkgBlog::category.filiere_id')]),
+            'filiere_id.max' => __('validation.filiere_idMax')
         ];
     }
 }

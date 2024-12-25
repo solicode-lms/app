@@ -21,7 +21,8 @@ class GroupeService extends BaseService
     protected $fieldsSearchable = [
         'code',
         'nom',
-        'description'
+        'description',
+        'filiere_id'
     ];
 
     /**
@@ -54,6 +55,7 @@ class GroupeService extends BaseService
             'code' => $data['code'],
             'nom' => $data['nom'],
             'description' => $data['description'],
+            'filiere_id' => $data['filiere_id'],
         ]);
 
         return $groupe;

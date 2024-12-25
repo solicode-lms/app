@@ -21,7 +21,7 @@ use Modules\PkgCompetences\Models\CategorieTechnology;
 
 class CategorieTechnologySeeder extends Seeder
 {
-    public static int $order = 24;
+    public static int $order = 16;
 
     public function run(): void
     {

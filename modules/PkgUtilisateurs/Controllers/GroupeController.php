@@ -7,7 +7,6 @@ namespace Modules\PkgUtilisateurs\Controllers;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\PkgUtilisateurs\App\Requests\GroupeRequest;
 use Modules\PkgUtilisateurs\Services\GroupeService;
-use Modules\PkgUtilisateurs\Services\ApprenantService;
 use Modules\PkgUtilisateurs\Services\FormateurService;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
@@ -17,14 +16,12 @@ use Modules\PkgUtilisateurs\App\Imports\GroupeImport;
 class GroupeController extends AdminController
 {
     protected $groupeService;
-    protected $apprenantService;
     protected $formateurService;
 
-    public function __construct(GroupeService $groupeService, ApprenantService $apprenantService, FormateurService $formateurService)
+    public function __construct(GroupeService $groupeService, FormateurService $formateurService)
     {
         parent::__construct();
         $this->groupeService = $groupeService;
-        $this->apprenantService = $apprenantService;
         $this->formateurService = $formateurService;
     }
 
@@ -51,9 +48,8 @@ class GroupeController extends AdminController
     public function create()
     {
         $item = $this->groupeService->createInstance();
-        $apprenants = $this->apprenantService->all();
         $formateurs = $this->formateurService->all();
-        return view('PkgUtilisateurs::groupe.create', compact('item', 'apprenants', 'formateurs'));
+        return view('PkgUtilisateurs::groupe.create', compact('item', 'formateurs'));
     }
 
     public function store(GroupeRequest $request)
@@ -61,9 +57,6 @@ class GroupeController extends AdminController
         $validatedData = $request->validated();
         $groupe = $this->groupeService->create($validatedData);
 
-        if ($request->has('apprenants')) {
-            $groupe->apprenants()->sync($request->input('apprenants'));
-        }
         if ($request->has('formateurs')) {
             $groupe->formateurs()->sync($request->input('formateurs'));
         }
@@ -82,9 +75,8 @@ class GroupeController extends AdminController
     public function edit(string $id)
     {
         $item = $this->groupeService->find($id);
-        $apprenants = $this->apprenantService->all();
         $formateurs = $this->formateurService->all();
-        return view('PkgUtilisateurs::groupe.edit', compact('item', 'apprenants', 'formateurs'));
+        return view('PkgUtilisateurs::groupe.edit', compact('item', 'formateurs'));
     }
 
     public function update(GroupeRequest $request, string $id)
@@ -93,9 +85,6 @@ class GroupeController extends AdminController
         $groupe = $this->groupeService->update($id, $validatedData);
 
 
-        if ($request->has('apprenants')) {
-            $groupe->apprenants()->sync($request->input('apprenants'));
-        }
         if ($request->has('formateurs')) {
             $groupe->formateurs()->sync($request->input('formateurs'));
         }

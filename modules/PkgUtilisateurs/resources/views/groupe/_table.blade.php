@@ -7,6 +7,7 @@
                 <th>{{ ucfirst(__('PkgUtilisateurs::groupe.code')) }}</th>
                 <th>{{ ucfirst(__('PkgUtilisateurs::groupe.nom')) }}</th>
                 <th>{{ ucfirst(__('PkgUtilisateurs::groupe.description')) }}</th>
+                <th>{{ ucfirst(__('PkgCompetences::filiere.singular')) }}</th>
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -16,6 +17,7 @@
                     <td>{{ $groupe->code }}</td>
                     <td>{{ $groupe->nom }}</td>
                     <td>{{ $groupe->description }}</td>
+                    <td>{{ $groupe->filiere->code ?? '-' }}</td>
                     <td class="text-center">
                         @can('show-groupe')
                             <a href="{{ route('groupes.show', $groupe) }}" class="btn btn-default btn-sm">

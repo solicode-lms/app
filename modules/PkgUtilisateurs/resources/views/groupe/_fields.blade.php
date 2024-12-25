@@ -68,29 +68,22 @@
         
 
         
-
-        
         <div class="form-group">
-            <label for="apprenants">
-                {{ ucfirst(__('PkgUtilisateurs::Apprenant.plural')) }}
+            <label for="filiere_id">
+                {{ ucfirst(__('PkgCompetences::filiere.singular')) }}
+                
+                    <span class="text-danger">*</span>
+                
             </label>
-            <select
-                id="apprenants"
-                name="apprenants[]"
-                class="form-control select2"
-                multiple="multiple">
-                @foreach ($apprenants as $apprenant)
-                    <option value="{{ $apprenant->id }}"
-                        {{ (isset($item) && $item->apprenants && $item->apprenants->contains('id', $apprenant->id)) || (is_array(old('apprenants')) && in_array($apprenant->id, old('apprenants'))) ? 'selected' : '' }}>
-                        {{ $apprenant->nom }}
-                    </option>
-                @endforeach
+            <select id="filiere_id" name="filiere_id" class="form-control">
+                <option value="">Sélectionnez une option</option>
             </select>
-            @error('apprenants')
+            @error('filiere_id')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-
         </div>
+        
+
         
         <div class="form-group">
             <label for="formateurs">
@@ -127,6 +120,13 @@
 
 <script>
     window.dynamicSelectManyToOne = [
+        
+        {
+            fieldId: 'filiere_id',
+            fetchUrl: "{{ route('filieres.all') }}",
+            selectedValue: {{ $item->filiere_id ? $item->filiere_id : 'undefined' }},
+            fieldValue: 'code'
+        }
         
     ];
 </script>

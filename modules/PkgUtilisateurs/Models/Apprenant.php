@@ -29,10 +29,6 @@ class Apprenant extends Model
         return $this->belongsTo(NiveauxScolaire::class, 'niveaux_scolaire_id', 'id');
     }
 
-    public function groupes()
-    {
-        return $this->belongsToMany(Groupe::class, 'apprenant_groupe');
-    }
 
     public function __toString()
     {

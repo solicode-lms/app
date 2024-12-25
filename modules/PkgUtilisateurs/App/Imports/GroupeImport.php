@@ -41,6 +41,7 @@ class GroupeImport implements ToModel, WithHeadingRow
             'code' => $row['code'],
             'nom' => $row['nom'],
             'description' => $row['description'],
+            'filiere_id' => $row['filiere_id'],
         ]);
     }
 }

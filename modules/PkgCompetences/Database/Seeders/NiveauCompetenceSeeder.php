@@ -21,7 +21,7 @@ use Modules\PkgCompetences\Models\NiveauCompetence;
 
 class NiveauCompetenceSeeder extends Seeder
 {
-    public static int $order = 26;
+    public static int $order = 18;
 
     public function run(): void
     {

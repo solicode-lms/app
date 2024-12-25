@@ -21,7 +21,7 @@ use Modules\PkgUtilisateurs\Models\Nationalite;
 
 class NationaliteSeeder extends Seeder
 {
-    public static int $order = 14;
+    public static int $order = 23;
 
     public function run(): void
     {

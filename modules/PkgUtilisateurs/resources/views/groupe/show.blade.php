@@ -36,6 +36,10 @@
                                 <label for="description">{{ ucfirst(__('PkgUtilisateurs::groupe.description')) }}:</label>
                                 <p>{{ $item->description }}</p>
                             </div>
+                            <div class="col-sm-12">
+                                <label for="filiere_id">{{ ucfirst(__('PkgUtilisateurs::groupe.filiere_id')) }}:</label>
+                                <p>{{ $item->filiere_id }}</p>
+                            </div>
                         </div>
                     </div>
                 </div>

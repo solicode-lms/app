@@ -28,6 +28,7 @@ class GroupeExport implements FromCollection, WithHeadings, ShouldAutoSize, With
             'code',
             'nom',
             'description',
+            'filiere_id',
         ];
     }
 
@@ -38,6 +39,7 @@ class GroupeExport implements FromCollection, WithHeadings, ShouldAutoSize, With
                 'code' => $groupe->code,
                 'nom' => $groupe->nom,
                 'description' => $groupe->description,
+                'filiere_id' => $groupe->filiere_id,
             ];
         });
     }

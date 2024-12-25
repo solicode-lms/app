@@ -7,7 +7,6 @@ namespace Modules\PkgUtilisateurs\Controllers;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\PkgUtilisateurs\App\Requests\ApprenantRequest;
 use Modules\PkgUtilisateurs\Services\ApprenantService;
-use Modules\PkgUtilisateurs\Services\GroupeService;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgUtilisateurs\App\Exports\ApprenantExport;
@@ -16,13 +15,11 @@ use Modules\PkgUtilisateurs\App\Imports\ApprenantImport;
 class ApprenantController extends AdminController
 {
     protected $apprenantService;
-    protected $groupeService;
 
-    public function __construct(ApprenantService $apprenantService, GroupeService $groupeService)
+    public function __construct(ApprenantService $apprenantService)
     {
         parent::__construct();
         $this->apprenantService = $apprenantService;
-        $this->groupeService = $groupeService;
     }
 
     public function index(Request $request)
@@ -48,8 +45,7 @@ class ApprenantController extends AdminController
     public function create()
     {
         $item = $this->apprenantService->createInstance();
-        $groupes = $this->groupeService->all();
-        return view('PkgUtilisateurs::apprenant.create', compact('item', 'groupes'));
+        return view('PkgUtilisateurs::apprenant.create', compact('item'));
     }
 
     public function store(ApprenantRequest $request)
@@ -57,9 +53,6 @@ class ApprenantController extends AdminController
         $validatedData = $request->validated();
         $apprenant = $this->apprenantService->create($validatedData);
 
-        if ($request->has('groupes')) {
-            $apprenant->groupes()->sync($request->input('groupes'));
-        }
 
         return redirect()->route('apprenants.index')->with('success', __('Core::msg.addSuccess', [
             'entityToString' => $apprenant,
@@ -75,8 +68,7 @@ class ApprenantController extends AdminController
     public function edit(string $id)
     {
         $item = $this->apprenantService->find($id);
-        $groupes = $this->groupeService->all();
-        return view('PkgUtilisateurs::apprenant.edit', compact('item', 'groupes'));
+        return view('PkgUtilisateurs::apprenant.edit', compact('item'));
     }
 
     public function update(ApprenantRequest $request, string $id)
@@ -85,9 +77,6 @@ class ApprenantController extends AdminController
         $apprenant = $this->apprenantService->update($id, $validatedData);
 
 
-        if ($request->has('groupes')) {
-            $apprenant->groupes()->sync($request->input('groupes'));
-        }
 
         return redirect()->route('apprenants.index')->with(
             'success',

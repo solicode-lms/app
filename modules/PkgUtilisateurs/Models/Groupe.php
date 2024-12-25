@@ -6,20 +6,20 @@ namespace Modules\PkgUtilisateurs\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Modules\PkgUtilisateurs\Models\Apprenant;
+use Modules\PkgCompetences\Models\Filiere;
 use Modules\PkgUtilisateurs\Models\Formateur;
 
 class Groupe extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['code', 'nom', 'description'];
+    protected $fillable = ['code', 'nom', 'description', 'filiere_id'];
 
-
-    public function apprenants()
+    public function filiere()
     {
-        return $this->belongsToMany(Apprenant::class, 'apprenant_groupe');
+        return $this->belongsTo(Filiere::class, 'filiere_id', 'id');
     }
+
     public function formateurs()
     {
         return $this->belongsToMany(Formateur::class, 'formateur_groupe');
