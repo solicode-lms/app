@@ -1,5 +1,4 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 
@@ -15,12 +14,13 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('apprenant_groupe', function (Blueprint $table) {
+        Schema::create('specialites', function (Blueprint $table) {
+            $table->id();
+            $table->string('nom');
+            $table->string('description');
 
             $table->timestamps();
            
-            $table->foreignId('groupe_id')->constrained('groupes');
-            $table->foreignId('apprenant_id')->constrained('apprenants');
 
         });
     }
@@ -30,6 +30,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('apprenant_groupe');
+        Schema::dropIfExists('specialites');
     }
 };

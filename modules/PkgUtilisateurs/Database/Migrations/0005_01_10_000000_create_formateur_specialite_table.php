@@ -1,9 +1,8 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 
-namespace Modules\PkgCompetences\Database\Migrations;
+namespace Modules\PkgUtilisateurs\Database\Migrations;
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -15,14 +14,12 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('niveau_competences', function (Blueprint $table) {
-            $table->id();
-            $table->string('nom');
-            $table->string('description');
+        Schema::create('formateur_specialite', function (Blueprint $table) {
 
             $table->timestamps();
            
-            $table->foreignId('competence_id')->constrained('competences');
+            $table->foreignId('specialite_id')->constrained('specialites');
+            $table->foreignId('formateur_id')->constrained('formateurs');
 
         });
     }
@@ -32,6 +29,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('niveau_competences');
+        Schema::dropIfExists('formateur_specialite');
     }
 };
