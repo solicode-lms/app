@@ -375,7 +375,7 @@
             fieldId: 'niveaux_scolaire_id',
             fetchUrl: "{{ route('niveauxScolaires.all') }}",
             selectedValue: {{ $item->niveaux_scolaire_id ? $item->niveaux_scolaire_id : 'undefined' }},
-            fieldValue: 'nom'
+            fieldValue: 'code'
         }
         
     ];

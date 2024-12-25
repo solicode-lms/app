@@ -20,7 +20,7 @@
                     <td>{{ $apprenant->actif }}</td>
                     <td>{{ $apprenant->adresse }}</td>
                     <td>{{ $apprenant->groupe->code ?? '-' }}</td>
-                    <td>{{ $apprenant->niveauxScolaire->nom ?? '-' }}</td>
+                    <td>{{ $apprenant->niveauxScolaire->code ?? '-' }}</td>
                     <td>{{ $apprenant->nationalite->code ?? '-' }}</td>
                     <td class="text-center">
                         @can('show-apprenant')

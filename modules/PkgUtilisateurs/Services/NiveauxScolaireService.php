@@ -19,6 +19,7 @@ class NiveauxScolaireService extends BaseService
      * @var array
      */
     protected $fieldsSearchable = [
+        'code',
         'nom',
         'description'
     ];
@@ -50,6 +51,7 @@ class NiveauxScolaireService extends BaseService
     public function create(array $data)
     {
         $niveauxScolaire = parent::create([
+            'code' => $data['code'],
             'nom' => $data['nom'],
             'description' => $data['description'],
         ]);

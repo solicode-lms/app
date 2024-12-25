@@ -106,7 +106,7 @@ class ApprenantKonosyService extends BaseService
         // Create if not exist
         $groupe = (new GroupeService())->updateOrCreate(["code" => $code_groupe ],
         [ "code" => $code_groupe ,
-           "filier_id" =>  $filiere->id
+           "filiere_id" =>  $filiere->id
         ]);
 
 
@@ -134,7 +134,7 @@ class ApprenantKonosyService extends BaseService
             'adresse' => $apprenantKonosy->Adresse,
             'groupe_id' => $groupe->id,
             'nationalite_id' => $nationalite->id,
-            'niveau_scolaire_id' => $niveau_scolaire->id
+            'niveaux_scolaire_id' => $niveau_scolaire->id
             ]
         );
 

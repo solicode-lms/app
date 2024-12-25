@@ -46,8 +46,9 @@ class NiveauxScolaireSeeder extends Seeder
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
                 NiveauxScolaire::create([
-                    "nom" => $data[0] ,
-                    "description" => $data[1] 
+                    "code" => $data[0] ,
+                    "nom" => $data[1] ,
+                    "description" => $data[2] 
                 ]);
             }
             $firstline = false;

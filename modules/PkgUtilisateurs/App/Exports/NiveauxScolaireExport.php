@@ -25,6 +25,7 @@ class NiveauxScolaireExport implements FromCollection, WithHeadings, ShouldAutoS
     public function headings(): array
     {
         return [
+            'code',
             'nom',
             'description',
         ];
@@ -34,6 +35,7 @@ class NiveauxScolaireExport implements FromCollection, WithHeadings, ShouldAutoS
     {
         return $this->data->map(function ($niveauxScolaire) {
             return [
+                'code' => $niveauxScolaire->code,
                 'nom' => $niveauxScolaire->nom,
                 'description' => $niveauxScolaire->description,
             ];

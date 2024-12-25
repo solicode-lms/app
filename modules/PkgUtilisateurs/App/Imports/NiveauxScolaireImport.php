@@ -21,7 +21,7 @@ class NiveauxScolaireImport implements ToModel, WithHeadingRow
      */
     private function recordExists(array $row): bool
     {
-        return NiveauxScolaire::where('nom', $row['nom'])->exists();
+        return NiveauxScolaire::where('code', $row['code'])->exists();
     }
 
     /**
@@ -38,6 +38,7 @@ class NiveauxScolaireImport implements ToModel, WithHeadingRow
 
         // Crée un nouvel enregistrement à partir des données importées
         return new NiveauxScolaire([
+            'code' => $row['code'],
             'nom' => $row['nom'],
             'description' => $row['description'],
         ]);

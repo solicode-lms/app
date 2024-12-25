@@ -16,8 +16,9 @@ return new class extends Migration {
     {
         Schema::create('niveaux_scolaires', function (Blueprint $table) {
             $table->id();
-            $table->string('nom');
-            $table->string('description');
+            $table->string('code');
+            $table->string('nom')->nullable();
+            $table->string('description')->nullable();
 
             $table->timestamps();
            

@@ -4,6 +4,7 @@
     <table class="table table-striped text-nowrap">
         <thead>
             <tr>
+                <th>{{ ucfirst(__('PkgUtilisateurs::niveauxScolaire.code')) }}</th>
                 <th>{{ ucfirst(__('PkgUtilisateurs::niveauxScolaire.nom')) }}</th>
                 <th>{{ ucfirst(__('PkgUtilisateurs::niveauxScolaire.description')) }}</th>
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
@@ -12,6 +13,7 @@
         <tbody>
             @foreach ($data as $niveauxScolaire)
                 <tr>
+                    <td>{{ $niveauxScolaire->code }}</td>
                     <td>{{ $niveauxScolaire->nom }}</td>
                     <td>{{ $niveauxScolaire->description }}</td>
                     <td class="text-center">
