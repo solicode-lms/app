@@ -17,6 +17,7 @@
 		}
 	],
 	"settings": {
-		"liveServer.settings.multiRootWorkspaceName": "app"
+		"liveServer.settings.multiRootWorkspaceName": "app",
+		"git.autofetch": true
 	}
 }
