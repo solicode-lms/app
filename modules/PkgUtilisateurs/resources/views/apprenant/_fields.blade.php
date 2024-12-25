@@ -123,6 +123,177 @@
             @enderror
         </div>
         
+        <div class="form-group">
+            <label for="matricule">
+                {{ ucfirst(__('PkgUtilisateurs::apprenant.matricule')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <input
+                name="matricule"
+                type="input"
+                class="form-control"
+                id="matricule"
+                placeholder="{{ __('PkgUtilisateurs::apprenant.matricule') }}"
+                value="{{ $item ? $item->matricule : old('matricule') }}">
+            @error('matricule')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+        </div>
+        
+        <div class="form-group">
+            <label for="sexe">
+                {{ ucfirst(__('PkgUtilisateurs::apprenant.sexe')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <input
+                name="sexe"
+                type="input"
+                class="form-control"
+                id="sexe"
+                placeholder="{{ __('PkgUtilisateurs::apprenant.sexe') }}"
+                value="{{ $item ? $item->sexe : old('sexe') }}">
+            @error('sexe')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+        </div>
+        
+        <div class="form-group">
+            <label for="actif">
+                {{ ucfirst(__('PkgUtilisateurs::apprenant.actif')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <input
+                name="actif"
+                type="input"
+                class="form-control"
+                id="actif"
+                placeholder="{{ __('PkgUtilisateurs::apprenant.actif') }}"
+                value="{{ $item ? $item->actif : old('actif') }}">
+            @error('actif')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+        </div>
+        
+        <div class="form-group">
+            <label for="diplome">
+                {{ ucfirst(__('PkgUtilisateurs::apprenant.diplome')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <input
+                name="diplome"
+                type="input"
+                class="form-control"
+                id="diplome"
+                placeholder="{{ __('PkgUtilisateurs::apprenant.diplome') }}"
+                value="{{ $item ? $item->diplome : old('diplome') }}">
+            @error('diplome')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+        </div>
+        
+        <div class="form-group">
+            <label for="date_naissance">
+                {{ ucfirst(__('PkgUtilisateurs::apprenant.date_naissance')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <input
+                name="date_naissance"
+                type="input"
+                class="form-control"
+                id="date_naissance"
+                placeholder="{{ __('PkgUtilisateurs::apprenant.date_naissance') }}"
+                value="{{ $item ? $item->date_naissance : old('date_naissance') }}">
+            @error('date_naissance')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+        </div>
+        
+        <div class="form-group">
+            <label for="date_inscription">
+                {{ ucfirst(__('PkgUtilisateurs::apprenant.date_inscription')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <input
+                name="date_inscription"
+                type="input"
+                class="form-control"
+                id="date_inscription"
+                placeholder="{{ __('PkgUtilisateurs::apprenant.date_inscription') }}"
+                value="{{ $item ? $item->date_inscription : old('date_inscription') }}">
+            @error('date_inscription')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+        </div>
+        
+        <div class="form-group">
+            <label for="lieu_naissance">
+                {{ ucfirst(__('PkgUtilisateurs::apprenant.lieu_naissance')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <input
+                name="lieu_naissance"
+                type="input"
+                class="form-control"
+                id="lieu_naissance"
+                placeholder="{{ __('PkgUtilisateurs::apprenant.lieu_naissance') }}"
+                value="{{ $item ? $item->lieu_naissance : old('lieu_naissance') }}">
+            @error('lieu_naissance')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+        </div>
+        
+        <div class="form-group">
+            <label for="cin">
+                {{ ucfirst(__('PkgUtilisateurs::apprenant.cin')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <input
+                name="cin"
+                type="input"
+                class="form-control"
+                id="cin"
+                placeholder="{{ __('PkgUtilisateurs::apprenant.cin') }}"
+                value="{{ $item ? $item->cin : old('cin') }}">
+            @error('cin')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+        </div>
+        
+        <div class="form-group">
+            <label for="adresse">
+                {{ ucfirst(__('PkgUtilisateurs::apprenant.adresse')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <input
+                name="adresse"
+                type="input"
+                class="form-control"
+                id="adresse"
+                placeholder="{{ __('PkgUtilisateurs::apprenant.adresse') }}"
+                value="{{ $item ? $item->adresse : old('adresse') }}">
+            @error('adresse')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+        </div>
+        
 
         
         <div class="form-group">

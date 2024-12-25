@@ -5,6 +5,8 @@
         <thead>
             <tr>
                 <th>{{ ucfirst(__('PkgUtilisateurs::apprenant.nom')) }}</th>
+                <th>{{ ucfirst(__('PkgUtilisateurs::apprenant.actif')) }}</th>
+                <th>{{ ucfirst(__('PkgUtilisateurs::apprenant.adresse')) }}</th>
                 <th>{{ ucfirst(__('PkgUtilisateurs::groupe.singular')) }}</th>
                 <th>{{ ucfirst(__('PkgUtilisateurs::niveauxScolaire.singular')) }}</th>
                 <th>{{ ucfirst(__('PkgUtilisateurs::ville.singular')) }}</th>
@@ -15,6 +17,8 @@
             @foreach ($data as $apprenant)
                 <tr>
                     <td>{{ $apprenant->nom }}</td>
+                    <td>{{ $apprenant->actif }}</td>
+                    <td>{{ $apprenant->adresse }}</td>
                     <td>{{ $apprenant->groupe->nom ?? '-' }}</td>
                     <td>{{ $apprenant->niveauxScolaire->nom ?? '-' }}</td>
                     <td>{{ $apprenant->ville->nom ?? '-' }}</td>

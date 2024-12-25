@@ -110,12 +110,11 @@ class ApprenantKonosyController extends AdminController
             'file' => 'required|mimes:xlsx,xls,csv',
         ]);
 
-        // try {
+        try {
             Excel::import(new ApprenantKonosyImport, $request->file('file'));
-        // } catch (\InvalidArgumentException $e) {
-        //     return redirect()->route('apprenantKonosies.index')
-        //     ->withError('Invalid format or missing data : '  . $e->getMessage());
-        // }
+        } catch (\InvalidArgumentException $e) {
+            return redirect()->route('apprenantKonosies.index')->withError('Invalid format or missing data.');
+        }
 
         return redirect()->route('apprenantKonosies.index')->with(
             'success', __('Core::msg.importSuccess', [

@@ -49,6 +49,42 @@
                                 <p>{{ $item->profile_image }}</p>
                             </div>
                             <div class="col-sm-12">
+                                <label for="matricule">{{ ucfirst(__('PkgUtilisateurs::apprenant.matricule')) }}:</label>
+                                <p>{{ $item->matricule }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="sexe">{{ ucfirst(__('PkgUtilisateurs::apprenant.sexe')) }}:</label>
+                                <p>{{ $item->sexe }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="actif">{{ ucfirst(__('PkgUtilisateurs::apprenant.actif')) }}:</label>
+                                <p>{{ $item->actif }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="diplome">{{ ucfirst(__('PkgUtilisateurs::apprenant.diplome')) }}:</label>
+                                <p>{{ $item->diplome }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="date_naissance">{{ ucfirst(__('PkgUtilisateurs::apprenant.date_naissance')) }}:</label>
+                                <p>{{ $item->date_naissance }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="date_inscription">{{ ucfirst(__('PkgUtilisateurs::apprenant.date_inscription')) }}:</label>
+                                <p>{{ $item->date_inscription }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="lieu_naissance">{{ ucfirst(__('PkgUtilisateurs::apprenant.lieu_naissance')) }}:</label>
+                                <p>{{ $item->lieu_naissance }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="cin">{{ ucfirst(__('PkgUtilisateurs::apprenant.cin')) }}:</label>
+                                <p>{{ $item->cin }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="adresse">{{ ucfirst(__('PkgUtilisateurs::apprenant.adresse')) }}:</label>
+                                <p>{{ $item->adresse }}</p>
+                            </div>
+                            <div class="col-sm-12">
                                 <label for="groupe_id">{{ ucfirst(__('PkgUtilisateurs::apprenant.groupe_id')) }}:</label>
                                 <p>{{ $item->groupe_id }}</p>
                             </div>

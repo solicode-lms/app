@@ -52,9 +52,18 @@ class ApprenantSeeder extends Seeder
                     "nom_arab" => $data[3] ,
                     "tele_num" => $data[4] ,
                     "profile_image" => $data[5] ,
-                    "groupe_id" => $data[6] ,
-                    "niveaux_scolaires_id" => $data[7] ,
-                    "ville_id" => $data[8] 
+                    "matricule" => $data[6] ,
+                    "sexe" => $data[7] ,
+                    "actif" => $data[8] ,
+                    "diplome" => $data[9] ,
+                    "date_naissance" => $data[10] ,
+                    "date_inscription" => $data[11] ,
+                    "lieu_naissance" => $data[12] ,
+                    "cin" => $data[13] ,
+                    "adresse" => $data[14] ,
+                    "groupe_id" => $data[15] ,
+                    "niveaux_scolaires_id" => $data[16] ,
+                    "ville_id" => $data[17] 
                 ]);
             }
             $firstline = false;
