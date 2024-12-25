@@ -21,7 +21,7 @@ use Modules\PkgUtilisateurs\Models\Formateur;
 
 class FormateurSeeder extends Seeder
 {
-    public static int $order = 18;
+    public static int $order = 19;
 
     public function run(): void
     {

@@ -103,7 +103,7 @@
             fieldId: 'filiere_id',
             fetchUrl: "{{ route('filieres.all') }}",
             selectedValue: {{ $item->filiere_id ? $item->filiere_id : 'undefined' }},
-            fieldValue: 'nom'
+            fieldValue: 'code'
         }
         
     ];

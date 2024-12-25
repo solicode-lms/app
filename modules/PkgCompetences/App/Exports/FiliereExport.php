@@ -25,6 +25,7 @@ class FiliereExport implements FromCollection, WithHeadings, ShouldAutoSize, Wit
     public function headings(): array
     {
         return [
+            'code',
             'nom',
             'description',
         ];
@@ -34,6 +35,7 @@ class FiliereExport implements FromCollection, WithHeadings, ShouldAutoSize, Wit
     {
         return $this->data->map(function ($filiere) {
             return [
+                'code' => $filiere->code,
                 'nom' => $filiere->nom,
                 'description' => $filiere->description,
             ];

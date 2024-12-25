@@ -33,8 +33,8 @@ class ApprenantRequest extends FormRequest
             'cin' => 'required|max:255',
             'adresse' => 'required|max:255',
             'groupe_id' => 'required',
-            'niveaux_scolaires_id' => 'required',
-            'ville_id' => 'required'
+            'niveaux_scolaire_id' => 'required',
+            'nationalite_id' => 'required'
         ];
     }
 
@@ -73,10 +73,10 @@ class ApprenantRequest extends FormRequest
             'adresse.max' => __('validation.adresseMax'),
             'groupe_id.required' => __('validation.required', ['attribute' => __('PkgBlog::category.groupe_id')]),
             'groupe_id.max' => __('validation.groupe_idMax'),
-            'niveaux_scolaires_id.required' => __('validation.required', ['attribute' => __('PkgBlog::category.niveaux_scolaires_id')]),
-            'niveaux_scolaires_id.max' => __('validation.niveaux_scolaires_idMax'),
-            'ville_id.required' => __('validation.required', ['attribute' => __('PkgBlog::category.ville_id')]),
-            'ville_id.max' => __('validation.ville_idMax')
+            'niveaux_scolaire_id.required' => __('validation.required', ['attribute' => __('PkgBlog::category.niveaux_scolaire_id')]),
+            'niveaux_scolaire_id.max' => __('validation.niveaux_scolaire_idMax'),
+            'nationalite_id.required' => __('validation.required', ['attribute' => __('PkgBlog::category.nationalite_id')]),
+            'nationalite_id.max' => __('validation.nationalite_idMax')
         ];
     }
 }

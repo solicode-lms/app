@@ -21,7 +21,7 @@ class GroupeImport implements ToModel, WithHeadingRow
      */
     private function recordExists(array $row): bool
     {
-        return Groupe::where('nom', $row['nom'])->exists();
+        return Groupe::where('code', $row['code'])->exists();
     }
 
     /**
@@ -38,6 +38,7 @@ class GroupeImport implements ToModel, WithHeadingRow
 
         // Crée un nouvel enregistrement à partir des données importées
         return new Groupe([
+            'code' => $row['code'],
             'nom' => $row['nom'],
             'description' => $row['description'],
         ]);

@@ -139,7 +139,7 @@
                 @foreach ($groupes as $groupe)
                     <option value="{{ $groupe->id }}"
                         {{ (isset($item) && $item->groupes && $item->groupes->contains('id', $groupe->id)) || (is_array(old('groupes')) && in_array($groupe->id, old('groupes'))) ? 'selected' : '' }}>
-                        {{ $groupe->nom }}
+                        {{ $groupe->code }}
                     </option>
                 @endforeach
             </select>

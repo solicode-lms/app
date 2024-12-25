@@ -11,13 +11,13 @@ class Filiere extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nom', 'description'];
+    protected $fillable = ['code', 'nom', 'description'];
 
 
 
     public function __toString()
     {
-        return $this->nom;
+        return $this->code;
     }
 
 }

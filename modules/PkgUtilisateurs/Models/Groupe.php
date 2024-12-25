@@ -13,7 +13,7 @@ class Groupe extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nom', 'description'];
+    protected $fillable = ['code', 'nom', 'description'];
 
 
     public function apprenants()
@@ -27,7 +27,7 @@ class Groupe extends Model
 
     public function __toString()
     {
-        return $this->nom;
+        return $this->code;
     }
 
 }

@@ -4,6 +4,7 @@
     <table class="table table-striped text-nowrap">
         <thead>
             <tr>
+                <th>{{ ucfirst(__('PkgCompetences::filiere.code')) }}</th>
                 <th>{{ ucfirst(__('PkgCompetences::filiere.nom')) }}</th>
                 <th>{{ ucfirst(__('PkgCompetences::filiere.description')) }}</th>
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
@@ -12,6 +13,7 @@
         <tbody>
             @foreach ($data as $filiere)
                 <tr>
+                    <td>{{ $filiere->code }}</td>
                     <td>{{ $filiere->nom }}</td>
                     <td>{{ $filiere->description }}</td>
                     <td class="text-center">

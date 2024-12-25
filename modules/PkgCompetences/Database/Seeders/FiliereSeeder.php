@@ -21,7 +21,7 @@ use Modules\PkgCompetences\Models\Filiere;
 
 class FiliereSeeder extends Seeder
 {
-    public static int $order = 21;
+    public static int $order = 22;
 
     public function run(): void
     {
@@ -46,8 +46,9 @@ class FiliereSeeder extends Seeder
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
                 Filiere::create([
-                    "nom" => $data[0] ,
-                    "description" => $data[1] 
+                    "code" => $data[0] ,
+                    "nom" => $data[1] ,
+                    "description" => $data[2] 
                 ]);
             }
             $firstline = false;

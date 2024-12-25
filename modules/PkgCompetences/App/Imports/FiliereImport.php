@@ -21,7 +21,7 @@ class FiliereImport implements ToModel, WithHeadingRow
      */
     private function recordExists(array $row): bool
     {
-        return Filiere::where('nom', $row['nom'])->exists();
+        return Filiere::where('code', $row['code'])->exists();
     }
 
     /**
@@ -38,6 +38,7 @@ class FiliereImport implements ToModel, WithHeadingRow
 
         // Crée un nouvel enregistrement à partir des données importées
         return new Filiere([
+            'code' => $row['code'],
             'nom' => $row['nom'],
             'description' => $row['description'],
         ]);

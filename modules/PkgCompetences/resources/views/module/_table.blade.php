@@ -15,7 +15,7 @@
                 <tr>
                     <td>{{ $module->nom }}</td>
                     <td>{{ $module->description }}</td>
-                    <td>{{ $module->filiere->nom ?? '-' }}</td>
+                    <td>{{ $module->filiere->code ?? '-' }}</td>
                     <td class="text-center">
                         @can('show-module')
                             <a href="{{ route('modules.show', $module) }}" class="btn btn-default btn-sm">

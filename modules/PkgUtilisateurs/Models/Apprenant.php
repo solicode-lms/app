@@ -7,26 +7,26 @@ namespace Modules\PkgUtilisateurs\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Modules\PkgUtilisateurs\Models\Groupe;
+use Modules\PkgUtilisateurs\Models\Nationalite;
 use Modules\PkgUtilisateurs\Models\NiveauxScolaire;
-use Modules\PkgUtilisateurs\Models\Ville;
 
 class Apprenant extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nom', 'prenom', 'prenom_arab', 'nom_arab', 'tele_num', 'profile_image', 'matricule', 'sexe', 'actif', 'diplome', 'date_naissance', 'date_inscription', 'lieu_naissance', 'cin', 'adresse', 'groupe_id', 'niveaux_scolaires_id', 'ville_id'];
+    protected $fillable = ['nom', 'prenom', 'prenom_arab', 'nom_arab', 'tele_num', 'profile_image', 'matricule', 'sexe', 'actif', 'diplome', 'date_naissance', 'date_inscription', 'lieu_naissance', 'cin', 'adresse', 'groupe_id', 'niveaux_scolaire_id', 'nationalite_id'];
 
     public function groupe()
     {
         return $this->belongsTo(Groupe::class, 'groupe_id', 'id');
     }
+    public function nationalite()
+    {
+        return $this->belongsTo(Nationalite::class, 'nationalite_id', 'id');
+    }
     public function niveauxScolaire()
     {
-        return $this->belongsTo(NiveauxScolaire::class, 'niveaux_scolaires_id', 'id');
-    }
-    public function ville()
-    {
-        return $this->belongsTo(Ville::class, 'ville_id', 'id');
+        return $this->belongsTo(NiveauxScolaire::class, 'niveaux_scolaire_id', 'id');
     }
 
     public function groupes()

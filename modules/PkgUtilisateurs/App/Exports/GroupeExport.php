@@ -25,6 +25,7 @@ class GroupeExport implements FromCollection, WithHeadings, ShouldAutoSize, With
     public function headings(): array
     {
         return [
+            'code',
             'nom',
             'description',
         ];
@@ -34,6 +35,7 @@ class GroupeExport implements FromCollection, WithHeadings, ShouldAutoSize, With
     {
         return $this->data->map(function ($groupe) {
             return [
+                'code' => $groupe->code,
                 'nom' => $groupe->nom,
                 'description' => $groupe->description,
             ];

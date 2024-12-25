@@ -35,8 +35,8 @@ class ApprenantService extends BaseService
         'cin',
         'adresse',
         'groupe_id',
-        'niveaux_scolaires_id',
-        'ville_id'
+        'niveaux_scolaire_id',
+        'nationalite_id'
     ];
 
     /**
@@ -82,8 +82,8 @@ class ApprenantService extends BaseService
             'cin' => $data['cin'],
             'adresse' => $data['adresse'],
             'groupe_id' => $data['groupe_id'],
-            'niveaux_scolaires_id' => $data['niveaux_scolaires_id'],
-            'ville_id' => $data['ville_id'],
+            'niveaux_scolaire_id' => $data['niveaux_scolaire_id'],
+            'nationalite_id' => $data['nationalite_id'],
         ]);
 
         return $apprenant;

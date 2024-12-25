@@ -21,7 +21,7 @@ use Modules\PkgUtilisateurs\Models\Groupe;
 
 class GroupeSeeder extends Seeder
 {
-    public static int $order = 14;
+    public static int $order = 15;
 
     public function run(): void
     {
@@ -46,8 +46,9 @@ class GroupeSeeder extends Seeder
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
                 Groupe::create([
-                    "nom" => $data[0] ,
-                    "description" => $data[1] 
+                    "code" => $data[0] ,
+                    "nom" => $data[1] ,
+                    "description" => $data[2] 
                 ]);
             }
             $firstline = false;
