@@ -16,6 +16,12 @@
             </a>
         </li>
         <li class="nav-item">
+            <a href="{{ route('apprenantKonosies.index') }}" class="nav-link {{ Request::is('PkgUtilisateurs/apprenantKonosies') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-table"></i>
+                <p>ApprenantKonosies</p>
+            </a>
+        </li>
+        <li class="nav-item">
             <a href="{{ route('formateurs.index') }}" class="nav-link {{ Request::is('PkgUtilisateurs/formateurs') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-chalkboard-teacher"></i>
                 <p>Formateurs</p>
