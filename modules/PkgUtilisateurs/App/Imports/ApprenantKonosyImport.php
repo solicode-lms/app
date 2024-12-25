@@ -10,6 +10,7 @@ use Modules\PkgUtilisateurs\Models\ApprenantKonosy;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Modules\PkgUtilisateurs\Models\Apprenant;
 
 class ApprenantKonosyImport implements ToModel, WithHeadingRow
 {
@@ -39,7 +40,7 @@ class ApprenantKonosyImport implements ToModel, WithHeadingRow
         }
     
         // Rechercher ou créer un nouvel enregistrement
-        $apprenant = ApprenantKonosy::updateOrCreate(
+        $apprenantKonosy = ApprenantKonosy::updateOrCreate(
             ['MatriculeEtudiant' => $row['matriculeetudiant']], // Critères de recherche
             [ // Données à insérer ou mettre à jour
                 'Nom' => $row['nom'],
@@ -64,10 +65,27 @@ class ApprenantKonosyImport implements ToModel, WithHeadingRow
         );
     
         // Update Apprenant 
-        
+        Apprenant::updateOrCreate(
+            ['matricule' => $row['matriculeetudiant']],
+            [
+            'nom' => $row['nom'],
+            'prenom' => $row['prenom'],
+            'prenom_arab' => $row['prenom_arabe'],
+            'nom_arab' => $row['nom_arabe'],
+            'tele_num' => $row['ntelelephone'],
+            'matricule' => $row['matriculeetudiant'],
+            'sexe' => $row['sexe'],
+            'actif' => $apprenantKonosy->EtudiantActif,
+            'diplome' => $row['diplome'],
+            'date_naissance' => $apprenantKonosy->DateNaissance,
+            'date_inscription' => $apprenantKonosy->DateInscription,
+            'lieu_naissance' => $row['lieunaissance'],
+            'cin' => $row['cin'],
+            'adresse' => $row['adresse']
+        ]);
 
 
-        return $apprenant;
+        return $apprenantKonosy;
     }
     
 }

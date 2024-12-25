@@ -20,9 +20,9 @@ return new class extends Migration {
             $table->string('prenom_arab');
             $table->string('nom_arab');
             $table->string('tele_num');
-            $table->string('profile_image');
+            $table->string('profile_image')->nullable();
             $table->string('matricule')->unique();
-            $table->char('sexe', 1);
+            $table->char('sexe');
             $table->boolean('actif')->default(true);
             $table->string('diplome', 100)->nullable();
             $table->date('date_naissance')->nullable();
@@ -31,9 +31,9 @@ return new class extends Migration {
             $table->string('cin', 50)->nullable();
             $table->text('adresse')->nullable();
             $table->timestamps();
-            $table->foreignId('groupe_id')->constrained('groupes');
-            $table->foreignId('niveaux_scolaires_id')->constrained('niveaux_scolaires');
-            $table->foreignId('ville_id')->constrained('villes');
+            $table->foreignId('groupe_id')->nullable()->constrained('groupes');
+            $table->foreignId('niveaux_scolaires_id')->nullable()->constrained('niveaux_scolaires');
+            $table->foreignId('ville_id')->nullable()->constrained('villes');
 
         });
     }
