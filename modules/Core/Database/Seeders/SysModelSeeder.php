@@ -42,7 +42,7 @@ class SysModelSeeder extends Seeder
     {
         // Répertoire contenant vos modèles
         $directories = [
-            base_path('Modules'), // Inclure les modules si vous utilisez des modules.
+            base_path('modules'), // Inclure les modules si vous utilisez des modules.
         ];
     
         foreach ($directories as $directory) {
