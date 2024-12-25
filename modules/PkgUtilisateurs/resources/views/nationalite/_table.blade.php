@@ -5,8 +5,6 @@
         <thead>
             <tr>
                 <th>{{ ucfirst(__('PkgUtilisateurs::nationalite.code')) }}</th>
-                <th>{{ ucfirst(__('PkgUtilisateurs::nationalite.nom')) }}</th>
-                <th>{{ ucfirst(__('PkgUtilisateurs::nationalite.description')) }}</th>
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -14,8 +12,6 @@
             @foreach ($data as $nationalite)
                 <tr>
                     <td>{{ $nationalite->code }}</td>
-                    <td>{{ $nationalite->nom }}</td>
-                    <td>{{ $nationalite->description }}</td>
                     <td class="text-center">
                         @can('show-nationalite')
                             <a href="{{ route('nationalites.show', $nationalite) }}" class="btn btn-default btn-sm">

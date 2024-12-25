@@ -12,4 +12,13 @@ return [
     'groupe_id' => 'Identifiant du groupe',
     'niveaux_scolaires_id' => 'Identifiant du niveau scolaire',
     'ville_id' => 'Identifiant de la ville',
+    'actif' => 'Actif',
+    'adresse' => 'Adresse',
+    'matricule' => 'Matricule',
+    'sexe' => 'sexe',
+    'diplome' => 'Diplôme',
+    'date_naissance' => 'Date de naissance',
+    'date_inscription' => 'Date d\'inscription',
+    'lieu_naissance' => 'lieu de naissance',
+    'cin' => 'cin'
 ];

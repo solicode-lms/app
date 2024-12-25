@@ -5,11 +5,8 @@
         <thead>
             <tr>
                 <th>{{ ucfirst(__('PkgUtilisateurs::apprenant.nom')) }}</th>
-                <th>{{ ucfirst(__('PkgUtilisateurs::apprenant.actif')) }}</th>
-                <th>{{ ucfirst(__('PkgUtilisateurs::apprenant.adresse')) }}</th>
+                <th>{{ ucfirst(__('PkgUtilisateurs::apprenant.prenom')) }}</th>
                 <th>{{ ucfirst(__('PkgUtilisateurs::groupe.singular')) }}</th>
-                <th>{{ ucfirst(__('PkgUtilisateurs::niveauxScolaire.singular')) }}</th>
-                <th>{{ ucfirst(__('PkgUtilisateurs::nationalite.singular')) }}</th>
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -17,11 +14,8 @@
             @foreach ($data as $apprenant)
                 <tr>
                     <td>{{ $apprenant->nom }}</td>
-                    <td>{{ $apprenant->actif }}</td>
-                    <td>{{ $apprenant->adresse }}</td>
+                    <td>{{ $apprenant->prenom }}</td>
                     <td>{{ $apprenant->groupe->code ?? '-' }}</td>
-                    <td>{{ $apprenant->niveauxScolaire->code ?? '-' }}</td>
-                    <td>{{ $apprenant->nationalite->code ?? '-' }}</td>
                     <td class="text-center">
                         @can('show-apprenant')
                             <a href="{{ route('apprenants.show', $apprenant) }}" class="btn btn-default btn-sm">
