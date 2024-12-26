@@ -36,60 +36,7 @@
                          @endif
                     @endforeach
 
-                        <!-- Box 1 -->
-                        <div class="col-lg-3 col-6">
-                            <div class="small-box bg-info">
-                                <div class="inner">
-                                    <h3>150</h3>
-                                    <p>{{__('Core::dashboard.articles')}}</p>
-                                </div>
-                                <div class="icon">
-                                    <i class="fas fa-book"></i>
-                                </div>
-                                <a href="posts.html" class="small-box-footer">Voir les détails <i class="fas fa-arrow-circle-right"></i></a>
-                            </div>
-                        </div>
-
-
-                        <!-- Box 2 -->
-                        <div class="col-lg-3 col-6">
-                            <div class="small-box bg-success">
-                                <div class="inner">
-                                    <h3>53</h3>
-                                    <p>{{__('Core::dashboard.categories')}}</p>
-                                </div>
-                                <div class="icon">
-                                    <i class="fas fa-th"></i>
-                                </div>
-                                <a href="categories.html" class="small-box-footer">Voir les détails <i class="fas fa-arrow-circle-right"></i></a>
-                            </div>
-                        </div>
-                        <!-- Box 3 -->
-                        <div class="col-lg-3 col-6">
-                            <div class="small-box bg-warning">
-                                <div class="inner">
-                                    <h3>44</h3>
-                                    <p>{{__('Core::dashboard.commentaires')}}</p>
-                                </div>
-                                <div class="icon">
-                                    <i class="fas fa-comments"></i>
-                                </div>
-                                <a href="comments.html" class="small-box-footer">Voir les détails <i class="fas fa-arrow-circle-right"></i></a>
-                            </div>
-                        </div>
-                        <!-- Box 4 -->
-                        <div class="col-lg-3 col-6">
-                            <div class="small-box bg-danger">
-                                <div class="inner">
-                                    <h3>65</h3>
-                                    <p>{{__('Core::dashboard.utilisateurs')}}</p>
-                                </div>
-                                <div class="icon">
-                                    <i class="fas fa-users"></i>
-                                </div>
-                                <a href="users.html" class="small-box-footer">Voir les détails <i class="fas fa-arrow-circle-right"></i></a>
-                            </div>
-                        </div>
+              
                     </div>
 
                     <!-- Blog Posts -->
