@@ -10,6 +10,12 @@
     </a>
     <ul class="nav nav-treeview">
         <li class="nav-item">
+            <a href="{{ route('appreciations.index') }}" class="nav-link {{ Request::is('PkgCompetences/appreciations') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-table"></i>
+                <p>Appreciations</p>
+            </a>
+        </li>
+        <li class="nav-item">
             <a href="{{ route('categorieTechnologies.index') }}" class="nav-link {{ Request::is('PkgCompetences/categorieTechnologies') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-bolt"></i>
                 <p>CategorieTechnologies</p>
