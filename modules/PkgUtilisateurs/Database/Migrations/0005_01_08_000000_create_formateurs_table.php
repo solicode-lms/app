@@ -16,12 +16,17 @@ return new class extends Migration {
     {
         Schema::create('formateurs', function (Blueprint $table) {
             $table->id();
+            $table->string('matricule')->unique();
             $table->string('nom');
             $table->string('prenom');
-            $table->string('prenom_arab');
-            $table->string('nom_arab');
-            $table->string('tele_num');
-            $table->string('profile_image');
+            $table->string('prenom_arab')->nullable();
+            $table->string('nom_arab')->nullable();
+            $table->string('tele_num')->nullable();
+            $table->string('adresse')->nullable();
+            $table->string('diplome')->nullable();
+            $table->integer('echelle')->nullable();
+            $table->integer('echelon')->nullable();
+            $table->string('profile_image')->nullable();
 
             $table->timestamps();
            
