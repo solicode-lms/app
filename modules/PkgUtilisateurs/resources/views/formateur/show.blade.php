@@ -25,6 +25,10 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="col-sm-12">
+                                <label for="matricule">{{ ucfirst(__('PkgUtilisateurs::formateur.matricule')) }}:</label>
+                                <p>{{ $item->matricule }}</p>
+                            </div>
+                            <div class="col-sm-12">
                                 <label for="nom">{{ ucfirst(__('PkgUtilisateurs::formateur.nom')) }}:</label>
                                 <p>{{ $item->nom }}</p>
                             </div>
@@ -43,6 +47,22 @@
                             <div class="col-sm-12">
                                 <label for="tele_num">{{ ucfirst(__('PkgUtilisateurs::formateur.tele_num')) }}:</label>
                                 <p>{{ $item->tele_num }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="adresse">{{ ucfirst(__('PkgUtilisateurs::formateur.adresse')) }}:</label>
+                                <p>{{ $item->adresse }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="diplome">{{ ucfirst(__('PkgUtilisateurs::formateur.diplome')) }}:</label>
+                                <p>{{ $item->diplome }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="echelle">{{ ucfirst(__('PkgUtilisateurs::formateur.echelle')) }}:</label>
+                                <p>{{ $item->echelle }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="echelon">{{ ucfirst(__('PkgUtilisateurs::formateur.echelon')) }}:</label>
+                                <p>{{ $item->echelon }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="profile_image">{{ ucfirst(__('PkgUtilisateurs::formateur.profile_image')) }}:</label>

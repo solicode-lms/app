@@ -13,7 +13,7 @@ class Formateur extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nom', 'prenom', 'prenom_arab', 'nom_arab', 'tele_num', 'profile_image'];
+    protected $fillable = ['matricule', 'nom', 'prenom', 'prenom_arab', 'nom_arab', 'tele_num', 'adresse', 'diplome', 'echelle', 'echelon', 'profile_image'];
 
 
     public function groupes()

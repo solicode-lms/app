@@ -17,11 +17,16 @@ class FormateurRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'matricule' => 'required|max:255',
             'nom' => 'required|max:255',
             'prenom' => 'required|max:255',
             'prenom_arab' => 'required|max:255',
             'nom_arab' => 'required|max:255',
             'tele_num' => 'required|max:255',
+            'adresse' => 'nullable|max:255',
+            'diplome' => 'nullable|max:255',
+            'echelle' => 'nullable',
+            'echelon' => 'nullable',
             'profile_image' => 'required|max:255'
         ];
     }
@@ -29,6 +34,8 @@ class FormateurRequest extends FormRequest
     public function messages(): array
     {
         return [
+            'matricule.required' => __('validation.required', ['attribute' => __('PkgBlog::category.matricule')]),
+            'matricule.max' => __('validation.matriculeMax'),
             'nom.required' => __('validation.required', ['attribute' => __('PkgBlog::category.nom')]),
             'nom.max' => __('validation.nomMax'),
             'prenom.required' => __('validation.required', ['attribute' => __('PkgBlog::category.prenom')]),
@@ -39,6 +46,14 @@ class FormateurRequest extends FormRequest
             'nom_arab.max' => __('validation.nom_arabMax'),
             'tele_num.required' => __('validation.required', ['attribute' => __('PkgBlog::category.tele_num')]),
             'tele_num.max' => __('validation.tele_numMax'),
+            'adresse.required' => __('validation.required', ['attribute' => __('PkgBlog::category.adresse')]),
+            'adresse.max' => __('validation.adresseMax'),
+            'diplome.required' => __('validation.required', ['attribute' => __('PkgBlog::category.diplome')]),
+            'diplome.max' => __('validation.diplomeMax'),
+            'echelle.required' => __('validation.required', ['attribute' => __('PkgBlog::category.echelle')]),
+            'echelle.max' => __('validation.echelleMax'),
+            'echelon.required' => __('validation.required', ['attribute' => __('PkgBlog::category.echelon')]),
+            'echelon.max' => __('validation.echelonMax'),
             'profile_image.required' => __('validation.required', ['attribute' => __('PkgBlog::category.profile_image')]),
             'profile_image.max' => __('validation.profile_imageMax')
         ];

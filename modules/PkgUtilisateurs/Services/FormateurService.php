@@ -19,11 +19,16 @@ class FormateurService extends BaseService
      * @var array
      */
     protected $fieldsSearchable = [
+        'matricule',
         'nom',
         'prenom',
         'prenom_arab',
         'nom_arab',
         'tele_num',
+        'adresse',
+        'diplome',
+        'echelle',
+        'echelon',
         'profile_image'
     ];
 
@@ -54,11 +59,16 @@ class FormateurService extends BaseService
     public function create(array $data)
     {
         $formateur = parent::create([
+            'matricule' => $data['matricule'],
             'nom' => $data['nom'],
             'prenom' => $data['prenom'],
             'prenom_arab' => $data['prenom_arab'],
             'nom_arab' => $data['nom_arab'],
             'tele_num' => $data['tele_num'],
+            'adresse' => $data['adresse'],
+            'diplome' => $data['diplome'],
+            'echelle' => $data['echelle'],
+            'echelon' => $data['echelon'],
             'profile_image' => $data['profile_image'],
         ]);
 

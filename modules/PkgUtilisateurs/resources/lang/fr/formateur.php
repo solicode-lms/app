@@ -1,12 +1,19 @@
 <?php
+// Ce fichier est maintenu par ESSARRAJ Fouad
+
 
 return [
     'singular' => 'Formateur',
     'plural' => 'Formateurs',
-    'nom' => 'Nom',
-    'prenom' => 'Prénom',
-    'prenom_arab' => 'Prénom (arabe)',
-    'nom_arab' => 'Nom (arabe)',
-    'tele_num' => 'Numéro de téléphone',
-    'profile_image' => 'Image de profil',
+    'matricule' => 'matricule',
+    'nom' => 'nom',
+    'prenom' => 'prénom',
+    'prenom_arab' => 'prenom_arab',
+    'nom_arab' => 'nom_arab',
+    'tele_num' => 'tele_num',
+    'adresse' => 'adresse',
+    'diplome' => 'diplome',
+    'echelle' => 'echelle',
+    'echelon' => 'echelon',
+    'profile_image' => 'profile_image',
 ];

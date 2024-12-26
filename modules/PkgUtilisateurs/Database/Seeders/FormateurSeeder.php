@@ -46,12 +46,17 @@ class FormateurSeeder extends Seeder
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
                 Formateur::create([
-                    "nom" => $data[0] ,
-                    "prenom" => $data[1] ,
-                    "prenom_arab" => $data[2] ,
-                    "nom_arab" => $data[3] ,
-                    "tele_num" => $data[4] ,
-                    "profile_image" => $data[5] 
+                    "matricule" => $data[0] ,
+                    "nom" => $data[1] ,
+                    "prenom" => $data[2] ,
+                    "prenom_arab" => $data[3] ,
+                    "nom_arab" => $data[4] ,
+                    "tele_num" => $data[5] ,
+                    "adresse" => $data[6] ,
+                    "diplome" => $data[7] ,
+                    "echelle" => $data[8] ,
+                    "echelon" => $data[9] ,
+                    "profile_image" => $data[10] 
                 ]);
             }
             $firstline = false;

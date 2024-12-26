@@ -10,6 +10,25 @@
     <div class="card-body">
         
         <div class="form-group">
+            <label for="matricule">
+                {{ ucfirst(__('PkgUtilisateurs::formateur.matricule')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <input
+                name="matricule"
+                type="input"
+                class="form-control"
+                id="matricule"
+                placeholder="{{ __('PkgUtilisateurs::formateur.matricule') }}"
+                value="{{ $item ? $item->matricule : old('matricule') }}">
+            @error('matricule')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+        </div>
+        
+        <div class="form-group">
             <label for="nom">
                 {{ ucfirst(__('PkgUtilisateurs::formateur.nom')) }}
                 
@@ -100,6 +119,74 @@
                 placeholder="{{ __('PkgUtilisateurs::formateur.tele_num') }}"
                 value="{{ $item ? $item->tele_num : old('tele_num') }}">
             @error('tele_num')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+        </div>
+        
+        <div class="form-group">
+            <label for="adresse">
+                {{ ucfirst(__('PkgUtilisateurs::formateur.adresse')) }}
+                
+            </label>
+            <input
+                name="adresse"
+                type="input"
+                class="form-control"
+                id="adresse"
+                placeholder="{{ __('PkgUtilisateurs::formateur.adresse') }}"
+                value="{{ $item ? $item->adresse : old('adresse') }}">
+            @error('adresse')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+        </div>
+        
+        <div class="form-group">
+            <label for="diplome">
+                {{ ucfirst(__('PkgUtilisateurs::formateur.diplome')) }}
+                
+            </label>
+            <input
+                name="diplome"
+                type="input"
+                class="form-control"
+                id="diplome"
+                placeholder="{{ __('PkgUtilisateurs::formateur.diplome') }}"
+                value="{{ $item ? $item->diplome : old('diplome') }}">
+            @error('diplome')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+        </div>
+        
+        <div class="form-group">
+            <label for="echelle">
+                {{ ucfirst(__('PkgUtilisateurs::formateur.echelle')) }}
+                
+            </label>
+            <input
+                name="echelle"
+                type="input"
+                class="form-control"
+                id="echelle"
+                placeholder="{{ __('PkgUtilisateurs::formateur.echelle') }}"
+                value="{{ $item ? $item->echelle : old('echelle') }}">
+            @error('echelle')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+        </div>
+        
+        <div class="form-group">
+            <label for="echelon">
+                {{ ucfirst(__('PkgUtilisateurs::formateur.echelon')) }}
+                
+            </label>
+            <input
+                name="echelon"
+                type="input"
+                class="form-control"
+                id="echelon"
+                placeholder="{{ __('PkgUtilisateurs::formateur.echelon') }}"
+                value="{{ $item ? $item->echelon : old('echelon') }}">
+            @error('echelon')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
         </div>
