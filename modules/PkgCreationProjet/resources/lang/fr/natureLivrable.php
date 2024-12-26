@@ -3,8 +3,8 @@
 
 
 return [
-    'singular' => 'Nature du Livrable',
-    'plural' => 'Natures des Livrables',
-    'nom' => 'Nom',
-    'description' => 'Description',
+    'singular' => 'NatureLivrable',
+    'plural' => 'NatureLivrables',
+    'nom' => 'nom',
+    'description' => 'description',
 ];
