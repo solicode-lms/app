@@ -6,6 +6,7 @@
             <tr>
                 <th>{{ ucfirst(__('PkgUtilisateurs::formateur.nom')) }}</th>
                 <th>{{ ucfirst(__('PkgUtilisateurs::formateur.prenom')) }}</th>
+                <th>{{ ucfirst(__('PkgUtilisateurs::formateur.adresse')) }}</th>
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -14,6 +15,7 @@
                 <tr>
                     <td>{{ $formateur->nom }}</td>
                     <td>{{ $formateur->prenom }}</td>
+                    <td>{{ $formateur->adresse }}</td>
                     <td class="text-center">
                         @can('show-formateur')
                             <a href="{{ route('formateurs.show', $formateur) }}" class="btn btn-default btn-sm">
