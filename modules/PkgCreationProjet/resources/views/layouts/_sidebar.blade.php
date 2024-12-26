@@ -9,6 +9,36 @@
         </p>
     </a>
     <ul class="nav nav-treeview">
+        <li class="nav-item">
+            <a href="{{ route('livrables.index') }}" class="nav-link {{ Request::is('PkgCreationProjet/livrables') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-table"></i>
+                <p>Livrables</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ route('natureLivrables.index') }}" class="nav-link {{ Request::is('PkgCreationProjet/natureLivrables') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-table"></i>
+                <p>NatureLivrables</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ route('projets.index') }}" class="nav-link {{ Request::is('PkgCreationProjet/projets') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-table"></i>
+                <p>Projets</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ route('resources.index') }}" class="nav-link {{ Request::is('PkgCreationProjet/resources') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-table"></i>
+                <p>Resources</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ route('transfertCompetences.index') }}" class="nav-link {{ Request::is('PkgCreationProjet/transfertCompetences') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-table"></i>
+                <p>TransfertCompetences</p>
+            </a>
+        </li>
     </ul>
 </li>
 

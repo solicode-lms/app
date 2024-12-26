@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Modules\PkgCompetences\Models\CategorieTechnology;
 use Modules\PkgCompetences\Models\Competence;
+use Modules\PkgCreationProjet\Models\TransfertCompetence;
 
 class Technology extends Model
 {
@@ -23,6 +24,10 @@ class Technology extends Model
     public function competences()
     {
         return $this->belongsToMany(Competence::class, 'competence_technology');
+    }
+    public function transfertCompetences()
+    {
+        return $this->belongsToMany(TransfertCompetence::class, 'technologie_transfert_competence');
     }
 
     public function __toString()

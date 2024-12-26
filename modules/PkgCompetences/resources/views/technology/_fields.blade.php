@@ -88,6 +88,28 @@
 
         </div>
         
+        <div class="form-group">
+            <label for="transfertCompetences">
+                {{ ucfirst(__('PkgCreationProjet::TransfertCompetence.plural')) }}
+            </label>
+            <select
+                id="transfertCompetences"
+                name="transfertCompetences[]"
+                class="form-control select2"
+                multiple="multiple">
+                @foreach ($transfertCompetences as $transfertCompetence)
+                    <option value="{{ $transfertCompetence->id }}"
+                        {{ (isset($item) && $item->transfertCompetences && $item->transfertCompetences->contains('id', $transfertCompetence->id)) || (is_array(old('transfertCompetences')) && in_array($transfertCompetence->id, old('transfertCompetences'))) ? 'selected' : '' }}>
+                        {{ $transfertCompetence->id }}
+                    </option>
+                @endforeach
+            </select>
+            @error('transfertCompetences')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+
+        </div>
+        
 
 
 

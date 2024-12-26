@@ -8,6 +8,7 @@ use Modules\Core\Controllers\Base\AdminController;
 use Modules\PkgCompetences\App\Requests\TechnologyRequest;
 use Modules\PkgCompetences\Services\TechnologyService;
 use Modules\PkgCompetences\Services\CompetenceService;
+use Modules\PkgCreationProjet\Services\TransfertCompetenceService;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgCompetences\App\Exports\TechnologyExport;
@@ -17,12 +18,14 @@ class TechnologyController extends AdminController
 {
     protected $technologyService;
     protected $competenceService;
+    protected $transfertCompetenceService;
 
-    public function __construct(TechnologyService $technologyService, CompetenceService $competenceService)
+    public function __construct(TechnologyService $technologyService, CompetenceService $competenceService, TransfertCompetenceService $transfertCompetenceService)
     {
         parent::__construct();
         $this->technologyService = $technologyService;
         $this->competenceService = $competenceService;
+        $this->transfertCompetenceService = $transfertCompetenceService;
     }
 
     public function index(Request $request)
@@ -49,7 +52,8 @@ class TechnologyController extends AdminController
     {
         $item = $this->technologyService->createInstance();
         $competences = $this->competenceService->all();
-        return view('PkgCompetences::technology.create', compact('item', 'competences'));
+        $transfertCompetences = $this->transfertCompetenceService->all();
+        return view('PkgCompetences::technology.create', compact('item', 'competences', 'transfertCompetences'));
     }
 
     public function store(TechnologyRequest $request)
@@ -59,6 +63,9 @@ class TechnologyController extends AdminController
 
         if ($request->has('competences')) {
             $technology->competences()->sync($request->input('competences'));
+        }
+        if ($request->has('transfertcompetences')) {
+            $technology->transfertcompetences()->sync($request->input('transfertcompetences'));
         }
 
         return redirect()->route('technologies.index')->with('success', __('Core::msg.addSuccess', [
@@ -76,7 +83,8 @@ class TechnologyController extends AdminController
     {
         $item = $this->technologyService->find($id);
         $competences = $this->competenceService->all();
-        return view('PkgCompetences::technology.edit', compact('item', 'competences'));
+        $transfertCompetences = $this->transfertCompetenceService->all();
+        return view('PkgCompetences::technology.edit', compact('item', 'competences', 'transfertCompetences'));
     }
 
     public function update(TechnologyRequest $request, string $id)
@@ -87,6 +95,9 @@ class TechnologyController extends AdminController
 
         if ($request->has('competences')) {
             $technology->competences()->sync($request->input('competences'));
+        }
+        if ($request->has('transfertcompetences')) {
+            $technology->transfertcompetences()->sync($request->input('transfertcompetences'));
         }
 
         return redirect()->route('technologies.index')->with(

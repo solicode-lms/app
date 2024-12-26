@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('nature_livrables', function (Blueprint $table) {
             $table->id(); // id: int
             $table->string('nom'); // nom: String
-            $table->text('description'); // description: Text
+            $table->text('description')->nullable(); // description: Text
             $table->timestamps(); // created_at & updated_at
         });
     }
