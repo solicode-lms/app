@@ -1,9 +1,9 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form action="{{ $item->id ? route('resources.update', $item->id) : route('resources.store') }}" method="POST">
+<form id="resourceForm" action="{{ $itemResource->id ? route('resources.update', $itemResource->id) : route('resources.store') }}" method="POST">
     @csrf
 
-    @if ($item->id)
+    @if ($itemResource->id)
         @method('PUT')
     @endif
 
@@ -22,7 +22,7 @@
                 class="form-control"
                 id="nom"
                 placeholder="{{ __('PkgCreationProjet::resource.nom') }}"
-                value="{{ $item ? $item->nom : old('nom') }}">
+                value="{{ $itemResource ? $itemResource->nom : old('nom') }}">
             @error('nom')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -41,7 +41,7 @@
                 class="form-control"
                 id="lien"
                 placeholder="{{ __('PkgCreationProjet::resource.lien') }}"
-                value="{{ $item ? $item->lien : old('lien') }}">
+                value="{{ $itemResource ? $itemResource->lien : old('lien') }}">
             @error('lien')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -60,7 +60,7 @@
                 class="form-control"
                 id="description"
                 placeholder="{{ __('PkgCreationProjet::resource.description') }}"
-                value="{{ $item ? $item->description : old('description') }}">
+                value="{{ $itemResource ? $itemResource->description : old('description') }}">
             @error('description')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -90,9 +90,10 @@
 
     </div>
 
+
     <div class="card-footer">
-        <a href="{{ route('resources.index') }}" class="btn btn-default">{{ __('Core::msg.cancel') }}</a>
-        <button type="submit" class="btn btn-info ml-2">{{ $item->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
+        <a href="{{ route('resources.index') }}" id="resource_form_cancel" class="btn btn-default">{{ __('Core::msg.cancel') }}</a>
+        <button type="submit" class="btn btn-info ml-2">{{ $itemResource->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
 
@@ -102,7 +103,7 @@
         {
             fieldId: 'projet_id',
             fetchUrl: "{{ route('projets.all') }}",
-            selectedValue: {{ $item->projet_id ? $item->projet_id : 'undefined' }},
+            selectedValue: {{ $itemResource->projet_id ? $itemResource->projet_id : 'undefined' }},
             fieldValue: 'titre'
         }
         

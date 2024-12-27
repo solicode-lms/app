@@ -1,9 +1,9 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form action="{{ $item->id ? route('natureLivrables.update', $item->id) : route('natureLivrables.store') }}" method="POST">
+<form id="natureLivrableForm" action="{{ $itemNatureLivrable->id ? route('natureLivrables.update', $itemNatureLivrable->id) : route('natureLivrables.store') }}" method="POST">
     @csrf
 
-    @if ($item->id)
+    @if ($itemNatureLivrable->id)
         @method('PUT')
     @endif
 
@@ -22,7 +22,7 @@
                 class="form-control"
                 id="nom"
                 placeholder="{{ __('PkgCreationProjet::natureLivrable.nom') }}"
-                value="{{ $item ? $item->nom : old('nom') }}">
+                value="{{ $itemNatureLivrable ? $itemNatureLivrable->nom : old('nom') }}">
             @error('nom')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -41,7 +41,7 @@
                 class="form-control"
                 id="description"
                 placeholder="{{ __('PkgCreationProjet::natureLivrable.description') }}"
-                value="{{ $item ? $item->description : old('description') }}">
+                value="{{ $itemNatureLivrable ? $itemNatureLivrable->description : old('description') }}">
             @error('description')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -56,9 +56,10 @@
 
     </div>
 
+
     <div class="card-footer">
-        <a href="{{ route('natureLivrables.index') }}" class="btn btn-default">{{ __('Core::msg.cancel') }}</a>
-        <button type="submit" class="btn btn-info ml-2">{{ $item->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
+        <a href="{{ route('natureLivrables.index') }}" id="natureLivrable_form_cancel" class="btn btn-default">{{ __('Core::msg.cancel') }}</a>
+        <button type="submit" class="btn btn-info ml-2">{{ $itemNatureLivrable->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
 

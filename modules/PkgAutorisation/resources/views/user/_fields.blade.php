@@ -1,9 +1,9 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form action="{{ $item->id ? route('users.update', $item->id) : route('users.store') }}" method="POST">
+<form id="userForm" action="{{ $itemUser->id ? route('users.update', $itemUser->id) : route('users.store') }}" method="POST">
     @csrf
 
-    @if ($item->id)
+    @if ($itemUser->id)
         @method('PUT')
     @endif
 
@@ -22,7 +22,7 @@
                 class="form-control"
                 id="name"
                 placeholder="{{ __('PkgAutorisation::user.name') }}"
-                value="{{ $item ? $item->name : old('name') }}">
+                value="{{ $itemUser ? $itemUser->name : old('name') }}">
             @error('name')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -41,7 +41,7 @@
                 class="form-control"
                 id="email"
                 placeholder="{{ __('PkgAutorisation::user.email') }}"
-                value="{{ $item ? $item->email : old('email') }}">
+                value="{{ $itemUser ? $itemUser->email : old('email') }}">
             @error('email')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -58,7 +58,7 @@
                 class="form-control"
                 id="email_verified_at"
                 placeholder="{{ __('PkgAutorisation::user.email_verified_at') }}"
-                value="{{ $item ? $item->email_verified_at : old('email_verified_at') }}">
+                value="{{ $itemUser ? $itemUser->email_verified_at : old('email_verified_at') }}">
             @error('email_verified_at')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -77,7 +77,7 @@
                 class="form-control"
                 id="password"
                 placeholder="{{ __('PkgAutorisation::user.password') }}"
-                value="{{ $item ? $item->password : old('password') }}">
+                value="{{ $itemUser ? $itemUser->password : old('password') }}">
             @error('password')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -94,7 +94,7 @@
                 class="form-control"
                 id="remember_token"
                 placeholder="{{ __('PkgAutorisation::user.remember_token') }}"
-                value="{{ $item ? $item->remember_token : old('remember_token') }}">
+                value="{{ $itemUser ? $itemUser->remember_token : old('remember_token') }}">
             @error('remember_token')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -115,7 +115,7 @@
                 multiple="multiple">
                 @foreach ($roles as $role)
                     <option value="{{ $role->id }}"
-                        {{ (isset($item) && $item->roles && $item->roles->contains('id', $role->id)) || (is_array(old('roles')) && in_array($role->id, old('roles'))) ? 'selected' : '' }}>
+                        {{ (isset($itemUser) && $itemUser->roles && $itemUser->roles->contains('id', $role->id)) || (is_array(old('roles')) && in_array($role->id, old('roles'))) ? 'selected' : '' }}>
                         {{ $role->name }}
                     </option>
                 @endforeach
@@ -131,9 +131,10 @@
 
     </div>
 
+
     <div class="card-footer">
-        <a href="{{ route('users.index') }}" class="btn btn-default">{{ __('Core::msg.cancel') }}</a>
-        <button type="submit" class="btn btn-info ml-2">{{ $item->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
+        <a href="{{ route('users.index') }}" id="user_form_cancel" class="btn btn-default">{{ __('Core::msg.cancel') }}</a>
+        <button type="submit" class="btn btn-info ml-2">{{ $itemUser->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
 

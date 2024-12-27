@@ -22,61 +22,105 @@ class SysColorController extends AdminController
         $this->sysColorService = $sysColorService;
     }
 
+
+    /**
+     * Affiche la liste des filières ou retourne le HTML pour une requête AJAX.
+     */
     public function index(Request $request)
     {
-        // Récupérer la valeur de recherche et paginer
-        $searchValue = $request->get('searchValue', '');
-        $searchQuery = str_replace(' ', '%', $searchValue);
-    
-        // Appel de la méthode paginate avec ou sans recherche
+        $searchQuery = str_replace(' ', '%', $request->get('searchValue', ''));
         $data = $this->sysColorService->paginate($searchQuery);
-    
-        // Gestion AJAX
+
         if ($request->ajax()) {
-            return response()->json([
-                'html' => view('Core::sysColor._table', compact('data'))->render()
-            ]);
+            return view('Core::sysColor._table', compact('data'))->render();
         }
-    
-        // Vue principale pour le chargement initial
+
         return view('Core::sysColor.index', compact('data'));
     }
 
+    /**
+     * Retourne le formulaire de création.
+     */
     public function create()
     {
-        $item = $this->sysColorService->createInstance();
-        return view('Core::sysColor.create', compact('item'));
+        $itemSysColor = $this->sysColorService->createInstance();
+
+        if (request()->ajax()) {
+            return view('Core::sysColor._fields', compact('itemSysColor'));
+        }
+        return view('Core::sysColor.create', compact('itemSysColor'));
     }
 
+    /**
+     * Stocke une nouvelle filière.
+     */
     public function store(SysColorRequest $request)
     {
         $validatedData = $request->validated();
         $sysColor = $this->sysColorService->create($validatedData);
 
 
-        return redirect()->route('sysColors.index')->with('success', __('Core::msg.addSuccess', [
-            'entityToString' => $sysColor,
-            'modelName' => __('Core::sysColor.singular')
-        ]));
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 
+             __('Core::msg.addSuccess', [
+                'entityToString' => $sysColor,
+                'modelName' => __('Core::sysColor.singular')])
+            ]);
+        }
+
+        return redirect()->route('sysColors.index')->with(
+            'success',
+            __('Core::msg.addSuccess', [
+                'entityToString' => $sysColor,
+                'modelName' => __('Core::sysColor.singular')
+            ])
+        );
     }
+
+    /**
+     * Affiche les détails d'une filière.
+     */
     public function show(string $id)
     {
-        $item = $this->sysColorService->find($id);
-        return view('Core::syscolor.show', compact('item'));
+        $itemSysColor = $this->sysColorService->find($id);
+
+        if (request()->ajax()) {
+            return view('Core::syscolor._fields', compact('itemSysColor'));
+        }
+
+        return view('Core::syscolor.show', compact('itemSysColor'));
     }
 
+    /**
+     * Retourne le formulaire d'édition d'une filière.
+     */
     public function edit(string $id)
     {
-        $item = $this->sysColorService->find($id);
-        return view('Core::sysColor.edit', compact('item'));
+        $itemSysColor = $this->sysColorService->find($id);
+
+        if (request()->ajax()) {
+            return view('Core::sysColor._fields', compact('itemSysColor'));
+        }
+
+        return view('Core::sysColor.edit', compact('itemSysColor'));
     }
 
+    /**
+     * Met à jour une filière existante.
+     */
     public function update(SysColorRequest $request, string $id)
     {
         $validatedData = $request->validated();
         $syscolor = $this->sysColorService->update($id, $validatedData);
 
 
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 
+            __('Core::msg.updateSuccess', [
+                'entityToString' => $syscolor,
+                'modelName' =>  __('Core::syscolor.singular')])
+            ]);
+        }
 
         return redirect()->route('sysColors.index')->with(
             'success',
@@ -87,9 +131,21 @@ class SysColorController extends AdminController
         );
     }
 
-    public function destroy(string $id)
+    /**
+     * Supprime une filière.
+     */
+    public function destroy(Request $request, string $id)
     {
         $syscolor = $this->sysColorService->destroy($id);
+
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 
+            __('Core::msg.deleteSuccess', [
+                'entityToString' => $syscolor,
+                'modelName' =>  __('Core::syscolor.singular')])
+            ]);
+        }
+
         return redirect()->route('sysColors.index')->with(
             'success',
             __('Core::msg.deleteSuccess', [
@@ -104,6 +160,7 @@ class SysColorController extends AdminController
         $data = $this->sysColorService->all();
         return Excel::download(new SysColorExport($data), 'sysColor_export.xlsx');
     }
+
     public function import(Request $request)
     {
         $request->validate([

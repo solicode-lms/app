@@ -25,33 +25,39 @@ class FeatureController extends AdminController
         $this->permissionService = $permissionService;
     }
 
+
+    /**
+     * Affiche la liste des filières ou retourne le HTML pour une requête AJAX.
+     */
     public function index(Request $request)
     {
-        // Récupérer la valeur de recherche et paginer
-        $searchValue = $request->get('searchValue', '');
-        $searchQuery = str_replace(' ', '%', $searchValue);
-    
-        // Appel de la méthode paginate avec ou sans recherche
+        $searchQuery = str_replace(' ', '%', $request->get('searchValue', ''));
         $data = $this->featureService->paginate($searchQuery);
-    
-        // Gestion AJAX
+
         if ($request->ajax()) {
-            return response()->json([
-                'html' => view('Core::feature._table', compact('data'))->render()
-            ]);
+            return view('Core::feature._table', compact('data'))->render();
         }
-    
-        // Vue principale pour le chargement initial
+
         return view('Core::feature.index', compact('data'));
     }
 
+    /**
+     * Retourne le formulaire de création.
+     */
     public function create()
     {
-        $item = $this->featureService->createInstance();
+        $itemFeature = $this->featureService->createInstance();
         $permissions = $this->permissionService->all();
-        return view('Core::feature.create', compact('item', 'permissions'));
+
+        if (request()->ajax()) {
+            return view('Core::feature._fields', compact('itemFeature', 'permissions'));
+        }
+        return view('Core::feature.create', compact('itemFeature', 'permissions'));
     }
 
+    /**
+     * Stocke une nouvelle filière.
+     */
     public function store(FeatureRequest $request)
     {
         $validatedData = $request->validated();
@@ -61,32 +67,70 @@ class FeatureController extends AdminController
             $feature->permissions()->sync($request->input('permissions'));
         }
 
-        return redirect()->route('features.index')->with('success', __('Core::msg.addSuccess', [
-            'entityToString' => $feature,
-            'modelName' => __('Core::feature.singular')
-        ]));
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 
+             __('Core::msg.addSuccess', [
+                'entityToString' => $feature,
+                'modelName' => __('Core::feature.singular')])
+            ]);
+        }
+
+        return redirect()->route('features.index')->with(
+            'success',
+            __('Core::msg.addSuccess', [
+                'entityToString' => $feature,
+                'modelName' => __('Core::feature.singular')
+            ])
+        );
     }
+
+    /**
+     * Affiche les détails d'une filière.
+     */
     public function show(string $id)
     {
-        $item = $this->featureService->find($id);
-        return view('Core::feature.show', compact('item'));
+        $itemFeature = $this->featureService->find($id);
+
+        if (request()->ajax()) {
+            return view('Core::feature._fields', compact('itemFeature'));
+        }
+
+        return view('Core::feature.show', compact('itemFeature'));
     }
 
+    /**
+     * Retourne le formulaire d'édition d'une filière.
+     */
     public function edit(string $id)
     {
-        $item = $this->featureService->find($id);
+        $itemFeature = $this->featureService->find($id);
         $permissions = $this->permissionService->all();
-        return view('Core::feature.edit', compact('item', 'permissions'));
+
+        if (request()->ajax()) {
+            return view('Core::feature._fields', compact('itemFeature', 'permissions'));
+        }
+
+        return view('Core::feature.edit', compact('itemFeature', 'permissions'));
     }
 
+    /**
+     * Met à jour une filière existante.
+     */
     public function update(FeatureRequest $request, string $id)
     {
         $validatedData = $request->validated();
         $feature = $this->featureService->update($id, $validatedData);
 
-
         if ($request->has('permissions')) {
             $feature->permissions()->sync($request->input('permissions'));
+        }
+
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 
+            __('Core::msg.updateSuccess', [
+                'entityToString' => $feature,
+                'modelName' =>  __('Core::feature.singular')])
+            ]);
         }
 
         return redirect()->route('features.index')->with(
@@ -98,9 +142,21 @@ class FeatureController extends AdminController
         );
     }
 
-    public function destroy(string $id)
+    /**
+     * Supprime une filière.
+     */
+    public function destroy(Request $request, string $id)
     {
         $feature = $this->featureService->destroy($id);
+
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 
+            __('Core::msg.deleteSuccess', [
+                'entityToString' => $feature,
+                'modelName' =>  __('Core::feature.singular')])
+            ]);
+        }
+
         return redirect()->route('features.index')->with(
             'success',
             __('Core::msg.deleteSuccess', [
@@ -115,6 +171,7 @@ class FeatureController extends AdminController
         $data = $this->featureService->all();
         return Excel::download(new FeatureExport($data), 'feature_export.xlsx');
     }
+
     public function import(Request $request)
     {
         $request->validate([

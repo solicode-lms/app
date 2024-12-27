@@ -22,61 +22,105 @@ class AppreciationController extends AdminController
         $this->appreciationService = $appreciationService;
     }
 
+
+    /**
+     * Affiche la liste des filières ou retourne le HTML pour une requête AJAX.
+     */
     public function index(Request $request)
     {
-        // Récupérer la valeur de recherche et paginer
-        $searchValue = $request->get('searchValue', '');
-        $searchQuery = str_replace(' ', '%', $searchValue);
-    
-        // Appel de la méthode paginate avec ou sans recherche
+        $searchQuery = str_replace(' ', '%', $request->get('searchValue', ''));
         $data = $this->appreciationService->paginate($searchQuery);
-    
-        // Gestion AJAX
+
         if ($request->ajax()) {
-            return response()->json([
-                'html' => view('PkgCompetences::appreciation._table', compact('data'))->render()
-            ]);
+            return view('PkgCompetences::appreciation._table', compact('data'))->render();
         }
-    
-        // Vue principale pour le chargement initial
+
         return view('PkgCompetences::appreciation.index', compact('data'));
     }
 
+    /**
+     * Retourne le formulaire de création.
+     */
     public function create()
     {
-        $item = $this->appreciationService->createInstance();
-        return view('PkgCompetences::appreciation.create', compact('item'));
+        $itemAppreciation = $this->appreciationService->createInstance();
+
+        if (request()->ajax()) {
+            return view('PkgCompetences::appreciation._fields', compact('itemAppreciation'));
+        }
+        return view('PkgCompetences::appreciation.create', compact('itemAppreciation'));
     }
 
+    /**
+     * Stocke une nouvelle filière.
+     */
     public function store(AppreciationRequest $request)
     {
         $validatedData = $request->validated();
         $appreciation = $this->appreciationService->create($validatedData);
 
 
-        return redirect()->route('appreciations.index')->with('success', __('Core::msg.addSuccess', [
-            'entityToString' => $appreciation,
-            'modelName' => __('PkgCompetences::appreciation.singular')
-        ]));
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 
+             __('Core::msg.addSuccess', [
+                'entityToString' => $appreciation,
+                'modelName' => __('PkgCompetences::appreciation.singular')])
+            ]);
+        }
+
+        return redirect()->route('appreciations.index')->with(
+            'success',
+            __('Core::msg.addSuccess', [
+                'entityToString' => $appreciation,
+                'modelName' => __('PkgCompetences::appreciation.singular')
+            ])
+        );
     }
+
+    /**
+     * Affiche les détails d'une filière.
+     */
     public function show(string $id)
     {
-        $item = $this->appreciationService->find($id);
-        return view('PkgCompetences::appreciation.show', compact('item'));
+        $itemAppreciation = $this->appreciationService->find($id);
+
+        if (request()->ajax()) {
+            return view('PkgCompetences::appreciation._fields', compact('itemAppreciation'));
+        }
+
+        return view('PkgCompetences::appreciation.show', compact('itemAppreciation'));
     }
 
+    /**
+     * Retourne le formulaire d'édition d'une filière.
+     */
     public function edit(string $id)
     {
-        $item = $this->appreciationService->find($id);
-        return view('PkgCompetences::appreciation.edit', compact('item'));
+        $itemAppreciation = $this->appreciationService->find($id);
+
+        if (request()->ajax()) {
+            return view('PkgCompetences::appreciation._fields', compact('itemAppreciation'));
+        }
+
+        return view('PkgCompetences::appreciation.edit', compact('itemAppreciation'));
     }
 
+    /**
+     * Met à jour une filière existante.
+     */
     public function update(AppreciationRequest $request, string $id)
     {
         $validatedData = $request->validated();
         $appreciation = $this->appreciationService->update($id, $validatedData);
 
 
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 
+            __('Core::msg.updateSuccess', [
+                'entityToString' => $appreciation,
+                'modelName' =>  __('PkgCompetences::appreciation.singular')])
+            ]);
+        }
 
         return redirect()->route('appreciations.index')->with(
             'success',
@@ -87,9 +131,21 @@ class AppreciationController extends AdminController
         );
     }
 
-    public function destroy(string $id)
+    /**
+     * Supprime une filière.
+     */
+    public function destroy(Request $request, string $id)
     {
         $appreciation = $this->appreciationService->destroy($id);
+
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 
+            __('Core::msg.deleteSuccess', [
+                'entityToString' => $appreciation,
+                'modelName' =>  __('PkgCompetences::appreciation.singular')])
+            ]);
+        }
+
         return redirect()->route('appreciations.index')->with(
             'success',
             __('Core::msg.deleteSuccess', [
@@ -104,6 +160,7 @@ class AppreciationController extends AdminController
         $data = $this->appreciationService->all();
         return Excel::download(new AppreciationExport($data), 'appreciation_export.xlsx');
     }
+
     public function import(Request $request)
     {
         $request->validate([

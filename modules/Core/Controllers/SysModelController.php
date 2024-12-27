@@ -22,61 +22,105 @@ class SysModelController extends AdminController
         $this->sysModelService = $sysModelService;
     }
 
+
+    /**
+     * Affiche la liste des filières ou retourne le HTML pour une requête AJAX.
+     */
     public function index(Request $request)
     {
-        // Récupérer la valeur de recherche et paginer
-        $searchValue = $request->get('searchValue', '');
-        $searchQuery = str_replace(' ', '%', $searchValue);
-    
-        // Appel de la méthode paginate avec ou sans recherche
+        $searchQuery = str_replace(' ', '%', $request->get('searchValue', ''));
         $data = $this->sysModelService->paginate($searchQuery);
-    
-        // Gestion AJAX
+
         if ($request->ajax()) {
-            return response()->json([
-                'html' => view('Core::sysModel._table', compact('data'))->render()
-            ]);
+            return view('Core::sysModel._table', compact('data'))->render();
         }
-    
-        // Vue principale pour le chargement initial
+
         return view('Core::sysModel.index', compact('data'));
     }
 
+    /**
+     * Retourne le formulaire de création.
+     */
     public function create()
     {
-        $item = $this->sysModelService->createInstance();
-        return view('Core::sysModel.create', compact('item'));
+        $itemSysModel = $this->sysModelService->createInstance();
+
+        if (request()->ajax()) {
+            return view('Core::sysModel._fields', compact('itemSysModel'));
+        }
+        return view('Core::sysModel.create', compact('itemSysModel'));
     }
 
+    /**
+     * Stocke une nouvelle filière.
+     */
     public function store(SysModelRequest $request)
     {
         $validatedData = $request->validated();
         $sysModel = $this->sysModelService->create($validatedData);
 
 
-        return redirect()->route('sysModels.index')->with('success', __('Core::msg.addSuccess', [
-            'entityToString' => $sysModel,
-            'modelName' => __('Core::sysModel.singular')
-        ]));
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 
+             __('Core::msg.addSuccess', [
+                'entityToString' => $sysModel,
+                'modelName' => __('Core::sysModel.singular')])
+            ]);
+        }
+
+        return redirect()->route('sysModels.index')->with(
+            'success',
+            __('Core::msg.addSuccess', [
+                'entityToString' => $sysModel,
+                'modelName' => __('Core::sysModel.singular')
+            ])
+        );
     }
+
+    /**
+     * Affiche les détails d'une filière.
+     */
     public function show(string $id)
     {
-        $item = $this->sysModelService->find($id);
-        return view('Core::sysmodel.show', compact('item'));
+        $itemSysModel = $this->sysModelService->find($id);
+
+        if (request()->ajax()) {
+            return view('Core::sysmodel._fields', compact('itemSysModel'));
+        }
+
+        return view('Core::sysmodel.show', compact('itemSysModel'));
     }
 
+    /**
+     * Retourne le formulaire d'édition d'une filière.
+     */
     public function edit(string $id)
     {
-        $item = $this->sysModelService->find($id);
-        return view('Core::sysModel.edit', compact('item'));
+        $itemSysModel = $this->sysModelService->find($id);
+
+        if (request()->ajax()) {
+            return view('Core::sysModel._fields', compact('itemSysModel'));
+        }
+
+        return view('Core::sysModel.edit', compact('itemSysModel'));
     }
 
+    /**
+     * Met à jour une filière existante.
+     */
     public function update(SysModelRequest $request, string $id)
     {
         $validatedData = $request->validated();
         $sysmodel = $this->sysModelService->update($id, $validatedData);
 
 
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 
+            __('Core::msg.updateSuccess', [
+                'entityToString' => $sysmodel,
+                'modelName' =>  __('Core::sysmodel.singular')])
+            ]);
+        }
 
         return redirect()->route('sysModels.index')->with(
             'success',
@@ -87,9 +131,21 @@ class SysModelController extends AdminController
         );
     }
 
-    public function destroy(string $id)
+    /**
+     * Supprime une filière.
+     */
+    public function destroy(Request $request, string $id)
     {
         $sysmodel = $this->sysModelService->destroy($id);
+
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 
+            __('Core::msg.deleteSuccess', [
+                'entityToString' => $sysmodel,
+                'modelName' =>  __('Core::sysmodel.singular')])
+            ]);
+        }
+
         return redirect()->route('sysModels.index')->with(
             'success',
             __('Core::msg.deleteSuccess', [
@@ -104,6 +160,7 @@ class SysModelController extends AdminController
         $data = $this->sysModelService->all();
         return Excel::download(new SysModelExport($data), 'sysModel_export.xlsx');
     }
+
     public function import(Request $request)
     {
         $request->validate([

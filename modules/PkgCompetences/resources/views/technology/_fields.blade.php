@@ -1,9 +1,9 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form action="{{ $item->id ? route('technologies.update', $item->id) : route('technologies.store') }}" method="POST">
+<form id="technologyForm" action="{{ $itemTechnology->id ? route('technologies.update', $itemTechnology->id) : route('technologies.store') }}" method="POST">
     @csrf
 
-    @if ($item->id)
+    @if ($itemTechnology->id)
         @method('PUT')
     @endif
 
@@ -22,7 +22,7 @@
                 class="form-control"
                 id="nom"
                 placeholder="{{ __('PkgCompetences::technology.nom') }}"
-                value="{{ $item ? $item->nom : old('nom') }}">
+                value="{{ $itemTechnology ? $itemTechnology->nom : old('nom') }}">
             @error('nom')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -41,7 +41,7 @@
                 class="form-control"
                 id="description"
                 placeholder="{{ __('PkgCompetences::technology.description') }}"
-                value="{{ $item ? $item->description : old('description') }}">
+                value="{{ $itemTechnology ? $itemTechnology->description : old('description') }}">
             @error('description')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -77,7 +77,7 @@
                 multiple="multiple">
                 @foreach ($competences as $competence)
                     <option value="{{ $competence->id }}"
-                        {{ (isset($item) && $item->competences && $item->competences->contains('id', $competence->id)) || (is_array(old('competences')) && in_array($competence->id, old('competences'))) ? 'selected' : '' }}>
+                        {{ (isset($itemTechnology) && $itemTechnology->competences && $itemTechnology->competences->contains('id', $competence->id)) || (is_array(old('competences')) && in_array($competence->id, old('competences'))) ? 'selected' : '' }}>
                         {{ $competence->code }}
                     </option>
                 @endforeach
@@ -99,7 +99,7 @@
                 multiple="multiple">
                 @foreach ($transfertCompetences as $transfertCompetence)
                     <option value="{{ $transfertCompetence->id }}"
-                        {{ (isset($item) && $item->transfertCompetences && $item->transfertCompetences->contains('id', $transfertCompetence->id)) || (is_array(old('transfertCompetences')) && in_array($transfertCompetence->id, old('transfertCompetences'))) ? 'selected' : '' }}>
+                        {{ (isset($itemTechnology) && $itemTechnology->transfertCompetences && $itemTechnology->transfertCompetences->contains('id', $transfertCompetence->id)) || (is_array(old('transfertCompetences')) && in_array($transfertCompetence->id, old('transfertCompetences'))) ? 'selected' : '' }}>
                         {{ $transfertCompetence->id }}
                     </option>
                 @endforeach
@@ -115,9 +115,10 @@
 
     </div>
 
+
     <div class="card-footer">
-        <a href="{{ route('technologies.index') }}" class="btn btn-default">{{ __('Core::msg.cancel') }}</a>
-        <button type="submit" class="btn btn-info ml-2">{{ $item->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
+        <a href="{{ route('technologies.index') }}" id="technology_form_cancel" class="btn btn-default">{{ __('Core::msg.cancel') }}</a>
+        <button type="submit" class="btn btn-info ml-2">{{ $itemTechnology->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
 
@@ -127,7 +128,7 @@
         {
             fieldId: 'categorie_technologie_id',
             fetchUrl: "{{ route('categorieTechnologies.all') }}",
-            selectedValue: {{ $item->categorie_technologie_id ? $item->categorie_technologie_id : 'undefined' }},
+            selectedValue: {{ $itemTechnology->categorie_technologie_id ? $itemTechnology->categorie_technologie_id : 'undefined' }},
             fieldValue: 'nom'
         }
         

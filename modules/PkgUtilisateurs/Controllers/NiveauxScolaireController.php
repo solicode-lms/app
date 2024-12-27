@@ -22,61 +22,105 @@ class NiveauxScolaireController extends AdminController
         $this->niveauxScolaireService = $niveauxScolaireService;
     }
 
+
+    /**
+     * Affiche la liste des filières ou retourne le HTML pour une requête AJAX.
+     */
     public function index(Request $request)
     {
-        // Récupérer la valeur de recherche et paginer
-        $searchValue = $request->get('searchValue', '');
-        $searchQuery = str_replace(' ', '%', $searchValue);
-    
-        // Appel de la méthode paginate avec ou sans recherche
+        $searchQuery = str_replace(' ', '%', $request->get('searchValue', ''));
         $data = $this->niveauxScolaireService->paginate($searchQuery);
-    
-        // Gestion AJAX
+
         if ($request->ajax()) {
-            return response()->json([
-                'html' => view('PkgUtilisateurs::niveauxScolaire._table', compact('data'))->render()
-            ]);
+            return view('PkgUtilisateurs::niveauxScolaire._table', compact('data'))->render();
         }
-    
-        // Vue principale pour le chargement initial
+
         return view('PkgUtilisateurs::niveauxScolaire.index', compact('data'));
     }
 
+    /**
+     * Retourne le formulaire de création.
+     */
     public function create()
     {
-        $item = $this->niveauxScolaireService->createInstance();
-        return view('PkgUtilisateurs::niveauxScolaire.create', compact('item'));
+        $itemNiveauxScolaire = $this->niveauxScolaireService->createInstance();
+
+        if (request()->ajax()) {
+            return view('PkgUtilisateurs::niveauxScolaire._fields', compact('itemNiveauxScolaire'));
+        }
+        return view('PkgUtilisateurs::niveauxScolaire.create', compact('itemNiveauxScolaire'));
     }
 
+    /**
+     * Stocke une nouvelle filière.
+     */
     public function store(NiveauxScolaireRequest $request)
     {
         $validatedData = $request->validated();
         $niveauxScolaire = $this->niveauxScolaireService->create($validatedData);
 
 
-        return redirect()->route('niveauxScolaires.index')->with('success', __('Core::msg.addSuccess', [
-            'entityToString' => $niveauxScolaire,
-            'modelName' => __('PkgUtilisateurs::niveauxScolaire.singular')
-        ]));
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 
+             __('Core::msg.addSuccess', [
+                'entityToString' => $niveauxScolaire,
+                'modelName' => __('PkgUtilisateurs::niveauxScolaire.singular')])
+            ]);
+        }
+
+        return redirect()->route('niveauxScolaires.index')->with(
+            'success',
+            __('Core::msg.addSuccess', [
+                'entityToString' => $niveauxScolaire,
+                'modelName' => __('PkgUtilisateurs::niveauxScolaire.singular')
+            ])
+        );
     }
+
+    /**
+     * Affiche les détails d'une filière.
+     */
     public function show(string $id)
     {
-        $item = $this->niveauxScolaireService->find($id);
-        return view('PkgUtilisateurs::niveauxscolaire.show', compact('item'));
+        $itemNiveauxScolaire = $this->niveauxScolaireService->find($id);
+
+        if (request()->ajax()) {
+            return view('PkgUtilisateurs::niveauxscolaire._fields', compact('itemNiveauxScolaire'));
+        }
+
+        return view('PkgUtilisateurs::niveauxscolaire.show', compact('itemNiveauxScolaire'));
     }
 
+    /**
+     * Retourne le formulaire d'édition d'une filière.
+     */
     public function edit(string $id)
     {
-        $item = $this->niveauxScolaireService->find($id);
-        return view('PkgUtilisateurs::niveauxScolaire.edit', compact('item'));
+        $itemNiveauxScolaire = $this->niveauxScolaireService->find($id);
+
+        if (request()->ajax()) {
+            return view('PkgUtilisateurs::niveauxScolaire._fields', compact('itemNiveauxScolaire'));
+        }
+
+        return view('PkgUtilisateurs::niveauxScolaire.edit', compact('itemNiveauxScolaire'));
     }
 
+    /**
+     * Met à jour une filière existante.
+     */
     public function update(NiveauxScolaireRequest $request, string $id)
     {
         $validatedData = $request->validated();
         $niveauxscolaire = $this->niveauxScolaireService->update($id, $validatedData);
 
 
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 
+            __('Core::msg.updateSuccess', [
+                'entityToString' => $niveauxscolaire,
+                'modelName' =>  __('PkgUtilisateurs::niveauxscolaire.singular')])
+            ]);
+        }
 
         return redirect()->route('niveauxScolaires.index')->with(
             'success',
@@ -87,9 +131,21 @@ class NiveauxScolaireController extends AdminController
         );
     }
 
-    public function destroy(string $id)
+    /**
+     * Supprime une filière.
+     */
+    public function destroy(Request $request, string $id)
     {
         $niveauxscolaire = $this->niveauxScolaireService->destroy($id);
+
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 
+            __('Core::msg.deleteSuccess', [
+                'entityToString' => $niveauxscolaire,
+                'modelName' =>  __('PkgUtilisateurs::niveauxscolaire.singular')])
+            ]);
+        }
+
         return redirect()->route('niveauxScolaires.index')->with(
             'success',
             __('Core::msg.deleteSuccess', [
@@ -104,6 +160,7 @@ class NiveauxScolaireController extends AdminController
         $data = $this->niveauxScolaireService->all();
         return Excel::download(new NiveauxScolaireExport($data), 'niveauxScolaire_export.xlsx');
     }
+
     public function import(Request $request)
     {
         $request->validate([

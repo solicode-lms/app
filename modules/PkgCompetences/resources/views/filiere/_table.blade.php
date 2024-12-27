@@ -1,5 +1,7 @@
+{{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
+
 <div class="card-body table-responsive p-0" id="filieresTable">
-    <table class="table table-striped text-nowrap"  >
+    <table class="table table-striped text-nowrap">
         <thead>
             <tr>
                 <th>{{ ucfirst(__('PkgCompetences::filiere.code')) }}</th>
@@ -21,7 +23,7 @@
                             </a>
                         @endcan
                         @can('edit-filiere')
-                            <a href="{{ route('filieres.edit', $filiere) }}"  data-id="{{$filiere->id}}" class="btn btn-sm btn-default editEntity">
+                            <a href="{{ route('filieres.edit', $filiere) }}" data-id="{{$filiere->id}}" class="btn btn-sm btn-default editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endcan
@@ -29,11 +31,8 @@
                             <form action="{{ route('filieres.destroy', $filiere) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button 
-                                type="submit" 
-                                data-id="{{$filiere->id}}" 
-                                class="btn btn-sm btn-danger deleteEntity"
-                                data-message= "Êtes-vous sûr de vouloir supprimer ce filiere ?">
+                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$filiere->id}}"
+                                    onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce filiere ?')">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
@@ -44,3 +43,4 @@
         </tbody>
     </table>
 </div>
+

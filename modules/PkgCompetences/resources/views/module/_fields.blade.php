@@ -1,9 +1,9 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form action="{{ $item->id ? route('modules.update', $item->id) : route('modules.store') }}" method="POST">
+<form id="moduleForm" action="{{ $itemModule->id ? route('modules.update', $itemModule->id) : route('modules.store') }}" method="POST">
     @csrf
 
-    @if ($item->id)
+    @if ($itemModule->id)
         @method('PUT')
     @endif
 
@@ -22,7 +22,7 @@
                 class="form-control"
                 id="nom"
                 placeholder="{{ __('PkgCompetences::module.nom') }}"
-                value="{{ $item ? $item->nom : old('nom') }}">
+                value="{{ $itemModule ? $itemModule->nom : old('nom') }}">
             @error('nom')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -41,7 +41,7 @@
                 class="form-control"
                 id="description"
                 placeholder="{{ __('PkgCompetences::module.description') }}"
-                value="{{ $item ? $item->description : old('description') }}">
+                value="{{ $itemModule ? $itemModule->description : old('description') }}">
             @error('description')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -60,7 +60,7 @@
                 class="form-control"
                 id="masse_horaire"
                 placeholder="{{ __('PkgCompetences::module.masse_horaire') }}"
-                value="{{ $item ? $item->masse_horaire : old('masse_horaire') }}">
+                value="{{ $itemModule ? $itemModule->masse_horaire : old('masse_horaire') }}">
             @error('masse_horaire')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -90,9 +90,10 @@
 
     </div>
 
+
     <div class="card-footer">
-        <a href="{{ route('modules.index') }}" class="btn btn-default">{{ __('Core::msg.cancel') }}</a>
-        <button type="submit" class="btn btn-info ml-2">{{ $item->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
+        <a href="{{ route('modules.index') }}" id="module_form_cancel" class="btn btn-default">{{ __('Core::msg.cancel') }}</a>
+        <button type="submit" class="btn btn-info ml-2">{{ $itemModule->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
 
@@ -102,7 +103,7 @@
         {
             fieldId: 'filiere_id',
             fetchUrl: "{{ route('filieres.all') }}",
-            selectedValue: {{ $item->filiere_id ? $item->filiere_id : 'undefined' }},
+            selectedValue: {{ $itemModule->filiere_id ? $itemModule->filiere_id : 'undefined' }},
             fieldValue: 'code'
         }
         

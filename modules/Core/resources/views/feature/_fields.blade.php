@@ -1,9 +1,9 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form action="{{ $item->id ? route('features.update', $item->id) : route('features.store') }}" method="POST">
+<form id="featureForm" action="{{ $itemFeature->id ? route('features.update', $itemFeature->id) : route('features.store') }}" method="POST">
     @csrf
 
-    @if ($item->id)
+    @if ($itemFeature->id)
         @method('PUT')
     @endif
 
@@ -22,7 +22,7 @@
                 class="form-control"
                 id="name"
                 placeholder="{{ __('Core::feature.name') }}"
-                value="{{ $item ? $item->name : old('name') }}">
+                value="{{ $itemFeature ? $itemFeature->name : old('name') }}">
             @error('name')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -39,7 +39,7 @@
                 class="form-control"
                 id="description"
                 placeholder="{{ __('Core::feature.description') }}"
-                value="{{ $item ? $item->description : old('description') }}">
+                value="{{ $itemFeature ? $itemFeature->description : old('description') }}">
             @error('description')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -75,7 +75,7 @@
                 multiple="multiple">
                 @foreach ($permissions as $permission)
                     <option value="{{ $permission->id }}"
-                        {{ (isset($item) && $item->permissions && $item->permissions->contains('id', $permission->id)) || (is_array(old('permissions')) && in_array($permission->id, old('permissions'))) ? 'selected' : '' }}>
+                        {{ (isset($itemFeature) && $itemFeature->permissions && $itemFeature->permissions->contains('id', $permission->id)) || (is_array(old('permissions')) && in_array($permission->id, old('permissions'))) ? 'selected' : '' }}>
                         {{ $permission->name }}
                     </option>
                 @endforeach
@@ -91,9 +91,10 @@
 
     </div>
 
+
     <div class="card-footer">
-        <a href="{{ route('features.index') }}" class="btn btn-default">{{ __('Core::msg.cancel') }}</a>
-        <button type="submit" class="btn btn-info ml-2">{{ $item->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
+        <a href="{{ route('features.index') }}" id="feature_form_cancel" class="btn btn-default">{{ __('Core::msg.cancel') }}</a>
+        <button type="submit" class="btn btn-info ml-2">{{ $itemFeature->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
 
@@ -103,7 +104,7 @@
         {
             fieldId: 'domain_id',
             fetchUrl: "{{ route('featureDomains.all') }}",
-            selectedValue: {{ $item->domain_id ? $item->domain_id : 'undefined' }},
+            selectedValue: {{ $itemFeature->domain_id ? $itemFeature->domain_id : 'undefined' }},
             fieldValue: 'name'
         }
         

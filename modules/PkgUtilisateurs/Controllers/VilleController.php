@@ -22,61 +22,105 @@ class VilleController extends AdminController
         $this->villeService = $villeService;
     }
 
+
+    /**
+     * Affiche la liste des filières ou retourne le HTML pour une requête AJAX.
+     */
     public function index(Request $request)
     {
-        // Récupérer la valeur de recherche et paginer
-        $searchValue = $request->get('searchValue', '');
-        $searchQuery = str_replace(' ', '%', $searchValue);
-    
-        // Appel de la méthode paginate avec ou sans recherche
+        $searchQuery = str_replace(' ', '%', $request->get('searchValue', ''));
         $data = $this->villeService->paginate($searchQuery);
-    
-        // Gestion AJAX
+
         if ($request->ajax()) {
-            return response()->json([
-                'html' => view('PkgUtilisateurs::ville._table', compact('data'))->render()
-            ]);
+            return view('PkgUtilisateurs::ville._table', compact('data'))->render();
         }
-    
-        // Vue principale pour le chargement initial
+
         return view('PkgUtilisateurs::ville.index', compact('data'));
     }
 
+    /**
+     * Retourne le formulaire de création.
+     */
     public function create()
     {
-        $item = $this->villeService->createInstance();
-        return view('PkgUtilisateurs::ville.create', compact('item'));
+        $itemVille = $this->villeService->createInstance();
+
+        if (request()->ajax()) {
+            return view('PkgUtilisateurs::ville._fields', compact('itemVille'));
+        }
+        return view('PkgUtilisateurs::ville.create', compact('itemVille'));
     }
 
+    /**
+     * Stocke une nouvelle filière.
+     */
     public function store(VilleRequest $request)
     {
         $validatedData = $request->validated();
         $ville = $this->villeService->create($validatedData);
 
 
-        return redirect()->route('villes.index')->with('success', __('Core::msg.addSuccess', [
-            'entityToString' => $ville,
-            'modelName' => __('PkgUtilisateurs::ville.singular')
-        ]));
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 
+             __('Core::msg.addSuccess', [
+                'entityToString' => $ville,
+                'modelName' => __('PkgUtilisateurs::ville.singular')])
+            ]);
+        }
+
+        return redirect()->route('villes.index')->with(
+            'success',
+            __('Core::msg.addSuccess', [
+                'entityToString' => $ville,
+                'modelName' => __('PkgUtilisateurs::ville.singular')
+            ])
+        );
     }
+
+    /**
+     * Affiche les détails d'une filière.
+     */
     public function show(string $id)
     {
-        $item = $this->villeService->find($id);
-        return view('PkgUtilisateurs::ville.show', compact('item'));
+        $itemVille = $this->villeService->find($id);
+
+        if (request()->ajax()) {
+            return view('PkgUtilisateurs::ville._fields', compact('itemVille'));
+        }
+
+        return view('PkgUtilisateurs::ville.show', compact('itemVille'));
     }
 
+    /**
+     * Retourne le formulaire d'édition d'une filière.
+     */
     public function edit(string $id)
     {
-        $item = $this->villeService->find($id);
-        return view('PkgUtilisateurs::ville.edit', compact('item'));
+        $itemVille = $this->villeService->find($id);
+
+        if (request()->ajax()) {
+            return view('PkgUtilisateurs::ville._fields', compact('itemVille'));
+        }
+
+        return view('PkgUtilisateurs::ville.edit', compact('itemVille'));
     }
 
+    /**
+     * Met à jour une filière existante.
+     */
     public function update(VilleRequest $request, string $id)
     {
         $validatedData = $request->validated();
         $ville = $this->villeService->update($id, $validatedData);
 
 
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 
+            __('Core::msg.updateSuccess', [
+                'entityToString' => $ville,
+                'modelName' =>  __('PkgUtilisateurs::ville.singular')])
+            ]);
+        }
 
         return redirect()->route('villes.index')->with(
             'success',
@@ -87,9 +131,21 @@ class VilleController extends AdminController
         );
     }
 
-    public function destroy(string $id)
+    /**
+     * Supprime une filière.
+     */
+    public function destroy(Request $request, string $id)
     {
         $ville = $this->villeService->destroy($id);
+
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 
+            __('Core::msg.deleteSuccess', [
+                'entityToString' => $ville,
+                'modelName' =>  __('PkgUtilisateurs::ville.singular')])
+            ]);
+        }
+
         return redirect()->route('villes.index')->with(
             'success',
             __('Core::msg.deleteSuccess', [
@@ -104,6 +160,7 @@ class VilleController extends AdminController
         $data = $this->villeService->all();
         return Excel::download(new VilleExport($data), 'ville_export.xlsx');
     }
+
     public function import(Request $request)
     {
         $request->validate([

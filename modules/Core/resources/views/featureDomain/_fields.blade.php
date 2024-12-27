@@ -1,9 +1,9 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form action="{{ $item->id ? route('featureDomains.update', $item->id) : route('featureDomains.store') }}" method="POST">
+<form id="featureDomainForm" action="{{ $itemFeatureDomain->id ? route('featureDomains.update', $itemFeatureDomain->id) : route('featureDomains.store') }}" method="POST">
     @csrf
 
-    @if ($item->id)
+    @if ($itemFeatureDomain->id)
         @method('PUT')
     @endif
 
@@ -22,7 +22,7 @@
                 class="form-control"
                 id="name"
                 placeholder="{{ __('Core::featureDomain.name') }}"
-                value="{{ $item ? $item->name : old('name') }}">
+                value="{{ $itemFeatureDomain ? $itemFeatureDomain->name : old('name') }}">
             @error('name')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -41,7 +41,7 @@
                 class="form-control"
                 id="slug"
                 placeholder="{{ __('Core::featureDomain.slug') }}"
-                value="{{ $item ? $item->slug : old('slug') }}">
+                value="{{ $itemFeatureDomain ? $itemFeatureDomain->slug : old('slug') }}">
             @error('slug')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -58,7 +58,7 @@
                 class="form-control"
                 id="description"
                 placeholder="{{ __('Core::featureDomain.description') }}"
-                value="{{ $item ? $item->description : old('description') }}">
+                value="{{ $itemFeatureDomain ? $itemFeatureDomain->description : old('description') }}">
             @error('description')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -88,9 +88,10 @@
 
     </div>
 
+
     <div class="card-footer">
-        <a href="{{ route('featureDomains.index') }}" class="btn btn-default">{{ __('Core::msg.cancel') }}</a>
-        <button type="submit" class="btn btn-info ml-2">{{ $item->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
+        <a href="{{ route('featureDomains.index') }}" id="featureDomain_form_cancel" class="btn btn-default">{{ __('Core::msg.cancel') }}</a>
+        <button type="submit" class="btn btn-info ml-2">{{ $itemFeatureDomain->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
 
@@ -100,7 +101,7 @@
         {
             fieldId: 'module_id',
             fetchUrl: "{{ route('sysModules.all') }}",
-            selectedValue: {{ $item->module_id ? $item->module_id : 'undefined' }},
+            selectedValue: {{ $itemFeatureDomain->module_id ? $itemFeatureDomain->module_id : 'undefined' }},
             fieldValue: 'name'
         }
         

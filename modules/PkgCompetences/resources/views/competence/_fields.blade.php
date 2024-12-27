@@ -1,9 +1,9 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form action="{{ $item->id ? route('competences.update', $item->id) : route('competences.store') }}" method="POST">
+<form id="competenceForm" action="{{ $itemCompetence->id ? route('competences.update', $itemCompetence->id) : route('competences.store') }}" method="POST">
     @csrf
 
-    @if ($item->id)
+    @if ($itemCompetence->id)
         @method('PUT')
     @endif
 
@@ -22,7 +22,7 @@
                 class="form-control"
                 id="code"
                 placeholder="{{ __('PkgCompetences::competence.code') }}"
-                value="{{ $item ? $item->code : old('code') }}">
+                value="{{ $itemCompetence ? $itemCompetence->code : old('code') }}">
             @error('code')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -41,7 +41,7 @@
                 class="form-control"
                 id="nom"
                 placeholder="{{ __('PkgCompetences::competence.nom') }}"
-                value="{{ $item ? $item->nom : old('nom') }}">
+                value="{{ $itemCompetence ? $itemCompetence->nom : old('nom') }}">
             @error('nom')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -60,7 +60,7 @@
                 class="form-control"
                 id="description"
                 placeholder="{{ __('PkgCompetences::competence.description') }}"
-                value="{{ $item ? $item->description : old('description') }}">
+                value="{{ $itemCompetence ? $itemCompetence->description : old('description') }}">
             @error('description')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -96,7 +96,7 @@
                 multiple="multiple">
                 @foreach ($technologies as $technology)
                     <option value="{{ $technology->id }}"
-                        {{ (isset($item) && $item->technologies && $item->technologies->contains('id', $technology->id)) || (is_array(old('technologies')) && in_array($technology->id, old('technologies'))) ? 'selected' : '' }}>
+                        {{ (isset($itemCompetence) && $itemCompetence->technologies && $itemCompetence->technologies->contains('id', $technology->id)) || (is_array(old('technologies')) && in_array($technology->id, old('technologies'))) ? 'selected' : '' }}>
                         {{ $technology->nom }}
                     </option>
                 @endforeach
@@ -112,9 +112,10 @@
 
     </div>
 
+
     <div class="card-footer">
-        <a href="{{ route('competences.index') }}" class="btn btn-default">{{ __('Core::msg.cancel') }}</a>
-        <button type="submit" class="btn btn-info ml-2">{{ $item->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
+        <a href="{{ route('competences.index') }}" id="competence_form_cancel" class="btn btn-default">{{ __('Core::msg.cancel') }}</a>
+        <button type="submit" class="btn btn-info ml-2">{{ $itemCompetence->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
 
@@ -124,7 +125,7 @@
         {
             fieldId: 'module_id',
             fetchUrl: "{{ route('modules.all') }}",
-            selectedValue: {{ $item->module_id ? $item->module_id : 'undefined' }},
+            selectedValue: {{ $itemCompetence->module_id ? $itemCompetence->module_id : 'undefined' }},
             fieldValue: 'nom'
         }
         

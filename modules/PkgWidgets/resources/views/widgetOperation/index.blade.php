@@ -2,59 +2,27 @@
 
 @extends('layouts.admin')
 @section('title', curd_index_title('PkgWidgets::widgetOperation'))
+@section('script')
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+    const widgetOperationCrud = new GappCrud({
+        entity_name: 'widgetOperation',
+        indexUrl: '{{ route('widgetOperations.index') }}', 
+        createUrl: '{{ route('widgetOperations.create') }}',
+        editUrl: '{{ route('widgetOperations.edit', ['widgetOperation' => ':id']) }}',
+        showUrl: '{{ route('widgetOperations.show', ['widgetOperation' => ':id']) }}',
+        storeUrl: '{{ route('widgetOperations.store') }}', 
+        deleteUrl: '{{ route('widgetOperations.destroy', ['widgetOperation' => ':id']) }}', 
+        csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
+        tableSelector: '#widgetOperationsTable', // Sélecteur du tableau HTML
+        formSelector: '#widgetOperationForm',   // Sélecteur du formulaire
+        modalSelector: '#widgetOperationModal'  // Sélecteur du modal
+    });
+    widgetOperationCrud.init(); // Initialisation des fonctionnalités CRUD
+});
+</script>
+@endsection
 @section('content')
-    <div class="content-header">
-        @if (session('success'))
-            <div class="alert alert-success alert-dismissible">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                {{ session('success') }}.
-            </div>
-        @endif
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1>
-                        {{ curd_index_title('PkgWidgets::widgetOperation') }}
-                    </h1>
-                </div>
-                <div class="col-sm-6">
-                    <div class="float-sm-right">
-                        @can('create-widgetOperation')
-                            <a href="{{ route('widgetOperations.create') }}" class="btn btn-info">
-                                <i class="fas fa-plus"></i>
-                                {{ curd_index_add_label('PkgWidgets::widgetOperation') }}
-                            </a>
-                        @endcan
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <section class="content" id="section_crud">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-12">
-                    <div class="card" id="card_crud">
-                        <div class="card-header col-md-12">
-                            <div class="p-0">
-                                <div class="input-group input-group-sm float-sm-right col-md-3 p-0">
-                                    <input type="text" name="crud_search_input" id="crud_search_input"
-                                           class="form-control float-right" placeholder="Recherche">
-                                    <div class="input-group-append">
-                                        <button type="submit" class="btn btn-default">
-                                            <i class="fas fa-search"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="data-container">
-                        @include('PkgWidgets::widgetOperation._table')
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <input type="hidden" id='page' value="1">
-    </section>
+    @include('PkgWidgets::widgetOperation._index')
 @endsection

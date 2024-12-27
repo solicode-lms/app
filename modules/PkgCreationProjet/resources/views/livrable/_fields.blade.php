@@ -1,9 +1,9 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form action="{{ $item->id ? route('livrables.update', $item->id) : route('livrables.store') }}" method="POST">
+<form id="livrableForm" action="{{ $itemLivrable->id ? route('livrables.update', $itemLivrable->id) : route('livrables.store') }}" method="POST">
     @csrf
 
-    @if ($item->id)
+    @if ($itemLivrable->id)
         @method('PUT')
     @endif
 
@@ -22,7 +22,7 @@
                 class="form-control"
                 id="titre"
                 placeholder="{{ __('PkgCreationProjet::livrable.titre') }}"
-                value="{{ $item ? $item->titre : old('titre') }}">
+                value="{{ $itemLivrable ? $itemLivrable->titre : old('titre') }}">
             @error('titre')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -39,7 +39,7 @@
                 class="form-control"
                 id="description"
                 placeholder="{{ __('PkgCreationProjet::livrable.description') }}"
-                value="{{ $item ? $item->description : old('description') }}">
+                value="{{ $itemLivrable ? $itemLivrable->description : old('description') }}">
             @error('description')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -84,9 +84,10 @@
 
     </div>
 
+
     <div class="card-footer">
-        <a href="{{ route('livrables.index') }}" class="btn btn-default">{{ __('Core::msg.cancel') }}</a>
-        <button type="submit" class="btn btn-info ml-2">{{ $item->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
+        <a href="{{ route('livrables.index') }}" id="livrable_form_cancel" class="btn btn-default">{{ __('Core::msg.cancel') }}</a>
+        <button type="submit" class="btn btn-info ml-2">{{ $itemLivrable->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
 
@@ -96,14 +97,14 @@
         {
             fieldId: 'nature_livrable_id',
             fetchUrl: "{{ route('natureLivrables.all') }}",
-            selectedValue: {{ $item->nature_livrable_id ? $item->nature_livrable_id : 'undefined' }},
+            selectedValue: {{ $itemLivrable->nature_livrable_id ? $itemLivrable->nature_livrable_id : 'undefined' }},
             fieldValue: 'nom'
         },
         
         {
             fieldId: 'projet_id',
             fetchUrl: "{{ route('projets.all') }}",
-            selectedValue: {{ $item->projet_id ? $item->projet_id : 'undefined' }},
+            selectedValue: {{ $itemLivrable->projet_id ? $itemLivrable->projet_id : 'undefined' }},
             fieldValue: 'titre'
         }
         

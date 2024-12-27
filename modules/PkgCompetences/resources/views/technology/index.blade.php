@@ -2,59 +2,27 @@
 
 @extends('layouts.admin')
 @section('title', curd_index_title('PkgCompetences::technology'))
+@section('script')
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+    const technologyCrud = new GappCrud({
+        entity_name: 'technology',
+        indexUrl: '{{ route('technologies.index') }}', 
+        createUrl: '{{ route('technologies.create') }}',
+        editUrl: '{{ route('technologies.edit', ['technology' => ':id']) }}',
+        showUrl: '{{ route('technologies.show', ['technology' => ':id']) }}',
+        storeUrl: '{{ route('technologies.store') }}', 
+        deleteUrl: '{{ route('technologies.destroy', ['technology' => ':id']) }}', 
+        csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
+        tableSelector: '#technologiesTable', // Sélecteur du tableau HTML
+        formSelector: '#technologyForm',   // Sélecteur du formulaire
+        modalSelector: '#technologyModal'  // Sélecteur du modal
+    });
+    technologyCrud.init(); // Initialisation des fonctionnalités CRUD
+});
+</script>
+@endsection
 @section('content')
-    <div class="content-header">
-        @if (session('success'))
-            <div class="alert alert-success alert-dismissible">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                {{ session('success') }}.
-            </div>
-        @endif
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1>
-                        {{ curd_index_title('PkgCompetences::technology') }}
-                    </h1>
-                </div>
-                <div class="col-sm-6">
-                    <div class="float-sm-right">
-                        @can('create-technology')
-                            <a href="{{ route('technologies.create') }}" class="btn btn-info">
-                                <i class="fas fa-plus"></i>
-                                {{ curd_index_add_label('PkgCompetences::technology') }}
-                            </a>
-                        @endcan
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <section class="content" id="section_crud">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-12">
-                    <div class="card" id="card_crud">
-                        <div class="card-header col-md-12">
-                            <div class="p-0">
-                                <div class="input-group input-group-sm float-sm-right col-md-3 p-0">
-                                    <input type="text" name="crud_search_input" id="crud_search_input"
-                                           class="form-control float-right" placeholder="Recherche">
-                                    <div class="input-group-append">
-                                        <button type="submit" class="btn btn-default">
-                                            <i class="fas fa-search"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="data-container">
-                        @include('PkgCompetences::technology._table')
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <input type="hidden" id='page' value="1">
-    </section>
+    @include('PkgCompetences::technology._index')
 @endsection

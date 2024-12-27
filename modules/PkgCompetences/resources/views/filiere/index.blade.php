@@ -1,3 +1,5 @@
+{{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
+
 @extends('layouts.admin')
 @section('title', curd_index_title('PkgCompetences::filiere'))
 @section('script')
@@ -10,8 +12,8 @@ document.addEventListener("DOMContentLoaded", function () {
         createUrl: '{{ route('filieres.create') }}',
         editUrl: '{{ route('filieres.edit', ['filiere' => ':id']) }}',
         showUrl: '{{ route('filieres.show', ['filiere' => ':id']) }}',
-        storeUrl: '{{ route('filieres.store') }}', // URL pour ajouter une filière
-        deleteUrl: '{{ route('filieres.destroy', ['filiere' => ':id']) }}', // Placeholder :id pour suppression
+        storeUrl: '{{ route('filieres.store') }}', 
+        deleteUrl: '{{ route('filieres.destroy', ['filiere' => ':id']) }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         tableSelector: '#filieresTable', // Sélecteur du tableau HTML
         formSelector: '#filiereForm',   // Sélecteur du formulaire

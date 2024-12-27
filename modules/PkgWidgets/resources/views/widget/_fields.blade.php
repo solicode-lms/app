@@ -1,9 +1,9 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form action="{{ $item->id ? route('widgets.update', $item->id) : route('widgets.store') }}" method="POST">
+<form id="widgetForm" action="{{ $itemWidget->id ? route('widgets.update', $itemWidget->id) : route('widgets.store') }}" method="POST">
     @csrf
 
-    @if ($item->id)
+    @if ($itemWidget->id)
         @method('PUT')
     @endif
 
@@ -22,7 +22,7 @@
                 class="form-control"
                 id="name"
                 placeholder="{{ __('PkgWidgets::widget.name') }}"
-                value="{{ $item ? $item->name : old('name') }}">
+                value="{{ $itemWidget ? $itemWidget->name : old('name') }}">
             @error('name')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -39,7 +39,7 @@
                 class="form-control"
                 id="color"
                 placeholder="{{ __('PkgWidgets::widget.color') }}"
-                value="{{ $item ? $item->color : old('color') }}">
+                value="{{ $itemWidget ? $itemWidget->color : old('color') }}">
             @error('color')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -56,7 +56,7 @@
                 class="form-control"
                 id="icon"
                 placeholder="{{ __('PkgWidgets::widget.icon') }}"
-                value="{{ $item ? $item->icon : old('icon') }}">
+                value="{{ $itemWidget ? $itemWidget->icon : old('icon') }}">
             @error('icon')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -73,7 +73,7 @@
                 class="form-control"
                 id="label"
                 placeholder="{{ __('PkgWidgets::widget.label') }}"
-                value="{{ $item ? $item->label : old('label') }}">
+                value="{{ $itemWidget ? $itemWidget->label : old('label') }}">
             @error('label')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -90,7 +90,7 @@
                 class="form-control"
                 id="parameters"
                 placeholder="{{ __('PkgWidgets::widget.parameters') }}"
-                value="{{ $item ? $item->parameters : old('parameters') }}">
+                value="{{ $itemWidget ? $itemWidget->parameters : old('parameters') }}">
             @error('parameters')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -150,9 +150,10 @@
 
     </div>
 
+
     <div class="card-footer">
-        <a href="{{ route('widgets.index') }}" class="btn btn-default">{{ __('Core::msg.cancel') }}</a>
-        <button type="submit" class="btn btn-info ml-2">{{ $item->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
+        <a href="{{ route('widgets.index') }}" id="widget_form_cancel" class="btn btn-default">{{ __('Core::msg.cancel') }}</a>
+        <button type="submit" class="btn btn-info ml-2">{{ $itemWidget->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
 
@@ -162,21 +163,21 @@
         {
             fieldId: 'model_id',
             fetchUrl: "{{ route('sysModels.all') }}",
-            selectedValue: {{ $item->model_id ? $item->model_id : 'undefined' }},
+            selectedValue: {{ $itemWidget->model_id ? $itemWidget->model_id : 'undefined' }},
             fieldValue: 'name'
         },
         
         {
             fieldId: 'operation_id',
             fetchUrl: "{{ route('widgetOperations.all') }}",
-            selectedValue: {{ $item->operation_id ? $item->operation_id : 'undefined' }},
+            selectedValue: {{ $itemWidget->operation_id ? $itemWidget->operation_id : 'undefined' }},
             fieldValue: 'operation'
         },
         
         {
             fieldId: 'type_id',
             fetchUrl: "{{ route('widgetTypes.all') }}",
-            selectedValue: {{ $item->type_id ? $item->type_id : 'undefined' }},
+            selectedValue: {{ $itemWidget->type_id ? $itemWidget->type_id : 'undefined' }},
             fieldValue: 'type'
         }
         

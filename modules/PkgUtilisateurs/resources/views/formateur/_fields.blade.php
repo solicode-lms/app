@@ -1,9 +1,9 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form action="{{ $item->id ? route('formateurs.update', $item->id) : route('formateurs.store') }}" method="POST">
+<form id="formateurForm" action="{{ $itemFormateur->id ? route('formateurs.update', $itemFormateur->id) : route('formateurs.store') }}" method="POST">
     @csrf
 
-    @if ($item->id)
+    @if ($itemFormateur->id)
         @method('PUT')
     @endif
 
@@ -22,7 +22,7 @@
                 class="form-control"
                 id="matricule"
                 placeholder="{{ __('PkgUtilisateurs::formateur.matricule') }}"
-                value="{{ $item ? $item->matricule : old('matricule') }}">
+                value="{{ $itemFormateur ? $itemFormateur->matricule : old('matricule') }}">
             @error('matricule')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -41,7 +41,7 @@
                 class="form-control"
                 id="nom"
                 placeholder="{{ __('PkgUtilisateurs::formateur.nom') }}"
-                value="{{ $item ? $item->nom : old('nom') }}">
+                value="{{ $itemFormateur ? $itemFormateur->nom : old('nom') }}">
             @error('nom')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -60,7 +60,7 @@
                 class="form-control"
                 id="prenom"
                 placeholder="{{ __('PkgUtilisateurs::formateur.prenom') }}"
-                value="{{ $item ? $item->prenom : old('prenom') }}">
+                value="{{ $itemFormateur ? $itemFormateur->prenom : old('prenom') }}">
             @error('prenom')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -79,7 +79,7 @@
                 class="form-control"
                 id="prenom_arab"
                 placeholder="{{ __('PkgUtilisateurs::formateur.prenom_arab') }}"
-                value="{{ $item ? $item->prenom_arab : old('prenom_arab') }}">
+                value="{{ $itemFormateur ? $itemFormateur->prenom_arab : old('prenom_arab') }}">
             @error('prenom_arab')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -98,7 +98,7 @@
                 class="form-control"
                 id="nom_arab"
                 placeholder="{{ __('PkgUtilisateurs::formateur.nom_arab') }}"
-                value="{{ $item ? $item->nom_arab : old('nom_arab') }}">
+                value="{{ $itemFormateur ? $itemFormateur->nom_arab : old('nom_arab') }}">
             @error('nom_arab')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -117,7 +117,7 @@
                 class="form-control"
                 id="tele_num"
                 placeholder="{{ __('PkgUtilisateurs::formateur.tele_num') }}"
-                value="{{ $item ? $item->tele_num : old('tele_num') }}">
+                value="{{ $itemFormateur ? $itemFormateur->tele_num : old('tele_num') }}">
             @error('tele_num')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -134,7 +134,7 @@
                 class="form-control"
                 id="adresse"
                 placeholder="{{ __('PkgUtilisateurs::formateur.adresse') }}"
-                value="{{ $item ? $item->adresse : old('adresse') }}">
+                value="{{ $itemFormateur ? $itemFormateur->adresse : old('adresse') }}">
             @error('adresse')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -151,7 +151,7 @@
                 class="form-control"
                 id="diplome"
                 placeholder="{{ __('PkgUtilisateurs::formateur.diplome') }}"
-                value="{{ $item ? $item->diplome : old('diplome') }}">
+                value="{{ $itemFormateur ? $itemFormateur->diplome : old('diplome') }}">
             @error('diplome')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -168,7 +168,7 @@
                 class="form-control"
                 id="echelle"
                 placeholder="{{ __('PkgUtilisateurs::formateur.echelle') }}"
-                value="{{ $item ? $item->echelle : old('echelle') }}">
+                value="{{ $itemFormateur ? $itemFormateur->echelle : old('echelle') }}">
             @error('echelle')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -185,7 +185,7 @@
                 class="form-control"
                 id="echelon"
                 placeholder="{{ __('PkgUtilisateurs::formateur.echelon') }}"
-                value="{{ $item ? $item->echelon : old('echelon') }}">
+                value="{{ $itemFormateur ? $itemFormateur->echelon : old('echelon') }}">
             @error('echelon')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -204,7 +204,7 @@
                 class="form-control"
                 id="profile_image"
                 placeholder="{{ __('PkgUtilisateurs::formateur.profile_image') }}"
-                value="{{ $item ? $item->profile_image : old('profile_image') }}">
+                value="{{ $itemFormateur ? $itemFormateur->profile_image : old('profile_image') }}">
             @error('profile_image')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -225,7 +225,7 @@
                 multiple="multiple">
                 @foreach ($groupes as $groupe)
                     <option value="{{ $groupe->id }}"
-                        {{ (isset($item) && $item->groupes && $item->groupes->contains('id', $groupe->id)) || (is_array(old('groupes')) && in_array($groupe->id, old('groupes'))) ? 'selected' : '' }}>
+                        {{ (isset($itemFormateur) && $itemFormateur->groupes && $itemFormateur->groupes->contains('id', $groupe->id)) || (is_array(old('groupes')) && in_array($groupe->id, old('groupes'))) ? 'selected' : '' }}>
                         {{ $groupe->code }}
                     </option>
                 @endforeach
@@ -247,7 +247,7 @@
                 multiple="multiple">
                 @foreach ($specialites as $specialite)
                     <option value="{{ $specialite->id }}"
-                        {{ (isset($item) && $item->specialites && $item->specialites->contains('id', $specialite->id)) || (is_array(old('specialites')) && in_array($specialite->id, old('specialites'))) ? 'selected' : '' }}>
+                        {{ (isset($itemFormateur) && $itemFormateur->specialites && $itemFormateur->specialites->contains('id', $specialite->id)) || (is_array(old('specialites')) && in_array($specialite->id, old('specialites'))) ? 'selected' : '' }}>
                         {{ $specialite->nom }}
                     </option>
                 @endforeach
@@ -263,9 +263,10 @@
 
     </div>
 
+
     <div class="card-footer">
-        <a href="{{ route('formateurs.index') }}" class="btn btn-default">{{ __('Core::msg.cancel') }}</a>
-        <button type="submit" class="btn btn-info ml-2">{{ $item->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
+        <a href="{{ route('formateurs.index') }}" id="formateur_form_cancel" class="btn btn-default">{{ __('Core::msg.cancel') }}</a>
+        <button type="submit" class="btn btn-info ml-2">{{ $itemFormateur->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
 

@@ -1,9 +1,9 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form action="{{ $item->id ? route('appreciations.update', $item->id) : route('appreciations.store') }}" method="POST">
+<form id="appreciationForm" action="{{ $itemAppreciation->id ? route('appreciations.update', $itemAppreciation->id) : route('appreciations.store') }}" method="POST">
     @csrf
 
-    @if ($item->id)
+    @if ($itemAppreciation->id)
         @method('PUT')
     @endif
 
@@ -22,7 +22,7 @@
                 class="form-control"
                 id="nom"
                 placeholder="{{ __('PkgCompetences::appreciation.nom') }}"
-                value="{{ $item ? $item->nom : old('nom') }}">
+                value="{{ $itemAppreciation ? $itemAppreciation->nom : old('nom') }}">
             @error('nom')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -39,7 +39,7 @@
                 class="form-control"
                 id="description"
                 placeholder="{{ __('PkgCompetences::appreciation.description') }}"
-                value="{{ $item ? $item->description : old('description') }}">
+                value="{{ $itemAppreciation ? $itemAppreciation->description : old('description') }}">
             @error('description')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -58,7 +58,7 @@
                 class="form-control"
                 id="noteMin"
                 placeholder="{{ __('PkgCompetences::appreciation.noteMin') }}"
-                value="{{ $item ? $item->noteMin : old('noteMin') }}">
+                value="{{ $itemAppreciation ? $itemAppreciation->noteMin : old('noteMin') }}">
             @error('noteMin')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -77,7 +77,7 @@
                 class="form-control"
                 id="noteMax"
                 placeholder="{{ __('PkgCompetences::appreciation.noteMax') }}"
-                value="{{ $item ? $item->noteMax : old('noteMax') }}">
+                value="{{ $itemAppreciation ? $itemAppreciation->noteMax : old('noteMax') }}">
             @error('noteMax')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -107,9 +107,10 @@
 
     </div>
 
+
     <div class="card-footer">
-        <a href="{{ route('appreciations.index') }}" class="btn btn-default">{{ __('Core::msg.cancel') }}</a>
-        <button type="submit" class="btn btn-info ml-2">{{ $item->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
+        <a href="{{ route('appreciations.index') }}" id="appreciation_form_cancel" class="btn btn-default">{{ __('Core::msg.cancel') }}</a>
+        <button type="submit" class="btn btn-info ml-2">{{ $itemAppreciation->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
 
@@ -119,7 +120,7 @@
         {
             fieldId: 'formateur_id',
             fetchUrl: "{{ route('formateurs.all') }}",
-            selectedValue: {{ $item->formateur_id ? $item->formateur_id : 'undefined' }},
+            selectedValue: {{ $itemAppreciation->formateur_id ? $itemAppreciation->formateur_id : 'undefined' }},
             fieldValue: 'nom'
         }
         

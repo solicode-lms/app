@@ -1,9 +1,9 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form action="{{ $item->id ? route('permissions.update', $item->id) : route('permissions.store') }}" method="POST">
+<form id="permissionForm" action="{{ $itemPermission->id ? route('permissions.update', $itemPermission->id) : route('permissions.store') }}" method="POST">
     @csrf
 
-    @if ($item->id)
+    @if ($itemPermission->id)
         @method('PUT')
     @endif
 
@@ -22,7 +22,7 @@
                 class="form-control"
                 id="name"
                 placeholder="{{ __('PkgAutorisation::permission.name') }}"
-                value="{{ $item ? $item->name : old('name') }}">
+                value="{{ $itemPermission ? $itemPermission->name : old('name') }}">
             @error('name')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -41,7 +41,7 @@
                 class="form-control"
                 id="guard_name"
                 placeholder="{{ __('PkgAutorisation::permission.guard_name') }}"
-                value="{{ $item ? $item->guard_name : old('guard_name') }}">
+                value="{{ $itemPermission ? $itemPermission->guard_name : old('guard_name') }}">
             @error('guard_name')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -77,7 +77,7 @@
                 multiple="multiple">
                 @foreach ($features as $feature)
                     <option value="{{ $feature->id }}"
-                        {{ (isset($item) && $item->features && $item->features->contains('id', $feature->id)) || (is_array(old('features')) && in_array($feature->id, old('features'))) ? 'selected' : '' }}>
+                        {{ (isset($itemPermission) && $itemPermission->features && $itemPermission->features->contains('id', $feature->id)) || (is_array(old('features')) && in_array($feature->id, old('features'))) ? 'selected' : '' }}>
                         {{ $feature->name }}
                     </option>
                 @endforeach
@@ -99,7 +99,7 @@
                 multiple="multiple">
                 @foreach ($roles as $role)
                     <option value="{{ $role->id }}"
-                        {{ (isset($item) && $item->roles && $item->roles->contains('id', $role->id)) || (is_array(old('roles')) && in_array($role->id, old('roles'))) ? 'selected' : '' }}>
+                        {{ (isset($itemPermission) && $itemPermission->roles && $itemPermission->roles->contains('id', $role->id)) || (is_array(old('roles')) && in_array($role->id, old('roles'))) ? 'selected' : '' }}>
                         {{ $role->name }}
                     </option>
                 @endforeach
@@ -115,9 +115,10 @@
 
     </div>
 
+
     <div class="card-footer">
-        <a href="{{ route('permissions.index') }}" class="btn btn-default">{{ __('Core::msg.cancel') }}</a>
-        <button type="submit" class="btn btn-info ml-2">{{ $item->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
+        <a href="{{ route('permissions.index') }}" id="permission_form_cancel" class="btn btn-default">{{ __('Core::msg.cancel') }}</a>
+        <button type="submit" class="btn btn-info ml-2">{{ $itemPermission->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
 
@@ -127,7 +128,7 @@
         {
             fieldId: 'controller_id',
             fetchUrl: "{{ route('sysControllers.all') }}",
-            selectedValue: {{ $item->controller_id ? $item->controller_id : 'undefined' }},
+            selectedValue: {{ $itemPermission->controller_id ? $itemPermission->controller_id : 'undefined' }},
             fieldValue: 'name'
         }
         

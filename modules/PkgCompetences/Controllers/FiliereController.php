@@ -1,4 +1,6 @@
 <?php
+// Ce fichier est maintenu par ESSARRAJ Fouad
+
 
 namespace Modules\PkgCompetences\Controllers;
 
@@ -20,6 +22,7 @@ class FiliereController extends AdminController
         $this->filiereService = $filiereService;
     }
 
+
     /**
      * Affiche la liste des filières ou retourne le HTML pour une requête AJAX.
      */
@@ -32,9 +35,7 @@ class FiliereController extends AdminController
             return view('PkgCompetences::filiere._table', compact('data'))->render();
         }
 
-        $itemFiliere = $this->filiereService->createInstance();
-
-        return view('PkgCompetences::filiere.index', compact('data', 'itemFiliere'));
+        return view('PkgCompetences::filiere.index', compact('data'));
     }
 
     /**
@@ -47,7 +48,6 @@ class FiliereController extends AdminController
         if (request()->ajax()) {
             return view('PkgCompetences::filiere._fields', compact('itemFiliere'));
         }
-
         return view('PkgCompetences::filiere.create', compact('itemFiliere'));
     }
 
@@ -59,8 +59,13 @@ class FiliereController extends AdminController
         $validatedData = $request->validated();
         $filiere = $this->filiereService->create($validatedData);
 
+
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => __('Filière ajoutée avec succès !')]);
+            return response()->json(['success' => true, 'message' => 
+             __('Core::msg.addSuccess', [
+                'entityToString' => $filiere,
+                'modelName' => __('PkgCompetences::filiere.singular')])
+            ]);
         }
 
         return redirect()->route('filieres.index')->with(
@@ -108,16 +113,21 @@ class FiliereController extends AdminController
         $validatedData = $request->validated();
         $filiere = $this->filiereService->update($id, $validatedData);
 
+
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => __('Filière mise à jour avec succès !')]);
+            return response()->json(['success' => true, 'message' => 
+            __('Core::msg.updateSuccess', [
+                'entityToString' => $filiere,
+                'modelName' =>  __('PkgCompetences::filiere.singular')])
+            ]);
         }
 
         return redirect()->route('filieres.index')->with(
             'success',
             __('Core::msg.updateSuccess', [
                 'entityToString' => $filiere,
-                'modelName' => __('PkgCompetences::filiere.singular')
-            ])
+                'modelName' =>  __('PkgCompetences::filiere.singular')
+                ])
         );
     }
 
@@ -129,51 +139,50 @@ class FiliereController extends AdminController
         $filiere = $this->filiereService->destroy($id);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => __('Filière supprimée avec succès !')]);
+            return response()->json(['success' => true, 'message' => 
+            __('Core::msg.deleteSuccess', [
+                'entityToString' => $filiere,
+                'modelName' =>  __('PkgCompetences::filiere.singular')])
+            ]);
         }
 
         return redirect()->route('filieres.index')->with(
             'success',
             __('Core::msg.deleteSuccess', [
                 'entityToString' => $filiere,
-                'modelName' => __('PkgCompetences::filiere.singular')
-            ])
+                'modelName' =>  __('PkgCompetences::filiere.singular')
+                ])
         );
     }
 
-    /**
-     * Exporte les filières vers un fichier Excel.
-     */
     public function export()
     {
         $data = $this->filiereService->all();
         return Excel::download(new FiliereExport($data), 'filiere_export.xlsx');
     }
 
-    /**
-     * Importe des filières depuis un fichier Excel.
-     */
     public function import(Request $request)
     {
-        $request->validate(['file' => 'required|mimes:xlsx,xls,csv']);
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls,csv',
+        ]);
 
         try {
             Excel::import(new FiliereImport, $request->file('file'));
         } catch (\InvalidArgumentException $e) {
-            return redirect()->route('filieres.index')->withErrors('Invalid format or missing data.');
+            return redirect()->route('filieres.index')->withError('Invalid format or missing data.');
         }
 
         return redirect()->route('filieres.index')->with(
-            'success',
-            __('Core::msg.importSuccess', [
-                'modelNames' => __('PkgCompetences::filiere.plural')
-            ])
-        );
+            'success', __('Core::msg.importSuccess', [
+            'modelNames' =>  __('PkgCompetences::filiere.plural')
+            ]));
+
+
+
     }
 
-    /**
-     * Retourne une liste des filières en JSON.
-     */
+    // Il permet d'afficher les information en format JSON pour une utilisation avec Ajax
     public function getFilieres()
     {
         $filieres = $this->filiereService->all();

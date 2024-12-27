@@ -1,9 +1,9 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form action="{{ $item->id ? route('apprenants.update', $item->id) : route('apprenants.store') }}" method="POST">
+<form id="apprenantForm" action="{{ $itemApprenant->id ? route('apprenants.update', $itemApprenant->id) : route('apprenants.store') }}" method="POST">
     @csrf
 
-    @if ($item->id)
+    @if ($itemApprenant->id)
         @method('PUT')
     @endif
 
@@ -22,7 +22,7 @@
                 class="form-control"
                 id="nom"
                 placeholder="{{ __('PkgUtilisateurs::apprenant.nom') }}"
-                value="{{ $item ? $item->nom : old('nom') }}">
+                value="{{ $itemApprenant ? $itemApprenant->nom : old('nom') }}">
             @error('nom')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -41,7 +41,7 @@
                 class="form-control"
                 id="prenom"
                 placeholder="{{ __('PkgUtilisateurs::apprenant.prenom') }}"
-                value="{{ $item ? $item->prenom : old('prenom') }}">
+                value="{{ $itemApprenant ? $itemApprenant->prenom : old('prenom') }}">
             @error('prenom')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -60,7 +60,7 @@
                 class="form-control"
                 id="prenom_arab"
                 placeholder="{{ __('PkgUtilisateurs::apprenant.prenom_arab') }}"
-                value="{{ $item ? $item->prenom_arab : old('prenom_arab') }}">
+                value="{{ $itemApprenant ? $itemApprenant->prenom_arab : old('prenom_arab') }}">
             @error('prenom_arab')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -79,7 +79,7 @@
                 class="form-control"
                 id="nom_arab"
                 placeholder="{{ __('PkgUtilisateurs::apprenant.nom_arab') }}"
-                value="{{ $item ? $item->nom_arab : old('nom_arab') }}">
+                value="{{ $itemApprenant ? $itemApprenant->nom_arab : old('nom_arab') }}">
             @error('nom_arab')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -98,7 +98,7 @@
                 class="form-control"
                 id="tele_num"
                 placeholder="{{ __('PkgUtilisateurs::apprenant.tele_num') }}"
-                value="{{ $item ? $item->tele_num : old('tele_num') }}">
+                value="{{ $itemApprenant ? $itemApprenant->tele_num : old('tele_num') }}">
             @error('tele_num')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -115,7 +115,7 @@
                 class="form-control"
                 id="profile_image"
                 placeholder="{{ __('PkgUtilisateurs::apprenant.profile_image') }}"
-                value="{{ $item ? $item->profile_image : old('profile_image') }}">
+                value="{{ $itemApprenant ? $itemApprenant->profile_image : old('profile_image') }}">
             @error('profile_image')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -134,7 +134,7 @@
                 class="form-control"
                 id="matricule"
                 placeholder="{{ __('PkgUtilisateurs::apprenant.matricule') }}"
-                value="{{ $item ? $item->matricule : old('matricule') }}">
+                value="{{ $itemApprenant ? $itemApprenant->matricule : old('matricule') }}">
             @error('matricule')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -153,7 +153,7 @@
                 class="form-control"
                 id="sexe"
                 placeholder="{{ __('PkgUtilisateurs::apprenant.sexe') }}"
-                value="{{ $item ? $item->sexe : old('sexe') }}">
+                value="{{ $itemApprenant ? $itemApprenant->sexe : old('sexe') }}">
             @error('sexe')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -172,7 +172,7 @@
                 class="form-control"
                 id="actif"
                 placeholder="{{ __('PkgUtilisateurs::apprenant.actif') }}"
-                value="{{ $item ? $item->actif : old('actif') }}">
+                value="{{ $itemApprenant ? $itemApprenant->actif : old('actif') }}">
             @error('actif')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -189,7 +189,7 @@
                 class="form-control"
                 id="diplome"
                 placeholder="{{ __('PkgUtilisateurs::apprenant.diplome') }}"
-                value="{{ $item ? $item->diplome : old('diplome') }}">
+                value="{{ $itemApprenant ? $itemApprenant->diplome : old('diplome') }}">
             @error('diplome')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -206,7 +206,7 @@
                 class="form-control"
                 id="date_naissance"
                 placeholder="{{ __('PkgUtilisateurs::apprenant.date_naissance') }}"
-                value="{{ $item ? $item->date_naissance : old('date_naissance') }}">
+                value="{{ $itemApprenant ? $itemApprenant->date_naissance : old('date_naissance') }}">
             @error('date_naissance')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -223,7 +223,7 @@
                 class="form-control"
                 id="date_inscription"
                 placeholder="{{ __('PkgUtilisateurs::apprenant.date_inscription') }}"
-                value="{{ $item ? $item->date_inscription : old('date_inscription') }}">
+                value="{{ $itemApprenant ? $itemApprenant->date_inscription : old('date_inscription') }}">
             @error('date_inscription')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -240,7 +240,7 @@
                 class="form-control"
                 id="lieu_naissance"
                 placeholder="{{ __('PkgUtilisateurs::apprenant.lieu_naissance') }}"
-                value="{{ $item ? $item->lieu_naissance : old('lieu_naissance') }}">
+                value="{{ $itemApprenant ? $itemApprenant->lieu_naissance : old('lieu_naissance') }}">
             @error('lieu_naissance')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -257,7 +257,7 @@
                 class="form-control"
                 id="cin"
                 placeholder="{{ __('PkgUtilisateurs::apprenant.cin') }}"
-                value="{{ $item ? $item->cin : old('cin') }}">
+                value="{{ $itemApprenant ? $itemApprenant->cin : old('cin') }}">
             @error('cin')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -274,7 +274,7 @@
                 class="form-control"
                 id="adresse"
                 placeholder="{{ __('PkgUtilisateurs::apprenant.adresse') }}"
-                value="{{ $item ? $item->adresse : old('adresse') }}">
+                value="{{ $itemApprenant ? $itemApprenant->adresse : old('adresse') }}">
             @error('adresse')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -334,9 +334,10 @@
 
     </div>
 
+
     <div class="card-footer">
-        <a href="{{ route('apprenants.index') }}" class="btn btn-default">{{ __('Core::msg.cancel') }}</a>
-        <button type="submit" class="btn btn-info ml-2">{{ $item->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
+        <a href="{{ route('apprenants.index') }}" id="apprenant_form_cancel" class="btn btn-default">{{ __('Core::msg.cancel') }}</a>
+        <button type="submit" class="btn btn-info ml-2">{{ $itemApprenant->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
 
@@ -346,21 +347,21 @@
         {
             fieldId: 'groupe_id',
             fetchUrl: "{{ route('groupes.all') }}",
-            selectedValue: {{ $item->groupe_id ? $item->groupe_id : 'undefined' }},
+            selectedValue: {{ $itemApprenant->groupe_id ? $itemApprenant->groupe_id : 'undefined' }},
             fieldValue: 'code'
         },
         
         {
             fieldId: 'nationalite_id',
             fetchUrl: "{{ route('nationalites.all') }}",
-            selectedValue: {{ $item->nationalite_id ? $item->nationalite_id : 'undefined' }},
+            selectedValue: {{ $itemApprenant->nationalite_id ? $itemApprenant->nationalite_id : 'undefined' }},
             fieldValue: 'code'
         },
         
         {
             fieldId: 'niveaux_scolaire_id',
             fetchUrl: "{{ route('niveauxScolaires.all') }}",
-            selectedValue: {{ $item->niveaux_scolaire_id ? $item->niveaux_scolaire_id : 'undefined' }},
+            selectedValue: {{ $itemApprenant->niveaux_scolaire_id ? $itemApprenant->niveaux_scolaire_id : 'undefined' }},
             fieldValue: 'code'
         }
         

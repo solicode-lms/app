@@ -28,34 +28,40 @@ class PermissionController extends AdminController
         $this->roleService = $roleService;
     }
 
+
+    /**
+     * Affiche la liste des filières ou retourne le HTML pour une requête AJAX.
+     */
     public function index(Request $request)
     {
-        // Récupérer la valeur de recherche et paginer
-        $searchValue = $request->get('searchValue', '');
-        $searchQuery = str_replace(' ', '%', $searchValue);
-    
-        // Appel de la méthode paginate avec ou sans recherche
+        $searchQuery = str_replace(' ', '%', $request->get('searchValue', ''));
         $data = $this->permissionService->paginate($searchQuery);
-    
-        // Gestion AJAX
+
         if ($request->ajax()) {
-            return response()->json([
-                'html' => view('PkgAutorisation::permission._table', compact('data'))->render()
-            ]);
+            return view('PkgAutorisation::permission._table', compact('data'))->render();
         }
-    
-        // Vue principale pour le chargement initial
+
         return view('PkgAutorisation::permission.index', compact('data'));
     }
 
+    /**
+     * Retourne le formulaire de création.
+     */
     public function create()
     {
-        $item = $this->permissionService->createInstance();
+        $itemPermission = $this->permissionService->createInstance();
         $features = $this->featureService->all();
         $roles = $this->roleService->all();
-        return view('PkgAutorisation::permission.create', compact('item', 'features', 'roles'));
+
+        if (request()->ajax()) {
+            return view('PkgAutorisation::permission._fields', compact('itemPermission', 'features', 'roles'));
+        }
+        return view('PkgAutorisation::permission.create', compact('itemPermission', 'features', 'roles'));
     }
 
+    /**
+     * Stocke une nouvelle filière.
+     */
     public function store(PermissionRequest $request)
     {
         $validatedData = $request->validated();
@@ -68,36 +74,74 @@ class PermissionController extends AdminController
             $permission->roles()->sync($request->input('roles'));
         }
 
-        return redirect()->route('permissions.index')->with('success', __('Core::msg.addSuccess', [
-            'entityToString' => $permission,
-            'modelName' => __('PkgAutorisation::permission.singular')
-        ]));
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 
+             __('Core::msg.addSuccess', [
+                'entityToString' => $permission,
+                'modelName' => __('PkgAutorisation::permission.singular')])
+            ]);
+        }
+
+        return redirect()->route('permissions.index')->with(
+            'success',
+            __('Core::msg.addSuccess', [
+                'entityToString' => $permission,
+                'modelName' => __('PkgAutorisation::permission.singular')
+            ])
+        );
     }
+
+    /**
+     * Affiche les détails d'une filière.
+     */
     public function show(string $id)
     {
-        $item = $this->permissionService->find($id);
-        return view('PkgAutorisation::permission.show', compact('item'));
+        $itemPermission = $this->permissionService->find($id);
+
+        if (request()->ajax()) {
+            return view('PkgAutorisation::permission._fields', compact('itemPermission'));
+        }
+
+        return view('PkgAutorisation::permission.show', compact('itemPermission'));
     }
 
+    /**
+     * Retourne le formulaire d'édition d'une filière.
+     */
     public function edit(string $id)
     {
-        $item = $this->permissionService->find($id);
+        $itemPermission = $this->permissionService->find($id);
         $features = $this->featureService->all();
         $roles = $this->roleService->all();
-        return view('PkgAutorisation::permission.edit', compact('item', 'features', 'roles'));
+
+        if (request()->ajax()) {
+            return view('PkgAutorisation::permission._fields', compact('itemPermission', 'features', 'roles'));
+        }
+
+        return view('PkgAutorisation::permission.edit', compact('itemPermission', 'features', 'roles'));
     }
 
+    /**
+     * Met à jour une filière existante.
+     */
     public function update(PermissionRequest $request, string $id)
     {
         $validatedData = $request->validated();
         $permission = $this->permissionService->update($id, $validatedData);
-
 
         if ($request->has('features')) {
             $permission->features()->sync($request->input('features'));
         }
         if ($request->has('roles')) {
             $permission->roles()->sync($request->input('roles'));
+        }
+
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 
+            __('Core::msg.updateSuccess', [
+                'entityToString' => $permission,
+                'modelName' =>  __('PkgAutorisation::permission.singular')])
+            ]);
         }
 
         return redirect()->route('permissions.index')->with(
@@ -109,9 +153,21 @@ class PermissionController extends AdminController
         );
     }
 
-    public function destroy(string $id)
+    /**
+     * Supprime une filière.
+     */
+    public function destroy(Request $request, string $id)
     {
         $permission = $this->permissionService->destroy($id);
+
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 
+            __('Core::msg.deleteSuccess', [
+                'entityToString' => $permission,
+                'modelName' =>  __('PkgAutorisation::permission.singular')])
+            ]);
+        }
+
         return redirect()->route('permissions.index')->with(
             'success',
             __('Core::msg.deleteSuccess', [
@@ -126,6 +182,7 @@ class PermissionController extends AdminController
         $data = $this->permissionService->all();
         return Excel::download(new PermissionExport($data), 'permission_export.xlsx');
     }
+
     public function import(Request $request)
     {
         $request->validate([

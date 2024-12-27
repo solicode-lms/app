@@ -1,9 +1,9 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form action="{{ $item->id ? route('niveauxScolaires.update', $item->id) : route('niveauxScolaires.store') }}" method="POST">
+<form id="niveauxScolaireForm" action="{{ $itemNiveauxScolaire->id ? route('niveauxScolaires.update', $itemNiveauxScolaire->id) : route('niveauxScolaires.store') }}" method="POST">
     @csrf
 
-    @if ($item->id)
+    @if ($itemNiveauxScolaire->id)
         @method('PUT')
     @endif
 
@@ -22,7 +22,7 @@
                 class="form-control"
                 id="code"
                 placeholder="{{ __('PkgUtilisateurs::niveauxScolaire.code') }}"
-                value="{{ $item ? $item->code : old('code') }}">
+                value="{{ $itemNiveauxScolaire ? $itemNiveauxScolaire->code : old('code') }}">
             @error('code')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -39,7 +39,7 @@
                 class="form-control"
                 id="nom"
                 placeholder="{{ __('PkgUtilisateurs::niveauxScolaire.nom') }}"
-                value="{{ $item ? $item->nom : old('nom') }}">
+                value="{{ $itemNiveauxScolaire ? $itemNiveauxScolaire->nom : old('nom') }}">
             @error('nom')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -56,7 +56,7 @@
                 class="form-control"
                 id="description"
                 placeholder="{{ __('PkgUtilisateurs::niveauxScolaire.description') }}"
-                value="{{ $item ? $item->description : old('description') }}">
+                value="{{ $itemNiveauxScolaire ? $itemNiveauxScolaire->description : old('description') }}">
             @error('description')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -71,9 +71,10 @@
 
     </div>
 
+
     <div class="card-footer">
-        <a href="{{ route('niveauxScolaires.index') }}" class="btn btn-default">{{ __('Core::msg.cancel') }}</a>
-        <button type="submit" class="btn btn-info ml-2">{{ $item->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
+        <a href="{{ route('niveauxScolaires.index') }}" id="niveauxScolaire_form_cancel" class="btn btn-default">{{ __('Core::msg.cancel') }}</a>
+        <button type="submit" class="btn btn-info ml-2">{{ $itemNiveauxScolaire->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
 

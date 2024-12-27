@@ -1,9 +1,9 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form action="{{ $item->id ? route('sysModules.update', $item->id) : route('sysModules.store') }}" method="POST">
+<form id="sysModuleForm" action="{{ $itemSysModule->id ? route('sysModules.update', $itemSysModule->id) : route('sysModules.store') }}" method="POST">
     @csrf
 
-    @if ($item->id)
+    @if ($itemSysModule->id)
         @method('PUT')
     @endif
 
@@ -22,7 +22,7 @@
                 class="form-control"
                 id="name"
                 placeholder="{{ __('Core::sysModule.name') }}"
-                value="{{ $item ? $item->name : old('name') }}">
+                value="{{ $itemSysModule ? $itemSysModule->name : old('name') }}">
             @error('name')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -41,7 +41,7 @@
                 class="form-control"
                 id="slug"
                 placeholder="{{ __('Core::sysModule.slug') }}"
-                value="{{ $item ? $item->slug : old('slug') }}">
+                value="{{ $itemSysModule ? $itemSysModule->slug : old('slug') }}">
             @error('slug')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -60,7 +60,7 @@
                 class="form-control"
                 id="description"
                 placeholder="{{ __('Core::sysModule.description') }}"
-                value="{{ $item ? $item->description : old('description') }}">
+                value="{{ $itemSysModule ? $itemSysModule->description : old('description') }}">
             @error('description')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -79,7 +79,7 @@
                 class="form-control"
                 id="is_active"
                 placeholder="{{ __('Core::sysModule.is_active') }}"
-                value="{{ $item ? $item->is_active : old('is_active') }}">
+                value="{{ $itemSysModule ? $itemSysModule->is_active : old('is_active') }}">
             @error('is_active')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -98,7 +98,7 @@
                 class="form-control"
                 id="order"
                 placeholder="{{ __('Core::sysModule.order') }}"
-                value="{{ $item ? $item->order : old('order') }}">
+                value="{{ $itemSysModule ? $itemSysModule->order : old('order') }}">
             @error('order')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -117,7 +117,7 @@
                 class="form-control"
                 id="version"
                 placeholder="{{ __('Core::sysModule.version') }}"
-                value="{{ $item ? $item->version : old('version') }}">
+                value="{{ $itemSysModule ? $itemSysModule->version : old('version') }}">
             @error('version')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -147,9 +147,10 @@
 
     </div>
 
+
     <div class="card-footer">
-        <a href="{{ route('sysModules.index') }}" class="btn btn-default">{{ __('Core::msg.cancel') }}</a>
-        <button type="submit" class="btn btn-info ml-2">{{ $item->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
+        <a href="{{ route('sysModules.index') }}" id="sysModule_form_cancel" class="btn btn-default">{{ __('Core::msg.cancel') }}</a>
+        <button type="submit" class="btn btn-info ml-2">{{ $itemSysModule->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
 
@@ -159,7 +160,7 @@
         {
             fieldId: 'color_id',
             fetchUrl: "{{ route('sysColors.all') }}",
-            selectedValue: {{ $item->color_id ? $item->color_id : 'undefined' }},
+            selectedValue: {{ $itemSysModule->color_id ? $itemSysModule->color_id : 'undefined' }},
             fieldValue: 'name'
         }
         

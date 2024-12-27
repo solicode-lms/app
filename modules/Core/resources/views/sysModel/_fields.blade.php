@@ -1,9 +1,9 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form action="{{ $item->id ? route('sysModels.update', $item->id) : route('sysModels.store') }}" method="POST">
+<form id="sysModelForm" action="{{ $itemSysModel->id ? route('sysModels.update', $itemSysModel->id) : route('sysModels.store') }}" method="POST">
     @csrf
 
-    @if ($item->id)
+    @if ($itemSysModel->id)
         @method('PUT')
     @endif
 
@@ -22,7 +22,7 @@
                 class="form-control"
                 id="name"
                 placeholder="{{ __('Core::sysModel.name') }}"
-                value="{{ $item ? $item->name : old('name') }}">
+                value="{{ $itemSysModel ? $itemSysModel->name : old('name') }}">
             @error('name')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -41,7 +41,7 @@
                 class="form-control"
                 id="model"
                 placeholder="{{ __('Core::sysModel.model') }}"
-                value="{{ $item ? $item->model : old('model') }}">
+                value="{{ $itemSysModel ? $itemSysModel->model : old('model') }}">
             @error('model')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -58,7 +58,7 @@
                 class="form-control"
                 id="description"
                 placeholder="{{ __('Core::sysModel.description') }}"
-                value="{{ $item ? $item->description : old('description') }}">
+                value="{{ $itemSysModel ? $itemSysModel->description : old('description') }}">
             @error('description')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -103,9 +103,10 @@
 
     </div>
 
+
     <div class="card-footer">
-        <a href="{{ route('sysModels.index') }}" class="btn btn-default">{{ __('Core::msg.cancel') }}</a>
-        <button type="submit" class="btn btn-info ml-2">{{ $item->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
+        <a href="{{ route('sysModels.index') }}" id="sysModel_form_cancel" class="btn btn-default">{{ __('Core::msg.cancel') }}</a>
+        <button type="submit" class="btn btn-info ml-2">{{ $itemSysModel->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
 
@@ -115,14 +116,14 @@
         {
             fieldId: 'color_id',
             fetchUrl: "{{ route('sysColors.all') }}",
-            selectedValue: {{ $item->color_id ? $item->color_id : 'undefined' }},
+            selectedValue: {{ $itemSysModel->color_id ? $itemSysModel->color_id : 'undefined' }},
             fieldValue: 'name'
         },
         
         {
             fieldId: 'module_id',
             fetchUrl: "{{ route('sysModules.all') }}",
-            selectedValue: {{ $item->module_id ? $item->module_id : 'undefined' }},
+            selectedValue: {{ $itemSysModel->module_id ? $itemSysModel->module_id : 'undefined' }},
             fieldValue: 'name'
         }
         

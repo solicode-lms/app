@@ -22,61 +22,105 @@ class ModuleController extends AdminController
         $this->moduleService = $moduleService;
     }
 
+
+    /**
+     * Affiche la liste des filières ou retourne le HTML pour une requête AJAX.
+     */
     public function index(Request $request)
     {
-        // Récupérer la valeur de recherche et paginer
-        $searchValue = $request->get('searchValue', '');
-        $searchQuery = str_replace(' ', '%', $searchValue);
-    
-        // Appel de la méthode paginate avec ou sans recherche
+        $searchQuery = str_replace(' ', '%', $request->get('searchValue', ''));
         $data = $this->moduleService->paginate($searchQuery);
-    
-        // Gestion AJAX
+
         if ($request->ajax()) {
-            return response()->json([
-                'html' => view('PkgCompetences::module._table', compact('data'))->render()
-            ]);
+            return view('PkgCompetences::module._table', compact('data'))->render();
         }
-    
-        // Vue principale pour le chargement initial
+
         return view('PkgCompetences::module.index', compact('data'));
     }
 
+    /**
+     * Retourne le formulaire de création.
+     */
     public function create()
     {
-        $item = $this->moduleService->createInstance();
-        return view('PkgCompetences::module.create', compact('item'));
+        $itemModule = $this->moduleService->createInstance();
+
+        if (request()->ajax()) {
+            return view('PkgCompetences::module._fields', compact('itemModule'));
+        }
+        return view('PkgCompetences::module.create', compact('itemModule'));
     }
 
+    /**
+     * Stocke une nouvelle filière.
+     */
     public function store(ModuleRequest $request)
     {
         $validatedData = $request->validated();
         $module = $this->moduleService->create($validatedData);
 
 
-        return redirect()->route('modules.index')->with('success', __('Core::msg.addSuccess', [
-            'entityToString' => $module,
-            'modelName' => __('PkgCompetences::module.singular')
-        ]));
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 
+             __('Core::msg.addSuccess', [
+                'entityToString' => $module,
+                'modelName' => __('PkgCompetences::module.singular')])
+            ]);
+        }
+
+        return redirect()->route('modules.index')->with(
+            'success',
+            __('Core::msg.addSuccess', [
+                'entityToString' => $module,
+                'modelName' => __('PkgCompetences::module.singular')
+            ])
+        );
     }
+
+    /**
+     * Affiche les détails d'une filière.
+     */
     public function show(string $id)
     {
-        $item = $this->moduleService->find($id);
-        return view('PkgCompetences::module.show', compact('item'));
+        $itemModule = $this->moduleService->find($id);
+
+        if (request()->ajax()) {
+            return view('PkgCompetences::module._fields', compact('itemModule'));
+        }
+
+        return view('PkgCompetences::module.show', compact('itemModule'));
     }
 
+    /**
+     * Retourne le formulaire d'édition d'une filière.
+     */
     public function edit(string $id)
     {
-        $item = $this->moduleService->find($id);
-        return view('PkgCompetences::module.edit', compact('item'));
+        $itemModule = $this->moduleService->find($id);
+
+        if (request()->ajax()) {
+            return view('PkgCompetences::module._fields', compact('itemModule'));
+        }
+
+        return view('PkgCompetences::module.edit', compact('itemModule'));
     }
 
+    /**
+     * Met à jour une filière existante.
+     */
     public function update(ModuleRequest $request, string $id)
     {
         $validatedData = $request->validated();
         $module = $this->moduleService->update($id, $validatedData);
 
 
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 
+            __('Core::msg.updateSuccess', [
+                'entityToString' => $module,
+                'modelName' =>  __('PkgCompetences::module.singular')])
+            ]);
+        }
 
         return redirect()->route('modules.index')->with(
             'success',
@@ -87,9 +131,21 @@ class ModuleController extends AdminController
         );
     }
 
-    public function destroy(string $id)
+    /**
+     * Supprime une filière.
+     */
+    public function destroy(Request $request, string $id)
     {
         $module = $this->moduleService->destroy($id);
+
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 
+            __('Core::msg.deleteSuccess', [
+                'entityToString' => $module,
+                'modelName' =>  __('PkgCompetences::module.singular')])
+            ]);
+        }
+
         return redirect()->route('modules.index')->with(
             'success',
             __('Core::msg.deleteSuccess', [
@@ -104,6 +160,7 @@ class ModuleController extends AdminController
         $data = $this->moduleService->all();
         return Excel::download(new ModuleExport($data), 'module_export.xlsx');
     }
+
     public function import(Request $request)
     {
         $request->validate([

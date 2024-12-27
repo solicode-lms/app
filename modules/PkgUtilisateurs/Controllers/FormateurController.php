@@ -28,34 +28,40 @@ class FormateurController extends AdminController
         $this->specialiteService = $specialiteService;
     }
 
+
+    /**
+     * Affiche la liste des filières ou retourne le HTML pour une requête AJAX.
+     */
     public function index(Request $request)
     {
-        // Récupérer la valeur de recherche et paginer
-        $searchValue = $request->get('searchValue', '');
-        $searchQuery = str_replace(' ', '%', $searchValue);
-    
-        // Appel de la méthode paginate avec ou sans recherche
+        $searchQuery = str_replace(' ', '%', $request->get('searchValue', ''));
         $data = $this->formateurService->paginate($searchQuery);
-    
-        // Gestion AJAX
+
         if ($request->ajax()) {
-            return response()->json([
-                'html' => view('PkgUtilisateurs::formateur._table', compact('data'))->render()
-            ]);
+            return view('PkgUtilisateurs::formateur._table', compact('data'))->render();
         }
-    
-        // Vue principale pour le chargement initial
+
         return view('PkgUtilisateurs::formateur.index', compact('data'));
     }
 
+    /**
+     * Retourne le formulaire de création.
+     */
     public function create()
     {
-        $item = $this->formateurService->createInstance();
+        $itemFormateur = $this->formateurService->createInstance();
         $groupes = $this->groupeService->all();
         $specialites = $this->specialiteService->all();
-        return view('PkgUtilisateurs::formateur.create', compact('item', 'groupes', 'specialites'));
+
+        if (request()->ajax()) {
+            return view('PkgUtilisateurs::formateur._fields', compact('itemFormateur', 'groupes', 'specialites'));
+        }
+        return view('PkgUtilisateurs::formateur.create', compact('itemFormateur', 'groupes', 'specialites'));
     }
 
+    /**
+     * Stocke une nouvelle filière.
+     */
     public function store(FormateurRequest $request)
     {
         $validatedData = $request->validated();
@@ -68,36 +74,74 @@ class FormateurController extends AdminController
             $formateur->specialites()->sync($request->input('specialites'));
         }
 
-        return redirect()->route('formateurs.index')->with('success', __('Core::msg.addSuccess', [
-            'entityToString' => $formateur,
-            'modelName' => __('PkgUtilisateurs::formateur.singular')
-        ]));
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 
+             __('Core::msg.addSuccess', [
+                'entityToString' => $formateur,
+                'modelName' => __('PkgUtilisateurs::formateur.singular')])
+            ]);
+        }
+
+        return redirect()->route('formateurs.index')->with(
+            'success',
+            __('Core::msg.addSuccess', [
+                'entityToString' => $formateur,
+                'modelName' => __('PkgUtilisateurs::formateur.singular')
+            ])
+        );
     }
+
+    /**
+     * Affiche les détails d'une filière.
+     */
     public function show(string $id)
     {
-        $item = $this->formateurService->find($id);
-        return view('PkgUtilisateurs::formateur.show', compact('item'));
+        $itemFormateur = $this->formateurService->find($id);
+
+        if (request()->ajax()) {
+            return view('PkgUtilisateurs::formateur._fields', compact('itemFormateur'));
+        }
+
+        return view('PkgUtilisateurs::formateur.show', compact('itemFormateur'));
     }
 
+    /**
+     * Retourne le formulaire d'édition d'une filière.
+     */
     public function edit(string $id)
     {
-        $item = $this->formateurService->find($id);
+        $itemFormateur = $this->formateurService->find($id);
         $groupes = $this->groupeService->all();
         $specialites = $this->specialiteService->all();
-        return view('PkgUtilisateurs::formateur.edit', compact('item', 'groupes', 'specialites'));
+
+        if (request()->ajax()) {
+            return view('PkgUtilisateurs::formateur._fields', compact('itemFormateur', 'groupes', 'specialites'));
+        }
+
+        return view('PkgUtilisateurs::formateur.edit', compact('itemFormateur', 'groupes', 'specialites'));
     }
 
+    /**
+     * Met à jour une filière existante.
+     */
     public function update(FormateurRequest $request, string $id)
     {
         $validatedData = $request->validated();
         $formateur = $this->formateurService->update($id, $validatedData);
-
 
         if ($request->has('groupes')) {
             $formateur->groupes()->sync($request->input('groupes'));
         }
         if ($request->has('specialites')) {
             $formateur->specialites()->sync($request->input('specialites'));
+        }
+
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 
+            __('Core::msg.updateSuccess', [
+                'entityToString' => $formateur,
+                'modelName' =>  __('PkgUtilisateurs::formateur.singular')])
+            ]);
         }
 
         return redirect()->route('formateurs.index')->with(
@@ -109,9 +153,21 @@ class FormateurController extends AdminController
         );
     }
 
-    public function destroy(string $id)
+    /**
+     * Supprime une filière.
+     */
+    public function destroy(Request $request, string $id)
     {
         $formateur = $this->formateurService->destroy($id);
+
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 
+            __('Core::msg.deleteSuccess', [
+                'entityToString' => $formateur,
+                'modelName' =>  __('PkgUtilisateurs::formateur.singular')])
+            ]);
+        }
+
         return redirect()->route('formateurs.index')->with(
             'success',
             __('Core::msg.deleteSuccess', [
@@ -126,6 +182,7 @@ class FormateurController extends AdminController
         $data = $this->formateurService->all();
         return Excel::download(new FormateurExport($data), 'formateur_export.xlsx');
     }
+
     public function import(Request $request)
     {
         $request->validate([

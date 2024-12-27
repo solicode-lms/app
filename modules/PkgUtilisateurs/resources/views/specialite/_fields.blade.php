@@ -1,9 +1,9 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form action="{{ $item->id ? route('specialites.update', $item->id) : route('specialites.store') }}" method="POST">
+<form id="specialiteForm" action="{{ $itemSpecialite->id ? route('specialites.update', $itemSpecialite->id) : route('specialites.store') }}" method="POST">
     @csrf
 
-    @if ($item->id)
+    @if ($itemSpecialite->id)
         @method('PUT')
     @endif
 
@@ -22,7 +22,7 @@
                 class="form-control"
                 id="nom"
                 placeholder="{{ __('PkgUtilisateurs::specialite.nom') }}"
-                value="{{ $item ? $item->nom : old('nom') }}">
+                value="{{ $itemSpecialite ? $itemSpecialite->nom : old('nom') }}">
             @error('nom')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -41,7 +41,7 @@
                 class="form-control"
                 id="description"
                 placeholder="{{ __('PkgUtilisateurs::specialite.description') }}"
-                value="{{ $item ? $item->description : old('description') }}">
+                value="{{ $itemSpecialite ? $itemSpecialite->description : old('description') }}">
             @error('description')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -62,7 +62,7 @@
                 multiple="multiple">
                 @foreach ($formateurs as $formateur)
                     <option value="{{ $formateur->id }}"
-                        {{ (isset($item) && $item->formateurs && $item->formateurs->contains('id', $formateur->id)) || (is_array(old('formateurs')) && in_array($formateur->id, old('formateurs'))) ? 'selected' : '' }}>
+                        {{ (isset($itemSpecialite) && $itemSpecialite->formateurs && $itemSpecialite->formateurs->contains('id', $formateur->id)) || (is_array(old('formateurs')) && in_array($formateur->id, old('formateurs'))) ? 'selected' : '' }}>
                         {{ $formateur->nom }}
                     </option>
                 @endforeach
@@ -78,9 +78,10 @@
 
     </div>
 
+
     <div class="card-footer">
-        <a href="{{ route('specialites.index') }}" class="btn btn-default">{{ __('Core::msg.cancel') }}</a>
-        <button type="submit" class="btn btn-info ml-2">{{ $item->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
+        <a href="{{ route('specialites.index') }}" id="specialite_form_cancel" class="btn btn-default">{{ __('Core::msg.cancel') }}</a>
+        <button type="submit" class="btn btn-info ml-2">{{ $itemSpecialite->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
 

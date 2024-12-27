@@ -22,61 +22,105 @@ class CategorieTechnologyController extends AdminController
         $this->categorieTechnologyService = $categorieTechnologyService;
     }
 
+
+    /**
+     * Affiche la liste des filières ou retourne le HTML pour une requête AJAX.
+     */
     public function index(Request $request)
     {
-        // Récupérer la valeur de recherche et paginer
-        $searchValue = $request->get('searchValue', '');
-        $searchQuery = str_replace(' ', '%', $searchValue);
-    
-        // Appel de la méthode paginate avec ou sans recherche
+        $searchQuery = str_replace(' ', '%', $request->get('searchValue', ''));
         $data = $this->categorieTechnologyService->paginate($searchQuery);
-    
-        // Gestion AJAX
+
         if ($request->ajax()) {
-            return response()->json([
-                'html' => view('PkgCompetences::categorieTechnology._table', compact('data'))->render()
-            ]);
+            return view('PkgCompetences::categorieTechnology._table', compact('data'))->render();
         }
-    
-        // Vue principale pour le chargement initial
+
         return view('PkgCompetences::categorieTechnology.index', compact('data'));
     }
 
+    /**
+     * Retourne le formulaire de création.
+     */
     public function create()
     {
-        $item = $this->categorieTechnologyService->createInstance();
-        return view('PkgCompetences::categorieTechnology.create', compact('item'));
+        $itemCategorieTechnology = $this->categorieTechnologyService->createInstance();
+
+        if (request()->ajax()) {
+            return view('PkgCompetences::categorieTechnology._fields', compact('itemCategorieTechnology'));
+        }
+        return view('PkgCompetences::categorieTechnology.create', compact('itemCategorieTechnology'));
     }
 
+    /**
+     * Stocke une nouvelle filière.
+     */
     public function store(CategorieTechnologyRequest $request)
     {
         $validatedData = $request->validated();
         $categorieTechnology = $this->categorieTechnologyService->create($validatedData);
 
 
-        return redirect()->route('categorieTechnologies.index')->with('success', __('Core::msg.addSuccess', [
-            'entityToString' => $categorieTechnology,
-            'modelName' => __('PkgCompetences::categorieTechnology.singular')
-        ]));
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 
+             __('Core::msg.addSuccess', [
+                'entityToString' => $categorieTechnology,
+                'modelName' => __('PkgCompetences::categorieTechnology.singular')])
+            ]);
+        }
+
+        return redirect()->route('categorieTechnologys.index')->with(
+            'success',
+            __('Core::msg.addSuccess', [
+                'entityToString' => $categorieTechnology,
+                'modelName' => __('PkgCompetences::categorieTechnology.singular')
+            ])
+        );
     }
+
+    /**
+     * Affiche les détails d'une filière.
+     */
     public function show(string $id)
     {
-        $item = $this->categorieTechnologyService->find($id);
-        return view('PkgCompetences::categorietechnology.show', compact('item'));
+        $itemCategorieTechnology = $this->categorieTechnologyService->find($id);
+
+        if (request()->ajax()) {
+            return view('PkgCompetences::categorietechnology._fields', compact('itemCategorieTechnology'));
+        }
+
+        return view('PkgCompetences::categorietechnology.show', compact('itemCategorieTechnology'));
     }
 
+    /**
+     * Retourne le formulaire d'édition d'une filière.
+     */
     public function edit(string $id)
     {
-        $item = $this->categorieTechnologyService->find($id);
-        return view('PkgCompetences::categorieTechnology.edit', compact('item'));
+        $itemCategorieTechnology = $this->categorieTechnologyService->find($id);
+
+        if (request()->ajax()) {
+            return view('PkgCompetences::categorieTechnology._fields', compact('itemCategorieTechnology'));
+        }
+
+        return view('PkgCompetences::categorieTechnology.edit', compact('itemCategorieTechnology'));
     }
 
+    /**
+     * Met à jour une filière existante.
+     */
     public function update(CategorieTechnologyRequest $request, string $id)
     {
         $validatedData = $request->validated();
         $categorietechnology = $this->categorieTechnologyService->update($id, $validatedData);
 
 
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 
+            __('Core::msg.updateSuccess', [
+                'entityToString' => $categorietechnology,
+                'modelName' =>  __('PkgCompetences::categorietechnology.singular')])
+            ]);
+        }
 
         return redirect()->route('categorieTechnologies.index')->with(
             'success',
@@ -87,9 +131,21 @@ class CategorieTechnologyController extends AdminController
         );
     }
 
-    public function destroy(string $id)
+    /**
+     * Supprime une filière.
+     */
+    public function destroy(Request $request, string $id)
     {
         $categorietechnology = $this->categorieTechnologyService->destroy($id);
+
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 
+            __('Core::msg.deleteSuccess', [
+                'entityToString' => $categorietechnology,
+                'modelName' =>  __('PkgCompetences::categorietechnology.singular')])
+            ]);
+        }
+
         return redirect()->route('categorieTechnologies.index')->with(
             'success',
             __('Core::msg.deleteSuccess', [
@@ -104,6 +160,7 @@ class CategorieTechnologyController extends AdminController
         $data = $this->categorieTechnologyService->all();
         return Excel::download(new CategorieTechnologyExport($data), 'categorieTechnology_export.xlsx');
     }
+
     public function import(Request $request)
     {
         $request->validate([

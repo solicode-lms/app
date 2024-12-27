@@ -1,9 +1,9 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form action="{{ $item->id ? route('villes.update', $item->id) : route('villes.store') }}" method="POST">
+<form id="villeForm" action="{{ $itemVille->id ? route('villes.update', $itemVille->id) : route('villes.store') }}" method="POST">
     @csrf
 
-    @if ($item->id)
+    @if ($itemVille->id)
         @method('PUT')
     @endif
 
@@ -22,7 +22,7 @@
                 class="form-control"
                 id="nom"
                 placeholder="{{ __('PkgUtilisateurs::ville.nom') }}"
-                value="{{ $item ? $item->nom : old('nom') }}">
+                value="{{ $itemVille ? $itemVille->nom : old('nom') }}">
             @error('nom')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -37,9 +37,10 @@
 
     </div>
 
+
     <div class="card-footer">
-        <a href="{{ route('villes.index') }}" class="btn btn-default">{{ __('Core::msg.cancel') }}</a>
-        <button type="submit" class="btn btn-info ml-2">{{ $item->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
+        <a href="{{ route('villes.index') }}" id="ville_form_cancel" class="btn btn-default">{{ __('Core::msg.cancel') }}</a>
+        <button type="submit" class="btn btn-info ml-2">{{ $itemVille->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
 

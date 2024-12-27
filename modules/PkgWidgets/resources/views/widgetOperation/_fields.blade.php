@@ -1,9 +1,9 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form action="{{ $item->id ? route('widgetOperations.update', $item->id) : route('widgetOperations.store') }}" method="POST">
+<form id="widgetOperationForm" action="{{ $itemWidgetOperation->id ? route('widgetOperations.update', $itemWidgetOperation->id) : route('widgetOperations.store') }}" method="POST">
     @csrf
 
-    @if ($item->id)
+    @if ($itemWidgetOperation->id)
         @method('PUT')
     @endif
 
@@ -22,7 +22,7 @@
                 class="form-control"
                 id="operation"
                 placeholder="{{ __('PkgWidgets::widgetOperation.operation') }}"
-                value="{{ $item ? $item->operation : old('operation') }}">
+                value="{{ $itemWidgetOperation ? $itemWidgetOperation->operation : old('operation') }}">
             @error('operation')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -39,7 +39,7 @@
                 class="form-control"
                 id="description"
                 placeholder="{{ __('PkgWidgets::widgetOperation.description') }}"
-                value="{{ $item ? $item->description : old('description') }}">
+                value="{{ $itemWidgetOperation ? $itemWidgetOperation->description : old('description') }}">
             @error('description')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -54,9 +54,10 @@
 
     </div>
 
+
     <div class="card-footer">
-        <a href="{{ route('widgetOperations.index') }}" class="btn btn-default">{{ __('Core::msg.cancel') }}</a>
-        <button type="submit" class="btn btn-info ml-2">{{ $item->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
+        <a href="{{ route('widgetOperations.index') }}" id="widgetOperation_form_cancel" class="btn btn-default">{{ __('Core::msg.cancel') }}</a>
+        <button type="submit" class="btn btn-info ml-2">{{ $itemWidgetOperation->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
 

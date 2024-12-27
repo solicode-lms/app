@@ -22,61 +22,105 @@ class NatureLivrableController extends AdminController
         $this->natureLivrableService = $natureLivrableService;
     }
 
+
+    /**
+     * Affiche la liste des filières ou retourne le HTML pour une requête AJAX.
+     */
     public function index(Request $request)
     {
-        // Récupérer la valeur de recherche et paginer
-        $searchValue = $request->get('searchValue', '');
-        $searchQuery = str_replace(' ', '%', $searchValue);
-    
-        // Appel de la méthode paginate avec ou sans recherche
+        $searchQuery = str_replace(' ', '%', $request->get('searchValue', ''));
         $data = $this->natureLivrableService->paginate($searchQuery);
-    
-        // Gestion AJAX
+
         if ($request->ajax()) {
-            return response()->json([
-                'html' => view('PkgCreationProjet::natureLivrable._table', compact('data'))->render()
-            ]);
+            return view('PkgCreationProjet::natureLivrable._table', compact('data'))->render();
         }
-    
-        // Vue principale pour le chargement initial
+
         return view('PkgCreationProjet::natureLivrable.index', compact('data'));
     }
 
+    /**
+     * Retourne le formulaire de création.
+     */
     public function create()
     {
-        $item = $this->natureLivrableService->createInstance();
-        return view('PkgCreationProjet::natureLivrable.create', compact('item'));
+        $itemNatureLivrable = $this->natureLivrableService->createInstance();
+
+        if (request()->ajax()) {
+            return view('PkgCreationProjet::natureLivrable._fields', compact('itemNatureLivrable'));
+        }
+        return view('PkgCreationProjet::natureLivrable.create', compact('itemNatureLivrable'));
     }
 
+    /**
+     * Stocke une nouvelle filière.
+     */
     public function store(NatureLivrableRequest $request)
     {
         $validatedData = $request->validated();
         $natureLivrable = $this->natureLivrableService->create($validatedData);
 
 
-        return redirect()->route('natureLivrables.index')->with('success', __('Core::msg.addSuccess', [
-            'entityToString' => $natureLivrable,
-            'modelName' => __('PkgCreationProjet::natureLivrable.singular')
-        ]));
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 
+             __('Core::msg.addSuccess', [
+                'entityToString' => $natureLivrable,
+                'modelName' => __('PkgCreationProjet::natureLivrable.singular')])
+            ]);
+        }
+
+        return redirect()->route('natureLivrables.index')->with(
+            'success',
+            __('Core::msg.addSuccess', [
+                'entityToString' => $natureLivrable,
+                'modelName' => __('PkgCreationProjet::natureLivrable.singular')
+            ])
+        );
     }
+
+    /**
+     * Affiche les détails d'une filière.
+     */
     public function show(string $id)
     {
-        $item = $this->natureLivrableService->find($id);
-        return view('PkgCreationProjet::naturelivrable.show', compact('item'));
+        $itemNatureLivrable = $this->natureLivrableService->find($id);
+
+        if (request()->ajax()) {
+            return view('PkgCreationProjet::naturelivrable._fields', compact('itemNatureLivrable'));
+        }
+
+        return view('PkgCreationProjet::naturelivrable.show', compact('itemNatureLivrable'));
     }
 
+    /**
+     * Retourne le formulaire d'édition d'une filière.
+     */
     public function edit(string $id)
     {
-        $item = $this->natureLivrableService->find($id);
-        return view('PkgCreationProjet::natureLivrable.edit', compact('item'));
+        $itemNatureLivrable = $this->natureLivrableService->find($id);
+
+        if (request()->ajax()) {
+            return view('PkgCreationProjet::natureLivrable._fields', compact('itemNatureLivrable'));
+        }
+
+        return view('PkgCreationProjet::natureLivrable.edit', compact('itemNatureLivrable'));
     }
 
+    /**
+     * Met à jour une filière existante.
+     */
     public function update(NatureLivrableRequest $request, string $id)
     {
         $validatedData = $request->validated();
         $naturelivrable = $this->natureLivrableService->update($id, $validatedData);
 
 
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 
+            __('Core::msg.updateSuccess', [
+                'entityToString' => $naturelivrable,
+                'modelName' =>  __('PkgCreationProjet::naturelivrable.singular')])
+            ]);
+        }
 
         return redirect()->route('natureLivrables.index')->with(
             'success',
@@ -87,9 +131,21 @@ class NatureLivrableController extends AdminController
         );
     }
 
-    public function destroy(string $id)
+    /**
+     * Supprime une filière.
+     */
+    public function destroy(Request $request, string $id)
     {
         $naturelivrable = $this->natureLivrableService->destroy($id);
+
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 
+            __('Core::msg.deleteSuccess', [
+                'entityToString' => $naturelivrable,
+                'modelName' =>  __('PkgCreationProjet::naturelivrable.singular')])
+            ]);
+        }
+
         return redirect()->route('natureLivrables.index')->with(
             'success',
             __('Core::msg.deleteSuccess', [
@@ -104,6 +160,7 @@ class NatureLivrableController extends AdminController
         $data = $this->natureLivrableService->all();
         return Excel::download(new NatureLivrableExport($data), 'natureLivrable_export.xlsx');
     }
+
     public function import(Request $request)
     {
         $request->validate([

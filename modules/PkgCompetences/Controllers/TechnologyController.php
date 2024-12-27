@@ -28,34 +28,40 @@ class TechnologyController extends AdminController
         $this->transfertCompetenceService = $transfertCompetenceService;
     }
 
+
+    /**
+     * Affiche la liste des filières ou retourne le HTML pour une requête AJAX.
+     */
     public function index(Request $request)
     {
-        // Récupérer la valeur de recherche et paginer
-        $searchValue = $request->get('searchValue', '');
-        $searchQuery = str_replace(' ', '%', $searchValue);
-    
-        // Appel de la méthode paginate avec ou sans recherche
+        $searchQuery = str_replace(' ', '%', $request->get('searchValue', ''));
         $data = $this->technologyService->paginate($searchQuery);
-    
-        // Gestion AJAX
+
         if ($request->ajax()) {
-            return response()->json([
-                'html' => view('PkgCompetences::technology._table', compact('data'))->render()
-            ]);
+            return view('PkgCompetences::technology._table', compact('data'))->render();
         }
-    
-        // Vue principale pour le chargement initial
+
         return view('PkgCompetences::technology.index', compact('data'));
     }
 
+    /**
+     * Retourne le formulaire de création.
+     */
     public function create()
     {
-        $item = $this->technologyService->createInstance();
+        $itemTechnology = $this->technologyService->createInstance();
         $competences = $this->competenceService->all();
         $transfertCompetences = $this->transfertCompetenceService->all();
-        return view('PkgCompetences::technology.create', compact('item', 'competences', 'transfertCompetences'));
+
+        if (request()->ajax()) {
+            return view('PkgCompetences::technology._fields', compact('itemTechnology', 'competences', 'transfertCompetences'));
+        }
+        return view('PkgCompetences::technology.create', compact('itemTechnology', 'competences', 'transfertCompetences'));
     }
 
+    /**
+     * Stocke une nouvelle filière.
+     */
     public function store(TechnologyRequest $request)
     {
         $validatedData = $request->validated();
@@ -68,36 +74,74 @@ class TechnologyController extends AdminController
             $technology->transfertcompetences()->sync($request->input('transfertcompetences'));
         }
 
-        return redirect()->route('technologies.index')->with('success', __('Core::msg.addSuccess', [
-            'entityToString' => $technology,
-            'modelName' => __('PkgCompetences::technology.singular')
-        ]));
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 
+             __('Core::msg.addSuccess', [
+                'entityToString' => $technology,
+                'modelName' => __('PkgCompetences::technology.singular')])
+            ]);
+        }
+
+        return redirect()->route('technologys.index')->with(
+            'success',
+            __('Core::msg.addSuccess', [
+                'entityToString' => $technology,
+                'modelName' => __('PkgCompetences::technology.singular')
+            ])
+        );
     }
+
+    /**
+     * Affiche les détails d'une filière.
+     */
     public function show(string $id)
     {
-        $item = $this->technologyService->find($id);
-        return view('PkgCompetences::technology.show', compact('item'));
+        $itemTechnology = $this->technologyService->find($id);
+
+        if (request()->ajax()) {
+            return view('PkgCompetences::technology._fields', compact('itemTechnology'));
+        }
+
+        return view('PkgCompetences::technology.show', compact('itemTechnology'));
     }
 
+    /**
+     * Retourne le formulaire d'édition d'une filière.
+     */
     public function edit(string $id)
     {
-        $item = $this->technologyService->find($id);
+        $itemTechnology = $this->technologyService->find($id);
         $competences = $this->competenceService->all();
         $transfertCompetences = $this->transfertCompetenceService->all();
-        return view('PkgCompetences::technology.edit', compact('item', 'competences', 'transfertCompetences'));
+
+        if (request()->ajax()) {
+            return view('PkgCompetences::technology._fields', compact('itemTechnology', 'competences', 'transfertCompetences'));
+        }
+
+        return view('PkgCompetences::technology.edit', compact('itemTechnology', 'competences', 'transfertCompetences'));
     }
 
+    /**
+     * Met à jour une filière existante.
+     */
     public function update(TechnologyRequest $request, string $id)
     {
         $validatedData = $request->validated();
         $technology = $this->technologyService->update($id, $validatedData);
-
 
         if ($request->has('competences')) {
             $technology->competences()->sync($request->input('competences'));
         }
         if ($request->has('transfertcompetences')) {
             $technology->transfertcompetences()->sync($request->input('transfertcompetences'));
+        }
+
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 
+            __('Core::msg.updateSuccess', [
+                'entityToString' => $technology,
+                'modelName' =>  __('PkgCompetences::technology.singular')])
+            ]);
         }
 
         return redirect()->route('technologies.index')->with(
@@ -109,9 +153,21 @@ class TechnologyController extends AdminController
         );
     }
 
-    public function destroy(string $id)
+    /**
+     * Supprime une filière.
+     */
+    public function destroy(Request $request, string $id)
     {
         $technology = $this->technologyService->destroy($id);
+
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 
+            __('Core::msg.deleteSuccess', [
+                'entityToString' => $technology,
+                'modelName' =>  __('PkgCompetences::technology.singular')])
+            ]);
+        }
+
         return redirect()->route('technologies.index')->with(
             'success',
             __('Core::msg.deleteSuccess', [
@@ -126,6 +182,7 @@ class TechnologyController extends AdminController
         $data = $this->technologyService->all();
         return Excel::download(new TechnologyExport($data), 'technology_export.xlsx');
     }
+
     public function import(Request $request)
     {
         $request->validate([

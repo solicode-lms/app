@@ -22,61 +22,105 @@ class NationaliteController extends AdminController
         $this->nationaliteService = $nationaliteService;
     }
 
+
+    /**
+     * Affiche la liste des filières ou retourne le HTML pour une requête AJAX.
+     */
     public function index(Request $request)
     {
-        // Récupérer la valeur de recherche et paginer
-        $searchValue = $request->get('searchValue', '');
-        $searchQuery = str_replace(' ', '%', $searchValue);
-    
-        // Appel de la méthode paginate avec ou sans recherche
+        $searchQuery = str_replace(' ', '%', $request->get('searchValue', ''));
         $data = $this->nationaliteService->paginate($searchQuery);
-    
-        // Gestion AJAX
+
         if ($request->ajax()) {
-            return response()->json([
-                'html' => view('PkgUtilisateurs::nationalite._table', compact('data'))->render()
-            ]);
+            return view('PkgUtilisateurs::nationalite._table', compact('data'))->render();
         }
-    
-        // Vue principale pour le chargement initial
+
         return view('PkgUtilisateurs::nationalite.index', compact('data'));
     }
 
+    /**
+     * Retourne le formulaire de création.
+     */
     public function create()
     {
-        $item = $this->nationaliteService->createInstance();
-        return view('PkgUtilisateurs::nationalite.create', compact('item'));
+        $itemNationalite = $this->nationaliteService->createInstance();
+
+        if (request()->ajax()) {
+            return view('PkgUtilisateurs::nationalite._fields', compact('itemNationalite'));
+        }
+        return view('PkgUtilisateurs::nationalite.create', compact('itemNationalite'));
     }
 
+    /**
+     * Stocke une nouvelle filière.
+     */
     public function store(NationaliteRequest $request)
     {
         $validatedData = $request->validated();
         $nationalite = $this->nationaliteService->create($validatedData);
 
 
-        return redirect()->route('nationalites.index')->with('success', __('Core::msg.addSuccess', [
-            'entityToString' => $nationalite,
-            'modelName' => __('PkgUtilisateurs::nationalite.singular')
-        ]));
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 
+             __('Core::msg.addSuccess', [
+                'entityToString' => $nationalite,
+                'modelName' => __('PkgUtilisateurs::nationalite.singular')])
+            ]);
+        }
+
+        return redirect()->route('nationalites.index')->with(
+            'success',
+            __('Core::msg.addSuccess', [
+                'entityToString' => $nationalite,
+                'modelName' => __('PkgUtilisateurs::nationalite.singular')
+            ])
+        );
     }
+
+    /**
+     * Affiche les détails d'une filière.
+     */
     public function show(string $id)
     {
-        $item = $this->nationaliteService->find($id);
-        return view('PkgUtilisateurs::nationalite.show', compact('item'));
+        $itemNationalite = $this->nationaliteService->find($id);
+
+        if (request()->ajax()) {
+            return view('PkgUtilisateurs::nationalite._fields', compact('itemNationalite'));
+        }
+
+        return view('PkgUtilisateurs::nationalite.show', compact('itemNationalite'));
     }
 
+    /**
+     * Retourne le formulaire d'édition d'une filière.
+     */
     public function edit(string $id)
     {
-        $item = $this->nationaliteService->find($id);
-        return view('PkgUtilisateurs::nationalite.edit', compact('item'));
+        $itemNationalite = $this->nationaliteService->find($id);
+
+        if (request()->ajax()) {
+            return view('PkgUtilisateurs::nationalite._fields', compact('itemNationalite'));
+        }
+
+        return view('PkgUtilisateurs::nationalite.edit', compact('itemNationalite'));
     }
 
+    /**
+     * Met à jour une filière existante.
+     */
     public function update(NationaliteRequest $request, string $id)
     {
         $validatedData = $request->validated();
         $nationalite = $this->nationaliteService->update($id, $validatedData);
 
 
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 
+            __('Core::msg.updateSuccess', [
+                'entityToString' => $nationalite,
+                'modelName' =>  __('PkgUtilisateurs::nationalite.singular')])
+            ]);
+        }
 
         return redirect()->route('nationalites.index')->with(
             'success',
@@ -87,9 +131,21 @@ class NationaliteController extends AdminController
         );
     }
 
-    public function destroy(string $id)
+    /**
+     * Supprime une filière.
+     */
+    public function destroy(Request $request, string $id)
     {
         $nationalite = $this->nationaliteService->destroy($id);
+
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 
+            __('Core::msg.deleteSuccess', [
+                'entityToString' => $nationalite,
+                'modelName' =>  __('PkgUtilisateurs::nationalite.singular')])
+            ]);
+        }
+
         return redirect()->route('nationalites.index')->with(
             'success',
             __('Core::msg.deleteSuccess', [
@@ -104,6 +160,7 @@ class NationaliteController extends AdminController
         $data = $this->nationaliteService->all();
         return Excel::download(new NationaliteExport($data), 'nationalite_export.xlsx');
     }
+
     public function import(Request $request)
     {
         $request->validate([

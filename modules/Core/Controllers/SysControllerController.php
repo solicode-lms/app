@@ -22,61 +22,105 @@ class SysControllerController extends AdminController
         $this->sysControllerService = $sysControllerService;
     }
 
+
+    /**
+     * Affiche la liste des filières ou retourne le HTML pour une requête AJAX.
+     */
     public function index(Request $request)
     {
-        // Récupérer la valeur de recherche et paginer
-        $searchValue = $request->get('searchValue', '');
-        $searchQuery = str_replace(' ', '%', $searchValue);
-    
-        // Appel de la méthode paginate avec ou sans recherche
+        $searchQuery = str_replace(' ', '%', $request->get('searchValue', ''));
         $data = $this->sysControllerService->paginate($searchQuery);
-    
-        // Gestion AJAX
+
         if ($request->ajax()) {
-            return response()->json([
-                'html' => view('Core::sysController._table', compact('data'))->render()
-            ]);
+            return view('Core::sysController._table', compact('data'))->render();
         }
-    
-        // Vue principale pour le chargement initial
+
         return view('Core::sysController.index', compact('data'));
     }
 
+    /**
+     * Retourne le formulaire de création.
+     */
     public function create()
     {
-        $item = $this->sysControllerService->createInstance();
-        return view('Core::sysController.create', compact('item'));
+        $itemSysController = $this->sysControllerService->createInstance();
+
+        if (request()->ajax()) {
+            return view('Core::sysController._fields', compact('itemSysController'));
+        }
+        return view('Core::sysController.create', compact('itemSysController'));
     }
 
+    /**
+     * Stocke une nouvelle filière.
+     */
     public function store(SysControllerRequest $request)
     {
         $validatedData = $request->validated();
         $sysController = $this->sysControllerService->create($validatedData);
 
 
-        return redirect()->route('sysControllers.index')->with('success', __('Core::msg.addSuccess', [
-            'entityToString' => $sysController,
-            'modelName' => __('Core::sysController.singular')
-        ]));
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 
+             __('Core::msg.addSuccess', [
+                'entityToString' => $sysController,
+                'modelName' => __('Core::sysController.singular')])
+            ]);
+        }
+
+        return redirect()->route('sysControllers.index')->with(
+            'success',
+            __('Core::msg.addSuccess', [
+                'entityToString' => $sysController,
+                'modelName' => __('Core::sysController.singular')
+            ])
+        );
     }
+
+    /**
+     * Affiche les détails d'une filière.
+     */
     public function show(string $id)
     {
-        $item = $this->sysControllerService->find($id);
-        return view('Core::syscontroller.show', compact('item'));
+        $itemSysController = $this->sysControllerService->find($id);
+
+        if (request()->ajax()) {
+            return view('Core::syscontroller._fields', compact('itemSysController'));
+        }
+
+        return view('Core::syscontroller.show', compact('itemSysController'));
     }
 
+    /**
+     * Retourne le formulaire d'édition d'une filière.
+     */
     public function edit(string $id)
     {
-        $item = $this->sysControllerService->find($id);
-        return view('Core::sysController.edit', compact('item'));
+        $itemSysController = $this->sysControllerService->find($id);
+
+        if (request()->ajax()) {
+            return view('Core::sysController._fields', compact('itemSysController'));
+        }
+
+        return view('Core::sysController.edit', compact('itemSysController'));
     }
 
+    /**
+     * Met à jour une filière existante.
+     */
     public function update(SysControllerRequest $request, string $id)
     {
         $validatedData = $request->validated();
         $syscontroller = $this->sysControllerService->update($id, $validatedData);
 
 
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 
+            __('Core::msg.updateSuccess', [
+                'entityToString' => $syscontroller,
+                'modelName' =>  __('Core::syscontroller.singular')])
+            ]);
+        }
 
         return redirect()->route('sysControllers.index')->with(
             'success',
@@ -87,9 +131,21 @@ class SysControllerController extends AdminController
         );
     }
 
-    public function destroy(string $id)
+    /**
+     * Supprime une filière.
+     */
+    public function destroy(Request $request, string $id)
     {
         $syscontroller = $this->sysControllerService->destroy($id);
+
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 
+            __('Core::msg.deleteSuccess', [
+                'entityToString' => $syscontroller,
+                'modelName' =>  __('Core::syscontroller.singular')])
+            ]);
+        }
+
         return redirect()->route('sysControllers.index')->with(
             'success',
             __('Core::msg.deleteSuccess', [
@@ -104,6 +160,7 @@ class SysControllerController extends AdminController
         $data = $this->sysControllerService->all();
         return Excel::download(new SysControllerExport($data), 'sysController_export.xlsx');
     }
+
     public function import(Request $request)
     {
         $request->validate([

@@ -22,61 +22,105 @@ class LivrableController extends AdminController
         $this->livrableService = $livrableService;
     }
 
+
+    /**
+     * Affiche la liste des filières ou retourne le HTML pour une requête AJAX.
+     */
     public function index(Request $request)
     {
-        // Récupérer la valeur de recherche et paginer
-        $searchValue = $request->get('searchValue', '');
-        $searchQuery = str_replace(' ', '%', $searchValue);
-    
-        // Appel de la méthode paginate avec ou sans recherche
+        $searchQuery = str_replace(' ', '%', $request->get('searchValue', ''));
         $data = $this->livrableService->paginate($searchQuery);
-    
-        // Gestion AJAX
+
         if ($request->ajax()) {
-            return response()->json([
-                'html' => view('PkgCreationProjet::livrable._table', compact('data'))->render()
-            ]);
+            return view('PkgCreationProjet::livrable._table', compact('data'))->render();
         }
-    
-        // Vue principale pour le chargement initial
+
         return view('PkgCreationProjet::livrable.index', compact('data'));
     }
 
+    /**
+     * Retourne le formulaire de création.
+     */
     public function create()
     {
-        $item = $this->livrableService->createInstance();
-        return view('PkgCreationProjet::livrable.create', compact('item'));
+        $itemLivrable = $this->livrableService->createInstance();
+
+        if (request()->ajax()) {
+            return view('PkgCreationProjet::livrable._fields', compact('itemLivrable'));
+        }
+        return view('PkgCreationProjet::livrable.create', compact('itemLivrable'));
     }
 
+    /**
+     * Stocke une nouvelle filière.
+     */
     public function store(LivrableRequest $request)
     {
         $validatedData = $request->validated();
         $livrable = $this->livrableService->create($validatedData);
 
 
-        return redirect()->route('livrables.index')->with('success', __('Core::msg.addSuccess', [
-            'entityToString' => $livrable,
-            'modelName' => __('PkgCreationProjet::livrable.singular')
-        ]));
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 
+             __('Core::msg.addSuccess', [
+                'entityToString' => $livrable,
+                'modelName' => __('PkgCreationProjet::livrable.singular')])
+            ]);
+        }
+
+        return redirect()->route('livrables.index')->with(
+            'success',
+            __('Core::msg.addSuccess', [
+                'entityToString' => $livrable,
+                'modelName' => __('PkgCreationProjet::livrable.singular')
+            ])
+        );
     }
+
+    /**
+     * Affiche les détails d'une filière.
+     */
     public function show(string $id)
     {
-        $item = $this->livrableService->find($id);
-        return view('PkgCreationProjet::livrable.show', compact('item'));
+        $itemLivrable = $this->livrableService->find($id);
+
+        if (request()->ajax()) {
+            return view('PkgCreationProjet::livrable._fields', compact('itemLivrable'));
+        }
+
+        return view('PkgCreationProjet::livrable.show', compact('itemLivrable'));
     }
 
+    /**
+     * Retourne le formulaire d'édition d'une filière.
+     */
     public function edit(string $id)
     {
-        $item = $this->livrableService->find($id);
-        return view('PkgCreationProjet::livrable.edit', compact('item'));
+        $itemLivrable = $this->livrableService->find($id);
+
+        if (request()->ajax()) {
+            return view('PkgCreationProjet::livrable._fields', compact('itemLivrable'));
+        }
+
+        return view('PkgCreationProjet::livrable.edit', compact('itemLivrable'));
     }
 
+    /**
+     * Met à jour une filière existante.
+     */
     public function update(LivrableRequest $request, string $id)
     {
         $validatedData = $request->validated();
         $livrable = $this->livrableService->update($id, $validatedData);
 
 
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 
+            __('Core::msg.updateSuccess', [
+                'entityToString' => $livrable,
+                'modelName' =>  __('PkgCreationProjet::livrable.singular')])
+            ]);
+        }
 
         return redirect()->route('livrables.index')->with(
             'success',
@@ -87,9 +131,21 @@ class LivrableController extends AdminController
         );
     }
 
-    public function destroy(string $id)
+    /**
+     * Supprime une filière.
+     */
+    public function destroy(Request $request, string $id)
     {
         $livrable = $this->livrableService->destroy($id);
+
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 
+            __('Core::msg.deleteSuccess', [
+                'entityToString' => $livrable,
+                'modelName' =>  __('PkgCreationProjet::livrable.singular')])
+            ]);
+        }
+
         return redirect()->route('livrables.index')->with(
             'success',
             __('Core::msg.deleteSuccess', [
@@ -104,6 +160,7 @@ class LivrableController extends AdminController
         $data = $this->livrableService->all();
         return Excel::download(new LivrableExport($data), 'livrable_export.xlsx');
     }
+
     public function import(Request $request)
     {
         $request->validate([

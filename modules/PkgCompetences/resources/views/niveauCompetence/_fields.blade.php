@@ -1,9 +1,9 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form action="{{ $item->id ? route('niveauCompetences.update', $item->id) : route('niveauCompetences.store') }}" method="POST">
+<form id="niveauCompetenceForm" action="{{ $itemNiveauCompetence->id ? route('niveauCompetences.update', $itemNiveauCompetence->id) : route('niveauCompetences.store') }}" method="POST">
     @csrf
 
-    @if ($item->id)
+    @if ($itemNiveauCompetence->id)
         @method('PUT')
     @endif
 
@@ -22,7 +22,7 @@
                 class="form-control"
                 id="nom"
                 placeholder="{{ __('PkgCompetences::niveauCompetence.nom') }}"
-                value="{{ $item ? $item->nom : old('nom') }}">
+                value="{{ $itemNiveauCompetence ? $itemNiveauCompetence->nom : old('nom') }}">
             @error('nom')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -41,7 +41,7 @@
                 class="form-control"
                 id="description"
                 placeholder="{{ __('PkgCompetences::niveauCompetence.description') }}"
-                value="{{ $item ? $item->description : old('description') }}">
+                value="{{ $itemNiveauCompetence ? $itemNiveauCompetence->description : old('description') }}">
             @error('description')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -71,9 +71,10 @@
 
     </div>
 
+
     <div class="card-footer">
-        <a href="{{ route('niveauCompetences.index') }}" class="btn btn-default">{{ __('Core::msg.cancel') }}</a>
-        <button type="submit" class="btn btn-info ml-2">{{ $item->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
+        <a href="{{ route('niveauCompetences.index') }}" id="niveauCompetence_form_cancel" class="btn btn-default">{{ __('Core::msg.cancel') }}</a>
+        <button type="submit" class="btn btn-info ml-2">{{ $itemNiveauCompetence->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
 
@@ -83,7 +84,7 @@
         {
             fieldId: 'competence_id',
             fetchUrl: "{{ route('competences.all') }}",
-            selectedValue: {{ $item->competence_id ? $item->competence_id : 'undefined' }},
+            selectedValue: {{ $itemNiveauCompetence->competence_id ? $itemNiveauCompetence->competence_id : 'undefined' }},
             fieldValue: 'code'
         }
         

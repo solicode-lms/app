@@ -1,9 +1,9 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form action="{{ $item->id ? route('categorieTechnologies.update', $item->id) : route('categorieTechnologies.store') }}" method="POST">
+<form id="categorieTechnologyForm" action="{{ $itemCategorieTechnology->id ? route('categorieTechnologies.update', $itemCategorieTechnology->id) : route('categorieTechnologies.store') }}" method="POST">
     @csrf
 
-    @if ($item->id)
+    @if ($itemCategorieTechnology->id)
         @method('PUT')
     @endif
 
@@ -22,7 +22,7 @@
                 class="form-control"
                 id="nom"
                 placeholder="{{ __('PkgCompetences::categorieTechnology.nom') }}"
-                value="{{ $item ? $item->nom : old('nom') }}">
+                value="{{ $itemCategorieTechnology ? $itemCategorieTechnology->nom : old('nom') }}">
             @error('nom')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -41,7 +41,7 @@
                 class="form-control"
                 id="description"
                 placeholder="{{ __('PkgCompetences::categorieTechnology.description') }}"
-                value="{{ $item ? $item->description : old('description') }}">
+                value="{{ $itemCategorieTechnology ? $itemCategorieTechnology->description : old('description') }}">
             @error('description')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -56,9 +56,10 @@
 
     </div>
 
+
     <div class="card-footer">
-        <a href="{{ route('categorieTechnologies.index') }}" class="btn btn-default">{{ __('Core::msg.cancel') }}</a>
-        <button type="submit" class="btn btn-info ml-2">{{ $item->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
+        <a href="{{ route('categorieTechnologies.index') }}" id="categorieTechnology_form_cancel" class="btn btn-default">{{ __('Core::msg.cancel') }}</a>
+        <button type="submit" class="btn btn-info ml-2">{{ $itemCategorieTechnology->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
 
