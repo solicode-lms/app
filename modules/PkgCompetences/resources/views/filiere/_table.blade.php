@@ -16,12 +16,12 @@
                     <td>{{ $filiere->description }}</td>
                     <td class="text-center">
                         @can('show-filiere')
-                            <a href="{{ route('filieres.show', $filiere) }}" class="btn btn-default btn-sm">
+                            <a href="{{ route('filieres.show', $filiere) }}" data-id="{{$filiere->id}}" class="btn btn-default btn-sm showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
                         @endcan
                         @can('edit-filiere')
-                            <a href="{{ route('filieres.edit', $filiere) }}" class="btn btn-sm btn-default">
+                            <a href="{{ route('filieres.edit', $filiere) }}"  data-id="{{$filiere->id}}" class="btn btn-sm btn-default editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endcan

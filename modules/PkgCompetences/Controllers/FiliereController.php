@@ -47,6 +47,13 @@ class FiliereController extends AdminController
     public function create()
     {
         $itemFiliere = $this->filiereService->createInstance();
+
+        // Réponse pour AJAX
+        if (request()->ajax()) {
+            return view('PkgCompetences::filiere._fields', compact('itemFiliere'));
+        }
+
+
         return view('PkgCompetences::filiere.create', compact('itemFiliere'));
     }
 
@@ -75,8 +82,19 @@ class FiliereController extends AdminController
     public function show(string $id)
     {
         $itemFiliere = $this->filiereService->find($id);
+
+        // Réponse pour AJAX
+        if (request()->ajax()) {
+            return view('PkgCompetences::filiere._fields', compact('itemFiliere'));
+        }
+
         return view('PkgCompetences::filiere.show', compact('itemFiliere'));
     }
+
+
+   
+
+
 
     /**
      * Éditer une filière existante.
@@ -84,6 +102,12 @@ class FiliereController extends AdminController
     public function edit(string $id)
     {
         $itemFiliere = $this->filiereService->find($id);
+        
+        // Réponse pour AJAX
+        if (request()->ajax()) {
+            return view('PkgCompetences::filiere._fields', compact('itemFiliere'));
+        }
+        
         return view('PkgCompetences::filiere.edit', compact('itemFiliere'));
     }
 

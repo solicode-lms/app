@@ -6,7 +6,10 @@
 document.addEventListener("DOMContentLoaded", function () {
     const filiereCrud = new GappCrud({
         entity_name: 'filiere',
-        fetchUrl: '{{ route('filieres.index') }}', // Utilise la méthode `index` pour charger le HTML
+        indexUrl: '{{ route('filieres.index') }}', 
+        createUrl: '{{ route('filieres.create') }}',
+        editUrl: '{{ route('filieres.edit', ['filiere' => ':id']) }}',
+        showUrl: '{{ route('filieres.show', ['filiere' => ':id']) }}',
         storeUrl: '{{ route('filieres.store') }}', // URL pour ajouter une filière
         deleteUrl: '{{ route('filieres.destroy', ['filiere' => ':id']) }}', // Placeholder :id pour suppression
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel

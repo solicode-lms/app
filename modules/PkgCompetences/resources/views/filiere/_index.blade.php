@@ -1,3 +1,5 @@
+<div id="filiere_crud">
+
 <div class="content-header">
     @if (session('success'))
         <div class="alert alert-success alert-dismissible">
@@ -15,7 +17,7 @@
             <div class="col-sm-6">
                 <div class="float-sm-right">
                     @can('create-filiere')
-                        <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#filiereModal">
+                        <button type="button" class="btn btn-info btn-sm addEntityButton" data-toggle="modal" data-target="#filiereModal">
                             <i class="fas fa-plus"></i> {{ curd_index_add_label('PkgCompetences::filiere') }}
                         </button>
                     @endcan
@@ -101,7 +103,10 @@
     <div class="modal-dialog modal-lg" role="document">
         
         <div class="modal-content">
-            @include('PkgCompetences::filiere._fields')
+          
         </div>
     </div>
+</div>
+
+
 </div>

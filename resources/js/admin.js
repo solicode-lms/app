@@ -7,11 +7,10 @@ select2(); // <-- select2 must be called
 
 
 
-
 import 'admin-lte/plugins/bootstrap/js/bootstrap.bundle';
 import "admin-lte/dist/js/adminlte";
 
-import GappCrud from  './modules/GappCrud';
+import GappCrud from  './curd/GappCrud';
 window.GappCrud = GappCrud;
 
 import { setupSearchHandler } from './app.recherche';
