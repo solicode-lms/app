@@ -1,5 +1,6 @@
 import $ from 'jquery';
 import { GappMessages } from './GappMessages';
+import { showLoading, hideLoading } from './GappLoading';
 
 export default class GappCrud {
     constructor(config) {
@@ -72,9 +73,11 @@ export default class GappCrud {
      * Charger les entités depuis le backend et mettre à jour le tableau.
      */
     loadEntities() {
+        showLoading();
         $.get(this.indexUrl)
             .done((html) => {
                 $(this.tableSelector).html(html);
+                hideLoading();
                 // GappMessages.showToast('success', 'Données chargées avec succès.');
             })
             .fail(() => {

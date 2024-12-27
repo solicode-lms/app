@@ -1,5 +1,5 @@
 import $ from 'admin-lte/plugins/jquery/jquery.min.js';
-import { showLoading, hideLoading } from './app.loading';
+import { showLoading, hideLoading } from './GappLoading';
 
 
 // Initialise les gestionnaires d'événements
@@ -91,7 +91,7 @@ function fetchData(page = 1, searchValue = "") {
             url,
             method: "GET",
             success(response) {
-                $('#data-container').html(response.html);
+                $('#data-container').html(response);
                 hideLoading();
             },
             error(xhr, status, errorThrown) {

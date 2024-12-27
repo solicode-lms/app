@@ -13,7 +13,7 @@ import "admin-lte/dist/js/adminlte";
 import GappCrud from  './curd/GappCrud';
 window.GappCrud = GappCrud;
 
-import { setupSearchHandler } from './app.recherche';
+import { setupSearchHandler } from './curd/GappRecherche';
 
 
 // console.log($.fn.select2); // Devrait afficher la fonction Select2
