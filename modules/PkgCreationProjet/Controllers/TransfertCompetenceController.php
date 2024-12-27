@@ -32,17 +32,17 @@ class TransfertCompetenceController extends AdminController
         $searchQuery = str_replace(' ', '%', $searchValue);
     
         // Appel de la méthode paginate avec ou sans recherche
-        $data = $this->transfertCompetenceService->paginate($searchQuery);
+        $dataTransfertCompetences = $this->transfertCompetenceService->paginate($searchQuery);
     
         // Gestion AJAX
         if ($request->ajax()) {
             return response()->json([
-                'html' => view('PkgCreationProjet::transfertCompetence._table', compact('data'))->render()
+                'html' => view('PkgCreationProjet::transfertCompetence._table', compact('dataTransfertCompetences'))->render()
             ]);
         }
     
         // Vue principale pour le chargement initial
-        return view('PkgCreationProjet::transfertCompetence.index', compact('data'));
+        return view('PkgCreationProjet::transfertCompetence.index', compact('dataTransfertCompetences'));
     }
 
     public function create()
@@ -112,8 +112,8 @@ class TransfertCompetenceController extends AdminController
 
     public function export()
     {
-        $data = $this->transfertCompetenceService->all();
-        return Excel::download(new TransfertCompetenceExport($data), 'transfertCompetence_export.xlsx');
+        $dataTransfertCompetences = $this->transfertCompetenceService->all();
+        return Excel::download(new TransfertCompetenceExport($dataTransfertCompetences), 'transfertCompetence_export.xlsx');
     }
     public function import(Request $request)
     {

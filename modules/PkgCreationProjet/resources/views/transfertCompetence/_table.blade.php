@@ -1,4 +1,4 @@
-{{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
+{{-- $dataTransfertCompetences --}}
 
 <div class="card-body table-responsive p-0">
     <table class="table table-striped text-nowrap">
@@ -11,7 +11,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($data as $transfertCompetence)
+            @foreach ($dataTransfertCompetences as $transfertCompetence)
                 <tr>
                     <td>{{ $transfertCompetence->projet->titre ?? '-' }}</td>
                     <td>{{ $transfertCompetence->competence->code ?? '-' }}</td>
@@ -67,7 +67,7 @@
     </div>
 
     <ul class="pagination m-0 float-right">
-        {{ $data->onEachSide(1)->links() }}
+        {{ $dataTransfertCompetences->onEachSide(1)->links() }}
     </ul>
 </div>
 

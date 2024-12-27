@@ -68,9 +68,20 @@ class ProjetController extends AdminController
 
     public function edit(string $id)
     {
-        $item = $this->projetService->find($id);
-        return view('PkgCreationProjet::projet.edit', compact('item'));
+        // Fetch the project by ID, including related transfert_competences for optimization
+        $item = $this->projetService->find($id)->load('transfert_competences');
+    
+        // Check if the project exists
+        if (!$item) {
+            return redirect()->route('projets.index')->with('error', 'Projet introuvable.');
+        }
+    
+        // Pass the project and its related data to the view
+        $dataTransfertCompetences =  $item->transfert_competences()->paginate(10);
+    
+        return view('PkgCreationProjet::projet.edit', compact('item', 'dataTransfertCompetences'));
     }
+    
 
     public function update(ProjetRequest $request, string $id)
     {

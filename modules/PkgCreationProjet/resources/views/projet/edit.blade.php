@@ -67,8 +67,8 @@
         </div>
         <div class="tab-pane fade" id="custom-tabs-two-profile" role="tabpanel" aria-labelledby="custom-tabs-two-profile-tab">
        
-
-          @include('PkgCreationProjet::transfertCompetence._fields')
+            @include('PkgCreationProjet::transfertCompetence._content')
+         
 
         </div>
         <div class="tab-pane fade" id="custom-tabs-two-messages" role="tabpanel" aria-labelledby="custom-tabs-two-messages-tab">
