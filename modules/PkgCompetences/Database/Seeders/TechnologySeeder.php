@@ -21,7 +21,7 @@ use Modules\PkgCompetences\Models\Technology;
 
 class TechnologySeeder extends Seeder
 {
-    public static int $order = 19;
+    public static int $order = 20;
 
     public function run(): void
     {

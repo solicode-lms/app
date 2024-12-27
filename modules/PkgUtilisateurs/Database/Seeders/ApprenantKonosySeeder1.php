@@ -1,9 +1,9 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
+// TODO : utilisation de create de Service
 
 
 
-namespace Modules\PkgCompetences\Database\Seeders;
+namespace Modules\PkgUtilisateurs\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Schema;
@@ -16,12 +16,12 @@ use Modules\Core\Models\SysModule;
 use Modules\PkgAutorisation\Models\Permission;
 use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgAutorisation\Models\User;
-use Modules\PkgCompetences\Models\Filiere;
+use Modules\PkgUtilisateurs\Models\ApprenantKonosy;
+use Modules\PkgUtilisateurs\Services\ApprenantKonosyService;
 
-
-class FiliereSeeder extends Seeder
+class ApprenantKonosySeeder extends Seeder
 {
-    public static int $order = 15;
+    public static int $order = 33;
 
     public function run(): void
     {
@@ -40,15 +40,31 @@ class FiliereSeeder extends Seeder
 
     public function seedFromCsv(): void
     {
-        $csvFile = fopen(base_path("modules/PkgCompetences/Database/data/filieres.csv"), "r");
+        $csvFile = fopen(base_path("modules/PkgUtilisateurs/Database/data/apprenantKonosies.csv"), "r");
         $firstline = true;
 
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
-                Filiere::create([
-                    "code" => $data[0] ,
-                    "nom" => $data[1] ,
-                    "description" => $data[2] 
+                (new ApprenantKonosyService())->create([
+                    "MatriculeEtudiant" => $data[0] ,
+                    "Nom" => $data[1] ,
+                    "Prenom" => $data[2] ,
+                    "Sexe" => $data[3] ,
+                    "EtudiantActif" => $data[4] ,
+                    "Diplome" => $data[5] ,
+                    "Principale" => $data[6] ,
+                    "LibelleLong" => $data[7] ,
+                    "CodeDiplome" => $data[8] ,
+                    "DateNaissance" => $data[9] ,
+                    "DateInscription" => $data[10] ,
+                    "LieuNaissance" => $data[11] ,
+                    "CIN" => $data[12] ,
+                    "NTelephone" => $data[13] ,
+                    "Adresse" => $data[14] ,
+                    "Nationalite" => $data[15] ,
+                    "Nom_Arabe" => $data[16] ,
+                    "Prenom_Arabe" => $data[17] ,
+                    "NiveauScolaire" => $data[18] 
                 ]);
             }
             $firstline = false;
@@ -60,7 +76,7 @@ class FiliereSeeder extends Seeder
     private function addDefaultControllerDomainFeatures(): void
     {
         // Trouver dynamiquement le module SysModule par son slug
-        $moduleSlug = 'PkgCompetences'; // Slug du module
+        $moduleSlug = 'PkgUtilisateurs'; // Slug du module
         $sysModule = SysModule::where('slug', $moduleSlug)->first();
 
         if (!$sysModule) {
@@ -71,13 +87,13 @@ class FiliereSeeder extends Seeder
         }
 
         // Configuration unique pour ce contrôleur et domaine
-        $controllerName = 'FiliereController';
-        $controllerBaseName = 'filiere';
-        $domainName = 'Filiere';
+        $controllerName = 'ApprenantKonosyController';
+        $controllerBaseName = 'apprenantKonosy';
+        $domainName = 'ApprenantKonosy';
 
         // Permissions spécifiques pour chaque type de fonctionnalité
         $featurePermissions = [
-            'Édition ' => [ 'create','store','edit','update','destroy','getFilieres'],
+            'Édition ' => [ 'create','store','edit','update','destroy','getApprenantKonosies'],
             'Lecture' => ['index', 'show'],
             'Extraction' => ['import', 'export'],
         ];
@@ -143,8 +159,8 @@ class FiliereSeeder extends Seeder
 
         // Permissions pour le membre (lecture seule)
         $memberPermissions = Permission::whereIn('name', [
-            'index-filiere',
-            'show-filiere',
+            'index-apprenantKonosy',
+            'show-apprenantKonosy',
         ])->pluck('name')->toArray();
 
         // Associer les permissions aux rôles

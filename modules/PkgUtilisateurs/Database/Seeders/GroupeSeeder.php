@@ -21,7 +21,7 @@ use Modules\PkgUtilisateurs\Models\Groupe;
 
 class GroupeSeeder extends Seeder
 {
-    public static int $order = 24;
+    public static int $order = 25;
 
     public function run(): void
     {

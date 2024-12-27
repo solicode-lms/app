@@ -1,5 +1,5 @@
 <?php
-// TODO : utilisation de create de Service
+// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 
@@ -17,11 +17,11 @@ use Modules\PkgAutorisation\Models\Permission;
 use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgAutorisation\Models\User;
 use Modules\PkgUtilisateurs\Models\ApprenantKonosy;
-use Modules\PkgUtilisateurs\Services\ApprenantKonosyService;
+
 
 class ApprenantKonosySeeder extends Seeder
 {
-    public static int $order = 33;
+    public static int $order = 0;
 
     public function run(): void
     {
@@ -45,7 +45,7 @@ class ApprenantKonosySeeder extends Seeder
 
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
-                (new ApprenantKonosyService())->create([
+                ApprenantKonosy::create([
                     "MatriculeEtudiant" => $data[0] ,
                     "Nom" => $data[1] ,
                     "Prenom" => $data[2] ,

@@ -21,7 +21,7 @@ use Modules\PkgUtilisateurs\Models\Apprenant;
 
 class ApprenantSeeder extends Seeder
 {
-    public static int $order = 25;
+    public static int $order = 26;
 
     public function run(): void
     {
