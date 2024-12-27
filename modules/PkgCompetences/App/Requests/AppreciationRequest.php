@@ -21,7 +21,6 @@ class AppreciationRequest extends FormRequest
             'description' => 'nullable|max:255',
             'noteMin' => 'required',
             'noteMax' => 'required',
-            'niveau_competence_id' => 'required',
             'formateur_id' => 'required'
         ];
     }
@@ -37,8 +36,6 @@ class AppreciationRequest extends FormRequest
             'noteMin.max' => __('validation.noteMinMax'),
             'noteMax.required' => __('validation.required', ['attribute' => __('PkgBlog::category.noteMax')]),
             'noteMax.max' => __('validation.noteMaxMax'),
-            'niveau_competence_id.required' => __('validation.required', ['attribute' => __('PkgBlog::category.niveau_competence_id')]),
-            'niveau_competence_id.max' => __('validation.niveau_competence_idMax'),
             'formateur_id.required' => __('validation.required', ['attribute' => __('PkgBlog::category.formateur_id')]),
             'formateur_id.max' => __('validation.formateur_idMax')
         ];

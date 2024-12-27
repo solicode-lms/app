@@ -42,7 +42,6 @@ class AppreciationImport implements ToModel, WithHeadingRow
             'description' => $row['description'],
             'noteMin' => $row['noteMin'],
             'noteMax' => $row['noteMax'],
-            'niveau_competence_id' => $row['niveau_competence_id'],
             'formateur_id' => $row['formateur_id'],
         ]);
     }

@@ -41,10 +41,6 @@
                                 <p>{{ $item->noteMax }}</p>
                             </div>
                             <div class="col-sm-12">
-                                <label for="niveau_competence_id">{{ ucfirst(__('PkgCompetences::appreciation.niveau_competence_id')) }}:</label>
-                                <p>{{ $item->niveau_competence_id }}</p>
-                            </div>
-                            <div class="col-sm-12">
                                 <label for="formateur_id">{{ ucfirst(__('PkgCompetences::appreciation.formateur_id')) }}:</label>
                                 <p>{{ $item->formateur_id }}</p>
                             </div>

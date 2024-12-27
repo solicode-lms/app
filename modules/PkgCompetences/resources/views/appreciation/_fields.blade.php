@@ -100,21 +100,6 @@
             @enderror
         </div>
         
-        <div class="form-group">
-            <label for="niveau_competence_id">
-                {{ ucfirst(__('PkgCompetences::niveauCompetence.singular')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <select id="niveau_competence_id" name="niveau_competence_id" class="form-control">
-                <option value="">Sélectionnez une option</option>
-            </select>
-            @error('niveau_competence_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-        </div>
-        
 
         
 
@@ -135,13 +120,6 @@
             fieldId: 'formateur_id',
             fetchUrl: "{{ route('formateurs.all') }}",
             selectedValue: {{ $item->formateur_id ? $item->formateur_id : 'undefined' }},
-            fieldValue: 'nom'
-        },
-        
-        {
-            fieldId: 'niveau_competence_id',
-            fetchUrl: "{{ route('niveauCompetences.all') }}",
-            selectedValue: {{ $item->niveau_competence_id ? $item->niveau_competence_id : 'undefined' }},
             fieldValue: 'nom'
         }
         

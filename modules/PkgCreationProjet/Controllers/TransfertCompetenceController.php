@@ -41,7 +41,7 @@ class TransfertCompetenceController extends AdminController
             ]);
         }
     
-        // Vue principale pour le chargement initial
+
         return view('PkgCreationProjet::transfertCompetence.index', compact('dataTransfertCompetences'));
     }
 
@@ -49,6 +49,7 @@ class TransfertCompetenceController extends AdminController
     {
         $transfertCompetence = $this->transfertCompetenceService->createInstance();
         $technologies = $this->technologyService->all();
+        // Dans un Création de projet Workflow redirection vers projet - edit
         return view('PkgCreationProjet::transfertCompetence.create', compact('transfertCompetence', 'technologies'));
     }
 
@@ -61,7 +62,7 @@ class TransfertCompetenceController extends AdminController
             $transfertCompetence->technologies()->sync($request->input('technologies'));
         }
 
-        return redirect()->route('transfertCompetences.index')->with('success', __('Core::msg.addSuccess', [
+        return redirect()->route('projets.edit',["projet" =>  $transfertCompetence->projet->id])->with('success', __('Core::msg.addSuccess', [
             'entityToString' => $transfertCompetence,
             'modelName' => __('PkgCreationProjet::transfertCompetence.singular')
         ]));

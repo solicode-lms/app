@@ -5,7 +5,6 @@
         <thead>
             <tr>
                 <th>{{ ucfirst(__('PkgCompetences::appreciation.nom')) }}</th>
-                <th>{{ ucfirst(__('PkgCompetences::niveauCompetence.singular')) }}</th>
                 <th>{{ ucfirst(__('PkgUtilisateurs::formateur.singular')) }}</th>
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
@@ -14,7 +13,6 @@
             @foreach ($data as $appreciation)
                 <tr>
                     <td>{{ $appreciation->nom }}</td>
-                    <td>{{ $appreciation->niveauCompetence->nom ?? '-' }}</td>
                     <td>{{ $appreciation->formateur->nom ?? '-' }}</td>
                     <td class="text-center">
                         @can('show-appreciation')
