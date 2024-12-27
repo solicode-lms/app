@@ -1,4 +1,4 @@
-{{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
+{{-- TODO : Affichage de différent type de message : success,info, warning--}}
 
 @extends('layouts.admin')
 @section('title', curd_index_title('PkgCreationProjet::projet'))
@@ -9,6 +9,12 @@
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                 {{ session('success') }}.
             </div>
+        @endif
+        @if (session('info'))
+        <div class="alert alert-info alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            {{ session('info') }}.
+        </div>
         @endif
         <div class="container-fluid">
             <div class="row mb-2">

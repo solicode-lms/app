@@ -1,5 +1,5 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
+// TODO : Add hasmany load eager
 
 
 namespace Modules\PkgCreationProjet\Controllers;
@@ -54,10 +54,11 @@ class ProjetController extends AdminController
         $projet = $this->projetService->create($validatedData);
 
 
-        return redirect()->route('projets.index')->with('success', __('Core::msg.addSuccess', [
-            'entityToString' => $projet,
-            'modelName' => __('PkgCreationProjet::projet.singular')
-        ]));
+        // Après l'insertion de projet : rediretion vers update pour complèter l'insertion 
+        // des relation hasMany si 'il existe
+        // Redirect to the edit route with the newly created projet ID
+        return redirect()->route('projets.edit', ['projet' => $projet->id])
+        ->with('info', "Étape 2 : Affectation des compétences");
     }
     public function show(string $id)
     {

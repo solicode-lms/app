@@ -1,5 +1,5 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
+// TODO : change transfertCompetence to transfertCompetence
 
 
 namespace Modules\PkgCreationProjet\Controllers;
@@ -47,9 +47,9 @@ class TransfertCompetenceController extends AdminController
 
     public function create()
     {
-        $item = $this->transfertCompetenceService->createInstance();
+        $transfertCompetence = $this->transfertCompetenceService->createInstance();
         $technologies = $this->technologyService->all();
-        return view('PkgCreationProjet::transfertCompetence.create', compact('item', 'technologies'));
+        return view('PkgCreationProjet::transfertCompetence.create', compact('transfertCompetence', 'technologies'));
     }
 
     public function store(TransfertCompetenceRequest $request)
@@ -68,15 +68,15 @@ class TransfertCompetenceController extends AdminController
     }
     public function show(string $id)
     {
-        $item = $this->transfertCompetenceService->find($id);
-        return view('PkgCreationProjet::transfertcompetence.show', compact('item'));
+        $transfertCompetence = $this->transfertCompetenceService->find($id);
+        return view('PkgCreationProjet::transfertcompetence.show', compact('transfertCompetence'));
     }
 
     public function edit(string $id)
     {
-        $item = $this->transfertCompetenceService->find($id);
+        $transfertCompetence = $this->transfertCompetenceService->find($id);
         $technologies = $this->technologyService->all();
-        return view('PkgCreationProjet::transfertCompetence.edit', compact('item', 'technologies'));
+        return view('PkgCreationProjet::transfertCompetence.edit', compact('transfertCompetence', 'technologies'));
     }
 
     public function update(TransfertCompetenceRequest $request, string $id)

@@ -1,9 +1,9 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form action="{{ $item->id ? route('transfertCompetences.update', $item->id) : route('transfertCompetences.store') }}" method="POST">
+<form action="{{ $transfertCompetence->id ? route('transfertCompetences.update', $transfertCompetence->id) : route('transfertCompetences.store') }}" method="POST">
     @csrf
 
-    @if ($item->id)
+    @if ($transfertCompetence->id)
         @method('PUT')
     @endif
 
@@ -20,7 +20,7 @@
                 class="form-control"
                 id="description"
                 placeholder="{{ __('PkgCreationProjet::transfertCompetence.description') }}"
-                value="{{ $item ? $item->description : old('description') }}">
+                value="{{ $transfertCompetence ? $transfertCompetence->description : old('description') }}">
             @error('description')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -86,7 +86,7 @@
                 multiple="multiple">
                 @foreach ($technologies as $technology)
                     <option value="{{ $technology->id }}"
-                        {{ (isset($item) && $item->technologies && $item->technologies->contains('id', $technology->id)) || (is_array(old('technologies')) && in_array($technology->id, old('technologies'))) ? 'selected' : '' }}>
+                        {{ (isset($transfertCompetence) && $transfertCompetence->technologies && $transfertCompetence->technologies->contains('id', $technology->id)) || (is_array(old('technologies')) && in_array($technology->id, old('technologies'))) ? 'selected' : '' }}>
                         {{ $technology->nom }}
                     </option>
                 @endforeach
@@ -104,7 +104,7 @@
 
     <div class="card-footer">
         <a href="{{ route('transfertCompetences.index') }}" class="btn btn-default">{{ __('Core::msg.cancel') }}</a>
-        <button type="submit" class="btn btn-info ml-2">{{ $item->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
+        <button type="submit" class="btn btn-info ml-2">{{ $transfertCompetence->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
 
@@ -114,21 +114,21 @@
         {
             fieldId: 'appreciation_id',
             fetchUrl: "{{ route('appreciations.all') }}",
-            selectedValue: {{ $item->appreciation_id ? $item->appreciation_id : 'undefined' }},
+            selectedValue: {{ $transfertCompetence->appreciation_id ? $transfertCompetence->appreciation_id : 'undefined' }},
             fieldValue: 'nom'
         },
         
         {
             fieldId: 'competence_id',
             fetchUrl: "{{ route('competences.all') }}",
-            selectedValue: {{ $item->competence_id ? $item->competence_id : 'undefined' }},
+            selectedValue: {{ $transfertCompetence->competence_id ? $transfertCompetence->competence_id : 'undefined' }},
             fieldValue: 'code'
         },
         
         {
             fieldId: 'projet_id',
             fetchUrl: "{{ route('projets.all') }}",
-            selectedValue: {{ $item->projet_id ? $item->projet_id : 'undefined' }},
+            selectedValue: {{ $transfertCompetence->projet_id ? $transfertCompetence->projet_id : 'undefined' }},
             fieldValue: 'titre'
         }
         

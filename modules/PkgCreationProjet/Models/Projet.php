@@ -1,5 +1,5 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
+// TODO : add hasmany
 
 
 namespace Modules\PkgCreationProjet\Models;
@@ -19,6 +19,22 @@ class Projet extends Model
         return $this->belongsTo(Formateur::class, 'formateur_id', 'id');
     }
 
+
+    public function resources()
+    {
+        return $this->hasMany(Resource::class, 'projet_id', 'id');
+    }
+
+
+    public function livrables()
+    {
+        return $this->hasMany(Livrable::class, 'projet_id', 'id');
+    }
+
+    public function transfert_competences()
+    {
+        return $this->hasMany(TransfertCompetence::class, 'projet_id', 'id');
+    }
 
     public function __toString()
     {

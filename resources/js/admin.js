@@ -3,8 +3,7 @@ import $ from "jquery";
 import select2 from 'select2';
 select2(); // <-- select2 must be called
 
-// // import 'bootstrap';
-// // import 'admin-lte/plugins/bootstrap/js/bootstrap.bundle';
+import 'admin-lte/plugins/bootstrap/js/bootstrap.bundle';
 import "admin-lte/dist/js/adminlte";
 
 

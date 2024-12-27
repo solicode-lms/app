@@ -1,4 +1,4 @@
-{{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
+{{-- TODO : edit button edit--}}
 
 <form action="{{ $item->id ? route('projets.update', $item->id) : route('projets.store') }}" method="POST">
     @csrf
@@ -7,6 +7,7 @@
         @method('PUT')
     @endif
 
+    {{-- card-body déja dans workflow --}}
     <div class="card-body">
         
         <div class="form-group">
@@ -149,7 +150,7 @@
 
     <div class="card-footer">
         <a href="{{ route('projets.index') }}" class="btn btn-default">{{ __('Core::msg.cancel') }}</a>
-        <button type="submit" class="btn btn-info ml-2">{{ $item->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
+        <button type="submit" class="btn btn-info ml-2">{{ $item->id ? __('Core::msg.edit') : "Suivant - Affectation des compétences" }}</button>
     </div>
 </form>
 

@@ -32,7 +32,6 @@
                         <img src="{{ asset('images/man.png') }}" class="user-image img-circle elevation-2"
                             alt="User Image">
                         <span class="d-none d-md-inline">
-                          
                             @if (Auth::check() && Auth::user()->nom)
                                 {{ Auth::user()->nom }}
                             @endif

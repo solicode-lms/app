@@ -3,6 +3,7 @@
 @extends('layouts.admin')
 @section('title', curd_index_title('PkgCreationProjet::transfertCompetence'))
 @section('content')
+
     <div class="content-header">
         @if (session('success'))
             <div class="alert alert-success alert-dismissible">
