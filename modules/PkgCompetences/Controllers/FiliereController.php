@@ -1,6 +1,4 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
-
 
 namespace Modules\PkgCompetences\Controllers;
 
@@ -22,88 +20,128 @@ class FiliereController extends AdminController
         $this->filiereService = $filiereService;
     }
 
+    /**
+     * Index : Afficher la liste des filières ou le HTML pour AJAX.
+     */
     public function index(Request $request)
     {
-        // Récupérer la valeur de recherche et paginer
         $searchValue = $request->get('searchValue', '');
         $searchQuery = str_replace(' ', '%', $searchValue);
-    
-        // Appel de la méthode paginate avec ou sans recherche
         $data = $this->filiereService->paginate($searchQuery);
-    
-        // Gestion AJAX
+
+        // Réponse AJAX
         if ($request->ajax()) {
-            return response()->json([
-                'html' => view('PkgCompetences::filiere._table', compact('data'))->render()
-            ]);
+            return view('PkgCompetences::filiere._table', compact('data'))->render();
         }
-    
-        // Vue principale pour le chargement initial
-        return view('PkgCompetences::filiere.index', compact('data'));
+
+        // Create form modal
+        $itemFiliere = $this->filiereService->createInstance();
+
+        // Chargement initial
+        return view('PkgCompetences::filiere.index', compact('data','itemFiliere'));
     }
 
+    /**
+     * Création : Renvoie le formulaire pour l'ajout.
+     */
     public function create()
     {
-        $item = $this->filiereService->createInstance();
-        return view('PkgCompetences::filiere.create', compact('item'));
+        $itemFiliere = $this->filiereService->createInstance();
+        return view('PkgCompetences::filiere.create', compact('itemFiliere'));
     }
 
+    /**
+     * Stocker une nouvelle filière.
+     */
     public function store(FiliereRequest $request)
     {
         $validatedData = $request->validated();
         $filiere = $this->filiereService->create($validatedData);
 
+        // Réponse pour AJAX
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => __('Filière ajoutée avec succès !')]);
+        }
 
         return redirect()->route('filieres.index')->with('success', __('Core::msg.addSuccess', [
             'entityToString' => $filiere,
             'modelName' => __('PkgCompetences::filiere.singular')
         ]));
     }
+
+    /**
+     * Afficher les détails d'une filière.
+     */
     public function show(string $id)
     {
-        $item = $this->filiereService->find($id);
-        return view('PkgCompetences::filiere.show', compact('item'));
+        $itemFiliere = $this->filiereService->find($id);
+        return view('PkgCompetences::filiere.show', compact('itemFiliere'));
     }
 
+    /**
+     * Éditer une filière existante.
+     */
     public function edit(string $id)
     {
-        $item = $this->filiereService->find($id);
-        return view('PkgCompetences::filiere.edit', compact('item'));
+        $itemFiliere = $this->filiereService->find($id);
+        return view('PkgCompetences::filiere.edit', compact('itemFiliere'));
     }
 
+    /**
+     * Mettre à jour une filière existante.
+     */
     public function update(FiliereRequest $request, string $id)
     {
         $validatedData = $request->validated();
         $filiere = $this->filiereService->update($id, $validatedData);
 
-
+        // Réponse pour AJAX
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => __('Filière mise à jour avec succès !')]);
+        }
 
         return redirect()->route('filieres.index')->with(
             'success',
             __('Core::msg.updateSuccess', [
                 'entityToString' => $filiere,
                 'modelName' =>  __('PkgCompetences::filiere.singular')
-                ])
+            ])
         );
     }
 
-    public function destroy(string $id)
+    /**
+     * Supprimer une filière.
+     */
+    public function destroy(Request $request, string $id)
     {
         $filiere = $this->filiereService->destroy($id);
+
+        // Réponse pour AJAX
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => __('Filière supprimée avec succès !')]);
+        }
+
         return redirect()->route('filieres.index')->with(
             'success',
             __('Core::msg.deleteSuccess', [
                 'entityToString' => $filiere,
                 'modelName' =>  __('PkgCompetences::filiere.singular')
-                ])
+            ])
         );
     }
 
+    /**
+     * Exporter les filières vers un fichier Excel.
+     */
     public function export()
     {
         $data = $this->filiereService->all();
         return Excel::download(new FiliereExport($data), 'filiere_export.xlsx');
     }
+
+    /**
+     * Importer des filières depuis un fichier Excel.
+     */
     public function import(Request $request)
     {
         $request->validate([
@@ -118,14 +156,14 @@ class FiliereController extends AdminController
 
         return redirect()->route('filieres.index')->with(
             'success', __('Core::msg.importSuccess', [
-            'modelNames' =>  __('PkgCompetences::filiere.plural')
-            ]));
-
-
-
+                'modelNames' =>  __('PkgCompetences::filiere.plural')
+            ])
+        );
     }
 
-    // Il permet d'afficher les information en format JSON pour une utilisation avec Ajax
+    /**
+     * Fournir une liste des filières en JSON (utilisation pour JavaScript).
+     */
     public function getFilieres()
     {
         $filieres = $this->filiereService->all();

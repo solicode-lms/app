@@ -1,7 +1,5 @@
-{{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
-
-<div class="card-body table-responsive p-0">
-    <table class="table table-striped text-nowrap">
+<div class="card-body table-responsive p-0" id="filieresTable">
+    <table class="table table-striped text-nowrap"  >
         <thead>
             <tr>
                 <th>{{ ucfirst(__('PkgCompetences::filiere.code')) }}</th>
@@ -31,8 +29,11 @@
                             <form action="{{ route('filieres.destroy', $filiere) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger"
-                                    onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce filiere ?')">
+                                <button 
+                                type="submit" 
+                                data-id="{{$filiere->id}}" 
+                                class="btn btn-sm btn-danger deleteEntity"
+                                data-message= "Êtes-vous sûr de vouloir supprimer ce filiere ?">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
@@ -43,36 +44,3 @@
         </tbody>
     </table>
 </div>
-
-<div class="d-md-flex justify-content-between align-items-center p-2">
-    <div class="d-flex align-items-center mb-2 ml-2 mt-2">
-        @can('import-filiere')
-            <form action="{{ route('filieres.import') }}" method="post" class="mt-2" enctype="multipart/form-data"
-                id="importForm">
-                @csrf
-                <label for="upload" class="btn btn-default btn-sm font-weight-normal">
-                    <i class="fas fa-file-download"></i>
-                    {{ __('Core::msg.import') }}
-                </label>
-                <input type="file" id="upload" name="file" style="display:none;" onchange="submitForm()" />
-            </form>
-        @endcan
-        @can('export-filiere')
-            <form class="">
-                <a href="{{ route('filieres.export') }}" class="btn btn-default btn-sm mt-0 mx-2">
-                    <i class="fas fa-file-export"></i>
-                    {{ __('Core::msg.export') }}</a>
-            </form>
-        @endcan
-    </div>
-
-    <ul class="pagination m-0 float-right">
-        {{ $data->onEachSide(1)->links() }}
-    </ul>
-</div>
-
-<script>
-    function submitForm() {
-        document.getElementById("importForm").submit();
-    }
-</script>

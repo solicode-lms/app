@@ -1,17 +1,23 @@
-// import $ from 'admin-lte/plugins/jquery/jquery.min.js';
-import $ from "jquery";
+
+import $ from 'jquery';
+window.$ = $;
+
 import select2 from 'select2';
 select2(); // <-- select2 must be called
+
+
+
 
 import 'admin-lte/plugins/bootstrap/js/bootstrap.bundle';
 import "admin-lte/dist/js/adminlte";
 
+import GenericCrud from  './modules/GenericCrud';
+window.GenericCrud = GenericCrud;
 
 import { setupSearchHandler } from './app.recherche';
 
-console.log($);
-$.noConflict();
-console.log($.fn.select2); // Devrait afficher la fonction Select2
+
+// console.log($.fn.select2); // Devrait afficher la fonction Select2
 
 setupSearchHandler();
 

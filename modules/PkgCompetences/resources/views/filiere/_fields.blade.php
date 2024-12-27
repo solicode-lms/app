@@ -1,9 +1,8 @@
-{{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form action="{{ $item->id ? route('filieres.update', $item->id) : route('filieres.store') }}" method="POST">
+<form id="filiereForm" action="{{ $itemFiliere->id ? route('filieres.update', $itemFiliere->id) : route('filieres.store') }}" method="POST">
     @csrf
 
-    @if ($item->id)
+    @if ($itemFiliere->id)
         @method('PUT')
     @endif
 
@@ -22,7 +21,7 @@
                 class="form-control"
                 id="code"
                 placeholder="{{ __('PkgCompetences::filiere.code') }}"
-                value="{{ $item ? $item->code : old('code') }}">
+                value="{{ $itemFiliere ? $itemFiliere->code : old('code') }}">
             @error('code')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -41,7 +40,7 @@
                 class="form-control"
                 id="nom"
                 placeholder="{{ __('PkgCompetences::filiere.nom') }}"
-                value="{{ $item ? $item->nom : old('nom') }}">
+                value="{{ $itemFiliere ? $itemFiliere->nom : old('nom') }}">
             @error('nom')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -60,7 +59,7 @@
                 class="form-control"
                 id="description"
                 placeholder="{{ __('PkgCompetences::filiere.description') }}"
-                value="{{ $item ? $item->description : old('description') }}">
+                value="{{ $itemFiliere ? $itemFiliere->description : old('description') }}">
             @error('description')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -77,7 +76,7 @@
 
     <div class="card-footer">
         <a href="{{ route('filieres.index') }}" class="btn btn-default">{{ __('Core::msg.cancel') }}</a>
-        <button type="submit" class="btn btn-info ml-2">{{ $item->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
+        <button type="submit" class="btn btn-info ml-2">{{ $itemFiliere->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
 

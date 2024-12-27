@@ -88,5 +88,5 @@
 
 
 </body>
-
+@yield('script')
 </html>
