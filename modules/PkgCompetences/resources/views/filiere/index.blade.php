@@ -4,8 +4,8 @@
 <script>
 
 document.addEventListener("DOMContentLoaded", function () {
-   
-    const filiereCrud = new GenericCrud({
+    const filiereCrud = new GappCrud({
+        entity_name: 'filiere',
         fetchUrl: '{{ route('filieres.index') }}', // Utilise la méthode `index` pour charger le HTML
         storeUrl: '{{ route('filieres.store') }}', // URL pour ajouter une filière
         deleteUrl: '{{ route('filieres.destroy', ['filiere' => ':id']) }}', // Placeholder :id pour suppression
@@ -14,12 +14,8 @@ document.addEventListener("DOMContentLoaded", function () {
         formSelector: '#filiereForm',   // Sélecteur du formulaire
         modalSelector: '#filiereModal'  // Sélecteur du modal
     });
-
     filiereCrud.init(); // Initialisation des fonctionnalités CRUD
-
 });
-
-
 </script>
 @endsection
 @section('content')

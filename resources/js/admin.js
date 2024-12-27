@@ -11,8 +11,8 @@ select2(); // <-- select2 must be called
 import 'admin-lte/plugins/bootstrap/js/bootstrap.bundle';
 import "admin-lte/dist/js/adminlte";
 
-import GenericCrud from  './modules/GenericCrud';
-window.GenericCrud = GenericCrud;
+import GappCrud from  './modules/GappCrud';
+window.GappCrud = GappCrud;
 
 import { setupSearchHandler } from './app.recherche';
 

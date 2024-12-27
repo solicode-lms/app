@@ -4,4 +4,5 @@ return [
     'plural' => 'Filières',
     'nom' => 'Nom',
     'description' => 'Description',
+    'code' => 'code'
 ];

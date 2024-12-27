@@ -75,7 +75,7 @@
     </div>
 
     <div class="card-footer">
-        <a href="{{ route('filieres.index') }}" class="btn btn-default">{{ __('Core::msg.cancel') }}</a>
+        <a href="{{ route('filieres.index') }}" id="filiere_form_cancel" class="btn btn-default">{{ __('Core::msg.cancel') }}</a>
         <button type="submit" class="btn btn-info ml-2">{{ $itemFiliere->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
