@@ -1,4 +1,3 @@
-{{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 <form action="{{ $transfertCompetence->id ? route('transfertCompetences.update', $transfertCompetence->id) : route('transfertCompetences.store') }}" method="POST">
     @csrf
