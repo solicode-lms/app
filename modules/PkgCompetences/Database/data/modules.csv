@@ -1,1 +1,11 @@
 nom,description,masse_horaire,filiere_id
+M05,"Initiation à l’environnement du développement mobile par la pédagogie active",70,2
+M06,"Maquettage d’une application mobile",50,2
+M07,"Gestion de projet",50,2
+M08,"Manipulation d’une base de données",80,2
+M09,"Développement de la partie back-end",160,2
+M10,"Développement d’une application mobile",225,2
+M11,"Déploiement d’une application web et d’une application mobile",100,2
+M12,"Veille et d’adaptation aux technologies de l’entreprise.",60,2
+M13,"Projet de fin de formation",120,2
+M14,"Stage en entreprise",120,2

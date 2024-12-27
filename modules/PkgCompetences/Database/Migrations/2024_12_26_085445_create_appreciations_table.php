@@ -21,13 +21,7 @@ return new class extends Migration
             $table->float('noteMin'); // Note minimale
             $table->float('noteMax'); // Note maximale
 
-            // Foreign keys
-            $table->unsignedBigInteger('niveau_competence_id'); // Relation avec NiveauCompetence
-            $table->foreign('niveau_competence_id')
-                  ->references('id')
-                  ->on('niveau_competences')
-                  ->onDelete('cascade');
-
+            
             $table->unsignedBigInteger('formateur_id'); // Relation avec Formateur
             $table->foreign('formateur_id')
                   ->references('id')
