@@ -16,10 +16,20 @@ export class EntityLoader {
     /**
      * Charge les entités depuis le serveur et met à jour la table ou la liste.
      * @param {number} page - Numéro de la page à charger (par défaut : 1).
-     * @param {string} searchValue - Valeur de recherche pour filtrer les entités.
+     * @param {string} q - Valeur de recherche pour filtrer les entités.
      */
-    loadEntities(page = 1, searchValue = '') {
-        const url = `${this.config.indexUrl}?page=${page}&searchValue=${searchValue}`;
+    loadEntities(page , q ) {
+
+
+        // Extraire les paramètres de l'URL si les arguments sont nuls
+        const urlParams = new URLSearchParams(window.location.search);
+        const _page = urlParams.get('page'); // "2"
+        const _query = urlParams.get('q');   // "test"
+
+        page = page || _page || 1;
+        q = q || _query || '';
+
+        const url = `${this.config.indexUrl}?page=${page}&q=${q}`;
 
         // Afficher l'indicateur de chargement
         this.loader.show();
