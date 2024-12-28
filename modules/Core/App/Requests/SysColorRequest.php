@@ -25,9 +25,9 @@ class SysColorRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required' => __('validation.required', ['attribute' => __('PkgBlog::category.name')]),
+            'name.required' => __('validation.required', ['attribute' => __('Core::SysColor.name')]),
             'name.max' => __('validation.nameMax'),
-            'hex.required' => __('validation.required', ['attribute' => __('PkgBlog::category.hex')]),
+            'hex.required' => __('validation.required', ['attribute' => __('Core::SysColor.hex')]),
             'hex.max' => __('validation.hexMax')
         ];
     }

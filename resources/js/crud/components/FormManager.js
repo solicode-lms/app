@@ -39,6 +39,10 @@ export class FormManager {
         $(`${this.formSelector} .card-footer`).each(function () {
             $(this).removeClass('card-footer').addClass('modal-footer');
         });
+
+        $(`${this.formSelector} .card-body`).each(function () {
+            $(this).removeClass('card-body');
+        });
     }
    /**
      * Attache un gestionnaire d'événements pour la soumission du formulaire.
@@ -51,30 +55,6 @@ export class FormManager {
         submitHandler(); // Appelle la fonction de soumission passée
     });
 }
-
-    // /**
-    //  * Gère la soumission du formulaire via AJAX.
-    //  */
-    // handleSubmit() {
-    //     const form = $(this.formSelector);
-    //     const actionUrl = form.attr('action');
-    //     const method = form.find('input[name="_method"]').val() || 'POST';
-    //     const formData = form.serialize();
-
-    //     $.ajax({
-    //         url: actionUrl,
-    //         method: method,
-    //         data: formData,
-    //     })
-    //         .done(() => {
-    //             this.modalManager.close();
-    //             NotificationHandler.showSuccess('Opération réalisée avec succès.');
-    //         })
-    //         .fail((xhr) => {
-    //             const errorMessage = xhr.responseJSON?.message || 'Une erreur s\'est produite lors de la soumission.';
-    //             NotificationHandler.showError(errorMessage);
-    //         });
-    // }
 
     /**
      * Configure le formulaire pour le mode lecture seule.

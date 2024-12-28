@@ -41,7 +41,7 @@ export class LoadListAction {
                 $(this.config.tableSelector).html(html);
 
                 // Afficher un message de succès
-                NotificationHandler.showSuccess('Données chargées avec succès.');
+                // NotificationHandler.showSuccess('Données chargées avec succès.');
             })
             .fail(() => {
                 // Gérer les erreurs

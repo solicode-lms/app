@@ -25,8 +25,8 @@ export class BaseAction {
      * @param {string} errorMessage - Message d'erreur à afficher.
      */
     handleError(errorMessage) {
-        this.modalManager.showError(errorMessage);
-        NotificationHandler.showError(errorMessage);
+        // this.modalManager.showError(errorMessage);
+        NotificationHandler.showAlert("error", "Erreur", errorMessage);
     }
 
     /**
@@ -71,6 +71,7 @@ export class BaseAction {
                 this.entityLoader.loadEntities(); // Recharger les entités
             })
             .fail((xhr) => {
+                this.formManager.loader.hide();
                 const errorMessage = xhr.responseJSON?.message || 'Une erreur s\'est produite lors de la modification.';
                 this.handleError(errorMessage); // Afficher une erreur
             });

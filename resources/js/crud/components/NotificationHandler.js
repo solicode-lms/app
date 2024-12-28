@@ -46,22 +46,22 @@ export class NotificationHandler {
      * @param {string} text - Texte décrivant les conséquences de l'action.
      * @param {Function} onConfirm - Fonction à exécuter si l'utilisateur confirme l'action.
      */
-      static showConfirmation(title, text, onConfirm) {
-        Swal.fire({
-            title: title,
-            text: text,
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Oui, confirmer',
-            cancelButtonText: 'Annuler',
-            reverseButtons: true,
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // Exécute la fonction de confirmation
-                onConfirm();
-            }
-        });
-    }
+    //   static showConfirmation(title, text, onConfirm) {
+    //     Swal.fire({
+    //         title: title,
+    //         text: text,
+    //         icon: 'warning',
+    //         showCancelButton: true,
+    //         confirmButtonText: 'Oui, confirmer',
+    //         cancelButtonText: 'Annuler',
+    //         reverseButtons: true,
+    //     }).then((result) => {
+    //         if (result.isConfirmed) {
+    //             // Exécute la fonction de confirmation
+    //             onConfirm();
+    //         }
+    //     });
+    // }
 
     
 
