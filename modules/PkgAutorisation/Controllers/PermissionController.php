@@ -9,6 +9,8 @@ use Modules\PkgAutorisation\App\Requests\PermissionRequest;
 use Modules\PkgAutorisation\Services\PermissionService;
 use Modules\Core\Services\FeatureService;
 use Modules\PkgAutorisation\Services\RoleService;
+use Modules\Core\Services\SysControllerService;
+
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgAutorisation\App\Exports\PermissionExport;
@@ -19,13 +21,15 @@ class PermissionController extends AdminController
     protected $permissionService;
     protected $featureService;
     protected $roleService;
+    protected $sysControllerService;
 
-    public function __construct(PermissionService $permissionService, FeatureService $featureService, RoleService $roleService)
+    public function __construct(PermissionService $permissionService, FeatureService $featureService, RoleService $roleService, SysControllerService $sysControllerService)
     {
         parent::__construct();
         $this->permissionService = $permissionService;
         $this->featureService = $featureService;
         $this->roleService = $roleService;
+        $this->sysControllerService = $sysControllerService;
     }
 
 
@@ -52,11 +56,12 @@ class PermissionController extends AdminController
         $itemPermission = $this->permissionService->createInstance();
         $features = $this->featureService->all();
         $roles = $this->roleService->all();
+        $sysControllers = $this->sysControllerService->all();
 
         if (request()->ajax()) {
-            return view('PkgAutorisation::permission._fields', compact('itemPermission', 'features', 'roles'));
+            return view('PkgAutorisation::permission._fields', compact('itemPermission', 'features', 'roles', 'sysControllers'));
         }
-        return view('PkgAutorisation::permission.create', compact('itemPermission', 'features', 'roles'));
+        return view('PkgAutorisation::permission.create', compact('itemPermission', 'features', 'roles', 'sysControllers'));
     }
 
     /**
@@ -99,9 +104,10 @@ class PermissionController extends AdminController
         $itemPermission = $this->permissionService->find($id);
         $features = $this->featureService->all();
         $roles = $this->roleService->all();
+        $sysControllers = $this->sysControllerService->all();
 
         if (request()->ajax()) {
-            return view('PkgAutorisation::permission._fields', compact('itemPermission', 'features', 'roles'));
+            return view('PkgAutorisation::permission._fields', compact('itemPermission', 'features', 'roles', 'sysControllers'));
         }
 
         return view('PkgAutorisation::permission.show', compact('itemPermission'));
@@ -115,12 +121,13 @@ class PermissionController extends AdminController
         $itemPermission = $this->permissionService->find($id);
         $features = $this->featureService->all();
         $roles = $this->roleService->all();
+        $sysControllers = $this->sysControllerService->all();
 
         if (request()->ajax()) {
-            return view('PkgAutorisation::permission._fields', compact('itemPermission', 'features', 'roles'));
+            return view('PkgAutorisation::permission._fields', compact('itemPermission', 'features', 'roles', 'sysControllers'));
         }
 
-        return view('PkgAutorisation::permission.edit', compact('itemPermission', 'features', 'roles'));
+        return view('PkgAutorisation::permission.edit', compact('itemPermission', 'features', 'roles', 'sysControllers'));
     }
 
     /**

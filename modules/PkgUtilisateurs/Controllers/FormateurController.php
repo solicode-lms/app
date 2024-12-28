@@ -9,6 +9,7 @@ use Modules\PkgUtilisateurs\App\Requests\FormateurRequest;
 use Modules\PkgUtilisateurs\Services\FormateurService;
 use Modules\PkgUtilisateurs\Services\GroupeService;
 use Modules\PkgUtilisateurs\Services\SpecialiteService;
+
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgUtilisateurs\App\Exports\FormateurExport;

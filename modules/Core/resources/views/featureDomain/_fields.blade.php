@@ -1,6 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form class="crud-form" id="featureDomainForm" action="{{ $itemFeatureDomain->id ? route('featureDomains.update', $itemFeatureDomain->id) : route('featureDomains.store') }}" method="POST">
+<form class="crud-form" id="featureDomainForm" action="{{ $itemFeatureDomain->id ? route('featureDomains.update', $itemFeatureDomain->id) : route('featureDomains.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemFeatureDomain->id)
@@ -20,6 +20,7 @@
                 name="name"
                 type="input"
                 class="form-control"
+                required
                 id="name"
                 placeholder="{{ __('Core::featureDomain.name') }}"
                 value="{{ $itemFeatureDomain ? $itemFeatureDomain->name : old('name') }}">
@@ -39,6 +40,7 @@
                 name="slug"
                 type="input"
                 class="form-control"
+                required
                 id="slug"
                 placeholder="{{ __('Core::featureDomain.slug') }}"
                 value="{{ $itemFeatureDomain ? $itemFeatureDomain->slug : old('slug') }}">
@@ -56,6 +58,7 @@
                 name="description"
                 type="input"
                 class="form-control"
+                
                 id="description"
                 placeholder="{{ __('Core::featureDomain.description') }}"
                 value="{{ $itemFeatureDomain ? $itemFeatureDomain->description : old('description') }}">
@@ -73,8 +76,17 @@
                     <span class="text-danger">*</span>
                 
             </label>
-            <select id="module_id" name="module_id" class="form-control">
-                <option value="">Sélectionnez une option</option>
+            <select 
+            id="module_id" 
+            name="module_id" 
+            class="form-control">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($sysModules as $sysModule)
+                    <option value="{{ $sysModule->id }}"
+                        {{ (isset($itemGroupe) && $itemGroupe->module_id == $sysModule->id) || (old('module_id>') == $sysModule->id) ? 'selected' : '' }}>
+                        {{ $sysModule->nom }}
+                    </option>
+                @endforeach
             </select>
             @error('module_id')
                 <div class="text-danger">{{ $message }}</div>
@@ -94,18 +106,5 @@
         <button type="submit" class="btn btn-info ml-2">{{ $itemFeatureDomain->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
-
-<script>
-    window.dynamicSelectManyToOne = [
-        
-        {
-            fieldId: 'module_id',
-            fetchUrl: "{{ route('sysModules.all') }}",
-            selectedValue: {{ $itemFeatureDomain->module_id ? $itemFeatureDomain->module_id : 'undefined' }},
-            fieldValue: 'name'
-        }
-        
-    ];
-</script>
 
 

@@ -62,6 +62,7 @@
                 name="formateurs[]"
                 class="form-control select2"
                 multiple="multiple">
+               
                 @foreach ($formateurs as $formateur)
                     <option value="{{ $formateur->id }}"
                         {{ (isset($itemSpecialite) && $itemSpecialite->formateurs && $itemSpecialite->formateurs->contains('id', $formateur->id)) || (is_array(old('formateurs')) && in_array($formateur->id, old('formateurs'))) ? 'selected' : '' }}>
@@ -86,11 +87,5 @@
         <button type="submit" class="btn btn-info ml-2">{{ $itemSpecialite->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
-
-<script>
-    window.dynamicSelectManyToOne = [
-        
-    ];
-</script>
 
 

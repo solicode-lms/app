@@ -1,6 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form class="crud-form" id="widgetForm" action="{{ $itemWidget->id ? route('widgets.update', $itemWidget->id) : route('widgets.store') }}" method="POST">
+<form class="crud-form" id="widgetForm" action="{{ $itemWidget->id ? route('widgets.update', $itemWidget->id) : route('widgets.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemWidget->id)
@@ -20,6 +20,7 @@
                 name="name"
                 type="input"
                 class="form-control"
+                required
                 id="name"
                 placeholder="{{ __('PkgWidgets::widget.name') }}"
                 value="{{ $itemWidget ? $itemWidget->name : old('name') }}">
@@ -37,6 +38,7 @@
                 name="color"
                 type="input"
                 class="form-control"
+                
                 id="color"
                 placeholder="{{ __('PkgWidgets::widget.color') }}"
                 value="{{ $itemWidget ? $itemWidget->color : old('color') }}">
@@ -54,6 +56,7 @@
                 name="icon"
                 type="input"
                 class="form-control"
+                
                 id="icon"
                 placeholder="{{ __('PkgWidgets::widget.icon') }}"
                 value="{{ $itemWidget ? $itemWidget->icon : old('icon') }}">
@@ -71,6 +74,7 @@
                 name="label"
                 type="input"
                 class="form-control"
+                
                 id="label"
                 placeholder="{{ __('PkgWidgets::widget.label') }}"
                 value="{{ $itemWidget ? $itemWidget->label : old('label') }}">
@@ -88,6 +92,7 @@
                 name="parameters"
                 type="input"
                 class="form-control"
+                
                 id="parameters"
                 placeholder="{{ __('PkgWidgets::widget.parameters') }}"
                 value="{{ $itemWidget ? $itemWidget->parameters : old('parameters') }}">
@@ -105,8 +110,17 @@
                     <span class="text-danger">*</span>
                 
             </label>
-            <select id="model_id" name="model_id" class="form-control">
-                <option value="">Sélectionnez une option</option>
+            <select 
+            id="model_id" 
+            name="model_id" 
+            class="form-control">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($sysModels as $sysModel)
+                    <option value="{{ $sysModel->id }}"
+                        {{ (isset($itemGroupe) && $itemGroupe->model_id == $sysModel->id) || (old('model_id>') == $sysModel->id) ? 'selected' : '' }}>
+                        {{ $sysModel->nom }}
+                    </option>
+                @endforeach
             </select>
             @error('model_id')
                 <div class="text-danger">{{ $message }}</div>
@@ -120,8 +134,17 @@
                     <span class="text-danger">*</span>
                 
             </label>
-            <select id="operation_id" name="operation_id" class="form-control">
-                <option value="">Sélectionnez une option</option>
+            <select 
+            id="operation_id" 
+            name="operation_id" 
+            class="form-control">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($widgetOperations as $widgetOperation)
+                    <option value="{{ $widgetOperation->id }}"
+                        {{ (isset($itemGroupe) && $itemGroupe->operation_id == $widgetOperation->id) || (old('operation_id>') == $widgetOperation->id) ? 'selected' : '' }}>
+                        {{ $widgetOperation->nom }}
+                    </option>
+                @endforeach
             </select>
             @error('operation_id')
                 <div class="text-danger">{{ $message }}</div>
@@ -135,8 +158,17 @@
                     <span class="text-danger">*</span>
                 
             </label>
-            <select id="type_id" name="type_id" class="form-control">
-                <option value="">Sélectionnez une option</option>
+            <select 
+            id="type_id" 
+            name="type_id" 
+            class="form-control">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($widgetTypes as $widgetType)
+                    <option value="{{ $widgetType->id }}"
+                        {{ (isset($itemGroupe) && $itemGroupe->type_id == $widgetType->id) || (old('type_id>') == $widgetType->id) ? 'selected' : '' }}>
+                        {{ $widgetType->nom }}
+                    </option>
+                @endforeach
             </select>
             @error('type_id')
                 <div class="text-danger">{{ $message }}</div>
@@ -156,32 +188,5 @@
         <button type="submit" class="btn btn-info ml-2">{{ $itemWidget->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
-
-<script>
-    window.dynamicSelectManyToOne = [
-        
-        {
-            fieldId: 'model_id',
-            fetchUrl: "{{ route('sysModels.all') }}",
-            selectedValue: {{ $itemWidget->model_id ? $itemWidget->model_id : 'undefined' }},
-            fieldValue: 'name'
-        },
-        
-        {
-            fieldId: 'operation_id',
-            fetchUrl: "{{ route('widgetOperations.all') }}",
-            selectedValue: {{ $itemWidget->operation_id ? $itemWidget->operation_id : 'undefined' }},
-            fieldValue: 'operation'
-        },
-        
-        {
-            fieldId: 'type_id',
-            fetchUrl: "{{ route('widgetTypes.all') }}",
-            selectedValue: {{ $itemWidget->type_id ? $itemWidget->type_id : 'undefined' }},
-            fieldValue: 'type'
-        }
-        
-    ];
-</script>
 
 

@@ -7,6 +7,10 @@ namespace Modules\PkgWidgets\Controllers;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\PkgWidgets\App\Requests\WidgetRequest;
 use Modules\PkgWidgets\Services\WidgetService;
+use Modules\Core\Services\SysModelService;
+use Modules\PkgWidgets\Services\WidgetOperationService;
+use Modules\PkgWidgets\Services\WidgetTypeService;
+
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgWidgets\App\Exports\WidgetExport;

@@ -1,6 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form class="crud-form" id="groupeForm" action="{{ $itemGroupe->id ? route('groupes.update', $itemGroupe->id) : route('groupes.store') }}" method="POST">
+<form class="crud-form" id="groupeForm" action="{{ $itemGroupe->id ? route('groupes.update', $itemGroupe->id) : route('groupes.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemGroupe->id)
@@ -20,6 +20,7 @@
                 name="code"
                 type="input"
                 class="form-control"
+                required
                 id="code"
                 placeholder="{{ __('PkgUtilisateurs::groupe.code') }}"
                 value="{{ $itemGroupe ? $itemGroupe->code : old('code') }}">
@@ -37,6 +38,7 @@
                 name="nom"
                 type="input"
                 class="form-control"
+                
                 id="nom"
                 placeholder="{{ __('PkgUtilisateurs::groupe.nom') }}"
                 value="{{ $itemGroupe ? $itemGroupe->nom : old('nom') }}">
@@ -54,6 +56,7 @@
                 name="description"
                 type="input"
                 class="form-control"
+                
                 id="description"
                 placeholder="{{ __('PkgUtilisateurs::groupe.description') }}"
                 value="{{ $itemGroupe ? $itemGroupe->description : old('description') }}">
@@ -72,20 +75,16 @@
                 
             </label>
             <select 
-                id="filiere_id" 
-                name="filiere_id" 
-                class="form-control">
-
-                <option value="">Sélectionnez une option</option>
+            id="filiere_id" 
+            name="filiere_id" 
+            class="form-control">
+             <option value="">Sélectionnez une option</option>
                 @foreach ($filieres as $filiere)
                     <option value="{{ $filiere->id }}"
-                        {{ (isset($itemGroupe) && $itemGroupe->filiere_id == $filiere->id) || (old('filiere_id') == $filiere->id) ? 'selected' : '' }}>
+                        {{ (isset($itemGroupe) && $itemGroupe->filiere_id == $filiere->id) || (old('filiere_id>') == $filiere->id) ? 'selected' : '' }}>
                         {{ $filiere->nom }}
                     </option>
                 @endforeach
-
-
-                
             </select>
             @error('filiere_id')
                 <div class="text-danger">{{ $message }}</div>
@@ -103,6 +102,7 @@
                 name="formateurs[]"
                 class="form-control select2"
                 multiple="multiple">
+               
                 @foreach ($formateurs as $formateur)
                     <option value="{{ $formateur->id }}"
                         {{ (isset($itemGroupe) && $itemGroupe->formateurs && $itemGroupe->formateurs->contains('id', $formateur->id)) || (is_array(old('formateurs')) && in_array($formateur->id, old('formateurs'))) ? 'selected' : '' }}>
@@ -127,6 +127,5 @@
         <button type="submit" class="btn btn-info ml-2">{{ $itemGroupe->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
-
 
 

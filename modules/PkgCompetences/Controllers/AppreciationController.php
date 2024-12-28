@@ -7,6 +7,8 @@ namespace Modules\PkgCompetences\Controllers;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\PkgCompetences\App\Requests\AppreciationRequest;
 use Modules\PkgCompetences\Services\AppreciationService;
+use Modules\PkgUtilisateurs\Services\FormateurService;
+
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgCompetences\App\Exports\AppreciationExport;

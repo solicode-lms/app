@@ -7,6 +7,8 @@ namespace Modules\PkgCompetences\Controllers;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\PkgCompetences\App\Requests\CategorieTechnologyRequest;
 use Modules\PkgCompetences\Services\CategorieTechnologyService;
+
+
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgCompetences\App\Exports\CategorieTechnologyExport;

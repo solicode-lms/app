@@ -1,6 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form class="crud-form" id="appreciationForm" action="{{ $itemAppreciation->id ? route('appreciations.update', $itemAppreciation->id) : route('appreciations.store') }}" method="POST">
+<form class="crud-form" id="appreciationForm" action="{{ $itemAppreciation->id ? route('appreciations.update', $itemAppreciation->id) : route('appreciations.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemAppreciation->id)
@@ -20,6 +20,7 @@
                 name="nom"
                 type="input"
                 class="form-control"
+                required
                 id="nom"
                 placeholder="{{ __('PkgCompetences::appreciation.nom') }}"
                 value="{{ $itemAppreciation ? $itemAppreciation->nom : old('nom') }}">
@@ -37,6 +38,7 @@
                 name="description"
                 type="input"
                 class="form-control"
+                
                 id="description"
                 placeholder="{{ __('PkgCompetences::appreciation.description') }}"
                 value="{{ $itemAppreciation ? $itemAppreciation->description : old('description') }}">
@@ -56,6 +58,7 @@
                 name="noteMin"
                 type="input"
                 class="form-control"
+                required
                 id="noteMin"
                 placeholder="{{ __('PkgCompetences::appreciation.noteMin') }}"
                 value="{{ $itemAppreciation ? $itemAppreciation->noteMin : old('noteMin') }}">
@@ -75,6 +78,7 @@
                 name="noteMax"
                 type="input"
                 class="form-control"
+                required
                 id="noteMax"
                 placeholder="{{ __('PkgCompetences::appreciation.noteMax') }}"
                 value="{{ $itemAppreciation ? $itemAppreciation->noteMax : old('noteMax') }}">
@@ -92,8 +96,17 @@
                     <span class="text-danger">*</span>
                 
             </label>
-            <select id="formateur_id" name="formateur_id" class="form-control">
-                <option value="">Sélectionnez une option</option>
+            <select 
+            id="formateur_id" 
+            name="formateur_id" 
+            class="form-control">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($formateurs as $formateur)
+                    <option value="{{ $formateur->id }}"
+                        {{ (isset($itemGroupe) && $itemGroupe->formateur_id == $formateur->id) || (old('formateur_id>') == $formateur->id) ? 'selected' : '' }}>
+                        {{ $formateur->nom }}
+                    </option>
+                @endforeach
             </select>
             @error('formateur_id')
                 <div class="text-danger">{{ $message }}</div>
@@ -113,18 +126,5 @@
         <button type="submit" class="btn btn-info ml-2">{{ $itemAppreciation->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
-
-<script>
-    window.dynamicSelectManyToOne = [
-        
-        {
-            fieldId: 'formateur_id',
-            fetchUrl: "{{ route('formateurs.all') }}",
-            selectedValue: {{ $itemAppreciation->formateur_id ? $itemAppreciation->formateur_id : 'undefined' }},
-            fieldValue: 'nom'
-        }
-        
-    ];
-</script>
 
 

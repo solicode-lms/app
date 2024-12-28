@@ -118,6 +118,7 @@
                 name="roles[]"
                 class="form-control select2"
                 multiple="multiple">
+               
                 @foreach ($roles as $role)
                     <option value="{{ $role->id }}"
                         {{ (isset($itemUser) && $itemUser->roles && $itemUser->roles->contains('id', $role->id)) || (is_array(old('roles')) && in_array($role->id, old('roles'))) ? 'selected' : '' }}>
@@ -142,11 +143,5 @@
         <button type="submit" class="btn btn-info ml-2">{{ $itemUser->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
-
-<script>
-    window.dynamicSelectManyToOne = [
-        
-    ];
-</script>
 
 

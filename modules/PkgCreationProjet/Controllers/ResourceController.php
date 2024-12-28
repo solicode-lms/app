@@ -7,6 +7,8 @@ namespace Modules\PkgCreationProjet\Controllers;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\PkgCreationProjet\App\Requests\ResourceRequest;
 use Modules\PkgCreationProjet\Services\ResourceService;
+use Modules\PkgCreationProjet\Services\ProjetService;
+
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgCreationProjet\App\Exports\ResourceExport;

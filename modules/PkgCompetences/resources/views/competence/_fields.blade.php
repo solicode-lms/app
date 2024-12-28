@@ -1,6 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form class="crud-form" id="competenceForm" action="{{ $itemCompetence->id ? route('competences.update', $itemCompetence->id) : route('competences.store') }}" method="POST">
+<form class="crud-form" id="competenceForm" action="{{ $itemCompetence->id ? route('competences.update', $itemCompetence->id) : route('competences.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemCompetence->id)
@@ -20,6 +20,7 @@
                 name="code"
                 type="input"
                 class="form-control"
+                required
                 id="code"
                 placeholder="{{ __('PkgCompetences::competence.code') }}"
                 value="{{ $itemCompetence ? $itemCompetence->code : old('code') }}">
@@ -39,6 +40,7 @@
                 name="nom"
                 type="input"
                 class="form-control"
+                required
                 id="nom"
                 placeholder="{{ __('PkgCompetences::competence.nom') }}"
                 value="{{ $itemCompetence ? $itemCompetence->nom : old('nom') }}">
@@ -58,6 +60,7 @@
                 name="description"
                 type="input"
                 class="form-control"
+                required
                 id="description"
                 placeholder="{{ __('PkgCompetences::competence.description') }}"
                 value="{{ $itemCompetence ? $itemCompetence->description : old('description') }}">
@@ -75,8 +78,17 @@
                     <span class="text-danger">*</span>
                 
             </label>
-            <select id="module_id" name="module_id" class="form-control">
-                <option value="">Sélectionnez une option</option>
+            <select 
+            id="module_id" 
+            name="module_id" 
+            class="form-control">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($modules as $module)
+                    <option value="{{ $module->id }}"
+                        {{ (isset($itemGroupe) && $itemGroupe->module_id == $module->id) || (old('module_id>') == $module->id) ? 'selected' : '' }}>
+                        {{ $module->nom }}
+                    </option>
+                @endforeach
             </select>
             @error('module_id')
                 <div class="text-danger">{{ $message }}</div>
@@ -94,6 +106,7 @@
                 name="technologies[]"
                 class="form-control select2"
                 multiple="multiple">
+               
                 @foreach ($technologies as $technology)
                     <option value="{{ $technology->id }}"
                         {{ (isset($itemCompetence) && $itemCompetence->technologies && $itemCompetence->technologies->contains('id', $technology->id)) || (is_array(old('technologies')) && in_array($technology->id, old('technologies'))) ? 'selected' : '' }}>
@@ -118,18 +131,5 @@
         <button type="submit" class="btn btn-info ml-2">{{ $itemCompetence->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
-
-<script>
-    window.dynamicSelectManyToOne = [
-        
-        {
-            fieldId: 'module_id',
-            fetchUrl: "{{ route('modules.all') }}",
-            selectedValue: {{ $itemCompetence->module_id ? $itemCompetence->module_id : 'undefined' }},
-            fieldValue: 'nom'
-        }
-        
-    ];
-</script>
 
 

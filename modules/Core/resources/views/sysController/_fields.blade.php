@@ -1,6 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form class="crud-form" id="sysControllerForm" action="{{ $itemSysController->id ? route('sysControllers.update', $itemSysController->id) : route('sysControllers.store') }}" method="POST">
+<form class="crud-form" id="sysControllerForm" action="{{ $itemSysController->id ? route('sysControllers.update', $itemSysController->id) : route('sysControllers.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemSysController->id)
@@ -20,6 +20,7 @@
                 name="name"
                 type="input"
                 class="form-control"
+                required
                 id="name"
                 placeholder="{{ __('Core::sysController.name') }}"
                 value="{{ $itemSysController ? $itemSysController->name : old('name') }}">
@@ -39,6 +40,7 @@
                 name="slug"
                 type="input"
                 class="form-control"
+                required
                 id="slug"
                 placeholder="{{ __('Core::sysController.slug') }}"
                 value="{{ $itemSysController ? $itemSysController->slug : old('slug') }}">
@@ -56,6 +58,7 @@
                 name="description"
                 type="input"
                 class="form-control"
+                
                 id="description"
                 placeholder="{{ __('Core::sysController.description') }}"
                 value="{{ $itemSysController ? $itemSysController->description : old('description') }}">
@@ -75,6 +78,7 @@
                 name="is_active"
                 type="input"
                 class="form-control"
+                required
                 id="is_active"
                 placeholder="{{ __('Core::sysController.is_active') }}"
                 value="{{ $itemSysController ? $itemSysController->is_active : old('is_active') }}">
@@ -92,8 +96,17 @@
                     <span class="text-danger">*</span>
                 
             </label>
-            <select id="module_id" name="module_id" class="form-control">
-                <option value="">Sélectionnez une option</option>
+            <select 
+            id="module_id" 
+            name="module_id" 
+            class="form-control">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($sysModules as $sysModule)
+                    <option value="{{ $sysModule->id }}"
+                        {{ (isset($itemGroupe) && $itemGroupe->module_id == $sysModule->id) || (old('module_id>') == $sysModule->id) ? 'selected' : '' }}>
+                        {{ $sysModule->nom }}
+                    </option>
+                @endforeach
             </select>
             @error('module_id')
                 <div class="text-danger">{{ $message }}</div>
@@ -113,18 +126,5 @@
         <button type="submit" class="btn btn-info ml-2">{{ $itemSysController->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
-
-<script>
-    window.dynamicSelectManyToOne = [
-        
-        {
-            fieldId: 'module_id',
-            fetchUrl: "{{ route('sysModules.all') }}",
-            selectedValue: {{ $itemSysController->module_id ? $itemSysController->module_id : 'undefined' }},
-            fieldValue: 'name'
-        }
-        
-    ];
-</script>
 
 

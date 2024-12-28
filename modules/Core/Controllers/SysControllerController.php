@@ -7,6 +7,8 @@ namespace Modules\Core\Controllers;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Requests\SysControllerRequest;
 use Modules\Core\Services\SysControllerService;
+use Modules\Core\Services\SysModuleService;
+
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\Core\App\Exports\SysControllerExport;

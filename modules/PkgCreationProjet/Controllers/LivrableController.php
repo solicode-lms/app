@@ -7,6 +7,9 @@ namespace Modules\PkgCreationProjet\Controllers;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\PkgCreationProjet\App\Requests\LivrableRequest;
 use Modules\PkgCreationProjet\Services\LivrableService;
+use Modules\PkgCreationProjet\Services\NatureLivrableService;
+use Modules\PkgCreationProjet\Services\ProjetService;
+
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgCreationProjet\App\Exports\LivrableExport;

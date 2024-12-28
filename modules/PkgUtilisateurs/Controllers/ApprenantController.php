@@ -7,6 +7,10 @@ namespace Modules\PkgUtilisateurs\Controllers;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\PkgUtilisateurs\App\Requests\ApprenantRequest;
 use Modules\PkgUtilisateurs\Services\ApprenantService;
+use Modules\PkgUtilisateurs\Services\GroupeService;
+use Modules\PkgUtilisateurs\Services\NationaliteService;
+use Modules\PkgUtilisateurs\Services\NiveauxScolaireService;
+
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgUtilisateurs\App\Exports\ApprenantExport;

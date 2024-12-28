@@ -1,6 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form class="crud-form" id="apprenantForm" action="{{ $itemApprenant->id ? route('apprenants.update', $itemApprenant->id) : route('apprenants.store') }}" method="POST">
+<form class="crud-form" id="apprenantForm" action="{{ $itemApprenant->id ? route('apprenants.update', $itemApprenant->id) : route('apprenants.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemApprenant->id)
@@ -20,6 +20,7 @@
                 name="nom"
                 type="input"
                 class="form-control"
+                required
                 id="nom"
                 placeholder="{{ __('PkgUtilisateurs::apprenant.nom') }}"
                 value="{{ $itemApprenant ? $itemApprenant->nom : old('nom') }}">
@@ -39,6 +40,7 @@
                 name="prenom"
                 type="input"
                 class="form-control"
+                required
                 id="prenom"
                 placeholder="{{ __('PkgUtilisateurs::apprenant.prenom') }}"
                 value="{{ $itemApprenant ? $itemApprenant->prenom : old('prenom') }}">
@@ -58,6 +60,7 @@
                 name="prenom_arab"
                 type="input"
                 class="form-control"
+                required
                 id="prenom_arab"
                 placeholder="{{ __('PkgUtilisateurs::apprenant.prenom_arab') }}"
                 value="{{ $itemApprenant ? $itemApprenant->prenom_arab : old('prenom_arab') }}">
@@ -77,6 +80,7 @@
                 name="nom_arab"
                 type="input"
                 class="form-control"
+                required
                 id="nom_arab"
                 placeholder="{{ __('PkgUtilisateurs::apprenant.nom_arab') }}"
                 value="{{ $itemApprenant ? $itemApprenant->nom_arab : old('nom_arab') }}">
@@ -96,6 +100,7 @@
                 name="tele_num"
                 type="input"
                 class="form-control"
+                required
                 id="tele_num"
                 placeholder="{{ __('PkgUtilisateurs::apprenant.tele_num') }}"
                 value="{{ $itemApprenant ? $itemApprenant->tele_num : old('tele_num') }}">
@@ -113,6 +118,7 @@
                 name="profile_image"
                 type="input"
                 class="form-control"
+                
                 id="profile_image"
                 placeholder="{{ __('PkgUtilisateurs::apprenant.profile_image') }}"
                 value="{{ $itemApprenant ? $itemApprenant->profile_image : old('profile_image') }}">
@@ -132,6 +138,7 @@
                 name="matricule"
                 type="input"
                 class="form-control"
+                required
                 id="matricule"
                 placeholder="{{ __('PkgUtilisateurs::apprenant.matricule') }}"
                 value="{{ $itemApprenant ? $itemApprenant->matricule : old('matricule') }}">
@@ -151,6 +158,7 @@
                 name="sexe"
                 type="input"
                 class="form-control"
+                required
                 id="sexe"
                 placeholder="{{ __('PkgUtilisateurs::apprenant.sexe') }}"
                 value="{{ $itemApprenant ? $itemApprenant->sexe : old('sexe') }}">
@@ -170,6 +178,7 @@
                 name="actif"
                 type="input"
                 class="form-control"
+                required
                 id="actif"
                 placeholder="{{ __('PkgUtilisateurs::apprenant.actif') }}"
                 value="{{ $itemApprenant ? $itemApprenant->actif : old('actif') }}">
@@ -187,6 +196,7 @@
                 name="diplome"
                 type="input"
                 class="form-control"
+                
                 id="diplome"
                 placeholder="{{ __('PkgUtilisateurs::apprenant.diplome') }}"
                 value="{{ $itemApprenant ? $itemApprenant->diplome : old('diplome') }}">
@@ -204,6 +214,7 @@
                 name="date_naissance"
                 type="input"
                 class="form-control"
+                
                 id="date_naissance"
                 placeholder="{{ __('PkgUtilisateurs::apprenant.date_naissance') }}"
                 value="{{ $itemApprenant ? $itemApprenant->date_naissance : old('date_naissance') }}">
@@ -221,6 +232,7 @@
                 name="date_inscription"
                 type="input"
                 class="form-control"
+                
                 id="date_inscription"
                 placeholder="{{ __('PkgUtilisateurs::apprenant.date_inscription') }}"
                 value="{{ $itemApprenant ? $itemApprenant->date_inscription : old('date_inscription') }}">
@@ -238,6 +250,7 @@
                 name="lieu_naissance"
                 type="input"
                 class="form-control"
+                
                 id="lieu_naissance"
                 placeholder="{{ __('PkgUtilisateurs::apprenant.lieu_naissance') }}"
                 value="{{ $itemApprenant ? $itemApprenant->lieu_naissance : old('lieu_naissance') }}">
@@ -255,6 +268,7 @@
                 name="cin"
                 type="input"
                 class="form-control"
+                
                 id="cin"
                 placeholder="{{ __('PkgUtilisateurs::apprenant.cin') }}"
                 value="{{ $itemApprenant ? $itemApprenant->cin : old('cin') }}">
@@ -272,6 +286,7 @@
                 name="adresse"
                 type="input"
                 class="form-control"
+                
                 id="adresse"
                 placeholder="{{ __('PkgUtilisateurs::apprenant.adresse') }}"
                 value="{{ $itemApprenant ? $itemApprenant->adresse : old('adresse') }}">
@@ -289,8 +304,17 @@
                     <span class="text-danger">*</span>
                 
             </label>
-            <select id="groupe_id" name="groupe_id" class="form-control">
-                <option value="">Sélectionnez une option</option>
+            <select 
+            id="groupe_id" 
+            name="groupe_id" 
+            class="form-control">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($groupes as $groupe)
+                    <option value="{{ $groupe->id }}"
+                        {{ (isset($itemGroupe) && $itemGroupe->groupe_id == $groupe->id) || (old('groupe_id>') == $groupe->id) ? 'selected' : '' }}>
+                        {{ $groupe->nom }}
+                    </option>
+                @endforeach
             </select>
             @error('groupe_id')
                 <div class="text-danger">{{ $message }}</div>
@@ -304,8 +328,17 @@
                     <span class="text-danger">*</span>
                 
             </label>
-            <select id="nationalite_id" name="nationalite_id" class="form-control">
-                <option value="">Sélectionnez une option</option>
+            <select 
+            id="nationalite_id" 
+            name="nationalite_id" 
+            class="form-control">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($nationalites as $nationalite)
+                    <option value="{{ $nationalite->id }}"
+                        {{ (isset($itemGroupe) && $itemGroupe->nationalite_id == $nationalite->id) || (old('nationalite_id>') == $nationalite->id) ? 'selected' : '' }}>
+                        {{ $nationalite->nom }}
+                    </option>
+                @endforeach
             </select>
             @error('nationalite_id')
                 <div class="text-danger">{{ $message }}</div>
@@ -319,8 +352,17 @@
                     <span class="text-danger">*</span>
                 
             </label>
-            <select id="niveaux_scolaire_id" name="niveaux_scolaire_id" class="form-control">
-                <option value="">Sélectionnez une option</option>
+            <select 
+            id="niveaux_scolaire_id" 
+            name="niveaux_scolaire_id" 
+            class="form-control">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($niveauxScolaires as $niveauxScolaire)
+                    <option value="{{ $niveauxScolaire->id }}"
+                        {{ (isset($itemGroupe) && $itemGroupe->niveaux_scolaire_id == $niveauxScolaire->id) || (old('niveaux_scolaire_id>') == $niveauxScolaire->id) ? 'selected' : '' }}>
+                        {{ $niveauxScolaire->nom }}
+                    </option>
+                @endforeach
             </select>
             @error('niveaux_scolaire_id')
                 <div class="text-danger">{{ $message }}</div>
@@ -340,32 +382,5 @@
         <button type="submit" class="btn btn-info ml-2">{{ $itemApprenant->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
-
-<script>
-    window.dynamicSelectManyToOne = [
-        
-        {
-            fieldId: 'groupe_id',
-            fetchUrl: "{{ route('groupes.all') }}",
-            selectedValue: {{ $itemApprenant->groupe_id ? $itemApprenant->groupe_id : 'undefined' }},
-            fieldValue: 'code'
-        },
-        
-        {
-            fieldId: 'nationalite_id',
-            fetchUrl: "{{ route('nationalites.all') }}",
-            selectedValue: {{ $itemApprenant->nationalite_id ? $itemApprenant->nationalite_id : 'undefined' }},
-            fieldValue: 'code'
-        },
-        
-        {
-            fieldId: 'niveaux_scolaire_id',
-            fetchUrl: "{{ route('niveauxScolaires.all') }}",
-            selectedValue: {{ $itemApprenant->niveaux_scolaire_id ? $itemApprenant->niveaux_scolaire_id : 'undefined' }},
-            fieldValue: 'code'
-        }
-        
-    ];
-</script>
 
 

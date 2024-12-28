@@ -8,6 +8,8 @@ use Modules\Core\Controllers\Base\AdminController;
 use Modules\PkgCompetences\App\Requests\CompetenceRequest;
 use Modules\PkgCompetences\Services\CompetenceService;
 use Modules\PkgCompetences\Services\TechnologyService;
+use Modules\PkgCompetences\Services\ModuleService;
+
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgCompetences\App\Exports\CompetenceExport;
@@ -17,12 +19,14 @@ class CompetenceController extends AdminController
 {
     protected $competenceService;
     protected $technologyService;
+    protected $moduleService;
 
-    public function __construct(CompetenceService $competenceService, TechnologyService $technologyService)
+    public function __construct(CompetenceService $competenceService, TechnologyService $technologyService, ModuleService $moduleService)
     {
         parent::__construct();
         $this->competenceService = $competenceService;
         $this->technologyService = $technologyService;
+        $this->moduleService = $moduleService;
     }
 
 
@@ -48,11 +52,12 @@ class CompetenceController extends AdminController
     {
         $itemCompetence = $this->competenceService->createInstance();
         $technologies = $this->technologyService->all();
+        $modules = $this->moduleService->all();
 
         if (request()->ajax()) {
-            return view('PkgCompetences::competence._fields', compact('itemCompetence', 'technologies'));
+            return view('PkgCompetences::competence._fields', compact('itemCompetence', 'technologies', 'modules'));
         }
-        return view('PkgCompetences::competence.create', compact('itemCompetence', 'technologies'));
+        return view('PkgCompetences::competence.create', compact('itemCompetence', 'technologies', 'modules'));
     }
 
     /**
@@ -91,9 +96,10 @@ class CompetenceController extends AdminController
     {
         $itemCompetence = $this->competenceService->find($id);
         $technologies = $this->technologyService->all();
+        $modules = $this->moduleService->all();
 
         if (request()->ajax()) {
-            return view('PkgCompetences::competence._fields', compact('itemCompetence', 'technologies'));
+            return view('PkgCompetences::competence._fields', compact('itemCompetence', 'technologies', 'modules'));
         }
 
         return view('PkgCompetences::competence.show', compact('itemCompetence'));
@@ -106,12 +112,13 @@ class CompetenceController extends AdminController
     {
         $itemCompetence = $this->competenceService->find($id);
         $technologies = $this->technologyService->all();
+        $modules = $this->moduleService->all();
 
         if (request()->ajax()) {
-            return view('PkgCompetences::competence._fields', compact('itemCompetence', 'technologies'));
+            return view('PkgCompetences::competence._fields', compact('itemCompetence', 'technologies', 'modules'));
         }
 
-        return view('PkgCompetences::competence.edit', compact('itemCompetence', 'technologies'));
+        return view('PkgCompetences::competence.edit', compact('itemCompetence', 'technologies', 'modules'));
     }
 
     /**

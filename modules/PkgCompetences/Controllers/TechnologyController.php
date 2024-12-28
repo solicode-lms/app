@@ -9,6 +9,8 @@ use Modules\PkgCompetences\App\Requests\TechnologyRequest;
 use Modules\PkgCompetences\Services\TechnologyService;
 use Modules\PkgCompetences\Services\CompetenceService;
 use Modules\PkgCreationProjet\Services\TransfertCompetenceService;
+use Modules\PkgCompetences\Services\CategorieTechnologyService;
+
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgCompetences\App\Exports\TechnologyExport;
@@ -19,13 +21,15 @@ class TechnologyController extends AdminController
     protected $technologyService;
     protected $competenceService;
     protected $transfertCompetenceService;
+    protected $categorieTechnologyService;
 
-    public function __construct(TechnologyService $technologyService, CompetenceService $competenceService, TransfertCompetenceService $transfertCompetenceService)
+    public function __construct(TechnologyService $technologyService, CompetenceService $competenceService, TransfertCompetenceService $transfertCompetenceService, CategorieTechnologyService $categorieTechnologyService)
     {
         parent::__construct();
         $this->technologyService = $technologyService;
         $this->competenceService = $competenceService;
         $this->transfertCompetenceService = $transfertCompetenceService;
+        $this->categorieTechnologyService = $categorieTechnologyService;
     }
 
 
@@ -52,11 +56,12 @@ class TechnologyController extends AdminController
         $itemTechnology = $this->technologyService->createInstance();
         $competences = $this->competenceService->all();
         $transfertCompetences = $this->transfertCompetenceService->all();
+        $categorieTechnologies = $this->categorieTechnologyService->all();
 
         if (request()->ajax()) {
-            return view('PkgCompetences::technology._fields', compact('itemTechnology', 'competences', 'transfertCompetences'));
+            return view('PkgCompetences::technology._fields', compact('itemTechnology', 'competences', 'transfertCompetences', 'categorieTechnologies'));
         }
-        return view('PkgCompetences::technology.create', compact('itemTechnology', 'competences', 'transfertCompetences'));
+        return view('PkgCompetences::technology.create', compact('itemTechnology', 'competences', 'transfertCompetences', 'categorieTechnologies'));
     }
 
     /**
@@ -99,9 +104,10 @@ class TechnologyController extends AdminController
         $itemTechnology = $this->technologyService->find($id);
         $competences = $this->competenceService->all();
         $transfertCompetences = $this->transfertCompetenceService->all();
+        $categorieTechnologies = $this->categorieTechnologyService->all();
 
         if (request()->ajax()) {
-            return view('PkgCompetences::technology._fields', compact('itemTechnology', 'competences', 'transfertCompetences'));
+            return view('PkgCompetences::technology._fields', compact('itemTechnology', 'competences', 'transfertCompetences', 'categorieTechnologies'));
         }
 
         return view('PkgCompetences::technology.show', compact('itemTechnology'));
@@ -115,12 +121,13 @@ class TechnologyController extends AdminController
         $itemTechnology = $this->technologyService->find($id);
         $competences = $this->competenceService->all();
         $transfertCompetences = $this->transfertCompetenceService->all();
+        $categorieTechnologies = $this->categorieTechnologyService->all();
 
         if (request()->ajax()) {
-            return view('PkgCompetences::technology._fields', compact('itemTechnology', 'competences', 'transfertCompetences'));
+            return view('PkgCompetences::technology._fields', compact('itemTechnology', 'competences', 'transfertCompetences', 'categorieTechnologies'));
         }
 
-        return view('PkgCompetences::technology.edit', compact('itemTechnology', 'competences', 'transfertCompetences'));
+        return view('PkgCompetences::technology.edit', compact('itemTechnology', 'competences', 'transfertCompetences', 'categorieTechnologies'));
     }
 
     /**

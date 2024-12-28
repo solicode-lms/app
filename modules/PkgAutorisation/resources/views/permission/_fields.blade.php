@@ -1,6 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form class="crud-form" id="permissionForm" action="{{ $itemPermission->id ? route('permissions.update', $itemPermission->id) : route('permissions.store') }}" method="POST">
+<form class="crud-form" id="permissionForm" action="{{ $itemPermission->id ? route('permissions.update', $itemPermission->id) : route('permissions.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemPermission->id)
@@ -20,6 +20,7 @@
                 name="name"
                 type="input"
                 class="form-control"
+                required
                 id="name"
                 placeholder="{{ __('PkgAutorisation::permission.name') }}"
                 value="{{ $itemPermission ? $itemPermission->name : old('name') }}">
@@ -39,6 +40,7 @@
                 name="guard_name"
                 type="input"
                 class="form-control"
+                required
                 id="guard_name"
                 placeholder="{{ __('PkgAutorisation::permission.guard_name') }}"
                 value="{{ $itemPermission ? $itemPermission->guard_name : old('guard_name') }}">
@@ -56,8 +58,17 @@
                     <span class="text-danger">*</span>
                 
             </label>
-            <select id="controller_id" name="controller_id" class="form-control">
-                <option value="">Sélectionnez une option</option>
+            <select 
+            id="controller_id" 
+            name="controller_id" 
+            class="form-control">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($sysControllers as $sysController)
+                    <option value="{{ $sysController->id }}"
+                        {{ (isset($itemGroupe) && $itemGroupe->controller_id == $sysController->id) || (old('controller_id>') == $sysController->id) ? 'selected' : '' }}>
+                        {{ $sysController->nom }}
+                    </option>
+                @endforeach
             </select>
             @error('controller_id')
                 <div class="text-danger">{{ $message }}</div>
@@ -75,6 +86,7 @@
                 name="features[]"
                 class="form-control select2"
                 multiple="multiple">
+               
                 @foreach ($features as $feature)
                     <option value="{{ $feature->id }}"
                         {{ (isset($itemPermission) && $itemPermission->features && $itemPermission->features->contains('id', $feature->id)) || (is_array(old('features')) && in_array($feature->id, old('features'))) ? 'selected' : '' }}>
@@ -97,6 +109,7 @@
                 name="roles[]"
                 class="form-control select2"
                 multiple="multiple">
+               
                 @foreach ($roles as $role)
                     <option value="{{ $role->id }}"
                         {{ (isset($itemPermission) && $itemPermission->roles && $itemPermission->roles->contains('id', $role->id)) || (is_array(old('roles')) && in_array($role->id, old('roles'))) ? 'selected' : '' }}>
@@ -121,18 +134,5 @@
         <button type="submit" class="btn btn-info ml-2">{{ $itemPermission->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
-
-<script>
-    window.dynamicSelectManyToOne = [
-        
-        {
-            fieldId: 'controller_id',
-            fetchUrl: "{{ route('sysControllers.all') }}",
-            selectedValue: {{ $itemPermission->controller_id ? $itemPermission->controller_id : 'undefined' }},
-            fieldValue: 'name'
-        }
-        
-    ];
-</script>
 
 

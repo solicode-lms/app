@@ -234,6 +234,7 @@
                 name="groupes[]"
                 class="form-control select2"
                 multiple="multiple">
+               
                 @foreach ($groupes as $groupe)
                     <option value="{{ $groupe->id }}"
                         {{ (isset($itemFormateur) && $itemFormateur->groupes && $itemFormateur->groupes->contains('id', $groupe->id)) || (is_array(old('groupes')) && in_array($groupe->id, old('groupes'))) ? 'selected' : '' }}>
@@ -256,6 +257,7 @@
                 name="specialites[]"
                 class="form-control select2"
                 multiple="multiple">
+               
                 @foreach ($specialites as $specialite)
                     <option value="{{ $specialite->id }}"
                         {{ (isset($itemFormateur) && $itemFormateur->specialites && $itemFormateur->specialites->contains('id', $specialite->id)) || (is_array(old('specialites')) && in_array($specialite->id, old('specialites'))) ? 'selected' : '' }}>
@@ -280,11 +282,5 @@
         <button type="submit" class="btn btn-info ml-2">{{ $itemFormateur->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
-
-<script>
-    window.dynamicSelectManyToOne = [
-        
-    ];
-</script>
 
 

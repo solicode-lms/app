@@ -1,6 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form class="crud-form" id="technologyForm" action="{{ $itemTechnology->id ? route('technologies.update', $itemTechnology->id) : route('technologies.store') }}" method="POST">
+<form class="crud-form" id="technologyForm" action="{{ $itemTechnology->id ? route('technologies.update', $itemTechnology->id) : route('technologies.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemTechnology->id)
@@ -20,6 +20,7 @@
                 name="nom"
                 type="input"
                 class="form-control"
+                required
                 id="nom"
                 placeholder="{{ __('PkgCompetences::technology.nom') }}"
                 value="{{ $itemTechnology ? $itemTechnology->nom : old('nom') }}">
@@ -39,6 +40,7 @@
                 name="description"
                 type="input"
                 class="form-control"
+                required
                 id="description"
                 placeholder="{{ __('PkgCompetences::technology.description') }}"
                 value="{{ $itemTechnology ? $itemTechnology->description : old('description') }}">
@@ -56,8 +58,17 @@
                     <span class="text-danger">*</span>
                 
             </label>
-            <select id="categorie_technologie_id" name="categorie_technologie_id" class="form-control">
-                <option value="">Sélectionnez une option</option>
+            <select 
+            id="categorie_technologie_id" 
+            name="categorie_technologie_id" 
+            class="form-control">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($categorieTechnologies as $categorieTechnology)
+                    <option value="{{ $categorieTechnology->id }}"
+                        {{ (isset($itemGroupe) && $itemGroupe->categorie_technologie_id == $categorieTechnology->id) || (old('categorie_technologie_id>') == $categorieTechnology->id) ? 'selected' : '' }}>
+                        {{ $categorieTechnology->nom }}
+                    </option>
+                @endforeach
             </select>
             @error('categorie_technologie_id')
                 <div class="text-danger">{{ $message }}</div>
@@ -75,6 +86,7 @@
                 name="competences[]"
                 class="form-control select2"
                 multiple="multiple">
+               
                 @foreach ($competences as $competence)
                     <option value="{{ $competence->id }}"
                         {{ (isset($itemTechnology) && $itemTechnology->competences && $itemTechnology->competences->contains('id', $competence->id)) || (is_array(old('competences')) && in_array($competence->id, old('competences'))) ? 'selected' : '' }}>
@@ -97,6 +109,7 @@
                 name="transfertCompetences[]"
                 class="form-control select2"
                 multiple="multiple">
+               
                 @foreach ($transfertCompetences as $transfertCompetence)
                     <option value="{{ $transfertCompetence->id }}"
                         {{ (isset($itemTechnology) && $itemTechnology->transfertCompetences && $itemTechnology->transfertCompetences->contains('id', $transfertCompetence->id)) || (is_array(old('transfertCompetences')) && in_array($transfertCompetence->id, old('transfertCompetences'))) ? 'selected' : '' }}>
@@ -121,18 +134,5 @@
         <button type="submit" class="btn btn-info ml-2">{{ $itemTechnology->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
-
-<script>
-    window.dynamicSelectManyToOne = [
-        
-        {
-            fieldId: 'categorie_technologie_id',
-            fetchUrl: "{{ route('categorieTechnologies.all') }}",
-            selectedValue: {{ $itemTechnology->categorie_technologie_id ? $itemTechnology->categorie_technologie_id : 'undefined' }},
-            fieldValue: 'nom'
-        }
-        
-    ];
-</script>
 
 

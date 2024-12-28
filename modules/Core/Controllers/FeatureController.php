@@ -8,6 +8,8 @@ use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Requests\FeatureRequest;
 use Modules\Core\Services\FeatureService;
 use Modules\PkgAutorisation\Services\PermissionService;
+use Modules\Core\Services\FeatureDomainService;
+
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\Core\App\Exports\FeatureExport;
@@ -17,12 +19,14 @@ class FeatureController extends AdminController
 {
     protected $featureService;
     protected $permissionService;
+    protected $featureDomainService;
 
-    public function __construct(FeatureService $featureService, PermissionService $permissionService)
+    public function __construct(FeatureService $featureService, PermissionService $permissionService, FeatureDomainService $featureDomainService)
     {
         parent::__construct();
         $this->featureService = $featureService;
         $this->permissionService = $permissionService;
+        $this->featureDomainService = $featureDomainService;
     }
 
 
@@ -48,11 +52,12 @@ class FeatureController extends AdminController
     {
         $itemFeature = $this->featureService->createInstance();
         $permissions = $this->permissionService->all();
+        $featureDomains = $this->featureDomainService->all();
 
         if (request()->ajax()) {
-            return view('Core::feature._fields', compact('itemFeature', 'permissions'));
+            return view('Core::feature._fields', compact('itemFeature', 'permissions', 'featureDomains'));
         }
-        return view('Core::feature.create', compact('itemFeature', 'permissions'));
+        return view('Core::feature.create', compact('itemFeature', 'permissions', 'featureDomains'));
     }
 
     /**
@@ -91,9 +96,10 @@ class FeatureController extends AdminController
     {
         $itemFeature = $this->featureService->find($id);
         $permissions = $this->permissionService->all();
+        $featureDomains = $this->featureDomainService->all();
 
         if (request()->ajax()) {
-            return view('Core::feature._fields', compact('itemFeature', 'permissions'));
+            return view('Core::feature._fields', compact('itemFeature', 'permissions', 'featureDomains'));
         }
 
         return view('Core::feature.show', compact('itemFeature'));
@@ -106,12 +112,13 @@ class FeatureController extends AdminController
     {
         $itemFeature = $this->featureService->find($id);
         $permissions = $this->permissionService->all();
+        $featureDomains = $this->featureDomainService->all();
 
         if (request()->ajax()) {
-            return view('Core::feature._fields', compact('itemFeature', 'permissions'));
+            return view('Core::feature._fields', compact('itemFeature', 'permissions', 'featureDomains'));
         }
 
-        return view('Core::feature.edit', compact('itemFeature', 'permissions'));
+        return view('Core::feature.edit', compact('itemFeature', 'permissions', 'featureDomains'));
     }
 
     /**

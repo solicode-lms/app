@@ -1,6 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form class="crud-form" id="resourceForm" action="{{ $itemResource->id ? route('resources.update', $itemResource->id) : route('resources.store') }}" method="POST">
+<form class="crud-form" id="resourceForm" action="{{ $itemResource->id ? route('resources.update', $itemResource->id) : route('resources.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemResource->id)
@@ -20,6 +20,7 @@
                 name="nom"
                 type="input"
                 class="form-control"
+                required
                 id="nom"
                 placeholder="{{ __('PkgCreationProjet::resource.nom') }}"
                 value="{{ $itemResource ? $itemResource->nom : old('nom') }}">
@@ -39,6 +40,7 @@
                 name="lien"
                 type="input"
                 class="form-control"
+                required
                 id="lien"
                 placeholder="{{ __('PkgCreationProjet::resource.lien') }}"
                 value="{{ $itemResource ? $itemResource->lien : old('lien') }}">
@@ -58,6 +60,7 @@
                 name="description"
                 type="input"
                 class="form-control"
+                required
                 id="description"
                 placeholder="{{ __('PkgCreationProjet::resource.description') }}"
                 value="{{ $itemResource ? $itemResource->description : old('description') }}">
@@ -75,8 +78,17 @@
                     <span class="text-danger">*</span>
                 
             </label>
-            <select id="projet_id" name="projet_id" class="form-control">
-                <option value="">Sélectionnez une option</option>
+            <select 
+            id="projet_id" 
+            name="projet_id" 
+            class="form-control">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($projets as $projet)
+                    <option value="{{ $projet->id }}"
+                        {{ (isset($itemGroupe) && $itemGroupe->projet_id == $projet->id) || (old('projet_id>') == $projet->id) ? 'selected' : '' }}>
+                        {{ $projet->nom }}
+                    </option>
+                @endforeach
             </select>
             @error('projet_id')
                 <div class="text-danger">{{ $message }}</div>
@@ -96,18 +108,5 @@
         <button type="submit" class="btn btn-info ml-2">{{ $itemResource->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
-
-<script>
-    window.dynamicSelectManyToOne = [
-        
-        {
-            fieldId: 'projet_id',
-            fetchUrl: "{{ route('projets.all') }}",
-            selectedValue: {{ $itemResource->projet_id ? $itemResource->projet_id : 'undefined' }},
-            fieldValue: 'titre'
-        }
-        
-    ];
-</script>
 
 

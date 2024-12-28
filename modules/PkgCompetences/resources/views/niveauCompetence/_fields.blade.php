@@ -1,6 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form class="crud-form" id="niveauCompetenceForm" action="{{ $itemNiveauCompetence->id ? route('niveauCompetences.update', $itemNiveauCompetence->id) : route('niveauCompetences.store') }}" method="POST">
+<form class="crud-form" id="niveauCompetenceForm" action="{{ $itemNiveauCompetence->id ? route('niveauCompetences.update', $itemNiveauCompetence->id) : route('niveauCompetences.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemNiveauCompetence->id)
@@ -20,6 +20,7 @@
                 name="nom"
                 type="input"
                 class="form-control"
+                required
                 id="nom"
                 placeholder="{{ __('PkgCompetences::niveauCompetence.nom') }}"
                 value="{{ $itemNiveauCompetence ? $itemNiveauCompetence->nom : old('nom') }}">
@@ -39,6 +40,7 @@
                 name="description"
                 type="input"
                 class="form-control"
+                required
                 id="description"
                 placeholder="{{ __('PkgCompetences::niveauCompetence.description') }}"
                 value="{{ $itemNiveauCompetence ? $itemNiveauCompetence->description : old('description') }}">
@@ -56,8 +58,17 @@
                     <span class="text-danger">*</span>
                 
             </label>
-            <select id="competence_id" name="competence_id" class="form-control">
-                <option value="">Sélectionnez une option</option>
+            <select 
+            id="competence_id" 
+            name="competence_id" 
+            class="form-control">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($competences as $competence)
+                    <option value="{{ $competence->id }}"
+                        {{ (isset($itemGroupe) && $itemGroupe->competence_id == $competence->id) || (old('competence_id>') == $competence->id) ? 'selected' : '' }}>
+                        {{ $competence->nom }}
+                    </option>
+                @endforeach
             </select>
             @error('competence_id')
                 <div class="text-danger">{{ $message }}</div>
@@ -77,18 +88,5 @@
         <button type="submit" class="btn btn-info ml-2">{{ $itemNiveauCompetence->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
-
-<script>
-    window.dynamicSelectManyToOne = [
-        
-        {
-            fieldId: 'competence_id',
-            fetchUrl: "{{ route('competences.all') }}",
-            selectedValue: {{ $itemNiveauCompetence->competence_id ? $itemNiveauCompetence->competence_id : 'undefined' }},
-            fieldValue: 'code'
-        }
-        
-    ];
-</script>
 
 

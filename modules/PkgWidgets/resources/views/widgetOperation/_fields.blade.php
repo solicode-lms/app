@@ -63,10 +63,4 @@
     </div>
 </form>
 
-<script>
-    window.dynamicSelectManyToOne = [
-        
-    ];
-</script>
-
 

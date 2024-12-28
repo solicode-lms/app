@@ -7,6 +7,8 @@ namespace Modules\PkgCompetences\Controllers;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\PkgCompetences\App\Requests\NiveauCompetenceRequest;
 use Modules\PkgCompetences\Services\NiveauCompetenceService;
+use Modules\PkgCompetences\Services\CompetenceService;
+
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgCompetences\App\Exports\NiveauCompetenceExport;

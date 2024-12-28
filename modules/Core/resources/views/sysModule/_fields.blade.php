@@ -1,6 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form class="crud-form" id="sysModuleForm" action="{{ $itemSysModule->id ? route('sysModules.update', $itemSysModule->id) : route('sysModules.store') }}" method="POST">
+<form class="crud-form" id="sysModuleForm" action="{{ $itemSysModule->id ? route('sysModules.update', $itemSysModule->id) : route('sysModules.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemSysModule->id)
@@ -20,6 +20,7 @@
                 name="name"
                 type="input"
                 class="form-control"
+                required
                 id="name"
                 placeholder="{{ __('Core::sysModule.name') }}"
                 value="{{ $itemSysModule ? $itemSysModule->name : old('name') }}">
@@ -39,6 +40,7 @@
                 name="slug"
                 type="input"
                 class="form-control"
+                required
                 id="slug"
                 placeholder="{{ __('Core::sysModule.slug') }}"
                 value="{{ $itemSysModule ? $itemSysModule->slug : old('slug') }}">
@@ -58,6 +60,7 @@
                 name="description"
                 type="input"
                 class="form-control"
+                required
                 id="description"
                 placeholder="{{ __('Core::sysModule.description') }}"
                 value="{{ $itemSysModule ? $itemSysModule->description : old('description') }}">
@@ -77,6 +80,7 @@
                 name="is_active"
                 type="input"
                 class="form-control"
+                required
                 id="is_active"
                 placeholder="{{ __('Core::sysModule.is_active') }}"
                 value="{{ $itemSysModule ? $itemSysModule->is_active : old('is_active') }}">
@@ -96,6 +100,7 @@
                 name="order"
                 type="input"
                 class="form-control"
+                required
                 id="order"
                 placeholder="{{ __('Core::sysModule.order') }}"
                 value="{{ $itemSysModule ? $itemSysModule->order : old('order') }}">
@@ -115,6 +120,7 @@
                 name="version"
                 type="input"
                 class="form-control"
+                required
                 id="version"
                 placeholder="{{ __('Core::sysModule.version') }}"
                 value="{{ $itemSysModule ? $itemSysModule->version : old('version') }}">
@@ -132,8 +138,17 @@
                     <span class="text-danger">*</span>
                 
             </label>
-            <select id="color_id" name="color_id" class="form-control">
-                <option value="">Sélectionnez une option</option>
+            <select 
+            id="color_id" 
+            name="color_id" 
+            class="form-control">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($sysColors as $sysColor)
+                    <option value="{{ $sysColor->id }}"
+                        {{ (isset($itemGroupe) && $itemGroupe->color_id == $sysColor->id) || (old('color_id>') == $sysColor->id) ? 'selected' : '' }}>
+                        {{ $sysColor->nom }}
+                    </option>
+                @endforeach
             </select>
             @error('color_id')
                 <div class="text-danger">{{ $message }}</div>
@@ -153,18 +168,5 @@
         <button type="submit" class="btn btn-info ml-2">{{ $itemSysModule->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
-
-<script>
-    window.dynamicSelectManyToOne = [
-        
-        {
-            fieldId: 'color_id',
-            fetchUrl: "{{ route('sysColors.all') }}",
-            selectedValue: {{ $itemSysModule->color_id ? $itemSysModule->color_id : 'undefined' }},
-            fieldValue: 'name'
-        }
-        
-    ];
-</script>
 
 

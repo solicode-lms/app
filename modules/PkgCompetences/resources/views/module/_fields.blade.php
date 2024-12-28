@@ -1,6 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form class="crud-form" id="moduleForm" action="{{ $itemModule->id ? route('modules.update', $itemModule->id) : route('modules.store') }}" method="POST">
+<form class="crud-form" id="moduleForm" action="{{ $itemModule->id ? route('modules.update', $itemModule->id) : route('modules.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemModule->id)
@@ -20,6 +20,7 @@
                 name="nom"
                 type="input"
                 class="form-control"
+                required
                 id="nom"
                 placeholder="{{ __('PkgCompetences::module.nom') }}"
                 value="{{ $itemModule ? $itemModule->nom : old('nom') }}">
@@ -39,6 +40,7 @@
                 name="description"
                 type="input"
                 class="form-control"
+                required
                 id="description"
                 placeholder="{{ __('PkgCompetences::module.description') }}"
                 value="{{ $itemModule ? $itemModule->description : old('description') }}">
@@ -58,6 +60,7 @@
                 name="masse_horaire"
                 type="input"
                 class="form-control"
+                required
                 id="masse_horaire"
                 placeholder="{{ __('PkgCompetences::module.masse_horaire') }}"
                 value="{{ $itemModule ? $itemModule->masse_horaire : old('masse_horaire') }}">
@@ -75,8 +78,17 @@
                     <span class="text-danger">*</span>
                 
             </label>
-            <select id="filiere_id" name="filiere_id" class="form-control">
-                <option value="">Sélectionnez une option</option>
+            <select 
+            id="filiere_id" 
+            name="filiere_id" 
+            class="form-control">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($filieres as $filiere)
+                    <option value="{{ $filiere->id }}"
+                        {{ (isset($itemGroupe) && $itemGroupe->filiere_id == $filiere->id) || (old('filiere_id>') == $filiere->id) ? 'selected' : '' }}>
+                        {{ $filiere->nom }}
+                    </option>
+                @endforeach
             </select>
             @error('filiere_id')
                 <div class="text-danger">{{ $message }}</div>
@@ -96,18 +108,5 @@
         <button type="submit" class="btn btn-info ml-2">{{ $itemModule->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
-
-<script>
-    window.dynamicSelectManyToOne = [
-        
-        {
-            fieldId: 'filiere_id',
-            fetchUrl: "{{ route('filieres.all') }}",
-            selectedValue: {{ $itemModule->filiere_id ? $itemModule->filiere_id : 'undefined' }},
-            fieldValue: 'code'
-        }
-        
-    ];
-</script>
 
 

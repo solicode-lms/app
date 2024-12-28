@@ -1,6 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form class="crud-form" id="livrableForm" action="{{ $itemLivrable->id ? route('livrables.update', $itemLivrable->id) : route('livrables.store') }}" method="POST">
+<form class="crud-form" id="livrableForm" action="{{ $itemLivrable->id ? route('livrables.update', $itemLivrable->id) : route('livrables.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemLivrable->id)
@@ -20,6 +20,7 @@
                 name="titre"
                 type="input"
                 class="form-control"
+                required
                 id="titre"
                 placeholder="{{ __('PkgCreationProjet::livrable.titre') }}"
                 value="{{ $itemLivrable ? $itemLivrable->titre : old('titre') }}">
@@ -37,6 +38,7 @@
                 name="description"
                 type="input"
                 class="form-control"
+                
                 id="description"
                 placeholder="{{ __('PkgCreationProjet::livrable.description') }}"
                 value="{{ $itemLivrable ? $itemLivrable->description : old('description') }}">
@@ -54,8 +56,17 @@
                     <span class="text-danger">*</span>
                 
             </label>
-            <select id="nature_livrable_id" name="nature_livrable_id" class="form-control">
-                <option value="">Sélectionnez une option</option>
+            <select 
+            id="nature_livrable_id" 
+            name="nature_livrable_id" 
+            class="form-control">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($natureLivrables as $natureLivrable)
+                    <option value="{{ $natureLivrable->id }}"
+                        {{ (isset($itemGroupe) && $itemGroupe->nature_livrable_id == $natureLivrable->id) || (old('nature_livrable_id>') == $natureLivrable->id) ? 'selected' : '' }}>
+                        {{ $natureLivrable->nom }}
+                    </option>
+                @endforeach
             </select>
             @error('nature_livrable_id')
                 <div class="text-danger">{{ $message }}</div>
@@ -69,8 +80,17 @@
                     <span class="text-danger">*</span>
                 
             </label>
-            <select id="projet_id" name="projet_id" class="form-control">
-                <option value="">Sélectionnez une option</option>
+            <select 
+            id="projet_id" 
+            name="projet_id" 
+            class="form-control">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($projets as $projet)
+                    <option value="{{ $projet->id }}"
+                        {{ (isset($itemGroupe) && $itemGroupe->projet_id == $projet->id) || (old('projet_id>') == $projet->id) ? 'selected' : '' }}>
+                        {{ $projet->nom }}
+                    </option>
+                @endforeach
             </select>
             @error('projet_id')
                 <div class="text-danger">{{ $message }}</div>
@@ -90,25 +110,5 @@
         <button type="submit" class="btn btn-info ml-2">{{ $itemLivrable->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
-
-<script>
-    window.dynamicSelectManyToOne = [
-        
-        {
-            fieldId: 'nature_livrable_id',
-            fetchUrl: "{{ route('natureLivrables.all') }}",
-            selectedValue: {{ $itemLivrable->nature_livrable_id ? $itemLivrable->nature_livrable_id : 'undefined' }},
-            fieldValue: 'nom'
-        },
-        
-        {
-            fieldId: 'projet_id',
-            fetchUrl: "{{ route('projets.all') }}",
-            selectedValue: {{ $itemLivrable->projet_id ? $itemLivrable->projet_id : 'undefined' }},
-            fieldValue: 'titre'
-        }
-        
-    ];
-</script>
 
 
