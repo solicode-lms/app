@@ -85,7 +85,7 @@ class NiveauxScolaireController extends AdminController
         $itemNiveauxScolaire = $this->niveauxScolaireService->find($id);
 
         if (request()->ajax()) {
-            return view('PkgUtilisateurs::niveauxscolaire._fields', compact('itemNiveauxScolaire'));
+            return view('PkgUtilisateurs::niveauxScolaire._fields', compact('itemNiveauxScolaire'));
         }
 
         return view('PkgUtilisateurs::niveauxscolaire.show', compact('itemNiveauxScolaire'));

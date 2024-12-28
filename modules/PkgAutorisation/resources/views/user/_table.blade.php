@@ -29,8 +29,7 @@
                             <form action="{{ route('users.destroy', $user) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$user->id}}"
-                                    onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce user ?')">
+                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$user->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>

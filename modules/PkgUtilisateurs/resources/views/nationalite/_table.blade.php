@@ -27,8 +27,7 @@
                             <form action="{{ route('nationalites.destroy', $nationalite) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$nationalite->id}}"
-                                    onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce nationalite ?')">
+                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$nationalite->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>

@@ -49,7 +49,6 @@
                         <div id="data-container">
                         @include('Core::feature._table')
 
-
 <div class="d-md-flex justify-content-between align-items-center p-2">
     <div class="d-flex align-items-center mb-2 ml-2 mt-2">
         @can('import-feature')
@@ -82,10 +81,6 @@
         document.getElementById("importForm").submit();
     }
 </script>
-
-
-
-
                         </div>
                     </div>
                 </div>

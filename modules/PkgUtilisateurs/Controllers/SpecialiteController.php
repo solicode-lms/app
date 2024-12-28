@@ -90,9 +90,10 @@ class SpecialiteController extends AdminController
     public function show(string $id)
     {
         $itemSpecialite = $this->specialiteService->find($id);
+        $formateurs = $this->formateurService->all();
 
         if (request()->ajax()) {
-            return view('PkgUtilisateurs::specialite._fields', compact('itemSpecialite'));
+            return view('PkgUtilisateurs::specialite._fields', compact('itemSpecialite', 'formateurs'));
         }
 
         return view('PkgUtilisateurs::specialite.show', compact('itemSpecialite'));

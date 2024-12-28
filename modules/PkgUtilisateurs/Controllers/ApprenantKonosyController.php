@@ -85,7 +85,7 @@ class ApprenantKonosyController extends AdminController
         $itemApprenantKonosy = $this->apprenantKonosyService->find($id);
 
         if (request()->ajax()) {
-            return view('PkgUtilisateurs::apprenantkonosy._fields', compact('itemApprenantKonosy'));
+            return view('PkgUtilisateurs::apprenantKonosy._fields', compact('itemApprenantKonosy'));
         }
 
         return view('PkgUtilisateurs::apprenantkonosy.show', compact('itemApprenantKonosy'));

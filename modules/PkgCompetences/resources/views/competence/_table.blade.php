@@ -33,8 +33,7 @@
                             <form action="{{ route('competences.destroy', $competence) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$competence->id}}"
-                                    onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce competence ?')">
+                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$competence->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>

@@ -33,8 +33,7 @@
                             <form action="{{ route('projets.destroy', $projet) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$projet->id}}"
-                                    onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce projet ?')">
+                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$projet->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>

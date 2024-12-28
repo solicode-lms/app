@@ -27,8 +27,7 @@
                             <form action="{{ route('sysColors.destroy', $sysColor) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$sysColor->id}}"
-                                    onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce syscolor ?')">
+                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$sysColor->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>

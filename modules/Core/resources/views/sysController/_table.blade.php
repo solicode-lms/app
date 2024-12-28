@@ -33,8 +33,7 @@
                             <form action="{{ route('sysControllers.destroy', $sysController) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$sysController->id}}"
-                                    onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce syscontroller ?')">
+                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$sysController->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>

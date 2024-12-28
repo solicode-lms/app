@@ -85,7 +85,7 @@ class WidgetTypeController extends AdminController
         $itemWidgetType = $this->widgetTypeService->find($id);
 
         if (request()->ajax()) {
-            return view('PkgWidgets::widgettype._fields', compact('itemWidgetType'));
+            return view('PkgWidgets::widgetType._fields', compact('itemWidgetType'));
         }
 
         return view('PkgWidgets::widgettype.show', compact('itemWidgetType'));

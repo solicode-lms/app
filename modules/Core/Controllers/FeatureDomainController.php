@@ -85,7 +85,7 @@ class FeatureDomainController extends AdminController
         $itemFeatureDomain = $this->featureDomainService->find($id);
 
         if (request()->ajax()) {
-            return view('Core::featuredomain._fields', compact('itemFeatureDomain'));
+            return view('Core::featureDomain._fields', compact('itemFeatureDomain'));
         }
 
         return view('Core::featuredomain.show', compact('itemFeatureDomain'));

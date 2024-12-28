@@ -85,7 +85,7 @@ class WidgetOperationController extends AdminController
         $itemWidgetOperation = $this->widgetOperationService->find($id);
 
         if (request()->ajax()) {
-            return view('PkgWidgets::widgetoperation._fields', compact('itemWidgetOperation'));
+            return view('PkgWidgets::widgetOperation._fields', compact('itemWidgetOperation'));
         }
 
         return view('PkgWidgets::widgetoperation.show', compact('itemWidgetOperation'));

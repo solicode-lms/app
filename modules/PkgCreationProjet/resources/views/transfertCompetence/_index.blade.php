@@ -18,8 +18,8 @@
                 <div class="col-sm-6">
                     <div class="float-sm-right">
                         @can('create-transfertCompetence')
-                        <button type="button" class="btn btn-info btn-sm addEntityButton" data-toggle="modal" data-target="#transfertCompetenceModal">
-                            <i class="fas fa-plus"></i> {{ curd_index_add_label('PkgCreationProjet::transfertCompetence') }}
+                        <button type="button" class="btn btn-info btn-sm addEntityButton" data-target="#transfertCompetenceModal">
+                            <i class="fas fa-plus"></i> {{ __('Core::msg.add') }}
                         </button>
 
                         @endcan
@@ -48,7 +48,6 @@
                         </div>
                         <div id="data-container">
                         @include('PkgCreationProjet::transfertCompetence._table')
-
 
 <div class="d-md-flex justify-content-between align-items-center p-2">
     <div class="d-flex align-items-center mb-2 ml-2 mt-2">
@@ -82,10 +81,6 @@
         document.getElementById("importForm").submit();
     }
 </script>
-
-
-
-
                         </div>
                     </div>
                 </div>
@@ -94,14 +89,30 @@
         <input type="hidden" id='page' value="1">
     </section>
 
+
 <!-- Modal pour Ajouter/Modifier -->
 <div class="modal fade" id="transfertCompetenceModal" tabindex="-1" role="dialog" aria-labelledby="transfertCompetenceModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
-        
         <div class="modal-content">
-          
+
+            <div id="modal-loading"  class="d-flex justify-content-center align-items-center" style="display: none; min-height: 200px;  ">
+                <div class="spinner-border text-primary" role="status">
+                </div>
+            </div>
+
+            <!-- Contenu injecté -->
+            <div id="modal-content-container" style="display: none;">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="transfertCompetenceModalLabel"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                      </button>
+                </div>
+                <div class="modal-body"></div>
+            </div>
         </div>
     </div>
 </div>
+
 
 </div>

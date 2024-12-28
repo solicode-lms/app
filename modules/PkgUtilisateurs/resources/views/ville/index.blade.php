@@ -17,7 +17,10 @@ document.addEventListener("DOMContentLoaded", function () {
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         tableSelector: '#villesTable', // Sélecteur du tableau HTML
         formSelector: '#villeForm',   // Sélecteur du formulaire
-        modalSelector: '#villeModal'  // Sélecteur du modal
+        modalSelector: '#villeModal',  // Sélecteur du modal
+        create_title: '{{__("Core::msg.add") . " : " . __("PkgUtilisateurs::ville.singular") }}',
+        edit_title: '{{__("Core::msg.add") . " : " . __("PkgUtilisateurs::ville.singular") }}',
+
     });
     villeCrud.init(); // Initialisation des fonctionnalités CRUD
 });

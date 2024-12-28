@@ -17,7 +17,10 @@ document.addEventListener("DOMContentLoaded", function () {
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         tableSelector: '#widgetsTable', // Sélecteur du tableau HTML
         formSelector: '#widgetForm',   // Sélecteur du formulaire
-        modalSelector: '#widgetModal'  // Sélecteur du modal
+        modalSelector: '#widgetModal',  // Sélecteur du modal
+        create_title: '{{__("Core::msg.add") . " : " . __("PkgWidgets::widget.singular") }}',
+        edit_title: '{{__("Core::msg.add") . " : " . __("PkgWidgets::widget.singular") }}',
+
     });
     widgetCrud.init(); // Initialisation des fonctionnalités CRUD
 });

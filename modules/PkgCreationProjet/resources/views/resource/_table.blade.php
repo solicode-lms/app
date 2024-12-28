@@ -31,8 +31,7 @@
                             <form action="{{ route('resources.destroy', $resource) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$resource->id}}"
-                                    onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce resource ?')">
+                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$resource->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>

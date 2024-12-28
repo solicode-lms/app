@@ -31,8 +31,7 @@
                             <form action="{{ route('groupes.destroy', $groupe) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$groupe->id}}"
-                                    onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce groupe ?')">
+                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$groupe->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>

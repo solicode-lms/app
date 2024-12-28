@@ -27,8 +27,7 @@
                             <form action="{{ route('natureLivrables.destroy', $natureLivrable) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$natureLivrable->id}}"
-                                    onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce naturelivrable ?')">
+                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$natureLivrable->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>

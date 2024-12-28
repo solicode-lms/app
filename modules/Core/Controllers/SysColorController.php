@@ -85,7 +85,7 @@ class SysColorController extends AdminController
         $itemSysColor = $this->sysColorService->find($id);
 
         if (request()->ajax()) {
-            return view('Core::syscolor._fields', compact('itemSysColor'));
+            return view('Core::sysColor._fields', compact('itemSysColor'));
         }
 
         return view('Core::syscolor.show', compact('itemSysColor'));

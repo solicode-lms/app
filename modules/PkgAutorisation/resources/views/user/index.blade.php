@@ -17,7 +17,10 @@ document.addEventListener("DOMContentLoaded", function () {
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         tableSelector: '#usersTable', // Sélecteur du tableau HTML
         formSelector: '#userForm',   // Sélecteur du formulaire
-        modalSelector: '#userModal'  // Sélecteur du modal
+        modalSelector: '#userModal',  // Sélecteur du modal
+        create_title: '{{__("Core::msg.add") . " : " . __("PkgAutorisation::user.singular") }}',
+        edit_title: '{{__("Core::msg.add") . " : " . __("PkgAutorisation::user.singular") }}',
+
     });
     userCrud.init(); // Initialisation des fonctionnalités CRUD
 });

@@ -17,7 +17,10 @@ document.addEventListener("DOMContentLoaded", function () {
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         tableSelector: '#natureLivrablesTable', // Sélecteur du tableau HTML
         formSelector: '#natureLivrableForm',   // Sélecteur du formulaire
-        modalSelector: '#natureLivrableModal'  // Sélecteur du modal
+        modalSelector: '#natureLivrableModal',  // Sélecteur du modal
+        create_title: '{{__("Core::msg.add") . " : " . __("PkgCreationProjet::natureLivrable.singular") }}',
+        edit_title: '{{__("Core::msg.add") . " : " . __("PkgCreationProjet::natureLivrable.singular") }}',
+
     });
     natureLivrableCrud.init(); // Initialisation des fonctionnalités CRUD
 });

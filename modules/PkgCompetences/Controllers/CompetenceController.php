@@ -90,9 +90,10 @@ class CompetenceController extends AdminController
     public function show(string $id)
     {
         $itemCompetence = $this->competenceService->find($id);
+        $technologies = $this->technologyService->all();
 
         if (request()->ajax()) {
-            return view('PkgCompetences::competence._fields', compact('itemCompetence'));
+            return view('PkgCompetences::competence._fields', compact('itemCompetence', 'technologies'));
         }
 
         return view('PkgCompetences::competence.show', compact('itemCompetence'));

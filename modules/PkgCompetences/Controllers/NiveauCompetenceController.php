@@ -85,7 +85,7 @@ class NiveauCompetenceController extends AdminController
         $itemNiveauCompetence = $this->niveauCompetenceService->find($id);
 
         if (request()->ajax()) {
-            return view('PkgCompetences::niveaucompetence._fields', compact('itemNiveauCompetence'));
+            return view('PkgCompetences::niveauCompetence._fields', compact('itemNiveauCompetence'));
         }
 
         return view('PkgCompetences::niveaucompetence.show', compact('itemNiveauCompetence'));

@@ -29,8 +29,7 @@
                             <form action="{{ route('permissions.destroy', $permission) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$permission->id}}"
-                                    onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce permission ?')">
+                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$permission->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>

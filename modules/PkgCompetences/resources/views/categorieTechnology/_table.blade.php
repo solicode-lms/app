@@ -29,8 +29,7 @@
                             <form action="{{ route('categorieTechnologies.destroy', $categorieTechnology) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$categorieTechnology->id}}"
-                                    onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce categorietechnology ?')">
+                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$categorieTechnology->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>

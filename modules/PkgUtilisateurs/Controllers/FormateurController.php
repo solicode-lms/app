@@ -97,9 +97,11 @@ class FormateurController extends AdminController
     public function show(string $id)
     {
         $itemFormateur = $this->formateurService->find($id);
+        $groupes = $this->groupeService->all();
+        $specialites = $this->specialiteService->all();
 
         if (request()->ajax()) {
-            return view('PkgUtilisateurs::formateur._fields', compact('itemFormateur'));
+            return view('PkgUtilisateurs::formateur._fields', compact('itemFormateur', 'groupes', 'specialites'));
         }
 
         return view('PkgUtilisateurs::formateur.show', compact('itemFormateur'));

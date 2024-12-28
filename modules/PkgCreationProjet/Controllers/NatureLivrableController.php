@@ -85,7 +85,7 @@ class NatureLivrableController extends AdminController
         $itemNatureLivrable = $this->natureLivrableService->find($id);
 
         if (request()->ajax()) {
-            return view('PkgCreationProjet::naturelivrable._fields', compact('itemNatureLivrable'));
+            return view('PkgCreationProjet::natureLivrable._fields', compact('itemNatureLivrable'));
         }
 
         return view('PkgCreationProjet::naturelivrable.show', compact('itemNatureLivrable'));

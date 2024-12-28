@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
         modalSelector: '#featureModal',  // Sélecteur du modal
         create_title: '{{__("Core::msg.add") . " : " . __("Core::feature.singular") }}',
         edit_title: '{{__("Core::msg.add") . " : " . __("Core::feature.singular") }}',
-        
+
     });
     featureCrud.init(); // Initialisation des fonctionnalités CRUD
 });

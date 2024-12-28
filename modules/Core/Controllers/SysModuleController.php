@@ -85,7 +85,7 @@ class SysModuleController extends AdminController
         $itemSysModule = $this->sysModuleService->find($id);
 
         if (request()->ajax()) {
-            return view('Core::sysmodule._fields', compact('itemSysModule'));
+            return view('Core::sysModule._fields', compact('itemSysModule'));
         }
 
         return view('Core::sysmodule.show', compact('itemSysModule'));

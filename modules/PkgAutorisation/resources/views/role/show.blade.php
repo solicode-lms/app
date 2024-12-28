@@ -10,7 +10,7 @@
                     <h1>{{ __('Core::msg.detail') }}</h1>
                 </div>
                 <div class="col-sm-6">
-                    <a href="{{ route('roles.edit', $item->id) }}" class="btn btn-default float-right">
+                    <a href="{{ route('roles.edit', $itemRole->id) }}" class="btn btn-default float-right">
                         <i class="far fa-edit"></i>
                         {{ __('Core::msg.edit') }}
                     </a>
@@ -26,11 +26,11 @@
                         <div class="card-body">
                             <div class="col-sm-12">
                                 <label for="name">{{ ucfirst(__('PkgAutorisation::role.name')) }}:</label>
-                                <p>{{ $item->name }}</p>
+                                <p>{{ $itemRole->name }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="guard_name">{{ ucfirst(__('PkgAutorisation::role.guard_name')) }}:</label>
-                                <p>{{ $item->guard_name }}</p>
+                                <p>{{ $itemRole->guard_name }}</p>
                             </div>
                         </div>
                     </div>

@@ -97,9 +97,11 @@ class PermissionController extends AdminController
     public function show(string $id)
     {
         $itemPermission = $this->permissionService->find($id);
+        $features = $this->featureService->all();
+        $roles = $this->roleService->all();
 
         if (request()->ajax()) {
-            return view('PkgAutorisation::permission._fields', compact('itemPermission'));
+            return view('PkgAutorisation::permission._fields', compact('itemPermission', 'features', 'roles'));
         }
 
         return view('PkgAutorisation::permission.show', compact('itemPermission'));

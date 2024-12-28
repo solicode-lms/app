@@ -10,7 +10,7 @@
                     <h1>{{ __('Core::msg.detail') }}</h1>
                 </div>
                 <div class="col-sm-6">
-                    <a href="{{ route('livrables.edit', $item->id) }}" class="btn btn-default float-right">
+                    <a href="{{ route('livrables.edit', $itemLivrable->id) }}" class="btn btn-default float-right">
                         <i class="far fa-edit"></i>
                         {{ __('Core::msg.edit') }}
                     </a>
@@ -26,19 +26,19 @@
                         <div class="card-body">
                             <div class="col-sm-12">
                                 <label for="titre">{{ ucfirst(__('PkgCreationProjet::livrable.titre')) }}:</label>
-                                <p>{{ $item->titre }}</p>
+                                <p>{{ $itemLivrable->titre }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="description">{{ ucfirst(__('PkgCreationProjet::livrable.description')) }}:</label>
-                                <p>{{ $item->description }}</p>
+                                <p>{{ $itemLivrable->description }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="projet_id">{{ ucfirst(__('PkgCreationProjet::livrable.projet_id')) }}:</label>
-                                <p>{{ $item->projet_id }}</p>
+                                <p>{{ $itemLivrable->projet_id }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="nature_livrable_id">{{ ucfirst(__('PkgCreationProjet::livrable.nature_livrable_id')) }}:</label>
-                                <p>{{ $item->nature_livrable_id }}</p>
+                                <p>{{ $itemLivrable->nature_livrable_id }}</p>
                             </div>
                         </div>
                     </div>

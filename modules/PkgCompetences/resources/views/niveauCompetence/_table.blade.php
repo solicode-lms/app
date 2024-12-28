@@ -31,8 +31,7 @@
                             <form action="{{ route('niveauCompetences.destroy', $niveauCompetence) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$niveauCompetence->id}}"
-                                    onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce niveaucompetence ?')">
+                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$niveauCompetence->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>

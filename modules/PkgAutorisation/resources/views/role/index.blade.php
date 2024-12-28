@@ -17,7 +17,10 @@ document.addEventListener("DOMContentLoaded", function () {
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         tableSelector: '#rolesTable', // Sélecteur du tableau HTML
         formSelector: '#roleForm',   // Sélecteur du formulaire
-        modalSelector: '#roleModal'  // Sélecteur du modal
+        modalSelector: '#roleModal',  // Sélecteur du modal
+        create_title: '{{__("Core::msg.add") . " : " . __("PkgAutorisation::role.singular") }}',
+        edit_title: '{{__("Core::msg.add") . " : " . __("PkgAutorisation::role.singular") }}',
+
     });
     roleCrud.init(); // Initialisation des fonctionnalités CRUD
 });

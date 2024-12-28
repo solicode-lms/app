@@ -10,7 +10,7 @@
                     <h1>{{ __('Core::msg.detail') }}</h1>
                 </div>
                 <div class="col-sm-6">
-                    <a href="{{ route('resources.edit', $item->id) }}" class="btn btn-default float-right">
+                    <a href="{{ route('resources.edit', $itemResource->id) }}" class="btn btn-default float-right">
                         <i class="far fa-edit"></i>
                         {{ __('Core::msg.edit') }}
                     </a>
@@ -26,19 +26,19 @@
                         <div class="card-body">
                             <div class="col-sm-12">
                                 <label for="nom">{{ ucfirst(__('PkgCreationProjet::resource.nom')) }}:</label>
-                                <p>{{ $item->nom }}</p>
+                                <p>{{ $itemResource->nom }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="lien">{{ ucfirst(__('PkgCreationProjet::resource.lien')) }}:</label>
-                                <p>{{ $item->lien }}</p>
+                                <p>{{ $itemResource->lien }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="description">{{ ucfirst(__('PkgCreationProjet::resource.description')) }}:</label>
-                                <p>{{ $item->description }}</p>
+                                <p>{{ $itemResource->description }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="projet_id">{{ ucfirst(__('PkgCreationProjet::resource.projet_id')) }}:</label>
-                                <p>{{ $item->projet_id }}</p>
+                                <p>{{ $itemResource->projet_id }}</p>
                             </div>
                         </div>
                     </div>

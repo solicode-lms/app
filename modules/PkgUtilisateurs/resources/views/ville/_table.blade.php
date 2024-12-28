@@ -27,8 +27,7 @@
                             <form action="{{ route('villes.destroy', $ville) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$ville->id}}"
-                                    onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce ville ?')">
+                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$ville->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>

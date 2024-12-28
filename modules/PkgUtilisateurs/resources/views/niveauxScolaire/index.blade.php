@@ -17,7 +17,10 @@ document.addEventListener("DOMContentLoaded", function () {
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         tableSelector: '#niveauxScolairesTable', // Sélecteur du tableau HTML
         formSelector: '#niveauxScolaireForm',   // Sélecteur du formulaire
-        modalSelector: '#niveauxScolaireModal'  // Sélecteur du modal
+        modalSelector: '#niveauxScolaireModal',  // Sélecteur du modal
+        create_title: '{{__("Core::msg.add") . " : " . __("PkgUtilisateurs::niveauxScolaire.singular") }}',
+        edit_title: '{{__("Core::msg.add") . " : " . __("PkgUtilisateurs::niveauxScolaire.singular") }}',
+
     });
     niveauxScolaireCrud.init(); // Initialisation des fonctionnalités CRUD
 });

@@ -17,7 +17,10 @@ document.addEventListener("DOMContentLoaded", function () {
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         tableSelector: '#groupesTable', // Sélecteur du tableau HTML
         formSelector: '#groupeForm',   // Sélecteur du formulaire
-        modalSelector: '#groupeModal'  // Sélecteur du modal
+        modalSelector: '#groupeModal',  // Sélecteur du modal
+        create_title: '{{__("Core::msg.add") . " : " . __("PkgUtilisateurs::groupe.singular") }}',
+        edit_title: '{{__("Core::msg.add") . " : " . __("PkgUtilisateurs::groupe.singular") }}',
+
     });
     groupeCrud.init(); // Initialisation des fonctionnalités CRUD
 });

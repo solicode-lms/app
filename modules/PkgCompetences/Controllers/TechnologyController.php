@@ -97,9 +97,11 @@ class TechnologyController extends AdminController
     public function show(string $id)
     {
         $itemTechnology = $this->technologyService->find($id);
+        $competences = $this->competenceService->all();
+        $transfertCompetences = $this->transfertCompetenceService->all();
 
         if (request()->ajax()) {
-            return view('PkgCompetences::technology._fields', compact('itemTechnology'));
+            return view('PkgCompetences::technology._fields', compact('itemTechnology', 'competences', 'transfertCompetences'));
         }
 
         return view('PkgCompetences::technology.show', compact('itemTechnology'));

@@ -35,8 +35,7 @@
                             <form action="{{ route('widgets.destroy', $widget) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$widget->id}}"
-                                    onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce widget ?')">
+                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$widget->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>

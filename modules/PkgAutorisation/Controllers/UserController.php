@@ -90,9 +90,10 @@ class UserController extends AdminController
     public function show(string $id)
     {
         $itemUser = $this->userService->find($id);
+        $roles = $this->roleService->all();
 
         if (request()->ajax()) {
-            return view('PkgAutorisation::user._fields', compact('itemUser'));
+            return view('PkgAutorisation::user._fields', compact('itemUser', 'roles'));
         }
 
         return view('PkgAutorisation::user.show', compact('itemUser'));

@@ -90,9 +90,10 @@ class GroupeController extends AdminController
     public function show(string $id)
     {
         $itemGroupe = $this->groupeService->find($id);
+        $formateurs = $this->formateurService->all();
 
         if (request()->ajax()) {
-            return view('PkgUtilisateurs::groupe._fields', compact('itemGroupe'));
+            return view('PkgUtilisateurs::groupe._fields', compact('itemGroupe', 'formateurs'));
         }
 
         return view('PkgUtilisateurs::groupe.show', compact('itemGroupe'));

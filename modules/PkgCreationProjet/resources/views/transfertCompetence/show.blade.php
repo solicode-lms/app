@@ -10,7 +10,7 @@
                     <h1>{{ __('Core::msg.detail') }}</h1>
                 </div>
                 <div class="col-sm-6">
-                    <a href="{{ route('transfertCompetences.edit', $item->id) }}" class="btn btn-default float-right">
+                    <a href="{{ route('transfertCompetences.edit', $itemTransfertCompetence->id) }}" class="btn btn-default float-right">
                         <i class="far fa-edit"></i>
                         {{ __('Core::msg.edit') }}
                     </a>
@@ -26,19 +26,19 @@
                         <div class="card-body">
                             <div class="col-sm-12">
                                 <label for="description">{{ ucfirst(__('PkgCreationProjet::transfertCompetence.description')) }}:</label>
-                                <p>{{ $item->description }}</p>
+                                <p>{{ $itemTransfertCompetence->description }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="projet_id">{{ ucfirst(__('PkgCreationProjet::transfertCompetence.projet_id')) }}:</label>
-                                <p>{{ $item->projet_id }}</p>
+                                <p>{{ $itemTransfertCompetence->projet_id }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="competence_id">{{ ucfirst(__('PkgCreationProjet::transfertCompetence.competence_id')) }}:</label>
-                                <p>{{ $item->competence_id }}</p>
+                                <p>{{ $itemTransfertCompetence->competence_id }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="appreciation_id">{{ ucfirst(__('PkgCreationProjet::transfertCompetence.appreciation_id')) }}:</label>
-                                <p>{{ $item->appreciation_id }}</p>
+                                <p>{{ $itemTransfertCompetence->appreciation_id }}</p>
                             </div>
                         </div>
                     </div>

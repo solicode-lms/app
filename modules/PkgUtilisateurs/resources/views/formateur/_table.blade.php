@@ -31,8 +31,7 @@
                             <form action="{{ route('formateurs.destroy', $formateur) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$formateur->id}}"
-                                    onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce formateur ?')">
+                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$formateur->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>

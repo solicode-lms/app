@@ -10,7 +10,7 @@
                     <h1>{{ __('Core::msg.detail') }}</h1>
                 </div>
                 <div class="col-sm-6">
-                    <a href="{{ route('sysColors.edit', $item->id) }}" class="btn btn-default float-right">
+                    <a href="{{ route('sysColors.edit', $itemSysColor->id) }}" class="btn btn-default float-right">
                         <i class="far fa-edit"></i>
                         {{ __('Core::msg.edit') }}
                     </a>
@@ -26,11 +26,11 @@
                         <div class="card-body">
                             <div class="col-sm-12">
                                 <label for="name">{{ ucfirst(__('Core::sysColor.name')) }}:</label>
-                                <p>{{ $item->name }}</p>
+                                <p>{{ $itemSysColor->name }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="hex">{{ ucfirst(__('Core::sysColor.hex')) }}:</label>
-                                <p>{{ $item->hex }}</p>
+                                <p>{{ $itemSysColor->hex }}</p>
                             </div>
                         </div>
                     </div>

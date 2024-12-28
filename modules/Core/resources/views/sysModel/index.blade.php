@@ -17,7 +17,10 @@ document.addEventListener("DOMContentLoaded", function () {
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         tableSelector: '#sysModelsTable', // Sélecteur du tableau HTML
         formSelector: '#sysModelForm',   // Sélecteur du formulaire
-        modalSelector: '#sysModelModal'  // Sélecteur du modal
+        modalSelector: '#sysModelModal',  // Sélecteur du modal
+        create_title: '{{__("Core::msg.add") . " : " . __("Core::sysModel.singular") }}',
+        edit_title: '{{__("Core::msg.add") . " : " . __("Core::sysModel.singular") }}',
+
     });
     sysModelCrud.init(); // Initialisation des fonctionnalités CRUD
 });

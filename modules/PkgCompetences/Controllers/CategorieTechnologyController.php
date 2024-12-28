@@ -85,7 +85,7 @@ class CategorieTechnologyController extends AdminController
         $itemCategorieTechnology = $this->categorieTechnologyService->find($id);
 
         if (request()->ajax()) {
-            return view('PkgCompetences::categorietechnology._fields', compact('itemCategorieTechnology'));
+            return view('PkgCompetences::categorieTechnology._fields', compact('itemCategorieTechnology'));
         }
 
         return view('PkgCompetences::categorietechnology.show', compact('itemCategorieTechnology'));

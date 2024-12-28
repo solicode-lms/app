@@ -31,8 +31,7 @@
                             <form action="{{ route('filieres.destroy', $filiere) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$filiere->id}}"
-                                    onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce filiere ?')">
+                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$filiere->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>

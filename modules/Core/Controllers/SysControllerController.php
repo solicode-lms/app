@@ -85,7 +85,7 @@ class SysControllerController extends AdminController
         $itemSysController = $this->sysControllerService->find($id);
 
         if (request()->ajax()) {
-            return view('Core::syscontroller._fields', compact('itemSysController'));
+            return view('Core::sysController._fields', compact('itemSysController'));
         }
 
         return view('Core::syscontroller.show', compact('itemSysController'));

@@ -85,7 +85,7 @@ class SysModelController extends AdminController
         $itemSysModel = $this->sysModelService->find($id);
 
         if (request()->ajax()) {
-            return view('Core::sysmodel._fields', compact('itemSysModel'));
+            return view('Core::sysModel._fields', compact('itemSysModel'));
         }
 
         return view('Core::sysmodel.show', compact('itemSysModel'));

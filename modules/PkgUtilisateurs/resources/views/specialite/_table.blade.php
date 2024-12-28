@@ -29,8 +29,7 @@
                             <form action="{{ route('specialites.destroy', $specialite) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$specialite->id}}"
-                                    onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce specialite ?')">
+                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$specialite->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>

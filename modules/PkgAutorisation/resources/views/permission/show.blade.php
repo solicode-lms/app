@@ -10,7 +10,7 @@
                     <h1>{{ __('Core::msg.detail') }}</h1>
                 </div>
                 <div class="col-sm-6">
-                    <a href="{{ route('permissions.edit', $item->id) }}" class="btn btn-default float-right">
+                    <a href="{{ route('permissions.edit', $itemPermission->id) }}" class="btn btn-default float-right">
                         <i class="far fa-edit"></i>
                         {{ __('Core::msg.edit') }}
                     </a>
@@ -26,15 +26,15 @@
                         <div class="card-body">
                             <div class="col-sm-12">
                                 <label for="name">{{ ucfirst(__('PkgAutorisation::permission.name')) }}:</label>
-                                <p>{{ $item->name }}</p>
+                                <p>{{ $itemPermission->name }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="guard_name">{{ ucfirst(__('PkgAutorisation::permission.guard_name')) }}:</label>
-                                <p>{{ $item->guard_name }}</p>
+                                <p>{{ $itemPermission->guard_name }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="controller_id">{{ ucfirst(__('PkgAutorisation::permission.controller_id')) }}:</label>
-                                <p>{{ $item->controller_id }}</p>
+                                <p>{{ $itemPermission->controller_id }}</p>
                             </div>
                         </div>
                     </div>

@@ -31,8 +31,7 @@
                             <form action="{{ route('livrables.destroy', $livrable) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$livrable->id}}"
-                                    onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce livrable ?')">
+                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$livrable->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>

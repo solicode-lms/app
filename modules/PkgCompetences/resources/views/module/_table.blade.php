@@ -31,8 +31,7 @@
                             <form action="{{ route('modules.destroy', $module) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$module->id}}"
-                                    onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce module ?')">
+                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$module->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>

@@ -17,7 +17,10 @@ document.addEventListener("DOMContentLoaded", function () {
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         tableSelector: '#permissionsTable', // Sélecteur du tableau HTML
         formSelector: '#permissionForm',   // Sélecteur du formulaire
-        modalSelector: '#permissionModal'  // Sélecteur du modal
+        modalSelector: '#permissionModal',  // Sélecteur du modal
+        create_title: '{{__("Core::msg.add") . " : " . __("PkgAutorisation::permission.singular") }}',
+        edit_title: '{{__("Core::msg.add") . " : " . __("PkgAutorisation::permission.singular") }}',
+
     });
     permissionCrud.init(); // Initialisation des fonctionnalités CRUD
 });

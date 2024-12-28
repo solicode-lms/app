@@ -27,8 +27,7 @@
                             <form action="{{ route('roles.destroy', $role) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$role->id}}"
-                                    onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce role ?')">
+                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$role->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
