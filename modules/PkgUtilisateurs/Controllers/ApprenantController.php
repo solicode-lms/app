@@ -28,14 +28,14 @@ class ApprenantController extends AdminController
      */
     public function index(Request $request)
     {
-        $searchQuery = str_replace(' ', '%', $request->get('searchValue', ''));
+        $searchQuery = str_replace(' ', '%', $request->get('q', ''));
         $data = $this->apprenantService->paginate($searchQuery);
 
         if ($request->ajax()) {
             return view('PkgUtilisateurs::apprenant._table', compact('data'))->render();
         }
 
-        return view('PkgUtilisateurs::apprenant.index', compact('data'));
+        return view('PkgUtilisateurs::apprenant.index', compact('data','searchQuery'));
     }
 
     /**

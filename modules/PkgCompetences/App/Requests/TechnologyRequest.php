@@ -26,11 +26,11 @@ class TechnologyRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'nom.required' => __('validation.required', ['attribute' => __('PkgBlog::category.nom')]),
+            'nom.required' => __('validation.required', ['attribute' => __('PkgCompetences::Technology.nom')]),
             'nom.max' => __('validation.nomMax'),
-            'description.required' => __('validation.required', ['attribute' => __('PkgBlog::category.description')]),
+            'description.required' => __('validation.required', ['attribute' => __('PkgCompetences::Technology.description')]),
             'description.max' => __('validation.descriptionMax'),
-            'categorie_technologie_id.required' => __('validation.required', ['attribute' => __('PkgBlog::category.categorie_technologie_id')]),
+            'categorie_technologie_id.required' => __('validation.required', ['attribute' => __('PkgCompetences::Technology.categorie_technologie_id')]),
             'categorie_technologie_id.max' => __('validation.categorie_technologie_idMax')
         ];
     }

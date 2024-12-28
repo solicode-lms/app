@@ -4,10 +4,10 @@
 @section('title', curd_index_title('Core::sysModule'))
 @section('script')
 <script>
-
-document.addEventListener("DOMContentLoaded", function () {
-    const sysModuleCrud = new GappCrud({
+    window.entitiesConfig = window.entitiesConfig || [];
+    window.entitiesConfig.push({
         entity_name: 'sysModule',
+        crudSelector: '#sysModule_crud',
         indexUrl: '{{ route('sysModules.index') }}', 
         createUrl: '{{ route('sysModules.create') }}',
         editUrl: '{{ route('sysModules.edit', ['sysModule' => ':id']) }}',
@@ -15,15 +15,9 @@ document.addEventListener("DOMContentLoaded", function () {
         storeUrl: '{{ route('sysModules.store') }}', 
         deleteUrl: '{{ route('sysModules.destroy', ['sysModule' => ':id']) }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
-        tableSelector: '#sysModulesTable', // Sélecteur du tableau HTML
-        formSelector: '#sysModuleForm',   // Sélecteur du formulaire
-        modalSelector: '#sysModuleModal',  // Sélecteur du modal
         create_title: '{{__("Core::msg.add") . " : " . __("Core::sysModule.singular") }}',
         edit_title: '{{__("Core::msg.add") . " : " . __("Core::sysModule.singular") }}',
-
     });
-    sysModuleCrud.init(); // Initialisation des fonctionnalités CRUD
-});
 </script>
 @endsection
 @section('content')

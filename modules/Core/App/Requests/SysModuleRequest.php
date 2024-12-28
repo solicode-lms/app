@@ -30,19 +30,19 @@ class SysModuleRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required' => __('validation.required', ['attribute' => __('PkgBlog::category.name')]),
+            'name.required' => __('validation.required', ['attribute' => __('Core::SysModule.name')]),
             'name.max' => __('validation.nameMax'),
-            'slug.required' => __('validation.required', ['attribute' => __('PkgBlog::category.slug')]),
+            'slug.required' => __('validation.required', ['attribute' => __('Core::SysModule.slug')]),
             'slug.max' => __('validation.slugMax'),
-            'description.required' => __('validation.required', ['attribute' => __('PkgBlog::category.description')]),
+            'description.required' => __('validation.required', ['attribute' => __('Core::SysModule.description')]),
             'description.max' => __('validation.descriptionMax'),
-            'is_active.required' => __('validation.required', ['attribute' => __('PkgBlog::category.is_active')]),
+            'is_active.required' => __('validation.required', ['attribute' => __('Core::SysModule.is_active')]),
             'is_active.max' => __('validation.is_activeMax'),
-            'order.required' => __('validation.required', ['attribute' => __('PkgBlog::category.order')]),
+            'order.required' => __('validation.required', ['attribute' => __('Core::SysModule.order')]),
             'order.max' => __('validation.orderMax'),
-            'version.required' => __('validation.required', ['attribute' => __('PkgBlog::category.version')]),
+            'version.required' => __('validation.required', ['attribute' => __('Core::SysModule.version')]),
             'version.max' => __('validation.versionMax'),
-            'color_id.required' => __('validation.required', ['attribute' => __('PkgBlog::category.color_id')]),
+            'color_id.required' => __('validation.required', ['attribute' => __('Core::SysModule.color_id')]),
             'color_id.max' => __('validation.color_idMax')
         ];
     }

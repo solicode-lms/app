@@ -1,6 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form id="specialiteForm" action="{{ $itemSpecialite->id ? route('specialites.update', $itemSpecialite->id) : route('specialites.store') }}" method="POST">
+<form class="crud-form" id="specialiteForm" action="{{ $itemSpecialite->id ? route('specialites.update', $itemSpecialite->id) : route('specialites.store') }}" method="POST">
     @csrf
 
     @if ($itemSpecialite->id)
@@ -80,7 +80,7 @@
 
 
     <div class="card-footer">
-        <a href="{{ route('specialites.index') }}" id="specialite_form_cancel" class="btn btn-default">{{ __('Core::msg.cancel') }}</a>
+        <a href="{{ route('specialites.index') }}" class="btn btn-default form-cancel-button">{{ __('Core::msg.cancel') }}</a>
         <button type="submit" class="btn btn-info ml-2">{{ $itemSpecialite->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
@@ -90,3 +90,5 @@
         
     ];
 </script>
+
+

@@ -25,9 +25,9 @@ class RoleRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required' => __('validation.required', ['attribute' => __('PkgBlog::category.name')]),
+            'name.required' => __('validation.required', ['attribute' => __('PkgAutorisation::Role.name')]),
             'name.max' => __('validation.nameMax'),
-            'guard_name.required' => __('validation.required', ['attribute' => __('PkgBlog::category.guard_name')]),
+            'guard_name.required' => __('validation.required', ['attribute' => __('PkgAutorisation::Role.guard_name')]),
             'guard_name.max' => __('validation.guard_nameMax')
         ];
     }

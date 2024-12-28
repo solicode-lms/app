@@ -28,14 +28,14 @@ class NatureLivrableController extends AdminController
      */
     public function index(Request $request)
     {
-        $searchQuery = str_replace(' ', '%', $request->get('searchValue', ''));
+        $searchQuery = str_replace(' ', '%', $request->get('q', ''));
         $data = $this->natureLivrableService->paginate($searchQuery);
 
         if ($request->ajax()) {
             return view('PkgCreationProjet::natureLivrable._table', compact('data'))->render();
         }
 
-        return view('PkgCreationProjet::natureLivrable.index', compact('data'));
+        return view('PkgCreationProjet::natureLivrable.index', compact('data','searchQuery'));
     }
 
     /**

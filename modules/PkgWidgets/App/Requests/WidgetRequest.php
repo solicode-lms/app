@@ -31,21 +31,21 @@ class WidgetRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required' => __('validation.required', ['attribute' => __('PkgBlog::category.name')]),
+            'name.required' => __('validation.required', ['attribute' => __('PkgWidgets::Widget.name')]),
             'name.max' => __('validation.nameMax'),
-            'type_id.required' => __('validation.required', ['attribute' => __('PkgBlog::category.type_id')]),
+            'type_id.required' => __('validation.required', ['attribute' => __('PkgWidgets::Widget.type_id')]),
             'type_id.max' => __('validation.type_idMax'),
-            'model_id.required' => __('validation.required', ['attribute' => __('PkgBlog::category.model_id')]),
+            'model_id.required' => __('validation.required', ['attribute' => __('PkgWidgets::Widget.model_id')]),
             'model_id.max' => __('validation.model_idMax'),
-            'operation_id.required' => __('validation.required', ['attribute' => __('PkgBlog::category.operation_id')]),
+            'operation_id.required' => __('validation.required', ['attribute' => __('PkgWidgets::Widget.operation_id')]),
             'operation_id.max' => __('validation.operation_idMax'),
-            'color.required' => __('validation.required', ['attribute' => __('PkgBlog::category.color')]),
+            'color.required' => __('validation.required', ['attribute' => __('PkgWidgets::Widget.color')]),
             'color.max' => __('validation.colorMax'),
-            'icon.required' => __('validation.required', ['attribute' => __('PkgBlog::category.icon')]),
+            'icon.required' => __('validation.required', ['attribute' => __('PkgWidgets::Widget.icon')]),
             'icon.max' => __('validation.iconMax'),
-            'label.required' => __('validation.required', ['attribute' => __('PkgBlog::category.label')]),
+            'label.required' => __('validation.required', ['attribute' => __('PkgWidgets::Widget.label')]),
             'label.max' => __('validation.labelMax'),
-            'parameters.required' => __('validation.required', ['attribute' => __('PkgBlog::category.parameters')]),
+            'parameters.required' => __('validation.required', ['attribute' => __('PkgWidgets::Widget.parameters')]),
             'parameters.max' => __('validation.parametersMax')
         ];
     }

@@ -34,14 +34,14 @@ class FormateurController extends AdminController
      */
     public function index(Request $request)
     {
-        $searchQuery = str_replace(' ', '%', $request->get('searchValue', ''));
+        $searchQuery = str_replace(' ', '%', $request->get('q', ''));
         $data = $this->formateurService->paginate($searchQuery);
 
         if ($request->ajax()) {
             return view('PkgUtilisateurs::formateur._table', compact('data'))->render();
         }
 
-        return view('PkgUtilisateurs::formateur.index', compact('data'));
+        return view('PkgUtilisateurs::formateur.index', compact('data','searchQuery'));
     }
 
     /**

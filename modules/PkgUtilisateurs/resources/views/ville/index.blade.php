@@ -4,10 +4,10 @@
 @section('title', curd_index_title('PkgUtilisateurs::ville'))
 @section('script')
 <script>
-
-document.addEventListener("DOMContentLoaded", function () {
-    const villeCrud = new GappCrud({
+    window.entitiesConfig = window.entitiesConfig || [];
+    window.entitiesConfig.push({
         entity_name: 'ville',
+        crudSelector: '#ville_crud',
         indexUrl: '{{ route('villes.index') }}', 
         createUrl: '{{ route('villes.create') }}',
         editUrl: '{{ route('villes.edit', ['ville' => ':id']) }}',
@@ -15,15 +15,9 @@ document.addEventListener("DOMContentLoaded", function () {
         storeUrl: '{{ route('villes.store') }}', 
         deleteUrl: '{{ route('villes.destroy', ['ville' => ':id']) }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
-        tableSelector: '#villesTable', // Sélecteur du tableau HTML
-        formSelector: '#villeForm',   // Sélecteur du formulaire
-        modalSelector: '#villeModal',  // Sélecteur du modal
         create_title: '{{__("Core::msg.add") . " : " . __("PkgUtilisateurs::ville.singular") }}',
         edit_title: '{{__("Core::msg.add") . " : " . __("PkgUtilisateurs::ville.singular") }}',
-
     });
-    villeCrud.init(); // Initialisation des fonctionnalités CRUD
-});
 </script>
 @endsection
 @section('content')

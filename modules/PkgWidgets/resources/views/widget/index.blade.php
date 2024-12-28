@@ -4,10 +4,10 @@
 @section('title', curd_index_title('PkgWidgets::widget'))
 @section('script')
 <script>
-
-document.addEventListener("DOMContentLoaded", function () {
-    const widgetCrud = new GappCrud({
+    window.entitiesConfig = window.entitiesConfig || [];
+    window.entitiesConfig.push({
         entity_name: 'widget',
+        crudSelector: '#widget_crud',
         indexUrl: '{{ route('widgets.index') }}', 
         createUrl: '{{ route('widgets.create') }}',
         editUrl: '{{ route('widgets.edit', ['widget' => ':id']) }}',
@@ -15,15 +15,9 @@ document.addEventListener("DOMContentLoaded", function () {
         storeUrl: '{{ route('widgets.store') }}', 
         deleteUrl: '{{ route('widgets.destroy', ['widget' => ':id']) }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
-        tableSelector: '#widgetsTable', // Sélecteur du tableau HTML
-        formSelector: '#widgetForm',   // Sélecteur du formulaire
-        modalSelector: '#widgetModal',  // Sélecteur du modal
         create_title: '{{__("Core::msg.add") . " : " . __("PkgWidgets::widget.singular") }}',
         edit_title: '{{__("Core::msg.add") . " : " . __("PkgWidgets::widget.singular") }}',
-
     });
-    widgetCrud.init(); // Initialisation des fonctionnalités CRUD
-});
 </script>
 @endsection
 @section('content')

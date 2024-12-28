@@ -27,13 +27,13 @@ class GroupeRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'code.required' => __('validation.required', ['attribute' => __('PkgBlog::category.code')]),
+            'code.required' => __('validation.required', ['attribute' => __('PkgUtilisateurs::Groupe.code')]),
             'code.max' => __('validation.codeMax'),
-            'nom.required' => __('validation.required', ['attribute' => __('PkgBlog::category.nom')]),
+            'nom.required' => __('validation.required', ['attribute' => __('PkgUtilisateurs::Groupe.nom')]),
             'nom.max' => __('validation.nomMax'),
-            'description.required' => __('validation.required', ['attribute' => __('PkgBlog::category.description')]),
+            'description.required' => __('validation.required', ['attribute' => __('PkgUtilisateurs::Groupe.description')]),
             'description.max' => __('validation.descriptionMax'),
-            'filiere_id.required' => __('validation.required', ['attribute' => __('PkgBlog::category.filiere_id')]),
+            'filiere_id.required' => __('validation.required', ['attribute' => __('PkgUtilisateurs::Groupe.filiere_id')]),
             'filiere_id.max' => __('validation.filiere_idMax')
         ];
     }

@@ -1,6 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form id="filiereForm" action="{{ $itemFiliere->id ? route('filieres.update', $itemFiliere->id) : route('filieres.store') }}" method="POST">
+<form class="crud-form" id="filiereForm" action="{{ $itemFiliere->id ? route('filieres.update', $itemFiliere->id) : route('filieres.store') }}" method="POST">
     @csrf
 
     @if ($itemFiliere->id)
@@ -77,7 +77,7 @@
 
 
     <div class="card-footer">
-        <a href="{{ route('filieres.index') }}" id="filiere_form_cancel" class="btn btn-default">{{ __('Core::msg.cancel') }}</a>
+        <a href="{{ route('filieres.index') }}" class="btn btn-default form-cancel-button">{{ __('Core::msg.cancel') }}</a>
         <button type="submit" class="btn btn-info ml-2">{{ $itemFiliere->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
@@ -87,3 +87,5 @@
         
     ];
 </script>
+
+

@@ -28,14 +28,14 @@ class AppreciationController extends AdminController
      */
     public function index(Request $request)
     {
-        $searchQuery = str_replace(' ', '%', $request->get('searchValue', ''));
+        $searchQuery = str_replace(' ', '%', $request->get('q', ''));
         $data = $this->appreciationService->paginate($searchQuery);
 
         if ($request->ajax()) {
             return view('PkgCompetences::appreciation._table', compact('data'))->render();
         }
 
-        return view('PkgCompetences::appreciation.index', compact('data'));
+        return view('PkgCompetences::appreciation.index', compact('data','searchQuery'));
     }
 
     /**

@@ -4,10 +4,10 @@
 @section('title', curd_index_title('PkgCompetences::filiere'))
 @section('script')
 <script>
-
-document.addEventListener("DOMContentLoaded", function () {
-    const filiereCrud = new GappCrud({
+    window.entitiesConfig = window.entitiesConfig || [];
+    window.entitiesConfig.push({
         entity_name: 'filiere',
+        crudSelector: '#filiere_crud',
         indexUrl: '{{ route('filieres.index') }}', 
         createUrl: '{{ route('filieres.create') }}',
         editUrl: '{{ route('filieres.edit', ['filiere' => ':id']) }}',
@@ -15,15 +15,9 @@ document.addEventListener("DOMContentLoaded", function () {
         storeUrl: '{{ route('filieres.store') }}', 
         deleteUrl: '{{ route('filieres.destroy', ['filiere' => ':id']) }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
-        tableSelector: '#filieresTable', // Sélecteur du tableau HTML
-        formSelector: '#filiereForm',   // Sélecteur du formulaire
-        modalSelector: '#filiereModal',  // Sélecteur du modal
         create_title: '{{__("Core::msg.add") . " : " . __("PkgCompetences::filiere.singular") }}',
         edit_title: '{{__("Core::msg.add") . " : " . __("PkgCompetences::filiere.singular") }}',
-
     });
-    filiereCrud.init(); // Initialisation des fonctionnalités CRUD
-});
 </script>
 @endsection
 @section('content')

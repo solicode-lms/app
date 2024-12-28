@@ -28,14 +28,14 @@ class NiveauxScolaireController extends AdminController
      */
     public function index(Request $request)
     {
-        $searchQuery = str_replace(' ', '%', $request->get('searchValue', ''));
+        $searchQuery = str_replace(' ', '%', $request->get('q', ''));
         $data = $this->niveauxScolaireService->paginate($searchQuery);
 
         if ($request->ajax()) {
             return view('PkgUtilisateurs::niveauxScolaire._table', compact('data'))->render();
         }
 
-        return view('PkgUtilisateurs::niveauxScolaire.index', compact('data'));
+        return view('PkgUtilisateurs::niveauxScolaire.index', compact('data','searchQuery'));
     }
 
     /**

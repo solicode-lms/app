@@ -31,14 +31,14 @@ class UserController extends AdminController
      */
     public function index(Request $request)
     {
-        $searchQuery = str_replace(' ', '%', $request->get('searchValue', ''));
+        $searchQuery = str_replace(' ', '%', $request->get('q', ''));
         $data = $this->userService->paginate($searchQuery);
 
         if ($request->ajax()) {
             return view('PkgAutorisation::user._table', compact('data'))->render();
         }
 
-        return view('PkgAutorisation::user.index', compact('data'));
+        return view('PkgAutorisation::user.index', compact('data','searchQuery'));
     }
 
     /**

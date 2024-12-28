@@ -25,9 +25,9 @@ class WidgetTypeRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'type.required' => __('validation.required', ['attribute' => __('PkgBlog::category.type')]),
+            'type.required' => __('validation.required', ['attribute' => __('PkgWidgets::WidgetType.type')]),
             'type.max' => __('validation.typeMax'),
-            'description.required' => __('validation.required', ['attribute' => __('PkgBlog::category.description')]),
+            'description.required' => __('validation.required', ['attribute' => __('PkgWidgets::WidgetType.description')]),
             'description.max' => __('validation.descriptionMax')
         ];
     }

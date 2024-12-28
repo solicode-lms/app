@@ -1,6 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form id="competenceForm" action="{{ $itemCompetence->id ? route('competences.update', $itemCompetence->id) : route('competences.store') }}" method="POST">
+<form class="crud-form" id="competenceForm" action="{{ $itemCompetence->id ? route('competences.update', $itemCompetence->id) : route('competences.store') }}" method="POST">
     @csrf
 
     @if ($itemCompetence->id)
@@ -114,7 +114,7 @@
 
 
     <div class="card-footer">
-        <a href="{{ route('competences.index') }}" id="competence_form_cancel" class="btn btn-default">{{ __('Core::msg.cancel') }}</a>
+        <a href="{{ route('competences.index') }}" class="btn btn-default form-cancel-button">{{ __('Core::msg.cancel') }}</a>
         <button type="submit" class="btn btn-info ml-2">{{ $itemCompetence->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
@@ -131,3 +131,5 @@
         
     ];
 </script>
+
+

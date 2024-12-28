@@ -28,14 +28,14 @@ class ResourceController extends AdminController
      */
     public function index(Request $request)
     {
-        $searchQuery = str_replace(' ', '%', $request->get('searchValue', ''));
+        $searchQuery = str_replace(' ', '%', $request->get('q', ''));
         $data = $this->resourceService->paginate($searchQuery);
 
         if ($request->ajax()) {
             return view('PkgCreationProjet::resource._table', compact('data'))->render();
         }
 
-        return view('PkgCreationProjet::resource.index', compact('data'));
+        return view('PkgCreationProjet::resource.index', compact('data','searchQuery'));
     }
 
     /**

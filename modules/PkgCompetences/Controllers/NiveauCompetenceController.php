@@ -28,14 +28,14 @@ class NiveauCompetenceController extends AdminController
      */
     public function index(Request $request)
     {
-        $searchQuery = str_replace(' ', '%', $request->get('searchValue', ''));
+        $searchQuery = str_replace(' ', '%', $request->get('q', ''));
         $data = $this->niveauCompetenceService->paginate($searchQuery);
 
         if ($request->ajax()) {
             return view('PkgCompetences::niveauCompetence._table', compact('data'))->render();
         }
 
-        return view('PkgCompetences::niveauCompetence.index', compact('data'));
+        return view('PkgCompetences::niveauCompetence.index', compact('data','searchQuery'));
     }
 
     /**

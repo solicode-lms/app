@@ -28,14 +28,14 @@ class FeatureDomainController extends AdminController
      */
     public function index(Request $request)
     {
-        $searchQuery = str_replace(' ', '%', $request->get('searchValue', ''));
+        $searchQuery = str_replace(' ', '%', $request->get('q', ''));
         $data = $this->featureDomainService->paginate($searchQuery);
 
         if ($request->ajax()) {
             return view('Core::featureDomain._table', compact('data'))->render();
         }
 
-        return view('Core::featureDomain.index', compact('data'));
+        return view('Core::featureDomain.index', compact('data','searchQuery'));
     }
 
     /**

@@ -1,6 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form id="moduleForm" action="{{ $itemModule->id ? route('modules.update', $itemModule->id) : route('modules.store') }}" method="POST">
+<form class="crud-form" id="moduleForm" action="{{ $itemModule->id ? route('modules.update', $itemModule->id) : route('modules.store') }}" method="POST">
     @csrf
 
     @if ($itemModule->id)
@@ -92,7 +92,7 @@
 
 
     <div class="card-footer">
-        <a href="{{ route('modules.index') }}" id="module_form_cancel" class="btn btn-default">{{ __('Core::msg.cancel') }}</a>
+        <a href="{{ route('modules.index') }}" class="btn btn-default form-cancel-button">{{ __('Core::msg.cancel') }}</a>
         <button type="submit" class="btn btn-info ml-2">{{ $itemModule->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
@@ -109,3 +109,5 @@
         
     ];
 </script>
+
+

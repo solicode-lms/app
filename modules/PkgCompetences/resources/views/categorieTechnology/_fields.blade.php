@@ -1,6 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form id="categorieTechnologyForm" action="{{ $itemCategorieTechnology->id ? route('categorieTechnologies.update', $itemCategorieTechnology->id) : route('categorieTechnologies.store') }}" method="POST">
+<form class="crud-form" id="categorieTechnologyForm" action="{{ $itemCategorieTechnology->id ? route('categorieTechnologies.update', $itemCategorieTechnology->id) : route('categorieTechnologies.store') }}" method="POST">
     @csrf
 
     @if ($itemCategorieTechnology->id)
@@ -58,7 +58,7 @@
 
 
     <div class="card-footer">
-        <a href="{{ route('categorieTechnologies.index') }}" id="categorieTechnology_form_cancel" class="btn btn-default">{{ __('Core::msg.cancel') }}</a>
+        <a href="{{ route('categorieTechnologies.index') }}" class="btn btn-default form-cancel-button">{{ __('Core::msg.cancel') }}</a>
         <button type="submit" class="btn btn-info ml-2">{{ $itemCategorieTechnology->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
@@ -68,3 +68,5 @@
         
     ];
 </script>
+
+

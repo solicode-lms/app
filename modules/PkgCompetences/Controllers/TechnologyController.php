@@ -34,14 +34,14 @@ class TechnologyController extends AdminController
      */
     public function index(Request $request)
     {
-        $searchQuery = str_replace(' ', '%', $request->get('searchValue', ''));
+        $searchQuery = str_replace(' ', '%', $request->get('q', ''));
         $data = $this->technologyService->paginate($searchQuery);
 
         if ($request->ajax()) {
             return view('PkgCompetences::technology._table', compact('data'))->render();
         }
 
-        return view('PkgCompetences::technology.index', compact('data'));
+        return view('PkgCompetences::technology.index', compact('data','searchQuery'));
     }
 
     /**

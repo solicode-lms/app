@@ -4,10 +4,10 @@
 @section('title', curd_index_title('PkgUtilisateurs::apprenant'))
 @section('script')
 <script>
-
-document.addEventListener("DOMContentLoaded", function () {
-    const apprenantCrud = new GappCrud({
+    window.entitiesConfig = window.entitiesConfig || [];
+    window.entitiesConfig.push({
         entity_name: 'apprenant',
+        crudSelector: '#apprenant_crud',
         indexUrl: '{{ route('apprenants.index') }}', 
         createUrl: '{{ route('apprenants.create') }}',
         editUrl: '{{ route('apprenants.edit', ['apprenant' => ':id']) }}',
@@ -15,15 +15,9 @@ document.addEventListener("DOMContentLoaded", function () {
         storeUrl: '{{ route('apprenants.store') }}', 
         deleteUrl: '{{ route('apprenants.destroy', ['apprenant' => ':id']) }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
-        tableSelector: '#apprenantsTable', // Sélecteur du tableau HTML
-        formSelector: '#apprenantForm',   // Sélecteur du formulaire
-        modalSelector: '#apprenantModal',  // Sélecteur du modal
         create_title: '{{__("Core::msg.add") . " : " . __("PkgUtilisateurs::apprenant.singular") }}',
         edit_title: '{{__("Core::msg.add") . " : " . __("PkgUtilisateurs::apprenant.singular") }}',
-
     });
-    apprenantCrud.init(); // Initialisation des fonctionnalités CRUD
-});
 </script>
 @endsection
 @section('content')

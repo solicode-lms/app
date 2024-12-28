@@ -25,9 +25,9 @@ class WidgetOperationRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'operation.required' => __('validation.required', ['attribute' => __('PkgBlog::category.operation')]),
+            'operation.required' => __('validation.required', ['attribute' => __('PkgWidgets::WidgetOperation.operation')]),
             'operation.max' => __('validation.operationMax'),
-            'description.required' => __('validation.required', ['attribute' => __('PkgBlog::category.description')]),
+            'description.required' => __('validation.required', ['attribute' => __('PkgWidgets::WidgetOperation.description')]),
             'description.max' => __('validation.descriptionMax')
         ];
     }

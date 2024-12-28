@@ -28,14 +28,14 @@ class NationaliteController extends AdminController
      */
     public function index(Request $request)
     {
-        $searchQuery = str_replace(' ', '%', $request->get('searchValue', ''));
+        $searchQuery = str_replace(' ', '%', $request->get('q', ''));
         $data = $this->nationaliteService->paginate($searchQuery);
 
         if ($request->ajax()) {
             return view('PkgUtilisateurs::nationalite._table', compact('data'))->render();
         }
 
-        return view('PkgUtilisateurs::nationalite.index', compact('data'));
+        return view('PkgUtilisateurs::nationalite.index', compact('data','searchQuery'));
     }
 
     /**

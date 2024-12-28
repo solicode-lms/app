@@ -1,6 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form id="featureForm" action="{{ $itemFeature->id ? route('features.update', $itemFeature->id) : route('features.store') }}" method="POST">
+<form class="crud-form" id="featureForm" action="{{ $itemFeature->id ? route('features.update', $itemFeature->id) : route('features.store') }}" method="POST">
     @csrf
 
     @if ($itemFeature->id)
@@ -93,7 +93,7 @@
 
 
     <div class="card-footer">
-        <a href="{{ route('features.index') }}" id="feature_form_cancel" class="btn btn-default">{{ __('Core::msg.cancel') }}</a>
+        <a href="{{ route('features.index') }}" class="btn btn-default form-cancel-button">{{ __('Core::msg.cancel') }}</a>
         <button type="submit" class="btn btn-info ml-2">{{ $itemFeature->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
@@ -110,3 +110,5 @@
         
     ];
 </script>
+
+

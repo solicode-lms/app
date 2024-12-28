@@ -4,10 +4,10 @@
 @section('title', curd_index_title('PkgAutorisation::user'))
 @section('script')
 <script>
-
-document.addEventListener("DOMContentLoaded", function () {
-    const userCrud = new GappCrud({
+    window.entitiesConfig = window.entitiesConfig || [];
+    window.entitiesConfig.push({
         entity_name: 'user',
+        crudSelector: '#user_crud',
         indexUrl: '{{ route('users.index') }}', 
         createUrl: '{{ route('users.create') }}',
         editUrl: '{{ route('users.edit', ['user' => ':id']) }}',
@@ -15,15 +15,9 @@ document.addEventListener("DOMContentLoaded", function () {
         storeUrl: '{{ route('users.store') }}', 
         deleteUrl: '{{ route('users.destroy', ['user' => ':id']) }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
-        tableSelector: '#usersTable', // Sélecteur du tableau HTML
-        formSelector: '#userForm',   // Sélecteur du formulaire
-        modalSelector: '#userModal',  // Sélecteur du modal
         create_title: '{{__("Core::msg.add") . " : " . __("PkgAutorisation::user.singular") }}',
         edit_title: '{{__("Core::msg.add") . " : " . __("PkgAutorisation::user.singular") }}',
-
     });
-    userCrud.init(); // Initialisation des fonctionnalités CRUD
-});
 </script>
 @endsection
 @section('content')

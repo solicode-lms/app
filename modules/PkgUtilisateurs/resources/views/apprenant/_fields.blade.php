@@ -1,6 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form id="apprenantForm" action="{{ $itemApprenant->id ? route('apprenants.update', $itemApprenant->id) : route('apprenants.store') }}" method="POST">
+<form class="crud-form" id="apprenantForm" action="{{ $itemApprenant->id ? route('apprenants.update', $itemApprenant->id) : route('apprenants.store') }}" method="POST">
     @csrf
 
     @if ($itemApprenant->id)
@@ -336,7 +336,7 @@
 
 
     <div class="card-footer">
-        <a href="{{ route('apprenants.index') }}" id="apprenant_form_cancel" class="btn btn-default">{{ __('Core::msg.cancel') }}</a>
+        <a href="{{ route('apprenants.index') }}" class="btn btn-default form-cancel-button">{{ __('Core::msg.cancel') }}</a>
         <button type="submit" class="btn btn-info ml-2">{{ $itemApprenant->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
@@ -367,3 +367,5 @@
         
     ];
 </script>
+
+

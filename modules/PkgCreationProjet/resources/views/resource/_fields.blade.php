@@ -1,6 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form id="resourceForm" action="{{ $itemResource->id ? route('resources.update', $itemResource->id) : route('resources.store') }}" method="POST">
+<form class="crud-form" id="resourceForm" action="{{ $itemResource->id ? route('resources.update', $itemResource->id) : route('resources.store') }}" method="POST">
     @csrf
 
     @if ($itemResource->id)
@@ -92,7 +92,7 @@
 
 
     <div class="card-footer">
-        <a href="{{ route('resources.index') }}" id="resource_form_cancel" class="btn btn-default">{{ __('Core::msg.cancel') }}</a>
+        <a href="{{ route('resources.index') }}" class="btn btn-default form-cancel-button">{{ __('Core::msg.cancel') }}</a>
         <button type="submit" class="btn btn-info ml-2">{{ $itemResource->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
@@ -109,3 +109,5 @@
         
     ];
 </script>
+
+

@@ -28,14 +28,14 @@ class WidgetOperationController extends AdminController
      */
     public function index(Request $request)
     {
-        $searchQuery = str_replace(' ', '%', $request->get('searchValue', ''));
+        $searchQuery = str_replace(' ', '%', $request->get('q', ''));
         $data = $this->widgetOperationService->paginate($searchQuery);
 
         if ($request->ajax()) {
             return view('PkgWidgets::widgetOperation._table', compact('data'))->render();
         }
 
-        return view('PkgWidgets::widgetOperation.index', compact('data'));
+        return view('PkgWidgets::widgetOperation.index', compact('data','searchQuery'));
     }
 
     /**

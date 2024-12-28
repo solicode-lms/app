@@ -27,13 +27,13 @@ class FeatureDomainRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required' => __('validation.required', ['attribute' => __('PkgBlog::category.name')]),
+            'name.required' => __('validation.required', ['attribute' => __('Core::FeatureDomain.name')]),
             'name.max' => __('validation.nameMax'),
-            'slug.required' => __('validation.required', ['attribute' => __('PkgBlog::category.slug')]),
+            'slug.required' => __('validation.required', ['attribute' => __('Core::FeatureDomain.slug')]),
             'slug.max' => __('validation.slugMax'),
-            'description.required' => __('validation.required', ['attribute' => __('PkgBlog::category.description')]),
+            'description.required' => __('validation.required', ['attribute' => __('Core::FeatureDomain.description')]),
             'description.max' => __('validation.descriptionMax'),
-            'module_id.required' => __('validation.required', ['attribute' => __('PkgBlog::category.module_id')]),
+            'module_id.required' => __('validation.required', ['attribute' => __('Core::FeatureDomain.module_id')]),
             'module_id.max' => __('validation.module_idMax')
         ];
     }

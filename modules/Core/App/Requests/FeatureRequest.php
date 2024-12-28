@@ -26,11 +26,11 @@ class FeatureRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required' => __('validation.required', ['attribute' => __('PkgBlog::category.name')]),
+            'name.required' => __('validation.required', ['attribute' => __('Core::Feature.name')]),
             'name.max' => __('validation.nameMax'),
-            'description.required' => __('validation.required', ['attribute' => __('PkgBlog::category.description')]),
+            'description.required' => __('validation.required', ['attribute' => __('Core::Feature.description')]),
             'description.max' => __('validation.descriptionMax'),
-            'domain_id.required' => __('validation.required', ['attribute' => __('PkgBlog::category.domain_id')]),
+            'domain_id.required' => __('validation.required', ['attribute' => __('Core::Feature.domain_id')]),
             'domain_id.max' => __('validation.domain_idMax')
         ];
     }

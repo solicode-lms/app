@@ -1,6 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form id="villeForm" action="{{ $itemVille->id ? route('villes.update', $itemVille->id) : route('villes.store') }}" method="POST">
+<form class="crud-form" id="villeForm" action="{{ $itemVille->id ? route('villes.update', $itemVille->id) : route('villes.store') }}" method="POST">
     @csrf
 
     @if ($itemVille->id)
@@ -39,7 +39,7 @@
 
 
     <div class="card-footer">
-        <a href="{{ route('villes.index') }}" id="ville_form_cancel" class="btn btn-default">{{ __('Core::msg.cancel') }}</a>
+        <a href="{{ route('villes.index') }}" class="btn btn-default form-cancel-button">{{ __('Core::msg.cancel') }}</a>
         <button type="submit" class="btn btn-info ml-2">{{ $itemVille->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
@@ -49,3 +49,5 @@
         
     ];
 </script>
+
+

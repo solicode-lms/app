@@ -4,10 +4,10 @@
 @section('title', curd_index_title('PkgCompetences::module'))
 @section('script')
 <script>
-
-document.addEventListener("DOMContentLoaded", function () {
-    const moduleCrud = new GappCrud({
+    window.entitiesConfig = window.entitiesConfig || [];
+    window.entitiesConfig.push({
         entity_name: 'module',
+        crudSelector: '#module_crud',
         indexUrl: '{{ route('modules.index') }}', 
         createUrl: '{{ route('modules.create') }}',
         editUrl: '{{ route('modules.edit', ['module' => ':id']) }}',
@@ -15,15 +15,9 @@ document.addEventListener("DOMContentLoaded", function () {
         storeUrl: '{{ route('modules.store') }}', 
         deleteUrl: '{{ route('modules.destroy', ['module' => ':id']) }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
-        tableSelector: '#modulesTable', // Sélecteur du tableau HTML
-        formSelector: '#moduleForm',   // Sélecteur du formulaire
-        modalSelector: '#moduleModal',  // Sélecteur du modal
         create_title: '{{__("Core::msg.add") . " : " . __("PkgCompetences::module.singular") }}',
         edit_title: '{{__("Core::msg.add") . " : " . __("PkgCompetences::module.singular") }}',
-
     });
-    moduleCrud.init(); // Initialisation des fonctionnalités CRUD
-});
 </script>
 @endsection
 @section('content')

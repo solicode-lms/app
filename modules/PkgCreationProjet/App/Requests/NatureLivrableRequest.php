@@ -25,9 +25,9 @@ class NatureLivrableRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'nom.required' => __('validation.required', ['attribute' => __('PkgBlog::category.nom')]),
+            'nom.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::NatureLivrable.nom')]),
             'nom.max' => __('validation.nomMax'),
-            'description.required' => __('validation.required', ['attribute' => __('PkgBlog::category.description')]),
+            'description.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::NatureLivrable.description')]),
             'description.max' => __('validation.descriptionMax')
         ];
     }

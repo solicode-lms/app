@@ -1,6 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-    <div id="sysController_crud">
+<div id="sysController_crud">
     <div class="content-header">
         @if (session('success'))
             <div class="alert alert-success alert-dismissible">
@@ -36,7 +36,7 @@
                         <div class="card-header col-md-12">
                             <div class="p-0">
                                 <div class="input-group input-group-sm float-sm-right col-md-3 p-0">
-                                    <input type="text" name="crud_search_input" id="crud_search_input"
+                                    <input type="text" value="{{$searchQuery}}" name="crud_search_input" id="crud_search_input"
                                            class="form-control float-right" placeholder="Recherche">
                                     <div class="input-group-append">
                                         <button type="submit" class="btn btn-default">
@@ -46,41 +46,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div id="data-container">
-                        @include('Core::sysController._table')
-
-<div class="d-md-flex justify-content-between align-items-center p-2">
-    <div class="d-flex align-items-center mb-2 ml-2 mt-2">
-        @can('import-sysController')
-            <form action="{{ route('sysControllers.import') }}" method="post" class="mt-2" enctype="multipart/form-data"
-                id="importForm">
-                @csrf
-                <label for="upload" class="btn btn-default btn-sm font-weight-normal">
-                    <i class="fas fa-file-download"></i>
-                    {{ __('Core::msg.import') }}
-                </label>
-                <input type="file" id="upload" name="file" style="display:none;" onchange="submitForm()" />
-            </form>
-        @endcan
-        @can('export-sysController')
-            <form class="">
-                <a href="{{ route('sysControllers.export') }}" class="btn btn-default btn-sm mt-0 mx-2">
-                    <i class="fas fa-file-export"></i>
-                    {{ __('Core::msg.export') }}</a>
-            </form>
-        @endcan
-    </div>
-
-    <ul class="pagination m-0 float-right">
-        {{ $data->onEachSide(1)->links() }}
-    </ul>
-</div>
-
-<script>
-    function submitForm() {
-        document.getElementById("importForm").submit();
-    }
-</script>
+                        <div class="data-container">
+                            @include('Core::sysController._table')
                         </div>
                     </div>
                 </div>
@@ -91,7 +58,7 @@
 
 
 <!-- Modal pour Ajouter/Modifier -->
-<div class="modal fade" id="sysControllerModal" tabindex="-1" role="dialog" aria-labelledby="sysControllerModalLabel" aria-hidden="true">
+<div class="modal fade crud-modal" id="sysControllerModal" tabindex="-1" role="dialog" aria-labelledby="sysControllerModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
 

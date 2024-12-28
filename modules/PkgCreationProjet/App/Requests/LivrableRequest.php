@@ -27,13 +27,13 @@ class LivrableRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'titre.required' => __('validation.required', ['attribute' => __('PkgBlog::category.titre')]),
+            'titre.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Livrable.titre')]),
             'titre.max' => __('validation.titreMax'),
-            'description.required' => __('validation.required', ['attribute' => __('PkgBlog::category.description')]),
+            'description.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Livrable.description')]),
             'description.max' => __('validation.descriptionMax'),
-            'projet_id.required' => __('validation.required', ['attribute' => __('PkgBlog::category.projet_id')]),
+            'projet_id.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Livrable.projet_id')]),
             'projet_id.max' => __('validation.projet_idMax'),
-            'nature_livrable_id.required' => __('validation.required', ['attribute' => __('PkgBlog::category.nature_livrable_id')]),
+            'nature_livrable_id.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Livrable.nature_livrable_id')]),
             'nature_livrable_id.max' => __('validation.nature_livrable_idMax')
         ];
     }

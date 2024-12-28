@@ -1,6 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form id="widgetOperationForm" action="{{ $itemWidgetOperation->id ? route('widgetOperations.update', $itemWidgetOperation->id) : route('widgetOperations.store') }}" method="POST">
+<form class="crud-form" id="widgetOperationForm" action="{{ $itemWidgetOperation->id ? route('widgetOperations.update', $itemWidgetOperation->id) : route('widgetOperations.store') }}" method="POST">
     @csrf
 
     @if ($itemWidgetOperation->id)
@@ -56,7 +56,7 @@
 
 
     <div class="card-footer">
-        <a href="{{ route('widgetOperations.index') }}" id="widgetOperation_form_cancel" class="btn btn-default">{{ __('Core::msg.cancel') }}</a>
+        <a href="{{ route('widgetOperations.index') }}" class="btn btn-default form-cancel-button">{{ __('Core::msg.cancel') }}</a>
         <button type="submit" class="btn btn-info ml-2">{{ $itemWidgetOperation->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
@@ -66,3 +66,5 @@
         
     ];
 </script>
+
+

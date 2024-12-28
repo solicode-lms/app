@@ -28,14 +28,14 @@ class VilleController extends AdminController
      */
     public function index(Request $request)
     {
-        $searchQuery = str_replace(' ', '%', $request->get('searchValue', ''));
+        $searchQuery = str_replace(' ', '%', $request->get('q', ''));
         $data = $this->villeService->paginate($searchQuery);
 
         if ($request->ajax()) {
             return view('PkgUtilisateurs::ville._table', compact('data'))->render();
         }
 
-        return view('PkgUtilisateurs::ville.index', compact('data'));
+        return view('PkgUtilisateurs::ville.index', compact('data','searchQuery'));
     }
 
     /**

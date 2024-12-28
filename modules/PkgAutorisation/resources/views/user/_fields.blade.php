@@ -1,6 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form id="userForm" action="{{ $itemUser->id ? route('users.update', $itemUser->id) : route('users.store') }}" method="POST">
+<form class="crud-form" id="userForm" action="{{ $itemUser->id ? route('users.update', $itemUser->id) : route('users.store') }}" method="POST">
     @csrf
 
     @if ($itemUser->id)
@@ -133,7 +133,7 @@
 
 
     <div class="card-footer">
-        <a href="{{ route('users.index') }}" id="user_form_cancel" class="btn btn-default">{{ __('Core::msg.cancel') }}</a>
+        <a href="{{ route('users.index') }}" class="btn btn-default form-cancel-button">{{ __('Core::msg.cancel') }}</a>
         <button type="submit" class="btn btn-info ml-2">{{ $itemUser->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
@@ -143,3 +143,5 @@
         
     ];
 </script>
+
+

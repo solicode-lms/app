@@ -1,6 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form id="apprenantKonosyForm" action="{{ $itemApprenantKonosy->id ? route('apprenantKonosies.update', $itemApprenantKonosy->id) : route('apprenantKonosies.store') }}" method="POST">
+<form class="crud-form" id="apprenantKonosyForm" action="{{ $itemApprenantKonosy->id ? route('apprenantKonosies.update', $itemApprenantKonosy->id) : route('apprenantKonosies.store') }}" method="POST">
     @csrf
 
     @if ($itemApprenantKonosy->id)
@@ -353,7 +353,7 @@
 
 
     <div class="card-footer">
-        <a href="{{ route('apprenantKonosies.index') }}" id="apprenantKonosy_form_cancel" class="btn btn-default">{{ __('Core::msg.cancel') }}</a>
+        <a href="{{ route('apprenantKonosies.index') }}" class="btn btn-default form-cancel-button">{{ __('Core::msg.cancel') }}</a>
         <button type="submit" class="btn btn-info ml-2">{{ $itemApprenantKonosy->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
@@ -363,3 +363,5 @@
         
     ];
 </script>
+
+

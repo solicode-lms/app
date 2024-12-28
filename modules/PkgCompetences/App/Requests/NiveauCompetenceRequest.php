@@ -26,11 +26,11 @@ class NiveauCompetenceRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'nom.required' => __('validation.required', ['attribute' => __('PkgBlog::category.nom')]),
+            'nom.required' => __('validation.required', ['attribute' => __('PkgCompetences::NiveauCompetence.nom')]),
             'nom.max' => __('validation.nomMax'),
-            'description.required' => __('validation.required', ['attribute' => __('PkgBlog::category.description')]),
+            'description.required' => __('validation.required', ['attribute' => __('PkgCompetences::NiveauCompetence.description')]),
             'description.max' => __('validation.descriptionMax'),
-            'competence_id.required' => __('validation.required', ['attribute' => __('PkgBlog::category.competence_id')]),
+            'competence_id.required' => __('validation.required', ['attribute' => __('PkgCompetences::NiveauCompetence.competence_id')]),
             'competence_id.max' => __('validation.competence_idMax')
         ];
     }

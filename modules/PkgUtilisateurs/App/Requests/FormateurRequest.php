@@ -34,27 +34,27 @@ class FormateurRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'matricule.required' => __('validation.required', ['attribute' => __('PkgBlog::category.matricule')]),
+            'matricule.required' => __('validation.required', ['attribute' => __('PkgUtilisateurs::Formateur.matricule')]),
             'matricule.max' => __('validation.matriculeMax'),
-            'nom.required' => __('validation.required', ['attribute' => __('PkgBlog::category.nom')]),
+            'nom.required' => __('validation.required', ['attribute' => __('PkgUtilisateurs::Formateur.nom')]),
             'nom.max' => __('validation.nomMax'),
-            'prenom.required' => __('validation.required', ['attribute' => __('PkgBlog::category.prenom')]),
+            'prenom.required' => __('validation.required', ['attribute' => __('PkgUtilisateurs::Formateur.prenom')]),
             'prenom.max' => __('validation.prenomMax'),
-            'prenom_arab.required' => __('validation.required', ['attribute' => __('PkgBlog::category.prenom_arab')]),
+            'prenom_arab.required' => __('validation.required', ['attribute' => __('PkgUtilisateurs::Formateur.prenom_arab')]),
             'prenom_arab.max' => __('validation.prenom_arabMax'),
-            'nom_arab.required' => __('validation.required', ['attribute' => __('PkgBlog::category.nom_arab')]),
+            'nom_arab.required' => __('validation.required', ['attribute' => __('PkgUtilisateurs::Formateur.nom_arab')]),
             'nom_arab.max' => __('validation.nom_arabMax'),
-            'tele_num.required' => __('validation.required', ['attribute' => __('PkgBlog::category.tele_num')]),
+            'tele_num.required' => __('validation.required', ['attribute' => __('PkgUtilisateurs::Formateur.tele_num')]),
             'tele_num.max' => __('validation.tele_numMax'),
-            'adresse.required' => __('validation.required', ['attribute' => __('PkgBlog::category.adresse')]),
+            'adresse.required' => __('validation.required', ['attribute' => __('PkgUtilisateurs::Formateur.adresse')]),
             'adresse.max' => __('validation.adresseMax'),
-            'diplome.required' => __('validation.required', ['attribute' => __('PkgBlog::category.diplome')]),
+            'diplome.required' => __('validation.required', ['attribute' => __('PkgUtilisateurs::Formateur.diplome')]),
             'diplome.max' => __('validation.diplomeMax'),
-            'echelle.required' => __('validation.required', ['attribute' => __('PkgBlog::category.echelle')]),
+            'echelle.required' => __('validation.required', ['attribute' => __('PkgUtilisateurs::Formateur.echelle')]),
             'echelle.max' => __('validation.echelleMax'),
-            'echelon.required' => __('validation.required', ['attribute' => __('PkgBlog::category.echelon')]),
+            'echelon.required' => __('validation.required', ['attribute' => __('PkgUtilisateurs::Formateur.echelon')]),
             'echelon.max' => __('validation.echelonMax'),
-            'profile_image.required' => __('validation.required', ['attribute' => __('PkgBlog::category.profile_image')]),
+            'profile_image.required' => __('validation.required', ['attribute' => __('PkgUtilisateurs::Formateur.profile_image')]),
             'profile_image.max' => __('validation.profile_imageMax')
         ];
     }

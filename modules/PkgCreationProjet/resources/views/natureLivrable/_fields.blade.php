@@ -1,6 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form id="natureLivrableForm" action="{{ $itemNatureLivrable->id ? route('natureLivrables.update', $itemNatureLivrable->id) : route('natureLivrables.store') }}" method="POST">
+<form class="crud-form" id="natureLivrableForm" action="{{ $itemNatureLivrable->id ? route('natureLivrables.update', $itemNatureLivrable->id) : route('natureLivrables.store') }}" method="POST">
     @csrf
 
     @if ($itemNatureLivrable->id)
@@ -58,7 +58,7 @@
 
 
     <div class="card-footer">
-        <a href="{{ route('natureLivrables.index') }}" id="natureLivrable_form_cancel" class="btn btn-default">{{ __('Core::msg.cancel') }}</a>
+        <a href="{{ route('natureLivrables.index') }}" class="btn btn-default form-cancel-button">{{ __('Core::msg.cancel') }}</a>
         <button type="submit" class="btn btn-info ml-2">{{ $itemNatureLivrable->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
@@ -68,3 +68,5 @@
         
     ];
 </script>
+
+

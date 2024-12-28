@@ -4,10 +4,10 @@
 @section('title', curd_index_title('PkgAutorisation::role'))
 @section('script')
 <script>
-
-document.addEventListener("DOMContentLoaded", function () {
-    const roleCrud = new GappCrud({
+    window.entitiesConfig = window.entitiesConfig || [];
+    window.entitiesConfig.push({
         entity_name: 'role',
+        crudSelector: '#role_crud',
         indexUrl: '{{ route('roles.index') }}', 
         createUrl: '{{ route('roles.create') }}',
         editUrl: '{{ route('roles.edit', ['role' => ':id']) }}',
@@ -15,15 +15,9 @@ document.addEventListener("DOMContentLoaded", function () {
         storeUrl: '{{ route('roles.store') }}', 
         deleteUrl: '{{ route('roles.destroy', ['role' => ':id']) }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
-        tableSelector: '#rolesTable', // Sélecteur du tableau HTML
-        formSelector: '#roleForm',   // Sélecteur du formulaire
-        modalSelector: '#roleModal',  // Sélecteur du modal
         create_title: '{{__("Core::msg.add") . " : " . __("PkgAutorisation::role.singular") }}',
         edit_title: '{{__("Core::msg.add") . " : " . __("PkgAutorisation::role.singular") }}',
-
     });
-    roleCrud.init(); // Initialisation des fonctionnalités CRUD
-});
 </script>
 @endsection
 @section('content')

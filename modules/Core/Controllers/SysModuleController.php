@@ -28,14 +28,14 @@ class SysModuleController extends AdminController
      */
     public function index(Request $request)
     {
-        $searchQuery = str_replace(' ', '%', $request->get('searchValue', ''));
+        $searchQuery = str_replace(' ', '%', $request->get('q', ''));
         $data = $this->sysModuleService->paginate($searchQuery);
 
         if ($request->ajax()) {
             return view('Core::sysModule._table', compact('data'))->render();
         }
 
-        return view('Core::sysModule.index', compact('data'));
+        return view('Core::sysModule.index', compact('data','searchQuery'));
     }
 
     /**

@@ -28,14 +28,14 @@ class ModuleController extends AdminController
      */
     public function index(Request $request)
     {
-        $searchQuery = str_replace(' ', '%', $request->get('searchValue', ''));
+        $searchQuery = str_replace(' ', '%', $request->get('q', ''));
         $data = $this->moduleService->paginate($searchQuery);
 
         if ($request->ajax()) {
             return view('PkgCompetences::module._table', compact('data'))->render();
         }
 
-        return view('PkgCompetences::module.index', compact('data'));
+        return view('PkgCompetences::module.index', compact('data','searchQuery'));
     }
 
     /**

@@ -1,6 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form id="groupeForm" action="{{ $itemGroupe->id ? route('groupes.update', $itemGroupe->id) : route('groupes.store') }}" method="POST">
+<form class="crud-form" id="groupeForm" action="{{ $itemGroupe->id ? route('groupes.update', $itemGroupe->id) : route('groupes.store') }}" method="POST">
     @csrf
 
     @if ($itemGroupe->id)
@@ -110,7 +110,7 @@
 
 
     <div class="card-footer">
-        <a href="{{ route('groupes.index') }}" id="groupe_form_cancel" class="btn btn-default">{{ __('Core::msg.cancel') }}</a>
+        <a href="{{ route('groupes.index') }}" class="btn btn-default form-cancel-button">{{ __('Core::msg.cancel') }}</a>
         <button type="submit" class="btn btn-info ml-2">{{ $itemGroupe->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
@@ -127,3 +127,5 @@
         
     ];
 </script>
+
+

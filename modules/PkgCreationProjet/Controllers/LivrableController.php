@@ -28,14 +28,14 @@ class LivrableController extends AdminController
      */
     public function index(Request $request)
     {
-        $searchQuery = str_replace(' ', '%', $request->get('searchValue', ''));
+        $searchQuery = str_replace(' ', '%', $request->get('q', ''));
         $data = $this->livrableService->paginate($searchQuery);
 
         if ($request->ajax()) {
             return view('PkgCreationProjet::livrable._table', compact('data'))->render();
         }
 
-        return view('PkgCreationProjet::livrable.index', compact('data'));
+        return view('PkgCreationProjet::livrable.index', compact('data','searchQuery'));
     }
 
     /**

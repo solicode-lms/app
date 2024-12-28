@@ -28,14 +28,14 @@ class SysModelController extends AdminController
      */
     public function index(Request $request)
     {
-        $searchQuery = str_replace(' ', '%', $request->get('searchValue', ''));
+        $searchQuery = str_replace(' ', '%', $request->get('q', ''));
         $data = $this->sysModelService->paginate($searchQuery);
 
         if ($request->ajax()) {
             return view('Core::sysModel._table', compact('data'))->render();
         }
 
-        return view('Core::sysModel.index', compact('data'));
+        return view('Core::sysModel.index', compact('data','searchQuery'));
     }
 
     /**

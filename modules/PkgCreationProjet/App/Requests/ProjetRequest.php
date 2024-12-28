@@ -30,19 +30,19 @@ class ProjetRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'titre.required' => __('validation.required', ['attribute' => __('PkgBlog::category.titre')]),
+            'titre.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Projet.titre')]),
             'titre.max' => __('validation.titreMax'),
-            'travail_a_faire.required' => __('validation.required', ['attribute' => __('PkgBlog::category.travail_a_faire')]),
+            'travail_a_faire.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Projet.travail_a_faire')]),
             'travail_a_faire.max' => __('validation.travail_a_faireMax'),
-            'critere_de_travail.required' => __('validation.required', ['attribute' => __('PkgBlog::category.critere_de_travail')]),
+            'critere_de_travail.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Projet.critere_de_travail')]),
             'critere_de_travail.max' => __('validation.critere_de_travailMax'),
-            'description.required' => __('validation.required', ['attribute' => __('PkgBlog::category.description')]),
+            'description.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Projet.description')]),
             'description.max' => __('validation.descriptionMax'),
-            'date_debut.required' => __('validation.required', ['attribute' => __('PkgBlog::category.date_debut')]),
+            'date_debut.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Projet.date_debut')]),
             'date_debut.max' => __('validation.date_debutMax'),
-            'date_fin.required' => __('validation.required', ['attribute' => __('PkgBlog::category.date_fin')]),
+            'date_fin.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Projet.date_fin')]),
             'date_fin.max' => __('validation.date_finMax'),
-            'formateur_id.required' => __('validation.required', ['attribute' => __('PkgBlog::category.formateur_id')]),
+            'formateur_id.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Projet.formateur_id')]),
             'formateur_id.max' => __('validation.formateur_idMax')
         ];
     }

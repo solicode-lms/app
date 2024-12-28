@@ -4,10 +4,10 @@
 @section('title', curd_index_title('PkgCompetences::niveauCompetence'))
 @section('script')
 <script>
-
-document.addEventListener("DOMContentLoaded", function () {
-    const niveauCompetenceCrud = new GappCrud({
+    window.entitiesConfig = window.entitiesConfig || [];
+    window.entitiesConfig.push({
         entity_name: 'niveauCompetence',
+        crudSelector: '#niveauCompetence_crud',
         indexUrl: '{{ route('niveauCompetences.index') }}', 
         createUrl: '{{ route('niveauCompetences.create') }}',
         editUrl: '{{ route('niveauCompetences.edit', ['niveauCompetence' => ':id']) }}',
@@ -15,15 +15,9 @@ document.addEventListener("DOMContentLoaded", function () {
         storeUrl: '{{ route('niveauCompetences.store') }}', 
         deleteUrl: '{{ route('niveauCompetences.destroy', ['niveauCompetence' => ':id']) }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
-        tableSelector: '#niveauCompetencesTable', // Sélecteur du tableau HTML
-        formSelector: '#niveauCompetenceForm',   // Sélecteur du formulaire
-        modalSelector: '#niveauCompetenceModal',  // Sélecteur du modal
         create_title: '{{__("Core::msg.add") . " : " . __("PkgCompetences::niveauCompetence.singular") }}',
         edit_title: '{{__("Core::msg.add") . " : " . __("PkgCompetences::niveauCompetence.singular") }}',
-
     });
-    niveauCompetenceCrud.init(); // Initialisation des fonctionnalités CRUD
-});
 </script>
 @endsection
 @section('content')

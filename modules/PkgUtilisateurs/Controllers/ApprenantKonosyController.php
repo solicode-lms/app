@@ -28,14 +28,14 @@ class ApprenantKonosyController extends AdminController
      */
     public function index(Request $request)
     {
-        $searchQuery = str_replace(' ', '%', $request->get('searchValue', ''));
+        $searchQuery = str_replace(' ', '%', $request->get('q', ''));
         $data = $this->apprenantKonosyService->paginate($searchQuery);
 
         if ($request->ajax()) {
             return view('PkgUtilisateurs::apprenantKonosy._table', compact('data'))->render();
         }
 
-        return view('PkgUtilisateurs::apprenantKonosy.index', compact('data'));
+        return view('PkgUtilisateurs::apprenantKonosy.index', compact('data','searchQuery'));
     }
 
     /**

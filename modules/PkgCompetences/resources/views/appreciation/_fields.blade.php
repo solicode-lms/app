@@ -1,6 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form id="appreciationForm" action="{{ $itemAppreciation->id ? route('appreciations.update', $itemAppreciation->id) : route('appreciations.store') }}" method="POST">
+<form class="crud-form" id="appreciationForm" action="{{ $itemAppreciation->id ? route('appreciations.update', $itemAppreciation->id) : route('appreciations.store') }}" method="POST">
     @csrf
 
     @if ($itemAppreciation->id)
@@ -109,7 +109,7 @@
 
 
     <div class="card-footer">
-        <a href="{{ route('appreciations.index') }}" id="appreciation_form_cancel" class="btn btn-default">{{ __('Core::msg.cancel') }}</a>
+        <a href="{{ route('appreciations.index') }}" class="btn btn-default form-cancel-button">{{ __('Core::msg.cancel') }}</a>
         <button type="submit" class="btn btn-info ml-2">{{ $itemAppreciation->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
@@ -126,3 +126,5 @@
         
     ];
 </script>
+
+

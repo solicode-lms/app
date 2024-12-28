@@ -1,6 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form id="featureDomainForm" action="{{ $itemFeatureDomain->id ? route('featureDomains.update', $itemFeatureDomain->id) : route('featureDomains.store') }}" method="POST">
+<form class="crud-form" id="featureDomainForm" action="{{ $itemFeatureDomain->id ? route('featureDomains.update', $itemFeatureDomain->id) : route('featureDomains.store') }}" method="POST">
     @csrf
 
     @if ($itemFeatureDomain->id)
@@ -90,7 +90,7 @@
 
 
     <div class="card-footer">
-        <a href="{{ route('featureDomains.index') }}" id="featureDomain_form_cancel" class="btn btn-default">{{ __('Core::msg.cancel') }}</a>
+        <a href="{{ route('featureDomains.index') }}" class="btn btn-default form-cancel-button">{{ __('Core::msg.cancel') }}</a>
         <button type="submit" class="btn btn-info ml-2">{{ $itemFeatureDomain->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
@@ -107,3 +107,5 @@
         
     ];
 </script>
+
+

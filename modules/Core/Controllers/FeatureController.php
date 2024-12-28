@@ -31,14 +31,14 @@ class FeatureController extends AdminController
      */
     public function index(Request $request)
     {
-        $searchQuery = str_replace(' ', '%', $request->get('searchValue', ''));
+        $searchQuery = str_replace(' ', '%', $request->get('q', ''));
         $data = $this->featureService->paginate($searchQuery);
 
         if ($request->ajax()) {
             return view('Core::feature._table', compact('data'))->render();
         }
 
-        return view('Core::feature.index', compact('data'));
+        return view('Core::feature.index', compact('data','searchQuery'));
     }
 
     /**

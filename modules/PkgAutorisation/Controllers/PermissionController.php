@@ -34,14 +34,14 @@ class PermissionController extends AdminController
      */
     public function index(Request $request)
     {
-        $searchQuery = str_replace(' ', '%', $request->get('searchValue', ''));
+        $searchQuery = str_replace(' ', '%', $request->get('q', ''));
         $data = $this->permissionService->paginate($searchQuery);
 
         if ($request->ajax()) {
             return view('PkgAutorisation::permission._table', compact('data'))->render();
         }
 
-        return view('PkgAutorisation::permission.index', compact('data'));
+        return view('PkgAutorisation::permission.index', compact('data','searchQuery'));
     }
 
     /**

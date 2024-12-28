@@ -31,14 +31,14 @@ class GroupeController extends AdminController
      */
     public function index(Request $request)
     {
-        $searchQuery = str_replace(' ', '%', $request->get('searchValue', ''));
+        $searchQuery = str_replace(' ', '%', $request->get('q', ''));
         $data = $this->groupeService->paginate($searchQuery);
 
         if ($request->ajax()) {
             return view('PkgUtilisateurs::groupe._table', compact('data'))->render();
         }
 
-        return view('PkgUtilisateurs::groupe.index', compact('data'));
+        return view('PkgUtilisateurs::groupe.index', compact('data','searchQuery'));
     }
 
     /**

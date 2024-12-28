@@ -1,6 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form id="permissionForm" action="{{ $itemPermission->id ? route('permissions.update', $itemPermission->id) : route('permissions.store') }}" method="POST">
+<form class="crud-form" id="permissionForm" action="{{ $itemPermission->id ? route('permissions.update', $itemPermission->id) : route('permissions.store') }}" method="POST">
     @csrf
 
     @if ($itemPermission->id)
@@ -117,7 +117,7 @@
 
 
     <div class="card-footer">
-        <a href="{{ route('permissions.index') }}" id="permission_form_cancel" class="btn btn-default">{{ __('Core::msg.cancel') }}</a>
+        <a href="{{ route('permissions.index') }}" class="btn btn-default form-cancel-button">{{ __('Core::msg.cancel') }}</a>
         <button type="submit" class="btn btn-info ml-2">{{ $itemPermission->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
@@ -134,3 +134,5 @@
         
     ];
 </script>
+
+

@@ -4,10 +4,10 @@
 @section('title', curd_index_title('PkgCreationProjet::natureLivrable'))
 @section('script')
 <script>
-
-document.addEventListener("DOMContentLoaded", function () {
-    const natureLivrableCrud = new GappCrud({
+    window.entitiesConfig = window.entitiesConfig || [];
+    window.entitiesConfig.push({
         entity_name: 'natureLivrable',
+        crudSelector: '#natureLivrable_crud',
         indexUrl: '{{ route('natureLivrables.index') }}', 
         createUrl: '{{ route('natureLivrables.create') }}',
         editUrl: '{{ route('natureLivrables.edit', ['natureLivrable' => ':id']) }}',
@@ -15,15 +15,9 @@ document.addEventListener("DOMContentLoaded", function () {
         storeUrl: '{{ route('natureLivrables.store') }}', 
         deleteUrl: '{{ route('natureLivrables.destroy', ['natureLivrable' => ':id']) }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
-        tableSelector: '#natureLivrablesTable', // Sélecteur du tableau HTML
-        formSelector: '#natureLivrableForm',   // Sélecteur du formulaire
-        modalSelector: '#natureLivrableModal',  // Sélecteur du modal
         create_title: '{{__("Core::msg.add") . " : " . __("PkgCreationProjet::natureLivrable.singular") }}',
         edit_title: '{{__("Core::msg.add") . " : " . __("PkgCreationProjet::natureLivrable.singular") }}',
-
     });
-    natureLivrableCrud.init(); // Initialisation des fonctionnalités CRUD
-});
 </script>
 @endsection
 @section('content')

@@ -4,10 +4,10 @@
 @section('title', curd_index_title('PkgCompetences::categorieTechnology'))
 @section('script')
 <script>
-
-document.addEventListener("DOMContentLoaded", function () {
-    const categorieTechnologyCrud = new GappCrud({
+    window.entitiesConfig = window.entitiesConfig || [];
+    window.entitiesConfig.push({
         entity_name: 'categorieTechnology',
+        crudSelector: '#categorieTechnology_crud',
         indexUrl: '{{ route('categorieTechnologies.index') }}', 
         createUrl: '{{ route('categorieTechnologies.create') }}',
         editUrl: '{{ route('categorieTechnologies.edit', ['categorieTechnology' => ':id']) }}',
@@ -15,15 +15,9 @@ document.addEventListener("DOMContentLoaded", function () {
         storeUrl: '{{ route('categorieTechnologies.store') }}', 
         deleteUrl: '{{ route('categorieTechnologies.destroy', ['categorieTechnology' => ':id']) }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
-        tableSelector: '#categorieTechnologiesTable', // Sélecteur du tableau HTML
-        formSelector: '#categorieTechnologyForm',   // Sélecteur du formulaire
-        modalSelector: '#categorieTechnologyModal',  // Sélecteur du modal
         create_title: '{{__("Core::msg.add") . " : " . __("PkgCompetences::categorieTechnology.singular") }}',
         edit_title: '{{__("Core::msg.add") . " : " . __("PkgCompetences::categorieTechnology.singular") }}',
-
     });
-    categorieTechnologyCrud.init(); // Initialisation des fonctionnalités CRUD
-});
 </script>
 @endsection
 @section('content')

@@ -27,13 +27,13 @@ class ResourceRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'nom.required' => __('validation.required', ['attribute' => __('PkgBlog::category.nom')]),
+            'nom.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Resource.nom')]),
             'nom.max' => __('validation.nomMax'),
-            'lien.required' => __('validation.required', ['attribute' => __('PkgBlog::category.lien')]),
+            'lien.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Resource.lien')]),
             'lien.max' => __('validation.lienMax'),
-            'description.required' => __('validation.required', ['attribute' => __('PkgBlog::category.description')]),
+            'description.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Resource.description')]),
             'description.max' => __('validation.descriptionMax'),
-            'projet_id.required' => __('validation.required', ['attribute' => __('PkgBlog::category.projet_id')]),
+            'projet_id.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Resource.projet_id')]),
             'projet_id.max' => __('validation.projet_idMax')
         ];
     }

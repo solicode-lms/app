@@ -31,14 +31,14 @@ class SpecialiteController extends AdminController
      */
     public function index(Request $request)
     {
-        $searchQuery = str_replace(' ', '%', $request->get('searchValue', ''));
+        $searchQuery = str_replace(' ', '%', $request->get('q', ''));
         $data = $this->specialiteService->paginate($searchQuery);
 
         if ($request->ajax()) {
             return view('PkgUtilisateurs::specialite._table', compact('data'))->render();
         }
 
-        return view('PkgUtilisateurs::specialite.index', compact('data'));
+        return view('PkgUtilisateurs::specialite.index', compact('data','searchQuery'));
     }
 
     /**
