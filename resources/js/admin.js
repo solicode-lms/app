@@ -19,7 +19,6 @@ import {
     SearchAndPaginationManager , 
     GappMessages, 
     CrudActions, 
-    CrudEventManager, 
     CrudConfigHelper, 
     CrudEventManager,  
     CrudModalManager } from './crud';
@@ -45,7 +44,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         // Initialisation de la recherche et pagination
-        new SearchAndPaginationManager(config);
+        new SearchAndPaginationManager(entityConfig);
     });
 });
 

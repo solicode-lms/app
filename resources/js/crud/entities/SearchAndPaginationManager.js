@@ -1,6 +1,6 @@
 import $ from 'admin-lte/plugins/jquery/jquery.min.js';
-import { showLoading, hideLoading } from './GappLoading';
-import { MessageHandler } from './MessageHandler';
+import { hideLoading, showLoading } from './../components/GappLoading';
+import { MessageHandler } from '../components/MessageHandler';
 
 export class SearchAndPaginationManager {
     /**

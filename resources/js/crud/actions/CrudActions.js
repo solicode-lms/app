@@ -1,4 +1,5 @@
-import { FormManager } from "../managers/FormManager";
+
+import { FormManager } from './../forms/FormManager';
 
 export class CrudActions {
     /**
