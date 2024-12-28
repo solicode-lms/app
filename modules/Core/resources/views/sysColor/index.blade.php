@@ -4,9 +4,7 @@
 @section('title', curd_index_title('Core::sysColor'))
 @section('script')
 <script>
-
     window.entitiesConfig = window.entitiesConfig || [];
-
     window.entitiesConfig.push({
         entity_name: 'sysColor',
         crudSelector: '#sysColor_crud',
@@ -17,12 +15,9 @@
         storeUrl: '{{ route('sysColors.store') }}', 
         deleteUrl: '{{ route('sysColors.destroy', ['sysColor' => ':id']) }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
-        formSelector: '#sysColorForm',   // Sélecteur du formulaire
-        modalSelector: '#sysColorModal',  // Sélecteur du modal
         create_title: '{{__("Core::msg.add") . " : " . __("Core::sysColor.singular") }}',
         edit_title: '{{__("Core::msg.add") . " : " . __("Core::sysColor.singular") }}',
-});
-
+    });
 </script>
 @endsection
 @section('content')

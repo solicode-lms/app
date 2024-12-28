@@ -58,7 +58,7 @@
 
 
     <div class="card-footer">
-        <a href="{{ route('sysColors.index') }}" id="sysColor_form_cancel" class="btn btn-default">{{ __('Core::msg.cancel') }}</a>
+        <a href="{{ route('sysColors.index') }}" class="btn btn-default form-cancel-button">{{ __('Core::msg.cancel') }}</a>
         <button type="submit" class="btn btn-info ml-2">{{ $itemSysColor->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
@@ -68,3 +68,5 @@
         
     ];
 </script>
+
+

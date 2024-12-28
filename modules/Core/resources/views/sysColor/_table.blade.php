@@ -39,11 +39,8 @@
     </table>
 </div>
 
-<div class="card-footer">
-    <ul class="pagination m-0 float-right">
-        {{ $data->onEachSide(1)->links() }}
-    </ul>
 
+<div class="card-footer">
 
     <div class="d-md-flex justify-content-between align-items-center p-2">
         <div class="d-flex align-items-center mb-2 ml-2 mt-2">
@@ -66,16 +63,15 @@
                 </form>
             @endcan
         </div>
-    
-        
+
+        <ul class="pagination m-0 float-right">
+            {{ $data->onEachSide(1)->links() }}
+        </ul>
     </div>
-    
+
     <script>
         function submitForm() {
             document.getElementById("importForm").submit();
         }
     </script>
-    
 </div>
-
-

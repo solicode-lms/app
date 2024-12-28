@@ -1,3 +1,5 @@
+import { FormManager } from "../managers/FormManager";
+
 export class CrudActions {
     /**
      * Constructeur de la classe CrudActions.
@@ -11,6 +13,7 @@ export class CrudActions {
         this.modalManager = modalManager;
         this.loader = loader;
         this.showToast = showToast;
+        this.formManager = new FormManager(this.config.formSelector,this.modalManager)
     }
 
     /**
@@ -47,6 +50,7 @@ export class CrudActions {
             .done(() => {
                 this.showToast('success', 'Opération réalisée avec succès.');
                 this.modalManager.close(); // Ferme le modal
+
                 this.loadEntities(); // Recharge les données dans la table
             })
             .fail((xhr) => {
@@ -63,6 +67,8 @@ export class CrudActions {
         $.get(this.config.createUrl)
             .done((html) => {
                 this.modalManager.showContent(html);
+                this.formManager.init();
+
             })
             .fail(() => {
                 this.modalManager.showError('Erreur lors du chargement du formulaire d\'ajout.');
@@ -80,6 +86,7 @@ export class CrudActions {
         $.get(editUrl)
             .done((html) => {
                 this.modalManager.showContent(html);
+                this.formManager.init();
             })
             .fail(() => {
                 this.modalManager.showError('Erreur lors du chargement du formulaire de modification.');

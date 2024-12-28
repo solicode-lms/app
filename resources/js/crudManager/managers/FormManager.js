@@ -14,6 +14,14 @@ export class FormManager {
      */
     init() {
         this.handleCancelButton();
+        this.handleCardFooter();
+    }
+
+    handleCardFooter(){
+          // Modifier le style des footers
+          $(`${this.formSelector} .card-footer`).each(function () {
+            $(this).removeClass('card-footer').addClass('modal-footer');
+        });
     }
 
     /**
