@@ -19,11 +19,18 @@ use Modules\PkgWidgets\App\Imports\WidgetImport;
 class WidgetController extends AdminController
 {
     protected $widgetService;
+    protected $sysModelService;
+    protected $widgetOperationService;
+    protected $widgetTypeService;
 
-    public function __construct(WidgetService $widgetService)
+    public function __construct(WidgetService $widgetService, SysModelService $sysModelService, WidgetOperationService $widgetOperationService, WidgetTypeService $widgetTypeService)
     {
         parent::__construct();
         $this->widgetService = $widgetService;
+        $this->sysModelService = $sysModelService;
+        $this->widgetOperationService = $widgetOperationService;
+        $this->widgetTypeService = $widgetTypeService;
+
     }
 
 
@@ -48,11 +55,15 @@ class WidgetController extends AdminController
     public function create()
     {
         $itemWidget = $this->widgetService->createInstance();
+        $sysModels = $this->sysModelService->all();
+        $widgetOperations = $this->widgetOperationService->all();
+        $widgetTypes = $this->widgetTypeService->all();
+
 
         if (request()->ajax()) {
-            return view('PkgWidgets::widget._fields', compact('itemWidget'));
+            return view('PkgWidgets::widget._fields', compact('itemWidget', 'sysModels', 'widgetOperations', 'widgetTypes'));
         }
-        return view('PkgWidgets::widget.create', compact('itemWidget'));
+        return view('PkgWidgets::widget.create', compact('itemWidget', 'sysModels', 'widgetOperations', 'widgetTypes'));
     }
 
     /**
@@ -62,6 +73,8 @@ class WidgetController extends AdminController
     {
         $validatedData = $request->validated();
         $widget = $this->widgetService->create($validatedData);
+
+
 
 
         if ($request->ajax()) {
@@ -87,9 +100,13 @@ class WidgetController extends AdminController
     public function show(string $id)
     {
         $itemWidget = $this->widgetService->find($id);
+        $sysModels = $this->sysModelService->all();
+        $widgetOperations = $this->widgetOperationService->all();
+        $widgetTypes = $this->widgetTypeService->all();
+
 
         if (request()->ajax()) {
-            return view('PkgWidgets::widget._fields', compact('itemWidget'));
+            return view('PkgWidgets::widget._fields', compact('itemWidget', 'sysModels', 'widgetOperations', 'widgetTypes'));
         }
 
         return view('PkgWidgets::widget.show', compact('itemWidget'));
@@ -101,12 +118,15 @@ class WidgetController extends AdminController
     public function edit(string $id)
     {
         $itemWidget = $this->widgetService->find($id);
+        $sysModels = $this->sysModelService->all();
+        $widgetOperations = $this->widgetOperationService->all();
+        $widgetTypes = $this->widgetTypeService->all();
 
         if (request()->ajax()) {
-            return view('PkgWidgets::widget._fields', compact('itemWidget'));
+            return view('PkgWidgets::widget._fields', compact('itemWidget', 'sysModels', 'widgetOperations', 'widgetTypes'));
         }
 
-        return view('PkgWidgets::widget.edit', compact('itemWidget'));
+        return view('PkgWidgets::widget.edit', compact('itemWidget', 'sysModels', 'widgetOperations', 'widgetTypes'));
     }
 
     /**
@@ -116,6 +136,8 @@ class WidgetController extends AdminController
     {
         $validatedData = $request->validated();
         $widget = $this->widgetService->update($id, $validatedData);
+
+
 
 
         if ($request->ajax()) {

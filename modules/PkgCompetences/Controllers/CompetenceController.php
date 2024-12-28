@@ -27,6 +27,7 @@ class CompetenceController extends AdminController
         $this->competenceService = $competenceService;
         $this->technologyService = $technologyService;
         $this->moduleService = $moduleService;
+
     }
 
 
@@ -54,6 +55,7 @@ class CompetenceController extends AdminController
         $technologies = $this->technologyService->all();
         $modules = $this->moduleService->all();
 
+
         if (request()->ajax()) {
             return view('PkgCompetences::competence._fields', compact('itemCompetence', 'technologies', 'modules'));
         }
@@ -68,9 +70,11 @@ class CompetenceController extends AdminController
         $validatedData = $request->validated();
         $competence = $this->competenceService->create($validatedData);
 
+
         if ($request->has('technologies')) {
             $competence->technologies()->sync($request->input('technologies'));
         }
+
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
@@ -97,6 +101,7 @@ class CompetenceController extends AdminController
         $itemCompetence = $this->competenceService->find($id);
         $technologies = $this->technologyService->all();
         $modules = $this->moduleService->all();
+
 
         if (request()->ajax()) {
             return view('PkgCompetences::competence._fields', compact('itemCompetence', 'technologies', 'modules'));
@@ -129,7 +134,9 @@ class CompetenceController extends AdminController
         $validatedData = $request->validated();
         $competence = $this->competenceService->update($id, $validatedData);
 
+
         $competence->technologies()->sync($request->input('technologies'));
+
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 

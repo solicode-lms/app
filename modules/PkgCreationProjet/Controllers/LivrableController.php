@@ -18,11 +18,16 @@ use Modules\PkgCreationProjet\App\Imports\LivrableImport;
 class LivrableController extends AdminController
 {
     protected $livrableService;
+    protected $natureLivrableService;
+    protected $projetService;
 
-    public function __construct(LivrableService $livrableService)
+    public function __construct(LivrableService $livrableService, NatureLivrableService $natureLivrableService, ProjetService $projetService)
     {
         parent::__construct();
         $this->livrableService = $livrableService;
+        $this->natureLivrableService = $natureLivrableService;
+        $this->projetService = $projetService;
+
     }
 
 
@@ -47,11 +52,14 @@ class LivrableController extends AdminController
     public function create()
     {
         $itemLivrable = $this->livrableService->createInstance();
+        $natureLivrables = $this->natureLivrableService->all();
+        $projets = $this->projetService->all();
+
 
         if (request()->ajax()) {
-            return view('PkgCreationProjet::livrable._fields', compact('itemLivrable'));
+            return view('PkgCreationProjet::livrable._fields', compact('itemLivrable', 'natureLivrables', 'projets'));
         }
-        return view('PkgCreationProjet::livrable.create', compact('itemLivrable'));
+        return view('PkgCreationProjet::livrable.create', compact('itemLivrable', 'natureLivrables', 'projets'));
     }
 
     /**
@@ -61,6 +69,8 @@ class LivrableController extends AdminController
     {
         $validatedData = $request->validated();
         $livrable = $this->livrableService->create($validatedData);
+
+
 
 
         if ($request->ajax()) {
@@ -86,9 +96,12 @@ class LivrableController extends AdminController
     public function show(string $id)
     {
         $itemLivrable = $this->livrableService->find($id);
+        $natureLivrables = $this->natureLivrableService->all();
+        $projets = $this->projetService->all();
+
 
         if (request()->ajax()) {
-            return view('PkgCreationProjet::livrable._fields', compact('itemLivrable'));
+            return view('PkgCreationProjet::livrable._fields', compact('itemLivrable', 'natureLivrables', 'projets'));
         }
 
         return view('PkgCreationProjet::livrable.show', compact('itemLivrable'));
@@ -100,12 +113,14 @@ class LivrableController extends AdminController
     public function edit(string $id)
     {
         $itemLivrable = $this->livrableService->find($id);
+        $natureLivrables = $this->natureLivrableService->all();
+        $projets = $this->projetService->all();
 
         if (request()->ajax()) {
-            return view('PkgCreationProjet::livrable._fields', compact('itemLivrable'));
+            return view('PkgCreationProjet::livrable._fields', compact('itemLivrable', 'natureLivrables', 'projets'));
         }
 
-        return view('PkgCreationProjet::livrable.edit', compact('itemLivrable'));
+        return view('PkgCreationProjet::livrable.edit', compact('itemLivrable', 'natureLivrables', 'projets'));
     }
 
     /**
@@ -115,6 +130,8 @@ class LivrableController extends AdminController
     {
         $validatedData = $request->validated();
         $livrable = $this->livrableService->update($id, $validatedData);
+
+
 
 
         if ($request->ajax()) {

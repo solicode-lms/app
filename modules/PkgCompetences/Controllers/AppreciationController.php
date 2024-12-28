@@ -17,11 +17,14 @@ use Modules\PkgCompetences\App\Imports\AppreciationImport;
 class AppreciationController extends AdminController
 {
     protected $appreciationService;
+    protected $formateurService;
 
-    public function __construct(AppreciationService $appreciationService)
+    public function __construct(AppreciationService $appreciationService, FormateurService $formateurService)
     {
         parent::__construct();
         $this->appreciationService = $appreciationService;
+        $this->formateurService = $formateurService;
+
     }
 
 
@@ -46,11 +49,13 @@ class AppreciationController extends AdminController
     public function create()
     {
         $itemAppreciation = $this->appreciationService->createInstance();
+        $formateurs = $this->formateurService->all();
+
 
         if (request()->ajax()) {
-            return view('PkgCompetences::appreciation._fields', compact('itemAppreciation'));
+            return view('PkgCompetences::appreciation._fields', compact('itemAppreciation', 'formateurs'));
         }
-        return view('PkgCompetences::appreciation.create', compact('itemAppreciation'));
+        return view('PkgCompetences::appreciation.create', compact('itemAppreciation', 'formateurs'));
     }
 
     /**
@@ -60,6 +65,8 @@ class AppreciationController extends AdminController
     {
         $validatedData = $request->validated();
         $appreciation = $this->appreciationService->create($validatedData);
+
+
 
 
         if ($request->ajax()) {
@@ -85,9 +92,11 @@ class AppreciationController extends AdminController
     public function show(string $id)
     {
         $itemAppreciation = $this->appreciationService->find($id);
+        $formateurs = $this->formateurService->all();
+
 
         if (request()->ajax()) {
-            return view('PkgCompetences::appreciation._fields', compact('itemAppreciation'));
+            return view('PkgCompetences::appreciation._fields', compact('itemAppreciation', 'formateurs'));
         }
 
         return view('PkgCompetences::appreciation.show', compact('itemAppreciation'));
@@ -99,12 +108,13 @@ class AppreciationController extends AdminController
     public function edit(string $id)
     {
         $itemAppreciation = $this->appreciationService->find($id);
+        $formateurs = $this->formateurService->all();
 
         if (request()->ajax()) {
-            return view('PkgCompetences::appreciation._fields', compact('itemAppreciation'));
+            return view('PkgCompetences::appreciation._fields', compact('itemAppreciation', 'formateurs'));
         }
 
-        return view('PkgCompetences::appreciation.edit', compact('itemAppreciation'));
+        return view('PkgCompetences::appreciation.edit', compact('itemAppreciation', 'formateurs'));
     }
 
     /**
@@ -114,6 +124,8 @@ class AppreciationController extends AdminController
     {
         $validatedData = $request->validated();
         $appreciation = $this->appreciationService->update($id, $validatedData);
+
+
 
 
         if ($request->ajax()) {

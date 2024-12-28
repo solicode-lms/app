@@ -27,6 +27,7 @@ class GroupeController extends AdminController
         $this->groupeService = $groupeService;
         $this->formateurService = $formateurService;
         $this->filiereService = $filiereService;
+
     }
 
 
@@ -54,6 +55,7 @@ class GroupeController extends AdminController
         $formateurs = $this->formateurService->all();
         $filieres = $this->filiereService->all();
 
+
         if (request()->ajax()) {
             return view('PkgUtilisateurs::groupe._fields', compact('itemGroupe', 'formateurs', 'filieres'));
         }
@@ -68,9 +70,11 @@ class GroupeController extends AdminController
         $validatedData = $request->validated();
         $groupe = $this->groupeService->create($validatedData);
 
+
         if ($request->has('formateurs')) {
             $groupe->formateurs()->sync($request->input('formateurs'));
         }
+
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
@@ -97,6 +101,7 @@ class GroupeController extends AdminController
         $itemGroupe = $this->groupeService->find($id);
         $formateurs = $this->formateurService->all();
         $filieres = $this->filiereService->all();
+
 
         if (request()->ajax()) {
             return view('PkgUtilisateurs::groupe._fields', compact('itemGroupe', 'formateurs', 'filieres'));
@@ -129,7 +134,9 @@ class GroupeController extends AdminController
         $validatedData = $request->validated();
         $groupe = $this->groupeService->update($id, $validatedData);
 
+
         $groupe->formateurs()->sync($request->input('formateurs'));
+
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 

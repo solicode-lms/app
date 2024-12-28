@@ -27,6 +27,7 @@ class FeatureController extends AdminController
         $this->featureService = $featureService;
         $this->permissionService = $permissionService;
         $this->featureDomainService = $featureDomainService;
+
     }
 
 
@@ -54,6 +55,7 @@ class FeatureController extends AdminController
         $permissions = $this->permissionService->all();
         $featureDomains = $this->featureDomainService->all();
 
+
         if (request()->ajax()) {
             return view('Core::feature._fields', compact('itemFeature', 'permissions', 'featureDomains'));
         }
@@ -68,9 +70,11 @@ class FeatureController extends AdminController
         $validatedData = $request->validated();
         $feature = $this->featureService->create($validatedData);
 
+
         if ($request->has('permissions')) {
             $feature->permissions()->sync($request->input('permissions'));
         }
+
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
@@ -97,6 +101,7 @@ class FeatureController extends AdminController
         $itemFeature = $this->featureService->find($id);
         $permissions = $this->permissionService->all();
         $featureDomains = $this->featureDomainService->all();
+
 
         if (request()->ajax()) {
             return view('Core::feature._fields', compact('itemFeature', 'permissions', 'featureDomains'));
@@ -129,7 +134,9 @@ class FeatureController extends AdminController
         $validatedData = $request->validated();
         $feature = $this->featureService->update($id, $validatedData);
 
+
         $feature->permissions()->sync($request->input('permissions'));
+
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 

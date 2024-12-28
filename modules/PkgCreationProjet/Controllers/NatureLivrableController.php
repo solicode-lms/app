@@ -22,6 +22,7 @@ class NatureLivrableController extends AdminController
     {
         parent::__construct();
         $this->natureLivrableService = $natureLivrableService;
+
     }
 
 
@@ -47,6 +48,7 @@ class NatureLivrableController extends AdminController
     {
         $itemNatureLivrable = $this->natureLivrableService->createInstance();
 
+
         if (request()->ajax()) {
             return view('PkgCreationProjet::natureLivrable._fields', compact('itemNatureLivrable'));
         }
@@ -60,6 +62,8 @@ class NatureLivrableController extends AdminController
     {
         $validatedData = $request->validated();
         $natureLivrable = $this->natureLivrableService->create($validatedData);
+
+
 
 
         if ($request->ajax()) {
@@ -85,6 +89,7 @@ class NatureLivrableController extends AdminController
     public function show(string $id)
     {
         $itemNatureLivrable = $this->natureLivrableService->find($id);
+
 
         if (request()->ajax()) {
             return view('PkgCreationProjet::natureLivrable._fields', compact('itemNatureLivrable'));
@@ -114,6 +119,8 @@ class NatureLivrableController extends AdminController
     {
         $validatedData = $request->validated();
         $naturelivrable = $this->natureLivrableService->update($id, $validatedData);
+
+
 
 
         if ($request->ajax()) {

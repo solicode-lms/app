@@ -22,6 +22,7 @@ class WidgetTypeController extends AdminController
     {
         parent::__construct();
         $this->widgetTypeService = $widgetTypeService;
+
     }
 
 
@@ -47,6 +48,7 @@ class WidgetTypeController extends AdminController
     {
         $itemWidgetType = $this->widgetTypeService->createInstance();
 
+
         if (request()->ajax()) {
             return view('PkgWidgets::widgetType._fields', compact('itemWidgetType'));
         }
@@ -60,6 +62,8 @@ class WidgetTypeController extends AdminController
     {
         $validatedData = $request->validated();
         $widgetType = $this->widgetTypeService->create($validatedData);
+
+
 
 
         if ($request->ajax()) {
@@ -85,6 +89,7 @@ class WidgetTypeController extends AdminController
     public function show(string $id)
     {
         $itemWidgetType = $this->widgetTypeService->find($id);
+
 
         if (request()->ajax()) {
             return view('PkgWidgets::widgetType._fields', compact('itemWidgetType'));
@@ -114,6 +119,8 @@ class WidgetTypeController extends AdminController
     {
         $validatedData = $request->validated();
         $widgettype = $this->widgetTypeService->update($id, $validatedData);
+
+
 
 
         if ($request->ajax()) {

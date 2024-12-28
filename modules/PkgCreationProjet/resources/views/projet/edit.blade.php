@@ -73,6 +73,7 @@
         </div>
         <div class="tab-pane fade" id="custom-tabs-two-messages" role="tabpanel" aria-labelledby="custom-tabs-two-messages-tab">
          Ressources
+         @include('PkgCreationProjet::resource._index')
         </div>
         <div class="tab-pane fade" id="custom-tabs-two-settings" role="tabpanel" aria-labelledby="custom-tabs-two-settings-tab">
             Livrable

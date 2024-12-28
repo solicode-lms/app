@@ -22,6 +22,7 @@ class WidgetOperationController extends AdminController
     {
         parent::__construct();
         $this->widgetOperationService = $widgetOperationService;
+
     }
 
 
@@ -47,6 +48,7 @@ class WidgetOperationController extends AdminController
     {
         $itemWidgetOperation = $this->widgetOperationService->createInstance();
 
+
         if (request()->ajax()) {
             return view('PkgWidgets::widgetOperation._fields', compact('itemWidgetOperation'));
         }
@@ -60,6 +62,8 @@ class WidgetOperationController extends AdminController
     {
         $validatedData = $request->validated();
         $widgetOperation = $this->widgetOperationService->create($validatedData);
+
+
 
 
         if ($request->ajax()) {
@@ -85,6 +89,7 @@ class WidgetOperationController extends AdminController
     public function show(string $id)
     {
         $itemWidgetOperation = $this->widgetOperationService->find($id);
+
 
         if (request()->ajax()) {
             return view('PkgWidgets::widgetOperation._fields', compact('itemWidgetOperation'));
@@ -114,6 +119,8 @@ class WidgetOperationController extends AdminController
     {
         $validatedData = $request->validated();
         $widgetoperation = $this->widgetOperationService->update($id, $validatedData);
+
+
 
 
         if ($request->ajax()) {

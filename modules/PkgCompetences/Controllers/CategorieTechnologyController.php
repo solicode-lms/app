@@ -22,6 +22,7 @@ class CategorieTechnologyController extends AdminController
     {
         parent::__construct();
         $this->categorieTechnologyService = $categorieTechnologyService;
+
     }
 
 
@@ -47,6 +48,7 @@ class CategorieTechnologyController extends AdminController
     {
         $itemCategorieTechnology = $this->categorieTechnologyService->createInstance();
 
+
         if (request()->ajax()) {
             return view('PkgCompetences::categorieTechnology._fields', compact('itemCategorieTechnology'));
         }
@@ -60,6 +62,8 @@ class CategorieTechnologyController extends AdminController
     {
         $validatedData = $request->validated();
         $categorieTechnology = $this->categorieTechnologyService->create($validatedData);
+
+
 
 
         if ($request->ajax()) {
@@ -85,6 +89,7 @@ class CategorieTechnologyController extends AdminController
     public function show(string $id)
     {
         $itemCategorieTechnology = $this->categorieTechnologyService->find($id);
+
 
         if (request()->ajax()) {
             return view('PkgCompetences::categorieTechnology._fields', compact('itemCategorieTechnology'));
@@ -114,6 +119,8 @@ class CategorieTechnologyController extends AdminController
     {
         $validatedData = $request->validated();
         $categorietechnology = $this->categorieTechnologyService->update($id, $validatedData);
+
+
 
 
         if ($request->ajax()) {

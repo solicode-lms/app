@@ -22,6 +22,7 @@ class SysColorController extends AdminController
     {
         parent::__construct();
         $this->sysColorService = $sysColorService;
+
     }
 
 
@@ -47,6 +48,7 @@ class SysColorController extends AdminController
     {
         $itemSysColor = $this->sysColorService->createInstance();
 
+
         if (request()->ajax()) {
             return view('Core::sysColor._fields', compact('itemSysColor'));
         }
@@ -60,6 +62,8 @@ class SysColorController extends AdminController
     {
         $validatedData = $request->validated();
         $sysColor = $this->sysColorService->create($validatedData);
+
+
 
 
         if ($request->ajax()) {
@@ -85,6 +89,7 @@ class SysColorController extends AdminController
     public function show(string $id)
     {
         $itemSysColor = $this->sysColorService->find($id);
+
 
         if (request()->ajax()) {
             return view('Core::sysColor._fields', compact('itemSysColor'));
@@ -114,6 +119,8 @@ class SysColorController extends AdminController
     {
         $validatedData = $request->validated();
         $syscolor = $this->sysColorService->update($id, $validatedData);
+
+
 
 
         if ($request->ajax()) {

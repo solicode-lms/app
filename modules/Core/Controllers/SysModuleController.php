@@ -17,11 +17,14 @@ use Modules\Core\App\Imports\SysModuleImport;
 class SysModuleController extends AdminController
 {
     protected $sysModuleService;
+    protected $sysColorService;
 
-    public function __construct(SysModuleService $sysModuleService)
+    public function __construct(SysModuleService $sysModuleService, SysColorService $sysColorService)
     {
         parent::__construct();
         $this->sysModuleService = $sysModuleService;
+        $this->sysColorService = $sysColorService;
+
     }
 
 
@@ -46,11 +49,13 @@ class SysModuleController extends AdminController
     public function create()
     {
         $itemSysModule = $this->sysModuleService->createInstance();
+        $sysColors = $this->sysColorService->all();
+
 
         if (request()->ajax()) {
-            return view('Core::sysModule._fields', compact('itemSysModule'));
+            return view('Core::sysModule._fields', compact('itemSysModule', 'sysColors'));
         }
-        return view('Core::sysModule.create', compact('itemSysModule'));
+        return view('Core::sysModule.create', compact('itemSysModule', 'sysColors'));
     }
 
     /**
@@ -60,6 +65,8 @@ class SysModuleController extends AdminController
     {
         $validatedData = $request->validated();
         $sysModule = $this->sysModuleService->create($validatedData);
+
+
 
 
         if ($request->ajax()) {
@@ -85,9 +92,11 @@ class SysModuleController extends AdminController
     public function show(string $id)
     {
         $itemSysModule = $this->sysModuleService->find($id);
+        $sysColors = $this->sysColorService->all();
+
 
         if (request()->ajax()) {
-            return view('Core::sysModule._fields', compact('itemSysModule'));
+            return view('Core::sysModule._fields', compact('itemSysModule', 'sysColors'));
         }
 
         return view('Core::sysmodule.show', compact('itemSysModule'));
@@ -99,12 +108,13 @@ class SysModuleController extends AdminController
     public function edit(string $id)
     {
         $itemSysModule = $this->sysModuleService->find($id);
+        $sysColors = $this->sysColorService->all();
 
         if (request()->ajax()) {
-            return view('Core::sysModule._fields', compact('itemSysModule'));
+            return view('Core::sysModule._fields', compact('itemSysModule', 'sysColors'));
         }
 
-        return view('Core::sysModule.edit', compact('itemSysModule'));
+        return view('Core::sysModule.edit', compact('itemSysModule', 'sysColors'));
     }
 
     /**
@@ -114,6 +124,8 @@ class SysModuleController extends AdminController
     {
         $validatedData = $request->validated();
         $sysmodule = $this->sysModuleService->update($id, $validatedData);
+
+
 
 
         if ($request->ajax()) {

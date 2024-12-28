@@ -22,6 +22,7 @@ class ApprenantKonosyController extends AdminController
     {
         parent::__construct();
         $this->apprenantKonosyService = $apprenantKonosyService;
+
     }
 
 
@@ -47,6 +48,7 @@ class ApprenantKonosyController extends AdminController
     {
         $itemApprenantKonosy = $this->apprenantKonosyService->createInstance();
 
+
         if (request()->ajax()) {
             return view('PkgUtilisateurs::apprenantKonosy._fields', compact('itemApprenantKonosy'));
         }
@@ -60,6 +62,8 @@ class ApprenantKonosyController extends AdminController
     {
         $validatedData = $request->validated();
         $apprenantKonosy = $this->apprenantKonosyService->create($validatedData);
+
+
 
 
         if ($request->ajax()) {
@@ -85,6 +89,7 @@ class ApprenantKonosyController extends AdminController
     public function show(string $id)
     {
         $itemApprenantKonosy = $this->apprenantKonosyService->find($id);
+
 
         if (request()->ajax()) {
             return view('PkgUtilisateurs::apprenantKonosy._fields', compact('itemApprenantKonosy'));
@@ -114,6 +119,8 @@ class ApprenantKonosyController extends AdminController
     {
         $validatedData = $request->validated();
         $apprenantkonosy = $this->apprenantKonosyService->update($id, $validatedData);
+
+
 
 
         if ($request->ajax()) {

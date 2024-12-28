@@ -17,11 +17,14 @@ use Modules\PkgCompetences\App\Imports\NiveauCompetenceImport;
 class NiveauCompetenceController extends AdminController
 {
     protected $niveauCompetenceService;
+    protected $competenceService;
 
-    public function __construct(NiveauCompetenceService $niveauCompetenceService)
+    public function __construct(NiveauCompetenceService $niveauCompetenceService, CompetenceService $competenceService)
     {
         parent::__construct();
         $this->niveauCompetenceService = $niveauCompetenceService;
+        $this->competenceService = $competenceService;
+
     }
 
 
@@ -46,11 +49,13 @@ class NiveauCompetenceController extends AdminController
     public function create()
     {
         $itemNiveauCompetence = $this->niveauCompetenceService->createInstance();
+        $competences = $this->competenceService->all();
+
 
         if (request()->ajax()) {
-            return view('PkgCompetences::niveauCompetence._fields', compact('itemNiveauCompetence'));
+            return view('PkgCompetences::niveauCompetence._fields', compact('itemNiveauCompetence', 'competences'));
         }
-        return view('PkgCompetences::niveauCompetence.create', compact('itemNiveauCompetence'));
+        return view('PkgCompetences::niveauCompetence.create', compact('itemNiveauCompetence', 'competences'));
     }
 
     /**
@@ -60,6 +65,8 @@ class NiveauCompetenceController extends AdminController
     {
         $validatedData = $request->validated();
         $niveauCompetence = $this->niveauCompetenceService->create($validatedData);
+
+
 
 
         if ($request->ajax()) {
@@ -85,9 +92,11 @@ class NiveauCompetenceController extends AdminController
     public function show(string $id)
     {
         $itemNiveauCompetence = $this->niveauCompetenceService->find($id);
+        $competences = $this->competenceService->all();
+
 
         if (request()->ajax()) {
-            return view('PkgCompetences::niveauCompetence._fields', compact('itemNiveauCompetence'));
+            return view('PkgCompetences::niveauCompetence._fields', compact('itemNiveauCompetence', 'competences'));
         }
 
         return view('PkgCompetences::niveaucompetence.show', compact('itemNiveauCompetence'));
@@ -99,12 +108,13 @@ class NiveauCompetenceController extends AdminController
     public function edit(string $id)
     {
         $itemNiveauCompetence = $this->niveauCompetenceService->find($id);
+        $competences = $this->competenceService->all();
 
         if (request()->ajax()) {
-            return view('PkgCompetences::niveauCompetence._fields', compact('itemNiveauCompetence'));
+            return view('PkgCompetences::niveauCompetence._fields', compact('itemNiveauCompetence', 'competences'));
         }
 
-        return view('PkgCompetences::niveauCompetence.edit', compact('itemNiveauCompetence'));
+        return view('PkgCompetences::niveauCompetence.edit', compact('itemNiveauCompetence', 'competences'));
     }
 
     /**
@@ -114,6 +124,8 @@ class NiveauCompetenceController extends AdminController
     {
         $validatedData = $request->validated();
         $niveaucompetence = $this->niveauCompetenceService->update($id, $validatedData);
+
+
 
 
         if ($request->ajax()) {

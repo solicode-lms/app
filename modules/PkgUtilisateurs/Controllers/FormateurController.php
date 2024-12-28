@@ -27,6 +27,7 @@ class FormateurController extends AdminController
         $this->formateurService = $formateurService;
         $this->groupeService = $groupeService;
         $this->specialiteService = $specialiteService;
+
     }
 
 
@@ -54,6 +55,7 @@ class FormateurController extends AdminController
         $groupes = $this->groupeService->all();
         $specialites = $this->specialiteService->all();
 
+
         if (request()->ajax()) {
             return view('PkgUtilisateurs::formateur._fields', compact('itemFormateur', 'groupes', 'specialites'));
         }
@@ -68,12 +70,14 @@ class FormateurController extends AdminController
         $validatedData = $request->validated();
         $formateur = $this->formateurService->create($validatedData);
 
+
         if ($request->has('groupes')) {
             $formateur->groupes()->sync($request->input('groupes'));
         }
         if ($request->has('specialites')) {
             $formateur->specialites()->sync($request->input('specialites'));
         }
+
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
@@ -100,6 +104,7 @@ class FormateurController extends AdminController
         $itemFormateur = $this->formateurService->find($id);
         $groupes = $this->groupeService->all();
         $specialites = $this->specialiteService->all();
+
 
         if (request()->ajax()) {
             return view('PkgUtilisateurs::formateur._fields', compact('itemFormateur', 'groupes', 'specialites'));
@@ -132,8 +137,10 @@ class FormateurController extends AdminController
         $validatedData = $request->validated();
         $formateur = $this->formateurService->update($id, $validatedData);
 
+
         $formateur->groupes()->sync($request->input('groupes'));
         $formateur->specialites()->sync($request->input('specialites'));
+
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 

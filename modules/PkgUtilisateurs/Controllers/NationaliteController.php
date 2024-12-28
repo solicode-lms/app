@@ -22,6 +22,7 @@ class NationaliteController extends AdminController
     {
         parent::__construct();
         $this->nationaliteService = $nationaliteService;
+
     }
 
 
@@ -47,6 +48,7 @@ class NationaliteController extends AdminController
     {
         $itemNationalite = $this->nationaliteService->createInstance();
 
+
         if (request()->ajax()) {
             return view('PkgUtilisateurs::nationalite._fields', compact('itemNationalite'));
         }
@@ -60,6 +62,8 @@ class NationaliteController extends AdminController
     {
         $validatedData = $request->validated();
         $nationalite = $this->nationaliteService->create($validatedData);
+
+
 
 
         if ($request->ajax()) {
@@ -85,6 +89,7 @@ class NationaliteController extends AdminController
     public function show(string $id)
     {
         $itemNationalite = $this->nationaliteService->find($id);
+
 
         if (request()->ajax()) {
             return view('PkgUtilisateurs::nationalite._fields', compact('itemNationalite'));
@@ -114,6 +119,8 @@ class NationaliteController extends AdminController
     {
         $validatedData = $request->validated();
         $nationalite = $this->nationaliteService->update($id, $validatedData);
+
+
 
 
         if ($request->ajax()) {

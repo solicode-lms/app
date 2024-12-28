@@ -17,11 +17,14 @@ use Modules\PkgCompetences\App\Imports\ModuleImport;
 class ModuleController extends AdminController
 {
     protected $moduleService;
+    protected $filiereService;
 
-    public function __construct(ModuleService $moduleService)
+    public function __construct(ModuleService $moduleService, FiliereService $filiereService)
     {
         parent::__construct();
         $this->moduleService = $moduleService;
+        $this->filiereService = $filiereService;
+
     }
 
 
@@ -46,11 +49,13 @@ class ModuleController extends AdminController
     public function create()
     {
         $itemModule = $this->moduleService->createInstance();
+        $filieres = $this->filiereService->all();
+
 
         if (request()->ajax()) {
-            return view('PkgCompetences::module._fields', compact('itemModule'));
+            return view('PkgCompetences::module._fields', compact('itemModule', 'filieres'));
         }
-        return view('PkgCompetences::module.create', compact('itemModule'));
+        return view('PkgCompetences::module.create', compact('itemModule', 'filieres'));
     }
 
     /**
@@ -60,6 +65,8 @@ class ModuleController extends AdminController
     {
         $validatedData = $request->validated();
         $module = $this->moduleService->create($validatedData);
+
+
 
 
         if ($request->ajax()) {
@@ -85,9 +92,11 @@ class ModuleController extends AdminController
     public function show(string $id)
     {
         $itemModule = $this->moduleService->find($id);
+        $filieres = $this->filiereService->all();
+
 
         if (request()->ajax()) {
-            return view('PkgCompetences::module._fields', compact('itemModule'));
+            return view('PkgCompetences::module._fields', compact('itemModule', 'filieres'));
         }
 
         return view('PkgCompetences::module.show', compact('itemModule'));
@@ -99,12 +108,13 @@ class ModuleController extends AdminController
     public function edit(string $id)
     {
         $itemModule = $this->moduleService->find($id);
+        $filieres = $this->filiereService->all();
 
         if (request()->ajax()) {
-            return view('PkgCompetences::module._fields', compact('itemModule'));
+            return view('PkgCompetences::module._fields', compact('itemModule', 'filieres'));
         }
 
-        return view('PkgCompetences::module.edit', compact('itemModule'));
+        return view('PkgCompetences::module.edit', compact('itemModule', 'filieres'));
     }
 
     /**
@@ -114,6 +124,8 @@ class ModuleController extends AdminController
     {
         $validatedData = $request->validated();
         $module = $this->moduleService->update($id, $validatedData);
+
+
 
 
         if ($request->ajax()) {

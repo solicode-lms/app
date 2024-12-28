@@ -30,6 +30,7 @@ class TechnologyController extends AdminController
         $this->competenceService = $competenceService;
         $this->transfertCompetenceService = $transfertCompetenceService;
         $this->categorieTechnologyService = $categorieTechnologyService;
+
     }
 
 
@@ -58,6 +59,7 @@ class TechnologyController extends AdminController
         $transfertCompetences = $this->transfertCompetenceService->all();
         $categorieTechnologies = $this->categorieTechnologyService->all();
 
+
         if (request()->ajax()) {
             return view('PkgCompetences::technology._fields', compact('itemTechnology', 'competences', 'transfertCompetences', 'categorieTechnologies'));
         }
@@ -72,12 +74,14 @@ class TechnologyController extends AdminController
         $validatedData = $request->validated();
         $technology = $this->technologyService->create($validatedData);
 
+
         if ($request->has('competences')) {
             $technology->competences()->sync($request->input('competences'));
         }
         if ($request->has('transfertcompetences')) {
             $technology->transfertcompetences()->sync($request->input('transfertcompetences'));
         }
+
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
@@ -105,6 +109,7 @@ class TechnologyController extends AdminController
         $competences = $this->competenceService->all();
         $transfertCompetences = $this->transfertCompetenceService->all();
         $categorieTechnologies = $this->categorieTechnologyService->all();
+
 
         if (request()->ajax()) {
             return view('PkgCompetences::technology._fields', compact('itemTechnology', 'competences', 'transfertCompetences', 'categorieTechnologies'));
@@ -138,8 +143,10 @@ class TechnologyController extends AdminController
         $validatedData = $request->validated();
         $technology = $this->technologyService->update($id, $validatedData);
 
+
         $technology->competences()->sync($request->input('competences'));
         $technology->transfertcompetences()->sync($request->input('transfertcompetences'));
+
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 

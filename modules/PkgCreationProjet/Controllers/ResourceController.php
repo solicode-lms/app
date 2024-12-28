@@ -17,11 +17,14 @@ use Modules\PkgCreationProjet\App\Imports\ResourceImport;
 class ResourceController extends AdminController
 {
     protected $resourceService;
+    protected $projetService;
 
-    public function __construct(ResourceService $resourceService)
+    public function __construct(ResourceService $resourceService, ProjetService $projetService)
     {
         parent::__construct();
         $this->resourceService = $resourceService;
+        $this->projetService = $projetService;
+
     }
 
 
@@ -46,11 +49,13 @@ class ResourceController extends AdminController
     public function create()
     {
         $itemResource = $this->resourceService->createInstance();
+        $projets = $this->projetService->all();
+
 
         if (request()->ajax()) {
-            return view('PkgCreationProjet::resource._fields', compact('itemResource'));
+            return view('PkgCreationProjet::resource._fields', compact('itemResource', 'projets'));
         }
-        return view('PkgCreationProjet::resource.create', compact('itemResource'));
+        return view('PkgCreationProjet::resource.create', compact('itemResource', 'projets'));
     }
 
     /**
@@ -60,6 +65,8 @@ class ResourceController extends AdminController
     {
         $validatedData = $request->validated();
         $resource = $this->resourceService->create($validatedData);
+
+
 
 
         if ($request->ajax()) {
@@ -85,9 +92,11 @@ class ResourceController extends AdminController
     public function show(string $id)
     {
         $itemResource = $this->resourceService->find($id);
+        $projets = $this->projetService->all();
+
 
         if (request()->ajax()) {
-            return view('PkgCreationProjet::resource._fields', compact('itemResource'));
+            return view('PkgCreationProjet::resource._fields', compact('itemResource', 'projets'));
         }
 
         return view('PkgCreationProjet::resource.show', compact('itemResource'));
@@ -99,12 +108,13 @@ class ResourceController extends AdminController
     public function edit(string $id)
     {
         $itemResource = $this->resourceService->find($id);
+        $projets = $this->projetService->all();
 
         if (request()->ajax()) {
-            return view('PkgCreationProjet::resource._fields', compact('itemResource'));
+            return view('PkgCreationProjet::resource._fields', compact('itemResource', 'projets'));
         }
 
-        return view('PkgCreationProjet::resource.edit', compact('itemResource'));
+        return view('PkgCreationProjet::resource.edit', compact('itemResource', 'projets'));
     }
 
     /**
@@ -114,6 +124,8 @@ class ResourceController extends AdminController
     {
         $validatedData = $request->validated();
         $resource = $this->resourceService->update($id, $validatedData);
+
+
 
 
         if ($request->ajax()) {

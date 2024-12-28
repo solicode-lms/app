@@ -22,6 +22,7 @@ class NiveauxScolaireController extends AdminController
     {
         parent::__construct();
         $this->niveauxScolaireService = $niveauxScolaireService;
+
     }
 
 
@@ -47,6 +48,7 @@ class NiveauxScolaireController extends AdminController
     {
         $itemNiveauxScolaire = $this->niveauxScolaireService->createInstance();
 
+
         if (request()->ajax()) {
             return view('PkgUtilisateurs::niveauxScolaire._fields', compact('itemNiveauxScolaire'));
         }
@@ -60,6 +62,8 @@ class NiveauxScolaireController extends AdminController
     {
         $validatedData = $request->validated();
         $niveauxScolaire = $this->niveauxScolaireService->create($validatedData);
+
+
 
 
         if ($request->ajax()) {
@@ -85,6 +89,7 @@ class NiveauxScolaireController extends AdminController
     public function show(string $id)
     {
         $itemNiveauxScolaire = $this->niveauxScolaireService->find($id);
+
 
         if (request()->ajax()) {
             return view('PkgUtilisateurs::niveauxScolaire._fields', compact('itemNiveauxScolaire'));
@@ -114,6 +119,8 @@ class NiveauxScolaireController extends AdminController
     {
         $validatedData = $request->validated();
         $niveauxscolaire = $this->niveauxScolaireService->update($id, $validatedData);
+
+
 
 
         if ($request->ajax()) {

@@ -30,6 +30,7 @@ class PermissionController extends AdminController
         $this->featureService = $featureService;
         $this->roleService = $roleService;
         $this->sysControllerService = $sysControllerService;
+
     }
 
 
@@ -58,6 +59,7 @@ class PermissionController extends AdminController
         $roles = $this->roleService->all();
         $sysControllers = $this->sysControllerService->all();
 
+
         if (request()->ajax()) {
             return view('PkgAutorisation::permission._fields', compact('itemPermission', 'features', 'roles', 'sysControllers'));
         }
@@ -72,12 +74,14 @@ class PermissionController extends AdminController
         $validatedData = $request->validated();
         $permission = $this->permissionService->create($validatedData);
 
+
         if ($request->has('features')) {
             $permission->features()->sync($request->input('features'));
         }
         if ($request->has('roles')) {
             $permission->roles()->sync($request->input('roles'));
         }
+
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
@@ -105,6 +109,7 @@ class PermissionController extends AdminController
         $features = $this->featureService->all();
         $roles = $this->roleService->all();
         $sysControllers = $this->sysControllerService->all();
+
 
         if (request()->ajax()) {
             return view('PkgAutorisation::permission._fields', compact('itemPermission', 'features', 'roles', 'sysControllers'));
@@ -138,8 +143,10 @@ class PermissionController extends AdminController
         $validatedData = $request->validated();
         $permission = $this->permissionService->update($id, $validatedData);
 
+
         $permission->features()->sync($request->input('features'));
         $permission->roles()->sync($request->input('roles'));
+
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 

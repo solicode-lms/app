@@ -24,6 +24,7 @@ class UserController extends AdminController
         parent::__construct();
         $this->userService = $userService;
         $this->roleService = $roleService;
+
     }
 
 
@@ -50,6 +51,7 @@ class UserController extends AdminController
         $itemUser = $this->userService->createInstance();
         $roles = $this->roleService->all();
 
+
         if (request()->ajax()) {
             return view('PkgAutorisation::user._fields', compact('itemUser', 'roles'));
         }
@@ -64,9 +66,11 @@ class UserController extends AdminController
         $validatedData = $request->validated();
         $user = $this->userService->create($validatedData);
 
+
         if ($request->has('roles')) {
             $user->roles()->sync($request->input('roles'));
         }
+
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
@@ -92,6 +96,7 @@ class UserController extends AdminController
     {
         $itemUser = $this->userService->find($id);
         $roles = $this->roleService->all();
+
 
         if (request()->ajax()) {
             return view('PkgAutorisation::user._fields', compact('itemUser', 'roles'));
@@ -123,7 +128,9 @@ class UserController extends AdminController
         $validatedData = $request->validated();
         $user = $this->userService->update($id, $validatedData);
 
+
         $user->roles()->sync($request->input('roles'));
+
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 

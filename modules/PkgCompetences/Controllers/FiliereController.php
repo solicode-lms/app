@@ -22,6 +22,7 @@ class FiliereController extends AdminController
     {
         parent::__construct();
         $this->filiereService = $filiereService;
+
     }
 
 
@@ -47,6 +48,7 @@ class FiliereController extends AdminController
     {
         $itemFiliere = $this->filiereService->createInstance();
 
+
         if (request()->ajax()) {
             return view('PkgCompetences::filiere._fields', compact('itemFiliere'));
         }
@@ -60,6 +62,8 @@ class FiliereController extends AdminController
     {
         $validatedData = $request->validated();
         $filiere = $this->filiereService->create($validatedData);
+
+
 
 
         if ($request->ajax()) {
@@ -85,6 +89,7 @@ class FiliereController extends AdminController
     public function show(string $id)
     {
         $itemFiliere = $this->filiereService->find($id);
+
 
         if (request()->ajax()) {
             return view('PkgCompetences::filiere._fields', compact('itemFiliere'));
@@ -114,6 +119,8 @@ class FiliereController extends AdminController
     {
         $validatedData = $request->validated();
         $filiere = $this->filiereService->update($id, $validatedData);
+
+
 
 
         if ($request->ajax()) {

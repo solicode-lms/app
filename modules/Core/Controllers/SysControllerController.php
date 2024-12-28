@@ -17,11 +17,14 @@ use Modules\Core\App\Imports\SysControllerImport;
 class SysControllerController extends AdminController
 {
     protected $sysControllerService;
+    protected $sysModuleService;
 
-    public function __construct(SysControllerService $sysControllerService)
+    public function __construct(SysControllerService $sysControllerService, SysModuleService $sysModuleService)
     {
         parent::__construct();
         $this->sysControllerService = $sysControllerService;
+        $this->sysModuleService = $sysModuleService;
+
     }
 
 
@@ -46,11 +49,13 @@ class SysControllerController extends AdminController
     public function create()
     {
         $itemSysController = $this->sysControllerService->createInstance();
+        $sysModules = $this->sysModuleService->all();
+
 
         if (request()->ajax()) {
-            return view('Core::sysController._fields', compact('itemSysController'));
+            return view('Core::sysController._fields', compact('itemSysController', 'sysModules'));
         }
-        return view('Core::sysController.create', compact('itemSysController'));
+        return view('Core::sysController.create', compact('itemSysController', 'sysModules'));
     }
 
     /**
@@ -60,6 +65,8 @@ class SysControllerController extends AdminController
     {
         $validatedData = $request->validated();
         $sysController = $this->sysControllerService->create($validatedData);
+
+
 
 
         if ($request->ajax()) {
@@ -85,9 +92,11 @@ class SysControllerController extends AdminController
     public function show(string $id)
     {
         $itemSysController = $this->sysControllerService->find($id);
+        $sysModules = $this->sysModuleService->all();
+
 
         if (request()->ajax()) {
-            return view('Core::sysController._fields', compact('itemSysController'));
+            return view('Core::sysController._fields', compact('itemSysController', 'sysModules'));
         }
 
         return view('Core::syscontroller.show', compact('itemSysController'));
@@ -99,12 +108,13 @@ class SysControllerController extends AdminController
     public function edit(string $id)
     {
         $itemSysController = $this->sysControllerService->find($id);
+        $sysModules = $this->sysModuleService->all();
 
         if (request()->ajax()) {
-            return view('Core::sysController._fields', compact('itemSysController'));
+            return view('Core::sysController._fields', compact('itemSysController', 'sysModules'));
         }
 
-        return view('Core::sysController.edit', compact('itemSysController'));
+        return view('Core::sysController.edit', compact('itemSysController', 'sysModules'));
     }
 
     /**
@@ -114,6 +124,8 @@ class SysControllerController extends AdminController
     {
         $validatedData = $request->validated();
         $syscontroller = $this->sysControllerService->update($id, $validatedData);
+
+
 
 
         if ($request->ajax()) {

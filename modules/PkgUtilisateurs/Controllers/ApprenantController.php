@@ -19,11 +19,18 @@ use Modules\PkgUtilisateurs\App\Imports\ApprenantImport;
 class ApprenantController extends AdminController
 {
     protected $apprenantService;
+    protected $groupeService;
+    protected $nationaliteService;
+    protected $niveauxScolaireService;
 
-    public function __construct(ApprenantService $apprenantService)
+    public function __construct(ApprenantService $apprenantService, GroupeService $groupeService, NationaliteService $nationaliteService, NiveauxScolaireService $niveauxScolaireService)
     {
         parent::__construct();
         $this->apprenantService = $apprenantService;
+        $this->groupeService = $groupeService;
+        $this->nationaliteService = $nationaliteService;
+        $this->niveauxScolaireService = $niveauxScolaireService;
+
     }
 
 
@@ -48,11 +55,15 @@ class ApprenantController extends AdminController
     public function create()
     {
         $itemApprenant = $this->apprenantService->createInstance();
+        $groupes = $this->groupeService->all();
+        $nationalites = $this->nationaliteService->all();
+        $niveauxScolaires = $this->niveauxScolaireService->all();
+
 
         if (request()->ajax()) {
-            return view('PkgUtilisateurs::apprenant._fields', compact('itemApprenant'));
+            return view('PkgUtilisateurs::apprenant._fields', compact('itemApprenant', 'groupes', 'nationalites', 'niveauxScolaires'));
         }
-        return view('PkgUtilisateurs::apprenant.create', compact('itemApprenant'));
+        return view('PkgUtilisateurs::apprenant.create', compact('itemApprenant', 'groupes', 'nationalites', 'niveauxScolaires'));
     }
 
     /**
@@ -62,6 +73,8 @@ class ApprenantController extends AdminController
     {
         $validatedData = $request->validated();
         $apprenant = $this->apprenantService->create($validatedData);
+
+
 
 
         if ($request->ajax()) {
@@ -87,9 +100,13 @@ class ApprenantController extends AdminController
     public function show(string $id)
     {
         $itemApprenant = $this->apprenantService->find($id);
+        $groupes = $this->groupeService->all();
+        $nationalites = $this->nationaliteService->all();
+        $niveauxScolaires = $this->niveauxScolaireService->all();
+
 
         if (request()->ajax()) {
-            return view('PkgUtilisateurs::apprenant._fields', compact('itemApprenant'));
+            return view('PkgUtilisateurs::apprenant._fields', compact('itemApprenant', 'groupes', 'nationalites', 'niveauxScolaires'));
         }
 
         return view('PkgUtilisateurs::apprenant.show', compact('itemApprenant'));
@@ -101,12 +118,15 @@ class ApprenantController extends AdminController
     public function edit(string $id)
     {
         $itemApprenant = $this->apprenantService->find($id);
+        $groupes = $this->groupeService->all();
+        $nationalites = $this->nationaliteService->all();
+        $niveauxScolaires = $this->niveauxScolaireService->all();
 
         if (request()->ajax()) {
-            return view('PkgUtilisateurs::apprenant._fields', compact('itemApprenant'));
+            return view('PkgUtilisateurs::apprenant._fields', compact('itemApprenant', 'groupes', 'nationalites', 'niveauxScolaires'));
         }
 
-        return view('PkgUtilisateurs::apprenant.edit', compact('itemApprenant'));
+        return view('PkgUtilisateurs::apprenant.edit', compact('itemApprenant', 'groupes', 'nationalites', 'niveauxScolaires'));
     }
 
     /**
@@ -116,6 +136,8 @@ class ApprenantController extends AdminController
     {
         $validatedData = $request->validated();
         $apprenant = $this->apprenantService->update($id, $validatedData);
+
+
 
 
         if ($request->ajax()) {

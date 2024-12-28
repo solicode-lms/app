@@ -22,6 +22,7 @@ class VilleController extends AdminController
     {
         parent::__construct();
         $this->villeService = $villeService;
+
     }
 
 
@@ -47,6 +48,7 @@ class VilleController extends AdminController
     {
         $itemVille = $this->villeService->createInstance();
 
+
         if (request()->ajax()) {
             return view('PkgUtilisateurs::ville._fields', compact('itemVille'));
         }
@@ -60,6 +62,8 @@ class VilleController extends AdminController
     {
         $validatedData = $request->validated();
         $ville = $this->villeService->create($validatedData);
+
+
 
 
         if ($request->ajax()) {
@@ -85,6 +89,7 @@ class VilleController extends AdminController
     public function show(string $id)
     {
         $itemVille = $this->villeService->find($id);
+
 
         if (request()->ajax()) {
             return view('PkgUtilisateurs::ville._fields', compact('itemVille'));
@@ -114,6 +119,8 @@ class VilleController extends AdminController
     {
         $validatedData = $request->validated();
         $ville = $this->villeService->update($id, $validatedData);
+
+
 
 
         if ($request->ajax()) {

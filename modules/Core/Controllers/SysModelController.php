@@ -18,11 +18,16 @@ use Modules\Core\App\Imports\SysModelImport;
 class SysModelController extends AdminController
 {
     protected $sysModelService;
+    protected $sysColorService;
+    protected $sysModuleService;
 
-    public function __construct(SysModelService $sysModelService)
+    public function __construct(SysModelService $sysModelService, SysColorService $sysColorService, SysModuleService $sysModuleService)
     {
         parent::__construct();
         $this->sysModelService = $sysModelService;
+        $this->sysColorService = $sysColorService;
+        $this->sysModuleService = $sysModuleService;
+
     }
 
 
@@ -47,11 +52,14 @@ class SysModelController extends AdminController
     public function create()
     {
         $itemSysModel = $this->sysModelService->createInstance();
+        $sysColors = $this->sysColorService->all();
+        $sysModules = $this->sysModuleService->all();
+
 
         if (request()->ajax()) {
-            return view('Core::sysModel._fields', compact('itemSysModel'));
+            return view('Core::sysModel._fields', compact('itemSysModel', 'sysColors', 'sysModules'));
         }
-        return view('Core::sysModel.create', compact('itemSysModel'));
+        return view('Core::sysModel.create', compact('itemSysModel', 'sysColors', 'sysModules'));
     }
 
     /**
@@ -61,6 +69,8 @@ class SysModelController extends AdminController
     {
         $validatedData = $request->validated();
         $sysModel = $this->sysModelService->create($validatedData);
+
+
 
 
         if ($request->ajax()) {
@@ -86,9 +96,12 @@ class SysModelController extends AdminController
     public function show(string $id)
     {
         $itemSysModel = $this->sysModelService->find($id);
+        $sysColors = $this->sysColorService->all();
+        $sysModules = $this->sysModuleService->all();
+
 
         if (request()->ajax()) {
-            return view('Core::sysModel._fields', compact('itemSysModel'));
+            return view('Core::sysModel._fields', compact('itemSysModel', 'sysColors', 'sysModules'));
         }
 
         return view('Core::sysmodel.show', compact('itemSysModel'));
@@ -100,12 +113,14 @@ class SysModelController extends AdminController
     public function edit(string $id)
     {
         $itemSysModel = $this->sysModelService->find($id);
+        $sysColors = $this->sysColorService->all();
+        $sysModules = $this->sysModuleService->all();
 
         if (request()->ajax()) {
-            return view('Core::sysModel._fields', compact('itemSysModel'));
+            return view('Core::sysModel._fields', compact('itemSysModel', 'sysColors', 'sysModules'));
         }
 
-        return view('Core::sysModel.edit', compact('itemSysModel'));
+        return view('Core::sysModel.edit', compact('itemSysModel', 'sysColors', 'sysModules'));
     }
 
     /**
@@ -115,6 +130,8 @@ class SysModelController extends AdminController
     {
         $validatedData = $request->validated();
         $sysmodel = $this->sysModelService->update($id, $validatedData);
+
+
 
 
         if ($request->ajax()) {

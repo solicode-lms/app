@@ -1,4 +1,21 @@
-{{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
+@section('script')
+<script>
+    window.entitiesConfig = window.entitiesConfig || [];
+    window.entitiesConfig.push({
+        entity_name: 'resource',
+        crudSelector: '#resource_crud',
+        indexUrl: '{{ route('resources.index') }}', 
+        createUrl: '{{ route('resources.create') }}',
+        editUrl: '{{ route('resources.edit', ['resource' => ':id']) }}',
+        showUrl: '{{ route('resources.show', ['resource' => ':id']) }}',
+        storeUrl: '{{ route('resources.store') }}', 
+        deleteUrl: '{{ route('resources.destroy', ['resource' => ':id']) }}', 
+        csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
+        create_title: '{{__("Core::msg.add") . " : " . __("PkgCreationProjet::resource.singular") }}',
+        edit_title: '{{__("Core::msg.add") . " : " . __("PkgCreationProjet::resource.singular") }}',
+    });
+</script>
+@endsection
 
 <div id="resource_crud">
     <div class="content-header">
@@ -36,7 +53,7 @@
                         <div class="card-header col-md-12">
                             <div class="p-0">
                                 <div class="input-group input-group-sm float-sm-right col-md-3 p-0">
-                                    <input type="text" value="{{$searchQuery}}" name="crud_search_input" id="crud_search_input"
+                                    <input type="text" value="{{ $searchQuery ?? '' }}" name="crud_search_input" id="crud_search_input"
                                            class="form-control float-right" placeholder="Recherche">
                                     <div class="input-group-append">
                                         <button type="submit" class="btn btn-default">

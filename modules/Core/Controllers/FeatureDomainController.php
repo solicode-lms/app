@@ -17,11 +17,14 @@ use Modules\Core\App\Imports\FeatureDomainImport;
 class FeatureDomainController extends AdminController
 {
     protected $featureDomainService;
+    protected $sysModuleService;
 
-    public function __construct(FeatureDomainService $featureDomainService)
+    public function __construct(FeatureDomainService $featureDomainService, SysModuleService $sysModuleService)
     {
         parent::__construct();
         $this->featureDomainService = $featureDomainService;
+        $this->sysModuleService = $sysModuleService;
+
     }
 
 
@@ -46,11 +49,13 @@ class FeatureDomainController extends AdminController
     public function create()
     {
         $itemFeatureDomain = $this->featureDomainService->createInstance();
+        $sysModules = $this->sysModuleService->all();
+
 
         if (request()->ajax()) {
-            return view('Core::featureDomain._fields', compact('itemFeatureDomain'));
+            return view('Core::featureDomain._fields', compact('itemFeatureDomain', 'sysModules'));
         }
-        return view('Core::featureDomain.create', compact('itemFeatureDomain'));
+        return view('Core::featureDomain.create', compact('itemFeatureDomain', 'sysModules'));
     }
 
     /**
@@ -60,6 +65,8 @@ class FeatureDomainController extends AdminController
     {
         $validatedData = $request->validated();
         $featureDomain = $this->featureDomainService->create($validatedData);
+
+
 
 
         if ($request->ajax()) {
@@ -85,9 +92,11 @@ class FeatureDomainController extends AdminController
     public function show(string $id)
     {
         $itemFeatureDomain = $this->featureDomainService->find($id);
+        $sysModules = $this->sysModuleService->all();
+
 
         if (request()->ajax()) {
-            return view('Core::featureDomain._fields', compact('itemFeatureDomain'));
+            return view('Core::featureDomain._fields', compact('itemFeatureDomain', 'sysModules'));
         }
 
         return view('Core::featuredomain.show', compact('itemFeatureDomain'));
@@ -99,12 +108,13 @@ class FeatureDomainController extends AdminController
     public function edit(string $id)
     {
         $itemFeatureDomain = $this->featureDomainService->find($id);
+        $sysModules = $this->sysModuleService->all();
 
         if (request()->ajax()) {
-            return view('Core::featureDomain._fields', compact('itemFeatureDomain'));
+            return view('Core::featureDomain._fields', compact('itemFeatureDomain', 'sysModules'));
         }
 
-        return view('Core::featureDomain.edit', compact('itemFeatureDomain'));
+        return view('Core::featureDomain.edit', compact('itemFeatureDomain', 'sysModules'));
     }
 
     /**
@@ -114,6 +124,8 @@ class FeatureDomainController extends AdminController
     {
         $validatedData = $request->validated();
         $featuredomain = $this->featureDomainService->update($id, $validatedData);
+
+
 
 
         if ($request->ajax()) {

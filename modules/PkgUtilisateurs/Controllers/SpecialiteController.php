@@ -24,6 +24,7 @@ class SpecialiteController extends AdminController
         parent::__construct();
         $this->specialiteService = $specialiteService;
         $this->formateurService = $formateurService;
+
     }
 
 
@@ -50,6 +51,7 @@ class SpecialiteController extends AdminController
         $itemSpecialite = $this->specialiteService->createInstance();
         $formateurs = $this->formateurService->all();
 
+
         if (request()->ajax()) {
             return view('PkgUtilisateurs::specialite._fields', compact('itemSpecialite', 'formateurs'));
         }
@@ -64,9 +66,11 @@ class SpecialiteController extends AdminController
         $validatedData = $request->validated();
         $specialite = $this->specialiteService->create($validatedData);
 
+
         if ($request->has('formateurs')) {
             $specialite->formateurs()->sync($request->input('formateurs'));
         }
+
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
@@ -92,6 +96,7 @@ class SpecialiteController extends AdminController
     {
         $itemSpecialite = $this->specialiteService->find($id);
         $formateurs = $this->formateurService->all();
+
 
         if (request()->ajax()) {
             return view('PkgUtilisateurs::specialite._fields', compact('itemSpecialite', 'formateurs'));
@@ -123,7 +128,9 @@ class SpecialiteController extends AdminController
         $validatedData = $request->validated();
         $specialite = $this->specialiteService->update($id, $validatedData);
 
+
         $specialite->formateurs()->sync($request->input('formateurs'));
+
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
