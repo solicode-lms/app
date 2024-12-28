@@ -1,6 +1,6 @@
-import { BaseAction } from '../BaseAction';
+import { BaseAction } from './BaseAction';
 
-export class EntityViewer extends BaseAction {
+export class ViewAction extends BaseAction {
     /**
      * Affiche les détails d'une entité dans un modal.
      * @param {number|string} id - Identifiant de l'entité à afficher.

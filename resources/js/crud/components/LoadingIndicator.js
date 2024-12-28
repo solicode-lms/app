@@ -1,6 +1,6 @@
-export class CrudLoader {
+export class LoadingIndicator {
     /**
-     * Constructeur de la classe CrudLoader.
+     * Constructeur de la classe LoadingIndicator.
      * @param {string} containerSelector - Sélecteur CSS pour l'élément contenant le chargement (ex: une carte ou une table).
      */
     constructor(containerSelector = '#card_crud') {

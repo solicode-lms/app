@@ -1,8 +1,8 @@
-import { CrudLoader } from './components/CrudLoader';
-import { CrudModalManager } from './components/CrudModalManager';
-import { MessageHandler } from './components/MessageHandler';
-import { EntityLoader } from './entities/EntityLoader';
-import { FormManager } from './forms/FormManager';
+import { LoadingIndicator } from '../components/LoadingIndicator';
+import { ModalManager } from '../components/ModalManager';
+import { NotificationHandler } from '../components/NotificationHandler';
+import { LoadListAction } from './LoadListAction';
+import { FormManager } from '../components/FormManager';
 
 export class BaseAction {
     /**
@@ -11,10 +11,10 @@ export class BaseAction {
     constructor(config) {
         this.config = config;
         // Création des dépendances communes
-        this.modalManager = new CrudModalManager(config.modalSelector);
+        this.modalManager = new ModalManager(config.modalSelector);
         // Table Loader
-        this.loader = new CrudLoader(config.tableSelector);
-        this.entityLoader = new EntityLoader(config);
+        this.loader = new LoadingIndicator(config.tableSelector);
+        this.entityLoader = new LoadListAction(config);
         this.formManager = new FormManager(this.config.formSelector, this.modalManager);
 
         this.SuscesMessage = "Entité modifiée avec succès.";
@@ -26,7 +26,7 @@ export class BaseAction {
      */
     handleError(errorMessage) {
         this.modalManager.showError(errorMessage);
-        MessageHandler.showError(errorMessage);
+        NotificationHandler.showError(errorMessage);
     }
 
     /**
@@ -34,7 +34,7 @@ export class BaseAction {
      * @param {string} successMessage - Message de succès à afficher.
      */
     handleSuccess(successMessage) {
-        MessageHandler.showSuccess(successMessage);
+        NotificationHandler.showSuccess(successMessage);
     }
 
     /**

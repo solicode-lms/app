@@ -1,7 +1,6 @@
-import { BaseAction } from '../BaseAction';
-import { FormManager } from '../forms/FormManager';
+import { BaseAction } from './BaseAction';
 
-export class EntityCreator extends BaseAction {
+export class CreateAction extends BaseAction {
 
     constructor(config) {
         super(config);

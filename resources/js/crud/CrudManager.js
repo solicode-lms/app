@@ -1,11 +1,12 @@
-import { EntityCreator } from './actions/EntityCreator';
-import { EntityViewer } from './actions/EntityViewer';
-import { EntityEditor } from './actions/EntityEditor';
-import { EntityDeleter } from './actions/EntityDeleter';
-import { CrudEventManager } from './events/CrudEventManager';
-import { SearchAndPaginationManager } from './entities/SearchAndPaginationManager';
-import { EntityLoader } from './entities/EntityLoader';
+import { CreateAction } from './actions/CreateAction';
+import { ViewAction } from './actions/ViewAction';
+import { EditAction } from './actions/EditAction';
+import { DeleteAction } from './actions/DeleteAction';
 
+import { LoadListAction } from './actions/LoadListAction';
+import { SearchPaginationEventHandler } from './eventsHandler/SearchPaginationEventHandler';
+import { ActionsEventHandler } from './eventsHandler/ActionsEventHandler';
+ 
 /**
  * Classe principale pour gérer le CRUD.
  */
@@ -18,20 +19,20 @@ export class CrudManager {
         this.config = config;
 
         // Initialisation des actions CRUD
-        this.entityCreator = new EntityCreator(config);
-        this.entityViewer = new EntityViewer(config);
-        this.entityEditor = new EntityEditor(config);
-        this.entityDeleter = new EntityDeleter(config);
+        this.entityCreator = new CreateAction(config);
+        this.entityViewer = new ViewAction(config);
+        this.entityEditor = new EditAction(config);
+        this.entityDeleter = new DeleteAction(config);
 
         // Initialisation des gestionnaires
-        this.entityLoader = new EntityLoader(config);
-        this.eventManager = new CrudEventManager(config, {
+        this.entityLoader = new LoadListAction(config);
+        this.eventManager = new ActionsEventHandler(config, {
             creator: this.entityCreator,
             viewer: this.entityViewer,
             editor: this.entityEditor,
             deleter: this.entityDeleter,
         });
-        this.searchAndPaginationManager = new SearchAndPaginationManager(config, this.entityLoader);
+        this.searchAndPaginationManager = new SearchPaginationEventHandler(config, this.entityLoader);
     }
 
     /**

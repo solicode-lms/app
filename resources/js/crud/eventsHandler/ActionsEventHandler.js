@@ -1,6 +1,6 @@
-export class CrudEventManager {
+export class ActionsEventHandler {
     /**
-     * Constructeur de la classe CrudEventManager.
+     * Constructeur de la classe ActionsEventHandler.
      * @param {Object} config - Configuration des sélecteurs CRUD.
      * @param {CrudActions} actions - Instance de CrudActions pour exécuter les actions CRUD.
      */

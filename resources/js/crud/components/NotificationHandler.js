@@ -1,6 +1,6 @@
 import Swal from 'sweetalert2';
 
-export class MessageHandler {
+export class NotificationHandler {
     /**
      * Affiche une notification toast.
      * @param {string} type - Type de message (success, error, warning, info).
@@ -85,7 +85,7 @@ export class MessageHandler {
      * @param {string} [message='Une erreur s\'est produite.'] - Message d'erreur à afficher.
      */
     static showError(message = 'Une erreur s\'est produite.') {
-        MessageHandler.showToast('error', message);
+        NotificationHandler.showToast('error', message);
     }
 
     /**
@@ -93,7 +93,7 @@ export class MessageHandler {
      * @param {string} [message='Opération réalisée avec succès.'] - Message de succès à afficher.
      */
     static showSuccess(message = 'Opération réalisée avec succès.') {
-        MessageHandler.showToast('success', message);
+        NotificationHandler.showToast('success', message);
     }
 
     /**
@@ -101,6 +101,6 @@ export class MessageHandler {
      * @param {string} [message='Action en cours...'] - Message d'information à afficher.
      */
     static showInfo(message = 'Action en cours...') {
-        MessageHandler.showToast('info', message);
+        NotificationHandler.showToast('info', message);
     }
 }

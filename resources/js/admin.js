@@ -7,7 +7,7 @@ select2(); // <-- select2 must be called
 import 'admin-lte/plugins/bootstrap/js/bootstrap.bundle';
 import "admin-lte/dist/js/adminlte";
 import { CrudManager } from './crud/CrudManager';
-import { CrudConfigHelper } from './crud/utilities/CrudConfigHelper';
+import { ConfigHelper } from './crud/helpers/ConfigHelper';
 
 // Init CrudManagers in the page
 document.addEventListener("DOMContentLoaded", function () {
@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Initialiser les gestionnaires pour chaque entité
     window.entitiesConfig.forEach((entityConfigData) => {
-        const entityConfig = new CrudConfigHelper(entityConfigData);
+        const entityConfig = new ConfigHelper(entityConfigData);
         const crudManager = new CrudManager(entityConfig);
         crudManager.init();
     });

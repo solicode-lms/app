@@ -1,7 +1,7 @@
-import { BaseAction } from '../BaseAction';
-import { MessageHandler } from '../components/MessageHandler';
+import { BaseAction } from './BaseAction';
+import { NotificationHandler } from '../components/NotificationHandler';
 
-export class EntityDeleter extends BaseAction {
+export class DeleteAction extends BaseAction {
     /**
      * Supprime une entité via AJAX.
      * @param {number|string} id - Identifiant de l'entité à supprimer.
@@ -10,12 +10,12 @@ export class EntityDeleter extends BaseAction {
         const deleteUrl = this.getUrlWithId(this.config.deleteUrl, id); // Générer l'URL dynamique
 
         // Confirmer l'action avant de procéder
-        MessageHandler.confirmAction(
+        NotificationHandler.confirmAction(
             'Êtes-vous sûr ?',
             'Cette action est irréversible.',
             () => {
                 // Afficher un message d'information pendant la suppression
-                MessageHandler.showInfo('Suppression en cours...');
+                NotificationHandler.showInfo('Suppression en cours...');
                 // Envoyer une requête DELETE
                 $.ajax({
                     url: deleteUrl,

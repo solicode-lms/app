@@ -1,10 +1,10 @@
-import { MessageHandler } from '../components/MessageHandler';
+import { NotificationHandler } from '../components/NotificationHandler';
 
-export class SearchAndPaginationManager {
+export class SearchPaginationEventHandler {
     /**
-     * Constructeur de SearchAndPaginationManager.
+     * Constructeur de SearchPaginationEventHandler.
      * @param {Object} config - Configuration contenant les sélecteurs et URLs.
-     * @param {Object} entityLoader - Instance de EntityLoader pour recharger les entités.
+     * @param {Object} entityLoader - Instance de LoadListAction pour recharger les entités.
      */
     constructor(config, entityLoader) {
         this.config = config;
@@ -33,7 +33,7 @@ export class SearchAndPaginationManager {
             clearTimeout(this.debounceTimeout); // Réinitialiser le délai précédent
             this.debounceTimeout = setTimeout(() => {
                 this.entityLoader.loadEntities(1, searchValue); // Recharger les entités avec la valeur de recherche
-                MessageHandler.showInfo('Recherche en cours...');
+                NotificationHandler.showInfo('Recherche en cours...');
             }, this.debounceDelay);
         });
     }
@@ -52,7 +52,7 @@ export class SearchAndPaginationManager {
                 const searchValue = $(this.config.searchInputSelector).val(); // Obtenir la valeur actuelle de la recherche
                 this.updateURLParameter('page', page); // Met à jour l'URL
                 this.entityLoader.loadEntities(page, searchValue); // Charger la page demandée
-                MessageHandler.showInfo(`Chargement de la page ${page}...`);
+                NotificationHandler.showInfo(`Chargement de la page ${page}...`);
             }
         });
     }

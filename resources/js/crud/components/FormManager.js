@@ -1,16 +1,15 @@
-import { CrudLoader } from "../components/CrudLoader";
-import { MessageHandler } from "../components/MessageHandler";
+import { LoadingIndicator } from "./LoadingIndicator";
 
 export class FormManager {
     /**
      * Constructeur de la classe FormManager.
      * @param {string} formSelector - Sélecteur CSS du formulaire à gérer.
-     * @param {CrudModalManager} modalManager - Instance de CrudModalManager pour gérer les interactions modales.
+     * @param {ModalManager} modalManager - Instance de ModalManager pour gérer les interactions modales.
      */
     constructor(formSelector, modalManager) {
         this.formSelector = formSelector;
         this.modalManager = modalManager;
-        this.loader = new CrudLoader(formSelector);
+        this.loader = new LoadingIndicator(formSelector);
     }
 
     /**
@@ -69,11 +68,11 @@ export class FormManager {
     //     })
     //         .done(() => {
     //             this.modalManager.close();
-    //             MessageHandler.showSuccess('Opération réalisée avec succès.');
+    //             NotificationHandler.showSuccess('Opération réalisée avec succès.');
     //         })
     //         .fail((xhr) => {
     //             const errorMessage = xhr.responseJSON?.message || 'Une erreur s\'est produite lors de la soumission.';
-    //             MessageHandler.showError(errorMessage);
+    //             NotificationHandler.showError(errorMessage);
     //         });
     // }
 

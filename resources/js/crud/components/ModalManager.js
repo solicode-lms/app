@@ -1,6 +1,6 @@
-export class CrudModalManager {
+export class ModalManager {
     /**
-     * Constructeur de la classe CrudModalManager.
+     * Constructeur de la classe ModalManager.
      * @param {string} modalSelector - Sélecteur CSS pour cibler le modal.
      */
     constructor(modalSelector) {

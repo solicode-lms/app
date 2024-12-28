@@ -9,7 +9,7 @@ Voici une proposition pour structurer et organiser `GappCrud` en plusieurs class
      - Stocker les sélecteurs CSS pour les tables, formulaires, et modals.
      - Fournir une abstraction pour accéder facilement à la configuration.
 
-2. **`CrudModalManager`**
+2. **`ModalManager`**
    - **Description** : Gérer l'affichage et les interactions avec le modal.
    - **Responsabilités** :
      - Afficher et masquer le modal.
@@ -28,7 +28,7 @@ Voici une proposition pour structurer et organiser `GappCrud` en plusieurs class
    - **Responsabilités** :
      - Gérer les appels AJAX pour chaque opération.
      - Traiter les réponses (succès/échec) et afficher les messages.
-     - Utiliser `CrudModalManager` pour afficher ou masquer le modal.
+     - Utiliser `ModalManager` pour afficher ou masquer le modal.
 
 5. **`CrudEventManager`**
    - **Description** : Gérer l'écoute des événements sur les éléments DOM.
@@ -64,7 +64,7 @@ Voici une proposition pour structurer et organiser `GappCrud` en plusieurs class
 ---
 
 ### Exemple d'Interaction entre les Classes
-- `CrudActions` utilise `CrudModalManager` pour afficher le formulaire d'ajout ou de modification.
+- `CrudActions` utilise `ModalManager` pour afficher le formulaire d'ajout ou de modification.
 - `CrudEventManager` gère les clics sur les boutons d'ajout et de modification, puis délègue à `CrudActions`.
 - `FormManager` initialise les formulaires ou les passe en mode lecture seule après qu'un formulaire ait été chargé.
 - `CrudLoader` affiche un indicateur de chargement pendant que les données sont récupérées ou soumises.

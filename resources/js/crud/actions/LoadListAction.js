@@ -1,16 +1,16 @@
-import { CrudLoader } from '../components/CrudLoader';
-import { MessageHandler } from '../components/MessageHandler';
+import { LoadingIndicator } from '../components/LoadingIndicator';
+import { NotificationHandler } from '../components/NotificationHandler';
 
-export class EntityLoader {
+export class LoadListAction {
     /**
-     * Constructeur de EntityLoader.
+     * Constructeur de LoadListAction.
      * @param {Object} config - Configuration pour le chargement des entités.
      */
     constructor(config) {
         this.config = config;
 
         // Initialisation du gestionnaire de chargement
-        this.loader = new CrudLoader(config.tableSelector);
+        this.loader = new LoadingIndicator(config.tableSelector);
     }
 
     /**
@@ -41,11 +41,11 @@ export class EntityLoader {
                 $(this.config.tableSelector).html(html);
 
                 // Afficher un message de succès
-                MessageHandler.showSuccess('Données chargées avec succès.');
+                NotificationHandler.showSuccess('Données chargées avec succès.');
             })
             .fail(() => {
                 // Gérer les erreurs
-                MessageHandler.showError('Erreur lors du chargement des données.');
+                NotificationHandler.showError('Erreur lors du chargement des données.');
             })
             .always(() => {
                 // Masquer l'indicateur de chargement
