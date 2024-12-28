@@ -1,11 +1,8 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
-
 
 return [
-    'singular' => 'Feature',
-    'plural' => 'Features',
-    'name' => 'name',
+    'singular' => 'Fonctionnalité',
+    'plural' => 'Fonctionnalités',
+    'name' => 'nom',
     'description' => 'description',
-    'domain_id' => 'domain_id',
 ];

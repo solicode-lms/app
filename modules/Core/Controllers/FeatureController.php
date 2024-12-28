@@ -90,9 +90,10 @@ class FeatureController extends AdminController
     public function show(string $id)
     {
         $itemFeature = $this->featureService->find($id);
+        $permissions = $this->permissionService->all();
 
         if (request()->ajax()) {
-            return view('Core::feature._fields', compact('itemFeature'));
+            return view('Core::feature._fields', compact('itemFeature', 'permissions'));
         }
 
         return view('Core::feature.show', compact('itemFeature'));

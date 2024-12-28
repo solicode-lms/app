@@ -10,7 +10,7 @@
                     <h1>{{ __('Core::msg.detail') }}</h1>
                 </div>
                 <div class="col-sm-6">
-                    <a href="{{ route('features.edit', $item->id) }}" class="btn btn-default float-right">
+                    <a href="{{ route('features.edit', $itemFeature->id) }}" class="btn btn-default float-right">
                         <i class="far fa-edit"></i>
                         {{ __('Core::msg.edit') }}
                     </a>
@@ -26,15 +26,15 @@
                         <div class="card-body">
                             <div class="col-sm-12">
                                 <label for="name">{{ ucfirst(__('Core::feature.name')) }}:</label>
-                                <p>{{ $item->name }}</p>
+                                <p>{{ $itemFeature->name }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="description">{{ ucfirst(__('Core::feature.description')) }}:</label>
-                                <p>{{ $item->description }}</p>
+                                <p>{{ $itemFeature->description }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="domain_id">{{ ucfirst(__('Core::feature.domain_id')) }}:</label>
-                                <p>{{ $item->domain_id }}</p>
+                                <p>{{ $itemFeature->domain_id }}</p>
                             </div>
                         </div>
                     </div>

@@ -15,6 +15,8 @@ export default class GappCrud {
         this.formSelector = config.formSelector;
         this.modalSelector = config.modalSelector;
         this.entity_name = config.entity_name;
+        this.create_title = config.create_title;
+        this.edit_title = config.edit_title;
 
         this.crudSelector = `#${this.entity_name}_crud`;
     }
@@ -89,20 +91,36 @@ export default class GappCrud {
         $(document).on('click', `${this.crudSelector} .addEntityButton`, (e) => {
             e.preventDefault();
 
-            // Récupérer le formulaire d'ajout via AJAX
+            const modal = $(this.modalSelector);
+            modal.modal('show'); // Ouvrir le modal
+           
+
+            // Vider le contenu existant du modal
+            modal.find('#modal-content-container .modal-body').html('');
+            modal.find('#featureModalLabel').text(''); // Réinitialiser le titre
+
+            // Afficher le titre et activer le mode chargement
+            modal.find('#featureModalLabel').text(this.create_title);
+            modal.find('#modal-content-container').hide();
+            modal.find('#modal-loading').addClass('d-flex').show();
+           
+         
+
+
+            // Charger le contenu du formulaire d'ajout via AJAX
             $.get(this.createUrl)
                 .done((html) => {
-                    const modal = $(this.modalSelector);
-    
-                    // Injecter le formulaire dans le modal
-                    modal.find('.modal-content').html(html);
-    
+                    modal.find('#modal-loading').removeClass('d-flex').hide();
+                    modal.find('#modal-content-container .modal-body').html(html);
+
                     this.initForm();
 
-                    // Ouvrir le modal pour l'ajout
-                    modal.modal('show');
+
+                    modal.find('#modal-content-container').show(); // Afficher le contenu
+                    // modal.modal('show'); // Ouvrir le modal
                 })
                 .fail(() => {
+                    modal.find('#modal-loading').hide(); // Masquer le chargement même en cas d'erreur
                     GappMessages.showToast('error', 'Erreur lors du chargement du formulaire d\'ajout.');
                 });
         });
@@ -171,27 +189,32 @@ export default class GappCrud {
     }
 
     editEntity() {
-        $(document).on('click',`${this.crudSelector} .editEntity`, (e) => {
+        $(document).on('click', `${this.crudSelector} .editEntity`, (e) => {
             e.preventDefault();
+    
             const id = $(e.currentTarget).data('id'); // Récupérer l'ID de l'entité
-
-
-            const editUrl = this.editUrl.replace(':id', id);
-
+            const editUrl = this.editUrl.replace(':id', id); // Construire l'URL pour l'édition
+    
+            const modal = $(this.modalSelector);
+            modal.modal('show'); // Ouvrir le modal
+            // Réinitialiser le modal
+            modal.find('#modal-content-container .modal-body').html(''); // Vider le contenu
+            modal.find('#featureModalLabel').text(''); // Réinitialiser le titre
+            modal.find('#featureModalLabel').text(this.edit_title); // Définir le titre pour l'édition
+            modal.find('#modal-content-container').hide(); // Masquer le contenu
+            modal.find('#modal-loading').addClass('d-flex').show(); // Afficher le chargement
     
             // Récupérer le formulaire via AJAX
             $.get(editUrl)
                 .done((html) => {
-                    const modal = $(this.modalSelector);
-    
-                    // Injecter le formulaire dans le modal
-                    modal.find('.modal-content').html(html);
-    
-                    // Ouvrir le modal pour modification
-                    modal.modal('show');
+                    modal.find('#modal-loading').removeClass('d-flex').hide(); // Masquer le chargement
+                    modal.find('#modal-content-container .modal-body').html(html); // Injecter le contenu
+                    modal.find('#modal-content-container').show(); // Afficher le contenu
+                    modal.modal('show'); // Ouvrir le modal
                 })
                 .fail(() => {
-                    GappMessages.showToast('error', 'Erreur lors du chargement du formulaire.');
+                    modal.find('#modal-loading').removeClass('d-flex').hide(); // Masquer le chargement même en cas d'erreur
+                    GappMessages.showToast('error', 'Erreur lors du chargement du formulaire d\'édition.');
                 });
         });
     }
@@ -200,28 +223,38 @@ export default class GappCrud {
     showEntity() {
         $(document).on('click', `${this.crudSelector} .showEntity`, (e) => {
             e.preventDefault();
+    
             const id = $(e.currentTarget).data('id'); // Récupérer l'ID de l'entité
-            const showUrl = this.showUrl.replace(':id', id); // URL pour afficher les détails
+            const showUrl = this.showUrl.replace(':id', id); // Construire l'URL pour afficher les détails
+    
+            const modal = $(this.modalSelector);
+            modal.modal('show'); // Ouvrir le modal
+
+            // Réinitialiser le modal
+            modal.find('#modal-content-container .modal-body').html(''); // Vider le contenu
+            modal.find('#featureModalLabel').text(''); // Réinitialiser le titre
+            modal.find('#featureModalLabel').text(`Détails de l'entité`); // Définir le titre
+            modal.find('#modal-content-container').hide(); // Masquer le contenu
+            modal.find('#modal-loading').addClass('d-flex').show(); // Afficher le chargement
     
             // Récupérer les détails via AJAX
             $.get(showUrl)
                 .done((html) => {
-                    const modal = $(this.modalSelector);
-    
-                    // Injecter le contenu dans le modal
-                    modal.find('.modal-content').html(html);
-    
-                    this.initFormToReadOnly();
-                    // Ouvrir le modal pour afficher les détails
-                    modal.modal('show');
+                    modal.find('#modal-loading').removeClass('d-flex').hide(); // Masquer le chargement
+                    modal.find('#modal-content-container .modal-body').html(html); // Injecter le contenu
+                    modal.find('#modal-content-container').show(); // Afficher le contenu
+                    this.initFormToReadOnly(); // Activer le mode lecture seule si nécessaire
+                    modal.modal('show'); // Ouvrir le modal
                 })
-                .fail(() => {
-                    GappMessages.showToast('error', 'Erreur lors du chargement des détails de l\'entité.');
+                .fail((xhr) => {
+                    const errorMessage = xhr.responseJSON?.message || 'Une erreur s\'est produite.';
+                    modal.find('#modal-loading').removeClass('d-flex').hide(); // Masquer le chargement même en cas d'erreur
+                    GappMessages.showToast('error', `Erreur lors du chargement des détails de l\'entité : ${errorMessage}`);
+                    console.log(errorMessage);
                 });
         });
     }
-
-
+    
 
 
 
