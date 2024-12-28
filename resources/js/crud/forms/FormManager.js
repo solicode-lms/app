@@ -1,3 +1,6 @@
+import { CrudLoader } from "../components/CrudLoader";
+import { MessageHandler } from "../components/MessageHandler";
+
 export class FormManager {
     /**
      * Constructeur de la classe FormManager.
@@ -7,21 +10,17 @@ export class FormManager {
     constructor(formSelector, modalManager) {
         this.formSelector = formSelector;
         this.modalManager = modalManager;
+        this.loader = new CrudLoader(formSelector);
     }
 
     /**
      * Initialise le gestionnaire de formulaire.
      */
-    init() {
+    init(submitHandler) {
         this.handleCancelButton();
         this.handleCardFooter();
-    }
-
-    handleCardFooter(){
-          // Modifier le style des footers
-          $(`${this.formSelector} .card-footer`).each(function () {
-            $(this).removeClass('card-footer').addClass('modal-footer');
-        });
+        this.handleFormSubmission(submitHandler);
+        this.loader.init();
     }
 
     /**
@@ -35,6 +34,50 @@ export class FormManager {
     }
 
     /**
+     * Modifie le style des pieds de formulaire (footers).
+     */
+    handleCardFooter() {
+        $(`${this.formSelector} .card-footer`).each(function () {
+            $(this).removeClass('card-footer').addClass('modal-footer');
+        });
+    }
+   /**
+     * Attache un gestionnaire d'événements pour la soumission du formulaire.
+     * @param {Function} submitHandler - Fonction personnalisée pour gérer la soumission.
+     */
+   handleFormSubmission(submitHandler) {
+    $(document).off('submit', this.formSelector); // Supprime tout gestionnaire précédent pour éviter les doublons
+    $(document).on('submit', this.formSelector, (e) => {
+        e.preventDefault(); // Empêche le rechargement de la page
+        submitHandler(); // Appelle la fonction de soumission passée
+    });
+}
+
+    // /**
+    //  * Gère la soumission du formulaire via AJAX.
+    //  */
+    // handleSubmit() {
+    //     const form = $(this.formSelector);
+    //     const actionUrl = form.attr('action');
+    //     const method = form.find('input[name="_method"]').val() || 'POST';
+    //     const formData = form.serialize();
+
+    //     $.ajax({
+    //         url: actionUrl,
+    //         method: method,
+    //         data: formData,
+    //     })
+    //         .done(() => {
+    //             this.modalManager.close();
+    //             MessageHandler.showSuccess('Opération réalisée avec succès.');
+    //         })
+    //         .fail((xhr) => {
+    //             const errorMessage = xhr.responseJSON?.message || 'Une erreur s\'est produite lors de la soumission.';
+    //             MessageHandler.showError(errorMessage);
+    //         });
+    // }
+
+    /**
      * Configure le formulaire pour le mode lecture seule.
      */
     setToReadOnly() {
@@ -42,15 +85,14 @@ export class FormManager {
         form.find('input, select, textarea, button').each(function () {
             const element = $(this);
             if (element.is('input') || element.is('textarea')) {
-                element.attr('readonly', true); // Rendre les champs de saisie non modifiables
+                element.attr('readonly', true);
             } else if (element.is('select')) {
-                element.attr('disabled', true); // Désactiver les listes déroulantes
+                element.attr('disabled', true);
             } else if (element.is('button')) {
-                element.attr('disabled', true); // Désactiver les boutons
+                element.attr('disabled', true);
             }
         });
 
-        // Supprimer ou masquer les boutons non pertinents
         form.find('.btn').not('.form-cancel-button').addClass('d-none');
     }
 
@@ -59,12 +101,11 @@ export class FormManager {
      */
     resetForm() {
         const form = $(this.formSelector);
-        form.trigger('reset'); // Réinitialise les valeurs du formulaire
+        form.trigger('reset');
         form.find('input, select, textarea, button').each(function () {
-            $(this).removeAttr('readonly').removeAttr('disabled'); // Rendre les champs modifiables
+            $(this).removeAttr('readonly').removeAttr('disabled');
         });
 
-        // Réafficher les boutons cachés
         form.find('.btn').removeClass('d-none');
     }
 

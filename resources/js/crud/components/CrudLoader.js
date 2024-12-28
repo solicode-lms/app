@@ -4,8 +4,14 @@ export class CrudLoader {
      * @param {string} containerSelector - Sélecteur CSS pour l'élément contenant le chargement (ex: une carte ou une table).
      */
     constructor(containerSelector = '#card_crud') {
-        this.container = document.querySelector(containerSelector);
+      
         this.loadingElementId = 'loading';
+        this.containerSelector = containerSelector;
+        this.init();
+    }
+
+    init(){
+        this.container = document.querySelector(this.containerSelector);
     }
 
     /**
@@ -42,7 +48,7 @@ export class CrudLoader {
         if (loadingDiv) {
             this.container.removeChild(loadingDiv);
         } else {
-            console.warn('Indicateur de chargement introuvable.');
+            // console.warn('Indicateur de chargement introuvable.');
         }
     }
 

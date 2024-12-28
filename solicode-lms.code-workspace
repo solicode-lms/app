@@ -1,6 +1,9 @@
 {
 	"folders": [
 		{
+			"path": "./resources/js"
+		},
+		{
 			"path": "."
 		},
 		{

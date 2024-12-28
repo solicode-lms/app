@@ -1,104 +1,72 @@
-import $ from 'admin-lte/plugins/jquery/jquery.min.js';
-import { hideLoading, showLoading } from './../components/GappLoading';
 import { MessageHandler } from '../components/MessageHandler';
 
 export class SearchAndPaginationManager {
     /**
-     * @param {Object} config - Configuration de recherche et pagination.
-     * @param {string} config.searchInputSelector - Sélecteur CSS pour le champ de recherche.
-     * @param {string} config.paginationSelector - Sélecteur CSS pour les liens de pagination.
-     * @param {string} config.dataContainerSelector - Sélecteur CSS pour le conteneur de données à mettre à jour.
-     * @param {string} config.baseUrl - URL de base pour récupérer les données (pagination et recherche).
+     * Constructeur de SearchAndPaginationManager.
+     * @param {Object} config - Configuration contenant les sélecteurs et URLs.
+     * @param {EntityLoader} entityLoader - Instance de EntityLoader pour recharger les entités.
      */
-    constructor(config) {
+    constructor(config, entityLoader) {
         this.config = config;
-        this.searchInputSelector = config.searchInputSelector;
-        this.paginationSelector = config.paginationSelector;
-        this.dataContainerSelector = config.dataContainerSelector;
-        this.baseUrl = config.baseUrl; // URL de base pour les requêtes AJAX
-        this.debounceTimeout = null;
+        this.entityLoader = entityLoader;
 
-        this.init();
+        // Temps de délai pour la recherche (debounce)
+        this.debounceTimeout = null;
+        this.debounceDelay = 500; // 500ms par défaut
     }
 
     /**
-     * Initialise les gestionnaires d'événements pour la recherche et la pagination.
+     * Initialise les gestionnaires pour la recherche et la pagination.
      */
     init() {
-        $(document).ready(() => {
-            this.handleSearch();
-            this.handlePagination();
-        });
+        this.handleSearchInput();
+        this.handlePaginationClick();
     }
 
-    /**
-     * Gère les événements de recherche avec délai (debounce).
-     */
-    handleSearch() {
-        $("body").on("keyup", this.searchInputSelector, () => {
-            const searchValue = $(this.searchInputSelector).val();
 
-            clearTimeout(this.debounceTimeout); // Annule le délai précédent
-            this.debounceTimeout = setTimeout(() => {
-                this.fetchData(1, searchValue); // Charge les données pour la recherche
-                if (searchValue === "") {
-                    MessageHandler.showInfo("Recherche réinitialisée, affichage des données par défaut.");
-                } else {
-                    MessageHandler.showInfo(`Recherche : "${searchValue}"`);
-                }
-            }, 500); // Délais de 500ms avant la requête
-        });
-    }
-
-    /**
-     * Gère les événements de pagination.
-     */
-    handlePagination() {
-        $("body").on("click", `${this.paginationSelector} .page-link`, (event) => {
-            event.preventDefault();
-
-            const page = $(event.target).data("page") || $(event.target).attr("data-page") || $(event.target).text().trim();
-            const searchValue = $(this.searchInputSelector).val();
-
-            this.fetchData(page, searchValue); // Charge les données pour la page sélectionnée
-            MessageHandler.showInfo(`Chargement de la page ${page}.`);
-        });
-    }
-
-    /**
-     * Récupère les données via une requête AJAX.
-     * @param {number} page - Numéro de la page.
-     * @param {string} searchValue - Valeur de recherche.
-     */
-    fetchData(page = 1, searchValue = "") {
-        const url = `${this.config.indexUrl}?page=${page}&searchValue=${searchValue}`;
-
-        if (showLoading()) {
-            setTimeout(() => this.makeRequest(url), 300); // Ajoute un délai si nécessaire
+    updateURLParameter(param, value) {
+        const url = new URL(window.location.href);
+    
+        if (value === undefined || value === null || value === '') {
+            url.searchParams.delete(param); // Supprime le paramètre s'il n'y a pas de valeur
         } else {
-            this.makeRequest(url);
+            url.searchParams.set(param, value); // Met à jour ou ajoute le paramètre
         }
+    
+        // Met à jour l'URL sans recharger la page
+        window.history.replaceState({}, '', url);
+    }
+
+    
+
+    /**
+     * Gère les événements de recherche avec un délai pour éviter les requêtes fréquentes.
+     */
+    handleSearchInput() {
+        $(document).on('keyup', this.config.searchInputSelector, (e) => {
+            const searchValue = $(e.currentTarget).val();
+
+            clearTimeout(this.debounceTimeout); // Réinitialiser le délai précédent
+            this.debounceTimeout = setTimeout(() => {
+                this.entityLoader.loadEntities(1, searchValue); // Recharger les entités avec la valeur de recherche
+                MessageHandler.showInfo('Recherche en cours...');
+            }, this.debounceDelay);
+        });
     }
 
     /**
-     * Effectue une requête AJAX pour récupérer des données.
-     * @param {string} url - URL à appeler.
+     * Gère les clics sur les liens de pagination.
      */
-    makeRequest(url) {
-        $.ajax({
-            url,
-            method: "GET",
-            success: (response) => {
-                $(this.dataContainerSelector).html(response); // Met à jour le conteneur
-                hideLoading();
-                MessageHandler.showSuccess("Données chargées avec succès.");
-            },
-            error: (xhr) => {
-                hideLoading();
-                const errorMessage = xhr.responseJSON?.message || "Une erreur s'est produite lors du chargement des données.";
-                MessageHandler.showError(errorMessage);
-                console.error("Erreur AJAX :", errorMessage);
-            },
+    handlePaginationClick() {
+        $(document).on('click', this.config.paginationSelector, (e) => {
+            e.preventDefault();
+            const page = $(e.currentTarget).data('page') || $(e.currentTarget).attr('data-page') || $(e.target).text().trim();
+
+            if (page) {
+                const searchValue = $(this.config.searchInputSelector).val(); // Obtenir la valeur actuelle de la recherche
+                this.entityLoader.loadEntities(page, searchValue); // Charger la page demandée
+                MessageHandler.showInfo(`Chargement de la page ${page}...`);
+            }
         });
     }
 }

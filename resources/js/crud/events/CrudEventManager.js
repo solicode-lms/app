@@ -34,7 +34,7 @@ export class CrudEventManager {
     handleAddEntity() {
         $(document).on('click', `${this.config.crudSelector} .addEntityButton`, (e) => {
             e.preventDefault();
-            this.actions.addEntity();
+            this.actions.creator.addEntity();
         });
     }
 
@@ -45,7 +45,7 @@ export class CrudEventManager {
         $(document).on('click', `${this.config.crudSelector} .editEntity`, (e) => {
             e.preventDefault();
             const id = $(e.currentTarget).data('id'); // Récupérer l'ID de l'entité
-            this.actions.editEntity(id);
+            this.actions.editor.editEntity(id);
         });
     }
 
@@ -56,7 +56,7 @@ export class CrudEventManager {
         $(document).on('click', `${this.config.crudSelector} .showEntity`, (e) => {
             e.preventDefault();
             const id = $(e.currentTarget).data('id'); // Récupérer l'ID de l'entité
-            this.actions.showEntity(id);
+            this.actions.viewer.showEntity(id);
         });
     }
 
@@ -67,7 +67,7 @@ export class CrudEventManager {
         $(document).on('click', `${this.config.crudSelector} .deleteEntity`, (e) => {
             e.preventDefault();
             const id = $(e.currentTarget).data('id'); // Récupérer l'ID de l'entité
-            this.actions.deleteEntity(id);
+            this.actions.deleter.deleteEntity(id);
         });
     }
 }

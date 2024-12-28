@@ -1,29 +1,15 @@
-
 import $ from 'jquery';
 window.$ = $;
 
 import select2 from 'select2';
 select2(); // <-- select2 must be called
 
-
-
 import 'admin-lte/plugins/bootstrap/js/bootstrap.bundle';
 import "admin-lte/dist/js/adminlte";
+import { CrudManager } from './crud/CrudManager';
+import { CrudConfigHelper } from './crud/utilities/CrudConfigHelper';
 
-// import GappCrud from  './curd/GappCrud';
-// window.GappCrud = GappCrud;
-
-
-import {
-    CrudLoader,
-    SearchAndPaginationManager , 
-    GappMessages, 
-    CrudActions, 
-    CrudConfigHelper, 
-    CrudEventManager,  
-    CrudModalManager } from './crud';
-
-
+// Init CrudManagers in the page
 document.addEventListener("DOMContentLoaded", function () {
     // Vérifie si la configuration des entités est disponible
     if (!window.entitiesConfig || !Array.isArray(window.entitiesConfig)) {
@@ -34,23 +20,13 @@ document.addEventListener("DOMContentLoaded", function () {
     // Initialiser les gestionnaires pour chaque entité
     window.entitiesConfig.forEach((entityConfigData) => {
         const entityConfig = new CrudConfigHelper(entityConfigData);
-
-        const modalManager = new CrudModalManager(entityConfig.modalSelector);
-        const loader = new CrudLoader(entityConfig.tableSelector);
-        const actions = new CrudActions(entityConfig, modalManager, loader, GappMessages.showToast);
-        const eventManager = new CrudEventManager(entityConfig, actions);
-
-        eventManager.init(); // Initialise les événements pour cette entité
-
-
-        // Initialisation de la recherche et pagination
-        new SearchAndPaginationManager(entityConfig);
+        const crudManager = new CrudManager(entityConfig);
+        crudManager.init();
     });
 });
 
 
 
-// import { setupSearchHandler } from './curd/GappRecherche';
 
 
 // // console.log($.fn.select2); // Devrait afficher la fonction Select2
