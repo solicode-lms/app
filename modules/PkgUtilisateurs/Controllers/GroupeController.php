@@ -10,6 +10,7 @@ use Modules\PkgUtilisateurs\Services\GroupeService;
 use Modules\PkgUtilisateurs\Services\FormateurService;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
+use Modules\PkgCompetences\Services\FiliereService;
 use Modules\PkgUtilisateurs\App\Exports\GroupeExport;
 use Modules\PkgUtilisateurs\App\Imports\GroupeImport;
 
@@ -17,12 +18,15 @@ class GroupeController extends AdminController
 {
     protected $groupeService;
     protected $formateurService;
+    protected $filiereService;
 
-    public function __construct(GroupeService $groupeService, FormateurService $formateurService)
+    public function __construct(GroupeService $groupeService, FormateurService $formateurService, FiliereService $filiereService)
     {
         parent::__construct();
         $this->groupeService = $groupeService;
         $this->formateurService = $formateurService;
+        $this->filiereService = $filiereService;
+
     }
 
 
@@ -49,10 +53,12 @@ class GroupeController extends AdminController
         $itemGroupe = $this->groupeService->createInstance();
         $formateurs = $this->formateurService->all();
 
+        $filieres = $this->filiereService->all();
+
         if (request()->ajax()) {
-            return view('PkgUtilisateurs::groupe._fields', compact('itemGroupe', 'formateurs'));
+            return view('PkgUtilisateurs::groupe._fields', compact('itemGroupe', 'formateurs','filieres'));
         }
-        return view('PkgUtilisateurs::groupe.create', compact('itemGroupe', 'formateurs'));
+        return view('PkgUtilisateurs::groupe.create', compact('itemGroupe', 'formateurs','filieres'));
     }
 
     /**
@@ -91,12 +97,13 @@ class GroupeController extends AdminController
     {
         $itemGroupe = $this->groupeService->find($id);
         $formateurs = $this->formateurService->all();
+        $filieres = $this->filiereService->all();
 
         if (request()->ajax()) {
-            return view('PkgUtilisateurs::groupe._fields', compact('itemGroupe', 'formateurs'));
+            return view('PkgUtilisateurs::groupe._fields', compact('itemGroupe', 'formateurs','filieres'));
         }
 
-        return view('PkgUtilisateurs::groupe.show', compact('itemGroupe'));
+        return view('PkgUtilisateurs::groupe.show', compact('itemGroupe','filieres'));
     }
 
     /**
@@ -106,12 +113,13 @@ class GroupeController extends AdminController
     {
         $itemGroupe = $this->groupeService->find($id);
         $formateurs = $this->formateurService->all();
+        $filieres = $this->filiereService->all();
 
         if (request()->ajax()) {
-            return view('PkgUtilisateurs::groupe._fields', compact('itemGroupe', 'formateurs'));
+            return view('PkgUtilisateurs::groupe._fields', compact('itemGroupe', 'formateurs','filieres'));
         }
 
-        return view('PkgUtilisateurs::groupe.edit', compact('itemGroupe', 'formateurs'));
+        return view('PkgUtilisateurs::groupe.edit', compact('itemGroupe', 'formateurs','filieres'));
     }
 
     /**

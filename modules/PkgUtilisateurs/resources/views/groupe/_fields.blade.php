@@ -71,8 +71,21 @@
                     <span class="text-danger">*</span>
                 
             </label>
-            <select id="filiere_id" name="filiere_id" class="form-control">
+            <select 
+                id="filiere_id" 
+                name="filiere_id" 
+                class="form-control">
+
                 <option value="">Sélectionnez une option</option>
+                @foreach ($filieres as $filiere)
+                    <option value="{{ $filiere->id }}"
+                        {{ (isset($itemGroupe) && $itemGroupe->filiere_id == $filiere->id) || (old('filiere_id') == $filiere->id) ? 'selected' : '' }}>
+                        {{ $filiere->nom }}
+                    </option>
+                @endforeach
+
+
+                
             </select>
             @error('filiere_id')
                 <div class="text-danger">{{ $message }}</div>
@@ -115,17 +128,5 @@
     </div>
 </form>
 
-<script>
-    window.dynamicSelectManyToOne = [
-        
-        {
-            fieldId: 'filiere_id',
-            fetchUrl: "{{ route('filieres.all') }}",
-            selectedValue: {{ $itemGroupe->filiere_id ? $itemGroupe->filiere_id : 'undefined' }},
-            fieldValue: 'code'
-        }
-        
-    ];
-</script>
 
 
