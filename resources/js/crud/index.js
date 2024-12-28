@@ -19,8 +19,6 @@ export { CrudEventManager } from './events/CrudEventManager';
 export { CrudModalManager } from './components/CrudModalManager';
 export { CrudLoader } from './components/CrudLoader';
 export { MessageHandler } from './components/MessageHandler';
-export { GappMessages } from './components/GappMessages';
-
 
 // Utilitaires
 export { CrudConfigHelper } from './utilities/CrudConfigHelper';
