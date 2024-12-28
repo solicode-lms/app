@@ -1,6 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form class="crud-form" id="apprenantKonosyForm" action="{{ $itemApprenantKonosy->id ? route('apprenantKonosies.update', $itemApprenantKonosy->id) : route('apprenantKonosies.store') }}" method="POST">
+<form class="crud-form" id="apprenantKonosyForm" action="{{ $itemApprenantKonosy->id ? route('apprenantKonosies.update', $itemApprenantKonosy->id) : route('apprenantKonosies.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemApprenantKonosy->id)
@@ -20,6 +20,7 @@
                 name="MatriculeEtudiant"
                 type="input"
                 class="form-control"
+                required
                 id="MatriculeEtudiant"
                 placeholder="{{ __('PkgUtilisateurs::apprenantKonosy.MatriculeEtudiant') }}"
                 value="{{ $itemApprenantKonosy ? $itemApprenantKonosy->MatriculeEtudiant : old('MatriculeEtudiant') }}">
@@ -39,6 +40,7 @@
                 name="Nom"
                 type="input"
                 class="form-control"
+                required
                 id="Nom"
                 placeholder="{{ __('PkgUtilisateurs::apprenantKonosy.Nom') }}"
                 value="{{ $itemApprenantKonosy ? $itemApprenantKonosy->Nom : old('Nom') }}">
@@ -58,6 +60,7 @@
                 name="Prenom"
                 type="input"
                 class="form-control"
+                required
                 id="Prenom"
                 placeholder="{{ __('PkgUtilisateurs::apprenantKonosy.Prenom') }}"
                 value="{{ $itemApprenantKonosy ? $itemApprenantKonosy->Prenom : old('Prenom') }}">
@@ -77,6 +80,7 @@
                 name="Sexe"
                 type="input"
                 class="form-control"
+                required
                 id="Sexe"
                 placeholder="{{ __('PkgUtilisateurs::apprenantKonosy.Sexe') }}"
                 value="{{ $itemApprenantKonosy ? $itemApprenantKonosy->Sexe : old('Sexe') }}">
@@ -96,6 +100,7 @@
                 name="EtudiantActif"
                 type="input"
                 class="form-control"
+                required
                 id="EtudiantActif"
                 placeholder="{{ __('PkgUtilisateurs::apprenantKonosy.EtudiantActif') }}"
                 value="{{ $itemApprenantKonosy ? $itemApprenantKonosy->EtudiantActif : old('EtudiantActif') }}">
@@ -113,6 +118,7 @@
                 name="Diplome"
                 type="input"
                 class="form-control"
+                
                 id="Diplome"
                 placeholder="{{ __('PkgUtilisateurs::apprenantKonosy.Diplome') }}"
                 value="{{ $itemApprenantKonosy ? $itemApprenantKonosy->Diplome : old('Diplome') }}">
@@ -130,6 +136,7 @@
                 name="Principale"
                 type="input"
                 class="form-control"
+                
                 id="Principale"
                 placeholder="{{ __('PkgUtilisateurs::apprenantKonosy.Principale') }}"
                 value="{{ $itemApprenantKonosy ? $itemApprenantKonosy->Principale : old('Principale') }}">
@@ -147,6 +154,7 @@
                 name="LibelleLong"
                 type="input"
                 class="form-control"
+                
                 id="LibelleLong"
                 placeholder="{{ __('PkgUtilisateurs::apprenantKonosy.LibelleLong') }}"
                 value="{{ $itemApprenantKonosy ? $itemApprenantKonosy->LibelleLong : old('LibelleLong') }}">
@@ -164,6 +172,7 @@
                 name="CodeDiplome"
                 type="input"
                 class="form-control"
+                
                 id="CodeDiplome"
                 placeholder="{{ __('PkgUtilisateurs::apprenantKonosy.CodeDiplome') }}"
                 value="{{ $itemApprenantKonosy ? $itemApprenantKonosy->CodeDiplome : old('CodeDiplome') }}">
@@ -181,6 +190,7 @@
                 name="DateNaissance"
                 type="input"
                 class="form-control"
+                
                 id="DateNaissance"
                 placeholder="{{ __('PkgUtilisateurs::apprenantKonosy.DateNaissance') }}"
                 value="{{ $itemApprenantKonosy ? $itemApprenantKonosy->DateNaissance : old('DateNaissance') }}">
@@ -198,6 +208,7 @@
                 name="DateInscription"
                 type="input"
                 class="form-control"
+                
                 id="DateInscription"
                 placeholder="{{ __('PkgUtilisateurs::apprenantKonosy.DateInscription') }}"
                 value="{{ $itemApprenantKonosy ? $itemApprenantKonosy->DateInscription : old('DateInscription') }}">
@@ -215,6 +226,7 @@
                 name="LieuNaissance"
                 type="input"
                 class="form-control"
+                
                 id="LieuNaissance"
                 placeholder="{{ __('PkgUtilisateurs::apprenantKonosy.LieuNaissance') }}"
                 value="{{ $itemApprenantKonosy ? $itemApprenantKonosy->LieuNaissance : old('LieuNaissance') }}">
@@ -232,6 +244,7 @@
                 name="CIN"
                 type="input"
                 class="form-control"
+                
                 id="CIN"
                 placeholder="{{ __('PkgUtilisateurs::apprenantKonosy.CIN') }}"
                 value="{{ $itemApprenantKonosy ? $itemApprenantKonosy->CIN : old('CIN') }}">
@@ -249,6 +262,7 @@
                 name="NTelephone"
                 type="input"
                 class="form-control"
+                
                 id="NTelephone"
                 placeholder="{{ __('PkgUtilisateurs::apprenantKonosy.NTelephone') }}"
                 value="{{ $itemApprenantKonosy ? $itemApprenantKonosy->NTelephone : old('NTelephone') }}">
@@ -266,6 +280,7 @@
                 name="Adresse"
                 type="input"
                 class="form-control"
+                
                 id="Adresse"
                 placeholder="{{ __('PkgUtilisateurs::apprenantKonosy.Adresse') }}"
                 value="{{ $itemApprenantKonosy ? $itemApprenantKonosy->Adresse : old('Adresse') }}">
@@ -283,6 +298,7 @@
                 name="Nationalite"
                 type="input"
                 class="form-control"
+                
                 id="Nationalite"
                 placeholder="{{ __('PkgUtilisateurs::apprenantKonosy.Nationalite') }}"
                 value="{{ $itemApprenantKonosy ? $itemApprenantKonosy->Nationalite : old('Nationalite') }}">
@@ -300,6 +316,7 @@
                 name="Nom_Arabe"
                 type="input"
                 class="form-control"
+                
                 id="Nom_Arabe"
                 placeholder="{{ __('PkgUtilisateurs::apprenantKonosy.Nom_Arabe') }}"
                 value="{{ $itemApprenantKonosy ? $itemApprenantKonosy->Nom_Arabe : old('Nom_Arabe') }}">
@@ -317,6 +334,7 @@
                 name="Prenom_Arabe"
                 type="input"
                 class="form-control"
+                
                 id="Prenom_Arabe"
                 placeholder="{{ __('PkgUtilisateurs::apprenantKonosy.Prenom_Arabe') }}"
                 value="{{ $itemApprenantKonosy ? $itemApprenantKonosy->Prenom_Arabe : old('Prenom_Arabe') }}">
@@ -334,6 +352,7 @@
                 name="NiveauScolaire"
                 type="input"
                 class="form-control"
+                
                 id="NiveauScolaire"
                 placeholder="{{ __('PkgUtilisateurs::apprenantKonosy.NiveauScolaire') }}"
                 value="{{ $itemApprenantKonosy ? $itemApprenantKonosy->NiveauScolaire : old('NiveauScolaire') }}">

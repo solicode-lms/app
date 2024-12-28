@@ -58,6 +58,13 @@ export class BaseAction {
         const formData = form.serialize(); // Sérialisation des données du formulaire
         this.formManager.loader.show();
 
+        // Valider le formulaire avant la soumission
+        if (!this.formManager.validateForm()) {
+            NotificationHandler.showError('Validation échouée. Veuillez corriger les erreurs.');
+            this.formManager.loader.hide();
+            return; // Ne pas soumettre si la validation échoue
+        }
+
         // Envoyer les données via une requête AJAX
         $.ajax({
             url: actionUrl,

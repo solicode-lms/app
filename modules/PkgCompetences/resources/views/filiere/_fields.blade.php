@@ -1,6 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form class="crud-form" id="filiereForm" action="{{ $itemFiliere->id ? route('filieres.update', $itemFiliere->id) : route('filieres.store') }}" method="POST">
+<form class="crud-form" id="filiereForm" action="{{ $itemFiliere->id ? route('filieres.update', $itemFiliere->id) : route('filieres.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemFiliere->id)
@@ -20,6 +20,7 @@
                 name="code"
                 type="input"
                 class="form-control"
+                required
                 id="code"
                 placeholder="{{ __('PkgCompetences::filiere.code') }}"
                 value="{{ $itemFiliere ? $itemFiliere->code : old('code') }}">
@@ -39,6 +40,7 @@
                 name="nom"
                 type="input"
                 class="form-control"
+                required
                 id="nom"
                 placeholder="{{ __('PkgCompetences::filiere.nom') }}"
                 value="{{ $itemFiliere ? $itemFiliere->nom : old('nom') }}">
@@ -58,6 +60,7 @@
                 name="description"
                 type="input"
                 class="form-control"
+                required
                 id="description"
                 placeholder="{{ __('PkgCompetences::filiere.description') }}"
                 value="{{ $itemFiliere ? $itemFiliere->description : old('description') }}">

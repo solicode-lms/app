@@ -122,9 +122,7 @@ class GroupeController extends AdminController
         $validatedData = $request->validated();
         $groupe = $this->groupeService->update($id, $validatedData);
 
-        if ($request->has('formateurs')) {
-            $groupe->formateurs()->sync($request->input('formateurs'));
-        }
+        $groupe->formateurs()->sync($request->input('formateurs'));
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 

@@ -122,9 +122,7 @@ class FeatureController extends AdminController
         $validatedData = $request->validated();
         $feature = $this->featureService->update($id, $validatedData);
 
-        if ($request->has('permissions')) {
-            $feature->permissions()->sync($request->input('permissions'));
-        }
+        $feature->permissions()->sync($request->input('permissions'));
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 

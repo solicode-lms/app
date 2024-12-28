@@ -24,6 +24,7 @@ export class DeleteAction extends BaseAction {
                 })
                     .done(() => {
                         this.handleSuccess('Entité supprimée avec succès.');
+                      
                         this.entityLoader.loadEntities(); // Recharger les entités après suppression
                     })
                     .fail(() => {

@@ -1,6 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form class="crud-form" id="categorieTechnologyForm" action="{{ $itemCategorieTechnology->id ? route('categorieTechnologies.update', $itemCategorieTechnology->id) : route('categorieTechnologies.store') }}" method="POST">
+<form class="crud-form" id="categorieTechnologyForm" action="{{ $itemCategorieTechnology->id ? route('categorieTechnologies.update', $itemCategorieTechnology->id) : route('categorieTechnologies.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemCategorieTechnology->id)
@@ -20,6 +20,7 @@
                 name="nom"
                 type="input"
                 class="form-control"
+                required
                 id="nom"
                 placeholder="{{ __('PkgCompetences::categorieTechnology.nom') }}"
                 value="{{ $itemCategorieTechnology ? $itemCategorieTechnology->nom : old('nom') }}">
@@ -39,6 +40,7 @@
                 name="description"
                 type="input"
                 class="form-control"
+                required
                 id="description"
                 placeholder="{{ __('PkgCompetences::categorieTechnology.description') }}"
                 value="{{ $itemCategorieTechnology ? $itemCategorieTechnology->description : old('description') }}">

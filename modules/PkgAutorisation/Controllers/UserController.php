@@ -122,9 +122,7 @@ class UserController extends AdminController
         $validatedData = $request->validated();
         $user = $this->userService->update($id, $validatedData);
 
-        if ($request->has('roles')) {
-            $user->roles()->sync($request->input('roles'));
-        }
+        $user->roles()->sync($request->input('roles'));
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 

@@ -20,6 +20,7 @@ export class FormManager {
         this.handleCardFooter();
         this.handleFormSubmission(submitHandler);
         this.loader.init();
+        this.initializeSelect2();
     }
 
     /**
@@ -100,25 +101,109 @@ export class FormManager {
         return isValid ? data : null;
     }
 
+
     /**
      * Valide les données du formulaire.
      * @param {Array} formData - Données du formulaire sérialisées.
      * @returns {boolean} - Retourne `true` si les données sont valides, sinon `false`.
      */
-    validateForm(formData) {
+
+    validateForm() {
+        const form = $(this.formSelector);
         let isValid = true;
-        formData.forEach((field) => {
-            if (!field.value.trim()) {
-                isValid = false;
-                $(`[name="${field.name}"]`).addClass('is-invalid');
+    
+        form.find('[required]').each(function () {
+            const field = $(this);
+            const value = field.val();
+    
+            if (field.is(':checkbox')) {
+                // Valider une case à cocher
+                if (!field.is(':checked')) {
+                    field.addClass('is-invalid');
+                    isValid = false;
+                } else {
+                    field.removeClass('is-invalid');
+                }
+            } else if (field.is('select[multiple]')) {
+                // Valider une liste déroulante multiple
+                if (!value || value.length === 0) {
+                    field.addClass('is-invalid');
+                          // Ajouter un message d'erreur sous le champ
+                    field.after('<span class="error-message text-danger">Veuillez sélectionner au moins un élément.</span>');
+                    isValid = false;
+                } else {
+                    field.removeClass('is-invalid');
+                }
             } else {
-                $(`[name="${field.name}"]`).removeClass('is-invalid');
+                // Valider les autres champs (texte, email, etc.)
+                if (typeof value !== 'string' || !value.trim()) {
+                    field.addClass('is-invalid');
+                    isValid = false;
+                } else {
+                    field.removeClass('is-invalid');
+                }
             }
         });
-
-        if (!isValid) {
-            console.error('Validation échouée : Tous les champs sont obligatoires.');
-        }
+    
         return isValid;
+    }
+
+    
+    // validateForm() {
+    //     const form = $(this.formSelector);
+    //     let isValid = true;
+
+    //     // Valider les champs du formulaire
+    //     form.find('input, select, textarea').each(function () {
+    //         const field = $(this);
+
+    //         if (field.prop('required') && !field.val().trim()) {
+    //             field.addClass('is-invalid'); // Ajouter une classe pour les champs non valides
+    //             isValid = false;
+    //         } else {
+    //             field.removeClass('is-invalid'); // Enlever la classe si le champ est valide
+    //         }
+    //     });
+
+    //     return isValid;
+    // }
+
+
+    // validateForm() {
+    //     let isValid = true;
+    //     let formData = this.getFormDataArray();
+    //     formData.forEach((field) => {
+    //         if (!field.value.trim()) {
+    //             isValid = false;
+    //             $(`[name="${field.name}"]`).addClass('is-invalid');
+    //         } else {
+    //             $(`[name="${field.name}"]`).removeClass('is-invalid');
+    //         }
+    //     });
+
+    //     if (!isValid) {
+    //         console.error('Validation échouée');
+    //     }
+    //     return isValid;
+    // }
+
+
+    initializeSelect2() {
+        // Initialise les éléments Select2
+        $(`${this.formSelector} .select2`).select2();
+
+        // Initialise les éléments Select2 avec thème Bootstrap 4
+        $(`${this.formSelector} .select2bs4`).select2({
+            theme: 'bootstrap4',
+        });
+    }
+
+    getFormDataArray() {
+        const form = $(this.formSelector);
+    
+        // Sérialiser les données en tableau
+        const dataArray = form.serializeArray();
+    
+        return dataArray;
     }
 }

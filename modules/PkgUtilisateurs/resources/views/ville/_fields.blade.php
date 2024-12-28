@@ -1,6 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form class="crud-form" id="villeForm" action="{{ $itemVille->id ? route('villes.update', $itemVille->id) : route('villes.store') }}" method="POST">
+<form class="crud-form" id="villeForm" action="{{ $itemVille->id ? route('villes.update', $itemVille->id) : route('villes.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemVille->id)
@@ -20,6 +20,7 @@
                 name="nom"
                 type="input"
                 class="form-control"
+                required
                 id="nom"
                 placeholder="{{ __('PkgUtilisateurs::ville.nom') }}"
                 value="{{ $itemVille ? $itemVille->nom : old('nom') }}">

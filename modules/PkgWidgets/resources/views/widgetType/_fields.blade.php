@@ -1,6 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form class="crud-form" id="widgetTypeForm" action="{{ $itemWidgetType->id ? route('widgetTypes.update', $itemWidgetType->id) : route('widgetTypes.store') }}" method="POST">
+<form class="crud-form" id="widgetTypeForm" action="{{ $itemWidgetType->id ? route('widgetTypes.update', $itemWidgetType->id) : route('widgetTypes.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemWidgetType->id)
@@ -20,6 +20,7 @@
                 name="type"
                 type="input"
                 class="form-control"
+                required
                 id="type"
                 placeholder="{{ __('PkgWidgets::widgetType.type') }}"
                 value="{{ $itemWidgetType ? $itemWidgetType->type : old('type') }}">
@@ -37,6 +38,7 @@
                 name="description"
                 type="input"
                 class="form-control"
+                
                 id="description"
                 placeholder="{{ __('PkgWidgets::widgetType.description') }}"
                 value="{{ $itemWidgetType ? $itemWidgetType->description : old('description') }}">

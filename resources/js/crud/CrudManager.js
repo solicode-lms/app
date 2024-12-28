@@ -1,5 +1,5 @@
 import { CreateAction } from './actions/CreateAction';
-import { ViewAction } from './actions/ViewAction';
+import { ShowAction } from './actions/ShowAction';
 import { EditAction } from './actions/EditAction';
 import { DeleteAction } from './actions/DeleteAction';
 
@@ -20,7 +20,7 @@ export class CrudManager {
 
         // Initialisation des actions CRUD
         this.entityCreator = new CreateAction(config);
-        this.entityViewer = new ViewAction(config);
+        this.entityViewer = new ShowAction(config);
         this.entityEditor = new EditAction(config);
         this.entityDeleter = new DeleteAction(config);
 

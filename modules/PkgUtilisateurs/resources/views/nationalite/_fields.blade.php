@@ -1,6 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form class="crud-form" id="nationaliteForm" action="{{ $itemNationalite->id ? route('nationalites.update', $itemNationalite->id) : route('nationalites.store') }}" method="POST">
+<form class="crud-form" id="nationaliteForm" action="{{ $itemNationalite->id ? route('nationalites.update', $itemNationalite->id) : route('nationalites.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemNationalite->id)
@@ -20,6 +20,7 @@
                 name="code"
                 type="input"
                 class="form-control"
+                required
                 id="code"
                 placeholder="{{ __('PkgUtilisateurs::nationalite.code') }}"
                 value="{{ $itemNationalite ? $itemNationalite->code : old('code') }}">
@@ -37,6 +38,7 @@
                 name="nom"
                 type="input"
                 class="form-control"
+                
                 id="nom"
                 placeholder="{{ __('PkgUtilisateurs::nationalite.nom') }}"
                 value="{{ $itemNationalite ? $itemNationalite->nom : old('nom') }}">
@@ -54,6 +56,7 @@
                 name="description"
                 type="input"
                 class="form-control"
+                
                 id="description"
                 placeholder="{{ __('PkgUtilisateurs::nationalite.description') }}"
                 value="{{ $itemNationalite ? $itemNationalite->description : old('description') }}">

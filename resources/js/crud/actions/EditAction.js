@@ -23,7 +23,7 @@ export class EditAction extends BaseAction {
                 // Injecter le contenu du formulaire dans le modal
                 this.modalManager.showContent(html);
                 this.formManager.init(() => this.submitEntity());
-                this.handleSuccess('Formulaire de modification chargé avec succès.');
+                // this.handleSuccess('Formulaire de modification chargé avec succès.');
             })
             .fail(() => {
                 this.handleError('Erreur lors du chargement du formulaire de modification.');

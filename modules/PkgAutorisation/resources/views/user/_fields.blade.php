@@ -1,6 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form class="crud-form" id="userForm" action="{{ $itemUser->id ? route('users.update', $itemUser->id) : route('users.store') }}" method="POST">
+<form class="crud-form" id="userForm" action="{{ $itemUser->id ? route('users.update', $itemUser->id) : route('users.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemUser->id)
@@ -20,6 +20,7 @@
                 name="name"
                 type="input"
                 class="form-control"
+                required
                 id="name"
                 placeholder="{{ __('PkgAutorisation::user.name') }}"
                 value="{{ $itemUser ? $itemUser->name : old('name') }}">
@@ -39,6 +40,7 @@
                 name="email"
                 type="input"
                 class="form-control"
+                required
                 id="email"
                 placeholder="{{ __('PkgAutorisation::user.email') }}"
                 value="{{ $itemUser ? $itemUser->email : old('email') }}">
@@ -56,6 +58,7 @@
                 name="email_verified_at"
                 type="input"
                 class="form-control"
+                
                 id="email_verified_at"
                 placeholder="{{ __('PkgAutorisation::user.email_verified_at') }}"
                 value="{{ $itemUser ? $itemUser->email_verified_at : old('email_verified_at') }}">
@@ -75,6 +78,7 @@
                 name="password"
                 type="input"
                 class="form-control"
+                required
                 id="password"
                 placeholder="{{ __('PkgAutorisation::user.password') }}"
                 value="{{ $itemUser ? $itemUser->password : old('password') }}">
@@ -92,6 +96,7 @@
                 name="remember_token"
                 type="input"
                 class="form-control"
+                
                 id="remember_token"
                 placeholder="{{ __('PkgAutorisation::user.remember_token') }}"
                 value="{{ $itemUser ? $itemUser->remember_token : old('remember_token') }}">

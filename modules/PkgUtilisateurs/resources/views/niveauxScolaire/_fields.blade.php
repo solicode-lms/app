@@ -1,6 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form class="crud-form" id="niveauxScolaireForm" action="{{ $itemNiveauxScolaire->id ? route('niveauxScolaires.update', $itemNiveauxScolaire->id) : route('niveauxScolaires.store') }}" method="POST">
+<form class="crud-form" id="niveauxScolaireForm" action="{{ $itemNiveauxScolaire->id ? route('niveauxScolaires.update', $itemNiveauxScolaire->id) : route('niveauxScolaires.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemNiveauxScolaire->id)
@@ -20,6 +20,7 @@
                 name="code"
                 type="input"
                 class="form-control"
+                required
                 id="code"
                 placeholder="{{ __('PkgUtilisateurs::niveauxScolaire.code') }}"
                 value="{{ $itemNiveauxScolaire ? $itemNiveauxScolaire->code : old('code') }}">
@@ -37,6 +38,7 @@
                 name="nom"
                 type="input"
                 class="form-control"
+                
                 id="nom"
                 placeholder="{{ __('PkgUtilisateurs::niveauxScolaire.nom') }}"
                 value="{{ $itemNiveauxScolaire ? $itemNiveauxScolaire->nom : old('nom') }}">
@@ -54,6 +56,7 @@
                 name="description"
                 type="input"
                 class="form-control"
+                
                 id="description"
                 placeholder="{{ __('PkgUtilisateurs::niveauxScolaire.description') }}"
                 value="{{ $itemNiveauxScolaire ? $itemNiveauxScolaire->description : old('description') }}">

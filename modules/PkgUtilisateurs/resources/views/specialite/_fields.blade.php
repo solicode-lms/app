@@ -1,6 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form class="crud-form" id="specialiteForm" action="{{ $itemSpecialite->id ? route('specialites.update', $itemSpecialite->id) : route('specialites.store') }}" method="POST">
+<form class="crud-form" id="specialiteForm" action="{{ $itemSpecialite->id ? route('specialites.update', $itemSpecialite->id) : route('specialites.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemSpecialite->id)
@@ -20,6 +20,7 @@
                 name="nom"
                 type="input"
                 class="form-control"
+                required
                 id="nom"
                 placeholder="{{ __('PkgUtilisateurs::specialite.nom') }}"
                 value="{{ $itemSpecialite ? $itemSpecialite->nom : old('nom') }}">
@@ -39,6 +40,7 @@
                 name="description"
                 type="input"
                 class="form-control"
+                required
                 id="description"
                 placeholder="{{ __('PkgUtilisateurs::specialite.description') }}"
                 value="{{ $itemSpecialite ? $itemSpecialite->description : old('description') }}">

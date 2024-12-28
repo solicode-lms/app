@@ -122,9 +122,7 @@ class SpecialiteController extends AdminController
         $validatedData = $request->validated();
         $specialite = $this->specialiteService->update($id, $validatedData);
 
-        if ($request->has('formateurs')) {
-            $specialite->formateurs()->sync($request->input('formateurs'));
-        }
+        $specialite->formateurs()->sync($request->input('formateurs'));
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 

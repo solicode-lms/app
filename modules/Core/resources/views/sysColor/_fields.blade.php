@@ -1,6 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form class="crud-form" id="sysColorForm" action="{{ $itemSysColor->id ? route('sysColors.update', $itemSysColor->id) : route('sysColors.store') }}" method="POST">
+<form class="crud-form" id="sysColorForm" action="{{ $itemSysColor->id ? route('sysColors.update', $itemSysColor->id) : route('sysColors.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemSysColor->id)
@@ -20,6 +20,7 @@
                 name="name"
                 type="input"
                 class="form-control"
+                required
                 id="name"
                 placeholder="{{ __('Core::sysColor.name') }}"
                 value="{{ $itemSysColor ? $itemSysColor->name : old('name') }}">
@@ -39,6 +40,7 @@
                 name="hex"
                 type="input"
                 class="form-control"
+                required
                 id="hex"
                 placeholder="{{ __('Core::sysColor.hex') }}"
                 value="{{ $itemSysColor ? $itemSysColor->hex : old('hex') }}">

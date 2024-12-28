@@ -131,12 +131,8 @@ class FormateurController extends AdminController
         $validatedData = $request->validated();
         $formateur = $this->formateurService->update($id, $validatedData);
 
-        if ($request->has('groupes')) {
-            $formateur->groupes()->sync($request->input('groupes'));
-        }
-        if ($request->has('specialites')) {
-            $formateur->specialites()->sync($request->input('specialites'));
-        }
+        $formateur->groupes()->sync($request->input('groupes'));
+        $formateur->specialites()->sync($request->input('specialites'));
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 

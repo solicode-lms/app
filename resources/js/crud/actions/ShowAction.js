@@ -1,6 +1,6 @@
 import { BaseAction } from './BaseAction';
 
-export class ViewAction extends BaseAction {
+export class ShowAction extends BaseAction {
     /**
      * Affiche les détails d'une entité dans un modal.
      * @param {number|string} id - Identifiant de l'entité à afficher.
@@ -16,7 +16,9 @@ export class ViewAction extends BaseAction {
             .done((html) => {
                 // Injecter le contenu des détails dans le modal
                 this.modalManager.showContent(html);
-                this.handleSuccess('Détails de l\'entité chargés avec succès.');
+                this.formManager.init();
+                this.formManager.setToReadOnly();
+                // this.handleSuccess('Détails de l\'entité chargés avec succès.');
             })
             .fail(() => {
                 this.handleError('Erreur lors du chargement des détails de l\'entité.');

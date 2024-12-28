@@ -122,9 +122,7 @@ class CompetenceController extends AdminController
         $validatedData = $request->validated();
         $competence = $this->competenceService->update($id, $validatedData);
 
-        if ($request->has('technologies')) {
-            $competence->technologies()->sync($request->input('technologies'));
-        }
+        $competence->technologies()->sync($request->input('technologies'));
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 

@@ -131,12 +131,8 @@ class PermissionController extends AdminController
         $validatedData = $request->validated();
         $permission = $this->permissionService->update($id, $validatedData);
 
-        if ($request->has('features')) {
-            $permission->features()->sync($request->input('features'));
-        }
-        if ($request->has('roles')) {
-            $permission->roles()->sync($request->input('roles'));
-        }
+        $permission->features()->sync($request->input('features'));
+        $permission->roles()->sync($request->input('roles'));
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 

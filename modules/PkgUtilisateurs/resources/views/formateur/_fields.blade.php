@@ -1,6 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form class="crud-form" id="formateurForm" action="{{ $itemFormateur->id ? route('formateurs.update', $itemFormateur->id) : route('formateurs.store') }}" method="POST">
+<form class="crud-form" id="formateurForm" action="{{ $itemFormateur->id ? route('formateurs.update', $itemFormateur->id) : route('formateurs.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemFormateur->id)
@@ -20,6 +20,7 @@
                 name="matricule"
                 type="input"
                 class="form-control"
+                required
                 id="matricule"
                 placeholder="{{ __('PkgUtilisateurs::formateur.matricule') }}"
                 value="{{ $itemFormateur ? $itemFormateur->matricule : old('matricule') }}">
@@ -39,6 +40,7 @@
                 name="nom"
                 type="input"
                 class="form-control"
+                required
                 id="nom"
                 placeholder="{{ __('PkgUtilisateurs::formateur.nom') }}"
                 value="{{ $itemFormateur ? $itemFormateur->nom : old('nom') }}">
@@ -58,6 +60,7 @@
                 name="prenom"
                 type="input"
                 class="form-control"
+                required
                 id="prenom"
                 placeholder="{{ __('PkgUtilisateurs::formateur.prenom') }}"
                 value="{{ $itemFormateur ? $itemFormateur->prenom : old('prenom') }}">
@@ -77,6 +80,7 @@
                 name="prenom_arab"
                 type="input"
                 class="form-control"
+                required
                 id="prenom_arab"
                 placeholder="{{ __('PkgUtilisateurs::formateur.prenom_arab') }}"
                 value="{{ $itemFormateur ? $itemFormateur->prenom_arab : old('prenom_arab') }}">
@@ -96,6 +100,7 @@
                 name="nom_arab"
                 type="input"
                 class="form-control"
+                required
                 id="nom_arab"
                 placeholder="{{ __('PkgUtilisateurs::formateur.nom_arab') }}"
                 value="{{ $itemFormateur ? $itemFormateur->nom_arab : old('nom_arab') }}">
@@ -115,6 +120,7 @@
                 name="tele_num"
                 type="input"
                 class="form-control"
+                required
                 id="tele_num"
                 placeholder="{{ __('PkgUtilisateurs::formateur.tele_num') }}"
                 value="{{ $itemFormateur ? $itemFormateur->tele_num : old('tele_num') }}">
@@ -132,6 +138,7 @@
                 name="adresse"
                 type="input"
                 class="form-control"
+                
                 id="adresse"
                 placeholder="{{ __('PkgUtilisateurs::formateur.adresse') }}"
                 value="{{ $itemFormateur ? $itemFormateur->adresse : old('adresse') }}">
@@ -149,6 +156,7 @@
                 name="diplome"
                 type="input"
                 class="form-control"
+                
                 id="diplome"
                 placeholder="{{ __('PkgUtilisateurs::formateur.diplome') }}"
                 value="{{ $itemFormateur ? $itemFormateur->diplome : old('diplome') }}">
@@ -166,6 +174,7 @@
                 name="echelle"
                 type="input"
                 class="form-control"
+                
                 id="echelle"
                 placeholder="{{ __('PkgUtilisateurs::formateur.echelle') }}"
                 value="{{ $itemFormateur ? $itemFormateur->echelle : old('echelle') }}">
@@ -183,6 +192,7 @@
                 name="echelon"
                 type="input"
                 class="form-control"
+                
                 id="echelon"
                 placeholder="{{ __('PkgUtilisateurs::formateur.echelon') }}"
                 value="{{ $itemFormateur ? $itemFormateur->echelon : old('echelon') }}">
@@ -202,6 +212,7 @@
                 name="profile_image"
                 type="input"
                 class="form-control"
+                required
                 id="profile_image"
                 placeholder="{{ __('PkgUtilisateurs::formateur.profile_image') }}"
                 value="{{ $itemFormateur ? $itemFormateur->profile_image : old('profile_image') }}">

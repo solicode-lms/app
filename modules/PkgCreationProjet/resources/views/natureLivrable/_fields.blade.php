@@ -1,6 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form class="crud-form" id="natureLivrableForm" action="{{ $itemNatureLivrable->id ? route('natureLivrables.update', $itemNatureLivrable->id) : route('natureLivrables.store') }}" method="POST">
+<form class="crud-form" id="natureLivrableForm" action="{{ $itemNatureLivrable->id ? route('natureLivrables.update', $itemNatureLivrable->id) : route('natureLivrables.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemNatureLivrable->id)
@@ -20,6 +20,7 @@
                 name="nom"
                 type="input"
                 class="form-control"
+                required
                 id="nom"
                 placeholder="{{ __('PkgCreationProjet::natureLivrable.nom') }}"
                 value="{{ $itemNatureLivrable ? $itemNatureLivrable->nom : old('nom') }}">
@@ -39,6 +40,7 @@
                 name="description"
                 type="input"
                 class="form-control"
+                required
                 id="description"
                 placeholder="{{ __('PkgCreationProjet::natureLivrable.description') }}"
                 value="{{ $itemNatureLivrable ? $itemNatureLivrable->description : old('description') }}">

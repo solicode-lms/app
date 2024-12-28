@@ -131,12 +131,8 @@ class TechnologyController extends AdminController
         $validatedData = $request->validated();
         $technology = $this->technologyService->update($id, $validatedData);
 
-        if ($request->has('competences')) {
-            $technology->competences()->sync($request->input('competences'));
-        }
-        if ($request->has('transfertcompetences')) {
-            $technology->transfertcompetences()->sync($request->input('transfertcompetences'));
-        }
+        $technology->competences()->sync($request->input('competences'));
+        $technology->transfertcompetences()->sync($request->input('transfertcompetences'));
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 

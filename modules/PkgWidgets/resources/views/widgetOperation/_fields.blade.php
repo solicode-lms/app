@@ -1,6 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form class="crud-form" id="widgetOperationForm" action="{{ $itemWidgetOperation->id ? route('widgetOperations.update', $itemWidgetOperation->id) : route('widgetOperations.store') }}" method="POST">
+<form class="crud-form" id="widgetOperationForm" action="{{ $itemWidgetOperation->id ? route('widgetOperations.update', $itemWidgetOperation->id) : route('widgetOperations.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemWidgetOperation->id)
@@ -20,6 +20,7 @@
                 name="operation"
                 type="input"
                 class="form-control"
+                required
                 id="operation"
                 placeholder="{{ __('PkgWidgets::widgetOperation.operation') }}"
                 value="{{ $itemWidgetOperation ? $itemWidgetOperation->operation : old('operation') }}">
@@ -37,6 +38,7 @@
                 name="description"
                 type="input"
                 class="form-control"
+                
                 id="description"
                 placeholder="{{ __('PkgWidgets::widgetOperation.description') }}"
                 value="{{ $itemWidgetOperation ? $itemWidgetOperation->description : old('description') }}">
