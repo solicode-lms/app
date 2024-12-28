@@ -10,15 +10,57 @@ select2(); // <-- select2 must be called
 import 'admin-lte/plugins/bootstrap/js/bootstrap.bundle';
 import "admin-lte/dist/js/adminlte";
 
-import GappCrud from  './curd/GappCrud';
-window.GappCrud = GappCrud;
-
-import { setupSearchHandler } from './curd/GappRecherche';
+// import GappCrud from  './curd/GappCrud';
+// window.GappCrud = GappCrud;
 
 
-// console.log($.fn.select2); // Devrait afficher la fonction Select2
 
-setupSearchHandler();
+import { CrudConfig } from './crudManager/CrudConfig';
+import { CrudModalManager } from './crudManager/CrudModalManager';
+import { CrudLoader } from './crudManager/CrudLoader';
+import { CrudActions } from './crudManager/CrudActions';
+import { CrudEventManager } from './crudManager/CrudEventManager';
+import { GappMessages } from './crudManager/GappMessages';
+import { SearchAndPaginationManager } from './crudManager/SearchAndPaginationManager';
+
+document.addEventListener("DOMContentLoaded", function () {
+    // Vérifie si la configuration des entités est disponible
+    if (!window.entitiesConfig || !Array.isArray(window.entitiesConfig)) {
+        console.error('La configuration des entités est manquante ou invalide.');
+        return;
+    }
+
+    // Initialiser les gestionnaires pour chaque entité
+    window.entitiesConfig.forEach((entityConfigData) => {
+        const entityConfig = new CrudConfig(entityConfigData);
+
+        const modalManager = new CrudModalManager(entityConfig.modalSelector);
+        const loader = new CrudLoader(entityConfig.tableSelector);
+        const actions = new CrudActions(entityConfig, modalManager, loader, GappMessages.showToast);
+        const eventManager = new CrudEventManager(entityConfig, actions);
+
+        eventManager.init(); // Initialise les événements pour cette entité
+
+
+        // Initialisation de la recherche et pagination
+        new SearchAndPaginationManager(config);
+
+             
+       
+
+      
+
+    });
+});
+
+
+
+// import { setupSearchHandler } from './curd/GappRecherche';
+
+
+// // console.log($.fn.select2); // Devrait afficher la fonction Select2
+
+// setupSearchHandler();
 
 // ManyToOne Select 
 $(document).ready(function () {
