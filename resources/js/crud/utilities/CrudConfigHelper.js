@@ -1,6 +1,6 @@
-export class CrudConfig {
+export class CrudConfigHelper {
     /**
-     * Constructeur de la classe CrudConfig.
+     * Constructeur de la classe CrudConfigHelper.
      * @param {Object} config - Configuration des opérations CRUD.
      */
     constructor(config) {

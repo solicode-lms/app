@@ -14,14 +14,16 @@ import "admin-lte/dist/js/adminlte";
 // window.GappCrud = GappCrud;
 
 
+import {
+    CrudLoader,
+    SearchAndPaginationManager , 
+    GappMessages, 
+    CrudActions, 
+    CrudEventManager, 
+    CrudConfigHelper, 
+    CrudEventManager,  
+    CrudModalManager } from './crud';
 
-import { CrudConfig } from './crudManager/CrudConfig';
-import { CrudModalManager } from './crudManager/CrudModalManager';
-import { CrudLoader } from './crudManager/CrudLoader';
-import { CrudActions } from './crudManager/CrudActions';
-import { CrudEventManager } from './crudManager/CrudEventManager';
-import { GappMessages } from './crudManager/GappMessages';
-import { SearchAndPaginationManager } from './crudManager/SearchAndPaginationManager';
 
 document.addEventListener("DOMContentLoaded", function () {
     // Vérifie si la configuration des entités est disponible
@@ -32,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Initialiser les gestionnaires pour chaque entité
     window.entitiesConfig.forEach((entityConfigData) => {
-        const entityConfig = new CrudConfig(entityConfigData);
+        const entityConfig = new CrudConfigHelper(entityConfigData);
 
         const modalManager = new CrudModalManager(entityConfig.modalSelector);
         const loader = new CrudLoader(entityConfig.tableSelector);
@@ -44,12 +46,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Initialisation de la recherche et pagination
         new SearchAndPaginationManager(config);
-
-             
-       
-
-      
-
     });
 });
 
