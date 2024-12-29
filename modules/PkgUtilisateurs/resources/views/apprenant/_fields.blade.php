@@ -311,7 +311,7 @@
              <option value="">Sélectionnez une option</option>
                 @foreach ($groupes as $groupe)
                     <option value="{{ $groupe->id }}"
-                        {{ (isset($itemGroupe) && $itemGroupe->groupe_id == $groupe->id) || (old('groupe_id>') == $groupe->id) ? 'selected' : '' }}>
+                        {{ (isset($itemApprenant) && $itemApprenant->groupe_id == $groupe->id) || (old('groupe_id>') == $groupe->id) ? 'selected' : '' }}>
                         {{ $groupe }}
                     </option>
                 @endforeach
@@ -335,7 +335,7 @@
              <option value="">Sélectionnez une option</option>
                 @foreach ($nationalites as $nationalite)
                     <option value="{{ $nationalite->id }}"
-                        {{ (isset($itemGroupe) && $itemGroupe->nationalite_id == $nationalite->id) || (old('nationalite_id>') == $nationalite->id) ? 'selected' : '' }}>
+                        {{ (isset($itemApprenant) && $itemApprenant->nationalite_id == $nationalite->id) || (old('nationalite_id>') == $nationalite->id) ? 'selected' : '' }}>
                         {{ $nationalite }}
                     </option>
                 @endforeach
@@ -359,7 +359,7 @@
              <option value="">Sélectionnez une option</option>
                 @foreach ($niveauxScolaires as $niveauxScolaire)
                     <option value="{{ $niveauxScolaire->id }}"
-                        {{ (isset($itemGroupe) && $itemGroupe->niveaux_scolaire_id == $niveauxScolaire->id) || (old('niveaux_scolaire_id>') == $niveauxScolaire->id) ? 'selected' : '' }}>
+                        {{ (isset($itemApprenant) && $itemApprenant->niveaux_scolaire_id == $niveauxScolaire->id) || (old('niveaux_scolaire_id>') == $niveauxScolaire->id) ? 'selected' : '' }}>
                         {{ $niveauxScolaire }}
                     </option>
                 @endforeach

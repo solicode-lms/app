@@ -63,7 +63,7 @@
              <option value="">Sélectionnez une option</option>
                 @foreach ($featureDomains as $featureDomain)
                     <option value="{{ $featureDomain->id }}"
-                        {{ (isset($itemGroupe) && $itemGroupe->domain_id == $featureDomain->id) || (old('domain_id>') == $featureDomain->id) ? 'selected' : '' }}>
+                        {{ (isset($itemFeature) && $itemFeature->domain_id == $featureDomain->id) || (old('domain_id>') == $featureDomain->id) ? 'selected' : '' }}>
                         {{ $featureDomain }}
                     </option>
                 @endforeach

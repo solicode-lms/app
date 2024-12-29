@@ -63,7 +63,7 @@
              <option value="">Sélectionnez une option</option>
                 @foreach ($natureLivrables as $natureLivrable)
                     <option value="{{ $natureLivrable->id }}"
-                        {{ (isset($itemGroupe) && $itemGroupe->nature_livrable_id == $natureLivrable->id) || (old('nature_livrable_id>') == $natureLivrable->id) ? 'selected' : '' }}>
+                        {{ (isset($itemLivrable) && $itemLivrable->nature_livrable_id == $natureLivrable->id) || (old('nature_livrable_id>') == $natureLivrable->id) ? 'selected' : '' }}>
                         {{ $natureLivrable }}
                     </option>
                 @endforeach
@@ -87,7 +87,7 @@
              <option value="">Sélectionnez une option</option>
                 @foreach ($projets as $projet)
                     <option value="{{ $projet->id }}"
-                        {{ (isset($itemGroupe) && $itemGroupe->projet_id == $projet->id) || (old('projet_id>') == $projet->id) ? 'selected' : '' }}>
+                        {{ (isset($itemLivrable) && $itemLivrable->projet_id == $projet->id) || (old('projet_id>') == $projet->id) ? 'selected' : '' }}>
                         {{ $projet }}
                     </option>
                 @endforeach

@@ -65,7 +65,7 @@
              <option value="">Sélectionnez une option</option>
                 @foreach ($categorieTechnologies as $categorieTechnology)
                     <option value="{{ $categorieTechnology->id }}"
-                        {{ (isset($itemGroupe) && $itemGroupe->categorie_technologie_id == $categorieTechnology->id) || (old('categorie_technologie_id>') == $categorieTechnology->id) ? 'selected' : '' }}>
+                        {{ (isset($itemTechnology) && $itemTechnology->categorie_technologie_id == $categorieTechnology->id) || (old('categorie_technologie_id>') == $categorieTechnology->id) ? 'selected' : '' }}>
                         {{ $categorieTechnology }}
                     </option>
                 @endforeach

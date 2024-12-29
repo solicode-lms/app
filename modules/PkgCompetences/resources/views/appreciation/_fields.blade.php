@@ -103,7 +103,7 @@
              <option value="">Sélectionnez une option</option>
                 @foreach ($formateurs as $formateur)
                     <option value="{{ $formateur->id }}"
-                        {{ (isset($itemGroupe) && $itemGroupe->formateur_id == $formateur->id) || (old('formateur_id>') == $formateur->id) ? 'selected' : '' }}>
+                        {{ (isset($itemAppreciation) && $itemAppreciation->formateur_id == $formateur->id) || (old('formateur_id>') == $formateur->id) ? 'selected' : '' }}>
                         {{ $formateur }}
                     </option>
                 @endforeach

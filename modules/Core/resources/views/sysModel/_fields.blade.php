@@ -83,7 +83,7 @@
              <option value="">Sélectionnez une option</option>
                 @foreach ($sysColors as $sysColor)
                     <option value="{{ $sysColor->id }}"
-                        {{ (isset($itemGroupe) && $itemGroupe->color_id == $sysColor->id) || (old('color_id>') == $sysColor->id) ? 'selected' : '' }}>
+                        {{ (isset($itemSysModel) && $itemSysModel->color_id == $sysColor->id) || (old('color_id>') == $sysColor->id) ? 'selected' : '' }}>
                         {{ $sysColor }}
                     </option>
                 @endforeach
@@ -107,7 +107,7 @@
              <option value="">Sélectionnez une option</option>
                 @foreach ($sysModules as $sysModule)
                     <option value="{{ $sysModule->id }}"
-                        {{ (isset($itemGroupe) && $itemGroupe->module_id == $sysModule->id) || (old('module_id>') == $sysModule->id) ? 'selected' : '' }}>
+                        {{ (isset($itemSysModel) && $itemSysModel->module_id == $sysModule->id) || (old('module_id>') == $sysModule->id) ? 'selected' : '' }}>
                         {{ $sysModule }}
                     </option>
                 @endforeach

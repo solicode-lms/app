@@ -65,7 +65,7 @@
              <option value="">Sélectionnez une option</option>
                 @foreach ($sysControllers as $sysController)
                     <option value="{{ $sysController->id }}"
-                        {{ (isset($itemGroupe) && $itemGroupe->controller_id == $sysController->id) || (old('controller_id>') == $sysController->id) ? 'selected' : '' }}>
+                        {{ (isset($itemPermission) && $itemPermission->controller_id == $sysController->id) || (old('controller_id>') == $sysController->id) ? 'selected' : '' }}>
                         {{ $sysController }}
                     </option>
                 @endforeach

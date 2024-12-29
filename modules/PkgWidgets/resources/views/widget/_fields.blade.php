@@ -117,7 +117,7 @@
              <option value="">Sélectionnez une option</option>
                 @foreach ($sysModels as $sysModel)
                     <option value="{{ $sysModel->id }}"
-                        {{ (isset($itemGroupe) && $itemGroupe->model_id == $sysModel->id) || (old('model_id>') == $sysModel->id) ? 'selected' : '' }}>
+                        {{ (isset($itemWidget) && $itemWidget->model_id == $sysModel->id) || (old('model_id>') == $sysModel->id) ? 'selected' : '' }}>
                         {{ $sysModel }}
                     </option>
                 @endforeach
@@ -141,7 +141,7 @@
              <option value="">Sélectionnez une option</option>
                 @foreach ($widgetOperations as $widgetOperation)
                     <option value="{{ $widgetOperation->id }}"
-                        {{ (isset($itemGroupe) && $itemGroupe->operation_id == $widgetOperation->id) || (old('operation_id>') == $widgetOperation->id) ? 'selected' : '' }}>
+                        {{ (isset($itemWidget) && $itemWidget->operation_id == $widgetOperation->id) || (old('operation_id>') == $widgetOperation->id) ? 'selected' : '' }}>
                         {{ $widgetOperation }}
                     </option>
                 @endforeach
@@ -165,7 +165,7 @@
              <option value="">Sélectionnez une option</option>
                 @foreach ($widgetTypes as $widgetType)
                     <option value="{{ $widgetType->id }}"
-                        {{ (isset($itemGroupe) && $itemGroupe->type_id == $widgetType->id) || (old('type_id>') == $widgetType->id) ? 'selected' : '' }}>
+                        {{ (isset($itemWidget) && $itemWidget->type_id == $widgetType->id) || (old('type_id>') == $widgetType->id) ? 'selected' : '' }}>
                         {{ $widgetType }}
                     </option>
                 @endforeach

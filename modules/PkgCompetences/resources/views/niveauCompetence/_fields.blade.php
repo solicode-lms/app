@@ -65,7 +65,7 @@
              <option value="">Sélectionnez une option</option>
                 @foreach ($competences as $competence)
                     <option value="{{ $competence->id }}"
-                        {{ (isset($itemGroupe) && $itemGroupe->competence_id == $competence->id) || (old('competence_id>') == $competence->id) ? 'selected' : '' }}>
+                        {{ (isset($itemNiveauCompetence) && $itemNiveauCompetence->competence_id == $competence->id) || (old('competence_id>') == $competence->id) ? 'selected' : '' }}>
                         {{ $competence }}
                     </option>
                 @endforeach

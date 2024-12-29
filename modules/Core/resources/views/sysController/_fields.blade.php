@@ -103,7 +103,7 @@
              <option value="">Sélectionnez une option</option>
                 @foreach ($sysModules as $sysModule)
                     <option value="{{ $sysModule->id }}"
-                        {{ (isset($itemGroupe) && $itemGroupe->module_id == $sysModule->id) || (old('module_id>') == $sysModule->id) ? 'selected' : '' }}>
+                        {{ (isset($itemSysController) && $itemSysController->module_id == $sysModule->id) || (old('module_id>') == $sysModule->id) ? 'selected' : '' }}>
                         {{ $sysModule }}
                     </option>
                 @endforeach
