@@ -1,5 +1,5 @@
 <?php
-// TODO : add hasmany
+// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 namespace Modules\PkgCreationProjet\Models;
