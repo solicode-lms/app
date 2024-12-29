@@ -29,17 +29,17 @@ class ProjetController extends AdminController
         $searchQuery = str_replace(' ', '%', $searchValue);
     
         // Appel de la méthode paginate avec ou sans recherche
-        $data = $this->projetService->paginate($searchQuery);
+        $projets_data = $this->projetService->paginate($searchQuery);
     
         // Gestion AJAX
         if ($request->ajax()) {
             return response()->json([
-                'html' => view('PkgCreationProjet::projet._table', compact('data'))->render()
+                'html' => view('PkgCreationProjet::projet._table', compact('projets_data'))->render()
             ]);
         }
     
         // Vue principale pour le chargement initial
-        return view('PkgCreationProjet::projet.index', compact('data'));
+        return view('PkgCreationProjet::projet.index', compact('projets_data'));
     }
 
     public function create()
@@ -115,8 +115,8 @@ class ProjetController extends AdminController
 
     public function export()
     {
-        $data = $this->projetService->all();
-        return Excel::download(new ProjetExport($data), 'projet_export.xlsx');
+        $projets_data = $this->projetService->all();
+        return Excel::download(new ProjetExport($projets_data), 'projet_export.xlsx');
     }
     public function import(Request $request)
     {
