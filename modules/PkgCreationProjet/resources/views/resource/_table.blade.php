@@ -11,7 +11,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($data as $resource)
+            @foreach ($resources_data as $resource)
                 <tr>
                     <td>{{ $resource->nom }}</td>
                     <td>{{ $resource->lien }}</td>
@@ -69,7 +69,7 @@
         </div>
 
         <ul class="pagination m-0 float-right">
-            {{ $data->onEachSide(1)->links() }}
+            {{ $resources_data->onEachSide(1)->links() }}
         </ul>
     </div>
 

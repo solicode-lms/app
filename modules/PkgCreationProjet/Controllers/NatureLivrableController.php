@@ -31,14 +31,14 @@ class NatureLivrableController extends AdminController
      */
     public function index(Request $request)
     {
-        $searchQuery = str_replace(' ', '%', $request->get('q', ''));
-        $data = $this->natureLivrableService->paginate($searchQuery);
+        $natureLivrable_searchQuery = str_replace(' ', '%', $request->get('q', ''));
+        $natureLivrables_data = $this->natureLivrableService->paginate($natureLivrable_searchQuery);
 
         if ($request->ajax()) {
-            return view('PkgCreationProjet::natureLivrable._table', compact('data'))->render();
+            return view('PkgCreationProjet::natureLivrable._table', compact('natureLivrables_data'))->render();
         }
 
-        return view('PkgCreationProjet::natureLivrable.index', compact('data','searchQuery'));
+        return view('PkgCreationProjet::natureLivrable.index', compact('natureLivrables_data','natureLivrable_searchQuery'));
     }
 
     /**
@@ -166,8 +166,8 @@ class NatureLivrableController extends AdminController
 
     public function export()
     {
-        $data = $this->natureLivrableService->all();
-        return Excel::download(new NatureLivrableExport($data), 'natureLivrable_export.xlsx');
+        $natureLivrables_data = $this->natureLivrableService->all();
+        return Excel::download(new NatureLivrableExport($natureLivrables_data), 'natureLivrable_export.xlsx');
     }
 
     public function import(Request $request)

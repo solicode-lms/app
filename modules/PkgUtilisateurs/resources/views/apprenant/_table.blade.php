@@ -11,7 +11,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($data as $apprenant)
+            @foreach ($apprenants_data as $apprenant)
                 <tr>
                     <td>{{ $apprenant->nom }}</td>
                     <td>{{ $apprenant->prenom }}</td>
@@ -69,7 +69,7 @@
         </div>
 
         <ul class="pagination m-0 float-right">
-            {{ $data->onEachSide(1)->links() }}
+            {{ $apprenants_data->onEachSide(1)->links() }}
         </ul>
     </div>
 

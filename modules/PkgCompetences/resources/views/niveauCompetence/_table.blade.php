@@ -11,7 +11,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($data as $niveauCompetence)
+            @foreach ($niveauCompetences_data as $niveauCompetence)
                 <tr>
                     <td>{{ $niveauCompetence->nom }}</td>
                     <td>{{ $niveauCompetence->description }}</td>
@@ -69,7 +69,7 @@
         </div>
 
         <ul class="pagination m-0 float-right">
-            {{ $data->onEachSide(1)->links() }}
+            {{ $niveauCompetences_data->onEachSide(1)->links() }}
         </ul>
     </div>
 

@@ -33,14 +33,14 @@ class UserController extends AdminController
      */
     public function index(Request $request)
     {
-        $searchQuery = str_replace(' ', '%', $request->get('q', ''));
-        $data = $this->userService->paginate($searchQuery);
+        $user_searchQuery = str_replace(' ', '%', $request->get('q', ''));
+        $users_data = $this->userService->paginate($user_searchQuery);
 
         if ($request->ajax()) {
-            return view('PkgAutorisation::user._table', compact('data'))->render();
+            return view('PkgAutorisation::user._table', compact('users_data'))->render();
         }
 
-        return view('PkgAutorisation::user.index', compact('data','searchQuery'));
+        return view('PkgAutorisation::user.index', compact('users_data','user_searchQuery'));
     }
 
     /**
@@ -175,8 +175,8 @@ class UserController extends AdminController
 
     public function export()
     {
-        $data = $this->userService->all();
-        return Excel::download(new UserExport($data), 'user_export.xlsx');
+        $users_data = $this->userService->all();
+        return Excel::download(new UserExport($users_data), 'user_export.xlsx');
     }
 
     public function import(Request $request)

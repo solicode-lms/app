@@ -11,7 +11,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($data as $feature)
+            @foreach ($features_data as $feature)
                 <tr>
                     <td>{{ $feature->name }}</td>
                     <td>{{ $feature->description }}</td>
@@ -69,7 +69,7 @@
         </div>
 
         <ul class="pagination m-0 float-right">
-            {{ $data->onEachSide(1)->links() }}
+            {{ $features_data->onEachSide(1)->links() }}
         </ul>
     </div>
 

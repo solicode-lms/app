@@ -31,14 +31,14 @@ class VilleController extends AdminController
      */
     public function index(Request $request)
     {
-        $searchQuery = str_replace(' ', '%', $request->get('q', ''));
-        $data = $this->villeService->paginate($searchQuery);
+        $ville_searchQuery = str_replace(' ', '%', $request->get('q', ''));
+        $villes_data = $this->villeService->paginate($ville_searchQuery);
 
         if ($request->ajax()) {
-            return view('PkgUtilisateurs::ville._table', compact('data'))->render();
+            return view('PkgUtilisateurs::ville._table', compact('villes_data'))->render();
         }
 
-        return view('PkgUtilisateurs::ville.index', compact('data','searchQuery'));
+        return view('PkgUtilisateurs::ville.index', compact('villes_data','ville_searchQuery'));
     }
 
     /**
@@ -166,8 +166,8 @@ class VilleController extends AdminController
 
     public function export()
     {
-        $data = $this->villeService->all();
-        return Excel::download(new VilleExport($data), 'ville_export.xlsx');
+        $villes_data = $this->villeService->all();
+        return Excel::download(new VilleExport($villes_data), 'ville_export.xlsx');
     }
 
     public function import(Request $request)

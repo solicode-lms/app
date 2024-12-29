@@ -31,14 +31,14 @@ class NiveauxScolaireController extends AdminController
      */
     public function index(Request $request)
     {
-        $searchQuery = str_replace(' ', '%', $request->get('q', ''));
-        $data = $this->niveauxScolaireService->paginate($searchQuery);
+        $niveauxScolaire_searchQuery = str_replace(' ', '%', $request->get('q', ''));
+        $niveauxScolaires_data = $this->niveauxScolaireService->paginate($niveauxScolaire_searchQuery);
 
         if ($request->ajax()) {
-            return view('PkgUtilisateurs::niveauxScolaire._table', compact('data'))->render();
+            return view('PkgUtilisateurs::niveauxScolaire._table', compact('niveauxScolaires_data'))->render();
         }
 
-        return view('PkgUtilisateurs::niveauxScolaire.index', compact('data','searchQuery'));
+        return view('PkgUtilisateurs::niveauxScolaire.index', compact('niveauxScolaires_data','niveauxScolaire_searchQuery'));
     }
 
     /**
@@ -166,8 +166,8 @@ class NiveauxScolaireController extends AdminController
 
     public function export()
     {
-        $data = $this->niveauxScolaireService->all();
-        return Excel::download(new NiveauxScolaireExport($data), 'niveauxScolaire_export.xlsx');
+        $niveauxScolaires_data = $this->niveauxScolaireService->all();
+        return Excel::download(new NiveauxScolaireExport($niveauxScolaires_data), 'niveauxScolaire_export.xlsx');
     }
 
     public function import(Request $request)

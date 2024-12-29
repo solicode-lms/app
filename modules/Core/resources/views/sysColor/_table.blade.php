@@ -9,7 +9,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($data as $sysColor)
+            @foreach ($sysColors_data as $sysColor)
                 <tr>
                     <td>{{ $sysColor->name }}</td>
                     <td class="text-center">
@@ -65,7 +65,7 @@
         </div>
 
         <ul class="pagination m-0 float-right">
-            {{ $data->onEachSide(1)->links() }}
+            {{ $sysColors_data->onEachSide(1)->links() }}
         </ul>
     </div>
 

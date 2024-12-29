@@ -36,14 +36,14 @@ class CompetenceController extends AdminController
      */
     public function index(Request $request)
     {
-        $searchQuery = str_replace(' ', '%', $request->get('q', ''));
-        $data = $this->competenceService->paginate($searchQuery);
+        $competence_searchQuery = str_replace(' ', '%', $request->get('q', ''));
+        $competences_data = $this->competenceService->paginate($competence_searchQuery);
 
         if ($request->ajax()) {
-            return view('PkgCompetences::competence._table', compact('data'))->render();
+            return view('PkgCompetences::competence._table', compact('competences_data'))->render();
         }
 
-        return view('PkgCompetences::competence.index', compact('data','searchQuery'));
+        return view('PkgCompetences::competence.index', compact('competences_data','competence_searchQuery'));
     }
 
     /**
@@ -181,8 +181,8 @@ class CompetenceController extends AdminController
 
     public function export()
     {
-        $data = $this->competenceService->all();
-        return Excel::download(new CompetenceExport($data), 'competence_export.xlsx');
+        $competences_data = $this->competenceService->all();
+        return Excel::download(new CompetenceExport($competences_data), 'competence_export.xlsx');
     }
 
     public function import(Request $request)

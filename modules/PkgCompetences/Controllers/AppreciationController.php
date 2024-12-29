@@ -33,14 +33,14 @@ class AppreciationController extends AdminController
      */
     public function index(Request $request)
     {
-        $searchQuery = str_replace(' ', '%', $request->get('q', ''));
-        $data = $this->appreciationService->paginate($searchQuery);
+        $appreciation_searchQuery = str_replace(' ', '%', $request->get('q', ''));
+        $appreciations_data = $this->appreciationService->paginate($appreciation_searchQuery);
 
         if ($request->ajax()) {
-            return view('PkgCompetences::appreciation._table', compact('data'))->render();
+            return view('PkgCompetences::appreciation._table', compact('appreciations_data'))->render();
         }
 
-        return view('PkgCompetences::appreciation.index', compact('data','searchQuery'));
+        return view('PkgCompetences::appreciation.index', compact('appreciations_data','appreciation_searchQuery'));
     }
 
     /**
@@ -171,8 +171,8 @@ class AppreciationController extends AdminController
 
     public function export()
     {
-        $data = $this->appreciationService->all();
-        return Excel::download(new AppreciationExport($data), 'appreciation_export.xlsx');
+        $appreciations_data = $this->appreciationService->all();
+        return Excel::download(new AppreciationExport($appreciations_data), 'appreciation_export.xlsx');
     }
 
     public function import(Request $request)

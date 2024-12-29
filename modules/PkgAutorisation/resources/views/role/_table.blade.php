@@ -9,7 +9,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($data as $role)
+            @foreach ($roles_data as $role)
                 <tr>
                     <td>{{ $role->name }}</td>
                     <td class="text-center">
@@ -65,7 +65,7 @@
         </div>
 
         <ul class="pagination m-0 float-right">
-            {{ $data->onEachSide(1)->links() }}
+            {{ $roles_data->onEachSide(1)->links() }}
         </ul>
     </div>
 

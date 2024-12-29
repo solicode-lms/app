@@ -31,14 +31,14 @@ class ApprenantKonosyController extends AdminController
      */
     public function index(Request $request)
     {
-        $searchQuery = str_replace(' ', '%', $request->get('q', ''));
-        $data = $this->apprenantKonosyService->paginate($searchQuery);
+        $apprenantKonosy_searchQuery = str_replace(' ', '%', $request->get('q', ''));
+        $apprenantKonosies_data = $this->apprenantKonosyService->paginate($apprenantKonosy_searchQuery);
 
         if ($request->ajax()) {
-            return view('PkgUtilisateurs::apprenantKonosy._table', compact('data'))->render();
+            return view('PkgUtilisateurs::apprenantKonosy._table', compact('apprenantKonosies_data'))->render();
         }
 
-        return view('PkgUtilisateurs::apprenantKonosy.index', compact('data','searchQuery'));
+        return view('PkgUtilisateurs::apprenantKonosy.index', compact('apprenantKonosies_data','apprenantKonosy_searchQuery'));
     }
 
     /**
@@ -166,8 +166,8 @@ class ApprenantKonosyController extends AdminController
 
     public function export()
     {
-        $data = $this->apprenantKonosyService->all();
-        return Excel::download(new ApprenantKonosyExport($data), 'apprenantKonosy_export.xlsx');
+        $apprenantKonosies_data = $this->apprenantKonosyService->all();
+        return Excel::download(new ApprenantKonosyExport($apprenantKonosies_data), 'apprenantKonosy_export.xlsx');
     }
 
     public function import(Request $request)

@@ -12,7 +12,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($data as $sysController)
+            @foreach ($sysControllers_data as $sysController)
                 <tr>
                     <td>{{ $sysController->sysModule->name ?? '-' }}</td>
                     <td>{{ $sysController->name }}</td>
@@ -71,7 +71,7 @@
         </div>
 
         <ul class="pagination m-0 float-right">
-            {{ $data->onEachSide(1)->links() }}
+            {{ $sysControllers_data->onEachSide(1)->links() }}
         </ul>
     </div>
 

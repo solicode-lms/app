@@ -33,14 +33,14 @@ class ResourceController extends AdminController
      */
     public function index(Request $request)
     {
-        $searchQuery = str_replace(' ', '%', $request->get('q', ''));
-        $data = $this->resourceService->paginate($searchQuery);
+        $resource_searchQuery = str_replace(' ', '%', $request->get('q', ''));
+        $resources_data = $this->resourceService->paginate($resource_searchQuery);
 
         if ($request->ajax()) {
-            return view('PkgCreationProjet::resource._table', compact('data'))->render();
+            return view('PkgCreationProjet::resource._table', compact('resources_data'))->render();
         }
 
-        return view('PkgCreationProjet::resource.index', compact('data','searchQuery'));
+        return view('PkgCreationProjet::resource.index', compact('resources_data','resource_searchQuery'));
     }
 
     /**
@@ -171,8 +171,8 @@ class ResourceController extends AdminController
 
     public function export()
     {
-        $data = $this->resourceService->all();
-        return Excel::download(new ResourceExport($data), 'resource_export.xlsx');
+        $resources_data = $this->resourceService->all();
+        return Excel::download(new ResourceExport($resources_data), 'resource_export.xlsx');
     }
 
     public function import(Request $request)

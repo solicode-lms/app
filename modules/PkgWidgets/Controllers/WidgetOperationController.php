@@ -31,14 +31,14 @@ class WidgetOperationController extends AdminController
      */
     public function index(Request $request)
     {
-        $searchQuery = str_replace(' ', '%', $request->get('q', ''));
-        $data = $this->widgetOperationService->paginate($searchQuery);
+        $widgetOperation_searchQuery = str_replace(' ', '%', $request->get('q', ''));
+        $widgetOperations_data = $this->widgetOperationService->paginate($widgetOperation_searchQuery);
 
         if ($request->ajax()) {
-            return view('PkgWidgets::widgetOperation._table', compact('data'))->render();
+            return view('PkgWidgets::widgetOperation._table', compact('widgetOperations_data'))->render();
         }
 
-        return view('PkgWidgets::widgetOperation.index', compact('data','searchQuery'));
+        return view('PkgWidgets::widgetOperation.index', compact('widgetOperations_data','widgetOperation_searchQuery'));
     }
 
     /**
@@ -166,8 +166,8 @@ class WidgetOperationController extends AdminController
 
     public function export()
     {
-        $data = $this->widgetOperationService->all();
-        return Excel::download(new WidgetOperationExport($data), 'widgetOperation_export.xlsx');
+        $widgetOperations_data = $this->widgetOperationService->all();
+        return Excel::download(new WidgetOperationExport($widgetOperations_data), 'widgetOperation_export.xlsx');
     }
 
     public function import(Request $request)

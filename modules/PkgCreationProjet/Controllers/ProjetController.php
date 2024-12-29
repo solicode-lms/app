@@ -77,9 +77,11 @@ class ProjetController extends AdminController
         }
     
         // Pass the project and its related data to the view
-        $dataTransfertCompetences =  $item->transfert_competences()->paginate(10);
-        $data = $item->resources()->paginate(10);
-        return view('PkgCreationProjet::projet.edit', compact('item', 'dataTransfertCompetences','data'));
+        $transfertCompetences_data =  $item->transfert_competences()->paginate(10);
+        $resources_data = $item->resources()->paginate(10);
+        $livrables_data = $item->livrables()->paginate(10);
+
+        return view('PkgCreationProjet::projet.edit', compact('item', 'transfertCompetences_data','resources_data','livrables_data'));
     }
     
 

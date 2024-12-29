@@ -36,14 +36,14 @@ class FormateurController extends AdminController
      */
     public function index(Request $request)
     {
-        $searchQuery = str_replace(' ', '%', $request->get('q', ''));
-        $data = $this->formateurService->paginate($searchQuery);
+        $formateur_searchQuery = str_replace(' ', '%', $request->get('q', ''));
+        $formateurs_data = $this->formateurService->paginate($formateur_searchQuery);
 
         if ($request->ajax()) {
-            return view('PkgUtilisateurs::formateur._table', compact('data'))->render();
+            return view('PkgUtilisateurs::formateur._table', compact('formateurs_data'))->render();
         }
 
-        return view('PkgUtilisateurs::formateur.index', compact('data','searchQuery'));
+        return view('PkgUtilisateurs::formateur.index', compact('formateurs_data','formateur_searchQuery'));
     }
 
     /**
@@ -185,8 +185,8 @@ class FormateurController extends AdminController
 
     public function export()
     {
-        $data = $this->formateurService->all();
-        return Excel::download(new FormateurExport($data), 'formateur_export.xlsx');
+        $formateurs_data = $this->formateurService->all();
+        return Excel::download(new FormateurExport($formateurs_data), 'formateur_export.xlsx');
     }
 
     public function import(Request $request)

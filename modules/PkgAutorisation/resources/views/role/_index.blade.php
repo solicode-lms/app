@@ -1,5 +1,24 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
+@section('script')
+@parent
+<script>
+    window.entitiesConfig = window.entitiesConfig || [];
+    window.entitiesConfig.push({
+        entity_name: 'role',
+        crudSelector: '#role_crud',
+        indexUrl: '{{ route('roles.index') }}', 
+        createUrl: '{{ route('roles.create') }}',
+        editUrl: '{{ route('roles.edit', ['role' => ':id']) }}',
+        showUrl: '{{ route('roles.show', ['role' => ':id']) }}',
+        storeUrl: '{{ route('roles.store') }}', 
+        deleteUrl: '{{ route('roles.destroy', ['role' => ':id']) }}', 
+        csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
+        create_title: '{{__("Core::msg.add") . " : " . __("PkgAutorisation::role.singular") }}',
+        edit_title: '{{__("Core::msg.add") . " : " . __("PkgAutorisation::role.singular") }}',
+    });
+</script>
+@endsection
 <div id="role_crud">
     <div class="content-header">
         @if (session('success'))
@@ -36,7 +55,7 @@
                         <div class="card-header col-md-12">
                             <div class="p-0">
                                 <div class="input-group input-group-sm float-sm-right col-md-3 p-0">
-                                    <input type="text" value="{{$searchQuery}}" name="crud_search_input" id="crud_search_input"
+                                    <input type="text" value="{{ $role_searchQuery ?? '' }}" name="crud_search_input" id="crud_search_input"
                                            class="form-control float-right" placeholder="Recherche">
                                     <div class="input-group-append">
                                         <button type="submit" class="btn btn-default">

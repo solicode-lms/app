@@ -9,7 +9,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($data as $niveauxScolaire)
+            @foreach ($niveauxScolaires_data as $niveauxScolaire)
                 <tr>
                     <td>{{ $niveauxScolaire->code }}</td>
                     <td class="text-center">
@@ -65,7 +65,7 @@
         </div>
 
         <ul class="pagination m-0 float-right">
-            {{ $data->onEachSide(1)->links() }}
+            {{ $niveauxScolaires_data->onEachSide(1)->links() }}
         </ul>
     </div>
 

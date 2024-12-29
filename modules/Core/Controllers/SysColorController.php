@@ -31,14 +31,14 @@ class SysColorController extends AdminController
      */
     public function index(Request $request)
     {
-        $searchQuery = str_replace(' ', '%', $request->get('q', ''));
-        $data = $this->sysColorService->paginate($searchQuery);
+        $sysColor_searchQuery = str_replace(' ', '%', $request->get('q', ''));
+        $sysColors_data = $this->sysColorService->paginate($sysColor_searchQuery);
 
         if ($request->ajax()) {
-            return view('Core::sysColor._table', compact('data'))->render();
+            return view('Core::sysColor._table', compact('sysColors_data'))->render();
         }
 
-        return view('Core::sysColor.index', compact('data','searchQuery'));
+        return view('Core::sysColor.index', compact('sysColors_data','sysColor_searchQuery'));
     }
 
     /**
@@ -166,8 +166,8 @@ class SysColorController extends AdminController
 
     public function export()
     {
-        $data = $this->sysColorService->all();
-        return Excel::download(new SysColorExport($data), 'sysColor_export.xlsx');
+        $sysColors_data = $this->sysColorService->all();
+        return Excel::download(new SysColorExport($sysColors_data), 'sysColor_export.xlsx');
     }
 
     public function import(Request $request)

@@ -9,7 +9,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($data as $natureLivrable)
+            @foreach ($natureLivrables_data as $natureLivrable)
                 <tr>
                     <td>{{ $natureLivrable->nom }}</td>
                     <td class="text-center">
@@ -65,7 +65,7 @@
         </div>
 
         <ul class="pagination m-0 float-right">
-            {{ $data->onEachSide(1)->links() }}
+            {{ $natureLivrables_data->onEachSide(1)->links() }}
         </ul>
     </div>
 

@@ -33,14 +33,14 @@ class SpecialiteController extends AdminController
      */
     public function index(Request $request)
     {
-        $searchQuery = str_replace(' ', '%', $request->get('q', ''));
-        $data = $this->specialiteService->paginate($searchQuery);
+        $specialite_searchQuery = str_replace(' ', '%', $request->get('q', ''));
+        $specialites_data = $this->specialiteService->paginate($specialite_searchQuery);
 
         if ($request->ajax()) {
-            return view('PkgUtilisateurs::specialite._table', compact('data'))->render();
+            return view('PkgUtilisateurs::specialite._table', compact('specialites_data'))->render();
         }
 
-        return view('PkgUtilisateurs::specialite.index', compact('data','searchQuery'));
+        return view('PkgUtilisateurs::specialite.index', compact('specialites_data','specialite_searchQuery'));
     }
 
     /**
@@ -175,8 +175,8 @@ class SpecialiteController extends AdminController
 
     public function export()
     {
-        $data = $this->specialiteService->all();
-        return Excel::download(new SpecialiteExport($data), 'specialite_export.xlsx');
+        $specialites_data = $this->specialiteService->all();
+        return Excel::download(new SpecialiteExport($specialites_data), 'specialite_export.xlsx');
     }
 
     public function import(Request $request)

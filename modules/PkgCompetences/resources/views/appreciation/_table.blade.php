@@ -10,7 +10,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($data as $appreciation)
+            @foreach ($appreciations_data as $appreciation)
                 <tr>
                     <td>{{ $appreciation->nom }}</td>
                     <td>{{ $appreciation->formateur->nom ?? '-' }}</td>
@@ -67,7 +67,7 @@
         </div>
 
         <ul class="pagination m-0 float-right">
-            {{ $data->onEachSide(1)->links() }}
+            {{ $appreciations_data->onEachSide(1)->links() }}
         </ul>
     </div>
 

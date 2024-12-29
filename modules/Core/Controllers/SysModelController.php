@@ -36,14 +36,14 @@ class SysModelController extends AdminController
      */
     public function index(Request $request)
     {
-        $searchQuery = str_replace(' ', '%', $request->get('q', ''));
-        $data = $this->sysModelService->paginate($searchQuery);
+        $sysModel_searchQuery = str_replace(' ', '%', $request->get('q', ''));
+        $sysModels_data = $this->sysModelService->paginate($sysModel_searchQuery);
 
         if ($request->ajax()) {
-            return view('Core::sysModel._table', compact('data'))->render();
+            return view('Core::sysModel._table', compact('sysModels_data'))->render();
         }
 
-        return view('Core::sysModel.index', compact('data','searchQuery'));
+        return view('Core::sysModel.index', compact('sysModels_data','sysModel_searchQuery'));
     }
 
     /**
@@ -177,8 +177,8 @@ class SysModelController extends AdminController
 
     public function export()
     {
-        $data = $this->sysModelService->all();
-        return Excel::download(new SysModelExport($data), 'sysModel_export.xlsx');
+        $sysModels_data = $this->sysModelService->all();
+        return Excel::download(new SysModelExport($sysModels_data), 'sysModel_export.xlsx');
     }
 
     public function import(Request $request)

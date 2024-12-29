@@ -1,5 +1,24 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
+@section('script')
+@parent
+<script>
+    window.entitiesConfig = window.entitiesConfig || [];
+    window.entitiesConfig.push({
+        entity_name: 'formateur',
+        crudSelector: '#formateur_crud',
+        indexUrl: '{{ route('formateurs.index') }}', 
+        createUrl: '{{ route('formateurs.create') }}',
+        editUrl: '{{ route('formateurs.edit', ['formateur' => ':id']) }}',
+        showUrl: '{{ route('formateurs.show', ['formateur' => ':id']) }}',
+        storeUrl: '{{ route('formateurs.store') }}', 
+        deleteUrl: '{{ route('formateurs.destroy', ['formateur' => ':id']) }}', 
+        csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
+        create_title: '{{__("Core::msg.add") . " : " . __("PkgUtilisateurs::formateur.singular") }}',
+        edit_title: '{{__("Core::msg.add") . " : " . __("PkgUtilisateurs::formateur.singular") }}',
+    });
+</script>
+@endsection
 <div id="formateur_crud">
     <div class="content-header">
         @if (session('success'))
@@ -36,7 +55,7 @@
                         <div class="card-header col-md-12">
                             <div class="p-0">
                                 <div class="input-group input-group-sm float-sm-right col-md-3 p-0">
-                                    <input type="text" value="{{$searchQuery}}" name="crud_search_input" id="crud_search_input"
+                                    <input type="text" value="{{ $formateur_searchQuery ?? '' }}" name="crud_search_input" id="crud_search_input"
                                            class="form-control float-right" placeholder="Recherche">
                                     <div class="input-group-append">
                                         <button type="submit" class="btn btn-default">

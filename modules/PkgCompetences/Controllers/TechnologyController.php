@@ -39,14 +39,14 @@ class TechnologyController extends AdminController
      */
     public function index(Request $request)
     {
-        $searchQuery = str_replace(' ', '%', $request->get('q', ''));
-        $data = $this->technologyService->paginate($searchQuery);
+        $technology_searchQuery = str_replace(' ', '%', $request->get('q', ''));
+        $technologies_data = $this->technologyService->paginate($technology_searchQuery);
 
         if ($request->ajax()) {
-            return view('PkgCompetences::technology._table', compact('data'))->render();
+            return view('PkgCompetences::technology._table', compact('technologies_data'))->render();
         }
 
-        return view('PkgCompetences::technology.index', compact('data','searchQuery'));
+        return view('PkgCompetences::technology.index', compact('technologies_data','technology_searchQuery'));
     }
 
     /**
@@ -191,8 +191,8 @@ class TechnologyController extends AdminController
 
     public function export()
     {
-        $data = $this->technologyService->all();
-        return Excel::download(new TechnologyExport($data), 'technology_export.xlsx');
+        $technologies_data = $this->technologyService->all();
+        return Excel::download(new TechnologyExport($technologies_data), 'technology_export.xlsx');
     }
 
     public function import(Request $request)

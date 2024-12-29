@@ -33,14 +33,14 @@ class FeatureDomainController extends AdminController
      */
     public function index(Request $request)
     {
-        $searchQuery = str_replace(' ', '%', $request->get('q', ''));
-        $data = $this->featureDomainService->paginate($searchQuery);
+        $featureDomain_searchQuery = str_replace(' ', '%', $request->get('q', ''));
+        $featureDomains_data = $this->featureDomainService->paginate($featureDomain_searchQuery);
 
         if ($request->ajax()) {
-            return view('Core::featureDomain._table', compact('data'))->render();
+            return view('Core::featureDomain._table', compact('featureDomains_data'))->render();
         }
 
-        return view('Core::featureDomain.index', compact('data','searchQuery'));
+        return view('Core::featureDomain.index', compact('featureDomains_data','featureDomain_searchQuery'));
     }
 
     /**
@@ -171,8 +171,8 @@ class FeatureDomainController extends AdminController
 
     public function export()
     {
-        $data = $this->featureDomainService->all();
-        return Excel::download(new FeatureDomainExport($data), 'featureDomain_export.xlsx');
+        $featureDomains_data = $this->featureDomainService->all();
+        return Excel::download(new FeatureDomainExport($featureDomains_data), 'featureDomain_export.xlsx');
     }
 
     public function import(Request $request)

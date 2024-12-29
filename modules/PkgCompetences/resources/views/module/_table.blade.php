@@ -11,7 +11,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($data as $module)
+            @foreach ($modules_data as $module)
                 <tr>
                     <td>{{ $module->nom }}</td>
                     <td>{{ $module->description }}</td>
@@ -69,7 +69,7 @@
         </div>
 
         <ul class="pagination m-0 float-right">
-            {{ $data->onEachSide(1)->links() }}
+            {{ $modules_data->onEachSide(1)->links() }}
         </ul>
     </div>
 

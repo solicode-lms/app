@@ -10,7 +10,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($data as $permission)
+            @foreach ($permissions_data as $permission)
                 <tr>
                     <td>{{ $permission->name }}</td>
                     <td>{{ $permission->sysController->name ?? '-' }}</td>
@@ -67,7 +67,7 @@
         </div>
 
         <ul class="pagination m-0 float-right">
-            {{ $data->onEachSide(1)->links() }}
+            {{ $permissions_data->onEachSide(1)->links() }}
         </ul>
     </div>
 

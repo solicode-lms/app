@@ -10,7 +10,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($data as $user)
+            @foreach ($users_data as $user)
                 <tr>
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->password }}</td>
@@ -67,7 +67,7 @@
         </div>
 
         <ul class="pagination m-0 float-right">
-            {{ $data->onEachSide(1)->links() }}
+            {{ $users_data->onEachSide(1)->links() }}
         </ul>
     </div>
 

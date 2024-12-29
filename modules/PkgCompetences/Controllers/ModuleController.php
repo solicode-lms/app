@@ -33,14 +33,14 @@ class ModuleController extends AdminController
      */
     public function index(Request $request)
     {
-        $searchQuery = str_replace(' ', '%', $request->get('q', ''));
-        $data = $this->moduleService->paginate($searchQuery);
+        $module_searchQuery = str_replace(' ', '%', $request->get('q', ''));
+        $modules_data = $this->moduleService->paginate($module_searchQuery);
 
         if ($request->ajax()) {
-            return view('PkgCompetences::module._table', compact('data'))->render();
+            return view('PkgCompetences::module._table', compact('modules_data'))->render();
         }
 
-        return view('PkgCompetences::module.index', compact('data','searchQuery'));
+        return view('PkgCompetences::module.index', compact('modules_data','module_searchQuery'));
     }
 
     /**
@@ -171,8 +171,8 @@ class ModuleController extends AdminController
 
     public function export()
     {
-        $data = $this->moduleService->all();
-        return Excel::download(new ModuleExport($data), 'module_export.xlsx');
+        $modules_data = $this->moduleService->all();
+        return Excel::download(new ModuleExport($modules_data), 'module_export.xlsx');
     }
 
     public function import(Request $request)

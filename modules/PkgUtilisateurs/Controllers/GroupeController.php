@@ -36,14 +36,14 @@ class GroupeController extends AdminController
      */
     public function index(Request $request)
     {
-        $searchQuery = str_replace(' ', '%', $request->get('q', ''));
-        $data = $this->groupeService->paginate($searchQuery);
+        $groupe_searchQuery = str_replace(' ', '%', $request->get('q', ''));
+        $groupes_data = $this->groupeService->paginate($groupe_searchQuery);
 
         if ($request->ajax()) {
-            return view('PkgUtilisateurs::groupe._table', compact('data'))->render();
+            return view('PkgUtilisateurs::groupe._table', compact('groupes_data'))->render();
         }
 
-        return view('PkgUtilisateurs::groupe.index', compact('data','searchQuery'));
+        return view('PkgUtilisateurs::groupe.index', compact('groupes_data','groupe_searchQuery'));
     }
 
     /**
@@ -181,8 +181,8 @@ class GroupeController extends AdminController
 
     public function export()
     {
-        $data = $this->groupeService->all();
-        return Excel::download(new GroupeExport($data), 'groupe_export.xlsx');
+        $groupes_data = $this->groupeService->all();
+        return Excel::download(new GroupeExport($groupes_data), 'groupe_export.xlsx');
     }
 
     public function import(Request $request)

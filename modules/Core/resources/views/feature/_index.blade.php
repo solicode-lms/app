@@ -1,5 +1,24 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
+@section('script')
+@parent
+<script>
+    window.entitiesConfig = window.entitiesConfig || [];
+    window.entitiesConfig.push({
+        entity_name: 'feature',
+        crudSelector: '#feature_crud',
+        indexUrl: '{{ route('features.index') }}', 
+        createUrl: '{{ route('features.create') }}',
+        editUrl: '{{ route('features.edit', ['feature' => ':id']) }}',
+        showUrl: '{{ route('features.show', ['feature' => ':id']) }}',
+        storeUrl: '{{ route('features.store') }}', 
+        deleteUrl: '{{ route('features.destroy', ['feature' => ':id']) }}', 
+        csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
+        create_title: '{{__("Core::msg.add") . " : " . __("Core::feature.singular") }}',
+        edit_title: '{{__("Core::msg.add") . " : " . __("Core::feature.singular") }}',
+    });
+</script>
+@endsection
 <div id="feature_crud">
     <div class="content-header">
         @if (session('success'))
@@ -36,7 +55,7 @@
                         <div class="card-header col-md-12">
                             <div class="p-0">
                                 <div class="input-group input-group-sm float-sm-right col-md-3 p-0">
-                                    <input type="text" value="{{$searchQuery}}" name="crud_search_input" id="crud_search_input"
+                                    <input type="text" value="{{ $feature_searchQuery ?? '' }}" name="crud_search_input" id="crud_search_input"
                                            class="form-control float-right" placeholder="Recherche">
                                     <div class="input-group-append">
                                         <button type="submit" class="btn btn-default">

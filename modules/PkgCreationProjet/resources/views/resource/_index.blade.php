@@ -1,3 +1,5 @@
+{{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
+
 @section('script')
 @parent
 <script>
@@ -17,7 +19,6 @@
     });
 </script>
 @endsection
-
 <div id="resource_crud">
     <div class="content-header">
         @if (session('success'))
@@ -54,7 +55,7 @@
                         <div class="card-header col-md-12">
                             <div class="p-0">
                                 <div class="input-group input-group-sm float-sm-right col-md-3 p-0">
-                                    <input type="text" value="{{ $searchQuery ?? '' }}" name="crud_search_input" id="crud_search_input"
+                                    <input type="text" value="{{ $resource_searchQuery ?? '' }}" name="crud_search_input" id="crud_search_input"
                                            class="form-control float-right" placeholder="Recherche">
                                     <div class="input-group-append">
                                         <button type="submit" class="btn btn-default">

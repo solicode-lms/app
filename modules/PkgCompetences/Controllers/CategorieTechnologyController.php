@@ -31,14 +31,14 @@ class CategorieTechnologyController extends AdminController
      */
     public function index(Request $request)
     {
-        $searchQuery = str_replace(' ', '%', $request->get('q', ''));
-        $data = $this->categorieTechnologyService->paginate($searchQuery);
+        $categorieTechnology_searchQuery = str_replace(' ', '%', $request->get('q', ''));
+        $categorieTechnologies_data = $this->categorieTechnologyService->paginate($categorieTechnology_searchQuery);
 
         if ($request->ajax()) {
-            return view('PkgCompetences::categorieTechnology._table', compact('data'))->render();
+            return view('PkgCompetences::categorieTechnology._table', compact('categorieTechnologies_data'))->render();
         }
 
-        return view('PkgCompetences::categorieTechnology.index', compact('data','searchQuery'));
+        return view('PkgCompetences::categorieTechnology.index', compact('categorieTechnologies_data','categorieTechnology_searchQuery'));
     }
 
     /**
@@ -166,8 +166,8 @@ class CategorieTechnologyController extends AdminController
 
     public function export()
     {
-        $data = $this->categorieTechnologyService->all();
-        return Excel::download(new CategorieTechnologyExport($data), 'categorieTechnology_export.xlsx');
+        $categorieTechnologies_data = $this->categorieTechnologyService->all();
+        return Excel::download(new CategorieTechnologyExport($categorieTechnologies_data), 'categorieTechnology_export.xlsx');
     }
 
     public function import(Request $request)

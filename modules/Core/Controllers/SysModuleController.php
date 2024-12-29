@@ -33,14 +33,14 @@ class SysModuleController extends AdminController
      */
     public function index(Request $request)
     {
-        $searchQuery = str_replace(' ', '%', $request->get('q', ''));
-        $data = $this->sysModuleService->paginate($searchQuery);
+        $sysModule_searchQuery = str_replace(' ', '%', $request->get('q', ''));
+        $sysModules_data = $this->sysModuleService->paginate($sysModule_searchQuery);
 
         if ($request->ajax()) {
-            return view('Core::sysModule._table', compact('data'))->render();
+            return view('Core::sysModule._table', compact('sysModules_data'))->render();
         }
 
-        return view('Core::sysModule.index', compact('data','searchQuery'));
+        return view('Core::sysModule.index', compact('sysModules_data','sysModule_searchQuery'));
     }
 
     /**
@@ -171,8 +171,8 @@ class SysModuleController extends AdminController
 
     public function export()
     {
-        $data = $this->sysModuleService->all();
-        return Excel::download(new SysModuleExport($data), 'sysModule_export.xlsx');
+        $sysModules_data = $this->sysModuleService->all();
+        return Excel::download(new SysModuleExport($sysModules_data), 'sysModule_export.xlsx');
     }
 
     public function import(Request $request)

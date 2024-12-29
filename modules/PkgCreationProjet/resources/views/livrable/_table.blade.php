@@ -11,7 +11,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($data as $livrable)
+            @foreach ($livrables_data as $livrable)
                 <tr>
                     <td>{{ $livrable->titre }}</td>
                     <td>{{ $livrable->projet->titre ?? '-' }}</td>
@@ -69,7 +69,7 @@
         </div>
 
         <ul class="pagination m-0 float-right">
-            {{ $data->onEachSide(1)->links() }}
+            {{ $livrables_data->onEachSide(1)->links() }}
         </ul>
     </div>
 

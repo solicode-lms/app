@@ -13,7 +13,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($data as $widget)
+            @foreach ($widgets_data as $widget)
                 <tr>
                     <td>{{ $widget->name }}</td>
                     <td>{{ $widget->widgetType->type ?? '-' }}</td>
@@ -73,7 +73,7 @@
         </div>
 
         <ul class="pagination m-0 float-right">
-            {{ $data->onEachSide(1)->links() }}
+            {{ $widgets_data->onEachSide(1)->links() }}
         </ul>
     </div>
 

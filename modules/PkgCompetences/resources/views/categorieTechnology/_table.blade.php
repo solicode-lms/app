@@ -10,7 +10,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($data as $categorieTechnology)
+            @foreach ($categorieTechnologies_data as $categorieTechnology)
                 <tr>
                     <td>{{ $categorieTechnology->nom }}</td>
                     <td>{{ $categorieTechnology->description }}</td>
@@ -67,7 +67,7 @@
         </div>
 
         <ul class="pagination m-0 float-right">
-            {{ $data->onEachSide(1)->links() }}
+            {{ $categorieTechnologies_data->onEachSide(1)->links() }}
         </ul>
     </div>
 

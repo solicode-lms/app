@@ -33,14 +33,14 @@ class NiveauCompetenceController extends AdminController
      */
     public function index(Request $request)
     {
-        $searchQuery = str_replace(' ', '%', $request->get('q', ''));
-        $data = $this->niveauCompetenceService->paginate($searchQuery);
+        $niveauCompetence_searchQuery = str_replace(' ', '%', $request->get('q', ''));
+        $niveauCompetences_data = $this->niveauCompetenceService->paginate($niveauCompetence_searchQuery);
 
         if ($request->ajax()) {
-            return view('PkgCompetences::niveauCompetence._table', compact('data'))->render();
+            return view('PkgCompetences::niveauCompetence._table', compact('niveauCompetences_data'))->render();
         }
 
-        return view('PkgCompetences::niveauCompetence.index', compact('data','searchQuery'));
+        return view('PkgCompetences::niveauCompetence.index', compact('niveauCompetences_data','niveauCompetence_searchQuery'));
     }
 
     /**
@@ -171,8 +171,8 @@ class NiveauCompetenceController extends AdminController
 
     public function export()
     {
-        $data = $this->niveauCompetenceService->all();
-        return Excel::download(new NiveauCompetenceExport($data), 'niveauCompetence_export.xlsx');
+        $niveauCompetences_data = $this->niveauCompetenceService->all();
+        return Excel::download(new NiveauCompetenceExport($niveauCompetences_data), 'niveauCompetence_export.xlsx');
     }
 
     public function import(Request $request)

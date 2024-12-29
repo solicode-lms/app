@@ -39,14 +39,14 @@ class PermissionController extends AdminController
      */
     public function index(Request $request)
     {
-        $searchQuery = str_replace(' ', '%', $request->get('q', ''));
-        $data = $this->permissionService->paginate($searchQuery);
+        $permission_searchQuery = str_replace(' ', '%', $request->get('q', ''));
+        $permissions_data = $this->permissionService->paginate($permission_searchQuery);
 
         if ($request->ajax()) {
-            return view('PkgAutorisation::permission._table', compact('data'))->render();
+            return view('PkgAutorisation::permission._table', compact('permissions_data'))->render();
         }
 
-        return view('PkgAutorisation::permission.index', compact('data','searchQuery'));
+        return view('PkgAutorisation::permission.index', compact('permissions_data','permission_searchQuery'));
     }
 
     /**
@@ -191,8 +191,8 @@ class PermissionController extends AdminController
 
     public function export()
     {
-        $data = $this->permissionService->all();
-        return Excel::download(new PermissionExport($data), 'permission_export.xlsx');
+        $permissions_data = $this->permissionService->all();
+        return Excel::download(new PermissionExport($permissions_data), 'permission_export.xlsx');
     }
 
     public function import(Request $request)

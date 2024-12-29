@@ -12,7 +12,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($data as $projet)
+            @foreach ($projets_data as $projet)
                 <tr>
                     <td>{{ $projet->titre }}</td>
                     <td>{{ $projet->date_debut }}</td>
@@ -71,7 +71,7 @@
         </div>
 
         <ul class="pagination m-0 float-right">
-            {{ $data->onEachSide(1)->links() }}
+            {{ $projets_data->onEachSide(1)->links() }}
         </ul>
     </div>
 

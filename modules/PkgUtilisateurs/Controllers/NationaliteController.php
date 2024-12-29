@@ -31,14 +31,14 @@ class NationaliteController extends AdminController
      */
     public function index(Request $request)
     {
-        $searchQuery = str_replace(' ', '%', $request->get('q', ''));
-        $data = $this->nationaliteService->paginate($searchQuery);
+        $nationalite_searchQuery = str_replace(' ', '%', $request->get('q', ''));
+        $nationalites_data = $this->nationaliteService->paginate($nationalite_searchQuery);
 
         if ($request->ajax()) {
-            return view('PkgUtilisateurs::nationalite._table', compact('data'))->render();
+            return view('PkgUtilisateurs::nationalite._table', compact('nationalites_data'))->render();
         }
 
-        return view('PkgUtilisateurs::nationalite.index', compact('data','searchQuery'));
+        return view('PkgUtilisateurs::nationalite.index', compact('nationalites_data','nationalite_searchQuery'));
     }
 
     /**
@@ -166,8 +166,8 @@ class NationaliteController extends AdminController
 
     public function export()
     {
-        $data = $this->nationaliteService->all();
-        return Excel::download(new NationaliteExport($data), 'nationalite_export.xlsx');
+        $nationalites_data = $this->nationaliteService->all();
+        return Excel::download(new NationaliteExport($nationalites_data), 'nationalite_export.xlsx');
     }
 
     public function import(Request $request)

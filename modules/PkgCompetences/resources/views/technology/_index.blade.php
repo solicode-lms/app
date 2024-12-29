@@ -1,5 +1,24 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
+@section('script')
+@parent
+<script>
+    window.entitiesConfig = window.entitiesConfig || [];
+    window.entitiesConfig.push({
+        entity_name: 'technology',
+        crudSelector: '#technology_crud',
+        indexUrl: '{{ route('technologies.index') }}', 
+        createUrl: '{{ route('technologies.create') }}',
+        editUrl: '{{ route('technologies.edit', ['technology' => ':id']) }}',
+        showUrl: '{{ route('technologies.show', ['technology' => ':id']) }}',
+        storeUrl: '{{ route('technologies.store') }}', 
+        deleteUrl: '{{ route('technologies.destroy', ['technology' => ':id']) }}', 
+        csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
+        create_title: '{{__("Core::msg.add") . " : " . __("PkgCompetences::technology.singular") }}',
+        edit_title: '{{__("Core::msg.add") . " : " . __("PkgCompetences::technology.singular") }}',
+    });
+</script>
+@endsection
 <div id="technology_crud">
     <div class="content-header">
         @if (session('success'))
@@ -36,7 +55,7 @@
                         <div class="card-header col-md-12">
                             <div class="p-0">
                                 <div class="input-group input-group-sm float-sm-right col-md-3 p-0">
-                                    <input type="text" value="{{$searchQuery}}" name="crud_search_input" id="crud_search_input"
+                                    <input type="text" value="{{ $technology_searchQuery ?? '' }}" name="crud_search_input" id="crud_search_input"
                                            class="form-control float-right" placeholder="Recherche">
                                     <div class="input-group-append">
                                         <button type="submit" class="btn btn-default">

@@ -31,14 +31,14 @@ class WidgetTypeController extends AdminController
      */
     public function index(Request $request)
     {
-        $searchQuery = str_replace(' ', '%', $request->get('q', ''));
-        $data = $this->widgetTypeService->paginate($searchQuery);
+        $widgetType_searchQuery = str_replace(' ', '%', $request->get('q', ''));
+        $widgetTypes_data = $this->widgetTypeService->paginate($widgetType_searchQuery);
 
         if ($request->ajax()) {
-            return view('PkgWidgets::widgetType._table', compact('data'))->render();
+            return view('PkgWidgets::widgetType._table', compact('widgetTypes_data'))->render();
         }
 
-        return view('PkgWidgets::widgetType.index', compact('data','searchQuery'));
+        return view('PkgWidgets::widgetType.index', compact('widgetTypes_data','widgetType_searchQuery'));
     }
 
     /**
@@ -166,8 +166,8 @@ class WidgetTypeController extends AdminController
 
     public function export()
     {
-        $data = $this->widgetTypeService->all();
-        return Excel::download(new WidgetTypeExport($data), 'widgetType_export.xlsx');
+        $widgetTypes_data = $this->widgetTypeService->all();
+        return Excel::download(new WidgetTypeExport($widgetTypes_data), 'widgetType_export.xlsx');
     }
 
     public function import(Request $request)

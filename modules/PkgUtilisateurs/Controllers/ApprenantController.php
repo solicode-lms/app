@@ -39,14 +39,14 @@ class ApprenantController extends AdminController
      */
     public function index(Request $request)
     {
-        $searchQuery = str_replace(' ', '%', $request->get('q', ''));
-        $data = $this->apprenantService->paginate($searchQuery);
+        $apprenant_searchQuery = str_replace(' ', '%', $request->get('q', ''));
+        $apprenants_data = $this->apprenantService->paginate($apprenant_searchQuery);
 
         if ($request->ajax()) {
-            return view('PkgUtilisateurs::apprenant._table', compact('data'))->render();
+            return view('PkgUtilisateurs::apprenant._table', compact('apprenants_data'))->render();
         }
 
-        return view('PkgUtilisateurs::apprenant.index', compact('data','searchQuery'));
+        return view('PkgUtilisateurs::apprenant.index', compact('apprenants_data','apprenant_searchQuery'));
     }
 
     /**
@@ -183,8 +183,8 @@ class ApprenantController extends AdminController
 
     public function export()
     {
-        $data = $this->apprenantService->all();
-        return Excel::download(new ApprenantExport($data), 'apprenant_export.xlsx');
+        $apprenants_data = $this->apprenantService->all();
+        return Excel::download(new ApprenantExport($apprenants_data), 'apprenant_export.xlsx');
     }
 
     public function import(Request $request)

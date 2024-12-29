@@ -11,7 +11,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($data as $groupe)
+            @foreach ($groupes_data as $groupe)
                 <tr>
                     <td>{{ $groupe->code }}</td>
                     <td>{{ $groupe->nom }}</td>
@@ -69,7 +69,7 @@
         </div>
 
         <ul class="pagination m-0 float-right">
-            {{ $data->onEachSide(1)->links() }}
+            {{ $groupes_data->onEachSide(1)->links() }}
         </ul>
     </div>
 

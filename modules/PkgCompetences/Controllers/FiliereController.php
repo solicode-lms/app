@@ -31,14 +31,14 @@ class FiliereController extends AdminController
      */
     public function index(Request $request)
     {
-        $searchQuery = str_replace(' ', '%', $request->get('q', ''));
-        $data = $this->filiereService->paginate($searchQuery);
+        $filiere_searchQuery = str_replace(' ', '%', $request->get('q', ''));
+        $filieres_data = $this->filiereService->paginate($filiere_searchQuery);
 
         if ($request->ajax()) {
-            return view('PkgCompetences::filiere._table', compact('data'))->render();
+            return view('PkgCompetences::filiere._table', compact('filieres_data'))->render();
         }
 
-        return view('PkgCompetences::filiere.index', compact('data','searchQuery'));
+        return view('PkgCompetences::filiere.index', compact('filieres_data','filiere_searchQuery'));
     }
 
     /**
@@ -166,8 +166,8 @@ class FiliereController extends AdminController
 
     public function export()
     {
-        $data = $this->filiereService->all();
-        return Excel::download(new FiliereExport($data), 'filiere_export.xlsx');
+        $filieres_data = $this->filiereService->all();
+        return Excel::download(new FiliereExport($filieres_data), 'filiere_export.xlsx');
     }
 
     public function import(Request $request)

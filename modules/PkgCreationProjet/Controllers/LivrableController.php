@@ -36,14 +36,14 @@ class LivrableController extends AdminController
      */
     public function index(Request $request)
     {
-        $searchQuery = str_replace(' ', '%', $request->get('q', ''));
-        $data = $this->livrableService->paginate($searchQuery);
+        $livrable_searchQuery = str_replace(' ', '%', $request->get('q', ''));
+        $livrables_data = $this->livrableService->paginate($livrable_searchQuery);
 
         if ($request->ajax()) {
-            return view('PkgCreationProjet::livrable._table', compact('data'))->render();
+            return view('PkgCreationProjet::livrable._table', compact('livrables_data'))->render();
         }
 
-        return view('PkgCreationProjet::livrable.index', compact('data','searchQuery'));
+        return view('PkgCreationProjet::livrable.index', compact('livrables_data','livrable_searchQuery'));
     }
 
     /**
@@ -177,8 +177,8 @@ class LivrableController extends AdminController
 
     public function export()
     {
-        $data = $this->livrableService->all();
-        return Excel::download(new LivrableExport($data), 'livrable_export.xlsx');
+        $livrables_data = $this->livrableService->all();
+        return Excel::download(new LivrableExport($livrables_data), 'livrable_export.xlsx');
     }
 
     public function import(Request $request)

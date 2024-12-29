@@ -10,7 +10,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($data as $widgetOperation)
+            @foreach ($widgetOperations_data as $widgetOperation)
                 <tr>
                     <td>{{ $widgetOperation->operation }}</td>
                     <td>{{ $widgetOperation->description }}</td>
@@ -67,7 +67,7 @@
         </div>
 
         <ul class="pagination m-0 float-right">
-            {{ $data->onEachSide(1)->links() }}
+            {{ $widgetOperations_data->onEachSide(1)->links() }}
         </ul>
     </div>
 
