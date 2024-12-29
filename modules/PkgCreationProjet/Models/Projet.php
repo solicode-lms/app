@@ -20,18 +20,16 @@ class Projet extends Model
     }
 
 
-    public function resources()
-    {
-        return $this->hasMany(Resource::class, 'projet_id', 'id');
-    }
-
 
     public function livrables()
     {
         return $this->hasMany(Livrable::class, 'projet_id', 'id');
     }
-
-    public function transfert_competences()
+    public function resources()
+    {
+        return $this->hasMany(Resource::class, 'projet_id', 'id');
+    }
+    public function transfertCompetences()
     {
         return $this->hasMany(TransfertCompetence::class, 'projet_id', 'id');
     }
@@ -40,5 +38,4 @@ class Projet extends Model
     {
         return $this->titre;
     }
-
 }

@@ -6,6 +6,8 @@ namespace Modules\PkgUtilisateurs\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Modules\PkgCompetences\Models\Appreciation;
+use Modules\PkgCreationProjet\Models\Projet;
 use Modules\PkgUtilisateurs\Models\Groupe;
 use Modules\PkgUtilisateurs\Models\Specialite;
 
@@ -25,9 +27,18 @@ class Formateur extends Model
         return $this->belongsToMany(Specialite::class, 'formateur_specialite');
     }
 
+
+    public function appreciations()
+    {
+        return $this->hasMany(Appreciation::class, 'formateur_id', 'id');
+    }
+    public function projets()
+    {
+        return $this->hasMany(Projet::class, 'formateur_id', 'id');
+    }
+
     public function __toString()
     {
         return $this->nom;
     }
-
 }

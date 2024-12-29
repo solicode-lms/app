@@ -30,9 +30,10 @@ class Technology extends Model
         return $this->belongsToMany(TransfertCompetence::class, 'technology_transfert_competence');
     }
 
+
+
     public function __toString()
     {
         return $this->nom;
     }
-
 }

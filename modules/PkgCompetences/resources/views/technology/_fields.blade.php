@@ -54,6 +54,34 @@
         
         
         
+        
+    <div class="form-group">
+            <label for="">
+                {{ ucfirst(__('PkgCompetences::categoryTechnology.singular')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <select 
+            id="" 
+            name="" 
+            class="form-control">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($categoryTechnologies as $categoryTechnology)
+                    <option value="{{ $categoryTechnology->id }}"
+                        {{ (isset($itemTechnology) && $itemTechnology-> == $categoryTechnology->id) || (old('>') == $categoryTechnology->id) ? 'selected' : '' }}>
+                        {{ $categoryTechnology }}
+                    </option>
+                @endforeach
+            </select>
+            @error('')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+    </div>
+
+        
+        
+        
             <div class="form-group">
             <label for="competences">
                 {{ ucfirst(__('PkgCompetences::Competence.plural')) }}
@@ -102,34 +130,6 @@
             @enderror
 
         </div>
-
-        
-        
-        
-        
-    <div class="form-group">
-            <label for="category_technology_id">
-                {{ ucfirst(__('PkgCompetences::categoryTechnology.singular')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <select 
-            id="category_technology_id" 
-            name="category_technology_id" 
-            class="form-control">
-             <option value="">Sélectionnez une option</option>
-                @foreach ($categoryTechnologies as $categoryTechnology)
-                    <option value="{{ $categoryTechnology->id }}"
-                        {{ (isset($itemTechnology) && $itemTechnology->category_technology_id == $categoryTechnology->id) || (old('category_technology_id>') == $categoryTechnology->id) ? 'selected' : '' }}>
-                        {{ $categoryTechnology }}
-                    </option>
-                @endforeach
-            </select>
-            @error('category_technology_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
 
         
         
