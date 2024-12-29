@@ -9,6 +9,7 @@
 
     <div class="card-body">
         
+        
         <div class="form-group">
             <label for="matricule">
                 {{ ucfirst(__('PkgUtilisateurs::formateur.matricule')) }}
@@ -28,6 +29,8 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
         </div>
+        
+        
         
         <div class="form-group">
             <label for="nom">
@@ -49,6 +52,8 @@
             @enderror
         </div>
         
+        
+        
         <div class="form-group">
             <label for="prenom">
                 {{ ucfirst(__('PkgUtilisateurs::formateur.prenom')) }}
@@ -68,6 +73,8 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
         </div>
+        
+        
         
         <div class="form-group">
             <label for="prenom_arab">
@@ -89,6 +96,8 @@
             @enderror
         </div>
         
+        
+        
         <div class="form-group">
             <label for="nom_arab">
                 {{ ucfirst(__('PkgUtilisateurs::formateur.nom_arab')) }}
@@ -108,6 +117,8 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
         </div>
+        
+        
         
         <div class="form-group">
             <label for="tele_num">
@@ -129,6 +140,8 @@
             @enderror
         </div>
         
+        
+        
         <div class="form-group">
             <label for="adresse">
                 {{ ucfirst(__('PkgUtilisateurs::formateur.adresse')) }}
@@ -146,6 +159,8 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
         </div>
+        
+        
         
         <div class="form-group">
             <label for="diplome">
@@ -165,41 +180,15 @@
             @enderror
         </div>
         
-        <div class="form-group">
-            <label for="echelle">
-                {{ ucfirst(__('PkgUtilisateurs::formateur.echelle')) }}
-                
-            </label>
-            <input
-                name="echelle"
-                type="input"
-                class="form-control"
-                
-                id="echelle"
-                placeholder="{{ __('PkgUtilisateurs::formateur.echelle') }}"
-                value="{{ $itemFormateur ? $itemFormateur->echelle : old('echelle') }}">
-            @error('echelle')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-        </div>
         
-        <div class="form-group">
-            <label for="echelon">
-                {{ ucfirst(__('PkgUtilisateurs::formateur.echelon')) }}
-                
-            </label>
-            <input
-                name="echelon"
-                type="input"
-                class="form-control"
-                
-                id="echelon"
-                placeholder="{{ __('PkgUtilisateurs::formateur.echelon') }}"
-                value="{{ $itemFormateur ? $itemFormateur->echelon : old('echelon') }}">
-            @error('echelon')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-        </div>
+        
+        
+        
+        
+        
+        
+        
+        
         
         <div class="form-group">
             <label for="profile_image">
@@ -221,11 +210,9 @@
             @enderror
         </div>
         
-
         
-
         
-        <div class="form-group">
+            <div class="form-group">
             <label for="groupes">
                 {{ ucfirst(__('PkgUtilisateurs::Groupe.plural')) }}
             </label>
@@ -238,7 +225,7 @@
                 @foreach ($groupes as $groupe)
                     <option value="{{ $groupe->id }}"
                         {{ (isset($itemFormateur) && $itemFormateur->groupes && $itemFormateur->groupes->contains('id', $groupe->id)) || (is_array(old('groupes')) && in_array($groupe->id, old('groupes'))) ? 'selected' : '' }}>
-                        {{ $groupe->code }}
+                        {{ $groupe }}
                     </option>
                 @endforeach
             </select>
@@ -247,8 +234,11 @@
             @enderror
 
         </div>
+
         
-        <div class="form-group">
+        
+        
+            <div class="form-group">
             <label for="specialites">
                 {{ ucfirst(__('PkgUtilisateurs::Specialite.plural')) }}
             </label>
@@ -261,7 +251,7 @@
                 @foreach ($specialites as $specialite)
                     <option value="{{ $specialite->id }}"
                         {{ (isset($itemFormateur) && $itemFormateur->specialites && $itemFormateur->specialites->contains('id', $specialite->id)) || (is_array(old('specialites')) && in_array($specialite->id, old('specialites'))) ? 'selected' : '' }}>
-                        {{ $specialite->nom }}
+                        {{ $specialite }}
                     </option>
                 @endforeach
             </select>
@@ -270,12 +260,18 @@
             @enderror
 
         </div>
+
         
-
-
-
+        
+        
+        <!--   Appreciation_HasMany HasMany --> 
+        
+        
+        
+        <!--   Projet_HasMany HasMany --> 
+        
+        
     </div>
-
 
     <div class="card-footer">
         <a href="{{ route('formateurs.index') }}" class="btn btn-default form-cancel-button">{{ __('Core::msg.cancel') }}</a>
