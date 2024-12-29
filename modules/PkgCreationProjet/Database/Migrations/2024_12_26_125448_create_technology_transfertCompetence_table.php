@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('technologie_transfert_competence', function (Blueprint $table) {
-            $table->foreignId('technologie_id')->constrained('technologies')->onDelete('cascade'); // Relation avec Technologie
+        Schema::create('technology_transfert_competence', function (Blueprint $table) {
+            $table->foreignId('technology_id')->constrained('technologies')->onDelete('cascade'); // Relation avec Technologie
             $table->foreignId('transfert_competence_id')->constrained('transfert_competences')->onDelete('cascade'); // Relation avec TransfertCompetence
             $table->timestamps(); // Champs created_at et updated_at
         });
