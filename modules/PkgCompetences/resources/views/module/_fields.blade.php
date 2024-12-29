@@ -86,7 +86,7 @@
                 @foreach ($filieres as $filiere)
                     <option value="{{ $filiere->id }}"
                         {{ (isset($itemGroupe) && $itemGroupe->filiere_id == $filiere->id) || (old('filiere_id>') == $filiere->id) ? 'selected' : '' }}>
-                        {{ $filiere->nom }}
+                        {{ $filiere }}
                     </option>
                 @endforeach
             </select>

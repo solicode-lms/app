@@ -64,7 +64,7 @@
                 @foreach ($featureDomains as $featureDomain)
                     <option value="{{ $featureDomain->id }}"
                         {{ (isset($itemGroupe) && $itemGroupe->domain_id == $featureDomain->id) || (old('domain_id>') == $featureDomain->id) ? 'selected' : '' }}>
-                        {{ $featureDomain->nom }}
+                        {{ $featureDomain }}
                     </option>
                 @endforeach
             </select>

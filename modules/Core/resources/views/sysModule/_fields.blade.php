@@ -146,7 +146,7 @@
                 @foreach ($sysColors as $sysColor)
                     <option value="{{ $sysColor->id }}"
                         {{ (isset($itemGroupe) && $itemGroupe->color_id == $sysColor->id) || (old('color_id>') == $sysColor->id) ? 'selected' : '' }}>
-                        {{ $sysColor->nom }}
+                        {{ $sysColor }}
                     </option>
                 @endforeach
             </select>

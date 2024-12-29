@@ -64,7 +64,7 @@
                 @foreach ($natureLivrables as $natureLivrable)
                     <option value="{{ $natureLivrable->id }}"
                         {{ (isset($itemGroupe) && $itemGroupe->nature_livrable_id == $natureLivrable->id) || (old('nature_livrable_id>') == $natureLivrable->id) ? 'selected' : '' }}>
-                        {{ $natureLivrable->nom }}
+                        {{ $natureLivrable }}
                     </option>
                 @endforeach
             </select>
@@ -88,7 +88,7 @@
                 @foreach ($projets as $projet)
                     <option value="{{ $projet->id }}"
                         {{ (isset($itemGroupe) && $itemGroupe->projet_id == $projet->id) || (old('projet_id>') == $projet->id) ? 'selected' : '' }}>
-                        {{ $projet->nom }}
+                        {{ $projet }}
                     </option>
                 @endforeach
             </select>

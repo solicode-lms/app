@@ -66,7 +66,7 @@
                 @foreach ($sysControllers as $sysController)
                     <option value="{{ $sysController->id }}"
                         {{ (isset($itemGroupe) && $itemGroupe->controller_id == $sysController->id) || (old('controller_id>') == $sysController->id) ? 'selected' : '' }}>
-                        {{ $sysController->nom }}
+                        {{ $sysController }}
                     </option>
                 @endforeach
             </select>

@@ -312,7 +312,7 @@
                 @foreach ($groupes as $groupe)
                     <option value="{{ $groupe->id }}"
                         {{ (isset($itemGroupe) && $itemGroupe->groupe_id == $groupe->id) || (old('groupe_id>') == $groupe->id) ? 'selected' : '' }}>
-                        {{ $groupe->nom }}
+                        {{ $groupe }}
                     </option>
                 @endforeach
             </select>
@@ -336,7 +336,7 @@
                 @foreach ($nationalites as $nationalite)
                     <option value="{{ $nationalite->id }}"
                         {{ (isset($itemGroupe) && $itemGroupe->nationalite_id == $nationalite->id) || (old('nationalite_id>') == $nationalite->id) ? 'selected' : '' }}>
-                        {{ $nationalite->nom }}
+                        {{ $nationalite }}
                     </option>
                 @endforeach
             </select>
@@ -360,7 +360,7 @@
                 @foreach ($niveauxScolaires as $niveauxScolaire)
                     <option value="{{ $niveauxScolaire->id }}"
                         {{ (isset($itemGroupe) && $itemGroupe->niveaux_scolaire_id == $niveauxScolaire->id) || (old('niveaux_scolaire_id>') == $niveauxScolaire->id) ? 'selected' : '' }}>
-                        {{ $niveauxScolaire->nom }}
+                        {{ $niveauxScolaire }}
                     </option>
                 @endforeach
             </select>

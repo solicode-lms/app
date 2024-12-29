@@ -86,7 +86,7 @@
                 @foreach ($projets as $projet)
                     <option value="{{ $projet->id }}"
                         {{ (isset($itemGroupe) && $itemGroupe->projet_id == $projet->id) || (old('projet_id>') == $projet->id) ? 'selected' : '' }}>
-                        {{ $projet->nom }}
+                        {{ $projet }}
                     </option>
                 @endforeach
             </select>
