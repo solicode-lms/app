@@ -54,34 +54,6 @@
         
         
     <div class="form-group">
-            <label for="nature_livrable_id">
-                {{ ucfirst(__('PkgCreationProjet::natureLivrable.singular')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <select 
-            id="nature_livrable_id" 
-            name="nature_livrable_id" 
-            class="form-control">
-             <option value="">Sélectionnez une option</option>
-                @foreach ($natureLivrables as $natureLivrable)
-                    <option value="{{ $natureLivrable->id }}"
-                        {{ (isset($itemLivrable) && $itemLivrable->nature_livrable_id == $natureLivrable->id) || (old('nature_livrable_id>') == $natureLivrable->id) ? 'selected' : '' }}>
-                        {{ $natureLivrable }}
-                    </option>
-                @endforeach
-            </select>
-            @error('nature_livrable_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
-
-        
-        
-        
-        
-    <div class="form-group">
             <label for="projet_id">
                 {{ ucfirst(__('PkgCreationProjet::projet.singular')) }}
                 
@@ -101,6 +73,34 @@
                 @endforeach
             </select>
             @error('projet_id')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+    </div>
+
+        
+        
+        
+        
+    <div class="form-group">
+            <label for="nature_livrable_id">
+                {{ ucfirst(__('PkgCreationProjet::natureLivrable.singular')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <select 
+            id="nature_livrable_id" 
+            name="nature_livrable_id" 
+            class="form-control">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($natureLivrables as $natureLivrable)
+                    <option value="{{ $natureLivrable->id }}"
+                        {{ (isset($itemLivrable) && $itemLivrable->nature_livrable_id == $natureLivrable->id) || (old('nature_livrable_id>') == $natureLivrable->id) ? 'selected' : '' }}>
+                        {{ $natureLivrable }}
+                    </option>
+                @endforeach
+            </select>
+            @error('nature_livrable_id')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
     </div>

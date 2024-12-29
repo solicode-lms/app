@@ -6,6 +6,7 @@ namespace Modules\PkgWidgets\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Modules\PkgWidgets\Models\Widget;
 
 class WidgetOperation extends Model
 {
@@ -15,9 +16,14 @@ class WidgetOperation extends Model
 
 
 
+
+    public function widgets()
+    {
+        return $this->hasMany(Widget::class, 'widgetOperation_id', 'id');
+    }
+
     public function __toString()
     {
         return $this->operation;
     }
-
 }

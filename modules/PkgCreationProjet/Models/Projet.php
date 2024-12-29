@@ -6,6 +6,9 @@ namespace Modules\PkgCreationProjet\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Modules\PkgCreationProjet\Models\Livrable;
+use Modules\PkgCreationProjet\Models\Resource;
+use Modules\PkgCreationProjet\Models\TransfertCompetence;
 use Modules\PkgUtilisateurs\Models\Formateur;
 
 class Projet extends Model

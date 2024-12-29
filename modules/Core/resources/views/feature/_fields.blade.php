@@ -52,32 +52,6 @@
         
         
         
-            <div class="form-group">
-            <label for="permissions">
-                {{ ucfirst(__('PkgAutorisation::Permission.plural')) }}
-            </label>
-            <select
-                id="permissions"
-                name="permissions[]"
-                class="form-control select2"
-                multiple="multiple">
-               
-                @foreach ($permissions as $permission)
-                    <option value="{{ $permission->id }}"
-                        {{ (isset($itemFeature) && $itemFeature->permissions && $itemFeature->permissions->contains('id', $permission->id)) || (is_array(old('permissions')) && in_array($permission->id, old('permissions'))) ? 'selected' : '' }}>
-                        {{ $permission }}
-                    </option>
-                @endforeach
-            </select>
-            @error('permissions')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-
-        </div>
-
-        
-        
-        
         
     <div class="form-group">
             <label for="domain_id">
@@ -102,6 +76,32 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
     </div>
+
+        
+        
+        
+            <div class="form-group">
+            <label for="permissions">
+                {{ ucfirst(__('PkgAutorisation::Permission.plural')) }}
+            </label>
+            <select
+                id="permissions"
+                name="permissions[]"
+                class="form-control select2"
+                multiple="multiple">
+               
+                @foreach ($permissions as $permission)
+                    <option value="{{ $permission->id }}"
+                        {{ (isset($itemFeature) && $itemFeature->permissions && $itemFeature->permissions->contains('id', $permission->id)) || (is_array(old('permissions')) && in_array($permission->id, old('permissions'))) ? 'selected' : '' }}>
+                        {{ $permission }}
+                    </option>
+                @endforeach
+            </select>
+            @error('permissions')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+
+        </div>
 
         
         

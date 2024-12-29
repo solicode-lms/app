@@ -25,9 +25,10 @@ class Livrable extends Model
     }
 
 
+
+
     public function __toString()
     {
         return $this->titre;
     }
-
 }

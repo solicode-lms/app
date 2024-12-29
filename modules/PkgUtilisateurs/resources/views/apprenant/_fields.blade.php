@@ -306,34 +306,6 @@
         
         
     <div class="form-group">
-            <label for="nationalite_id">
-                {{ ucfirst(__('PkgUtilisateurs::nationalite.singular')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <select 
-            id="nationalite_id" 
-            name="nationalite_id" 
-            class="form-control">
-             <option value="">Sélectionnez une option</option>
-                @foreach ($nationalites as $nationalite)
-                    <option value="{{ $nationalite->id }}"
-                        {{ (isset($itemApprenant) && $itemApprenant->nationalite_id == $nationalite->id) || (old('nationalite_id>') == $nationalite->id) ? 'selected' : '' }}>
-                        {{ $nationalite }}
-                    </option>
-                @endforeach
-            </select>
-            @error('nationalite_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
-
-        
-        
-        
-        
-    <div class="form-group">
             <label for="niveaux_scolaire_id">
                 {{ ucfirst(__('PkgUtilisateurs::niveauxScolaire.singular')) }}
                 
@@ -353,6 +325,34 @@
                 @endforeach
             </select>
             @error('niveaux_scolaire_id')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+    </div>
+
+        
+        
+        
+        
+    <div class="form-group">
+            <label for="nationalite_id">
+                {{ ucfirst(__('PkgUtilisateurs::nationalite.singular')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <select 
+            id="nationalite_id" 
+            name="nationalite_id" 
+            class="form-control">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($nationalites as $nationalite)
+                    <option value="{{ $nationalite->id }}"
+                        {{ (isset($itemApprenant) && $itemApprenant->nationalite_id == $nationalite->id) || (old('nationalite_id>') == $nationalite->id) ? 'selected' : '' }}>
+                        {{ $nationalite }}
+                    </option>
+                @endforeach
+            </select>
+            @error('nationalite_id')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
     </div>

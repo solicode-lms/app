@@ -6,6 +6,7 @@ namespace Modules\PkgCompetences\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Modules\PkgCompetences\Models\Competence;
 use Modules\PkgCompetences\Models\Filiere;
 
 class Module extends Model
@@ -20,9 +21,14 @@ class Module extends Model
     }
 
 
+
+    public function competences()
+    {
+        return $this->hasMany(Competence::class, 'module_id', 'id');
+    }
+
     public function __toString()
     {
         return $this->nom;
     }
-
 }

@@ -25,9 +25,10 @@ class Feature extends Model
         return $this->belongsToMany(Permission::class, 'feature_permission');
     }
 
+
+
     public function __toString()
     {
         return $this->name;
     }
-
 }

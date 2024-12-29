@@ -54,6 +54,34 @@
         
         
         
+        
+    <div class="form-group">
+            <label for="controller_id">
+                {{ ucfirst(__('Core::sysController.singular')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <select 
+            id="controller_id" 
+            name="controller_id" 
+            class="form-control">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($sysControllers as $sysController)
+                    <option value="{{ $sysController->id }}"
+                        {{ (isset($itemPermission) && $itemPermission->controller_id == $sysController->id) || (old('controller_id>') == $sysController->id) ? 'selected' : '' }}>
+                        {{ $sysController }}
+                    </option>
+                @endforeach
+            </select>
+            @error('controller_id')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+    </div>
+
+        
+        
+        
             <div class="form-group">
             <label for="features">
                 {{ ucfirst(__('Core::Feature.plural')) }}
@@ -102,34 +130,6 @@
             @enderror
 
         </div>
-
-        
-        
-        
-        
-    <div class="form-group">
-            <label for="controller_id">
-                {{ ucfirst(__('Core::sysController.singular')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <select 
-            id="controller_id" 
-            name="controller_id" 
-            class="form-control">
-             <option value="">Sélectionnez une option</option>
-                @foreach ($sysControllers as $sysController)
-                    <option value="{{ $sysController->id }}"
-                        {{ (isset($itemPermission) && $itemPermission->controller_id == $sysController->id) || (old('controller_id>') == $sysController->id) ? 'selected' : '' }}>
-                        {{ $sysController }}
-                    </option>
-                @endforeach
-            </select>
-            @error('controller_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
 
         
         

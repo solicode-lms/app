@@ -76,6 +76,34 @@
         
         
         
+        
+    <div class="form-group">
+            <label for="module_id">
+                {{ ucfirst(__('PkgCompetences::module.singular')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <select 
+            id="module_id" 
+            name="module_id" 
+            class="form-control">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($modules as $module)
+                    <option value="{{ $module->id }}"
+                        {{ (isset($itemCompetence) && $itemCompetence->module_id == $module->id) || (old('module_id>') == $module->id) ? 'selected' : '' }}>
+                        {{ $module }}
+                    </option>
+                @endforeach
+            </select>
+            @error('module_id')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+    </div>
+
+        
+        
+        
             <div class="form-group">
             <label for="technologies">
                 {{ ucfirst(__('PkgCompetences::Technology.plural')) }}
@@ -107,34 +135,6 @@
         
         
         <!--   TransfertCompetence_HasMany HasMany --> 
-        
-        
-        
-        
-    <div class="form-group">
-            <label for="module_id">
-                {{ ucfirst(__('PkgCompetences::module.singular')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <select 
-            id="module_id" 
-            name="module_id" 
-            class="form-control">
-             <option value="">Sélectionnez une option</option>
-                @foreach ($modules as $module)
-                    <option value="{{ $module->id }}"
-                        {{ (isset($itemCompetence) && $itemCompetence->module_id == $module->id) || (old('module_id>') == $module->id) ? 'selected' : '' }}>
-                        {{ $module }}
-                    </option>
-                @endforeach
-            </select>
-            @error('module_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
-
         
         
     </div>

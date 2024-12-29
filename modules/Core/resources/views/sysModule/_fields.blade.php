@@ -106,18 +106,6 @@
         
         
         
-        <!--   FeatureDomain_HasMany HasMany --> 
-        
-        
-        
-        <!--   SysController_HasMany HasMany --> 
-        
-        
-        
-        <!--   SysModel_HasMany HasMany --> 
-        
-        
-        
         
     <div class="form-group">
             <label for="color_id">
@@ -143,6 +131,18 @@
             @enderror
     </div>
 
+        
+        
+        
+        <!--   FeatureDomain_HasMany HasMany --> 
+        
+        
+        
+        <!--   SysController_HasMany HasMany --> 
+        
+        
+        
+        <!--   SysModel_HasMany HasMany --> 
         
         
     </div>

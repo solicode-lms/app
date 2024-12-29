@@ -7,7 +7,9 @@ namespace Modules\PkgCompetences\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Modules\PkgCompetences\Models\Module;
+use Modules\PkgCompetences\Models\NiveauCompetence;
 use Modules\PkgCompetences\Models\Technology;
+use Modules\PkgCreationProjet\Models\TransfertCompetence;
 
 class Competence extends Model
 {
@@ -25,9 +27,18 @@ class Competence extends Model
         return $this->belongsToMany(Technology::class, 'competence_technology');
     }
 
+
+    public function niveauCompetences()
+    {
+        return $this->hasMany(NiveauCompetence::class, 'competence_id', 'id');
+    }
+    public function transfertCompetences()
+    {
+        return $this->hasMany(TransfertCompetence::class, 'competence_id', 'id');
+    }
+
     public function __toString()
     {
         return $this->code;
     }
-
 }

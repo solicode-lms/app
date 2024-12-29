@@ -7,6 +7,7 @@ namespace Modules\Core\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Modules\Core\Models\SysModule;
+use Modules\PkgAutorisation\Models\Permission;
 
 class SysController extends Model
 {
@@ -20,9 +21,14 @@ class SysController extends Model
     }
 
 
+
+    public function permissions()
+    {
+        return $this->hasMany(Permission::class, 'sysController_id', 'id');
+    }
+
     public function __toString()
     {
         return $this->name;
     }
-
 }

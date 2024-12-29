@@ -15,9 +15,10 @@ class Ville extends Model
 
 
 
+
+
     public function __toString()
     {
         return $this->nom;
     }
-
 }

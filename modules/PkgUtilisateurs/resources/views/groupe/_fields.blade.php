@@ -72,6 +72,34 @@
         
         
         
+        
+    <div class="form-group">
+            <label for="filiere_id">
+                {{ ucfirst(__('PkgCompetences::filiere.singular')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <select 
+            id="filiere_id" 
+            name="filiere_id" 
+            class="form-control">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($filieres as $filiere)
+                    <option value="{{ $filiere->id }}"
+                        {{ (isset($itemGroupe) && $itemGroupe->filiere_id == $filiere->id) || (old('filiere_id>') == $filiere->id) ? 'selected' : '' }}>
+                        {{ $filiere }}
+                    </option>
+                @endforeach
+            </select>
+            @error('filiere_id')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+    </div>
+
+        
+        
+        
             <div class="form-group">
             <label for="formateurs">
                 {{ ucfirst(__('PkgUtilisateurs::Formateur.plural')) }}
@@ -99,34 +127,6 @@
         
         
         <!--   Apprenant_HasMany HasMany --> 
-        
-        
-        
-        
-    <div class="form-group">
-            <label for="filiere_id">
-                {{ ucfirst(__('PkgCompetences::filiere.singular')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <select 
-            id="filiere_id" 
-            name="filiere_id" 
-            class="form-control">
-             <option value="">Sélectionnez une option</option>
-                @foreach ($filieres as $filiere)
-                    <option value="{{ $filiere->id }}"
-                        {{ (isset($itemGroupe) && $itemGroupe->filiere_id == $filiere->id) || (old('filiere_id>') == $filiere->id) ? 'selected' : '' }}>
-                        {{ $filiere }}
-                    </option>
-                @endforeach
-            </select>
-            @error('filiere_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
-
         
         
     </div>

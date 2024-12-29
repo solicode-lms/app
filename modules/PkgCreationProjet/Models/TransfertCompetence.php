@@ -35,9 +35,10 @@ class TransfertCompetence extends Model
         return $this->belongsToMany(Technology::class, 'technology_transfert_competence');
     }
 
+
+
     public function __toString()
     {
         return $this->id;
     }
-
 }

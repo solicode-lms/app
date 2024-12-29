@@ -30,9 +30,10 @@ class Widget extends Model
     }
 
 
+
+
     public function __toString()
     {
         return $this->name;
     }
-
 }

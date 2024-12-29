@@ -6,6 +6,7 @@ namespace Modules\PkgUtilisateurs\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Modules\PkgUtilisateurs\Models\Apprenant;
 
 class Nationalite extends Model
 {
@@ -15,9 +16,14 @@ class Nationalite extends Model
 
 
 
+
+    public function apprenants()
+    {
+        return $this->hasMany(Apprenant::class, 'nationalite_id', 'id');
+    }
+
     public function __toString()
     {
         return $this->code;
     }
-
 }

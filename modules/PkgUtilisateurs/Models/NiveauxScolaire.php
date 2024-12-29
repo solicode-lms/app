@@ -6,6 +6,7 @@ namespace Modules\PkgUtilisateurs\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Modules\PkgUtilisateurs\Models\Apprenant;
 
 class NiveauxScolaire extends Model
 {
@@ -15,9 +16,14 @@ class NiveauxScolaire extends Model
 
 
 
+
+    public function apprenants()
+    {
+        return $this->hasMany(Apprenant::class, 'niveauxScolaire_id', 'id');
+    }
+
     public function __toString()
     {
         return $this->code;
     }
-
 }

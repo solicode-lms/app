@@ -6,6 +6,7 @@ namespace Modules\PkgCreationProjet\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Modules\PkgCreationProjet\Models\Livrable;
 
 class NatureLivrable extends Model
 {
@@ -15,9 +16,14 @@ class NatureLivrable extends Model
 
 
 
+
+    public function livrables()
+    {
+        return $this->hasMany(Livrable::class, 'natureLivrable_id', 'id');
+    }
+
     public function __toString()
     {
         return $this->nom;
     }
-
 }

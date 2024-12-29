@@ -20,9 +20,10 @@ class Specialite extends Model
         return $this->belongsToMany(Formateur::class, 'formateur_specialite');
     }
 
+
+
     public function __toString()
     {
         return $this->nom;
     }
-
 }

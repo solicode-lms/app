@@ -76,10 +76,6 @@
         
         
         
-        <!--   Competence_HasMany HasMany --> 
-        
-        
-        
         
     <div class="form-group">
             <label for="filiere_id">
@@ -105,6 +101,10 @@
             @enderror
     </div>
 
+        
+        
+        
+        <!--   Competence_HasMany HasMany --> 
         
         
     </div>

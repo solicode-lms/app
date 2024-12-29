@@ -30,53 +30,27 @@
         
         
         
-            <div class="form-group">
-            <label for="technologies">
-                {{ ucfirst(__('PkgCompetences::Technology.plural')) }}
-            </label>
-            <select
-                id="technologies"
-                name="technologies[]"
-                class="form-control select2"
-                multiple="multiple">
-               
-                @foreach ($technologies as $technology)
-                    <option value="{{ $technology->id }}"
-                        {{ (isset($itemTransfertCompetence) && $itemTransfertCompetence->technologies && $itemTransfertCompetence->technologies->contains('id', $technology->id)) || (is_array(old('technologies')) && in_array($technology->id, old('technologies'))) ? 'selected' : '' }}>
-                        {{ $technology }}
-                    </option>
-                @endforeach
-            </select>
-            @error('technologies')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-
-        </div>
-
-        
-        
-        
         
     <div class="form-group">
-            <label for="appreciation_id">
-                {{ ucfirst(__('PkgCompetences::appreciation.singular')) }}
+            <label for="projet_id">
+                {{ ucfirst(__('PkgCreationProjet::projet.singular')) }}
                 
                     <span class="text-danger">*</span>
                 
             </label>
             <select 
-            id="appreciation_id" 
-            name="appreciation_id" 
+            id="projet_id" 
+            name="projet_id" 
             class="form-control">
              <option value="">Sélectionnez une option</option>
-                @foreach ($appreciations as $appreciation)
-                    <option value="{{ $appreciation->id }}"
-                        {{ (isset($itemTransfertCompetence) && $itemTransfertCompetence->appreciation_id == $appreciation->id) || (old('appreciation_id>') == $appreciation->id) ? 'selected' : '' }}>
-                        {{ $appreciation }}
+                @foreach ($projets as $projet)
+                    <option value="{{ $projet->id }}"
+                        {{ (isset($itemTransfertCompetence) && $itemTransfertCompetence->projet_id == $projet->id) || (old('projet_id>') == $projet->id) ? 'selected' : '' }}>
+                        {{ $projet }}
                     </option>
                 @endforeach
             </select>
-            @error('appreciation_id')
+            @error('projet_id')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
     </div>
@@ -114,28 +88,54 @@
         
         
     <div class="form-group">
-            <label for="projet_id">
-                {{ ucfirst(__('PkgCreationProjet::projet.singular')) }}
+            <label for="appreciation_id">
+                {{ ucfirst(__('PkgCompetences::appreciation.singular')) }}
                 
                     <span class="text-danger">*</span>
                 
             </label>
             <select 
-            id="projet_id" 
-            name="projet_id" 
+            id="appreciation_id" 
+            name="appreciation_id" 
             class="form-control">
              <option value="">Sélectionnez une option</option>
-                @foreach ($projets as $projet)
-                    <option value="{{ $projet->id }}"
-                        {{ (isset($itemTransfertCompetence) && $itemTransfertCompetence->projet_id == $projet->id) || (old('projet_id>') == $projet->id) ? 'selected' : '' }}>
-                        {{ $projet }}
+                @foreach ($appreciations as $appreciation)
+                    <option value="{{ $appreciation->id }}"
+                        {{ (isset($itemTransfertCompetence) && $itemTransfertCompetence->appreciation_id == $appreciation->id) || (old('appreciation_id>') == $appreciation->id) ? 'selected' : '' }}>
+                        {{ $appreciation }}
                     </option>
                 @endforeach
             </select>
-            @error('projet_id')
+            @error('appreciation_id')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
     </div>
+
+        
+        
+        
+            <div class="form-group">
+            <label for="technologies">
+                {{ ucfirst(__('PkgCompetences::Technology.plural')) }}
+            </label>
+            <select
+                id="technologies"
+                name="technologies[]"
+                class="form-control select2"
+                multiple="multiple">
+               
+                @foreach ($technologies as $technology)
+                    <option value="{{ $technology->id }}"
+                        {{ (isset($itemTransfertCompetence) && $itemTransfertCompetence->technologies && $itemTransfertCompetence->technologies->contains('id', $technology->id)) || (is_array(old('technologies')) && in_array($technology->id, old('technologies'))) ? 'selected' : '' }}>
+                        {{ $technology }}
+                    </option>
+                @endforeach
+            </select>
+            @error('technologies')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+
+        </div>
 
         
         

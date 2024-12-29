@@ -74,10 +74,6 @@
         
         
         
-        <!--   Feature_HasMany HasMany --> 
-        
-        
-        
         
     <div class="form-group">
             <label for="module_id">
@@ -103,6 +99,10 @@
             @enderror
     </div>
 
+        
+        
+        
+        <!--   Feature_HasMany HasMany --> 
         
         
     </div>

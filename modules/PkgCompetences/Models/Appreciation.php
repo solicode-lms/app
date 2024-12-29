@@ -6,6 +6,7 @@ namespace Modules\PkgCompetences\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Modules\PkgCreationProjet\Models\TransfertCompetence;
 use Modules\PkgUtilisateurs\Models\Formateur;
 
 class Appreciation extends Model
@@ -20,9 +21,14 @@ class Appreciation extends Model
     }
 
 
+
+    public function transfertCompetences()
+    {
+        return $this->hasMany(TransfertCompetence::class, 'appreciation_id', 'id');
+    }
+
     public function __toString()
     {
         return $this->nom;
     }
-
 }

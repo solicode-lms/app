@@ -60,10 +60,6 @@
         
         
         
-        <!--   TransfertCompetence_HasMany HasMany --> 
-        
-        
-        
         
     <div class="form-group">
             <label for="formateur_id">
@@ -89,6 +85,10 @@
             @enderror
     </div>
 
+        
+        
+        
+        <!--   TransfertCompetence_HasMany HasMany --> 
         
         
     </div>

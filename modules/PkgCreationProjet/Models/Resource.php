@@ -20,9 +20,10 @@ class Resource extends Model
     }
 
 
+
+
     public function __toString()
     {
         return $this->nom;
     }
-
 }

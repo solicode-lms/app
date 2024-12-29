@@ -15,9 +15,10 @@ class ApprenantKonosy extends Model
 
 
 
+
+
     public function __toString()
     {
         return $this->Nom;
     }
-
 }

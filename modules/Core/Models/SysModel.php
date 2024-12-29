@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Modules\Core\Models\SysColor;
 use Modules\Core\Models\SysModule;
+use Modules\PkgWidgets\Models\Widget;
 
 class SysModel extends Model
 {
@@ -25,9 +26,14 @@ class SysModel extends Model
     }
 
 
+
+    public function widgets()
+    {
+        return $this->hasMany(Widget::class, 'sysModel_id', 'id');
+    }
+
     public function __toString()
     {
         return $this->name;
     }
-
 }
