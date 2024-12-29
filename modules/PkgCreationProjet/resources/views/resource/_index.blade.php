@@ -1,4 +1,5 @@
 @section('script')
+@parent
 <script>
     window.entitiesConfig = window.entitiesConfig || [];
     window.entitiesConfig.push({
