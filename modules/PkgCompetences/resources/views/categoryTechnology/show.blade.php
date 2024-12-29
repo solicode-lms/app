@@ -1,7 +1,7 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @extends('layouts.admin')
-@section('title', __('Core::msg.show') . ' ' . __('PkgCompetences::technology.singular'))
+@section('title', __('Core::msg.show') . ' ' . __('PkgCompetences::categoryTechnology.singular'))
 @section('content')
     <div class="content-header">
         <div class="container-fluid">
@@ -10,7 +10,7 @@
                     <h1>{{ __('Core::msg.detail') }}</h1>
                 </div>
                 <div class="col-sm-6">
-                    <a href="{{ route('technologies.edit', $itemTechnology->id) }}" class="btn btn-default float-right">
+                    <a href="{{ route('categoryTechnologies.edit', $itemCategoryTechnology->id) }}" class="btn btn-default float-right">
                         <i class="far fa-edit"></i>
                         {{ __('Core::msg.edit') }}
                     </a>
@@ -25,16 +25,12 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="col-sm-12">
-                                <label for="nom">{{ ucfirst(__('PkgCompetences::technology.nom')) }}:</label>
-                                <p>{{ $itemTechnology->nom }}</p>
+                                <label for="nom">{{ ucfirst(__('PkgCompetences::categoryTechnology.nom')) }}:</label>
+                                <p>{{ $itemCategoryTechnology->nom }}</p>
                             </div>
                             <div class="col-sm-12">
-                                <label for="description">{{ ucfirst(__('PkgCompetences::technology.description')) }}:</label>
-                                <p>{{ $itemTechnology->description }}</p>
-                            </div>
-                            <div class="col-sm-12">
-                                <label for="category_technology_id">{{ ucfirst(__('PkgCompetences::technology.category_technology_id')) }}:</label>
-                                <p>{{ $itemTechnology->category_technology_id }}</p>
+                                <label for="description">{{ ucfirst(__('PkgCompetences::categoryTechnology.description')) }}:</label>
+                                <p>{{ $itemCategoryTechnology->description }}</p>
                             </div>
                         </div>
                     </div>

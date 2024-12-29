@@ -16,12 +16,12 @@ use Modules\Core\Models\SysModule;
 use Modules\PkgAutorisation\Models\Permission;
 use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgAutorisation\Models\User;
-use Modules\PkgCompetences\Models\Technology;
+use Modules\PkgCompetences\Models\CategoryTechnology;
 
 
-class TechnologySeeder extends Seeder
+class CategoryTechnologySeeder extends Seeder
 {
-    public static int $order = 20;
+    public static int $order = 17;
 
     public function run(): void
     {
@@ -40,15 +40,14 @@ class TechnologySeeder extends Seeder
 
     public function seedFromCsv(): void
     {
-        $csvFile = fopen(base_path("modules/PkgCompetences/Database/data/technologies.csv"), "r");
+        $csvFile = fopen(base_path("modules/PkgCompetences/Database/data/categoryTechnologies.csv"), "r");
         $firstline = true;
 
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
-                Technology::create([
+                CategoryTechnology::create([
                     "nom" => $data[0] ,
-                    "description" => $data[1] ,
-                    "category_technology_id" => $data[2] 
+                    "description" => $data[1] 
                 ]);
             }
             $firstline = false;
@@ -71,13 +70,13 @@ class TechnologySeeder extends Seeder
         }
 
         // Configuration unique pour ce contrôleur et domaine
-        $controllerName = 'TechnologyController';
-        $controllerBaseName = 'technology';
-        $domainName = 'Technology';
+        $controllerName = 'CategoryTechnologyController';
+        $controllerBaseName = 'categoryTechnology';
+        $domainName = 'CategoryTechnology';
 
         // Permissions spécifiques pour chaque type de fonctionnalité
         $featurePermissions = [
-            'Édition ' => [ 'create','store','edit','update','destroy','getTechnologies'],
+            'Édition ' => [ 'create','store','edit','update','destroy','getCategoryTechnologies'],
             'Lecture' => ['index', 'show'],
             'Extraction' => ['import', 'export'],
         ];
@@ -143,8 +142,8 @@ class TechnologySeeder extends Seeder
 
         // Permissions pour le membre (lecture seule)
         $memberPermissions = Permission::whereIn('name', [
-            'index-technology',
-            'show-technology',
+            'index-categoryTechnology',
+            'show-categoryTechnology',
         ])->pluck('name')->toArray();
 
         // Associer les permissions aux rôles

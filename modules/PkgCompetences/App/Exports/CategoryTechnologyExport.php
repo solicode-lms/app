@@ -5,7 +5,7 @@
 
 namespace Modules\PkgCompetences\App\Exports;
 
-use Modules\PkgCompetences\Models\Technology;
+use Modules\PkgCompetences\Models\CategoryTechnology;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
@@ -13,7 +13,7 @@ use Maatwebsite\Excel\Concerns\WithStyles;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 
-class TechnologyExport implements FromCollection, WithHeadings, ShouldAutoSize, WithStyles
+class CategoryTechnologyExport implements FromCollection, WithHeadings, ShouldAutoSize, WithStyles
 {
     protected $data;
 
@@ -27,17 +27,15 @@ class TechnologyExport implements FromCollection, WithHeadings, ShouldAutoSize, 
         return [
             'nom',
             'description',
-            'category_technology_id',
         ];
     }
 
     public function collection()
     {
-        return $this->data->map(function ($technology) {
+        return $this->data->map(function ($categoryTechnology) {
             return [
-                'nom' => $technology->nom,
-                'description' => $technology->description,
-                'category_technology_id' => $technology->category_technology_id,
+                'nom' => $categoryTechnology->nom,
+                'description' => $categoryTechnology->description,
             ];
         });
     }

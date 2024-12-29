@@ -19,7 +19,7 @@ class TechnologyRequest extends FormRequest
         return [
             'nom' => 'required|max:255',
             'description' => 'required|max:255',
-            'categorie_technologie_id' => 'required'
+            'category_technology_id' => 'required'
         ];
     }
 
@@ -30,8 +30,8 @@ class TechnologyRequest extends FormRequest
             'nom.max' => __('validation.nomMax'),
             'description.required' => __('validation.required', ['attribute' => __('PkgCompetences::Technology.description')]),
             'description.max' => __('validation.descriptionMax'),
-            'categorie_technologie_id.required' => __('validation.required', ['attribute' => __('PkgCompetences::Technology.categorie_technologie_id')]),
-            'categorie_technologie_id.max' => __('validation.categorie_technologie_idMax')
+            'category_technology_id.required' => __('validation.required', ['attribute' => __('PkgCompetences::Technology.category_technology_id')]),
+            'category_technology_id.max' => __('validation.category_technology_idMax')
         ];
     }
 }

@@ -6,12 +6,12 @@
 namespace Modules\PkgCompetences\App\Imports;
 
 use Carbon\Carbon;
-use Modules\PkgCompetences\Models\Technology;
+use Modules\PkgCompetences\Models\CategoryTechnology;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class TechnologyImport implements ToModel, WithHeadingRow
+class CategoryTechnologyImport implements ToModel, WithHeadingRow
 {
     /**
      * Vérifie si une tâche avec les mêmes attributs existe déjà dans la base de données.
@@ -21,14 +21,14 @@ class TechnologyImport implements ToModel, WithHeadingRow
      */
     private function recordExists(array $row): bool
     {
-        return Technology::where('nom', $row['nom'])->exists();
+        return CategoryTechnology::where('nom', $row['nom'])->exists();
     }
 
     /**
      * Crée ou met à jour un enregistrement à partir des données importées.
      *
      * @param array $row Ligne de données importée.
-     * @return <Technology|null
+     * @return <CategoryTechnology|null
      */
     public function model(array $row)
     {
@@ -37,10 +37,9 @@ class TechnologyImport implements ToModel, WithHeadingRow
         }
 
         // Crée un nouvel enregistrement à partir des données importées
-        return new Technology([
+        return new CategoryTechnology([
             'nom' => $row['nom'],
             'description' => $row['description'],
-            'category_technology_id' => $row['category_technology_id'],
         ]);
     }
 }

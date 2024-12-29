@@ -32,7 +32,7 @@ class TransfertCompetence extends Model
 
     public function technologies()
     {
-        return $this->belongsToMany(Technology::class, 'technologie_transfert_competence');
+        return $this->belongsToMany(Technology::class, 'technology_transfert_competence');
     }
 
     public function __toString()

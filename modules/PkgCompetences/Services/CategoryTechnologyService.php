@@ -5,23 +5,22 @@
 
 namespace Modules\PkgCompetences\Services;
 
-use Modules\PkgCompetences\Models\Technology;
+use Modules\PkgCompetences\Models\CategoryTechnology;
 use Modules\Core\Services\BaseService;
 
 /**
- * Classe TechnologyService pour gérer la persistance de l'entité Technology.
+ * Classe CategoryTechnologyService pour gérer la persistance de l'entité CategoryTechnology.
  */
-class TechnologyService extends BaseService
+class CategoryTechnologyService extends BaseService
 {
     /**
-     * Les champs de recherche disponibles pour technologies.
+     * Les champs de recherche disponibles pour categoryTechnologies.
      *
      * @var array
      */
     protected $fieldsSearchable = [
         'nom',
-        'description',
-        'category_technology_id'
+        'description'
     ];
 
     /**
@@ -35,27 +34,26 @@ class TechnologyService extends BaseService
     }
 
     /**
-     * Constructeur de la classe TechnologyService.
+     * Constructeur de la classe CategoryTechnologyService.
      */
     public function __construct()
     {
-        parent::__construct(new Technology());
+        parent::__construct(new CategoryTechnology());
     }
 
     /**
-     * Crée une nouvelle instance de technology.
+     * Crée une nouvelle instance de categoryTechnology.
      *
      * @param array $data Données pour la création.
      * @return mixed
      */
     public function create(array $data)
     {
-        $technology = parent::create([
+        $categoryTechnology = parent::create([
             'nom' => $data['nom'],
             'description' => $data['description'],
-            'category_technology_id' => $data['category_technology_id'],
         ]);
 
-        return $technology;
+        return $categoryTechnology;
     }
 }

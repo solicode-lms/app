@@ -52,25 +52,25 @@
 
         
         <div class="form-group">
-            <label for="categorie_technologie_id">
-                {{ ucfirst(__('PkgCompetences::categorieTechnology.singular')) }}
+            <label for="category_technology_id">
+                {{ ucfirst(__('PkgCompetences::categoryTechnology.singular')) }}
                 
                     <span class="text-danger">*</span>
                 
             </label>
             <select 
-            id="categorie_technologie_id" 
-            name="categorie_technologie_id" 
+            id="category_technology_id" 
+            name="category_technology_id" 
             class="form-control">
              <option value="">Sélectionnez une option</option>
-                @foreach ($categorieTechnologies as $categorieTechnology)
-                    <option value="{{ $categorieTechnology->id }}"
-                        {{ (isset($itemTechnology) && $itemTechnology->categorie_technologie_id == $categorieTechnology->id) || (old('categorie_technologie_id>') == $categorieTechnology->id) ? 'selected' : '' }}>
-                        {{ $categorieTechnology }}
+                @foreach ($categoryTechnologies as $categoryTechnology)
+                    <option value="{{ $categoryTechnology->id }}"
+                        {{ (isset($itemTechnology) && $itemTechnology->category_technology_id == $categoryTechnology->id) || (old('category_technology_id>') == $categoryTechnology->id) ? 'selected' : '' }}>
+                        {{ $categoryTechnology }}
                     </option>
                 @endforeach
             </select>
-            @error('categorie_technologie_id')
+            @error('category_technology_id')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
         </div>

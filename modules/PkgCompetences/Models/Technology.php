@@ -6,7 +6,7 @@ namespace Modules\PkgCompetences\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Modules\PkgCompetences\Models\CategorieTechnology;
+use Modules\PkgCompetences\Models\CategoryTechnology;
 use Modules\PkgCompetences\Models\Competence;
 use Modules\PkgCreationProjet\Models\TransfertCompetence;
 
@@ -14,11 +14,11 @@ class Technology extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nom', 'description', 'categorie_technologie_id'];
+    protected $fillable = ['nom', 'description', 'category_technology_id'];
 
-    public function categorieTechnology()
+    public function categoryTechnology()
     {
-        return $this->belongsTo(CategorieTechnology::class, 'categorie_technologie_id', 'id');
+        return $this->belongsTo(CategoryTechnology::class, 'category_technology_id', 'id');
     }
 
     public function competences()
@@ -27,7 +27,7 @@ class Technology extends Model
     }
     public function transfertCompetences()
     {
-        return $this->belongsToMany(TransfertCompetence::class, 'technologie_transfert_competence');
+        return $this->belongsToMany(TransfertCompetence::class, 'technology_transfert_competence');
     }
 
     public function __toString()
