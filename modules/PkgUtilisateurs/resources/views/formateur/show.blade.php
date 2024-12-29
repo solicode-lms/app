@@ -68,22 +68,6 @@
                                 <label for="profile_image">{{ ucfirst(__('PkgUtilisateurs::formateur.profile_image')) }}:</label>
                                 <p>{{ $itemFormateur->profile_image }}</p>
                             </div>
-                            <div class="col-sm-12">
-                                <label for="Groupe_ManyToMany">{{ ucfirst(__('PkgUtilisateurs::formateur.Groupe_ManyToMany')) }}:</label>
-                                <p>{{ $itemFormateur->Groupe_ManyToMany }}</p>
-                            </div>
-                            <div class="col-sm-12">
-                                <label for="Specialite_ManyToMany">{{ ucfirst(__('PkgUtilisateurs::formateur.Specialite_ManyToMany')) }}:</label>
-                                <p>{{ $itemFormateur->Specialite_ManyToMany }}</p>
-                            </div>
-                            <div class="col-sm-12">
-                                <label for="Appreciation_HasMany">{{ ucfirst(__('PkgUtilisateurs::formateur.Appreciation_HasMany')) }}:</label>
-                                <p>{{ $itemFormateur->Appreciation_HasMany }}</p>
-                            </div>
-                            <div class="col-sm-12">
-                                <label for="Projet_HasMany">{{ ucfirst(__('PkgUtilisateurs::formateur.Projet_HasMany')) }}:</label>
-                                <p>{{ $itemFormateur->Projet_HasMany }}</p>
-                            </div>
                         </div>
                     </div>
                 </div>

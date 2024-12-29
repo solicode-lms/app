@@ -9,6 +9,7 @@
 
     <div class="card-body">
         
+        
         <div class="form-group">
             <label for="nom">
                 {{ ucfirst(__('PkgCompetences::categoryTechnology.nom')) }}
@@ -28,6 +29,8 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
         </div>
+        
+        
         
         <div class="form-group">
             <label for="description">
@@ -49,15 +52,12 @@
             @enderror
         </div>
         
-
         
-
         
-
-
-
+        <!--   Technology_HasMany HasMany --> 
+        
+        
     </div>
-
 
     <div class="card-footer">
         <a href="{{ route('categoryTechnologies.index') }}" class="btn btn-default form-cancel-button">{{ __('Core::msg.cancel') }}</a>

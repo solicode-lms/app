@@ -9,6 +9,7 @@
 
     <div class="card-body">
         
+        
         <div class="form-group">
             <label for="code">
                 {{ ucfirst(__('PkgUtilisateurs::niveauxScolaire.code')) }}
@@ -29,6 +30,8 @@
             @enderror
         </div>
         
+        
+        
         <div class="form-group">
             <label for="nom">
                 {{ ucfirst(__('PkgUtilisateurs::niveauxScolaire.nom')) }}
@@ -46,6 +49,8 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
         </div>
+        
+        
         
         <div class="form-group">
             <label for="description">
@@ -65,15 +70,12 @@
             @enderror
         </div>
         
-
         
-
         
-
-
-
+        <!--   Apprenant_HasMany HasMany --> 
+        
+        
     </div>
-
 
     <div class="card-footer">
         <a href="{{ route('niveauxScolaires.index') }}" class="btn btn-default form-cancel-button">{{ __('Core::msg.cancel') }}</a>

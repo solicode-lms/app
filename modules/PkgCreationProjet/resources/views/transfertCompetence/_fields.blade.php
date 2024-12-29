@@ -9,6 +9,7 @@
 
     <div class="card-body">
         
+        
         <div class="form-group">
             <label for="description">
                 {{ ucfirst(__('PkgCreationProjet::transfertCompetence.description')) }}
@@ -27,9 +28,36 @@
             @enderror
         </div>
         
+        
+        
+            <div class="form-group">
+            <label for="technologies">
+                {{ ucfirst(__('PkgCompetences::Technology.plural')) }}
+            </label>
+            <select
+                id="technologies"
+                name="technologies[]"
+                class="form-control select2"
+                multiple="multiple">
+               
+                @foreach ($technologies as $technology)
+                    <option value="{{ $technology->id }}"
+                        {{ (isset($itemTransfertCompetence) && $itemTransfertCompetence->technologies && $itemTransfertCompetence->technologies->contains('id', $technology->id)) || (is_array(old('technologies')) && in_array($technology->id, old('technologies'))) ? 'selected' : '' }}>
+                        {{ $technology }}
+                    </option>
+                @endforeach
+            </select>
+            @error('technologies')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+
+        </div>
 
         
-        <div class="form-group">
+        
+        
+        
+    <div class="form-group">
             <label for="appreciation_id">
                 {{ ucfirst(__('PkgCompetences::appreciation.singular')) }}
                 
@@ -51,9 +79,13 @@
             @error('appreciation_id')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
+    </div>
+
         
-        <div class="form-group">
+        
+        
+        
+    <div class="form-group">
             <label for="competence_id">
                 {{ ucfirst(__('PkgCompetences::competence.singular')) }}
                 
@@ -75,9 +107,13 @@
             @error('competence_id')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
+    </div>
+
         
-        <div class="form-group">
+        
+        
+        
+    <div class="form-group">
             <label for="projet_id">
                 {{ ucfirst(__('PkgCreationProjet::projet.singular')) }}
                 
@@ -99,38 +135,11 @@
             @error('projet_id')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
-        
-
-        
-        <div class="form-group">
-            <label for="technologies">
-                {{ ucfirst(__('PkgCompetences::Technology.plural')) }}
-            </label>
-            <select
-                id="technologies"
-                name="technologies[]"
-                class="form-control select2"
-                multiple="multiple">
-               
-                @foreach ($technologies as $technology)
-                    <option value="{{ $technology->id }}"
-                        {{ (isset($itemTransfertCompetence) && $itemTransfertCompetence->technologies && $itemTransfertCompetence->technologies->contains('id', $technology->id)) || (is_array(old('technologies')) && in_array($technology->id, old('technologies'))) ? 'selected' : '' }}>
-                        {{ $technology->nom }}
-                    </option>
-                @endforeach
-            </select>
-            @error('technologies')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-
-        </div>
-        
-
-
-
     </div>
 
+        
+        
+    </div>
 
     <div class="card-footer">
         <a href="{{ route('transfertCompetences.index') }}" class="btn btn-default form-cancel-button">{{ __('Core::msg.cancel') }}</a>

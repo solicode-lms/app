@@ -9,6 +9,7 @@
 
     <div class="card-body">
         
+        
         <div class="form-group">
             <label for="name">
                 {{ ucfirst(__('PkgWidgets::widget.name')) }}
@@ -29,6 +30,8 @@
             @enderror
         </div>
         
+        
+        
         <div class="form-group">
             <label for="color">
                 {{ ucfirst(__('PkgWidgets::widget.color')) }}
@@ -46,6 +49,8 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
         </div>
+        
+        
         
         <div class="form-group">
             <label for="icon">
@@ -65,6 +70,8 @@
             @enderror
         </div>
         
+        
+        
         <div class="form-group">
             <label for="label">
                 {{ ucfirst(__('PkgWidgets::widget.label')) }}
@@ -83,27 +90,14 @@
             @enderror
         </div>
         
-        <div class="form-group">
-            <label for="parameters">
-                {{ ucfirst(__('PkgWidgets::widget.parameters')) }}
-                
-            </label>
-            <input
-                name="parameters"
-                type="input"
-                class="form-control"
-                
-                id="parameters"
-                placeholder="{{ __('PkgWidgets::widget.parameters') }}"
-                value="{{ $itemWidget ? $itemWidget->parameters : old('parameters') }}">
-            @error('parameters')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-        </div>
         
-
         
-        <div class="form-group">
+        <!--   parameters JSON --> 
+        
+        
+        
+        
+    <div class="form-group">
             <label for="model_id">
                 {{ ucfirst(__('Core::sysModel.singular')) }}
                 
@@ -125,9 +119,13 @@
             @error('model_id')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
+    </div>
+
         
-        <div class="form-group">
+        
+        
+        
+    <div class="form-group">
             <label for="operation_id">
                 {{ ucfirst(__('PkgWidgets::widgetOperation.singular')) }}
                 
@@ -149,9 +147,13 @@
             @error('operation_id')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
+    </div>
+
         
-        <div class="form-group">
+        
+        
+        
+    <div class="form-group">
             <label for="type_id">
                 {{ ucfirst(__('PkgWidgets::widgetType.singular')) }}
                 
@@ -173,15 +175,11 @@
             @error('type_id')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
-        
-
-        
-
-
-
     </div>
 
+        
+        
+    </div>
 
     <div class="card-footer">
         <a href="{{ route('widgets.index') }}" class="btn btn-default form-cancel-button">{{ __('Core::msg.cancel') }}</a>

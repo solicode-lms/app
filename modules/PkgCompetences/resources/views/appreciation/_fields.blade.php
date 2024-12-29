@@ -9,6 +9,7 @@
 
     <div class="card-body">
         
+        
         <div class="form-group">
             <label for="nom">
                 {{ ucfirst(__('PkgCompetences::appreciation.nom')) }}
@@ -29,6 +30,8 @@
             @enderror
         </div>
         
+        
+        
         <div class="form-group">
             <label for="description">
                 {{ ucfirst(__('PkgCompetences::appreciation.description')) }}
@@ -47,49 +50,22 @@
             @enderror
         </div>
         
-        <div class="form-group">
-            <label for="noteMin">
-                {{ ucfirst(__('PkgCompetences::appreciation.noteMin')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
-                name="noteMin"
-                type="input"
-                class="form-control"
-                required
-                id="noteMin"
-                placeholder="{{ __('PkgCompetences::appreciation.noteMin') }}"
-                value="{{ $itemAppreciation ? $itemAppreciation->noteMin : old('noteMin') }}">
-            @error('noteMin')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-        </div>
         
-        <div class="form-group">
-            <label for="noteMax">
-                {{ ucfirst(__('PkgCompetences::appreciation.noteMax')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
-                name="noteMax"
-                type="input"
-                class="form-control"
-                required
-                id="noteMax"
-                placeholder="{{ __('PkgCompetences::appreciation.noteMax') }}"
-                value="{{ $itemAppreciation ? $itemAppreciation->noteMax : old('noteMax') }}">
-            @error('noteMax')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-        </div>
         
-
+        <!--   noteMin Float --> 
         
-        <div class="form-group">
+        
+        
+        <!--   noteMax Float --> 
+        
+        
+        
+        <!--   TransfertCompetence_HasMany HasMany --> 
+        
+        
+        
+        
+    <div class="form-group">
             <label for="formateur_id">
                 {{ ucfirst(__('PkgUtilisateurs::formateur.singular')) }}
                 
@@ -111,15 +87,11 @@
             @error('formateur_id')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
-        
-
-        
-
-
-
     </div>
 
+        
+        
+    </div>
 
     <div class="card-footer">
         <a href="{{ route('appreciations.index') }}" class="btn btn-default form-cancel-button">{{ __('Core::msg.cancel') }}</a>

@@ -9,6 +9,7 @@
 
     <div class="card-body">
         
+        
         <div class="form-group">
             <label for="nom">
                 {{ ucfirst(__('PkgCompetences::module.nom')) }}
@@ -28,6 +29,8 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
         </div>
+        
+        
         
         <div class="form-group">
             <label for="description">
@@ -49,6 +52,8 @@
             @enderror
         </div>
         
+        
+        
         <div class="form-group">
             <label for="masse_horaire">
                 {{ ucfirst(__('PkgCompetences::module.masse_horaire')) }}
@@ -69,9 +74,14 @@
             @enderror
         </div>
         
-
         
-        <div class="form-group">
+        
+        <!--   Competence_HasMany HasMany --> 
+        
+        
+        
+        
+    <div class="form-group">
             <label for="filiere_id">
                 {{ ucfirst(__('PkgCompetences::filiere.singular')) }}
                 
@@ -93,15 +103,11 @@
             @error('filiere_id')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
-        
-
-        
-
-
-
     </div>
 
+        
+        
+    </div>
 
     <div class="card-footer">
         <a href="{{ route('modules.index') }}" class="btn btn-default form-cancel-button">{{ __('Core::msg.cancel') }}</a>

@@ -9,6 +9,7 @@
 
     <div class="card-body">
         
+        
         <div class="form-group">
             <label for="name">
                 {{ ucfirst(__('Core::sysModule.name')) }}
@@ -28,6 +29,8 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
         </div>
+        
+        
         
         <div class="form-group">
             <label for="slug">
@@ -49,6 +52,8 @@
             @enderror
         </div>
         
+        
+        
         <div class="form-group">
             <label for="description">
                 {{ ucfirst(__('Core::sysModule.description')) }}
@@ -69,45 +74,15 @@
             @enderror
         </div>
         
-        <div class="form-group">
-            <label for="is_active">
-                {{ ucfirst(__('Core::sysModule.is_active')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
-                name="is_active"
-                type="input"
-                class="form-control"
-                required
-                id="is_active"
-                placeholder="{{ __('Core::sysModule.is_active') }}"
-                value="{{ $itemSysModule ? $itemSysModule->is_active : old('is_active') }}">
-            @error('is_active')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-        </div>
         
-        <div class="form-group">
-            <label for="order">
-                {{ ucfirst(__('Core::sysModule.order')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
-                name="order"
-                type="input"
-                class="form-control"
-                required
-                id="order"
-                placeholder="{{ __('Core::sysModule.order') }}"
-                value="{{ $itemSysModule ? $itemSysModule->order : old('order') }}">
-            @error('order')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-        </div>
+        
+        
+        
+        
+        
+        
+        
+        
         
         <div class="form-group">
             <label for="version">
@@ -129,9 +104,22 @@
             @enderror
         </div>
         
-
         
-        <div class="form-group">
+        
+        <!--   FeatureDomain_HasMany HasMany --> 
+        
+        
+        
+        <!--   SysController_HasMany HasMany --> 
+        
+        
+        
+        <!--   SysModel_HasMany HasMany --> 
+        
+        
+        
+        
+    <div class="form-group">
             <label for="color_id">
                 {{ ucfirst(__('Core::sysColor.singular')) }}
                 
@@ -153,15 +141,11 @@
             @error('color_id')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
-        
-
-        
-
-
-
     </div>
 
+        
+        
+    </div>
 
     <div class="card-footer">
         <a href="{{ route('sysModules.index') }}" class="btn btn-default form-cancel-button">{{ __('Core::msg.cancel') }}</a>

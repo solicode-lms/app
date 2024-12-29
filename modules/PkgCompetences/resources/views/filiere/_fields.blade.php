@@ -9,6 +9,7 @@
 
     <div class="card-body">
         
+        
         <div class="form-group">
             <label for="code">
                 {{ ucfirst(__('PkgCompetences::filiere.code')) }}
@@ -28,6 +29,8 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
         </div>
+        
+        
         
         <div class="form-group">
             <label for="nom">
@@ -49,6 +52,8 @@
             @enderror
         </div>
         
+        
+        
         <div class="form-group">
             <label for="description">
                 {{ ucfirst(__('PkgCompetences::filiere.description')) }}
@@ -69,15 +74,16 @@
             @enderror
         </div>
         
-
         
-
         
-
-
-
+        <!--   Groupe_HasMany HasMany --> 
+        
+        
+        
+        <!--   Module_HasMany HasMany --> 
+        
+        
     </div>
-
 
     <div class="card-footer">
         <a href="{{ route('filieres.index') }}" class="btn btn-default form-cancel-button">{{ __('Core::msg.cancel') }}</a>

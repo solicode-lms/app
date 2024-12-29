@@ -9,6 +9,7 @@
 
     <div class="card-body">
         
+        
         <div class="form-group">
             <label for="nom">
                 {{ ucfirst(__('PkgUtilisateurs::specialite.nom')) }}
@@ -28,6 +29,8 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
         </div>
+        
+        
         
         <div class="form-group">
             <label for="description">
@@ -49,11 +52,9 @@
             @enderror
         </div>
         
-
         
-
         
-        <div class="form-group">
+            <div class="form-group">
             <label for="formateurs">
                 {{ ucfirst(__('PkgUtilisateurs::Formateur.plural')) }}
             </label>
@@ -66,7 +67,7 @@
                 @foreach ($formateurs as $formateur)
                     <option value="{{ $formateur->id }}"
                         {{ (isset($itemSpecialite) && $itemSpecialite->formateurs && $itemSpecialite->formateurs->contains('id', $formateur->id)) || (is_array(old('formateurs')) && in_array($formateur->id, old('formateurs'))) ? 'selected' : '' }}>
-                        {{ $formateur->nom }}
+                        {{ $formateur }}
                     </option>
                 @endforeach
             </select>
@@ -75,12 +76,10 @@
             @enderror
 
         </div>
+
         
-
-
-
+        
     </div>
-
 
     <div class="card-footer">
         <a href="{{ route('specialites.index') }}" class="btn btn-default form-cancel-button">{{ __('Core::msg.cancel') }}</a>

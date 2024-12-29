@@ -9,6 +9,7 @@
 
     <div class="card-body">
         
+        
         <div class="form-group">
             <label for="code">
                 {{ ucfirst(__('PkgUtilisateurs::groupe.code')) }}
@@ -29,6 +30,8 @@
             @enderror
         </div>
         
+        
+        
         <div class="form-group">
             <label for="nom">
                 {{ ucfirst(__('PkgUtilisateurs::groupe.nom')) }}
@@ -46,6 +49,8 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
         </div>
+        
+        
         
         <div class="form-group">
             <label for="description">
@@ -65,9 +70,40 @@
             @enderror
         </div>
         
+        
+        
+            <div class="form-group">
+            <label for="formateurs">
+                {{ ucfirst(__('PkgUtilisateurs::Formateur.plural')) }}
+            </label>
+            <select
+                id="formateurs"
+                name="formateurs[]"
+                class="form-control select2"
+                multiple="multiple">
+               
+                @foreach ($formateurs as $formateur)
+                    <option value="{{ $formateur->id }}"
+                        {{ (isset($itemGroupe) && $itemGroupe->formateurs && $itemGroupe->formateurs->contains('id', $formateur->id)) || (is_array(old('formateurs')) && in_array($formateur->id, old('formateurs'))) ? 'selected' : '' }}>
+                        {{ $formateur }}
+                    </option>
+                @endforeach
+            </select>
+            @error('formateurs')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+
+        </div>
 
         
-        <div class="form-group">
+        
+        
+        <!--   Apprenant_HasMany HasMany --> 
+        
+        
+        
+        
+    <div class="form-group">
             <label for="filiere_id">
                 {{ ucfirst(__('PkgCompetences::filiere.singular')) }}
                 
@@ -89,38 +125,11 @@
             @error('filiere_id')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
-        
-
-        
-        <div class="form-group">
-            <label for="formateurs">
-                {{ ucfirst(__('PkgUtilisateurs::Formateur.plural')) }}
-            </label>
-            <select
-                id="formateurs"
-                name="formateurs[]"
-                class="form-control select2"
-                multiple="multiple">
-               
-                @foreach ($formateurs as $formateur)
-                    <option value="{{ $formateur->id }}"
-                        {{ (isset($itemGroupe) && $itemGroupe->formateurs && $itemGroupe->formateurs->contains('id', $formateur->id)) || (is_array(old('formateurs')) && in_array($formateur->id, old('formateurs'))) ? 'selected' : '' }}>
-                        {{ $formateur->nom }}
-                    </option>
-                @endforeach
-            </select>
-            @error('formateurs')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-
-        </div>
-        
-
-
-
     </div>
 
+        
+        
+    </div>
 
     <div class="card-footer">
         <a href="{{ route('groupes.index') }}" class="btn btn-default form-cancel-button">{{ __('Core::msg.cancel') }}</a>

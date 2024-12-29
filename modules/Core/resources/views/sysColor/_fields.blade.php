@@ -9,6 +9,7 @@
 
     <div class="card-body">
         
+        
         <div class="form-group">
             <label for="name">
                 {{ ucfirst(__('Core::sysColor.name')) }}
@@ -28,6 +29,8 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
         </div>
+        
+        
         
         <div class="form-group">
             <label for="hex">
@@ -49,15 +52,16 @@
             @enderror
         </div>
         
-
         
-
         
-
-
-
+        <!--   SysModel_HasMany HasMany --> 
+        
+        
+        
+        <!--   SysModule_HasMany HasMany --> 
+        
+        
     </div>
-
 
     <div class="card-footer">
         <a href="{{ route('sysColors.index') }}" class="btn btn-default form-cancel-button">{{ __('Core::msg.cancel') }}</a>

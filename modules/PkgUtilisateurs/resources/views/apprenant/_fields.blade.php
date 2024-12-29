@@ -9,6 +9,7 @@
 
     <div class="card-body">
         
+        
         <div class="form-group">
             <label for="nom">
                 {{ ucfirst(__('PkgUtilisateurs::apprenant.nom')) }}
@@ -28,6 +29,8 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
         </div>
+        
+        
         
         <div class="form-group">
             <label for="prenom">
@@ -49,6 +52,8 @@
             @enderror
         </div>
         
+        
+        
         <div class="form-group">
             <label for="prenom_arab">
                 {{ ucfirst(__('PkgUtilisateurs::apprenant.prenom_arab')) }}
@@ -68,6 +73,8 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
         </div>
+        
+        
         
         <div class="form-group">
             <label for="nom_arab">
@@ -89,6 +96,8 @@
             @enderror
         </div>
         
+        
+        
         <div class="form-group">
             <label for="tele_num">
                 {{ ucfirst(__('PkgUtilisateurs::apprenant.tele_num')) }}
@@ -109,6 +118,8 @@
             @enderror
         </div>
         
+        
+        
         <div class="form-group">
             <label for="profile_image">
                 {{ ucfirst(__('PkgUtilisateurs::apprenant.profile_image')) }}
@@ -126,6 +137,8 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
         </div>
+        
+        
         
         <div class="form-group">
             <label for="matricule">
@@ -147,6 +160,8 @@
             @enderror
         </div>
         
+        
+        
         <div class="form-group">
             <label for="sexe">
                 {{ ucfirst(__('PkgUtilisateurs::apprenant.sexe')) }}
@@ -167,25 +182,11 @@
             @enderror
         </div>
         
-        <div class="form-group">
-            <label for="actif">
-                {{ ucfirst(__('PkgUtilisateurs::apprenant.actif')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
-                name="actif"
-                type="input"
-                class="form-control"
-                required
-                id="actif"
-                placeholder="{{ __('PkgUtilisateurs::apprenant.actif') }}"
-                value="{{ $itemApprenant ? $itemApprenant->actif : old('actif') }}">
-            @error('actif')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-        </div>
+        
+        
+        
+        
+        
         
         <div class="form-group">
             <label for="diplome">
@@ -205,41 +206,15 @@
             @enderror
         </div>
         
-        <div class="form-group">
-            <label for="date_naissance">
-                {{ ucfirst(__('PkgUtilisateurs::apprenant.date_naissance')) }}
-                
-            </label>
-            <input
-                name="date_naissance"
-                type="input"
-                class="form-control"
-                
-                id="date_naissance"
-                placeholder="{{ __('PkgUtilisateurs::apprenant.date_naissance') }}"
-                value="{{ $itemApprenant ? $itemApprenant->date_naissance : old('date_naissance') }}">
-            @error('date_naissance')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-        </div>
         
-        <div class="form-group">
-            <label for="date_inscription">
-                {{ ucfirst(__('PkgUtilisateurs::apprenant.date_inscription')) }}
-                
-            </label>
-            <input
-                name="date_inscription"
-                type="input"
-                class="form-control"
-                
-                id="date_inscription"
-                placeholder="{{ __('PkgUtilisateurs::apprenant.date_inscription') }}"
-                value="{{ $itemApprenant ? $itemApprenant->date_inscription : old('date_inscription') }}">
-            @error('date_inscription')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-        </div>
+        
+        <li>Attribut date : date_naissance</li>
+        
+        
+        
+        <li>Attribut date : date_inscription</li>
+        
+        
         
         <div class="form-group">
             <label for="lieu_naissance">
@@ -259,6 +234,8 @@
             @enderror
         </div>
         
+        
+        
         <div class="form-group">
             <label for="cin">
                 {{ ucfirst(__('PkgUtilisateurs::apprenant.cin')) }}
@@ -276,6 +253,8 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
         </div>
+        
+        
         
         <div class="form-group">
             <label for="adresse">
@@ -295,9 +274,10 @@
             @enderror
         </div>
         
-
         
-        <div class="form-group">
+        
+        
+    <div class="form-group">
             <label for="groupe_id">
                 {{ ucfirst(__('PkgUtilisateurs::groupe.singular')) }}
                 
@@ -319,9 +299,13 @@
             @error('groupe_id')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
+    </div>
+
         
-        <div class="form-group">
+        
+        
+        
+    <div class="form-group">
             <label for="nationalite_id">
                 {{ ucfirst(__('PkgUtilisateurs::nationalite.singular')) }}
                 
@@ -343,9 +327,13 @@
             @error('nationalite_id')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
+    </div>
+
         
-        <div class="form-group">
+        
+        
+        
+    <div class="form-group">
             <label for="niveaux_scolaire_id">
                 {{ ucfirst(__('PkgUtilisateurs::niveauxScolaire.singular')) }}
                 
@@ -367,15 +355,11 @@
             @error('niveaux_scolaire_id')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
-        
-
-        
-
-
-
     </div>
 
+        
+        
+    </div>
 
     <div class="card-footer">
         <a href="{{ route('apprenants.index') }}" class="btn btn-default form-cancel-button">{{ __('Core::msg.cancel') }}</a>

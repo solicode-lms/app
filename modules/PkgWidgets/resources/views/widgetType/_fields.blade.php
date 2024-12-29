@@ -9,6 +9,7 @@
 
     <div class="card-body">
         
+        
         <div class="form-group">
             <label for="type">
                 {{ ucfirst(__('PkgWidgets::widgetType.type')) }}
@@ -29,6 +30,8 @@
             @enderror
         </div>
         
+        
+        
         <div class="form-group">
             <label for="description">
                 {{ ucfirst(__('PkgWidgets::widgetType.description')) }}
@@ -47,15 +50,12 @@
             @enderror
         </div>
         
-
         
-
         
-
-
-
+        <!--   Widget_HasMany HasMany --> 
+        
+        
     </div>
-
 
     <div class="card-footer">
         <a href="{{ route('widgetTypes.index') }}" class="btn btn-default form-cancel-button">{{ __('Core::msg.cancel') }}</a>

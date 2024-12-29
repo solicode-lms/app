@@ -9,6 +9,7 @@
 
     <div class="card-body">
         
+        
         <div class="form-group">
             <label for="titre">
                 {{ ucfirst(__('PkgCreationProjet::livrable.titre')) }}
@@ -29,6 +30,8 @@
             @enderror
         </div>
         
+        
+        
         <div class="form-group">
             <label for="description">
                 {{ ucfirst(__('PkgCreationProjet::livrable.description')) }}
@@ -47,9 +50,10 @@
             @enderror
         </div>
         
-
         
-        <div class="form-group">
+        
+        
+    <div class="form-group">
             <label for="nature_livrable_id">
                 {{ ucfirst(__('PkgCreationProjet::natureLivrable.singular')) }}
                 
@@ -71,9 +75,13 @@
             @error('nature_livrable_id')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
+    </div>
+
         
-        <div class="form-group">
+        
+        
+        
+    <div class="form-group">
             <label for="projet_id">
                 {{ ucfirst(__('PkgCreationProjet::projet.singular')) }}
                 
@@ -95,15 +103,11 @@
             @error('projet_id')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
-        
-
-        
-
-
-
     </div>
 
+        
+        
+    </div>
 
     <div class="card-footer">
         <a href="{{ route('livrables.index') }}" class="btn btn-default form-cancel-button">{{ __('Core::msg.cancel') }}</a>

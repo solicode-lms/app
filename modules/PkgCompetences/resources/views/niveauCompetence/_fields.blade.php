@@ -9,6 +9,7 @@
 
     <div class="card-body">
         
+        
         <div class="form-group">
             <label for="nom">
                 {{ ucfirst(__('PkgCompetences::niveauCompetence.nom')) }}
@@ -28,6 +29,8 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
         </div>
+        
+        
         
         <div class="form-group">
             <label for="description">
@@ -49,9 +52,10 @@
             @enderror
         </div>
         
-
         
-        <div class="form-group">
+        
+        
+    <div class="form-group">
             <label for="competence_id">
                 {{ ucfirst(__('PkgCompetences::competence.singular')) }}
                 
@@ -73,15 +77,11 @@
             @error('competence_id')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
-        
-
-        
-
-
-
     </div>
 
+        
+        
+    </div>
 
     <div class="card-footer">
         <a href="{{ route('niveauCompetences.index') }}" class="btn btn-default form-cancel-button">{{ __('Core::msg.cancel') }}</a>

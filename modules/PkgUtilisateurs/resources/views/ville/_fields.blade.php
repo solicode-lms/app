@@ -9,6 +9,7 @@
 
     <div class="card-body">
         
+        
         <div class="form-group">
             <label for="nom">
                 {{ ucfirst(__('PkgUtilisateurs::ville.nom')) }}
@@ -29,15 +30,8 @@
             @enderror
         </div>
         
-
         
-
-        
-
-
-
     </div>
-
 
     <div class="card-footer">
         <a href="{{ route('villes.index') }}" class="btn btn-default form-cancel-button">{{ __('Core::msg.cancel') }}</a>

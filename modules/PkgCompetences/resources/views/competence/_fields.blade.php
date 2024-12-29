@@ -9,6 +9,7 @@
 
     <div class="card-body">
         
+        
         <div class="form-group">
             <label for="code">
                 {{ ucfirst(__('PkgCompetences::competence.code')) }}
@@ -28,6 +29,8 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
         </div>
+        
+        
         
         <div class="form-group">
             <label for="nom">
@@ -49,6 +52,8 @@
             @enderror
         </div>
         
+        
+        
         <div class="form-group">
             <label for="description">
                 {{ ucfirst(__('PkgCompetences::competence.description')) }}
@@ -69,9 +74,44 @@
             @enderror
         </div>
         
+        
+        
+            <div class="form-group">
+            <label for="technologies">
+                {{ ucfirst(__('PkgCompetences::Technology.plural')) }}
+            </label>
+            <select
+                id="technologies"
+                name="technologies[]"
+                class="form-control select2"
+                multiple="multiple">
+               
+                @foreach ($technologies as $technology)
+                    <option value="{{ $technology->id }}"
+                        {{ (isset($itemCompetence) && $itemCompetence->technologies && $itemCompetence->technologies->contains('id', $technology->id)) || (is_array(old('technologies')) && in_array($technology->id, old('technologies'))) ? 'selected' : '' }}>
+                        {{ $technology }}
+                    </option>
+                @endforeach
+            </select>
+            @error('technologies')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+
+        </div>
 
         
-        <div class="form-group">
+        
+        
+        <!--   NiveauCompetence_HasMany HasMany --> 
+        
+        
+        
+        <!--   TransfertCompetence_HasMany HasMany --> 
+        
+        
+        
+        
+    <div class="form-group">
             <label for="module_id">
                 {{ ucfirst(__('PkgCompetences::module.singular')) }}
                 
@@ -93,38 +133,11 @@
             @error('module_id')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
-        
-
-        
-        <div class="form-group">
-            <label for="technologies">
-                {{ ucfirst(__('PkgCompetences::Technology.plural')) }}
-            </label>
-            <select
-                id="technologies"
-                name="technologies[]"
-                class="form-control select2"
-                multiple="multiple">
-               
-                @foreach ($technologies as $technology)
-                    <option value="{{ $technology->id }}"
-                        {{ (isset($itemCompetence) && $itemCompetence->technologies && $itemCompetence->technologies->contains('id', $technology->id)) || (is_array(old('technologies')) && in_array($technology->id, old('technologies'))) ? 'selected' : '' }}>
-                        {{ $technology->nom }}
-                    </option>
-                @endforeach
-            </select>
-            @error('technologies')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-
-        </div>
-        
-
-
-
     </div>
 
+        
+        
+    </div>
 
     <div class="card-footer">
         <a href="{{ route('competences.index') }}" class="btn btn-default form-cancel-button">{{ __('Core::msg.cancel') }}</a>

@@ -9,6 +9,7 @@
 
     <div class="card-body">
         
+        
         <div class="form-group">
             <label for="name">
                 {{ ucfirst(__('Core::sysModel.name')) }}
@@ -28,6 +29,8 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
         </div>
+        
+        
         
         <div class="form-group">
             <label for="model">
@@ -49,6 +52,8 @@
             @enderror
         </div>
         
+        
+        
         <div class="form-group">
             <label for="description">
                 {{ ucfirst(__('Core::sysModel.description')) }}
@@ -67,9 +72,14 @@
             @enderror
         </div>
         
-
         
-        <div class="form-group">
+        
+        <!--   Widget_HasMany HasMany --> 
+        
+        
+        
+        
+    <div class="form-group">
             <label for="color_id">
                 {{ ucfirst(__('Core::sysColor.singular')) }}
                 
@@ -91,9 +101,13 @@
             @error('color_id')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
+    </div>
+
         
-        <div class="form-group">
+        
+        
+        
+    <div class="form-group">
             <label for="module_id">
                 {{ ucfirst(__('Core::sysModule.singular')) }}
                 
@@ -115,15 +129,11 @@
             @error('module_id')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
-        
-
-        
-
-
-
     </div>
 
+        
+        
+    </div>
 
     <div class="card-footer">
         <a href="{{ route('sysModels.index') }}" class="btn btn-default form-cancel-button">{{ __('Core::msg.cancel') }}</a>

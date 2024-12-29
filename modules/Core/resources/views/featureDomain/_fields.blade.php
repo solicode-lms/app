@@ -9,6 +9,7 @@
 
     <div class="card-body">
         
+        
         <div class="form-group">
             <label for="name">
                 {{ ucfirst(__('Core::featureDomain.name')) }}
@@ -28,6 +29,8 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
         </div>
+        
+        
         
         <div class="form-group">
             <label for="slug">
@@ -49,6 +52,8 @@
             @enderror
         </div>
         
+        
+        
         <div class="form-group">
             <label for="description">
                 {{ ucfirst(__('Core::featureDomain.description')) }}
@@ -67,9 +72,14 @@
             @enderror
         </div>
         
-
         
-        <div class="form-group">
+        
+        <!--   Feature_HasMany HasMany --> 
+        
+        
+        
+        
+    <div class="form-group">
             <label for="module_id">
                 {{ ucfirst(__('Core::sysModule.singular')) }}
                 
@@ -91,15 +101,11 @@
             @error('module_id')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
-        
-
-        
-
-
-
     </div>
 
+        
+        
+    </div>
 
     <div class="card-footer">
         <a href="{{ route('featureDomains.index') }}" class="btn btn-default form-cancel-button">{{ __('Core::msg.cancel') }}</a>

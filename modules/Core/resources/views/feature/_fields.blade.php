@@ -9,6 +9,7 @@
 
     <div class="card-body">
         
+        
         <div class="form-group">
             <label for="name">
                 {{ ucfirst(__('Core::feature.name')) }}
@@ -29,6 +30,8 @@
             @enderror
         </div>
         
+        
+        
         <div class="form-group">
             <label for="description">
                 {{ ucfirst(__('Core::feature.description')) }}
@@ -47,9 +50,36 @@
             @enderror
         </div>
         
+        
+        
+            <div class="form-group">
+            <label for="permissions">
+                {{ ucfirst(__('PkgAutorisation::Permission.plural')) }}
+            </label>
+            <select
+                id="permissions"
+                name="permissions[]"
+                class="form-control select2"
+                multiple="multiple">
+               
+                @foreach ($permissions as $permission)
+                    <option value="{{ $permission->id }}"
+                        {{ (isset($itemFeature) && $itemFeature->permissions && $itemFeature->permissions->contains('id', $permission->id)) || (is_array(old('permissions')) && in_array($permission->id, old('permissions'))) ? 'selected' : '' }}>
+                        {{ $permission }}
+                    </option>
+                @endforeach
+            </select>
+            @error('permissions')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+
+        </div>
 
         
-        <div class="form-group">
+        
+        
+        
+    <div class="form-group">
             <label for="domain_id">
                 {{ ucfirst(__('Core::featureDomain.singular')) }}
                 
@@ -71,38 +101,11 @@
             @error('domain_id')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
-        
-
-        
-        <div class="form-group">
-            <label for="permissions">
-                {{ ucfirst(__('PkgAutorisation::Permission.plural')) }}
-            </label>
-            <select
-                id="permissions"
-                name="permissions[]"
-                class="form-control select2"
-                multiple="multiple">
-               
-                @foreach ($permissions as $permission)
-                    <option value="{{ $permission->id }}"
-                        {{ (isset($itemFeature) && $itemFeature->permissions && $itemFeature->permissions->contains('id', $permission->id)) || (is_array(old('permissions')) && in_array($permission->id, old('permissions'))) ? 'selected' : '' }}>
-                        {{ $permission->name }}
-                    </option>
-                @endforeach
-            </select>
-            @error('permissions')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-
-        </div>
-        
-
-
-
     </div>
 
+        
+        
+    </div>
 
     <div class="card-footer">
         <a href="{{ route('features.index') }}" class="btn btn-default form-cancel-button">{{ __('Core::msg.cancel') }}</a>
