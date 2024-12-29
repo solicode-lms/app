@@ -95,7 +95,7 @@ class WidgetTypeController extends AdminController
             return view('PkgWidgets::widgetType._fields', compact('itemWidgetType'));
         }
 
-        return view('PkgWidgets::widgettype.show', compact('itemWidgetType'));
+        return view('PkgWidgets::widgetType.show', compact('itemWidgetType'));
     }
 
     /**
@@ -118,7 +118,7 @@ class WidgetTypeController extends AdminController
     public function update(WidgetTypeRequest $request, string $id)
     {
         $validatedData = $request->validated();
-        $widgettype = $this->widgetTypeService->update($id, $validatedData);
+        $widgetType = $this->widgetTypeService->update($id, $validatedData);
 
 
 
@@ -126,16 +126,16 @@ class WidgetTypeController extends AdminController
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
             __('Core::msg.updateSuccess', [
-                'entityToString' => $widgettype,
-                'modelName' =>  __('PkgWidgets::widgettype.singular')])
+                'entityToString' => $widgetType,
+                'modelName' =>  __('PkgWidgets::widgetType.singular')])
             ]);
         }
 
         return redirect()->route('widgetTypes.index')->with(
             'success',
             __('Core::msg.updateSuccess', [
-                'entityToString' => $widgettype,
-                'modelName' =>  __('PkgWidgets::widgettype.singular')
+                'entityToString' => $widgetType,
+                'modelName' =>  __('PkgWidgets::widgetType.singular')
                 ])
         );
     }
@@ -145,21 +145,21 @@ class WidgetTypeController extends AdminController
      */
     public function destroy(Request $request, string $id)
     {
-        $widgettype = $this->widgetTypeService->destroy($id);
+        $widgetType = $this->widgetTypeService->destroy($id);
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
             __('Core::msg.deleteSuccess', [
-                'entityToString' => $widgettype,
-                'modelName' =>  __('PkgWidgets::widgettype.singular')])
+                'entityToString' => $widgetType,
+                'modelName' =>  __('PkgWidgets::widgetType.singular')])
             ]);
         }
 
         return redirect()->route('widgetTypes.index')->with(
             'success',
             __('Core::msg.deleteSuccess', [
-                'entityToString' => $widgettype,
-                'modelName' =>  __('PkgWidgets::widgettype.singular')
+                'entityToString' => $widgetType,
+                'modelName' =>  __('PkgWidgets::widgetType.singular')
                 ])
         );
     }
@@ -184,7 +184,7 @@ class WidgetTypeController extends AdminController
 
         return redirect()->route('widgetTypes.index')->with(
             'success', __('Core::msg.importSuccess', [
-            'modelNames' =>  __('PkgWidgets::widgettype.plural')
+            'modelNames' =>  __('PkgWidgets::widgetType.plural')
             ]));
 
 

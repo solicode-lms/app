@@ -99,7 +99,7 @@ class FeatureDomainController extends AdminController
             return view('Core::featureDomain._fields', compact('itemFeatureDomain', 'sysModules'));
         }
 
-        return view('Core::featuredomain.show', compact('itemFeatureDomain'));
+        return view('Core::featureDomain.show', compact('itemFeatureDomain'));
     }
 
     /**
@@ -123,7 +123,7 @@ class FeatureDomainController extends AdminController
     public function update(FeatureDomainRequest $request, string $id)
     {
         $validatedData = $request->validated();
-        $featuredomain = $this->featureDomainService->update($id, $validatedData);
+        $featureDomain = $this->featureDomainService->update($id, $validatedData);
 
 
 
@@ -131,16 +131,16 @@ class FeatureDomainController extends AdminController
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
             __('Core::msg.updateSuccess', [
-                'entityToString' => $featuredomain,
-                'modelName' =>  __('Core::featuredomain.singular')])
+                'entityToString' => $featureDomain,
+                'modelName' =>  __('Core::featureDomain.singular')])
             ]);
         }
 
         return redirect()->route('featureDomains.index')->with(
             'success',
             __('Core::msg.updateSuccess', [
-                'entityToString' => $featuredomain,
-                'modelName' =>  __('Core::featuredomain.singular')
+                'entityToString' => $featureDomain,
+                'modelName' =>  __('Core::featureDomain.singular')
                 ])
         );
     }
@@ -150,21 +150,21 @@ class FeatureDomainController extends AdminController
      */
     public function destroy(Request $request, string $id)
     {
-        $featuredomain = $this->featureDomainService->destroy($id);
+        $featureDomain = $this->featureDomainService->destroy($id);
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
             __('Core::msg.deleteSuccess', [
-                'entityToString' => $featuredomain,
-                'modelName' =>  __('Core::featuredomain.singular')])
+                'entityToString' => $featureDomain,
+                'modelName' =>  __('Core::featureDomain.singular')])
             ]);
         }
 
         return redirect()->route('featureDomains.index')->with(
             'success',
             __('Core::msg.deleteSuccess', [
-                'entityToString' => $featuredomain,
-                'modelName' =>  __('Core::featuredomain.singular')
+                'entityToString' => $featureDomain,
+                'modelName' =>  __('Core::featureDomain.singular')
                 ])
         );
     }
@@ -189,7 +189,7 @@ class FeatureDomainController extends AdminController
 
         return redirect()->route('featureDomains.index')->with(
             'success', __('Core::msg.importSuccess', [
-            'modelNames' =>  __('Core::featuredomain.plural')
+            'modelNames' =>  __('Core::featureDomain.plural')
             ]));
 
 

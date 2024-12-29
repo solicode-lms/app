@@ -117,7 +117,7 @@ class TransfertCompetenceController extends AdminController
             return view('PkgCreationProjet::transfertCompetence._fields', compact('itemTransfertCompetence', 'technologies', 'appreciations', 'competences', 'projets'));
         }
 
-        return view('PkgCreationProjet::transfertcompetence.show', compact('itemTransfertCompetence'));
+        return view('PkgCreationProjet::transfertCompetence.show', compact('itemTransfertCompetence'));
     }
 
     /**
@@ -144,7 +144,7 @@ class TransfertCompetenceController extends AdminController
     public function update(TransfertCompetenceRequest $request, string $id)
     {
         $validatedData = $request->validated();
-        $transfertcompetence = $this->transfertCompetenceService->update($id, $validatedData);
+        $transfertCompetence = $this->transfertCompetenceService->update($id, $validatedData);
 
 
         $transfertCompetence->technologies()->sync($request->input('technologies'));
@@ -153,16 +153,16 @@ class TransfertCompetenceController extends AdminController
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
             __('Core::msg.updateSuccess', [
-                'entityToString' => $transfertcompetence,
-                'modelName' =>  __('PkgCreationProjet::transfertcompetence.singular')])
+                'entityToString' => $transfertCompetence,
+                'modelName' =>  __('PkgCreationProjet::transfertCompetence.singular')])
             ]);
         }
 
         return redirect()->route('transfertCompetences.index')->with(
             'success',
             __('Core::msg.updateSuccess', [
-                'entityToString' => $transfertcompetence,
-                'modelName' =>  __('PkgCreationProjet::transfertcompetence.singular')
+                'entityToString' => $transfertCompetence,
+                'modelName' =>  __('PkgCreationProjet::transfertCompetence.singular')
                 ])
         );
     }
@@ -172,21 +172,21 @@ class TransfertCompetenceController extends AdminController
      */
     public function destroy(Request $request, string $id)
     {
-        $transfertcompetence = $this->transfertCompetenceService->destroy($id);
+        $transfertCompetence = $this->transfertCompetenceService->destroy($id);
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
             __('Core::msg.deleteSuccess', [
-                'entityToString' => $transfertcompetence,
-                'modelName' =>  __('PkgCreationProjet::transfertcompetence.singular')])
+                'entityToString' => $transfertCompetence,
+                'modelName' =>  __('PkgCreationProjet::transfertCompetence.singular')])
             ]);
         }
 
         return redirect()->route('transfertCompetences.index')->with(
             'success',
             __('Core::msg.deleteSuccess', [
-                'entityToString' => $transfertcompetence,
-                'modelName' =>  __('PkgCreationProjet::transfertcompetence.singular')
+                'entityToString' => $transfertCompetence,
+                'modelName' =>  __('PkgCreationProjet::transfertCompetence.singular')
                 ])
         );
     }
@@ -211,7 +211,7 @@ class TransfertCompetenceController extends AdminController
 
         return redirect()->route('transfertCompetences.index')->with(
             'success', __('Core::msg.importSuccess', [
-            'modelNames' =>  __('PkgCreationProjet::transfertcompetence.plural')
+            'modelNames' =>  __('PkgCreationProjet::transfertCompetence.plural')
             ]));
 
 

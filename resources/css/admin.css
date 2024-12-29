@@ -18,10 +18,3 @@
 @import './loading-spin';
 
 
-/* @import 'bootstrap-steps/dist/bootstrap-steps.css'; */
-
-/* card footet dans une formulaire en from-workflow */
-.card-workflow .tab-pane .card-body,
-.card-workflow .tab-pane .card-footer {
-    margin: -1.25rem;
-}

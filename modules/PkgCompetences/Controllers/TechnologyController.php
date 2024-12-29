@@ -78,8 +78,8 @@ class TechnologyController extends AdminController
         if ($request->has('competences')) {
             $technology->competences()->sync($request->input('competences'));
         }
-        if ($request->has('transfertcompetences')) {
-            $technology->transfertcompetences()->sync($request->input('transfertcompetences'));
+        if ($request->has('transfertCompetences')) {
+            $technology->transfertCompetences()->sync($request->input('transfertCompetences'));
         }
 
 
@@ -145,7 +145,7 @@ class TechnologyController extends AdminController
 
 
         $technology->competences()->sync($request->input('competences'));
-        $technology->transfertcompetences()->sync($request->input('transfertcompetences'));
+        $technology->transfertCompetences()->sync($request->input('transfertCompetences'));
 
 
         if ($request->ajax()) {

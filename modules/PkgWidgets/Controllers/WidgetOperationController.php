@@ -95,7 +95,7 @@ class WidgetOperationController extends AdminController
             return view('PkgWidgets::widgetOperation._fields', compact('itemWidgetOperation'));
         }
 
-        return view('PkgWidgets::widgetoperation.show', compact('itemWidgetOperation'));
+        return view('PkgWidgets::widgetOperation.show', compact('itemWidgetOperation'));
     }
 
     /**
@@ -118,7 +118,7 @@ class WidgetOperationController extends AdminController
     public function update(WidgetOperationRequest $request, string $id)
     {
         $validatedData = $request->validated();
-        $widgetoperation = $this->widgetOperationService->update($id, $validatedData);
+        $widgetOperation = $this->widgetOperationService->update($id, $validatedData);
 
 
 
@@ -126,16 +126,16 @@ class WidgetOperationController extends AdminController
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
             __('Core::msg.updateSuccess', [
-                'entityToString' => $widgetoperation,
-                'modelName' =>  __('PkgWidgets::widgetoperation.singular')])
+                'entityToString' => $widgetOperation,
+                'modelName' =>  __('PkgWidgets::widgetOperation.singular')])
             ]);
         }
 
         return redirect()->route('widgetOperations.index')->with(
             'success',
             __('Core::msg.updateSuccess', [
-                'entityToString' => $widgetoperation,
-                'modelName' =>  __('PkgWidgets::widgetoperation.singular')
+                'entityToString' => $widgetOperation,
+                'modelName' =>  __('PkgWidgets::widgetOperation.singular')
                 ])
         );
     }
@@ -145,21 +145,21 @@ class WidgetOperationController extends AdminController
      */
     public function destroy(Request $request, string $id)
     {
-        $widgetoperation = $this->widgetOperationService->destroy($id);
+        $widgetOperation = $this->widgetOperationService->destroy($id);
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
             __('Core::msg.deleteSuccess', [
-                'entityToString' => $widgetoperation,
-                'modelName' =>  __('PkgWidgets::widgetoperation.singular')])
+                'entityToString' => $widgetOperation,
+                'modelName' =>  __('PkgWidgets::widgetOperation.singular')])
             ]);
         }
 
         return redirect()->route('widgetOperations.index')->with(
             'success',
             __('Core::msg.deleteSuccess', [
-                'entityToString' => $widgetoperation,
-                'modelName' =>  __('PkgWidgets::widgetoperation.singular')
+                'entityToString' => $widgetOperation,
+                'modelName' =>  __('PkgWidgets::widgetOperation.singular')
                 ])
         );
     }
@@ -184,7 +184,7 @@ class WidgetOperationController extends AdminController
 
         return redirect()->route('widgetOperations.index')->with(
             'success', __('Core::msg.importSuccess', [
-            'modelNames' =>  __('PkgWidgets::widgetoperation.plural')
+            'modelNames' =>  __('PkgWidgets::widgetOperation.plural')
             ]));
 
 

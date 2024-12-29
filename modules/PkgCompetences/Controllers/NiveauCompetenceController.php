@@ -99,7 +99,7 @@ class NiveauCompetenceController extends AdminController
             return view('PkgCompetences::niveauCompetence._fields', compact('itemNiveauCompetence', 'competences'));
         }
 
-        return view('PkgCompetences::niveaucompetence.show', compact('itemNiveauCompetence'));
+        return view('PkgCompetences::niveauCompetence.show', compact('itemNiveauCompetence'));
     }
 
     /**
@@ -123,7 +123,7 @@ class NiveauCompetenceController extends AdminController
     public function update(NiveauCompetenceRequest $request, string $id)
     {
         $validatedData = $request->validated();
-        $niveaucompetence = $this->niveauCompetenceService->update($id, $validatedData);
+        $niveauCompetence = $this->niveauCompetenceService->update($id, $validatedData);
 
 
 
@@ -131,16 +131,16 @@ class NiveauCompetenceController extends AdminController
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
             __('Core::msg.updateSuccess', [
-                'entityToString' => $niveaucompetence,
-                'modelName' =>  __('PkgCompetences::niveaucompetence.singular')])
+                'entityToString' => $niveauCompetence,
+                'modelName' =>  __('PkgCompetences::niveauCompetence.singular')])
             ]);
         }
 
         return redirect()->route('niveauCompetences.index')->with(
             'success',
             __('Core::msg.updateSuccess', [
-                'entityToString' => $niveaucompetence,
-                'modelName' =>  __('PkgCompetences::niveaucompetence.singular')
+                'entityToString' => $niveauCompetence,
+                'modelName' =>  __('PkgCompetences::niveauCompetence.singular')
                 ])
         );
     }
@@ -150,21 +150,21 @@ class NiveauCompetenceController extends AdminController
      */
     public function destroy(Request $request, string $id)
     {
-        $niveaucompetence = $this->niveauCompetenceService->destroy($id);
+        $niveauCompetence = $this->niveauCompetenceService->destroy($id);
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
             __('Core::msg.deleteSuccess', [
-                'entityToString' => $niveaucompetence,
-                'modelName' =>  __('PkgCompetences::niveaucompetence.singular')])
+                'entityToString' => $niveauCompetence,
+                'modelName' =>  __('PkgCompetences::niveauCompetence.singular')])
             ]);
         }
 
         return redirect()->route('niveauCompetences.index')->with(
             'success',
             __('Core::msg.deleteSuccess', [
-                'entityToString' => $niveaucompetence,
-                'modelName' =>  __('PkgCompetences::niveaucompetence.singular')
+                'entityToString' => $niveauCompetence,
+                'modelName' =>  __('PkgCompetences::niveauCompetence.singular')
                 ])
         );
     }
@@ -189,7 +189,7 @@ class NiveauCompetenceController extends AdminController
 
         return redirect()->route('niveauCompetences.index')->with(
             'success', __('Core::msg.importSuccess', [
-            'modelNames' =>  __('PkgCompetences::niveaucompetence.plural')
+            'modelNames' =>  __('PkgCompetences::niveauCompetence.plural')
             ]));
 
 

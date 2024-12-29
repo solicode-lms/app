@@ -95,7 +95,7 @@ class NiveauxScolaireController extends AdminController
             return view('PkgUtilisateurs::niveauxScolaire._fields', compact('itemNiveauxScolaire'));
         }
 
-        return view('PkgUtilisateurs::niveauxscolaire.show', compact('itemNiveauxScolaire'));
+        return view('PkgUtilisateurs::niveauxScolaire.show', compact('itemNiveauxScolaire'));
     }
 
     /**
@@ -118,7 +118,7 @@ class NiveauxScolaireController extends AdminController
     public function update(NiveauxScolaireRequest $request, string $id)
     {
         $validatedData = $request->validated();
-        $niveauxscolaire = $this->niveauxScolaireService->update($id, $validatedData);
+        $niveauxScolaire = $this->niveauxScolaireService->update($id, $validatedData);
 
 
 
@@ -126,16 +126,16 @@ class NiveauxScolaireController extends AdminController
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
             __('Core::msg.updateSuccess', [
-                'entityToString' => $niveauxscolaire,
-                'modelName' =>  __('PkgUtilisateurs::niveauxscolaire.singular')])
+                'entityToString' => $niveauxScolaire,
+                'modelName' =>  __('PkgUtilisateurs::niveauxScolaire.singular')])
             ]);
         }
 
         return redirect()->route('niveauxScolaires.index')->with(
             'success',
             __('Core::msg.updateSuccess', [
-                'entityToString' => $niveauxscolaire,
-                'modelName' =>  __('PkgUtilisateurs::niveauxscolaire.singular')
+                'entityToString' => $niveauxScolaire,
+                'modelName' =>  __('PkgUtilisateurs::niveauxScolaire.singular')
                 ])
         );
     }
@@ -145,21 +145,21 @@ class NiveauxScolaireController extends AdminController
      */
     public function destroy(Request $request, string $id)
     {
-        $niveauxscolaire = $this->niveauxScolaireService->destroy($id);
+        $niveauxScolaire = $this->niveauxScolaireService->destroy($id);
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
             __('Core::msg.deleteSuccess', [
-                'entityToString' => $niveauxscolaire,
-                'modelName' =>  __('PkgUtilisateurs::niveauxscolaire.singular')])
+                'entityToString' => $niveauxScolaire,
+                'modelName' =>  __('PkgUtilisateurs::niveauxScolaire.singular')])
             ]);
         }
 
         return redirect()->route('niveauxScolaires.index')->with(
             'success',
             __('Core::msg.deleteSuccess', [
-                'entityToString' => $niveauxscolaire,
-                'modelName' =>  __('PkgUtilisateurs::niveauxscolaire.singular')
+                'entityToString' => $niveauxScolaire,
+                'modelName' =>  __('PkgUtilisateurs::niveauxScolaire.singular')
                 ])
         );
     }
@@ -184,7 +184,7 @@ class NiveauxScolaireController extends AdminController
 
         return redirect()->route('niveauxScolaires.index')->with(
             'success', __('Core::msg.importSuccess', [
-            'modelNames' =>  __('PkgUtilisateurs::niveauxscolaire.plural')
+            'modelNames' =>  __('PkgUtilisateurs::niveauxScolaire.plural')
             ]));
 
 

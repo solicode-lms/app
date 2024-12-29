@@ -95,7 +95,7 @@ class SysColorController extends AdminController
             return view('Core::sysColor._fields', compact('itemSysColor'));
         }
 
-        return view('Core::syscolor.show', compact('itemSysColor'));
+        return view('Core::sysColor.show', compact('itemSysColor'));
     }
 
     /**
@@ -118,7 +118,7 @@ class SysColorController extends AdminController
     public function update(SysColorRequest $request, string $id)
     {
         $validatedData = $request->validated();
-        $syscolor = $this->sysColorService->update($id, $validatedData);
+        $sysColor = $this->sysColorService->update($id, $validatedData);
 
 
 
@@ -126,16 +126,16 @@ class SysColorController extends AdminController
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
             __('Core::msg.updateSuccess', [
-                'entityToString' => $syscolor,
-                'modelName' =>  __('Core::syscolor.singular')])
+                'entityToString' => $sysColor,
+                'modelName' =>  __('Core::sysColor.singular')])
             ]);
         }
 
         return redirect()->route('sysColors.index')->with(
             'success',
             __('Core::msg.updateSuccess', [
-                'entityToString' => $syscolor,
-                'modelName' =>  __('Core::syscolor.singular')
+                'entityToString' => $sysColor,
+                'modelName' =>  __('Core::sysColor.singular')
                 ])
         );
     }
@@ -145,21 +145,21 @@ class SysColorController extends AdminController
      */
     public function destroy(Request $request, string $id)
     {
-        $syscolor = $this->sysColorService->destroy($id);
+        $sysColor = $this->sysColorService->destroy($id);
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
             __('Core::msg.deleteSuccess', [
-                'entityToString' => $syscolor,
-                'modelName' =>  __('Core::syscolor.singular')])
+                'entityToString' => $sysColor,
+                'modelName' =>  __('Core::sysColor.singular')])
             ]);
         }
 
         return redirect()->route('sysColors.index')->with(
             'success',
             __('Core::msg.deleteSuccess', [
-                'entityToString' => $syscolor,
-                'modelName' =>  __('Core::syscolor.singular')
+                'entityToString' => $sysColor,
+                'modelName' =>  __('Core::sysColor.singular')
                 ])
         );
     }
@@ -184,7 +184,7 @@ class SysColorController extends AdminController
 
         return redirect()->route('sysColors.index')->with(
             'success', __('Core::msg.importSuccess', [
-            'modelNames' =>  __('Core::syscolor.plural')
+            'modelNames' =>  __('Core::sysColor.plural')
             ]));
 
 

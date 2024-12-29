@@ -99,7 +99,7 @@ class SysControllerController extends AdminController
             return view('Core::sysController._fields', compact('itemSysController', 'sysModules'));
         }
 
-        return view('Core::syscontroller.show', compact('itemSysController'));
+        return view('Core::sysController.show', compact('itemSysController'));
     }
 
     /**
@@ -123,7 +123,7 @@ class SysControllerController extends AdminController
     public function update(SysControllerRequest $request, string $id)
     {
         $validatedData = $request->validated();
-        $syscontroller = $this->sysControllerService->update($id, $validatedData);
+        $sysController = $this->sysControllerService->update($id, $validatedData);
 
 
 
@@ -131,16 +131,16 @@ class SysControllerController extends AdminController
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
             __('Core::msg.updateSuccess', [
-                'entityToString' => $syscontroller,
-                'modelName' =>  __('Core::syscontroller.singular')])
+                'entityToString' => $sysController,
+                'modelName' =>  __('Core::sysController.singular')])
             ]);
         }
 
         return redirect()->route('sysControllers.index')->with(
             'success',
             __('Core::msg.updateSuccess', [
-                'entityToString' => $syscontroller,
-                'modelName' =>  __('Core::syscontroller.singular')
+                'entityToString' => $sysController,
+                'modelName' =>  __('Core::sysController.singular')
                 ])
         );
     }
@@ -150,21 +150,21 @@ class SysControllerController extends AdminController
      */
     public function destroy(Request $request, string $id)
     {
-        $syscontroller = $this->sysControllerService->destroy($id);
+        $sysController = $this->sysControllerService->destroy($id);
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
             __('Core::msg.deleteSuccess', [
-                'entityToString' => $syscontroller,
-                'modelName' =>  __('Core::syscontroller.singular')])
+                'entityToString' => $sysController,
+                'modelName' =>  __('Core::sysController.singular')])
             ]);
         }
 
         return redirect()->route('sysControllers.index')->with(
             'success',
             __('Core::msg.deleteSuccess', [
-                'entityToString' => $syscontroller,
-                'modelName' =>  __('Core::syscontroller.singular')
+                'entityToString' => $sysController,
+                'modelName' =>  __('Core::sysController.singular')
                 ])
         );
     }
@@ -189,7 +189,7 @@ class SysControllerController extends AdminController
 
         return redirect()->route('sysControllers.index')->with(
             'success', __('Core::msg.importSuccess', [
-            'modelNames' =>  __('Core::syscontroller.plural')
+            'modelNames' =>  __('Core::sysController.plural')
             ]));
 
 

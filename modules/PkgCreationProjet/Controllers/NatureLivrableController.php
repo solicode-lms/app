@@ -95,7 +95,7 @@ class NatureLivrableController extends AdminController
             return view('PkgCreationProjet::natureLivrable._fields', compact('itemNatureLivrable'));
         }
 
-        return view('PkgCreationProjet::naturelivrable.show', compact('itemNatureLivrable'));
+        return view('PkgCreationProjet::natureLivrable.show', compact('itemNatureLivrable'));
     }
 
     /**
@@ -118,7 +118,7 @@ class NatureLivrableController extends AdminController
     public function update(NatureLivrableRequest $request, string $id)
     {
         $validatedData = $request->validated();
-        $naturelivrable = $this->natureLivrableService->update($id, $validatedData);
+        $natureLivrable = $this->natureLivrableService->update($id, $validatedData);
 
 
 
@@ -126,16 +126,16 @@ class NatureLivrableController extends AdminController
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
             __('Core::msg.updateSuccess', [
-                'entityToString' => $naturelivrable,
-                'modelName' =>  __('PkgCreationProjet::naturelivrable.singular')])
+                'entityToString' => $natureLivrable,
+                'modelName' =>  __('PkgCreationProjet::natureLivrable.singular')])
             ]);
         }
 
         return redirect()->route('natureLivrables.index')->with(
             'success',
             __('Core::msg.updateSuccess', [
-                'entityToString' => $naturelivrable,
-                'modelName' =>  __('PkgCreationProjet::naturelivrable.singular')
+                'entityToString' => $natureLivrable,
+                'modelName' =>  __('PkgCreationProjet::natureLivrable.singular')
                 ])
         );
     }
@@ -145,21 +145,21 @@ class NatureLivrableController extends AdminController
      */
     public function destroy(Request $request, string $id)
     {
-        $naturelivrable = $this->natureLivrableService->destroy($id);
+        $natureLivrable = $this->natureLivrableService->destroy($id);
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
             __('Core::msg.deleteSuccess', [
-                'entityToString' => $naturelivrable,
-                'modelName' =>  __('PkgCreationProjet::naturelivrable.singular')])
+                'entityToString' => $natureLivrable,
+                'modelName' =>  __('PkgCreationProjet::natureLivrable.singular')])
             ]);
         }
 
         return redirect()->route('natureLivrables.index')->with(
             'success',
             __('Core::msg.deleteSuccess', [
-                'entityToString' => $naturelivrable,
-                'modelName' =>  __('PkgCreationProjet::naturelivrable.singular')
+                'entityToString' => $natureLivrable,
+                'modelName' =>  __('PkgCreationProjet::natureLivrable.singular')
                 ])
         );
     }
@@ -184,7 +184,7 @@ class NatureLivrableController extends AdminController
 
         return redirect()->route('natureLivrables.index')->with(
             'success', __('Core::msg.importSuccess', [
-            'modelNames' =>  __('PkgCreationProjet::naturelivrable.plural')
+            'modelNames' =>  __('PkgCreationProjet::natureLivrable.plural')
             ]));
 
 

@@ -95,7 +95,7 @@ class CategoryTechnologyController extends AdminController
             return view('PkgCompetences::categoryTechnology._fields', compact('itemCategoryTechnology'));
         }
 
-        return view('PkgCompetences::categorytechnology.show', compact('itemCategoryTechnology'));
+        return view('PkgCompetences::categoryTechnology.show', compact('itemCategoryTechnology'));
     }
 
     /**
@@ -118,7 +118,7 @@ class CategoryTechnologyController extends AdminController
     public function update(CategoryTechnologyRequest $request, string $id)
     {
         $validatedData = $request->validated();
-        $categorytechnology = $this->categoryTechnologyService->update($id, $validatedData);
+        $categoryTechnology = $this->categoryTechnologyService->update($id, $validatedData);
 
 
 
@@ -126,16 +126,16 @@ class CategoryTechnologyController extends AdminController
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
             __('Core::msg.updateSuccess', [
-                'entityToString' => $categorytechnology,
-                'modelName' =>  __('PkgCompetences::categorytechnology.singular')])
+                'entityToString' => $categoryTechnology,
+                'modelName' =>  __('PkgCompetences::categoryTechnology.singular')])
             ]);
         }
 
         return redirect()->route('categoryTechnologies.index')->with(
             'success',
             __('Core::msg.updateSuccess', [
-                'entityToString' => $categorytechnology,
-                'modelName' =>  __('PkgCompetences::categorytechnology.singular')
+                'entityToString' => $categoryTechnology,
+                'modelName' =>  __('PkgCompetences::categoryTechnology.singular')
                 ])
         );
     }
@@ -145,21 +145,21 @@ class CategoryTechnologyController extends AdminController
      */
     public function destroy(Request $request, string $id)
     {
-        $categorytechnology = $this->categoryTechnologyService->destroy($id);
+        $categoryTechnology = $this->categoryTechnologyService->destroy($id);
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
             __('Core::msg.deleteSuccess', [
-                'entityToString' => $categorytechnology,
-                'modelName' =>  __('PkgCompetences::categorytechnology.singular')])
+                'entityToString' => $categoryTechnology,
+                'modelName' =>  __('PkgCompetences::categoryTechnology.singular')])
             ]);
         }
 
         return redirect()->route('categoryTechnologies.index')->with(
             'success',
             __('Core::msg.deleteSuccess', [
-                'entityToString' => $categorytechnology,
-                'modelName' =>  __('PkgCompetences::categorytechnology.singular')
+                'entityToString' => $categoryTechnology,
+                'modelName' =>  __('PkgCompetences::categoryTechnology.singular')
                 ])
         );
     }
@@ -184,7 +184,7 @@ class CategoryTechnologyController extends AdminController
 
         return redirect()->route('categoryTechnologies.index')->with(
             'success', __('Core::msg.importSuccess', [
-            'modelNames' =>  __('PkgCompetences::categorytechnology.plural')
+            'modelNames' =>  __('PkgCompetences::categoryTechnology.plural')
             ]));
 
 

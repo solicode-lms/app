@@ -95,7 +95,7 @@ class ApprenantKonosyController extends AdminController
             return view('PkgUtilisateurs::apprenantKonosy._fields', compact('itemApprenantKonosy'));
         }
 
-        return view('PkgUtilisateurs::apprenantkonosy.show', compact('itemApprenantKonosy'));
+        return view('PkgUtilisateurs::apprenantKonosy.show', compact('itemApprenantKonosy'));
     }
 
     /**
@@ -118,7 +118,7 @@ class ApprenantKonosyController extends AdminController
     public function update(ApprenantKonosyRequest $request, string $id)
     {
         $validatedData = $request->validated();
-        $apprenantkonosy = $this->apprenantKonosyService->update($id, $validatedData);
+        $apprenantKonosy = $this->apprenantKonosyService->update($id, $validatedData);
 
 
 
@@ -126,16 +126,16 @@ class ApprenantKonosyController extends AdminController
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
             __('Core::msg.updateSuccess', [
-                'entityToString' => $apprenantkonosy,
-                'modelName' =>  __('PkgUtilisateurs::apprenantkonosy.singular')])
+                'entityToString' => $apprenantKonosy,
+                'modelName' =>  __('PkgUtilisateurs::apprenantKonosy.singular')])
             ]);
         }
 
         return redirect()->route('apprenantKonosies.index')->with(
             'success',
             __('Core::msg.updateSuccess', [
-                'entityToString' => $apprenantkonosy,
-                'modelName' =>  __('PkgUtilisateurs::apprenantkonosy.singular')
+                'entityToString' => $apprenantKonosy,
+                'modelName' =>  __('PkgUtilisateurs::apprenantKonosy.singular')
                 ])
         );
     }
@@ -145,21 +145,21 @@ class ApprenantKonosyController extends AdminController
      */
     public function destroy(Request $request, string $id)
     {
-        $apprenantkonosy = $this->apprenantKonosyService->destroy($id);
+        $apprenantKonosy = $this->apprenantKonosyService->destroy($id);
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
             __('Core::msg.deleteSuccess', [
-                'entityToString' => $apprenantkonosy,
-                'modelName' =>  __('PkgUtilisateurs::apprenantkonosy.singular')])
+                'entityToString' => $apprenantKonosy,
+                'modelName' =>  __('PkgUtilisateurs::apprenantKonosy.singular')])
             ]);
         }
 
         return redirect()->route('apprenantKonosies.index')->with(
             'success',
             __('Core::msg.deleteSuccess', [
-                'entityToString' => $apprenantkonosy,
-                'modelName' =>  __('PkgUtilisateurs::apprenantkonosy.singular')
+                'entityToString' => $apprenantKonosy,
+                'modelName' =>  __('PkgUtilisateurs::apprenantKonosy.singular')
                 ])
         );
     }
@@ -184,7 +184,7 @@ class ApprenantKonosyController extends AdminController
 
         return redirect()->route('apprenantKonosies.index')->with(
             'success', __('Core::msg.importSuccess', [
-            'modelNames' =>  __('PkgUtilisateurs::apprenantkonosy.plural')
+            'modelNames' =>  __('PkgUtilisateurs::apprenantKonosy.plural')
             ]));
 
 

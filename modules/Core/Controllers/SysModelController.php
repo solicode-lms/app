@@ -104,7 +104,7 @@ class SysModelController extends AdminController
             return view('Core::sysModel._fields', compact('itemSysModel', 'sysColors', 'sysModules'));
         }
 
-        return view('Core::sysmodel.show', compact('itemSysModel'));
+        return view('Core::sysModel.show', compact('itemSysModel'));
     }
 
     /**
@@ -129,7 +129,7 @@ class SysModelController extends AdminController
     public function update(SysModelRequest $request, string $id)
     {
         $validatedData = $request->validated();
-        $sysmodel = $this->sysModelService->update($id, $validatedData);
+        $sysModel = $this->sysModelService->update($id, $validatedData);
 
 
 
@@ -137,16 +137,16 @@ class SysModelController extends AdminController
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
             __('Core::msg.updateSuccess', [
-                'entityToString' => $sysmodel,
-                'modelName' =>  __('Core::sysmodel.singular')])
+                'entityToString' => $sysModel,
+                'modelName' =>  __('Core::sysModel.singular')])
             ]);
         }
 
         return redirect()->route('sysModels.index')->with(
             'success',
             __('Core::msg.updateSuccess', [
-                'entityToString' => $sysmodel,
-                'modelName' =>  __('Core::sysmodel.singular')
+                'entityToString' => $sysModel,
+                'modelName' =>  __('Core::sysModel.singular')
                 ])
         );
     }
@@ -156,21 +156,21 @@ class SysModelController extends AdminController
      */
     public function destroy(Request $request, string $id)
     {
-        $sysmodel = $this->sysModelService->destroy($id);
+        $sysModel = $this->sysModelService->destroy($id);
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
             __('Core::msg.deleteSuccess', [
-                'entityToString' => $sysmodel,
-                'modelName' =>  __('Core::sysmodel.singular')])
+                'entityToString' => $sysModel,
+                'modelName' =>  __('Core::sysModel.singular')])
             ]);
         }
 
         return redirect()->route('sysModels.index')->with(
             'success',
             __('Core::msg.deleteSuccess', [
-                'entityToString' => $sysmodel,
-                'modelName' =>  __('Core::sysmodel.singular')
+                'entityToString' => $sysModel,
+                'modelName' =>  __('Core::sysModel.singular')
                 ])
         );
     }
@@ -195,7 +195,7 @@ class SysModelController extends AdminController
 
         return redirect()->route('sysModels.index')->with(
             'success', __('Core::msg.importSuccess', [
-            'modelNames' =>  __('Core::sysmodel.plural')
+            'modelNames' =>  __('Core::sysModel.plural')
             ]));
 
 
