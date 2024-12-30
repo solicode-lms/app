@@ -68,8 +68,8 @@ class ProjetController extends AdminController
 
     public function edit(string $id)
     {
-        // Fetch the project by ID, including related transfert_competences for optimization
-        $item = $this->projetService->find($id)->load('transfert_competences');
+        // Fetch the project by ID, including related transfertCompetences for optimization
+        $item = $this->projetService->find($id)->load('transfertCompetences');
     
         // Check if the project exists
         if (!$item) {
@@ -77,7 +77,7 @@ class ProjetController extends AdminController
         }
     
         // Pass the project and its related data to the view
-        $transfertCompetences_data =  $item->transfert_competences()->paginate(10);
+        $transfertCompetences_data =  $item->transfertCompetences()->paginate(10);
         $resources_data = $item->resources()->paginate(10);
         $livrables_data = $item->livrables()->paginate(10);
 

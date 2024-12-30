@@ -1,13 +1,19 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
-import inject from '@rollup/plugin-inject';
+
+// il bloc le hack 
+// import select2 from 'select2';
+// select2();
+// import inject from '@rollup/plugin-inject';
 
 export default defineConfig({
     plugins: [
-    inject({
-        $: 'jquery',
-        jQuery: 'jquery',
-        }),
+    // inject({
+    //     $: 'jquery',
+    //     jQuery: 'jquery',
+    //     }),
+
+   
       laravel({
             input: [
                 'resources/css/public.css',
@@ -16,8 +22,14 @@ export default defineConfig({
                 'resources/js/admin.js',
             ],
             refresh: true,
-        })
+        }),
+       
     ],
+    resolve : {
+        alias: {
+            '$':'jQuery',
+        }
+    },
     build: {
         sourcemap: true, // Générer les sourcemaps pour le débogage
     },
