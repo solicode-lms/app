@@ -13,8 +13,11 @@ export class ActionsEventHandler {
      * Initialise les gestionnaires d'événements pour les actions CRUD.
      */
     init() {
-        this.handleAddEntity();
-        this.handleEditEntity();
+        if(!this.config.edit_has_many){
+            this.handleEditEntity();
+            this.handleAddEntity();
+        }
+        
         this.handleShowEntity();
         this.handleDeleteEntity();
         this.handleSubmitForm();

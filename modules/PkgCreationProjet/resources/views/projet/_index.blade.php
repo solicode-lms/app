@@ -1,10 +1,10 @@
-{{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @section('script')
 @parent
 <script>
     window.entitiesConfig = window.entitiesConfig || [];
     window.entitiesConfig.push({
+        edit_has_many: true,
         entity_name: 'projet',
         crudSelector: '#projet_crud',
         indexUrl: '{{ route('projets.index') }}', 
@@ -37,10 +37,11 @@
                 <div class="col-sm-6">
                     <div class="float-sm-right">
                         @can('create-projet')
-                        <button type="button" class="btn btn-info btn-sm addEntityButton" data-target="#projetModal">
-                            <i class="fas fa-plus"></i> {{ __('Core::msg.add') }}
-                        </button>
-
+                        <a href="{{ route('projets.create') }}" data-target="#projetModal" class="btn btn-info btn-sm addEntityButton">
+                            <i class="fas fa-plus"></i>
+                            {{ __('Core::msg.add') }}
+                        </a>
+                    
                         @endcan
                     </div>
                 </div>

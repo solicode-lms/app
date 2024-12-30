@@ -6,6 +6,7 @@ export class ConfigHelper {
     constructor(config) {
 
         this.crudSelector = config.crudSelector;
+        this.edit_has_many = config.edit_has_many; // permet d'éditer l'entity avec ses objet has many
         this.indexUrl = config.indexUrl; // URL pour la liste des entités
         this.createUrl = config.createUrl; // URL pour créer une nouvelle entité
         this.showUrl = config.showUrl; // URL pour afficher une entité

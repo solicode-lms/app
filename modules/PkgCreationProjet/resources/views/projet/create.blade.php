@@ -1,4 +1,4 @@
-{{-- TODO: edit add button name --}}
+{{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @extends('layouts.admin')
 @section('title', curd_index_add_label('PkgCreationProjet::projet'))

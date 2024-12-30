@@ -1,14 +1,14 @@
-{{-- TODO : edit button edit--}}
+{{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form action="{{ $item->id ? route('projets.update', $item->id) : route('projets.store') }}" method="POST">
+<form class="crud-form" id="projetForm" action="{{ $itemProjet->id ? route('projets.update', $itemProjet->id) : route('projets.store') }}" method="POST" novalidate>
     @csrf
 
-    @if ($item->id)
+    @if ($itemProjet->id)
         @method('PUT')
     @endif
 
-    {{-- card-body déja dans workflow --}}
     <div class="card-body">
+        
         
         <div class="form-group">
             <label for="titre">
@@ -21,13 +21,16 @@
                 name="titre"
                 type="input"
                 class="form-control"
+                required
                 id="titre"
                 placeholder="{{ __('PkgCreationProjet::projet.titre') }}"
-                value="{{ $item ? $item->titre : old('titre') }}">
+                value="{{ $itemProjet ? $itemProjet->titre : old('titre') }}">
             @error('titre')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
+</div>
+        
+        
         
         <div class="form-group">
             <label for="travail_a_faire">
@@ -40,13 +43,16 @@
                 name="travail_a_faire"
                 type="input"
                 class="form-control"
+                required
                 id="travail_a_faire"
                 placeholder="{{ __('PkgCreationProjet::projet.travail_a_faire') }}"
-                value="{{ $item ? $item->travail_a_faire : old('travail_a_faire') }}">
+                value="{{ $itemProjet ? $itemProjet->travail_a_faire : old('travail_a_faire') }}">
             @error('travail_a_faire')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
+</div>
+        
+        
         
         <div class="form-group">
             <label for="critere_de_travail">
@@ -59,13 +65,16 @@
                 name="critere_de_travail"
                 type="input"
                 class="form-control"
+                required
                 id="critere_de_travail"
                 placeholder="{{ __('PkgCreationProjet::projet.critere_de_travail') }}"
-                value="{{ $item ? $item->critere_de_travail : old('critere_de_travail') }}">
+                value="{{ $itemProjet ? $itemProjet->critere_de_travail : old('critere_de_travail') }}">
             @error('critere_de_travail')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
+</div>
+        
+        
         
         <div class="form-group">
             <label for="description">
@@ -78,13 +87,16 @@
                 name="description"
                 type="input"
                 class="form-control"
+                required
                 id="description"
                 placeholder="{{ __('PkgCreationProjet::projet.description') }}"
-                value="{{ $item ? $item->description : old('description') }}">
+                value="{{ $itemProjet ? $itemProjet->description : old('description') }}">
             @error('description')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
+</div>
+        
+        
         
         <div class="form-group">
             <label for="date_debut">
@@ -95,15 +107,18 @@
             </label>
             <input
                 name="date_debut"
-                type="input"
+                type="date"
                 class="form-control"
+                required
                 id="date_debut"
                 placeholder="{{ __('PkgCreationProjet::projet.date_debut') }}"
-                value="{{ $item ? $item->date_debut : old('date_debut') }}">
+                value="{{ $itemProjet ? $itemProjet->date_debut : old('date_debut') }}">
             @error('date_debut')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
+</div>
+        
+        
         
         <div class="form-group">
             <label for="date_fin">
@@ -114,55 +129,64 @@
             </label>
             <input
                 name="date_fin"
-                type="input"
+                type="date"
                 class="form-control"
+                required
                 id="date_fin"
                 placeholder="{{ __('PkgCreationProjet::projet.date_fin') }}"
-                value="{{ $item ? $item->date_fin : old('date_fin') }}">
+                value="{{ $itemProjet ? $itemProjet->date_fin : old('date_fin') }}">
             @error('date_fin')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
+</div>
         
-
         
-        <div class="form-group">
+        
+        
+    <div class="form-group">
             <label for="formateur_id">
                 {{ ucfirst(__('PkgUtilisateurs::formateur.singular')) }}
                 
                     <span class="text-danger">*</span>
                 
             </label>
-            <select id="formateur_id" name="formateur_id" class="form-control">
-                <option value="">Sélectionnez une option</option>
+            <select 
+            id="formateur_id" 
+            name="formateur_id" 
+            class="form-control">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($formateurs as $formateur)
+                    <option value="{{ $formateur->id }}"
+                        {{ (isset($itemProjet) && $itemProjet->formateur_id == $formateur->id) || (old('formateur_id>') == $formateur->id) ? 'selected' : '' }}>
+                        {{ $formateur }}
+                    </option>
+                @endforeach
             </select>
             @error('formateur_id')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
-        
+    </div>
 
         
-
-
-
+        
+        
+        <!--   Livrable_HasMany HasMany --> 
+        
+        
+        
+        <!--   Resource_HasMany HasMany --> 
+        
+        
+        
+        <!--   TransfertCompetence_HasMany HasMany --> 
+        
+        
     </div>
 
     <div class="card-footer">
-        <a href="{{ route('projets.index') }}" class="btn btn-default">{{ __('Core::msg.cancel') }}</a>
-        <button type="submit" class="btn btn-info ml-2">{{ $item->id ? __('Core::msg.edit') : "Suivant - Affectation des compétences" }}</button>
+        <a href="{{ route('projets.index') }}" class="btn btn-default form-cancel-button">{{ __('Core::msg.cancel') }}</a>
+        <button type="submit" class="btn btn-info ml-2">{{ $itemProjet->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
 
-<script>
-    window.dynamicSelectManyToOne = [
-        
-        {
-            fieldId: 'formateur_id',
-            fetchUrl: "{{ route('formateurs.all') }}",
-            selectedValue: {{ $item->formateur_id ? $item->formateur_id : 'undefined' }},
-            fieldValue: 'nom'
-        }
-        
-    ];
-</script>
+

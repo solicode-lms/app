@@ -1,5 +1,4 @@
 <?php
-// TODO : Add hasmany load eager
 
 
 namespace Modules\PkgCreationProjet\Controllers;
@@ -7,6 +6,8 @@ namespace Modules\PkgCreationProjet\Controllers;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\PkgCreationProjet\App\Requests\ProjetRequest;
 use Modules\PkgCreationProjet\Services\ProjetService;
+use Modules\PkgUtilisateurs\Services\FormateurService;
+
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgCreationProjet\App\Exports\ProjetExport;
@@ -15,82 +16,132 @@ use Modules\PkgCreationProjet\App\Imports\ProjetImport;
 class ProjetController extends AdminController
 {
     protected $projetService;
+    protected $formateurService;
 
-    public function __construct(ProjetService $projetService)
+    public function __construct(ProjetService $projetService, FormateurService $formateurService)
     {
         parent::__construct();
         $this->projetService = $projetService;
+        $this->formateurService = $formateurService;
+
     }
 
+
+    /**
+     * Affiche la liste des filières ou retourne le HTML pour une requête AJAX.
+     */
     public function index(Request $request)
     {
-        // Récupérer la valeur de recherche et paginer
-        $searchValue = $request->get('searchValue', '');
-        $searchQuery = str_replace(' ', '%', $searchValue);
-    
-        // Appel de la méthode paginate avec ou sans recherche
-        $projets_data = $this->projetService->paginate($searchQuery);
-    
-        // Gestion AJAX
+        $projet_searchQuery = str_replace(' ', '%', $request->get('q', ''));
+        $projets_data = $this->projetService->paginate($projet_searchQuery);
+
         if ($request->ajax()) {
-            return response()->json([
-                'html' => view('PkgCreationProjet::projet._table', compact('projets_data'))->render()
-            ]);
+            return view('PkgCreationProjet::projet._table', compact('projets_data'))->render();
         }
-    
-        // Vue principale pour le chargement initial
-        return view('PkgCreationProjet::projet.index', compact('projets_data'));
+
+        return view('PkgCreationProjet::projet.index', compact('projets_data','projet_searchQuery'));
     }
 
+    /**
+     * Retourne le formulaire de création.
+     */
     public function create()
     {
-        $item = $this->projetService->createInstance();
-        return view('PkgCreationProjet::projet.create', compact('item'));
+        $itemProjet = $this->projetService->createInstance();
+        $formateurs = $this->formateurService->all();
+
+
+        if (request()->ajax()) {
+            return view('PkgCreationProjet::projet._fields', compact('itemProjet', 'formateurs'));
+        }
+        return view('PkgCreationProjet::projet.create', compact('itemProjet', 'formateurs'));
     }
 
+    /**
+     * Stocke une nouvelle filière.
+     */
     public function store(ProjetRequest $request)
     {
         $validatedData = $request->validated();
         $projet = $this->projetService->create($validatedData);
 
 
-        // Après l'insertion de projet : rediretion vers update pour complèter l'insertion 
-        // des relation hasMany si 'il existe
-        // Redirect to the edit route with the newly created projet ID
-        return redirect()->route('projets.edit', ['projet' => $projet->id])
-        ->with('info', "Étape 2 : Affectation des compétences");
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 
+             __('Core::msg.addSuccess', [
+                'entityToString' => $projet,
+                'modelName' => __('PkgCreationProjet::projet.singular')])
+            ]);
+        }
+       
+        return redirect()->route('projets.edit' , ['projet' => $projet->id])->with(
+            'success',
+            __('Core::msg.addSuccess', [
+                'entityToString' => $projet,
+                'modelName' => __('PkgCreationProjet::projet.singular')
+            ])
+        );
     }
+
+    /**
+     * Affiche les détails d'une filière.
+     */
     public function show(string $id)
     {
-        $item = $this->projetService->find($id);
-        return view('PkgCreationProjet::projet.show', compact('item'));
+        $itemProjet = $this->projetService->find($id);
+        $formateurs = $this->formateurService->all();
+
+
+        if (request()->ajax()) {
+            return view('PkgCreationProjet::projet._fields', compact('itemProjet', 'formateurs'));
+        }
+
+        return view('PkgCreationProjet::projet.show', compact('itemProjet'));
     }
 
+    /**
+     * Retourne le formulaire d'édition d'une filière.
+     */
     public function edit(string $id)
     {
-        // Fetch the project by ID, including related transfertCompetences for optimization
-        $item = $this->projetService->find($id)->load('transfertCompetences');
+        // eager loading
+        // $item = $this->projetService->find($id)->load('transfertCompetences');
     
-        // Check if the project exists
-        if (!$item) {
-            return redirect()->route('projets.index')->with('error', 'Projet introuvable.');
-        }
-    
+        $itemProjet = $this->projetService->find($id);
+        $formateurs = $this->formateurService->all();
+
         // Pass the project and its related data to the view
-        $transfertCompetences_data =  $item->transfertCompetences()->paginate(10);
-        $resources_data = $item->resources()->paginate(10);
-        $livrables_data = $item->livrables()->paginate(10);
+        $transfertCompetences_data =  $itemProjet->transfertCompetences()->paginate(10);
+        $resources_data = $itemProjet->resources()->paginate(10);
+        $livrables_data = $itemProjet->livrables()->paginate(10);
 
-        return view('PkgCreationProjet::projet.edit', compact('item', 'transfertCompetences_data','resources_data','livrables_data'));
+        
+        if (request()->ajax()) {
+            return response()->view('PkgCreationProjet::projet._edit', compact('itemProjet', 'formateurs', 'transfertCompetences_data','resources_data','livrables_data'));
+        }
+        
+
+        return view('PkgCreationProjet::projet.edit', compact('itemProjet', 'formateurs', 'transfertCompetences_data','resources_data','livrables_data'));
     }
-    
 
+    /**
+     * Met à jour une filière existante.
+     */
     public function update(ProjetRequest $request, string $id)
     {
         $validatedData = $request->validated();
         $projet = $this->projetService->update($id, $validatedData);
 
 
+
+
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 
+            __('Core::msg.updateSuccess', [
+                'entityToString' => $projet,
+                'modelName' =>  __('PkgCreationProjet::projet.singular')])
+            ]);
+        }
 
         return redirect()->route('projets.index')->with(
             'success',
@@ -101,9 +152,21 @@ class ProjetController extends AdminController
         );
     }
 
-    public function destroy(string $id)
+    /**
+     * Supprime une filière.
+     */
+    public function destroy(Request $request, string $id)
     {
         $projet = $this->projetService->destroy($id);
+
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 
+            __('Core::msg.deleteSuccess', [
+                'entityToString' => $projet,
+                'modelName' =>  __('PkgCreationProjet::projet.singular')])
+            ]);
+        }
+
         return redirect()->route('projets.index')->with(
             'success',
             __('Core::msg.deleteSuccess', [
@@ -118,6 +181,7 @@ class ProjetController extends AdminController
         $projets_data = $this->projetService->all();
         return Excel::download(new ProjetExport($projets_data), 'projet_export.xlsx');
     }
+
     public function import(Request $request)
     {
         $request->validate([
