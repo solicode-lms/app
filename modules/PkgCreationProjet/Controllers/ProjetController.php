@@ -1,4 +1,5 @@
 <?php
+// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 namespace Modules\PkgCreationProjet\Controllers;
@@ -66,6 +67,8 @@ class ProjetController extends AdminController
         $projet = $this->projetService->create($validatedData);
 
 
+
+
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
              __('Core::msg.addSuccess', [
@@ -73,8 +76,8 @@ class ProjetController extends AdminController
                 'modelName' => __('PkgCreationProjet::projet.singular')])
             ]);
         }
-       
-        return redirect()->route('projets.edit' , ['projet' => $projet->id])->with(
+
+        return redirect()->route('projets.edit',['projet' => $projet->id])->with(
             'success',
             __('Core::msg.addSuccess', [
                 'entityToString' => $projet,
@@ -104,24 +107,22 @@ class ProjetController extends AdminController
      */
     public function edit(string $id)
     {
-        // eager loading
-        // $item = $this->projetService->find($id)->load('transfertCompetences');
-    
         $itemProjet = $this->projetService->find($id);
         $formateurs = $this->formateurService->all();
 
-        // Pass the project and its related data to the view
-        $transfertCompetences_data =  $itemProjet->transfertCompetences()->paginate(10);
-        $resources_data = $itemProjet->resources()->paginate(10);
-        $livrables_data = $itemProjet->livrables()->paginate(10);
-
+         $livrables_data =  $itemProjet->livrables()->paginate(10);
+       
+       
         
-        if (request()->ajax()) {
-            return response()->view('PkgCreationProjet::projet._edit', compact('itemProjet', 'formateurs', 'transfertCompetences_data','resources_data','livrables_data'));
+       
+         if (request()->ajax()) {
+            return view('PkgCreationProjet::projet._fields', compact('itemProjet', 'formateurs', 'livrables_data'));
         }
+
+        return view('PkgCreationProjet::projet.edit', compact('itemProjet', 'formateurs', 'livrables_data'));
         
 
-        return view('PkgCreationProjet::projet.edit', compact('itemProjet', 'formateurs', 'transfertCompetences_data','resources_data','livrables_data'));
+
     }
 
     /**
