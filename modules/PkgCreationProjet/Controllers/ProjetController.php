@@ -111,13 +111,15 @@ class ProjetController extends AdminController
         $formateurs = $this->formateurService->all();
 
          $livrables_data =  $itemProjet->livrables()->paginate(10);
+         $resources_data =  $itemProjet->resources()->paginate(10);
+         $transfertCompetences_data =  $itemProjet->transfertCompetences()->paginate(10);
        
 
         if (request()->ajax()) {
-            return view('PkgCreationProjet::projet._fields', compact('itemProjet', 'formateurs', 'livrables_data'));
+            return view('PkgCreationProjet::projet._fields', compact('itemProjet', 'formateurs', 'livrables_data', 'resources_data', 'transfertCompetences_data'));
         }
 
-        return view('PkgCreationProjet::projet.edit_with_has_many', compact('itemProjet', 'formateurs', 'livrables_data'));
+        return view('PkgCreationProjet::projet.edit_with_has_many', compact('itemProjet', 'formateurs', 'livrables_data', 'resources_data', 'transfertCompetences_data'));
     }
 
     /**
@@ -127,9 +129,6 @@ class ProjetController extends AdminController
     {
         $validatedData = $request->validated();
         $projet = $this->projetService->update($id, $validatedData);
-
-
-
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 

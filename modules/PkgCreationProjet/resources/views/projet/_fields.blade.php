@@ -112,7 +112,7 @@
                 required
                 id="date_debut"
                 placeholder="{{ __('PkgCreationProjet::projet.date_debut') }}"
-                value="{{ $itemProjet ? $itemProjet->date_debut : old('date_debut') }}">
+                value="{{ $itemProjet && $itemProjet->date_debut ? $itemProjet->date_debut->format('Y-m-d') : old('date_debut') }}">
             @error('date_debut')
                 <div class="text-danger">{{ $message }}</div>
             @enderror

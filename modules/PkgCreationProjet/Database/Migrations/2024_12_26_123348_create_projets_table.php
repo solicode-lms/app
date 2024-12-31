@@ -19,8 +19,8 @@ return new class extends Migration
             $table->text('travail_a_faire'); // Travail à faire
             $table->text('critere_de_travail'); // Critères de travail
             $table->text('description'); // Description générale
-            $table->dateTime('date_debut'); // Date de début
-            $table->dateTime('date_fin'); // Date de fin
+            $table->date('date_debut'); // Date de début
+            $table->date('date_fin'); // Date de fin
             $table->foreignId('formateur_id')->constrained('formateurs')->onDelete('cascade'); // Relation avec Projet
             $table->timestamps(); // Champs created_at et updated_at
         });
