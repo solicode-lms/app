@@ -4,26 +4,14 @@
 @section('title', __('Core::msg.edit') . ' ' . __('PkgCreationProjet::projet.singular'))
 @section('content')
     <div class="content-header">
-        @if (session('success'))
-        <div class="alert alert-success alert-dismissible">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-            {{ session('success') }}.
-        </div>
-        @endif
-        @if (session('info'))
-        <div class="alert alert-info alert-dismissible">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-        {{ session('info') }}.
-        </div>
-        @endif
     </div>
     <section class="content">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
                 <div class="card card-info card-tabs card-workflow">
-                    <div class="card-header p-0 pt-1">
-                        <ul class="nav nav-tabs" id="edit-projet-tab" role="tablist">
+                    <div class="card-header d-flex justify-content-between  p-0 pt-1">
+                        <ul class="nav nav-tabs mr-auto" id="edit-projet-tab" role="tablist">
                         <li class="pt-2 px-3">
                             <h3 class="card-title">
                                 <i class="nav-icon fas fa-table"></i>
@@ -46,6 +34,11 @@
 
                        
                         </ul>
+
+                        <button type="button" class="btn btn-info btn-sm  btn-card-header" onclick="handleButtonClick()">
+                            <i class="fa fa-save"></i>
+                           Enregistrer
+                        </button>
                     </div>
                     <div class="card-body">
                         <div class="tab-content" id="edit-projet-tabContent">

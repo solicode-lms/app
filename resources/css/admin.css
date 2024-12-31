@@ -18,3 +18,10 @@
 @import './loading-spin';
 
 
+/* Card - HasMany Edition */
+.btn-card-header{
+    margin-right: 5px;
+}
+.card .nav-tabs {
+    border-bottom: 0px !important;
+}
