@@ -9,7 +9,7 @@
         entity_name: 'livrable',
         crudSelector: '#livrable_crud',
         indexUrl: '{{ route('livrables.index') }}', 
-        createUrl: '{{ route('livrables.create') }}',
+        createUrl: '{{ route('livrables.create',$page) }}',
         editUrl: '{{ route('livrables.edit', ['livrable' => ':id']) }}',
         showUrl: '{{ route('livrables.show', ['livrable' => ':id']) }}',
         storeUrl: '{{ route('livrables.store') }}', 

@@ -15,6 +15,9 @@ use Illuminate\Database\Eloquent\Collection;
 abstract class BaseService implements ServiceInterface
 {
 
+    protected $scopEntity;
+    protected $scopId;
+
     /**
      * Configure les relations à inclure dans les requêtes.
      *
@@ -25,6 +28,19 @@ abstract class BaseService implements ServiceInterface
       
     }
 
+    /**
+     * Définir les paramètres de scoping.
+     *
+     * @param string|null $entity
+     * @param int|null $id
+     * @return $this
+     */
+    public function setScope(?string $entity, ?int $id)
+    {
+        $this->scopEntity = $entity;
+        $this->scopId = $id;
+        return $this;
+    }
 
     /**
      * Le modèle Eloquent associé à ce référentiel.
@@ -68,6 +84,18 @@ abstract class BaseService implements ServiceInterface
     {
         // Configure les relations avant de paginer
       
+        // Ajouter le scoping si défini
+        if (!empty($this->scopEntity) && !empty($this->scopId)) {
+
+                if (!is_array($search)) {
+                    $search = []; // Initialisez correctement
+                }
+
+
+                $scopParam = $this->scopEntity . "_id"; // ex: "projet_id"
+                $search[$scopParam] = $this->scopId;   // Ajout de la condition de scoping
+            }
+
 
         if ($perPage == 0) { $perPage = $this->paginationLimit;}
 
@@ -211,6 +239,17 @@ abstract class BaseService implements ServiceInterface
     }
 
     public function createInstance(){
-        return $this->model::make();
+        $item = $this->model::make();
+
+
+        // Ajouter le scoping si défini
+        if (!empty($this->scopEntity) && !empty($this->scopId)) {
+            $scopParam = $this->scopEntity . "_id"; // ex: "projet_id"
+            $search[$scopParam] = $this->scopId;   // Ajout de la condition de scoping
+            $item[$scopParam] = $this->scopId;
+        }
+
+
+        return $item;
     }
 }
