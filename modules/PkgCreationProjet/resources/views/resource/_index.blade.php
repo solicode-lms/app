@@ -60,7 +60,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="data-container">
+                        <div id="resource-data-container" class="data-container">
                             @include('PkgCreationProjet::resource._table')
                         </div>
                     </div>

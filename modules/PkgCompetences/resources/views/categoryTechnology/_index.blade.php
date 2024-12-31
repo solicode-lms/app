@@ -60,7 +60,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="data-container">
+                        <div id="categoryTechnology-data-container" class="data-container">
                             @include('PkgCompetences::categoryTechnology._table')
                         </div>
                     </div>

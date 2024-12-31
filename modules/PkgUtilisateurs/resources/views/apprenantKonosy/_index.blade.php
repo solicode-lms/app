@@ -60,7 +60,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="data-container">
+                        <div id="apprenantKonosy-data-container" class="data-container">
                             @include('PkgUtilisateurs::apprenantKonosy._table')
                         </div>
                     </div>

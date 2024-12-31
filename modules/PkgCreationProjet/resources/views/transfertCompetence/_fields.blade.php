@@ -8,8 +8,6 @@
     @endif
 
     <div class="card-body">
-        
-        
         <div class="form-group">
             <label for="description">
                 {{ ucfirst(__('PkgCreationProjet::transfertCompetence.description')) }}
@@ -27,9 +25,7 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-        
-        
-        
+
         
     <div class="form-group">
             <label for="projet_id">
@@ -55,9 +51,7 @@
             @enderror
     </div>
 
-        
-        
-        
+
         
     <div class="form-group">
             <label for="competence_id">
@@ -83,9 +77,7 @@
             @enderror
     </div>
 
-        
-        
-        
+
         
     <div class="form-group">
             <label for="appreciation_id">
@@ -111,10 +103,8 @@
             @enderror
     </div>
 
-        
-        
-        
-            <div class="form-group">
+
+                <div class="form-group">
             <label for="technologies">
                 {{ ucfirst(__('PkgCompetences::Technology.plural')) }}
             </label>
@@ -137,8 +127,7 @@
 
         </div>
 
-        
-        
+
     </div>
 
     <div class="card-footer">

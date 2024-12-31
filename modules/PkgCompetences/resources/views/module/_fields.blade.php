@@ -8,8 +8,6 @@
     @endif
 
     <div class="card-body">
-        
-        
         <div class="form-group">
             <label for="nom">
                 {{ ucfirst(__('PkgCompetences::module.nom')) }}
@@ -29,9 +27,7 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-        
-        
-        
+
         <div class="form-group">
             <label for="description">
                 {{ ucfirst(__('PkgCompetences::module.description')) }}
@@ -51,9 +47,7 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-        
-        
-        
+
         <div class="form-group">
             <label for="masse_horaire">
                 {{ ucfirst(__('PkgCompetences::module.masse_horaire')) }}
@@ -73,9 +67,7 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-        
-        
-        
+
         
     <div class="form-group">
             <label for="filiere_id">
@@ -101,12 +93,10 @@
             @enderror
     </div>
 
-        
-        
-        
+
+
         <!--   Competence_HasMany HasMany --> 
-        
-        
+
     </div>
 
     <div class="card-footer">

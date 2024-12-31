@@ -8,8 +8,6 @@
     @endif
 
     <div class="card-body">
-        
-        
         <div class="form-group">
             <label for="name">
                 {{ ucfirst(__('PkgWidgets::widget.name')) }}
@@ -29,9 +27,7 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-        
-        
-        
+
         
     <div class="form-group">
             <label for="type_id">
@@ -57,9 +53,7 @@
             @enderror
     </div>
 
-        
-        
-        
+
         
     <div class="form-group">
             <label for="model_id">
@@ -85,9 +79,7 @@
             @enderror
     </div>
 
-        
-        
-        
+
         
     <div class="form-group">
             <label for="operation_id">
@@ -113,9 +105,7 @@
             @enderror
     </div>
 
-        
-        
-        
+
         <div class="form-group">
             <label for="color">
                 {{ ucfirst(__('PkgWidgets::widget.color')) }}
@@ -133,9 +123,7 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-        
-        
-        
+
         <div class="form-group">
             <label for="icon">
                 {{ ucfirst(__('PkgWidgets::widget.icon')) }}
@@ -153,9 +141,7 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-        
-        
-        
+
         <div class="form-group">
             <label for="label">
                 {{ ucfirst(__('PkgWidgets::widget.label')) }}
@@ -173,12 +159,10 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-        
-        
-        
+
+
         <!--   parameters JSON --> 
-        
-        
+
     </div>
 
     <div class="card-footer">

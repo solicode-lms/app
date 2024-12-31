@@ -8,8 +8,6 @@
     @endif
 
     <div class="card-body">
-        
-        
         <div class="form-group">
             <label for="code">
                 {{ ucfirst(__('PkgCompetences::filiere.code')) }}
@@ -29,9 +27,7 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-        
-        
-        
+
         <div class="form-group">
             <label for="nom">
                 {{ ucfirst(__('PkgCompetences::filiere.nom')) }}
@@ -51,9 +47,7 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-        
-        
-        
+
         <div class="form-group">
             <label for="description">
                 {{ ucfirst(__('PkgCompetences::filiere.description')) }}
@@ -73,16 +67,13 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-        
-        
-        
+
+
         <!--   Groupe_HasMany HasMany --> 
-        
-        
-        
+
+
         <!--   Module_HasMany HasMany --> 
-        
-        
+
     </div>
 
     <div class="card-footer">

@@ -60,7 +60,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="data-container">
+                        <div id="permission-data-container" class="data-container">
                             @include('PkgAutorisation::permission._table')
                         </div>
                     </div>

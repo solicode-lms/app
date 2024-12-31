@@ -14,15 +14,18 @@ export class ConfigHelper {
         this.storeUrl = config.storeUrl; // URL pour enregistrer une nouvelle entité
         this.deleteUrl = config.deleteUrl; // URL pour supprimer une entité
         this.csrfToken = config.csrfToken; // Token CSRF pour les requêtes sécurisées
-        
-        this.tableSelector = `${this.crudSelector} .data-container`;
-        this.formSelector = `${this.crudSelector} .crud-form`;
-        this.modalSelector = `${this.crudSelector} .crud-modal`;
 
         this.entityName = config.entity_name; // Nom de l'entité
         this.createTitle = config.create_title; // Titre pour le formulaire d'ajout
         this.editTitle = config.edit_title; // Titre pour le formulaire de modification
 
+
+        this.tableSelector = `${this.crudSelector} #${this.entityName}-data-container`;
+        this.formSelector = `${this.crudSelector} #${this.entityName}Form`;
+        this.modalSelector = `${this.crudSelector} #${this.entityName}Modal`;
+
+       
+        
         // Identifiant global pour les sélecteurs CRUD spécifiques à une entité
         if(this.crudSelector == undefined){
             this.crudSelector = `#${this.entityName}_crud`;

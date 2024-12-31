@@ -60,7 +60,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="data-container">
+                        <div id="widgetOperation-data-container" class="data-container">
                             @include('PkgWidgets::widgetOperation._table')
                         </div>
                     </div>

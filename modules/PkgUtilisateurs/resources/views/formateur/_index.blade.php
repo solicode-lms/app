@@ -60,7 +60,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="data-container">
+                        <div id="formateur-data-container" class="data-container">
                             @include('PkgUtilisateurs::formateur._table')
                         </div>
                     </div>

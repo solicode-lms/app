@@ -60,7 +60,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="data-container">
+                        <div id="feature-data-container" class="data-container">
                             @include('Core::feature._table')
                         </div>
                     </div>

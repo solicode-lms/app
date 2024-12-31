@@ -60,7 +60,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="data-container">
+                        <div id="sysModule-data-container" class="data-container">
                             @include('Core::sysModule._table')
                         </div>
                     </div>

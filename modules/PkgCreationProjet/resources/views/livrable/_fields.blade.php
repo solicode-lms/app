@@ -8,8 +8,6 @@
     @endif
 
     <div class="card-body">
-        
-        
         <div class="form-group">
             <label for="titre">
                 {{ ucfirst(__('PkgCreationProjet::livrable.titre')) }}
@@ -29,9 +27,7 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-        
-        
-        
+
         <div class="form-group">
             <label for="description">
                 {{ ucfirst(__('PkgCreationProjet::livrable.description')) }}
@@ -49,9 +45,7 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-        
-        
-        
+
         
     <div class="form-group">
             <label for="projet_id">
@@ -77,9 +71,7 @@
             @enderror
     </div>
 
-        
-        
-        
+
         
     <div class="form-group">
             <label for="nature_livrable_id">
@@ -105,8 +97,7 @@
             @enderror
     </div>
 
-        
-        
+
     </div>
 
     <div class="card-footer">

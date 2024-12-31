@@ -60,7 +60,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="data-container">
+                        <div id="role-data-container" class="data-container">
                             @include('PkgAutorisation::role._table')
                         </div>
                     </div>

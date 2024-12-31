@@ -8,8 +8,6 @@
     @endif
 
     <div class="card-body">
-        
-        
         <div class="form-group">
             <label for="name">
                 {{ ucfirst(__('PkgAutorisation::user.name')) }}
@@ -29,9 +27,7 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-        
-        
-        
+
         <div class="form-group">
             <label for="email">
                 {{ ucfirst(__('PkgAutorisation::user.email')) }}
@@ -51,9 +47,7 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-        
-        
-        
+
         <div class="form-group">
             <label for="email_verified_at">
                 {{ ucfirst(__('PkgAutorisation::user.email_verified_at')) }}
@@ -71,9 +65,7 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-        
-        
-        
+
         <div class="form-group">
             <label for="password">
                 {{ ucfirst(__('PkgAutorisation::user.password')) }}
@@ -93,9 +85,7 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-        
-        
-        
+
         <div class="form-group">
             <label for="remember_token">
                 {{ ucfirst(__('PkgAutorisation::user.remember_token')) }}
@@ -113,10 +103,8 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-        
-        
-        
-            <div class="form-group">
+
+                <div class="form-group">
             <label for="roles">
                 {{ ucfirst(__('PkgAutorisation::Role.plural')) }}
             </label>
@@ -139,8 +127,7 @@
 
         </div>
 
-        
-        
+
     </div>
 
     <div class="card-footer">

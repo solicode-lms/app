@@ -8,8 +8,6 @@
     @endif
 
     <div class="card-body">
-        
-        
         <div class="form-group">
             <label for="matricule">
                 {{ ucfirst(__('PkgUtilisateurs::formateur.matricule')) }}
@@ -29,9 +27,7 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-        
-        
-        
+
         <div class="form-group">
             <label for="nom">
                 {{ ucfirst(__('PkgUtilisateurs::formateur.nom')) }}
@@ -51,9 +47,7 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-        
-        
-        
+
         <div class="form-group">
             <label for="prenom">
                 {{ ucfirst(__('PkgUtilisateurs::formateur.prenom')) }}
@@ -73,9 +67,7 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-        
-        
-        
+
         <div class="form-group">
             <label for="prenom_arab">
                 {{ ucfirst(__('PkgUtilisateurs::formateur.prenom_arab')) }}
@@ -95,9 +87,7 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-        
-        
-        
+
         <div class="form-group">
             <label for="nom_arab">
                 {{ ucfirst(__('PkgUtilisateurs::formateur.nom_arab')) }}
@@ -117,9 +107,7 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-        
-        
-        
+
         <div class="form-group">
             <label for="tele_num">
                 {{ ucfirst(__('PkgUtilisateurs::formateur.tele_num')) }}
@@ -139,9 +127,7 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-        
-        
-        
+
         <div class="form-group">
             <label for="adresse">
                 {{ ucfirst(__('PkgUtilisateurs::formateur.adresse')) }}
@@ -159,9 +145,7 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-        
-        
-        
+
         <div class="form-group">
             <label for="diplome">
                 {{ ucfirst(__('PkgUtilisateurs::formateur.diplome')) }}
@@ -179,17 +163,11 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
+
         
+
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
+
         <div class="form-group">
             <label for="profile_image">
                 {{ ucfirst(__('PkgUtilisateurs::formateur.profile_image')) }}
@@ -209,10 +187,8 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-        
-        
-        
-            <div class="form-group">
+
+                <div class="form-group">
             <label for="groupes">
                 {{ ucfirst(__('PkgUtilisateurs::Groupe.plural')) }}
             </label>
@@ -235,10 +211,8 @@
 
         </div>
 
-        
-        
-        
-            <div class="form-group">
+
+                <div class="form-group">
             <label for="specialites">
                 {{ ucfirst(__('PkgUtilisateurs::Specialite.plural')) }}
             </label>
@@ -261,16 +235,13 @@
 
         </div>
 
-        
-        
-        
+
+
         <!--   Appreciation_HasMany HasMany --> 
-        
-        
-        
+
+
         <!--   Projet_HasMany HasMany --> 
-        
-        
+
     </div>
 
     <div class="card-footer">

@@ -8,8 +8,6 @@
     @endif
 
     <div class="card-body">
-        
-        
         <div class="form-group">
             <label for="name">
                 {{ ucfirst(__('Core::sysModule.name')) }}
@@ -29,9 +27,7 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-        
-        
-        
+
         <div class="form-group">
             <label for="slug">
                 {{ ucfirst(__('Core::sysModule.slug')) }}
@@ -51,9 +47,7 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-        
-        
-        
+
         <div class="form-group">
             <label for="description">
                 {{ ucfirst(__('Core::sysModule.description')) }}
@@ -73,17 +67,11 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
+
         
+
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
+
         <div class="form-group">
             <label for="version">
                 {{ ucfirst(__('Core::sysModule.version')) }}
@@ -103,9 +91,7 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-        
-        
-        
+
         
     <div class="form-group">
             <label for="color_id">
@@ -131,20 +117,16 @@
             @enderror
     </div>
 
-        
-        
-        
+
+
         <!--   FeatureDomain_HasMany HasMany --> 
-        
-        
-        
+
+
         <!--   SysController_HasMany HasMany --> 
-        
-        
-        
+
+
         <!--   SysModel_HasMany HasMany --> 
-        
-        
+
     </div>
 
     <div class="card-footer">

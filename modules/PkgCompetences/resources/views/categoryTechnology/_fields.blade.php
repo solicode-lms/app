@@ -8,8 +8,6 @@
     @endif
 
     <div class="card-body">
-        
-        
         <div class="form-group">
             <label for="nom">
                 {{ ucfirst(__('PkgCompetences::categoryTechnology.nom')) }}
@@ -29,9 +27,7 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-        
-        
-        
+
         <div class="form-group">
             <label for="description">
                 {{ ucfirst(__('PkgCompetences::categoryTechnology.description')) }}
@@ -51,12 +47,10 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-        
-        
-        
+
+
         <!--   Technology_HasMany HasMany --> 
-        
-        
+
     </div>
 
     <div class="card-footer">

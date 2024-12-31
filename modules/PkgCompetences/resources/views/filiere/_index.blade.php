@@ -60,7 +60,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="data-container">
+                        <div id="filiere-data-container" class="data-container">
                             @include('PkgCompetences::filiere._table')
                         </div>
                     </div>

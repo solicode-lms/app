@@ -60,7 +60,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="data-container">
+                        <div id="specialite-data-container" class="data-container">
                             @include('PkgUtilisateurs::specialite._table')
                         </div>
                     </div>

@@ -8,8 +8,6 @@
     @endif
 
     <div class="card-body">
-        
-        
         <div class="form-group">
             <label for="MatriculeEtudiant">
                 {{ ucfirst(__('PkgUtilisateurs::apprenantKonosy.MatriculeEtudiant')) }}
@@ -29,9 +27,7 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-        
-        
-        
+
         <div class="form-group">
             <label for="Nom">
                 {{ ucfirst(__('PkgUtilisateurs::apprenantKonosy.Nom')) }}
@@ -51,9 +47,7 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-        
-        
-        
+
         <div class="form-group">
             <label for="Prenom">
                 {{ ucfirst(__('PkgUtilisateurs::apprenantKonosy.Prenom')) }}
@@ -73,9 +67,7 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-        
-        
-        
+
         <div class="form-group">
             <label for="Sexe">
                 {{ ucfirst(__('PkgUtilisateurs::apprenantKonosy.Sexe')) }}
@@ -95,9 +87,7 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-        
-        
-        
+
         <div class="form-group">
             <label for="EtudiantActif">
                 {{ ucfirst(__('PkgUtilisateurs::apprenantKonosy.EtudiantActif')) }}
@@ -117,9 +107,7 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-        
-        
-        
+
         <div class="form-group">
             <label for="Diplome">
                 {{ ucfirst(__('PkgUtilisateurs::apprenantKonosy.Diplome')) }}
@@ -137,9 +125,7 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-        
-        
-        
+
         <div class="form-group">
             <label for="Principale">
                 {{ ucfirst(__('PkgUtilisateurs::apprenantKonosy.Principale')) }}
@@ -157,9 +143,7 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-        
-        
-        
+
         <div class="form-group">
             <label for="LibelleLong">
                 {{ ucfirst(__('PkgUtilisateurs::apprenantKonosy.LibelleLong')) }}
@@ -177,9 +161,7 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-        
-        
-        
+
         <div class="form-group">
             <label for="CodeDiplome">
                 {{ ucfirst(__('PkgUtilisateurs::apprenantKonosy.CodeDiplome')) }}
@@ -197,9 +179,7 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-        
-        
-        
+
         <div class="form-group">
             <label for="DateNaissance">
                 {{ ucfirst(__('PkgUtilisateurs::apprenantKonosy.DateNaissance')) }}
@@ -217,9 +197,7 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-        
-        
-        
+
         <div class="form-group">
             <label for="DateInscription">
                 {{ ucfirst(__('PkgUtilisateurs::apprenantKonosy.DateInscription')) }}
@@ -237,9 +215,7 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-        
-        
-        
+
         <div class="form-group">
             <label for="LieuNaissance">
                 {{ ucfirst(__('PkgUtilisateurs::apprenantKonosy.LieuNaissance')) }}
@@ -257,9 +233,7 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-        
-        
-        
+
         <div class="form-group">
             <label for="CIN">
                 {{ ucfirst(__('PkgUtilisateurs::apprenantKonosy.CIN')) }}
@@ -277,9 +251,7 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-        
-        
-        
+
         <div class="form-group">
             <label for="NTelephone">
                 {{ ucfirst(__('PkgUtilisateurs::apprenantKonosy.NTelephone')) }}
@@ -297,9 +269,7 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-        
-        
-        
+
         <div class="form-group">
             <label for="Adresse">
                 {{ ucfirst(__('PkgUtilisateurs::apprenantKonosy.Adresse')) }}
@@ -317,9 +287,7 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-        
-        
-        
+
         <div class="form-group">
             <label for="Nationalite">
                 {{ ucfirst(__('PkgUtilisateurs::apprenantKonosy.Nationalite')) }}
@@ -337,9 +305,7 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-        
-        
-        
+
         <div class="form-group">
             <label for="Nom_Arabe">
                 {{ ucfirst(__('PkgUtilisateurs::apprenantKonosy.Nom_Arabe')) }}
@@ -357,9 +323,7 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-        
-        
-        
+
         <div class="form-group">
             <label for="Prenom_Arabe">
                 {{ ucfirst(__('PkgUtilisateurs::apprenantKonosy.Prenom_Arabe')) }}
@@ -377,9 +341,7 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-        
-        
-        
+
         <div class="form-group">
             <label for="NiveauScolaire">
                 {{ ucfirst(__('PkgUtilisateurs::apprenantKonosy.NiveauScolaire')) }}
@@ -397,8 +359,7 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-        
-        
+
     </div>
 
     <div class="card-footer">

@@ -8,8 +8,6 @@
     @endif
 
     <div class="card-body">
-        
-        
         <div class="form-group">
             <label for="nom">
                 {{ ucfirst(__('PkgUtilisateurs::apprenant.nom')) }}
@@ -29,9 +27,7 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-        
-        
-        
+
         <div class="form-group">
             <label for="prenom">
                 {{ ucfirst(__('PkgUtilisateurs::apprenant.prenom')) }}
@@ -51,9 +47,7 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-        
-        
-        
+
         <div class="form-group">
             <label for="prenom_arab">
                 {{ ucfirst(__('PkgUtilisateurs::apprenant.prenom_arab')) }}
@@ -73,9 +67,7 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-        
-        
-        
+
         <div class="form-group">
             <label for="nom_arab">
                 {{ ucfirst(__('PkgUtilisateurs::apprenant.nom_arab')) }}
@@ -95,9 +87,7 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-        
-        
-        
+
         <div class="form-group">
             <label for="tele_num">
                 {{ ucfirst(__('PkgUtilisateurs::apprenant.tele_num')) }}
@@ -117,9 +107,7 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-        
-        
-        
+
         <div class="form-group">
             <label for="profile_image">
                 {{ ucfirst(__('PkgUtilisateurs::apprenant.profile_image')) }}
@@ -137,9 +125,7 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-        
-        
-        
+
         <div class="form-group">
             <label for="matricule">
                 {{ ucfirst(__('PkgUtilisateurs::apprenant.matricule')) }}
@@ -159,9 +145,7 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-        
-        
-        
+
         <div class="form-group">
             <label for="sexe">
                 {{ ucfirst(__('PkgUtilisateurs::apprenant.sexe')) }}
@@ -181,13 +165,9 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
+
         
-        
-        
-        
-        
-        
-        
+
         <div class="form-group">
             <label for="diplome">
                 {{ ucfirst(__('PkgUtilisateurs::apprenant.diplome')) }}
@@ -205,9 +185,7 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-        
-        
-        
+
         <div class="form-group">
             <label for="date_naissance">
                 {{ ucfirst(__('PkgUtilisateurs::apprenant.date_naissance')) }}
@@ -225,9 +203,7 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-        
-        
-        
+
         <div class="form-group">
             <label for="date_inscription">
                 {{ ucfirst(__('PkgUtilisateurs::apprenant.date_inscription')) }}
@@ -245,9 +221,7 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-        
-        
-        
+
         <div class="form-group">
             <label for="lieu_naissance">
                 {{ ucfirst(__('PkgUtilisateurs::apprenant.lieu_naissance')) }}
@@ -265,9 +239,7 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-        
-        
-        
+
         <div class="form-group">
             <label for="cin">
                 {{ ucfirst(__('PkgUtilisateurs::apprenant.cin')) }}
@@ -285,9 +257,7 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-        
-        
-        
+
         <div class="form-group">
             <label for="adresse">
                 {{ ucfirst(__('PkgUtilisateurs::apprenant.adresse')) }}
@@ -305,9 +275,7 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-        
-        
-        
+
         
     <div class="form-group">
             <label for="groupe_id">
@@ -333,9 +301,7 @@
             @enderror
     </div>
 
-        
-        
-        
+
         
     <div class="form-group">
             <label for="niveaux_scolaire_id">
@@ -361,9 +327,7 @@
             @enderror
     </div>
 
-        
-        
-        
+
         
     <div class="form-group">
             <label for="nationalite_id">
@@ -389,8 +353,7 @@
             @enderror
     </div>
 
-        
-        
+
     </div>
 
     <div class="card-footer">

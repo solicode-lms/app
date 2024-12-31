@@ -60,7 +60,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="data-container">
+                        <div id="natureLivrable-data-container" class="data-container">
                             @include('PkgCreationProjet::natureLivrable._table')
                         </div>
                     </div>

@@ -60,7 +60,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="data-container">
+                        <div id="sysColor-data-container" class="data-container">
                             @include('Core::sysColor._table')
                         </div>
                     </div>

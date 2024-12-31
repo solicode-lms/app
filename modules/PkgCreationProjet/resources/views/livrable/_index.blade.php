@@ -60,7 +60,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="data-container">
+                        <div id="livrable-data-container" class="data-container">
                             @include('PkgCreationProjet::livrable._table')
                         </div>
                     </div>

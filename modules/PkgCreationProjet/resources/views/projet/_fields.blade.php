@@ -8,8 +8,6 @@
     @endif
 
     <div class="card-body">
-        
-        
         <div class="form-group">
             <label for="titre">
                 {{ ucfirst(__('PkgCreationProjet::projet.titre')) }}
@@ -29,9 +27,7 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-        
-        
-        
+
         <div class="form-group">
             <label for="travail_a_faire">
                 {{ ucfirst(__('PkgCreationProjet::projet.travail_a_faire')) }}
@@ -39,21 +35,19 @@
                     <span class="text-danger">*</span>
                 
             </label>
-            <textarea
+            <input
                 name="travail_a_faire"
-                class="form-control richText"
+                type="input"
+                class="form-control"
                 required
                 id="travail_a_faire"
                 placeholder="{{ __('PkgCreationProjet::projet.travail_a_faire') }}"
                 value="{{ $itemProjet ? $itemProjet->travail_a_faire : old('travail_a_faire') }}">
-            </textarea>
             @error('travail_a_faire')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-        
-        
-        
+
         <div class="form-group">
             <label for="critere_de_travail">
                 {{ ucfirst(__('PkgCreationProjet::projet.critere_de_travail')) }}
@@ -73,9 +67,7 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-        
-        
-        
+
         <div class="form-group">
             <label for="description">
                 {{ ucfirst(__('PkgCreationProjet::projet.description')) }}
@@ -95,9 +87,7 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-        
-        
-        
+
         <div class="form-group">
             <label for="date_debut">
                 {{ ucfirst(__('PkgCreationProjet::projet.date_debut')) }}
@@ -117,9 +107,7 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-        
-        
-        
+
         <div class="form-group">
             <label for="date_fin">
                 {{ ucfirst(__('PkgCreationProjet::projet.date_fin')) }}
@@ -139,9 +127,7 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-        
-        
-        
+
         
     <div class="form-group">
             <label for="formateur_id">
@@ -167,20 +153,16 @@
             @enderror
     </div>
 
-        
-        
-        
+
+
         <!--   Livrable_HasMany HasMany --> 
-        
-        
-        
+
+
         <!--   Resource_HasMany HasMany --> 
-        
-        
-        
+
+
         <!--   TransfertCompetence_HasMany HasMany --> 
-        
-        
+
     </div>
 
     <div class="card-footer">

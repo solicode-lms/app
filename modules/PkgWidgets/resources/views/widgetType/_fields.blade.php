@@ -8,8 +8,6 @@
     @endif
 
     <div class="card-body">
-        
-        
         <div class="form-group">
             <label for="type">
                 {{ ucfirst(__('PkgWidgets::widgetType.type')) }}
@@ -29,9 +27,7 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-        
-        
-        
+
         <div class="form-group">
             <label for="description">
                 {{ ucfirst(__('PkgWidgets::widgetType.description')) }}
@@ -49,12 +45,10 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-        
-        
-        
+
+
         <!--   Widget_HasMany HasMany --> 
-        
-        
+
     </div>
 
     <div class="card-footer">

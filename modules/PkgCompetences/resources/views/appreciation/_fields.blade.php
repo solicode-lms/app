@@ -8,8 +8,6 @@
     @endif
 
     <div class="card-body">
-        
-        
         <div class="form-group">
             <label for="nom">
                 {{ ucfirst(__('PkgCompetences::appreciation.nom')) }}
@@ -29,9 +27,7 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-        
-        
-        
+
         <div class="form-group">
             <label for="description">
                 {{ ucfirst(__('PkgCompetences::appreciation.description')) }}
@@ -49,17 +45,13 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-        
-        
-        
+
+
         <!--   noteMin Float --> 
-        
-        
-        
+
+
         <!--   noteMax Float --> 
-        
-        
-        
+
         
     <div class="form-group">
             <label for="formateur_id">
@@ -85,12 +77,10 @@
             @enderror
     </div>
 
-        
-        
-        
+
+
         <!--   TransfertCompetence_HasMany HasMany --> 
-        
-        
+
     </div>
 
     <div class="card-footer">

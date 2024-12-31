@@ -60,7 +60,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="data-container">
+                        <div id="niveauxScolaire-data-container" class="data-container">
                             @include('PkgUtilisateurs::niveauxScolaire._table')
                         </div>
                     </div>

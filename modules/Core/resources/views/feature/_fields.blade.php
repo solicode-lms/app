@@ -8,8 +8,6 @@
     @endif
 
     <div class="card-body">
-        
-        
         <div class="form-group">
             <label for="name">
                 {{ ucfirst(__('Core::feature.name')) }}
@@ -29,9 +27,7 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-        
-        
-        
+
         <div class="form-group">
             <label for="description">
                 {{ ucfirst(__('Core::feature.description')) }}
@@ -49,9 +45,7 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-        
-        
-        
+
         
     <div class="form-group">
             <label for="domain_id">
@@ -77,10 +71,8 @@
             @enderror
     </div>
 
-        
-        
-        
-            <div class="form-group">
+
+                <div class="form-group">
             <label for="permissions">
                 {{ ucfirst(__('PkgAutorisation::Permission.plural')) }}
             </label>
@@ -103,8 +95,7 @@
 
         </div>
 
-        
-        
+
     </div>
 
     <div class="card-footer">

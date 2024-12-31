@@ -8,8 +8,6 @@
     @endif
 
     <div class="card-body">
-        
-        
         <div class="form-group">
             <label for="name">
                 {{ ucfirst(__('PkgAutorisation::permission.name')) }}
@@ -29,9 +27,7 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-        
-        
-        
+
         <div class="form-group">
             <label for="guard_name">
                 {{ ucfirst(__('PkgAutorisation::permission.guard_name')) }}
@@ -51,9 +47,7 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-        
-        
-        
+
         
     <div class="form-group">
             <label for="controller_id">
@@ -79,10 +73,8 @@
             @enderror
     </div>
 
-        
-        
-        
-            <div class="form-group">
+
+                <div class="form-group">
             <label for="features">
                 {{ ucfirst(__('Core::Feature.plural')) }}
             </label>
@@ -105,10 +97,8 @@
 
         </div>
 
-        
-        
-        
-            <div class="form-group">
+
+                <div class="form-group">
             <label for="roles">
                 {{ ucfirst(__('PkgAutorisation::Role.plural')) }}
             </label>
@@ -131,8 +121,7 @@
 
         </div>
 
-        
-        
+
     </div>
 
     <div class="card-footer">

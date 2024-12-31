@@ -2,6 +2,29 @@
 
 @extends('layouts.admin')
 @section('title', __('Core::msg.edit') . ' ' . __('PkgCreationProjet::projet.singular'))
+
+@section('script')
+@parent
+<script>
+    window.entitiesConfig = window.entitiesConfig || [];
+    window.entitiesConfig.push({
+        edit_has_many: true,
+        entity_name: 'projet',
+        crudSelector: '#card-tab-projet',
+        indexUrl: '{{ route('projets.index') }}', 
+        createUrl: '{{ route('projets.create') }}',
+        editUrl: '{{ route('projets.edit', ['projet' => ':id']) }}',
+        showUrl: '{{ route('projets.show', ['projet' => ':id']) }}',
+        storeUrl: '{{ route('projets.store') }}', 
+        deleteUrl: '{{ route('projets.destroy', ['projet' => ':id']) }}', 
+        csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
+        create_title: '{{__("Core::msg.add") . " : " . __("PkgCreationProjet::projet.singular") }}',
+        edit_title: '{{__("Core::msg.add") . " : " . __("PkgCreationProjet::projet.singular") }}',
+    });
+</script>
+@endsection
+
+
 @section('content')
     <div class="content-header">
     </div>
@@ -64,25 +87,4 @@
             </div>
         </div>
     </section>
-@endsection
-
-@section('script')
-@parent
-<script>
-    window.entitiesConfig = window.entitiesConfig || [];
-    window.entitiesConfig.push({
-        edit_has_many: true,
-        entity_name: 'projet',
-        crudSelector: '#card-tab-projet',
-        indexUrl: '{{ route('projets.index') }}', 
-        createUrl: '{{ route('projets.create') }}',
-        editUrl: '{{ route('projets.edit', ['projet' => ':id']) }}',
-        showUrl: '{{ route('projets.show', ['projet' => ':id']) }}',
-        storeUrl: '{{ route('projets.store') }}', 
-        deleteUrl: '{{ route('projets.destroy', ['projet' => ':id']) }}', 
-        csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
-        create_title: '{{__("Core::msg.add") . " : " . __("PkgCreationProjet::projet.singular") }}',
-        edit_title: '{{__("Core::msg.add") . " : " . __("PkgCreationProjet::projet.singular") }}',
-    });
-</script>
 @endsection

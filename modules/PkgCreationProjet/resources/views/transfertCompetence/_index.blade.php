@@ -60,7 +60,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="data-container">
+                        <div id="transfertCompetence-data-container" class="data-container">
                             @include('PkgCreationProjet::transfertCompetence._table')
                         </div>
                     </div>
