@@ -47,7 +47,7 @@
 </div>
 
         
-    <div class="form-group">
+    <div class="form-group" style="display: {{ isset($page['scop_entity']) && $page['scop_entity'] == 'projet' ? 'none' : 'block' }}">
             <label for="projet_id">
                 {{ ucfirst(__('PkgCreationProjet::projet.singular')) }}
                 

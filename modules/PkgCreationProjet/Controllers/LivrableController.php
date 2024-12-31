@@ -21,27 +21,13 @@ class LivrableController extends AdminController
     protected $natureLivrableService;
     protected $projetService;
 
-    public function __construct(Request $request, PageVariables $pageVariables, LivrableService $livrableService, NatureLivrableService $natureLivrableService, ProjetService $projetService)
+
+    public function __construct(LivrableService $livrableService, NatureLivrableService $natureLivrableService, ProjetService $projetService)
     {
         parent::__construct();
-        $this->livrableService = $livrableService;
+        $this->livrableService = $livrableService->setScope($this->page);
         $this->natureLivrableService = $natureLivrableService;
         $this->projetService = $projetService;
-        $this->pageVariables = $pageVariables;
-
-        // Récupérer les paramètres de routage scop_entity et scop_id
-        $scop_entity = $request->route('scop_entity', null);
-        $scop_id = $request->route('scop_id', null);
-   
-
-        // Définir les variables de la page
-        if ($scop_entity && $scop_id) {
-            $this->pageVariables->set('scop_entity', $scop_entity);
-            $this->pageVariables->set('scop_id', $scop_id);
-            $livrableService->setScope($scop_entity, $scop_id);
-        }
-
-
     }
 
 

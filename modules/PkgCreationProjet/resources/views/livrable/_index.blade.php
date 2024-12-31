@@ -8,12 +8,12 @@
         edit_has_many: false,
         entity_name: 'livrable',
         crudSelector: '#livrable_crud',
-        indexUrl: '{{ route('livrables.index') }}', 
+        indexUrl: '{{ route('livrables.index',$page) }}', 
         createUrl: '{{ route('livrables.create',$page) }}',
-        editUrl: '{{ route('livrables.edit', ['livrable' => ':id']) }}',
-        showUrl: '{{ route('livrables.show', ['livrable' => ':id']) }}',
-        storeUrl: '{{ route('livrables.store') }}', 
-        deleteUrl: '{{ route('livrables.destroy', ['livrable' => ':id']) }}', 
+        editUrl: '{{ route('livrables.edit', array_merge($page, ['livrable' => ':id'])) }}',
+        showUrl: '{{ route('livrables.show', array_merge($page, ['livrable' => ':id'])) }}',
+        storeUrl: '{{ route('livrables.store',$page) }}', 
+        deleteUrl: '{{ route('livrables.destroy', array_merge($page, ['livrable' => ':id'])) }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgCreationProjet::livrable.singular") }}',
         edit_title: '{{__("Core::msg.add") . " : " . __("PkgCreationProjet::livrable.singular") }}',
@@ -28,11 +28,15 @@
                     <h1>
                         {{ curd_index_title('PkgCreationProjet::livrable') }}
                     </h1>
+                    <span>Scoping : {{ $page['scop_entity'] ?? 'Aucun' }},</span>
+                    <span>ID : {{ $page['scop_id'] ?? 'Aucun' }}</span>
+
+
                 </div>
                 <div class="col-sm-6">
                     <div class="float-sm-right">
                         @can('create-livrable')
-                        <a href="{{ route('livrables.create') }}" data-target="#livrableModal" class="btn btn-info btn-sm addEntityButton">
+                        <a href="{{ route('livrables.create',$page) }}" data-target="#livrableModal" class="btn btn-info btn-sm addEntityButton">
                             <i class="fas fa-plus"></i>
                             {{ __('Core::msg.add') }}
                         </a>

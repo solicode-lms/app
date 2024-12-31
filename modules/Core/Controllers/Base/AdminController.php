@@ -3,6 +3,7 @@
 namespace Modules\Core\Controllers\Base;
 
 use App\Http\Middleware\CheckDynamicPermission;
+use Modules\Core\Services\PageVariables;
 
 /**
  * AdminController est responsable de la gestion des fonctionnalités liées aux administrateurs.
@@ -10,6 +11,8 @@ use App\Http\Middleware\CheckDynamicPermission;
  */
 class AdminController extends AppController
 {
+    protected $page;
+    
     /**
      * Constructeur du contrôleur.
      * 
@@ -26,6 +29,10 @@ class AdminController extends AppController
 
          // Middleware appliqué à toutes les méthodes
          $this->middleware(CheckDynamicPermission::class);
+
+        // Scrop management
+        $this->page = app(PageVariables::class);
+        $this->page->readFromRequest(request());
     }
 
     // /**

@@ -7,6 +7,7 @@ namespace Modules\Core\Services;
 
 use Modules\Core\Models\SysColor;
 use Modules\Core\Services\BaseService;
+use Illuminate\Http\Request;
 
 /**
  * Classe SysColorService pour gérer la persistance de l'entité SysColor.
@@ -48,4 +49,26 @@ public function all(): array
 {
     return $this->variables;
 }
+
+    /**
+     * Lire les valeurs de la requête et les stocker comme variables de la page.
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function readFromRequest(Request $request)
+    {
+        // Extraire les paramètres de routage scop_entity et scop_id
+        $scop_entity = $request->route('scop_entity', null);
+        $scop_id = $request->route('scop_id', null);
+
+        // Stocker les valeurs si elles existent
+        if ($scop_entity) {
+            $this->set('scop_entity', $scop_entity);
+        }
+
+        if ($scop_id) {
+            $this->set('scop_id', $scop_id);
+        }
+    }
 }
