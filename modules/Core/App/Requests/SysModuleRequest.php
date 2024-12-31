@@ -19,7 +19,7 @@ class SysModuleRequest extends FormRequest
         return [
             'name' => 'required|max:255',
             'slug' => 'required|max:255',
-            'description' => 'required|max:255',
+            'description' => 'required',
             'is_active' => 'required',
             'order' => 'required',
             'version' => 'required|max:255',

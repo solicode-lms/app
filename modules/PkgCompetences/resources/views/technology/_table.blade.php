@@ -14,7 +14,7 @@
             @foreach ($technologies_data as $technology)
                 <tr>
                     <td>{{ $technology->nom }}</td>
-                    <td>{{ $technology->description }}</td>
+                    <td>{!! $technology->description !!}</td>
                     <td>{{ $technology->categoryTechnology->nom ?? '-' }}</td>
                     <td class="text-center">
                         @can('show-technology')

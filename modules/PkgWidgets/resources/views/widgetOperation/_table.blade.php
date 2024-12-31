@@ -13,7 +13,7 @@
             @foreach ($widgetOperations_data as $widgetOperation)
                 <tr>
                     <td>{{ $widgetOperation->operation }}</td>
-                    <td>{{ $widgetOperation->description }}</td>
+                    <td>{!! $widgetOperation->description !!}</td>
                     <td class="text-center">
                         @can('show-widgetOperation')
                             <a href="{{ route('widgetOperations.show', $widgetOperation) }}" data-id="{{$widgetOperation->id}}" class="btn btn-default btn-sm showEntity">

@@ -16,7 +16,7 @@
                 <tr>
                     <td>{{ $competence->code }}</td>
                     <td>{{ $competence->nom }}</td>
-                    <td>{{ $competence->description }}</td>
+                    <td>{!! $competence->description !!}</td>
                     <td>{{ $competence->module->nom ?? '-' }}</td>
                     <td class="text-center">
                         @can('show-competence')

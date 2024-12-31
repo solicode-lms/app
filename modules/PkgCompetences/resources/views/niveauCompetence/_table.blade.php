@@ -14,7 +14,7 @@
             @foreach ($niveauCompetences_data as $niveauCompetence)
                 <tr>
                     <td>{{ $niveauCompetence->nom }}</td>
-                    <td>{{ $niveauCompetence->description }}</td>
+                    <td>{!! $niveauCompetence->description !!}</td>
                     <td>{{ $niveauCompetence->competence->code ?? '-' }}</td>
                     <td class="text-center">
                         @can('show-niveauCompetence')

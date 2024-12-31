@@ -18,7 +18,7 @@ class WidgetOperationRequest extends FormRequest
     {
         return [
             'operation' => 'required|max:255',
-            'description' => 'nullable|max:255'
+            'description' => 'nullable'
         ];
     }
 

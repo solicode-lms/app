@@ -19,7 +19,7 @@ class NiveauxScolaireRequest extends FormRequest
         return [
             'code' => 'required|max:255',
             'nom' => 'nullable|max:255',
-            'description' => 'nullable|max:255'
+            'description' => 'nullable'
         ];
     }
 

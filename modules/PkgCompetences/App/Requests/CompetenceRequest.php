@@ -19,7 +19,7 @@ class CompetenceRequest extends FormRequest
         return [
             'code' => 'required|max:255',
             'nom' => 'required|max:255',
-            'description' => 'required|max:255',
+            'description' => 'required',
             'module_id' => 'required'
         ];
     }

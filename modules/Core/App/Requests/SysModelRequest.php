@@ -19,7 +19,7 @@ class SysModelRequest extends FormRequest
         return [
             'name' => 'required|max:255',
             'model' => 'required|max:255',
-            'description' => 'nullable|max:255',
+            'description' => 'nullable',
             'module_id' => 'required',
             'color_id' => 'required'
         ];

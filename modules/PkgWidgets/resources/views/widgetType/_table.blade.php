@@ -13,7 +13,7 @@
             @foreach ($widgetTypes_data as $widgetType)
                 <tr>
                     <td>{{ $widgetType->type }}</td>
-                    <td>{{ $widgetType->description }}</td>
+                    <td>{!! $widgetType->description !!}</td>
                     <td class="text-center">
                         @can('show-widgetType')
                             <a href="{{ route('widgetTypes.show', $widgetType) }}" data-id="{{$widgetType->id}}" class="btn btn-default btn-sm showEntity">

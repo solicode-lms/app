@@ -55,14 +55,14 @@
                     <span class="text-danger">*</span>
                 
             </label>
-            <input
+            <textarea rows="" cols=""
                 name="description"
-                type="input"
-                class="form-control"
+                class="form-control richText"
                 required
                 id="description"
-                placeholder="{{ __('Core::sysModule.description') }}"
-                value="{{ $itemSysModule ? $itemSysModule->description : old('description') }}">
+                placeholder="{{ __('Core::sysModule.description') }}">
+                {{ $itemSysModule ? $itemSysModule->description : old('description') }}
+            </textarea>
             @error('description')
                 <div class="text-danger">{{ $message }}</div>
             @enderror

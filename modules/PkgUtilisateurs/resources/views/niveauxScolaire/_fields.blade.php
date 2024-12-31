@@ -51,14 +51,14 @@
                 {{ ucfirst(__('PkgUtilisateurs::niveauxScolaire.description')) }}
                 
             </label>
-            <input
+            <textarea rows="" cols=""
                 name="description"
-                type="input"
-                class="form-control"
+                class="form-control richText"
                 
                 id="description"
-                placeholder="{{ __('PkgUtilisateurs::niveauxScolaire.description') }}"
-                value="{{ $itemNiveauxScolaire ? $itemNiveauxScolaire->description : old('description') }}">
+                placeholder="{{ __('PkgUtilisateurs::niveauxScolaire.description') }}">
+                {{ $itemNiveauxScolaire ? $itemNiveauxScolaire->description : old('description') }}
+            </textarea>
             @error('description')
                 <div class="text-danger">{{ $message }}</div>
             @enderror

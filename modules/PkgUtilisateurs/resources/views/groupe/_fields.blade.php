@@ -51,14 +51,14 @@
                 {{ ucfirst(__('PkgUtilisateurs::groupe.description')) }}
                 
             </label>
-            <input
+            <textarea rows="" cols=""
                 name="description"
-                type="input"
-                class="form-control"
+                class="form-control richText"
                 
                 id="description"
-                placeholder="{{ __('PkgUtilisateurs::groupe.description') }}"
-                value="{{ $itemGroupe ? $itemGroupe->description : old('description') }}">
+                placeholder="{{ __('PkgUtilisateurs::groupe.description') }}">
+                {{ $itemGroupe ? $itemGroupe->description : old('description') }}
+            </textarea>
             @error('description')
                 <div class="text-danger">{{ $message }}</div>
             @enderror

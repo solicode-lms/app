@@ -15,7 +15,7 @@
             @foreach ($sysModules_data as $sysModule)
                 <tr>
                     <td>{{ $sysModule->name }}</td>
-                    <td>{{ $sysModule->description }}</td>
+                    <td>{!! $sysModule->description !!}</td>
                     <td>{{ $sysModule->is_active }}</td>
                     <td>{{ $sysModule->sysColor->name ?? '-' }}</td>
                     <td class="text-center">

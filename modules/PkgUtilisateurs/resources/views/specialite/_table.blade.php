@@ -13,7 +13,7 @@
             @foreach ($specialites_data as $specialite)
                 <tr>
                     <td>{{ $specialite->nom }}</td>
-                    <td>{{ $specialite->description }}</td>
+                    <td>{!! $specialite->description !!}</td>
                     <td class="text-center">
                         @can('show-specialite')
                             <a href="{{ route('specialites.show', $specialite) }}" data-id="{{$specialite->id}}" class="btn btn-default btn-sm showEntity">

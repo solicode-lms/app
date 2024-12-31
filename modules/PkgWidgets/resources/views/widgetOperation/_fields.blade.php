@@ -33,14 +33,14 @@
                 {{ ucfirst(__('PkgWidgets::widgetOperation.description')) }}
                 
             </label>
-            <input
+            <textarea rows="" cols=""
                 name="description"
-                type="input"
-                class="form-control"
+                class="form-control richText"
                 
                 id="description"
-                placeholder="{{ __('PkgWidgets::widgetOperation.description') }}"
-                value="{{ $itemWidgetOperation ? $itemWidgetOperation->description : old('description') }}">
+                placeholder="{{ __('PkgWidgets::widgetOperation.description') }}">
+                {{ $itemWidgetOperation ? $itemWidgetOperation->description : old('description') }}
+            </textarea>
             @error('description')
                 <div class="text-danger">{{ $message }}</div>
             @enderror

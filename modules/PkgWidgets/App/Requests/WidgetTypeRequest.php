@@ -18,7 +18,7 @@ class WidgetTypeRequest extends FormRequest
     {
         return [
             'type' => 'required|max:255',
-            'description' => 'nullable|max:255'
+            'description' => 'nullable'
         ];
     }
 

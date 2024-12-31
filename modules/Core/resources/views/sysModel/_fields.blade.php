@@ -53,14 +53,14 @@
                 {{ ucfirst(__('Core::sysModel.description')) }}
                 
             </label>
-            <input
+            <textarea rows="" cols=""
                 name="description"
-                type="input"
-                class="form-control"
+                class="form-control richText"
                 
                 id="description"
-                placeholder="{{ __('Core::sysModel.description') }}"
-                value="{{ $itemSysModel ? $itemSysModel->description : old('description') }}">
+                placeholder="{{ __('Core::sysModel.description') }}">
+                {{ $itemSysModel ? $itemSysModel->description : old('description') }}
+            </textarea>
             @error('description')
                 <div class="text-danger">{{ $message }}</div>
             @enderror

@@ -35,14 +35,14 @@
                     <span class="text-danger">*</span>
                 
             </label>
-            <input
+            <textarea rows="" cols=""
                 name="description"
-                type="input"
-                class="form-control"
+                class="form-control richText"
                 required
                 id="description"
-                placeholder="{{ __('PkgCompetences::technology.description') }}"
-                value="{{ $itemTechnology ? $itemTechnology->description : old('description') }}">
+                placeholder="{{ __('PkgCompetences::technology.description') }}">
+                {{ $itemTechnology ? $itemTechnology->description : old('description') }}
+            </textarea>
             @error('description')
                 <div class="text-danger">{{ $message }}</div>
             @enderror

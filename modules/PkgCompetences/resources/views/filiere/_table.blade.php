@@ -15,7 +15,7 @@
                 <tr>
                     <td>{{ $filiere->code }}</td>
                     <td>{{ $filiere->nom }}</td>
-                    <td>{{ $filiere->description }}</td>
+                    <td>{!! $filiere->description !!}</td>
                     <td class="text-center">
                         @can('show-filiere')
                             <a href="{{ route('filieres.show', $filiere) }}" data-id="{{$filiere->id}}" class="btn btn-default btn-sm showEntity">
