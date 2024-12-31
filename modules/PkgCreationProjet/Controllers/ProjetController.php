@@ -77,7 +77,7 @@ class ProjetController extends AdminController
             ]);
         }
 
-        return redirect()->route('projets.edit',['projet' => $projet->id])->with(
+        return redirect()->route('projets.edit_with_has_many',['projet' => $projet->id])->with(
             'success',
             __('Core::msg.addSuccess', [
                 'entityToString' => $projet,
@@ -112,17 +112,12 @@ class ProjetController extends AdminController
 
          $livrables_data =  $itemProjet->livrables()->paginate(10);
        
-       
-        
-       
-         if (request()->ajax()) {
+
+        if (request()->ajax()) {
             return view('PkgCreationProjet::projet._fields', compact('itemProjet', 'formateurs', 'livrables_data'));
         }
 
-        return view('PkgCreationProjet::projet.edit', compact('itemProjet', 'formateurs', 'livrables_data'));
-        
-
-
+        return view('PkgCreationProjet::projet.edit_with_has_many', compact('itemProjet', 'formateurs', 'livrables_data'));
     }
 
     /**

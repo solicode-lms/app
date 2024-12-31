@@ -1,3 +1,4 @@
+{{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @section('script')
 @parent
@@ -41,7 +42,6 @@
                             <i class="fas fa-plus"></i>
                             {{ __('Core::msg.add') }}
                         </a>
-                    
                         @endcan
                     </div>
                 </div>
