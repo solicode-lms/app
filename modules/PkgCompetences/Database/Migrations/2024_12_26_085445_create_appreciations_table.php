@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id(); // Primary key
 
             $table->string('nom'); // Nom de l'appréciation
-            $table->text('description')->nullable(); // Description
+            $table->longText('description')->nullable(); // Description
             $table->float('noteMin'); // Note minimale
             $table->float('noteMax'); // Note maximale
 

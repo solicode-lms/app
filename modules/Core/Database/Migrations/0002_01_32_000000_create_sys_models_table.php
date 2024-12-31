@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('model'); // Exemple : App\Models\Article
-            $table->text('description')->nullable();
+            $table->longText('description')->nullable();
             $table->foreignId('module_id')->constrained('sys_modules')->onDelete('cascade'); // Clé étrangère vers sys_modules
             $table->foreignId('color_id')->nullable()->constrained('sys_colors')->onDelete('cascade');
 

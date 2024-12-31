@@ -17,7 +17,7 @@ return new class extends Migration {
         Schema::create('category_technologies', function (Blueprint $table) {
             $table->id();
             $table->string('nom');
-            $table->text('description');
+            $table->longText('description');
 
             $table->timestamps();
            

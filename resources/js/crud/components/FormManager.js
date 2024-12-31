@@ -21,6 +21,8 @@ export class FormManager {
         this.handleFormSubmission(submitHandler);
         this.loader.init();
         this.initializeSelect2();
+        this.initializeRichText();
+
     }
 
     /**
@@ -195,6 +197,12 @@ export class FormManager {
         // Initialise les éléments Select2 avec thème Bootstrap 4
         $(`${this.formSelector} .select2bs4`).select2({
             theme: 'bootstrap4',
+        });
+    }
+    initializeRichText(){
+        // Init sumernote
+        $(`${this.formSelector} .richText`).summernote({
+            height: 150, //set editable area's height
         });
     }
 

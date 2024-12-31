@@ -16,9 +16,9 @@ return new class extends Migration
         Schema::create('projets', function (Blueprint $table) {
             $table->id(); // Identifiant unique
             $table->string('titre'); // Titre du projet
-            $table->text('travail_a_faire'); // Travail à faire
-            $table->text('critere_de_travail'); // Critères de travail
-            $table->text('description'); // Description générale
+            $table->longText('travail_a_faire'); // Travail à faire
+            $table->longText('critere_de_travail'); // Critères de travail
+            $table->longText('description'); // Description générale
             $table->date('date_debut'); // Date de début
             $table->date('date_fin'); // Date de fin
             $table->foreignId('formateur_id')->constrained('formateurs')->onDelete('cascade'); // Relation avec Projet

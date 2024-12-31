@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('widget_types', function (Blueprint $table) {
             $table->id();
             $table->string('type'); // Exemple : card, chart, table
-            $table->text('description')->nullable();
+            $table->longText('description')->nullable();
             $table->timestamps();
         });
     }

@@ -5,7 +5,7 @@ import select2 from 'select2';
 select2();
 window.$ = $;
 
-import 'summernote';
+import 'summernote/dist/summernote-bs4.min';
 
 
 import 'admin-lte/plugins/bootstrap/js/bootstrap.bundle';

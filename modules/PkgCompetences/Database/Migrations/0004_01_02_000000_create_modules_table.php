@@ -17,7 +17,7 @@ return new class extends Migration {
         Schema::create('modules', function (Blueprint $table) {
             $table->id();
             $table->string('nom');
-            $table->text('description');
+            $table->longText('description');
             $table->string('masse_horaire');
 
             $table->timestamps();

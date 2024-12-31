@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('widget_operations', function (Blueprint $table) {
             $table->id();
             $table->string('operation'); // Exemple : count, sum, group_by
-            $table->text('description')->nullable();
+            $table->longText('description')->nullable();
             $table->timestamps();
         });
     }

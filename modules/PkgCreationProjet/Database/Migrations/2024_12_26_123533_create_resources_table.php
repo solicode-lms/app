@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id(); // Identifiant unique
             $table->string('nom'); // Nom de la ressource
             $table->string('lien'); // Lien vers la ressource
-            $table->text('description'); // Description de la ressource
+            $table->longText('description'); // Description de la ressource
             $table->foreignId('projet_id')->constrained('projets')->onDelete('cascade'); // Relation avec Projet
             $table->timestamps(); // Champs created_at et updated_at
         });

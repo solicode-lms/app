@@ -29,7 +29,7 @@ return new class extends Migration
             $table->string('LieuNaissance', 255)->nullable();
             $table->string('CIN', 50)->nullable();
             $table->string('NTelephone', 15)->nullable();
-            $table->text('Adresse')->nullable();
+            $table->longText('Adresse')->nullable();
             $table->string('Nationalite', 100)->nullable();
             $table->string('Nom_Arabe', 100)->nullable();
             $table->string('Prenom_Arabe', 100)->nullable();
