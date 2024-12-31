@@ -98,7 +98,7 @@
             <input
                 name="date_debut"
                 type="date"
-                class="form-control"
+                class="form-control datetimepicker"
                 required
                 id="date_debut"
                 placeholder="{{ __('PkgCreationProjet::projet.date_debut') }}"
@@ -107,6 +107,10 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
+
+
+
+
 
         <div class="form-group">
             <label for="date_fin">
@@ -118,7 +122,7 @@
             <input
                 name="date_fin"
                 type="date"
-                class="form-control"
+                class="form-control datetimepicker"
                 required
                 id="date_fin"
                 placeholder="{{ __('PkgCreationProjet::projet.date_fin') }}"
@@ -128,16 +132,19 @@
             @enderror
 </div>
 
+
+
+
+
         
     <div class="form-group">
             <label for="formateur_id">
                 {{ ucfirst(__('PkgUtilisateurs::formateur.singular')) }}
                 
-                    <span class="text-danger">*</span>
-                
             </label>
             <select 
             id="formateur_id" 
+            required
             name="formateur_id" 
             class="form-control">
              <option value="">Sélectionnez une option</option>

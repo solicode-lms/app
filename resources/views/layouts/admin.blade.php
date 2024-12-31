@@ -12,6 +12,9 @@
 
     <!-- Scripts -->
     @vite(['resources/css/admin.css', 'resources/js/admin.js'])
+ 
+
+
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
