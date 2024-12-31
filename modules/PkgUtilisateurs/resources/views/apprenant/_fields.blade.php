@@ -28,7 +28,7 @@
             @error('nom')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
+</div>
         
         
         
@@ -50,7 +50,7 @@
             @error('prenom')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
+</div>
         
         
         
@@ -72,7 +72,7 @@
             @error('prenom_arab')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
+</div>
         
         
         
@@ -94,7 +94,7 @@
             @error('nom_arab')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
+</div>
         
         
         
@@ -116,7 +116,7 @@
             @error('tele_num')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
+</div>
         
         
         
@@ -136,7 +136,7 @@
             @error('profile_image')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
+</div>
         
         
         
@@ -158,7 +158,7 @@
             @error('matricule')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
+</div>
         
         
         
@@ -180,7 +180,7 @@
             @error('sexe')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
+</div>
         
         
         
@@ -204,15 +204,47 @@
             @error('diplome')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
+</div>
         
         
         
-        <li>Attribut date : date_naissance</li>
+        <div class="form-group">
+            <label for="date_naissance">
+                {{ ucfirst(__('PkgUtilisateurs::apprenant.date_naissance')) }}
+                
+            </label>
+            <input
+                name="date_naissance"
+                type="date"
+                class="form-control"
+                
+                id="date_naissance"
+                placeholder="{{ __('PkgUtilisateurs::apprenant.date_naissance') }}"
+                value="{{ $itemApprenant ? $itemApprenant->date_naissance : old('date_naissance') }}">
+            @error('date_naissance')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
         
         
         
-        <li>Attribut date : date_inscription</li>
+        <div class="form-group">
+            <label for="date_inscription">
+                {{ ucfirst(__('PkgUtilisateurs::apprenant.date_inscription')) }}
+                
+            </label>
+            <input
+                name="date_inscription"
+                type="date"
+                class="form-control"
+                
+                id="date_inscription"
+                placeholder="{{ __('PkgUtilisateurs::apprenant.date_inscription') }}"
+                value="{{ $itemApprenant ? $itemApprenant->date_inscription : old('date_inscription') }}">
+            @error('date_inscription')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
         
         
         
@@ -232,7 +264,7 @@
             @error('lieu_naissance')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
+</div>
         
         
         
@@ -252,7 +284,7 @@
             @error('cin')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
+</div>
         
         
         
@@ -272,7 +304,7 @@
             @error('adresse')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
+</div>
         
         
         

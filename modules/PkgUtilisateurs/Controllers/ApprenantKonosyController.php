@@ -74,7 +74,7 @@ class ApprenantKonosyController extends AdminController
             ]);
         }
 
-        return redirect()->route('apprenantKonosys.index')->with(
+        return redirect()->route('apprenantKonosies.index')->with(
             'success',
             __('Core::msg.addSuccess', [
                 'entityToString' => $apprenantKonosy,

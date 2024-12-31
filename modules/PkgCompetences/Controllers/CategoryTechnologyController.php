@@ -74,7 +74,7 @@ class CategoryTechnologyController extends AdminController
             ]);
         }
 
-        return redirect()->route('categoryTechnologys.index')->with(
+        return redirect()->route('categoryTechnologies.index')->with(
             'success',
             __('Core::msg.addSuccess', [
                 'entityToString' => $categoryTechnology,

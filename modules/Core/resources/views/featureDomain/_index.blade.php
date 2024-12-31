@@ -5,6 +5,7 @@
 <script>
     window.entitiesConfig = window.entitiesConfig || [];
     window.entitiesConfig.push({
+        edit_has_many: false,
         entity_name: 'featureDomain',
         crudSelector: '#featureDomain_crud',
         indexUrl: '{{ route('featureDomains.index') }}', 
@@ -21,12 +22,6 @@
 @endsection
 <div id="featureDomain_crud">
     <div class="content-header">
-        @if (session('success'))
-            <div class="alert alert-success alert-dismissible">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                {{ session('success') }}.
-            </div>
-        @endif
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
@@ -37,10 +32,10 @@
                 <div class="col-sm-6">
                     <div class="float-sm-right">
                         @can('create-featureDomain')
-                        <button type="button" class="btn btn-info btn-sm addEntityButton" data-target="#featureDomainModal">
-                            <i class="fas fa-plus"></i> {{ __('Core::msg.add') }}
-                        </button>
-
+                        <a href="{{ route('featureDomains.create') }}" data-target="#featureDomainModal" class="btn btn-info btn-sm addEntityButton">
+                            <i class="fas fa-plus"></i>
+                            {{ __('Core::msg.add') }}
+                        </a>
                         @endcan
                     </div>
                 </div>

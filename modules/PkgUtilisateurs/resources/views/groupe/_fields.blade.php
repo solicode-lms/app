@@ -28,7 +28,7 @@
             @error('code')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
+</div>
         
         
         
@@ -48,7 +48,7 @@
             @error('nom')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
+</div>
         
         
         
@@ -68,7 +68,7 @@
             @error('description')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
+</div>
         
         
         

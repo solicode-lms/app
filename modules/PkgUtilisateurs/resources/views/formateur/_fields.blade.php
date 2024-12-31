@@ -28,7 +28,7 @@
             @error('matricule')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
+</div>
         
         
         
@@ -50,7 +50,7 @@
             @error('nom')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
+</div>
         
         
         
@@ -72,7 +72,7 @@
             @error('prenom')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
+</div>
         
         
         
@@ -94,7 +94,7 @@
             @error('prenom_arab')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
+</div>
         
         
         
@@ -116,7 +116,7 @@
             @error('nom_arab')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
+</div>
         
         
         
@@ -138,7 +138,7 @@
             @error('tele_num')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
+</div>
         
         
         
@@ -158,7 +158,7 @@
             @error('adresse')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
+</div>
         
         
         
@@ -178,7 +178,7 @@
             @error('diplome')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
+</div>
         
         
         
@@ -208,7 +208,7 @@
             @error('profile_image')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
+</div>
         
         
         

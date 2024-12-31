@@ -28,7 +28,7 @@
             @error('name')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
+</div>
         
         
         
@@ -50,7 +50,7 @@
             @error('guard_name')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
+</div>
         
         
         

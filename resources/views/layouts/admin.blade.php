@@ -91,7 +91,28 @@
             console.log($.fn.select2); 
         });
     </script>
+    <script>
+        window.notifications = window.notifications || [];
+        @if (session('success'))
+    
+        window.notifications.push({
+            type : "showSuccess",
+            message: "{{ session('success') }}"
+        });   
+        @endif
+        @if (session('error'))
+        window.notifications.push({
+            type : "showError",
+            message: "{{ session('error') }}"
+        });   
+        @endif
+        @if (session('info'))
+        window.notifications.push({
+            type : "showInfo",
+            message: "{{ session('info') }}"
+        });   
+        @endif
+    </script>
+    @yield('script')
 </body>
-@yield('script')
-
 </html>

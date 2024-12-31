@@ -1,6 +1,22 @@
 import Swal from 'sweetalert2';
 
 export class NotificationHandler {
+
+
+    constructor ({type,message}){
+        this.type = type;
+        this.message = message;
+    }
+
+    show(){
+        switch (this.type) {
+            case "info": NotificationHandler.showInfo(this.message);break;
+            case "success": NotificationHandler.showSuccess(this.message);break;
+            case "error": NotificationHandler.showError(this.message);break;
+            default: NotificationHandler.showInfo(this.message);break;
+        }
+    }
+
     /**
      * Affiche une notification toast.
      * @param {string} type - Type de message (success, error, warning, info).

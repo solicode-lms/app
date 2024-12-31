@@ -91,7 +91,7 @@ class TechnologyController extends AdminController
             ]);
         }
 
-        return redirect()->route('technologys.index')->with(
+        return redirect()->route('technologies.index')->with(
             'success',
             __('Core::msg.addSuccess', [
                 'entityToString' => $technology,

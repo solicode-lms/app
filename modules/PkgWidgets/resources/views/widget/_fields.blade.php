@@ -28,7 +28,7 @@
             @error('name')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
+</div>
         
         
         
@@ -132,7 +132,7 @@
             @error('color')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
+</div>
         
         
         
@@ -152,7 +152,7 @@
             @error('icon')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
+</div>
         
         
         
@@ -172,7 +172,7 @@
             @error('label')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
+</div>
         
         
         

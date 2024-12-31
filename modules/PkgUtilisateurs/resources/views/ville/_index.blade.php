@@ -5,6 +5,7 @@
 <script>
     window.entitiesConfig = window.entitiesConfig || [];
     window.entitiesConfig.push({
+        edit_has_many: false,
         entity_name: 'ville',
         crudSelector: '#ville_crud',
         indexUrl: '{{ route('villes.index') }}', 
@@ -21,12 +22,6 @@
 @endsection
 <div id="ville_crud">
     <div class="content-header">
-        @if (session('success'))
-            <div class="alert alert-success alert-dismissible">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                {{ session('success') }}.
-            </div>
-        @endif
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
@@ -37,10 +32,10 @@
                 <div class="col-sm-6">
                     <div class="float-sm-right">
                         @can('create-ville')
-                        <button type="button" class="btn btn-info btn-sm addEntityButton" data-target="#villeModal">
-                            <i class="fas fa-plus"></i> {{ __('Core::msg.add') }}
-                        </button>
-
+                        <a href="{{ route('villes.create') }}" data-target="#villeModal" class="btn btn-info btn-sm addEntityButton">
+                            <i class="fas fa-plus"></i>
+                            {{ __('Core::msg.add') }}
+                        </a>
                         @endcan
                     </div>
                 </div>

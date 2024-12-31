@@ -28,7 +28,7 @@
             @error('MatriculeEtudiant')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
+</div>
         
         
         
@@ -50,7 +50,7 @@
             @error('Nom')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
+</div>
         
         
         
@@ -72,7 +72,7 @@
             @error('Prenom')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
+</div>
         
         
         
@@ -94,7 +94,7 @@
             @error('Sexe')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
+</div>
         
         
         
@@ -116,7 +116,7 @@
             @error('EtudiantActif')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
+</div>
         
         
         
@@ -136,7 +136,7 @@
             @error('Diplome')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
+</div>
         
         
         
@@ -156,7 +156,7 @@
             @error('Principale')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
+</div>
         
         
         
@@ -176,7 +176,7 @@
             @error('LibelleLong')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
+</div>
         
         
         
@@ -196,7 +196,7 @@
             @error('CodeDiplome')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
+</div>
         
         
         
@@ -216,7 +216,7 @@
             @error('DateNaissance')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
+</div>
         
         
         
@@ -236,7 +236,7 @@
             @error('DateInscription')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
+</div>
         
         
         
@@ -256,7 +256,7 @@
             @error('LieuNaissance')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
+</div>
         
         
         
@@ -276,7 +276,7 @@
             @error('CIN')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
+</div>
         
         
         
@@ -296,7 +296,7 @@
             @error('NTelephone')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
+</div>
         
         
         
@@ -316,7 +316,7 @@
             @error('Adresse')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
+</div>
         
         
         
@@ -336,7 +336,7 @@
             @error('Nationalite')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
+</div>
         
         
         
@@ -356,7 +356,7 @@
             @error('Nom_Arabe')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
+</div>
         
         
         
@@ -376,7 +376,7 @@
             @error('Prenom_Arabe')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
+</div>
         
         
         
@@ -396,7 +396,7 @@
             @error('NiveauScolaire')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
+</div>
         
         
     </div>

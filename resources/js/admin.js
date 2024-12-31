@@ -9,6 +9,7 @@ import 'admin-lte/plugins/bootstrap/js/bootstrap.bundle';
 import "admin-lte/dist/js/adminlte";
 import { CrudManager } from './crud/CrudManager';
 import { ConfigHelper } from './crud/helpers/ConfigHelper';
+import { NotificationHandler } from './crud/components/NotificationHandler';
 
 // Init CrudManagers in the page
 document.addEventListener("DOMContentLoaded", function () {
@@ -23,6 +24,10 @@ document.addEventListener("DOMContentLoaded", function () {
         const entityConfig = new ConfigHelper(entityConfigData);
         const crudManager = new CrudManager(entityConfig);
         crudManager.init();
+    });
+
+    window.notifications.forEach((notificationData) => {
+        new NotificationHandler(notificationData).show();
     });
 
     $('.select2').select2()

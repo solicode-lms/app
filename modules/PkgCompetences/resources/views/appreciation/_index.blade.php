@@ -5,6 +5,7 @@
 <script>
     window.entitiesConfig = window.entitiesConfig || [];
     window.entitiesConfig.push({
+        edit_has_many: false,
         entity_name: 'appreciation',
         crudSelector: '#appreciation_crud',
         indexUrl: '{{ route('appreciations.index') }}', 
@@ -21,12 +22,6 @@
 @endsection
 <div id="appreciation_crud">
     <div class="content-header">
-        @if (session('success'))
-            <div class="alert alert-success alert-dismissible">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                {{ session('success') }}.
-            </div>
-        @endif
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
@@ -37,10 +32,10 @@
                 <div class="col-sm-6">
                     <div class="float-sm-right">
                         @can('create-appreciation')
-                        <button type="button" class="btn btn-info btn-sm addEntityButton" data-target="#appreciationModal">
-                            <i class="fas fa-plus"></i> {{ __('Core::msg.add') }}
-                        </button>
-
+                        <a href="{{ route('appreciations.create') }}" data-target="#appreciationModal" class="btn btn-info btn-sm addEntityButton">
+                            <i class="fas fa-plus"></i>
+                            {{ __('Core::msg.add') }}
+                        </a>
                         @endcan
                     </div>
                 </div>

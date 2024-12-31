@@ -28,7 +28,7 @@
             @error('name')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
+</div>
         
         
         
@@ -50,11 +50,27 @@
             @error('email')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
+</div>
         
         
         
-        <li>Attribut date : email_verified_at</li>
+        <div class="form-group">
+            <label for="email_verified_at">
+                {{ ucfirst(__('PkgAutorisation::user.email_verified_at')) }}
+                
+            </label>
+            <input
+                name="email_verified_at"
+                type="date"
+                class="form-control"
+                
+                id="email_verified_at"
+                placeholder="{{ __('PkgAutorisation::user.email_verified_at') }}"
+                value="{{ $itemUser ? $itemUser->email_verified_at : old('email_verified_at') }}">
+            @error('email_verified_at')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
         
         
         
@@ -76,7 +92,7 @@
             @error('password')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
+</div>
         
         
         
@@ -96,7 +112,7 @@
             @error('remember_token')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
+</div>
         
         
         

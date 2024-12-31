@@ -22,12 +22,6 @@
 @endsection
 <div id="projet_crud">
     <div class="content-header">
-        @if (session('success'))
-            <div class="alert alert-success alert-dismissible">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                {{ session('success') }}.
-            </div>
-        @endif
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
