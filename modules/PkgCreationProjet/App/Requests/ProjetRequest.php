@@ -18,9 +18,9 @@ class ProjetRequest extends FormRequest
     {
         return [
             'titre' => 'required|max:255',
-            'travail_a_faire' => 'required|max:255',
-            'critere_de_travail' => 'required|max:255',
-            'description' => 'required|max:255',
+            'travail_a_faire' => 'required',
+            'critere_de_travail' => 'required',
+            'description' => 'required',
             'date_debut' => 'required',
             'date_fin' => 'required',
             'formateur_id' => 'required'

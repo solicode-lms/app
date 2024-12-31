@@ -18,7 +18,7 @@ class NatureLivrableRequest extends FormRequest
     {
         return [
             'nom' => 'required|max:255',
-            'description' => 'required|max:255'
+            'description' => 'required'
         ];
     }
 

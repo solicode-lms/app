@@ -31,7 +31,7 @@ class ApprenantKonosyRequest extends FormRequest
             'LieuNaissance' => 'nullable|max:255',
             'CIN' => 'nullable|max:255',
             'NTelephone' => 'nullable|max:255',
-            'Adresse' => 'nullable|max:255',
+            'Adresse' => 'nullable',
             'Nationalite' => 'nullable|max:255',
             'Nom_Arabe' => 'nullable|max:255',
             'Prenom_Arabe' => 'nullable|max:255',

@@ -16,7 +16,7 @@
                 <tr>
                     <td>{{ $sysController->sysModule->name ?? '-' }}</td>
                     <td>{{ $sysController->name }}</td>
-                    <td>{{ $sysController->description }}</td>
+                    <td>{!! $sysController->description !!}</td>
                     <td>{{ $sysController->is_active }}</td>
                     <td class="text-center">
                         @can('show-sysController')

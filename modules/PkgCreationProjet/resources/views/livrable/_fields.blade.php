@@ -33,14 +33,14 @@
                 {{ ucfirst(__('PkgCreationProjet::livrable.description')) }}
                 
             </label>
-            <input
+            <textarea rows="" cols=""
                 name="description"
-                type="input"
-                class="form-control"
+                class="form-control richText"
                 
                 id="description"
-                placeholder="{{ __('PkgCreationProjet::livrable.description') }}"
-                value="{{ $itemLivrable ? $itemLivrable->description : old('description') }}">
+                placeholder="{{ __('PkgCreationProjet::livrable.description') }}">
+                {{ $itemLivrable ? $itemLivrable->description : old('description') }}
+            </textarea>
             @error('description')
                 <div class="text-danger">{{ $message }}</div>
             @enderror

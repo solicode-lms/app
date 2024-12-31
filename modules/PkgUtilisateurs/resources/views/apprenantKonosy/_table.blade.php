@@ -13,7 +13,7 @@
             @foreach ($apprenantKonosies_data as $apprenantKonosy)
                 <tr>
                     <td>{{ $apprenantKonosy->Nom }}</td>
-                    <td>{{ $apprenantKonosy->Adresse }}</td>
+                    <td>{!! $apprenantKonosy->Adresse !!}</td>
                     <td class="text-center">
                         @can('show-apprenantKonosy')
                             <a href="{{ route('apprenantKonosies.show', $apprenantKonosy) }}" data-id="{{$apprenantKonosy->id}}" class="btn btn-default btn-sm showEntity">

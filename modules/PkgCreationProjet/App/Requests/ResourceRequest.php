@@ -19,7 +19,7 @@ class ResourceRequest extends FormRequest
         return [
             'nom' => 'required|max:255',
             'lien' => 'required|max:255',
-            'description' => 'required|max:255',
+            'description' => 'required',
             'projet_id' => 'required'
         ];
     }

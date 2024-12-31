@@ -18,7 +18,7 @@ class LivrableRequest extends FormRequest
     {
         return [
             'titre' => 'required|max:255',
-            'description' => 'nullable|max:255',
+            'description' => 'nullable',
             'projet_id' => 'required',
             'nature_livrable_id' => 'required'
         ];

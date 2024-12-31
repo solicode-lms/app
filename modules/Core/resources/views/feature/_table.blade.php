@@ -14,7 +14,7 @@
             @foreach ($features_data as $feature)
                 <tr>
                     <td>{{ $feature->name }}</td>
-                    <td>{{ $feature->description }}</td>
+                    <td>{!! $feature->description !!}</td>
                     <td>{{ $feature->featureDomain->name ?? '-' }}</td>
                     <td class="text-center">
                         @can('show-feature')

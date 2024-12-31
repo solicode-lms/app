@@ -20,7 +20,7 @@ class SysControllerRequest extends FormRequest
             'module_id' => 'required',
             'name' => 'required|max:255',
             'slug' => 'required|max:255',
-            'description' => 'nullable|max:255',
+            'description' => 'nullable',
             'is_active' => 'required'
         ];
     }

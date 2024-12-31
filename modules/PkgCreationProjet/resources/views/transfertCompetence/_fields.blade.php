@@ -13,14 +13,14 @@
                 {{ ucfirst(__('PkgCreationProjet::transfertCompetence.description')) }}
                 
             </label>
-            <input
+            <textarea rows="" cols=""
                 name="description"
-                type="input"
-                class="form-control"
+                class="form-control richText"
                 
                 id="description"
-                placeholder="{{ __('PkgCreationProjet::transfertCompetence.description') }}"
-                value="{{ $itemTransfertCompetence ? $itemTransfertCompetence->description : old('description') }}">
+                placeholder="{{ __('PkgCreationProjet::transfertCompetence.description') }}">
+                {{ $itemTransfertCompetence ? $itemTransfertCompetence->description : old('description') }}
+            </textarea>
             @error('description')
                 <div class="text-danger">{{ $message }}</div>
             @enderror

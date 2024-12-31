@@ -18,7 +18,7 @@ class AppreciationRequest extends FormRequest
     {
         return [
             'nom' => 'required|max:255',
-            'description' => 'nullable|max:255',
+            'description' => 'nullable',
             'noteMin' => 'required',
             'noteMax' => 'required',
             'formateur_id' => 'required'

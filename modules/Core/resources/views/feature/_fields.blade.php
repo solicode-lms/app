@@ -33,14 +33,14 @@
                 {{ ucfirst(__('Core::feature.description')) }}
                 
             </label>
-            <input
+            <textarea rows="" cols=""
                 name="description"
-                type="input"
-                class="form-control"
+                class="form-control richText"
                 
                 id="description"
-                placeholder="{{ __('Core::feature.description') }}"
-                value="{{ $itemFeature ? $itemFeature->description : old('description') }}">
+                placeholder="{{ __('Core::feature.description') }}">
+                {{ $itemFeature ? $itemFeature->description : old('description') }}
+            </textarea>
             @error('description')
                 <div class="text-danger">{{ $message }}</div>
             @enderror

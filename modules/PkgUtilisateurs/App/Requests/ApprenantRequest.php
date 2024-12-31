@@ -31,7 +31,7 @@ class ApprenantRequest extends FormRequest
             'date_inscription' => 'nullable',
             'lieu_naissance' => 'nullable|max:255',
             'cin' => 'nullable|max:255',
-            'adresse' => 'nullable|max:255',
+            'adresse' => 'nullable',
             'groupe_id' => 'nullable',
             'niveaux_scolaire_id' => 'nullable',
             'nationalite_id' => 'nullable'

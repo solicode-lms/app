@@ -263,14 +263,14 @@
                 {{ ucfirst(__('PkgUtilisateurs::apprenant.adresse')) }}
                 
             </label>
-            <input
+            <textarea rows="" cols=""
                 name="adresse"
-                type="input"
-                class="form-control"
+                class="form-control richText"
                 
                 id="adresse"
-                placeholder="{{ __('PkgUtilisateurs::apprenant.adresse') }}"
-                value="{{ $itemApprenant ? $itemApprenant->adresse : old('adresse') }}">
+                placeholder="{{ __('PkgUtilisateurs::apprenant.adresse') }}">
+                {{ $itemApprenant ? $itemApprenant->adresse : old('adresse') }}
+            </textarea>
             @error('adresse')
                 <div class="text-danger">{{ $message }}</div>
             @enderror

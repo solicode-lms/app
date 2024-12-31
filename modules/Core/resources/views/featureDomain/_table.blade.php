@@ -14,7 +14,7 @@
             @foreach ($featureDomains_data as $featureDomain)
                 <tr>
                     <td>{{ $featureDomain->name }}</td>
-                    <td>{{ $featureDomain->description }}</td>
+                    <td>{!! $featureDomain->description !!}</td>
                     <td>{{ $featureDomain->sysModule->name ?? '-' }}</td>
                     <td class="text-center">
                         @can('show-featureDomain')

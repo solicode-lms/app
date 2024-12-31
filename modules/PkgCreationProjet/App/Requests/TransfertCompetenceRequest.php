@@ -17,7 +17,7 @@ class TransfertCompetenceRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'description' => 'nullable|max:255',
+            'description' => 'nullable',
             'projet_id' => 'required',
             'competence_id' => 'required',
             'appreciation_id' => 'required'

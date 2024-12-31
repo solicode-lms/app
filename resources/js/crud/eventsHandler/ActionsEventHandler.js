@@ -38,7 +38,7 @@ export class ActionsEventHandler {
     handleSubmitForm() {
         $(document).on('submit', this.config.formSelector, (e) => {
             e.preventDefault(); // Empêche le rechargement de la page
-            this.actions.submitForm(); // Appelle la méthode de `CrudActions`
+            this.actions.editor.submitEntity(); // Appelle la méthode de `CrudActions`
         });
     }
 

@@ -79,14 +79,14 @@
                 {{ ucfirst(__('Core::sysController.description')) }}
                 
             </label>
-            <input
+            <textarea rows="" cols=""
                 name="description"
-                type="input"
-                class="form-control"
+                class="form-control richText"
                 
                 id="description"
-                placeholder="{{ __('Core::sysController.description') }}"
-                value="{{ $itemSysController ? $itemSysController->description : old('description') }}">
+                placeholder="{{ __('Core::sysController.description') }}">
+                {{ $itemSysController ? $itemSysController->description : old('description') }}
+            </textarea>
             @error('description')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
