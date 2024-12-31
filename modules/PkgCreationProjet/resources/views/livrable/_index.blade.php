@@ -28,10 +28,6 @@
                     <h1>
                         {{ curd_index_title('PkgCreationProjet::livrable') }}
                     </h1>
-                    <span>Scoping : {{ $page['scop_entity'] ?? 'Aucun' }},</span>
-                    <span>ID : {{ $page['scop_id'] ?? 'Aucun' }}</span>
-
-
                 </div>
                 <div class="col-sm-6">
                     <div class="float-sm-right">
