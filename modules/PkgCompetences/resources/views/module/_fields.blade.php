@@ -78,6 +78,7 @@
             </label>
             <select 
             id="filiere_id" 
+            required
             name="filiere_id" 
             class="form-control">
              <option value="">Sélectionnez une option</option>

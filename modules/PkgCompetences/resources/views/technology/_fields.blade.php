@@ -58,6 +58,7 @@
             </label>
             <select 
             id="category_technology_id" 
+            required
             name="category_technology_id" 
             class="form-control">
              <option value="">Sélectionnez une option</option>

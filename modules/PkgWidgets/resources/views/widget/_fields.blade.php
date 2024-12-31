@@ -38,6 +38,7 @@
             </label>
             <select 
             id="type_id" 
+            required
             name="type_id" 
             class="form-control">
              <option value="">Sélectionnez une option</option>
@@ -64,6 +65,7 @@
             </label>
             <select 
             id="model_id" 
+            required
             name="model_id" 
             class="form-control">
              <option value="">Sélectionnez une option</option>
@@ -90,6 +92,7 @@
             </label>
             <select 
             id="operation_id" 
+            required
             name="operation_id" 
             class="form-control">
              <option value="">Sélectionnez une option</option>

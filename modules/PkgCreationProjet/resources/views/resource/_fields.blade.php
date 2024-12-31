@@ -78,6 +78,7 @@
             </label>
             <select 
             id="projet_id" 
+            required
             name="projet_id" 
             class="form-control">
              <option value="">Sélectionnez une option</option>

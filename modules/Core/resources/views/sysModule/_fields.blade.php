@@ -102,6 +102,7 @@
             </label>
             <select 
             id="color_id" 
+            required
             name="color_id" 
             class="form-control">
              <option value="">Sélectionnez une option</option>

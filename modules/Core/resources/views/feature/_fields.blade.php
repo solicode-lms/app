@@ -56,6 +56,7 @@
             </label>
             <select 
             id="domain_id" 
+            required
             name="domain_id" 
             class="form-control">
              <option value="">Sélectionnez une option</option>

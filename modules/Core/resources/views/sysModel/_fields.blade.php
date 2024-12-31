@@ -76,6 +76,7 @@
             </label>
             <select 
             id="module_id" 
+            required
             name="module_id" 
             class="form-control">
              <option value="">Sélectionnez une option</option>
@@ -102,6 +103,7 @@
             </label>
             <select 
             id="color_id" 
+            required
             name="color_id" 
             class="form-control">
              <option value="">Sélectionnez une option</option>

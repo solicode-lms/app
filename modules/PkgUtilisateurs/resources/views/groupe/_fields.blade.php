@@ -69,11 +69,10 @@
             <label for="filiere_id">
                 {{ ucfirst(__('PkgCompetences::filiere.singular')) }}
                 
-                    <span class="text-danger">*</span>
-                
             </label>
             <select 
             id="filiere_id" 
+            
             name="filiere_id" 
             class="form-control">
              <option value="">Sélectionnez une option</option>

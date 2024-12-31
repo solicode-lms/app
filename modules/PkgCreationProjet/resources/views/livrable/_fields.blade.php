@@ -56,6 +56,7 @@
             </label>
             <select 
             id="projet_id" 
+            required
             name="projet_id" 
             class="form-control">
              <option value="">Sélectionnez une option</option>
@@ -82,6 +83,7 @@
             </label>
             <select 
             id="nature_livrable_id" 
+            required
             name="nature_livrable_id" 
             class="form-control">
              <option value="">Sélectionnez une option</option>

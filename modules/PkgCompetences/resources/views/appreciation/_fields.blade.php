@@ -62,6 +62,7 @@
             </label>
             <select 
             id="formateur_id" 
+            required
             name="formateur_id" 
             class="form-control">
              <option value="">Sélectionnez une option</option>

@@ -141,6 +141,8 @@
             <label for="formateur_id">
                 {{ ucfirst(__('PkgUtilisateurs::formateur.singular')) }}
                 
+                    <span class="text-danger">*</span>
+                
             </label>
             <select 
             id="formateur_id" 

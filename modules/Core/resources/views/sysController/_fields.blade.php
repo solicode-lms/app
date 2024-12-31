@@ -18,6 +18,7 @@
             </label>
             <select 
             id="module_id" 
+            required
             name="module_id" 
             class="form-control">
              <option value="">Sélectionnez une option</option>

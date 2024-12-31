@@ -53,11 +53,10 @@
             <label for="controller_id">
                 {{ ucfirst(__('Core::sysController.singular')) }}
                 
-                    <span class="text-danger">*</span>
-                
             </label>
             <select 
             id="controller_id" 
+            
             name="controller_id" 
             class="form-control">
              <option value="">Sélectionnez une option</option>

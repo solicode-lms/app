@@ -58,6 +58,7 @@
             </label>
             <select 
             id="competence_id" 
+            required
             name="competence_id" 
             class="form-control">
              <option value="">Sélectionnez une option</option>

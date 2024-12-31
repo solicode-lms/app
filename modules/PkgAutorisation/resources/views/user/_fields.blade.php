@@ -56,7 +56,7 @@
             <input
                 name="email_verified_at"
                 type="date"
-                class="form-control"
+                class="form-control datetimepicker"
                 
                 id="email_verified_at"
                 placeholder="{{ __('PkgAutorisation::user.email_verified_at') }}"
@@ -65,6 +65,10 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
+
+
+
+
 
         <div class="form-group">
             <label for="password">

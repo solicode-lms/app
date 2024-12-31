@@ -194,7 +194,7 @@
             <input
                 name="date_naissance"
                 type="date"
-                class="form-control"
+                class="form-control datetimepicker"
                 
                 id="date_naissance"
                 placeholder="{{ __('PkgUtilisateurs::apprenant.date_naissance') }}"
@@ -204,6 +204,10 @@
             @enderror
 </div>
 
+
+
+
+
         <div class="form-group">
             <label for="date_inscription">
                 {{ ucfirst(__('PkgUtilisateurs::apprenant.date_inscription')) }}
@@ -212,7 +216,7 @@
             <input
                 name="date_inscription"
                 type="date"
-                class="form-control"
+                class="form-control datetimepicker"
                 
                 id="date_inscription"
                 placeholder="{{ __('PkgUtilisateurs::apprenant.date_inscription') }}"
@@ -221,6 +225,10 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
+
+
+
+
 
         <div class="form-group">
             <label for="lieu_naissance">
@@ -281,11 +289,10 @@
             <label for="groupe_id">
                 {{ ucfirst(__('PkgUtilisateurs::groupe.singular')) }}
                 
-                    <span class="text-danger">*</span>
-                
             </label>
             <select 
             id="groupe_id" 
+            
             name="groupe_id" 
             class="form-control">
              <option value="">Sélectionnez une option</option>
@@ -307,11 +314,10 @@
             <label for="niveaux_scolaire_id">
                 {{ ucfirst(__('PkgUtilisateurs::niveauxScolaire.singular')) }}
                 
-                    <span class="text-danger">*</span>
-                
             </label>
             <select 
             id="niveaux_scolaire_id" 
+            
             name="niveaux_scolaire_id" 
             class="form-control">
              <option value="">Sélectionnez une option</option>
@@ -333,11 +339,10 @@
             <label for="nationalite_id">
                 {{ ucfirst(__('PkgUtilisateurs::nationalite.singular')) }}
                 
-                    <span class="text-danger">*</span>
-                
             </label>
             <select 
             id="nationalite_id" 
+            
             name="nationalite_id" 
             class="form-control">
              <option value="">Sélectionnez une option</option>
