@@ -24,7 +24,9 @@ export class ConfigHelper {
         this.editTitle = config.edit_title; // Titre pour le formulaire de modification
 
         // Identifiant global pour les sélecteurs CRUD spécifiques à une entité
-        this.crudSelector = `#${this.entityName}_crud`;
+        if(this.crudSelector == undefined){
+            this.crudSelector = `#${this.entityName}_crud`;
+        }
 
 
         this.searchInputSelector = `${this.crudSelector} #crud_search_input`;

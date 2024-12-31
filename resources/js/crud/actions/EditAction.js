@@ -30,5 +30,13 @@ export class EditAction extends BaseAction {
             });
     }
 
+
+    submitEntityAndRedirect(url){
+
+        this.submitEntity(() => {
+            // Redirection vers l'index après la réussite de l'appel AJAX
+            window.location.href = this.config.indexUrl;
+        });
+    }
     
 }

@@ -13,16 +13,28 @@ export class ActionsEventHandler {
      * Initialise les gestionnaires d'événements pour les actions CRUD.
      */
     init() {
-        if(!this.config.edit_has_many){
+        if(this.config.edit_has_many){
+            this.handleShowEntity();
+            this.handleDeleteEntity();
+            this.handleSubmitForm();
+            this.handleButtonSaveCardWithHasMany();
+        }else{
             this.handleEditEntity();
             this.handleAddEntity();
+            this.handleShowEntity();
+            this.handleDeleteEntity();
+            this.handleSubmitForm();
         }
-        
-        this.handleShowEntity();
-        this.handleDeleteEntity();
-        this.handleSubmitForm();
     }
 
+    handleButtonSaveCardWithHasMany(){
+        $(document).on('click', `${this.config.crudSelector} .btn-card-header`, (e) => {
+            e.preventDefault();
+            this.actions.editor.submitEntityAndRedirect(this.config.indexUrl);
+         
+
+        });
+    }
     handleSubmitForm() {
         $(document).on('submit', this.config.formSelector, (e) => {
             e.preventDefault(); // Empêche le rechargement de la page

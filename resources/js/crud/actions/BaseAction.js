@@ -51,7 +51,7 @@ export class BaseAction {
     /**
      * Soumet le formulaire de modification via AJAX.
      */
-    submitEntity() {
+    submitEntity(onSuccess) {
         const form = $(this.config.formSelector);
         const actionUrl = form.attr('action'); // URL définie dans le formulaire
         const method = form.find('input[name="_method"]').val() || 'POST'; // Méthode HTTP
@@ -76,6 +76,10 @@ export class BaseAction {
                 this.handleSuccess(this.SuscesMessage);
                 this.modalManager.close(); // Fermer le modal après succès
                 this.entityLoader.loadEntities(); // Recharger les entités
+                // Appeler le callback de succès si fourni
+                if (typeof onSuccess === 'function') {
+                    onSuccess();
+                }
             })
             .fail((xhr) => {
                 this.formManager.loader.hide();

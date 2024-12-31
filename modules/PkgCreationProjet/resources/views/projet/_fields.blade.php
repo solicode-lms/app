@@ -39,14 +39,14 @@
                     <span class="text-danger">*</span>
                 
             </label>
-            <input
+            <textarea
                 name="travail_a_faire"
-                type="input"
-                class="form-control"
+                class="form-control richText"
                 required
                 id="travail_a_faire"
                 placeholder="{{ __('PkgCreationProjet::projet.travail_a_faire') }}"
                 value="{{ $itemProjet ? $itemProjet->travail_a_faire : old('travail_a_faire') }}">
+            </textarea>
             @error('travail_a_faire')
                 <div class="text-danger">{{ $message }}</div>
             @enderror

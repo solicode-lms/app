@@ -9,8 +9,8 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
-                <div class="card card-info card-tabs card-workflow">
-                    <div class="card-header d-flex justify-content-between  p-0 pt-1">
+                <div id="card-tab-projet" class="card card-info card-tabs card-workflow">
+                    <div class="card-header d-flex justify-content-between p-0 pt-1">
                         <ul class="nav nav-tabs mr-auto" id="edit-projet-tab" role="tablist">
                         <li class="pt-2 px-3">
                             <h3 class="card-title">
@@ -34,11 +34,10 @@
 
                        
                         </ul>
-
-                        <button type="button" class="btn btn-info btn-sm  btn-card-header" onclick="handleButtonClick()">
-                            <i class="fa fa-save"></i>
-                           Enregistrer
-                        </button>
+                         <button type="button" class="btn btn-info btn-sm btn-card-header">
+                            <i class="fa fa-check"></i>
+                                Enregistrer
+                         </button>
                     </div>
                     <div class="card-body">
                         <div class="tab-content" id="edit-projet-tabContent">
@@ -65,4 +64,25 @@
             </div>
         </div>
     </section>
+@endsection
+
+@section('script')
+@parent
+<script>
+    window.entitiesConfig = window.entitiesConfig || [];
+    window.entitiesConfig.push({
+        edit_has_many: true,
+        entity_name: 'projet',
+        crudSelector: '#card-tab-projet',
+        indexUrl: '{{ route('projets.index') }}', 
+        createUrl: '{{ route('projets.create') }}',
+        editUrl: '{{ route('projets.edit', ['projet' => ':id']) }}',
+        showUrl: '{{ route('projets.show', ['projet' => ':id']) }}',
+        storeUrl: '{{ route('projets.store') }}', 
+        deleteUrl: '{{ route('projets.destroy', ['projet' => ':id']) }}', 
+        csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
+        create_title: '{{__("Core::msg.add") . " : " . __("PkgCreationProjet::projet.singular") }}',
+        edit_title: '{{__("Core::msg.add") . " : " . __("PkgCreationProjet::projet.singular") }}',
+    });
+</script>
 @endsection

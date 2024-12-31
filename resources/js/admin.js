@@ -5,6 +5,9 @@ import select2 from 'select2';
 select2();
 window.$ = $;
 
+import 'summernote';
+
+
 import 'admin-lte/plugins/bootstrap/js/bootstrap.bundle';
 import "admin-lte/dist/js/adminlte";
 import { CrudManager } from './crud/CrudManager';
@@ -30,7 +33,10 @@ document.addEventListener("DOMContentLoaded", function () {
         new NotificationHandler(notificationData).show();
     });
 
-    $('.select2').select2()
+    $('.select2').select2();
+
+    // Init sumernote
+    $('.richText').summernote();
     
     //Initialize Select2 Elements
     $('.select2bs4').select2({
