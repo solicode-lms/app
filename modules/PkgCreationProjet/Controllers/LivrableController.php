@@ -1,4 +1,5 @@
 <?php
+// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 namespace Modules\PkgCreationProjet\Controllers;
@@ -8,7 +9,6 @@ use Modules\PkgCreationProjet\App\Requests\LivrableRequest;
 use Modules\PkgCreationProjet\Services\LivrableService;
 use Modules\PkgCreationProjet\Services\NatureLivrableService;
 use Modules\PkgCreationProjet\Services\ProjetService;
-use Modules\Core\Services\PageVariables;
 
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
@@ -21,13 +21,13 @@ class LivrableController extends AdminController
     protected $natureLivrableService;
     protected $projetService;
 
-
     public function __construct(LivrableService $livrableService, NatureLivrableService $natureLivrableService, ProjetService $projetService)
     {
         parent::__construct();
-        $this->livrableService = $livrableService->setScope($this->page);
+        $this->livrableService = $livrableService->setScope($this->page);;
         $this->natureLivrableService = $natureLivrableService;
         $this->projetService = $projetService;
+
     }
 
 
@@ -54,7 +54,8 @@ class LivrableController extends AdminController
         $itemLivrable = $this->livrableService->createInstance();
         $natureLivrables = $this->natureLivrableService->all();
         $projets = $this->projetService->all();
-       
+
+
         if (request()->ajax()) {
             return view('PkgCreationProjet::livrable._fields', compact('itemLivrable', 'natureLivrables', 'projets'));
         }
