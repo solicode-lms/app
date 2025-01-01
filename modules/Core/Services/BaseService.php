@@ -15,9 +15,7 @@ use Illuminate\Database\Eloquent\Collection;
 abstract class BaseService implements ServiceInterface
 {
 
-    protected $scopEntity;
-    protected $scopId;
-
+    protected $contextState;
     /**
      * Configure les relations à inclure dans les requêtes.
      *
@@ -26,20 +24,6 @@ abstract class BaseService implements ServiceInterface
     protected function withRelations()
     {
       
-    }
-
-    /**
-     * Définir les paramètres de scoping.
-     *
-     * @param string|null $entity
-     * @param int|null $id
-     * @return $this
-     */
-    public function setScope(ContextState $contextState)
-    {
-        $this->scopEntity = $contextState->get('scop_entity', null);
-        $this->scopId = $contextState->get('scop_id', null);
-        return $this;
     }
 
     /**
@@ -70,6 +54,8 @@ abstract class BaseService implements ServiceInterface
      */
     public function __construct(Model $model){
         $this->model = $model;
+        // Scrop management
+        $this->contextState = app(ContextState::class);
     }
 
     /**
@@ -238,18 +224,21 @@ abstract class BaseService implements ServiceInterface
         return  $record;
     }
 
-    public function createInstance(){
+    public function createInstance()
+    {
+        // Créer une nouvelle instance du modèle
         $item = $this->model::make();
 
 
-        // Ajouter le scoping si défini
-        if (!empty($this->scopEntity) && !empty($this->scopId)) {
-            $scopParam = $this->scopEntity . "_id"; // ex: "projet_id"
-            $search[$scopParam] = $this->scopId;   // Ajout de la condition de scoping
-            $item[$scopParam] = $this->scopId;
+        $contextVariables = $this->contextState->all();
+    
+        // Parcourir les variables de contexte et modifier les attributs correspondants du modèle
+        foreach ($contextVariables as $key => $value) {
+                if ($item->isFillable($key)) { // Vérifier si l'attribut est fillable
+                    $item[$key] = $value;
+                }
         }
-
-
+    
         return $item;
     }
 }

@@ -5,13 +5,47 @@ export class ContexteStateHandler {
      * @param {String} mode - Mode d'ajout des paramètres : "prefixed" ou "json".
      * @param {String} targetClass - La classe CSS cible pour appliquer les modifications.
      */
-    constructor(contextState = {}, mode = 'prefixed', targetClass = 'contextState') {
+    constructor(contextState = {}, mode = 'prefixed', targetClass = 'context-state') {
         this.contextState = contextState;
         this.mode = mode; // Mode : "prefixed" ou "json".
         this.prefix = 'context_'; // Préfixe pour les paramètres (en mode "prefixed").
         this.targetClass = targetClass; // Classe CSS cible.
     }
 
+       /**
+     * Ajoute le contexte à l'objet config, y compris dans les URLs, et le retourne.
+     * @param {Object} config - L'objet de configuration à modifier.
+     * @returns {Object} - L'objet de configuration avec les paramètres de contexte ajoutés.
+     */
+       addContextToConfig(config) {
+        // Clone l'objet de configuration pour éviter les modifications directes
+        const updatedConfig = { ...config };
+
+        // Préparer les paramètres de contexte sous forme de chaîne
+        let contextParams;
+        if (this.mode === 'json') {
+            contextParams = `context=${encodeURIComponent(JSON.stringify(this.contextState))}`;
+        } else {
+            const prefixedContext = {};
+            Object.entries(this.contextState).forEach(([key, value]) => {
+                prefixedContext[`${this.prefix}${key}`] = value;
+            });
+            contextParams = new URLSearchParams(prefixedContext).toString();
+        }
+
+        // Ajouter les paramètres de contexte aux URLs
+        Object.keys(updatedConfig).forEach((key) => {
+            if (key.toLowerCase().endsWith('url') && typeof updatedConfig[key] === 'string') {
+                const url = new URL(updatedConfig[key], window.location.origin);
+                const separator = url.search ? '&' : '?';
+                updatedConfig[key] = `${url.toString()}${separator}${contextParams}`;
+            }
+        });
+
+        return updatedConfig;
+    }
+
+    
     /**
      * Met à jour le contexte d'état.
      * @param {Object} newState - Les nouvelles variables à ajouter ou remplacer dans le contexte.
@@ -93,39 +127,6 @@ export class ContexteStateHandler {
     }
 
     /**
-     * Applique dynamiquement le contexte aux nouveaux liens ajoutés au DOM ayant la classe cible.
-     */
-    observeDynamicLinks() {
-        const observer = new MutationObserver(mutations => {
-            mutations.forEach(mutation => {
-                if (mutation.addedNodes) {
-                    mutation.addedNodes.forEach(node => {
-                        if (node.tagName === 'A' && node.classList.contains(this.targetClass)) {
-                            const contextParams = this.getContextParams();
-                            const url = new URL(node.href, window.location.origin);
-
-                            if (this.mode === 'json') {
-                                url.searchParams.set('context', contextParams);
-                            } else {
-                                contextParams.split('&').forEach(param => {
-                                    const [key, value] = param.split('=');
-                                    if (key && value) {
-                                        url.searchParams.set(key, value);
-                                    }
-                                });
-                            }
-
-                            node.href = url.toString();
-                        }
-                    });
-                }
-            });
-        });
-
-        observer.observe(document.body, { childList: true, subtree: true });
-    }
-
-    /**
      * Applique dynamiquement le contexte aux nouvelles requêtes AJAX.
      * @param {String} url - L'URL de la requête.
      * @param {Object} options - Les options pour la requête fetch.
@@ -157,4 +158,17 @@ export class ContexteStateHandler {
         this.updateForms();
         this.observeDynamicLinks();
     }
+
+
+    /**
+ * Masque les éléments <select> dont l'id correspond à une clé dans le contextState.
+ */
+hideSelectsById() {
+    Object.keys(this.contextState).forEach((key) => {
+        const selectElement = document.getElementById(key);
+        if (selectElement && selectElement.tagName === 'SELECT') {
+            selectElement.style.display = 'none';
+        }
+    });
+}
 }

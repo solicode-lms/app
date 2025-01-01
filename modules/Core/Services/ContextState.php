@@ -16,59 +16,61 @@ class ContextState
 {
     protected $variables = [];
 
-/**
- * Définir une variable.
- *
- * @param string $key
- * @param mixed $value
- * @return void
- */
-public function set(string $key, $value)
-{
-    $this->variables[$key] = $value;
-}
-
-/**
- * Récupérer une variable.
- *
- * @param string $key
- * @param mixed $default
- * @return mixed
- */
-public function get(string $key, $default = null)
-{
-    return $this->variables[$key] ?? $default;
-}
-
-/**
- * Obtenir toutes les variables.
- *
- * @return array
- */
-public function all(): array
-{
-    return $this->variables;
+    /**
+     * Définir une variable.
+     *
+     * @param string $key
+     * @param mixed $value
+     * @return void
+     */
+    public function set(string $key, $value)
+    {
+        $this->variables[$key] = $value;
 }
 
     /**
-     * Lire les valeurs de la requête et les stocker comme variables de la page.
+     * Récupérer une variable.
+     *
+     * @param string $key
+     * @param mixed $default
+     * @return mixed
+     */
+    public function get(string $key, $default = null)
+    {
+        return $this->variables[$key] ?? $default;
+    }
+
+    /**
+     * Obtenir toutes les variables.
+     *
+     * @return array
+     */
+    public function all(): array
+    {
+        return $this->variables;
+    }
+
+    /**
+     * Lire les valeurs de la requête et de la route avec un préfixe spécifique,
+     * puis les stocker dans le contexte.
      *
      * @param Request $request
+     * @param string $prefix - Préfixe des clés à extraire (par exemple, "context_").
      * @return void
      */
-    public function readFromRequest(Request $request)
+    public function readFromRequest(Request $request, string $prefix = 'context_')
     {
-        // Extraire les paramètres de routage scop_entity et scop_id
-        $scop_entity = $request->get('scop_entity', null);
-        $scop_id = $request->get('scop_id', null);
+        // Fusionner les données de la requête et de la route
+        $allParams = array_merge($request->all(), $request->route() ? $request->route()->parameters() : []);
 
-        // Stocker les valeurs si elles existent
-        if ($scop_entity) {
-            $this->set('scop_entity', $scop_entity);
-        }
-
-        if ($scop_id) {
-            $this->set('scop_id', $scop_id);
+        // Parcourir tous les paramètres
+        foreach ($allParams as $key => $value) {
+            // Vérifier si la clé commence par le préfixe
+            if (str_starts_with($key, $prefix)) {
+                // Supprimer le préfixe avant de stocker dans le contexte
+                $cleanKey = substr($key, strlen($prefix));
+                $this->set($cleanKey, $value);
+            }
         }
     }
 }

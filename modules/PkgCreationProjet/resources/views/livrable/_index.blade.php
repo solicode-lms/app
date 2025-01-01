@@ -27,14 +27,13 @@
             <div class="row mb-2">
                 <div class="col-sm-6">
                     <h1>
-                        {{ html_entity_decode(route('livrables.create')) }}
                         {{ curd_index_title('PkgCreationProjet::livrable') }}
                     </h1>
                 </div>
                 <div class="col-sm-6">
                     <div class="float-sm-right">
                         @can('create-livrable')
-                        <a href="{{ route('livrables.create') }}" data-target="#livrableModal" class="btn btn-info btn-sm addEntityButton">
+                        <a href="{{ route('livrables.create') }}" data-target="#livrableModal" class="btn btn-info btn-sm context-state addEntityButton">
                             <i class="fas fa-plus"></i>
                             {{ __('Core::msg.add') }}
                         </a>

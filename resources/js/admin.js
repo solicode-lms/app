@@ -34,17 +34,20 @@ document.addEventListener("DOMContentLoaded", function () {
     // Contexte State 
     let contextState = window.contextState;
     
-    new ContexteStateHandler(contextState).init();
+    const context = new ContexteStateHandler(contextState);
+
 
     // Vérifie si la configuration des entités est disponible
     if (window.entitiesConfig && Array.isArray(window.entitiesConfig)) {
         // Initialiser les gestionnaires pour chaque entité
         window.entitiesConfig.forEach((entityConfigData) => {
-            const entityConfig = new ConfigHelper(entityConfigData);
+            let entityConfig = new ConfigHelper(entityConfigData);
+            entityConfig = context.addContextToConfig(entityConfig);
             const crudManager = new CrudManager(entityConfig);
             crudManager.init();
         });
     }
+    context.init();
 
 
     window.notifications.forEach((notificationData) => {
