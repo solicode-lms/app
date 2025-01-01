@@ -1,4 +1,5 @@
 <?php
+// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 namespace Modules\PkgCreationProjet\Controllers;
@@ -10,21 +11,21 @@ use Modules\PkgUtilisateurs\Services\FormateurService;
 
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
-use Modules\Core\Services\ContextState;
 use Modules\PkgCreationProjet\App\Exports\ProjetExport;
 use Modules\PkgCreationProjet\App\Imports\ProjetImport;
+use Modules\Core\Services\ContextState;
 
 class ProjetController extends AdminController
 {
     protected $projetService;
     protected $formateurService;
 
-    public function __construct(Request $request, ContextState $contextState,ProjetService $projetService, FormateurService $formateurService)
+    public function __construct(ProjetService $projetService, FormateurService $formateurService)
     {
         parent::__construct();
         $this->projetService = $projetService;
         $this->formateurService = $formateurService;
-        $this->contextState = $contextState;
+
     }
 
 
@@ -109,12 +110,13 @@ class ProjetController extends AdminController
     {
         $itemProjet = $this->projetService->find($id);
         $formateurs = $this->formateurService->all();
-        
          $livrables_data =  $itemProjet->livrables()->paginate(10);
          $resources_data =  $itemProjet->resources()->paginate(10);
          $transfertCompetences_data =  $itemProjet->transfertCompetences()->paginate(10);
 
-         $this->contextState->set('projet_id', $id);
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('projet_id', $id);
+
 
         if (request()->ajax()) {
             return view('PkgCreationProjet::projet._fields', compact('itemProjet', 'formateurs', 'livrables_data', 'resources_data', 'transfertCompetences_data'));
