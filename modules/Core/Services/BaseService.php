@@ -35,10 +35,10 @@ abstract class BaseService implements ServiceInterface
      * @param int|null $id
      * @return $this
      */
-    public function setScope(PageVariables $page)
+    public function setScope(ContextState $contextState)
     {
-        $this->scopEntity = $page->get('scop_entity', null);
-        $this->scopId = $page->get('scop_id', null);
+        $this->scopEntity = $contextState->get('scop_entity', null);
+        $this->scopId = $contextState->get('scop_id', null);
         return $this;
     }
 

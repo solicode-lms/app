@@ -47,7 +47,7 @@
 </div>
 
         
-    <div class="form-group" style="display: {{ isset($page['scop_entity']) && $page['scop_entity'] == 'projet' ? 'none' : 'block' }}">
+    <div class="form-group" style="display: {{ isset($contextState['scop_entity']) && $contextState['scop_entity'] == 'projet' ? 'none' : 'block' }}">
             <label for="projet_id">
                 {{ ucfirst(__('PkgCreationProjet::projet.singular')) }}
                 
@@ -74,7 +74,7 @@
 
 
         
-    <div class="form-group" style="display: {{ isset($page['scop_entity']) && $page['scop_entity'] == 'natureLivrable' ? 'none' : 'block' }}">
+    <div class="form-group" style="display: {{ isset($contextState['scop_entity']) && $contextState['scop_entity'] == 'natureLivrable' ? 'none' : 'block' }}">
             <label for="nature_livrable_id">
                 {{ ucfirst(__('PkgCreationProjet::natureLivrable.singular')) }}
                 

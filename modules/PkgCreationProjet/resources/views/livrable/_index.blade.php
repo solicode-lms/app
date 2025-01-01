@@ -3,17 +3,18 @@
 @section('script')
 @parent
 <script>
+    // html_entity_decode
     window.entitiesConfig = window.entitiesConfig || [];
     window.entitiesConfig.push({
         edit_has_many: false,
         entity_name: 'livrable',
         crudSelector: '#livrable_crud',
-        indexUrl: '{{ route('livrables.index',$page) }}', 
-        createUrl: '{{ html_entity_decode(route('livrables.create',$page)) }}',
-        editUrl: '{{ route('livrables.edit', array_merge($page, ['livrable' => ':id'])) }}',
-        showUrl: '{{ route('livrables.show', array_merge($page, ['livrable' => ':id'])) }}',
-        storeUrl: '{{ route('livrables.store',$page) }}', 
-        deleteUrl: '{{ route('livrables.destroy', array_merge($page, ['livrable' => ':id'])) }}', 
+        indexUrl: '{{ route('livrables.index') }}', 
+        createUrl: '{{ route('livrables.create') }}',
+        editUrl: '{{ route('livrables.edit',  ['livrable' => ':id']) }}',
+        showUrl: '{{ route('livrables.show',  ['livrable' => ':id']) }}',
+        storeUrl: '{{ route('livrables.store') }}', 
+        deleteUrl: '{{ route('livrables.destroy',  ['livrable' => ':id']) }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgCreationProjet::livrable.singular") }}',
         edit_title: '{{__("Core::msg.add") . " : " . __("PkgCreationProjet::livrable.singular") }}',
@@ -26,14 +27,14 @@
             <div class="row mb-2">
                 <div class="col-sm-6">
                     <h1>
-                        {{ html_entity_decode(route('livrables.create',$page)) }}
+                        {{ html_entity_decode(route('livrables.create')) }}
                         {{ curd_index_title('PkgCreationProjet::livrable') }}
                     </h1>
                 </div>
                 <div class="col-sm-6">
                     <div class="float-sm-right">
                         @can('create-livrable')
-                        <a href="{{ route('livrables.create',$page) }}" data-target="#livrableModal" class="btn btn-info btn-sm addEntityButton">
+                        <a href="{{ route('livrables.create') }}" data-target="#livrableModal" class="btn btn-info btn-sm addEntityButton">
                             <i class="fas fa-plus"></i>
                             {{ __('Core::msg.add') }}
                         </a>

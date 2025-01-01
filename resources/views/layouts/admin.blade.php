@@ -89,11 +89,7 @@
         </footer>
     </div>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            console.log($.fn.select2); 
-        });
-    </script>
+ 
     <script>
         window.notifications = window.notifications || [];
         @if (session('success'))

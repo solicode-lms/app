@@ -2,5 +2,5 @@
 
 return [
     App\Providers\AppServiceProvider::class,
-    App\Providers\PageVariablesServiceProvider::class,
+    App\Providers\ContextStateServiceProvider::class,
 ];

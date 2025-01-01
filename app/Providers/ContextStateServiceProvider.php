@@ -3,9 +3,9 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Modules\Core\Services\PageVariables;
+use Modules\Core\Services\ContextState;
 
-class PageVariablesServiceProvider extends ServiceProvider
+class ContextStateServiceProvider extends ServiceProvider
 {
     /**
      * Register services.
@@ -13,7 +13,7 @@ class PageVariablesServiceProvider extends ServiceProvider
     public function register(): void
     {
           // Enregistrer PageVariables comme singleton
-          $this->app->singleton(PageVariables::class);
+          $this->app->singleton(ContextState::class);
     }
 
     /**
@@ -23,7 +23,7 @@ class PageVariablesServiceProvider extends ServiceProvider
     {
         // Partager les variables de la page avec toutes les vues
         view()->composer('*', function ($view) {
-            $view->with('page', app(PageVariables::class)->all());
+            $view->with('contextState', app(ContextState::class)->all());
         });
     }
 }

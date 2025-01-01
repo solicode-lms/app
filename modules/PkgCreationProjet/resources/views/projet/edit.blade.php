@@ -5,6 +5,9 @@
 @section('script')
 @parent
 <script>
+    window.contextState = @json($contextState);
+ </script>
+<script>
     window.entitiesConfig = window.entitiesConfig || [];
     window.entitiesConfig.push({
         edit_has_many: true,
@@ -26,6 +29,9 @@
 
 @section('content')
     <div class="content-header">
+    @foreach ($contextState as $key => $value)
+        Key: {{ $key }}, Value: {{ $value }}<br>
+    @endforeach
     </div>
     <section class="content">
         <div class="container-fluid">

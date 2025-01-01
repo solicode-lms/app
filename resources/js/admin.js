@@ -25,9 +25,17 @@ import { CrudManager } from './crud/CrudManager';
 import { ConfigHelper } from './crud/helpers/ConfigHelper';
 import { NotificationHandler } from './crud/components/NotificationHandler';
 import { FormManager } from './crud/components/FormManager';
+import { ContexteStateHandler } from './crud/eventsHandler/ContexteStateHandler';
 
 // Init CrudManagers in the page
 document.addEventListener("DOMContentLoaded", function () {
+
+
+    // Contexte State 
+    let contextState = window.contextState;
+    
+    new ContexteStateHandler(contextState).init();
+
     // Vérifie si la configuration des entités est disponible
     if (window.entitiesConfig && Array.isArray(window.entitiesConfig)) {
         // Initialiser les gestionnaires pour chaque entité

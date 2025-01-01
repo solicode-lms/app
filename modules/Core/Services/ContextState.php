@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 /**
  * Classe SysColorService pour gérer la persistance de l'entité SysColor.
  */
-class PageVariables 
+class ContextState 
 {
     protected $variables = [];
 

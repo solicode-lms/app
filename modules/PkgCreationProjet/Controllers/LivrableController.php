@@ -24,7 +24,7 @@ class LivrableController extends AdminController
     public function __construct(LivrableService $livrableService, NatureLivrableService $natureLivrableService, ProjetService $projetService)
     {
         parent::__construct();
-        $this->livrableService = $livrableService->setScope($this->page);;
+        $this->livrableService = $livrableService->setScope($this->contextState);;
         $this->natureLivrableService = $natureLivrableService;
         $this->projetService = $projetService;
 
