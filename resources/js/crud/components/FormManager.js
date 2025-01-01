@@ -1,4 +1,5 @@
 import { LoadingIndicator } from "./LoadingIndicator";
+import { ContextStateManager } from './ContextStateManager';
 
 export class FormManager {
     /**
@@ -6,9 +7,12 @@ export class FormManager {
      * @param {string} formSelector - Sélecteur CSS du formulaire à gérer.
      * @param {ModalManager} modalManager - Instance de ModalManager pour gérer les interactions modales.
      */
-    constructor(formSelector, modalManager) {
+    constructor(config, modalManager) {
+        this.config = config
+        this.formSelector = this.config.formSelector
         this.formSelector = formSelector;
         this.modalManager = modalManager;
+        this.contextStateManager = new  ContextStateManager( this.config.contextState);
         this.loader = new LoadingIndicator(formSelector);
     }
 
@@ -23,8 +27,30 @@ export class FormManager {
         FormManager.initializeSelect2();
         FormManager.initializeRichText();
         FormManager.initializeDate();
+        
 
     }
+
+
+
+    /**
+         * Masque les éléments <select> dont l'id correspond à une clé dans le contextState.
+         */
+    hideSelectsById() {
+        const contextState = this.contextStateManager.getRawContext();
+
+        Object.keys(contextState).forEach((key) => {
+            const selectElement = document.getElementById(key);
+            if (selectElement && selectElement.tagName === 'SELECT') {
+                selectElement.style.display = 'none';
+            }
+        });
+    }
+
+
+
+
+
 
     /**
      * Gère le bouton d'annulation pour fermer le modal.
@@ -247,6 +273,6 @@ export class FormManager {
     }
 
 
-
+  
 
 }

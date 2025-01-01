@@ -25,7 +25,8 @@ import { CrudManager } from './crud/CrudManager';
 import { ConfigHelper } from './crud/helpers/ConfigHelper';
 import { NotificationHandler } from './crud/components/NotificationHandler';
 import { FormManager } from './crud/components/FormManager';
-import { ContexteStateHandler } from './crud/eventsHandler/ContexteStateHandler';
+import { ContexteStateEventHandler } from './crud/eventsHandler/ContexteStateEventHandler';
+import { ContextStateManager } from './crud/components/ContextStateManager';
 
 // Init CrudManagers in the page
 document.addEventListener("DOMContentLoaded", function () {
@@ -34,7 +35,8 @@ document.addEventListener("DOMContentLoaded", function () {
     // Contexte State 
     let contextState = window.contextState;
     
-    const context = new ContexteStateHandler(contextState);
+    const contextStateManager = new ContextStateManager(contextState);
+    const contexteStateEventHandler = new ContexteStateEventHandler(contextStateManager);
 
 
     // Vérifie si la configuration des entités est disponible
@@ -42,12 +44,13 @@ document.addEventListener("DOMContentLoaded", function () {
         // Initialiser les gestionnaires pour chaque entité
         window.entitiesConfig.forEach((entityConfigData) => {
             let entityConfig = new ConfigHelper(entityConfigData);
-            entityConfig = context.addContextToConfig(entityConfig);
+            entityConfig.contextState = contextState;
+            entityConfig = contexteStateEventHandler.addContextToConfig(entityConfig);
             const crudManager = new CrudManager(entityConfig);
             crudManager.init();
         });
     }
-    context.init();
+    contexteStateEventHandler.init();
 
 
     window.notifications.forEach((notificationData) => {

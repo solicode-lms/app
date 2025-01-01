@@ -15,7 +15,7 @@ export class BaseAction {
         // Table Loader
         this.loader = new LoadingIndicator(config.tableSelector);
         this.entityLoader = new LoadListAction(config);
-        this.formManager = new FormManager(this.config.formSelector, this.modalManager);
+        this.formManager = new FormManager(this.config, this.modalManager);
 
         this.SuscesMessage = "Entité modifiée avec succès.";
     }
