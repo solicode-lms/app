@@ -75,7 +75,7 @@ class CategoryTechnologyController extends AdminController
             ]);
         }
 
-        return redirect()->route('categoryTechnologies.index')->with(
+        return redirect()->route('categoryTechnologies.edit',['categoryTechnology' => $categoryTechnology->id])->with(
             'success',
             __('Core::msg.addSuccess', [
                 'entityToString' => $categoryTechnology,
@@ -105,16 +105,17 @@ class CategoryTechnologyController extends AdminController
     public function edit(string $id)
     {
         $itemCategoryTechnology = $this->categoryTechnologyService->find($id);
+         $technologies_data =  $itemCategoryTechnology->technologies()->paginate(10);
 
         // Utilisé dans l'édition des relation HasMany
         $this->contextState->set('categoryTechnology_id', $id);
 
 
         if (request()->ajax()) {
-            return view('PkgCompetences::categoryTechnology._fields', compact('itemCategoryTechnology'));
+            return view('PkgCompetences::categoryTechnology._fields', compact('itemCategoryTechnology', 'technologies_data'));
         }
 
-        return view('PkgCompetences::categoryTechnology.edit', compact('itemCategoryTechnology'));
+        return view('PkgCompetences::categoryTechnology.edit', compact('itemCategoryTechnology', 'technologies_data'));
     }
 
     /**
