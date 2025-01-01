@@ -31,26 +31,6 @@ export class ContexteStateEventHandler {
         });
     }
 
-    /**
-     * Ajoute les variables du contexte aux formulaires ayant la classe cible.
-     */
-    updateForms() {
-        const contextState = this.stateManager.getRawContext();
-        const prefix = this.stateManager.prefix;
-
-        document.querySelectorAll(`form.${this.targetClass}`).forEach(form => {
-            Object.entries(contextState).forEach(([key, value]) => {
-                let input = form.querySelector(`input[name="${prefix}${key}"]`);
-                if (!input) {
-                    input = document.createElement('input');
-                    input.type = 'hidden';
-                    input.name = `${prefix}${key}`;
-                    form.appendChild(input);
-                }
-                input.value = value; // Ajouter le contexte préfixé
-            });
-        });
-    }
 
     
 
@@ -74,6 +54,5 @@ export class ContexteStateEventHandler {
      */
     init() {
         this.updateLinks();
-        this.updateForms();
     }
 }

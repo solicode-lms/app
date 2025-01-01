@@ -1,16 +1,21 @@
 import { LoadingIndicator } from '../components/LoadingIndicator';
 import { NotificationHandler } from '../components/NotificationHandler';
+import { Action } from './Action';
+import { BaseAction } from './BaseAction';
 
-export class LoadListAction {
+// LoadListAction ne peut pas hérite de Action
+// pour éviter une dépendance circulaire des imports
+export class LoadListAction extends BaseAction {
     /**
      * Constructeur de LoadListAction.
      * @param {Object} config - Configuration pour le chargement des entités.
      */
     constructor(config) {
-        this.config = config;
-
-        // Initialisation du gestionnaire de chargement
-        this.loader = new LoadingIndicator(config.tableSelector);
+        super(config);
+        this.indexUrl = this.appendParamsToUrl(
+            config.indexUrl,
+            this.contextManager.getContextParams()
+        );
     }
 
     /**
@@ -29,13 +34,18 @@ export class LoadListAction {
         page = page || _page || 1;
         q = q || _query || '';
 
-        const url = `${this.config.indexUrl}?page=${page}&q=${q}`;
+      
+        const search_params = `page=${page}&q=${q}`;
+
+        this.indexUrl = this.appendParamsToUrl(
+            this.indexUrl, search_params
+        );
 
         // Afficher l'indicateur de chargement
         this.loader.show();
 
         // Requête AJAX pour charger les entités
-        $.get(url)
+        $.get(this.indexUrl)
             .done((html) => {
                 // Mettre à jour le contenu de la table ou liste
                 $(this.config.tableSelector).html(html);

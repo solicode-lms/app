@@ -1,13 +1,27 @@
-import { BaseAction } from './BaseAction';
+import { Action } from './Action';
 import { NotificationHandler } from '../components/NotificationHandler';
+import { LoadListAction } from './LoadListAction';
 
-export class DeleteAction extends BaseAction {
+export class DeleteAction extends Action {
+
+    constructor(config) {
+        super(config);
+       
+        this.suscesMessage = 'Entité supprimée avec succès.';
+       
+    }
+
     /**
      * Supprime une entité via AJAX.
      * @param {number|string} id - Identifiant de l'entité à supprimer.
      */
     deleteEntity(id) {
-        const deleteUrl = this.getUrlWithId(this.config.deleteUrl, id); // Générer l'URL dynamique
+        
+        let deleteUrl = this.getUrlWithId(this.config.deleteUrl, id); // Générer l'URL dynamique
+        deleteUrl = this.appendParamsToUrl(
+            deleteUrl,
+            this.contextManager.getContextParams()
+        );
 
         // Confirmer l'action avant de procéder
         NotificationHandler.confirmAction(
@@ -23,12 +37,13 @@ export class DeleteAction extends BaseAction {
                     data: { _token: this.config.csrfToken }, // Inclure le jeton CSRF
                 })
                     .done(() => {
-                        this.handleSuccess('Entité supprimée avec succès.');
+                        this.handleSuccess(this.suscesMessage);
                       
                         this.entityLoader.loadEntities(); // Recharger les entités après suppression
                     })
-                    .fail(() => {
-                        this.handleError('Erreur lors de la suppression de l\'entité.');
+                    .fail((xhr) => {
+                        const errorMessage = xhr.responseJSON?.message || "Erreur lors de la suppression de l\'entité."
+                        this.handleError(errorMessage);
                     });
             }
         );

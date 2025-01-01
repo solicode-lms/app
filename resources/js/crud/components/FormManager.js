@@ -11,7 +11,7 @@ export class FormManager {
         this.config = config
         this.formSelector = this.config.formSelector
         this.modalManager = modalManager;
-        this.contextStateManager = new  ContextStateManager( this.config.contextState);
+        this.contextManager = new  ContextStateManager( this.config.contextState);
         this.loader = new LoadingIndicator(this.formSelector);
     }
 
@@ -24,6 +24,7 @@ export class FormManager {
         this.handleFormSubmission(submitHandler);
         this.loader.init();
         this.hideSelectsById();
+        this.addContextStateToForm()
         FormManager.initializeSelect2();
         FormManager.initializeRichText();
         FormManager.initializeDate();
@@ -32,17 +33,42 @@ export class FormManager {
     }
 
 
+    /**
+     * Ajoute les variables du contexte aux formulaires ayant la classe cible.
+     */
+    addContextStateToForm() {
+        const contextState = this.config.contextState;
+        const prefix = this.contextManager.prefix;
+        document.querySelectorAll(`${this.formSelector}`).forEach(form => {
+            Object.entries(contextState).forEach(([key, value]) => {
+                let input = form.querySelector(`input[name="${prefix}${key}"]`);
+                if (!input) {
+                    input = document.createElement('input');
+                    input.type = this.config.isDebug? 'text' : 'hidden';
+                    input.name = `${prefix}${key}`;
+                    form.appendChild(input);
+                }
+                input.value = value; // Ajouter le contexte préfixé
+            });
+        });
+    }
 
     /**
          * Masque les éléments <select> dont l'id correspond à une clé dans le contextState.
          */
     hideSelectsById() {
-        const contextState = this.contextStateManager.getRawContext();
+        const contextState = this.contextManager.getRawContext();
 
         Object.keys(contextState).forEach((key) => {
             const selectElement = document.getElementById(key);
             if (selectElement && selectElement.tagName === 'SELECT') {
-                selectElement.parentElement.style.display = 'none';
+
+                if(this.config.isDebug){
+                    selectElement.parentElement.style.backgroundColor = 'lightblue';
+                }else{
+                    selectElement.parentElement.style.display =  'none';
+                }
+               
             }
         });
     }

@@ -1,10 +1,15 @@
-import { BaseAction } from './BaseAction';
+import { ContextStateManager } from '../components/ContextStateManager';
+import { Action } from './Action';
 
-export class CreateAction extends BaseAction {
+export class CreateAction extends Action {
 
     constructor(config) {
         super(config);
         this.SuscesMessage = 'Nouvelle entité ajoutée avec succès.';
+        this.createUrl = this.appendParamsToUrl(
+            this.config.createUrl,
+            this.contextManager.getContextParams()
+        );
     }
 
     /**
@@ -14,8 +19,11 @@ export class CreateAction extends BaseAction {
         // Afficher le chargement dans le modal
         this.modalManager.showLoading(this.config.createTitle);
 
+      
+
+
         // Charger le formulaire d'ajout via une requête AJAX
-        $.get(this.config.createUrl)
+        $.get(this.createUrl)
             .done((html) => {
                 // Injecter le contenu dans le modal et afficher le formulaire
                 this.modalManager.showContent(html);

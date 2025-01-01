@@ -1,10 +1,12 @@
-import { BaseAction } from './BaseAction';
+import { Action } from './Action';
 
-export class EditAction extends BaseAction {
+export class EditAction extends Action {
 
     constructor(config) {
         super(config);
         this.SuscesMessage = "Entité modifiée avec succès.";
+       
+       
     }
 
     /**
@@ -12,7 +14,12 @@ export class EditAction extends BaseAction {
      * @param {number|string} id - Identifiant de l'entité à modifier.
      */
     editEntity(id) {
-        const editUrl = this.getUrlWithId(this.config.editUrl, id); // Générer l'URL dynamique
+
+        let editUrl = this.getUrlWithId(this.config.editUrl, id); // Générer l'URL dynamique
+        editUrl = this.appendParamsToUrl(
+            editUrl,
+            this.contextManager.getContextParams()
+        );
 
         // Afficher le chargement dans le modal
         this.modalManager.showLoading(this.config.editTitle);

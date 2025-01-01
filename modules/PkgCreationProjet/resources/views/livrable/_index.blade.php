@@ -3,7 +3,6 @@
 @section('script')
 @parent
 <script>
-    // html_entity_decode
     window.entitiesConfig = window.entitiesConfig || [];
     window.entitiesConfig.push({
         edit_has_many: false,

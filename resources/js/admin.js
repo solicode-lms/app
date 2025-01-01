@@ -31,12 +31,13 @@ import { ContextStateManager } from './crud/components/ContextStateManager';
 // Init CrudManagers in the page
 document.addEventListener("DOMContentLoaded", function () {
 
+    const isDebug = true;
 
     // Contexte State 
     let contextState = window.contextState;
     
-    const contextStateManager = new ContextStateManager(contextState);
-    const contexteStateEventHandler = new ContexteStateEventHandler(contextStateManager);
+    const contextManager = new ContextStateManager(contextState);
+    const contexteEventHandler = new ContexteStateEventHandler(contextManager);
 
 
     // Vérifie si la configuration des entités est disponible
@@ -44,13 +45,15 @@ document.addEventListener("DOMContentLoaded", function () {
         // Initialiser les gestionnaires pour chaque entité
         window.entitiesConfig.forEach((entityConfigData) => {
             let entityConfig = new ConfigHelper(entityConfigData);
+            entityConfig.isDebug = isDebug;
             entityConfig.contextState = contextState;
-            entityConfig = contextStateManager.addContextToConfig(entityConfig);
+            // à ajouter pendant l'envoye de requête ajax
+            // entityConfig = contextManager.addContextToConfig(entityConfig);
             const crudManager = new CrudManager(entityConfig);
             crudManager.init();
         });
     }
-    contexteStateEventHandler.init();
+    contexteEventHandler.init();
 
 
     window.notifications.forEach((notificationData) => {

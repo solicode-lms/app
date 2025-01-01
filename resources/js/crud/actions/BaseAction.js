@@ -1,42 +1,20 @@
-import { LoadingIndicator } from '../components/LoadingIndicator';
-import { ModalManager } from '../components/ModalManager';
-import { NotificationHandler } from '../components/NotificationHandler';
-import { LoadListAction } from './LoadListAction';
-import { FormManager } from '../components/FormManager';
+import { ContextStateManager } from "../components/ContextStateManager";
+import { FormManager } from "../components/FormManager";
+import { LoadingIndicator } from "../components/LoadingIndicator";
+import { ModalManager } from "../components/ModalManager";
 
 export class BaseAction {
-    /**
-     * @param {Object} config - Configuration contenant les URLs, sélecteurs, etc.
-     */
-    constructor(config) {
+
+
+    constructor(config){
         this.config = config;
-        // Création des dépendances communes
         this.modalManager = new ModalManager(config.modalSelector);
         // Table Loader
         this.loader = new LoadingIndicator(config.tableSelector);
-        this.entityLoader = new LoadListAction(config);
         this.formManager = new FormManager(this.config, this.modalManager);
-
-        this.SuscesMessage = "Entité modifiée avec succès.";
+        this.contextManager = new ContextStateManager(this.config.contextState);
+        this.SuscesMessage = "";
     }
-
-    /**
-     * Affiche une erreur via le modal et les notifications.
-     * @param {string} errorMessage - Message d'erreur à afficher.
-     */
-    handleError(errorMessage) {
-        // this.modalManager.showError(errorMessage);
-        NotificationHandler.showAlert("error", "Erreur", errorMessage);
-    }
-
-    /**
-     * Affiche un message de succès.
-     * @param {string} successMessage - Message de succès à afficher.
-     */
-    handleSuccess(successMessage) {
-        NotificationHandler.showSuccess(successMessage);
-    }
-
     /**
      * Génère une URL dynamique en remplaçant :id par un identifiant spécifique.
      * @param {string} baseUrl - URL de base.
@@ -47,44 +25,20 @@ export class BaseAction {
         return baseUrl.replace(':id', id);
     }
 
-
-    /**
-     * Soumet le formulaire de modification via AJAX.
+      /**
+     * Ajoute des paramètres à une URL.
+     * @param {String} url - L'URL de base.
+     * @param {String} params - Chaîne de paramètres à ajouter.
+     * @returns {String} - L'URL avec les paramètres ajoutés.
      */
-    submitEntity(onSuccess) {
-        const form = $(this.config.formSelector);
-        const actionUrl = form.attr('action'); // URL définie dans le formulaire
-        const method = form.find('input[name="_method"]').val() || 'POST'; // Méthode HTTP
-        const formData = form.serialize(); // Sérialisation des données du formulaire
-        this.formManager.loader.show();
-
-        // Valider le formulaire avant la soumission
-        if (!this.formManager.validateForm()) {
-            NotificationHandler.showError('Validation échouée. Veuillez corriger les erreurs.');
-            this.formManager.loader.hide();
-            return; // Ne pas soumettre si la validation échoue
+      appendParamsToUrl(url, params) {
+        if (!params) {
+            return url;
         }
 
-        // Envoyer les données via une requête AJAX
-        $.ajax({
-            url: actionUrl,
-            method: method,
-            data: formData,
-        })
-            .done(() => {
-                this.formManager.loader.hide();
-                this.handleSuccess(this.SuscesMessage);
-                this.modalManager.close(); // Fermer le modal après succès
-                this.entityLoader.loadEntities(); // Recharger les entités
-                // Appeler le callback de succès si fourni
-                if (typeof onSuccess === 'function') {
-                    onSuccess();
-                }
-            })
-            .fail((xhr) => {
-                this.formManager.loader.hide();
-                const errorMessage = xhr.responseJSON?.message || 'Une erreur s\'est produite lors de la modification.';
-                this.handleError(errorMessage); // Afficher une erreur
-            });
+        
+        const separator = url.includes('?') ? '&' : '?';
+        return `${url}${separator}${params}`;
     }
+
 }

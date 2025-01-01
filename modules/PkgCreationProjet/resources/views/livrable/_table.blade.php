@@ -28,7 +28,7 @@
                             </a>
                         @endcan
                         @can('destroy-livrable')
-                            <form action="{{ route('livrables.destroy',array_merge($contextState, ['livrable' => $livrable->id])) }}" method="POST" style="display: inline;" class="context-state">
+                            <form class="context-state" action="{{ route('livrables.destroy',array_merge($contextState, ['livrable' => $livrable->id])) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$livrable->id}}">

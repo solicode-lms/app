@@ -1,6 +1,6 @@
-import { BaseAction } from './BaseAction';
+import { Action } from './Action';
 
-export class ShowAction extends BaseAction {
+export class ShowAction extends Action {
     /**
      * Affiche les détails d'une entité dans un modal.
      * @param {number|string} id - Identifiant de l'entité à afficher.
@@ -20,8 +20,10 @@ export class ShowAction extends BaseAction {
                 this.formManager.setToReadOnly();
                 // this.handleSuccess('Détails de l\'entité chargés avec succès.');
             })
-            .fail(() => {
-                this.handleError('Erreur lors du chargement des détails de l\'entité.');
+            .fail((xhr) => {
+                const errorMessage = xhr.responseJSON?.message || 'Erreur lors du chargement des détails de l\'entité.'
+                this.handleError(errorMessage);
             });
+            
     }
 }
