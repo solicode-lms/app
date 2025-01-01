@@ -10,10 +10,10 @@
         crudSelector: '#apprenant_crud',
         indexUrl: '{{ route('apprenants.index') }}', 
         createUrl: '{{ route('apprenants.create') }}',
-        editUrl: '{{ route('apprenants.edit', ['apprenant' => ':id']) }}',
-        showUrl: '{{ route('apprenants.show', ['apprenant' => ':id']) }}',
+        editUrl: '{{ route('apprenants.edit',  ['apprenant' => ':id']) }}',
+        showUrl: '{{ route('apprenants.show',  ['apprenant' => ':id']) }}',
         storeUrl: '{{ route('apprenants.store') }}', 
-        deleteUrl: '{{ route('apprenants.destroy', ['apprenant' => ':id']) }}', 
+        deleteUrl: '{{ route('apprenants.destroy',  ['apprenant' => ':id']) }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgUtilisateurs::apprenant.singular") }}',
         edit_title: '{{__("Core::msg.add") . " : " . __("PkgUtilisateurs::apprenant.singular") }}',
@@ -32,7 +32,7 @@
                 <div class="col-sm-6">
                     <div class="float-sm-right">
                         @can('create-apprenant')
-                        <a href="{{ route('apprenants.create') }}" data-target="#apprenantModal" class="btn btn-info btn-sm addEntityButton">
+                        <a href="{{ route('apprenants.create') }}" data-target="#apprenantModal" class="btn btn-info btn-sm context-state addEntityButton">
                             <i class="fas fa-plus"></i>
                             {{ __('Core::msg.add') }}
                         </a>

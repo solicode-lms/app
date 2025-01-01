@@ -1,6 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form class="crud-form" id="resourceForm" action="{{ $itemResource->id ? route('resources.update', $itemResource->id) : route('resources.store') }}" method="POST" novalidate>
+<form class="crud-form context-state" id="resourceForm" action="{{ $itemResource->id ? route('resources.update', $itemResource->id) : route('resources.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemResource->id)

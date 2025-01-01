@@ -10,10 +10,10 @@
         crudSelector: '#filiere_crud',
         indexUrl: '{{ route('filieres.index') }}', 
         createUrl: '{{ route('filieres.create') }}',
-        editUrl: '{{ route('filieres.edit', ['filiere' => ':id']) }}',
-        showUrl: '{{ route('filieres.show', ['filiere' => ':id']) }}',
+        editUrl: '{{ route('filieres.edit',  ['filiere' => ':id']) }}',
+        showUrl: '{{ route('filieres.show',  ['filiere' => ':id']) }}',
         storeUrl: '{{ route('filieres.store') }}', 
-        deleteUrl: '{{ route('filieres.destroy', ['filiere' => ':id']) }}', 
+        deleteUrl: '{{ route('filieres.destroy',  ['filiere' => ':id']) }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgCompetences::filiere.singular") }}',
         edit_title: '{{__("Core::msg.add") . " : " . __("PkgCompetences::filiere.singular") }}',
@@ -32,7 +32,7 @@
                 <div class="col-sm-6">
                     <div class="float-sm-right">
                         @can('create-filiere')
-                        <a href="{{ route('filieres.create') }}" data-target="#filiereModal" class="btn btn-info btn-sm addEntityButton">
+                        <a href="{{ route('filieres.create') }}" data-target="#filiereModal" class="btn btn-info btn-sm context-state addEntityButton">
                             <i class="fas fa-plus"></i>
                             {{ __('Core::msg.add') }}
                         </a>

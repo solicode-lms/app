@@ -16,17 +16,17 @@
                     <td>{{ $appreciation->formateur->nom ?? '-' }}</td>
                     <td class="text-center">
                         @can('show-appreciation')
-                            <a href="{{ route('appreciations.show', $appreciation) }}" data-id="{{$appreciation->id}}" class="btn btn-default btn-sm showEntity">
+                            <a href="{{ route('appreciations.show', array_merge($contextState, ['appreciation' => $appreciation->id])) }}" data-id="{{$appreciation->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
                         @endcan
                         @can('edit-appreciation')
-                            <a href="{{ route('appreciations.edit', $appreciation) }}" data-id="{{$appreciation->id}}" class="btn btn-sm btn-default editEntity">
+                            <a href="{{ route('appreciations.edit', array_merge($contextState, ['appreciation' => $appreciation->id])) }}" data-id="{{$appreciation->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endcan
                         @can('destroy-appreciation')
-                            <form action="{{ route('appreciations.destroy', $appreciation) }}" method="POST" style="display: inline;">
+                            <form class="context-state" action="{{ route('appreciations.destroy',array_merge($contextState, ['appreciation' => $appreciation->id])) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$appreciation->id}}">

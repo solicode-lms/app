@@ -16,17 +16,17 @@
                     <td>{!! $apprenantKonosy->Adresse !!}</td>
                     <td class="text-center">
                         @can('show-apprenantKonosy')
-                            <a href="{{ route('apprenantKonosies.show', $apprenantKonosy) }}" data-id="{{$apprenantKonosy->id}}" class="btn btn-default btn-sm showEntity">
+                            <a href="{{ route('apprenantKonosies.show', array_merge($contextState, ['apprenantKonosy' => $apprenantKonosy->id])) }}" data-id="{{$apprenantKonosy->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
                         @endcan
                         @can('edit-apprenantKonosy')
-                            <a href="{{ route('apprenantKonosies.edit', $apprenantKonosy) }}" data-id="{{$apprenantKonosy->id}}" class="btn btn-sm btn-default editEntity">
+                            <a href="{{ route('apprenantKonosies.edit', array_merge($contextState, ['apprenantKonosy' => $apprenantKonosy->id])) }}" data-id="{{$apprenantKonosy->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endcan
                         @can('destroy-apprenantKonosy')
-                            <form action="{{ route('apprenantKonosies.destroy', $apprenantKonosy) }}" method="POST" style="display: inline;">
+                            <form class="context-state" action="{{ route('apprenantKonosies.destroy',array_merge($contextState, ['apprenantKonosy' => $apprenantKonosy->id])) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$apprenantKonosy->id}}">

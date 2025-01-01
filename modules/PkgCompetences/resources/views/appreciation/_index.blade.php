@@ -10,10 +10,10 @@
         crudSelector: '#appreciation_crud',
         indexUrl: '{{ route('appreciations.index') }}', 
         createUrl: '{{ route('appreciations.create') }}',
-        editUrl: '{{ route('appreciations.edit', ['appreciation' => ':id']) }}',
-        showUrl: '{{ route('appreciations.show', ['appreciation' => ':id']) }}',
+        editUrl: '{{ route('appreciations.edit',  ['appreciation' => ':id']) }}',
+        showUrl: '{{ route('appreciations.show',  ['appreciation' => ':id']) }}',
         storeUrl: '{{ route('appreciations.store') }}', 
-        deleteUrl: '{{ route('appreciations.destroy', ['appreciation' => ':id']) }}', 
+        deleteUrl: '{{ route('appreciations.destroy',  ['appreciation' => ':id']) }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgCompetences::appreciation.singular") }}',
         edit_title: '{{__("Core::msg.add") . " : " . __("PkgCompetences::appreciation.singular") }}',
@@ -32,7 +32,7 @@
                 <div class="col-sm-6">
                     <div class="float-sm-right">
                         @can('create-appreciation')
-                        <a href="{{ route('appreciations.create') }}" data-target="#appreciationModal" class="btn btn-info btn-sm addEntityButton">
+                        <a href="{{ route('appreciations.create') }}" data-target="#appreciationModal" class="btn btn-info btn-sm context-state addEntityButton">
                             <i class="fas fa-plus"></i>
                             {{ __('Core::msg.add') }}
                         </a>

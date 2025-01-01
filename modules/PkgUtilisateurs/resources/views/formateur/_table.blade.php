@@ -18,17 +18,17 @@
                     <td>{{ $formateur->adresse }}</td>
                     <td class="text-center">
                         @can('show-formateur')
-                            <a href="{{ route('formateurs.show', $formateur) }}" data-id="{{$formateur->id}}" class="btn btn-default btn-sm showEntity">
+                            <a href="{{ route('formateurs.show', array_merge($contextState, ['formateur' => $formateur->id])) }}" data-id="{{$formateur->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
                         @endcan
                         @can('edit-formateur')
-                            <a href="{{ route('formateurs.edit', $formateur) }}" data-id="{{$formateur->id}}" class="btn btn-sm btn-default editEntity">
+                            <a href="{{ route('formateurs.edit', array_merge($contextState, ['formateur' => $formateur->id])) }}" data-id="{{$formateur->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endcan
                         @can('destroy-formateur')
-                            <form action="{{ route('formateurs.destroy', $formateur) }}" method="POST" style="display: inline;">
+                            <form class="context-state" action="{{ route('formateurs.destroy',array_merge($contextState, ['formateur' => $formateur->id])) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$formateur->id}}">

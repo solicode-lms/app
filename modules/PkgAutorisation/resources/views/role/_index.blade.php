@@ -10,10 +10,10 @@
         crudSelector: '#role_crud',
         indexUrl: '{{ route('roles.index') }}', 
         createUrl: '{{ route('roles.create') }}',
-        editUrl: '{{ route('roles.edit', ['role' => ':id']) }}',
-        showUrl: '{{ route('roles.show', ['role' => ':id']) }}',
+        editUrl: '{{ route('roles.edit',  ['role' => ':id']) }}',
+        showUrl: '{{ route('roles.show',  ['role' => ':id']) }}',
         storeUrl: '{{ route('roles.store') }}', 
-        deleteUrl: '{{ route('roles.destroy', ['role' => ':id']) }}', 
+        deleteUrl: '{{ route('roles.destroy',  ['role' => ':id']) }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgAutorisation::role.singular") }}',
         edit_title: '{{__("Core::msg.add") . " : " . __("PkgAutorisation::role.singular") }}',
@@ -32,7 +32,7 @@
                 <div class="col-sm-6">
                     <div class="float-sm-right">
                         @can('create-role')
-                        <a href="{{ route('roles.create') }}" data-target="#roleModal" class="btn btn-info btn-sm addEntityButton">
+                        <a href="{{ route('roles.create') }}" data-target="#roleModal" class="btn btn-info btn-sm context-state addEntityButton">
                             <i class="fas fa-plus"></i>
                             {{ __('Core::msg.add') }}
                         </a>

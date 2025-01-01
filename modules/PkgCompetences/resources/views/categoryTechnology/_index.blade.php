@@ -10,10 +10,10 @@
         crudSelector: '#categoryTechnology_crud',
         indexUrl: '{{ route('categoryTechnologies.index') }}', 
         createUrl: '{{ route('categoryTechnologies.create') }}',
-        editUrl: '{{ route('categoryTechnologies.edit', ['categoryTechnology' => ':id']) }}',
-        showUrl: '{{ route('categoryTechnologies.show', ['categoryTechnology' => ':id']) }}',
+        editUrl: '{{ route('categoryTechnologies.edit',  ['categoryTechnology' => ':id']) }}',
+        showUrl: '{{ route('categoryTechnologies.show',  ['categoryTechnology' => ':id']) }}',
         storeUrl: '{{ route('categoryTechnologies.store') }}', 
-        deleteUrl: '{{ route('categoryTechnologies.destroy', ['categoryTechnology' => ':id']) }}', 
+        deleteUrl: '{{ route('categoryTechnologies.destroy',  ['categoryTechnology' => ':id']) }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgCompetences::categoryTechnology.singular") }}',
         edit_title: '{{__("Core::msg.add") . " : " . __("PkgCompetences::categoryTechnology.singular") }}',
@@ -32,7 +32,7 @@
                 <div class="col-sm-6">
                     <div class="float-sm-right">
                         @can('create-categoryTechnology')
-                        <a href="{{ route('categoryTechnologies.create') }}" data-target="#categoryTechnologyModal" class="btn btn-info btn-sm addEntityButton">
+                        <a href="{{ route('categoryTechnologies.create') }}" data-target="#categoryTechnologyModal" class="btn btn-info btn-sm context-state addEntityButton">
                             <i class="fas fa-plus"></i>
                             {{ __('Core::msg.add') }}
                         </a>

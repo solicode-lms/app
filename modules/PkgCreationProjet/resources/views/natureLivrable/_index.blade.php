@@ -10,10 +10,10 @@
         crudSelector: '#natureLivrable_crud',
         indexUrl: '{{ route('natureLivrables.index') }}', 
         createUrl: '{{ route('natureLivrables.create') }}',
-        editUrl: '{{ route('natureLivrables.edit', ['natureLivrable' => ':id']) }}',
-        showUrl: '{{ route('natureLivrables.show', ['natureLivrable' => ':id']) }}',
+        editUrl: '{{ route('natureLivrables.edit',  ['natureLivrable' => ':id']) }}',
+        showUrl: '{{ route('natureLivrables.show',  ['natureLivrable' => ':id']) }}',
         storeUrl: '{{ route('natureLivrables.store') }}', 
-        deleteUrl: '{{ route('natureLivrables.destroy', ['natureLivrable' => ':id']) }}', 
+        deleteUrl: '{{ route('natureLivrables.destroy',  ['natureLivrable' => ':id']) }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgCreationProjet::natureLivrable.singular") }}',
         edit_title: '{{__("Core::msg.add") . " : " . __("PkgCreationProjet::natureLivrable.singular") }}',
@@ -32,7 +32,7 @@
                 <div class="col-sm-6">
                     <div class="float-sm-right">
                         @can('create-natureLivrable')
-                        <a href="{{ route('natureLivrables.create') }}" data-target="#natureLivrableModal" class="btn btn-info btn-sm addEntityButton">
+                        <a href="{{ route('natureLivrables.create') }}" data-target="#natureLivrableModal" class="btn btn-info btn-sm context-state addEntityButton">
                             <i class="fas fa-plus"></i>
                             {{ __('Core::msg.add') }}
                         </a>

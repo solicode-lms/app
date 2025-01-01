@@ -16,17 +16,17 @@
                     <td>{!! $widgetOperation->description !!}</td>
                     <td class="text-center">
                         @can('show-widgetOperation')
-                            <a href="{{ route('widgetOperations.show', $widgetOperation) }}" data-id="{{$widgetOperation->id}}" class="btn btn-default btn-sm showEntity">
+                            <a href="{{ route('widgetOperations.show', array_merge($contextState, ['widgetOperation' => $widgetOperation->id])) }}" data-id="{{$widgetOperation->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
                         @endcan
                         @can('edit-widgetOperation')
-                            <a href="{{ route('widgetOperations.edit', $widgetOperation) }}" data-id="{{$widgetOperation->id}}" class="btn btn-sm btn-default editEntity">
+                            <a href="{{ route('widgetOperations.edit', array_merge($contextState, ['widgetOperation' => $widgetOperation->id])) }}" data-id="{{$widgetOperation->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endcan
                         @can('destroy-widgetOperation')
-                            <form action="{{ route('widgetOperations.destroy', $widgetOperation) }}" method="POST" style="display: inline;">
+                            <form class="context-state" action="{{ route('widgetOperations.destroy',array_merge($contextState, ['widgetOperation' => $widgetOperation->id])) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$widgetOperation->id}}">

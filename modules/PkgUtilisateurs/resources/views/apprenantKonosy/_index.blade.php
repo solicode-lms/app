@@ -10,10 +10,10 @@
         crudSelector: '#apprenantKonosy_crud',
         indexUrl: '{{ route('apprenantKonosies.index') }}', 
         createUrl: '{{ route('apprenantKonosies.create') }}',
-        editUrl: '{{ route('apprenantKonosies.edit', ['apprenantKonosy' => ':id']) }}',
-        showUrl: '{{ route('apprenantKonosies.show', ['apprenantKonosy' => ':id']) }}',
+        editUrl: '{{ route('apprenantKonosies.edit',  ['apprenantKonosy' => ':id']) }}',
+        showUrl: '{{ route('apprenantKonosies.show',  ['apprenantKonosy' => ':id']) }}',
         storeUrl: '{{ route('apprenantKonosies.store') }}', 
-        deleteUrl: '{{ route('apprenantKonosies.destroy', ['apprenantKonosy' => ':id']) }}', 
+        deleteUrl: '{{ route('apprenantKonosies.destroy',  ['apprenantKonosy' => ':id']) }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgUtilisateurs::apprenantKonosy.singular") }}',
         edit_title: '{{__("Core::msg.add") . " : " . __("PkgUtilisateurs::apprenantKonosy.singular") }}',
@@ -32,7 +32,7 @@
                 <div class="col-sm-6">
                     <div class="float-sm-right">
                         @can('create-apprenantKonosy')
-                        <a href="{{ route('apprenantKonosies.create') }}" data-target="#apprenantKonosyModal" class="btn btn-info btn-sm addEntityButton">
+                        <a href="{{ route('apprenantKonosies.create') }}" data-target="#apprenantKonosyModal" class="btn btn-info btn-sm context-state addEntityButton">
                             <i class="fas fa-plus"></i>
                             {{ __('Core::msg.add') }}
                         </a>

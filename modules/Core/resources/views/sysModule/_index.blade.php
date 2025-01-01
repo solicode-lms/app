@@ -10,10 +10,10 @@
         crudSelector: '#sysModule_crud',
         indexUrl: '{{ route('sysModules.index') }}', 
         createUrl: '{{ route('sysModules.create') }}',
-        editUrl: '{{ route('sysModules.edit', ['sysModule' => ':id']) }}',
-        showUrl: '{{ route('sysModules.show', ['sysModule' => ':id']) }}',
+        editUrl: '{{ route('sysModules.edit',  ['sysModule' => ':id']) }}',
+        showUrl: '{{ route('sysModules.show',  ['sysModule' => ':id']) }}',
         storeUrl: '{{ route('sysModules.store') }}', 
-        deleteUrl: '{{ route('sysModules.destroy', ['sysModule' => ':id']) }}', 
+        deleteUrl: '{{ route('sysModules.destroy',  ['sysModule' => ':id']) }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("Core::sysModule.singular") }}',
         edit_title: '{{__("Core::msg.add") . " : " . __("Core::sysModule.singular") }}',
@@ -32,7 +32,7 @@
                 <div class="col-sm-6">
                     <div class="float-sm-right">
                         @can('create-sysModule')
-                        <a href="{{ route('sysModules.create') }}" data-target="#sysModuleModal" class="btn btn-info btn-sm addEntityButton">
+                        <a href="{{ route('sysModules.create') }}" data-target="#sysModuleModal" class="btn btn-info btn-sm context-state addEntityButton">
                             <i class="fas fa-plus"></i>
                             {{ __('Core::msg.add') }}
                         </a>

@@ -10,10 +10,10 @@
         crudSelector: '#niveauCompetence_crud',
         indexUrl: '{{ route('niveauCompetences.index') }}', 
         createUrl: '{{ route('niveauCompetences.create') }}',
-        editUrl: '{{ route('niveauCompetences.edit', ['niveauCompetence' => ':id']) }}',
-        showUrl: '{{ route('niveauCompetences.show', ['niveauCompetence' => ':id']) }}',
+        editUrl: '{{ route('niveauCompetences.edit',  ['niveauCompetence' => ':id']) }}',
+        showUrl: '{{ route('niveauCompetences.show',  ['niveauCompetence' => ':id']) }}',
         storeUrl: '{{ route('niveauCompetences.store') }}', 
-        deleteUrl: '{{ route('niveauCompetences.destroy', ['niveauCompetence' => ':id']) }}', 
+        deleteUrl: '{{ route('niveauCompetences.destroy',  ['niveauCompetence' => ':id']) }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgCompetences::niveauCompetence.singular") }}',
         edit_title: '{{__("Core::msg.add") . " : " . __("PkgCompetences::niveauCompetence.singular") }}',
@@ -32,7 +32,7 @@
                 <div class="col-sm-6">
                     <div class="float-sm-right">
                         @can('create-niveauCompetence')
-                        <a href="{{ route('niveauCompetences.create') }}" data-target="#niveauCompetenceModal" class="btn btn-info btn-sm addEntityButton">
+                        <a href="{{ route('niveauCompetences.create') }}" data-target="#niveauCompetenceModal" class="btn btn-info btn-sm context-state addEntityButton">
                             <i class="fas fa-plus"></i>
                             {{ __('Core::msg.add') }}
                         </a>

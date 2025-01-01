@@ -10,10 +10,10 @@
         crudSelector: '#transfertCompetence_crud',
         indexUrl: '{{ route('transfertCompetences.index') }}', 
         createUrl: '{{ route('transfertCompetences.create') }}',
-        editUrl: '{{ route('transfertCompetences.edit', ['transfertCompetence' => ':id']) }}',
-        showUrl: '{{ route('transfertCompetences.show', ['transfertCompetence' => ':id']) }}',
+        editUrl: '{{ route('transfertCompetences.edit',  ['transfertCompetence' => ':id']) }}',
+        showUrl: '{{ route('transfertCompetences.show',  ['transfertCompetence' => ':id']) }}',
         storeUrl: '{{ route('transfertCompetences.store') }}', 
-        deleteUrl: '{{ route('transfertCompetences.destroy', ['transfertCompetence' => ':id']) }}', 
+        deleteUrl: '{{ route('transfertCompetences.destroy',  ['transfertCompetence' => ':id']) }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgCreationProjet::transfertCompetence.singular") }}',
         edit_title: '{{__("Core::msg.add") . " : " . __("PkgCreationProjet::transfertCompetence.singular") }}',
@@ -32,7 +32,7 @@
                 <div class="col-sm-6">
                     <div class="float-sm-right">
                         @can('create-transfertCompetence')
-                        <a href="{{ route('transfertCompetences.create') }}" data-target="#transfertCompetenceModal" class="btn btn-info btn-sm addEntityButton">
+                        <a href="{{ route('transfertCompetences.create') }}" data-target="#transfertCompetenceModal" class="btn btn-info btn-sm context-state addEntityButton">
                             <i class="fas fa-plus"></i>
                             {{ __('Core::msg.add') }}
                         </a>

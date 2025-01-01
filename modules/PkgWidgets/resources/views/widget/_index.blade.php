@@ -10,10 +10,10 @@
         crudSelector: '#widget_crud',
         indexUrl: '{{ route('widgets.index') }}', 
         createUrl: '{{ route('widgets.create') }}',
-        editUrl: '{{ route('widgets.edit', ['widget' => ':id']) }}',
-        showUrl: '{{ route('widgets.show', ['widget' => ':id']) }}',
+        editUrl: '{{ route('widgets.edit',  ['widget' => ':id']) }}',
+        showUrl: '{{ route('widgets.show',  ['widget' => ':id']) }}',
         storeUrl: '{{ route('widgets.store') }}', 
-        deleteUrl: '{{ route('widgets.destroy', ['widget' => ':id']) }}', 
+        deleteUrl: '{{ route('widgets.destroy',  ['widget' => ':id']) }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgWidgets::widget.singular") }}',
         edit_title: '{{__("Core::msg.add") . " : " . __("PkgWidgets::widget.singular") }}',
@@ -32,7 +32,7 @@
                 <div class="col-sm-6">
                     <div class="float-sm-right">
                         @can('create-widget')
-                        <a href="{{ route('widgets.create') }}" data-target="#widgetModal" class="btn btn-info btn-sm addEntityButton">
+                        <a href="{{ route('widgets.create') }}" data-target="#widgetModal" class="btn btn-info btn-sm context-state addEntityButton">
                             <i class="fas fa-plus"></i>
                             {{ __('Core::msg.add') }}
                         </a>

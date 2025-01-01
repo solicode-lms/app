@@ -10,10 +10,10 @@
         crudSelector: '#featureDomain_crud',
         indexUrl: '{{ route('featureDomains.index') }}', 
         createUrl: '{{ route('featureDomains.create') }}',
-        editUrl: '{{ route('featureDomains.edit', ['featureDomain' => ':id']) }}',
-        showUrl: '{{ route('featureDomains.show', ['featureDomain' => ':id']) }}',
+        editUrl: '{{ route('featureDomains.edit',  ['featureDomain' => ':id']) }}',
+        showUrl: '{{ route('featureDomains.show',  ['featureDomain' => ':id']) }}',
         storeUrl: '{{ route('featureDomains.store') }}', 
-        deleteUrl: '{{ route('featureDomains.destroy', ['featureDomain' => ':id']) }}', 
+        deleteUrl: '{{ route('featureDomains.destroy',  ['featureDomain' => ':id']) }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("Core::featureDomain.singular") }}',
         edit_title: '{{__("Core::msg.add") . " : " . __("Core::featureDomain.singular") }}',
@@ -32,7 +32,7 @@
                 <div class="col-sm-6">
                     <div class="float-sm-right">
                         @can('create-featureDomain')
-                        <a href="{{ route('featureDomains.create') }}" data-target="#featureDomainModal" class="btn btn-info btn-sm addEntityButton">
+                        <a href="{{ route('featureDomains.create') }}" data-target="#featureDomainModal" class="btn btn-info btn-sm context-state addEntityButton">
                             <i class="fas fa-plus"></i>
                             {{ __('Core::msg.add') }}
                         </a>

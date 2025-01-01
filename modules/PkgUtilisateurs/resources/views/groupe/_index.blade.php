@@ -10,10 +10,10 @@
         crudSelector: '#groupe_crud',
         indexUrl: '{{ route('groupes.index') }}', 
         createUrl: '{{ route('groupes.create') }}',
-        editUrl: '{{ route('groupes.edit', ['groupe' => ':id']) }}',
-        showUrl: '{{ route('groupes.show', ['groupe' => ':id']) }}',
+        editUrl: '{{ route('groupes.edit',  ['groupe' => ':id']) }}',
+        showUrl: '{{ route('groupes.show',  ['groupe' => ':id']) }}',
         storeUrl: '{{ route('groupes.store') }}', 
-        deleteUrl: '{{ route('groupes.destroy', ['groupe' => ':id']) }}', 
+        deleteUrl: '{{ route('groupes.destroy',  ['groupe' => ':id']) }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgUtilisateurs::groupe.singular") }}',
         edit_title: '{{__("Core::msg.add") . " : " . __("PkgUtilisateurs::groupe.singular") }}',
@@ -32,7 +32,7 @@
                 <div class="col-sm-6">
                     <div class="float-sm-right">
                         @can('create-groupe')
-                        <a href="{{ route('groupes.create') }}" data-target="#groupeModal" class="btn btn-info btn-sm addEntityButton">
+                        <a href="{{ route('groupes.create') }}" data-target="#groupeModal" class="btn btn-info btn-sm context-state addEntityButton">
                             <i class="fas fa-plus"></i>
                             {{ __('Core::msg.add') }}
                         </a>

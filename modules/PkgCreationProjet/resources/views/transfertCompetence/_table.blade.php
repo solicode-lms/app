@@ -18,17 +18,17 @@
                     <td>{{ $transfertCompetence->appreciation->nom ?? '-' }}</td>
                     <td class="text-center">
                         @can('show-transfertCompetence')
-                            <a href="{{ route('transfertCompetences.show', $transfertCompetence) }}" data-id="{{$transfertCompetence->id}}" class="btn btn-default btn-sm showEntity">
+                            <a href="{{ route('transfertCompetences.show', array_merge($contextState, ['transfertCompetence' => $transfertCompetence->id])) }}" data-id="{{$transfertCompetence->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
                         @endcan
                         @can('edit-transfertCompetence')
-                            <a href="{{ route('transfertCompetences.edit', $transfertCompetence) }}" data-id="{{$transfertCompetence->id}}" class="btn btn-sm btn-default editEntity">
+                            <a href="{{ route('transfertCompetences.edit', array_merge($contextState, ['transfertCompetence' => $transfertCompetence->id])) }}" data-id="{{$transfertCompetence->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endcan
                         @can('destroy-transfertCompetence')
-                            <form action="{{ route('transfertCompetences.destroy', $transfertCompetence) }}" method="POST" style="display: inline;">
+                            <form class="context-state" action="{{ route('transfertCompetences.destroy',array_merge($contextState, ['transfertCompetence' => $transfertCompetence->id])) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$transfertCompetence->id}}">

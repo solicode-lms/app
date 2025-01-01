@@ -10,10 +10,10 @@
         crudSelector: '#sysColor_crud',
         indexUrl: '{{ route('sysColors.index') }}', 
         createUrl: '{{ route('sysColors.create') }}',
-        editUrl: '{{ route('sysColors.edit', ['sysColor' => ':id']) }}',
-        showUrl: '{{ route('sysColors.show', ['sysColor' => ':id']) }}',
+        editUrl: '{{ route('sysColors.edit',  ['sysColor' => ':id']) }}',
+        showUrl: '{{ route('sysColors.show',  ['sysColor' => ':id']) }}',
         storeUrl: '{{ route('sysColors.store') }}', 
-        deleteUrl: '{{ route('sysColors.destroy', ['sysColor' => ':id']) }}', 
+        deleteUrl: '{{ route('sysColors.destroy',  ['sysColor' => ':id']) }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("Core::sysColor.singular") }}',
         edit_title: '{{__("Core::msg.add") . " : " . __("Core::sysColor.singular") }}',
@@ -32,7 +32,7 @@
                 <div class="col-sm-6">
                     <div class="float-sm-right">
                         @can('create-sysColor')
-                        <a href="{{ route('sysColors.create') }}" data-target="#sysColorModal" class="btn btn-info btn-sm addEntityButton">
+                        <a href="{{ route('sysColors.create') }}" data-target="#sysColorModal" class="btn btn-info btn-sm context-state addEntityButton">
                             <i class="fas fa-plus"></i>
                             {{ __('Core::msg.add') }}
                         </a>

@@ -20,17 +20,17 @@
                     <td>{{ $projet->formateur->nom ?? '-' }}</td>
                     <td class="text-center">
                         @can('show-projet')
-                            <a href="{{ route('projets.show', $projet) }}" data-id="{{$projet->id}}" class="btn btn-default btn-sm showEntity">
+                            <a href="{{ route('projets.show', array_merge($contextState, ['projet' => $projet->id])) }}" data-id="{{$projet->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
                         @endcan
                         @can('edit-projet')
-                            <a href="{{ route('projets.edit', $projet) }}" data-id="{{$projet->id}}" class="btn btn-sm btn-default editEntity">
+                            <a href="{{ route('projets.edit', array_merge($contextState, ['projet' => $projet->id])) }}" data-id="{{$projet->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endcan
                         @can('destroy-projet')
-                            <form action="{{ route('projets.destroy', $projet) }}" method="POST" style="display: inline;">
+                            <form class="context-state" action="{{ route('projets.destroy',array_merge($contextState, ['projet' => $projet->id])) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$projet->id}}">

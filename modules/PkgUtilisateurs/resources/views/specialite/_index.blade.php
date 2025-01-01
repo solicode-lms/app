@@ -10,10 +10,10 @@
         crudSelector: '#specialite_crud',
         indexUrl: '{{ route('specialites.index') }}', 
         createUrl: '{{ route('specialites.create') }}',
-        editUrl: '{{ route('specialites.edit', ['specialite' => ':id']) }}',
-        showUrl: '{{ route('specialites.show', ['specialite' => ':id']) }}',
+        editUrl: '{{ route('specialites.edit',  ['specialite' => ':id']) }}',
+        showUrl: '{{ route('specialites.show',  ['specialite' => ':id']) }}',
         storeUrl: '{{ route('specialites.store') }}', 
-        deleteUrl: '{{ route('specialites.destroy', ['specialite' => ':id']) }}', 
+        deleteUrl: '{{ route('specialites.destroy',  ['specialite' => ':id']) }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgUtilisateurs::specialite.singular") }}',
         edit_title: '{{__("Core::msg.add") . " : " . __("PkgUtilisateurs::specialite.singular") }}',
@@ -32,7 +32,7 @@
                 <div class="col-sm-6">
                     <div class="float-sm-right">
                         @can('create-specialite')
-                        <a href="{{ route('specialites.create') }}" data-target="#specialiteModal" class="btn btn-info btn-sm addEntityButton">
+                        <a href="{{ route('specialites.create') }}" data-target="#specialiteModal" class="btn btn-info btn-sm context-state addEntityButton">
                             <i class="fas fa-plus"></i>
                             {{ __('Core::msg.add') }}
                         </a>

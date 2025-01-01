@@ -10,10 +10,10 @@
         crudSelector: '#ville_crud',
         indexUrl: '{{ route('villes.index') }}', 
         createUrl: '{{ route('villes.create') }}',
-        editUrl: '{{ route('villes.edit', ['ville' => ':id']) }}',
-        showUrl: '{{ route('villes.show', ['ville' => ':id']) }}',
+        editUrl: '{{ route('villes.edit',  ['ville' => ':id']) }}',
+        showUrl: '{{ route('villes.show',  ['ville' => ':id']) }}',
         storeUrl: '{{ route('villes.store') }}', 
-        deleteUrl: '{{ route('villes.destroy', ['ville' => ':id']) }}', 
+        deleteUrl: '{{ route('villes.destroy',  ['ville' => ':id']) }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgUtilisateurs::ville.singular") }}',
         edit_title: '{{__("Core::msg.add") . " : " . __("PkgUtilisateurs::ville.singular") }}',
@@ -32,7 +32,7 @@
                 <div class="col-sm-6">
                     <div class="float-sm-right">
                         @can('create-ville')
-                        <a href="{{ route('villes.create') }}" data-target="#villeModal" class="btn btn-info btn-sm addEntityButton">
+                        <a href="{{ route('villes.create') }}" data-target="#villeModal" class="btn btn-info btn-sm context-state addEntityButton">
                             <i class="fas fa-plus"></i>
                             {{ __('Core::msg.add') }}
                         </a>

@@ -10,10 +10,10 @@
         crudSelector: '#resource_crud',
         indexUrl: '{{ route('resources.index') }}', 
         createUrl: '{{ route('resources.create') }}',
-        editUrl: '{{ route('resources.edit', ['resource' => ':id']) }}',
-        showUrl: '{{ route('resources.show', ['resource' => ':id']) }}',
+        editUrl: '{{ route('resources.edit',  ['resource' => ':id']) }}',
+        showUrl: '{{ route('resources.show',  ['resource' => ':id']) }}',
         storeUrl: '{{ route('resources.store') }}', 
-        deleteUrl: '{{ route('resources.destroy', ['resource' => ':id']) }}', 
+        deleteUrl: '{{ route('resources.destroy',  ['resource' => ':id']) }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgCreationProjet::resource.singular") }}',
         edit_title: '{{__("Core::msg.add") . " : " . __("PkgCreationProjet::resource.singular") }}',
@@ -32,7 +32,7 @@
                 <div class="col-sm-6">
                     <div class="float-sm-right">
                         @can('create-resource')
-                        <a href="{{ route('resources.create') }}" data-target="#resourceModal" class="btn btn-info btn-sm addEntityButton">
+                        <a href="{{ route('resources.create') }}" data-target="#resourceModal" class="btn btn-info btn-sm context-state addEntityButton">
                             <i class="fas fa-plus"></i>
                             {{ __('Core::msg.add') }}
                         </a>

@@ -1,6 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form class="crud-form" id="transfertCompetenceForm" action="{{ $itemTransfertCompetence->id ? route('transfertCompetences.update', $itemTransfertCompetence->id) : route('transfertCompetences.store') }}" method="POST" novalidate>
+<form class="crud-form context-state" id="transfertCompetenceForm" action="{{ $itemTransfertCompetence->id ? route('transfertCompetences.update', $itemTransfertCompetence->id) : route('transfertCompetences.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemTransfertCompetence->id)

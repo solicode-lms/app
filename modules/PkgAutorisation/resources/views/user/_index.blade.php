@@ -10,10 +10,10 @@
         crudSelector: '#user_crud',
         indexUrl: '{{ route('users.index') }}', 
         createUrl: '{{ route('users.create') }}',
-        editUrl: '{{ route('users.edit', ['user' => ':id']) }}',
-        showUrl: '{{ route('users.show', ['user' => ':id']) }}',
+        editUrl: '{{ route('users.edit',  ['user' => ':id']) }}',
+        showUrl: '{{ route('users.show',  ['user' => ':id']) }}',
         storeUrl: '{{ route('users.store') }}', 
-        deleteUrl: '{{ route('users.destroy', ['user' => ':id']) }}', 
+        deleteUrl: '{{ route('users.destroy',  ['user' => ':id']) }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgAutorisation::user.singular") }}',
         edit_title: '{{__("Core::msg.add") . " : " . __("PkgAutorisation::user.singular") }}',
@@ -32,7 +32,7 @@
                 <div class="col-sm-6">
                     <div class="float-sm-right">
                         @can('create-user')
-                        <a href="{{ route('users.create') }}" data-target="#userModal" class="btn btn-info btn-sm addEntityButton">
+                        <a href="{{ route('users.create') }}" data-target="#userModal" class="btn btn-info btn-sm context-state addEntityButton">
                             <i class="fas fa-plus"></i>
                             {{ __('Core::msg.add') }}
                         </a>

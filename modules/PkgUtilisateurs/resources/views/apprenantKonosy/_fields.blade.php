@@ -1,6 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form class="crud-form" id="apprenantKonosyForm" action="{{ $itemApprenantKonosy->id ? route('apprenantKonosies.update', $itemApprenantKonosy->id) : route('apprenantKonosies.store') }}" method="POST" novalidate>
+<form class="crud-form context-state" id="apprenantKonosyForm" action="{{ $itemApprenantKonosy->id ? route('apprenantKonosies.update', $itemApprenantKonosy->id) : route('apprenantKonosies.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemApprenantKonosy->id)

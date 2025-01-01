@@ -14,17 +14,17 @@
                     <td>{{ $role->name }}</td>
                     <td class="text-center">
                         @can('show-role')
-                            <a href="{{ route('roles.show', $role) }}" data-id="{{$role->id}}" class="btn btn-default btn-sm showEntity">
+                            <a href="{{ route('roles.show', array_merge($contextState, ['role' => $role->id])) }}" data-id="{{$role->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
                         @endcan
                         @can('edit-role')
-                            <a href="{{ route('roles.edit', $role) }}" data-id="{{$role->id}}" class="btn btn-sm btn-default editEntity">
+                            <a href="{{ route('roles.edit', array_merge($contextState, ['role' => $role->id])) }}" data-id="{{$role->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endcan
                         @can('destroy-role')
-                            <form action="{{ route('roles.destroy', $role) }}" method="POST" style="display: inline;">
+                            <form class="context-state" action="{{ route('roles.destroy',array_merge($contextState, ['role' => $role->id])) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$role->id}}">

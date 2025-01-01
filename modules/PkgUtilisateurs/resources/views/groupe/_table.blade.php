@@ -18,17 +18,17 @@
                     <td>{{ $groupe->filiere->code ?? '-' }}</td>
                     <td class="text-center">
                         @can('show-groupe')
-                            <a href="{{ route('groupes.show', $groupe) }}" data-id="{{$groupe->id}}" class="btn btn-default btn-sm showEntity">
+                            <a href="{{ route('groupes.show', array_merge($contextState, ['groupe' => $groupe->id])) }}" data-id="{{$groupe->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
                         @endcan
                         @can('edit-groupe')
-                            <a href="{{ route('groupes.edit', $groupe) }}" data-id="{{$groupe->id}}" class="btn btn-sm btn-default editEntity">
+                            <a href="{{ route('groupes.edit', array_merge($contextState, ['groupe' => $groupe->id])) }}" data-id="{{$groupe->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endcan
                         @can('destroy-groupe')
-                            <form action="{{ route('groupes.destroy', $groupe) }}" method="POST" style="display: inline;">
+                            <form class="context-state" action="{{ route('groupes.destroy',array_merge($contextState, ['groupe' => $groupe->id])) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$groupe->id}}">

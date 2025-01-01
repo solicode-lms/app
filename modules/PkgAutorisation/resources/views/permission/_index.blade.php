@@ -10,10 +10,10 @@
         crudSelector: '#permission_crud',
         indexUrl: '{{ route('permissions.index') }}', 
         createUrl: '{{ route('permissions.create') }}',
-        editUrl: '{{ route('permissions.edit', ['permission' => ':id']) }}',
-        showUrl: '{{ route('permissions.show', ['permission' => ':id']) }}',
+        editUrl: '{{ route('permissions.edit',  ['permission' => ':id']) }}',
+        showUrl: '{{ route('permissions.show',  ['permission' => ':id']) }}',
         storeUrl: '{{ route('permissions.store') }}', 
-        deleteUrl: '{{ route('permissions.destroy', ['permission' => ':id']) }}', 
+        deleteUrl: '{{ route('permissions.destroy',  ['permission' => ':id']) }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgAutorisation::permission.singular") }}',
         edit_title: '{{__("Core::msg.add") . " : " . __("PkgAutorisation::permission.singular") }}',
@@ -32,7 +32,7 @@
                 <div class="col-sm-6">
                     <div class="float-sm-right">
                         @can('create-permission')
-                        <a href="{{ route('permissions.create') }}" data-target="#permissionModal" class="btn btn-info btn-sm addEntityButton">
+                        <a href="{{ route('permissions.create') }}" data-target="#permissionModal" class="btn btn-info btn-sm context-state addEntityButton">
                             <i class="fas fa-plus"></i>
                             {{ __('Core::msg.add') }}
                         </a>

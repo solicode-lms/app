@@ -18,17 +18,17 @@
                     <td>{{ $module->filiere->code ?? '-' }}</td>
                     <td class="text-center">
                         @can('show-module')
-                            <a href="{{ route('modules.show', $module) }}" data-id="{{$module->id}}" class="btn btn-default btn-sm showEntity">
+                            <a href="{{ route('modules.show', array_merge($contextState, ['module' => $module->id])) }}" data-id="{{$module->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
                         @endcan
                         @can('edit-module')
-                            <a href="{{ route('modules.edit', $module) }}" data-id="{{$module->id}}" class="btn btn-sm btn-default editEntity">
+                            <a href="{{ route('modules.edit', array_merge($contextState, ['module' => $module->id])) }}" data-id="{{$module->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endcan
                         @can('destroy-module')
-                            <form action="{{ route('modules.destroy', $module) }}" method="POST" style="display: inline;">
+                            <form class="context-state" action="{{ route('modules.destroy',array_merge($contextState, ['module' => $module->id])) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$module->id}}">

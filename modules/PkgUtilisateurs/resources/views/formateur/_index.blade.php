@@ -10,10 +10,10 @@
         crudSelector: '#formateur_crud',
         indexUrl: '{{ route('formateurs.index') }}', 
         createUrl: '{{ route('formateurs.create') }}',
-        editUrl: '{{ route('formateurs.edit', ['formateur' => ':id']) }}',
-        showUrl: '{{ route('formateurs.show', ['formateur' => ':id']) }}',
+        editUrl: '{{ route('formateurs.edit',  ['formateur' => ':id']) }}',
+        showUrl: '{{ route('formateurs.show',  ['formateur' => ':id']) }}',
         storeUrl: '{{ route('formateurs.store') }}', 
-        deleteUrl: '{{ route('formateurs.destroy', ['formateur' => ':id']) }}', 
+        deleteUrl: '{{ route('formateurs.destroy',  ['formateur' => ':id']) }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgUtilisateurs::formateur.singular") }}',
         edit_title: '{{__("Core::msg.add") . " : " . __("PkgUtilisateurs::formateur.singular") }}',
@@ -32,7 +32,7 @@
                 <div class="col-sm-6">
                     <div class="float-sm-right">
                         @can('create-formateur')
-                        <a href="{{ route('formateurs.create') }}" data-target="#formateurModal" class="btn btn-info btn-sm addEntityButton">
+                        <a href="{{ route('formateurs.create') }}" data-target="#formateurModal" class="btn btn-info btn-sm context-state addEntityButton">
                             <i class="fas fa-plus"></i>
                             {{ __('Core::msg.add') }}
                         </a>

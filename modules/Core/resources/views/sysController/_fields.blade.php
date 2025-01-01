@@ -1,6 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form class="crud-form" id="sysControllerForm" action="{{ $itemSysController->id ? route('sysControllers.update', $itemSysController->id) : route('sysControllers.store') }}" method="POST" novalidate>
+<form class="crud-form context-state" id="sysControllerForm" action="{{ $itemSysController->id ? route('sysControllers.update', $itemSysController->id) : route('sysControllers.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemSysController->id)

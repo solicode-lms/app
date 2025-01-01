@@ -10,10 +10,10 @@
         crudSelector: '#nationalite_crud',
         indexUrl: '{{ route('nationalites.index') }}', 
         createUrl: '{{ route('nationalites.create') }}',
-        editUrl: '{{ route('nationalites.edit', ['nationalite' => ':id']) }}',
-        showUrl: '{{ route('nationalites.show', ['nationalite' => ':id']) }}',
+        editUrl: '{{ route('nationalites.edit',  ['nationalite' => ':id']) }}',
+        showUrl: '{{ route('nationalites.show',  ['nationalite' => ':id']) }}',
         storeUrl: '{{ route('nationalites.store') }}', 
-        deleteUrl: '{{ route('nationalites.destroy', ['nationalite' => ':id']) }}', 
+        deleteUrl: '{{ route('nationalites.destroy',  ['nationalite' => ':id']) }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgUtilisateurs::nationalite.singular") }}',
         edit_title: '{{__("Core::msg.add") . " : " . __("PkgUtilisateurs::nationalite.singular") }}',
@@ -32,7 +32,7 @@
                 <div class="col-sm-6">
                     <div class="float-sm-right">
                         @can('create-nationalite')
-                        <a href="{{ route('nationalites.create') }}" data-target="#nationaliteModal" class="btn btn-info btn-sm addEntityButton">
+                        <a href="{{ route('nationalites.create') }}" data-target="#nationaliteModal" class="btn btn-info btn-sm context-state addEntityButton">
                             <i class="fas fa-plus"></i>
                             {{ __('Core::msg.add') }}
                         </a>
