@@ -59,8 +59,8 @@ public function all(): array
     public function readFromRequest(Request $request)
     {
         // Extraire les paramètres de routage scop_entity et scop_id
-        $scop_entity = $request->route('scop_entity', null);
-        $scop_id = $request->route('scop_id', null);
+        $scop_entity = $request->get('scop_entity', null);
+        $scop_id = $request->get('scop_id', null);
 
         // Stocker les valeurs si elles existent
         if ($scop_entity) {

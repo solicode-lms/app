@@ -9,7 +9,7 @@
         entity_name: 'livrable',
         crudSelector: '#livrable_crud',
         indexUrl: '{{ route('livrables.index',$page) }}', 
-        createUrl: '{{ route('livrables.create',$page) }}',
+        createUrl: '{{ html_entity_decode(route('livrables.create',$page)) }}',
         editUrl: '{{ route('livrables.edit', array_merge($page, ['livrable' => ':id'])) }}',
         showUrl: '{{ route('livrables.show', array_merge($page, ['livrable' => ':id'])) }}',
         storeUrl: '{{ route('livrables.store',$page) }}', 
@@ -26,6 +26,7 @@
             <div class="row mb-2">
                 <div class="col-sm-6">
                     <h1>
+                        {{ html_entity_decode(route('livrables.create',$page)) }}
                         {{ curd_index_title('PkgCreationProjet::livrable') }}
                     </h1>
                 </div>
