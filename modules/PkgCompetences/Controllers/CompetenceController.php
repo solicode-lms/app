@@ -85,7 +85,7 @@ class CompetenceController extends AdminController
             ]);
         }
 
-        return redirect()->route('competences.index')->with(
+        return redirect()->route('competences.edit',['competence' => $competence->id])->with(
             'success',
             __('Core::msg.addSuccess', [
                 'entityToString' => $competence,
@@ -119,16 +119,17 @@ class CompetenceController extends AdminController
         $itemCompetence = $this->competenceService->find($id);
         $technologies = $this->technologyService->all();
         $modules = $this->moduleService->all();
+         $niveauCompetences_data =  $itemCompetence->niveauCompetences()->paginate(10);
 
         // Utilisé dans l'édition des relation HasMany
         $this->contextState->set('competence_id', $id);
 
 
         if (request()->ajax()) {
-            return view('PkgCompetences::competence._fields', compact('itemCompetence', 'technologies', 'modules'));
+            return view('PkgCompetences::competence._fields', compact('itemCompetence', 'technologies', 'modules', 'niveauCompetences_data'));
         }
 
-        return view('PkgCompetences::competence.edit', compact('itemCompetence', 'technologies', 'modules'));
+        return view('PkgCompetences::competence.edit', compact('itemCompetence', 'technologies', 'modules', 'niveauCompetences_data'));
     }
 
     /**
