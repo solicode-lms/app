@@ -20,17 +20,17 @@
                     <td>{{ $sysModel->sysColor->name ?? '-' }}</td>
                     <td class="text-center">
                         @can('show-sysModel')
-                            <a href="{{ route('sysModels.show', array_merge($contextState, ['sysModel' => $sysModel->id])) }}" data-id="{{$sysModel->id}}" class="btn btn-default btn-sm context-state showEntity">
+                            <a href="{{ route('sysModels.show', ['sysModel' => $sysModel->id]) }}" data-id="{{$sysModel->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
                         @endcan
                         @can('edit-sysModel')
-                            <a href="{{ route('sysModels.edit', array_merge($contextState, ['sysModel' => $sysModel->id])) }}" data-id="{{$sysModel->id}}" class="btn btn-sm btn-default context-state editEntity">
+                            <a href="{{ route('sysModels.edit', ['sysModel' => $sysModel->id]) }}" data-id="{{$sysModel->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endcan
                         @can('destroy-sysModel')
-                            <form class="context-state" action="{{ route('sysModels.destroy',array_merge($contextState, ['sysModel' => $sysModel->id])) }}" method="POST" style="display: inline;">
+                            <form class="context-state" action="{{ route('sysModels.destroy',['sysModel' => $sysModel->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$sysModel->id}}">

@@ -16,17 +16,17 @@
                     <td>{!! $specialite->description !!}</td>
                     <td class="text-center">
                         @can('show-specialite')
-                            <a href="{{ route('specialites.show', array_merge($contextState, ['specialite' => $specialite->id])) }}" data-id="{{$specialite->id}}" class="btn btn-default btn-sm context-state showEntity">
+                            <a href="{{ route('specialites.show', ['specialite' => $specialite->id]) }}" data-id="{{$specialite->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
                         @endcan
                         @can('edit-specialite')
-                            <a href="{{ route('specialites.edit', array_merge($contextState, ['specialite' => $specialite->id])) }}" data-id="{{$specialite->id}}" class="btn btn-sm btn-default context-state editEntity">
+                            <a href="{{ route('specialites.edit', ['specialite' => $specialite->id]) }}" data-id="{{$specialite->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endcan
                         @can('destroy-specialite')
-                            <form class="context-state" action="{{ route('specialites.destroy',array_merge($contextState, ['specialite' => $specialite->id])) }}" method="POST" style="display: inline;">
+                            <form class="context-state" action="{{ route('specialites.destroy',['specialite' => $specialite->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$specialite->id}}">

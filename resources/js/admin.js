@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let contextState = window.contextState;
     
     const contextManager = new ContextStateManager(contextState);
-    const contexteEventHandler = new ContexteStateEventHandler(contextManager);
+    const contexteEventHandler = new ContexteStateEventHandler(contextState);
 
 
     // Vérifie si la configuration des entités est disponible

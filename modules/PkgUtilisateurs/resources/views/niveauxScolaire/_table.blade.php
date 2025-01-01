@@ -14,17 +14,17 @@
                     <td>{{ $niveauxScolaire->code }}</td>
                     <td class="text-center">
                         @can('show-niveauxScolaire')
-                            <a href="{{ route('niveauxScolaires.show', array_merge($contextState, ['niveauxScolaire' => $niveauxScolaire->id])) }}" data-id="{{$niveauxScolaire->id}}" class="btn btn-default btn-sm context-state showEntity">
+                            <a href="{{ route('niveauxScolaires.show', ['niveauxScolaire' => $niveauxScolaire->id]) }}" data-id="{{$niveauxScolaire->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
                         @endcan
                         @can('edit-niveauxScolaire')
-                            <a href="{{ route('niveauxScolaires.edit', array_merge($contextState, ['niveauxScolaire' => $niveauxScolaire->id])) }}" data-id="{{$niveauxScolaire->id}}" class="btn btn-sm btn-default context-state editEntity">
+                            <a href="{{ route('niveauxScolaires.edit', ['niveauxScolaire' => $niveauxScolaire->id]) }}" data-id="{{$niveauxScolaire->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endcan
                         @can('destroy-niveauxScolaire')
-                            <form class="context-state" action="{{ route('niveauxScolaires.destroy',array_merge($contextState, ['niveauxScolaire' => $niveauxScolaire->id])) }}" method="POST" style="display: inline;">
+                            <form class="context-state" action="{{ route('niveauxScolaires.destroy',['niveauxScolaire' => $niveauxScolaire->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$niveauxScolaire->id}}">

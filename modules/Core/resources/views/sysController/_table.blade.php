@@ -20,17 +20,17 @@
                     <td>{{ $sysController->is_active }}</td>
                     <td class="text-center">
                         @can('show-sysController')
-                            <a href="{{ route('sysControllers.show', array_merge($contextState, ['sysController' => $sysController->id])) }}" data-id="{{$sysController->id}}" class="btn btn-default btn-sm context-state showEntity">
+                            <a href="{{ route('sysControllers.show', ['sysController' => $sysController->id]) }}" data-id="{{$sysController->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
                         @endcan
                         @can('edit-sysController')
-                            <a href="{{ route('sysControllers.edit', array_merge($contextState, ['sysController' => $sysController->id])) }}" data-id="{{$sysController->id}}" class="btn btn-sm btn-default context-state editEntity">
+                            <a href="{{ route('sysControllers.edit', ['sysController' => $sysController->id]) }}" data-id="{{$sysController->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endcan
                         @can('destroy-sysController')
-                            <form class="context-state" action="{{ route('sysControllers.destroy',array_merge($contextState, ['sysController' => $sysController->id])) }}" method="POST" style="display: inline;">
+                            <form class="context-state" action="{{ route('sysControllers.destroy',['sysController' => $sysController->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$sysController->id}}">

@@ -14,17 +14,17 @@
                     <td>{{ $categoryTechnology->nom }}</td>
                     <td class="text-center">
                         @can('show-categoryTechnology')
-                            <a href="{{ route('categoryTechnologies.show', array_merge($contextState, ['categoryTechnology' => $categoryTechnology->id])) }}" data-id="{{$categoryTechnology->id}}" class="btn btn-default btn-sm context-state showEntity">
+                            <a href="{{ route('categoryTechnologies.show', ['categoryTechnology' => $categoryTechnology->id]) }}" data-id="{{$categoryTechnology->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
                         @endcan
                         @can('edit-categoryTechnology')
-                            <a href="{{ route('categoryTechnologies.edit', array_merge($contextState, ['categoryTechnology' => $categoryTechnology->id])) }}" data-id="{{$categoryTechnology->id}}" class="btn btn-sm btn-default context-state editEntity">
+                            <a href="{{ route('categoryTechnologies.edit', ['categoryTechnology' => $categoryTechnology->id]) }}" data-id="{{$categoryTechnology->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endcan
                         @can('destroy-categoryTechnology')
-                            <form class="context-state" action="{{ route('categoryTechnologies.destroy',array_merge($contextState, ['categoryTechnology' => $categoryTechnology->id])) }}" method="POST" style="display: inline;">
+                            <form class="context-state" action="{{ route('categoryTechnologies.destroy',['categoryTechnology' => $categoryTechnology->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$categoryTechnology->id}}">

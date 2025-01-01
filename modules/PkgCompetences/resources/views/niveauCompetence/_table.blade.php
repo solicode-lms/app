@@ -18,17 +18,17 @@
                     <td>{{ $niveauCompetence->competence->code ?? '-' }}</td>
                     <td class="text-center">
                         @can('show-niveauCompetence')
-                            <a href="{{ route('niveauCompetences.show', array_merge($contextState, ['niveauCompetence' => $niveauCompetence->id])) }}" data-id="{{$niveauCompetence->id}}" class="btn btn-default btn-sm context-state showEntity">
+                            <a href="{{ route('niveauCompetences.show', ['niveauCompetence' => $niveauCompetence->id]) }}" data-id="{{$niveauCompetence->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
                         @endcan
                         @can('edit-niveauCompetence')
-                            <a href="{{ route('niveauCompetences.edit', array_merge($contextState, ['niveauCompetence' => $niveauCompetence->id])) }}" data-id="{{$niveauCompetence->id}}" class="btn btn-sm btn-default context-state editEntity">
+                            <a href="{{ route('niveauCompetences.edit', ['niveauCompetence' => $niveauCompetence->id]) }}" data-id="{{$niveauCompetence->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endcan
                         @can('destroy-niveauCompetence')
-                            <form class="context-state" action="{{ route('niveauCompetences.destroy',array_merge($contextState, ['niveauCompetence' => $niveauCompetence->id])) }}" method="POST" style="display: inline;">
+                            <form class="context-state" action="{{ route('niveauCompetences.destroy',['niveauCompetence' => $niveauCompetence->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$niveauCompetence->id}}">

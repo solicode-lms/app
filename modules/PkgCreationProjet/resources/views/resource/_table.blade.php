@@ -18,17 +18,17 @@
                     <td>{{ $resource->projet->titre ?? '-' }}</td>
                     <td class="text-center">
                         @can('show-resource')
-                            <a href="{{ route('resources.show', array_merge($contextState, ['resource' => $resource->id])) }}" data-id="{{$resource->id}}" class="btn btn-default btn-sm context-state showEntity">
+                            <a href="{{ route('resources.show', ['resource' => $resource->id]) }}" data-id="{{$resource->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
                         @endcan
                         @can('edit-resource')
-                            <a href="{{ route('resources.edit', array_merge($contextState, ['resource' => $resource->id])) }}" data-id="{{$resource->id}}" class="btn btn-sm btn-default context-state editEntity">
+                            <a href="{{ route('resources.edit', ['resource' => $resource->id]) }}" data-id="{{$resource->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endcan
                         @can('destroy-resource')
-                            <form class="context-state" action="{{ route('resources.destroy',array_merge($contextState, ['resource' => $resource->id])) }}" method="POST" style="display: inline;">
+                            <form class="context-state" action="{{ route('resources.destroy',['resource' => $resource->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$resource->id}}">

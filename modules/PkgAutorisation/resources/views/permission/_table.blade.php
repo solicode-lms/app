@@ -16,17 +16,17 @@
                     <td>{{ $permission->sysController->name ?? '-' }}</td>
                     <td class="text-center">
                         @can('show-permission')
-                            <a href="{{ route('permissions.show', array_merge($contextState, ['permission' => $permission->id])) }}" data-id="{{$permission->id}}" class="btn btn-default btn-sm context-state showEntity">
+                            <a href="{{ route('permissions.show', ['permission' => $permission->id]) }}" data-id="{{$permission->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
                         @endcan
                         @can('edit-permission')
-                            <a href="{{ route('permissions.edit', array_merge($contextState, ['permission' => $permission->id])) }}" data-id="{{$permission->id}}" class="btn btn-sm btn-default context-state editEntity">
+                            <a href="{{ route('permissions.edit', ['permission' => $permission->id]) }}" data-id="{{$permission->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endcan
                         @can('destroy-permission')
-                            <form class="context-state" action="{{ route('permissions.destroy',array_merge($contextState, ['permission' => $permission->id])) }}" method="POST" style="display: inline;">
+                            <form class="context-state" action="{{ route('permissions.destroy',['permission' => $permission->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$permission->id}}">

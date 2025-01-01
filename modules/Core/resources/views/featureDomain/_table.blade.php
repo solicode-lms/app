@@ -18,17 +18,17 @@
                     <td>{{ $featureDomain->sysModule->name ?? '-' }}</td>
                     <td class="text-center">
                         @can('show-featureDomain')
-                            <a href="{{ route('featureDomains.show', array_merge($contextState, ['featureDomain' => $featureDomain->id])) }}" data-id="{{$featureDomain->id}}" class="btn btn-default btn-sm context-state showEntity">
+                            <a href="{{ route('featureDomains.show', ['featureDomain' => $featureDomain->id]) }}" data-id="{{$featureDomain->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
                         @endcan
                         @can('edit-featureDomain')
-                            <a href="{{ route('featureDomains.edit', array_merge($contextState, ['featureDomain' => $featureDomain->id])) }}" data-id="{{$featureDomain->id}}" class="btn btn-sm btn-default context-state editEntity">
+                            <a href="{{ route('featureDomains.edit', ['featureDomain' => $featureDomain->id]) }}" data-id="{{$featureDomain->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endcan
                         @can('destroy-featureDomain')
-                            <form class="context-state" action="{{ route('featureDomains.destroy',array_merge($contextState, ['featureDomain' => $featureDomain->id])) }}" method="POST" style="display: inline;">
+                            <form class="context-state" action="{{ route('featureDomains.destroy',['featureDomain' => $featureDomain->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$featureDomain->id}}">

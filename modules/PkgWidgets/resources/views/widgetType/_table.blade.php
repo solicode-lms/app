@@ -16,17 +16,17 @@
                     <td>{!! $widgetType->description !!}</td>
                     <td class="text-center">
                         @can('show-widgetType')
-                            <a href="{{ route('widgetTypes.show', array_merge($contextState, ['widgetType' => $widgetType->id])) }}" data-id="{{$widgetType->id}}" class="btn btn-default btn-sm context-state showEntity">
+                            <a href="{{ route('widgetTypes.show', ['widgetType' => $widgetType->id]) }}" data-id="{{$widgetType->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
                         @endcan
                         @can('edit-widgetType')
-                            <a href="{{ route('widgetTypes.edit', array_merge($contextState, ['widgetType' => $widgetType->id])) }}" data-id="{{$widgetType->id}}" class="btn btn-sm btn-default context-state editEntity">
+                            <a href="{{ route('widgetTypes.edit', ['widgetType' => $widgetType->id]) }}" data-id="{{$widgetType->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endcan
                         @can('destroy-widgetType')
-                            <form class="context-state" action="{{ route('widgetTypes.destroy',array_merge($contextState, ['widgetType' => $widgetType->id])) }}" method="POST" style="display: inline;">
+                            <form class="context-state" action="{{ route('widgetTypes.destroy',['widgetType' => $widgetType->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$widgetType->id}}">

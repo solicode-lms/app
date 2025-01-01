@@ -18,17 +18,17 @@
                     <td>{{ $livrable->natureLivrable->nom ?? '-' }}</td>
                     <td class="text-center">
                         @can('show-livrable')
-                            <a href="{{ route('livrables.show', array_merge($contextState, ['livrable' => $livrable->id])) }}" data-id="{{$livrable->id}}" class="btn btn-default btn-sm context-state showEntity">
+                            <a href="{{ route('livrables.show', ['livrable' => $livrable->id]) }}" data-id="{{$livrable->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
                         @endcan
                         @can('edit-livrable')
-                            <a href="{{ route('livrables.edit', array_merge($contextState, ['livrable' => $livrable->id])) }}" data-id="{{$livrable->id}}" class="btn btn-sm btn-default context-state editEntity">
+                            <a href="{{ route('livrables.edit', ['livrable' => $livrable->id]) }}" data-id="{{$livrable->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endcan
                         @can('destroy-livrable')
-                            <form class="context-state" action="{{ route('livrables.destroy',array_merge($contextState, ['livrable' => $livrable->id])) }}" method="POST" style="display: inline;">
+                            <form class="context-state" action="{{ route('livrables.destroy',['livrable' => $livrable->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$livrable->id}}">

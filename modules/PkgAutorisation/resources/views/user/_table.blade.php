@@ -16,17 +16,17 @@
                     <td>{{ $user->password }}</td>
                     <td class="text-center">
                         @can('show-user')
-                            <a href="{{ route('users.show', array_merge($contextState, ['user' => $user->id])) }}" data-id="{{$user->id}}" class="btn btn-default btn-sm context-state showEntity">
+                            <a href="{{ route('users.show', ['user' => $user->id]) }}" data-id="{{$user->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
                         @endcan
                         @can('edit-user')
-                            <a href="{{ route('users.edit', array_merge($contextState, ['user' => $user->id])) }}" data-id="{{$user->id}}" class="btn btn-sm btn-default context-state editEntity">
+                            <a href="{{ route('users.edit', ['user' => $user->id]) }}" data-id="{{$user->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endcan
                         @can('destroy-user')
-                            <form class="context-state" action="{{ route('users.destroy',array_merge($contextState, ['user' => $user->id])) }}" method="POST" style="display: inline;">
+                            <form class="context-state" action="{{ route('users.destroy',['user' => $user->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$user->id}}">

@@ -18,17 +18,17 @@
                     <td>{{ $feature->featureDomain->name ?? '-' }}</td>
                     <td class="text-center">
                         @can('show-feature')
-                            <a href="{{ route('features.show', array_merge($contextState, ['feature' => $feature->id])) }}" data-id="{{$feature->id}}" class="btn btn-default btn-sm context-state showEntity">
+                            <a href="{{ route('features.show', ['feature' => $feature->id]) }}" data-id="{{$feature->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
                         @endcan
                         @can('edit-feature')
-                            <a href="{{ route('features.edit', array_merge($contextState, ['feature' => $feature->id])) }}" data-id="{{$feature->id}}" class="btn btn-sm btn-default context-state editEntity">
+                            <a href="{{ route('features.edit', ['feature' => $feature->id]) }}" data-id="{{$feature->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endcan
                         @can('destroy-feature')
-                            <form class="context-state" action="{{ route('features.destroy',array_merge($contextState, ['feature' => $feature->id])) }}" method="POST" style="display: inline;">
+                            <form class="context-state" action="{{ route('features.destroy',['feature' => $feature->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$feature->id}}">
