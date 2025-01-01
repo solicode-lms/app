@@ -6,12 +6,13 @@ namespace Modules\Core\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\HasDynamicContext;
 use Modules\Core\Models\FeatureDomain;
 use Modules\PkgAutorisation\Models\Permission;
 
 class Feature extends Model
 {
-    use HasFactory;
+    use HasFactory, HasDynamicContext;
 
     protected $fillable = ['name', 'description', 'domain_id'];
 

@@ -6,12 +6,13 @@ namespace Modules\PkgCompetences\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\HasDynamicContext;
 use Modules\PkgCompetences\Models\Module;
 use Modules\PkgUtilisateurs\Models\Groupe;
 
 class Filiere extends Model
 {
-    use HasFactory;
+    use HasFactory, HasDynamicContext;
 
     protected $fillable = ['code', 'nom', 'description'];
 

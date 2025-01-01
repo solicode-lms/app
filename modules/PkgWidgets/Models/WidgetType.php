@@ -6,11 +6,12 @@ namespace Modules\PkgWidgets\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\HasDynamicContext;
 use Modules\PkgWidgets\Models\Widget;
 
 class WidgetType extends Model
 {
-    use HasFactory;
+    use HasFactory, HasDynamicContext;
 
     protected $fillable = ['type', 'description'];
 

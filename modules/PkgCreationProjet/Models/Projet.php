@@ -6,6 +6,7 @@ namespace Modules\PkgCreationProjet\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\HasDynamicContext;
 use Modules\PkgCreationProjet\Models\Livrable;
 use Modules\PkgCreationProjet\Models\Resource;
 use Modules\PkgCreationProjet\Models\TransfertCompetence;
@@ -13,7 +14,7 @@ use Modules\PkgUtilisateurs\Models\Formateur;
 
 class Projet extends Model
 {
-    use HasFactory;
+    use HasFactory, HasDynamicContext;
 
     protected $fillable = ['titre', 'travail_a_faire', 'critere_de_travail', 'description', 'date_debut', 'date_fin', 'formateur_id'];
 

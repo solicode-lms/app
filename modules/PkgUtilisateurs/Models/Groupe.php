@@ -6,13 +6,14 @@ namespace Modules\PkgUtilisateurs\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\HasDynamicContext;
 use Modules\PkgCompetences\Models\Filiere;
 use Modules\PkgUtilisateurs\Models\Apprenant;
 use Modules\PkgUtilisateurs\Models\Formateur;
 
 class Groupe extends Model
 {
-    use HasFactory;
+    use HasFactory, HasDynamicContext;
 
     protected $fillable = ['code', 'nom', 'description', 'filiere_id'];
 

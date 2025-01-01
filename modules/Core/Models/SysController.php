@@ -6,12 +6,13 @@ namespace Modules\Core\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\HasDynamicContext;
 use Modules\Core\Models\SysModule;
 use Modules\PkgAutorisation\Models\Permission;
 
 class SysController extends Model
 {
-    use HasFactory;
+    use HasFactory, HasDynamicContext;
 
     protected $fillable = ['module_id', 'name', 'slug', 'description', 'is_active'];
 

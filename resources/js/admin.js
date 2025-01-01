@@ -31,7 +31,7 @@ import { ContextStateManager } from './crud/components/ContextStateManager';
 // Init CrudManagers in the page
 document.addEventListener("DOMContentLoaded", function () {
 
-    const isDebug = true;
+    const isDebug = false;
 
     // Contexte State 
     let contextState = window.contextState;

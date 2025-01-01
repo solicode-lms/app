@@ -6,12 +6,13 @@ namespace Modules\PkgCompetences\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\HasDynamicContext;
 use Modules\PkgCreationProjet\Models\TransfertCompetence;
 use Modules\PkgUtilisateurs\Models\Formateur;
 
 class Appreciation extends Model
 {
-    use HasFactory;
+    use HasFactory, HasDynamicContext;
 
     protected $fillable = ['nom', 'description', 'noteMin', 'noteMax', 'formateur_id'];
 

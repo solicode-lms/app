@@ -6,6 +6,7 @@ namespace Modules\PkgCompetences\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\HasDynamicContext;
 use Modules\PkgCompetences\Models\Module;
 use Modules\PkgCompetences\Models\NiveauCompetence;
 use Modules\PkgCompetences\Models\Technology;
@@ -13,7 +14,7 @@ use Modules\PkgCreationProjet\Models\TransfertCompetence;
 
 class Competence extends Model
 {
-    use HasFactory;
+    use HasFactory, HasDynamicContext;
 
     protected $fillable = ['code', 'nom', 'description', 'module_id'];
 

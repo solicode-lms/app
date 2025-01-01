@@ -6,12 +6,13 @@ namespace Modules\Core\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\HasDynamicContext;
 use Modules\Core\Models\SysModel;
 use Modules\Core\Models\SysModule;
 
 class SysColor extends Model
 {
-    use HasFactory;
+    use HasFactory, HasDynamicContext;
 
     protected $fillable = ['name', 'hex'];
 

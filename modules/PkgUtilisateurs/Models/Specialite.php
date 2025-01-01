@@ -6,11 +6,12 @@ namespace Modules\PkgUtilisateurs\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\HasDynamicContext;
 use Modules\PkgUtilisateurs\Models\Formateur;
 
 class Specialite extends Model
 {
-    use HasFactory;
+    use HasFactory, HasDynamicContext;
 
     protected $fillable = ['nom', 'description'];
 
