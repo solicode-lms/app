@@ -109,6 +109,7 @@ class ProjetController extends AdminController
     {
         $itemProjet = $this->projetService->find($id);
         $formateurs = $this->formateurService->all();
+        
          $livrables_data =  $itemProjet->livrables()->paginate(10);
          $resources_data =  $itemProjet->resources()->paginate(10);
          $transfertCompetences_data =  $itemProjet->transfertCompetences()->paginate(10);
