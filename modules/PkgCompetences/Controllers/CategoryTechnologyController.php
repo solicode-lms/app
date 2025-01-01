@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgCompetences\App\Exports\CategoryTechnologyExport;
 use Modules\PkgCompetences\App\Imports\CategoryTechnologyImport;
+use Modules\Core\Services\ContextState;
 
 class CategoryTechnologyController extends AdminController
 {
@@ -104,6 +105,10 @@ class CategoryTechnologyController extends AdminController
     public function edit(string $id)
     {
         $itemCategoryTechnology = $this->categoryTechnologyService->find($id);
+
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('categoryTechnology_id', $id);
+
 
         if (request()->ajax()) {
             return view('PkgCompetences::categoryTechnology._fields', compact('itemCategoryTechnology'));

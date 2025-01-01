@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgUtilisateurs\App\Exports\ApprenantKonosyExport;
 use Modules\PkgUtilisateurs\App\Imports\ApprenantKonosyImport;
+use Modules\Core\Services\ContextState;
 
 class ApprenantKonosyController extends AdminController
 {
@@ -104,6 +105,10 @@ class ApprenantKonosyController extends AdminController
     public function edit(string $id)
     {
         $itemApprenantKonosy = $this->apprenantKonosyService->find($id);
+
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('apprenantKonosy_id', $id);
+
 
         if (request()->ajax()) {
             return view('PkgUtilisateurs::apprenantKonosy._fields', compact('itemApprenantKonosy'));

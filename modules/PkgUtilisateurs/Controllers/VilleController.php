@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgUtilisateurs\App\Exports\VilleExport;
 use Modules\PkgUtilisateurs\App\Imports\VilleImport;
+use Modules\Core\Services\ContextState;
 
 class VilleController extends AdminController
 {
@@ -104,6 +105,10 @@ class VilleController extends AdminController
     public function edit(string $id)
     {
         $itemVille = $this->villeService->find($id);
+
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('ville_id', $id);
+
 
         if (request()->ajax()) {
             return view('PkgUtilisateurs::ville._fields', compact('itemVille'));

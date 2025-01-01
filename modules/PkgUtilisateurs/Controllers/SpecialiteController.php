@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgUtilisateurs\App\Exports\SpecialiteExport;
 use Modules\PkgUtilisateurs\App\Imports\SpecialiteImport;
+use Modules\Core\Services\ContextState;
 
 class SpecialiteController extends AdminController
 {
@@ -112,6 +113,10 @@ class SpecialiteController extends AdminController
     {
         $itemSpecialite = $this->specialiteService->find($id);
         $formateurs = $this->formateurService->all();
+
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('specialite_id', $id);
+
 
         if (request()->ajax()) {
             return view('PkgUtilisateurs::specialite._fields', compact('itemSpecialite', 'formateurs'));

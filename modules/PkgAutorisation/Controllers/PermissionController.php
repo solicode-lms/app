@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgAutorisation\App\Exports\PermissionExport;
 use Modules\PkgAutorisation\App\Imports\PermissionImport;
+use Modules\Core\Services\ContextState;
 
 class PermissionController extends AdminController
 {
@@ -127,6 +128,10 @@ class PermissionController extends AdminController
         $features = $this->featureService->all();
         $roles = $this->roleService->all();
         $sysControllers = $this->sysControllerService->all();
+
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('permission_id', $id);
+
 
         if (request()->ajax()) {
             return view('PkgAutorisation::permission._fields', compact('itemPermission', 'features', 'roles', 'sysControllers'));

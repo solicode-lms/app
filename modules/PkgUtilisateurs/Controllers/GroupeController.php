@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgUtilisateurs\App\Exports\GroupeExport;
 use Modules\PkgUtilisateurs\App\Imports\GroupeImport;
+use Modules\Core\Services\ContextState;
 
 class GroupeController extends AdminController
 {
@@ -118,6 +119,10 @@ class GroupeController extends AdminController
         $itemGroupe = $this->groupeService->find($id);
         $formateurs = $this->formateurService->all();
         $filieres = $this->filiereService->all();
+
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('groupe_id', $id);
+
 
         if (request()->ajax()) {
             return view('PkgUtilisateurs::groupe._fields', compact('itemGroupe', 'formateurs', 'filieres'));

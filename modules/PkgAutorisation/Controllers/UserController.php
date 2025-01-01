@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgAutorisation\App\Exports\UserExport;
 use Modules\PkgAutorisation\App\Imports\UserImport;
+use Modules\Core\Services\ContextState;
 
 class UserController extends AdminController
 {
@@ -112,6 +113,10 @@ class UserController extends AdminController
     {
         $itemUser = $this->userService->find($id);
         $roles = $this->roleService->all();
+
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('user_id', $id);
+
 
         if (request()->ajax()) {
             return view('PkgAutorisation::user._fields', compact('itemUser', 'roles'));

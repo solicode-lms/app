@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgUtilisateurs\App\Exports\NationaliteExport;
 use Modules\PkgUtilisateurs\App\Imports\NationaliteImport;
+use Modules\Core\Services\ContextState;
 
 class NationaliteController extends AdminController
 {
@@ -104,6 +105,10 @@ class NationaliteController extends AdminController
     public function edit(string $id)
     {
         $itemNationalite = $this->nationaliteService->find($id);
+
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('nationalite_id', $id);
+
 
         if (request()->ajax()) {
             return view('PkgUtilisateurs::nationalite._fields', compact('itemNationalite'));

@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\Core\App\Exports\SysColorExport;
 use Modules\Core\App\Imports\SysColorImport;
+use Modules\Core\Services\ContextState;
 
 class SysColorController extends AdminController
 {
@@ -104,6 +105,10 @@ class SysColorController extends AdminController
     public function edit(string $id)
     {
         $itemSysColor = $this->sysColorService->find($id);
+
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('sysColor_id', $id);
+
 
         if (request()->ajax()) {
             return view('Core::sysColor._fields', compact('itemSysColor'));

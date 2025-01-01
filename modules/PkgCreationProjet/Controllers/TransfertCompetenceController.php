@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgCreationProjet\App\Exports\TransfertCompetenceExport;
 use Modules\PkgCreationProjet\App\Imports\TransfertCompetenceImport;
+use Modules\Core\Services\ContextState;
 
 class TransfertCompetenceController extends AdminController
 {
@@ -130,6 +131,10 @@ class TransfertCompetenceController extends AdminController
         $appreciations = $this->appreciationService->all();
         $competences = $this->competenceService->all();
         $projets = $this->projetService->all();
+
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('transfertCompetence_id', $id);
+
 
         if (request()->ajax()) {
             return view('PkgCreationProjet::transfertCompetence._fields', compact('itemTransfertCompetence', 'technologies', 'appreciations', 'competences', 'projets'));

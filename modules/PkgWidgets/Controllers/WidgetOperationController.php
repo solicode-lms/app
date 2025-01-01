@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgWidgets\App\Exports\WidgetOperationExport;
 use Modules\PkgWidgets\App\Imports\WidgetOperationImport;
+use Modules\Core\Services\ContextState;
 
 class WidgetOperationController extends AdminController
 {
@@ -104,6 +105,10 @@ class WidgetOperationController extends AdminController
     public function edit(string $id)
     {
         $itemWidgetOperation = $this->widgetOperationService->find($id);
+
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('widgetOperation_id', $id);
+
 
         if (request()->ajax()) {
             return view('PkgWidgets::widgetOperation._fields', compact('itemWidgetOperation'));

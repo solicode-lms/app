@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgCreationProjet\App\Exports\ResourceExport;
 use Modules\PkgCreationProjet\App\Imports\ResourceImport;
+use Modules\Core\Services\ContextState;
 
 class ResourceController extends AdminController
 {
@@ -109,6 +110,10 @@ class ResourceController extends AdminController
     {
         $itemResource = $this->resourceService->find($id);
         $projets = $this->projetService->all();
+
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('resource_id', $id);
+
 
         if (request()->ajax()) {
             return view('PkgCreationProjet::resource._fields', compact('itemResource', 'projets'));

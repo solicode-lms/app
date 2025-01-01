@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgUtilisateurs\App\Exports\ApprenantExport;
 use Modules\PkgUtilisateurs\App\Imports\ApprenantImport;
+use Modules\Core\Services\ContextState;
 
 class ApprenantController extends AdminController
 {
@@ -121,6 +122,10 @@ class ApprenantController extends AdminController
         $groupes = $this->groupeService->all();
         $nationalites = $this->nationaliteService->all();
         $niveauxScolaires = $this->niveauxScolaireService->all();
+
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('apprenant_id', $id);
+
 
         if (request()->ajax()) {
             return view('PkgUtilisateurs::apprenant._fields', compact('itemApprenant', 'groupes', 'nationalites', 'niveauxScolaires'));

@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgCompetences\App\Exports\TechnologyExport;
 use Modules\PkgCompetences\App\Imports\TechnologyImport;
+use Modules\Core\Services\ContextState;
 
 class TechnologyController extends AdminController
 {
@@ -127,6 +128,10 @@ class TechnologyController extends AdminController
         $competences = $this->competenceService->all();
         $transfertCompetences = $this->transfertCompetenceService->all();
         $categoryTechnologies = $this->categoryTechnologyService->all();
+
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('technology_id', $id);
+
 
         if (request()->ajax()) {
             return view('PkgCompetences::technology._fields', compact('itemTechnology', 'competences', 'transfertCompetences', 'categoryTechnologies'));

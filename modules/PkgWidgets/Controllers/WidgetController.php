@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgWidgets\App\Exports\WidgetExport;
 use Modules\PkgWidgets\App\Imports\WidgetImport;
+use Modules\Core\Services\ContextState;
 
 class WidgetController extends AdminController
 {
@@ -121,6 +122,10 @@ class WidgetController extends AdminController
         $sysModels = $this->sysModelService->all();
         $widgetOperations = $this->widgetOperationService->all();
         $widgetTypes = $this->widgetTypeService->all();
+
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('widget_id', $id);
+
 
         if (request()->ajax()) {
             return view('PkgWidgets::widget._fields', compact('itemWidget', 'sysModels', 'widgetOperations', 'widgetTypes'));

@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgCompetences\App\Exports\CompetenceExport;
 use Modules\PkgCompetences\App\Imports\CompetenceImport;
+use Modules\Core\Services\ContextState;
 
 class CompetenceController extends AdminController
 {
@@ -118,6 +119,10 @@ class CompetenceController extends AdminController
         $itemCompetence = $this->competenceService->find($id);
         $technologies = $this->technologyService->all();
         $modules = $this->moduleService->all();
+
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('competence_id', $id);
+
 
         if (request()->ajax()) {
             return view('PkgCompetences::competence._fields', compact('itemCompetence', 'technologies', 'modules'));

@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\Core\App\Exports\FeatureExport;
 use Modules\Core\App\Imports\FeatureImport;
+use Modules\Core\Services\ContextState;
 
 class FeatureController extends AdminController
 {
@@ -118,6 +119,10 @@ class FeatureController extends AdminController
         $itemFeature = $this->featureService->find($id);
         $permissions = $this->permissionService->all();
         $featureDomains = $this->featureDomainService->all();
+
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('feature_id', $id);
+
 
         if (request()->ajax()) {
             return view('Core::feature._fields', compact('itemFeature', 'permissions', 'featureDomains'));

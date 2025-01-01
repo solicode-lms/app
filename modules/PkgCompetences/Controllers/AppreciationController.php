@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgCompetences\App\Exports\AppreciationExport;
 use Modules\PkgCompetences\App\Imports\AppreciationImport;
+use Modules\Core\Services\ContextState;
 
 class AppreciationController extends AdminController
 {
@@ -109,6 +110,10 @@ class AppreciationController extends AdminController
     {
         $itemAppreciation = $this->appreciationService->find($id);
         $formateurs = $this->formateurService->all();
+
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('appreciation_id', $id);
+
 
         if (request()->ajax()) {
             return view('PkgCompetences::appreciation._fields', compact('itemAppreciation', 'formateurs'));

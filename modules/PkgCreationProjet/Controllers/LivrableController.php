@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgCreationProjet\App\Exports\LivrableExport;
 use Modules\PkgCreationProjet\App\Imports\LivrableImport;
+use Modules\Core\Services\ContextState;
 
 class LivrableController extends AdminController
 {
@@ -115,6 +116,10 @@ class LivrableController extends AdminController
         $itemLivrable = $this->livrableService->find($id);
         $natureLivrables = $this->natureLivrableService->all();
         $projets = $this->projetService->all();
+
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('livrable_id', $id);
+
 
         if (request()->ajax()) {
             return view('PkgCreationProjet::livrable._fields', compact('itemLivrable', 'natureLivrables', 'projets'));

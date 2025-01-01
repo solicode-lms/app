@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgCompetences\App\Exports\NiveauCompetenceExport;
 use Modules\PkgCompetences\App\Imports\NiveauCompetenceImport;
+use Modules\Core\Services\ContextState;
 
 class NiveauCompetenceController extends AdminController
 {
@@ -109,6 +110,10 @@ class NiveauCompetenceController extends AdminController
     {
         $itemNiveauCompetence = $this->niveauCompetenceService->find($id);
         $competences = $this->competenceService->all();
+
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('niveauCompetence_id', $id);
+
 
         if (request()->ajax()) {
             return view('PkgCompetences::niveauCompetence._fields', compact('itemNiveauCompetence', 'competences'));

@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgCreationProjet\App\Exports\NatureLivrableExport;
 use Modules\PkgCreationProjet\App\Imports\NatureLivrableImport;
+use Modules\Core\Services\ContextState;
 
 class NatureLivrableController extends AdminController
 {
@@ -104,6 +105,10 @@ class NatureLivrableController extends AdminController
     public function edit(string $id)
     {
         $itemNatureLivrable = $this->natureLivrableService->find($id);
+
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('natureLivrable_id', $id);
+
 
         if (request()->ajax()) {
             return view('PkgCreationProjet::natureLivrable._fields', compact('itemNatureLivrable'));

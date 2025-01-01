@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgWidgets\App\Exports\WidgetTypeExport;
 use Modules\PkgWidgets\App\Imports\WidgetTypeImport;
+use Modules\Core\Services\ContextState;
 
 class WidgetTypeController extends AdminController
 {
@@ -104,6 +105,10 @@ class WidgetTypeController extends AdminController
     public function edit(string $id)
     {
         $itemWidgetType = $this->widgetTypeService->find($id);
+
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('widgetType_id', $id);
+
 
         if (request()->ajax()) {
             return view('PkgWidgets::widgetType._fields', compact('itemWidgetType'));

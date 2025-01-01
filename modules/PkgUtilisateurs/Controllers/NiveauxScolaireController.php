@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgUtilisateurs\App\Exports\NiveauxScolaireExport;
 use Modules\PkgUtilisateurs\App\Imports\NiveauxScolaireImport;
+use Modules\Core\Services\ContextState;
 
 class NiveauxScolaireController extends AdminController
 {
@@ -104,6 +105,10 @@ class NiveauxScolaireController extends AdminController
     public function edit(string $id)
     {
         $itemNiveauxScolaire = $this->niveauxScolaireService->find($id);
+
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('niveauxScolaire_id', $id);
+
 
         if (request()->ajax()) {
             return view('PkgUtilisateurs::niveauxScolaire._fields', compact('itemNiveauxScolaire'));

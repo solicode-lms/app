@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgUtilisateurs\App\Exports\FormateurExport;
 use Modules\PkgUtilisateurs\App\Imports\FormateurImport;
+use Modules\Core\Services\ContextState;
 
 class FormateurController extends AdminController
 {
@@ -121,6 +122,10 @@ class FormateurController extends AdminController
         $itemFormateur = $this->formateurService->find($id);
         $groupes = $this->groupeService->all();
         $specialites = $this->specialiteService->all();
+
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('formateur_id', $id);
+
 
         if (request()->ajax()) {
             return view('PkgUtilisateurs::formateur._fields', compact('itemFormateur', 'groupes', 'specialites'));

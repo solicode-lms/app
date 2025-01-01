@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\Core\App\Exports\SysModelExport;
 use Modules\Core\App\Imports\SysModelImport;
+use Modules\Core\Services\ContextState;
 
 class SysModelController extends AdminController
 {
@@ -115,6 +116,10 @@ class SysModelController extends AdminController
         $itemSysModel = $this->sysModelService->find($id);
         $sysColors = $this->sysColorService->all();
         $sysModules = $this->sysModuleService->all();
+
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('sysModel_id', $id);
+
 
         if (request()->ajax()) {
             return view('Core::sysModel._fields', compact('itemSysModel', 'sysColors', 'sysModules'));

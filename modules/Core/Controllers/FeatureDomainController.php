@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\Core\App\Exports\FeatureDomainExport;
 use Modules\Core\App\Imports\FeatureDomainImport;
+use Modules\Core\Services\ContextState;
 
 class FeatureDomainController extends AdminController
 {
@@ -109,6 +110,10 @@ class FeatureDomainController extends AdminController
     {
         $itemFeatureDomain = $this->featureDomainService->find($id);
         $sysModules = $this->sysModuleService->all();
+
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('featureDomain_id', $id);
+
 
         if (request()->ajax()) {
             return view('Core::featureDomain._fields', compact('itemFeatureDomain', 'sysModules'));

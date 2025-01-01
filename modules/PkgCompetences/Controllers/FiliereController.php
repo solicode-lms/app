@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgCompetences\App\Exports\FiliereExport;
 use Modules\PkgCompetences\App\Imports\FiliereImport;
+use Modules\Core\Services\ContextState;
 
 class FiliereController extends AdminController
 {
@@ -104,6 +105,10 @@ class FiliereController extends AdminController
     public function edit(string $id)
     {
         $itemFiliere = $this->filiereService->find($id);
+
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('filiere_id', $id);
+
 
         if (request()->ajax()) {
             return view('PkgCompetences::filiere._fields', compact('itemFiliere'));
