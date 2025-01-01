@@ -20,7 +20,6 @@ export class CreateAction extends BaseAction {
                 // Injecter le contenu dans le modal et afficher le formulaire
                 this.modalManager.showContent(html);
                 this.formManager.init(() => this.submitEntity());
-                // this.handleSuccess('Formulaire d\'ajout chargé avec succès.');
             })
             .fail(() => {
                 // Gérer les erreurs si le formulaire ne peut pas être chargé

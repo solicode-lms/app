@@ -30,7 +30,6 @@ class SysColorService extends BaseService
      */
     public function getFieldsSearchable(): array
     {
-        SysColorService2
         return $this->fieldsSearchable;
     }
 

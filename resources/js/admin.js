@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", function () {
         window.entitiesConfig.forEach((entityConfigData) => {
             let entityConfig = new ConfigHelper(entityConfigData);
             entityConfig.contextState = contextState;
-            entityConfig = contexteStateEventHandler.addContextToConfig(entityConfig);
+            entityConfig = contextStateManager.addContextToConfig(entityConfig);
             const crudManager = new CrudManager(entityConfig);
             crudManager.init();
         });

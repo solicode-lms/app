@@ -68,21 +68,7 @@ abstract class BaseService implements ServiceInterface
      */
     public function paginate($search = [], $perPage = 0, array $columns = ['*']): LengthAwarePaginator
     {
-        // Configure les relations avant de paginer
-      
-        // Ajouter le scoping si défini
-        if (!empty($this->scopEntity) && !empty($this->scopId)) {
-
-                if (!is_array($search)) {
-                    $search = []; // Initialisez correctement
-                }
-
-
-                $scopParam = $this->scopEntity . "_id"; // ex: "projet_id"
-                $search[$scopParam] = $this->scopId;   // Ajout de la condition de scoping
-            }
-
-
+   
         if ($perPage == 0) { $perPage = $this->paginationLimit;}
 
         $query = $this->allQuery($search);

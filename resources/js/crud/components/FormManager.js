@@ -10,10 +10,9 @@ export class FormManager {
     constructor(config, modalManager) {
         this.config = config
         this.formSelector = this.config.formSelector
-        this.formSelector = formSelector;
         this.modalManager = modalManager;
         this.contextStateManager = new  ContextStateManager( this.config.contextState);
-        this.loader = new LoadingIndicator(formSelector);
+        this.loader = new LoadingIndicator(this.formSelector);
     }
 
     /**
@@ -24,6 +23,7 @@ export class FormManager {
         this.handleCardFooter();
         this.handleFormSubmission(submitHandler);
         this.loader.init();
+        this.hideSelectsById();
         FormManager.initializeSelect2();
         FormManager.initializeRichText();
         FormManager.initializeDate();
@@ -42,7 +42,7 @@ export class FormManager {
         Object.keys(contextState).forEach((key) => {
             const selectElement = document.getElementById(key);
             if (selectElement && selectElement.tagName === 'SELECT') {
-                selectElement.style.display = 'none';
+                selectElement.parentElement.style.display = 'none';
             }
         });
     }

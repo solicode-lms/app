@@ -47,7 +47,7 @@
 </div>
 
         
-    <div class="form-group" style="display: {{ isset($contextState['scop_entity']) && $contextState['scop_entity'] == 'projet' ? 'none' : 'block' }}">
+    <div class="form-group">
             <label for="projet_id">
                 {{ ucfirst(__('PkgCreationProjet::projet.singular')) }}
                 

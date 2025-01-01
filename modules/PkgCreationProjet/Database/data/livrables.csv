@@ -1,1 +1,41 @@
 titre,description,projet_id,nature_livrable_id
+Code de la v1,"Code source initial pour le projet, version 1.",1,1
+Présentation du concept,"Diapositives présentant l'idée principale du projet.",1,2
+Rapport initial,"Rapport décrivant les objectifs initiaux.",1,3
+Documentation technique,"Manuel technique décrivant les fonctions principales.",1,4
+Prototype v2,"Prototype avancé avec nouvelles fonctionnalités.",2,5
+Vidéo promotionnelle,"Vidéo expliquant le projet pour les parties prenantes.",2,6
+Diagramme UML,"Diagramme représentant l'architecture du projet.",2,7
+Tests initiaux,"Rapport des tests effectués sur les fonctionnalités de base.",2,8
+Code backend,"Code source pour la partie serveur du projet.",3,1
+Présentation finale,"Diapositives présentant les résultats finaux.",3,2
+Rapport d'analyse,"Rapport détaillant les défis et solutions.",3,3
+Documentation utilisateur,"Guide d'utilisation destiné aux utilisateurs finaux.",3,4
+Prototype interactif,"Prototype fonctionnel permettant des interactions réelles.",4,5
+Vidéo tutorielle,"Vidéo expliquant comment utiliser le produit.",4,6
+Diagramme de classes,"Diagramme UML détaillant les classes principales.",4,7
+Test fonctionnel,"Rapport sur les tests de fonctionnalités avancées.",4,8
+Code refactoré,"Version optimisée du code source.",5,1
+Présentation intermédiaire,"Présentation des progrès réalisés à mi-parcours.",5,2
+Rapport final,"Rapport complet couvrant tout le cycle du projet.",5,3
+Documentation API,"Documentation détaillée pour les développeurs utilisant l'API.",5,4
+Prototype graphique,"Prototype montrant uniquement l'interface graphique.",6,5
+Vidéo démonstrative,"Vidéo présentant les fonctionnalités principales.",6,6
+Diagramme de séquence,"Diagramme représentant les flux de communication.",6,7
+Tests de charge,"Rapport sur la performance sous haute charge.",6,8
+Code version finale,"Code source de la version finale du projet.",7,1
+Présentation client,"Présentation destinée aux clients.",7,2
+Rapport de performance,"Analyse des performances de la solution.",7,3
+Documentation système,"Documentation détaillant l'architecture système.",7,4
+Prototype minimal,"Prototype présentant les fonctionnalités essentielles.",8,5
+Vidéo explicative,"Vidéo présentant les principales étapes du projet.",8,6
+Diagramme de composants,"Diagramme UML montrant les composants principaux.",8,7
+Tests unitaires,"Rapport sur les tests unitaires du projet.",8,8
+Code frontend,"Code source pour la partie interface utilisateur.",9,1
+Présentation technique,"Présentation expliquant les choix technologiques.",9,2
+Rapport sur la sécurité,"Rapport analysant les aspects de sécurité du projet.",9,3
+Documentation réseau,"Guide détaillant les configurations réseau.",9,4
+Prototype interactif v1,"Première version interactive du prototype.",10,5
+Vidéo récapitulative,"Vidéo résumant l'ensemble du projet.",10,6
+Diagramme d'activités,"Diagramme représentant les flux de travail.",10,7
+Test d'intégration,"Rapport sur les tests d'intégration entre les modules.",10,8
