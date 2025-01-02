@@ -20,7 +20,7 @@ class ProjetRequest extends FormRequest
             'titre' => 'required|max:255',
             'travail_a_faire' => 'required',
             'critere_de_travail' => 'required',
-            'description' => 'required',
+            'description' => 'nullable',
             'date_debut' => 'required',
             'date_fin' => 'required',
             'formateur_id' => 'required'

@@ -32,13 +32,11 @@
             <label for="description">
                 {{ ucfirst(__('PkgCompetences::module.description')) }}
                 
-                    <span class="text-danger">*</span>
-                
             </label>
             <textarea rows="" cols=""
                 name="description"
                 class="form-control richText"
-                required
+                
                 id="description"
                 placeholder="{{ __('PkgCompetences::module.description') }}">
                 {{ $itemModule ? $itemModule->description : old('description') }}

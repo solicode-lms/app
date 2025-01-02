@@ -16,7 +16,7 @@ return new class extends Migration {
         Schema::create('niveau_competences', function (Blueprint $table) {
             $table->id();
             $table->string('nom');
-            $table->longText('description');
+            $table->longText('description')->nullable();
 
             $table->timestamps();
            
