@@ -23,6 +23,7 @@ class ContextStateServiceProvider extends ServiceProvider
     {
         // Partager les variables de la page avec toutes les vues
         view()->composer('*', function ($view) {
+            dd("ContextStatProvider");
             $view->with('contextState', app(ContextState::class)->all());
         });
     }
