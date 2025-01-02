@@ -13,7 +13,7 @@ class ContextStateServiceProvider extends ServiceProvider
     {
         parent::__construct($app);
         Log::info('ContextStateServiceProvider chargé');
-        dd("ContextStatProvider");
+        // dd("ContextStatProvider");
     }
 
     /**
