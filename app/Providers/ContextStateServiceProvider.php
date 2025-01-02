@@ -4,9 +4,18 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Modules\Core\Services\ContextState;
+use Illuminate\Support\Facades\Log;
 
 class ContextStateServiceProvider extends ServiceProvider
 {
+
+    public function __construct($app)
+    {
+        parent::__construct($app);
+        Log::info('ContextStateServiceProvider chargé');
+        dd("ContextStatProvider");
+    }
+
     /**
      * Register services.
      */
@@ -21,7 +30,7 @@ class ContextStateServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        dd("ContextStatProvider");
+       
         // Partager les variables de la page avec toutes les vues
         view()->composer('*', function ($view) {
            
