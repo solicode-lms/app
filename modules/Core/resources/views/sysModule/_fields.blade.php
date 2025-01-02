@@ -52,13 +52,11 @@
             <label for="description">
                 {{ ucfirst(__('Core::sysModule.description')) }}
                 
-                    <span class="text-danger">*</span>
-                
             </label>
             <textarea rows="" cols=""
                 name="description"
                 class="form-control richText"
-                required
+                
                 id="description"
                 placeholder="{{ __('Core::sysModule.description') }}">
                 {{ $itemSysModule ? $itemSysModule->description : old('description') }}

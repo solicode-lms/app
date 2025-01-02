@@ -17,7 +17,7 @@ return new class extends Migration {
             $table->id();
             $table->string('name');
             $table->string('slug');
-            $table->longText('description');
+            $table->longText('description')->nullable();
             $table->integer('is_active');
             $table->integer('order');
             $table->string('version');

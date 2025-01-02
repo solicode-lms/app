@@ -18,7 +18,7 @@ class TechnologyRequest extends FormRequest
     {
         return [
             'nom' => 'required|max:255',
-            'description' => 'required',
+            'description' => 'nullable',
             'category_technology_id' => 'required'
         ];
     }

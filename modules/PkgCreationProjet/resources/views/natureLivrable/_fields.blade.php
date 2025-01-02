@@ -32,13 +32,11 @@
             <label for="description">
                 {{ ucfirst(__('PkgCreationProjet::natureLivrable.description')) }}
                 
-                    <span class="text-danger">*</span>
-                
             </label>
             <textarea rows="" cols=""
                 name="description"
                 class="form-control richText"
-                required
+                
                 id="description"
                 placeholder="{{ __('PkgCreationProjet::natureLivrable.description') }}">
                 {{ $itemNatureLivrable ? $itemNatureLivrable->description : old('description') }}

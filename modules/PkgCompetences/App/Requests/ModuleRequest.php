@@ -18,7 +18,7 @@ class ModuleRequest extends FormRequest
     {
         return [
             'nom' => 'required|max:255',
-            'description' => 'required',
+            'description' => 'nullable',
             'masse_horaire' => 'required|max:255',
             'filiere_id' => 'required'
         ];

@@ -18,7 +18,7 @@ class NiveauCompetenceRequest extends FormRequest
     {
         return [
             'nom' => 'required|max:255',
-            'description' => 'required',
+            'description' => 'nullable',
             'competence_id' => 'required'
         ];
     }

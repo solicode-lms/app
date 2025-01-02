@@ -39,9 +39,9 @@ class LivrableImport implements ToModel, WithHeadingRow
         // Crée un nouvel enregistrement à partir des données importées
         return new Livrable([
             'titre' => $row['titre'],
-            'description' => $row['description'],
-            'projet_id' => $row['projet_id'],
             'nature_livrable_id' => $row['nature_livrable_id'],
+            'projet_id' => $row['projet_id'],
+            'description' => $row['description'],
         ]);
     }
 }

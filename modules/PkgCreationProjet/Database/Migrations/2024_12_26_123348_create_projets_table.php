@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('titre'); // Titre du projet
             $table->longText('travail_a_faire'); // Travail à faire
             $table->longText('critere_de_travail'); // Critères de travail
-            $table->longText('description'); // Description générale
+            $table->longText('description')->nullable(); // Description générale
             $table->date('date_debut'); // Date de début
             $table->date('date_fin'); // Date de fin
             $table->foreignId('formateur_id')->constrained('formateurs')->onDelete('cascade'); // Relation avec Projet
