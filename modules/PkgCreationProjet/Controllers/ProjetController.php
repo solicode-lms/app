@@ -34,6 +34,7 @@ class ProjetController extends AdminController
      */
     public function index(Request $request)
     {
+        dd("Projet index");
         $projet_searchQuery = str_replace(' ', '%', $request->get('q', ''));
         $projets_data = $this->projetService->paginate($projet_searchQuery);
 
