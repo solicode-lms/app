@@ -6,11 +6,12 @@ namespace Modules\PkgCompetences\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\HasDynamicContext;
 use Modules\PkgCompetences\Models\Competence;
 
 class NiveauCompetence extends Model
 {
-    use HasFactory;
+    use HasFactory, HasDynamicContext;
 
     protected $fillable = ['nom', 'description', 'competence_id'];
 
@@ -20,9 +21,10 @@ class NiveauCompetence extends Model
     }
 
 
+
+
     public function __toString()
     {
         return $this->nom;
     }
-
 }

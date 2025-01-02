@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id(); // Clé primaire
             $table->string('name')->unique(); // Nom unique du domaine (ex: Gestion des utilisateurs)
             $table->string('slug')->unique(); // Identifiant lisible (ex: gestion-utilisateurs)
-            $table->text('description')->nullable(); // Description détaillée
+            $table->longText('description')->nullable(); // Description détaillée
             $table->foreignId('module_id')->constrained('sys_modules')->onDelete('cascade'); // Lien avec SysModule
             $table->timestamps(); // Colonnes created_at et updated_at
         });

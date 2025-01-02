@@ -21,7 +21,7 @@ use Modules\PkgCompetences\Models\Module;
 
 class ModuleSeeder extends Seeder
 {
-    public static int $order = 15;
+    public static int $order = 16;
 
     public function run(): void
     {

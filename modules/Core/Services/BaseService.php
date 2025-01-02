@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Collection;
 abstract class BaseService implements ServiceInterface
 {
 
+    protected $contextState;
     /**
      * Configure les relations à inclure dans les requêtes.
      *
@@ -24,7 +25,6 @@ abstract class BaseService implements ServiceInterface
     {
       
     }
-
 
     /**
      * Le modèle Eloquent associé à ce référentiel.
@@ -54,6 +54,8 @@ abstract class BaseService implements ServiceInterface
      */
     public function __construct(Model $model){
         $this->model = $model;
+        // Scrop management
+        $this->contextState = app(ContextState::class);
     }
 
     /**
@@ -66,9 +68,7 @@ abstract class BaseService implements ServiceInterface
      */
     public function paginate($search = [], $perPage = 0, array $columns = ['*']): LengthAwarePaginator
     {
-        // Configure les relations avant de paginer
-      
-
+   
         if ($perPage == 0) { $perPage = $this->paginationLimit;}
 
         $query = $this->allQuery($search);
@@ -210,7 +210,21 @@ abstract class BaseService implements ServiceInterface
         return  $record;
     }
 
-    public function createInstance(){
-        return $this->model::make();
+    public function createInstance()
+    {
+        // Créer une nouvelle instance du modèle
+        $item = $this->model::make();
+
+
+        $contextVariables = $this->contextState->all();
+    
+        // Parcourir les variables de contexte et modifier les attributs correspondants du modèle
+        foreach ($contextVariables as $key => $value) {
+                if ($item->isFillable($key)) { // Vérifier si l'attribut est fillable
+                    $item[$key] = $value;
+                }
+        }
+    
+        return $item;
     }
 }

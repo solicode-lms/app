@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" style="background-color: #f9f9f9; font-family: Arial, sans-serif;">
+  <!-- Background -->
+  <rect width="800" height="600" fill="#f9f9f9" />
+
+  <!-- Form Container -->
+  <rect x="150" y="100" width="500" height="400" fill="#ffffff" rx="10" ry="10" stroke="#ddd" stroke-width="2" />
+
+  <!-- Title -->
+  <text x="400" y="140" fill="#333" font-size="20" text-anchor="middle" font-weight="bold">Ajouter un Projet</text>
+
+  <!-- Input: Project Title -->
+  <text x="180" y="190" fill="#555" font-size="14">Titre du Projet</text>
+  <rect x="180" y="200" width="440" height="30" fill="#fefefe" stroke="#ccc" rx="5" ry="5" />
+  
+  <!-- Input: Description -->
+  <text x="180" y="250" fill="#555" font-size="14">Description</text>
+  <rect x="180" y="260" width="440" height="60" fill="#fefefe" stroke="#ccc" rx="5" ry="5" />
+
+  <!-- Input: Start Date -->
+  <text x="180" y="340" fill="#555" font-size="14">Date de Début</text>
+  <rect x="180" y="350" width="200" height="30" fill="#fefefe" stroke="#ccc" rx="5" ry="5" />
+
+  <!-- Input: End Date -->
+  <text x="420" y="340" fill="#555" font-size="14">Date de Fin</text>
+  <rect x="420" y="350" width="200" height="30" fill="#fefefe" stroke="#ccc" rx="5" ry="5" />
+
+  <!-- Submit Button -->
+  <rect x="300" y="420" width="200" height="40" fill="#007BFF" rx="5" ry="5" />
+  <text x="400" y="445" fill="#ffffff" font-size="16" text-anchor="middle" font-weight="bold">Créer le Projet</text>
+
+  <rect width="800" height="100" fill="#f9f9f9" />
+
+  <!-- Step 1 -->
+  <circle cx="100" cy="50" r="20" fill="#007BFF" />
+  <text x="100" y="55" font-size="14" text-anchor="middle" fill="#ffffff" font-weight="bold">1</text>
+  <text x="100" y="80" font-size="12" text-anchor="middle" fill="#333">Détails</text>
+
+  <!-- Connecting Line -->
+  <line x1="120" y1="50" x2="220" y2="50" stroke="#ccc" stroke-width="4" />
+
+  <!-- Step 2 -->
+  <circle cx="240" cy="50" r="20" fill="#ccc" />
+  <text x="240" y="55" font-size="14" text-anchor="middle" fill="#ffffff" font-weight="bold">2</text>
+  <text x="240" y="80" font-size="12" text-anchor="middle" fill="#333">Ressources</text>
+
+  <!-- Connecting Line -->
+  <line x1="260" y1="50" x2="360" y2="50" stroke="#ccc" stroke-width="4" />
+
+  <!-- Step 3 -->
+  <circle cx="380" cy="50" r="20" fill="#ccc" />
+  <text x="380" y="55" font-size="14" text-anchor="middle" fill="#ffffff" font-weight="bold">3</text>
+  <text x="380" y="80" font-size="12" text-anchor="middle" fill="#333">Livrables</text>
+
+  <!-- Connecting Line -->
+  <line x1="400" y1="50" x2="500" y2="50" stroke="#ccc" stroke-width="4" />
+
+  <!-- Step 4 -->
+  <circle cx="520" cy="50" r="20" fill="#ccc" />
+  <text x="520" y="55" font-size="14" text-anchor="middle" fill="#ffffff" font-weight="bold">4</text>
+  <text x="520" y="80" font-size="12" text-anchor="middle" fill="#333">Finalisation</text>
+</svg>
+

@@ -7,10 +7,13 @@ namespace Modules\PkgWidgets\Controllers;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\PkgWidgets\App\Requests\WidgetTypeRequest;
 use Modules\PkgWidgets\Services\WidgetTypeService;
+
+
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgWidgets\App\Exports\WidgetTypeExport;
 use Modules\PkgWidgets\App\Imports\WidgetTypeImport;
+use Modules\Core\Services\ContextState;
 
 class WidgetTypeController extends AdminController
 {
@@ -20,90 +23,158 @@ class WidgetTypeController extends AdminController
     {
         parent::__construct();
         $this->widgetTypeService = $widgetTypeService;
+
     }
 
+
+    /**
+     * Affiche la liste des filières ou retourne le HTML pour une requête AJAX.
+     */
     public function index(Request $request)
     {
-        // Récupérer la valeur de recherche et paginer
-        $searchValue = $request->get('searchValue', '');
-        $searchQuery = str_replace(' ', '%', $searchValue);
-    
-        // Appel de la méthode paginate avec ou sans recherche
-        $data = $this->widgetTypeService->paginate($searchQuery);
-    
-        // Gestion AJAX
+        $widgetType_searchQuery = str_replace(' ', '%', $request->get('q', ''));
+        $widgetTypes_data = $this->widgetTypeService->paginate($widgetType_searchQuery);
+
         if ($request->ajax()) {
-            return response()->json([
-                'html' => view('PkgWidgets::widgetType._table', compact('data'))->render()
-            ]);
+            return view('PkgWidgets::widgetType._table', compact('widgetTypes_data'))->render();
         }
-    
-        // Vue principale pour le chargement initial
-        return view('PkgWidgets::widgetType.index', compact('data'));
+
+        return view('PkgWidgets::widgetType.index', compact('widgetTypes_data','widgetType_searchQuery'));
     }
 
+    /**
+     * Retourne le formulaire de création.
+     */
     public function create()
     {
-        $item = $this->widgetTypeService->createInstance();
-        return view('PkgWidgets::widgetType.create', compact('item'));
+        $itemWidgetType = $this->widgetTypeService->createInstance();
+
+
+        if (request()->ajax()) {
+            return view('PkgWidgets::widgetType._fields', compact('itemWidgetType'));
+        }
+        return view('PkgWidgets::widgetType.create', compact('itemWidgetType'));
     }
 
+    /**
+     * Stocke une nouvelle filière.
+     */
     public function store(WidgetTypeRequest $request)
     {
         $validatedData = $request->validated();
         $widgetType = $this->widgetTypeService->create($validatedData);
 
 
-        return redirect()->route('widgetTypes.index')->with('success', __('Core::msg.addSuccess', [
-            'entityToString' => $widgetType,
-            'modelName' => __('PkgWidgets::widgetType.singular')
-        ]));
+
+
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 
+             __('Core::msg.addSuccess', [
+                'entityToString' => $widgetType,
+                'modelName' => __('PkgWidgets::widgetType.singular')])
+            ]);
+        }
+
+        return redirect()->route('widgetTypes.index')->with(
+            'success',
+            __('Core::msg.addSuccess', [
+                'entityToString' => $widgetType,
+                'modelName' => __('PkgWidgets::widgetType.singular')
+            ])
+        );
     }
+
+    /**
+     * Affiche les détails d'une filière.
+     */
     public function show(string $id)
     {
-        $item = $this->widgetTypeService->find($id);
-        return view('PkgWidgets::widgettype.show', compact('item'));
+        $itemWidgetType = $this->widgetTypeService->find($id);
+
+
+        if (request()->ajax()) {
+            return view('PkgWidgets::widgetType._fields', compact('itemWidgetType'));
+        }
+
+        return view('PkgWidgets::widgetType.show', compact('itemWidgetType'));
     }
 
+    /**
+     * Retourne le formulaire d'édition d'une filière.
+     */
     public function edit(string $id)
     {
-        $item = $this->widgetTypeService->find($id);
-        return view('PkgWidgets::widgetType.edit', compact('item'));
+        $itemWidgetType = $this->widgetTypeService->find($id);
+
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('widgetType_id', $id);
+
+
+        if (request()->ajax()) {
+            return view('PkgWidgets::widgetType._fields', compact('itemWidgetType'));
+        }
+
+        return view('PkgWidgets::widgetType.edit', compact('itemWidgetType'));
     }
 
+    /**
+     * Met à jour une filière existante.
+     */
     public function update(WidgetTypeRequest $request, string $id)
     {
         $validatedData = $request->validated();
-        $widgettype = $this->widgetTypeService->update($id, $validatedData);
+        $widgetType = $this->widgetTypeService->update($id, $validatedData);
 
 
+
+
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 
+            __('Core::msg.updateSuccess', [
+                'entityToString' => $widgetType,
+                'modelName' =>  __('PkgWidgets::widgetType.singular')])
+            ]);
+        }
 
         return redirect()->route('widgetTypes.index')->with(
             'success',
             __('Core::msg.updateSuccess', [
-                'entityToString' => $widgettype,
-                'modelName' =>  __('PkgWidgets::widgettype.singular')
+                'entityToString' => $widgetType,
+                'modelName' =>  __('PkgWidgets::widgetType.singular')
                 ])
         );
     }
 
-    public function destroy(string $id)
+    /**
+     * Supprime une filière.
+     */
+    public function destroy(Request $request, string $id)
     {
-        $widgettype = $this->widgetTypeService->destroy($id);
+        $widgetType = $this->widgetTypeService->destroy($id);
+
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 
+            __('Core::msg.deleteSuccess', [
+                'entityToString' => $widgetType,
+                'modelName' =>  __('PkgWidgets::widgetType.singular')])
+            ]);
+        }
+
         return redirect()->route('widgetTypes.index')->with(
             'success',
             __('Core::msg.deleteSuccess', [
-                'entityToString' => $widgettype,
-                'modelName' =>  __('PkgWidgets::widgettype.singular')
+                'entityToString' => $widgetType,
+                'modelName' =>  __('PkgWidgets::widgetType.singular')
                 ])
         );
     }
 
     public function export()
     {
-        $data = $this->widgetTypeService->all();
-        return Excel::download(new WidgetTypeExport($data), 'widgetType_export.xlsx');
+        $widgetTypes_data = $this->widgetTypeService->all();
+        return Excel::download(new WidgetTypeExport($widgetTypes_data), 'widgetType_export.xlsx');
     }
+
     public function import(Request $request)
     {
         $request->validate([
@@ -118,7 +189,7 @@ class WidgetTypeController extends AdminController
 
         return redirect()->route('widgetTypes.index')->with(
             'success', __('Core::msg.importSuccess', [
-            'modelNames' =>  __('PkgWidgets::widgettype.plural')
+            'modelNames' =>  __('PkgWidgets::widgetType.plural')
             ]));
 
 

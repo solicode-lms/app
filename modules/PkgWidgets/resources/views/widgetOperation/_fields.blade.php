@@ -1,14 +1,13 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form action="{{ $item->id ? route('widgetOperations.update', $item->id) : route('widgetOperations.store') }}" method="POST">
+<form class="crud-form context-state" id="widgetOperationForm" action="{{ $itemWidgetOperation->id ? route('widgetOperations.update', $itemWidgetOperation->id) : route('widgetOperations.store') }}" method="POST" novalidate>
     @csrf
 
-    @if ($item->id)
+    @if ($itemWidgetOperation->id)
         @method('PUT')
     @endif
 
     <div class="card-body">
-        
         <div class="form-group">
             <label for="operation">
                 {{ ucfirst(__('PkgWidgets::widgetOperation.operation')) }}
@@ -20,48 +19,42 @@
                 name="operation"
                 type="input"
                 class="form-control"
+                required
                 id="operation"
                 placeholder="{{ __('PkgWidgets::widgetOperation.operation') }}"
-                value="{{ $item ? $item->operation : old('operation') }}">
+                value="{{ $itemWidgetOperation ? $itemWidgetOperation->operation : old('operation') }}">
             @error('operation')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
-        
+</div>
+
         <div class="form-group">
             <label for="description">
                 {{ ucfirst(__('PkgWidgets::widgetOperation.description')) }}
                 
             </label>
-            <input
+            <textarea rows="" cols=""
                 name="description"
-                type="input"
-                class="form-control"
+                class="form-control richText"
+                
                 id="description"
-                placeholder="{{ __('PkgWidgets::widgetOperation.description') }}"
-                value="{{ $item ? $item->description : old('description') }}">
+                placeholder="{{ __('PkgWidgets::widgetOperation.description') }}">
+                {{ $itemWidgetOperation ? $itemWidgetOperation->description : old('description') }}
+            </textarea>
             @error('description')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
-        
-
-        
-
-        
+</div>
 
 
+        <!--   Widget_HasMany HasMany --> 
 
     </div>
 
     <div class="card-footer">
-        <a href="{{ route('widgetOperations.index') }}" class="btn btn-default">{{ __('Core::msg.cancel') }}</a>
-        <button type="submit" class="btn btn-info ml-2">{{ $item->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
+        <a href="{{ route('widgetOperations.index') }}" class="btn btn-default form-cancel-button">{{ __('Core::msg.cancel') }}</a>
+        <button type="submit" class="btn btn-info ml-2">{{ $itemWidgetOperation->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
 
-<script>
-    window.dynamicSelectManyToOne = [
-        
-    ];
-</script>
+

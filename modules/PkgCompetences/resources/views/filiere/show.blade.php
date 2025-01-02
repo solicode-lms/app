@@ -10,7 +10,7 @@
                     <h1>{{ __('Core::msg.detail') }}</h1>
                 </div>
                 <div class="col-sm-6">
-                    <a href="{{ route('filieres.edit', $item->id) }}" class="btn btn-default float-right">
+                    <a href="{{ route('filieres.edit', $itemFiliere->id) }}" class="btn btn-default float-right">
                         <i class="far fa-edit"></i>
                         {{ __('Core::msg.edit') }}
                     </a>
@@ -26,15 +26,15 @@
                         <div class="card-body">
                             <div class="col-sm-12">
                                 <label for="code">{{ ucfirst(__('PkgCompetences::filiere.code')) }}:</label>
-                                <p>{{ $item->code }}</p>
+                                <p>{{ $itemFiliere->code }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="nom">{{ ucfirst(__('PkgCompetences::filiere.nom')) }}:</label>
-                                <p>{{ $item->nom }}</p>
+                                <p>{{ $itemFiliere->nom }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="description">{{ ucfirst(__('PkgCompetences::filiere.description')) }}:</label>
-                                <p>{{ $item->description }}</p>
+                                <p>{{ $itemFiliere->description }}</p>
                             </div>
                         </div>
                     </div>

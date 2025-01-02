@@ -21,7 +21,7 @@ use Modules\PkgCompetences\Models\Technology;
 
 class TechnologySeeder extends Seeder
 {
-    public static int $order = 19;
+    public static int $order = 20;
 
     public function run(): void
     {
@@ -48,7 +48,7 @@ class TechnologySeeder extends Seeder
                 Technology::create([
                     "nom" => $data[0] ,
                     "description" => $data[1] ,
-                    "categorie_technologie_id" => $data[2] 
+                    "category_technology_id" => $data[2] 
                 ]);
             }
             $firstline = false;

@@ -1,1 +1,8 @@
-nom,description,noteMin,noteMax,niveau_competence_id,formateur_id
+nom,description,noteMin,noteMax,formateur_id
+Inacceptable,"Performance totalement insuffisante, nécessitant une révision complète des compétences.",0,4,1
+Insuffisant,"Performance en dessous du seuil acceptable, nécessitant des efforts significatifs pour atteindre le niveau minimal.",5,9,1
+Passable,"Performance minimale, nécessitant des améliorations significatives.",10,11,1
+Assez bien,"Performance correcte avec quelques lacunes mineures.",12,13,1
+Bien,"Bonne performance démontrant une maîtrise solide des compétences.",14,15,1
+Très bien,"Excellente performance avec peu ou pas de lacunes.",16,17,1
+Excellent,"Performance exceptionnelle dépassant les attentes.",18,20,1

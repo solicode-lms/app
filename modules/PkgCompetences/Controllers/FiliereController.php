@@ -7,10 +7,13 @@ namespace Modules\PkgCompetences\Controllers;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\PkgCompetences\App\Requests\FiliereRequest;
 use Modules\PkgCompetences\Services\FiliereService;
+
+
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgCompetences\App\Exports\FiliereExport;
 use Modules\PkgCompetences\App\Imports\FiliereImport;
+use Modules\Core\Services\ContextState;
 
 class FiliereController extends AdminController
 {
@@ -20,63 +23,118 @@ class FiliereController extends AdminController
     {
         parent::__construct();
         $this->filiereService = $filiereService;
+
     }
 
+
+    /**
+     * Affiche la liste des filières ou retourne le HTML pour une requête AJAX.
+     */
     public function index(Request $request)
     {
-        // Récupérer la valeur de recherche et paginer
-        $searchValue = $request->get('searchValue', '');
-        $searchQuery = str_replace(' ', '%', $searchValue);
-    
-        // Appel de la méthode paginate avec ou sans recherche
-        $data = $this->filiereService->paginate($searchQuery);
-    
-        // Gestion AJAX
+        $filiere_searchQuery = str_replace(' ', '%', $request->get('q', ''));
+        $filieres_data = $this->filiereService->paginate($filiere_searchQuery);
+
         if ($request->ajax()) {
-            return response()->json([
-                'html' => view('PkgCompetences::filiere._table', compact('data'))->render()
-            ]);
+            return view('PkgCompetences::filiere._table', compact('filieres_data'))->render();
         }
-    
-        // Vue principale pour le chargement initial
-        return view('PkgCompetences::filiere.index', compact('data'));
+
+        return view('PkgCompetences::filiere.index', compact('filieres_data','filiere_searchQuery'));
     }
 
+    /**
+     * Retourne le formulaire de création.
+     */
     public function create()
     {
-        $item = $this->filiereService->createInstance();
-        return view('PkgCompetences::filiere.create', compact('item'));
+        $itemFiliere = $this->filiereService->createInstance();
+
+
+        if (request()->ajax()) {
+            return view('PkgCompetences::filiere._fields', compact('itemFiliere'));
+        }
+        return view('PkgCompetences::filiere.create', compact('itemFiliere'));
     }
 
+    /**
+     * Stocke une nouvelle filière.
+     */
     public function store(FiliereRequest $request)
     {
         $validatedData = $request->validated();
         $filiere = $this->filiereService->create($validatedData);
 
 
-        return redirect()->route('filieres.index')->with('success', __('Core::msg.addSuccess', [
-            'entityToString' => $filiere,
-            'modelName' => __('PkgCompetences::filiere.singular')
-        ]));
+
+
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 
+             __('Core::msg.addSuccess', [
+                'entityToString' => $filiere,
+                'modelName' => __('PkgCompetences::filiere.singular')])
+            ]);
+        }
+
+        return redirect()->route('filieres.index')->with(
+            'success',
+            __('Core::msg.addSuccess', [
+                'entityToString' => $filiere,
+                'modelName' => __('PkgCompetences::filiere.singular')
+            ])
+        );
     }
+
+    /**
+     * Affiche les détails d'une filière.
+     */
     public function show(string $id)
     {
-        $item = $this->filiereService->find($id);
-        return view('PkgCompetences::filiere.show', compact('item'));
+        $itemFiliere = $this->filiereService->find($id);
+
+
+        if (request()->ajax()) {
+            return view('PkgCompetences::filiere._fields', compact('itemFiliere'));
+        }
+
+        return view('PkgCompetences::filiere.show', compact('itemFiliere'));
     }
 
+    /**
+     * Retourne le formulaire d'édition d'une filière.
+     */
     public function edit(string $id)
     {
-        $item = $this->filiereService->find($id);
-        return view('PkgCompetences::filiere.edit', compact('item'));
+        $itemFiliere = $this->filiereService->find($id);
+
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('filiere_id', $id);
+
+
+        if (request()->ajax()) {
+            return view('PkgCompetences::filiere._fields', compact('itemFiliere'));
+        }
+
+        return view('PkgCompetences::filiere.edit', compact('itemFiliere'));
     }
 
+    /**
+     * Met à jour une filière existante.
+     */
     public function update(FiliereRequest $request, string $id)
     {
         $validatedData = $request->validated();
         $filiere = $this->filiereService->update($id, $validatedData);
 
 
+
+
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 
+            __('Core::msg.updateSuccess', [
+                'entityToString' => $filiere,
+                'modelName' =>  __('PkgCompetences::filiere.singular')])
+            ]);
+        }
 
         return redirect()->route('filieres.index')->with(
             'success',
@@ -87,9 +145,21 @@ class FiliereController extends AdminController
         );
     }
 
-    public function destroy(string $id)
+    /**
+     * Supprime une filière.
+     */
+    public function destroy(Request $request, string $id)
     {
         $filiere = $this->filiereService->destroy($id);
+
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 
+            __('Core::msg.deleteSuccess', [
+                'entityToString' => $filiere,
+                'modelName' =>  __('PkgCompetences::filiere.singular')])
+            ]);
+        }
+
         return redirect()->route('filieres.index')->with(
             'success',
             __('Core::msg.deleteSuccess', [
@@ -101,9 +171,10 @@ class FiliereController extends AdminController
 
     public function export()
     {
-        $data = $this->filiereService->all();
-        return Excel::download(new FiliereExport($data), 'filiere_export.xlsx');
+        $filieres_data = $this->filiereService->all();
+        return Excel::download(new FiliereExport($filieres_data), 'filiere_export.xlsx');
     }
+
     public function import(Request $request)
     {
         $request->validate([

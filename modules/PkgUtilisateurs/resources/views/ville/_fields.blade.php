@@ -1,14 +1,13 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form action="{{ $item->id ? route('villes.update', $item->id) : route('villes.store') }}" method="POST">
+<form class="crud-form context-state" id="villeForm" action="{{ $itemVille->id ? route('villes.update', $itemVille->id) : route('villes.store') }}" method="POST" novalidate>
     @csrf
 
-    @if ($item->id)
+    @if ($itemVille->id)
         @method('PUT')
     @endif
 
     <div class="card-body">
-        
         <div class="form-group">
             <label for="nom">
                 {{ ucfirst(__('PkgUtilisateurs::ville.nom')) }}
@@ -20,31 +19,21 @@
                 name="nom"
                 type="input"
                 class="form-control"
+                required
                 id="nom"
                 placeholder="{{ __('PkgUtilisateurs::ville.nom') }}"
-                value="{{ $item ? $item->nom : old('nom') }}">
+                value="{{ $itemVille ? $itemVille->nom : old('nom') }}">
             @error('nom')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
-        
-
-        
-
-        
-
-
+</div>
 
     </div>
 
     <div class="card-footer">
-        <a href="{{ route('villes.index') }}" class="btn btn-default">{{ __('Core::msg.cancel') }}</a>
-        <button type="submit" class="btn btn-info ml-2">{{ $item->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
+        <a href="{{ route('villes.index') }}" class="btn btn-default form-cancel-button">{{ __('Core::msg.cancel') }}</a>
+        <button type="submit" class="btn btn-info ml-2">{{ $itemVille->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
 
-<script>
-    window.dynamicSelectManyToOne = [
-        
-    ];
-</script>
+

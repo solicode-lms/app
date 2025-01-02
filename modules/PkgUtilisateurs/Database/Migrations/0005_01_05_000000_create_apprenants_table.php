@@ -29,7 +29,7 @@ return new class extends Migration {
             $table->date('date_inscription')->nullable();
             $table->string('lieu_naissance', 255)->nullable();
             $table->string('cin', 50)->nullable();
-            $table->text('adresse')->nullable();
+            $table->longText('adresse')->nullable();
             $table->timestamps();
             $table->foreignId('groupe_id')->nullable()->constrained('groupes');
             $table->foreignId('niveaux_scolaire_id')->nullable()->constrained('niveaux_scolaires');

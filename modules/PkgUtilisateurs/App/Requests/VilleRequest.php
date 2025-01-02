@@ -24,7 +24,7 @@ class VilleRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'nom.required' => __('validation.required', ['attribute' => __('PkgBlog::category.nom')]),
+            'nom.required' => __('validation.required', ['attribute' => __('PkgUtilisateurs::Ville.nom')]),
             'nom.max' => __('validation.nomMax')
         ];
     }

@@ -27,7 +27,7 @@ class TechnologyExport implements FromCollection, WithHeadings, ShouldAutoSize, 
         return [
             'nom',
             'description',
-            'categorie_technologie_id',
+            'category_technology_id',
         ];
     }
 
@@ -37,7 +37,7 @@ class TechnologyExport implements FromCollection, WithHeadings, ShouldAutoSize, 
             return [
                 'nom' => $technology->nom,
                 'description' => $technology->description,
-                'categorie_technologie_id' => $technology->categorie_technologie_id,
+                'category_technology_id' => $technology->category_technology_id,
             ];
         });
     }

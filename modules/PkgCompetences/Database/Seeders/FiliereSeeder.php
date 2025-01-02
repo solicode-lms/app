@@ -21,7 +21,7 @@ use Modules\PkgCompetences\Models\Filiere;
 
 class FiliereSeeder extends Seeder
 {
-    public static int $order = 14;
+    public static int $order = 15;
 
     public function run(): void
     {

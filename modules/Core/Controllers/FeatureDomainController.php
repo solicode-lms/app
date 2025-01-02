@@ -7,103 +7,179 @@ namespace Modules\Core\Controllers;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Requests\FeatureDomainRequest;
 use Modules\Core\Services\FeatureDomainService;
+use Modules\Core\Services\SysModuleService;
+
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\Core\App\Exports\FeatureDomainExport;
 use Modules\Core\App\Imports\FeatureDomainImport;
+use Modules\Core\Services\ContextState;
 
 class FeatureDomainController extends AdminController
 {
     protected $featureDomainService;
+    protected $sysModuleService;
 
-    public function __construct(FeatureDomainService $featureDomainService)
+    public function __construct(FeatureDomainService $featureDomainService, SysModuleService $sysModuleService)
     {
         parent::__construct();
         $this->featureDomainService = $featureDomainService;
+        $this->sysModuleService = $sysModuleService;
+
     }
 
+
+    /**
+     * Affiche la liste des filières ou retourne le HTML pour une requête AJAX.
+     */
     public function index(Request $request)
     {
-        // Récupérer la valeur de recherche et paginer
-        $searchValue = $request->get('searchValue', '');
-        $searchQuery = str_replace(' ', '%', $searchValue);
-    
-        // Appel de la méthode paginate avec ou sans recherche
-        $data = $this->featureDomainService->paginate($searchQuery);
-    
-        // Gestion AJAX
+        $featureDomain_searchQuery = str_replace(' ', '%', $request->get('q', ''));
+        $featureDomains_data = $this->featureDomainService->paginate($featureDomain_searchQuery);
+
         if ($request->ajax()) {
-            return response()->json([
-                'html' => view('Core::featureDomain._table', compact('data'))->render()
-            ]);
+            return view('Core::featureDomain._table', compact('featureDomains_data'))->render();
         }
-    
-        // Vue principale pour le chargement initial
-        return view('Core::featureDomain.index', compact('data'));
+
+        return view('Core::featureDomain.index', compact('featureDomains_data','featureDomain_searchQuery'));
     }
 
+    /**
+     * Retourne le formulaire de création.
+     */
     public function create()
     {
-        $item = $this->featureDomainService->createInstance();
-        return view('Core::featureDomain.create', compact('item'));
+        $itemFeatureDomain = $this->featureDomainService->createInstance();
+        $sysModules = $this->sysModuleService->all();
+
+
+        if (request()->ajax()) {
+            return view('Core::featureDomain._fields', compact('itemFeatureDomain', 'sysModules'));
+        }
+        return view('Core::featureDomain.create', compact('itemFeatureDomain', 'sysModules'));
     }
 
+    /**
+     * Stocke une nouvelle filière.
+     */
     public function store(FeatureDomainRequest $request)
     {
         $validatedData = $request->validated();
         $featureDomain = $this->featureDomainService->create($validatedData);
 
 
-        return redirect()->route('featureDomains.index')->with('success', __('Core::msg.addSuccess', [
-            'entityToString' => $featureDomain,
-            'modelName' => __('Core::featureDomain.singular')
-        ]));
+
+
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 
+             __('Core::msg.addSuccess', [
+                'entityToString' => $featureDomain,
+                'modelName' => __('Core::featureDomain.singular')])
+            ]);
+        }
+
+        return redirect()->route('featureDomains.index')->with(
+            'success',
+            __('Core::msg.addSuccess', [
+                'entityToString' => $featureDomain,
+                'modelName' => __('Core::featureDomain.singular')
+            ])
+        );
     }
+
+    /**
+     * Affiche les détails d'une filière.
+     */
     public function show(string $id)
     {
-        $item = $this->featureDomainService->find($id);
-        return view('Core::featuredomain.show', compact('item'));
+        $itemFeatureDomain = $this->featureDomainService->find($id);
+        $sysModules = $this->sysModuleService->all();
+
+
+        if (request()->ajax()) {
+            return view('Core::featureDomain._fields', compact('itemFeatureDomain', 'sysModules'));
+        }
+
+        return view('Core::featureDomain.show', compact('itemFeatureDomain'));
     }
 
+    /**
+     * Retourne le formulaire d'édition d'une filière.
+     */
     public function edit(string $id)
     {
-        $item = $this->featureDomainService->find($id);
-        return view('Core::featureDomain.edit', compact('item'));
+        $itemFeatureDomain = $this->featureDomainService->find($id);
+        $sysModules = $this->sysModuleService->all();
+
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('featureDomain_id', $id);
+
+
+        if (request()->ajax()) {
+            return view('Core::featureDomain._fields', compact('itemFeatureDomain', 'sysModules'));
+        }
+
+        return view('Core::featureDomain.edit', compact('itemFeatureDomain', 'sysModules'));
     }
 
+    /**
+     * Met à jour une filière existante.
+     */
     public function update(FeatureDomainRequest $request, string $id)
     {
         $validatedData = $request->validated();
-        $featuredomain = $this->featureDomainService->update($id, $validatedData);
+        $featureDomain = $this->featureDomainService->update($id, $validatedData);
 
 
+
+
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 
+            __('Core::msg.updateSuccess', [
+                'entityToString' => $featureDomain,
+                'modelName' =>  __('Core::featureDomain.singular')])
+            ]);
+        }
 
         return redirect()->route('featureDomains.index')->with(
             'success',
             __('Core::msg.updateSuccess', [
-                'entityToString' => $featuredomain,
-                'modelName' =>  __('Core::featuredomain.singular')
+                'entityToString' => $featureDomain,
+                'modelName' =>  __('Core::featureDomain.singular')
                 ])
         );
     }
 
-    public function destroy(string $id)
+    /**
+     * Supprime une filière.
+     */
+    public function destroy(Request $request, string $id)
     {
-        $featuredomain = $this->featureDomainService->destroy($id);
+        $featureDomain = $this->featureDomainService->destroy($id);
+
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 
+            __('Core::msg.deleteSuccess', [
+                'entityToString' => $featureDomain,
+                'modelName' =>  __('Core::featureDomain.singular')])
+            ]);
+        }
+
         return redirect()->route('featureDomains.index')->with(
             'success',
             __('Core::msg.deleteSuccess', [
-                'entityToString' => $featuredomain,
-                'modelName' =>  __('Core::featuredomain.singular')
+                'entityToString' => $featureDomain,
+                'modelName' =>  __('Core::featureDomain.singular')
                 ])
         );
     }
 
     public function export()
     {
-        $data = $this->featureDomainService->all();
-        return Excel::download(new FeatureDomainExport($data), 'featureDomain_export.xlsx');
+        $featureDomains_data = $this->featureDomainService->all();
+        return Excel::download(new FeatureDomainExport($featureDomains_data), 'featureDomain_export.xlsx');
     }
+
     public function import(Request $request)
     {
         $request->validate([
@@ -118,7 +194,7 @@ class FeatureDomainController extends AdminController
 
         return redirect()->route('featureDomains.index')->with(
             'success', __('Core::msg.importSuccess', [
-            'modelNames' =>  __('Core::featuredomain.plural')
+            'modelNames' =>  __('Core::featureDomain.plural')
             ]));
 
 

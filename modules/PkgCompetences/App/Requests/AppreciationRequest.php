@@ -18,10 +18,9 @@ class AppreciationRequest extends FormRequest
     {
         return [
             'nom' => 'required|max:255',
-            'description' => 'nullable|max:255',
+            'description' => 'nullable',
             'noteMin' => 'required',
             'noteMax' => 'required',
-            'niveau_competence_id' => 'required',
             'formateur_id' => 'required'
         ];
     }
@@ -29,17 +28,15 @@ class AppreciationRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'nom.required' => __('validation.required', ['attribute' => __('PkgBlog::category.nom')]),
+            'nom.required' => __('validation.required', ['attribute' => __('PkgCompetences::Appreciation.nom')]),
             'nom.max' => __('validation.nomMax'),
-            'description.required' => __('validation.required', ['attribute' => __('PkgBlog::category.description')]),
+            'description.required' => __('validation.required', ['attribute' => __('PkgCompetences::Appreciation.description')]),
             'description.max' => __('validation.descriptionMax'),
-            'noteMin.required' => __('validation.required', ['attribute' => __('PkgBlog::category.noteMin')]),
+            'noteMin.required' => __('validation.required', ['attribute' => __('PkgCompetences::Appreciation.noteMin')]),
             'noteMin.max' => __('validation.noteMinMax'),
-            'noteMax.required' => __('validation.required', ['attribute' => __('PkgBlog::category.noteMax')]),
+            'noteMax.required' => __('validation.required', ['attribute' => __('PkgCompetences::Appreciation.noteMax')]),
             'noteMax.max' => __('validation.noteMaxMax'),
-            'niveau_competence_id.required' => __('validation.required', ['attribute' => __('PkgBlog::category.niveau_competence_id')]),
-            'niveau_competence_id.max' => __('validation.niveau_competence_idMax'),
-            'formateur_id.required' => __('validation.required', ['attribute' => __('PkgBlog::category.formateur_id')]),
+            'formateur_id.required' => __('validation.required', ['attribute' => __('PkgCompetences::Appreciation.formateur_id')]),
             'formateur_id.max' => __('validation.formateur_idMax')
         ];
     }

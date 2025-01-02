@@ -1,14 +1,13 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form action="{{ $item->id ? route('niveauxScolaires.update', $item->id) : route('niveauxScolaires.store') }}" method="POST">
+<form class="crud-form context-state" id="niveauxScolaireForm" action="{{ $itemNiveauxScolaire->id ? route('niveauxScolaires.update', $itemNiveauxScolaire->id) : route('niveauxScolaires.store') }}" method="POST" novalidate>
     @csrf
 
-    @if ($item->id)
+    @if ($itemNiveauxScolaire->id)
         @method('PUT')
     @endif
 
     <div class="card-body">
-        
         <div class="form-group">
             <label for="code">
                 {{ ucfirst(__('PkgUtilisateurs::niveauxScolaire.code')) }}
@@ -20,14 +19,15 @@
                 name="code"
                 type="input"
                 class="form-control"
+                required
                 id="code"
                 placeholder="{{ __('PkgUtilisateurs::niveauxScolaire.code') }}"
-                value="{{ $item ? $item->code : old('code') }}">
+                value="{{ $itemNiveauxScolaire ? $itemNiveauxScolaire->code : old('code') }}">
             @error('code')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
-        
+</div>
+
         <div class="form-group">
             <label for="nom">
                 {{ ucfirst(__('PkgUtilisateurs::niveauxScolaire.nom')) }}
@@ -37,48 +37,42 @@
                 name="nom"
                 type="input"
                 class="form-control"
+                
                 id="nom"
                 placeholder="{{ __('PkgUtilisateurs::niveauxScolaire.nom') }}"
-                value="{{ $item ? $item->nom : old('nom') }}">
+                value="{{ $itemNiveauxScolaire ? $itemNiveauxScolaire->nom : old('nom') }}">
             @error('nom')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
-        
+</div>
+
         <div class="form-group">
             <label for="description">
                 {{ ucfirst(__('PkgUtilisateurs::niveauxScolaire.description')) }}
                 
             </label>
-            <input
+            <textarea rows="" cols=""
                 name="description"
-                type="input"
-                class="form-control"
+                class="form-control richText"
+                
                 id="description"
-                placeholder="{{ __('PkgUtilisateurs::niveauxScolaire.description') }}"
-                value="{{ $item ? $item->description : old('description') }}">
+                placeholder="{{ __('PkgUtilisateurs::niveauxScolaire.description') }}">
+                {{ $itemNiveauxScolaire ? $itemNiveauxScolaire->description : old('description') }}
+            </textarea>
             @error('description')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
-        
-
-        
-
-        
+</div>
 
 
+        <!--   Apprenant_HasMany HasMany --> 
 
     </div>
 
     <div class="card-footer">
-        <a href="{{ route('niveauxScolaires.index') }}" class="btn btn-default">{{ __('Core::msg.cancel') }}</a>
-        <button type="submit" class="btn btn-info ml-2">{{ $item->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
+        <a href="{{ route('niveauxScolaires.index') }}" class="btn btn-default form-cancel-button">{{ __('Core::msg.cancel') }}</a>
+        <button type="submit" class="btn btn-info ml-2">{{ $itemNiveauxScolaire->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
 
-<script>
-    window.dynamicSelectManyToOne = [
-        
-    ];
-</script>
+

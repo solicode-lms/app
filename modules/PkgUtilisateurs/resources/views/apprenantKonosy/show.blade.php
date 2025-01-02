@@ -10,7 +10,7 @@
                     <h1>{{ __('Core::msg.detail') }}</h1>
                 </div>
                 <div class="col-sm-6">
-                    <a href="{{ route('apprenantKonosies.edit', $item->id) }}" class="btn btn-default float-right">
+                    <a href="{{ route('apprenantKonosies.edit', $itemApprenantKonosy->id) }}" class="btn btn-default float-right">
                         <i class="far fa-edit"></i>
                         {{ __('Core::msg.edit') }}
                     </a>
@@ -26,79 +26,79 @@
                         <div class="card-body">
                             <div class="col-sm-12">
                                 <label for="MatriculeEtudiant">{{ ucfirst(__('PkgUtilisateurs::apprenantKonosy.MatriculeEtudiant')) }}:</label>
-                                <p>{{ $item->MatriculeEtudiant }}</p>
+                                <p>{{ $itemApprenantKonosy->MatriculeEtudiant }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="Nom">{{ ucfirst(__('PkgUtilisateurs::apprenantKonosy.Nom')) }}:</label>
-                                <p>{{ $item->Nom }}</p>
+                                <p>{{ $itemApprenantKonosy->Nom }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="Prenom">{{ ucfirst(__('PkgUtilisateurs::apprenantKonosy.Prenom')) }}:</label>
-                                <p>{{ $item->Prenom }}</p>
+                                <p>{{ $itemApprenantKonosy->Prenom }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="Sexe">{{ ucfirst(__('PkgUtilisateurs::apprenantKonosy.Sexe')) }}:</label>
-                                <p>{{ $item->Sexe }}</p>
+                                <p>{{ $itemApprenantKonosy->Sexe }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="EtudiantActif">{{ ucfirst(__('PkgUtilisateurs::apprenantKonosy.EtudiantActif')) }}:</label>
-                                <p>{{ $item->EtudiantActif }}</p>
+                                <p>{{ $itemApprenantKonosy->EtudiantActif }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="Diplome">{{ ucfirst(__('PkgUtilisateurs::apprenantKonosy.Diplome')) }}:</label>
-                                <p>{{ $item->Diplome }}</p>
+                                <p>{{ $itemApprenantKonosy->Diplome }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="Principale">{{ ucfirst(__('PkgUtilisateurs::apprenantKonosy.Principale')) }}:</label>
-                                <p>{{ $item->Principale }}</p>
+                                <p>{{ $itemApprenantKonosy->Principale }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="LibelleLong">{{ ucfirst(__('PkgUtilisateurs::apprenantKonosy.LibelleLong')) }}:</label>
-                                <p>{{ $item->LibelleLong }}</p>
+                                <p>{{ $itemApprenantKonosy->LibelleLong }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="CodeDiplome">{{ ucfirst(__('PkgUtilisateurs::apprenantKonosy.CodeDiplome')) }}:</label>
-                                <p>{{ $item->CodeDiplome }}</p>
+                                <p>{{ $itemApprenantKonosy->CodeDiplome }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="DateNaissance">{{ ucfirst(__('PkgUtilisateurs::apprenantKonosy.DateNaissance')) }}:</label>
-                                <p>{{ $item->DateNaissance }}</p>
+                                <p>{{ $itemApprenantKonosy->DateNaissance }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="DateInscription">{{ ucfirst(__('PkgUtilisateurs::apprenantKonosy.DateInscription')) }}:</label>
-                                <p>{{ $item->DateInscription }}</p>
+                                <p>{{ $itemApprenantKonosy->DateInscription }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="LieuNaissance">{{ ucfirst(__('PkgUtilisateurs::apprenantKonosy.LieuNaissance')) }}:</label>
-                                <p>{{ $item->LieuNaissance }}</p>
+                                <p>{{ $itemApprenantKonosy->LieuNaissance }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="CIN">{{ ucfirst(__('PkgUtilisateurs::apprenantKonosy.CIN')) }}:</label>
-                                <p>{{ $item->CIN }}</p>
+                                <p>{{ $itemApprenantKonosy->CIN }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="NTelephone">{{ ucfirst(__('PkgUtilisateurs::apprenantKonosy.NTelephone')) }}:</label>
-                                <p>{{ $item->NTelephone }}</p>
+                                <p>{{ $itemApprenantKonosy->NTelephone }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="Adresse">{{ ucfirst(__('PkgUtilisateurs::apprenantKonosy.Adresse')) }}:</label>
-                                <p>{{ $item->Adresse }}</p>
+                                <p>{{ $itemApprenantKonosy->Adresse }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="Nationalite">{{ ucfirst(__('PkgUtilisateurs::apprenantKonosy.Nationalite')) }}:</label>
-                                <p>{{ $item->Nationalite }}</p>
+                                <p>{{ $itemApprenantKonosy->Nationalite }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="Nom_Arabe">{{ ucfirst(__('PkgUtilisateurs::apprenantKonosy.Nom_Arabe')) }}:</label>
-                                <p>{{ $item->Nom_Arabe }}</p>
+                                <p>{{ $itemApprenantKonosy->Nom_Arabe }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="Prenom_Arabe">{{ ucfirst(__('PkgUtilisateurs::apprenantKonosy.Prenom_Arabe')) }}:</label>
-                                <p>{{ $item->Prenom_Arabe }}</p>
+                                <p>{{ $itemApprenantKonosy->Prenom_Arabe }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="NiveauScolaire">{{ ucfirst(__('PkgUtilisateurs::apprenantKonosy.NiveauScolaire')) }}:</label>
-                                <p>{{ $item->NiveauScolaire }}</p>
+                                <p>{{ $itemApprenantKonosy->NiveauScolaire }}</p>
                             </div>
                         </div>
                     </div>

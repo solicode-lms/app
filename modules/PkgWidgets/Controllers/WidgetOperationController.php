@@ -7,10 +7,13 @@ namespace Modules\PkgWidgets\Controllers;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\PkgWidgets\App\Requests\WidgetOperationRequest;
 use Modules\PkgWidgets\Services\WidgetOperationService;
+
+
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgWidgets\App\Exports\WidgetOperationExport;
 use Modules\PkgWidgets\App\Imports\WidgetOperationImport;
+use Modules\Core\Services\ContextState;
 
 class WidgetOperationController extends AdminController
 {
@@ -20,90 +23,158 @@ class WidgetOperationController extends AdminController
     {
         parent::__construct();
         $this->widgetOperationService = $widgetOperationService;
+
     }
 
+
+    /**
+     * Affiche la liste des filières ou retourne le HTML pour une requête AJAX.
+     */
     public function index(Request $request)
     {
-        // Récupérer la valeur de recherche et paginer
-        $searchValue = $request->get('searchValue', '');
-        $searchQuery = str_replace(' ', '%', $searchValue);
-    
-        // Appel de la méthode paginate avec ou sans recherche
-        $data = $this->widgetOperationService->paginate($searchQuery);
-    
-        // Gestion AJAX
+        $widgetOperation_searchQuery = str_replace(' ', '%', $request->get('q', ''));
+        $widgetOperations_data = $this->widgetOperationService->paginate($widgetOperation_searchQuery);
+
         if ($request->ajax()) {
-            return response()->json([
-                'html' => view('PkgWidgets::widgetOperation._table', compact('data'))->render()
-            ]);
+            return view('PkgWidgets::widgetOperation._table', compact('widgetOperations_data'))->render();
         }
-    
-        // Vue principale pour le chargement initial
-        return view('PkgWidgets::widgetOperation.index', compact('data'));
+
+        return view('PkgWidgets::widgetOperation.index', compact('widgetOperations_data','widgetOperation_searchQuery'));
     }
 
+    /**
+     * Retourne le formulaire de création.
+     */
     public function create()
     {
-        $item = $this->widgetOperationService->createInstance();
-        return view('PkgWidgets::widgetOperation.create', compact('item'));
+        $itemWidgetOperation = $this->widgetOperationService->createInstance();
+
+
+        if (request()->ajax()) {
+            return view('PkgWidgets::widgetOperation._fields', compact('itemWidgetOperation'));
+        }
+        return view('PkgWidgets::widgetOperation.create', compact('itemWidgetOperation'));
     }
 
+    /**
+     * Stocke une nouvelle filière.
+     */
     public function store(WidgetOperationRequest $request)
     {
         $validatedData = $request->validated();
         $widgetOperation = $this->widgetOperationService->create($validatedData);
 
 
-        return redirect()->route('widgetOperations.index')->with('success', __('Core::msg.addSuccess', [
-            'entityToString' => $widgetOperation,
-            'modelName' => __('PkgWidgets::widgetOperation.singular')
-        ]));
+
+
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 
+             __('Core::msg.addSuccess', [
+                'entityToString' => $widgetOperation,
+                'modelName' => __('PkgWidgets::widgetOperation.singular')])
+            ]);
+        }
+
+        return redirect()->route('widgetOperations.index')->with(
+            'success',
+            __('Core::msg.addSuccess', [
+                'entityToString' => $widgetOperation,
+                'modelName' => __('PkgWidgets::widgetOperation.singular')
+            ])
+        );
     }
+
+    /**
+     * Affiche les détails d'une filière.
+     */
     public function show(string $id)
     {
-        $item = $this->widgetOperationService->find($id);
-        return view('PkgWidgets::widgetoperation.show', compact('item'));
+        $itemWidgetOperation = $this->widgetOperationService->find($id);
+
+
+        if (request()->ajax()) {
+            return view('PkgWidgets::widgetOperation._fields', compact('itemWidgetOperation'));
+        }
+
+        return view('PkgWidgets::widgetOperation.show', compact('itemWidgetOperation'));
     }
 
+    /**
+     * Retourne le formulaire d'édition d'une filière.
+     */
     public function edit(string $id)
     {
-        $item = $this->widgetOperationService->find($id);
-        return view('PkgWidgets::widgetOperation.edit', compact('item'));
+        $itemWidgetOperation = $this->widgetOperationService->find($id);
+
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('widgetOperation_id', $id);
+
+
+        if (request()->ajax()) {
+            return view('PkgWidgets::widgetOperation._fields', compact('itemWidgetOperation'));
+        }
+
+        return view('PkgWidgets::widgetOperation.edit', compact('itemWidgetOperation'));
     }
 
+    /**
+     * Met à jour une filière existante.
+     */
     public function update(WidgetOperationRequest $request, string $id)
     {
         $validatedData = $request->validated();
-        $widgetoperation = $this->widgetOperationService->update($id, $validatedData);
+        $widgetOperation = $this->widgetOperationService->update($id, $validatedData);
 
 
+
+
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 
+            __('Core::msg.updateSuccess', [
+                'entityToString' => $widgetOperation,
+                'modelName' =>  __('PkgWidgets::widgetOperation.singular')])
+            ]);
+        }
 
         return redirect()->route('widgetOperations.index')->with(
             'success',
             __('Core::msg.updateSuccess', [
-                'entityToString' => $widgetoperation,
-                'modelName' =>  __('PkgWidgets::widgetoperation.singular')
+                'entityToString' => $widgetOperation,
+                'modelName' =>  __('PkgWidgets::widgetOperation.singular')
                 ])
         );
     }
 
-    public function destroy(string $id)
+    /**
+     * Supprime une filière.
+     */
+    public function destroy(Request $request, string $id)
     {
-        $widgetoperation = $this->widgetOperationService->destroy($id);
+        $widgetOperation = $this->widgetOperationService->destroy($id);
+
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 
+            __('Core::msg.deleteSuccess', [
+                'entityToString' => $widgetOperation,
+                'modelName' =>  __('PkgWidgets::widgetOperation.singular')])
+            ]);
+        }
+
         return redirect()->route('widgetOperations.index')->with(
             'success',
             __('Core::msg.deleteSuccess', [
-                'entityToString' => $widgetoperation,
-                'modelName' =>  __('PkgWidgets::widgetoperation.singular')
+                'entityToString' => $widgetOperation,
+                'modelName' =>  __('PkgWidgets::widgetOperation.singular')
                 ])
         );
     }
 
     public function export()
     {
-        $data = $this->widgetOperationService->all();
-        return Excel::download(new WidgetOperationExport($data), 'widgetOperation_export.xlsx');
+        $widgetOperations_data = $this->widgetOperationService->all();
+        return Excel::download(new WidgetOperationExport($widgetOperations_data), 'widgetOperation_export.xlsx');
     }
+
     public function import(Request $request)
     {
         $request->validate([
@@ -118,7 +189,7 @@ class WidgetOperationController extends AdminController
 
         return redirect()->route('widgetOperations.index')->with(
             'success', __('Core::msg.importSuccess', [
-            'modelNames' =>  __('PkgWidgets::widgetoperation.plural')
+            'modelNames' =>  __('PkgWidgets::widgetOperation.plural')
             ]));
 
 

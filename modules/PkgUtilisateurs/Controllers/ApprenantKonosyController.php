@@ -7,10 +7,13 @@ namespace Modules\PkgUtilisateurs\Controllers;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\PkgUtilisateurs\App\Requests\ApprenantKonosyRequest;
 use Modules\PkgUtilisateurs\Services\ApprenantKonosyService;
+
+
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgUtilisateurs\App\Exports\ApprenantKonosyExport;
 use Modules\PkgUtilisateurs\App\Imports\ApprenantKonosyImport;
+use Modules\Core\Services\ContextState;
 
 class ApprenantKonosyController extends AdminController
 {
@@ -20,90 +23,158 @@ class ApprenantKonosyController extends AdminController
     {
         parent::__construct();
         $this->apprenantKonosyService = $apprenantKonosyService;
+
     }
 
+
+    /**
+     * Affiche la liste des filières ou retourne le HTML pour une requête AJAX.
+     */
     public function index(Request $request)
     {
-        // Récupérer la valeur de recherche et paginer
-        $searchValue = $request->get('searchValue', '');
-        $searchQuery = str_replace(' ', '%', $searchValue);
-    
-        // Appel de la méthode paginate avec ou sans recherche
-        $data = $this->apprenantKonosyService->paginate($searchQuery);
-    
-        // Gestion AJAX
+        $apprenantKonosy_searchQuery = str_replace(' ', '%', $request->get('q', ''));
+        $apprenantKonosies_data = $this->apprenantKonosyService->paginate($apprenantKonosy_searchQuery);
+
         if ($request->ajax()) {
-            return response()->json([
-                'html' => view('PkgUtilisateurs::apprenantKonosy._table', compact('data'))->render()
-            ]);
+            return view('PkgUtilisateurs::apprenantKonosy._table', compact('apprenantKonosies_data'))->render();
         }
-    
-        // Vue principale pour le chargement initial
-        return view('PkgUtilisateurs::apprenantKonosy.index', compact('data'));
+
+        return view('PkgUtilisateurs::apprenantKonosy.index', compact('apprenantKonosies_data','apprenantKonosy_searchQuery'));
     }
 
+    /**
+     * Retourne le formulaire de création.
+     */
     public function create()
     {
-        $item = $this->apprenantKonosyService->createInstance();
-        return view('PkgUtilisateurs::apprenantKonosy.create', compact('item'));
+        $itemApprenantKonosy = $this->apprenantKonosyService->createInstance();
+
+
+        if (request()->ajax()) {
+            return view('PkgUtilisateurs::apprenantKonosy._fields', compact('itemApprenantKonosy'));
+        }
+        return view('PkgUtilisateurs::apprenantKonosy.create', compact('itemApprenantKonosy'));
     }
 
+    /**
+     * Stocke une nouvelle filière.
+     */
     public function store(ApprenantKonosyRequest $request)
     {
         $validatedData = $request->validated();
         $apprenantKonosy = $this->apprenantKonosyService->create($validatedData);
 
 
-        return redirect()->route('apprenantKonosies.index')->with('success', __('Core::msg.addSuccess', [
-            'entityToString' => $apprenantKonosy,
-            'modelName' => __('PkgUtilisateurs::apprenantKonosy.singular')
-        ]));
+
+
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 
+             __('Core::msg.addSuccess', [
+                'entityToString' => $apprenantKonosy,
+                'modelName' => __('PkgUtilisateurs::apprenantKonosy.singular')])
+            ]);
+        }
+
+        return redirect()->route('apprenantKonosies.index')->with(
+            'success',
+            __('Core::msg.addSuccess', [
+                'entityToString' => $apprenantKonosy,
+                'modelName' => __('PkgUtilisateurs::apprenantKonosy.singular')
+            ])
+        );
     }
+
+    /**
+     * Affiche les détails d'une filière.
+     */
     public function show(string $id)
     {
-        $item = $this->apprenantKonosyService->find($id);
-        return view('PkgUtilisateurs::apprenantkonosy.show', compact('item'));
+        $itemApprenantKonosy = $this->apprenantKonosyService->find($id);
+
+
+        if (request()->ajax()) {
+            return view('PkgUtilisateurs::apprenantKonosy._fields', compact('itemApprenantKonosy'));
+        }
+
+        return view('PkgUtilisateurs::apprenantKonosy.show', compact('itemApprenantKonosy'));
     }
 
+    /**
+     * Retourne le formulaire d'édition d'une filière.
+     */
     public function edit(string $id)
     {
-        $item = $this->apprenantKonosyService->find($id);
-        return view('PkgUtilisateurs::apprenantKonosy.edit', compact('item'));
+        $itemApprenantKonosy = $this->apprenantKonosyService->find($id);
+
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('apprenantKonosy_id', $id);
+
+
+        if (request()->ajax()) {
+            return view('PkgUtilisateurs::apprenantKonosy._fields', compact('itemApprenantKonosy'));
+        }
+
+        return view('PkgUtilisateurs::apprenantKonosy.edit', compact('itemApprenantKonosy'));
     }
 
+    /**
+     * Met à jour une filière existante.
+     */
     public function update(ApprenantKonosyRequest $request, string $id)
     {
         $validatedData = $request->validated();
-        $apprenantkonosy = $this->apprenantKonosyService->update($id, $validatedData);
+        $apprenantKonosy = $this->apprenantKonosyService->update($id, $validatedData);
 
 
+
+
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 
+            __('Core::msg.updateSuccess', [
+                'entityToString' => $apprenantKonosy,
+                'modelName' =>  __('PkgUtilisateurs::apprenantKonosy.singular')])
+            ]);
+        }
 
         return redirect()->route('apprenantKonosies.index')->with(
             'success',
             __('Core::msg.updateSuccess', [
-                'entityToString' => $apprenantkonosy,
-                'modelName' =>  __('PkgUtilisateurs::apprenantkonosy.singular')
+                'entityToString' => $apprenantKonosy,
+                'modelName' =>  __('PkgUtilisateurs::apprenantKonosy.singular')
                 ])
         );
     }
 
-    public function destroy(string $id)
+    /**
+     * Supprime une filière.
+     */
+    public function destroy(Request $request, string $id)
     {
-        $apprenantkonosy = $this->apprenantKonosyService->destroy($id);
+        $apprenantKonosy = $this->apprenantKonosyService->destroy($id);
+
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 
+            __('Core::msg.deleteSuccess', [
+                'entityToString' => $apprenantKonosy,
+                'modelName' =>  __('PkgUtilisateurs::apprenantKonosy.singular')])
+            ]);
+        }
+
         return redirect()->route('apprenantKonosies.index')->with(
             'success',
             __('Core::msg.deleteSuccess', [
-                'entityToString' => $apprenantkonosy,
-                'modelName' =>  __('PkgUtilisateurs::apprenantkonosy.singular')
+                'entityToString' => $apprenantKonosy,
+                'modelName' =>  __('PkgUtilisateurs::apprenantKonosy.singular')
                 ])
         );
     }
 
     public function export()
     {
-        $data = $this->apprenantKonosyService->all();
-        return Excel::download(new ApprenantKonosyExport($data), 'apprenantKonosy_export.xlsx');
+        $apprenantKonosies_data = $this->apprenantKonosyService->all();
+        return Excel::download(new ApprenantKonosyExport($apprenantKonosies_data), 'apprenantKonosy_export.xlsx');
     }
+
     public function import(Request $request)
     {
         $request->validate([
@@ -118,7 +189,7 @@ class ApprenantKonosyController extends AdminController
 
         return redirect()->route('apprenantKonosies.index')->with(
             'success', __('Core::msg.importSuccess', [
-            'modelNames' =>  __('PkgUtilisateurs::apprenantkonosy.plural')
+            'modelNames' =>  __('PkgUtilisateurs::apprenantKonosy.plural')
             ]));
 
 

@@ -29,7 +29,6 @@ class AppreciationExport implements FromCollection, WithHeadings, ShouldAutoSize
             'description',
             'noteMin',
             'noteMax',
-            'niveau_competence_id',
             'formateur_id',
         ];
     }
@@ -42,7 +41,6 @@ class AppreciationExport implements FromCollection, WithHeadings, ShouldAutoSize
                 'description' => $appreciation->description,
                 'noteMin' => $appreciation->noteMin,
                 'noteMax' => $appreciation->noteMax,
-                'niveau_competence_id' => $appreciation->niveau_competence_id,
                 'formateur_id' => $appreciation->formateur_id,
             ];
         });

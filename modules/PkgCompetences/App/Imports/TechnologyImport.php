@@ -40,7 +40,7 @@ class TechnologyImport implements ToModel, WithHeadingRow
         return new Technology([
             'nom' => $row['nom'],
             'description' => $row['description'],
-            'categorie_technologie_id' => $row['categorie_technologie_id'],
+            'category_technology_id' => $row['category_technology_id'],
         ]);
     }
 }

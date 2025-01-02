@@ -18,16 +18,16 @@ class SpecialiteRequest extends FormRequest
     {
         return [
             'nom' => 'required|max:255',
-            'description' => 'required|max:255'
+            'description' => 'required'
         ];
     }
 
     public function messages(): array
     {
         return [
-            'nom.required' => __('validation.required', ['attribute' => __('PkgBlog::category.nom')]),
+            'nom.required' => __('validation.required', ['attribute' => __('PkgUtilisateurs::Specialite.nom')]),
             'nom.max' => __('validation.nomMax'),
-            'description.required' => __('validation.required', ['attribute' => __('PkgBlog::category.description')]),
+            'description.required' => __('validation.required', ['attribute' => __('PkgUtilisateurs::Specialite.description')]),
             'description.max' => __('validation.descriptionMax')
         ];
     }

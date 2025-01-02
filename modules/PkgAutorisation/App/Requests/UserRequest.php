@@ -28,15 +28,15 @@ class UserRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required' => __('validation.required', ['attribute' => __('PkgBlog::category.name')]),
+            'name.required' => __('validation.required', ['attribute' => __('PkgAutorisation::User.name')]),
             'name.max' => __('validation.nameMax'),
-            'email.required' => __('validation.required', ['attribute' => __('PkgBlog::category.email')]),
+            'email.required' => __('validation.required', ['attribute' => __('PkgAutorisation::User.email')]),
             'email.max' => __('validation.emailMax'),
-            'email_verified_at.required' => __('validation.required', ['attribute' => __('PkgBlog::category.email_verified_at')]),
+            'email_verified_at.required' => __('validation.required', ['attribute' => __('PkgAutorisation::User.email_verified_at')]),
             'email_verified_at.max' => __('validation.email_verified_atMax'),
-            'password.required' => __('validation.required', ['attribute' => __('PkgBlog::category.password')]),
+            'password.required' => __('validation.required', ['attribute' => __('PkgAutorisation::User.password')]),
             'password.max' => __('validation.passwordMax'),
-            'remember_token.required' => __('validation.required', ['attribute' => __('PkgBlog::category.remember_token')]),
+            'remember_token.required' => __('validation.required', ['attribute' => __('PkgAutorisation::User.remember_token')]),
             'remember_token.max' => __('validation.remember_tokenMax')
         ];
     }

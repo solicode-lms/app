@@ -1,4 +1,8 @@
 name,guard_name
+root,web
 admin,web
-membre,web
 formateur,web
+apprenant,web
+administrateur,web
+responsable,web
+membre,web

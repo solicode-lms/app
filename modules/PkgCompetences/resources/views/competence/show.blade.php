@@ -10,7 +10,7 @@
                     <h1>{{ __('Core::msg.detail') }}</h1>
                 </div>
                 <div class="col-sm-6">
-                    <a href="{{ route('competences.edit', $item->id) }}" class="btn btn-default float-right">
+                    <a href="{{ route('competences.edit', $itemCompetence->id) }}" class="btn btn-default float-right">
                         <i class="far fa-edit"></i>
                         {{ __('Core::msg.edit') }}
                     </a>
@@ -26,19 +26,19 @@
                         <div class="card-body">
                             <div class="col-sm-12">
                                 <label for="code">{{ ucfirst(__('PkgCompetences::competence.code')) }}:</label>
-                                <p>{{ $item->code }}</p>
+                                <p>{{ $itemCompetence->code }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="nom">{{ ucfirst(__('PkgCompetences::competence.nom')) }}:</label>
-                                <p>{{ $item->nom }}</p>
+                                <p>{{ $itemCompetence->nom }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="description">{{ ucfirst(__('PkgCompetences::competence.description')) }}:</label>
-                                <p>{{ $item->description }}</p>
+                                <p>{{ $itemCompetence->description }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="module_id">{{ ucfirst(__('PkgCompetences::competence.module_id')) }}:</label>
-                                <p>{{ $item->module_id }}</p>
+                                <p>{{ $itemCompetence->module_id }}</p>
                             </div>
                         </div>
                     </div>

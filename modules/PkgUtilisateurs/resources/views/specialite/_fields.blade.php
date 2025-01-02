@@ -1,14 +1,13 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form action="{{ $item->id ? route('specialites.update', $item->id) : route('specialites.store') }}" method="POST">
+<form class="crud-form context-state" id="specialiteForm" action="{{ $itemSpecialite->id ? route('specialites.update', $itemSpecialite->id) : route('specialites.store') }}" method="POST" novalidate>
     @csrf
 
-    @if ($item->id)
+    @if ($itemSpecialite->id)
         @method('PUT')
     @endif
 
     <div class="card-body">
-        
         <div class="form-group">
             <label for="nom">
                 {{ ucfirst(__('PkgUtilisateurs::specialite.nom')) }}
@@ -20,14 +19,15 @@
                 name="nom"
                 type="input"
                 class="form-control"
+                required
                 id="nom"
                 placeholder="{{ __('PkgUtilisateurs::specialite.nom') }}"
-                value="{{ $item ? $item->nom : old('nom') }}">
+                value="{{ $itemSpecialite ? $itemSpecialite->nom : old('nom') }}">
             @error('nom')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
-        
+</div>
+
         <div class="form-group">
             <label for="description">
                 {{ ucfirst(__('PkgUtilisateurs::specialite.description')) }}
@@ -35,23 +35,20 @@
                     <span class="text-danger">*</span>
                 
             </label>
-            <input
+            <textarea rows="" cols=""
                 name="description"
-                type="input"
-                class="form-control"
+                class="form-control richText"
+                required
                 id="description"
-                placeholder="{{ __('PkgUtilisateurs::specialite.description') }}"
-                value="{{ $item ? $item->description : old('description') }}">
+                placeholder="{{ __('PkgUtilisateurs::specialite.description') }}">
+                {{ $itemSpecialite ? $itemSpecialite->description : old('description') }}
+            </textarea>
             @error('description')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
-        
+</div>
 
-        
-
-        
-        <div class="form-group">
+                <div class="form-group">
             <label for="formateurs">
                 {{ ucfirst(__('PkgUtilisateurs::Formateur.plural')) }}
             </label>
@@ -60,10 +57,11 @@
                 name="formateurs[]"
                 class="form-control select2"
                 multiple="multiple">
+               
                 @foreach ($formateurs as $formateur)
                     <option value="{{ $formateur->id }}"
-                        {{ (isset($item) && $item->formateurs && $item->formateurs->contains('id', $formateur->id)) || (is_array(old('formateurs')) && in_array($formateur->id, old('formateurs'))) ? 'selected' : '' }}>
-                        {{ $formateur->nom }}
+                        {{ (isset($itemSpecialite) && $itemSpecialite->formateurs && $itemSpecialite->formateurs->contains('id', $formateur->id)) || (is_array(old('formateurs')) && in_array($formateur->id, old('formateurs'))) ? 'selected' : '' }}>
+                        {{ $formateur }}
                     </option>
                 @endforeach
             </select>
@@ -72,20 +70,14 @@
             @enderror
 
         </div>
-        
-
 
 
     </div>
 
     <div class="card-footer">
-        <a href="{{ route('specialites.index') }}" class="btn btn-default">{{ __('Core::msg.cancel') }}</a>
-        <button type="submit" class="btn btn-info ml-2">{{ $item->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
+        <a href="{{ route('specialites.index') }}" class="btn btn-default form-cancel-button">{{ __('Core::msg.cancel') }}</a>
+        <button type="submit" class="btn btn-info ml-2">{{ $itemSpecialite->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
 
-<script>
-    window.dynamicSelectManyToOne = [
-        
-    ];
-</script>
+

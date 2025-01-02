@@ -17,11 +17,11 @@ return new class extends Migration {
         Schema::create('technologies', function (Blueprint $table) {
             $table->id();
             $table->string('nom');
-            $table->string('description');
+            $table->longText('description');
 
             $table->timestamps();
            
-            $table->foreignId('categorie_technologie_id')->constrained('categorie_technologies');
+            $table->foreignId('category_technology_id')->constrained('category_technologies');
 
         });
     }

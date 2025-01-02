@@ -12,6 +12,9 @@
 
     <!-- Scripts -->
     @vite(['resources/css/admin.css', 'resources/js/admin.js'])
+ 
+
+
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -32,7 +35,6 @@
                         <img src="{{ asset('images/man.png') }}" class="user-image img-circle elevation-2"
                             alt="User Image">
                         <span class="d-none d-md-inline">
-                          
                             @if (Auth::check() && Auth::user()->nom)
                                 {{ Auth::user()->nom }}
                             @endif
@@ -87,7 +89,29 @@
         </footer>
     </div>
 
-
+ 
+    <script>
+        window.notifications = window.notifications || [];
+        @if (session('success'))
+    
+        window.notifications.push({
+            type : "showSuccess",
+            message: "{{ session('success') }}"
+        });   
+        @endif
+        @if (session('error'))
+        window.notifications.push({
+            type : "showError",
+            message: "{{ session('error') }}"
+        });   
+        @endif
+        @if (session('info'))
+        window.notifications.push({
+            type : "showInfo",
+            message: "{{ session('info') }}"
+        });   
+        @endif
+    </script>
+    @yield('script')
 </body>
-
 </html>

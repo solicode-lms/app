@@ -19,7 +19,7 @@ class CompetenceRequest extends FormRequest
         return [
             'code' => 'required|max:255',
             'nom' => 'required|max:255',
-            'description' => 'required|max:255',
+            'description' => 'required',
             'module_id' => 'required'
         ];
     }
@@ -27,13 +27,13 @@ class CompetenceRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'code.required' => __('validation.required', ['attribute' => __('PkgBlog::category.code')]),
+            'code.required' => __('validation.required', ['attribute' => __('PkgCompetences::Competence.code')]),
             'code.max' => __('validation.codeMax'),
-            'nom.required' => __('validation.required', ['attribute' => __('PkgBlog::category.nom')]),
+            'nom.required' => __('validation.required', ['attribute' => __('PkgCompetences::Competence.nom')]),
             'nom.max' => __('validation.nomMax'),
-            'description.required' => __('validation.required', ['attribute' => __('PkgBlog::category.description')]),
+            'description.required' => __('validation.required', ['attribute' => __('PkgCompetences::Competence.description')]),
             'description.max' => __('validation.descriptionMax'),
-            'module_id.required' => __('validation.required', ['attribute' => __('PkgBlog::category.module_id')]),
+            'module_id.required' => __('validation.required', ['attribute' => __('PkgCompetences::Competence.module_id')]),
             'module_id.max' => __('validation.module_idMax')
         ];
     }

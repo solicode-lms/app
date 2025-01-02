@@ -7,76 +7,151 @@ namespace Modules\PkgUtilisateurs\Controllers;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\PkgUtilisateurs\App\Requests\ApprenantRequest;
 use Modules\PkgUtilisateurs\Services\ApprenantService;
+use Modules\PkgUtilisateurs\Services\GroupeService;
+use Modules\PkgUtilisateurs\Services\NationaliteService;
+use Modules\PkgUtilisateurs\Services\NiveauxScolaireService;
+
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgUtilisateurs\App\Exports\ApprenantExport;
 use Modules\PkgUtilisateurs\App\Imports\ApprenantImport;
+use Modules\Core\Services\ContextState;
 
 class ApprenantController extends AdminController
 {
     protected $apprenantService;
+    protected $groupeService;
+    protected $nationaliteService;
+    protected $niveauxScolaireService;
 
-    public function __construct(ApprenantService $apprenantService)
+    public function __construct(ApprenantService $apprenantService, GroupeService $groupeService, NationaliteService $nationaliteService, NiveauxScolaireService $niveauxScolaireService)
     {
         parent::__construct();
         $this->apprenantService = $apprenantService;
+        $this->groupeService = $groupeService;
+        $this->nationaliteService = $nationaliteService;
+        $this->niveauxScolaireService = $niveauxScolaireService;
+
     }
 
+
+    /**
+     * Affiche la liste des filières ou retourne le HTML pour une requête AJAX.
+     */
     public function index(Request $request)
     {
-        // Récupérer la valeur de recherche et paginer
-        $searchValue = $request->get('searchValue', '');
-        $searchQuery = str_replace(' ', '%', $searchValue);
-    
-        // Appel de la méthode paginate avec ou sans recherche
-        $data = $this->apprenantService->paginate($searchQuery);
-    
-        // Gestion AJAX
+        $apprenant_searchQuery = str_replace(' ', '%', $request->get('q', ''));
+        $apprenants_data = $this->apprenantService->paginate($apprenant_searchQuery);
+
         if ($request->ajax()) {
-            return response()->json([
-                'html' => view('PkgUtilisateurs::apprenant._table', compact('data'))->render()
-            ]);
+            return view('PkgUtilisateurs::apprenant._table', compact('apprenants_data'))->render();
         }
-    
-        // Vue principale pour le chargement initial
-        return view('PkgUtilisateurs::apprenant.index', compact('data'));
+
+        return view('PkgUtilisateurs::apprenant.index', compact('apprenants_data','apprenant_searchQuery'));
     }
 
+    /**
+     * Retourne le formulaire de création.
+     */
     public function create()
     {
-        $item = $this->apprenantService->createInstance();
-        return view('PkgUtilisateurs::apprenant.create', compact('item'));
+        $itemApprenant = $this->apprenantService->createInstance();
+        $groupes = $this->groupeService->all();
+        $nationalites = $this->nationaliteService->all();
+        $niveauxScolaires = $this->niveauxScolaireService->all();
+
+
+        if (request()->ajax()) {
+            return view('PkgUtilisateurs::apprenant._fields', compact('itemApprenant', 'groupes', 'nationalites', 'niveauxScolaires'));
+        }
+        return view('PkgUtilisateurs::apprenant.create', compact('itemApprenant', 'groupes', 'nationalites', 'niveauxScolaires'));
     }
 
+    /**
+     * Stocke une nouvelle filière.
+     */
     public function store(ApprenantRequest $request)
     {
         $validatedData = $request->validated();
         $apprenant = $this->apprenantService->create($validatedData);
 
 
-        return redirect()->route('apprenants.index')->with('success', __('Core::msg.addSuccess', [
-            'entityToString' => $apprenant,
-            'modelName' => __('PkgUtilisateurs::apprenant.singular')
-        ]));
+
+
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 
+             __('Core::msg.addSuccess', [
+                'entityToString' => $apprenant,
+                'modelName' => __('PkgUtilisateurs::apprenant.singular')])
+            ]);
+        }
+
+        return redirect()->route('apprenants.index')->with(
+            'success',
+            __('Core::msg.addSuccess', [
+                'entityToString' => $apprenant,
+                'modelName' => __('PkgUtilisateurs::apprenant.singular')
+            ])
+        );
     }
+
+    /**
+     * Affiche les détails d'une filière.
+     */
     public function show(string $id)
     {
-        $item = $this->apprenantService->find($id);
-        return view('PkgUtilisateurs::apprenant.show', compact('item'));
+        $itemApprenant = $this->apprenantService->find($id);
+        $groupes = $this->groupeService->all();
+        $nationalites = $this->nationaliteService->all();
+        $niveauxScolaires = $this->niveauxScolaireService->all();
+
+
+        if (request()->ajax()) {
+            return view('PkgUtilisateurs::apprenant._fields', compact('itemApprenant', 'groupes', 'nationalites', 'niveauxScolaires'));
+        }
+
+        return view('PkgUtilisateurs::apprenant.show', compact('itemApprenant'));
     }
 
+    /**
+     * Retourne le formulaire d'édition d'une filière.
+     */
     public function edit(string $id)
     {
-        $item = $this->apprenantService->find($id);
-        return view('PkgUtilisateurs::apprenant.edit', compact('item'));
+        $itemApprenant = $this->apprenantService->find($id);
+        $groupes = $this->groupeService->all();
+        $nationalites = $this->nationaliteService->all();
+        $niveauxScolaires = $this->niveauxScolaireService->all();
+
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('apprenant_id', $id);
+
+
+        if (request()->ajax()) {
+            return view('PkgUtilisateurs::apprenant._fields', compact('itemApprenant', 'groupes', 'nationalites', 'niveauxScolaires'));
+        }
+
+        return view('PkgUtilisateurs::apprenant.edit', compact('itemApprenant', 'groupes', 'nationalites', 'niveauxScolaires'));
     }
 
+    /**
+     * Met à jour une filière existante.
+     */
     public function update(ApprenantRequest $request, string $id)
     {
         $validatedData = $request->validated();
         $apprenant = $this->apprenantService->update($id, $validatedData);
 
 
+
+
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 
+            __('Core::msg.updateSuccess', [
+                'entityToString' => $apprenant,
+                'modelName' =>  __('PkgUtilisateurs::apprenant.singular')])
+            ]);
+        }
 
         return redirect()->route('apprenants.index')->with(
             'success',
@@ -87,9 +162,21 @@ class ApprenantController extends AdminController
         );
     }
 
-    public function destroy(string $id)
+    /**
+     * Supprime une filière.
+     */
+    public function destroy(Request $request, string $id)
     {
         $apprenant = $this->apprenantService->destroy($id);
+
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 
+            __('Core::msg.deleteSuccess', [
+                'entityToString' => $apprenant,
+                'modelName' =>  __('PkgUtilisateurs::apprenant.singular')])
+            ]);
+        }
+
         return redirect()->route('apprenants.index')->with(
             'success',
             __('Core::msg.deleteSuccess', [
@@ -101,9 +188,10 @@ class ApprenantController extends AdminController
 
     public function export()
     {
-        $data = $this->apprenantService->all();
-        return Excel::download(new ApprenantExport($data), 'apprenant_export.xlsx');
+        $apprenants_data = $this->apprenantService->all();
+        return Excel::download(new ApprenantExport($apprenants_data), 'apprenant_export.xlsx');
     }
+
     public function import(Request $request)
     {
         $request->validate([

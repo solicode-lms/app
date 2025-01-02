@@ -23,7 +23,6 @@ class AppreciationService extends BaseService
         'description',
         'noteMin',
         'noteMax',
-        'niveau_competence_id',
         'formateur_id'
     ];
 
@@ -58,7 +57,6 @@ class AppreciationService extends BaseService
             'description' => $data['description'],
             'noteMin' => $data['noteMin'],
             'noteMax' => $data['noteMax'],
-            'niveau_competence_id' => $data['niveau_competence_id'],
             'formateur_id' => $data['formateur_id'],
         ]);
 

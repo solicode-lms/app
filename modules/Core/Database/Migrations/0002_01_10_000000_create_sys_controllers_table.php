@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('module_id')->constrained('sys_modules')->onDelete('cascade'); // Clé étrangère vers sys_modules
             $table->string('name')->unique(); // Nom unique du contrôleur
             $table->string('slug')->unique(); // Slug unique pour le contrôleur
-            $table->text('description')->nullable(); // Description du contrôleur
+            $table->longText('description')->nullable(); // Description du contrôleur
             $table->boolean('is_active')->default(true); // Statut actif/inactif
             $table->timestamps(); // Colonnes created_at et updated_at
         });

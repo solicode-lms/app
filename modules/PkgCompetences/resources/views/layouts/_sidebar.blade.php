@@ -16,9 +16,9 @@
             </a>
         </li>
         <li class="nav-item">
-            <a href="{{ route('categorieTechnologies.index') }}" class="nav-link {{ Request::is('PkgCompetences/categorieTechnologies') ? 'active' : '' }}">
+            <a href="{{ route('categoryTechnologies.index') }}" class="nav-link {{ Request::is('PkgCompetences/categoryTechnologies') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-bolt"></i>
-                <p>CategorieTechnologies</p>
+                <p>CategoryTechnologies</p>
             </a>
         </li>
         <li class="nav-item">

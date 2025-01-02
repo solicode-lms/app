@@ -1,14 +1,13 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form action="{{ $item->id ? route('apprenantKonosies.update', $item->id) : route('apprenantKonosies.store') }}" method="POST">
+<form class="crud-form context-state" id="apprenantKonosyForm" action="{{ $itemApprenantKonosy->id ? route('apprenantKonosies.update', $itemApprenantKonosy->id) : route('apprenantKonosies.store') }}" method="POST" novalidate>
     @csrf
 
-    @if ($item->id)
+    @if ($itemApprenantKonosy->id)
         @method('PUT')
     @endif
 
     <div class="card-body">
-        
         <div class="form-group">
             <label for="MatriculeEtudiant">
                 {{ ucfirst(__('PkgUtilisateurs::apprenantKonosy.MatriculeEtudiant')) }}
@@ -20,14 +19,15 @@
                 name="MatriculeEtudiant"
                 type="input"
                 class="form-control"
+                required
                 id="MatriculeEtudiant"
                 placeholder="{{ __('PkgUtilisateurs::apprenantKonosy.MatriculeEtudiant') }}"
-                value="{{ $item ? $item->MatriculeEtudiant : old('MatriculeEtudiant') }}">
+                value="{{ $itemApprenantKonosy ? $itemApprenantKonosy->MatriculeEtudiant : old('MatriculeEtudiant') }}">
             @error('MatriculeEtudiant')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
-        
+</div>
+
         <div class="form-group">
             <label for="Nom">
                 {{ ucfirst(__('PkgUtilisateurs::apprenantKonosy.Nom')) }}
@@ -39,14 +39,15 @@
                 name="Nom"
                 type="input"
                 class="form-control"
+                required
                 id="Nom"
                 placeholder="{{ __('PkgUtilisateurs::apprenantKonosy.Nom') }}"
-                value="{{ $item ? $item->Nom : old('Nom') }}">
+                value="{{ $itemApprenantKonosy ? $itemApprenantKonosy->Nom : old('Nom') }}">
             @error('Nom')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
-        
+</div>
+
         <div class="form-group">
             <label for="Prenom">
                 {{ ucfirst(__('PkgUtilisateurs::apprenantKonosy.Prenom')) }}
@@ -58,14 +59,15 @@
                 name="Prenom"
                 type="input"
                 class="form-control"
+                required
                 id="Prenom"
                 placeholder="{{ __('PkgUtilisateurs::apprenantKonosy.Prenom') }}"
-                value="{{ $item ? $item->Prenom : old('Prenom') }}">
+                value="{{ $itemApprenantKonosy ? $itemApprenantKonosy->Prenom : old('Prenom') }}">
             @error('Prenom')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
-        
+</div>
+
         <div class="form-group">
             <label for="Sexe">
                 {{ ucfirst(__('PkgUtilisateurs::apprenantKonosy.Sexe')) }}
@@ -77,14 +79,15 @@
                 name="Sexe"
                 type="input"
                 class="form-control"
+                required
                 id="Sexe"
                 placeholder="{{ __('PkgUtilisateurs::apprenantKonosy.Sexe') }}"
-                value="{{ $item ? $item->Sexe : old('Sexe') }}">
+                value="{{ $itemApprenantKonosy ? $itemApprenantKonosy->Sexe : old('Sexe') }}">
             @error('Sexe')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
-        
+</div>
+
         <div class="form-group">
             <label for="EtudiantActif">
                 {{ ucfirst(__('PkgUtilisateurs::apprenantKonosy.EtudiantActif')) }}
@@ -96,14 +99,15 @@
                 name="EtudiantActif"
                 type="input"
                 class="form-control"
+                required
                 id="EtudiantActif"
                 placeholder="{{ __('PkgUtilisateurs::apprenantKonosy.EtudiantActif') }}"
-                value="{{ $item ? $item->EtudiantActif : old('EtudiantActif') }}">
+                value="{{ $itemApprenantKonosy ? $itemApprenantKonosy->EtudiantActif : old('EtudiantActif') }}">
             @error('EtudiantActif')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
-        
+</div>
+
         <div class="form-group">
             <label for="Diplome">
                 {{ ucfirst(__('PkgUtilisateurs::apprenantKonosy.Diplome')) }}
@@ -113,14 +117,15 @@
                 name="Diplome"
                 type="input"
                 class="form-control"
+                
                 id="Diplome"
                 placeholder="{{ __('PkgUtilisateurs::apprenantKonosy.Diplome') }}"
-                value="{{ $item ? $item->Diplome : old('Diplome') }}">
+                value="{{ $itemApprenantKonosy ? $itemApprenantKonosy->Diplome : old('Diplome') }}">
             @error('Diplome')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
-        
+</div>
+
         <div class="form-group">
             <label for="Principale">
                 {{ ucfirst(__('PkgUtilisateurs::apprenantKonosy.Principale')) }}
@@ -130,14 +135,15 @@
                 name="Principale"
                 type="input"
                 class="form-control"
+                
                 id="Principale"
                 placeholder="{{ __('PkgUtilisateurs::apprenantKonosy.Principale') }}"
-                value="{{ $item ? $item->Principale : old('Principale') }}">
+                value="{{ $itemApprenantKonosy ? $itemApprenantKonosy->Principale : old('Principale') }}">
             @error('Principale')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
-        
+</div>
+
         <div class="form-group">
             <label for="LibelleLong">
                 {{ ucfirst(__('PkgUtilisateurs::apprenantKonosy.LibelleLong')) }}
@@ -147,14 +153,15 @@
                 name="LibelleLong"
                 type="input"
                 class="form-control"
+                
                 id="LibelleLong"
                 placeholder="{{ __('PkgUtilisateurs::apprenantKonosy.LibelleLong') }}"
-                value="{{ $item ? $item->LibelleLong : old('LibelleLong') }}">
+                value="{{ $itemApprenantKonosy ? $itemApprenantKonosy->LibelleLong : old('LibelleLong') }}">
             @error('LibelleLong')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
-        
+</div>
+
         <div class="form-group">
             <label for="CodeDiplome">
                 {{ ucfirst(__('PkgUtilisateurs::apprenantKonosy.CodeDiplome')) }}
@@ -164,14 +171,15 @@
                 name="CodeDiplome"
                 type="input"
                 class="form-control"
+                
                 id="CodeDiplome"
                 placeholder="{{ __('PkgUtilisateurs::apprenantKonosy.CodeDiplome') }}"
-                value="{{ $item ? $item->CodeDiplome : old('CodeDiplome') }}">
+                value="{{ $itemApprenantKonosy ? $itemApprenantKonosy->CodeDiplome : old('CodeDiplome') }}">
             @error('CodeDiplome')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
-        
+</div>
+
         <div class="form-group">
             <label for="DateNaissance">
                 {{ ucfirst(__('PkgUtilisateurs::apprenantKonosy.DateNaissance')) }}
@@ -181,14 +189,15 @@
                 name="DateNaissance"
                 type="input"
                 class="form-control"
+                
                 id="DateNaissance"
                 placeholder="{{ __('PkgUtilisateurs::apprenantKonosy.DateNaissance') }}"
-                value="{{ $item ? $item->DateNaissance : old('DateNaissance') }}">
+                value="{{ $itemApprenantKonosy ? $itemApprenantKonosy->DateNaissance : old('DateNaissance') }}">
             @error('DateNaissance')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
-        
+</div>
+
         <div class="form-group">
             <label for="DateInscription">
                 {{ ucfirst(__('PkgUtilisateurs::apprenantKonosy.DateInscription')) }}
@@ -198,14 +207,15 @@
                 name="DateInscription"
                 type="input"
                 class="form-control"
+                
                 id="DateInscription"
                 placeholder="{{ __('PkgUtilisateurs::apprenantKonosy.DateInscription') }}"
-                value="{{ $item ? $item->DateInscription : old('DateInscription') }}">
+                value="{{ $itemApprenantKonosy ? $itemApprenantKonosy->DateInscription : old('DateInscription') }}">
             @error('DateInscription')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
-        
+</div>
+
         <div class="form-group">
             <label for="LieuNaissance">
                 {{ ucfirst(__('PkgUtilisateurs::apprenantKonosy.LieuNaissance')) }}
@@ -215,14 +225,15 @@
                 name="LieuNaissance"
                 type="input"
                 class="form-control"
+                
                 id="LieuNaissance"
                 placeholder="{{ __('PkgUtilisateurs::apprenantKonosy.LieuNaissance') }}"
-                value="{{ $item ? $item->LieuNaissance : old('LieuNaissance') }}">
+                value="{{ $itemApprenantKonosy ? $itemApprenantKonosy->LieuNaissance : old('LieuNaissance') }}">
             @error('LieuNaissance')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
-        
+</div>
+
         <div class="form-group">
             <label for="CIN">
                 {{ ucfirst(__('PkgUtilisateurs::apprenantKonosy.CIN')) }}
@@ -232,14 +243,15 @@
                 name="CIN"
                 type="input"
                 class="form-control"
+                
                 id="CIN"
                 placeholder="{{ __('PkgUtilisateurs::apprenantKonosy.CIN') }}"
-                value="{{ $item ? $item->CIN : old('CIN') }}">
+                value="{{ $itemApprenantKonosy ? $itemApprenantKonosy->CIN : old('CIN') }}">
             @error('CIN')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
-        
+</div>
+
         <div class="form-group">
             <label for="NTelephone">
                 {{ ucfirst(__('PkgUtilisateurs::apprenantKonosy.NTelephone')) }}
@@ -249,31 +261,33 @@
                 name="NTelephone"
                 type="input"
                 class="form-control"
+                
                 id="NTelephone"
                 placeholder="{{ __('PkgUtilisateurs::apprenantKonosy.NTelephone') }}"
-                value="{{ $item ? $item->NTelephone : old('NTelephone') }}">
+                value="{{ $itemApprenantKonosy ? $itemApprenantKonosy->NTelephone : old('NTelephone') }}">
             @error('NTelephone')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
-        
+</div>
+
         <div class="form-group">
             <label for="Adresse">
                 {{ ucfirst(__('PkgUtilisateurs::apprenantKonosy.Adresse')) }}
                 
             </label>
-            <input
+            <textarea rows="" cols=""
                 name="Adresse"
-                type="input"
-                class="form-control"
+                class="form-control richText"
+                
                 id="Adresse"
-                placeholder="{{ __('PkgUtilisateurs::apprenantKonosy.Adresse') }}"
-                value="{{ $item ? $item->Adresse : old('Adresse') }}">
+                placeholder="{{ __('PkgUtilisateurs::apprenantKonosy.Adresse') }}">
+                {{ $itemApprenantKonosy ? $itemApprenantKonosy->Adresse : old('Adresse') }}
+            </textarea>
             @error('Adresse')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
-        
+</div>
+
         <div class="form-group">
             <label for="Nationalite">
                 {{ ucfirst(__('PkgUtilisateurs::apprenantKonosy.Nationalite')) }}
@@ -283,14 +297,15 @@
                 name="Nationalite"
                 type="input"
                 class="form-control"
+                
                 id="Nationalite"
                 placeholder="{{ __('PkgUtilisateurs::apprenantKonosy.Nationalite') }}"
-                value="{{ $item ? $item->Nationalite : old('Nationalite') }}">
+                value="{{ $itemApprenantKonosy ? $itemApprenantKonosy->Nationalite : old('Nationalite') }}">
             @error('Nationalite')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
-        
+</div>
+
         <div class="form-group">
             <label for="Nom_Arabe">
                 {{ ucfirst(__('PkgUtilisateurs::apprenantKonosy.Nom_Arabe')) }}
@@ -300,14 +315,15 @@
                 name="Nom_Arabe"
                 type="input"
                 class="form-control"
+                
                 id="Nom_Arabe"
                 placeholder="{{ __('PkgUtilisateurs::apprenantKonosy.Nom_Arabe') }}"
-                value="{{ $item ? $item->Nom_Arabe : old('Nom_Arabe') }}">
+                value="{{ $itemApprenantKonosy ? $itemApprenantKonosy->Nom_Arabe : old('Nom_Arabe') }}">
             @error('Nom_Arabe')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
-        
+</div>
+
         <div class="form-group">
             <label for="Prenom_Arabe">
                 {{ ucfirst(__('PkgUtilisateurs::apprenantKonosy.Prenom_Arabe')) }}
@@ -317,14 +333,15 @@
                 name="Prenom_Arabe"
                 type="input"
                 class="form-control"
+                
                 id="Prenom_Arabe"
                 placeholder="{{ __('PkgUtilisateurs::apprenantKonosy.Prenom_Arabe') }}"
-                value="{{ $item ? $item->Prenom_Arabe : old('Prenom_Arabe') }}">
+                value="{{ $itemApprenantKonosy ? $itemApprenantKonosy->Prenom_Arabe : old('Prenom_Arabe') }}">
             @error('Prenom_Arabe')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
-        
+</div>
+
         <div class="form-group">
             <label for="NiveauScolaire">
                 {{ ucfirst(__('PkgUtilisateurs::apprenantKonosy.NiveauScolaire')) }}
@@ -334,31 +351,21 @@
                 name="NiveauScolaire"
                 type="input"
                 class="form-control"
+                
                 id="NiveauScolaire"
                 placeholder="{{ __('PkgUtilisateurs::apprenantKonosy.NiveauScolaire') }}"
-                value="{{ $item ? $item->NiveauScolaire : old('NiveauScolaire') }}">
+                value="{{ $itemApprenantKonosy ? $itemApprenantKonosy->NiveauScolaire : old('NiveauScolaire') }}">
             @error('NiveauScolaire')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
-        
-
-        
-
-        
-
-
+</div>
 
     </div>
 
     <div class="card-footer">
-        <a href="{{ route('apprenantKonosies.index') }}" class="btn btn-default">{{ __('Core::msg.cancel') }}</a>
-        <button type="submit" class="btn btn-info ml-2">{{ $item->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
+        <a href="{{ route('apprenantKonosies.index') }}" class="btn btn-default form-cancel-button">{{ __('Core::msg.cancel') }}</a>
+        <button type="submit" class="btn btn-info ml-2">{{ $itemApprenantKonosy->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
 
-<script>
-    window.dynamicSelectManyToOne = [
-        
-    ];
-</script>
+

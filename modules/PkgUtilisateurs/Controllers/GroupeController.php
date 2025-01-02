@@ -8,85 +8,147 @@ use Modules\Core\Controllers\Base\AdminController;
 use Modules\PkgUtilisateurs\App\Requests\GroupeRequest;
 use Modules\PkgUtilisateurs\Services\GroupeService;
 use Modules\PkgUtilisateurs\Services\FormateurService;
+use Modules\PkgCompetences\Services\FiliereService;
+
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgUtilisateurs\App\Exports\GroupeExport;
 use Modules\PkgUtilisateurs\App\Imports\GroupeImport;
+use Modules\Core\Services\ContextState;
 
 class GroupeController extends AdminController
 {
     protected $groupeService;
     protected $formateurService;
+    protected $filiereService;
 
-    public function __construct(GroupeService $groupeService, FormateurService $formateurService)
+    public function __construct(GroupeService $groupeService, FormateurService $formateurService, FiliereService $filiereService)
     {
         parent::__construct();
         $this->groupeService = $groupeService;
         $this->formateurService = $formateurService;
+        $this->filiereService = $filiereService;
+
     }
 
+
+    /**
+     * Affiche la liste des filières ou retourne le HTML pour une requête AJAX.
+     */
     public function index(Request $request)
     {
-        // Récupérer la valeur de recherche et paginer
-        $searchValue = $request->get('searchValue', '');
-        $searchQuery = str_replace(' ', '%', $searchValue);
-    
-        // Appel de la méthode paginate avec ou sans recherche
-        $data = $this->groupeService->paginate($searchQuery);
-    
-        // Gestion AJAX
+        $groupe_searchQuery = str_replace(' ', '%', $request->get('q', ''));
+        $groupes_data = $this->groupeService->paginate($groupe_searchQuery);
+
         if ($request->ajax()) {
-            return response()->json([
-                'html' => view('PkgUtilisateurs::groupe._table', compact('data'))->render()
-            ]);
+            return view('PkgUtilisateurs::groupe._table', compact('groupes_data'))->render();
         }
-    
-        // Vue principale pour le chargement initial
-        return view('PkgUtilisateurs::groupe.index', compact('data'));
+
+        return view('PkgUtilisateurs::groupe.index', compact('groupes_data','groupe_searchQuery'));
     }
 
+    /**
+     * Retourne le formulaire de création.
+     */
     public function create()
     {
-        $item = $this->groupeService->createInstance();
+        $itemGroupe = $this->groupeService->createInstance();
         $formateurs = $this->formateurService->all();
-        return view('PkgUtilisateurs::groupe.create', compact('item', 'formateurs'));
+        $filieres = $this->filiereService->all();
+
+
+        if (request()->ajax()) {
+            return view('PkgUtilisateurs::groupe._fields', compact('itemGroupe', 'formateurs', 'filieres'));
+        }
+        return view('PkgUtilisateurs::groupe.create', compact('itemGroupe', 'formateurs', 'filieres'));
     }
 
+    /**
+     * Stocke une nouvelle filière.
+     */
     public function store(GroupeRequest $request)
     {
         $validatedData = $request->validated();
         $groupe = $this->groupeService->create($validatedData);
 
+
         if ($request->has('formateurs')) {
             $groupe->formateurs()->sync($request->input('formateurs'));
         }
 
-        return redirect()->route('groupes.index')->with('success', __('Core::msg.addSuccess', [
-            'entityToString' => $groupe,
-            'modelName' => __('PkgUtilisateurs::groupe.singular')
-        ]));
+
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 
+             __('Core::msg.addSuccess', [
+                'entityToString' => $groupe,
+                'modelName' => __('PkgUtilisateurs::groupe.singular')])
+            ]);
+        }
+
+        return redirect()->route('groupes.index')->with(
+            'success',
+            __('Core::msg.addSuccess', [
+                'entityToString' => $groupe,
+                'modelName' => __('PkgUtilisateurs::groupe.singular')
+            ])
+        );
     }
+
+    /**
+     * Affiche les détails d'une filière.
+     */
     public function show(string $id)
     {
-        $item = $this->groupeService->find($id);
-        return view('PkgUtilisateurs::groupe.show', compact('item'));
+        $itemGroupe = $this->groupeService->find($id);
+        $formateurs = $this->formateurService->all();
+        $filieres = $this->filiereService->all();
+
+
+        if (request()->ajax()) {
+            return view('PkgUtilisateurs::groupe._fields', compact('itemGroupe', 'formateurs', 'filieres'));
+        }
+
+        return view('PkgUtilisateurs::groupe.show', compact('itemGroupe'));
     }
 
+    /**
+     * Retourne le formulaire d'édition d'une filière.
+     */
     public function edit(string $id)
     {
-        $item = $this->groupeService->find($id);
+        $itemGroupe = $this->groupeService->find($id);
         $formateurs = $this->formateurService->all();
-        return view('PkgUtilisateurs::groupe.edit', compact('item', 'formateurs'));
+        $filieres = $this->filiereService->all();
+
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('groupe_id', $id);
+
+
+        if (request()->ajax()) {
+            return view('PkgUtilisateurs::groupe._fields', compact('itemGroupe', 'formateurs', 'filieres'));
+        }
+
+        return view('PkgUtilisateurs::groupe.edit', compact('itemGroupe', 'formateurs', 'filieres'));
     }
 
+    /**
+     * Met à jour une filière existante.
+     */
     public function update(GroupeRequest $request, string $id)
     {
         $validatedData = $request->validated();
         $groupe = $this->groupeService->update($id, $validatedData);
 
 
-        if ($request->has('formateurs')) {
-            $groupe->formateurs()->sync($request->input('formateurs'));
+        $groupe->formateurs()->sync($request->input('formateurs'));
+
+
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 
+            __('Core::msg.updateSuccess', [
+                'entityToString' => $groupe,
+                'modelName' =>  __('PkgUtilisateurs::groupe.singular')])
+            ]);
         }
 
         return redirect()->route('groupes.index')->with(
@@ -98,9 +160,21 @@ class GroupeController extends AdminController
         );
     }
 
-    public function destroy(string $id)
+    /**
+     * Supprime une filière.
+     */
+    public function destroy(Request $request, string $id)
     {
         $groupe = $this->groupeService->destroy($id);
+
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 
+            __('Core::msg.deleteSuccess', [
+                'entityToString' => $groupe,
+                'modelName' =>  __('PkgUtilisateurs::groupe.singular')])
+            ]);
+        }
+
         return redirect()->route('groupes.index')->with(
             'success',
             __('Core::msg.deleteSuccess', [
@@ -112,9 +186,10 @@ class GroupeController extends AdminController
 
     public function export()
     {
-        $data = $this->groupeService->all();
-        return Excel::download(new GroupeExport($data), 'groupe_export.xlsx');
+        $groupes_data = $this->groupeService->all();
+        return Excel::download(new GroupeExport($groupes_data), 'groupe_export.xlsx');
     }
+
     public function import(Request $request)
     {
         $request->validate([

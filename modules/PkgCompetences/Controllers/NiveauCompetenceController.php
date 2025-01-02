@@ -7,103 +7,179 @@ namespace Modules\PkgCompetences\Controllers;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\PkgCompetences\App\Requests\NiveauCompetenceRequest;
 use Modules\PkgCompetences\Services\NiveauCompetenceService;
+use Modules\PkgCompetences\Services\CompetenceService;
+
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgCompetences\App\Exports\NiveauCompetenceExport;
 use Modules\PkgCompetences\App\Imports\NiveauCompetenceImport;
+use Modules\Core\Services\ContextState;
 
 class NiveauCompetenceController extends AdminController
 {
     protected $niveauCompetenceService;
+    protected $competenceService;
 
-    public function __construct(NiveauCompetenceService $niveauCompetenceService)
+    public function __construct(NiveauCompetenceService $niveauCompetenceService, CompetenceService $competenceService)
     {
         parent::__construct();
         $this->niveauCompetenceService = $niveauCompetenceService;
+        $this->competenceService = $competenceService;
+
     }
 
+
+    /**
+     * Affiche la liste des filières ou retourne le HTML pour une requête AJAX.
+     */
     public function index(Request $request)
     {
-        // Récupérer la valeur de recherche et paginer
-        $searchValue = $request->get('searchValue', '');
-        $searchQuery = str_replace(' ', '%', $searchValue);
-    
-        // Appel de la méthode paginate avec ou sans recherche
-        $data = $this->niveauCompetenceService->paginate($searchQuery);
-    
-        // Gestion AJAX
+        $niveauCompetence_searchQuery = str_replace(' ', '%', $request->get('q', ''));
+        $niveauCompetences_data = $this->niveauCompetenceService->paginate($niveauCompetence_searchQuery);
+
         if ($request->ajax()) {
-            return response()->json([
-                'html' => view('PkgCompetences::niveauCompetence._table', compact('data'))->render()
-            ]);
+            return view('PkgCompetences::niveauCompetence._table', compact('niveauCompetences_data'))->render();
         }
-    
-        // Vue principale pour le chargement initial
-        return view('PkgCompetences::niveauCompetence.index', compact('data'));
+
+        return view('PkgCompetences::niveauCompetence.index', compact('niveauCompetences_data','niveauCompetence_searchQuery'));
     }
 
+    /**
+     * Retourne le formulaire de création.
+     */
     public function create()
     {
-        $item = $this->niveauCompetenceService->createInstance();
-        return view('PkgCompetences::niveauCompetence.create', compact('item'));
+        $itemNiveauCompetence = $this->niveauCompetenceService->createInstance();
+        $competences = $this->competenceService->all();
+
+
+        if (request()->ajax()) {
+            return view('PkgCompetences::niveauCompetence._fields', compact('itemNiveauCompetence', 'competences'));
+        }
+        return view('PkgCompetences::niveauCompetence.create', compact('itemNiveauCompetence', 'competences'));
     }
 
+    /**
+     * Stocke une nouvelle filière.
+     */
     public function store(NiveauCompetenceRequest $request)
     {
         $validatedData = $request->validated();
         $niveauCompetence = $this->niveauCompetenceService->create($validatedData);
 
 
-        return redirect()->route('niveauCompetences.index')->with('success', __('Core::msg.addSuccess', [
-            'entityToString' => $niveauCompetence,
-            'modelName' => __('PkgCompetences::niveauCompetence.singular')
-        ]));
+
+
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 
+             __('Core::msg.addSuccess', [
+                'entityToString' => $niveauCompetence,
+                'modelName' => __('PkgCompetences::niveauCompetence.singular')])
+            ]);
+        }
+
+        return redirect()->route('niveauCompetences.index')->with(
+            'success',
+            __('Core::msg.addSuccess', [
+                'entityToString' => $niveauCompetence,
+                'modelName' => __('PkgCompetences::niveauCompetence.singular')
+            ])
+        );
     }
+
+    /**
+     * Affiche les détails d'une filière.
+     */
     public function show(string $id)
     {
-        $item = $this->niveauCompetenceService->find($id);
-        return view('PkgCompetences::niveaucompetence.show', compact('item'));
+        $itemNiveauCompetence = $this->niveauCompetenceService->find($id);
+        $competences = $this->competenceService->all();
+
+
+        if (request()->ajax()) {
+            return view('PkgCompetences::niveauCompetence._fields', compact('itemNiveauCompetence', 'competences'));
+        }
+
+        return view('PkgCompetences::niveauCompetence.show', compact('itemNiveauCompetence'));
     }
 
+    /**
+     * Retourne le formulaire d'édition d'une filière.
+     */
     public function edit(string $id)
     {
-        $item = $this->niveauCompetenceService->find($id);
-        return view('PkgCompetences::niveauCompetence.edit', compact('item'));
+        $itemNiveauCompetence = $this->niveauCompetenceService->find($id);
+        $competences = $this->competenceService->all();
+
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('niveauCompetence_id', $id);
+
+
+        if (request()->ajax()) {
+            return view('PkgCompetences::niveauCompetence._fields', compact('itemNiveauCompetence', 'competences'));
+        }
+
+        return view('PkgCompetences::niveauCompetence.edit', compact('itemNiveauCompetence', 'competences'));
     }
 
+    /**
+     * Met à jour une filière existante.
+     */
     public function update(NiveauCompetenceRequest $request, string $id)
     {
         $validatedData = $request->validated();
-        $niveaucompetence = $this->niveauCompetenceService->update($id, $validatedData);
+        $niveauCompetence = $this->niveauCompetenceService->update($id, $validatedData);
 
 
+
+
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 
+            __('Core::msg.updateSuccess', [
+                'entityToString' => $niveauCompetence,
+                'modelName' =>  __('PkgCompetences::niveauCompetence.singular')])
+            ]);
+        }
 
         return redirect()->route('niveauCompetences.index')->with(
             'success',
             __('Core::msg.updateSuccess', [
-                'entityToString' => $niveaucompetence,
-                'modelName' =>  __('PkgCompetences::niveaucompetence.singular')
+                'entityToString' => $niveauCompetence,
+                'modelName' =>  __('PkgCompetences::niveauCompetence.singular')
                 ])
         );
     }
 
-    public function destroy(string $id)
+    /**
+     * Supprime une filière.
+     */
+    public function destroy(Request $request, string $id)
     {
-        $niveaucompetence = $this->niveauCompetenceService->destroy($id);
+        $niveauCompetence = $this->niveauCompetenceService->destroy($id);
+
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 
+            __('Core::msg.deleteSuccess', [
+                'entityToString' => $niveauCompetence,
+                'modelName' =>  __('PkgCompetences::niveauCompetence.singular')])
+            ]);
+        }
+
         return redirect()->route('niveauCompetences.index')->with(
             'success',
             __('Core::msg.deleteSuccess', [
-                'entityToString' => $niveaucompetence,
-                'modelName' =>  __('PkgCompetences::niveaucompetence.singular')
+                'entityToString' => $niveauCompetence,
+                'modelName' =>  __('PkgCompetences::niveauCompetence.singular')
                 ])
         );
     }
 
     public function export()
     {
-        $data = $this->niveauCompetenceService->all();
-        return Excel::download(new NiveauCompetenceExport($data), 'niveauCompetence_export.xlsx');
+        $niveauCompetences_data = $this->niveauCompetenceService->all();
+        return Excel::download(new NiveauCompetenceExport($niveauCompetences_data), 'niveauCompetence_export.xlsx');
     }
+
     public function import(Request $request)
     {
         $request->validate([
@@ -118,7 +194,7 @@ class NiveauCompetenceController extends AdminController
 
         return redirect()->route('niveauCompetences.index')->with(
             'success', __('Core::msg.importSuccess', [
-            'modelNames' =>  __('PkgCompetences::niveaucompetence.plural')
+            'modelNames' =>  __('PkgCompetences::niveauCompetence.plural')
             ]));
 
 

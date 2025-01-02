@@ -10,7 +10,7 @@
                     <h1>{{ __('Core::msg.detail') }}</h1>
                 </div>
                 <div class="col-sm-6">
-                    <a href="{{ route('groupes.edit', $item->id) }}" class="btn btn-default float-right">
+                    <a href="{{ route('groupes.edit', $itemGroupe->id) }}" class="btn btn-default float-right">
                         <i class="far fa-edit"></i>
                         {{ __('Core::msg.edit') }}
                     </a>
@@ -26,19 +26,19 @@
                         <div class="card-body">
                             <div class="col-sm-12">
                                 <label for="code">{{ ucfirst(__('PkgUtilisateurs::groupe.code')) }}:</label>
-                                <p>{{ $item->code }}</p>
+                                <p>{{ $itemGroupe->code }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="nom">{{ ucfirst(__('PkgUtilisateurs::groupe.nom')) }}:</label>
-                                <p>{{ $item->nom }}</p>
+                                <p>{{ $itemGroupe->nom }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="description">{{ ucfirst(__('PkgUtilisateurs::groupe.description')) }}:</label>
-                                <p>{{ $item->description }}</p>
+                                <p>{{ $itemGroupe->description }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="filiere_id">{{ ucfirst(__('PkgUtilisateurs::groupe.filiere_id')) }}:</label>
-                                <p>{{ $item->filiere_id }}</p>
+                                <p>{{ $itemGroupe->filiere_id }}</p>
                             </div>
                         </div>
                     </div>

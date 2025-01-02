@@ -3,6 +3,8 @@
 namespace Modules\Core\Controllers\Base;
 
 use App\Http\Middleware\CheckDynamicPermission;
+use App\Http\Middleware\ContextStateMiddleware;
+use Modules\Core\Services\ContextState;
 
 /**
  * AdminController est responsable de la gestion des fonctionnalités liées aux administrateurs.
@@ -10,6 +12,8 @@ use App\Http\Middleware\CheckDynamicPermission;
  */
 class AdminController extends AppController
 {
+    protected $contextState;
+    
     /**
      * Constructeur du contrôleur.
      * 
@@ -26,6 +30,12 @@ class AdminController extends AppController
 
          // Middleware appliqué à toutes les méthodes
          $this->middleware(CheckDynamicPermission::class);
+
+        // Middleware appliqué à toutes les méthodes
+        $this->middleware(ContextStateMiddleware::class);
+
+        // Scrop management
+        $this->contextState = app(ContextState::class);
     }
 
     // /**

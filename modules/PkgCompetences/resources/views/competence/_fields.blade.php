@@ -1,14 +1,13 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form action="{{ $item->id ? route('competences.update', $item->id) : route('competences.store') }}" method="POST">
+<form class="crud-form context-state" id="competenceForm" action="{{ $itemCompetence->id ? route('competences.update', $itemCompetence->id) : route('competences.store') }}" method="POST" novalidate>
     @csrf
 
-    @if ($item->id)
+    @if ($itemCompetence->id)
         @method('PUT')
     @endif
 
     <div class="card-body">
-        
         <div class="form-group">
             <label for="code">
                 {{ ucfirst(__('PkgCompetences::competence.code')) }}
@@ -20,14 +19,15 @@
                 name="code"
                 type="input"
                 class="form-control"
+                required
                 id="code"
                 placeholder="{{ __('PkgCompetences::competence.code') }}"
-                value="{{ $item ? $item->code : old('code') }}">
+                value="{{ $itemCompetence ? $itemCompetence->code : old('code') }}">
             @error('code')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
-        
+</div>
+
         <div class="form-group">
             <label for="nom">
                 {{ ucfirst(__('PkgCompetences::competence.nom')) }}
@@ -39,14 +39,15 @@
                 name="nom"
                 type="input"
                 class="form-control"
+                required
                 id="nom"
                 placeholder="{{ __('PkgCompetences::competence.nom') }}"
-                value="{{ $item ? $item->nom : old('nom') }}">
+                value="{{ $itemCompetence ? $itemCompetence->nom : old('nom') }}">
             @error('nom')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
-        
+</div>
+
         <div class="form-group">
             <label for="description">
                 {{ ucfirst(__('PkgCompetences::competence.description')) }}
@@ -54,38 +55,47 @@
                     <span class="text-danger">*</span>
                 
             </label>
-            <input
+            <textarea rows="" cols=""
                 name="description"
-                type="input"
-                class="form-control"
+                class="form-control richText"
+                required
                 id="description"
-                placeholder="{{ __('PkgCompetences::competence.description') }}"
-                value="{{ $item ? $item->description : old('description') }}">
+                placeholder="{{ __('PkgCompetences::competence.description') }}">
+                {{ $itemCompetence ? $itemCompetence->description : old('description') }}
+            </textarea>
             @error('description')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
-        
+</div>
 
         
-        <div class="form-group">
+    <div class="form-group">
             <label for="module_id">
                 {{ ucfirst(__('PkgCompetences::module.singular')) }}
                 
                     <span class="text-danger">*</span>
                 
             </label>
-            <select id="module_id" name="module_id" class="form-control">
-                <option value="">Sélectionnez une option</option>
+            <select 
+            id="module_id" 
+            required
+            name="module_id" 
+            class="form-control">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($modules as $module)
+                    <option value="{{ $module->id }}"
+                        {{ (isset($itemCompetence) && $itemCompetence->module_id == $module->id) || (old('module_id>') == $module->id) ? 'selected' : '' }}>
+                        {{ $module }}
+                    </option>
+                @endforeach
             </select>
             @error('module_id')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
-        
+    </div>
 
-        
-        <div class="form-group">
+
+                <div class="form-group">
             <label for="technologies">
                 {{ ucfirst(__('PkgCompetences::Technology.plural')) }}
             </label>
@@ -94,10 +104,11 @@
                 name="technologies[]"
                 class="form-control select2"
                 multiple="multiple">
+               
                 @foreach ($technologies as $technology)
                     <option value="{{ $technology->id }}"
-                        {{ (isset($item) && $item->technologies && $item->technologies->contains('id', $technology->id)) || (is_array(old('technologies')) && in_array($technology->id, old('technologies'))) ? 'selected' : '' }}>
-                        {{ $technology->nom }}
+                        {{ (isset($itemCompetence) && $itemCompetence->technologies && $itemCompetence->technologies->contains('id', $technology->id)) || (is_array(old('technologies')) && in_array($technology->id, old('technologies'))) ? 'selected' : '' }}>
+                        {{ $technology }}
                     </option>
                 @endforeach
             </select>
@@ -106,27 +117,20 @@
             @enderror
 
         </div>
-        
 
 
+
+        <!--   NiveauCompetence_HasMany HasMany --> 
+
+
+        <!--   TransfertCompetence_HasMany HasMany --> 
 
     </div>
 
     <div class="card-footer">
-        <a href="{{ route('competences.index') }}" class="btn btn-default">{{ __('Core::msg.cancel') }}</a>
-        <button type="submit" class="btn btn-info ml-2">{{ $item->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
+        <a href="{{ route('competences.index') }}" class="btn btn-default form-cancel-button">{{ __('Core::msg.cancel') }}</a>
+        <button type="submit" class="btn btn-info ml-2">{{ $itemCompetence->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
 
-<script>
-    window.dynamicSelectManyToOne = [
-        
-        {
-            fieldId: 'module_id',
-            fetchUrl: "{{ route('modules.all') }}",
-            selectedValue: {{ $item->module_id ? $item->module_id : 'undefined' }},
-            fieldValue: 'nom'
-        }
-        
-    ];
-</script>
+

@@ -1,14 +1,13 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form action="{{ $item->id ? route('appreciations.update', $item->id) : route('appreciations.store') }}" method="POST">
+<form class="crud-form context-state" id="appreciationForm" action="{{ $itemAppreciation->id ? route('appreciations.update', $itemAppreciation->id) : route('appreciations.store') }}" method="POST" novalidate>
     @csrf
 
-    @if ($item->id)
+    @if ($itemAppreciation->id)
         @method('PUT')
     @endif
 
     <div class="card-body">
-        
         <div class="form-group">
             <label for="nom">
                 {{ ucfirst(__('PkgCompetences::appreciation.nom')) }}
@@ -20,130 +19,75 @@
                 name="nom"
                 type="input"
                 class="form-control"
+                required
                 id="nom"
                 placeholder="{{ __('PkgCompetences::appreciation.nom') }}"
-                value="{{ $item ? $item->nom : old('nom') }}">
+                value="{{ $itemAppreciation ? $itemAppreciation->nom : old('nom') }}">
             @error('nom')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
-        
+</div>
+
         <div class="form-group">
             <label for="description">
                 {{ ucfirst(__('PkgCompetences::appreciation.description')) }}
                 
             </label>
-            <input
+            <textarea rows="" cols=""
                 name="description"
-                type="input"
-                class="form-control"
+                class="form-control richText"
+                
                 id="description"
-                placeholder="{{ __('PkgCompetences::appreciation.description') }}"
-                value="{{ $item ? $item->description : old('description') }}">
+                placeholder="{{ __('PkgCompetences::appreciation.description') }}">
+                {{ $itemAppreciation ? $itemAppreciation->description : old('description') }}
+            </textarea>
             @error('description')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
-        
-        <div class="form-group">
-            <label for="noteMin">
-                {{ ucfirst(__('PkgCompetences::appreciation.noteMin')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
-                name="noteMin"
-                type="input"
-                class="form-control"
-                id="noteMin"
-                placeholder="{{ __('PkgCompetences::appreciation.noteMin') }}"
-                value="{{ $item ? $item->noteMin : old('noteMin') }}">
-            @error('noteMin')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-        </div>
-        
-        <div class="form-group">
-            <label for="noteMax">
-                {{ ucfirst(__('PkgCompetences::appreciation.noteMax')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
-                name="noteMax"
-                type="input"
-                class="form-control"
-                id="noteMax"
-                placeholder="{{ __('PkgCompetences::appreciation.noteMax') }}"
-                value="{{ $item ? $item->noteMax : old('noteMax') }}">
-            @error('noteMax')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-        </div>
-        
+</div>
+
+
+        <!--   noteMin Float --> 
+
+
+        <!--   noteMax Float --> 
 
         
-        <div class="form-group">
+    <div class="form-group">
             <label for="formateur_id">
                 {{ ucfirst(__('PkgUtilisateurs::formateur.singular')) }}
                 
                     <span class="text-danger">*</span>
                 
             </label>
-            <select id="formateur_id" name="formateur_id" class="form-control">
-                <option value="">Sélectionnez une option</option>
+            <select 
+            id="formateur_id" 
+            required
+            name="formateur_id" 
+            class="form-control">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($formateurs as $formateur)
+                    <option value="{{ $formateur->id }}"
+                        {{ (isset($itemAppreciation) && $itemAppreciation->formateur_id == $formateur->id) || (old('formateur_id>') == $formateur->id) ? 'selected' : '' }}>
+                        {{ $formateur }}
+                    </option>
+                @endforeach
             </select>
             @error('formateur_id')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
-        
-        <div class="form-group">
-            <label for="niveau_competence_id">
-                {{ ucfirst(__('PkgCompetences::niveauCompetence.singular')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <select id="niveau_competence_id" name="niveau_competence_id" class="form-control">
-                <option value="">Sélectionnez une option</option>
-            </select>
-            @error('niveau_competence_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-        </div>
-        
-
-        
+    </div>
 
 
+
+        <!--   TransfertCompetence_HasMany HasMany --> 
 
     </div>
 
     <div class="card-footer">
-        <a href="{{ route('appreciations.index') }}" class="btn btn-default">{{ __('Core::msg.cancel') }}</a>
-        <button type="submit" class="btn btn-info ml-2">{{ $item->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
+        <a href="{{ route('appreciations.index') }}" class="btn btn-default form-cancel-button">{{ __('Core::msg.cancel') }}</a>
+        <button type="submit" class="btn btn-info ml-2">{{ $itemAppreciation->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
 
-<script>
-    window.dynamicSelectManyToOne = [
-        
-        {
-            fieldId: 'formateur_id',
-            fetchUrl: "{{ route('formateurs.all') }}",
-            selectedValue: {{ $item->formateur_id ? $item->formateur_id : 'undefined' }},
-            fieldValue: 'nom'
-        },
-        
-        {
-            fieldId: 'niveau_competence_id',
-            fetchUrl: "{{ route('niveauCompetences.all') }}",
-            selectedValue: {{ $item->niveau_competence_id ? $item->niveau_competence_id : 'undefined' }},
-            fieldValue: 'nom'
-        }
-        
-    ];
-</script>
+

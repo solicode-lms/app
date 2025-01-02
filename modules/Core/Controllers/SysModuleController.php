@@ -7,103 +7,179 @@ namespace Modules\Core\Controllers;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Requests\SysModuleRequest;
 use Modules\Core\Services\SysModuleService;
+use Modules\Core\Services\SysColorService;
+
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\Core\App\Exports\SysModuleExport;
 use Modules\Core\App\Imports\SysModuleImport;
+use Modules\Core\Services\ContextState;
 
 class SysModuleController extends AdminController
 {
     protected $sysModuleService;
+    protected $sysColorService;
 
-    public function __construct(SysModuleService $sysModuleService)
+    public function __construct(SysModuleService $sysModuleService, SysColorService $sysColorService)
     {
         parent::__construct();
         $this->sysModuleService = $sysModuleService;
+        $this->sysColorService = $sysColorService;
+
     }
 
+
+    /**
+     * Affiche la liste des filières ou retourne le HTML pour une requête AJAX.
+     */
     public function index(Request $request)
     {
-        // Récupérer la valeur de recherche et paginer
-        $searchValue = $request->get('searchValue', '');
-        $searchQuery = str_replace(' ', '%', $searchValue);
-    
-        // Appel de la méthode paginate avec ou sans recherche
-        $data = $this->sysModuleService->paginate($searchQuery);
-    
-        // Gestion AJAX
+        $sysModule_searchQuery = str_replace(' ', '%', $request->get('q', ''));
+        $sysModules_data = $this->sysModuleService->paginate($sysModule_searchQuery);
+
         if ($request->ajax()) {
-            return response()->json([
-                'html' => view('Core::sysModule._table', compact('data'))->render()
-            ]);
+            return view('Core::sysModule._table', compact('sysModules_data'))->render();
         }
-    
-        // Vue principale pour le chargement initial
-        return view('Core::sysModule.index', compact('data'));
+
+        return view('Core::sysModule.index', compact('sysModules_data','sysModule_searchQuery'));
     }
 
+    /**
+     * Retourne le formulaire de création.
+     */
     public function create()
     {
-        $item = $this->sysModuleService->createInstance();
-        return view('Core::sysModule.create', compact('item'));
+        $itemSysModule = $this->sysModuleService->createInstance();
+        $sysColors = $this->sysColorService->all();
+
+
+        if (request()->ajax()) {
+            return view('Core::sysModule._fields', compact('itemSysModule', 'sysColors'));
+        }
+        return view('Core::sysModule.create', compact('itemSysModule', 'sysColors'));
     }
 
+    /**
+     * Stocke une nouvelle filière.
+     */
     public function store(SysModuleRequest $request)
     {
         $validatedData = $request->validated();
         $sysModule = $this->sysModuleService->create($validatedData);
 
 
-        return redirect()->route('sysModules.index')->with('success', __('Core::msg.addSuccess', [
-            'entityToString' => $sysModule,
-            'modelName' => __('Core::sysModule.singular')
-        ]));
+
+
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 
+             __('Core::msg.addSuccess', [
+                'entityToString' => $sysModule,
+                'modelName' => __('Core::sysModule.singular')])
+            ]);
+        }
+
+        return redirect()->route('sysModules.index')->with(
+            'success',
+            __('Core::msg.addSuccess', [
+                'entityToString' => $sysModule,
+                'modelName' => __('Core::sysModule.singular')
+            ])
+        );
     }
+
+    /**
+     * Affiche les détails d'une filière.
+     */
     public function show(string $id)
     {
-        $item = $this->sysModuleService->find($id);
-        return view('Core::sysmodule.show', compact('item'));
+        $itemSysModule = $this->sysModuleService->find($id);
+        $sysColors = $this->sysColorService->all();
+
+
+        if (request()->ajax()) {
+            return view('Core::sysModule._fields', compact('itemSysModule', 'sysColors'));
+        }
+
+        return view('Core::sysModule.show', compact('itemSysModule'));
     }
 
+    /**
+     * Retourne le formulaire d'édition d'une filière.
+     */
     public function edit(string $id)
     {
-        $item = $this->sysModuleService->find($id);
-        return view('Core::sysModule.edit', compact('item'));
+        $itemSysModule = $this->sysModuleService->find($id);
+        $sysColors = $this->sysColorService->all();
+
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('sysModule_id', $id);
+
+
+        if (request()->ajax()) {
+            return view('Core::sysModule._fields', compact('itemSysModule', 'sysColors'));
+        }
+
+        return view('Core::sysModule.edit', compact('itemSysModule', 'sysColors'));
     }
 
+    /**
+     * Met à jour une filière existante.
+     */
     public function update(SysModuleRequest $request, string $id)
     {
         $validatedData = $request->validated();
-        $sysmodule = $this->sysModuleService->update($id, $validatedData);
+        $sysModule = $this->sysModuleService->update($id, $validatedData);
 
 
+
+
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 
+            __('Core::msg.updateSuccess', [
+                'entityToString' => $sysModule,
+                'modelName' =>  __('Core::sysModule.singular')])
+            ]);
+        }
 
         return redirect()->route('sysModules.index')->with(
             'success',
             __('Core::msg.updateSuccess', [
-                'entityToString' => $sysmodule,
-                'modelName' =>  __('Core::sysmodule.singular')
+                'entityToString' => $sysModule,
+                'modelName' =>  __('Core::sysModule.singular')
                 ])
         );
     }
 
-    public function destroy(string $id)
+    /**
+     * Supprime une filière.
+     */
+    public function destroy(Request $request, string $id)
     {
-        $sysmodule = $this->sysModuleService->destroy($id);
+        $sysModule = $this->sysModuleService->destroy($id);
+
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 
+            __('Core::msg.deleteSuccess', [
+                'entityToString' => $sysModule,
+                'modelName' =>  __('Core::sysModule.singular')])
+            ]);
+        }
+
         return redirect()->route('sysModules.index')->with(
             'success',
             __('Core::msg.deleteSuccess', [
-                'entityToString' => $sysmodule,
-                'modelName' =>  __('Core::sysmodule.singular')
+                'entityToString' => $sysModule,
+                'modelName' =>  __('Core::sysModule.singular')
                 ])
         );
     }
 
     public function export()
     {
-        $data = $this->sysModuleService->all();
-        return Excel::download(new SysModuleExport($data), 'sysModule_export.xlsx');
+        $sysModules_data = $this->sysModuleService->all();
+        return Excel::download(new SysModuleExport($sysModules_data), 'sysModule_export.xlsx');
     }
+
     public function import(Request $request)
     {
         $request->validate([
@@ -118,7 +194,7 @@ class SysModuleController extends AdminController
 
         return redirect()->route('sysModules.index')->with(
             'success', __('Core::msg.importSuccess', [
-            'modelNames' =>  __('Core::sysmodule.plural')
+            'modelNames' =>  __('Core::sysModule.plural')
             ]));
 
 

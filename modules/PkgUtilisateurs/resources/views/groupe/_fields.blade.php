@@ -1,14 +1,13 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form action="{{ $item->id ? route('groupes.update', $item->id) : route('groupes.store') }}" method="POST">
+<form class="crud-form context-state" id="groupeForm" action="{{ $itemGroupe->id ? route('groupes.update', $itemGroupe->id) : route('groupes.store') }}" method="POST" novalidate>
     @csrf
 
-    @if ($item->id)
+    @if ($itemGroupe->id)
         @method('PUT')
     @endif
 
     <div class="card-body">
-        
         <div class="form-group">
             <label for="code">
                 {{ ucfirst(__('PkgUtilisateurs::groupe.code')) }}
@@ -20,14 +19,15 @@
                 name="code"
                 type="input"
                 class="form-control"
+                required
                 id="code"
                 placeholder="{{ __('PkgUtilisateurs::groupe.code') }}"
-                value="{{ $item ? $item->code : old('code') }}">
+                value="{{ $itemGroupe ? $itemGroupe->code : old('code') }}">
             @error('code')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
-        
+</div>
+
         <div class="form-group">
             <label for="nom">
                 {{ ucfirst(__('PkgUtilisateurs::groupe.nom')) }}
@@ -37,51 +37,59 @@
                 name="nom"
                 type="input"
                 class="form-control"
+                
                 id="nom"
                 placeholder="{{ __('PkgUtilisateurs::groupe.nom') }}"
-                value="{{ $item ? $item->nom : old('nom') }}">
+                value="{{ $itemGroupe ? $itemGroupe->nom : old('nom') }}">
             @error('nom')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
-        
+</div>
+
         <div class="form-group">
             <label for="description">
                 {{ ucfirst(__('PkgUtilisateurs::groupe.description')) }}
                 
             </label>
-            <input
+            <textarea rows="" cols=""
                 name="description"
-                type="input"
-                class="form-control"
+                class="form-control richText"
+                
                 id="description"
-                placeholder="{{ __('PkgUtilisateurs::groupe.description') }}"
-                value="{{ $item ? $item->description : old('description') }}">
+                placeholder="{{ __('PkgUtilisateurs::groupe.description') }}">
+                {{ $itemGroupe ? $itemGroupe->description : old('description') }}
+            </textarea>
             @error('description')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
-        
+</div>
 
         
-        <div class="form-group">
+    <div class="form-group">
             <label for="filiere_id">
                 {{ ucfirst(__('PkgCompetences::filiere.singular')) }}
                 
-                    <span class="text-danger">*</span>
-                
             </label>
-            <select id="filiere_id" name="filiere_id" class="form-control">
-                <option value="">Sélectionnez une option</option>
+            <select 
+            id="filiere_id" 
+            
+            name="filiere_id" 
+            class="form-control">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($filieres as $filiere)
+                    <option value="{{ $filiere->id }}"
+                        {{ (isset($itemGroupe) && $itemGroupe->filiere_id == $filiere->id) || (old('filiere_id>') == $filiere->id) ? 'selected' : '' }}>
+                        {{ $filiere }}
+                    </option>
+                @endforeach
             </select>
             @error('filiere_id')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-        </div>
-        
+    </div>
 
-        
-        <div class="form-group">
+
+                <div class="form-group">
             <label for="formateurs">
                 {{ ucfirst(__('PkgUtilisateurs::Formateur.plural')) }}
             </label>
@@ -90,10 +98,11 @@
                 name="formateurs[]"
                 class="form-control select2"
                 multiple="multiple">
+               
                 @foreach ($formateurs as $formateur)
                     <option value="{{ $formateur->id }}"
-                        {{ (isset($item) && $item->formateurs && $item->formateurs->contains('id', $formateur->id)) || (is_array(old('formateurs')) && in_array($formateur->id, old('formateurs'))) ? 'selected' : '' }}>
-                        {{ $formateur->nom }}
+                        {{ (isset($itemGroupe) && $itemGroupe->formateurs && $itemGroupe->formateurs->contains('id', $formateur->id)) || (is_array(old('formateurs')) && in_array($formateur->id, old('formateurs'))) ? 'selected' : '' }}>
+                        {{ $formateur }}
                     </option>
                 @endforeach
             </select>
@@ -102,27 +111,17 @@
             @enderror
 
         </div>
-        
 
 
+
+        <!--   Apprenant_HasMany HasMany --> 
 
     </div>
 
     <div class="card-footer">
-        <a href="{{ route('groupes.index') }}" class="btn btn-default">{{ __('Core::msg.cancel') }}</a>
-        <button type="submit" class="btn btn-info ml-2">{{ $item->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
+        <a href="{{ route('groupes.index') }}" class="btn btn-default form-cancel-button">{{ __('Core::msg.cancel') }}</a>
+        <button type="submit" class="btn btn-info ml-2">{{ $itemGroupe->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
 
-<script>
-    window.dynamicSelectManyToOne = [
-        
-        {
-            fieldId: 'filiere_id',
-            fetchUrl: "{{ route('filieres.all') }}",
-            selectedValue: {{ $item->filiere_id ? $item->filiere_id : 'undefined' }},
-            fieldValue: 'code'
-        }
-        
-    ];
-</script>
+

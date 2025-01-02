@@ -21,7 +21,7 @@ use Modules\PkgUtilisateurs\Services\ApprenantKonosyService;
 
 class ApprenantKonosySeeder extends Seeder
 {
-    public static int $order = 33;
+    public static int $order = 14;
 
     public function run(): void
     {

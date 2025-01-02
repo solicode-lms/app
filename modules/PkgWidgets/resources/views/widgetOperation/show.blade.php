@@ -10,7 +10,7 @@
                     <h1>{{ __('Core::msg.detail') }}</h1>
                 </div>
                 <div class="col-sm-6">
-                    <a href="{{ route('widgetOperations.edit', $item->id) }}" class="btn btn-default float-right">
+                    <a href="{{ route('widgetOperations.edit', $itemWidgetOperation->id) }}" class="btn btn-default float-right">
                         <i class="far fa-edit"></i>
                         {{ __('Core::msg.edit') }}
                     </a>
@@ -26,11 +26,11 @@
                         <div class="card-body">
                             <div class="col-sm-12">
                                 <label for="operation">{{ ucfirst(__('PkgWidgets::widgetOperation.operation')) }}:</label>
-                                <p>{{ $item->operation }}</p>
+                                <p>{{ $itemWidgetOperation->operation }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="description">{{ ucfirst(__('PkgWidgets::widgetOperation.description')) }}:</label>
-                                <p>{{ $item->description }}</p>
+                                <p>{{ $itemWidgetOperation->description }}</p>
                             </div>
                         </div>
                     </div>
