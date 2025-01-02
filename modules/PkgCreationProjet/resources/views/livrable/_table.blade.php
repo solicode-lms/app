@@ -5,8 +5,8 @@
         <thead>
             <tr>
                 <th>{{ ucfirst(__('PkgCreationProjet::livrable.titre')) }}</th>
-                <th>{{ ucfirst(__('PkgCreationProjet::projet.singular')) }}</th>
                 <th>{{ ucfirst(__('PkgCreationProjet::natureLivrable.singular')) }}</th>
+                <th>{{ ucfirst(__('PkgCreationProjet::projet.singular')) }}</th>
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -14,8 +14,8 @@
             @foreach ($livrables_data as $livrable)
                 <tr>
                     <td>{{ $livrable->titre }}</td>
-                    <td>{{ $livrable->projet->titre ?? '-' }}</td>
                     <td>{{ $livrable->natureLivrable->nom ?? '-' }}</td>
+                    <td>{{ $livrable->projet->titre ?? '-' }}</td>
                     <td class="text-center">
                         @can('show-livrable')
                             <a href="{{ route('livrables.show', ['livrable' => $livrable->id]) }}" data-id="{{$livrable->id}}" class="btn btn-default btn-sm context-state showEntity">

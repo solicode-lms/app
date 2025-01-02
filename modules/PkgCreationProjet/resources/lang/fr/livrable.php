@@ -6,7 +6,7 @@ return [
     'singular' => 'Livrable',
     'plural' => 'Livrables',
     'titre' => 'titre',
-    'description' => 'description',
-    'projet_id' => 'projet_id',
     'nature_livrable_id' => 'nature_livrable_id',
+    'projet_id' => 'projet_id',
+    'description' => 'description',
 ];

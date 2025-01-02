@@ -47,9 +47,9 @@ class LivrableSeeder extends Seeder
             if (!$firstline) {
                 Livrable::create([
                     "titre" => $data[0] ,
-                    "description" => $data[1] ,
+                    "nature_livrable_id" => $data[1] ,
                     "projet_id" => $data[2] ,
-                    "nature_livrable_id" => $data[3] 
+                    "description" => $data[3] 
                 ]);
             }
             $firstline = false;

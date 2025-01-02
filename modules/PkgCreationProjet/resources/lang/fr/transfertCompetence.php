@@ -1,12 +1,11 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 return [
-    'singular' => 'TransfertCompetence',
-    'plural' => 'TransfertCompetences',
-    'description' => 'description',
-    'projet_id' => 'projet_id',
-    'competence_id' => 'competence_id',
-    'appreciation_id' => 'appreciation_id',
+    'singular' => 'Transfert de Compétence',
+    'plural' => 'Transferts de Compétences',
+    'description' => 'Description',
+    'projet_id' => 'ID du Projet',
+    'competence_id' => 'ID de la Compétence',
+    'appreciation_id' => 'ID de l\'Appréciation',
 ];

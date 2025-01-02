@@ -26,9 +26,9 @@ class LivrableExport implements FromCollection, WithHeadings, ShouldAutoSize, Wi
     {
         return [
             'titre',
-            'description',
-            'projet_id',
             'nature_livrable_id',
+            'projet_id',
+            'description',
         ];
     }
 
@@ -37,9 +37,9 @@ class LivrableExport implements FromCollection, WithHeadings, ShouldAutoSize, Wi
         return $this->data->map(function ($livrable) {
             return [
                 'titre' => $livrable->titre,
-                'description' => $livrable->description,
-                'projet_id' => $livrable->projet_id,
                 'nature_livrable_id' => $livrable->nature_livrable_id,
+                'projet_id' => $livrable->projet_id,
+                'description' => $livrable->description,
             ];
         });
     }

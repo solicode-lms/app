@@ -29,16 +29,16 @@
                                 <p>{{ $itemLivrable->titre }}</p>
                             </div>
                             <div class="col-sm-12">
-                                <label for="description">{{ ucfirst(__('PkgCreationProjet::livrable.description')) }}:</label>
-                                <p>{{ $itemLivrable->description }}</p>
+                                <label for="nature_livrable_id">{{ ucfirst(__('PkgCreationProjet::livrable.nature_livrable_id')) }}:</label>
+                                <p>{{ $itemLivrable->nature_livrable_id }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="projet_id">{{ ucfirst(__('PkgCreationProjet::livrable.projet_id')) }}:</label>
                                 <p>{{ $itemLivrable->projet_id }}</p>
                             </div>
                             <div class="col-sm-12">
-                                <label for="nature_livrable_id">{{ ucfirst(__('PkgCreationProjet::livrable.nature_livrable_id')) }}:</label>
-                                <p>{{ $itemLivrable->nature_livrable_id }}</p>
+                                <label for="description">{{ ucfirst(__('PkgCreationProjet::livrable.description')) }}:</label>
+                                <p>{{ $itemLivrable->description }}</p>
                             </div>
                         </div>
                     </div>
