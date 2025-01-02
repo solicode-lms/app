@@ -3,11 +3,11 @@
 
 
 return [
-    'singular' => 'Niveau Ciblé de Compétence',
-    'plural' => 'Niveaux Ciblés de Compétence',
-    'nom' => 'Nom',
-    'description' => 'Description',
-    'noteMin' => 'Note Minimale',
-    'noteMax' => 'Note Maximale',
-    'formateur_id' => 'ID du Formateur',
+    'singular' => 'Appreciation',
+    'plural' => 'Appreciations',
+    'nom' => 'nom',
+    'description' => 'description',
+    'noteMin' => 'noteMin',
+    'noteMax' => 'noteMax',
+    'formateur_id' => 'formateur_id',
 ];
