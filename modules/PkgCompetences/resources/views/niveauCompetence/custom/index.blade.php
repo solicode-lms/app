@@ -1,0 +1,1 @@
+@extends('PkgCompetences::niveauCompetence.index')
