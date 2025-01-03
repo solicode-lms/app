@@ -1,0 +1,47 @@
+{
+  "artificialDelayMilliseconds": 700,
+  "keepExistingTerminalsOpen": false,
+  "runOnStartup": false,
+  "terminals": [
+    {
+      "splitTerminals": [
+        {
+          "name": "vite",
+          "commands": ["npm run dev"],
+          "shouldRunCommands": false
+        }
+      ]
+      
+    },
+    {
+      "splitTerminals": [
+        {
+          "name": "server",
+          "commands": ["php artisan serve"],
+          "shouldRunCommands": false
+        }
+      ]
+      
+    },
+    {
+      "splitTerminals": [
+        {
+          "name": "gapp",
+          "commands": ["gapp make:all"],
+          "shouldRunCommands": false
+        }
+      ]
+      
+    },    
+    {
+      "splitTerminals": [
+        {
+          "name": "docs",
+          "commands": ["cd ../docs", "serve.ps1"],
+          "shouldRunCommands": false
+        }
+      ]
+      
+    }
+  ]
+}

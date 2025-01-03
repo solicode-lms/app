@@ -1,6 +1,9 @@
 {
 	"folders": [
 		{
+			"path": "./modules"
+		},
+		{
 			"path": "."
 		},
 		{
@@ -11,10 +14,8 @@
 		},
 		{
 			"path": "../../laravel-builders/gapp3"
-		},
-		{
-			"path": "./modules"
 		}
+		
 	],
 	"settings": {
 		"liveServer.settings.multiRootWorkspaceName": "app",
