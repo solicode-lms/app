@@ -25,13 +25,9 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    @section('crud_title')
                     <h1>
                         {{ curd_index_title('PkgUtilisateurs::ville') }}
                     </h1>
-                    @show
-                    
-                  
                 </div>
                 <div class="col-sm-6">
                     <div class="float-sm-right">
