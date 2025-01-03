@@ -1,5 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
+@section("form")
 <form class="crud-form context-state" id="villeForm" action="{{ $itemVille->id ? route('villes.update', $itemVille->id) : route('villes.store') }}" method="POST" novalidate>
     @csrf
 
@@ -35,5 +36,6 @@
         <button type="submit" class="btn btn-info ml-2">{{ $itemVille->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
+@show
 
 
