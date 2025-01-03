@@ -1,1 +1,1 @@
-@extends('PkgUtilisateurs::ville.table')
+@extends('PkgUtilisateurs::ville._table')
