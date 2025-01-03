@@ -1,7 +1,8 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
+@extends('PkgUtilisateurs::ville.base.index')
 
-@extends('layouts.admin')
-@section('title', curd_index_title('PkgUtilisateurs::ville'))
-@section('content')
-    @include('PkgUtilisateurs::ville._index')
+@section('title', "Maroc")
+
+@section('crud_title')
+   aaa
 @endsection
