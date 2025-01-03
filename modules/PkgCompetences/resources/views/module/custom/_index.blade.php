@@ -1,0 +1,1 @@
+@extends('PkgCompetences::module._index')

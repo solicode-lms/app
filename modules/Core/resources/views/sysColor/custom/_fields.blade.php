@@ -1,0 +1,1 @@
+@extends('Core::sysColor._fields')

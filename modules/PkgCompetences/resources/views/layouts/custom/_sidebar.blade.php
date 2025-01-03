@@ -1,0 +1,1 @@
+@extends('PkgCompetences::layouts._sidebar')

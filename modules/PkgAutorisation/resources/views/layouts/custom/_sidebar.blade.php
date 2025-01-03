@@ -1,0 +1,1 @@
+@extends('PkgAutorisation::layouts._sidebar')

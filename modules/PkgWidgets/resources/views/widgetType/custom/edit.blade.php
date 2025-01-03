@@ -1,0 +1,1 @@
+@extends('PkgWidgets::widgetType.edit')

@@ -1,0 +1,1 @@
+@extends('PkgUtilisateurs::specialite._index')

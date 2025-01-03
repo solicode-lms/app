@@ -1,0 +1,1 @@
+@extends('PkgUtilisateurs::formateur.table')

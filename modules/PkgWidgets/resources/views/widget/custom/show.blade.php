@@ -1,0 +1,1 @@
+@extends('PkgWidgets::widget.show')

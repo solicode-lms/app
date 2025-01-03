@@ -1,0 +1,1 @@
+@extends('PkgCreationProjet::transfertCompetence._fields')

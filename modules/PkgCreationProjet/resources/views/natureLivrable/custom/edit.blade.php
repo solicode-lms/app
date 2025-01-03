@@ -1,0 +1,1 @@
+@extends('PkgCreationProjet::natureLivrable.edit')
