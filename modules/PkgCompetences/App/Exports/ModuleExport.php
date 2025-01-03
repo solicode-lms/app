@@ -4,6 +4,6 @@ namespace Modules\PkgCompetences\App\Exports;
 
 use Modules\PkgCompetences\App\Exports\Base\BaseModuleExport;
 
-class ModuleExport extends BaseModuleExport 
+class ModuleExport extends BaseModuleExport {
   
 }
