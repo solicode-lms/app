@@ -41,37 +41,45 @@
     <!-- Section principale -->
     <section class="content">
         <div class="container-fluid">
-            <!-- Barre de recherche et filtres -->
-            <div class="row mb-3">
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label for="filter_region">Filtrer par région</label>
-                        <select class="form-control" id="filter_region">
-                            <option value="">Toutes les régions</option>
-                            <option value="region1">Région 1</option>
-                            <option value="region2">Région 2</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label for="filter_status">Filtrer par statut</label>
-                        <select class="form-control" id="filter_status">
-                            <option value="">Tous les statuts</option>
-                            <option value="active">Actif</option>
-                            <option value="inactive">Inactif</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-6 d-flex align-items-end">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Rechercher..." id="search_input">
-                        <div class="input-group-append">
-                            <button class="btn btn-primary" type="button"><i class="fas fa-search"></i> Rechercher</button>
-                        </div>
-                    </div>
-                </div>
+<!-- Barre de recherche et filtres -->
+<div class="row mb-4">
+    <!-- Filtrer par région -->
+    <div class="col-md-3">
+        <div class="form-group">
+            <label for="filter_region" class="font-weight-bold">Filtrer par région</label>
+            <select class="form-control custom-select" id="filter_region">
+                <option value="">Toutes les régions</option>
+                <option value="region1">Région 1</option>
+                <option value="region2">Région 2</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Filtrer par statut -->
+    <div class="col-md-3">
+        <div class="form-group">
+            <label for="filter_status" class="font-weight-bold">Filtrer par statut</label>
+            <select class="form-control custom-select" id="filter_status">
+                <option value="">Tous les statuts</option>
+                <option value="active">Actif</option>
+                <option value="inactive">Inactif</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Champ de recherche -->
+    <div class="col-md-6 d-flex align-items-end">
+        <div class="input-group">
+            <input type="text" class="form-control form-control-lg" placeholder="Rechercher..." id="search_input">
+            <div class="input-group-append">
+                <button class="btn btn-primary btn-lg" type="button">
+                    <i class="fas fa-search"></i> Rechercher
+                </button>
             </div>
+        </div>
+    </div>
+</div>
+
 
             <!-- Carte contenant les données -->
             <div class="row">
