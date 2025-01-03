@@ -1,1 +1,1 @@
-@extends('PkgUtilisateurs::ville.menu')
+@extends('PkgUtilisateurs::layouts._sidebar')

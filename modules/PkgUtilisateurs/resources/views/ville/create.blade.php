@@ -2,7 +2,7 @@
 
 @extends('layouts.admin')
 @section('title', curd_index_add_label('PkgUtilisateurs::ville'))
- 
+
 @section('content')
     <div class="content-header">
     </div>
@@ -17,7 +17,8 @@
                                 {{ curd_index_add_label('PkgUtilisateurs::ville') }}
                             </h3>
                         </div>
-                        
+                        <!-- Obtenir le formulaire -->
+                        @include('PkgUtilisateurs::ville._fields')
                     </div>
                 </div>
             </div>
