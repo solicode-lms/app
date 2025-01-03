@@ -28,23 +28,32 @@
             @enderror
 </div>
 
-        <div class="form-group">
-            <label for="description">
-                {{ ucfirst(__('PkgCreationProjet::livrable.description')) }}
+        
+    <div class="form-group">
+            <label for="nature_livrable_id">
+                {{ ucfirst(__('PkgCreationProjet::natureLivrable.singular')) }}
+                
+                    <span class="text-danger">*</span>
                 
             </label>
-            <textarea rows="" cols=""
-                name="description"
-                class="form-control richText"
-                
-                id="description"
-                placeholder="{{ __('PkgCreationProjet::livrable.description') }}">
-                {{ $itemLivrable ? $itemLivrable->description : old('description') }}
-            </textarea>
-            @error('description')
+            <select 
+            id="nature_livrable_id" 
+            required
+            name="nature_livrable_id" 
+            class="form-control">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($natureLivrables as $natureLivrable)
+                    <option value="{{ $natureLivrable->id }}"
+                        {{ (isset($itemLivrable) && $itemLivrable->nature_livrable_id == $natureLivrable->id) || (old('nature_livrable_id>') == $natureLivrable->id) ? 'selected' : '' }}>
+                        {{ $natureLivrable }}
+                    </option>
+                @endforeach
+            </select>
+            @error('nature_livrable_id')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-</div>
+    </div>
+
 
         
     <div class="form-group">
@@ -73,32 +82,23 @@
     </div>
 
 
-        
-    <div class="form-group">
-            <label for="nature_livrable_id">
-                {{ ucfirst(__('PkgCreationProjet::natureLivrable.singular')) }}
-                
-                    <span class="text-danger">*</span>
+        <div class="form-group">
+            <label for="description">
+                {{ ucfirst(__('PkgCreationProjet::livrable.description')) }}
                 
             </label>
-            <select 
-            id="nature_livrable_id" 
-            required
-            name="nature_livrable_id" 
-            class="form-control">
-             <option value="">Sélectionnez une option</option>
-                @foreach ($natureLivrables as $natureLivrable)
-                    <option value="{{ $natureLivrable->id }}"
-                        {{ (isset($itemLivrable) && $itemLivrable->nature_livrable_id == $natureLivrable->id) || (old('nature_livrable_id>') == $natureLivrable->id) ? 'selected' : '' }}>
-                        {{ $natureLivrable }}
-                    </option>
-                @endforeach
-            </select>
-            @error('nature_livrable_id')
+            <textarea rows="" cols=""
+                name="description"
+                class="form-control richText"
+                
+                id="description"
+                placeholder="{{ __('PkgCreationProjet::livrable.description') }}">
+                {{ $itemLivrable ? $itemLivrable->description : old('description') }}
+            </textarea>
+            @error('description')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-    </div>
-
+</div>
 
     </div>
 

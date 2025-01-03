@@ -32,13 +32,11 @@
             <label for="description">
                 {{ ucfirst(__('PkgCompetences::niveauCompetence.description')) }}
                 
-                    <span class="text-danger">*</span>
-                
             </label>
             <textarea rows="" cols=""
                 name="description"
                 class="form-control richText"
-                required
+                
                 id="description"
                 placeholder="{{ __('PkgCompetences::niveauCompetence.description') }}">
                 {{ $itemNiveauCompetence ? $itemNiveauCompetence->description : old('description') }}
