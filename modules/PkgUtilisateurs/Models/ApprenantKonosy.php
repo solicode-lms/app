@@ -3,23 +3,9 @@
 
 
 namespace Modules\PkgUtilisateurs\Models;
+use Modules\PkgUtilisateurs\Models\Base\BaseApprenantKonosy;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use App\Traits\HasDynamicContext;
-
-class ApprenantKonosy extends Model
+class ApprenantKonosy extends BaseApprenantKonosy
 {
-    use HasFactory, HasDynamicContext;
 
-    protected $fillable = ['MatriculeEtudiant', 'Nom', 'Prenom', 'Sexe', 'EtudiantActif', 'Diplome', 'Principale', 'LibelleLong', 'CodeDiplome', 'DateNaissance', 'DateInscription', 'LieuNaissance', 'CIN', 'NTelephone', 'Adresse', 'Nationalite', 'Nom_Arabe', 'Prenom_Arabe', 'NiveauScolaire'];
-
-
-
-
-
-    public function __toString()
-    {
-        return $this->Nom;
-    }
 }

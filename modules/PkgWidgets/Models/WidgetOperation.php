@@ -3,28 +3,9 @@
 
 
 namespace Modules\PkgWidgets\Models;
+use Modules\PkgWidgets\Models\Base\BaseWidgetOperation;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use App\Traits\HasDynamicContext;
-use Modules\PkgWidgets\Models\Widget;
-
-class WidgetOperation extends Model
+class WidgetOperation extends BaseWidgetOperation
 {
-    use HasFactory, HasDynamicContext;
 
-    protected $fillable = ['operation', 'description'];
-
-
-
-
-    public function widgets()
-    {
-        return $this->hasMany(Widget::class, 'widgetOperation_id', 'id');
-    }
-
-    public function __toString()
-    {
-        return $this->operation;
-    }
 }

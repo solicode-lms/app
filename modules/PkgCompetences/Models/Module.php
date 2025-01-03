@@ -3,33 +3,9 @@
 
 
 namespace Modules\PkgCompetences\Models;
+use Modules\PkgCompetences\Models\Base\BaseModule;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use App\Traits\HasDynamicContext;
-use Modules\PkgCompetences\Models\Competence;
-use Modules\PkgCompetences\Models\Filiere;
-
-class Module extends Model
+class Module extends BaseModule
 {
-    use HasFactory, HasDynamicContext;
 
-    protected $fillable = ['nom', 'description', 'masse_horaire', 'filiere_id'];
-
-    public function filiere()
-    {
-        return $this->belongsTo(Filiere::class, 'filiere_id', 'id');
-    }
-
-
-
-    public function competences()
-    {
-        return $this->hasMany(Competence::class, 'module_id', 'id');
-    }
-
-    public function __toString()
-    {
-        return $this->nom;
-    }
 }

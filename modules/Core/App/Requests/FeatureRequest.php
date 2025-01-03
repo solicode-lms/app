@@ -4,34 +4,9 @@
 
 
 namespace Modules\Core\App\Requests;
+use Modules\Core\App\Requests\Base\BaseFeatureRequest;
 
-use Illuminate\Foundation\Http\FormRequest;
-
-class FeatureRequest extends FormRequest
+class FeatureRequest extends BaseFeatureRequest
 {
-    public function authorize(): bool
-    {
-        return true;
-    }
-
-    public function rules(): array
-    {
-        return [
-            'name' => 'required|max:255',
-            'description' => 'nullable',
-            'domain_id' => 'required'
-        ];
-    }
-
-    public function messages(): array
-    {
-        return [
-            'name.required' => __('validation.required', ['attribute' => __('Core::Feature.name')]),
-            'name.max' => __('validation.nameMax'),
-            'description.required' => __('validation.required', ['attribute' => __('Core::Feature.description')]),
-            'description.max' => __('validation.descriptionMax'),
-            'domain_id.required' => __('validation.required', ['attribute' => __('Core::Feature.domain_id')]),
-            'domain_id.max' => __('validation.domain_idMax')
-        ];
-    }
+    
 }

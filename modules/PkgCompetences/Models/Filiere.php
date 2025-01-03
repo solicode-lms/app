@@ -3,33 +3,9 @@
 
 
 namespace Modules\PkgCompetences\Models;
+use Modules\PkgCompetences\Models\Base\BaseFiliere;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use App\Traits\HasDynamicContext;
-use Modules\PkgCompetences\Models\Module;
-use Modules\PkgUtilisateurs\Models\Groupe;
-
-class Filiere extends Model
+class Filiere extends BaseFiliere
 {
-    use HasFactory, HasDynamicContext;
 
-    protected $fillable = ['code', 'nom', 'description'];
-
-
-
-
-    public function groupes()
-    {
-        return $this->hasMany(Groupe::class, 'filiere_id', 'id');
-    }
-    public function modules()
-    {
-        return $this->hasMany(Module::class, 'filiere_id', 'id');
-    }
-
-    public function __toString()
-    {
-        return $this->code;
-    }
 }

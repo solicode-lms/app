@@ -3,23 +3,9 @@
 
 
 namespace Modules\PkgUtilisateurs\Models;
+use Modules\PkgUtilisateurs\Models\Base\BaseVille;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use App\Traits\HasDynamicContext;
-
-class Ville extends Model
+class Ville extends BaseVille
 {
-    use HasFactory, HasDynamicContext;
 
-    protected $fillable = ['nom'];
-
-
-
-
-
-    public function __toString()
-    {
-        return $this->nom;
-    }
 }
