@@ -1,34 +1,9 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
-
-
 
 namespace Modules\PkgAutorisation\App\Requests;
+use Modules\PkgAutorisation\App\Requests\Base\BaseRoleRequest;
 
-use Illuminate\Foundation\Http\FormRequest;
-
-class RoleRequest extends FormRequest
+class RoleRequest extends BaseRoleRequest
 {
-    public function authorize(): bool
-    {
-        return true;
-    }
-
-    public function rules(): array
-    {
-        return [
-            'name' => 'required|max:255',
-            'guard_name' => 'required|max:255'
-        ];
-    }
-
-    public function messages(): array
-    {
-        return [
-            'name.required' => __('validation.required', ['attribute' => __('PkgAutorisation::Role.name')]),
-            'name.max' => __('validation.nameMax'),
-            'guard_name.required' => __('validation.required', ['attribute' => __('PkgAutorisation::Role.guard_name')]),
-            'guard_name.max' => __('validation.guard_nameMax')
-        ];
-    }
+    
 }

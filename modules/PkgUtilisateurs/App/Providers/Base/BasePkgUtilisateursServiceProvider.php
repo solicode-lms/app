@@ -29,20 +29,20 @@ class BasePkgUtilisateursServiceProvider extends ServiceProvider
     public function boot()
     {
         // Charger les migrations
-        $this->loadMigrationsFrom(__DIR__ . '/../../Database/Migrations');
+        $this->loadMigrationsFrom(__DIR__ . '/../../../Database/Migrations');
 
         // Charger les fichiers de routes du module
-        $routeFiles = File::allFiles(__DIR__ . '/../../Routes');
+        $routeFiles = File::allFiles(__DIR__ . '/../../../Routes');
         foreach ($routeFiles as $routeFile) {
             $this->loadRouteFile($routeFile);
         }
 
         // Charger les vues du module
-        $this->loadViewsFrom(__DIR__ . '/../../resources/views', 'PkgUtilisateurs');
+        $this->loadViewsFrom(__DIR__ . '/../../../resources/views', 'PkgUtilisateurs');
 
         // Charger les fichiers de traduction
         $this->loadTranslationsFrom(
-            __DIR__ . '/../../resources/lang',
+            __DIR__ . '/../../../resources/lang',
             'PkgUtilisateurs'
         );
     }
