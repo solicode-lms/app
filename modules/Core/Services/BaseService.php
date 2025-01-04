@@ -326,7 +326,7 @@ public function getStatsByRelation($relationModel,$nestedRelation, $attribute ):
     $stats = [
         [
             'icon' => 'fas fa-box',
-            'label' => 'Total des compétences',
+            'label' => 'Total',
             'value' => $total,
         ],
     ];
