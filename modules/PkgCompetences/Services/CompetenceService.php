@@ -10,5 +10,7 @@ use Modules\PkgCompetences\Services\Base\BaseCompetenceService;
  */
 class CompetenceService extends BaseCompetenceService
 {
-   
+
+
+
 }

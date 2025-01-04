@@ -19,8 +19,8 @@ return new class extends Migration {
 
             $table->timestamps();
            
-            $table->foreignId('technology_id')->constrained('technologies');
             $table->foreignId('competence_id')->constrained('competences');
+            $table->foreignId('technology_id')->constrained('technologies');
 
         });
     }

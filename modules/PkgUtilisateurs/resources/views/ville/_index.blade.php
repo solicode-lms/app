@@ -1,3 +1,5 @@
+{{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
+
 @push('scripts')
 <script>
     window.entitiesConfig = window.entitiesConfig || [];
@@ -8,7 +10,6 @@
         tableSelector: '#ville-data-container',
         formSelector: '#villeForm',
         modalSelector : '#villeModal',
-        crudSelector: '#ville-crud',
         indexUrl: '{{ route('villes.index') }}', 
         createUrl: '{{ route('villes.create') }}',
         editUrl: '{{ route('villes.edit',  ['ville' => ':id']) }}',
@@ -21,6 +22,7 @@
     });
 </script>
 @endpush
+
 
 <div id="ville-crud" class="crud">
     @section('crud-header')

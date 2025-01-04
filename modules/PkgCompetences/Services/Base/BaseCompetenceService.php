@@ -60,4 +60,42 @@ class BaseCompetenceService extends BaseService
 
         return $competence;
     }
+
+    
+/**
+ * Obtenir les statistiques des compétences par filière, incluant le total.
+ *
+ * @return array
+ */
+public function getCompetenceStats(): array
+{
+    // Récupérer toutes les filières avec leurs modules et compétences
+    $filieres = \Modules\PkgCompetences\Models\Filiere::with('modules.competences')->get();
+
+    // Initialiser les statistiques avec le total global
+    $stats = [
+        [
+            'icon' => 'fas fa-box',
+            'label' => 'Total des compétences',
+            'value' => \Modules\PkgCompetences\Models\Competence::count(),
+        ],
+    ];
+
+    // Parcourir chaque filière pour calculer les compétences par filière
+    foreach ($filieres as $filiere) {
+        $competencesCount = $filiere->modules->sum(function ($module) {
+            return $module->competences->count();
+        });
+
+        $stats[] = [
+            'icon' => 'fas fa-chart-pie',
+            'label' => $filiere->code,
+            'value' => $competencesCount,
+        ];
+    }
+
+    return $stats;
+}
+
+
 }

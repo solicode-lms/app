@@ -39,6 +39,7 @@ export class FormManager {
     addContextStateToForm() {
         const contextState = this.config.contextState;
         const prefix = this.contextManager.prefix;
+        if(contextState === undefined) return; 
         document.querySelectorAll(`${this.formSelector}`).forEach(form => {
             Object.entries(contextState).forEach(([key, value]) => {
                 let input = form.querySelector(`input[name="${prefix}${key}"]`);

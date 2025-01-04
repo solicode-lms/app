@@ -227,4 +227,81 @@ abstract class BaseService implements ServiceInterface
     
         return $item;
     }
+
+    /**
+     * Calcule des statistiques génériques sur une entité.
+     *
+     * @param array $conditions Conditions optionnelles pour chaque statistique.
+     * [
+     *   'total' => null, // Pas de condition, retourne le nombre total
+     *   'in_stock' => ['status' => 'in-stock'], // Condition pour "En stock"
+     *   'out_of_stock' => ['status' => 'out-of-stock'] // Condition pour "Hors stock"
+     * ]
+     * @return array Statistiques calculées
+     */
+    public function calculateStats(array $conditions = []): array
+    {
+        $stats = [];
+
+        foreach ($conditions as $key => $condition) {
+            if (is_null($condition)) {
+                // Compte total sans condition
+                $stats[$key] = $this->model->count();
+            } else {
+                // Compte basé sur une condition
+                $stats[$key] = $this->model->where($condition)->count();
+            }
+        }
+
+        return $stats;
+    }
+
+
+
+    /**
+ * Calcule les statistiques des entités associées par une relation imbriquée.
+ *
+ * @param string $relation Relation imbriquée (ex. : 'modules.competences').
+ * @param string $countLabel Champ utilisé comme label (ex. : 'code', 'nom').
+ * @return array Statistiques des entités liées.
+ */
+/**
+ * Calcule les statistiques pour une relation parent-enfant.
+ *
+ * @param string $model Nom complet du modèle (ex. : \App\Models\Filiere::class).
+ * @param string $relation Nom de la relation à compter (ex. : 'competences').
+ * @param string $icon Icône associée à chaque statistique.
+ * @return array Statistiques des entités liées.
+ */
+public function calculateStatsByRelation(string $model, string $relation, string $icon): array
+{
+
+    $entities = $model::with($relation)->get();
+
+    return $entities->map(function ($entity) use ($relation, $icon) {
+        return [
+            'label' => $entity->code, // Supposant que chaque entité a un champ 'nom'
+            'value' => $entity->{$relation . '_count'},
+            'icon' => $icon,
+        ];
+    })->toArray();
+}
+
+/**
+ * Obtenir le total global des compétences.
+ *
+ * @return array
+ */
+public function getTotalCompetences(): array
+{
+    return [
+        [
+            'icon' => 'fas fa-box',
+            'label' => 'Total',
+            'value' => $this->model::count(),
+        ],
+    ];
+}
+
+
 }

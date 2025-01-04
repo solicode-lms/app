@@ -1,4 +1,6 @@
-<div class="card-body  table-responsive p-0 crud-card-body" id="ville-crud-card-body">
+{{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
+
+<div class="card-body table-responsive p-0 crud-card-body" id="villes-crud-card-body">
     <table class="table table-striped text-nowrap">
         <thead>
             <tr>
@@ -9,7 +11,7 @@
         <tbody>
             @foreach ($villes_data as $ville)
                 <tr>
-                    <td >{{ $ville->nom }}</td>
+                    <td>{{ $ville->nom }}</td>
                     <td class="text-right">
                         @can('show-ville')
                             <a href="{{ route('villes.show', ['ville' => $ville->id]) }}" data-id="{{$ville->id}}" class="btn btn-default btn-sm context-state showEntity">

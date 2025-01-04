@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\ServiceProvider;
 
@@ -25,6 +26,12 @@ class AppServiceProvider extends ServiceProvider
         // dd("AppServiceProvider");
         // Configuration de la pagination pour utiliser le style Bootstrap.
         Paginator::useBootstrap();
+
+        //  Directive Blade Personnalisée
+        Blade::directive('limit', function ($expression) {
+            // Crée une directive : @limit($string, $length)
+            return "<?php echo \Illuminate\Support\Str::limit($expression); ?>";
+        });
     }
 
     /**

@@ -1,6 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<div class="card-body table-responsive p-0 crud-table" id="projetsTable">
+<div class="card-body table-responsive p-0 crud-card-body" id="ville-crud-card-body">
     <table class="table table-striped text-nowrap">
         <thead>
             <tr>

@@ -1,24 +1,22 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<div class="card-body table-responsive p-0 crud-table" id="competencesTable">
+<div class="card-body table-responsive p-0 crud-card-body" id="competences-crud-card-body">
     <table class="table table-striped text-nowrap">
         <thead>
             <tr>
-                <th>{{ ucfirst(__('PkgCompetences::competence.code')) }}</th>
-                <th>{{ ucfirst(__('PkgCompetences::competence.nom')) }}</th>
-                <th>{{ ucfirst(__('PkgCompetences::competence.description')) }}</th>
-                <th>{{ ucfirst(__('PkgCompetences::module.singular')) }}</th>
+                <th class="sortable">{{ ucfirst(__('PkgCompetences::competence.code')) }}</th>
+                <th class="sortable">{{ ucfirst(__('PkgCompetences::competence.nom')) }}</th>
+                <th class="sortable">{{ ucfirst(__('PkgCompetences::module.singular')) }}</th>
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($competences_data as $competence)
                 <tr>
-                    <td>{{ $competence->code }}</td>
-                    <td>{{ $competence->nom }}</td>
-                    <td>{!! $competence->description !!}</td>
-                    <td>{{ $competence->module->nom ?? '-' }}</td>
-                    <td class="text-center">
+                    <td>@limit($competence->code, 80)</td>
+                    <td>@limit($competence->nom, 80)</td>
+                    <td>@limit($competence->module->nom ?? '-', 80)</td>
+                    <td class="text-right">
                         @can('show-competence')
                             <a href="{{ route('competences.show', ['competence' => $competence->id]) }}" data-id="{{$competence->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
@@ -45,39 +43,10 @@
     </table>
 </div>
 
-
 <div class="card-footer">
-
-    <div class="d-md-flex justify-content-between align-items-center p-2">
-        <div class="d-flex align-items-center mb-2 ml-2 mt-2">
-            @can('import-competence')
-                <form action="{{ route('competences.import') }}" method="post" class="mt-2" enctype="multipart/form-data"
-                    id="importForm">
-                    @csrf
-                    <label for="upload" class="btn btn-default btn-sm font-weight-normal">
-                        <i class="fas fa-file-download"></i>
-                        {{ __('Core::msg.import') }}
-                    </label>
-                    <input type="file" id="upload" name="file" style="display:none;" onchange="submitForm()" />
-                </form>
-            @endcan
-            @can('export-competence')
-                <form class="">
-                    <a href="{{ route('competences.export') }}" class="btn btn-default btn-sm mt-0 mx-2">
-                        <i class="fas fa-file-export"></i>
-                        {{ __('Core::msg.export') }}</a>
-                </form>
-            @endcan
-        </div>
-
-        <ul class="pagination m-0 float-right">
-            {{ $competences_data->onEachSide(1)->links() }}
-        </ul>
-    </div>
-
-    <script>
-        function submitForm() {
-            document.getElementById("importForm").submit();
-        }
-    </script>
+    @section('crud-pagination')
+    <ul class="pagination m-0 d-flex justify-content-center">
+        {{ $competences_data->onEachSide(1)->links() }}
+    </ul>
+    @show
 </div>
