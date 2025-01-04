@@ -13,6 +13,9 @@
 			"path": "../../laravel-builders/gapp3"
 		},
 		{
+			"path": "./resources/views/components"
+		},
+		{
 			"path": "./modules"
 		}
 	],

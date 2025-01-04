@@ -1,20 +1,11 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
     <title>@yield('title')</title>
-
-    <!-- Scripts -->
     @vite(['resources/css/admin.css', 'resources/js/admin.js'])
- 
-
-
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -28,7 +19,6 @@
                             class="fas fa-bars"></i></a>
                 </li>
             </ul>
-
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown user-menu">
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
@@ -46,13 +36,10 @@
                             <img src="{{ asset('images/man.png') }}" class="user-image img-circle elevation-2"
                                 alt="User Image">
                             <p>
-                           
                             @if (Auth::check() && Auth::user()->nom)
                             {{ Auth::user()->name }}
                             <small>Member since {{ Auth::user()->created_at->format('M. Y') }}</small>
                             @endif
-                            
-
                             </p>
                         </li>
                         <!-- Menu Footer-->
@@ -89,7 +76,6 @@
         </footer>
     </div>
 
- 
     <script>
         window.notifications = window.notifications || [];
         @if (session('success'))
@@ -112,6 +98,6 @@
         });   
         @endif
     </script>
-    @yield('script')
+    @stack('scripts')
 </body>
 </html>

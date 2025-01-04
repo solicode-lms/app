@@ -1,143 +1,143 @@
-
-@section('script')
-@parent
+@push('scripts')
 <script>
     window.entitiesConfig = window.entitiesConfig || [];
     window.entitiesConfig.push({
         edit_has_many: false,
         entity_name: 'ville',
-        crudSelector: '#ville_crud',
-        indexUrl: '{{ route('villes.index') }}',
+        crudSelector: '#ville-crud',
+        tableSelector: '#ville-data-container',
+        formSelector: '#villeForm',
+        modalSelector : '#villeModal',
+        crudSelector: '#ville-crud',
+        indexUrl: '{{ route('villes.index') }}', 
         createUrl: '{{ route('villes.create') }}',
         editUrl: '{{ route('villes.edit',  ['ville' => ':id']) }}',
         showUrl: '{{ route('villes.show',  ['ville' => ':id']) }}',
-        storeUrl: '{{ route('villes.store') }}',
-        deleteUrl: '{{ route('villes.destroy',  ['ville' => ':id']) }}',
-        csrfToken: '{{ csrf_token() }}',
+        storeUrl: '{{ route('villes.store') }}', 
+        deleteUrl: '{{ route('villes.destroy',  ['ville' => ':id']) }}', 
+        csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgUtilisateurs::ville.singular") }}',
         edit_title: '{{__("Core::msg.add") . " : " . __("PkgUtilisateurs::ville.singular") }}',
     });
 </script>
-@endsection
+@endpush
 
-<div id="ville_crud">
-    <!-- En-tête -->
-    <div class="content-header">
+<div id="ville-crud" class="crud">
+    @section('crud-header')
+    <x-crud-header 
+        id="ville-crud-header" icon="fas fa-city"  
+        iconColor="text-info"
+        title="{{ __('PkgUtilisateurs::ville.plural') }}"
+        :breadcrumbs="[
+            ['label' => 'Gestion Utilisateurs', 'url' => '#'],
+            ['label' => 'Villes']
+        ]"
+    />
+    @show
+    @section('crud-table')
+    <section id="ville-crud-table" class="content crud-table">
         <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">{{ curd_index_title('PkgUtilisateurs::ville') }}</h1>
-                </div>
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Accueil</a></li>
-                        <li class="breadcrumb-item active">Villes</li>
-                    </ol>
-                </div>
-            </div>
-        </div>
-    </div>
+                    <div class="card card-outline card-info " id="card_crud">
 
-    <!-- Section principale -->
-    <section class="content">
-        <div class="container-fluid">
-<!-- Barre de recherche et filtres -->
-<div class="row mb-4">
-    <!-- Filtrer par région -->
-    <div class="col-md-3">
-        <div class="form-group">
-            <label for="filter_region" class="font-weight-bold">Filtrer par région</label>
-            <select class="form-control custom-select" id="filter_region">
-                <option value="">Toutes les régions</option>
-                <option value="region1">Région 1</option>
-                <option value="region2">Région 2</option>
-            </select>
-        </div>
-    </div>
-
-    <!-- Filtrer par statut -->
-    <div class="col-md-3">
-        <div class="form-group">
-            <label for="filter_status" class="font-weight-bold">Filtrer par statut</label>
-            <select class="form-control custom-select" id="filter_status">
-                <option value="">Tous les statuts</option>
-                <option value="active">Actif</option>
-                <option value="inactive">Inactif</option>
-            </select>
-        </div>
-    </div>
-
-    <!-- Champ de recherche -->
-    <div class="col-md-6 d-flex align-items-end">
-        <div class="input-group">
-            <input type="text" class="form-control form-control-lg" placeholder="Rechercher..." id="search_input">
-            <div class="input-group-append">
-                <button class="btn btn-primary btn-lg" type="button">
-                    <i class="fas fa-search"></i> Rechercher
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
+                        <div class="card-header row">
+                            @section('crud-stats-bar')
+                            <!-- Statistiques et Actions -->
+                            <div class="col-sm-9">
+                                <x-crud-stats-summary
+                                    icon="fas fa-chart-bar text-info"
+                                    :stats="[
+                                        ['icon' => 'fas fa-box', 'label' => 'Total', 'value' => 120],
+                                        ['icon' => 'fas fa-check', 'label' => 'En stock', 'value' => 80],
+                                        ['icon' => 'fas fa-times', 'label' => 'Hors stock', 'value' => 20]
+                                    ]"
+                                />
+                            </div>
+                                <div class="col-sm-3">
+                                    <x-crud-actions
+                                        :createPermission="'create-ville'"
+                                        :createRoute="route('villes.create')"
+                                        :createText="__('Ajouter une ville')"
+                                        :importPermission="'import-ville'"
+                                        :importRoute="route('villes.import')"
+                                        :importText="__('Importer')"
+                                        :exportPermission="'export-ville'"
+                                        :exportRoute="route('villes.export')"
+                                        :exportText="__('Exporter')"
+                                    />
+                                </div>
+                            @show
+                        </div>
 
 
-            <!-- Carte contenant les données -->
-            <div class="row">
-                <div class="col-12">
-                    <div class="card">
+
                         <div class="card-header">
-                            <h3 class="card-title">Liste des villes</h3>
-                            <div class="card-tools">
-                                @can('create-ville')
-                                <a href="{{ route('villes.create') }}" class="btn btn-success btn-sm">
-                                    <i class="fas fa-plus"></i> Ajouter
-                                </a>
-                                @endcan
+                            <div class="row">
+                                @section('crud-filters')
+                                <div id="ville-crud-filters" class="col-md-10 d-flex align-items-center">
+                                    <h5 class="mr-3"><i class="fas fa-filter text-info"></i></h5>
+                                    <div class="row w-100">
+                                        <div class="col-md-3">
+                                            <select class="form-control form-control-sm" id="stockFilter">
+                                                <option value="">Stock</option>
+                                                <option value="in-stock">En stock</option>
+                                                <option value="out-of-stock">Hors stock</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input type="number" class="form-control form-control-sm" id="minPrice" placeholder="Prix min">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input type="number" class="form-control form-control-sm" id="maxPrice" placeholder="Prix max">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input type="text" class="form-control form-control-sm" id="otherFilter" placeholder="Autre filtre">
+                                        </div>
+                                    </div>
+                                </div>
+                                @show
+                                @section('crud-search-bar')
+                                @php
+                                    $filters = 3
+                                @endphp
+                                <div id="ville-crud-search-bar"
+                                    class="{{ isset($filters) && $filters ? 'col-md-2' : 'col-md-6 mx-auto' }} text-md-right text-left">
+                                    <x-search-bar
+                                        :searchQuery="$ville_searchQuery"
+                                        name="ville-crud-search-input"
+                                        id="ville-crud-search-input"
+                                        placeholder="Recherche des villes"
+                                    />
+                                </div>
+                                @show
                             </div>
                         </div>
-                        <div class="card-body table-responsive p-0">
-                            <table class="table table-hover text-nowrap">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Nom</th>
-                                        <th>Région</th>
-                                        <th>Statut</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <!-- Inclure ici les lignes dynamiques -->
-                                    @include('PkgUtilisateurs::ville._table')
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="card-footer clearfix">
-                            <ul class="pagination pagination-sm m-0 float-right">
-                                <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
-                            </ul>
+                        <div id="ville-data-container" class="data-container">
+                            @include('PkgUtilisateurs::ville._table')
                         </div>
                     </div>
-                </div>
-            </div>
         </div>
+        </div>
+        <input type="hidden" id='page' value="1">
     </section>
+    @show
 
-    <!-- Modale pour ajouter/modifier -->
-    <div class="modal fade" id="villeModal" tabindex="-1" role="dialog" aria-labelledby="villeModalLabel" aria-hidden="true">
+    @section('crud-modal')
+    <!-- Modal pour Ajouter/Modifier -->
+    <div class="modal fade crud-modal" id="villeModal" tabindex="-1" role="dialog" aria-labelledby="villeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
-                <div id="modal-loading" class="d-flex justify-content-center align-items-center" style="min-height: 200px; display: none;">
-                    <div class="spinner-border text-primary" role="status"></div>
+
+                <div id="modal-loading"  class="d-flex justify-content-center align-items-center" style="display: none; min-height: 200px;  ">
+                    <div class="spinner-border text-primary" role="status">
+                    </div>
                 </div>
+
+                <!-- Contenu injecté -->
                 <div id="modal-content-container" style="display: none;">
                     <div class="modal-header">
                         <h5 class="modal-title" id="villeModalLabel"></h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
+                            <span aria-hidden="true">×</span>
                         </button>
                     </div>
                     <div class="modal-body"></div>
@@ -145,4 +145,6 @@
             </div>
         </div>
     </div>
+    @show
+
 </div>

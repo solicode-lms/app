@@ -5,8 +5,13 @@ export class ConfigHelper {
      */
     constructor(config) {
 
-        this.crudSelector = config.crudSelector;
+        
         this.edit_has_many = config.edit_has_many; // permet d'éditer l'entity avec ses objet has many
+        this.crudSelector = config.crudSelector;
+        this.tableSelector = config.tableSelector;
+        this.formSelector = config.formSelector;
+        this.modalSelector = config.modalSelector;
+
         this.indexUrl = config.indexUrl; // URL pour la liste des entités
         this.createUrl = config.createUrl; // URL pour créer une nouvelle entité
         this.showUrl = config.showUrl; // URL pour afficher une entité
@@ -15,24 +20,10 @@ export class ConfigHelper {
         this.deleteUrl = config.deleteUrl; // URL pour supprimer une entité
         this.csrfToken = config.csrfToken; // Token CSRF pour les requêtes sécurisées
 
-        this.entityName = config.entity_name; // Nom de l'entité
         this.createTitle = config.create_title; // Titre pour le formulaire d'ajout
         this.editTitle = config.edit_title; // Titre pour le formulaire de modification
 
-
-        this.tableSelector = `${this.crudSelector} #${this.entityName}-data-container`;
-        this.formSelector = `${this.crudSelector} #${this.entityName}Form`;
-        this.modalSelector = `${this.crudSelector} #${this.entityName}Modal`;
-
-       
-        
-        // Identifiant global pour les sélecteurs CRUD spécifiques à une entité
-        if(this.crudSelector == undefined){
-            this.crudSelector = `#${this.entityName}_crud`;
-        }
-
-
-        this.searchInputSelector = `${this.crudSelector} #crud_search_input`;
+        this.searchInputSelector = `${this.crudSelector} .crud-search-input`;
         this.paginationSelector = `${this.crudSelector} .pagination`;
         this.dataContainerSelector = `${this.tableSelector}`;
     }
