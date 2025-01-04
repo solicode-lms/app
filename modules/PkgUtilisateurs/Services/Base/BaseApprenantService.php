@@ -88,4 +88,23 @@ class BaseApprenantService extends BaseService
 
         return $apprenant;
     }
+
+    /**
+    * Obtenir les statistiques par Relation
+    *
+    * @return array
+    */
+    public function getApprenantStats(): array
+    {
+
+        $stats = [];
+            $relationStatGroupe = parent::getStatsByRelation(
+                \Modules\PkgUtilisateurs\Models\Groupe::class,
+                'apprenants',
+                'code'
+            );
+            $stats = array_merge($stats, $relationStatGroupe);
+
+        return $stats;
+    }
 }

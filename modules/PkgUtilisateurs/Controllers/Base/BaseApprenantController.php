@@ -42,12 +42,13 @@ class BaseApprenantController extends AdminController
     {
         $apprenant_searchQuery = str_replace(' ', '%', $request->get('q', ''));
         $apprenants_data = $this->apprenantService->paginate($apprenant_searchQuery);
+        $apprenants_stats = $this->apprenantService->getapprenantStats();
 
         if ($request->ajax()) {
-            return view('PkgUtilisateurs::apprenant._table', compact('apprenants_data'))->render();
+            return view('PkgUtilisateurs::apprenant._table', compact('apprenants_data','apprenants_stats'))->render();
         }
 
-        return view('PkgUtilisateurs::apprenant.index', compact('apprenants_data','apprenant_searchQuery'));
+        return view('PkgUtilisateurs::apprenant.index', compact('apprenants_data','apprenants_stats','apprenant_searchQuery'));
     }
 
     /**
