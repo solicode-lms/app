@@ -61,23 +61,22 @@ class BaseCompetenceService extends BaseService
         return $competence;
     }
 
+    /**
+    * Obtenir les statistiques par Relation
+    *
+    * @return array
+    */
+    public function getCompetenceStats(): array
+    {
 
+        $stats = [];
+            $relationStatFiliere = parent::getStatsByRelation(
+                \Modules\PkgCompetences\Models\Filiere::class,
+                'modules.competences',
+                'code'
+            );
+            $stats = array_merge($stats, $relationStatFiliere);
 
-/**
- * Obtenir les statistiques des compétences par filière, incluant le total.
- *
- * @return array
- */
-public function getCompetenceStats(): array
-{
-
-    $stats = parent::getStatsByRelation(
-        \Modules\PkgCompetences\Models\Filiere::class,
-        'modules.competences',
-        'code'
-    );
-
-    return $stats;
-}
-
+        return $stats;
+    }
 }
