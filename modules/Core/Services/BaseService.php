@@ -256,35 +256,45 @@ abstract class BaseService implements ServiceInterface
         return $stats;
     }
 
-
-
-    /**
- * Calcule les statistiques des entités associées par une relation imbriquée.
- *
- * @param string $relation Relation imbriquée (ex. : 'modules.competences').
- * @param string $countLabel Champ utilisé comme label (ex. : 'code', 'nom').
- * @return array Statistiques des entités liées.
- */
 /**
- * Calcule les statistiques pour une relation parent-enfant.
+ * Récupère une collection d'entités via une relation imbriquée, éventuellement filtrée par ID.
  *
- * @param string $model Nom complet du modèle (ex. : \App\Models\Filiere::class).
- * @param string $relation Nom de la relation à compter (ex. : 'competences').
- * @param string $icon Icône associée à chaque statistique.
- * @return array Statistiques des entités liées.
+ * @param string $model Modèle principal (ex. : \App\Models\Filiere::class).
+ * @param string $nestedRelation Chemin de la relation imbriquée (ex. : 'modules.competences').
+ * @param int|null $id ID de l'entité principale à filtrer (facultatif).
+ * @return \Illuminate\Support\Collection
  */
-public function calculateStatsByRelation(string $model, string $relation, string $icon): array
+public function getNestedRelationAsCollection(
+    string $model, 
+    string $nestedRelation, 
+    int $id = null): \Illuminate\Support\Collection
 {
+    // Charger les entités avec les relations imbriquées
+    $query = $model::with($nestedRelation);
+    
+    // Si un ID est fourni, filtrer par cet ID
+    if ($id) {
+        $query->where('id', $id);
+    }
 
-    $entities = $model::with($relation)->get();
+    $entities = $query->get();
 
-    return $entities->map(function ($entity) use ($relation, $icon) {
-        return [
-            'label' => $entity->code, // Supposant que chaque entité a un champ 'nom'
-            'value' => $entity->{$relation . '_count'},
-            'icon' => $icon,
-        ];
-    })->toArray();
+    // Découper la relation imbriquée en segments
+    $relations = explode('.', $nestedRelation);
+
+    // Naviguer dans les relations imbriquées
+    return $entities->flatMap(function ($entity) use ($relations) {
+        $relation = collect([$entity]); // Démarrer avec l'entité encapsulée dans une collection
+
+        foreach ($relations as $segment) {
+            // Passer à la relation suivante en fusionnant les résultats
+            $relation = $relation->flatMap(function ($item) use ($segment) {
+                return $item->{$segment} ?? collect(); // Si la relation est nulle, retourner une collection vide
+            });
+        }
+
+        return $relation; // Retourner la collection fusionnée
+    });
 }
 
 /**
@@ -301,6 +311,42 @@ public function getTotalCompetences(): array
             'value' => $this->model::count(),
         ],
     ];
+}
+
+
+public function getStatsByRelation($relationModel,$nestedRelation, $attribute ): array
+{
+    // Calculer le total global des compétences
+    $total = $this->model::count();
+
+    // Récupérer toutes les filières
+    $relationEntities = $relationModel::all();
+
+    // Initialiser les statistiques avec le total global
+    $stats = [
+        [
+            'icon' => 'fas fa-box',
+            'label' => 'Total des compétences',
+            'value' => $total,
+        ],
+    ];
+
+    // Parcourir chaque filière pour calculer les compétences par filière
+    foreach ($relationEntities as $relationEntity) {
+        $entities = $this->getNestedRelationAsCollection(
+            $relationModel,
+            'competences',
+            $relationEntity->id // Passer l'ID de la filière pour filtrer
+        );
+
+        $stats[] = [
+            'icon' => 'fas fa-chart-pie',
+            'label' => $relationEntity->{$attribute}, // Code de la filière utilisé comme label
+            'value' => $entities->count(),
+        ];
+    }
+
+    return $stats;
 }
 
 

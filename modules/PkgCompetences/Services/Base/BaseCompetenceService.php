@@ -67,30 +67,43 @@ class BaseCompetenceService extends BaseService
  *
  * @return array
  */
+/**
+ * Obtenir les statistiques des compétences par filière, incluant le total.
+ *
+ * @return array
+ */
 public function getCompetenceStats(): array
 {
-    // Récupérer toutes les filières avec leurs modules et compétences
-    $filieres = \Modules\PkgCompetences\Models\Filiere::with('modules.competences')->get();
+    // Calculer le total global des compétences
+    $totalCompetences = $this->getNestedRelationAsCollection(
+        \Modules\PkgCompetences\Models\Filiere::class,
+        'modules.competences'
+    )->count();
+
+    // Récupérer toutes les filières
+    $filieres = \Modules\PkgCompetences\Models\Module::all();
 
     // Initialiser les statistiques avec le total global
     $stats = [
         [
             'icon' => 'fas fa-box',
             'label' => 'Total des compétences',
-            'value' => \Modules\PkgCompetences\Models\Competence::count(),
+            'value' => $totalCompetences,
         ],
     ];
 
     // Parcourir chaque filière pour calculer les compétences par filière
     foreach ($filieres as $filiere) {
-        $competencesCount = $filiere->modules->sum(function ($module) {
-            return $module->competences->count();
-        });
+        $competences = $this->getNestedRelationAsCollection(
+            \Modules\PkgCompetences\Models\Module::class,
+            'competences',
+            $filiere->id // Passer l'ID de la filière pour filtrer
+        );
 
         $stats[] = [
             'icon' => 'fas fa-chart-pie',
-            'label' => $filiere->code,
-            'value' => $competencesCount,
+            'label' => $filiere->nom, // Code de la filière utilisé comme label
+            'value' => $competences->count(),
         ];
     }
 
