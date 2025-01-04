@@ -335,7 +335,7 @@ public function getStatsByRelation($relationModel,$nestedRelation, $attribute ):
     foreach ($relationEntities as $relationEntity) {
         $entities = $this->getNestedRelationAsCollection(
             $relationModel,
-            'competences',
+            $nestedRelation,
             $relationEntity->id // Passer l'ID de la filière pour filtrer
         );
 

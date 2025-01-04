@@ -39,7 +39,7 @@ class BaseCompetenceController extends AdminController
     {
         $competence_searchQuery = str_replace(' ', '%', $request->get('q', ''));
         $competences_data = $this->competenceService->paginate($competence_searchQuery);
-        $competences_stats = $this->competenceService->getCompetenceStats();
+        $competences_stats = $this->competenceService->getCompetenceStats2();
 
         if ($request->ajax()) {
             return view('PkgCompetences::competence._table', compact('competences_data','competences_stats'))->render();
