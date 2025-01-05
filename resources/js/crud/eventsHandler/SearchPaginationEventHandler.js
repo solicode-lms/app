@@ -10,32 +10,37 @@ export class SearchPaginationEventHandler {
         this.config = config;
         this.entityLoader = entityLoader;
 
-        // Temps de délai pour la recherche (debounce)
+        // Temps de délai pour limiter les requêtes fréquentes
         this.debounceTimeout = null;
         this.debounceDelay = 500; // Par défaut : 500ms
     }
 
     /**
-     * Initialise les gestionnaires pour la recherche et la pagination.
+     * Initialise les gestionnaires pour la recherche, les filtres et la pagination.
      */
     init() {
-        this.handleSearchInput();
-        this.handleFilterSubmit();
-        this.handlePaginationClick();
+        this.handleFormInput(); // Gérer les entrées dans le formulaire (recherche + filtres)
+        this.handlePaginationClick(); // Gérer les clics de pagination
     }
 
     /**
-     * Gère les événements de recherche avec un délai pour limiter les requêtes fréquentes.
+     * Gère les événements du formulaire (recherche et filtres) avec délai (debounce).
      */
-    handleSearchInput() {
-        $(document).on('keyup', this.config.searchInputSelector, (e) => {
-            const searchValue = $(e.currentTarget).val();
-            this.updateURLParameter('q', searchValue);
-            clearTimeout(this.debounceTimeout); // Réinitialiser le délai précédent
+    handleFormInput() {
+        const formSelector = this.config.filterFormSelector;
+
+        // Sur saisie dans les champs de recherche ou filtres
+        $(document).on('input', `${formSelector} input, ${formSelector} select`, () => {
+            clearTimeout(this.debounceTimeout);
             this.debounceTimeout = setTimeout(() => {
-                this.entityLoader.loadEntities(1, searchValue); // Recharger les entités avec la valeur de recherche
-                NotificationHandler.showInfo('Recherche en cours...');
+                this.submitForm(); // Soumettre le formulaire après un délai
             }, this.debounceDelay);
+        });
+
+        // Soumission explicite du formulaire (par bouton ou utilisateur)
+        $(document).on('submit', formSelector, (e) => {
+            e.preventDefault();
+            this.submitForm();
         });
     }
 
@@ -45,32 +50,60 @@ export class SearchPaginationEventHandler {
     handlePaginationClick() {
         $(document).on('click', this.config.paginationSelector, (e) => {
             e.preventDefault();
-            const page = $(e.currentTarget).data('page') || $(e.currentTarget).attr('data-page') || $(e.target).text().trim();
-
-            // const page = $(e.currentTarget).data('page') || $(e.target).text().trim();
-
+            const page = $(e.currentTarget).data('page') || $(e.target).text().trim();
+    
             if (page) {
-                const searchValue = $(this.config.searchInputSelector).val(); // Obtenir la valeur actuelle de la recherche
-                this.updateURLParameter('page', page); // Met à jour l'URL
-                this.entityLoader.loadEntities(page, searchValue); // Charger la page demandée
-                NotificationHandler.showInfo(`Chargement de la page ${page}...`);
+                const filters_with_empty = this.getFormData(true);
+                const filters = this.getFormData(); // Récupérer les valeurs des filtres actifs
+                filters.page = page; // Ajouter le numéro de page aux filtres
+                filters_with_empty.page = page;
+                this.updateURLParameters(filters_with_empty); // Mettre à jour l'URL avec tous les paramètres
+                this.entityLoader.loadEntities(page, filters.q, filters); // Charger les entités avec les filtres
             }
         });
     }
+    /**
+     * Récupère les valeurs de tous les champs du formulaire (recherche + filtres).
+     * @returns {Object} - Un objet contenant les données du formulaire.
+     */
+    getFormData(withEmpty = false) {
+        const form = $(this.config.filterFormSelector);
+        const formData = {};
+        form.serializeArray().forEach((field) => {
+            if (!withEmpty || field.value) { // Ne pas inclure les champs vides
+                formData[field.name] = field.value;
+            }
+        });
+        return formData;
+    }
 
     /**
-     * Met à jour un paramètre dans l'URL sans recharger la page.
-     * @param {string} param - Nom du paramètre à mettre à jour.
-     * @param {string|number} value - Valeur du paramètre.
+     * Soumet le formulaire en récupérant les données et recharge les entités.
+     * @param {number} page - Numéro de la page à charger (par défaut : 1).
      */
-    updateURLParameter(param, value) {
+    submitForm(page = 1) {
+        const formData = this.getFormData(); // Récupérer les données du formulaire
+        formData.page = page; // Ajouter le numéro de page aux données
+
+        this.updateURLParameters(formData); // Mettre à jour les paramètres dans l'URL
+        this.entityLoader.loadEntities(page, formData.q, formData); // Charger les entités avec recherche et filtres
+    }
+
+    /**
+     * Met à jour les paramètres dans l'URL sans recharger la page.
+     * @param {Object} params - Données à inclure dans l'URL.
+     */
+    updateURLParameters(params) {
         const url = new URL(window.location.href);
 
-        if (value === undefined || value === null || value === '') {
-            url.searchParams.delete(param); // Supprime le paramètre s'il n'y a pas de valeur
-        } else {
-            url.searchParams.set(param, value); // Met à jour ou ajoute le paramètre
-        }
+        // Met à jour chaque paramètre
+        Object.keys(params).forEach((key) => {
+            if (params[key]) {
+                url.searchParams.set(key, params[key]);
+            } else {
+                url.searchParams.delete(key); // Supprime si la valeur est vide
+            }
+        });
 
         // Met à jour l'URL dans la barre d'adresse sans recharger la page
         window.history.replaceState({}, '', url);

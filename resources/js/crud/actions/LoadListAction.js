@@ -1,10 +1,7 @@
 import { LoadingIndicator } from '../components/LoadingIndicator';
 import { NotificationHandler } from '../components/NotificationHandler';
-import { Action } from './Action';
 import { BaseAction } from './BaseAction';
 
-// LoadListAction ne peut pas hérite de Action
-// pour éviter une dépendance circulaire des imports
 export class LoadListAction extends BaseAction {
     /**
      * Constructeur de LoadListAction.
@@ -22,36 +19,34 @@ export class LoadListAction extends BaseAction {
      * Charge les entités depuis le serveur et met à jour la table ou la liste.
      * @param {number} page - Numéro de la page à charger (par défaut : 1).
      * @param {string} q - Valeur de recherche pour filtrer les entités.
+     * @param {Object} filters - Objets contenant les filtres actifs.
      */
-    loadEntities(page , q ) {
-
-
-        // Extraire les paramètres de l'URL si les arguments sont nuls
+    loadEntities(page = 1, q = '', filters = {}) {
+        // Récupérer les paramètres actuels depuis l'URL
         const urlParams = new URLSearchParams(window.location.search);
-        const _page = urlParams.get('page'); // "2"
-        const _query = urlParams.get('q');   // "test"
 
-        page = page || _page || 1;
-        q = q || _query || '';
+        // Extraire les valeurs actuelles de l'URL si les arguments sont vides
+        page = page || urlParams.get('page') || 1;
+        q = q || urlParams.get('q') || '';
 
-      
-        const search_params = `page=${page}&q=${q}`;
+        // Préparer les paramètres de recherche
+        const searchParams = { page, q, ...filters };
+        const queryString = new URLSearchParams(searchParams).toString();
 
-        this.indexUrl = this.appendParamsToUrl(
-            this.indexUrl, search_params
-        );
+        // Construire l'URL avec les paramètres
+        const requestUrl = this.appendParamsToUrl(this.indexUrl, queryString);
 
         // Afficher l'indicateur de chargement
         this.loader.show();
 
         // Requête AJAX pour charger les entités
-        $.get(this.indexUrl)
+        $.get(requestUrl)
             .done((html) => {
                 // Mettre à jour le contenu de la table ou liste
                 $(this.config.tableSelector).html(html);
 
-                // Afficher un message de succès
-                // NotificationHandler.showSuccess('Données chargées avec succès.');
+                // Afficher un message de succès (facultatif)
+                NotificationHandler.showSuccess('Données chargées avec succès.');
             })
             .fail(() => {
                 // Gérer les erreurs

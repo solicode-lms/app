@@ -104,7 +104,13 @@ abstract class BaseService implements ServiceInterface
         // Appliquer les filtres spécifiques
         foreach ($params['filters'] ?? [] as $field => $value) {
             if (in_array($field, $this->getFieldsSearchable()) && !empty($value)) {
-                $query->where($field, '=', $value);
+                if (is_numeric($value)) {
+                    // Utiliser "=" pour les valeurs numériques
+                    $query->where($field, '=', $value);
+                } else {
+                    // Utiliser "LIKE" pour les chaînes
+                    $query->where($field, 'LIKE', "%{$value}%");
+                }
             }
         }
     
