@@ -1,13 +1,16 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-@section('script')
-@parent
+@push('scripts')
 <script>
     window.entitiesConfig = window.entitiesConfig || [];
     window.entitiesConfig.push({
         edit_has_many: false,
         entity_name: 'groupe',
-        crudSelector: '#groupe_crud',
+        filterFormSelector: '#groupe-crud-filter-form',
+        crudSelector: '#groupe-crud',
+        tableSelector: '#groupe-data-container',
+        formSelector: '#groupeForm',
+        modalSelector : '#groupeModal',
         indexUrl: '{{ route('groupes.index') }}', 
         createUrl: '{{ route('groupes.create') }}',
         editUrl: '{{ route('groupes.edit',  ['groupe' => ':id']) }}',
@@ -19,81 +22,85 @@
         edit_title: '{{__("Core::msg.add") . " : " . __("PkgUtilisateurs::groupe.singular") }}',
     });
 </script>
-@endsection
-<div id="groupe_crud">
-    <div class="content-header">
+@endpush
+<div id="groupe-crud" class="crud">
+    @section('crud-header')
+    <x-crud-header 
+        id="groupe-crud-header" icon="fas fa-city"  
+        iconColor="text-info"
+        title="{{ __('PkgUtilisateurs::groupe.plural') }}"
+        :breadcrumbs="[
+            ['label' => 'PkgUtilisateurs', 'url' => '#'],
+            ['label' => "{{ __('PkgUtilisateurs::groupe.plural') }}"]
+        ]"
+    />
+    @show
+    @section('crud-table')
+    <section id="groupe-crud-table" class="content crud-table">
         <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1>
-                        {{ curd_index_title('PkgUtilisateurs::groupe') }}
-                    </h1>
-                </div>
-                <div class="col-sm-6">
-                    <div class="float-sm-right">
-                        @can('create-groupe')
-                        <a href="{{ route('groupes.create') }}" data-target="#groupeModal" class="btn btn-info btn-sm context-state addEntityButton">
-                            <i class="fas fa-plus"></i>
-                            {{ __('Core::msg.add') }}
-                        </a>
-                        @endcan
+            <div class="card card-outline card-info " id="card_crud">
+                @section('crud-stats-bar')
+                <div class="card-header row">
+                    <!-- Statistiques et Actions -->
+                    <div class="col-sm-9">
+                        <x-crud-stats-summary
+                            icon="fas fa-chart-bar text-info"
+                            :stats="$groupes_stats"
+                        />
+                    </div>
+                    <div class="col-sm-3">
+                        <x-crud-actions
+                            :createPermission="'create-groupe'"
+                            :createRoute="route('groupes.create')"
+                            :createText="__('Ajouter une groupe')"
+                            :importPermission="'import-groupe'"
+                            :importRoute="route('groupes.import')"
+                            :importText="__('Importer')"
+                            :exportPermission="'export-groupe'"
+                            :exportRoute="route('groupes.export')"
+                            :exportText="__('Exporter')"
+                        />
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-    <section class="content" id="section_crud">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-12">
-                    <div class="card" id="card_crud">
-                        <div class="card-header col-md-12">
-                            <div class="p-0">
-                                <div class="input-group input-group-sm float-sm-right col-md-3 p-0">
-                                    <input type="text" value="{{ $groupe_searchQuery ?? '' }}" name="crud_search_input" id="crud_search_input"
-                                           class="form-control float-right" placeholder="Recherche">
-                                    <div class="input-group-append">
-                                        <button type="submit" class="btn btn-default">
-                                            <i class="fas fa-search"></i>
-                                        </button>
-                                    </div>
-                                </div>
+                @show
+                @section('crud-filters')
+                <div class="card-header">
+                    <div class="row">
+                        <form id="groupe-crud-filter-form" method="GET" class="row mb-3">
+                            <x-filter-group>
+                                <!-- Filtres spécifiques -->
+                                @foreach ($groupes_filters as $filter)
+                                    <x-filter-field 
+                                        :type="$filter['type']" 
+                                        :field="$filter['field']" 
+                                        :options="$filter['options'] ?? []"
+                                        :placeholder="ucfirst(str_replace('_', ' ', $filter['field']))" />
+                                @endforeach
+                            </x-filter-group>
+                            @section('crud-search-bar')
+                            <div id="groupe-crud-search-bar"
+                                class="{{ count($groupes_filters) > 0 ? 'col-md-2' : 'col-md-6 mx-auto' }} text-md-right text-left">
+                                <x-search-bar
+                                    :search="request('groupes_search')"
+                                    name="groupes_search"
+                                    id="groupes_search"
+                                    placeholder="Recherche ..."
+                                />
                             </div>
-                        </div>
-                        <div id="groupe-data-container" class="data-container">
-                            @include('PkgUtilisateurs::groupe._table')
-                        </div>
+                            @show
+                        </form>
                     </div>
                 </div>
-            </div>
-        </div>
-        <input type="hidden" id='page' value="1">
-    </section>
-
-
-<!-- Modal pour Ajouter/Modifier -->
-<div class="modal fade crud-modal" id="groupeModal" tabindex="-1" role="dialog" aria-labelledby="groupeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-
-            <div id="modal-loading"  class="d-flex justify-content-center align-items-center" style="display: none; min-height: 200px;  ">
-                <div class="spinner-border text-primary" role="status">
+                @show
+                <div id="groupe-data-container" class="data-container">
+                    @include('PkgUtilisateurs::groupe._table')
                 </div>
-            </div>
-
-            <!-- Contenu injecté -->
-            <div id="modal-content-container" style="display: none;">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="groupeModalLabel"></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                      </button>
-                </div>
-                <div class="modal-body"></div>
             </div>
         </div>
     </div>
-</div>
-
-
+    </section>
+    @show
+    @section('crud-modal')
+    <x-modal id="groupeModal" title="Ajouter ou Modifier"></x-modal>
+    @show
 </div>

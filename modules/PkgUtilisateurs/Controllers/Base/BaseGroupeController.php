@@ -32,19 +32,28 @@ class BaseGroupeController extends AdminController
     }
 
 
-    /**
-     * Affiche la liste des filières ou retourne le HTML pour une requête AJAX.
-     */
     public function index(Request $request)
     {
-        $groupe_searchQuery = str_replace(' ', '%', $request->get('q', ''));
-        $groupes_data = $this->groupeService->paginate($groupe_searchQuery);
-
+        // Extraire les paramètres de recherche, page, et filtres
+        $groupes_params = array_merge(
+            $request->only(['page','sort']),
+            ['search' => $request->get('groupes_search', '')],
+            $request->except(['groupes_search', 'page', 'sort'])
+        );
+    
+        // Paginer les groupes
+        $groupes_data = $this->groupeService->paginate($groupes_params);
+    
+        // Récupérer les statistiques et les champs filtrables
+        $groupes_stats = $this->groupeService->getgroupeStats();
+        $groupes_filters = $this->groupeService->getFieldsFilterable();
+    
+        // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgUtilisateurs::groupe._table', compact('groupes_data'))->render();
+            return view('PkgUtilisateurs::groupe._table', compact('groupes_data', 'groupes_stats', 'groupes_filters'))->render();
         }
-
-        return view('PkgUtilisateurs::groupe.index', compact('groupes_data','groupe_searchQuery'));
+    
+        return view('PkgUtilisateurs::groupe.index', compact('groupes_data', 'groupes_stats', 'groupes_filters'));
     }
 
     /**

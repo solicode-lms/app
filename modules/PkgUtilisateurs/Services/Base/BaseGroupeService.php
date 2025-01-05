@@ -41,6 +41,15 @@ class BaseGroupeService extends BaseService
     public function __construct()
     {
         parent::__construct(new Groupe());
+
+        // Initialiser les filtres configurables dynamiquement
+        $this->fieldsFilterable = [
+            ['field' => 'code', 'type' => 'String'],
+            ['field' => 'nom', 'type' => 'String'],
+            $this->generateManyToOneFilter('filiere_id', \Modules\PkgCompetences\Models\Filiere::class, 'code'),
+            ['field' => 'Formateur_ManyToMany', 'type' => 'ManyToMany'],
+        ];
+
     }
 
     /**
@@ -59,5 +68,18 @@ class BaseGroupeService extends BaseService
         ]);
 
         return $groupe;
+    }
+
+    /**
+    * Obtenir les statistiques par Relation
+    *
+    * @return array
+    */
+    public function getGroupeStats(): array
+    {
+
+        $stats = [];
+
+        return $stats;
     }
 }
