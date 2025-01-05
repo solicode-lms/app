@@ -11,6 +11,7 @@ export class ConfigHelper {
         this.tableSelector = config.tableSelector;
         this.formSelector = config.formSelector;
         this.modalSelector = config.modalSelector;
+        this.filterFormSelector = config.filterFormSelector;
 
         this.indexUrl = config.indexUrl; // URL pour la liste des entités
         this.createUrl = config.createUrl; // URL pour créer une nouvelle entité

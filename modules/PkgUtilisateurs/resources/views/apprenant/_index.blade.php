@@ -6,6 +6,7 @@
     window.entitiesConfig.push({
         edit_has_many: false,
         entity_name: 'apprenant',
+        filterFormSelector: '#apprenant-crud-filter-form',
         crudSelector: '#apprenant-crud',
         tableSelector: '#apprenant-data-container',
         formSelector: '#apprenantForm',
@@ -67,7 +68,6 @@
                         </div>
 
 
-
                         <div class="card-header">
                             <div class="row">
                                 @section('crud-filters')
@@ -75,72 +75,52 @@
                                     <div id="apprenant-crud-filters" class="col-md-10 d-flex align-items-center">
                                         <h5 class="mr-3"><i class="fas fa-filter text-info"></i></h5>
                                         <div class="row w-100">
-
-
-<!-- Filtres spécifiques -->
-<!-- Filtres spécifiques -->
-@foreach ($apprenants_filters as $filter)
-    <div class="col-md-3 mb-3">
-        <!-- Ajouter un label au-dessus de chaque champ -->
-        <label for="apprenants_filters_{{ $filter['field'] }}" class="form-label">
-            {{ $filter['label'] ?? ucfirst(str_replace('_', ' ', $filter['field'])) }}
-        </label>
-
-        @switch($filter['type'])
-            @case('text')
-                <input type="text" 
-                       id="apprenants_filters_{{ $filter['field'] }}" 
-                       name="apprenants_filters[{{ $filter['field'] }}]" 
-                       class="form-control form-control-sm" 
-                       value="{{ request("apprenants_filters.{$filter['field']}") }}" 
-                       placeholder="{{ ucfirst(str_replace('_', ' ', $filter['field'])) }}">
-                @break
-
-            @case('date')
-                <input type="date" 
-                       id="apprenants_filters_{{ $filter['field'] }}" 
-                       name="apprenants_filters[{{ $filter['field'] }}]" 
-                       class="form-control form-control-sm" 
-                       value="{{ request("apprenants_filters.{$filter['field']}") }}">
-                @break
-
-            @case('manyToOne')
-                <select id="apprenants_filters_{{ $filter['field'] }}" 
-                        name="apprenants_filters[{{ $filter['field'] }}]" 
-                        class="form-select form-control form-control-sm">
-                    <option value="">Tous</option>
-                    @foreach ($filter['options'] as $option)
-                        <option value="{{ $option['id'] }}" 
-                                {{ request("apprenants_filters.{$filter['field']}") == $option['id'] ? 'selected' : '' }}>
-                            {{ $option['label'] }}
-                        </option>
-                    @endforeach
-                </select>
-                @break
-        @endswitch
-    </div>
-@endforeach
-
-
-<div class="col-md-12">
-    <button type="submit" class="btn btn-primary">Appliquer</button>
-    <button type="reset" class="btn btn-secondary" id="reset-filters">Réinitialiser</button>
-</div>
-
-
-
+                        
+                                            <!-- Filtres spécifiques -->
+                                            @foreach ($apprenants_filters as $filter)
+                                                <div class="col-md-3 mb-3">
+                                                    @switch($filter['type'])
+                                                        @case('text')
+                                                            <input type="text" 
+                                                                   name="apprenants_filters[{{ $filter['field'] }}]" 
+                                                                   class="form-control form-control-sm" 
+                                                                   value="{{ request("apprenants_filters.{$filter['field']}") }}" 
+                                                                   placeholder="{{ ucfirst(str_replace('_', ' ', $filter['field'])) }}">
+                                                            @break
+                        
+                                                        @case('date')
+                                                            <input type="date" 
+                                                                   name="apprenants_filters[{{ $filter['field'] }}]" 
+                                                                   class="form-control form-control-sm" 
+                                                                   value="{{ request("apprenants_filters.{$filter['field']}") }}">
+                                                            @break
+                        
+                                                        @case('manyToOne')
+                                                            <select name="apprenants_filters[{{ $filter['field'] }}]" 
+                                                                    class="form-select form-control form-control-sm">
+                                                                <option value="">Tous</option>
+                                                                @foreach ($filter['options'] as $option)
+                                                                    <option value="{{ $option['id'] }}" 
+                                                                            {{ request("apprenants_filters.{$filter['field']}") == $option['id'] ? 'selected' : '' }}>
+                                                                        {{ $option['label'] }}
+                                                                    </option>
+                                                                @endforeach
+                                                            </select>
+                                                            @break
+                                                    @endswitch
+                                                </div>
+                                            @endforeach
+                        
                                         </div>
                                     </div>
-                                    @show
+                                    
+                        
                                     @section('crud-search-bar')
                                     @php
-                                        $filters = 3
+                                        $filters = 3;
                                     @endphp
                                     <div id="apprenant-crud-search-bar"
                                         class="{{ isset($filters) && $filters ? 'col-md-2' : 'col-md-6 mx-auto' }} text-md-right text-left">
-                                        <label for="apprenants_search" class="form-label">
-                                            Recherche
-                                        </label>
                                         <x-search-bar
                                             :search="request('apprenants_search')"
                                             name="apprenants_search"
@@ -148,10 +128,20 @@
                                             placeholder="Recherche ..."
                                         />
                                     </div>
+                                    @show
+                        
+                                    <!-- Boutons d'action -->
+                                    <div class="col-md-12 mt-3 text-right">
+                                        <button type="submit" class="btn btn-primary btn-sm">Appliquer</button>
+                                        <button type="button" class="btn btn-secondary btn-sm" id="reset-filters">Réinitialiser</button>
+                                    </div>
                                 </form>
                                 @show
                             </div>
                         </div>
+                        
+
+
 
 
                         <div id="apprenant-data-container" class="data-container">
