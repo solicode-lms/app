@@ -80,6 +80,9 @@ abstract class BaseService implements ServiceInterface
         return $query->paginate($perPage, $columns);
     }
 
+        
+    // TODO : ajouter une recherche sur les relation ManyToOne,
+    // TODO : ajouter recherche par nom de filiere : Apprenant, ManyToOne/ManyToOne
     /**
      * Construit une requête de récupération des données.
      *
@@ -89,9 +92,7 @@ abstract class BaseService implements ServiceInterface
     public function allQuery(array $params = []): Builder
     {
         $query = $this->model->newQuery();
-    
-        // TODO : ajouter une recherche sur les relation ManyToOne,
-        // TODO : ajouter recherche par nom de filiere : Apprenant, ManyToOne/ManyToOne
+
         // Appliquer la recherche globale
         if (!empty($params['search'])) {
             $query->where(function ($q) use ($params) {
@@ -100,9 +101,9 @@ abstract class BaseService implements ServiceInterface
                 }
             });
         }
-    
-        // Appliquer les filtres spécifiques
-        foreach ($params['filters'] ?? [] as $field => $value) {
+
+        // Appliquer les filtres spécifiques (URL aplatie)
+        foreach ($params as $field => $value) {
             if (in_array($field, $this->getFieldsSearchable()) && !empty($value)) {
                 if (is_numeric($value)) {
                     // Utiliser "=" pour les valeurs numériques
@@ -113,9 +114,10 @@ abstract class BaseService implements ServiceInterface
                 }
             }
         }
-    
+
         return $query;
     }
+
 
     /**
      * Renvoie tous les éléments correspondants aux critères donnés.
@@ -335,5 +337,24 @@ public function getStatsByRelation($relationModel,$nestedRelation, $attribute ):
     return $stats;
 }
 
+
+
+/**
+ * Génère un filtre ManyToOne avec des options formatées.
+ *
+ * @param string $field Le nom du champ.
+ * @param string $model La classe du modèle.
+ * @return array Le filtre formaté.
+ */
+protected function generateManyToOneFilter(string $field, string $model, string $display_field): array
+{
+    return [
+        'field' => $field,
+        'type' => 'manyToOne',
+        'options' => $model::all(['id', $display_field])
+            ->map(fn($item) => ['id' => $item['id'], 'label' => $item[$display_field]])
+            ->toArray(),
+    ];
+}
 
 }

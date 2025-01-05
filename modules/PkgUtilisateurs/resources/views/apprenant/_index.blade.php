@@ -73,7 +73,14 @@
                                 @section('crud-filters')
                                 <form id="apprenant-crud-filter-form" method="GET" class="row mb-3">
                                     <div id="apprenant-crud-filters" class="col-md-10 d-flex align-items-center">
-                                        <h5 class="mr-3"><i class="fas fa-filter text-info"></i></h5>
+
+                                       
+
+                                        <div class="mr-3">
+                                            <i class="fas fa-filter text-info filter-icon"  title="Réinitialiser les filtres"></i>
+                                        </div>
+
+                                        
                                         <div class="row w-100">
                         
                                             <!-- Filtres spécifiques -->
@@ -82,26 +89,25 @@
                                                     @switch($filter['type'])
                                                         @case('text')
                                                             <input type="text" 
-                                                                   name="apprenants_filters[{{ $filter['field'] }}]" 
+                                                                   name="{{ $filter['field'] }}" 
                                                                    class="form-control form-control-sm" 
-                                                                   value="{{ request("apprenants_filters.{$filter['field']}") }}" 
+                                                                   value="{{ request($filter['field']) }}" 
                                                                    placeholder="{{ ucfirst(str_replace('_', ' ', $filter['field'])) }}">
                                                             @break
                         
                                                         @case('date')
                                                             <input type="date" 
-                                                                   name="apprenants_filters[{{ $filter['field'] }}]" 
+                                                                   name="{{ $filter['field'] }}" 
                                                                    class="form-control form-control-sm" 
-                                                                   value="{{ request("apprenants_filters.{$filter['field']}") }}">
+                                                                   value="{{ request($filter['field']) }}">
                                                             @break
-                        
                                                         @case('manyToOne')
-                                                            <select name="apprenants_filters[{{ $filter['field'] }}]" 
+                                                            <select name="{{ $filter['field'] }}" 
                                                                     class="form-select form-control form-control-sm">
                                                                 <option value="">Tous</option>
                                                                 @foreach ($filter['options'] as $option)
                                                                     <option value="{{ $option['id'] }}" 
-                                                                            {{ request("apprenants_filters.{$filter['field']}") == $option['id'] ? 'selected' : '' }}>
+                                                                            {{ request($filter['field']) == $option['id'] ? 'selected' : '' }}>
                                                                         {{ $option['label'] }}
                                                                     </option>
                                                                 @endforeach
@@ -114,13 +120,13 @@
                                         </div>
                                     </div>
                                     
-                        
                                     @section('crud-search-bar')
                                     @php
-                                        $filters = 3;
+                                        // Dynamisation : Utiliser le nombre de filtres
+                                        $filters = count($apprenants_filters);
                                     @endphp
                                     <div id="apprenant-crud-search-bar"
-                                        class="{{ isset($filters) && $filters ? 'col-md-2' : 'col-md-6 mx-auto' }} text-md-right text-left">
+                                        class="{{ $filters > 0 ? 'col-md-2' : 'col-md-6 mx-auto' }} text-md-right text-left">
                                         <x-search-bar
                                             :search="request('apprenants_search')"
                                             name="apprenants_search"
@@ -129,12 +135,6 @@
                                         />
                                     </div>
                                     @show
-                        
-                                    <!-- Boutons d'action -->
-                                    <div class="col-md-12 mt-3 text-right">
-                                        <button type="submit" class="btn btn-primary btn-sm">Appliquer</button>
-                                        <button type="button" class="btn btn-secondary btn-sm" id="reset-filters">Réinitialiser</button>
-                                    </div>
                                 </form>
                                 @show
                             </div>

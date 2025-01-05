@@ -39,6 +39,12 @@
 
 /* CRUD */
 
+.filter-icon {
+    cursor: pointer;
+    font-size: 1.2rem;
+    margin-left: 10px;
+}
+
 .crud-title h1 {
     font-size: 1.5rem;        /* Taille réduite */
     font-weight: 600;         /* Texte en gras */

@@ -64,45 +64,13 @@ class BaseApprenantService extends BaseService
         parent::__construct(new Apprenant());
 
         // Initialiser les filtres configurables dynamiquement
-        // on peut pas déclarer comme protected $fieldsFilterable car il contient une appelle options
-        // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
             ['field' => 'nom', 'type' => 'text'],
             ['field' => 'prenom', 'type' => 'text'],
             ['field' => 'date_naissance', 'type' => 'date'],
-            [
-                'field' => 'groupe_id',
-                'type' => 'manyToOne',
-                'options' => \Modules\PkgUtilisateurs\Models\Groupe::all(['id', 'code'])
-                    ->map(function ($item) {
-                        return [
-                            'id' => $item['id'],
-                            'label' => $item['code'], // Renommer "code" en "label"
-                        ];
-                    })->toArray()
-            ],
-            [
-                'field' => 'nationalite_id',
-                'type' => 'manyToOne',
-                'options' => \Modules\PkgUtilisateurs\Models\Nationalite::all(['id', 'code'])
-                    ->map(function ($item) {
-                        return [
-                            'id' => $item['id'],
-                            'label' => $item['code'], // Renommer "name" en "label"
-                        ];
-                    })->toArray()
-            ],
-            [
-                'field' => 'niveaux_scolaire_id',
-                'type' => 'manyToOne',
-                'options' => \Modules\PkgUtilisateurs\Models\NiveauxScolaire::all(['id', 'code'])
-                    ->map(function ($item) {
-                        return [
-                            'id' => $item['id'],
-                            'label' => $item['code'], // Renommer "name" en "label"
-                        ];
-                    })->toArray()
-            ],
+            $this->generateManyToOneFilter('groupe_id', \Modules\PkgUtilisateurs\Models\Groupe::class, 'code'),
+            $this->generateManyToOneFilter('nationalite_id', \Modules\PkgUtilisateurs\Models\Nationalite::class,'code'),
+            $this->generateManyToOneFilter('niveaux_scolaire_id', \Modules\PkgUtilisateurs\Models\NiveauxScolaire::class,'code'),
         ];
 
     }

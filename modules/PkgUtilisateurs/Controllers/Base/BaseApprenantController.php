@@ -40,22 +40,26 @@ class BaseApprenantController extends AdminController
      */
     public function index(Request $request)
     {
-        $apprenants_params = [
-            'search' => $request->get('apprenants_search'),
-            'filters' => $request->get('apprenants_filters', []),
-        ];
+        // Extraire les paramètres de recherche, page, et filtres
+        $apprenants_params = array_merge(
+            $request->only(['page']),
+            ['search' => $request->get('apprenants_search', '')],
+            $request->except(['apprenants_search', 'page'])
+        );
     
-
-        // $apprenant_search = str_replace(' ', '%', $request->get('q', ''));
+        // Paginer les apprenants
         $apprenants_data = $this->apprenantService->paginate($apprenants_params);
+    
+        // Récupérer les statistiques et les champs filtrables
         $apprenants_stats = $this->apprenantService->getapprenantStats();
         $apprenants_filters = $this->apprenantService->getFieldsFilterable();
-
+    
+        // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgUtilisateurs::apprenant._table', compact('apprenants_data','apprenants_stats','apprenants_filters'))->render();
+            return view('PkgUtilisateurs::apprenant._table', compact('apprenants_data', 'apprenants_stats', 'apprenants_filters'))->render();
         }
-
-        return view('PkgUtilisateurs::apprenant.index', compact('apprenants_data','apprenants_stats','apprenants_filters'));
+    
+        return view('PkgUtilisateurs::apprenant.index', compact('apprenants_data', 'apprenants_stats', 'apprenants_filters'));
     }
 
     /**

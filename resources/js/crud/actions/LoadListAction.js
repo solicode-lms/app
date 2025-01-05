@@ -18,38 +18,42 @@ export class LoadListAction extends BaseAction {
     /**
      * Charge les entités depuis le serveur et met à jour la table ou la liste.
      * @param {number} page - Numéro de la page à charger (par défaut : 1).
-     * @param {string} q - Valeur de recherche pour filtrer les entités.
      * @param {Object} filters - Objets contenant les filtres actifs.
      */
-    loadEntities(page = 1, q = '', filters = {}) {
+    loadEntities(page = 1, filters = {}) {
+
+
+         // Filtrer les filtres pour exclure les champs avec des valeurs vides
+        const cleanedFilters = Object.fromEntries(
+            Object.entries(filters).filter(([key, value]) => value !== null && value !== undefined && value !== '')
+        );
+        
         // Récupérer les paramètres actuels depuis l'URL
         const urlParams = new URLSearchParams(window.location.search);
-
-        // Extraire les valeurs actuelles de l'URL si les arguments sont vides
-        page = page || urlParams.get('page') || 1;
-        q = q || urlParams.get('q') || '';
-
-        // Préparer les paramètres de recherche
-        const searchParams = { page, q, ...filters };
+    
+        // Intégrer les paramètres existants de l'URL et les nouveaux filtres
+        const searchParams = { ...Object.fromEntries(urlParams.entries()), ...cleanedFilters, page };
+    
+        // Générer la chaîne de requête
         const queryString = new URLSearchParams(searchParams).toString();
-
-        // Construire l'URL avec les paramètres
+    
+        // Construire l'URL finale
         const requestUrl = this.appendParamsToUrl(this.indexUrl, queryString);
-
+    
         // Afficher l'indicateur de chargement
         this.loader.show();
-
-        // Requête AJAX pour charger les entités
+    
+        // Requête AJAX pour charger les données
         $.get(requestUrl)
             .done((html) => {
-                // Mettre à jour le contenu de la table ou liste
+                // Mettre à jour le conteneur avec les nouvelles données
                 $(this.config.tableSelector).html(html);
-
-                // Afficher un message de succès (facultatif)
+    
+                // Afficher un message de succès (optionnel)
                 NotificationHandler.showSuccess('Données chargées avec succès.');
             })
             .fail(() => {
-                // Gérer les erreurs
+                // Gérer les erreurs de la requête
                 NotificationHandler.showError('Erreur lors du chargement des données.');
             })
             .always(() => {
@@ -57,4 +61,5 @@ export class LoadListAction extends BaseAction {
                 this.loader.hide();
             });
     }
+    
 }

@@ -27,6 +27,8 @@ export class ConfigHelper {
         this.searchInputSelector = `${this.crudSelector} .crud-search-input`;
         this.paginationSelector = `${this.crudSelector} .pagination`;
         this.dataContainerSelector = `${this.tableSelector}`;
+        this.filterIconSelector = `${ config.filterFormSelector} .filter-icon`;;
+
     }
 
     /**
