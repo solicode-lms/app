@@ -1,6 +1,4 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
-
 
 namespace Modules\PkgCreationProjet\Controllers\Base;
 
@@ -14,6 +12,9 @@ use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgCreationProjet\App\Exports\ProjetExport;
 use Modules\PkgCreationProjet\App\Imports\ProjetImport;
 use Modules\Core\Services\ContextState;
+use Modules\PkgCreationProjet\Services\LivrableService;
+use Modules\PkgCreationProjet\Services\ResourceService;
+use Modules\PkgCreationProjet\Services\TransfertCompetenceService;
 
 class BaseProjetController extends AdminController
 {
@@ -119,19 +120,34 @@ class BaseProjetController extends AdminController
     {
         $itemProjet = $this->projetService->find($id);
         $formateurs = $this->formateurService->all();
-         $livrables_data =  $itemProjet->livrables()->paginate(10);
-         $resources_data =  $itemProjet->resources()->paginate(10);
-         $transfertCompetences_data =  $itemProjet->transfertCompetences()->paginate(10);
+        
+        $livrableService =  new LivrableService();
+        $livrables_data =  $itemProjet->livrables()->paginate(10);
+        $livrables_stats = $livrableService->getlivrableStats();
+        $livrables_filters = $livrableService->getFieldsFilterable();
+    
+
+        $resourceService =  new ResourceService();
+        $resources_data =  $itemProjet->resources()->paginate(10);
+        $resources_stats = $resourceService->getResourceStats();
+        $resources_filters = $resourceService->getFieldsFilterable();
+
+        $transfertCompetenceService =  new TransfertCompetenceService();
+        $transfertCompetences_data =  $itemProjet->transfertCompetences()->paginate(10);
+        $transfertCompetences_stats = $transfertCompetenceService->getTransfertCompetenceStats();
+        $transfertCompetences_filters = $transfertCompetenceService->getFieldsFilterable();
+
+
 
         // Utilisé dans l'édition des relation HasMany
         $this->contextState->set('projet_id', $id);
 
 
         if (request()->ajax()) {
-            return view('PkgCreationProjet::projet._fields', compact('itemProjet', 'formateurs', 'livrables_data', 'resources_data', 'transfertCompetences_data'));
+            return view('PkgCreationProjet::projet._fields', compact('itemProjet', 'formateurs', 'livrables_data', 'resources_data', 'transfertCompetences_data','resources_stats','resources_filters','livrables_stats','livrables_filters','transfertCompetences_stats','transfertCompetences_filters'));
         }
 
-        return view('PkgCreationProjet::projet.edit', compact('itemProjet', 'formateurs', 'livrables_data', 'resources_data', 'transfertCompetences_data'));
+        return view('PkgCreationProjet::projet.edit', compact('itemProjet', 'formateurs', 'livrables_data', 'resources_data', 'transfertCompetences_data','resources_stats','resources_filters','livrables_stats','livrables_filters','transfertCompetences_stats','transfertCompetences_filters'));
     }
 
     /**
