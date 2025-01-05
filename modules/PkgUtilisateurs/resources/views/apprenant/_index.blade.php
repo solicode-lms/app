@@ -71,44 +71,71 @@
                         <div class="card-header">
                             <div class="row">
                                 @section('crud-filters')
-                                <div id="apprenant-crud-filters" class="col-md-10 d-flex align-items-center">
-                                    <h5 class="mr-3"><i class="fas fa-filter text-info"></i></h5>
-                                    <div class="row w-100">
-                                        <div class="col-md-3">
-                                            <select class="form-control form-control-sm" id="stockFilter">
-                                                <option value="">Stock</option>
-                                                <option value="in-stock">En stock</option>
-                                                <option value="out-of-stock">Hors stock</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <input type="number" class="form-control form-control-sm" id="minPrice" placeholder="Prix min">
-                                        </div>
-                                        <div class="col-md-3">
-                                            <input type="number" class="form-control form-control-sm" id="maxPrice" placeholder="Prix max">
-                                        </div>
-                                        <div class="col-md-3">
-                                            <input type="text" class="form-control form-control-sm" id="otherFilter" placeholder="Autre filtre">
+                                <form id="apprenant-crud-filter-form" method="GET" class="row mb-3">
+                                    <div id="apprenant-crud-filters" class="col-md-10 d-flex align-items-center">
+                                        <h5 class="mr-3"><i class="fas fa-filter text-info"></i></h5>
+                                        <div class="row w-100">
+
+
+<!-- Filtres spécifiques -->
+ @foreach ($apprenants_filters as $filter)
+ <div class="col-md-3 mb-3">
+     @switch($filter['type'])
+         @case('text')
+             <input type="text" name="apprenants_filters[{{ $filter['field'] }}]" 
+                    class="form-control form-control-sm" 
+                    value="{{ request("apprenants_filters.{$filter['field']}") }}" 
+                    placeholder="{{ ucfirst(str_replace('_', ' ', $filter['field'])) }}">
+             @break
+         @case('date')
+             <input type="date" name="apprenants_filters[{{ $filter['field'] }}]" 
+                    class="form-control form-control-sm" 
+                    value="{{ request("apprenants_filters.{$filter['field']}") }}">
+             @break
+         @case('manyToOne')
+             <select name="apprenants_filters[{{ $filter['field'] }}]" class="form-select form-control form-control-sm">
+                 <option value="">Tous</option>
+                 @foreach ($filter['options'] as $option)
+                     <option value="{{ $option['id'] }}" 
+                             {{ request("apprenants_filters.{$filter['field']}") == $option['id'] ? 'selected' : '' }}>
+                         {{ $option['label'] }}
+                     </option>
+                 @endforeach
+             </select>
+             @break
+     @endswitch
+ </div>
+@endforeach
+
+<div class="col-md-12">
+    <button type="submit" class="btn btn-primary">Appliquer</button>
+    <button type="reset" class="btn btn-secondary" id="reset-filters">Réinitialiser</button>
+</div>
+
+
+
                                         </div>
                                     </div>
-                                </div>
-                                @show
-                                @section('crud-search-bar')
-                                @php
-                                    $filters = 3
-                                @endphp
-                                <div id="apprenant-crud-search-bar"
-                                    class="{{ isset($filters) && $filters ? 'col-md-2' : 'col-md-6 mx-auto' }} text-md-right text-left">
-                                    <x-search-bar
-                                        :searchQuery="$apprenant_searchQuery"
-                                        name="apprenant-crud-search-input"
-                                        id="apprenant-crud-search-input"
-                                        placeholder="Recherche des apprenants"
-                                    />
-                                </div>
+                                    @show
+                                    @section('crud-search-bar')
+                                    @php
+                                        $filters = 3
+                                    @endphp
+                                    <div id="apprenant-crud-search-bar"
+                                        class="{{ isset($filters) && $filters ? 'col-md-2' : 'col-md-6 mx-auto' }} text-md-right text-left">
+                                        <x-search-bar
+                                            :search="request('apprenants_search')"
+                                            name="apprenants_search"
+                                            id="apprenants_search"
+                                            placeholder="Recherche ..."
+                                        />
+                                    </div>
+                                </form>
                                 @show
                             </div>
                         </div>
+
+
                         <div id="apprenant-data-container" class="data-container">
                             @include('PkgUtilisateurs::apprenant._table')
                         </div>

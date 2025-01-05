@@ -16,15 +16,6 @@ abstract class BaseService implements ServiceInterface
 {
 
     protected $contextState;
-    /**
-     * Configure les relations à inclure dans les requêtes.
-     *
-     * @return void
-     */
-    protected function withRelations()
-    {
-      
-    }
 
     /**
      * Le modèle Eloquent associé à ce référentiel.
@@ -58,6 +49,17 @@ abstract class BaseService implements ServiceInterface
         $this->contextState = app(ContextState::class);
     }
 
+    // /**
+    //  * Configure les relations à inclure dans les requêtes.
+    //  *
+    //  * @return void
+    //  */
+    // protected function withRelations()
+    // {
+      
+    // }
+
+
     /**
      * Renvoie une pagination des résultats.
      *
@@ -66,70 +68,48 @@ abstract class BaseService implements ServiceInterface
      * @param array $columns Colonnes à récupérer.
      * @return LengthAwarePaginator
      */
-    public function paginate($search = [], $perPage = 0, array $columns = ['*']): LengthAwarePaginator
+    public function paginate(array $params = [], int $perPage = 0, array $columns = ['*']): LengthAwarePaginator
     {
-   
-        if ($perPage == 0) { $perPage = $this->paginationLimit;}
-
-        $query = $this->allQuery($search);
-
-        if (is_null($perPage)) {
-            $perPage = $this->paginationLimit;
-        }
+        // Utiliser la limite de pagination par défaut si aucune valeur n'est donnée
+        $perPage = $perPage ?: $this->paginationLimit;
+    
+        // Construire la requête avec `allQuery`
+        $query = $this->allQuery($params);
+    
+        // Retourner la pagination
         return $query->paginate($perPage, $columns);
     }
 
     /**
      * Construit une requête de récupération des données.
      *
-     * @param array $search Critères de recherche.
-     * @param int|null $skip Nombre d'éléments à ignorer.
-     * @param int|null $limit Nombre maximal d'éléments à récupérer.
+     * @param array $params Critères de recherche.
      * @return Builder
      */
-    public function allQuery($search = [], int $skip = null, int $limit = null): Builder
+    public function allQuery(array $params = []): Builder
     {
         $query = $this->model->newQuery();
-
-        if (is_array($search)) {
-            if (count($search)) {
-                foreach ($search as $key => $value) {
-                    if (in_array($key, $this->getFieldsSearchable())) {
-                        if (!is_null($value)) {
-                            $query->where($key, $value);
-                        }
-                    }
+    
+        // TODO : ajouter une recherche sur les relation ManyToOne,
+        // TODO : ajouter recherche par nom de filiere : Apprenant, ManyToOne/ManyToOne
+        // Appliquer la recherche globale
+        if (!empty($params['search'])) {
+            $query->where(function ($q) use ($params) {
+                foreach ($this->getFieldsSearchable() as $field) {
+                    $q->orWhere($field, 'LIKE', "%{$params['search']}%");
                 }
+            });
+        }
+    
+        // Appliquer les filtres spécifiques
+        foreach ($params['filters'] ?? [] as $field => $value) {
+            if (in_array($field, $this->getFieldsSearchable()) && !empty($value)) {
+                $query->where($field, '=', $value);
             }
-        } else {
-            if (!is_null($search)) {
-                foreach ($this->getFieldsSearchable() as $searchKey) {
-                    $query->orWhere($searchKey, 'LIKE', '%' . $search . '%');
-                }
-            }
         }
-
-        if (!is_null($skip)) {
-            $query->skip($skip);
-        }
-
-        if (!is_null($limit)) {
-            $query->limit($limit);
-        }
-
+    
         return $query;
     }
-
-    /** 
-     * Effectue une recherche basée sur des critères spécifiques.
-     * Essayer d'utiliser this.paginate();
-     */
-    // public function searchData($searchableData, $perPage = 0)
-    // {   
-    //     if ($perPage == 0) { $perPage = $this->paginationLimit;}
-    //     $query =  $this->allQuery($searchableData);
-    //     return $query->get();;
-    // }
 
     /**
      * Renvoie tous les éléments correspondants aux critères donnés.
