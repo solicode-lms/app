@@ -1,4 +1,5 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
+
 @push('scripts')
 <script>
     window.entitiesConfig = window.entitiesConfig || [];
@@ -29,8 +30,8 @@
         iconColor="text-info"
         title="{{ __('PkgUtilisateurs::apprenant.plural') }}"
         :breadcrumbs="[
-            ['label' => 'Gestion Utilisateurs', 'url' => '#'],
-            ['label' => 'Villes']
+            ['label' => 'PkgUtilisateurs', 'url' => '#'],
+            ['label' => "{{ __('PkgUtilisateurs::apprenant.plural') }}"]
         ]"
     />
     @show
@@ -63,32 +64,31 @@
                 </div>
                 @show
                 @section('crud-filters')
+
                 <div class="card-header">
-                    <div class="row">
-                        <form id="apprenant-crud-filter-form" method="GET" class="row mb-3">
-                            <x-filter-group>
-                                <!-- Filtres spécifiques -->
-                                @foreach ($apprenants_filters as $filter)
-                                    <x-filter-field 
-                                        :type="$filter['type']" 
-                                        :field="$filter['field']" 
-                                        :options="$filter['options'] ?? []"
-                                        :placeholder="ucfirst(str_replace('_', ' ', $filter['field']))" />
-                                @endforeach
-                            </x-filter-group>
-                            @section('crud-search-bar')
-                            <div id="apprenant-crud-search-bar"
-                                class="{{ count($apprenants_filters) > 0 ? 'col-md-2' : 'col-md-6 mx-auto' }} text-md-right text-left">
-                                <x-search-bar
-                                    :search="request('apprenants_search')"
-                                    name="apprenants_search"
-                                    id="apprenants_search"
-                                    placeholder="Recherche ..."
-                                />
-                            </div>
-                            @show
-                        </form>
-                    </div>
+                    <form id="apprenant-crud-filter-form" method="GET" class="row">
+                        <x-filter-group>
+                            <!-- Filtres spécifiques -->
+                            @foreach ($apprenants_filters as $filter)
+                                <x-filter-field 
+                                    :type="$filter['type']" 
+                                    :field="$filter['field']" 
+                                    :options="$filter['options'] ?? []"
+                                    :placeholder="ucfirst(str_replace('_', ' ', $filter['field']))" />
+                            @endforeach
+                        </x-filter-group>
+                        @section('crud-search-bar')
+                        <div id="apprenant-crud-search-bar"
+                            class="{{ count($apprenants_filters) > 0 ? 'col-md-2' : 'col-md-6 mx-auto' }} text-md-right text-left">
+                            <x-search-bar
+                                :search="request('apprenants_search')"
+                                name="apprenants_search"
+                                id="apprenants_search"
+                                placeholder="Recherche ..."
+                            />
+                        </div>
+                        @show
+                    </form>
                 </div>
                 @show
                 <div id="apprenant-data-container" class="data-container">

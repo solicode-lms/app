@@ -39,8 +39,6 @@ class BaseApprenantService extends BaseService
         'nationalite_id'
     ];
 
-  
-
     /**
      * Renvoie les champs de recherche disponibles.
      *
@@ -49,11 +47,6 @@ class BaseApprenantService extends BaseService
     public function getFieldsSearchable(): array
     {
         return $this->fieldsSearchable;
-    }
-
-    public function getFieldsFilterable(): array
-    {
-        return $this->fieldsFilterable;
     }
 
     /**
@@ -65,12 +58,9 @@ class BaseApprenantService extends BaseService
 
         // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
-            ['field' => 'nom', 'type' => 'text'],
-            ['field' => 'prenom', 'type' => 'text'],
-            ['field' => 'date_naissance', 'type' => 'date'],
+            ['field' => 'nom', 'type' => 'String'],
+            ['field' => 'prenom', 'type' => 'String'],
             $this->generateManyToOneFilter('groupe_id', \Modules\PkgUtilisateurs\Models\Groupe::class, 'code'),
-            $this->generateManyToOneFilter('nationalite_id', \Modules\PkgUtilisateurs\Models\Nationalite::class,'code'),
-            $this->generateManyToOneFilter('niveaux_scolaire_id', \Modules\PkgUtilisateurs\Models\NiveauxScolaire::class,'code'),
         ];
 
     }

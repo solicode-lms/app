@@ -408,12 +408,21 @@ protected function generateManyToOneFilter(string $field, string $model, string 
 
     return [
         'field' => $field,
-        'type' => 'manyToOne',
+        'type' => 'ManyToOne',
         'options' => $model::all(['id', $display_field])
             ->map(fn($item) => ['id' => $item['id'], 'label' => $item[$display_field]])
             ->toArray(),
         'sortable' => "{$modelInstance->getTable()}.{$display_field}", // Champ à utiliser pour le tri
     ];
 }
+
+
+
+public function getFieldsFilterable(): array
+{
+    return $this->fieldsFilterable;
+}
+
+
 
 }

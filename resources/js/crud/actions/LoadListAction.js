@@ -52,9 +52,10 @@ export class LoadListAction extends BaseAction {
                 // Afficher un message de succès (optionnel)
                 NotificationHandler.showSuccess('Données chargées avec succès.');
             })
-            .fail(() => {
+            .fail((xhr) => {
                 // Gérer les erreurs de la requête
-                NotificationHandler.showError('Erreur lors du chargement des données.');
+                const errorMessage = xhr.responseJSON?.message || 'Une erreur s\'est produite';
+                NotificationHandler.showAlert("error", "Erreur lors du chargement des données.", errorMessage);
             })
             .always(() => {
                 // Masquer l'indicateur de chargement

@@ -35,9 +35,6 @@ class BaseApprenantController extends AdminController
     }
 
 
-    /**
-     * Affiche la liste des filières ou retourne le HTML pour une requête AJAX.
-     */
     public function index(Request $request)
     {
         // Extraire les paramètres de recherche, page, et filtres

@@ -1,8 +1,8 @@
-<div class="filter-group d-flex align-items-center">
-    <div class="mr-3">
-        <i class="fas fa-filter text-info filter-icon" title="Réinitialiser les filtres"></i>
-    </div>
-    <div class="row w-100">
+<div class="col-10">
+    <div class="row">
+        <div class="d-flex align-items-center mb-3">
+            <i class="fas text-info filter-icon fa-times-circle mr-3" title="Réinitialiser les filtres"></i>
+        </div>
         {{ $slot }}
     </div>
 </div>
