@@ -4,9 +4,9 @@
     <table class="table table-striped text-nowrap">
         <thead>
             <tr>
-                <th class="sortable">{{ ucfirst(__('PkgCompetences::competence.code')) }}</th>
-                <th class="sortable">{{ ucfirst(__('PkgCompetences::competence.nom')) }}</th>
-                <th class="sortable">{{ ucfirst(__('PkgCompetences::module.singular')) }}</th>
+                <x-sortable-column field="code" label="{{ ucfirst(__('PkgCompetences::competence.code')) }}" />
+                <x-sortable-column field="nom" label="{{ ucfirst(__('PkgCompetences::competence.nom')) }}" />
+                <x-sortable-column field="module_id" label="{{ ucfirst(__('PkgCompetences::module.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

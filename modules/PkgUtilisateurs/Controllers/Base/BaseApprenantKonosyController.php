@@ -27,19 +27,28 @@ class BaseApprenantKonosyController extends AdminController
     }
 
 
-    /**
-     * Affiche la liste des filières ou retourne le HTML pour une requête AJAX.
-     */
     public function index(Request $request)
     {
-        $apprenantKonosy_searchQuery = str_replace(' ', '%', $request->get('q', ''));
-        $apprenantKonosies_data = $this->apprenantKonosyService->paginate($apprenantKonosy_searchQuery);
-
+        // Extraire les paramètres de recherche, page, et filtres
+        $apprenantKonosies_params = array_merge(
+            $request->only(['page','sort']),
+            ['search' => $request->get('apprenantKonosies_search', '')],
+            $request->except(['apprenantKonosies_search', 'page', 'sort'])
+        );
+    
+        // Paginer les apprenantKonosies
+        $apprenantKonosies_data = $this->apprenantKonosyService->paginate($apprenantKonosies_params);
+    
+        // Récupérer les statistiques et les champs filtrables
+        $apprenantKonosies_stats = $this->apprenantKonosyService->getapprenantKonosyStats();
+        $apprenantKonosies_filters = $this->apprenantKonosyService->getFieldsFilterable();
+    
+        // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgUtilisateurs::apprenantKonosy._table', compact('apprenantKonosies_data'))->render();
+            return view('PkgUtilisateurs::apprenantKonosy._table', compact('apprenantKonosies_data', 'apprenantKonosies_stats', 'apprenantKonosies_filters'))->render();
         }
-
-        return view('PkgUtilisateurs::apprenantKonosy.index', compact('apprenantKonosies_data','apprenantKonosy_searchQuery'));
+    
+        return view('PkgUtilisateurs::apprenantKonosy.index', compact('apprenantKonosies_data', 'apprenantKonosies_stats', 'apprenantKonosies_filters'));
     }
 
     /**

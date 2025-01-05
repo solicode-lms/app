@@ -40,6 +40,16 @@ class BaseTechnologyService extends BaseService
     public function __construct()
     {
         parent::__construct(new Technology());
+
+        // Initialiser les filtres configurables dynamiquement
+        $this->fieldsFilterable = [
+            ['field' => 'nom', 'type' => 'String'],
+            ['field' => 'description', 'type' => 'Text'],
+            $this->generateManyToOneFilter('category_technology_id', \Modules\PkgCompetences\Models\CategoryTechnology::class, 'nom'),
+            ['field' => 'Competence_ManyToMany', 'type' => 'ManyToMany'],
+            ['field' => 'TransfertCompetence_ManyToMany', 'type' => 'ManyToMany'],
+        ];
+
     }
 
     /**
@@ -57,5 +67,18 @@ class BaseTechnologyService extends BaseService
         ]);
 
         return $technology;
+    }
+
+    /**
+    * Obtenir les statistiques par Relation
+    *
+    * @return array
+    */
+    public function getTechnologyStats(): array
+    {
+
+        $stats = [];
+
+        return $stats;
     }
 }

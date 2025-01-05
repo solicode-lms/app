@@ -29,19 +29,28 @@ class BaseSysControllerController extends AdminController
     }
 
 
-    /**
-     * Affiche la liste des filières ou retourne le HTML pour une requête AJAX.
-     */
     public function index(Request $request)
     {
-        $sysController_searchQuery = str_replace(' ', '%', $request->get('q', ''));
-        $sysControllers_data = $this->sysControllerService->paginate($sysController_searchQuery);
-
+        // Extraire les paramètres de recherche, page, et filtres
+        $sysControllers_params = array_merge(
+            $request->only(['page','sort']),
+            ['search' => $request->get('sysControllers_search', '')],
+            $request->except(['sysControllers_search', 'page', 'sort'])
+        );
+    
+        // Paginer les sysControllers
+        $sysControllers_data = $this->sysControllerService->paginate($sysControllers_params);
+    
+        // Récupérer les statistiques et les champs filtrables
+        $sysControllers_stats = $this->sysControllerService->getsysControllerStats();
+        $sysControllers_filters = $this->sysControllerService->getFieldsFilterable();
+    
+        // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('Core::sysController._table', compact('sysControllers_data'))->render();
+            return view('Core::sysController._table', compact('sysControllers_data', 'sysControllers_stats', 'sysControllers_filters'))->render();
         }
-
-        return view('Core::sysController.index', compact('sysControllers_data','sysController_searchQuery'));
+    
+        return view('Core::sysController.index', compact('sysControllers_data', 'sysControllers_stats', 'sysControllers_filters'));
     }
 
     /**

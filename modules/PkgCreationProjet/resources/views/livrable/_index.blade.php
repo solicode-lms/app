@@ -1,13 +1,16 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-@section('script')
-@parent
+@push('scripts')
 <script>
     window.entitiesConfig = window.entitiesConfig || [];
     window.entitiesConfig.push({
         edit_has_many: false,
         entity_name: 'livrable',
-        crudSelector: '#livrable_crud',
+        filterFormSelector: '#livrable-crud-filter-form',
+        crudSelector: '#livrable-crud',
+        tableSelector: '#livrable-data-container',
+        formSelector: '#livrableForm',
+        modalSelector : '#livrableModal',
         indexUrl: '{{ route('livrables.index') }}', 
         createUrl: '{{ route('livrables.create') }}',
         editUrl: '{{ route('livrables.edit',  ['livrable' => ':id']) }}',
@@ -19,81 +22,87 @@
         edit_title: '{{__("Core::msg.add") . " : " . __("PkgCreationProjet::livrable.singular") }}',
     });
 </script>
-@endsection
-<div id="livrable_crud">
-    <div class="content-header">
+@endpush
+<div id="livrable-crud" class="crud">
+    @section('crud-header')
+    @php
+        $package = __("PkgUtilisateurs::PkgUtilisateurs.name");
+       $titre = __("PkgUtilisateurs::groupe.singular");
+    @endphp
+    <x-crud-header 
+        id="livrable-crud-header" icon="fas fa-city"  
+        iconColor="text-info"
+        title="{{ __('PkgCreationProjet::livrable.plural') }}"
+        :breadcrumbs="[
+            ['label' => $package, 'url' => '#'],
+            ['label' => $titre]
+        ]"
+    />
+    @show
+    @section('crud-table')
+    <section id="livrable-crud-table" class="content crud-table">
         <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1>
-                        {{ curd_index_title('PkgCreationProjet::livrable') }}
-                    </h1>
-                </div>
-                <div class="col-sm-6">
-                    <div class="float-sm-right">
-                        @can('create-livrable')
-                        <a href="{{ route('livrables.create') }}" data-target="#livrableModal" class="btn btn-info btn-sm context-state addEntityButton">
-                            <i class="fas fa-plus"></i>
-                            {{ __('Core::msg.add') }}
-                        </a>
-                        @endcan
+            <div class="card card-outline card-info " id="card_crud">
+                @section('crud-stats-bar')
+                <div class="card-header row">
+                    <!-- Statistiques et Actions -->
+                    <div class="col-sm-9">
+                        <x-crud-stats-summary
+                            icon="fas fa-chart-bar text-info"
+                            :stats="$livrables_stats"
+                        />
                     </div>
+                    <div class="col-sm-3">
+                        <x-crud-actions
+                            :createPermission="'create-livrable'"
+                            :createRoute="route('livrables.create')"
+                            :createText="__('Ajouter une livrable')"
+                            :importPermission="'import-livrable'"
+                            :importRoute="route('livrables.import')"
+                            :importText="__('Importer')"
+                            :exportPermission="'export-livrable'"
+                            :exportRoute="route('livrables.export')"
+                            :exportText="__('Exporter')"
+                        />
+                    </div>
+                </div>
+                @show
+                @section('crud-filters')
+                <div class="card-header">
+                    <form id="livrable-crud-filter-form" method="GET" class="row">
+                        <x-filter-group>
+                            <!-- Filtres spécifiques -->
+                            @foreach ($livrables_filters as $filter)
+                                <x-filter-field 
+                                    :type="$filter['type']" 
+                                    :field="$filter['field']" 
+                                    :options="$filter['options'] ?? []"
+                                    :placeholder="ucfirst(str_replace('_', ' ', $filter['field']))" />
+                            @endforeach
+                        </x-filter-group>
+                        @section('crud-search-bar')
+                        <div id="livrable-crud-search-bar"
+                            class="{{ count($livrables_filters) > 0 ? 'col-md-2' : 'col-md-6 mx-auto' }} text-md-right text-left">
+                            <x-search-bar
+                                :search="request('livrables_search')"
+                                name="livrables_search"
+                                id="livrables_search"
+                                placeholder="Recherche ..."
+                            />
+                        </div>
+                        @show
+                    </form>
+                </div>
+                @show
+                <div id="livrable-data-container" class="data-container">
+                    @include('PkgCreationProjet::livrable._table')
                 </div>
             </div>
         </div>
     </div>
-    <section class="content" id="section_crud">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-12">
-                    <div class="card" id="card_crud">
-                        <div class="card-header col-md-12">
-                            <div class="p-0">
-                                <div class="input-group input-group-sm float-sm-right col-md-3 p-0">
-                                    <input type="text" value="{{ $livrable_searchQuery ?? '' }}" name="crud_search_input" id="crud_search_input"
-                                           class="form-control float-right" placeholder="Recherche">
-                                    <div class="input-group-append">
-                                        <button type="submit" class="btn btn-default">
-                                            <i class="fas fa-search"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="livrable-data-container" class="data-container">
-                            @include('PkgCreationProjet::livrable._table')
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <input type="hidden" id='page' value="1">
     </section>
-
-
-<!-- Modal pour Ajouter/Modifier -->
-<div class="modal fade crud-modal" id="livrableModal" tabindex="-1" role="dialog" aria-labelledby="livrableModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-
-            <div id="modal-loading"  class="d-flex justify-content-center align-items-center" style="display: none; min-height: 200px;  ">
-                <div class="spinner-border text-primary" role="status">
-                </div>
-            </div>
-
-            <!-- Contenu injecté -->
-            <div id="modal-content-container" style="display: none;">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="livrableModalLabel"></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                      </button>
-                </div>
-                <div class="modal-body"></div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
+    @show
+    @section('crud-modal')
+    <x-modal id="livrableModal" title="Ajouter ou Modifier"></x-modal>
+    @show
 </div>

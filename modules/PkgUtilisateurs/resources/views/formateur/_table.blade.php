@@ -1,22 +1,22 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<div class="card-body table-responsive p-0 crud-table" id="formateursTable">
+<div class="card-body table-responsive p-0 crud-card-body" id="formateurs-crud-card-body">
     <table class="table table-striped text-nowrap">
         <thead>
             <tr>
-                <th>{{ ucfirst(__('PkgUtilisateurs::formateur.nom')) }}</th>
-                <th>{{ ucfirst(__('PkgUtilisateurs::formateur.prenom')) }}</th>
-                <th>{{ ucfirst(__('PkgUtilisateurs::formateur.adresse')) }}</th>
+                <x-sortable-column field="nom" label="{{ ucfirst(__('PkgUtilisateurs::formateur.nom')) }}" />
+                <x-sortable-column field="prenom" label="{{ ucfirst(__('PkgUtilisateurs::formateur.prenom')) }}" />
+                <x-sortable-column field="adresse" label="{{ ucfirst(__('PkgUtilisateurs::formateur.adresse')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($formateurs_data as $formateur)
                 <tr>
-                    <td>{{ $formateur->nom }}</td>
-                    <td>{{ $formateur->prenom }}</td>
-                    <td>{{ $formateur->adresse }}</td>
-                    <td class="text-center">
+                    <td>@limit($formateur->nom, 80)</td>
+                    <td>@limit($formateur->prenom, 80)</td>
+                    <td>@limit($formateur->adresse, 80)</td>
+                    <td class="text-right">
                         @can('show-formateur')
                             <a href="{{ route('formateurs.show', ['formateur' => $formateur->id]) }}" data-id="{{$formateur->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
@@ -43,39 +43,10 @@
     </table>
 </div>
 
-
 <div class="card-footer">
-
-    <div class="d-md-flex justify-content-between align-items-center p-2">
-        <div class="d-flex align-items-center mb-2 ml-2 mt-2">
-            @can('import-formateur')
-                <form action="{{ route('formateurs.import') }}" method="post" class="mt-2" enctype="multipart/form-data"
-                    id="importForm">
-                    @csrf
-                    <label for="upload" class="btn btn-default btn-sm font-weight-normal">
-                        <i class="fas fa-file-download"></i>
-                        {{ __('Core::msg.import') }}
-                    </label>
-                    <input type="file" id="upload" name="file" style="display:none;" onchange="submitForm()" />
-                </form>
-            @endcan
-            @can('export-formateur')
-                <form class="">
-                    <a href="{{ route('formateurs.export') }}" class="btn btn-default btn-sm mt-0 mx-2">
-                        <i class="fas fa-file-export"></i>
-                        {{ __('Core::msg.export') }}</a>
-                </form>
-            @endcan
-        </div>
-
-        <ul class="pagination m-0 float-right">
-            {{ $formateurs_data->onEachSide(1)->links() }}
-        </ul>
-    </div>
-
-    <script>
-        function submitForm() {
-            document.getElementById("importForm").submit();
-        }
-    </script>
+    @section('crud-pagination')
+    <ul class="pagination m-0 d-flex justify-content-center">
+        {{ $formateurs_data->onEachSide(1)->links() }}
+    </ul>
+    @show
 </div>

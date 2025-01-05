@@ -35,19 +35,28 @@ class BaseTechnologyController extends AdminController
     }
 
 
-    /**
-     * Affiche la liste des filières ou retourne le HTML pour une requête AJAX.
-     */
     public function index(Request $request)
     {
-        $technology_searchQuery = str_replace(' ', '%', $request->get('q', ''));
-        $technologies_data = $this->technologyService->paginate($technology_searchQuery);
-
+        // Extraire les paramètres de recherche, page, et filtres
+        $technologies_params = array_merge(
+            $request->only(['page','sort']),
+            ['search' => $request->get('technologies_search', '')],
+            $request->except(['technologies_search', 'page', 'sort'])
+        );
+    
+        // Paginer les technologies
+        $technologies_data = $this->technologyService->paginate($technologies_params);
+    
+        // Récupérer les statistiques et les champs filtrables
+        $technologies_stats = $this->technologyService->gettechnologyStats();
+        $technologies_filters = $this->technologyService->getFieldsFilterable();
+    
+        // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgCompetences::technology._table', compact('technologies_data'))->render();
+            return view('PkgCompetences::technology._table', compact('technologies_data', 'technologies_stats', 'technologies_filters'))->render();
         }
-
-        return view('PkgCompetences::technology.index', compact('technologies_data','technology_searchQuery'));
+    
+        return view('PkgCompetences::technology.index', compact('technologies_data', 'technologies_stats', 'technologies_filters'));
     }
 
     /**

@@ -56,6 +56,13 @@ class BaseApprenantKonosyService extends BaseService
     public function __construct()
     {
         parent::__construct(new ApprenantKonosy());
+
+        // Initialiser les filtres configurables dynamiquement
+        $this->fieldsFilterable = [
+            ['field' => 'Nom', 'type' => 'String'],
+            ['field' => 'Adresse', 'type' => 'Text'],
+        ];
+
     }
 
     /**
@@ -67,5 +74,18 @@ class BaseApprenantKonosyService extends BaseService
     public function create(array $data)
     {
         return parent::create($data);
+    }
+
+    /**
+    * Obtenir les statistiques par Relation
+    *
+    * @return array
+    */
+    public function getApprenantKonosyStats(): array
+    {
+
+        $stats = [];
+
+        return $stats;
     }
 }

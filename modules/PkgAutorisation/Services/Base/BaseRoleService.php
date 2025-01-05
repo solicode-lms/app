@@ -39,6 +39,14 @@ class BaseRoleService extends BaseService
     public function __construct()
     {
         parent::__construct(new Role());
+
+        // Initialiser les filtres configurables dynamiquement
+        $this->fieldsFilterable = [
+            ['field' => 'name', 'type' => 'String'],
+            ['field' => 'Permission_ManyToMany', 'type' => 'ManyToMany'],
+            ['field' => 'User_ManyToMany', 'type' => 'ManyToMany'],
+        ];
+
     }
 
     /**
@@ -50,5 +58,18 @@ class BaseRoleService extends BaseService
     public function create(array $data)
     {
         return parent::create($data);
+    }
+
+    /**
+    * Obtenir les statistiques par Relation
+    *
+    * @return array
+    */
+    public function getRoleStats(): array
+    {
+
+        $stats = [];
+
+        return $stats;
     }
 }

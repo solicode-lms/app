@@ -40,6 +40,14 @@ class BaseNiveauCompetenceService extends BaseService
     public function __construct()
     {
         parent::__construct(new NiveauCompetence());
+
+        // Initialiser les filtres configurables dynamiquement
+        $this->fieldsFilterable = [
+            ['field' => 'nom', 'type' => 'String'],
+            ['field' => 'description', 'type' => 'Text'],
+            $this->generateManyToOneFilter('competence_id', \Modules\PkgCompetences\Models\Competence::class, 'code'),
+        ];
+
     }
 
     /**
@@ -57,5 +65,18 @@ class BaseNiveauCompetenceService extends BaseService
         ]);
 
         return $niveauCompetence;
+    }
+
+    /**
+    * Obtenir les statistiques par Relation
+    *
+    * @return array
+    */
+    public function getNiveauCompetenceStats(): array
+    {
+
+        $stats = [];
+
+        return $stats;
     }
 }

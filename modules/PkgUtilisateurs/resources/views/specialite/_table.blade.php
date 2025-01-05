@@ -1,20 +1,20 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<div class="card-body table-responsive p-0 crud-table" id="specialitesTable">
+<div class="card-body table-responsive p-0 crud-card-body" id="specialites-crud-card-body">
     <table class="table table-striped text-nowrap">
         <thead>
             <tr>
-                <th>{{ ucfirst(__('PkgUtilisateurs::specialite.nom')) }}</th>
-                <th>{{ ucfirst(__('PkgUtilisateurs::specialite.description')) }}</th>
+                <x-sortable-column field="nom" label="{{ ucfirst(__('PkgUtilisateurs::specialite.nom')) }}" />
+                <x-sortable-column field="description" label="{{ ucfirst(__('PkgUtilisateurs::specialite.description')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($specialites_data as $specialite)
                 <tr>
-                    <td>{{ $specialite->nom }}</td>
+                    <td>@limit($specialite->nom, 80)</td>
                     <td>{!! $specialite->description !!}</td>
-                    <td class="text-center">
+                    <td class="text-right">
                         @can('show-specialite')
                             <a href="{{ route('specialites.show', ['specialite' => $specialite->id]) }}" data-id="{{$specialite->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
@@ -41,39 +41,10 @@
     </table>
 </div>
 
-
 <div class="card-footer">
-
-    <div class="d-md-flex justify-content-between align-items-center p-2">
-        <div class="d-flex align-items-center mb-2 ml-2 mt-2">
-            @can('import-specialite')
-                <form action="{{ route('specialites.import') }}" method="post" class="mt-2" enctype="multipart/form-data"
-                    id="importForm">
-                    @csrf
-                    <label for="upload" class="btn btn-default btn-sm font-weight-normal">
-                        <i class="fas fa-file-download"></i>
-                        {{ __('Core::msg.import') }}
-                    </label>
-                    <input type="file" id="upload" name="file" style="display:none;" onchange="submitForm()" />
-                </form>
-            @endcan
-            @can('export-specialite')
-                <form class="">
-                    <a href="{{ route('specialites.export') }}" class="btn btn-default btn-sm mt-0 mx-2">
-                        <i class="fas fa-file-export"></i>
-                        {{ __('Core::msg.export') }}</a>
-                </form>
-            @endcan
-        </div>
-
-        <ul class="pagination m-0 float-right">
-            {{ $specialites_data->onEachSide(1)->links() }}
-        </ul>
-    </div>
-
-    <script>
-        function submitForm() {
-            document.getElementById("importForm").submit();
-        }
-    </script>
+    @section('crud-pagination')
+    <ul class="pagination m-0 d-flex justify-content-center">
+        {{ $specialites_data->onEachSide(1)->links() }}
+    </ul>
+    @show
 </div>

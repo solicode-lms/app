@@ -1,18 +1,18 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<div class="card-body table-responsive p-0 crud-table" id="rolesTable">
+<div class="card-body table-responsive p-0 crud-card-body" id="roles-crud-card-body">
     <table class="table table-striped text-nowrap">
         <thead>
             <tr>
-                <th>{{ ucfirst(__('PkgAutorisation::role.name')) }}</th>
+                <x-sortable-column field="name" label="{{ ucfirst(__('PkgAutorisation::role.name')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($roles_data as $role)
                 <tr>
-                    <td>{{ $role->name }}</td>
-                    <td class="text-center">
+                    <td>@limit($role->name, 80)</td>
+                    <td class="text-right">
                         @can('show-role')
                             <a href="{{ route('roles.show', ['role' => $role->id]) }}" data-id="{{$role->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
@@ -39,39 +39,10 @@
     </table>
 </div>
 
-
 <div class="card-footer">
-
-    <div class="d-md-flex justify-content-between align-items-center p-2">
-        <div class="d-flex align-items-center mb-2 ml-2 mt-2">
-            @can('import-role')
-                <form action="{{ route('roles.import') }}" method="post" class="mt-2" enctype="multipart/form-data"
-                    id="importForm">
-                    @csrf
-                    <label for="upload" class="btn btn-default btn-sm font-weight-normal">
-                        <i class="fas fa-file-download"></i>
-                        {{ __('Core::msg.import') }}
-                    </label>
-                    <input type="file" id="upload" name="file" style="display:none;" onchange="submitForm()" />
-                </form>
-            @endcan
-            @can('export-role')
-                <form class="">
-                    <a href="{{ route('roles.export') }}" class="btn btn-default btn-sm mt-0 mx-2">
-                        <i class="fas fa-file-export"></i>
-                        {{ __('Core::msg.export') }}</a>
-                </form>
-            @endcan
-        </div>
-
-        <ul class="pagination m-0 float-right">
-            {{ $roles_data->onEachSide(1)->links() }}
-        </ul>
-    </div>
-
-    <script>
-        function submitForm() {
-            document.getElementById("importForm").submit();
-        }
-    </script>
+    @section('crud-pagination')
+    <ul class="pagination m-0 d-flex justify-content-center">
+        {{ $roles_data->onEachSide(1)->links() }}
+    </ul>
+    @show
 </div>

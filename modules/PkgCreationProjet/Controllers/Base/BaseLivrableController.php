@@ -32,19 +32,28 @@ class BaseLivrableController extends AdminController
     }
 
 
-    /**
-     * Affiche la liste des filières ou retourne le HTML pour une requête AJAX.
-     */
     public function index(Request $request)
     {
-        $livrable_searchQuery = str_replace(' ', '%', $request->get('q', ''));
-        $livrables_data = $this->livrableService->paginate($livrable_searchQuery);
-
+        // Extraire les paramètres de recherche, page, et filtres
+        $livrables_params = array_merge(
+            $request->only(['page','sort']),
+            ['search' => $request->get('livrables_search', '')],
+            $request->except(['livrables_search', 'page', 'sort'])
+        );
+    
+        // Paginer les livrables
+        $livrables_data = $this->livrableService->paginate($livrables_params);
+    
+        // Récupérer les statistiques et les champs filtrables
+        $livrables_stats = $this->livrableService->getlivrableStats();
+        $livrables_filters = $this->livrableService->getFieldsFilterable();
+    
+        // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgCreationProjet::livrable._table', compact('livrables_data'))->render();
+            return view('PkgCreationProjet::livrable._table', compact('livrables_data', 'livrables_stats', 'livrables_filters'))->render();
         }
-
-        return view('PkgCreationProjet::livrable.index', compact('livrables_data','livrable_searchQuery'));
+    
+        return view('PkgCreationProjet::livrable.index', compact('livrables_data', 'livrables_stats', 'livrables_filters'));
     }
 
     /**

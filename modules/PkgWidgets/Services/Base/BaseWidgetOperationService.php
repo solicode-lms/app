@@ -39,6 +39,13 @@ class BaseWidgetOperationService extends BaseService
     public function __construct()
     {
         parent::__construct(new WidgetOperation());
+
+        // Initialiser les filtres configurables dynamiquement
+        $this->fieldsFilterable = [
+            ['field' => 'operation', 'type' => 'String'],
+            ['field' => 'description', 'type' => 'Text'],
+        ];
+
     }
 
     /**
@@ -50,5 +57,18 @@ class BaseWidgetOperationService extends BaseService
     public function create(array $data)
     {
         return parent::create($data);
+    }
+
+    /**
+    * Obtenir les statistiques par Relation
+    *
+    * @return array
+    */
+    public function getWidgetOperationStats(): array
+    {
+
+        $stats = [];
+
+        return $stats;
     }
 }

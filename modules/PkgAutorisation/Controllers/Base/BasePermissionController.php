@@ -35,19 +35,28 @@ class BasePermissionController extends AdminController
     }
 
 
-    /**
-     * Affiche la liste des filières ou retourne le HTML pour une requête AJAX.
-     */
     public function index(Request $request)
     {
-        $permission_searchQuery = str_replace(' ', '%', $request->get('q', ''));
-        $permissions_data = $this->permissionService->paginate($permission_searchQuery);
-
+        // Extraire les paramètres de recherche, page, et filtres
+        $permissions_params = array_merge(
+            $request->only(['page','sort']),
+            ['search' => $request->get('permissions_search', '')],
+            $request->except(['permissions_search', 'page', 'sort'])
+        );
+    
+        // Paginer les permissions
+        $permissions_data = $this->permissionService->paginate($permissions_params);
+    
+        // Récupérer les statistiques et les champs filtrables
+        $permissions_stats = $this->permissionService->getpermissionStats();
+        $permissions_filters = $this->permissionService->getFieldsFilterable();
+    
+        // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgAutorisation::permission._table', compact('permissions_data'))->render();
+            return view('PkgAutorisation::permission._table', compact('permissions_data', 'permissions_stats', 'permissions_filters'))->render();
         }
-
-        return view('PkgAutorisation::permission.index', compact('permissions_data','permission_searchQuery'));
+    
+        return view('PkgAutorisation::permission.index', compact('permissions_data', 'permissions_stats', 'permissions_filters'));
     }
 
     /**

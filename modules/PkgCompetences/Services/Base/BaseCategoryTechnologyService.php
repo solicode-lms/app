@@ -39,6 +39,12 @@ class BaseCategoryTechnologyService extends BaseService
     public function __construct()
     {
         parent::__construct(new CategoryTechnology());
+
+        // Initialiser les filtres configurables dynamiquement
+        $this->fieldsFilterable = [
+            ['field' => 'nom', 'type' => 'String'],
+        ];
+
     }
 
     /**
@@ -55,5 +61,18 @@ class BaseCategoryTechnologyService extends BaseService
         ]);
 
         return $categoryTechnology;
+    }
+
+    /**
+    * Obtenir les statistiques par Relation
+    *
+    * @return array
+    */
+    public function getCategoryTechnologyStats(): array
+    {
+
+        $stats = [];
+
+        return $stats;
     }
 }

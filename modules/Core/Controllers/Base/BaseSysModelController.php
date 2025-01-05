@@ -32,19 +32,28 @@ class BaseSysModelController extends AdminController
     }
 
 
-    /**
-     * Affiche la liste des filières ou retourne le HTML pour une requête AJAX.
-     */
     public function index(Request $request)
     {
-        $sysModel_searchQuery = str_replace(' ', '%', $request->get('q', ''));
-        $sysModels_data = $this->sysModelService->paginate($sysModel_searchQuery);
-
+        // Extraire les paramètres de recherche, page, et filtres
+        $sysModels_params = array_merge(
+            $request->only(['page','sort']),
+            ['search' => $request->get('sysModels_search', '')],
+            $request->except(['sysModels_search', 'page', 'sort'])
+        );
+    
+        // Paginer les sysModels
+        $sysModels_data = $this->sysModelService->paginate($sysModels_params);
+    
+        // Récupérer les statistiques et les champs filtrables
+        $sysModels_stats = $this->sysModelService->getsysModelStats();
+        $sysModels_filters = $this->sysModelService->getFieldsFilterable();
+    
+        // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('Core::sysModel._table', compact('sysModels_data'))->render();
+            return view('Core::sysModel._table', compact('sysModels_data', 'sysModels_stats', 'sysModels_filters'))->render();
         }
-
-        return view('Core::sysModel.index', compact('sysModels_data','sysModel_searchQuery'));
+    
+        return view('Core::sysModel.index', compact('sysModels_data', 'sysModels_stats', 'sysModels_filters'));
     }
 
     /**

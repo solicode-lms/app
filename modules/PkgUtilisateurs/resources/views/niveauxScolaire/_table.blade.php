@@ -1,18 +1,18 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<div class="card-body table-responsive p-0 crud-table" id="niveauxScolairesTable">
+<div class="card-body table-responsive p-0 crud-card-body" id="niveauxScolaires-crud-card-body">
     <table class="table table-striped text-nowrap">
         <thead>
             <tr>
-                <th>{{ ucfirst(__('PkgUtilisateurs::niveauxScolaire.code')) }}</th>
+                <x-sortable-column field="code" label="{{ ucfirst(__('PkgUtilisateurs::niveauxScolaire.code')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($niveauxScolaires_data as $niveauxScolaire)
                 <tr>
-                    <td>{{ $niveauxScolaire->code }}</td>
-                    <td class="text-center">
+                    <td>@limit($niveauxScolaire->code, 80)</td>
+                    <td class="text-right">
                         @can('show-niveauxScolaire')
                             <a href="{{ route('niveauxScolaires.show', ['niveauxScolaire' => $niveauxScolaire->id]) }}" data-id="{{$niveauxScolaire->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
@@ -39,39 +39,10 @@
     </table>
 </div>
 
-
 <div class="card-footer">
-
-    <div class="d-md-flex justify-content-between align-items-center p-2">
-        <div class="d-flex align-items-center mb-2 ml-2 mt-2">
-            @can('import-niveauxScolaire')
-                <form action="{{ route('niveauxScolaires.import') }}" method="post" class="mt-2" enctype="multipart/form-data"
-                    id="importForm">
-                    @csrf
-                    <label for="upload" class="btn btn-default btn-sm font-weight-normal">
-                        <i class="fas fa-file-download"></i>
-                        {{ __('Core::msg.import') }}
-                    </label>
-                    <input type="file" id="upload" name="file" style="display:none;" onchange="submitForm()" />
-                </form>
-            @endcan
-            @can('export-niveauxScolaire')
-                <form class="">
-                    <a href="{{ route('niveauxScolaires.export') }}" class="btn btn-default btn-sm mt-0 mx-2">
-                        <i class="fas fa-file-export"></i>
-                        {{ __('Core::msg.export') }}</a>
-                </form>
-            @endcan
-        </div>
-
-        <ul class="pagination m-0 float-right">
-            {{ $niveauxScolaires_data->onEachSide(1)->links() }}
-        </ul>
-    </div>
-
-    <script>
-        function submitForm() {
-            document.getElementById("importForm").submit();
-        }
-    </script>
+    @section('crud-pagination')
+    <ul class="pagination m-0 d-flex justify-content-center">
+        {{ $niveauxScolaires_data->onEachSide(1)->links() }}
+    </ul>
+    @show
 </div>

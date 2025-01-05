@@ -41,6 +41,14 @@ class BaseResourceService extends BaseService
     public function __construct()
     {
         parent::__construct(new Resource());
+
+        // Initialiser les filtres configurables dynamiquement
+        $this->fieldsFilterable = [
+            ['field' => 'nom', 'type' => 'String'],
+            ['field' => 'lien', 'type' => 'String'],
+            $this->generateManyToOneFilter('projet_id', \Modules\PkgCreationProjet\Models\Projet::class, 'titre'),
+        ];
+
     }
 
     /**
@@ -59,5 +67,18 @@ class BaseResourceService extends BaseService
         ]);
 
         return $resource;
+    }
+
+    /**
+    * Obtenir les statistiques par Relation
+    *
+    * @return array
+    */
+    public function getResourceStats(): array
+    {
+
+        $stats = [];
+
+        return $stats;
     }
 }

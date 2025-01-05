@@ -27,19 +27,28 @@ class BaseFiliereController extends AdminController
     }
 
 
-    /**
-     * Affiche la liste des filières ou retourne le HTML pour une requête AJAX.
-     */
     public function index(Request $request)
     {
-        $filiere_searchQuery = str_replace(' ', '%', $request->get('q', ''));
-        $filieres_data = $this->filiereService->paginate($filiere_searchQuery);
-
+        // Extraire les paramètres de recherche, page, et filtres
+        $filieres_params = array_merge(
+            $request->only(['page','sort']),
+            ['search' => $request->get('filieres_search', '')],
+            $request->except(['filieres_search', 'page', 'sort'])
+        );
+    
+        // Paginer les filieres
+        $filieres_data = $this->filiereService->paginate($filieres_params);
+    
+        // Récupérer les statistiques et les champs filtrables
+        $filieres_stats = $this->filiereService->getfiliereStats();
+        $filieres_filters = $this->filiereService->getFieldsFilterable();
+    
+        // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgCompetences::filiere._table', compact('filieres_data'))->render();
+            return view('PkgCompetences::filiere._table', compact('filieres_data', 'filieres_stats', 'filieres_filters'))->render();
         }
-
-        return view('PkgCompetences::filiere.index', compact('filieres_data','filiere_searchQuery'));
+    
+        return view('PkgCompetences::filiere.index', compact('filieres_data', 'filieres_stats', 'filieres_filters'));
     }
 
     /**

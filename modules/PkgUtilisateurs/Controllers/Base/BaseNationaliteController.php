@@ -27,19 +27,28 @@ class BaseNationaliteController extends AdminController
     }
 
 
-    /**
-     * Affiche la liste des filières ou retourne le HTML pour une requête AJAX.
-     */
     public function index(Request $request)
     {
-        $nationalite_searchQuery = str_replace(' ', '%', $request->get('q', ''));
-        $nationalites_data = $this->nationaliteService->paginate($nationalite_searchQuery);
-
+        // Extraire les paramètres de recherche, page, et filtres
+        $nationalites_params = array_merge(
+            $request->only(['page','sort']),
+            ['search' => $request->get('nationalites_search', '')],
+            $request->except(['nationalites_search', 'page', 'sort'])
+        );
+    
+        // Paginer les nationalites
+        $nationalites_data = $this->nationaliteService->paginate($nationalites_params);
+    
+        // Récupérer les statistiques et les champs filtrables
+        $nationalites_stats = $this->nationaliteService->getnationaliteStats();
+        $nationalites_filters = $this->nationaliteService->getFieldsFilterable();
+    
+        // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgUtilisateurs::nationalite._table', compact('nationalites_data'))->render();
+            return view('PkgUtilisateurs::nationalite._table', compact('nationalites_data', 'nationalites_stats', 'nationalites_filters'))->render();
         }
-
-        return view('PkgUtilisateurs::nationalite.index', compact('nationalites_data','nationalite_searchQuery'));
+    
+        return view('PkgUtilisateurs::nationalite.index', compact('nationalites_data', 'nationalites_stats', 'nationalites_filters'));
     }
 
     /**

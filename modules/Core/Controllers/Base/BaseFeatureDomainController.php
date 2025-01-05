@@ -29,19 +29,28 @@ class BaseFeatureDomainController extends AdminController
     }
 
 
-    /**
-     * Affiche la liste des filières ou retourne le HTML pour une requête AJAX.
-     */
     public function index(Request $request)
     {
-        $featureDomain_searchQuery = str_replace(' ', '%', $request->get('q', ''));
-        $featureDomains_data = $this->featureDomainService->paginate($featureDomain_searchQuery);
-
+        // Extraire les paramètres de recherche, page, et filtres
+        $featureDomains_params = array_merge(
+            $request->only(['page','sort']),
+            ['search' => $request->get('featureDomains_search', '')],
+            $request->except(['featureDomains_search', 'page', 'sort'])
+        );
+    
+        // Paginer les featureDomains
+        $featureDomains_data = $this->featureDomainService->paginate($featureDomains_params);
+    
+        // Récupérer les statistiques et les champs filtrables
+        $featureDomains_stats = $this->featureDomainService->getfeatureDomainStats();
+        $featureDomains_filters = $this->featureDomainService->getFieldsFilterable();
+    
+        // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('Core::featureDomain._table', compact('featureDomains_data'))->render();
+            return view('Core::featureDomain._table', compact('featureDomains_data', 'featureDomains_stats', 'featureDomains_filters'))->render();
         }
-
-        return view('Core::featureDomain.index', compact('featureDomains_data','featureDomain_searchQuery'));
+    
+        return view('Core::featureDomain.index', compact('featureDomains_data', 'featureDomains_stats', 'featureDomains_filters'));
     }
 
     /**

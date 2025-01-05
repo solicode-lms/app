@@ -29,19 +29,28 @@ class BaseResourceController extends AdminController
     }
 
 
-    /**
-     * Affiche la liste des filières ou retourne le HTML pour une requête AJAX.
-     */
     public function index(Request $request)
     {
-        $resource_searchQuery = str_replace(' ', '%', $request->get('q', ''));
-        $resources_data = $this->resourceService->paginate($resource_searchQuery);
-
+        // Extraire les paramètres de recherche, page, et filtres
+        $resources_params = array_merge(
+            $request->only(['page','sort']),
+            ['search' => $request->get('resources_search', '')],
+            $request->except(['resources_search', 'page', 'sort'])
+        );
+    
+        // Paginer les resources
+        $resources_data = $this->resourceService->paginate($resources_params);
+    
+        // Récupérer les statistiques et les champs filtrables
+        $resources_stats = $this->resourceService->getresourceStats();
+        $resources_filters = $this->resourceService->getFieldsFilterable();
+    
+        // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgCreationProjet::resource._table', compact('resources_data'))->render();
+            return view('PkgCreationProjet::resource._table', compact('resources_data', 'resources_stats', 'resources_filters'))->render();
         }
-
-        return view('PkgCreationProjet::resource.index', compact('resources_data','resource_searchQuery'));
+    
+        return view('PkgCreationProjet::resource.index', compact('resources_data', 'resources_stats', 'resources_filters'));
     }
 
     /**

@@ -41,6 +41,14 @@ class BaseLivrableService extends BaseService
     public function __construct()
     {
         parent::__construct(new Livrable());
+
+        // Initialiser les filtres configurables dynamiquement
+        $this->fieldsFilterable = [
+            ['field' => 'titre', 'type' => 'String'],
+            $this->generateManyToOneFilter('nature_livrable_id', \Modules\PkgCreationProjet\Models\NatureLivrable::class, 'nom'),
+            $this->generateManyToOneFilter('projet_id', \Modules\PkgCreationProjet\Models\Projet::class, 'titre'),
+        ];
+
     }
 
     /**
@@ -52,5 +60,18 @@ class BaseLivrableService extends BaseService
     public function create(array $data)
     {
         return parent::create($data);
+    }
+
+    /**
+    * Obtenir les statistiques par Relation
+    *
+    * @return array
+    */
+    public function getLivrableStats(): array
+    {
+
+        $stats = [];
+
+        return $stats;
     }
 }

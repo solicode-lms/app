@@ -1,20 +1,20 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<div class="card-body table-responsive p-0 crud-table" id="usersTable">
+<div class="card-body table-responsive p-0 crud-card-body" id="users-crud-card-body">
     <table class="table table-striped text-nowrap">
         <thead>
             <tr>
-                <th>{{ ucfirst(__('PkgAutorisation::user.name')) }}</th>
-                <th>{{ ucfirst(__('PkgAutorisation::user.password')) }}</th>
+                <x-sortable-column field="name" label="{{ ucfirst(__('PkgAutorisation::user.name')) }}" />
+                <x-sortable-column field="password" label="{{ ucfirst(__('PkgAutorisation::user.password')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($users_data as $user)
                 <tr>
-                    <td>{{ $user->name }}</td>
-                    <td>{{ $user->password }}</td>
-                    <td class="text-center">
+                    <td>@limit($user->name, 80)</td>
+                    <td>@limit($user->password, 80)</td>
+                    <td class="text-right">
                         @can('show-user')
                             <a href="{{ route('users.show', ['user' => $user->id]) }}" data-id="{{$user->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
@@ -41,39 +41,10 @@
     </table>
 </div>
 
-
 <div class="card-footer">
-
-    <div class="d-md-flex justify-content-between align-items-center p-2">
-        <div class="d-flex align-items-center mb-2 ml-2 mt-2">
-            @can('import-user')
-                <form action="{{ route('users.import') }}" method="post" class="mt-2" enctype="multipart/form-data"
-                    id="importForm">
-                    @csrf
-                    <label for="upload" class="btn btn-default btn-sm font-weight-normal">
-                        <i class="fas fa-file-download"></i>
-                        {{ __('Core::msg.import') }}
-                    </label>
-                    <input type="file" id="upload" name="file" style="display:none;" onchange="submitForm()" />
-                </form>
-            @endcan
-            @can('export-user')
-                <form class="">
-                    <a href="{{ route('users.export') }}" class="btn btn-default btn-sm mt-0 mx-2">
-                        <i class="fas fa-file-export"></i>
-                        {{ __('Core::msg.export') }}</a>
-                </form>
-            @endcan
-        </div>
-
-        <ul class="pagination m-0 float-right">
-            {{ $users_data->onEachSide(1)->links() }}
-        </ul>
-    </div>
-
-    <script>
-        function submitForm() {
-            document.getElementById("importForm").submit();
-        }
-    </script>
+    @section('crud-pagination')
+    <ul class="pagination m-0 d-flex justify-content-center">
+        {{ $users_data->onEachSide(1)->links() }}
+    </ul>
+    @show
 </div>

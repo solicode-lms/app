@@ -27,19 +27,28 @@ class BaseNiveauxScolaireController extends AdminController
     }
 
 
-    /**
-     * Affiche la liste des filières ou retourne le HTML pour une requête AJAX.
-     */
     public function index(Request $request)
     {
-        $niveauxScolaire_searchQuery = str_replace(' ', '%', $request->get('q', ''));
-        $niveauxScolaires_data = $this->niveauxScolaireService->paginate($niveauxScolaire_searchQuery);
-
+        // Extraire les paramètres de recherche, page, et filtres
+        $niveauxScolaires_params = array_merge(
+            $request->only(['page','sort']),
+            ['search' => $request->get('niveauxScolaires_search', '')],
+            $request->except(['niveauxScolaires_search', 'page', 'sort'])
+        );
+    
+        // Paginer les niveauxScolaires
+        $niveauxScolaires_data = $this->niveauxScolaireService->paginate($niveauxScolaires_params);
+    
+        // Récupérer les statistiques et les champs filtrables
+        $niveauxScolaires_stats = $this->niveauxScolaireService->getniveauxScolaireStats();
+        $niveauxScolaires_filters = $this->niveauxScolaireService->getFieldsFilterable();
+    
+        // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgUtilisateurs::niveauxScolaire._table', compact('niveauxScolaires_data'))->render();
+            return view('PkgUtilisateurs::niveauxScolaire._table', compact('niveauxScolaires_data', 'niveauxScolaires_stats', 'niveauxScolaires_filters'))->render();
         }
-
-        return view('PkgUtilisateurs::niveauxScolaire.index', compact('niveauxScolaires_data','niveauxScolaire_searchQuery'));
+    
+        return view('PkgUtilisateurs::niveauxScolaire.index', compact('niveauxScolaires_data', 'niveauxScolaires_stats', 'niveauxScolaires_filters'));
     }
 
     /**

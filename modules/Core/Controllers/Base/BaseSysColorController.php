@@ -27,19 +27,28 @@ class BaseSysColorController extends AdminController
     }
 
 
-    /**
-     * Affiche la liste des filières ou retourne le HTML pour une requête AJAX.
-     */
     public function index(Request $request)
     {
-        $sysColor_searchQuery = str_replace(' ', '%', $request->get('q', ''));
-        $sysColors_data = $this->sysColorService->paginate($sysColor_searchQuery);
-
+        // Extraire les paramètres de recherche, page, et filtres
+        $sysColors_params = array_merge(
+            $request->only(['page','sort']),
+            ['search' => $request->get('sysColors_search', '')],
+            $request->except(['sysColors_search', 'page', 'sort'])
+        );
+    
+        // Paginer les sysColors
+        $sysColors_data = $this->sysColorService->paginate($sysColors_params);
+    
+        // Récupérer les statistiques et les champs filtrables
+        $sysColors_stats = $this->sysColorService->getsysColorStats();
+        $sysColors_filters = $this->sysColorService->getFieldsFilterable();
+    
+        // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('Core::sysColor._table', compact('sysColors_data'))->render();
+            return view('Core::sysColor._table', compact('sysColors_data', 'sysColors_stats', 'sysColors_filters'))->render();
         }
-
-        return view('Core::sysColor.index', compact('sysColors_data','sysColor_searchQuery'));
+    
+        return view('Core::sysColor.index', compact('sysColors_data', 'sysColors_stats', 'sysColors_filters'));
     }
 
     /**

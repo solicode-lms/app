@@ -39,6 +39,13 @@ class BaseWidgetTypeService extends BaseService
     public function __construct()
     {
         parent::__construct(new WidgetType());
+
+        // Initialiser les filtres configurables dynamiquement
+        $this->fieldsFilterable = [
+            ['field' => 'type', 'type' => 'String'],
+            ['field' => 'description', 'type' => 'Text'],
+        ];
+
     }
 
     /**
@@ -50,5 +57,18 @@ class BaseWidgetTypeService extends BaseService
     public function create(array $data)
     {
         return parent::create($data);
+    }
+
+    /**
+    * Obtenir les statistiques par Relation
+    *
+    * @return array
+    */
+    public function getWidgetTypeStats(): array
+    {
+
+        $stats = [];
+
+        return $stats;
     }
 }

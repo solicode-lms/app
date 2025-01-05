@@ -41,6 +41,15 @@ class BaseTransfertCompetenceService extends BaseService
     public function __construct()
     {
         parent::__construct(new TransfertCompetence());
+
+        // Initialiser les filtres configurables dynamiquement
+        $this->fieldsFilterable = [
+            $this->generateManyToOneFilter('projet_id', \Modules\PkgCreationProjet\Models\Projet::class, 'titre'),
+            $this->generateManyToOneFilter('competence_id', \Modules\PkgCompetences\Models\Competence::class, 'code'),
+            $this->generateManyToOneFilter('appreciation_id', \Modules\PkgCompetences\Models\Appreciation::class, 'nom'),
+            ['field' => 'Technology_ManyToMany', 'type' => 'ManyToMany'],
+        ];
+
     }
 
     /**
@@ -52,5 +61,18 @@ class BaseTransfertCompetenceService extends BaseService
     public function create(array $data)
     {
         return parent::create($data);
+    }
+
+    /**
+    * Obtenir les statistiques par Relation
+    *
+    * @return array
+    */
+    public function getTransfertCompetenceStats(): array
+    {
+
+        $stats = [];
+
+        return $stats;
     }
 }

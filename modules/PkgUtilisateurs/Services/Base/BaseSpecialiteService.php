@@ -39,6 +39,14 @@ class BaseSpecialiteService extends BaseService
     public function __construct()
     {
         parent::__construct(new Specialite());
+
+        // Initialiser les filtres configurables dynamiquement
+        $this->fieldsFilterable = [
+            ['field' => 'nom', 'type' => 'String'],
+            ['field' => 'description', 'type' => 'Text'],
+            ['field' => 'Formateur_ManyToMany', 'type' => 'ManyToMany'],
+        ];
+
     }
 
     /**
@@ -55,5 +63,18 @@ class BaseSpecialiteService extends BaseService
         ]);
 
         return $specialite;
+    }
+
+    /**
+    * Obtenir les statistiques par Relation
+    *
+    * @return array
+    */
+    public function getSpecialiteStats(): array
+    {
+
+        $stats = [];
+
+        return $stats;
     }
 }

@@ -32,19 +32,28 @@ class BaseFeatureController extends AdminController
     }
 
 
-    /**
-     * Affiche la liste des filières ou retourne le HTML pour une requête AJAX.
-     */
     public function index(Request $request)
     {
-        $feature_searchQuery = str_replace(' ', '%', $request->get('q', ''));
-        $features_data = $this->featureService->paginate($feature_searchQuery);
-
+        // Extraire les paramètres de recherche, page, et filtres
+        $features_params = array_merge(
+            $request->only(['page','sort']),
+            ['search' => $request->get('features_search', '')],
+            $request->except(['features_search', 'page', 'sort'])
+        );
+    
+        // Paginer les features
+        $features_data = $this->featureService->paginate($features_params);
+    
+        // Récupérer les statistiques et les champs filtrables
+        $features_stats = $this->featureService->getfeatureStats();
+        $features_filters = $this->featureService->getFieldsFilterable();
+    
+        // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('Core::feature._table', compact('features_data'))->render();
+            return view('Core::feature._table', compact('features_data', 'features_stats', 'features_filters'))->render();
         }
-
-        return view('Core::feature.index', compact('features_data','feature_searchQuery'));
+    
+        return view('Core::feature.index', compact('features_data', 'features_stats', 'features_filters'));
     }
 
     /**

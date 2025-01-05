@@ -45,6 +45,16 @@ class BaseWidgetService extends BaseService
     public function __construct()
     {
         parent::__construct(new Widget());
+
+        // Initialiser les filtres configurables dynamiquement
+        $this->fieldsFilterable = [
+            ['field' => 'name', 'type' => 'String'],
+            $this->generateManyToOneFilter('type_id', \Modules\PkgWidgets\Models\WidgetType::class, 'type'),
+            $this->generateManyToOneFilter('model_id', \Modules\Core\Models\SysModel::class, 'name'),
+            $this->generateManyToOneFilter('operation_id', \Modules\PkgWidgets\Models\WidgetOperation::class, 'operation'),
+            ['field' => 'icon', 'type' => 'String'],
+        ];
+
     }
 
     /**
@@ -56,5 +66,18 @@ class BaseWidgetService extends BaseService
     public function create(array $data)
     {
         return parent::create($data);
+    }
+
+    /**
+    * Obtenir les statistiques par Relation
+    *
+    * @return array
+    */
+    public function getWidgetStats(): array
+    {
+
+        $stats = [];
+
+        return $stats;
     }
 }

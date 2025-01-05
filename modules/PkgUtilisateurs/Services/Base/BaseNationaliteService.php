@@ -40,6 +40,12 @@ class BaseNationaliteService extends BaseService
     public function __construct()
     {
         parent::__construct(new Nationalite());
+
+        // Initialiser les filtres configurables dynamiquement
+        $this->fieldsFilterable = [
+            ['field' => 'code', 'type' => 'String'],
+        ];
+
     }
 
     /**
@@ -57,5 +63,18 @@ class BaseNationaliteService extends BaseService
         ]);
 
         return $nationalite;
+    }
+
+    /**
+    * Obtenir les statistiques par Relation
+    *
+    * @return array
+    */
+    public function getNationaliteStats(): array
+    {
+
+        $stats = [];
+
+        return $stats;
     }
 }

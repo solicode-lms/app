@@ -40,6 +40,15 @@ class BaseFeatureService extends BaseService
     public function __construct()
     {
         parent::__construct(new Feature());
+
+        // Initialiser les filtres configurables dynamiquement
+        $this->fieldsFilterable = [
+            ['field' => 'name', 'type' => 'String'],
+            ['field' => 'description', 'type' => 'Text'],
+            $this->generateManyToOneFilter('domain_id', \Modules\Core\Models\FeatureDomain::class, 'name'),
+            ['field' => 'Permission_ManyToMany', 'type' => 'ManyToMany'],
+        ];
+
     }
 
     /**
@@ -51,5 +60,18 @@ class BaseFeatureService extends BaseService
     public function create(array $data)
     {
         return parent::create($data);
+    }
+
+    /**
+    * Obtenir les statistiques par Relation
+    *
+    * @return array
+    */
+    public function getFeatureStats(): array
+    {
+
+        $stats = [];
+
+        return $stats;
     }
 }

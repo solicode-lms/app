@@ -27,19 +27,28 @@ class BaseNatureLivrableController extends AdminController
     }
 
 
-    /**
-     * Affiche la liste des filières ou retourne le HTML pour une requête AJAX.
-     */
     public function index(Request $request)
     {
-        $natureLivrable_searchQuery = str_replace(' ', '%', $request->get('q', ''));
-        $natureLivrables_data = $this->natureLivrableService->paginate($natureLivrable_searchQuery);
-
+        // Extraire les paramètres de recherche, page, et filtres
+        $natureLivrables_params = array_merge(
+            $request->only(['page','sort']),
+            ['search' => $request->get('natureLivrables_search', '')],
+            $request->except(['natureLivrables_search', 'page', 'sort'])
+        );
+    
+        // Paginer les natureLivrables
+        $natureLivrables_data = $this->natureLivrableService->paginate($natureLivrables_params);
+    
+        // Récupérer les statistiques et les champs filtrables
+        $natureLivrables_stats = $this->natureLivrableService->getnatureLivrableStats();
+        $natureLivrables_filters = $this->natureLivrableService->getFieldsFilterable();
+    
+        // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgCreationProjet::natureLivrable._table', compact('natureLivrables_data'))->render();
+            return view('PkgCreationProjet::natureLivrable._table', compact('natureLivrables_data', 'natureLivrables_stats', 'natureLivrables_filters'))->render();
         }
-
-        return view('PkgCreationProjet::natureLivrable.index', compact('natureLivrables_data','natureLivrable_searchQuery'));
+    
+        return view('PkgCreationProjet::natureLivrable.index', compact('natureLivrables_data', 'natureLivrables_stats', 'natureLivrables_filters'));
     }
 
     /**

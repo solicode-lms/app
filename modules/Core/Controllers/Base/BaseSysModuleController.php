@@ -29,19 +29,28 @@ class BaseSysModuleController extends AdminController
     }
 
 
-    /**
-     * Affiche la liste des filières ou retourne le HTML pour une requête AJAX.
-     */
     public function index(Request $request)
     {
-        $sysModule_searchQuery = str_replace(' ', '%', $request->get('q', ''));
-        $sysModules_data = $this->sysModuleService->paginate($sysModule_searchQuery);
-
+        // Extraire les paramètres de recherche, page, et filtres
+        $sysModules_params = array_merge(
+            $request->only(['page','sort']),
+            ['search' => $request->get('sysModules_search', '')],
+            $request->except(['sysModules_search', 'page', 'sort'])
+        );
+    
+        // Paginer les sysModules
+        $sysModules_data = $this->sysModuleService->paginate($sysModules_params);
+    
+        // Récupérer les statistiques et les champs filtrables
+        $sysModules_stats = $this->sysModuleService->getsysModuleStats();
+        $sysModules_filters = $this->sysModuleService->getFieldsFilterable();
+    
+        // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('Core::sysModule._table', compact('sysModules_data'))->render();
+            return view('Core::sysModule._table', compact('sysModules_data', 'sysModules_stats', 'sysModules_filters'))->render();
         }
-
-        return view('Core::sysModule.index', compact('sysModules_data','sysModule_searchQuery'));
+    
+        return view('Core::sysModule.index', compact('sysModules_data', 'sysModules_stats', 'sysModules_filters'));
     }
 
     /**

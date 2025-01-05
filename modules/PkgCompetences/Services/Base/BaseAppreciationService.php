@@ -42,6 +42,13 @@ class BaseAppreciationService extends BaseService
     public function __construct()
     {
         parent::__construct(new Appreciation());
+
+        // Initialiser les filtres configurables dynamiquement
+        $this->fieldsFilterable = [
+            ['field' => 'nom', 'type' => 'String'],
+            $this->generateManyToOneFilter('formateur_id', \Modules\PkgUtilisateurs\Models\Formateur::class, 'nom'),
+        ];
+
     }
 
     /**
@@ -61,5 +68,18 @@ class BaseAppreciationService extends BaseService
         ]);
 
         return $appreciation;
+    }
+
+    /**
+    * Obtenir les statistiques par Relation
+    *
+    * @return array
+    */
+    public function getAppreciationStats(): array
+    {
+
+        $stats = [];
+
+        return $stats;
     }
 }

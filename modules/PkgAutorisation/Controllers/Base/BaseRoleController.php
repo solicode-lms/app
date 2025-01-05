@@ -32,19 +32,28 @@ class BaseRoleController extends AdminController
     }
 
 
-    /**
-     * Affiche la liste des filières ou retourne le HTML pour une requête AJAX.
-     */
     public function index(Request $request)
     {
-        $role_searchQuery = str_replace(' ', '%', $request->get('q', ''));
-        $roles_data = $this->roleService->paginate($role_searchQuery);
-
+        // Extraire les paramètres de recherche, page, et filtres
+        $roles_params = array_merge(
+            $request->only(['page','sort']),
+            ['search' => $request->get('roles_search', '')],
+            $request->except(['roles_search', 'page', 'sort'])
+        );
+    
+        // Paginer les roles
+        $roles_data = $this->roleService->paginate($roles_params);
+    
+        // Récupérer les statistiques et les champs filtrables
+        $roles_stats = $this->roleService->getroleStats();
+        $roles_filters = $this->roleService->getFieldsFilterable();
+    
+        // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgAutorisation::role._table', compact('roles_data'))->render();
+            return view('PkgAutorisation::role._table', compact('roles_data', 'roles_stats', 'roles_filters'))->render();
         }
-
-        return view('PkgAutorisation::role.index', compact('roles_data','role_searchQuery'));
+    
+        return view('PkgAutorisation::role.index', compact('roles_data', 'roles_stats', 'roles_filters'));
     }
 
     /**

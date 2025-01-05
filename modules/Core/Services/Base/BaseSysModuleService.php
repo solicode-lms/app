@@ -44,6 +44,15 @@ class BaseSysModuleService extends BaseService
     public function __construct()
     {
         parent::__construct(new SysModule());
+
+        // Initialiser les filtres configurables dynamiquement
+        $this->fieldsFilterable = [
+            ['field' => 'name', 'type' => 'String'],
+            ['field' => 'description', 'type' => 'Text'],
+            ['field' => 'is_active', 'type' => 'Integer'],
+            $this->generateManyToOneFilter('color_id', \Modules\Core\Models\SysColor::class, 'name'),
+        ];
+
     }
 
     /**
@@ -55,5 +64,18 @@ class BaseSysModuleService extends BaseService
     public function create(array $data)
     {
         return parent::create($data);
+    }
+
+    /**
+    * Obtenir les statistiques par Relation
+    *
+    * @return array
+    */
+    public function getSysModuleStats(): array
+    {
+
+        $stats = [];
+
+        return $stats;
     }
 }

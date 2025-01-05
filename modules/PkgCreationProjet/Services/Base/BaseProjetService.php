@@ -44,6 +44,15 @@ class BaseProjetService extends BaseService
     public function __construct()
     {
         parent::__construct(new Projet());
+
+        // Initialiser les filtres configurables dynamiquement
+        $this->fieldsFilterable = [
+            ['field' => 'titre', 'type' => 'String'],
+            ['field' => 'date_debut', 'type' => 'Date'],
+            ['field' => 'date_fin', 'type' => 'Date'],
+            $this->generateManyToOneFilter('formateur_id', \Modules\PkgUtilisateurs\Models\Formateur::class, 'nom'),
+        ];
+
     }
 
     /**
@@ -55,5 +64,18 @@ class BaseProjetService extends BaseService
     public function create(array $data)
     {
         return parent::create($data);
+    }
+
+    /**
+    * Obtenir les statistiques par Relation
+    *
+    * @return array
+    */
+    public function getProjetStats(): array
+    {
+
+        $stats = [];
+
+        return $stats;
     }
 }

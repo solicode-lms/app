@@ -42,6 +42,14 @@ class BaseUserService extends BaseService
     public function __construct()
     {
         parent::__construct(new User());
+
+        // Initialiser les filtres configurables dynamiquement
+        $this->fieldsFilterable = [
+            ['field' => 'name', 'type' => 'String'],
+            ['field' => 'password', 'type' => 'String'],
+            ['field' => 'Role_ManyToMany', 'type' => 'ManyToMany'],
+        ];
+
     }
 
     /**
@@ -53,5 +61,18 @@ class BaseUserService extends BaseService
     public function create(array $data)
     {
         return parent::create($data);
+    }
+
+    /**
+    * Obtenir les statistiques par Relation
+    *
+    * @return array
+    */
+    public function getUserStats(): array
+    {
+
+        $stats = [];
+
+        return $stats;
     }
 }

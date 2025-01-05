@@ -48,6 +48,16 @@ class BaseFormateurService extends BaseService
     public function __construct()
     {
         parent::__construct(new Formateur());
+
+        // Initialiser les filtres configurables dynamiquement
+        $this->fieldsFilterable = [
+            ['field' => 'nom', 'type' => 'String'],
+            ['field' => 'prenom', 'type' => 'String'],
+            ['field' => 'adresse', 'type' => 'String'],
+            ['field' => 'Groupe_ManyToMany', 'type' => 'ManyToMany'],
+            ['field' => 'Specialite_ManyToMany', 'type' => 'ManyToMany'],
+        ];
+
     }
 
     /**
@@ -73,5 +83,18 @@ class BaseFormateurService extends BaseService
         ]);
 
         return $formateur;
+    }
+
+    /**
+    * Obtenir les statistiques par Relation
+    *
+    * @return array
+    */
+    public function getFormateurStats(): array
+    {
+
+        $stats = [];
+
+        return $stats;
     }
 }

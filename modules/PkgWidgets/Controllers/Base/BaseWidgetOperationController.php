@@ -27,19 +27,28 @@ class BaseWidgetOperationController extends AdminController
     }
 
 
-    /**
-     * Affiche la liste des filières ou retourne le HTML pour une requête AJAX.
-     */
     public function index(Request $request)
     {
-        $widgetOperation_searchQuery = str_replace(' ', '%', $request->get('q', ''));
-        $widgetOperations_data = $this->widgetOperationService->paginate($widgetOperation_searchQuery);
-
+        // Extraire les paramètres de recherche, page, et filtres
+        $widgetOperations_params = array_merge(
+            $request->only(['page','sort']),
+            ['search' => $request->get('widgetOperations_search', '')],
+            $request->except(['widgetOperations_search', 'page', 'sort'])
+        );
+    
+        // Paginer les widgetOperations
+        $widgetOperations_data = $this->widgetOperationService->paginate($widgetOperations_params);
+    
+        // Récupérer les statistiques et les champs filtrables
+        $widgetOperations_stats = $this->widgetOperationService->getwidgetOperationStats();
+        $widgetOperations_filters = $this->widgetOperationService->getFieldsFilterable();
+    
+        // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgWidgets::widgetOperation._table', compact('widgetOperations_data'))->render();
+            return view('PkgWidgets::widgetOperation._table', compact('widgetOperations_data', 'widgetOperations_stats', 'widgetOperations_filters'))->render();
         }
-
-        return view('PkgWidgets::widgetOperation.index', compact('widgetOperations_data','widgetOperation_searchQuery'));
+    
+        return view('PkgWidgets::widgetOperation.index', compact('widgetOperations_data', 'widgetOperations_stats', 'widgetOperations_filters'));
     }
 
     /**

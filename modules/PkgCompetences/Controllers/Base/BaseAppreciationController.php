@@ -29,19 +29,28 @@ class BaseAppreciationController extends AdminController
     }
 
 
-    /**
-     * Affiche la liste des filières ou retourne le HTML pour une requête AJAX.
-     */
     public function index(Request $request)
     {
-        $appreciation_searchQuery = str_replace(' ', '%', $request->get('q', ''));
-        $appreciations_data = $this->appreciationService->paginate($appreciation_searchQuery);
-
+        // Extraire les paramètres de recherche, page, et filtres
+        $appreciations_params = array_merge(
+            $request->only(['page','sort']),
+            ['search' => $request->get('appreciations_search', '')],
+            $request->except(['appreciations_search', 'page', 'sort'])
+        );
+    
+        // Paginer les appreciations
+        $appreciations_data = $this->appreciationService->paginate($appreciations_params);
+    
+        // Récupérer les statistiques et les champs filtrables
+        $appreciations_stats = $this->appreciationService->getappreciationStats();
+        $appreciations_filters = $this->appreciationService->getFieldsFilterable();
+    
+        // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgCompetences::appreciation._table', compact('appreciations_data'))->render();
+            return view('PkgCompetences::appreciation._table', compact('appreciations_data', 'appreciations_stats', 'appreciations_filters'))->render();
         }
-
-        return view('PkgCompetences::appreciation.index', compact('appreciations_data','appreciation_searchQuery'));
+    
+        return view('PkgCompetences::appreciation.index', compact('appreciations_data', 'appreciations_stats', 'appreciations_filters'));
     }
 
     /**

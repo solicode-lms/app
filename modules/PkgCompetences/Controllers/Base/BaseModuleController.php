@@ -29,19 +29,28 @@ class BaseModuleController extends AdminController
     }
 
 
-    /**
-     * Affiche la liste des filières ou retourne le HTML pour une requête AJAX.
-     */
     public function index(Request $request)
     {
-        $module_searchQuery = str_replace(' ', '%', $request->get('q', ''));
-        $modules_data = $this->moduleService->paginate($module_searchQuery);
-
+        // Extraire les paramètres de recherche, page, et filtres
+        $modules_params = array_merge(
+            $request->only(['page','sort']),
+            ['search' => $request->get('modules_search', '')],
+            $request->except(['modules_search', 'page', 'sort'])
+        );
+    
+        // Paginer les modules
+        $modules_data = $this->moduleService->paginate($modules_params);
+    
+        // Récupérer les statistiques et les champs filtrables
+        $modules_stats = $this->moduleService->getmoduleStats();
+        $modules_filters = $this->moduleService->getFieldsFilterable();
+    
+        // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgCompetences::module._table', compact('modules_data'))->render();
+            return view('PkgCompetences::module._table', compact('modules_data', 'modules_stats', 'modules_filters'))->render();
         }
-
-        return view('PkgCompetences::module.index', compact('modules_data','module_searchQuery'));
+    
+        return view('PkgCompetences::module.index', compact('modules_data', 'modules_stats', 'modules_filters'));
     }
 
     /**

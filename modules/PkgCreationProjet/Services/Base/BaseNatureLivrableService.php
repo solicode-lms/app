@@ -39,6 +39,12 @@ class BaseNatureLivrableService extends BaseService
     public function __construct()
     {
         parent::__construct(new NatureLivrable());
+
+        // Initialiser les filtres configurables dynamiquement
+        $this->fieldsFilterable = [
+            ['field' => 'nom', 'type' => 'String'],
+        ];
+
     }
 
     /**
@@ -55,5 +61,18 @@ class BaseNatureLivrableService extends BaseService
         ]);
 
         return $natureLivrable;
+    }
+
+    /**
+    * Obtenir les statistiques par Relation
+    *
+    * @return array
+    */
+    public function getNatureLivrableStats(): array
+    {
+
+        $stats = [];
+
+        return $stats;
     }
 }

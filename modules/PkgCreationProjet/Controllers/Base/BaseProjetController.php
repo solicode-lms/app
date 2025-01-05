@@ -29,19 +29,28 @@ class BaseProjetController extends AdminController
     }
 
 
-    /**
-     * Affiche la liste des filières ou retourne le HTML pour une requête AJAX.
-     */
     public function index(Request $request)
     {
-        $projet_searchQuery = str_replace(' ', '%', $request->get('q', ''));
-        $projets_data = $this->projetService->paginate($projet_searchQuery);
-
+        // Extraire les paramètres de recherche, page, et filtres
+        $projets_params = array_merge(
+            $request->only(['page','sort']),
+            ['search' => $request->get('projets_search', '')],
+            $request->except(['projets_search', 'page', 'sort'])
+        );
+    
+        // Paginer les projets
+        $projets_data = $this->projetService->paginate($projets_params);
+    
+        // Récupérer les statistiques et les champs filtrables
+        $projets_stats = $this->projetService->getprojetStats();
+        $projets_filters = $this->projetService->getFieldsFilterable();
+    
+        // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgCreationProjet::projet._table', compact('projets_data'))->render();
+            return view('PkgCreationProjet::projet._table', compact('projets_data', 'projets_stats', 'projets_filters'))->render();
         }
-
-        return view('PkgCreationProjet::projet.index', compact('projets_data','projet_searchQuery'));
+    
+        return view('PkgCreationProjet::projet.index', compact('projets_data', 'projets_stats', 'projets_filters'));
     }
 
     /**

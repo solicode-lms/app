@@ -27,19 +27,28 @@ class BaseCategoryTechnologyController extends AdminController
     }
 
 
-    /**
-     * Affiche la liste des filières ou retourne le HTML pour une requête AJAX.
-     */
     public function index(Request $request)
     {
-        $categoryTechnology_searchQuery = str_replace(' ', '%', $request->get('q', ''));
-        $categoryTechnologies_data = $this->categoryTechnologyService->paginate($categoryTechnology_searchQuery);
-
+        // Extraire les paramètres de recherche, page, et filtres
+        $categoryTechnologies_params = array_merge(
+            $request->only(['page','sort']),
+            ['search' => $request->get('categoryTechnologies_search', '')],
+            $request->except(['categoryTechnologies_search', 'page', 'sort'])
+        );
+    
+        // Paginer les categoryTechnologies
+        $categoryTechnologies_data = $this->categoryTechnologyService->paginate($categoryTechnologies_params);
+    
+        // Récupérer les statistiques et les champs filtrables
+        $categoryTechnologies_stats = $this->categoryTechnologyService->getcategoryTechnologyStats();
+        $categoryTechnologies_filters = $this->categoryTechnologyService->getFieldsFilterable();
+    
+        // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgCompetences::categoryTechnology._table', compact('categoryTechnologies_data'))->render();
+            return view('PkgCompetences::categoryTechnology._table', compact('categoryTechnologies_data', 'categoryTechnologies_stats', 'categoryTechnologies_filters'))->render();
         }
-
-        return view('PkgCompetences::categoryTechnology.index', compact('categoryTechnologies_data','categoryTechnology_searchQuery'));
+    
+        return view('PkgCompetences::categoryTechnology.index', compact('categoryTechnologies_data', 'categoryTechnologies_stats', 'categoryTechnologies_filters'));
     }
 
     /**

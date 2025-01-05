@@ -27,19 +27,28 @@ class BaseVilleController extends AdminController
     }
 
 
-    /**
-     * Affiche la liste des filières ou retourne le HTML pour une requête AJAX.
-     */
     public function index(Request $request)
     {
-        $ville_searchQuery = str_replace(' ', '%', $request->get('q', ''));
-        $villes_data = $this->villeService->paginate($ville_searchQuery);
-
+        // Extraire les paramètres de recherche, page, et filtres
+        $villes_params = array_merge(
+            $request->only(['page','sort']),
+            ['search' => $request->get('villes_search', '')],
+            $request->except(['villes_search', 'page', 'sort'])
+        );
+    
+        // Paginer les villes
+        $villes_data = $this->villeService->paginate($villes_params);
+    
+        // Récupérer les statistiques et les champs filtrables
+        $villes_stats = $this->villeService->getvilleStats();
+        $villes_filters = $this->villeService->getFieldsFilterable();
+    
+        // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgUtilisateurs::ville._table', compact('villes_data'))->render();
+            return view('PkgUtilisateurs::ville._table', compact('villes_data', 'villes_stats', 'villes_filters'))->render();
         }
-
-        return view('PkgUtilisateurs::ville.index', compact('villes_data','ville_searchQuery'));
+    
+        return view('PkgUtilisateurs::ville.index', compact('villes_data', 'villes_stats', 'villes_filters'));
     }
 
     /**

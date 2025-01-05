@@ -29,19 +29,28 @@ class BaseNiveauCompetenceController extends AdminController
     }
 
 
-    /**
-     * Affiche la liste des filières ou retourne le HTML pour une requête AJAX.
-     */
     public function index(Request $request)
     {
-        $niveauCompetence_searchQuery = str_replace(' ', '%', $request->get('q', ''));
-        $niveauCompetences_data = $this->niveauCompetenceService->paginate($niveauCompetence_searchQuery);
-
+        // Extraire les paramètres de recherche, page, et filtres
+        $niveauCompetences_params = array_merge(
+            $request->only(['page','sort']),
+            ['search' => $request->get('niveauCompetences_search', '')],
+            $request->except(['niveauCompetences_search', 'page', 'sort'])
+        );
+    
+        // Paginer les niveauCompetences
+        $niveauCompetences_data = $this->niveauCompetenceService->paginate($niveauCompetences_params);
+    
+        // Récupérer les statistiques et les champs filtrables
+        $niveauCompetences_stats = $this->niveauCompetenceService->getniveauCompetenceStats();
+        $niveauCompetences_filters = $this->niveauCompetenceService->getFieldsFilterable();
+    
+        // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgCompetences::niveauCompetence._table', compact('niveauCompetences_data'))->render();
+            return view('PkgCompetences::niveauCompetence._table', compact('niveauCompetences_data', 'niveauCompetences_stats', 'niveauCompetences_filters'))->render();
         }
-
-        return view('PkgCompetences::niveauCompetence.index', compact('niveauCompetences_data','niveauCompetence_searchQuery'));
+    
+        return view('PkgCompetences::niveauCompetence.index', compact('niveauCompetences_data', 'niveauCompetences_stats', 'niveauCompetences_filters'));
     }
 
     /**

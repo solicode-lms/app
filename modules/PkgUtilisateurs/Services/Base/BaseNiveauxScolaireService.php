@@ -40,6 +40,12 @@ class BaseNiveauxScolaireService extends BaseService
     public function __construct()
     {
         parent::__construct(new NiveauxScolaire());
+
+        // Initialiser les filtres configurables dynamiquement
+        $this->fieldsFilterable = [
+            ['field' => 'code', 'type' => 'String'],
+        ];
+
     }
 
     /**
@@ -57,5 +63,18 @@ class BaseNiveauxScolaireService extends BaseService
         ]);
 
         return $niveauxScolaire;
+    }
+
+    /**
+    * Obtenir les statistiques par Relation
+    *
+    * @return array
+    */
+    public function getNiveauxScolaireStats(): array
+    {
+
+        $stats = [];
+
+        return $stats;
     }
 }

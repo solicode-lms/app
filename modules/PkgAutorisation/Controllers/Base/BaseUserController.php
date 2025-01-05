@@ -29,19 +29,28 @@ class BaseUserController extends AdminController
     }
 
 
-    /**
-     * Affiche la liste des filières ou retourne le HTML pour une requête AJAX.
-     */
     public function index(Request $request)
     {
-        $user_searchQuery = str_replace(' ', '%', $request->get('q', ''));
-        $users_data = $this->userService->paginate($user_searchQuery);
-
+        // Extraire les paramètres de recherche, page, et filtres
+        $users_params = array_merge(
+            $request->only(['page','sort']),
+            ['search' => $request->get('users_search', '')],
+            $request->except(['users_search', 'page', 'sort'])
+        );
+    
+        // Paginer les users
+        $users_data = $this->userService->paginate($users_params);
+    
+        // Récupérer les statistiques et les champs filtrables
+        $users_stats = $this->userService->getuserStats();
+        $users_filters = $this->userService->getFieldsFilterable();
+    
+        // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgAutorisation::user._table', compact('users_data'))->render();
+            return view('PkgAutorisation::user._table', compact('users_data', 'users_stats', 'users_filters'))->render();
         }
-
-        return view('PkgAutorisation::user.index', compact('users_data','user_searchQuery'));
+    
+        return view('PkgAutorisation::user.index', compact('users_data', 'users_stats', 'users_filters'));
     }
 
     /**

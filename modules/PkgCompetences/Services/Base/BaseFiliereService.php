@@ -40,6 +40,14 @@ class BaseFiliereService extends BaseService
     public function __construct()
     {
         parent::__construct(new Filiere());
+
+        // Initialiser les filtres configurables dynamiquement
+        $this->fieldsFilterable = [
+            ['field' => 'code', 'type' => 'String'],
+            ['field' => 'nom', 'type' => 'String'],
+            ['field' => 'description', 'type' => 'Text'],
+        ];
+
     }
 
     /**
@@ -57,5 +65,18 @@ class BaseFiliereService extends BaseService
         ]);
 
         return $filiere;
+    }
+
+    /**
+    * Obtenir les statistiques par Relation
+    *
+    * @return array
+    */
+    public function getFiliereStats(): array
+    {
+
+        $stats = [];
+
+        return $stats;
     }
 }

@@ -32,20 +32,28 @@ class BaseCompetenceController extends AdminController
     }
 
 
-    /**
-     * Affiche la liste des filières ou retourne le HTML pour une requête AJAX.
-     */
     public function index(Request $request)
     {
-        $competence_searchQuery = str_replace(' ', '%', $request->get('q', ''));
-        $competences_data = $this->competenceService->paginate($competence_searchQuery);
-        $competences_stats = $this->competenceService->getCompetenceStats();
-
+        // Extraire les paramètres de recherche, page, et filtres
+        $competences_params = array_merge(
+            $request->only(['page','sort']),
+            ['search' => $request->get('competences_search', '')],
+            $request->except(['competences_search', 'page', 'sort'])
+        );
+    
+        // Paginer les competences
+        $competences_data = $this->competenceService->paginate($competences_params);
+    
+        // Récupérer les statistiques et les champs filtrables
+        $competences_stats = $this->competenceService->getcompetenceStats();
+        $competences_filters = $this->competenceService->getFieldsFilterable();
+    
+        // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgCompetences::competence._table', compact('competences_data','competences_stats'))->render();
+            return view('PkgCompetences::competence._table', compact('competences_data', 'competences_stats', 'competences_filters'))->render();
         }
-
-        return view('PkgCompetences::competence.index', compact('competences_data','competences_stats','competence_searchQuery'));
+    
+        return view('PkgCompetences::competence.index', compact('competences_data', 'competences_stats', 'competences_filters'));
     }
 
     /**

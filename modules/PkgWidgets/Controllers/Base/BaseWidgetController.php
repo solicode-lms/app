@@ -35,19 +35,28 @@ class BaseWidgetController extends AdminController
     }
 
 
-    /**
-     * Affiche la liste des filières ou retourne le HTML pour une requête AJAX.
-     */
     public function index(Request $request)
     {
-        $widget_searchQuery = str_replace(' ', '%', $request->get('q', ''));
-        $widgets_data = $this->widgetService->paginate($widget_searchQuery);
-
+        // Extraire les paramètres de recherche, page, et filtres
+        $widgets_params = array_merge(
+            $request->only(['page','sort']),
+            ['search' => $request->get('widgets_search', '')],
+            $request->except(['widgets_search', 'page', 'sort'])
+        );
+    
+        // Paginer les widgets
+        $widgets_data = $this->widgetService->paginate($widgets_params);
+    
+        // Récupérer les statistiques et les champs filtrables
+        $widgets_stats = $this->widgetService->getwidgetStats();
+        $widgets_filters = $this->widgetService->getFieldsFilterable();
+    
+        // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgWidgets::widget._table', compact('widgets_data'))->render();
+            return view('PkgWidgets::widget._table', compact('widgets_data', 'widgets_stats', 'widgets_filters'))->render();
         }
-
-        return view('PkgWidgets::widget.index', compact('widgets_data','widget_searchQuery'));
+    
+        return view('PkgWidgets::widget.index', compact('widgets_data', 'widgets_stats', 'widgets_filters'));
     }
 
     /**

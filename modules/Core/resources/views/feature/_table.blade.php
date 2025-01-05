@@ -1,22 +1,22 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<div class="card-body table-responsive p-0 crud-table" id="featuresTable">
+<div class="card-body table-responsive p-0 crud-card-body" id="features-crud-card-body">
     <table class="table table-striped text-nowrap">
         <thead>
             <tr>
-                <th>{{ ucfirst(__('Core::feature.name')) }}</th>
-                <th>{{ ucfirst(__('Core::feature.description')) }}</th>
-                <th>{{ ucfirst(__('Core::featureDomain.singular')) }}</th>
+                <x-sortable-column field="name" label="{{ ucfirst(__('Core::feature.name')) }}" />
+                <x-sortable-column field="description" label="{{ ucfirst(__('Core::feature.description')) }}" />
+                <x-sortable-column field="domain_id" label="{{ ucfirst(__('Core::featureDomain.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($features_data as $feature)
                 <tr>
-                    <td>{{ $feature->name }}</td>
+                    <td>@limit($feature->name, 80)</td>
                     <td>{!! $feature->description !!}</td>
-                    <td>{{ $feature->featureDomain->name ?? '-' }}</td>
-                    <td class="text-center">
+                    <td>@limit($feature->featureDomain->name ?? '-', 80)</td>
+                    <td class="text-right">
                         @can('show-feature')
                             <a href="{{ route('features.show', ['feature' => $feature->id]) }}" data-id="{{$feature->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
@@ -43,39 +43,10 @@
     </table>
 </div>
 
-
 <div class="card-footer">
-
-    <div class="d-md-flex justify-content-between align-items-center p-2">
-        <div class="d-flex align-items-center mb-2 ml-2 mt-2">
-            @can('import-feature')
-                <form action="{{ route('features.import') }}" method="post" class="mt-2" enctype="multipart/form-data"
-                    id="importForm">
-                    @csrf
-                    <label for="upload" class="btn btn-default btn-sm font-weight-normal">
-                        <i class="fas fa-file-download"></i>
-                        {{ __('Core::msg.import') }}
-                    </label>
-                    <input type="file" id="upload" name="file" style="display:none;" onchange="submitForm()" />
-                </form>
-            @endcan
-            @can('export-feature')
-                <form class="">
-                    <a href="{{ route('features.export') }}" class="btn btn-default btn-sm mt-0 mx-2">
-                        <i class="fas fa-file-export"></i>
-                        {{ __('Core::msg.export') }}</a>
-                </form>
-            @endcan
-        </div>
-
-        <ul class="pagination m-0 float-right">
-            {{ $features_data->onEachSide(1)->links() }}
-        </ul>
-    </div>
-
-    <script>
-        function submitForm() {
-            document.getElementById("importForm").submit();
-        }
-    </script>
+    @section('crud-pagination')
+    <ul class="pagination m-0 d-flex justify-content-center">
+        {{ $features_data->onEachSide(1)->links() }}
+    </ul>
+    @show
 </div>

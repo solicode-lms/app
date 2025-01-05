@@ -42,6 +42,15 @@ class BaseSysControllerService extends BaseService
     public function __construct()
     {
         parent::__construct(new SysController());
+
+        // Initialiser les filtres configurables dynamiquement
+        $this->fieldsFilterable = [
+            $this->generateManyToOneFilter('module_id', \Modules\Core\Models\SysModule::class, 'name'),
+            ['field' => 'name', 'type' => 'String'],
+            ['field' => 'description', 'type' => 'Text'],
+            ['field' => 'is_active', 'type' => 'Integer'],
+        ];
+
     }
 
     /**
@@ -53,5 +62,18 @@ class BaseSysControllerService extends BaseService
     public function create(array $data)
     {
         return parent::create($data);
+    }
+
+    /**
+    * Obtenir les statistiques par Relation
+    *
+    * @return array
+    */
+    public function getSysControllerStats(): array
+    {
+
+        $stats = [];
+
+        return $stats;
     }
 }

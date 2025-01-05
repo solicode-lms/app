@@ -29,19 +29,28 @@ class BaseSpecialiteController extends AdminController
     }
 
 
-    /**
-     * Affiche la liste des filières ou retourne le HTML pour une requête AJAX.
-     */
     public function index(Request $request)
     {
-        $specialite_searchQuery = str_replace(' ', '%', $request->get('q', ''));
-        $specialites_data = $this->specialiteService->paginate($specialite_searchQuery);
-
+        // Extraire les paramètres de recherche, page, et filtres
+        $specialites_params = array_merge(
+            $request->only(['page','sort']),
+            ['search' => $request->get('specialites_search', '')],
+            $request->except(['specialites_search', 'page', 'sort'])
+        );
+    
+        // Paginer les specialites
+        $specialites_data = $this->specialiteService->paginate($specialites_params);
+    
+        // Récupérer les statistiques et les champs filtrables
+        $specialites_stats = $this->specialiteService->getspecialiteStats();
+        $specialites_filters = $this->specialiteService->getFieldsFilterable();
+    
+        // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgUtilisateurs::specialite._table', compact('specialites_data'))->render();
+            return view('PkgUtilisateurs::specialite._table', compact('specialites_data', 'specialites_stats', 'specialites_filters'))->render();
         }
-
-        return view('PkgUtilisateurs::specialite.index', compact('specialites_data','specialite_searchQuery'));
+    
+        return view('PkgUtilisateurs::specialite.index', compact('specialites_data', 'specialites_stats', 'specialites_filters'));
     }
 
     /**

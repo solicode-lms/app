@@ -40,6 +40,15 @@ class BasePermissionService extends BaseService
     public function __construct()
     {
         parent::__construct(new Permission());
+
+        // Initialiser les filtres configurables dynamiquement
+        $this->fieldsFilterable = [
+            ['field' => 'name', 'type' => 'String'],
+            $this->generateManyToOneFilter('controller_id', \Modules\Core\Models\SysController::class, 'name'),
+            ['field' => 'Feature_ManyToMany', 'type' => 'ManyToMany'],
+            ['field' => 'Role_ManyToMany', 'type' => 'ManyToMany'],
+        ];
+
     }
 
     /**
@@ -51,5 +60,18 @@ class BasePermissionService extends BaseService
     public function create(array $data)
     {
         return parent::create($data);
+    }
+
+    /**
+    * Obtenir les statistiques par Relation
+    *
+    * @return array
+    */
+    public function getPermissionStats(): array
+    {
+
+        $stats = [];
+
+        return $stats;
     }
 }

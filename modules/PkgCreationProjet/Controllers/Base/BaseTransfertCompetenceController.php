@@ -38,19 +38,28 @@ class BaseTransfertCompetenceController extends AdminController
     }
 
 
-    /**
-     * Affiche la liste des filières ou retourne le HTML pour une requête AJAX.
-     */
     public function index(Request $request)
     {
-        $transfertCompetence_searchQuery = str_replace(' ', '%', $request->get('q', ''));
-        $transfertCompetences_data = $this->transfertCompetenceService->paginate($transfertCompetence_searchQuery);
-
+        // Extraire les paramètres de recherche, page, et filtres
+        $transfertCompetences_params = array_merge(
+            $request->only(['page','sort']),
+            ['search' => $request->get('transfertCompetences_search', '')],
+            $request->except(['transfertCompetences_search', 'page', 'sort'])
+        );
+    
+        // Paginer les transfertCompetences
+        $transfertCompetences_data = $this->transfertCompetenceService->paginate($transfertCompetences_params);
+    
+        // Récupérer les statistiques et les champs filtrables
+        $transfertCompetences_stats = $this->transfertCompetenceService->gettransfertCompetenceStats();
+        $transfertCompetences_filters = $this->transfertCompetenceService->getFieldsFilterable();
+    
+        // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgCreationProjet::transfertCompetence._table', compact('transfertCompetences_data'))->render();
+            return view('PkgCreationProjet::transfertCompetence._table', compact('transfertCompetences_data', 'transfertCompetences_stats', 'transfertCompetences_filters'))->render();
         }
-
-        return view('PkgCreationProjet::transfertCompetence.index', compact('transfertCompetences_data','transfertCompetence_searchQuery'));
+    
+        return view('PkgCreationProjet::transfertCompetence.index', compact('transfertCompetences_data', 'transfertCompetences_stats', 'transfertCompetences_filters'));
     }
 
     /**

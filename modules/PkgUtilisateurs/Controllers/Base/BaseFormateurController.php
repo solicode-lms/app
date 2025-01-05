@@ -32,19 +32,28 @@ class BaseFormateurController extends AdminController
     }
 
 
-    /**
-     * Affiche la liste des filières ou retourne le HTML pour une requête AJAX.
-     */
     public function index(Request $request)
     {
-        $formateur_searchQuery = str_replace(' ', '%', $request->get('q', ''));
-        $formateurs_data = $this->formateurService->paginate($formateur_searchQuery);
-
+        // Extraire les paramètres de recherche, page, et filtres
+        $formateurs_params = array_merge(
+            $request->only(['page','sort']),
+            ['search' => $request->get('formateurs_search', '')],
+            $request->except(['formateurs_search', 'page', 'sort'])
+        );
+    
+        // Paginer les formateurs
+        $formateurs_data = $this->formateurService->paginate($formateurs_params);
+    
+        // Récupérer les statistiques et les champs filtrables
+        $formateurs_stats = $this->formateurService->getformateurStats();
+        $formateurs_filters = $this->formateurService->getFieldsFilterable();
+    
+        // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgUtilisateurs::formateur._table', compact('formateurs_data'))->render();
+            return view('PkgUtilisateurs::formateur._table', compact('formateurs_data', 'formateurs_stats', 'formateurs_filters'))->render();
         }
-
-        return view('PkgUtilisateurs::formateur.index', compact('formateurs_data','formateur_searchQuery'));
+    
+        return view('PkgUtilisateurs::formateur.index', compact('formateurs_data', 'formateurs_stats', 'formateurs_filters'));
     }
 
     /**

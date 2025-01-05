@@ -41,6 +41,14 @@ class BaseModuleService extends BaseService
     public function __construct()
     {
         parent::__construct(new Module());
+
+        // Initialiser les filtres configurables dynamiquement
+        $this->fieldsFilterable = [
+            ['field' => 'nom', 'type' => 'String'],
+            ['field' => 'description', 'type' => 'Text'],
+            $this->generateManyToOneFilter('filiere_id', \Modules\PkgCompetences\Models\Filiere::class, 'code'),
+        ];
+
     }
 
     /**
@@ -59,5 +67,18 @@ class BaseModuleService extends BaseService
         ]);
 
         return $module;
+    }
+
+    /**
+    * Obtenir les statistiques par Relation
+    *
+    * @return array
+    */
+    public function getModuleStats(): array
+    {
+
+        $stats = [];
+
+        return $stats;
     }
 }

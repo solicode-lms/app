@@ -1,22 +1,22 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<div class="card-body table-responsive p-0 crud-table" id="transfertCompetencesTable">
+<div class="card-body table-responsive p-0 crud-card-body" id="transfertCompetences-crud-card-body">
     <table class="table table-striped text-nowrap">
         <thead>
             <tr>
-                <th>{{ ucfirst(__('PkgCreationProjet::projet.singular')) }}</th>
-                <th>{{ ucfirst(__('PkgCompetences::competence.singular')) }}</th>
-                <th>{{ ucfirst(__('PkgCompetences::appreciation.singular')) }}</th>
+                <x-sortable-column field="projet_id" label="{{ ucfirst(__('PkgCreationProjet::projet.singular')) }}" />
+                <x-sortable-column field="competence_id" label="{{ ucfirst(__('PkgCompetences::competence.singular')) }}" />
+                <x-sortable-column field="appreciation_id" label="{{ ucfirst(__('PkgCompetences::appreciation.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($transfertCompetences_data as $transfertCompetence)
                 <tr>
-                    <td>{{ $transfertCompetence->projet->titre ?? '-' }}</td>
-                    <td>{{ $transfertCompetence->competence->code ?? '-' }}</td>
-                    <td>{{ $transfertCompetence->appreciation->nom ?? '-' }}</td>
-                    <td class="text-center">
+                    <td>@limit($transfertCompetence->projet->titre ?? '-', 80)</td>
+                    <td>@limit($transfertCompetence->competence->code ?? '-', 80)</td>
+                    <td>@limit($transfertCompetence->appreciation->nom ?? '-', 80)</td>
+                    <td class="text-right">
                         @can('show-transfertCompetence')
                             <a href="{{ route('transfertCompetences.show', ['transfertCompetence' => $transfertCompetence->id]) }}" data-id="{{$transfertCompetence->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
@@ -43,39 +43,10 @@
     </table>
 </div>
 
-
 <div class="card-footer">
-
-    <div class="d-md-flex justify-content-between align-items-center p-2">
-        <div class="d-flex align-items-center mb-2 ml-2 mt-2">
-            @can('import-transfertCompetence')
-                <form action="{{ route('transfertCompetences.import') }}" method="post" class="mt-2" enctype="multipart/form-data"
-                    id="importForm">
-                    @csrf
-                    <label for="upload" class="btn btn-default btn-sm font-weight-normal">
-                        <i class="fas fa-file-download"></i>
-                        {{ __('Core::msg.import') }}
-                    </label>
-                    <input type="file" id="upload" name="file" style="display:none;" onchange="submitForm()" />
-                </form>
-            @endcan
-            @can('export-transfertCompetence')
-                <form class="">
-                    <a href="{{ route('transfertCompetences.export') }}" class="btn btn-default btn-sm mt-0 mx-2">
-                        <i class="fas fa-file-export"></i>
-                        {{ __('Core::msg.export') }}</a>
-                </form>
-            @endcan
-        </div>
-
-        <ul class="pagination m-0 float-right">
-            {{ $transfertCompetences_data->onEachSide(1)->links() }}
-        </ul>
-    </div>
-
-    <script>
-        function submitForm() {
-            document.getElementById("importForm").submit();
-        }
-    </script>
+    @section('crud-pagination')
+    <ul class="pagination m-0 d-flex justify-content-center">
+        {{ $transfertCompetences_data->onEachSide(1)->links() }}
+    </ul>
+    @show
 </div>

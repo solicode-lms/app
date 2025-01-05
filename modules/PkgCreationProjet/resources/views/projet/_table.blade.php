@@ -1,24 +1,24 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<div class="card-body table-responsive p-0 crud-card-body" id="ville-crud-card-body">
+<div class="card-body table-responsive p-0 crud-card-body" id="projets-crud-card-body">
     <table class="table table-striped text-nowrap">
         <thead>
             <tr>
-                <th>{{ ucfirst(__('PkgCreationProjet::projet.titre')) }}</th>
-                <th>{{ ucfirst(__('PkgCreationProjet::projet.date_debut')) }}</th>
-                <th>{{ ucfirst(__('PkgCreationProjet::projet.date_fin')) }}</th>
-                <th>{{ ucfirst(__('PkgUtilisateurs::formateur.singular')) }}</th>
+                <x-sortable-column field="titre" label="{{ ucfirst(__('PkgCreationProjet::projet.titre')) }}" />
+                <x-sortable-column field="date_debut" label="{{ ucfirst(__('PkgCreationProjet::projet.date_debut')) }}" />
+                <x-sortable-column field="date_fin" label="{{ ucfirst(__('PkgCreationProjet::projet.date_fin')) }}" />
+                <x-sortable-column field="formateur_id" label="{{ ucfirst(__('PkgUtilisateurs::formateur.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($projets_data as $projet)
                 <tr>
-                    <td>{{ $projet->titre }}</td>
-                    <td>{{ $projet->date_debut }}</td>
-                    <td>{{ $projet->date_fin }}</td>
-                    <td>{{ $projet->formateur->nom ?? '-' }}</td>
-                    <td class="text-center">
+                    <td>@limit($projet->titre, 80)</td>
+                    <td>@limit($projet->date_debut, 80)</td>
+                    <td>@limit($projet->date_fin, 80)</td>
+                    <td>@limit($projet->formateur->nom ?? '-', 80)</td>
+                    <td class="text-right">
                         @can('show-projet')
                             <a href="{{ route('projets.show', ['projet' => $projet->id]) }}" data-id="{{$projet->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
@@ -45,39 +45,10 @@
     </table>
 </div>
 
-
 <div class="card-footer">
-
-    <div class="d-md-flex justify-content-between align-items-center p-2">
-        <div class="d-flex align-items-center mb-2 ml-2 mt-2">
-            @can('import-projet')
-                <form action="{{ route('projets.import') }}" method="post" class="mt-2" enctype="multipart/form-data"
-                    id="importForm">
-                    @csrf
-                    <label for="upload" class="btn btn-default btn-sm font-weight-normal">
-                        <i class="fas fa-file-download"></i>
-                        {{ __('Core::msg.import') }}
-                    </label>
-                    <input type="file" id="upload" name="file" style="display:none;" onchange="submitForm()" />
-                </form>
-            @endcan
-            @can('export-projet')
-                <form class="">
-                    <a href="{{ route('projets.export') }}" class="btn btn-default btn-sm mt-0 mx-2">
-                        <i class="fas fa-file-export"></i>
-                        {{ __('Core::msg.export') }}</a>
-                </form>
-            @endcan
-        </div>
-
-        <ul class="pagination m-0 float-right">
-            {{ $projets_data->onEachSide(1)->links() }}
-        </ul>
-    </div>
-
-    <script>
-        function submitForm() {
-            document.getElementById("importForm").submit();
-        }
-    </script>
+    @section('crud-pagination')
+    <ul class="pagination m-0 d-flex justify-content-center">
+        {{ $projets_data->onEachSide(1)->links() }}
+    </ul>
+    @show
 </div>

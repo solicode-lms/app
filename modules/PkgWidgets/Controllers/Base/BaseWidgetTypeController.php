@@ -27,19 +27,28 @@ class BaseWidgetTypeController extends AdminController
     }
 
 
-    /**
-     * Affiche la liste des filières ou retourne le HTML pour une requête AJAX.
-     */
     public function index(Request $request)
     {
-        $widgetType_searchQuery = str_replace(' ', '%', $request->get('q', ''));
-        $widgetTypes_data = $this->widgetTypeService->paginate($widgetType_searchQuery);
-
+        // Extraire les paramètres de recherche, page, et filtres
+        $widgetTypes_params = array_merge(
+            $request->only(['page','sort']),
+            ['search' => $request->get('widgetTypes_search', '')],
+            $request->except(['widgetTypes_search', 'page', 'sort'])
+        );
+    
+        // Paginer les widgetTypes
+        $widgetTypes_data = $this->widgetTypeService->paginate($widgetTypes_params);
+    
+        // Récupérer les statistiques et les champs filtrables
+        $widgetTypes_stats = $this->widgetTypeService->getwidgetTypeStats();
+        $widgetTypes_filters = $this->widgetTypeService->getFieldsFilterable();
+    
+        // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgWidgets::widgetType._table', compact('widgetTypes_data'))->render();
+            return view('PkgWidgets::widgetType._table', compact('widgetTypes_data', 'widgetTypes_stats', 'widgetTypes_filters'))->render();
         }
-
-        return view('PkgWidgets::widgetType.index', compact('widgetTypes_data','widgetType_searchQuery'));
+    
+        return view('PkgWidgets::widgetType.index', compact('widgetTypes_data', 'widgetTypes_stats', 'widgetTypes_filters'));
     }
 
     /**
