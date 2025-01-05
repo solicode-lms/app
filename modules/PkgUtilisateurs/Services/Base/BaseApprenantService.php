@@ -39,7 +39,7 @@ class BaseApprenantService extends BaseService
         'nationalite_id'
     ];
 
-    protected array $fieldsFilterable;
+  
 
     /**
      * Renvoie les champs de recherche disponibles.

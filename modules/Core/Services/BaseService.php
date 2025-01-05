@@ -15,6 +15,8 @@ use Illuminate\Database\Eloquent\Collection;
 abstract class BaseService implements ServiceInterface
 {
 
+    protected array $fieldsFilterable;
+
     protected $contextState;
 
     /**
@@ -115,8 +117,62 @@ abstract class BaseService implements ServiceInterface
             }
         }
 
+      
+
+        // Appliquer le tri multi-colonnes
+        if (!empty($params['sort'])) {
+            $this->applySort($query,$params['sort']);
+
+            // $sortFields = explode(',', $params['sort']);
+            // foreach ($sortFields as $sortField) {
+
+            //     $fieldParts = explode('_', $sortField); // Divise en segments
+            //     $direction = end($fieldParts);         // Récupère la direction (dernier élément)
+            //     $field = implode('_', array_slice($fieldParts, 0, -1)); // Combine le reste pour former le champ
+
+            //     if (in_array($field, $this->getFieldsSearchable())) {
+            //         $query->orderBy($field, $direction);
+            //     }
+            // }
+         }
+
         return $query;
     }
+
+
+    public function applySort($query, $sort)
+    {
+        if ($sort) {
+            $sortFields = explode(',', $sort);
+    
+            foreach ($sortFields as $sortField) {
+                $fieldParts = explode('_', $sortField);
+                $direction = end($fieldParts);
+                $field = implode('_', array_slice($fieldParts, 0, -1));
+    
+                // Vérifier si le champ est une relation sortable
+                $filterableField = collect($this->fieldsFilterable)
+                    ->firstWhere('field', $field);
+    
+                if ($filterableField && isset($filterableField['sortable'])) {
+                    [$relationTable, $relationColumn] = explode('.', $filterableField['sortable']);
+                    $query->join($relationTable, "{$this->model->getTable()}.{$field}", '=', "{$relationTable}.id")
+                            ->select([
+                                "{$this->model->getTable()}.*",
+                                "{$relationTable}.{$relationColumn} as {$field}_sortable"
+                            ])
+                            ->orderBy("{$relationTable}.{$relationColumn}", $direction);
+                } elseif (in_array($field, $this->getFieldsSearchable())) {
+                    // Appliquer un tri normal pour les champs directs
+                    $query->orderBy($field, $direction);
+                }
+            }
+        }
+    
+        return $query;
+    }
+    
+
 
 
     /**
@@ -348,12 +404,15 @@ public function getStatsByRelation($relationModel,$nestedRelation, $attribute ):
  */
 protected function generateManyToOneFilter(string $field, string $model, string $display_field): array
 {
+    $modelInstance = new $model();
+
     return [
         'field' => $field,
         'type' => 'manyToOne',
         'options' => $model::all(['id', $display_field])
             ->map(fn($item) => ['id' => $item['id'], 'label' => $item[$display_field]])
             ->toArray(),
+        'sortable' => "{$modelInstance->getTable()}.{$display_field}", // Champ à utiliser pour le tri
     ];
 }
 
