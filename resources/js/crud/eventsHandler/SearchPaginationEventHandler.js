@@ -20,6 +20,7 @@ export class SearchPaginationEventHandler {
      */
     init() {
         this.handleSearchInput();
+        this.handleFilterSubmit();
         this.handlePaginationClick();
     }
 
