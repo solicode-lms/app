@@ -45,7 +45,14 @@ export class CrudManager {
         // Initialiser la gestion des événements CRUD
         this.eventManager.init();
 
-        // Initialiser la recherche et la pagination
-        this.searchAndPaginationManager.init();
+
+        if (this.edit_has_many === undefined || !this.edit_has_many) {
+            // Actions spécifiques si edit_has_many est undefined ou true
+            this.searchAndPaginationManager.init();
+        } else {
+            // Actions spécifiques si edit_has_many est false
+            console.log('edit_has_many est désactivé'); // Exemple d'une action alternative
+        }
+
     }
 }
