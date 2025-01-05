@@ -64,7 +64,6 @@
                 </div>
                 @show
                 @section('crud-filters')
-
                 <div class="card-header">
                     <form id="apprenant-crud-filter-form" method="GET" class="row">
                         <x-filter-group>

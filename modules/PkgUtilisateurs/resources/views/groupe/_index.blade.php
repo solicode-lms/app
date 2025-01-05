@@ -25,13 +25,17 @@
 @endpush
 <div id="groupe-crud" class="crud">
     @section('crud-header')
+    @php
+        $package = __("PkgUtilisateurs::PkgUtilisateurs.name");
+       $titre = __("PkgUtilisateurs::groupe.singular");
+    @endphp
     <x-crud-header 
         id="groupe-crud-header" icon="fas fa-city"  
         iconColor="text-info"
         title="{{ __('PkgUtilisateurs::groupe.plural') }}"
         :breadcrumbs="[
-            ['label' => 'PkgUtilisateurs', 'url' => '#'],
-            ['label' => "{{ __('PkgUtilisateurs::groupe.plural') }}"]
+            ['label' => $package, 'url' => '#'],
+            ['label' => $titre]
         ]"
     />
     @show
@@ -65,31 +69,29 @@
                 @show
                 @section('crud-filters')
                 <div class="card-header">
-                    <div class="row">
-                        <form id="groupe-crud-filter-form" method="GET" class="row mb-3">
-                            <x-filter-group>
-                                <!-- Filtres spécifiques -->
-                                @foreach ($groupes_filters as $filter)
-                                    <x-filter-field 
-                                        :type="$filter['type']" 
-                                        :field="$filter['field']" 
-                                        :options="$filter['options'] ?? []"
-                                        :placeholder="ucfirst(str_replace('_', ' ', $filter['field']))" />
-                                @endforeach
-                            </x-filter-group>
-                            @section('crud-search-bar')
-                            <div id="groupe-crud-search-bar"
-                                class="{{ count($groupes_filters) > 0 ? 'col-md-2' : 'col-md-6 mx-auto' }} text-md-right text-left">
-                                <x-search-bar
-                                    :search="request('groupes_search')"
-                                    name="groupes_search"
-                                    id="groupes_search"
-                                    placeholder="Recherche ..."
-                                />
-                            </div>
-                            @show
-                        </form>
-                    </div>
+                    <form id="groupe-crud-filter-form" method="GET" class="row">
+                        <x-filter-group>
+                            <!-- Filtres spécifiques -->
+                            @foreach ($groupes_filters as $filter)
+                                <x-filter-field 
+                                    :type="$filter['type']" 
+                                    :field="$filter['field']" 
+                                    :options="$filter['options'] ?? []"
+                                    :placeholder="ucfirst(str_replace('_', ' ', $filter['field']))" />
+                            @endforeach
+                        </x-filter-group>
+                        @section('crud-search-bar')
+                        <div id="groupe-crud-search-bar"
+                            class="{{ count($groupes_filters) > 0 ? 'col-md-2' : 'col-md-6 mx-auto' }} text-md-right text-left">
+                            <x-search-bar
+                                :search="request('groupes_search')"
+                                name="groupes_search"
+                                id="groupes_search"
+                                placeholder="Recherche ..."
+                            />
+                        </div>
+                        @show
+                    </form>
                 </div>
                 @show
                 <div id="groupe-data-container" class="data-container">
