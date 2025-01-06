@@ -1,5 +1,4 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 namespace Modules\PkgCompetences\Controllers\Base;
@@ -139,6 +138,8 @@ class BaseAppreciationController extends AdminController
         $validatedData = $request->validated();
         $appreciation = $this->appreciationService->update($id, $validatedData);
 
+        // Autorisation basée sur la Policy
+        $this->authorize('update', $appreciation);
 
 
 
@@ -165,6 +166,9 @@ class BaseAppreciationController extends AdminController
     public function destroy(Request $request, string $id)
     {
         $appreciation = $this->appreciationService->destroy($id);
+
+        // Autorisation basée sur la Policy
+        $this->authorize('delete', $appreciation);
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 

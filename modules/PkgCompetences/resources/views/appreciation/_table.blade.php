@@ -1,4 +1,3 @@
-{{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 <div class="card-body table-responsive p-0 crud-card-body" id="appreciations-crud-card-body">
     <table class="table table-striped text-nowrap">
@@ -21,11 +20,14 @@
                             </a>
                         @endcan
                         @can('edit-appreciation')
+                        @can('update', $appreciation)
                             <a href="{{ route('appreciations.edit', ['appreciation' => $appreciation->id]) }}" data-id="{{$appreciation->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endcan
+                        @endcan
                         @can('destroy-appreciation')
+                        @can('delete', $appreciation)
                             <form class="context-state" action="{{ route('appreciations.destroy',['appreciation' => $appreciation->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
@@ -33,6 +35,7 @@
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
+                        @endcan
                         @endcan
                     </td>
                 </tr>
