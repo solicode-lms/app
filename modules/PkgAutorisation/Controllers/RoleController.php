@@ -2,60 +2,14 @@
 
 namespace Modules\PkgAutorisation\Controllers;
 
-use Illuminate\Http\Request;
-use Maatwebsite\Excel\Facades\Excel;
-use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\Models\SysModule;
-use Modules\Core\Services\FeatureService;
-use Modules\PkgAutorisation\App\Exports\RoleExport;
-use Modules\PkgAutorisation\App\Imports\RoleImport;
-use Modules\PkgAutorisation\App\Requests\RoleRequest;
-use Modules\PkgAutorisation\Models\Permission;
-use Modules\PkgAutorisation\Models\Role;
-use Modules\PkgAutorisation\Services\PermissionService;
+use Modules\PkgAutorisation\Controllers\Base\BaseRoleController;
 use Modules\PkgAutorisation\Services\RoleService;
-use Modules\PkgAutorisation\Services\UserService;
 
-class RoleController extends AdminController
+class RoleController extends BaseRoleController
 {
-    protected $roleService;
-    protected $permissionService;
-    protected $userService;
     protected $featureService;
 
-    public function __construct(
-        RoleService $roleService,
-        FeatureService $featureService,
-        PermissionService $permissionService,
-        UserService $userService
-    ) {
-        parent::__construct();
-        $this->roleService = $roleService;
-        $this->permissionService = $permissionService;
-        $this->userService = $userService;
-        $this->featureService = $featureService;
-    }
-
-    /**
-     * Affiche la liste des rôles avec pagination et recherche.
-     */
-    public function index(Request $request)
-    {
-        $searchQuery = str_replace(' ', '%', $request->get('searchValue', ''));
-        $data = $this->roleService->paginate($searchQuery);
-
-        if ($request->ajax()) {
-            return response()->json([
-                'html' => view('PkgAutorisation::role._table', compact('data'))->render(),
-            ]);
-        }
-
-        return view('PkgAutorisation::role.index', compact('data'));
-    }
-
-    /**
-     * Affiche le formulaire de création d'un rôle.
-     */
     public function create()
     {
         return view('PkgAutorisation::role.create', [
@@ -70,24 +24,36 @@ class RoleController extends AdminController
      */
     public function store(RoleRequest $request)
     {
-        $role = $this->roleService->create($request->validated());
+        
+        $validatedData = $request->validated();
+        $role = $this->roleService->create($validatedData);
         $this->syncFeaturesAndUsers($request, $role);
 
-        return redirect()->route('roles.index')->with('success', __('Core::msg.addSuccess', [
-            'entityToString' => $role,
-            'modelName' => __('PkgAutorisation::role.singular'),
-        ]));
+        if ($request->has('permissions')) {
+            $role->permissions()->sync($request->input('permissions'));
+        }
+        if ($request->has('users')) {
+            $role->users()->sync($request->input('users'));
+        }
+
+
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 
+             __('Core::msg.addSuccess', [
+                'entityToString' => $role,
+                'modelName' => __('PkgAutorisation::role.singular')])
+            ]);
+        }
+
+        return redirect()->route('roles.index')->with(
+            'success',
+            __('Core::msg.addSuccess', [
+                'entityToString' => $role,
+                'modelName' => __('PkgAutorisation::role.singular')
+            ])
+        );
     }
 
-    /**
-     * Affiche les détails d'un rôle.
-     */
-    public function show(string $id)
-    {
-        return view('PkgAutorisation::role.show', [
-            'item' => $this->roleService->find($id),
-        ]);
-    }
 
     /**
      * Affiche le formulaire d'édition d'un rôle.
@@ -115,44 +81,6 @@ class RoleController extends AdminController
         ]));
     }
 
-    /**
-     * Supprime un rôle.
-     */
-    public function destroy(string $id)
-    {
-        $role = $this->roleService->destroy($id);
-
-        return redirect()->route('roles.index')->with('success', __('Core::msg.deleteSuccess', [
-            'entityToString' => $role,
-            'modelName' => __('PkgAutorisation::role.singular'),
-        ]));
-    }
-
-    /**
-     * Exporte la liste des rôles au format Excel.
-     */
-    public function export()
-    {
-        return Excel::download(new RoleExport($this->roleService->all()), 'role_export.xlsx');
-    }
-
-    /**
-     * Importe des rôles depuis un fichier.
-     */
-    public function import(Request $request)
-    {
-        $request->validate(['file' => 'required|mimes:xlsx,xls,csv']);
-
-        try {
-            Excel::import(new RoleImport, $request->file('file'));
-        } catch (\InvalidArgumentException $e) {
-            return redirect()->route('roles.index')->withError(__('Core::msg.importError'));
-        }
-
-        return redirect()->route('roles.index')->with('success', __('Core::msg.importSuccess', [
-            'modelNames' => __('PkgAutorisation::role.plural'),
-        ]));
-    }
 
     /**
      * Retourne la liste des rôles au format JSON.

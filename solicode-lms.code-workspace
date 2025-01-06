@@ -1,7 +1,7 @@
 {
 	"folders": [
 		{
-			"path": "."
+			"path": "./modules"
 		},
 		{
 			"path": "../db_schemas/"
@@ -16,8 +16,8 @@
 			"path": "./resources/views/components"
 		},
 		{
-			"path": "./modules"
-		}
+			"path": "."
+		},
 	],
 	"settings": {
 		"liveServer.settings.multiRootWorkspaceName": "app",
