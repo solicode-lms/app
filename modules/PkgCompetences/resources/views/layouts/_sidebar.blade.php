@@ -1,13 +1,13 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
+
 @accessiblePermissions(['show-appreciation', 'show-categoryTechnology', 'show-competence', 'show-filiere', 'show-module', 'show-niveauCompetence', 'show-technology'])
 @if($accessiblePermissions->isNotEmpty())
-{{ Request::is('admin/PkgCompetences*') ? 'menu-open' : '' }}
-<li class="nav-item has-treeview  {{ Request::is('admin/PkgCompetences*') ? 'menu-open' : '' }}">
-    <a href="#" class="nav-link {{ Request::is('admin/PkgCompetences*') ? 'active' : '' }}">
-        <i class="nav-icon fas {{ __('PkgCompetences::PkgCompetences.icon') }}"></i>
+<li class="nav-item has-treeview {{ Request::is('admin/PkgCompetences*') ? 'menu-open' : '' }}">
+    <a href="#" class="nav-link nav-link {{ Request::is('admin/PkgCompetences*') ? 'active' : '' }}">
+        <i class="nav-icon fas  {{__('PkgCompetences::PkgCompetences.icon')}}"></i>
         <p>
-            {{ __('PkgCompetences::PkgCompetences.name') }}
+            {{__('PkgCompetences::PkgCompetences.name')}}
             <i class="fas fa-angle-left right"></i>
         </p>
     </a>
@@ -71,3 +71,4 @@
     </ul>
 </li>
 @endif
+

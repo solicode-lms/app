@@ -30,7 +30,7 @@
        $titre = __("PkgUtilisateurs::groupe.singular");
     @endphp
     <x-crud-header 
-        id="projet-crud-header" icon="fas fa-city"  
+        id="projet-crud-header" icon="fas fa-table"  
         iconColor="text-info"
         title="{{ __('PkgCreationProjet::projet.plural') }}"
         :breadcrumbs="[

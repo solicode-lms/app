@@ -30,7 +30,7 @@
        $titre = __("PkgUtilisateurs::groupe.singular");
     @endphp
     <x-crud-header 
-        id="feature-crud-header" icon="fas fa-city"  
+        id="feature-crud-header" icon="fas fa-table"  
         iconColor="text-info"
         title="{{ __('Core::feature.plural') }}"
         :breadcrumbs="[

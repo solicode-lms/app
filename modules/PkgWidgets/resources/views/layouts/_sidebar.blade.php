@@ -3,8 +3,8 @@
 
 @accessiblePermissions(['show-widget', 'show-widgetOperation', 'show-widgetType'])
 @if($accessiblePermissions->isNotEmpty())
-<li class="nav-item has-treeview {{ Request::is('PkgWidgets*') ? 'menu-open' : '' }}">
-    <a href="#" class="nav-link nav-link {{ Request::is('PkgWidgets*') ? 'active' : '' }}">
+<li class="nav-item has-treeview {{ Request::is('admin/PkgWidgets*') ? 'menu-open' : '' }}">
+    <a href="#" class="nav-link nav-link {{ Request::is('admin/PkgWidgets*') ? 'active' : '' }}">
         <i class="nav-icon fas  {{__('PkgWidgets::PkgWidgets.icon')}}"></i>
         <p>
             {{__('PkgWidgets::PkgWidgets.name')}}
@@ -14,7 +14,7 @@
     <ul class="nav nav-treeview">
         @can('show-widget') 
         <li class="nav-item">
-            <a href="{{ route('widgets.index') }}" class="nav-link {{ Request::is('PkgWidgets/widgets') ? 'active' : '' }}">
+            <a href="{{ route('widgets.index') }}" class="nav-link {{ Request::is('admin/PkgWidgets/widgets') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-table"></i>
                 <p>Widgets</p>
             </a>
@@ -22,7 +22,7 @@
         @endcan
         @can('show-widgetOperation') 
         <li class="nav-item">
-            <a href="{{ route('widgetOperations.index') }}" class="nav-link {{ Request::is('PkgWidgets/widgetOperations') ? 'active' : '' }}">
+            <a href="{{ route('widgetOperations.index') }}" class="nav-link {{ Request::is('admin/PkgWidgets/widgetOperations') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-table"></i>
                 <p>WidgetOperations</p>
             </a>
@@ -30,7 +30,7 @@
         @endcan
         @can('show-widgetType') 
         <li class="nav-item">
-            <a href="{{ route('widgetTypes.index') }}" class="nav-link {{ Request::is('PkgWidgets/widgetTypes') ? 'active' : '' }}">
+            <a href="{{ route('widgetTypes.index') }}" class="nav-link {{ Request::is('admin/PkgWidgets/widgetTypes') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-table"></i>
                 <p>WidgetTypes</p>
             </a>

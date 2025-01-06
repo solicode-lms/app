@@ -3,8 +3,8 @@
 
 @accessiblePermissions(['show-livrable', 'show-natureLivrable', 'show-projet', 'show-resource', 'show-transfertCompetence'])
 @if($accessiblePermissions->isNotEmpty())
-<li class="nav-item has-treeview {{ Request::is('PkgCreationProjet*') ? 'menu-open' : '' }}">
-    <a href="#" class="nav-link nav-link {{ Request::is('PkgCreationProjet*') ? 'active' : '' }}">
+<li class="nav-item has-treeview {{ Request::is('admin/PkgCreationProjet*') ? 'menu-open' : '' }}">
+    <a href="#" class="nav-link nav-link {{ Request::is('admin/PkgCreationProjet*') ? 'active' : '' }}">
         <i class="nav-icon fas  {{__('PkgCreationProjet::PkgCreationProjet.icon')}}"></i>
         <p>
             {{__('PkgCreationProjet::PkgCreationProjet.name')}}
@@ -14,7 +14,7 @@
     <ul class="nav nav-treeview">
         @can('show-livrable') 
         <li class="nav-item">
-            <a href="{{ route('livrables.index') }}" class="nav-link {{ Request::is('PkgCreationProjet/livrables') ? 'active' : '' }}">
+            <a href="{{ route('livrables.index') }}" class="nav-link {{ Request::is('admin/PkgCreationProjet/livrables') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-table"></i>
                 <p>Livrables</p>
             </a>
@@ -22,7 +22,7 @@
         @endcan
         @can('show-natureLivrable') 
         <li class="nav-item">
-            <a href="{{ route('natureLivrables.index') }}" class="nav-link {{ Request::is('PkgCreationProjet/natureLivrables') ? 'active' : '' }}">
+            <a href="{{ route('natureLivrables.index') }}" class="nav-link {{ Request::is('admin/PkgCreationProjet/natureLivrables') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-table"></i>
                 <p>NatureLivrables</p>
             </a>
@@ -30,7 +30,7 @@
         @endcan
         @can('show-projet') 
         <li class="nav-item">
-            <a href="{{ route('projets.index') }}" class="nav-link {{ Request::is('PkgCreationProjet/projets') ? 'active' : '' }}">
+            <a href="{{ route('projets.index') }}" class="nav-link {{ Request::is('admin/PkgCreationProjet/projets') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-table"></i>
                 <p>Projets</p>
             </a>
@@ -38,7 +38,7 @@
         @endcan
         @can('show-resource') 
         <li class="nav-item">
-            <a href="{{ route('resources.index') }}" class="nav-link {{ Request::is('PkgCreationProjet/resources') ? 'active' : '' }}">
+            <a href="{{ route('resources.index') }}" class="nav-link {{ Request::is('admin/PkgCreationProjet/resources') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-table"></i>
                 <p>Resources</p>
             </a>
@@ -46,7 +46,7 @@
         @endcan
         @can('show-transfertCompetence') 
         <li class="nav-item">
-            <a href="{{ route('transfertCompetences.index') }}" class="nav-link {{ Request::is('PkgCreationProjet/transfertCompetences') ? 'active' : '' }}">
+            <a href="{{ route('transfertCompetences.index') }}" class="nav-link {{ Request::is('admin/PkgCreationProjet/transfertCompetences') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-table"></i>
                 <p>TransfertCompetences</p>
             </a>

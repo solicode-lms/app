@@ -1,5 +1,5 @@
 <li class="nav-item">
-    <a href="{{ route('dashbaord') }}" class="nav-link {{ Request::is('admin*') || Request::is('/') ? 'active' : '' }}">
+    <a href="{{ route('dashbaord') }}" class="nav-link {{ Request::is('admin')  ? 'active' : '' }}">
         <i class="nav-icon fas fa-home"></i>
         <p>
             {{ __('Core::dashboard.title') }}
