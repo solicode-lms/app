@@ -9,6 +9,7 @@ use Spatie\Permission\Models\Role as ModelsRole;
 class Role extends ModelsRole
 {
 
+    public const FORMATEUR_ROLE = "formateur";
     public function __toString()
     {
         return $this->name;
