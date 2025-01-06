@@ -32,6 +32,11 @@ class AppServiceProvider extends ServiceProvider
             // Crée une directive : @limit($string, $length)
             return "<?php echo \Illuminate\Support\Str::limit($expression); ?>";
         });
+
+        Blade::directive('accessiblePermissions', function ($expression) {
+            return "<?php \$accessiblePermissions = collect($expression)->filter(fn(\$permission) => auth()->user()->can(\$permission)); ?>";
+        });
+        
     }
 
     /**

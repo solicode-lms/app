@@ -1,5 +1,8 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
+
+@accessiblePermissions(['show-widget', 'show-widgetOperation', 'show-widgetType'])
+@if($accessiblePermissions->isNotEmpty())
 <li class="nav-item has-treeview {{ Request::is('PkgWidgets*') ? 'menu-open' : '' }}">
     <a href="#" class="nav-link nav-link {{ Request::is('PkgWidgets*') ? 'active' : '' }}">
         <i class="nav-icon fas  {{__('PkgWidgets::PkgWidgets.icon')}}"></i>
@@ -9,7 +12,7 @@
         </p>
     </a>
     <ul class="nav nav-treeview">
-        @can('show-') 
+        @can('show-widget') 
         <li class="nav-item">
             <a href="{{ route('widgets.index') }}" class="nav-link {{ Request::is('PkgWidgets/widgets') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-table"></i>
@@ -17,7 +20,7 @@
             </a>
         </li>
         @endcan
-        @can('show-') 
+        @can('show-widgetOperation') 
         <li class="nav-item">
             <a href="{{ route('widgetOperations.index') }}" class="nav-link {{ Request::is('PkgWidgets/widgetOperations') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-table"></i>
@@ -25,7 +28,7 @@
             </a>
         </li>
         @endcan
-        @can('show-') 
+        @can('show-widgetType') 
         <li class="nav-item">
             <a href="{{ route('widgetTypes.index') }}" class="nav-link {{ Request::is('PkgWidgets/widgetTypes') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-table"></i>
@@ -35,5 +38,5 @@
         @endcan
     </ul>
 </li>
-
+@endif
 
