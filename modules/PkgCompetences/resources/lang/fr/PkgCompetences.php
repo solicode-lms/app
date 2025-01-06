@@ -1,6 +1,6 @@
 <?php
 
 return [
-    'name' => 'Modules',
-    'icon' => 'fa-briefcase'
+    'name' => 'Compétences visées',
+    'icon' => 'fa-bullseye'
 ];

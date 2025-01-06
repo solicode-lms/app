@@ -16,7 +16,7 @@
         <li class="nav-item">
             <a href="{{ route('apprenants.index') }}" class="nav-link {{ Request::is('admin/PkgUtilisateurs/apprenants') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-user-graduate"></i>
-                <p>Apprenants</p>
+                {{__('PkgUtilisateurs::Apprenant.plural')}}
             </a>
         </li>
         @endcan
@@ -24,7 +24,7 @@
         <li class="nav-item">
             <a href="{{ route('apprenantKonosies.index') }}" class="nav-link {{ Request::is('admin/PkgUtilisateurs/apprenantKonosies') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-table"></i>
-                <p>ApprenantKonosies</p>
+                {{__('PkgUtilisateurs::ApprenantKonosy.plural')}}
             </a>
         </li>
         @endcan
@@ -32,7 +32,7 @@
         <li class="nav-item">
             <a href="{{ route('formateurs.index') }}" class="nav-link {{ Request::is('admin/PkgUtilisateurs/formateurs') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-chalkboard-teacher"></i>
-                <p>Formateurs</p>
+                {{__('PkgUtilisateurs::Formateur.plural')}}
             </a>
         </li>
         @endcan
@@ -40,7 +40,7 @@
         <li class="nav-item">
             <a href="{{ route('groupes.index') }}" class="nav-link {{ Request::is('admin/PkgUtilisateurs/groupes') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-cubes"></i>
-                <p>Groupes</p>
+                {{__('PkgUtilisateurs::Groupe.plural')}}
             </a>
         </li>
         @endcan
@@ -48,7 +48,7 @@
         <li class="nav-item">
             <a href="{{ route('nationalites.index') }}" class="nav-link {{ Request::is('admin/PkgUtilisateurs/nationalites') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-table"></i>
-                <p>Nationalites</p>
+                {{__('PkgUtilisateurs::Nationalite.plural')}}
             </a>
         </li>
         @endcan
@@ -56,7 +56,7 @@
         <li class="nav-item">
             <a href="{{ route('niveauxScolaires.index') }}" class="nav-link {{ Request::is('admin/PkgUtilisateurs/niveauxScolaires') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-graduation-cap"></i>
-                <p>NiveauxScolaires</p>
+                {{__('PkgUtilisateurs::NiveauxScolaire.plural')}}
             </a>
         </li>
         @endcan
@@ -64,7 +64,7 @@
         <li class="nav-item">
             <a href="{{ route('specialites.index') }}" class="nav-link {{ Request::is('admin/PkgUtilisateurs/specialites') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-award"></i>
-                <p>Specialites</p>
+                {{__('PkgUtilisateurs::Specialite.plural')}}
             </a>
         </li>
         @endcan
@@ -72,7 +72,7 @@
         <li class="nav-item">
             <a href="{{ route('villes.index') }}" class="nav-link {{ Request::is('admin/PkgUtilisateurs/villes') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-city"></i>
-                <p>Villes</p>
+                {{__('PkgUtilisateurs::Ville.plural')}}
             </a>
         </li>
         @endcan

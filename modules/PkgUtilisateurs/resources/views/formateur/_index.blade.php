@@ -27,7 +27,7 @@
     @section('crud-header')
     @php
         $package = __("PkgUtilisateurs::PkgUtilisateurs.name");
-       $titre = __("PkgUtilisateurs::groupe.singular");
+       $titre = __("PkgUtilisateurs::formateur.singular");
     @endphp
     <x-crud-header 
         id="formateur-crud-header" icon="fas fa-chalkboard-teacher"  

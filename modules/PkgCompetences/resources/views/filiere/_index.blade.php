@@ -26,8 +26,8 @@
 <div id="filiere-crud" class="crud">
     @section('crud-header')
     @php
-        $package = __("PkgUtilisateurs::PkgUtilisateurs.name");
-       $titre = __("PkgUtilisateurs::groupe.singular");
+        $package = __("PkgCompetences::PkgCompetences.name");
+       $titre = __("PkgCompetences::filiere.singular");
     @endphp
     <x-crud-header 
         id="filiere-crud-header" icon="fas fa-book"  
