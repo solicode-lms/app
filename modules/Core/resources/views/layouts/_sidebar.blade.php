@@ -9,12 +9,14 @@
         </p>
     </a>
     <ul class="nav nav-treeview">
+        @can('show-feature')          
         <li class="nav-item">
             <a href="{{ route('features.index') }}" class="nav-link {{ Request::is('Core/features') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-table"></i>
                 <p>Features</p>
             </a>
         </li>
+        @endcan
         <li class="nav-item">
             <a href="{{ route('featureDomains.index') }}" class="nav-link {{ Request::is('Core/featureDomains') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-table"></i>
