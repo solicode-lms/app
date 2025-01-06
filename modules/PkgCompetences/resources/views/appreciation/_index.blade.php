@@ -56,7 +56,7 @@
                         <x-crud-actions
                             :createPermission="'create-appreciation'"
                             :createRoute="route('appreciations.create')"
-                            :createText="__('Ajouter une appreciation')"
+                            :createText="__('Ajouter')"
                             :importPermission="'import-appreciation'"
                             :importRoute="route('appreciations.import')"
                             :importText="__('Importer')"
@@ -74,6 +74,7 @@
                             <!-- Filtres spécifiques -->
                             @foreach ($appreciations_filters as $filter)
                                 <x-filter-field 
+                                    :label="$filter['label']" 
                                     :type="$filter['type']" 
                                     :field="$filter['field']" 
                                     :options="$filter['options'] ?? []"

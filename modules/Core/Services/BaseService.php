@@ -402,11 +402,12 @@ public function getStatsByRelation($relationModel,$nestedRelation, $attribute ):
  * @param string $model La classe du modèle.
  * @return array Le filtre formaté.
  */
-protected function generateManyToOneFilter(string $field, string $model, string $display_field): array
+protected function generateManyToOneFilter(string $label, string $field, string $model, string $display_field): array
 {
     $modelInstance = new $model();
 
     return [
+        'label' => $label,
         'field' => $field,
         'type' => 'ManyToOne',
         'options' => $model::all(['id', $display_field])

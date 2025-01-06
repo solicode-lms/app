@@ -17,7 +17,7 @@
 
         @case('ManyToOne')
             <select name="{{ $field }}" class="form-select form-control form-control-sm">
-                <option value="">Tous</option>
+                <option value="">{{ $label }}</option>
                 @foreach ($options as $option)
                     <option value="{{ $option['id'] }}" 
                             {{ request($field) == $option['id'] ? 'selected' : '' }}>
