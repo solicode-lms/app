@@ -9,7 +9,7 @@
         </p>
     </a>
     <ul class="nav nav-treeview">
-        @can('show-feature')          
+        @can('show-') 
         <li class="nav-item">
             <a href="{{ route('features.index') }}" class="nav-link {{ Request::is('Core/features') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-table"></i>
@@ -17,36 +17,46 @@
             </a>
         </li>
         @endcan
+        @can('show-') 
         <li class="nav-item">
             <a href="{{ route('featureDomains.index') }}" class="nav-link {{ Request::is('Core/featureDomains') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-table"></i>
                 <p>FeatureDomains</p>
             </a>
         </li>
+        @endcan
+        @can('show-') 
         <li class="nav-item">
             <a href="{{ route('sysColors.index') }}" class="nav-link {{ Request::is('Core/sysColors') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-table"></i>
                 <p>SysColors</p>
             </a>
         </li>
+        @endcan
+        @can('show-') 
         <li class="nav-item">
             <a href="{{ route('sysControllers.index') }}" class="nav-link {{ Request::is('Core/sysControllers') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-table"></i>
                 <p>SysControllers</p>
             </a>
         </li>
+        @endcan
+        @can('show-') 
         <li class="nav-item">
             <a href="{{ route('sysModels.index') }}" class="nav-link {{ Request::is('Core/sysModels') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-table"></i>
                 <p>SysModels</p>
             </a>
         </li>
+        @endcan
+        @can('show-') 
         <li class="nav-item">
             <a href="{{ route('sysModules.index') }}" class="nav-link {{ Request::is('Core/sysModules') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-table"></i>
                 <p>SysModules</p>
             </a>
         </li>
+        @endcan
     </ul>
 </li>
 

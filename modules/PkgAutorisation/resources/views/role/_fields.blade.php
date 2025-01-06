@@ -1,5 +1,5 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
-@section('role-form')
+
 <form class="crud-form context-state" id="roleForm" action="{{ $itemRole->id ? route('roles.update', $itemRole->id) : route('roles.store') }}" method="POST" novalidate>
     @csrf
 
@@ -26,27 +26,27 @@
             @error('name')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-    </div>
+</div>
 
-    <div class="form-group">
-        <label for="guard_name">
-            {{ ucfirst(__('PkgAutorisation::role.guard_name')) }}
-            
-                <span class="text-danger">*</span>
-            
-        </label>
-        <input
-            name="guard_name"
-            type="input"
-            class="form-control"
-            required
-            id="guard_name"
-            placeholder="{{ __('PkgAutorisation::role.guard_name') }}"
-            value="{{ $itemRole ? $itemRole->guard_name : old('guard_name') }}">
-        @error('guard_name')
-            <div class="text-danger">{{ $message }}</div>
-        @enderror
-    </div>
+        <div class="form-group">
+            <label for="guard_name">
+                {{ ucfirst(__('PkgAutorisation::role.guard_name')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <input
+                name="guard_name"
+                type="input"
+                class="form-control"
+                required
+                id="guard_name"
+                placeholder="{{ __('PkgAutorisation::role.guard_name') }}"
+                value="{{ $itemRole ? $itemRole->guard_name : old('guard_name') }}">
+            @error('guard_name')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
 
                 <div class="form-group">
             <label for="permissions">
@@ -103,6 +103,5 @@
         <button type="submit" class="btn btn-info ml-2">{{ $itemRole->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
-@show
 
 

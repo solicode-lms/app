@@ -3,8 +3,7 @@
 @extends('layouts.admin')
 @section('title', __('Core::msg.edit') . ' ' . __('PkgCompetences::categoryTechnology.singular'))
 
-@section('script')
-@parent
+@push('scripts')
 <script>
     window.contextState = @json($contextState);
  </script>
@@ -13,19 +12,23 @@
     window.entitiesConfig.push({
         edit_has_many: true,
         entity_name: 'categoryTechnology',
-        crudSelector: '#card-tab-categoryTechnology',
+        filterFormSelector: '#categoryTechnology-crud-filter-form',
+        crudSelector: '#card-tab-categoryTechnology', 
+        tableSelector: '#categoryTechnology-data-container',
+        formSelector: '#categoryTechnologyForm',
+        modalSelector : '#categoryTechnologyModal',
         indexUrl: '{{ route('categoryTechnologies.index') }}', 
         createUrl: '{{ route('categoryTechnologies.create') }}',
-        editUrl: '{{ route('categoryTechnologies.edit', ['categoryTechnology' => ':id']) }}',
-        showUrl: '{{ route('categoryTechnologies.show', ['categoryTechnology' => ':id']) }}',
+        editUrl: '{{ route('categoryTechnologies.edit',  ['categoryTechnology' => ':id']) }}',
+        showUrl: '{{ route('categoryTechnologies.show',  ['categoryTechnology' => ':id']) }}',
         storeUrl: '{{ route('categoryTechnologies.store') }}', 
-        deleteUrl: '{{ route('categoryTechnologies.destroy', ['categoryTechnology' => ':id']) }}', 
+        deleteUrl: '{{ route('categoryTechnologies.destroy',  ['categoryTechnology' => ':id']) }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgCompetences::categoryTechnology.singular") }}',
         edit_title: '{{__("Core::msg.add") . " : " . __("PkgCompetences::categoryTechnology.singular") }}',
     });
 </script>
-@endsection
+@endpush
 
 
 @section('content')

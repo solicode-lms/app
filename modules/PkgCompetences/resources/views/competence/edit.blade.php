@@ -3,8 +3,7 @@
 @extends('layouts.admin')
 @section('title', __('Core::msg.edit') . ' ' . __('PkgCompetences::competence.singular'))
 
-@section('script')
-@parent
+@push('scripts')
 <script>
     window.contextState = @json($contextState);
  </script>
@@ -13,19 +12,23 @@
     window.entitiesConfig.push({
         edit_has_many: true,
         entity_name: 'competence',
-        crudSelector: '#card-tab-competence',
+        filterFormSelector: '#competence-crud-filter-form',
+        crudSelector: '#card-tab-competence', 
+        tableSelector: '#competence-data-container',
+        formSelector: '#competenceForm',
+        modalSelector : '#competenceModal',
         indexUrl: '{{ route('competences.index') }}', 
         createUrl: '{{ route('competences.create') }}',
-        editUrl: '{{ route('competences.edit', ['competence' => ':id']) }}',
-        showUrl: '{{ route('competences.show', ['competence' => ':id']) }}',
+        editUrl: '{{ route('competences.edit',  ['competence' => ':id']) }}',
+        showUrl: '{{ route('competences.show',  ['competence' => ':id']) }}',
         storeUrl: '{{ route('competences.store') }}', 
-        deleteUrl: '{{ route('competences.destroy', ['competence' => ':id']) }}', 
+        deleteUrl: '{{ route('competences.destroy',  ['competence' => ':id']) }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgCompetences::competence.singular") }}',
         edit_title: '{{__("Core::msg.add") . " : " . __("PkgCompetences::competence.singular") }}',
     });
 </script>
-@endsection
+@endpush
 
 
 @section('content')
