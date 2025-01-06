@@ -56,7 +56,7 @@
                         <x-crud-actions
                             :createPermission="'create-categoryTechnology'"
                             :createRoute="route('categoryTechnologies.create')"
-                            :createText="__('Ajouter une categoryTechnology')"
+                            :createText="__('Ajouter')"
                             :importPermission="'import-categoryTechnology'"
                             :importRoute="route('categoryTechnologies.import')"
                             :importText="__('Importer')"
@@ -74,6 +74,7 @@
                             <!-- Filtres spécifiques -->
                             @foreach ($categoryTechnologies_filters as $filter)
                                 <x-filter-field 
+                                    :label="$filter['label']" 
                                     :type="$filter['type']" 
                                     :field="$filter['field']" 
                                     :options="$filter['options'] ?? []"

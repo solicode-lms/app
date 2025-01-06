@@ -56,7 +56,7 @@
                         <x-crud-actions
                             :createPermission="'create-resource'"
                             :createRoute="route('resources.create')"
-                            :createText="__('Ajouter une resource')"
+                            :createText="__('Ajouter')"
                             :importPermission="'import-resource'"
                             :importRoute="route('resources.import')"
                             :importText="__('Importer')"
@@ -74,6 +74,7 @@
                             <!-- Filtres spécifiques -->
                             @foreach ($resources_filters as $filter)
                                 <x-filter-field 
+                                    :label="$filter['label']" 
                                     :type="$filter['type']" 
                                     :field="$filter['field']" 
                                     :options="$filter['options'] ?? []"

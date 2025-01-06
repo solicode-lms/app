@@ -42,7 +42,6 @@ class BaseCategoryTechnologyService extends BaseService
 
         // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
-            ['field' => 'nom', 'type' => 'String'],
         ];
 
     }

@@ -42,9 +42,6 @@ class BaseSpecialiteService extends BaseService
 
         // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
-            ['field' => 'nom', 'type' => 'String'],
-            ['field' => 'description', 'type' => 'Text'],
-            ['field' => 'Formateur_ManyToMany', 'type' => 'ManyToMany'],
         ];
 
     }

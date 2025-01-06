@@ -51,11 +51,6 @@ class BaseFormateurService extends BaseService
 
         // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
-            ['field' => 'nom', 'type' => 'String'],
-            ['field' => 'prenom', 'type' => 'String'],
-            ['field' => 'adresse', 'type' => 'String'],
-            ['field' => 'Groupe_ManyToMany', 'type' => 'ManyToMany'],
-            ['field' => 'Specialite_ManyToMany', 'type' => 'ManyToMany'],
         ];
 
     }

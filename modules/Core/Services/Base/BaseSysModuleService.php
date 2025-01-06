@@ -47,10 +47,6 @@ class BaseSysModuleService extends BaseService
 
         // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
-            ['field' => 'name', 'type' => 'String'],
-            ['field' => 'description', 'type' => 'Text'],
-            ['field' => 'is_active', 'type' => 'Integer'],
-            $this->generateManyToOneFilter('color_id', \Modules\Core\Models\SysColor::class, 'name'),
         ];
 
     }

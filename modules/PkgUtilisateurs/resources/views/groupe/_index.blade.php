@@ -56,7 +56,7 @@
                         <x-crud-actions
                             :createPermission="'create-groupe'"
                             :createRoute="route('groupes.create')"
-                            :createText="__('Ajouter une groupe')"
+                            :createText="__('Ajouter')"
                             :importPermission="'import-groupe'"
                             :importRoute="route('groupes.import')"
                             :importText="__('Importer')"
@@ -74,6 +74,7 @@
                             <!-- Filtres spécifiques -->
                             @foreach ($groupes_filters as $filter)
                                 <x-filter-field 
+                                    :label="$filter['label']" 
                                     :type="$filter['type']" 
                                     :field="$filter['field']" 
                                     :options="$filter['options'] ?? []"

@@ -44,9 +44,6 @@ class BaseModuleService extends BaseService
 
         // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
-            ['field' => 'nom', 'type' => 'String'],
-            ['field' => 'description', 'type' => 'Text'],
-            $this->generateManyToOneFilter('filiere_id', \Modules\PkgCompetences\Models\Filiere::class, 'code'),
         ];
 
     }

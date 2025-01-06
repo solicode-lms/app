@@ -44,9 +44,6 @@ class BaseResourceService extends BaseService
 
         // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
-            ['field' => 'nom', 'type' => 'String'],
-            ['field' => 'lien', 'type' => 'String'],
-            $this->generateManyToOneFilter('projet_id', \Modules\PkgCreationProjet\Models\Projet::class, 'titre'),
         ];
 
     }

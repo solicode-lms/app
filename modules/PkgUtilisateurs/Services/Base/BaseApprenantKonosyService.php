@@ -59,8 +59,6 @@ class BaseApprenantKonosyService extends BaseService
 
         // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
-            ['field' => 'Nom', 'type' => 'String'],
-            ['field' => 'Adresse', 'type' => 'Text'],
         ];
 
     }

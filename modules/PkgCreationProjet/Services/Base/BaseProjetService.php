@@ -47,10 +47,6 @@ class BaseProjetService extends BaseService
 
         // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
-            ['field' => 'titre', 'type' => 'String'],
-            ['field' => 'date_debut', 'type' => 'Date'],
-            ['field' => 'date_fin', 'type' => 'Date'],
-            $this->generateManyToOneFilter('formateur_id', \Modules\PkgUtilisateurs\Models\Formateur::class, 'nom'),
         ];
 
     }

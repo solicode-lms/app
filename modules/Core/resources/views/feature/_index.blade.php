@@ -56,7 +56,7 @@
                         <x-crud-actions
                             :createPermission="'create-feature'"
                             :createRoute="route('features.create')"
-                            :createText="__('Ajouter une feature')"
+                            :createText="__('Ajouter')"
                             :importPermission="'import-feature'"
                             :importRoute="route('features.import')"
                             :importText="__('Importer')"
@@ -74,6 +74,7 @@
                             <!-- Filtres spécifiques -->
                             @foreach ($features_filters as $filter)
                                 <x-filter-field 
+                                    :label="$filter['label']" 
                                     :type="$filter['type']" 
                                     :field="$filter['field']" 
                                     :options="$filter['options'] ?? []"

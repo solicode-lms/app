@@ -56,7 +56,7 @@
                         <x-crud-actions
                             :createPermission="'create-sysModule'"
                             :createRoute="route('sysModules.create')"
-                            :createText="__('Ajouter une sysModule')"
+                            :createText="__('Ajouter')"
                             :importPermission="'import-sysModule'"
                             :importRoute="route('sysModules.import')"
                             :importText="__('Importer')"
@@ -74,6 +74,7 @@
                             <!-- Filtres spécifiques -->
                             @foreach ($sysModules_filters as $filter)
                                 <x-filter-field 
+                                    :label="$filter['label']" 
                                     :type="$filter['type']" 
                                     :field="$filter['field']" 
                                     :options="$filter['options'] ?? []"

@@ -56,7 +56,7 @@
                         <x-crud-actions
                             :createPermission="'create-transfertCompetence'"
                             :createRoute="route('transfertCompetences.create')"
-                            :createText="__('Ajouter une transfertCompetence')"
+                            :createText="__('Ajouter')"
                             :importPermission="'import-transfertCompetence'"
                             :importRoute="route('transfertCompetences.import')"
                             :importText="__('Importer')"
@@ -74,6 +74,7 @@
                             <!-- Filtres spécifiques -->
                             @foreach ($transfertCompetences_filters as $filter)
                                 <x-filter-field 
+                                    :label="$filter['label']" 
                                     :type="$filter['type']" 
                                     :field="$filter['field']" 
                                     :options="$filter['options'] ?? []"

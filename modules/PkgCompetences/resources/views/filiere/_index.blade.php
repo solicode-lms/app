@@ -56,7 +56,7 @@
                         <x-crud-actions
                             :createPermission="'create-filiere'"
                             :createRoute="route('filieres.create')"
-                            :createText="__('Ajouter une filiere')"
+                            :createText="__('Ajouter')"
                             :importPermission="'import-filiere'"
                             :importRoute="route('filieres.import')"
                             :importText="__('Importer')"
@@ -74,6 +74,7 @@
                             <!-- Filtres spécifiques -->
                             @foreach ($filieres_filters as $filter)
                                 <x-filter-field 
+                                    :label="$filter['label']" 
                                     :type="$filter['type']" 
                                     :field="$filter['field']" 
                                     :options="$filter['options'] ?? []"

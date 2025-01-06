@@ -41,7 +41,6 @@ class BaseVilleService extends BaseService
 
         // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
-            ['field' => 'nom', 'type' => 'String'],
         ];
 
     }

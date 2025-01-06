@@ -56,7 +56,7 @@
                         <x-crud-actions
                             :createPermission="'create-ville'"
                             :createRoute="route('villes.create')"
-                            :createText="__('Ajouter une ville')"
+                            :createText="__('Ajouter')"
                             :importPermission="'import-ville'"
                             :importRoute="route('villes.import')"
                             :importText="__('Importer')"
@@ -74,6 +74,7 @@
                             <!-- Filtres spécifiques -->
                             @foreach ($villes_filters as $filter)
                                 <x-filter-field 
+                                    :label="$filter['label']" 
                                     :type="$filter['type']" 
                                     :field="$filter['field']" 
                                     :options="$filter['options'] ?? []"

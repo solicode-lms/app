@@ -56,7 +56,7 @@
                         <x-crud-actions
                             :createPermission="'create-role'"
                             :createRoute="route('roles.create')"
-                            :createText="__('Ajouter une role')"
+                            :createText="__('Ajouter')"
                             :importPermission="'import-role'"
                             :importRoute="route('roles.import')"
                             :importText="__('Importer')"
@@ -74,6 +74,7 @@
                             <!-- Filtres spécifiques -->
                             @foreach ($roles_filters as $filter)
                                 <x-filter-field 
+                                    :label="$filter['label']" 
                                     :type="$filter['type']" 
                                     :field="$filter['field']" 
                                     :options="$filter['options'] ?? []"

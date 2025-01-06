@@ -43,10 +43,6 @@ class BaseFeatureService extends BaseService
 
         // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
-            ['field' => 'name', 'type' => 'String'],
-            ['field' => 'description', 'type' => 'Text'],
-            $this->generateManyToOneFilter('domain_id', \Modules\Core\Models\FeatureDomain::class, 'name'),
-            ['field' => 'Permission_ManyToMany', 'type' => 'ManyToMany'],
         ];
 
     }

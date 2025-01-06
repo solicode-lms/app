@@ -48,11 +48,6 @@ class BaseWidgetService extends BaseService
 
         // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
-            ['field' => 'name', 'type' => 'String'],
-            $this->generateManyToOneFilter('type_id', \Modules\PkgWidgets\Models\WidgetType::class, 'type'),
-            $this->generateManyToOneFilter('model_id', \Modules\Core\Models\SysModel::class, 'name'),
-            $this->generateManyToOneFilter('operation_id', \Modules\PkgWidgets\Models\WidgetOperation::class, 'operation'),
-            ['field' => 'icon', 'type' => 'String'],
         ];
 
     }

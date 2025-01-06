@@ -56,7 +56,7 @@
                         <x-crud-actions
                             :createPermission="'create-widgetOperation'"
                             :createRoute="route('widgetOperations.create')"
-                            :createText="__('Ajouter une widgetOperation')"
+                            :createText="__('Ajouter')"
                             :importPermission="'import-widgetOperation'"
                             :importRoute="route('widgetOperations.import')"
                             :importText="__('Importer')"
@@ -74,6 +74,7 @@
                             <!-- Filtres spécifiques -->
                             @foreach ($widgetOperations_filters as $filter)
                                 <x-filter-field 
+                                    :label="$filter['label']" 
                                     :type="$filter['type']" 
                                     :field="$filter['field']" 
                                     :options="$filter['options'] ?? []"

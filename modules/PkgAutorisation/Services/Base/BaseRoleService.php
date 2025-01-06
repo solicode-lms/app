@@ -42,9 +42,6 @@ class BaseRoleService extends BaseService
 
         // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
-            ['field' => 'name', 'type' => 'String'],
-            ['field' => 'Permission_ManyToMany', 'type' => 'ManyToMany'],
-            ['field' => 'User_ManyToMany', 'type' => 'ManyToMany'],
         ];
 
     }

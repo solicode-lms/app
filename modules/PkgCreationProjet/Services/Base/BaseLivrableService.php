@@ -44,9 +44,6 @@ class BaseLivrableService extends BaseService
 
         // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
-            ['field' => 'titre', 'type' => 'String'],
-            $this->generateManyToOneFilter('nature_livrable_id', \Modules\PkgCreationProjet\Models\NatureLivrable::class, 'nom'),
-            $this->generateManyToOneFilter('projet_id', \Modules\PkgCreationProjet\Models\Projet::class, 'titre'),
         ];
 
     }

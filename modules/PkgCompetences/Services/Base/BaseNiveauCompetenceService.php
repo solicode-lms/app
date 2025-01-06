@@ -43,9 +43,6 @@ class BaseNiveauCompetenceService extends BaseService
 
         // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
-            ['field' => 'nom', 'type' => 'String'],
-            ['field' => 'description', 'type' => 'Text'],
-            $this->generateManyToOneFilter('competence_id', \Modules\PkgCompetences\Models\Competence::class, 'code'),
         ];
 
     }

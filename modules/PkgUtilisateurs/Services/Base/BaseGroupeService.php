@@ -44,10 +44,6 @@ class BaseGroupeService extends BaseService
 
         // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
-            ['field' => 'code', 'type' => 'String'],
-            ['field' => 'nom', 'type' => 'String'],
-            $this->generateManyToOneFilter('filiere_id', \Modules\PkgCompetences\Models\Filiere::class, 'code'),
-            ['field' => 'Formateur_ManyToMany', 'type' => 'ManyToMany'],
         ];
 
     }

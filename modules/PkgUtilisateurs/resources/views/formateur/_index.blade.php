@@ -56,7 +56,7 @@
                         <x-crud-actions
                             :createPermission="'create-formateur'"
                             :createRoute="route('formateurs.create')"
-                            :createText="__('Ajouter une formateur')"
+                            :createText="__('Ajouter')"
                             :importPermission="'import-formateur'"
                             :importRoute="route('formateurs.import')"
                             :importText="__('Importer')"
@@ -74,6 +74,7 @@
                             <!-- Filtres spécifiques -->
                             @foreach ($formateurs_filters as $filter)
                                 <x-filter-field 
+                                    :label="$filter['label']" 
                                     :type="$filter['type']" 
                                     :field="$filter['field']" 
                                     :options="$filter['options'] ?? []"

@@ -43,7 +43,6 @@ class BaseNiveauxScolaireService extends BaseService
 
         // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
-            ['field' => 'code', 'type' => 'String'],
         ];
 
     }

@@ -44,9 +44,6 @@ class BaseFeatureDomainService extends BaseService
 
         // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
-            ['field' => 'name', 'type' => 'String'],
-            ['field' => 'description', 'type' => 'Text'],
-            $this->generateManyToOneFilter('module_id', \Modules\Core\Models\SysModule::class, 'name'),
         ];
 
     }

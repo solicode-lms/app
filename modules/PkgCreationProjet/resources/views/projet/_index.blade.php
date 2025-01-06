@@ -56,7 +56,7 @@
                         <x-crud-actions
                             :createPermission="'create-projet'"
                             :createRoute="route('projets.create')"
-                            :createText="__('Ajouter une projet')"
+                            :createText="__('Ajouter')"
                             :importPermission="'import-projet'"
                             :importRoute="route('projets.import')"
                             :importText="__('Importer')"
@@ -74,6 +74,7 @@
                             <!-- Filtres spécifiques -->
                             @foreach ($projets_filters as $filter)
                                 <x-filter-field 
+                                    :label="$filter['label']" 
                                     :type="$filter['type']" 
                                     :field="$filter['field']" 
                                     :options="$filter['options'] ?? []"

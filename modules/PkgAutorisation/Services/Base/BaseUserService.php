@@ -45,9 +45,6 @@ class BaseUserService extends BaseService
 
         // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
-            ['field' => 'name', 'type' => 'String'],
-            ['field' => 'password', 'type' => 'String'],
-            ['field' => 'Role_ManyToMany', 'type' => 'ManyToMany'],
         ];
 
     }

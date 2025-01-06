@@ -56,7 +56,7 @@
                         <x-crud-actions
                             :createPermission="'create-specialite'"
                             :createRoute="route('specialites.create')"
-                            :createText="__('Ajouter une specialite')"
+                            :createText="__('Ajouter')"
                             :importPermission="'import-specialite'"
                             :importRoute="route('specialites.import')"
                             :importText="__('Importer')"
@@ -74,6 +74,7 @@
                             <!-- Filtres spécifiques -->
                             @foreach ($specialites_filters as $filter)
                                 <x-filter-field 
+                                    :label="$filter['label']" 
                                     :type="$filter['type']" 
                                     :field="$filter['field']" 
                                     :options="$filter['options'] ?? []"

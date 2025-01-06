@@ -56,7 +56,7 @@
                         <x-crud-actions
                             :createPermission="'create-apprenantKonosy'"
                             :createRoute="route('apprenantKonosies.create')"
-                            :createText="__('Ajouter une apprenantKonosy')"
+                            :createText="__('Ajouter')"
                             :importPermission="'import-apprenantKonosy'"
                             :importRoute="route('apprenantKonosies.import')"
                             :importText="__('Importer')"
@@ -74,6 +74,7 @@
                             <!-- Filtres spécifiques -->
                             @foreach ($apprenantKonosies_filters as $filter)
                                 <x-filter-field 
+                                    :label="$filter['label']" 
                                     :type="$filter['type']" 
                                     :field="$filter['field']" 
                                     :options="$filter['options'] ?? []"

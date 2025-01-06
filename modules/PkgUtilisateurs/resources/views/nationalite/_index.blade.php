@@ -56,7 +56,7 @@
                         <x-crud-actions
                             :createPermission="'create-nationalite'"
                             :createRoute="route('nationalites.create')"
-                            :createText="__('Ajouter une nationalite')"
+                            :createText="__('Ajouter')"
                             :importPermission="'import-nationalite'"
                             :importRoute="route('nationalites.import')"
                             :importText="__('Importer')"
@@ -74,6 +74,7 @@
                             <!-- Filtres spécifiques -->
                             @foreach ($nationalites_filters as $filter)
                                 <x-filter-field 
+                                    :label="$filter['label']" 
                                     :type="$filter['type']" 
                                     :field="$filter['field']" 
                                     :options="$filter['options'] ?? []"

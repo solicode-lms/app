@@ -42,8 +42,6 @@ class BaseWidgetTypeService extends BaseService
 
         // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
-            ['field' => 'type', 'type' => 'String'],
-            ['field' => 'description', 'type' => 'Text'],
         ];
 
     }

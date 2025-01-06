@@ -44,10 +44,6 @@ class BaseCompetenceService extends BaseService
 
         // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
-            ['field' => 'code', 'type' => 'String'],
-            ['field' => 'nom', 'type' => 'String'],
-            $this->generateManyToOneFilter('module_id', \Modules\PkgCompetences\Models\Module::class, 'nom'),
-            ['field' => 'Technology_ManyToMany', 'type' => 'ManyToMany'],
         ];
 
     }

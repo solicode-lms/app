@@ -56,7 +56,7 @@
                         <x-crud-actions
                             :createPermission="'create-sysController'"
                             :createRoute="route('sysControllers.create')"
-                            :createText="__('Ajouter une sysController')"
+                            :createText="__('Ajouter')"
                             :importPermission="'import-sysController'"
                             :importRoute="route('sysControllers.import')"
                             :importText="__('Importer')"
@@ -74,6 +74,7 @@
                             <!-- Filtres spécifiques -->
                             @foreach ($sysControllers_filters as $filter)
                                 <x-filter-field 
+                                    :label="$filter['label']" 
                                     :type="$filter['type']" 
                                     :field="$filter['field']" 
                                     :options="$filter['options'] ?? []"

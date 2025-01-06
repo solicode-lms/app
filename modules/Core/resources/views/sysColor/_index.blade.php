@@ -56,7 +56,7 @@
                         <x-crud-actions
                             :createPermission="'create-sysColor'"
                             :createRoute="route('sysColors.create')"
-                            :createText="__('Ajouter une sysColor')"
+                            :createText="__('Ajouter')"
                             :importPermission="'import-sysColor'"
                             :importRoute="route('sysColors.import')"
                             :importText="__('Importer')"
@@ -74,6 +74,7 @@
                             <!-- Filtres spécifiques -->
                             @foreach ($sysColors_filters as $filter)
                                 <x-filter-field 
+                                    :label="$filter['label']" 
                                     :type="$filter['type']" 
                                     :field="$filter['field']" 
                                     :options="$filter['options'] ?? []"

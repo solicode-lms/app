@@ -56,7 +56,7 @@
                         <x-crud-actions
                             :createPermission="'create-livrable'"
                             :createRoute="route('livrables.create')"
-                            :createText="__('Ajouter une livrable')"
+                            :createText="__('Ajouter')"
                             :importPermission="'import-livrable'"
                             :importRoute="route('livrables.import')"
                             :importText="__('Importer')"
@@ -74,6 +74,7 @@
                             <!-- Filtres spécifiques -->
                             @foreach ($livrables_filters as $filter)
                                 <x-filter-field 
+                                    :label="$filter['label']" 
                                     :type="$filter['type']" 
                                     :field="$filter['field']" 
                                     :options="$filter['options'] ?? []"

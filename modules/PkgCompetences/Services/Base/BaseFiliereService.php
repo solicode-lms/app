@@ -43,9 +43,6 @@ class BaseFiliereService extends BaseService
 
         // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
-            ['field' => 'code', 'type' => 'String'],
-            ['field' => 'nom', 'type' => 'String'],
-            ['field' => 'description', 'type' => 'Text'],
         ];
 
     }
