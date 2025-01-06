@@ -217,7 +217,7 @@ abstract class BaseService implements ServiceInterface
      * @param array $data Données à mettre à jour.
      * @return Entity modifié
      */
-    public function update($id, array $data)
+    public function update($id, array $data): ?Model 
     {
         $record = $this->model->find($id);
 
