@@ -9,6 +9,7 @@ use Modules\PkgCompetences\Services\AppreciationService;
 use Modules\PkgUtilisateurs\Services\FormateurService;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgCompetences\App\Exports\AppreciationExport;
 use Modules\PkgCompetences\App\Imports\AppreciationImport;
@@ -26,11 +27,14 @@ class BaseAppreciationController extends AdminController
         $this->appreciationService = $appreciationService;
         $this->formateurService = $formateurService;
 
+     
+
     }
 
 
     public function index(Request $request)
     {
+ 
         // Extraire les paramètres de recherche, page, et filtres
         $appreciations_params = array_merge(
             $request->only(['page','sort']),
@@ -137,16 +141,8 @@ class BaseAppreciationController extends AdminController
     public function update(AppreciationRequest $request, string $id)
     {
 
-
-         // Autorisation basée sur la Policy
-         $this->authorize('update', Appreciation::class);
-
-
         $validatedData = $request->validated();
         $appreciation = $this->appreciationService->update($id, $validatedData);
-
-       
-
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
@@ -171,9 +167,6 @@ class BaseAppreciationController extends AdminController
     public function destroy(Request $request, string $id)
     {
         $appreciation = $this->appreciationService->destroy($id);
-
-        // Autorisation basée sur la Policy
-        $this->authorize('delete', $appreciation);
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 

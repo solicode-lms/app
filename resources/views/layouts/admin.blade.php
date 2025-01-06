@@ -98,6 +98,11 @@
         });   
         @endif
     </script>
+
+    <script>
+    window.contextState = @json($contextState);
+    console.log(window.contextStat);
+    </script>
     @stack('scripts')
 </body>
 </html>

@@ -5,6 +5,7 @@ namespace Modules\PkgAutorisation\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Modules\PkgUtilisateurs\Models\Formateur;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
@@ -51,6 +52,12 @@ class User extends Authenticatable
         ];
     }
 
+    // Relation HasOne avec Formateur
+    public function formateur()
+    {
+        return $this->hasOne(Formateur::class);
+    }
+    
     // HasRoles
     // public function roles()
     // {
