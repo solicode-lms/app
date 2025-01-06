@@ -16,4 +16,5 @@ return [
     'echelle' => 'echelle',
     'echelon' => 'echelon',
     'profile_image' => 'profile_image',
+    'user_id' => 'user_id',
 ];

@@ -13,6 +13,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgCompetences\App\Exports\AppreciationExport;
 use Modules\PkgCompetences\App\Imports\AppreciationImport;
 use Modules\Core\Services\ContextState;
+use Modules\PkgCompetences\Models\Appreciation;
 
 class BaseAppreciationController extends AdminController
 {
@@ -135,12 +136,16 @@ class BaseAppreciationController extends AdminController
      */
     public function update(AppreciationRequest $request, string $id)
     {
+
+
+         // Autorisation basée sur la Policy
+         $this->authorize('update', Appreciation::class);
+
+
         $validatedData = $request->validated();
         $appreciation = $this->appreciationService->update($id, $validatedData);
 
-        // Autorisation basée sur la Policy
-        $this->authorize('update', $appreciation);
-
+       
 
 
         if ($request->ajax()) {

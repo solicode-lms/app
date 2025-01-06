@@ -29,7 +29,8 @@ class BaseFormateurService extends BaseService
         'diplome',
         'echelle',
         'echelon',
-        'profile_image'
+        'profile_image',
+        'user_id'
     ];
 
     /**
@@ -75,6 +76,7 @@ class BaseFormateurService extends BaseService
             'echelle' => $data['echelle'],
             'echelon' => $data['echelon'],
             'profile_image' => $data['profile_image'],
+            'user_id' => $data['user_id'],
         ]);
 
         return $formateur;

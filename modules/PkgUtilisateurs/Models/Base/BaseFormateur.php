@@ -7,6 +7,7 @@ namespace Modules\PkgUtilisateurs\Models\Base;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\HasDynamicContext;
+use Modules\PkgAutorisation\Models\User;
 use Modules\PkgCompetences\Models\Appreciation;
 use Modules\PkgCreationProjet\Models\Projet;
 use Modules\PkgUtilisateurs\Models\Groupe;
@@ -16,8 +17,12 @@ class BaseFormateur extends Model
 {
     use HasFactory, HasDynamicContext;
 
-    protected $fillable = ['matricule', 'nom', 'prenom', 'prenom_arab', 'nom_arab', 'tele_num', 'adresse', 'diplome', 'echelle', 'echelon', 'profile_image'];
+    protected $fillable = ['matricule', 'nom', 'prenom', 'prenom_arab', 'nom_arab', 'tele_num', 'adresse', 'diplome', 'echelle', 'echelon', 'profile_image', 'user_id'];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
 
     public function groupes()
     {

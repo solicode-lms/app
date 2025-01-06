@@ -68,6 +68,10 @@
                                 <label for="profile_image">{{ ucfirst(__('PkgUtilisateurs::formateur.profile_image')) }}:</label>
                                 <p>{{ $itemFormateur->profile_image }}</p>
                             </div>
+                            <div class="col-sm-12">
+                                <label for="user_id">{{ ucfirst(__('PkgUtilisateurs::formateur.user_id')) }}:</label>
+                                <p>{{ $itemFormateur->user_id }}</p>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -27,7 +27,8 @@ class BaseFormateurRequest extends FormRequest
             'diplome' => 'nullable|max:255',
             'echelle' => 'nullable',
             'echelon' => 'nullable',
-            'profile_image' => 'required|max:255'
+            'profile_image' => 'required|max:255',
+            'user_id' => 'nullable'
         ];
     }
 
@@ -55,7 +56,9 @@ class BaseFormateurRequest extends FormRequest
             'echelon.required' => __('validation.required', ['attribute' => __('PkgUtilisateurs::Formateur.echelon')]),
             'echelon.max' => __('validation.echelonMax'),
             'profile_image.required' => __('validation.required', ['attribute' => __('PkgUtilisateurs::Formateur.profile_image')]),
-            'profile_image.max' => __('validation.profile_imageMax')
+            'profile_image.max' => __('validation.profile_imageMax'),
+            'user_id.required' => __('validation.required', ['attribute' => __('PkgUtilisateurs::Formateur.user_id')]),
+            'user_id.max' => __('validation.user_idMax')
         ];
     }
 }

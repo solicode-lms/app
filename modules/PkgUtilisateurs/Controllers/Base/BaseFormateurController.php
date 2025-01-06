@@ -9,6 +9,7 @@ use Modules\PkgUtilisateurs\App\Requests\FormateurRequest;
 use Modules\PkgUtilisateurs\Services\FormateurService;
 use Modules\PkgUtilisateurs\Services\GroupeService;
 use Modules\PkgUtilisateurs\Services\SpecialiteService;
+use Modules\PkgAutorisation\Services\UserService;
 
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
@@ -21,13 +22,15 @@ class BaseFormateurController extends AdminController
     protected $formateurService;
     protected $groupeService;
     protected $specialiteService;
+    protected $userService;
 
-    public function __construct(FormateurService $formateurService, GroupeService $groupeService, SpecialiteService $specialiteService)
+    public function __construct(FormateurService $formateurService, GroupeService $groupeService, SpecialiteService $specialiteService, UserService $userService)
     {
         parent::__construct();
         $this->formateurService = $formateurService;
         $this->groupeService = $groupeService;
         $this->specialiteService = $specialiteService;
+        $this->userService = $userService;
 
     }
 
@@ -64,12 +67,13 @@ class BaseFormateurController extends AdminController
         $itemFormateur = $this->formateurService->createInstance();
         $groupes = $this->groupeService->all();
         $specialites = $this->specialiteService->all();
+        $users = $this->userService->all();
 
 
         if (request()->ajax()) {
-            return view('PkgUtilisateurs::formateur._fields', compact('itemFormateur', 'groupes', 'specialites'));
+            return view('PkgUtilisateurs::formateur._fields', compact('itemFormateur', 'groupes', 'specialites', 'users'));
         }
-        return view('PkgUtilisateurs::formateur.create', compact('itemFormateur', 'groupes', 'specialites'));
+        return view('PkgUtilisateurs::formateur.create', compact('itemFormateur', 'groupes', 'specialites', 'users'));
     }
 
     /**
@@ -114,10 +118,11 @@ class BaseFormateurController extends AdminController
         $itemFormateur = $this->formateurService->find($id);
         $groupes = $this->groupeService->all();
         $specialites = $this->specialiteService->all();
+        $users = $this->userService->all();
 
 
         if (request()->ajax()) {
-            return view('PkgUtilisateurs::formateur._fields', compact('itemFormateur', 'groupes', 'specialites'));
+            return view('PkgUtilisateurs::formateur._fields', compact('itemFormateur', 'groupes', 'specialites', 'users'));
         }
 
         return view('PkgUtilisateurs::formateur.show', compact('itemFormateur'));
@@ -131,16 +136,17 @@ class BaseFormateurController extends AdminController
         $itemFormateur = $this->formateurService->find($id);
         $groupes = $this->groupeService->all();
         $specialites = $this->specialiteService->all();
+        $users = $this->userService->all();
 
         // Utilisé dans l'édition des relation HasMany
         $this->contextState->set('formateur_id', $id);
 
 
         if (request()->ajax()) {
-            return view('PkgUtilisateurs::formateur._fields', compact('itemFormateur', 'groupes', 'specialites'));
+            return view('PkgUtilisateurs::formateur._fields', compact('itemFormateur', 'groupes', 'specialites', 'users'));
         }
 
-        return view('PkgUtilisateurs::formateur.edit', compact('itemFormateur', 'groupes', 'specialites'));
+        return view('PkgUtilisateurs::formateur.edit', compact('itemFormateur', 'groupes', 'specialites', 'users'));
     }
 
     /**

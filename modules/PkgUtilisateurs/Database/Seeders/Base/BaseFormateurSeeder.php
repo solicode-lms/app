@@ -56,7 +56,8 @@ class BaseFormateurSeeder extends Seeder
                     "diplome" => $data[7] ,
                     "echelle" => $data[8] ,
                     "echelon" => $data[9] ,
-                    "profile_image" => $data[10] 
+                    "profile_image" => $data[10] ,
+                    "user_id" => $data[11] 
                 ]);
             }
             $firstline = false;

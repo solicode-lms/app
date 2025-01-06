@@ -7,6 +7,7 @@
                 <x-sortable-column field="nom" label="{{ ucfirst(__('PkgUtilisateurs::formateur.nom')) }}" />
                 <x-sortable-column field="prenom" label="{{ ucfirst(__('PkgUtilisateurs::formateur.prenom')) }}" />
                 <x-sortable-column field="adresse" label="{{ ucfirst(__('PkgUtilisateurs::formateur.adresse')) }}" />
+                <x-sortable-column field="user_id" label="{{ ucfirst(__('PkgAutorisation::user.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -16,6 +17,7 @@
                     <td>@limit($formateur->nom, 80)</td>
                     <td>@limit($formateur->prenom, 80)</td>
                     <td>@limit($formateur->adresse, 80)</td>
+                    <td>@limit($formateur->user->name ?? '-', 80)</td>
                     <td class="text-right">
                         @can('show-formateur')
                             <a href="{{ route('formateurs.show', ['formateur' => $formateur->id]) }}" data-id="{{$formateur->id}}" class="btn btn-default btn-sm context-state showEntity">

@@ -2,5 +2,4 @@ name,email,password,role
 root,root@solicode.co,root,root
 admin,admin@solicode.co,admin,admin
 membre,membre@solicode.co,admin,membre
-formateur,formateur@solicode.co,formateur,formateur
 essarraj,essarraj.fouad@solicode.co,formateur,formateur

@@ -17,7 +17,7 @@ class AppreciationPolicy
     public function update(User $user, Appreciation $appreciation)
     {
         // Autoriser seulement si l'utilisateur est le créateur (formateur_id)
-        return $user->id === $appreciation->formateur_id;
+        return $user->id === $appreciation->formateur->user->id;
     }
 
     /**
@@ -30,6 +30,6 @@ class AppreciationPolicy
     public function delete(User $user, Appreciation $appreciation)
     {
         // Autoriser seulement si l'utilisateur est le créateur (formateur_id)
-        return $user->id === $appreciation->formateur_id;
+        return $user->id === $appreciation->formateur->user->id;
     }
 }
