@@ -1,11 +1,11 @@
 <?php
 
 return [
-    'singular' => 'Appreciation',
-    'plural' => 'Appreciations',
-    'nom' => 'nom',
-    'description' => 'description',
-    'noteMin' => 'noteMin',
-    'noteMax' => 'noteMax',
-    'formateur_id' => 'formateur_id',
+    'singular' => 'Niveau d\'apprentissage',
+    'plural' => 'Niveaux d\'apprentissage',
+    'nom' => 'Nom',
+    'description' => 'Description',
+    'noteMin' => 'Note minimale',
+    'noteMax' => 'Note maximale',
+    'formateur_id' => 'ID du formateur',
 ];

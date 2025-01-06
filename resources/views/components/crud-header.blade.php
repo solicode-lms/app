@@ -4,7 +4,7 @@
             <div class="col-sm-6">
                 <h1 class="mb-0">
                     <i class="{{ $icon ?? 'fas fa-folder' }} {{ $iconColor ?? 'text-info' }}"></i>
-                    {{ $title ?? __('Titre par défaut') }}
+                    {!! $title ?? __('Titre par défaut') !!}
                 </h1>
             </div>
             <div class="col-sm-6">
