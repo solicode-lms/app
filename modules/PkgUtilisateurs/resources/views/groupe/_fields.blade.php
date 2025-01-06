@@ -1,5 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
+@section('role-form')
 <form class="crud-form context-state" id="groupeForm" action="{{ $itemGroupe->id ? route('groupes.update', $itemGroupe->id) : route('groupes.store') }}" method="POST" novalidate>
     @csrf
 
@@ -123,5 +124,6 @@
         <button type="submit" class="btn btn-info ml-2">{{ $itemGroupe->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
+@show
 
 

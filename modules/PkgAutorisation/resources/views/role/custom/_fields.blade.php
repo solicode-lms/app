@@ -1,6 +1,6 @@
 @extends('PkgAutorisation::role._fields')
 @section('role-form')
-<h1>Update role-form</h1>
+
 <form action="{{ $itemRole->id ? route('roles.update', $itemRole->id) : route('roles.store') }}" method="POST">
     @csrf
 
@@ -74,7 +74,7 @@
         
         <div class="form-group">
             <label for="permissions" data-toggle="collapse" data-target="#collapseExample">
-                {{ ucfirst(__('PkgAutorisation::Feature.plural')) }}
+                {{ ucfirst(__('Core::Feature.plural')) }}
             </label>
     
             

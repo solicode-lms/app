@@ -1,5 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
+@section('role-form')
 <form class="crud-form context-state" id="sysControllerForm" action="{{ $itemSysController->id ? route('sysControllers.update', $itemSysController->id) : route('sysControllers.store') }}" method="POST" novalidate>
     @csrf
 
@@ -105,5 +106,6 @@
         <button type="submit" class="btn btn-info ml-2">{{ $itemSysController->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
+@show
 
 

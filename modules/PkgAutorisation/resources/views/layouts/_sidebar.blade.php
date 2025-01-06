@@ -1,5 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
+
 @accessiblePermissions(['show-permission', 'show-role', 'show-user'])
 @if($accessiblePermissions->isNotEmpty())
 <li class="nav-item has-treeview {{ Request::is('PkgAutorisation*') ? 'menu-open' : '' }}">
