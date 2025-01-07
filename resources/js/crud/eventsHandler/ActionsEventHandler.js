@@ -13,16 +13,19 @@ export class ActionsEventHandler {
      * Initialise les gestionnaires d'événements pour les actions CRUD.
      */
     init() {
-        if(this.config.edit_has_many){
-            this.handleShowEntity();
+
+        if(this.config.page=="index"){
+            if(this.config.edit_has_many){
+                this.handleButtonSaveCardWithHasMany();
+            }else{
+                this.handleEditEntity();
+                this.handleAddEntity();
+            }
             this.handleDeleteEntity();
+            this.handleShowEntity();
             this.handleSubmitForm();
-            this.handleButtonSaveCardWithHasMany();
-        }else{
-            this.handleEditEntity();
-            this.handleAddEntity();
-            this.handleShowEntity();
-            this.handleDeleteEntity();
+        }
+        if(this.config.page == "edit"){
             this.handleSubmitForm();
         }
     }

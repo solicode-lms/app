@@ -10,6 +10,8 @@ export class ConfigHelper {
 
         this.contextStateService = new ContextStateService(contextState);
         
+        this.page = config.page || "index";
+        
         this.edit_has_many = config.edit_has_many; // permet d'éditer l'entity avec ses objet has many
         this.crudSelector = config.crudSelector;
         this.tableSelector = config.tableSelector;
