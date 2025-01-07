@@ -1,9 +1,9 @@
 <?php
 
 
-
 namespace Modules\PkgCompetences\Services\Base;
 
+use Illuminate\Support\Facades\Auth;
 use Modules\PkgCompetences\Models\Appreciation;
 use Modules\Core\Services\BaseService;
 
@@ -47,6 +47,9 @@ class BaseAppreciationService extends BaseService
             $this->generateManyToOneFilter(__("PkgUtilisateurs::formateur.plural"), 'formateur_id', \Modules\PkgUtilisateurs\Models\Formateur::class, 'nom'),
         ];
 
+            
+
+
     }
 
     /**
@@ -81,26 +84,22 @@ class BaseAppreciationService extends BaseService
         // Add Context title 
 
         // Ajouter les statistiques du propriétaire
-        $stats[] = $this->getContextState();
-
+        $contexteState = $this->getContextState();
+        if ($contexteState !== null) {
+            $stats[] = $contexteState;
+        }
         return $stats;
     }
 
-    public function getContextState(): array
+    public function getContextState()
     {
-
         if(!$this->contextState->isContextStateEnable()) return null; 
-
         $value = $this->contextState->getTitle();
-
-
-      
         return [
                 "icon" => "fas fa-filter",
                 "label" => "Filtre",
                 "value" =>  $value
-            ];
-
+        ];
     }
 
 }

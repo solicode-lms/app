@@ -18,6 +18,9 @@ class ContextState  implements JsonSerializable
     protected $title = null;
     protected $variables = [];
 
+    // array key value : [formateur_id => "3" ]
+    protected $userContexte = null;
+
     /**
      * Définir une variable.
      *
@@ -141,5 +144,12 @@ class ContextState  implements JsonSerializable
     public function isContextStateEnable(): bool
     {
         return !empty($this->variables);
+    }
+
+    public function setUserContexe($userContexte): void{
+        $this->userContexte = $userContexte;
+        foreach ($this->userContexte as $key => $value) {
+            $this->set($key, $value);
+        }
     }
 }

@@ -58,6 +58,22 @@ class User extends Authenticatable
         return $this->hasOne(Formateur::class);
     }
     
+
+ 
+    public function getUsersContext()
+    {
+        $contextUsers = [];
+        $formateur = $this->formateur;
+    
+        if ($formateur) {
+            $contextUsers['formateur_id'] = $formateur->id;
+        }
+    
+        return $contextUsers;
+    }
+    
+
+
     // HasRoles
     // public function roles()
     // {

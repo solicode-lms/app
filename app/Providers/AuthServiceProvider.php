@@ -17,7 +17,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array<class-string, class-string>
      */
     protected $policies = [
-        Appreciation::class => GenericPolicy::class, // Mapper Appreciation avec GenericPolicy
+        // Appreciation::class => GenericPolicy::class, // Mapper Appreciation avec GenericPolicy
     ];
 
     /**
@@ -35,9 +35,11 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        // Appliquer la Policy Générique à tous les modèles
-       // Gate::policy('*', GenericPolicy::class);
-
+        // Appliquer GenericPolicy pour tous les models
+        Gate::guessPolicyNamesUsing(function ($modelClass) {
+        return GenericPolicy::class;
+        });
+    
 
         // Bypass des permissions pour le rôle Super Admin
         Gate::before(function ($user, $ability) {

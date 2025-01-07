@@ -1,6 +1,4 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
-
 
 namespace Modules\PkgCompetences\Models\Base;
 
@@ -10,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
-
+use Modules\Core\Models\BaseModel;
 use Modules\PkgCreationProjet\Models\TransfertCompetence;
 use Modules\PkgUtilisateurs\Models\Formateur;
 
@@ -18,9 +16,14 @@ use Modules\PkgUtilisateurs\Models\Formateur;
  * Classe BaseAppreciation
  * Cette classe sert de base pour le modèle Appreciation.
  */
-class BaseAppreciation extends Model
+class BaseAppreciation extends BaseModel
 {
     use HasFactory, HasDynamicContext, OwnedByUser;
+
+    public function __construct() {
+        parent::__construct(); 
+        $this->isOwnedByUser = true;
+    }
 
     /**
      * Les attributs remplissables pour le modèle.

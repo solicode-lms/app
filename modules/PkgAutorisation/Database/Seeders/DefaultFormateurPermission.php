@@ -28,8 +28,11 @@ class DefaultFormateurPermission extends Seeder
             'module' => 'Lecteur',
             'Competence' => 'Lecteur',
             'technology' => 'Lecteur',
-            'projet' => 'Editeur,Extraction',
             'appreciation' => 'Editeur,Extraction',
+            'projet' => 'Editeur,Extraction',
+            'livrable' => 'Editeur,Extraction',
+            'resource' => 'Editeur,Extraction',
+            'transfertCompetence' => 'Editeur,Extraction',
         ];
 
         // Actions par type d'accès

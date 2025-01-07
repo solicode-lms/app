@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use App\Traits\PageState;
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use Modules\Core\Services\ContextState;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,6 +30,14 @@ class ContextStateMiddleware
         $contextState->readFromRequest($request);
 
         
+
+         // init contextUser in contexteState
+        $user = Auth::user(); 
+        $contextState->setUserContexe( $user->getUsersContext());
+ 
+
+       
+ 
         // // Partager les variables PageState avec toutes les vues Blade
         // View::share('contextState', $contextState->all());
 

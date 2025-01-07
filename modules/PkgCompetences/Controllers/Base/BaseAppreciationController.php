@@ -1,4 +1,5 @@
 <?php
+// Ce fichier est maintenu par ESSARRAJ Fouad
 
 namespace Modules\PkgCompetences\Controllers\Base;
 
@@ -26,6 +27,8 @@ class BaseAppreciationController extends AdminController
         $this->appreciationService = $appreciationService;
         $this->formateurService = $formateurService;
 
+
+    
      
 
     }
