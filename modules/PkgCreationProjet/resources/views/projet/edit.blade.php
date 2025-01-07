@@ -10,10 +10,9 @@
         edit_has_many: true,
         page: "edit",
         entity_name: 'projet',
+        filterFormSelector: '#projet-crud-filter-form',
         crudSelector: '#card-tab-projet', 
         formSelector: '#projetForm',
-        indexUrl: '{{ route('projets.index') }}', 
-        createUrl: '{{ route('projets.create') }}',
         editUrl: '{{ route('projets.edit',  ['projet' => ':id']) }}',
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         edit_title: '{{__("Core::msg.add") . " : " . __("PkgCreationProjet::projet.singular") }}',
@@ -73,15 +72,12 @@
 
                             <div class="tab-pane fade" id="projet-hasmany-tabs-livrable" role="tabpanel" aria-labelledby="projet-hasmany-tabs-livrable-tab">
                                 @include('PkgCreationProjet::livrable._index')
-                              
                             </div>
                             <div class="tab-pane fade" id="projet-hasmany-tabs-resource" role="tabpanel" aria-labelledby="projet-hasmany-tabs-resource-tab">
                                 @include('PkgCreationProjet::resource._index')
-                                resource
                             </div>
                             <div class="tab-pane fade" id="projet-hasmany-tabs-transfertCompetence" role="tabpanel" aria-labelledby="projet-hasmany-tabs-transfertCompetence-tab">
                                 @include('PkgCreationProjet::transfertCompetence._index')
-                          
                             </div>
 
                            

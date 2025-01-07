@@ -8,20 +8,13 @@
     window.entitiesConfig = window.entitiesConfig || [];
     window.entitiesConfig.push({
         edit_has_many: true,
+        page: "edit",
         entity_name: 'categoryTechnology',
         filterFormSelector: '#categoryTechnology-crud-filter-form',
         crudSelector: '#card-tab-categoryTechnology', 
-        tableSelector: '#categoryTechnology-data-container',
         formSelector: '#categoryTechnologyForm',
-        modalSelector : '#categoryTechnologyModal',
-        indexUrl: '{{ route('categoryTechnologies.index') }}', 
-        createUrl: '{{ route('categoryTechnologies.create') }}',
         editUrl: '{{ route('categoryTechnologies.edit',  ['categoryTechnology' => ':id']) }}',
-        showUrl: '{{ route('categoryTechnologies.show',  ['categoryTechnology' => ':id']) }}',
-        storeUrl: '{{ route('categoryTechnologies.store') }}', 
-        deleteUrl: '{{ route('categoryTechnologies.destroy',  ['categoryTechnology' => ':id']) }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
-        create_title: '{{__("Core::msg.add") . " : " . __("PkgCompetences::categoryTechnology.singular") }}',
         edit_title: '{{__("Core::msg.add") . " : " . __("PkgCompetences::categoryTechnology.singular") }}',
     });
 </script>

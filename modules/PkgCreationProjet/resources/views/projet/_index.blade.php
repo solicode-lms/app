@@ -100,7 +100,6 @@
                 </div>
             </div>
         </div>
-    </div>
     </section>
     @show
     @section('crud-modal')

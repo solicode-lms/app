@@ -8,20 +8,13 @@
     window.entitiesConfig = window.entitiesConfig || [];
     window.entitiesConfig.push({
         edit_has_many: true,
+        page: "edit",
         entity_name: 'competence',
         filterFormSelector: '#competence-crud-filter-form',
         crudSelector: '#card-tab-competence', 
-        tableSelector: '#competence-data-container',
         formSelector: '#competenceForm',
-        modalSelector : '#competenceModal',
-        indexUrl: '{{ route('competences.index') }}', 
-        createUrl: '{{ route('competences.create') }}',
         editUrl: '{{ route('competences.edit',  ['competence' => ':id']) }}',
-        showUrl: '{{ route('competences.show',  ['competence' => ':id']) }}',
-        storeUrl: '{{ route('competences.store') }}', 
-        deleteUrl: '{{ route('competences.destroy',  ['competence' => ':id']) }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
-        create_title: '{{__("Core::msg.add") . " : " . __("PkgCompetences::competence.singular") }}',
         edit_title: '{{__("Core::msg.add") . " : " . __("PkgCompetences::competence.singular") }}',
     });
 </script>
