@@ -1,6 +1,7 @@
 <?php
 // Ce fichier est maintenu par ESSARRAJ Fouad
 
+
 namespace Modules\PkgCompetences\Models\Base;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -23,7 +24,7 @@ class BaseAppreciation extends BaseModel
 
     public function __construct() {
         parent::__construct(); 
-        $this->isOwnedByUser = true;
+        $this->isOwnedByUser =  true;
     }
 
     /**
