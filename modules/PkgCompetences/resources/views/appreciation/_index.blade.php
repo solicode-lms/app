@@ -24,7 +24,7 @@
 </script>
 @endpush
 <div id="appreciation-crud" class="crud">
-    @section('crud-header')
+    @section('appreciation-crud-header')
     @php
         $package = __("PkgCompetences::PkgCompetences.name");
        $titre = __("PkgCompetences::appreciation.singular");
@@ -39,11 +39,11 @@
         ]"
     />
     @show
-    @section('crud-table')
+    @section('appreciation-crud-table')
     <section id="appreciation-crud-table" class="content crud-table">
         <div class="container-fluid">
             <div class="card card-outline card-info " id="card_crud">
-                @section('crud-stats-bar')
+                @section('appreciation-crud-stats-bar')
                 <div class="card-header row">
                     <!-- Statistiques et Actions -->
                     <div class="col-sm-9">
@@ -67,7 +67,7 @@
                     </div>
                 </div>
                 @show
-                @section('crud-filters')
+                @section('appreciation-crud-filters')
                 <div class="card-header">
                     <form id="appreciation-crud-filter-form" method="GET" class="row">
                         <x-filter-group>
@@ -81,7 +81,7 @@
                                     :placeholder="ucfirst(str_replace('_', ' ', $filter['field']))" />
                             @endforeach
                         </x-filter-group>
-                        @section('crud-search-bar')
+                        @section('appreciation-crud-search-bar')
                         <div id="appreciation-crud-search-bar"
                             class="{{ count($appreciations_filters) > 0 ? 'col-md-2' : 'col-md-6 mx-auto' }} text-md-right text-left">
                             <x-search-bar
@@ -100,10 +100,9 @@
                 </div>
             </div>
         </div>
-    </div>
     </section>
     @show
-    @section('crud-modal')
+    @section('appreciation-crud-modal')
     <x-modal id="appreciationModal" title="Ajouter ou Modifier"></x-modal>
     @show
 </div>
