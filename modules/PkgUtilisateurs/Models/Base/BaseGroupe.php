@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
-
+use Modules\Core\Models\BaseModel;
 use Modules\PkgCompetences\Models\Filiere;
 use Modules\PkgUtilisateurs\Models\Apprenant;
 use Modules\PkgUtilisateurs\Models\Formateur;
@@ -19,9 +19,14 @@ use Modules\PkgUtilisateurs\Models\Formateur;
  * Classe BaseGroupe
  * Cette classe sert de base pour le modèle Groupe.
  */
-class BaseGroupe extends Model
+class BaseGroupe extends BaseModel
 {
     use HasFactory, HasDynamicContext;
+
+    public function __construct() {
+        parent::__construct(); 
+        $this->isOwnedByUser =  false;
+    }
 
     /**
      * Les attributs remplissables pour le modèle.

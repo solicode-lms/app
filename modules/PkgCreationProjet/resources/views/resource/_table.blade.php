@@ -23,11 +23,14 @@
                             </a>
                         @endcan
                         @can('edit-resource')
+                        @can('update', $resource)
                             <a href="{{ route('resources.edit', ['resource' => $resource->id]) }}" data-id="{{$resource->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endcan
+                        @endcan
                         @can('destroy-resource')
+                        @can('delete', $resource)
                             <form class="context-state" action="{{ route('resources.destroy',['resource' => $resource->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
@@ -35,6 +38,7 @@
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
+                        @endcan
                         @endcan
                     </td>
                 </tr>

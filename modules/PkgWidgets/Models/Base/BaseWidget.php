@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
-
+use Modules\Core\Models\BaseModel;
 use Modules\Core\Models\SysModel;
 use Modules\PkgWidgets\Models\WidgetOperation;
 use Modules\PkgWidgets\Models\WidgetType;
@@ -19,9 +19,14 @@ use Modules\PkgWidgets\Models\WidgetType;
  * Classe BaseWidget
  * Cette classe sert de base pour le modèle Widget.
  */
-class BaseWidget extends Model
+class BaseWidget extends BaseModel
 {
     use HasFactory, HasDynamicContext;
+
+    public function __construct() {
+        parent::__construct(); 
+        $this->isOwnedByUser =  false;
+    }
 
     /**
      * Les attributs remplissables pour le modèle.

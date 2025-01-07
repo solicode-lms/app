@@ -113,6 +113,7 @@ class BaseNatureLivrableController extends AdminController
      */
     public function edit(string $id)
     {
+
         $itemNatureLivrable = $this->natureLivrableService->find($id);
 
         // Utilisé dans l'édition des relation HasMany
@@ -131,10 +132,9 @@ class BaseNatureLivrableController extends AdminController
      */
     public function update(NatureLivrableRequest $request, string $id)
     {
+
         $validatedData = $request->validated();
         $natureLivrable = $this->natureLivrableService->update($id, $validatedData);
-
-
 
 
         if ($request->ajax()) {
@@ -159,6 +159,7 @@ class BaseNatureLivrableController extends AdminController
      */
     public function destroy(Request $request, string $id)
     {
+
         $natureLivrable = $this->natureLivrableService->destroy($id);
 
         if ($request->ajax()) {

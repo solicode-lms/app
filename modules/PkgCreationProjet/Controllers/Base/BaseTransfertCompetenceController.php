@@ -135,6 +135,7 @@ class BaseTransfertCompetenceController extends AdminController
      */
     public function edit(string $id)
     {
+
         $itemTransfertCompetence = $this->transfertCompetenceService->find($id);
         $technologies = $this->technologyService->all();
         $appreciations = $this->appreciationService->all();
@@ -157,12 +158,11 @@ class BaseTransfertCompetenceController extends AdminController
      */
     public function update(TransfertCompetenceRequest $request, string $id)
     {
+
         $validatedData = $request->validated();
         $transfertCompetence = $this->transfertCompetenceService->update($id, $validatedData);
 
-
         $transfertCompetence->technologies()->sync($request->input('technologies'));
-
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
@@ -186,6 +186,7 @@ class BaseTransfertCompetenceController extends AdminController
      */
     public function destroy(Request $request, string $id)
     {
+
         $transfertCompetence = $this->transfertCompetenceService->destroy($id);
 
         if ($request->ajax()) {

@@ -120,6 +120,7 @@ class BaseSpecialiteController extends AdminController
      */
     public function edit(string $id)
     {
+
         $itemSpecialite = $this->specialiteService->find($id);
         $formateurs = $this->formateurService->all();
 
@@ -139,12 +140,11 @@ class BaseSpecialiteController extends AdminController
      */
     public function update(SpecialiteRequest $request, string $id)
     {
+
         $validatedData = $request->validated();
         $specialite = $this->specialiteService->update($id, $validatedData);
 
-
         $specialite->formateurs()->sync($request->input('formateurs'));
-
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
@@ -168,6 +168,7 @@ class BaseSpecialiteController extends AdminController
      */
     public function destroy(Request $request, string $id)
     {
+
         $specialite = $this->specialiteService->destroy($id);
 
         if ($request->ajax()) {

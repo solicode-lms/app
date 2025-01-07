@@ -113,6 +113,7 @@ class BaseSysColorController extends AdminController
      */
     public function edit(string $id)
     {
+
         $itemSysColor = $this->sysColorService->find($id);
 
         // Utilisé dans l'édition des relation HasMany
@@ -131,10 +132,9 @@ class BaseSysColorController extends AdminController
      */
     public function update(SysColorRequest $request, string $id)
     {
+
         $validatedData = $request->validated();
         $sysColor = $this->sysColorService->update($id, $validatedData);
-
-
 
 
         if ($request->ajax()) {
@@ -159,6 +159,7 @@ class BaseSysColorController extends AdminController
      */
     public function destroy(Request $request, string $id)
     {
+
         $sysColor = $this->sysColorService->destroy($id);
 
         if ($request->ajax()) {

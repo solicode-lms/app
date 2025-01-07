@@ -19,11 +19,14 @@
                             </a>
                         @endcan
                         @can('edit-categoryTechnology')
+                        @can('update', $categoryTechnology)
                             <a href="{{ route('categoryTechnologies.edit', ['categoryTechnology' => $categoryTechnology->id]) }}" data-id="{{$categoryTechnology->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endcan
+                        @endcan
                         @can('destroy-categoryTechnology')
+                        @can('delete', $categoryTechnology)
                             <form class="context-state" action="{{ route('categoryTechnologies.destroy',['categoryTechnology' => $categoryTechnology->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
@@ -31,6 +34,7 @@
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
+                        @endcan
                         @endcan
                     </td>
                 </tr>

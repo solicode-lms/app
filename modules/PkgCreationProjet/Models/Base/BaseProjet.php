@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
-
+use Modules\Core\Models\BaseModel;
 use Modules\PkgCreationProjet\Models\Livrable;
 use Modules\PkgCreationProjet\Models\Resource;
 use Modules\PkgCreationProjet\Models\TransfertCompetence;
@@ -20,9 +20,14 @@ use Modules\PkgUtilisateurs\Models\Formateur;
  * Classe BaseProjet
  * Cette classe sert de base pour le modèle Projet.
  */
-class BaseProjet extends Model
+class BaseProjet extends BaseModel
 {
     use HasFactory, HasDynamicContext;
+
+    public function __construct() {
+        parent::__construct(); 
+        $this->isOwnedByUser =  false;
+    }
 
     /**
      * Les attributs remplissables pour le modèle.

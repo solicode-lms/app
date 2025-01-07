@@ -92,6 +92,24 @@ class BaseFormateurService extends BaseService
 
         $stats = [];
 
+        // Ajouter les statistiques du propriétaire
+        $contexteState = $this->getContextState();
+        if ($contexteState !== null) {
+            $stats[] = $contexteState;
+        }
+
+
         return $stats;
+    }
+
+    public function getContextState()
+    {
+        if(!$this->contextState->isContextStateEnable()) return null; 
+        $value = $this->contextState->getTitle();
+        return [
+                "icon" => "fas fa-filter",
+                "label" => "Filtre",
+                "value" =>  $value
+        ];
     }
 }

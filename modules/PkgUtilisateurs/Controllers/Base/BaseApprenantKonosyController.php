@@ -113,6 +113,7 @@ class BaseApprenantKonosyController extends AdminController
      */
     public function edit(string $id)
     {
+
         $itemApprenantKonosy = $this->apprenantKonosyService->find($id);
 
         // Utilisé dans l'édition des relation HasMany
@@ -131,10 +132,9 @@ class BaseApprenantKonosyController extends AdminController
      */
     public function update(ApprenantKonosyRequest $request, string $id)
     {
+
         $validatedData = $request->validated();
         $apprenantKonosy = $this->apprenantKonosyService->update($id, $validatedData);
-
-
 
 
         if ($request->ajax()) {
@@ -159,6 +159,7 @@ class BaseApprenantKonosyController extends AdminController
      */
     public function destroy(Request $request, string $id)
     {
+
         $apprenantKonosy = $this->apprenantKonosyService->destroy($id);
 
         if ($request->ajax()) {

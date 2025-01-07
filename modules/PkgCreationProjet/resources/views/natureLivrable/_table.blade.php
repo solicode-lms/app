@@ -19,11 +19,14 @@
                             </a>
                         @endcan
                         @can('edit-natureLivrable')
+                        @can('update', $natureLivrable)
                             <a href="{{ route('natureLivrables.edit', ['natureLivrable' => $natureLivrable->id]) }}" data-id="{{$natureLivrable->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endcan
+                        @endcan
                         @can('destroy-natureLivrable')
+                        @can('delete', $natureLivrable)
                             <form class="context-state" action="{{ route('natureLivrables.destroy',['natureLivrable' => $natureLivrable->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
@@ -31,6 +34,7 @@
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
+                        @endcan
                         @endcan
                     </td>
                 </tr>

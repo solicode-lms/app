@@ -113,6 +113,7 @@ class BaseFiliereController extends AdminController
      */
     public function edit(string $id)
     {
+
         $itemFiliere = $this->filiereService->find($id);
 
         // Utilisé dans l'édition des relation HasMany
@@ -131,10 +132,9 @@ class BaseFiliereController extends AdminController
      */
     public function update(FiliereRequest $request, string $id)
     {
+
         $validatedData = $request->validated();
         $filiere = $this->filiereService->update($id, $validatedData);
-
-
 
 
         if ($request->ajax()) {
@@ -159,6 +159,7 @@ class BaseFiliereController extends AdminController
      */
     public function destroy(Request $request, string $id)
     {
+
         $filiere = $this->filiereService->destroy($id);
 
         if ($request->ajax()) {

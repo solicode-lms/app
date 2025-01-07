@@ -113,6 +113,7 @@ class BaseNationaliteController extends AdminController
      */
     public function edit(string $id)
     {
+
         $itemNationalite = $this->nationaliteService->find($id);
 
         // Utilisé dans l'édition des relation HasMany
@@ -131,10 +132,9 @@ class BaseNationaliteController extends AdminController
      */
     public function update(NationaliteRequest $request, string $id)
     {
+
         $validatedData = $request->validated();
         $nationalite = $this->nationaliteService->update($id, $validatedData);
-
-
 
 
         if ($request->ajax()) {
@@ -159,6 +159,7 @@ class BaseNationaliteController extends AdminController
      */
     public function destroy(Request $request, string $id)
     {
+
         $nationalite = $this->nationaliteService->destroy($id);
 
         if ($request->ajax()) {

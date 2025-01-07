@@ -133,6 +133,7 @@ class BaseFormateurController extends AdminController
      */
     public function edit(string $id)
     {
+
         $itemFormateur = $this->formateurService->find($id);
         $groupes = $this->groupeService->all();
         $specialites = $this->specialiteService->all();
@@ -154,13 +155,12 @@ class BaseFormateurController extends AdminController
      */
     public function update(FormateurRequest $request, string $id)
     {
+
         $validatedData = $request->validated();
         $formateur = $this->formateurService->update($id, $validatedData);
 
-
         $formateur->groupes()->sync($request->input('groupes'));
         $formateur->specialites()->sync($request->input('specialites'));
-
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
@@ -184,6 +184,7 @@ class BaseFormateurController extends AdminController
      */
     public function destroy(Request $request, string $id)
     {
+
         $formateur = $this->formateurService->destroy($id);
 
         if ($request->ajax()) {

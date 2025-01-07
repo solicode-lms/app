@@ -113,6 +113,7 @@ class BaseWidgetTypeController extends AdminController
      */
     public function edit(string $id)
     {
+
         $itemWidgetType = $this->widgetTypeService->find($id);
 
         // Utilisé dans l'édition des relation HasMany
@@ -131,10 +132,9 @@ class BaseWidgetTypeController extends AdminController
      */
     public function update(WidgetTypeRequest $request, string $id)
     {
+
         $validatedData = $request->validated();
         $widgetType = $this->widgetTypeService->update($id, $validatedData);
-
-
 
 
         if ($request->ajax()) {
@@ -159,6 +159,7 @@ class BaseWidgetTypeController extends AdminController
      */
     public function destroy(Request $request, string $id)
     {
+
         $widgetType = $this->widgetTypeService->destroy($id);
 
         if ($request->ajax()) {

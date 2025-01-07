@@ -117,6 +117,7 @@ class BaseNiveauCompetenceController extends AdminController
      */
     public function edit(string $id)
     {
+
         $itemNiveauCompetence = $this->niveauCompetenceService->find($id);
         $competences = $this->competenceService->all();
 
@@ -136,10 +137,9 @@ class BaseNiveauCompetenceController extends AdminController
      */
     public function update(NiveauCompetenceRequest $request, string $id)
     {
+
         $validatedData = $request->validated();
         $niveauCompetence = $this->niveauCompetenceService->update($id, $validatedData);
-
-
 
 
         if ($request->ajax()) {
@@ -164,6 +164,7 @@ class BaseNiveauCompetenceController extends AdminController
      */
     public function destroy(Request $request, string $id)
     {
+
         $niveauCompetence = $this->niveauCompetenceService->destroy($id);
 
         if ($request->ajax()) {

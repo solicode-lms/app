@@ -113,6 +113,7 @@ class BaseCategoryTechnologyController extends AdminController
      */
     public function edit(string $id)
     {
+
         $itemCategoryTechnology = $this->categoryTechnologyService->find($id);
          $technologies_data =  $itemCategoryTechnology->technologies()->paginate(10);
 
@@ -132,10 +133,9 @@ class BaseCategoryTechnologyController extends AdminController
      */
     public function update(CategoryTechnologyRequest $request, string $id)
     {
+
         $validatedData = $request->validated();
         $categoryTechnology = $this->categoryTechnologyService->update($id, $validatedData);
-
-
 
 
         if ($request->ajax()) {
@@ -160,6 +160,7 @@ class BaseCategoryTechnologyController extends AdminController
      */
     public function destroy(Request $request, string $id)
     {
+
         $categoryTechnology = $this->categoryTechnologyService->destroy($id);
 
         if ($request->ajax()) {

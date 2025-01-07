@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
-
+use Modules\Core\Models\BaseModel;
 use Modules\PkgCompetences\Models\Competence;
 use Modules\PkgCompetences\Models\Filiere;
 
@@ -18,9 +18,14 @@ use Modules\PkgCompetences\Models\Filiere;
  * Classe BaseModule
  * Cette classe sert de base pour le modèle Module.
  */
-class BaseModule extends Model
+class BaseModule extends BaseModel
 {
     use HasFactory, HasDynamicContext;
+
+    public function __construct() {
+        parent::__construct(); 
+        $this->isOwnedByUser =  false;
+    }
 
     /**
      * Les attributs remplissables pour le modèle.

@@ -127,6 +127,7 @@ class BaseWidgetController extends AdminController
      */
     public function edit(string $id)
     {
+
         $itemWidget = $this->widgetService->find($id);
         $sysModels = $this->sysModelService->all();
         $widgetOperations = $this->widgetOperationService->all();
@@ -148,10 +149,9 @@ class BaseWidgetController extends AdminController
      */
     public function update(WidgetRequest $request, string $id)
     {
+
         $validatedData = $request->validated();
         $widget = $this->widgetService->update($id, $validatedData);
-
-
 
 
         if ($request->ajax()) {
@@ -176,6 +176,7 @@ class BaseWidgetController extends AdminController
      */
     public function destroy(Request $request, string $id)
     {
+
         $widget = $this->widgetService->destroy($id);
 
         if ($request->ajax()) {

@@ -117,6 +117,7 @@ class BaseSysControllerController extends AdminController
      */
     public function edit(string $id)
     {
+
         $itemSysController = $this->sysControllerService->find($id);
         $sysModules = $this->sysModuleService->all();
 
@@ -136,10 +137,9 @@ class BaseSysControllerController extends AdminController
      */
     public function update(SysControllerRequest $request, string $id)
     {
+
         $validatedData = $request->validated();
         $sysController = $this->sysControllerService->update($id, $validatedData);
-
-
 
 
         if ($request->ajax()) {
@@ -164,6 +164,7 @@ class BaseSysControllerController extends AdminController
      */
     public function destroy(Request $request, string $id)
     {
+
         $sysController = $this->sysControllerService->destroy($id);
 
         if ($request->ajax()) {

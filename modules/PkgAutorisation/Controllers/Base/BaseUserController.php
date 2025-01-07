@@ -120,6 +120,7 @@ class BaseUserController extends AdminController
      */
     public function edit(string $id)
     {
+
         $itemUser = $this->userService->find($id);
         $roles = $this->roleService->all();
 
@@ -139,12 +140,11 @@ class BaseUserController extends AdminController
      */
     public function update(UserRequest $request, string $id)
     {
+
         $validatedData = $request->validated();
         $user = $this->userService->update($id, $validatedData);
 
-
         $user->roles()->sync($request->input('roles'));
-
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
@@ -168,6 +168,7 @@ class BaseUserController extends AdminController
      */
     public function destroy(Request $request, string $id)
     {
+
         $user = $this->userService->destroy($id);
 
         if ($request->ajax()) {

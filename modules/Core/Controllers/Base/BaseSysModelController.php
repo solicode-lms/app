@@ -122,6 +122,7 @@ class BaseSysModelController extends AdminController
      */
     public function edit(string $id)
     {
+
         $itemSysModel = $this->sysModelService->find($id);
         $sysColors = $this->sysColorService->all();
         $sysModules = $this->sysModuleService->all();
@@ -142,10 +143,9 @@ class BaseSysModelController extends AdminController
      */
     public function update(SysModelRequest $request, string $id)
     {
+
         $validatedData = $request->validated();
         $sysModel = $this->sysModelService->update($id, $validatedData);
-
-
 
 
         if ($request->ajax()) {
@@ -170,6 +170,7 @@ class BaseSysModelController extends AdminController
      */
     public function destroy(Request $request, string $id)
     {
+
         $sysModel = $this->sysModelService->destroy($id);
 
         if ($request->ajax()) {

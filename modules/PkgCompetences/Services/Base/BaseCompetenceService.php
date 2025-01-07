@@ -75,6 +75,13 @@ class BaseCompetenceService extends BaseService
     {
 
         $stats = [];
+
+        // Ajouter les statistiques du propriétaire
+        $contexteState = $this->getContextState();
+        if ($contexteState !== null) {
+            $stats[] = $contexteState;
+        }
+
             $relationStatFiliere = parent::getStatsByRelation(
                 \Modules\PkgCompetences\Models\Filiere::class,
                 'modules.competences',
@@ -83,5 +90,16 @@ class BaseCompetenceService extends BaseService
             $stats = array_merge($stats, $relationStatFiliere);
 
         return $stats;
+    }
+
+    public function getContextState()
+    {
+        if(!$this->contextState->isContextStateEnable()) return null; 
+        $value = $this->contextState->getTitle();
+        return [
+                "icon" => "fas fa-filter",
+                "label" => "Filtre",
+                "value" =>  $value
+        ];
     }
 }

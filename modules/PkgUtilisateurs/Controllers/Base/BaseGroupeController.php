@@ -125,6 +125,7 @@ class BaseGroupeController extends AdminController
      */
     public function edit(string $id)
     {
+
         $itemGroupe = $this->groupeService->find($id);
         $formateurs = $this->formateurService->all();
         $filieres = $this->filiereService->all();
@@ -145,12 +146,11 @@ class BaseGroupeController extends AdminController
      */
     public function update(GroupeRequest $request, string $id)
     {
+
         $validatedData = $request->validated();
         $groupe = $this->groupeService->update($id, $validatedData);
 
-
         $groupe->formateurs()->sync($request->input('formateurs'));
-
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
@@ -174,6 +174,7 @@ class BaseGroupeController extends AdminController
      */
     public function destroy(Request $request, string $id)
     {
+
         $groupe = $this->groupeService->destroy($id);
 
         if ($request->ajax()) {

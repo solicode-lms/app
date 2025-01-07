@@ -113,6 +113,7 @@ class BaseWidgetOperationController extends AdminController
      */
     public function edit(string $id)
     {
+
         $itemWidgetOperation = $this->widgetOperationService->find($id);
 
         // Utilisé dans l'édition des relation HasMany
@@ -131,10 +132,9 @@ class BaseWidgetOperationController extends AdminController
      */
     public function update(WidgetOperationRequest $request, string $id)
     {
+
         $validatedData = $request->validated();
         $widgetOperation = $this->widgetOperationService->update($id, $validatedData);
-
-
 
 
         if ($request->ajax()) {
@@ -159,6 +159,7 @@ class BaseWidgetOperationController extends AdminController
      */
     public function destroy(Request $request, string $id)
     {
+
         $widgetOperation = $this->widgetOperationService->destroy($id);
 
         if ($request->ajax()) {

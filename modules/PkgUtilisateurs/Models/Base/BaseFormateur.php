@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
-
+use Modules\Core\Models\BaseModel;
 use Modules\PkgAutorisation\Models\User;
 use Modules\PkgCompetences\Models\Appreciation;
 use Modules\PkgCreationProjet\Models\Projet;
@@ -21,9 +21,14 @@ use Modules\PkgUtilisateurs\Models\Specialite;
  * Classe BaseFormateur
  * Cette classe sert de base pour le modèle Formateur.
  */
-class BaseFormateur extends Model
+class BaseFormateur extends BaseModel
 {
     use HasFactory, HasDynamicContext;
+
+    public function __construct() {
+        parent::__construct(); 
+        $this->isOwnedByUser =  false;
+    }
 
     /**
      * Les attributs remplissables pour le modèle.

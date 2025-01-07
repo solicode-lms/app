@@ -127,6 +127,7 @@ class BaseApprenantController extends AdminController
      */
     public function edit(string $id)
     {
+
         $itemApprenant = $this->apprenantService->find($id);
         $groupes = $this->groupeService->all();
         $nationalites = $this->nationaliteService->all();
@@ -148,10 +149,9 @@ class BaseApprenantController extends AdminController
      */
     public function update(ApprenantRequest $request, string $id)
     {
+
         $validatedData = $request->validated();
         $apprenant = $this->apprenantService->update($id, $validatedData);
-
-
 
 
         if ($request->ajax()) {
@@ -176,6 +176,7 @@ class BaseApprenantController extends AdminController
      */
     public function destroy(Request $request, string $id)
     {
+
         $apprenant = $this->apprenantService->destroy($id);
 
         if ($request->ajax()) {

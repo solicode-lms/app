@@ -113,6 +113,7 @@ class BaseNiveauxScolaireController extends AdminController
      */
     public function edit(string $id)
     {
+
         $itemNiveauxScolaire = $this->niveauxScolaireService->find($id);
 
         // Utilisé dans l'édition des relation HasMany
@@ -131,10 +132,9 @@ class BaseNiveauxScolaireController extends AdminController
      */
     public function update(NiveauxScolaireRequest $request, string $id)
     {
+
         $validatedData = $request->validated();
         $niveauxScolaire = $this->niveauxScolaireService->update($id, $validatedData);
-
-
 
 
         if ($request->ajax()) {
@@ -159,6 +159,7 @@ class BaseNiveauxScolaireController extends AdminController
      */
     public function destroy(Request $request, string $id)
     {
+
         $niveauxScolaire = $this->niveauxScolaireService->destroy($id);
 
         if ($request->ajax()) {

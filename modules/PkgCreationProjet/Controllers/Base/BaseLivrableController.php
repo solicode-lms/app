@@ -122,6 +122,7 @@ class BaseLivrableController extends AdminController
      */
     public function edit(string $id)
     {
+
         $itemLivrable = $this->livrableService->find($id);
         $natureLivrables = $this->natureLivrableService->all();
         $projets = $this->projetService->all();
@@ -142,10 +143,9 @@ class BaseLivrableController extends AdminController
      */
     public function update(LivrableRequest $request, string $id)
     {
+
         $validatedData = $request->validated();
         $livrable = $this->livrableService->update($id, $validatedData);
-
-
 
 
         if ($request->ajax()) {
@@ -170,6 +170,7 @@ class BaseLivrableController extends AdminController
      */
     public function destroy(Request $request, string $id)
     {
+
         $livrable = $this->livrableService->destroy($id);
 
         if ($request->ajax()) {

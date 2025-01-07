@@ -133,6 +133,7 @@ class BaseTechnologyController extends AdminController
      */
     public function edit(string $id)
     {
+
         $itemTechnology = $this->technologyService->find($id);
         $competences = $this->competenceService->all();
         $transfertCompetences = $this->transfertCompetenceService->all();
@@ -154,13 +155,12 @@ class BaseTechnologyController extends AdminController
      */
     public function update(TechnologyRequest $request, string $id)
     {
+
         $validatedData = $request->validated();
         $technology = $this->technologyService->update($id, $validatedData);
 
-
         $technology->competences()->sync($request->input('competences'));
         $technology->transfertCompetences()->sync($request->input('transfertCompetences'));
-
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
@@ -184,6 +184,7 @@ class BaseTechnologyController extends AdminController
      */
     public function destroy(Request $request, string $id)
     {
+
         $technology = $this->technologyService->destroy($id);
 
         if ($request->ajax()) {

@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
-
+use Modules\Core\Models\BaseModel;
 use Modules\PkgUtilisateurs\Models\Groupe;
 use Modules\PkgUtilisateurs\Models\Nationalite;
 use Modules\PkgUtilisateurs\Models\NiveauxScolaire;
@@ -19,9 +19,14 @@ use Modules\PkgUtilisateurs\Models\NiveauxScolaire;
  * Classe BaseApprenant
  * Cette classe sert de base pour le modèle Apprenant.
  */
-class BaseApprenant extends Model
+class BaseApprenant extends BaseModel
 {
     use HasFactory, HasDynamicContext;
+
+    public function __construct() {
+        parent::__construct(); 
+        $this->isOwnedByUser =  false;
+    }
 
     /**
      * Les attributs remplissables pour le modèle.

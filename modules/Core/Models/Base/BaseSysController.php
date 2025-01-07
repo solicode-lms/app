@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
-
+use Modules\Core\Models\BaseModel;
 use Modules\Core\Models\SysModule;
 use Modules\PkgAutorisation\Models\Permission;
 
@@ -18,9 +18,14 @@ use Modules\PkgAutorisation\Models\Permission;
  * Classe BaseSysController
  * Cette classe sert de base pour le modèle SysController.
  */
-class BaseSysController extends Model
+class BaseSysController extends BaseModel
 {
     use HasFactory, HasDynamicContext;
+
+    public function __construct() {
+        parent::__construct(); 
+        $this->isOwnedByUser =  false;
+    }
 
     /**
      * Les attributs remplissables pour le modèle.

@@ -89,7 +89,7 @@ class BaseAppreciationService extends BaseService
         return $stats;
     }
 
-    public function getContextState(): array
+    public function getContextState()
     {
         if(!$this->contextState->isContextStateEnable()) return null; 
         $value = $this->contextState->getTitle();

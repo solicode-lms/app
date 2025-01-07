@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
-
+use Modules\Core\Models\BaseModel;
 use Modules\PkgCompetences\Models\Module;
 use Modules\PkgUtilisateurs\Models\Groupe;
 
@@ -18,9 +18,14 @@ use Modules\PkgUtilisateurs\Models\Groupe;
  * Classe BaseFiliere
  * Cette classe sert de base pour le modèle Filiere.
  */
-class BaseFiliere extends Model
+class BaseFiliere extends BaseModel
 {
     use HasFactory, HasDynamicContext;
+
+    public function __construct() {
+        parent::__construct(); 
+        $this->isOwnedByUser =  false;
+    }
 
     /**
      * Les attributs remplissables pour le modèle.

@@ -128,6 +128,7 @@ class BaseRoleController extends AdminController
      */
     public function edit(string $id)
     {
+
         $itemRole = $this->roleService->find($id);
         $permissions = $this->permissionService->all();
         $users = $this->userService->all();
@@ -148,13 +149,12 @@ class BaseRoleController extends AdminController
      */
     public function update(RoleRequest $request, string $id)
     {
+
         $validatedData = $request->validated();
         $role = $this->roleService->update($id, $validatedData);
 
-
         $role->permissions()->sync($request->input('permissions'));
         $role->users()->sync($request->input('users'));
-
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
@@ -178,6 +178,7 @@ class BaseRoleController extends AdminController
      */
     public function destroy(Request $request, string $id)
     {
+
         $role = $this->roleService->destroy($id);
 
         if ($request->ajax()) {

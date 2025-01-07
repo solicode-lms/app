@@ -117,6 +117,7 @@ class BaseResourceController extends AdminController
      */
     public function edit(string $id)
     {
+
         $itemResource = $this->resourceService->find($id);
         $projets = $this->projetService->all();
 
@@ -136,10 +137,9 @@ class BaseResourceController extends AdminController
      */
     public function update(ResourceRequest $request, string $id)
     {
+
         $validatedData = $request->validated();
         $resource = $this->resourceService->update($id, $validatedData);
-
-
 
 
         if ($request->ajax()) {
@@ -164,6 +164,7 @@ class BaseResourceController extends AdminController
      */
     public function destroy(Request $request, string $id)
     {
+
         $resource = $this->resourceService->destroy($id);
 
         if ($request->ajax()) {

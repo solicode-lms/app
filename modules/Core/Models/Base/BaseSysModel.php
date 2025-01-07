@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
-
+use Modules\Core\Models\BaseModel;
 use Modules\Core\Models\SysColor;
 use Modules\Core\Models\SysModule;
 use Modules\PkgWidgets\Models\Widget;
@@ -19,9 +19,14 @@ use Modules\PkgWidgets\Models\Widget;
  * Classe BaseSysModel
  * Cette classe sert de base pour le modèle SysModel.
  */
-class BaseSysModel extends Model
+class BaseSysModel extends BaseModel
 {
     use HasFactory, HasDynamicContext;
+
+    public function __construct() {
+        parent::__construct(); 
+        $this->isOwnedByUser =  false;
+    }
 
     /**
      * Les attributs remplissables pour le modèle.

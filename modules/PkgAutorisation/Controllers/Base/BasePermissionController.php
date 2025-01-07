@@ -133,6 +133,7 @@ class BasePermissionController extends AdminController
      */
     public function edit(string $id)
     {
+
         $itemPermission = $this->permissionService->find($id);
         $features = $this->featureService->all();
         $roles = $this->roleService->all();
@@ -154,13 +155,12 @@ class BasePermissionController extends AdminController
      */
     public function update(PermissionRequest $request, string $id)
     {
+
         $validatedData = $request->validated();
         $permission = $this->permissionService->update($id, $validatedData);
 
-
         $permission->features()->sync($request->input('features'));
         $permission->roles()->sync($request->input('roles'));
-
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
@@ -184,6 +184,7 @@ class BasePermissionController extends AdminController
      */
     public function destroy(Request $request, string $id)
     {
+
         $permission = $this->permissionService->destroy($id);
 
         if ($request->ajax()) {

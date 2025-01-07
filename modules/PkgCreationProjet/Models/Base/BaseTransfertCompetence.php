@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
-
+use Modules\Core\Models\BaseModel;
 use Modules\PkgCompetences\Models\Appreciation;
 use Modules\PkgCompetences\Models\Competence;
 use Modules\PkgCompetences\Models\Technology;
@@ -20,9 +20,14 @@ use Modules\PkgCreationProjet\Models\Projet;
  * Classe BaseTransfertCompetence
  * Cette classe sert de base pour le modèle TransfertCompetence.
  */
-class BaseTransfertCompetence extends Model
+class BaseTransfertCompetence extends BaseModel
 {
     use HasFactory, HasDynamicContext;
+
+    public function __construct() {
+        parent::__construct(); 
+        $this->isOwnedByUser =  false;
+    }
 
     /**
      * Les attributs remplissables pour le modèle.

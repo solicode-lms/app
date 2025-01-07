@@ -125,6 +125,7 @@ class BaseFeatureController extends AdminController
      */
     public function edit(string $id)
     {
+
         $itemFeature = $this->featureService->find($id);
         $permissions = $this->permissionService->all();
         $featureDomains = $this->featureDomainService->all();
@@ -145,12 +146,11 @@ class BaseFeatureController extends AdminController
      */
     public function update(FeatureRequest $request, string $id)
     {
+
         $validatedData = $request->validated();
         $feature = $this->featureService->update($id, $validatedData);
 
-
         $feature->permissions()->sync($request->input('permissions'));
-
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
@@ -174,6 +174,7 @@ class BaseFeatureController extends AdminController
      */
     public function destroy(Request $request, string $id)
     {
+
         $feature = $this->featureService->destroy($id);
 
         if ($request->ajax()) {

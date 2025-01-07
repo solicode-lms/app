@@ -117,6 +117,7 @@ class BaseFeatureDomainController extends AdminController
      */
     public function edit(string $id)
     {
+
         $itemFeatureDomain = $this->featureDomainService->find($id);
         $sysModules = $this->sysModuleService->all();
 
@@ -136,10 +137,9 @@ class BaseFeatureDomainController extends AdminController
      */
     public function update(FeatureDomainRequest $request, string $id)
     {
+
         $validatedData = $request->validated();
         $featureDomain = $this->featureDomainService->update($id, $validatedData);
-
-
 
 
         if ($request->ajax()) {
@@ -164,6 +164,7 @@ class BaseFeatureDomainController extends AdminController
      */
     public function destroy(Request $request, string $id)
     {
+
         $featureDomain = $this->featureDomainService->destroy($id);
 
         if ($request->ajax()) {

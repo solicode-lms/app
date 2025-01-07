@@ -117,6 +117,7 @@ class BaseModuleController extends AdminController
      */
     public function edit(string $id)
     {
+
         $itemModule = $this->moduleService->find($id);
         $filieres = $this->filiereService->all();
 
@@ -136,10 +137,9 @@ class BaseModuleController extends AdminController
      */
     public function update(ModuleRequest $request, string $id)
     {
+
         $validatedData = $request->validated();
         $module = $this->moduleService->update($id, $validatedData);
-
-
 
 
         if ($request->ajax()) {
@@ -164,6 +164,7 @@ class BaseModuleController extends AdminController
      */
     public function destroy(Request $request, string $id)
     {
+
         $module = $this->moduleService->destroy($id);
 
         if ($request->ajax()) {

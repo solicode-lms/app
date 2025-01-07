@@ -113,6 +113,7 @@ class BaseVilleController extends AdminController
      */
     public function edit(string $id)
     {
+
         $itemVille = $this->villeService->find($id);
 
         // Utilisé dans l'édition des relation HasMany
@@ -131,10 +132,9 @@ class BaseVilleController extends AdminController
      */
     public function update(VilleRequest $request, string $id)
     {
+
         $validatedData = $request->validated();
         $ville = $this->villeService->update($id, $validatedData);
-
-
 
 
         if ($request->ajax()) {
@@ -159,6 +159,7 @@ class BaseVilleController extends AdminController
      */
     public function destroy(Request $request, string $id)
     {
+
         $ville = $this->villeService->destroy($id);
 
         if ($request->ajax()) {

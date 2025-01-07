@@ -125,6 +125,7 @@ class BaseCompetenceController extends AdminController
      */
     public function edit(string $id)
     {
+
         $itemCompetence = $this->competenceService->find($id);
         $technologies = $this->technologyService->all();
         $modules = $this->moduleService->all();
@@ -146,12 +147,11 @@ class BaseCompetenceController extends AdminController
      */
     public function update(CompetenceRequest $request, string $id)
     {
+
         $validatedData = $request->validated();
         $competence = $this->competenceService->update($id, $validatedData);
 
-
         $competence->technologies()->sync($request->input('technologies'));
-
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
@@ -175,6 +175,7 @@ class BaseCompetenceController extends AdminController
      */
     public function destroy(Request $request, string $id)
     {
+
         $competence = $this->competenceService->destroy($id);
 
         if ($request->ajax()) {
