@@ -6,28 +6,57 @@ namespace Modules\Core\Models\Base;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
+
 use Modules\Core\Models\Feature;
 use Modules\Core\Models\SysModule;
 
+/**
+ * Classe BaseFeatureDomain
+ * Cette classe sert de base pour le modèle FeatureDomain.
+ */
 class BaseFeatureDomain extends Model
 {
     use HasFactory, HasDynamicContext;
 
-    protected $fillable = ['name', 'slug', 'description', 'module_id'];
+    /**
+     * Les attributs remplissables pour le modèle.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name', 'slug', 'description', 'module_id'
+    ];
 
-    public function sysModule()
+    /**
+     * Relation BelongsTo pour SysModule.
+     *
+     * @return BelongsTo
+     */
+    public function sysModule(): BelongsTo
     {
         return $this->belongsTo(SysModule::class, 'module_id', 'id');
     }
 
 
-
-    public function features()
+    /**
+     * Relation HasMany pour Features.
+     *
+     * @return HasMany
+     */
+    public function features(): HasMany
     {
-        return $this->hasMany(Feature::class, 'featureDomain_id', 'id');
+        return $this->hasMany(Feature::class, '_id', 'id');
     }
 
+    /**
+     * Méthode __toString pour représenter le modèle sous forme de chaîne.
+     *
+     * @return string
+     */
     public function __toString()
     {
         return $this->name;

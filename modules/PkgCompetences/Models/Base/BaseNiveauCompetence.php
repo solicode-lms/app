@@ -6,23 +6,47 @@ namespace Modules\PkgCompetences\Models\Base;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
+
 use Modules\PkgCompetences\Models\Competence;
 
+/**
+ * Classe BaseNiveauCompetence
+ * Cette classe sert de base pour le modèle NiveauCompetence.
+ */
 class BaseNiveauCompetence extends Model
 {
     use HasFactory, HasDynamicContext;
 
-    protected $fillable = ['nom', 'description', 'competence_id'];
+    /**
+     * Les attributs remplissables pour le modèle.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'nom', 'description', 'competence_id'
+    ];
 
-    public function competence()
+    /**
+     * Relation BelongsTo pour Competence.
+     *
+     * @return BelongsTo
+     */
+    public function competence(): BelongsTo
     {
         return $this->belongsTo(Competence::class, 'competence_id', 'id');
     }
 
 
 
-
+    /**
+     * Méthode __toString pour représenter le modèle sous forme de chaîne.
+     *
+     * @return string
+     */
     public function __toString()
     {
         return $this->nom;

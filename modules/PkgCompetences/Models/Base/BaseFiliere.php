@@ -6,28 +6,57 @@ namespace Modules\PkgCompetences\Models\Base;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
+
 use Modules\PkgCompetences\Models\Module;
 use Modules\PkgUtilisateurs\Models\Groupe;
 
+/**
+ * Classe BaseFiliere
+ * Cette classe sert de base pour le modèle Filiere.
+ */
 class BaseFiliere extends Model
 {
     use HasFactory, HasDynamicContext;
 
-    protected $fillable = ['code', 'nom', 'description'];
+    /**
+     * Les attributs remplissables pour le modèle.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'code', 'nom', 'description'
+    ];
 
 
 
-
-    public function groupes()
+    /**
+     * Relation HasMany pour Groupes.
+     *
+     * @return HasMany
+     */
+    public function groupes(): HasMany
     {
-        return $this->hasMany(Groupe::class, 'filiere_id', 'id');
+        return $this->hasMany(Groupe::class, '_id', 'id');
     }
-    public function modules()
+    /**
+     * Relation HasMany pour Modules.
+     *
+     * @return HasMany
+     */
+    public function modules(): HasMany
     {
-        return $this->hasMany(Module::class, 'filiere_id', 'id');
+        return $this->hasMany(Module::class, '_id', 'id');
     }
 
+    /**
+     * Méthode __toString pour représenter le modèle sous forme de chaîne.
+     *
+     * @return string
+     */
     public function __toString()
     {
         return $this->code;
