@@ -1,7 +1,7 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 
-@accessiblePermissions(['show-livrable', 'show-natureLivrable', 'show-projet', 'show-resource', 'show-transfertCompetence'])
+@accessiblePermissions(['show-natureLivrable', 'show-projet', 'show-resource', 'show-livrable', 'show-transfertCompetence'])
 @if($accessiblePermissions->isNotEmpty())
 <li class="nav-item has-treeview {{ Request::is('admin/PkgCreationProjet*') ? 'menu-open' : '' }}">
     <a href="#" class="nav-link nav-link {{ Request::is('admin/PkgCreationProjet*') ? 'active' : '' }}">
@@ -12,14 +12,6 @@
         </p>
     </a>
     <ul class="nav nav-treeview">
-        @can('show-livrable') 
-        <li class="nav-item">
-            <a href="{{ route('livrables.index') }}" class="nav-link {{ Request::is('admin/PkgCreationProjet/livrables') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-table"></i>
-                {{__('PkgCreationProjet::Livrable.plural')}}
-            </a>
-        </li>
-        @endcan
         @can('show-natureLivrable') 
         <li class="nav-item">
             <a href="{{ route('natureLivrables.index') }}" class="nav-link {{ Request::is('admin/PkgCreationProjet/natureLivrables') ? 'active' : '' }}">
@@ -41,6 +33,14 @@
             <a href="{{ route('resources.index') }}" class="nav-link {{ Request::is('admin/PkgCreationProjet/resources') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-table"></i>
                 {{__('PkgCreationProjet::Resource.plural')}}
+            </a>
+        </li>
+        @endcan
+        @can('show-livrable') 
+        <li class="nav-item">
+            <a href="{{ route('livrables.index') }}" class="nav-link {{ Request::is('admin/PkgCreationProjet/livrables') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-table"></i>
+                {{__('PkgCreationProjet::Livrable.plural')}}
             </a>
         </li>
         @endcan

@@ -70,7 +70,7 @@
                 @section('nationalite-crud-filters')
                 <div class="card-header">
                     <form id="nationalite-crud-filter-form" method="GET" class="row">
-                        <x-filter-group>
+                        <x-filter-group count="{{count($modules_filters)}}">
                             <!-- Filtres spécifiques -->
                             @foreach ($nationalites_filters as $filter)
                                 <x-filter-field 

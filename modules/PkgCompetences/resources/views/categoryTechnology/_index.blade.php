@@ -70,7 +70,7 @@
                 @section('categoryTechnology-crud-filters')
                 <div class="card-header">
                     <form id="categoryTechnology-crud-filter-form" method="GET" class="row">
-                        <x-filter-group>
+                        <x-filter-group count="{{count($modules_filters)}}">
                             <!-- Filtres spécifiques -->
                             @foreach ($categoryTechnologies_filters as $filter)
                                 <x-filter-field 

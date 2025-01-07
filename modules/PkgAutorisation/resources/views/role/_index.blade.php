@@ -70,7 +70,7 @@
                 @section('role-crud-filters')
                 <div class="card-header">
                     <form id="role-crud-filter-form" method="GET" class="row">
-                        <x-filter-group>
+                        <x-filter-group count="{{count($modules_filters)}}">
                             <!-- Filtres spécifiques -->
                             @foreach ($roles_filters as $filter)
                                 <x-filter-field 
