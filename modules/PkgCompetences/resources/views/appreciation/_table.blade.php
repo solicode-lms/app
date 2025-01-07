@@ -1,3 +1,4 @@
+{{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 <div class="card-body table-responsive p-0 crud-card-body" id="appreciations-crud-card-body">
     <table class="table table-striped text-nowrap">
@@ -45,7 +46,7 @@
 </div>
 
 <div class="card-footer">
-    @section('crud-pagination')
+    @section('appreciation-crud-pagination')
     <ul class="pagination m-0 d-flex justify-content-center">
         {{ $appreciations_data->onEachSide(1)->links() }}
     </ul>
