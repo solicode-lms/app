@@ -95,7 +95,7 @@ class ContextState  implements JsonSerializable
      *
      * @return string
      */
-    public function getOrGenerateTitle(): string
+    public function getTitle(): string
     {
         if (empty($this->title)) {
             $this->title = $this->generateTitleFromVariables();
@@ -128,8 +128,18 @@ class ContextState  implements JsonSerializable
     public function jsonSerialize(): array
     {
         return [
-            'title' => $this->getOrGenerateTitle(), // Utilise getOrGenerateTitle() si title est null
+            'title' => $this->getTitle(), // Utilise getOrGenerateTitle() si title est null
             'variables' => $this->all(),
         ];
+    }
+
+    /**
+     * Vérifie si le Context State est activé.
+     *
+     * @return bool
+     */
+    public function isContextStateEnable(): bool
+    {
+        return !empty($this->variables);
     }
 }

@@ -28,8 +28,7 @@ class ContextStateMiddleware
         // Charger les variables de contexte depuis la requête
         $contextState->readFromRequest($request);
 
-        $contextState->set("msg","bonjour");
-
+        
         // // Partager les variables PageState avec toutes les vues Blade
         // View::share('contextState', $contextState->all());
 

@@ -79,6 +79,29 @@ class BaseAppreciationService extends BaseService
 
         $stats = [];
 
+        // Add Context title 
+
+        // Ajouter les statistiques du propriétaire
+        $stats[] = $this->getContextState();
+
         return $stats;
     }
+
+    public function getContextState(): array
+    {
+
+        if(!$this->contextState->isContextStateEnable()) return null; 
+
+        $value = $this->contextState->getTitle();
+
+
+      
+        return [
+                "icon" => "fas fa-filter",
+                "label" => "Filtre",
+                "value" =>  $value
+            ];
+
+    }
+
 }

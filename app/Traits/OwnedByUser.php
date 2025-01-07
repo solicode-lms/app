@@ -22,7 +22,8 @@ trait OwnedByUser
                 continue;
             }
 
-            // Récupère dynamiquement la relation
+           
+
             $related = $this->{$relation};
             if (!$related) {
                 continue;
