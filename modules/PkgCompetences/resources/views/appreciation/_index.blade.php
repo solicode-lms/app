@@ -1,3 +1,4 @@
+{{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @push('scripts')
 <script>

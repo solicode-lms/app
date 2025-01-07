@@ -1,9 +1,10 @@
 <?php
+// Ce fichier est maintenu par ESSARRAJ Fouad
+
 
 
 namespace Modules\PkgCompetences\Services\Base;
 
-use Illuminate\Support\Facades\Auth;
 use Modules\PkgCompetences\Models\Appreciation;
 use Modules\Core\Services\BaseService;
 
@@ -47,9 +48,6 @@ class BaseAppreciationService extends BaseService
             $this->generateManyToOneFilter(__("PkgUtilisateurs::formateur.plural"), 'formateur_id', \Modules\PkgUtilisateurs\Models\Formateur::class, 'nom'),
         ];
 
-            
-
-
     }
 
     /**
@@ -81,17 +79,17 @@ class BaseAppreciationService extends BaseService
 
         $stats = [];
 
-        // Add Context title 
-
         // Ajouter les statistiques du propriétaire
         $contexteState = $this->getContextState();
         if ($contexteState !== null) {
             $stats[] = $contexteState;
         }
+
+
         return $stats;
     }
 
-    public function getContextState()
+    public function getContextState(): array
     {
         if(!$this->contextState->isContextStateEnable()) return null; 
         $value = $this->contextState->getTitle();
@@ -101,5 +99,4 @@ class BaseAppreciationService extends BaseService
                 "value" =>  $value
         ];
     }
-
 }
