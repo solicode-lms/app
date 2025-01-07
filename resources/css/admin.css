@@ -85,3 +85,49 @@
 .sortable.desc:after {
     content: '\f161'; /* FontAwesome icon for sort-down */
 }
+
+
+/* Formulaire */
+
+/* Réduire les marges et paddings pour rendre le formulaire compact */
+.custom-form .form-group {
+    margin-bottom: 0.5rem !important; /* Réduit l'espace entre les groupes */
+}
+
+.custom-form .form-label {
+    margin-bottom: 0.25rem !important; /* Réduit l'espace sous les labels */
+    font-size: 0.9rem !important; /* Réduit la taille des labels */
+}
+
+.custom-form .form-control {
+    padding: 0.4rem 0.5rem !important; /* Réduit les paddings internes des inputs */
+    font-size: 0.9rem !important; /* Réduit la taille du texte des inputs */
+    height: auto !important; /* Ajuste la hauteur des champs */
+}
+
+ 
+
+
+/* Responsiveness */
+@media (max-width: 576px) {
+    .modal-dialog {
+        max-width: 95%; /* Ajustement sur mobile */
+    }
+    .modal-content {
+        padding: 0.5rem;
+    }
+}
+
+
+/* Rédsuction  */
+
+.full-screen-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw; /* Prend toute la largeur de la fenêtre */
+    height: 100vh; /* Prend toute la hauteur de la fenêtre */
+    margin: 0;
+    padding: 0;
+    border-radius: 0; /* Supprime les coins arrondis */
+}

@@ -50,7 +50,7 @@ export class LoadListAction extends BaseAction {
                 $(this.config.tableSelector).html(html);
     
                 // Afficher un message de succès (optionnel)
-                NotificationHandler.showSuccess('Données chargées avec succès.');
+                // NotificationHandler.showSuccess('Données chargées avec succès.');
             })
             .fail((xhr) => {
                 // Gérer les erreurs de la requête

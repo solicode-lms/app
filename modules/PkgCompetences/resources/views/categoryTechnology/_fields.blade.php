@@ -1,7 +1,7 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @section('role-form')
-<form class="crud-form context-state" id="categoryTechnologyForm" action="{{ $itemCategoryTechnology->id ? route('categoryTechnologies.update', $itemCategoryTechnology->id) : route('categoryTechnologies.store') }}" method="POST" novalidate>
+<form class="crud-form custom-form context-state" id="categoryTechnologyForm" action="{{ $itemCategoryTechnology->id ? route('categoryTechnologies.update', $itemCategoryTechnology->id) : route('categoryTechnologies.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemCategoryTechnology->id)

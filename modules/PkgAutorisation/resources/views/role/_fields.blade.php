@@ -1,7 +1,7 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @section('role-form')
-<form class="crud-form context-state" id="roleForm" action="{{ $itemRole->id ? route('roles.update', $itemRole->id) : route('roles.store') }}" method="POST" novalidate>
+<form class="crud-form custom-form context-state" id="roleForm" action="{{ $itemRole->id ? route('roles.update', $itemRole->id) : route('roles.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemRole->id)

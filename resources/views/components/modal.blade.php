@@ -1,5 +1,5 @@
-<div class="modal fade crud-modal" id="{{ $id }}" tabindex="-1" role="dialog" aria-labelledby="{{ $id }}Label" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+<div class="modal fade  crud-modal" id="{{ $id }}" tabindex="-1" role="dialog" aria-labelledby="{{ $id }}Label" aria-hidden="true">
+    <div class="modal-dialog full-screen-modal  modal-md" role="document">
         <div class="modal-content">
 
             <div id="modal-loading"  class="d-flex justify-content-center align-items-center" style="display: none; min-height: 200px;  ">
