@@ -13,6 +13,9 @@ use Modules\PkgCompetences\Models\Appreciation;
 class AppreciationController extends BaseAppreciationController
 {
     
+    /**
+     * Ajouter formateur_id au contextState
+     */
     public function index(Request $request)
     {
         $user = Auth::user(); // Récupérer l'utilisateur connecté
@@ -21,7 +24,7 @@ class AppreciationController extends BaseAppreciationController
         if ($user->roles->contains('name', 'formateur')) {
             $formateur = $user->formateur; // Récupérer le formateur associé
             if ($formateur) {
-                app(ContextState::class)->set('formateur_id', $formateur->id);
+                $this->contextState->set('formateur_id', $formateur->id);
             } else {
                 return response()->json(['error' => 'Aucun formateur associé à cet utilisateur.'], 403);
             }
@@ -29,17 +32,17 @@ class AppreciationController extends BaseAppreciationController
         return parent::index($request);
     }
 
-    public function update(AppreciationRequest $request, string $id)
-    {
-        $appreciation = Appreciation::findOrFail($id);
-        $this->authorize('update', $appreciation);
-        return parent::update($request,$id);
-    }
+    // public function update(AppreciationRequest $request, string $id)
+    // {
+    //     $appreciation = Appreciation::findOrFail($id);
+    //     $this->authorize('update', $appreciation);
+    //     return parent::update($request,$id);
+    // }
 
-    public function destroy(Request $request, string $id)
-    {
-        $appreciation = Appreciation::findOrFail($id);
-        $this->authorize('delete', $appreciation);
-        return parent::destroy($request,$id);
-    }
+    // public function destroy(Request $request, string $id)
+    // {
+    //     $appreciation = Appreciation::findOrFail($id);
+    //     $this->authorize('delete', $appreciation);
+    //     return parent::destroy($request,$id);
+    // }
 }

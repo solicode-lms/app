@@ -10,13 +10,7 @@
 			"path": "../db_schemas/"
 		},
 		{
-			"path": "../modelisation"
-		},
-		{
 			"path": "../../laravel-builders/gapp3"
-		},
-		{
-			"path": "./resources/views/components"
 		},
 		{
 			"path": "."

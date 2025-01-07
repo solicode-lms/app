@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Modules\PkgCompetences\Controllers\Base;
 
 use Modules\Core\Controllers\Base\AdminController;
@@ -140,6 +139,9 @@ class BaseAppreciationController extends AdminController
      */
     public function update(AppreciationRequest $request, string $id)
     {
+        // Vérifie si l'utilisateur peut mettre à jour l'objet
+        $appreciation = Appreciation::findOrFail($id);
+        $this->authorize('update', $appreciation);
 
         $validatedData = $request->validated();
         $appreciation = $this->appreciationService->update($id, $validatedData);
@@ -166,6 +168,11 @@ class BaseAppreciationController extends AdminController
      */
     public function destroy(Request $request, string $id)
     {
+
+        // Vérifie si l'utilisateur peut supprimer l'objet
+        $appreciation = Appreciation::findOrFail($id);
+        $this->authorize('delete', $appreciation);
+
         $appreciation = $this->appreciationService->destroy($id);
 
         if ($request->ajax()) {

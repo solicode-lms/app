@@ -3,8 +3,10 @@
 namespace App\Providers;
 
 use App\Policies\AppreciationPolicy;
+use App\Policies\GenericPolicy;
 use Modules\PkgCompetences\Models\Appreciation;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Gate;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -15,7 +17,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array<class-string, class-string>
      */
     protected $policies = [
-        Appreciation::class => AppreciationPolicy::class,
+        Appreciation::class => GenericPolicy::class, // Mapper Appreciation avec GenericPolicy
     ];
 
     /**
@@ -29,8 +31,11 @@ class AuthServiceProvider extends ServiceProvider
     /**
      * Bootstrap services.
      */
-    public function boot(): void
+    public function boot()
     {
         $this->registerPolicies();
+
+        // Appliquer la Policy Générique à tous les modèles
+       // Gate::policy('*', GenericPolicy::class);
     }
 }

@@ -3,9 +3,11 @@
 
 
 namespace Modules\PkgCompetences\Models;
+
+use App\Traits\OwnedByUser;
 use Modules\PkgCompetences\Models\Base\BaseAppreciation;
 
 class Appreciation extends BaseAppreciation
 {
-
+   
 }
