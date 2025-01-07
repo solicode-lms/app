@@ -14,6 +14,7 @@
         crudSelector: '#card-tab-projet', 
         formSelector: '#projetForm',
         editUrl: '{{ route('projets.edit',  ['projet' => ':id']) }}',
+        indexUrl: '{{ route('projets.index') }}',
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         edit_title: '{{__("Core::msg.add") . " : " . __("PkgCreationProjet::projet.singular") }}',
     });

@@ -27,12 +27,7 @@ export class CrudManager {
 
         // Initialisation des gestionnaires
         this.entityLoader = new LoadListAction(config);
-        this.eventManager = new ActionsEventHandler(config, {
-            creator: this.entityCreator,
-            viewer: this.entityViewer,
-            editor: this.entityEditor,
-            deleter: this.entityDeleter,
-        });
+        this.eventManager = new ActionsEventHandler(config, {editor: this.entityEditor});
 
 
         this.contexteEventHandler = new ContexteStateEventHandler(config);

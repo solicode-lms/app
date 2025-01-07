@@ -37,5 +37,13 @@ class AuthServiceProvider extends ServiceProvider
 
         // Appliquer la Policy Générique à tous les modèles
        // Gate::policy('*', GenericPolicy::class);
+
+
+        // Bypass des permissions pour le rôle Super Admin
+        Gate::before(function ($user, $ability) {
+            if ($user->hasRole('root')) {
+                return true; // Autorise toutes les actions
+            }
+        });
     }
 }

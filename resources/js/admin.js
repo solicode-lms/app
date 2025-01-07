@@ -27,7 +27,7 @@ import { NotificationHandler } from './crud/components/NotificationHandler';
 import { FormManager } from './crud/components/FormManager';
 import { ContexteStateEventHandler } from './crud/eventsHandler/ContexteStateEventHandler';
 import { ContextStateService } from './crud/components/ContextStateService';
-import { EditManager } from './crud/EditManager';
+import { EditWithHasManyManager } from './crud/EditWithHasManyManager';
 
 // Init CrudManagers in the page
 document.addEventListener("DOMContentLoaded", function () {
@@ -52,8 +52,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 crudManager.init();
             }
             if(entityConfig.page == "edit"){
-                const editManager = new EditManager(entityConfig);
-                editManager.init();
+                const editWithHasManyManager = new EditWithHasManyManager(entityConfig);
+                editWithHasManyManager.init();
             }
             
         });
