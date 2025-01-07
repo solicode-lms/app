@@ -59,7 +59,7 @@ class BaseSysModel extends Model
      */
     public function widgets(): HasMany
     {
-        return $this->hasMany(Widget::class, '_id', 'id');
+        return $this->hasMany(Widget::class, 'sysModel_id', 'id');
     }
 
     /**

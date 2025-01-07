@@ -51,7 +51,7 @@ class BaseProjet extends Model
      */
     public function livrables(): HasMany
     {
-        return $this->hasMany(Livrable::class, '_id', 'id');
+        return $this->hasMany(Livrable::class, 'projet_id', 'id');
     }
     /**
      * Relation HasMany pour Resources.
@@ -60,7 +60,7 @@ class BaseProjet extends Model
      */
     public function resources(): HasMany
     {
-        return $this->hasMany(Resource::class, '_id', 'id');
+        return $this->hasMany(Resource::class, 'projet_id', 'id');
     }
     /**
      * Relation HasMany pour TransfertCompetences.
@@ -69,7 +69,7 @@ class BaseProjet extends Model
      */
     public function transfertCompetences(): HasMany
     {
-        return $this->hasMany(TransfertCompetence::class, '_id', 'id');
+        return $this->hasMany(TransfertCompetence::class, 'projet_id', 'id');
     }
 
     /**

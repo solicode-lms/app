@@ -49,7 +49,7 @@ class BaseAppreciation extends Model
      */
     public function transfertCompetences(): HasMany
     {
-        return $this->hasMany(TransfertCompetence::class, '_id', 'id');
+        return $this->hasMany(TransfertCompetence::class, 'appreciation_id', 'id');
     }
 
     /**

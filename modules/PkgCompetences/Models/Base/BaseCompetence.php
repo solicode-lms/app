@@ -60,7 +60,7 @@ class BaseCompetence extends Model
      */
     public function niveauCompetences(): HasMany
     {
-        return $this->hasMany(NiveauCompetence::class, '_id', 'id');
+        return $this->hasMany(NiveauCompetence::class, 'competence_id', 'id');
     }
     /**
      * Relation HasMany pour TransfertCompetences.
@@ -69,7 +69,7 @@ class BaseCompetence extends Model
      */
     public function transfertCompetences(): HasMany
     {
-        return $this->hasMany(TransfertCompetence::class, '_id', 'id');
+        return $this->hasMany(TransfertCompetence::class, 'competence_id', 'id');
     }
 
     /**

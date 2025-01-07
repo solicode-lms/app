@@ -39,7 +39,7 @@ class BaseCategoryTechnology extends Model
      */
     public function technologies(): HasMany
     {
-        return $this->hasMany(Technology::class, '_id', 'id');
+        return $this->hasMany(Technology::class, 'categoryTechnology_id', 'id');
     }
 
     /**

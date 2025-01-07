@@ -49,7 +49,7 @@ class BaseModule extends Model
      */
     public function competences(): HasMany
     {
-        return $this->hasMany(Competence::class, '_id', 'id');
+        return $this->hasMany(Competence::class, 'module_id', 'id');
     }
 
     /**

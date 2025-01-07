@@ -70,7 +70,7 @@ class BaseFormateur extends Model
      */
     public function appreciations(): HasMany
     {
-        return $this->hasMany(Appreciation::class, '_id', 'id');
+        return $this->hasMany(Appreciation::class, 'formateur_id', 'id');
     }
     /**
      * Relation HasMany pour Projets.
@@ -79,7 +79,7 @@ class BaseFormateur extends Model
      */
     public function projets(): HasMany
     {
-        return $this->hasMany(Projet::class, '_id', 'id');
+        return $this->hasMany(Projet::class, 'formateur_id', 'id');
     }
 
     /**

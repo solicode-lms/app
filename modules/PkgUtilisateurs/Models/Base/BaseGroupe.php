@@ -59,7 +59,7 @@ class BaseGroupe extends Model
      */
     public function apprenants(): HasMany
     {
-        return $this->hasMany(Apprenant::class, '_id', 'id');
+        return $this->hasMany(Apprenant::class, 'groupe_id', 'id');
     }
 
     /**

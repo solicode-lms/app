@@ -49,7 +49,7 @@ class BaseFeatureDomain extends Model
      */
     public function features(): HasMany
     {
-        return $this->hasMany(Feature::class, '_id', 'id');
+        return $this->hasMany(Feature::class, 'featureDomain_id', 'id');
     }
 
     /**

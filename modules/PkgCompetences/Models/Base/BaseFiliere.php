@@ -40,7 +40,7 @@ class BaseFiliere extends Model
      */
     public function groupes(): HasMany
     {
-        return $this->hasMany(Groupe::class, '_id', 'id');
+        return $this->hasMany(Groupe::class, 'filiere_id', 'id');
     }
     /**
      * Relation HasMany pour Modules.
@@ -49,7 +49,7 @@ class BaseFiliere extends Model
      */
     public function modules(): HasMany
     {
-        return $this->hasMany(Module::class, '_id', 'id');
+        return $this->hasMany(Module::class, 'filiere_id', 'id');
     }
 
     /**

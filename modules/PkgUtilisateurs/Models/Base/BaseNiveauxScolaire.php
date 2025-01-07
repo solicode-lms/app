@@ -39,7 +39,7 @@ class BaseNiveauxScolaire extends Model
      */
     public function apprenants(): HasMany
     {
-        return $this->hasMany(Apprenant::class, '_id', 'id');
+        return $this->hasMany(Apprenant::class, 'niveauxScolaire_id', 'id');
     }
 
     /**
