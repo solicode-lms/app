@@ -70,7 +70,7 @@
                 @section('feature-crud-filters')
                 <div class="card-header">
                     <form id="feature-crud-filter-form" method="GET" class="row">
-                        <x-filter-group count="{{count($modules_filters)}}">
+                        <x-filter-group count="{{count($modules_filters ?? [])}}">
                             <!-- Filtres spécifiques -->
                             @foreach ($features_filters as $filter)
                                 <x-filter-field 

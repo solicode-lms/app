@@ -70,7 +70,7 @@
                 @section('sysColor-crud-filters')
                 <div class="card-header">
                     <form id="sysColor-crud-filter-form" method="GET" class="row">
-                        <x-filter-group count="{{count($modules_filters)}}">
+                        <x-filter-group count="{{count($modules_filters ?? [])}}">
                             <!-- Filtres spécifiques -->
                             @foreach ($sysColors_filters as $filter)
                                 <x-filter-field 
