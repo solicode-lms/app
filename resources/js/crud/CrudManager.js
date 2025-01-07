@@ -47,21 +47,9 @@ export class CrudManager {
     init() {
         // Charger les entités initiales
         // this.entityLoader.loadEntities();
-
         // Initialiser la gestion des événements CRUD
-       
-
-
-        if (this.config.page == "index") {
-            this.searchAndPaginationManager.init();
-            this.eventManager.init();
-        } 
-        if (this.config.page == "edit") {
-            this.eventManager.init();
-        } 
-
-
+        this.eventManager.init();
+        this.searchAndPaginationManager.init();
         this.contexteEventHandler.init();
-
     }
 }

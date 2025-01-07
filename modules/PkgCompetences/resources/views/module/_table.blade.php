@@ -44,7 +44,7 @@
 </div>
 
 <div class="card-footer">
-    @section('crud-pagination')
+    @section('module-crud-pagination')
     <ul class="pagination m-0 d-flex justify-content-center">
         {{ $modules_data->onEachSide(1)->links() }}
     </ul>

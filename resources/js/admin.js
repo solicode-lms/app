@@ -27,6 +27,7 @@ import { NotificationHandler } from './crud/components/NotificationHandler';
 import { FormManager } from './crud/components/FormManager';
 import { ContexteStateEventHandler } from './crud/eventsHandler/ContexteStateEventHandler';
 import { ContextStateService } from './crud/components/ContextStateService';
+import { EditManager } from './crud/EditManager';
 
 // Init CrudManagers in the page
 document.addEventListener("DOMContentLoaded", function () {
@@ -38,26 +39,33 @@ document.addEventListener("DOMContentLoaded", function () {
     
  
 
-    // // Vérifie si la configuration des entités est disponible
-    // if (window.entitiesConfig && Array.isArray(window.entitiesConfig)) {
-    //     // Initialiser les gestionnaires pour chaque entité
-    //     window.entitiesConfig.forEach((entityConfigData) => {
-    //         let entityConfig = new ConfigHelper(entityConfigData,contextState);
-    //         entityConfig.isDebug = isDebug;
-    //         // à ajouter pendant l'envoye de requête ajax
-    //         // entityConfig = contextManager.addContextToConfig(entityConfig);
-    //         const crudManager = new CrudManager(entityConfig);
-    //         crudManager.init();
-    //     });
-    // }
+    // Vérifie si la configuration des entités est disponible
+    if (window.entitiesConfig && Array.isArray(window.entitiesConfig)) {
+        // Initialiser les gestionnaires pour chaque entité
+        window.entitiesConfig.forEach((entityConfigData) => {
+            let entityConfig = new ConfigHelper(entityConfigData,contextState);
+            entityConfig.isDebug = isDebug;
+            // à ajouter pendant l'envoye de requête ajax
+            // entityConfig = contextManager.addContextToConfig(entityConfig);
+            if(entityConfig.page == "index"){
+                const crudManager = new CrudManager(entityConfig);
+                crudManager.init();
+            }
+            if(entityConfig.page == "edit"){
+                const editManager = new EditManager(entityConfig);
+                editManager.init();
+            }
+            
+        });
+    }
 
-    // window.notifications.forEach((notificationData) => {
-    //     new NotificationHandler(notificationData).show();
-    // });
+    window.notifications.forEach((notificationData) => {
+        new NotificationHandler(notificationData).show();
+    });
     
-    // FormManager.initializeSelect2();
-    // FormManager.initializeRichText();
-    // FormManager.initializeDate();
+    FormManager.initializeSelect2();
+    FormManager.initializeRichText();
+    FormManager.initializeDate();
 });
 
 

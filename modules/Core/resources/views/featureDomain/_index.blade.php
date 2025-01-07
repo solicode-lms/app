@@ -24,7 +24,7 @@
 </script>
 @endpush
 <div id="featureDomain-crud" class="crud">
-    @section('crud-header')
+    @section('featureDomain-crud-header')
     @php
         $package = __("Core::Core.name");
        $titre = __("Core::featureDomain.singular");
@@ -39,11 +39,11 @@
         ]"
     />
     @show
-    @section('crud-table')
+    @section('featureDomain-crud-table')
     <section id="featureDomain-crud-table" class="content crud-table">
         <div class="container-fluid">
             <div class="card card-outline card-info " id="card_crud">
-                @section('crud-stats-bar')
+                @section('featureDomain-crud-stats-bar')
                 <div class="card-header row">
                     <!-- Statistiques et Actions -->
                     <div class="col-sm-9">
@@ -67,7 +67,7 @@
                     </div>
                 </div>
                 @show
-                @section('crud-filters')
+                @section('featureDomain-crud-filters')
                 <div class="card-header">
                     <form id="featureDomain-crud-filter-form" method="GET" class="row">
                         <x-filter-group>
@@ -81,7 +81,7 @@
                                     :placeholder="ucfirst(str_replace('_', ' ', $filter['field']))" />
                             @endforeach
                         </x-filter-group>
-                        @section('crud-search-bar')
+                        @section('featureDomain-crud-search-bar')
                         <div id="featureDomain-crud-search-bar"
                             class="{{ count($featureDomains_filters) > 0 ? 'col-md-2' : 'col-md-6 mx-auto' }} text-md-right text-left">
                             <x-search-bar
@@ -102,7 +102,7 @@
         </div>
     </section>
     @show
-    @section('crud-modal')
+    @section('featureDomain-crud-modal')
     <x-modal id="featureDomainModal" title="Ajouter ou Modifier"></x-modal>
     @show
 </div>

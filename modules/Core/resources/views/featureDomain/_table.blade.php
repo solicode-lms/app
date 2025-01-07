@@ -44,7 +44,7 @@
 </div>
 
 <div class="card-footer">
-    @section('crud-pagination')
+    @section('featureDomain-crud-pagination')
     <ul class="pagination m-0 d-flex justify-content-center">
         {{ $featureDomains_data->onEachSide(1)->links() }}
     </ul>

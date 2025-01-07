@@ -24,7 +24,7 @@
 </script>
 @endpush
 <div id="widget-crud" class="crud">
-    @section('crud-header')
+    @section('widget-crud-header')
     @php
         $package = __("PkgWidgets::PkgWidgets.name");
        $titre = __("PkgWidgets::widget.singular");
@@ -39,11 +39,11 @@
         ]"
     />
     @show
-    @section('crud-table')
+    @section('widget-crud-table')
     <section id="widget-crud-table" class="content crud-table">
         <div class="container-fluid">
             <div class="card card-outline card-info " id="card_crud">
-                @section('crud-stats-bar')
+                @section('widget-crud-stats-bar')
                 <div class="card-header row">
                     <!-- Statistiques et Actions -->
                     <div class="col-sm-9">
@@ -67,7 +67,7 @@
                     </div>
                 </div>
                 @show
-                @section('crud-filters')
+                @section('widget-crud-filters')
                 <div class="card-header">
                     <form id="widget-crud-filter-form" method="GET" class="row">
                         <x-filter-group>
@@ -81,7 +81,7 @@
                                     :placeholder="ucfirst(str_replace('_', ' ', $filter['field']))" />
                             @endforeach
                         </x-filter-group>
-                        @section('crud-search-bar')
+                        @section('widget-crud-search-bar')
                         <div id="widget-crud-search-bar"
                             class="{{ count($widgets_filters) > 0 ? 'col-md-2' : 'col-md-6 mx-auto' }} text-md-right text-left">
                             <x-search-bar
@@ -102,7 +102,7 @@
         </div>
     </section>
     @show
-    @section('crud-modal')
+    @section('widget-crud-modal')
     <x-modal id="widgetModal" title="Ajouter ou Modifier"></x-modal>
     @show
 </div>

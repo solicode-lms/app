@@ -42,7 +42,7 @@
 </div>
 
 <div class="card-footer">
-    @section('crud-pagination')
+    @section('apprenantKonosy-crud-pagination')
     <ul class="pagination m-0 d-flex justify-content-center">
         {{ $apprenantKonosies_data->onEachSide(1)->links() }}
     </ul>

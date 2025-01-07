@@ -24,7 +24,7 @@
 </script>
 @endpush
 <div id="sysModule-crud" class="crud">
-    @section('crud-header')
+    @section('sysModule-crud-header')
     @php
         $package = __("Core::Core.name");
        $titre = __("Core::sysModule.singular");
@@ -39,11 +39,11 @@
         ]"
     />
     @show
-    @section('crud-table')
+    @section('sysModule-crud-table')
     <section id="sysModule-crud-table" class="content crud-table">
         <div class="container-fluid">
             <div class="card card-outline card-info " id="card_crud">
-                @section('crud-stats-bar')
+                @section('sysModule-crud-stats-bar')
                 <div class="card-header row">
                     <!-- Statistiques et Actions -->
                     <div class="col-sm-9">
@@ -67,7 +67,7 @@
                     </div>
                 </div>
                 @show
-                @section('crud-filters')
+                @section('sysModule-crud-filters')
                 <div class="card-header">
                     <form id="sysModule-crud-filter-form" method="GET" class="row">
                         <x-filter-group>
@@ -81,7 +81,7 @@
                                     :placeholder="ucfirst(str_replace('_', ' ', $filter['field']))" />
                             @endforeach
                         </x-filter-group>
-                        @section('crud-search-bar')
+                        @section('sysModule-crud-search-bar')
                         <div id="sysModule-crud-search-bar"
                             class="{{ count($sysModules_filters) > 0 ? 'col-md-2' : 'col-md-6 mx-auto' }} text-md-right text-left">
                             <x-search-bar
@@ -102,7 +102,7 @@
         </div>
     </section>
     @show
-    @section('crud-modal')
+    @section('sysModule-crud-modal')
     <x-modal id="sysModuleModal" title="Ajouter ou Modifier"></x-modal>
     @show
 </div>
