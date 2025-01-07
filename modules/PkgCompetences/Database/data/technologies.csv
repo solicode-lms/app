@@ -1,4 +1,69 @@
-nom,description,
-nom 1,description 1, 1
-nom 2,description 2, 2
-nom 3,description 3, 3
+nom,description,category_technology_id
+HTML,"Langage de balisage pour structurer le contenu des pages web.",1
+XML,"Langage de balisage extensible utilisé pour stocker et transporter des données.",1
+Markdown,"Langage de balisage léger utilisé pour formater du texte.",1
+CSS,"Langage de style pour la mise en page et le design des sites web.",1
+SASS,"Préprocesseur CSS qui ajoute des fonctionnalités avancées comme des variables et des mixins.",1
+LESS,"Préprocesseur CSS permettant une écriture plus dynamique des styles.",1
+JavaScript,"Langage de programmation frontend pour dynamiser les pages web.",1
+TypeScript,"Surcouche de JavaScript qui ajoute le typage statique.",1
+Dart,"Langage frontend utilisé principalement avec Flutter.",1
+PHP,"Langage de programmation backend utilisé pour créer des applications dynamiques.",1
+Python,"Langage backend polyvalent utilisé pour le web, les données et l'IA.",1
+Ruby,"Langage backend simple et élégant pour le développement d'applications.",1
+Node.js,"Environnement backend basé sur JavaScript pour créer des applications côté serveur.",1
+Bootstrap,"Framework CSS populaire pour un design réactif et rapide.",2
+Tailwind CSS,"Framework CSS utilitaire pour créer des designs personnalisés rapidement.",2
+Foundation,"Framework CSS pour développer des sites responsifs.",2
+Laravel,"Framework PHP pour développer des applications web robustes.",2
+Symfony,"Framework PHP modulaire pour le développement backend.",2
+Django,"Framework Python pour développer rapidement des applications sécurisées.",2
+Flask,"Microframework Python pour des projets backend légers.",2
+React,"Bibliothèque JavaScript pour construire des interfaces utilisateur dynamiques.",2
+Vue.js,"Framework JavaScript progressif pour développer des interfaces utilisateur.",2
+Angular,"Framework complet pour développer des applications frontend.",2
+Svelte,"Framework JavaScript léger et performant pour les applications frontend.",2
+MySQL,"Système de gestion de bases de données relationnelles.",3
+PostgreSQL,"Système de gestion de bases de données avancé et open-source.",3
+MongoDB,"Base de données NoSQL orientée documents.",3
+SQLite,"Base de données légère et intégrée pour des applications embarquées.",3
+REST,"Standard d'API basé sur le protocole HTTP.",3
+GraphQL,"Langage de requête pour les API offrant flexibilité et efficacité.",3
+SOAP,"Protocole d'API structuré basé sur XML.",3
+Git,"Outil de gestion de version pour suivre les modifications du code.",4
+GitHub,"Plateforme pour héberger, collaborer et gérer des projets Git.",4
+GitLab,"Plateforme DevOps intégrée pour héberger et gérer des projets Git.",4
+Docker,"Outil pour containeriser les applications et leurs dépendances.",4
+Jenkins,"Outil d'intégration continue pour automatiser les workflows.",4
+Kubernetes,"Outil pour orchestrer les conteneurs à grande échelle.",4
+Apache,"Serveur web utilisé pour héberger des applications et des sites.",5
+Nginx,"Serveur web performant pour gérer des applications modernes.",5
+Microsoft IIS,"Serveur web pour les environnements Windows.",5
+AWS,"Plateforme cloud pour héberger et gérer des applications.",5
+Azure,"Solution cloud de Microsoft pour hébergement et services cloud.",5
+Google Cloud,"Services cloud pour hébergement, calcul et données.",5
+Netlify,"Plateforme pour héberger et déployer des applications web statiques.",5
+VS Code,"Éditeur de code populaire et extensible.",6
+WebStorm,"IDE puissant pour le développement JavaScript.",6
+PhpStorm,"IDE spécialisé pour le développement PHP.",6
+Sublime Text,"Éditeur de texte léger et rapide pour coder.",6
+WordPress,"CMS populaire pour créer des sites web sans coder.",6
+Joomla,"CMS open-source pour créer des sites web et des portails.",6
+Drupal,"CMS flexible pour les sites complexes et les applications.",6
+Magento,"CMS spécialisé pour le commerce électronique.",6
+Flutter,"Framework pour développer des applications mobiles et web avec un seul codebase.",6
+React Native,"Framework pour créer des applications mobiles avec JavaScript.",6
+Ionic,"Framework mobile basé sur HTML, CSS et JavaScript.",6
+Swift,"Langage de programmation pour les applications iOS.",6
+Jest,"Framework de test JavaScript pour tester les applications frontend.",7
+Mocha,"Framework JavaScript pour les tests côté serveur.",7
+PHPUnit,"Framework pour les tests unitaires en PHP.",7
+Selenium,"Outil pour tester les applications web de manière automatisée.",7
+OAuth,"Protocole pour gérer l'autorisation sécurisée des utilisateurs.",7
+JWT,"Standard pour représenter les données d'identité en toute sécurité.",7
+OWASP,"Groupe de directives pour la sécurité des applications web.",7
+HTTPS,"Protocole sécurisé pour protéger les données échangées sur le web.",7
+Figma,"Outil de conception collaborative pour UI/UX.",8
+Adobe XD,"Logiciel de conception pour la création d'interfaces utilisateur.",8
+Sketch,"Application de conception graphique pour le design UI/UX.",8
+Axure,"Outil de prototypage pour les applications et sites web.",8

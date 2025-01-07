@@ -125,9 +125,22 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: 100vw; /* Prend toute la largeur de la fenêtre */
-    height: 100vh; /* Prend toute la hauteur de la fenêtre */
-    margin: 0;
-    padding: 0;
+    width: 100% !important; /* Assure que le modal occupe toute la largeur */
+    max-width:55% !important; /* Supprime toute limite de largeur */
+    height: 100% !important; /* Prend toute la hauteur */
+    margin : 0;
+    margin-left: 250px; /* Supprime les marges */
+    padding: 0; /* Supprime les paddings */
     border-radius: 0; /* Supprime les coins arrondis */
+   
 }
+        .full-screen-modal .modal-content {
+            height: 100%; /* Remplit la hauteur */
+            display: flex;
+            flex-direction: column; /* Organisation verticale */
+        }
+        .full-screen-modal .modal-body {
+            flex: 1; /* Permet au contenu du corps de prendre l'espace disponible */
+            overflow-y: auto; /* Ajoute un défilement si le contenu dépasse */
+        }
+

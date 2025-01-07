@@ -75,6 +75,12 @@ class BaseTechnologyService extends BaseService
         $stats = [];
 
         
+            $relationStatCategoryTechnology = parent::getStatsByRelation(
+                \Modules\PkgCompetences\Models\CategoryTechnology::class,
+                'technologies',
+                'nom'
+            );
+            $stats = array_merge($stats, $relationStatCategoryTechnology);
 
         return $stats;
     }

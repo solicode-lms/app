@@ -1,7 +1,7 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 
-@accessiblePermissions(['show-filiere', 'show-module', 'show-categoryTechnology', 'show-competence', 'show-niveauCompetence', 'show-technology', 'show-appreciation'])
+@accessiblePermissions(['show-appreciation', 'show-categoryTechnology', 'show-competence', 'show-filiere', 'show-module', 'show-niveauCompetence', 'show-technology'])
 @if($accessiblePermissions->isNotEmpty())
 <li class="nav-item has-treeview {{ Request::is('admin/PkgCompetences*') ? 'menu-open' : '' }}">
     <a href="#" class="nav-link nav-link {{ Request::is('admin/PkgCompetences*') ? 'active' : '' }}">
@@ -12,6 +12,30 @@
         </p>
     </a>
     <ul class="nav nav-treeview">
+        @can('show-appreciation') 
+        <li class="nav-item">
+            <a href="{{ route('appreciations.index') }}" class="nav-link {{ Request::is('admin/PkgCompetences/appreciations') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-chart-line"></i>
+                {{__('PkgCompetences::Appreciation.plural')}}
+            </a>
+        </li>
+        @endcan
+        @can('show-categoryTechnology') 
+        <li class="nav-item">
+            <a href="{{ route('categoryTechnologies.index') }}" class="nav-link {{ Request::is('admin/PkgCompetences/categoryTechnologies') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-bolt"></i>
+                {{__('PkgCompetences::CategoryTechnology.plural')}}
+            </a>
+        </li>
+        @endcan
+        @can('show-competence') 
+        <li class="nav-item">
+            <a href="{{ route('competences.index') }}" class="nav-link {{ Request::is('admin/PkgCompetences/competences') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-tools"></i>
+                {{__('PkgCompetences::Competence.plural')}}
+            </a>
+        </li>
+        @endcan
         @can('show-filiere') 
         <li class="nav-item">
             <a href="{{ route('filieres.index') }}" class="nav-link {{ Request::is('admin/PkgCompetences/filieres') ? 'active' : '' }}">
@@ -28,22 +52,6 @@
             </a>
         </li>
         @endcan
-        @can('show-categoryTechnology') 
-        <li class="nav-item">
-            <a href="{{ route('categoryTechnologies.index') }}" class="nav-link {{ Request::is('admin/PkgCompetences/categoryTechnologies') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-bolt"></i>
-                {{__('PkgCompetences::CategoryTechnology.plural')}}
-            </a>
-        </li>
-        @endcan
-        @can('show-competence') 
-        <li class="nav-item">
-            <a href="{{ route('competences.index') }}" class="nav-link {{ Request::is('admin/PkgCompetences/competences') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-brain"></i>
-                {{__('PkgCompetences::Competence.plural')}}
-            </a>
-        </li>
-        @endcan
         @can('show-niveauCompetence') 
         <li class="nav-item">
             <a href="{{ route('niveauCompetences.index') }}" class="nav-link {{ Request::is('admin/PkgCompetences/niveauCompetences') ? 'active' : '' }}">
@@ -57,14 +65,6 @@
             <a href="{{ route('technologies.index') }}" class="nav-link {{ Request::is('admin/PkgCompetences/technologies') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-bolt"></i>
                 {{__('PkgCompetences::Technology.plural')}}
-            </a>
-        </li>
-        @endcan
-        @can('show-appreciation') 
-        <li class="nav-item">
-            <a href="{{ route('appreciations.index') }}" class="nav-link {{ Request::is('admin/PkgCompetences/appreciations') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-chart-line"></i>
-                {{__('PkgCompetences::Appreciation.plural')}}
             </a>
         </li>
         @endcan

@@ -1,7 +1,7 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 
-@accessiblePermissions(['show-apprenantKonosy', 'show-niveauxScolaire', 'show-ville', 'show-nationalite', 'show-groupe', 'show-apprenant', 'show-specialite', 'show-formateur'])
+@accessiblePermissions(['show-apprenant', 'show-apprenantKonosy', 'show-formateur', 'show-groupe', 'show-nationalite', 'show-niveauxScolaire', 'show-specialite', 'show-ville'])
 @if($accessiblePermissions->isNotEmpty())
 <li class="nav-item has-treeview {{ Request::is('admin/PkgUtilisateurs*') ? 'menu-open' : '' }}">
     <a href="#" class="nav-link nav-link {{ Request::is('admin/PkgUtilisateurs*') ? 'active' : '' }}">
@@ -12,6 +12,14 @@
         </p>
     </a>
     <ul class="nav nav-treeview">
+        @can('show-apprenant') 
+        <li class="nav-item">
+            <a href="{{ route('apprenants.index') }}" class="nav-link {{ Request::is('admin/PkgUtilisateurs/apprenants') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-user-graduate"></i>
+                {{__('PkgUtilisateurs::Apprenant.plural')}}
+            </a>
+        </li>
+        @endcan
         @can('show-apprenantKonosy') 
         <li class="nav-item">
             <a href="{{ route('apprenantKonosies.index') }}" class="nav-link {{ Request::is('admin/PkgUtilisateurs/apprenantKonosies') ? 'active' : '' }}">
@@ -20,27 +28,11 @@
             </a>
         </li>
         @endcan
-        @can('show-niveauxScolaire') 
+        @can('show-formateur') 
         <li class="nav-item">
-            <a href="{{ route('niveauxScolaires.index') }}" class="nav-link {{ Request::is('admin/PkgUtilisateurs/niveauxScolaires') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-graduation-cap"></i>
-                {{__('PkgUtilisateurs::NiveauxScolaire.plural')}}
-            </a>
-        </li>
-        @endcan
-        @can('show-ville') 
-        <li class="nav-item">
-            <a href="{{ route('villes.index') }}" class="nav-link {{ Request::is('admin/PkgUtilisateurs/villes') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-city"></i>
-                {{__('PkgUtilisateurs::Ville.plural')}}
-            </a>
-        </li>
-        @endcan
-        @can('show-nationalite') 
-        <li class="nav-item">
-            <a href="{{ route('nationalites.index') }}" class="nav-link {{ Request::is('admin/PkgUtilisateurs/nationalites') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-table"></i>
-                {{__('PkgUtilisateurs::Nationalite.plural')}}
+            <a href="{{ route('formateurs.index') }}" class="nav-link {{ Request::is('admin/PkgUtilisateurs/formateurs') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-chalkboard-teacher"></i>
+                {{__('PkgUtilisateurs::Formateur.plural')}}
             </a>
         </li>
         @endcan
@@ -52,11 +44,19 @@
             </a>
         </li>
         @endcan
-        @can('show-apprenant') 
+        @can('show-nationalite') 
         <li class="nav-item">
-            <a href="{{ route('apprenants.index') }}" class="nav-link {{ Request::is('admin/PkgUtilisateurs/apprenants') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-user-graduate"></i>
-                {{__('PkgUtilisateurs::Apprenant.plural')}}
+            <a href="{{ route('nationalites.index') }}" class="nav-link {{ Request::is('admin/PkgUtilisateurs/nationalites') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-table"></i>
+                {{__('PkgUtilisateurs::Nationalite.plural')}}
+            </a>
+        </li>
+        @endcan
+        @can('show-niveauxScolaire') 
+        <li class="nav-item">
+            <a href="{{ route('niveauxScolaires.index') }}" class="nav-link {{ Request::is('admin/PkgUtilisateurs/niveauxScolaires') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-graduation-cap"></i>
+                {{__('PkgUtilisateurs::NiveauxScolaire.plural')}}
             </a>
         </li>
         @endcan
@@ -68,11 +68,11 @@
             </a>
         </li>
         @endcan
-        @can('show-formateur') 
+        @can('show-ville') 
         <li class="nav-item">
-            <a href="{{ route('formateurs.index') }}" class="nav-link {{ Request::is('admin/PkgUtilisateurs/formateurs') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-chalkboard-teacher"></i>
-                {{__('PkgUtilisateurs::Formateur.plural')}}
+            <a href="{{ route('villes.index') }}" class="nav-link {{ Request::is('admin/PkgUtilisateurs/villes') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-city"></i>
+                {{__('PkgUtilisateurs::Ville.plural')}}
             </a>
         </li>
         @endcan

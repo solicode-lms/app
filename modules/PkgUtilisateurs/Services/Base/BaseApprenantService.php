@@ -58,6 +58,7 @@ class BaseApprenantService extends BaseService
 
         // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
+            $this->generateManyToOneFilter(__("PkgUtilisateurs::groupe.plural"), 'groupe_id', \Modules\PkgUtilisateurs\Models\Groupe::class, 'code'),
         ];
 
     }
