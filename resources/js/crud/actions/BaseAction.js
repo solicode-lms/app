@@ -1,4 +1,4 @@
-import { ContextStateManager } from "../components/ContextStateManager";
+import { ContextStateService } from "../components/ContextStateService";
 import { FormManager } from "../components/FormManager";
 import { LoadingIndicator } from "../components/LoadingIndicator";
 import { ModalManager } from "../components/ModalManager";
@@ -12,7 +12,7 @@ export class BaseAction {
         // Table Loader
         this.loader = new LoadingIndicator(config.tableSelector);
         this.formManager = new FormManager(this.config, this.modalManager);
-        this.contextManager = new ContextStateManager(this.config.contextState);
+        this.contextService = this.config.contextStateService;
         this.SuscesMessage = "";
     }
     /**

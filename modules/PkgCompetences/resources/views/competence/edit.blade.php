@@ -5,9 +5,6 @@
 
 @push('scripts')
 <script>
-    window.contextState = @json($contextState);
- </script>
-<script>
     window.entitiesConfig = window.entitiesConfig || [];
     window.entitiesConfig.push({
         edit_has_many: true,

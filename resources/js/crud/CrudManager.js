@@ -6,6 +6,7 @@ import { DeleteAction } from './actions/DeleteAction';
 import { LoadListAction } from './actions/LoadListAction';
 import { SearchPaginationEventHandler } from './eventsHandler/SearchPaginationEventHandler';
 import { ActionsEventHandler } from './eventsHandler/ActionsEventHandler';
+import { ContexteStateEventHandler } from './eventsHandler/ContexteStateEventHandler';
  
 /**
  * Classe principale pour gérer le CRUD.
@@ -32,6 +33,11 @@ export class CrudManager {
             editor: this.entityEditor,
             deleter: this.entityDeleter,
         });
+
+
+        this.contexteEventHandler = new ContexteStateEventHandler(config);
+
+
         this.searchAndPaginationManager = new SearchPaginationEventHandler(config, this.entityLoader);
     }
 
@@ -53,6 +59,8 @@ export class CrudManager {
             // Actions spécifiques si edit_has_many est false
             console.log('edit_has_many est désactivé'); // Exemple d'une action alternative
         }
+
+        this.contexteEventHandler.init();
 
     }
 }

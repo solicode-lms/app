@@ -1,4 +1,4 @@
-import { ContextStateManager } from '../components/ContextStateManager';
+import { ContextStateService } from '../components/ContextStateService';
 import { Action } from './Action';
 
 export class CreateAction extends Action {
@@ -8,7 +8,7 @@ export class CreateAction extends Action {
         this.SuscesMessage = 'Nouvelle entité ajoutée avec succès.';
         this.createUrl = this.appendParamsToUrl(
             this.config.createUrl,
-            this.contextManager.getContextParams()
+            this.contextService.getContextParams()
         );
     }
 

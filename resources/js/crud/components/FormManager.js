@@ -1,5 +1,5 @@
 import { LoadingIndicator } from "./LoadingIndicator";
-import { ContextStateManager } from './ContextStateManager';
+import { ContextStateService } from './ContextStateService';
 
 export class FormManager {
     /**
@@ -11,7 +11,7 @@ export class FormManager {
         this.config = config
         this.formSelector = this.config.formSelector
         this.modalManager = modalManager;
-        this.contextManager = new  ContextStateManager( this.config.contextState);
+        this.contextService = this.config.contextStateService;
         this.loader = new LoadingIndicator(this.formSelector);
     }
 
@@ -37,11 +37,14 @@ export class FormManager {
      * Ajoute les variables du contexte aux formulaires ayant la classe cible.
      */
     addContextStateToForm() {
-        const contextState = this.config.contextState;
-        const prefix = this.contextManager.prefix;
-        if(contextState === undefined) return; 
+        const contextStateVariables = this.config.contextStateService.getVariables();
+        const prefix = this.contextService.prefix;
+
+        if(contextStateVariables === undefined) return; 
+
+
         document.querySelectorAll(`${this.formSelector}`).forEach(form => {
-            Object.entries(contextState).forEach(([key, value]) => {
+            Object.entries(contextStateVariables).forEach(([key, value]) => {
                 let input = form.querySelector(`input[name="${prefix}${key}"]`);
                 if (!input) {
                     input = document.createElement('input');
@@ -58,7 +61,7 @@ export class FormManager {
          * Masque les éléments <select> dont l'id correspond à une clé dans le contextState.
          */
     hideSelectsById() {
-        const contextState = this.contextManager.getRawContext();
+        const contextState = this.contextService.getVariables();
 
         Object.keys(contextState).forEach((key) => {
             const selectElement = document.getElementById(key);

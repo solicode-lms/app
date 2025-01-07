@@ -3,7 +3,7 @@ import { ModalManager } from '../components/ModalManager';
 import { NotificationHandler } from '../components/NotificationHandler';
 
 import { FormManager } from '../components/FormManager';
-import { ContextStateManager } from '../components/ContextStateManager';
+import { ContextStateService } from '../components/ContextStateService';
 import { BaseAction } from './BaseAction';
 import { LoadListAction } from './LoadListAction';
 

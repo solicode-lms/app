@@ -1,13 +1,16 @@
-import { ContextStateManager } from "../components/ContextStateManager";
+import { ContextStateService } from "../components/ContextStateService";
+
+
 
 export class ContexteStateEventHandler {
     /**
      * Constructeur pour initialiser ContexteStateEventHandler.
-     * @param {ContextStateManager} stateManager - Instance de ContextStateManager.
+     * @param {ContextStateService} stateManager - Instance de ContextStateService.
      * @param {String} targetClass - La classe CSS cible pour appliquer les modifications.
      */
-    constructor(contextState, targetClass = 'context-state') {
-        this.stateManager = new ContextStateManager(contextState) ; // Instance de ContextStateManager.
+    constructor(config, targetClass = 'context-state') {
+        this.config = config;
+        this.contextStateService = this.config.contextStateService; // Instance de ContextStateService.
         this.targetClass = targetClass; // Classe CSS cible.
     }
 
@@ -15,9 +18,9 @@ export class ContexteStateEventHandler {
      * Ajoute les variables du contexte aux liens ayant la classe cible.
      */
     updateLinks() {
-        const contextParams = this.stateManager.getContextParams();
+        const contextParams = this.contextStateService.getContextParams();
 
-        document.querySelectorAll(`a.${this.targetClass}`).forEach(link => {
+        document.querySelectorAll(`${this.config.crudSelector} a.${this.targetClass}`).forEach(link => {
             const url = new URL(link.href, window.location.origin);
 
             contextParams.split('&').forEach(param => {
@@ -41,7 +44,7 @@ export class ContexteStateEventHandler {
      * @returns {Promise<Response>} - La réponse de la requête.
      */
     fetchWithContext(url, options = {}) {
-        const contextParams = this.stateManager.getContextParams();
+        const contextParams = this.contextStateService.getContextParams();
         const separator = url.includes('?') ? '&' : '?';
         const fullUrl = `${url}${separator}${contextParams}`;
         return fetch(fullUrl, options)

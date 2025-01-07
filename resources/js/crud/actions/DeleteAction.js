@@ -20,7 +20,7 @@ export class DeleteAction extends Action {
         let deleteUrl = this.getUrlWithId(this.config.deleteUrl, id); // Générer l'URL dynamique
         deleteUrl = this.appendParamsToUrl(
             deleteUrl,
-            this.contextManager.getContextParams()
+            this.contextService.getContextParams()
         );
 
         // Confirmer l'action avant de procéder

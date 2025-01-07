@@ -1,10 +1,14 @@
+import { ContextStateService } from './../components/ContextStateService';
+
 export class ConfigHelper {
+
     /**
      * Constructeur de la classe ConfigHelper.
      * @param {Object} config - Configuration des opérations CRUD.
      */
-    constructor(config) {
+    constructor(config, contextState) {
 
+        this.contextStateService = new ContextStateService(contextState);
         
         this.edit_has_many = config.edit_has_many; // permet d'éditer l'entity avec ses objet has many
         this.crudSelector = config.crudSelector;

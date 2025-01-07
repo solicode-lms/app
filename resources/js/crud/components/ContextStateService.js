@@ -1,12 +1,16 @@
-export class ContextStateManager {
+export class ContextStateService {
     /**
-     * Constructeur pour initialiser ContextStateManager.
+     * Constructeur pour initialiser ContextStateService.
      * @param {Object} initialState - L'état initial du contexte.
      * @param {String} prefix - Préfixe pour les paramètres.
      */
-    constructor(initialState = {}, prefix = 'context_') {
-        this.contextState = initialState;
+    constructor(contextState = {}, prefix = 'context_') {
+        this.contextState = contextState;
         this.prefix = prefix; // Préfixe pour les paramètres.
+    }
+
+    getVariables(){
+        return this.contextState.variables;
     }
 
     /**
@@ -23,28 +27,19 @@ export class ContextStateManager {
      */
     getContextParams() {
         const prefixedContext = {};
-        Object.entries(this.contextState).forEach(([key, value]) => {
+        Object.entries(this.contextState.variables).forEach(([key, value]) => {
             prefixedContext[`${this.prefix}${key}`] = value;
         });
         return new URLSearchParams(prefixedContext).toString();
     }
 
-    /**
-     * Récupérer le contexte d'état brut.
-     * @returns {Object} - L'état brut du contexte.
-     */
-    getRawContext() {
-        return this.contextState;
-    }
 
-
-    
        /**
      * Ajoute le contexte à l'objet config, y compris dans les URLs, et le retourne.
      * @param {Object} config - L'objet de configuration à modifier.
      * @returns {Object} - L'objet de configuration avec les paramètres de contexte ajoutés.
      */
-       addContextToConfig(config) {
+    addContextToConfig(config) {
         // Clone l'objet de configuration pour éviter les modifications directes
         const updatedConfig = config ;
 

@@ -18,7 +18,7 @@ export class EditAction extends Action {
         let editUrl = this.getUrlWithId(this.config.editUrl, id); // Générer l'URL dynamique
         editUrl = this.appendParamsToUrl(
             editUrl,
-            this.contextManager.getContextParams()
+            this.contextService.getContextParams()
         );
 
         // Afficher le chargement dans le modal

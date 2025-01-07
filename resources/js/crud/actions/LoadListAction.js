@@ -11,7 +11,7 @@ export class LoadListAction extends BaseAction {
         super(config);
         this.indexUrl = this.appendParamsToUrl(
             config.indexUrl,
-            this.contextManager.getContextParams()
+            this.contextService.getContextParams()
         );
     }
 
