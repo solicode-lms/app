@@ -4,6 +4,9 @@
 			"path": "./modules"
 		},
 		{
+			"path": "../docs"
+		},
+		{
 			"path": "../db_schemas/"
 		},
 		{
