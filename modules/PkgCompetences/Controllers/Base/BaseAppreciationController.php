@@ -1,6 +1,7 @@
 <?php
 // Ce fichier est maintenu par ESSARRAJ Fouad
 
+
 namespace Modules\PkgCompetences\Controllers\Base;
 
 use Modules\Core\Controllers\Base\AdminController;
@@ -9,12 +10,10 @@ use Modules\PkgCompetences\Services\AppreciationService;
 use Modules\PkgUtilisateurs\Services\FormateurService;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgCompetences\App\Exports\AppreciationExport;
 use Modules\PkgCompetences\App\Imports\AppreciationImport;
 use Modules\Core\Services\ContextState;
-use Modules\PkgCompetences\Models\Appreciation;
 
 class BaseAppreciationController extends AdminController
 {
@@ -27,16 +26,11 @@ class BaseAppreciationController extends AdminController
         $this->appreciationService = $appreciationService;
         $this->formateurService = $formateurService;
 
-
-    
-     
-
     }
 
 
     public function index(Request $request)
     {
- 
         // Extraire les paramètres de recherche, page, et filtres
         $appreciations_params = array_merge(
             $request->only(['page','sort']),
@@ -123,6 +117,7 @@ class BaseAppreciationController extends AdminController
      */
     public function edit(string $id)
     {
+
         $itemAppreciation = $this->appreciationService->find($id);
         $formateurs = $this->formateurService->all();
 
@@ -142,12 +137,13 @@ class BaseAppreciationController extends AdminController
      */
     public function update(AppreciationRequest $request, string $id)
     {
-        // Vérifie si l'utilisateur peut mettre à jour l'objet
-        $appreciation = Appreciation::findOrFail($id);
+        // Vérifie si l'utilisateur peut mettre à jour l'objet 
+        $appreciation = $this->appreciationService->find($id);
         $this->authorize('update', $appreciation);
 
         $validatedData = $request->validated();
         $appreciation = $this->appreciationService->update($id, $validatedData);
+
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
@@ -171,9 +167,8 @@ class BaseAppreciationController extends AdminController
      */
     public function destroy(Request $request, string $id)
     {
-
-        // Vérifie si l'utilisateur peut supprimer l'objet
-        $appreciation = Appreciation::findOrFail($id);
+        // Vérifie si l'utilisateur peut mettre à jour l'objet 
+        $appreciation = $this->appreciationService->find($id);
         $this->authorize('delete', $appreciation);
 
         $appreciation = $this->appreciationService->destroy($id);
