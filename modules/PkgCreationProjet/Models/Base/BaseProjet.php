@@ -22,11 +22,11 @@ use Modules\PkgUtilisateurs\Models\Formateur;
  */
 class BaseProjet extends BaseModel
 {
-    use HasFactory, HasDynamicContext;
+    use HasFactory, HasDynamicContext, OwnedByUser;
 
     public function __construct() {
         parent::__construct(); 
-        $this->isOwnedByUser =  false;
+        $this->isOwnedByUser =  true;
     }
 
     /**
