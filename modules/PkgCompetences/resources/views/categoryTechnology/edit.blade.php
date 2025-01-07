@@ -14,6 +14,7 @@
         crudSelector: '#card-tab-categoryTechnology', 
         formSelector: '#categoryTechnologyForm',
         editUrl: '{{ route('categoryTechnologies.edit',  ['categoryTechnology' => ':id']) }}',
+        indexUrl: '{{ route('categoryTechnologies.index') }}',
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         edit_title: '{{__("Core::msg.add") . " : " . __("PkgCompetences::categoryTechnology.singular") }}',
     });
