@@ -21,7 +21,7 @@ class GenericPolicy
             return $owner && $owner->id === $user->id;
         }
 
-        return false;
+        return true;
     }
 
     /**
@@ -39,7 +39,7 @@ class GenericPolicy
             return $owner && $owner->id === $user->id;
         }
 
-        return false;
+        return true;
     }
 
     /**

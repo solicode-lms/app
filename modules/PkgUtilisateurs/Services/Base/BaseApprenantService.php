@@ -104,12 +104,7 @@ class BaseApprenantService extends BaseService
 
         $stats = [];
 
-        // Ajouter les statistiques du propriétaire
-        $contexteState = $this->getContextState();
-        if ($contexteState !== null) {
-            $stats[] = $contexteState;
-        }
-
+        
             $relationStatGroupe = parent::getStatsByRelation(
                 \Modules\PkgUtilisateurs\Models\Groupe::class,
                 'apprenants',
@@ -120,14 +115,4 @@ class BaseApprenantService extends BaseService
         return $stats;
     }
 
-    public function getContextState()
-    {
-        if(!$this->contextState->isContextStateEnable()) return null; 
-        $value = $this->contextState->getTitle();
-        return [
-                "icon" => "fas fa-filter",
-                "label" => "Filtre",
-                "value" =>  $value
-        ];
-    }
 }

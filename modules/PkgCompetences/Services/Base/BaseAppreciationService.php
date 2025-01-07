@@ -84,7 +84,7 @@ class BaseAppreciationService extends BaseService
         if ($contexteState !== null) {
             $stats[] = $contexteState;
         }
-
+        
 
         return $stats;
     }
