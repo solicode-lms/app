@@ -20,9 +20,22 @@ class DatabaseSeeder extends Seeder
 
         $allSeeders = collect();
 
+        // Chemin vers le fichier de configuration JSON.
+        $configFilePath = $baseModulePath . '/modules.json';
+        $config = json_decode(file_get_contents($configFilePath), true);
+
+                
         foreach ($modules as $modulePath) {
             // Récupérer le namespace du module
             $moduleNamespace = $this->getModuleNamespace($modulePath);
+
+            $moduleName = basename($modulePath);
+            // Vérifier si le module est désactivé dans la configuration.
+            if (isset($config[$moduleName]['active']) && !$config[$moduleName]['active']) {
+                echo "\033[33mModule désactivé : {$moduleName}\033[0m\n"; // Texte en jaune
+                continue;
+            }
+          
 
             // Déterminer le dossier des seeders pour ce module
             $moduleSeederDir = $modulePath . '/Database/Seeders';
