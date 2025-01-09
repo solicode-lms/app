@@ -30,7 +30,6 @@ class BaseMetadataTypeExport implements FromCollection, WithHeadings, ShouldAuto
             'type',
             'scope',
             'description',
-            'is_required',
             'default_value',
             'validation_rules',
         ];
@@ -45,7 +44,6 @@ class BaseMetadataTypeExport implements FromCollection, WithHeadings, ShouldAuto
                 'type' => $metadataType->type,
                 'scope' => $metadataType->scope,
                 'description' => $metadataType->description,
-                'is_required' => $metadataType->is_required,
                 'default_value' => $metadataType->default_value,
                 'validation_rules' => $metadataType->validation_rules,
             ];

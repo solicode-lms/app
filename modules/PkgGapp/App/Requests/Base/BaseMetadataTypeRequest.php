@@ -22,7 +22,6 @@ class BaseMetadataTypeRequest extends FormRequest
             'type' => 'required|max:255',
             'scope' => 'required|max:255',
             'description' => 'nullable|max:255',
-            'is_required' => 'required',
             'default_value' => 'nullable|max:255',
             'validation_rules' => 'nullable'
         ];
@@ -41,8 +40,6 @@ class BaseMetadataTypeRequest extends FormRequest
             'scope.max' => __('validation.scopeMax'),
             'description.required' => __('validation.required', ['attribute' => __('PkgGapp::MetadataType.description')]),
             'description.max' => __('validation.descriptionMax'),
-            'is_required.required' => __('validation.required', ['attribute' => __('PkgGapp::MetadataType.is_required')]),
-            'is_required.max' => __('validation.is_requiredMax'),
             'default_value.required' => __('validation.required', ['attribute' => __('PkgGapp::MetadataType.default_value')]),
             'default_value.max' => __('validation.default_valueMax'),
             'validation_rules.required' => __('validation.required', ['attribute' => __('PkgGapp::MetadataType.validation_rules')]),

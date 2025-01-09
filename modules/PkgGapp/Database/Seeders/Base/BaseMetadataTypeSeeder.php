@@ -51,9 +51,8 @@ class BaseMetadataTypeSeeder extends Seeder
                     "type" => $data[2] ,
                     "scope" => $data[3] ,
                     "description" => $data[4] ,
-                    "is_required" => $data[5] ,
-                    "default_value" => $data[6] ,
-                    "validation_rules" => $data[7] 
+                    "default_value" => $data[5] ,
+                    "validation_rules" => $data[6] 
                 ]);
             }
             $firstline = false;

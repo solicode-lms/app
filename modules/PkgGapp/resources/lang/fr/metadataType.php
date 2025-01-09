@@ -10,7 +10,6 @@ return [
     'type' => 'type',
     'scope' => 'scope',
     'description' => 'description',
-    'is_required' => 'is_required',
     'default_value' => 'default_value',
     'validation_rules' => 'validation_rules',
 ];

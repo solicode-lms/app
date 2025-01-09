@@ -24,7 +24,6 @@ class BaseMetadataTypeService extends BaseService
         'type',
         'scope',
         'description',
-        'is_required',
         'default_value',
         'validation_rules'
     ];

@@ -45,10 +45,6 @@
                                 <p>{{ $itemMetadataType->description }}</p>
                             </div>
                             <div class="col-sm-12">
-                                <label for="is_required">{{ ucfirst(__('PkgGapp::metadataType.is_required')) }}:</label>
-                                <p>{{ $itemMetadataType->is_required }}</p>
-                            </div>
-                            <div class="col-sm-12">
                                 <label for="default_value">{{ ucfirst(__('PkgGapp::metadataType.default_value')) }}:</label>
                                 <p>{{ $itemMetadataType->default_value }}</p>
                             </div>

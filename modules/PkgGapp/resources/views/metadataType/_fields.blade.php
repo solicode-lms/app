@@ -107,8 +107,6 @@
             @enderror
 </div>
 
-        
-
         <div class="form-group">
             <label for="default_value">
                 {{ ucfirst(__('PkgGapp::metadataType.default_value')) }}
@@ -144,6 +142,9 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
+
+
+        <!--   Metadatum_HasMany HasMany --> 
 
     </div>
 

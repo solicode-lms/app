@@ -43,7 +43,6 @@ class BaseMetadataTypeImport implements ToModel, WithHeadingRow
             'type' => $row['type'],
             'scope' => $row['scope'],
             'description' => $row['description'],
-            'is_required' => $row['is_required'],
             'default_value' => $row['default_value'],
             'validation_rules' => $row['validation_rules'],
         ]);

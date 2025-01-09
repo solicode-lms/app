@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
+use Modules\PkgGapp\Models\Metadatum;
 
 /**
  * Classe BaseMetadataType
@@ -31,11 +32,20 @@ class BaseMetadataType extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'name', 'code', 'type', 'scope', 'description', 'is_required', 'default_value', 'validation_rules'
+        'name', 'code', 'type', 'scope', 'description', 'default_value', 'validation_rules'
     ];
 
 
 
+    /**
+     * Relation HasMany pour Metadata.
+     *
+     * @return HasMany
+     */
+    public function metadata(): HasMany
+    {
+        return $this->hasMany(Metadatum::class, 'metadata_type_id', 'id');
+    }
 
     /**
      * Méthode __toString pour représenter le modèle sous forme de chaîne.
