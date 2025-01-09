@@ -44,7 +44,7 @@ class BaseNatureLivrable extends BaseModel
      */
     public function livrables(): HasMany
     {
-        return $this->hasMany(Livrable::class, 'natureLivrable_id', 'id');
+        return $this->hasMany(Livrable::class, 'nature_livrable_id', 'id');
     }
 
     /**

@@ -133,6 +133,9 @@
         </div>
 
 
+
+        <!--   Formateur_HasMany HasMany --> 
+
     </div>
 
     <div class="card-footer">

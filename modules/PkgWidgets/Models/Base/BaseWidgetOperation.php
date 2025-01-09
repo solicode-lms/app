@@ -44,7 +44,7 @@ class BaseWidgetOperation extends BaseModel
      */
     public function widgets(): HasMany
     {
-        return $this->hasMany(Widget::class, 'widgetOperation_id', 'id');
+        return $this->hasMany(Widget::class, 'widget_operation_id', 'id');
     }
 
     /**

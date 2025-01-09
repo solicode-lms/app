@@ -54,7 +54,7 @@ class BaseSysController extends BaseModel
      */
     public function permissions(): HasMany
     {
-        return $this->hasMany(Permission::class, 'sysController_id', 'id');
+        return $this->hasMany(Permission::class, 'sys_controller_id', 'id');
     }
 
     /**

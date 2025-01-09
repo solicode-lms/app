@@ -44,7 +44,7 @@ class BaseWidgetType extends BaseModel
      */
     public function widgets(): HasMany
     {
-        return $this->hasMany(Widget::class, 'widgetType_id', 'id');
+        return $this->hasMany(Widget::class, 'widget_type_id', 'id');
     }
 
     /**

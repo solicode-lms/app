@@ -12,6 +12,7 @@ use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
 use Modules\PkgAutorisation\Models\Role;
+use Modules\PkgUtilisateurs\Models\Formateur;
 
 /**
  * Classe BaseUser
@@ -46,6 +47,15 @@ class BaseUser extends BaseModel
         return $this->belongsToMany(Role::class, 'model_has_roles');
     }
 
+    /**
+     * Relation HasMany pour Formateurs.
+     *
+     * @return HasMany
+     */
+    public function formateurs(): HasMany
+    {
+        return $this->hasMany(Formateur::class, 'user_id', 'id');
+    }
 
     /**
      * Méthode __toString pour représenter le modèle sous forme de chaîne.

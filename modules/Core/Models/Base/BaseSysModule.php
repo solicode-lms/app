@@ -56,7 +56,7 @@ class BaseSysModule extends BaseModel
      */
     public function featureDomains(): HasMany
     {
-        return $this->hasMany(FeatureDomain::class, 'sysModule_id', 'id');
+        return $this->hasMany(FeatureDomain::class, 'sys_module_id', 'id');
     }
     /**
      * Relation HasMany pour SysControllers.
@@ -65,7 +65,7 @@ class BaseSysModule extends BaseModel
      */
     public function sysControllers(): HasMany
     {
-        return $this->hasMany(SysController::class, 'sysModule_id', 'id');
+        return $this->hasMany(SysController::class, 'sys_module_id', 'id');
     }
     /**
      * Relation HasMany pour SysModels.
@@ -74,7 +74,7 @@ class BaseSysModule extends BaseModel
      */
     public function sysModels(): HasMany
     {
-        return $this->hasMany(SysModel::class, 'sysModule_id', 'id');
+        return $this->hasMany(SysModel::class, 'sys_module_id', 'id');
     }
 
     /**
