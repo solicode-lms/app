@@ -20,7 +20,6 @@ return new class extends Migration
             $table->string('type'); // Stocke le type comme une chaîne
             $table->string('scope'); // Stocke la portée comme une chaîne
             $table->string('description')->nullable(); // Description facultative
-            $table->boolean('is_required')->default(false); // Indique si la métadonnée est obligatoire
             $table->string('default_value')->nullable(); // Valeur par défaut
             $table->text('validation_rules')->nullable(); // Règles de validation
         });

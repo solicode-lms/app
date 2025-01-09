@@ -13,9 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('data_models', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::create('field_types', function (Blueprint $table) {
+            $table->id(); // Clé primaire auto-incrémentée
+            $table->string('name'); // Nom du type de champ
+            $table->text('description')->nullable(); // Description facultative
+            $table->timestamps(); // Colonnes created_at et updated_at
         });
     }
 
@@ -26,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('data_models');
+        Schema::dropIfExists('field_types');
     }
 };
