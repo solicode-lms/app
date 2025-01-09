@@ -1,7 +1,7 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 
-@accessiblePermissions([])
+@accessiblePermissions(['show-metadataType'])
 @if($accessiblePermissions->isNotEmpty())
 <li class="nav-item has-treeview {{ Request::is('admin/PkgGapp*') ? 'menu-open' : '' }}">
     <a href="#" class="nav-link nav-link {{ Request::is('admin/PkgGapp*') ? 'active' : '' }}">
@@ -12,6 +12,14 @@
         </p>
     </a>
     <ul class="nav nav-treeview">
+        @can('show-metadataType') 
+        <li class="nav-item">
+            <a href="{{ route('metadataTypes.index') }}" class="nav-link {{ Request::is('admin/PkgGapp/metadataTypes') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-table"></i>
+                {{__('PkgGapp::MetadataType.plural')}}
+            </a>
+        </li>
+        @endcan
     </ul>
 </li>
 @endif

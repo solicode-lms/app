@@ -121,13 +121,10 @@
 
 /* Rédsuction  */
 
+
 .full-screen-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
     width: 100% !important; /* Assure que le modal occupe toute la largeur */
     max-width:55% !important; /* Supprime toute limite de largeur */
-    height: 100% !important; /* Prend toute la hauteur */
     margin : 0;
     margin-left: 250px; /* Supprime les marges */
     padding: 0; /* Supprime les paddings */
@@ -143,4 +140,3 @@
             flex: 1; /* Permet au contenu du corps de prendre l'espace disponible */
             overflow-y: auto; /* Ajoute un défilement si le contenu dépasse */
         }
-

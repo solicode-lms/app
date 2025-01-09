@@ -5,3 +5,4 @@ PkgUtilisateurs,PkgUtilisateurs,Contient les tables liées aux utilisateurs et l
 PkgCompetences,PkgCompetences,Contient les tables liées aux compétences et technologies,1,4,1.0,4
 PkgWidgets,PkgWidgets,Contient les tables liées aux widgets,1,5,1.0,5
 PkgCreationProjet,PkgCreationProjet,Contient les tables liées aux création des projets,1,6,1.0,6
+PkgGapp,PkgGapp,Contient les tables liées aux création des PkgGapp,1,7,1.0,6
