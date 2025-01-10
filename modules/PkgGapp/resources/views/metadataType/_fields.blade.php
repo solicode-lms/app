@@ -94,7 +94,7 @@
                     value="{{ $case->value }}"
                     {{ old('scope', $itemMetadataType->scope ?? '') === $case->value ? 'selected' : '' }}>
                     {{ ucfirst($case->value) }} 
-                    {{ old('scope', $itemMetadataType->scope ?? 'non') === $case->value ? 'selected' : '' }}
+                    {{ old('scope', $itemMetadataType->scope ?? '') === $case->value ? 'selected' : 'non' }}
                 </option>
             @endforeach
         </select>
