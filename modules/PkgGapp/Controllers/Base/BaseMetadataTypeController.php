@@ -60,8 +60,8 @@ class BaseMetadataTypeController extends AdminController
 
         $itemMetadataType = $this->metadataTypeService->createInstance();
 
-        $metaDataValueTypeCases = MetaDataValueType::cases();
-        $metadataScopeCases = MetadataScope::cases();
+        $metaDataValueTypeCases = \Modules\PkgGapp\App\Enums\MetaDataValueType::cases();
+        $metadataScopeCases = \Modules\PkgGapp\App\Enums\MetadataScope::cases();
         
         if (request()->ajax()) {
             return view('PkgGapp::metadataType._fields', compact('itemMetadataType','metaDataValueTypeCases','metadataScopeCases'));
@@ -119,16 +119,19 @@ class BaseMetadataTypeController extends AdminController
     {
 
         $itemMetadataType = $this->metadataTypeService->find($id);
-
+       
+        $metaDataValueTypeCases = \Modules\PkgGapp\App\Enums\MetaDataValueType::cases();
+        $metadataScopeCases = \Modules\PkgGapp\App\Enums\MetadataScope::cases();
+        
         // Utilisé dans l'édition des relation HasMany
         $this->contextState->set('metadataType_id', $id);
 
 
         if (request()->ajax()) {
-            return view('PkgGapp::metadataType._fields', compact('itemMetadataType'));
+            return view('PkgGapp::metadataType._fields', compact('itemMetadataType','metaDataValueTypeCases','metadataScopeCases'));
         }
 
-        return view('PkgGapp::metadataType.edit', compact('itemMetadataType'));
+        return view('PkgGapp::metadataType.edit', compact('itemMetadataType','metaDataValueTypeCases','metadataScopeCases'));
     }
 
     /**

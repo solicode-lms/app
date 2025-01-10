@@ -82,6 +82,7 @@
                     <span class="text-danger">*</span>
                 
             </label>
+            {{$itemMetadataType->scope}}
             <select
             name="scope"
             id="scope"
@@ -92,7 +93,8 @@
                 <option 
                     value="{{ $case->value }}"
                     {{ old('scope', $itemMetadataType->scope ?? '') === $case->value ? 'selected' : '' }}>
-                    {{ ucfirst($case->value) }}
+                    {{ ucfirst($case->value) }} 
+                    {{ old('scope', $itemMetadataType->scope ?? 'non') === $case->value ? 'selected' : '' }}
                 </option>
             @endforeach
         </select>
