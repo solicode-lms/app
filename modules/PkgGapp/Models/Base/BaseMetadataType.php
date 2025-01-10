@@ -27,6 +27,16 @@ class BaseMetadataType extends BaseModel
     }
 
     /**
+    * Les castes des attributs pour le modèle.
+    *
+    * @var array
+    */
+    protected $casts = [
+        'type' => \Modules\PkgGapp\App\Enums\MetaDataValueType::class,
+        'scope' => \Modules\PkgGapp\App\Enums\MetadataScope::class,
+    ];
+    
+    /**
      * Les attributs remplissables pour le modèle.
      *
      * @var array
