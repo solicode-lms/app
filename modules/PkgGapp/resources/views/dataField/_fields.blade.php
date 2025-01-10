@@ -41,7 +41,7 @@
             id="i_model_id" 
             required
             name="i_model_id" 
-            class="form-control">
+            class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($iModels as $iModel)
                     <option value="{{ $iModel->id }}"
@@ -68,7 +68,7 @@
             id="field_type_id" 
             required
             name="field_type_id" 
-            class="form-control">
+            class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($fieldTypes as $fieldType)
                     <option value="{{ $fieldType->id }}"

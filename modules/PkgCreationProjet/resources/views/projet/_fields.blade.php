@@ -147,7 +147,7 @@
             id="formateur_id" 
             required
             name="formateur_id" 
-            class="form-control">
+            class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($formateurs as $formateur)
                     <option value="{{ $formateur->id }}"

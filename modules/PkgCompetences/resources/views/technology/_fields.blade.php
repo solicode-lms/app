@@ -59,7 +59,7 @@
             id="category_technology_id" 
             required
             name="category_technology_id" 
-            class="form-control">
+            class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($categoryTechnologies as $categoryTechnology)
                     <option value="{{ $categoryTechnology->id }}"

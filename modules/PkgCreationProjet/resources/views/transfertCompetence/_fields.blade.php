@@ -39,7 +39,7 @@
             id="projet_id" 
             required
             name="projet_id" 
-            class="form-control">
+            class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($projets as $projet)
                     <option value="{{ $projet->id }}"
@@ -66,7 +66,7 @@
             id="competence_id" 
             required
             name="competence_id" 
-            class="form-control">
+            class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($competences as $competence)
                     <option value="{{ $competence->id }}"
@@ -93,7 +93,7 @@
             id="appreciation_id" 
             required
             name="appreciation_id" 
-            class="form-control">
+            class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($appreciations as $appreciation)
                     <option value="{{ $appreciation->id }}"

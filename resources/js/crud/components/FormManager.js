@@ -25,9 +25,10 @@ export class FormManager {
         this.loader.init();
         this.hideSelectsById();
         this.addContextStateToForm()
-        FormManager.initializeSelect2();
+        this.initializeSelect2_in_modal();
         FormManager.initializeRichText();
         FormManager.initializeDate();
+      
         
 
     }
@@ -266,10 +267,26 @@ export class FormManager {
 
 
 
+    initializeSelect2_in_modal() {
+        
+        // Initialise les éléments Select2
+        $(`${this.formSelector} .select2`).select2({
+            allowClear : true,
+            dropdownParent: this.config.modalSelector
+        });
+
+        // Initialise les éléments Select2 avec thème Bootstrap 4
+        $(`.select2bs4`).select2({
+            theme: 'bootstrap4',
+        });
+    }
 
     static initializeSelect2() {
         // Initialise les éléments Select2
-        $(`.select2`).select2();
+        $(`.select2`).select2({
+            allowClear : true,
+            dropdownParent: $('#livrableModal')
+        });
 
         // Initialise les éléments Select2 avec thème Bootstrap 4
         $(`.select2bs4`).select2({

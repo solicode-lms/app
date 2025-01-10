@@ -68,7 +68,7 @@
             id="metadata_type_id" 
             required
             name="metadata_type_id" 
-            class="form-control">
+            class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($metadataTypes as $metadataType)
                     <option value="{{ $metadataType->id }}"

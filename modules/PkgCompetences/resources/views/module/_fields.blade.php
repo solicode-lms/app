@@ -79,7 +79,7 @@
             id="filiere_id" 
             required
             name="filiere_id" 
-            class="form-control">
+            class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($filieres as $filiere)
                     <option value="{{ $filiere->id }}"

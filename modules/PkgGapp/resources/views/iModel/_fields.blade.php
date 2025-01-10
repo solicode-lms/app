@@ -77,7 +77,7 @@
             id="i_package_id" 
             required
             name="i_package_id" 
-            class="form-control">
+            class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($iPackages as $iPackage)
                     <option value="{{ $iPackage->id }}"

@@ -19,11 +19,10 @@ class BaseRelationshipController extends AdminController
     protected $relationshipService;
     protected $iModelService;
 
-    public function __construct(RelationshipService $relationshipService, IModelService $iModelService, IModelService $iModelService)
+    public function __construct(RelationshipService $relationshipService, IModelService $iModelService)
     {
         parent::__construct();
         $this->relationshipService = $relationshipService;
-        $this->iModelService = $iModelService;
         $this->iModelService = $iModelService;
 
     }

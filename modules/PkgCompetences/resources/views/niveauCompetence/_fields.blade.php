@@ -59,7 +59,7 @@
             id="competence_id" 
             required
             name="competence_id" 
-            class="form-control">
+            class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($competences as $competence)
                     <option value="{{ $competence->id }}"

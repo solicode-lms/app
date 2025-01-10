@@ -59,7 +59,7 @@
             id="controller_id" 
             
             name="controller_id" 
-            class="form-control">
+            class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($sysControllers as $sysController)
                     <option value="{{ $sysController->id }}"

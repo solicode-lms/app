@@ -79,7 +79,7 @@
             id="module_id" 
             required
             name="module_id" 
-            class="form-control">
+            class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($modules as $module)
                     <option value="{{ $module->id }}"

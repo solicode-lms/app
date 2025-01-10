@@ -79,7 +79,7 @@
             id="module_id" 
             required
             name="module_id" 
-            class="form-control">
+            class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($sysModules as $sysModule)
                     <option value="{{ $sysModule->id }}"
@@ -106,7 +106,7 @@
             id="color_id" 
             required
             name="color_id" 
-            class="form-control">
+            class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($sysColors as $sysColor)
                     <option value="{{ $sysColor->id }}"

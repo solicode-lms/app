@@ -41,7 +41,7 @@
             id="type_id" 
             required
             name="type_id" 
-            class="form-control">
+            class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($widgetTypes as $widgetType)
                     <option value="{{ $widgetType->id }}"
@@ -68,7 +68,7 @@
             id="model_id" 
             required
             name="model_id" 
-            class="form-control">
+            class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($sysModels as $sysModel)
                     <option value="{{ $sysModel->id }}"
@@ -95,7 +95,7 @@
             id="operation_id" 
             required
             name="operation_id" 
-            class="form-control">
+            class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($widgetOperations as $widgetOperation)
                     <option value="{{ $widgetOperation->id }}"

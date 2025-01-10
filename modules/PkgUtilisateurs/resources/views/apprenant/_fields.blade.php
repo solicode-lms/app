@@ -295,7 +295,7 @@
             id="groupe_id" 
             
             name="groupe_id" 
-            class="form-control">
+            class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($groupes as $groupe)
                     <option value="{{ $groupe->id }}"
@@ -320,7 +320,7 @@
             id="niveaux_scolaire_id" 
             
             name="niveaux_scolaire_id" 
-            class="form-control">
+            class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($niveauxScolaires as $niveauxScolaire)
                     <option value="{{ $niveauxScolaire->id }}"
@@ -345,7 +345,7 @@
             id="nationalite_id" 
             
             name="nationalite_id" 
-            class="form-control">
+            class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($nationalites as $nationalite)
                     <option value="{{ $nationalite->id }}"

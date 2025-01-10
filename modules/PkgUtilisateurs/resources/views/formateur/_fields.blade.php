@@ -199,7 +199,7 @@
             id="user_id" 
             
             name="user_id" 
-            class="form-control">
+            class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($users as $user)
                     <option value="{{ $user->id }}"

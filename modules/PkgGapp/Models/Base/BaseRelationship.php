@@ -1,5 +1,4 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 namespace Modules\PkgGapp\Models\Base;
@@ -35,15 +34,6 @@ class BaseRelationship extends BaseModel
         'source_model_id', 'target_model_id', 'type', 'source_field', 'target_field', 'cascade_on_delete', 'description'
     ];
 
-    /**
-     * Relation BelongsTo pour IModel.
-     *
-     * @return BelongsTo
-     */
-    public function iModel(): BelongsTo
-    {
-        return $this->belongsTo(IModel::class, 'source_model_id', 'id');
-    }
     /**
      * Relation BelongsTo pour IModel.
      *

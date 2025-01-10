@@ -59,7 +59,7 @@
             id="domain_id" 
             required
             name="domain_id" 
-            class="form-control">
+            class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($featureDomains as $featureDomain)
                     <option value="{{ $featureDomain->id }}"
