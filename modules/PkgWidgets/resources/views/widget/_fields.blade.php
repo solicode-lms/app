@@ -9,6 +9,7 @@
     @endif
 
     <div class="card-body">
+        
         <div class="form-group">
             <label for="name">
                 {{ ucfirst(__('PkgWidgets::widget.name')) }}
@@ -29,6 +30,7 @@
             @enderror
 </div>
 
+        
         
     <div class="form-group">
             <label for="type_id">
@@ -57,6 +59,7 @@
 
 
         
+        
     <div class="form-group">
             <label for="model_id">
                 {{ ucfirst(__('Core::sysModel.singular')) }}
@@ -84,6 +87,7 @@
 
 
         
+        
     <div class="form-group">
             <label for="operation_id">
                 {{ ucfirst(__('PkgWidgets::widgetOperation.singular')) }}
@@ -110,6 +114,7 @@
     </div>
 
 
+        
         <div class="form-group">
             <label for="color">
                 {{ ucfirst(__('PkgWidgets::widget.color')) }}
@@ -128,6 +133,7 @@
             @enderror
 </div>
 
+        
         <div class="form-group">
             <label for="icon">
                 {{ ucfirst(__('PkgWidgets::widget.icon')) }}
@@ -146,6 +152,7 @@
             @enderror
 </div>
 
+        
         <div class="form-group">
             <label for="label">
                 {{ ucfirst(__('PkgWidgets::widget.label')) }}
@@ -164,6 +171,7 @@
             @enderror
 </div>
 
+        
 
         <!--   parameters JSON --> 
 

@@ -9,6 +9,7 @@
     @endif
 
     <div class="card-body">
+        
         <div class="form-group">
             <label for="code">
                 {{ ucfirst(__('PkgCompetences::competence.code')) }}
@@ -29,6 +30,7 @@
             @enderror
 </div>
 
+        
         <div class="form-group">
             <label for="nom">
                 {{ ucfirst(__('PkgCompetences::competence.nom')) }}
@@ -49,6 +51,7 @@
             @enderror
 </div>
 
+        
         <div class="form-group">
             <label for="description">
                 {{ ucfirst(__('PkgCompetences::competence.description')) }}
@@ -67,6 +70,7 @@
             @enderror
 </div>
 
+        
         
     <div class="form-group">
             <label for="module_id">
@@ -94,6 +98,7 @@
     </div>
 
 
+        
                 <div class="form-group">
             <label for="technologies">
                 {{ ucfirst(__('PkgCompetences::Technology.plural')) }}
@@ -118,9 +123,11 @@
         </div>
 
 
+        
 
         <!--   NiveauCompetence_HasMany HasMany --> 
 
+        
 
         <!--   TransfertCompetence_HasMany HasMany --> 
 

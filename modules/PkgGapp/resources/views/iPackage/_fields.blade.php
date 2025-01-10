@@ -9,6 +9,7 @@
     @endif
 
     <div class="card-body">
+        
         <div class="form-group">
             <label for="name">
                 {{ ucfirst(__('PkgGapp::iPackage.name')) }}
@@ -29,6 +30,7 @@
             @enderror
 </div>
 
+        
         <div class="form-group">
             <label for="description">
                 {{ ucfirst(__('PkgGapp::iPackage.description')) }}
@@ -47,6 +49,7 @@
             @enderror
 </div>
 
+        
 
         <!--   IModel_HasMany HasMany --> 
 

@@ -9,6 +9,7 @@
     @endif
 
     <div class="card-body">
+        
         <div class="form-group">
             <label for="matricule">
                 {{ ucfirst(__('PkgUtilisateurs::formateur.matricule')) }}
@@ -29,6 +30,7 @@
             @enderror
 </div>
 
+        
         <div class="form-group">
             <label for="nom">
                 {{ ucfirst(__('PkgUtilisateurs::formateur.nom')) }}
@@ -49,6 +51,7 @@
             @enderror
 </div>
 
+        
         <div class="form-group">
             <label for="prenom">
                 {{ ucfirst(__('PkgUtilisateurs::formateur.prenom')) }}
@@ -69,6 +72,7 @@
             @enderror
 </div>
 
+        
         <div class="form-group">
             <label for="prenom_arab">
                 {{ ucfirst(__('PkgUtilisateurs::formateur.prenom_arab')) }}
@@ -89,6 +93,7 @@
             @enderror
 </div>
 
+        
         <div class="form-group">
             <label for="nom_arab">
                 {{ ucfirst(__('PkgUtilisateurs::formateur.nom_arab')) }}
@@ -109,6 +114,7 @@
             @enderror
 </div>
 
+        
         <div class="form-group">
             <label for="tele_num">
                 {{ ucfirst(__('PkgUtilisateurs::formateur.tele_num')) }}
@@ -129,6 +135,7 @@
             @enderror
 </div>
 
+        
         <div class="form-group">
             <label for="adresse">
                 {{ ucfirst(__('PkgUtilisateurs::formateur.adresse')) }}
@@ -147,6 +154,7 @@
             @enderror
 </div>
 
+        
         <div class="form-group">
             <label for="diplome">
                 {{ ucfirst(__('PkgUtilisateurs::formateur.diplome')) }}
@@ -166,9 +174,12 @@
 </div>
 
         
-
         
 
+        
+        
+
+        
         <div class="form-group">
             <label for="profile_image">
                 {{ ucfirst(__('PkgUtilisateurs::formateur.profile_image')) }}
@@ -189,6 +200,7 @@
             @enderror
 </div>
 
+        
         
     <div class="form-group">
             <label for="user_id">
@@ -214,6 +226,7 @@
     </div>
 
 
+        
                 <div class="form-group">
             <label for="groupes">
                 {{ ucfirst(__('PkgUtilisateurs::Groupe.plural')) }}
@@ -238,6 +251,7 @@
         </div>
 
 
+        
                 <div class="form-group">
             <label for="specialites">
                 {{ ucfirst(__('PkgUtilisateurs::Specialite.plural')) }}
@@ -262,9 +276,11 @@
         </div>
 
 
+        
 
         <!--   Appreciation_HasMany HasMany --> 
 
+        
 
         <!--   Projet_HasMany HasMany --> 
 

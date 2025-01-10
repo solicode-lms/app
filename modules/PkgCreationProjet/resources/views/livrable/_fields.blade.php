@@ -9,6 +9,7 @@
     @endif
 
     <div class="card-body">
+        
         <div class="form-group">
             <label for="titre">
                 {{ ucfirst(__('PkgCreationProjet::livrable.titre')) }}
@@ -29,6 +30,7 @@
             @enderror
 </div>
 
+        
         
     <div class="form-group">
             <label for="nature_livrable_id">
@@ -57,6 +59,7 @@
 
 
         
+        
     <div class="form-group">
             <label for="projet_id">
                 {{ ucfirst(__('PkgCreationProjet::projet.singular')) }}
@@ -83,6 +86,7 @@
     </div>
 
 
+        
         <div class="form-group">
             <label for="description">
                 {{ ucfirst(__('PkgCreationProjet::livrable.description')) }}

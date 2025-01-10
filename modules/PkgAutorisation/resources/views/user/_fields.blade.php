@@ -9,6 +9,7 @@
     @endif
 
     <div class="card-body">
+        
         <div class="form-group">
             <label for="name">
                 {{ ucfirst(__('PkgAutorisation::user.name')) }}
@@ -29,6 +30,7 @@
             @enderror
 </div>
 
+        
         <div class="form-group">
             <label for="email">
                 {{ ucfirst(__('PkgAutorisation::user.email')) }}
@@ -49,6 +51,7 @@
             @enderror
 </div>
 
+        
         <div class="form-group">
             <label for="email_verified_at">
                 {{ ucfirst(__('PkgAutorisation::user.email_verified_at')) }}
@@ -71,6 +74,7 @@
 
 
 
+        
         <div class="form-group">
             <label for="password">
                 {{ ucfirst(__('PkgAutorisation::user.password')) }}
@@ -91,6 +95,7 @@
             @enderror
 </div>
 
+        
         <div class="form-group">
             <label for="remember_token">
                 {{ ucfirst(__('PkgAutorisation::user.remember_token')) }}
@@ -109,6 +114,7 @@
             @enderror
 </div>
 
+        
                 <div class="form-group">
             <label for="roles">
                 {{ ucfirst(__('PkgAutorisation::Role.plural')) }}
@@ -133,6 +139,7 @@
         </div>
 
 
+        
 
         <!--   Formateur_HasMany HasMany --> 
 

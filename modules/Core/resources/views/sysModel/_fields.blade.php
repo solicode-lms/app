@@ -9,6 +9,7 @@
     @endif
 
     <div class="card-body">
+        
         <div class="form-group">
             <label for="name">
                 {{ ucfirst(__('Core::sysModel.name')) }}
@@ -29,6 +30,7 @@
             @enderror
 </div>
 
+        
         <div class="form-group">
             <label for="model">
                 {{ ucfirst(__('Core::sysModel.model')) }}
@@ -49,6 +51,7 @@
             @enderror
 </div>
 
+        
         <div class="form-group">
             <label for="description">
                 {{ ucfirst(__('Core::sysModel.description')) }}
@@ -67,6 +70,7 @@
             @enderror
 </div>
 
+        
         
     <div class="form-group">
             <label for="module_id">
@@ -95,6 +99,7 @@
 
 
         
+        
     <div class="form-group">
             <label for="color_id">
                 {{ ucfirst(__('Core::sysColor.singular')) }}
@@ -121,6 +126,7 @@
     </div>
 
 
+        
 
         <!--   Widget_HasMany HasMany --> 
 

@@ -9,6 +9,7 @@
     @endif
 
     <div class="card-body">
+        
         <div class="form-group">
             <label for="operation">
                 {{ ucfirst(__('PkgWidgets::widgetOperation.operation')) }}
@@ -29,6 +30,7 @@
             @enderror
 </div>
 
+        
         <div class="form-group">
             <label for="description">
                 {{ ucfirst(__('PkgWidgets::widgetOperation.description')) }}
@@ -47,6 +49,7 @@
             @enderror
 </div>
 
+        
 
         <!--   Widget_HasMany HasMany --> 
 

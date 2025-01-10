@@ -9,6 +9,7 @@
     @endif
 
     <div class="card-body">
+        
         <div class="form-group">
             <label for="nom">
                 {{ ucfirst(__('PkgCompetences::niveauCompetence.nom')) }}
@@ -29,6 +30,7 @@
             @enderror
 </div>
 
+        
         <div class="form-group">
             <label for="description">
                 {{ ucfirst(__('PkgCompetences::niveauCompetence.description')) }}
@@ -47,6 +49,7 @@
             @enderror
 </div>
 
+        
         
     <div class="form-group">
             <label for="competence_id">

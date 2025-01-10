@@ -9,6 +9,7 @@
     @endif
 
     <div class="card-body">
+        
         <div class="form-group">
             <label for="nom">
                 {{ ucfirst(__('PkgCreationProjet::natureLivrable.nom')) }}
@@ -29,6 +30,7 @@
             @enderror
 </div>
 
+        
         <div class="form-group">
             <label for="description">
                 {{ ucfirst(__('PkgCreationProjet::natureLivrable.description')) }}
@@ -47,6 +49,7 @@
             @enderror
 </div>
 
+        
 
         <!--   Livrable_HasMany HasMany --> 
 

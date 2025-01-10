@@ -9,6 +9,7 @@
     @endif
 
     <div class="card-body">
+        
         <div class="form-group">
             <label for="name">
                 {{ ucfirst(__('Core::feature.name')) }}
@@ -29,6 +30,7 @@
             @enderror
 </div>
 
+        
         <div class="form-group">
             <label for="description">
                 {{ ucfirst(__('Core::feature.description')) }}
@@ -47,6 +49,7 @@
             @enderror
 </div>
 
+        
         
     <div class="form-group">
             <label for="domain_id">
@@ -74,6 +77,7 @@
     </div>
 
 
+        
                 <div class="form-group">
             <label for="permissions">
                 {{ ucfirst(__('PkgAutorisation::Permission.plural')) }}

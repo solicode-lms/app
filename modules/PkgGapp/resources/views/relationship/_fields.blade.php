@@ -10,6 +10,7 @@
 
     <div class="card-body">
         
+        
     <div class="form-group">
             <label for="source_model_id">
                 {{ ucfirst(__('PkgGapp::iModel.singular')) }}
@@ -37,6 +38,7 @@
 
 
         
+        
     <div class="form-group">
             <label for="target_model_id">
                 {{ ucfirst(__('PkgGapp::iModel.singular')) }}
@@ -63,6 +65,7 @@
     </div>
 
 
+        
         <div class="form-group">
             <label for="type">
                 {{ ucfirst(__('PkgGapp::relationship.type')) }}
@@ -83,6 +86,7 @@
             @enderror
 </div>
 
+        
         <div class="form-group">
             <label for="source_field">
                 {{ ucfirst(__('PkgGapp::relationship.source_field')) }}
@@ -103,6 +107,7 @@
             @enderror
 </div>
 
+        
         <div class="form-group">
             <label for="target_field">
                 {{ ucfirst(__('PkgGapp::relationship.target_field')) }}
@@ -124,7 +129,9 @@
 </div>
 
         
+        
 
+        
         <div class="form-group">
             <label for="description">
                 {{ ucfirst(__('PkgGapp::relationship.description')) }}

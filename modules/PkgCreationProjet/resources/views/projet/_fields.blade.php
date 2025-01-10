@@ -9,6 +9,7 @@
     @endif
 
     <div class="card-body">
+        
         <div class="form-group">
             <label for="titre">
                 {{ ucfirst(__('PkgCreationProjet::projet.titre')) }}
@@ -29,6 +30,7 @@
             @enderror
 </div>
 
+        
         <div class="form-group">
             <label for="travail_a_faire">
                 {{ ucfirst(__('PkgCreationProjet::projet.travail_a_faire')) }}
@@ -49,6 +51,7 @@
             @enderror
 </div>
 
+        
         <div class="form-group">
             <label for="critere_de_travail">
                 {{ ucfirst(__('PkgCreationProjet::projet.critere_de_travail')) }}
@@ -69,6 +72,7 @@
             @enderror
 </div>
 
+        
         <div class="form-group">
             <label for="description">
                 {{ ucfirst(__('PkgCreationProjet::projet.description')) }}
@@ -87,6 +91,7 @@
             @enderror
 </div>
 
+        
         <div class="form-group">
             <label for="date_debut">
                 {{ ucfirst(__('PkgCreationProjet::projet.date_debut')) }}
@@ -111,6 +116,7 @@
 
 
 
+        
         <div class="form-group">
             <label for="date_fin">
                 {{ ucfirst(__('PkgCreationProjet::projet.date_fin')) }}
@@ -135,6 +141,7 @@
 
 
 
+        
         
     <div class="form-group">
             <label for="formateur_id">
@@ -162,12 +169,15 @@
     </div>
 
 
+        
 
         <!--   Livrable_HasMany HasMany --> 
 
+        
 
         <!--   Resource_HasMany HasMany --> 
 
+        
 
         <!--   TransfertCompetence_HasMany HasMany --> 
 

@@ -9,6 +9,7 @@
     @endif
 
     <div class="card-body">
+        
         <div class="form-group">
             <label for="name">
                 {{ ucfirst(__('PkgGapp::dataField.name')) }}
@@ -29,6 +30,7 @@
             @enderror
 </div>
 
+        
         
     <div class="form-group">
             <label for="i_model_id">
@@ -57,6 +59,7 @@
 
 
         
+        
     <div class="form-group">
             <label for="field_type_id">
                 {{ ucfirst(__('PkgGapp::fieldType.singular')) }}
@@ -83,6 +86,7 @@
     </div>
 
 
+        
         <div class="form-group">
             <label for="description">
                 {{ ucfirst(__('PkgGapp::dataField.description')) }}

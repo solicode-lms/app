@@ -9,6 +9,7 @@
     @endif
 
     <div class="card-body">
+        
         <div class="form-group">
             <label for="code">
                 {{ ucfirst(__('PkgUtilisateurs::niveauxScolaire.code')) }}
@@ -29,6 +30,7 @@
             @enderror
 </div>
 
+        
         <div class="form-group">
             <label for="nom">
                 {{ ucfirst(__('PkgUtilisateurs::niveauxScolaire.nom')) }}
@@ -47,6 +49,7 @@
             @enderror
 </div>
 
+        
         <div class="form-group">
             <label for="description">
                 {{ ucfirst(__('PkgUtilisateurs::niveauxScolaire.description')) }}
@@ -65,6 +68,7 @@
             @enderror
 </div>
 
+        
 
         <!--   Apprenant_HasMany HasMany --> 
 

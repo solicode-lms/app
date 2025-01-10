@@ -9,6 +9,7 @@
     @endif
 
     <div class="card-body">
+        
         <div class="form-group">
             <label for="nom">
                 {{ ucfirst(__('PkgCompetences::categoryTechnology.nom')) }}
@@ -29,6 +30,7 @@
             @enderror
 </div>
 
+        
         <div class="form-group">
             <label for="description">
                 {{ ucfirst(__('PkgCompetences::categoryTechnology.description')) }}
@@ -47,6 +49,7 @@
             @enderror
 </div>
 
+        
 
         <!--   Technology_HasMany HasMany --> 
 

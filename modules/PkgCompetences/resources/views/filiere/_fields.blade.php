@@ -9,6 +9,7 @@
     @endif
 
     <div class="card-body">
+        
         <div class="form-group">
             <label for="code">
                 {{ ucfirst(__('PkgCompetences::filiere.code')) }}
@@ -29,6 +30,7 @@
             @enderror
 </div>
 
+        
         <div class="form-group">
             <label for="nom">
                 {{ ucfirst(__('PkgCompetences::filiere.nom')) }}
@@ -49,6 +51,7 @@
             @enderror
 </div>
 
+        
         <div class="form-group">
             <label for="description">
                 {{ ucfirst(__('PkgCompetences::filiere.description')) }}
@@ -67,9 +70,11 @@
             @enderror
 </div>
 
+        
 
         <!--   Groupe_HasMany HasMany --> 
 
+        
 
         <!--   Module_HasMany HasMany --> 
 

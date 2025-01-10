@@ -9,6 +9,7 @@
     @endif
 
     <div class="card-body">
+        
         <div class="form-group">
             <label for="nom">
                 {{ ucfirst(__('PkgUtilisateurs::ville.nom')) }}

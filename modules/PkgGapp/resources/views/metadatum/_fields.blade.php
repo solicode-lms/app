@@ -10,7 +10,9 @@
 
     <div class="card-body">
         
+        
 
+        
         <div class="form-group">
             <label for="value_string">
                 {{ ucfirst(__('PkgGapp::metadatum.value_string')) }}
@@ -30,12 +32,16 @@
 </div>
 
         
+        
 
+        
 
         <!--   value_object JSON --> 
 
         
+        
 
+        
         <div class="form-group">
             <label for="object_type">
                 {{ ucfirst(__('PkgGapp::metadatum.object_type')) }}
@@ -56,6 +62,7 @@
             @enderror
 </div>
 
+        
         
     <div class="form-group">
             <label for="metadata_type_id">

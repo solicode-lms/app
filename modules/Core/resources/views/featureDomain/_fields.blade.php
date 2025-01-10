@@ -9,6 +9,7 @@
     @endif
 
     <div class="card-body">
+        
         <div class="form-group">
             <label for="name">
                 {{ ucfirst(__('Core::featureDomain.name')) }}
@@ -29,6 +30,7 @@
             @enderror
 </div>
 
+        
         <div class="form-group">
             <label for="slug">
                 {{ ucfirst(__('Core::featureDomain.slug')) }}
@@ -49,6 +51,7 @@
             @enderror
 </div>
 
+        
         <div class="form-group">
             <label for="description">
                 {{ ucfirst(__('Core::featureDomain.description')) }}
@@ -67,6 +70,7 @@
             @enderror
 </div>
 
+        
         
     <div class="form-group">
             <label for="module_id">
@@ -94,6 +98,7 @@
     </div>
 
 
+        
 
         <!--   Feature_HasMany HasMany --> 
 

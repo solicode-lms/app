@@ -10,6 +10,7 @@
 
     <div class="card-body">
         
+        
     <div class="form-group">
             <label for="module_id">
                 {{ ucfirst(__('Core::sysModule.singular')) }}
@@ -36,6 +37,7 @@
     </div>
 
 
+        
         <div class="form-group">
             <label for="name">
                 {{ ucfirst(__('Core::sysController.name')) }}
@@ -56,6 +58,7 @@
             @enderror
 </div>
 
+        
         <div class="form-group">
             <label for="slug">
                 {{ ucfirst(__('Core::sysController.slug')) }}
@@ -76,6 +79,7 @@
             @enderror
 </div>
 
+        
         <div class="form-group">
             <label for="description">
                 {{ ucfirst(__('Core::sysController.description')) }}
@@ -95,7 +99,9 @@
 </div>
 
         
+        
 
+        
 
         <!--   Permission_HasMany HasMany --> 
 

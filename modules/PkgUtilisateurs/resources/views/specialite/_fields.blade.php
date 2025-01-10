@@ -9,6 +9,7 @@
     @endif
 
     <div class="card-body">
+        
         <div class="form-group">
             <label for="nom">
                 {{ ucfirst(__('PkgUtilisateurs::specialite.nom')) }}
@@ -29,6 +30,7 @@
             @enderror
 </div>
 
+        
         <div class="form-group">
             <label for="description">
                 {{ ucfirst(__('PkgUtilisateurs::specialite.description')) }}
@@ -47,6 +49,7 @@
             @enderror
 </div>
 
+        
                 <div class="form-group">
             <label for="formateurs">
                 {{ ucfirst(__('PkgUtilisateurs::Formateur.plural')) }}

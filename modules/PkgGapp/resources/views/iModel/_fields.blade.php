@@ -9,6 +9,7 @@
     @endif
 
     <div class="card-body">
+        
         <div class="form-group">
             <label for="name">
                 {{ ucfirst(__('PkgGapp::iModel.name')) }}
@@ -29,6 +30,7 @@
             @enderror
 </div>
 
+        
         <div class="form-group">
             <label for="icon">
                 {{ ucfirst(__('PkgGapp::iModel.icon')) }}
@@ -47,6 +49,7 @@
             @enderror
 </div>
 
+        
         <div class="form-group">
             <label for="description">
                 {{ ucfirst(__('PkgGapp::iModel.description')) }}
@@ -65,6 +68,7 @@
             @enderror
 </div>
 
+        
         
     <div class="form-group">
             <label for="i_package_id">
@@ -92,12 +96,15 @@
     </div>
 
 
+        
 
         <!--   DataField_HasMany HasMany --> 
 
+        
 
         <!--   Relationship_HasMany HasMany --> 
 
+        
 
         <!--   Relationship_HasMany HasMany --> 
 

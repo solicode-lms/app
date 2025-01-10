@@ -9,6 +9,7 @@
     @endif
 
     <div class="card-body">
+        
         <div class="form-group">
             <label for="nom">
                 {{ ucfirst(__('PkgCompetences::appreciation.nom')) }}
@@ -29,6 +30,7 @@
             @enderror
 </div>
 
+        
         <div class="form-group">
             <label for="description">
                 {{ ucfirst(__('PkgCompetences::appreciation.description')) }}
@@ -47,6 +49,7 @@
             @enderror
 </div>
 
+        
         <div class="form-group">
     <label for="noteMin">
         {{ ucfirst(__('PkgCompetences::appreciation.noteMin')) }}
@@ -69,6 +72,7 @@
 </div>
 
 
+        
         <div class="form-group">
     <label for="noteMax">
         {{ ucfirst(__('PkgCompetences::appreciation.noteMax')) }}
@@ -91,6 +95,7 @@
 </div>
 
 
+        
         
     <div class="form-group">
             <label for="formateur_id">
@@ -118,6 +123,7 @@
     </div>
 
 
+        
 
         <!--   TransfertCompetence_HasMany HasMany --> 
 

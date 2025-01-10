@@ -9,6 +9,7 @@
     @endif
 
     <div class="card-body">
+        
         <div class="form-group">
             <label for="name">
                 {{ ucfirst(__('Core::sysColor.name')) }}
@@ -29,6 +30,7 @@
             @enderror
 </div>
 
+        
         <div class="form-group">
             <label for="hex">
                 {{ ucfirst(__('Core::sysColor.hex')) }}
@@ -49,9 +51,11 @@
             @enderror
 </div>
 
+        
 
         <!--   SysModel_HasMany HasMany --> 
 
+        
 
         <!--   SysModule_HasMany HasMany --> 
 
