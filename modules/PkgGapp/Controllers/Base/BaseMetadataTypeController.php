@@ -1,5 +1,4 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 namespace Modules\PkgGapp\Controllers\Base;
@@ -14,6 +13,8 @@ use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgGapp\App\Exports\MetadataTypeExport;
 use Modules\PkgGapp\App\Imports\MetadataTypeImport;
 use Modules\Core\Services\ContextState;
+use Modules\PkgGapp\App\Enums\MetadataScope;
+use Modules\PkgGapp\App\Enums\MetaDataValueType;
 
 class BaseMetadataTypeController extends AdminController
 {
@@ -56,13 +57,16 @@ class BaseMetadataTypeController extends AdminController
      */
     public function create()
     {
+
         $itemMetadataType = $this->metadataTypeService->createInstance();
 
-
+        $metaDataValueTypeCases = MetaDataValueType::cases();
+        $metadataScopeCases = MetadataScope::cases();
+        
         if (request()->ajax()) {
-            return view('PkgGapp::metadataType._fields', compact('itemMetadataType'));
+            return view('PkgGapp::metadataType._fields', compact('itemMetadataType','metaDataValueTypeCases','metadataScopeCases'));
         }
-        return view('PkgGapp::metadataType.create', compact('itemMetadataType'));
+        return view('PkgGapp::metadataType.create', compact('itemMetadataType','metaDataValueTypeCases','metadataScopeCases'));
     }
 
     /**

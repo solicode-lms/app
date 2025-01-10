@@ -1,4 +1,3 @@
-{{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @section('role-form')
 <form class="crud-form custom-form context-state" id="metadataTypeForm" action="{{ $itemMetadataType->id ? route('metadataTypes.update', $itemMetadataType->id) : route('metadataTypes.store') }}" method="POST" novalidate>
@@ -56,14 +55,21 @@
                     <span class="text-danger">*</span>
                 
             </label>
-            <input
-                name="type"
-                type="input"
-                class="form-control"
-                required
-                id="type"
-                placeholder="{{ __('PkgGapp::metadataType.type') }}"
-                value="{{ $itemMetadataType ? $itemMetadataType->type : old('type') }}">
+
+<select
+    name="type"
+    id="type"
+    class="form-control select2"
+    required>
+    <option value="">{{ __('PkgGapp::metadataType.select_type') }}</option>
+    @foreach ($metaDataValueTypeCases as $case)
+        <option 
+            value="{{ $case->value }}"
+            {{ old('type', $itemMetadataType->type ?? '') === $case->value ? 'selected' : '' }}>
+            {{ ucfirst($case->value) }}
+        </option>
+    @endforeach
+</select>
             @error('type')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -76,14 +82,20 @@
                     <span class="text-danger">*</span>
                 
             </label>
-            <input
-                name="scope"
-                type="input"
-                class="form-control"
-                required
-                id="scope"
-                placeholder="{{ __('PkgGapp::metadataType.scope') }}"
-                value="{{ $itemMetadataType ? $itemMetadataType->scope : old('scope') }}">
+            <select
+            name="scope"
+            id="scope"
+            class="form-control select2"
+            required>
+            <option value="">{{ __('PkgGapp::metadataType.scope') }}</option>
+            @foreach ($metadataScopeCases as $case)
+                <option 
+                    value="{{ $case->value }}"
+                    {{ old('scope', $itemMetadataType->scope ?? '') === $case->value ? 'selected' : '' }}>
+                    {{ ucfirst($case->value) }}
+                </option>
+            @endforeach
+        </select>
             @error('scope')
                 <div class="text-danger">{{ $message }}</div>
             @enderror

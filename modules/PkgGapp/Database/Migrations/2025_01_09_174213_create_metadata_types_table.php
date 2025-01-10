@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('description')->nullable(); // Description facultative
             $table->string('default_value')->nullable(); // Valeur par défaut
             $table->text('validation_rules')->nullable(); // Règles de validation
+            $table->timestamps();
         });
     }
 
