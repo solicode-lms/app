@@ -3,6 +3,7 @@
 
 namespace Modules\PkgGapp\Controllers\Base;
 
+use Illuminate\Database\Eloquent\Scope;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\PkgGapp\App\Requests\MetadataTypeRequest;
 use Modules\PkgGapp\Services\MetadataTypeService;
@@ -123,6 +124,7 @@ class BaseMetadataTypeController extends AdminController
         $metaDataValueTypeCases = \Modules\PkgGapp\App\Enums\MetaDataValueType::cases();
         $metadataScopeCases = \Modules\PkgGapp\App\Enums\MetadataScope::cases();
         
+      
         // Utilisé dans l'édition des relation HasMany
         $this->contextState->set('metadataType_id', $id);
 

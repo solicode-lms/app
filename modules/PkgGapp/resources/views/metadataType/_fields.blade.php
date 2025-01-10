@@ -88,13 +88,13 @@
             id="scope"
             class="form-control select2"
             required>
-            <option value="">{{ __('PkgGapp::metadataType.scope') }}</option>
+            <option value=""></option>
             @foreach ($metadataScopeCases as $case)
                 <option 
                     value="{{ $case->value }}"
-                    {{ old('scope', $itemMetadataType->scope ?? '') === $case->value ? 'selected' : '' }}>
+                    {{ old('scope', $itemMetadataType->scope->value ?? '') === $case->value ? 'selected' : '' }}>
                     {{ ucfirst($case->value) }} 
-                    {{ old('scope', $itemMetadataType->scope ?? '') === $case->value ? 'selected' : 'non' }}
+                  
                 </option>
             @endforeach
         </select>

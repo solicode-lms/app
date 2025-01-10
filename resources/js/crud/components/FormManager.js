@@ -271,8 +271,9 @@ export class FormManager {
         
         // Initialise les éléments Select2
         $(`${this.formSelector} .select2`).select2({
+            dropdownParent: this.config.modalSelector,
+            placeholder: "Sélectionnez une option", // Placeholder requis
             allowClear : true,
-            dropdownParent: this.config.modalSelector
         });
 
         // Initialise les éléments Select2 avec thème Bootstrap 4
