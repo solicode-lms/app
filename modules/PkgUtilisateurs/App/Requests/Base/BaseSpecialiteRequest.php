@@ -17,18 +17,18 @@ class BaseSpecialiteRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'description' => 'nullable',
-            'nom' => 'required|max:255'
+            'nom' => 'required|max:255',
+            'description' => 'nullable'
         ];
     }
 
     public function messages(): array
     {
         return [
-            'description.required' => __('validation.required', ['attribute' => __('PkgUtilisateurs::Specialite.description')]),
-            'description.max' => __('validation.descriptionMax'),
             'nom.required' => __('validation.required', ['attribute' => __('PkgUtilisateurs::Specialite.nom')]),
-            'nom.max' => __('validation.nomMax')
+            'nom.max' => __('validation.nomMax'),
+            'description.required' => __('validation.required', ['attribute' => __('PkgUtilisateurs::Specialite.description')]),
+            'description.max' => __('validation.descriptionMax')
         ];
     }
 }

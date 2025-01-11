@@ -25,6 +25,22 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="col-sm-12">
+                                <label for="name">{{ ucfirst(__('PkgWidgets::widget.name')) }}:</label>
+                                <p>{{ $itemWidget->name }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="type_id">{{ ucfirst(__('PkgWidgets::widget.type_id')) }}:</label>
+                                <p>{{ $itemWidget->type_id }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="model_id">{{ ucfirst(__('PkgWidgets::widget.model_id')) }}:</label>
+                                <p>{{ $itemWidget->model_id }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="operation_id">{{ ucfirst(__('PkgWidgets::widget.operation_id')) }}:</label>
+                                <p>{{ $itemWidget->operation_id }}</p>
+                            </div>
+                            <div class="col-sm-12">
                                 <label for="color">{{ ucfirst(__('PkgWidgets::widget.color')) }}:</label>
                                 <p>{{ $itemWidget->color }}</p>
                             </div>
@@ -37,24 +53,8 @@
                                 <p>{{ $itemWidget->label }}</p>
                             </div>
                             <div class="col-sm-12">
-                                <label for="model_id">{{ ucfirst(__('PkgWidgets::widget.model_id')) }}:</label>
-                                <p>{{ $itemWidget->model_id }}</p>
-                            </div>
-                            <div class="col-sm-12">
-                                <label for="name">{{ ucfirst(__('PkgWidgets::widget.name')) }}:</label>
-                                <p>{{ $itemWidget->name }}</p>
-                            </div>
-                            <div class="col-sm-12">
-                                <label for="operation_id">{{ ucfirst(__('PkgWidgets::widget.operation_id')) }}:</label>
-                                <p>{{ $itemWidget->operation_id }}</p>
-                            </div>
-                            <div class="col-sm-12">
                                 <label for="parameters">{{ ucfirst(__('PkgWidgets::widget.parameters')) }}:</label>
                                 <p>{{ $itemWidget->parameters }}</p>
-                            </div>
-                            <div class="col-sm-12">
-                                <label for="type_id">{{ ucfirst(__('PkgWidgets::widget.type_id')) }}:</label>
-                                <p>{{ $itemWidget->type_id }}</p>
                             </div>
                         </div>
                     </div>

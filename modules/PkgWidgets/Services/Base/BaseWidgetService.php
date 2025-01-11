@@ -19,14 +19,14 @@ class BaseWidgetService extends BaseService
      * @var array
      */
     protected $fieldsSearchable = [
+        'name',
+        'type_id',
+        'model_id',
+        'operation_id',
         'color',
         'icon',
         'label',
-        'model_id',
-        'name',
-        'operation_id',
-        'parameters',
-        'type_id'
+        'parameters'
     ];
 
     /**

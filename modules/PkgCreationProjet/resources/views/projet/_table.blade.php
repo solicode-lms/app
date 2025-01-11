@@ -4,20 +4,20 @@
     <table class="table table-striped text-nowrap">
         <thead>
             <tr>
+                <x-sortable-column field="titre" label="{{ ucfirst(__('PkgCreationProjet::projet.titre')) }}" />
                 <x-sortable-column field="date_debut" label="{{ ucfirst(__('PkgCreationProjet::projet.date_debut')) }}" />
                 <x-sortable-column field="date_fin" label="{{ ucfirst(__('PkgCreationProjet::projet.date_fin')) }}" />
                 <x-sortable-column field="formateur_id" label="{{ ucfirst(__('PkgUtilisateurs::formateur.singular')) }}" />
-                <x-sortable-column field="titre" label="{{ ucfirst(__('PkgCreationProjet::projet.titre')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($projets_data as $projet)
                 <tr>
+                    <td>@limit($projet->titre, 80)</td>
                     <td>@limit($projet->date_debut, 80)</td>
                     <td>@limit($projet->date_fin, 80)</td>
                     <td>@limit($projet->formateur->nom ?? '-', 80)</td>
-                    <td>@limit($projet->titre, 80)</td>
                     <td class="text-right">
                         @can('show-projet')
                             <a href="{{ route('projets.show', ['projet' => $projet->id]) }}" data-id="{{$projet->id}}" class="btn btn-default btn-sm context-state showEntity">

@@ -4,20 +4,20 @@
     <table class="table table-striped text-nowrap">
         <thead>
             <tr>
-                <x-sortable-column field="color_id" label="{{ ucfirst(__('Core::sysColor.singular')) }}" />
+                <x-sortable-column field="name" label="{{ ucfirst(__('Core::sysModule.name')) }}" />
                 <x-sortable-column field="description" label="{{ ucfirst(__('Core::sysModule.description')) }}" />
                 <x-sortable-column field="is_active" label="{{ ucfirst(__('Core::sysModule.is_active')) }}" />
-                <x-sortable-column field="name" label="{{ ucfirst(__('Core::sysModule.name')) }}" />
+                <x-sortable-column field="color_id" label="{{ ucfirst(__('Core::sysColor.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($sysModules_data as $sysModule)
                 <tr>
-                    <td>@limit($sysModule->sysColor->name ?? '-', 80)</td>
+                    <td>@limit($sysModule->name, 80)</td>
                     <td>{!! $sysModule->description !!}</td>
                     <td>@limit($sysModule->is_active, 80)</td>
-                    <td>@limit($sysModule->name, 80)</td>
+                    <td>@limit($sysModule->sysColor->name ?? '-', 80)</td>
                     <td class="text-right">
                         @can('show-sysModule')
                             <a href="{{ route('sysModules.show', ['sysModule' => $sysModule->id]) }}" data-id="{{$sysModule->id}}" class="btn btn-default btn-sm context-state showEntity">

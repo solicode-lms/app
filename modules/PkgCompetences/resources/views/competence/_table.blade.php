@@ -5,8 +5,8 @@
         <thead>
             <tr>
                 <x-sortable-column field="code" label="{{ ucfirst(__('PkgCompetences::competence.code')) }}" />
-                <x-sortable-column field="module_id" label="{{ ucfirst(__('PkgCompetences::module.singular')) }}" />
                 <x-sortable-column field="nom" label="{{ ucfirst(__('PkgCompetences::competence.nom')) }}" />
+                <x-sortable-column field="module_id" label="{{ ucfirst(__('PkgCompetences::module.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -14,8 +14,8 @@
             @foreach ($competences_data as $competence)
                 <tr>
                     <td>@limit($competence->code, 80)</td>
-                    <td>@limit($competence->module->nom ?? '-', 80)</td>
                     <td>@limit($competence->nom, 80)</td>
+                    <td>@limit($competence->module->nom ?? '-', 80)</td>
                     <td class="text-right">
                         @can('show-competence')
                             <a href="{{ route('competences.show', ['competence' => $competence->id]) }}" data-id="{{$competence->id}}" class="btn btn-default btn-sm context-state showEntity">

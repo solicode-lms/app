@@ -21,7 +21,7 @@ class BaseWidgetImport implements ToModel, WithHeadingRow
      */
     private function recordExists(array $row): bool
     {
-        return Widget::where('label', $row['label'])->exists();
+        return Widget::where('name', $row['name'])->exists();
     }
 
     /**
@@ -38,14 +38,14 @@ class BaseWidgetImport implements ToModel, WithHeadingRow
 
         // Crée un nouvel enregistrement à partir des données importées
         return new Widget([
+            'name' => $row['name'],
+            'type_id' => $row['type_id'],
+            'model_id' => $row['model_id'],
+            'operation_id' => $row['operation_id'],
             'color' => $row['color'],
             'icon' => $row['icon'],
             'label' => $row['label'],
-            'model_id' => $row['model_id'],
-            'name' => $row['name'],
-            'operation_id' => $row['operation_id'],
             'parameters' => $row['parameters'],
-            'type_id' => $row['type_id'],
         ]);
     }
 }

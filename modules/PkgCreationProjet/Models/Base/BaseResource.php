@@ -33,7 +33,7 @@ class BaseResource extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'description', 'lien', 'nom', 'projet_id'
+        'nom', 'lien', 'description', 'projet_id'
     ];
 
     /**

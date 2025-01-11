@@ -17,21 +17,21 @@ class BaseTechnologyRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'category_technology_id' => 'required',
+            'nom' => 'required|max:255',
             'description' => 'nullable',
-            'nom' => 'required|max:255'
+            'category_technology_id' => 'required'
         ];
     }
 
     public function messages(): array
     {
         return [
-            'category_technology_id.required' => __('validation.required', ['attribute' => __('PkgCompetences::Technology.category_technology_id')]),
-            'category_technology_id.max' => __('validation.category_technology_idMax'),
+            'nom.required' => __('validation.required', ['attribute' => __('PkgCompetences::Technology.nom')]),
+            'nom.max' => __('validation.nomMax'),
             'description.required' => __('validation.required', ['attribute' => __('PkgCompetences::Technology.description')]),
             'description.max' => __('validation.descriptionMax'),
-            'nom.required' => __('validation.required', ['attribute' => __('PkgCompetences::Technology.nom')]),
-            'nom.max' => __('validation.nomMax')
+            'category_technology_id.required' => __('validation.required', ['attribute' => __('PkgCompetences::Technology.category_technology_id')]),
+            'category_technology_id.max' => __('validation.category_technology_idMax')
         ];
     }
 }

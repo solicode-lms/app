@@ -20,9 +20,9 @@ class BaseGroupeService extends BaseService
      */
     protected $fieldsSearchable = [
         'code',
+        'nom',
         'description',
-        'filiere_id',
-        'nom'
+        'filiere_id'
     ];
 
     /**
@@ -58,9 +58,9 @@ class BaseGroupeService extends BaseService
     {
         $groupe = parent::create([
             'code' => $data['code'],
+            'nom' => $data['nom'],
             'description' => $data['description'],
             'filiere_id' => $data['filiere_id'],
-            'nom' => $data['nom'],
         ]);
 
         return $groupe;

@@ -46,13 +46,13 @@ class BaseEMetadatumSeeder extends Seeder
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
                 EMetadatum::create([
-                    "e_metadata_definition_id" => $data[0] ,
-                    "object_id" => $data[1] ,
-                    "object_type" => $data[2] ,
-                    "value_boolean" => $data[3] ,
-                    "value_int" => $data[4] ,
-                    "value_object" => $data[5] ,
-                    "value_string" => $data[6] 
+                    "value_boolean" => $data[0] ,
+                    "value_string" => $data[1] ,
+                    "value_int" => $data[2] ,
+                    "value_object" => $data[3] ,
+                    "object_id" => $data[4] ,
+                    "object_type" => $data[5] ,
+                    "e_metadata_definition_id" => $data[6] 
                 ]);
             }
             $firstline = false;

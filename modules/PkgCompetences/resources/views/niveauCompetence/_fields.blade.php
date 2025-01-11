@@ -10,6 +10,46 @@
 
     <div class="card-body">
         
+        <div class="form-group">
+            <label for="nom">
+                {{ ucfirst(__('PkgCompetences::niveauCompetence.nom')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <input
+                name="nom"
+                type="input"
+                class="form-control"
+                required
+                id="nom"
+                placeholder="{{ __('PkgCompetences::niveauCompetence.nom') }}"
+                value="{{ $itemNiveauCompetence ? $itemNiveauCompetence->nom : old('nom') }}">
+            @error('nom')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
+
+        
+        <div class="form-group">
+            <label for="description">
+                {{ ucfirst(__('PkgCompetences::niveauCompetence.description')) }}
+                
+            </label>
+            <textarea rows="" cols=""
+                name="description"
+                class="form-control richText"
+                
+                id="description"
+                placeholder="{{ __('PkgCompetences::niveauCompetence.description') }}">
+                {{ $itemNiveauCompetence ? $itemNiveauCompetence->description : old('description') }}
+            </textarea>
+            @error('description')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
+
+        
         
     <div class="form-group">
             <label for="competence_id">
@@ -36,46 +76,6 @@
             @enderror
     </div>
 
-
-        
-        <div class="form-group">
-            <label for="description">
-                {{ ucfirst(__('PkgCompetences::niveauCompetence.description')) }}
-                
-            </label>
-            <textarea rows="" cols=""
-                name="description"
-                class="form-control richText"
-                
-                id="description"
-                placeholder="{{ __('PkgCompetences::niveauCompetence.description') }}">
-                {{ $itemNiveauCompetence ? $itemNiveauCompetence->description : old('description') }}
-            </textarea>
-            @error('description')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
-
-        
-        <div class="form-group">
-            <label for="nom">
-                {{ ucfirst(__('PkgCompetences::niveauCompetence.nom')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
-                name="nom"
-                type="input"
-                class="form-control"
-                required
-                id="nom"
-                placeholder="{{ __('PkgCompetences::niveauCompetence.nom') }}"
-                value="{{ $itemNiveauCompetence ? $itemNiveauCompetence->nom : old('nom') }}">
-            @error('nom')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
 
     </div>
 

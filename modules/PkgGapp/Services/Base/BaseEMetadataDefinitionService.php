@@ -19,13 +19,13 @@ class BaseEMetadataDefinitionService extends BaseService
      * @var array
      */
     protected $fieldsSearchable = [
-        'code',
-        'default_value',
-        'description',
-        'groupe',
         'name',
+        'code',
+        'groupe',
+        'type',
         'scope',
-        'type'
+        'description',
+        'default_value'
     ];
 
     /**

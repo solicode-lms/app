@@ -35,7 +35,7 @@ class BaseEModel extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'description', 'e_package_id', 'icon', 'name'
+        'name', 'icon', 'description', 'e_package_id'
     ];
 
     /**

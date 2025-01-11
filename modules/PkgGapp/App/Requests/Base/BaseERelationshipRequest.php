@@ -17,33 +17,33 @@ class BaseERelationshipRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'cascade_on_delete' => 'required',
-            'description' => 'nullable',
-            'source_field' => 'required|max:255',
             'source_model_id' => 'required',
-            'target_field' => 'required|max:255',
             'target_model_id' => 'required',
-            'type' => 'required|max:255'
+            'type' => 'required|max:255',
+            'source_field' => 'required|max:255',
+            'target_field' => 'required|max:255',
+            'cascade_on_delete' => 'required',
+            'description' => 'nullable'
         ];
     }
 
     public function messages(): array
     {
         return [
-            'cascade_on_delete.required' => __('validation.required', ['attribute' => __('PkgGapp::ERelationship.cascade_on_delete')]),
-            'cascade_on_delete.max' => __('validation.cascade_on_deleteMax'),
-            'description.required' => __('validation.required', ['attribute' => __('PkgGapp::ERelationship.description')]),
-            'description.max' => __('validation.descriptionMax'),
-            'source_field.required' => __('validation.required', ['attribute' => __('PkgGapp::ERelationship.source_field')]),
-            'source_field.max' => __('validation.source_fieldMax'),
             'source_model_id.required' => __('validation.required', ['attribute' => __('PkgGapp::ERelationship.source_model_id')]),
             'source_model_id.max' => __('validation.source_model_idMax'),
-            'target_field.required' => __('validation.required', ['attribute' => __('PkgGapp::ERelationship.target_field')]),
-            'target_field.max' => __('validation.target_fieldMax'),
             'target_model_id.required' => __('validation.required', ['attribute' => __('PkgGapp::ERelationship.target_model_id')]),
             'target_model_id.max' => __('validation.target_model_idMax'),
             'type.required' => __('validation.required', ['attribute' => __('PkgGapp::ERelationship.type')]),
-            'type.max' => __('validation.typeMax')
+            'type.max' => __('validation.typeMax'),
+            'source_field.required' => __('validation.required', ['attribute' => __('PkgGapp::ERelationship.source_field')]),
+            'source_field.max' => __('validation.source_fieldMax'),
+            'target_field.required' => __('validation.required', ['attribute' => __('PkgGapp::ERelationship.target_field')]),
+            'target_field.max' => __('validation.target_fieldMax'),
+            'cascade_on_delete.required' => __('validation.required', ['attribute' => __('PkgGapp::ERelationship.cascade_on_delete')]),
+            'cascade_on_delete.max' => __('validation.cascade_on_deleteMax'),
+            'description.required' => __('validation.required', ['attribute' => __('PkgGapp::ERelationship.description')]),
+            'description.max' => __('validation.descriptionMax')
         ];
     }
 }

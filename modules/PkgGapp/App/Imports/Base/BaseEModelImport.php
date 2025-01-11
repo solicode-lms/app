@@ -38,10 +38,10 @@ class BaseEModelImport implements ToModel, WithHeadingRow
 
         // Crée un nouvel enregistrement à partir des données importées
         return new EModel([
+            'name' => $row['name'],
+            'icon' => $row['icon'],
             'description' => $row['description'],
             'e_package_id' => $row['e_package_id'],
-            'icon' => $row['icon'],
-            'name' => $row['name'],
         ]);
     }
 }

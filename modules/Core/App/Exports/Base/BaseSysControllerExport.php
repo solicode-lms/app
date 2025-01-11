@@ -25,11 +25,11 @@ class BaseSysControllerExport implements FromCollection, WithHeadings, ShouldAut
     public function headings(): array
     {
         return [
-            'description',
-            'is_active',
             'module_id',
             'name',
             'slug',
+            'description',
+            'is_active',
         ];
     }
 
@@ -37,11 +37,11 @@ class BaseSysControllerExport implements FromCollection, WithHeadings, ShouldAut
     {
         return $this->data->map(function ($sysController) {
             return [
-                'description' => $sysController->description,
-                'is_active' => $sysController->is_active,
                 'module_id' => $sysController->module_id,
                 'name' => $sysController->name,
                 'slug' => $sysController->slug,
+                'description' => $sysController->description,
+                'is_active' => $sysController->is_active,
             ];
         });
     }

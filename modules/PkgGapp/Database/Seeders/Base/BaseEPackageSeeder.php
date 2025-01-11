@@ -46,8 +46,8 @@ class BaseEPackageSeeder extends Seeder
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
                 EPackage::create([
-                    "description" => $data[0] ,
-                    "name" => $data[1] 
+                    "name" => $data[0] ,
+                    "description" => $data[1] 
                 ]);
             }
             $firstline = false;

@@ -39,9 +39,9 @@ class BaseGroupeImport implements ToModel, WithHeadingRow
         // Crée un nouvel enregistrement à partir des données importées
         return new Groupe([
             'code' => $row['code'],
+            'nom' => $row['nom'],
             'description' => $row['description'],
             'filiere_id' => $row['filiere_id'],
-            'nom' => $row['nom'],
         ]);
     }
 }

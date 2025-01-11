@@ -36,7 +36,7 @@ class BaseTransfertCompetence extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'appreciation_id', 'competence_id', 'description', 'projet_id'
+        'description', 'projet_id', 'competence_id', 'appreciation_id'
     ];
 
     /**

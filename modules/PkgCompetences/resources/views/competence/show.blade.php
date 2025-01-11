@@ -29,16 +29,16 @@
                                 <p>{{ $itemCompetence->code }}</p>
                             </div>
                             <div class="col-sm-12">
+                                <label for="nom">{{ ucfirst(__('PkgCompetences::competence.nom')) }}:</label>
+                                <p>{{ $itemCompetence->nom }}</p>
+                            </div>
+                            <div class="col-sm-12">
                                 <label for="description">{{ ucfirst(__('PkgCompetences::competence.description')) }}:</label>
                                 <p>{{ $itemCompetence->description }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="module_id">{{ ucfirst(__('PkgCompetences::competence.module_id')) }}:</label>
                                 <p>{{ $itemCompetence->module_id }}</p>
-                            </div>
-                            <div class="col-sm-12">
-                                <label for="nom">{{ ucfirst(__('PkgCompetences::competence.nom')) }}:</label>
-                                <p>{{ $itemCompetence->nom }}</p>
                             </div>
                         </div>
                     </div>

@@ -45,9 +45,9 @@ class BaseFeatureSeeder extends Seeder
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
                 Feature::create([
-                    "description" => $data[0] ,
-                    "domain_id" => $data[1] ,
-                    "name" => $data[2] 
+                    "name" => $data[0] ,
+                    "description" => $data[1] ,
+                    "domain_id" => $data[2] 
                 ]);
             }
             $firstline = false;

@@ -38,13 +38,13 @@ class BaseProjetImport implements ToModel, WithHeadingRow
 
         // Crée un nouvel enregistrement à partir des données importées
         return new Projet([
-            'critere_de_travail' => $row['critere_de_travail'],
-            'date_debut' => $row['date_debut'],
-            'date_fin' => $row['date_fin'],
-            'description' => $row['description'],
-            'formateur_id' => $row['formateur_id'],
             'titre' => $row['titre'],
             'travail_a_faire' => $row['travail_a_faire'],
+            'critere_de_travail' => $row['critere_de_travail'],
+            'description' => $row['description'],
+            'date_debut' => $row['date_debut'],
+            'date_fin' => $row['date_fin'],
+            'formateur_id' => $row['formateur_id'],
         ]);
     }
 }

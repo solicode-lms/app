@@ -25,14 +25,14 @@ class BaseWidgetExport implements FromCollection, WithHeadings, ShouldAutoSize, 
     public function headings(): array
     {
         return [
+            'name',
+            'type_id',
+            'model_id',
+            'operation_id',
             'color',
             'icon',
             'label',
-            'model_id',
-            'name',
-            'operation_id',
             'parameters',
-            'type_id',
         ];
     }
 
@@ -40,14 +40,14 @@ class BaseWidgetExport implements FromCollection, WithHeadings, ShouldAutoSize, 
     {
         return $this->data->map(function ($widget) {
             return [
+                'name' => $widget->name,
+                'type_id' => $widget->type_id,
+                'model_id' => $widget->model_id,
+                'operation_id' => $widget->operation_id,
                 'color' => $widget->color,
                 'icon' => $widget->icon,
                 'label' => $widget->label,
-                'model_id' => $widget->model_id,
-                'name' => $widget->name,
-                'operation_id' => $widget->operation_id,
                 'parameters' => $widget->parameters,
-                'type_id' => $widget->type_id,
             ];
         });
     }

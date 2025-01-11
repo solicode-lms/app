@@ -46,10 +46,10 @@ class BaseEDataFieldSeeder extends Seeder
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
                 EDataField::create([
-                    "description" => $data[0] ,
-                    "e_model_id" => $data[1] ,
-                    "name" => $data[2] ,
-                    "type" => $data[3] 
+                    "name" => $data[0] ,
+                    "type" => $data[1] ,
+                    "e_model_id" => $data[2] ,
+                    "description" => $data[3] 
                 ]);
             }
             $firstline = false;

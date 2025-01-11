@@ -25,9 +25,9 @@ class BaseUserExport implements FromCollection, WithHeadings, ShouldAutoSize, Wi
     public function headings(): array
     {
         return [
+            'name',
             'email',
             'email_verified_at',
-            'name',
             'password',
             'remember_token',
         ];
@@ -37,9 +37,9 @@ class BaseUserExport implements FromCollection, WithHeadings, ShouldAutoSize, Wi
     {
         return $this->data->map(function ($user) {
             return [
+                'name' => $user->name,
                 'email' => $user->email,
                 'email_verified_at' => $user->email_verified_at,
-                'name' => $user->name,
                 'password' => $user->password,
                 'remember_token' => $user->remember_token,
             ];

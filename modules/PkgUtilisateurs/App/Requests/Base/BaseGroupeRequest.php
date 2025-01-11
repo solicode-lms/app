@@ -18,9 +18,9 @@ class BaseGroupeRequest extends FormRequest
     {
         return [
             'code' => 'required|max:255',
+            'nom' => 'nullable|max:255',
             'description' => 'nullable',
-            'filiere_id' => 'nullable',
-            'nom' => 'nullable|max:255'
+            'filiere_id' => 'nullable'
         ];
     }
 
@@ -29,12 +29,12 @@ class BaseGroupeRequest extends FormRequest
         return [
             'code.required' => __('validation.required', ['attribute' => __('PkgUtilisateurs::Groupe.code')]),
             'code.max' => __('validation.codeMax'),
+            'nom.required' => __('validation.required', ['attribute' => __('PkgUtilisateurs::Groupe.nom')]),
+            'nom.max' => __('validation.nomMax'),
             'description.required' => __('validation.required', ['attribute' => __('PkgUtilisateurs::Groupe.description')]),
             'description.max' => __('validation.descriptionMax'),
             'filiere_id.required' => __('validation.required', ['attribute' => __('PkgUtilisateurs::Groupe.filiere_id')]),
-            'filiere_id.max' => __('validation.filiere_idMax'),
-            'nom.required' => __('validation.required', ['attribute' => __('PkgUtilisateurs::Groupe.nom')]),
-            'nom.max' => __('validation.nomMax')
+            'filiere_id.max' => __('validation.filiere_idMax')
         ];
     }
 }

@@ -29,12 +29,12 @@
                                 <p>{{ $itemNiveauxScolaire->code }}</p>
                             </div>
                             <div class="col-sm-12">
-                                <label for="description">{{ ucfirst(__('PkgUtilisateurs::niveauxScolaire.description')) }}:</label>
-                                <p>{{ $itemNiveauxScolaire->description }}</p>
-                            </div>
-                            <div class="col-sm-12">
                                 <label for="nom">{{ ucfirst(__('PkgUtilisateurs::niveauxScolaire.nom')) }}:</label>
                                 <p>{{ $itemNiveauxScolaire->nom }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="description">{{ ucfirst(__('PkgUtilisateurs::niveauxScolaire.description')) }}:</label>
+                                <p>{{ $itemNiveauxScolaire->description }}</p>
                             </div>
                         </div>
                     </div>

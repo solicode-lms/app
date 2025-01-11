@@ -17,18 +17,18 @@ class BaseWidgetOperationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'description' => 'nullable',
-            'operation' => 'required|max:255'
+            'operation' => 'required|max:255',
+            'description' => 'nullable'
         ];
     }
 
     public function messages(): array
     {
         return [
-            'description.required' => __('validation.required', ['attribute' => __('PkgWidgets::WidgetOperation.description')]),
-            'description.max' => __('validation.descriptionMax'),
             'operation.required' => __('validation.required', ['attribute' => __('PkgWidgets::WidgetOperation.operation')]),
-            'operation.max' => __('validation.operationMax')
+            'operation.max' => __('validation.operationMax'),
+            'description.required' => __('validation.required', ['attribute' => __('PkgWidgets::WidgetOperation.description')]),
+            'description.max' => __('validation.descriptionMax')
         ];
     }
 }

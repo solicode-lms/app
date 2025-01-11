@@ -11,25 +11,6 @@
     <div class="card-body">
         
         <div class="form-group">
-            <label for="description">
-                {{ ucfirst(__('PkgWidgets::widgetOperation.description')) }}
-                
-            </label>
-            <textarea rows="" cols=""
-                name="description"
-                class="form-control richText"
-                
-                id="description"
-                placeholder="{{ __('PkgWidgets::widgetOperation.description') }}">
-                {{ $itemWidgetOperation ? $itemWidgetOperation->description : old('description') }}
-            </textarea>
-            @error('description')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
-
-        
-        <div class="form-group">
             <label for="operation">
                 {{ ucfirst(__('PkgWidgets::widgetOperation.operation')) }}
                 
@@ -45,6 +26,25 @@
                 placeholder="{{ __('PkgWidgets::widgetOperation.operation') }}"
                 value="{{ $itemWidgetOperation ? $itemWidgetOperation->operation : old('operation') }}">
             @error('operation')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
+
+        
+        <div class="form-group">
+            <label for="description">
+                {{ ucfirst(__('PkgWidgets::widgetOperation.description')) }}
+                
+            </label>
+            <textarea rows="" cols=""
+                name="description"
+                class="form-control richText"
+                
+                id="description"
+                placeholder="{{ __('PkgWidgets::widgetOperation.description') }}">
+                {{ $itemWidgetOperation ? $itemWidgetOperation->description : old('description') }}
+            </textarea>
+            @error('description')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>

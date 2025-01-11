@@ -35,7 +35,7 @@ class BasePermission extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'controller_id', 'guard_name', 'name'
+        'name', 'guard_name', 'controller_id'
     ];
 
     /**

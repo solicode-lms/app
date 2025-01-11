@@ -17,9 +17,9 @@ class BaseResourceRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'description' => 'nullable',
-            'lien' => 'required|max:255',
             'nom' => 'required|max:255',
+            'lien' => 'required|max:255',
+            'description' => 'nullable',
             'projet_id' => 'required'
         ];
     }
@@ -27,12 +27,12 @@ class BaseResourceRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'description.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Resource.description')]),
-            'description.max' => __('validation.descriptionMax'),
-            'lien.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Resource.lien')]),
-            'lien.max' => __('validation.lienMax'),
             'nom.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Resource.nom')]),
             'nom.max' => __('validation.nomMax'),
+            'lien.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Resource.lien')]),
+            'lien.max' => __('validation.lienMax'),
+            'description.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Resource.description')]),
+            'description.max' => __('validation.descriptionMax'),
             'projet_id.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Resource.projet_id')]),
             'projet_id.max' => __('validation.projet_idMax')
         ];

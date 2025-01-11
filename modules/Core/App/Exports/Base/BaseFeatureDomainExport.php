@@ -25,10 +25,10 @@ class BaseFeatureDomainExport implements FromCollection, WithHeadings, ShouldAut
     public function headings(): array
     {
         return [
-            'description',
-            'module_id',
             'name',
             'slug',
+            'description',
+            'module_id',
         ];
     }
 
@@ -36,10 +36,10 @@ class BaseFeatureDomainExport implements FromCollection, WithHeadings, ShouldAut
     {
         return $this->data->map(function ($featureDomain) {
             return [
-                'description' => $featureDomain->description,
-                'module_id' => $featureDomain->module_id,
                 'name' => $featureDomain->name,
                 'slug' => $featureDomain->slug,
+                'description' => $featureDomain->description,
+                'module_id' => $featureDomain->module_id,
             ];
         });
     }

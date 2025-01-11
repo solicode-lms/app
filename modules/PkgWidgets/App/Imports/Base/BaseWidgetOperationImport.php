@@ -38,8 +38,8 @@ class BaseWidgetOperationImport implements ToModel, WithHeadingRow
 
         // Crée un nouvel enregistrement à partir des données importées
         return new WidgetOperation([
-            'description' => $row['description'],
             'operation' => $row['operation'],
+            'description' => $row['description'],
         ]);
     }
 }

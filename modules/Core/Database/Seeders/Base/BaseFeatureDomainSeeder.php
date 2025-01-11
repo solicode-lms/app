@@ -45,10 +45,10 @@ class BaseFeatureDomainSeeder extends Seeder
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
                 FeatureDomain::create([
-                    "description" => $data[0] ,
-                    "module_id" => $data[1] ,
-                    "name" => $data[2] ,
-                    "slug" => $data[3] 
+                    "name" => $data[0] ,
+                    "slug" => $data[1] ,
+                    "description" => $data[2] ,
+                    "module_id" => $data[3] 
                 ]);
             }
             $firstline = false;

@@ -25,9 +25,9 @@ class BaseFeatureExport implements FromCollection, WithHeadings, ShouldAutoSize,
     public function headings(): array
     {
         return [
+            'name',
             'description',
             'domain_id',
-            'name',
         ];
     }
 
@@ -35,9 +35,9 @@ class BaseFeatureExport implements FromCollection, WithHeadings, ShouldAutoSize,
     {
         return $this->data->map(function ($feature) {
             return [
+                'name' => $feature->name,
                 'description' => $feature->description,
                 'domain_id' => $feature->domain_id,
-                'name' => $feature->name,
             ];
         });
     }

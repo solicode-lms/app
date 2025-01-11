@@ -25,16 +25,16 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="col-sm-12">
+                                <label for="name">{{ ucfirst(__('Core::feature.name')) }}:</label>
+                                <p>{{ $itemFeature->name }}</p>
+                            </div>
+                            <div class="col-sm-12">
                                 <label for="description">{{ ucfirst(__('Core::feature.description')) }}:</label>
                                 <p>{{ $itemFeature->description }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="domain_id">{{ ucfirst(__('Core::feature.domain_id')) }}:</label>
                                 <p>{{ $itemFeature->domain_id }}</p>
-                            </div>
-                            <div class="col-sm-12">
-                                <label for="name">{{ ucfirst(__('Core::feature.name')) }}:</label>
-                                <p>{{ $itemFeature->name }}</p>
                             </div>
                         </div>
                     </div>

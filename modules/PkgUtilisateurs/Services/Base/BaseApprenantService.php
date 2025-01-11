@@ -19,24 +19,24 @@ class BaseApprenantService extends BaseService
      * @var array
      */
     protected $fieldsSearchable = [
-        'actif',
-        'adresse',
-        'cin',
-        'date_inscription',
-        'date_naissance',
-        'diplome',
-        'groupe_id',
-        'lieu_naissance',
-        'matricule',
-        'nationalite_id',
-        'niveaux_scolaire_id',
         'nom',
-        'nom_arab',
         'prenom',
         'prenom_arab',
+        'nom_arab',
+        'tele_num',
         'profile_image',
+        'matricule',
         'sexe',
-        'tele_num'
+        'actif',
+        'diplome',
+        'date_naissance',
+        'date_inscription',
+        'lieu_naissance',
+        'cin',
+        'adresse',
+        'groupe_id',
+        'niveaux_scolaire_id',
+        'nationalite_id'
     ];
 
     /**
@@ -72,24 +72,24 @@ class BaseApprenantService extends BaseService
     public function create(array $data)
     {
         $apprenant = parent::create([
-            'actif' => $data['actif'],
-            'adresse' => $data['adresse'],
-            'cin' => $data['cin'],
-            'date_inscription' => $data['date_inscription'],
-            'date_naissance' => $data['date_naissance'],
-            'diplome' => $data['diplome'],
-            'groupe_id' => $data['groupe_id'],
-            'lieu_naissance' => $data['lieu_naissance'],
-            'matricule' => $data['matricule'],
-            'nationalite_id' => $data['nationalite_id'],
-            'niveaux_scolaire_id' => $data['niveaux_scolaire_id'],
             'nom' => $data['nom'],
-            'nom_arab' => $data['nom_arab'],
             'prenom' => $data['prenom'],
             'prenom_arab' => $data['prenom_arab'],
-            'profile_image' => $data['profile_image'],
-            'sexe' => $data['sexe'],
+            'nom_arab' => $data['nom_arab'],
             'tele_num' => $data['tele_num'],
+            'profile_image' => $data['profile_image'],
+            'matricule' => $data['matricule'],
+            'sexe' => $data['sexe'],
+            'actif' => $data['actif'],
+            'diplome' => $data['diplome'],
+            'date_naissance' => $data['date_naissance'],
+            'date_inscription' => $data['date_inscription'],
+            'lieu_naissance' => $data['lieu_naissance'],
+            'cin' => $data['cin'],
+            'adresse' => $data['adresse'],
+            'groupe_id' => $data['groupe_id'],
+            'niveaux_scolaire_id' => $data['niveaux_scolaire_id'],
+            'nationalite_id' => $data['nationalite_id'],
         ]);
 
         return $apprenant;

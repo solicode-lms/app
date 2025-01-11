@@ -46,8 +46,8 @@ class BaseWidgetOperationSeeder extends Seeder
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
                 WidgetOperation::create([
-                    "description" => $data[0] ,
-                    "operation" => $data[1] 
+                    "operation" => $data[0] ,
+                    "description" => $data[1] 
                 ]);
             }
             $firstline = false;

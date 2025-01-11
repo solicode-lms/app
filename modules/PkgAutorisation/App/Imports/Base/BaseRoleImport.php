@@ -38,8 +38,8 @@ class BaseRoleImport implements ToModel, WithHeadingRow
 
         // Crée un nouvel enregistrement à partir des données importées
         return new Role([
-            'guard_name' => $row['guard_name'],
             'name' => $row['name'],
+            'guard_name' => $row['guard_name'],
         ]);
     }
 }

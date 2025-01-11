@@ -25,13 +25,13 @@ class BaseSysModuleExport implements FromCollection, WithHeadings, ShouldAutoSiz
     public function headings(): array
     {
         return [
-            'color_id',
+            'name',
+            'slug',
             'description',
             'is_active',
-            'name',
             'order',
-            'slug',
             'version',
+            'color_id',
         ];
     }
 
@@ -39,13 +39,13 @@ class BaseSysModuleExport implements FromCollection, WithHeadings, ShouldAutoSiz
     {
         return $this->data->map(function ($sysModule) {
             return [
-                'color_id' => $sysModule->color_id,
+                'name' => $sysModule->name,
+                'slug' => $sysModule->slug,
                 'description' => $sysModule->description,
                 'is_active' => $sysModule->is_active,
-                'name' => $sysModule->name,
                 'order' => $sysModule->order,
-                'slug' => $sysModule->slug,
                 'version' => $sysModule->version,
+                'color_id' => $sysModule->color_id,
             ];
         });
     }

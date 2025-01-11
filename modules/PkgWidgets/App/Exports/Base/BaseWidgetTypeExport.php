@@ -25,8 +25,8 @@ class BaseWidgetTypeExport implements FromCollection, WithHeadings, ShouldAutoSi
     public function headings(): array
     {
         return [
-            'description',
             'type',
+            'description',
         ];
     }
 
@@ -34,8 +34,8 @@ class BaseWidgetTypeExport implements FromCollection, WithHeadings, ShouldAutoSi
     {
         return $this->data->map(function ($widgetType) {
             return [
-                'description' => $widgetType->description,
                 'type' => $widgetType->type,
+                'description' => $widgetType->description,
             ];
         });
     }

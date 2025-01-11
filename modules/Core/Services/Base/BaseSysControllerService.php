@@ -19,11 +19,11 @@ class BaseSysControllerService extends BaseService
      * @var array
      */
     protected $fieldsSearchable = [
-        'description',
-        'is_active',
         'module_id',
         'name',
-        'slug'
+        'slug',
+        'description',
+        'is_active'
     ];
 
     /**

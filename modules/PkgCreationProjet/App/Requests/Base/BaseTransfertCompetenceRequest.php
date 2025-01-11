@@ -17,24 +17,24 @@ class BaseTransfertCompetenceRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'appreciation_id' => 'required',
-            'competence_id' => 'required',
             'description' => 'nullable',
-            'projet_id' => 'required'
+            'projet_id' => 'required',
+            'competence_id' => 'required',
+            'appreciation_id' => 'required'
         ];
     }
 
     public function messages(): array
     {
         return [
-            'appreciation_id.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::TransfertCompetence.appreciation_id')]),
-            'appreciation_id.max' => __('validation.appreciation_idMax'),
-            'competence_id.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::TransfertCompetence.competence_id')]),
-            'competence_id.max' => __('validation.competence_idMax'),
             'description.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::TransfertCompetence.description')]),
             'description.max' => __('validation.descriptionMax'),
             'projet_id.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::TransfertCompetence.projet_id')]),
-            'projet_id.max' => __('validation.projet_idMax')
+            'projet_id.max' => __('validation.projet_idMax'),
+            'competence_id.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::TransfertCompetence.competence_id')]),
+            'competence_id.max' => __('validation.competence_idMax'),
+            'appreciation_id.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::TransfertCompetence.appreciation_id')]),
+            'appreciation_id.max' => __('validation.appreciation_idMax')
         ];
     }
 }

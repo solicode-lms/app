@@ -17,9 +17,9 @@ class BaseUserRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'name' => 'required|max:255',
             'email' => 'required|max:255',
             'email_verified_at' => 'nullable',
-            'name' => 'required|max:255',
             'password' => 'required|max:255',
             'remember_token' => 'nullable|max:255'
         ];
@@ -28,12 +28,12 @@ class BaseUserRequest extends FormRequest
     public function messages(): array
     {
         return [
+            'name.required' => __('validation.required', ['attribute' => __('PkgAutorisation::User.name')]),
+            'name.max' => __('validation.nameMax'),
             'email.required' => __('validation.required', ['attribute' => __('PkgAutorisation::User.email')]),
             'email.max' => __('validation.emailMax'),
             'email_verified_at.required' => __('validation.required', ['attribute' => __('PkgAutorisation::User.email_verified_at')]),
             'email_verified_at.max' => __('validation.email_verified_atMax'),
-            'name.required' => __('validation.required', ['attribute' => __('PkgAutorisation::User.name')]),
-            'name.max' => __('validation.nameMax'),
             'password.required' => __('validation.required', ['attribute' => __('PkgAutorisation::User.password')]),
             'password.max' => __('validation.passwordMax'),
             'remember_token.required' => __('validation.required', ['attribute' => __('PkgAutorisation::User.remember_token')]),

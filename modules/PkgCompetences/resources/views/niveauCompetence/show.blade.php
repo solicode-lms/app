@@ -25,16 +25,16 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="col-sm-12">
-                                <label for="competence_id">{{ ucfirst(__('PkgCompetences::niveauCompetence.competence_id')) }}:</label>
-                                <p>{{ $itemNiveauCompetence->competence_id }}</p>
+                                <label for="nom">{{ ucfirst(__('PkgCompetences::niveauCompetence.nom')) }}:</label>
+                                <p>{{ $itemNiveauCompetence->nom }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="description">{{ ucfirst(__('PkgCompetences::niveauCompetence.description')) }}:</label>
                                 <p>{{ $itemNiveauCompetence->description }}</p>
                             </div>
                             <div class="col-sm-12">
-                                <label for="nom">{{ ucfirst(__('PkgCompetences::niveauCompetence.nom')) }}:</label>
-                                <p>{{ $itemNiveauCompetence->nom }}</p>
+                                <label for="competence_id">{{ ucfirst(__('PkgCompetences::niveauCompetence.competence_id')) }}:</label>
+                                <p>{{ $itemNiveauCompetence->competence_id }}</p>
                             </div>
                         </div>
                     </div>

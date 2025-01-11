@@ -25,8 +25,8 @@ class BaseWidgetOperationExport implements FromCollection, WithHeadings, ShouldA
     public function headings(): array
     {
         return [
-            'description',
             'operation',
+            'description',
         ];
     }
 
@@ -34,8 +34,8 @@ class BaseWidgetOperationExport implements FromCollection, WithHeadings, ShouldA
     {
         return $this->data->map(function ($widgetOperation) {
             return [
-                'description' => $widgetOperation->description,
                 'operation' => $widgetOperation->operation,
+                'description' => $widgetOperation->description,
             ];
         });
     }

@@ -38,8 +38,8 @@ class BaseSysColorImport implements ToModel, WithHeadingRow
 
         // Crée un nouvel enregistrement à partir des données importées
         return new SysColor([
-            'hex' => $row['hex'],
             'name' => $row['name'],
+            'hex' => $row['hex'],
         ]);
     }
 }

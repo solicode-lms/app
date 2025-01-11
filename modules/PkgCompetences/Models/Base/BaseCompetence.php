@@ -36,7 +36,7 @@ class BaseCompetence extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'code', 'description', 'module_id', 'nom'
+        'code', 'nom', 'description', 'module_id'
     ];
 
     /**

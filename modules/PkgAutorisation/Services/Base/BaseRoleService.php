@@ -19,8 +19,8 @@ class BaseRoleService extends BaseService
      * @var array
      */
     protected $fieldsSearchable = [
-        'guard_name',
-        'name'
+        'name',
+        'guard_name'
     ];
 
     /**

@@ -38,17 +38,17 @@ class BaseFormateurImport implements ToModel, WithHeadingRow
 
         // Crée un nouvel enregistrement à partir des données importées
         return new Formateur([
+            'matricule' => $row['matricule'],
+            'nom' => $row['nom'],
+            'prenom' => $row['prenom'],
+            'prenom_arab' => $row['prenom_arab'],
+            'nom_arab' => $row['nom_arab'],
+            'tele_num' => $row['tele_num'],
             'adresse' => $row['adresse'],
             'diplome' => $row['diplome'],
             'echelle' => $row['echelle'],
             'echelon' => $row['echelon'],
-            'matricule' => $row['matricule'],
-            'nom' => $row['nom'],
-            'nom_arab' => $row['nom_arab'],
-            'prenom' => $row['prenom'],
-            'prenom_arab' => $row['prenom_arab'],
             'profile_image' => $row['profile_image'],
-            'tele_num' => $row['tele_num'],
             'user_id' => $row['user_id'],
         ]);
     }

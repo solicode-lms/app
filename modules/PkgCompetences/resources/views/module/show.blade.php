@@ -25,20 +25,20 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="col-sm-12">
-                                <label for="description">{{ ucfirst(__('PkgCompetences::module.description')) }}:</label>
-                                <p>{{ $itemModule->description }}</p>
+                                <label for="nom">{{ ucfirst(__('PkgCompetences::module.nom')) }}:</label>
+                                <p>{{ $itemModule->nom }}</p>
                             </div>
                             <div class="col-sm-12">
-                                <label for="filiere_id">{{ ucfirst(__('PkgCompetences::module.filiere_id')) }}:</label>
-                                <p>{{ $itemModule->filiere_id }}</p>
+                                <label for="description">{{ ucfirst(__('PkgCompetences::module.description')) }}:</label>
+                                <p>{{ $itemModule->description }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="masse_horaire">{{ ucfirst(__('PkgCompetences::module.masse_horaire')) }}:</label>
                                 <p>{{ $itemModule->masse_horaire }}</p>
                             </div>
                             <div class="col-sm-12">
-                                <label for="nom">{{ ucfirst(__('PkgCompetences::module.nom')) }}:</label>
-                                <p>{{ $itemModule->nom }}</p>
+                                <label for="filiere_id">{{ ucfirst(__('PkgCompetences::module.filiere_id')) }}:</label>
+                                <p>{{ $itemModule->filiere_id }}</p>
                             </div>
                         </div>
                     </div>

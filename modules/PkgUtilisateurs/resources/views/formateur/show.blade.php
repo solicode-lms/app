@@ -25,6 +25,30 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="col-sm-12">
+                                <label for="matricule">{{ ucfirst(__('PkgUtilisateurs::formateur.matricule')) }}:</label>
+                                <p>{{ $itemFormateur->matricule }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="nom">{{ ucfirst(__('PkgUtilisateurs::formateur.nom')) }}:</label>
+                                <p>{{ $itemFormateur->nom }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="prenom">{{ ucfirst(__('PkgUtilisateurs::formateur.prenom')) }}:</label>
+                                <p>{{ $itemFormateur->prenom }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="prenom_arab">{{ ucfirst(__('PkgUtilisateurs::formateur.prenom_arab')) }}:</label>
+                                <p>{{ $itemFormateur->prenom_arab }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="nom_arab">{{ ucfirst(__('PkgUtilisateurs::formateur.nom_arab')) }}:</label>
+                                <p>{{ $itemFormateur->nom_arab }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="tele_num">{{ ucfirst(__('PkgUtilisateurs::formateur.tele_num')) }}:</label>
+                                <p>{{ $itemFormateur->tele_num }}</p>
+                            </div>
+                            <div class="col-sm-12">
                                 <label for="adresse">{{ ucfirst(__('PkgUtilisateurs::formateur.adresse')) }}:</label>
                                 <p>{{ $itemFormateur->adresse }}</p>
                             </div>
@@ -41,32 +65,8 @@
                                 <p>{{ $itemFormateur->echelon }}</p>
                             </div>
                             <div class="col-sm-12">
-                                <label for="matricule">{{ ucfirst(__('PkgUtilisateurs::formateur.matricule')) }}:</label>
-                                <p>{{ $itemFormateur->matricule }}</p>
-                            </div>
-                            <div class="col-sm-12">
-                                <label for="nom">{{ ucfirst(__('PkgUtilisateurs::formateur.nom')) }}:</label>
-                                <p>{{ $itemFormateur->nom }}</p>
-                            </div>
-                            <div class="col-sm-12">
-                                <label for="nom_arab">{{ ucfirst(__('PkgUtilisateurs::formateur.nom_arab')) }}:</label>
-                                <p>{{ $itemFormateur->nom_arab }}</p>
-                            </div>
-                            <div class="col-sm-12">
-                                <label for="prenom">{{ ucfirst(__('PkgUtilisateurs::formateur.prenom')) }}:</label>
-                                <p>{{ $itemFormateur->prenom }}</p>
-                            </div>
-                            <div class="col-sm-12">
-                                <label for="prenom_arab">{{ ucfirst(__('PkgUtilisateurs::formateur.prenom_arab')) }}:</label>
-                                <p>{{ $itemFormateur->prenom_arab }}</p>
-                            </div>
-                            <div class="col-sm-12">
                                 <label for="profile_image">{{ ucfirst(__('PkgUtilisateurs::formateur.profile_image')) }}:</label>
                                 <p>{{ $itemFormateur->profile_image }}</p>
-                            </div>
-                            <div class="col-sm-12">
-                                <label for="tele_num">{{ ucfirst(__('PkgUtilisateurs::formateur.tele_num')) }}:</label>
-                                <p>{{ $itemFormateur->tele_num }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="user_id">{{ ucfirst(__('PkgUtilisateurs::formateur.user_id')) }}:</label>

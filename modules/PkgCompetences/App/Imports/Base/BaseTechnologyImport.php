@@ -38,9 +38,9 @@ class BaseTechnologyImport implements ToModel, WithHeadingRow
 
         // Crée un nouvel enregistrement à partir des données importées
         return new Technology([
-            'category_technology_id' => $row['category_technology_id'],
-            'description' => $row['description'],
             'nom' => $row['nom'],
+            'description' => $row['description'],
+            'category_technology_id' => $row['category_technology_id'],
         ]);
     }
 }

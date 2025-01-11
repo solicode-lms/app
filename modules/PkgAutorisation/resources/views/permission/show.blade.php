@@ -25,16 +25,16 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="col-sm-12">
-                                <label for="controller_id">{{ ucfirst(__('PkgAutorisation::permission.controller_id')) }}:</label>
-                                <p>{{ $itemPermission->controller_id }}</p>
+                                <label for="name">{{ ucfirst(__('PkgAutorisation::permission.name')) }}:</label>
+                                <p>{{ $itemPermission->name }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="guard_name">{{ ucfirst(__('PkgAutorisation::permission.guard_name')) }}:</label>
                                 <p>{{ $itemPermission->guard_name }}</p>
                             </div>
                             <div class="col-sm-12">
-                                <label for="name">{{ ucfirst(__('PkgAutorisation::permission.name')) }}:</label>
-                                <p>{{ $itemPermission->name }}</p>
+                                <label for="controller_id">{{ ucfirst(__('PkgAutorisation::permission.controller_id')) }}:</label>
+                                <p>{{ $itemPermission->controller_id }}</p>
                             </div>
                         </div>
                     </div>

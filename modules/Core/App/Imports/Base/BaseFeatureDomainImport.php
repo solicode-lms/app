@@ -38,10 +38,10 @@ class BaseFeatureDomainImport implements ToModel, WithHeadingRow
 
         // Crée un nouvel enregistrement à partir des données importées
         return new FeatureDomain([
-            'description' => $row['description'],
-            'module_id' => $row['module_id'],
             'name' => $row['name'],
             'slug' => $row['slug'],
+            'description' => $row['description'],
+            'module_id' => $row['module_id'],
         ]);
     }
 }

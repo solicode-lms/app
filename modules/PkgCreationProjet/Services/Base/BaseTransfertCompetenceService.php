@@ -19,10 +19,10 @@ class BaseTransfertCompetenceService extends BaseService
      * @var array
      */
     protected $fieldsSearchable = [
-        'appreciation_id',
-        'competence_id',
         'description',
-        'projet_id'
+        'projet_id',
+        'competence_id',
+        'appreciation_id'
     ];
 
     /**

@@ -11,25 +11,6 @@
     <div class="card-body">
         
         <div class="form-group">
-            <label for="description">
-                {{ ucfirst(__('PkgCompetences::categoryTechnology.description')) }}
-                
-            </label>
-            <textarea rows="" cols=""
-                name="description"
-                class="form-control richText"
-                
-                id="description"
-                placeholder="{{ __('PkgCompetences::categoryTechnology.description') }}">
-                {{ $itemCategoryTechnology ? $itemCategoryTechnology->description : old('description') }}
-            </textarea>
-            @error('description')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
-
-        
-        <div class="form-group">
             <label for="nom">
                 {{ ucfirst(__('PkgCompetences::categoryTechnology.nom')) }}
                 
@@ -45,6 +26,25 @@
                 placeholder="{{ __('PkgCompetences::categoryTechnology.nom') }}"
                 value="{{ $itemCategoryTechnology ? $itemCategoryTechnology->nom : old('nom') }}">
             @error('nom')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
+
+        
+        <div class="form-group">
+            <label for="description">
+                {{ ucfirst(__('PkgCompetences::categoryTechnology.description')) }}
+                
+            </label>
+            <textarea rows="" cols=""
+                name="description"
+                class="form-control richText"
+                
+                id="description"
+                placeholder="{{ __('PkgCompetences::categoryTechnology.description') }}">
+                {{ $itemCategoryTechnology ? $itemCategoryTechnology->description : old('description') }}
+            </textarea>
+            @error('description')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>

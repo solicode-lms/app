@@ -46,8 +46,8 @@ class BaseCategoryTechnologySeeder extends Seeder
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
                 CategoryTechnology::create([
-                    "description" => $data[0] ,
-                    "nom" => $data[1] 
+                    "nom" => $data[0] ,
+                    "description" => $data[1] 
                 ]);
             }
             $firstline = false;

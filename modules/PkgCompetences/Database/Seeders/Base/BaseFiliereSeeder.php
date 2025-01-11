@@ -47,8 +47,8 @@ class BaseFiliereSeeder extends Seeder
             if (!$firstline) {
                 Filiere::create([
                     "code" => $data[0] ,
-                    "description" => $data[1] ,
-                    "nom" => $data[2] 
+                    "nom" => $data[1] ,
+                    "description" => $data[2] 
                 ]);
             }
             $firstline = false;

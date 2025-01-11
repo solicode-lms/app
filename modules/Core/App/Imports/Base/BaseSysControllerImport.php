@@ -38,11 +38,11 @@ class BaseSysControllerImport implements ToModel, WithHeadingRow
 
         // Crée un nouvel enregistrement à partir des données importées
         return new SysController([
-            'description' => $row['description'],
-            'is_active' => $row['is_active'],
             'module_id' => $row['module_id'],
             'name' => $row['name'],
             'slug' => $row['slug'],
+            'description' => $row['description'],
+            'is_active' => $row['is_active'],
         ]);
     }
 }

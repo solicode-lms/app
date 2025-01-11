@@ -5,6 +5,6 @@
 return [
     'singular' => 'CategoryTechnology',
     'plural' => 'CategoryTechnologies',
-    'description' => 'description',
     'nom' => 'nom',
+    'description' => 'description',
 ];

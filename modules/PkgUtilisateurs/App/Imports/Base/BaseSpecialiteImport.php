@@ -38,8 +38,8 @@ class BaseSpecialiteImport implements ToModel, WithHeadingRow
 
         // Crée un nouvel enregistrement à partir des données importées
         return new Specialite([
-            'description' => $row['description'],
             'nom' => $row['nom'],
+            'description' => $row['description'],
         ]);
     }
 }

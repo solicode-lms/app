@@ -39,8 +39,8 @@ class BaseNiveauxScolaireImport implements ToModel, WithHeadingRow
         // Crée un nouvel enregistrement à partir des données importées
         return new NiveauxScolaire([
             'code' => $row['code'],
-            'description' => $row['description'],
             'nom' => $row['nom'],
+            'description' => $row['description'],
         ]);
     }
 }

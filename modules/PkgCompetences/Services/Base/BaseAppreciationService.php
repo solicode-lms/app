@@ -19,11 +19,11 @@ class BaseAppreciationService extends BaseService
      * @var array
      */
     protected $fieldsSearchable = [
-        'description',
-        'formateur_id',
         'nom',
+        'description',
+        'noteMin',
         'noteMax',
-        'noteMin'
+        'formateur_id'
     ];
 
     /**
@@ -59,11 +59,11 @@ class BaseAppreciationService extends BaseService
     public function create(array $data)
     {
         $appreciation = parent::create([
-            'description' => $data['description'],
-            'formateur_id' => $data['formateur_id'],
             'nom' => $data['nom'],
-            'noteMax' => $data['noteMax'],
+            'description' => $data['description'],
             'noteMin' => $data['noteMin'],
+            'noteMax' => $data['noteMax'],
+            'formateur_id' => $data['formateur_id'],
         ]);
 
         return $appreciation;

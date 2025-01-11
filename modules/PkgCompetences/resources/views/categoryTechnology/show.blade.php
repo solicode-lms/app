@@ -25,12 +25,12 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="col-sm-12">
-                                <label for="description">{{ ucfirst(__('PkgCompetences::categoryTechnology.description')) }}:</label>
-                                <p>{{ $itemCategoryTechnology->description }}</p>
-                            </div>
-                            <div class="col-sm-12">
                                 <label for="nom">{{ ucfirst(__('PkgCompetences::categoryTechnology.nom')) }}:</label>
                                 <p>{{ $itemCategoryTechnology->nom }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="description">{{ ucfirst(__('PkgCompetences::categoryTechnology.description')) }}:</label>
+                                <p>{{ $itemCategoryTechnology->description }}</p>
                             </div>
                         </div>
                     </div>

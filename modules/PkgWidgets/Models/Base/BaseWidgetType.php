@@ -33,7 +33,7 @@ class BaseWidgetType extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'description', 'type'
+        'type', 'description'
     ];
 
 

@@ -46,14 +46,14 @@ class BaseWidgetSeeder extends Seeder
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
                 Widget::create([
-                    "color" => $data[0] ,
-                    "icon" => $data[1] ,
-                    "label" => $data[2] ,
-                    "model_id" => $data[3] ,
-                    "name" => $data[4] ,
-                    "operation_id" => $data[5] ,
-                    "parameters" => $data[6] ,
-                    "type_id" => $data[7] 
+                    "name" => $data[0] ,
+                    "type_id" => $data[1] ,
+                    "model_id" => $data[2] ,
+                    "operation_id" => $data[3] ,
+                    "color" => $data[4] ,
+                    "icon" => $data[5] ,
+                    "label" => $data[6] ,
+                    "parameters" => $data[7] 
                 ]);
             }
             $firstline = false;

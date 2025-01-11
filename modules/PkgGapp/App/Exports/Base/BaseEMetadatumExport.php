@@ -25,13 +25,13 @@ class BaseEMetadatumExport implements FromCollection, WithHeadings, ShouldAutoSi
     public function headings(): array
     {
         return [
-            'e_metadata_definition_id',
-            'object_id',
-            'object_type',
             'value_boolean',
+            'value_string',
             'value_int',
             'value_object',
-            'value_string',
+            'object_id',
+            'object_type',
+            'e_metadata_definition_id',
         ];
     }
 
@@ -39,13 +39,13 @@ class BaseEMetadatumExport implements FromCollection, WithHeadings, ShouldAutoSi
     {
         return $this->data->map(function ($eMetadatum) {
             return [
-                'e_metadata_definition_id' => $eMetadatum->e_metadata_definition_id,
-                'object_id' => $eMetadatum->object_id,
-                'object_type' => $eMetadatum->object_type,
                 'value_boolean' => $eMetadatum->value_boolean,
+                'value_string' => $eMetadatum->value_string,
                 'value_int' => $eMetadatum->value_int,
                 'value_object' => $eMetadatum->value_object,
-                'value_string' => $eMetadatum->value_string,
+                'object_id' => $eMetadatum->object_id,
+                'object_type' => $eMetadatum->object_type,
+                'e_metadata_definition_id' => $eMetadatum->e_metadata_definition_id,
             ];
         });
     }

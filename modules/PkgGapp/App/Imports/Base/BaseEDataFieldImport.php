@@ -38,10 +38,10 @@ class BaseEDataFieldImport implements ToModel, WithHeadingRow
 
         // Crée un nouvel enregistrement à partir des données importées
         return new EDataField([
-            'description' => $row['description'],
-            'e_model_id' => $row['e_model_id'],
             'name' => $row['name'],
             'type' => $row['type'],
+            'e_model_id' => $row['e_model_id'],
+            'description' => $row['description'],
         ]);
     }
 }

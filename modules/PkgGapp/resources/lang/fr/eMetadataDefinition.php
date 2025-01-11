@@ -5,11 +5,11 @@
 return [
     'singular' => 'EMetadataDefinition',
     'plural' => 'EMetadataDefinitions',
-    'code' => 'code',
-    'default_value' => 'default_value',
-    'description' => 'description',
-    'groupe' => 'groupe',
     'name' => 'name',
-    'scope' => 'scope',
+    'code' => 'code',
+    'groupe' => 'groupe',
     'type' => 'type',
+    'scope' => 'scope',
+    'description' => 'description',
+    'default_value' => 'default_value',
 ];

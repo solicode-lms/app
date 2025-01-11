@@ -25,16 +25,16 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="col-sm-12">
+                                <label for="name">{{ ucfirst(__('PkgAutorisation::user.name')) }}:</label>
+                                <p>{{ $itemUser->name }}</p>
+                            </div>
+                            <div class="col-sm-12">
                                 <label for="email">{{ ucfirst(__('PkgAutorisation::user.email')) }}:</label>
                                 <p>{{ $itemUser->email }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="email_verified_at">{{ ucfirst(__('PkgAutorisation::user.email_verified_at')) }}:</label>
                                 <p>{{ $itemUser->email_verified_at }}</p>
-                            </div>
-                            <div class="col-sm-12">
-                                <label for="name">{{ ucfirst(__('PkgAutorisation::user.name')) }}:</label>
-                                <p>{{ $itemUser->name }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="password">{{ ucfirst(__('PkgAutorisation::user.password')) }}:</label>

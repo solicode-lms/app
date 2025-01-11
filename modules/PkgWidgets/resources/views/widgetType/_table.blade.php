@@ -4,16 +4,16 @@
     <table class="table table-striped text-nowrap">
         <thead>
             <tr>
-                <x-sortable-column field="description" label="{{ ucfirst(__('PkgWidgets::widgetType.description')) }}" />
                 <x-sortable-column field="type" label="{{ ucfirst(__('PkgWidgets::widgetType.type')) }}" />
+                <x-sortable-column field="description" label="{{ ucfirst(__('PkgWidgets::widgetType.description')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($widgetTypes_data as $widgetType)
                 <tr>
-                    <td>{!! $widgetType->description !!}</td>
                     <td>@limit($widgetType->type, 80)</td>
+                    <td>{!! $widgetType->description !!}</td>
                     <td class="text-right">
                         @can('show-widgetType')
                             <a href="{{ route('widgetTypes.show', ['widgetType' => $widgetType->id]) }}" data-id="{{$widgetType->id}}" class="btn btn-default btn-sm context-state showEntity">

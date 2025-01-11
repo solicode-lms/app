@@ -25,10 +25,10 @@ class BaseEModelExport implements FromCollection, WithHeadings, ShouldAutoSize, 
     public function headings(): array
     {
         return [
+            'name',
+            'icon',
             'description',
             'e_package_id',
-            'icon',
-            'name',
         ];
     }
 
@@ -36,10 +36,10 @@ class BaseEModelExport implements FromCollection, WithHeadings, ShouldAutoSize, 
     {
         return $this->data->map(function ($eModel) {
             return [
+                'name' => $eModel->name,
+                'icon' => $eModel->icon,
                 'description' => $eModel->description,
                 'e_package_id' => $eModel->e_package_id,
-                'icon' => $eModel->icon,
-                'name' => $eModel->name,
             ];
         });
     }

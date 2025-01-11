@@ -6,6 +6,6 @@ return [
     'singular' => 'Nationalite',
     'plural' => 'Nationalites',
     'code' => 'code',
-    'description' => 'description',
     'nom' => 'nom',
+    'description' => 'description',
 ];

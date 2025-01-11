@@ -25,9 +25,9 @@ class BaseNiveauCompetenceExport implements FromCollection, WithHeadings, Should
     public function headings(): array
     {
         return [
-            'competence_id',
-            'description',
             'nom',
+            'description',
+            'competence_id',
         ];
     }
 
@@ -35,9 +35,9 @@ class BaseNiveauCompetenceExport implements FromCollection, WithHeadings, Should
     {
         return $this->data->map(function ($niveauCompetence) {
             return [
-                'competence_id' => $niveauCompetence->competence_id,
-                'description' => $niveauCompetence->description,
                 'nom' => $niveauCompetence->nom,
+                'description' => $niveauCompetence->description,
+                'competence_id' => $niveauCompetence->competence_id,
             ];
         });
     }

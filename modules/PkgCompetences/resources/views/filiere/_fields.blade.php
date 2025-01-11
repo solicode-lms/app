@@ -32,6 +32,27 @@
 
         
         <div class="form-group">
+            <label for="nom">
+                {{ ucfirst(__('PkgCompetences::filiere.nom')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <input
+                name="nom"
+                type="input"
+                class="form-control"
+                required
+                id="nom"
+                placeholder="{{ __('PkgCompetences::filiere.nom') }}"
+                value="{{ $itemFiliere ? $itemFiliere->nom : old('nom') }}">
+            @error('nom')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
+
+        
+        <div class="form-group">
             <label for="description">
                 {{ ucfirst(__('PkgCompetences::filiere.description')) }}
                 
@@ -56,27 +77,6 @@
         
 
         <!--   Module_HasMany HasMany --> 
-
-        
-        <div class="form-group">
-            <label for="nom">
-                {{ ucfirst(__('PkgCompetences::filiere.nom')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
-                name="nom"
-                type="input"
-                class="form-control"
-                required
-                id="nom"
-                placeholder="{{ __('PkgCompetences::filiere.nom') }}"
-                value="{{ $itemFiliere ? $itemFiliere->nom : old('nom') }}">
-            @error('nom')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
 
     </div>
 

@@ -5,8 +5,8 @@
         <thead>
             <tr>
                 <x-sortable-column field="code" label="{{ ucfirst(__('PkgUtilisateurs::groupe.code')) }}" />
-                <x-sortable-column field="filiere_id" label="{{ ucfirst(__('PkgCompetences::filiere.singular')) }}" />
                 <x-sortable-column field="nom" label="{{ ucfirst(__('PkgUtilisateurs::groupe.nom')) }}" />
+                <x-sortable-column field="filiere_id" label="{{ ucfirst(__('PkgCompetences::filiere.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -14,8 +14,8 @@
             @foreach ($groupes_data as $groupe)
                 <tr>
                     <td>@limit($groupe->code, 80)</td>
-                    <td>@limit($groupe->filiere->code ?? '-', 80)</td>
                     <td>@limit($groupe->nom, 80)</td>
+                    <td>@limit($groupe->filiere->code ?? '-', 80)</td>
                     <td class="text-right">
                         @can('show-groupe')
                             <a href="{{ route('groupes.show', ['groupe' => $groupe->id]) }}" data-id="{{$groupe->id}}" class="btn btn-default btn-sm context-state showEntity">

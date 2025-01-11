@@ -38,9 +38,9 @@ class BaseFeatureImport implements ToModel, WithHeadingRow
 
         // Crée un nouvel enregistrement à partir des données importées
         return new Feature([
+            'name' => $row['name'],
             'description' => $row['description'],
             'domain_id' => $row['domain_id'],
-            'name' => $row['name'],
         ]);
     }
 }

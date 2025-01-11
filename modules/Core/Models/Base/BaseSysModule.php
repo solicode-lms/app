@@ -36,7 +36,7 @@ class BaseSysModule extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'color_id', 'description', 'is_active', 'name', 'order', 'slug', 'version'
+        'name', 'slug', 'description', 'is_active', 'order', 'version', 'color_id'
     ];
 
     /**

@@ -17,33 +17,33 @@ class BaseEMetadataDefinitionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'code' => 'required|max:255',
-            'default_value' => 'nullable|max:255',
-            'description' => 'nullable|max:255',
-            'groupe' => 'required|max:255',
             'name' => 'required|max:255',
+            'code' => 'required|max:255',
+            'groupe' => 'required|max:255',
+            'type' => 'required|max:255',
             'scope' => 'required|max:255',
-            'type' => 'required|max:255'
+            'description' => 'nullable|max:255',
+            'default_value' => 'nullable|max:255'
         ];
     }
 
     public function messages(): array
     {
         return [
-            'code.required' => __('validation.required', ['attribute' => __('PkgGapp::EMetadataDefinition.code')]),
-            'code.max' => __('validation.codeMax'),
-            'default_value.required' => __('validation.required', ['attribute' => __('PkgGapp::EMetadataDefinition.default_value')]),
-            'default_value.max' => __('validation.default_valueMax'),
-            'description.required' => __('validation.required', ['attribute' => __('PkgGapp::EMetadataDefinition.description')]),
-            'description.max' => __('validation.descriptionMax'),
-            'groupe.required' => __('validation.required', ['attribute' => __('PkgGapp::EMetadataDefinition.groupe')]),
-            'groupe.max' => __('validation.groupeMax'),
             'name.required' => __('validation.required', ['attribute' => __('PkgGapp::EMetadataDefinition.name')]),
             'name.max' => __('validation.nameMax'),
+            'code.required' => __('validation.required', ['attribute' => __('PkgGapp::EMetadataDefinition.code')]),
+            'code.max' => __('validation.codeMax'),
+            'groupe.required' => __('validation.required', ['attribute' => __('PkgGapp::EMetadataDefinition.groupe')]),
+            'groupe.max' => __('validation.groupeMax'),
+            'type.required' => __('validation.required', ['attribute' => __('PkgGapp::EMetadataDefinition.type')]),
+            'type.max' => __('validation.typeMax'),
             'scope.required' => __('validation.required', ['attribute' => __('PkgGapp::EMetadataDefinition.scope')]),
             'scope.max' => __('validation.scopeMax'),
-            'type.required' => __('validation.required', ['attribute' => __('PkgGapp::EMetadataDefinition.type')]),
-            'type.max' => __('validation.typeMax')
+            'description.required' => __('validation.required', ['attribute' => __('PkgGapp::EMetadataDefinition.description')]),
+            'description.max' => __('validation.descriptionMax'),
+            'default_value.required' => __('validation.required', ['attribute' => __('PkgGapp::EMetadataDefinition.default_value')]),
+            'default_value.max' => __('validation.default_valueMax')
         ];
     }
 }

@@ -46,8 +46,8 @@ class BaseWidgetTypeSeeder extends Seeder
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
                 WidgetType::create([
-                    "description" => $data[0] ,
-                    "type" => $data[1] 
+                    "type" => $data[0] ,
+                    "description" => $data[1] 
                 ]);
             }
             $firstline = false;

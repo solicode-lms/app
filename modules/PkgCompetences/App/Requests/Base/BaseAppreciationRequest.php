@@ -17,27 +17,27 @@ class BaseAppreciationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'description' => 'nullable',
-            'formateur_id' => 'required',
             'nom' => 'required|max:255',
+            'description' => 'nullable',
+            'noteMin' => 'required',
             'noteMax' => 'required',
-            'noteMin' => 'required'
+            'formateur_id' => 'required'
         ];
     }
 
     public function messages(): array
     {
         return [
-            'description.required' => __('validation.required', ['attribute' => __('PkgCompetences::Appreciation.description')]),
-            'description.max' => __('validation.descriptionMax'),
-            'formateur_id.required' => __('validation.required', ['attribute' => __('PkgCompetences::Appreciation.formateur_id')]),
-            'formateur_id.max' => __('validation.formateur_idMax'),
             'nom.required' => __('validation.required', ['attribute' => __('PkgCompetences::Appreciation.nom')]),
             'nom.max' => __('validation.nomMax'),
+            'description.required' => __('validation.required', ['attribute' => __('PkgCompetences::Appreciation.description')]),
+            'description.max' => __('validation.descriptionMax'),
+            'noteMin.required' => __('validation.required', ['attribute' => __('PkgCompetences::Appreciation.noteMin')]),
+            'noteMin.max' => __('validation.noteMinMax'),
             'noteMax.required' => __('validation.required', ['attribute' => __('PkgCompetences::Appreciation.noteMax')]),
             'noteMax.max' => __('validation.noteMaxMax'),
-            'noteMin.required' => __('validation.required', ['attribute' => __('PkgCompetences::Appreciation.noteMin')]),
-            'noteMin.max' => __('validation.noteMinMax')
+            'formateur_id.required' => __('validation.required', ['attribute' => __('PkgCompetences::Appreciation.formateur_id')]),
+            'formateur_id.max' => __('validation.formateur_idMax')
         ];
     }
 }

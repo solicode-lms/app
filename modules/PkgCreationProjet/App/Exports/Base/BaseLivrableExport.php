@@ -25,10 +25,10 @@ class BaseLivrableExport implements FromCollection, WithHeadings, ShouldAutoSize
     public function headings(): array
     {
         return [
-            'description',
+            'titre',
             'nature_livrable_id',
             'projet_id',
-            'titre',
+            'description',
         ];
     }
 
@@ -36,10 +36,10 @@ class BaseLivrableExport implements FromCollection, WithHeadings, ShouldAutoSize
     {
         return $this->data->map(function ($livrable) {
             return [
-                'description' => $livrable->description,
+                'titre' => $livrable->titre,
                 'nature_livrable_id' => $livrable->nature_livrable_id,
                 'projet_id' => $livrable->projet_id,
-                'titre' => $livrable->titre,
+                'description' => $livrable->description,
             ];
         });
     }

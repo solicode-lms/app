@@ -46,11 +46,11 @@ class BaseAppreciationSeeder extends Seeder
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
                 Appreciation::create([
-                    "description" => $data[0] ,
-                    "formateur_id" => $data[1] ,
-                    "nom" => $data[2] ,
+                    "nom" => $data[0] ,
+                    "description" => $data[1] ,
+                    "noteMin" => $data[2] ,
                     "noteMax" => $data[3] ,
-                    "noteMin" => $data[4] 
+                    "formateur_id" => $data[4] 
                 ]);
             }
             $firstline = false;

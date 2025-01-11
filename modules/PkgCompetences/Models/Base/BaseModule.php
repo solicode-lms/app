@@ -34,7 +34,7 @@ class BaseModule extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'description', 'filiere_id', 'masse_horaire', 'nom'
+        'nom', 'description', 'masse_horaire', 'filiere_id'
     ];
 
     /**

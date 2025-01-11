@@ -11,57 +11,6 @@
     <div class="card-body">
         
         <div class="form-group">
-            <label for="description">
-                {{ ucfirst(__('Core::featureDomain.description')) }}
-                
-            </label>
-            <textarea rows="" cols=""
-                name="description"
-                class="form-control richText"
-                
-                id="description"
-                placeholder="{{ __('Core::featureDomain.description') }}">
-                {{ $itemFeatureDomain ? $itemFeatureDomain->description : old('description') }}
-            </textarea>
-            @error('description')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
-
-        
-
-        <!--   Feature_HasMany HasMany --> 
-
-        
-        
-    <div class="form-group">
-            <label for="module_id">
-                {{ ucfirst(__('Core::sysModule.singular')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <select 
-            id="module_id" 
-            required
-            name="module_id" 
-            class="form-control select2">
-             <option value="">Sélectionnez une option</option>
-                @foreach ($sysModules as $sysModule)
-                    <option value="{{ $sysModule->id }}"
-                        {{ (isset($itemFeatureDomain) && $itemFeatureDomain->module_id == $sysModule->id) || (old('module_id>') == $sysModule->id) ? 'selected' : '' }}>
-                        {{ $sysModule }}
-                    </option>
-                @endforeach
-            </select>
-            @error('module_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
-
-
-        
-        <div class="form-group">
             <label for="name">
                 {{ ucfirst(__('Core::featureDomain.name')) }}
                 
@@ -101,6 +50,57 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
+
+        
+        <div class="form-group">
+            <label for="description">
+                {{ ucfirst(__('Core::featureDomain.description')) }}
+                
+            </label>
+            <textarea rows="" cols=""
+                name="description"
+                class="form-control richText"
+                
+                id="description"
+                placeholder="{{ __('Core::featureDomain.description') }}">
+                {{ $itemFeatureDomain ? $itemFeatureDomain->description : old('description') }}
+            </textarea>
+            @error('description')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
+
+        
+        
+    <div class="form-group">
+            <label for="module_id">
+                {{ ucfirst(__('Core::sysModule.singular')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <select 
+            id="module_id" 
+            required
+            name="module_id" 
+            class="form-control select2">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($sysModules as $sysModule)
+                    <option value="{{ $sysModule->id }}"
+                        {{ (isset($itemFeatureDomain) && $itemFeatureDomain->module_id == $sysModule->id) || (old('module_id>') == $sysModule->id) ? 'selected' : '' }}>
+                        {{ $sysModule }}
+                    </option>
+                @endforeach
+            </select>
+            @error('module_id')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+    </div>
+
+
+        
+
+        <!--   Feature_HasMany HasMany --> 
 
     </div>
 

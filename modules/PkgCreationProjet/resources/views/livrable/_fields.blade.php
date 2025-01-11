@@ -11,19 +11,21 @@
     <div class="card-body">
         
         <div class="form-group">
-            <label for="description">
-                {{ ucfirst(__('PkgCreationProjet::livrable.description')) }}
+            <label for="titre">
+                {{ ucfirst(__('PkgCreationProjet::livrable.titre')) }}
+                
+                    <span class="text-danger">*</span>
                 
             </label>
-            <textarea rows="" cols=""
-                name="description"
-                class="form-control richText"
-                
-                id="description"
-                placeholder="{{ __('PkgCreationProjet::livrable.description') }}">
-                {{ $itemLivrable ? $itemLivrable->description : old('description') }}
-            </textarea>
-            @error('description')
+            <input
+                name="titre"
+                type="input"
+                class="form-control"
+                required
+                id="titre"
+                placeholder="{{ __('PkgCreationProjet::livrable.titre') }}"
+                value="{{ $itemLivrable ? $itemLivrable->titre : old('titre') }}">
+            @error('titre')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
@@ -86,21 +88,19 @@
 
         
         <div class="form-group">
-            <label for="titre">
-                {{ ucfirst(__('PkgCreationProjet::livrable.titre')) }}
-                
-                    <span class="text-danger">*</span>
+            <label for="description">
+                {{ ucfirst(__('PkgCreationProjet::livrable.description')) }}
                 
             </label>
-            <input
-                name="titre"
-                type="input"
-                class="form-control"
-                required
-                id="titre"
-                placeholder="{{ __('PkgCreationProjet::livrable.titre') }}"
-                value="{{ $itemLivrable ? $itemLivrable->titre : old('titre') }}">
-            @error('titre')
+            <textarea rows="" cols=""
+                name="description"
+                class="form-control richText"
+                
+                id="description"
+                placeholder="{{ __('PkgCreationProjet::livrable.description') }}">
+                {{ $itemLivrable ? $itemLivrable->description : old('description') }}
+            </textarea>
+            @error('description')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>

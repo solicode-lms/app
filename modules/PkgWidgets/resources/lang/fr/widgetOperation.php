@@ -5,6 +5,6 @@
 return [
     'singular' => 'WidgetOperation',
     'plural' => 'WidgetOperations',
-    'description' => 'description',
     'operation' => 'operation',
+    'description' => 'description',
 ];

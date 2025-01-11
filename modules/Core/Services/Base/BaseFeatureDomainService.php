@@ -19,10 +19,10 @@ class BaseFeatureDomainService extends BaseService
      * @var array
      */
     protected $fieldsSearchable = [
-        'description',
-        'module_id',
         'name',
-        'slug'
+        'slug',
+        'description',
+        'module_id'
     ];
 
     /**

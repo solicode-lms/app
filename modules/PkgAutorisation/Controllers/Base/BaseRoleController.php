@@ -7,8 +7,8 @@ namespace Modules\PkgAutorisation\Controllers\Base;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\PkgAutorisation\App\Requests\RoleRequest;
 use Modules\PkgAutorisation\Services\RoleService;
-use Modules\PkgAutorisation\Services\UserService;
 use Modules\PkgAutorisation\Services\PermissionService;
+use Modules\PkgAutorisation\Services\UserService;
 
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
@@ -19,15 +19,15 @@ use Modules\Core\Services\ContextState;
 class BaseRoleController extends AdminController
 {
     protected $roleService;
-    protected $userService;
     protected $permissionService;
+    protected $userService;
 
-    public function __construct(RoleService $roleService, UserService $userService, PermissionService $permissionService)
+    public function __construct(RoleService $roleService, PermissionService $permissionService, UserService $userService)
     {
         parent::__construct();
         $this->roleService = $roleService;
-        $this->userService = $userService;
         $this->permissionService = $permissionService;
+        $this->userService = $userService;
 
     }
 
@@ -62,14 +62,14 @@ class BaseRoleController extends AdminController
     public function create()
     {
         $itemRole = $this->roleService->createInstance();
-        $users = $this->userService->all();
         $permissions = $this->permissionService->all();
+        $users = $this->userService->all();
 
 
         if (request()->ajax()) {
-            return view('PkgAutorisation::role._fields', compact('itemRole', 'users', 'permissions'));
+            return view('PkgAutorisation::role._fields', compact('itemRole', 'permissions', 'users'));
         }
-        return view('PkgAutorisation::role.create', compact('itemRole', 'users', 'permissions'));
+        return view('PkgAutorisation::role.create', compact('itemRole', 'permissions', 'users'));
     }
 
     /**
@@ -81,11 +81,11 @@ class BaseRoleController extends AdminController
         $role = $this->roleService->create($validatedData);
 
 
-        if ($request->has('users')) {
-            $role->users()->sync($request->input('users'));
-        }
         if ($request->has('permissions')) {
             $role->permissions()->sync($request->input('permissions'));
+        }
+        if ($request->has('users')) {
+            $role->users()->sync($request->input('users'));
         }
 
 
@@ -112,12 +112,12 @@ class BaseRoleController extends AdminController
     public function show(string $id)
     {
         $itemRole = $this->roleService->find($id);
-        $users = $this->userService->all();
         $permissions = $this->permissionService->all();
+        $users = $this->userService->all();
 
 
         if (request()->ajax()) {
-            return view('PkgAutorisation::role._fields', compact('itemRole', 'users', 'permissions'));
+            return view('PkgAutorisation::role._fields', compact('itemRole', 'permissions', 'users'));
         }
 
         return view('PkgAutorisation::role.show', compact('itemRole'));
@@ -130,18 +130,18 @@ class BaseRoleController extends AdminController
     {
 
         $itemRole = $this->roleService->find($id);
-        $users = $this->userService->all();
         $permissions = $this->permissionService->all();
+        $users = $this->userService->all();
 
         // Utilisé dans l'édition des relation HasMany
         $this->contextState->set('role_id', $id);
 
 
         if (request()->ajax()) {
-            return view('PkgAutorisation::role._fields', compact('itemRole', 'users', 'permissions'));
+            return view('PkgAutorisation::role._fields', compact('itemRole', 'permissions', 'users'));
         }
 
-        return view('PkgAutorisation::role.edit', compact('itemRole', 'users', 'permissions'));
+        return view('PkgAutorisation::role.edit', compact('itemRole', 'permissions', 'users'));
     }
 
     /**
@@ -153,8 +153,8 @@ class BaseRoleController extends AdminController
         $validatedData = $request->validated();
         $role = $this->roleService->update($id, $validatedData);
 
-        $role->users()->sync($request->input('users'));
         $role->permissions()->sync($request->input('permissions'));
+        $role->users()->sync($request->input('users'));
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 

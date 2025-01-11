@@ -46,11 +46,11 @@ class BaseSysModelSeeder extends Seeder
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
                 SysModel::create([
-                    "color_id" => $data[0] ,
-                    "description" => $data[1] ,
-                    "model" => $data[2] ,
+                    "name" => $data[0] ,
+                    "model" => $data[1] ,
+                    "description" => $data[2] ,
                     "module_id" => $data[3] ,
-                    "name" => $data[4] 
+                    "color_id" => $data[4] 
                 ]);
             }
             $firstline = false;

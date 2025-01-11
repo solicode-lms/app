@@ -34,7 +34,7 @@ class BaseSysColor extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'hex', 'name'
+        'name', 'hex'
     ];
 
 

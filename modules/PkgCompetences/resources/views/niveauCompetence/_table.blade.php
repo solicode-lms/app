@@ -4,18 +4,18 @@
     <table class="table table-striped text-nowrap">
         <thead>
             <tr>
-                <x-sortable-column field="competence_id" label="{{ ucfirst(__('PkgCompetences::competence.singular')) }}" />
-                <x-sortable-column field="description" label="{{ ucfirst(__('PkgCompetences::niveauCompetence.description')) }}" />
                 <x-sortable-column field="nom" label="{{ ucfirst(__('PkgCompetences::niveauCompetence.nom')) }}" />
+                <x-sortable-column field="description" label="{{ ucfirst(__('PkgCompetences::niveauCompetence.description')) }}" />
+                <x-sortable-column field="competence_id" label="{{ ucfirst(__('PkgCompetences::competence.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($niveauCompetences_data as $niveauCompetence)
                 <tr>
-                    <td>@limit($niveauCompetence->competence->code ?? '-', 80)</td>
-                    <td>{!! $niveauCompetence->description !!}</td>
                     <td>@limit($niveauCompetence->nom, 80)</td>
+                    <td>{!! $niveauCompetence->description !!}</td>
+                    <td>@limit($niveauCompetence->competence->code ?? '-', 80)</td>
                     <td class="text-right">
                         @can('show-niveauCompetence')
                             <a href="{{ route('niveauCompetences.show', ['niveauCompetence' => $niveauCompetence->id]) }}" data-id="{{$niveauCompetence->id}}" class="btn btn-default btn-sm context-state showEntity">

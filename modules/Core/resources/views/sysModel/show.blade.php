@@ -25,24 +25,24 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="col-sm-12">
-                                <label for="color_id">{{ ucfirst(__('Core::sysModel.color_id')) }}:</label>
-                                <p>{{ $itemSysModel->color_id }}</p>
-                            </div>
-                            <div class="col-sm-12">
-                                <label for="description">{{ ucfirst(__('Core::sysModel.description')) }}:</label>
-                                <p>{{ $itemSysModel->description }}</p>
+                                <label for="name">{{ ucfirst(__('Core::sysModel.name')) }}:</label>
+                                <p>{{ $itemSysModel->name }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="model">{{ ucfirst(__('Core::sysModel.model')) }}:</label>
                                 <p>{{ $itemSysModel->model }}</p>
                             </div>
                             <div class="col-sm-12">
+                                <label for="description">{{ ucfirst(__('Core::sysModel.description')) }}:</label>
+                                <p>{{ $itemSysModel->description }}</p>
+                            </div>
+                            <div class="col-sm-12">
                                 <label for="module_id">{{ ucfirst(__('Core::sysModel.module_id')) }}:</label>
                                 <p>{{ $itemSysModel->module_id }}</p>
                             </div>
                             <div class="col-sm-12">
-                                <label for="name">{{ ucfirst(__('Core::sysModel.name')) }}:</label>
-                                <p>{{ $itemSysModel->name }}</p>
+                                <label for="color_id">{{ ucfirst(__('Core::sysModel.color_id')) }}:</label>
+                                <p>{{ $itemSysModel->color_id }}</p>
                             </div>
                         </div>
                     </div>

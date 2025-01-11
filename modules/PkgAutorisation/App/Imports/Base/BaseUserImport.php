@@ -38,9 +38,9 @@ class BaseUserImport implements ToModel, WithHeadingRow
 
         // Crée un nouvel enregistrement à partir des données importées
         return new User([
+            'name' => $row['name'],
             'email' => $row['email'],
             'email_verified_at' => $row['email_verified_at'],
-            'name' => $row['name'],
             'password' => $row['password'],
             'remember_token' => $row['remember_token'],
         ]);

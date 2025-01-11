@@ -11,6 +11,46 @@
     <div class="card-body">
         
         <div class="form-group">
+            <label for="name">
+                {{ ucfirst(__('PkgGapp::eModel.name')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <input
+                name="name"
+                type="input"
+                class="form-control"
+                required
+                id="name"
+                placeholder="{{ __('PkgGapp::eModel.name') }}"
+                value="{{ $itemEModel ? $itemEModel->name : old('name') }}">
+            @error('name')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
+
+        
+        <div class="form-group">
+            <label for="icon">
+                {{ ucfirst(__('PkgGapp::eModel.icon')) }}
+                
+            </label>
+            <input
+                name="icon"
+                type="input"
+                class="form-control"
+                
+                id="icon"
+                placeholder="{{ __('PkgGapp::eModel.icon') }}"
+                value="{{ $itemEModel ? $itemEModel->icon : old('icon') }}">
+            @error('icon')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
+
+        
+        <div class="form-group">
             <label for="description">
                 {{ ucfirst(__('PkgGapp::eModel.description')) }}
                 
@@ -67,46 +107,6 @@
         
 
         <!--   ERelationship_HasMany HasMany --> 
-
-        
-        <div class="form-group">
-            <label for="icon">
-                {{ ucfirst(__('PkgGapp::eModel.icon')) }}
-                
-            </label>
-            <input
-                name="icon"
-                type="input"
-                class="form-control"
-                
-                id="icon"
-                placeholder="{{ __('PkgGapp::eModel.icon') }}"
-                value="{{ $itemEModel ? $itemEModel->icon : old('icon') }}">
-            @error('icon')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
-
-        
-        <div class="form-group">
-            <label for="name">
-                {{ ucfirst(__('PkgGapp::eModel.name')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
-                name="name"
-                type="input"
-                class="form-control"
-                required
-                id="name"
-                placeholder="{{ __('PkgGapp::eModel.name') }}"
-                value="{{ $itemEModel ? $itemEModel->name : old('name') }}">
-            @error('name')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
 
     </div>
 

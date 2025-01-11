@@ -17,24 +17,24 @@ class BaseEModelRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'description' => 'nullable',
-            'e_package_id' => 'required',
+            'name' => 'required|max:255',
             'icon' => 'nullable|max:255',
-            'name' => 'required|max:255'
+            'description' => 'nullable',
+            'e_package_id' => 'required'
         ];
     }
 
     public function messages(): array
     {
         return [
+            'name.required' => __('validation.required', ['attribute' => __('PkgGapp::EModel.name')]),
+            'name.max' => __('validation.nameMax'),
+            'icon.required' => __('validation.required', ['attribute' => __('PkgGapp::EModel.icon')]),
+            'icon.max' => __('validation.iconMax'),
             'description.required' => __('validation.required', ['attribute' => __('PkgGapp::EModel.description')]),
             'description.max' => __('validation.descriptionMax'),
             'e_package_id.required' => __('validation.required', ['attribute' => __('PkgGapp::EModel.e_package_id')]),
-            'e_package_id.max' => __('validation.e_package_idMax'),
-            'icon.required' => __('validation.required', ['attribute' => __('PkgGapp::EModel.icon')]),
-            'icon.max' => __('validation.iconMax'),
-            'name.required' => __('validation.required', ['attribute' => __('PkgGapp::EModel.name')]),
-            'name.max' => __('validation.nameMax')
+            'e_package_id.max' => __('validation.e_package_idMax')
         ];
     }
 }

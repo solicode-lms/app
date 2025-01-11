@@ -4,18 +4,18 @@
     <table class="table table-striped text-nowrap">
         <thead>
             <tr>
+                <x-sortable-column field="name" label="{{ ucfirst(__('Core::feature.name')) }}" />
                 <x-sortable-column field="description" label="{{ ucfirst(__('Core::feature.description')) }}" />
                 <x-sortable-column field="domain_id" label="{{ ucfirst(__('Core::featureDomain.singular')) }}" />
-                <x-sortable-column field="name" label="{{ ucfirst(__('Core::feature.name')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($features_data as $feature)
                 <tr>
+                    <td>@limit($feature->name, 80)</td>
                     <td>{!! $feature->description !!}</td>
                     <td>@limit($feature->featureDomain->name ?? '-', 80)</td>
-                    <td>@limit($feature->name, 80)</td>
                     <td class="text-right">
                         @can('show-feature')
                             <a href="{{ route('features.show', ['feature' => $feature->id]) }}" data-id="{{$feature->id}}" class="btn btn-default btn-sm context-state showEntity">

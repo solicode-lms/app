@@ -19,25 +19,25 @@ class BaseApprenantKonosyService extends BaseService
      * @var array
      */
     protected $fieldsSearchable = [
-        'Adresse',
-        'CIN',
-        'CodeDiplome',
-        'DateInscription',
-        'DateNaissance',
-        'Diplome',
-        'EtudiantActif',
-        'LibelleLong',
-        'LieuNaissance',
         'MatriculeEtudiant',
-        'Nationalite',
-        'NiveauScolaire',
         'Nom',
-        'Nom_Arabe',
-        'NTelephone',
         'Prenom',
-        'Prenom_Arabe',
+        'Sexe',
+        'EtudiantActif',
+        'Diplome',
         'Principale',
-        'Sexe'
+        'LibelleLong',
+        'CodeDiplome',
+        'DateNaissance',
+        'DateInscription',
+        'LieuNaissance',
+        'CIN',
+        'NTelephone',
+        'Adresse',
+        'Nationalite',
+        'Nom_Arabe',
+        'Prenom_Arabe',
+        'NiveauScolaire'
     ];
 
     /**

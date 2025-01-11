@@ -11,6 +11,48 @@
     <div class="card-body">
         
         <div class="form-group">
+            <label for="titre">
+                {{ ucfirst(__('PkgCreationProjet::projet.titre')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <input
+                name="titre"
+                type="input"
+                class="form-control"
+                required
+                id="titre"
+                placeholder="{{ __('PkgCreationProjet::projet.titre') }}"
+                value="{{ $itemProjet ? $itemProjet->titre : old('titre') }}">
+            @error('titre')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
+
+        
+        <div class="form-group">
+            <label for="travail_a_faire">
+                {{ ucfirst(__('PkgCreationProjet::projet.travail_a_faire')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <textarea rows="" cols=""
+                name="travail_a_faire"
+                class="form-control richText"
+                required
+                id="travail_a_faire"
+                placeholder="{{ __('PkgCreationProjet::projet.travail_a_faire') }}">
+                {{ $itemProjet ? $itemProjet->travail_a_faire : old('travail_a_faire') }}
+            </textarea>
+            @error('travail_a_faire')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
+
+        
+        <div class="form-group">
             <label for="critere_de_travail">
                 {{ ucfirst(__('PkgCreationProjet::projet.critere_de_travail')) }}
                 
@@ -26,6 +68,25 @@
                 {{ $itemProjet ? $itemProjet->critere_de_travail : old('critere_de_travail') }}
             </textarea>
             @error('critere_de_travail')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
+
+        
+        <div class="form-group">
+            <label for="description">
+                {{ ucfirst(__('PkgCreationProjet::projet.description')) }}
+                
+            </label>
+            <textarea rows="" cols=""
+                name="description"
+                class="form-control richText"
+                
+                id="description"
+                placeholder="{{ __('PkgCreationProjet::projet.description') }}">
+                {{ $itemProjet ? $itemProjet->description : old('description') }}
+            </textarea>
+            @error('description')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
@@ -81,25 +142,6 @@
 
 
         
-        <div class="form-group">
-            <label for="description">
-                {{ ucfirst(__('PkgCreationProjet::projet.description')) }}
-                
-            </label>
-            <textarea rows="" cols=""
-                name="description"
-                class="form-control richText"
-                
-                id="description"
-                placeholder="{{ __('PkgCreationProjet::projet.description') }}">
-                {{ $itemProjet ? $itemProjet->description : old('description') }}
-            </textarea>
-            @error('description')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
-
-        
         
     <div class="form-group">
             <label for="formateur_id">
@@ -136,50 +178,8 @@
         <!--   Resource_HasMany HasMany --> 
 
         
-        <div class="form-group">
-            <label for="titre">
-                {{ ucfirst(__('PkgCreationProjet::projet.titre')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
-                name="titre"
-                type="input"
-                class="form-control"
-                required
-                id="titre"
-                placeholder="{{ __('PkgCreationProjet::projet.titre') }}"
-                value="{{ $itemProjet ? $itemProjet->titre : old('titre') }}">
-            @error('titre')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
-
-        
 
         <!--   TransfertCompetence_HasMany HasMany --> 
-
-        
-        <div class="form-group">
-            <label for="travail_a_faire">
-                {{ ucfirst(__('PkgCreationProjet::projet.travail_a_faire')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <textarea rows="" cols=""
-                name="travail_a_faire"
-                class="form-control richText"
-                required
-                id="travail_a_faire"
-                placeholder="{{ __('PkgCreationProjet::projet.travail_a_faire') }}">
-                {{ $itemProjet ? $itemProjet->travail_a_faire : old('travail_a_faire') }}
-            </textarea>
-            @error('travail_a_faire')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
 
     </div>
 

@@ -11,19 +11,21 @@
     <div class="card-body">
         
         <div class="form-group">
-            <label for="description">
-                {{ ucfirst(__('PkgCreationProjet::resource.description')) }}
+            <label for="nom">
+                {{ ucfirst(__('PkgCreationProjet::resource.nom')) }}
+                
+                    <span class="text-danger">*</span>
                 
             </label>
-            <textarea rows="" cols=""
-                name="description"
-                class="form-control richText"
-                
-                id="description"
-                placeholder="{{ __('PkgCreationProjet::resource.description') }}">
-                {{ $itemResource ? $itemResource->description : old('description') }}
-            </textarea>
-            @error('description')
+            <input
+                name="nom"
+                type="input"
+                class="form-control"
+                required
+                id="nom"
+                placeholder="{{ __('PkgCreationProjet::resource.nom') }}"
+                value="{{ $itemResource ? $itemResource->nom : old('nom') }}">
+            @error('nom')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
@@ -51,21 +53,19 @@
 
         
         <div class="form-group">
-            <label for="nom">
-                {{ ucfirst(__('PkgCreationProjet::resource.nom')) }}
-                
-                    <span class="text-danger">*</span>
+            <label for="description">
+                {{ ucfirst(__('PkgCreationProjet::resource.description')) }}
                 
             </label>
-            <input
-                name="nom"
-                type="input"
-                class="form-control"
-                required
-                id="nom"
-                placeholder="{{ __('PkgCreationProjet::resource.nom') }}"
-                value="{{ $itemResource ? $itemResource->nom : old('nom') }}">
-            @error('nom')
+            <textarea rows="" cols=""
+                name="description"
+                class="form-control richText"
+                
+                id="description"
+                placeholder="{{ __('PkgCreationProjet::resource.description') }}">
+                {{ $itemResource ? $itemResource->description : old('description') }}
+            </textarea>
+            @error('description')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>

@@ -5,8 +5,8 @@
 return [
     'singular' => 'EDataField',
     'plural' => 'EDataFields',
-    'description' => 'description',
-    'e_model_id' => 'e_model_id',
     'name' => 'name',
     'type' => 'type',
+    'e_model_id' => 'e_model_id',
+    'description' => 'description',
 ];

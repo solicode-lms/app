@@ -11,31 +11,32 @@
     <div class="card-body">
         
         
-    <div class="form-group">
-            <label for="e_metadata_definition_id">
-                {{ ucfirst(__('PkgGapp::eMetadataDefinition.singular')) }}
-                
-                    <span class="text-danger">*</span>
+
+        
+        <div class="form-group">
+            <label for="value_string">
+                {{ ucfirst(__('PkgGapp::eMetadatum.value_string')) }}
                 
             </label>
-            <select 
-            id="e_metadata_definition_id" 
-            required
-            name="e_metadata_definition_id" 
-            class="form-control select2">
-             <option value="">Sélectionnez une option</option>
-                @foreach ($eMetadataDefinitions as $eMetadataDefinition)
-                    <option value="{{ $eMetadataDefinition->id }}"
-                        {{ (isset($itemEMetadatum) && $itemEMetadatum->e_metadata_definition_id == $eMetadataDefinition->id) || (old('e_metadata_definition_id>') == $eMetadataDefinition->id) ? 'selected' : '' }}>
-                        {{ $eMetadataDefinition }}
-                    </option>
-                @endforeach
-            </select>
-            @error('e_metadata_definition_id')
+            <input
+                name="value_string"
+                type="input"
+                class="form-control"
+                
+                id="value_string"
+                placeholder="{{ __('PkgGapp::eMetadatum.value_string') }}"
+                value="{{ $itemEMetadatum ? $itemEMetadatum->value_string : old('value_string') }}">
+            @error('value_string')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-    </div>
+</div>
 
+        
+        
+
+        
+
+        <!--   value_object JSON --> 
 
         
         
@@ -63,32 +64,31 @@
 
         
         
-
-        
-        
-
-        
-
-        <!--   value_object JSON --> 
-
-        
-        <div class="form-group">
-            <label for="value_string">
-                {{ ucfirst(__('PkgGapp::eMetadatum.value_string')) }}
+    <div class="form-group">
+            <label for="e_metadata_definition_id">
+                {{ ucfirst(__('PkgGapp::eMetadataDefinition.singular')) }}
+                
+                    <span class="text-danger">*</span>
                 
             </label>
-            <input
-                name="value_string"
-                type="input"
-                class="form-control"
-                
-                id="value_string"
-                placeholder="{{ __('PkgGapp::eMetadatum.value_string') }}"
-                value="{{ $itemEMetadatum ? $itemEMetadatum->value_string : old('value_string') }}">
-            @error('value_string')
+            <select 
+            id="e_metadata_definition_id" 
+            required
+            name="e_metadata_definition_id" 
+            class="form-control select2">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($eMetadataDefinitions as $eMetadataDefinition)
+                    <option value="{{ $eMetadataDefinition->id }}"
+                        {{ (isset($itemEMetadatum) && $itemEMetadatum->e_metadata_definition_id == $eMetadataDefinition->id) || (old('e_metadata_definition_id>') == $eMetadataDefinition->id) ? 'selected' : '' }}>
+                        {{ $eMetadataDefinition }}
+                    </option>
+                @endforeach
+            </select>
+            @error('e_metadata_definition_id')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-</div>
+    </div>
+
 
     </div>
 

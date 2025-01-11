@@ -5,6 +5,6 @@
 return [
     'singular' => 'NatureLivrable',
     'plural' => 'NatureLivrables',
-    'description' => 'description',
     'nom' => 'nom',
+    'description' => 'description',
 ];

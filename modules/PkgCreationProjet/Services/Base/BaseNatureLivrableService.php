@@ -19,8 +19,8 @@ class BaseNatureLivrableService extends BaseService
      * @var array
      */
     protected $fieldsSearchable = [
-        'description',
-        'nom'
+        'nom',
+        'description'
     ];
 
     /**
@@ -55,8 +55,8 @@ class BaseNatureLivrableService extends BaseService
     public function create(array $data)
     {
         $natureLivrable = parent::create([
-            'description' => $data['description'],
             'nom' => $data['nom'],
+            'description' => $data['description'],
         ]);
 
         return $natureLivrable;

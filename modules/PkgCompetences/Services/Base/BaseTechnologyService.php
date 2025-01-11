@@ -19,9 +19,9 @@ class BaseTechnologyService extends BaseService
      * @var array
      */
     protected $fieldsSearchable = [
-        'category_technology_id',
+        'nom',
         'description',
-        'nom'
+        'category_technology_id'
     ];
 
     /**
@@ -56,9 +56,9 @@ class BaseTechnologyService extends BaseService
     public function create(array $data)
     {
         $technology = parent::create([
-            'category_technology_id' => $data['category_technology_id'],
-            'description' => $data['description'],
             'nom' => $data['nom'],
+            'description' => $data['description'],
+            'category_technology_id' => $data['category_technology_id'],
         ]);
 
         return $technology;

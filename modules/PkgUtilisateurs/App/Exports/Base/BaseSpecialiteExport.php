@@ -25,8 +25,8 @@ class BaseSpecialiteExport implements FromCollection, WithHeadings, ShouldAutoSi
     public function headings(): array
     {
         return [
-            'description',
             'nom',
+            'description',
         ];
     }
 
@@ -34,8 +34,8 @@ class BaseSpecialiteExport implements FromCollection, WithHeadings, ShouldAutoSi
     {
         return $this->data->map(function ($specialite) {
             return [
-                'description' => $specialite->description,
                 'nom' => $specialite->nom,
+                'description' => $specialite->description,
             ];
         });
     }

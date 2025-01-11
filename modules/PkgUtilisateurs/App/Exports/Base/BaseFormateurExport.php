@@ -25,17 +25,17 @@ class BaseFormateurExport implements FromCollection, WithHeadings, ShouldAutoSiz
     public function headings(): array
     {
         return [
+            'matricule',
+            'nom',
+            'prenom',
+            'prenom_arab',
+            'nom_arab',
+            'tele_num',
             'adresse',
             'diplome',
             'echelle',
             'echelon',
-            'matricule',
-            'nom',
-            'nom_arab',
-            'prenom',
-            'prenom_arab',
             'profile_image',
-            'tele_num',
             'user_id',
         ];
     }
@@ -44,17 +44,17 @@ class BaseFormateurExport implements FromCollection, WithHeadings, ShouldAutoSiz
     {
         return $this->data->map(function ($formateur) {
             return [
+                'matricule' => $formateur->matricule,
+                'nom' => $formateur->nom,
+                'prenom' => $formateur->prenom,
+                'prenom_arab' => $formateur->prenom_arab,
+                'nom_arab' => $formateur->nom_arab,
+                'tele_num' => $formateur->tele_num,
                 'adresse' => $formateur->adresse,
                 'diplome' => $formateur->diplome,
                 'echelle' => $formateur->echelle,
                 'echelon' => $formateur->echelon,
-                'matricule' => $formateur->matricule,
-                'nom' => $formateur->nom,
-                'nom_arab' => $formateur->nom_arab,
-                'prenom' => $formateur->prenom,
-                'prenom_arab' => $formateur->prenom_arab,
                 'profile_image' => $formateur->profile_image,
-                'tele_num' => $formateur->tele_num,
                 'user_id' => $formateur->user_id,
             ];
         });

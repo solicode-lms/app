@@ -19,10 +19,10 @@ class BaseLivrableService extends BaseService
      * @var array
      */
     protected $fieldsSearchable = [
-        'description',
+        'titre',
         'nature_livrable_id',
         'projet_id',
-        'titre'
+        'description'
     ];
 
     /**

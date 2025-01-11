@@ -25,9 +25,9 @@ class BaseResourceExport implements FromCollection, WithHeadings, ShouldAutoSize
     public function headings(): array
     {
         return [
-            'description',
-            'lien',
             'nom',
+            'lien',
+            'description',
             'projet_id',
         ];
     }
@@ -36,9 +36,9 @@ class BaseResourceExport implements FromCollection, WithHeadings, ShouldAutoSize
     {
         return $this->data->map(function ($resource) {
             return [
-                'description' => $resource->description,
-                'lien' => $resource->lien,
                 'nom' => $resource->nom,
+                'lien' => $resource->lien,
+                'description' => $resource->description,
                 'projet_id' => $resource->projet_id,
             ];
         });

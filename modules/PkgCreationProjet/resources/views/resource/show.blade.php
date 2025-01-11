@@ -25,16 +25,16 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="col-sm-12">
-                                <label for="description">{{ ucfirst(__('PkgCreationProjet::resource.description')) }}:</label>
-                                <p>{{ $itemResource->description }}</p>
+                                <label for="nom">{{ ucfirst(__('PkgCreationProjet::resource.nom')) }}:</label>
+                                <p>{{ $itemResource->nom }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="lien">{{ ucfirst(__('PkgCreationProjet::resource.lien')) }}:</label>
                                 <p>{{ $itemResource->lien }}</p>
                             </div>
                             <div class="col-sm-12">
-                                <label for="nom">{{ ucfirst(__('PkgCreationProjet::resource.nom')) }}:</label>
-                                <p>{{ $itemResource->nom }}</p>
+                                <label for="description">{{ ucfirst(__('PkgCreationProjet::resource.description')) }}:</label>
+                                <p>{{ $itemResource->description }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="projet_id">{{ ucfirst(__('PkgCreationProjet::resource.projet_id')) }}:</label>

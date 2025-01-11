@@ -19,8 +19,8 @@ class BaseWidgetTypeService extends BaseService
      * @var array
      */
     protected $fieldsSearchable = [
-        'description',
-        'type'
+        'type',
+        'description'
     ];
 
     /**

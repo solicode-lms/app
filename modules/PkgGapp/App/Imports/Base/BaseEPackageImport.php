@@ -38,8 +38,8 @@ class BaseEPackageImport implements ToModel, WithHeadingRow
 
         // Crée un nouvel enregistrement à partir des données importées
         return new EPackage([
-            'description' => $row['description'],
             'name' => $row['name'],
+            'description' => $row['description'],
         ]);
     }
 }

@@ -46,8 +46,8 @@ class BaseSysColorSeeder extends Seeder
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
                 SysColor::create([
-                    "hex" => $data[0] ,
-                    "name" => $data[1] 
+                    "name" => $data[0] ,
+                    "hex" => $data[1] 
                 ]);
             }
             $firstline = false;
