@@ -40,6 +40,7 @@ class BaseEMetadataDefinitionImport implements ToModel, WithHeadingRow
         return new EMetadataDefinition([
             'name' => $row['name'],
             'code' => $row['code'],
+            'groupe' => $row['groupe'],
             'type' => $row['type'],
             'scope' => $row['scope'],
             'description' => $row['description'],

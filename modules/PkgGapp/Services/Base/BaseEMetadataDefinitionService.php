@@ -21,6 +21,7 @@ class BaseEMetadataDefinitionService extends BaseService
     protected $fieldsSearchable = [
         'name',
         'code',
+        'groupe',
         'type',
         'scope',
         'description',

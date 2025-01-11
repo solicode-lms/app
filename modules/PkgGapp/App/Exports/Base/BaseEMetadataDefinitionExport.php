@@ -27,6 +27,7 @@ class BaseEMetadataDefinitionExport implements FromCollection, WithHeadings, Sho
         return [
             'name',
             'code',
+            'groupe',
             'type',
             'scope',
             'description',
@@ -40,6 +41,7 @@ class BaseEMetadataDefinitionExport implements FromCollection, WithHeadings, Sho
             return [
                 'name' => $eMetadataDefinition->name,
                 'code' => $eMetadataDefinition->code,
+                'groupe' => $eMetadataDefinition->groupe,
                 'type' => $eMetadataDefinition->type,
                 'scope' => $eMetadataDefinition->scope,
                 'description' => $eMetadataDefinition->description,

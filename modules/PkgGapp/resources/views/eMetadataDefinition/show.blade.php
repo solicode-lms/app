@@ -33,6 +33,10 @@
                                 <p>{{ $itemEMetadataDefinition->code }}</p>
                             </div>
                             <div class="col-sm-12">
+                                <label for="groupe">{{ ucfirst(__('PkgGapp::eMetadataDefinition.groupe')) }}:</label>
+                                <p>{{ $itemEMetadataDefinition->groupe }}</p>
+                            </div>
+                            <div class="col-sm-12">
                                 <label for="type">{{ ucfirst(__('PkgGapp::eMetadataDefinition.type')) }}:</label>
                                 <p>{{ $itemEMetadataDefinition->type }}</p>
                             </div>

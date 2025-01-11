@@ -53,6 +53,27 @@
 
         
         <div class="form-group">
+            <label for="groupe">
+                {{ ucfirst(__('PkgGapp::eMetadataDefinition.groupe')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <input
+                name="groupe"
+                type="input"
+                class="form-control"
+                required
+                id="groupe"
+                placeholder="{{ __('PkgGapp::eMetadataDefinition.groupe') }}"
+                value="{{ $itemEMetadataDefinition ? $itemEMetadataDefinition->groupe : old('groupe') }}">
+            @error('groupe')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
+
+        
+        <div class="form-group">
             <label for="type">
                 {{ ucfirst(__('PkgGapp::eMetadataDefinition.type')) }}
                 

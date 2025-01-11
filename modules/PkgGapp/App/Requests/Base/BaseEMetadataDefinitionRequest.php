@@ -19,6 +19,7 @@ class BaseEMetadataDefinitionRequest extends FormRequest
         return [
             'name' => 'required|max:255',
             'code' => 'required|max:255',
+            'groupe' => 'required|max:255',
             'type' => 'required|max:255',
             'scope' => 'required|max:255',
             'description' => 'nullable|max:255',
@@ -33,6 +34,8 @@ class BaseEMetadataDefinitionRequest extends FormRequest
             'name.max' => __('validation.nameMax'),
             'code.required' => __('validation.required', ['attribute' => __('PkgGapp::EMetadataDefinition.code')]),
             'code.max' => __('validation.codeMax'),
+            'groupe.required' => __('validation.required', ['attribute' => __('PkgGapp::EMetadataDefinition.groupe')]),
+            'groupe.max' => __('validation.groupeMax'),
             'type.required' => __('validation.required', ['attribute' => __('PkgGapp::EMetadataDefinition.type')]),
             'type.max' => __('validation.typeMax'),
             'scope.required' => __('validation.required', ['attribute' => __('PkgGapp::EMetadataDefinition.scope')]),

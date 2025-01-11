@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id(); // Clé primaire
             $table->string('name'); // Nom lisible
             $table->string('code')->unique(); // Code unique pour identification technique
+            $table->string('groupe'); // Code unique pour identification technique
             $table->string('type'); // Stocke le type comme une chaîne
             $table->string('scope'); // Stocke la portée comme une chaîne
             $table->string('description')->nullable(); // Description facultative

@@ -7,6 +7,7 @@ return [
     'plural' => 'EMetadataDefinitions',
     'name' => 'name',
     'code' => 'code',
+    'groupe' => 'groupe',
     'type' => 'type',
     'scope' => 'scope',
     'description' => 'description',
