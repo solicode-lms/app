@@ -1,5 +1,4 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 namespace Modules\PkgGapp\Models\Base;
@@ -63,10 +62,7 @@ class BaseEModel extends BaseModel
      *
      * @return HasMany
      */
-    public function eRelationships(): HasMany
-    {
-        return $this->hasMany(ERelationship::class, 'emodel_id', 'id');
-    }
+    
     /**
      * Relation HasMany pour ERelationships.
      *
