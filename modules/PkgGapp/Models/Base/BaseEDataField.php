@@ -2,7 +2,7 @@
 // Ce fichier est maintenu par ESSARRAJ Fouad
 
 
-namespace Modules\PkgCreationProjet\Models\Base;
+namespace Modules\PkgGapp\Models\Base;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -11,13 +11,13 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
-use Modules\PkgCreationProjet\Models\Projet;
+use Modules\PkgGapp\Models\EModel;
 
 /**
- * Classe BaseResource
- * Cette classe sert de base pour le modèle Resource.
+ * Classe BaseEDataField
+ * Cette classe sert de base pour le modèle EDataField.
  */
-class BaseResource extends BaseModel
+class BaseEDataField extends BaseModel
 {
     use HasFactory, HasDynamicContext;
 
@@ -33,17 +33,17 @@ class BaseResource extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'nom', 'lien', 'description', 'projet_id'
+        'name', 'type', 'e_model_id', 'description'
     ];
 
     /**
-     * Relation BelongsTo pour Projet.
+     * Relation BelongsTo pour EModel.
      *
      * @return BelongsTo
      */
-    public function projet(): BelongsTo
+    public function eModel(): BelongsTo
     {
-        return $this->belongsTo(Projet::class, 'projet_id', 'id');
+        return $this->belongsTo(EModel::class, 'e_model_id', 'id');
     }
 
 
@@ -55,6 +55,6 @@ class BaseResource extends BaseModel
      */
     public function __toString()
     {
-        return $this->nom;
+        return $this->name;
     }
 }

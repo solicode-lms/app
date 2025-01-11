@@ -2,7 +2,7 @@
 // Ce fichier est maintenu par ESSARRAJ Fouad
 
 
-namespace Modules\PkgCreationProjet\Models\Base;
+namespace Modules\PkgGapp\Models\Base;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -11,13 +11,13 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
-use Modules\PkgCreationProjet\Models\Projet;
+use Modules\PkgGapp\Models\EMetadatum;
 
 /**
- * Classe BaseResource
- * Cette classe sert de base pour le modèle Resource.
+ * Classe BaseEMetadataDefinition
+ * Cette classe sert de base pour le modèle EMetadataDefinition.
  */
-class BaseResource extends BaseModel
+class BaseEMetadataDefinition extends BaseModel
 {
     use HasFactory, HasDynamicContext;
 
@@ -33,20 +33,20 @@ class BaseResource extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'nom', 'lien', 'description', 'projet_id'
+        'name', 'code', 'type', 'scope', 'description', 'default_value'
     ];
 
+
+
     /**
-     * Relation BelongsTo pour Projet.
+     * Relation HasMany pour EMetadata.
      *
-     * @return BelongsTo
+     * @return HasMany
      */
-    public function projet(): BelongsTo
+    public function eMetadata(): HasMany
     {
-        return $this->belongsTo(Projet::class, 'projet_id', 'id');
+        return $this->hasMany(EMetadatum::class, 'emetadata_definition_id', 'id');
     }
-
-
 
     /**
      * Méthode __toString pour représenter le modèle sous forme de chaîne.
@@ -55,6 +55,6 @@ class BaseResource extends BaseModel
      */
     public function __toString()
     {
-        return $this->nom;
+        return $this->name;
     }
 }

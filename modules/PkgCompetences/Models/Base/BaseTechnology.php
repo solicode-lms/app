@@ -28,6 +28,7 @@ class BaseTechnology extends BaseModel
         $this->isOwnedByUser =  false;
     }
 
+    
     /**
      * Les attributs remplissables pour le modèle.
      *

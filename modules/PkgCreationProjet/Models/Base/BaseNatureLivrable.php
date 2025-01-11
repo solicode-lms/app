@@ -26,6 +26,7 @@ class BaseNatureLivrable extends BaseModel
         $this->isOwnedByUser =  false;
     }
 
+    
     /**
      * Les attributs remplissables pour le modèle.
      *

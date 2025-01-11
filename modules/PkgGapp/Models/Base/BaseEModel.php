@@ -2,7 +2,7 @@
 // Ce fichier est maintenu par ESSARRAJ Fouad
 
 
-namespace Modules\Core\Models\Base;
+namespace Modules\PkgGapp\Models\Base;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -11,16 +11,15 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
-use Modules\Core\Models\FeatureDomain;
-use Modules\Core\Models\SysColor;
-use Modules\Core\Models\SysController;
-use Modules\Core\Models\SysModel;
+use Modules\PkgGapp\Models\EDataField;
+use Modules\PkgGapp\Models\EPackage;
+use Modules\PkgGapp\Models\ERelationship;
 
 /**
- * Classe BaseSysModule
- * Cette classe sert de base pour le modèle SysModule.
+ * Classe BaseEModel
+ * Cette classe sert de base pour le modèle EModel.
  */
-class BaseSysModule extends BaseModel
+class BaseEModel extends BaseModel
 {
     use HasFactory, HasDynamicContext;
 
@@ -36,46 +35,46 @@ class BaseSysModule extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'name', 'slug', 'description', 'is_active', 'order', 'version', 'color_id'
+        'name', 'icon', 'description', 'e_package_id'
     ];
 
     /**
-     * Relation BelongsTo pour SysColor.
+     * Relation BelongsTo pour EPackage.
      *
      * @return BelongsTo
      */
-    public function sysColor(): BelongsTo
+    public function ePackage(): BelongsTo
     {
-        return $this->belongsTo(SysColor::class, 'color_id', 'id');
+        return $this->belongsTo(EPackage::class, 'e_package_id', 'id');
     }
 
 
     /**
-     * Relation HasMany pour FeatureDomains.
+     * Relation HasMany pour EDataFields.
      *
      * @return HasMany
      */
-    public function featureDomains(): HasMany
+    public function eDataFields(): HasMany
     {
-        return $this->hasMany(FeatureDomain::class, 'sys_module_id', 'id');
+        return $this->hasMany(EDataField::class, 'emodel_id', 'id');
     }
     /**
-     * Relation HasMany pour SysControllers.
+     * Relation HasMany pour ERelationships.
      *
      * @return HasMany
      */
-    public function sysControllers(): HasMany
+    public function eRelationships(): HasMany
     {
-        return $this->hasMany(SysController::class, 'sys_module_id', 'id');
+        return $this->hasMany(ERelationship::class, 'emodel_id', 'id');
     }
     /**
-     * Relation HasMany pour SysModels.
+     * Relation HasMany pour ERelationships.
      *
      * @return HasMany
      */
-    public function sysModels(): HasMany
+    public function eRelationships(): HasMany
     {
-        return $this->hasMany(SysModel::class, 'sys_module_id', 'id');
+        return $this->hasMany(ERelationship::class, 'emodel_id', 'id');
     }
 
     /**

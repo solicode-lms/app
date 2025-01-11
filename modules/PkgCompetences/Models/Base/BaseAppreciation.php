@@ -27,6 +27,7 @@ class BaseAppreciation extends BaseModel
         $this->isOwnedByUser =  true;
     }
 
+    
     /**
      * Les attributs remplissables pour le modèle.
      *
