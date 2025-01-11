@@ -1,1 +1,44 @@
-name,code,type,scope,description,default_value
+name,code,groupe,type,scope,description,default_value
+label,label,general,string,field,Texte visible associé à cet attribut dans une interface utilisateur,
+description,description,general,string,field,Une explication détaillée ou un contexte pour cet attribut,
+placeholder,placeholder,general,string,field,Texte d'indication affiché lorsque l'attribut est vide,
+readOnly,readOnly,general,boolean,field,Indique si l'attribut est modifiable ou en lecture seule,false
+hidden,hidden,general,boolean,field,Indique si l'attribut doit être masqué dans l'interface utilisateur,false
+defaultValue,defaultValue,general,string,field,Valeur par défaut de l'attribut,
+required,required,general,boolean,field,Spécifie si l'attribut est obligatoire,false
+tooltip,tooltip,general,string,field,Texte d'aide affiché en survol de l'attribut,
+toString,toString,general,boolean,field,Indique si cet attribut doit être inclus dans la méthode ToString,false
+displayField,displayField,general,boolean,field,Indique si le champ doit être utilisé comme clé d'affichage,false
+enum,enum,general,string,field,Spécifie les options autorisées pour cet attribut,
+inputType,inputType,forms,string,field,Type d'entrée (texte, mot de passe, email, etc.),
+validation,validation,forms,object,field,Configuration des règles de validation pour cet attribut,
+editor,editor,forms,object,field,Configuration de l'éditeur incluant largeur et hauteur,
+formatting,formatting,forms,array,field,Options de mise en forme disponibles,bold,italic,underline,links
+maxLength,maxLength,forms,number,field,Longueur maximale autorisée pour cet attribut,
+minLength,minLength,forms,number,field,Longueur minimale requise pour cet attribut,
+accept,accept,forms,string,field,Types de fichiers acceptés (pour les champs fichier),
+options,options,forms,array,field,Liste des options possibles pour un champ de sélection,
+multiSelect,multiSelect,forms,boolean,field,Indique si plusieurs options peuvent être sélectionnées,false
+editHasMany,editHasMany,forms,boolean,field,Indique que l'attribut HasMany doit être édité dans le formulaire Edit,false
+sortable,sortable,tables,boolean,field,Indique si la colonne est triable,false
+filterable,filterable,tables,boolean,field,Indique si des filtres peuvent être appliqués sur la colonne,false
+displayInTable,displayInTable,tables,boolean,field,Indique si l'attribut doit être affiché dans une table,true
+columnWidth,columnWidth,tables,number,field,Largeur de la colonne dans une table,
+format,format,tables,string,field,Formatage de l'attribut dans une table (monétaire, date, etc.),
+icon,icon,tables,string,field,Icône affichée dans une table pour cet attribut,
+relationStats,relationStats,tables,object,field,Statistiques ou informations sur les relations (modèle, relation, icône),
+relationType,relationType,relations,string,field,Type de la relation (exemple : one-to-many),
+throughTable,throughTable,relations,string,field,Nom de la table pivot pour la relation,
+targetTable,targetTable,relations,string,field,Nom de la table cible pour la relation,
+targetModelName,targetModelName,relations,string,field,Nom du modèle cible pour la relation,
+foreignKey,foreignKey,relations,string,field,Clé étrangère associée à la relation,
+alignment,alignment,display,string,field,Alignement du contenu (gauche, centre, droite),
+color,color,display,string,field,Couleur associée à cet attribut,
+displayOrder,displayOrder,display,number,field,Ordre d'affichage des attributs,
+group,group,display,string,field,Groupe auquel appartient cet attribut,
+badge,badge,display,boolean,field,Indique si cet attribut doit être affiché sous forme de badge,false
+badgeStyle,badgeStyle,display,string,field,Style du badge associé à cet attribut,
+imageThumbnail,imageThumbnail,display,boolean,field,Indique si l'attribut doit afficher une miniature d'image,false
+db_nullable,db_nullable,database,boolean,field,Spécifie si la colonne peut accepter des valeurs nulles,true
+db_primaryKey,db_primaryKey,database,boolean,field,Indique si cette colonne est utilisée comme clé primaire,false
+db_unique,db_unique,database,boolean,field,Indique si cette colonne doit avoir des valeurs uniques,false

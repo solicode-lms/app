@@ -1,5 +1,4 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 namespace Modules\PkgGapp\Controllers\Base;
@@ -8,7 +7,7 @@ use Modules\Core\Controllers\Base\AdminController;
 use Modules\PkgGapp\App\Requests\ERelationshipRequest;
 use Modules\PkgGapp\Services\ERelationshipService;
 use Modules\PkgGapp\Services\EModelService;
-use Modules\PkgGapp\Services\EModelService;
+
 
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
@@ -20,9 +19,8 @@ class BaseERelationshipController extends AdminController
 {
     protected $eRelationshipService;
     protected $eModelService;
-    protected $eModelService;
 
-    public function __construct(ERelationshipService $eRelationshipService, EModelService $eModelService, EModelService $eModelService)
+    public function __construct(ERelationshipService $eRelationshipService, EModelService $eModelService)
     {
         parent::__construct();
         $this->eRelationshipService = $eRelationshipService;

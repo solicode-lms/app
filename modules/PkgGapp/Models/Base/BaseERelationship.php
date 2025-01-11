@@ -1,5 +1,4 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 namespace Modules\PkgGapp\Models\Base;
@@ -44,15 +43,6 @@ class BaseERelationship extends BaseModel
     public function eModel(): BelongsTo
     {
         return $this->belongsTo(EModel::class, 'source_model_id', 'id');
-    }
-    /**
-     * Relation BelongsTo pour EModel.
-     *
-     * @return BelongsTo
-     */
-    public function eModel(): BelongsTo
-    {
-        return $this->belongsTo(EModel::class, 'target_model_id', 'id');
     }
 
 
