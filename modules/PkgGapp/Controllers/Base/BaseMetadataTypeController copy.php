@@ -1,58 +1,80 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 namespace Modules\PkgGapp\Controllers\Base;
-use Modules\PkgGapp\Services\MetadataTypeService;
-use Illuminate\Http\Request;
+
+use Illuminate\Database\Eloquent\Scope;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\PkgGapp\App\Requests\MetadataTypeRequest;
+use Modules\PkgGapp\Services\MetadataTypeService;
+
+
+use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgGapp\App\Exports\MetadataTypeExport;
 use Modules\PkgGapp\App\Imports\MetadataTypeImport;
 use Modules\Core\Services\ContextState;
+use Modules\PkgGapp\App\Enums\MetadataScope;
+use Modules\PkgGapp\App\Enums\MetaDataValueType;
 
 class BaseMetadataTypeController extends AdminController
 {
     protected $metadataTypeService;
 
-    public function __construct(MetadataTypeService $metadataTypeService) {
+    public function __construct(MetadataTypeService $metadataTypeService)
+    {
         parent::__construct();
         $this->metadataTypeService = $metadataTypeService;
+
     }
 
-    public function index(Request $request) {
+
+    public function index(Request $request)
+    {
         // Extraire les paramètres de recherche, page, et filtres
         $metadataTypes_params = array_merge(
             $request->only(['page','sort']),
             ['search' => $request->get('metadataTypes_search', '')],
             $request->except(['metadataTypes_search', 'page', 'sort'])
         );
-
+    
         // Paginer les metadataTypes
         $metadataTypes_data = $this->metadataTypeService->paginate($metadataTypes_params);
-
+    
         // Récupérer les statistiques et les champs filtrables
         $metadataTypes_stats = $this->metadataTypeService->getmetadataTypeStats();
         $metadataTypes_filters = $this->metadataTypeService->getFieldsFilterable();
-
+    
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
             return view('PkgGapp::metadataType._table', compact('metadataTypes_data', 'metadataTypes_stats', 'metadataTypes_filters'))->render();
         }
-
+    
         return view('PkgGapp::metadataType.index', compact('metadataTypes_data', 'metadataTypes_stats', 'metadataTypes_filters'));
     }
-    public function create() {
+
+    /**
+     * Retourne le formulaire de création.
+     */
+    public function create()
+    {
+
         $itemMetadataType = $this->metadataTypeService->createInstance();
 
-
+        $metaDataValueTypeCases = \Modules\PkgGapp\App\Enums\MetaDataValueType::cases();
+        $metadataScopeCases = \Modules\PkgGapp\App\Enums\MetadataScope::cases();
+        
         if (request()->ajax()) {
-            return view('PkgGapp::metadataType._fields', compact('itemMetadataType'));
+            return view('PkgGapp::metadataType._fields', compact('itemMetadataType','metaDataValueTypeCases','metadataScopeCases'));
         }
-        return view('PkgGapp::metadataType.create', compact('itemMetadataType'));
+        return view('PkgGapp::metadataType.create', compact('itemMetadataType','metaDataValueTypeCases','metadataScopeCases'));
     }
-    public function store(Request $request) {
+
+    /**
+     * Stocke une nouvelle filière.
+     */
+    public function store(MetadataTypeRequest $request)
+    {
         $validatedData = $request->validated();
         $metadataType = $this->metadataTypeService->create($validatedData);
 
@@ -75,22 +97,50 @@ class BaseMetadataTypeController extends AdminController
             ])
         );
     }
-    public function edit(string $id) {
 
+    /**
+     * Affiche les détails d'une filière.
+     */
+    public function show(string $id)
+    {
         $itemMetadataType = $this->metadataTypeService->find($id);
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('metadataType_id', $id);
 
 
         if (request()->ajax()) {
             return view('PkgGapp::metadataType._fields', compact('itemMetadataType'));
         }
 
-        return view('PkgGapp::metadataType.edit', compact('itemMetadataType'));
-
+        return view('PkgGapp::metadataType.show', compact('itemMetadataType'));
     }
-    public function update(Request $request, string $id) {
+
+    /**
+     * Retourne le formulaire d'édition d'une filière.
+     */
+    public function edit(string $id)
+    {
+
+        $itemMetadataType = $this->metadataTypeService->find($id);
+       
+        $metaDataValueTypeCases = \Modules\PkgGapp\App\Enums\MetaDataValueType::cases();
+        $metadataScopeCases = \Modules\PkgGapp\App\Enums\MetadataScope::cases();
+        
+      
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('metadataType_id', $id);
+
+
+        if (request()->ajax()) {
+            return view('PkgGapp::metadataType._fields', compact('itemMetadataType','metaDataValueTypeCases','metadataScopeCases'));
+        }
+
+        return view('PkgGapp::metadataType.edit', compact('itemMetadataType','metaDataValueTypeCases','metadataScopeCases'));
+    }
+
+    /**
+     * Met à jour une filière existante.
+     */
+    public function update(MetadataTypeRequest $request, string $id)
+    {
 
         $validatedData = $request->validated();
         $metadataType = $this->metadataTypeService->update($id, $validatedData);
@@ -111,9 +161,13 @@ class BaseMetadataTypeController extends AdminController
                 'modelName' =>  __('PkgGapp::metadataType.singular')
                 ])
         );
-
     }
-    public function destroy(string $id) {
+
+    /**
+     * Supprime une filière.
+     */
+    public function destroy(Request $request, string $id)
+    {
 
         $metadataType = $this->metadataTypeService->destroy($id);
 
@@ -132,7 +186,6 @@ class BaseMetadataTypeController extends AdminController
                 'modelName' =>  __('PkgGapp::metadataType.singular')
                 ])
         );
-
     }
 
     public function export()
@@ -168,5 +221,4 @@ class BaseMetadataTypeController extends AdminController
         $metadataTypes = $this->metadataTypeService->all();
         return response()->json($metadataTypes);
     }
-
 }
