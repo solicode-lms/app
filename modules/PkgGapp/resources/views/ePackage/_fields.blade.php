@@ -11,27 +11,6 @@
     <div class="card-body">
         
         <div class="form-group">
-            <label for="name">
-                {{ ucfirst(__('PkgGapp::ePackage.name')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
-                name="name"
-                type="input"
-                class="form-control"
-                required
-                id="name"
-                placeholder="{{ __('PkgGapp::ePackage.name') }}"
-                value="{{ $itemEPackage ? $itemEPackage->name : old('name') }}">
-            @error('name')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
-
-        
-        <div class="form-group">
             <label for="description">
                 {{ ucfirst(__('PkgGapp::ePackage.description')) }}
                 
@@ -52,6 +31,27 @@
         
 
         <!--   EModel_HasMany HasMany --> 
+
+        
+        <div class="form-group">
+            <label for="name">
+                {{ ucfirst(__('PkgGapp::ePackage.name')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <input
+                name="name"
+                type="input"
+                class="form-control"
+                required
+                id="name"
+                placeholder="{{ __('PkgGapp::ePackage.name') }}"
+                value="{{ $itemEPackage ? $itemEPackage->name : old('name') }}">
+            @error('name')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
 
     </div>
 

@@ -4,16 +4,16 @@
     <table class="table table-striped text-nowrap">
         <thead>
             <tr>
-                <x-sortable-column field="operation" label="{{ ucfirst(__('PkgWidgets::widgetOperation.operation')) }}" />
                 <x-sortable-column field="description" label="{{ ucfirst(__('PkgWidgets::widgetOperation.description')) }}" />
+                <x-sortable-column field="operation" label="{{ ucfirst(__('PkgWidgets::widgetOperation.operation')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($widgetOperations_data as $widgetOperation)
                 <tr>
-                    <td>@limit($widgetOperation->operation, 80)</td>
                     <td>{!! $widgetOperation->description !!}</td>
+                    <td>@limit($widgetOperation->operation, 80)</td>
                     <td class="text-right">
                         @can('show-widgetOperation')
                             <a href="{{ route('widgetOperations.show', ['widgetOperation' => $widgetOperation->id]) }}" data-id="{{$widgetOperation->id}}" class="btn btn-default btn-sm context-state showEntity">

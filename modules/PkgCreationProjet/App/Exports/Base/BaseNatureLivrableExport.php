@@ -25,8 +25,8 @@ class BaseNatureLivrableExport implements FromCollection, WithHeadings, ShouldAu
     public function headings(): array
     {
         return [
-            'nom',
             'description',
+            'nom',
         ];
     }
 
@@ -34,8 +34,8 @@ class BaseNatureLivrableExport implements FromCollection, WithHeadings, ShouldAu
     {
         return $this->data->map(function ($natureLivrable) {
             return [
-                'nom' => $natureLivrable->nom,
                 'description' => $natureLivrable->description,
+                'nom' => $natureLivrable->nom,
             ];
         });
     }

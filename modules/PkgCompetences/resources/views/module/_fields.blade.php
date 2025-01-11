@@ -10,25 +10,8 @@
 
     <div class="card-body">
         
-        <div class="form-group">
-            <label for="nom">
-                {{ ucfirst(__('PkgCompetences::module.nom')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
-                name="nom"
-                type="input"
-                class="form-control"
-                required
-                id="nom"
-                placeholder="{{ __('PkgCompetences::module.nom') }}"
-                value="{{ $itemModule ? $itemModule->nom : old('nom') }}">
-            @error('nom')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+
+        <!--   Competence_HasMany HasMany --> 
 
         
         <div class="form-group">
@@ -45,27 +28,6 @@
                 {{ $itemModule ? $itemModule->description : old('description') }}
             </textarea>
             @error('description')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
-
-        
-        <div class="form-group">
-            <label for="masse_horaire">
-                {{ ucfirst(__('PkgCompetences::module.masse_horaire')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
-                name="masse_horaire"
-                type="input"
-                class="form-control"
-                required
-                id="masse_horaire"
-                placeholder="{{ __('PkgCompetences::module.masse_horaire') }}"
-                value="{{ $itemModule ? $itemModule->masse_horaire : old('masse_horaire') }}">
-            @error('masse_horaire')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
@@ -99,8 +61,46 @@
 
 
         
+        <div class="form-group">
+            <label for="masse_horaire">
+                {{ ucfirst(__('PkgCompetences::module.masse_horaire')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <input
+                name="masse_horaire"
+                type="input"
+                class="form-control"
+                required
+                id="masse_horaire"
+                placeholder="{{ __('PkgCompetences::module.masse_horaire') }}"
+                value="{{ $itemModule ? $itemModule->masse_horaire : old('masse_horaire') }}">
+            @error('masse_horaire')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
 
-        <!--   Competence_HasMany HasMany --> 
+        
+        <div class="form-group">
+            <label for="nom">
+                {{ ucfirst(__('PkgCompetences::module.nom')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <input
+                name="nom"
+                type="input"
+                class="form-control"
+                required
+                id="nom"
+                placeholder="{{ __('PkgCompetences::module.nom') }}"
+                value="{{ $itemModule ? $itemModule->nom : old('nom') }}">
+            @error('nom')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
 
     </div>
 

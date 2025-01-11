@@ -11,27 +11,6 @@
     <div class="card-body">
         
         <div class="form-group">
-            <label for="name">
-                {{ ucfirst(__('PkgAutorisation::user.name')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
-                name="name"
-                type="input"
-                class="form-control"
-                required
-                id="name"
-                placeholder="{{ __('PkgAutorisation::user.name') }}"
-                value="{{ $itemUser ? $itemUser->name : old('name') }}">
-            @error('name')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
-
-        
-        <div class="form-group">
             <label for="email">
                 {{ ucfirst(__('PkgAutorisation::user.email')) }}
                 
@@ -73,6 +52,31 @@
 
 
 
+
+        
+
+        <!--   Formateur_HasMany HasMany --> 
+
+        
+        <div class="form-group">
+            <label for="name">
+                {{ ucfirst(__('PkgAutorisation::user.name')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <input
+                name="name"
+                type="input"
+                class="form-control"
+                required
+                id="name"
+                placeholder="{{ __('PkgAutorisation::user.name') }}"
+                value="{{ $itemUser ? $itemUser->name : old('name') }}">
+            @error('name')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
 
         
         <div class="form-group">
@@ -138,10 +142,6 @@
 
         </div>
 
-
-        
-
-        <!--   Formateur_HasMany HasMany --> 
 
     </div>
 

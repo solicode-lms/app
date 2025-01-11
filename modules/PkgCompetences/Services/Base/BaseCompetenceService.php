@@ -20,9 +20,9 @@ class BaseCompetenceService extends BaseService
      */
     protected $fieldsSearchable = [
         'code',
-        'nom',
         'description',
-        'module_id'
+        'module_id',
+        'nom'
     ];
 
     /**
@@ -58,9 +58,9 @@ class BaseCompetenceService extends BaseService
     {
         $competence = parent::create([
             'code' => $data['code'],
-            'nom' => $data['nom'],
             'description' => $data['description'],
             'module_id' => $data['module_id'],
+            'nom' => $data['nom'],
         ]);
 
         return $competence;

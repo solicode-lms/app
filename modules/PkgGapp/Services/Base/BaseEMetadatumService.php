@@ -19,13 +19,13 @@ class BaseEMetadatumService extends BaseService
      * @var array
      */
     protected $fieldsSearchable = [
-        'value_boolean',
-        'value_string',
-        'value_int',
-        'value_object',
+        'e_metadata_definition_id',
         'object_id',
         'object_type',
-        'e_metadata_definition_id'
+        'value_boolean',
+        'value_int',
+        'value_object',
+        'value_string'
     ];
 
     /**

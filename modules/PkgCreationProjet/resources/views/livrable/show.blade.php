@@ -25,8 +25,8 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="col-sm-12">
-                                <label for="titre">{{ ucfirst(__('PkgCreationProjet::livrable.titre')) }}:</label>
-                                <p>{{ $itemLivrable->titre }}</p>
+                                <label for="description">{{ ucfirst(__('PkgCreationProjet::livrable.description')) }}:</label>
+                                <p>{{ $itemLivrable->description }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="nature_livrable_id">{{ ucfirst(__('PkgCreationProjet::livrable.nature_livrable_id')) }}:</label>
@@ -37,8 +37,8 @@
                                 <p>{{ $itemLivrable->projet_id }}</p>
                             </div>
                             <div class="col-sm-12">
-                                <label for="description">{{ ucfirst(__('PkgCreationProjet::livrable.description')) }}:</label>
-                                <p>{{ $itemLivrable->description }}</p>
+                                <label for="titre">{{ ucfirst(__('PkgCreationProjet::livrable.titre')) }}:</label>
+                                <p>{{ $itemLivrable->titre }}</p>
                             </div>
                         </div>
                     </div>

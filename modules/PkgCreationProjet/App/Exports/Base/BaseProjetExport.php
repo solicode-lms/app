@@ -25,13 +25,13 @@ class BaseProjetExport implements FromCollection, WithHeadings, ShouldAutoSize, 
     public function headings(): array
     {
         return [
-            'titre',
-            'travail_a_faire',
             'critere_de_travail',
-            'description',
             'date_debut',
             'date_fin',
+            'description',
             'formateur_id',
+            'titre',
+            'travail_a_faire',
         ];
     }
 
@@ -39,13 +39,13 @@ class BaseProjetExport implements FromCollection, WithHeadings, ShouldAutoSize, 
     {
         return $this->data->map(function ($projet) {
             return [
-                'titre' => $projet->titre,
-                'travail_a_faire' => $projet->travail_a_faire,
                 'critere_de_travail' => $projet->critere_de_travail,
-                'description' => $projet->description,
                 'date_debut' => $projet->date_debut,
                 'date_fin' => $projet->date_fin,
+                'description' => $projet->description,
                 'formateur_id' => $projet->formateur_id,
+                'titre' => $projet->titre,
+                'travail_a_faire' => $projet->travail_a_faire,
             ];
         });
     }

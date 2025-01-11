@@ -25,8 +25,8 @@ class BaseSysColorExport implements FromCollection, WithHeadings, ShouldAutoSize
     public function headings(): array
     {
         return [
-            'name',
             'hex',
+            'name',
         ];
     }
 
@@ -34,8 +34,8 @@ class BaseSysColorExport implements FromCollection, WithHeadings, ShouldAutoSize
     {
         return $this->data->map(function ($sysColor) {
             return [
-                'name' => $sysColor->name,
                 'hex' => $sysColor->hex,
+                'name' => $sysColor->name,
             ];
         });
     }

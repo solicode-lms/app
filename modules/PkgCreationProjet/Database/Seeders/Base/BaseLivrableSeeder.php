@@ -46,10 +46,10 @@ class BaseLivrableSeeder extends Seeder
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
                 Livrable::create([
-                    "titre" => $data[0] ,
+                    "description" => $data[0] ,
                     "nature_livrable_id" => $data[1] ,
                     "projet_id" => $data[2] ,
-                    "description" => $data[3] 
+                    "titre" => $data[3] 
                 ]);
             }
             $firstline = false;

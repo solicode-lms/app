@@ -10,94 +10,6 @@
 
     <div class="card-body">
         
-        <div class="form-group">
-            <label for="name">
-                {{ ucfirst(__('Core::sysModule.name')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
-                name="name"
-                type="input"
-                class="form-control"
-                required
-                id="name"
-                placeholder="{{ __('Core::sysModule.name') }}"
-                value="{{ $itemSysModule ? $itemSysModule->name : old('name') }}">
-            @error('name')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
-
-        
-        <div class="form-group">
-            <label for="slug">
-                {{ ucfirst(__('Core::sysModule.slug')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
-                name="slug"
-                type="input"
-                class="form-control"
-                required
-                id="slug"
-                placeholder="{{ __('Core::sysModule.slug') }}"
-                value="{{ $itemSysModule ? $itemSysModule->slug : old('slug') }}">
-            @error('slug')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
-
-        
-        <div class="form-group">
-            <label for="description">
-                {{ ucfirst(__('Core::sysModule.description')) }}
-                
-            </label>
-            <textarea rows="" cols=""
-                name="description"
-                class="form-control richText"
-                
-                id="description"
-                placeholder="{{ __('Core::sysModule.description') }}">
-                {{ $itemSysModule ? $itemSysModule->description : old('description') }}
-            </textarea>
-            @error('description')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
-
-        
-        
-
-        
-        
-
-        
-        <div class="form-group">
-            <label for="version">
-                {{ ucfirst(__('Core::sysModule.version')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
-                name="version"
-                type="input"
-                class="form-control"
-                required
-                id="version"
-                placeholder="{{ __('Core::sysModule.version') }}"
-                value="{{ $itemSysModule ? $itemSysModule->version : old('version') }}">
-            @error('version')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
-
-        
         
     <div class="form-group">
             <label for="color_id">
@@ -126,8 +38,75 @@
 
 
         
+        <div class="form-group">
+            <label for="description">
+                {{ ucfirst(__('Core::sysModule.description')) }}
+                
+            </label>
+            <textarea rows="" cols=""
+                name="description"
+                class="form-control richText"
+                
+                id="description"
+                placeholder="{{ __('Core::sysModule.description') }}">
+                {{ $itemSysModule ? $itemSysModule->description : old('description') }}
+            </textarea>
+            @error('description')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
+
+        
 
         <!--   FeatureDomain_HasMany HasMany --> 
+
+        
+        
+
+        
+        <div class="form-group">
+            <label for="name">
+                {{ ucfirst(__('Core::sysModule.name')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <input
+                name="name"
+                type="input"
+                class="form-control"
+                required
+                id="name"
+                placeholder="{{ __('Core::sysModule.name') }}"
+                value="{{ $itemSysModule ? $itemSysModule->name : old('name') }}">
+            @error('name')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
+
+        
+        
+
+        
+        <div class="form-group">
+            <label for="slug">
+                {{ ucfirst(__('Core::sysModule.slug')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <input
+                name="slug"
+                type="input"
+                class="form-control"
+                required
+                id="slug"
+                placeholder="{{ __('Core::sysModule.slug') }}"
+                value="{{ $itemSysModule ? $itemSysModule->slug : old('slug') }}">
+            @error('slug')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
 
         
 
@@ -136,6 +115,27 @@
         
 
         <!--   SysModel_HasMany HasMany --> 
+
+        
+        <div class="form-group">
+            <label for="version">
+                {{ ucfirst(__('Core::sysModule.version')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <input
+                name="version"
+                type="input"
+                class="form-control"
+                required
+                id="version"
+                placeholder="{{ __('Core::sysModule.version') }}"
+                value="{{ $itemSysModule ? $itemSysModule->version : old('version') }}">
+            @error('version')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
 
     </div>
 

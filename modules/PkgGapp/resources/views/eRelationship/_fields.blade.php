@@ -11,6 +11,49 @@
     <div class="card-body">
         
         
+
+        
+        <div class="form-group">
+            <label for="description">
+                {{ ucfirst(__('PkgGapp::eRelationship.description')) }}
+                
+            </label>
+            <textarea rows="" cols=""
+                name="description"
+                class="form-control richText"
+                
+                id="description"
+                placeholder="{{ __('PkgGapp::eRelationship.description') }}">
+                {{ $itemERelationship ? $itemERelationship->description : old('description') }}
+            </textarea>
+            @error('description')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
+
+        
+        <div class="form-group">
+            <label for="source_field">
+                {{ ucfirst(__('PkgGapp::eRelationship.source_field')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <input
+                name="source_field"
+                type="input"
+                class="form-control"
+                required
+                id="source_field"
+                placeholder="{{ __('PkgGapp::eRelationship.source_field') }}"
+                value="{{ $itemERelationship ? $itemERelationship->source_field : old('source_field') }}">
+            @error('source_field')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
+
+        
+        
     <div class="form-group">
             <label for="source_model_id">
                 {{ ucfirst(__('PkgGapp::eModel.singular')) }}
@@ -36,6 +79,27 @@
             @enderror
     </div>
 
+
+        
+        <div class="form-group">
+            <label for="target_field">
+                {{ ucfirst(__('PkgGapp::eRelationship.target_field')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <input
+                name="target_field"
+                type="input"
+                class="form-control"
+                required
+                id="target_field"
+                placeholder="{{ __('PkgGapp::eRelationship.target_field') }}"
+                value="{{ $itemERelationship ? $itemERelationship->target_field : old('target_field') }}">
+            @error('target_field')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
 
         
         
@@ -82,70 +146,6 @@
                 placeholder="{{ __('PkgGapp::eRelationship.type') }}"
                 value="{{ $itemERelationship ? $itemERelationship->type : old('type') }}">
             @error('type')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
-
-        
-        <div class="form-group">
-            <label for="source_field">
-                {{ ucfirst(__('PkgGapp::eRelationship.source_field')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
-                name="source_field"
-                type="input"
-                class="form-control"
-                required
-                id="source_field"
-                placeholder="{{ __('PkgGapp::eRelationship.source_field') }}"
-                value="{{ $itemERelationship ? $itemERelationship->source_field : old('source_field') }}">
-            @error('source_field')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
-
-        
-        <div class="form-group">
-            <label for="target_field">
-                {{ ucfirst(__('PkgGapp::eRelationship.target_field')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
-                name="target_field"
-                type="input"
-                class="form-control"
-                required
-                id="target_field"
-                placeholder="{{ __('PkgGapp::eRelationship.target_field') }}"
-                value="{{ $itemERelationship ? $itemERelationship->target_field : old('target_field') }}">
-            @error('target_field')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
-
-        
-        
-
-        
-        <div class="form-group">
-            <label for="description">
-                {{ ucfirst(__('PkgGapp::eRelationship.description')) }}
-                
-            </label>
-            <textarea rows="" cols=""
-                name="description"
-                class="form-control richText"
-                
-                id="description"
-                placeholder="{{ __('PkgGapp::eRelationship.description') }}">
-                {{ $itemERelationship ? $itemERelationship->description : old('description') }}
-            </textarea>
-            @error('description')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>

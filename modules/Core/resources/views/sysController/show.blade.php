@@ -25,6 +25,14 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="col-sm-12">
+                                <label for="description">{{ ucfirst(__('Core::sysController.description')) }}:</label>
+                                <p>{{ $itemSysController->description }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="is_active">{{ ucfirst(__('Core::sysController.is_active')) }}:</label>
+                                <p>{{ $itemSysController->is_active }}</p>
+                            </div>
+                            <div class="col-sm-12">
                                 <label for="module_id">{{ ucfirst(__('Core::sysController.module_id')) }}:</label>
                                 <p>{{ $itemSysController->module_id }}</p>
                             </div>
@@ -35,14 +43,6 @@
                             <div class="col-sm-12">
                                 <label for="slug">{{ ucfirst(__('Core::sysController.slug')) }}:</label>
                                 <p>{{ $itemSysController->slug }}</p>
-                            </div>
-                            <div class="col-sm-12">
-                                <label for="description">{{ ucfirst(__('Core::sysController.description')) }}:</label>
-                                <p>{{ $itemSysController->description }}</p>
-                            </div>
-                            <div class="col-sm-12">
-                                <label for="is_active">{{ ucfirst(__('Core::sysController.is_active')) }}:</label>
-                                <p>{{ $itemSysController->is_active }}</p>
                             </div>
                         </div>
                     </div>

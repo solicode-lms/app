@@ -45,9 +45,9 @@ class BaseUserSeeder extends Seeder
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
                 User::create([
-                    "name" => $data[0] ,
-                    "email" => $data[1] ,
-                    "email_verified_at" => $data[2] ,
+                    "email" => $data[0] ,
+                    "email_verified_at" => $data[1] ,
+                    "name" => $data[2] ,
                     "password" => $data[3] ,
                     "remember_token" => $data[4] 
                 ]);

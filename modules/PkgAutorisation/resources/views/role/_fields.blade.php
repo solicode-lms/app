@@ -11,27 +11,6 @@
     <div class="card-body">
         
         <div class="form-group">
-            <label for="name">
-                {{ ucfirst(__('PkgAutorisation::role.name')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
-                name="name"
-                type="input"
-                class="form-control"
-                required
-                id="name"
-                placeholder="{{ __('PkgAutorisation::role.name') }}"
-                value="{{ $itemRole ? $itemRole->name : old('name') }}">
-            @error('name')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
-
-        
-        <div class="form-group">
             <label for="guard_name">
                 {{ ucfirst(__('PkgAutorisation::role.guard_name')) }}
                 
@@ -47,6 +26,27 @@
                 placeholder="{{ __('PkgAutorisation::role.guard_name') }}"
                 value="{{ $itemRole ? $itemRole->guard_name : old('guard_name') }}">
             @error('guard_name')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
+
+        
+        <div class="form-group">
+            <label for="name">
+                {{ ucfirst(__('PkgAutorisation::role.name')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <input
+                name="name"
+                type="input"
+                class="form-control"
+                required
+                id="name"
+                placeholder="{{ __('PkgAutorisation::role.name') }}"
+                value="{{ $itemRole ? $itemRole->name : old('name') }}">
+            @error('name')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>

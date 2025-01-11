@@ -19,9 +19,9 @@ class BaseUserService extends BaseService
      * @var array
      */
     protected $fieldsSearchable = [
-        'name',
         'email',
         'email_verified_at',
+        'name',
         'password',
         'remember_token'
     ];

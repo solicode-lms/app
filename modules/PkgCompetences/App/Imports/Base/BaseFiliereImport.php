@@ -39,8 +39,8 @@ class BaseFiliereImport implements ToModel, WithHeadingRow
         // Crée un nouvel enregistrement à partir des données importées
         return new Filiere([
             'code' => $row['code'],
-            'nom' => $row['nom'],
             'description' => $row['description'],
+            'nom' => $row['nom'],
         ]);
     }
 }

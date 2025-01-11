@@ -45,11 +45,11 @@ class BaseSysControllerSeeder extends Seeder
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
                 SysController::create([
-                    "module_id" => $data[0] ,
-                    "name" => $data[1] ,
-                    "slug" => $data[2] ,
-                    "description" => $data[3] ,
-                    "is_active" => $data[4] 
+                    "description" => $data[0] ,
+                    "is_active" => $data[1] ,
+                    "module_id" => $data[2] ,
+                    "name" => $data[3] ,
+                    "slug" => $data[4] 
                 ]);
             }
             $firstline = false;

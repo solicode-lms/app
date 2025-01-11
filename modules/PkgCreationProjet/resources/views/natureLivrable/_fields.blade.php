@@ -11,27 +11,6 @@
     <div class="card-body">
         
         <div class="form-group">
-            <label for="nom">
-                {{ ucfirst(__('PkgCreationProjet::natureLivrable.nom')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
-                name="nom"
-                type="input"
-                class="form-control"
-                required
-                id="nom"
-                placeholder="{{ __('PkgCreationProjet::natureLivrable.nom') }}"
-                value="{{ $itemNatureLivrable ? $itemNatureLivrable->nom : old('nom') }}">
-            @error('nom')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
-
-        
-        <div class="form-group">
             <label for="description">
                 {{ ucfirst(__('PkgCreationProjet::natureLivrable.description')) }}
                 
@@ -52,6 +31,27 @@
         
 
         <!--   Livrable_HasMany HasMany --> 
+
+        
+        <div class="form-group">
+            <label for="nom">
+                {{ ucfirst(__('PkgCreationProjet::natureLivrable.nom')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <input
+                name="nom"
+                type="input"
+                class="form-control"
+                required
+                id="nom"
+                placeholder="{{ __('PkgCreationProjet::natureLivrable.nom') }}"
+                value="{{ $itemNatureLivrable ? $itemNatureLivrable->nom : old('nom') }}">
+            @error('nom')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
 
     </div>
 

@@ -33,7 +33,7 @@ class BaseEDataField extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'name', 'type', 'e_model_id', 'description'
+        'description', 'e_model_id', 'name', 'type'
     ];
 
     /**

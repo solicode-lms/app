@@ -10,6 +10,62 @@
 
     <div class="card-body">
         
+        
+    <div class="form-group">
+            <label for="appreciation_id">
+                {{ ucfirst(__('PkgCompetences::appreciation.singular')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <select 
+            id="appreciation_id" 
+            required
+            name="appreciation_id" 
+            class="form-control select2">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($appreciations as $appreciation)
+                    <option value="{{ $appreciation->id }}"
+                        {{ (isset($itemTransfertCompetence) && $itemTransfertCompetence->appreciation_id == $appreciation->id) || (old('appreciation_id>') == $appreciation->id) ? 'selected' : '' }}>
+                        {{ $appreciation }}
+                    </option>
+                @endforeach
+            </select>
+            @error('appreciation_id')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+    </div>
+
+
+        
+        
+    <div class="form-group">
+            <label for="competence_id">
+                {{ ucfirst(__('PkgCompetences::competence.singular')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <select 
+            id="competence_id" 
+            required
+            name="competence_id" 
+            class="form-control select2">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($competences as $competence)
+                    <option value="{{ $competence->id }}"
+                        {{ (isset($itemTransfertCompetence) && $itemTransfertCompetence->competence_id == $competence->id) || (old('competence_id>') == $competence->id) ? 'selected' : '' }}>
+                        {{ $competence }}
+                    </option>
+                @endforeach
+            </select>
+            @error('competence_id')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+    </div>
+
+
+        
         <div class="form-group">
             <label for="description">
                 {{ ucfirst(__('PkgCreationProjet::transfertCompetence.description')) }}
@@ -51,62 +107,6 @@
                 @endforeach
             </select>
             @error('projet_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
-
-
-        
-        
-    <div class="form-group">
-            <label for="competence_id">
-                {{ ucfirst(__('PkgCompetences::competence.singular')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <select 
-            id="competence_id" 
-            required
-            name="competence_id" 
-            class="form-control select2">
-             <option value="">Sélectionnez une option</option>
-                @foreach ($competences as $competence)
-                    <option value="{{ $competence->id }}"
-                        {{ (isset($itemTransfertCompetence) && $itemTransfertCompetence->competence_id == $competence->id) || (old('competence_id>') == $competence->id) ? 'selected' : '' }}>
-                        {{ $competence }}
-                    </option>
-                @endforeach
-            </select>
-            @error('competence_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
-
-
-        
-        
-    <div class="form-group">
-            <label for="appreciation_id">
-                {{ ucfirst(__('PkgCompetences::appreciation.singular')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <select 
-            id="appreciation_id" 
-            required
-            name="appreciation_id" 
-            class="form-control select2">
-             <option value="">Sélectionnez une option</option>
-                @foreach ($appreciations as $appreciation)
-                    <option value="{{ $appreciation->id }}"
-                        {{ (isset($itemTransfertCompetence) && $itemTransfertCompetence->appreciation_id == $appreciation->id) || (old('appreciation_id>') == $appreciation->id) ? 'selected' : '' }}>
-                        {{ $appreciation }}
-                    </option>
-                @endforeach
-            </select>
-            @error('appreciation_id')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
     </div>

@@ -25,24 +25,24 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="col-sm-12">
-                                <label for="nom">{{ ucfirst(__('PkgCompetences::appreciation.nom')) }}:</label>
-                                <p>{{ $itemAppreciation->nom }}</p>
-                            </div>
-                            <div class="col-sm-12">
                                 <label for="description">{{ ucfirst(__('PkgCompetences::appreciation.description')) }}:</label>
                                 <p>{{ $itemAppreciation->description }}</p>
                             </div>
                             <div class="col-sm-12">
-                                <label for="noteMin">{{ ucfirst(__('PkgCompetences::appreciation.noteMin')) }}:</label>
-                                <p>{{ $itemAppreciation->noteMin }}</p>
+                                <label for="formateur_id">{{ ucfirst(__('PkgCompetences::appreciation.formateur_id')) }}:</label>
+                                <p>{{ $itemAppreciation->formateur_id }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="nom">{{ ucfirst(__('PkgCompetences::appreciation.nom')) }}:</label>
+                                <p>{{ $itemAppreciation->nom }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="noteMax">{{ ucfirst(__('PkgCompetences::appreciation.noteMax')) }}:</label>
                                 <p>{{ $itemAppreciation->noteMax }}</p>
                             </div>
                             <div class="col-sm-12">
-                                <label for="formateur_id">{{ ucfirst(__('PkgCompetences::appreciation.formateur_id')) }}:</label>
-                                <p>{{ $itemAppreciation->formateur_id }}</p>
+                                <label for="noteMin">{{ ucfirst(__('PkgCompetences::appreciation.noteMin')) }}:</label>
+                                <p>{{ $itemAppreciation->noteMin }}</p>
                             </div>
                         </div>
                     </div>

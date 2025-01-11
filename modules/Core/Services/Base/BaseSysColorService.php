@@ -19,8 +19,8 @@ class BaseSysColorService extends BaseService
      * @var array
      */
     protected $fieldsSearchable = [
-        'name',
-        'hex'
+        'hex',
+        'name'
     ];
 
     /**

@@ -33,7 +33,7 @@ class BaseNiveauCompetence extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'nom', 'description', 'competence_id'
+        'competence_id', 'description', 'nom'
     ];
 
     /**

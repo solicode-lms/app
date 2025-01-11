@@ -46,10 +46,10 @@ class BaseModuleSeeder extends Seeder
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
                 Module::create([
-                    "nom" => $data[0] ,
-                    "description" => $data[1] ,
+                    "description" => $data[0] ,
+                    "filiere_id" => $data[1] ,
                     "masse_horaire" => $data[2] ,
-                    "filiere_id" => $data[3] 
+                    "nom" => $data[3] 
                 ]);
             }
             $firstline = false;

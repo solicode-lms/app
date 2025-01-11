@@ -10,6 +10,28 @@
 
     <div class="card-body">
         
+        <div class="form-group">
+            <label for="description">
+                {{ ucfirst(__('Core::sysController.description')) }}
+                
+            </label>
+            <textarea rows="" cols=""
+                name="description"
+                class="form-control richText"
+                
+                id="description"
+                placeholder="{{ __('Core::sysController.description') }}">
+                {{ $itemSysController ? $itemSysController->description : old('description') }}
+            </textarea>
+            @error('description')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
+
+        
+        
+
+        
         
     <div class="form-group">
             <label for="module_id">
@@ -59,6 +81,10 @@
 </div>
 
         
+
+        <!--   Permission_HasMany HasMany --> 
+
+        
         <div class="form-group">
             <label for="slug">
                 {{ ucfirst(__('Core::sysController.slug')) }}
@@ -78,32 +104,6 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-
-        
-        <div class="form-group">
-            <label for="description">
-                {{ ucfirst(__('Core::sysController.description')) }}
-                
-            </label>
-            <textarea rows="" cols=""
-                name="description"
-                class="form-control richText"
-                
-                id="description"
-                placeholder="{{ __('Core::sysController.description') }}">
-                {{ $itemSysController ? $itemSysController->description : old('description') }}
-            </textarea>
-            @error('description')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
-
-        
-        
-
-        
-
-        <!--   Permission_HasMany HasMany --> 
 
     </div>
 

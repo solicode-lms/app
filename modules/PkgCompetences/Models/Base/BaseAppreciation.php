@@ -34,7 +34,7 @@ class BaseAppreciation extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'nom', 'description', 'noteMin', 'noteMax', 'formateur_id'
+        'description', 'formateur_id', 'nom', 'noteMax', 'noteMin'
     ];
 
     /**

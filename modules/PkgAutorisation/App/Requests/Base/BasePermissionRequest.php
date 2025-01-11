@@ -17,21 +17,21 @@ class BasePermissionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|max:255',
+            'controller_id' => 'nullable',
             'guard_name' => 'required|max:255',
-            'controller_id' => 'nullable'
+            'name' => 'required|max:255'
         ];
     }
 
     public function messages(): array
     {
         return [
-            'name.required' => __('validation.required', ['attribute' => __('PkgAutorisation::Permission.name')]),
-            'name.max' => __('validation.nameMax'),
+            'controller_id.required' => __('validation.required', ['attribute' => __('PkgAutorisation::Permission.controller_id')]),
+            'controller_id.max' => __('validation.controller_idMax'),
             'guard_name.required' => __('validation.required', ['attribute' => __('PkgAutorisation::Permission.guard_name')]),
             'guard_name.max' => __('validation.guard_nameMax'),
-            'controller_id.required' => __('validation.required', ['attribute' => __('PkgAutorisation::Permission.controller_id')]),
-            'controller_id.max' => __('validation.controller_idMax')
+            'name.required' => __('validation.required', ['attribute' => __('PkgAutorisation::Permission.name')]),
+            'name.max' => __('validation.nameMax')
         ];
     }
 }

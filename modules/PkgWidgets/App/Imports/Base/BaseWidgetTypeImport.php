@@ -38,8 +38,8 @@ class BaseWidgetTypeImport implements ToModel, WithHeadingRow
 
         // Crée un nouvel enregistrement à partir des données importées
         return new WidgetType([
-            'type' => $row['type'],
             'description' => $row['description'],
+            'type' => $row['type'],
         ]);
     }
 }

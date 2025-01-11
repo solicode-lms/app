@@ -10,48 +10,6 @@
 
     <div class="card-body">
         
-        <div class="form-group">
-            <label for="name">
-                {{ ucfirst(__('PkgAutorisation::permission.name')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
-                name="name"
-                type="input"
-                class="form-control"
-                required
-                id="name"
-                placeholder="{{ __('PkgAutorisation::permission.name') }}"
-                value="{{ $itemPermission ? $itemPermission->name : old('name') }}">
-            @error('name')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
-
-        
-        <div class="form-group">
-            <label for="guard_name">
-                {{ ucfirst(__('PkgAutorisation::permission.guard_name')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
-                name="guard_name"
-                type="input"
-                class="form-control"
-                required
-                id="guard_name"
-                placeholder="{{ __('PkgAutorisation::permission.guard_name') }}"
-                value="{{ $itemPermission ? $itemPermission->guard_name : old('guard_name') }}">
-            @error('guard_name')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
-
-        
         
     <div class="form-group">
             <label for="controller_id">
@@ -101,6 +59,48 @@
 
         </div>
 
+
+        
+        <div class="form-group">
+            <label for="guard_name">
+                {{ ucfirst(__('PkgAutorisation::permission.guard_name')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <input
+                name="guard_name"
+                type="input"
+                class="form-control"
+                required
+                id="guard_name"
+                placeholder="{{ __('PkgAutorisation::permission.guard_name') }}"
+                value="{{ $itemPermission ? $itemPermission->guard_name : old('guard_name') }}">
+            @error('guard_name')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
+
+        
+        <div class="form-group">
+            <label for="name">
+                {{ ucfirst(__('PkgAutorisation::permission.name')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <input
+                name="name"
+                type="input"
+                class="form-control"
+                required
+                id="name"
+                placeholder="{{ __('PkgAutorisation::permission.name') }}"
+                value="{{ $itemPermission ? $itemPermission->name : old('name') }}">
+            @error('name')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
 
         
                 <div class="form-group">

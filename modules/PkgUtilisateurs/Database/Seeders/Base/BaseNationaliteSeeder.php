@@ -47,8 +47,8 @@ class BaseNationaliteSeeder extends Seeder
             if (!$firstline) {
                 Nationalite::create([
                     "code" => $data[0] ,
-                    "nom" => $data[1] ,
-                    "description" => $data[2] 
+                    "description" => $data[1] ,
+                    "nom" => $data[2] 
                 ]);
             }
             $firstline = false;

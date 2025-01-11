@@ -11,27 +11,6 @@
     <div class="card-body">
         
         <div class="form-group">
-            <label for="name">
-                {{ ucfirst(__('Core::feature.name')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
-                name="name"
-                type="input"
-                class="form-control"
-                required
-                id="name"
-                placeholder="{{ __('Core::feature.name') }}"
-                value="{{ $itemFeature ? $itemFeature->name : old('name') }}">
-            @error('name')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
-
-        
-        <div class="form-group">
             <label for="description">
                 {{ ucfirst(__('Core::feature.description')) }}
                 
@@ -76,6 +55,27 @@
             @enderror
     </div>
 
+
+        
+        <div class="form-group">
+            <label for="name">
+                {{ ucfirst(__('Core::feature.name')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <input
+                name="name"
+                type="input"
+                class="form-control"
+                required
+                id="name"
+                placeholder="{{ __('Core::feature.name') }}"
+                value="{{ $itemFeature ? $itemFeature->name : old('name') }}">
+            @error('name')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
 
         
                 <div class="form-group">

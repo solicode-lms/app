@@ -38,24 +38,24 @@ class BaseApprenantImport implements ToModel, WithHeadingRow
 
         // Crée un nouvel enregistrement à partir des données importées
         return new Apprenant([
+            'actif' => $row['actif'],
+            'adresse' => $row['adresse'],
+            'cin' => $row['cin'],
+            'date_inscription' => $row['date_inscription'],
+            'date_naissance' => $row['date_naissance'],
+            'diplome' => $row['diplome'],
+            'groupe_id' => $row['groupe_id'],
+            'lieu_naissance' => $row['lieu_naissance'],
+            'matricule' => $row['matricule'],
+            'nationalite_id' => $row['nationalite_id'],
+            'niveaux_scolaire_id' => $row['niveaux_scolaire_id'],
             'nom' => $row['nom'],
+            'nom_arab' => $row['nom_arab'],
             'prenom' => $row['prenom'],
             'prenom_arab' => $row['prenom_arab'],
-            'nom_arab' => $row['nom_arab'],
-            'tele_num' => $row['tele_num'],
             'profile_image' => $row['profile_image'],
-            'matricule' => $row['matricule'],
             'sexe' => $row['sexe'],
-            'actif' => $row['actif'],
-            'diplome' => $row['diplome'],
-            'date_naissance' => $row['date_naissance'],
-            'date_inscription' => $row['date_inscription'],
-            'lieu_naissance' => $row['lieu_naissance'],
-            'cin' => $row['cin'],
-            'adresse' => $row['adresse'],
-            'groupe_id' => $row['groupe_id'],
-            'niveaux_scolaire_id' => $row['niveaux_scolaire_id'],
-            'nationalite_id' => $row['nationalite_id'],
+            'tele_num' => $row['tele_num'],
         ]);
     }
 }

@@ -4,16 +4,16 @@
     <table class="table table-striped text-nowrap">
         <thead>
             <tr>
-                <x-sortable-column field="nom" label="{{ ucfirst(__('PkgCompetences::appreciation.nom')) }}" />
                 <x-sortable-column field="formateur_id" label="{{ ucfirst(__('PkgUtilisateurs::formateur.singular')) }}" />
+                <x-sortable-column field="nom" label="{{ ucfirst(__('PkgCompetences::appreciation.nom')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($appreciations_data as $appreciation)
                 <tr>
-                    <td>@limit($appreciation->nom, 80)</td>
                     <td>@limit($appreciation->formateur->nom ?? '-', 80)</td>
+                    <td>@limit($appreciation->nom, 80)</td>
                     <td class="text-right">
                         @can('show-appreciation')
                             <a href="{{ route('appreciations.show', ['appreciation' => $appreciation->id]) }}" data-id="{{$appreciation->id}}" class="btn btn-default btn-sm context-state showEntity">

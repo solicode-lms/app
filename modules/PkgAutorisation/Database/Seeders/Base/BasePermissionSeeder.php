@@ -45,9 +45,9 @@ class BasePermissionSeeder extends Seeder
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
                 Permission::create([
-                    "name" => $data[0] ,
+                    "controller_id" => $data[0] ,
                     "guard_name" => $data[1] ,
-                    "controller_id" => $data[2] 
+                    "name" => $data[2] 
                 ]);
             }
             $firstline = false;

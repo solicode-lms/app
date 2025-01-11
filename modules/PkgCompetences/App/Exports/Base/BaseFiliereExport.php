@@ -26,8 +26,8 @@ class BaseFiliereExport implements FromCollection, WithHeadings, ShouldAutoSize,
     {
         return [
             'code',
-            'nom',
             'description',
+            'nom',
         ];
     }
 
@@ -36,8 +36,8 @@ class BaseFiliereExport implements FromCollection, WithHeadings, ShouldAutoSize,
         return $this->data->map(function ($filiere) {
             return [
                 'code' => $filiere->code,
-                'nom' => $filiere->nom,
                 'description' => $filiere->description,
+                'nom' => $filiere->nom,
             ];
         });
     }

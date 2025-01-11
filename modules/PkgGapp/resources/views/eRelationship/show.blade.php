@@ -25,8 +25,24 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="col-sm-12">
+                                <label for="cascade_on_delete">{{ ucfirst(__('PkgGapp::eRelationship.cascade_on_delete')) }}:</label>
+                                <p>{{ $itemERelationship->cascade_on_delete }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="description">{{ ucfirst(__('PkgGapp::eRelationship.description')) }}:</label>
+                                <p>{{ $itemERelationship->description }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="source_field">{{ ucfirst(__('PkgGapp::eRelationship.source_field')) }}:</label>
+                                <p>{{ $itemERelationship->source_field }}</p>
+                            </div>
+                            <div class="col-sm-12">
                                 <label for="source_model_id">{{ ucfirst(__('PkgGapp::eRelationship.source_model_id')) }}:</label>
                                 <p>{{ $itemERelationship->source_model_id }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="target_field">{{ ucfirst(__('PkgGapp::eRelationship.target_field')) }}:</label>
+                                <p>{{ $itemERelationship->target_field }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="target_model_id">{{ ucfirst(__('PkgGapp::eRelationship.target_model_id')) }}:</label>
@@ -35,22 +51,6 @@
                             <div class="col-sm-12">
                                 <label for="type">{{ ucfirst(__('PkgGapp::eRelationship.type')) }}:</label>
                                 <p>{{ $itemERelationship->type }}</p>
-                            </div>
-                            <div class="col-sm-12">
-                                <label for="source_field">{{ ucfirst(__('PkgGapp::eRelationship.source_field')) }}:</label>
-                                <p>{{ $itemERelationship->source_field }}</p>
-                            </div>
-                            <div class="col-sm-12">
-                                <label for="target_field">{{ ucfirst(__('PkgGapp::eRelationship.target_field')) }}:</label>
-                                <p>{{ $itemERelationship->target_field }}</p>
-                            </div>
-                            <div class="col-sm-12">
-                                <label for="cascade_on_delete">{{ ucfirst(__('PkgGapp::eRelationship.cascade_on_delete')) }}:</label>
-                                <p>{{ $itemERelationship->cascade_on_delete }}</p>
-                            </div>
-                            <div class="col-sm-12">
-                                <label for="description">{{ ucfirst(__('PkgGapp::eRelationship.description')) }}:</label>
-                                <p>{{ $itemERelationship->description }}</p>
                             </div>
                         </div>
                     </div>

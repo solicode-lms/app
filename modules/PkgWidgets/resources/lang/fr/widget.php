@@ -5,12 +5,12 @@
 return [
     'singular' => 'Widget',
     'plural' => 'Widgets',
-    'name' => 'name',
-    'type_id' => 'type_id',
-    'model_id' => 'model_id',
-    'operation_id' => 'operation_id',
     'color' => 'color',
     'icon' => 'icon',
     'label' => 'label',
+    'model_id' => 'model_id',
+    'name' => 'name',
+    'operation_id' => 'operation_id',
     'parameters' => 'parameters',
+    'type_id' => 'type_id',
 ];

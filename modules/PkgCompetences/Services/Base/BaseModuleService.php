@@ -19,10 +19,10 @@ class BaseModuleService extends BaseService
      * @var array
      */
     protected $fieldsSearchable = [
-        'nom',
         'description',
+        'filiere_id',
         'masse_horaire',
-        'filiere_id'
+        'nom'
     ];
 
     /**
@@ -57,10 +57,10 @@ class BaseModuleService extends BaseService
     public function create(array $data)
     {
         $module = parent::create([
-            'nom' => $data['nom'],
             'description' => $data['description'],
-            'masse_horaire' => $data['masse_horaire'],
             'filiere_id' => $data['filiere_id'],
+            'masse_horaire' => $data['masse_horaire'],
+            'nom' => $data['nom'],
         ]);
 
         return $module;

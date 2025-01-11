@@ -26,9 +26,9 @@ class BaseGroupeExport implements FromCollection, WithHeadings, ShouldAutoSize, 
     {
         return [
             'code',
-            'nom',
             'description',
             'filiere_id',
+            'nom',
         ];
     }
 
@@ -37,9 +37,9 @@ class BaseGroupeExport implements FromCollection, WithHeadings, ShouldAutoSize, 
         return $this->data->map(function ($groupe) {
             return [
                 'code' => $groupe->code,
-                'nom' => $groupe->nom,
                 'description' => $groupe->description,
                 'filiere_id' => $groupe->filiere_id,
+                'nom' => $groupe->nom,
             ];
         });
     }

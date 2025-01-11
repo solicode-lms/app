@@ -5,11 +5,11 @@
 return [
     'singular' => 'EMetadatum',
     'plural' => 'EMetadata',
-    'value_boolean' => 'value_boolean',
-    'value_string' => 'value_string',
-    'value_int' => 'value_int',
-    'value_object' => 'value_object',
+    'e_metadata_definition_id' => 'e_metadata_definition_id',
     'object_id' => 'object_id',
     'object_type' => 'object_type',
-    'e_metadata_definition_id' => 'e_metadata_definition_id',
+    'value_boolean' => 'value_boolean',
+    'value_int' => 'value_int',
+    'value_object' => 'value_object',
+    'value_string' => 'value_string',
 ];

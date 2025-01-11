@@ -17,21 +17,21 @@ class BaseFeatureRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|max:255',
             'description' => 'nullable',
-            'domain_id' => 'required'
+            'domain_id' => 'required',
+            'name' => 'required|max:255'
         ];
     }
 
     public function messages(): array
     {
         return [
-            'name.required' => __('validation.required', ['attribute' => __('Core::Feature.name')]),
-            'name.max' => __('validation.nameMax'),
             'description.required' => __('validation.required', ['attribute' => __('Core::Feature.description')]),
             'description.max' => __('validation.descriptionMax'),
             'domain_id.required' => __('validation.required', ['attribute' => __('Core::Feature.domain_id')]),
-            'domain_id.max' => __('validation.domain_idMax')
+            'domain_id.max' => __('validation.domain_idMax'),
+            'name.required' => __('validation.required', ['attribute' => __('Core::Feature.name')]),
+            'name.max' => __('validation.nameMax')
         ];
     }
 }

@@ -46,25 +46,25 @@ class BaseApprenantKonosySeeder extends Seeder
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
                 ApprenantKonosy::create([
-                    "MatriculeEtudiant" => $data[0] ,
-                    "Nom" => $data[1] ,
-                    "Prenom" => $data[2] ,
-                    "Sexe" => $data[3] ,
-                    "EtudiantActif" => $data[4] ,
+                    "Adresse" => $data[0] ,
+                    "CIN" => $data[1] ,
+                    "CodeDiplome" => $data[2] ,
+                    "DateInscription" => $data[3] ,
+                    "DateNaissance" => $data[4] ,
                     "Diplome" => $data[5] ,
-                    "Principale" => $data[6] ,
+                    "EtudiantActif" => $data[6] ,
                     "LibelleLong" => $data[7] ,
-                    "CodeDiplome" => $data[8] ,
-                    "DateNaissance" => $data[9] ,
-                    "DateInscription" => $data[10] ,
-                    "LieuNaissance" => $data[11] ,
-                    "CIN" => $data[12] ,
-                    "NTelephone" => $data[13] ,
-                    "Adresse" => $data[14] ,
-                    "Nationalite" => $data[15] ,
-                    "Nom_Arabe" => $data[16] ,
-                    "Prenom_Arabe" => $data[17] ,
-                    "NiveauScolaire" => $data[18] 
+                    "LieuNaissance" => $data[8] ,
+                    "MatriculeEtudiant" => $data[9] ,
+                    "Nationalite" => $data[10] ,
+                    "NiveauScolaire" => $data[11] ,
+                    "Nom" => $data[12] ,
+                    "Nom_Arabe" => $data[13] ,
+                    "NTelephone" => $data[14] ,
+                    "Prenom" => $data[15] ,
+                    "Prenom_Arabe" => $data[16] ,
+                    "Principale" => $data[17] ,
+                    "Sexe" => $data[18] 
                 ]);
             }
             $firstline = false;

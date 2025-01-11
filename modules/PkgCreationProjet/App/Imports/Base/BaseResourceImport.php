@@ -38,9 +38,9 @@ class BaseResourceImport implements ToModel, WithHeadingRow
 
         // Crée un nouvel enregistrement à partir des données importées
         return new Resource([
-            'nom' => $row['nom'],
-            'lien' => $row['lien'],
             'description' => $row['description'],
+            'lien' => $row['lien'],
+            'nom' => $row['nom'],
             'projet_id' => $row['projet_id'],
         ]);
     }

@@ -18,9 +18,9 @@ class BaseCompetenceRequest extends FormRequest
     {
         return [
             'code' => 'required|max:255',
-            'nom' => 'required|max:255',
             'description' => 'nullable',
-            'module_id' => 'required'
+            'module_id' => 'required',
+            'nom' => 'required|max:255'
         ];
     }
 
@@ -29,12 +29,12 @@ class BaseCompetenceRequest extends FormRequest
         return [
             'code.required' => __('validation.required', ['attribute' => __('PkgCompetences::Competence.code')]),
             'code.max' => __('validation.codeMax'),
-            'nom.required' => __('validation.required', ['attribute' => __('PkgCompetences::Competence.nom')]),
-            'nom.max' => __('validation.nomMax'),
             'description.required' => __('validation.required', ['attribute' => __('PkgCompetences::Competence.description')]),
             'description.max' => __('validation.descriptionMax'),
             'module_id.required' => __('validation.required', ['attribute' => __('PkgCompetences::Competence.module_id')]),
-            'module_id.max' => __('validation.module_idMax')
+            'module_id.max' => __('validation.module_idMax'),
+            'nom.required' => __('validation.required', ['attribute' => __('PkgCompetences::Competence.nom')]),
+            'nom.max' => __('validation.nomMax')
         ];
     }
 }

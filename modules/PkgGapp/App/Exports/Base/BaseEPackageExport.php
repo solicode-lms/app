@@ -25,8 +25,8 @@ class BaseEPackageExport implements FromCollection, WithHeadings, ShouldAutoSize
     public function headings(): array
     {
         return [
-            'name',
             'description',
+            'name',
         ];
     }
 
@@ -34,8 +34,8 @@ class BaseEPackageExport implements FromCollection, WithHeadings, ShouldAutoSize
     {
         return $this->data->map(function ($ePackage) {
             return [
-                'name' => $ePackage->name,
                 'description' => $ePackage->description,
+                'name' => $ePackage->name,
             ];
         });
     }

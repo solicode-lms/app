@@ -25,13 +25,13 @@ class BaseERelationshipExport implements FromCollection, WithHeadings, ShouldAut
     public function headings(): array
     {
         return [
-            'source_model_id',
-            'target_model_id',
-            'type',
-            'source_field',
-            'target_field',
             'cascade_on_delete',
             'description',
+            'source_field',
+            'source_model_id',
+            'target_field',
+            'target_model_id',
+            'type',
         ];
     }
 
@@ -39,13 +39,13 @@ class BaseERelationshipExport implements FromCollection, WithHeadings, ShouldAut
     {
         return $this->data->map(function ($eRelationship) {
             return [
-                'source_model_id' => $eRelationship->source_model_id,
-                'target_model_id' => $eRelationship->target_model_id,
-                'type' => $eRelationship->type,
-                'source_field' => $eRelationship->source_field,
-                'target_field' => $eRelationship->target_field,
                 'cascade_on_delete' => $eRelationship->cascade_on_delete,
                 'description' => $eRelationship->description,
+                'source_field' => $eRelationship->source_field,
+                'source_model_id' => $eRelationship->source_model_id,
+                'target_field' => $eRelationship->target_field,
+                'target_model_id' => $eRelationship->target_model_id,
+                'type' => $eRelationship->type,
             ];
         });
     }

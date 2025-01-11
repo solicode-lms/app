@@ -5,8 +5,8 @@
 return [
     'singular' => 'EModel',
     'plural' => 'EModels',
-    'name' => 'name',
-    'icon' => 'icon',
     'description' => 'description',
     'e_package_id' => 'e_package_id',
+    'icon' => 'icon',
+    'name' => 'name',
 ];

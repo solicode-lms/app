@@ -11,27 +11,6 @@
     <div class="card-body">
         
         <div class="form-group">
-            <label for="name">
-                {{ ucfirst(__('Core::sysColor.name')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
-                name="name"
-                type="input"
-                class="form-control"
-                required
-                id="name"
-                placeholder="{{ __('Core::sysColor.name') }}"
-                value="{{ $itemSysColor ? $itemSysColor->name : old('name') }}">
-            @error('name')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
-
-        
-        <div class="form-group">
             <label for="hex">
                 {{ ucfirst(__('Core::sysColor.hex')) }}
                 
@@ -47,6 +26,27 @@
                 placeholder="{{ __('Core::sysColor.hex') }}"
                 value="{{ $itemSysColor ? $itemSysColor->hex : old('hex') }}">
             @error('hex')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
+
+        
+        <div class="form-group">
+            <label for="name">
+                {{ ucfirst(__('Core::sysColor.name')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <input
+                name="name"
+                type="input"
+                class="form-control"
+                required
+                id="name"
+                placeholder="{{ __('Core::sysColor.name') }}"
+                value="{{ $itemSysColor ? $itemSysColor->name : old('name') }}">
+            @error('name')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>

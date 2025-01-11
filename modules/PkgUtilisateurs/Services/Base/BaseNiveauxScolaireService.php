@@ -20,8 +20,8 @@ class BaseNiveauxScolaireService extends BaseService
      */
     protected $fieldsSearchable = [
         'code',
-        'nom',
-        'description'
+        'description',
+        'nom'
     ];
 
     /**
@@ -57,8 +57,8 @@ class BaseNiveauxScolaireService extends BaseService
     {
         $niveauxScolaire = parent::create([
             'code' => $data['code'],
-            'nom' => $data['nom'],
             'description' => $data['description'],
+            'nom' => $data['nom'],
         ]);
 
         return $niveauxScolaire;

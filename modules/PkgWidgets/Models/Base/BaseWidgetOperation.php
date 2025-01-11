@@ -33,7 +33,7 @@ class BaseWidgetOperation extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'operation', 'description'
+        'description', 'operation'
     ];
 
 

@@ -17,24 +17,24 @@ class BaseModuleRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nom' => 'required|max:255',
             'description' => 'nullable',
+            'filiere_id' => 'required',
             'masse_horaire' => 'required|max:255',
-            'filiere_id' => 'required'
+            'nom' => 'required|max:255'
         ];
     }
 
     public function messages(): array
     {
         return [
-            'nom.required' => __('validation.required', ['attribute' => __('PkgCompetences::Module.nom')]),
-            'nom.max' => __('validation.nomMax'),
             'description.required' => __('validation.required', ['attribute' => __('PkgCompetences::Module.description')]),
             'description.max' => __('validation.descriptionMax'),
+            'filiere_id.required' => __('validation.required', ['attribute' => __('PkgCompetences::Module.filiere_id')]),
+            'filiere_id.max' => __('validation.filiere_idMax'),
             'masse_horaire.required' => __('validation.required', ['attribute' => __('PkgCompetences::Module.masse_horaire')]),
             'masse_horaire.max' => __('validation.masse_horaireMax'),
-            'filiere_id.required' => __('validation.required', ['attribute' => __('PkgCompetences::Module.filiere_id')]),
-            'filiere_id.max' => __('validation.filiere_idMax')
+            'nom.required' => __('validation.required', ['attribute' => __('PkgCompetences::Module.nom')]),
+            'nom.max' => __('validation.nomMax')
         ];
     }
 }

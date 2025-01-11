@@ -34,19 +34,10 @@ class BaseRole extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'name', 'guard_name'
+        'guard_name', 'name'
     ];
 
 
-    /**
-     * Relation ManyToMany pour Permissions.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function permissions()
-    {
-        return $this->belongsToMany(Permission::class, 'role_has_permissions');
-    }
     /**
      * Relation ManyToMany pour Users.
      *
@@ -55,6 +46,15 @@ class BaseRole extends BaseModel
     public function users()
     {
         return $this->belongsToMany(User::class, 'model_has_roles');
+    }
+    /**
+     * Relation ManyToMany pour Permissions.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function permissions()
+    {
+        return $this->belongsToMany(Permission::class, 'role_has_permissions');
     }
 
 

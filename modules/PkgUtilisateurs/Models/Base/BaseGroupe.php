@@ -35,7 +35,7 @@ class BaseGroupe extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'code', 'nom', 'description', 'filiere_id'
+        'code', 'description', 'filiere_id', 'nom'
     ];
 
     /**

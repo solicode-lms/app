@@ -4,18 +4,18 @@
     <table class="table table-striped text-nowrap">
         <thead>
             <tr>
-                <x-sortable-column field="nom" label="{{ ucfirst(__('PkgCompetences::module.nom')) }}" />
                 <x-sortable-column field="description" label="{{ ucfirst(__('PkgCompetences::module.description')) }}" />
                 <x-sortable-column field="filiere_id" label="{{ ucfirst(__('PkgCompetences::filiere.singular')) }}" />
+                <x-sortable-column field="nom" label="{{ ucfirst(__('PkgCompetences::module.nom')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($modules_data as $module)
                 <tr>
-                    <td>@limit($module->nom, 80)</td>
                     <td>{!! $module->description !!}</td>
                     <td>@limit($module->filiere->code ?? '-', 80)</td>
+                    <td>@limit($module->nom, 80)</td>
                     <td class="text-right">
                         @can('show-module')
                             <a href="{{ route('modules.show', ['module' => $module->id]) }}" data-id="{{$module->id}}" class="btn btn-default btn-sm context-state showEntity">

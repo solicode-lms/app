@@ -19,8 +19,8 @@ class BaseSpecialiteService extends BaseService
      * @var array
      */
     protected $fieldsSearchable = [
-        'nom',
-        'description'
+        'description',
+        'nom'
     ];
 
     /**
@@ -55,8 +55,8 @@ class BaseSpecialiteService extends BaseService
     public function create(array $data)
     {
         $specialite = parent::create([
-            'nom' => $data['nom'],
             'description' => $data['description'],
+            'nom' => $data['nom'],
         ]);
 
         return $specialite;

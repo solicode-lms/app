@@ -46,8 +46,8 @@ class BaseSpecialiteSeeder extends Seeder
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
                 Specialite::create([
-                    "nom" => $data[0] ,
-                    "description" => $data[1] 
+                    "description" => $data[0] ,
+                    "nom" => $data[1] 
                 ]);
             }
             $firstline = false;

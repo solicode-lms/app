@@ -26,8 +26,8 @@ class BaseNiveauxScolaireExport implements FromCollection, WithHeadings, ShouldA
     {
         return [
             'code',
-            'nom',
             'description',
+            'nom',
         ];
     }
 
@@ -36,8 +36,8 @@ class BaseNiveauxScolaireExport implements FromCollection, WithHeadings, ShouldA
         return $this->data->map(function ($niveauxScolaire) {
             return [
                 'code' => $niveauxScolaire->code,
-                'nom' => $niveauxScolaire->nom,
                 'description' => $niveauxScolaire->description,
+                'nom' => $niveauxScolaire->nom,
             ];
         });
     }

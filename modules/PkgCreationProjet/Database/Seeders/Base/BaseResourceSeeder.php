@@ -46,9 +46,9 @@ class BaseResourceSeeder extends Seeder
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
                 Resource::create([
-                    "nom" => $data[0] ,
+                    "description" => $data[0] ,
                     "lien" => $data[1] ,
-                    "description" => $data[2] ,
+                    "nom" => $data[2] ,
                     "projet_id" => $data[3] 
                 ]);
             }

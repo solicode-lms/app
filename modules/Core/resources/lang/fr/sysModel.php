@@ -5,9 +5,9 @@
 return [
     'singular' => 'SysModel',
     'plural' => 'SysModels',
-    'name' => 'name',
-    'model' => 'model',
-    'description' => 'description',
-    'module_id' => 'module_id',
     'color_id' => 'color_id',
+    'description' => 'description',
+    'model' => 'model',
+    'module_id' => 'module_id',
+    'name' => 'name',
 ];

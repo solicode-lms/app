@@ -29,12 +29,12 @@
                                 <p>{{ $itemNationalite->code }}</p>
                             </div>
                             <div class="col-sm-12">
-                                <label for="nom">{{ ucfirst(__('PkgUtilisateurs::nationalite.nom')) }}:</label>
-                                <p>{{ $itemNationalite->nom }}</p>
-                            </div>
-                            <div class="col-sm-12">
                                 <label for="description">{{ ucfirst(__('PkgUtilisateurs::nationalite.description')) }}:</label>
                                 <p>{{ $itemNationalite->description }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="nom">{{ ucfirst(__('PkgUtilisateurs::nationalite.nom')) }}:</label>
+                                <p>{{ $itemNationalite->nom }}</p>
                             </div>
                         </div>
                     </div>

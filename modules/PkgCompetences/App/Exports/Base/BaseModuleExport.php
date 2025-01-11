@@ -25,10 +25,10 @@ class BaseModuleExport implements FromCollection, WithHeadings, ShouldAutoSize, 
     public function headings(): array
     {
         return [
-            'nom',
             'description',
-            'masse_horaire',
             'filiere_id',
+            'masse_horaire',
+            'nom',
         ];
     }
 
@@ -36,10 +36,10 @@ class BaseModuleExport implements FromCollection, WithHeadings, ShouldAutoSize, 
     {
         return $this->data->map(function ($module) {
             return [
-                'nom' => $module->nom,
                 'description' => $module->description,
-                'masse_horaire' => $module->masse_horaire,
                 'filiere_id' => $module->filiere_id,
+                'masse_horaire' => $module->masse_horaire,
+                'nom' => $module->nom,
             ];
         });
     }

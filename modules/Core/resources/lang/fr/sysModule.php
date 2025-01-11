@@ -5,11 +5,11 @@
 return [
     'singular' => 'SysModule',
     'plural' => 'SysModules',
-    'name' => 'name',
-    'slug' => 'slug',
+    'color_id' => 'color_id',
     'description' => 'description',
     'is_active' => 'is_active',
+    'name' => 'name',
     'order' => 'order',
+    'slug' => 'slug',
     'version' => 'version',
-    'color_id' => 'color_id',
 ];

@@ -25,32 +25,32 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="col-sm-12">
-                                <label for="name">{{ ucfirst(__('PkgGapp::eMetadataDefinition.name')) }}:</label>
-                                <p>{{ $itemEMetadataDefinition->name }}</p>
-                            </div>
-                            <div class="col-sm-12">
                                 <label for="code">{{ ucfirst(__('PkgGapp::eMetadataDefinition.code')) }}:</label>
                                 <p>{{ $itemEMetadataDefinition->code }}</p>
                             </div>
                             <div class="col-sm-12">
-                                <label for="groupe">{{ ucfirst(__('PkgGapp::eMetadataDefinition.groupe')) }}:</label>
-                                <p>{{ $itemEMetadataDefinition->groupe }}</p>
-                            </div>
-                            <div class="col-sm-12">
-                                <label for="type">{{ ucfirst(__('PkgGapp::eMetadataDefinition.type')) }}:</label>
-                                <p>{{ $itemEMetadataDefinition->type }}</p>
-                            </div>
-                            <div class="col-sm-12">
-                                <label for="scope">{{ ucfirst(__('PkgGapp::eMetadataDefinition.scope')) }}:</label>
-                                <p>{{ $itemEMetadataDefinition->scope }}</p>
+                                <label for="default_value">{{ ucfirst(__('PkgGapp::eMetadataDefinition.default_value')) }}:</label>
+                                <p>{{ $itemEMetadataDefinition->default_value }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="description">{{ ucfirst(__('PkgGapp::eMetadataDefinition.description')) }}:</label>
                                 <p>{{ $itemEMetadataDefinition->description }}</p>
                             </div>
                             <div class="col-sm-12">
-                                <label for="default_value">{{ ucfirst(__('PkgGapp::eMetadataDefinition.default_value')) }}:</label>
-                                <p>{{ $itemEMetadataDefinition->default_value }}</p>
+                                <label for="groupe">{{ ucfirst(__('PkgGapp::eMetadataDefinition.groupe')) }}:</label>
+                                <p>{{ $itemEMetadataDefinition->groupe }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="name">{{ ucfirst(__('PkgGapp::eMetadataDefinition.name')) }}:</label>
+                                <p>{{ $itemEMetadataDefinition->name }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="scope">{{ ucfirst(__('PkgGapp::eMetadataDefinition.scope')) }}:</label>
+                                <p>{{ $itemEMetadataDefinition->scope }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="type">{{ ucfirst(__('PkgGapp::eMetadataDefinition.type')) }}:</label>
+                                <p>{{ $itemEMetadataDefinition->type }}</p>
                             </div>
                         </div>
                     </div>

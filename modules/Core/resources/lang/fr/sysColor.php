@@ -5,6 +5,6 @@
 return [
     'singular' => 'SysColor',
     'plural' => 'SysColors',
-    'name' => 'name',
     'hex' => 'hex',
+    'name' => 'name',
 ];

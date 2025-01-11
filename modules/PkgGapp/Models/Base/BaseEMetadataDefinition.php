@@ -33,7 +33,7 @@ class BaseEMetadataDefinition extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'name', 'code', 'groupe', 'type', 'scope', 'description', 'default_value'
+        'code', 'default_value', 'description', 'groupe', 'name', 'scope', 'type'
     ];
 
 
@@ -55,6 +55,6 @@ class BaseEMetadataDefinition extends BaseModel
      */
     public function __toString()
     {
-        return $this->name;
+        return $this->code;
     }
 }

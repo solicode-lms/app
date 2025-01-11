@@ -25,20 +25,20 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="col-sm-12">
-                                <label for="name">{{ ucfirst(__('PkgGapp::eModel.name')) }}:</label>
-                                <p>{{ $itemEModel->name }}</p>
-                            </div>
-                            <div class="col-sm-12">
-                                <label for="icon">{{ ucfirst(__('PkgGapp::eModel.icon')) }}:</label>
-                                <p>{{ $itemEModel->icon }}</p>
-                            </div>
-                            <div class="col-sm-12">
                                 <label for="description">{{ ucfirst(__('PkgGapp::eModel.description')) }}:</label>
                                 <p>{{ $itemEModel->description }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="e_package_id">{{ ucfirst(__('PkgGapp::eModel.e_package_id')) }}:</label>
                                 <p>{{ $itemEModel->e_package_id }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="icon">{{ ucfirst(__('PkgGapp::eModel.icon')) }}:</label>
+                                <p>{{ $itemEModel->icon }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="name">{{ ucfirst(__('PkgGapp::eModel.name')) }}:</label>
+                                <p>{{ $itemEModel->name }}</p>
                             </div>
                         </div>
                     </div>

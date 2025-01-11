@@ -25,12 +25,12 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="col-sm-12">
-                                <label for="name">{{ ucfirst(__('PkgAutorisation::role.name')) }}:</label>
-                                <p>{{ $itemRole->name }}</p>
-                            </div>
-                            <div class="col-sm-12">
                                 <label for="guard_name">{{ ucfirst(__('PkgAutorisation::role.guard_name')) }}:</label>
                                 <p>{{ $itemRole->guard_name }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="name">{{ ucfirst(__('PkgAutorisation::role.name')) }}:</label>
+                                <p>{{ $itemRole->name }}</p>
                             </div>
                         </div>
                     </div>

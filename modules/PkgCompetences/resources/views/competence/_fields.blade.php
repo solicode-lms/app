@@ -32,27 +32,6 @@
 
         
         <div class="form-group">
-            <label for="nom">
-                {{ ucfirst(__('PkgCompetences::competence.nom')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
-                name="nom"
-                type="input"
-                class="form-control"
-                required
-                id="nom"
-                placeholder="{{ __('PkgCompetences::competence.nom') }}"
-                value="{{ $itemCompetence ? $itemCompetence->nom : old('nom') }}">
-            @error('nom')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
-
-        
-        <div class="form-group">
             <label for="description">
                 {{ ucfirst(__('PkgCompetences::competence.description')) }}
                 
@@ -99,6 +78,31 @@
 
 
         
+
+        <!--   NiveauCompetence_HasMany HasMany --> 
+
+        
+        <div class="form-group">
+            <label for="nom">
+                {{ ucfirst(__('PkgCompetences::competence.nom')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <input
+                name="nom"
+                type="input"
+                class="form-control"
+                required
+                id="nom"
+                placeholder="{{ __('PkgCompetences::competence.nom') }}"
+                value="{{ $itemCompetence ? $itemCompetence->nom : old('nom') }}">
+            @error('nom')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
+
+        
                 <div class="form-group">
             <label for="technologies">
                 {{ ucfirst(__('PkgCompetences::Technology.plural')) }}
@@ -122,10 +126,6 @@
 
         </div>
 
-
-        
-
-        <!--   NiveauCompetence_HasMany HasMany --> 
 
         
 

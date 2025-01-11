@@ -25,8 +25,8 @@ class BaseCategoryTechnologyExport implements FromCollection, WithHeadings, Shou
     public function headings(): array
     {
         return [
-            'nom',
             'description',
+            'nom',
         ];
     }
 
@@ -34,8 +34,8 @@ class BaseCategoryTechnologyExport implements FromCollection, WithHeadings, Shou
     {
         return $this->data->map(function ($categoryTechnology) {
             return [
-                'nom' => $categoryTechnology->nom,
                 'description' => $categoryTechnology->description,
+                'nom' => $categoryTechnology->nom,
             ];
         });
     }

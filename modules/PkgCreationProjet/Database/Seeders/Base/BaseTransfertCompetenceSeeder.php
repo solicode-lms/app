@@ -46,10 +46,10 @@ class BaseTransfertCompetenceSeeder extends Seeder
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
                 TransfertCompetence::create([
-                    "description" => $data[0] ,
-                    "projet_id" => $data[1] ,
-                    "competence_id" => $data[2] ,
-                    "appreciation_id" => $data[3] 
+                    "appreciation_id" => $data[0] ,
+                    "competence_id" => $data[1] ,
+                    "description" => $data[2] ,
+                    "projet_id" => $data[3] 
                 ]);
             }
             $firstline = false;

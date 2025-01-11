@@ -47,9 +47,9 @@ class BaseGroupeSeeder extends Seeder
             if (!$firstline) {
                 Groupe::create([
                     "code" => $data[0] ,
-                    "nom" => $data[1] ,
-                    "description" => $data[2] ,
-                    "filiere_id" => $data[3] 
+                    "description" => $data[1] ,
+                    "filiere_id" => $data[2] ,
+                    "nom" => $data[3] 
                 ]);
             }
             $firstline = false;

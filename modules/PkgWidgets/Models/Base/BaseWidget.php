@@ -35,7 +35,7 @@ class BaseWidget extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'name', 'type_id', 'model_id', 'operation_id', 'color', 'icon', 'label', 'parameters'
+        'color', 'icon', 'label', 'model_id', 'name', 'operation_id', 'parameters', 'type_id'
     ];
 
     /**
@@ -75,6 +75,6 @@ class BaseWidget extends BaseModel
      */
     public function __toString()
     {
-        return $this->name;
+        return $this->label;
     }
 }

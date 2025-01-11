@@ -11,111 +11,6 @@
     <div class="card-body">
         
         <div class="form-group">
-            <label for="name">
-                {{ ucfirst(__('PkgWidgets::widget.name')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
-                name="name"
-                type="input"
-                class="form-control"
-                required
-                id="name"
-                placeholder="{{ __('PkgWidgets::widget.name') }}"
-                value="{{ $itemWidget ? $itemWidget->name : old('name') }}">
-            @error('name')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
-
-        
-        
-    <div class="form-group">
-            <label for="type_id">
-                {{ ucfirst(__('PkgWidgets::widgetType.singular')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <select 
-            id="type_id" 
-            required
-            name="type_id" 
-            class="form-control select2">
-             <option value="">Sélectionnez une option</option>
-                @foreach ($widgetTypes as $widgetType)
-                    <option value="{{ $widgetType->id }}"
-                        {{ (isset($itemWidget) && $itemWidget->type_id == $widgetType->id) || (old('type_id>') == $widgetType->id) ? 'selected' : '' }}>
-                        {{ $widgetType }}
-                    </option>
-                @endforeach
-            </select>
-            @error('type_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
-
-
-        
-        
-    <div class="form-group">
-            <label for="model_id">
-                {{ ucfirst(__('Core::sysModel.singular')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <select 
-            id="model_id" 
-            required
-            name="model_id" 
-            class="form-control select2">
-             <option value="">Sélectionnez une option</option>
-                @foreach ($sysModels as $sysModel)
-                    <option value="{{ $sysModel->id }}"
-                        {{ (isset($itemWidget) && $itemWidget->model_id == $sysModel->id) || (old('model_id>') == $sysModel->id) ? 'selected' : '' }}>
-                        {{ $sysModel }}
-                    </option>
-                @endforeach
-            </select>
-            @error('model_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
-
-
-        
-        
-    <div class="form-group">
-            <label for="operation_id">
-                {{ ucfirst(__('PkgWidgets::widgetOperation.singular')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <select 
-            id="operation_id" 
-            required
-            name="operation_id" 
-            class="form-control select2">
-             <option value="">Sélectionnez une option</option>
-                @foreach ($widgetOperations as $widgetOperation)
-                    <option value="{{ $widgetOperation->id }}"
-                        {{ (isset($itemWidget) && $itemWidget->operation_id == $widgetOperation->id) || (old('operation_id>') == $widgetOperation->id) ? 'selected' : '' }}>
-                        {{ $widgetOperation }}
-                    </option>
-                @endforeach
-            </select>
-            @error('operation_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
-
-
-        
-        <div class="form-group">
             <label for="color">
                 {{ ucfirst(__('PkgWidgets::widget.color')) }}
                 
@@ -172,8 +67,113 @@
 </div>
 
         
+        
+    <div class="form-group">
+            <label for="model_id">
+                {{ ucfirst(__('Core::sysModel.singular')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <select 
+            id="model_id" 
+            required
+            name="model_id" 
+            class="form-control select2">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($sysModels as $sysModel)
+                    <option value="{{ $sysModel->id }}"
+                        {{ (isset($itemWidget) && $itemWidget->model_id == $sysModel->id) || (old('model_id>') == $sysModel->id) ? 'selected' : '' }}>
+                        {{ $sysModel }}
+                    </option>
+                @endforeach
+            </select>
+            @error('model_id')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+    </div>
+
+
+        
+        <div class="form-group">
+            <label for="name">
+                {{ ucfirst(__('PkgWidgets::widget.name')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <input
+                name="name"
+                type="input"
+                class="form-control"
+                required
+                id="name"
+                placeholder="{{ __('PkgWidgets::widget.name') }}"
+                value="{{ $itemWidget ? $itemWidget->name : old('name') }}">
+            @error('name')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
+
+        
+        
+    <div class="form-group">
+            <label for="operation_id">
+                {{ ucfirst(__('PkgWidgets::widgetOperation.singular')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <select 
+            id="operation_id" 
+            required
+            name="operation_id" 
+            class="form-control select2">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($widgetOperations as $widgetOperation)
+                    <option value="{{ $widgetOperation->id }}"
+                        {{ (isset($itemWidget) && $itemWidget->operation_id == $widgetOperation->id) || (old('operation_id>') == $widgetOperation->id) ? 'selected' : '' }}>
+                        {{ $widgetOperation }}
+                    </option>
+                @endforeach
+            </select>
+            @error('operation_id')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+    </div>
+
+
+        
 
         <!--   parameters JSON --> 
+
+        
+        
+    <div class="form-group">
+            <label for="type_id">
+                {{ ucfirst(__('PkgWidgets::widgetType.singular')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <select 
+            id="type_id" 
+            required
+            name="type_id" 
+            class="form-control select2">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($widgetTypes as $widgetType)
+                    <option value="{{ $widgetType->id }}"
+                        {{ (isset($itemWidget) && $itemWidget->type_id == $widgetType->id) || (old('type_id>') == $widgetType->id) ? 'selected' : '' }}>
+                        {{ $widgetType }}
+                    </option>
+                @endforeach
+            </select>
+            @error('type_id')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+    </div>
+
 
     </div>
 

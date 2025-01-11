@@ -11,27 +11,6 @@
     <div class="card-body">
         
         <div class="form-group">
-            <label for="nom">
-                {{ ucfirst(__('PkgUtilisateurs::specialite.nom')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
-                name="nom"
-                type="input"
-                class="form-control"
-                required
-                id="nom"
-                placeholder="{{ __('PkgUtilisateurs::specialite.nom') }}"
-                value="{{ $itemSpecialite ? $itemSpecialite->nom : old('nom') }}">
-            @error('nom')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
-
-        
-        <div class="form-group">
             <label for="description">
                 {{ ucfirst(__('PkgUtilisateurs::specialite.description')) }}
                 
@@ -73,6 +52,27 @@
 
         </div>
 
+
+        
+        <div class="form-group">
+            <label for="nom">
+                {{ ucfirst(__('PkgUtilisateurs::specialite.nom')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <input
+                name="nom"
+                type="input"
+                class="form-control"
+                required
+                id="nom"
+                placeholder="{{ __('PkgUtilisateurs::specialite.nom') }}"
+                value="{{ $itemSpecialite ? $itemSpecialite->nom : old('nom') }}">
+            @error('nom')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
 
     </div>
 

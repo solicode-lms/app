@@ -35,7 +35,7 @@ class BaseEModel extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'name', 'icon', 'description', 'e_package_id'
+        'description', 'e_package_id', 'icon', 'name'
     ];
 
     /**
@@ -63,8 +63,10 @@ class BaseEModel extends BaseModel
      *
      * @return HasMany
      */
-
-     
+    public function eRelationships(): HasMany
+    {
+        return $this->hasMany(ERelationship::class, 'emodel_id', 'id');
+    }
     /**
      * Relation HasMany pour ERelationships.
      *

@@ -19,9 +19,9 @@ class BaseNiveauCompetenceService extends BaseService
      * @var array
      */
     protected $fieldsSearchable = [
-        'nom',
+        'competence_id',
         'description',
-        'competence_id'
+        'nom'
     ];
 
     /**
@@ -56,9 +56,9 @@ class BaseNiveauCompetenceService extends BaseService
     public function create(array $data)
     {
         $niveauCompetence = parent::create([
-            'nom' => $data['nom'],
-            'description' => $data['description'],
             'competence_id' => $data['competence_id'],
+            'description' => $data['description'],
+            'nom' => $data['nom'],
         ]);
 
         return $niveauCompetence;

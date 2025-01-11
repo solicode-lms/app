@@ -47,9 +47,9 @@ class BaseCompetenceSeeder extends Seeder
             if (!$firstline) {
                 Competence::create([
                     "code" => $data[0] ,
-                    "nom" => $data[1] ,
-                    "description" => $data[2] ,
-                    "module_id" => $data[3] 
+                    "description" => $data[1] ,
+                    "module_id" => $data[2] ,
+                    "nom" => $data[3] 
                 ]);
             }
             $firstline = false;

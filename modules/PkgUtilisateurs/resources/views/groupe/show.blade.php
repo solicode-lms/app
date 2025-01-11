@@ -29,16 +29,16 @@
                                 <p>{{ $itemGroupe->code }}</p>
                             </div>
                             <div class="col-sm-12">
-                                <label for="nom">{{ ucfirst(__('PkgUtilisateurs::groupe.nom')) }}:</label>
-                                <p>{{ $itemGroupe->nom }}</p>
-                            </div>
-                            <div class="col-sm-12">
                                 <label for="description">{{ ucfirst(__('PkgUtilisateurs::groupe.description')) }}:</label>
                                 <p>{{ $itemGroupe->description }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="filiere_id">{{ ucfirst(__('PkgUtilisateurs::groupe.filiere_id')) }}:</label>
                                 <p>{{ $itemGroupe->filiere_id }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="nom">{{ ucfirst(__('PkgUtilisateurs::groupe.nom')) }}:</label>
+                                <p>{{ $itemGroupe->nom }}</p>
                             </div>
                         </div>
                     </div>

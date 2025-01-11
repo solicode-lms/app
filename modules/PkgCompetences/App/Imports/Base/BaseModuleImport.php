@@ -38,10 +38,10 @@ class BaseModuleImport implements ToModel, WithHeadingRow
 
         // Crée un nouvel enregistrement à partir des données importées
         return new Module([
-            'nom' => $row['nom'],
             'description' => $row['description'],
-            'masse_horaire' => $row['masse_horaire'],
             'filiere_id' => $row['filiere_id'],
+            'masse_horaire' => $row['masse_horaire'],
+            'nom' => $row['nom'],
         ]);
     }
 }

@@ -10,6 +10,10 @@
 
     <div class="card-body">
         
+
+        <!--   Apprenant_HasMany HasMany --> 
+
+        
         <div class="form-group">
             <label for="code">
                 {{ ucfirst(__('PkgUtilisateurs::groupe.code')) }}
@@ -26,25 +30,6 @@
                 placeholder="{{ __('PkgUtilisateurs::groupe.code') }}"
                 value="{{ $itemGroupe ? $itemGroupe->code : old('code') }}">
             @error('code')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
-
-        
-        <div class="form-group">
-            <label for="nom">
-                {{ ucfirst(__('PkgUtilisateurs::groupe.nom')) }}
-                
-            </label>
-            <input
-                name="nom"
-                type="input"
-                class="form-control"
-                
-                id="nom"
-                placeholder="{{ __('PkgUtilisateurs::groupe.nom') }}"
-                value="{{ $itemGroupe ? $itemGroupe->nom : old('nom') }}">
-            @error('nom')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
@@ -120,8 +105,23 @@
 
 
         
-
-        <!--   Apprenant_HasMany HasMany --> 
+        <div class="form-group">
+            <label for="nom">
+                {{ ucfirst(__('PkgUtilisateurs::groupe.nom')) }}
+                
+            </label>
+            <input
+                name="nom"
+                type="input"
+                class="form-control"
+                
+                id="nom"
+                placeholder="{{ __('PkgUtilisateurs::groupe.nom') }}"
+                value="{{ $itemGroupe ? $itemGroupe->nom : old('nom') }}">
+            @error('nom')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
 
     </div>
 

@@ -19,10 +19,10 @@ class BaseEDataFieldService extends BaseService
      * @var array
      */
     protected $fieldsSearchable = [
-        'name',
-        'type',
+        'description',
         'e_model_id',
-        'description'
+        'name',
+        'type'
     ];
 
     /**

@@ -17,27 +17,27 @@ class BaseAppreciationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nom' => 'required|max:255',
             'description' => 'nullable',
-            'noteMin' => 'required',
+            'formateur_id' => 'required',
+            'nom' => 'required|max:255',
             'noteMax' => 'required',
-            'formateur_id' => 'required'
+            'noteMin' => 'required'
         ];
     }
 
     public function messages(): array
     {
         return [
-            'nom.required' => __('validation.required', ['attribute' => __('PkgCompetences::Appreciation.nom')]),
-            'nom.max' => __('validation.nomMax'),
             'description.required' => __('validation.required', ['attribute' => __('PkgCompetences::Appreciation.description')]),
             'description.max' => __('validation.descriptionMax'),
-            'noteMin.required' => __('validation.required', ['attribute' => __('PkgCompetences::Appreciation.noteMin')]),
-            'noteMin.max' => __('validation.noteMinMax'),
+            'formateur_id.required' => __('validation.required', ['attribute' => __('PkgCompetences::Appreciation.formateur_id')]),
+            'formateur_id.max' => __('validation.formateur_idMax'),
+            'nom.required' => __('validation.required', ['attribute' => __('PkgCompetences::Appreciation.nom')]),
+            'nom.max' => __('validation.nomMax'),
             'noteMax.required' => __('validation.required', ['attribute' => __('PkgCompetences::Appreciation.noteMax')]),
             'noteMax.max' => __('validation.noteMaxMax'),
-            'formateur_id.required' => __('validation.required', ['attribute' => __('PkgCompetences::Appreciation.formateur_id')]),
-            'formateur_id.max' => __('validation.formateur_idMax')
+            'noteMin.required' => __('validation.required', ['attribute' => __('PkgCompetences::Appreciation.noteMin')]),
+            'noteMin.max' => __('validation.noteMinMax')
         ];
     }
 }

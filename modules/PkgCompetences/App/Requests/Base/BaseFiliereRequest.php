@@ -18,8 +18,8 @@ class BaseFiliereRequest extends FormRequest
     {
         return [
             'code' => 'required|max:255',
-            'nom' => 'required|max:255',
-            'description' => 'nullable'
+            'description' => 'nullable',
+            'nom' => 'required|max:255'
         ];
     }
 
@@ -28,10 +28,10 @@ class BaseFiliereRequest extends FormRequest
         return [
             'code.required' => __('validation.required', ['attribute' => __('PkgCompetences::Filiere.code')]),
             'code.max' => __('validation.codeMax'),
-            'nom.required' => __('validation.required', ['attribute' => __('PkgCompetences::Filiere.nom')]),
-            'nom.max' => __('validation.nomMax'),
             'description.required' => __('validation.required', ['attribute' => __('PkgCompetences::Filiere.description')]),
-            'description.max' => __('validation.descriptionMax')
+            'description.max' => __('validation.descriptionMax'),
+            'nom.required' => __('validation.required', ['attribute' => __('PkgCompetences::Filiere.nom')]),
+            'nom.max' => __('validation.nomMax')
         ];
     }
 }

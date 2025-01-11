@@ -35,7 +35,7 @@ class BaseApprenant extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'nom', 'prenom', 'prenom_arab', 'nom_arab', 'tele_num', 'profile_image', 'matricule', 'sexe', 'actif', 'diplome', 'date_naissance', 'date_inscription', 'lieu_naissance', 'cin', 'adresse', 'groupe_id', 'niveaux_scolaire_id', 'nationalite_id'
+        'actif', 'adresse', 'cin', 'date_inscription', 'date_naissance', 'diplome', 'groupe_id', 'lieu_naissance', 'matricule', 'nationalite_id', 'niveaux_scolaire_id', 'nom', 'nom_arab', 'prenom', 'prenom_arab', 'profile_image', 'sexe', 'tele_num'
     ];
 
     /**

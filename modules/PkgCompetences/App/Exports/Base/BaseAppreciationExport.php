@@ -25,11 +25,11 @@ class BaseAppreciationExport implements FromCollection, WithHeadings, ShouldAuto
     public function headings(): array
     {
         return [
-            'nom',
             'description',
-            'noteMin',
-            'noteMax',
             'formateur_id',
+            'nom',
+            'noteMax',
+            'noteMin',
         ];
     }
 
@@ -37,11 +37,11 @@ class BaseAppreciationExport implements FromCollection, WithHeadings, ShouldAuto
     {
         return $this->data->map(function ($appreciation) {
             return [
-                'nom' => $appreciation->nom,
                 'description' => $appreciation->description,
-                'noteMin' => $appreciation->noteMin,
-                'noteMax' => $appreciation->noteMax,
                 'formateur_id' => $appreciation->formateur_id,
+                'nom' => $appreciation->nom,
+                'noteMax' => $appreciation->noteMax,
+                'noteMin' => $appreciation->noteMin,
             ];
         });
     }

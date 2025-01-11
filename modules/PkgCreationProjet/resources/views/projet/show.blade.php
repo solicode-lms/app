@@ -25,20 +25,8 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="col-sm-12">
-                                <label for="titre">{{ ucfirst(__('PkgCreationProjet::projet.titre')) }}:</label>
-                                <p>{{ $itemProjet->titre }}</p>
-                            </div>
-                            <div class="col-sm-12">
-                                <label for="travail_a_faire">{{ ucfirst(__('PkgCreationProjet::projet.travail_a_faire')) }}:</label>
-                                <p>{{ $itemProjet->travail_a_faire }}</p>
-                            </div>
-                            <div class="col-sm-12">
                                 <label for="critere_de_travail">{{ ucfirst(__('PkgCreationProjet::projet.critere_de_travail')) }}:</label>
                                 <p>{{ $itemProjet->critere_de_travail }}</p>
-                            </div>
-                            <div class="col-sm-12">
-                                <label for="description">{{ ucfirst(__('PkgCreationProjet::projet.description')) }}:</label>
-                                <p>{{ $itemProjet->description }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="date_debut">{{ ucfirst(__('PkgCreationProjet::projet.date_debut')) }}:</label>
@@ -49,8 +37,20 @@
                                 <p>{{ $itemProjet->date_fin }}</p>
                             </div>
                             <div class="col-sm-12">
+                                <label for="description">{{ ucfirst(__('PkgCreationProjet::projet.description')) }}:</label>
+                                <p>{{ $itemProjet->description }}</p>
+                            </div>
+                            <div class="col-sm-12">
                                 <label for="formateur_id">{{ ucfirst(__('PkgCreationProjet::projet.formateur_id')) }}:</label>
                                 <p>{{ $itemProjet->formateur_id }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="titre">{{ ucfirst(__('PkgCreationProjet::projet.titre')) }}:</label>
+                                <p>{{ $itemProjet->titre }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="travail_a_faire">{{ ucfirst(__('PkgCreationProjet::projet.travail_a_faire')) }}:</label>
+                                <p>{{ $itemProjet->travail_a_faire }}</p>
                             </div>
                         </div>
                     </div>

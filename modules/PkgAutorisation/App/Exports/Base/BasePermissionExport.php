@@ -25,9 +25,9 @@ class BasePermissionExport implements FromCollection, WithHeadings, ShouldAutoSi
     public function headings(): array
     {
         return [
-            'name',
-            'guard_name',
             'controller_id',
+            'guard_name',
+            'name',
         ];
     }
 
@@ -35,9 +35,9 @@ class BasePermissionExport implements FromCollection, WithHeadings, ShouldAutoSi
     {
         return $this->data->map(function ($permission) {
             return [
-                'name' => $permission->name,
-                'guard_name' => $permission->guard_name,
                 'controller_id' => $permission->controller_id,
+                'guard_name' => $permission->guard_name,
+                'name' => $permission->name,
             ];
         });
     }

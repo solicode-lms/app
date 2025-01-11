@@ -46,13 +46,13 @@ class BaseProjetSeeder extends Seeder
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
                 Projet::create([
-                    "titre" => $data[0] ,
-                    "travail_a_faire" => $data[1] ,
-                    "critere_de_travail" => $data[2] ,
+                    "critere_de_travail" => $data[0] ,
+                    "date_debut" => $data[1] ,
+                    "date_fin" => $data[2] ,
                     "description" => $data[3] ,
-                    "date_debut" => $data[4] ,
-                    "date_fin" => $data[5] ,
-                    "formateur_id" => $data[6] 
+                    "formateur_id" => $data[4] ,
+                    "titre" => $data[5] ,
+                    "travail_a_faire" => $data[6] 
                 ]);
             }
             $firstline = false;

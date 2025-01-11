@@ -25,12 +25,8 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="col-sm-12">
-                                <label for="name">{{ ucfirst(__('Core::sysModule.name')) }}:</label>
-                                <p>{{ $itemSysModule->name }}</p>
-                            </div>
-                            <div class="col-sm-12">
-                                <label for="slug">{{ ucfirst(__('Core::sysModule.slug')) }}:</label>
-                                <p>{{ $itemSysModule->slug }}</p>
+                                <label for="color_id">{{ ucfirst(__('Core::sysModule.color_id')) }}:</label>
+                                <p>{{ $itemSysModule->color_id }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="description">{{ ucfirst(__('Core::sysModule.description')) }}:</label>
@@ -41,16 +37,20 @@
                                 <p>{{ $itemSysModule->is_active }}</p>
                             </div>
                             <div class="col-sm-12">
+                                <label for="name">{{ ucfirst(__('Core::sysModule.name')) }}:</label>
+                                <p>{{ $itemSysModule->name }}</p>
+                            </div>
+                            <div class="col-sm-12">
                                 <label for="order">{{ ucfirst(__('Core::sysModule.order')) }}:</label>
                                 <p>{{ $itemSysModule->order }}</p>
                             </div>
                             <div class="col-sm-12">
-                                <label for="version">{{ ucfirst(__('Core::sysModule.version')) }}:</label>
-                                <p>{{ $itemSysModule->version }}</p>
+                                <label for="slug">{{ ucfirst(__('Core::sysModule.slug')) }}:</label>
+                                <p>{{ $itemSysModule->slug }}</p>
                             </div>
                             <div class="col-sm-12">
-                                <label for="color_id">{{ ucfirst(__('Core::sysModule.color_id')) }}:</label>
-                                <p>{{ $itemSysModule->color_id }}</p>
+                                <label for="version">{{ ucfirst(__('Core::sysModule.version')) }}:</label>
+                                <p>{{ $itemSysModule->version }}</p>
                             </div>
                         </div>
                     </div>

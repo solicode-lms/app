@@ -25,13 +25,13 @@ class BaseEMetadataDefinitionExport implements FromCollection, WithHeadings, Sho
     public function headings(): array
     {
         return [
-            'name',
             'code',
-            'groupe',
-            'type',
-            'scope',
-            'description',
             'default_value',
+            'description',
+            'groupe',
+            'name',
+            'scope',
+            'type',
         ];
     }
 
@@ -39,13 +39,13 @@ class BaseEMetadataDefinitionExport implements FromCollection, WithHeadings, Sho
     {
         return $this->data->map(function ($eMetadataDefinition) {
             return [
-                'name' => $eMetadataDefinition->name,
                 'code' => $eMetadataDefinition->code,
-                'groupe' => $eMetadataDefinition->groupe,
-                'type' => $eMetadataDefinition->type,
-                'scope' => $eMetadataDefinition->scope,
-                'description' => $eMetadataDefinition->description,
                 'default_value' => $eMetadataDefinition->default_value,
+                'description' => $eMetadataDefinition->description,
+                'groupe' => $eMetadataDefinition->groupe,
+                'name' => $eMetadataDefinition->name,
+                'scope' => $eMetadataDefinition->scope,
+                'type' => $eMetadataDefinition->type,
             ];
         });
     }

@@ -17,24 +17,24 @@ class BaseLivrableRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'titre' => 'required|max:255',
+            'description' => 'nullable',
             'nature_livrable_id' => 'required',
             'projet_id' => 'required',
-            'description' => 'nullable'
+            'titre' => 'required|max:255'
         ];
     }
 
     public function messages(): array
     {
         return [
-            'titre.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Livrable.titre')]),
-            'titre.max' => __('validation.titreMax'),
+            'description.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Livrable.description')]),
+            'description.max' => __('validation.descriptionMax'),
             'nature_livrable_id.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Livrable.nature_livrable_id')]),
             'nature_livrable_id.max' => __('validation.nature_livrable_idMax'),
             'projet_id.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Livrable.projet_id')]),
             'projet_id.max' => __('validation.projet_idMax'),
-            'description.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Livrable.description')]),
-            'description.max' => __('validation.descriptionMax')
+            'titre.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Livrable.titre')]),
+            'titre.max' => __('validation.titreMax')
         ];
     }
 }

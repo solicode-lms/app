@@ -38,11 +38,11 @@ class BaseAppreciationImport implements ToModel, WithHeadingRow
 
         // Crée un nouvel enregistrement à partir des données importées
         return new Appreciation([
-            'nom' => $row['nom'],
             'description' => $row['description'],
-            'noteMin' => $row['noteMin'],
-            'noteMax' => $row['noteMax'],
             'formateur_id' => $row['formateur_id'],
+            'nom' => $row['nom'],
+            'noteMax' => $row['noteMax'],
+            'noteMin' => $row['noteMin'],
         ]);
     }
 }

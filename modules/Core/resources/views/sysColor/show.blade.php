@@ -25,12 +25,12 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="col-sm-12">
-                                <label for="name">{{ ucfirst(__('Core::sysColor.name')) }}:</label>
-                                <p>{{ $itemSysColor->name }}</p>
-                            </div>
-                            <div class="col-sm-12">
                                 <label for="hex">{{ ucfirst(__('Core::sysColor.hex')) }}:</label>
                                 <p>{{ $itemSysColor->hex }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="name">{{ ucfirst(__('Core::sysColor.name')) }}:</label>
+                                <p>{{ $itemSysColor->name }}</p>
                             </div>
                         </div>
                     </div>

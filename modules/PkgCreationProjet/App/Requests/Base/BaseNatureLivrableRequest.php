@@ -17,18 +17,18 @@ class BaseNatureLivrableRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nom' => 'required|max:255',
-            'description' => 'nullable'
+            'description' => 'nullable',
+            'nom' => 'required|max:255'
         ];
     }
 
     public function messages(): array
     {
         return [
-            'nom.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::NatureLivrable.nom')]),
-            'nom.max' => __('validation.nomMax'),
             'description.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::NatureLivrable.description')]),
-            'description.max' => __('validation.descriptionMax')
+            'description.max' => __('validation.descriptionMax'),
+            'nom.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::NatureLivrable.nom')]),
+            'nom.max' => __('validation.nomMax')
         ];
     }
 }

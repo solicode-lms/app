@@ -19,8 +19,8 @@ class BaseWidgetOperationService extends BaseService
      * @var array
      */
     protected $fieldsSearchable = [
-        'operation',
-        'description'
+        'description',
+        'operation'
     ];
 
     /**

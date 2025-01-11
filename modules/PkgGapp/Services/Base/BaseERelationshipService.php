@@ -19,13 +19,13 @@ class BaseERelationshipService extends BaseService
      * @var array
      */
     protected $fieldsSearchable = [
-        'source_model_id',
-        'target_model_id',
-        'type',
-        'source_field',
-        'target_field',
         'cascade_on_delete',
-        'description'
+        'description',
+        'source_field',
+        'source_model_id',
+        'target_field',
+        'target_model_id',
+        'type'
     ];
 
     /**

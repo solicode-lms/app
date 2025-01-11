@@ -25,20 +25,20 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="col-sm-12">
-                                <label for="description">{{ ucfirst(__('PkgCreationProjet::transfertCompetence.description')) }}:</label>
-                                <p>{{ $itemTransfertCompetence->description }}</p>
-                            </div>
-                            <div class="col-sm-12">
-                                <label for="projet_id">{{ ucfirst(__('PkgCreationProjet::transfertCompetence.projet_id')) }}:</label>
-                                <p>{{ $itemTransfertCompetence->projet_id }}</p>
+                                <label for="appreciation_id">{{ ucfirst(__('PkgCreationProjet::transfertCompetence.appreciation_id')) }}:</label>
+                                <p>{{ $itemTransfertCompetence->appreciation_id }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="competence_id">{{ ucfirst(__('PkgCreationProjet::transfertCompetence.competence_id')) }}:</label>
                                 <p>{{ $itemTransfertCompetence->competence_id }}</p>
                             </div>
                             <div class="col-sm-12">
-                                <label for="appreciation_id">{{ ucfirst(__('PkgCreationProjet::transfertCompetence.appreciation_id')) }}:</label>
-                                <p>{{ $itemTransfertCompetence->appreciation_id }}</p>
+                                <label for="description">{{ ucfirst(__('PkgCreationProjet::transfertCompetence.description')) }}:</label>
+                                <p>{{ $itemTransfertCompetence->description }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="projet_id">{{ ucfirst(__('PkgCreationProjet::transfertCompetence.projet_id')) }}:</label>
+                                <p>{{ $itemTransfertCompetence->projet_id }}</p>
                             </div>
                         </div>
                     </div>

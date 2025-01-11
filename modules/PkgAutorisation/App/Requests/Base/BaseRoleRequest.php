@@ -17,18 +17,18 @@ class BaseRoleRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|max:255',
-            'guard_name' => 'required|max:255'
+            'guard_name' => 'required|max:255',
+            'name' => 'required|max:255'
         ];
     }
 
     public function messages(): array
     {
         return [
-            'name.required' => __('validation.required', ['attribute' => __('PkgAutorisation::Role.name')]),
-            'name.max' => __('validation.nameMax'),
             'guard_name.required' => __('validation.required', ['attribute' => __('PkgAutorisation::Role.guard_name')]),
-            'guard_name.max' => __('validation.guard_nameMax')
+            'guard_name.max' => __('validation.guard_nameMax'),
+            'name.required' => __('validation.required', ['attribute' => __('PkgAutorisation::Role.name')]),
+            'name.max' => __('validation.nameMax')
         ];
     }
 }

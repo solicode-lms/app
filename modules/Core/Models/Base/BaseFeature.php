@@ -34,7 +34,7 @@ class BaseFeature extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'name', 'description', 'domain_id'
+        'description', 'domain_id', 'name'
     ];
 
     /**

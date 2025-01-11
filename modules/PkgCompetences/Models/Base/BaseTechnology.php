@@ -35,7 +35,7 @@ class BaseTechnology extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'nom', 'description', 'category_technology_id'
+        'category_technology_id', 'description', 'nom'
     ];
 
     /**

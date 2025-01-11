@@ -17,21 +17,21 @@ class BaseNiveauCompetenceRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nom' => 'required|max:255',
+            'competence_id' => 'required',
             'description' => 'nullable',
-            'competence_id' => 'required'
+            'nom' => 'required|max:255'
         ];
     }
 
     public function messages(): array
     {
         return [
-            'nom.required' => __('validation.required', ['attribute' => __('PkgCompetences::NiveauCompetence.nom')]),
-            'nom.max' => __('validation.nomMax'),
+            'competence_id.required' => __('validation.required', ['attribute' => __('PkgCompetences::NiveauCompetence.competence_id')]),
+            'competence_id.max' => __('validation.competence_idMax'),
             'description.required' => __('validation.required', ['attribute' => __('PkgCompetences::NiveauCompetence.description')]),
             'description.max' => __('validation.descriptionMax'),
-            'competence_id.required' => __('validation.required', ['attribute' => __('PkgCompetences::NiveauCompetence.competence_id')]),
-            'competence_id.max' => __('validation.competence_idMax')
+            'nom.required' => __('validation.required', ['attribute' => __('PkgCompetences::NiveauCompetence.nom')]),
+            'nom.max' => __('validation.nomMax')
         ];
     }
 }

@@ -19,9 +19,9 @@ class BaseResourceService extends BaseService
      * @var array
      */
     protected $fieldsSearchable = [
-        'nom',
-        'lien',
         'description',
+        'lien',
+        'nom',
         'projet_id'
     ];
 
@@ -57,9 +57,9 @@ class BaseResourceService extends BaseService
     public function create(array $data)
     {
         $resource = parent::create([
-            'nom' => $data['nom'],
-            'lien' => $data['lien'],
             'description' => $data['description'],
+            'lien' => $data['lien'],
+            'nom' => $data['nom'],
             'projet_id' => $data['projet_id'],
         ]);
 

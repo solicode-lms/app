@@ -34,7 +34,7 @@ class BaseFeatureDomain extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'name', 'slug', 'description', 'module_id'
+        'description', 'module_id', 'name', 'slug'
     ];
 
     /**

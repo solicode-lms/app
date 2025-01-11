@@ -45,8 +45,8 @@ class BaseRoleSeeder extends Seeder
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
                 Role::create([
-                    "name" => $data[0] ,
-                    "guard_name" => $data[1] 
+                    "guard_name" => $data[0] ,
+                    "name" => $data[1] 
                 ]);
             }
             $firstline = false;

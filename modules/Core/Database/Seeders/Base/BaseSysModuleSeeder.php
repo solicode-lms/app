@@ -44,13 +44,13 @@ class BaseSysModuleSeeder extends Seeder
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
                 SysModule::create([
-                    "name" => $data[0] ,
-                    "slug" => $data[1] ,
-                    "description" => $data[2] ,
-                    "is_active" => $data[3] ,
+                    "color_id" => $data[0] ,
+                    "description" => $data[1] ,
+                    "is_active" => $data[2] ,
+                    "name" => $data[3] ,
                     "order" => $data[4] ,
-                    "version" => $data[5] ,
-                    "color_id" => $data[6] 
+                    "slug" => $data[5] ,
+                    "version" => $data[6] 
                 ]);
             }
             $firstline = false;

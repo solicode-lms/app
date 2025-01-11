@@ -25,10 +25,10 @@ class BaseEDataFieldExport implements FromCollection, WithHeadings, ShouldAutoSi
     public function headings(): array
     {
         return [
+            'description',
+            'e_model_id',
             'name',
             'type',
-            'e_model_id',
-            'description',
         ];
     }
 
@@ -36,10 +36,10 @@ class BaseEDataFieldExport implements FromCollection, WithHeadings, ShouldAutoSi
     {
         return $this->data->map(function ($eDataField) {
             return [
+                'description' => $eDataField->description,
+                'e_model_id' => $eDataField->e_model_id,
                 'name' => $eDataField->name,
                 'type' => $eDataField->type,
-                'e_model_id' => $eDataField->e_model_id,
-                'description' => $eDataField->description,
             ];
         });
     }

@@ -46,24 +46,24 @@ class BaseApprenantSeeder extends Seeder
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
                 Apprenant::create([
-                    "nom" => $data[0] ,
-                    "prenom" => $data[1] ,
-                    "prenom_arab" => $data[2] ,
-                    "nom_arab" => $data[3] ,
-                    "tele_num" => $data[4] ,
-                    "profile_image" => $data[5] ,
-                    "matricule" => $data[6] ,
-                    "sexe" => $data[7] ,
-                    "actif" => $data[8] ,
-                    "diplome" => $data[9] ,
-                    "date_naissance" => $data[10] ,
-                    "date_inscription" => $data[11] ,
-                    "lieu_naissance" => $data[12] ,
-                    "cin" => $data[13] ,
-                    "adresse" => $data[14] ,
-                    "groupe_id" => $data[15] ,
-                    "niveaux_scolaire_id" => $data[16] ,
-                    "nationalite_id" => $data[17] 
+                    "actif" => $data[0] ,
+                    "adresse" => $data[1] ,
+                    "cin" => $data[2] ,
+                    "date_inscription" => $data[3] ,
+                    "date_naissance" => $data[4] ,
+                    "diplome" => $data[5] ,
+                    "groupe_id" => $data[6] ,
+                    "lieu_naissance" => $data[7] ,
+                    "matricule" => $data[8] ,
+                    "nationalite_id" => $data[9] ,
+                    "niveaux_scolaire_id" => $data[10] ,
+                    "nom" => $data[11] ,
+                    "nom_arab" => $data[12] ,
+                    "prenom" => $data[13] ,
+                    "prenom_arab" => $data[14] ,
+                    "profile_image" => $data[15] ,
+                    "sexe" => $data[16] ,
+                    "tele_num" => $data[17] 
                 ]);
             }
             $firstline = false;

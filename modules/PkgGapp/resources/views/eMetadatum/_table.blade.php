@@ -11,7 +11,7 @@
         <tbody>
             @foreach ($eMetadata_data as $eMetadatum)
                 <tr>
-                    <td>@limit($eMetadatum->eMetadataDefinition->name ?? '-', 80)</td>
+                    <td>@limit($eMetadatum->eMetadataDefinition->code ?? '-', 80)</td>
                     <td class="text-right">
                         @can('show-eMetadatum')
                             <a href="{{ route('eMetadata.show', ['eMetadatum' => $eMetadatum->id]) }}" data-id="{{$eMetadatum->id}}" class="btn btn-default btn-sm context-state showEntity">

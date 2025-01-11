@@ -25,8 +25,8 @@ class BaseRoleExport implements FromCollection, WithHeadings, ShouldAutoSize, Wi
     public function headings(): array
     {
         return [
-            'name',
             'guard_name',
+            'name',
         ];
     }
 
@@ -34,8 +34,8 @@ class BaseRoleExport implements FromCollection, WithHeadings, ShouldAutoSize, Wi
     {
         return $this->data->map(function ($role) {
             return [
-                'name' => $role->name,
                 'guard_name' => $role->guard_name,
+                'name' => $role->name,
             ];
         });
     }

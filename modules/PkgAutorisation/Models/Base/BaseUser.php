@@ -34,7 +34,7 @@ class BaseUser extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'email_verified_at', 'password', 'remember_token'
+        'email', 'email_verified_at', 'name', 'password', 'remember_token'
     ];
 
 

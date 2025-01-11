@@ -11,6 +11,53 @@
     <div class="card-body">
         
         <div class="form-group">
+            <label for="description">
+                {{ ucfirst(__('PkgGapp::eDataField.description')) }}
+                
+            </label>
+            <textarea rows="" cols=""
+                name="description"
+                class="form-control richText"
+                
+                id="description"
+                placeholder="{{ __('PkgGapp::eDataField.description') }}">
+                {{ $itemEDataField ? $itemEDataField->description : old('description') }}
+            </textarea>
+            @error('description')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
+
+        
+        
+    <div class="form-group">
+            <label for="e_model_id">
+                {{ ucfirst(__('PkgGapp::eModel.singular')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <select 
+            id="e_model_id" 
+            required
+            name="e_model_id" 
+            class="form-control select2">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($eModels as $eModel)
+                    <option value="{{ $eModel->id }}"
+                        {{ (isset($itemEDataField) && $itemEDataField->e_model_id == $eModel->id) || (old('e_model_id>') == $eModel->id) ? 'selected' : '' }}>
+                        {{ $eModel }}
+                    </option>
+                @endforeach
+            </select>
+            @error('e_model_id')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+    </div>
+
+
+        
+        <div class="form-group">
             <label for="name">
                 {{ ucfirst(__('PkgGapp::eDataField.name')) }}
                 
@@ -47,53 +94,6 @@
                 placeholder="{{ __('PkgGapp::eDataField.type') }}"
                 value="{{ $itemEDataField ? $itemEDataField->type : old('type') }}">
             @error('type')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
-
-        
-        
-    <div class="form-group">
-            <label for="e_model_id">
-                {{ ucfirst(__('PkgGapp::eModel.singular')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <select 
-            id="e_model_id" 
-            required
-            name="e_model_id" 
-            class="form-control select2">
-             <option value="">Sélectionnez une option</option>
-                @foreach ($eModels as $eModel)
-                    <option value="{{ $eModel->id }}"
-                        {{ (isset($itemEDataField) && $itemEDataField->e_model_id == $eModel->id) || (old('e_model_id>') == $eModel->id) ? 'selected' : '' }}>
-                        {{ $eModel }}
-                    </option>
-                @endforeach
-            </select>
-            @error('e_model_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
-
-
-        
-        <div class="form-group">
-            <label for="description">
-                {{ ucfirst(__('PkgGapp::eDataField.description')) }}
-                
-            </label>
-            <textarea rows="" cols=""
-                name="description"
-                class="form-control richText"
-                
-                id="description"
-                placeholder="{{ __('PkgGapp::eDataField.description') }}">
-                {{ $itemEDataField ? $itemEDataField->description : old('description') }}
-            </textarea>
-            @error('description')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>

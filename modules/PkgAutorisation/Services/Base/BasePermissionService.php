@@ -19,9 +19,9 @@ class BasePermissionService extends BaseService
      * @var array
      */
     protected $fieldsSearchable = [
-        'name',
+        'controller_id',
         'guard_name',
-        'controller_id'
+        'name'
     ];
 
     /**

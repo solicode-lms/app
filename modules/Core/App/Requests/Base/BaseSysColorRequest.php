@@ -17,18 +17,18 @@ class BaseSysColorRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|max:255',
-            'hex' => 'required|max:255'
+            'hex' => 'required|max:255',
+            'name' => 'required|max:255'
         ];
     }
 
     public function messages(): array
     {
         return [
-            'name.required' => __('validation.required', ['attribute' => __('Core::SysColor.name')]),
-            'name.max' => __('validation.nameMax'),
             'hex.required' => __('validation.required', ['attribute' => __('Core::SysColor.hex')]),
-            'hex.max' => __('validation.hexMax')
+            'hex.max' => __('validation.hexMax'),
+            'name.required' => __('validation.required', ['attribute' => __('Core::SysColor.name')]),
+            'name.max' => __('validation.nameMax')
         ];
     }
 }

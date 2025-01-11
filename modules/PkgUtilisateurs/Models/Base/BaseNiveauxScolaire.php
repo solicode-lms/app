@@ -33,7 +33,7 @@ class BaseNiveauxScolaire extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'code', 'nom', 'description'
+        'code', 'description', 'nom'
     ];
 
 

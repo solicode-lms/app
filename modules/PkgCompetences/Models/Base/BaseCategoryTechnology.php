@@ -33,7 +33,7 @@ class BaseCategoryTechnology extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'nom', 'description'
+        'description', 'nom'
     ];
 
 

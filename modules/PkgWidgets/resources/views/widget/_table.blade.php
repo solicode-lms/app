@@ -4,22 +4,22 @@
     <table class="table table-striped text-nowrap">
         <thead>
             <tr>
-                <x-sortable-column field="name" label="{{ ucfirst(__('PkgWidgets::widget.name')) }}" />
-                <x-sortable-column field="type_id" label="{{ ucfirst(__('PkgWidgets::widgetType.singular')) }}" />
-                <x-sortable-column field="model_id" label="{{ ucfirst(__('Core::sysModel.singular')) }}" />
-                <x-sortable-column field="operation_id" label="{{ ucfirst(__('PkgWidgets::widgetOperation.singular')) }}" />
                 <x-sortable-column field="icon" label="{{ ucfirst(__('PkgWidgets::widget.icon')) }}" />
+                <x-sortable-column field="model_id" label="{{ ucfirst(__('Core::sysModel.singular')) }}" />
+                <x-sortable-column field="name" label="{{ ucfirst(__('PkgWidgets::widget.name')) }}" />
+                <x-sortable-column field="operation_id" label="{{ ucfirst(__('PkgWidgets::widgetOperation.singular')) }}" />
+                <x-sortable-column field="type_id" label="{{ ucfirst(__('PkgWidgets::widgetType.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($widgets_data as $widget)
                 <tr>
-                    <td>@limit($widget->name, 80)</td>
-                    <td>@limit($widget->widgetType->type ?? '-', 80)</td>
-                    <td>@limit($widget->sysModel->name ?? '-', 80)</td>
-                    <td>@limit($widget->widgetOperation->operation ?? '-', 80)</td>
                     <td>@limit($widget->icon, 80)</td>
+                    <td>@limit($widget->sysModel->name ?? '-', 80)</td>
+                    <td>@limit($widget->name, 80)</td>
+                    <td>@limit($widget->widgetOperation->operation ?? '-', 80)</td>
+                    <td>@limit($widget->widgetType->type ?? '-', 80)</td>
                     <td class="text-right">
                         @can('show-widget')
                             <a href="{{ route('widgets.show', ['widget' => $widget->id]) }}" data-id="{{$widget->id}}" class="btn btn-default btn-sm context-state showEntity">

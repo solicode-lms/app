@@ -11,27 +11,6 @@
     <div class="card-body">
         
         <div class="form-group">
-            <label for="nom">
-                {{ ucfirst(__('PkgCompetences::appreciation.nom')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
-                name="nom"
-                type="input"
-                class="form-control"
-                required
-                id="nom"
-                placeholder="{{ __('PkgCompetences::appreciation.nom') }}"
-                value="{{ $itemAppreciation ? $itemAppreciation->nom : old('nom') }}">
-            @error('nom')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
-
-        
-        <div class="form-group">
             <label for="description">
                 {{ ucfirst(__('PkgCompetences::appreciation.description')) }}
                 
@@ -48,52 +27,6 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-
-        
-        <div class="form-group">
-    <label for="noteMin">
-        {{ ucfirst(__('PkgCompetences::appreciation.noteMin')) }}
-        
-            <span class="text-danger">*</span>
-        
-    </label>
-    <input
-        name="noteMin"
-        type="number"
-        class="form-control"
-        required
-        id="noteMin"
-        step="0.01"
-        placeholder="{{ __('PkgCompetences::appreciation.noteMin') }}"
-        value="{{ $itemAppreciation ? number_format($itemAppreciation->noteMin, 2, '.', '') : old('noteMin') }}">
-    @error('noteMin')
-        <div class="text-danger">{{ $message }}</div>
-    @enderror
-</div>
-
-
-        
-        <div class="form-group">
-    <label for="noteMax">
-        {{ ucfirst(__('PkgCompetences::appreciation.noteMax')) }}
-        
-            <span class="text-danger">*</span>
-        
-    </label>
-    <input
-        name="noteMax"
-        type="number"
-        class="form-control"
-        required
-        id="noteMax"
-        step="0.01"
-        placeholder="{{ __('PkgCompetences::appreciation.noteMax') }}"
-        value="{{ $itemAppreciation ? number_format($itemAppreciation->noteMax, 2, '.', '') : old('noteMax') }}">
-    @error('noteMax')
-        <div class="text-danger">{{ $message }}</div>
-    @enderror
-</div>
-
 
         
         
@@ -121,6 +54,73 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
     </div>
+
+
+        
+        <div class="form-group">
+            <label for="nom">
+                {{ ucfirst(__('PkgCompetences::appreciation.nom')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <input
+                name="nom"
+                type="input"
+                class="form-control"
+                required
+                id="nom"
+                placeholder="{{ __('PkgCompetences::appreciation.nom') }}"
+                value="{{ $itemAppreciation ? $itemAppreciation->nom : old('nom') }}">
+            @error('nom')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
+
+        
+        <div class="form-group">
+    <label for="noteMax">
+        {{ ucfirst(__('PkgCompetences::appreciation.noteMax')) }}
+        
+            <span class="text-danger">*</span>
+        
+    </label>
+    <input
+        name="noteMax"
+        type="number"
+        class="form-control"
+        required
+        id="noteMax"
+        step="0.01"
+        placeholder="{{ __('PkgCompetences::appreciation.noteMax') }}"
+        value="{{ $itemAppreciation ? number_format($itemAppreciation->noteMax, 2, '.', '') : old('noteMax') }}">
+    @error('noteMax')
+        <div class="text-danger">{{ $message }}</div>
+    @enderror
+</div>
+
+
+        
+        <div class="form-group">
+    <label for="noteMin">
+        {{ ucfirst(__('PkgCompetences::appreciation.noteMin')) }}
+        
+            <span class="text-danger">*</span>
+        
+    </label>
+    <input
+        name="noteMin"
+        type="number"
+        class="form-control"
+        required
+        id="noteMin"
+        step="0.01"
+        placeholder="{{ __('PkgCompetences::appreciation.noteMin') }}"
+        value="{{ $itemAppreciation ? number_format($itemAppreciation->noteMin, 2, '.', '') : old('noteMin') }}">
+    @error('noteMin')
+        <div class="text-danger">{{ $message }}</div>
+    @enderror
+</div>
 
 
         

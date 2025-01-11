@@ -26,8 +26,8 @@ class BaseNationaliteExport implements FromCollection, WithHeadings, ShouldAutoS
     {
         return [
             'code',
-            'nom',
             'description',
+            'nom',
         ];
     }
 
@@ -36,8 +36,8 @@ class BaseNationaliteExport implements FromCollection, WithHeadings, ShouldAutoS
         return $this->data->map(function ($nationalite) {
             return [
                 'code' => $nationalite->code,
-                'nom' => $nationalite->nom,
                 'description' => $nationalite->description,
+                'nom' => $nationalite->nom,
             ];
         });
     }
