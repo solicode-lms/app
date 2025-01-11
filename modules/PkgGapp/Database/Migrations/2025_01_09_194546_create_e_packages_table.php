@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('i_packages', function (Blueprint $table) {
+        Schema::create('e_packages', function (Blueprint $table) {
             $table->id(); // Clé primaire auto-incrémentée
             $table->string('name'); // Nom du package
             $table->text('description')->nullable(); // Description facultative
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('i_packages');
+        Schema::dropIfExists('e_packages');
     }
 };

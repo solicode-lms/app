@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('metadata_types', function (Blueprint $table) {
+        Schema::create('e_metadata_definitions', function (Blueprint $table) {
             $table->id(); // Clé primaire
             $table->string('name'); // Nom lisible
             $table->string('code')->unique(); // Code unique pour identification technique
@@ -21,7 +21,6 @@ return new class extends Migration
             $table->string('scope'); // Stocke la portée comme une chaîne
             $table->string('description')->nullable(); // Description facultative
             $table->string('default_value')->nullable(); // Valeur par défaut
-            $table->text('validation_rules')->nullable(); // Règles de validation
             $table->timestamps();
         });
     }
@@ -33,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('metadata_types');
+        Schema::dropIfExists('e_metadata_definitions');
     }
 };

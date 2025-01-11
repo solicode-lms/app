@@ -13,10 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('relationships', function (Blueprint $table) {
+        Schema::create('e_relationships', function (Blueprint $table) {
             $table->id(); // Clé primaire auto-incrémentée
-            $table->foreignId('source_model_id')->constrained('i_models')->onDelete('cascade'); // Modèle source
-            $table->foreignId('target_model_id')->constrained('i_models')->onDelete('cascade'); // Modèle cible
+            $table->foreignId('source_model_id')->constrained('e_models')->onDelete('cascade'); // Modèle source
+            $table->foreignId('target_model_id')->constrained('e_models')->onDelete('cascade'); // Modèle cible
             $table->string('type'); // Type de relation (e.g., ONE_TO_ONE, ONE_TO_MANY, etc.)
             $table->string('source_field'); // Champ source
             $table->string('target_field'); // Champ cible
@@ -33,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('relationships');
+        Schema::dropIfExists('e_relationships');
     }
 };

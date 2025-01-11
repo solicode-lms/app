@@ -13,12 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('data_fields', function (Blueprint $table) {
+        Schema::create('e_models', function (Blueprint $table) {
             $table->id(); // Clé primaire auto-incrémentée
-            $table->string('name'); // Nom du champ
-            $table->foreignId('i_model_id')->constrained('i_models')->onDelete('cascade'); // Relation avec IModel
-            $table->foreignId('field_type_id')->constrained('field_types')->onDelete('cascade'); // Relation avec FieldType
-            $table->text('description')->nullable(); // Description du champ
+            $table->string('name'); // Nom du modèle
+            $table->string('icon')->nullable(); // Icône associée au modèle
+            $table->text('description')->nullable(); // Description facultative
+            $table->foreignId('e_package_id')->constrained('e_packages')->onDelete('cascade'); // Relation avec IPackage
             $table->timestamps(); // Colonnes created_at et updated_at
         });
     }
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('data_fields');
+        Schema::dropIfExists('e_models');
     }
 };
