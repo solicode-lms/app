@@ -14,8 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('e_metadata', function (Blueprint $table) {
-            $table->id(); // Clé primaire auto-incrémentée
-            $table->string('code'); 
+            $table->id();
+            $table->string('code')->unique();
             $table->boolean('value_boolean')->nullable(); 
             $table->string('value_string')->nullable(); 
             $table->integer('value_int')->nullable(); 

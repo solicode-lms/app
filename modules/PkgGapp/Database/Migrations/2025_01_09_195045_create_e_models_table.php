@@ -14,12 +14,12 @@ return new class extends Migration
     public function up()
     {
         Schema::create('e_models', function (Blueprint $table) {
-            $table->id(); // Clé primaire auto-incrémentée
+            $table->id();
+            $table->string('code')->unique();
             $table->string('name'); 
-            $table->string('code'); 
-            $table->string('tableName'); 
+            $table->string('table_name'); 
             $table->string('icon')->nullable(); // Icône associée au modèle
-            $table->boolean('isPivotTable'); 
+            $table->boolean('is_pivot_table'); 
             $table->text('description')->nullable(); // Description facultative
             $table->foreignId('e_package_id')->constrained('e_packages')->onDelete('cascade'); // Relation avec IPackage
             $table->timestamps(); // Colonnes created_at et updated_at

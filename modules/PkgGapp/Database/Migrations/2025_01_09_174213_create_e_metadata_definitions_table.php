@@ -14,9 +14,10 @@ return new class extends Migration
     public function up()
     {
         Schema::create('e_metadata_definitions', function (Blueprint $table) {
-            $table->id(); // Clé primaire
+            $table->id(); 
+            $table->string('code')->unique();
             $table->string('name'); // Nom lisible
-            $table->string('code')->unique(); // Code unique pour identification technique
+            
             $table->string('groupe'); // Code unique pour identification technique
             $table->string('type'); // Stocke le type comme une chaîne
             $table->string('scope'); // Stocke la portée comme une chaîne

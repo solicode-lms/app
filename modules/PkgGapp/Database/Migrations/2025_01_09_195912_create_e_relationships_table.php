@@ -14,13 +14,17 @@ return new class extends Migration
     public function up()
     {
         Schema::create('e_relationships', function (Blueprint $table) {
-            $table->id(); // Clé primaire auto-incrémentée
+            $table->id();
+            $table->string('code')->unique();
+            $table->string('name');
+            $table->string('type'); 
             $table->foreignId('source_model_id')->constrained('e_models')->onDelete('cascade'); // Modèle source
             $table->foreignId('target_model_id')->constrained('e_models')->onDelete('cascade'); // Modèle cible
-            $table->string('type'); // Type de relation (e.g., ONE_TO_ONE, ONE_TO_MANY, etc.)
+           
             $table->boolean('cascade_on_delete')->default(false); // Cascade sur suppression
+            $table->boolean('is_cascade')->default(false); // Cascade sur suppression
             $table->text('description')->nullable(); // Description facultative
-            $table->string('column')->nullable(); // Nom de la colonne source
+            $table->string('column_name')->nullable(); // Nom de la colonne source
             $table->string('referenced_table')->nullable(); // Nom de la table cible
             $table->string('referenced_column')->nullable(); // Colonne cible
             $table->string('through')->nullable(); // Table pivot pour ManyToMany
