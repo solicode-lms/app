@@ -14,12 +14,15 @@ return new class extends Migration
     public function up()
     {
         Schema::create('e_data_fields', function (Blueprint $table) {
-            $table->id(); // Clé primaire auto-incrémentée
-            $table->string('name'); // Nom du champ
-            $table->string('type'); // Nom du champ
+            $table->id(); 
+            $table->string('code');
+            $table->string('name'); 
+            $table->string('column');
+            $table->string('dataType'); 
+            $table->string('defaultValue')->nullable(); 
+            $table->text('description')->nullable(); 
             $table->foreignId('e_model_id')->constrained('e_models')->onDelete('cascade'); // Relation avec IModel
-            $table->text('description')->nullable(); // Description du champ
-            $table->timestamps(); // Colonnes created_at et updated_at
+            $table->timestamps(); 
         });
     }
 

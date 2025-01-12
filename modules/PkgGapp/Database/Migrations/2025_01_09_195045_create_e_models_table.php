@@ -15,8 +15,11 @@ return new class extends Migration
     {
         Schema::create('e_models', function (Blueprint $table) {
             $table->id(); // Clé primaire auto-incrémentée
-            $table->string('name'); // Nom du modèle
+            $table->string('name'); 
+            $table->string('code'); 
+            $table->string('tableName'); 
             $table->string('icon')->nullable(); // Icône associée au modèle
+            $table->boolean('isPivotTable'); 
             $table->text('description')->nullable(); // Description facultative
             $table->foreignId('e_package_id')->constrained('e_packages')->onDelete('cascade'); // Relation avec IPackage
             $table->timestamps(); // Colonnes created_at et updated_at

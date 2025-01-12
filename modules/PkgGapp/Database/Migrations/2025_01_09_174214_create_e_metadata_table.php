@@ -15,10 +15,11 @@ return new class extends Migration
     {
         Schema::create('e_metadata', function (Blueprint $table) {
             $table->id(); // Clé primaire auto-incrémentée
-            $table->boolean('value_boolean')->nullable(); // Valeur booléenne
-            $table->string('value_string')->nullable(); // Valeur chaîne
-            $table->integer('value_int')->nullable(); // Valeur entière
-            $table->json('value_object')->nullable(); // Valeur JSON
+            $table->string('code'); 
+            $table->boolean('value_boolean')->nullable(); 
+            $table->string('value_string')->nullable(); 
+            $table->integer('value_int')->nullable(); 
+            $table->json('value_object')->nullable(); 
             $table->unsignedBigInteger('object_id'); // ID de l'objet lié (polymorphe)
             $table->string('object_type'); // Type de l'objet lié (polymorphe)
             $table->foreignId('e_metadata_definition_id')->constrained('e_metadata_definitions')->onDelete('cascade'); // Relation avec MetadataType
