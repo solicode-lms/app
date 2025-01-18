@@ -39,6 +39,6 @@ group,group,display,string,field,Groupe auquel appartient cet attribut,
 badge,badge,display,boolean,field,Indique si cet attribut doit être affiché sous forme de badge,false
 badgeStyle,badgeStyle,display,string,field,Style du badge associé à cet attribut,
 imageThumbnail,imageThumbnail,display,boolean,field,Indique si l'attribut doit afficher une miniature d'image,false
-db_nullable,db_nullable,database,boolean,field,Spécifie si la colonne peut accepter des valeurs nulles,true
+db_nullable,db_nullable,database,boolean,field,Spécifie si la colonne peut accepter des valeurs nulles,false
 db_primaryKey,db_primaryKey,database,boolean,field,Indique si cette colonne est utilisée comme clé primaire,false
 db_unique,db_unique,database,boolean,field,Indique si cette colonne doit avoir des valeurs uniques,false
