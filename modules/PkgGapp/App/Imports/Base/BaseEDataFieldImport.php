@@ -21,7 +21,7 @@ class BaseEDataFieldImport implements ToModel, WithHeadingRow
      */
     private function recordExists(array $row): bool
     {
-        return EDataField::where('name', $row['name'])->exists();
+        return EDataField::where('code', $row['code'])->exists();
     }
 
     /**
@@ -38,10 +38,16 @@ class BaseEDataFieldImport implements ToModel, WithHeadingRow
 
         // Crée un nouvel enregistrement à partir des données importées
         return new EDataField([
+            'code' => $row['code'],
             'name' => $row['name'],
-            'type' => $row['type'],
-            'e_model_id' => $row['e_model_id'],
+            'column_name' => $row['column_name'],
+            'data_type' => $row['data_type'],
+            'db_nullable' => $row['db_nullable'],
+            'db_primaryKey' => $row['db_primaryKey'],
+            'db_unique' => $row['db_unique'],
+            'default_value' => $row['default_value'],
             'description' => $row['description'],
+            'e_model_id' => $row['e_model_id'],
         ]);
     }
 }

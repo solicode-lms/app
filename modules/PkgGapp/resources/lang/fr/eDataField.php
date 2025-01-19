@@ -5,8 +5,14 @@
 return [
     'singular' => 'EDataField',
     'plural' => 'EDataFields',
+    'code' => 'code',
     'name' => 'name',
-    'type' => 'type',
-    'e_model_id' => 'e_model_id',
+    'column_name' => 'column_name',
+    'data_type' => 'data_type',
+    'db_nullable' => 'db_nullable',
+    'db_primaryKey' => 'db_primaryKey',
+    'db_unique' => 'db_unique',
+    'default_value' => 'default_value',
     'description' => 'description',
+    'e_model_id' => 'e_model_id',
 ];

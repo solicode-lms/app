@@ -19,6 +19,7 @@ class BaseEMetadatumService extends BaseService
      * @var array
      */
     protected $fieldsSearchable = [
+        'code',
         'value_boolean',
         'value_string',
         'value_int',

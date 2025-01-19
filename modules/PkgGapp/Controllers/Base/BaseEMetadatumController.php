@@ -3,13 +3,11 @@
 
 
 namespace Modules\PkgGapp\Controllers\Base;
-
-use Modules\Core\Controllers\Base\AdminController;
-use Modules\PkgGapp\App\Requests\EMetadatumRequest;
 use Modules\PkgGapp\Services\EMetadatumService;
 use Modules\PkgGapp\Services\EMetadataDefinitionService;
-
 use Illuminate\Http\Request;
+use Modules\Core\Controllers\Base\AdminController;
+use Modules\PkgGapp\App\Requests\EMetadatumRequest;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgGapp\App\Exports\EMetadatumExport;
 use Modules\PkgGapp\App\Imports\EMetadatumImport;
@@ -20,44 +18,35 @@ class BaseEMetadatumController extends AdminController
     protected $eMetadatumService;
     protected $eMetadataDefinitionService;
 
-    public function __construct(EMetadatumService $eMetadatumService, EMetadataDefinitionService $eMetadataDefinitionService)
-    {
+    public function __construct(EMetadatumService $eMetadatumService, EMetadataDefinitionService $eMetadataDefinitionService) {
         parent::__construct();
         $this->eMetadatumService = $eMetadatumService;
         $this->eMetadataDefinitionService = $eMetadataDefinitionService;
-
     }
 
-
-    public function index(Request $request)
-    {
+    public function index(Request $request) {
         // Extraire les paramètres de recherche, page, et filtres
         $eMetadata_params = array_merge(
             $request->only(['page','sort']),
             ['search' => $request->get('eMetadata_search', '')],
             $request->except(['eMetadata_search', 'page', 'sort'])
         );
-    
+
         // Paginer les eMetadata
         $eMetadata_data = $this->eMetadatumService->paginate($eMetadata_params);
-    
+
         // Récupérer les statistiques et les champs filtrables
         $eMetadata_stats = $this->eMetadatumService->geteMetadatumStats();
         $eMetadata_filters = $this->eMetadatumService->getFieldsFilterable();
-    
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
             return view('PkgGapp::eMetadatum._table', compact('eMetadata_data', 'eMetadata_stats', 'eMetadata_filters'))->render();
         }
-    
+
         return view('PkgGapp::eMetadatum.index', compact('eMetadata_data', 'eMetadata_stats', 'eMetadata_filters'));
     }
-
-    /**
-     * Retourne le formulaire de création.
-     */
-    public function create()
-    {
+    public function create() {
         $itemEMetadatum = $this->eMetadatumService->createInstance();
         $eMetadataDefinitions = $this->eMetadataDefinitionService->all();
 
@@ -67,12 +56,7 @@ class BaseEMetadatumController extends AdminController
         }
         return view('PkgGapp::eMetadatum.create', compact('itemEMetadatum', 'eMetadataDefinitions'));
     }
-
-    /**
-     * Stocke une nouvelle filière.
-     */
-    public function store(EMetadatumRequest $request)
-    {
+    public function store(EMetadatumRequest $request) {
         $validatedData = $request->validated();
         $eMetadatum = $this->eMetadatumService->create($validatedData);
 
@@ -95,12 +79,7 @@ class BaseEMetadatumController extends AdminController
             ])
         );
     }
-
-    /**
-     * Affiche les détails d'une filière.
-     */
-    public function show(string $id)
-    {
+    public function show(string $id) {
         $itemEMetadatum = $this->eMetadatumService->find($id);
         $eMetadataDefinitions = $this->eMetadataDefinitionService->all();
 
@@ -110,13 +89,9 @@ class BaseEMetadatumController extends AdminController
         }
 
         return view('PkgGapp::eMetadatum.show', compact('itemEMetadatum'));
-    }
 
-    /**
-     * Retourne le formulaire d'édition d'une filière.
-     */
-    public function edit(string $id)
-    {
+    }
+    public function edit(string $id) {
 
         $itemEMetadatum = $this->eMetadatumService->find($id);
         $eMetadataDefinitions = $this->eMetadataDefinitionService->all();
@@ -130,13 +105,9 @@ class BaseEMetadatumController extends AdminController
         }
 
         return view('PkgGapp::eMetadatum.edit', compact('itemEMetadatum', 'eMetadataDefinitions'));
-    }
 
-    /**
-     * Met à jour une filière existante.
-     */
-    public function update(EMetadatumRequest $request, string $id)
-    {
+    }
+    public function update(EMetadatumRequest $request, string $id) {
 
         $validatedData = $request->validated();
         $eMetadatum = $this->eMetadatumService->update($id, $validatedData);
@@ -157,13 +128,9 @@ class BaseEMetadatumController extends AdminController
                 'modelName' =>  __('PkgGapp::eMetadatum.singular')
                 ])
         );
-    }
 
-    /**
-     * Supprime une filière.
-     */
-    public function destroy(Request $request, string $id)
-    {
+    }
+    public function destroy(Request $request, string $id) {
 
         $eMetadatum = $this->eMetadatumService->destroy($id);
 
@@ -182,6 +149,7 @@ class BaseEMetadatumController extends AdminController
                 'modelName' =>  __('PkgGapp::eMetadatum.singular')
                 ])
         );
+
     }
 
     public function export()
@@ -217,4 +185,5 @@ class BaseEMetadatumController extends AdminController
         $eMetadata = $this->eMetadatumService->all();
         return response()->json($eMetadata);
     }
+
 }

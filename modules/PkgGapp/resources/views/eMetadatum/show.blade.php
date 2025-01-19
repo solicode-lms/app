@@ -25,6 +25,10 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="col-sm-12">
+                                <label for="code">{{ ucfirst(__('PkgGapp::eMetadatum.code')) }}:</label>
+                                <p>{{ $itemEMetadatum->code }}</p>
+                            </div>
+                            <div class="col-sm-12">
                                 <label for="value_boolean">{{ ucfirst(__('PkgGapp::eMetadatum.value_boolean')) }}:</label>
                                 <p>{{ $itemEMetadatum->value_boolean }}</p>
                             </div>

@@ -21,7 +21,7 @@ class BaseERelationshipImport implements ToModel, WithHeadingRow
      */
     private function recordExists(array $row): bool
     {
-        return ERelationship::where('id', $row['id'])->exists();
+        return ERelationship::where('code', $row['code'])->exists();
     }
 
     /**
@@ -38,13 +38,19 @@ class BaseERelationshipImport implements ToModel, WithHeadingRow
 
         // Crée un nouvel enregistrement à partir des données importées
         return new ERelationship([
+            'code' => $row['code'],
+            'name' => $row['name'],
+            'type' => $row['type'],
             'source_model_id' => $row['source_model_id'],
             'target_model_id' => $row['target_model_id'],
-            'type' => $row['type'],
-            'source_field' => $row['source_field'],
-            'target_field' => $row['target_field'],
             'cascade_on_delete' => $row['cascade_on_delete'],
+            'is_cascade' => $row['is_cascade'],
             'description' => $row['description'],
+            'column_name' => $row['column_name'],
+            'referenced_table' => $row['referenced_table'],
+            'referenced_column' => $row['referenced_column'],
+            'through' => $row['through'],
+            'with_column' => $row['with_column'],
         ]);
     }
 }

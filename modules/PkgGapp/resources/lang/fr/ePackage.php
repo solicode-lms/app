@@ -5,6 +5,7 @@
 return [
     'singular' => 'EPackage',
     'plural' => 'EPackages',
+    'code' => 'code',
     'name' => 'name',
     'description' => 'description',
 ];

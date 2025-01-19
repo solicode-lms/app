@@ -21,7 +21,7 @@ class BaseEModelImport implements ToModel, WithHeadingRow
      */
     private function recordExists(array $row): bool
     {
-        return EModel::where('name', $row['name'])->exists();
+        return EModel::where('code', $row['code'])->exists();
     }
 
     /**
@@ -38,8 +38,11 @@ class BaseEModelImport implements ToModel, WithHeadingRow
 
         // Crée un nouvel enregistrement à partir des données importées
         return new EModel([
+            'code' => $row['code'],
             'name' => $row['name'],
+            'table_name' => $row['table_name'],
             'icon' => $row['icon'],
+            'is_pivot_table' => $row['is_pivot_table'],
             'description' => $row['description'],
             'e_package_id' => $row['e_package_id'],
         ]);

@@ -4,16 +4,16 @@
     <table class="table table-striped text-nowrap">
         <thead>
             <tr>
-                <x-sortable-column field="name" label="{{ ucfirst(__('PkgGapp::eMetadataDefinition.name')) }}" />
                 <x-sortable-column field="code" label="{{ ucfirst(__('PkgGapp::eMetadataDefinition.code')) }}" />
+                <x-sortable-column field="name" label="{{ ucfirst(__('PkgGapp::eMetadataDefinition.name')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($eMetadataDefinitions_data as $eMetadataDefinition)
                 <tr>
-                    <td>@limit($eMetadataDefinition->name, 80)</td>
                     <td>@limit($eMetadataDefinition->code, 80)</td>
+                    <td>@limit($eMetadataDefinition->name, 80)</td>
                     <td class="text-right">
                         @can('show-eMetadataDefinition')
                             <a href="{{ route('eMetadataDefinitions.show', ['eMetadataDefinition' => $eMetadataDefinition->id]) }}" data-id="{{$eMetadataDefinition->id}}" class="btn btn-default btn-sm context-state showEntity">

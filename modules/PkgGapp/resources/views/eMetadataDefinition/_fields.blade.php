@@ -11,27 +11,6 @@
     <div class="card-body">
         
         <div class="form-group">
-            <label for="name">
-                {{ ucfirst(__('PkgGapp::eMetadataDefinition.name')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
-                name="name"
-                type="input"
-                class="form-control"
-                required
-                id="name"
-                placeholder="{{ __('PkgGapp::eMetadataDefinition.name') }}"
-                value="{{ $itemEMetadataDefinition ? $itemEMetadataDefinition->name : old('name') }}">
-            @error('name')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
-
-        
-        <div class="form-group">
             <label for="code">
                 {{ ucfirst(__('PkgGapp::eMetadataDefinition.code')) }}
                 
@@ -47,6 +26,27 @@
                 placeholder="{{ __('PkgGapp::eMetadataDefinition.code') }}"
                 value="{{ $itemEMetadataDefinition ? $itemEMetadataDefinition->code : old('code') }}">
             @error('code')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
+
+        
+        <div class="form-group">
+            <label for="name">
+                {{ ucfirst(__('PkgGapp::eMetadataDefinition.name')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <input
+                name="name"
+                type="input"
+                class="form-control"
+                required
+                id="name"
+                placeholder="{{ __('PkgGapp::eMetadataDefinition.name') }}"
+                value="{{ $itemEMetadataDefinition ? $itemEMetadataDefinition->name : old('name') }}">
+            @error('name')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
@@ -154,7 +154,7 @@
 
         
 
-        <!--   EMetadatum_HasMany HasMany --> 
+        <!--   EMetadatum HasMany --> 
 
     </div>
 

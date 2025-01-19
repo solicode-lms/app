@@ -19,8 +19,11 @@ class BaseEModelService extends BaseService
      * @var array
      */
     protected $fieldsSearchable = [
+        'code',
         'name',
+        'table_name',
         'icon',
+        'is_pivot_table',
         'description',
         'e_package_id'
     ];

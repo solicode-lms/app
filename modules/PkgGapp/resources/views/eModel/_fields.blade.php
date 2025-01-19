@@ -11,6 +11,27 @@
     <div class="card-body">
         
         <div class="form-group">
+            <label for="code">
+                {{ ucfirst(__('PkgGapp::eModel.code')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <input
+                name="code"
+                type="input"
+                class="form-control"
+                required
+                id="code"
+                placeholder="{{ __('PkgGapp::eModel.code') }}"
+                value="{{ $itemEModel ? $itemEModel->code : old('code') }}">
+            @error('code')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
+
+        
+        <div class="form-group">
             <label for="name">
                 {{ ucfirst(__('PkgGapp::eModel.name')) }}
                 
@@ -26,6 +47,27 @@
                 placeholder="{{ __('PkgGapp::eModel.name') }}"
                 value="{{ $itemEModel ? $itemEModel->name : old('name') }}">
             @error('name')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
+
+        
+        <div class="form-group">
+            <label for="table_name">
+                {{ ucfirst(__('PkgGapp::eModel.table_name')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <input
+                name="table_name"
+                type="input"
+                class="form-control"
+                required
+                id="table_name"
+                placeholder="{{ __('PkgGapp::eModel.table_name') }}"
+                value="{{ $itemEModel ? $itemEModel->table_name : old('table_name') }}">
+            @error('table_name')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
@@ -48,6 +90,9 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
+
+        
+        
 
         
         <div class="form-group">
@@ -98,15 +143,11 @@
 
         
 
-        <!--   EDataField_HasMany HasMany --> 
+        <!--   EDataField HasMany --> 
 
         
 
-        <!--   ERelationship_HasMany HasMany --> 
-
-        
-
-        <!--   ERelationship_HasMany HasMany --> 
+        <!--   ERelationship HasMany --> 
 
     </div>
 

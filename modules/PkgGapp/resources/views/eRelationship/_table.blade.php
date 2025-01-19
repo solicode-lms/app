@@ -4,7 +4,9 @@
     <table class="table table-striped text-nowrap">
         <thead>
             <tr>
-                <x-sortable-column field="source_model_id" label="{{ ucfirst(__('PkgGapp::eModel.singular')) }}" />
+                <x-sortable-column field="code" label="{{ ucfirst(__('PkgGapp::eRelationship.code')) }}" />
+                <x-sortable-column field="name" label="{{ ucfirst(__('PkgGapp::eRelationship.name')) }}" />
+                <x-sortable-column field="source_model_id" label="{{ ucfirst(__('PkgGapp::eRelationship.source_model_id')) }}" />
                 <x-sortable-column field="target_model_id" label="{{ ucfirst(__('PkgGapp::eModel.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
@@ -12,8 +14,10 @@
         <tbody>
             @foreach ($eRelationships_data as $eRelationship)
                 <tr>
-                    <td>@limit($eRelationship->eModel->name ?? '-', 80)</td>
-                    <td>@limit($eRelationship->eModel->name ?? '-', 80)</td>
+                    <td>@limit($eRelationship->code, 80)</td>
+                    <td>@limit($eRelationship->name, 80)</td>
+                    <td>@limit($eRelationship->source_model_id, 80)</td>
+                    <td>@limit($eRelationship->eModel->code ?? '-', 80)</td>
                     <td class="text-right">
                         @can('show-eRelationship')
                             <a href="{{ route('eRelationships.show', ['eRelationship' => $eRelationship->id]) }}" data-id="{{$eRelationship->id}}" class="btn btn-default btn-sm context-state showEntity">

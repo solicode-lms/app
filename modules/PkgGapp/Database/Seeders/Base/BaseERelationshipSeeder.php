@@ -46,13 +46,19 @@ class BaseERelationshipSeeder extends Seeder
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
                 ERelationship::create([
-                    "source_model_id" => $data[0] ,
-                    "target_model_id" => $data[1] ,
+                    "code" => $data[0] ,
+                    "name" => $data[1] ,
                     "type" => $data[2] ,
-                    "source_field" => $data[3] ,
-                    "target_field" => $data[4] ,
+                    "source_model_id" => $data[3] ,
+                    "target_model_id" => $data[4] ,
                     "cascade_on_delete" => $data[5] ,
-                    "description" => $data[6] 
+                    "is_cascade" => $data[6] ,
+                    "description" => $data[7] ,
+                    "column_name" => $data[8] ,
+                    "referenced_table" => $data[9] ,
+                    "referenced_column" => $data[10] ,
+                    "through" => $data[11] ,
+                    "with_column" => $data[12] 
                 ]);
             }
             $firstline = false;

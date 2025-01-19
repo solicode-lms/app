@@ -5,8 +5,8 @@
 return [
     'singular' => 'EMetadataDefinition',
     'plural' => 'EMetadataDefinitions',
-    'name' => 'name',
     'code' => 'code',
+    'name' => 'name',
     'groupe' => 'groupe',
     'type' => 'type',
     'scope' => 'scope',

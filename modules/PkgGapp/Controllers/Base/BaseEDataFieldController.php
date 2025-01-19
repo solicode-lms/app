@@ -3,13 +3,11 @@
 
 
 namespace Modules\PkgGapp\Controllers\Base;
-
-use Modules\Core\Controllers\Base\AdminController;
-use Modules\PkgGapp\App\Requests\EDataFieldRequest;
 use Modules\PkgGapp\Services\EDataFieldService;
 use Modules\PkgGapp\Services\EModelService;
-
 use Illuminate\Http\Request;
+use Modules\Core\Controllers\Base\AdminController;
+use Modules\PkgGapp\App\Requests\EDataFieldRequest;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgGapp\App\Exports\EDataFieldExport;
 use Modules\PkgGapp\App\Imports\EDataFieldImport;
@@ -20,44 +18,35 @@ class BaseEDataFieldController extends AdminController
     protected $eDataFieldService;
     protected $eModelService;
 
-    public function __construct(EDataFieldService $eDataFieldService, EModelService $eModelService)
-    {
+    public function __construct(EDataFieldService $eDataFieldService, EModelService $eModelService) {
         parent::__construct();
         $this->eDataFieldService = $eDataFieldService;
         $this->eModelService = $eModelService;
-
     }
 
-
-    public function index(Request $request)
-    {
+    public function index(Request $request) {
         // Extraire les paramètres de recherche, page, et filtres
         $eDataFields_params = array_merge(
             $request->only(['page','sort']),
             ['search' => $request->get('eDataFields_search', '')],
             $request->except(['eDataFields_search', 'page', 'sort'])
         );
-    
+
         // Paginer les eDataFields
         $eDataFields_data = $this->eDataFieldService->paginate($eDataFields_params);
-    
+
         // Récupérer les statistiques et les champs filtrables
         $eDataFields_stats = $this->eDataFieldService->geteDataFieldStats();
         $eDataFields_filters = $this->eDataFieldService->getFieldsFilterable();
-    
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
             return view('PkgGapp::eDataField._table', compact('eDataFields_data', 'eDataFields_stats', 'eDataFields_filters'))->render();
         }
-    
+
         return view('PkgGapp::eDataField.index', compact('eDataFields_data', 'eDataFields_stats', 'eDataFields_filters'));
     }
-
-    /**
-     * Retourne le formulaire de création.
-     */
-    public function create()
-    {
+    public function create() {
         $itemEDataField = $this->eDataFieldService->createInstance();
         $eModels = $this->eModelService->all();
 
@@ -67,12 +56,7 @@ class BaseEDataFieldController extends AdminController
         }
         return view('PkgGapp::eDataField.create', compact('itemEDataField', 'eModels'));
     }
-
-    /**
-     * Stocke une nouvelle filière.
-     */
-    public function store(EDataFieldRequest $request)
-    {
+    public function store(EDataFieldRequest $request) {
         $validatedData = $request->validated();
         $eDataField = $this->eDataFieldService->create($validatedData);
 
@@ -95,12 +79,7 @@ class BaseEDataFieldController extends AdminController
             ])
         );
     }
-
-    /**
-     * Affiche les détails d'une filière.
-     */
-    public function show(string $id)
-    {
+    public function show(string $id) {
         $itemEDataField = $this->eDataFieldService->find($id);
         $eModels = $this->eModelService->all();
 
@@ -110,13 +89,9 @@ class BaseEDataFieldController extends AdminController
         }
 
         return view('PkgGapp::eDataField.show', compact('itemEDataField'));
-    }
 
-    /**
-     * Retourne le formulaire d'édition d'une filière.
-     */
-    public function edit(string $id)
-    {
+    }
+    public function edit(string $id) {
 
         $itemEDataField = $this->eDataFieldService->find($id);
         $eModels = $this->eModelService->all();
@@ -130,13 +105,9 @@ class BaseEDataFieldController extends AdminController
         }
 
         return view('PkgGapp::eDataField.edit', compact('itemEDataField', 'eModels'));
-    }
 
-    /**
-     * Met à jour une filière existante.
-     */
-    public function update(EDataFieldRequest $request, string $id)
-    {
+    }
+    public function update(EDataFieldRequest $request, string $id) {
 
         $validatedData = $request->validated();
         $eDataField = $this->eDataFieldService->update($id, $validatedData);
@@ -157,13 +128,9 @@ class BaseEDataFieldController extends AdminController
                 'modelName' =>  __('PkgGapp::eDataField.singular')
                 ])
         );
-    }
 
-    /**
-     * Supprime une filière.
-     */
-    public function destroy(Request $request, string $id)
-    {
+    }
+    public function destroy(Request $request, string $id) {
 
         $eDataField = $this->eDataFieldService->destroy($id);
 
@@ -182,6 +149,7 @@ class BaseEDataFieldController extends AdminController
                 'modelName' =>  __('PkgGapp::eDataField.singular')
                 ])
         );
+
     }
 
     public function export()
@@ -217,4 +185,5 @@ class BaseEDataFieldController extends AdminController
         $eDataFields = $this->eDataFieldService->all();
         return response()->json($eDataFields);
     }
+
 }

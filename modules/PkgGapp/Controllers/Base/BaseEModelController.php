@@ -3,13 +3,11 @@
 
 
 namespace Modules\PkgGapp\Controllers\Base;
-
-use Modules\Core\Controllers\Base\AdminController;
-use Modules\PkgGapp\App\Requests\EModelRequest;
 use Modules\PkgGapp\Services\EModelService;
 use Modules\PkgGapp\Services\EPackageService;
-
 use Illuminate\Http\Request;
+use Modules\Core\Controllers\Base\AdminController;
+use Modules\PkgGapp\App\Requests\EModelRequest;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgGapp\App\Exports\EModelExport;
 use Modules\PkgGapp\App\Imports\EModelImport;
@@ -20,44 +18,35 @@ class BaseEModelController extends AdminController
     protected $eModelService;
     protected $ePackageService;
 
-    public function __construct(EModelService $eModelService, EPackageService $ePackageService)
-    {
+    public function __construct(EModelService $eModelService, EPackageService $ePackageService) {
         parent::__construct();
         $this->eModelService = $eModelService;
         $this->ePackageService = $ePackageService;
-
     }
 
-
-    public function index(Request $request)
-    {
+    public function index(Request $request) {
         // Extraire les paramètres de recherche, page, et filtres
         $eModels_params = array_merge(
             $request->only(['page','sort']),
             ['search' => $request->get('eModels_search', '')],
             $request->except(['eModels_search', 'page', 'sort'])
         );
-    
+
         // Paginer les eModels
         $eModels_data = $this->eModelService->paginate($eModels_params);
-    
+
         // Récupérer les statistiques et les champs filtrables
         $eModels_stats = $this->eModelService->geteModelStats();
         $eModels_filters = $this->eModelService->getFieldsFilterable();
-    
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
             return view('PkgGapp::eModel._table', compact('eModels_data', 'eModels_stats', 'eModels_filters'))->render();
         }
-    
+
         return view('PkgGapp::eModel.index', compact('eModels_data', 'eModels_stats', 'eModels_filters'));
     }
-
-    /**
-     * Retourne le formulaire de création.
-     */
-    public function create()
-    {
+    public function create() {
         $itemEModel = $this->eModelService->createInstance();
         $ePackages = $this->ePackageService->all();
 
@@ -67,12 +56,7 @@ class BaseEModelController extends AdminController
         }
         return view('PkgGapp::eModel.create', compact('itemEModel', 'ePackages'));
     }
-
-    /**
-     * Stocke une nouvelle filière.
-     */
-    public function store(EModelRequest $request)
-    {
+    public function store(EModelRequest $request) {
         $validatedData = $request->validated();
         $eModel = $this->eModelService->create($validatedData);
 
@@ -95,12 +79,7 @@ class BaseEModelController extends AdminController
             ])
         );
     }
-
-    /**
-     * Affiche les détails d'une filière.
-     */
-    public function show(string $id)
-    {
+    public function show(string $id) {
         $itemEModel = $this->eModelService->find($id);
         $ePackages = $this->ePackageService->all();
 
@@ -110,13 +89,9 @@ class BaseEModelController extends AdminController
         }
 
         return view('PkgGapp::eModel.show', compact('itemEModel'));
-    }
 
-    /**
-     * Retourne le formulaire d'édition d'une filière.
-     */
-    public function edit(string $id)
-    {
+    }
+    public function edit(string $id) {
 
         $itemEModel = $this->eModelService->find($id);
         $ePackages = $this->ePackageService->all();
@@ -130,13 +105,9 @@ class BaseEModelController extends AdminController
         }
 
         return view('PkgGapp::eModel.edit', compact('itemEModel', 'ePackages'));
-    }
 
-    /**
-     * Met à jour une filière existante.
-     */
-    public function update(EModelRequest $request, string $id)
-    {
+    }
+    public function update(EModelRequest $request, string $id) {
 
         $validatedData = $request->validated();
         $eModel = $this->eModelService->update($id, $validatedData);
@@ -157,13 +128,9 @@ class BaseEModelController extends AdminController
                 'modelName' =>  __('PkgGapp::eModel.singular')
                 ])
         );
-    }
 
-    /**
-     * Supprime une filière.
-     */
-    public function destroy(Request $request, string $id)
-    {
+    }
+    public function destroy(Request $request, string $id) {
 
         $eModel = $this->eModelService->destroy($id);
 
@@ -182,6 +149,7 @@ class BaseEModelController extends AdminController
                 'modelName' =>  __('PkgGapp::eModel.singular')
                 ])
         );
+
     }
 
     public function export()
@@ -217,4 +185,5 @@ class BaseEModelController extends AdminController
         $eModels = $this->eModelService->all();
         return response()->json($eModels);
     }
+
 }

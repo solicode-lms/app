@@ -21,7 +21,7 @@ class BaseEMetadataDefinitionImport implements ToModel, WithHeadingRow
      */
     private function recordExists(array $row): bool
     {
-        return EMetadataDefinition::where('name', $row['name'])->exists();
+        return EMetadataDefinition::where('code', $row['code'])->exists();
     }
 
     /**
@@ -38,8 +38,8 @@ class BaseEMetadataDefinitionImport implements ToModel, WithHeadingRow
 
         // Crée un nouvel enregistrement à partir des données importées
         return new EMetadataDefinition([
-            'name' => $row['name'],
             'code' => $row['code'],
+            'name' => $row['name'],
             'groupe' => $row['groupe'],
             'type' => $row['type'],
             'scope' => $row['scope'],

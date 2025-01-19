@@ -33,7 +33,7 @@ class BaseEMetadatum extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'value_boolean', 'value_string', 'value_int', 'value_object', 'object_id', 'object_type', 'e_metadata_definition_id'
+        'code', 'value_boolean', 'value_string', 'value_int', 'value_object', 'object_id', 'object_type', 'e_metadata_definition_id'
     ];
 
     /**
@@ -55,6 +55,6 @@ class BaseEMetadatum extends BaseModel
      */
     public function __toString()
     {
-        return $this->id;
+        return $this->code;
     }
 }

@@ -11,6 +11,27 @@
     <div class="card-body">
         
         <div class="form-group">
+            <label for="code">
+                {{ ucfirst(__('PkgGapp::eDataField.code')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <input
+                name="code"
+                type="input"
+                class="form-control"
+                required
+                id="code"
+                placeholder="{{ __('PkgGapp::eDataField.code') }}"
+                value="{{ $itemEDataField ? $itemEDataField->code : old('code') }}">
+            @error('code')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
+
+        
+        <div class="form-group">
             <label for="name">
                 {{ ucfirst(__('PkgGapp::eDataField.name')) }}
                 
@@ -32,21 +53,143 @@
 
         
         <div class="form-group">
-            <label for="type">
-                {{ ucfirst(__('PkgGapp::eDataField.type')) }}
+            <label for="column_name">
+                {{ ucfirst(__('PkgGapp::eDataField.column_name')) }}
                 
                     <span class="text-danger">*</span>
                 
             </label>
             <input
-                name="type"
+                name="column_name"
                 type="input"
                 class="form-control"
                 required
-                id="type"
-                placeholder="{{ __('PkgGapp::eDataField.type') }}"
-                value="{{ $itemEDataField ? $itemEDataField->type : old('type') }}">
-            @error('type')
+                id="column_name"
+                placeholder="{{ __('PkgGapp::eDataField.column_name') }}"
+                value="{{ $itemEDataField ? $itemEDataField->column_name : old('column_name') }}">
+            @error('column_name')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
+
+        
+        <div class="form-group">
+            <label for="data_type">
+                {{ ucfirst(__('PkgGapp::eDataField.data_type')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <input
+                name="data_type"
+                type="input"
+                class="form-control"
+                required
+                id="data_type"
+                placeholder="{{ __('PkgGapp::eDataField.data_type') }}"
+                value="{{ $itemEDataField ? $itemEDataField->data_type : old('data_type') }}">
+            @error('data_type')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
+
+        
+        <div class="form-group">
+            <label for="db_nullable">
+                {{ ucfirst(__('PkgGapp::eDataField.db_nullable')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <input
+                name="db_nullable"
+                type="number"
+                class="form-control"
+                required
+                id="db_nullable"
+                placeholder="{{ __('PkgGapp::eDataField.db_nullable') }}"
+                value="{{ $itemEDataField ? $itemEDataField->db_nullable : old('db_nullable') }}">
+            @error('db_nullable')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
+
+        
+        <div class="form-group">
+            <label for="db_primaryKey">
+                {{ ucfirst(__('PkgGapp::eDataField.db_primaryKey')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <input
+                name="db_primaryKey"
+                type="number"
+                class="form-control"
+                required
+                id="db_primaryKey"
+                placeholder="{{ __('PkgGapp::eDataField.db_primaryKey') }}"
+                value="{{ $itemEDataField ? $itemEDataField->db_primaryKey : old('db_primaryKey') }}">
+            @error('db_primaryKey')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
+
+        
+        <div class="form-group">
+            <label for="db_unique">
+                {{ ucfirst(__('PkgGapp::eDataField.db_unique')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <input
+                name="db_unique"
+                type="number"
+                class="form-control"
+                required
+                id="db_unique"
+                placeholder="{{ __('PkgGapp::eDataField.db_unique') }}"
+                value="{{ $itemEDataField ? $itemEDataField->db_unique : old('db_unique') }}">
+            @error('db_unique')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
+
+        
+        <div class="form-group">
+            <label for="default_value">
+                {{ ucfirst(__('PkgGapp::eDataField.default_value')) }}
+                
+            </label>
+            <input
+                name="default_value"
+                type="input"
+                class="form-control"
+                
+                id="default_value"
+                placeholder="{{ __('PkgGapp::eDataField.default_value') }}"
+                value="{{ $itemEDataField ? $itemEDataField->default_value : old('default_value') }}">
+            @error('default_value')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
+
+        
+        <div class="form-group">
+            <label for="description">
+                {{ ucfirst(__('PkgGapp::eDataField.description')) }}
+                
+            </label>
+            <textarea rows="" cols=""
+                name="description"
+                class="form-control richText"
+                
+                id="description"
+                placeholder="{{ __('PkgGapp::eDataField.description') }}">
+                {{ $itemEDataField ? $itemEDataField->description : old('description') }}
+            </textarea>
+            @error('description')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
@@ -78,25 +221,6 @@
             @enderror
     </div>
 
-
-        
-        <div class="form-group">
-            <label for="description">
-                {{ ucfirst(__('PkgGapp::eDataField.description')) }}
-                
-            </label>
-            <textarea rows="" cols=""
-                name="description"
-                class="form-control richText"
-                
-                id="description"
-                placeholder="{{ __('PkgGapp::eDataField.description') }}">
-                {{ $itemEDataField ? $itemEDataField->description : old('description') }}
-            </textarea>
-            @error('description')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
 
     </div>
 

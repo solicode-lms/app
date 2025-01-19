@@ -33,19 +33,19 @@ class BaseEMetadataDefinition extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'name', 'code', 'groupe', 'type', 'scope', 'description', 'default_value'
+        'code', 'name', 'groupe', 'type', 'scope', 'description', 'default_value'
     ];
 
 
 
     /**
-     * Relation HasMany pour EMetadata.
+     * Relation HasMany pour EMetadataDefinitions.
      *
      * @return HasMany
      */
-    public function eMetadata(): HasMany
+    public function eMetadataDefinitions(): HasMany
     {
-        return $this->hasMany(EMetadatum::class, 'emetadata_definition_id', 'id');
+        return $this->hasMany(EMetadataDefinition::class, 'emetadata_definition_id', 'id');
     }
 
     /**
@@ -55,6 +55,6 @@ class BaseEMetadataDefinition extends BaseModel
      */
     public function __toString()
     {
-        return $this->name;
+        return $this->code;
     }
 }

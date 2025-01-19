@@ -25,12 +25,24 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="col-sm-12">
+                                <label for="code">{{ ucfirst(__('PkgGapp::eModel.code')) }}:</label>
+                                <p>{{ $itemEModel->code }}</p>
+                            </div>
+                            <div class="col-sm-12">
                                 <label for="name">{{ ucfirst(__('PkgGapp::eModel.name')) }}:</label>
                                 <p>{{ $itemEModel->name }}</p>
                             </div>
                             <div class="col-sm-12">
+                                <label for="table_name">{{ ucfirst(__('PkgGapp::eModel.table_name')) }}:</label>
+                                <p>{{ $itemEModel->table_name }}</p>
+                            </div>
+                            <div class="col-sm-12">
                                 <label for="icon">{{ ucfirst(__('PkgGapp::eModel.icon')) }}:</label>
                                 <p>{{ $itemEModel->icon }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="is_pivot_table">{{ ucfirst(__('PkgGapp::eModel.is_pivot_table')) }}:</label>
+                                <p>{{ $itemEModel->is_pivot_table }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="description">{{ ucfirst(__('PkgGapp::eModel.description')) }}:</label>

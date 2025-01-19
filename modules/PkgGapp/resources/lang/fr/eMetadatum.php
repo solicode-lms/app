@@ -5,6 +5,7 @@
 return [
     'singular' => 'EMetadatum',
     'plural' => 'EMetadata',
+    'code' => 'code',
     'value_boolean' => 'value_boolean',
     'value_string' => 'value_string',
     'value_int' => 'value_int',

@@ -10,7 +10,44 @@
 
     <div class="card-body">
         
+        <div class="form-group">
+            <label for="code">
+                {{ ucfirst(__('PkgGapp::eMetadatum.code')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <input
+                name="code"
+                type="input"
+                class="form-control"
+                required
+                id="code"
+                placeholder="{{ __('PkgGapp::eMetadatum.code') }}"
+                value="{{ $itemEMetadatum ? $itemEMetadatum->code : old('code') }}">
+            @error('code')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
+
         
+        <div class="form-group">
+            <label for="value_boolean">
+                {{ ucfirst(__('PkgGapp::eMetadatum.value_boolean')) }}
+                
+            </label>
+            <input
+                name="value_boolean"
+                type="number"
+                class="form-control"
+                
+                id="value_boolean"
+                placeholder="{{ __('PkgGapp::eMetadatum.value_boolean') }}"
+                value="{{ $itemEMetadatum ? $itemEMetadatum->value_boolean : old('value_boolean') }}">
+            @error('value_boolean')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
 
         
         <div class="form-group">
@@ -32,14 +69,65 @@
 </div>
 
         
-        
+        <div class="form-group">
+            <label for="value_int">
+                {{ ucfirst(__('PkgGapp::eMetadatum.value_int')) }}
+                
+            </label>
+            <input
+                name="value_int"
+                type="number"
+                class="form-control"
+                
+                id="value_int"
+                placeholder="{{ __('PkgGapp::eMetadatum.value_int') }}"
+                value="{{ $itemEMetadatum ? $itemEMetadatum->value_int : old('value_int') }}">
+            @error('value_int')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
 
         
+        <div class="form-group">
+    <label for="value_object">
+        {{ ucfirst(__('PkgGapp::eMetadatum.value_object')) }}
+        
+    </label>
+    <textarea
+        name="value_object"
+        class="form-control"
+        id="value_object"
+        placeholder="{{ __('PkgGapp::eMetadatum.value_object') }}"
+        >
+        {{ $itemEMetadatum && $itemEMetadatum->value_object ? json_encode($itemEMetadatum->value_object, JSON_PRETTY_PRINT) : old('value_object') }}
+    </textarea>
+    @error('value_object')
+        <div class="text-danger">{{ $message }}</div>
+    @enderror
+</div>
 
-        <!--   value_object JSON --> 
+
 
         
-        
+        <div class="form-group">
+            <label for="object_id">
+                {{ ucfirst(__('PkgGapp::eMetadatum.object_id')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <input
+                name="object_id"
+                type="number"
+                class="form-control"
+                required
+                id="object_id"
+                placeholder="{{ __('PkgGapp::eMetadatum.object_id') }}"
+                value="{{ $itemEMetadatum ? $itemEMetadatum->object_id : old('object_id') }}">
+            @error('object_id')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
 
         
         <div class="form-group">

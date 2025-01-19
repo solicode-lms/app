@@ -33,19 +33,19 @@ class BaseEPackage extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'name', 'description'
+        'code', 'name', 'description'
     ];
 
 
 
     /**
-     * Relation HasMany pour EModels.
+     * Relation HasMany pour EPackages.
      *
      * @return HasMany
      */
-    public function eModels(): HasMany
+    public function ePackages(): HasMany
     {
-        return $this->hasMany(EModel::class, 'epackage_id', 'id');
+        return $this->hasMany(EPackage::class, 'epackage_id', 'id');
     }
 
     /**
@@ -55,6 +55,6 @@ class BaseEPackage extends BaseModel
      */
     public function __toString()
     {
-        return $this->name;
+        return $this->code;
     }
 }

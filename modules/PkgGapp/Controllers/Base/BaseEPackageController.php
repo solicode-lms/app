@@ -3,13 +3,10 @@
 
 
 namespace Modules\PkgGapp\Controllers\Base;
-
+use Modules\PkgGapp\Services\EPackageService;
+use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\PkgGapp\App\Requests\EPackageRequest;
-use Modules\PkgGapp\Services\EPackageService;
-
-
-use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgGapp\App\Exports\EPackageExport;
 use Modules\PkgGapp\App\Imports\EPackageImport;
@@ -19,43 +16,34 @@ class BaseEPackageController extends AdminController
 {
     protected $ePackageService;
 
-    public function __construct(EPackageService $ePackageService)
-    {
+    public function __construct(EPackageService $ePackageService) {
         parent::__construct();
         $this->ePackageService = $ePackageService;
-
     }
 
-
-    public function index(Request $request)
-    {
+    public function index(Request $request) {
         // Extraire les paramètres de recherche, page, et filtres
         $ePackages_params = array_merge(
             $request->only(['page','sort']),
             ['search' => $request->get('ePackages_search', '')],
             $request->except(['ePackages_search', 'page', 'sort'])
         );
-    
+
         // Paginer les ePackages
         $ePackages_data = $this->ePackageService->paginate($ePackages_params);
-    
+
         // Récupérer les statistiques et les champs filtrables
         $ePackages_stats = $this->ePackageService->getePackageStats();
         $ePackages_filters = $this->ePackageService->getFieldsFilterable();
-    
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
             return view('PkgGapp::ePackage._table', compact('ePackages_data', 'ePackages_stats', 'ePackages_filters'))->render();
         }
-    
+
         return view('PkgGapp::ePackage.index', compact('ePackages_data', 'ePackages_stats', 'ePackages_filters'));
     }
-
-    /**
-     * Retourne le formulaire de création.
-     */
-    public function create()
-    {
+    public function create() {
         $itemEPackage = $this->ePackageService->createInstance();
 
 
@@ -64,12 +52,7 @@ class BaseEPackageController extends AdminController
         }
         return view('PkgGapp::ePackage.create', compact('itemEPackage'));
     }
-
-    /**
-     * Stocke une nouvelle filière.
-     */
-    public function store(EPackageRequest $request)
-    {
+    public function store(EPackageRequest $request) {
         $validatedData = $request->validated();
         $ePackage = $this->ePackageService->create($validatedData);
 
@@ -92,12 +75,7 @@ class BaseEPackageController extends AdminController
             ])
         );
     }
-
-    /**
-     * Affiche les détails d'une filière.
-     */
-    public function show(string $id)
-    {
+    public function show(string $id) {
         $itemEPackage = $this->ePackageService->find($id);
 
 
@@ -106,13 +84,9 @@ class BaseEPackageController extends AdminController
         }
 
         return view('PkgGapp::ePackage.show', compact('itemEPackage'));
-    }
 
-    /**
-     * Retourne le formulaire d'édition d'une filière.
-     */
-    public function edit(string $id)
-    {
+    }
+    public function edit(string $id) {
 
         $itemEPackage = $this->ePackageService->find($id);
 
@@ -125,13 +99,9 @@ class BaseEPackageController extends AdminController
         }
 
         return view('PkgGapp::ePackage.edit', compact('itemEPackage'));
-    }
 
-    /**
-     * Met à jour une filière existante.
-     */
-    public function update(EPackageRequest $request, string $id)
-    {
+    }
+    public function update(EPackageRequest $request, string $id) {
 
         $validatedData = $request->validated();
         $ePackage = $this->ePackageService->update($id, $validatedData);
@@ -152,13 +122,9 @@ class BaseEPackageController extends AdminController
                 'modelName' =>  __('PkgGapp::ePackage.singular')
                 ])
         );
-    }
 
-    /**
-     * Supprime une filière.
-     */
-    public function destroy(Request $request, string $id)
-    {
+    }
+    public function destroy(Request $request, string $id) {
 
         $ePackage = $this->ePackageService->destroy($id);
 
@@ -177,6 +143,7 @@ class BaseEPackageController extends AdminController
                 'modelName' =>  __('PkgGapp::ePackage.singular')
                 ])
         );
+
     }
 
     public function export()
@@ -212,4 +179,5 @@ class BaseEPackageController extends AdminController
         $ePackages = $this->ePackageService->all();
         return response()->json($ePackages);
     }
+
 }

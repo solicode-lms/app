@@ -4,6 +4,7 @@
     <table class="table table-striped text-nowrap">
         <thead>
             <tr>
+                <x-sortable-column field="code" label="{{ ucfirst(__('PkgGapp::eMetadatum.code')) }}" />
                 <x-sortable-column field="e_metadata_definition_id" label="{{ ucfirst(__('PkgGapp::eMetadataDefinition.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
@@ -11,7 +12,8 @@
         <tbody>
             @foreach ($eMetadata_data as $eMetadatum)
                 <tr>
-                    <td>@limit($eMetadatum->eMetadataDefinition->name ?? '-', 80)</td>
+                    <td>@limit($eMetadatum->code, 80)</td>
+                    <td>@limit($eMetadatum->eMetadataDefinition->code ?? '-', 80)</td>
                     <td class="text-right">
                         @can('show-eMetadatum')
                             <a href="{{ route('eMetadata.show', ['eMetadatum' => $eMetadatum->id]) }}" data-id="{{$eMetadatum->id}}" class="btn btn-default btn-sm context-state showEntity">

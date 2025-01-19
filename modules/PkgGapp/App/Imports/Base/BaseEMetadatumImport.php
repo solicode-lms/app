@@ -21,7 +21,7 @@ class BaseEMetadatumImport implements ToModel, WithHeadingRow
      */
     private function recordExists(array $row): bool
     {
-        return EMetadatum::where('id', $row['id'])->exists();
+        return EMetadatum::where('code', $row['code'])->exists();
     }
 
     /**
@@ -38,6 +38,7 @@ class BaseEMetadatumImport implements ToModel, WithHeadingRow
 
         // Crée un nouvel enregistrement à partir des données importées
         return new EMetadatum([
+            'code' => $row['code'],
             'value_boolean' => $row['value_boolean'],
             'value_string' => $row['value_string'],
             'value_int' => $row['value_int'],
