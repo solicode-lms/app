@@ -19,6 +19,9 @@ return new class extends Migration
             $table->string('name'); 
             $table->string('column_name');
             $table->string('data_type'); 
+            $table->boolean('db_nullable'); 
+            $table->boolean('db_primaryKey'); 
+            $table->boolean('db_unique'); 
             $table->string('default_value')->nullable(); 
             $table->text('description')->nullable(); 
             $table->foreignId('e_model_id')->constrained('e_models')->onDelete('cascade'); // Relation avec IModel
