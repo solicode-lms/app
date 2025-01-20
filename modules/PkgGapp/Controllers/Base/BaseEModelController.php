@@ -71,7 +71,7 @@ class BaseEModelController extends AdminController
             ]);
         }
 
-        return redirect()->route('eModels.index')->with(
+        return redirect()->route('eModels.edit',['eModel' => $eModel->id])->with(
             'success',
             __('Core::msg.addSuccess', [
                 'entityToString' => $eModel,
@@ -95,16 +95,18 @@ class BaseEModelController extends AdminController
 
         $itemEModel = $this->eModelService->find($id);
         $ePackages = $this->ePackageService->all();
+         $eModels_data =  $itemEModel->eModels()->paginate(10);
+         $eModels_data =  $itemEModel->eModels()->paginate(10);
 
         // Utilisé dans l'édition des relation HasMany
         $this->contextState->set('eModel_id', $id);
 
 
         if (request()->ajax()) {
-            return view('PkgGapp::eModel._fields', compact('itemEModel', 'ePackages'));
+            return view('PkgGapp::eModel._fields', compact('itemEModel', 'ePackages', 'eModels_data', 'eModels_data'));
         }
 
-        return view('PkgGapp::eModel.edit', compact('itemEModel', 'ePackages'));
+        return view('PkgGapp::eModel.edit', compact('itemEModel', 'ePackages', 'eModels_data', 'eModels_data'));
 
     }
     public function update(EModelRequest $request, string $id) {

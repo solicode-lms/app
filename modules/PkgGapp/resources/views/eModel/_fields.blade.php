@@ -92,7 +92,25 @@
 </div>
 
         
-        
+        <div class="form-group">
+            <label for="is_pivot_table">
+                {{ ucfirst(__('PkgGapp::eModel.is_pivot_table')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <input
+                name="is_pivot_table"
+                type="number"
+                class="form-control"
+                required
+                id="is_pivot_table"
+                placeholder="{{ __('PkgGapp::eModel.is_pivot_table') }}"
+                value="{{ $itemEModel ? $itemEModel->is_pivot_table : old('is_pivot_table') }}">
+            @error('is_pivot_table')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
 
         
         <div class="form-group">

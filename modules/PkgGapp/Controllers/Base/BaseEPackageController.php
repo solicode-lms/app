@@ -67,7 +67,7 @@ class BaseEPackageController extends AdminController
             ]);
         }
 
-        return redirect()->route('ePackages.index')->with(
+        return redirect()->route('ePackages.edit',['ePackage' => $ePackage->id])->with(
             'success',
             __('Core::msg.addSuccess', [
                 'entityToString' => $ePackage,
@@ -89,16 +89,17 @@ class BaseEPackageController extends AdminController
     public function edit(string $id) {
 
         $itemEPackage = $this->ePackageService->find($id);
+         $ePackages_data =  $itemEPackage->ePackages()->paginate(10);
 
         // Utilisé dans l'édition des relation HasMany
         $this->contextState->set('ePackage_id', $id);
 
 
         if (request()->ajax()) {
-            return view('PkgGapp::ePackage._fields', compact('itemEPackage'));
+            return view('PkgGapp::ePackage._fields', compact('itemEPackage', 'ePackages_data'));
         }
 
-        return view('PkgGapp::ePackage.edit', compact('itemEPackage'));
+        return view('PkgGapp::ePackage.edit', compact('itemEPackage', 'ePackages_data'));
 
     }
     public function update(EPackageRequest $request, string $id) {

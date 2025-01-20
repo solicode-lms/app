@@ -67,7 +67,7 @@ class BaseEMetadataDefinitionController extends AdminController
             ]);
         }
 
-        return redirect()->route('eMetadataDefinitions.index')->with(
+        return redirect()->route('eMetadataDefinitions.edit',['eMetadataDefinition' => $eMetadataDefinition->id])->with(
             'success',
             __('Core::msg.addSuccess', [
                 'entityToString' => $eMetadataDefinition,
@@ -89,16 +89,17 @@ class BaseEMetadataDefinitionController extends AdminController
     public function edit(string $id) {
 
         $itemEMetadataDefinition = $this->eMetadataDefinitionService->find($id);
+         $eMetadataDefinitions_data =  $itemEMetadataDefinition->eMetadataDefinitions()->paginate(10);
 
         // Utilisé dans l'édition des relation HasMany
         $this->contextState->set('eMetadataDefinition_id', $id);
 
 
         if (request()->ajax()) {
-            return view('PkgGapp::eMetadataDefinition._fields', compact('itemEMetadataDefinition'));
+            return view('PkgGapp::eMetadataDefinition._fields', compact('itemEMetadataDefinition', 'eMetadataDefinitions_data'));
         }
 
-        return view('PkgGapp::eMetadataDefinition.edit', compact('itemEMetadataDefinition'));
+        return view('PkgGapp::eMetadataDefinition.edit', compact('itemEMetadataDefinition', 'eMetadataDefinitions_data'));
 
     }
     public function update(EMetadataDefinitionRequest $request, string $id) {

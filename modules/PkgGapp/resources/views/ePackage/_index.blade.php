@@ -4,7 +4,7 @@
 <script>
     window.entitiesConfig = window.entitiesConfig || [];
     window.entitiesConfig.push({
-        edit_has_many: false,
+        edit_has_many: true,
         entity_name: 'ePackage',
         filterFormSelector: '#ePackage-crud-filter-form',
         crudSelector: '#ePackage-crud',
