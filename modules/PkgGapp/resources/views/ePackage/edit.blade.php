@@ -49,7 +49,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" id="ePackage-hasmany-tabs-ePackage-tab" data-toggle="pill" href="#ePackage-hasmany-tabs-ePackage" role="tab" aria-controls="ePackage-hasmany-tabs-ePackage" aria-selected="false">{{__('PkgGapp::ePackage.plural')}}</a>
+                            <a class="nav-link" id="ePackage-hasmany-tabs-eModel-tab" data-toggle="pill" href="#ePackage-hasmany-tabs-eModel" role="tab" aria-controls="ePackage-hasmany-tabs-eModel" aria-selected="false">{{__('PkgGapp::eModel.plural')}}</a>
                         </li>
 
                        
@@ -65,8 +65,8 @@
                                 @include('PkgGapp::ePackage._fields')
                             </div>
 
-                            <div class="tab-pane fade" id="ePackage-hasmany-tabs-ePackage" role="tabpanel" aria-labelledby="ePackage-hasmany-tabs-ePackage-tab">
-                                @include('PkgGapp::ePackage._index')
+                            <div class="tab-pane fade" id="ePackage-hasmany-tabs-eModel" role="tabpanel" aria-labelledby="ePackage-hasmany-tabs-eModel-tab">
+                                @include('PkgGapp::eModel._index')
                             </div>
 
                            

@@ -4,6 +4,7 @@
 
 namespace Modules\PkgGapp\Controllers\Base;
 use Modules\PkgGapp\Services\EMetadataDefinitionService;
+use Modules\PkgGapp\Services\EMetadatumService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\PkgGapp\App\Requests\EMetadataDefinitionRequest;
@@ -89,17 +90,20 @@ class BaseEMetadataDefinitionController extends AdminController
     public function edit(string $id) {
 
         $itemEMetadataDefinition = $this->eMetadataDefinitionService->find($id);
-         $eMetadataDefinitions_data =  $itemEMetadataDefinition->eMetadataDefinitions()->paginate(10);
+        $eMetadatumService =  new EMetadatumService();
+        $eMetadata_data =  $itemEMetadataDefinition->eMetadata()->paginate(10);
+        $eMetadata_stats = $eMetadatumService->geteMetadatumStats();
+        $eMetadata_filters = $eMetadatumService->getFieldsFilterable();
 
         // Utilisé dans l'édition des relation HasMany
         $this->contextState->set('eMetadataDefinition_id', $id);
 
 
         if (request()->ajax()) {
-            return view('PkgGapp::eMetadataDefinition._fields', compact('itemEMetadataDefinition', 'eMetadataDefinitions_data'));
+            return view('PkgGapp::eMetadataDefinition._fields', compact('itemEMetadataDefinition', 'eMetadata_data', 'eMetadata_stats', 'eMetadata_filters'));
         }
 
-        return view('PkgGapp::eMetadataDefinition.edit', compact('itemEMetadataDefinition', 'eMetadataDefinitions_data'));
+        return view('PkgGapp::eMetadataDefinition.edit', compact('itemEMetadataDefinition', 'eMetadata_data', 'eMetadata_stats', 'eMetadata_filters'));
 
     }
     public function update(EMetadataDefinitionRequest $request, string $id) {

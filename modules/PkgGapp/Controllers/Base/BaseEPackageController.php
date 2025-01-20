@@ -89,7 +89,7 @@ class BaseEPackageController extends AdminController
     public function edit(string $id) {
 
         $itemEPackage = $this->ePackageService->find($id);
-         $ePackages_data =  $itemEPackage->ePackages()->paginate(10);
+         $eModels_data =  $itemEPackage->eModels()->paginate(10);
 
         // Utilisé dans l'édition des relation HasMany
         $this->contextState->set('ePackage_id', $id);

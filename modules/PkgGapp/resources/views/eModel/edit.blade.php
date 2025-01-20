@@ -49,10 +49,10 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" id="eModel-hasmany-tabs-eModel-tab" data-toggle="pill" href="#eModel-hasmany-tabs-eModel" role="tab" aria-controls="eModel-hasmany-tabs-eModel" aria-selected="false">{{__('PkgGapp::eModel.plural')}}</a>
+                            <a class="nav-link" id="eModel-hasmany-tabs-eDataField-tab" data-toggle="pill" href="#eModel-hasmany-tabs-eDataField" role="tab" aria-controls="eModel-hasmany-tabs-eDataField" aria-selected="false">{{__('PkgGapp::eDataField.plural')}}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="eModel-hasmany-tabs-eModel-tab" data-toggle="pill" href="#eModel-hasmany-tabs-eModel" role="tab" aria-controls="eModel-hasmany-tabs-eModel" aria-selected="false">{{__('PkgGapp::eModel.plural')}}</a>
+                            <a class="nav-link" id="eModel-hasmany-tabs-eRelationship-tab" data-toggle="pill" href="#eModel-hasmany-tabs-eRelationship" role="tab" aria-controls="eModel-hasmany-tabs-eRelationship" aria-selected="false">{{__('PkgGapp::eRelationship.plural')}}</a>
                         </li>
 
                        
@@ -68,11 +68,11 @@
                                 @include('PkgGapp::eModel._fields')
                             </div>
 
-                            <div class="tab-pane fade" id="eModel-hasmany-tabs-eModel" role="tabpanel" aria-labelledby="eModel-hasmany-tabs-eModel-tab">
-                                @include('PkgGapp::eModel._index')
+                            <div class="tab-pane fade" id="eModel-hasmany-tabs-eDataField" role="tabpanel" aria-labelledby="eModel-hasmany-tabs-eDataField-tab">
+                                @include('PkgGapp::eDataField._index')
                             </div>
-                            <div class="tab-pane fade" id="eModel-hasmany-tabs-eModel" role="tabpanel" aria-labelledby="eModel-hasmany-tabs-eModel-tab">
-                                @include('PkgGapp::eModel._index')
+                            <div class="tab-pane fade" id="eModel-hasmany-tabs-eRelationship" role="tabpanel" aria-labelledby="eModel-hasmany-tabs-eRelationship-tab">
+                                @include('PkgGapp::eRelationship._index')
                             </div>
 
                            

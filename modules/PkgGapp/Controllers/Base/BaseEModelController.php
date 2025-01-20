@@ -95,8 +95,8 @@ class BaseEModelController extends AdminController
 
         $itemEModel = $this->eModelService->find($id);
         $ePackages = $this->ePackageService->all();
-         $eModels_data =  $itemEModel->eModels()->paginate(10);
-         $eModels_data =  $itemEModel->eModels()->paginate(10);
+         $eDataFields_data =  $itemEModel->eDataFields()->paginate(10);
+         $eRelationships_data =  $itemEModel->eRelationships()->paginate(10);
 
         // Utilisé dans l'édition des relation HasMany
         $this->contextState->set('eModel_id', $id);

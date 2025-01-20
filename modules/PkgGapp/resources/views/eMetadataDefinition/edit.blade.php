@@ -49,7 +49,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" id="eMetadataDefinition-hasmany-tabs-eMetadataDefinition-tab" data-toggle="pill" href="#eMetadataDefinition-hasmany-tabs-eMetadataDefinition" role="tab" aria-controls="eMetadataDefinition-hasmany-tabs-eMetadataDefinition" aria-selected="false">{{__('PkgGapp::eMetadataDefinition.plural')}}</a>
+                            <a class="nav-link" id="eMetadataDefinition-hasmany-tabs-eMetadatum-tab" data-toggle="pill" href="#eMetadataDefinition-hasmany-tabs-eMetadatum" role="tab" aria-controls="eMetadataDefinition-hasmany-tabs-eMetadatum" aria-selected="false">{{__('PkgGapp::eMetadatum.plural')}}</a>
                         </li>
 
                        
@@ -65,8 +65,8 @@
                                 @include('PkgGapp::eMetadataDefinition._fields')
                             </div>
 
-                            <div class="tab-pane fade" id="eMetadataDefinition-hasmany-tabs-eMetadataDefinition" role="tabpanel" aria-labelledby="eMetadataDefinition-hasmany-tabs-eMetadataDefinition-tab">
-                                @include('PkgGapp::eMetadataDefinition._index')
+                            <div class="tab-pane fade" id="eMetadataDefinition-hasmany-tabs-eMetadatum" role="tabpanel" aria-labelledby="eMetadataDefinition-hasmany-tabs-eMetadatum-tab">
+                                @include('PkgGapp::eMetadatum._index')
                             </div>
 
                            

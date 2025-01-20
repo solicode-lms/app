@@ -43,9 +43,9 @@ class BaseEMetadataDefinition extends BaseModel
      *
      * @return HasMany
      */
-    public function eMetadataDefinitions(): HasMany
+    public function eMetadata(): HasMany
     {
-        return $this->hasMany(EMetadataDefinition::class, 'emetadata_definition_id', 'id');
+        return $this->hasMany(EMetadatum::class, 'e_metadata_definition_id', 'id');
     }
 
     /**
