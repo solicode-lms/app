@@ -89,59 +89,64 @@
 
 /* Formulaire */
 
-/* Réduire les marges et paddings pour rendre le formulaire compact */
-.custom-form .form-group {
-    margin-bottom: 0.5rem !important; /* Réduit l'espace entre les groupes */
+/* .custom-form .form-group {
+    margin-bottom: 0.5rem !important; 
 }
 
 .custom-form .form-label {
-    margin-bottom: 0.25rem !important; /* Réduit l'espace sous les labels */
-    font-size: 0.9rem !important; /* Réduit la taille des labels */
+    margin-bottom: 0.25rem !important;
+    font-size: 0.9rem !important; 
 }
 
 .custom-form .form-control {
-    padding: 0.4rem 0.5rem !important; /* Réduit les paddings internes des inputs */
-    font-size: 0.9rem !important; /* Réduit la taille du texte des inputs */
-    height: auto !important; /* Ajuste la hauteur des champs */
-}
+    padding: 0.4rem 0.5rem !important; 
+    font-size: 0.9rem !important; 
+    height: auto !important; 
+} */
 
  
 
 
 /* Responsiveness */
-@media (max-width: 576px) {
+/* @media (max-width: 576px) {
     .modal-dialog {
-        max-width: 95%; /* Ajustement sur mobile */
+        max-width: 95%; 
     }
     .modal-content {
         padding: 0.5rem;
     }
-}
+} */
 
 
 /* Rédsuction  */
 
-
+/* 
 .full-screen-modal {
-    width: 100% !important; /* Assure que le modal occupe toute la largeur */
-    max-width:55% !important; /* Supprime toute limite de largeur */
+    width: 100% !important; 
+    max-width:55% !important; 
     margin : 0;
-    margin-left: 250px; /* Supprime les marges */
-    padding: 0; /* Supprime les paddings */
-    border-radius: 0; /* Supprime les coins arrondis */
+    margin-left: 250px; 
+    padding: 0;
+    border-radius: 0; 
    
 }
         .full-screen-modal .modal-content {
-            height: 100%; /* Remplit la hauteur */
+            height: 100%;
             display: flex;
-            flex-direction: column; /* Organisation verticale */
+            flex-direction: column;
         }
         .full-screen-modal .modal-body {
-            flex: 1; /* Permet au contenu du corps de prendre l'espace disponible */
-            overflow-y: auto; /* Ajoute un défilement si le contenu dépasse */
+            flex: 1;
+            overflow-y: auto; 
         }
-
+ */
 
 /* Select2 */
 
- 
+.modal{
+    z-index: 100000 !important;
+}
+
+.select2-container--open {
+    z-index: 9999999 !important;
+}
