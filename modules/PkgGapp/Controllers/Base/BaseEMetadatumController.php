@@ -5,6 +5,8 @@
 namespace Modules\PkgGapp\Controllers\Base;
 use Modules\PkgGapp\Services\EMetadatumService;
 use Modules\PkgGapp\Services\EMetadataDefinitionService;
+use Modules\PkgGapp\Services\EModelService;
+use Modules\PkgGapp\Services\EDataFieldService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\PkgGapp\App\Requests\EMetadatumRequest;
@@ -17,11 +19,15 @@ class BaseEMetadatumController extends AdminController
 {
     protected $eMetadatumService;
     protected $eMetadataDefinitionService;
+    protected $eModelService;
+    protected $eDataFieldService;
 
-    public function __construct(EMetadatumService $eMetadatumService, EMetadataDefinitionService $eMetadataDefinitionService) {
+    public function __construct(EMetadatumService $eMetadatumService, EMetadataDefinitionService $eMetadataDefinitionService, EModelService $eModelService, EDataFieldService $eDataFieldService) {
         parent::__construct();
         $this->eMetadatumService = $eMetadatumService;
         $this->eMetadataDefinitionService = $eMetadataDefinitionService;
+        $this->eModelService = $eModelService;
+        $this->eDataFieldService = $eDataFieldService;
     }
 
     public function index(Request $request) {

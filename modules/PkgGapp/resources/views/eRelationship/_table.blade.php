@@ -6,7 +6,7 @@
             <tr>
                 <x-sortable-column field="code" label="{{ ucfirst(__('PkgGapp::eRelationship.code')) }}" />
                 <x-sortable-column field="name" label="{{ ucfirst(__('PkgGapp::eRelationship.name')) }}" />
-                <x-sortable-column field="source_model_id" label="{{ ucfirst(__('PkgGapp::eRelationship.source_model_id')) }}" />
+                <x-sortable-column field="source_model_id" label="{{ ucfirst(__('PkgGapp::eModel.singular')) }}" />
                 <x-sortable-column field="target_model_id" label="{{ ucfirst(__('PkgGapp::eModel.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
@@ -16,7 +16,7 @@
                 <tr>
                     <td>@limit($eRelationship->code, 80)</td>
                     <td>@limit($eRelationship->name, 80)</td>
-                    <td>@limit($eRelationship->source_model_id, 80)</td>
+                    <td>@limit($eRelationship->eModel->code ?? '-', 80)</td>
                     <td>@limit($eRelationship->eModel->code ?? '-', 80)</td>
                     <td class="text-right">
                         @can('show-eRelationship')

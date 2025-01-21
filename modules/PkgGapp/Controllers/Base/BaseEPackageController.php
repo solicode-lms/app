@@ -4,6 +4,7 @@
 
 namespace Modules\PkgGapp\Controllers\Base;
 use Modules\PkgGapp\Services\EPackageService;
+use Modules\PkgGapp\Services\EModelService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\PkgGapp\App\Requests\EPackageRequest;
@@ -89,17 +90,20 @@ class BaseEPackageController extends AdminController
     public function edit(string $id) {
 
         $itemEPackage = $this->ePackageService->find($id);
-         $eModels_data =  $itemEPackage->eModels()->paginate(10);
+        $eModelService =  new EModelService();
+        $eModels_data =  $itemEPackage->eModels()->paginate(10);
+        $eModels_stats = $eModelService->geteModelStats();
+        $eModels_filters = $eModelService->getFieldsFilterable();
 
         // Utilisé dans l'édition des relation HasMany
         $this->contextState->set('ePackage_id', $id);
 
 
         if (request()->ajax()) {
-            return view('PkgGapp::ePackage._fields', compact('itemEPackage', 'ePackages_data'));
+            return view('PkgGapp::ePackage._fields', compact('itemEPackage', 'eModels_data', 'eModels_stats', 'eModels_filters'));
         }
 
-        return view('PkgGapp::ePackage.edit', compact('itemEPackage', 'ePackages_data'));
+        return view('PkgGapp::ePackage.edit', compact('itemEPackage', 'eModels_data', 'eModels_stats', 'eModels_filters'));
 
     }
     public function update(EPackageRequest $request, string $id) {

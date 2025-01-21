@@ -45,7 +45,7 @@ class BaseEPackage extends BaseModel
      */
     public function eModels(): HasMany
     {
-        return $this->hasMany(EModel::class, 'epackage_id', 'id');
+        return $this->hasMany(EModel::class, 'e_package_id', 'id');
     }
 
     /**
