@@ -29,7 +29,6 @@ return new class extends Migration
             $table->string('referenced_column')->nullable(); // Colonne cible
             $table->string('through')->nullable(); // Table pivot pour ManyToMany
             $table->string('with_column')->nullable(); // Colonne dans la table pivot
-            $table->json('target_models_names')->nullable(); 
             $table->timestamps(); // Colonnes created_at et updated_at
         });
     }
