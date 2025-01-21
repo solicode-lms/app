@@ -9,8 +9,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Modules\Core\Models\BaseModel;
 use Modules\PkgGapp\Models\EDataField;
+use Modules\PkgGapp\Models\EMetadatum;
 use Modules\PkgGapp\Models\EPackage;
 use Modules\PkgGapp\Models\ERelationship;
 
@@ -55,7 +57,7 @@ class BaseEModel extends BaseModel
      */
     public function eDataFields(): HasMany
     {
-        return $this->hasMany(EDataField::class, 'emodel_id', 'id');
+        return $this->hasMany(EDataField::class, 'e_model_id', 'id');
     }
     /**
      * Relation HasMany pour ERelationships.
@@ -70,9 +72,17 @@ class BaseEModel extends BaseModel
      */
     public function eRelationships(): HasMany
     {
-        return $this->hasMany(ERelationship::class, 'emodel_id', 'id');
+        return $this->hasMany(ERelationship::class, 'source_model_id', 'id');
     }
 
+
+    public function eMetadata(): MorphMany
+    {
+        return $this->morphMany(EMetadatum::class, 'object');
+    }
+
+
+    
     /**
      * Méthode __toString pour représenter le modèle sous forme de chaîne.
      *
