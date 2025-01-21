@@ -1,15 +1,14 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 return [
-    'singular' => 'EMetadataDefinition',
-    'plural' => 'EMetadataDefinitions',
+    'singular' => 'Déclaration métaDonnée',
+    'plural' => 'Déclarations métaDonnées',
     'code' => 'code',
-    'name' => 'name',
+    'name' => 'nom',
     'groupe' => 'groupe',
     'type' => 'type',
-    'scope' => 'scope',
+    'scope' => 'portée',
     'description' => 'description',
-    'default_value' => 'default_value',
+    'default_value' => 'valeur par défaut',
 ];

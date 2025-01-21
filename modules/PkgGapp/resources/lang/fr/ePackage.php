@@ -1,11 +1,9 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
-
 
 return [
-    'singular' => 'EPackage',
-    'plural' => 'EPackages',
+    'singular' => 'Package',
+    'plural' => 'Packages',
     'code' => 'code',
-    'name' => 'name',
+    'name' => 'nom',
     'description' => 'description',
 ];

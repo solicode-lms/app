@@ -1,16 +1,15 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 return [
-    'singular' => 'EMetadatum',
-    'plural' => 'EMetadata',
+    'singular' => 'MétaDonnée',
+    'plural' => 'MétaDonnées',
     'code' => 'code',
-    'value_boolean' => 'value_boolean',
-    'value_string' => 'value_string',
-    'value_int' => 'value_int',
-    'value_object' => 'value_object',
-    'object_id' => 'object_id',
-    'object_type' => 'object_type',
-    'e_metadata_definition_id' => 'e_metadata_definition_id',
+    'value_boolean' => 'valeur booléenne',
+    'value_string' => 'valeur chaîne',
+    'value_int' => 'valeur nombre',
+    'value_object' => 'valeur objet',
+    'object_id' => 'id objet',
+    'object_type' => 'type objet',
+    'e_metadata_definition_id' => 'id définition métaDonnée',
 ];

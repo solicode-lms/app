@@ -1,18 +1,17 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 return [
-    'singular' => 'EDataField',
-    'plural' => 'EDataFields',
+    'singular' => 'Champ',
+    'plural' => 'Champs',
     'code' => 'code',
-    'name' => 'name',
-    'column_name' => 'column_name',
-    'data_type' => 'data_type',
-    'db_nullable' => 'db_nullable',
-    'db_primaryKey' => 'db_primaryKey',
-    'db_unique' => 'db_unique',
-    'default_value' => 'default_value',
+    'name' => 'nom',
+    'column_name' => 'nom colonne',
+    'data_type' => 'type de données',
+    'db_nullable' => 'nullable',
+    'db_primaryKey' => 'clé primaire',
+    'db_unique' => 'unique',
+    'default_value' => 'valeur par défaut',
     'description' => 'description',
-    'e_model_id' => 'e_model_id',
+    'e_model_id' => 'entité',
 ];

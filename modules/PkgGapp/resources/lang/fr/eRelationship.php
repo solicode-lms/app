@@ -1,21 +1,19 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
-
 
 return [
-    'singular' => 'ERelationship',
-    'plural' => 'ERelationships',
+    'singular' => 'Relation',
+    'plural' => 'Relations',
     'code' => 'code',
-    'name' => 'name',
+    'name' => 'nom',
     'type' => 'type',
-    'source_model_id' => 'source_model_id',
-    'target_model_id' => 'target_model_id',
-    'cascade_on_delete' => 'cascade_on_delete',
-    'is_cascade' => 'is_cascade',
+    'source_model_id' => 'id modèle source',
+    'target_model_id' => 'id modèle cible',
+    'cascade_on_delete' => 'cascade à la suppression',
+    'is_cascade' => 'est en cascade',
     'description' => 'description',
-    'column_name' => 'column_name',
-    'referenced_table' => 'referenced_table',
-    'referenced_column' => 'referenced_column',
-    'through' => 'through',
-    'with_column' => 'with_column',
+    'column_name' => 'nom de colonne',
+    'referenced_table' => 'table référencée',
+    'referenced_column' => 'colonne référencée',
+    'through' => 'via',
+    'with_column' => 'avec colonne',
 ];
