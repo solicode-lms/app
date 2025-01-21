@@ -5,6 +5,7 @@
 namespace Modules\PkgGapp\Controllers\Base;
 use Modules\PkgGapp\Services\EDataFieldService;
 use Modules\PkgGapp\Services\EModelService;
+use Modules\PkgGapp\Services\EMetadatumService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\PkgGapp\App\Requests\EDataFieldRequest;
@@ -71,7 +72,7 @@ class BaseEDataFieldController extends AdminController
             ]);
         }
 
-        return redirect()->route('eDataFields.index')->with(
+        return redirect()->route('eDataFields.edit',['eDataField' => $eDataField->id])->with(
             'success',
             __('Core::msg.addSuccess', [
                 'entityToString' => $eDataField,
@@ -95,16 +96,20 @@ class BaseEDataFieldController extends AdminController
 
         $itemEDataField = $this->eDataFieldService->find($id);
         $eModels = $this->eModelService->all();
+        $eMetadatumService =  new EMetadatumService();
+        $eMetadata_data =  $itemEDataField->eMetadata()->paginate(10);
+        $eMetadata_stats = $eMetadatumService->geteMetadatumStats();
+        $eMetadata_filters = $eMetadatumService->getFieldsFilterable();
 
         // Utilisé dans l'édition des relation HasMany
         $this->contextState->set('eDataField_id', $id);
 
 
         if (request()->ajax()) {
-            return view('PkgGapp::eDataField._fields', compact('itemEDataField', 'eModels'));
+            return view('PkgGapp::eDataField._fields', compact('itemEDataField', 'eModels', 'eMetadata_data', 'eMetadata_stats', 'eMetadata_filters'));
         }
 
-        return view('PkgGapp::eDataField.edit', compact('itemEDataField', 'eModels'));
+        return view('PkgGapp::eDataField.edit', compact('itemEDataField', 'eModels', 'eMetadata_data', 'eMetadata_stats', 'eMetadata_filters'));
 
     }
     public function update(EDataFieldRequest $request, string $id) {

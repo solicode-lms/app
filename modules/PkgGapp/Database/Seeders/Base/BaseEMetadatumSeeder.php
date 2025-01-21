@@ -53,7 +53,9 @@ class BaseEMetadatumSeeder extends Seeder
                     "value_object" => $data[4] ,
                     "object_id" => $data[5] ,
                     "object_type" => $data[6] ,
-                    "e_metadata_definition_id" => $data[7] 
+                    "e_metadata_definition_id" => $data[7] ,
+                    "EModel" => $data[8] ,
+                    "EDataField" => $data[9] 
                 ]);
             }
             $firstline = false;

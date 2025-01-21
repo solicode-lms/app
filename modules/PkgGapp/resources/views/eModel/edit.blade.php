@@ -54,6 +54,12 @@
                         <li class="nav-item">
                             <a class="nav-link" id="eModel-hasmany-tabs-eRelationship-tab" data-toggle="pill" href="#eModel-hasmany-tabs-eRelationship" role="tab" aria-controls="eModel-hasmany-tabs-eRelationship" aria-selected="false">{{__('PkgGapp::eRelationship.plural')}}</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="eModel-hasmany-tabs-eRelationship-tab" data-toggle="pill" href="#eModel-hasmany-tabs-eRelationship" role="tab" aria-controls="eModel-hasmany-tabs-eRelationship" aria-selected="false">{{__('PkgGapp::eRelationship.plural')}}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="eModel-hasmany-tabs-eMetadatum-tab" data-toggle="pill" href="#eModel-hasmany-tabs-eMetadatum" role="tab" aria-controls="eModel-hasmany-tabs-eMetadatum" aria-selected="false">{{__('PkgGapp::eMetadatum.plural')}}</a>
+                        </li>
 
                        
                         </ul>
@@ -73,6 +79,12 @@
                             </div>
                             <div class="tab-pane fade" id="eModel-hasmany-tabs-eRelationship" role="tabpanel" aria-labelledby="eModel-hasmany-tabs-eRelationship-tab">
                                 @include('PkgGapp::eRelationship._index')
+                            </div>
+                            <div class="tab-pane fade" id="eModel-hasmany-tabs-eRelationship" role="tabpanel" aria-labelledby="eModel-hasmany-tabs-eRelationship-tab">
+                                @include('PkgGapp::eRelationship._index')
+                            </div>
+                            <div class="tab-pane fade" id="eModel-hasmany-tabs-eMetadatum" role="tabpanel" aria-labelledby="eModel-hasmany-tabs-eMetadatum-tab">
+                                @include('PkgGapp::eMetadatum._index')
                             </div>
 
                            

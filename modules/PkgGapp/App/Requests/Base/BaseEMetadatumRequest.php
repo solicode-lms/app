@@ -24,7 +24,9 @@ class BaseEMetadatumRequest extends FormRequest
             'value_object' => 'nullable',
             'object_id' => 'required',
             'object_type' => 'required|max:255',
-            'e_metadata_definition_id' => 'required'
+            'e_metadata_definition_id' => 'required',
+            'EModel' => 'nullable',
+            'EDataField' => 'nullable'
         ];
     }
 
@@ -46,7 +48,11 @@ class BaseEMetadatumRequest extends FormRequest
             'object_type.required' => __('validation.required', ['attribute' => __('PkgGapp::EMetadatum.object_type')]),
             'object_type.max' => __('validation.object_typeMax'),
             'e_metadata_definition_id.required' => __('validation.required', ['attribute' => __('PkgGapp::EMetadatum.e_metadata_definition_id')]),
-            'e_metadata_definition_id.max' => __('validation.e_metadata_definition_idMax')
+            'e_metadata_definition_id.max' => __('validation.e_metadata_definition_idMax'),
+            'EModel.required' => __('validation.required', ['attribute' => __('PkgGapp::EMetadatum.EModel')]),
+            'EModel.max' => __('validation.EModelMax'),
+            'EDataField.required' => __('validation.required', ['attribute' => __('PkgGapp::EMetadatum.EDataField')]),
+            'EDataField.max' => __('validation.EDataFieldMax')
         ];
     }
 }

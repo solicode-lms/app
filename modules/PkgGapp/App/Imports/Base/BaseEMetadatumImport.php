@@ -46,6 +46,8 @@ class BaseEMetadatumImport implements ToModel, WithHeadingRow
             'object_id' => $row['object_id'],
             'object_type' => $row['object_type'],
             'e_metadata_definition_id' => $row['e_metadata_definition_id'],
+            'EModel' => $row['EModel'],
+            'EDataField' => $row['EDataField'],
         ]);
     }
 }

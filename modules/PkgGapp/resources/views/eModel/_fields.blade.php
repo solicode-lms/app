@@ -167,6 +167,14 @@
 
         <!--   ERelationship HasMany --> 
 
+        
+
+        <!--   ERelationship HasMany --> 
+
+        
+
+        <!--   EMetadatum HasManyPolymorphic --> 
+
     </div>
 
     <div class="card-footer">

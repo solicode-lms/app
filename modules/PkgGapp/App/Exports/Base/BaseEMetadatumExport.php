@@ -33,6 +33,8 @@ class BaseEMetadatumExport implements FromCollection, WithHeadings, ShouldAutoSi
             'object_id',
             'object_type',
             'e_metadata_definition_id',
+            'EModel',
+            'EDataField',
         ];
     }
 
@@ -48,6 +50,8 @@ class BaseEMetadatumExport implements FromCollection, WithHeadings, ShouldAutoSi
                 'object_id' => $eMetadatum->object_id,
                 'object_type' => $eMetadatum->object_type,
                 'e_metadata_definition_id' => $eMetadatum->e_metadata_definition_id,
+                'EModel' => $eMetadatum->EModel,
+                'EDataField' => $eMetadatum->EDataField,
             ];
         });
     }
