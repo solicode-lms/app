@@ -48,6 +48,8 @@ class BaseEPackage extends BaseModel
         return $this->hasMany(EModel::class, 'e_package_id', 'id');
     }
 
+
+
     /**
      * Méthode __toString pour représenter le modèle sous forme de chaîne.
      *

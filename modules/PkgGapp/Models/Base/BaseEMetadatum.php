@@ -33,7 +33,7 @@ class BaseEMetadatum extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'code', 'value_boolean', 'value_string', 'value_int', 'value_object', 'object_id', 'object_type', 'e_metadata_definition_id'
+        'code', 'value_boolean', 'value_string', 'value_int', 'value_object', 'object_id', 'object_type', 'e_metadata_definition_id', 'EModel', 'EDataField'
     ];
 
     /**
@@ -45,6 +45,8 @@ class BaseEMetadatum extends BaseModel
     {
         return $this->belongsTo(EMetadataDefinition::class, 'e_metadata_definition_id', 'id');
     }
+
+
 
 
 

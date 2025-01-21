@@ -117,6 +117,8 @@ class BaseEModelController extends AdminController
 
         // Utilisé dans l'édition des relation HasMany
         $this->contextState->set('eModel_id', $id);
+        $this->contextState->set('object_id', $id);
+        $this->contextState->set('object_type', "Modules\\PkgGapp\\Models\\EModel");
 
 
         if (request()->ajax()) {

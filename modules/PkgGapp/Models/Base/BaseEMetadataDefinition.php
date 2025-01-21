@@ -48,6 +48,8 @@ class BaseEMetadataDefinition extends BaseModel
         return $this->hasMany(EMetadatum::class, 'e_metadata_definition_id', 'id');
     }
 
+
+
     /**
      * Méthode __toString pour représenter le modèle sous forme de chaîne.
      *
