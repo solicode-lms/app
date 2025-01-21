@@ -102,8 +102,10 @@ class BaseEDataFieldController extends AdminController
         $eMetadata_filters = $eMetadatumService->getFieldsFilterable();
 
         // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('eDataField_id', $id);
         $this->contextState->set('object_id', $id);
         $this->contextState->set('object_type', "Modules\\PkgGapp\\Models\\EDataField");
+
 
         if (request()->ajax()) {
             return view('PkgGapp::eDataField._fields', compact('itemEDataField', 'eModels', 'eMetadata_data', 'eMetadata_stats', 'eMetadata_filters'));
