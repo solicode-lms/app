@@ -89,7 +89,7 @@
 
 /* Formulaire */
 
-/* .custom-form .form-group {
+.custom-form .form-group {
     margin-bottom: 0.5rem !important; 
 }
 
@@ -102,25 +102,25 @@
     padding: 0.4rem 0.5rem !important; 
     font-size: 0.9rem !important; 
     height: auto !important; 
-} */
+}
 
  
 
 
 /* Responsiveness */
-/* @media (max-width: 576px) {
+@media (max-width: 576px) {
     .modal-dialog {
         max-width: 95%; 
     }
     .modal-content {
         padding: 0.5rem;
     }
-} */
+}
 
 
 /* Rédsuction  */
 
-/* 
+
 .full-screen-modal {
     width: 100% !important; 
     max-width:55% !important; 
@@ -139,7 +139,7 @@
             flex: 1;
             overflow-y: auto; 
         }
- */
+
 
 /* Select2 */
 

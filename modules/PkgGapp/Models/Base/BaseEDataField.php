@@ -1,5 +1,4 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 namespace Modules\PkgGapp\Models\Base;
@@ -10,7 +9,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Modules\Core\Models\BaseModel;
+use Modules\PkgGapp\Models\EMetadatum;
 use Modules\PkgGapp\Models\EModel;
 
 /**
@@ -26,6 +27,10 @@ class BaseEDataField extends BaseModel
         $this->isOwnedByUser =  false;
     }
 
+    public function eMetadata(): MorphMany
+    {
+        return $this->morphMany(EMetadatum::class, 'object');
+    }
     
     /**
      * Les attributs remplissables pour le modèle.

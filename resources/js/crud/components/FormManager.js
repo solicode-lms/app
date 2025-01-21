@@ -66,7 +66,7 @@ export class FormManager {
 
         Object.keys(contextState).forEach((key) => {
             const selectElement = document.getElementById(key);
-            if (selectElement && selectElement.tagName === 'SELECT') {
+            if (selectElement) {
 
                 if(this.config.isDebug){
                     selectElement.parentElement.style.backgroundColor = 'lightblue';
