@@ -1,6 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-@section('role-form')
+@section('eMetadataDefinition-form')
 <form class="crud-form custom-form context-state" id="eMetadataDefinitionForm" action="{{ $itemEMetadataDefinition->id ? route('eMetadataDefinitions.update', $itemEMetadataDefinition->id) : route('eMetadataDefinitions.store') }}" method="POST" novalidate>
     @csrf
 

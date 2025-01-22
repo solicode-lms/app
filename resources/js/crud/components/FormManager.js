@@ -284,9 +284,9 @@ export class FormManager {
 
     static initializeSelect2() {
         // Initialise les éléments Select2
-        $(`.select2`).select2({
-            allowClear : true,
-        });
+        // $(`.select2`).select2({
+        //     allowClear : true,
+        // });
 
         // Initialise les éléments Select2 avec thème Bootstrap 4
         $(`.select2bs4`).select2({

@@ -1,6 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-@section('role-form')
+@section('eModel-form')
 <form class="crud-form custom-form context-state" id="eModelForm" action="{{ $itemEModel->id ? route('eModels.update', $itemEModel->id) : route('eModels.store') }}" method="POST" novalidate>
     @csrf
 

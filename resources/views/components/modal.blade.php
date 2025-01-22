@@ -1,4 +1,4 @@
-<div class="modal fade  crud-modal" id="{{ $id }}"   role="dialog" aria-labelledby="{{ $id }}Label" aria-hidden="true">
+<div class="modal fade  crud-modal" id="{{ $id }}"  role="dialog" aria-labelledby="{{ $id }}Label" aria-hidden="true">
     <div class="modal-dialog full-screen-modal  modal-md" role="document">
         <div class="modal-content">
 

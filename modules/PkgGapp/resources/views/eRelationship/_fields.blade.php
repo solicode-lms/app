@@ -1,6 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-@section('role-form')
+@section('eRelationship-form')
 <form class="crud-form custom-form context-state" id="eRelationshipForm" action="{{ $itemERelationship->id ? route('eRelationships.update', $itemERelationship->id) : route('eRelationships.store') }}" method="POST" novalidate>
     @csrf
 

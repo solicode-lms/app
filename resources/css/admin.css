@@ -143,10 +143,7 @@
 
 /* Select2 */
 
-.modal{
-    z-index: 100000 !important;
-}
-
+/* https://stackoverflow.com/questions/31620292/bootstrap-modal-with-select2-z-index */
 .select2-container--open {
     z-index: 9999999 !important;
 }

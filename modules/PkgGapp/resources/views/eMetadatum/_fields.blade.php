@@ -1,6 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-@section('role-form')
+@section('eMetadatum-form')
 <form class="crud-form custom-form context-state" id="eMetadatumForm" action="{{ $itemEMetadatum->id ? route('eMetadata.update', $itemEMetadatum->id) : route('eMetadata.store') }}" method="POST" novalidate>
     @csrf
 

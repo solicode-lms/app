@@ -1,6 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-@section('role-form')
+@section('ePackage-form')
 <form class="crud-form custom-form context-state" id="ePackageForm" action="{{ $itemEPackage->id ? route('ePackages.update', $itemEPackage->id) : route('ePackages.store') }}" method="POST" novalidate>
     @csrf
 
