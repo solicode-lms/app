@@ -23,6 +23,7 @@ class BaseEModelRequest extends FormRequest
             'icon' => 'nullable|max:255',
             'is_pivot_table' => 'required',
             'description' => 'nullable',
+            'e_package_code' => 'required|max:255',
             'e_package_id' => 'required'
         ];
     }
@@ -42,6 +43,8 @@ class BaseEModelRequest extends FormRequest
             'is_pivot_table.max' => __('validation.is_pivot_tableMax'),
             'description.required' => __('validation.required', ['attribute' => __('PkgGapp::EModel.description')]),
             'description.max' => __('validation.descriptionMax'),
+            'e_package_code.required' => __('validation.required', ['attribute' => __('PkgGapp::EModel.e_package_code')]),
+            'e_package_code.max' => __('validation.e_package_codeMax'),
             'e_package_id.required' => __('validation.required', ['attribute' => __('PkgGapp::EModel.e_package_id')]),
             'e_package_id.max' => __('validation.e_package_idMax')
         ];

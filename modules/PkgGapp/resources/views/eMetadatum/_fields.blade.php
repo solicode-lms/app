@@ -131,6 +131,27 @@
 
         
         <div class="form-group">
+            <label for="object_code">
+                {{ ucfirst(__('PkgGapp::eMetadatum.object_code')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <input
+                name="object_code"
+                type="input"
+                class="form-control"
+                required
+                id="object_code"
+                placeholder="{{ __('PkgGapp::eMetadatum.object_code') }}"
+                value="{{ $itemEMetadatum ? $itemEMetadatum->object_code : old('object_code') }}">
+            @error('object_code')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
+
+        
+        <div class="form-group">
             <label for="object_type">
                 {{ ucfirst(__('PkgGapp::eMetadatum.object_type')) }}
                 
@@ -146,6 +167,27 @@
                 placeholder="{{ __('PkgGapp::eMetadatum.object_type') }}"
                 value="{{ $itemEMetadatum ? $itemEMetadatum->object_type : old('object_type') }}">
             @error('object_type')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
+
+        
+        <div class="form-group">
+            <label for="e_metadata_definition_code">
+                {{ ucfirst(__('PkgGapp::eMetadatum.e_metadata_definition_code')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <input
+                name="e_metadata_definition_code"
+                type="input"
+                class="form-control"
+                required
+                id="e_metadata_definition_code"
+                placeholder="{{ __('PkgGapp::eMetadatum.e_metadata_definition_code') }}"
+                value="{{ $itemEMetadatum ? $itemEMetadatum->e_metadata_definition_code : old('e_metadata_definition_code') }}">
+            @error('e_metadata_definition_code')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>

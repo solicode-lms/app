@@ -51,14 +51,16 @@ class BaseERelationshipSeeder extends Seeder
                     "type" => $data[2] ,
                     "source_model_id" => $data[3] ,
                     "target_model_id" => $data[4] ,
-                    "cascade_on_delete" => $data[5] ,
-                    "is_cascade" => $data[6] ,
-                    "description" => $data[7] ,
-                    "column_name" => $data[8] ,
-                    "referenced_table" => $data[9] ,
-                    "referenced_column" => $data[10] ,
-                    "through" => $data[11] ,
-                    "with_column" => $data[12] 
+                    "source_model_code" => $data[5] ,
+                    "target_model_code" => $data[6] ,
+                    "cascade_on_delete" => $data[7] ,
+                    "is_cascade" => $data[8] ,
+                    "description" => $data[9] ,
+                    "column_name" => $data[10] ,
+                    "referenced_table" => $data[11] ,
+                    "referenced_column" => $data[12] ,
+                    "through" => $data[13] ,
+                    "with_column" => $data[14] 
                 ]);
             }
             $firstline = false;

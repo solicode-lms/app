@@ -55,7 +55,8 @@ class BaseEDataFieldSeeder extends Seeder
                     "db_unique" => $data[6] ,
                     "default_value" => $data[7] ,
                     "description" => $data[8] ,
-                    "e_model_id" => $data[9] 
+                    "e_model_code" => $data[9] ,
+                    "e_model_id" => $data[10] 
                 ]);
             }
             $firstline = false;

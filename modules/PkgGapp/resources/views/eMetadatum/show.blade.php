@@ -49,8 +49,16 @@
                                 <p>{{ $itemEMetadatum->object_id }}</p>
                             </div>
                             <div class="col-sm-12">
+                                <label for="object_code">{{ ucfirst(__('PkgGapp::eMetadatum.object_code')) }}:</label>
+                                <p>{{ $itemEMetadatum->object_code }}</p>
+                            </div>
+                            <div class="col-sm-12">
                                 <label for="object_type">{{ ucfirst(__('PkgGapp::eMetadatum.object_type')) }}:</label>
                                 <p>{{ $itemEMetadatum->object_type }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="e_metadata_definition_code">{{ ucfirst(__('PkgGapp::eMetadatum.e_metadata_definition_code')) }}:</label>
+                                <p>{{ $itemEMetadatum->e_metadata_definition_code }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="e_metadata_definition_id">{{ ucfirst(__('PkgGapp::eMetadatum.e_metadata_definition_id')) }}:</label>

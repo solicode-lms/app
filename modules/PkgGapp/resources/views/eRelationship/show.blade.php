@@ -45,6 +45,14 @@
                                 <p>{{ $itemERelationship->target_model_id }}</p>
                             </div>
                             <div class="col-sm-12">
+                                <label for="source_model_code">{{ ucfirst(__('PkgGapp::eRelationship.source_model_code')) }}:</label>
+                                <p>{{ $itemERelationship->source_model_code }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="target_model_code">{{ ucfirst(__('PkgGapp::eRelationship.target_model_code')) }}:</label>
+                                <p>{{ $itemERelationship->target_model_code }}</p>
+                            </div>
+                            <div class="col-sm-12">
                                 <label for="cascade_on_delete">{{ ucfirst(__('PkgGapp::eRelationship.cascade_on_delete')) }}:</label>
                                 <p>{{ $itemERelationship->cascade_on_delete }}</p>
                             </div>

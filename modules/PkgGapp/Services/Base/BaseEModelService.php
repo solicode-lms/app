@@ -25,6 +25,7 @@ class BaseEModelService extends BaseService
         'icon',
         'is_pivot_table',
         'description',
+        'e_package_code',
         'e_package_id'
     ];
 
@@ -47,6 +48,7 @@ class BaseEModelService extends BaseService
 
         // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
+            $this->generateManyToOneFilter(__("PkgGapp::ePackage.plural"), 'e_package_id', \Modules\PkgGapp\Models\EPackage::class, 'code'),
         ];
 
     }

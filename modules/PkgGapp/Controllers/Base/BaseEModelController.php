@@ -99,25 +99,25 @@ class BaseEModelController extends AdminController
         $itemEModel = $this->eModelService->find($id);
         $ePackages = $this->ePackageService->all();
         $eDataFieldService =  new EDataFieldService();
-
         $eDataFields_data =  $itemEModel->eDataFields()->paginate(10);
         $eDataFields_stats = $eDataFieldService->geteDataFieldStats();
         $eDataFields_filters = $eDataFieldService->getFieldsFilterable();
-        $eRelationshipService =  new ERelationshipService();
-
-        $eRelationships_data =  $itemEModel->eRelationships()->paginate(10);
-        $eRelationships_stats = $eRelationshipService->geteRelationshipStats();
-        $eRelationships_filters = $eRelationshipService->getFieldsFilterable();
-        $eRelationshipService =  new ERelationshipService();
-
-        $eRelationships_data =  $itemEModel->eRelationships()->paginate(10);
-        $eRelationships_stats = $eRelationshipService->geteRelationshipStats();
-        $eRelationships_filters = $eRelationshipService->getFieldsFilterable();
-        $eMetadatumService =  new EMetadatumService();
         
+        $eRelationshipService =  new ERelationshipService();
+        $eRelationships_data =  $itemEModel->eRelationships()->paginate(10);
+        $eRelationships_stats = $eRelationshipService->geteRelationshipStats();
+        $eRelationships_filters = $eRelationshipService->getFieldsFilterable();
+        
+        $eRelationshipService =  new ERelationshipService();
+        $eRelationships_data =  $itemEModel->eRelationships()->paginate(10);
+        $eRelationships_stats = $eRelationshipService->geteRelationshipStats();
+        $eRelationships_filters = $eRelationshipService->getFieldsFilterable();
+        
+        $eMetadatumService =  new EMetadatumService();
         $eMetadata_data =  $itemEModel->eMetadata()->paginate(10);
         $eMetadata_stats = $eMetadatumService->geteMetadatumStats();
         $eMetadata_filters = $eMetadatumService->getFieldsFilterable();
+        
 
         // Utilisé dans l'édition des relation HasMany
         $this->contextState->set('eModel_id', $id);

@@ -52,10 +52,12 @@ class BaseEMetadatumSeeder extends Seeder
                     "value_int" => $data[3] ,
                     "value_object" => $data[4] ,
                     "object_id" => $data[5] ,
-                    "object_type" => $data[6] ,
-                    "e_metadata_definition_id" => $data[7] ,
-                    "EModel" => $data[8] ,
-                    "EDataField" => $data[9] 
+                    "object_code" => $data[6] ,
+                    "object_type" => $data[7] ,
+                    "e_metadata_definition_code" => $data[8] ,
+                    "e_metadata_definition_id" => $data[9] ,
+                    "EModel" => $data[10] ,
+                    "EDataField" => $data[11] 
                 ]);
             }
             $firstline = false;

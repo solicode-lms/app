@@ -26,6 +26,7 @@ class BaseEDataFieldRequest extends FormRequest
             'db_unique' => 'required',
             'default_value' => 'nullable|max:255',
             'description' => 'nullable',
+            'e_model_code' => 'required|max:255',
             'e_model_id' => 'required'
         ];
     }
@@ -51,6 +52,8 @@ class BaseEDataFieldRequest extends FormRequest
             'default_value.max' => __('validation.default_valueMax'),
             'description.required' => __('validation.required', ['attribute' => __('PkgGapp::EDataField.description')]),
             'description.max' => __('validation.descriptionMax'),
+            'e_model_code.required' => __('validation.required', ['attribute' => __('PkgGapp::EDataField.e_model_code')]),
+            'e_model_code.max' => __('validation.e_model_codeMax'),
             'e_model_id.required' => __('validation.required', ['attribute' => __('PkgGapp::EDataField.e_model_id')]),
             'e_model_id.max' => __('validation.e_model_idMax')
         ];

@@ -34,6 +34,7 @@ class BaseEDataFieldExport implements FromCollection, WithHeadings, ShouldAutoSi
             'db_unique',
             'default_value',
             'description',
+            'e_model_code',
             'e_model_id',
         ];
     }
@@ -51,6 +52,7 @@ class BaseEDataFieldExport implements FromCollection, WithHeadings, ShouldAutoSi
                 'db_unique' => $eDataField->db_unique,
                 'default_value' => $eDataField->default_value,
                 'description' => $eDataField->description,
+                'e_model_code' => $eDataField->e_model_code,
                 'e_model_id' => $eDataField->e_model_id,
             ];
         });

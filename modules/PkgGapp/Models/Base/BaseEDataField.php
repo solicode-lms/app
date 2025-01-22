@@ -35,7 +35,7 @@ class BaseEDataField extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'code', 'name', 'column_name', 'data_type', 'db_nullable', 'db_primaryKey', 'db_unique', 'default_value', 'description', 'e_model_id'
+        'code', 'name', 'column_name', 'data_type', 'db_nullable', 'db_primaryKey', 'db_unique', 'default_value', 'description', 'e_model_code', 'e_model_id'
     ];
 
     /**

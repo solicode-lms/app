@@ -31,6 +31,7 @@ class BaseEModelExport implements FromCollection, WithHeadings, ShouldAutoSize, 
             'icon',
             'is_pivot_table',
             'description',
+            'e_package_code',
             'e_package_id',
         ];
     }
@@ -45,6 +46,7 @@ class BaseEModelExport implements FromCollection, WithHeadings, ShouldAutoSize, 
                 'icon' => $eModel->icon,
                 'is_pivot_table' => $eModel->is_pivot_table,
                 'description' => $eModel->description,
+                'e_package_code' => $eModel->e_package_code,
                 'e_package_id' => $eModel->e_package_id,
             ];
         });

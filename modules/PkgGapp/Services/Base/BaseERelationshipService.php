@@ -24,6 +24,8 @@ class BaseERelationshipService extends BaseService
         'type',
         'source_model_id',
         'target_model_id',
+        'source_model_code',
+        'target_model_code',
         'cascade_on_delete',
         'is_cascade',
         'description',
@@ -53,6 +55,8 @@ class BaseERelationshipService extends BaseService
 
         // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
+            $this->generateManyToOneFilter(__("PkgGapp::eModel.plural"), 'source_model_id', \Modules\PkgGapp\Models\EModel::class, 'code'),
+            $this->generateManyToOneFilter(__("PkgGapp::eModel.plural"), 'target_model_id', \Modules\PkgGapp\Models\EModel::class, 'code'),
         ];
 
     }

@@ -52,7 +52,8 @@ class BaseEModelSeeder extends Seeder
                     "icon" => $data[3] ,
                     "is_pivot_table" => $data[4] ,
                     "description" => $data[5] ,
-                    "e_package_id" => $data[6] 
+                    "e_package_code" => $data[6] ,
+                    "e_package_id" => $data[7] 
                 ]);
             }
             $firstline = false;

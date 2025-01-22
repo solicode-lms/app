@@ -94,6 +94,7 @@ class BaseEMetadataDefinitionController extends AdminController
         $eMetadata_data =  $itemEMetadataDefinition->eMetadata()->paginate(10);
         $eMetadata_stats = $eMetadatumService->geteMetadatumStats();
         $eMetadata_filters = $eMetadatumService->getFieldsFilterable();
+        
 
         // Utilisé dans l'édition des relation HasMany
         $this->contextState->set('eMetadataDefinition_id', $id);

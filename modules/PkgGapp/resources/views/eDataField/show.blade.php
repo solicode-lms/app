@@ -61,6 +61,10 @@
                                 <p>{{ $itemEDataField->description }}</p>
                             </div>
                             <div class="col-sm-12">
+                                <label for="e_model_code">{{ ucfirst(__('PkgGapp::eDataField.e_model_code')) }}:</label>
+                                <p>{{ $itemEDataField->e_model_code }}</p>
+                            </div>
+                            <div class="col-sm-12">
                                 <label for="e_model_id">{{ ucfirst(__('PkgGapp::eDataField.e_model_id')) }}:</label>
                                 <p>{{ $itemEDataField->e_model_id }}</p>
                             </div>

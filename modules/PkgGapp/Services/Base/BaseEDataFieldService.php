@@ -28,6 +28,7 @@ class BaseEDataFieldService extends BaseService
         'db_unique',
         'default_value',
         'description',
+        'e_model_code',
         'e_model_id'
     ];
 

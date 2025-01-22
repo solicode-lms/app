@@ -43,6 +43,8 @@ class BaseERelationshipImport implements ToModel, WithHeadingRow
             'type' => $row['type'],
             'source_model_id' => $row['source_model_id'],
             'target_model_id' => $row['target_model_id'],
+            'source_model_code' => $row['source_model_code'],
+            'target_model_code' => $row['target_model_code'],
             'cascade_on_delete' => $row['cascade_on_delete'],
             'is_cascade' => $row['is_cascade'],
             'description' => $row['description'],

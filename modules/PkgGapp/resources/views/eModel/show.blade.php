@@ -49,6 +49,10 @@
                                 <p>{{ $itemEModel->description }}</p>
                             </div>
                             <div class="col-sm-12">
+                                <label for="e_package_code">{{ ucfirst(__('PkgGapp::eModel.e_package_code')) }}:</label>
+                                <p>{{ $itemEModel->e_package_code }}</p>
+                            </div>
+                            <div class="col-sm-12">
                                 <label for="e_package_id">{{ ucfirst(__('PkgGapp::eModel.e_package_id')) }}:</label>
                                 <p>{{ $itemEModel->e_package_id }}</p>
                             </div>

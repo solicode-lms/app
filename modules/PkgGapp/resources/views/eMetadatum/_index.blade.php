@@ -70,7 +70,7 @@
                 @section('eMetadatum-crud-filters')
                 <div class="card-header">
                     <form id="eMetadatum-crud-filter-form" method="GET" class="row">
-                        <x-filter-group count="{{count($modules_filters ?? [])}}">
+                        <x-filter-group count="{{count($eMetadata_filters ?? [])}}">
                             <!-- Filtres spécifiques -->
                             @foreach ($eMetadata_filters as $filter)
                                 <x-filter-field 

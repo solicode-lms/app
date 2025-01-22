@@ -70,7 +70,7 @@
                 @section('ePackage-crud-filters')
                 <div class="card-header">
                     <form id="ePackage-crud-filter-form" method="GET" class="row">
-                        <x-filter-group count="{{count($modules_filters ?? [])}}">
+                        <x-filter-group count="{{count($ePackages_filters ?? [])}}">
                             <!-- Filtres spécifiques -->
                             @foreach ($ePackages_filters as $filter)
                                 <x-filter-field 

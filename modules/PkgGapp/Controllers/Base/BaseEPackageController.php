@@ -94,6 +94,7 @@ class BaseEPackageController extends AdminController
         $eModels_data =  $itemEPackage->eModels()->paginate(10);
         $eModels_stats = $eModelService->geteModelStats();
         $eModels_filters = $eModelService->getFieldsFilterable();
+        
 
         // Utilisé dans l'édition des relation HasMany
         $this->contextState->set('ePackage_id', $id);
