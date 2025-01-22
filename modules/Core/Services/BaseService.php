@@ -417,6 +417,21 @@ protected function generateManyToOneFilter(string $label, string $field, string 
     ];
 }
 
+protected function generatePolymorphicFilter(string $label, string $field, string $model, string $display_field): array
+{
+    $modelInstance = new $model();
+
+    return [
+        'label' => $label,
+        'field' => $field,
+        'type' => 'Polymorphic',
+        'options' => $model::all(['id', $display_field])
+            ->map(fn($item) => ['id' => $item['id'], 'label' => $item[$display_field]])
+            ->toArray(),
+        'sortable' => "{$modelInstance->getTable()}.{$display_field}", // Champ à utiliser pour le tri
+    ];
+}
+
 
 
 public function getFieldsFilterable(): array

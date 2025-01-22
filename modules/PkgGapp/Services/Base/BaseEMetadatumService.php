@@ -51,8 +51,11 @@ class BaseEMetadatumService extends BaseService
         // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
             $this->generateManyToOneFilter(__("PkgGapp::eMetadataDefinition.plural"), 'e_metadata_definition_id', \Modules\PkgGapp\Models\EMetadataDefinition::class, 'code'),
-            ['field' => 'EModel', 'type' => 'Polymorphic'],
-            ['field' => 'EDataField', 'type' => 'Polymorphic'],
+            $this->generatePolymorphicFilter(__("PkgGapp::EModel.plural"), 'object_id', \Modules\PkgGapp\Models\EModel::class, 'code'),
+            $this->generatePolymorphicFilter(__("PkgGapp::EDataField.plural"), 'object_id', \Modules\PkgGapp\Models\EDataField::class, 'code'),
+
+            // ['field' => 'EModel', 'type' => 'Polymorphic'],
+            // ['field' => 'EDataField', 'type' => 'Polymorphic'],
         ];
 
     }

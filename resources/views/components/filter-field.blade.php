@@ -26,5 +26,16 @@
                 @endforeach
             </select>
             @break
+        @case('Polymorphic')
+            <select name="{{ $field }}" class="form-select form-control form-control-sm">
+                <option value="">{{ $label }}</option>
+                @foreach ($options as $option)
+                    <option value="{{ $option['id'] }}" 
+                            {{ request($field) == $option['id'] ? 'selected' : '' }}>
+                        {{ $option['label'] }}
+                    </option>
+                @endforeach
+            </select>
+            @break
     @endswitch
 </div>
