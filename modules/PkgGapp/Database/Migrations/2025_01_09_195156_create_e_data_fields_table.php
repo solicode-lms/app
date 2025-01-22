@@ -24,6 +24,7 @@ return new class extends Migration
             $table->boolean('db_unique'); 
             $table->string('default_value')->nullable(); 
             $table->text('description')->nullable(); 
+            $table->string('e_model_code');
             $table->foreignId('e_model_id')->constrained('e_models')->onDelete('cascade'); // Relation avec IModel
             $table->timestamps(); 
         });

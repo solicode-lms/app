@@ -21,7 +21,9 @@ return new class extends Migration
             $table->integer('value_int')->nullable(); 
             $table->json('value_object')->nullable(); 
             $table->unsignedBigInteger('object_id'); // ID de l'objet lié (polymorphe)
+            $table->string('object_code');
             $table->string('object_type'); // Type de l'objet lié (polymorphe)
+            $table->string('e_metadata_definition_code');
             $table->foreignId('e_metadata_definition_id')->constrained('e_metadata_definitions')->onDelete('cascade'); // Relation avec MetadataType
             $table->timestamps(); // Colonnes created_at et updated_at
         });
