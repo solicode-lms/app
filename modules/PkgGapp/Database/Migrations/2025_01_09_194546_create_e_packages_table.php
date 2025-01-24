@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('e_packages', function (Blueprint $table) {
             $table->id();
-            $table->string('code')->unique();
+            $table->string('reference')->unique();
             $table->string('name'); // Nom du package
             $table->text('description')->nullable(); // Description facultative
             $table->timestamps(); // Colonnes created_at et updated_at

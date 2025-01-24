@@ -15,13 +15,11 @@ return new class extends Migration
     {
         Schema::create('e_relationships', function (Blueprint $table) {
             $table->id();
-            $table->string('code')->unique();
+            $table->string('reference')->unique();
             $table->string('name');
             $table->string('type'); 
             $table->foreignId('source_model_id')->constrained('e_models')->onDelete('cascade'); // Modèle source
             $table->foreignId('target_model_id')->constrained('e_models')->onDelete('cascade'); // Modèle cible
-            $table->string('source_model_code');
-            $table->string('target_model_code');
             $table->boolean('cascade_on_delete')->default(false); // Cascade sur suppression
             $table->boolean('is_cascade')->default(false); // Cascade sur suppression
             $table->text('description')->nullable(); // Description facultative

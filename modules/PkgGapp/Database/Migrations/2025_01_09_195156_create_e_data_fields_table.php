@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('e_data_fields', function (Blueprint $table) {
             $table->id(); 
-            $table->string('code')->unique();
+            $table->string('reference')->unique();
             $table->string('name'); 
             $table->string('column_name');
             $table->string('data_type'); 
@@ -24,7 +24,6 @@ return new class extends Migration
             $table->boolean('db_unique'); 
             $table->string('default_value')->nullable(); 
             $table->text('description')->nullable(); 
-            $table->string('e_model_code');
             $table->foreignId('e_model_id')->constrained('e_models')->onDelete('cascade'); // Relation avec IModel
             $table->timestamps(); 
         });
