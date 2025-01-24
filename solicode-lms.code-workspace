@@ -18,6 +18,9 @@
 		{
 			"path": "../modelisation/pkg_gapp"
 		},
+		{
+			"path": "../db_connaissances"
+		},
 	],
 	"settings": {
 		"liveServer.settings.multiRootWorkspaceName": "app",

@@ -1,4 +1,3 @@
-{{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @section('eMetadatum-form')
 <form class="crud-form custom-form context-state" id="eMetadatumForm" action="{{ $itemEMetadatum->id ? route('eMetadata.update', $itemEMetadatum->id) : route('eMetadata.store') }}" method="POST" novalidate>
@@ -28,7 +27,7 @@
             @error('code')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-</div>
+        </div>
 
         
         <div class="form-group">
@@ -47,7 +46,7 @@
             @error('value_boolean')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-</div>
+        </div>
 
         
         <div class="form-group">
@@ -66,7 +65,7 @@
             @error('value_string')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-</div>
+        </div>
 
         
         <div class="form-group">
@@ -85,30 +84,27 @@
             @error('value_int')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-</div>
+        </div>
 
         
         <div class="form-group">
-    <label for="value_object">
-        {{ ucfirst(__('PkgGapp::eMetadatum.value_object')) }}
-        
-    </label>
-    <textarea
-        name="value_object"
-        class="form-control"
-        id="value_object"
-        placeholder="{{ __('PkgGapp::eMetadatum.value_object') }}"
-        >
-        {{ $itemEMetadatum && $itemEMetadatum->value_object ? json_encode($itemEMetadatum->value_object, JSON_PRETTY_PRINT) : old('value_object') }}
-    </textarea>
-    @error('value_object')
-        <div class="text-danger">{{ $message }}</div>
-    @enderror
-</div>
-
-
-
-        
+            <label for="value_object">
+                {{ ucfirst(__('PkgGapp::eMetadatum.value_object')) }}
+                
+            </label>
+            <textarea
+                name="value_object"
+                class="form-control"
+                id="value_object"
+                placeholder="{{ __('PkgGapp::eMetadatum.value_object') }}"
+                >
+                {{ $itemEMetadatum && $itemEMetadatum->value_object ? json_encode($itemEMetadatum->value_object, JSON_PRETTY_PRINT) : old('value_object') }}
+            </textarea>
+            @error('value_object')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+        </div>
+    
         <div class="form-group">
             <label for="object_id">
                 {{ ucfirst(__('PkgGapp::eMetadatum.object_id')) }}
@@ -127,30 +123,8 @@
             @error('object_id')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-</div>
+        </div>
 
-        
-        <div class="form-group">
-            <label for="object_code">
-                {{ ucfirst(__('PkgGapp::eMetadatum.object_code')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
-                name="object_code"
-                type="input"
-                class="form-control"
-                required
-                id="object_code"
-                placeholder="{{ __('PkgGapp::eMetadatum.object_code') }}"
-                value="{{ $itemEMetadatum ? $itemEMetadatum->object_code : old('object_code') }}">
-            @error('object_code')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
-
-        
         <div class="form-group">
             <label for="object_type">
                 {{ ucfirst(__('PkgGapp::eMetadatum.object_type')) }}
@@ -169,65 +143,33 @@
             @error('object_type')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-</div>
+        </div>
 
         
         <div class="form-group">
-            <label for="e_metadata_definition_code">
-                {{ ucfirst(__('PkgGapp::eMetadatum.e_metadata_definition_code')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
-                name="e_metadata_definition_code"
-                type="input"
-                class="form-control"
+                <label for="e_metadata_definition_id">
+                    {{ ucfirst(__('PkgGapp::eMetadataDefinition.singular')) }}
+                    
+                        <span class="text-danger">*</span>
+                </label>
+                <select 
+                id="e_metadata_definition_id" 
                 required
-                id="e_metadata_definition_code"
-                placeholder="{{ __('PkgGapp::eMetadatum.e_metadata_definition_code') }}"
-                value="{{ $itemEMetadatum ? $itemEMetadatum->e_metadata_definition_code : old('e_metadata_definition_code') }}">
-            @error('e_metadata_definition_code')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
-
-        
-        
-    <div class="form-group">
-            <label for="e_metadata_definition_id">
-                {{ ucfirst(__('PkgGapp::eMetadataDefinition.singular')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <select 
-            id="e_metadata_definition_id" 
-            required
-            name="e_metadata_definition_id" 
-            class="form-control select2">
-             <option value="">Sélectionnez une option</option>
-                @foreach ($eMetadataDefinitions as $eMetadataDefinition)
-                    <option value="{{ $eMetadataDefinition->id }}"
-                        {{ (isset($itemEMetadatum) && $itemEMetadatum->e_metadata_definition_id == $eMetadataDefinition->id) || (old('e_metadata_definition_id>') == $eMetadataDefinition->id) ? 'selected' : '' }}>
-                        {{ $eMetadataDefinition }}
-                    </option>
-                @endforeach
-            </select>
-            @error('e_metadata_definition_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
-
-
-        
-
-        <!--   EModel Polymorphic --> 
-
-        
-
-        <!--   EDataField Polymorphic --> 
-
+                name="e_metadata_definition_id" 
+                onchange="DynamicFieldVisibility(this.value)"
+                class="form-control select2">
+                <option value="">Sélectionnez une option</option>
+                    @foreach ($eMetadataDefinitions as $eMetadataDefinition)
+                        <option value="{{ $eMetadataDefinition->id }}"
+                            {{ (isset($itemEMetadatum) && $itemEMetadatum->e_metadata_definition_id == $eMetadataDefinition->id) || (old('e_metadata_definition_id>') == $eMetadataDefinition->id) ? 'selected' : '' }}>
+                            {{ $eMetadataDefinition }}
+                        </option>
+                    @endforeach
+                </select>
+                @error('e_metadata_definition_id')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+        </div>
     </div>
 
     <div class="card-footer">
@@ -238,3 +180,30 @@
 @show
 
 
+ 
+<script>
+    window.dynamicFieldVisibilityTreatments = window.dynamicFieldVisibilityTreatments || [];
+
+    // Définir les champs à afficher/masquer et les correspondances dans une seule structure
+    const fieldMappings = [
+        { type: 'String', fieldId: 'value_string' },
+        { type: 'Boolean', fieldId: 'value_boolean' },
+        { type: 'Integer', fieldId: 'value_int' },
+        { type: 'Object', fieldId: 'value_object' },
+        { type: 'Float', fieldId: 'value_float' },
+        { type: 'Date', fieldId: 'value_date' },
+        { type: 'Datetime', fieldId: 'value_datetime' },
+        { type: 'Enum', fieldId: 'value_enum' },
+        { type: 'Json', fieldId: 'value_json' },
+        { type: 'Text', fieldId: 'value_text' }
+    ];
+
+    // Ajouter une configuration générique pour l'entité
+    window.dynamicFieldVisibilityTreatments.push({
+        dataDefinitions: @json($eMetadataDefinitions), // Les données associées
+        targetDropdownId: 'e_metadata_definition_id', // L'ID du dropdown cible
+        fieldMappings: fieldMappings, // Structure unique pour gérer les types et champs
+        typeField: 'type' // Le champ utilisé pour déterminer le type
+    });
+</script>
+ 

@@ -10,8 +10,8 @@ class EMetadatumService extends BaseEMetadatumService
 {
     public function create(array $data)
     {
-        $objet = $data->object;
-        $data->code = $objet.name . 
+        // $objet = $data->object;
+        // $data->code = $objet.name . 
         return parent::create($data);
     }
    

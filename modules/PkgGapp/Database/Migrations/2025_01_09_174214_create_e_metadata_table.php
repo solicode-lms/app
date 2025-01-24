@@ -15,13 +15,20 @@ return new class extends Migration
     {
         Schema::create('e_metadata', function (Blueprint $table) {
             $table->id();
-            $table->string('code')->unique();
+            $table->string('reference')->unique();
+
+            // Types supplémentaires ajoutés
             $table->boolean('value_boolean')->nullable(); 
             $table->string('value_string')->nullable(); 
-            $table->integer('value_int')->nullable(); 
-            $table->json('value_object')->nullable(); 
+            $table->integer('value_integer')->nullable(); 
+            $table->float('value_float')->nullable(); // Nombre décimal
+            $table->date('value_date')->nullable(); // Date
+            $table->dateTime('value_datetime')->nullable(); // Date et heure
+            $table->string('value_enum')->nullable(); // Enumération
+            $table->json('value_json')->nullable(); // Données JSON
+            $table->text('value_text')->nullable(); // Texte long
+
             $table->unsignedBigInteger('object_id'); // ID de l'objet lié (polymorphe)
-            $table->string('object_code');
             $table->string('object_type'); // Type de l'objet lié (polymorphe)
             $table->string('e_metadata_definition_code');
             $table->foreignId('e_metadata_definition_id')->constrained('e_metadata_definitions')->onDelete('cascade'); // Relation avec MetadataType

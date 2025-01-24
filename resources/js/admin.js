@@ -28,6 +28,7 @@ import { FormManager } from './crud/components/FormManager';
 import { ContexteStateEventHandler } from './crud/eventsHandler/ContexteStateEventHandler';
 import { ContextStateService } from './crud/components/ContextStateService';
 import { EditWithHasManyManager } from './crud/EditWithHasManyManager';
+import DynamicFieldVisibilityTreatment from './crud/treatments/form/DynamicFieldVisibilityTreatment';
 
 // Init CrudManagers in the page
 document.addEventListener("DOMContentLoaded", function () {
@@ -66,6 +67,14 @@ document.addEventListener("DOMContentLoaded", function () {
     FormManager.initializeSelect2();
     FormManager.initializeRichText();
     FormManager.initializeDate();
+
+
+    // if(window.dynamicFieldVisibilityTreatments){
+    //     new DynamicFieldVisibilityTreatment(window.dynamicFieldVisibilityTreatments)
+    //     .initialize();
+    // }
+
+ 
 });
 
 

@@ -1,5 +1,6 @@
 import { LoadingIndicator } from "./LoadingIndicator";
 import { ContextStateService } from './ContextStateService';
+import DynamicFieldVisibilityTreatment from "../treatments/form/DynamicFieldVisibilityTreatment";
 
 export class FormManager {
     /**
@@ -29,7 +30,10 @@ export class FormManager {
         FormManager.initializeRichText();
         FormManager.initializeDate();
       
-        
+        if(window.dynamicFieldVisibilityTreatments){
+            new DynamicFieldVisibilityTreatment(window.dynamicFieldVisibilityTreatments)
+            .initialize();
+        }
 
     }
 
