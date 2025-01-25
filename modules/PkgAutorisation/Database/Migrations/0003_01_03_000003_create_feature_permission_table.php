@@ -18,7 +18,6 @@ return new class extends Migration
             $table->id(); // Clé primaire
             $table->foreignId('feature_id')->constrained('features')->onDelete('cascade'); // Clé étrangère vers features
             $table->foreignId('permission_id')->constrained('permissions')->onDelete('cascade'); // Clé étrangère vers permissions
-            $table->string('reference')->unique();
             $table->timestamps(); // created_at et updated_at
         });
     }

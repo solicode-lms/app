@@ -4,11 +4,15 @@
 
 
 namespace Modules\PkgAutorisation\Models;
+
+use App\Traits\HasReference;
 use Spatie\Permission\Models\Role as ModelsRole;
 
 class Role extends ModelsRole
 {
 
+    use HasReference;
+    
     public const FORMATEUR_ROLE = "formateur";
     public function __toString()
     {

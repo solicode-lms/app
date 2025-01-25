@@ -2,16 +2,18 @@
 
 namespace Modules\PkgAutorisation\Models;
 
+use App\Traits\HasReference;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Modules\PkgUtilisateurs\Models\Formateur;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Support\Str;
 
 class User extends Authenticatable
 {
 
-    use HasFactory, Notifiable, HasRoles;
+    use HasFactory, Notifiable, HasRoles, HasReference;
 
     public const ADMIN = "admin";
     public const MEMBRE = "membre";
@@ -27,6 +29,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'reference',
     ];
 
     /**
@@ -79,4 +82,6 @@ class User extends Authenticatable
     // {
     //     return $this->belongsToMany(Role::class, 'model_has_roles');
     // }
+
+
 }

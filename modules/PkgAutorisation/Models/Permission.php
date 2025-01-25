@@ -4,6 +4,7 @@
 
 namespace Modules\PkgAutorisation\Models;
 
+use App\Traits\HasReference;
 use Modules\Core\Models\Feature;
 use Modules\Core\Models\SysController;
 use Spatie\Permission\Models\Permission as ModelsPermission;
@@ -11,6 +12,8 @@ use Spatie\Permission\Models\Permission as ModelsPermission;
 class Permission extends ModelsPermission
 {
 
+    use HasReference;
+    
     public function sysController()
     {
         return $this->belongsTo(SysController::class, 'controller_id', 'id');
