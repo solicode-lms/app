@@ -17,7 +17,7 @@ class BaseEPackageRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'reference' => 'required|max:255',
+            'reference' => 'nullable|max:255',
             'name' => 'required|max:255',
             'description' => 'nullable'
         ];

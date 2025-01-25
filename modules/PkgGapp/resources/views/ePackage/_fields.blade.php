@@ -14,14 +14,12 @@
             <label for="reference">
                 {{ ucfirst(__('PkgGapp::ePackage.reference')) }}
                 
-                    <span class="text-danger">*</span>
-                
             </label>
             <input
                 name="reference"
                 type="input"
                 class="form-control"
-                required
+                
                 id="reference"
                 placeholder="{{ __('PkgGapp::ePackage.reference') }}"
                 value="{{ $itemEPackage ? $itemEPackage->reference : old('reference') }}">
