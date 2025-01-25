@@ -63,6 +63,6 @@ class BaseEDataField extends BaseModel
      */
     public function __toString()
     {
-        return $this->reference;
+        return $this->name;
     }
 }

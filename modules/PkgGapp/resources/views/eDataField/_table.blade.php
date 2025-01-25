@@ -15,7 +15,7 @@
                 <tr>
                     <td>@limit($eDataField->reference, 80)</td>
                     <td>@limit($eDataField->name, 80)</td>
-                    <td>@limit($eDataField->eModel->reference ?? '-', 80)</td>
+                    <td>@limit($eDataField->eModel->name ?? '-', 80)</td>
                     <td class="text-right">
                         @can('show-eDataField')
                             <a href="{{ route('eDataFields.show', ['eDataField' => $eDataField->id]) }}" data-id="{{$eDataField->id}}" class="btn btn-default btn-sm context-state showEntity">

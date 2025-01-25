@@ -16,8 +16,8 @@
                 <tr>
                     <td>@limit($eRelationship->reference, 80)</td>
                     <td>@limit($eRelationship->name, 80)</td>
-                    <td>@limit($eRelationship->eModel->reference ?? '-', 80)</td>
-                    <td>@limit($eRelationship->eModel->reference ?? '-', 80)</td>
+                    <td>@limit($eRelationship->eModel->name ?? '-', 80)</td>
+                    <td>@limit($eRelationship->eModel->name ?? '-', 80)</td>
                     <td class="text-right">
                         @can('show-eRelationship')
                             <a href="{{ route('eRelationships.show', ['eRelationship' => $eRelationship->id]) }}" data-id="{{$eRelationship->id}}" class="btn btn-default btn-sm context-state showEntity">

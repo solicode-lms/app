@@ -52,8 +52,8 @@ class BaseERelationshipService extends BaseService
 
         // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
-            $this->generateManyToOneFilter(__("PkgGapp::eModel.plural"), 'source_model_id', \Modules\PkgGapp\Models\EModel::class, 'reference'),
-            $this->generateManyToOneFilter(__("PkgGapp::eModel.plural"), 'target_model_id', \Modules\PkgGapp\Models\EModel::class, 'reference'),
+            $this->generateManyToOneFilter(__("PkgGapp::eModel.plural"), 'source_model_id', \Modules\PkgGapp\Models\EModel::class, 'name'),
+            $this->generateManyToOneFilter(__("PkgGapp::eModel.plural"), 'target_model_id', \Modules\PkgGapp\Models\EModel::class, 'name'),
         ];
 
     }
