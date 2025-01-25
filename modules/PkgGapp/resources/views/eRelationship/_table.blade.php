@@ -4,7 +4,6 @@
     <table class="table table-striped text-nowrap">
         <thead>
             <tr>
-                <x-sortable-column field="reference" label="{{ ucfirst(__('PkgGapp::eRelationship.reference')) }}" />
                 <x-sortable-column field="name" label="{{ ucfirst(__('PkgGapp::eRelationship.name')) }}" />
                 <x-sortable-column field="source_model_id" label="{{ ucfirst(__('PkgGapp::eModel.singular')) }}" />
                 <x-sortable-column field="target_model_id" label="{{ ucfirst(__('PkgGapp::eModel.singular')) }}" />
@@ -14,7 +13,6 @@
         <tbody>
             @foreach ($eRelationships_data as $eRelationship)
                 <tr>
-                    <td>@limit($eRelationship->reference, 80)</td>
                     <td>@limit($eRelationship->name, 80)</td>
                     <td>@limit($eRelationship->eModel->name ?? '-', 80)</td>
                     <td>@limit($eRelationship->eModel->name ?? '-', 80)</td>

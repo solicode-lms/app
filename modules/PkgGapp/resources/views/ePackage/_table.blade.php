@@ -4,7 +4,6 @@
     <table class="table table-striped text-nowrap">
         <thead>
             <tr>
-                <x-sortable-column field="reference" label="{{ ucfirst(__('PkgGapp::ePackage.reference')) }}" />
                 <x-sortable-column field="name" label="{{ ucfirst(__('PkgGapp::ePackage.name')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
@@ -12,7 +11,6 @@
         <tbody>
             @foreach ($ePackages_data as $ePackage)
                 <tr>
-                    <td>@limit($ePackage->reference, 80)</td>
                     <td>@limit($ePackage->name, 80)</td>
                     <td class="text-right">
                         @can('show-ePackage')

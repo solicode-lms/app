@@ -4,7 +4,6 @@
     <table class="table table-striped text-nowrap">
         <thead>
             <tr>
-                <x-sortable-column field="reference" label="{{ ucfirst(__('PkgGapp::eMetadataDefinition.reference')) }}" />
                 <x-sortable-column field="name" label="{{ ucfirst(__('PkgGapp::eMetadataDefinition.name')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
@@ -12,7 +11,6 @@
         <tbody>
             @foreach ($eMetadataDefinitions_data as $eMetadataDefinition)
                 <tr>
-                    <td>@limit($eMetadataDefinition->reference, 80)</td>
                     <td>@limit($eMetadataDefinition->name, 80)</td>
                     <td class="text-right">
                         @can('show-eMetadataDefinition')

@@ -4,7 +4,6 @@
     <table class="table table-striped text-nowrap">
         <thead>
             <tr>
-                <x-sortable-column field="reference" label="{{ ucfirst(__('PkgGapp::eDataField.reference')) }}" />
                 <x-sortable-column field="name" label="{{ ucfirst(__('PkgGapp::eDataField.name')) }}" />
                 <x-sortable-column field="e_model_id" label="{{ ucfirst(__('PkgGapp::eModel.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
@@ -13,7 +12,6 @@
         <tbody>
             @foreach ($eDataFields_data as $eDataField)
                 <tr>
-                    <td>@limit($eDataField->reference, 80)</td>
                     <td>@limit($eDataField->name, 80)</td>
                     <td>@limit($eDataField->eModel->name ?? '-', 80)</td>
                     <td class="text-right">
