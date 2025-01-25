@@ -57,7 +57,7 @@ class SysModelSeeder extends Seeder
                         [
                             'name' => class_basename($className),
                             'description' => "Automatically added for model $className",
-                            'module_id' => $this->getModuleIdForModel($className), // Vous pouvez définir une logique pour le module_id.
+                            'sys_module_id' =>$this->getModuleIdForModel($className), // Vous pouvez définir une logique pour le module_id.
                         ]
                     );
                 }
@@ -160,7 +160,7 @@ class SysModelSeeder extends Seeder
             [
                 'slug' => Str::slug($controllerName),
                 'description' => "Controller for $domainName",
-                'module_id' => $sysModule->id,
+                'sys_module_id' => $sysModule->id,
             ]
         );
 
@@ -170,7 +170,7 @@ class SysModelSeeder extends Seeder
             [
                 'name' => $domainName,
                 'description' => "Gestion des $domainName",
-                'module_id' => $sysModule->id, // ID dynamique du module
+                'sys_module_id' => $sysModule->id, // ID dynamique du module
                 
             ]
         );

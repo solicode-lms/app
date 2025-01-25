@@ -89,7 +89,7 @@ class BaseResourceSeeder extends Seeder
             [
                 'slug' => Str::slug($controllerName),
                 'description' => "Controller for $domainName",
-                'module_id' => $sysModule->id,
+                'sys_module_id' => $sysModule->id,
             ]
         );
 
@@ -99,7 +99,7 @@ class BaseResourceSeeder extends Seeder
             [
                 'name' => $domainName,
                 'description' => "Gestion des $domainName",
-                'module_id' => $sysModule->id, // ID dynamique du module
+                'sys_module_id' => $sysModule->id, // ID dynamique du module
                 
             ]
         );
