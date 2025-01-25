@@ -33,7 +33,7 @@ class BaseEPackage extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'reference', 'name', 'description'
+        'name', 'description'
     ];
 
 

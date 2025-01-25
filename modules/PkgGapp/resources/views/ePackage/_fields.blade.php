@@ -11,25 +11,6 @@
     <div class="card-body">
         
         <div class="form-group">
-            <label for="reference">
-                {{ ucfirst(__('PkgGapp::ePackage.reference')) }}
-                
-            </label>
-            <input
-                name="reference"
-                type="input"
-                class="form-control"
-                
-                id="reference"
-                placeholder="{{ __('PkgGapp::ePackage.reference') }}"
-                value="{{ $itemEPackage ? $itemEPackage->reference : old('reference') }}">
-            @error('reference')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
-
-        
-        <div class="form-group">
             <label for="name">
                 {{ ucfirst(__('PkgGapp::ePackage.name')) }}
                 
