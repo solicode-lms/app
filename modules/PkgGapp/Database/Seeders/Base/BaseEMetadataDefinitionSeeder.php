@@ -46,13 +46,12 @@ class BaseEMetadataDefinitionSeeder extends Seeder
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
                 EMetadataDefinition::create([
-                    "code" => $data[0] ,
-                    "name" => $data[1] ,
-                    "groupe" => $data[2] ,
-                    "type" => $data[3] ,
-                    "scope" => $data[4] ,
-                    "description" => $data[5] ,
-                    "default_value" => $data[6] 
+                    "name" => $data[0] ,
+                    "groupe" => $data[1] ,
+                    "type" => $data[2] ,
+                    "scope" => $data[3] ,
+                    "description" => $data[4] ,
+                    "default_value" => $data[5] 
                 ]);
             }
             $firstline = false;

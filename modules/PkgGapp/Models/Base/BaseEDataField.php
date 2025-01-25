@@ -35,7 +35,7 @@ class BaseEDataField extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'code', 'name', 'column_name', 'data_type', 'db_nullable', 'db_primaryKey', 'db_unique', 'default_value', 'description', 'e_model_code', 'e_model_id'
+        'name', 'column_name', 'data_type', 'db_nullable', 'db_primaryKey', 'db_unique', 'default_value', 'description', 'e_model_id'
     ];
 
     /**
@@ -63,6 +63,6 @@ class BaseEDataField extends BaseModel
      */
     public function __toString()
     {
-        return $this->code;
+        return $this->reference;
     }
 }

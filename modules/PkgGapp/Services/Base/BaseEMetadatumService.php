@@ -19,15 +19,17 @@ class BaseEMetadatumService extends BaseService
      * @var array
      */
     protected $fieldsSearchable = [
-        'code',
         'value_boolean',
         'value_string',
-        'value_int',
-        'value_object',
+        'value_integer',
+        'value_float',
+        'value_date',
+        'value_datetime',
+        'value_enum',
+        'value_json',
+        'value_text',
         'object_id',
-        'object_code',
         'object_type',
-        'e_metadata_definition_code',
         'e_metadata_definition_id'
     ];
 
@@ -50,9 +52,9 @@ class BaseEMetadatumService extends BaseService
 
         // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
-            $this->generateManyToOneFilter(__("PkgGapp::eMetadataDefinition.plural"), 'e_metadata_definition_id', \Modules\PkgGapp\Models\EMetadataDefinition::class, 'code'),
-            $this->generatePolymorphicFilter(__("PkgGapp::eModel.plural"), 'object_id', \Modules\PkgGapp\Models\EModel::class, 'code'),
-            $this->generatePolymorphicFilter(__("PkgGapp::eDataField.plural"), 'object_id', \Modules\PkgGapp\Models\EDataField::class, 'code'),
+            $this->generateManyToOneFilter(__("PkgGapp::eMetadataDefinition.plural"), 'e_metadata_definition_id', \Modules\PkgGapp\Models\EMetadataDefinition::class, 'reference'),
+            $this->generatePolymorphicFilter(__("PkgGapp::eModel.plural"), 'object_id', \Modules\PkgGapp\Models\EModel::class, 'reference'),
+            $this->generatePolymorphicFilter(__("PkgGapp::eDataField.plural"), 'object_id', \Modules\PkgGapp\Models\EDataField::class, 'reference'),
         ];
 
     }

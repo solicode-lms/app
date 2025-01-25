@@ -11,27 +11,6 @@
     <div class="card-body">
         
         <div class="form-group">
-            <label for="code">
-                {{ ucfirst(__('PkgGapp::eRelationship.code')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
-                name="code"
-                type="input"
-                class="form-control"
-                required
-                id="code"
-                placeholder="{{ __('PkgGapp::eRelationship.code') }}"
-                value="{{ $itemERelationship ? $itemERelationship->code : old('code') }}">
-            @error('code')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
-
-        
-        <div class="form-group">
             <label for="name">
                 {{ ucfirst(__('PkgGapp::eRelationship.name')) }}
                 
@@ -127,48 +106,6 @@
             @enderror
     </div>
 
-
-        
-        <div class="form-group">
-            <label for="source_model_code">
-                {{ ucfirst(__('PkgGapp::eRelationship.source_model_code')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
-                name="source_model_code"
-                type="input"
-                class="form-control"
-                required
-                id="source_model_code"
-                placeholder="{{ __('PkgGapp::eRelationship.source_model_code') }}"
-                value="{{ $itemERelationship ? $itemERelationship->source_model_code : old('source_model_code') }}">
-            @error('source_model_code')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
-
-        
-        <div class="form-group">
-            <label for="target_model_code">
-                {{ ucfirst(__('PkgGapp::eRelationship.target_model_code')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
-                name="target_model_code"
-                type="input"
-                class="form-control"
-                required
-                id="target_model_code"
-                placeholder="{{ __('PkgGapp::eRelationship.target_model_code') }}"
-                value="{{ $itemERelationship ? $itemERelationship->target_model_code : old('target_model_code') }}">
-            @error('target_model_code')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
 
         
         <div class="form-group">

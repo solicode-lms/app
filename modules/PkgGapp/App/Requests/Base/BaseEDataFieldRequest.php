@@ -17,7 +17,6 @@ class BaseEDataFieldRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'code' => 'required|max:255',
             'name' => 'required|max:255',
             'column_name' => 'required|max:255',
             'data_type' => 'required|max:255',
@@ -26,7 +25,6 @@ class BaseEDataFieldRequest extends FormRequest
             'db_unique' => 'required',
             'default_value' => 'nullable|max:255',
             'description' => 'nullable',
-            'e_model_code' => 'required|max:255',
             'e_model_id' => 'required'
         ];
     }
@@ -34,8 +32,6 @@ class BaseEDataFieldRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'code.required' => __('validation.required', ['attribute' => __('PkgGapp::EDataField.code')]),
-            'code.max' => __('validation.codeMax'),
             'name.required' => __('validation.required', ['attribute' => __('PkgGapp::EDataField.name')]),
             'name.max' => __('validation.nameMax'),
             'column_name.required' => __('validation.required', ['attribute' => __('PkgGapp::EDataField.column_name')]),
@@ -52,8 +48,6 @@ class BaseEDataFieldRequest extends FormRequest
             'default_value.max' => __('validation.default_valueMax'),
             'description.required' => __('validation.required', ['attribute' => __('PkgGapp::EDataField.description')]),
             'description.max' => __('validation.descriptionMax'),
-            'e_model_code.required' => __('validation.required', ['attribute' => __('PkgGapp::EDataField.e_model_code')]),
-            'e_model_code.max' => __('validation.e_model_codeMax'),
             'e_model_id.required' => __('validation.required', ['attribute' => __('PkgGapp::EDataField.e_model_id')]),
             'e_model_id.max' => __('validation.e_model_idMax')
         ];

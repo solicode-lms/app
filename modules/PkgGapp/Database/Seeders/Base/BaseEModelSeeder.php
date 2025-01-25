@@ -46,14 +46,12 @@ class BaseEModelSeeder extends Seeder
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
                 EModel::create([
-                    "code" => $data[0] ,
-                    "name" => $data[1] ,
-                    "table_name" => $data[2] ,
-                    "icon" => $data[3] ,
-                    "is_pivot_table" => $data[4] ,
-                    "description" => $data[5] ,
-                    "e_package_code" => $data[6] ,
-                    "e_package_id" => $data[7] 
+                    "name" => $data[0] ,
+                    "table_name" => $data[1] ,
+                    "icon" => $data[2] ,
+                    "is_pivot_table" => $data[3] ,
+                    "description" => $data[4] ,
+                    "e_package_id" => $data[5] 
                 ]);
             }
             $firstline = false;

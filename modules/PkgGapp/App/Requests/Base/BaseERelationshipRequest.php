@@ -17,13 +17,10 @@ class BaseERelationshipRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'code' => 'required|max:255',
             'name' => 'required|max:255',
             'type' => 'required|max:255',
             'source_model_id' => 'required',
             'target_model_id' => 'required',
-            'source_model_code' => 'required|max:255',
-            'target_model_code' => 'required|max:255',
             'cascade_on_delete' => 'required',
             'is_cascade' => 'required',
             'description' => 'nullable',
@@ -38,8 +35,6 @@ class BaseERelationshipRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'code.required' => __('validation.required', ['attribute' => __('PkgGapp::ERelationship.code')]),
-            'code.max' => __('validation.codeMax'),
             'name.required' => __('validation.required', ['attribute' => __('PkgGapp::ERelationship.name')]),
             'name.max' => __('validation.nameMax'),
             'type.required' => __('validation.required', ['attribute' => __('PkgGapp::ERelationship.type')]),
@@ -48,10 +43,6 @@ class BaseERelationshipRequest extends FormRequest
             'source_model_id.max' => __('validation.source_model_idMax'),
             'target_model_id.required' => __('validation.required', ['attribute' => __('PkgGapp::ERelationship.target_model_id')]),
             'target_model_id.max' => __('validation.target_model_idMax'),
-            'source_model_code.required' => __('validation.required', ['attribute' => __('PkgGapp::ERelationship.source_model_code')]),
-            'source_model_code.max' => __('validation.source_model_codeMax'),
-            'target_model_code.required' => __('validation.required', ['attribute' => __('PkgGapp::ERelationship.target_model_code')]),
-            'target_model_code.max' => __('validation.target_model_codeMax'),
             'cascade_on_delete.required' => __('validation.required', ['attribute' => __('PkgGapp::ERelationship.cascade_on_delete')]),
             'cascade_on_delete.max' => __('validation.cascade_on_deleteMax'),
             'is_cascade.required' => __('validation.required', ['attribute' => __('PkgGapp::ERelationship.is_cascade')]),

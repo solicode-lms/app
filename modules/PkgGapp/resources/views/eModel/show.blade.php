@@ -25,10 +25,6 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="col-sm-12">
-                                <label for="code">{{ ucfirst(__('PkgGapp::eModel.code')) }}:</label>
-                                <p>{{ $itemEModel->code }}</p>
-                            </div>
-                            <div class="col-sm-12">
                                 <label for="name">{{ ucfirst(__('PkgGapp::eModel.name')) }}:</label>
                                 <p>{{ $itemEModel->name }}</p>
                             </div>
@@ -47,10 +43,6 @@
                             <div class="col-sm-12">
                                 <label for="description">{{ ucfirst(__('PkgGapp::eModel.description')) }}:</label>
                                 <p>{{ $itemEModel->description }}</p>
-                            </div>
-                            <div class="col-sm-12">
-                                <label for="e_package_code">{{ ucfirst(__('PkgGapp::eModel.e_package_code')) }}:</label>
-                                <p>{{ $itemEModel->e_package_code }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="e_package_id">{{ ucfirst(__('PkgGapp::eModel.e_package_id')) }}:</label>

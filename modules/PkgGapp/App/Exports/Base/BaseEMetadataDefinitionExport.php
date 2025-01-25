@@ -25,7 +25,7 @@ class BaseEMetadataDefinitionExport implements FromCollection, WithHeadings, Sho
     public function headings(): array
     {
         return [
-            'code',
+            'reference',
             'name',
             'groupe',
             'type',
@@ -39,7 +39,7 @@ class BaseEMetadataDefinitionExport implements FromCollection, WithHeadings, Sho
     {
         return $this->data->map(function ($eMetadataDefinition) {
             return [
-                'code' => $eMetadataDefinition->code,
+                'reference' => $eMetadataDefinition->reference,
                 'name' => $eMetadataDefinition->name,
                 'groupe' => $eMetadataDefinition->groupe,
                 'type' => $eMetadataDefinition->type,

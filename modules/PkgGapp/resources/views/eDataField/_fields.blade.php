@@ -11,27 +11,6 @@
     <div class="card-body">
         
         <div class="form-group">
-            <label for="code">
-                {{ ucfirst(__('PkgGapp::eDataField.code')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
-                name="code"
-                type="input"
-                class="form-control"
-                required
-                id="code"
-                placeholder="{{ __('PkgGapp::eDataField.code') }}"
-                value="{{ $itemEDataField ? $itemEDataField->code : old('code') }}">
-            @error('code')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
-
-        
-        <div class="form-group">
             <label for="name">
                 {{ ucfirst(__('PkgGapp::eDataField.name')) }}
                 
@@ -190,27 +169,6 @@
                 {{ $itemEDataField ? $itemEDataField->description : old('description') }}
             </textarea>
             @error('description')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
-
-        
-        <div class="form-group">
-            <label for="e_model_code">
-                {{ ucfirst(__('PkgGapp::eDataField.e_model_code')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
-                name="e_model_code"
-                type="input"
-                class="form-control"
-                required
-                id="e_model_code"
-                placeholder="{{ __('PkgGapp::eDataField.e_model_code') }}"
-                value="{{ $itemEDataField ? $itemEDataField->e_model_code : old('e_model_code') }}">
-            @error('e_model_code')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>

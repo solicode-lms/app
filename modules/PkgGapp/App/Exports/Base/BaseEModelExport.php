@@ -25,13 +25,12 @@ class BaseEModelExport implements FromCollection, WithHeadings, ShouldAutoSize, 
     public function headings(): array
     {
         return [
-            'code',
+            'reference',
             'name',
             'table_name',
             'icon',
             'is_pivot_table',
             'description',
-            'e_package_code',
             'e_package_id',
         ];
     }
@@ -40,13 +39,12 @@ class BaseEModelExport implements FromCollection, WithHeadings, ShouldAutoSize, 
     {
         return $this->data->map(function ($eModel) {
             return [
-                'code' => $eModel->code,
+                'reference' => $eModel->reference,
                 'name' => $eModel->name,
                 'table_name' => $eModel->table_name,
                 'icon' => $eModel->icon,
                 'is_pivot_table' => $eModel->is_pivot_table,
                 'description' => $eModel->description,
-                'e_package_code' => $eModel->e_package_code,
                 'e_package_id' => $eModel->e_package_id,
             ];
         });

@@ -25,10 +25,6 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="col-sm-12">
-                                <label for="code">{{ ucfirst(__('PkgGapp::eMetadatum.code')) }}:</label>
-                                <p>{{ $itemEMetadatum->code }}</p>
-                            </div>
-                            <div class="col-sm-12">
                                 <label for="value_boolean">{{ ucfirst(__('PkgGapp::eMetadatum.value_boolean')) }}:</label>
                                 <p>{{ $itemEMetadatum->value_boolean }}</p>
                             </div>
@@ -37,40 +33,44 @@
                                 <p>{{ $itemEMetadatum->value_string }}</p>
                             </div>
                             <div class="col-sm-12">
-                                <label for="value_int">{{ ucfirst(__('PkgGapp::eMetadatum.value_int')) }}:</label>
-                                <p>{{ $itemEMetadatum->value_int }}</p>
+                                <label for="value_integer">{{ ucfirst(__('PkgGapp::eMetadatum.value_integer')) }}:</label>
+                                <p>{{ $itemEMetadatum->value_integer }}</p>
                             </div>
                             <div class="col-sm-12">
-                                <label for="value_object">{{ ucfirst(__('PkgGapp::eMetadatum.value_object')) }}:</label>
-                                <p>{{ $itemEMetadatum->value_object }}</p>
+                                <label for="value_float">{{ ucfirst(__('PkgGapp::eMetadatum.value_float')) }}:</label>
+                                <p>{{ $itemEMetadatum->value_float }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="value_date">{{ ucfirst(__('PkgGapp::eMetadatum.value_date')) }}:</label>
+                                <p>{{ $itemEMetadatum->value_date }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="value_datetime">{{ ucfirst(__('PkgGapp::eMetadatum.value_datetime')) }}:</label>
+                                <p>{{ $itemEMetadatum->value_datetime }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="value_enum">{{ ucfirst(__('PkgGapp::eMetadatum.value_enum')) }}:</label>
+                                <p>{{ $itemEMetadatum->value_enum }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="value_json">{{ ucfirst(__('PkgGapp::eMetadatum.value_json')) }}:</label>
+                                <p>{{ $itemEMetadatum->value_json }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="value_text">{{ ucfirst(__('PkgGapp::eMetadatum.value_text')) }}:</label>
+                                <p>{{ $itemEMetadatum->value_text }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="object_id">{{ ucfirst(__('PkgGapp::eMetadatum.object_id')) }}:</label>
                                 <p>{{ $itemEMetadatum->object_id }}</p>
                             </div>
                             <div class="col-sm-12">
-                                <label for="object_code">{{ ucfirst(__('PkgGapp::eMetadatum.object_code')) }}:</label>
-                                <p>{{ $itemEMetadatum->object_code }}</p>
-                            </div>
-                            <div class="col-sm-12">
                                 <label for="object_type">{{ ucfirst(__('PkgGapp::eMetadatum.object_type')) }}:</label>
                                 <p>{{ $itemEMetadatum->object_type }}</p>
                             </div>
                             <div class="col-sm-12">
-                                <label for="e_metadata_definition_code">{{ ucfirst(__('PkgGapp::eMetadatum.e_metadata_definition_code')) }}:</label>
-                                <p>{{ $itemEMetadatum->e_metadata_definition_code }}</p>
-                            </div>
-                            <div class="col-sm-12">
                                 <label for="e_metadata_definition_id">{{ ucfirst(__('PkgGapp::eMetadatum.e_metadata_definition_id')) }}:</label>
                                 <p>{{ $itemEMetadatum->e_metadata_definition_id }}</p>
-                            </div>
-                            <div class="col-sm-12">
-                                <label for="EModel">{{ ucfirst(__('PkgGapp::eMetadatum.EModel')) }}:</label>
-                                <p>{{ $itemEMetadatum->EModel }}</p>
-                            </div>
-                            <div class="col-sm-12">
-                                <label for="EDataField">{{ ucfirst(__('PkgGapp::eMetadatum.EDataField')) }}:</label>
-                                <p>{{ $itemEMetadatum->EDataField }}</p>
                             </div>
                         </div>
                     </div>

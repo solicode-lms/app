@@ -19,7 +19,6 @@ class BaseEDataFieldService extends BaseService
      * @var array
      */
     protected $fieldsSearchable = [
-        'code',
         'name',
         'column_name',
         'data_type',
@@ -28,7 +27,6 @@ class BaseEDataFieldService extends BaseService
         'db_unique',
         'default_value',
         'description',
-        'e_model_code',
         'e_model_id'
     ];
 
@@ -51,7 +49,7 @@ class BaseEDataFieldService extends BaseService
 
         // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
-            $this->generateManyToOneFilter(__("PkgGapp::eModel.plural"), 'e_model_id', \Modules\PkgGapp\Models\EModel::class, 'code'),
+            $this->generateManyToOneFilter(__("PkgGapp::eModel.plural"), 'e_model_id', \Modules\PkgGapp\Models\EModel::class, 'reference'),
         ];
 
     }

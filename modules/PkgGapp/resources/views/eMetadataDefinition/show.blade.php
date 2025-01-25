@@ -25,10 +25,6 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="col-sm-12">
-                                <label for="code">{{ ucfirst(__('PkgGapp::eMetadataDefinition.code')) }}:</label>
-                                <p>{{ $itemEMetadataDefinition->code }}</p>
-                            </div>
-                            <div class="col-sm-12">
                                 <label for="name">{{ ucfirst(__('PkgGapp::eMetadataDefinition.name')) }}:</label>
                                 <p>{{ $itemEMetadataDefinition->name }}</p>
                             </div>

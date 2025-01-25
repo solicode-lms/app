@@ -25,18 +25,19 @@ class BaseEMetadatumExport implements FromCollection, WithHeadings, ShouldAutoSi
     public function headings(): array
     {
         return [
-            'code',
+            'reference',
             'value_boolean',
             'value_string',
-            'value_int',
-            'value_object',
+            'value_integer',
+            'value_float',
+            'value_date',
+            'value_datetime',
+            'value_enum',
+            'value_json',
+            'value_text',
             'object_id',
-            'object_code',
             'object_type',
-            'e_metadata_definition_code',
             'e_metadata_definition_id',
-            'EModel',
-            'EDataField',
         ];
     }
 
@@ -44,18 +45,19 @@ class BaseEMetadatumExport implements FromCollection, WithHeadings, ShouldAutoSi
     {
         return $this->data->map(function ($eMetadatum) {
             return [
-                'code' => $eMetadatum->code,
+                'reference' => $eMetadatum->reference,
                 'value_boolean' => $eMetadatum->value_boolean,
                 'value_string' => $eMetadatum->value_string,
-                'value_int' => $eMetadatum->value_int,
-                'value_object' => $eMetadatum->value_object,
+                'value_integer' => $eMetadatum->value_integer,
+                'value_float' => $eMetadatum->value_float,
+                'value_date' => $eMetadatum->value_date,
+                'value_datetime' => $eMetadatum->value_datetime,
+                'value_enum' => $eMetadatum->value_enum,
+                'value_json' => $eMetadatum->value_json,
+                'value_text' => $eMetadatum->value_text,
                 'object_id' => $eMetadatum->object_id,
-                'object_code' => $eMetadatum->object_code,
                 'object_type' => $eMetadatum->object_type,
-                'e_metadata_definition_code' => $eMetadatum->e_metadata_definition_code,
                 'e_metadata_definition_id' => $eMetadatum->e_metadata_definition_id,
-                'EModel' => $eMetadatum->EModel,
-                'EDataField' => $eMetadatum->EDataField,
             ];
         });
     }

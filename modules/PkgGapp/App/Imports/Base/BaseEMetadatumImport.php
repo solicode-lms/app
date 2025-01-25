@@ -21,7 +21,7 @@ class BaseEMetadatumImport implements ToModel, WithHeadingRow
      */
     private function recordExists(array $row): bool
     {
-        return EMetadatum::where('code', $row['code'])->exists();
+        return EMetadatum::where('reference', $row['reference'])->exists();
     }
 
     /**
@@ -38,18 +38,19 @@ class BaseEMetadatumImport implements ToModel, WithHeadingRow
 
         // Crée un nouvel enregistrement à partir des données importées
         return new EMetadatum([
-            'code' => $row['code'],
+            'reference' => $row['reference'],
             'value_boolean' => $row['value_boolean'],
             'value_string' => $row['value_string'],
-            'value_int' => $row['value_int'],
-            'value_object' => $row['value_object'],
+            'value_integer' => $row['value_integer'],
+            'value_float' => $row['value_float'],
+            'value_date' => $row['value_date'],
+            'value_datetime' => $row['value_datetime'],
+            'value_enum' => $row['value_enum'],
+            'value_json' => $row['value_json'],
+            'value_text' => $row['value_text'],
             'object_id' => $row['object_id'],
-            'object_code' => $row['object_code'],
             'object_type' => $row['object_type'],
-            'e_metadata_definition_code' => $row['e_metadata_definition_code'],
             'e_metadata_definition_id' => $row['e_metadata_definition_id'],
-            'EModel' => $row['EModel'],
-            'EDataField' => $row['EDataField'],
         ]);
     }
 }

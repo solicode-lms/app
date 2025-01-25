@@ -25,13 +25,11 @@ class BaseERelationshipExport implements FromCollection, WithHeadings, ShouldAut
     public function headings(): array
     {
         return [
-            'code',
+            'reference',
             'name',
             'type',
             'source_model_id',
             'target_model_id',
-            'source_model_code',
-            'target_model_code',
             'cascade_on_delete',
             'is_cascade',
             'description',
@@ -47,13 +45,11 @@ class BaseERelationshipExport implements FromCollection, WithHeadings, ShouldAut
     {
         return $this->data->map(function ($eRelationship) {
             return [
-                'code' => $eRelationship->code,
+                'reference' => $eRelationship->reference,
                 'name' => $eRelationship->name,
                 'type' => $eRelationship->type,
                 'source_model_id' => $eRelationship->source_model_id,
                 'target_model_id' => $eRelationship->target_model_id,
-                'source_model_code' => $eRelationship->source_model_code,
-                'target_model_code' => $eRelationship->target_model_code,
                 'cascade_on_delete' => $eRelationship->cascade_on_delete,
                 'is_cascade' => $eRelationship->is_cascade,
                 'description' => $eRelationship->description,
