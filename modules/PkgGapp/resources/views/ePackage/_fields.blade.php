@@ -11,21 +11,21 @@
     <div class="card-body">
         
         <div class="form-group">
-            <label for="code">
-                {{ ucfirst(__('PkgGapp::ePackage.code')) }}
+            <label for="reference">
+                {{ ucfirst(__('PkgGapp::ePackage.reference')) }}
                 
                     <span class="text-danger">*</span>
                 
             </label>
             <input
-                name="code"
+                name="reference"
                 type="input"
                 class="form-control"
                 required
-                id="code"
-                placeholder="{{ __('PkgGapp::ePackage.code') }}"
-                value="{{ $itemEPackage ? $itemEPackage->code : old('code') }}">
-            @error('code')
+                id="reference"
+                placeholder="{{ __('PkgGapp::ePackage.reference') }}"
+                value="{{ $itemEPackage ? $itemEPackage->reference : old('reference') }}">
+            @error('reference')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>

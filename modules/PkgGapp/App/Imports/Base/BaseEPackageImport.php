@@ -21,7 +21,7 @@ class BaseEPackageImport implements ToModel, WithHeadingRow
      */
     private function recordExists(array $row): bool
     {
-        return EPackage::where('code', $row['code'])->exists();
+        return EPackage::where('reference', $row['reference'])->exists();
     }
 
     /**
@@ -38,7 +38,7 @@ class BaseEPackageImport implements ToModel, WithHeadingRow
 
         // Crée un nouvel enregistrement à partir des données importées
         return new EPackage([
-            'code' => $row['code'],
+            'reference' => $row['reference'],
             'name' => $row['name'],
             'description' => $row['description'],
         ]);

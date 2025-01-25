@@ -17,7 +17,7 @@ class BaseEPackageRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'code' => 'required|max:255',
+            'reference' => 'required|max:255',
             'name' => 'required|max:255',
             'description' => 'nullable'
         ];
@@ -26,8 +26,8 @@ class BaseEPackageRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'code.required' => __('validation.required', ['attribute' => __('PkgGapp::EPackage.code')]),
-            'code.max' => __('validation.codeMax'),
+            'reference.required' => __('validation.required', ['attribute' => __('PkgGapp::EPackage.reference')]),
+            'reference.max' => __('validation.referenceMax'),
             'name.required' => __('validation.required', ['attribute' => __('PkgGapp::EPackage.name')]),
             'name.max' => __('validation.nameMax'),
             'description.required' => __('validation.required', ['attribute' => __('PkgGapp::EPackage.description')]),

@@ -21,7 +21,7 @@ use Modules\PkgGapp\Models\EPackage;
 
 class BaseEPackageSeeder extends Seeder
 {
-    public static int $order = 44;
+    public static int $order = 0;
 
     public function run(): void
     {
@@ -46,7 +46,7 @@ class BaseEPackageSeeder extends Seeder
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
                 EPackage::create([
-                    "code" => $data[0] ,
+                    "reference" => $data[0] ,
                     "name" => $data[1] ,
                     "description" => $data[2] 
                 ]);

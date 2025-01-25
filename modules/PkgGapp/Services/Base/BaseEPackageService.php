@@ -19,7 +19,7 @@ class BaseEPackageService extends BaseService
      * @var array
      */
     protected $fieldsSearchable = [
-        'code',
+        'reference',
         'name',
         'description'
     ];

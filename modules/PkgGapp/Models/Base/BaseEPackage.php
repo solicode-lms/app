@@ -33,7 +33,7 @@ class BaseEPackage extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'code', 'name', 'description'
+        'reference', 'name', 'description'
     ];
 
 
@@ -57,6 +57,6 @@ class BaseEPackage extends BaseModel
      */
     public function __toString()
     {
-        return $this->code;
+        return $this->reference;
     }
 }

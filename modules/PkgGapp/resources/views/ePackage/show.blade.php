@@ -25,8 +25,8 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="col-sm-12">
-                                <label for="code">{{ ucfirst(__('PkgGapp::ePackage.code')) }}:</label>
-                                <p>{{ $itemEPackage->code }}</p>
+                                <label for="reference">{{ ucfirst(__('PkgGapp::ePackage.reference')) }}:</label>
+                                <p>{{ $itemEPackage->reference }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="name">{{ ucfirst(__('PkgGapp::ePackage.name')) }}:</label>
