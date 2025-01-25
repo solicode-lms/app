@@ -21,7 +21,7 @@ return new class extends Migration {
             $table->timestamps();
            
             $table->foreignId('competence_id')->constrained('competences');
-
+            $table->string('reference')->unique();
         });
     }
 

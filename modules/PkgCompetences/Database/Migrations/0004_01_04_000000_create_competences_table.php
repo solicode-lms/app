@@ -19,11 +19,11 @@ return new class extends Migration {
             $table->string('code');
             $table->string('nom');
             $table->longText('description')->nullable();
-
+         
             $table->timestamps();
            
             $table->foreignId('module_id')->constrained('modules');
-
+            $table->string('reference')->unique();
         });
     }
 

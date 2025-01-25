@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('operation'); // Exemple : count, sum, group_by
             $table->longText('description')->nullable();
+            $table->string('reference')->unique();
             $table->timestamps();
         });
     }

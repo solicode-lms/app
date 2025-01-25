@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name')->unique(); // Nom de la fonctionnalité
             $table->longText('description')->nullable(); // Description de la fonctionnalité
             $table->foreignId('domain_id')->constrained('feature_domains')->onDelete('cascade'); // Lien avec feature_domains
+            $table->string('reference')->unique();
             $table->timestamps(); // created_at et updated_at
         });
         

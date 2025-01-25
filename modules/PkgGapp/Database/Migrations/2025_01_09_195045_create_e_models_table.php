@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('e_models', function (Blueprint $table) {
             $table->id();
-            $table->string('code')->unique();
+            $table->string('reference')->unique();
             $table->string('name'); 
             $table->string('table_name'); 
             $table->string('icon')->nullable(); // Icône associée au modèle

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name'); // Nom de la couleur (e.g., primary, success)
             $table->string('hex', 7); // Code hexadécimal (e.g., #007bff)
+            $table->string('reference')->unique();
             $table->timestamps();
         });
     }

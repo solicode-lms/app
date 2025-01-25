@@ -27,7 +27,7 @@ return new class extends Migration
                   ->references('id')
                   ->on('formateurs')
                   ->onDelete('cascade');
-
+            $table->string('reference')->unique();
             $table->timestamps(); // created_at et updated_at
         });
     }

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId('nature_livrable_id')->constrained('nature_livrables')->onDelete('restrict'); // Relation avec Nature de Livrable
             $table->foreignId('projet_id')->constrained('projets')->onDelete('cascade'); // Relation avec Projet
             $table->longText('description')->nullable(); // Description du livrable (optionnelle)
+            $table->string('reference')->unique();
             $table->timestamps(); // Champs created_at et updated_at
         });
     }

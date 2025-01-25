@@ -18,7 +18,7 @@ return new class extends Migration {
             $table->id();
             $table->string('nom');
             $table->longText('description')->nullable();
-
+            $table->string('reference')->unique();
             $table->timestamps();
            
 

@@ -19,11 +19,11 @@ return new class extends Migration {
             $table->string('nom');
             $table->longText('description')->nullable();
             $table->string('masse_horaire');
-
+           
             $table->timestamps();
            
             $table->foreignId('filiere_id')->constrained('filieres');
-
+            $table->string('reference')->unique();
         });
     }
 

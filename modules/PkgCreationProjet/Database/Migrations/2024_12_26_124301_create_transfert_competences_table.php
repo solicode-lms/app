@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId('projet_id')->constrained('projets')->onDelete('cascade'); // Relation avec Projet
             $table->foreignId('competence_id')->constrained('competences')->onDelete('restrict'); // Relation avec Competence
             $table->foreignId('appreciation_id')->constrained('appreciations'); // Relation avec Appreciation
+            $table->string('reference')->unique();
             $table->timestamps(); // Champs created_at et updated_at
         });
     }

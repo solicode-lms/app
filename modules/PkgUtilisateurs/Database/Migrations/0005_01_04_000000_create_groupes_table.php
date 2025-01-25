@@ -19,6 +19,7 @@ return new class extends Migration {
             $table->string('nom')->nullable();
             $table->longText('description')->nullable();
             $table->foreignId('filiere_id')->nullable()->constrained('filieres');
+            $table->string('reference')->unique();
             $table->timestamps();
         });
     }

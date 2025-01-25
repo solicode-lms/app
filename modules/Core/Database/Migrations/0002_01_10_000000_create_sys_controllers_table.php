@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('slug')->unique(); // Slug unique pour le contrôleur
             $table->longText('description')->nullable(); // Description du contrôleur
             $table->boolean('is_active')->default(true); // Statut actif/inactif
+            $table->string('reference')->unique();
             $table->timestamps(); // Colonnes created_at et updated_at
         });
     }

@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('icon')->nullable();
             $table->string('label')->nullable();
             $table->json('parameters')->nullable(); // Conditions et autres paramètres
+            $table->string('reference')->unique();
             $table->timestamps();
         });
     }

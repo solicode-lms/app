@@ -28,6 +28,7 @@ return new class extends Migration {
             $table->integer('echelon')->nullable();
             $table->string('profile_image')->nullable();
             $table->foreignId('user_id')->nullable()->constrained('users');
+            $table->string('reference')->unique();
             $table->timestamps();
         });
     }

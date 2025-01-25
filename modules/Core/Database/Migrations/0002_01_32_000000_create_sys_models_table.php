@@ -20,7 +20,7 @@ return new class extends Migration
             $table->longText('description')->nullable();
             $table->foreignId('module_id')->constrained('sys_modules')->onDelete('cascade'); // Clé étrangère vers sys_modules
             $table->foreignId('color_id')->nullable()->constrained('sys_colors')->onDelete('cascade');
-
+            $table->string('reference')->unique();
             $table->timestamps();
         });
     }

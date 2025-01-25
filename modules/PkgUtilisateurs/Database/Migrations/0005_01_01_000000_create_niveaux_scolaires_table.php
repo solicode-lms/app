@@ -19,6 +19,7 @@ return new class extends Migration {
             $table->string('code');
             $table->string('nom')->nullable();
             $table->longText('description')->nullable();
+            $table->string('reference')->unique();
             $table->timestamps();
         });
     }

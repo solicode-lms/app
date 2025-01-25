@@ -22,6 +22,7 @@ return new class extends Migration
             $table->date('date_debut'); // Date de début
             $table->date('date_fin'); // Date de fin
             $table->foreignId('formateur_id')->constrained('formateurs')->onDelete('cascade'); // Relation avec Projet
+            $table->string('reference')->unique();
             $table->timestamps(); // Champs created_at et updated_at
         });
     }
