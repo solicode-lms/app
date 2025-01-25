@@ -4,8 +4,6 @@
 
 namespace Modules\Core\Controllers\Base;
 use Modules\Core\Services\SysColorService;
-use Modules\Core\Services\SysModelService;
-use Modules\Core\Services\SysModuleService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Requests\SysColorRequest;
@@ -69,7 +67,7 @@ class BaseSysColorController extends AdminController
             ]);
         }
 
-        return redirect()->route('sysColors.edit',['sysColor' => $sysColor->id])->with(
+        return redirect()->route('sysColors.index')->with(
             'success',
             __('Core::msg.addSuccess', [
                 'entityToString' => $sysColor,
@@ -91,26 +89,16 @@ class BaseSysColorController extends AdminController
     public function edit(string $id) {
 
         $itemSysColor = $this->sysColorService->find($id);
-        $sysModelService =  new SysModelService();
-        $sysModels_data =  $itemSysColor->sysModels()->paginate(10);
-        $sysModels_stats = $sysModelService->getsysModelStats();
-        $sysModels_filters = $sysModelService->getFieldsFilterable();
-        
-        $sysModuleService =  new SysModuleService();
-        $sysModules_data =  $itemSysColor->sysModules()->paginate(10);
-        $sysModules_stats = $sysModuleService->getsysModuleStats();
-        $sysModules_filters = $sysModuleService->getFieldsFilterable();
-        
 
         // Utilisé dans l'édition des relation HasMany
         $this->contextState->set('sysColor_id', $id);
 
 
         if (request()->ajax()) {
-            return view('Core::sysColor._fields', compact('itemSysColor', 'sysModels_data', 'sysModules_data', 'sysModels_stats', 'sysModules_stats', 'sysModels_filters', 'sysModules_filters'));
+            return view('Core::sysColor._fields', compact('itemSysColor'));
         }
 
-        return view('Core::sysColor.edit', compact('itemSysColor', 'sysModels_data', 'sysModules_data', 'sysModels_stats', 'sysModules_stats', 'sysModels_filters', 'sysModules_filters'));
+        return view('Core::sysColor.edit', compact('itemSysColor'));
 
     }
     public function update(SysColorRequest $request, string $id) {

@@ -1,6 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-@section('role-form')
+@section('featureDomain-form')
 <form class="crud-form custom-form context-state" id="featureDomainForm" action="{{ $itemFeatureDomain->id ? route('featureDomains.update', $itemFeatureDomain->id) : route('featureDomains.store') }}" method="POST" novalidate>
     @csrf
 
@@ -73,26 +73,26 @@
         
         
     <div class="form-group">
-            <label for="module_id">
+            <label for="sys_module_id">
                 {{ ucfirst(__('Core::sysModule.singular')) }}
                 
                     <span class="text-danger">*</span>
                 
             </label>
             <select 
-            id="module_id" 
+            id="sys_module_id" 
             required
-            name="module_id" 
+            name="sys_module_id" 
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($sysModules as $sysModule)
                     <option value="{{ $sysModule->id }}"
-                        {{ (isset($itemFeatureDomain) && $itemFeatureDomain->module_id == $sysModule->id) || (old('module_id>') == $sysModule->id) ? 'selected' : '' }}>
+                        {{ (isset($itemFeatureDomain) && $itemFeatureDomain->sys_module_id == $sysModule->id) || (old('sys_module_id>') == $sysModule->id) ? 'selected' : '' }}>
                         {{ $sysModule }}
                     </option>
                 @endforeach
             </select>
-            @error('module_id')
+            @error('sys_module_id')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
     </div>
@@ -100,7 +100,7 @@
 
         
 
-        <!--   Feature_HasMany HasMany --> 
+        <!--   Feature HasMany --> 
 
     </div>
 

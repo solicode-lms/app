@@ -3,14 +3,12 @@
 
 
 namespace Modules\Core\Controllers\Base;
-
-use Modules\Core\Controllers\Base\AdminController;
-use Modules\Core\App\Requests\FeatureRequest;
 use Modules\Core\Services\FeatureService;
 use Modules\PkgAutorisation\Services\PermissionService;
 use Modules\Core\Services\FeatureDomainService;
-
 use Illuminate\Http\Request;
+use Modules\Core\Controllers\Base\AdminController;
+use Modules\Core\App\Requests\FeatureRequest;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\Core\App\Exports\FeatureExport;
 use Modules\Core\App\Imports\FeatureImport;
@@ -22,45 +20,36 @@ class BaseFeatureController extends AdminController
     protected $permissionService;
     protected $featureDomainService;
 
-    public function __construct(FeatureService $featureService, PermissionService $permissionService, FeatureDomainService $featureDomainService)
-    {
+    public function __construct(FeatureService $featureService, PermissionService $permissionService, FeatureDomainService $featureDomainService) {
         parent::__construct();
         $this->featureService = $featureService;
         $this->permissionService = $permissionService;
         $this->featureDomainService = $featureDomainService;
-
     }
 
-
-    public function index(Request $request)
-    {
+    public function index(Request $request) {
         // Extraire les paramètres de recherche, page, et filtres
         $features_params = array_merge(
             $request->only(['page','sort']),
             ['search' => $request->get('features_search', '')],
             $request->except(['features_search', 'page', 'sort'])
         );
-    
+
         // Paginer les features
         $features_data = $this->featureService->paginate($features_params);
-    
+
         // Récupérer les statistiques et les champs filtrables
         $features_stats = $this->featureService->getfeatureStats();
         $features_filters = $this->featureService->getFieldsFilterable();
-    
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
             return view('Core::feature._table', compact('features_data', 'features_stats', 'features_filters'))->render();
         }
-    
+
         return view('Core::feature.index', compact('features_data', 'features_stats', 'features_filters'));
     }
-
-    /**
-     * Retourne le formulaire de création.
-     */
-    public function create()
-    {
+    public function create() {
         $itemFeature = $this->featureService->createInstance();
         $permissions = $this->permissionService->all();
         $featureDomains = $this->featureDomainService->all();
@@ -71,12 +60,7 @@ class BaseFeatureController extends AdminController
         }
         return view('Core::feature.create', compact('itemFeature', 'permissions', 'featureDomains'));
     }
-
-    /**
-     * Stocke une nouvelle filière.
-     */
-    public function store(FeatureRequest $request)
-    {
+    public function store(FeatureRequest $request) {
         $validatedData = $request->validated();
         $feature = $this->featureService->create($validatedData);
 
@@ -102,12 +86,7 @@ class BaseFeatureController extends AdminController
             ])
         );
     }
-
-    /**
-     * Affiche les détails d'une filière.
-     */
-    public function show(string $id)
-    {
+    public function show(string $id) {
         $itemFeature = $this->featureService->find($id);
         $permissions = $this->permissionService->all();
         $featureDomains = $this->featureDomainService->all();
@@ -118,13 +97,9 @@ class BaseFeatureController extends AdminController
         }
 
         return view('Core::feature.show', compact('itemFeature'));
-    }
 
-    /**
-     * Retourne le formulaire d'édition d'une filière.
-     */
-    public function edit(string $id)
-    {
+    }
+    public function edit(string $id) {
 
         $itemFeature = $this->featureService->find($id);
         $permissions = $this->permissionService->all();
@@ -139,13 +114,9 @@ class BaseFeatureController extends AdminController
         }
 
         return view('Core::feature.edit', compact('itemFeature', 'permissions', 'featureDomains'));
-    }
 
-    /**
-     * Met à jour une filière existante.
-     */
-    public function update(FeatureRequest $request, string $id)
-    {
+    }
+    public function update(FeatureRequest $request, string $id) {
 
         $validatedData = $request->validated();
         $feature = $this->featureService->update($id, $validatedData);
@@ -167,13 +138,9 @@ class BaseFeatureController extends AdminController
                 'modelName' =>  __('Core::feature.singular')
                 ])
         );
-    }
 
-    /**
-     * Supprime une filière.
-     */
-    public function destroy(Request $request, string $id)
-    {
+    }
+    public function destroy(Request $request, string $id) {
 
         $feature = $this->featureService->destroy($id);
 
@@ -192,6 +159,7 @@ class BaseFeatureController extends AdminController
                 'modelName' =>  __('Core::feature.singular')
                 ])
         );
+
     }
 
     public function export()
@@ -227,4 +195,5 @@ class BaseFeatureController extends AdminController
         $features = $this->featureService->all();
         return response()->json($features);
     }
+
 }

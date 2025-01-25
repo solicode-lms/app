@@ -3,13 +3,11 @@
 
 
 namespace Modules\Core\Controllers\Base;
-
-use Modules\Core\Controllers\Base\AdminController;
-use Modules\Core\App\Requests\SysModuleRequest;
 use Modules\Core\Services\SysModuleService;
 use Modules\Core\Services\SysColorService;
-
 use Illuminate\Http\Request;
+use Modules\Core\Controllers\Base\AdminController;
+use Modules\Core\App\Requests\SysModuleRequest;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\Core\App\Exports\SysModuleExport;
 use Modules\Core\App\Imports\SysModuleImport;
@@ -20,44 +18,35 @@ class BaseSysModuleController extends AdminController
     protected $sysModuleService;
     protected $sysColorService;
 
-    public function __construct(SysModuleService $sysModuleService, SysColorService $sysColorService)
-    {
+    public function __construct(SysModuleService $sysModuleService, SysColorService $sysColorService) {
         parent::__construct();
         $this->sysModuleService = $sysModuleService;
         $this->sysColorService = $sysColorService;
-
     }
 
-
-    public function index(Request $request)
-    {
+    public function index(Request $request) {
         // Extraire les paramètres de recherche, page, et filtres
         $sysModules_params = array_merge(
             $request->only(['page','sort']),
             ['search' => $request->get('sysModules_search', '')],
             $request->except(['sysModules_search', 'page', 'sort'])
         );
-    
+
         // Paginer les sysModules
         $sysModules_data = $this->sysModuleService->paginate($sysModules_params);
-    
+
         // Récupérer les statistiques et les champs filtrables
         $sysModules_stats = $this->sysModuleService->getsysModuleStats();
         $sysModules_filters = $this->sysModuleService->getFieldsFilterable();
-    
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
             return view('Core::sysModule._table', compact('sysModules_data', 'sysModules_stats', 'sysModules_filters'))->render();
         }
-    
+
         return view('Core::sysModule.index', compact('sysModules_data', 'sysModules_stats', 'sysModules_filters'));
     }
-
-    /**
-     * Retourne le formulaire de création.
-     */
-    public function create()
-    {
+    public function create() {
         $itemSysModule = $this->sysModuleService->createInstance();
         $sysColors = $this->sysColorService->all();
 
@@ -67,12 +56,7 @@ class BaseSysModuleController extends AdminController
         }
         return view('Core::sysModule.create', compact('itemSysModule', 'sysColors'));
     }
-
-    /**
-     * Stocke une nouvelle filière.
-     */
-    public function store(SysModuleRequest $request)
-    {
+    public function store(SysModuleRequest $request) {
         $validatedData = $request->validated();
         $sysModule = $this->sysModuleService->create($validatedData);
 
@@ -95,12 +79,7 @@ class BaseSysModuleController extends AdminController
             ])
         );
     }
-
-    /**
-     * Affiche les détails d'une filière.
-     */
-    public function show(string $id)
-    {
+    public function show(string $id) {
         $itemSysModule = $this->sysModuleService->find($id);
         $sysColors = $this->sysColorService->all();
 
@@ -110,13 +89,9 @@ class BaseSysModuleController extends AdminController
         }
 
         return view('Core::sysModule.show', compact('itemSysModule'));
-    }
 
-    /**
-     * Retourne le formulaire d'édition d'une filière.
-     */
-    public function edit(string $id)
-    {
+    }
+    public function edit(string $id) {
 
         $itemSysModule = $this->sysModuleService->find($id);
         $sysColors = $this->sysColorService->all();
@@ -130,13 +105,9 @@ class BaseSysModuleController extends AdminController
         }
 
         return view('Core::sysModule.edit', compact('itemSysModule', 'sysColors'));
-    }
 
-    /**
-     * Met à jour une filière existante.
-     */
-    public function update(SysModuleRequest $request, string $id)
-    {
+    }
+    public function update(SysModuleRequest $request, string $id) {
 
         $validatedData = $request->validated();
         $sysModule = $this->sysModuleService->update($id, $validatedData);
@@ -157,13 +128,9 @@ class BaseSysModuleController extends AdminController
                 'modelName' =>  __('Core::sysModule.singular')
                 ])
         );
-    }
 
-    /**
-     * Supprime une filière.
-     */
-    public function destroy(Request $request, string $id)
-    {
+    }
+    public function destroy(Request $request, string $id) {
 
         $sysModule = $this->sysModuleService->destroy($id);
 
@@ -182,6 +149,7 @@ class BaseSysModuleController extends AdminController
                 'modelName' =>  __('Core::sysModule.singular')
                 ])
         );
+
     }
 
     public function export()
@@ -217,4 +185,5 @@ class BaseSysModuleController extends AdminController
         $sysModules = $this->sysModuleService->all();
         return response()->json($sysModules);
     }
+
 }

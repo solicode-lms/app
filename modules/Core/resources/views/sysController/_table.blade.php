@@ -4,9 +4,8 @@
     <table class="table table-striped text-nowrap">
         <thead>
             <tr>
-                <x-sortable-column field="module_id" label="{{ ucfirst(__('Core::sysModule.singular')) }}" />
+                <x-sortable-column field="sys_module_id" label="{{ ucfirst(__('Core::sysModule.singular')) }}" />
                 <x-sortable-column field="name" label="{{ ucfirst(__('Core::sysController.name')) }}" />
-                <x-sortable-column field="description" label="{{ ucfirst(__('Core::sysController.description')) }}" />
                 <x-sortable-column field="is_active" label="{{ ucfirst(__('Core::sysController.is_active')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
@@ -16,7 +15,6 @@
                 <tr>
                     <td>@limit($sysController->sysModule->name ?? '-', 80)</td>
                     <td>@limit($sysController->name, 80)</td>
-                    <td>{!! $sysController->description !!}</td>
                     <td>@limit($sysController->is_active, 80)</td>
                     <td class="text-right">
                         @can('show-sysController')

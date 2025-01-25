@@ -31,7 +31,8 @@ class BaseSysModuleExport implements FromCollection, WithHeadings, ShouldAutoSiz
             'is_active',
             'order',
             'version',
-            'color_id',
+            'sys_color_id',
+            'reference',
         ];
     }
 
@@ -45,7 +46,8 @@ class BaseSysModuleExport implements FromCollection, WithHeadings, ShouldAutoSiz
                 'is_active' => $sysModule->is_active,
                 'order' => $sysModule->order,
                 'version' => $sysModule->version,
-                'color_id' => $sysModule->color_id,
+                'sys_color_id' => $sysModule->sys_color_id,
+                'reference' => $sysModule->reference,
             ];
         });
     }

@@ -11,8 +11,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
-use Modules\Core\Models\Feature;
 use Modules\Core\Models\SysModule;
+use Modules\Core\Models\Feature;
 
 /**
  * Classe BaseFeatureDomain
@@ -34,7 +34,7 @@ class BaseFeatureDomain extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'name', 'slug', 'description', 'module_id'
+        'name', 'slug', 'description', 'sys_module_id'
     ];
 
     /**
@@ -44,12 +44,12 @@ class BaseFeatureDomain extends BaseModel
      */
     public function sysModule(): BelongsTo
     {
-        return $this->belongsTo(SysModule::class, 'module_id', 'id');
+        return $this->belongsTo(SysModule::class, 'sys_module_id', 'id');
     }
 
 
     /**
-     * Relation HasMany pour Features.
+     * Relation HasMany pour FeatureDomains.
      *
      * @return HasMany
      */
@@ -57,6 +57,8 @@ class BaseFeatureDomain extends BaseModel
     {
         return $this->hasMany(Feature::class, 'feature_domain_id', 'id');
     }
+
+
 
     /**
      * Méthode __toString pour représenter le modèle sous forme de chaîne.

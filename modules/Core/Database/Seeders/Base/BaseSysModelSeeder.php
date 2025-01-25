@@ -49,8 +49,8 @@ class BaseSysModelSeeder extends Seeder
                     "name" => $data[0] ,
                     "model" => $data[1] ,
                     "description" => $data[2] ,
-                    "module_id" => $data[3] ,
-                    "color_id" => $data[4] 
+                    "sys_module_id" => $data[3] ,
+                    "sys_color_id" => $data[4] 
                 ]);
             }
             $firstline = false;

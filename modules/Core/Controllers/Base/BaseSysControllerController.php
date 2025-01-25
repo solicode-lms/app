@@ -3,13 +3,12 @@
 
 
 namespace Modules\Core\Controllers\Base;
-
-use Modules\Core\Controllers\Base\AdminController;
-use Modules\Core\App\Requests\SysControllerRequest;
 use Modules\Core\Services\SysControllerService;
 use Modules\Core\Services\SysModuleService;
-
+use Modules\PkgAutorisation\Services\PermissionService;
 use Illuminate\Http\Request;
+use Modules\Core\Controllers\Base\AdminController;
+use Modules\Core\App\Requests\SysControllerRequest;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\Core\App\Exports\SysControllerExport;
 use Modules\Core\App\Imports\SysControllerImport;
@@ -20,44 +19,35 @@ class BaseSysControllerController extends AdminController
     protected $sysControllerService;
     protected $sysModuleService;
 
-    public function __construct(SysControllerService $sysControllerService, SysModuleService $sysModuleService)
-    {
+    public function __construct(SysControllerService $sysControllerService, SysModuleService $sysModuleService) {
         parent::__construct();
         $this->sysControllerService = $sysControllerService;
         $this->sysModuleService = $sysModuleService;
-
     }
 
-
-    public function index(Request $request)
-    {
+    public function index(Request $request) {
         // Extraire les paramètres de recherche, page, et filtres
         $sysControllers_params = array_merge(
             $request->only(['page','sort']),
             ['search' => $request->get('sysControllers_search', '')],
             $request->except(['sysControllers_search', 'page', 'sort'])
         );
-    
+
         // Paginer les sysControllers
         $sysControllers_data = $this->sysControllerService->paginate($sysControllers_params);
-    
+
         // Récupérer les statistiques et les champs filtrables
         $sysControllers_stats = $this->sysControllerService->getsysControllerStats();
         $sysControllers_filters = $this->sysControllerService->getFieldsFilterable();
-    
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
             return view('Core::sysController._table', compact('sysControllers_data', 'sysControllers_stats', 'sysControllers_filters'))->render();
         }
-    
+
         return view('Core::sysController.index', compact('sysControllers_data', 'sysControllers_stats', 'sysControllers_filters'));
     }
-
-    /**
-     * Retourne le formulaire de création.
-     */
-    public function create()
-    {
+    public function create() {
         $itemSysController = $this->sysControllerService->createInstance();
         $sysModules = $this->sysModuleService->all();
 
@@ -67,12 +57,7 @@ class BaseSysControllerController extends AdminController
         }
         return view('Core::sysController.create', compact('itemSysController', 'sysModules'));
     }
-
-    /**
-     * Stocke une nouvelle filière.
-     */
-    public function store(SysControllerRequest $request)
-    {
+    public function store(SysControllerRequest $request) {
         $validatedData = $request->validated();
         $sysController = $this->sysControllerService->create($validatedData);
 
@@ -87,7 +72,7 @@ class BaseSysControllerController extends AdminController
             ]);
         }
 
-        return redirect()->route('sysControllers.index')->with(
+        return redirect()->route('sysControllers.edit',['sysController' => $sysController->id])->with(
             'success',
             __('Core::msg.addSuccess', [
                 'entityToString' => $sysController,
@@ -95,12 +80,7 @@ class BaseSysControllerController extends AdminController
             ])
         );
     }
-
-    /**
-     * Affiche les détails d'une filière.
-     */
-    public function show(string $id)
-    {
+    public function show(string $id) {
         $itemSysController = $this->sysControllerService->find($id);
         $sysModules = $this->sysModuleService->all();
 
@@ -110,33 +90,30 @@ class BaseSysControllerController extends AdminController
         }
 
         return view('Core::sysController.show', compact('itemSysController'));
-    }
 
-    /**
-     * Retourne le formulaire d'édition d'une filière.
-     */
-    public function edit(string $id)
-    {
+    }
+    public function edit(string $id) {
 
         $itemSysController = $this->sysControllerService->find($id);
         $sysModules = $this->sysModuleService->all();
+        $permissionService =  new PermissionService();
+        $permissions_data =  $itemSysController->permissions()->paginate(10);
+        $permissions_stats = $permissionService->getpermissionStats();
+        $permissions_filters = $permissionService->getFieldsFilterable();
+        
 
         // Utilisé dans l'édition des relation HasMany
         $this->contextState->set('sysController_id', $id);
 
 
         if (request()->ajax()) {
-            return view('Core::sysController._fields', compact('itemSysController', 'sysModules'));
+            return view('Core::sysController._fields', compact('itemSysController', 'sysModules', 'permissions_data', 'permissions_stats', 'permissions_filters'));
         }
 
-        return view('Core::sysController.edit', compact('itemSysController', 'sysModules'));
-    }
+        return view('Core::sysController.edit', compact('itemSysController', 'sysModules', 'permissions_data', 'permissions_stats', 'permissions_filters'));
 
-    /**
-     * Met à jour une filière existante.
-     */
-    public function update(SysControllerRequest $request, string $id)
-    {
+    }
+    public function update(SysControllerRequest $request, string $id) {
 
         $validatedData = $request->validated();
         $sysController = $this->sysControllerService->update($id, $validatedData);
@@ -157,13 +134,9 @@ class BaseSysControllerController extends AdminController
                 'modelName' =>  __('Core::sysController.singular')
                 ])
         );
-    }
 
-    /**
-     * Supprime une filière.
-     */
-    public function destroy(Request $request, string $id)
-    {
+    }
+    public function destroy(Request $request, string $id) {
 
         $sysController = $this->sysControllerService->destroy($id);
 
@@ -182,6 +155,7 @@ class BaseSysControllerController extends AdminController
                 'modelName' =>  __('Core::sysController.singular')
                 ])
         );
+
     }
 
     public function export()
@@ -217,4 +191,5 @@ class BaseSysControllerController extends AdminController
         $sysControllers = $this->sysControllerService->all();
         return response()->json($sysControllers);
     }
+
 }

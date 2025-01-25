@@ -34,7 +34,7 @@ class BaseSysController extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'module_id', 'name', 'slug', 'description', 'is_active'
+        'sys_module_id', 'name', 'slug', 'description', 'is_active'
     ];
 
     /**
@@ -44,12 +44,12 @@ class BaseSysController extends BaseModel
      */
     public function sysModule(): BelongsTo
     {
-        return $this->belongsTo(SysModule::class, 'module_id', 'id');
+        return $this->belongsTo(SysModule::class, 'sys_module_id', 'id');
     }
 
 
     /**
-     * Relation HasMany pour Permissions.
+     * Relation HasMany pour SysControllers.
      *
      * @return HasMany
      */
@@ -57,6 +57,8 @@ class BaseSysController extends BaseModel
     {
         return $this->hasMany(Permission::class, 'sys_controller_id', 'id');
     }
+
+
 
     /**
      * Méthode __toString pour représenter le modèle sous forme de chaîne.

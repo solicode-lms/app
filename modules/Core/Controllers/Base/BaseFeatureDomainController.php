@@ -3,13 +3,12 @@
 
 
 namespace Modules\Core\Controllers\Base;
-
-use Modules\Core\Controllers\Base\AdminController;
-use Modules\Core\App\Requests\FeatureDomainRequest;
 use Modules\Core\Services\FeatureDomainService;
 use Modules\Core\Services\SysModuleService;
-
+use Modules\Core\Services\FeatureService;
 use Illuminate\Http\Request;
+use Modules\Core\Controllers\Base\AdminController;
+use Modules\Core\App\Requests\FeatureDomainRequest;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\Core\App\Exports\FeatureDomainExport;
 use Modules\Core\App\Imports\FeatureDomainImport;
@@ -20,44 +19,35 @@ class BaseFeatureDomainController extends AdminController
     protected $featureDomainService;
     protected $sysModuleService;
 
-    public function __construct(FeatureDomainService $featureDomainService, SysModuleService $sysModuleService)
-    {
+    public function __construct(FeatureDomainService $featureDomainService, SysModuleService $sysModuleService) {
         parent::__construct();
         $this->featureDomainService = $featureDomainService;
         $this->sysModuleService = $sysModuleService;
-
     }
 
-
-    public function index(Request $request)
-    {
+    public function index(Request $request) {
         // Extraire les paramètres de recherche, page, et filtres
         $featureDomains_params = array_merge(
             $request->only(['page','sort']),
             ['search' => $request->get('featureDomains_search', '')],
             $request->except(['featureDomains_search', 'page', 'sort'])
         );
-    
+
         // Paginer les featureDomains
         $featureDomains_data = $this->featureDomainService->paginate($featureDomains_params);
-    
+
         // Récupérer les statistiques et les champs filtrables
         $featureDomains_stats = $this->featureDomainService->getfeatureDomainStats();
         $featureDomains_filters = $this->featureDomainService->getFieldsFilterable();
-    
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
             return view('Core::featureDomain._table', compact('featureDomains_data', 'featureDomains_stats', 'featureDomains_filters'))->render();
         }
-    
+
         return view('Core::featureDomain.index', compact('featureDomains_data', 'featureDomains_stats', 'featureDomains_filters'));
     }
-
-    /**
-     * Retourne le formulaire de création.
-     */
-    public function create()
-    {
+    public function create() {
         $itemFeatureDomain = $this->featureDomainService->createInstance();
         $sysModules = $this->sysModuleService->all();
 
@@ -67,12 +57,7 @@ class BaseFeatureDomainController extends AdminController
         }
         return view('Core::featureDomain.create', compact('itemFeatureDomain', 'sysModules'));
     }
-
-    /**
-     * Stocke une nouvelle filière.
-     */
-    public function store(FeatureDomainRequest $request)
-    {
+    public function store(FeatureDomainRequest $request) {
         $validatedData = $request->validated();
         $featureDomain = $this->featureDomainService->create($validatedData);
 
@@ -87,7 +72,7 @@ class BaseFeatureDomainController extends AdminController
             ]);
         }
 
-        return redirect()->route('featureDomains.index')->with(
+        return redirect()->route('featureDomains.edit',['featureDomain' => $featureDomain->id])->with(
             'success',
             __('Core::msg.addSuccess', [
                 'entityToString' => $featureDomain,
@@ -95,12 +80,7 @@ class BaseFeatureDomainController extends AdminController
             ])
         );
     }
-
-    /**
-     * Affiche les détails d'une filière.
-     */
-    public function show(string $id)
-    {
+    public function show(string $id) {
         $itemFeatureDomain = $this->featureDomainService->find($id);
         $sysModules = $this->sysModuleService->all();
 
@@ -110,33 +90,30 @@ class BaseFeatureDomainController extends AdminController
         }
 
         return view('Core::featureDomain.show', compact('itemFeatureDomain'));
-    }
 
-    /**
-     * Retourne le formulaire d'édition d'une filière.
-     */
-    public function edit(string $id)
-    {
+    }
+    public function edit(string $id) {
 
         $itemFeatureDomain = $this->featureDomainService->find($id);
         $sysModules = $this->sysModuleService->all();
+        $featureService =  new FeatureService();
+        $features_data =  $itemFeatureDomain->features()->paginate(10);
+        $features_stats = $featureService->getfeatureStats();
+        $features_filters = $featureService->getFieldsFilterable();
+        
 
         // Utilisé dans l'édition des relation HasMany
         $this->contextState->set('featureDomain_id', $id);
 
 
         if (request()->ajax()) {
-            return view('Core::featureDomain._fields', compact('itemFeatureDomain', 'sysModules'));
+            return view('Core::featureDomain._fields', compact('itemFeatureDomain', 'sysModules', 'features_data', 'features_stats', 'features_filters'));
         }
 
-        return view('Core::featureDomain.edit', compact('itemFeatureDomain', 'sysModules'));
-    }
+        return view('Core::featureDomain.edit', compact('itemFeatureDomain', 'sysModules', 'features_data', 'features_stats', 'features_filters'));
 
-    /**
-     * Met à jour une filière existante.
-     */
-    public function update(FeatureDomainRequest $request, string $id)
-    {
+    }
+    public function update(FeatureDomainRequest $request, string $id) {
 
         $validatedData = $request->validated();
         $featureDomain = $this->featureDomainService->update($id, $validatedData);
@@ -157,13 +134,9 @@ class BaseFeatureDomainController extends AdminController
                 'modelName' =>  __('Core::featureDomain.singular')
                 ])
         );
-    }
 
-    /**
-     * Supprime une filière.
-     */
-    public function destroy(Request $request, string $id)
-    {
+    }
+    public function destroy(Request $request, string $id) {
 
         $featureDomain = $this->featureDomainService->destroy($id);
 
@@ -182,6 +155,7 @@ class BaseFeatureDomainController extends AdminController
                 'modelName' =>  __('Core::featureDomain.singular')
                 ])
         );
+
     }
 
     public function export()
@@ -217,4 +191,5 @@ class BaseFeatureDomainController extends AdminController
         $featureDomains = $this->featureDomainService->all();
         return response()->json($featureDomains);
     }
+
 }

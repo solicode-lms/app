@@ -5,8 +5,7 @@
         <thead>
             <tr>
                 <x-sortable-column field="name" label="{{ ucfirst(__('Core::featureDomain.name')) }}" />
-                <x-sortable-column field="description" label="{{ ucfirst(__('Core::featureDomain.description')) }}" />
-                <x-sortable-column field="module_id" label="{{ ucfirst(__('Core::sysModule.singular')) }}" />
+                <x-sortable-column field="sys_module_id" label="{{ ucfirst(__('Core::sysModule.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -14,7 +13,6 @@
             @foreach ($featureDomains_data as $featureDomain)
                 <tr>
                     <td>@limit($featureDomain->name, 80)</td>
-                    <td>{!! $featureDomain->description !!}</td>
                     <td>@limit($featureDomain->sysModule->name ?? '-', 80)</td>
                     <td class="text-right">
                         @can('show-featureDomain')

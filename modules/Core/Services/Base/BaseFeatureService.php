@@ -43,6 +43,7 @@ class BaseFeatureService extends BaseService
 
         // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
+            $this->generateManyToOneFilter(__("Core::featureDomain.plural"), 'domain_id', \Modules\Core\Models\FeatureDomain::class, 'name'),
         ];
 
     }

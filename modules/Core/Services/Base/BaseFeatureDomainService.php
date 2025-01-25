@@ -22,7 +22,7 @@ class BaseFeatureDomainService extends BaseService
         'name',
         'slug',
         'description',
-        'module_id'
+        'sys_module_id'
     ];
 
     /**
@@ -44,6 +44,7 @@ class BaseFeatureDomainService extends BaseService
 
         // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
+            $this->generateManyToOneFilter(__("Core::sysModule.plural"), 'sys_module_id', \Modules\Core\Models\SysModule::class, 'name'),
         ];
 
     }

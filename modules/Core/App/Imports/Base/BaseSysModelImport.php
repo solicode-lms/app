@@ -41,8 +41,9 @@ class BaseSysModelImport implements ToModel, WithHeadingRow
             'name' => $row['name'],
             'model' => $row['model'],
             'description' => $row['description'],
-            'module_id' => $row['module_id'],
-            'color_id' => $row['color_id'],
+            'sys_module_id' => $row['sys_module_id'],
+            'sys_color_id' => $row['sys_color_id'],
+            'reference' => $row['reference'],
         ]);
     }
 }

@@ -50,7 +50,7 @@ class BaseSysModuleSeeder extends Seeder
                     "is_active" => $data[3] ,
                     "order" => $data[4] ,
                     "version" => $data[5] ,
-                    "color_id" => $data[6] 
+                    "sys_color_id" => $data[6] 
                 ]);
             }
             $firstline = false;

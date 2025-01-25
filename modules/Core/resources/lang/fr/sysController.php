@@ -5,7 +5,7 @@
 return [
     'singular' => 'SysController',
     'plural' => 'SysControllers',
-    'module_id' => 'module_id',
+    'sys_module_id' => 'sys_module_id',
     'name' => 'name',
     'slug' => 'slug',
     'description' => 'description',

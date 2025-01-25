@@ -4,7 +4,7 @@
 <script>
     window.entitiesConfig = window.entitiesConfig || [];
     window.entitiesConfig.push({
-        edit_has_many: true,
+        edit_has_many: false,
         entity_name: 'sysColor',
         filterFormSelector: '#sysColor-crud-filter-form',
         crudSelector: '#sysColor-crud',

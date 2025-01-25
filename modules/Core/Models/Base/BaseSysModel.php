@@ -35,7 +35,7 @@ class BaseSysModel extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'name', 'model', 'description', 'module_id', 'color_id'
+        'name', 'model', 'description', 'sys_module_id', 'sys_color_id'
     ];
 
     /**
@@ -45,7 +45,7 @@ class BaseSysModel extends BaseModel
      */
     public function sysColor(): BelongsTo
     {
-        return $this->belongsTo(SysColor::class, 'color_id', 'id');
+        return $this->belongsTo(SysColor::class, 'sys_color_id', 'id');
     }
     /**
      * Relation BelongsTo pour SysModule.
@@ -54,12 +54,12 @@ class BaseSysModel extends BaseModel
      */
     public function sysModule(): BelongsTo
     {
-        return $this->belongsTo(SysModule::class, 'module_id', 'id');
+        return $this->belongsTo(SysModule::class, 'sys_module_id', 'id');
     }
 
 
     /**
-     * Relation HasMany pour Widgets.
+     * Relation HasMany pour SysModels.
      *
      * @return HasMany
      */
@@ -67,6 +67,8 @@ class BaseSysModel extends BaseModel
     {
         return $this->hasMany(Widget::class, 'sys_model_id', 'id');
     }
+
+
 
     /**
      * Méthode __toString pour représenter le modèle sous forme de chaîne.

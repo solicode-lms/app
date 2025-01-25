@@ -28,8 +28,9 @@ class BaseSysModelExport implements FromCollection, WithHeadings, ShouldAutoSize
             'name',
             'model',
             'description',
-            'module_id',
-            'color_id',
+            'sys_module_id',
+            'sys_color_id',
+            'reference',
         ];
     }
 
@@ -40,8 +41,9 @@ class BaseSysModelExport implements FromCollection, WithHeadings, ShouldAutoSize
                 'name' => $sysModel->name,
                 'model' => $sysModel->model,
                 'description' => $sysModel->description,
-                'module_id' => $sysModel->module_id,
-                'color_id' => $sysModel->color_id,
+                'sys_module_id' => $sysModel->sys_module_id,
+                'sys_color_id' => $sysModel->sys_color_id,
+                'reference' => $sysModel->reference,
             ];
         });
     }

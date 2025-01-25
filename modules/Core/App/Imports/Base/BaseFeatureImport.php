@@ -41,6 +41,7 @@ class BaseFeatureImport implements ToModel, WithHeadingRow
             'name' => $row['name'],
             'description' => $row['description'],
             'domain_id' => $row['domain_id'],
+            'reference' => $row['reference'],
         ]);
     }
 }

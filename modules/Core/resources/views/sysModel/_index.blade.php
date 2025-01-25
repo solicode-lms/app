@@ -4,7 +4,7 @@
 <script>
     window.entitiesConfig = window.entitiesConfig || [];
     window.entitiesConfig.push({
-        edit_has_many: false,
+        edit_has_many: true,
         entity_name: 'sysModel',
         filterFormSelector: '#sysModel-crud-filter-form',
         crudSelector: '#sysModel-crud',
@@ -70,7 +70,7 @@
                 @section('sysModel-crud-filters')
                 <div class="card-header">
                     <form id="sysModel-crud-filter-form" method="GET" class="row">
-                        <x-filter-group count="{{count($modules_filters ?? [])}}">
+                        <x-filter-group count="{{count($sysModels_filters ?? [])}}">
                             <!-- Filtres spécifiques -->
                             @foreach ($sysModels_filters as $filter)
                                 <x-filter-field 

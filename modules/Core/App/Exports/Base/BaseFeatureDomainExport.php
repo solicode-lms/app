@@ -28,7 +28,8 @@ class BaseFeatureDomainExport implements FromCollection, WithHeadings, ShouldAut
             'name',
             'slug',
             'description',
-            'module_id',
+            'sys_module_id',
+            'reference',
         ];
     }
 
@@ -39,7 +40,8 @@ class BaseFeatureDomainExport implements FromCollection, WithHeadings, ShouldAut
                 'name' => $featureDomain->name,
                 'slug' => $featureDomain->slug,
                 'description' => $featureDomain->description,
-                'module_id' => $featureDomain->module_id,
+                'sys_module_id' => $featureDomain->sys_module_id,
+                'reference' => $featureDomain->reference,
             ];
         });
     }

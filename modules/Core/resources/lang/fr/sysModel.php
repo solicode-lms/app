@@ -8,6 +8,6 @@ return [
     'name' => 'name',
     'model' => 'model',
     'description' => 'description',
-    'module_id' => 'module_id',
-    'color_id' => 'color_id',
+    'sys_module_id' => 'sys_module_id',
+    'sys_color_id' => 'sys_color_id',
 ];

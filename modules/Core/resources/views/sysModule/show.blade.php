@@ -49,8 +49,8 @@
                                 <p>{{ $itemSysModule->version }}</p>
                             </div>
                             <div class="col-sm-12">
-                                <label for="color_id">{{ ucfirst(__('Core::sysModule.color_id')) }}:</label>
-                                <p>{{ $itemSysModule->color_id }}</p>
+                                <label for="sys_color_id">{{ ucfirst(__('Core::sysModule.sys_color_id')) }}:</label>
+                                <p>{{ $itemSysModule->sys_color_id }}</p>
                             </div>
                         </div>
                     </div>

@@ -22,8 +22,8 @@ class BaseSysModelService extends BaseService
         'name',
         'model',
         'description',
-        'module_id',
-        'color_id'
+        'sys_module_id',
+        'sys_color_id'
     ];
 
     /**
@@ -45,6 +45,8 @@ class BaseSysModelService extends BaseService
 
         // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
+            $this->generateManyToOneFilter(__("Core::sysModule.plural"), 'sys_module_id', \Modules\Core\Models\SysModule::class, 'name'),
+            $this->generateManyToOneFilter(__("Core::sysColor.plural"), 'sys_color_id', \Modules\Core\Models\SysColor::class, 'name'),
         ];
 
     }

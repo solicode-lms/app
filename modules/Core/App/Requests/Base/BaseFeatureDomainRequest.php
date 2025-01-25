@@ -20,7 +20,7 @@ class BaseFeatureDomainRequest extends FormRequest
             'name' => 'required|max:255',
             'slug' => 'required|max:255',
             'description' => 'nullable',
-            'module_id' => 'required'
+            'sys_module_id' => 'required'
         ];
     }
 
@@ -33,8 +33,8 @@ class BaseFeatureDomainRequest extends FormRequest
             'slug.max' => __('validation.slugMax'),
             'description.required' => __('validation.required', ['attribute' => __('Core::FeatureDomain.description')]),
             'description.max' => __('validation.descriptionMax'),
-            'module_id.required' => __('validation.required', ['attribute' => __('Core::FeatureDomain.module_id')]),
-            'module_id.max' => __('validation.module_idMax')
+            'sys_module_id.required' => __('validation.required', ['attribute' => __('Core::FeatureDomain.sys_module_id')]),
+            'sys_module_id.max' => __('validation.sys_module_idMax')
         ];
     }
 }

@@ -23,7 +23,7 @@ class BaseSysModuleRequest extends FormRequest
             'is_active' => 'required',
             'order' => 'required',
             'version' => 'required|max:255',
-            'color_id' => 'required'
+            'sys_color_id' => 'required'
         ];
     }
 
@@ -42,8 +42,8 @@ class BaseSysModuleRequest extends FormRequest
             'order.max' => __('validation.orderMax'),
             'version.required' => __('validation.required', ['attribute' => __('Core::SysModule.version')]),
             'version.max' => __('validation.versionMax'),
-            'color_id.required' => __('validation.required', ['attribute' => __('Core::SysModule.color_id')]),
-            'color_id.max' => __('validation.color_idMax')
+            'sys_color_id.required' => __('validation.required', ['attribute' => __('Core::SysModule.sys_color_id')]),
+            'sys_color_id.max' => __('validation.sys_color_idMax')
         ];
     }
 }

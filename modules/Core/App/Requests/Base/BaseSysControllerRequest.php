@@ -17,7 +17,7 @@ class BaseSysControllerRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'module_id' => 'required',
+            'sys_module_id' => 'required',
             'name' => 'required|max:255',
             'slug' => 'required|max:255',
             'description' => 'nullable',
@@ -28,8 +28,8 @@ class BaseSysControllerRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'module_id.required' => __('validation.required', ['attribute' => __('Core::SysController.module_id')]),
-            'module_id.max' => __('validation.module_idMax'),
+            'sys_module_id.required' => __('validation.required', ['attribute' => __('Core::SysController.sys_module_id')]),
+            'sys_module_id.max' => __('validation.sys_module_idMax'),
             'name.required' => __('validation.required', ['attribute' => __('Core::SysController.name')]),
             'name.max' => __('validation.nameMax'),
             'slug.required' => __('validation.required', ['attribute' => __('Core::SysController.slug')]),

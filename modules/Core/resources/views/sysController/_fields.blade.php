@@ -1,6 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-@section('role-form')
+@section('sysController-form')
 <form class="crud-form custom-form context-state" id="sysControllerForm" action="{{ $itemSysController->id ? route('sysControllers.update', $itemSysController->id) : route('sysControllers.store') }}" method="POST" novalidate>
     @csrf
 
@@ -12,26 +12,26 @@
         
         
     <div class="form-group">
-            <label for="module_id">
+            <label for="sys_module_id">
                 {{ ucfirst(__('Core::sysModule.singular')) }}
                 
                     <span class="text-danger">*</span>
                 
             </label>
             <select 
-            id="module_id" 
+            id="sys_module_id" 
             required
-            name="module_id" 
+            name="sys_module_id" 
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($sysModules as $sysModule)
                     <option value="{{ $sysModule->id }}"
-                        {{ (isset($itemSysController) && $itemSysController->module_id == $sysModule->id) || (old('module_id>') == $sysModule->id) ? 'selected' : '' }}>
+                        {{ (isset($itemSysController) && $itemSysController->sys_module_id == $sysModule->id) || (old('sys_module_id>') == $sysModule->id) ? 'selected' : '' }}>
                         {{ $sysModule }}
                     </option>
                 @endforeach
             </select>
-            @error('module_id')
+            @error('sys_module_id')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
     </div>
@@ -99,11 +99,29 @@
 </div>
 
         
-        
+        <div class="form-group">
+            <label for="is_active">
+                {{ ucfirst(__('Core::sysController.is_active')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <input
+                name="is_active"
+                type="number"
+                class="form-control"
+                required
+                id="is_active"
+                placeholder="{{ __('Core::sysController.is_active') }}"
+                value="{{ $itemSysController ? $itemSysController->is_active : old('is_active') }}">
+            @error('is_active')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
 
         
 
-        <!--   Permission_HasMany HasMany --> 
+        <!--   Permission HasMany --> 
 
     </div>
 

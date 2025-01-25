@@ -19,7 +19,7 @@ class BaseSysControllerService extends BaseService
      * @var array
      */
     protected $fieldsSearchable = [
-        'module_id',
+        'sys_module_id',
         'name',
         'slug',
         'description',
@@ -45,6 +45,7 @@ class BaseSysControllerService extends BaseService
 
         // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
+            $this->generateManyToOneFilter(__("Core::sysModule.plural"), 'sys_module_id', \Modules\Core\Models\SysModule::class, 'name'),
         ];
 
     }

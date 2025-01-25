@@ -48,7 +48,7 @@ class BaseFeatureDomainSeeder extends Seeder
                     "name" => $data[0] ,
                     "slug" => $data[1] ,
                     "description" => $data[2] ,
-                    "module_id" => $data[3] 
+                    "sys_module_id" => $data[3] 
                 ]);
             }
             $firstline = false;

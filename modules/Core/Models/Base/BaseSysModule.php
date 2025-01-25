@@ -11,8 +11,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
-use Modules\Core\Models\FeatureDomain;
 use Modules\Core\Models\SysColor;
+use Modules\Core\Models\FeatureDomain;
 use Modules\Core\Models\SysController;
 use Modules\Core\Models\SysModel;
 
@@ -36,7 +36,7 @@ class BaseSysModule extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'name', 'slug', 'description', 'is_active', 'order', 'version', 'color_id'
+        'name', 'slug', 'description', 'is_active', 'order', 'version', 'sys_color_id'
     ];
 
     /**
@@ -46,12 +46,12 @@ class BaseSysModule extends BaseModel
      */
     public function sysColor(): BelongsTo
     {
-        return $this->belongsTo(SysColor::class, 'color_id', 'id');
+        return $this->belongsTo(SysColor::class, 'sys_color_id', 'id');
     }
 
 
     /**
-     * Relation HasMany pour FeatureDomains.
+     * Relation HasMany pour SysModules.
      *
      * @return HasMany
      */
@@ -60,7 +60,7 @@ class BaseSysModule extends BaseModel
         return $this->hasMany(FeatureDomain::class, 'sys_module_id', 'id');
     }
     /**
-     * Relation HasMany pour SysControllers.
+     * Relation HasMany pour SysModules.
      *
      * @return HasMany
      */
@@ -69,7 +69,7 @@ class BaseSysModule extends BaseModel
         return $this->hasMany(SysController::class, 'sys_module_id', 'id');
     }
     /**
-     * Relation HasMany pour SysModels.
+     * Relation HasMany pour SysModules.
      *
      * @return HasMany
      */
@@ -77,6 +77,8 @@ class BaseSysModule extends BaseModel
     {
         return $this->hasMany(SysModel::class, 'sys_module_id', 'id');
     }
+
+
 
     /**
      * Méthode __toString pour représenter le modèle sous forme de chaîne.

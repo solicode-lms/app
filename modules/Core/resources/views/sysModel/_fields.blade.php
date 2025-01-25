@@ -1,6 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-@section('role-form')
+@section('sysModel-form')
 <form class="crud-form custom-form context-state" id="sysModelForm" action="{{ $itemSysModel->id ? route('sysModels.update', $itemSysModel->id) : route('sysModels.store') }}" method="POST" novalidate>
     @csrf
 
@@ -73,26 +73,26 @@
         
         
     <div class="form-group">
-            <label for="module_id">
+            <label for="sys_module_id">
                 {{ ucfirst(__('Core::sysModule.singular')) }}
                 
                     <span class="text-danger">*</span>
                 
             </label>
             <select 
-            id="module_id" 
+            id="sys_module_id" 
             required
-            name="module_id" 
+            name="sys_module_id" 
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($sysModules as $sysModule)
                     <option value="{{ $sysModule->id }}"
-                        {{ (isset($itemSysModel) && $itemSysModel->module_id == $sysModule->id) || (old('module_id>') == $sysModule->id) ? 'selected' : '' }}>
+                        {{ (isset($itemSysModel) && $itemSysModel->sys_module_id == $sysModule->id) || (old('sys_module_id>') == $sysModule->id) ? 'selected' : '' }}>
                         {{ $sysModule }}
                     </option>
                 @endforeach
             </select>
-            @error('module_id')
+            @error('sys_module_id')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
     </div>
@@ -101,26 +101,24 @@
         
         
     <div class="form-group">
-            <label for="color_id">
+            <label for="sys_color_id">
                 {{ ucfirst(__('Core::sysColor.singular')) }}
-                
-                    <span class="text-danger">*</span>
                 
             </label>
             <select 
-            id="color_id" 
-            required
-            name="color_id" 
+            id="sys_color_id" 
+            
+            name="sys_color_id" 
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($sysColors as $sysColor)
                     <option value="{{ $sysColor->id }}"
-                        {{ (isset($itemSysModel) && $itemSysModel->color_id == $sysColor->id) || (old('color_id>') == $sysColor->id) ? 'selected' : '' }}>
+                        {{ (isset($itemSysModel) && $itemSysModel->sys_color_id == $sysColor->id) || (old('sys_color_id>') == $sysColor->id) ? 'selected' : '' }}>
                         {{ $sysColor }}
                     </option>
                 @endforeach
             </select>
-            @error('color_id')
+            @error('sys_color_id')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
     </div>
@@ -128,7 +126,7 @@
 
         
 
-        <!--   Widget_HasMany HasMany --> 
+        <!--   Widget HasMany --> 
 
     </div>
 

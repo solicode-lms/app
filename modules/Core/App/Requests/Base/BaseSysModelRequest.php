@@ -20,8 +20,8 @@ class BaseSysModelRequest extends FormRequest
             'name' => 'required|max:255',
             'model' => 'required|max:255',
             'description' => 'nullable',
-            'module_id' => 'required',
-            'color_id' => 'required'
+            'sys_module_id' => 'required',
+            'sys_color_id' => 'nullable'
         ];
     }
 
@@ -34,10 +34,10 @@ class BaseSysModelRequest extends FormRequest
             'model.max' => __('validation.modelMax'),
             'description.required' => __('validation.required', ['attribute' => __('Core::SysModel.description')]),
             'description.max' => __('validation.descriptionMax'),
-            'module_id.required' => __('validation.required', ['attribute' => __('Core::SysModel.module_id')]),
-            'module_id.max' => __('validation.module_idMax'),
-            'color_id.required' => __('validation.required', ['attribute' => __('Core::SysModel.color_id')]),
-            'color_id.max' => __('validation.color_idMax')
+            'sys_module_id.required' => __('validation.required', ['attribute' => __('Core::SysModel.sys_module_id')]),
+            'sys_module_id.max' => __('validation.sys_module_idMax'),
+            'sys_color_id.required' => __('validation.required', ['attribute' => __('Core::SysModel.sys_color_id')]),
+            'sys_color_id.max' => __('validation.sys_color_idMax')
         ];
     }
 }

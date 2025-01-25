@@ -28,6 +28,7 @@ class BaseFeatureExport implements FromCollection, WithHeadings, ShouldAutoSize,
             'name',
             'description',
             'domain_id',
+            'reference',
         ];
     }
 
@@ -38,6 +39,7 @@ class BaseFeatureExport implements FromCollection, WithHeadings, ShouldAutoSize,
                 'name' => $feature->name,
                 'description' => $feature->description,
                 'domain_id' => $feature->domain_id,
+                'reference' => $feature->reference,
             ];
         });
     }
