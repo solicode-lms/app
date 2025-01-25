@@ -27,6 +27,7 @@ class BaseSysColorExport implements FromCollection, WithHeadings, ShouldAutoSize
         return [
             'name',
             'hex',
+            'reference',
         ];
     }
 
@@ -36,6 +37,7 @@ class BaseSysColorExport implements FromCollection, WithHeadings, ShouldAutoSize
             return [
                 'name' => $sysColor->name,
                 'hex' => $sysColor->hex,
+                'reference' => $sysColor->reference,
             ];
         });
     }

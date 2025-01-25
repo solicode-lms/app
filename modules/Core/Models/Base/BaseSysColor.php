@@ -40,7 +40,7 @@ class BaseSysColor extends BaseModel
 
 
     /**
-     * Relation HasMany pour SysModels.
+     * Relation HasMany pour SysColors.
      *
      * @return HasMany
      */
@@ -49,7 +49,7 @@ class BaseSysColor extends BaseModel
         return $this->hasMany(SysModel::class, 'sys_color_id', 'id');
     }
     /**
-     * Relation HasMany pour SysModules.
+     * Relation HasMany pour SysColors.
      *
      * @return HasMany
      */
@@ -57,6 +57,8 @@ class BaseSysColor extends BaseModel
     {
         return $this->hasMany(SysModule::class, 'sys_color_id', 'id');
     }
+
+
 
     /**
      * Méthode __toString pour représenter le modèle sous forme de chaîne.

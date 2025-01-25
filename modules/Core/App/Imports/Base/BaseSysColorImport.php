@@ -40,6 +40,7 @@ class BaseSysColorImport implements ToModel, WithHeadingRow
         return new SysColor([
             'name' => $row['name'],
             'hex' => $row['hex'],
+            'reference' => $row['reference'],
         ]);
     }
 }

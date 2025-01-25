@@ -1,6 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-@section('role-form')
+@section('sysColor-form')
 <form class="crud-form custom-form context-state" id="sysColorForm" action="{{ $itemSysColor->id ? route('sysColors.update', $itemSysColor->id) : route('sysColors.store') }}" method="POST" novalidate>
     @csrf
 
@@ -53,11 +53,11 @@
 
         
 
-        <!--   SysModel_HasMany HasMany --> 
+        <!--   SysModel HasMany --> 
 
         
 
-        <!--   SysModule_HasMany HasMany --> 
+        <!--   SysModule HasMany --> 
 
     </div>
 

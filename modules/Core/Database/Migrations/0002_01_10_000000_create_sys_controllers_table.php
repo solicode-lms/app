@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('sys_controllers', function (Blueprint $table) {
             $table->id(); // Clé primaire
-            $table->foreignId('module_id')->constrained('sys_modules')->onDelete('cascade'); // Clé étrangère vers sys_modules
+            $table->foreignId('sys_module_id')->constrained('sys_modules')->onDelete('cascade'); // Clé étrangère vers sys_modules
             $table->string('name')->unique(); // Nom unique du contrôleur
             $table->string('slug')->unique(); // Slug unique pour le contrôleur
             $table->longText('description')->nullable(); // Description du contrôleur

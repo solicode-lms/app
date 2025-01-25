@@ -3,13 +3,12 @@
 
 
 namespace Modules\Core\Controllers\Base;
-
+use Modules\Core\Services\SysColorService;
+use Modules\Core\Services\SysModelService;
+use Modules\Core\Services\SysModuleService;
+use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Requests\SysColorRequest;
-use Modules\Core\Services\SysColorService;
-
-
-use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\Core\App\Exports\SysColorExport;
 use Modules\Core\App\Imports\SysColorImport;
@@ -19,43 +18,34 @@ class BaseSysColorController extends AdminController
 {
     protected $sysColorService;
 
-    public function __construct(SysColorService $sysColorService)
-    {
+    public function __construct(SysColorService $sysColorService) {
         parent::__construct();
         $this->sysColorService = $sysColorService;
-
     }
 
-
-    public function index(Request $request)
-    {
+    public function index(Request $request) {
         // Extraire les paramètres de recherche, page, et filtres
         $sysColors_params = array_merge(
             $request->only(['page','sort']),
             ['search' => $request->get('sysColors_search', '')],
             $request->except(['sysColors_search', 'page', 'sort'])
         );
-    
+
         // Paginer les sysColors
         $sysColors_data = $this->sysColorService->paginate($sysColors_params);
-    
+
         // Récupérer les statistiques et les champs filtrables
         $sysColors_stats = $this->sysColorService->getsysColorStats();
         $sysColors_filters = $this->sysColorService->getFieldsFilterable();
-    
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
             return view('Core::sysColor._table', compact('sysColors_data', 'sysColors_stats', 'sysColors_filters'))->render();
         }
-    
+
         return view('Core::sysColor.index', compact('sysColors_data', 'sysColors_stats', 'sysColors_filters'));
     }
-
-    /**
-     * Retourne le formulaire de création.
-     */
-    public function create()
-    {
+    public function create() {
         $itemSysColor = $this->sysColorService->createInstance();
 
 
@@ -64,12 +54,7 @@ class BaseSysColorController extends AdminController
         }
         return view('Core::sysColor.create', compact('itemSysColor'));
     }
-
-    /**
-     * Stocke une nouvelle filière.
-     */
-    public function store(SysColorRequest $request)
-    {
+    public function store(SysColorRequest $request) {
         $validatedData = $request->validated();
         $sysColor = $this->sysColorService->create($validatedData);
 
@@ -84,7 +69,7 @@ class BaseSysColorController extends AdminController
             ]);
         }
 
-        return redirect()->route('sysColors.index')->with(
+        return redirect()->route('sysColors.edit',['sysColor' => $sysColor->id])->with(
             'success',
             __('Core::msg.addSuccess', [
                 'entityToString' => $sysColor,
@@ -92,12 +77,7 @@ class BaseSysColorController extends AdminController
             ])
         );
     }
-
-    /**
-     * Affiche les détails d'une filière.
-     */
-    public function show(string $id)
-    {
+    public function show(string $id) {
         $itemSysColor = $this->sysColorService->find($id);
 
 
@@ -106,32 +86,34 @@ class BaseSysColorController extends AdminController
         }
 
         return view('Core::sysColor.show', compact('itemSysColor'));
-    }
 
-    /**
-     * Retourne le formulaire d'édition d'une filière.
-     */
-    public function edit(string $id)
-    {
+    }
+    public function edit(string $id) {
 
         $itemSysColor = $this->sysColorService->find($id);
+        $sysModelService =  new SysModelService();
+        $sysModels_data =  $itemSysColor->sysModels()->paginate(10);
+        $sysModels_stats = $sysModelService->getsysModelStats();
+        $sysModels_filters = $sysModelService->getFieldsFilterable();
+        
+        $sysModuleService =  new SysModuleService();
+        $sysModules_data =  $itemSysColor->sysModules()->paginate(10);
+        $sysModules_stats = $sysModuleService->getsysModuleStats();
+        $sysModules_filters = $sysModuleService->getFieldsFilterable();
+        
 
         // Utilisé dans l'édition des relation HasMany
         $this->contextState->set('sysColor_id', $id);
 
 
         if (request()->ajax()) {
-            return view('Core::sysColor._fields', compact('itemSysColor'));
+            return view('Core::sysColor._fields', compact('itemSysColor', 'sysModels_data', 'sysModules_data', 'sysModels_stats', 'sysModules_stats', 'sysModels_filters', 'sysModules_filters'));
         }
 
-        return view('Core::sysColor.edit', compact('itemSysColor'));
-    }
+        return view('Core::sysColor.edit', compact('itemSysColor', 'sysModels_data', 'sysModules_data', 'sysModels_stats', 'sysModules_stats', 'sysModels_filters', 'sysModules_filters'));
 
-    /**
-     * Met à jour une filière existante.
-     */
-    public function update(SysColorRequest $request, string $id)
-    {
+    }
+    public function update(SysColorRequest $request, string $id) {
 
         $validatedData = $request->validated();
         $sysColor = $this->sysColorService->update($id, $validatedData);
@@ -152,13 +134,9 @@ class BaseSysColorController extends AdminController
                 'modelName' =>  __('Core::sysColor.singular')
                 ])
         );
-    }
 
-    /**
-     * Supprime une filière.
-     */
-    public function destroy(Request $request, string $id)
-    {
+    }
+    public function destroy(Request $request, string $id) {
 
         $sysColor = $this->sysColorService->destroy($id);
 
@@ -177,6 +155,7 @@ class BaseSysColorController extends AdminController
                 'modelName' =>  __('Core::sysColor.singular')
                 ])
         );
+
     }
 
     public function export()
@@ -212,4 +191,5 @@ class BaseSysColorController extends AdminController
         $sysColors = $this->sysColorService->all();
         return response()->json($sysColors);
     }
+
 }
