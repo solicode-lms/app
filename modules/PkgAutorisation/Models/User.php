@@ -4,6 +4,7 @@ namespace Modules\PkgAutorisation\Models;
 
 use App\Traits\HasReference;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Modules\PkgUtilisateurs\Models\Formateur;
@@ -61,6 +62,15 @@ class User extends Authenticatable
         return $this->hasOne(Formateur::class);
     }
     
+    /**
+     * Gapp détecter la relation OneToOne comme ManyToOne
+     *
+     * @return HasMany
+     */
+    public function formateurs(): HasMany
+    {
+        return $this->hasMany(Formateur::class, 'user_id', 'id');
+    }
 
  
     public function getUsersContext()
