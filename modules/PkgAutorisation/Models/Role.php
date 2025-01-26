@@ -14,6 +14,7 @@ class Role extends ModelsRole
     use HasReference;
     
     public const FORMATEUR_ROLE = "formateur";
+    public const GAPP_ROLE = "gapp";
     public function __toString()
     {
         return $this->name;

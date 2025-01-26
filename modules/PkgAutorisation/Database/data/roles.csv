@@ -1,5 +1,6 @@
 name,guard_name
 root,web
+gapp,web
 admin,web
 formateur,web
 apprenant,web
