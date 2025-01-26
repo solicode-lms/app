@@ -28,6 +28,7 @@ class BasePermissionExport implements FromCollection, WithHeadings, ShouldAutoSi
             'name',
             'guard_name',
             'controller_id',
+            'reference',
         ];
     }
 
@@ -38,6 +39,7 @@ class BasePermissionExport implements FromCollection, WithHeadings, ShouldAutoSi
                 'name' => $permission->name,
                 'guard_name' => $permission->guard_name,
                 'controller_id' => $permission->controller_id,
+                'reference' => $permission->reference,
             ];
         });
     }

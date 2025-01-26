@@ -43,6 +43,7 @@ class BasePermissionService extends BaseService
 
         // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
+            $this->generateManyToOneFilter(__("Core::sysController.plural"), 'controller_id', \Modules\Core\Models\SysController::class, 'name'),
         ];
 
     }

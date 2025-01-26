@@ -12,13 +12,13 @@ trait HasReference
     protected static function bootHasReference()
     {
         static::creating(function ($model) {
-            if ($model->hasColumn('reference') && !$model->reference) {
+            if ($model->hasColumn('reference')) {
                 $model->reference = $model->generateReference();
             }
         });
 
         static::updating(function ($model) {
-            if ($model->hasColumn('reference') && !$model->reference) {
+            if ($model->hasColumn('reference')) {
                 $model->reference = $model->generateReference();
             }
         });
@@ -42,9 +42,10 @@ trait HasReference
      */
     public function hasColumn(string $column): bool
     {
-        return in_array($column, $this->getConnection()
+        $value =  in_array($column, $this->getConnection()
             ->getSchemaBuilder()
             ->getColumnListing($this->getTable()));
+        return $value;
     }
 
     /**

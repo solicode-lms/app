@@ -40,6 +40,7 @@ class BaseRoleImport implements ToModel, WithHeadingRow
         return new Role([
             'name' => $row['name'],
             'guard_name' => $row['guard_name'],
+            'reference' => $row['reference'],
         ]);
     }
 }

@@ -1,6 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-@section('role-form')
+@section('permission-form')
 <form class="crud-form custom-form context-state" id="permissionForm" action="{{ $itemPermission->id ? route('permissions.update', $itemPermission->id) : route('permissions.store') }}" method="POST" novalidate>
     @csrf
 

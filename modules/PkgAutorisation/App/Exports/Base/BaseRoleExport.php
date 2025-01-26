@@ -27,6 +27,7 @@ class BaseRoleExport implements FromCollection, WithHeadings, ShouldAutoSize, Wi
         return [
             'name',
             'guard_name',
+            'reference',
         ];
     }
 
@@ -36,6 +37,7 @@ class BaseRoleExport implements FromCollection, WithHeadings, ShouldAutoSize, Wi
             return [
                 'name' => $role->name,
                 'guard_name' => $role->guard_name,
+                'reference' => $role->reference,
             ];
         });
     }

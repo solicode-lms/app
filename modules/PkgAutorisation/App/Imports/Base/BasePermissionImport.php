@@ -41,6 +41,7 @@ class BasePermissionImport implements ToModel, WithHeadingRow
             'name' => $row['name'],
             'guard_name' => $row['guard_name'],
             'controller_id' => $row['controller_id'],
+            'reference' => $row['reference'],
         ]);
     }
 }

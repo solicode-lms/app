@@ -3,15 +3,13 @@
 
 
 namespace Modules\PkgAutorisation\Controllers\Base;
-
-use Modules\Core\Controllers\Base\AdminController;
-use Modules\PkgAutorisation\App\Requests\PermissionRequest;
 use Modules\PkgAutorisation\Services\PermissionService;
 use Modules\Core\Services\FeatureService;
-use Modules\PkgAutorisation\Services\RoleService;
 use Modules\Core\Services\SysControllerService;
-
+use Modules\PkgAutorisation\Services\RoleService;
 use Illuminate\Http\Request;
+use Modules\Core\Controllers\Base\AdminController;
+use Modules\PkgAutorisation\App\Requests\PermissionRequest;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgAutorisation\App\Exports\PermissionExport;
 use Modules\PkgAutorisation\App\Imports\PermissionImport;
@@ -21,49 +19,40 @@ class BasePermissionController extends AdminController
 {
     protected $permissionService;
     protected $featureService;
-    protected $roleService;
     protected $sysControllerService;
+    protected $roleService;
 
-    public function __construct(PermissionService $permissionService, FeatureService $featureService, RoleService $roleService, SysControllerService $sysControllerService)
-    {
+    public function __construct(PermissionService $permissionService, FeatureService $featureService, SysControllerService $sysControllerService, RoleService $roleService) {
         parent::__construct();
         $this->permissionService = $permissionService;
         $this->featureService = $featureService;
-        $this->roleService = $roleService;
         $this->sysControllerService = $sysControllerService;
-
+        $this->roleService = $roleService;
     }
 
-
-    public function index(Request $request)
-    {
+    public function index(Request $request) {
         // Extraire les paramètres de recherche, page, et filtres
         $permissions_params = array_merge(
             $request->only(['page','sort']),
             ['search' => $request->get('permissions_search', '')],
             $request->except(['permissions_search', 'page', 'sort'])
         );
-    
+
         // Paginer les permissions
         $permissions_data = $this->permissionService->paginate($permissions_params);
-    
+
         // Récupérer les statistiques et les champs filtrables
         $permissions_stats = $this->permissionService->getpermissionStats();
         $permissions_filters = $this->permissionService->getFieldsFilterable();
-    
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
             return view('PkgAutorisation::permission._table', compact('permissions_data', 'permissions_stats', 'permissions_filters'))->render();
         }
-    
+
         return view('PkgAutorisation::permission.index', compact('permissions_data', 'permissions_stats', 'permissions_filters'));
     }
-
-    /**
-     * Retourne le formulaire de création.
-     */
-    public function create()
-    {
+    public function create() {
         $itemPermission = $this->permissionService->createInstance();
         $features = $this->featureService->all();
         $roles = $this->roleService->all();
@@ -75,12 +64,7 @@ class BasePermissionController extends AdminController
         }
         return view('PkgAutorisation::permission.create', compact('itemPermission', 'features', 'roles', 'sysControllers'));
     }
-
-    /**
-     * Stocke une nouvelle filière.
-     */
-    public function store(PermissionRequest $request)
-    {
+    public function store(PermissionRequest $request) {
         $validatedData = $request->validated();
         $permission = $this->permissionService->create($validatedData);
 
@@ -109,12 +93,7 @@ class BasePermissionController extends AdminController
             ])
         );
     }
-
-    /**
-     * Affiche les détails d'une filière.
-     */
-    public function show(string $id)
-    {
+    public function show(string $id) {
         $itemPermission = $this->permissionService->find($id);
         $features = $this->featureService->all();
         $roles = $this->roleService->all();
@@ -126,13 +105,9 @@ class BasePermissionController extends AdminController
         }
 
         return view('PkgAutorisation::permission.show', compact('itemPermission'));
-    }
 
-    /**
-     * Retourne le formulaire d'édition d'une filière.
-     */
-    public function edit(string $id)
-    {
+    }
+    public function edit(string $id) {
 
         $itemPermission = $this->permissionService->find($id);
         $features = $this->featureService->all();
@@ -148,13 +123,9 @@ class BasePermissionController extends AdminController
         }
 
         return view('PkgAutorisation::permission.edit', compact('itemPermission', 'features', 'roles', 'sysControllers'));
-    }
 
-    /**
-     * Met à jour une filière existante.
-     */
-    public function update(PermissionRequest $request, string $id)
-    {
+    }
+    public function update(PermissionRequest $request, string $id) {
 
         $validatedData = $request->validated();
         $permission = $this->permissionService->update($id, $validatedData);
@@ -177,13 +148,9 @@ class BasePermissionController extends AdminController
                 'modelName' =>  __('PkgAutorisation::permission.singular')
                 ])
         );
-    }
 
-    /**
-     * Supprime une filière.
-     */
-    public function destroy(Request $request, string $id)
-    {
+    }
+    public function destroy(Request $request, string $id) {
 
         $permission = $this->permissionService->destroy($id);
 
@@ -202,6 +169,7 @@ class BasePermissionController extends AdminController
                 'modelName' =>  __('PkgAutorisation::permission.singular')
                 ])
         );
+
     }
 
     public function export()
@@ -237,4 +205,5 @@ class BasePermissionController extends AdminController
         $permissions = $this->permissionService->all();
         return response()->json($permissions);
     }
+
 }

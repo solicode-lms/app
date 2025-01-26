@@ -43,6 +43,7 @@ class BaseUserImport implements ToModel, WithHeadingRow
             'email_verified_at' => $row['email_verified_at'],
             'password' => $row['password'],
             'remember_token' => $row['remember_token'],
+            'reference' => $row['reference'],
         ]);
     }
 }

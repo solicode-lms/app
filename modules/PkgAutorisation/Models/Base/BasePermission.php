@@ -11,8 +11,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
-use Modules\Core\Models\Feature;
 use Modules\Core\Models\SysController;
+use Modules\Core\Models\Feature;
 use Modules\PkgAutorisation\Models\Role;
 
 /**
@@ -66,6 +66,8 @@ class BasePermission extends BaseModel
     {
         return $this->belongsToMany(Role::class, 'role_has_permissions');
     }
+
+
 
 
     /**

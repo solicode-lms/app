@@ -30,6 +30,7 @@ class BaseUserExport implements FromCollection, WithHeadings, ShouldAutoSize, Wi
             'email_verified_at',
             'password',
             'remember_token',
+            'reference',
         ];
     }
 
@@ -42,6 +43,7 @@ class BaseUserExport implements FromCollection, WithHeadings, ShouldAutoSize, Wi
                 'email_verified_at' => $user->email_verified_at,
                 'password' => $user->password,
                 'remember_token' => $user->remember_token,
+                'reference' => $user->reference,
             ];
         });
     }
