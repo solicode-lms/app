@@ -34,7 +34,7 @@ class BaseFeature extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'name', 'description', 'domain_id'
+        'name', 'description', 'feature_domain_id'
     ];
 
     /**
@@ -44,7 +44,7 @@ class BaseFeature extends BaseModel
      */
     public function featureDomain(): BelongsTo
     {
-        return $this->belongsTo(FeatureDomain::class, 'domain_id', 'id');
+        return $this->belongsTo(FeatureDomain::class, 'feature_domain_id', 'id');
     }
 
     /**

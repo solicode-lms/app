@@ -21,7 +21,7 @@ class BaseFeatureService extends BaseService
     protected $fieldsSearchable = [
         'name',
         'description',
-        'domain_id'
+        'feature_domain_id'
     ];
 
     /**
@@ -43,7 +43,7 @@ class BaseFeatureService extends BaseService
 
         // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
-            $this->generateManyToOneFilter(__("Core::featureDomain.plural"), 'domain_id', \Modules\Core\Models\FeatureDomain::class, 'name'),
+            $this->generateManyToOneFilter(__("Core::featureDomain.plural"), 'feature_domain_id', \Modules\Core\Models\FeatureDomain::class, 'name'),
         ];
 
     }

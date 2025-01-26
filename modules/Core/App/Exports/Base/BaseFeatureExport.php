@@ -27,7 +27,7 @@ class BaseFeatureExport implements FromCollection, WithHeadings, ShouldAutoSize,
         return [
             'name',
             'description',
-            'domain_id',
+            'feature_domain_id',
             'reference',
         ];
     }
@@ -38,7 +38,7 @@ class BaseFeatureExport implements FromCollection, WithHeadings, ShouldAutoSize,
             return [
                 'name' => $feature->name,
                 'description' => $feature->description,
-                'domain_id' => $feature->domain_id,
+                'feature_domain_id' => $feature->feature_domain_id,
                 'reference' => $feature->reference,
             ];
         });

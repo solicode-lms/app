@@ -19,7 +19,7 @@ class BaseFeatureRequest extends FormRequest
         return [
             'name' => 'required|max:255',
             'description' => 'nullable',
-            'domain_id' => 'required'
+            'feature_domain_id' => 'required'
         ];
     }
 
@@ -30,8 +30,8 @@ class BaseFeatureRequest extends FormRequest
             'name.max' => __('validation.nameMax'),
             'description.required' => __('validation.required', ['attribute' => __('Core::Feature.description')]),
             'description.max' => __('validation.descriptionMax'),
-            'domain_id.required' => __('validation.required', ['attribute' => __('Core::Feature.domain_id')]),
-            'domain_id.max' => __('validation.domain_idMax')
+            'feature_domain_id.required' => __('validation.required', ['attribute' => __('Core::Feature.feature_domain_id')]),
+            'feature_domain_id.max' => __('validation.feature_domain_idMax')
         ];
     }
 }

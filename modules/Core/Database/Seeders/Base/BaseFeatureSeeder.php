@@ -47,7 +47,7 @@ class BaseFeatureSeeder extends Seeder
                 Feature::create([
                     "name" => $data[0] ,
                     "description" => $data[1] ,
-                    "domain_id" => $data[2] 
+                    "feature_domain_id" => $data[2] 
                 ]);
             }
             $firstline = false;

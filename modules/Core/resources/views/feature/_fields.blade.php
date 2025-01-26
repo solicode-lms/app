@@ -52,26 +52,26 @@
         
         
     <div class="form-group">
-            <label for="domain_id">
+            <label for="feature_domain_id">
                 {{ ucfirst(__('Core::featureDomain.singular')) }}
                 
                     <span class="text-danger">*</span>
                 
             </label>
             <select 
-            id="domain_id" 
+            id="feature_domain_id" 
             required
-            name="domain_id" 
+            name="feature_domain_id" 
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($featureDomains as $featureDomain)
                     <option value="{{ $featureDomain->id }}"
-                        {{ (isset($itemFeature) && $itemFeature->domain_id == $featureDomain->id) || (old('domain_id>') == $featureDomain->id) ? 'selected' : '' }}>
+                        {{ (isset($itemFeature) && $itemFeature->feature_domain_id == $featureDomain->id) || (old('feature_domain_id>') == $featureDomain->id) ? 'selected' : '' }}>
                         {{ $featureDomain }}
                     </option>
                 @endforeach
             </select>
-            @error('domain_id')
+            @error('feature_domain_id')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
     </div>

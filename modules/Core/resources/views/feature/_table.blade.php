@@ -5,7 +5,7 @@
         <thead>
             <tr>
                 <x-sortable-column field="name" label="{{ ucfirst(__('Core::feature.name')) }}" />
-                <x-sortable-column field="domain_id" label="{{ ucfirst(__('Core::featureDomain.singular')) }}" />
+                <x-sortable-column field="feature_domain_id" label="{{ ucfirst(__('Core::featureDomain.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
