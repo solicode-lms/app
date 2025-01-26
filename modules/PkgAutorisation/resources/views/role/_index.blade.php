@@ -30,7 +30,7 @@
        $titre = __("PkgAutorisation::role.singular");
     @endphp
     <x-crud-header 
-        id="role-crud-header" icon="fas fa-id-badge"  
+        id="role-crud-header" icon="fas fa-table"  
         iconColor="text-info"
         title="{{ __('PkgAutorisation::role.plural') }}"
         :breadcrumbs="[

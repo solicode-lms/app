@@ -13,7 +13,6 @@ use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
 use Modules\PkgAutorisation\Models\Permission;
 use Modules\PkgAutorisation\Models\User;
-use Modules\PkgAutorisation\Models\ModelHasRole;
 
 /**
  * Classe BaseRole
@@ -58,15 +57,6 @@ class BaseRole extends BaseModel
         return $this->belongsToMany(User::class, 'model_has_roles');
     }
 
-    /**
-     * Relation HasMany pour Roles.
-     *
-     * @return HasMany
-     */
-    public function modelHasRoles(): HasMany
-    {
-        return $this->hasMany(ModelHasRole::class, 'role_id', 'id');
-    }
 
 
 

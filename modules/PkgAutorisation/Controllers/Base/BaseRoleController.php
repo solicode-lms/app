@@ -3,14 +3,12 @@
 
 
 namespace Modules\PkgAutorisation\Controllers\Base;
-
-use Modules\Core\Controllers\Base\AdminController;
-use Modules\PkgAutorisation\App\Requests\RoleRequest;
 use Modules\PkgAutorisation\Services\RoleService;
 use Modules\PkgAutorisation\Services\PermissionService;
 use Modules\PkgAutorisation\Services\UserService;
-
 use Illuminate\Http\Request;
+use Modules\Core\Controllers\Base\AdminController;
+use Modules\PkgAutorisation\App\Requests\RoleRequest;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgAutorisation\App\Exports\RoleExport;
 use Modules\PkgAutorisation\App\Imports\RoleImport;
@@ -22,45 +20,36 @@ class BaseRoleController extends AdminController
     protected $permissionService;
     protected $userService;
 
-    public function __construct(RoleService $roleService, PermissionService $permissionService, UserService $userService)
-    {
+    public function __construct(RoleService $roleService, PermissionService $permissionService, UserService $userService) {
         parent::__construct();
         $this->roleService = $roleService;
         $this->permissionService = $permissionService;
         $this->userService = $userService;
-
     }
 
-
-    public function index(Request $request)
-    {
+    public function index(Request $request) {
         // Extraire les paramètres de recherche, page, et filtres
         $roles_params = array_merge(
             $request->only(['page','sort']),
             ['search' => $request->get('roles_search', '')],
             $request->except(['roles_search', 'page', 'sort'])
         );
-    
+
         // Paginer les roles
         $roles_data = $this->roleService->paginate($roles_params);
-    
+
         // Récupérer les statistiques et les champs filtrables
         $roles_stats = $this->roleService->getroleStats();
         $roles_filters = $this->roleService->getFieldsFilterable();
-    
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
             return view('PkgAutorisation::role._table', compact('roles_data', 'roles_stats', 'roles_filters'))->render();
         }
-    
+
         return view('PkgAutorisation::role.index', compact('roles_data', 'roles_stats', 'roles_filters'));
     }
-
-    /**
-     * Retourne le formulaire de création.
-     */
-    public function create()
-    {
+    public function create() {
         $itemRole = $this->roleService->createInstance();
         $permissions = $this->permissionService->all();
         $users = $this->userService->all();
@@ -71,12 +60,7 @@ class BaseRoleController extends AdminController
         }
         return view('PkgAutorisation::role.create', compact('itemRole', 'permissions', 'users'));
     }
-
-    /**
-     * Stocke une nouvelle filière.
-     */
-    public function store(RoleRequest $request)
-    {
+    public function store(RoleRequest $request) {
         $validatedData = $request->validated();
         $role = $this->roleService->create($validatedData);
 
@@ -105,12 +89,7 @@ class BaseRoleController extends AdminController
             ])
         );
     }
-
-    /**
-     * Affiche les détails d'une filière.
-     */
-    public function show(string $id)
-    {
+    public function show(string $id) {
         $itemRole = $this->roleService->find($id);
         $permissions = $this->permissionService->all();
         $users = $this->userService->all();
@@ -121,13 +100,9 @@ class BaseRoleController extends AdminController
         }
 
         return view('PkgAutorisation::role.show', compact('itemRole'));
-    }
 
-    /**
-     * Retourne le formulaire d'édition d'une filière.
-     */
-    public function edit(string $id)
-    {
+    }
+    public function edit(string $id) {
 
         $itemRole = $this->roleService->find($id);
         $permissions = $this->permissionService->all();
@@ -142,13 +117,9 @@ class BaseRoleController extends AdminController
         }
 
         return view('PkgAutorisation::role.edit', compact('itemRole', 'permissions', 'users'));
-    }
 
-    /**
-     * Met à jour une filière existante.
-     */
-    public function update(RoleRequest $request, string $id)
-    {
+    }
+    public function update(RoleRequest $request, string $id) {
 
         $validatedData = $request->validated();
         $role = $this->roleService->update($id, $validatedData);
@@ -171,13 +142,9 @@ class BaseRoleController extends AdminController
                 'modelName' =>  __('PkgAutorisation::role.singular')
                 ])
         );
-    }
 
-    /**
-     * Supprime une filière.
-     */
-    public function destroy(Request $request, string $id)
-    {
+    }
+    public function destroy(Request $request, string $id) {
 
         $role = $this->roleService->destroy($id);
 
@@ -196,6 +163,7 @@ class BaseRoleController extends AdminController
                 'modelName' =>  __('PkgAutorisation::role.singular')
                 ])
         );
+
     }
 
     public function export()
@@ -231,4 +199,5 @@ class BaseRoleController extends AdminController
         $roles = $this->roleService->all();
         return response()->json($roles);
     }
+
 }

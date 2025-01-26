@@ -1,6 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-@section('role-form')
+@section('user-form')
 <form class="crud-form custom-form context-state" id="userForm" action="{{ $itemUser->id ? route('users.update', $itemUser->id) : route('users.store') }}" method="POST" novalidate>
     @csrf
 
@@ -115,6 +115,10 @@
 </div>
 
         
+
+        <!--   Formateur HasMany --> 
+
+        
                 <div class="form-group">
             <label for="roles">
                 {{ ucfirst(__('PkgAutorisation::Role.plural')) }}
@@ -138,10 +142,6 @@
 
         </div>
 
-
-        
-
-        <!--   Formateur_HasMany HasMany --> 
 
     </div>
 

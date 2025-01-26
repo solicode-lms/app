@@ -12,4 +12,9 @@ class EMetadatum extends BaseEMetadatum
         return $this->morphTo();
     }
 
+    public function generateReference(): string
+    {
+        return $this->object->reference . "_" . $this->eMetadataDefinition->reference ;
+    }
+
 }

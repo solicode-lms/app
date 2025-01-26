@@ -3,13 +3,12 @@
 
 
 namespace Modules\PkgAutorisation\Controllers\Base;
-
-use Modules\Core\Controllers\Base\AdminController;
-use Modules\PkgAutorisation\App\Requests\UserRequest;
 use Modules\PkgAutorisation\Services\UserService;
 use Modules\PkgAutorisation\Services\RoleService;
-
+use Modules\PkgUtilisateurs\Services\FormateurService;
 use Illuminate\Http\Request;
+use Modules\Core\Controllers\Base\AdminController;
+use Modules\PkgAutorisation\App\Requests\UserRequest;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgAutorisation\App\Exports\UserExport;
 use Modules\PkgAutorisation\App\Imports\UserImport;
@@ -20,44 +19,35 @@ class BaseUserController extends AdminController
     protected $userService;
     protected $roleService;
 
-    public function __construct(UserService $userService, RoleService $roleService)
-    {
+    public function __construct(UserService $userService, RoleService $roleService) {
         parent::__construct();
         $this->userService = $userService;
         $this->roleService = $roleService;
-
     }
 
-
-    public function index(Request $request)
-    {
+    public function index(Request $request) {
         // Extraire les paramètres de recherche, page, et filtres
         $users_params = array_merge(
             $request->only(['page','sort']),
             ['search' => $request->get('users_search', '')],
             $request->except(['users_search', 'page', 'sort'])
         );
-    
+
         // Paginer les users
         $users_data = $this->userService->paginate($users_params);
-    
+
         // Récupérer les statistiques et les champs filtrables
         $users_stats = $this->userService->getuserStats();
         $users_filters = $this->userService->getFieldsFilterable();
-    
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
             return view('PkgAutorisation::user._table', compact('users_data', 'users_stats', 'users_filters'))->render();
         }
-    
+
         return view('PkgAutorisation::user.index', compact('users_data', 'users_stats', 'users_filters'));
     }
-
-    /**
-     * Retourne le formulaire de création.
-     */
-    public function create()
-    {
+    public function create() {
         $itemUser = $this->userService->createInstance();
         $roles = $this->roleService->all();
 
@@ -67,12 +57,7 @@ class BaseUserController extends AdminController
         }
         return view('PkgAutorisation::user.create', compact('itemUser', 'roles'));
     }
-
-    /**
-     * Stocke une nouvelle filière.
-     */
-    public function store(UserRequest $request)
-    {
+    public function store(UserRequest $request) {
         $validatedData = $request->validated();
         $user = $this->userService->create($validatedData);
 
@@ -90,7 +75,7 @@ class BaseUserController extends AdminController
             ]);
         }
 
-        return redirect()->route('users.index')->with(
+        return redirect()->route('users.edit',['user' => $user->id])->with(
             'success',
             __('Core::msg.addSuccess', [
                 'entityToString' => $user,
@@ -98,12 +83,7 @@ class BaseUserController extends AdminController
             ])
         );
     }
-
-    /**
-     * Affiche les détails d'une filière.
-     */
-    public function show(string $id)
-    {
+    public function show(string $id) {
         $itemUser = $this->userService->find($id);
         $roles = $this->roleService->all();
 
@@ -113,33 +93,30 @@ class BaseUserController extends AdminController
         }
 
         return view('PkgAutorisation::user.show', compact('itemUser'));
-    }
 
-    /**
-     * Retourne le formulaire d'édition d'une filière.
-     */
-    public function edit(string $id)
-    {
+    }
+    public function edit(string $id) {
 
         $itemUser = $this->userService->find($id);
         $roles = $this->roleService->all();
+        $formateurService =  new FormateurService();
+        $formateurs_data =  $itemUser->formateurs()->paginate(10);
+        $formateurs_stats = $formateurService->getformateurStats();
+        $formateurs_filters = $formateurService->getFieldsFilterable();
+        
 
         // Utilisé dans l'édition des relation HasMany
         $this->contextState->set('user_id', $id);
 
 
         if (request()->ajax()) {
-            return view('PkgAutorisation::user._fields', compact('itemUser', 'roles'));
+            return view('PkgAutorisation::user._fields', compact('itemUser', 'roles', 'formateurs_data', 'formateurs_stats', 'formateurs_filters'));
         }
 
-        return view('PkgAutorisation::user.edit', compact('itemUser', 'roles'));
-    }
+        return view('PkgAutorisation::user.edit', compact('itemUser', 'roles', 'formateurs_data', 'formateurs_stats', 'formateurs_filters'));
 
-    /**
-     * Met à jour une filière existante.
-     */
-    public function update(UserRequest $request, string $id)
-    {
+    }
+    public function update(UserRequest $request, string $id) {
 
         $validatedData = $request->validated();
         $user = $this->userService->update($id, $validatedData);
@@ -161,13 +138,9 @@ class BaseUserController extends AdminController
                 'modelName' =>  __('PkgAutorisation::user.singular')
                 ])
         );
-    }
 
-    /**
-     * Supprime une filière.
-     */
-    public function destroy(Request $request, string $id)
-    {
+    }
+    public function destroy(Request $request, string $id) {
 
         $user = $this->userService->destroy($id);
 
@@ -186,6 +159,7 @@ class BaseUserController extends AdminController
                 'modelName' =>  __('PkgAutorisation::user.singular')
                 ])
         );
+
     }
 
     public function export()
@@ -221,4 +195,5 @@ class BaseUserController extends AdminController
         $users = $this->userService->all();
         return response()->json($users);
     }
+
 }
