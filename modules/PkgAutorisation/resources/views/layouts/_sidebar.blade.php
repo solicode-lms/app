@@ -15,7 +15,7 @@
         @can('show-user') 
         <li class="nav-item">
             <a href="{{ route('users.index') }}" class="nav-link {{ Request::is('admin/PkgAutorisation/users') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-user-circle1"></i>
+                <i class="nav-icon fas fa-user-circle"></i>
                 {{__('PkgAutorisation::User.plural')}}
             </a>
         </li>

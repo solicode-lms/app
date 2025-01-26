@@ -16,7 +16,7 @@ class RoleController extends BaseRoleController
     public function create()
     {
         return view('PkgAutorisation::role.create', [
-            'item' => $this->roleService->createInstance(),
+            'itemRole' => $this->roleService->createInstance(),
             'sysModules' => SysModule::with(['featureDomains.features'])->get(),
             'users' => $this->userService->all(),
         ]);
