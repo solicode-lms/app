@@ -1,7 +1,7 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 
-@accessiblePermissions(['show-eDataField', 'show-eMetadatum', 'show-eMetadataDefinition', 'show-eModel', 'show-ePackage', 'show-eRelationship'])
+@accessiblePermissions(['show-eMetadataDefinition', 'show-eMetadatum', 'show-ePackage', 'show-eModel', 'show-eDataField', 'show-eRelationship'])
 @if($accessiblePermissions->isNotEmpty())
 <li class="nav-item has-treeview {{ Request::is('admin/PkgGapp*') ? 'menu-open' : '' }}">
     <a href="#" class="nav-link nav-link {{ Request::is('admin/PkgGapp*') ? 'active' : '' }}">
@@ -12,11 +12,11 @@
         </p>
     </a>
     <ul class="nav nav-treeview">
-        @can('show-eDataField') 
+        @can('show-eMetadataDefinition') 
         <li class="nav-item">
-            <a href="{{ route('eDataFields.index') }}" class="nav-link {{ Request::is('admin/PkgGapp/eDataFields') ? 'active' : '' }}">
+            <a href="{{ route('eMetadataDefinitions.index') }}" class="nav-link {{ Request::is('admin/PkgGapp/eMetadataDefinitions') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-table"></i>
-                {{__('PkgGapp::EDataField.plural')}}
+                {{__('PkgGapp::EMetadataDefinition.plural')}}
             </a>
         </li>
         @endcan
@@ -28,11 +28,11 @@
             </a>
         </li>
         @endcan
-        @can('show-eMetadataDefinition') 
+        @can('show-ePackage') 
         <li class="nav-item">
-            <a href="{{ route('eMetadataDefinitions.index') }}" class="nav-link {{ Request::is('admin/PkgGapp/eMetadataDefinitions') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-user"></i>
-                {{__('PkgGapp::EMetadataDefinition.plural')}}
+            <a href="{{ route('ePackages.index') }}" class="nav-link {{ Request::is('admin/PkgGapp/ePackages') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-table"></i>
+                {{__('PkgGapp::EPackage.plural')}}
             </a>
         </li>
         @endcan
@@ -44,11 +44,11 @@
             </a>
         </li>
         @endcan
-        @can('show-ePackage') 
+        @can('show-eDataField') 
         <li class="nav-item">
-            <a href="{{ route('ePackages.index') }}" class="nav-link {{ Request::is('admin/PkgGapp/ePackages') ? 'active' : '' }}">
+            <a href="{{ route('eDataFields.index') }}" class="nav-link {{ Request::is('admin/PkgGapp/eDataFields') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-table"></i>
-                {{__('PkgGapp::EPackage.plural')}}
+                {{__('PkgGapp::EDataField.plural')}}
             </a>
         </li>
         @endcan

@@ -51,6 +51,7 @@ class BaseERelationshipImport implements ToModel, WithHeadingRow
             'referenced_column' => $row['referenced_column'],
             'through' => $row['through'],
             'with_column' => $row['with_column'],
+            'morph_name' => $row['morph_name'],
         ]);
     }
 }

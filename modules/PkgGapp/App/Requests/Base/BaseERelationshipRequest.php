@@ -28,7 +28,8 @@ class BaseERelationshipRequest extends FormRequest
             'referenced_table' => 'nullable|max:255',
             'referenced_column' => 'nullable|max:255',
             'through' => 'nullable|max:255',
-            'with_column' => 'nullable|max:255'
+            'with_column' => 'nullable|max:255',
+            'morph_name' => 'nullable|max:255'
         ];
     }
 
@@ -58,7 +59,9 @@ class BaseERelationshipRequest extends FormRequest
             'through.required' => __('validation.required', ['attribute' => __('PkgGapp::ERelationship.through')]),
             'through.max' => __('validation.throughMax'),
             'with_column.required' => __('validation.required', ['attribute' => __('PkgGapp::ERelationship.with_column')]),
-            'with_column.max' => __('validation.with_columnMax')
+            'with_column.max' => __('validation.with_columnMax'),
+            'morph_name.required' => __('validation.required', ['attribute' => __('PkgGapp::ERelationship.morph_name')]),
+            'morph_name.max' => __('validation.morph_nameMax')
         ];
     }
 }

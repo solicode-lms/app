@@ -30,7 +30,8 @@ class BaseERelationshipService extends BaseService
         'referenced_table',
         'referenced_column',
         'through',
-        'with_column'
+        'with_column',
+        'morph_name'
     ];
 
     /**

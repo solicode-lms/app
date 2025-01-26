@@ -13,6 +13,15 @@ class Role extends ModelsRole
 
     use HasReference;
     
+    // TODO : ajouter ce code à GApp pour une rleation ManyToManyPolymorphique
+    // il est déclarer dans : ModelsRole
+    // Définir la relation inverse avec les modèles liés via morphique
+    // public function users()
+    // {
+    //     return $this->morphedByMany(User::class, 'model', 'model_has_roles', 'role_id', 'model_id');
+    // }
+
+
     public const FORMATEUR_ROLE = "formateur";
     public const GAPP_ROLE = "gapp";
     public function __toString()

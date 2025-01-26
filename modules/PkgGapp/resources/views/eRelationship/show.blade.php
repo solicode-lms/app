@@ -72,6 +72,10 @@
                                 <label for="with_column">{{ ucfirst(__('PkgGapp::eRelationship.with_column')) }}:</label>
                                 <p>{{ $itemERelationship->with_column }}</p>
                             </div>
+                            <div class="col-sm-12">
+                                <label for="morph_name">{{ ucfirst(__('PkgGapp::eRelationship.morph_name')) }}:</label>
+                                <p>{{ $itemERelationship->morph_name }}</p>
+                            </div>
                         </div>
                     </div>
                 </div>

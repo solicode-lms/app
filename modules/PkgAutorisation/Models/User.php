@@ -76,12 +76,12 @@ class User extends Authenticatable
     }
     
 
-
-    // HasRoles
-    // public function roles()
-    // {
-    //     return $this->belongsToMany(Role::class, 'model_has_roles');
-    // }
-
+    // TODO : ajouter ce code dans Gapp, pour une relation ManyToManyPolymorphique
+    // Cette méthode est déja exist dans HasRoles
+    // Définir la relation avec les rôles via morphique
+    //    public function roles()
+    //    {
+    //        return $this->morphToMany(Role::class, 'model', 'model_has_roles', 'model_id', 'role_id');
+    //    }
 
 }

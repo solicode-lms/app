@@ -57,7 +57,8 @@ class BaseERelationshipSeeder extends Seeder
                     "referenced_table" => $data[8] ,
                     "referenced_column" => $data[9] ,
                     "through" => $data[10] ,
-                    "with_column" => $data[11] 
+                    "with_column" => $data[11] ,
+                    "morph_name" => $data[12] 
                 ]);
             }
             $firstline = false;

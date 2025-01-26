@@ -38,6 +38,7 @@ class BaseERelationshipExport implements FromCollection, WithHeadings, ShouldAut
             'referenced_column',
             'through',
             'with_column',
+            'morph_name',
         ];
     }
 
@@ -58,6 +59,7 @@ class BaseERelationshipExport implements FromCollection, WithHeadings, ShouldAut
                 'referenced_column' => $eRelationship->referenced_column,
                 'through' => $eRelationship->through,
                 'with_column' => $eRelationship->with_column,
+                'morph_name' => $eRelationship->morph_name,
             ];
         });
     }

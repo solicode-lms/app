@@ -263,6 +263,25 @@
             @enderror
 </div>
 
+        
+        <div class="form-group">
+            <label for="morph_name">
+                {{ ucfirst(__('PkgGapp::eRelationship.morph_name')) }}
+                
+            </label>
+            <input
+                name="morph_name"
+                type="input"
+                class="form-control"
+                
+                id="morph_name"
+                placeholder="{{ __('PkgGapp::eRelationship.morph_name') }}"
+                value="{{ $itemERelationship ? $itemERelationship->morph_name : old('morph_name') }}">
+            @error('morph_name')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
+
     </div>
 
     <div class="card-footer">
