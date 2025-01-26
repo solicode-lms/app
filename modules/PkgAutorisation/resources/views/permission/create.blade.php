@@ -13,7 +13,7 @@
                     <div class="card card-info">
                         <div class="card-header">
                             <h3 class="card-title">
-                                <i class="nav-icon fas fa-table"></i>
+                                <i class="nav-icon fas fa-lock-open"></i>
                                 {{ curd_index_add_label('PkgAutorisation::permission') }}
                             </h3>
                         </div>
