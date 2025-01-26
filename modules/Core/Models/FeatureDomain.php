@@ -2,7 +2,7 @@
 // il manque
 // public function features()
 // {
-//     return $this->hasMany(Feature::class, 'domain_id', 'id');
+//     return $this->hasMany(Feature::class, 'feature_domain_id', 'id');
 // }
 
 namespace Modules\Core\Models;

@@ -111,7 +111,7 @@ class BaseSysModelSeeder extends Seeder
                 ['name' => "$domainName - $featureName"],
                 [
                     'description' => "Feature $featureName for $domainName",
-                    'domain_id' => $featureDomain->id,
+                    'feature_domain_id' => $featureDomain->id,
                 ]
             );
 
