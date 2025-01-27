@@ -1,4 +1,4 @@
-<div class="col-md-2 mb-3">
+<div class="col-md-3 mb-3">
     @switch($type)
         @case('String')
             <input type="text" 
@@ -16,7 +16,7 @@
             @break
 
         @case('ManyToOne')
-            <select name="{{ $field }}" class="form-select form-control form-control-sm">
+            <select name="{{ $field }}" class="form-select form-control form-control-sm select2">
                 <option value="">{{ $label }}</option>
                 @foreach ($options as $option)
                     <option value="{{ $option['id'] }}" 
@@ -27,7 +27,7 @@
             </select>
             @break
         @case('Polymorphic')
-            <select name="{{ $field }}" class="form-select form-control form-control-sm">
+            <select name="{{ $field }}" class="form-select form-control form-control-sm select2">
                 <option value="">{{ $label }}</option>
                 @foreach ($options as $option)
                     <option value="{{ $option['id'] }}" 

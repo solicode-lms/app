@@ -157,6 +157,11 @@ export class SearchPaginationEventHandler {
             filterForm.querySelectorAll('input, select').forEach((field) => {
                 field.value = ''; // Réinitialiser les champs
             });
+
+             // Réinitialiser Select2
+            $(filterForm).find('.select2').val(null).trigger('change');
+
+
             updateFilterState();
             this.submitForm(); // Soumettre le formulaire après réinitialisation
         });
