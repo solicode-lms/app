@@ -29,8 +29,8 @@ return new class extends Migration
             $table->text('value_text')->nullable(); // Texte long
 
 
-            $table->foreignId('e_model_id')->constrained('e_models')->onDelete('cascade'); // Relation avec MetadataType
-            $table->foreignId('e_data_field_id')->constrained('e_data_fields')->onDelete('cascade'); // Relation avec MetadataType
+            $table->foreignId('e_model_id')->nullable()->constrained('e_models')->onDelete('cascade'); // Relation avec MetadataType
+            $table->foreignId('e_data_field_id')->nullable()->constrained('e_data_fields')->onDelete('cascade'); // Relation avec MetadataType
             
             $table->foreignId('e_metadata_definition_id')->constrained('e_metadata_definitions')->onDelete('cascade'); // Relation avec MetadataType
 
