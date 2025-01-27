@@ -32,7 +32,7 @@ class BaseERelationship extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'source_model_id', 'target_model_id', 'type', 'source_field', 'target_field', 'cascade_on_delete', 'description'
+        'source_e_model_id', 'target_e_model_id', 'type', 'source_field', 'target_field', 'cascade_on_delete', 'description'
     ];
 
     /**
@@ -42,7 +42,7 @@ class BaseERelationship extends BaseModel
      */
     public function eModel(): BelongsTo
     {
-        return $this->belongsTo(EModel::class, 'source_model_id', 'id');
+        return $this->belongsTo(EModel::class, 'source_e_model_id', 'id');
     }
 
 

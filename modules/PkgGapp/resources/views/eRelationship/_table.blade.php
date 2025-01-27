@@ -5,8 +5,8 @@
         <thead>
             <tr>
                 <x-sortable-column field="name" label="{{ ucfirst(__('PkgGapp::eRelationship.name')) }}" />
-                <x-sortable-column field="source_model_id" label="{{ ucfirst(__('PkgGapp::eModel.singular')) }}" />
-                <x-sortable-column field="target_model_id" label="{{ ucfirst(__('PkgGapp::eModel.singular')) }}" />
+                <x-sortable-column field="source_e_model_id" label="{{ ucfirst(__('PkgGapp::eModel.singular')) }}" />
+                <x-sortable-column field="target_e_model_id" label="{{ ucfirst(__('PkgGapp::eModel.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

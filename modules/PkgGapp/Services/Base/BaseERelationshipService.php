@@ -21,8 +21,8 @@ class BaseERelationshipService extends BaseService
     protected $fieldsSearchable = [
         'name',
         'type',
-        'source_model_id',
-        'target_model_id',
+        'source_e_model_id',
+        'target_e_model_id',
         'cascade_on_delete',
         'is_cascade',
         'description',
@@ -53,8 +53,8 @@ class BaseERelationshipService extends BaseService
 
         // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
-            $this->generateManyToOneFilter(__("PkgGapp::eModel.plural"), 'source_model_id', \Modules\PkgGapp\Models\EModel::class, 'name'),
-            $this->generateManyToOneFilter(__("PkgGapp::eModel.plural"), 'target_model_id', \Modules\PkgGapp\Models\EModel::class, 'name'),
+            $this->generateManyToOneFilter(__("PkgGapp::eModel.plural"), 'source_e_model_id', \Modules\PkgGapp\Models\EModel::class, 'name'),
+            $this->generateManyToOneFilter(__("PkgGapp::eModel.plural"), 'target_e_model_id', \Modules\PkgGapp\Models\EModel::class, 'name'),
         ];
 
     }

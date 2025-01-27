@@ -75,7 +75,7 @@ class BaseEModel extends BaseModel
      */
     public function sourceRelationships(): HasMany
     {
-        return $this->hasMany(ERelationship::class, 'source_model_id', 'id');
+        return $this->hasMany(ERelationship::class, 'source_e_model_id', 'id');
     }
     /**
      * Relation HasMany pour EModels.
@@ -84,7 +84,7 @@ class BaseEModel extends BaseModel
      */
     public function targetRelationships(): HasMany
     {
-        return $this->hasMany(ERelationship::class, 'target_model_id', 'id');
+        return $this->hasMany(ERelationship::class, 'target_e_model_id', 'id');
     }
 
 

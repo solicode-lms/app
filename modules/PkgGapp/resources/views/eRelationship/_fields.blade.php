@@ -54,26 +54,26 @@
         
         
     <div class="form-group">
-            <label for="source_model_id">
+            <label for="source_e_model_id">
                 {{ ucfirst(__('PkgGapp::eModel.singular')) }}
                 
                     <span class="text-danger">*</span>
                 
             </label>
             <select 
-            id="source_model_id" 
+            id="source_e_model_id" 
             required
-            name="source_model_id" 
+            name="source_e_model_id" 
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($eModels as $eModel)
                     <option value="{{ $eModel->id }}"
-                        {{ (isset($itemERelationship) && $itemERelationship->source_model_id == $eModel->id) || (old('source_model_id>') == $eModel->id) ? 'selected' : '' }}>
+                        {{ (isset($itemERelationship) && $itemERelationship->source_e_model_id == $eModel->id) || (old('source_e_model_id>') == $eModel->id) ? 'selected' : '' }}>
                         {{ $eModel }}
                     </option>
                 @endforeach
             </select>
-            @error('source_model_id')
+            @error('source_e_model_id')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
     </div>
@@ -82,26 +82,26 @@
         
         
     <div class="form-group">
-            <label for="target_model_id">
+            <label for="target_e_model_id">
                 {{ ucfirst(__('PkgGapp::eModel.singular')) }}
                 
                     <span class="text-danger">*</span>
                 
             </label>
             <select 
-            id="target_model_id" 
+            id="target_e_model_id" 
             required
-            name="target_model_id" 
+            name="target_e_model_id" 
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($eModels as $eModel)
                     <option value="{{ $eModel->id }}"
-                        {{ (isset($itemERelationship) && $itemERelationship->target_model_id == $eModel->id) || (old('target_model_id>') == $eModel->id) ? 'selected' : '' }}>
+                        {{ (isset($itemERelationship) && $itemERelationship->target_e_model_id == $eModel->id) || (old('target_e_model_id>') == $eModel->id) ? 'selected' : '' }}>
                         {{ $eModel }}
                     </option>
                 @endforeach
             </select>
-            @error('target_model_id')
+            @error('target_e_model_id')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
     </div>

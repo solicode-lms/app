@@ -48,8 +48,8 @@ class BaseERelationshipSeeder extends Seeder
                 ERelationship::create([
                     "name" => $data[0] ,
                     "type" => $data[1] ,
-                    "source_model_id" => $data[2] ,
-                    "target_model_id" => $data[3] ,
+                    "source_e_model_id" => $data[2] ,
+                    "target_e_model_id" => $data[3] ,
                     "cascade_on_delete" => $data[4] ,
                     "is_cascade" => $data[5] ,
                     "description" => $data[6] ,
