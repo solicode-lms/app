@@ -21,7 +21,7 @@ use Modules\PkgGapp\Models\EPackage;
 
 class BaseEPackageSeeder extends Seeder
 {
-    public static int $order = 44;
+    public static int $order = 43;
 
     public function run(): void
     {

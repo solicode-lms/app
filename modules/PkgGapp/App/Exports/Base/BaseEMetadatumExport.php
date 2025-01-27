@@ -35,8 +35,8 @@ class BaseEMetadatumExport implements FromCollection, WithHeadings, ShouldAutoSi
             'value_enum',
             'value_json',
             'value_text',
-            'object_id',
-            'object_type',
+            'e_model_id',
+            'e_data_field_id',
             'e_metadata_definition_id',
         ];
     }
@@ -55,8 +55,8 @@ class BaseEMetadatumExport implements FromCollection, WithHeadings, ShouldAutoSi
                 'value_enum' => $eMetadatum->value_enum,
                 'value_json' => $eMetadatum->value_json,
                 'value_text' => $eMetadatum->value_text,
-                'object_id' => $eMetadatum->object_id,
-                'object_type' => $eMetadatum->object_type,
+                'e_model_id' => $eMetadatum->e_model_id,
+                'e_data_field_id' => $eMetadatum->e_data_field_id,
                 'e_metadata_definition_id' => $eMetadatum->e_metadata_definition_id,
             ];
         });

@@ -203,7 +203,7 @@
 
         
 
-        <!--   EMetadatum HasManyPolymorphic --> 
+        <!--   EMetadatum HasMany --> 
 
     </div>
 

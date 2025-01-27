@@ -144,7 +144,7 @@
 
         
 
-        <!--   ERelationship HasMany --> 
+        <!--   EMetadatum HasMany --> 
 
         
 
@@ -152,7 +152,7 @@
 
         
 
-        <!--   EMetadatum HasManyPolymorphic --> 
+        <!--   ERelationship HasMany --> 
 
     </div>
 

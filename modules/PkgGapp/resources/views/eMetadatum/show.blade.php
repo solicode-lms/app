@@ -61,12 +61,12 @@
                                 <p>{{ $itemEMetadatum->value_text }}</p>
                             </div>
                             <div class="col-sm-12">
-                                <label for="object_id">{{ ucfirst(__('PkgGapp::eMetadatum.object_id')) }}:</label>
-                                <p>{{ $itemEMetadatum->object_id }}</p>
+                                <label for="e_model_id">{{ ucfirst(__('PkgGapp::eMetadatum.e_model_id')) }}:</label>
+                                <p>{{ $itemEMetadatum->e_model_id }}</p>
                             </div>
                             <div class="col-sm-12">
-                                <label for="object_type">{{ ucfirst(__('PkgGapp::eMetadatum.object_type')) }}:</label>
-                                <p>{{ $itemEMetadatum->object_type }}</p>
+                                <label for="e_data_field_id">{{ ucfirst(__('PkgGapp::eMetadatum.e_data_field_id')) }}:</label>
+                                <p>{{ $itemEMetadatum->e_data_field_id }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="e_metadata_definition_id">{{ ucfirst(__('PkgGapp::eMetadatum.e_metadata_definition_id')) }}:</label>

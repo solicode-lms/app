@@ -104,8 +104,6 @@ class BaseEDataFieldController extends AdminController
 
         // Utilisé dans l'édition des relation HasMany
         $this->contextState->set('eDataField_id', $id);
-        $this->contextState->set('object_id', $id);
-        $this->contextState->set('object_type', "Modules\\PkgGapp\\Models\\EDataField");
 
 
         if (request()->ajax()) {

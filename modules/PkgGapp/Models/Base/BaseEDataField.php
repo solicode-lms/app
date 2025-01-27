@@ -13,7 +13,6 @@ use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
 use Modules\PkgGapp\Models\EModel;
 use Modules\PkgGapp\Models\EMetadatum;
-use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 /**
  * Classe BaseEDataField
@@ -49,11 +48,16 @@ class BaseEDataField extends BaseModel
     }
 
 
-
-    public function eMetadata(): MorphMany
+    /**
+     * Relation HasMany pour EDataFields.
+     *
+     * @return HasMany
+     */
+    public function eMetadata(): HasMany
     {
-        return $this->morphMany(EMetadatum::class, 'object');
+        return $this->hasMany(EMetadatum::class, 'e_data_field_id', 'id');
     }
+
 
 
     /**

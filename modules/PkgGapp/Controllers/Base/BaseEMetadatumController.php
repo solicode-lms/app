@@ -4,9 +4,9 @@
 
 namespace Modules\PkgGapp\Controllers\Base;
 use Modules\PkgGapp\Services\EMetadatumService;
+use Modules\PkgGapp\Services\EDataFieldService;
 use Modules\PkgGapp\Services\EMetadataDefinitionService;
 use Modules\PkgGapp\Services\EModelService;
-use Modules\PkgGapp\Services\EDataFieldService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\PkgGapp\App\Requests\EMetadatumRequest;
@@ -18,16 +18,16 @@ use Modules\Core\Services\ContextState;
 class BaseEMetadatumController extends AdminController
 {
     protected $eMetadatumService;
+    protected $eDataFieldService;
     protected $eMetadataDefinitionService;
     protected $eModelService;
-    protected $eDataFieldService;
 
-    public function __construct(EMetadatumService $eMetadatumService, EMetadataDefinitionService $eMetadataDefinitionService, EModelService $eModelService, EDataFieldService $eDataFieldService) {
+    public function __construct(EMetadatumService $eMetadatumService, EDataFieldService $eDataFieldService, EMetadataDefinitionService $eMetadataDefinitionService, EModelService $eModelService) {
         parent::__construct();
         $this->eMetadatumService = $eMetadatumService;
+        $this->eDataFieldService = $eDataFieldService;
         $this->eMetadataDefinitionService = $eMetadataDefinitionService;
         $this->eModelService = $eModelService;
-        $this->eDataFieldService = $eDataFieldService;
     }
 
     public function index(Request $request) {
@@ -54,13 +54,15 @@ class BaseEMetadatumController extends AdminController
     }
     public function create() {
         $itemEMetadatum = $this->eMetadatumService->createInstance();
+        $eDataFields = $this->eDataFieldService->all();
         $eMetadataDefinitions = $this->eMetadataDefinitionService->all();
+        $eModels = $this->eModelService->all();
 
 
         if (request()->ajax()) {
-            return view('PkgGapp::eMetadatum._fields', compact('itemEMetadatum', 'eMetadataDefinitions'));
+            return view('PkgGapp::eMetadatum._fields', compact('itemEMetadatum', 'eDataFields', 'eMetadataDefinitions', 'eModels'));
         }
-        return view('PkgGapp::eMetadatum.create', compact('itemEMetadatum', 'eMetadataDefinitions'));
+        return view('PkgGapp::eMetadatum.create', compact('itemEMetadatum', 'eDataFields', 'eMetadataDefinitions', 'eModels'));
     }
     public function store(EMetadatumRequest $request) {
         $validatedData = $request->validated();
@@ -87,11 +89,13 @@ class BaseEMetadatumController extends AdminController
     }
     public function show(string $id) {
         $itemEMetadatum = $this->eMetadatumService->find($id);
+        $eDataFields = $this->eDataFieldService->all();
         $eMetadataDefinitions = $this->eMetadataDefinitionService->all();
+        $eModels = $this->eModelService->all();
 
 
         if (request()->ajax()) {
-            return view('PkgGapp::eMetadatum._fields', compact('itemEMetadatum', 'eMetadataDefinitions'));
+            return view('PkgGapp::eMetadatum._fields', compact('itemEMetadatum', 'eDataFields', 'eMetadataDefinitions', 'eModels'));
         }
 
         return view('PkgGapp::eMetadatum.show', compact('itemEMetadatum'));
@@ -100,17 +104,19 @@ class BaseEMetadatumController extends AdminController
     public function edit(string $id) {
 
         $itemEMetadatum = $this->eMetadatumService->find($id);
+        $eDataFields = $this->eDataFieldService->all();
         $eMetadataDefinitions = $this->eMetadataDefinitionService->all();
+        $eModels = $this->eModelService->all();
 
         // Utilisé dans l'édition des relation HasMany
         $this->contextState->set('eMetadatum_id', $id);
 
 
         if (request()->ajax()) {
-            return view('PkgGapp::eMetadatum._fields', compact('itemEMetadatum', 'eMetadataDefinitions'));
+            return view('PkgGapp::eMetadatum._fields', compact('itemEMetadatum', 'eDataFields', 'eMetadataDefinitions', 'eModels'));
         }
 
-        return view('PkgGapp::eMetadatum.edit', compact('itemEMetadatum', 'eMetadataDefinitions'));
+        return view('PkgGapp::eMetadatum.edit', compact('itemEMetadatum', 'eDataFields', 'eMetadataDefinitions', 'eModels'));
 
     }
     public function update(EMetadatumRequest $request, string $id) {

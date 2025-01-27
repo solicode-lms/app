@@ -6,8 +6,8 @@ namespace Modules\PkgGapp\Controllers\Base;
 use Modules\PkgGapp\Services\EModelService;
 use Modules\PkgGapp\Services\EPackageService;
 use Modules\PkgGapp\Services\EDataFieldService;
-use Modules\PkgGapp\Services\ERelationshipService;
 use Modules\PkgGapp\Services\EMetadatumService;
+use Modules\PkgGapp\Services\ERelationshipService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\PkgGapp\App\Requests\EModelRequest;
@@ -103,33 +103,31 @@ class BaseEModelController extends AdminController
         $eDataFields_stats = $eDataFieldService->geteDataFieldStats();
         $eDataFields_filters = $eDataFieldService->getFieldsFilterable();
         
-        $eRelationshipService =  new ERelationshipService();
-        $eRelationships_data =  $itemEModel->eRelationships()->paginate(10);
-        $eRelationships_stats = $eRelationshipService->geteRelationshipStats();
-        $eRelationships_filters = $eRelationshipService->getFieldsFilterable();
-        
-        $eRelationshipService =  new ERelationshipService();
-        $eRelationships_data =  $itemEModel->eRelationships()->paginate(10);
-        $eRelationships_stats = $eRelationshipService->geteRelationshipStats();
-        $eRelationships_filters = $eRelationshipService->getFieldsFilterable();
-        
         $eMetadatumService =  new EMetadatumService();
         $eMetadata_data =  $itemEModel->eMetadata()->paginate(10);
         $eMetadata_stats = $eMetadatumService->geteMetadatumStats();
         $eMetadata_filters = $eMetadatumService->getFieldsFilterable();
         
+        $eRelationshipService =  new ERelationshipService();
+        $eRelationships_data =  $itemEModel->eRelationships()->paginate(10);
+        $eRelationships_stats = $eRelationshipService->geteRelationshipStats();
+        $eRelationships_filters = $eRelationshipService->getFieldsFilterable();
+        
+        $eRelationshipService =  new ERelationshipService();
+        $eRelationships_data =  $itemEModel->eRelationships()->paginate(10);
+        $eRelationships_stats = $eRelationshipService->geteRelationshipStats();
+        $eRelationships_filters = $eRelationshipService->getFieldsFilterable();
+        
 
         // Utilisé dans l'édition des relation HasMany
         $this->contextState->set('eModel_id', $id);
-        $this->contextState->set('object_id', $id);
-        $this->contextState->set('object_type', "Modules\\PkgGapp\\Models\\EModel");
 
 
         if (request()->ajax()) {
-            return view('PkgGapp::eModel._fields', compact('itemEModel', 'ePackages', 'eDataFields_data', 'eRelationships_data', 'eRelationships_data', 'eMetadata_data', 'eDataFields_stats', 'eRelationships_stats', 'eRelationships_stats', 'eMetadata_stats', 'eDataFields_filters', 'eRelationships_filters', 'eRelationships_filters', 'eMetadata_filters'));
+            return view('PkgGapp::eModel._fields', compact('itemEModel', 'ePackages', 'eDataFields_data', 'eMetadata_data', 'eRelationships_data', 'eRelationships_data', 'eDataFields_stats', 'eMetadata_stats', 'eRelationships_stats', 'eRelationships_stats', 'eDataFields_filters', 'eMetadata_filters', 'eRelationships_filters', 'eRelationships_filters'));
         }
 
-        return view('PkgGapp::eModel.edit', compact('itemEModel', 'ePackages', 'eDataFields_data', 'eRelationships_data', 'eRelationships_data', 'eMetadata_data', 'eDataFields_stats', 'eRelationships_stats', 'eRelationships_stats', 'eMetadata_stats', 'eDataFields_filters', 'eRelationships_filters', 'eRelationships_filters', 'eMetadata_filters'));
+        return view('PkgGapp::eModel.edit', compact('itemEModel', 'ePackages', 'eDataFields_data', 'eMetadata_data', 'eRelationships_data', 'eRelationships_data', 'eDataFields_stats', 'eMetadata_stats', 'eRelationships_stats', 'eRelationships_stats', 'eDataFields_filters', 'eMetadata_filters', 'eRelationships_filters', 'eRelationships_filters'));
 
     }
     public function update(EModelRequest $request, string $id) {

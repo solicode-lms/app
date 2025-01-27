@@ -26,8 +26,8 @@ class BaseEMetadatumRequest extends FormRequest
             'value_enum' => 'nullable|max:255',
             'value_json' => 'nullable',
             'value_text' => 'nullable',
-            'object_id' => 'required',
-            'object_type' => 'required|max:255',
+            'e_model_id' => 'nullable',
+            'e_data_field_id' => 'nullable',
             'e_metadata_definition_id' => 'required'
         ];
     }
@@ -53,10 +53,10 @@ class BaseEMetadatumRequest extends FormRequest
             'value_json.max' => __('validation.value_jsonMax'),
             'value_text.required' => __('validation.required', ['attribute' => __('PkgGapp::EMetadatum.value_text')]),
             'value_text.max' => __('validation.value_textMax'),
-            'object_id.required' => __('validation.required', ['attribute' => __('PkgGapp::EMetadatum.object_id')]),
-            'object_id.max' => __('validation.object_idMax'),
-            'object_type.required' => __('validation.required', ['attribute' => __('PkgGapp::EMetadatum.object_type')]),
-            'object_type.max' => __('validation.object_typeMax'),
+            'e_model_id.required' => __('validation.required', ['attribute' => __('PkgGapp::EMetadatum.e_model_id')]),
+            'e_model_id.max' => __('validation.e_model_idMax'),
+            'e_data_field_id.required' => __('validation.required', ['attribute' => __('PkgGapp::EMetadatum.e_data_field_id')]),
+            'e_data_field_id.max' => __('validation.e_data_field_idMax'),
             'e_metadata_definition_id.required' => __('validation.required', ['attribute' => __('PkgGapp::EMetadatum.e_metadata_definition_id')]),
             'e_metadata_definition_id.max' => __('validation.e_metadata_definition_idMax')
         ];
