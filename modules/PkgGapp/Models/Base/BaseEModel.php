@@ -1,4 +1,5 @@
 <?php
+// Deux relation HasMany : avec même table
 
 
 namespace Modules\PkgGapp\Models\Base;
@@ -9,11 +10,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
-use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Modules\Core\Models\BaseModel;
+use Modules\PkgGapp\Models\EPackage;
 use Modules\PkgGapp\Models\EDataField;
 use Modules\PkgGapp\Models\EMetadatum;
-use Modules\PkgGapp\Models\EPackage;
 use Modules\PkgGapp\Models\ERelationship;
 
 /**
@@ -36,7 +36,7 @@ class BaseEModel extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'name', 'icon', 'description', 'e_package_id'
+        'name', 'table_name', 'icon', 'is_pivot_table', 'description', 'e_package_id'
     ];
 
     /**
@@ -51,7 +51,7 @@ class BaseEModel extends BaseModel
 
 
     /**
-     * Relation HasMany pour EDataFields.
+     * Relation HasMany pour EModels.
      *
      * @return HasMany
      */
@@ -60,29 +60,35 @@ class BaseEModel extends BaseModel
         return $this->hasMany(EDataField::class, 'e_model_id', 'id');
     }
     /**
-     * Relation HasMany pour ERelationships.
+     * Relation HasMany pour EModels.
      *
      * @return HasMany
      */
-    
+    public function eMetadata(): HasMany
+    {
+        return $this->hasMany(EMetadatum::class, 'e_model_id', 'id');
+    }
     /**
-     * Relation HasMany pour ERelationships.
+     * Relation HasMany pour EModels.
      *
      * @return HasMany
      */
-    public function eRelationships(): HasMany
+    public function sourceRelationships(): HasMany
     {
         return $this->hasMany(ERelationship::class, 'source_model_id', 'id');
     }
-
-
-    public function eMetadata(): MorphMany
+    /**
+     * Relation HasMany pour EModels.
+     *
+     * @return HasMany
+     */
+    public function targetRelationships(): HasMany
     {
-        return $this->morphMany(EMetadatum::class, 'object');
+        return $this->hasMany(ERelationship::class, 'target_model_id', 'id');
     }
 
 
-    
+
     /**
      * Méthode __toString pour représenter le modèle sous forme de chaîne.
      *
