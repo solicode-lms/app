@@ -54,7 +54,6 @@ class BaseEMetadatumService extends BaseService
         $this->fieldsFilterable = [
             $this->generateManyToOneFilter(__("PkgGapp::eMetadataDefinition.plural"), 'e_metadata_definition_id', \Modules\PkgGapp\Models\EMetadataDefinition::class, 'name'),
             $this->generatePolymorphicFilter(__("PkgGapp::eModel.plural"), 'object_id', \Modules\PkgGapp\Models\EModel::class, 'name'),
-            $this->generatePolymorphicFilter(__("PkgGapp::eDataField.plural"), 'object_id', \Modules\PkgGapp\Models\EDataField::class, 'name'),
         ];
 
     }
