@@ -21,7 +21,7 @@ use Modules\PkgGapp\Models\EMetadatum;
 
 class BaseEMetadatumSeeder extends Seeder
 {
-    public static int $order = 46;
+    public static int $order = 47;
 
     public function run(): void
     {

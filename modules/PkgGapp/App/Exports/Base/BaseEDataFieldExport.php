@@ -35,6 +35,7 @@ class BaseEDataFieldExport implements FromCollection, WithHeadings, ShouldAutoSi
             'default_value',
             'description',
             'e_model_id',
+            'e_relationship_id',
         ];
     }
 
@@ -52,6 +53,7 @@ class BaseEDataFieldExport implements FromCollection, WithHeadings, ShouldAutoSi
                 'default_value' => $eDataField->default_value,
                 'description' => $eDataField->description,
                 'e_model_id' => $eDataField->e_model_id,
+                'e_relationship_id' => $eDataField->e_relationship_id,
             ];
         });
     }

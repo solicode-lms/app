@@ -1,5 +1,5 @@
 <?php
-// Deux relation HasMany : avec même table
+// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 namespace Modules\PkgGapp\Models\Base;
@@ -73,7 +73,7 @@ class BaseEModel extends BaseModel
      *
      * @return HasMany
      */
-    public function sourceRelationships(): HasMany
+    public function sourceERelationships(): HasMany
     {
         return $this->hasMany(ERelationship::class, 'source_e_model_id', 'id');
     }
@@ -82,7 +82,7 @@ class BaseEModel extends BaseModel
      *
      * @return HasMany
      */
-    public function targetRelationships(): HasMany
+    public function targetERelationships(): HasMany
     {
         return $this->hasMany(ERelationship::class, 'target_e_model_id', 'id');
     }

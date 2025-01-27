@@ -202,6 +202,32 @@
 
 
         
+        
+    <div class="form-group">
+            <label for="e_relationship_id">
+                {{ ucfirst(__('PkgGapp::eRelationship.singular')) }}
+                
+            </label>
+            <select 
+            id="e_relationship_id" 
+            
+            name="e_relationship_id" 
+            class="form-control select2">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($eRelationships as $eRelationship)
+                    <option value="{{ $eRelationship->id }}"
+                        {{ (isset($itemEDataField) && $itemEDataField->e_relationship_id == $eRelationship->id) || (old('e_relationship_id>') == $eRelationship->id) ? 'selected' : '' }}>
+                        {{ $eRelationship }}
+                    </option>
+                @endforeach
+            </select>
+            @error('e_relationship_id')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+    </div>
+
+
+        
 
         <!--   EMetadatum HasMany --> 
 

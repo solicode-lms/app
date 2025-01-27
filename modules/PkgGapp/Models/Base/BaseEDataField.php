@@ -12,6 +12,7 @@ use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
 use Modules\PkgGapp\Models\EModel;
+use Modules\PkgGapp\Models\ERelationship;
 use Modules\PkgGapp\Models\EMetadatum;
 
 /**
@@ -34,7 +35,7 @@ class BaseEDataField extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'name', 'column_name', 'data_type', 'db_nullable', 'db_primaryKey', 'db_unique', 'default_value', 'description', 'e_model_id'
+        'name', 'column_name', 'data_type', 'db_nullable', 'db_primaryKey', 'db_unique', 'default_value', 'description', 'e_model_id', 'e_relationship_id'
     ];
 
     /**
@@ -45,6 +46,15 @@ class BaseEDataField extends BaseModel
     public function eModel(): BelongsTo
     {
         return $this->belongsTo(EModel::class, 'e_model_id', 'id');
+    }
+    /**
+     * Relation BelongsTo pour ERelationship.
+     *
+     * @return BelongsTo
+     */
+    public function eRelationship(): BelongsTo
+    {
+        return $this->belongsTo(ERelationship::class, 'e_relationship_id', 'id');
     }
 
 

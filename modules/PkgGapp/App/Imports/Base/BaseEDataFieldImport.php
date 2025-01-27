@@ -48,6 +48,7 @@ class BaseEDataFieldImport implements ToModel, WithHeadingRow
             'default_value' => $row['default_value'],
             'description' => $row['description'],
             'e_model_id' => $row['e_model_id'],
+            'e_relationship_id' => $row['e_relationship_id'],
         ]);
     }
 }

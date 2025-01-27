@@ -21,7 +21,7 @@ use Modules\PkgGapp\Models\EDataField;
 
 class BaseEDataFieldSeeder extends Seeder
 {
-    public static int $order = 45;
+    public static int $order = 46;
 
     public function run(): void
     {
@@ -54,7 +54,8 @@ class BaseEDataFieldSeeder extends Seeder
                     "db_unique" => $data[5] ,
                     "default_value" => $data[6] ,
                     "description" => $data[7] ,
-                    "e_model_id" => $data[8] 
+                    "e_model_id" => $data[8] ,
+                    "e_relationship_id" => $data[9] 
                 ]);
             }
             $firstline = false;

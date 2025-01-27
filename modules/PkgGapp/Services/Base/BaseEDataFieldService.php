@@ -27,7 +27,8 @@ class BaseEDataFieldService extends BaseService
         'db_unique',
         'default_value',
         'description',
-        'e_model_id'
+        'e_model_id',
+        'e_relationship_id'
     ];
 
     /**
@@ -50,6 +51,7 @@ class BaseEDataFieldService extends BaseService
         // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
             $this->generateManyToOneFilter(__("PkgGapp::eModel.plural"), 'e_model_id', \Modules\PkgGapp\Models\EModel::class, 'name'),
+            $this->generateManyToOneFilter(__("PkgGapp::eRelationship.plural"), 'e_relationship_id', \Modules\PkgGapp\Models\ERelationship::class, 'name'),
         ];
 
     }

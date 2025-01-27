@@ -25,7 +25,8 @@ class BaseEDataFieldRequest extends FormRequest
             'db_unique' => 'required',
             'default_value' => 'nullable|max:255',
             'description' => 'nullable',
-            'e_model_id' => 'required'
+            'e_model_id' => 'required',
+            'e_relationship_id' => 'nullable'
         ];
     }
 
@@ -49,7 +50,9 @@ class BaseEDataFieldRequest extends FormRequest
             'description.required' => __('validation.required', ['attribute' => __('PkgGapp::EDataField.description')]),
             'description.max' => __('validation.descriptionMax'),
             'e_model_id.required' => __('validation.required', ['attribute' => __('PkgGapp::EDataField.e_model_id')]),
-            'e_model_id.max' => __('validation.e_model_idMax')
+            'e_model_id.max' => __('validation.e_model_idMax'),
+            'e_relationship_id.required' => __('validation.required', ['attribute' => __('PkgGapp::EDataField.e_relationship_id')]),
+            'e_relationship_id.max' => __('validation.e_relationship_idMax')
         ];
     }
 }

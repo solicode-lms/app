@@ -5,6 +5,7 @@
 namespace Modules\PkgGapp\Controllers\Base;
 use Modules\PkgGapp\Services\EDataFieldService;
 use Modules\PkgGapp\Services\EModelService;
+use Modules\PkgGapp\Services\ERelationshipService;
 use Modules\PkgGapp\Services\EMetadatumService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
@@ -18,11 +19,13 @@ class BaseEDataFieldController extends AdminController
 {
     protected $eDataFieldService;
     protected $eModelService;
+    protected $eRelationshipService;
 
-    public function __construct(EDataFieldService $eDataFieldService, EModelService $eModelService) {
+    public function __construct(EDataFieldService $eDataFieldService, EModelService $eModelService, ERelationshipService $eRelationshipService) {
         parent::__construct();
         $this->eDataFieldService = $eDataFieldService;
         $this->eModelService = $eModelService;
+        $this->eRelationshipService = $eRelationshipService;
     }
 
     public function index(Request $request) {
@@ -50,12 +53,13 @@ class BaseEDataFieldController extends AdminController
     public function create() {
         $itemEDataField = $this->eDataFieldService->createInstance();
         $eModels = $this->eModelService->all();
+        $eRelationships = $this->eRelationshipService->all();
 
 
         if (request()->ajax()) {
-            return view('PkgGapp::eDataField._fields', compact('itemEDataField', 'eModels'));
+            return view('PkgGapp::eDataField._fields', compact('itemEDataField', 'eModels', 'eRelationships'));
         }
-        return view('PkgGapp::eDataField.create', compact('itemEDataField', 'eModels'));
+        return view('PkgGapp::eDataField.create', compact('itemEDataField', 'eModels', 'eRelationships'));
     }
     public function store(EDataFieldRequest $request) {
         $validatedData = $request->validated();
@@ -83,10 +87,11 @@ class BaseEDataFieldController extends AdminController
     public function show(string $id) {
         $itemEDataField = $this->eDataFieldService->find($id);
         $eModels = $this->eModelService->all();
+        $eRelationships = $this->eRelationshipService->all();
 
 
         if (request()->ajax()) {
-            return view('PkgGapp::eDataField._fields', compact('itemEDataField', 'eModels'));
+            return view('PkgGapp::eDataField._fields', compact('itemEDataField', 'eModels', 'eRelationships'));
         }
 
         return view('PkgGapp::eDataField.show', compact('itemEDataField'));
@@ -96,6 +101,7 @@ class BaseEDataFieldController extends AdminController
 
         $itemEDataField = $this->eDataFieldService->find($id);
         $eModels = $this->eModelService->all();
+        $eRelationships = $this->eRelationshipService->all();
         $eMetadatumService =  new EMetadatumService();
         $eMetadata_data =  $itemEDataField->eMetadata()->paginate(10);
         $eMetadata_stats = $eMetadatumService->geteMetadatumStats();
@@ -107,10 +113,10 @@ class BaseEDataFieldController extends AdminController
 
 
         if (request()->ajax()) {
-            return view('PkgGapp::eDataField._fields', compact('itemEDataField', 'eModels', 'eMetadata_data', 'eMetadata_stats', 'eMetadata_filters'));
+            return view('PkgGapp::eDataField._fields', compact('itemEDataField', 'eModels', 'eRelationships', 'eMetadata_data', 'eMetadata_stats', 'eMetadata_filters'));
         }
 
-        return view('PkgGapp::eDataField.edit', compact('itemEDataField', 'eModels', 'eMetadata_data', 'eMetadata_stats', 'eMetadata_filters'));
+        return view('PkgGapp::eDataField.edit', compact('itemEDataField', 'eModels', 'eRelationships', 'eMetadata_data', 'eMetadata_stats', 'eMetadata_filters'));
 
     }
     public function update(EDataFieldRequest $request, string $id) {
