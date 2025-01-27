@@ -1,6 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-@section('role-form')
+@section('niveauxScolaire-form')
 <form class="crud-form custom-form context-state" id="niveauxScolaireForm" action="{{ $itemNiveauxScolaire->id ? route('niveauxScolaires.update', $itemNiveauxScolaire->id) : route('niveauxScolaires.store') }}" method="POST" novalidate>
     @csrf
 
@@ -70,7 +70,7 @@
 
         
 
-        <!--   Apprenant_HasMany HasMany --> 
+        <!--   Apprenant HasMany --> 
 
     </div>
 

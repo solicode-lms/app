@@ -1,6 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-@section('role-form')
+@section('formateur-form')
 <form class="crud-form custom-form context-state" id="formateurForm" action="{{ $itemFormateur->id ? route('formateurs.update', $itemFormateur->id) : route('formateurs.store') }}" method="POST" novalidate>
     @csrf
 
@@ -77,14 +77,12 @@
             <label for="prenom_arab">
                 {{ ucfirst(__('PkgUtilisateurs::formateur.prenom_arab')) }}
                 
-                    <span class="text-danger">*</span>
-                
             </label>
             <input
                 name="prenom_arab"
                 type="input"
                 class="form-control"
-                required
+                
                 id="prenom_arab"
                 placeholder="{{ __('PkgUtilisateurs::formateur.prenom_arab') }}"
                 value="{{ $itemFormateur ? $itemFormateur->prenom_arab : old('prenom_arab') }}">
@@ -98,14 +96,12 @@
             <label for="nom_arab">
                 {{ ucfirst(__('PkgUtilisateurs::formateur.nom_arab')) }}
                 
-                    <span class="text-danger">*</span>
-                
             </label>
             <input
                 name="nom_arab"
                 type="input"
                 class="form-control"
-                required
+                
                 id="nom_arab"
                 placeholder="{{ __('PkgUtilisateurs::formateur.nom_arab') }}"
                 value="{{ $itemFormateur ? $itemFormateur->nom_arab : old('nom_arab') }}">
@@ -119,14 +115,12 @@
             <label for="tele_num">
                 {{ ucfirst(__('PkgUtilisateurs::formateur.tele_num')) }}
                 
-                    <span class="text-danger">*</span>
-                
             </label>
             <input
                 name="tele_num"
                 type="input"
                 class="form-control"
-                required
+                
                 id="tele_num"
                 placeholder="{{ __('PkgUtilisateurs::formateur.tele_num') }}"
                 value="{{ $itemFormateur ? $itemFormateur->tele_num : old('tele_num') }}">
@@ -174,24 +168,54 @@
 </div>
 
         
-        
+        <div class="form-group">
+            <label for="echelle">
+                {{ ucfirst(__('PkgUtilisateurs::formateur.echelle')) }}
+                
+            </label>
+            <input
+                name="echelle"
+                type="number"
+                class="form-control"
+                
+                id="echelle"
+                placeholder="{{ __('PkgUtilisateurs::formateur.echelle') }}"
+                value="{{ $itemFormateur ? $itemFormateur->echelle : old('echelle') }}">
+            @error('echelle')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
 
         
-        
+        <div class="form-group">
+            <label for="echelon">
+                {{ ucfirst(__('PkgUtilisateurs::formateur.echelon')) }}
+                
+            </label>
+            <input
+                name="echelon"
+                type="number"
+                class="form-control"
+                
+                id="echelon"
+                placeholder="{{ __('PkgUtilisateurs::formateur.echelon') }}"
+                value="{{ $itemFormateur ? $itemFormateur->echelon : old('echelon') }}">
+            @error('echelon')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
 
         
         <div class="form-group">
             <label for="profile_image">
                 {{ ucfirst(__('PkgUtilisateurs::formateur.profile_image')) }}
                 
-                    <span class="text-danger">*</span>
-                
             </label>
             <input
                 name="profile_image"
                 type="input"
                 class="form-control"
-                required
+                
                 id="profile_image"
                 placeholder="{{ __('PkgUtilisateurs::formateur.profile_image') }}"
                 value="{{ $itemFormateur ? $itemFormateur->profile_image : old('profile_image') }}">
@@ -225,6 +249,10 @@
             @enderror
     </div>
 
+
+        
+
+        <!--   Appreciation HasMany --> 
 
         
                 <div class="form-group">
@@ -278,11 +306,7 @@
 
         
 
-        <!--   Appreciation_HasMany HasMany --> 
-
-        
-
-        <!--   Projet_HasMany HasMany --> 
+        <!--   Projet HasMany --> 
 
     </div>
 

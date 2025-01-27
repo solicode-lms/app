@@ -12,6 +12,7 @@ use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
 
+
 /**
  * Classe BaseVille
  * Cette classe sert de base pour le modèle Ville.
@@ -34,6 +35,8 @@ class BaseVille extends BaseModel
     protected $fillable = [
         'nom'
     ];
+
+
 
 
 

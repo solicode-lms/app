@@ -39,7 +39,7 @@ class BaseNiveauxScolaire extends BaseModel
 
 
     /**
-     * Relation HasMany pour Apprenants.
+     * Relation HasMany pour NiveauxScolaires.
      *
      * @return HasMany
      */
@@ -47,6 +47,8 @@ class BaseNiveauxScolaire extends BaseModel
     {
         return $this->hasMany(Apprenant::class, 'niveaux_scolaire_id', 'id');
     }
+
+
 
     /**
      * Méthode __toString pour représenter le modèle sous forme de chaîne.

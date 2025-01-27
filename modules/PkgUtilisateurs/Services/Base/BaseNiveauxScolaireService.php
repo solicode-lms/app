@@ -55,13 +55,7 @@ class BaseNiveauxScolaireService extends BaseService
      */
     public function create(array $data)
     {
-        $niveauxScolaire = parent::create([
-            'code' => $data['code'],
-            'nom' => $data['nom'],
-            'description' => $data['description'],
-        ]);
-
-        return $niveauxScolaire;
+        return parent::create($data);
     }
 
     /**

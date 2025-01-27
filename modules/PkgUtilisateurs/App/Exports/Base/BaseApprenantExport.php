@@ -43,6 +43,7 @@ class BaseApprenantExport implements FromCollection, WithHeadings, ShouldAutoSiz
             'groupe_id',
             'niveaux_scolaire_id',
             'nationalite_id',
+            'reference',
         ];
     }
 
@@ -68,6 +69,7 @@ class BaseApprenantExport implements FromCollection, WithHeadings, ShouldAutoSiz
                 'groupe_id' => $apprenant->groupe_id,
                 'niveaux_scolaire_id' => $apprenant->niveaux_scolaire_id,
                 'nationalite_id' => $apprenant->nationalite_id,
+                'reference' => $apprenant->reference,
             ];
         });
     }

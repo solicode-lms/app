@@ -54,12 +54,7 @@ class BaseSpecialiteService extends BaseService
      */
     public function create(array $data)
     {
-        $specialite = parent::create([
-            'nom' => $data['nom'],
-            'description' => $data['description'],
-        ]);
-
-        return $specialite;
+        return parent::create($data);
     }
 
     /**

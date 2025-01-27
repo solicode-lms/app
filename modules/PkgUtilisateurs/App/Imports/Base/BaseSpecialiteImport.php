@@ -40,6 +40,7 @@ class BaseSpecialiteImport implements ToModel, WithHeadingRow
         return new Specialite([
             'nom' => $row['nom'],
             'description' => $row['description'],
+            'reference' => $row['reference'],
         ]);
     }
 }

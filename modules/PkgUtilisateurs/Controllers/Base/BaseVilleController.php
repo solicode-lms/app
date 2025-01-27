@@ -3,13 +3,10 @@
 
 
 namespace Modules\PkgUtilisateurs\Controllers\Base;
-
+use Modules\PkgUtilisateurs\Services\VilleService;
+use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\PkgUtilisateurs\App\Requests\VilleRequest;
-use Modules\PkgUtilisateurs\Services\VilleService;
-
-
-use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgUtilisateurs\App\Exports\VilleExport;
 use Modules\PkgUtilisateurs\App\Imports\VilleImport;
@@ -19,43 +16,34 @@ class BaseVilleController extends AdminController
 {
     protected $villeService;
 
-    public function __construct(VilleService $villeService)
-    {
+    public function __construct(VilleService $villeService) {
         parent::__construct();
         $this->villeService = $villeService;
-
     }
 
-
-    public function index(Request $request)
-    {
+    public function index(Request $request) {
         // Extraire les paramètres de recherche, page, et filtres
         $villes_params = array_merge(
             $request->only(['page','sort']),
             ['search' => $request->get('villes_search', '')],
             $request->except(['villes_search', 'page', 'sort'])
         );
-    
+
         // Paginer les villes
         $villes_data = $this->villeService->paginate($villes_params);
-    
+
         // Récupérer les statistiques et les champs filtrables
         $villes_stats = $this->villeService->getvilleStats();
         $villes_filters = $this->villeService->getFieldsFilterable();
-    
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
             return view('PkgUtilisateurs::ville._table', compact('villes_data', 'villes_stats', 'villes_filters'))->render();
         }
-    
+
         return view('PkgUtilisateurs::ville.index', compact('villes_data', 'villes_stats', 'villes_filters'));
     }
-
-    /**
-     * Retourne le formulaire de création.
-     */
-    public function create()
-    {
+    public function create() {
         $itemVille = $this->villeService->createInstance();
 
 
@@ -64,12 +52,7 @@ class BaseVilleController extends AdminController
         }
         return view('PkgUtilisateurs::ville.create', compact('itemVille'));
     }
-
-    /**
-     * Stocke une nouvelle filière.
-     */
-    public function store(VilleRequest $request)
-    {
+    public function store(VilleRequest $request) {
         $validatedData = $request->validated();
         $ville = $this->villeService->create($validatedData);
 
@@ -92,12 +75,7 @@ class BaseVilleController extends AdminController
             ])
         );
     }
-
-    /**
-     * Affiche les détails d'une filière.
-     */
-    public function show(string $id)
-    {
+    public function show(string $id) {
         $itemVille = $this->villeService->find($id);
 
 
@@ -106,13 +84,9 @@ class BaseVilleController extends AdminController
         }
 
         return view('PkgUtilisateurs::ville.show', compact('itemVille'));
-    }
 
-    /**
-     * Retourne le formulaire d'édition d'une filière.
-     */
-    public function edit(string $id)
-    {
+    }
+    public function edit(string $id) {
 
         $itemVille = $this->villeService->find($id);
 
@@ -125,13 +99,9 @@ class BaseVilleController extends AdminController
         }
 
         return view('PkgUtilisateurs::ville.edit', compact('itemVille'));
-    }
 
-    /**
-     * Met à jour une filière existante.
-     */
-    public function update(VilleRequest $request, string $id)
-    {
+    }
+    public function update(VilleRequest $request, string $id) {
 
         $validatedData = $request->validated();
         $ville = $this->villeService->update($id, $validatedData);
@@ -152,13 +122,9 @@ class BaseVilleController extends AdminController
                 'modelName' =>  __('PkgUtilisateurs::ville.singular')
                 ])
         );
-    }
 
-    /**
-     * Supprime une filière.
-     */
-    public function destroy(Request $request, string $id)
-    {
+    }
+    public function destroy(Request $request, string $id) {
 
         $ville = $this->villeService->destroy($id);
 
@@ -177,6 +143,7 @@ class BaseVilleController extends AdminController
                 'modelName' =>  __('PkgUtilisateurs::ville.singular')
                 ])
         );
+
     }
 
     public function export()
@@ -212,4 +179,5 @@ class BaseVilleController extends AdminController
         $villes = $this->villeService->all();
         return response()->json($villes);
     }
+
 }

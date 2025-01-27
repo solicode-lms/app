@@ -3,13 +3,10 @@
 
 
 namespace Modules\PkgUtilisateurs\Controllers\Base;
-
+use Modules\PkgUtilisateurs\Services\ApprenantKonosyService;
+use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\PkgUtilisateurs\App\Requests\ApprenantKonosyRequest;
-use Modules\PkgUtilisateurs\Services\ApprenantKonosyService;
-
-
-use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgUtilisateurs\App\Exports\ApprenantKonosyExport;
 use Modules\PkgUtilisateurs\App\Imports\ApprenantKonosyImport;
@@ -19,43 +16,34 @@ class BaseApprenantKonosyController extends AdminController
 {
     protected $apprenantKonosyService;
 
-    public function __construct(ApprenantKonosyService $apprenantKonosyService)
-    {
+    public function __construct(ApprenantKonosyService $apprenantKonosyService) {
         parent::__construct();
         $this->apprenantKonosyService = $apprenantKonosyService;
-
     }
 
-
-    public function index(Request $request)
-    {
+    public function index(Request $request) {
         // Extraire les paramètres de recherche, page, et filtres
         $apprenantKonosies_params = array_merge(
             $request->only(['page','sort']),
             ['search' => $request->get('apprenantKonosies_search', '')],
             $request->except(['apprenantKonosies_search', 'page', 'sort'])
         );
-    
+
         // Paginer les apprenantKonosies
         $apprenantKonosies_data = $this->apprenantKonosyService->paginate($apprenantKonosies_params);
-    
+
         // Récupérer les statistiques et les champs filtrables
         $apprenantKonosies_stats = $this->apprenantKonosyService->getapprenantKonosyStats();
         $apprenantKonosies_filters = $this->apprenantKonosyService->getFieldsFilterable();
-    
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
             return view('PkgUtilisateurs::apprenantKonosy._table', compact('apprenantKonosies_data', 'apprenantKonosies_stats', 'apprenantKonosies_filters'))->render();
         }
-    
+
         return view('PkgUtilisateurs::apprenantKonosy.index', compact('apprenantKonosies_data', 'apprenantKonosies_stats', 'apprenantKonosies_filters'));
     }
-
-    /**
-     * Retourne le formulaire de création.
-     */
-    public function create()
-    {
+    public function create() {
         $itemApprenantKonosy = $this->apprenantKonosyService->createInstance();
 
 
@@ -64,12 +52,7 @@ class BaseApprenantKonosyController extends AdminController
         }
         return view('PkgUtilisateurs::apprenantKonosy.create', compact('itemApprenantKonosy'));
     }
-
-    /**
-     * Stocke une nouvelle filière.
-     */
-    public function store(ApprenantKonosyRequest $request)
-    {
+    public function store(ApprenantKonosyRequest $request) {
         $validatedData = $request->validated();
         $apprenantKonosy = $this->apprenantKonosyService->create($validatedData);
 
@@ -92,12 +75,7 @@ class BaseApprenantKonosyController extends AdminController
             ])
         );
     }
-
-    /**
-     * Affiche les détails d'une filière.
-     */
-    public function show(string $id)
-    {
+    public function show(string $id) {
         $itemApprenantKonosy = $this->apprenantKonosyService->find($id);
 
 
@@ -106,13 +84,9 @@ class BaseApprenantKonosyController extends AdminController
         }
 
         return view('PkgUtilisateurs::apprenantKonosy.show', compact('itemApprenantKonosy'));
-    }
 
-    /**
-     * Retourne le formulaire d'édition d'une filière.
-     */
-    public function edit(string $id)
-    {
+    }
+    public function edit(string $id) {
 
         $itemApprenantKonosy = $this->apprenantKonosyService->find($id);
 
@@ -125,13 +99,9 @@ class BaseApprenantKonosyController extends AdminController
         }
 
         return view('PkgUtilisateurs::apprenantKonosy.edit', compact('itemApprenantKonosy'));
-    }
 
-    /**
-     * Met à jour une filière existante.
-     */
-    public function update(ApprenantKonosyRequest $request, string $id)
-    {
+    }
+    public function update(ApprenantKonosyRequest $request, string $id) {
 
         $validatedData = $request->validated();
         $apprenantKonosy = $this->apprenantKonosyService->update($id, $validatedData);
@@ -152,13 +122,9 @@ class BaseApprenantKonosyController extends AdminController
                 'modelName' =>  __('PkgUtilisateurs::apprenantKonosy.singular')
                 ])
         );
-    }
 
-    /**
-     * Supprime une filière.
-     */
-    public function destroy(Request $request, string $id)
-    {
+    }
+    public function destroy(Request $request, string $id) {
 
         $apprenantKonosy = $this->apprenantKonosyService->destroy($id);
 
@@ -177,6 +143,7 @@ class BaseApprenantKonosyController extends AdminController
                 'modelName' =>  __('PkgUtilisateurs::apprenantKonosy.singular')
                 ])
         );
+
     }
 
     public function export()
@@ -212,4 +179,5 @@ class BaseApprenantKonosyController extends AdminController
         $apprenantKonosies = $this->apprenantKonosyService->all();
         return response()->json($apprenantKonosies);
     }
+
 }

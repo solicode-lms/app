@@ -5,6 +5,7 @@
         <thead>
             <tr>
                 <x-sortable-column field="code" label="{{ ucfirst(__('PkgUtilisateurs::nationalite.code')) }}" />
+                <x-sortable-column field="nom" label="{{ ucfirst(__('PkgUtilisateurs::nationalite.nom')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -12,6 +13,7 @@
             @foreach ($nationalites_data as $nationalite)
                 <tr>
                     <td>@limit($nationalite->code, 80)</td>
+                    <td>@limit($nationalite->nom, 80)</td>
                     <td class="text-right">
                         @can('show-nationalite')
                             <a href="{{ route('nationalites.show', ['nationalite' => $nationalite->id]) }}" data-id="{{$nationalite->id}}" class="btn btn-default btn-sm context-state showEntity">

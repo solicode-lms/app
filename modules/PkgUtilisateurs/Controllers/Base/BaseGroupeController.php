@@ -3,14 +3,13 @@
 
 
 namespace Modules\PkgUtilisateurs\Controllers\Base;
-
-use Modules\Core\Controllers\Base\AdminController;
-use Modules\PkgUtilisateurs\App\Requests\GroupeRequest;
 use Modules\PkgUtilisateurs\Services\GroupeService;
 use Modules\PkgUtilisateurs\Services\FormateurService;
 use Modules\PkgCompetences\Services\FiliereService;
-
+use Modules\PkgUtilisateurs\Services\ApprenantService;
 use Illuminate\Http\Request;
+use Modules\Core\Controllers\Base\AdminController;
+use Modules\PkgUtilisateurs\App\Requests\GroupeRequest;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgUtilisateurs\App\Exports\GroupeExport;
 use Modules\PkgUtilisateurs\App\Imports\GroupeImport;
@@ -22,45 +21,36 @@ class BaseGroupeController extends AdminController
     protected $formateurService;
     protected $filiereService;
 
-    public function __construct(GroupeService $groupeService, FormateurService $formateurService, FiliereService $filiereService)
-    {
+    public function __construct(GroupeService $groupeService, FormateurService $formateurService, FiliereService $filiereService) {
         parent::__construct();
         $this->groupeService = $groupeService;
         $this->formateurService = $formateurService;
         $this->filiereService = $filiereService;
-
     }
 
-
-    public function index(Request $request)
-    {
+    public function index(Request $request) {
         // Extraire les paramètres de recherche, page, et filtres
         $groupes_params = array_merge(
             $request->only(['page','sort']),
             ['search' => $request->get('groupes_search', '')],
             $request->except(['groupes_search', 'page', 'sort'])
         );
-    
+
         // Paginer les groupes
         $groupes_data = $this->groupeService->paginate($groupes_params);
-    
+
         // Récupérer les statistiques et les champs filtrables
         $groupes_stats = $this->groupeService->getgroupeStats();
         $groupes_filters = $this->groupeService->getFieldsFilterable();
-    
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
             return view('PkgUtilisateurs::groupe._table', compact('groupes_data', 'groupes_stats', 'groupes_filters'))->render();
         }
-    
+
         return view('PkgUtilisateurs::groupe.index', compact('groupes_data', 'groupes_stats', 'groupes_filters'));
     }
-
-    /**
-     * Retourne le formulaire de création.
-     */
-    public function create()
-    {
+    public function create() {
         $itemGroupe = $this->groupeService->createInstance();
         $formateurs = $this->formateurService->all();
         $filieres = $this->filiereService->all();
@@ -71,12 +61,7 @@ class BaseGroupeController extends AdminController
         }
         return view('PkgUtilisateurs::groupe.create', compact('itemGroupe', 'formateurs', 'filieres'));
     }
-
-    /**
-     * Stocke une nouvelle filière.
-     */
-    public function store(GroupeRequest $request)
-    {
+    public function store(GroupeRequest $request) {
         $validatedData = $request->validated();
         $groupe = $this->groupeService->create($validatedData);
 
@@ -94,7 +79,7 @@ class BaseGroupeController extends AdminController
             ]);
         }
 
-        return redirect()->route('groupes.index')->with(
+        return redirect()->route('groupes.edit',['groupe' => $groupe->id])->with(
             'success',
             __('Core::msg.addSuccess', [
                 'entityToString' => $groupe,
@@ -102,12 +87,7 @@ class BaseGroupeController extends AdminController
             ])
         );
     }
-
-    /**
-     * Affiche les détails d'une filière.
-     */
-    public function show(string $id)
-    {
+    public function show(string $id) {
         $itemGroupe = $this->groupeService->find($id);
         $formateurs = $this->formateurService->all();
         $filieres = $this->filiereService->all();
@@ -118,34 +98,31 @@ class BaseGroupeController extends AdminController
         }
 
         return view('PkgUtilisateurs::groupe.show', compact('itemGroupe'));
-    }
 
-    /**
-     * Retourne le formulaire d'édition d'une filière.
-     */
-    public function edit(string $id)
-    {
+    }
+    public function edit(string $id) {
 
         $itemGroupe = $this->groupeService->find($id);
         $formateurs = $this->formateurService->all();
         $filieres = $this->filiereService->all();
+        $apprenantService =  new ApprenantService();
+        $apprenants_data =  $itemGroupe->apprenants()->paginate(10);
+        $apprenants_stats = $apprenantService->getapprenantStats();
+        $apprenants_filters = $apprenantService->getFieldsFilterable();
+        
 
         // Utilisé dans l'édition des relation HasMany
         $this->contextState->set('groupe_id', $id);
 
 
         if (request()->ajax()) {
-            return view('PkgUtilisateurs::groupe._fields', compact('itemGroupe', 'formateurs', 'filieres'));
+            return view('PkgUtilisateurs::groupe._fields', compact('itemGroupe', 'formateurs', 'filieres', 'apprenants_data', 'apprenants_stats', 'apprenants_filters'));
         }
 
-        return view('PkgUtilisateurs::groupe.edit', compact('itemGroupe', 'formateurs', 'filieres'));
-    }
+        return view('PkgUtilisateurs::groupe.edit', compact('itemGroupe', 'formateurs', 'filieres', 'apprenants_data', 'apprenants_stats', 'apprenants_filters'));
 
-    /**
-     * Met à jour une filière existante.
-     */
-    public function update(GroupeRequest $request, string $id)
-    {
+    }
+    public function update(GroupeRequest $request, string $id) {
 
         $validatedData = $request->validated();
         $groupe = $this->groupeService->update($id, $validatedData);
@@ -167,13 +144,9 @@ class BaseGroupeController extends AdminController
                 'modelName' =>  __('PkgUtilisateurs::groupe.singular')
                 ])
         );
-    }
 
-    /**
-     * Supprime une filière.
-     */
-    public function destroy(Request $request, string $id)
-    {
+    }
+    public function destroy(Request $request, string $id) {
 
         $groupe = $this->groupeService->destroy($id);
 
@@ -192,6 +165,7 @@ class BaseGroupeController extends AdminController
                 'modelName' =>  __('PkgUtilisateurs::groupe.singular')
                 ])
         );
+
     }
 
     public function export()
@@ -227,4 +201,5 @@ class BaseGroupeController extends AdminController
         $groupes = $this->groupeService->all();
         return response()->json($groupes);
     }
+
 }

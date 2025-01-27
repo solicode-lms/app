@@ -27,6 +27,7 @@ class BaseSpecialiteExport implements FromCollection, WithHeadings, ShouldAutoSi
         return [
             'nom',
             'description',
+            'reference',
         ];
     }
 
@@ -36,6 +37,7 @@ class BaseSpecialiteExport implements FromCollection, WithHeadings, ShouldAutoSi
             return [
                 'nom' => $specialite->nom,
                 'description' => $specialite->description,
+                'reference' => $specialite->reference,
             ];
         });
     }

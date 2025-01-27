@@ -29,6 +29,7 @@ class BaseGroupeExport implements FromCollection, WithHeadings, ShouldAutoSize, 
             'nom',
             'description',
             'filiere_id',
+            'reference',
         ];
     }
 
@@ -40,6 +41,7 @@ class BaseGroupeExport implements FromCollection, WithHeadings, ShouldAutoSize, 
                 'nom' => $groupe->nom,
                 'description' => $groupe->description,
                 'filiere_id' => $groupe->filiere_id,
+                'reference' => $groupe->reference,
             ];
         });
     }

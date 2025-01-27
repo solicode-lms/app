@@ -5,6 +5,7 @@
         <thead>
             <tr>
                 <x-sortable-column field="code" label="{{ ucfirst(__('PkgUtilisateurs::niveauxScolaire.code')) }}" />
+                <x-sortable-column field="nom" label="{{ ucfirst(__('PkgUtilisateurs::niveauxScolaire.nom')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -12,6 +13,7 @@
             @foreach ($niveauxScolaires_data as $niveauxScolaire)
                 <tr>
                     <td>@limit($niveauxScolaire->code, 80)</td>
+                    <td>@limit($niveauxScolaire->nom, 80)</td>
                     <td class="text-right">
                         @can('show-niveauxScolaire')
                             <a href="{{ route('niveauxScolaires.show', ['niveauxScolaire' => $niveauxScolaire->id]) }}" data-id="{{$niveauxScolaire->id}}" class="btn btn-default btn-sm context-state showEntity">

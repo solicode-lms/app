@@ -5,7 +5,6 @@
         <thead>
             <tr>
                 <x-sortable-column field="nom" label="{{ ucfirst(__('PkgUtilisateurs::specialite.nom')) }}" />
-                <x-sortable-column field="description" label="{{ ucfirst(__('PkgUtilisateurs::specialite.description')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -13,7 +12,6 @@
             @foreach ($specialites_data as $specialite)
                 <tr>
                     <td>@limit($specialite->nom, 80)</td>
-                    <td>{!! $specialite->description !!}</td>
                     <td class="text-right">
                         @can('show-specialite')
                             <a href="{{ route('specialites.show', ['specialite' => $specialite->id]) }}" data-id="{{$specialite->id}}" class="btn btn-default btn-sm context-state showEntity">

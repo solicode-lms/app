@@ -1,6 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-@section('role-form')
+@section('groupe-form')
 <form class="crud-form custom-form context-state" id="groupeForm" action="{{ $itemGroupe->id ? route('groupes.update', $itemGroupe->id) : route('groupes.store') }}" method="POST" novalidate>
     @csrf
 
@@ -95,6 +95,10 @@
 
 
         
+
+        <!--   Apprenant HasMany --> 
+
+        
                 <div class="form-group">
             <label for="formateurs">
                 {{ ucfirst(__('PkgUtilisateurs::Formateur.plural')) }}
@@ -118,10 +122,6 @@
 
         </div>
 
-
-        
-
-        <!--   Apprenant_HasMany HasMany --> 
 
     </div>
 

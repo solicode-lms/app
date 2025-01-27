@@ -12,10 +12,10 @@ use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
 use Modules\PkgAutorisation\Models\User;
-use Modules\PkgCompetences\Models\Appreciation;
-use Modules\PkgCreationProjet\Models\Projet;
 use Modules\PkgUtilisateurs\Models\Groupe;
 use Modules\PkgUtilisateurs\Models\Specialite;
+use Modules\PkgCompetences\Models\Appreciation;
+use Modules\PkgCreationProjet\Models\Projet;
 
 /**
  * Classe BaseFormateur
@@ -70,7 +70,7 @@ class BaseFormateur extends BaseModel
     }
 
     /**
-     * Relation HasMany pour Appreciations.
+     * Relation HasMany pour Formateurs.
      *
      * @return HasMany
      */
@@ -79,7 +79,7 @@ class BaseFormateur extends BaseModel
         return $this->hasMany(Appreciation::class, 'formateur_id', 'id');
     }
     /**
-     * Relation HasMany pour Projets.
+     * Relation HasMany pour Formateurs.
      *
      * @return HasMany
      */
@@ -87,6 +87,8 @@ class BaseFormateur extends BaseModel
     {
         return $this->hasMany(Projet::class, 'formateur_id', 'id');
     }
+
+
 
     /**
      * Méthode __toString pour représenter le modèle sous forme de chaîne.

@@ -37,6 +37,7 @@ class BaseFormateurExport implements FromCollection, WithHeadings, ShouldAutoSiz
             'echelon',
             'profile_image',
             'user_id',
+            'reference',
         ];
     }
 
@@ -56,6 +57,7 @@ class BaseFormateurExport implements FromCollection, WithHeadings, ShouldAutoSiz
                 'echelon' => $formateur->echelon,
                 'profile_image' => $formateur->profile_image,
                 'user_id' => $formateur->user_id,
+                'reference' => $formateur->reference,
             ];
         });
     }

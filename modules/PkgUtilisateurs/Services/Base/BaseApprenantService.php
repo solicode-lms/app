@@ -58,6 +58,9 @@ class BaseApprenantService extends BaseService
 
         // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
+            $this->generateManyToOneFilter(__("PkgUtilisateurs::groupe.plural"), 'groupe_id', \Modules\PkgUtilisateurs\Models\Groupe::class, 'code'),
+            $this->generateManyToOneFilter(__("PkgUtilisateurs::niveauxScolaire.plural"), 'niveaux_scolaire_id', \Modules\PkgUtilisateurs\Models\NiveauxScolaire::class, 'code'),
+            $this->generateManyToOneFilter(__("PkgUtilisateurs::nationalite.plural"), 'nationalite_id', \Modules\PkgUtilisateurs\Models\Nationalite::class, 'code'),
         ];
 
     }
@@ -70,28 +73,7 @@ class BaseApprenantService extends BaseService
      */
     public function create(array $data)
     {
-        $apprenant = parent::create([
-            'nom' => $data['nom'],
-            'prenom' => $data['prenom'],
-            'prenom_arab' => $data['prenom_arab'],
-            'nom_arab' => $data['nom_arab'],
-            'tele_num' => $data['tele_num'],
-            'profile_image' => $data['profile_image'],
-            'matricule' => $data['matricule'],
-            'sexe' => $data['sexe'],
-            'actif' => $data['actif'],
-            'diplome' => $data['diplome'],
-            'date_naissance' => $data['date_naissance'],
-            'date_inscription' => $data['date_inscription'],
-            'lieu_naissance' => $data['lieu_naissance'],
-            'cin' => $data['cin'],
-            'adresse' => $data['adresse'],
-            'groupe_id' => $data['groupe_id'],
-            'niveaux_scolaire_id' => $data['niveaux_scolaire_id'],
-            'nationalite_id' => $data['nationalite_id'],
-        ]);
-
-        return $apprenant;
+        return parent::create($data);
     }
 
     /**

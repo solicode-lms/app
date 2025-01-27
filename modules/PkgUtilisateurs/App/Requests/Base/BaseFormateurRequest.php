@@ -20,14 +20,14 @@ class BaseFormateurRequest extends FormRequest
             'matricule' => 'required|max:255',
             'nom' => 'required|max:255',
             'prenom' => 'required|max:255',
-            'prenom_arab' => 'required|max:255',
-            'nom_arab' => 'required|max:255',
-            'tele_num' => 'required|max:255',
+            'prenom_arab' => 'nullable|max:255',
+            'nom_arab' => 'nullable|max:255',
+            'tele_num' => 'nullable|max:255',
             'adresse' => 'nullable|max:255',
             'diplome' => 'nullable|max:255',
             'echelle' => 'nullable',
             'echelon' => 'nullable',
-            'profile_image' => 'required|max:255',
+            'profile_image' => 'nullable|max:255',
             'user_id' => 'nullable'
         ];
     }

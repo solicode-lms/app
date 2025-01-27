@@ -28,6 +28,7 @@ class BaseNationaliteExport implements FromCollection, WithHeadings, ShouldAutoS
             'code',
             'nom',
             'description',
+            'reference',
         ];
     }
 
@@ -38,6 +39,7 @@ class BaseNationaliteExport implements FromCollection, WithHeadings, ShouldAutoS
                 'code' => $nationalite->code,
                 'nom' => $nationalite->nom,
                 'description' => $nationalite->description,
+                'reference' => $nationalite->reference,
             ];
         });
     }

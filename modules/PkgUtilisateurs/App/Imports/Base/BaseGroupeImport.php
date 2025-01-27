@@ -21,7 +21,7 @@ class BaseGroupeImport implements ToModel, WithHeadingRow
      */
     private function recordExists(array $row): bool
     {
-        return Groupe::where('code', $row['code'])->exists();
+        return Groupe::where('nom', $row['nom'])->exists();
     }
 
     /**
@@ -42,6 +42,7 @@ class BaseGroupeImport implements ToModel, WithHeadingRow
             'nom' => $row['nom'],
             'description' => $row['description'],
             'filiere_id' => $row['filiere_id'],
+            'reference' => $row['reference'],
         ]);
     }
 }

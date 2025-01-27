@@ -50,6 +50,7 @@ class BaseFormateurImport implements ToModel, WithHeadingRow
             'echelon' => $row['echelon'],
             'profile_image' => $row['profile_image'],
             'user_id' => $row['user_id'],
+            'reference' => $row['reference'],
         ]);
     }
 }

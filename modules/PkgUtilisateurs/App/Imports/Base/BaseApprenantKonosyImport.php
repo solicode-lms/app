@@ -21,7 +21,7 @@ class BaseApprenantKonosyImport implements ToModel, WithHeadingRow
      */
     private function recordExists(array $row): bool
     {
-        return ApprenantKonosy::where('id', $row['id'])->exists();
+        return ApprenantKonosy::where('reference', $row['reference'])->exists();
     }
 
     /**
@@ -57,6 +57,7 @@ class BaseApprenantKonosyImport implements ToModel, WithHeadingRow
             'Nom_Arabe' => $row['Nom_Arabe'],
             'Prenom_Arabe' => $row['Prenom_Arabe'],
             'NiveauScolaire' => $row['NiveauScolaire'],
+            'reference' => $row['reference'],
         ]);
     }
 }

@@ -12,8 +12,8 @@ use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
 use Modules\PkgCompetences\Models\Filiere;
-use Modules\PkgUtilisateurs\Models\Apprenant;
 use Modules\PkgUtilisateurs\Models\Formateur;
+use Modules\PkgUtilisateurs\Models\Apprenant;
 
 /**
  * Classe BaseGroupe
@@ -59,7 +59,7 @@ class BaseGroupe extends BaseModel
     }
 
     /**
-     * Relation HasMany pour Apprenants.
+     * Relation HasMany pour Groupes.
      *
      * @return HasMany
      */
@@ -67,6 +67,8 @@ class BaseGroupe extends BaseModel
     {
         return $this->hasMany(Apprenant::class, 'groupe_id', 'id');
     }
+
+
 
     /**
      * Méthode __toString pour représenter le modèle sous forme de chaîne.

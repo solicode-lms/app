@@ -1,6 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-@section('role-form')
+@section('nationalite-form')
 <form class="crud-form custom-form context-state" id="nationaliteForm" action="{{ $itemNationalite->id ? route('nationalites.update', $itemNationalite->id) : route('nationalites.store') }}" method="POST" novalidate>
     @csrf
 
@@ -70,7 +70,7 @@
 
         
 
-        <!--   Apprenant_HasMany HasMany --> 
+        <!--   Apprenant HasMany --> 
 
     </div>
 

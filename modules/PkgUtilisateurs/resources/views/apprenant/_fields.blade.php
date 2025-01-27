@@ -1,6 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-@section('role-form')
+@section('apprenant-form')
 <form class="crud-form custom-form context-state" id="apprenantForm" action="{{ $itemApprenant->id ? route('apprenants.update', $itemApprenant->id) : route('apprenants.store') }}" method="POST" novalidate>
     @csrf
 
@@ -176,7 +176,25 @@
 </div>
 
         
-        
+        <div class="form-group">
+            <label for="actif">
+                {{ ucfirst(__('PkgUtilisateurs::apprenant.actif')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <input
+                name="actif"
+                type="number"
+                class="form-control"
+                required
+                id="actif"
+                placeholder="{{ __('PkgUtilisateurs::apprenant.actif') }}"
+                value="{{ $itemApprenant ? $itemApprenant->actif : old('actif') }}">
+            @error('actif')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
 
         
         <div class="form-group">

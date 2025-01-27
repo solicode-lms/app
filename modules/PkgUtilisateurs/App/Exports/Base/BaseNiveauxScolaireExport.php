@@ -28,6 +28,7 @@ class BaseNiveauxScolaireExport implements FromCollection, WithHeadings, ShouldA
             'code',
             'nom',
             'description',
+            'reference',
         ];
     }
 
@@ -38,6 +39,7 @@ class BaseNiveauxScolaireExport implements FromCollection, WithHeadings, ShouldA
                 'code' => $niveauxScolaire->code,
                 'nom' => $niveauxScolaire->nom,
                 'description' => $niveauxScolaire->description,
+                'reference' => $niveauxScolaire->reference,
             ];
         });
     }

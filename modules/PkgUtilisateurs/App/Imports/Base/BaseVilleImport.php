@@ -39,6 +39,7 @@ class BaseVilleImport implements ToModel, WithHeadingRow
         // Crée un nouvel enregistrement à partir des données importées
         return new Ville([
             'nom' => $row['nom'],
+            'reference' => $row['reference'],
         ]);
     }
 }

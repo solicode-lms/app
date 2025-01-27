@@ -53,11 +53,7 @@ class BaseVilleService extends BaseService
      */
     public function create(array $data)
     {
-        $ville = parent::create([
-            'nom' => $data['nom'],
-        ]);
-
-        return $ville;
+        return parent::create($data);
     }
 
     /**

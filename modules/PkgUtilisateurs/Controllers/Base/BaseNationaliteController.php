@@ -3,13 +3,11 @@
 
 
 namespace Modules\PkgUtilisateurs\Controllers\Base;
-
+use Modules\PkgUtilisateurs\Services\NationaliteService;
+use Modules\PkgUtilisateurs\Services\ApprenantService;
+use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\PkgUtilisateurs\App\Requests\NationaliteRequest;
-use Modules\PkgUtilisateurs\Services\NationaliteService;
-
-
-use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgUtilisateurs\App\Exports\NationaliteExport;
 use Modules\PkgUtilisateurs\App\Imports\NationaliteImport;
@@ -19,43 +17,34 @@ class BaseNationaliteController extends AdminController
 {
     protected $nationaliteService;
 
-    public function __construct(NationaliteService $nationaliteService)
-    {
+    public function __construct(NationaliteService $nationaliteService) {
         parent::__construct();
         $this->nationaliteService = $nationaliteService;
-
     }
 
-
-    public function index(Request $request)
-    {
+    public function index(Request $request) {
         // Extraire les paramètres de recherche, page, et filtres
         $nationalites_params = array_merge(
             $request->only(['page','sort']),
             ['search' => $request->get('nationalites_search', '')],
             $request->except(['nationalites_search', 'page', 'sort'])
         );
-    
+
         // Paginer les nationalites
         $nationalites_data = $this->nationaliteService->paginate($nationalites_params);
-    
+
         // Récupérer les statistiques et les champs filtrables
         $nationalites_stats = $this->nationaliteService->getnationaliteStats();
         $nationalites_filters = $this->nationaliteService->getFieldsFilterable();
-    
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
             return view('PkgUtilisateurs::nationalite._table', compact('nationalites_data', 'nationalites_stats', 'nationalites_filters'))->render();
         }
-    
+
         return view('PkgUtilisateurs::nationalite.index', compact('nationalites_data', 'nationalites_stats', 'nationalites_filters'));
     }
-
-    /**
-     * Retourne le formulaire de création.
-     */
-    public function create()
-    {
+    public function create() {
         $itemNationalite = $this->nationaliteService->createInstance();
 
 
@@ -64,12 +53,7 @@ class BaseNationaliteController extends AdminController
         }
         return view('PkgUtilisateurs::nationalite.create', compact('itemNationalite'));
     }
-
-    /**
-     * Stocke une nouvelle filière.
-     */
-    public function store(NationaliteRequest $request)
-    {
+    public function store(NationaliteRequest $request) {
         $validatedData = $request->validated();
         $nationalite = $this->nationaliteService->create($validatedData);
 
@@ -84,7 +68,7 @@ class BaseNationaliteController extends AdminController
             ]);
         }
 
-        return redirect()->route('nationalites.index')->with(
+        return redirect()->route('nationalites.edit',['nationalite' => $nationalite->id])->with(
             'success',
             __('Core::msg.addSuccess', [
                 'entityToString' => $nationalite,
@@ -92,12 +76,7 @@ class BaseNationaliteController extends AdminController
             ])
         );
     }
-
-    /**
-     * Affiche les détails d'une filière.
-     */
-    public function show(string $id)
-    {
+    public function show(string $id) {
         $itemNationalite = $this->nationaliteService->find($id);
 
 
@@ -106,32 +85,29 @@ class BaseNationaliteController extends AdminController
         }
 
         return view('PkgUtilisateurs::nationalite.show', compact('itemNationalite'));
-    }
 
-    /**
-     * Retourne le formulaire d'édition d'une filière.
-     */
-    public function edit(string $id)
-    {
+    }
+    public function edit(string $id) {
 
         $itemNationalite = $this->nationaliteService->find($id);
+        $apprenantService =  new ApprenantService();
+        $apprenants_data =  $itemNationalite->apprenants()->paginate(10);
+        $apprenants_stats = $apprenantService->getapprenantStats();
+        $apprenants_filters = $apprenantService->getFieldsFilterable();
+        
 
         // Utilisé dans l'édition des relation HasMany
         $this->contextState->set('nationalite_id', $id);
 
 
         if (request()->ajax()) {
-            return view('PkgUtilisateurs::nationalite._fields', compact('itemNationalite'));
+            return view('PkgUtilisateurs::nationalite._fields', compact('itemNationalite', 'apprenants_data', 'apprenants_stats', 'apprenants_filters'));
         }
 
-        return view('PkgUtilisateurs::nationalite.edit', compact('itemNationalite'));
-    }
+        return view('PkgUtilisateurs::nationalite.edit', compact('itemNationalite', 'apprenants_data', 'apprenants_stats', 'apprenants_filters'));
 
-    /**
-     * Met à jour une filière existante.
-     */
-    public function update(NationaliteRequest $request, string $id)
-    {
+    }
+    public function update(NationaliteRequest $request, string $id) {
 
         $validatedData = $request->validated();
         $nationalite = $this->nationaliteService->update($id, $validatedData);
@@ -152,13 +128,9 @@ class BaseNationaliteController extends AdminController
                 'modelName' =>  __('PkgUtilisateurs::nationalite.singular')
                 ])
         );
-    }
 
-    /**
-     * Supprime une filière.
-     */
-    public function destroy(Request $request, string $id)
-    {
+    }
+    public function destroy(Request $request, string $id) {
 
         $nationalite = $this->nationaliteService->destroy($id);
 
@@ -177,6 +149,7 @@ class BaseNationaliteController extends AdminController
                 'modelName' =>  __('PkgUtilisateurs::nationalite.singular')
                 ])
         );
+
     }
 
     public function export()
@@ -212,4 +185,5 @@ class BaseNationaliteController extends AdminController
         $nationalites = $this->nationaliteService->all();
         return response()->json($nationalites);
     }
+
 }

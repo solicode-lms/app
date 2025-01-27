@@ -26,6 +26,7 @@ class BaseVilleExport implements FromCollection, WithHeadings, ShouldAutoSize, W
     {
         return [
             'nom',
+            'reference',
         ];
     }
 
@@ -34,6 +35,7 @@ class BaseVilleExport implements FromCollection, WithHeadings, ShouldAutoSize, W
         return $this->data->map(function ($ville) {
             return [
                 'nom' => $ville->nom,
+                'reference' => $ville->reference,
             ];
         });
     }

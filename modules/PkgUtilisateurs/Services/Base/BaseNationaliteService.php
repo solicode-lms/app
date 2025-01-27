@@ -55,13 +55,7 @@ class BaseNationaliteService extends BaseService
      */
     public function create(array $data)
     {
-        $nationalite = parent::create([
-            'code' => $data['code'],
-            'nom' => $data['nom'],
-            'description' => $data['description'],
-        ]);
-
-        return $nationalite;
+        return parent::create($data);
     }
 
     /**

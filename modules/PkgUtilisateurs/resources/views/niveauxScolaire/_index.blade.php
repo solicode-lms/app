@@ -4,7 +4,7 @@
 <script>
     window.entitiesConfig = window.entitiesConfig || [];
     window.entitiesConfig.push({
-        edit_has_many: false,
+        edit_has_many: true,
         entity_name: 'niveauxScolaire',
         filterFormSelector: '#niveauxScolaire-crud-filter-form',
         crudSelector: '#niveauxScolaire-crud',
@@ -70,7 +70,7 @@
                 @section('niveauxScolaire-crud-filters')
                 <div class="card-header">
                     <form id="niveauxScolaire-crud-filter-form" method="GET" class="row">
-                        <x-filter-group count="{{count($modules_filters ?? [])}}">
+                        <x-filter-group count="{{count($niveauxScolaires_filters ?? [])}}">
                             <!-- Filtres spécifiques -->
                             @foreach ($niveauxScolaires_filters as $filter)
                                 <x-filter-field 

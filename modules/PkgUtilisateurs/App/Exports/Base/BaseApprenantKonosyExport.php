@@ -44,6 +44,7 @@ class BaseApprenantKonosyExport implements FromCollection, WithHeadings, ShouldA
             'Nom_Arabe',
             'Prenom_Arabe',
             'NiveauScolaire',
+            'reference',
         ];
     }
 
@@ -70,6 +71,7 @@ class BaseApprenantKonosyExport implements FromCollection, WithHeadings, ShouldA
                 'Nom_Arabe' => $apprenantKonosy->Nom_Arabe,
                 'Prenom_Arabe' => $apprenantKonosy->Prenom_Arabe,
                 'NiveauScolaire' => $apprenantKonosy->NiveauScolaire,
+                'reference' => $apprenantKonosy->reference,
             ];
         });
     }

@@ -30,7 +30,7 @@
        $titre = __("PkgUtilisateurs::apprenant.singular");
     @endphp
     <x-crud-header 
-        id="apprenant-crud-header" icon="fas fa-table"  
+        id="apprenant-crud-header" icon="fas fa-user-graduate"  
         iconColor="text-info"
         title="{{ __('PkgUtilisateurs::apprenant.plural') }}"
         :breadcrumbs="[
@@ -70,7 +70,7 @@
                 @section('apprenant-crud-filters')
                 <div class="card-header">
                     <form id="apprenant-crud-filter-form" method="GET" class="row">
-                        <x-filter-group count="{{count($modules_filters ?? [])}}">
+                        <x-filter-group count="{{count($apprenants_filters ?? [])}}">
                             <!-- Filtres spécifiques -->
                             @foreach ($apprenants_filters as $filter)
                                 <x-filter-field 

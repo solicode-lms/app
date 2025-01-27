@@ -3,15 +3,15 @@
 
 
 namespace Modules\PkgUtilisateurs\Controllers\Base;
-
-use Modules\Core\Controllers\Base\AdminController;
-use Modules\PkgUtilisateurs\App\Requests\FormateurRequest;
 use Modules\PkgUtilisateurs\Services\FormateurService;
 use Modules\PkgUtilisateurs\Services\GroupeService;
 use Modules\PkgUtilisateurs\Services\SpecialiteService;
 use Modules\PkgAutorisation\Services\UserService;
-
+use Modules\PkgCompetences\Services\AppreciationService;
+use Modules\PkgCreationProjet\Services\ProjetService;
 use Illuminate\Http\Request;
+use Modules\Core\Controllers\Base\AdminController;
+use Modules\PkgUtilisateurs\App\Requests\FormateurRequest;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgUtilisateurs\App\Exports\FormateurExport;
 use Modules\PkgUtilisateurs\App\Imports\FormateurImport;
@@ -24,46 +24,37 @@ class BaseFormateurController extends AdminController
     protected $specialiteService;
     protected $userService;
 
-    public function __construct(FormateurService $formateurService, GroupeService $groupeService, SpecialiteService $specialiteService, UserService $userService)
-    {
+    public function __construct(FormateurService $formateurService, GroupeService $groupeService, SpecialiteService $specialiteService, UserService $userService) {
         parent::__construct();
         $this->formateurService = $formateurService;
         $this->groupeService = $groupeService;
         $this->specialiteService = $specialiteService;
         $this->userService = $userService;
-
     }
 
-
-    public function index(Request $request)
-    {
+    public function index(Request $request) {
         // Extraire les paramètres de recherche, page, et filtres
         $formateurs_params = array_merge(
             $request->only(['page','sort']),
             ['search' => $request->get('formateurs_search', '')],
             $request->except(['formateurs_search', 'page', 'sort'])
         );
-    
+
         // Paginer les formateurs
         $formateurs_data = $this->formateurService->paginate($formateurs_params);
-    
+
         // Récupérer les statistiques et les champs filtrables
         $formateurs_stats = $this->formateurService->getformateurStats();
         $formateurs_filters = $this->formateurService->getFieldsFilterable();
-    
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
             return view('PkgUtilisateurs::formateur._table', compact('formateurs_data', 'formateurs_stats', 'formateurs_filters'))->render();
         }
-    
+
         return view('PkgUtilisateurs::formateur.index', compact('formateurs_data', 'formateurs_stats', 'formateurs_filters'));
     }
-
-    /**
-     * Retourne le formulaire de création.
-     */
-    public function create()
-    {
+    public function create() {
         $itemFormateur = $this->formateurService->createInstance();
         $groupes = $this->groupeService->all();
         $specialites = $this->specialiteService->all();
@@ -75,12 +66,7 @@ class BaseFormateurController extends AdminController
         }
         return view('PkgUtilisateurs::formateur.create', compact('itemFormateur', 'groupes', 'specialites', 'users'));
     }
-
-    /**
-     * Stocke une nouvelle filière.
-     */
-    public function store(FormateurRequest $request)
-    {
+    public function store(FormateurRequest $request) {
         $validatedData = $request->validated();
         $formateur = $this->formateurService->create($validatedData);
 
@@ -101,7 +87,7 @@ class BaseFormateurController extends AdminController
             ]);
         }
 
-        return redirect()->route('formateurs.index')->with(
+        return redirect()->route('formateurs.edit',['formateur' => $formateur->id])->with(
             'success',
             __('Core::msg.addSuccess', [
                 'entityToString' => $formateur,
@@ -109,12 +95,7 @@ class BaseFormateurController extends AdminController
             ])
         );
     }
-
-    /**
-     * Affiche les détails d'une filière.
-     */
-    public function show(string $id)
-    {
+    public function show(string $id) {
         $itemFormateur = $this->formateurService->find($id);
         $groupes = $this->groupeService->all();
         $specialites = $this->specialiteService->all();
@@ -126,35 +107,37 @@ class BaseFormateurController extends AdminController
         }
 
         return view('PkgUtilisateurs::formateur.show', compact('itemFormateur'));
-    }
 
-    /**
-     * Retourne le formulaire d'édition d'une filière.
-     */
-    public function edit(string $id)
-    {
+    }
+    public function edit(string $id) {
 
         $itemFormateur = $this->formateurService->find($id);
         $groupes = $this->groupeService->all();
         $specialites = $this->specialiteService->all();
         $users = $this->userService->all();
+        $appreciationService =  new AppreciationService();
+        $appreciations_data =  $itemFormateur->appreciations()->paginate(10);
+        $appreciations_stats = $appreciationService->getappreciationStats();
+        $appreciations_filters = $appreciationService->getFieldsFilterable();
+        
+        $projetService =  new ProjetService();
+        $projets_data =  $itemFormateur->projets()->paginate(10);
+        $projets_stats = $projetService->getprojetStats();
+        $projets_filters = $projetService->getFieldsFilterable();
+        
 
         // Utilisé dans l'édition des relation HasMany
         $this->contextState->set('formateur_id', $id);
 
 
         if (request()->ajax()) {
-            return view('PkgUtilisateurs::formateur._fields', compact('itemFormateur', 'groupes', 'specialites', 'users'));
+            return view('PkgUtilisateurs::formateur._fields', compact('itemFormateur', 'groupes', 'specialites', 'users', 'appreciations_data', 'projets_data', 'appreciations_stats', 'projets_stats', 'appreciations_filters', 'projets_filters'));
         }
 
-        return view('PkgUtilisateurs::formateur.edit', compact('itemFormateur', 'groupes', 'specialites', 'users'));
-    }
+        return view('PkgUtilisateurs::formateur.edit', compact('itemFormateur', 'groupes', 'specialites', 'users', 'appreciations_data', 'projets_data', 'appreciations_stats', 'projets_stats', 'appreciations_filters', 'projets_filters'));
 
-    /**
-     * Met à jour une filière existante.
-     */
-    public function update(FormateurRequest $request, string $id)
-    {
+    }
+    public function update(FormateurRequest $request, string $id) {
 
         $validatedData = $request->validated();
         $formateur = $this->formateurService->update($id, $validatedData);
@@ -177,13 +160,9 @@ class BaseFormateurController extends AdminController
                 'modelName' =>  __('PkgUtilisateurs::formateur.singular')
                 ])
         );
-    }
 
-    /**
-     * Supprime une filière.
-     */
-    public function destroy(Request $request, string $id)
-    {
+    }
+    public function destroy(Request $request, string $id) {
 
         $formateur = $this->formateurService->destroy($id);
 
@@ -202,6 +181,7 @@ class BaseFormateurController extends AdminController
                 'modelName' =>  __('PkgUtilisateurs::formateur.singular')
                 ])
         );
+
     }
 
     public function export()
@@ -237,4 +217,5 @@ class BaseFormateurController extends AdminController
         $formateurs = $this->formateurService->all();
         return response()->json($formateurs);
     }
+
 }

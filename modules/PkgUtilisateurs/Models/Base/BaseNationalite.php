@@ -39,7 +39,7 @@ class BaseNationalite extends BaseModel
 
 
     /**
-     * Relation HasMany pour Apprenants.
+     * Relation HasMany pour Nationalites.
      *
      * @return HasMany
      */
@@ -47,6 +47,8 @@ class BaseNationalite extends BaseModel
     {
         return $this->hasMany(Apprenant::class, 'nationalite_id', 'id');
     }
+
+
 
     /**
      * Méthode __toString pour représenter le modèle sous forme de chaîne.

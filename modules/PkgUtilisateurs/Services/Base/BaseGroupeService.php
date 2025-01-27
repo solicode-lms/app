@@ -44,6 +44,7 @@ class BaseGroupeService extends BaseService
 
         // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
+            $this->generateManyToOneFilter(__("PkgCompetences::filiere.plural"), 'filiere_id', \Modules\PkgCompetences\Models\Filiere::class, 'code'),
         ];
 
     }
@@ -56,14 +57,7 @@ class BaseGroupeService extends BaseService
      */
     public function create(array $data)
     {
-        $groupe = parent::create([
-            'code' => $data['code'],
-            'nom' => $data['nom'],
-            'description' => $data['description'],
-            'filiere_id' => $data['filiere_id'],
-        ]);
-
-        return $groupe;
+        return parent::create($data);
     }
 
     /**

@@ -3,13 +3,11 @@
 
 
 namespace Modules\PkgUtilisateurs\Controllers\Base;
-
-use Modules\Core\Controllers\Base\AdminController;
-use Modules\PkgUtilisateurs\App\Requests\SpecialiteRequest;
 use Modules\PkgUtilisateurs\Services\SpecialiteService;
 use Modules\PkgUtilisateurs\Services\FormateurService;
-
 use Illuminate\Http\Request;
+use Modules\Core\Controllers\Base\AdminController;
+use Modules\PkgUtilisateurs\App\Requests\SpecialiteRequest;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgUtilisateurs\App\Exports\SpecialiteExport;
 use Modules\PkgUtilisateurs\App\Imports\SpecialiteImport;
@@ -20,44 +18,35 @@ class BaseSpecialiteController extends AdminController
     protected $specialiteService;
     protected $formateurService;
 
-    public function __construct(SpecialiteService $specialiteService, FormateurService $formateurService)
-    {
+    public function __construct(SpecialiteService $specialiteService, FormateurService $formateurService) {
         parent::__construct();
         $this->specialiteService = $specialiteService;
         $this->formateurService = $formateurService;
-
     }
 
-
-    public function index(Request $request)
-    {
+    public function index(Request $request) {
         // Extraire les paramètres de recherche, page, et filtres
         $specialites_params = array_merge(
             $request->only(['page','sort']),
             ['search' => $request->get('specialites_search', '')],
             $request->except(['specialites_search', 'page', 'sort'])
         );
-    
+
         // Paginer les specialites
         $specialites_data = $this->specialiteService->paginate($specialites_params);
-    
+
         // Récupérer les statistiques et les champs filtrables
         $specialites_stats = $this->specialiteService->getspecialiteStats();
         $specialites_filters = $this->specialiteService->getFieldsFilterable();
-    
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
             return view('PkgUtilisateurs::specialite._table', compact('specialites_data', 'specialites_stats', 'specialites_filters'))->render();
         }
-    
+
         return view('PkgUtilisateurs::specialite.index', compact('specialites_data', 'specialites_stats', 'specialites_filters'));
     }
-
-    /**
-     * Retourne le formulaire de création.
-     */
-    public function create()
-    {
+    public function create() {
         $itemSpecialite = $this->specialiteService->createInstance();
         $formateurs = $this->formateurService->all();
 
@@ -67,12 +56,7 @@ class BaseSpecialiteController extends AdminController
         }
         return view('PkgUtilisateurs::specialite.create', compact('itemSpecialite', 'formateurs'));
     }
-
-    /**
-     * Stocke une nouvelle filière.
-     */
-    public function store(SpecialiteRequest $request)
-    {
+    public function store(SpecialiteRequest $request) {
         $validatedData = $request->validated();
         $specialite = $this->specialiteService->create($validatedData);
 
@@ -98,12 +82,7 @@ class BaseSpecialiteController extends AdminController
             ])
         );
     }
-
-    /**
-     * Affiche les détails d'une filière.
-     */
-    public function show(string $id)
-    {
+    public function show(string $id) {
         $itemSpecialite = $this->specialiteService->find($id);
         $formateurs = $this->formateurService->all();
 
@@ -113,13 +92,9 @@ class BaseSpecialiteController extends AdminController
         }
 
         return view('PkgUtilisateurs::specialite.show', compact('itemSpecialite'));
-    }
 
-    /**
-     * Retourne le formulaire d'édition d'une filière.
-     */
-    public function edit(string $id)
-    {
+    }
+    public function edit(string $id) {
 
         $itemSpecialite = $this->specialiteService->find($id);
         $formateurs = $this->formateurService->all();
@@ -133,13 +108,9 @@ class BaseSpecialiteController extends AdminController
         }
 
         return view('PkgUtilisateurs::specialite.edit', compact('itemSpecialite', 'formateurs'));
-    }
 
-    /**
-     * Met à jour une filière existante.
-     */
-    public function update(SpecialiteRequest $request, string $id)
-    {
+    }
+    public function update(SpecialiteRequest $request, string $id) {
 
         $validatedData = $request->validated();
         $specialite = $this->specialiteService->update($id, $validatedData);
@@ -161,13 +132,9 @@ class BaseSpecialiteController extends AdminController
                 'modelName' =>  __('PkgUtilisateurs::specialite.singular')
                 ])
         );
-    }
 
-    /**
-     * Supprime une filière.
-     */
-    public function destroy(Request $request, string $id)
-    {
+    }
+    public function destroy(Request $request, string $id) {
 
         $specialite = $this->specialiteService->destroy($id);
 
@@ -186,6 +153,7 @@ class BaseSpecialiteController extends AdminController
                 'modelName' =>  __('PkgUtilisateurs::specialite.singular')
                 ])
         );
+
     }
 
     public function export()
@@ -221,4 +189,5 @@ class BaseSpecialiteController extends AdminController
         $specialites = $this->specialiteService->all();
         return response()->json($specialites);
     }
+
 }
