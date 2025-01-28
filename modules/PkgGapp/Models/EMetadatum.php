@@ -6,15 +6,19 @@ use Modules\PkgGapp\Models\Base\BaseEMetadatum;
 
 class EMetadatum extends BaseEMetadatum
 {
-    // TODO : ajouter à GApp
-    public function object()
-    {
-        return $this->morphTo();
-    }
+
 
     public function generateReference(): string
     {
-        return $this->object->reference . "_" . $this->eMetadataDefinition->reference ;
+        $objet_reference = "";
+        if($this->eDataField != null) {
+            $objet_reference = $this->eDataField->reference;
+        }
+        if($this->eModel != null) {
+            $objet_reference = $this->eModel->reference;
+        }
+
+        return $objet_reference . "_" . $this->eMetadataDefinition->reference ;
     }
 
 }

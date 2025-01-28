@@ -27,6 +27,8 @@ export default class DynamicFieldVisibilityTreatment {
                 return;
             }
 
+            this.handleVisibility(dataDefinitions, fieldMappings, typeField, "");
+
             // Ajouter un écouteur d'événement pour gérer les changements
             $dropdownElement.on('change', (event) => {
                 this.handleVisibility(dataDefinitions, fieldMappings, typeField, $(event.target).val());

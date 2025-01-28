@@ -16,9 +16,9 @@
 @import 'admin-lte';
 
 @import './loading-spin';
-
-
  
+ 
+
 /* Card - HasMany Edition */
 .btn-card-header{
     margin-right: 5px;
@@ -101,7 +101,8 @@
 .custom-form .form-control {
     padding: 0.4rem 0.5rem !important; 
     font-size: 0.9rem !important; 
-    height: auto !important; 
+    /* Problème with textearea : json */
+    /* height: auto !important;  */
 }
 
  
@@ -150,4 +151,14 @@
 
 .select2-container--default {
     font-size: 100% !important;
+}
+
+
+/*  code-editor  */
+
+.code-editor {
+    min-height: 200px;
+    padding: 10px;
+    white-space: pre-wrap;
+    overflow-y: auto;
 }

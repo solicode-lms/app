@@ -1,6 +1,13 @@
 import { LoadingIndicator } from "./LoadingIndicator";
 import { ContextStateService } from './ContextStateService';
 import DynamicFieldVisibilityTreatment from "../treatments/form/DynamicFieldVisibilityTreatment";
+import { CodeJar } from 'codejar';
+// import { withLineNumbers } from 'codejar/linenumbers';
+
+import Prism from 'prismjs';
+import 'prismjs/themes/prism.css'; 
+import 'prismjs/components/prism-json';
+
 
 export class FormManager {
     /**
@@ -29,6 +36,7 @@ export class FormManager {
         this.initializeSelect2_in_modal();
         FormManager.initializeRichText();
         FormManager.initializeDate();
+        FormManager.initCodeJar();
       
         if(window.dynamicFieldVisibilityTreatments){
             new DynamicFieldVisibilityTreatment(window.dynamicFieldVisibilityTreatments)
@@ -322,6 +330,46 @@ export class FormManager {
             locale: 'fr', 
             allowInput: true, 
             weekNumbers: true,
+        });
+    }
+
+    static initCodeJar() {
+        // Sélectionner tous les éditeurs avec la classe 'code-editor'
+        const editors = document.querySelectorAll('.code-editor');
+
+        editors.forEach((editor) => {
+            // Trouver l'input caché associé à cet éditeur
+            const hiddenInput = editor.nextElementSibling;
+
+            // Fonction de coloration syntaxique
+            const highlight = (editorItem) => {
+                try {
+                    const formattedJSON = JSON.stringify(JSON.parse(editorItem.textContent), null, 2);
+                    editorItem.innerHTML = Prism.highlight(formattedJSON, Prism.languages.json, 'json');
+                } catch (error) {
+                    editorItem.innerHTML = Prism.highlight(editorItem.textContent, Prism.languages.json, 'json');
+                }
+            };
+
+            // Initialiser CodeJar pour cet éditeur
+            const jar = CodeJar(editor, highlight);
+
+            // Synchroniser avec l'input caché lors de chaque mise à jour
+            jar.onUpdate((editorData) => {
+                try {
+                    const formattedJSON = JSON.stringify(JSON.parse(editor.textContent), null, 2);
+                    editor.style.borderColor = ''; // Bordure normale si valide
+                    hiddenInput.value = formattedJSON; // Mettre à jour l'input caché
+                } catch (error) {
+                    editor.style.borderColor = 'red'; // Bordure rouge si invalide
+                }
+            });
+
+            // Charger le contenu initial, s'il existe
+            if (hiddenInput.value) {
+                editor.textContent = JSON.stringify(JSON.parse(hiddenInput.value), null, 2);
+                highlight(editor);
+            }
         });
     }
 

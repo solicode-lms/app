@@ -31,9 +31,12 @@ export class LoadListAction extends BaseAction {
         // Récupérer les paramètres actuels depuis l'URL
         const urlParams = new URLSearchParams(window.location.search);
     
+        const v = Object.fromEntries(urlParams.entries());
         // Intégrer les paramètres existants de l'URL et les nouveaux filtres
-        const searchParams = { ...Object.fromEntries(urlParams.entries()), ...cleanedFilters, page };
-    
+        const searchParams = { ...Object.fromEntries(urlParams.entries()), ...cleanedFilters };
+        if(searchParams.page === undefined) {
+            searchParams.page = page;
+        }
         // Générer la chaîne de requête
         const queryString = new URLSearchParams(searchParams).toString();
     

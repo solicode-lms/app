@@ -20,7 +20,6 @@ import flatpickr from 'flatpickr';
 import { French } from 'flatpickr/dist/l10n/fr.js';
 
 
-
 import { CrudManager } from './crud/CrudManager';
 import { ConfigHelper } from './crud/helpers/ConfigHelper';
 import { NotificationHandler } from './crud/components/NotificationHandler';
@@ -29,6 +28,9 @@ import { ContexteStateEventHandler } from './crud/eventsHandler/ContexteStateEve
 import { ContextStateService } from './crud/components/ContextStateService';
 import { EditWithHasManyManager } from './crud/EditWithHasManyManager';
 import DynamicFieldVisibilityTreatment from './crud/treatments/form/DynamicFieldVisibilityTreatment';
+
+
+
 
 // Init CrudManagers in the page
 document.addEventListener("DOMContentLoaded", function () {
@@ -67,15 +69,16 @@ document.addEventListener("DOMContentLoaded", function () {
     FormManager.initializeSelect2();
     FormManager.initializeRichText();
     FormManager.initializeDate();
-
+    FormManager.initCodeJar();
 
     // if(window.dynamicFieldVisibilityTreatments){
     //     new DynamicFieldVisibilityTreatment(window.dynamicFieldVisibilityTreatments)
     //     .initialize();
     // }
 
- 
 });
 
 
- 
+document.addEventListener("DOMContentLoaded", function () {
+
+});

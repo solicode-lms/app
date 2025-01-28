@@ -5,6 +5,7 @@ return [
     'singular' => 'MétaDonnée',
     'plural' => 'MétaDonnées',
     'code' => 'code',
+    'value_json' => 'value_json',
     'value_boolean' => 'valeur booléenne',
     'value_string' => 'valeur chaîne',
     'value_int' => 'valeur nombre',
