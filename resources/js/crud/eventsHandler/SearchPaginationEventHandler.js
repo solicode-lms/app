@@ -23,7 +23,28 @@ export class SearchPaginationEventHandler {
         this.handlePaginationClick(); // Gérer les clics de pagination
         this.initializeFilterResetHandler();
         this.handleSorting();
+        this.hideFiltersById(); // Masquer les filtres dynamiquement selon le contexte
     }
+
+
+    /**
+     * Masque les éléments <select> dont l'id correspond à une clé dans le contexte (state).
+     */
+    hideFiltersById() {
+        const contextState = this.config.contextStateService.getVariables();
+
+        Object.keys(contextState).forEach((key) => {
+            const filterElement = document.getElementByName(key);
+            if (filterElement) {
+                if (this.config.isDebug) {
+                    filterElement.parentElement.style.backgroundColor = 'lightblue'; // Mode debug : surligner
+                } else {
+                    filterElement.parentElement.style.display = 'none'; // Masquer le filtre
+                }
+            }
+        });
+    }
+
 
     /**
      * Gère les événements du formulaire (recherche et filtres) avec délai (debounce).
