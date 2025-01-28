@@ -154,18 +154,25 @@
 </div>
 
         
-<div class="form-group">
+        <div class="form-group">
     <label for="value_json">
         {{ ucfirst(__('PkgGapp::eMetadatum.value_json')) }}
         
     </label>
-    <textarea
+    
+    <div class="form-control editeur_json code-editor"
+        contenteditable="true">{{ $itemEMetadatum ? $itemEMetadatum->value_json : old('value_json') }}</div>
+    
+    <input
+        type="hidden"
         name="value_json"
-        class="form-control editeur_json"
+        class="form-control"
         id="value_json"
-        placeholder="{{ __('PkgGapp::eMetadatum.value_json') }}"
-        >{{ $itemEMetadatum ? $itemEMetadatum->value_json : old('value_enum') }}</textarea>
-        <pre class="preview-json"><code class="language-json"></code></pre>
+         
+        value = "{{ $itemEMetadatum ? $itemEMetadatum->value_json : old('value_json') }}"
+    >
+
+
     @error('value_json')
         <div class="text-danger">{{ $message }}</div>
     @enderror
@@ -281,4 +288,63 @@
 </form>
 @show
 
+
+<script>
+
+    if(!window.isDynamicFieldVisibility_e_metadata_definition_id_type_Initialized){
+        window.isDynamicFieldVisibility_e_metadata_definition_id_type_Initialized = true;
+        window.dynamicFieldVisibilityTreatments = window.dynamicFieldVisibilityTreatments || [];
+    
+        const fieldMappings = [
+        {
+                type: "String",
+                fieldId: "value_string"
+        },
+        {
+                type: "Boolean",
+                fieldId: "value_boolean"
+        },
+        {
+                type: "Integer",
+                fieldId: "value_integer"
+        },
+        {
+                type: "Object",
+                fieldId: "value_object"
+        },
+        {
+                type: "Float",
+                fieldId: "value_float"
+        },
+        {
+                type: "Date",
+                fieldId: "value_date"
+        },
+        {
+                type: "Datetime",
+                fieldId: "value_datetime"
+        },
+        {
+                type: "Enum",
+                fieldId: "value_enum"
+        },
+        {
+                type: "Json",
+                fieldId: "value_json"
+        },
+        {
+                type: "Text",
+                fieldId: "value_text"
+        }
+];
+
+        // Ajouter une configuration générique pour l'entité
+        window.dynamicFieldVisibilityTreatments.push({
+            dataDefinitions: @json($eMetadataDefinitions), // Les données associées
+            targetDropdownId: 'e_metadata_definition_id', // L'ID du dropdown cible
+            fieldMappings: fieldMappings,
+            typeField: 'type'
+        });
+    }
+</script>
 
