@@ -97,7 +97,7 @@ class BaseNiveauxScolaireController extends AdminController
         
 
         // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('niveauxScolaire_id', $id);
+        $this->contextState->set('niveaux_scolaire_id', $id);
 
 
         if (request()->ajax()) {

@@ -91,7 +91,7 @@ class BaseApprenantKonosyController extends AdminController
         $itemApprenantKonosy = $this->apprenantKonosyService->find($id);
 
         // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('apprenantKonosy_id', $id);
+        $this->contextState->set('apprenant_konosy_id', $id);
 
 
         if (request()->ajax()) {
