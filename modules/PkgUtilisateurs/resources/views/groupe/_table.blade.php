@@ -14,7 +14,14 @@
             @foreach ($groupes_data as $groupe)
                 <tr>
                     <td>@limit($groupe->code, 80)</td>
-                    <td>@limit($groupe->nom, 80)</td>
+                    <td>
+                        
+                        <ul>
+                        @foreach ($groupe->formateurs as $formateur)
+                            <li>{{ $formateur }}</li>
+                        @endforeach
+                        </ul>
+                    </td>
                     <td>@limit($groupe->filiere->code ?? '-', 80)</td>
                     <td class="text-right">
                         @can('show-groupe')
