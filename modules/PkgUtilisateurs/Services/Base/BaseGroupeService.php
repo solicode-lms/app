@@ -71,6 +71,12 @@ class BaseGroupeService extends BaseService
         $stats = [];
 
         
+            $relationStatFiliere = parent::getStatsByRelation(
+                \Modules\PkgCompetences\Models\Filiere::class,
+                'groupes',
+                'code'
+            );
+            $stats = array_merge($stats, $relationStatFiliere);
 
         return $stats;
     }

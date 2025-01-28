@@ -5,10 +5,8 @@
         <thead>
             <tr>
                 <x-sortable-column field="nom" label="{{ ucfirst(__('PkgUtilisateurs::apprenant.nom')) }}" />
-                <x-sortable-column field="actif" label="{{ ucfirst(__('PkgUtilisateurs::apprenant.actif')) }}" />
+                <x-sortable-column field="prenom" label="{{ ucfirst(__('PkgUtilisateurs::apprenant.prenom')) }}" />
                 <x-sortable-column field="groupe_id" label="{{ ucfirst(__('PkgUtilisateurs::groupe.singular')) }}" />
-                <x-sortable-column field="niveaux_scolaire_id" label="{{ ucfirst(__('PkgUtilisateurs::niveauxScolaire.singular')) }}" />
-                <x-sortable-column field="nationalite_id" label="{{ ucfirst(__('PkgUtilisateurs::nationalite.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -16,10 +14,8 @@
             @foreach ($apprenants_data as $apprenant)
                 <tr>
                     <td>@limit($apprenant->nom, 80)</td>
-                    <td>@limit($apprenant->actif, 80)</td>
+                    <td>@limit($apprenant->prenom, 80)</td>
                     <td>@limit($apprenant->groupe->code ?? '-', 80)</td>
-                    <td>@limit($apprenant->niveauxScolaire->code ?? '-', 80)</td>
-                    <td>@limit($apprenant->nationalite->code ?? '-', 80)</td>
                     <td class="text-right">
                         @can('show-apprenant')
                             <a href="{{ route('apprenants.show', ['apprenant' => $apprenant->id]) }}" data-id="{{$apprenant->id}}" class="btn btn-default btn-sm context-state showEntity">

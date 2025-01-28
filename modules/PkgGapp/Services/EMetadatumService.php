@@ -14,5 +14,16 @@ class EMetadatumService extends BaseEMetadatumService
         // $data->code = $objet.name . 
         return parent::create($data);
     }
+    // public function createInstance()
+    // {
+    //     $objet = parent::createInstance();
+
+
+
+    //     // $data->code = $objet.name . 
+    //     return $objet;
+    // }
+
+ 
    
 }

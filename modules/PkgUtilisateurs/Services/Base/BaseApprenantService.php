@@ -87,6 +87,12 @@ class BaseApprenantService extends BaseService
         $stats = [];
 
         
+            $relationStatGroupe = parent::getStatsByRelation(
+                \Modules\PkgUtilisateurs\Models\Groupe::class,
+                'apprenants',
+                'code'
+            );
+            $stats = array_merge($stats, $relationStatGroupe);
 
         return $stats;
     }
