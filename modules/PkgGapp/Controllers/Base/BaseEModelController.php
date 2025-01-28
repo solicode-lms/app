@@ -120,7 +120,7 @@ class BaseEModelController extends AdminController
         
 
         // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('eModel_id', $id);
+        $this->contextState->set('e_model_id', $id);
 
 
         if (request()->ajax()) {

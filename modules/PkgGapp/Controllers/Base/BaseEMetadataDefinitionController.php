@@ -97,7 +97,7 @@ class BaseEMetadataDefinitionController extends AdminController
         
 
         // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('eMetadataDefinition_id', $id);
+        $this->contextState->set('e_metadata_definition_id', $id);
 
 
         if (request()->ajax()) {

@@ -109,7 +109,7 @@ class BaseEMetadatumController extends AdminController
         $eModels = $this->eModelService->all();
 
         // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('eMetadatum_id', $id);
+        $this->contextState->set('e_metadatum_id', $id);
 
 
         if (request()->ajax()) {

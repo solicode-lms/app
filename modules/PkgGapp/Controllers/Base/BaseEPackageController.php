@@ -97,7 +97,7 @@ class BaseEPackageController extends AdminController
         
 
         // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('ePackage_id', $id);
+        $this->contextState->set('e_package_id', $id);
 
 
         if (request()->ajax()) {
