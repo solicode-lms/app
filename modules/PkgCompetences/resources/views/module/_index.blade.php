@@ -31,7 +31,7 @@
        $titre = __("PkgCompetences::module.singular");
     @endphp
     <x-crud-header 
-        id="module-crud-header" icon="fas fa-table"  
+        id="module-crud-header" icon="fas fa-puzzle-piece"  
         iconColor="text-info"
         title="{{ __('PkgCompetences::module.plural') }}"
         :breadcrumbs="[

@@ -31,7 +31,7 @@
        $titre = __("PkgCompetences::appreciation.singular");
     @endphp
     <x-crud-header 
-        id="appreciation-crud-header" icon="fas fa-user"  
+        id="appreciation-crud-header" icon="fas fa-chart-line"  
         iconColor="text-info"
         title="{{ __('PkgCompetences::appreciation.plural') }}"
         :breadcrumbs="[

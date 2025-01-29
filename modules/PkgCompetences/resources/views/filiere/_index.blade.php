@@ -31,7 +31,7 @@
        $titre = __("PkgCompetences::filiere.singular");
     @endphp
     <x-crud-header 
-        id="filiere-crud-header" icon="fas fa-table"  
+        id="filiere-crud-header" icon="fas fa-book"  
         iconColor="text-info"
         title="{{ __('PkgCompetences::filiere.plural') }}"
         :breadcrumbs="[

@@ -31,7 +31,7 @@
        $titre = __("PkgCompetences::niveauCompetence.singular");
     @endphp
     <x-crud-header 
-        id="niveauCompetence-crud-header" icon="fas fa-table"  
+        id="niveauCompetence-crud-header" icon="fas fa-bars"  
         iconColor="text-info"
         title="{{ __('PkgCompetences::niveauCompetence.plural') }}"
         :breadcrumbs="[
