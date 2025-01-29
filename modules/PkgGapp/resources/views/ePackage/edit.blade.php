@@ -66,7 +66,7 @@
                             </div>
 
                             <div class="tab-pane fade" id="ePackage-hasmany-tabs-eModel" role="tabpanel" aria-labelledby="ePackage-hasmany-tabs-eModel-tab">
-                                @include('PkgGapp::eModel._index',['edit_has_many' => true]))
+                                @include('PkgGapp::eModel._index',['isMany' => true])
                             </div>
 
                            

@@ -32,15 +32,15 @@ export class CrudManager {
         this.filterUI.init();
         this.tableUI.init();
         this.paginationUI.init();
-        this.contexteEventHandler.init();
+        // this.contexteEventHandler.init();
 
-        if(this.config.edit_has_many){
-            this.adapterUiPour_Edit_has_many();         
+        if(this.config.isMany){
+            this.adapterUiPour_isMany();         
         }
 
     }
 
-    adapterUiPour_Edit_has_many(){
+    adapterUiPour_isMany(){
         const crud_header = document.querySelector(`#${this.config.entity_name}-crud-header`);
         if (crud_header) {
             crud_header.style.display = 'none'; // Masquer le filtre

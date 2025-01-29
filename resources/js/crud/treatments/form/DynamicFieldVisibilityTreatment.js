@@ -2,7 +2,6 @@ export default class DynamicFieldVisibilityTreatment {
     constructor(entitiesArray) {
         // entitiesArray : liste des traitements pour chaque entité
         this.entitiesArray = entitiesArray || [];
-        this.initialize();
     }
 
     initialize() {
@@ -10,37 +9,53 @@ export default class DynamicFieldVisibilityTreatment {
             console.warn('Aucune configuration valide trouvée pour DynamicFieldVisibilityTreatment.');
             return;
         }
-
+    
         // Parcourir toutes les configurations
         this.entitiesArray.forEach(entity => {
             const { targetDropdownId, dataDefinitions, fieldMappings, typeField } = entity;
-
+    
             if (!dataDefinitions || !targetDropdownId || !fieldMappings || !typeField) {
                 console.warn('Configuration incomplète pour DynamicFieldVisibilityTreatment:', entity);
                 return;
             }
-
+    
             // Trouver le dropdown correspondant
-            const $dropdownElement = $(`#${targetDropdownId}`);
-            if ($dropdownElement.length === 0) {
+            const dropdownElement = document.getElementById(targetDropdownId);
+            if (!dropdownElement) {
                 console.warn(`Dropdown avec l'ID "${targetDropdownId}" introuvable.`);
                 return;
             }
-
+    
+            // Initialiser la visibilité avec une valeur vide
             this.handleVisibility(dataDefinitions, fieldMappings, typeField, "");
-
-            // Ajouter un écouteur d'événement pour gérer les changements
-            $dropdownElement.on('change', (event) => {
-                this.handleVisibility(dataDefinitions, fieldMappings, typeField, $(event.target).val());
+    
+           
+            $(document).on('change', `#${targetDropdownId}`, (e) => {
+                e.preventDefault();
+                this.handleVisibility(dataDefinitions, fieldMappings, typeField, e.target.value);
             });
 
-            // Initialiser les champs au chargement
-            const initialValue = $dropdownElement.val();
+
+           // dropdownElement.dispatchEvent(new Event("change"));
+           // console.log(dropdownElement);
+
+
+            // Initialiser les champs avec la valeur actuelle du dropdown (si elle existe)
+            const initialValue = dropdownElement.value;
             if (initialValue) {
                 this.handleVisibility(dataDefinitions, fieldMappings, typeField, initialValue);
             }
         });
     }
+    
+    listEventListeners(element) {
+        const events = Object.keys(element)
+            .filter(key => key.startsWith("on"))
+            .map(key => key.slice(2));
+    
+        console.log(`Événements supportés par`, element, `:`, events);
+    }
+    
 
     handleVisibility(dataDefinitions, fieldMappings, typeField, selectedValue) {
         // Réinitialiser tous les champs à "masqué"

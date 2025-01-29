@@ -4,7 +4,8 @@
 <script>
     window.entitiesConfig = window.entitiesConfig || [];
     window.entitiesConfig.push({
-        edit_has_many: {{ isset($edit_has_many) && $edit_has_many ? 'true' : 'false' }},
+        edit_has_many: true,
+        isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
         entity_name: 'eRelationship',
         filterFormSelector: '#eRelationship-crud-filter-form',
         crudSelector: '#eRelationship-crud',
@@ -29,7 +30,6 @@
         $package = __("PkgGapp::PkgGapp.name");
        $titre = __("PkgGapp::eRelationship.singular");
     @endphp
-
     <x-crud-header 
         id="eRelationship-crud-header" icon="fas fa-table"  
         iconColor="text-info"
@@ -39,7 +39,6 @@
             ['label' => $titre]
         ]"
     />
-
     @show
     @section('eRelationship-crud-table')
     <section id="eRelationship-crud-table" class="content crud-table">

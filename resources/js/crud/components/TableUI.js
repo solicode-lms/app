@@ -24,7 +24,7 @@ export class TableUI {
     init(){
 
 
-        if(this.config.page == "index"){
+        if(!this.config.edit_has_many){
             this.entityEditor.init();
             this.entityCreator.init(); 
         }
