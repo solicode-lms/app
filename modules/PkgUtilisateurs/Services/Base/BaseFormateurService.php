@@ -52,7 +52,6 @@ class BaseFormateurService extends BaseService
 
         // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
-            $this->generateManyToOneFilter(__("PkgAutorisation::user.plural"), 'user_id', \Modules\PkgAutorisation\Models\User::class, 'name'),
         ];
 
     }
@@ -76,9 +75,15 @@ class BaseFormateurService extends BaseService
     public function getFormateurStats(): array
     {
 
-        $stats = [];
+        $stats = $this->initStats();
 
         
+            $relationStatSpecialite = parent::getStatsByRelation(
+                \Modules\PkgUtilisateurs\Models\Specialite::class,
+                'formateurs',
+                'nom'
+            );
+            $stats = array_merge($stats, $relationStatSpecialite);
 
         return $stats;
     }

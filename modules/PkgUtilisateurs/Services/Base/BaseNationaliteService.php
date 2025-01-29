@@ -66,7 +66,7 @@ class BaseNationaliteService extends BaseService
     public function getNationaliteStats(): array
     {
 
-        $stats = [];
+        $stats = $this->initStats();
 
         
 

@@ -84,7 +84,7 @@ class BaseApprenantService extends BaseService
     public function getApprenantStats(): array
     {
 
-        $stats = [];
+        $stats = $this->initStats();
 
         
             $relationStatGroupe = parent::getStatsByRelation(

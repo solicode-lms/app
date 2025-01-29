@@ -82,7 +82,7 @@ class BaseApprenantKonosyService extends BaseService
     public function getApprenantKonosyStats(): array
     {
 
-        $stats = [];
+        $stats = $this->initStats();
 
         
 

@@ -68,7 +68,7 @@ class BaseGroupeService extends BaseService
     public function getGroupeStats(): array
     {
 
-        $stats = [];
+        $stats = $this->initStats();
 
         
             $relationStatFiliere = parent::getStatsByRelation(

@@ -64,7 +64,7 @@ class BaseVilleService extends BaseService
     public function getVilleStats(): array
     {
 
-        $stats = [];
+        $stats = $this->initStats();
 
         
 

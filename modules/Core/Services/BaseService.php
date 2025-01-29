@@ -360,20 +360,9 @@ public function getTotalCompetences(): array
 
 public function getStatsByRelation($relationModel,$nestedRelation, $attribute ): array
 {
-    // Calculer le total global des compétences
-    $total = $this->model::count();
-
     // Récupérer toutes les filières
     $relationEntities = $relationModel::all();
 
-    // Initialiser les statistiques avec le total global
-    $stats = [
-        [
-            'icon' => 'fas fa-box',
-            'label' => 'Total',
-            'value' => $total,
-        ],
-    ];
 
     // Parcourir chaque filière pour calculer les compétences par filière
     foreach ($relationEntities as $relationEntity) {
@@ -443,6 +432,21 @@ public function getFieldsFilterable(): array
     return $this->fieldsFilterable;
 }
 
+public function initStats(){
+
+    // Calculer le total global des compétences
+    $total = $this->model::count();
+
+    // Initialiser les statistiques avec le total global
+    $stats = [
+        [
+            'icon' => 'fas fa-box',
+            'label' => 'Total',
+            'value' => $total,
+        ],
+    ];
+    return $stats;
+}
 
 
 }

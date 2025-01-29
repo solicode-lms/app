@@ -6,7 +6,10 @@
             <tr>
                 <x-sortable-column field="nom" label="{{ ucfirst(__('PkgUtilisateurs::formateur.nom')) }}" />
                 <x-sortable-column field="prenom" label="{{ ucfirst(__('PkgUtilisateurs::formateur.prenom')) }}" />
-                <x-sortable-column field="user_id" label="{{ ucfirst(__('PkgAutorisation::user.singular')) }}" />
+                <x-sortable-column field="Groupe" label="{{ ucfirst(__('PkgUtilisateurs::groupe.plural')) }}" />
+
+                <x-sortable-column field="Specialite" label="{{ ucfirst(__('PkgUtilisateurs::specialite.plural')) }}" />
+
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -15,7 +18,20 @@
                 <tr id="formateur-row-{{$formateur->id}}">
                     <td>@limit($formateur->nom, 80)</td>
                     <td>@limit($formateur->prenom, 80)</td>
-                    <td>@limit($formateur->user->name ?? '-', 80)</td>
+                    <td>
+                        <ul>
+                            @foreach ($formateur->groupes as $groupe)
+                                <li>{{ $groupe }}</li>
+                            @endforeach
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            @foreach ($formateur->specialites as $specialite)
+                                <li>{{ $specialite }}</li>
+                            @endforeach
+                        </ul>
+                    </td>
                     <td class="text-right">
                         @can('show-formateur')
                             <a href="{{ route('formateurs.show', ['formateur' => $formateur->id]) }}" data-id="{{$formateur->id}}" class="btn btn-default btn-sm context-state showEntity">

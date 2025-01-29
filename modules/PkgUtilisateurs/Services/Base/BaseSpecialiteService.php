@@ -65,7 +65,7 @@ class BaseSpecialiteService extends BaseService
     public function getSpecialiteStats(): array
     {
 
-        $stats = [];
+        $stats = $this->initStats();
 
         
 

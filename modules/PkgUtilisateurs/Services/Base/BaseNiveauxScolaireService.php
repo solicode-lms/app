@@ -66,7 +66,7 @@ class BaseNiveauxScolaireService extends BaseService
     public function getNiveauxScolaireStats(): array
     {
 
-        $stats = [];
+        $stats = $this->initStats();
 
         
 
