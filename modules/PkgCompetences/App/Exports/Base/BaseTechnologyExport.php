@@ -28,6 +28,7 @@ class BaseTechnologyExport implements FromCollection, WithHeadings, ShouldAutoSi
             'nom',
             'description',
             'category_technology_id',
+            'reference',
         ];
     }
 
@@ -38,6 +39,7 @@ class BaseTechnologyExport implements FromCollection, WithHeadings, ShouldAutoSi
                 'nom' => $technology->nom,
                 'description' => $technology->description,
                 'category_technology_id' => $technology->category_technology_id,
+                'reference' => $technology->reference,
             ];
         });
     }

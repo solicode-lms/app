@@ -1,6 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-@section('role-form')
+@section('filiere-form')
 <form class="crud-form custom-form context-state" id="filiereForm" action="{{ $itemFiliere->id ? route('filieres.update', $itemFiliere->id) : route('filieres.store') }}" method="POST" novalidate>
     @csrf
 
@@ -35,14 +35,12 @@
             <label for="nom">
                 {{ ucfirst(__('PkgCompetences::filiere.nom')) }}
                 
-                    <span class="text-danger">*</span>
-                
             </label>
             <input
                 name="nom"
                 type="input"
                 class="form-control"
-                required
+                
                 id="nom"
                 placeholder="{{ __('PkgCompetences::filiere.nom') }}"
                 value="{{ $itemFiliere ? $itemFiliere->nom : old('nom') }}">
@@ -72,11 +70,11 @@
 
         
 
-        <!--   Groupe_HasMany HasMany --> 
+        <!--   Groupe HasMany --> 
 
         
 
-        <!--   Module_HasMany HasMany --> 
+        <!--   Module HasMany --> 
 
     </div>
 
@@ -87,4 +85,8 @@
 </form>
 @show
 
+
+<script>
+
+</script>
 

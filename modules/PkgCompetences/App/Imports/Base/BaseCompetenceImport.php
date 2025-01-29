@@ -21,7 +21,7 @@ class BaseCompetenceImport implements ToModel, WithHeadingRow
      */
     private function recordExists(array $row): bool
     {
-        return Competence::where('code', $row['code'])->exists();
+        return Competence::where('nom', $row['nom'])->exists();
     }
 
     /**
@@ -42,6 +42,7 @@ class BaseCompetenceImport implements ToModel, WithHeadingRow
             'nom' => $row['nom'],
             'description' => $row['description'],
             'module_id' => $row['module_id'],
+            'reference' => $row['reference'],
         ]);
     }
 }

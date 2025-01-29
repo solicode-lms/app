@@ -1,6 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-@section('role-form')
+@section('competence-form')
 <form class="crud-form custom-form context-state" id="competenceForm" action="{{ $itemCompetence->id ? route('competences.update', $itemCompetence->id) : route('competences.store') }}" method="POST" novalidate>
     @csrf
 
@@ -125,11 +125,11 @@
 
         
 
-        <!--   NiveauCompetence_HasMany HasMany --> 
+        <!--   NiveauCompetence HasMany --> 
 
         
 
-        <!--   TransfertCompetence_HasMany HasMany --> 
+        <!--   TransfertCompetence HasMany --> 
 
     </div>
 
@@ -140,4 +140,8 @@
 </form>
 @show
 
+
+<script>
+
+</script>
 

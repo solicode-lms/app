@@ -11,8 +11,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
-use Modules\PkgCompetences\Models\Module;
 use Modules\PkgUtilisateurs\Models\Groupe;
+use Modules\PkgCompetences\Models\Module;
 
 /**
  * Classe BaseFiliere
@@ -40,7 +40,7 @@ class BaseFiliere extends BaseModel
 
 
     /**
-     * Relation HasMany pour Groupes.
+     * Relation HasMany pour Filieres.
      *
      * @return HasMany
      */
@@ -49,7 +49,7 @@ class BaseFiliere extends BaseModel
         return $this->hasMany(Groupe::class, 'filiere_id', 'id');
     }
     /**
-     * Relation HasMany pour Modules.
+     * Relation HasMany pour Filieres.
      *
      * @return HasMany
      */
@@ -57,6 +57,8 @@ class BaseFiliere extends BaseModel
     {
         return $this->hasMany(Module::class, 'filiere_id', 'id');
     }
+
+
 
     /**
      * Méthode __toString pour représenter le modèle sous forme de chaîne.

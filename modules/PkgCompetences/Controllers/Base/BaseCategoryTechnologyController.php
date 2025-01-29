@@ -3,13 +3,11 @@
 
 
 namespace Modules\PkgCompetences\Controllers\Base;
-
+use Modules\PkgCompetences\Services\CategoryTechnologyService;
+use Modules\PkgCompetences\Services\TechnologyService;
+use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\PkgCompetences\App\Requests\CategoryTechnologyRequest;
-use Modules\PkgCompetences\Services\CategoryTechnologyService;
-
-
-use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgCompetences\App\Exports\CategoryTechnologyExport;
 use Modules\PkgCompetences\App\Imports\CategoryTechnologyImport;
@@ -19,43 +17,34 @@ class BaseCategoryTechnologyController extends AdminController
 {
     protected $categoryTechnologyService;
 
-    public function __construct(CategoryTechnologyService $categoryTechnologyService)
-    {
+    public function __construct(CategoryTechnologyService $categoryTechnologyService) {
         parent::__construct();
         $this->categoryTechnologyService = $categoryTechnologyService;
-
     }
 
-
-    public function index(Request $request)
-    {
+    public function index(Request $request) {
         // Extraire les paramètres de recherche, page, et filtres
         $categoryTechnologies_params = array_merge(
             $request->only(['page','sort']),
             ['search' => $request->get('categoryTechnologies_search', '')],
             $request->except(['categoryTechnologies_search', 'page', 'sort'])
         );
-    
+
         // Paginer les categoryTechnologies
         $categoryTechnologies_data = $this->categoryTechnologyService->paginate($categoryTechnologies_params);
-    
+
         // Récupérer les statistiques et les champs filtrables
         $categoryTechnologies_stats = $this->categoryTechnologyService->getcategoryTechnologyStats();
         $categoryTechnologies_filters = $this->categoryTechnologyService->getFieldsFilterable();
-    
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
             return view('PkgCompetences::categoryTechnology._table', compact('categoryTechnologies_data', 'categoryTechnologies_stats', 'categoryTechnologies_filters'))->render();
         }
-    
+
         return view('PkgCompetences::categoryTechnology.index', compact('categoryTechnologies_data', 'categoryTechnologies_stats', 'categoryTechnologies_filters'));
     }
-
-    /**
-     * Retourne le formulaire de création.
-     */
-    public function create()
-    {
+    public function create() {
         $itemCategoryTechnology = $this->categoryTechnologyService->createInstance();
 
 
@@ -64,12 +53,7 @@ class BaseCategoryTechnologyController extends AdminController
         }
         return view('PkgCompetences::categoryTechnology.create', compact('itemCategoryTechnology'));
     }
-
-    /**
-     * Stocke une nouvelle filière.
-     */
-    public function store(CategoryTechnologyRequest $request)
-    {
+    public function store(CategoryTechnologyRequest $request) {
         $validatedData = $request->validated();
         $categoryTechnology = $this->categoryTechnologyService->create($validatedData);
 
@@ -92,12 +76,7 @@ class BaseCategoryTechnologyController extends AdminController
             ])
         );
     }
-
-    /**
-     * Affiche les détails d'une filière.
-     */
-    public function show(string $id)
-    {
+    public function show(string $id) {
         $itemCategoryTechnology = $this->categoryTechnologyService->find($id);
 
 
@@ -106,33 +85,28 @@ class BaseCategoryTechnologyController extends AdminController
         }
 
         return view('PkgCompetences::categoryTechnology.show', compact('itemCategoryTechnology'));
+
     }
-
-    /**
-     * Retourne le formulaire d'édition d'une filière.
-     */
-    public function edit(string $id)
-    {
-
-        $itemCategoryTechnology = $this->categoryTechnologyService->find($id);
-         $technologies_data =  $itemCategoryTechnology->technologies()->paginate(10);
+    public function edit(string $id) {
 
         // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('categoryTechnology_id', $id);
-
+        $this->contextState->set('category_technology_id', $id);
+        
+        $itemCategoryTechnology = $this->categoryTechnologyService->find($id);
+        $technologyService =  new TechnologyService();
+        $technologies_data =  $itemCategoryTechnology->technologies()->paginate(10);
+        $technologies_stats = $technologyService->gettechnologyStats();
+        $technologies_filters = $technologyService->getFieldsFilterable();
+        
 
         if (request()->ajax()) {
-            return view('PkgCompetences::categoryTechnology._fields', compact('itemCategoryTechnology', 'technologies_data'));
+            return view('PkgCompetences::categoryTechnology._fields', compact('itemCategoryTechnology', 'technologies_data', 'technologies_stats', 'technologies_filters'));
         }
 
-        return view('PkgCompetences::categoryTechnology.edit', compact('itemCategoryTechnology', 'technologies_data'));
-    }
+        return view('PkgCompetences::categoryTechnology.edit', compact('itemCategoryTechnology', 'technologies_data', 'technologies_stats', 'technologies_filters'));
 
-    /**
-     * Met à jour une filière existante.
-     */
-    public function update(CategoryTechnologyRequest $request, string $id)
-    {
+    }
+    public function update(CategoryTechnologyRequest $request, string $id) {
 
         $validatedData = $request->validated();
         $categoryTechnology = $this->categoryTechnologyService->update($id, $validatedData);
@@ -153,13 +127,9 @@ class BaseCategoryTechnologyController extends AdminController
                 'modelName' =>  __('PkgCompetences::categoryTechnology.singular')
                 ])
         );
-    }
 
-    /**
-     * Supprime une filière.
-     */
-    public function destroy(Request $request, string $id)
-    {
+    }
+    public function destroy(Request $request, string $id) {
 
         $categoryTechnology = $this->categoryTechnologyService->destroy($id);
 
@@ -178,6 +148,7 @@ class BaseCategoryTechnologyController extends AdminController
                 'modelName' =>  __('PkgCompetences::categoryTechnology.singular')
                 ])
         );
+
     }
 
     public function export()
@@ -213,4 +184,5 @@ class BaseCategoryTechnologyController extends AdminController
         $categoryTechnologies = $this->categoryTechnologyService->all();
         return response()->json($categoryTechnologies);
     }
+
 }

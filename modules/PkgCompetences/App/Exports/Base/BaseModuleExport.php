@@ -29,6 +29,7 @@ class BaseModuleExport implements FromCollection, WithHeadings, ShouldAutoSize, 
             'description',
             'masse_horaire',
             'filiere_id',
+            'reference',
         ];
     }
 
@@ -40,6 +41,7 @@ class BaseModuleExport implements FromCollection, WithHeadings, ShouldAutoSize, 
                 'description' => $module->description,
                 'masse_horaire' => $module->masse_horaire,
                 'filiere_id' => $module->filiere_id,
+                'reference' => $module->reference,
             ];
         });
     }

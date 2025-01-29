@@ -39,7 +39,7 @@ class BaseCategoryTechnology extends BaseModel
 
 
     /**
-     * Relation HasMany pour Technologies.
+     * Relation HasMany pour CategoryTechnologies.
      *
      * @return HasMany
      */
@@ -47,6 +47,8 @@ class BaseCategoryTechnology extends BaseModel
     {
         return $this->hasMany(Technology::class, 'category_technology_id', 'id');
     }
+
+
 
     /**
      * Méthode __toString pour représenter le modèle sous forme de chaîne.

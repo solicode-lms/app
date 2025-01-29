@@ -4,7 +4,8 @@
 <script>
     window.entitiesConfig = window.entitiesConfig || [];
     window.entitiesConfig.push({
-        edit_has_many: false,
+        edit_has_many: true,
+        isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
         entity_name: 'module',
         filterFormSelector: '#module-crud-filter-form',
         crudSelector: '#module-crud',
@@ -30,7 +31,7 @@
        $titre = __("PkgCompetences::module.singular");
     @endphp
     <x-crud-header 
-        id="module-crud-header" icon="fas fa-puzzle-piece"  
+        id="module-crud-header" icon="fas fa-table"  
         iconColor="text-info"
         title="{{ __('PkgCompetences::module.plural') }}"
         :breadcrumbs="[

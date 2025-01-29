@@ -1,6 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-@section('role-form')
+@section('categoryTechnology-form')
 <form class="crud-form custom-form context-state" id="categoryTechnologyForm" action="{{ $itemCategoryTechnology->id ? route('categoryTechnologies.update', $itemCategoryTechnology->id) : route('categoryTechnologies.store') }}" method="POST" novalidate>
     @csrf
 
@@ -51,7 +51,7 @@
 
         
 
-        <!--   Technology_HasMany HasMany --> 
+        <!--   Technology HasMany --> 
 
     </div>
 
@@ -62,4 +62,8 @@
 </form>
 @show
 
+
+<script>
+
+</script>
 

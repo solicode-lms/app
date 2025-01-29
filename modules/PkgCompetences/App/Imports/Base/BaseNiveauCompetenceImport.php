@@ -41,6 +41,7 @@ class BaseNiveauCompetenceImport implements ToModel, WithHeadingRow
             'nom' => $row['nom'],
             'description' => $row['description'],
             'competence_id' => $row['competence_id'],
+            'reference' => $row['reference'],
         ]);
     }
 }

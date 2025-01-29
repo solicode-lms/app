@@ -42,6 +42,7 @@ class BaseModuleImport implements ToModel, WithHeadingRow
             'description' => $row['description'],
             'masse_horaire' => $row['masse_horaire'],
             'filiere_id' => $row['filiere_id'],
+            'reference' => $row['reference'],
         ]);
     }
 }

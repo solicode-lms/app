@@ -27,6 +27,7 @@ class BaseCategoryTechnologyExport implements FromCollection, WithHeadings, Shou
         return [
             'nom',
             'description',
+            'reference',
         ];
     }
 
@@ -36,6 +37,7 @@ class BaseCategoryTechnologyExport implements FromCollection, WithHeadings, Shou
             return [
                 'nom' => $categoryTechnology->nom,
                 'description' => $categoryTechnology->description,
+                'reference' => $categoryTechnology->reference,
             ];
         });
     }

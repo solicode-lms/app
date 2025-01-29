@@ -3,14 +3,14 @@
 
 
 namespace Modules\PkgCompetences\Controllers\Base;
-
-use Modules\Core\Controllers\Base\AdminController;
-use Modules\PkgCompetences\App\Requests\CompetenceRequest;
 use Modules\PkgCompetences\Services\CompetenceService;
 use Modules\PkgCompetences\Services\TechnologyService;
 use Modules\PkgCompetences\Services\ModuleService;
-
+use Modules\PkgCompetences\Services\NiveauCompetenceService;
+use Modules\PkgCreationProjet\Services\TransfertCompetenceService;
 use Illuminate\Http\Request;
+use Modules\Core\Controllers\Base\AdminController;
+use Modules\PkgCompetences\App\Requests\CompetenceRequest;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgCompetences\App\Exports\CompetenceExport;
 use Modules\PkgCompetences\App\Imports\CompetenceImport;
@@ -22,45 +22,36 @@ class BaseCompetenceController extends AdminController
     protected $technologyService;
     protected $moduleService;
 
-    public function __construct(CompetenceService $competenceService, TechnologyService $technologyService, ModuleService $moduleService)
-    {
+    public function __construct(CompetenceService $competenceService, TechnologyService $technologyService, ModuleService $moduleService) {
         parent::__construct();
         $this->competenceService = $competenceService;
         $this->technologyService = $technologyService;
         $this->moduleService = $moduleService;
-
     }
 
-
-    public function index(Request $request)
-    {
+    public function index(Request $request) {
         // Extraire les paramètres de recherche, page, et filtres
         $competences_params = array_merge(
             $request->only(['page','sort']),
             ['search' => $request->get('competences_search', '')],
             $request->except(['competences_search', 'page', 'sort'])
         );
-    
+
         // Paginer les competences
         $competences_data = $this->competenceService->paginate($competences_params);
-    
+
         // Récupérer les statistiques et les champs filtrables
         $competences_stats = $this->competenceService->getcompetenceStats();
         $competences_filters = $this->competenceService->getFieldsFilterable();
-    
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
             return view('PkgCompetences::competence._table', compact('competences_data', 'competences_stats', 'competences_filters'))->render();
         }
-    
+
         return view('PkgCompetences::competence.index', compact('competences_data', 'competences_stats', 'competences_filters'));
     }
-
-    /**
-     * Retourne le formulaire de création.
-     */
-    public function create()
-    {
+    public function create() {
         $itemCompetence = $this->competenceService->createInstance();
         $technologies = $this->technologyService->all();
         $modules = $this->moduleService->all();
@@ -71,12 +62,7 @@ class BaseCompetenceController extends AdminController
         }
         return view('PkgCompetences::competence.create', compact('itemCompetence', 'technologies', 'modules'));
     }
-
-    /**
-     * Stocke une nouvelle filière.
-     */
-    public function store(CompetenceRequest $request)
-    {
+    public function store(CompetenceRequest $request) {
         $validatedData = $request->validated();
         $competence = $this->competenceService->create($validatedData);
 
@@ -102,12 +88,7 @@ class BaseCompetenceController extends AdminController
             ])
         );
     }
-
-    /**
-     * Affiche les détails d'une filière.
-     */
-    public function show(string $id)
-    {
+    public function show(string $id) {
         $itemCompetence = $this->competenceService->find($id);
         $technologies = $this->technologyService->all();
         $modules = $this->moduleService->all();
@@ -118,35 +99,35 @@ class BaseCompetenceController extends AdminController
         }
 
         return view('PkgCompetences::competence.show', compact('itemCompetence'));
+
     }
-
-    /**
-     * Retourne le formulaire d'édition d'une filière.
-     */
-    public function edit(string $id)
-    {
-
-        $itemCompetence = $this->competenceService->find($id);
-        $technologies = $this->technologyService->all();
-        $modules = $this->moduleService->all();
-         $niveauCompetences_data =  $itemCompetence->niveauCompetences()->paginate(10);
+    public function edit(string $id) {
 
         // Utilisé dans l'édition des relation HasMany
         $this->contextState->set('competence_id', $id);
-
+        
+        $itemCompetence = $this->competenceService->find($id);
+        $technologies = $this->technologyService->all();
+        $modules = $this->moduleService->all();
+        $niveauCompetenceService =  new NiveauCompetenceService();
+        $niveauCompetences_data =  $itemCompetence->niveauCompetences()->paginate(10);
+        $niveauCompetences_stats = $niveauCompetenceService->getniveauCompetenceStats();
+        $niveauCompetences_filters = $niveauCompetenceService->getFieldsFilterable();
+        
+        $transfertCompetenceService =  new TransfertCompetenceService();
+        $transfertCompetences_data =  $itemCompetence->transfertCompetences()->paginate(10);
+        $transfertCompetences_stats = $transfertCompetenceService->gettransfertCompetenceStats();
+        $transfertCompetences_filters = $transfertCompetenceService->getFieldsFilterable();
+        
 
         if (request()->ajax()) {
-            return view('PkgCompetences::competence._fields', compact('itemCompetence', 'technologies', 'modules', 'niveauCompetences_data'));
+            return view('PkgCompetences::competence._fields', compact('itemCompetence', 'technologies', 'modules', 'niveauCompetences_data', 'transfertCompetences_data', 'niveauCompetences_stats', 'transfertCompetences_stats', 'niveauCompetences_filters', 'transfertCompetences_filters'));
         }
 
-        return view('PkgCompetences::competence.edit', compact('itemCompetence', 'technologies', 'modules', 'niveauCompetences_data'));
-    }
+        return view('PkgCompetences::competence.edit', compact('itemCompetence', 'technologies', 'modules', 'niveauCompetences_data', 'transfertCompetences_data', 'niveauCompetences_stats', 'transfertCompetences_stats', 'niveauCompetences_filters', 'transfertCompetences_filters'));
 
-    /**
-     * Met à jour une filière existante.
-     */
-    public function update(CompetenceRequest $request, string $id)
-    {
+    }
+    public function update(CompetenceRequest $request, string $id) {
 
         $validatedData = $request->validated();
         $competence = $this->competenceService->update($id, $validatedData);
@@ -168,13 +149,9 @@ class BaseCompetenceController extends AdminController
                 'modelName' =>  __('PkgCompetences::competence.singular')
                 ])
         );
-    }
 
-    /**
-     * Supprime une filière.
-     */
-    public function destroy(Request $request, string $id)
-    {
+    }
+    public function destroy(Request $request, string $id) {
 
         $competence = $this->competenceService->destroy($id);
 
@@ -193,6 +170,7 @@ class BaseCompetenceController extends AdminController
                 'modelName' =>  __('PkgCompetences::competence.singular')
                 ])
         );
+
     }
 
     public function export()
@@ -228,4 +206,5 @@ class BaseCompetenceController extends AdminController
         $competences = $this->competenceService->all();
         return response()->json($competences);
     }
+
 }

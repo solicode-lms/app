@@ -4,7 +4,8 @@
 <script>
     window.entitiesConfig = window.entitiesConfig || [];
     window.entitiesConfig.push({
-        edit_has_many: false,
+        edit_has_many: true,
+        isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
         entity_name: 'appreciation',
         filterFormSelector: '#appreciation-crud-filter-form',
         crudSelector: '#appreciation-crud',
@@ -30,7 +31,7 @@
        $titre = __("PkgCompetences::appreciation.singular");
     @endphp
     <x-crud-header 
-        id="appreciation-crud-header" icon="fas fa-chart-line"  
+        id="appreciation-crud-header" icon="fas fa-user"  
         iconColor="text-info"
         title="{{ __('PkgCompetences::appreciation.plural') }}"
         :breadcrumbs="[
@@ -70,7 +71,7 @@
                 @section('appreciation-crud-filters')
                 <div class="card-header">
                     <form id="appreciation-crud-filter-form" method="GET" class="row">
-                        <x-filter-group count="{{count($modules_filters ?? [])}}">
+                        <x-filter-group count="{{count($appreciations_filters ?? [])}}">
                             <!-- Filtres spécifiques -->
                             @foreach ($appreciations_filters as $filter)
                                 <x-filter-field 

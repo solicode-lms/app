@@ -43,6 +43,7 @@ class BaseTechnologyService extends BaseService
 
         // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
+            $this->generateManyToOneFilter(__("PkgCompetences::categoryTechnology.plural"), 'category_technology_id', \Modules\PkgCompetences\Models\CategoryTechnology::class, 'nom'),
         ];
 
     }
@@ -55,13 +56,7 @@ class BaseTechnologyService extends BaseService
      */
     public function create(array $data)
     {
-        $technology = parent::create([
-            'nom' => $data['nom'],
-            'description' => $data['description'],
-            'category_technology_id' => $data['category_technology_id'],
-        ]);
-
-        return $technology;
+        return parent::create($data);
     }
 
     /**
@@ -72,15 +67,9 @@ class BaseTechnologyService extends BaseService
     public function getTechnologyStats(): array
     {
 
-        $stats = [];
+        $stats = $this->initStats();
 
         
-            $relationStatCategoryTechnology = parent::getStatsByRelation(
-                \Modules\PkgCompetences\Models\CategoryTechnology::class,
-                'technologies',
-                'nom'
-            );
-            $stats = array_merge($stats, $relationStatCategoryTechnology);
 
         return $stats;
     }

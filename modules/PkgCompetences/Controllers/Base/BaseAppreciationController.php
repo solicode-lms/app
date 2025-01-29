@@ -3,13 +3,12 @@
 
 
 namespace Modules\PkgCompetences\Controllers\Base;
-
-use Modules\Core\Controllers\Base\AdminController;
-use Modules\PkgCompetences\App\Requests\AppreciationRequest;
 use Modules\PkgCompetences\Services\AppreciationService;
 use Modules\PkgUtilisateurs\Services\FormateurService;
-
+use Modules\PkgCreationProjet\Services\TransfertCompetenceService;
 use Illuminate\Http\Request;
+use Modules\Core\Controllers\Base\AdminController;
+use Modules\PkgCompetences\App\Requests\AppreciationRequest;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgCompetences\App\Exports\AppreciationExport;
 use Modules\PkgCompetences\App\Imports\AppreciationImport;
@@ -20,44 +19,35 @@ class BaseAppreciationController extends AdminController
     protected $appreciationService;
     protected $formateurService;
 
-    public function __construct(AppreciationService $appreciationService, FormateurService $formateurService)
-    {
+    public function __construct(AppreciationService $appreciationService, FormateurService $formateurService) {
         parent::__construct();
         $this->appreciationService = $appreciationService;
         $this->formateurService = $formateurService;
-
     }
 
-
-    public function index(Request $request)
-    {
+    public function index(Request $request) {
         // Extraire les paramètres de recherche, page, et filtres
         $appreciations_params = array_merge(
             $request->only(['page','sort']),
             ['search' => $request->get('appreciations_search', '')],
             $request->except(['appreciations_search', 'page', 'sort'])
         );
-    
+
         // Paginer les appreciations
         $appreciations_data = $this->appreciationService->paginate($appreciations_params);
-    
+
         // Récupérer les statistiques et les champs filtrables
         $appreciations_stats = $this->appreciationService->getappreciationStats();
         $appreciations_filters = $this->appreciationService->getFieldsFilterable();
-    
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
             return view('PkgCompetences::appreciation._table', compact('appreciations_data', 'appreciations_stats', 'appreciations_filters'))->render();
         }
-    
+
         return view('PkgCompetences::appreciation.index', compact('appreciations_data', 'appreciations_stats', 'appreciations_filters'));
     }
-
-    /**
-     * Retourne le formulaire de création.
-     */
-    public function create()
-    {
+    public function create() {
         $itemAppreciation = $this->appreciationService->createInstance();
         $formateurs = $this->formateurService->all();
 
@@ -67,12 +57,7 @@ class BaseAppreciationController extends AdminController
         }
         return view('PkgCompetences::appreciation.create', compact('itemAppreciation', 'formateurs'));
     }
-
-    /**
-     * Stocke une nouvelle filière.
-     */
-    public function store(AppreciationRequest $request)
-    {
+    public function store(AppreciationRequest $request) {
         $validatedData = $request->validated();
         $appreciation = $this->appreciationService->create($validatedData);
 
@@ -87,7 +72,7 @@ class BaseAppreciationController extends AdminController
             ]);
         }
 
-        return redirect()->route('appreciations.index')->with(
+        return redirect()->route('appreciations.edit',['appreciation' => $appreciation->id])->with(
             'success',
             __('Core::msg.addSuccess', [
                 'entityToString' => $appreciation,
@@ -95,12 +80,7 @@ class BaseAppreciationController extends AdminController
             ])
         );
     }
-
-    /**
-     * Affiche les détails d'une filière.
-     */
-    public function show(string $id)
-    {
+    public function show(string $id) {
         $itemAppreciation = $this->appreciationService->find($id);
         $formateurs = $this->formateurService->all();
 
@@ -110,33 +90,29 @@ class BaseAppreciationController extends AdminController
         }
 
         return view('PkgCompetences::appreciation.show', compact('itemAppreciation'));
+
     }
-
-    /**
-     * Retourne le formulaire d'édition d'une filière.
-     */
-    public function edit(string $id)
-    {
-
-        $itemAppreciation = $this->appreciationService->find($id);
-        $formateurs = $this->formateurService->all();
+    public function edit(string $id) {
 
         // Utilisé dans l'édition des relation HasMany
         $this->contextState->set('appreciation_id', $id);
-
+        
+        $itemAppreciation = $this->appreciationService->find($id);
+        $formateurs = $this->formateurService->all();
+        $transfertCompetenceService =  new TransfertCompetenceService();
+        $transfertCompetences_data =  $itemAppreciation->transfertCompetences()->paginate(10);
+        $transfertCompetences_stats = $transfertCompetenceService->gettransfertCompetenceStats();
+        $transfertCompetences_filters = $transfertCompetenceService->getFieldsFilterable();
+        
 
         if (request()->ajax()) {
-            return view('PkgCompetences::appreciation._fields', compact('itemAppreciation', 'formateurs'));
+            return view('PkgCompetences::appreciation._fields', compact('itemAppreciation', 'formateurs', 'transfertCompetences_data', 'transfertCompetences_stats', 'transfertCompetences_filters'));
         }
 
-        return view('PkgCompetences::appreciation.edit', compact('itemAppreciation', 'formateurs'));
-    }
+        return view('PkgCompetences::appreciation.edit', compact('itemAppreciation', 'formateurs', 'transfertCompetences_data', 'transfertCompetences_stats', 'transfertCompetences_filters'));
 
-    /**
-     * Met à jour une filière existante.
-     */
-    public function update(AppreciationRequest $request, string $id)
-    {
+    }
+    public function update(AppreciationRequest $request, string $id) {
         // Vérifie si l'utilisateur peut mettre à jour l'objet 
         $appreciation = $this->appreciationService->find($id);
         $this->authorize('update', $appreciation);
@@ -160,13 +136,9 @@ class BaseAppreciationController extends AdminController
                 'modelName' =>  __('PkgCompetences::appreciation.singular')
                 ])
         );
-    }
 
-    /**
-     * Supprime une filière.
-     */
-    public function destroy(Request $request, string $id)
-    {
+    }
+    public function destroy(Request $request, string $id) {
         // Vérifie si l'utilisateur peut mettre à jour l'objet 
         $appreciation = $this->appreciationService->find($id);
         $this->authorize('delete', $appreciation);
@@ -188,6 +160,7 @@ class BaseAppreciationController extends AdminController
                 'modelName' =>  __('PkgCompetences::appreciation.singular')
                 ])
         );
+
     }
 
     public function export()
@@ -223,4 +196,5 @@ class BaseAppreciationController extends AdminController
         $appreciations = $this->appreciationService->all();
         return response()->json($appreciations);
     }
+
 }

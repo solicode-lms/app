@@ -4,7 +4,8 @@
 <script>
     window.entitiesConfig = window.entitiesConfig || [];
     window.entitiesConfig.push({
-        edit_has_many: false,
+        edit_has_many: true,
+        isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
         entity_name: 'filiere',
         filterFormSelector: '#filiere-crud-filter-form',
         crudSelector: '#filiere-crud',
@@ -30,7 +31,7 @@
        $titre = __("PkgCompetences::filiere.singular");
     @endphp
     <x-crud-header 
-        id="filiere-crud-header" icon="fas fa-book"  
+        id="filiere-crud-header" icon="fas fa-table"  
         iconColor="text-info"
         title="{{ __('PkgCompetences::filiere.plural') }}"
         :breadcrumbs="[
@@ -70,7 +71,7 @@
                 @section('filiere-crud-filters')
                 <div class="card-header">
                     <form id="filiere-crud-filter-form" method="GET" class="row">
-                        <x-filter-group count="{{count($modules_filters ?? [])}}">
+                        <x-filter-group count="{{count($filieres_filters ?? [])}}">
                             <!-- Filtres spécifiques -->
                             @foreach ($filieres_filters as $filter)
                                 <x-filter-field 

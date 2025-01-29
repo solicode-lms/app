@@ -28,6 +28,7 @@ class BaseNiveauCompetenceExport implements FromCollection, WithHeadings, Should
             'nom',
             'description',
             'competence_id',
+            'reference',
         ];
     }
 
@@ -38,6 +39,7 @@ class BaseNiveauCompetenceExport implements FromCollection, WithHeadings, Should
                 'nom' => $niveauCompetence->nom,
                 'description' => $niveauCompetence->description,
                 'competence_id' => $niveauCompetence->competence_id,
+                'reference' => $niveauCompetence->reference,
             ];
         });
     }

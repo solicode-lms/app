@@ -3,13 +3,12 @@
 
 
 namespace Modules\PkgCompetences\Controllers\Base;
-
-use Modules\Core\Controllers\Base\AdminController;
-use Modules\PkgCompetences\App\Requests\ModuleRequest;
 use Modules\PkgCompetences\Services\ModuleService;
 use Modules\PkgCompetences\Services\FiliereService;
-
+use Modules\PkgCompetences\Services\CompetenceService;
 use Illuminate\Http\Request;
+use Modules\Core\Controllers\Base\AdminController;
+use Modules\PkgCompetences\App\Requests\ModuleRequest;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgCompetences\App\Exports\ModuleExport;
 use Modules\PkgCompetences\App\Imports\ModuleImport;
@@ -20,44 +19,35 @@ class BaseModuleController extends AdminController
     protected $moduleService;
     protected $filiereService;
 
-    public function __construct(ModuleService $moduleService, FiliereService $filiereService)
-    {
+    public function __construct(ModuleService $moduleService, FiliereService $filiereService) {
         parent::__construct();
         $this->moduleService = $moduleService;
         $this->filiereService = $filiereService;
-
     }
 
-
-    public function index(Request $request)
-    {
+    public function index(Request $request) {
         // Extraire les paramètres de recherche, page, et filtres
         $modules_params = array_merge(
             $request->only(['page','sort']),
             ['search' => $request->get('modules_search', '')],
             $request->except(['modules_search', 'page', 'sort'])
         );
-    
+
         // Paginer les modules
         $modules_data = $this->moduleService->paginate($modules_params);
-    
+
         // Récupérer les statistiques et les champs filtrables
         $modules_stats = $this->moduleService->getmoduleStats();
         $modules_filters = $this->moduleService->getFieldsFilterable();
-    
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
             return view('PkgCompetences::module._table', compact('modules_data', 'modules_stats', 'modules_filters'))->render();
         }
-    
+
         return view('PkgCompetences::module.index', compact('modules_data', 'modules_stats', 'modules_filters'));
     }
-
-    /**
-     * Retourne le formulaire de création.
-     */
-    public function create()
-    {
+    public function create() {
         $itemModule = $this->moduleService->createInstance();
         $filieres = $this->filiereService->all();
 
@@ -67,12 +57,7 @@ class BaseModuleController extends AdminController
         }
         return view('PkgCompetences::module.create', compact('itemModule', 'filieres'));
     }
-
-    /**
-     * Stocke une nouvelle filière.
-     */
-    public function store(ModuleRequest $request)
-    {
+    public function store(ModuleRequest $request) {
         $validatedData = $request->validated();
         $module = $this->moduleService->create($validatedData);
 
@@ -87,7 +72,7 @@ class BaseModuleController extends AdminController
             ]);
         }
 
-        return redirect()->route('modules.index')->with(
+        return redirect()->route('modules.edit',['module' => $module->id])->with(
             'success',
             __('Core::msg.addSuccess', [
                 'entityToString' => $module,
@@ -95,12 +80,7 @@ class BaseModuleController extends AdminController
             ])
         );
     }
-
-    /**
-     * Affiche les détails d'une filière.
-     */
-    public function show(string $id)
-    {
+    public function show(string $id) {
         $itemModule = $this->moduleService->find($id);
         $filieres = $this->filiereService->all();
 
@@ -110,33 +90,29 @@ class BaseModuleController extends AdminController
         }
 
         return view('PkgCompetences::module.show', compact('itemModule'));
+
     }
-
-    /**
-     * Retourne le formulaire d'édition d'une filière.
-     */
-    public function edit(string $id)
-    {
-
-        $itemModule = $this->moduleService->find($id);
-        $filieres = $this->filiereService->all();
+    public function edit(string $id) {
 
         // Utilisé dans l'édition des relation HasMany
         $this->contextState->set('module_id', $id);
-
+        
+        $itemModule = $this->moduleService->find($id);
+        $filieres = $this->filiereService->all();
+        $competenceService =  new CompetenceService();
+        $competences_data =  $itemModule->competences()->paginate(10);
+        $competences_stats = $competenceService->getcompetenceStats();
+        $competences_filters = $competenceService->getFieldsFilterable();
+        
 
         if (request()->ajax()) {
-            return view('PkgCompetences::module._fields', compact('itemModule', 'filieres'));
+            return view('PkgCompetences::module._fields', compact('itemModule', 'filieres', 'competences_data', 'competences_stats', 'competences_filters'));
         }
 
-        return view('PkgCompetences::module.edit', compact('itemModule', 'filieres'));
-    }
+        return view('PkgCompetences::module.edit', compact('itemModule', 'filieres', 'competences_data', 'competences_stats', 'competences_filters'));
 
-    /**
-     * Met à jour une filière existante.
-     */
-    public function update(ModuleRequest $request, string $id)
-    {
+    }
+    public function update(ModuleRequest $request, string $id) {
 
         $validatedData = $request->validated();
         $module = $this->moduleService->update($id, $validatedData);
@@ -157,13 +133,9 @@ class BaseModuleController extends AdminController
                 'modelName' =>  __('PkgCompetences::module.singular')
                 ])
         );
-    }
 
-    /**
-     * Supprime une filière.
-     */
-    public function destroy(Request $request, string $id)
-    {
+    }
+    public function destroy(Request $request, string $id) {
 
         $module = $this->moduleService->destroy($id);
 
@@ -182,6 +154,7 @@ class BaseModuleController extends AdminController
                 'modelName' =>  __('PkgCompetences::module.singular')
                 ])
         );
+
     }
 
     public function export()
@@ -217,4 +190,5 @@ class BaseModuleController extends AdminController
         $modules = $this->moduleService->all();
         return response()->json($modules);
     }
+
 }

@@ -3,13 +3,12 @@
 
 
 namespace Modules\PkgCompetences\Controllers\Base;
-
+use Modules\PkgCompetences\Services\FiliereService;
+use Modules\PkgUtilisateurs\Services\GroupeService;
+use Modules\PkgCompetences\Services\ModuleService;
+use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\PkgCompetences\App\Requests\FiliereRequest;
-use Modules\PkgCompetences\Services\FiliereService;
-
-
-use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgCompetences\App\Exports\FiliereExport;
 use Modules\PkgCompetences\App\Imports\FiliereImport;
@@ -19,43 +18,34 @@ class BaseFiliereController extends AdminController
 {
     protected $filiereService;
 
-    public function __construct(FiliereService $filiereService)
-    {
+    public function __construct(FiliereService $filiereService) {
         parent::__construct();
         $this->filiereService = $filiereService;
-
     }
 
-
-    public function index(Request $request)
-    {
+    public function index(Request $request) {
         // Extraire les paramètres de recherche, page, et filtres
         $filieres_params = array_merge(
             $request->only(['page','sort']),
             ['search' => $request->get('filieres_search', '')],
             $request->except(['filieres_search', 'page', 'sort'])
         );
-    
+
         // Paginer les filieres
         $filieres_data = $this->filiereService->paginate($filieres_params);
-    
+
         // Récupérer les statistiques et les champs filtrables
         $filieres_stats = $this->filiereService->getfiliereStats();
         $filieres_filters = $this->filiereService->getFieldsFilterable();
-    
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
             return view('PkgCompetences::filiere._table', compact('filieres_data', 'filieres_stats', 'filieres_filters'))->render();
         }
-    
+
         return view('PkgCompetences::filiere.index', compact('filieres_data', 'filieres_stats', 'filieres_filters'));
     }
-
-    /**
-     * Retourne le formulaire de création.
-     */
-    public function create()
-    {
+    public function create() {
         $itemFiliere = $this->filiereService->createInstance();
 
 
@@ -64,12 +54,7 @@ class BaseFiliereController extends AdminController
         }
         return view('PkgCompetences::filiere.create', compact('itemFiliere'));
     }
-
-    /**
-     * Stocke une nouvelle filière.
-     */
-    public function store(FiliereRequest $request)
-    {
+    public function store(FiliereRequest $request) {
         $validatedData = $request->validated();
         $filiere = $this->filiereService->create($validatedData);
 
@@ -84,7 +69,7 @@ class BaseFiliereController extends AdminController
             ]);
         }
 
-        return redirect()->route('filieres.index')->with(
+        return redirect()->route('filieres.edit',['filiere' => $filiere->id])->with(
             'success',
             __('Core::msg.addSuccess', [
                 'entityToString' => $filiere,
@@ -92,12 +77,7 @@ class BaseFiliereController extends AdminController
             ])
         );
     }
-
-    /**
-     * Affiche les détails d'une filière.
-     */
-    public function show(string $id)
-    {
+    public function show(string $id) {
         $itemFiliere = $this->filiereService->find($id);
 
 
@@ -106,32 +86,33 @@ class BaseFiliereController extends AdminController
         }
 
         return view('PkgCompetences::filiere.show', compact('itemFiliere'));
+
     }
-
-    /**
-     * Retourne le formulaire d'édition d'une filière.
-     */
-    public function edit(string $id)
-    {
-
-        $itemFiliere = $this->filiereService->find($id);
+    public function edit(string $id) {
 
         // Utilisé dans l'édition des relation HasMany
         $this->contextState->set('filiere_id', $id);
-
+        
+        $itemFiliere = $this->filiereService->find($id);
+        $groupeService =  new GroupeService();
+        $groupes_data =  $itemFiliere->groupes()->paginate(10);
+        $groupes_stats = $groupeService->getgroupeStats();
+        $groupes_filters = $groupeService->getFieldsFilterable();
+        
+        $moduleService =  new ModuleService();
+        $modules_data =  $itemFiliere->modules()->paginate(10);
+        $modules_stats = $moduleService->getmoduleStats();
+        $modules_filters = $moduleService->getFieldsFilterable();
+        
 
         if (request()->ajax()) {
-            return view('PkgCompetences::filiere._fields', compact('itemFiliere'));
+            return view('PkgCompetences::filiere._fields', compact('itemFiliere', 'groupes_data', 'modules_data', 'groupes_stats', 'modules_stats', 'groupes_filters', 'modules_filters'));
         }
 
-        return view('PkgCompetences::filiere.edit', compact('itemFiliere'));
-    }
+        return view('PkgCompetences::filiere.edit', compact('itemFiliere', 'groupes_data', 'modules_data', 'groupes_stats', 'modules_stats', 'groupes_filters', 'modules_filters'));
 
-    /**
-     * Met à jour une filière existante.
-     */
-    public function update(FiliereRequest $request, string $id)
-    {
+    }
+    public function update(FiliereRequest $request, string $id) {
 
         $validatedData = $request->validated();
         $filiere = $this->filiereService->update($id, $validatedData);
@@ -152,13 +133,9 @@ class BaseFiliereController extends AdminController
                 'modelName' =>  __('PkgCompetences::filiere.singular')
                 ])
         );
-    }
 
-    /**
-     * Supprime une filière.
-     */
-    public function destroy(Request $request, string $id)
-    {
+    }
+    public function destroy(Request $request, string $id) {
 
         $filiere = $this->filiereService->destroy($id);
 
@@ -177,6 +154,7 @@ class BaseFiliereController extends AdminController
                 'modelName' =>  __('PkgCompetences::filiere.singular')
                 ])
         );
+
     }
 
     public function export()
@@ -212,4 +190,5 @@ class BaseFiliereController extends AdminController
         $filieres = $this->filiereService->all();
         return response()->json($filieres);
     }
+
 }

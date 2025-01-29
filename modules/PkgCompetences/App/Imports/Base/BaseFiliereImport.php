@@ -21,7 +21,7 @@ class BaseFiliereImport implements ToModel, WithHeadingRow
      */
     private function recordExists(array $row): bool
     {
-        return Filiere::where('code', $row['code'])->exists();
+        return Filiere::where('nom', $row['nom'])->exists();
     }
 
     /**
@@ -41,6 +41,7 @@ class BaseFiliereImport implements ToModel, WithHeadingRow
             'code' => $row['code'],
             'nom' => $row['nom'],
             'description' => $row['description'],
+            'reference' => $row['reference'],
         ]);
     }
 }

@@ -40,6 +40,7 @@ class BaseCategoryTechnologyImport implements ToModel, WithHeadingRow
         return new CategoryTechnology([
             'nom' => $row['nom'],
             'description' => $row['description'],
+            'reference' => $row['reference'],
         ]);
     }
 }

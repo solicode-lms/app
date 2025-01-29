@@ -1,6 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-@section('role-form')
+@section('appreciation-form')
 <form class="crud-form custom-form context-state" id="appreciationForm" action="{{ $itemAppreciation->id ? route('appreciations.update', $itemAppreciation->id) : route('appreciations.store') }}" method="POST" novalidate>
     @csrf
 
@@ -72,6 +72,7 @@
 </div>
 
 
+
         
         <div class="form-group">
     <label for="noteMax">
@@ -93,6 +94,7 @@
         <div class="text-danger">{{ $message }}</div>
     @enderror
 </div>
+
 
 
         
@@ -125,7 +127,7 @@
 
         
 
-        <!--   TransfertCompetence_HasMany HasMany --> 
+        <!--   TransfertCompetence HasMany --> 
 
     </div>
 
@@ -136,4 +138,8 @@
 </form>
 @show
 
+
+<script>
+
+</script>
 

@@ -30,6 +30,7 @@ class BaseAppreciationExport implements FromCollection, WithHeadings, ShouldAuto
             'noteMin',
             'noteMax',
             'formateur_id',
+            'reference',
         ];
     }
 
@@ -42,6 +43,7 @@ class BaseAppreciationExport implements FromCollection, WithHeadings, ShouldAuto
                 'noteMin' => $appreciation->noteMin,
                 'noteMax' => $appreciation->noteMax,
                 'formateur_id' => $appreciation->formateur_id,
+                'reference' => $appreciation->reference,
             ];
         });
     }

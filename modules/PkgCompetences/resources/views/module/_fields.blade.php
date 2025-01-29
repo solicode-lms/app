@@ -1,6 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-@section('role-form')
+@section('module-form')
 <form class="crud-form custom-form context-state" id="moduleForm" action="{{ $itemModule->id ? route('modules.update', $itemModule->id) : route('modules.store') }}" method="POST" novalidate>
     @csrf
 
@@ -100,7 +100,7 @@
 
         
 
-        <!--   Competence_HasMany HasMany --> 
+        <!--   Competence HasMany --> 
 
     </div>
 
@@ -111,4 +111,8 @@
 </form>
 @show
 
+
+<script>
+
+</script>
 

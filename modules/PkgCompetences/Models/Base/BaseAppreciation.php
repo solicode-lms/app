@@ -11,8 +11,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
-use Modules\PkgCreationProjet\Models\TransfertCompetence;
 use Modules\PkgUtilisateurs\Models\Formateur;
+use Modules\PkgCreationProjet\Models\TransfertCompetence;
 
 /**
  * Classe BaseAppreciation
@@ -49,7 +49,7 @@ class BaseAppreciation extends BaseModel
 
 
     /**
-     * Relation HasMany pour TransfertCompetences.
+     * Relation HasMany pour Appreciations.
      *
      * @return HasMany
      */
@@ -57,6 +57,8 @@ class BaseAppreciation extends BaseModel
     {
         return $this->hasMany(TransfertCompetence::class, 'appreciation_id', 'id');
     }
+
+
 
     /**
      * Méthode __toString pour représenter le modèle sous forme de chaîne.

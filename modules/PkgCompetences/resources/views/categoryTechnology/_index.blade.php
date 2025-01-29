@@ -5,6 +5,7 @@
     window.entitiesConfig = window.entitiesConfig || [];
     window.entitiesConfig.push({
         edit_has_many: true,
+        isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
         entity_name: 'categoryTechnology',
         filterFormSelector: '#categoryTechnology-crud-filter-form',
         crudSelector: '#categoryTechnology-crud',
@@ -30,7 +31,7 @@
        $titre = __("PkgCompetences::categoryTechnology.singular");
     @endphp
     <x-crud-header 
-        id="categoryTechnology-crud-header" icon="fas fa-bolt"  
+        id="categoryTechnology-crud-header" icon="fas fa-table"  
         iconColor="text-info"
         title="{{ __('PkgCompetences::categoryTechnology.plural') }}"
         :breadcrumbs="[
@@ -70,7 +71,7 @@
                 @section('categoryTechnology-crud-filters')
                 <div class="card-header">
                     <form id="categoryTechnology-crud-filter-form" method="GET" class="row">
-                        <x-filter-group count="{{count($modules_filters ?? [])}}">
+                        <x-filter-group count="{{count($categoryTechnologies_filters ?? [])}}">
                             <!-- Filtres spécifiques -->
                             @foreach ($categoryTechnologies_filters as $filter)
                                 <x-filter-field 

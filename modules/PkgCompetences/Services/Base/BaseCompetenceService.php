@@ -44,6 +44,7 @@ class BaseCompetenceService extends BaseService
 
         // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
+            $this->generateManyToOneFilter(__("PkgCompetences::module.plural"), 'module_id', \Modules\PkgCompetences\Models\Module::class, 'nom'),
         ];
 
     }
@@ -56,14 +57,7 @@ class BaseCompetenceService extends BaseService
      */
     public function create(array $data)
     {
-        $competence = parent::create([
-            'code' => $data['code'],
-            'nom' => $data['nom'],
-            'description' => $data['description'],
-            'module_id' => $data['module_id'],
-        ]);
-
-        return $competence;
+        return parent::create($data);
     }
 
     /**
@@ -74,15 +68,9 @@ class BaseCompetenceService extends BaseService
     public function getCompetenceStats(): array
     {
 
-        $stats = [];
+        $stats = $this->initStats();
 
         
-            $relationStatFiliere = parent::getStatsByRelation(
-                \Modules\PkgCompetences\Models\Filiere::class,
-                'modules.competences',
-                'code'
-            );
-            $stats = array_merge($stats, $relationStatFiliere);
 
         return $stats;
     }

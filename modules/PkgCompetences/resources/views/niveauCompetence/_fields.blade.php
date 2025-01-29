@@ -1,6 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-@section('role-form')
+@section('niveauCompetence-form')
 <form class="crud-form custom-form context-state" id="niveauCompetenceForm" action="{{ $itemNiveauCompetence->id ? route('niveauCompetences.update', $itemNiveauCompetence->id) : route('niveauCompetences.store') }}" method="POST" novalidate>
     @csrf
 
@@ -86,4 +86,8 @@
 </form>
 @show
 
+
+<script>
+
+</script>
 

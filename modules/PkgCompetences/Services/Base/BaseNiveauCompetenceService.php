@@ -43,6 +43,7 @@ class BaseNiveauCompetenceService extends BaseService
 
         // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
+            $this->generateManyToOneFilter(__("PkgCompetences::competence.plural"), 'competence_id', \Modules\PkgCompetences\Models\Competence::class, 'code'),
         ];
 
     }
@@ -55,13 +56,7 @@ class BaseNiveauCompetenceService extends BaseService
      */
     public function create(array $data)
     {
-        $niveauCompetence = parent::create([
-            'nom' => $data['nom'],
-            'description' => $data['description'],
-            'competence_id' => $data['competence_id'],
-        ]);
-
-        return $niveauCompetence;
+        return parent::create($data);
     }
 
     /**
@@ -72,7 +67,7 @@ class BaseNiveauCompetenceService extends BaseService
     public function getNiveauCompetenceStats(): array
     {
 
-        $stats = [];
+        $stats = $this->initStats();
 
         
 

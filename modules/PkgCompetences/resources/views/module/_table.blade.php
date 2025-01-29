@@ -5,16 +5,14 @@
         <thead>
             <tr>
                 <x-sortable-column field="nom" label="{{ ucfirst(__('PkgCompetences::module.nom')) }}" />
-                <x-sortable-column field="description" label="{{ ucfirst(__('PkgCompetences::module.description')) }}" />
                 <x-sortable-column field="filiere_id" label="{{ ucfirst(__('PkgCompetences::filiere.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($modules_data as $module)
-                <tr>
+                <tr id="module-row-{{$module->id}}">
                     <td>@limit($module->nom, 80)</td>
-                    <td>{!! $module->description !!}</td>
                     <td>@limit($module->filiere->code ?? '-', 80)</td>
                     <td class="text-right">
                         @can('show-module')

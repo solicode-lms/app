@@ -54,12 +54,7 @@ class BaseCategoryTechnologyService extends BaseService
      */
     public function create(array $data)
     {
-        $categoryTechnology = parent::create([
-            'nom' => $data['nom'],
-            'description' => $data['description'],
-        ]);
-
-        return $categoryTechnology;
+        return parent::create($data);
     }
 
     /**
@@ -70,7 +65,7 @@ class BaseCategoryTechnologyService extends BaseService
     public function getCategoryTechnologyStats(): array
     {
 
-        $stats = [];
+        $stats = $this->initStats();
 
         
 

@@ -12,8 +12,8 @@ use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
 use Modules\PkgCompetences\Models\Module;
-use Modules\PkgCompetences\Models\NiveauCompetence;
 use Modules\PkgCompetences\Models\Technology;
+use Modules\PkgCompetences\Models\NiveauCompetence;
 use Modules\PkgCreationProjet\Models\TransfertCompetence;
 
 /**
@@ -60,7 +60,7 @@ class BaseCompetence extends BaseModel
     }
 
     /**
-     * Relation HasMany pour NiveauCompetences.
+     * Relation HasMany pour Competences.
      *
      * @return HasMany
      */
@@ -69,7 +69,7 @@ class BaseCompetence extends BaseModel
         return $this->hasMany(NiveauCompetence::class, 'competence_id', 'id');
     }
     /**
-     * Relation HasMany pour TransfertCompetences.
+     * Relation HasMany pour Competences.
      *
      * @return HasMany
      */
@@ -77,6 +77,8 @@ class BaseCompetence extends BaseModel
     {
         return $this->hasMany(TransfertCompetence::class, 'competence_id', 'id');
     }
+
+
 
     /**
      * Méthode __toString pour représenter le modèle sous forme de chaîne.

@@ -12,7 +12,7 @@
         </thead>
         <tbody>
             @foreach ($competences_data as $competence)
-                <tr>
+                <tr id="competence-row-{{$competence->id}}">
                     <td>@limit($competence->code, 80)</td>
                     <td>@limit($competence->nom, 80)</td>
                     <td>@limit($competence->module->nom ?? '-', 80)</td>

@@ -40,7 +40,7 @@
                         <ul class="nav nav-tabs mr-auto" id="edit-categoryTechnology-tab" role="tablist">
                         <li class="pt-2 px-3">
                             <h3 class="card-title">
-                                <i class="nav-icon fas fa-bolt"></i>
+                                <i class="nav-icon fas fa-table"></i>
                                 {{ __('Core::msg.edit') }}
                             </h3>
                         </li>
@@ -66,7 +66,7 @@
                             </div>
 
                             <div class="tab-pane fade" id="categoryTechnology-hasmany-tabs-technology" role="tabpanel" aria-labelledby="categoryTechnology-hasmany-tabs-technology-tab">
-                                @include('PkgCompetences::technology._index')
+                                @include('PkgCompetences::technology._index',['isMany' => true])
                             </div>
 
                            

@@ -1,5 +1,5 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
+// TODO : Edit :  Gapp : Relation A avec Plusieurs B
 
 
 namespace Modules\PkgGapp\Controllers\Base;
@@ -111,13 +111,14 @@ class BaseEModelController extends AdminController
         $eMetadata_stats = $eMetadatumService->geteMetadatumStats();
         $eMetadata_filters = $eMetadatumService->getFieldsFilterable();
         
+        // TODO : Relation A avec Plusieurs B
         $eRelationshipService =  new ERelationshipService();
-        $eRelationships_data =  $itemEModel->eRelationships()->paginate(10);
+        $eRelationships_data =  $itemEModel->sourceERelationships()->paginate(10);
         $eRelationships_stats = $eRelationshipService->geteRelationshipStats();
         $eRelationships_filters = $eRelationshipService->getFieldsFilterable();
         
         $eRelationshipService =  new ERelationshipService();
-        $eRelationships_data =  $itemEModel->eRelationships()->paginate(10);
+        $eRelationships_data =  $itemEModel->targetERelationships()->paginate(10);
         $eRelationships_stats = $eRelationshipService->geteRelationshipStats();
         $eRelationships_filters = $eRelationshipService->getFieldsFilterable();
         

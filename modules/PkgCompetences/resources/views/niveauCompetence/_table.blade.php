@@ -5,16 +5,14 @@
         <thead>
             <tr>
                 <x-sortable-column field="nom" label="{{ ucfirst(__('PkgCompetences::niveauCompetence.nom')) }}" />
-                <x-sortable-column field="description" label="{{ ucfirst(__('PkgCompetences::niveauCompetence.description')) }}" />
                 <x-sortable-column field="competence_id" label="{{ ucfirst(__('PkgCompetences::competence.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($niveauCompetences_data as $niveauCompetence)
-                <tr>
+                <tr id="niveauCompetence-row-{{$niveauCompetence->id}}">
                     <td>@limit($niveauCompetence->nom, 80)</td>
-                    <td>{!! $niveauCompetence->description !!}</td>
                     <td>@limit($niveauCompetence->competence->code ?? '-', 80)</td>
                     <td class="text-right">
                         @can('show-niveauCompetence')

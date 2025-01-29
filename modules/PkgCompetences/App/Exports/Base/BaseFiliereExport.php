@@ -28,6 +28,7 @@ class BaseFiliereExport implements FromCollection, WithHeadings, ShouldAutoSize,
             'code',
             'nom',
             'description',
+            'reference',
         ];
     }
 
@@ -38,6 +39,7 @@ class BaseFiliereExport implements FromCollection, WithHeadings, ShouldAutoSize,
                 'code' => $filiere->code,
                 'nom' => $filiere->nom,
                 'description' => $filiere->description,
+                'reference' => $filiere->reference,
             ];
         });
     }

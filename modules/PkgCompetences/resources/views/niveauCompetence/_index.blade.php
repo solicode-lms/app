@@ -5,6 +5,7 @@
     window.entitiesConfig = window.entitiesConfig || [];
     window.entitiesConfig.push({
         edit_has_many: false,
+        isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
         entity_name: 'niveauCompetence',
         filterFormSelector: '#niveauCompetence-crud-filter-form',
         crudSelector: '#niveauCompetence-crud',
@@ -30,7 +31,7 @@
        $titre = __("PkgCompetences::niveauCompetence.singular");
     @endphp
     <x-crud-header 
-        id="niveauCompetence-crud-header" icon="fas fa-bars"  
+        id="niveauCompetence-crud-header" icon="fas fa-table"  
         iconColor="text-info"
         title="{{ __('PkgCompetences::niveauCompetence.plural') }}"
         :breadcrumbs="[
@@ -70,7 +71,7 @@
                 @section('niveauCompetence-crud-filters')
                 <div class="card-header">
                     <form id="niveauCompetence-crud-filter-form" method="GET" class="row">
-                        <x-filter-group count="{{count($modules_filters ?? [])}}">
+                        <x-filter-group count="{{count($niveauCompetences_filters ?? [])}}">
                             <!-- Filtres spécifiques -->
                             @foreach ($niveauCompetences_filters as $filter)
                                 <x-filter-field 

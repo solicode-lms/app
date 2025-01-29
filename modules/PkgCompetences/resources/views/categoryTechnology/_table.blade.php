@@ -10,7 +10,7 @@
         </thead>
         <tbody>
             @foreach ($categoryTechnologies_data as $categoryTechnology)
-                <tr>
+                <tr id="categoryTechnology-row-{{$categoryTechnology->id}}">
                     <td>@limit($categoryTechnology->nom, 80)</td>
                     <td class="text-right">
                         @can('show-categoryTechnology')

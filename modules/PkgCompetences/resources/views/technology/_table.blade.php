@@ -5,16 +5,14 @@
         <thead>
             <tr>
                 <x-sortable-column field="nom" label="{{ ucfirst(__('PkgCompetences::technology.nom')) }}" />
-                <x-sortable-column field="description" label="{{ ucfirst(__('PkgCompetences::technology.description')) }}" />
                 <x-sortable-column field="category_technology_id" label="{{ ucfirst(__('PkgCompetences::categoryTechnology.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($technologies_data as $technology)
-                <tr>
+                <tr id="technology-row-{{$technology->id}}">
                     <td>@limit($technology->nom, 80)</td>
-                    <td>{!! $technology->description !!}</td>
                     <td>@limit($technology->categoryTechnology->nom ?? '-', 80)</td>
                     <td class="text-right">
                         @can('show-technology')

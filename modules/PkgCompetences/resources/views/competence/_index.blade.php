@@ -5,6 +5,7 @@
     window.entitiesConfig = window.entitiesConfig || [];
     window.entitiesConfig.push({
         edit_has_many: true,
+        isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
         entity_name: 'competence',
         filterFormSelector: '#competence-crud-filter-form',
         crudSelector: '#competence-crud',
@@ -30,7 +31,7 @@
        $titre = __("PkgCompetences::competence.singular");
     @endphp
     <x-crud-header 
-        id="competence-crud-header" icon="fas fa-tools"  
+        id="competence-crud-header" icon="fas fa-table"  
         iconColor="text-info"
         title="{{ __('PkgCompetences::competence.plural') }}"
         :breadcrumbs="[
@@ -70,7 +71,7 @@
                 @section('competence-crud-filters')
                 <div class="card-header">
                     <form id="competence-crud-filter-form" method="GET" class="row">
-                        <x-filter-group count="{{count($modules_filters ?? [])}}">
+                        <x-filter-group count="{{count($competences_filters ?? [])}}">
                             <!-- Filtres spécifiques -->
                             @foreach ($competences_filters as $filter)
                                 <x-filter-field 

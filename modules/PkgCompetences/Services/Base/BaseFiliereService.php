@@ -55,13 +55,7 @@ class BaseFiliereService extends BaseService
      */
     public function create(array $data)
     {
-        $filiere = parent::create([
-            'code' => $data['code'],
-            'nom' => $data['nom'],
-            'description' => $data['description'],
-        ]);
-
-        return $filiere;
+        return parent::create($data);
     }
 
     /**
@@ -72,7 +66,7 @@ class BaseFiliereService extends BaseService
     public function getFiliereStats(): array
     {
 
-        $stats = [];
+        $stats = $this->initStats();
 
         
 

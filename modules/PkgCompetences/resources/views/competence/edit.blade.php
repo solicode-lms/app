@@ -40,7 +40,7 @@
                         <ul class="nav nav-tabs mr-auto" id="edit-competence-tab" role="tablist">
                         <li class="pt-2 px-3">
                             <h3 class="card-title">
-                                <i class="nav-icon fas fa-tools"></i>
+                                <i class="nav-icon fas fa-table"></i>
                                 {{ __('Core::msg.edit') }}
                             </h3>
                         </li>
@@ -50,6 +50,9 @@
 
                         <li class="nav-item">
                             <a class="nav-link" id="competence-hasmany-tabs-niveauCompetence-tab" data-toggle="pill" href="#competence-hasmany-tabs-niveauCompetence" role="tab" aria-controls="competence-hasmany-tabs-niveauCompetence" aria-selected="false">{{__('PkgCompetences::niveauCompetence.plural')}}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="competence-hasmany-tabs-transfertCompetence-tab" data-toggle="pill" href="#competence-hasmany-tabs-transfertCompetence" role="tab" aria-controls="competence-hasmany-tabs-transfertCompetence" aria-selected="false">{{__('PkgCreationProjet::transfertCompetence.plural')}}</a>
                         </li>
 
                        
@@ -66,7 +69,10 @@
                             </div>
 
                             <div class="tab-pane fade" id="competence-hasmany-tabs-niveauCompetence" role="tabpanel" aria-labelledby="competence-hasmany-tabs-niveauCompetence-tab">
-                                @include('PkgCompetences::niveauCompetence._index')
+                                @include('PkgCompetences::niveauCompetence._index',['isMany' => true])
+                            </div>
+                            <div class="tab-pane fade" id="competence-hasmany-tabs-transfertCompetence" role="tabpanel" aria-labelledby="competence-hasmany-tabs-transfertCompetence-tab">
+                                @include('PkgCreationProjet::transfertCompetence._index',['isMany' => true])
                             </div>
 
                            

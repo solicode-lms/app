@@ -3,13 +3,11 @@
 
 
 namespace Modules\PkgCompetences\Controllers\Base;
-
-use Modules\Core\Controllers\Base\AdminController;
-use Modules\PkgCompetences\App\Requests\NiveauCompetenceRequest;
 use Modules\PkgCompetences\Services\NiveauCompetenceService;
 use Modules\PkgCompetences\Services\CompetenceService;
-
 use Illuminate\Http\Request;
+use Modules\Core\Controllers\Base\AdminController;
+use Modules\PkgCompetences\App\Requests\NiveauCompetenceRequest;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgCompetences\App\Exports\NiveauCompetenceExport;
 use Modules\PkgCompetences\App\Imports\NiveauCompetenceImport;
@@ -20,44 +18,35 @@ class BaseNiveauCompetenceController extends AdminController
     protected $niveauCompetenceService;
     protected $competenceService;
 
-    public function __construct(NiveauCompetenceService $niveauCompetenceService, CompetenceService $competenceService)
-    {
+    public function __construct(NiveauCompetenceService $niveauCompetenceService, CompetenceService $competenceService) {
         parent::__construct();
         $this->niveauCompetenceService = $niveauCompetenceService;
         $this->competenceService = $competenceService;
-
     }
 
-
-    public function index(Request $request)
-    {
+    public function index(Request $request) {
         // Extraire les paramètres de recherche, page, et filtres
         $niveauCompetences_params = array_merge(
             $request->only(['page','sort']),
             ['search' => $request->get('niveauCompetences_search', '')],
             $request->except(['niveauCompetences_search', 'page', 'sort'])
         );
-    
+
         // Paginer les niveauCompetences
         $niveauCompetences_data = $this->niveauCompetenceService->paginate($niveauCompetences_params);
-    
+
         // Récupérer les statistiques et les champs filtrables
         $niveauCompetences_stats = $this->niveauCompetenceService->getniveauCompetenceStats();
         $niveauCompetences_filters = $this->niveauCompetenceService->getFieldsFilterable();
-    
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
             return view('PkgCompetences::niveauCompetence._table', compact('niveauCompetences_data', 'niveauCompetences_stats', 'niveauCompetences_filters'))->render();
         }
-    
+
         return view('PkgCompetences::niveauCompetence.index', compact('niveauCompetences_data', 'niveauCompetences_stats', 'niveauCompetences_filters'));
     }
-
-    /**
-     * Retourne le formulaire de création.
-     */
-    public function create()
-    {
+    public function create() {
         $itemNiveauCompetence = $this->niveauCompetenceService->createInstance();
         $competences = $this->competenceService->all();
 
@@ -67,12 +56,7 @@ class BaseNiveauCompetenceController extends AdminController
         }
         return view('PkgCompetences::niveauCompetence.create', compact('itemNiveauCompetence', 'competences'));
     }
-
-    /**
-     * Stocke une nouvelle filière.
-     */
-    public function store(NiveauCompetenceRequest $request)
-    {
+    public function store(NiveauCompetenceRequest $request) {
         $validatedData = $request->validated();
         $niveauCompetence = $this->niveauCompetenceService->create($validatedData);
 
@@ -95,12 +79,7 @@ class BaseNiveauCompetenceController extends AdminController
             ])
         );
     }
-
-    /**
-     * Affiche les détails d'une filière.
-     */
-    public function show(string $id)
-    {
+    public function show(string $id) {
         $itemNiveauCompetence = $this->niveauCompetenceService->find($id);
         $competences = $this->competenceService->all();
 
@@ -110,33 +89,24 @@ class BaseNiveauCompetenceController extends AdminController
         }
 
         return view('PkgCompetences::niveauCompetence.show', compact('itemNiveauCompetence'));
+
     }
-
-    /**
-     * Retourne le formulaire d'édition d'une filière.
-     */
-    public function edit(string $id)
-    {
-
-        $itemNiveauCompetence = $this->niveauCompetenceService->find($id);
-        $competences = $this->competenceService->all();
+    public function edit(string $id) {
 
         // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('niveauCompetence_id', $id);
-
+        $this->contextState->set('niveau_competence_id', $id);
+        
+        $itemNiveauCompetence = $this->niveauCompetenceService->find($id);
+        $competences = $this->competenceService->all();
 
         if (request()->ajax()) {
             return view('PkgCompetences::niveauCompetence._fields', compact('itemNiveauCompetence', 'competences'));
         }
 
         return view('PkgCompetences::niveauCompetence.edit', compact('itemNiveauCompetence', 'competences'));
-    }
 
-    /**
-     * Met à jour une filière existante.
-     */
-    public function update(NiveauCompetenceRequest $request, string $id)
-    {
+    }
+    public function update(NiveauCompetenceRequest $request, string $id) {
 
         $validatedData = $request->validated();
         $niveauCompetence = $this->niveauCompetenceService->update($id, $validatedData);
@@ -157,13 +127,9 @@ class BaseNiveauCompetenceController extends AdminController
                 'modelName' =>  __('PkgCompetences::niveauCompetence.singular')
                 ])
         );
-    }
 
-    /**
-     * Supprime une filière.
-     */
-    public function destroy(Request $request, string $id)
-    {
+    }
+    public function destroy(Request $request, string $id) {
 
         $niveauCompetence = $this->niveauCompetenceService->destroy($id);
 
@@ -182,6 +148,7 @@ class BaseNiveauCompetenceController extends AdminController
                 'modelName' =>  __('PkgCompetences::niveauCompetence.singular')
                 ])
         );
+
     }
 
     public function export()
@@ -217,4 +184,5 @@ class BaseNiveauCompetenceController extends AdminController
         $niveauCompetences = $this->niveauCompetenceService->all();
         return response()->json($niveauCompetences);
     }
+
 }

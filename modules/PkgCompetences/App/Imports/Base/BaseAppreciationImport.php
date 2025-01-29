@@ -43,6 +43,7 @@ class BaseAppreciationImport implements ToModel, WithHeadingRow
             'noteMin' => $row['noteMin'],
             'noteMax' => $row['noteMax'],
             'formateur_id' => $row['formateur_id'],
+            'reference' => $row['reference'],
         ]);
     }
 }

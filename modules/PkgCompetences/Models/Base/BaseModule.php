@@ -11,8 +11,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
-use Modules\PkgCompetences\Models\Competence;
 use Modules\PkgCompetences\Models\Filiere;
+use Modules\PkgCompetences\Models\Competence;
 
 /**
  * Classe BaseModule
@@ -49,7 +49,7 @@ class BaseModule extends BaseModel
 
 
     /**
-     * Relation HasMany pour Competences.
+     * Relation HasMany pour Modules.
      *
      * @return HasMany
      */
@@ -57,6 +57,8 @@ class BaseModule extends BaseModel
     {
         return $this->hasMany(Competence::class, 'module_id', 'id');
     }
+
+
 
     /**
      * Méthode __toString pour représenter le modèle sous forme de chaîne.

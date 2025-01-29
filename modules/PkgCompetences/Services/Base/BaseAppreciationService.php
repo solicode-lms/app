@@ -58,15 +58,7 @@ class BaseAppreciationService extends BaseService
      */
     public function create(array $data)
     {
-        $appreciation = parent::create([
-            'nom' => $data['nom'],
-            'description' => $data['description'],
-            'noteMin' => $data['noteMin'],
-            'noteMax' => $data['noteMax'],
-            'formateur_id' => $data['formateur_id'],
-        ]);
-
-        return $appreciation;
+        return parent::create($data);
     }
 
     /**
@@ -77,7 +69,7 @@ class BaseAppreciationService extends BaseService
     public function getAppreciationStats(): array
     {
 
-        $stats = [];
+        $stats = $this->initStats();
 
         // Ajouter les statistiques du propriétaire
         $contexteState = $this->getContextState();

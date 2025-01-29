@@ -11,7 +11,7 @@
         </thead>
         <tbody>
             @foreach ($appreciations_data as $appreciation)
-                <tr>
+                <tr id="appreciation-row-{{$appreciation->id}}">
                     <td>@limit($appreciation->nom, 80)</td>
                     <td>@limit($appreciation->formateur->nom ?? '-', 80)</td>
                     <td class="text-right">
