@@ -1,13 +1,11 @@
-import { CreateAction } from './actions/CreateAction';
-import { ShowAction } from './actions/ShowAction';
-import { EditAction } from './actions/EditAction';
-import { DeleteAction } from './actions/DeleteAction';
 
-import { LoadListAction } from './actions/LoadListAction';
-import { SearchPaginationEventHandler } from './eventsHandler/SearchPaginationEventHandler';
-import { ActionsEventHandler } from './eventsHandler/ActionsEventHandler';
+
 import { ContexteStateEventHandler } from './eventsHandler/ContexteStateEventHandler';
- 
+import { TableUI } from "./components/TableUI";
+import { FilterUI } from "./components/FilterUI";
+import { PaginationUI } from './components/PaginationUI';
+
+// TODO: rename to IndexUI
 /**
  * Classe principale pour gérer le CRUD.
  */
@@ -19,39 +17,54 @@ export class CrudManager {
     constructor(config) {
         this.config = config;
 
-        // Initialisation des actions CRUD
-        this.entityCreator = new CreateAction(config);
-        this.entityViewer = new ShowAction(config);
-        this.entityEditor = new EditAction(config);
-        this.entityDeleter = new DeleteAction(config);
-
-        // Initialisation des gestionnaires
-        this.entityLoader = new LoadListAction(config);
-        this.eventManager = new ActionsEventHandler(config, {
-            creator: this.entityCreator,
-            viewer: this.entityViewer,
-            editor: this.entityEditor,
-            deleter: this.entityDeleter,
-        });
-
-
+        // Initialisation des composants UI
+        this.filterUI = new FilterUI(config, this);
+        this.tableUI = new TableUI(config, this);
+        this.paginationUI = new PaginationUI(config, this);
         this.contexteEventHandler = new ContexteStateEventHandler(config);
-
-
-        this.searchAndPaginationManager = new SearchPaginationEventHandler(config, this.entityLoader);
     }
 
     /**
      * Initialise tous les gestionnaires et actions CRUD.
      */
     init() {
-        // Charger les entités initiales
-        // this.entityLoader.loadEntities();
-
-        // Initialiser la gestion des événements CRUD
-        this.eventManager.init();
-        this.searchAndPaginationManager.init();
+        // Init Components 
+        this.filterUI.init();
+        this.tableUI.init();
+        this.paginationUI.init();
         this.contexteEventHandler.init();
 
+        if(this.config.edit_has_many){
+            this.adapterUiPour_Edit_has_many();         
+        }
+
     }
+
+    adapterUiPour_Edit_has_many(){
+        const crud_header = document.querySelector(`${this.config.entity_name}-crud-header`);
+        if (crud_header) {
+            crud_header.style.display = 'none'; // Masquer le filtre
+        }
+    }
+    /**
+     * Met à jour les paramètres dans l'URL sans recharger la page.
+     * @param {Object} params - Données à inclure dans l'URL.
+     */
+    updateURLParameters(params) {
+    const url = new URL(window.location.href);
+
+    // Supprimer uniquement les anciens paramètres liés aux filtres
+    Object.entries(params).forEach(([key, value]) => {
+        if (value === undefined || value === null || value === '') {
+            // Supprimer les filtres qui sont vides ou null
+            url.searchParams.delete(key);
+        } else {
+            // Mettre à jour ou ajouter les autres paramètres
+            url.searchParams.set(key, value);
+        }
+    });
+
+    // Mettre à jour l'URL sans recharger la page
+    window.history.replaceState({}, '', url);
+}
 }

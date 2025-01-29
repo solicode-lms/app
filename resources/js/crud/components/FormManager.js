@@ -374,6 +374,24 @@ export class FormManager {
     }
 
 
+    /**
+     * Affiche les erreurs sous les champs concernés
+     * @param {Object} errors - Erreurs renvoyées par le serveur (format Laravel)
+     */
+    showFieldErrors(errors) {
+        const form = $(this.formSelector);
+        form.find('.error-message').remove(); // Supprime les anciens messages d'erreur
+
+        Object.entries(errors).forEach(([field, messages]) => {
+            let input = form.find(`[name="${field}"]`);
+            if (input.length > 0) {
+                input.addClass('is-invalid');
+                messages.forEach(msg => {
+                    input.after(`<div class="error-message text-danger">${msg}</div>`);
+                });
+            }
+        });
+    }
   
 
 }

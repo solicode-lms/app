@@ -6,6 +6,7 @@ import { FormManager } from '../components/FormManager';
 import { ContextStateService } from '../components/ContextStateService';
 import { BaseAction } from './BaseAction';
 import { LoadListAction } from './LoadListAction';
+import { AjaxErrorHandler } from '../components/AjaxErrorHandler';
 
 export class Action extends BaseAction {
     /**
@@ -72,11 +73,17 @@ export class Action extends BaseAction {
                     onSuccess();
                 }
             })
+
             .fail((xhr) => {
                 this.formManager.loader.hide();
-                const errorMessage = xhr.responseJSON?.message || 'Une erreur s\'est produite lors de la modification.';
-                this.handleError(errorMessage); // Afficher une erreur
+                
+                if (xhr.responseJSON?.errors) {
+                    this.formManager.showFieldErrors(xhr.responseJSON.errors);
+                } else {
+                    AjaxErrorHandler.handleError(xhr, "Erreur lors du traitement du formulaire.");
+                }
             });
+
     }
 
 

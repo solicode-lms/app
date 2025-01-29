@@ -1,6 +1,13 @@
+import { AjaxErrorHandler } from '../components/AjaxErrorHandler';
 import { Action } from './Action';
 
 export class ShowAction extends Action {
+
+
+
+    init(){
+        this.handleShowEntity()
+    }
     /**
      * Affiche les détails d'une entité dans un modal.
      * @param {number|string} id - Identifiant de l'entité à afficher.
@@ -21,9 +28,20 @@ export class ShowAction extends Action {
                 // this.handleSuccess('Détails de l\'entité chargés avec succès.');
             })
             .fail((xhr) => {
-                const errorMessage = xhr.responseJSON?.message || 'Erreur lors du chargement des détails de l\'entité.'
-                this.handleError(errorMessage);
+                AjaxErrorHandler.handleError(xhr, 'Erreur lors du chargement des détails de l\'entité.');
             });
             
+    }
+
+
+    /**
+     * Gère les événements liés à l'affichage des détails d'une entité.
+     */
+    handleShowEntity() {
+        $(document).on('click', `${this.config.crudSelector} .showEntity`, (e) => {
+            e.preventDefault();
+            const id = $(e.currentTarget).data('id'); // Récupérer l'ID de l'entité
+            this.showEntity(id);
+        });
     }
 }

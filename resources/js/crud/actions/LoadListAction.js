@@ -1,3 +1,4 @@
+import { AjaxErrorHandler } from '../components/AjaxErrorHandler';
 import { LoadingIndicator } from '../components/LoadingIndicator';
 import { NotificationHandler } from '../components/NotificationHandler';
 import { BaseAction } from './BaseAction';
@@ -56,9 +57,7 @@ export class LoadListAction extends BaseAction {
                 // NotificationHandler.showSuccess('Données chargées avec succès.');
             })
             .fail((xhr) => {
-                // Gérer les erreurs de la requête
-                const errorMessage = xhr.responseJSON?.message || 'Une erreur s\'est produite';
-                NotificationHandler.showAlert("error", "Erreur lors du chargement des données.", errorMessage);
+                AjaxErrorHandler.handleError(xhr, "Erreur lors du chargement des données.");
             })
             .always(() => {
                 // Masquer l'indicateur de chargement

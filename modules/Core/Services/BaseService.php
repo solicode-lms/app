@@ -383,11 +383,15 @@ public function getStatsByRelation($relationModel,$nestedRelation, $attribute ):
             $relationEntity->id // Passer l'ID de la filière pour filtrer
         );
 
-        $stats[] = [
-            'icon' => 'fas fa-chart-pie',
-            'label' => $relationEntity->{$attribute}, // Code de la filière utilisé comme label
-            'value' => $entities->count(),
-        ];
+        $count = $entities->count();
+        if($count > 0) {   
+            $stats[] = [
+                'icon' => 'fas fa-chart-pie',
+                'label' => $relationEntity->{$attribute}, // Code de la filière utilisé comme label
+                'value' => $entities->count(),
+            ]; 
+        }
+       
     }
 
     return $stats;

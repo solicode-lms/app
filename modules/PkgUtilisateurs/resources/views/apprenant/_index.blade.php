@@ -29,15 +29,22 @@
         $package = __("PkgUtilisateurs::PkgUtilisateurs.name");
        $titre = __("PkgUtilisateurs::apprenant.singular");
     @endphp
-    <x-crud-header 
-        id="apprenant-crud-header" icon="fas fa-user-graduate"  
-        iconColor="text-info"
-        title="{{ __('PkgUtilisateurs::apprenant.plural') }}"
-        :breadcrumbs="[
-            ['label' => $package, 'url' => '#'],
-            ['label' => $titre]
-        ]"
-    />
+
+
+
+    @if(!isset($crud_header) || $crud_header)
+        <x-crud-header 
+            id="apprenant-crud-header" icon="fas fa-user-graduate"  
+            iconColor="text-info"
+            title="{{ __('PkgUtilisateurs::apprenant.plural') }}"
+            :breadcrumbs="[
+                ['label' => $package, 'url' => '#'],
+                ['label' => $titre]
+            ]"
+        />
+    @endif
+
+
     @show
     @section('apprenant-crud-table')
     <section id="apprenant-crud-table" class="content crud-table">

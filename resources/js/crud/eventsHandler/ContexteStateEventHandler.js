@@ -1,7 +1,6 @@
 import { ContextStateService } from "../components/ContextStateService";
 
 
-
 export class ContexteStateEventHandler {
     /**
      * Constructeur pour initialiser ContexteStateEventHandler.

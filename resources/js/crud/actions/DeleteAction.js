@@ -1,6 +1,7 @@
 import { Action } from './Action';
 import { NotificationHandler } from '../components/NotificationHandler';
 import { LoadListAction } from './LoadListAction';
+import { AjaxErrorHandler } from '../components/AjaxErrorHandler';
 
 export class DeleteAction extends Action {
 
@@ -9,6 +10,10 @@ export class DeleteAction extends Action {
        
         this.suscesMessage = 'Entité supprimée avec succès.';
        
+    }
+
+    init() {
+        this.handleDeleteEntity();
     }
 
     /**
@@ -30,10 +35,23 @@ export class DeleteAction extends Action {
                 }).done(() => {
                     $(`#${this.config.entity_name}-row-${id}`).fadeOut(); // Supprime la ligne sans recharger
                     this.handleSuccess(this.suscesMessage);
-                }).fail((xhr) => {
-                    this.handleError(xhr.responseJSON?.message || "Erreur lors de la suppression.");
+                })
+                
+                .fail((xhr) => {
+                    AjaxErrorHandler.handleError(xhr, "Erreur lors de la suppression de l'entité.");
                 });
             }
         );
+    }
+
+    /**
+     * Gère les événements liés à la suppression d'une entité.
+     */
+    handleDeleteEntity() {
+        $(document).on('click', `${this.config.crudSelector} .deleteEntity`, (e) => {
+            e.preventDefault();
+            const id = $(e.currentTarget).data('id'); // Récupérer l'ID de l'entité
+            this.deleteEntity(id);
+        });
     }
 }

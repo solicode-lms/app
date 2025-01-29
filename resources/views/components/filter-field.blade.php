@@ -2,6 +2,7 @@
     @switch($type)
         @case('String')
             <input type="text" 
+                   id="{{ $field }}" 
                    name="{{ $field }}" 
                    class="form-control form-control-sm" 
                    value="{{ request($field) }}" 
@@ -10,13 +11,14 @@
 
         @case('Date')
             <input type="date" 
+                     id="{{ $field }}" 
                    name="{{ $field }}" 
                    class="form-control form-control-sm" 
                    value="{{ request($field) }}">
             @break
 
         @case('ManyToOne')
-            <select name="{{ $field }}" class="form-select form-control form-control-sm select2">
+            <select id="{{ $field }}"  name="{{ $field }}" class="form-select form-control form-control-sm select2">
                 <option value="">{{ $label }}</option>
                 @foreach ($options as $option)
                     <option value="{{ $option['id'] }}" 
@@ -27,7 +29,7 @@
             </select>
             @break
         @case('Polymorphic')
-            <select name="{{ $field }}" class="form-select form-control form-control-sm select2">
+            <select id="{{ $field }}"  name="{{ $field }}" class="form-select form-control form-control-sm select2">
                 <option value="">{{ $label }}</option>
                 @foreach ($options as $option)
                     <option value="{{ $option['id'] }}" 

@@ -102,6 +102,9 @@ class BaseGroupeController extends AdminController
     }
     public function edit(string $id) {
 
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('groupe_id', $id);
+        
         $itemGroupe = $this->groupeService->find($id);
         $formateurs = $this->formateurService->all();
         $filieres = $this->filiereService->all();
@@ -111,8 +114,7 @@ class BaseGroupeController extends AdminController
         $apprenants_filters = $apprenantService->getFieldsFilterable();
         
 
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('groupe_id', $id);
+        
 
 
         if (request()->ajax()) {
