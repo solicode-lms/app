@@ -69,10 +69,10 @@
                             </div>
 
                             <div class="tab-pane fade" id="formateur-hasmany-tabs-appreciation" role="tabpanel" aria-labelledby="formateur-hasmany-tabs-appreciation-tab">
-                                @include('PkgCompetences::appreciation._index',['edit_has_many' => true]))
+                                @include('PkgCompetences::appreciation._index',['isMany' => true])
                             </div>
                             <div class="tab-pane fade" id="formateur-hasmany-tabs-projet" role="tabpanel" aria-labelledby="formateur-hasmany-tabs-projet-tab">
-                                @include('PkgCreationProjet::projet._index',['edit_has_many' => true]))
+                                @include('PkgCreationProjet::projet._index',['isMany' => true])
                             </div>
 
                            

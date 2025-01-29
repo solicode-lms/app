@@ -5,6 +5,7 @@
         <thead>
             <tr>
                 <x-sortable-column field="nom" label="{{ ucfirst(__('PkgUtilisateurs::formateur.nom')) }}" />
+                <x-sortable-column field="prenom" label="{{ ucfirst(__('PkgUtilisateurs::formateur.prenom')) }}" />
                 <x-sortable-column field="user_id" label="{{ ucfirst(__('PkgAutorisation::user.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
@@ -13,6 +14,7 @@
             @foreach ($formateurs_data as $formateur)
                 <tr id="formateur-row-{{$formateur->id}}">
                     <td>@limit($formateur->nom, 80)</td>
+                    <td>@limit($formateur->prenom, 80)</td>
                     <td>@limit($formateur->user->name ?? '-', 80)</td>
                     <td class="text-right">
                         @can('show-formateur')

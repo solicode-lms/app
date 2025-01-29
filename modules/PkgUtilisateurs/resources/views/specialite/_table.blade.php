@@ -5,6 +5,8 @@
         <thead>
             <tr>
                 <x-sortable-column field="nom" label="{{ ucfirst(__('PkgUtilisateurs::specialite.nom')) }}" />
+                <x-sortable-column field="Formateur" label="{{ ucfirst(__('PkgUtilisateurs::formateur.plural')) }}" />
+
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -12,6 +14,13 @@
             @foreach ($specialites_data as $specialite)
                 <tr id="specialite-row-{{$specialite->id}}">
                     <td>@limit($specialite->nom, 80)</td>
+                    <td>
+                        <ul>
+                            @foreach ($specialite->formateurs as $formateur)
+                                <li>{{ $formateur }}</li>
+                            @endforeach
+                        </ul>
+                    </td>
                     <td class="text-right">
                         @can('show-specialite')
                             <a href="{{ route('specialites.show', ['specialite' => $specialite->id]) }}" data-id="{{$specialite->id}}" class="btn btn-default btn-sm context-state showEntity">

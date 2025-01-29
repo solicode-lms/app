@@ -4,7 +4,8 @@
 <script>
     window.entitiesConfig = window.entitiesConfig || [];
     window.entitiesConfig.push({
-        edit_has_many: {{ isset($edit_has_many) && $edit_has_many ? 'true' : 'false' }},
+        edit_has_many: true,
+        isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
         entity_name: 'niveauxScolaire',
         filterFormSelector: '#niveauxScolaire-crud-filter-form',
         crudSelector: '#niveauxScolaire-crud',
@@ -29,7 +30,6 @@
         $package = __("PkgUtilisateurs::PkgUtilisateurs.name");
        $titre = __("PkgUtilisateurs::niveauxScolaire.singular");
     @endphp
-
     <x-crud-header 
         id="niveauxScolaire-crud-header" icon="fas fa-graduation-cap"  
         iconColor="text-info"
@@ -39,7 +39,6 @@
             ['label' => $titre]
         ]"
     />
-
     @show
     @section('niveauxScolaire-crud-table')
     <section id="niveauxScolaire-crud-table" class="content crud-table">

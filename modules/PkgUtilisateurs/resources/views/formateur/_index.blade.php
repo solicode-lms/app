@@ -4,7 +4,8 @@
 <script>
     window.entitiesConfig = window.entitiesConfig || [];
     window.entitiesConfig.push({
-        edit_has_many: {{ isset($edit_has_many) && $edit_has_many ? 'true' : 'false' }},
+        edit_has_many: true,
+        isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
         entity_name: 'formateur',
         filterFormSelector: '#formateur-crud-filter-form',
         crudSelector: '#formateur-crud',
@@ -29,7 +30,6 @@
         $package = __("PkgUtilisateurs::PkgUtilisateurs.name");
        $titre = __("PkgUtilisateurs::formateur.singular");
     @endphp
-
     <x-crud-header 
         id="formateur-crud-header" icon="fas fa-chalkboard-teacher"  
         iconColor="text-info"
@@ -39,7 +39,6 @@
             ['label' => $titre]
         ]"
     />
-
     @show
     @section('formateur-crud-table')
     <section id="formateur-crud-table" class="content crud-table">

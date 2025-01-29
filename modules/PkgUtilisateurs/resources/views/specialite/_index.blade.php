@@ -4,7 +4,8 @@
 <script>
     window.entitiesConfig = window.entitiesConfig || [];
     window.entitiesConfig.push({
-        edit_has_many: {{ isset($edit_has_many) && $edit_has_many ? 'true' : 'false' }},
+        edit_has_many: false,
+        isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
         entity_name: 'specialite',
         filterFormSelector: '#specialite-crud-filter-form',
         crudSelector: '#specialite-crud',
@@ -29,7 +30,6 @@
         $package = __("PkgUtilisateurs::PkgUtilisateurs.name");
        $titre = __("PkgUtilisateurs::specialite.singular");
     @endphp
-
     <x-crud-header 
         id="specialite-crud-header" icon="fas fa-award"  
         iconColor="text-info"
@@ -39,7 +39,6 @@
             ['label' => $titre]
         ]"
     />
-
     @show
     @section('specialite-crud-table')
     <section id="specialite-crud-table" class="content crud-table">

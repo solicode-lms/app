@@ -28,7 +28,7 @@ export class PaginationUI {
                 this.indexUI.updateURLParameters(filters);
     
                 // Charger les entités avec les filtres et la page
-                this.tableUI.entityLoader.loadEntities(page, filters);
+                this.indexUI.tableUI.entityLoader.loadEntities(page, filters);
             }
         });
     }
