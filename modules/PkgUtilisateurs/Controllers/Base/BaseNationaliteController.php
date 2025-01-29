@@ -89,16 +89,15 @@ class BaseNationaliteController extends AdminController
     }
     public function edit(string $id) {
 
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('nationalite_id', $id);
+        
         $itemNationalite = $this->nationaliteService->find($id);
         $apprenantService =  new ApprenantService();
         $apprenants_data =  $itemNationalite->apprenants()->paginate(10);
         $apprenants_stats = $apprenantService->getapprenantStats();
         $apprenants_filters = $apprenantService->getFieldsFilterable();
         
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('nationalite_id', $id);
-
 
         if (request()->ajax()) {
             return view('PkgUtilisateurs::nationalite._fields', compact('itemNationalite', 'apprenants_data', 'apprenants_stats', 'apprenants_filters'));

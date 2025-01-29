@@ -4,7 +4,7 @@
 <script>
     window.entitiesConfig = window.entitiesConfig || [];
     window.entitiesConfig.push({
-        edit_has_many:  {{ isset($edit_has_many) && $edit_has_many ? 'true' : 'false' }},
+        edit_has_many: {{ isset($edit_has_many) && $edit_has_many ? 'true' : 'false' }},
         entity_name: 'apprenant',
         filterFormSelector: '#apprenant-crud-filter-form',
         crudSelector: '#apprenant-crud',
@@ -30,8 +30,6 @@
        $titre = __("PkgUtilisateurs::apprenant.singular");
     @endphp
 
-
-
     <x-crud-header 
         id="apprenant-crud-header" icon="fas fa-user-graduate"  
         iconColor="text-info"
@@ -41,8 +39,6 @@
             ['label' => $titre]
         ]"
     />
-
-
 
     @show
     @section('apprenant-crud-table')

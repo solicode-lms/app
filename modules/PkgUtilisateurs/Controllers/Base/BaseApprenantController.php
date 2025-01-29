@@ -103,14 +103,13 @@ class BaseApprenantController extends AdminController
     }
     public function edit(string $id) {
 
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('apprenant_id', $id);
+        
         $itemApprenant = $this->apprenantService->find($id);
         $groupes = $this->groupeService->all();
         $nationalites = $this->nationaliteService->all();
         $niveauxScolaires = $this->niveauxScolaireService->all();
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('apprenant_id', $id);
-
 
         if (request()->ajax()) {
             return view('PkgUtilisateurs::apprenant._fields', compact('itemApprenant', 'groupes', 'nationalites', 'niveauxScolaires'));

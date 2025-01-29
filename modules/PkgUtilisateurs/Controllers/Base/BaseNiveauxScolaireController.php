@@ -89,16 +89,15 @@ class BaseNiveauxScolaireController extends AdminController
     }
     public function edit(string $id) {
 
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('niveaux_scolaire_id', $id);
+        
         $itemNiveauxScolaire = $this->niveauxScolaireService->find($id);
         $apprenantService =  new ApprenantService();
         $apprenants_data =  $itemNiveauxScolaire->apprenants()->paginate(10);
         $apprenants_stats = $apprenantService->getapprenantStats();
         $apprenants_filters = $apprenantService->getFieldsFilterable();
         
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('niveaux_scolaire_id', $id);
-
 
         if (request()->ajax()) {
             return view('PkgUtilisateurs::niveauxScolaire._fields', compact('itemNiveauxScolaire', 'apprenants_data', 'apprenants_stats', 'apprenants_filters'));

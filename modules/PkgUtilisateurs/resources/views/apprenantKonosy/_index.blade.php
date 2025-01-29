@@ -4,7 +4,7 @@
 <script>
     window.entitiesConfig = window.entitiesConfig || [];
     window.entitiesConfig.push({
-        edit_has_many: false,
+        edit_has_many: {{ isset($edit_has_many) && $edit_has_many ? 'true' : 'false' }},
         entity_name: 'apprenantKonosy',
         filterFormSelector: '#apprenantKonosy-crud-filter-form',
         crudSelector: '#apprenantKonosy-crud',
@@ -29,6 +29,7 @@
         $package = __("PkgUtilisateurs::PkgUtilisateurs.name");
        $titre = __("PkgUtilisateurs::apprenantKonosy.singular");
     @endphp
+
     <x-crud-header 
         id="apprenantKonosy-crud-header" icon="fas fa-table"  
         iconColor="text-info"
@@ -38,6 +39,7 @@
             ['label' => $titre]
         ]"
     />
+
     @show
     @section('apprenantKonosy-crud-table')
     <section id="apprenantKonosy-crud-table" class="content crud-table">

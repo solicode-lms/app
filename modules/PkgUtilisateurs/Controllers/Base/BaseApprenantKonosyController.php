@@ -88,11 +88,10 @@ class BaseApprenantKonosyController extends AdminController
     }
     public function edit(string $id) {
 
-        $itemApprenantKonosy = $this->apprenantKonosyService->find($id);
-
         // Utilisé dans l'édition des relation HasMany
         $this->contextState->set('apprenant_konosy_id', $id);
-
+        
+        $itemApprenantKonosy = $this->apprenantKonosyService->find($id);
 
         if (request()->ajax()) {
             return view('PkgUtilisateurs::apprenantKonosy._fields', compact('itemApprenantKonosy'));

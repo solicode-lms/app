@@ -111,6 +111,9 @@ class BaseFormateurController extends AdminController
     }
     public function edit(string $id) {
 
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('formateur_id', $id);
+        
         $itemFormateur = $this->formateurService->find($id);
         $groupes = $this->groupeService->all();
         $specialites = $this->specialiteService->all();
@@ -125,10 +128,6 @@ class BaseFormateurController extends AdminController
         $projets_stats = $projetService->getprojetStats();
         $projets_filters = $projetService->getFieldsFilterable();
         
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('formateur_id', $id);
-
 
         if (request()->ajax()) {
             return view('PkgUtilisateurs::formateur._fields', compact('itemFormateur', 'groupes', 'specialites', 'users', 'appreciations_data', 'projets_data', 'appreciations_stats', 'projets_stats', 'appreciations_filters', 'projets_filters'));

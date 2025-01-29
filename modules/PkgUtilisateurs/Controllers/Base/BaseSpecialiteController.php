@@ -96,12 +96,11 @@ class BaseSpecialiteController extends AdminController
     }
     public function edit(string $id) {
 
-        $itemSpecialite = $this->specialiteService->find($id);
-        $formateurs = $this->formateurService->all();
-
         // Utilisé dans l'édition des relation HasMany
         $this->contextState->set('specialite_id', $id);
-
+        
+        $itemSpecialite = $this->specialiteService->find($id);
+        $formateurs = $this->formateurService->all();
 
         if (request()->ajax()) {
             return view('PkgUtilisateurs::specialite._fields', compact('itemSpecialite', 'formateurs'));

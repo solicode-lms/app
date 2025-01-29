@@ -114,9 +114,6 @@ class BaseGroupeController extends AdminController
         $apprenants_filters = $apprenantService->getFieldsFilterable();
         
 
-        
-
-
         if (request()->ajax()) {
             return view('PkgUtilisateurs::groupe._fields', compact('itemGroupe', 'formateurs', 'filieres', 'apprenants_data', 'apprenants_stats', 'apprenants_filters'));
         }

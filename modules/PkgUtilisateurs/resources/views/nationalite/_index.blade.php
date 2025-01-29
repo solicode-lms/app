@@ -4,7 +4,7 @@
 <script>
     window.entitiesConfig = window.entitiesConfig || [];
     window.entitiesConfig.push({
-        edit_has_many: true,
+        edit_has_many: {{ isset($edit_has_many) && $edit_has_many ? 'true' : 'false' }},
         entity_name: 'nationalite',
         filterFormSelector: '#nationalite-crud-filter-form',
         crudSelector: '#nationalite-crud',
@@ -29,6 +29,7 @@
         $package = __("PkgUtilisateurs::PkgUtilisateurs.name");
        $titre = __("PkgUtilisateurs::nationalite.singular");
     @endphp
+
     <x-crud-header 
         id="nationalite-crud-header" icon="fas fa-table"  
         iconColor="text-info"
@@ -38,6 +39,7 @@
             ['label' => $titre]
         ]"
     />
+
     @show
     @section('nationalite-crud-table')
     <section id="nationalite-crud-table" class="content crud-table">

@@ -4,7 +4,7 @@
 <script>
     window.entitiesConfig = window.entitiesConfig || [];
     window.entitiesConfig.push({
-        edit_has_many: false,
+        edit_has_many: {{ isset($edit_has_many) && $edit_has_many ? 'true' : 'false' }},
         entity_name: 'ville',
         filterFormSelector: '#ville-crud-filter-form',
         crudSelector: '#ville-crud',
@@ -29,6 +29,7 @@
         $package = __("PkgUtilisateurs::PkgUtilisateurs.name");
        $titre = __("PkgUtilisateurs::ville.singular");
     @endphp
+
     <x-crud-header 
         id="ville-crud-header" icon="fas fa-city"  
         iconColor="text-info"
@@ -38,6 +39,7 @@
             ['label' => $titre]
         ]"
     />
+
     @show
     @section('ville-crud-table')
     <section id="ville-crud-table" class="content crud-table">
