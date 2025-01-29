@@ -4,7 +4,7 @@
 <script>
     window.entitiesConfig = window.entitiesConfig || [];
     window.entitiesConfig.push({
-        edit_has_many: true,
+        edit_has_many: {{ isset($edit_has_many) && $edit_has_many ? 'true' : 'false' }},
         entity_name: 'eDataField',
         filterFormSelector: '#eDataField-crud-filter-form',
         crudSelector: '#eDataField-crud',
@@ -29,6 +29,7 @@
         $package = __("PkgGapp::PkgGapp.name");
        $titre = __("PkgGapp::eDataField.singular");
     @endphp
+
     <x-crud-header 
         id="eDataField-crud-header" icon="fas fa-table"  
         iconColor="text-info"
@@ -38,6 +39,7 @@
             ['label' => $titre]
         ]"
     />
+
     @show
     @section('eDataField-crud-table')
     <section id="eDataField-crud-table" class="content crud-table">

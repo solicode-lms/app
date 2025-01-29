@@ -12,7 +12,7 @@
         </thead>
         <tbody>
             @foreach ($eMetadata_data as $eMetadatum)
-                <tr>
+                <tr id="eMetadatum-row-{{$eMetadatum->id}}">
                     <td>@limit($eMetadatum->eModel->name ?? '-', 80)</td>
                     <td>@limit($eMetadatum->eDataField->name ?? '-', 80)</td>
                     <td>@limit($eMetadatum->eMetadataDefinition->name ?? '-', 80)</td>

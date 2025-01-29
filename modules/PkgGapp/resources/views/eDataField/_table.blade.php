@@ -13,7 +13,7 @@
         </thead>
         <tbody>
             @foreach ($eDataFields_data as $eDataField)
-                <tr>
+                <tr id="eDataField-row-{{$eDataField->id}}">
                     <td>@limit($eDataField->name, 80)</td>
                     <td>@limit($eDataField->data_type, 80)</td>
                     <td>@limit($eDataField->eModel->name ?? '-', 80)</td>

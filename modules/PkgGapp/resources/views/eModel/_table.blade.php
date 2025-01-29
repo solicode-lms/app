@@ -12,7 +12,7 @@
         </thead>
         <tbody>
             @foreach ($eModels_data as $eModel)
-                <tr>
+                <tr id="eModel-row-{{$eModel->id}}">
                     <td>@limit($eModel->name, 80)</td>
                     <td>@limit($eModel->icon, 80)</td>
                     <td>@limit($eModel->ePackage->name ?? '-', 80)</td>

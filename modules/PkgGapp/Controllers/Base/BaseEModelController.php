@@ -96,6 +96,9 @@ class BaseEModelController extends AdminController
     }
     public function edit(string $id) {
 
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('e_model_id', $id);
+        
         $itemEModel = $this->eModelService->find($id);
         $ePackages = $this->ePackageService->all();
         $eDataFieldService =  new EDataFieldService();
@@ -118,10 +121,6 @@ class BaseEModelController extends AdminController
         $eRelationships_stats = $eRelationshipService->geteRelationshipStats();
         $eRelationships_filters = $eRelationshipService->getFieldsFilterable();
         
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('e_model_id', $id);
-
 
         if (request()->ajax()) {
             return view('PkgGapp::eModel._fields', compact('itemEModel', 'ePackages', 'eDataFields_data', 'eMetadata_data', 'eRelationships_data', 'eRelationships_data', 'eDataFields_stats', 'eMetadata_stats', 'eRelationships_stats', 'eRelationships_stats', 'eDataFields_filters', 'eMetadata_filters', 'eRelationships_filters', 'eRelationships_filters'));

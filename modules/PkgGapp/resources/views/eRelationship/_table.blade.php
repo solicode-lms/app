@@ -12,7 +12,7 @@
         </thead>
         <tbody>
             @foreach ($eRelationships_data as $eRelationship)
-                <tr>
+                <tr id="eRelationship-row-{{$eRelationship->id}}">
                     <td>@limit($eRelationship->name, 80)</td>
                     <td>@limit($eRelationship->eModel->name ?? '-', 80)</td>
                     <td>@limit($eRelationship->eModel->name ?? '-', 80)</td>

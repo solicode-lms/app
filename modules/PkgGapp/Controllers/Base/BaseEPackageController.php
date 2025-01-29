@@ -89,16 +89,15 @@ class BaseEPackageController extends AdminController
     }
     public function edit(string $id) {
 
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('e_package_id', $id);
+        
         $itemEPackage = $this->ePackageService->find($id);
         $eModelService =  new EModelService();
         $eModels_data =  $itemEPackage->eModels()->paginate(10);
         $eModels_stats = $eModelService->geteModelStats();
         $eModels_filters = $eModelService->getFieldsFilterable();
         
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('e_package_id', $id);
-
 
         if (request()->ajax()) {
             return view('PkgGapp::ePackage._fields', compact('itemEPackage', 'eModels_data', 'eModels_stats', 'eModels_filters'));

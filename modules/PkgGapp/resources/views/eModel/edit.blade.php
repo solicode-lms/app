@@ -75,16 +75,16 @@
                             </div>
 
                             <div class="tab-pane fade" id="eModel-hasmany-tabs-eDataField" role="tabpanel" aria-labelledby="eModel-hasmany-tabs-eDataField-tab">
-                                @include('PkgGapp::eDataField._index')
+                                @include('PkgGapp::eDataField._index',['edit_has_many' => true]))
                             </div>
                             <div class="tab-pane fade" id="eModel-hasmany-tabs-eMetadatum" role="tabpanel" aria-labelledby="eModel-hasmany-tabs-eMetadatum-tab">
-                                @include('PkgGapp::eMetadatum._index')
+                                @include('PkgGapp::eMetadatum._index',['edit_has_many' => true]))
                             </div>
                             <div class="tab-pane fade" id="eModel-hasmany-tabs-eRelationship" role="tabpanel" aria-labelledby="eModel-hasmany-tabs-eRelationship-tab">
-                                @include('PkgGapp::eRelationship._index')
+                                @include('PkgGapp::eRelationship._index',['edit_has_many' => true]))
                             </div>
                             <div class="tab-pane fade" id="eModel-hasmany-tabs-eRelationship" role="tabpanel" aria-labelledby="eModel-hasmany-tabs-eRelationship-tab">
-                                @include('PkgGapp::eRelationship._index')
+                                @include('PkgGapp::eRelationship._index',['edit_has_many' => true]))
                             </div>
 
                            

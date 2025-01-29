@@ -10,7 +10,7 @@
         </thead>
         <tbody>
             @foreach ($ePackages_data as $ePackage)
-                <tr>
+                <tr id="ePackage-row-{{$ePackage->id}}">
                     <td>@limit($ePackage->name, 80)</td>
                     <td class="text-right">
                         @can('show-ePackage')

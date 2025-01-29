@@ -4,7 +4,7 @@
 <script>
     window.entitiesConfig = window.entitiesConfig || [];
     window.entitiesConfig.push({
-        edit_has_many: false,
+        edit_has_many: {{ isset($edit_has_many) && $edit_has_many ? 'true' : 'false' }},
         entity_name: 'eMetadatum',
         filterFormSelector: '#eMetadatum-crud-filter-form',
         crudSelector: '#eMetadatum-crud',
@@ -29,6 +29,7 @@
         $package = __("PkgGapp::PkgGapp.name");
        $titre = __("PkgGapp::eMetadatum.singular");
     @endphp
+
     <x-crud-header 
         id="eMetadatum-crud-header" icon="fas fa-table"  
         iconColor="text-info"
@@ -38,6 +39,7 @@
             ['label' => $titre]
         ]"
     />
+
     @show
     @section('eMetadatum-crud-table')
     <section id="eMetadatum-crud-table" class="content crud-table">

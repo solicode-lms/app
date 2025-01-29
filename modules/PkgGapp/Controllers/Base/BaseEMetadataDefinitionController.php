@@ -89,16 +89,15 @@ class BaseEMetadataDefinitionController extends AdminController
     }
     public function edit(string $id) {
 
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('e_metadata_definition_id', $id);
+        
         $itemEMetadataDefinition = $this->eMetadataDefinitionService->find($id);
         $eMetadatumService =  new EMetadatumService();
         $eMetadata_data =  $itemEMetadataDefinition->eMetadata()->paginate(10);
         $eMetadata_stats = $eMetadatumService->geteMetadatumStats();
         $eMetadata_filters = $eMetadatumService->getFieldsFilterable();
         
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('e_metadata_definition_id', $id);
-
 
         if (request()->ajax()) {
             return view('PkgGapp::eMetadataDefinition._fields', compact('itemEMetadataDefinition', 'eMetadata_data', 'eMetadata_stats', 'eMetadata_filters'));
