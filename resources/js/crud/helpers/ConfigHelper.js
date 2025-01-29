@@ -12,6 +12,7 @@ export class ConfigHelper {
         
         this.page = config.page || "index";
         
+        this.entity_name = config.entity_name;
         this.edit_has_many = config.edit_has_many; // permet d'éditer l'entity avec ses objet has many
         this.crudSelector = config.crudSelector;
         this.tableSelector = config.tableSelector;

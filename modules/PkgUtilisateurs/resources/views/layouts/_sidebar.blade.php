@@ -1,7 +1,7 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 
-@accessiblePermissions(['show-apprenantKonosy', 'show-apprenant', 'show-formateur', 'show-groupe', 'show-nationalite', 'show-niveauxScolaire', 'show-specialite', 'show-ville'])
+@accessiblePermissions(['show-apprenantKonosy', 'show-niveauxScolaire', 'show-ville', 'show-nationalite', 'show-groupe', 'show-apprenant', 'show-specialite', 'show-formateur'])
 @if($accessiblePermissions->isNotEmpty())
 <li class="nav-item has-treeview {{ Request::is('admin/PkgUtilisateurs*') ? 'menu-open' : '' }}">
     <a href="#" class="nav-link nav-link {{ Request::is('admin/PkgUtilisateurs*') ? 'active' : '' }}">
@@ -20,27 +20,19 @@
             </a>
         </li>
         @endcan
-        @can('show-apprenant') 
+        @can('show-niveauxScolaire') 
         <li class="nav-item">
-            <a href="{{ route('apprenants.index') }}" class="nav-link {{ Request::is('admin/PkgUtilisateurs/apprenants') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-user-graduate"></i>
-                {{__('PkgUtilisateurs::Apprenant.plural')}}
+            <a href="{{ route('niveauxScolaires.index') }}" class="nav-link {{ Request::is('admin/PkgUtilisateurs/niveauxScolaires') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-graduation-cap"></i>
+                {{__('PkgUtilisateurs::NiveauxScolaire.plural')}}
             </a>
         </li>
         @endcan
-        @can('show-formateur') 
+        @can('show-ville') 
         <li class="nav-item">
-            <a href="{{ route('formateurs.index') }}" class="nav-link {{ Request::is('admin/PkgUtilisateurs/formateurs') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-chalkboard-teacher"></i>
-                {{__('PkgUtilisateurs::Formateur.plural')}}
-            </a>
-        </li>
-        @endcan
-        @can('show-groupe') 
-        <li class="nav-item">
-            <a href="{{ route('groupes.index') }}" class="nav-link {{ Request::is('admin/PkgUtilisateurs/groupes') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-cubes"></i>
-                {{__('PkgUtilisateurs::Groupe.plural')}}
+            <a href="{{ route('villes.index') }}" class="nav-link {{ Request::is('admin/PkgUtilisateurs/villes') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-city"></i>
+                {{__('PkgUtilisateurs::Ville.plural')}}
             </a>
         </li>
         @endcan
@@ -52,11 +44,19 @@
             </a>
         </li>
         @endcan
-        @can('show-niveauxScolaire') 
+        @can('show-groupe') 
         <li class="nav-item">
-            <a href="{{ route('niveauxScolaires.index') }}" class="nav-link {{ Request::is('admin/PkgUtilisateurs/niveauxScolaires') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-graduation-cap"></i>
-                {{__('PkgUtilisateurs::NiveauxScolaire.plural')}}
+            <a href="{{ route('groupes.index') }}" class="nav-link {{ Request::is('admin/PkgUtilisateurs/groupes') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-cubes"></i>
+                {{__('PkgUtilisateurs::Groupe.plural')}}
+            </a>
+        </li>
+        @endcan
+        @can('show-apprenant') 
+        <li class="nav-item">
+            <a href="{{ route('apprenants.index') }}" class="nav-link {{ Request::is('admin/PkgUtilisateurs/apprenants') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-user-graduate"></i>
+                {{__('PkgUtilisateurs::Apprenant.plural')}}
             </a>
         </li>
         @endcan
@@ -68,11 +68,11 @@
             </a>
         </li>
         @endcan
-        @can('show-ville') 
+        @can('show-formateur') 
         <li class="nav-item">
-            <a href="{{ route('villes.index') }}" class="nav-link {{ Request::is('admin/PkgUtilisateurs/villes') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-city"></i>
-                {{__('PkgUtilisateurs::Ville.plural')}}
+            <a href="{{ route('formateurs.index') }}" class="nav-link {{ Request::is('admin/PkgUtilisateurs/formateurs') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-chalkboard-teacher"></i>
+                {{__('PkgUtilisateurs::Formateur.plural')}}
             </a>
         </li>
         @endcan

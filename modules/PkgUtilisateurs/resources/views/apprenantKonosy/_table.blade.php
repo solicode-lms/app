@@ -10,7 +10,7 @@
         </thead>
         <tbody>
             @foreach ($apprenantKonosies_data as $apprenantKonosy)
-                <tr>
+                <tr id="apprenantKonosy-row-{{$apprenantKonosy->id}}">
                     <td>@limit($apprenantKonosy->Nom, 80)</td>
                     <td class="text-right">
                         @can('show-apprenantKonosy')

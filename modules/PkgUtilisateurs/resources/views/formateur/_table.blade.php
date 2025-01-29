@@ -11,7 +11,7 @@
         </thead>
         <tbody>
             @foreach ($formateurs_data as $formateur)
-                <tr>
+                <tr id="formateur-row-{{$formateur->id}}">
                     <td>@limit($formateur->nom, 80)</td>
                     <td>@limit($formateur->user->name ?? '-', 80)</td>
                     <td class="text-right">

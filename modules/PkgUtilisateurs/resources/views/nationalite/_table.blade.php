@@ -10,7 +10,7 @@
         </thead>
         <tbody>
             @foreach ($nationalites_data as $nationalite)
-                <tr>
+                <tr id="nationalite-row-{{$nationalite->id}}">
                     <td>@limit($nationalite->code, 80)</td>
                     <td class="text-right">
                         @can('show-nationalite')

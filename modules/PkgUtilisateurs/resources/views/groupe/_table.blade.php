@@ -13,7 +13,7 @@
         </thead>
         <tbody>
             @foreach ($groupes_data as $groupe)
-                <tr>
+                <tr id="groupe-row-{{$groupe->id}}">
                     <td>@limit($groupe->code, 80)</td>
                     <td>@limit($groupe->filiere->code ?? '-', 80)</td>
                     <td>

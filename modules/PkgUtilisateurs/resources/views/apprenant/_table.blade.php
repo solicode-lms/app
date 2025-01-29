@@ -12,7 +12,7 @@
         </thead>
         <tbody>
             @foreach ($apprenants_data as $apprenant)
-                <tr>
+                <tr id="apprenant-row-{{$apprenant->id}}">
                     <td>@limit($apprenant->nom, 80)</td>
                     <td>@limit($apprenant->prenom, 80)</td>
                     <td>@limit($apprenant->groupe->code ?? '-', 80)</td>

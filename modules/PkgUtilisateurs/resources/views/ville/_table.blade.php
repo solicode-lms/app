@@ -10,7 +10,7 @@
         </thead>
         <tbody>
             @foreach ($villes_data as $ville)
-                <tr>
+                <tr id="ville-row-{{$ville->id}}">
                     <td>@limit($ville->nom, 80)</td>
                     <td class="text-right">
                         @can('show-ville')

@@ -10,7 +10,7 @@
         </thead>
         <tbody>
             @foreach ($specialites_data as $specialite)
-                <tr>
+                <tr id="specialite-row-{{$specialite->id}}">
                     <td>@limit($specialite->nom, 80)</td>
                     <td class="text-right">
                         @can('show-specialite')
