@@ -23,13 +23,12 @@ export class TableUI {
 
     init(){
 
-        // Init Actions 
-        if(this.config.edit_has_many){
-                 
-        }else{
+
+        if(this.config.page == "index"){
             this.entityEditor.init();
-            this.entityCreator.init();
+            this.entityCreator.init(); 
         }
+      
         this.entityDeleter.init();
         this.entityViewer.init();
 

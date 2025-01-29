@@ -41,9 +41,14 @@ export class CrudManager {
     }
 
     adapterUiPour_Edit_has_many(){
-        const crud_header = document.querySelector(`${this.config.entity_name}-crud-header`);
+        const crud_header = document.querySelector(`#${this.config.entity_name}-crud-header`);
         if (crud_header) {
             crud_header.style.display = 'none'; // Masquer le filtre
+        }
+
+        const crud_table_card = document.querySelector(`#${this.config.entity_name}-crud-table #card_crud`);
+        if (crud_table_card) {
+            crud_table_card.classList.remove("card-info");
         }
     }
     /**

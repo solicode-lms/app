@@ -4,7 +4,7 @@
 <script>
     window.entitiesConfig = window.entitiesConfig || [];
     window.entitiesConfig.push({
-        edit_has_many: false,
+        edit_has_many:  {{ isset($edit_has_many) && $edit_has_many ? 'true' : 'false' }},
         entity_name: 'apprenant',
         filterFormSelector: '#apprenant-crud-filter-form',
         crudSelector: '#apprenant-crud',
@@ -32,17 +32,16 @@
 
 
 
-    @if(!isset($crud_header) || $crud_header)
-        <x-crud-header 
-            id="apprenant-crud-header" icon="fas fa-user-graduate"  
-            iconColor="text-info"
-            title="{{ __('PkgUtilisateurs::apprenant.plural') }}"
-            :breadcrumbs="[
-                ['label' => $package, 'url' => '#'],
-                ['label' => $titre]
-            ]"
-        />
-    @endif
+    <x-crud-header 
+        id="apprenant-crud-header" icon="fas fa-user-graduate"  
+        iconColor="text-info"
+        title="{{ __('PkgUtilisateurs::apprenant.plural') }}"
+        :breadcrumbs="[
+            ['label' => $package, 'url' => '#'],
+            ['label' => $titre]
+        ]"
+    />
+
 
 
     @show
