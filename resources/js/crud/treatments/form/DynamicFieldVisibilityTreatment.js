@@ -41,7 +41,7 @@ export default class DynamicFieldVisibilityTreatment {
 
 
             // Initialiser les champs avec la valeur actuelle du dropdown (si elle existe)
-            const initialValue = dropdownElement.value;
+            const initialValue =  $(`#${targetDropdownId}`).select2("val");
             if (initialValue) {
                 this.handleVisibility(dataDefinitions, fieldMappings, typeField, initialValue);
             }
