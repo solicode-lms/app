@@ -5,7 +5,6 @@
 namespace Modules\PkgCompetences\Controllers\Base;
 use Modules\PkgCompetences\Services\AppreciationService;
 use Modules\PkgUtilisateurs\Services\FormateurService;
-use Modules\PkgCreationProjet\Services\TransfertCompetenceService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\PkgCompetences\App\Requests\AppreciationRequest;
@@ -72,7 +71,7 @@ class BaseAppreciationController extends AdminController
             ]);
         }
 
-        return redirect()->route('appreciations.edit',['appreciation' => $appreciation->id])->with(
+        return redirect()->route('appreciations.index')->with(
             'success',
             __('Core::msg.addSuccess', [
                 'entityToString' => $appreciation,
@@ -99,17 +98,12 @@ class BaseAppreciationController extends AdminController
         
         $itemAppreciation = $this->appreciationService->find($id);
         $formateurs = $this->formateurService->all();
-        $transfertCompetenceService =  new TransfertCompetenceService();
-        $transfertCompetences_data =  $itemAppreciation->transfertCompetences()->paginate(10);
-        $transfertCompetences_stats = $transfertCompetenceService->gettransfertCompetenceStats();
-        $transfertCompetences_filters = $transfertCompetenceService->getFieldsFilterable();
-        
 
         if (request()->ajax()) {
-            return view('PkgCompetences::appreciation._fields', compact('itemAppreciation', 'formateurs', 'transfertCompetences_data', 'transfertCompetences_stats', 'transfertCompetences_filters'));
+            return view('PkgCompetences::appreciation._fields', compact('itemAppreciation', 'formateurs'));
         }
 
-        return view('PkgCompetences::appreciation.edit', compact('itemAppreciation', 'formateurs', 'transfertCompetences_data', 'transfertCompetences_stats', 'transfertCompetences_filters'));
+        return view('PkgCompetences::appreciation.edit', compact('itemAppreciation', 'formateurs'));
 
     }
     public function update(AppreciationRequest $request, string $id) {

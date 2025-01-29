@@ -71,6 +71,12 @@ class BaseCompetenceService extends BaseService
         $stats = $this->initStats();
 
         
+            $relationStatFiliere = parent::getStatsByRelation(
+                \Modules\PkgCompetences\Models\Filiere::class,
+                'modules.competences',
+                'code'
+            );
+            $stats = array_merge($stats, $relationStatFiliere);
 
         return $stats;
     }

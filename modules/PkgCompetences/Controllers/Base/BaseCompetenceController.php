@@ -7,7 +7,6 @@ use Modules\PkgCompetences\Services\CompetenceService;
 use Modules\PkgCompetences\Services\TechnologyService;
 use Modules\PkgCompetences\Services\ModuleService;
 use Modules\PkgCompetences\Services\NiveauCompetenceService;
-use Modules\PkgCreationProjet\Services\TransfertCompetenceService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\PkgCompetences\App\Requests\CompetenceRequest;
@@ -114,17 +113,12 @@ class BaseCompetenceController extends AdminController
         $niveauCompetences_stats = $niveauCompetenceService->getniveauCompetenceStats();
         $niveauCompetences_filters = $niveauCompetenceService->getFieldsFilterable();
         
-        $transfertCompetenceService =  new TransfertCompetenceService();
-        $transfertCompetences_data =  $itemCompetence->transfertCompetences()->paginate(10);
-        $transfertCompetences_stats = $transfertCompetenceService->gettransfertCompetenceStats();
-        $transfertCompetences_filters = $transfertCompetenceService->getFieldsFilterable();
-        
 
         if (request()->ajax()) {
-            return view('PkgCompetences::competence._fields', compact('itemCompetence', 'technologies', 'modules', 'niveauCompetences_data', 'transfertCompetences_data', 'niveauCompetences_stats', 'transfertCompetences_stats', 'niveauCompetences_filters', 'transfertCompetences_filters'));
+            return view('PkgCompetences::competence._fields', compact('itemCompetence', 'technologies', 'modules', 'niveauCompetences_data', 'niveauCompetences_stats', 'niveauCompetences_filters'));
         }
 
-        return view('PkgCompetences::competence.edit', compact('itemCompetence', 'technologies', 'modules', 'niveauCompetences_data', 'transfertCompetences_data', 'niveauCompetences_stats', 'transfertCompetences_stats', 'niveauCompetences_filters', 'transfertCompetences_filters'));
+        return view('PkgCompetences::competence.edit', compact('itemCompetence', 'technologies', 'modules', 'niveauCompetences_data', 'niveauCompetences_stats', 'niveauCompetences_filters'));
 
     }
     public function update(CompetenceRequest $request, string $id) {

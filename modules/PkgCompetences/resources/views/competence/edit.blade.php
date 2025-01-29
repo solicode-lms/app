@@ -51,9 +51,6 @@
                         <li class="nav-item">
                             <a class="nav-link" id="competence-hasmany-tabs-niveauCompetence-tab" data-toggle="pill" href="#competence-hasmany-tabs-niveauCompetence" role="tab" aria-controls="competence-hasmany-tabs-niveauCompetence" aria-selected="false">{{__('PkgCompetences::niveauCompetence.plural')}}</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="competence-hasmany-tabs-transfertCompetence-tab" data-toggle="pill" href="#competence-hasmany-tabs-transfertCompetence" role="tab" aria-controls="competence-hasmany-tabs-transfertCompetence" aria-selected="false">{{__('PkgCreationProjet::transfertCompetence.plural')}}</a>
-                        </li>
 
                        
                         </ul>
@@ -70,9 +67,6 @@
 
                             <div class="tab-pane fade" id="competence-hasmany-tabs-niveauCompetence" role="tabpanel" aria-labelledby="competence-hasmany-tabs-niveauCompetence-tab">
                                 @include('PkgCompetences::niveauCompetence._index',['isMany' => true])
-                            </div>
-                            <div class="tab-pane fade" id="competence-hasmany-tabs-transfertCompetence" role="tabpanel" aria-labelledby="competence-hasmany-tabs-transfertCompetence-tab">
-                                @include('PkgCreationProjet::transfertCompetence._index',['isMany' => true])
                             </div>
 
                            

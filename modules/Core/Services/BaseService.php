@@ -360,6 +360,8 @@ public function getTotalCompetences(): array
 
 public function getStatsByRelation($relationModel,$nestedRelation, $attribute ): array
 {
+    $stats = [];
+    
     // Récupérer toutes les filières
     $relationEntities = $relationModel::all();
 

@@ -5,6 +5,7 @@
         <thead>
             <tr>
                 <x-sortable-column field="nom" label="{{ ucfirst(__('PkgCompetences::appreciation.nom')) }}" />
+                <x-sortable-column field="description" label="{{ ucfirst(__('PkgCompetences::appreciation.description')) }}" />
                 <x-sortable-column field="formateur_id" label="{{ ucfirst(__('PkgUtilisateurs::formateur.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
@@ -13,6 +14,7 @@
             @foreach ($appreciations_data as $appreciation)
                 <tr id="appreciation-row-{{$appreciation->id}}">
                     <td>@limit($appreciation->nom, 80)</td>
+                    <td>{!! $appreciation->description !!}</td>
                     <td>@limit($appreciation->formateur->nom ?? '-', 80)</td>
                     <td class="text-right">
                         @can('show-appreciation')
