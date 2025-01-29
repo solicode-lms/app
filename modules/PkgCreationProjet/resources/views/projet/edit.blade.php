@@ -72,13 +72,13 @@
                             </div>
 
                             <div class="tab-pane fade" id="projet-hasmany-tabs-livrable" role="tabpanel" aria-labelledby="projet-hasmany-tabs-livrable-tab">
-                                @include('PkgCreationProjet::livrable._index')
+                                @include('PkgCreationProjet::livrable._index',['isMany' => true])
                             </div>
                             <div class="tab-pane fade" id="projet-hasmany-tabs-resource" role="tabpanel" aria-labelledby="projet-hasmany-tabs-resource-tab">
-                                @include('PkgCreationProjet::resource._index')
+                                @include('PkgCreationProjet::resource._index',['isMany' => true])
                             </div>
                             <div class="tab-pane fade" id="projet-hasmany-tabs-transfertCompetence" role="tabpanel" aria-labelledby="projet-hasmany-tabs-transfertCompetence-tab">
-                                @include('PkgCreationProjet::transfertCompetence._index')
+                                @include('PkgCreationProjet::transfertCompetence._index',['isMany' => true])
                             </div>
 
                            

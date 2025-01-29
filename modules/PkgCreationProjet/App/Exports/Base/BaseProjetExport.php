@@ -32,6 +32,7 @@ class BaseProjetExport implements FromCollection, WithHeadings, ShouldAutoSize, 
             'date_debut',
             'date_fin',
             'formateur_id',
+            'reference',
         ];
     }
 
@@ -46,6 +47,7 @@ class BaseProjetExport implements FromCollection, WithHeadings, ShouldAutoSize, 
                 'date_debut' => $projet->date_debut,
                 'date_fin' => $projet->date_fin,
                 'formateur_id' => $projet->formateur_id,
+                'reference' => $projet->reference,
             ];
         });
     }

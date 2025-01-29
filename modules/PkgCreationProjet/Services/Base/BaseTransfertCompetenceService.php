@@ -44,6 +44,9 @@ class BaseTransfertCompetenceService extends BaseService
 
         // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
+            $this->generateManyToOneFilter(__("PkgCreationProjet::projet.plural"), 'projet_id', \Modules\PkgCreationProjet\Models\Projet::class, 'titre'),
+            $this->generateManyToOneFilter(__("PkgCompetences::competence.plural"), 'competence_id', \Modules\PkgCompetences\Models\Competence::class, 'code'),
+            $this->generateManyToOneFilter(__("PkgCompetences::appreciation.plural"), 'appreciation_id', \Modules\PkgCompetences\Models\Appreciation::class, 'nom'),
         ];
 
     }
@@ -67,7 +70,7 @@ class BaseTransfertCompetenceService extends BaseService
     public function getTransfertCompetenceStats(): array
     {
 
-        $stats = [];
+        $stats = $this->initStats();
 
         
 

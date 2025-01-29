@@ -13,8 +13,8 @@ use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
 use Modules\PkgCompetences\Models\Appreciation;
 use Modules\PkgCompetences\Models\Competence;
-use Modules\PkgCompetences\Models\Technology;
 use Modules\PkgCreationProjet\Models\Projet;
+use Modules\PkgCompetences\Models\Technology;
 
 /**
  * Classe BaseTransfertCompetence
@@ -76,6 +76,8 @@ class BaseTransfertCompetence extends BaseModel
     {
         return $this->belongsToMany(Technology::class, 'technology_transfert_competence');
     }
+
+
 
 
     /**

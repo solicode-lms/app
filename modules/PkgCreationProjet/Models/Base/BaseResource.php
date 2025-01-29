@@ -48,6 +48,8 @@ class BaseResource extends BaseModel
 
 
 
+
+
     /**
      * Méthode __toString pour représenter le modèle sous forme de chaîne.
      *

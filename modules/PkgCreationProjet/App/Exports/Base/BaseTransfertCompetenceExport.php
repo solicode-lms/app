@@ -29,6 +29,7 @@ class BaseTransfertCompetenceExport implements FromCollection, WithHeadings, Sho
             'projet_id',
             'competence_id',
             'appreciation_id',
+            'reference',
         ];
     }
 
@@ -40,6 +41,7 @@ class BaseTransfertCompetenceExport implements FromCollection, WithHeadings, Sho
                 'projet_id' => $transfertCompetence->projet_id,
                 'competence_id' => $transfertCompetence->competence_id,
                 'appreciation_id' => $transfertCompetence->appreciation_id,
+                'reference' => $transfertCompetence->reference,
             ];
         });
     }

@@ -54,12 +54,7 @@ class BaseNatureLivrableService extends BaseService
      */
     public function create(array $data)
     {
-        $natureLivrable = parent::create([
-            'nom' => $data['nom'],
-            'description' => $data['description'],
-        ]);
-
-        return $natureLivrable;
+        return parent::create($data);
     }
 
     /**
@@ -70,7 +65,7 @@ class BaseNatureLivrableService extends BaseService
     public function getNatureLivrableStats(): array
     {
 
-        $stats = [];
+        $stats = $this->initStats();
 
         
 

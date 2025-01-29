@@ -39,7 +39,7 @@ class BaseNatureLivrable extends BaseModel
 
 
     /**
-     * Relation HasMany pour Livrables.
+     * Relation HasMany pour NatureLivrables.
      *
      * @return HasMany
      */
@@ -47,6 +47,8 @@ class BaseNatureLivrable extends BaseModel
     {
         return $this->hasMany(Livrable::class, 'nature_livrable_id', 'id');
     }
+
+
 
     /**
      * Méthode __toString pour représenter le modèle sous forme de chaîne.

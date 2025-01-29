@@ -21,7 +21,7 @@ class BaseProjetImport implements ToModel, WithHeadingRow
      */
     private function recordExists(array $row): bool
     {
-        return Projet::where('id', $row['id'])->exists();
+        return Projet::where('reference', $row['reference'])->exists();
     }
 
     /**
@@ -45,6 +45,7 @@ class BaseProjetImport implements ToModel, WithHeadingRow
             'date_debut' => $row['date_debut'],
             'date_fin' => $row['date_fin'],
             'formateur_id' => $row['formateur_id'],
+            'reference' => $row['reference'],
         ]);
     }
 }

@@ -42,6 +42,7 @@ class BaseResourceImport implements ToModel, WithHeadingRow
             'lien' => $row['lien'],
             'description' => $row['description'],
             'projet_id' => $row['projet_id'],
+            'reference' => $row['reference'],
         ]);
     }
 }

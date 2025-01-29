@@ -3,16 +3,14 @@
 
 
 namespace Modules\PkgCreationProjet\Controllers\Base;
-
-use Modules\Core\Controllers\Base\AdminController;
-use Modules\PkgCreationProjet\App\Requests\TransfertCompetenceRequest;
 use Modules\PkgCreationProjet\Services\TransfertCompetenceService;
 use Modules\PkgCompetences\Services\TechnologyService;
 use Modules\PkgCompetences\Services\AppreciationService;
 use Modules\PkgCompetences\Services\CompetenceService;
 use Modules\PkgCreationProjet\Services\ProjetService;
-
 use Illuminate\Http\Request;
+use Modules\Core\Controllers\Base\AdminController;
+use Modules\PkgCreationProjet\App\Requests\TransfertCompetenceRequest;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgCreationProjet\App\Exports\TransfertCompetenceExport;
 use Modules\PkgCreationProjet\App\Imports\TransfertCompetenceImport;
@@ -26,47 +24,38 @@ class BaseTransfertCompetenceController extends AdminController
     protected $competenceService;
     protected $projetService;
 
-    public function __construct(TransfertCompetenceService $transfertCompetenceService, TechnologyService $technologyService, AppreciationService $appreciationService, CompetenceService $competenceService, ProjetService $projetService)
-    {
+    public function __construct(TransfertCompetenceService $transfertCompetenceService, TechnologyService $technologyService, AppreciationService $appreciationService, CompetenceService $competenceService, ProjetService $projetService) {
         parent::__construct();
         $this->transfertCompetenceService = $transfertCompetenceService;
         $this->technologyService = $technologyService;
         $this->appreciationService = $appreciationService;
         $this->competenceService = $competenceService;
         $this->projetService = $projetService;
-
     }
 
-
-    public function index(Request $request)
-    {
+    public function index(Request $request) {
         // Extraire les paramètres de recherche, page, et filtres
         $transfertCompetences_params = array_merge(
             $request->only(['page','sort']),
             ['search' => $request->get('transfertCompetences_search', '')],
             $request->except(['transfertCompetences_search', 'page', 'sort'])
         );
-    
+
         // Paginer les transfertCompetences
         $transfertCompetences_data = $this->transfertCompetenceService->paginate($transfertCompetences_params);
-    
+
         // Récupérer les statistiques et les champs filtrables
         $transfertCompetences_stats = $this->transfertCompetenceService->gettransfertCompetenceStats();
         $transfertCompetences_filters = $this->transfertCompetenceService->getFieldsFilterable();
-    
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
             return view('PkgCreationProjet::transfertCompetence._table', compact('transfertCompetences_data', 'transfertCompetences_stats', 'transfertCompetences_filters'))->render();
         }
-    
+
         return view('PkgCreationProjet::transfertCompetence.index', compact('transfertCompetences_data', 'transfertCompetences_stats', 'transfertCompetences_filters'));
     }
-
-    /**
-     * Retourne le formulaire de création.
-     */
-    public function create()
-    {
+    public function create() {
         $itemTransfertCompetence = $this->transfertCompetenceService->createInstance();
         $technologies = $this->technologyService->all();
         $appreciations = $this->appreciationService->all();
@@ -79,12 +68,7 @@ class BaseTransfertCompetenceController extends AdminController
         }
         return view('PkgCreationProjet::transfertCompetence.create', compact('itemTransfertCompetence', 'technologies', 'appreciations', 'competences', 'projets'));
     }
-
-    /**
-     * Stocke une nouvelle filière.
-     */
-    public function store(TransfertCompetenceRequest $request)
-    {
+    public function store(TransfertCompetenceRequest $request) {
         $validatedData = $request->validated();
         $transfertCompetence = $this->transfertCompetenceService->create($validatedData);
 
@@ -110,12 +94,7 @@ class BaseTransfertCompetenceController extends AdminController
             ])
         );
     }
-
-    /**
-     * Affiche les détails d'une filière.
-     */
-    public function show(string $id)
-    {
+    public function show(string $id) {
         $itemTransfertCompetence = $this->transfertCompetenceService->find($id);
         $technologies = $this->technologyService->all();
         $appreciations = $this->appreciationService->all();
@@ -128,36 +107,27 @@ class BaseTransfertCompetenceController extends AdminController
         }
 
         return view('PkgCreationProjet::transfertCompetence.show', compact('itemTransfertCompetence'));
+
     }
+    public function edit(string $id) {
 
-    /**
-     * Retourne le formulaire d'édition d'une filière.
-     */
-    public function edit(string $id)
-    {
-
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('transfert_competence_id', $id);
+        
         $itemTransfertCompetence = $this->transfertCompetenceService->find($id);
         $technologies = $this->technologyService->all();
         $appreciations = $this->appreciationService->all();
         $competences = $this->competenceService->all();
         $projets = $this->projetService->all();
 
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('transfertCompetence_id', $id);
-
-
         if (request()->ajax()) {
             return view('PkgCreationProjet::transfertCompetence._fields', compact('itemTransfertCompetence', 'technologies', 'appreciations', 'competences', 'projets'));
         }
 
         return view('PkgCreationProjet::transfertCompetence.edit', compact('itemTransfertCompetence', 'technologies', 'appreciations', 'competences', 'projets'));
-    }
 
-    /**
-     * Met à jour une filière existante.
-     */
-    public function update(TransfertCompetenceRequest $request, string $id)
-    {
+    }
+    public function update(TransfertCompetenceRequest $request, string $id) {
 
         $validatedData = $request->validated();
         $transfertCompetence = $this->transfertCompetenceService->update($id, $validatedData);
@@ -179,13 +149,9 @@ class BaseTransfertCompetenceController extends AdminController
                 'modelName' =>  __('PkgCreationProjet::transfertCompetence.singular')
                 ])
         );
-    }
 
-    /**
-     * Supprime une filière.
-     */
-    public function destroy(Request $request, string $id)
-    {
+    }
+    public function destroy(Request $request, string $id) {
 
         $transfertCompetence = $this->transfertCompetenceService->destroy($id);
 
@@ -204,6 +170,7 @@ class BaseTransfertCompetenceController extends AdminController
                 'modelName' =>  __('PkgCreationProjet::transfertCompetence.singular')
                 ])
         );
+
     }
 
     public function export()
@@ -239,4 +206,5 @@ class BaseTransfertCompetenceController extends AdminController
         $transfertCompetences = $this->transfertCompetenceService->all();
         return response()->json($transfertCompetences);
     }
+
 }

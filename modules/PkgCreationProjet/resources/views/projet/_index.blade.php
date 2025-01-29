@@ -5,6 +5,7 @@
     window.entitiesConfig = window.entitiesConfig || [];
     window.entitiesConfig.push({
         edit_has_many: true,
+        isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
         entity_name: 'projet',
         filterFormSelector: '#projet-crud-filter-form',
         crudSelector: '#projet-crud',
@@ -70,7 +71,7 @@
                 @section('projet-crud-filters')
                 <div class="card-header">
                     <form id="projet-crud-filter-form" method="GET" class="row">
-                        <x-filter-group count="{{count($modules_filters ?? [])}}">
+                        <x-filter-group count="{{count($projets_filters ?? [])}}">
                             <!-- Filtres spécifiques -->
                             @foreach ($projets_filters as $filter)
                                 <x-filter-field 

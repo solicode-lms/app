@@ -13,7 +13,7 @@
         </thead>
         <tbody>
             @foreach ($projets_data as $projet)
-                <tr>
+                <tr id="projet-row-{{$projet->id}}">
                     <td>@limit($projet->titre, 80)</td>
                     <td>@limit($projet->date_debut, 80)</td>
                     <td>@limit($projet->date_fin, 80)</td>

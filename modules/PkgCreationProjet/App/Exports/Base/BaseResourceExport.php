@@ -29,6 +29,7 @@ class BaseResourceExport implements FromCollection, WithHeadings, ShouldAutoSize
             'lien',
             'description',
             'projet_id',
+            'reference',
         ];
     }
 
@@ -40,6 +41,7 @@ class BaseResourceExport implements FromCollection, WithHeadings, ShouldAutoSize
                 'lien' => $resource->lien,
                 'description' => $resource->description,
                 'projet_id' => $resource->projet_id,
+                'reference' => $resource->reference,
             ];
         });
     }

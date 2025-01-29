@@ -3,14 +3,12 @@
 
 
 namespace Modules\PkgCreationProjet\Controllers\Base;
-
-use Modules\Core\Controllers\Base\AdminController;
-use Modules\PkgCreationProjet\App\Requests\LivrableRequest;
 use Modules\PkgCreationProjet\Services\LivrableService;
 use Modules\PkgCreationProjet\Services\NatureLivrableService;
 use Modules\PkgCreationProjet\Services\ProjetService;
-
 use Illuminate\Http\Request;
+use Modules\Core\Controllers\Base\AdminController;
+use Modules\PkgCreationProjet\App\Requests\LivrableRequest;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgCreationProjet\App\Exports\LivrableExport;
 use Modules\PkgCreationProjet\App\Imports\LivrableImport;
@@ -22,45 +20,36 @@ class BaseLivrableController extends AdminController
     protected $natureLivrableService;
     protected $projetService;
 
-    public function __construct(LivrableService $livrableService, NatureLivrableService $natureLivrableService, ProjetService $projetService)
-    {
+    public function __construct(LivrableService $livrableService, NatureLivrableService $natureLivrableService, ProjetService $projetService) {
         parent::__construct();
         $this->livrableService = $livrableService;
         $this->natureLivrableService = $natureLivrableService;
         $this->projetService = $projetService;
-
     }
 
-
-    public function index(Request $request)
-    {
+    public function index(Request $request) {
         // Extraire les paramètres de recherche, page, et filtres
         $livrables_params = array_merge(
             $request->only(['page','sort']),
             ['search' => $request->get('livrables_search', '')],
             $request->except(['livrables_search', 'page', 'sort'])
         );
-    
+
         // Paginer les livrables
         $livrables_data = $this->livrableService->paginate($livrables_params);
-    
+
         // Récupérer les statistiques et les champs filtrables
         $livrables_stats = $this->livrableService->getlivrableStats();
         $livrables_filters = $this->livrableService->getFieldsFilterable();
-    
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
             return view('PkgCreationProjet::livrable._table', compact('livrables_data', 'livrables_stats', 'livrables_filters'))->render();
         }
-    
+
         return view('PkgCreationProjet::livrable.index', compact('livrables_data', 'livrables_stats', 'livrables_filters'));
     }
-
-    /**
-     * Retourne le formulaire de création.
-     */
-    public function create()
-    {
+    public function create() {
         $itemLivrable = $this->livrableService->createInstance();
         $natureLivrables = $this->natureLivrableService->all();
         $projets = $this->projetService->all();
@@ -71,12 +60,7 @@ class BaseLivrableController extends AdminController
         }
         return view('PkgCreationProjet::livrable.create', compact('itemLivrable', 'natureLivrables', 'projets'));
     }
-
-    /**
-     * Stocke une nouvelle filière.
-     */
-    public function store(LivrableRequest $request)
-    {
+    public function store(LivrableRequest $request) {
         $validatedData = $request->validated();
         $livrable = $this->livrableService->create($validatedData);
 
@@ -99,12 +83,7 @@ class BaseLivrableController extends AdminController
             ])
         );
     }
-
-    /**
-     * Affiche les détails d'une filière.
-     */
-    public function show(string $id)
-    {
+    public function show(string $id) {
         $itemLivrable = $this->livrableService->find($id);
         $natureLivrables = $this->natureLivrableService->all();
         $projets = $this->projetService->all();
@@ -115,34 +94,25 @@ class BaseLivrableController extends AdminController
         }
 
         return view('PkgCreationProjet::livrable.show', compact('itemLivrable'));
+
     }
-
-    /**
-     * Retourne le formulaire d'édition d'une filière.
-     */
-    public function edit(string $id)
-    {
-
-        $itemLivrable = $this->livrableService->find($id);
-        $natureLivrables = $this->natureLivrableService->all();
-        $projets = $this->projetService->all();
+    public function edit(string $id) {
 
         // Utilisé dans l'édition des relation HasMany
         $this->contextState->set('livrable_id', $id);
-
+        
+        $itemLivrable = $this->livrableService->find($id);
+        $natureLivrables = $this->natureLivrableService->all();
+        $projets = $this->projetService->all();
 
         if (request()->ajax()) {
             return view('PkgCreationProjet::livrable._fields', compact('itemLivrable', 'natureLivrables', 'projets'));
         }
 
         return view('PkgCreationProjet::livrable.edit', compact('itemLivrable', 'natureLivrables', 'projets'));
-    }
 
-    /**
-     * Met à jour une filière existante.
-     */
-    public function update(LivrableRequest $request, string $id)
-    {
+    }
+    public function update(LivrableRequest $request, string $id) {
 
         $validatedData = $request->validated();
         $livrable = $this->livrableService->update($id, $validatedData);
@@ -163,13 +133,9 @@ class BaseLivrableController extends AdminController
                 'modelName' =>  __('PkgCreationProjet::livrable.singular')
                 ])
         );
-    }
 
-    /**
-     * Supprime une filière.
-     */
-    public function destroy(Request $request, string $id)
-    {
+    }
+    public function destroy(Request $request, string $id) {
 
         $livrable = $this->livrableService->destroy($id);
 
@@ -188,6 +154,7 @@ class BaseLivrableController extends AdminController
                 'modelName' =>  __('PkgCreationProjet::livrable.singular')
                 ])
         );
+
     }
 
     public function export()
@@ -223,4 +190,5 @@ class BaseLivrableController extends AdminController
         $livrables = $this->livrableService->all();
         return response()->json($livrables);
     }
+
 }

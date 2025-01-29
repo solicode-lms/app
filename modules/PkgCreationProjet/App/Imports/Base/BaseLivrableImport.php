@@ -21,7 +21,7 @@ class BaseLivrableImport implements ToModel, WithHeadingRow
      */
     private function recordExists(array $row): bool
     {
-        return Livrable::where('id', $row['id'])->exists();
+        return Livrable::where('reference', $row['reference'])->exists();
     }
 
     /**
@@ -42,6 +42,7 @@ class BaseLivrableImport implements ToModel, WithHeadingRow
             'nature_livrable_id' => $row['nature_livrable_id'],
             'projet_id' => $row['projet_id'],
             'description' => $row['description'],
+            'reference' => $row['reference'],
         ]);
     }
 }

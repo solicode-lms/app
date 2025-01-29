@@ -27,6 +27,7 @@ class BaseNatureLivrableExport implements FromCollection, WithHeadings, ShouldAu
         return [
             'nom',
             'description',
+            'reference',
         ];
     }
 
@@ -36,6 +37,7 @@ class BaseNatureLivrableExport implements FromCollection, WithHeadings, ShouldAu
             return [
                 'nom' => $natureLivrable->nom,
                 'description' => $natureLivrable->description,
+                'reference' => $natureLivrable->reference,
             ];
         });
     }

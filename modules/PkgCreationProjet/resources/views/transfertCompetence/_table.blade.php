@@ -12,7 +12,7 @@
         </thead>
         <tbody>
             @foreach ($transfertCompetences_data as $transfertCompetence)
-                <tr>
+                <tr id="transfertCompetence-row-{{$transfertCompetence->id}}">
                     <td>@limit($transfertCompetence->projet->titre ?? '-', 80)</td>
                     <td>@limit($transfertCompetence->competence->code ?? '-', 80)</td>
                     <td>@limit($transfertCompetence->appreciation->nom ?? '-', 80)</td>

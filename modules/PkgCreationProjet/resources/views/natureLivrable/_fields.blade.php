@@ -1,6 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-@section('role-form')
+@section('natureLivrable-form')
 <form class="crud-form custom-form context-state" id="natureLivrableForm" action="{{ $itemNatureLivrable->id ? route('natureLivrables.update', $itemNatureLivrable->id) : route('natureLivrables.store') }}" method="POST" novalidate>
     @csrf
 
@@ -51,7 +51,7 @@
 
         
 
-        <!--   Livrable_HasMany HasMany --> 
+        <!--   Livrable HasMany --> 
 
     </div>
 
@@ -62,4 +62,8 @@
 </form>
 @show
 
+
+<script>
+
+</script>
 

@@ -12,7 +12,7 @@
         </thead>
         <tbody>
             @foreach ($resources_data as $resource)
-                <tr>
+                <tr id="resource-row-{{$resource->id}}">
                     <td>@limit($resource->nom, 80)</td>
                     <td>@limit($resource->lien, 80)</td>
                     <td>@limit($resource->projet->titre ?? '-', 80)</td>

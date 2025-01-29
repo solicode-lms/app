@@ -11,10 +11,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
+use Modules\PkgUtilisateurs\Models\Formateur;
 use Modules\PkgCreationProjet\Models\Livrable;
 use Modules\PkgCreationProjet\Models\Resource;
 use Modules\PkgCreationProjet\Models\TransfertCompetence;
-use Modules\PkgUtilisateurs\Models\Formateur;
 
 /**
  * Classe BaseProjet
@@ -51,7 +51,7 @@ class BaseProjet extends BaseModel
 
 
     /**
-     * Relation HasMany pour Livrables.
+     * Relation HasMany pour Projets.
      *
      * @return HasMany
      */
@@ -60,7 +60,7 @@ class BaseProjet extends BaseModel
         return $this->hasMany(Livrable::class, 'projet_id', 'id');
     }
     /**
-     * Relation HasMany pour Resources.
+     * Relation HasMany pour Projets.
      *
      * @return HasMany
      */
@@ -69,7 +69,7 @@ class BaseProjet extends BaseModel
         return $this->hasMany(Resource::class, 'projet_id', 'id');
     }
     /**
-     * Relation HasMany pour TransfertCompetences.
+     * Relation HasMany pour Projets.
      *
      * @return HasMany
      */
@@ -77,6 +77,8 @@ class BaseProjet extends BaseModel
     {
         return $this->hasMany(TransfertCompetence::class, 'projet_id', 'id');
     }
+
+
 
     /**
      * Méthode __toString pour représenter le modèle sous forme de chaîne.

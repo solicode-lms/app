@@ -47,6 +47,7 @@ class BaseProjetService extends BaseService
 
         // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
+            $this->generateManyToOneFilter(__("PkgUtilisateurs::formateur.plural"), 'formateur_id', \Modules\PkgUtilisateurs\Models\Formateur::class, 'nom'),
         ];
 
     }
@@ -70,7 +71,7 @@ class BaseProjetService extends BaseService
     public function getProjetStats(): array
     {
 
-        $stats = [];
+        $stats = $this->initStats();
 
         // Ajouter les statistiques du propriétaire
         $contexteState = $this->getContextState();

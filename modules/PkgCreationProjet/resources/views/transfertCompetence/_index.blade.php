@@ -5,6 +5,7 @@
     window.entitiesConfig = window.entitiesConfig || [];
     window.entitiesConfig.push({
         edit_has_many: false,
+        isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
         entity_name: 'transfertCompetence',
         filterFormSelector: '#transfertCompetence-crud-filter-form',
         crudSelector: '#transfertCompetence-crud',
@@ -70,7 +71,7 @@
                 @section('transfertCompetence-crud-filters')
                 <div class="card-header">
                     <form id="transfertCompetence-crud-filter-form" method="GET" class="row">
-                        <x-filter-group count="{{count($modules_filters ?? [])}}">
+                        <x-filter-group count="{{count($transfertCompetences_filters ?? [])}}">
                             <!-- Filtres spécifiques -->
                             @foreach ($transfertCompetences_filters as $filter)
                                 <x-filter-field 

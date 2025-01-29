@@ -44,6 +44,7 @@ class BaseResourceService extends BaseService
 
         // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
+            $this->generateManyToOneFilter(__("PkgCreationProjet::projet.plural"), 'projet_id', \Modules\PkgCreationProjet\Models\Projet::class, 'titre'),
         ];
 
     }
@@ -56,14 +57,7 @@ class BaseResourceService extends BaseService
      */
     public function create(array $data)
     {
-        $resource = parent::create([
-            'nom' => $data['nom'],
-            'lien' => $data['lien'],
-            'description' => $data['description'],
-            'projet_id' => $data['projet_id'],
-        ]);
-
-        return $resource;
+        return parent::create($data);
     }
 
     /**
@@ -74,7 +68,7 @@ class BaseResourceService extends BaseService
     public function getResourceStats(): array
     {
 
-        $stats = [];
+        $stats = $this->initStats();
 
         
 

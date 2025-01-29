@@ -29,6 +29,7 @@ class BaseLivrableExport implements FromCollection, WithHeadings, ShouldAutoSize
             'nature_livrable_id',
             'projet_id',
             'description',
+            'reference',
         ];
     }
 
@@ -40,6 +41,7 @@ class BaseLivrableExport implements FromCollection, WithHeadings, ShouldAutoSize
                 'nature_livrable_id' => $livrable->nature_livrable_id,
                 'projet_id' => $livrable->projet_id,
                 'description' => $livrable->description,
+                'reference' => $livrable->reference,
             ];
         });
     }

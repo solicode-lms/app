@@ -3,13 +3,11 @@
 
 
 namespace Modules\PkgCreationProjet\Controllers\Base;
-
+use Modules\PkgCreationProjet\Services\NatureLivrableService;
+use Modules\PkgCreationProjet\Services\LivrableService;
+use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\PkgCreationProjet\App\Requests\NatureLivrableRequest;
-use Modules\PkgCreationProjet\Services\NatureLivrableService;
-
-
-use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgCreationProjet\App\Exports\NatureLivrableExport;
 use Modules\PkgCreationProjet\App\Imports\NatureLivrableImport;
@@ -19,43 +17,34 @@ class BaseNatureLivrableController extends AdminController
 {
     protected $natureLivrableService;
 
-    public function __construct(NatureLivrableService $natureLivrableService)
-    {
+    public function __construct(NatureLivrableService $natureLivrableService) {
         parent::__construct();
         $this->natureLivrableService = $natureLivrableService;
-
     }
 
-
-    public function index(Request $request)
-    {
+    public function index(Request $request) {
         // Extraire les paramètres de recherche, page, et filtres
         $natureLivrables_params = array_merge(
             $request->only(['page','sort']),
             ['search' => $request->get('natureLivrables_search', '')],
             $request->except(['natureLivrables_search', 'page', 'sort'])
         );
-    
+
         // Paginer les natureLivrables
         $natureLivrables_data = $this->natureLivrableService->paginate($natureLivrables_params);
-    
+
         // Récupérer les statistiques et les champs filtrables
         $natureLivrables_stats = $this->natureLivrableService->getnatureLivrableStats();
         $natureLivrables_filters = $this->natureLivrableService->getFieldsFilterable();
-    
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
             return view('PkgCreationProjet::natureLivrable._table', compact('natureLivrables_data', 'natureLivrables_stats', 'natureLivrables_filters'))->render();
         }
-    
+
         return view('PkgCreationProjet::natureLivrable.index', compact('natureLivrables_data', 'natureLivrables_stats', 'natureLivrables_filters'));
     }
-
-    /**
-     * Retourne le formulaire de création.
-     */
-    public function create()
-    {
+    public function create() {
         $itemNatureLivrable = $this->natureLivrableService->createInstance();
 
 
@@ -64,12 +53,7 @@ class BaseNatureLivrableController extends AdminController
         }
         return view('PkgCreationProjet::natureLivrable.create', compact('itemNatureLivrable'));
     }
-
-    /**
-     * Stocke une nouvelle filière.
-     */
-    public function store(NatureLivrableRequest $request)
-    {
+    public function store(NatureLivrableRequest $request) {
         $validatedData = $request->validated();
         $natureLivrable = $this->natureLivrableService->create($validatedData);
 
@@ -84,7 +68,7 @@ class BaseNatureLivrableController extends AdminController
             ]);
         }
 
-        return redirect()->route('natureLivrables.index')->with(
+        return redirect()->route('natureLivrables.edit',['natureLivrable' => $natureLivrable->id])->with(
             'success',
             __('Core::msg.addSuccess', [
                 'entityToString' => $natureLivrable,
@@ -92,12 +76,7 @@ class BaseNatureLivrableController extends AdminController
             ])
         );
     }
-
-    /**
-     * Affiche les détails d'une filière.
-     */
-    public function show(string $id)
-    {
+    public function show(string $id) {
         $itemNatureLivrable = $this->natureLivrableService->find($id);
 
 
@@ -106,32 +85,28 @@ class BaseNatureLivrableController extends AdminController
         }
 
         return view('PkgCreationProjet::natureLivrable.show', compact('itemNatureLivrable'));
+
     }
-
-    /**
-     * Retourne le formulaire d'édition d'une filière.
-     */
-    public function edit(string $id)
-    {
-
-        $itemNatureLivrable = $this->natureLivrableService->find($id);
+    public function edit(string $id) {
 
         // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('natureLivrable_id', $id);
-
+        $this->contextState->set('nature_livrable_id', $id);
+        
+        $itemNatureLivrable = $this->natureLivrableService->find($id);
+        $livrableService =  new LivrableService();
+        $livrables_data =  $itemNatureLivrable->livrables()->paginate(10);
+        $livrables_stats = $livrableService->getlivrableStats();
+        $livrables_filters = $livrableService->getFieldsFilterable();
+        
 
         if (request()->ajax()) {
-            return view('PkgCreationProjet::natureLivrable._fields', compact('itemNatureLivrable'));
+            return view('PkgCreationProjet::natureLivrable._fields', compact('itemNatureLivrable', 'livrables_data', 'livrables_stats', 'livrables_filters'));
         }
 
-        return view('PkgCreationProjet::natureLivrable.edit', compact('itemNatureLivrable'));
-    }
+        return view('PkgCreationProjet::natureLivrable.edit', compact('itemNatureLivrable', 'livrables_data', 'livrables_stats', 'livrables_filters'));
 
-    /**
-     * Met à jour une filière existante.
-     */
-    public function update(NatureLivrableRequest $request, string $id)
-    {
+    }
+    public function update(NatureLivrableRequest $request, string $id) {
 
         $validatedData = $request->validated();
         $natureLivrable = $this->natureLivrableService->update($id, $validatedData);
@@ -152,13 +127,9 @@ class BaseNatureLivrableController extends AdminController
                 'modelName' =>  __('PkgCreationProjet::natureLivrable.singular')
                 ])
         );
-    }
 
-    /**
-     * Supprime une filière.
-     */
-    public function destroy(Request $request, string $id)
-    {
+    }
+    public function destroy(Request $request, string $id) {
 
         $natureLivrable = $this->natureLivrableService->destroy($id);
 
@@ -177,6 +148,7 @@ class BaseNatureLivrableController extends AdminController
                 'modelName' =>  __('PkgCreationProjet::natureLivrable.singular')
                 ])
         );
+
     }
 
     public function export()
@@ -212,4 +184,5 @@ class BaseNatureLivrableController extends AdminController
         $natureLivrables = $this->natureLivrableService->all();
         return response()->json($natureLivrables);
     }
+
 }

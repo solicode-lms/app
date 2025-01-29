@@ -12,7 +12,7 @@
         </thead>
         <tbody>
             @foreach ($livrables_data as $livrable)
-                <tr>
+                <tr id="livrable-row-{{$livrable->id}}">
                     <td>@limit($livrable->titre, 80)</td>
                     <td>@limit($livrable->natureLivrable->nom ?? '-', 80)</td>
                     <td>@limit($livrable->projet->titre ?? '-', 80)</td>

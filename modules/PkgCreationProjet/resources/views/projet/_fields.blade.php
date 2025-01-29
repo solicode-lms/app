@@ -1,6 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-@section('role-form')
+@section('projet-form')
 <form class="crud-form custom-form context-state" id="projetForm" action="{{ $itemProjet->id ? route('projets.update', $itemProjet->id) : route('projets.store') }}" method="POST" novalidate>
     @csrf
 
@@ -171,15 +171,15 @@
 
         
 
-        <!--   Livrable_HasMany HasMany --> 
+        <!--   Livrable HasMany --> 
 
         
 
-        <!--   Resource_HasMany HasMany --> 
+        <!--   Resource HasMany --> 
 
         
 
-        <!--   TransfertCompetence_HasMany HasMany --> 
+        <!--   TransfertCompetence HasMany --> 
 
     </div>
 
@@ -190,4 +190,8 @@
 </form>
 @show
 
+
+<script>
+
+</script>
 

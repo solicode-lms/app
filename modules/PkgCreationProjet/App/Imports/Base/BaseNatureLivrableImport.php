@@ -40,6 +40,7 @@ class BaseNatureLivrableImport implements ToModel, WithHeadingRow
         return new NatureLivrable([
             'nom' => $row['nom'],
             'description' => $row['description'],
+            'reference' => $row['reference'],
         ]);
     }
 }
