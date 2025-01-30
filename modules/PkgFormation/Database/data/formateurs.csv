@@ -1,21 +1,5 @@
 matricule,nom,prenom,prenom_arab,nom_arab,tele_num,adresse,diplome,echelle,echelon,profile_image,user_id
-matricule 1,nom 1,prenom 1,prenom_arab 1,nom_arab 1,tele_num 1,adresse 1,diplome 1,echelle 1,echelon 1,profile_image 1,user_id 1
-matricule 2,nom 2,prenom 2,prenom_arab 2,nom_arab 2,tele_num 2,adresse 2,diplome 2,echelle 2,echelon 2,profile_image 2,user_id 2
-matricule 3,nom 3,prenom 3,prenom_arab 3,nom_arab 3,tele_num 3,adresse 3,diplome 3,echelle 3,echelon 3,profile_image 3,user_id 3
-matricule 4,nom 4,prenom 4,prenom_arab 4,nom_arab 4,tele_num 4,adresse 4,diplome 4,echelle 4,echelon 4,profile_image 4,user_id 4
-matricule 5,nom 5,prenom 5,prenom_arab 5,nom_arab 5,tele_num 5,adresse 5,diplome 5,echelle 5,echelon 5,profile_image 5,user_id 5
-matricule 6,nom 6,prenom 6,prenom_arab 6,nom_arab 6,tele_num 6,adresse 6,diplome 6,echelle 6,echelon 6,profile_image 6,user_id 6
-matricule 7,nom 7,prenom 7,prenom_arab 7,nom_arab 7,tele_num 7,adresse 7,diplome 7,echelle 7,echelon 7,profile_image 7,user_id 7
-matricule 8,nom 8,prenom 8,prenom_arab 8,nom_arab 8,tele_num 8,adresse 8,diplome 8,echelle 8,echelon 8,profile_image 8,user_id 8
-matricule 9,nom 9,prenom 9,prenom_arab 9,nom_arab 9,tele_num 9,adresse 9,diplome 9,echelle 9,echelon 9,profile_image 9,user_id 9
-matricule 10,nom 10,prenom 10,prenom_arab 10,nom_arab 10,tele_num 10,adresse 10,diplome 10,echelle 10,echelon 10,profile_image 10,user_id 10
-matricule 11,nom 11,prenom 11,prenom_arab 11,nom_arab 11,tele_num 11,adresse 11,diplome 11,echelle 11,echelon 11,profile_image 11,user_id 11
-matricule 12,nom 12,prenom 12,prenom_arab 12,nom_arab 12,tele_num 12,adresse 12,diplome 12,echelle 12,echelon 12,profile_image 12,user_id 12
-matricule 13,nom 13,prenom 13,prenom_arab 13,nom_arab 13,tele_num 13,adresse 13,diplome 13,echelle 13,echelon 13,profile_image 13,user_id 13
-matricule 14,nom 14,prenom 14,prenom_arab 14,nom_arab 14,tele_num 14,adresse 14,diplome 14,echelle 14,echelon 14,profile_image 14,user_id 14
-matricule 15,nom 15,prenom 15,prenom_arab 15,nom_arab 15,tele_num 15,adresse 15,diplome 15,echelle 15,echelon 15,profile_image 15,user_id 15
-matricule 16,nom 16,prenom 16,prenom_arab 16,nom_arab 16,tele_num 16,adresse 16,diplome 16,echelle 16,echelon 16,profile_image 16,user_id 16
-matricule 17,nom 17,prenom 17,prenom_arab 17,nom_arab 17,tele_num 17,adresse 17,diplome 17,echelle 17,echelon 17,profile_image 17,user_id 17
-matricule 18,nom 18,prenom 18,prenom_arab 18,nom_arab 18,tele_num 18,adresse 18,diplome 18,echelle 18,echelon 18,profile_image 18,user_id 18
-matricule 19,nom 19,prenom 19,prenom_arab 19,nom_arab 19,tele_num 19,adresse 19,diplome 19,echelle 19,echelon 19,profile_image 19,user_id 19
-matricule 20,nom 20,prenom 20,prenom_arab 20,nom_arab 20,tele_num 20,adresse 20,diplome 20,echelle 20,echelon 20,profile_image 20,user_id 20
+001,El Bakkali,Ahmed,أحمد,البقالي,0612345678,Rue 1,20,9,1,el_bakkali.jpg,3
+002,El Fassi,Imane,إيمان,الفاسي,0698765432,Rue 2,20,10,2,el_fassi.jpg,3
+003,Chakib,Mohamed,محمد,شكيب,0671234567,Rue 3,20,11,3,chakib.jpg,3
+004,ESSARRAJ,Fouad,سلمى,بورحيم,0654321876,Rue 4,20,8,1,bourhim.jpg,4

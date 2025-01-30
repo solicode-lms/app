@@ -4,5 +4,5 @@
 
 return [
     'name' => 'PkgFormation',
-    'icon' => 'fa-table'
+    'icon' => 'fa-bullseye'
 ];
