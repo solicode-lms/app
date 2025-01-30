@@ -70,7 +70,7 @@ class BaseSysModelService extends BaseService
     public function getSysModelStats(): array
     {
 
-        $stats = [];
+        $stats = $this->initStats();
 
         
 

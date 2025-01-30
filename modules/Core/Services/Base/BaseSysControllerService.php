@@ -69,7 +69,7 @@ class BaseSysControllerService extends BaseService
     public function getSysControllerStats(): array
     {
 
-        $stats = [];
+        $stats = $this->initStats();
 
         
 

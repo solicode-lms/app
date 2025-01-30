@@ -71,7 +71,7 @@ class BaseSysModuleService extends BaseService
     public function getSysModuleStats(): array
     {
 
-        $stats = [];
+        $stats = $this->initStats();
 
         
 

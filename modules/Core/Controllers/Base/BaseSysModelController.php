@@ -99,6 +99,9 @@ class BaseSysModelController extends AdminController
     }
     public function edit(string $id) {
 
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('sys_model_id', $id);
+        
         $itemSysModel = $this->sysModelService->find($id);
         $sysColors = $this->sysColorService->all();
         $sysModules = $this->sysModuleService->all();
@@ -107,10 +110,6 @@ class BaseSysModelController extends AdminController
         $widgets_stats = $widgetService->getwidgetStats();
         $widgets_filters = $widgetService->getFieldsFilterable();
         
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('sysModel_id', $id);
-
 
         if (request()->ajax()) {
             return view('Core::sysModel._fields', compact('itemSysModel', 'sysColors', 'sysModules', 'widgets_data', 'widgets_stats', 'widgets_filters'));

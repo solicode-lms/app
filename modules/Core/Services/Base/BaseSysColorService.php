@@ -65,7 +65,7 @@ class BaseSysColorService extends BaseService
     public function getSysColorStats(): array
     {
 
-        $stats = [];
+        $stats = $this->initStats();
 
         
 

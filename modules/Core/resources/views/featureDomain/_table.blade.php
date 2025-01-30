@@ -11,7 +11,7 @@
         </thead>
         <tbody>
             @foreach ($featureDomains_data as $featureDomain)
-                <tr>
+                <tr id="featureDomain-row-{{$featureDomain->id}}">
                     <td>@limit($featureDomain->name, 80)</td>
                     <td>@limit($featureDomain->sysModule->name ?? '-', 80)</td>
                     <td class="text-right">

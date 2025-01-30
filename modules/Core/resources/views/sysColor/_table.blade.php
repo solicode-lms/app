@@ -10,7 +10,7 @@
         </thead>
         <tbody>
             @foreach ($sysColors_data as $sysColor)
-                <tr>
+                <tr id="sysColor-row-{{$sysColor->id}}">
                     <td>@limit($sysColor->name, 80)</td>
                     <td class="text-right">
                         @can('show-sysColor')

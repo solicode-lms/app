@@ -5,6 +5,7 @@
     window.entitiesConfig = window.entitiesConfig || [];
     window.entitiesConfig.push({
         edit_has_many: true,
+        isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
         entity_name: 'sysModel',
         filterFormSelector: '#sysModel-crud-filter-form',
         crudSelector: '#sysModel-crud',

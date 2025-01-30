@@ -6,14 +6,23 @@
             <tr>
                 <x-sortable-column field="name" label="{{ ucfirst(__('Core::feature.name')) }}" />
                 <x-sortable-column field="feature_domain_id" label="{{ ucfirst(__('Core::featureDomain.singular')) }}" />
+                <x-sortable-column field="Permission" label="{{ ucfirst(__('PkgAutorisation::permission.plural')) }}" />
+
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($features_data as $feature)
-                <tr>
+                <tr id="feature-row-{{$feature->id}}">
                     <td>@limit($feature->name, 80)</td>
                     <td>@limit($feature->featureDomain->name ?? '-', 80)</td>
+                    <td>
+                        <ul>
+                            @foreach ($feature->permissions as $permission)
+                                <li>{{ $permission }}</li>
+                            @endforeach
+                        </ul>
+                    </td>
                     <td class="text-right">
                         @can('show-feature')
                             <a href="{{ route('features.show', ['feature' => $feature->id]) }}" data-id="{{$feature->id}}" class="btn btn-default btn-sm context-state showEntity">

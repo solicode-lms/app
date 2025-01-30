@@ -12,7 +12,7 @@
         </thead>
         <tbody>
             @foreach ($sysModels_data as $sysModel)
-                <tr>
+                <tr id="sysModel-row-{{$sysModel->id}}">
                     <td>@limit($sysModel->name, 80)</td>
                     <td>@limit($sysModel->sysModule->name ?? '-', 80)</td>
                     <td>@limit($sysModel->sysColor->name ?? '-', 80)</td>

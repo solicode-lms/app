@@ -5,6 +5,9 @@
 namespace Modules\Core\Controllers\Base;
 use Modules\Core\Services\SysModuleService;
 use Modules\Core\Services\SysColorService;
+use Modules\Core\Services\FeatureDomainService;
+use Modules\Core\Services\SysControllerService;
+use Modules\Core\Services\SysModelService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Requests\SysModuleRequest;
@@ -71,7 +74,7 @@ class BaseSysModuleController extends AdminController
             ]);
         }
 
-        return redirect()->route('sysModules.index')->with(
+        return redirect()->route('sysModules.edit',['sysModule' => $sysModule->id])->with(
             'success',
             __('Core::msg.addSuccess', [
                 'entityToString' => $sysModule,
@@ -93,18 +96,32 @@ class BaseSysModuleController extends AdminController
     }
     public function edit(string $id) {
 
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('sys_module_id', $id);
+        
         $itemSysModule = $this->sysModuleService->find($id);
         $sysColors = $this->sysColorService->all();
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('sysModule_id', $id);
-
+        $featureDomainService =  new FeatureDomainService();
+        $featureDomains_data =  $itemSysModule->featureDomains()->paginate(10);
+        $featureDomains_stats = $featureDomainService->getfeatureDomainStats();
+        $featureDomains_filters = $featureDomainService->getFieldsFilterable();
+        
+        $sysControllerService =  new SysControllerService();
+        $sysControllers_data =  $itemSysModule->sysControllers()->paginate(10);
+        $sysControllers_stats = $sysControllerService->getsysControllerStats();
+        $sysControllers_filters = $sysControllerService->getFieldsFilterable();
+        
+        $sysModelService =  new SysModelService();
+        $sysModels_data =  $itemSysModule->sysModels()->paginate(10);
+        $sysModels_stats = $sysModelService->getsysModelStats();
+        $sysModels_filters = $sysModelService->getFieldsFilterable();
+        
 
         if (request()->ajax()) {
-            return view('Core::sysModule._fields', compact('itemSysModule', 'sysColors'));
+            return view('Core::sysModule._fields', compact('itemSysModule', 'sysColors', 'featureDomains_data', 'sysControllers_data', 'sysModels_data', 'featureDomains_stats', 'sysControllers_stats', 'sysModels_stats', 'featureDomains_filters', 'sysControllers_filters', 'sysModels_filters'));
         }
 
-        return view('Core::sysModule.edit', compact('itemSysModule', 'sysColors'));
+        return view('Core::sysModule.edit', compact('itemSysModule', 'sysColors', 'featureDomains_data', 'sysControllers_data', 'sysModels_data', 'featureDomains_stats', 'sysControllers_stats', 'sysModels_stats', 'featureDomains_filters', 'sysControllers_filters', 'sysModels_filters'));
 
     }
     public function update(SysModuleRequest $request, string $id) {

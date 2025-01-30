@@ -66,7 +66,7 @@
                             </div>
 
                             <div class="tab-pane fade" id="sysModel-hasmany-tabs-widget" role="tabpanel" aria-labelledby="sysModel-hasmany-tabs-widget-tab">
-                                @include('PkgWidgets::widget._index')
+                                @include('PkgWidgets::widget._index',['isMany' => true])
                             </div>
 
                            

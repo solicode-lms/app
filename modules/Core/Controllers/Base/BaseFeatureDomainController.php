@@ -5,6 +5,7 @@
 namespace Modules\Core\Controllers\Base;
 use Modules\Core\Services\FeatureDomainService;
 use Modules\Core\Services\SysModuleService;
+use Modules\Core\Services\FeatureService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Requests\FeatureDomainRequest;
@@ -71,7 +72,7 @@ class BaseFeatureDomainController extends AdminController
             ]);
         }
 
-        return redirect()->route('featureDomains.index')->with(
+        return redirect()->route('featureDomains.edit',['featureDomain' => $featureDomain->id])->with(
             'success',
             __('Core::msg.addSuccess', [
                 'entityToString' => $featureDomain,
@@ -93,18 +94,22 @@ class BaseFeatureDomainController extends AdminController
     }
     public function edit(string $id) {
 
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('feature_domain_id', $id);
+        
         $itemFeatureDomain = $this->featureDomainService->find($id);
         $sysModules = $this->sysModuleService->all();
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('featureDomain_id', $id);
-
+        $featureService =  new FeatureService();
+        $features_data =  $itemFeatureDomain->features()->paginate(10);
+        $features_stats = $featureService->getfeatureStats();
+        $features_filters = $featureService->getFieldsFilterable();
+        
 
         if (request()->ajax()) {
-            return view('Core::featureDomain._fields', compact('itemFeatureDomain', 'sysModules'));
+            return view('Core::featureDomain._fields', compact('itemFeatureDomain', 'sysModules', 'features_data', 'features_stats', 'features_filters'));
         }
 
-        return view('Core::featureDomain.edit', compact('itemFeatureDomain', 'sysModules'));
+        return view('Core::featureDomain.edit', compact('itemFeatureDomain', 'sysModules', 'features_data', 'features_stats', 'features_filters'));
 
     }
     public function update(FeatureDomainRequest $request, string $id) {

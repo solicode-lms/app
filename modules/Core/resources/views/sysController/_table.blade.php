@@ -7,15 +7,24 @@
                 <x-sortable-column field="sys_module_id" label="{{ ucfirst(__('Core::sysModule.singular')) }}" />
                 <x-sortable-column field="name" label="{{ ucfirst(__('Core::sysController.name')) }}" />
                 <x-sortable-column field="is_active" label="{{ ucfirst(__('Core::sysController.is_active')) }}" />
+                <x-sortable-column field="Permission" label="{{ ucfirst(__('Core::sysController.plural')) }}" />
+
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($sysControllers_data as $sysController)
-                <tr>
+                <tr id="sysController-row-{{$sysController->id}}">
                     <td>@limit($sysController->sysModule->name ?? '-', 80)</td>
                     <td>@limit($sysController->name, 80)</td>
                     <td>@limit($sysController->is_active, 80)</td>
+                    <td>
+                        <ul>
+                            @foreach ($sysController->permissions as $permission)
+                                <li>{{ $permission }}</li>
+                            @endforeach
+                        </ul>
+                    </td>
                     <td class="text-right">
                         @can('show-sysController')
                             <a href="{{ route('sysControllers.show', ['sysController' => $sysController->id]) }}" data-id="{{$sysController->id}}" class="btn btn-default btn-sm context-state showEntity">

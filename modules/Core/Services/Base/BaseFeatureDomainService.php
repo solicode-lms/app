@@ -68,7 +68,7 @@ class BaseFeatureDomainService extends BaseService
     public function getFeatureDomainStats(): array
     {
 
-        $stats = [];
+        $stats = $this->initStats();
 
         
 
