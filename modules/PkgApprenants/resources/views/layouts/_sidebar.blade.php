@@ -1,7 +1,7 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 
-@accessiblePermissions(['show-niveauxScolaire', 'show-ville', 'show-nationalite', 'show-groupe', 'show-apprenant'])
+@accessiblePermissions(['show-apprenantKonosy', 'show-niveauxScolaire', 'show-ville', 'show-nationalite', 'show-groupe', 'show-apprenant'])
 @if($accessiblePermissions->isNotEmpty())
 <li class="nav-item has-treeview {{ Request::is('admin/PkgApprenants*') ? 'menu-open' : '' }}">
     <a href="#" class="nav-link nav-link {{ Request::is('admin/PkgApprenants*') ? 'active' : '' }}">
@@ -12,6 +12,14 @@
         </p>
     </a>
     <ul class="nav nav-treeview">
+        @can('show-apprenantKonosy') 
+        <li class="nav-item">
+            <a href="{{ route('apprenantKonosies.index') }}" class="nav-link {{ Request::is('admin/PkgApprenants/apprenantKonosies') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-table"></i>
+                {{__('PkgApprenants::ApprenantKonosy.plural')}}
+            </a>
+        </li>
+        @endcan
         @can('show-niveauxScolaire') 
         <li class="nav-item">
             <a href="{{ route('niveauxScolaires.index') }}" class="nav-link {{ Request::is('admin/PkgApprenants/niveauxScolaires') ? 'active' : '' }}">
