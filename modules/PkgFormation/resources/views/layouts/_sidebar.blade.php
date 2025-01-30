@@ -1,7 +1,7 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 
-@accessiblePermissions([])
+@accessiblePermissions(['show-filiere', 'show-module', 'show-specialite', 'show-formateur'])
 @if($accessiblePermissions->isNotEmpty())
 <li class="nav-item has-treeview {{ Request::is('admin/PkgFormation*') ? 'menu-open' : '' }}">
     <a href="#" class="nav-link nav-link {{ Request::is('admin/PkgFormation*') ? 'active' : '' }}">
@@ -12,6 +12,38 @@
         </p>
     </a>
     <ul class="nav nav-treeview">
+        @can('show-filiere') 
+        <li class="nav-item">
+            <a href="{{ route('filieres.index') }}" class="nav-link {{ Request::is('admin/PkgFormation/filieres') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-book"></i>
+                {{__('PkgFormation::Filiere.plural')}}
+            </a>
+        </li>
+        @endcan
+        @can('show-module') 
+        <li class="nav-item">
+            <a href="{{ route('modules.index') }}" class="nav-link {{ Request::is('admin/PkgFormation/modules') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-puzzle-piece"></i>
+                {{__('PkgFormation::Module.plural')}}
+            </a>
+        </li>
+        @endcan
+        @can('show-specialite') 
+        <li class="nav-item">
+            <a href="{{ route('specialites.index') }}" class="nav-link {{ Request::is('admin/PkgFormation/specialites') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-award"></i>
+                {{__('PkgFormation::Specialite.plural')}}
+            </a>
+        </li>
+        @endcan
+        @can('show-formateur') 
+        <li class="nav-item">
+            <a href="{{ route('formateurs.index') }}" class="nav-link {{ Request::is('admin/PkgFormation/formateurs') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-chalkboard-teacher"></i>
+                {{__('PkgFormation::Formateur.plural')}}
+            </a>
+        </li>
+        @endcan
     </ul>
 </li>
 @endif

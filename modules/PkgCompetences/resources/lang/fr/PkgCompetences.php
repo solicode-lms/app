@@ -1,6 +1,8 @@
 <?php
+// Ce fichier est maintenu par ESSARRAJ Fouad
+
 
 return [
-    'name' => 'Compétences visées',
-    'icon' => 'fa-bullseye'
+    'name' => 'PkgCompetences',
+    'icon' => 'fa-table'
 ];

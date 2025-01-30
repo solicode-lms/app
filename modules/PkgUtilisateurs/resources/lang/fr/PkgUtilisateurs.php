@@ -1,6 +1,8 @@
 <?php
+// Ce fichier est maintenu par ESSARRAJ Fouad
+
 
 return [
-    'name' => 'Utilisateurs',
-    'icon' => 'fa-user'
+    'name' => 'PkgUtilisateurs',
+    'icon' => 'fa-table'
 ];
