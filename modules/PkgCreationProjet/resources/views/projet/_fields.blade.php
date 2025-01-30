@@ -145,7 +145,7 @@
         
     <div class="form-group">
             <label for="formateur_id">
-                {{ ucfirst(__('PkgUtilisateurs::formateur.singular')) }}
+                {{ ucfirst(__('PkgFormation::formateur.singular')) }}
                 
                     <span class="text-danger">*</span>
                 

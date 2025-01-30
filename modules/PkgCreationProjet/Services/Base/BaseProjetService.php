@@ -47,7 +47,7 @@ class BaseProjetService extends BaseService
 
         // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
-            $this->generateManyToOneFilter(__("PkgUtilisateurs::formateur.plural"), 'formateur_id', \Modules\PkgUtilisateurs\Models\Formateur::class, 'nom'),
+            $this->generateManyToOneFilter(__("PkgFormation::formateur.plural"), 'formateur_id', \Modules\PkgFormation\Models\Formateur::class, 'nom'),
         ];
 
     }

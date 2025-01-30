@@ -7,7 +7,7 @@
                 <x-sortable-column field="titre" label="{{ ucfirst(__('PkgCreationProjet::projet.titre')) }}" />
                 <x-sortable-column field="date_debut" label="{{ ucfirst(__('PkgCreationProjet::projet.date_debut')) }}" />
                 <x-sortable-column field="date_fin" label="{{ ucfirst(__('PkgCreationProjet::projet.date_fin')) }}" />
-                <x-sortable-column field="formateur_id" label="{{ ucfirst(__('PkgUtilisateurs::formateur.singular')) }}" />
+                <x-sortable-column field="formateur_id" label="{{ ucfirst(__('PkgFormation::formateur.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

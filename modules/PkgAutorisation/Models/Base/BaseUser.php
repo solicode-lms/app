@@ -12,7 +12,7 @@ use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
 use Modules\PkgAutorisation\Models\Role;
-use Modules\PkgUtilisateurs\Models\Formateur;
+use Modules\PkgFormation\Models\Formateur;
 
 /**
  * Classe BaseUser

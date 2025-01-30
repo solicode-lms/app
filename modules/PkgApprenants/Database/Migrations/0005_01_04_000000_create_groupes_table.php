@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Modules\PkgUtilisateurs\Database\Migrations;
+namespace Modules\PkgApprenants\Database\Migrations;
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;

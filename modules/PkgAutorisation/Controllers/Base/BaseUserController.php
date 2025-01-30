@@ -5,7 +5,7 @@
 namespace Modules\PkgAutorisation\Controllers\Base;
 use Modules\PkgAutorisation\Services\UserService;
 use Modules\PkgAutorisation\Services\RoleService;
-use Modules\PkgUtilisateurs\Services\FormateurService;
+use Modules\PkgFormation\Services\FormateurService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\PkgAutorisation\App\Requests\UserRequest;

@@ -49,7 +49,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" id="user-hasmany-tabs-formateur-tab" data-toggle="pill" href="#user-hasmany-tabs-formateur" role="tab" aria-controls="user-hasmany-tabs-formateur" aria-selected="false">{{__('PkgUtilisateurs::formateur.plural')}}</a>
+                            <a class="nav-link" id="user-hasmany-tabs-formateur-tab" data-toggle="pill" href="#user-hasmany-tabs-formateur" role="tab" aria-controls="user-hasmany-tabs-formateur" aria-selected="false">{{__('PkgFormation::formateur.plural')}}</a>
                         </li>
 
                        
@@ -66,7 +66,7 @@
                             </div>
 
                             <div class="tab-pane fade" id="user-hasmany-tabs-formateur" role="tabpanel" aria-labelledby="user-hasmany-tabs-formateur-tab">
-                                @include('PkgUtilisateurs::formateur._index')
+                                @include('PkgFormation::formateur._index')
                             </div>
 
                            

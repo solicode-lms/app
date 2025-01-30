@@ -4,7 +4,7 @@
 
 namespace Modules\PkgCreationProjet\Controllers\Base;
 use Modules\PkgCreationProjet\Services\ProjetService;
-use Modules\PkgUtilisateurs\Services\FormateurService;
+use Modules\PkgFormation\Services\FormateurService;
 use Modules\PkgCreationProjet\Services\LivrableService;
 use Modules\PkgCreationProjet\Services\ResourceService;
 use Modules\PkgCreationProjet\Services\TransfertCompetenceService;

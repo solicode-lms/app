@@ -2,7 +2,7 @@
 
 
 
-namespace Modules\PkgUtilisateurs\Database\Migrations;
+namespace Modules\PkgFormation\Database\Migrations;
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
