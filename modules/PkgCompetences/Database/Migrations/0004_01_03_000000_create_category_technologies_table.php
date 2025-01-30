@@ -1,5 +1,4 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 
@@ -15,16 +14,13 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('competences', function (Blueprint $table) {
+        Schema::create('category_technologies', function (Blueprint $table) {
             $table->id();
-            $table->string('code');
             $table->string('nom');
-            $table->text('description');
-            $table->string('reference');
-
+            $table->longText('description')->nullable();
+            $table->string('reference')->unique();
             $table->timestamps();
            
-            $table->foreignId('module_id')->constrained('modules');
 
         });
     }
@@ -34,6 +30,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('competences');
+        Schema::dropIfExists('category_technologies');
     }
 };

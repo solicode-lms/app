@@ -1,6 +1,4 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
-
 
 
 namespace Modules\PkgCompetences\Database\Migrations;
@@ -15,13 +13,15 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('competence_technology', function (Blueprint $table) {
+        Schema::create('niveau_competences', function (Blueprint $table) {
+            $table->id();
+            $table->string('nom');
+            $table->longText('description')->nullable();
 
             $table->timestamps();
            
-            $table->foreignId('')->constrained('technologies');
-            $table->foreignId('')->constrained('competences');
-
+            $table->foreignId('competence_id')->constrained('competences');
+            $table->string('reference')->unique();
         });
     }
 
@@ -30,6 +30,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('competence_technology');
+        Schema::dropIfExists('niveau_competences');
     }
 };
