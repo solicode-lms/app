@@ -32,7 +32,6 @@ class BaseApprenantRequest extends FormRequest
             'lieu_naissance' => 'nullable|max:255',
             'cin' => 'nullable|max:255',
             'adresse' => 'nullable',
-            'groupe_id' => 'nullable',
             'niveaux_scolaire_id' => 'nullable',
             'nationalite_id' => 'nullable',
             'user_id' => 'nullable'
@@ -72,8 +71,6 @@ class BaseApprenantRequest extends FormRequest
             'cin.max' => __('validation.cinMax'),
             'adresse.required' => __('validation.required', ['attribute' => __('PkgApprenants::Apprenant.adresse')]),
             'adresse.max' => __('validation.adresseMax'),
-            'groupe_id.required' => __('validation.required', ['attribute' => __('PkgApprenants::Apprenant.groupe_id')]),
-            'groupe_id.max' => __('validation.groupe_idMax'),
             'niveaux_scolaire_id.required' => __('validation.required', ['attribute' => __('PkgApprenants::Apprenant.niveaux_scolaire_id')]),
             'niveaux_scolaire_id.max' => __('validation.niveaux_scolaire_idMax'),
             'nationalite_id.required' => __('validation.required', ['attribute' => __('PkgApprenants::Apprenant.nationalite_id')]),

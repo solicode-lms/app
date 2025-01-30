@@ -146,10 +146,6 @@
 
 
         
-
-        <!--   Apprenant HasMany --> 
-
-        
                 <div class="form-group">
             <label for="formateurs">
                 {{ ucfirst(__('PkgFormation::Formateur.plural')) }}

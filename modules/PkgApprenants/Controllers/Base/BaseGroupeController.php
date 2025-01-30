@@ -7,7 +7,6 @@ use Modules\PkgApprenants\Services\GroupeService;
 use Modules\PkgFormation\Services\FormateurService;
 use Modules\PkgFormation\Services\AnneeFormationService;
 use Modules\PkgFormation\Services\FiliereService;
-use Modules\PkgApprenants\Services\ApprenantService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\PkgApprenants\App\Requests\GroupeRequest;
@@ -89,7 +88,7 @@ class BaseGroupeController extends AdminController
             ]);
         }
 
-        return redirect()->route('groupes.edit',['groupe' => $groupe->id])->with(
+        return redirect()->route('groupes.index')->with(
             'success',
             __('Core::msg.addSuccess', [
                 'entityToString' => $groupe,
@@ -122,17 +121,12 @@ class BaseGroupeController extends AdminController
         $formateurs = $this->formateurService->all();
         $anneeFormations = $this->anneeFormationService->all();
         $filieres = $this->filiereService->all();
-        $apprenantService =  new ApprenantService();
-        $apprenants_data =  $itemGroupe->apprenants()->paginate(10);
-        $apprenants_stats = $apprenantService->getapprenantStats();
-        $apprenants_filters = $apprenantService->getFieldsFilterable();
-        
 
         if (request()->ajax()) {
-            return view('PkgApprenants::groupe._fields', compact('itemGroupe', 'formateurs', 'formateurs', 'anneeFormations', 'filieres', 'apprenants_data', 'apprenants_stats', 'apprenants_filters'));
+            return view('PkgApprenants::groupe._fields', compact('itemGroupe', 'formateurs', 'formateurs', 'anneeFormations', 'filieres'));
         }
 
-        return view('PkgApprenants::groupe.edit', compact('itemGroupe', 'formateurs', 'formateurs', 'anneeFormations', 'filieres', 'apprenants_data', 'apprenants_stats', 'apprenants_filters'));
+        return view('PkgApprenants::groupe.edit', compact('itemGroupe', 'formateurs', 'formateurs', 'anneeFormations', 'filieres'));
 
     }
     public function update(GroupeRequest $request, string $id) {

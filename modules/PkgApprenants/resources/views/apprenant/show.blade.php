@@ -85,10 +85,6 @@
                                 <p>{{ $itemApprenant->adresse }}</p>
                             </div>
                             <div class="col-sm-12">
-                                <label for="groupe_id">{{ ucfirst(__('PkgApprenants::apprenant.groupe_id')) }}:</label>
-                                <p>{{ $itemApprenant->groupe_id }}</p>
-                            </div>
-                            <div class="col-sm-12">
                                 <label for="niveaux_scolaire_id">{{ ucfirst(__('PkgApprenants::apprenant.niveaux_scolaire_id')) }}:</label>
                                 <p>{{ $itemApprenant->niveaux_scolaire_id }}</p>
                             </div>

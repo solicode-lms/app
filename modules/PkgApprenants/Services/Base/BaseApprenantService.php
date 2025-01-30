@@ -34,7 +34,6 @@ class BaseApprenantService extends BaseService
         'lieu_naissance',
         'cin',
         'adresse',
-        'groupe_id',
         'niveaux_scolaire_id',
         'nationalite_id',
         'user_id'
@@ -59,7 +58,6 @@ class BaseApprenantService extends BaseService
 
         // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
-            $this->generateManyToOneFilter(__("PkgApprenants::groupe.plural"), 'groupe_id', \Modules\PkgApprenants\Models\Groupe::class, 'code'),
             $this->generateManyToOneFilter(__("PkgApprenants::niveauxScolaire.plural"), 'niveaux_scolaire_id', \Modules\PkgApprenants\Models\NiveauxScolaire::class, 'code'),
             $this->generateManyToOneFilter(__("PkgApprenants::nationalite.plural"), 'nationalite_id', \Modules\PkgApprenants\Models\Nationalite::class, 'code'),
             $this->generateManyToOneFilter(__("PkgAutorisation::user.plural"), 'user_id', \Modules\PkgAutorisation\Models\User::class, 'name'),
@@ -89,12 +87,6 @@ class BaseApprenantService extends BaseService
         $stats = $this->initStats();
 
         
-            $relationStatGroupe = parent::getStatsByRelation(
-                \Modules\PkgApprenants\Models\Groupe::class,
-                'apprenants',
-                'code'
-            );
-            $stats = array_merge($stats, $relationStatGroupe);
 
         return $stats;
     }

@@ -14,7 +14,6 @@ use Modules\Core\Models\BaseModel;
 use Modules\PkgFormation\Models\AnneeFormation;
 use Modules\PkgFormation\Models\Filiere;
 use Modules\PkgFormation\Models\Formateur;
-use Modules\PkgApprenants\Models\Apprenant;
 
 /**
  * Classe BaseGroupe
@@ -77,15 +76,6 @@ class BaseGroupe extends BaseModel
         return $this->belongsToMany(Formateur::class, 'formateur_groupe');
     }
 
-    /**
-     * Relation HasMany pour Groupes.
-     *
-     * @return HasMany
-     */
-    public function apprenants(): HasMany
-    {
-        return $this->hasMany(Apprenant::class, 'groupe_id', 'id');
-    }
 
 
 

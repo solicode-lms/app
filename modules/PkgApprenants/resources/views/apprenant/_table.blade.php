@@ -6,7 +6,6 @@
             <tr>
                 <x-sortable-column field="nom" label="{{ ucfirst(__('PkgApprenants::apprenant.nom')) }}" />
                 <x-sortable-column field="prenom" label="{{ ucfirst(__('PkgApprenants::apprenant.prenom')) }}" />
-                <x-sortable-column field="groupe_id" label="{{ ucfirst(__('PkgApprenants::groupe.singular')) }}" />
                 <x-sortable-column field="user_id" label="{{ ucfirst(__('PkgAutorisation::user.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
@@ -16,7 +15,6 @@
                 <tr id="apprenant-row-{{$apprenant->id}}">
                     <td>@limit($apprenant->nom, 80)</td>
                     <td>@limit($apprenant->prenom, 80)</td>
-                    <td>@limit($apprenant->groupe->code ?? '-', 80)</td>
                     <td>@limit($apprenant->user->name ?? '-', 80)</td>
                     <td class="text-right">
                         @can('show-apprenant')

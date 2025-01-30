@@ -53,7 +53,6 @@ class BaseApprenantImport implements ToModel, WithHeadingRow
             'lieu_naissance' => $row['lieu_naissance'],
             'cin' => $row['cin'],
             'adresse' => $row['adresse'],
-            'groupe_id' => $row['groupe_id'],
             'niveaux_scolaire_id' => $row['niveaux_scolaire_id'],
             'nationalite_id' => $row['nationalite_id'],
             'user_id' => $row['user_id'],

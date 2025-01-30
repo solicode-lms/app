@@ -321,32 +321,6 @@
         
         
     <div class="form-group">
-            <label for="groupe_id">
-                {{ ucfirst(__('PkgApprenants::groupe.singular')) }}
-                
-            </label>
-            <select 
-            id="groupe_id" 
-            
-            name="groupe_id" 
-            class="form-control select2">
-             <option value="">Sélectionnez une option</option>
-                @foreach ($groupes as $groupe)
-                    <option value="{{ $groupe->id }}"
-                        {{ (isset($itemApprenant) && $itemApprenant->groupe_id == $groupe->id) || (old('groupe_id>') == $groupe->id) ? 'selected' : '' }}>
-                        {{ $groupe }}
-                    </option>
-                @endforeach
-            </select>
-            @error('groupe_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
-
-
-        
-        
-    <div class="form-group">
             <label for="niveaux_scolaire_id">
                 {{ ucfirst(__('PkgApprenants::niveauxScolaire.singular')) }}
                 

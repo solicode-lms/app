@@ -4,7 +4,6 @@
 
 namespace Modules\PkgApprenants\Controllers\Base;
 use Modules\PkgApprenants\Services\ApprenantService;
-use Modules\PkgApprenants\Services\GroupeService;
 use Modules\PkgApprenants\Services\NationaliteService;
 use Modules\PkgApprenants\Services\NiveauxScolaireService;
 use Modules\PkgAutorisation\Services\UserService;
@@ -20,15 +19,13 @@ use Modules\Core\Services\ContextState;
 class BaseApprenantController extends AdminController
 {
     protected $apprenantService;
-    protected $groupeService;
     protected $nationaliteService;
     protected $niveauxScolaireService;
     protected $userService;
 
-    public function __construct(ApprenantService $apprenantService, GroupeService $groupeService, NationaliteService $nationaliteService, NiveauxScolaireService $niveauxScolaireService, UserService $userService) {
+    public function __construct(ApprenantService $apprenantService, NationaliteService $nationaliteService, NiveauxScolaireService $niveauxScolaireService, UserService $userService) {
         parent::__construct();
         $this->apprenantService = $apprenantService;
-        $this->groupeService = $groupeService;
         $this->nationaliteService = $nationaliteService;
         $this->niveauxScolaireService = $niveauxScolaireService;
         $this->userService = $userService;
@@ -58,16 +55,15 @@ class BaseApprenantController extends AdminController
     }
     public function create() {
         $itemApprenant = $this->apprenantService->createInstance();
-        $groupes = $this->groupeService->all();
         $nationalites = $this->nationaliteService->all();
         $niveauxScolaires = $this->niveauxScolaireService->all();
         $users = $this->userService->all();
 
 
         if (request()->ajax()) {
-            return view('PkgApprenants::apprenant._fields', compact('itemApprenant', 'groupes', 'nationalites', 'niveauxScolaires', 'users'));
+            return view('PkgApprenants::apprenant._fields', compact('itemApprenant', 'nationalites', 'niveauxScolaires', 'users'));
         }
-        return view('PkgApprenants::apprenant.create', compact('itemApprenant', 'groupes', 'nationalites', 'niveauxScolaires', 'users'));
+        return view('PkgApprenants::apprenant.create', compact('itemApprenant', 'nationalites', 'niveauxScolaires', 'users'));
     }
     public function store(ApprenantRequest $request) {
         $validatedData = $request->validated();
@@ -94,14 +90,13 @@ class BaseApprenantController extends AdminController
     }
     public function show(string $id) {
         $itemApprenant = $this->apprenantService->find($id);
-        $groupes = $this->groupeService->all();
         $nationalites = $this->nationaliteService->all();
         $niveauxScolaires = $this->niveauxScolaireService->all();
         $users = $this->userService->all();
 
 
         if (request()->ajax()) {
-            return view('PkgApprenants::apprenant._fields', compact('itemApprenant', 'groupes', 'nationalites', 'niveauxScolaires', 'users'));
+            return view('PkgApprenants::apprenant._fields', compact('itemApprenant', 'nationalites', 'niveauxScolaires', 'users'));
         }
 
         return view('PkgApprenants::apprenant.show', compact('itemApprenant'));
@@ -113,7 +108,6 @@ class BaseApprenantController extends AdminController
         $this->contextState->set('apprenant_id', $id);
         
         $itemApprenant = $this->apprenantService->find($id);
-        $groupes = $this->groupeService->all();
         $nationalites = $this->nationaliteService->all();
         $niveauxScolaires = $this->niveauxScolaireService->all();
         $users = $this->userService->all();
@@ -124,10 +118,10 @@ class BaseApprenantController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('PkgApprenants::apprenant._fields', compact('itemApprenant', 'groupes', 'nationalites', 'niveauxScolaires', 'users', 'realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters'));
+            return view('PkgApprenants::apprenant._fields', compact('itemApprenant', 'nationalites', 'niveauxScolaires', 'users', 'realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters'));
         }
 
-        return view('PkgApprenants::apprenant.edit', compact('itemApprenant', 'groupes', 'nationalites', 'niveauxScolaires', 'users', 'realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters'));
+        return view('PkgApprenants::apprenant.edit', compact('itemApprenant', 'nationalites', 'niveauxScolaires', 'users', 'realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters'));
 
     }
     public function update(ApprenantRequest $request, string $id) {

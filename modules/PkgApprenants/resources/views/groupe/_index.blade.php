@@ -4,7 +4,7 @@
 <script>
     window.entitiesConfig = window.entitiesConfig || [];
     window.entitiesConfig.push({
-        edit_has_many: true,
+        edit_has_many: false,
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
         entity_name: 'groupe',
         filterFormSelector: '#groupe-crud-filter-form',

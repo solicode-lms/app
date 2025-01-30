@@ -11,7 +11,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
-use Modules\PkgApprenants\Models\Groupe;
 use Modules\PkgApprenants\Models\Nationalite;
 use Modules\PkgApprenants\Models\NiveauxScolaire;
 use Modules\PkgAutorisation\Models\User;
@@ -37,18 +36,9 @@ class BaseApprenant extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'nom', 'prenom', 'prenom_arab', 'nom_arab', 'tele_num', 'profile_image', 'matricule', 'sexe', 'actif', 'diplome', 'date_naissance', 'date_inscription', 'lieu_naissance', 'cin', 'adresse', 'groupe_id', 'niveaux_scolaire_id', 'nationalite_id', 'user_id'
+        'nom', 'prenom', 'prenom_arab', 'nom_arab', 'tele_num', 'profile_image', 'matricule', 'sexe', 'actif', 'diplome', 'date_naissance', 'date_inscription', 'lieu_naissance', 'cin', 'adresse', 'niveaux_scolaire_id', 'nationalite_id', 'user_id'
     ];
 
-    /**
-     * Relation BelongsTo pour Groupe.
-     *
-     * @return BelongsTo
-     */
-    public function groupe(): BelongsTo
-    {
-        return $this->belongsTo(Groupe::class, 'groupe_id', 'id');
-    }
     /**
      * Relation BelongsTo pour Nationalite.
      *

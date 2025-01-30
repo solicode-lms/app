@@ -61,10 +61,9 @@ class BaseApprenantSeeder extends Seeder
                     "lieu_naissance" => $data[12] ,
                     "cin" => $data[13] ,
                     "adresse" => $data[14] ,
-                    "groupe_id" => $data[15] ,
-                    "niveaux_scolaire_id" => $data[16] ,
-                    "nationalite_id" => $data[17] ,
-                    "user_id" => $data[18] 
+                    "niveaux_scolaire_id" => $data[15] ,
+                    "nationalite_id" => $data[16] ,
+                    "user_id" => $data[17] 
                 ]);
             }
             $firstline = false;
