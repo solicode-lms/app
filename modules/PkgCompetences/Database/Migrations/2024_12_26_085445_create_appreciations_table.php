@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('appreciations', function (Blueprint $table) {
+        Schema::create('niveau_difficultes', function (Blueprint $table) {
             $table->id(); // Primary key
 
             $table->string('nom'); // Nom de l'appréciation

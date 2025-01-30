@@ -14,11 +14,12 @@ return new class extends Migration
     public function up()
     {
         Schema::create('transfert_competences', function (Blueprint $table) {
-            $table->id(); // Identifiant unique
-            $table->longText("description")->nullable();
+            $table->id();
+            $table->float('note')->nullable();
+            $table->longText('question')->nullable();
             $table->foreignId('projet_id')->constrained('projets')->onDelete('cascade'); // Relation avec Projet
             $table->foreignId('competence_id')->constrained('competences')->onDelete('restrict'); // Relation avec Competence
-            $table->foreignId('appreciation_id')->constrained('appreciations'); // Relation avec Appreciation
+            $table->foreignId('niveau_difficulte_id')->constrained('niveau_difficultes'); // Relation avec Appreciation
             $table->string('reference')->unique();
             $table->timestamps(); // Champs created_at et updated_at
         });

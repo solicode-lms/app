@@ -8,3 +8,4 @@ PkgCreationProjet,PkgCreationProjet,Contient les tables liées aux création des
 PkgGapp,PkgGapp,Contient les tables liées aux création des PkgGapp,1,7,1.0,6
 PkgApprenants,PkgApprenants,Contient les tables PkgApprenants ,1,8,1.0,6
 PkgFormation,PkgFormation,Contient les tables PkgApprenants ,1,9,1.0,6
+PkgRealisationProjets,PkgRealisationProjets,Contient les tables,1,10,1.0,6

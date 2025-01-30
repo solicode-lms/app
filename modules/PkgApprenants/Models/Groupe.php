@@ -5,6 +5,7 @@
 namespace Modules\PkgApprenants\Models;
 use Modules\PkgApprenants\Models\Base\BaseGroupe;
 
+
 class Groupe extends BaseGroupe
 {
 
