@@ -1,0 +1,204 @@
+<?php
+// Ce fichier est maintenu par ESSARRAJ Fouad
+
+
+namespace Modules\PkgApprenants\Controllers\Base;
+use Modules\PkgApprenants\Services\GroupeService;
+use Modules\PkgFormation\Services\FormateurService;
+use Modules\PkgFormation\Services\FiliereService;
+use Modules\PkgApprenants\Services\ApprenantService;
+use Illuminate\Http\Request;
+use Modules\Core\Controllers\Base\AdminController;
+use Modules\PkgApprenants\App\Requests\GroupeRequest;
+use Maatwebsite\Excel\Facades\Excel;
+use Modules\PkgApprenants\App\Exports\GroupeExport;
+use Modules\PkgApprenants\App\Imports\GroupeImport;
+use Modules\Core\Services\ContextState;
+
+class BaseGroupeController extends AdminController
+{
+    protected $groupeService;
+    protected $formateurService;
+    protected $filiereService;
+
+    public function __construct(GroupeService $groupeService, FormateurService $formateurService, FiliereService $filiereService) {
+        parent::__construct();
+        $this->groupeService = $groupeService;
+        $this->formateurService = $formateurService;
+        $this->filiereService = $filiereService;
+    }
+
+    public function index(Request $request) {
+        // Extraire les paramètres de recherche, page, et filtres
+        $groupes_params = array_merge(
+            $request->only(['page','sort']),
+            ['search' => $request->get('groupes_search', '')],
+            $request->except(['groupes_search', 'page', 'sort'])
+        );
+
+        // Paginer les groupes
+        $groupes_data = $this->groupeService->paginate($groupes_params);
+
+        // Récupérer les statistiques et les champs filtrables
+        $groupes_stats = $this->groupeService->getgroupeStats();
+        $groupes_filters = $this->groupeService->getFieldsFilterable();
+
+        // Retourner la vue ou les données pour une requête AJAX
+        if ($request->ajax()) {
+            return view('PkgApprenants::groupe._table', compact('groupes_data', 'groupes_stats', 'groupes_filters'))->render();
+        }
+
+        return view('PkgApprenants::groupe.index', compact('groupes_data', 'groupes_stats', 'groupes_filters'));
+    }
+    public function create() {
+        $itemGroupe = $this->groupeService->createInstance();
+        $formateurs = $this->formateurService->all();
+        $filieres = $this->filiereService->all();
+
+
+        if (request()->ajax()) {
+            return view('PkgApprenants::groupe._fields', compact('itemGroupe', 'formateurs', 'filieres'));
+        }
+        return view('PkgApprenants::groupe.create', compact('itemGroupe', 'formateurs', 'filieres'));
+    }
+    public function store(GroupeRequest $request) {
+        $validatedData = $request->validated();
+        $groupe = $this->groupeService->create($validatedData);
+
+
+        if ($request->has('formateurs')) {
+            $groupe->formateurs()->sync($request->input('formateurs'));
+        }
+
+
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 
+             __('Core::msg.addSuccess', [
+                'entityToString' => $groupe,
+                'modelName' => __('PkgApprenants::groupe.singular')])
+            ]);
+        }
+
+        return redirect()->route('groupes.edit',['groupe' => $groupe->id])->with(
+            'success',
+            __('Core::msg.addSuccess', [
+                'entityToString' => $groupe,
+                'modelName' => __('PkgApprenants::groupe.singular')
+            ])
+        );
+    }
+    public function show(string $id) {
+        $itemGroupe = $this->groupeService->find($id);
+        $formateurs = $this->formateurService->all();
+        $filieres = $this->filiereService->all();
+
+
+        if (request()->ajax()) {
+            return view('PkgApprenants::groupe._fields', compact('itemGroupe', 'formateurs', 'filieres'));
+        }
+
+        return view('PkgApprenants::groupe.show', compact('itemGroupe'));
+
+    }
+    public function edit(string $id) {
+
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('groupe_id', $id);
+        
+        $itemGroupe = $this->groupeService->find($id);
+        $formateurs = $this->formateurService->all();
+        $filieres = $this->filiereService->all();
+        $apprenantService =  new ApprenantService();
+        $apprenants_data =  $itemGroupe->apprenants()->paginate(10);
+        $apprenants_stats = $apprenantService->getapprenantStats();
+        $apprenants_filters = $apprenantService->getFieldsFilterable();
+        
+
+        if (request()->ajax()) {
+            return view('PkgApprenants::groupe._fields', compact('itemGroupe', 'formateurs', 'filieres', 'apprenants_data', 'apprenants_stats', 'apprenants_filters'));
+        }
+
+        return view('PkgApprenants::groupe.edit', compact('itemGroupe', 'formateurs', 'filieres', 'apprenants_data', 'apprenants_stats', 'apprenants_filters'));
+
+    }
+    public function update(GroupeRequest $request, string $id) {
+
+        $validatedData = $request->validated();
+        $groupe = $this->groupeService->update($id, $validatedData);
+
+        $groupe->formateurs()->sync($request->input('formateurs'));
+
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 
+            __('Core::msg.updateSuccess', [
+                'entityToString' => $groupe,
+                'modelName' =>  __('PkgApprenants::groupe.singular')])
+            ]);
+        }
+
+        return redirect()->route('groupes.index')->with(
+            'success',
+            __('Core::msg.updateSuccess', [
+                'entityToString' => $groupe,
+                'modelName' =>  __('PkgApprenants::groupe.singular')
+                ])
+        );
+
+    }
+    public function destroy(Request $request, string $id) {
+
+        $groupe = $this->groupeService->destroy($id);
+
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 
+            __('Core::msg.deleteSuccess', [
+                'entityToString' => $groupe,
+                'modelName' =>  __('PkgApprenants::groupe.singular')])
+            ]);
+        }
+
+        return redirect()->route('groupes.index')->with(
+            'success',
+            __('Core::msg.deleteSuccess', [
+                'entityToString' => $groupe,
+                'modelName' =>  __('PkgApprenants::groupe.singular')
+                ])
+        );
+
+    }
+
+    public function export()
+    {
+        $groupes_data = $this->groupeService->all();
+        return Excel::download(new GroupeExport($groupes_data), 'groupe_export.xlsx');
+    }
+
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls,csv',
+        ]);
+
+        try {
+            Excel::import(new GroupeImport, $request->file('file'));
+        } catch (\InvalidArgumentException $e) {
+            return redirect()->route('groupes.index')->withError('Invalid format or missing data.');
+        }
+
+        return redirect()->route('groupes.index')->with(
+            'success', __('Core::msg.importSuccess', [
+            'modelNames' =>  __('PkgApprenants::groupe.plural')
+            ]));
+
+
+
+    }
+
+    // Il permet d'afficher les information en format JSON pour une utilisation avec Ajax
+    public function getGroupes()
+    {
+        $groupes = $this->groupeService->all();
+        return response()->json($groupes);
+    }
+
+}
