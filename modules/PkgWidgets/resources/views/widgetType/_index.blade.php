@@ -4,7 +4,8 @@
 <script>
     window.entitiesConfig = window.entitiesConfig || [];
     window.entitiesConfig.push({
-        edit_has_many: false,
+        edit_has_many: true,
+        isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
         entity_name: 'widgetType',
         filterFormSelector: '#widgetType-crud-filter-form',
         crudSelector: '#widgetType-crud',
@@ -70,7 +71,7 @@
                 @section('widgetType-crud-filters')
                 <div class="card-header">
                     <form id="widgetType-crud-filter-form" method="GET" class="row">
-                        <x-filter-group count="{{count($modules_filters ?? [])}}">
+                        <x-filter-group count="{{count($widgetTypes_filters ?? [])}}">
                             <!-- Filtres spécifiques -->
                             @foreach ($widgetTypes_filters as $filter)
                                 <x-filter-field 

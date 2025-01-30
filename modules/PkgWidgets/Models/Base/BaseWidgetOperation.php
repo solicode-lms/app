@@ -39,14 +39,16 @@ class BaseWidgetOperation extends BaseModel
 
 
     /**
-     * Relation HasMany pour Widgets.
+     * Relation HasMany pour WidgetOperations.
      *
      * @return HasMany
      */
-    public function widgets(): HasMany
+    public function operationIdWidgets(): HasMany
     {
-        return $this->hasMany(Widget::class, 'widget_operation_id', 'id');
+        return $this->hasMany(Widget::class, 'operation_id', 'id');
     }
+
+
 
     /**
      * Méthode __toString pour représenter le modèle sous forme de chaîne.
@@ -55,6 +57,6 @@ class BaseWidgetOperation extends BaseModel
      */
     public function __toString()
     {
-        return $this->operation;
+        return $this->id;
     }
 }

@@ -21,7 +21,7 @@ class BaseWidgetTypeImport implements ToModel, WithHeadingRow
      */
     private function recordExists(array $row): bool
     {
-        return WidgetType::where('id', $row['id'])->exists();
+        return WidgetType::where('reference', $row['reference'])->exists();
     }
 
     /**
@@ -40,6 +40,7 @@ class BaseWidgetTypeImport implements ToModel, WithHeadingRow
         return new WidgetType([
             'type' => $row['type'],
             'description' => $row['description'],
+            'reference' => $row['reference'],
         ]);
     }
 }

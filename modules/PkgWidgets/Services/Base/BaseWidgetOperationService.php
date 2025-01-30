@@ -65,7 +65,7 @@ class BaseWidgetOperationService extends BaseService
     public function getWidgetOperationStats(): array
     {
 
-        $stats = [];
+        $stats = $this->initStats();
 
         
 

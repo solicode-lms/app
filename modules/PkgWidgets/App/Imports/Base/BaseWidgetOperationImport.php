@@ -21,7 +21,7 @@ class BaseWidgetOperationImport implements ToModel, WithHeadingRow
      */
     private function recordExists(array $row): bool
     {
-        return WidgetOperation::where('id', $row['id'])->exists();
+        return WidgetOperation::where('reference', $row['reference'])->exists();
     }
 
     /**
@@ -40,6 +40,7 @@ class BaseWidgetOperationImport implements ToModel, WithHeadingRow
         return new WidgetOperation([
             'operation' => $row['operation'],
             'description' => $row['description'],
+            'reference' => $row['reference'],
         ]);
     }
 }

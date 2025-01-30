@@ -27,6 +27,7 @@ class BaseWidgetTypeExport implements FromCollection, WithHeadings, ShouldAutoSi
         return [
             'type',
             'description',
+            'reference',
         ];
     }
 
@@ -36,6 +37,7 @@ class BaseWidgetTypeExport implements FromCollection, WithHeadings, ShouldAutoSi
             return [
                 'type' => $widgetType->type,
                 'description' => $widgetType->description,
+                'reference' => $widgetType->reference,
             ];
         });
     }

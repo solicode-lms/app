@@ -65,7 +65,7 @@ class BaseWidgetTypeService extends BaseService
     public function getWidgetTypeStats(): array
     {
 
-        $stats = [];
+        $stats = $this->initStats();
 
         
 

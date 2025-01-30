@@ -3,15 +3,13 @@
 
 
 namespace Modules\PkgWidgets\Controllers\Base;
-
-use Modules\Core\Controllers\Base\AdminController;
-use Modules\PkgWidgets\App\Requests\WidgetRequest;
 use Modules\PkgWidgets\Services\WidgetService;
 use Modules\Core\Services\SysModelService;
 use Modules\PkgWidgets\Services\WidgetOperationService;
 use Modules\PkgWidgets\Services\WidgetTypeService;
-
 use Illuminate\Http\Request;
+use Modules\Core\Controllers\Base\AdminController;
+use Modules\PkgWidgets\App\Requests\WidgetRequest;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgWidgets\App\Exports\WidgetExport;
 use Modules\PkgWidgets\App\Imports\WidgetImport;
@@ -24,46 +22,37 @@ class BaseWidgetController extends AdminController
     protected $widgetOperationService;
     protected $widgetTypeService;
 
-    public function __construct(WidgetService $widgetService, SysModelService $sysModelService, WidgetOperationService $widgetOperationService, WidgetTypeService $widgetTypeService)
-    {
+    public function __construct(WidgetService $widgetService, SysModelService $sysModelService, WidgetOperationService $widgetOperationService, WidgetTypeService $widgetTypeService) {
         parent::__construct();
         $this->widgetService = $widgetService;
         $this->sysModelService = $sysModelService;
         $this->widgetOperationService = $widgetOperationService;
         $this->widgetTypeService = $widgetTypeService;
-
     }
 
-
-    public function index(Request $request)
-    {
+    public function index(Request $request) {
         // Extraire les paramètres de recherche, page, et filtres
         $widgets_params = array_merge(
             $request->only(['page','sort']),
             ['search' => $request->get('widgets_search', '')],
             $request->except(['widgets_search', 'page', 'sort'])
         );
-    
+
         // Paginer les widgets
         $widgets_data = $this->widgetService->paginate($widgets_params);
-    
+
         // Récupérer les statistiques et les champs filtrables
         $widgets_stats = $this->widgetService->getwidgetStats();
         $widgets_filters = $this->widgetService->getFieldsFilterable();
-    
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
             return view('PkgWidgets::widget._table', compact('widgets_data', 'widgets_stats', 'widgets_filters'))->render();
         }
-    
+
         return view('PkgWidgets::widget.index', compact('widgets_data', 'widgets_stats', 'widgets_filters'));
     }
-
-    /**
-     * Retourne le formulaire de création.
-     */
-    public function create()
-    {
+    public function create() {
         $itemWidget = $this->widgetService->createInstance();
         $sysModels = $this->sysModelService->all();
         $widgetOperations = $this->widgetOperationService->all();
@@ -75,12 +64,7 @@ class BaseWidgetController extends AdminController
         }
         return view('PkgWidgets::widget.create', compact('itemWidget', 'sysModels', 'widgetOperations', 'widgetTypes'));
     }
-
-    /**
-     * Stocke une nouvelle filière.
-     */
-    public function store(WidgetRequest $request)
-    {
+    public function store(WidgetRequest $request) {
         $validatedData = $request->validated();
         $widget = $this->widgetService->create($validatedData);
 
@@ -103,12 +87,7 @@ class BaseWidgetController extends AdminController
             ])
         );
     }
-
-    /**
-     * Affiche les détails d'une filière.
-     */
-    public function show(string $id)
-    {
+    public function show(string $id) {
         $itemWidget = $this->widgetService->find($id);
         $sysModels = $this->sysModelService->all();
         $widgetOperations = $this->widgetOperationService->all();
@@ -120,35 +99,26 @@ class BaseWidgetController extends AdminController
         }
 
         return view('PkgWidgets::widget.show', compact('itemWidget'));
+
     }
+    public function edit(string $id) {
 
-    /**
-     * Retourne le formulaire d'édition d'une filière.
-     */
-    public function edit(string $id)
-    {
-
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('widget_id', $id);
+        
         $itemWidget = $this->widgetService->find($id);
         $sysModels = $this->sysModelService->all();
         $widgetOperations = $this->widgetOperationService->all();
         $widgetTypes = $this->widgetTypeService->all();
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('widget_id', $id);
-
 
         if (request()->ajax()) {
             return view('PkgWidgets::widget._fields', compact('itemWidget', 'sysModels', 'widgetOperations', 'widgetTypes'));
         }
 
         return view('PkgWidgets::widget.edit', compact('itemWidget', 'sysModels', 'widgetOperations', 'widgetTypes'));
-    }
 
-    /**
-     * Met à jour une filière existante.
-     */
-    public function update(WidgetRequest $request, string $id)
-    {
+    }
+    public function update(WidgetRequest $request, string $id) {
 
         $validatedData = $request->validated();
         $widget = $this->widgetService->update($id, $validatedData);
@@ -169,13 +139,9 @@ class BaseWidgetController extends AdminController
                 'modelName' =>  __('PkgWidgets::widget.singular')
                 ])
         );
-    }
 
-    /**
-     * Supprime une filière.
-     */
-    public function destroy(Request $request, string $id)
-    {
+    }
+    public function destroy(Request $request, string $id) {
 
         $widget = $this->widgetService->destroy($id);
 
@@ -194,6 +160,7 @@ class BaseWidgetController extends AdminController
                 'modelName' =>  __('PkgWidgets::widget.singular')
                 ])
         );
+
     }
 
     public function export()
@@ -229,4 +196,5 @@ class BaseWidgetController extends AdminController
         $widgets = $this->widgetService->all();
         return response()->json($widgets);
     }
+
 }

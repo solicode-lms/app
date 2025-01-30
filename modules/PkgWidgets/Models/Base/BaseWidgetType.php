@@ -39,14 +39,16 @@ class BaseWidgetType extends BaseModel
 
 
     /**
-     * Relation HasMany pour Widgets.
+     * Relation HasMany pour WidgetTypes.
      *
      * @return HasMany
      */
-    public function widgets(): HasMany
+    public function typeIdWidgets(): HasMany
     {
-        return $this->hasMany(Widget::class, 'widget_type_id', 'id');
+        return $this->hasMany(Widget::class, 'type_id', 'id');
     }
+
+
 
     /**
      * Méthode __toString pour représenter le modèle sous forme de chaîne.

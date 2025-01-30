@@ -1,6 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-@section('role-form')
+@section('widget-form')
 <form class="crud-form custom-form context-state" id="widgetForm" action="{{ $itemWidget->id ? route('widgets.update', $itemWidget->id) : route('widgets.store') }}" method="POST" novalidate>
     @csrf
 
@@ -172,8 +172,31 @@
 </div>
 
         
+        <div class="form-group">
+    <label for="parameters">
+        {{ ucfirst(__('PkgWidgets::widget.parameters')) }}
+        
+    </label>
+    
+    <div class="form-control editeur_json code-editor"
+        contenteditable="true">{{ $itemWidget ? $itemWidget->parameters : old('parameters') }}</div>
+    
+    <input
+        type="hidden"
+        name="parameters"
+        class="form-control"
+        id="parameters"
+         
+        value = "{{ $itemWidget ? $itemWidget->parameters : old('parameters') }}"
+    >
 
-        <!--   parameters JSON --> 
+
+    @error('parameters')
+        <div class="text-danger">{{ $message }}</div>
+    @enderror
+</div>
+
+
 
     </div>
 
@@ -184,4 +207,8 @@
 </form>
 @show
 
+
+<script>
+
+</script>
 

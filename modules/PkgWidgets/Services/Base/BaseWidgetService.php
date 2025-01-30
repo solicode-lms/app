@@ -48,6 +48,9 @@ class BaseWidgetService extends BaseService
 
         // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
+            $this->generateManyToOneFilter(__("PkgWidgets::widgetType.plural"), 'type_id', \Modules\PkgWidgets\Models\WidgetType::class, 'type'),
+            $this->generateManyToOneFilter(__("Core::sysModel.plural"), 'model_id', \Modules\Core\Models\SysModel::class, 'name'),
+            $this->generateManyToOneFilter(__("PkgWidgets::widgetOperation.plural"), 'operation_id', \Modules\PkgWidgets\Models\WidgetOperation::class, 'id'),
         ];
 
     }
@@ -71,7 +74,7 @@ class BaseWidgetService extends BaseService
     public function getWidgetStats(): array
     {
 
-        $stats = [];
+        $stats = $this->initStats();
 
         
 

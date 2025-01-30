@@ -1,6 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-@section('role-form')
+@section('widgetOperation-form')
 <form class="crud-form custom-form context-state" id="widgetOperationForm" action="{{ $itemWidgetOperation->id ? route('widgetOperations.update', $itemWidgetOperation->id) : route('widgetOperations.store') }}" method="POST" novalidate>
     @csrf
 
@@ -51,7 +51,7 @@
 
         
 
-        <!--   Widget_HasMany HasMany --> 
+        <!--   Widget HasMany --> 
 
     </div>
 
@@ -62,4 +62,8 @@
 </form>
 @show
 
+
+<script>
+
+</script>
 

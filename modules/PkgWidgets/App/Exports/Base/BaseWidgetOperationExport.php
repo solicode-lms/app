@@ -27,6 +27,7 @@ class BaseWidgetOperationExport implements FromCollection, WithHeadings, ShouldA
         return [
             'operation',
             'description',
+            'reference',
         ];
     }
 
@@ -36,6 +37,7 @@ class BaseWidgetOperationExport implements FromCollection, WithHeadings, ShouldA
             return [
                 'operation' => $widgetOperation->operation,
                 'description' => $widgetOperation->description,
+                'reference' => $widgetOperation->reference,
             ];
         });
     }

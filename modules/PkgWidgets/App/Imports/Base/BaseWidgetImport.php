@@ -46,6 +46,7 @@ class BaseWidgetImport implements ToModel, WithHeadingRow
             'icon' => $row['icon'],
             'label' => $row['label'],
             'parameters' => $row['parameters'],
+            'reference' => $row['reference'],
         ]);
     }
 }

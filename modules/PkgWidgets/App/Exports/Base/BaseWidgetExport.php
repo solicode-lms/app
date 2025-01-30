@@ -33,6 +33,7 @@ class BaseWidgetExport implements FromCollection, WithHeadings, ShouldAutoSize, 
             'icon',
             'label',
             'parameters',
+            'reference',
         ];
     }
 
@@ -48,6 +49,7 @@ class BaseWidgetExport implements FromCollection, WithHeadings, ShouldAutoSize, 
                 'icon' => $widget->icon,
                 'label' => $widget->label,
                 'parameters' => $widget->parameters,
+                'reference' => $widget->reference,
             ];
         });
     }
