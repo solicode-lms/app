@@ -396,6 +396,36 @@
     </div>
 
 
+        
+        
+    <div class="form-group">
+            <label for="user_id">
+                {{ ucfirst(__('PkgAutorisation::user.singular')) }}
+                
+            </label>
+            <select 
+            id="user_id" 
+            
+            name="user_id" 
+            class="form-control select2">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($users as $user)
+                    <option value="{{ $user->id }}"
+                        {{ (isset($itemApprenant) && $itemApprenant->user_id == $user->id) || (old('user_id>') == $user->id) ? 'selected' : '' }}>
+                        {{ $user }}
+                    </option>
+                @endforeach
+            </select>
+            @error('user_id')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+    </div>
+
+
+        
+
+        <!--   RealisationProjet HasMany --> 
+
     </div>
 
     <div class="card-footer">

@@ -17,24 +17,27 @@ class BaseTransfertCompetenceRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'description' => 'nullable',
+            'note' => 'nullable',
+            'question' => 'nullable',
             'projet_id' => 'required',
             'competence_id' => 'required',
-            'appreciation_id' => 'required'
+            'niveau_difficulte_id' => 'required'
         ];
     }
 
     public function messages(): array
     {
         return [
-            'description.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::TransfertCompetence.description')]),
-            'description.max' => __('validation.descriptionMax'),
+            'note.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::TransfertCompetence.note')]),
+            'note.max' => __('validation.noteMax'),
+            'question.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::TransfertCompetence.question')]),
+            'question.max' => __('validation.questionMax'),
             'projet_id.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::TransfertCompetence.projet_id')]),
             'projet_id.max' => __('validation.projet_idMax'),
             'competence_id.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::TransfertCompetence.competence_id')]),
             'competence_id.max' => __('validation.competence_idMax'),
-            'appreciation_id.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::TransfertCompetence.appreciation_id')]),
-            'appreciation_id.max' => __('validation.appreciation_idMax')
+            'niveau_difficulte_id.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::TransfertCompetence.niveau_difficulte_id')]),
+            'niveau_difficulte_id.max' => __('validation.niveau_difficulte_idMax')
         ];
     }
 }

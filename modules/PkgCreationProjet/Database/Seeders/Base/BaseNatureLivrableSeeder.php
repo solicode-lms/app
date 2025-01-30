@@ -21,7 +21,7 @@ use Modules\PkgCreationProjet\Models\NatureLivrable;
 
 class BaseNatureLivrableSeeder extends Seeder
 {
-    public static int $order = 35;
+    public static int $order = 37;
 
     public function run(): void
     {

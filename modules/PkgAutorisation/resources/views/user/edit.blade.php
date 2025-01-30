@@ -40,7 +40,7 @@
                         <ul class="nav nav-tabs mr-auto" id="edit-user-tab" role="tablist">
                         <li class="pt-2 px-3">
                             <h3 class="card-title">
-                                <i class="nav-icon fas fa-user-circle"></i>
+                                <i class="nav-icon fas fa-user-circle1"></i>
                                 {{ __('Core::msg.edit') }}
                             </h3>
                         </li>
@@ -48,6 +48,9 @@
                             <a class="nav-link active" id="user-hasmany-tabs-home-tab" data-toggle="pill" href="#user-hasmany-tabs-home" role="tab" aria-controls="user-hasmany-tabs-home" aria-selected="true">{{__('PkgAutorisation::user.singular')}}</a>
                         </li>
 
+                        <li class="nav-item">
+                            <a class="nav-link" id="user-hasmany-tabs-apprenant-tab" data-toggle="pill" href="#user-hasmany-tabs-apprenant" role="tab" aria-controls="user-hasmany-tabs-apprenant" aria-selected="false">{{__('PkgApprenants::apprenant.plural')}}</a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link" id="user-hasmany-tabs-formateur-tab" data-toggle="pill" href="#user-hasmany-tabs-formateur" role="tab" aria-controls="user-hasmany-tabs-formateur" aria-selected="false">{{__('PkgFormation::formateur.plural')}}</a>
                         </li>
@@ -65,8 +68,11 @@
                                 @include('PkgAutorisation::user._fields')
                             </div>
 
+                            <div class="tab-pane fade" id="user-hasmany-tabs-apprenant" role="tabpanel" aria-labelledby="user-hasmany-tabs-apprenant-tab">
+                                @include('PkgApprenants::apprenant._index',['isMany' => true])
+                            </div>
                             <div class="tab-pane fade" id="user-hasmany-tabs-formateur" role="tabpanel" aria-labelledby="user-hasmany-tabs-formateur-tab">
-                                @include('PkgFormation::formateur._index')
+                                @include('PkgFormation::formateur._index',['isMany' => true])
                             </div>
 
                            

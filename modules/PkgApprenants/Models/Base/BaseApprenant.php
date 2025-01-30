@@ -14,6 +14,8 @@ use Modules\Core\Models\BaseModel;
 use Modules\PkgApprenants\Models\Groupe;
 use Modules\PkgApprenants\Models\Nationalite;
 use Modules\PkgApprenants\Models\NiveauxScolaire;
+use Modules\PkgAutorisation\Models\User;
+use Modules\PkgRealisationProjets\Models\RealisationProjet;
 
 /**
  * Classe BaseApprenant
@@ -35,7 +37,7 @@ class BaseApprenant extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'nom', 'prenom', 'prenom_arab', 'nom_arab', 'tele_num', 'profile_image', 'matricule', 'sexe', 'actif', 'diplome', 'date_naissance', 'date_inscription', 'lieu_naissance', 'cin', 'adresse', 'groupe_id', 'niveaux_scolaire_id', 'nationalite_id'
+        'nom', 'prenom', 'prenom_arab', 'nom_arab', 'tele_num', 'profile_image', 'matricule', 'sexe', 'actif', 'diplome', 'date_naissance', 'date_inscription', 'lieu_naissance', 'cin', 'adresse', 'groupe_id', 'niveaux_scolaire_id', 'nationalite_id', 'user_id'
     ];
 
     /**
@@ -65,8 +67,26 @@ class BaseApprenant extends BaseModel
     {
         return $this->belongsTo(NiveauxScolaire::class, 'niveaux_scolaire_id', 'id');
     }
+    /**
+     * Relation BelongsTo pour User.
+     *
+     * @return BelongsTo
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
 
 
+    /**
+     * Relation HasMany pour Apprenants.
+     *
+     * @return HasMany
+     */
+    public function realisationProjets(): HasMany
+    {
+        return $this->hasMany(RealisationProjet::class, 'apprenant_id', 'id');
+    }
 
 
 

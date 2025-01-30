@@ -13,6 +13,7 @@ use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
 use Modules\PkgCreationProjet\Models\NatureLivrable;
 use Modules\PkgCreationProjet\Models\Projet;
+use Modules\PkgRealisationProjets\Models\LivrablesRealisation;
 
 /**
  * Classe BaseLivrable
@@ -57,6 +58,15 @@ class BaseLivrable extends BaseModel
     }
 
 
+    /**
+     * Relation HasMany pour Livrables.
+     *
+     * @return HasMany
+     */
+    public function livrablesRealisations(): HasMany
+    {
+        return $this->hasMany(LivrablesRealisation::class, 'livrable_id', 'id');
+    }
 
 
 

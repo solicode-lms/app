@@ -49,7 +49,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" id="formateur-hasmany-tabs-appreciation-tab" data-toggle="pill" href="#formateur-hasmany-tabs-appreciation" role="tab" aria-controls="formateur-hasmany-tabs-appreciation" aria-selected="false">{{__('PkgCompetences::appreciation.plural')}}</a>
+                            <a class="nav-link" id="formateur-hasmany-tabs-niveauDifficulte-tab" data-toggle="pill" href="#formateur-hasmany-tabs-niveauDifficulte" role="tab" aria-controls="formateur-hasmany-tabs-niveauDifficulte" aria-selected="false">{{__('PkgCompetences::niveauDifficulte.plural')}}</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="formateur-hasmany-tabs-projet-tab" data-toggle="pill" href="#formateur-hasmany-tabs-projet" role="tab" aria-controls="formateur-hasmany-tabs-projet" aria-selected="false">{{__('PkgCreationProjet::projet.plural')}}</a>
@@ -68,8 +68,8 @@
                                 @include('PkgFormation::formateur._fields')
                             </div>
 
-                            <div class="tab-pane fade" id="formateur-hasmany-tabs-appreciation" role="tabpanel" aria-labelledby="formateur-hasmany-tabs-appreciation-tab">
-                                @include('PkgCompetences::appreciation._index',['isMany' => true])
+                            <div class="tab-pane fade" id="formateur-hasmany-tabs-niveauDifficulte" role="tabpanel" aria-labelledby="formateur-hasmany-tabs-niveauDifficulte-tab">
+                                @include('PkgCompetences::niveauDifficulte._index',['isMany' => true])
                             </div>
                             <div class="tab-pane fade" id="formateur-hasmany-tabs-projet" role="tabpanel" aria-labelledby="formateur-hasmany-tabs-projet-tab">
                                 @include('PkgCreationProjet::projet._index',['isMany' => true])

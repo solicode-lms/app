@@ -21,7 +21,7 @@ use Modules\PkgGapp\Models\EDataField;
 
 class BaseEDataFieldSeeder extends Seeder
 {
-    public static int $order = 46;
+    public static int $order = 48;
 
     public function run(): void
     {

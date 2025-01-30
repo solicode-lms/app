@@ -21,7 +21,7 @@ use Modules\PkgFormation\Models\Specialite;
 
 class BaseSpecialiteSeeder extends Seeder
 {
-    public static int $order = 27;
+    public static int $order = 28;
 
     public function run(): void
     {

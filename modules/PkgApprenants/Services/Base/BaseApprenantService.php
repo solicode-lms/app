@@ -36,7 +36,8 @@ class BaseApprenantService extends BaseService
         'adresse',
         'groupe_id',
         'niveaux_scolaire_id',
-        'nationalite_id'
+        'nationalite_id',
+        'user_id'
     ];
 
     /**
@@ -61,6 +62,7 @@ class BaseApprenantService extends BaseService
             $this->generateManyToOneFilter(__("PkgApprenants::groupe.plural"), 'groupe_id', \Modules\PkgApprenants\Models\Groupe::class, 'code'),
             $this->generateManyToOneFilter(__("PkgApprenants::niveauxScolaire.plural"), 'niveaux_scolaire_id', \Modules\PkgApprenants\Models\NiveauxScolaire::class, 'code'),
             $this->generateManyToOneFilter(__("PkgApprenants::nationalite.plural"), 'nationalite_id', \Modules\PkgApprenants\Models\Nationalite::class, 'code'),
+            $this->generateManyToOneFilter(__("PkgAutorisation::user.plural"), 'user_id', \Modules\PkgAutorisation\Models\User::class, 'name'),
         ];
 
     }

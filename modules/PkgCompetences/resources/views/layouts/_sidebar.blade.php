@@ -1,7 +1,7 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 
-@accessiblePermissions(['show-categoryTechnology', 'show-competence', 'show-niveauCompetence', 'show-technology', 'show-appreciation'])
+@accessiblePermissions(['show-categoryTechnology', 'show-competence', 'show-niveauCompetence', 'show-technology', 'show-niveauDifficulte'])
 @if($accessiblePermissions->isNotEmpty())
 <li class="nav-item has-treeview {{ Request::is('admin/PkgCompetences*') ? 'menu-open' : '' }}">
     <a href="#" class="nav-link nav-link {{ Request::is('admin/PkgCompetences*') ? 'active' : '' }}">
@@ -44,11 +44,11 @@
             </a>
         </li>
         @endcan
-        @can('show-appreciation') 
+        @can('show-niveauDifficulte') 
         <li class="nav-item">
-            <a href="{{ route('appreciations.index') }}" class="nav-link {{ Request::is('admin/PkgCompetences/appreciations') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-chart-line"></i>
-                {{__('PkgCompetences::Appreciation.plural')}}
+            <a href="{{ route('niveauDifficultes.index') }}" class="nav-link {{ Request::is('admin/PkgCompetences/niveauDifficultes') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-table"></i>
+                {{__('PkgCompetences::NiveauDifficulte.plural')}}
             </a>
         </li>
         @endcan

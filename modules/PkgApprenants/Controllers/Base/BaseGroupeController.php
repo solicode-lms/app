@@ -5,6 +5,7 @@
 namespace Modules\PkgApprenants\Controllers\Base;
 use Modules\PkgApprenants\Services\GroupeService;
 use Modules\PkgFormation\Services\FormateurService;
+use Modules\PkgFormation\Services\AnneeFormationService;
 use Modules\PkgFormation\Services\FiliereService;
 use Modules\PkgApprenants\Services\ApprenantService;
 use Illuminate\Http\Request;
@@ -19,12 +20,16 @@ class BaseGroupeController extends AdminController
 {
     protected $groupeService;
     protected $formateurService;
+    protected $formateurService;
+    protected $anneeFormationService;
     protected $filiereService;
 
-    public function __construct(GroupeService $groupeService, FormateurService $formateurService, FiliereService $filiereService) {
+    public function __construct(GroupeService $groupeService, FormateurService $formateurService, FormateurService $formateurService, AnneeFormationService $anneeFormationService, FiliereService $filiereService) {
         parent::__construct();
         $this->groupeService = $groupeService;
         $this->formateurService = $formateurService;
+        $this->formateurService = $formateurService;
+        $this->anneeFormationService = $anneeFormationService;
         $this->filiereService = $filiereService;
     }
 
@@ -53,19 +58,24 @@ class BaseGroupeController extends AdminController
     public function create() {
         $itemGroupe = $this->groupeService->createInstance();
         $formateurs = $this->formateurService->all();
+        $formateurs = $this->formateurService->all();
+        $anneeFormations = $this->anneeFormationService->all();
         $filieres = $this->filiereService->all();
 
 
         if (request()->ajax()) {
-            return view('PkgApprenants::groupe._fields', compact('itemGroupe', 'formateurs', 'filieres'));
+            return view('PkgApprenants::groupe._fields', compact('itemGroupe', 'formateurs', 'formateurs', 'anneeFormations', 'filieres'));
         }
-        return view('PkgApprenants::groupe.create', compact('itemGroupe', 'formateurs', 'filieres'));
+        return view('PkgApprenants::groupe.create', compact('itemGroupe', 'formateurs', 'formateurs', 'anneeFormations', 'filieres'));
     }
     public function store(GroupeRequest $request) {
         $validatedData = $request->validated();
         $groupe = $this->groupeService->create($validatedData);
 
 
+        if ($request->has('formateurs')) {
+            $groupe->formateurs()->sync($request->input('formateurs'));
+        }
         if ($request->has('formateurs')) {
             $groupe->formateurs()->sync($request->input('formateurs'));
         }
@@ -90,11 +100,13 @@ class BaseGroupeController extends AdminController
     public function show(string $id) {
         $itemGroupe = $this->groupeService->find($id);
         $formateurs = $this->formateurService->all();
+        $formateurs = $this->formateurService->all();
+        $anneeFormations = $this->anneeFormationService->all();
         $filieres = $this->filiereService->all();
 
 
         if (request()->ajax()) {
-            return view('PkgApprenants::groupe._fields', compact('itemGroupe', 'formateurs', 'filieres'));
+            return view('PkgApprenants::groupe._fields', compact('itemGroupe', 'formateurs', 'formateurs', 'anneeFormations', 'filieres'));
         }
 
         return view('PkgApprenants::groupe.show', compact('itemGroupe'));
@@ -107,6 +119,8 @@ class BaseGroupeController extends AdminController
         
         $itemGroupe = $this->groupeService->find($id);
         $formateurs = $this->formateurService->all();
+        $formateurs = $this->formateurService->all();
+        $anneeFormations = $this->anneeFormationService->all();
         $filieres = $this->filiereService->all();
         $apprenantService =  new ApprenantService();
         $apprenants_data =  $itemGroupe->apprenants()->paginate(10);
@@ -115,10 +129,10 @@ class BaseGroupeController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('PkgApprenants::groupe._fields', compact('itemGroupe', 'formateurs', 'filieres', 'apprenants_data', 'apprenants_stats', 'apprenants_filters'));
+            return view('PkgApprenants::groupe._fields', compact('itemGroupe', 'formateurs', 'formateurs', 'anneeFormations', 'filieres', 'apprenants_data', 'apprenants_stats', 'apprenants_filters'));
         }
 
-        return view('PkgApprenants::groupe.edit', compact('itemGroupe', 'formateurs', 'filieres', 'apprenants_data', 'apprenants_stats', 'apprenants_filters'));
+        return view('PkgApprenants::groupe.edit', compact('itemGroupe', 'formateurs', 'formateurs', 'anneeFormations', 'filieres', 'apprenants_data', 'apprenants_stats', 'apprenants_filters'));
 
     }
     public function update(GroupeRequest $request, string $id) {
@@ -126,6 +140,7 @@ class BaseGroupeController extends AdminController
         $validatedData = $request->validated();
         $groupe = $this->groupeService->update($id, $validatedData);
 
+        $groupe->formateurs()->sync($request->input('formateurs'));
         $groupe->formateurs()->sync($request->input('formateurs'));
 
         if ($request->ajax()) {

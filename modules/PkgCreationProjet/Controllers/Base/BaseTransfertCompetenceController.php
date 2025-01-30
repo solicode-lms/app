@@ -5,9 +5,10 @@
 namespace Modules\PkgCreationProjet\Controllers\Base;
 use Modules\PkgCreationProjet\Services\TransfertCompetenceService;
 use Modules\PkgCompetences\Services\TechnologyService;
-use Modules\PkgCompetences\Services\AppreciationService;
 use Modules\PkgCompetences\Services\CompetenceService;
+use Modules\PkgCompetences\Services\NiveauDifficulteService;
 use Modules\PkgCreationProjet\Services\ProjetService;
+use Modules\PkgRealisationProjets\Services\ValidationService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\PkgCreationProjet\App\Requests\TransfertCompetenceRequest;
@@ -20,16 +21,16 @@ class BaseTransfertCompetenceController extends AdminController
 {
     protected $transfertCompetenceService;
     protected $technologyService;
-    protected $appreciationService;
     protected $competenceService;
+    protected $niveauDifficulteService;
     protected $projetService;
 
-    public function __construct(TransfertCompetenceService $transfertCompetenceService, TechnologyService $technologyService, AppreciationService $appreciationService, CompetenceService $competenceService, ProjetService $projetService) {
+    public function __construct(TransfertCompetenceService $transfertCompetenceService, TechnologyService $technologyService, CompetenceService $competenceService, NiveauDifficulteService $niveauDifficulteService, ProjetService $projetService) {
         parent::__construct();
         $this->transfertCompetenceService = $transfertCompetenceService;
         $this->technologyService = $technologyService;
-        $this->appreciationService = $appreciationService;
         $this->competenceService = $competenceService;
+        $this->niveauDifficulteService = $niveauDifficulteService;
         $this->projetService = $projetService;
     }
 
@@ -58,15 +59,15 @@ class BaseTransfertCompetenceController extends AdminController
     public function create() {
         $itemTransfertCompetence = $this->transfertCompetenceService->createInstance();
         $technologies = $this->technologyService->all();
-        $appreciations = $this->appreciationService->all();
         $competences = $this->competenceService->all();
+        $niveauDifficultes = $this->niveauDifficulteService->all();
         $projets = $this->projetService->all();
 
 
         if (request()->ajax()) {
-            return view('PkgCreationProjet::transfertCompetence._fields', compact('itemTransfertCompetence', 'technologies', 'appreciations', 'competences', 'projets'));
+            return view('PkgCreationProjet::transfertCompetence._fields', compact('itemTransfertCompetence', 'technologies', 'competences', 'niveauDifficultes', 'projets'));
         }
-        return view('PkgCreationProjet::transfertCompetence.create', compact('itemTransfertCompetence', 'technologies', 'appreciations', 'competences', 'projets'));
+        return view('PkgCreationProjet::transfertCompetence.create', compact('itemTransfertCompetence', 'technologies', 'competences', 'niveauDifficultes', 'projets'));
     }
     public function store(TransfertCompetenceRequest $request) {
         $validatedData = $request->validated();
@@ -86,7 +87,7 @@ class BaseTransfertCompetenceController extends AdminController
             ]);
         }
 
-        return redirect()->route('transfertCompetences.index')->with(
+        return redirect()->route('transfertCompetences.edit',['transfertCompetence' => $transfertCompetence->id])->with(
             'success',
             __('Core::msg.addSuccess', [
                 'entityToString' => $transfertCompetence,
@@ -97,13 +98,13 @@ class BaseTransfertCompetenceController extends AdminController
     public function show(string $id) {
         $itemTransfertCompetence = $this->transfertCompetenceService->find($id);
         $technologies = $this->technologyService->all();
-        $appreciations = $this->appreciationService->all();
         $competences = $this->competenceService->all();
+        $niveauDifficultes = $this->niveauDifficulteService->all();
         $projets = $this->projetService->all();
 
 
         if (request()->ajax()) {
-            return view('PkgCreationProjet::transfertCompetence._fields', compact('itemTransfertCompetence', 'technologies', 'appreciations', 'competences', 'projets'));
+            return view('PkgCreationProjet::transfertCompetence._fields', compact('itemTransfertCompetence', 'technologies', 'competences', 'niveauDifficultes', 'projets'));
         }
 
         return view('PkgCreationProjet::transfertCompetence.show', compact('itemTransfertCompetence'));
@@ -116,15 +117,20 @@ class BaseTransfertCompetenceController extends AdminController
         
         $itemTransfertCompetence = $this->transfertCompetenceService->find($id);
         $technologies = $this->technologyService->all();
-        $appreciations = $this->appreciationService->all();
         $competences = $this->competenceService->all();
+        $niveauDifficultes = $this->niveauDifficulteService->all();
         $projets = $this->projetService->all();
+        $validationService =  new ValidationService();
+        $validations_data =  $itemTransfertCompetence->validations()->paginate(10);
+        $validations_stats = $validationService->getvalidationStats();
+        $validations_filters = $validationService->getFieldsFilterable();
+        
 
         if (request()->ajax()) {
-            return view('PkgCreationProjet::transfertCompetence._fields', compact('itemTransfertCompetence', 'technologies', 'appreciations', 'competences', 'projets'));
+            return view('PkgCreationProjet::transfertCompetence._fields', compact('itemTransfertCompetence', 'technologies', 'competences', 'niveauDifficultes', 'projets', 'validations_data', 'validations_stats', 'validations_filters'));
         }
 
-        return view('PkgCreationProjet::transfertCompetence.edit', compact('itemTransfertCompetence', 'technologies', 'appreciations', 'competences', 'projets'));
+        return view('PkgCreationProjet::transfertCompetence.edit', compact('itemTransfertCompetence', 'technologies', 'competences', 'niveauDifficultes', 'projets', 'validations_data', 'validations_stats', 'validations_filters'));
 
     }
     public function update(TransfertCompetenceRequest $request, string $id) {

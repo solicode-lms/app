@@ -11,10 +11,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
-use Modules\PkgCompetences\Models\Appreciation;
 use Modules\PkgCompetences\Models\Competence;
+use Modules\PkgCompetences\Models\NiveauDifficulte;
 use Modules\PkgCreationProjet\Models\Projet;
 use Modules\PkgCompetences\Models\Technology;
+use Modules\PkgRealisationProjets\Models\Validation;
 
 /**
  * Classe BaseTransfertCompetence
@@ -36,18 +37,9 @@ class BaseTransfertCompetence extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'description', 'projet_id', 'competence_id', 'appreciation_id'
+        'note', 'question', 'projet_id', 'competence_id', 'niveau_difficulte_id'
     ];
 
-    /**
-     * Relation BelongsTo pour Appreciation.
-     *
-     * @return BelongsTo
-     */
-    public function appreciation(): BelongsTo
-    {
-        return $this->belongsTo(Appreciation::class, 'appreciation_id', 'id');
-    }
     /**
      * Relation BelongsTo pour Competence.
      *
@@ -56,6 +48,15 @@ class BaseTransfertCompetence extends BaseModel
     public function competence(): BelongsTo
     {
         return $this->belongsTo(Competence::class, 'competence_id', 'id');
+    }
+    /**
+     * Relation BelongsTo pour NiveauDifficulte.
+     *
+     * @return BelongsTo
+     */
+    public function niveauDifficulte(): BelongsTo
+    {
+        return $this->belongsTo(NiveauDifficulte::class, 'niveau_difficulte_id', 'id');
     }
     /**
      * Relation BelongsTo pour Projet.
@@ -77,6 +78,15 @@ class BaseTransfertCompetence extends BaseModel
         return $this->belongsToMany(Technology::class, 'technology_transfert_competence');
     }
 
+    /**
+     * Relation HasMany pour TransfertCompetences.
+     *
+     * @return HasMany
+     */
+    public function validations(): HasMany
+    {
+        return $this->hasMany(Validation::class, 'transfert_competence_id', 'id');
+    }
 
 
 

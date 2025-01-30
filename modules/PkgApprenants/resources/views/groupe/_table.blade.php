@@ -6,6 +6,7 @@
             <tr>
                 <x-sortable-column field="code" label="{{ ucfirst(__('PkgApprenants::groupe.code')) }}" />
                 <x-sortable-column field="filiere_id" label="{{ ucfirst(__('PkgFormation::filiere.singular')) }}" />
+                <x-sortable-column field="annee_formation_id" label="{{ ucfirst(__('PkgFormation::anneeFormation.singular')) }}" />
                 <x-sortable-column field="Formateur" label="{{ ucfirst(__('PkgFormation::formateur.plural')) }}" />
 
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
@@ -16,6 +17,7 @@
                 <tr id="groupe-row-{{$groupe->id}}">
                     <td>@limit($groupe->code, 80)</td>
                     <td>@limit($groupe->filiere->code ?? '-', 80)</td>
+                    <td>@limit($groupe->anneeFormation->titre ?? '-', 80)</td>
                     <td>
                         <ul>
                             @foreach ($groupe->formateurs as $formateur)

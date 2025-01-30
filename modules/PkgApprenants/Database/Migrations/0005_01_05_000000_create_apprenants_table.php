@@ -34,6 +34,7 @@ return new class extends Migration {
             $table->foreignId('groupe_id')->nullable()->constrained('groupes');
             $table->foreignId('niveaux_scolaire_id')->nullable()->constrained('niveaux_scolaires');
             $table->foreignId('nationalite_id')->nullable()->constrained('nationalites');
+            $table->foreignId('user_id')->nullable()->constrained('users');
             $table->string('reference')->unique();
         });
     }

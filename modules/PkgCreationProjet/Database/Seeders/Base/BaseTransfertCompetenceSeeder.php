@@ -21,7 +21,7 @@ use Modules\PkgCreationProjet\Models\TransfertCompetence;
 
 class BaseTransfertCompetenceSeeder extends Seeder
 {
-    public static int $order = 39;
+    public static int $order = 41;
 
     public function run(): void
     {
@@ -46,10 +46,11 @@ class BaseTransfertCompetenceSeeder extends Seeder
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
                 TransfertCompetence::create([
-                    "description" => $data[0] ,
-                    "projet_id" => $data[1] ,
-                    "competence_id" => $data[2] ,
-                    "appreciation_id" => $data[3] 
+                    "note" => $data[0] ,
+                    "question" => $data[1] ,
+                    "projet_id" => $data[2] ,
+                    "competence_id" => $data[3] ,
+                    "niveau_difficulte_id" => $data[4] 
                 ]);
             }
             $firstline = false;

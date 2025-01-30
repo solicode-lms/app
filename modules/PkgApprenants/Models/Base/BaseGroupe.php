@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
+use Modules\PkgFormation\Models\AnneeFormation;
 use Modules\PkgFormation\Models\Filiere;
 use Modules\PkgFormation\Models\Formateur;
 use Modules\PkgApprenants\Models\Apprenant;
@@ -35,9 +36,18 @@ class BaseGroupe extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'code', 'nom', 'description', 'filiere_id'
+        'code', 'nom', 'description', 'filiere_id', 'annee_formation_id'
     ];
 
+    /**
+     * Relation BelongsTo pour AnneeFormation.
+     *
+     * @return BelongsTo
+     */
+    public function anneeFormation(): BelongsTo
+    {
+        return $this->belongsTo(AnneeFormation::class, 'annee_formation_id', 'id');
+    }
     /**
      * Relation BelongsTo pour Filiere.
      *
@@ -48,6 +58,15 @@ class BaseGroupe extends BaseModel
         return $this->belongsTo(Filiere::class, 'filiere_id', 'id');
     }
 
+    /**
+     * Relation ManyToMany pour Formateurs.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function formateurs()
+    {
+        return $this->belongsToMany(Formateur::class, 'apprenant_groupe');
+    }
     /**
      * Relation ManyToMany pour Formateurs.
      *

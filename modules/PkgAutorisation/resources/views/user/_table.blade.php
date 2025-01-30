@@ -11,7 +11,7 @@
         </thead>
         <tbody>
             @foreach ($users_data as $user)
-                <tr>
+                <tr id="user-row-{{$user->id}}">
                     <td>@limit($user->name, 80)</td>
                     <td>@limit($user->password, 80)</td>
                     <td class="text-right">

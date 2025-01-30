@@ -21,7 +21,7 @@ use Modules\PkgAutorisation\Models\User;
 
 class BaseGroupeSeeder extends Seeder
 {
-    public static int $order = 25;
+    public static int $order = 26;
 
     public function run(): void
     {
@@ -49,7 +49,8 @@ class BaseGroupeSeeder extends Seeder
                     "code" => $data[0] ,
                     "nom" => $data[1] ,
                     "description" => $data[2] ,
-                    "filiere_id" => $data[3] 
+                    "filiere_id" => $data[3] ,
+                    "annee_formation_id" => $data[4] 
                 ]);
             }
             $firstline = false;

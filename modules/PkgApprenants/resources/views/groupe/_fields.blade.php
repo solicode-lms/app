@@ -95,6 +95,57 @@
 
 
         
+        
+    <div class="form-group">
+            <label for="annee_formation_id">
+                {{ ucfirst(__('PkgFormation::anneeFormation.singular')) }}
+                
+            </label>
+            <select 
+            id="annee_formation_id" 
+            
+            name="annee_formation_id" 
+            class="form-control select2">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($anneeFormations as $anneeFormation)
+                    <option value="{{ $anneeFormation->id }}"
+                        {{ (isset($itemGroupe) && $itemGroupe->annee_formation_id == $anneeFormation->id) || (old('annee_formation_id>') == $anneeFormation->id) ? 'selected' : '' }}>
+                        {{ $anneeFormation }}
+                    </option>
+                @endforeach
+            </select>
+            @error('annee_formation_id')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+    </div>
+
+
+        
+                <div class="form-group">
+            <label for="formateurs">
+                {{ ucfirst(__('PkgFormation::Formateur.plural')) }}
+            </label>
+            <select
+                id="formateurs"
+                name="formateurs[]"
+                class="form-control select2"
+                multiple="multiple">
+               
+                @foreach ($formateurs as $formateur)
+                    <option value="{{ $formateur->id }}"
+                        {{ (isset($itemGroupe) && $itemGroupe->formateurs && $itemGroupe->formateurs->contains('id', $formateur->id)) || (is_array(old('formateurs')) && in_array($formateur->id, old('formateurs'))) ? 'selected' : '' }}>
+                        {{ $formateur }}
+                    </option>
+                @endforeach
+            </select>
+            @error('formateurs')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+
+        </div>
+
+
+        
 
         <!--   Apprenant HasMany --> 
 

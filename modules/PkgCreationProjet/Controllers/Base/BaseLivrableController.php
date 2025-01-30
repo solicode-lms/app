@@ -6,6 +6,7 @@ namespace Modules\PkgCreationProjet\Controllers\Base;
 use Modules\PkgCreationProjet\Services\LivrableService;
 use Modules\PkgCreationProjet\Services\NatureLivrableService;
 use Modules\PkgCreationProjet\Services\ProjetService;
+use Modules\PkgRealisationProjets\Services\LivrablesRealisationService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\PkgCreationProjet\App\Requests\LivrableRequest;
@@ -75,7 +76,7 @@ class BaseLivrableController extends AdminController
             ]);
         }
 
-        return redirect()->route('livrables.index')->with(
+        return redirect()->route('livrables.edit',['livrable' => $livrable->id])->with(
             'success',
             __('Core::msg.addSuccess', [
                 'entityToString' => $livrable,
@@ -104,12 +105,17 @@ class BaseLivrableController extends AdminController
         $itemLivrable = $this->livrableService->find($id);
         $natureLivrables = $this->natureLivrableService->all();
         $projets = $this->projetService->all();
+        $livrablesRealisationService =  new LivrablesRealisationService();
+        $livrablesRealisations_data =  $itemLivrable->livrablesRealisations()->paginate(10);
+        $livrablesRealisations_stats = $livrablesRealisationService->getlivrablesRealisationStats();
+        $livrablesRealisations_filters = $livrablesRealisationService->getFieldsFilterable();
+        
 
         if (request()->ajax()) {
-            return view('PkgCreationProjet::livrable._fields', compact('itemLivrable', 'natureLivrables', 'projets'));
+            return view('PkgCreationProjet::livrable._fields', compact('itemLivrable', 'natureLivrables', 'projets', 'livrablesRealisations_data', 'livrablesRealisations_stats', 'livrablesRealisations_filters'));
         }
 
-        return view('PkgCreationProjet::livrable.edit', compact('itemLivrable', 'natureLivrables', 'projets'));
+        return view('PkgCreationProjet::livrable.edit', compact('itemLivrable', 'natureLivrables', 'projets', 'livrablesRealisations_data', 'livrablesRealisations_stats', 'livrablesRealisations_filters'));
 
     }
     public function update(LivrableRequest $request, string $id) {

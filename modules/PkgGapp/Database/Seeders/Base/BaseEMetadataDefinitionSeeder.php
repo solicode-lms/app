@@ -21,7 +21,7 @@ use Modules\PkgGapp\Models\EMetadataDefinition;
 
 class BaseEMetadataDefinitionSeeder extends Seeder
 {
-    public static int $order = 42;
+    public static int $order = 44;
 
     public function run(): void
     {

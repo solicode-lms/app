@@ -21,7 +21,7 @@ use Modules\PkgCreationProjet\Models\Resource;
 
 class BaseResourceSeeder extends Seeder
 {
-    public static int $order = 37;
+    public static int $order = 39;
 
     public function run(): void
     {

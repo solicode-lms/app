@@ -56,6 +56,7 @@ class BaseApprenantImport implements ToModel, WithHeadingRow
             'groupe_id' => $row['groupe_id'],
             'niveaux_scolaire_id' => $row['niveaux_scolaire_id'],
             'nationalite_id' => $row['nationalite_id'],
+            'user_id' => $row['user_id'],
             'reference' => $row['reference'],
         ]);
     }

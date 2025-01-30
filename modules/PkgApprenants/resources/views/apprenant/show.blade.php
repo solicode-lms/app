@@ -96,6 +96,10 @@
                                 <label for="nationalite_id">{{ ucfirst(__('PkgApprenants::apprenant.nationalite_id')) }}:</label>
                                 <p>{{ $itemApprenant->nationalite_id }}</p>
                             </div>
+                            <div class="col-sm-12">
+                                <label for="user_id">{{ ucfirst(__('PkgApprenants::apprenant.user_id')) }}:</label>
+                                <p>{{ $itemApprenant->user_id }}</p>
+                            </div>
                         </div>
                     </div>
                 </div>

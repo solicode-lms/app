@@ -11,19 +11,41 @@
     <div class="card-body">
         
         <div class="form-group">
-            <label for="description">
-                {{ ucfirst(__('PkgCreationProjet::transfertCompetence.description')) }}
+    <label for="note">
+        {{ ucfirst(__('PkgCreationProjet::transfertCompetence.note')) }}
+        
+    </label>
+    <input
+        name="note"
+        type="number"
+        class="form-control"
+        
+        id="note"
+        step="0.01"
+        placeholder="{{ __('PkgCreationProjet::transfertCompetence.note') }}"
+        value="{{ $itemTransfertCompetence ? number_format($itemTransfertCompetence->note, 2, '.', '') : old('note') }}">
+    @error('note')
+        <div class="text-danger">{{ $message }}</div>
+    @enderror
+</div>
+
+
+
+        
+        <div class="form-group">
+            <label for="question">
+                {{ ucfirst(__('PkgCreationProjet::transfertCompetence.question')) }}
                 
             </label>
             <textarea rows="" cols=""
-                name="description"
+                name="question"
                 class="form-control richText"
                 
-                id="description"
-                placeholder="{{ __('PkgCreationProjet::transfertCompetence.description') }}">
-                {{ $itemTransfertCompetence ? $itemTransfertCompetence->description : old('description') }}
+                id="question"
+                placeholder="{{ __('PkgCreationProjet::transfertCompetence.question') }}">
+                {{ $itemTransfertCompetence ? $itemTransfertCompetence->question : old('question') }}
             </textarea>
-            @error('description')
+            @error('question')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
@@ -87,26 +109,26 @@
         
         
     <div class="form-group">
-            <label for="appreciation_id">
-                {{ ucfirst(__('PkgCompetences::appreciation.singular')) }}
+            <label for="niveau_difficulte_id">
+                {{ ucfirst(__('PkgCompetences::niveauDifficulte.singular')) }}
                 
                     <span class="text-danger">*</span>
                 
             </label>
             <select 
-            id="appreciation_id" 
+            id="niveau_difficulte_id" 
             required
-            name="appreciation_id" 
+            name="niveau_difficulte_id" 
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
-                @foreach ($appreciations as $appreciation)
-                    <option value="{{ $appreciation->id }}"
-                        {{ (isset($itemTransfertCompetence) && $itemTransfertCompetence->appreciation_id == $appreciation->id) || (old('appreciation_id>') == $appreciation->id) ? 'selected' : '' }}>
-                        {{ $appreciation }}
+                @foreach ($niveauDifficultes as $niveauDifficulte)
+                    <option value="{{ $niveauDifficulte->id }}"
+                        {{ (isset($itemTransfertCompetence) && $itemTransfertCompetence->niveau_difficulte_id == $niveauDifficulte->id) || (old('niveau_difficulte_id>') == $niveauDifficulte->id) ? 'selected' : '' }}>
+                        {{ $niveauDifficulte }}
                     </option>
                 @endforeach
             </select>
-            @error('appreciation_id')
+            @error('niveau_difficulte_id')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
     </div>
@@ -136,6 +158,10 @@
 
         </div>
 
+
+        
+
+        <!--   Validation HasMany --> 
 
     </div>
 

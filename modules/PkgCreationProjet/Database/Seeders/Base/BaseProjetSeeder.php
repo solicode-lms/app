@@ -21,7 +21,7 @@ use Modules\PkgCreationProjet\Models\Projet;
 
 class BaseProjetSeeder extends Seeder
 {
-    public static int $order = 36;
+    public static int $order = 38;
 
     public function run(): void
     {

@@ -14,7 +14,7 @@ use Modules\Core\Models\BaseModel;
 use Modules\PkgAutorisation\Models\User;
 use Modules\PkgApprenants\Models\Groupe;
 use Modules\PkgFormation\Models\Specialite;
-use Modules\PkgCompetences\Models\Appreciation;
+use Modules\PkgCompetences\Models\NiveauDifficulte;
 use Modules\PkgCreationProjet\Models\Projet;
 
 /**
@@ -57,6 +57,15 @@ class BaseFormateur extends BaseModel
      */
     public function groupes()
     {
+        return $this->belongsToMany(Groupe::class, 'apprenant_groupe');
+    }
+    /**
+     * Relation ManyToMany pour Groupes.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function groupes()
+    {
         return $this->belongsToMany(Groupe::class, 'formateur_groupe');
     }
     /**
@@ -74,9 +83,9 @@ class BaseFormateur extends BaseModel
      *
      * @return HasMany
      */
-    public function appreciations(): HasMany
+    public function niveauDifficultes(): HasMany
     {
-        return $this->hasMany(Appreciation::class, 'formateur_id', 'id');
+        return $this->hasMany(NiveauDifficulte::class, 'formateur_id', 'id');
     }
     /**
      * Relation HasMany pour Formateurs.

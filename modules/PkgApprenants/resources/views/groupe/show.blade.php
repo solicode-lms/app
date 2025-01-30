@@ -40,6 +40,10 @@
                                 <label for="filiere_id">{{ ucfirst(__('PkgApprenants::groupe.filiere_id')) }}:</label>
                                 <p>{{ $itemGroupe->filiere_id }}</p>
                             </div>
+                            <div class="col-sm-12">
+                                <label for="annee_formation_id">{{ ucfirst(__('PkgApprenants::groupe.annee_formation_id')) }}:</label>
+                                <p>{{ $itemGroupe->annee_formation_id }}</p>
+                            </div>
                         </div>
                     </div>
                 </div>

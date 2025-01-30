@@ -1,7 +1,7 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 
-@accessiblePermissions(['show-filiere', 'show-module', 'show-specialite', 'show-formateur'])
+@accessiblePermissions(['show-filiere', 'show-module', 'show-anneeFormation', 'show-specialite', 'show-formateur'])
 @if($accessiblePermissions->isNotEmpty())
 <li class="nav-item has-treeview {{ Request::is('admin/PkgFormation*') ? 'menu-open' : '' }}">
     <a href="#" class="nav-link nav-link {{ Request::is('admin/PkgFormation*') ? 'active' : '' }}">
@@ -25,6 +25,14 @@
             <a href="{{ route('modules.index') }}" class="nav-link {{ Request::is('admin/PkgFormation/modules') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-puzzle-piece"></i>
                 {{__('PkgFormation::Module.plural')}}
+            </a>
+        </li>
+        @endcan
+        @can('show-anneeFormation') 
+        <li class="nav-item">
+            <a href="{{ route('anneeFormations.index') }}" class="nav-link {{ Request::is('admin/PkgFormation/anneeFormations') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-table"></i>
+                {{__('PkgFormation::AnneeFormation.plural')}}
             </a>
         </li>
         @endcan

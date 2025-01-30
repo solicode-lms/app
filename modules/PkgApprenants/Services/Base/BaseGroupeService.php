@@ -22,7 +22,8 @@ class BaseGroupeService extends BaseService
         'code',
         'nom',
         'description',
-        'filiere_id'
+        'filiere_id',
+        'annee_formation_id'
     ];
 
     /**
@@ -45,6 +46,7 @@ class BaseGroupeService extends BaseService
         // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
             $this->generateManyToOneFilter(__("PkgFormation::filiere.plural"), 'filiere_id', \Modules\PkgFormation\Models\Filiere::class, 'code'),
+            $this->generateManyToOneFilter(__("PkgFormation::anneeFormation.plural"), 'annee_formation_id', \Modules\PkgFormation\Models\AnneeFormation::class, 'titre'),
         ];
 
     }

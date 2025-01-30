@@ -21,7 +21,7 @@ use Modules\PkgAutorisation\Models\User;
 
 class BaseApprenantSeeder extends Seeder
 {
-    public static int $order = 26;
+    public static int $order = 27;
 
     public function run(): void
     {
@@ -63,7 +63,8 @@ class BaseApprenantSeeder extends Seeder
                     "adresse" => $data[14] ,
                     "groupe_id" => $data[15] ,
                     "niveaux_scolaire_id" => $data[16] ,
-                    "nationalite_id" => $data[17] 
+                    "nationalite_id" => $data[17] ,
+                    "user_id" => $data[18] 
                 ]);
             }
             $firstline = false;

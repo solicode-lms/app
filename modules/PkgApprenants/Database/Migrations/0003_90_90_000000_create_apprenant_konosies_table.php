@@ -34,7 +34,6 @@ return new class extends Migration
             $table->string('Nom_Arabe', 100)->nullable();
             $table->string('Prenom_Arabe', 100)->nullable();
             $table->string('NiveauScolaire', 100)->nullable();
-            $table->foreignId('user_id')->nullable()->constrained('users');
             $table->string('reference')->unique();
             $table->timestamps();
         });

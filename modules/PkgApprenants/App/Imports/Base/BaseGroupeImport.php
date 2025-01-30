@@ -42,6 +42,7 @@ class BaseGroupeImport implements ToModel, WithHeadingRow
             'nom' => $row['nom'],
             'description' => $row['description'],
             'filiere_id' => $row['filiere_id'],
+            'annee_formation_id' => $row['annee_formation_id'],
             'reference' => $row['reference'],
         ]);
     }

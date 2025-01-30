@@ -21,7 +21,7 @@ use Modules\PkgGapp\Models\ERelationship;
 
 class BaseERelationshipSeeder extends Seeder
 {
-    public static int $order = 45;
+    public static int $order = 47;
 
     public function run(): void
     {

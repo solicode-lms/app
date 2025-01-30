@@ -34,7 +34,8 @@ class BaseApprenantRequest extends FormRequest
             'adresse' => 'nullable',
             'groupe_id' => 'nullable',
             'niveaux_scolaire_id' => 'nullable',
-            'nationalite_id' => 'nullable'
+            'nationalite_id' => 'nullable',
+            'user_id' => 'nullable'
         ];
     }
 
@@ -76,7 +77,9 @@ class BaseApprenantRequest extends FormRequest
             'niveaux_scolaire_id.required' => __('validation.required', ['attribute' => __('PkgApprenants::Apprenant.niveaux_scolaire_id')]),
             'niveaux_scolaire_id.max' => __('validation.niveaux_scolaire_idMax'),
             'nationalite_id.required' => __('validation.required', ['attribute' => __('PkgApprenants::Apprenant.nationalite_id')]),
-            'nationalite_id.max' => __('validation.nationalite_idMax')
+            'nationalite_id.max' => __('validation.nationalite_idMax'),
+            'user_id.required' => __('validation.required', ['attribute' => __('PkgApprenants::Apprenant.user_id')]),
+            'user_id.max' => __('validation.user_idMax')
         ];
     }
 }

@@ -19,10 +19,11 @@ class BaseTransfertCompetenceService extends BaseService
      * @var array
      */
     protected $fieldsSearchable = [
-        'description',
+        'note',
+        'question',
         'projet_id',
         'competence_id',
-        'appreciation_id'
+        'niveau_difficulte_id'
     ];
 
     /**
@@ -46,7 +47,7 @@ class BaseTransfertCompetenceService extends BaseService
         $this->fieldsFilterable = [
             $this->generateManyToOneFilter(__("PkgCreationProjet::projet.plural"), 'projet_id', \Modules\PkgCreationProjet\Models\Projet::class, 'titre'),
             $this->generateManyToOneFilter(__("PkgCompetences::competence.plural"), 'competence_id', \Modules\PkgCompetences\Models\Competence::class, 'code'),
-            $this->generateManyToOneFilter(__("PkgCompetences::appreciation.plural"), 'appreciation_id', \Modules\PkgCompetences\Models\Appreciation::class, 'nom'),
+            $this->generateManyToOneFilter(__("PkgCompetences::niveauDifficulte.plural"), 'niveau_difficulte_id', \Modules\PkgCompetences\Models\NiveauDifficulte::class, 'nom'),
         ];
 
     }

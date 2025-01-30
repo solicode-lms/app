@@ -21,7 +21,7 @@ use Modules\PkgWidgets\Models\Widget;
 
 class BaseWidgetSeeder extends Seeder
 {
-    public static int $order = 33;
+    public static int $order = 35;
 
     public function run(): void
     {

@@ -25,10 +25,11 @@ class BaseTransfertCompetenceExport implements FromCollection, WithHeadings, Sho
     public function headings(): array
     {
         return [
-            'description',
+            'note',
+            'question',
             'projet_id',
             'competence_id',
-            'appreciation_id',
+            'niveau_difficulte_id',
             'reference',
         ];
     }
@@ -37,10 +38,11 @@ class BaseTransfertCompetenceExport implements FromCollection, WithHeadings, Sho
     {
         return $this->data->map(function ($transfertCompetence) {
             return [
-                'description' => $transfertCompetence->description,
+                'note' => $transfertCompetence->note,
+                'question' => $transfertCompetence->question,
                 'projet_id' => $transfertCompetence->projet_id,
                 'competence_id' => $transfertCompetence->competence_id,
-                'appreciation_id' => $transfertCompetence->appreciation_id,
+                'niveau_difficulte_id' => $transfertCompetence->niveau_difficulte_id,
                 'reference' => $transfertCompetence->reference,
             ];
         });

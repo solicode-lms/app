@@ -21,7 +21,7 @@ use Modules\PkgCreationProjet\Models\Livrable;
 
 class BaseLivrableSeeder extends Seeder
 {
-    public static int $order = 38;
+    public static int $order = 40;
 
     public function run(): void
     {
