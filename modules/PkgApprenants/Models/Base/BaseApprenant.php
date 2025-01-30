@@ -14,6 +14,7 @@ use Modules\Core\Models\BaseModel;
 use Modules\PkgApprenants\Models\Nationalite;
 use Modules\PkgApprenants\Models\NiveauxScolaire;
 use Modules\PkgAutorisation\Models\User;
+use Modules\PkgApprenants\Models\Groupe;
 use Modules\PkgRealisationProjets\Models\RealisationProjet;
 
 /**
@@ -67,6 +68,15 @@ class BaseApprenant extends BaseModel
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
+    /**
+     * Relation ManyToMany pour Groupes.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function groupes()
+    {
+        return $this->belongsToMany(Groupe::class, 'apprenant_groupe');
+    }
 
     /**
      * Relation HasMany pour Apprenants.

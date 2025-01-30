@@ -397,6 +397,31 @@
 
 
         
+                <div class="form-group">
+            <label for="groupes">
+                {{ ucfirst(__('PkgApprenants::Groupe.plural')) }}
+            </label>
+            <select
+                id="groupes"
+                name="groupes[]"
+                class="form-control select2"
+                multiple="multiple">
+               
+                @foreach ($groupes as $groupe)
+                    <option value="{{ $groupe->id }}"
+                        {{ (isset($itemApprenant) && $itemApprenant->groupes && $itemApprenant->groupes->contains('id', $groupe->id)) || (is_array(old('groupes')) && in_array($groupe->id, old('groupes'))) ? 'selected' : '' }}>
+                        {{ $groupe }}
+                    </option>
+                @endforeach
+            </select>
+            @error('groupes')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+
+        </div>
+
+
+        
 
         <!--   RealisationProjet HasMany --> 
 

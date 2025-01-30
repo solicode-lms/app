@@ -122,23 +122,23 @@
 
         
                 <div class="form-group">
-            <label for="formateurs">
-                {{ ucfirst(__('PkgFormation::Formateur.plural')) }}
+            <label for="apprenants">
+                {{ ucfirst(__('PkgApprenants::Apprenant.plural')) }}
             </label>
             <select
-                id="formateurs"
-                name="formateurs[]"
+                id="apprenants"
+                name="apprenants[]"
                 class="form-control select2"
                 multiple="multiple">
                
-                @foreach ($formateurs as $formateur)
-                    <option value="{{ $formateur->id }}"
-                        {{ (isset($itemGroupe) && $itemGroupe->formateurs && $itemGroupe->formateurs->contains('id', $formateur->id)) || (is_array(old('formateurs')) && in_array($formateur->id, old('formateurs'))) ? 'selected' : '' }}>
-                        {{ $formateur }}
+                @foreach ($apprenants as $apprenant)
+                    <option value="{{ $apprenant->id }}"
+                        {{ (isset($itemGroupe) && $itemGroupe->apprenants && $itemGroupe->apprenants->contains('id', $apprenant->id)) || (is_array(old('apprenants')) && in_array($apprenant->id, old('apprenants'))) ? 'selected' : '' }}>
+                        {{ $apprenant }}
                     </option>
                 @endforeach
             </select>
-            @error('formateurs')
+            @error('apprenants')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 

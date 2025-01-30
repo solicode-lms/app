@@ -57,15 +57,6 @@ class BaseFormateur extends BaseModel
      */
     public function groupes()
     {
-        return $this->belongsToMany(Groupe::class, 'apprenant_groupe');
-    }
-    /**
-     * Relation ManyToMany pour Groupes.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function groupes()
-    {
         return $this->belongsToMany(Groupe::class, 'formateur_groupe');
     }
     /**

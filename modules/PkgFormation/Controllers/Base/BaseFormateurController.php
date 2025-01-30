@@ -21,14 +21,12 @@ class BaseFormateurController extends AdminController
 {
     protected $formateurService;
     protected $groupeService;
-    protected $groupeService;
     protected $specialiteService;
     protected $userService;
 
-    public function __construct(FormateurService $formateurService, GroupeService $groupeService, GroupeService $groupeService, SpecialiteService $specialiteService, UserService $userService) {
+    public function __construct(FormateurService $formateurService, GroupeService $groupeService, SpecialiteService $specialiteService, UserService $userService) {
         parent::__construct();
         $this->formateurService = $formateurService;
-        $this->groupeService = $groupeService;
         $this->groupeService = $groupeService;
         $this->specialiteService = $specialiteService;
         $this->userService = $userService;
@@ -59,24 +57,20 @@ class BaseFormateurController extends AdminController
     public function create() {
         $itemFormateur = $this->formateurService->createInstance();
         $groupes = $this->groupeService->all();
-        $groupes = $this->groupeService->all();
         $specialites = $this->specialiteService->all();
         $users = $this->userService->all();
 
 
         if (request()->ajax()) {
-            return view('PkgFormation::formateur._fields', compact('itemFormateur', 'groupes', 'groupes', 'specialites', 'users'));
+            return view('PkgFormation::formateur._fields', compact('itemFormateur', 'groupes', 'specialites', 'users'));
         }
-        return view('PkgFormation::formateur.create', compact('itemFormateur', 'groupes', 'groupes', 'specialites', 'users'));
+        return view('PkgFormation::formateur.create', compact('itemFormateur', 'groupes', 'specialites', 'users'));
     }
     public function store(FormateurRequest $request) {
         $validatedData = $request->validated();
         $formateur = $this->formateurService->create($validatedData);
 
 
-        if ($request->has('groupes')) {
-            $formateur->groupes()->sync($request->input('groupes'));
-        }
         if ($request->has('groupes')) {
             $formateur->groupes()->sync($request->input('groupes'));
         }
@@ -104,13 +98,12 @@ class BaseFormateurController extends AdminController
     public function show(string $id) {
         $itemFormateur = $this->formateurService->find($id);
         $groupes = $this->groupeService->all();
-        $groupes = $this->groupeService->all();
         $specialites = $this->specialiteService->all();
         $users = $this->userService->all();
 
 
         if (request()->ajax()) {
-            return view('PkgFormation::formateur._fields', compact('itemFormateur', 'groupes', 'groupes', 'specialites', 'users'));
+            return view('PkgFormation::formateur._fields', compact('itemFormateur', 'groupes', 'specialites', 'users'));
         }
 
         return view('PkgFormation::formateur.show', compact('itemFormateur'));
@@ -122,7 +115,6 @@ class BaseFormateurController extends AdminController
         $this->contextState->set('formateur_id', $id);
         
         $itemFormateur = $this->formateurService->find($id);
-        $groupes = $this->groupeService->all();
         $groupes = $this->groupeService->all();
         $specialites = $this->specialiteService->all();
         $users = $this->userService->all();
@@ -138,10 +130,10 @@ class BaseFormateurController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('PkgFormation::formateur._fields', compact('itemFormateur', 'groupes', 'groupes', 'specialites', 'users', 'niveauDifficultes_data', 'projets_data', 'niveauDifficultes_stats', 'projets_stats', 'niveauDifficultes_filters', 'projets_filters'));
+            return view('PkgFormation::formateur._fields', compact('itemFormateur', 'groupes', 'specialites', 'users', 'niveauDifficultes_data', 'projets_data', 'niveauDifficultes_stats', 'projets_stats', 'niveauDifficultes_filters', 'projets_filters'));
         }
 
-        return view('PkgFormation::formateur.edit', compact('itemFormateur', 'groupes', 'groupes', 'specialites', 'users', 'niveauDifficultes_data', 'projets_data', 'niveauDifficultes_stats', 'projets_stats', 'niveauDifficultes_filters', 'projets_filters'));
+        return view('PkgFormation::formateur.edit', compact('itemFormateur', 'groupes', 'specialites', 'users', 'niveauDifficultes_data', 'projets_data', 'niveauDifficultes_stats', 'projets_stats', 'niveauDifficultes_filters', 'projets_filters'));
 
     }
     public function update(FormateurRequest $request, string $id) {
@@ -149,7 +141,6 @@ class BaseFormateurController extends AdminController
         $validatedData = $request->validated();
         $formateur = $this->formateurService->update($id, $validatedData);
 
-        $formateur->groupes()->sync($request->input('groupes'));
         $formateur->groupes()->sync($request->input('groupes'));
         $formateur->specialites()->sync($request->input('specialites'));
 

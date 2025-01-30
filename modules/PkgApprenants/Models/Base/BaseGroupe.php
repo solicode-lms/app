@@ -13,6 +13,7 @@ use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
 use Modules\PkgFormation\Models\AnneeFormation;
 use Modules\PkgFormation\Models\Filiere;
+use Modules\PkgApprenants\Models\Apprenant;
 use Modules\PkgFormation\Models\Formateur;
 
 /**
@@ -58,13 +59,13 @@ class BaseGroupe extends BaseModel
     }
 
     /**
-     * Relation ManyToMany pour Formateurs.
+     * Relation ManyToMany pour Apprenants.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function formateurs()
+    public function apprenants()
     {
-        return $this->belongsToMany(Formateur::class, 'apprenant_groupe');
+        return $this->belongsToMany(Apprenant::class, 'apprenant_groupe');
     }
     /**
      * Relation ManyToMany pour Formateurs.
