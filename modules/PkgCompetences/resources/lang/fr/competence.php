@@ -1,12 +1,9 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
-
-
 return [
-    'singular' => 'Competence',
-    'plural' => 'Competences',
-    'code' => 'code',
-    'nom' => 'nom',
-    'description' => 'description',
-    'module_id' => 'module_id',
+    'singular' => 'Compétence',
+    'plural' => 'Compétences',
+    'code' => 'Code',
+    'nom' => 'Nom',
+    'description' => 'Description',
+    'module_id' => 'Identifiant du module',
 ];

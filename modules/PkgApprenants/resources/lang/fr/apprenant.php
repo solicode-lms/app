@@ -1,26 +1,24 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
-
 
 return [
     'singular' => 'Apprenant',
     'plural' => 'Apprenants',
-    'nom' => 'nom',
-    'prenom' => 'prenom',
-    'prenom_arab' => 'prenom_arab',
-    'nom_arab' => 'nom_arab',
-    'tele_num' => 'tele_num',
-    'profile_image' => 'profile_image',
-    'matricule' => 'matricule',
+    'nom' => 'Nom',
+    'prenom' => 'Prénom',
+    'prenom_arab' => 'Prénom (arabe)',
+    'nom_arab' => 'Nom (arabe)',
+    'tele_num' => 'Numéro de téléphone',
+    'profile_image' => 'Image de profil',
+    'groupe_id' => 'Identifiant du groupe',
+    'niveaux_scolaires_id' => 'Identifiant du niveau scolaire',
+    'ville_id' => 'Identifiant de la ville',
+    'actif' => 'Actif',
+    'adresse' => 'Adresse',
+    'matricule' => 'Matricule',
     'sexe' => 'sexe',
-    'actif' => 'actif',
-    'diplome' => 'diplome',
-    'date_naissance' => 'date_naissance',
-    'date_inscription' => 'date_inscription',
-    'lieu_naissance' => 'lieu_naissance',
-    'cin' => 'cin',
-    'adresse' => 'adresse',
-    'groupe_id' => 'groupe_id',
-    'niveaux_scolaire_id' => 'niveaux_scolaire_id',
-    'nationalite_id' => 'nationalite_id',
+    'diplome' => 'Diplôme',
+    'date_naissance' => 'Date de naissance',
+    'date_inscription' => 'Date d\'inscription',
+    'lieu_naissance' => 'lieu de naissance',
+    'cin' => 'cin'
 ];

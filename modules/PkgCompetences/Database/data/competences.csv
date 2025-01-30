@@ -1,21 +1,8 @@
 code,nom,description,module_id
-code 1,nom 1,description 1,module_id 1
-code 2,nom 2,description 2,module_id 2
-code 3,nom 3,description 3,module_id 3
-code 4,nom 4,description 4,module_id 4
-code 5,nom 5,description 5,module_id 5
-code 6,nom 6,description 6,module_id 6
-code 7,nom 7,description 7,module_id 7
-code 8,nom 8,description 8,module_id 8
-code 9,nom 9,description 9,module_id 9
-code 10,nom 10,description 10,module_id 10
-code 11,nom 11,description 11,module_id 11
-code 12,nom 12,description 12,module_id 12
-code 13,nom 13,description 13,module_id 13
-code 14,nom 14,description 14,module_id 14
-code 15,nom 15,description 15,module_id 15
-code 16,nom 16,description 16,module_id 16
-code 17,nom 17,description 17,module_id 17
-code 18,nom 18,description 18,module_id 18
-code 19,nom 19,description 19,module_id 19
-code 20,nom 20,description 20,module_id 20
+C1,"Maquetter une application mobile","Création et design des interfaces utilisateur pour une application mobile en utilisant des outils de maquette.",2
+C2,"Manipuler une base de données - perfectionnement","Approfondissement des concepts de gestion et manipulation des bases de données pour les applications mobiles.",4
+C3,"Développer la partie back-end d’une application web ou web mobile - perfectionnement","Conception et développement des services backend pour les applications, avec un focus sur l'intégration et l'optimisation.",5
+C4,"Collaborer à la gestion d’un projet informatique et à l’organisation de l’environnement de développement - perfectionnement","Techniques avancées pour participer efficacement à la gestion de projet et au développement collaboratif.",3
+C5,"Développer une application mobile native, avec Android et React Native","Développement d’applications mobiles natives en utilisant Android et React Native.",6
+C6,"Préparer et exécuter les plans de tests d’une application","Mise en œuvre de tests automatisés et manuels pour assurer la qualité des applications.",5
+C7,"Préparer et exécuter le déploiement d’une application web et mobile - perfectionnement","Étapes pour préparer, tester, et déployer une application sur les environnements de production.",7

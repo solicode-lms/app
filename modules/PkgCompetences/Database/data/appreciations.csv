@@ -1,21 +1,6 @@
 nom,description,noteMin,noteMax,formateur_id
-nom 1,description 1,noteMin 1,noteMax 1,formateur_id 1
-nom 2,description 2,noteMin 2,noteMax 2,formateur_id 2
-nom 3,description 3,noteMin 3,noteMax 3,formateur_id 3
-nom 4,description 4,noteMin 4,noteMax 4,formateur_id 4
-nom 5,description 5,noteMin 5,noteMax 5,formateur_id 5
-nom 6,description 6,noteMin 6,noteMax 6,formateur_id 6
-nom 7,description 7,noteMin 7,noteMax 7,formateur_id 7
-nom 8,description 8,noteMin 8,noteMax 8,formateur_id 8
-nom 9,description 9,noteMin 9,noteMax 9,formateur_id 9
-nom 10,description 10,noteMin 10,noteMax 10,formateur_id 10
-nom 11,description 11,noteMin 11,noteMax 11,formateur_id 11
-nom 12,description 12,noteMin 12,noteMax 12,formateur_id 12
-nom 13,description 13,noteMin 13,noteMax 13,formateur_id 13
-nom 14,description 14,noteMin 14,noteMax 14,formateur_id 14
-nom 15,description 15,noteMin 15,noteMax 15,formateur_id 15
-nom 16,description 16,noteMin 16,noteMax 16,formateur_id 16
-nom 17,description 17,noteMin 17,noteMax 17,formateur_id 17
-nom 18,description 18,noteMin 18,noteMax 18,formateur_id 18
-nom 19,description 19,noteMin 19,noteMax 19,formateur_id 19
-nom 20,description 20,noteMin 20,noteMax 20,formateur_id 20
+Débutant,"Notions de base acquises.",0,5,1
+Intermédiaire,"Compétences appliquées avec assistance limitée.",6,10,1
+Avancé,"Bonne autonomie dans l'application des compétences.",11,15,1
+Expert,"Expertise démontrée avec capacité à résoudre des problèmes complexes.",16,18,1
+Maîtrise complète,"Maîtrise totale et capacité à enseigner ou guider les autres.",19,20,1

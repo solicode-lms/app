@@ -1,12 +1,10 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 return [
     'singular' => 'Groupe',
     'plural' => 'Groupes',
-    'code' => 'code',
     'nom' => 'nom',
+    'code' => 'code',
     'description' => 'description',
-    'filiere_id' => 'filiere_id',
 ];
