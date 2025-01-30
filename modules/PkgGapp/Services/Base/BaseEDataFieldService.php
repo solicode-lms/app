@@ -75,7 +75,7 @@ class BaseEDataFieldService extends BaseService
     public function getEDataFieldStats(): array
     {
 
-        $stats = [];
+        $stats = $this->initStats();
 
         
 

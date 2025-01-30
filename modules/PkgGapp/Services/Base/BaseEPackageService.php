@@ -65,7 +65,7 @@ class BaseEPackageService extends BaseService
     public function getEPackageStats(): array
     {
 
-        $stats = [];
+        $stats = $this->initStats();
 
         
 

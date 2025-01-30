@@ -78,7 +78,7 @@ class BaseEMetadatumService extends BaseService
     public function getEMetadatumStats(): array
     {
 
-        $stats = [];
+        $stats = $this->initStats();
 
         
 

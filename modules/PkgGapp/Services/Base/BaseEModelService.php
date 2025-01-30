@@ -70,7 +70,7 @@ class BaseEModelService extends BaseService
     public function getEModelStats(): array
     {
 
-        $stats = [];
+        $stats = $this->initStats();
 
         
 

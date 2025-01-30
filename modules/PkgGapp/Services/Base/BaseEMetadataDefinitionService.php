@@ -69,7 +69,7 @@ class BaseEMetadataDefinitionService extends BaseService
     public function getEMetadataDefinitionStats(): array
     {
 
-        $stats = [];
+        $stats = $this->initStats();
 
         
 

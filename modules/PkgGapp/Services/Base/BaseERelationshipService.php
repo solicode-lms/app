@@ -78,7 +78,7 @@ class BaseERelationshipService extends BaseService
     public function getERelationshipStats(): array
     {
 
-        $stats = [];
+        $stats = $this->initStats();
 
         
 
