@@ -5,6 +5,7 @@
     window.entitiesConfig = window.entitiesConfig || [];
     window.entitiesConfig.push({
         edit_has_many: true,
+        isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
         entity_name: 'user',
         filterFormSelector: '#user-crud-filter-form',
         crudSelector: '#user-crud',
@@ -30,7 +31,7 @@
        $titre = __("PkgAutorisation::user.singular");
     @endphp
     <x-crud-header 
-        id="user-crud-header" icon="fas fa-user-circle"  
+        id="user-crud-header" icon="fas fa-user-circle1"  
         iconColor="text-info"
         title="{{ __('PkgAutorisation::user.plural') }}"
         :breadcrumbs="[

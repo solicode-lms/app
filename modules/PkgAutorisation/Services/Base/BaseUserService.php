@@ -68,7 +68,7 @@ class BaseUserService extends BaseService
     public function getUserStats(): array
     {
 
-        $stats = [];
+        $stats = $this->initStats();
 
         
 

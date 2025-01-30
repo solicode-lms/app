@@ -5,6 +5,7 @@
     window.entitiesConfig = window.entitiesConfig || [];
     window.entitiesConfig.push({
         edit_has_many: false,
+        isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
         entity_name: 'role',
         filterFormSelector: '#role-crud-filter-form',
         crudSelector: '#role-crud',

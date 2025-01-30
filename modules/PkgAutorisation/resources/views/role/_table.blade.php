@@ -5,13 +5,22 @@
         <thead>
             <tr>
                 <x-sortable-column field="name" label="{{ ucfirst(__('PkgAutorisation::role.name')) }}" />
+                <x-sortable-column field="Permission" label="{{ ucfirst(__('PkgAutorisation::permission.plural')) }}" />
+
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($roles_data as $role)
-                <tr>
+                <tr id="role-row-{{$role->id}}">
                     <td>@limit($role->name, 80)</td>
+                    <td>
+                        <ul>
+                            @foreach ($role->permissions as $permission)
+                                <li>{{ $permission }}</li>
+                            @endforeach
+                        </ul>
+                    </td>
                     <td class="text-right">
                         @can('show-role')
                             <a href="{{ route('roles.show', ['role' => $role->id]) }}" data-id="{{$role->id}}" class="btn btn-default btn-sm context-state showEntity">

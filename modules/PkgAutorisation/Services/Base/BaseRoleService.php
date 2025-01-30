@@ -65,7 +65,7 @@ class BaseRoleService extends BaseService
     public function getRoleStats(): array
     {
 
-        $stats = [];
+        $stats = $this->initStats();
 
         
 

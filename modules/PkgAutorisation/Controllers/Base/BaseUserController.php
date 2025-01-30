@@ -97,6 +97,9 @@ class BaseUserController extends AdminController
     }
     public function edit(string $id) {
 
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('user_id', $id);
+        
         $itemUser = $this->userService->find($id);
         $roles = $this->roleService->all();
         $formateurService =  new FormateurService();
@@ -104,10 +107,6 @@ class BaseUserController extends AdminController
         $formateurs_stats = $formateurService->getformateurStats();
         $formateurs_filters = $formateurService->getFieldsFilterable();
         
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('user_id', $id);
-
 
         if (request()->ajax()) {
             return view('PkgAutorisation::user._fields', compact('itemUser', 'roles', 'formateurs_data', 'formateurs_stats', 'formateurs_filters'));

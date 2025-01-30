@@ -67,7 +67,7 @@ class BasePermissionService extends BaseService
     public function getPermissionStats(): array
     {
 
-        $stats = [];
+        $stats = $this->initStats();
 
         
 
