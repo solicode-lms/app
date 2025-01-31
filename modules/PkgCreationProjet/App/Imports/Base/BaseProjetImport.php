@@ -42,8 +42,7 @@ class BaseProjetImport implements ToModel, WithHeadingRow
             'travail_a_faire' => $row['travail_a_faire'],
             'critere_de_travail' => $row['critere_de_travail'],
             'description' => $row['description'],
-            'date_debut' => $row['date_debut'],
-            'date_fin' => $row['date_fin'],
+            'nombre_jour' => $row['nombre_jour'],
             'formateur_id' => $row['formateur_id'],
             'reference' => $row['reference'],
         ]);

@@ -29,6 +29,7 @@ class BaseAffectationProjetExport implements FromCollection, WithHeadings, Shoul
             'date_fin',
             'annee_formation_id',
             'description',
+            'reference',
         ];
     }
 
@@ -40,6 +41,7 @@ class BaseAffectationProjetExport implements FromCollection, WithHeadings, Shoul
                 'date_fin' => $affectationProjet->date_fin,
                 'annee_formation_id' => $affectationProjet->annee_formation_id,
                 'description' => $affectationProjet->description,
+                'reference' => $affectationProjet->reference,
             ];
         });
     }

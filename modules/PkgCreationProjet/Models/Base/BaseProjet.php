@@ -37,7 +37,7 @@ class BaseProjet extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'titre', 'travail_a_faire', 'critere_de_travail', 'description', 'date_debut', 'date_fin', 'formateur_id'
+        'titre', 'travail_a_faire', 'critere_de_travail', 'description', 'nombre_jour', 'formateur_id'
     ];
 
     /**

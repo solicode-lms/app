@@ -93,53 +93,24 @@
 
         
         <div class="form-group">
-            <label for="date_debut">
-                {{ ucfirst(__('PkgCreationProjet::projet.date_debut')) }}
+            <label for="nombre_jour">
+                {{ ucfirst(__('PkgCreationProjet::projet.nombre_jour')) }}
                 
                     <span class="text-danger">*</span>
                 
             </label>
             <input
-                name="date_debut"
-                type="date"
-                class="form-control datetimepicker"
+                name="nombre_jour"
+                type="number"
+                class="form-control"
                 required
-                id="date_debut"
-                placeholder="{{ __('PkgCreationProjet::projet.date_debut') }}"
-                value="{{ $itemProjet ? $itemProjet->date_debut : old('date_debut') }}">
-            @error('date_debut')
+                id="nombre_jour"
+                placeholder="{{ __('PkgCreationProjet::projet.nombre_jour') }}"
+                value="{{ $itemProjet ? $itemProjet->nombre_jour : old('nombre_jour') }}">
+            @error('nombre_jour')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-
-
-
-
-
-        
-        <div class="form-group">
-            <label for="date_fin">
-                {{ ucfirst(__('PkgCreationProjet::projet.date_fin')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
-                name="date_fin"
-                type="date"
-                class="form-control datetimepicker"
-                required
-                id="date_fin"
-                placeholder="{{ __('PkgCreationProjet::projet.date_fin') }}"
-                value="{{ $itemProjet ? $itemProjet->date_fin : old('date_fin') }}">
-            @error('date_fin')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
-
-
-
-
 
         
         

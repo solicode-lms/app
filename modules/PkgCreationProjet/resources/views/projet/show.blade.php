@@ -41,12 +41,8 @@
                                 <p>{{ $itemProjet->description }}</p>
                             </div>
                             <div class="col-sm-12">
-                                <label for="date_debut">{{ ucfirst(__('PkgCreationProjet::projet.date_debut')) }}:</label>
-                                <p>{{ $itemProjet->date_debut }}</p>
-                            </div>
-                            <div class="col-sm-12">
-                                <label for="date_fin">{{ ucfirst(__('PkgCreationProjet::projet.date_fin')) }}:</label>
-                                <p>{{ $itemProjet->date_fin }}</p>
+                                <label for="nombre_jour">{{ ucfirst(__('PkgCreationProjet::projet.nombre_jour')) }}:</label>
+                                <p>{{ $itemProjet->nombre_jour }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="formateur_id">{{ ucfirst(__('PkgCreationProjet::projet.formateur_id')) }}:</label>

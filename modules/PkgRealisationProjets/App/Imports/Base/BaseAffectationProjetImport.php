@@ -21,7 +21,7 @@ class BaseAffectationProjetImport implements ToModel, WithHeadingRow
      */
     private function recordExists(array $row): bool
     {
-        return AffectationProjet::where('id', $row['id'])->exists();
+        return AffectationProjet::where('reference', $row['reference'])->exists();
     }
 
     /**
@@ -42,6 +42,7 @@ class BaseAffectationProjetImport implements ToModel, WithHeadingRow
             'date_fin' => $row['date_fin'],
             'annee_formation_id' => $row['annee_formation_id'],
             'description' => $row['description'],
+            'reference' => $row['reference'],
         ]);
     }
 }

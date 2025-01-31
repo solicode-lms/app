@@ -21,8 +21,7 @@ class BaseProjetRequest extends FormRequest
             'travail_a_faire' => 'required',
             'critere_de_travail' => 'required',
             'description' => 'nullable',
-            'date_debut' => 'required',
-            'date_fin' => 'required',
+            'nombre_jour' => 'required',
             'formateur_id' => 'required'
         ];
     }
@@ -38,10 +37,8 @@ class BaseProjetRequest extends FormRequest
             'critere_de_travail.max' => __('validation.critere_de_travailMax'),
             'description.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Projet.description')]),
             'description.max' => __('validation.descriptionMax'),
-            'date_debut.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Projet.date_debut')]),
-            'date_debut.max' => __('validation.date_debutMax'),
-            'date_fin.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Projet.date_fin')]),
-            'date_fin.max' => __('validation.date_finMax'),
+            'nombre_jour.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Projet.nombre_jour')]),
+            'nombre_jour.max' => __('validation.nombre_jourMax'),
             'formateur_id.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Projet.formateur_id')]),
             'formateur_id.max' => __('validation.formateur_idMax')
         ];

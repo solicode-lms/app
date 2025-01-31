@@ -21,7 +21,7 @@ class BaseValidationImport implements ToModel, WithHeadingRow
      */
     private function recordExists(array $row): bool
     {
-        return Validation::where('id', $row['id'])->exists();
+        return Validation::where('reference', $row['reference'])->exists();
     }
 
     /**
@@ -43,6 +43,7 @@ class BaseValidationImport implements ToModel, WithHeadingRow
             'is_valide' => $row['is_valide'],
             'transfert_competence_id' => $row['transfert_competence_id'],
             'realisation_projet_id' => $row['realisation_projet_id'],
+            'reference' => $row['reference'],
         ]);
     }
 }

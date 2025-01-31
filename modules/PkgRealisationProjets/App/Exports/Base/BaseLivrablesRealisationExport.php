@@ -29,6 +29,7 @@ class BaseLivrablesRealisationExport implements FromCollection, WithHeadings, Sh
             'description',
             'lien',
             'livrable_id',
+            'reference',
         ];
     }
 
@@ -40,6 +41,7 @@ class BaseLivrablesRealisationExport implements FromCollection, WithHeadings, Sh
                 'description' => $livrablesRealisation->description,
                 'lien' => $livrablesRealisation->lien,
                 'livrable_id' => $livrablesRealisation->livrable_id,
+                'reference' => $livrablesRealisation->reference,
             ];
         });
     }

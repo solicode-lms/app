@@ -30,6 +30,7 @@ class BaseValidationExport implements FromCollection, WithHeadings, ShouldAutoSi
             'is_valide',
             'transfert_competence_id',
             'realisation_projet_id',
+            'reference',
         ];
     }
 
@@ -42,6 +43,7 @@ class BaseValidationExport implements FromCollection, WithHeadings, ShouldAutoSi
                 'is_valide' => $validation->is_valide,
                 'transfert_competence_id' => $validation->transfert_competence_id,
                 'realisation_projet_id' => $validation->realisation_projet_id,
+                'reference' => $validation->reference,
             ];
         });
     }

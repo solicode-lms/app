@@ -5,8 +5,6 @@
         <thead>
             <tr>
                 <x-sortable-column field="titre" label="{{ ucfirst(__('PkgCreationProjet::projet.titre')) }}" />
-                <x-sortable-column field="date_debut" label="{{ ucfirst(__('PkgCreationProjet::projet.date_debut')) }}" />
-                <x-sortable-column field="date_fin" label="{{ ucfirst(__('PkgCreationProjet::projet.date_fin')) }}" />
                 <x-sortable-column field="formateur_id" label="{{ ucfirst(__('PkgFormation::formateur.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
@@ -15,8 +13,6 @@
             @foreach ($projets_data as $projet)
                 <tr id="projet-row-{{$projet->id}}">
                     <td>@limit($projet->titre, 80)</td>
-                    <td>@limit($projet->date_debut, 80)</td>
-                    <td>@limit($projet->date_fin, 80)</td>
                     <td>@limit($projet->formateur->nom ?? '-', 80)</td>
                     <td class="text-right">
                         @can('show-projet')

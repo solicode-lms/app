@@ -21,7 +21,7 @@ class BaseAnneeFormationImport implements ToModel, WithHeadingRow
      */
     private function recordExists(array $row): bool
     {
-        return AnneeFormation::where('id', $row['id'])->exists();
+        return AnneeFormation::where('reference', $row['reference'])->exists();
     }
 
     /**
@@ -41,6 +41,7 @@ class BaseAnneeFormationImport implements ToModel, WithHeadingRow
             'titre' => $row['titre'],
             'date_debut' => $row['date_debut'],
             'date_fin' => $row['date_fin'],
+            'reference' => $row['reference'],
         ]);
     }
 }

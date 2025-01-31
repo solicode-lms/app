@@ -32,6 +32,7 @@ class BaseRealisationProjetExport implements FromCollection, WithHeadings, Shoul
             'etats_realisation_projet_id',
             'apprenant_id',
             'affectation_projet_id',
+            'reference',
         ];
     }
 
@@ -46,6 +47,7 @@ class BaseRealisationProjetExport implements FromCollection, WithHeadings, Shoul
                 'etats_realisation_projet_id' => $realisationProjet->etats_realisation_projet_id,
                 'apprenant_id' => $realisationProjet->apprenant_id,
                 'affectation_projet_id' => $realisationProjet->affectation_projet_id,
+                'reference' => $realisationProjet->reference,
             ];
         });
     }

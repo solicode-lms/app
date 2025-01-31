@@ -27,6 +27,7 @@ class BaseEtatsRealisationProjetExport implements FromCollection, WithHeadings, 
         return [
             'titre',
             'description',
+            'reference',
         ];
     }
 
@@ -36,6 +37,7 @@ class BaseEtatsRealisationProjetExport implements FromCollection, WithHeadings, 
             return [
                 'titre' => $etatsRealisationProjet->titre,
                 'description' => $etatsRealisationProjet->description,
+                'reference' => $etatsRealisationProjet->reference,
             ];
         });
     }

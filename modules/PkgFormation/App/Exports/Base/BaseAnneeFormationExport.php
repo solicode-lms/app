@@ -28,6 +28,7 @@ class BaseAnneeFormationExport implements FromCollection, WithHeadings, ShouldAu
             'titre',
             'date_debut',
             'date_fin',
+            'reference',
         ];
     }
 
@@ -38,6 +39,7 @@ class BaseAnneeFormationExport implements FromCollection, WithHeadings, ShouldAu
                 'titre' => $anneeFormation->titre,
                 'date_debut' => $anneeFormation->date_debut,
                 'date_fin' => $anneeFormation->date_fin,
+                'reference' => $anneeFormation->reference,
             ];
         });
     }
