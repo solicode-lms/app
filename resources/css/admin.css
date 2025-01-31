@@ -16,7 +16,23 @@
 @import 'admin-lte';
 
 @import './loading-spin';
- 
+
+
+
+:root {
+    --gapp-info: #17a2b8;
+}
+.text-info {
+    color: var(--gapp-info) !important;
+}
+
+.badge-info{
+    background-color: var(--gapp-info) !important;
+}
+.card-info{
+    border-top: 3px solid var(--gapp-info) !important;
+}
+
  
 
 /* Card - HasMany Edition */

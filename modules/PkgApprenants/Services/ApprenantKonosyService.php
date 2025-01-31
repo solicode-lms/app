@@ -8,6 +8,8 @@ namespace Modules\PkgApprenants\Services;
 use Modules\PkgApprenants\Models\ApprenantKonosy;
 use Modules\Core\Services\BaseService;
 use Carbon\Carbon;
+use Modules\PkgAutorisation\Models\Role;
+use Modules\PkgAutorisation\Services\UserService;
 use Modules\PkgFormation\Models\AnneeFormation;
 use Modules\PkgFormation\Services\AnneeFormationService;
 use Modules\PkgFormation\Services\FiliereService;
@@ -104,8 +106,8 @@ class ApprenantKonosyService extends BaseService
 
 
         // Créer l'année de formation s'il n'existe pas 
-        $date_inscription = Carbon::parse(str_replace('/', '-',$apprenantKonosy->DateInscription ))->format('Y/m/d');
-        $annee_formation = new AnneeFormationService().getOrCreateFromDateInscription($date_inscription);
+        $date_inscription = Carbon::parse(str_replace('/', '-',$apprenantKonosy->DateInscription ));
+        $annee_formation = (new AnneeFormationService())->getOrCreateFromDateInscription($date_inscription);
 
         // Create if not exist
         $filiere = (new FiliereService())->updateOrCreate(["code" => $code_filiere ],[ "code" => $code_filiere]);
@@ -113,13 +115,28 @@ class ApprenantKonosyService extends BaseService
         // Create if not exist
         $groupe = (new GroupeService())->updateOrCreate(["code" => $code_groupe ],
         [ "code" => $code_groupe ,
-           "filiere_id" =>  $filiere->id
+           "filiere_id" =>  $filiere->id,
+           "annee_formation_id" => $annee_formation->id,
         ]);
 
 
         $nationalite = (new NationaliteService())->updateOrCreate(["code" => $nationalite_code ],[ "code" => $nationalite_code]);
 
         $niveau_scolaire = (new NiveauxScolaireService())->updateOrCreate(["code" => $niveau_scolaire_code ],[ "code" => $niveau_scolaire_code]);
+
+        // Générer les informations de l'utilisateur
+        $user_data = [
+            'name' => ucfirst(strtolower($apprenantKonosy->Nom)) . '.' . ucfirst(strtolower($apprenantKonosy->Prenom)),
+            'email' => strtolower($apprenantKonosy->MatriculeEtudiant) . '@solicode.co',
+            'password' => bcrypt($apprenantKonosy->MatriculeEtudiant)
+        ];
+
+        // Créer ou mettre à jour l'utilisateur
+        $user = (new UserService())->updateOrCreate(
+            ['email' => $user_data['email']],
+            $user_data
+        );
+        $user->assignRole(Role::APPRENANT_ROLE);
 
         // Create or Update Apprenant 
         $apprenant = (new ApprenantService())->updateOrCreate(
@@ -139,11 +156,16 @@ class ApprenantKonosyService extends BaseService
             'lieu_naissance' => $apprenantKonosy->LieuNaissance,
             'cin' => $apprenantKonosy->CIN,
             'adresse' => $apprenantKonosy->Adresse,
-            'groupe_id' => $groupe->id,
             'nationalite_id' => $nationalite->id,
-            'niveaux_scolaire_id' => $niveau_scolaire->id
+            'niveaux_scolaire_id' => $niveau_scolaire->id,
+            'user_id' => $user->id
             ]
         );
+
+         // Ajouter l'apprenant au groupe
+        if (!$apprenant->groupes()->where('id', $groupe->id)->exists()) {
+            $apprenant->groupes()->attach($groupe->id);
+        }
 
     }
 }

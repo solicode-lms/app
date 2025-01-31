@@ -28,6 +28,7 @@ import { ContexteStateEventHandler } from './crud/eventsHandler/ContexteStateEve
 import { ContextStateService } from './crud/components/ContextStateService';
 import { EditWithHasManyManager } from './crud/EditWithHasManyManager';
 import DynamicFieldVisibilityTreatment from './crud/treatments/form/DynamicFieldVisibilityTreatment';
+import { DashboardUI } from './crud/components/DashboardUI';
 
 
 
@@ -39,14 +40,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Contexte State 
     let contextState = window.contextState;
+    let sessionState = window.sessionState;
     
  
+    const dashboardUI = new DashboardUI(sessionState);
+    dashboardUI.init();
 
     // Vérifie si la configuration des entités est disponible
     if (window.entitiesConfig && Array.isArray(window.entitiesConfig)) {
         // Initialiser les gestionnaires pour chaque entité
         window.entitiesConfig.forEach((entityConfigData) => {
-            let entityConfig = new ConfigHelper(entityConfigData,contextState);
+            let entityConfig = new ConfigHelper(entityConfigData,contextState,sessionState);
             entityConfig.isDebug = isDebug;
             // à ajouter pendant l'envoye de requête ajax
             // entityConfig = contextManager.addContextToConfig(entityConfig);

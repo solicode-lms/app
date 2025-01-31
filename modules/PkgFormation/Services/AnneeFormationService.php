@@ -35,4 +35,27 @@ class AnneeFormationService extends BaseAnneeFormationService
             ]
         );
     }
+
+
+        /**
+     * Récupère l'année de formation en cours depuis la base de données, sinon la crée.
+     *
+     * @return AnneeFormation
+     */
+    public function getCurrentAnneeFormation(): AnneeFormation
+    {
+        $currentDate = Carbon::now();
+        $annee_debut = $currentDate->month >= 9 ? $currentDate->year : $currentDate->year - 1;
+        $annee_fin = $annee_debut + 1;
+        $reference = "{$annee_debut}/{$annee_fin}";
+
+        return AnneeFormation::firstOrCreate(
+            ['reference' => $reference],
+            [
+                'date_debut' => "{$annee_debut}-09-01",
+                'date_fin' => "{$annee_fin}-08-31",
+                'titre' => $reference
+            ]
+        );
+    }
 }

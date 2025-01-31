@@ -14,16 +14,25 @@
 		},
 		{
 			"path": "."
-		},
-		{
-			"path": "../modelisation/pkg_gapp"
-		},
-		{
-			"path": "../db_connaissances"
-		},
+		}
 	],
 	"settings": {
 		"liveServer.settings.multiRootWorkspaceName": "app",
-		"git.autofetch": true
+		"git.autofetch": true,
+		"sqltools.connections": [
+			{
+				"mysqlOptions": {
+					"authProtocol": "default",
+					"enableSsl": "Disabled"
+				},
+				"previewLimit": 50,
+				"server": "localhost",
+				"port": 3306,
+				"driver": "MariaDB",
+				"name": "MySQL",
+				"database": "solicode_lms",
+				"username": "root"
+			}
+		]
 	}
 }

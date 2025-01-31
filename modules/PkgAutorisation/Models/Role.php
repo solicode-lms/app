@@ -24,6 +24,9 @@ class Role extends ModelsRole
 
     public const FORMATEUR_ROLE = "formateur";
     public const GAPP_ROLE = "gapp";
+
+    public const APPRENANT_ROLE = "apprenant";
+
     public function __toString()
     {
         return $this->name;

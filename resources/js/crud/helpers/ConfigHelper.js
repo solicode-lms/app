@@ -1,3 +1,4 @@
+import { SessionStateService } from '../components/SessionStateService';
 import { ContextStateService } from './../components/ContextStateService';
 
 export class ConfigHelper {
@@ -6,9 +7,10 @@ export class ConfigHelper {
      * Constructeur de la classe ConfigHelper.
      * @param {Object} config - Configuration des opérations CRUD.
      */
-    constructor(config, contextState) {
+    constructor(config, contextState,sessionState) {
 
         this.contextStateService = new ContextStateService(contextState);
+        this.sessionStatService = new SessionStateService(sessionState);
         
         this.page = config.page || "index";
         
