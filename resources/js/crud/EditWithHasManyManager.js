@@ -20,6 +20,7 @@ export class EditWithHasManyManager {
      * Initialise tous les gestionnaires et actions CRUD.
      */
     init() {
+        this.formManager.hideSelectsByIdFromContext();
         this.handleButtonSaveCardWithHasMany();
         this.contexteEventHandler.init();
     }

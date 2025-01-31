@@ -31,7 +31,7 @@ export class FormManager {
         this.handleCardFooter();
         this.handleFormSubmission(submitHandler);
         this.loader.init();
-        this.hideSelectsById();
+        this.hideSelectsByIdFromContext();
         this.addContextStateToForm()
         this.initializeSelect2_in_modal();
         FormManager.initializeRichText();
@@ -50,6 +50,7 @@ export class FormManager {
      * Ajoute les variables du contexte aux formulaires ayant la classe cible.
      */
     addContextStateToForm() {
+
         const contextStateVariables = this.config.contextStateService.getVariables();
         const prefix = this.contextService.prefix;
 
@@ -73,11 +74,11 @@ export class FormManager {
     /**
          * Masque les éléments <select> dont l'id correspond à une clé dans le contextState.
          */
-    hideSelectsById() {
+    hideSelectsByIdFromContext() {
         const contextState = this.contextService.getVariables();
 
         Object.keys(contextState).forEach((key) => {
-            const selectElement = document.getElementById(key);
+            const selectElement = document.querySelector(`${this.config.formSelector} #${key} `);
             if (selectElement) {
 
                 if(this.config.isDebug){

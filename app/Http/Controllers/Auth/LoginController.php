@@ -47,19 +47,19 @@ class LoginController extends Controller
 
     protected function authenticated(Request $request, $user)
     {
-        // Récupérer le premier rôle de l'utilisateur
-        $role_name = $user->roles->first()->name ?? 'Aucun rôle';
+        // // Récupérer le premier rôle de l'utilisateur
+        // $role_name = $user->roles->first()->name ?? 'Aucun rôle';
 
-        if($role_name === Role::FORMATEUR_ROLE){
-            $contextState = app(ContextState::class);
-            $formateur = $user->formateur;
-            $contextState.set("formateur_id",$formateur->id);
-        }
-        // Récupérer l'année de formation de l'utilisateur s'il est apprenant
-        $anneeFormation = optional(optional($user->apprenant)->groupes->first())->anneeFormation->titre ?? 'Non attribuée';
+        // if($role_name === Role::FORMATEUR_ROLE){
+        //     $contextState = app(ContextState::class);
+        //     $formateur = $user->formateur;
+        //     $contextState->set("formateur_id",$formateur->id);
+        // }
+        // // Récupérer l'année de formation de l'utilisateur s'il est apprenant
+        // $anneeFormation = optional(optional($user->apprenant)->groupes->first())->anneeFormation->titre ?? 'Non attribuée';
 
-        // Stocker les informations dans la session
-        Session::put('user_role', $role_name);
-        Session::put('annee_formation', $anneeFormation);
+        // // Stocker les informations dans la session
+        // Session::put('user_role', $role_name);
+        // Session::put('annee_formation', $anneeFormation);
     }
 }

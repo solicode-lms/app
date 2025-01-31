@@ -1,5 +1,5 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
+// return projet as json on stor par ajax
 
 
 namespace Modules\PkgCreationProjet\Controllers\Base;
@@ -69,7 +69,9 @@ class BaseProjetController extends AdminController
 
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
+            return response()->json(['success' => true, 
+            'projet_id' => $projet->id,
+            'message' => 
              __('Core::msg.addSuccess', [
                 'entityToString' => $projet,
                 'modelName' => __('PkgCreationProjet::projet.singular')])

@@ -26,9 +26,10 @@ export class TableUI {
 
         if(!this.config.edit_has_many){
             this.entityEditor.init();
-            this.entityCreator.init(); 
+          
         }
-      
+        
+        this.entityCreator.init(); 
         this.entityDeleter.init();
         this.entityViewer.init();
 
