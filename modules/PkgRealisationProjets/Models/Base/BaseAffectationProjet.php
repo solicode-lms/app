@@ -12,6 +12,7 @@ use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
 use Modules\PkgFormation\Models\AnneeFormation;
+use Modules\PkgCreationProjet\Models\Projet;
 use Modules\PkgRealisationProjets\Models\RealisationProjet;
 
 /**
@@ -34,7 +35,7 @@ class BaseAffectationProjet extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'date_debut', 'date_fin', 'annee_formation_id', 'description'
+        'date_debut', 'date_fin', 'annee_formation_id', 'projet_id', 'description'
     ];
 
     /**
@@ -45,6 +46,15 @@ class BaseAffectationProjet extends BaseModel
     public function anneeFormation(): BelongsTo
     {
         return $this->belongsTo(AnneeFormation::class, 'annee_formation_id', 'id');
+    }
+    /**
+     * Relation BelongsTo pour Projet.
+     *
+     * @return BelongsTo
+     */
+    public function projet(): BelongsTo
+    {
+        return $this->belongsTo(Projet::class, 'projet_id', 'id');
     }
 
 

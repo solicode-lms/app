@@ -41,6 +41,7 @@ class BaseAffectationProjetImport implements ToModel, WithHeadingRow
             'date_debut' => $row['date_debut'],
             'date_fin' => $row['date_fin'],
             'annee_formation_id' => $row['annee_formation_id'],
+            'projet_id' => $row['projet_id'],
             'description' => $row['description'],
             'reference' => $row['reference'],
         ]);

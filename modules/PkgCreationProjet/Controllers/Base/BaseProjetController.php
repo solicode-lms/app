@@ -5,6 +5,7 @@
 namespace Modules\PkgCreationProjet\Controllers\Base;
 use Modules\PkgCreationProjet\Services\ProjetService;
 use Modules\PkgFormation\Services\FormateurService;
+use Modules\PkgRealisationProjets\Services\AffectationProjetService;
 use Modules\PkgCreationProjet\Services\LivrableService;
 use Modules\PkgRealisationProjets\Services\RealisationProjetService;
 use Modules\PkgCreationProjet\Services\ResourceService;
@@ -102,6 +103,11 @@ class BaseProjetController extends AdminController
         
         $itemProjet = $this->projetService->find($id);
         $formateurs = $this->formateurService->all();
+        $affectationProjetService =  new AffectationProjetService();
+        $affectationProjets_data =  $itemProjet->affectationProjets()->paginate(10);
+        $affectationProjets_stats = $affectationProjetService->getaffectationProjetStats();
+        $affectationProjets_filters = $affectationProjetService->getFieldsFilterable();
+        
         $livrableService =  new LivrableService();
         $livrables_data =  $itemProjet->livrables()->paginate(10);
         $livrables_stats = $livrableService->getlivrableStats();
@@ -124,10 +130,10 @@ class BaseProjetController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('PkgCreationProjet::projet._fields', compact('itemProjet', 'formateurs', 'livrables_data', 'realisationProjets_data', 'resources_data', 'transfertCompetences_data', 'livrables_stats', 'realisationProjets_stats', 'resources_stats', 'transfertCompetences_stats', 'livrables_filters', 'realisationProjets_filters', 'resources_filters', 'transfertCompetences_filters'));
+            return view('PkgCreationProjet::projet._fields', compact('itemProjet', 'formateurs', 'affectationProjets_data', 'livrables_data', 'realisationProjets_data', 'resources_data', 'transfertCompetences_data', 'affectationProjets_stats', 'livrables_stats', 'realisationProjets_stats', 'resources_stats', 'transfertCompetences_stats', 'affectationProjets_filters', 'livrables_filters', 'realisationProjets_filters', 'resources_filters', 'transfertCompetences_filters'));
         }
 
-        return view('PkgCreationProjet::projet.edit', compact('itemProjet', 'formateurs', 'livrables_data', 'realisationProjets_data', 'resources_data', 'transfertCompetences_data', 'livrables_stats', 'realisationProjets_stats', 'resources_stats', 'transfertCompetences_stats', 'livrables_filters', 'realisationProjets_filters', 'resources_filters', 'transfertCompetences_filters'));
+        return view('PkgCreationProjet::projet.edit', compact('itemProjet', 'formateurs', 'affectationProjets_data', 'livrables_data', 'realisationProjets_data', 'resources_data', 'transfertCompetences_data', 'affectationProjets_stats', 'livrables_stats', 'realisationProjets_stats', 'resources_stats', 'transfertCompetences_stats', 'affectationProjets_filters', 'livrables_filters', 'realisationProjets_filters', 'resources_filters', 'transfertCompetences_filters'));
 
     }
     public function update(ProjetRequest $request, string $id) {

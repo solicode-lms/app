@@ -12,6 +12,7 @@ use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
 use Modules\PkgFormation\Models\Formateur;
+use Modules\PkgRealisationProjets\Models\AffectationProjet;
 use Modules\PkgCreationProjet\Models\Livrable;
 use Modules\PkgRealisationProjets\Models\RealisationProjet;
 use Modules\PkgCreationProjet\Models\Resource;
@@ -51,6 +52,15 @@ class BaseProjet extends BaseModel
     }
 
 
+    /**
+     * Relation HasMany pour Projets.
+     *
+     * @return HasMany
+     */
+    public function affectationProjets(): HasMany
+    {
+        return $this->hasMany(AffectationProjet::class, 'projet_id', 'id');
+    }
     /**
      * Relation HasMany pour Projets.
      *

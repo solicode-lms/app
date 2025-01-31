@@ -5,6 +5,7 @@
 namespace Modules\PkgRealisationProjets\Controllers\Base;
 use Modules\PkgRealisationProjets\Services\AffectationProjetService;
 use Modules\PkgFormation\Services\AnneeFormationService;
+use Modules\PkgCreationProjet\Services\ProjetService;
 use Modules\PkgRealisationProjets\Services\RealisationProjetService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
@@ -18,11 +19,13 @@ class BaseAffectationProjetController extends AdminController
 {
     protected $affectationProjetService;
     protected $anneeFormationService;
+    protected $projetService;
 
-    public function __construct(AffectationProjetService $affectationProjetService, AnneeFormationService $anneeFormationService) {
+    public function __construct(AffectationProjetService $affectationProjetService, AnneeFormationService $anneeFormationService, ProjetService $projetService) {
         parent::__construct();
         $this->affectationProjetService = $affectationProjetService;
         $this->anneeFormationService = $anneeFormationService;
+        $this->projetService = $projetService;
     }
 
     public function index(Request $request) {
@@ -50,12 +53,13 @@ class BaseAffectationProjetController extends AdminController
     public function create() {
         $itemAffectationProjet = $this->affectationProjetService->createInstance();
         $anneeFormations = $this->anneeFormationService->all();
+        $projets = $this->projetService->all();
 
 
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::affectationProjet._fields', compact('itemAffectationProjet', 'anneeFormations'));
+            return view('PkgRealisationProjets::affectationProjet._fields', compact('itemAffectationProjet', 'anneeFormations', 'projets'));
         }
-        return view('PkgRealisationProjets::affectationProjet.create', compact('itemAffectationProjet', 'anneeFormations'));
+        return view('PkgRealisationProjets::affectationProjet.create', compact('itemAffectationProjet', 'anneeFormations', 'projets'));
     }
     public function store(AffectationProjetRequest $request) {
         $validatedData = $request->validated();
@@ -83,10 +87,11 @@ class BaseAffectationProjetController extends AdminController
     public function show(string $id) {
         $itemAffectationProjet = $this->affectationProjetService->find($id);
         $anneeFormations = $this->anneeFormationService->all();
+        $projets = $this->projetService->all();
 
 
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::affectationProjet._fields', compact('itemAffectationProjet', 'anneeFormations'));
+            return view('PkgRealisationProjets::affectationProjet._fields', compact('itemAffectationProjet', 'anneeFormations', 'projets'));
         }
 
         return view('PkgRealisationProjets::affectationProjet.show', compact('itemAffectationProjet'));
@@ -99,6 +104,7 @@ class BaseAffectationProjetController extends AdminController
         
         $itemAffectationProjet = $this->affectationProjetService->find($id);
         $anneeFormations = $this->anneeFormationService->all();
+        $projets = $this->projetService->all();
         $realisationProjetService =  new RealisationProjetService();
         $realisationProjets_data =  $itemAffectationProjet->realisationProjets()->paginate(10);
         $realisationProjets_stats = $realisationProjetService->getrealisationProjetStats();
@@ -106,10 +112,10 @@ class BaseAffectationProjetController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::affectationProjet._fields', compact('itemAffectationProjet', 'anneeFormations', 'realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters'));
+            return view('PkgRealisationProjets::affectationProjet._fields', compact('itemAffectationProjet', 'anneeFormations', 'projets', 'realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters'));
         }
 
-        return view('PkgRealisationProjets::affectationProjet.edit', compact('itemAffectationProjet', 'anneeFormations', 'realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters'));
+        return view('PkgRealisationProjets::affectationProjet.edit', compact('itemAffectationProjet', 'anneeFormations', 'projets', 'realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters'));
 
     }
     public function update(AffectationProjetRequest $request, string $id) {

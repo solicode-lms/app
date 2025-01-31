@@ -22,6 +22,7 @@ class BaseAffectationProjetService extends BaseService
         'date_debut',
         'date_fin',
         'annee_formation_id',
+        'projet_id',
         'description'
     ];
 
@@ -45,6 +46,7 @@ class BaseAffectationProjetService extends BaseService
         // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
             $this->generateManyToOneFilter(__("PkgFormation::anneeFormation.plural"), 'annee_formation_id', \Modules\PkgFormation\Models\AnneeFormation::class, 'titre'),
+            $this->generateManyToOneFilter(__("PkgCreationProjet::projet.plural"), 'projet_id', \Modules\PkgCreationProjet\Models\Projet::class, 'titre'),
         ];
 
     }

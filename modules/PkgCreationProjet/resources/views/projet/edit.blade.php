@@ -49,6 +49,9 @@
                         </li>
 
                         <li class="nav-item">
+                            <a class="nav-link" id="projet-hasmany-tabs-affectationProjet-tab" data-toggle="pill" href="#projet-hasmany-tabs-affectationProjet" role="tab" aria-controls="projet-hasmany-tabs-affectationProjet" aria-selected="false">{{__('PkgRealisationProjets::affectationProjet.plural')}}</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" id="projet-hasmany-tabs-livrable-tab" data-toggle="pill" href="#projet-hasmany-tabs-livrable" role="tab" aria-controls="projet-hasmany-tabs-livrable" aria-selected="false">{{__('PkgCreationProjet::livrable.plural')}}</a>
                         </li>
                         <li class="nav-item">
@@ -74,6 +77,9 @@
                                 @include('PkgCreationProjet::projet._fields')
                             </div>
 
+                            <div class="tab-pane fade" id="projet-hasmany-tabs-affectationProjet" role="tabpanel" aria-labelledby="projet-hasmany-tabs-affectationProjet-tab">
+                                @include('PkgRealisationProjets::affectationProjet._index',['isMany' => true])
+                            </div>
                             <div class="tab-pane fade" id="projet-hasmany-tabs-livrable" role="tabpanel" aria-labelledby="projet-hasmany-tabs-livrable-tab">
                                 @include('PkgCreationProjet::livrable._index',['isMany' => true])
                             </div>

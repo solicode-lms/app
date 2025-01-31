@@ -7,6 +7,7 @@
                 <x-sortable-column field="date_debut" label="{{ ucfirst(__('PkgRealisationProjets::affectationProjet.date_debut')) }}" />
                 <x-sortable-column field="date_fin" label="{{ ucfirst(__('PkgRealisationProjets::affectationProjet.date_fin')) }}" />
                 <x-sortable-column field="annee_formation_id" label="{{ ucfirst(__('PkgFormation::anneeFormation.singular')) }}" />
+                <x-sortable-column field="projet_id" label="{{ ucfirst(__('PkgCreationProjet::projet.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -16,6 +17,7 @@
                     <td>@limit($affectationProjet->date_debut, 80)</td>
                     <td>@limit($affectationProjet->date_fin, 80)</td>
                     <td>@limit($affectationProjet->anneeFormation->titre ?? '-', 80)</td>
+                    <td>@limit($affectationProjet->projet->titre ?? '-', 80)</td>
                     <td class="text-right">
                         @can('show-affectationProjet')
                             <a href="{{ route('affectationProjets.show', ['affectationProjet' => $affectationProjet->id]) }}" data-id="{{$affectationProjet->id}}" class="btn btn-default btn-sm context-state showEntity">

@@ -49,7 +49,8 @@ class BaseAffectationProjetSeeder extends Seeder
                     "date_debut" => $data[0] ,
                     "date_fin" => $data[1] ,
                     "annee_formation_id" => $data[2] ,
-                    "description" => $data[3] 
+                    "projet_id" => $data[3] ,
+                    "description" => $data[4] 
                 ]);
             }
             $firstline = false;

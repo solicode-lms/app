@@ -142,6 +142,10 @@
 
         
 
+        <!--   AffectationProjet HasMany --> 
+
+        
+
         <!--   Livrable HasMany --> 
 
         
