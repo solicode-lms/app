@@ -1,5 +1,6 @@
 import { AjaxErrorHandler } from '../components/AjaxErrorHandler';
 import { ContextStateService } from '../components/ContextStateService';
+import { NotificationHandler } from '../components/NotificationHandler';
 import { Action } from './Action';
 
 export class CreateAction extends Action {

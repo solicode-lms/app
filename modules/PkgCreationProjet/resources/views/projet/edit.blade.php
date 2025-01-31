@@ -78,7 +78,7 @@
                             </div>
 
                             <div class="tab-pane fade" id="projet-hasmany-tabs-affectationProjet" role="tabpanel" aria-labelledby="projet-hasmany-tabs-affectationProjet-tab">
-                                @include('PkgRealisationProjets::affectationProjet._index',['isMany' => true])
+                                @include('PkgRealisationProjets::affectationProjet._index',['isMany' => true, "edit_has_many" => false])
                             </div>
                             <div class="tab-pane fade" id="projet-hasmany-tabs-livrable" role="tabpanel" aria-labelledby="projet-hasmany-tabs-livrable-tab">
                                 @include('PkgCreationProjet::livrable._index',['isMany' => true])
