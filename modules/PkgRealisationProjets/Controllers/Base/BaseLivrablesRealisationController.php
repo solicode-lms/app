@@ -64,7 +64,9 @@ class BaseLivrablesRealisationController extends AdminController
 
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
+            return response()->json(['success' => true, 
+            'livrables_realisation_id' => $livrablesRealisation->id,
+            'message' => 
              __('Core::msg.addSuccess', [
                 'entityToString' => $livrablesRealisation,
                 'modelName' => __('PkgRealisationProjets::livrablesRealisation.singular')])

@@ -61,7 +61,9 @@ class BaseNationaliteController extends AdminController
 
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
+            return response()->json(['success' => true, 
+            'nationalite_id' => $nationalite->id,
+            'message' => 
              __('Core::msg.addSuccess', [
                 'entityToString' => $nationalite,
                 'modelName' => __('PkgApprenants::nationalite.singular')])

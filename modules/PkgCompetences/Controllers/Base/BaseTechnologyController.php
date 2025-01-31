@@ -78,7 +78,9 @@ class BaseTechnologyController extends AdminController
 
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
+            return response()->json(['success' => true, 
+            'technology_id' => $technology->id,
+            'message' => 
              __('Core::msg.addSuccess', [
                 'entityToString' => $technology,
                 'modelName' => __('PkgCompetences::technology.singular')])

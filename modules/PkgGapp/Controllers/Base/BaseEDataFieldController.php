@@ -69,7 +69,9 @@ class BaseEDataFieldController extends AdminController
 
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
+            return response()->json(['success' => true, 
+            'e_data_field_id' => $eDataField->id,
+            'message' => 
              __('Core::msg.addSuccess', [
                 'entityToString' => $eDataField,
                 'modelName' => __('PkgGapp::eDataField.singular')])

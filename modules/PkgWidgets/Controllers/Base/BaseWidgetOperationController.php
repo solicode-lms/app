@@ -61,7 +61,9 @@ class BaseWidgetOperationController extends AdminController
 
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
+            return response()->json(['success' => true, 
+            'widget_operation_id' => $widgetOperation->id,
+            'message' => 
              __('Core::msg.addSuccess', [
                 'entityToString' => $widgetOperation,
                 'modelName' => __('PkgWidgets::widgetOperation.singular')])

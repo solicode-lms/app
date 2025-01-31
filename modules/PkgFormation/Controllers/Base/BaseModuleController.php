@@ -65,7 +65,9 @@ class BaseModuleController extends AdminController
 
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
+            return response()->json(['success' => true, 
+            'module_id' => $module->id,
+            'message' => 
              __('Core::msg.addSuccess', [
                 'entityToString' => $module,
                 'modelName' => __('PkgFormation::module.singular')])

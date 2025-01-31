@@ -5,6 +5,7 @@
 namespace Modules\PkgAutorisation\Controllers\Base;
 use Modules\PkgAutorisation\Services\RoleService;
 use Modules\PkgAutorisation\Services\PermissionService;
+use Modules\PkgAutorisation\Services\UserService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\PkgAutorisation\App\Requests\RoleRequest;
@@ -17,11 +18,13 @@ class BaseRoleController extends AdminController
 {
     protected $roleService;
     protected $permissionService;
+    protected $userService;
 
-    public function __construct(RoleService $roleService, PermissionService $permissionService) {
+    public function __construct(RoleService $roleService, PermissionService $permissionService, UserService $userService) {
         parent::__construct();
         $this->roleService = $roleService;
         $this->permissionService = $permissionService;
+        $this->userService = $userService;
     }
 
     public function index(Request $request) {
@@ -49,12 +52,13 @@ class BaseRoleController extends AdminController
     public function create() {
         $itemRole = $this->roleService->createInstance();
         $permissions = $this->permissionService->all();
+        $users = $this->userService->all();
 
 
         if (request()->ajax()) {
-            return view('PkgAutorisation::role._fields', compact('itemRole', 'permissions'));
+            return view('PkgAutorisation::role._fields', compact('itemRole', 'permissions', 'users'));
         }
-        return view('PkgAutorisation::role.create', compact('itemRole', 'permissions'));
+        return view('PkgAutorisation::role.create', compact('itemRole', 'permissions', 'users'));
     }
     public function store(RoleRequest $request) {
         $validatedData = $request->validated();
@@ -64,10 +68,15 @@ class BaseRoleController extends AdminController
         if ($request->has('permissions')) {
             $role->permissions()->sync($request->input('permissions'));
         }
+        if ($request->has('users')) {
+            $role->users()->sync($request->input('users'));
+        }
 
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
+            return response()->json(['success' => true, 
+            'role_id' => $role->id,
+            'message' => 
              __('Core::msg.addSuccess', [
                 'entityToString' => $role,
                 'modelName' => __('PkgAutorisation::role.singular')])
@@ -85,10 +94,11 @@ class BaseRoleController extends AdminController
     public function show(string $id) {
         $itemRole = $this->roleService->find($id);
         $permissions = $this->permissionService->all();
+        $users = $this->userService->all();
 
 
         if (request()->ajax()) {
-            return view('PkgAutorisation::role._fields', compact('itemRole', 'permissions'));
+            return view('PkgAutorisation::role._fields', compact('itemRole', 'permissions', 'users'));
         }
 
         return view('PkgAutorisation::role.show', compact('itemRole'));
@@ -101,12 +111,13 @@ class BaseRoleController extends AdminController
         
         $itemRole = $this->roleService->find($id);
         $permissions = $this->permissionService->all();
+        $users = $this->userService->all();
 
         if (request()->ajax()) {
-            return view('PkgAutorisation::role._fields', compact('itemRole', 'permissions'));
+            return view('PkgAutorisation::role._fields', compact('itemRole', 'permissions', 'users'));
         }
 
-        return view('PkgAutorisation::role.edit', compact('itemRole', 'permissions'));
+        return view('PkgAutorisation::role.edit', compact('itemRole', 'permissions', 'users'));
 
     }
     public function update(RoleRequest $request, string $id) {
@@ -115,6 +126,7 @@ class BaseRoleController extends AdminController
         $role = $this->roleService->update($id, $validatedData);
 
         $role->permissions()->sync($request->input('permissions'));
+        $role->users()->sync($request->input('users'));
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 

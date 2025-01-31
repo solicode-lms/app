@@ -62,7 +62,9 @@ class BaseSysColorController extends AdminController
 
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
+            return response()->json(['success' => true, 
+            'sys_color_id' => $sysColor->id,
+            'message' => 
              __('Core::msg.addSuccess', [
                 'entityToString' => $sysColor,
                 'modelName' => __('Core::sysColor.singular')])

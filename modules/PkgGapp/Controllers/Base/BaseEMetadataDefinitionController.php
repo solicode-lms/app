@@ -61,7 +61,9 @@ class BaseEMetadataDefinitionController extends AdminController
 
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
+            return response()->json(['success' => true, 
+            'e_metadata_definition_id' => $eMetadataDefinition->id,
+            'message' => 
              __('Core::msg.addSuccess', [
                 'entityToString' => $eMetadataDefinition,
                 'modelName' => __('PkgGapp::eMetadataDefinition.singular')])

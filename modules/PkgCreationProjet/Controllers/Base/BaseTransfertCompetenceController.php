@@ -80,7 +80,9 @@ class BaseTransfertCompetenceController extends AdminController
 
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
+            return response()->json(['success' => true, 
+            'transfert_competence_id' => $transfertCompetence->id,
+            'message' => 
              __('Core::msg.addSuccess', [
                 'entityToString' => $transfertCompetence,
                 'modelName' => __('PkgCreationProjet::transfertCompetence.singular')])

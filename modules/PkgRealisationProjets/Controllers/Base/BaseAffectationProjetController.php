@@ -69,7 +69,9 @@ class BaseAffectationProjetController extends AdminController
 
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
+            return response()->json(['success' => true, 
+            'affectation_projet_id' => $affectationProjet->id,
+            'message' => 
              __('Core::msg.addSuccess', [
                 'entityToString' => $affectationProjet,
                 'modelName' => __('PkgRealisationProjets::affectationProjet.singular')])

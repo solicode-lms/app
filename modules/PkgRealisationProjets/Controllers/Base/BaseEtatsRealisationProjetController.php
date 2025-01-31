@@ -61,7 +61,9 @@ class BaseEtatsRealisationProjetController extends AdminController
 
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
+            return response()->json(['success' => true, 
+            'etats_realisation_projet_id' => $etatsRealisationProjet->id,
+            'message' => 
              __('Core::msg.addSuccess', [
                 'entityToString' => $etatsRealisationProjet,
                 'modelName' => __('PkgRealisationProjets::etatsRealisationProjet.singular')])

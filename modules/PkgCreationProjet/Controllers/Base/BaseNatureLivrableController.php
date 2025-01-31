@@ -61,7 +61,9 @@ class BaseNatureLivrableController extends AdminController
 
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
+            return response()->json(['success' => true, 
+            'nature_livrable_id' => $natureLivrable->id,
+            'message' => 
              __('Core::msg.addSuccess', [
                 'entityToString' => $natureLivrable,
                 'modelName' => __('PkgCreationProjet::natureLivrable.singular')])

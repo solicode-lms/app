@@ -62,7 +62,9 @@ class BaseFiliereController extends AdminController
 
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
+            return response()->json(['success' => true, 
+            'filiere_id' => $filiere->id,
+            'message' => 
              __('Core::msg.addSuccess', [
                 'entityToString' => $filiere,
                 'modelName' => __('PkgFormation::filiere.singular')])

@@ -65,7 +65,9 @@ class BaseFeatureDomainController extends AdminController
 
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
+            return response()->json(['success' => true, 
+            'feature_domain_id' => $featureDomain->id,
+            'message' => 
              __('Core::msg.addSuccess', [
                 'entityToString' => $featureDomain,
                 'modelName' => __('Core::featureDomain.singular')])

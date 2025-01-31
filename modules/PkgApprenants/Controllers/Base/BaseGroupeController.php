@@ -82,7 +82,9 @@ class BaseGroupeController extends AdminController
 
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
+            return response()->json(['success' => true, 
+            'groupe_id' => $groupe->id,
+            'message' => 
              __('Core::msg.addSuccess', [
                 'entityToString' => $groupe,
                 'modelName' => __('PkgApprenants::groupe.singular')])

@@ -61,7 +61,9 @@ class BaseNiveauxScolaireController extends AdminController
 
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
+            return response()->json(['success' => true, 
+            'niveaux_scolaire_id' => $niveauxScolaire->id,
+            'message' => 
              __('Core::msg.addSuccess', [
                 'entityToString' => $niveauxScolaire,
                 'modelName' => __('PkgApprenants::niveauxScolaire.singular')])
