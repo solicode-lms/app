@@ -75,16 +75,16 @@
                             </div>
 
                             <div class="tab-pane fade" id="eModel-hasmany-tabs-eDataField" role="tabpanel" aria-labelledby="eModel-hasmany-tabs-eDataField-tab">
-                                @include('PkgGapp::eDataField._index',['isMany' => true])
+                                @include('PkgGapp::eDataField._index',['isMany' => true, "edit_has_many" => false])
                             </div>
                             <div class="tab-pane fade" id="eModel-hasmany-tabs-eMetadatum" role="tabpanel" aria-labelledby="eModel-hasmany-tabs-eMetadatum-tab">
-                                @include('PkgGapp::eMetadatum._index',['isMany' => true])
+                                @include('PkgGapp::eMetadatum._index',['isMany' => true, "edit_has_many" => false])
                             </div>
                             <div class="tab-pane fade" id="eModel-hasmany-tabs-eRelationship" role="tabpanel" aria-labelledby="eModel-hasmany-tabs-eRelationship-tab">
-                                @include('PkgGapp::eRelationship._index',['isMany' => true])
+                                @include('PkgGapp::eRelationship._index',['isMany' => true, "edit_has_many" => false])
                             </div>
                             <div class="tab-pane fade" id="eModel-hasmany-tabs-eRelationship" role="tabpanel" aria-labelledby="eModel-hasmany-tabs-eRelationship-tab">
-                                @include('PkgGapp::eRelationship._index',['isMany' => true])
+                                @include('PkgGapp::eRelationship._index',['isMany' => true, "edit_has_many" => false])
                             </div>
 
                            

@@ -66,7 +66,7 @@
                             </div>
 
                             <div class="tab-pane fade" id="featureDomain-hasmany-tabs-feature" role="tabpanel" aria-labelledby="featureDomain-hasmany-tabs-feature-tab">
-                                @include('Core::feature._index',['isMany' => true])
+                                @include('Core::feature._index',['isMany' => true, "edit_has_many" => false])
                             </div>
 
                            

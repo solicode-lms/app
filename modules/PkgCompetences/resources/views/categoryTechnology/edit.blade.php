@@ -66,7 +66,7 @@
                             </div>
 
                             <div class="tab-pane fade" id="categoryTechnology-hasmany-tabs-technology" role="tabpanel" aria-labelledby="categoryTechnology-hasmany-tabs-technology-tab">
-                                @include('PkgCompetences::technology._index',['isMany' => true])
+                                @include('PkgCompetences::technology._index',['isMany' => true, "edit_has_many" => false])
                             </div>
 
                            

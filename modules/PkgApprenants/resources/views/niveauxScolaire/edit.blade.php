@@ -66,7 +66,7 @@
                             </div>
 
                             <div class="tab-pane fade" id="niveauxScolaire-hasmany-tabs-apprenant" role="tabpanel" aria-labelledby="niveauxScolaire-hasmany-tabs-apprenant-tab">
-                                @include('PkgApprenants::apprenant._index',['isMany' => true])
+                                @include('PkgApprenants::apprenant._index',['isMany' => true, "edit_has_many" => false])
                             </div>
 
                            

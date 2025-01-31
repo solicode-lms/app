@@ -69,10 +69,10 @@
                             </div>
 
                             <div class="tab-pane fade" id="sysColor-hasmany-tabs-sysModel" role="tabpanel" aria-labelledby="sysColor-hasmany-tabs-sysModel-tab">
-                                @include('Core::sysModel._index',['isMany' => true])
+                                @include('Core::sysModel._index',['isMany' => true, "edit_has_many" => false])
                             </div>
                             <div class="tab-pane fade" id="sysColor-hasmany-tabs-sysModule" role="tabpanel" aria-labelledby="sysColor-hasmany-tabs-sysModule-tab">
-                                @include('Core::sysModule._index',['isMany' => true])
+                                @include('Core::sysModule._index',['isMany' => true, "edit_has_many" => false])
                             </div>
 
                            

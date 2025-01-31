@@ -72,13 +72,13 @@
                             </div>
 
                             <div class="tab-pane fade" id="sysModule-hasmany-tabs-featureDomain" role="tabpanel" aria-labelledby="sysModule-hasmany-tabs-featureDomain-tab">
-                                @include('Core::featureDomain._index',['isMany' => true])
+                                @include('Core::featureDomain._index',['isMany' => true, "edit_has_many" => false])
                             </div>
                             <div class="tab-pane fade" id="sysModule-hasmany-tabs-sysController" role="tabpanel" aria-labelledby="sysModule-hasmany-tabs-sysController-tab">
-                                @include('Core::sysController._index',['isMany' => true])
+                                @include('Core::sysController._index',['isMany' => true, "edit_has_many" => false])
                             </div>
                             <div class="tab-pane fade" id="sysModule-hasmany-tabs-sysModel" role="tabpanel" aria-labelledby="sysModule-hasmany-tabs-sysModel-tab">
-                                @include('Core::sysModel._index',['isMany' => true])
+                                @include('Core::sysModel._index',['isMany' => true, "edit_has_many" => false])
                             </div>
 
                            

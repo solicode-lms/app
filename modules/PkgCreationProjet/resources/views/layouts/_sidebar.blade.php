@@ -1,7 +1,7 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 
-@accessiblePermissions(['show-natureLivrable', 'show-projet', 'show-resource', 'show-livrable', 'show-transfertCompetence'])
+@accessiblePermissions(['index-natureLivrable', 'index-projet', 'index-resource', 'index-livrable', 'index-transfertCompetence'])
 @if($accessiblePermissions->isNotEmpty())
 <li class="nav-item has-treeview {{ Request::is('admin/PkgCreationProjet*') ? 'menu-open' : '' }}">
     <a href="#" class="nav-link nav-link {{ Request::is('admin/PkgCreationProjet*') ? 'active' : '' }}">
@@ -12,7 +12,7 @@
         </p>
     </a>
     <ul class="nav nav-treeview">
-        @can('show-natureLivrable') 
+        @can('index-natureLivrable') 
         <li class="nav-item">
             <a href="{{ route('natureLivrables.index') }}" class="nav-link {{ Request::is('admin/PkgCreationProjet/natureLivrables') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-table"></i>
@@ -20,7 +20,7 @@
             </a>
         </li>
         @endcan
-        @can('show-projet') 
+        @can('index-projet') 
         <li class="nav-item">
             <a href="{{ route('projets.index') }}" class="nav-link {{ Request::is('admin/PkgCreationProjet/projets') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-table"></i>
@@ -28,7 +28,7 @@
             </a>
         </li>
         @endcan
-        @can('show-resource') 
+        @can('index-resource') 
         <li class="nav-item">
             <a href="{{ route('resources.index') }}" class="nav-link {{ Request::is('admin/PkgCreationProjet/resources') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-table"></i>
@@ -36,7 +36,7 @@
             </a>
         </li>
         @endcan
-        @can('show-livrable') 
+        @can('index-livrable') 
         <li class="nav-item">
             <a href="{{ route('livrables.index') }}" class="nav-link {{ Request::is('admin/PkgCreationProjet/livrables') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-table"></i>
@@ -44,7 +44,7 @@
             </a>
         </li>
         @endcan
-        @can('show-transfertCompetence') 
+        @can('index-transfertCompetence') 
         <li class="nav-item">
             <a href="{{ route('transfertCompetences.index') }}" class="nav-link {{ Request::is('admin/PkgCreationProjet/transfertCompetences') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-table"></i>

@@ -69,10 +69,10 @@
                             </div>
 
                             <div class="tab-pane fade" id="anneeFormation-hasmany-tabs-affectationProjet" role="tabpanel" aria-labelledby="anneeFormation-hasmany-tabs-affectationProjet-tab">
-                                @include('PkgRealisationProjets::affectationProjet._index',['isMany' => true])
+                                @include('PkgRealisationProjets::affectationProjet._index',['isMany' => true, "edit_has_many" => false])
                             </div>
                             <div class="tab-pane fade" id="anneeFormation-hasmany-tabs-groupe" role="tabpanel" aria-labelledby="anneeFormation-hasmany-tabs-groupe-tab">
-                                @include('PkgApprenants::groupe._index',['isMany' => true])
+                                @include('PkgApprenants::groupe._index',['isMany' => true, "edit_has_many" => false])
                             </div>
 
                            

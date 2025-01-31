@@ -66,7 +66,7 @@
                             </div>
 
                             <div class="tab-pane fade" id="sysController-hasmany-tabs-permission" role="tabpanel" aria-labelledby="sysController-hasmany-tabs-permission-tab">
-                                @include('PkgAutorisation::permission._index',['isMany' => true])
+                                @include('PkgAutorisation::permission._index',['isMany' => true, "edit_has_many" => false])
                             </div>
 
                            

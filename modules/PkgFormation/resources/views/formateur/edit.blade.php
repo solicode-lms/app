@@ -69,10 +69,10 @@
                             </div>
 
                             <div class="tab-pane fade" id="formateur-hasmany-tabs-niveauDifficulte" role="tabpanel" aria-labelledby="formateur-hasmany-tabs-niveauDifficulte-tab">
-                                @include('PkgCompetences::niveauDifficulte._index',['isMany' => true])
+                                @include('PkgCompetences::niveauDifficulte._index',['isMany' => true, "edit_has_many" => false])
                             </div>
                             <div class="tab-pane fade" id="formateur-hasmany-tabs-projet" role="tabpanel" aria-labelledby="formateur-hasmany-tabs-projet-tab">
-                                @include('PkgCreationProjet::projet._index',['isMany' => true])
+                                @include('PkgCreationProjet::projet._index',['isMany' => true, "edit_has_many" => false])
                             </div>
 
                            

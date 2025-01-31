@@ -81,16 +81,16 @@
                                 @include('PkgRealisationProjets::affectationProjet._index',['isMany' => true, "edit_has_many" => false])
                             </div>
                             <div class="tab-pane fade" id="projet-hasmany-tabs-livrable" role="tabpanel" aria-labelledby="projet-hasmany-tabs-livrable-tab">
-                                @include('PkgCreationProjet::livrable._index',['isMany' => true])
+                                @include('PkgCreationProjet::livrable._index',['isMany' => true, "edit_has_many" => false])
                             </div>
                             <div class="tab-pane fade" id="projet-hasmany-tabs-realisationProjet" role="tabpanel" aria-labelledby="projet-hasmany-tabs-realisationProjet-tab">
-                                @include('PkgRealisationProjets::realisationProjet._index',['isMany' => true])
+                                @include('PkgRealisationProjets::realisationProjet._index',['isMany' => true, "edit_has_many" => false])
                             </div>
                             <div class="tab-pane fade" id="projet-hasmany-tabs-resource" role="tabpanel" aria-labelledby="projet-hasmany-tabs-resource-tab">
-                                @include('PkgCreationProjet::resource._index',['isMany' => true])
+                                @include('PkgCreationProjet::resource._index',['isMany' => true, "edit_has_many" => false])
                             </div>
                             <div class="tab-pane fade" id="projet-hasmany-tabs-transfertCompetence" role="tabpanel" aria-labelledby="projet-hasmany-tabs-transfertCompetence-tab">
-                                @include('PkgCreationProjet::transfertCompetence._index',['isMany' => true])
+                                @include('PkgCreationProjet::transfertCompetence._index',['isMany' => true, "edit_has_many" => false])
                             </div>
 
                            

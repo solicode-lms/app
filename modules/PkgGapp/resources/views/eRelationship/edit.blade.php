@@ -66,7 +66,7 @@
                             </div>
 
                             <div class="tab-pane fade" id="eRelationship-hasmany-tabs-eDataField" role="tabpanel" aria-labelledby="eRelationship-hasmany-tabs-eDataField-tab">
-                                @include('PkgGapp::eDataField._index',['isMany' => true])
+                                @include('PkgGapp::eDataField._index',['isMany' => true, "edit_has_many" => false])
                             </div>
 
                            

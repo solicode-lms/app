@@ -66,7 +66,7 @@
                             </div>
 
                             <div class="tab-pane fade" id="widgetOperation-hasmany-tabs-widget" role="tabpanel" aria-labelledby="widgetOperation-hasmany-tabs-widget-tab">
-                                @include('PkgWidgets::widget._index',['isMany' => true])
+                                @include('PkgWidgets::widget._index',['isMany' => true, "edit_has_many" => false])
                             </div>
 
                            

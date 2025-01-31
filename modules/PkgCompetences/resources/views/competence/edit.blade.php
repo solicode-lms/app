@@ -66,7 +66,7 @@
                             </div>
 
                             <div class="tab-pane fade" id="competence-hasmany-tabs-niveauCompetence" role="tabpanel" aria-labelledby="competence-hasmany-tabs-niveauCompetence-tab">
-                                @include('PkgCompetences::niveauCompetence._index',['isMany' => true])
+                                @include('PkgCompetences::niveauCompetence._index',['isMany' => true, "edit_has_many" => false])
                             </div>
 
                            

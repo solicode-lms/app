@@ -66,7 +66,7 @@
                             </div>
 
                             <div class="tab-pane fade" id="eMetadataDefinition-hasmany-tabs-eMetadatum" role="tabpanel" aria-labelledby="eMetadataDefinition-hasmany-tabs-eMetadatum-tab">
-                                @include('PkgGapp::eMetadatum._index',['isMany' => true])
+                                @include('PkgGapp::eMetadatum._index',['isMany' => true, "edit_has_many" => false])
                             </div>
 
                            

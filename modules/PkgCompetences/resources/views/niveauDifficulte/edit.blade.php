@@ -66,7 +66,7 @@
                             </div>
 
                             <div class="tab-pane fade" id="niveauDifficulte-hasmany-tabs-transfertCompetence" role="tabpanel" aria-labelledby="niveauDifficulte-hasmany-tabs-transfertCompetence-tab">
-                                @include('PkgCreationProjet::transfertCompetence._index',['isMany' => true])
+                                @include('PkgCreationProjet::transfertCompetence._index',['isMany' => true, "edit_has_many" => false])
                             </div>
 
                            

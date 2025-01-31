@@ -66,7 +66,7 @@
                             </div>
 
                             <div class="tab-pane fade" id="realisationProjet-hasmany-tabs-validation" role="tabpanel" aria-labelledby="realisationProjet-hasmany-tabs-validation-tab">
-                                @include('PkgRealisationProjets::validation._index',['isMany' => true])
+                                @include('PkgRealisationProjets::validation._index',['isMany' => true, "edit_has_many" => false])
                             </div>
 
                            
