@@ -24,6 +24,7 @@ return new class extends Migration
           
             $table->foreignId('apprenant_id')->constrained('apprenants');
             $table->foreignId('affectation_projet_id')->constrained('affectation_projets');
+            $table->string('reference')->unique();
             $table->timestamps();
         });
     }

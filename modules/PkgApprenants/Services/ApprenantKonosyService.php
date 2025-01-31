@@ -8,6 +8,8 @@ namespace Modules\PkgApprenants\Services;
 use Modules\PkgApprenants\Models\ApprenantKonosy;
 use Modules\Core\Services\BaseService;
 use Carbon\Carbon;
+use Modules\PkgFormation\Models\AnneeFormation;
+use Modules\PkgFormation\Services\AnneeFormationService;
 use Modules\PkgFormation\Services\FiliereService;
 
 /**
@@ -99,6 +101,11 @@ class ApprenantKonosyService extends BaseService
         $code_groupe = $codeDiplome; // Garde la chaîne complète
         $nationalite_code = $apprenantKonosy->Nationalite;
         $niveau_scolaire_code = $apprenantKonosy->NiveauScolaire;
+
+
+        // Créer l'année de formation s'il n'existe pas 
+        $date_inscription = Carbon::parse(str_replace('/', '-',$apprenantKonosy->DateInscription ))->format('Y/m/d');
+        $annee_formation = new AnneeFormationService().getOrCreateFromDateInscription($date_inscription);
 
         // Create if not exist
         $filiere = (new FiliereService())->updateOrCreate(["code" => $code_filiere ],[ "code" => $code_filiere]);

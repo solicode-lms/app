@@ -20,6 +20,7 @@ return new class extends Migration
             $table->boolean('is_valide')->default(false); // Indique si la validation est acceptée
             $table->foreignId('transfert_competence_id')->constrained('transfert_competences');
             $table->foreignId('realisation_projet_id')->constrained('realisation_projets');
+            $table->string('reference')->unique();
             $table->timestamps();
         });
     }

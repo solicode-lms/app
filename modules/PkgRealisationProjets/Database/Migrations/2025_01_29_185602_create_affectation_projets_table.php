@@ -19,6 +19,7 @@ return new class extends Migration
             $table->date('date_fin')->nullable(); // Peut être NULL si l'affectation est en cours
             $table->foreignId('annee_formation_id')->constrained('annee_formations');
             $table->longText('description')->nullable();
+            $table->string('reference')->unique();
             $table->timestamps();
         });
     }

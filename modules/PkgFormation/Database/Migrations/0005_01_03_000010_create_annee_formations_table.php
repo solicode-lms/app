@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('titre');
             $table->date('date_debut');
             $table->date('date_fin');
+            $table->string('reference')->unique();
             $table->timestamps();
         });
     }

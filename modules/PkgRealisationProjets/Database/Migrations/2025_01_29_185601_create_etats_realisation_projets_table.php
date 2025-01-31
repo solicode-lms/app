@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('titre');
             $table->longText('description')->nullable();
+            $table->string('reference')->unique();
             $table->timestamps();
         });
     }
