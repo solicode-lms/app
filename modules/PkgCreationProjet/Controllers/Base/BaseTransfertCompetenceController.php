@@ -8,7 +8,6 @@ use Modules\PkgCompetences\Services\TechnologyService;
 use Modules\PkgCompetences\Services\CompetenceService;
 use Modules\PkgCompetences\Services\NiveauDifficulteService;
 use Modules\PkgCreationProjet\Services\ProjetService;
-use Modules\PkgRealisationProjets\Services\ValidationService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\PkgCreationProjet\App\Requests\TransfertCompetenceRequest;
@@ -89,7 +88,7 @@ class BaseTransfertCompetenceController extends AdminController
             ]);
         }
 
-        return redirect()->route('transfertCompetences.edit',['transfertCompetence' => $transfertCompetence->id])->with(
+        return redirect()->route('transfertCompetences.index')->with(
             'success',
             __('Core::msg.addSuccess', [
                 'entityToString' => $transfertCompetence,
@@ -122,17 +121,12 @@ class BaseTransfertCompetenceController extends AdminController
         $competences = $this->competenceService->all();
         $niveauDifficultes = $this->niveauDifficulteService->all();
         $projets = $this->projetService->all();
-        $validationService =  new ValidationService();
-        $validations_data =  $itemTransfertCompetence->validations()->paginate(10);
-        $validations_stats = $validationService->getvalidationStats();
-        $validations_filters = $validationService->getFieldsFilterable();
-        
 
         if (request()->ajax()) {
-            return view('PkgCreationProjet::transfertCompetence._fields', compact('itemTransfertCompetence', 'technologies', 'competences', 'niveauDifficultes', 'projets', 'validations_data', 'validations_stats', 'validations_filters'));
+            return view('PkgCreationProjet::transfertCompetence._fields', compact('itemTransfertCompetence', 'technologies', 'competences', 'niveauDifficultes', 'projets'));
         }
 
-        return view('PkgCreationProjet::transfertCompetence.edit', compact('itemTransfertCompetence', 'technologies', 'competences', 'niveauDifficultes', 'projets', 'validations_data', 'validations_stats', 'validations_filters'));
+        return view('PkgCreationProjet::transfertCompetence.edit', compact('itemTransfertCompetence', 'technologies', 'competences', 'niveauDifficultes', 'projets'));
 
     }
     public function update(TransfertCompetenceRequest $request, string $id) {
