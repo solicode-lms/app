@@ -19,7 +19,7 @@ return new class extends Migration
             $table->longText('travail_a_faire'); // Travail à faire
             $table->longText('critere_de_travail'); // Critères de travail
             $table->longText('description')->nullable(); // Description générale
-            $table->int('nombre_jour'); // Date de début
+            $table->integer('nombre_jour'); // Date de début
             $table->foreignId('formateur_id')->constrained('formateurs')->onDelete('cascade'); // Relation avec Projet
             $table->string('reference')->unique();
             $table->timestamps(); // Champs created_at et updated_at

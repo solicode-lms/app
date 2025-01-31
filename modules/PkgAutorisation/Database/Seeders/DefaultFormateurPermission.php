@@ -24,15 +24,18 @@ class DefaultFormateurPermission extends Seeder
         // Tableau de configuration : modèle et type d'accès
         $permissionsMap = [
             'competence' => 'Lecteur,Extraction',
-            'Competence' => 'Lecteur,Extraction',
             'module' => 'Lecteur,Extraction',
-            'Competence' => 'Lecteur,Extraction',
             'technology' => 'Lecteur,Extraction',
             'appreciation' => 'Editeur,Extraction',
             'projet' => 'Editeur,Extraction',
             'livrable' => 'Editeur,Extraction',
             'resource' => 'Editeur,Extraction',
             'transfertCompetence' => 'Editeur,Extraction',
+            'affectationProjet' => 'Editeur,Extraction',
+            'etatsRealisationProjet' => 'Editeur,Extraction',
+            'livrablesRealisation' => 'Editeur,Extraction',
+            'realisationProjet' => 'Editeur,Extraction',
+            'validation' => 'Editeur,Extraction',
         ];
 
         // Actions par type d'accès

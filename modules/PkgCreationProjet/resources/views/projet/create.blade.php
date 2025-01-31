@@ -3,6 +3,23 @@
 @extends('layouts.admin')
 @section('title', curd_index_add_label('PkgCreationProjet::projet'))
 
+
+@push('scripts')
+<script>
+    window.entitiesConfig = window.entitiesConfig || [];
+    window.entitiesConfig.push({
+        edit_has_many: false,
+        page: "create",
+        entity_name: 'projet',
+        crudSelector: '#projetForm', 
+        formSelector: '#projetForm',
+        indexUrl: '{{ route('projets.index') }}',
+        csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
+        edit_title: '{{__("Core::msg.add") . " : " . __("PkgCreationProjet::projet.singular") }}',
+    });
+</script>
+@endpush
+
 @section('content')
     <div class="content-header">
     </div>

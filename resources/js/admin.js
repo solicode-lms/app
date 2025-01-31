@@ -70,6 +70,11 @@ document.addEventListener("DOMContentLoaded", function () {
         new NotificationHandler(notificationData).show();
     });
     
+
+    
+    // TODO : Appliquer la validation de formulaire dans une page création sans Model
+
+
     FormManager.initializeSelect2();
     FormManager.initializeRichText();
     FormManager.initializeDate();
