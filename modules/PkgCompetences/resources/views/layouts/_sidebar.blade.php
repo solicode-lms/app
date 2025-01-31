@@ -1,7 +1,7 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 
-@accessiblePermissions(['show-categoryTechnology', 'show-competence', 'show-niveauCompetence', 'show-technology', 'show-niveauDifficulte'])
+@accessiblePermissions(['index-categoryTechnology', 'index-competence', 'index-niveauCompetence', 'index-technology', 'index-niveauDifficulte'])
 @if($accessiblePermissions->isNotEmpty())
 <li class="nav-item has-treeview {{ Request::is('admin/PkgCompetences*') ? 'menu-open' : '' }}">
     <a href="#" class="nav-link nav-link {{ Request::is('admin/PkgCompetences*') ? 'active' : '' }}">
@@ -12,7 +12,7 @@
         </p>
     </a>
     <ul class="nav nav-treeview">
-        @can('show-categoryTechnology') 
+        @can('index-categoryTechnology') 
         <li class="nav-item">
             <a href="{{ route('categoryTechnologies.index') }}" class="nav-link {{ Request::is('admin/PkgCompetences/categoryTechnologies') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-bolt"></i>
@@ -20,7 +20,7 @@
             </a>
         </li>
         @endcan
-        @can('show-competence') 
+        @can('index-competence') 
         <li class="nav-item">
             <a href="{{ route('competences.index') }}" class="nav-link {{ Request::is('admin/PkgCompetences/competences') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-tools"></i>
@@ -28,7 +28,7 @@
             </a>
         </li>
         @endcan
-        @can('show-niveauCompetence') 
+        @can('index-niveauCompetence') 
         <li class="nav-item">
             <a href="{{ route('niveauCompetences.index') }}" class="nav-link {{ Request::is('admin/PkgCompetences/niveauCompetences') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-bars"></i>
@@ -36,7 +36,7 @@
             </a>
         </li>
         @endcan
-        @can('show-technology') 
+        @can('index-technology') 
         <li class="nav-item">
             <a href="{{ route('technologies.index') }}" class="nav-link {{ Request::is('admin/PkgCompetences/technologies') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-bolt"></i>
@@ -44,7 +44,7 @@
             </a>
         </li>
         @endcan
-        @can('show-niveauDifficulte') 
+        @can('index-niveauDifficulte') 
         <li class="nav-item">
             <a href="{{ route('niveauDifficultes.index') }}" class="nav-link {{ Request::is('admin/PkgCompetences/niveauDifficultes') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-table"></i>

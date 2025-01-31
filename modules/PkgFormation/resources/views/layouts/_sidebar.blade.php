@@ -1,7 +1,7 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 
-@accessiblePermissions(['show-filiere', 'show-module', 'show-anneeFormation', 'show-specialite', 'show-formateur'])
+@accessiblePermissions(['index-filiere', 'index-module', 'index-anneeFormation', 'index-specialite', 'index-formateur'])
 @if($accessiblePermissions->isNotEmpty())
 <li class="nav-item has-treeview {{ Request::is('admin/PkgFormation*') ? 'menu-open' : '' }}">
     <a href="#" class="nav-link nav-link {{ Request::is('admin/PkgFormation*') ? 'active' : '' }}">
@@ -12,7 +12,7 @@
         </p>
     </a>
     <ul class="nav nav-treeview">
-        @can('show-filiere') 
+        @can('index-filiere') 
         <li class="nav-item">
             <a href="{{ route('filieres.index') }}" class="nav-link {{ Request::is('admin/PkgFormation/filieres') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-book"></i>
@@ -20,7 +20,7 @@
             </a>
         </li>
         @endcan
-        @can('show-module') 
+        @can('index-module') 
         <li class="nav-item">
             <a href="{{ route('modules.index') }}" class="nav-link {{ Request::is('admin/PkgFormation/modules') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-puzzle-piece"></i>
@@ -28,7 +28,7 @@
             </a>
         </li>
         @endcan
-        @can('show-anneeFormation') 
+        @can('index-anneeFormation') 
         <li class="nav-item">
             <a href="{{ route('anneeFormations.index') }}" class="nav-link {{ Request::is('admin/PkgFormation/anneeFormations') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-table"></i>
@@ -36,7 +36,7 @@
             </a>
         </li>
         @endcan
-        @can('show-specialite') 
+        @can('index-specialite') 
         <li class="nav-item">
             <a href="{{ route('specialites.index') }}" class="nav-link {{ Request::is('admin/PkgFormation/specialites') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-award"></i>
@@ -44,7 +44,7 @@
             </a>
         </li>
         @endcan
-        @can('show-formateur') 
+        @can('index-formateur') 
         <li class="nav-item">
             <a href="{{ route('formateurs.index') }}" class="nav-link {{ Request::is('admin/PkgFormation/formateurs') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-chalkboard-teacher"></i>

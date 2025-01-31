@@ -1,7 +1,7 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 
-@accessiblePermissions(['show-apprenantKonosy', 'show-niveauxScolaire', 'show-ville', 'show-nationalite', 'show-groupe', 'show-apprenant'])
+@accessiblePermissions(['index-apprenantKonosy', 'index-niveauxScolaire', 'index-ville', 'index-nationalite', 'index-groupe', 'index-apprenant'])
 @if($accessiblePermissions->isNotEmpty())
 <li class="nav-item has-treeview {{ Request::is('admin/PkgApprenants*') ? 'menu-open' : '' }}">
     <a href="#" class="nav-link nav-link {{ Request::is('admin/PkgApprenants*') ? 'active' : '' }}">
@@ -12,7 +12,7 @@
         </p>
     </a>
     <ul class="nav nav-treeview">
-        @can('show-apprenantKonosy') 
+        @can('index-apprenantKonosy') 
         <li class="nav-item">
             <a href="{{ route('apprenantKonosies.index') }}" class="nav-link {{ Request::is('admin/PkgApprenants/apprenantKonosies') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-table"></i>
@@ -20,7 +20,7 @@
             </a>
         </li>
         @endcan
-        @can('show-niveauxScolaire') 
+        @can('index-niveauxScolaire') 
         <li class="nav-item">
             <a href="{{ route('niveauxScolaires.index') }}" class="nav-link {{ Request::is('admin/PkgApprenants/niveauxScolaires') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-graduation-cap"></i>
@@ -28,7 +28,7 @@
             </a>
         </li>
         @endcan
-        @can('show-ville') 
+        @can('index-ville') 
         <li class="nav-item">
             <a href="{{ route('villes.index') }}" class="nav-link {{ Request::is('admin/PkgApprenants/villes') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-city"></i>
@@ -36,7 +36,7 @@
             </a>
         </li>
         @endcan
-        @can('show-nationalite') 
+        @can('index-nationalite') 
         <li class="nav-item">
             <a href="{{ route('nationalites.index') }}" class="nav-link {{ Request::is('admin/PkgApprenants/nationalites') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-table"></i>
@@ -44,7 +44,7 @@
             </a>
         </li>
         @endcan
-        @can('show-groupe') 
+        @can('index-groupe') 
         <li class="nav-item">
             <a href="{{ route('groupes.index') }}" class="nav-link {{ Request::is('admin/PkgApprenants/groupes') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-cubes"></i>
@@ -52,7 +52,7 @@
             </a>
         </li>
         @endcan
-        @can('show-apprenant') 
+        @can('index-apprenant') 
         <li class="nav-item">
             <a href="{{ route('apprenants.index') }}" class="nav-link {{ Request::is('admin/PkgApprenants/apprenants') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-user-graduate"></i>

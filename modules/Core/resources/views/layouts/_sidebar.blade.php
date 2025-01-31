@@ -1,7 +1,7 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 
-@accessiblePermissions(['show-sysColor', 'show-sysModule', 'show-sysController', 'show-featureDomain', 'show-feature', 'show-sysModel'])
+@accessiblePermissions(['index-sysColor', 'index-sysModule', 'index-sysController', 'index-featureDomain', 'index-feature', 'index-sysModel'])
 @if($accessiblePermissions->isNotEmpty())
 <li class="nav-item has-treeview {{ Request::is('admin/Core*') ? 'menu-open' : '' }}">
     <a href="#" class="nav-link nav-link {{ Request::is('admin/Core*') ? 'active' : '' }}">
@@ -12,7 +12,7 @@
         </p>
     </a>
     <ul class="nav nav-treeview">
-        @can('show-sysColor') 
+        @can('index-sysColor') 
         <li class="nav-item">
             <a href="{{ route('sysColors.index') }}" class="nav-link {{ Request::is('admin/Core/sysColors') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-table"></i>
@@ -20,7 +20,7 @@
             </a>
         </li>
         @endcan
-        @can('show-sysModule') 
+        @can('index-sysModule') 
         <li class="nav-item">
             <a href="{{ route('sysModules.index') }}" class="nav-link {{ Request::is('admin/Core/sysModules') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-table"></i>
@@ -28,7 +28,7 @@
             </a>
         </li>
         @endcan
-        @can('show-sysController') 
+        @can('index-sysController') 
         <li class="nav-item">
             <a href="{{ route('sysControllers.index') }}" class="nav-link {{ Request::is('admin/Core/sysControllers') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-table"></i>
@@ -36,7 +36,7 @@
             </a>
         </li>
         @endcan
-        @can('show-featureDomain') 
+        @can('index-featureDomain') 
         <li class="nav-item">
             <a href="{{ route('featureDomains.index') }}" class="nav-link {{ Request::is('admin/Core/featureDomains') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-table"></i>
@@ -44,7 +44,7 @@
             </a>
         </li>
         @endcan
-        @can('show-feature') 
+        @can('index-feature') 
         <li class="nav-item">
             <a href="{{ route('features.index') }}" class="nav-link {{ Request::is('admin/Core/features') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-table"></i>
@@ -52,7 +52,7 @@
             </a>
         </li>
         @endcan
-        @can('show-sysModel') 
+        @can('index-sysModel') 
         <li class="nav-item">
             <a href="{{ route('sysModels.index') }}" class="nav-link {{ Request::is('admin/Core/sysModels') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-table"></i>

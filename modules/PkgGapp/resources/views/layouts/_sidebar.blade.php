@@ -1,7 +1,7 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 
-@accessiblePermissions(['show-eMetadataDefinition', 'show-ePackage', 'show-eModel', 'show-eRelationship', 'show-eDataField', 'show-eMetadatum'])
+@accessiblePermissions(['index-eMetadataDefinition', 'index-ePackage', 'index-eModel', 'index-eRelationship', 'index-eDataField', 'index-eMetadatum'])
 @if($accessiblePermissions->isNotEmpty())
 <li class="nav-item has-treeview {{ Request::is('admin/PkgGapp*') ? 'menu-open' : '' }}">
     <a href="#" class="nav-link nav-link {{ Request::is('admin/PkgGapp*') ? 'active' : '' }}">
@@ -12,7 +12,7 @@
         </p>
     </a>
     <ul class="nav nav-treeview">
-        @can('show-eMetadataDefinition') 
+        @can('index-eMetadataDefinition') 
         <li class="nav-item">
             <a href="{{ route('eMetadataDefinitions.index') }}" class="nav-link {{ Request::is('admin/PkgGapp/eMetadataDefinitions') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-table"></i>
@@ -20,7 +20,7 @@
             </a>
         </li>
         @endcan
-        @can('show-ePackage') 
+        @can('index-ePackage') 
         <li class="nav-item">
             <a href="{{ route('ePackages.index') }}" class="nav-link {{ Request::is('admin/PkgGapp/ePackages') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-table"></i>
@@ -28,7 +28,7 @@
             </a>
         </li>
         @endcan
-        @can('show-eModel') 
+        @can('index-eModel') 
         <li class="nav-item">
             <a href="{{ route('eModels.index') }}" class="nav-link {{ Request::is('admin/PkgGapp/eModels') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-table"></i>
@@ -36,7 +36,7 @@
             </a>
         </li>
         @endcan
-        @can('show-eRelationship') 
+        @can('index-eRelationship') 
         <li class="nav-item">
             <a href="{{ route('eRelationships.index') }}" class="nav-link {{ Request::is('admin/PkgGapp/eRelationships') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-table"></i>
@@ -44,7 +44,7 @@
             </a>
         </li>
         @endcan
-        @can('show-eDataField') 
+        @can('index-eDataField') 
         <li class="nav-item">
             <a href="{{ route('eDataFields.index') }}" class="nav-link {{ Request::is('admin/PkgGapp/eDataFields') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-table"></i>
@@ -52,7 +52,7 @@
             </a>
         </li>
         @endcan
-        @can('show-eMetadatum') 
+        @can('index-eMetadatum') 
         <li class="nav-item">
             <a href="{{ route('eMetadata.index') }}" class="nav-link {{ Request::is('admin/PkgGapp/eMetadata') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-table"></i>
