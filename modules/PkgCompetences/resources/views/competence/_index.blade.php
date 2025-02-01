@@ -103,7 +103,7 @@
         </div>
     </section>
     @show
-    @section('competence-crud-modal')
-    <x-modal id="competenceModal" title="Ajouter ou Modifier"></x-modal>
-    @show
 </div>
+@section('competence-crud-modal')
+<x-modal id="competenceModal" title="Ajouter ou Modifier"></x-modal>
+@show

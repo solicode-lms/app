@@ -101,7 +101,7 @@ export class NotificationHandler {
      * @param {string} [message='Une erreur s\'est produite.'] - Message d'erreur à afficher.
      */
     static showError(message = 'Une erreur s\'est produite.') {
-        NotificationHandler.showToast('error', message);
+        NotificationHandler.showAlert('error', 'Une erreur s\'est produite', message);
     }
 
     /**

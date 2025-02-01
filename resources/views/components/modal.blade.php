@@ -1,4 +1,10 @@
-<div class="modal fade  crud-modal" id="{{ $id }}"  role="dialog" aria-labelledby="{{ $id }}Label" aria-hidden="true">
+<script>
+  
+</script>
+<div style="position: absolute;color: red" >
+    {{ $id }}  {{ now()->format('Y-m-d H:i:s') }} 
+</div>
+<div class="modal fade  crud-modal" id="{{ $id }}"  role="dialog" aria-labelledby="{{ $id }}Label" >
     <div class="modal-dialog full-screen-modal  modal-md" role="document">
         <div class="modal-content">
 
@@ -15,7 +21,7 @@
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body"></div>
+                <div class="modal-body">modal</div>
             </div>
         </div>
     </div>

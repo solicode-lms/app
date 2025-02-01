@@ -13,7 +13,16 @@ export class ShowAction extends Action {
      * @param {number|string} id - Identifiant de l'entité à afficher.
      */
     showEntity(id) {
-        const showUrl = this.getUrlWithId(this.config.showUrl, id); // Générer l'URL dynamique
+
+
+        let showUrl = this.getUrlWithId(this.config.showUrl, id); // Générer l'URL dynamique
+
+        showUrl = this.appendParamsToUrl(
+            showUrl,
+            this.contextService.getContextParams()
+        );
+
+
 
         // Afficher le chargement dans le modal
         this.modalManager.showLoading('Détails de l\'entité');
@@ -28,6 +37,7 @@ export class ShowAction extends Action {
                 // this.handleSuccess('Détails de l\'entité chargés avec succès.');
             })
             .fail((xhr) => {
+                this.formManager.modalManager.close();
                 AjaxErrorHandler.handleError(xhr, 'Erreur lors du chargement des détails de l\'entité.');
             });
             

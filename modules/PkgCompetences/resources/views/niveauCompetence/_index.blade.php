@@ -1,6 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-@push('scripts')
+
 <script>
     window.entitiesConfig = window.entitiesConfig || [];
     window.entitiesConfig.push({
@@ -23,7 +23,7 @@
         edit_title: '{{__("Core::msg.add") . " : " . __("PkgCompetences::niveauCompetence.singular") }}',
     });
 </script>
-@endpush
+
 <div id="niveauCompetence-crud" class="crud">
     @section('niveauCompetence-crud-header')
     @php

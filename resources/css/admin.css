@@ -178,3 +178,17 @@
     white-space: pre-wrap;
     overflow-y: auto;
 }
+
+
+.iziModal {
+    z-index: 1050 !important;
+}
+
+/* Fix iziModal avec nav-tabs */
+.iziModal .nav-tabs .nav-link {
+    cursor: pointer;
+}
+
+.iziModal .tab-content {
+    display: block !important;
+}

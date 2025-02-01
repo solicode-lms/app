@@ -7,6 +7,7 @@ import { CodeJar } from 'codejar';
 import Prism from 'prismjs';
 import 'prismjs/themes/prism.css'; 
 import 'prismjs/components/prism-json';
+import InitCrudManagers from "../InitCrudManagers";
 
 
 export class FormManager {
@@ -27,6 +28,10 @@ export class FormManager {
      * Initialise le gestionnaire de formulaire.
      */
     init(submitHandler) {
+
+
+        InitCrudManagers.init(false)
+
         this.handleCancelButton();
         this.handleCardFooter();
         this.handleFormSubmission(submitHandler);

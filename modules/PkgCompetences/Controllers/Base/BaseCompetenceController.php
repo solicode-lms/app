@@ -90,16 +90,25 @@ class BaseCompetenceController extends AdminController
         );
     }
     public function show(string $id) {
+
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('competence_id', $id);
+        
         $itemCompetence = $this->competenceService->find($id);
         $technologies = $this->technologyService->all();
         $modules = $this->moduleService->all();
-
+        $niveauCompetenceService =  new NiveauCompetenceService();
+        $niveauCompetences_data =  $itemCompetence->niveauCompetences()->paginate(10);
+        $niveauCompetences_stats = $niveauCompetenceService->getniveauCompetenceStats();
+        $niveauCompetences_filters = $niveauCompetenceService->getFieldsFilterable();
+        
 
         if (request()->ajax()) {
-            return view('PkgCompetences::competence._fields', compact('itemCompetence', 'technologies', 'modules'));
+            return view('PkgCompetences::competence._edit', compact('itemCompetence', 'technologies', 'modules', 'niveauCompetences_data', 'niveauCompetences_stats', 'niveauCompetences_filters'));
         }
 
-        return view('PkgCompetences::competence.show', compact('itemCompetence'));
+        return view('PkgCompetences::competence.edit', compact('itemCompetence', 'technologies', 'modules', 'niveauCompetences_data', 'niveauCompetences_stats', 'niveauCompetences_filters'));
+
 
     }
     public function edit(string $id) {

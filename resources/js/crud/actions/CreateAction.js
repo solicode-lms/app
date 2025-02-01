@@ -79,6 +79,7 @@ export class CreateAction extends Action {
                     if (xhr.responseJSON?.errors) {
                         this.formManager.showFieldErrors(xhr.responseJSON.errors);
                     } else {
+                        this.formManager.modalManager.close();
                         AjaxErrorHandler.handleError(xhr, "Erreur lors du traitement du formulaire.");
                     }
                 });

@@ -29,7 +29,10 @@ import { ContextStateService } from './crud/components/ContextStateService';
 import { EditWithHasManyManager } from './crud/EditWithHasManyManager';
 import DynamicFieldVisibilityTreatment from './crud/treatments/form/DynamicFieldVisibilityTreatment';
 import { DashboardUI } from './crud/components/DashboardUI';
+import InitCrudManagers from './crud/InitCrudManagers';
 
+import "izimodal/js/iziModal.min.js";
+import "izimodal/css/iziModal.min.css";
 
 
 
@@ -46,25 +49,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const dashboardUI = new DashboardUI(sessionState);
     dashboardUI.init();
 
-    // Vérifie si la configuration des entités est disponible
-    if (window.entitiesConfig && Array.isArray(window.entitiesConfig)) {
-        // Initialiser les gestionnaires pour chaque entité
-        window.entitiesConfig.forEach((entityConfigData) => {
-            let entityConfig = new ConfigHelper(entityConfigData,contextState,sessionState);
-            entityConfig.isDebug = isDebug;
-            // à ajouter pendant l'envoye de requête ajax
-            // entityConfig = contextManager.addContextToConfig(entityConfig);
-            if(entityConfig.page == "index"){
-                const crudManager = new CrudManager(entityConfig);
-                crudManager.init();
-            }
-            if(entityConfig.page == "edit"){
-                const editWithHasManyManager = new EditWithHasManyManager(entityConfig);
-                editWithHasManyManager.init();
-            }
-            
-        });
-    }
+    InitCrudManagers.init(),
 
     window.notifications.forEach((notificationData) => {
         new NotificationHandler(notificationData).show();
