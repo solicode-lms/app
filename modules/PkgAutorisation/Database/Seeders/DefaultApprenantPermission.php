@@ -23,19 +23,23 @@ class DefaultApprenantPermission extends Seeder
 
         // Tableau de configuration : modèle et type d'accès
         $permissionsMap = [
-            'competence' => 'Lecteur,Extraction',
-            'module' => 'Lecteur,Extraction',
-            'technology' => 'Lecteur,Extraction',
-            'projet' => 'Lecteur,Extraction',
-            'livrable' => 'Lecteur,Extraction',
-            'resource' => 'Lecteur,Extraction',
-            'transfertCompetence' => 'Lecteur,Extraction',
+            'competence' => 'Lecteur',
+            'module' => 'LecteurMany',
+            'technology' => 'LecteurMany',
+            'affectationProjet' => 'Lecteur',
+            'livrable' => 'LecteurMany',
+            'resource' => 'LecteurMany',
+            'transfertCompetence' => 'transfertCompetence',
+            'realisationProjet' => 'EditeurSansCreate',
         ];
 
         // Actions par type d'accès
         $actionsByType = [
+            'LecteurMany' => ['show'],
             'Lecteur' => ['index', 'show'],
             'Editeur' => ['index', 'show', 'create', 'store', 'edit', 'update', 'destroy'],
+            'EditeurSansCreate' => ['index', 'show', 'store', 'edit', 'update'],
+            'EditeurMany' => ['show', 'create', 'store', 'edit', 'update', 'destroy'],
             'Extraction' => ['export'],
         ];
 

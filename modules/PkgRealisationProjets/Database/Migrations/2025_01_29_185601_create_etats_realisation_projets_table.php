@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('titre');
             $table->longText('description')->nullable();
+            $table->foreignId('formateur_id')->constrained('formateurs')->onDelete('cascade');
             $table->string('reference')->unique();
             $table->timestamps();
         });

@@ -27,20 +27,21 @@ class DefaultFormateurPermission extends Seeder
             'competence' => 'Lecteur,Extraction',
             'module' => 'Lecteur,Extraction',
             'technology' => 'Lecteur,Extraction',
-            'appreciation' => 'Editeur,Extraction',
+            'niveauDifficulte' => 'Editeur,Extraction',
             'projet' => 'Editeur,Extraction',
             'livrable' => 'EditeurMany,Extraction',
             'resource' => 'EditeurMany,Extraction',
             'transfertCompetence' => 'EditeurMany,Extraction',
             'affectationProjet' => 'Editeur,Extraction',
             'etatsRealisationProjet' => 'Editeur,Extraction',
-            'livrablesRealisation' => 'Editeur,Extraction',
-            'realisationProjet' => 'Editeur,Extraction',
+            'livrablesRealisation' => 'LecteurMany,Extraction',
+            'realisationProjet' => 'Lecteur,Extraction',
             'validation' => 'Editeur,Extraction',
         ];
 
         // Actions par type d'accès
         $actionsByType = [
+            'LecteurMany' => ['show'],
             'Lecteur' => ['index', 'show'],
             'Editeur' => ['index', 'show', 'create', 'store', 'edit', 'update', 'destroy'],
             'EditeurMany' => ['show', 'create', 'store', 'edit', 'update', 'destroy'],

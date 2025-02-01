@@ -18,10 +18,7 @@ return new class extends Migration
             $table->date('date_debut');
             $table->date('date_fin')->nullable(); // Peut être NULL si le projet est en cours
             $table->text('rapport')->nullable(); // Peut être NULL avant la fin du projet
-            $table->foreignId('projet_id')->constrained('projets');
             $table->foreignId('etats_realisation_projet_id')->constrained('etats_realisation_projets');
-            
-          
             $table->foreignId('apprenant_id')->constrained('apprenants');
             $table->foreignId('affectation_projet_id')->constrained('affectation_projets');
             $table->string('reference')->unique();
