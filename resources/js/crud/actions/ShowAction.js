@@ -35,28 +35,30 @@ export class ShowAction extends Action {
         this.tableUI.indexUI.modalUI.showLoading('Détails de l\'entité');
 
         // Charger les détails de l'entité via AJAX
-        // $.get(showUrl)
-        //     .done((html) => {
-        //         // Injecter le contenu des détails dans le modal
+        $.get(showUrl)
+            .done((html) => {
+                // Injecter le contenu des détails dans le modal
 
 
-        //         this.tableUI.indexUI.modalUI.showContent(html);
+                this.tableUI.indexUI.modalUI.showContent(html);
+
+                this.executeScripts(html);
+                this.tableUI.indexUI.formUI.init();
+                this.tableUI.indexUI.formUI.setToReadOnly();
 
 
-        //         $(document).on('opened', this.tableUI.indexUI.modalUI.this.currentModalId, function (e) {
-        //             this.executeScripts(html);
-        //             this.tableUI.indexUI.formUI.init();
-        //             this.tableUI.indexUI.formUI.setToReadOnly();
-        //         });
+                // $(document).on('opened', this.tableUI.indexUI.modalUI.this.currentModalId, function (e) {
+                  
+                // });
 
-        //         // Exécuter les scripts inclus dans le contenu AJAX
+                // Exécuter les scripts inclus dans le contenu AJAX
              
-        //         // this.handleSuccess('Détails de l\'entité chargés avec succès.');
-        //     })
-        //     .fail((xhr) => {
-        //         this.tableUI.indexUI.formUI.modalManager.close();
-        //         AjaxErrorHandler.handleError(xhr, 'Erreur lors du chargement des détails de l\'entité.');
-        //     });
+                // this.handleSuccess('Détails de l\'entité chargés avec succès.');
+            })
+            .fail((xhr) => {
+                this.tableUI.indexUI.formUI.modalManager.close();
+                AjaxErrorHandler.handleError(xhr, 'Erreur lors du chargement des détails de l\'entité.');
+            });
             
     }
 

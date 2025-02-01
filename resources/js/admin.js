@@ -1,10 +1,12 @@
 
-import $ from 'jquery';
+// import $ from 'jquery';
+// const old_$ = window.$;
+// window.$ = $;
+// // window.$ = window.jQuery = $; // S'assurer que jQuery est global
 
+// import select2 from 'select2';
+// select2();
 
-import select2 from 'select2';
-select2();
-window.$ = $;
 
 import 'summernote/dist/summernote-bs4.min';
 import 'admin-lte/plugins/bootstrap/js/bootstrap.bundle';
@@ -30,10 +32,6 @@ import { EditWithHasManyManager } from './crud/EditWithHasManyManager';
 import DynamicFieldVisibilityTreatment from './crud/treatments/form/DynamicFieldVisibilityTreatment';
 import { DashboardUI } from './crud/components/DashboardUI';
 import InitCrudManagers from './crud/InitCrudManagers';
-
-// import "izimodal/js/iziModal.min.js";
-// import "izimodal/css/iziModal.min.css";
-
 
 
 // Init CrudManagers in the page
@@ -73,6 +71,32 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-document.addEventListener("DOMContentLoaded", function () {
 
-});
+
+// // import iziModal from "izimodal/js/iziModal.min.js";
+// import iziModal from "izimodal/js/iziModal.min.js";
+// import "izimodal/css/iziModal.min.css";
+// $.fn.iziModal = iziModal;
+
+// document.addEventListener("DOMContentLoaded", function () {
+
+//     iziModal();
+
+//     // $("#modal-example").iziModal({
+//     //     title: "Titre de la Modale",
+//     //     headerColor: "#4CAF50",
+//     // });
+
+//     $("#modal-example").iziModal({
+//         title: "Titre de la Modale",
+//         headerColor: "#4CAF50",
+//     });
+
+//     $("#modal-example").iziModal("setContent", "bonjour");
+//     $("#modal-example").iziModal("open");
+// });
+
+
+
+
+// window.$ = old_$;

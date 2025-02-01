@@ -1,14 +1,8 @@
-import $ from "jquery";
-import iziModal from "izimodal/js/iziModal.min.js";
-import "izimodal/css/iziModal.min.css";
+// import $ from "jquery";
+// import iziModal from "izimodal/js/iziModal.min.js";
+// import "izimodal/css/iziModal.min.css";
+// $.fn.iziModal = iziModal;
 
-// Vérifier si iziModal est bien attaché à jQuery
-$.fn.iziModal = iziModal;
-
-// Attacher iziModal à jQuery
-// if (!$.fn.iziModal) {
-//     $.fn.iziModal = iziModal;
-// }
 
 export class ModalUI {
 
@@ -20,7 +14,9 @@ export class ModalUI {
 
         this.modalCounter = 0;
         this.curd_id = this.config.id;
+        
         this.currentModalId = `${this.curd_id}-dynamic-modal`;
+        this.modal = null;
     }
 
     /**
@@ -35,42 +31,81 @@ export class ModalUI {
         // Ajouter la nouvelle modale
         $("body").append(`<div id="${this.currentModalId}" class="dynamic-modal"></div>`);
 
+        
+        // subtitle: '',
+        // headerColor: '#88A0B9',
+        // background: null,
+        // theme: '',  // light
+        // icon: null,
+        // iconText: null,
+        // iconColor: '',
+        // rtl: false,
+        // width: 600,
+        // top: null,
+        // bottom: null,
+        // borderBottom: true,
+        // padding: 0,
+        // radius: 3,
+        // zindex: 999,
+        // focusInput: true,
+        // group: '',
+        // loop: false,
+        // arrowKeys: true,
+        // navigateCaption: true,
+        // navigateArrows: true, // Boolean, 'closeToModal', 'closeScreenEdge'
+        // history: false,
+        // restoreDefaultContent: false,
+        // autoOpen: 0, // Boolean, Number
+        // bodyOverflow: false,
+        // fullscreen: false,
+        // openFullscreen: false,
+        // closeOnEscape: true,
+        // closeButton: true,
+        // appendTo: 'body', // or false
+        // appendToOverlay: 'body', // or false
+        // overlay: true,
+        // overlayClose: true,
+        // overlayColor: 'rgba(0, 0, 0, 0.4)',
+        // timeout: false,
+        // timeoutProgressbar: false,
+        // pauseOnHover: false,
+        // timeoutProgressbarColor: 'rgba(255,255,255,0.5)',
+        // transitionIn: 'comingIn',
+        // transitionOut: 'comingOut',
+        // transitionInOverlay: 'fadeIn',
+        // transitionOutOverlay: 'fadeOut',
 
-        $(`#${this.currentModalId}`).iziModal();  
-        $(`#${this.currentModalId}`).iziModal();     
-        $(`#${this.currentModalId}`).iziModal("open");
 
 
 
-        // // Initialiser iziModal
-        // $(`#${this.currentModalId}`).iziModal({
-        //     title: title,
-        //     headerColor: "#4CAF50",
-        //     width: 900,
-        //     transitionIn: "fadeIn",
-        //     transitionOut: "fadeOut",
-        //     closeButton: true,
-        //     overlayClose: true,
-        //     onOpened: function () {
-        //         $(".iziModal").css("z-index", 1050);
+        this.modal =  $(`#${this.currentModalId}`).iziModal({
+            title: title,
+            theme: '',  // light
+            headerColor: "#2973B2",
+            width: 900,
+            padding: 10,
+            zindex: 1050,
+            appendTo: 'body',
+            closeButton  : true,
+            fullscreen: true,
+            borderBottom: true,
+            transitionIn: "fadeIn",
+            transitionOut: "fadeOut",
+            closeButton: true,
+            overlayClose: true,
+            autoOpen: true, // Boolean, Number
+        });
 
-        //          // ✅ Supprimer aria-hidden pour l'accessibilité
-        //         $(`#${this.currentModalId}`).removeAttr("aria-hidden");
+        // this.modal.iziModal('startProgress');
+        // this.modal.iziModal('setTop', 100);
 
-        //         // ✅ Donner le focus à un élément interactif
-        //         setTimeout(() => {
-        //             $(`#${this.currentModalId}`).find("a, button, input, select, textarea").first().focus();
-        //         }, 100);
-
-
-        //     }
-        // });
-        // $(`#${this.currentModalId}`).iziModal("open");
-
-        // Si showLoading est vrai, afficher un spinner de chargement
-        if (showLoading) {
-            this.showContent("<div class='loading-spinner'>Chargement...</div>");
-        }
+         // onFullscreen: function(){},
+        // onResize: function(){},
+        // onOpening: function(){},
+        // onOpened: function(){},
+        // onClosing: function(){},
+        // onClosed: function(){},
+        // afterRender: function(){}
     }
 
     /**
@@ -78,8 +113,9 @@ export class ModalUI {
      * @param {string} content - Contenu HTML à injecter dans la modale.
      */
     showContent(content) {
+       $(`#${this.currentModalId}`).iziModal("stopLoading");
         $(`#${this.currentModalId}`).iziModal("setContent", content);
-       
+     
     }
 
     /**
@@ -88,7 +124,8 @@ export class ModalUI {
      */
     showLoading(title) {
         this.showModal(title, true);
-   
+        $(`#${this.currentModalId}`).iziModal("startLoading");
+     
     }
 
     /**

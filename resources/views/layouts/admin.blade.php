@@ -5,10 +5,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title')</title>
+  
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <!-- iziModal CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izimodal/1.6.1/css/iziModal.min.css">
+
+    <!-- iziModal JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/izimodal/1.6.1/js/iziModal.min.js"></script>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+
+
     @vite(['resources/css/admin.css', 'resources/js/admin.js'])
+   
+
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
+
+     
+
+      
+      <!-- Conteneur de la modale -->
+      {{-- <div id="modal-example" class="iziModal">aaaaaaaaa</div>
+      <script type="module">
+        document.addEventListener("DOMContentLoaded", function () {
+   
+   
+
+        $("#modal-example").iziModal({
+            title: "Titre de la Modale",
+            headerColor: "#4CAF50",
+        });
+
+        $("#modal-example").iziModal("setContent", "bonjour");
+        $("#modal-example").iziModal("open");
+   
+});
+      </script> --}}
+
+
+  <div id="modal1">mmmmmmmmmmmmm</div>
     <div class="wrapper">
 
 

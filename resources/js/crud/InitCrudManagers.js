@@ -22,11 +22,10 @@ export default class InitCrudManagers {
 
                
 
-            // if (InitCrudManagers.processedEntities.has(uniqueKey)) {
-            //     // Delete from DOM 
-            //     let ele = document.querySelector(entityConfig.crudSelector);
-            //     ele.remove();
-            // }
+            if (InitCrudManagers.processedEntities.has(uniqueKey)) {
+                // Delete from DOM 
+                return;
+            }
 
             
             // Ajouter l'identifiant au Set pour éviter un traitement multiple
