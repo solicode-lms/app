@@ -4,6 +4,7 @@
 
 namespace Modules\PkgRealisationProjets\Controllers\Base;
 use Modules\PkgRealisationProjets\Services\EtatsRealisationProjetService;
+use Modules\PkgFormation\Services\FormateurService;
 use Modules\PkgRealisationProjets\Services\RealisationProjetService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
@@ -16,10 +17,12 @@ use Modules\Core\Services\ContextState;
 class BaseEtatsRealisationProjetController extends AdminController
 {
     protected $etatsRealisationProjetService;
+    protected $formateurService;
 
-    public function __construct(EtatsRealisationProjetService $etatsRealisationProjetService) {
+    public function __construct(EtatsRealisationProjetService $etatsRealisationProjetService, FormateurService $formateurService) {
         parent::__construct();
         $this->etatsRealisationProjetService = $etatsRealisationProjetService;
+        $this->formateurService = $formateurService;
     }
 
     public function index(Request $request) {
@@ -46,12 +49,13 @@ class BaseEtatsRealisationProjetController extends AdminController
     }
     public function create() {
         $itemEtatsRealisationProjet = $this->etatsRealisationProjetService->createInstance();
+        $formateurs = $this->formateurService->all();
 
 
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::etatsRealisationProjet._fields', compact('itemEtatsRealisationProjet'));
+            return view('PkgRealisationProjets::etatsRealisationProjet._fields', compact('itemEtatsRealisationProjet', 'formateurs'));
         }
-        return view('PkgRealisationProjets::etatsRealisationProjet.create', compact('itemEtatsRealisationProjet'));
+        return view('PkgRealisationProjets::etatsRealisationProjet.create', compact('itemEtatsRealisationProjet', 'formateurs'));
     }
     public function store(EtatsRealisationProjetRequest $request) {
         $validatedData = $request->validated();
@@ -80,10 +84,11 @@ class BaseEtatsRealisationProjetController extends AdminController
     }
     public function show(string $id) {
         $itemEtatsRealisationProjet = $this->etatsRealisationProjetService->find($id);
+        $formateurs = $this->formateurService->all();
 
 
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::etatsRealisationProjet._fields', compact('itemEtatsRealisationProjet'));
+            return view('PkgRealisationProjets::etatsRealisationProjet._fields', compact('itemEtatsRealisationProjet', 'formateurs'));
         }
 
         return view('PkgRealisationProjets::etatsRealisationProjet.show', compact('itemEtatsRealisationProjet'));
@@ -95,6 +100,7 @@ class BaseEtatsRealisationProjetController extends AdminController
         $this->contextState->set('etats_realisation_projet_id', $id);
         
         $itemEtatsRealisationProjet = $this->etatsRealisationProjetService->find($id);
+        $formateurs = $this->formateurService->all();
         $realisationProjetService =  new RealisationProjetService();
         $realisationProjets_data =  $itemEtatsRealisationProjet->realisationProjets()->paginate(10);
         $realisationProjets_stats = $realisationProjetService->getrealisationProjetStats();
@@ -102,10 +108,10 @@ class BaseEtatsRealisationProjetController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::etatsRealisationProjet._fields', compact('itemEtatsRealisationProjet', 'realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters'));
+            return view('PkgRealisationProjets::etatsRealisationProjet._fields', compact('itemEtatsRealisationProjet', 'formateurs', 'realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters'));
         }
 
-        return view('PkgRealisationProjets::etatsRealisationProjet.edit', compact('itemEtatsRealisationProjet', 'realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters'));
+        return view('PkgRealisationProjets::etatsRealisationProjet.edit', compact('itemEtatsRealisationProjet', 'formateurs', 'realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters'));
 
     }
     public function update(EtatsRealisationProjetRequest $request, string $id) {

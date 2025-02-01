@@ -14,6 +14,7 @@ use Modules\Core\Models\FeatureDomain;
 use Modules\Core\Models\SysController;
 use Modules\Core\Models\SysModule;
 use Modules\PkgApprenants\Models\Ville;
+use Modules\PkgApprenants\Services\VilleService;
 use Modules\PkgAutorisation\Models\Permission;
 use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgAutorisation\Models\User;
@@ -42,10 +43,11 @@ class BaseVilleSeeder extends Seeder
     {
         $csvFile = fopen(base_path("modules/PkgApprenants/Database/data/villes.csv"), "r");
         $firstline = true;
+        $villeService = new VilleService();
 
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
-                Ville::create([
+                $villeService->create([
                     "nom" => $data[0] 
                 ]);
             }

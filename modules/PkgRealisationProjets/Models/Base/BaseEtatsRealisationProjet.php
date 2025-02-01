@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
+use Modules\PkgFormation\Models\Formateur;
 use Modules\PkgRealisationProjets\Models\RealisationProjet;
 
 /**
@@ -33,9 +34,18 @@ class BaseEtatsRealisationProjet extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'titre', 'description'
+        'titre', 'description', 'formateur_id'
     ];
 
+    /**
+     * Relation BelongsTo pour Formateur.
+     *
+     * @return BelongsTo
+     */
+    public function formateur(): BelongsTo
+    {
+        return $this->belongsTo(Formateur::class, 'formateur_id', 'id');
+    }
 
 
     /**

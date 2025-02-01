@@ -14,6 +14,7 @@ use Modules\Core\Models\FeatureDomain;
 use Modules\Core\Models\SysController;
 use Modules\Core\Models\SysModule;
 use Modules\PkgApprenants\Models\Groupe;
+use Modules\PkgApprenants\Services\GroupeService;
 use Modules\PkgAutorisation\Models\Permission;
 use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgAutorisation\Models\User;
@@ -42,10 +43,11 @@ class BaseGroupeSeeder extends Seeder
     {
         $csvFile = fopen(base_path("modules/PkgApprenants/Database/data/groupes.csv"), "r");
         $firstline = true;
+        $groupeService = new GroupeService();
 
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
-                Groupe::create([
+                $groupeService->create([
                     "code" => $data[0] ,
                     "nom" => $data[1] ,
                     "description" => $data[2] ,

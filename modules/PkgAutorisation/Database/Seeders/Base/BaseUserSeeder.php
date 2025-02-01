@@ -16,6 +16,7 @@ use Modules\Core\Models\SysModule;
 use Modules\PkgAutorisation\Models\Permission;
 use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgAutorisation\Models\User;
+use Modules\PkgAutorisation\Services\UserService;
 
 
 class BaseUserSeeder extends Seeder
@@ -41,10 +42,11 @@ class BaseUserSeeder extends Seeder
     {
         $csvFile = fopen(base_path("modules/PkgAutorisation/Database/data/users.csv"), "r");
         $firstline = true;
+        $userService = new UserService();
 
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
-                User::create([
+                $userService->create([
                     "name" => $data[0] ,
                     "email" => $data[1] ,
                     "email_verified_at" => $data[2] ,

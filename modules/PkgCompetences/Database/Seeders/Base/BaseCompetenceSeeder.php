@@ -17,6 +17,7 @@ use Modules\PkgAutorisation\Models\Permission;
 use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgAutorisation\Models\User;
 use Modules\PkgCompetences\Models\Competence;
+use Modules\PkgCompetences\Services\CompetenceService;
 
 
 class BaseCompetenceSeeder extends Seeder
@@ -42,10 +43,11 @@ class BaseCompetenceSeeder extends Seeder
     {
         $csvFile = fopen(base_path("modules/PkgCompetences/Database/data/competences.csv"), "r");
         $firstline = true;
+        $competenceService = new CompetenceService();
 
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
-                Competence::create([
+                $competenceService->create([
                     "code" => $data[0] ,
                     "nom" => $data[1] ,
                     "description" => $data[2] ,

@@ -17,6 +17,7 @@ use Modules\PkgAutorisation\Models\Permission;
 use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgAutorisation\Models\User;
 use Modules\PkgFormation\Models\Specialite;
+use Modules\PkgFormation\Services\SpecialiteService;
 
 
 class BaseSpecialiteSeeder extends Seeder
@@ -42,10 +43,11 @@ class BaseSpecialiteSeeder extends Seeder
     {
         $csvFile = fopen(base_path("modules/PkgFormation/Database/data/specialites.csv"), "r");
         $firstline = true;
+        $specialiteService = new SpecialiteService();
 
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
-                Specialite::create([
+                $specialiteService->create([
                     "nom" => $data[0] ,
                     "description" => $data[1] 
                 ]);

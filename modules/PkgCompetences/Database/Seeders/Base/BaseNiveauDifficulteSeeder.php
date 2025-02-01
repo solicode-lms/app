@@ -17,6 +17,7 @@ use Modules\PkgAutorisation\Models\Permission;
 use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgAutorisation\Models\User;
 use Modules\PkgCompetences\Models\NiveauDifficulte;
+use Modules\PkgCompetences\Services\NiveauDifficulteService;
 
 
 class BaseNiveauDifficulteSeeder extends Seeder
@@ -42,10 +43,11 @@ class BaseNiveauDifficulteSeeder extends Seeder
     {
         $csvFile = fopen(base_path("modules/PkgCompetences/Database/data/niveauDifficultes.csv"), "r");
         $firstline = true;
+        $niveauDifficulteService = new NiveauDifficulteService();
 
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
-                NiveauDifficulte::create([
+                $niveauDifficulteService->create([
                     "nom" => $data[0] ,
                     "description" => $data[1] ,
                     "noteMin" => $data[2] ,

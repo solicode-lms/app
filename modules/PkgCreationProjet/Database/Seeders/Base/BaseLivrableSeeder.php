@@ -17,6 +17,7 @@ use Modules\PkgAutorisation\Models\Permission;
 use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgAutorisation\Models\User;
 use Modules\PkgCreationProjet\Models\Livrable;
+use Modules\PkgCreationProjet\Services\LivrableService;
 
 
 class BaseLivrableSeeder extends Seeder
@@ -42,10 +43,11 @@ class BaseLivrableSeeder extends Seeder
     {
         $csvFile = fopen(base_path("modules/PkgCreationProjet/Database/data/livrables.csv"), "r");
         $firstline = true;
+        $livrableService = new LivrableService();
 
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
-                Livrable::create([
+                $livrableService->create([
                     "titre" => $data[0] ,
                     "nature_livrable_id" => $data[1] ,
                     "projet_id" => $data[2] ,

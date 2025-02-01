@@ -17,6 +17,7 @@ use Modules\PkgAutorisation\Models\Permission;
 use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgAutorisation\Models\User;
 use Modules\PkgFormation\Models\AnneeFormation;
+use Modules\PkgFormation\Services\AnneeFormationService;
 
 
 class BaseAnneeFormationSeeder extends Seeder
@@ -42,10 +43,11 @@ class BaseAnneeFormationSeeder extends Seeder
     {
         $csvFile = fopen(base_path("modules/PkgFormation/Database/data/anneeFormations.csv"), "r");
         $firstline = true;
+        $anneeFormationService = new AnneeFormationService();
 
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
-                AnneeFormation::create([
+                $anneeFormationService->create([
                     "titre" => $data[0] ,
                     "date_debut" => $data[1] ,
                     "date_fin" => $data[2] 

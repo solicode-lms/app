@@ -17,6 +17,7 @@ use Modules\PkgAutorisation\Models\Permission;
 use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgAutorisation\Models\User;
 use Modules\PkgRealisationProjets\Models\LivrablesRealisation;
+use Modules\PkgRealisationProjets\Services\LivrablesRealisationService;
 
 
 class BaseLivrablesRealisationSeeder extends Seeder
@@ -42,10 +43,11 @@ class BaseLivrablesRealisationSeeder extends Seeder
     {
         $csvFile = fopen(base_path("modules/PkgRealisationProjets/Database/data/livrablesRealisations.csv"), "r");
         $firstline = true;
+        $livrablesRealisationService = new LivrablesRealisationService();
 
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
-                LivrablesRealisation::create([
+                $livrablesRealisationService->create([
                     "titre" => $data[0] ,
                     "description" => $data[1] ,
                     "lien" => $data[2] ,

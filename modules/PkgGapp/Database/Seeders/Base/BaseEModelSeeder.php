@@ -17,6 +17,7 @@ use Modules\PkgAutorisation\Models\Permission;
 use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgAutorisation\Models\User;
 use Modules\PkgGapp\Models\EModel;
+use Modules\PkgGapp\Services\EModelService;
 
 
 class BaseEModelSeeder extends Seeder
@@ -42,10 +43,11 @@ class BaseEModelSeeder extends Seeder
     {
         $csvFile = fopen(base_path("modules/PkgGapp/Database/data/eModels.csv"), "r");
         $firstline = true;
+        $eModelService = new EModelService();
 
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
-                EModel::create([
+                $eModelService->create([
                     "name" => $data[0] ,
                     "table_name" => $data[1] ,
                     "icon" => $data[2] ,

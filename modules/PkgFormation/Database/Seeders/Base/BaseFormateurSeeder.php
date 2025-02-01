@@ -19,6 +19,7 @@ use Modules\PkgAutorisation\Models\User;
 use Modules\PkgFormation\Models\Formateur;
 use Modules\PkgFormation\Services\FormateurService;
 
+
 class BaseFormateurSeeder extends Seeder
 {
     public static int $order = 29;
@@ -42,7 +43,6 @@ class BaseFormateurSeeder extends Seeder
     {
         $csvFile = fopen(base_path("modules/PkgFormation/Database/data/formateurs.csv"), "r");
         $firstline = true;
-
         $formateurService = new FormateurService();
 
         while (($data = fgetcsv($csvFile)) !== false) {

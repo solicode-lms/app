@@ -8,6 +8,7 @@ use Modules\PkgApprenants\Services\ApprenantService;
 use Modules\PkgFormation\Services\FormateurService;
 use Modules\PkgFormation\Services\AnneeFormationService;
 use Modules\PkgFormation\Services\FiliereService;
+use Modules\PkgRealisationProjets\Services\AffectationProjetService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\PkgApprenants\App\Requests\GroupeRequest;
@@ -91,7 +92,7 @@ class BaseGroupeController extends AdminController
             ]);
         }
 
-        return redirect()->route('groupes.index')->with(
+        return redirect()->route('groupes.edit',['groupe' => $groupe->id])->with(
             'success',
             __('Core::msg.addSuccess', [
                 'entityToString' => $groupe,
@@ -124,12 +125,17 @@ class BaseGroupeController extends AdminController
         $formateurs = $this->formateurService->all();
         $anneeFormations = $this->anneeFormationService->all();
         $filieres = $this->filiereService->all();
+        $affectationProjetService =  new AffectationProjetService();
+        $affectationProjets_data =  $itemGroupe->affectationProjets()->paginate(10);
+        $affectationProjets_stats = $affectationProjetService->getaffectationProjetStats();
+        $affectationProjets_filters = $affectationProjetService->getFieldsFilterable();
+        
 
         if (request()->ajax()) {
-            return view('PkgApprenants::groupe._fields', compact('itemGroupe', 'apprenants', 'formateurs', 'anneeFormations', 'filieres'));
+            return view('PkgApprenants::groupe._fields', compact('itemGroupe', 'apprenants', 'formateurs', 'anneeFormations', 'filieres', 'affectationProjets_data', 'affectationProjets_stats', 'affectationProjets_filters'));
         }
 
-        return view('PkgApprenants::groupe.edit', compact('itemGroupe', 'apprenants', 'formateurs', 'anneeFormations', 'filieres'));
+        return view('PkgApprenants::groupe.edit', compact('itemGroupe', 'apprenants', 'formateurs', 'anneeFormations', 'filieres', 'affectationProjets_data', 'affectationProjets_stats', 'affectationProjets_filters'));
 
     }
     public function update(GroupeRequest $request, string $id) {

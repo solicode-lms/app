@@ -41,7 +41,6 @@ class BaseRealisationProjetImport implements ToModel, WithHeadingRow
             'date_debut' => $row['date_debut'],
             'date_fin' => $row['date_fin'],
             'rapport' => $row['rapport'],
-            'projet_id' => $row['projet_id'],
             'etats_realisation_projet_id' => $row['etats_realisation_projet_id'],
             'apprenant_id' => $row['apprenant_id'],
             'affectation_projet_id' => $row['affectation_projet_id'],

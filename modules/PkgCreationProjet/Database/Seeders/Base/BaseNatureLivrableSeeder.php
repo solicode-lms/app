@@ -17,6 +17,7 @@ use Modules\PkgAutorisation\Models\Permission;
 use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgAutorisation\Models\User;
 use Modules\PkgCreationProjet\Models\NatureLivrable;
+use Modules\PkgCreationProjet\Services\NatureLivrableService;
 
 
 class BaseNatureLivrableSeeder extends Seeder
@@ -42,10 +43,11 @@ class BaseNatureLivrableSeeder extends Seeder
     {
         $csvFile = fopen(base_path("modules/PkgCreationProjet/Database/data/natureLivrables.csv"), "r");
         $firstline = true;
+        $natureLivrableService = new NatureLivrableService();
 
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
-                NatureLivrable::create([
+                $natureLivrableService->create([
                     "nom" => $data[0] ,
                     "description" => $data[1] 
                 ]);

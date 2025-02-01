@@ -20,7 +20,6 @@ class BaseRealisationProjetRequest extends FormRequest
             'date_debut' => 'required',
             'date_fin' => 'nullable',
             'rapport' => 'nullable',
-            'projet_id' => 'required',
             'etats_realisation_projet_id' => 'required',
             'apprenant_id' => 'required',
             'affectation_projet_id' => 'required'
@@ -36,8 +35,6 @@ class BaseRealisationProjetRequest extends FormRequest
             'date_fin.max' => __('validation.date_finMax'),
             'rapport.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::RealisationProjet.rapport')]),
             'rapport.max' => __('validation.rapportMax'),
-            'projet_id.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::RealisationProjet.projet_id')]),
-            'projet_id.max' => __('validation.projet_idMax'),
             'etats_realisation_projet_id.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::RealisationProjet.etats_realisation_projet_id')]),
             'etats_realisation_projet_id.max' => __('validation.etats_realisation_projet_idMax'),
             'apprenant_id.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::RealisationProjet.apprenant_id')]),

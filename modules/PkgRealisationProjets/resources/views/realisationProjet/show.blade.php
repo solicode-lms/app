@@ -37,10 +37,6 @@
                                 <p>{{ $itemRealisationProjet->rapport }}</p>
                             </div>
                             <div class="col-sm-12">
-                                <label for="projet_id">{{ ucfirst(__('PkgRealisationProjets::realisationProjet.projet_id')) }}:</label>
-                                <p>{{ $itemRealisationProjet->projet_id }}</p>
-                            </div>
-                            <div class="col-sm-12">
                                 <label for="etats_realisation_projet_id">{{ ucfirst(__('PkgRealisationProjets::realisationProjet.etats_realisation_projet_id')) }}:</label>
                                 <p>{{ $itemRealisationProjet->etats_realisation_projet_id }}</p>
                             </div>

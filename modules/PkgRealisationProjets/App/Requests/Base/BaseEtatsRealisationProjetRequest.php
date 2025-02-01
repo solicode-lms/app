@@ -18,7 +18,8 @@ class BaseEtatsRealisationProjetRequest extends FormRequest
     {
         return [
             'titre' => 'required|max:255',
-            'description' => 'nullable'
+            'description' => 'nullable',
+            'formateur_id' => 'required'
         ];
     }
 
@@ -28,7 +29,9 @@ class BaseEtatsRealisationProjetRequest extends FormRequest
             'titre.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::EtatsRealisationProjet.titre')]),
             'titre.max' => __('validation.titreMax'),
             'description.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::EtatsRealisationProjet.description')]),
-            'description.max' => __('validation.descriptionMax')
+            'description.max' => __('validation.descriptionMax'),
+            'formateur_id.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::EtatsRealisationProjet.formateur_id')]),
+            'formateur_id.max' => __('validation.formateur_idMax')
         ];
     }
 }

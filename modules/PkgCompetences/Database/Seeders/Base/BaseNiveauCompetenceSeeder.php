@@ -17,6 +17,7 @@ use Modules\PkgAutorisation\Models\Permission;
 use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgAutorisation\Models\User;
 use Modules\PkgCompetences\Models\NiveauCompetence;
+use Modules\PkgCompetences\Services\NiveauCompetenceService;
 
 
 class BaseNiveauCompetenceSeeder extends Seeder
@@ -42,10 +43,11 @@ class BaseNiveauCompetenceSeeder extends Seeder
     {
         $csvFile = fopen(base_path("modules/PkgCompetences/Database/data/niveauCompetences.csv"), "r");
         $firstline = true;
+        $niveauCompetenceService = new NiveauCompetenceService();
 
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
-                NiveauCompetence::create([
+                $niveauCompetenceService->create([
                     "nom" => $data[0] ,
                     "description" => $data[1] ,
                     "competence_id" => $data[2] 

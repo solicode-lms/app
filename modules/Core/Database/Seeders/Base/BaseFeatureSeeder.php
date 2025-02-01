@@ -13,6 +13,7 @@ use Modules\Core\Models\Feature;
 use Modules\Core\Models\FeatureDomain;
 use Modules\Core\Models\SysController;
 use Modules\Core\Models\SysModule;
+use Modules\Core\Services\FeatureService;
 use Modules\PkgAutorisation\Models\Permission;
 use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgAutorisation\Models\User;
@@ -41,10 +42,11 @@ class BaseFeatureSeeder extends Seeder
     {
         $csvFile = fopen(base_path("modules/Core/Database/data/features.csv"), "r");
         $firstline = true;
+        $featureService = new FeatureService();
 
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
-                Feature::create([
+                $featureService->create([
                     "name" => $data[0] ,
                     "description" => $data[1] ,
                     "feature_domain_id" => $data[2] 

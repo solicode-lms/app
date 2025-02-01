@@ -17,6 +17,7 @@ use Modules\PkgAutorisation\Models\Permission;
 use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgAutorisation\Models\User;
 use Modules\PkgFormation\Models\Filiere;
+use Modules\PkgFormation\Services\FiliereService;
 
 
 class BaseFiliereSeeder extends Seeder
@@ -42,10 +43,11 @@ class BaseFiliereSeeder extends Seeder
     {
         $csvFile = fopen(base_path("modules/PkgFormation/Database/data/filieres.csv"), "r");
         $firstline = true;
+        $filiereService = new FiliereService();
 
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
-                Filiere::create([
+                $filiereService->create([
                     "code" => $data[0] ,
                     "nom" => $data[1] ,
                     "description" => $data[2] 

@@ -251,6 +251,10 @@
 
 
         
+
+        <!--   EtatsRealisationProjet HasMany --> 
+
+        
                 <div class="form-group">
             <label for="groupes">
                 {{ ucfirst(__('PkgApprenants::Groupe.plural')) }}

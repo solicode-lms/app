@@ -17,6 +17,7 @@ use Modules\PkgAutorisation\Models\Permission;
 use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgAutorisation\Models\User;
 use Modules\PkgRealisationProjets\Models\Validation;
+use Modules\PkgRealisationProjets\Services\ValidationService;
 
 
 class BaseValidationSeeder extends Seeder
@@ -42,10 +43,11 @@ class BaseValidationSeeder extends Seeder
     {
         $csvFile = fopen(base_path("modules/PkgRealisationProjets/Database/data/validations.csv"), "r");
         $firstline = true;
+        $validationService = new ValidationService();
 
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
-                Validation::create([
+                $validationService->create([
                     "note" => $data[0] ,
                     "message" => $data[1] ,
                     "is_valide" => $data[2] ,

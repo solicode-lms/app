@@ -17,6 +17,7 @@ use Modules\PkgAutorisation\Models\Permission;
 use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgAutorisation\Models\User;
 use Modules\PkgGapp\Models\EMetadatum;
+use Modules\PkgGapp\Services\EMetadatumService;
 
 
 class BaseEMetadatumSeeder extends Seeder
@@ -42,10 +43,11 @@ class BaseEMetadatumSeeder extends Seeder
     {
         $csvFile = fopen(base_path("modules/PkgGapp/Database/data/eMetadata.csv"), "r");
         $firstline = true;
+        $eMetadatumService = new EMetadatumService();
 
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
-                EMetadatum::create([
+                $eMetadatumService->create([
                     "value_boolean" => $data[0] ,
                     "value_string" => $data[1] ,
                     "value_integer" => $data[2] ,

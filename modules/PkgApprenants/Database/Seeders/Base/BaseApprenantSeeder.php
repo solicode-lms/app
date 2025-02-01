@@ -14,6 +14,7 @@ use Modules\Core\Models\FeatureDomain;
 use Modules\Core\Models\SysController;
 use Modules\Core\Models\SysModule;
 use Modules\PkgApprenants\Models\Apprenant;
+use Modules\PkgApprenants\Services\ApprenantService;
 use Modules\PkgAutorisation\Models\Permission;
 use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgAutorisation\Models\User;
@@ -42,10 +43,11 @@ class BaseApprenantSeeder extends Seeder
     {
         $csvFile = fopen(base_path("modules/PkgApprenants/Database/data/apprenants.csv"), "r");
         $firstline = true;
+        $apprenantService = new ApprenantService();
 
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
-                Apprenant::create([
+                $apprenantService->create([
                     "nom" => $data[0] ,
                     "prenom" => $data[1] ,
                     "prenom_arab" => $data[2] ,

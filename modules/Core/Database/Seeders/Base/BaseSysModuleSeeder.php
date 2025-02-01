@@ -12,6 +12,7 @@ use Modules\Core\Models\Feature;
 use Modules\Core\Models\FeatureDomain;
 use Modules\Core\Models\SysController;
 use Modules\Core\Models\SysModule;
+use Modules\Core\Services\SysModuleService;
 use Modules\PkgAutorisation\Models\Permission;
 use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgAutorisation\Models\User;
@@ -40,10 +41,11 @@ class BaseSysModuleSeeder extends Seeder
     {
         $csvFile = fopen(base_path("modules/Core/Database/data/sysModules.csv"), "r");
         $firstline = true;
+        $sysModuleService = new SysModuleService();
 
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
-                SysModule::create([
+                $sysModuleService->create([
                     "name" => $data[0] ,
                     "slug" => $data[1] ,
                     "description" => $data[2] ,

@@ -121,6 +121,10 @@
 
 
         
+
+        <!--   AffectationProjet HasMany --> 
+
+        
                 <div class="form-group">
             <label for="apprenants">
                 {{ ucfirst(__('PkgApprenants::Apprenant.plural')) }}

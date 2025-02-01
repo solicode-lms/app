@@ -17,6 +17,7 @@ use Modules\PkgAutorisation\Models\Permission;
 use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgAutorisation\Models\User;
 use Modules\PkgRealisationProjets\Models\AffectationProjet;
+use Modules\PkgRealisationProjets\Services\AffectationProjetService;
 
 
 class BaseAffectationProjetSeeder extends Seeder
@@ -42,15 +43,17 @@ class BaseAffectationProjetSeeder extends Seeder
     {
         $csvFile = fopen(base_path("modules/PkgRealisationProjets/Database/data/affectationProjets.csv"), "r");
         $firstline = true;
+        $affectationProjetService = new AffectationProjetService();
 
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
-                AffectationProjet::create([
+                $affectationProjetService->create([
                     "date_debut" => $data[0] ,
                     "date_fin" => $data[1] ,
                     "annee_formation_id" => $data[2] ,
-                    "projet_id" => $data[3] ,
-                    "description" => $data[4] 
+                    "groupe_id" => $data[3] ,
+                    "projet_id" => $data[4] ,
+                    "description" => $data[5] 
                 ]);
             }
             $firstline = false;

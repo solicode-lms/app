@@ -14,6 +14,7 @@ use Modules\Core\Models\FeatureDomain;
 use Modules\Core\Models\SysColor;
 use Modules\Core\Models\SysController;
 use Modules\Core\Models\SysModule;
+use Modules\Core\Services\SysColorService;
 use Modules\PkgAutorisation\Models\Permission;
 use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgAutorisation\Models\User;
@@ -42,10 +43,11 @@ class BaseSysColorSeeder extends Seeder
     {
         $csvFile = fopen(base_path("modules/Core/Database/data/sysColors.csv"), "r");
         $firstline = true;
+        $sysColorService = new SysColorService();
 
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
-                SysColor::create([
+                $sysColorService->create([
                     "name" => $data[0] ,
                     "hex" => $data[1] 
                 ]);

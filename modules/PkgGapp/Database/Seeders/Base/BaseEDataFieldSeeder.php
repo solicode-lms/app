@@ -17,6 +17,7 @@ use Modules\PkgAutorisation\Models\Permission;
 use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgAutorisation\Models\User;
 use Modules\PkgGapp\Models\EDataField;
+use Modules\PkgGapp\Services\EDataFieldService;
 
 
 class BaseEDataFieldSeeder extends Seeder
@@ -42,10 +43,11 @@ class BaseEDataFieldSeeder extends Seeder
     {
         $csvFile = fopen(base_path("modules/PkgGapp/Database/data/eDataFields.csv"), "r");
         $firstline = true;
+        $eDataFieldService = new EDataFieldService();
 
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
-                EDataField::create([
+                $eDataFieldService->create([
                     "name" => $data[0] ,
                     "column_name" => $data[1] ,
                     "data_type" => $data[2] ,

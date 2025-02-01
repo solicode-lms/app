@@ -150,10 +150,6 @@
 
         
 
-        <!--   RealisationProjet HasMany --> 
-
-        
-
         <!--   Resource HasMany --> 
 
         

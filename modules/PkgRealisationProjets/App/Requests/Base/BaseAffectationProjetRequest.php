@@ -20,6 +20,7 @@ class BaseAffectationProjetRequest extends FormRequest
             'date_debut' => 'required',
             'date_fin' => 'nullable',
             'annee_formation_id' => 'required',
+            'groupe_id' => 'required',
             'projet_id' => 'required',
             'description' => 'nullable'
         ];
@@ -34,6 +35,8 @@ class BaseAffectationProjetRequest extends FormRequest
             'date_fin.max' => __('validation.date_finMax'),
             'annee_formation_id.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::AffectationProjet.annee_formation_id')]),
             'annee_formation_id.max' => __('validation.annee_formation_idMax'),
+            'groupe_id.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::AffectationProjet.groupe_id')]),
+            'groupe_id.max' => __('validation.groupe_idMax'),
             'projet_id.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::AffectationProjet.projet_id')]),
             'projet_id.max' => __('validation.projet_idMax'),
             'description.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::AffectationProjet.description')]),

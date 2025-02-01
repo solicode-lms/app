@@ -14,7 +14,6 @@ use Modules\Core\Models\BaseModel;
 use Modules\PkgFormation\Models\Formateur;
 use Modules\PkgRealisationProjets\Models\AffectationProjet;
 use Modules\PkgCreationProjet\Models\Livrable;
-use Modules\PkgRealisationProjets\Models\RealisationProjet;
 use Modules\PkgCreationProjet\Models\Resource;
 use Modules\PkgCreationProjet\Models\TransfertCompetence;
 
@@ -69,15 +68,6 @@ class BaseProjet extends BaseModel
     public function livrables(): HasMany
     {
         return $this->hasMany(Livrable::class, 'projet_id', 'id');
-    }
-    /**
-     * Relation HasMany pour Projets.
-     *
-     * @return HasMany
-     */
-    public function realisationProjets(): HasMany
-    {
-        return $this->hasMany(RealisationProjet::class, 'projet_id', 'id');
     }
     /**
      * Relation HasMany pour Projets.

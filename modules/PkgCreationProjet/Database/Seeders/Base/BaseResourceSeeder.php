@@ -17,6 +17,7 @@ use Modules\PkgAutorisation\Models\Permission;
 use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgAutorisation\Models\User;
 use Modules\PkgCreationProjet\Models\Resource;
+use Modules\PkgCreationProjet\Services\ResourceService;
 
 
 class BaseResourceSeeder extends Seeder
@@ -42,10 +43,11 @@ class BaseResourceSeeder extends Seeder
     {
         $csvFile = fopen(base_path("modules/PkgCreationProjet/Database/data/resources.csv"), "r");
         $firstline = true;
+        $resourceService = new ResourceService();
 
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
-                Resource::create([
+                $resourceService->create([
                     "nom" => $data[0] ,
                     "lien" => $data[1] ,
                     "description" => $data[2] ,

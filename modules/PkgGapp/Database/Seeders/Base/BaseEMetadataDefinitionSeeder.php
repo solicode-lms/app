@@ -17,6 +17,7 @@ use Modules\PkgAutorisation\Models\Permission;
 use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgAutorisation\Models\User;
 use Modules\PkgGapp\Models\EMetadataDefinition;
+use Modules\PkgGapp\Services\EMetadataDefinitionService;
 
 
 class BaseEMetadataDefinitionSeeder extends Seeder
@@ -42,10 +43,11 @@ class BaseEMetadataDefinitionSeeder extends Seeder
     {
         $csvFile = fopen(base_path("modules/PkgGapp/Database/data/eMetadataDefinitions.csv"), "r");
         $firstline = true;
+        $eMetadataDefinitionService = new EMetadataDefinitionService();
 
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
-                EMetadataDefinition::create([
+                $eMetadataDefinitionService->create([
                     "name" => $data[0] ,
                     "groupe" => $data[1] ,
                     "type" => $data[2] ,

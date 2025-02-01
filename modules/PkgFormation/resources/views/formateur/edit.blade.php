@@ -49,6 +49,9 @@
                         </li>
 
                         <li class="nav-item">
+                            <a class="nav-link" id="formateur-hasmany-tabs-etatsRealisationProjet-tab" data-toggle="pill" href="#formateur-hasmany-tabs-etatsRealisationProjet" role="tab" aria-controls="formateur-hasmany-tabs-etatsRealisationProjet" aria-selected="false">{{__('PkgRealisationProjets::etatsRealisationProjet.plural')}}</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" id="formateur-hasmany-tabs-niveauDifficulte-tab" data-toggle="pill" href="#formateur-hasmany-tabs-niveauDifficulte" role="tab" aria-controls="formateur-hasmany-tabs-niveauDifficulte" aria-selected="false">{{__('PkgCompetences::niveauDifficulte.plural')}}</a>
                         </li>
                         <li class="nav-item">
@@ -68,6 +71,9 @@
                                 @include('PkgFormation::formateur._fields')
                             </div>
 
+                            <div class="tab-pane fade" id="formateur-hasmany-tabs-etatsRealisationProjet" role="tabpanel" aria-labelledby="formateur-hasmany-tabs-etatsRealisationProjet-tab">
+                                @include('PkgRealisationProjets::etatsRealisationProjet._index',['isMany' => true, "edit_has_many" => false])
+                            </div>
                             <div class="tab-pane fade" id="formateur-hasmany-tabs-niveauDifficulte" role="tabpanel" aria-labelledby="formateur-hasmany-tabs-niveauDifficulte-tab">
                                 @include('PkgCompetences::niveauDifficulte._index',['isMany' => true, "edit_has_many" => false])
                             </div>

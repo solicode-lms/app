@@ -14,6 +14,7 @@ use Modules\Core\Models\FeatureDomain;
 use Modules\Core\Models\SysController;
 use Modules\Core\Models\SysModule;
 use Modules\PkgApprenants\Models\ApprenantKonosy;
+use Modules\PkgApprenants\Services\ApprenantKonosyService;
 use Modules\PkgAutorisation\Models\Permission;
 use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgAutorisation\Models\User;
@@ -42,10 +43,11 @@ class BaseApprenantKonosySeeder extends Seeder
     {
         $csvFile = fopen(base_path("modules/PkgApprenants/Database/data/apprenantKonosies.csv"), "r");
         $firstline = true;
+        $apprenantKonosyService = new ApprenantKonosyService();
 
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
-                ApprenantKonosy::create([
+                $apprenantKonosyService->create([
                     "MatriculeEtudiant" => $data[0] ,
                     "Nom" => $data[1] ,
                     "Prenom" => $data[2] ,

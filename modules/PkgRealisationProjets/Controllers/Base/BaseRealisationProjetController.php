@@ -7,7 +7,6 @@ use Modules\PkgRealisationProjets\Services\RealisationProjetService;
 use Modules\PkgRealisationProjets\Services\AffectationProjetService;
 use Modules\PkgApprenants\Services\ApprenantService;
 use Modules\PkgRealisationProjets\Services\EtatsRealisationProjetService;
-use Modules\PkgCreationProjet\Services\ProjetService;
 use Modules\PkgRealisationProjets\Services\ValidationService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
@@ -23,15 +22,13 @@ class BaseRealisationProjetController extends AdminController
     protected $affectationProjetService;
     protected $apprenantService;
     protected $etatsRealisationProjetService;
-    protected $projetService;
 
-    public function __construct(RealisationProjetService $realisationProjetService, AffectationProjetService $affectationProjetService, ApprenantService $apprenantService, EtatsRealisationProjetService $etatsRealisationProjetService, ProjetService $projetService) {
+    public function __construct(RealisationProjetService $realisationProjetService, AffectationProjetService $affectationProjetService, ApprenantService $apprenantService, EtatsRealisationProjetService $etatsRealisationProjetService) {
         parent::__construct();
         $this->realisationProjetService = $realisationProjetService;
         $this->affectationProjetService = $affectationProjetService;
         $this->apprenantService = $apprenantService;
         $this->etatsRealisationProjetService = $etatsRealisationProjetService;
-        $this->projetService = $projetService;
     }
 
     public function index(Request $request) {
@@ -61,13 +58,12 @@ class BaseRealisationProjetController extends AdminController
         $affectationProjets = $this->affectationProjetService->all();
         $apprenants = $this->apprenantService->all();
         $etatsRealisationProjets = $this->etatsRealisationProjetService->all();
-        $projets = $this->projetService->all();
 
 
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::realisationProjet._fields', compact('itemRealisationProjet', 'affectationProjets', 'apprenants', 'etatsRealisationProjets', 'projets'));
+            return view('PkgRealisationProjets::realisationProjet._fields', compact('itemRealisationProjet', 'affectationProjets', 'apprenants', 'etatsRealisationProjets'));
         }
-        return view('PkgRealisationProjets::realisationProjet.create', compact('itemRealisationProjet', 'affectationProjets', 'apprenants', 'etatsRealisationProjets', 'projets'));
+        return view('PkgRealisationProjets::realisationProjet.create', compact('itemRealisationProjet', 'affectationProjets', 'apprenants', 'etatsRealisationProjets'));
     }
     public function store(RealisationProjetRequest $request) {
         $validatedData = $request->validated();
@@ -99,11 +95,10 @@ class BaseRealisationProjetController extends AdminController
         $affectationProjets = $this->affectationProjetService->all();
         $apprenants = $this->apprenantService->all();
         $etatsRealisationProjets = $this->etatsRealisationProjetService->all();
-        $projets = $this->projetService->all();
 
 
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::realisationProjet._fields', compact('itemRealisationProjet', 'affectationProjets', 'apprenants', 'etatsRealisationProjets', 'projets'));
+            return view('PkgRealisationProjets::realisationProjet._fields', compact('itemRealisationProjet', 'affectationProjets', 'apprenants', 'etatsRealisationProjets'));
         }
 
         return view('PkgRealisationProjets::realisationProjet.show', compact('itemRealisationProjet'));
@@ -118,7 +113,6 @@ class BaseRealisationProjetController extends AdminController
         $affectationProjets = $this->affectationProjetService->all();
         $apprenants = $this->apprenantService->all();
         $etatsRealisationProjets = $this->etatsRealisationProjetService->all();
-        $projets = $this->projetService->all();
         $validationService =  new ValidationService();
         $validations_data =  $itemRealisationProjet->validations()->paginate(10);
         $validations_stats = $validationService->getvalidationStats();
@@ -126,10 +120,10 @@ class BaseRealisationProjetController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::realisationProjet._fields', compact('itemRealisationProjet', 'affectationProjets', 'apprenants', 'etatsRealisationProjets', 'projets', 'validations_data', 'validations_stats', 'validations_filters'));
+            return view('PkgRealisationProjets::realisationProjet._fields', compact('itemRealisationProjet', 'affectationProjets', 'apprenants', 'etatsRealisationProjets', 'validations_data', 'validations_stats', 'validations_filters'));
         }
 
-        return view('PkgRealisationProjets::realisationProjet.edit', compact('itemRealisationProjet', 'affectationProjets', 'apprenants', 'etatsRealisationProjets', 'projets', 'validations_data', 'validations_stats', 'validations_filters'));
+        return view('PkgRealisationProjets::realisationProjet.edit', compact('itemRealisationProjet', 'affectationProjets', 'apprenants', 'etatsRealisationProjets', 'validations_data', 'validations_stats', 'validations_filters'));
 
     }
     public function update(RealisationProjetRequest $request, string $id) {

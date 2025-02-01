@@ -14,6 +14,7 @@ use Modules\Core\Models\FeatureDomain;
 use Modules\Core\Models\SysController;
 use Modules\Core\Models\SysModel;
 use Modules\Core\Models\SysModule;
+use Modules\Core\Services\SysModelService;
 use Modules\PkgAutorisation\Models\Permission;
 use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgAutorisation\Models\User;
@@ -42,10 +43,11 @@ class BaseSysModelSeeder extends Seeder
     {
         $csvFile = fopen(base_path("modules/Core/Database/data/sysModels.csv"), "r");
         $firstline = true;
+        $sysModelService = new SysModelService();
 
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
-                SysModel::create([
+                $sysModelService->create([
                     "name" => $data[0] ,
                     "model" => $data[1] ,
                     "description" => $data[2] ,

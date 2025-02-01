@@ -6,7 +6,6 @@
             <tr>
                 <x-sortable-column field="date_debut" label="{{ ucfirst(__('PkgRealisationProjets::realisationProjet.date_debut')) }}" />
                 <x-sortable-column field="date_fin" label="{{ ucfirst(__('PkgRealisationProjets::realisationProjet.date_fin')) }}" />
-                <x-sortable-column field="projet_id" label="{{ ucfirst(__('PkgCreationProjet::projet.singular')) }}" />
                 <x-sortable-column field="etats_realisation_projet_id" label="{{ ucfirst(__('PkgRealisationProjets::etatsRealisationProjet.singular')) }}" />
                 <x-sortable-column field="apprenant_id" label="{{ ucfirst(__('PkgApprenants::apprenant.singular')) }}" />
                 <x-sortable-column field="affectation_projet_id" label="{{ ucfirst(__('PkgRealisationProjets::affectationProjet.singular')) }}" />
@@ -18,7 +17,6 @@
                 <tr id="realisationProjet-row-{{$realisationProjet->id}}">
                     <td>@limit($realisationProjet->date_debut, 80)</td>
                     <td>@limit($realisationProjet->date_fin, 80)</td>
-                    <td>@limit($realisationProjet->projet->titre ?? '-', 80)</td>
                     <td>@limit($realisationProjet->etatsRealisationProjet->titre ?? '-', 80)</td>
                     <td>@limit($realisationProjet->apprenant->nom ?? '-', 80)</td>
                     <td>@limit($realisationProjet->affectationProjet->id ?? '-', 80)</td>

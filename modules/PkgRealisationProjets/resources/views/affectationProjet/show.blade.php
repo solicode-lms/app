@@ -37,6 +37,10 @@
                                 <p>{{ $itemAffectationProjet->annee_formation_id }}</p>
                             </div>
                             <div class="col-sm-12">
+                                <label for="groupe_id">{{ ucfirst(__('PkgRealisationProjets::affectationProjet.groupe_id')) }}:</label>
+                                <p>{{ $itemAffectationProjet->groupe_id }}</p>
+                            </div>
+                            <div class="col-sm-12">
                                 <label for="projet_id">{{ ucfirst(__('PkgRealisationProjets::affectationProjet.projet_id')) }}:</label>
                                 <p>{{ $itemAffectationProjet->projet_id }}</p>
                             </div>

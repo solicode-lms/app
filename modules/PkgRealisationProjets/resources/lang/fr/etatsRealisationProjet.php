@@ -7,4 +7,5 @@ return [
     'plural' => 'EtatsRealisationProjets',
     'titre' => 'titre',
     'description' => 'description',
+    'formateur_id' => 'formateur_id',
 ];

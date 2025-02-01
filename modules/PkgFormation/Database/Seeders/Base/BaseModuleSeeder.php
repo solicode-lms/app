@@ -17,6 +17,7 @@ use Modules\PkgAutorisation\Models\Permission;
 use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgAutorisation\Models\User;
 use Modules\PkgFormation\Models\Module;
+use Modules\PkgFormation\Services\ModuleService;
 
 
 class BaseModuleSeeder extends Seeder
@@ -42,10 +43,11 @@ class BaseModuleSeeder extends Seeder
     {
         $csvFile = fopen(base_path("modules/PkgFormation/Database/data/modules.csv"), "r");
         $firstline = true;
+        $moduleService = new ModuleService();
 
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
-                Module::create([
+                $moduleService->create([
                     "nom" => $data[0] ,
                     "description" => $data[1] ,
                     "masse_horaire" => $data[2] ,

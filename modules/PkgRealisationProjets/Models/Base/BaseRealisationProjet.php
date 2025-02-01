@@ -14,7 +14,6 @@ use Modules\Core\Models\BaseModel;
 use Modules\PkgRealisationProjets\Models\AffectationProjet;
 use Modules\PkgApprenants\Models\Apprenant;
 use Modules\PkgRealisationProjets\Models\EtatsRealisationProjet;
-use Modules\PkgCreationProjet\Models\Projet;
 use Modules\PkgRealisationProjets\Models\Validation;
 
 /**
@@ -37,7 +36,7 @@ class BaseRealisationProjet extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'date_debut', 'date_fin', 'rapport', 'projet_id', 'etats_realisation_projet_id', 'apprenant_id', 'affectation_projet_id'
+        'date_debut', 'date_fin', 'rapport', 'etats_realisation_projet_id', 'apprenant_id', 'affectation_projet_id'
     ];
 
     /**
@@ -66,15 +65,6 @@ class BaseRealisationProjet extends BaseModel
     public function etatsRealisationProjet(): BelongsTo
     {
         return $this->belongsTo(EtatsRealisationProjet::class, 'etats_realisation_projet_id', 'id');
-    }
-    /**
-     * Relation BelongsTo pour Projet.
-     *
-     * @return BelongsTo
-     */
-    public function projet(): BelongsTo
-    {
-        return $this->belongsTo(Projet::class, 'projet_id', 'id');
     }
 
 

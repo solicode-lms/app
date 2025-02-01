@@ -17,6 +17,7 @@ use Modules\PkgAutorisation\Models\Permission;
 use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgAutorisation\Models\User;
 use Modules\PkgGapp\Models\ERelationship;
+use Modules\PkgGapp\Services\ERelationshipService;
 
 
 class BaseERelationshipSeeder extends Seeder
@@ -42,10 +43,11 @@ class BaseERelationshipSeeder extends Seeder
     {
         $csvFile = fopen(base_path("modules/PkgGapp/Database/data/eRelationships.csv"), "r");
         $firstline = true;
+        $eRelationshipService = new ERelationshipService();
 
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
-                ERelationship::create([
+                $eRelationshipService->create([
                     "name" => $data[0] ,
                     "type" => $data[1] ,
                     "source_e_model_id" => $data[2] ,

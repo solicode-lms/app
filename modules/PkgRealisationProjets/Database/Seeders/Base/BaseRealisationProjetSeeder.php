@@ -17,6 +17,7 @@ use Modules\PkgAutorisation\Models\Permission;
 use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgAutorisation\Models\User;
 use Modules\PkgRealisationProjets\Models\RealisationProjet;
+use Modules\PkgRealisationProjets\Services\RealisationProjetService;
 
 
 class BaseRealisationProjetSeeder extends Seeder
@@ -42,17 +43,17 @@ class BaseRealisationProjetSeeder extends Seeder
     {
         $csvFile = fopen(base_path("modules/PkgRealisationProjets/Database/data/realisationProjets.csv"), "r");
         $firstline = true;
+        $realisationProjetService = new RealisationProjetService();
 
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
-                RealisationProjet::create([
+                $realisationProjetService->create([
                     "date_debut" => $data[0] ,
                     "date_fin" => $data[1] ,
                     "rapport" => $data[2] ,
-                    "projet_id" => $data[3] ,
-                    "etats_realisation_projet_id" => $data[4] ,
-                    "apprenant_id" => $data[5] ,
-                    "affectation_projet_id" => $data[6] 
+                    "etats_realisation_projet_id" => $data[3] ,
+                    "apprenant_id" => $data[4] ,
+                    "affectation_projet_id" => $data[5] 
                 ]);
             }
             $firstline = false;

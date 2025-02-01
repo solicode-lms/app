@@ -17,6 +17,7 @@ use Modules\PkgAutorisation\Models\Permission;
 use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgAutorisation\Models\User;
 use Modules\PkgCreationProjet\Models\TransfertCompetence;
+use Modules\PkgCreationProjet\Services\TransfertCompetenceService;
 
 
 class BaseTransfertCompetenceSeeder extends Seeder
@@ -42,10 +43,11 @@ class BaseTransfertCompetenceSeeder extends Seeder
     {
         $csvFile = fopen(base_path("modules/PkgCreationProjet/Database/data/transfertCompetences.csv"), "r");
         $firstline = true;
+        $transfertCompetenceService = new TransfertCompetenceService();
 
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
-                TransfertCompetence::create([
+                $transfertCompetenceService->create([
                     "note" => $data[0] ,
                     "question" => $data[1] ,
                     "projet_id" => $data[2] ,

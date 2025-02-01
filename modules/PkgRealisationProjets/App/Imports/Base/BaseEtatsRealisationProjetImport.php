@@ -40,6 +40,7 @@ class BaseEtatsRealisationProjetImport implements ToModel, WithHeadingRow
         return new EtatsRealisationProjet([
             'titre' => $row['titre'],
             'description' => $row['description'],
+            'formateur_id' => $row['formateur_id'],
             'reference' => $row['reference'],
         ]);
     }

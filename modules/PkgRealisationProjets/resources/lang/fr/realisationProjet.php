@@ -8,7 +8,6 @@ return [
     'date_debut' => 'date_debut',
     'date_fin' => 'date_fin',
     'rapport' => 'rapport',
-    'projet_id' => 'projet_id',
     'etats_realisation_projet_id' => 'etats_realisation_projet_id',
     'apprenant_id' => 'apprenant_id',
     'affectation_projet_id' => 'affectation_projet_id',

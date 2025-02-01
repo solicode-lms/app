@@ -17,6 +17,7 @@ use Modules\PkgAutorisation\Models\Permission;
 use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgAutorisation\Models\User;
 use Modules\PkgGapp\Models\EPackage;
+use Modules\PkgGapp\Services\EPackageService;
 
 
 class BaseEPackageSeeder extends Seeder
@@ -42,10 +43,11 @@ class BaseEPackageSeeder extends Seeder
     {
         $csvFile = fopen(base_path("modules/PkgGapp/Database/data/ePackages.csv"), "r");
         $firstline = true;
+        $ePackageService = new EPackageService();
 
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
-                EPackage::create([
+                $ePackageService->create([
                     "name" => $data[0] ,
                     "description" => $data[1] 
                 ]);

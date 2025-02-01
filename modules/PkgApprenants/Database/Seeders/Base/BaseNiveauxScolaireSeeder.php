@@ -14,6 +14,7 @@ use Modules\Core\Models\FeatureDomain;
 use Modules\Core\Models\SysController;
 use Modules\Core\Models\SysModule;
 use Modules\PkgApprenants\Models\NiveauxScolaire;
+use Modules\PkgApprenants\Services\NiveauxScolaireService;
 use Modules\PkgAutorisation\Models\Permission;
 use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgAutorisation\Models\User;
@@ -42,10 +43,11 @@ class BaseNiveauxScolaireSeeder extends Seeder
     {
         $csvFile = fopen(base_path("modules/PkgApprenants/Database/data/niveauxScolaires.csv"), "r");
         $firstline = true;
+        $niveauxScolaireService = new NiveauxScolaireService();
 
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
-                NiveauxScolaire::create([
+                $niveauxScolaireService->create([
                     "code" => $data[0] ,
                     "nom" => $data[1] ,
                     "description" => $data[2] 

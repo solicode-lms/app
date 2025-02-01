@@ -14,6 +14,7 @@ use Modules\Core\Models\FeatureDomain;
 use Modules\Core\Models\SysController;
 use Modules\Core\Models\SysModule;
 use Modules\PkgApprenants\Models\Nationalite;
+use Modules\PkgApprenants\Services\NationaliteService;
 use Modules\PkgAutorisation\Models\Permission;
 use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgAutorisation\Models\User;
@@ -42,10 +43,11 @@ class BaseNationaliteSeeder extends Seeder
     {
         $csvFile = fopen(base_path("modules/PkgApprenants/Database/data/nationalites.csv"), "r");
         $firstline = true;
+        $nationaliteService = new NationaliteService();
 
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
-                Nationalite::create([
+                $nationaliteService->create([
                     "code" => $data[0] ,
                     "nom" => $data[1] ,
                     "description" => $data[2] 

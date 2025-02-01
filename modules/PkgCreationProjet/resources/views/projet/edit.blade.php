@@ -55,9 +55,6 @@
                             <a class="nav-link" id="projet-hasmany-tabs-livrable-tab" data-toggle="pill" href="#projet-hasmany-tabs-livrable" role="tab" aria-controls="projet-hasmany-tabs-livrable" aria-selected="false">{{__('PkgCreationProjet::livrable.plural')}}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="projet-hasmany-tabs-realisationProjet-tab" data-toggle="pill" href="#projet-hasmany-tabs-realisationProjet" role="tab" aria-controls="projet-hasmany-tabs-realisationProjet" aria-selected="false">{{__('PkgRealisationProjets::realisationProjet.plural')}}</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link" id="projet-hasmany-tabs-resource-tab" data-toggle="pill" href="#projet-hasmany-tabs-resource" role="tab" aria-controls="projet-hasmany-tabs-resource" aria-selected="false">{{__('PkgCreationProjet::resource.plural')}}</a>
                         </li>
                         <li class="nav-item">
@@ -82,9 +79,6 @@
                             </div>
                             <div class="tab-pane fade" id="projet-hasmany-tabs-livrable" role="tabpanel" aria-labelledby="projet-hasmany-tabs-livrable-tab">
                                 @include('PkgCreationProjet::livrable._index',['isMany' => true, "edit_has_many" => false])
-                            </div>
-                            <div class="tab-pane fade" id="projet-hasmany-tabs-realisationProjet" role="tabpanel" aria-labelledby="projet-hasmany-tabs-realisationProjet-tab">
-                                @include('PkgRealisationProjets::realisationProjet._index',['isMany' => true, "edit_has_many" => false])
                             </div>
                             <div class="tab-pane fade" id="projet-hasmany-tabs-resource" role="tabpanel" aria-labelledby="projet-hasmany-tabs-resource-tab">
                                 @include('PkgCreationProjet::resource._index',['isMany' => true, "edit_has_many" => false])

@@ -8,6 +8,7 @@ return [
     'date_debut' => 'date_debut',
     'date_fin' => 'date_fin',
     'annee_formation_id' => 'annee_formation_id',
+    'groupe_id' => 'groupe_id',
     'projet_id' => 'projet_id',
     'description' => 'description',
 ];

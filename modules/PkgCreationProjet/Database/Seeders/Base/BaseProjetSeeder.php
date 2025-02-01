@@ -17,6 +17,7 @@ use Modules\PkgAutorisation\Models\Permission;
 use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgAutorisation\Models\User;
 use Modules\PkgCreationProjet\Models\Projet;
+use Modules\PkgCreationProjet\Services\ProjetService;
 
 
 class BaseProjetSeeder extends Seeder
@@ -42,10 +43,11 @@ class BaseProjetSeeder extends Seeder
     {
         $csvFile = fopen(base_path("modules/PkgCreationProjet/Database/data/projets.csv"), "r");
         $firstline = true;
+        $projetService = new ProjetService();
 
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
-                Projet::create([
+                $projetService->create([
                     "titre" => $data[0] ,
                     "travail_a_faire" => $data[1] ,
                     "critere_de_travail" => $data[2] ,

@@ -17,6 +17,7 @@ use Modules\PkgAutorisation\Models\Permission;
 use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgAutorisation\Models\User;
 use Modules\PkgWidgets\Models\WidgetType;
+use Modules\PkgWidgets\Services\WidgetTypeService;
 
 
 class BaseWidgetTypeSeeder extends Seeder
@@ -42,10 +43,11 @@ class BaseWidgetTypeSeeder extends Seeder
     {
         $csvFile = fopen(base_path("modules/PkgWidgets/Database/data/widgetTypes.csv"), "r");
         $firstline = true;
+        $widgetTypeService = new WidgetTypeService();
 
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
-                WidgetType::create([
+                $widgetTypeService->create([
                     "type" => $data[0] ,
                     "description" => $data[1] 
                 ]);

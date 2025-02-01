@@ -16,6 +16,7 @@ use Modules\Core\Models\SysModule;
 use Modules\PkgAutorisation\Models\Permission;
 use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgAutorisation\Models\User;
+use Modules\PkgAutorisation\Services\PermissionService;
 
 
 class BasePermissionSeeder extends Seeder
@@ -41,10 +42,11 @@ class BasePermissionSeeder extends Seeder
     {
         $csvFile = fopen(base_path("modules/PkgAutorisation/Database/data/permissions.csv"), "r");
         $firstline = true;
+        $permissionService = new PermissionService();
 
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
-                Permission::create([
+                $permissionService->create([
                     "name" => $data[0] ,
                     "guard_name" => $data[1] ,
                     "controller_id" => $data[2] 

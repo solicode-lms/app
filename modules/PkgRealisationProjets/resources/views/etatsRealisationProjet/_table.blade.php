@@ -5,6 +5,7 @@
         <thead>
             <tr>
                 <x-sortable-column field="titre" label="{{ ucfirst(__('PkgRealisationProjets::etatsRealisationProjet.titre')) }}" />
+                <x-sortable-column field="formateur_id" label="{{ ucfirst(__('PkgFormation::formateur.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -12,6 +13,7 @@
             @foreach ($etatsRealisationProjets_data as $etatsRealisationProjet)
                 <tr id="etatsRealisationProjet-row-{{$etatsRealisationProjet->id}}">
                     <td>@limit($etatsRealisationProjet->titre, 80)</td>
+                    <td>@limit($etatsRealisationProjet->formateur->nom ?? '-', 80)</td>
                     <td class="text-right">
                         @can('show-etatsRealisationProjet')
                             <a href="{{ route('etatsRealisationProjets.show', ['etatsRealisationProjet' => $etatsRealisationProjet->id]) }}" data-id="{{$etatsRealisationProjet->id}}" class="btn btn-default btn-sm context-state showEntity">

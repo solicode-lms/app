@@ -13,6 +13,7 @@ use Modules\Core\Models\Feature;
 use Modules\Core\Models\FeatureDomain;
 use Modules\Core\Models\SysController;
 use Modules\Core\Models\SysModule;
+use Modules\Core\Services\SysControllerService;
 use Modules\PkgAutorisation\Models\Permission;
 use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgAutorisation\Models\User;
@@ -41,10 +42,11 @@ class BaseSysControllerSeeder extends Seeder
     {
         $csvFile = fopen(base_path("modules/Core/Database/data/sysControllers.csv"), "r");
         $firstline = true;
+        $sysControllerService = new SysControllerService();
 
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
-                SysController::create([
+                $sysControllerService->create([
                     "sys_module_id" => $data[0] ,
                     "name" => $data[1] ,
                     "slug" => $data[2] ,

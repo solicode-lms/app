@@ -17,6 +17,7 @@ use Modules\PkgAutorisation\Models\Permission;
 use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgAutorisation\Models\User;
 use Modules\PkgWidgets\Models\WidgetOperation;
+use Modules\PkgWidgets\Services\WidgetOperationService;
 
 
 class BaseWidgetOperationSeeder extends Seeder
@@ -42,10 +43,11 @@ class BaseWidgetOperationSeeder extends Seeder
     {
         $csvFile = fopen(base_path("modules/PkgWidgets/Database/data/widgetOperations.csv"), "r");
         $firstline = true;
+        $widgetOperationService = new WidgetOperationService();
 
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
-                WidgetOperation::create([
+                $widgetOperationService->create([
                     "operation" => $data[0] ,
                     "description" => $data[1] 
                 ]);

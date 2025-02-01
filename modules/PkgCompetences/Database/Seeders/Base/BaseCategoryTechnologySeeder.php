@@ -17,6 +17,7 @@ use Modules\PkgAutorisation\Models\Permission;
 use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgAutorisation\Models\User;
 use Modules\PkgCompetences\Models\CategoryTechnology;
+use Modules\PkgCompetences\Services\CategoryTechnologyService;
 
 
 class BaseCategoryTechnologySeeder extends Seeder
@@ -42,10 +43,11 @@ class BaseCategoryTechnologySeeder extends Seeder
     {
         $csvFile = fopen(base_path("modules/PkgCompetences/Database/data/categoryTechnologies.csv"), "r");
         $firstline = true;
+        $categoryTechnologyService = new CategoryTechnologyService();
 
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
-                CategoryTechnology::create([
+                $categoryTechnologyService->create([
                     "nom" => $data[0] ,
                     "description" => $data[1] 
                 ]);
