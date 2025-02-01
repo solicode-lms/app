@@ -17,7 +17,7 @@ use Modules\PkgAutorisation\Models\Permission;
 use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgAutorisation\Models\User;
 use Modules\PkgFormation\Models\Formateur;
-
+use Modules\PkgFormation\Services\FormateurService;
 
 class BaseFormateurSeeder extends Seeder
 {
@@ -43,9 +43,11 @@ class BaseFormateurSeeder extends Seeder
         $csvFile = fopen(base_path("modules/PkgFormation/Database/data/formateurs.csv"), "r");
         $firstline = true;
 
+        $formateurService = new FormateurService();
+
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
-                Formateur::create([
+                $formateurService->create([
                     "matricule" => $data[0] ,
                     "nom" => $data[1] ,
                     "prenom" => $data[2] ,
