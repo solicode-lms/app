@@ -31,11 +31,11 @@ const config = new CrudConfig({
 #### Étape 2 : Initialisation des Gestionnaires et Actions
 Chaque gestionnaire ou classe est initialisé avec les dépendances nécessaires.
 
-##### Gestionnaire de Modal : `ModalManager`
+##### Gestionnaire de Modal : `ModalUI`
 ```javascript
-import { ModalManager } from './ModalManager';
+import { ModalUI } from './ModalUI';
 
-const modalManager = new ModalManager('#entity_modal');
+const modalManager = new ModalUI('#entity_modal');
 ```
 
 ##### Gestionnaire de Chargement : `CrudLoader`
@@ -45,11 +45,11 @@ import { CrudLoader } from './CrudLoader';
 const loader = new CrudLoader('#card_crud');
 ```
 
-##### Gestionnaire de Formulaires : `FormManager`
+##### Gestionnaire de Formulaires : `FormUI`
 ```javascript
-import { FormManager } from './FormManager';
+import { FormUI } from './FormUI';
 
-const formManager = new FormManager('#entity_form', modalManager);
+const formManager = new FormUI('#entity_form', modalManager);
 formManager.init(); // Active la gestion des boutons d'annulation et autres interactions
 ```
 
@@ -133,7 +133,7 @@ const paginationManager = new PaginationManager('#pagination-container', fetchPa
 
 3. **Affichage des Résultats** :
    - `CrudLoader` affiche un indicateur de chargement.
-   - `ModalManager` gère les interactions avec les modals (formulaires et détails).
+   - `ModalUI` gère les interactions avec les modals (formulaires et détails).
    - `MessageHandler` affiche les messages de succès ou d’erreur.
 
 4. **Recherche et Pagination** :
@@ -170,7 +170,7 @@ $('#crud_search_input').on('keyup', () => {
    - Chaque fonctionnalité (CRUD, modals, formulaires, etc.) est gérée dans une classe dédiée.
 
 2. **Réutilisabilité** :
-   - Les classes comme `ModalManager` ou `CrudLoader` peuvent être utilisées dans d'autres projets.
+   - Les classes comme `ModalUI` ou `CrudLoader` peuvent être utilisées dans d'autres projets.
 
 3. **Facilité de Maintenance** :
    - Les mises à jour ou extensions (ajout de fonctionnalités) sont localisées à une seule classe.

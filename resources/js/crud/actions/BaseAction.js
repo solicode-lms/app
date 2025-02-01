@@ -1,17 +1,15 @@
 import { ContextStateService } from "../components/ContextStateService";
-import { FormManager } from "../components/FormManager";
+import { FormUI } from "../components/FormUI";
 import { LoadingIndicator } from "../components/LoadingIndicator";
-import { ModalManager } from "../components/ModalManager";
+import { ModalUI } from "../components/ModalUI";
 
 export class BaseAction {
 
 
     constructor(config){
         this.config = config;
-        this.modalManager = new ModalManager(config.modalSelector);
         // Table Loader
         this.loader = new LoadingIndicator(config.tableSelector);
-        this.formManager = new FormManager(this.config, this.modalManager);
         this.contextService = this.config.contextStateService;
         this.SuscesMessage = "";
     }

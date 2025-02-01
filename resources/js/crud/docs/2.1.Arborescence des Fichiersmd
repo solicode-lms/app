@@ -4,9 +4,9 @@ L'architecture des fichiers et dossiers de ton projet semble bien organisée aut
 / (Racine du projet)
 │── components/
 │   │── ContextStateService.js
-│   │── FormManager.js
+│   │── FormUI.js
 │   │── LoadingIndicator.js
-│   │── ModalManager.js
+│   │── ModalUI.js
 │   │── NotificationHandler.js
 │
 │── actions/

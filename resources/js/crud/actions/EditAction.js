@@ -3,8 +3,12 @@ import { Action } from './Action';
 
 export class EditAction extends Action {
 
-    constructor(config) {
+    constructor(config, tableUI) {
         super(config);
+        this.config = config;
+        this.tableUI = tableUI;
+
+        
         this.SuscesMessage = "Entité modifiée avec succès.";
        
        
@@ -30,18 +34,18 @@ export class EditAction extends Action {
         );
 
         // Afficher le chargement dans le modal
-        this.modalManager.showLoading(this.config.editTitle);
+        this.tableUI.indexUI.modalUI.showLoading(this.config.editTitle);
 
         // Charger le formulaire d'édition via AJAX
         $.get(editUrl)
             .done((html) => {
                 // Injecter le contenu du formulaire dans le modal
-                this.modalManager.showContent(html);
-                this.formManager.init(() => this.submitEntity());
+                this.tableUI.indexUI.modalUI.showContent(html);
+                this.tableUI.indexUI.formUI.init(() => this.submitEntity());
                 // this.handleSuccess('Formulaire de modification chargé avec succès.');
             })
             .fail((xhr) => {
-                this.formManager.modalManager.close();
+                this.tableUI.indexUI.formUI.modalManager.close();
                 AjaxErrorHandler.handleError(xhr, 'Erreur lors de la modification.');
             });
     }
@@ -65,12 +69,12 @@ export class EditAction extends Action {
             const actionUrl = form.attr('action'); // URL définie dans le formulaire
             const method = form.find('input[name="_method"]').val() || 'POST'; // Méthode HTTP
             const formData = form.serialize(); // Sérialisation des données du formulaire
-            this.formManager.loader.show();
+            this.tableUI.indexUI.formUI.loader.show();
     
             // Valider le formulaire avant la soumission
-            if (!this.formManager.validateForm()) {
+            if (!this.tableUI.indexUI.formUI.validateForm()) {
                 NotificationHandler.showError('Validation échouée. Veuillez corriger les erreurs.');
-                this.formManager.loader.hide();
+                this.tableUI.indexUI.formUI.loader.hide();
                 return; // Ne pas soumettre si la validation échoue
             }
     
@@ -81,9 +85,9 @@ export class EditAction extends Action {
                 data: formData,
             })
                 .done((data) => {
-                    this.formManager.loader.hide();
+                    this.tableUI.indexUI.formUI.loader.hide();
                     this.handleSuccess(this.SuscesMessage);
-                    this.modalManager.close(); // Fermer le modal après succès
+                    this.tableUI.indexUI.modalUI.close(); // Fermer le modal après succès
 
                      // Appeler le callback de succès si fourni
                      if (typeof onSuccess === 'function') {
@@ -98,12 +102,12 @@ export class EditAction extends Action {
                 })
     
                 .fail((xhr) => {
-                    this.formManager.loader.hide();
+                    this.tableUI.indexUI.formUI.loader.hide();
                     
                     if (xhr.responseJSON?.errors) {
-                        this.formManager.showFieldErrors(xhr.responseJSON.errors);
+                        this.tableUI.indexUI.formUI.showFieldErrors(xhr.responseJSON.errors);
                     } else {
-                        this.formManager.modalManager.close();
+                        this.tableUI.indexUI.formUI.modalManager.close();
                         AjaxErrorHandler.handleError(xhr, "Erreur lors du traitement du formulaire.");
                     }
                 });

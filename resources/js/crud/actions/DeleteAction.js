@@ -5,8 +5,12 @@ import { AjaxErrorHandler } from '../components/AjaxErrorHandler';
 
 export class DeleteAction extends Action {
 
-    constructor(config) {
+    constructor(config, tableUI) {
         super(config);
+        this.config = config;
+        this.tableUI = tableUI;
+       
+        
        
         this.suscesMessage = 'Entité supprimée avec succès.';
        

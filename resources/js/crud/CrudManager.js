@@ -4,6 +4,9 @@ import { ContexteStateEventHandler } from './eventsHandler/ContexteStateEventHan
 import { TableUI } from "./components/TableUI";
 import { FilterUI } from "./components/FilterUI";
 import { PaginationUI } from './components/PaginationUI';
+import { FormUI } from './components/FormUI';
+import { Modal } from 'admin-lte/plugins/bootstrap/js/bootstrap.bundle';
+import { ModalUI } from './components/ModalUI';
 
 // TODO: rename to IndexUI
 /**
@@ -21,6 +24,8 @@ export class CrudManager {
         this.filterUI = new FilterUI(config, this);
         this.tableUI = new TableUI(config, this);
         this.paginationUI = new PaginationUI(config, this);
+        this.formUI = new FormUI(config,this);
+        this.modalUI = new ModalUI(config,this);
         this.contexteEventHandler = new ContexteStateEventHandler(config);
     }
 

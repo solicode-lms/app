@@ -14,11 +14,11 @@ export class TableUI {
         this.loadListAction = new LoadListAction(config);
 
         // Initialisation des actions CRUD
-        this.entityCreator = new CreateAction(config);
-        this.entityViewer = new ShowAction(config);
-        this.entityEditor = new EditAction(config);
-        this.entityDeleter = new DeleteAction(config);
-        this.entityLoader = new LoadListAction(config);
+        this.entityCreator = new CreateAction(config,this);
+        this.entityViewer = new ShowAction(config,this);
+        this.entityEditor = new EditAction(config,this);
+        this.entityDeleter = new DeleteAction(config,this);
+        this.entityLoader = new LoadListAction(config,this);
     }
 
     init(){

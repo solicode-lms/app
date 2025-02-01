@@ -1,8 +1,8 @@
 import { LoadingIndicator } from '../components/LoadingIndicator';
-import { ModalManager } from '../components/ModalManager';
+import { ModalUI } from '../components/ModalUI';
 import { NotificationHandler } from '../components/NotificationHandler';
 
-import { FormManager } from '../components/FormManager';
+import { FormUI } from '../components/FormUI';
 import { ContextStateService } from '../components/ContextStateService';
 import { BaseAction } from './BaseAction';
 import { LoadListAction } from './LoadListAction';
@@ -26,7 +26,7 @@ export class Action extends BaseAction {
      * @param {string} errorMessage - Message d'erreur à afficher.
      */
     handleError(errorMessage) {
-        // this.modalManager.showError(errorMessage);
+        // this.tableUI.indexUI.modalUI.showError(errorMessage);
         NotificationHandler.showAlert("error", "Erreur", errorMessage);
     }
 

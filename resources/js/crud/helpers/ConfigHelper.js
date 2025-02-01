@@ -40,6 +40,8 @@ export class ConfigHelper {
         this.filterIconSelector = `${ config.filterFormSelector} .filter-icon`;
         this.sortableColumnSelector = `${ config.tableSelector} .sortable-column`;
 
+
+        this.id = `${this.entity_name}-${this.page}`;
     }
 
     /**

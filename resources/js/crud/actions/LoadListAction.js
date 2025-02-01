@@ -8,8 +8,14 @@ export class LoadListAction extends BaseAction {
      * Constructeur de LoadListAction.
      * @param {Object} config - Configuration pour le chargement des entités.
      */
-    constructor(config) {
+    constructor(config, tableUI) {
+
         super(config);
+        
+        this.config = config;
+        this.tableUI = tableUI;
+
+    
         this.indexUrl = this.appendParamsToUrl(
             config.indexUrl,
             this.contextService.getContextParams()

@@ -23,7 +23,7 @@ import { French } from 'flatpickr/dist/l10n/fr.js';
 import { CrudManager } from './crud/CrudManager';
 import { ConfigHelper } from './crud/helpers/ConfigHelper';
 import { NotificationHandler } from './crud/components/NotificationHandler';
-import { FormManager } from './crud/components/FormManager';
+import { FormUI } from './crud/components/FormUI';
 import { ContexteStateEventHandler } from './crud/eventsHandler/ContexteStateEventHandler';
 import { ContextStateService } from './crud/components/ContextStateService';
 import { EditWithHasManyManager } from './crud/EditWithHasManyManager';
@@ -31,8 +31,8 @@ import DynamicFieldVisibilityTreatment from './crud/treatments/form/DynamicField
 import { DashboardUI } from './crud/components/DashboardUI';
 import InitCrudManagers from './crud/InitCrudManagers';
 
-import "izimodal/js/iziModal.min.js";
-import "izimodal/css/iziModal.min.css";
+// import "izimodal/js/iziModal.min.js";
+// import "izimodal/css/iziModal.min.css";
 
 
 
@@ -60,10 +60,10 @@ document.addEventListener("DOMContentLoaded", function () {
     // TODO : Appliquer la validation de formulaire dans une page création sans Model
 
 
-    FormManager.initializeSelect2();
-    FormManager.initializeRichText();
-    FormManager.initializeDate();
-    FormManager.initCodeJar();
+    FormUI.initializeSelect2();
+    FormUI.initializeRichText();
+    FormUI.initializeDate();
+    FormUI.initCodeJar();
 
     // if(window.dynamicFieldVisibilityTreatments){
     //     new DynamicFieldVisibilityTreatment(window.dynamicFieldVisibilityTreatments)

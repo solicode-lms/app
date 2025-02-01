@@ -1,6 +1,10 @@
 import { ContexteStateEventHandler } from './eventsHandler/ContexteStateEventHandler';
-import { FormManager } from './components/FormManager';
+import { FormUI } from './components/FormUI';
 import { NotificationHandler } from './components/NotificationHandler';
+import { FilterUI } from './components/FilterUI';
+import { TableUI } from './components/TableUI';
+import { PaginationUI } from './components/PaginationUI';
+import { ModalUI } from './components/ModalUI';
  
 /**
  * Classe principale pour Edit with HasMany
@@ -12,7 +16,13 @@ export class EditWithHasManyManager {
      */
     constructor(config) {
         this.config = config;
-        this.formManager = new FormManager(this.config, undefined);
+
+        // Initialisation des composants UI
+        // this.filterUI = new FilterUI(config, this);
+        // this.tableUI = new TableUI(config, this);
+        // this.paginationUI = new PaginationUI(config, this);
+        this.formUI = new FormUI(config,this);
+        this.modalUI = new ModalUI(config,this);
         this.contexteEventHandler = new ContexteStateEventHandler(config);
     }
 
@@ -20,7 +30,7 @@ export class EditWithHasManyManager {
      * Initialise tous les gestionnaires et actions CRUD.
      */
     init() {
-        this.formManager.hideSelectsByIdFromContext();
+        // this.tableUI.indexUI.formUI.hideSelectsByIdFromContext();
         this.handleButtonSaveCardWithHasMany();
         this.contexteEventHandler.init();
     }
@@ -62,12 +72,12 @@ export class EditWithHasManyManager {
             const method = form.find('input[name="_method"]').val() || 'POST'; // Méthode HTTP
             const formData = form.serialize(); // Sérialisation des données du formulaire
             
-            this.formManager.loader.show();
+            this.tableUI.indexUI.formUI.loader.show();
     
             // Valider le formulaire avant la soumission
-            if (!this.formManager.validateForm()) {
+            if (!this.tableUI.indexUI.formUI.validateForm()) {
                 NotificationHandler.showError('Validation échouée. Veuillez corriger les erreurs.');
-                this.formManager.loader.hide();
+                this.tableUI.indexUI.formUI.loader.hide();
                 return; // Ne pas soumettre si la validation échoue
             }
     
@@ -78,7 +88,7 @@ export class EditWithHasManyManager {
                 data: formData,
             })
                 .done(() => {
-                    this.formManager.loader.hide();
+                    this.tableUI.indexUI.formUI.loader.hide();
                     NotificationHandler.showSuccess(this.SuscesMessage);
                     // Appeler le callback de succès si fourni
                     if (typeof onSuccess === 'function') {
@@ -86,7 +96,7 @@ export class EditWithHasManyManager {
                     }
                 })
                 .fail((xhr) => {
-                    this.formManager.loader.hide();
+                    this.tableUI.indexUI.formUI.loader.hide();
                     const errorMessage = xhr.responseJSON?.message || 'Une erreur s\'est produite lors de la modification.';
                     this.handleError(errorMessage); // Afficher une erreur
                 });

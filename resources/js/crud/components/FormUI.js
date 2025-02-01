@@ -10,16 +10,18 @@ import 'prismjs/components/prism-json';
 import InitCrudManagers from "../InitCrudManagers";
 
 
-export class FormManager {
+export class FormUI {
     /**
-     * Constructeur de la classe FormManager.
+     * Constructeur de la classe FormUI.
      * @param {string} formSelector - Sélecteur CSS du formulaire à gérer.
-     * @param {ModalManager} modalManager - Instance de ModalManager pour gérer les interactions modales.
+     * @param {ModalUI} modalManager - Instance de ModalUI pour gérer les interactions modales.
      */
-    constructor(config, modalManager) {
+    constructor(config, indexUI) {
+        this.config = config;
+        this.indexUI = indexUI;
+
         this.config = config
         this.formSelector = this.config.formSelector
-        this.modalManager = modalManager;
         this.contextService = this.config.contextStateService;
         this.loader = new LoadingIndicator(this.formSelector);
     }
@@ -39,9 +41,9 @@ export class FormManager {
         this.hideSelectsByIdFromContext();
         this.addContextStateToForm()
         this.initializeSelect2_in_modal();
-        FormManager.initializeRichText();
-        FormManager.initializeDate();
-        FormManager.initCodeJar();
+        FormUI.initializeRichText();
+        FormUI.initializeDate();
+        FormUI.initCodeJar();
       
         if(window.dynamicFieldVisibilityTreatments){
             new DynamicFieldVisibilityTreatment(window.dynamicFieldVisibilityTreatments)
@@ -107,7 +109,7 @@ export class FormManager {
     handleCancelButton() {
         $(document).on('click', `${this.formSelector} .form-cancel-button`, (e) => {
             e.preventDefault();
-            this.modalManager.close();
+            this.indexUI.modalUI.close();
         });
     }
 

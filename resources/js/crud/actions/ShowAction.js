@@ -4,6 +4,13 @@ import { Action } from './Action';
 export class ShowAction extends Action {
 
 
+    constructor(config, tableUI) {
+        super(config); 
+        this.config = config;
+        this.tableUI = tableUI; 
+       
+    }
+
 
     init(){
         this.handleShowEntity()
@@ -25,21 +32,31 @@ export class ShowAction extends Action {
 
 
         // Afficher le chargement dans le modal
-        this.modalManager.showLoading('Détails de l\'entité');
+        this.tableUI.indexUI.modalUI.showLoading('Détails de l\'entité');
 
         // Charger les détails de l'entité via AJAX
-        $.get(showUrl)
-            .done((html) => {
-                // Injecter le contenu des détails dans le modal
-                this.modalManager.showContent(html);
-                this.formManager.init();
-                this.formManager.setToReadOnly();
-                // this.handleSuccess('Détails de l\'entité chargés avec succès.');
-            })
-            .fail((xhr) => {
-                this.formManager.modalManager.close();
-                AjaxErrorHandler.handleError(xhr, 'Erreur lors du chargement des détails de l\'entité.');
-            });
+        // $.get(showUrl)
+        //     .done((html) => {
+        //         // Injecter le contenu des détails dans le modal
+
+
+        //         this.tableUI.indexUI.modalUI.showContent(html);
+
+
+        //         $(document).on('opened', this.tableUI.indexUI.modalUI.this.currentModalId, function (e) {
+        //             this.executeScripts(html);
+        //             this.tableUI.indexUI.formUI.init();
+        //             this.tableUI.indexUI.formUI.setToReadOnly();
+        //         });
+
+        //         // Exécuter les scripts inclus dans le contenu AJAX
+             
+        //         // this.handleSuccess('Détails de l\'entité chargés avec succès.');
+        //     })
+        //     .fail((xhr) => {
+        //         this.tableUI.indexUI.formUI.modalManager.close();
+        //         AjaxErrorHandler.handleError(xhr, 'Erreur lors du chargement des détails de l\'entité.');
+        //     });
             
     }
 
@@ -54,4 +71,26 @@ export class ShowAction extends Action {
             this.showEntity(id);
         });
     }
+
+
+        /**
+     * Exécute les scripts inclus dans le contenu HTML chargé via AJAX.
+     * @param {string} html - Contenu HTML contenant potentiellement des scripts.
+     */
+        executeScripts(html) {
+            const scriptTags = $("<div>").html(html).find("script");
+    
+            scriptTags.each(function () {
+                const scriptText = $(this).text();
+                const scriptSrc = $(this).attr("src");
+    
+                if (scriptSrc) {
+                    // Charger et exécuter les scripts externes
+                    $.getScript(scriptSrc);
+                } else if (scriptText) {
+                    // Exécuter les scripts inline
+                    new Function(scriptText)();
+                }
+            });
+        }
 }

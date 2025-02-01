@@ -30,7 +30,7 @@ Voici une division logique des classes de **`CrudActions`** en deux catégories 
 2. **`FormHandler`**
    - Gère la soumission et l'initialisation des formulaires utilisés par les actions CRUD.
 
-3. **`ModalManager`**
+3. **`ModalUI`**
    - Gère l’ouverture, la fermeture et le contenu des modals pour afficher les formulaires ou les détails.
 
 4. **`CrudLoader`**
@@ -56,7 +56,7 @@ Voici une division logique des classes de **`CrudActions`** en deux catégories 
 - **Classes :**
   - `EntityLoader`
   - `FormHandler`
-  - `ModalManager`
+  - `ModalUI`
   - `CrudLoader`
   - `MessageHandler`
 
