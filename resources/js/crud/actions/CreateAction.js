@@ -72,7 +72,7 @@ export class CreateAction extends Action {
 
 
                     }else{
-                        this.entityLoader.loadEntities(); // Recharger les entités
+                        this.tableUI.entityLoader.loadEntities(); // Recharger les entités
                     }
                    
                    

@@ -23,12 +23,22 @@ export class LoadingIndicator {
             console.error('Conteneur de chargement introuvable.');
             return false;
         }
-
+    
         // Vérifier si le chargement est déjà affiché
         if (!this.isLoadingVisible()) {
             const loadingDiv = document.createElement('div');
             loadingDiv.id = this.loadingElementId;
             loadingDiv.className = 'd-flex justify-content-center align-items-center';
+    
+            // Appliquer le style pour s'assurer que l'élément reste sous le modal
+            loadingDiv.style.position = 'absolute';
+            loadingDiv.style.top = '0';
+            loadingDiv.style.left = '0';
+            loadingDiv.style.width = '100%';
+            loadingDiv.style.height = '100%';
+            loadingDiv.style.background = 'rgba(255, 255, 255, 0.5)'; // Optionnel pour effet de transparence
+            loadingDiv.style.zIndex = '1060'; // Inférieur à celui du modal (1050)
+    
             loadingDiv.innerHTML = '<div class="spinner-border text-primary" role="status"></div>';
             this.container.appendChild(loadingDiv);
         }

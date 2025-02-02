@@ -1,4 +1,5 @@
 import { TableUI } from './TableUI';
+import EventUtil from './../utils/EventUtil';
 
 export class FilterUI {
 
@@ -61,7 +62,7 @@ export class FilterUI {
         const formSelector = this.config.filterFormSelector;
 
         // Sur saisie dans les champs de recherche ou filtres
-        $(document).on('input', `${formSelector} input, ${formSelector} select`, () => {
+        EventUtil.bindEvent('input', `${formSelector} input, ${formSelector} select`, () => {
             clearTimeout(this.debounceTimeout);
             this.debounceTimeout = setTimeout(() => {
                 this.updateFilterState();
@@ -70,7 +71,7 @@ export class FilterUI {
         });
 
         // Soumission explicite du formulaire (par bouton ou utilisateur)
-        $(document).on('submit', formSelector, (e) => {
+        EventUtil.bindEvent('submit', formSelector, (e) => {
             e.preventDefault();
             this.submitForm();
         });

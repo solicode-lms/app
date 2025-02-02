@@ -15,7 +15,7 @@ import flatpickr from 'flatpickr';
 import { French } from 'flatpickr/dist/l10n/fr.js';
 
 
-export class FormUI {
+export class FormUI  {
     /**
      * Constructeur de la classe FormUI.
      * @param {string} formSelector - Sélecteur CSS du formulaire à gérer.

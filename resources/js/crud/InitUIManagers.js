@@ -27,18 +27,30 @@ export default class InitUIManagers {
             const configHelper = new ConfigCrudManagerHelper(crudModalManagerData, window.contextState,window.sessionState);
 
             const uniqueKey = configHelper.id || JSON.stringify(crudModalManagerData);
-            if (InitUIManagers.processedManagers.has(uniqueKey)) 
-                return;
-            InitUIManagers.processedManagers.add(uniqueKey);
+            
+            if (InitUIManagers.processedManagers.has(uniqueKey)) {
+                
+                const crudModalManager = window.crudModalManagers[configHelper.id];
+                crudModalManager.init();
+
+            }else{
+
+                InitUIManagers.processedManagers.add(uniqueKey);
+                const crudModalManager = new CrudModalManager(configHelper);
+                crudModalManager.init();
+                if (!window.crudModalManagers) {
+                    window.crudModalManagers = {};
+                }
+                window.crudModalManagers[configHelper.id] = crudModalManager;
+
+            }
+              
+            
             
            
-            const crudModalManager = new CrudModalManager(configHelper);
-            crudModalManager.init();
+           
 
-            if (!window.crudModalManagers) {
-                window.crudModalManagers = {};
-            }
-            window.crudModalManagers[configHelper.id] = crudModalManager;
+           
         });
     }
 

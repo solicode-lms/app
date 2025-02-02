@@ -95,7 +95,7 @@ export class EditAction extends Action {
                     }
 
                    
-                    this.entityLoader.loadEntities(); // Recharger les entités
+                    this.tableUI.entityLoader.loadEntities(); // Recharger les entités
                     
                    
                    

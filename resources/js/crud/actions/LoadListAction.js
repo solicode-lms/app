@@ -52,8 +52,8 @@ export class LoadListAction extends BaseAction {
     
         // Afficher l'indicateur de chargement
         this.loader.show();
-        this.tableUI.indexUI.modalUI.startLoading();
-    
+
+
         // Requête AJAX pour charger les données
         $.get(requestUrl)
             .done((html) => {
@@ -69,7 +69,6 @@ export class LoadListAction extends BaseAction {
             .always(() => {
                 // Masquer l'indicateur de chargement
                 this.loader.hide();
-                this.tableUI.indexUI.modalUI.stopLoading();
             });
     }
     

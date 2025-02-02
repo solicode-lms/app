@@ -15,9 +15,6 @@ export class Action extends BaseAction {
     constructor(config) {
         super(config);
         this.config = config;
-        // Création des dépendances communes
-        this.entityLoader = new LoadListAction(config);
-
     }
 
 
