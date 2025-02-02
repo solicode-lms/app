@@ -109,7 +109,6 @@ class BaseCompetenceController extends AdminController
 
         return view('PkgCompetences::competence.edit', compact('itemCompetence', 'technologies', 'modules', 'niveauCompetences_data', 'niveauCompetences_stats', 'niveauCompetences_filters'));
 
-
     }
     public function edit(string $id) {
 

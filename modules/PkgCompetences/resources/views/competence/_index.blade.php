@@ -1,6 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-@push('scripts')
+
 <script>
     window.crudModalManagersConfig = window.crudModalManagersConfig || [];
     window.crudModalManagersConfig.push({
@@ -22,7 +22,7 @@
         edit_title: '{{__("Core::msg.add") . " : " . __("PkgCompetences::competence.singular") }}',
     });
 </script>
-@endpush
+
 <div id="competence-crud" class="crud">
     @section('competence-crud-header')
     @php
@@ -103,6 +103,3 @@
     </section>
     @show
 </div>
-@section('competence-crud-modal')
-<x-modal id="competenceModal" title="Ajouter ou Modifier"></x-modal>
-@show
