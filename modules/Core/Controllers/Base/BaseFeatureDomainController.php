@@ -96,7 +96,7 @@ class BaseFeatureDomainController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('Core::featureDomain._fields', compact('itemFeatureDomain', 'sysModules', 'features_data', 'features_stats', 'features_filters'));
+            return view('Core::featureDomain._edit', compact('itemFeatureDomain', 'sysModules', 'features_data', 'features_stats', 'features_filters'));
         }
 
         return view('Core::featureDomain.edit', compact('itemFeatureDomain', 'sysModules', 'features_data', 'features_stats', 'features_filters'));
@@ -116,7 +116,7 @@ class BaseFeatureDomainController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('Core::featureDomain._fields', compact('itemFeatureDomain', 'sysModules', 'features_data', 'features_stats', 'features_filters'));
+            return view('Core::featureDomain._edit', compact('itemFeatureDomain', 'sysModules', 'features_data', 'features_stats', 'features_filters'));
         }
 
         return view('Core::featureDomain.edit', compact('itemFeatureDomain', 'sysModules', 'features_data', 'features_stats', 'features_filters'));

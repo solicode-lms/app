@@ -91,7 +91,7 @@ class BaseWidgetOperationController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('PkgWidgets::widgetOperation._fields', compact('itemWidgetOperation', 'widgets_data', 'widgets_stats', 'widgets_filters'));
+            return view('PkgWidgets::widgetOperation._edit', compact('itemWidgetOperation', 'widgets_data', 'widgets_stats', 'widgets_filters'));
         }
 
         return view('PkgWidgets::widgetOperation.edit', compact('itemWidgetOperation', 'widgets_data', 'widgets_stats', 'widgets_filters'));
@@ -110,7 +110,7 @@ class BaseWidgetOperationController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('PkgWidgets::widgetOperation._fields', compact('itemWidgetOperation', 'widgets_data', 'widgets_stats', 'widgets_filters'));
+            return view('PkgWidgets::widgetOperation._edit', compact('itemWidgetOperation', 'widgets_data', 'widgets_stats', 'widgets_filters'));
         }
 
         return view('PkgWidgets::widgetOperation.edit', compact('itemWidgetOperation', 'widgets_data', 'widgets_stats', 'widgets_filters'));

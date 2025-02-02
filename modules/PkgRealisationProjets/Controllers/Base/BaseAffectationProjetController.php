@@ -106,7 +106,7 @@ class BaseAffectationProjetController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::affectationProjet._fields', compact('itemAffectationProjet', 'anneeFormations', 'groupes', 'projets', 'realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters'));
+            return view('PkgRealisationProjets::affectationProjet._edit', compact('itemAffectationProjet', 'anneeFormations', 'groupes', 'projets', 'realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters'));
         }
 
         return view('PkgRealisationProjets::affectationProjet.edit', compact('itemAffectationProjet', 'anneeFormations', 'groupes', 'projets', 'realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters'));
@@ -128,7 +128,7 @@ class BaseAffectationProjetController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::affectationProjet._fields', compact('itemAffectationProjet', 'anneeFormations', 'groupes', 'projets', 'realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters'));
+            return view('PkgRealisationProjets::affectationProjet._edit', compact('itemAffectationProjet', 'anneeFormations', 'groupes', 'projets', 'realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters'));
         }
 
         return view('PkgRealisationProjets::affectationProjet.edit', compact('itemAffectationProjet', 'anneeFormations', 'groupes', 'projets', 'realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters'));

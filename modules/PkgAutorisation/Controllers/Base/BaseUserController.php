@@ -105,7 +105,7 @@ class BaseUserController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('PkgAutorisation::user._fields', compact('itemUser', 'roles', 'apprenants_data', 'formateurs_data', 'apprenants_stats', 'formateurs_stats', 'apprenants_filters', 'formateurs_filters'));
+            return view('PkgAutorisation::user._edit', compact('itemUser', 'roles', 'apprenants_data', 'formateurs_data', 'apprenants_stats', 'formateurs_stats', 'apprenants_filters', 'formateurs_filters'));
         }
 
         return view('PkgAutorisation::user.edit', compact('itemUser', 'roles', 'apprenants_data', 'formateurs_data', 'apprenants_stats', 'formateurs_stats', 'apprenants_filters', 'formateurs_filters'));
@@ -130,7 +130,7 @@ class BaseUserController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('PkgAutorisation::user._fields', compact('itemUser', 'roles', 'apprenants_data', 'formateurs_data', 'apprenants_stats', 'formateurs_stats', 'apprenants_filters', 'formateurs_filters'));
+            return view('PkgAutorisation::user._edit', compact('itemUser', 'roles', 'apprenants_data', 'formateurs_data', 'apprenants_stats', 'formateurs_stats', 'apprenants_filters', 'formateurs_filters'));
         }
 
         return view('PkgAutorisation::user.edit', compact('itemUser', 'roles', 'apprenants_data', 'formateurs_data', 'apprenants_stats', 'formateurs_stats', 'apprenants_filters', 'formateurs_filters'));

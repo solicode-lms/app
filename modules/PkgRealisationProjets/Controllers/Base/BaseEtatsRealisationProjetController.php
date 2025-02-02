@@ -96,7 +96,7 @@ class BaseEtatsRealisationProjetController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::etatsRealisationProjet._fields', compact('itemEtatsRealisationProjet', 'formateurs', 'realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters'));
+            return view('PkgRealisationProjets::etatsRealisationProjet._edit', compact('itemEtatsRealisationProjet', 'formateurs', 'realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters'));
         }
 
         return view('PkgRealisationProjets::etatsRealisationProjet.edit', compact('itemEtatsRealisationProjet', 'formateurs', 'realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters'));
@@ -116,7 +116,7 @@ class BaseEtatsRealisationProjetController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::etatsRealisationProjet._fields', compact('itemEtatsRealisationProjet', 'formateurs', 'realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters'));
+            return view('PkgRealisationProjets::etatsRealisationProjet._edit', compact('itemEtatsRealisationProjet', 'formateurs', 'realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters'));
         }
 
         return view('PkgRealisationProjets::etatsRealisationProjet.edit', compact('itemEtatsRealisationProjet', 'formateurs', 'realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters'));

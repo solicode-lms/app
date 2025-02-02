@@ -192,3 +192,7 @@
 .iziModal .tab-content {
     display: block !important;
 }
+
+.dynamic-modal {
+    min-height: 300px !important;
+}

@@ -91,7 +91,7 @@ class BaseNiveauxScolaireController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('PkgApprenants::niveauxScolaire._fields', compact('itemNiveauxScolaire', 'apprenants_data', 'apprenants_stats', 'apprenants_filters'));
+            return view('PkgApprenants::niveauxScolaire._edit', compact('itemNiveauxScolaire', 'apprenants_data', 'apprenants_stats', 'apprenants_filters'));
         }
 
         return view('PkgApprenants::niveauxScolaire.edit', compact('itemNiveauxScolaire', 'apprenants_data', 'apprenants_stats', 'apprenants_filters'));
@@ -110,7 +110,7 @@ class BaseNiveauxScolaireController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('PkgApprenants::niveauxScolaire._fields', compact('itemNiveauxScolaire', 'apprenants_data', 'apprenants_stats', 'apprenants_filters'));
+            return view('PkgApprenants::niveauxScolaire._edit', compact('itemNiveauxScolaire', 'apprenants_data', 'apprenants_stats', 'apprenants_filters'));
         }
 
         return view('PkgApprenants::niveauxScolaire.edit', compact('itemNiveauxScolaire', 'apprenants_data', 'apprenants_stats', 'apprenants_filters'));
