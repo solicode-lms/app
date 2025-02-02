@@ -80,14 +80,27 @@ class BaseSysColorController extends AdminController
         );
     }
     public function show(string $id) {
-        $itemSysColor = $this->sysColorService->find($id);
 
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('sys_color_id', $id);
+        
+        $itemSysColor = $this->sysColorService->find($id);
+        $sysModelService =  new SysModelService();
+        $sysModels_data =  $itemSysColor->sysModels()->paginate(10);
+        $sysModels_stats = $sysModelService->getsysModelStats();
+        $sysModels_filters = $sysModelService->getFieldsFilterable();
+        
+        $sysModuleService =  new SysModuleService();
+        $sysModules_data =  $itemSysColor->sysModules()->paginate(10);
+        $sysModules_stats = $sysModuleService->getsysModuleStats();
+        $sysModules_filters = $sysModuleService->getFieldsFilterable();
+        
 
         if (request()->ajax()) {
-            return view('Core::sysColor._fields', compact('itemSysColor'));
+            return view('Core::sysColor._edit', compact('itemSysColor', 'sysModels_data', 'sysModules_data', 'sysModels_stats', 'sysModules_stats', 'sysModels_filters', 'sysModules_filters'));
         }
 
-        return view('Core::sysColor.show', compact('itemSysColor'));
+        return view('Core::sysColor.edit', compact('itemSysColor', 'sysModels_data', 'sysModules_data', 'sysModels_stats', 'sysModules_stats', 'sysModels_filters', 'sysModules_filters'));
 
     }
     public function edit(string $id) {
@@ -108,7 +121,7 @@ class BaseSysColorController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('Core::sysColor._fields', compact('itemSysColor', 'sysModels_data', 'sysModules_data', 'sysModels_stats', 'sysModules_stats', 'sysModels_filters', 'sysModules_filters'));
+            return view('Core::sysColor._edit', compact('itemSysColor', 'sysModels_data', 'sysModules_data', 'sysModels_stats', 'sysModules_stats', 'sysModels_filters', 'sysModules_filters'));
         }
 
         return view('Core::sysColor.edit', compact('itemSysColor', 'sysModels_data', 'sysModules_data', 'sysModels_stats', 'sysModules_stats', 'sysModels_filters', 'sysModules_filters'));

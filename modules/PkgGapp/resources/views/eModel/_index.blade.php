@@ -1,9 +1,9 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-@push('scripts')
+
 <script>
-    window.entitiesConfig = window.entitiesConfig || [];
-    window.entitiesConfig.push({
+    window.crudModalManagersConfig = window.crudModalManagersConfig || [];
+    window.crudModalManagersConfig.push({
         edit_has_many: {{ !isset($edit_has_many)? 'true' :  ($edit_has_many ? "true": "false") }},
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
         entity_name: 'eModel',
@@ -11,7 +11,6 @@
         crudSelector: '#eModel-crud',
         tableSelector: '#eModel-data-container',
         formSelector: '#eModelForm',
-        modalSelector : '#eModelModal',
         indexUrl: '{{ route('eModels.index') }}', 
         createUrl: '{{ route('eModels.create') }}',
         editUrl: '{{ route('eModels.edit',  ['eModel' => ':id']) }}',
@@ -20,10 +19,10 @@
         deleteUrl: '{{ route('eModels.destroy',  ['eModel' => ':id']) }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgGapp::eModel.singular") }}',
-        edit_title: '{{__("Core::msg.add") . " : " . __("PkgGapp::eModel.singular") }}',
+        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgGapp::eModel.singular") }}',
     });
 </script>
-@endpush
+
 <div id="eModel-crud" class="crud">
     @section('eModel-crud-header')
     @php
@@ -102,8 +101,5 @@
             </div>
         </div>
     </section>
-    @show
-    @section('eModel-crud-modal')
-    <x-modal id="eModelModal" title="Ajouter ou Modifier"></x-modal>
     @show
 </div>

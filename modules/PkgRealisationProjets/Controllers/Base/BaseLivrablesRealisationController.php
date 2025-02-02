@@ -82,15 +82,18 @@ class BaseLivrablesRealisationController extends AdminController
         );
     }
     public function show(string $id) {
+
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('livrables_realisation_id', $id);
+        
         $itemLivrablesRealisation = $this->livrablesRealisationService->find($id);
         $livrables = $this->livrableService->all();
 
-
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::livrablesRealisation._fields', compact('itemLivrablesRealisation', 'livrables'));
+            return view('PkgRealisationProjets::livrablesRealisation._edit', compact('itemLivrablesRealisation', 'livrables'));
         }
 
-        return view('PkgRealisationProjets::livrablesRealisation.show', compact('itemLivrablesRealisation'));
+        return view('PkgRealisationProjets::livrablesRealisation.edit', compact('itemLivrablesRealisation', 'livrables'));
 
     }
     public function edit(string $id) {
@@ -102,7 +105,7 @@ class BaseLivrablesRealisationController extends AdminController
         $livrables = $this->livrableService->all();
 
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::livrablesRealisation._fields', compact('itemLivrablesRealisation', 'livrables'));
+            return view('PkgRealisationProjets::livrablesRealisation._edit', compact('itemLivrablesRealisation', 'livrables'));
         }
 
         return view('PkgRealisationProjets::livrablesRealisation.edit', compact('itemLivrablesRealisation', 'livrables'));

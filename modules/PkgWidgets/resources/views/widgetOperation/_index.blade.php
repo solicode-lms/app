@@ -1,9 +1,9 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-@push('scripts')
+
 <script>
-    window.entitiesConfig = window.entitiesConfig || [];
-    window.entitiesConfig.push({
+    window.crudModalManagersConfig = window.crudModalManagersConfig || [];
+    window.crudModalManagersConfig.push({
         edit_has_many: {{ !isset($edit_has_many)? 'true' :  ($edit_has_many ? "true": "false") }},
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
         entity_name: 'widgetOperation',
@@ -11,7 +11,6 @@
         crudSelector: '#widgetOperation-crud',
         tableSelector: '#widgetOperation-data-container',
         formSelector: '#widgetOperationForm',
-        modalSelector : '#widgetOperationModal',
         indexUrl: '{{ route('widgetOperations.index') }}', 
         createUrl: '{{ route('widgetOperations.create') }}',
         editUrl: '{{ route('widgetOperations.edit',  ['widgetOperation' => ':id']) }}',
@@ -20,10 +19,10 @@
         deleteUrl: '{{ route('widgetOperations.destroy',  ['widgetOperation' => ':id']) }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgWidgets::widgetOperation.singular") }}',
-        edit_title: '{{__("Core::msg.add") . " : " . __("PkgWidgets::widgetOperation.singular") }}',
+        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgWidgets::widgetOperation.singular") }}',
     });
 </script>
-@endpush
+
 <div id="widgetOperation-crud" class="crud">
     @section('widgetOperation-crud-header')
     @php
@@ -102,8 +101,5 @@
             </div>
         </div>
     </section>
-    @show
-    @section('widgetOperation-crud-modal')
-    <x-modal id="widgetOperationModal" title="Ajouter ou Modifier"></x-modal>
     @show
 </div>

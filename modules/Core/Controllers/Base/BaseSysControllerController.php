@@ -83,15 +83,23 @@ class BaseSysControllerController extends AdminController
         );
     }
     public function show(string $id) {
+
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('sys_controller_id', $id);
+        
         $itemSysController = $this->sysControllerService->find($id);
         $sysModules = $this->sysModuleService->all();
-
+        $permissionService =  new PermissionService();
+        $permissions_data =  $itemSysController->permissions()->paginate(10);
+        $permissions_stats = $permissionService->getpermissionStats();
+        $permissions_filters = $permissionService->getFieldsFilterable();
+        
 
         if (request()->ajax()) {
-            return view('Core::sysController._fields', compact('itemSysController', 'sysModules'));
+            return view('Core::sysController._edit', compact('itemSysController', 'sysModules', 'permissions_data', 'permissions_stats', 'permissions_filters'));
         }
 
-        return view('Core::sysController.show', compact('itemSysController'));
+        return view('Core::sysController.edit', compact('itemSysController', 'sysModules', 'permissions_data', 'permissions_stats', 'permissions_filters'));
 
     }
     public function edit(string $id) {
@@ -108,7 +116,7 @@ class BaseSysControllerController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('Core::sysController._fields', compact('itemSysController', 'sysModules', 'permissions_data', 'permissions_stats', 'permissions_filters'));
+            return view('Core::sysController._edit', compact('itemSysController', 'sysModules', 'permissions_data', 'permissions_stats', 'permissions_filters'));
         }
 
         return view('Core::sysController.edit', compact('itemSysController', 'sysModules', 'permissions_data', 'permissions_stats', 'permissions_filters'));

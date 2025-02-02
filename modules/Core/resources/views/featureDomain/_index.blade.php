@@ -1,9 +1,9 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-@push('scripts')
+
 <script>
-    window.entitiesConfig = window.entitiesConfig || [];
-    window.entitiesConfig.push({
+    window.crudModalManagersConfig = window.crudModalManagersConfig || [];
+    window.crudModalManagersConfig.push({
         edit_has_many: {{ !isset($edit_has_many)? 'true' :  ($edit_has_many ? "true": "false") }},
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
         entity_name: 'featureDomain',
@@ -11,7 +11,6 @@
         crudSelector: '#featureDomain-crud',
         tableSelector: '#featureDomain-data-container',
         formSelector: '#featureDomainForm',
-        modalSelector : '#featureDomainModal',
         indexUrl: '{{ route('featureDomains.index') }}', 
         createUrl: '{{ route('featureDomains.create') }}',
         editUrl: '{{ route('featureDomains.edit',  ['featureDomain' => ':id']) }}',
@@ -20,10 +19,10 @@
         deleteUrl: '{{ route('featureDomains.destroy',  ['featureDomain' => ':id']) }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("Core::featureDomain.singular") }}',
-        edit_title: '{{__("Core::msg.add") . " : " . __("Core::featureDomain.singular") }}',
+        edit_title: '{{__("Core::msg.edit") . " : " . __("Core::featureDomain.singular") }}',
     });
 </script>
-@endpush
+
 <div id="featureDomain-crud" class="crud">
     @section('featureDomain-crud-header')
     @php
@@ -102,8 +101,5 @@
             </div>
         </div>
     </section>
-    @show
-    @section('featureDomain-crud-modal')
-    <x-modal id="featureDomainModal" title="Ajouter ou Modifier"></x-modal>
     @show
 </div>

@@ -85,15 +85,18 @@ class BaseSpecialiteController extends AdminController
         );
     }
     public function show(string $id) {
+
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('specialite_id', $id);
+        
         $itemSpecialite = $this->specialiteService->find($id);
         $formateurs = $this->formateurService->all();
 
-
         if (request()->ajax()) {
-            return view('PkgFormation::specialite._fields', compact('itemSpecialite', 'formateurs'));
+            return view('PkgFormation::specialite._edit', compact('itemSpecialite', 'formateurs'));
         }
 
-        return view('PkgFormation::specialite.show', compact('itemSpecialite'));
+        return view('PkgFormation::specialite.edit', compact('itemSpecialite', 'formateurs'));
 
     }
     public function edit(string $id) {
@@ -105,7 +108,7 @@ class BaseSpecialiteController extends AdminController
         $formateurs = $this->formateurService->all();
 
         if (request()->ajax()) {
-            return view('PkgFormation::specialite._fields', compact('itemSpecialite', 'formateurs'));
+            return view('PkgFormation::specialite._edit', compact('itemSpecialite', 'formateurs'));
         }
 
         return view('PkgFormation::specialite.edit', compact('itemSpecialite', 'formateurs'));

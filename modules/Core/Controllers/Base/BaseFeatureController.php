@@ -89,16 +89,19 @@ class BaseFeatureController extends AdminController
         );
     }
     public function show(string $id) {
+
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('feature_id', $id);
+        
         $itemFeature = $this->featureService->find($id);
         $permissions = $this->permissionService->all();
         $featureDomains = $this->featureDomainService->all();
 
-
         if (request()->ajax()) {
-            return view('Core::feature._fields', compact('itemFeature', 'permissions', 'featureDomains'));
+            return view('Core::feature._edit', compact('itemFeature', 'permissions', 'featureDomains'));
         }
 
-        return view('Core::feature.show', compact('itemFeature'));
+        return view('Core::feature.edit', compact('itemFeature', 'permissions', 'featureDomains'));
 
     }
     public function edit(string $id) {
@@ -111,7 +114,7 @@ class BaseFeatureController extends AdminController
         $featureDomains = $this->featureDomainService->all();
 
         if (request()->ajax()) {
-            return view('Core::feature._fields', compact('itemFeature', 'permissions', 'featureDomains'));
+            return view('Core::feature._edit', compact('itemFeature', 'permissions', 'featureDomains'));
         }
 
         return view('Core::feature.edit', compact('itemFeature', 'permissions', 'featureDomains'));

@@ -83,15 +83,23 @@ class BaseEtatsRealisationProjetController extends AdminController
         );
     }
     public function show(string $id) {
+
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('etats_realisation_projet_id', $id);
+        
         $itemEtatsRealisationProjet = $this->etatsRealisationProjetService->find($id);
         $formateurs = $this->formateurService->all();
-
+        $realisationProjetService =  new RealisationProjetService();
+        $realisationProjets_data =  $itemEtatsRealisationProjet->realisationProjets()->paginate(10);
+        $realisationProjets_stats = $realisationProjetService->getrealisationProjetStats();
+        $realisationProjets_filters = $realisationProjetService->getFieldsFilterable();
+        
 
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::etatsRealisationProjet._fields', compact('itemEtatsRealisationProjet', 'formateurs'));
+            return view('PkgRealisationProjets::etatsRealisationProjet._edit', compact('itemEtatsRealisationProjet', 'formateurs', 'realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters'));
         }
 
-        return view('PkgRealisationProjets::etatsRealisationProjet.show', compact('itemEtatsRealisationProjet'));
+        return view('PkgRealisationProjets::etatsRealisationProjet.edit', compact('itemEtatsRealisationProjet', 'formateurs', 'realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters'));
 
     }
     public function edit(string $id) {
@@ -108,7 +116,7 @@ class BaseEtatsRealisationProjetController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::etatsRealisationProjet._fields', compact('itemEtatsRealisationProjet', 'formateurs', 'realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters'));
+            return view('PkgRealisationProjets::etatsRealisationProjet._edit', compact('itemEtatsRealisationProjet', 'formateurs', 'realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters'));
         }
 
         return view('PkgRealisationProjets::etatsRealisationProjet.edit', compact('itemEtatsRealisationProjet', 'formateurs', 'realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters'));

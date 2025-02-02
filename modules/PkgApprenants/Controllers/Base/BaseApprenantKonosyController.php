@@ -78,14 +78,17 @@ class BaseApprenantKonosyController extends AdminController
         );
     }
     public function show(string $id) {
+
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('apprenant_konosy_id', $id);
+        
         $itemApprenantKonosy = $this->apprenantKonosyService->find($id);
 
-
         if (request()->ajax()) {
-            return view('PkgApprenants::apprenantKonosy._fields', compact('itemApprenantKonosy'));
+            return view('PkgApprenants::apprenantKonosy._edit', compact('itemApprenantKonosy'));
         }
 
-        return view('PkgApprenants::apprenantKonosy.show', compact('itemApprenantKonosy'));
+        return view('PkgApprenants::apprenantKonosy.edit', compact('itemApprenantKonosy'));
 
     }
     public function edit(string $id) {
@@ -96,7 +99,7 @@ class BaseApprenantKonosyController extends AdminController
         $itemApprenantKonosy = $this->apprenantKonosyService->find($id);
 
         if (request()->ajax()) {
-            return view('PkgApprenants::apprenantKonosy._fields', compact('itemApprenantKonosy'));
+            return view('PkgApprenants::apprenantKonosy._edit', compact('itemApprenantKonosy'));
         }
 
         return view('PkgApprenants::apprenantKonosy.edit', compact('itemApprenantKonosy'));

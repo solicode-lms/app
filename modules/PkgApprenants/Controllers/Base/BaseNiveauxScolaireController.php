@@ -79,14 +79,22 @@ class BaseNiveauxScolaireController extends AdminController
         );
     }
     public function show(string $id) {
-        $itemNiveauxScolaire = $this->niveauxScolaireService->find($id);
 
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('niveaux_scolaire_id', $id);
+        
+        $itemNiveauxScolaire = $this->niveauxScolaireService->find($id);
+        $apprenantService =  new ApprenantService();
+        $apprenants_data =  $itemNiveauxScolaire->apprenants()->paginate(10);
+        $apprenants_stats = $apprenantService->getapprenantStats();
+        $apprenants_filters = $apprenantService->getFieldsFilterable();
+        
 
         if (request()->ajax()) {
-            return view('PkgApprenants::niveauxScolaire._fields', compact('itemNiveauxScolaire'));
+            return view('PkgApprenants::niveauxScolaire._edit', compact('itemNiveauxScolaire', 'apprenants_data', 'apprenants_stats', 'apprenants_filters'));
         }
 
-        return view('PkgApprenants::niveauxScolaire.show', compact('itemNiveauxScolaire'));
+        return view('PkgApprenants::niveauxScolaire.edit', compact('itemNiveauxScolaire', 'apprenants_data', 'apprenants_stats', 'apprenants_filters'));
 
     }
     public function edit(string $id) {
@@ -102,7 +110,7 @@ class BaseNiveauxScolaireController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('PkgApprenants::niveauxScolaire._fields', compact('itemNiveauxScolaire', 'apprenants_data', 'apprenants_stats', 'apprenants_filters'));
+            return view('PkgApprenants::niveauxScolaire._edit', compact('itemNiveauxScolaire', 'apprenants_data', 'apprenants_stats', 'apprenants_filters'));
         }
 
         return view('PkgApprenants::niveauxScolaire.edit', compact('itemNiveauxScolaire', 'apprenants_data', 'apprenants_stats', 'apprenants_filters'));

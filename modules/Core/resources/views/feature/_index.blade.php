@@ -1,9 +1,9 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-@push('scripts')
+
 <script>
-    window.entitiesConfig = window.entitiesConfig || [];
-    window.entitiesConfig.push({
+    window.crudModalManagersConfig = window.crudModalManagersConfig || [];
+    window.crudModalManagersConfig.push({
         edit_has_many: {{ !isset($edit_has_many)? 'false' :  ($edit_has_many ? "true": "false") }},
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
         entity_name: 'feature',
@@ -11,7 +11,6 @@
         crudSelector: '#feature-crud',
         tableSelector: '#feature-data-container',
         formSelector: '#featureForm',
-        modalSelector : '#featureModal',
         indexUrl: '{{ route('features.index') }}', 
         createUrl: '{{ route('features.create') }}',
         editUrl: '{{ route('features.edit',  ['feature' => ':id']) }}',
@@ -20,10 +19,10 @@
         deleteUrl: '{{ route('features.destroy',  ['feature' => ':id']) }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("Core::feature.singular") }}',
-        edit_title: '{{__("Core::msg.add") . " : " . __("Core::feature.singular") }}',
+        edit_title: '{{__("Core::msg.edit") . " : " . __("Core::feature.singular") }}',
     });
 </script>
-@endpush
+
 <div id="feature-crud" class="crud">
     @section('feature-crud-header')
     @php
@@ -102,8 +101,5 @@
             </div>
         </div>
     </section>
-    @show
-    @section('feature-crud-modal')
-    <x-modal id="featureModal" title="Ajouter ou Modifier"></x-modal>
     @show
 </div>

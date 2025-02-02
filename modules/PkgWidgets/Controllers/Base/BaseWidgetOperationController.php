@@ -79,14 +79,22 @@ class BaseWidgetOperationController extends AdminController
         );
     }
     public function show(string $id) {
-        $itemWidgetOperation = $this->widgetOperationService->find($id);
 
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('widget_operation_id', $id);
+        
+        $itemWidgetOperation = $this->widgetOperationService->find($id);
+        $widgetService =  new WidgetService();
+        $widgets_data =  $itemWidgetOperation->widgets()->paginate(10);
+        $widgets_stats = $widgetService->getwidgetStats();
+        $widgets_filters = $widgetService->getFieldsFilterable();
+        
 
         if (request()->ajax()) {
-            return view('PkgWidgets::widgetOperation._fields', compact('itemWidgetOperation'));
+            return view('PkgWidgets::widgetOperation._edit', compact('itemWidgetOperation', 'widgets_data', 'widgets_stats', 'widgets_filters'));
         }
 
-        return view('PkgWidgets::widgetOperation.show', compact('itemWidgetOperation'));
+        return view('PkgWidgets::widgetOperation.edit', compact('itemWidgetOperation', 'widgets_data', 'widgets_stats', 'widgets_filters'));
 
     }
     public function edit(string $id) {
@@ -102,7 +110,7 @@ class BaseWidgetOperationController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('PkgWidgets::widgetOperation._fields', compact('itemWidgetOperation', 'widgets_data', 'widgets_stats', 'widgets_filters'));
+            return view('PkgWidgets::widgetOperation._edit', compact('itemWidgetOperation', 'widgets_data', 'widgets_stats', 'widgets_filters'));
         }
 
         return view('PkgWidgets::widgetOperation.edit', compact('itemWidgetOperation', 'widgets_data', 'widgets_stats', 'widgets_filters'));

@@ -80,14 +80,27 @@ class BaseAnneeFormationController extends AdminController
         );
     }
     public function show(string $id) {
-        $itemAnneeFormation = $this->anneeFormationService->find($id);
 
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('annee_formation_id', $id);
+        
+        $itemAnneeFormation = $this->anneeFormationService->find($id);
+        $affectationProjetService =  new AffectationProjetService();
+        $affectationProjets_data =  $itemAnneeFormation->affectationProjets()->paginate(10);
+        $affectationProjets_stats = $affectationProjetService->getaffectationProjetStats();
+        $affectationProjets_filters = $affectationProjetService->getFieldsFilterable();
+        
+        $groupeService =  new GroupeService();
+        $groupes_data =  $itemAnneeFormation->groupes()->paginate(10);
+        $groupes_stats = $groupeService->getgroupeStats();
+        $groupes_filters = $groupeService->getFieldsFilterable();
+        
 
         if (request()->ajax()) {
-            return view('PkgFormation::anneeFormation._fields', compact('itemAnneeFormation'));
+            return view('PkgFormation::anneeFormation._edit', compact('itemAnneeFormation', 'affectationProjets_data', 'groupes_data', 'affectationProjets_stats', 'groupes_stats', 'affectationProjets_filters', 'groupes_filters'));
         }
 
-        return view('PkgFormation::anneeFormation.show', compact('itemAnneeFormation'));
+        return view('PkgFormation::anneeFormation.edit', compact('itemAnneeFormation', 'affectationProjets_data', 'groupes_data', 'affectationProjets_stats', 'groupes_stats', 'affectationProjets_filters', 'groupes_filters'));
 
     }
     public function edit(string $id) {
@@ -108,7 +121,7 @@ class BaseAnneeFormationController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('PkgFormation::anneeFormation._fields', compact('itemAnneeFormation', 'affectationProjets_data', 'groupes_data', 'affectationProjets_stats', 'groupes_stats', 'affectationProjets_filters', 'groupes_filters'));
+            return view('PkgFormation::anneeFormation._edit', compact('itemAnneeFormation', 'affectationProjets_data', 'groupes_data', 'affectationProjets_stats', 'groupes_stats', 'affectationProjets_filters', 'groupes_filters'));
         }
 
         return view('PkgFormation::anneeFormation.edit', compact('itemAnneeFormation', 'affectationProjets_data', 'groupes_data', 'affectationProjets_stats', 'groupes_stats', 'affectationProjets_filters', 'groupes_filters'));

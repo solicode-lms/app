@@ -87,15 +87,28 @@ class BaseUserController extends AdminController
         );
     }
     public function show(string $id) {
+
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('user_id', $id);
+        
         $itemUser = $this->userService->find($id);
         $roles = $this->roleService->all();
-
+        $apprenantService =  new ApprenantService();
+        $apprenants_data =  $itemUser->apprenants()->paginate(10);
+        $apprenants_stats = $apprenantService->getapprenantStats();
+        $apprenants_filters = $apprenantService->getFieldsFilterable();
+        
+        $formateurService =  new FormateurService();
+        $formateurs_data =  $itemUser->formateurs()->paginate(10);
+        $formateurs_stats = $formateurService->getformateurStats();
+        $formateurs_filters = $formateurService->getFieldsFilterable();
+        
 
         if (request()->ajax()) {
-            return view('PkgAutorisation::user._fields', compact('itemUser', 'roles'));
+            return view('PkgAutorisation::user._edit', compact('itemUser', 'roles', 'apprenants_data', 'formateurs_data', 'apprenants_stats', 'formateurs_stats', 'apprenants_filters', 'formateurs_filters'));
         }
 
-        return view('PkgAutorisation::user.show', compact('itemUser'));
+        return view('PkgAutorisation::user.edit', compact('itemUser', 'roles', 'apprenants_data', 'formateurs_data', 'apprenants_stats', 'formateurs_stats', 'apprenants_filters', 'formateurs_filters'));
 
     }
     public function edit(string $id) {
@@ -117,7 +130,7 @@ class BaseUserController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('PkgAutorisation::user._fields', compact('itemUser', 'roles', 'apprenants_data', 'formateurs_data', 'apprenants_stats', 'formateurs_stats', 'apprenants_filters', 'formateurs_filters'));
+            return view('PkgAutorisation::user._edit', compact('itemUser', 'roles', 'apprenants_data', 'formateurs_data', 'apprenants_stats', 'formateurs_stats', 'apprenants_filters', 'formateurs_filters'));
         }
 
         return view('PkgAutorisation::user.edit', compact('itemUser', 'roles', 'apprenants_data', 'formateurs_data', 'apprenants_stats', 'formateurs_stats', 'apprenants_filters', 'formateurs_filters'));

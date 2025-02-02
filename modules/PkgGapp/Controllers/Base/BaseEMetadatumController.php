@@ -90,17 +90,20 @@ class BaseEMetadatumController extends AdminController
         );
     }
     public function show(string $id) {
+
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('e_metadatum_id', $id);
+        
         $itemEMetadatum = $this->eMetadatumService->find($id);
         $eDataFields = $this->eDataFieldService->all();
         $eMetadataDefinitions = $this->eMetadataDefinitionService->all();
         $eModels = $this->eModelService->all();
 
-
         if (request()->ajax()) {
-            return view('PkgGapp::eMetadatum._fields', compact('itemEMetadatum', 'eDataFields', 'eMetadataDefinitions', 'eModels'));
+            return view('PkgGapp::eMetadatum._edit', compact('itemEMetadatum', 'eDataFields', 'eMetadataDefinitions', 'eModels'));
         }
 
-        return view('PkgGapp::eMetadatum.show', compact('itemEMetadatum'));
+        return view('PkgGapp::eMetadatum.edit', compact('itemEMetadatum', 'eDataFields', 'eMetadataDefinitions', 'eModels'));
 
     }
     public function edit(string $id) {
@@ -114,7 +117,7 @@ class BaseEMetadatumController extends AdminController
         $eModels = $this->eModelService->all();
 
         if (request()->ajax()) {
-            return view('PkgGapp::eMetadatum._fields', compact('itemEMetadatum', 'eDataFields', 'eMetadataDefinitions', 'eModels'));
+            return view('PkgGapp::eMetadatum._edit', compact('itemEMetadatum', 'eDataFields', 'eMetadataDefinitions', 'eModels'));
         }
 
         return view('PkgGapp::eMetadatum.edit', compact('itemEMetadatum', 'eDataFields', 'eMetadataDefinitions', 'eModels'));

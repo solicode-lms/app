@@ -1,9 +1,9 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-@push('scripts')
+
 <script>
-    window.entitiesConfig = window.entitiesConfig || [];
-    window.entitiesConfig.push({
+    window.crudModalManagersConfig = window.crudModalManagersConfig || [];
+    window.crudModalManagersConfig.push({
         edit_has_many: {{ !isset($edit_has_many)? 'true' :  ($edit_has_many ? "true": "false") }},
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
         entity_name: 'groupe',
@@ -11,7 +11,6 @@
         crudSelector: '#groupe-crud',
         tableSelector: '#groupe-data-container',
         formSelector: '#groupeForm',
-        modalSelector : '#groupeModal',
         indexUrl: '{{ route('groupes.index') }}', 
         createUrl: '{{ route('groupes.create') }}',
         editUrl: '{{ route('groupes.edit',  ['groupe' => ':id']) }}',
@@ -20,10 +19,10 @@
         deleteUrl: '{{ route('groupes.destroy',  ['groupe' => ':id']) }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgApprenants::groupe.singular") }}',
-        edit_title: '{{__("Core::msg.add") . " : " . __("PkgApprenants::groupe.singular") }}',
+        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgApprenants::groupe.singular") }}',
     });
 </script>
-@endpush
+
 <div id="groupe-crud" class="crud">
     @section('groupe-crud-header')
     @php
@@ -102,8 +101,5 @@
             </div>
         </div>
     </section>
-    @show
-    @section('groupe-crud-modal')
-    <x-modal id="groupeModal" title="Ajouter ou Modifier"></x-modal>
     @show
 </div>

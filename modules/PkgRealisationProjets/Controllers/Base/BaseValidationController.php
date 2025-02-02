@@ -86,16 +86,19 @@ class BaseValidationController extends AdminController
         );
     }
     public function show(string $id) {
+
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('validation_id', $id);
+        
         $itemValidation = $this->validationService->find($id);
         $realisationProjets = $this->realisationProjetService->all();
         $transfertCompetences = $this->transfertCompetenceService->all();
 
-
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::validation._fields', compact('itemValidation', 'realisationProjets', 'transfertCompetences'));
+            return view('PkgRealisationProjets::validation._edit', compact('itemValidation', 'realisationProjets', 'transfertCompetences'));
         }
 
-        return view('PkgRealisationProjets::validation.show', compact('itemValidation'));
+        return view('PkgRealisationProjets::validation.edit', compact('itemValidation', 'realisationProjets', 'transfertCompetences'));
 
     }
     public function edit(string $id) {
@@ -108,7 +111,7 @@ class BaseValidationController extends AdminController
         $transfertCompetences = $this->transfertCompetenceService->all();
 
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::validation._fields', compact('itemValidation', 'realisationProjets', 'transfertCompetences'));
+            return view('PkgRealisationProjets::validation._edit', compact('itemValidation', 'realisationProjets', 'transfertCompetences'));
         }
 
         return view('PkgRealisationProjets::validation.edit', compact('itemValidation', 'realisationProjets', 'transfertCompetences'));

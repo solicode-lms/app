@@ -86,16 +86,19 @@ class BaseLivrableController extends AdminController
         );
     }
     public function show(string $id) {
+
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('livrable_id', $id);
+        
         $itemLivrable = $this->livrableService->find($id);
         $natureLivrables = $this->natureLivrableService->all();
         $projets = $this->projetService->all();
 
-
         if (request()->ajax()) {
-            return view('PkgCreationProjet::livrable._fields', compact('itemLivrable', 'natureLivrables', 'projets'));
+            return view('PkgCreationProjet::livrable._edit', compact('itemLivrable', 'natureLivrables', 'projets'));
         }
 
-        return view('PkgCreationProjet::livrable.show', compact('itemLivrable'));
+        return view('PkgCreationProjet::livrable.edit', compact('itemLivrable', 'natureLivrables', 'projets'));
 
     }
     public function edit(string $id) {
@@ -108,7 +111,7 @@ class BaseLivrableController extends AdminController
         $projets = $this->projetService->all();
 
         if (request()->ajax()) {
-            return view('PkgCreationProjet::livrable._fields', compact('itemLivrable', 'natureLivrables', 'projets'));
+            return view('PkgCreationProjet::livrable._edit', compact('itemLivrable', 'natureLivrables', 'projets'));
         }
 
         return view('PkgCreationProjet::livrable.edit', compact('itemLivrable', 'natureLivrables', 'projets'));

@@ -1,9 +1,9 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-@push('scripts')
+
 <script>
-    window.entitiesConfig = window.entitiesConfig || [];
-    window.entitiesConfig.push({
+    window.crudModalManagersConfig = window.crudModalManagersConfig || [];
+    window.crudModalManagersConfig.push({
         edit_has_many: {{ !isset($edit_has_many)? 'true' :  ($edit_has_many ? "true": "false") }},
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
         entity_name: 'sysController',
@@ -11,7 +11,6 @@
         crudSelector: '#sysController-crud',
         tableSelector: '#sysController-data-container',
         formSelector: '#sysControllerForm',
-        modalSelector : '#sysControllerModal',
         indexUrl: '{{ route('sysControllers.index') }}', 
         createUrl: '{{ route('sysControllers.create') }}',
         editUrl: '{{ route('sysControllers.edit',  ['sysController' => ':id']) }}',
@@ -20,10 +19,10 @@
         deleteUrl: '{{ route('sysControllers.destroy',  ['sysController' => ':id']) }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("Core::sysController.singular") }}',
-        edit_title: '{{__("Core::msg.add") . " : " . __("Core::sysController.singular") }}',
+        edit_title: '{{__("Core::msg.edit") . " : " . __("Core::sysController.singular") }}',
     });
 </script>
-@endpush
+
 <div id="sysController-crud" class="crud">
     @section('sysController-crud-header')
     @php
@@ -102,8 +101,5 @@
             </div>
         </div>
     </section>
-    @show
-    @section('sysController-crud-modal')
-    <x-modal id="sysControllerModal" title="Ajouter ou Modifier"></x-modal>
     @show
 </div>

@@ -101,18 +101,26 @@ class BaseGroupeController extends AdminController
         );
     }
     public function show(string $id) {
+
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('groupe_id', $id);
+        
         $itemGroupe = $this->groupeService->find($id);
         $apprenants = $this->apprenantService->all();
         $formateurs = $this->formateurService->all();
         $anneeFormations = $this->anneeFormationService->all();
         $filieres = $this->filiereService->all();
-
+        $affectationProjetService =  new AffectationProjetService();
+        $affectationProjets_data =  $itemGroupe->affectationProjets()->paginate(10);
+        $affectationProjets_stats = $affectationProjetService->getaffectationProjetStats();
+        $affectationProjets_filters = $affectationProjetService->getFieldsFilterable();
+        
 
         if (request()->ajax()) {
-            return view('PkgApprenants::groupe._fields', compact('itemGroupe', 'apprenants', 'formateurs', 'anneeFormations', 'filieres'));
+            return view('PkgApprenants::groupe._edit', compact('itemGroupe', 'apprenants', 'formateurs', 'anneeFormations', 'filieres', 'affectationProjets_data', 'affectationProjets_stats', 'affectationProjets_filters'));
         }
 
-        return view('PkgApprenants::groupe.show', compact('itemGroupe'));
+        return view('PkgApprenants::groupe.edit', compact('itemGroupe', 'apprenants', 'formateurs', 'anneeFormations', 'filieres', 'affectationProjets_data', 'affectationProjets_stats', 'affectationProjets_filters'));
 
     }
     public function edit(string $id) {
@@ -132,7 +140,7 @@ class BaseGroupeController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('PkgApprenants::groupe._fields', compact('itemGroupe', 'apprenants', 'formateurs', 'anneeFormations', 'filieres', 'affectationProjets_data', 'affectationProjets_stats', 'affectationProjets_filters'));
+            return view('PkgApprenants::groupe._edit', compact('itemGroupe', 'apprenants', 'formateurs', 'anneeFormations', 'filieres', 'affectationProjets_data', 'affectationProjets_stats', 'affectationProjets_filters'));
         }
 
         return view('PkgApprenants::groupe.edit', compact('itemGroupe', 'apprenants', 'formateurs', 'anneeFormations', 'filieres', 'affectationProjets_data', 'affectationProjets_stats', 'affectationProjets_filters'));

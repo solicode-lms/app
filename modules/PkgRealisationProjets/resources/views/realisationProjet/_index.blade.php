@@ -1,9 +1,9 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-@push('scripts')
+
 <script>
-    window.entitiesConfig = window.entitiesConfig || [];
-    window.entitiesConfig.push({
+    window.crudModalManagersConfig = window.crudModalManagersConfig || [];
+    window.crudModalManagersConfig.push({
         edit_has_many: {{ !isset($edit_has_many)? 'true' :  ($edit_has_many ? "true": "false") }},
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
         entity_name: 'realisationProjet',
@@ -11,7 +11,6 @@
         crudSelector: '#realisationProjet-crud',
         tableSelector: '#realisationProjet-data-container',
         formSelector: '#realisationProjetForm',
-        modalSelector : '#realisationProjetModal',
         indexUrl: '{{ route('realisationProjets.index') }}', 
         createUrl: '{{ route('realisationProjets.create') }}',
         editUrl: '{{ route('realisationProjets.edit',  ['realisationProjet' => ':id']) }}',
@@ -20,10 +19,10 @@
         deleteUrl: '{{ route('realisationProjets.destroy',  ['realisationProjet' => ':id']) }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgRealisationProjets::realisationProjet.singular") }}',
-        edit_title: '{{__("Core::msg.add") . " : " . __("PkgRealisationProjets::realisationProjet.singular") }}',
+        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgRealisationProjets::realisationProjet.singular") }}',
     });
 </script>
-@endpush
+
 <div id="realisationProjet-crud" class="crud">
     @section('realisationProjet-crud-header')
     @php
@@ -102,8 +101,5 @@
             </div>
         </div>
     </section>
-    @show
-    @section('realisationProjet-crud-modal')
-    <x-modal id="realisationProjetModal" title="Ajouter ou Modifier"></x-modal>
     @show
 </div>

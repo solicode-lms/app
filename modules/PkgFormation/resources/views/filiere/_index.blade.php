@@ -1,9 +1,9 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-@push('scripts')
+
 <script>
-    window.entitiesConfig = window.entitiesConfig || [];
-    window.entitiesConfig.push({
+    window.crudModalManagersConfig = window.crudModalManagersConfig || [];
+    window.crudModalManagersConfig.push({
         edit_has_many: {{ !isset($edit_has_many)? 'true' :  ($edit_has_many ? "true": "false") }},
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
         entity_name: 'filiere',
@@ -11,7 +11,6 @@
         crudSelector: '#filiere-crud',
         tableSelector: '#filiere-data-container',
         formSelector: '#filiereForm',
-        modalSelector : '#filiereModal',
         indexUrl: '{{ route('filieres.index') }}', 
         createUrl: '{{ route('filieres.create') }}',
         editUrl: '{{ route('filieres.edit',  ['filiere' => ':id']) }}',
@@ -20,10 +19,10 @@
         deleteUrl: '{{ route('filieres.destroy',  ['filiere' => ':id']) }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgFormation::filiere.singular") }}',
-        edit_title: '{{__("Core::msg.add") . " : " . __("PkgFormation::filiere.singular") }}',
+        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgFormation::filiere.singular") }}',
     });
 </script>
-@endpush
+
 <div id="filiere-crud" class="crud">
     @section('filiere-crud-header')
     @php
@@ -102,8 +101,5 @@
             </div>
         </div>
     </section>
-    @show
-    @section('filiere-crud-modal')
-    <x-modal id="filiereModal" title="Ajouter ou Modifier"></x-modal>
     @show
 </div>

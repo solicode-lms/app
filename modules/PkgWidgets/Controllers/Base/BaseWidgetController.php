@@ -90,17 +90,20 @@ class BaseWidgetController extends AdminController
         );
     }
     public function show(string $id) {
+
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('widget_id', $id);
+        
         $itemWidget = $this->widgetService->find($id);
         $sysModels = $this->sysModelService->all();
         $widgetOperations = $this->widgetOperationService->all();
         $widgetTypes = $this->widgetTypeService->all();
 
-
         if (request()->ajax()) {
-            return view('PkgWidgets::widget._fields', compact('itemWidget', 'sysModels', 'widgetOperations', 'widgetTypes'));
+            return view('PkgWidgets::widget._edit', compact('itemWidget', 'sysModels', 'widgetOperations', 'widgetTypes'));
         }
 
-        return view('PkgWidgets::widget.show', compact('itemWidget'));
+        return view('PkgWidgets::widget.edit', compact('itemWidget', 'sysModels', 'widgetOperations', 'widgetTypes'));
 
     }
     public function edit(string $id) {
@@ -114,7 +117,7 @@ class BaseWidgetController extends AdminController
         $widgetTypes = $this->widgetTypeService->all();
 
         if (request()->ajax()) {
-            return view('PkgWidgets::widget._fields', compact('itemWidget', 'sysModels', 'widgetOperations', 'widgetTypes'));
+            return view('PkgWidgets::widget._edit', compact('itemWidget', 'sysModels', 'widgetOperations', 'widgetTypes'));
         }
 
         return view('PkgWidgets::widget.edit', compact('itemWidget', 'sysModels', 'widgetOperations', 'widgetTypes'));

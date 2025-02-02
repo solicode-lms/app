@@ -79,14 +79,22 @@ class BaseNationaliteController extends AdminController
         );
     }
     public function show(string $id) {
-        $itemNationalite = $this->nationaliteService->find($id);
 
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('nationalite_id', $id);
+        
+        $itemNationalite = $this->nationaliteService->find($id);
+        $apprenantService =  new ApprenantService();
+        $apprenants_data =  $itemNationalite->apprenants()->paginate(10);
+        $apprenants_stats = $apprenantService->getapprenantStats();
+        $apprenants_filters = $apprenantService->getFieldsFilterable();
+        
 
         if (request()->ajax()) {
-            return view('PkgApprenants::nationalite._fields', compact('itemNationalite'));
+            return view('PkgApprenants::nationalite._edit', compact('itemNationalite', 'apprenants_data', 'apprenants_stats', 'apprenants_filters'));
         }
 
-        return view('PkgApprenants::nationalite.show', compact('itemNationalite'));
+        return view('PkgApprenants::nationalite.edit', compact('itemNationalite', 'apprenants_data', 'apprenants_stats', 'apprenants_filters'));
 
     }
     public function edit(string $id) {
@@ -102,7 +110,7 @@ class BaseNationaliteController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('PkgApprenants::nationalite._fields', compact('itemNationalite', 'apprenants_data', 'apprenants_stats', 'apprenants_filters'));
+            return view('PkgApprenants::nationalite._edit', compact('itemNationalite', 'apprenants_data', 'apprenants_stats', 'apprenants_filters'));
         }
 
         return view('PkgApprenants::nationalite.edit', compact('itemNationalite', 'apprenants_data', 'apprenants_stats', 'apprenants_filters'));

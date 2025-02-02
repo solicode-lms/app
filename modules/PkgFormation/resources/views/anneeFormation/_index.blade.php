@@ -1,9 +1,9 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-@push('scripts')
+
 <script>
-    window.entitiesConfig = window.entitiesConfig || [];
-    window.entitiesConfig.push({
+    window.crudModalManagersConfig = window.crudModalManagersConfig || [];
+    window.crudModalManagersConfig.push({
         edit_has_many: {{ !isset($edit_has_many)? 'true' :  ($edit_has_many ? "true": "false") }},
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
         entity_name: 'anneeFormation',
@@ -11,7 +11,6 @@
         crudSelector: '#anneeFormation-crud',
         tableSelector: '#anneeFormation-data-container',
         formSelector: '#anneeFormationForm',
-        modalSelector : '#anneeFormationModal',
         indexUrl: '{{ route('anneeFormations.index') }}', 
         createUrl: '{{ route('anneeFormations.create') }}',
         editUrl: '{{ route('anneeFormations.edit',  ['anneeFormation' => ':id']) }}',
@@ -20,10 +19,10 @@
         deleteUrl: '{{ route('anneeFormations.destroy',  ['anneeFormation' => ':id']) }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgFormation::anneeFormation.singular") }}',
-        edit_title: '{{__("Core::msg.add") . " : " . __("PkgFormation::anneeFormation.singular") }}',
+        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgFormation::anneeFormation.singular") }}',
     });
 </script>
-@endpush
+
 <div id="anneeFormation-crud" class="crud">
     @section('anneeFormation-crud-header')
     @php
@@ -102,8 +101,5 @@
             </div>
         </div>
     </section>
-    @show
-    @section('anneeFormation-crud-modal')
-    <x-modal id="anneeFormationModal" title="Ajouter ou Modifier"></x-modal>
     @show
 </div>

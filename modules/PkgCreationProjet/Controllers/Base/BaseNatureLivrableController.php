@@ -79,14 +79,22 @@ class BaseNatureLivrableController extends AdminController
         );
     }
     public function show(string $id) {
-        $itemNatureLivrable = $this->natureLivrableService->find($id);
 
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('nature_livrable_id', $id);
+        
+        $itemNatureLivrable = $this->natureLivrableService->find($id);
+        $livrableService =  new LivrableService();
+        $livrables_data =  $itemNatureLivrable->livrables()->paginate(10);
+        $livrables_stats = $livrableService->getlivrableStats();
+        $livrables_filters = $livrableService->getFieldsFilterable();
+        
 
         if (request()->ajax()) {
-            return view('PkgCreationProjet::natureLivrable._fields', compact('itemNatureLivrable'));
+            return view('PkgCreationProjet::natureLivrable._edit', compact('itemNatureLivrable', 'livrables_data', 'livrables_stats', 'livrables_filters'));
         }
 
-        return view('PkgCreationProjet::natureLivrable.show', compact('itemNatureLivrable'));
+        return view('PkgCreationProjet::natureLivrable.edit', compact('itemNatureLivrable', 'livrables_data', 'livrables_stats', 'livrables_filters'));
 
     }
     public function edit(string $id) {
@@ -102,7 +110,7 @@ class BaseNatureLivrableController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('PkgCreationProjet::natureLivrable._fields', compact('itemNatureLivrable', 'livrables_data', 'livrables_stats', 'livrables_filters'));
+            return view('PkgCreationProjet::natureLivrable._edit', compact('itemNatureLivrable', 'livrables_data', 'livrables_stats', 'livrables_filters'));
         }
 
         return view('PkgCreationProjet::natureLivrable.edit', compact('itemNatureLivrable', 'livrables_data', 'livrables_stats', 'livrables_filters'));

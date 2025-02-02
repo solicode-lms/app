@@ -1,9 +1,9 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-@push('scripts')
+
 <script>
-    window.entitiesConfig = window.entitiesConfig || [];
-    window.entitiesConfig.push({
+    window.crudModalManagersConfig = window.crudModalManagersConfig || [];
+    window.crudModalManagersConfig.push({
         edit_has_many: {{ !isset($edit_has_many)? 'false' :  ($edit_has_many ? "true": "false") }},
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
         entity_name: 'transfertCompetence',
@@ -11,7 +11,6 @@
         crudSelector: '#transfertCompetence-crud',
         tableSelector: '#transfertCompetence-data-container',
         formSelector: '#transfertCompetenceForm',
-        modalSelector : '#transfertCompetenceModal',
         indexUrl: '{{ route('transfertCompetences.index') }}', 
         createUrl: '{{ route('transfertCompetences.create') }}',
         editUrl: '{{ route('transfertCompetences.edit',  ['transfertCompetence' => ':id']) }}',
@@ -20,10 +19,10 @@
         deleteUrl: '{{ route('transfertCompetences.destroy',  ['transfertCompetence' => ':id']) }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgCreationProjet::transfertCompetence.singular") }}',
-        edit_title: '{{__("Core::msg.add") . " : " . __("PkgCreationProjet::transfertCompetence.singular") }}',
+        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgCreationProjet::transfertCompetence.singular") }}',
     });
 </script>
-@endpush
+
 <div id="transfertCompetence-crud" class="crud">
     @section('transfertCompetence-crud-header')
     @php
@@ -102,8 +101,5 @@
             </div>
         </div>
     </section>
-    @show
-    @section('transfertCompetence-crud-modal')
-    <x-modal id="transfertCompetenceModal" title="Ajouter ou Modifier"></x-modal>
     @show
 </div>

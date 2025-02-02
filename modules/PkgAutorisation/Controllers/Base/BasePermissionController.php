@@ -96,17 +96,20 @@ class BasePermissionController extends AdminController
         );
     }
     public function show(string $id) {
+
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('permission_id', $id);
+        
         $itemPermission = $this->permissionService->find($id);
         $features = $this->featureService->all();
         $roles = $this->roleService->all();
         $sysControllers = $this->sysControllerService->all();
 
-
         if (request()->ajax()) {
-            return view('PkgAutorisation::permission._fields', compact('itemPermission', 'features', 'roles', 'sysControllers'));
+            return view('PkgAutorisation::permission._edit', compact('itemPermission', 'features', 'roles', 'sysControllers'));
         }
 
-        return view('PkgAutorisation::permission.show', compact('itemPermission'));
+        return view('PkgAutorisation::permission.edit', compact('itemPermission', 'features', 'roles', 'sysControllers'));
 
     }
     public function edit(string $id) {
@@ -120,7 +123,7 @@ class BasePermissionController extends AdminController
         $sysControllers = $this->sysControllerService->all();
 
         if (request()->ajax()) {
-            return view('PkgAutorisation::permission._fields', compact('itemPermission', 'features', 'roles', 'sysControllers'));
+            return view('PkgAutorisation::permission._edit', compact('itemPermission', 'features', 'roles', 'sysControllers'));
         }
 
         return view('PkgAutorisation::permission.edit', compact('itemPermission', 'features', 'roles', 'sysControllers'));

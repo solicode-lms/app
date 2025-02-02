@@ -97,18 +97,21 @@ class BaseTransfertCompetenceController extends AdminController
         );
     }
     public function show(string $id) {
+
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('transfert_competence_id', $id);
+        
         $itemTransfertCompetence = $this->transfertCompetenceService->find($id);
         $technologies = $this->technologyService->all();
         $competences = $this->competenceService->all();
         $niveauDifficultes = $this->niveauDifficulteService->all();
         $projets = $this->projetService->all();
 
-
         if (request()->ajax()) {
-            return view('PkgCreationProjet::transfertCompetence._fields', compact('itemTransfertCompetence', 'technologies', 'competences', 'niveauDifficultes', 'projets'));
+            return view('PkgCreationProjet::transfertCompetence._edit', compact('itemTransfertCompetence', 'technologies', 'competences', 'niveauDifficultes', 'projets'));
         }
 
-        return view('PkgCreationProjet::transfertCompetence.show', compact('itemTransfertCompetence'));
+        return view('PkgCreationProjet::transfertCompetence.edit', compact('itemTransfertCompetence', 'technologies', 'competences', 'niveauDifficultes', 'projets'));
 
     }
     public function edit(string $id) {
@@ -123,7 +126,7 @@ class BaseTransfertCompetenceController extends AdminController
         $projets = $this->projetService->all();
 
         if (request()->ajax()) {
-            return view('PkgCreationProjet::transfertCompetence._fields', compact('itemTransfertCompetence', 'technologies', 'competences', 'niveauDifficultes', 'projets'));
+            return view('PkgCreationProjet::transfertCompetence._edit', compact('itemTransfertCompetence', 'technologies', 'competences', 'niveauDifficultes', 'projets'));
         }
 
         return view('PkgCreationProjet::transfertCompetence.edit', compact('itemTransfertCompetence', 'technologies', 'competences', 'niveauDifficultes', 'projets'));

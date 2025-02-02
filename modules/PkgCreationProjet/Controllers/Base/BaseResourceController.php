@@ -82,15 +82,18 @@ class BaseResourceController extends AdminController
         );
     }
     public function show(string $id) {
+
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('resource_id', $id);
+        
         $itemResource = $this->resourceService->find($id);
         $projets = $this->projetService->all();
 
-
         if (request()->ajax()) {
-            return view('PkgCreationProjet::resource._fields', compact('itemResource', 'projets'));
+            return view('PkgCreationProjet::resource._edit', compact('itemResource', 'projets'));
         }
 
-        return view('PkgCreationProjet::resource.show', compact('itemResource'));
+        return view('PkgCreationProjet::resource.edit', compact('itemResource', 'projets'));
 
     }
     public function edit(string $id) {
@@ -102,7 +105,7 @@ class BaseResourceController extends AdminController
         $projets = $this->projetService->all();
 
         if (request()->ajax()) {
-            return view('PkgCreationProjet::resource._fields', compact('itemResource', 'projets'));
+            return view('PkgCreationProjet::resource._edit', compact('itemResource', 'projets'));
         }
 
         return view('PkgCreationProjet::resource.edit', compact('itemResource', 'projets'));

@@ -80,14 +80,27 @@ class BaseFiliereController extends AdminController
         );
     }
     public function show(string $id) {
-        $itemFiliere = $this->filiereService->find($id);
 
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('filiere_id', $id);
+        
+        $itemFiliere = $this->filiereService->find($id);
+        $groupeService =  new GroupeService();
+        $groupes_data =  $itemFiliere->groupes()->paginate(10);
+        $groupes_stats = $groupeService->getgroupeStats();
+        $groupes_filters = $groupeService->getFieldsFilterable();
+        
+        $moduleService =  new ModuleService();
+        $modules_data =  $itemFiliere->modules()->paginate(10);
+        $modules_stats = $moduleService->getmoduleStats();
+        $modules_filters = $moduleService->getFieldsFilterable();
+        
 
         if (request()->ajax()) {
-            return view('PkgFormation::filiere._fields', compact('itemFiliere'));
+            return view('PkgFormation::filiere._edit', compact('itemFiliere', 'groupes_data', 'modules_data', 'groupes_stats', 'modules_stats', 'groupes_filters', 'modules_filters'));
         }
 
-        return view('PkgFormation::filiere.show', compact('itemFiliere'));
+        return view('PkgFormation::filiere.edit', compact('itemFiliere', 'groupes_data', 'modules_data', 'groupes_stats', 'modules_stats', 'groupes_filters', 'modules_filters'));
 
     }
     public function edit(string $id) {
@@ -108,7 +121,7 @@ class BaseFiliereController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('PkgFormation::filiere._fields', compact('itemFiliere', 'groupes_data', 'modules_data', 'groupes_stats', 'modules_stats', 'groupes_filters', 'modules_filters'));
+            return view('PkgFormation::filiere._edit', compact('itemFiliere', 'groupes_data', 'modules_data', 'groupes_stats', 'modules_stats', 'groupes_filters', 'modules_filters'));
         }
 
         return view('PkgFormation::filiere.edit', compact('itemFiliere', 'groupes_data', 'modules_data', 'groupes_stats', 'modules_stats', 'groupes_filters', 'modules_filters'));

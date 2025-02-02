@@ -1,9 +1,9 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-@push('scripts')
+
 <script>
-    window.entitiesConfig = window.entitiesConfig || [];
-    window.entitiesConfig.push({
+    window.crudModalManagersConfig = window.crudModalManagersConfig || [];
+    window.crudModalManagersConfig.push({
         edit_has_many: {{ !isset($edit_has_many)? 'false' :  ($edit_has_many ? "true": "false") }},
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
         entity_name: 'validation',
@@ -11,7 +11,6 @@
         crudSelector: '#validation-crud',
         tableSelector: '#validation-data-container',
         formSelector: '#validationForm',
-        modalSelector : '#validationModal',
         indexUrl: '{{ route('validations.index') }}', 
         createUrl: '{{ route('validations.create') }}',
         editUrl: '{{ route('validations.edit',  ['validation' => ':id']) }}',
@@ -20,10 +19,10 @@
         deleteUrl: '{{ route('validations.destroy',  ['validation' => ':id']) }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgRealisationProjets::validation.singular") }}',
-        edit_title: '{{__("Core::msg.add") . " : " . __("PkgRealisationProjets::validation.singular") }}',
+        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgRealisationProjets::validation.singular") }}',
     });
 </script>
-@endpush
+
 <div id="validation-crud" class="crud">
     @section('validation-crud-header')
     @php
@@ -102,8 +101,5 @@
             </div>
         </div>
     </section>
-    @show
-    @section('validation-crud-modal')
-    <x-modal id="validationModal" title="Ajouter ou Modifier"></x-modal>
     @show
 </div>

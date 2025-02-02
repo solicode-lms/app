@@ -79,14 +79,22 @@ class BaseEPackageController extends AdminController
         );
     }
     public function show(string $id) {
-        $itemEPackage = $this->ePackageService->find($id);
 
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('e_package_id', $id);
+        
+        $itemEPackage = $this->ePackageService->find($id);
+        $eModelService =  new EModelService();
+        $eModels_data =  $itemEPackage->eModels()->paginate(10);
+        $eModels_stats = $eModelService->geteModelStats();
+        $eModels_filters = $eModelService->getFieldsFilterable();
+        
 
         if (request()->ajax()) {
-            return view('PkgGapp::ePackage._fields', compact('itemEPackage'));
+            return view('PkgGapp::ePackage._edit', compact('itemEPackage', 'eModels_data', 'eModels_stats', 'eModels_filters'));
         }
 
-        return view('PkgGapp::ePackage.show', compact('itemEPackage'));
+        return view('PkgGapp::ePackage.edit', compact('itemEPackage', 'eModels_data', 'eModels_stats', 'eModels_filters'));
 
     }
     public function edit(string $id) {
@@ -102,7 +110,7 @@ class BaseEPackageController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('PkgGapp::ePackage._fields', compact('itemEPackage', 'eModels_data', 'eModels_stats', 'eModels_filters'));
+            return view('PkgGapp::ePackage._edit', compact('itemEPackage', 'eModels_data', 'eModels_stats', 'eModels_filters'));
         }
 
         return view('PkgGapp::ePackage.edit', compact('itemEPackage', 'eModels_data', 'eModels_stats', 'eModels_filters'));

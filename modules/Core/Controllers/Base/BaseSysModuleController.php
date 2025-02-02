@@ -85,15 +85,33 @@ class BaseSysModuleController extends AdminController
         );
     }
     public function show(string $id) {
+
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('sys_module_id', $id);
+        
         $itemSysModule = $this->sysModuleService->find($id);
         $sysColors = $this->sysColorService->all();
-
+        $featureDomainService =  new FeatureDomainService();
+        $featureDomains_data =  $itemSysModule->featureDomains()->paginate(10);
+        $featureDomains_stats = $featureDomainService->getfeatureDomainStats();
+        $featureDomains_filters = $featureDomainService->getFieldsFilterable();
+        
+        $sysControllerService =  new SysControllerService();
+        $sysControllers_data =  $itemSysModule->sysControllers()->paginate(10);
+        $sysControllers_stats = $sysControllerService->getsysControllerStats();
+        $sysControllers_filters = $sysControllerService->getFieldsFilterable();
+        
+        $sysModelService =  new SysModelService();
+        $sysModels_data =  $itemSysModule->sysModels()->paginate(10);
+        $sysModels_stats = $sysModelService->getsysModelStats();
+        $sysModels_filters = $sysModelService->getFieldsFilterable();
+        
 
         if (request()->ajax()) {
-            return view('Core::sysModule._fields', compact('itemSysModule', 'sysColors'));
+            return view('Core::sysModule._edit', compact('itemSysModule', 'sysColors', 'featureDomains_data', 'sysControllers_data', 'sysModels_data', 'featureDomains_stats', 'sysControllers_stats', 'sysModels_stats', 'featureDomains_filters', 'sysControllers_filters', 'sysModels_filters'));
         }
 
-        return view('Core::sysModule.show', compact('itemSysModule'));
+        return view('Core::sysModule.edit', compact('itemSysModule', 'sysColors', 'featureDomains_data', 'sysControllers_data', 'sysModels_data', 'featureDomains_stats', 'sysControllers_stats', 'sysModels_stats', 'featureDomains_filters', 'sysControllers_filters', 'sysModels_filters'));
 
     }
     public function edit(string $id) {
@@ -120,7 +138,7 @@ class BaseSysModuleController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('Core::sysModule._fields', compact('itemSysModule', 'sysColors', 'featureDomains_data', 'sysControllers_data', 'sysModels_data', 'featureDomains_stats', 'sysControllers_stats', 'sysModels_stats', 'featureDomains_filters', 'sysControllers_filters', 'sysModels_filters'));
+            return view('Core::sysModule._edit', compact('itemSysModule', 'sysColors', 'featureDomains_data', 'sysControllers_data', 'sysModels_data', 'featureDomains_stats', 'sysControllers_stats', 'sysModels_stats', 'featureDomains_filters', 'sysControllers_filters', 'sysModels_filters'));
         }
 
         return view('Core::sysModule.edit', compact('itemSysModule', 'sysColors', 'featureDomains_data', 'sysControllers_data', 'sysModels_data', 'featureDomains_stats', 'sysControllers_stats', 'sysModels_stats', 'featureDomains_filters', 'sysControllers_filters', 'sysModels_filters'));

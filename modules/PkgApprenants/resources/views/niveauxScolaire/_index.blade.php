@@ -1,9 +1,9 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-@push('scripts')
+
 <script>
-    window.entitiesConfig = window.entitiesConfig || [];
-    window.entitiesConfig.push({
+    window.crudModalManagersConfig = window.crudModalManagersConfig || [];
+    window.crudModalManagersConfig.push({
         edit_has_many: {{ !isset($edit_has_many)? 'true' :  ($edit_has_many ? "true": "false") }},
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
         entity_name: 'niveauxScolaire',
@@ -11,7 +11,6 @@
         crudSelector: '#niveauxScolaire-crud',
         tableSelector: '#niveauxScolaire-data-container',
         formSelector: '#niveauxScolaireForm',
-        modalSelector : '#niveauxScolaireModal',
         indexUrl: '{{ route('niveauxScolaires.index') }}', 
         createUrl: '{{ route('niveauxScolaires.create') }}',
         editUrl: '{{ route('niveauxScolaires.edit',  ['niveauxScolaire' => ':id']) }}',
@@ -20,10 +19,10 @@
         deleteUrl: '{{ route('niveauxScolaires.destroy',  ['niveauxScolaire' => ':id']) }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgApprenants::niveauxScolaire.singular") }}',
-        edit_title: '{{__("Core::msg.add") . " : " . __("PkgApprenants::niveauxScolaire.singular") }}',
+        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgApprenants::niveauxScolaire.singular") }}',
     });
 </script>
-@endpush
+
 <div id="niveauxScolaire-crud" class="crud">
     @section('niveauxScolaire-crud-header')
     @php
@@ -102,8 +101,5 @@
             </div>
         </div>
     </section>
-    @show
-    @section('niveauxScolaire-crud-modal')
-    <x-modal id="niveauxScolaireModal" title="Ajouter ou Modifier"></x-modal>
     @show
 </div>

@@ -87,16 +87,24 @@ class BaseSysModelController extends AdminController
         );
     }
     public function show(string $id) {
+
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('sys_model_id', $id);
+        
         $itemSysModel = $this->sysModelService->find($id);
         $sysColors = $this->sysColorService->all();
         $sysModules = $this->sysModuleService->all();
-
+        $widgetService =  new WidgetService();
+        $widgets_data =  $itemSysModel->widgets()->paginate(10);
+        $widgets_stats = $widgetService->getwidgetStats();
+        $widgets_filters = $widgetService->getFieldsFilterable();
+        
 
         if (request()->ajax()) {
-            return view('Core::sysModel._fields', compact('itemSysModel', 'sysColors', 'sysModules'));
+            return view('Core::sysModel._edit', compact('itemSysModel', 'sysColors', 'sysModules', 'widgets_data', 'widgets_stats', 'widgets_filters'));
         }
 
-        return view('Core::sysModel.show', compact('itemSysModel'));
+        return view('Core::sysModel.edit', compact('itemSysModel', 'sysColors', 'sysModules', 'widgets_data', 'widgets_stats', 'widgets_filters'));
 
     }
     public function edit(string $id) {
@@ -114,7 +122,7 @@ class BaseSysModelController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('Core::sysModel._fields', compact('itemSysModel', 'sysColors', 'sysModules', 'widgets_data', 'widgets_stats', 'widgets_filters'));
+            return view('Core::sysModel._edit', compact('itemSysModel', 'sysColors', 'sysModules', 'widgets_data', 'widgets_stats', 'widgets_filters'));
         }
 
         return view('Core::sysModel.edit', compact('itemSysModel', 'sysColors', 'sysModules', 'widgets_data', 'widgets_stats', 'widgets_filters'));

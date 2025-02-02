@@ -83,15 +83,23 @@ class BaseFeatureDomainController extends AdminController
         );
     }
     public function show(string $id) {
+
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('feature_domain_id', $id);
+        
         $itemFeatureDomain = $this->featureDomainService->find($id);
         $sysModules = $this->sysModuleService->all();
-
+        $featureService =  new FeatureService();
+        $features_data =  $itemFeatureDomain->features()->paginate(10);
+        $features_stats = $featureService->getfeatureStats();
+        $features_filters = $featureService->getFieldsFilterable();
+        
 
         if (request()->ajax()) {
-            return view('Core::featureDomain._fields', compact('itemFeatureDomain', 'sysModules'));
+            return view('Core::featureDomain._edit', compact('itemFeatureDomain', 'sysModules', 'features_data', 'features_stats', 'features_filters'));
         }
 
-        return view('Core::featureDomain.show', compact('itemFeatureDomain'));
+        return view('Core::featureDomain.edit', compact('itemFeatureDomain', 'sysModules', 'features_data', 'features_stats', 'features_filters'));
 
     }
     public function edit(string $id) {
@@ -108,7 +116,7 @@ class BaseFeatureDomainController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('Core::featureDomain._fields', compact('itemFeatureDomain', 'sysModules', 'features_data', 'features_stats', 'features_filters'));
+            return view('Core::featureDomain._edit', compact('itemFeatureDomain', 'sysModules', 'features_data', 'features_stats', 'features_filters'));
         }
 
         return view('Core::featureDomain.edit', compact('itemFeatureDomain', 'sysModules', 'features_data', 'features_stats', 'features_filters'));

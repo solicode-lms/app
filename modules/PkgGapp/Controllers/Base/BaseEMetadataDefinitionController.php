@@ -79,14 +79,22 @@ class BaseEMetadataDefinitionController extends AdminController
         );
     }
     public function show(string $id) {
-        $itemEMetadataDefinition = $this->eMetadataDefinitionService->find($id);
 
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('e_metadata_definition_id', $id);
+        
+        $itemEMetadataDefinition = $this->eMetadataDefinitionService->find($id);
+        $eMetadatumService =  new EMetadatumService();
+        $eMetadata_data =  $itemEMetadataDefinition->eMetadata()->paginate(10);
+        $eMetadata_stats = $eMetadatumService->geteMetadatumStats();
+        $eMetadata_filters = $eMetadatumService->getFieldsFilterable();
+        
 
         if (request()->ajax()) {
-            return view('PkgGapp::eMetadataDefinition._fields', compact('itemEMetadataDefinition'));
+            return view('PkgGapp::eMetadataDefinition._edit', compact('itemEMetadataDefinition', 'eMetadata_data', 'eMetadata_stats', 'eMetadata_filters'));
         }
 
-        return view('PkgGapp::eMetadataDefinition.show', compact('itemEMetadataDefinition'));
+        return view('PkgGapp::eMetadataDefinition.edit', compact('itemEMetadataDefinition', 'eMetadata_data', 'eMetadata_stats', 'eMetadata_filters'));
 
     }
     public function edit(string $id) {
@@ -102,7 +110,7 @@ class BaseEMetadataDefinitionController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('PkgGapp::eMetadataDefinition._fields', compact('itemEMetadataDefinition', 'eMetadata_data', 'eMetadata_stats', 'eMetadata_filters'));
+            return view('PkgGapp::eMetadataDefinition._edit', compact('itemEMetadataDefinition', 'eMetadata_data', 'eMetadata_stats', 'eMetadata_filters'));
         }
 
         return view('PkgGapp::eMetadataDefinition.edit', compact('itemEMetadataDefinition', 'eMetadata_data', 'eMetadata_stats', 'eMetadata_filters'));

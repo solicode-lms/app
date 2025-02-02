@@ -1,9 +1,9 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-@push('scripts')
+
 <script>
-    window.entitiesConfig = window.entitiesConfig || [];
-    window.entitiesConfig.push({
+    window.crudModalManagersConfig = window.crudModalManagersConfig || [];
+    window.crudModalManagersConfig.push({
         edit_has_many: {{ !isset($edit_has_many)? 'true' :  ($edit_has_many ? "true": "false") }},
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
         entity_name: 'nationalite',
@@ -11,7 +11,6 @@
         crudSelector: '#nationalite-crud',
         tableSelector: '#nationalite-data-container',
         formSelector: '#nationaliteForm',
-        modalSelector : '#nationaliteModal',
         indexUrl: '{{ route('nationalites.index') }}', 
         createUrl: '{{ route('nationalites.create') }}',
         editUrl: '{{ route('nationalites.edit',  ['nationalite' => ':id']) }}',
@@ -20,10 +19,10 @@
         deleteUrl: '{{ route('nationalites.destroy',  ['nationalite' => ':id']) }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgApprenants::nationalite.singular") }}',
-        edit_title: '{{__("Core::msg.add") . " : " . __("PkgApprenants::nationalite.singular") }}',
+        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgApprenants::nationalite.singular") }}',
     });
 </script>
-@endpush
+
 <div id="nationalite-crud" class="crud">
     @section('nationalite-crud-header')
     @php
@@ -102,8 +101,5 @@
             </div>
         </div>
     </section>
-    @show
-    @section('nationalite-crud-modal')
-    <x-modal id="nationaliteModal" title="Ajouter ou Modifier"></x-modal>
     @show
 </div>

@@ -87,16 +87,24 @@ class BaseEDataFieldController extends AdminController
         );
     }
     public function show(string $id) {
+
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('e_data_field_id', $id);
+        
         $itemEDataField = $this->eDataFieldService->find($id);
         $eModels = $this->eModelService->all();
         $eRelationships = $this->eRelationshipService->all();
-
+        $eMetadatumService =  new EMetadatumService();
+        $eMetadata_data =  $itemEDataField->eMetadata()->paginate(10);
+        $eMetadata_stats = $eMetadatumService->geteMetadatumStats();
+        $eMetadata_filters = $eMetadatumService->getFieldsFilterable();
+        
 
         if (request()->ajax()) {
-            return view('PkgGapp::eDataField._fields', compact('itemEDataField', 'eModels', 'eRelationships'));
+            return view('PkgGapp::eDataField._edit', compact('itemEDataField', 'eModels', 'eRelationships', 'eMetadata_data', 'eMetadata_stats', 'eMetadata_filters'));
         }
 
-        return view('PkgGapp::eDataField.show', compact('itemEDataField'));
+        return view('PkgGapp::eDataField.edit', compact('itemEDataField', 'eModels', 'eRelationships', 'eMetadata_data', 'eMetadata_stats', 'eMetadata_filters'));
 
     }
     public function edit(string $id) {
@@ -114,7 +122,7 @@ class BaseEDataFieldController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('PkgGapp::eDataField._fields', compact('itemEDataField', 'eModels', 'eRelationships', 'eMetadata_data', 'eMetadata_stats', 'eMetadata_filters'));
+            return view('PkgGapp::eDataField._edit', compact('itemEDataField', 'eModels', 'eRelationships', 'eMetadata_data', 'eMetadata_stats', 'eMetadata_filters'));
         }
 
         return view('PkgGapp::eDataField.edit', compact('itemEDataField', 'eModels', 'eRelationships', 'eMetadata_data', 'eMetadata_stats', 'eMetadata_filters'));

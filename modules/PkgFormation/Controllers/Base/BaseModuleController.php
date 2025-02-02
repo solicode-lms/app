@@ -83,15 +83,23 @@ class BaseModuleController extends AdminController
         );
     }
     public function show(string $id) {
+
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('module_id', $id);
+        
         $itemModule = $this->moduleService->find($id);
         $filieres = $this->filiereService->all();
-
+        $competenceService =  new CompetenceService();
+        $competences_data =  $itemModule->competences()->paginate(10);
+        $competences_stats = $competenceService->getcompetenceStats();
+        $competences_filters = $competenceService->getFieldsFilterable();
+        
 
         if (request()->ajax()) {
-            return view('PkgFormation::module._fields', compact('itemModule', 'filieres'));
+            return view('PkgFormation::module._edit', compact('itemModule', 'filieres', 'competences_data', 'competences_stats', 'competences_filters'));
         }
 
-        return view('PkgFormation::module.show', compact('itemModule'));
+        return view('PkgFormation::module.edit', compact('itemModule', 'filieres', 'competences_data', 'competences_stats', 'competences_filters'));
 
     }
     public function edit(string $id) {
@@ -108,7 +116,7 @@ class BaseModuleController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('PkgFormation::module._fields', compact('itemModule', 'filieres', 'competences_data', 'competences_stats', 'competences_filters'));
+            return view('PkgFormation::module._edit', compact('itemModule', 'filieres', 'competences_data', 'competences_stats', 'competences_filters'));
         }
 
         return view('PkgFormation::module.edit', compact('itemModule', 'filieres', 'competences_data', 'competences_stats', 'competences_filters'));

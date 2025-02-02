@@ -91,17 +91,25 @@ class BaseAffectationProjetController extends AdminController
         );
     }
     public function show(string $id) {
+
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('affectation_projet_id', $id);
+        
         $itemAffectationProjet = $this->affectationProjetService->find($id);
         $anneeFormations = $this->anneeFormationService->all();
         $groupes = $this->groupeService->all();
         $projets = $this->projetService->all();
-
+        $realisationProjetService =  new RealisationProjetService();
+        $realisationProjets_data =  $itemAffectationProjet->realisationProjets()->paginate(10);
+        $realisationProjets_stats = $realisationProjetService->getrealisationProjetStats();
+        $realisationProjets_filters = $realisationProjetService->getFieldsFilterable();
+        
 
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::affectationProjet._fields', compact('itemAffectationProjet', 'anneeFormations', 'groupes', 'projets'));
+            return view('PkgRealisationProjets::affectationProjet._edit', compact('itemAffectationProjet', 'anneeFormations', 'groupes', 'projets', 'realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters'));
         }
 
-        return view('PkgRealisationProjets::affectationProjet.show', compact('itemAffectationProjet'));
+        return view('PkgRealisationProjets::affectationProjet.edit', compact('itemAffectationProjet', 'anneeFormations', 'groupes', 'projets', 'realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters'));
 
     }
     public function edit(string $id) {
@@ -120,7 +128,7 @@ class BaseAffectationProjetController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::affectationProjet._fields', compact('itemAffectationProjet', 'anneeFormations', 'groupes', 'projets', 'realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters'));
+            return view('PkgRealisationProjets::affectationProjet._edit', compact('itemAffectationProjet', 'anneeFormations', 'groupes', 'projets', 'realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters'));
         }
 
         return view('PkgRealisationProjets::affectationProjet.edit', compact('itemAffectationProjet', 'anneeFormations', 'groupes', 'projets', 'realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters'));

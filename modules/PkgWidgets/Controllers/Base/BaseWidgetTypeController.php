@@ -79,14 +79,22 @@ class BaseWidgetTypeController extends AdminController
         );
     }
     public function show(string $id) {
-        $itemWidgetType = $this->widgetTypeService->find($id);
 
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('widget_type_id', $id);
+        
+        $itemWidgetType = $this->widgetTypeService->find($id);
+        $widgetService =  new WidgetService();
+        $widgets_data =  $itemWidgetType->widgets()->paginate(10);
+        $widgets_stats = $widgetService->getwidgetStats();
+        $widgets_filters = $widgetService->getFieldsFilterable();
+        
 
         if (request()->ajax()) {
-            return view('PkgWidgets::widgetType._fields', compact('itemWidgetType'));
+            return view('PkgWidgets::widgetType._edit', compact('itemWidgetType', 'widgets_data', 'widgets_stats', 'widgets_filters'));
         }
 
-        return view('PkgWidgets::widgetType.show', compact('itemWidgetType'));
+        return view('PkgWidgets::widgetType.edit', compact('itemWidgetType', 'widgets_data', 'widgets_stats', 'widgets_filters'));
 
     }
     public function edit(string $id) {
@@ -102,7 +110,7 @@ class BaseWidgetTypeController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('PkgWidgets::widgetType._fields', compact('itemWidgetType', 'widgets_data', 'widgets_stats', 'widgets_filters'));
+            return view('PkgWidgets::widgetType._edit', compact('itemWidgetType', 'widgets_data', 'widgets_stats', 'widgets_filters'));
         }
 
         return view('PkgWidgets::widgetType.edit', compact('itemWidgetType', 'widgets_data', 'widgets_stats', 'widgets_filters'));

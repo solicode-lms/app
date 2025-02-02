@@ -1,9 +1,9 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-@push('scripts')
+
 <script>
-    window.entitiesConfig = window.entitiesConfig || [];
-    window.entitiesConfig.push({
+    window.crudModalManagersConfig = window.crudModalManagersConfig || [];
+    window.crudModalManagersConfig.push({
         edit_has_many: {{ !isset($edit_has_many)? 'true' :  ($edit_has_many ? "true": "false") }},
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
         entity_name: 'eMetadataDefinition',
@@ -11,7 +11,6 @@
         crudSelector: '#eMetadataDefinition-crud',
         tableSelector: '#eMetadataDefinition-data-container',
         formSelector: '#eMetadataDefinitionForm',
-        modalSelector : '#eMetadataDefinitionModal',
         indexUrl: '{{ route('eMetadataDefinitions.index') }}', 
         createUrl: '{{ route('eMetadataDefinitions.create') }}',
         editUrl: '{{ route('eMetadataDefinitions.edit',  ['eMetadataDefinition' => ':id']) }}',
@@ -20,10 +19,10 @@
         deleteUrl: '{{ route('eMetadataDefinitions.destroy',  ['eMetadataDefinition' => ':id']) }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgGapp::eMetadataDefinition.singular") }}',
-        edit_title: '{{__("Core::msg.add") . " : " . __("PkgGapp::eMetadataDefinition.singular") }}',
+        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgGapp::eMetadataDefinition.singular") }}',
     });
 </script>
-@endpush
+
 <div id="eMetadataDefinition-crud" class="crud">
     @section('eMetadataDefinition-crud-header')
     @php
@@ -102,8 +101,5 @@
             </div>
         </div>
     </section>
-    @show
-    @section('eMetadataDefinition-crud-modal')
-    <x-modal id="eMetadataDefinitionModal" title="Ajouter ou Modifier"></x-modal>
     @show
 </div>

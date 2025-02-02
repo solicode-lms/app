@@ -1,0 +1,67 @@
+{{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
+
+<script>
+    window.editWithTabPanelManagersConfig = window.editWithTabPanelManagersConfig || [];
+    window.editWithTabPanelManagersConfig.push({
+        entity_name: 'groupe',
+        cardTabSelector: '#card-tab-groupe', 
+        formSelector: '#groupeForm',
+        editUrl: '{{ route('groupes.edit',  ['groupe' => ':id']) }}',
+        indexUrl: '{{ route('groupes.index') }}',
+        csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
+        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgApprenants::groupe.singular") }}',
+    });
+</script>
+<script>
+    window.contextState = @json($contextState);
+</script>
+
+@section('content')
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                <div id="card-tab-groupe" class="card card-info card-tabs card-workflow">
+                    <div class="card-header d-flex justify-content-between p-0 pt-1">
+                        <ul class="nav nav-tabs mr-auto" id="edit-groupe-tab" role="tablist">
+                        <li class="pt-2 px-3">
+                            <h3 class="card-title">
+                                <i class="nav-icon fas fa-cubes"></i>
+                                {{ __('Core::msg.edit') }}
+                            </h3>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" id="groupe-hasmany-tabs-home-tab" data-toggle="pill" href="#groupe-hasmany-tabs-home" role="tab" aria-controls="groupe-hasmany-tabs-home" aria-selected="true">{{__('PkgApprenants::groupe.singular')}}</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" id="groupe-hasmany-tabs-affectationProjet-tab" data-toggle="pill" href="#groupe-hasmany-tabs-affectationProjet" role="tab" aria-controls="groupe-hasmany-tabs-affectationProjet" aria-selected="false">{{__('PkgRealisationProjets::affectationProjet.plural')}}</a>
+                        </li>
+
+                       
+                        </ul>
+                         <button type="button" class="btn btn-info btn-sm btn-card-header">
+                            <i class="fa fa-check"></i>
+                                Enregistrer
+                         </button>
+                    </div>
+                    <div class="card-body">
+                        <div class="tab-content" id="edit-groupe-tabContent">
+                            <div class="tab-pane fade show active" id="groupe-hasmany-tabs-home" role="tabpanel" aria-labelledby="groupe-hasmany-tabs-home-tab">
+                                @include('PkgApprenants::groupe._fields')
+                            </div>
+
+                            <div class="tab-pane fade" id="groupe-hasmany-tabs-affectationProjet" role="tabpanel" aria-labelledby="groupe-hasmany-tabs-affectationProjet-tab">
+                                @include('PkgRealisationProjets::affectationProjet._index',['isMany' => true, "edit_has_many" => false])
+                            </div>
+
+                           
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                </div>
+            </div>
+        </div>
+    </section>
+@show
