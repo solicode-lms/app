@@ -1,4 +1,15 @@
 {
+  "__commonjsHelpers-Cpj98o6Y.js": {
+    "file": "assets/_commonjsHelpers-Cpj98o6Y.js",
+    "name": "_commonjsHelpers"
+  },
+  "_jquery.min-B6BoilVy.js": {
+    "file": "assets/jquery.min-B6BoilVy.js",
+    "name": "jquery.min",
+    "imports": [
+      "__commonjsHelpers-Cpj98o6Y.js"
+    ]
+  },
   "node_modules/admin-lte/plugins/fontawesome-free/webfonts/fa-brands-400.eot": {
     "file": "assets/fa-brands-400-DnkPfk3o.eot",
     "src": "node_modules/admin-lte/plugins/fontawesome-free/webfonts/fa-brands-400.eot"
@@ -75,8 +86,37 @@
     "file": "assets/summernote-CG9AQWUQ.woff2",
     "src": "node_modules/admin-lte/plugins/summernote/font/summernote.woff2"
   },
+  "node_modules/jquery/dist/jquery.min.js?commonjs-entry": {
+    "file": "assets/jquery-C18QDhQr.js",
+    "name": "jquery",
+    "src": "node_modules/jquery/dist/jquery.min.js?commonjs-entry",
+    "isEntry": true,
+    "imports": [
+      "_jquery.min-B6BoilVy.js",
+      "__commonjsHelpers-Cpj98o6Y.js"
+    ]
+  },
+  "node_modules/select2/dist/js/select2.min.js?commonjs-entry": {
+    "file": "assets/select2-1mC9kFRT.js",
+    "name": "select2",
+    "src": "node_modules/select2/dist/js/select2.min.js?commonjs-entry",
+    "isEntry": true,
+    "imports": [
+      "_jquery.min-B6BoilVy.js",
+      "__commonjsHelpers-Cpj98o6Y.js"
+    ]
+  },
+  "node_modules/summernote/dist/summernote-bs4.min.js?commonjs-entry": {
+    "file": "assets/summernote-DGudoA0E.js",
+    "name": "summernote",
+    "src": "node_modules/summernote/dist/summernote-bs4.min.js?commonjs-entry",
+    "isEntry": true,
+    "imports": [
+      "__commonjsHelpers-Cpj98o6Y.js"
+    ]
+  },
   "resources/css/admin.css": {
-    "file": "assets/admin-CZ3XgHki.css",
+    "file": "assets/adminCSS-CZ3XgHki.css",
     "src": "resources/css/admin.css",
     "isEntry": true
   },
@@ -137,22 +177,27 @@
     "src": "resources/css/font-adminlte/Source+Sans+Pro_700_normal.woff2"
   },
   "resources/css/public.css": {
-    "file": "assets/public-XRgiP2Tj.css",
+    "file": "assets/publicCSS-XRgiP2Tj.css",
     "src": "resources/css/public.css",
     "isEntry": true
   },
   "resources/js/admin.js": {
-    "file": "assets/admin-CiBX2emU.js",
-    "name": "admin",
+    "file": "assets/adminJS-BM4a3Hfv.js",
+    "name": "adminJS",
     "src": "resources/js/admin.js",
     "isEntry": true,
+    "imports": [
+      "node_modules/summernote/dist/summernote-bs4.min.js?commonjs-entry",
+      "__commonjsHelpers-Cpj98o6Y.js",
+      "_jquery.min-B6BoilVy.js"
+    ],
     "css": [
-      "assets/admin-C9kWgRmX.css"
+      "assets/adminJS-C9kWgRmX.css"
     ]
   },
   "resources/js/public.js": {
-    "file": "assets/public-l0sNRNKZ.js",
-    "name": "public",
+    "file": "assets/publicJS-l0sNRNKZ.js",
+    "name": "publicJS",
     "src": "resources/js/public.js",
     "isEntry": true
   }
