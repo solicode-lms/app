@@ -10,6 +10,10 @@
     <script src="{{ asset('vendor/select2/js/select2.full.min.js') }}"></script>
     <script src="{{ asset('vendor/summernote/summernote-bs4.min.js') }}"></script>
 
+
+
+
+    
     <!-- iziModal CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izimodal/1.6.1/css/iziModal.min.css">
     <!-- iziModal JS -->

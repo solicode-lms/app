@@ -46,7 +46,7 @@ export class FormUI {
         this.hideSelectsByIdFromContext();
         this.addContextStateToForm()
         this.initializeSelect2_in_modal();
-        // FormUI.initializeRichText();
+        FormUI.initializeRichText();
         FormUI.initializeDate();
         FormUI.initCodeJar();
       
