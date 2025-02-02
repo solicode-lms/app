@@ -1,5 +1,6 @@
 import { AjaxErrorHandler } from '../components/AjaxErrorHandler';
 import { Action } from './Action';
+import EventUtil from './../utils/EventUtil';
 
 export class ShowAction extends Action {
 
@@ -47,7 +48,7 @@ export class ShowAction extends Action {
                 this.tableUI.indexUI.formUI.setToReadOnly();
 
 
-                // $(document).on('opened', this.tableUI.indexUI.modalUI.this.currentModalId, function (e) {
+                // EventUtil.bindEvent('opened', this.tableUI.indexUI.modalUI.this.currentModalId, function (e) {
                   
                 // });
 
@@ -67,7 +68,7 @@ export class ShowAction extends Action {
      * Gère les événements liés à l'affichage des détails d'une entité.
      */
     handleShowEntity() {
-        $(document).on('click', `${this.config.crudSelector} .showEntity`, (e) => {
+        EventUtil.bindEvent('click', `${this.config.crudSelector} .showEntity`, (e) => {
             e.preventDefault();
             const id = $(e.currentTarget).data('id'); // Récupérer l'ID de l'entité
             this.showEntity(id);

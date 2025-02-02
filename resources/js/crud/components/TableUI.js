@@ -4,6 +4,7 @@ import { CreateAction } from '../actions/CreateAction';
 import { ShowAction } from '../actions/ShowAction';
 import { EditAction } from '../actions/EditAction';
 import { DeleteAction } from '../actions/DeleteAction';
+import EventUtil from './../utils/EventUtil';
 
 export class TableUI {
     constructor(config, indexUI) {
@@ -58,7 +59,7 @@ export class TableUI {
     
 
     handleSorting() {
-        $(document).on('click', this.config.sortableColumnSelector, (e) => {
+        EventUtil.bindEvent('click', this.config.sortableColumnSelector, (e) => {
             e.preventDefault();
 
             const column = $(e.currentTarget).data('sort');

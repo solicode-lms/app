@@ -2,6 +2,7 @@ import { AjaxErrorHandler } from '../components/AjaxErrorHandler';
 import { LoadingIndicator } from '../components/LoadingIndicator';
 import { NotificationHandler } from '../components/NotificationHandler';
 import { BaseAction } from './BaseAction';
+import EventUtil from '../utils/EventUtil';
 
 export class LoadListAction extends BaseAction {
     /**

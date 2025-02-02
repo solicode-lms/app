@@ -2,6 +2,7 @@ import { Action } from './Action';
 import { NotificationHandler } from '../components/NotificationHandler';
 import { LoadListAction } from './LoadListAction';
 import { AjaxErrorHandler } from '../components/AjaxErrorHandler';
+import EventUtil from '../utils/EventUtil';
 
 export class DeleteAction extends Action {
 
@@ -52,7 +53,7 @@ export class DeleteAction extends Action {
      * Gère les événements liés à la suppression d'une entité.
      */
     handleDeleteEntity() {
-        $(document).on('click', `${this.config.crudSelector} .deleteEntity`, (e) => {
+        EventUtil.bindEvent('click', `${this.config.crudSelector} .deleteEntity`, (e) => {
             e.preventDefault();
             const id = $(e.currentTarget).data('id'); // Récupérer l'ID de l'entité
             this.deleteEntity(id);

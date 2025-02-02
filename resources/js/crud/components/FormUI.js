@@ -2,6 +2,7 @@ import { LoadingIndicator } from "./LoadingIndicator";
 import { ContextStateService } from './ContextStateService';
 import DynamicFieldVisibilityTreatment from "../treatments/form/DynamicFieldVisibilityTreatment";
 import { CodeJar } from 'codejar';
+import EventUtil from './../utils/EventUtil';
 // import { withLineNumbers } from 'codejar/linenumbers';
 
 import Prism from 'prismjs';
@@ -112,7 +113,7 @@ export class FormUI  {
      * Gère le bouton d'annulation pour fermer le modal.
      */
     handleCancelButton() {
-        $(document).on('click', `${this.formSelector} .form-cancel-button`, (e) => {
+        EventUtil.bindEvent('click', `${this.formSelector} .form-cancel-button`, (e) => {
             e.preventDefault();
             this.indexUI.modalUI.close();
         });
@@ -136,7 +137,7 @@ export class FormUI  {
      */
    handleFormSubmission(submitHandler) {
     $(document).off('submit', this.formSelector); // Supprime tout gestionnaire précédent pour éviter les doublons
-    $(document).on('submit', this.formSelector, (e) => {
+    EventUtil.bindEvent('submit', this.formSelector, (e) => {
         e.preventDefault(); // Empêche le rechargement de la page
         submitHandler(); // Appelle la fonction de soumission passée
     });

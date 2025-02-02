@@ -2,7 +2,7 @@
 // import iziModal from "izimodal/js/iziModal.min.js";
 // import "izimodal/css/iziModal.min.css";
 // $.fn.iziModal = iziModal;
-
+import EventUtil from '../utils/EventUtil';
 
 export class ModalUI {
 

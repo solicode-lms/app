@@ -2,7 +2,7 @@ import { AjaxErrorHandler } from '../components/AjaxErrorHandler';
 import { ContextStateService } from '../components/ContextStateService';
 import { NotificationHandler } from '../components/NotificationHandler';
 import { Action } from './Action';
-
+import EventUtil from '../utils/EventUtil';
 export class CreateAction extends Action {
 
     constructor(config, tableUI) {
@@ -61,14 +61,17 @@ export class CreateAction extends Action {
 
                         const entity_id = parseInt( data[`${this.config.entity_name}_id`]);
 
-                        // redirect to edit 
-                        let editUrl = this.getUrlWithId(this.config.editUrl, entity_id); // Générer l'URL dynamique
-                        editUrl = this.appendParamsToUrl(
-                            editUrl,
-                            this.contextService.getContextParams()
-                        );
+                        this.tableUI.entityEditor.editEntity(entity_id);
+                        this.tableUI.entityLoader.loadEntities();
 
-                        window.location.href  = editUrl;
+                        // // redirect to edit 
+                        // let editUrl = this.getUrlWithId(this.config.editUrl, entity_id); // Générer l'URL dynamique
+                        // editUrl = this.appendParamsToUrl(
+                        //     editUrl,
+                        //     this.contextService.getContextParams()
+                        // );
+
+                        // window.location.href  = editUrl;
 
 
                     }else{
@@ -116,7 +119,7 @@ export class CreateAction extends Action {
      * Gère les événements liés à l'ajout d'une entité.
      */
     handleAddEntity() {
-        $(document).on('click', `${this.config.crudSelector} .addEntityButton`, (e) => {
+        EventUtil.bindEvent('click', `${this.config.crudSelector} .addEntityButton`, (e) => {
             e.preventDefault();
             this.addEntity();
         });

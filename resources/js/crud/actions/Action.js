@@ -7,6 +7,7 @@ import { ContextStateService } from '../components/ContextStateService';
 import { BaseAction } from './BaseAction';
 import { LoadListAction } from './LoadListAction';
 import { AjaxErrorHandler } from '../components/AjaxErrorHandler';
+import EventUtil from '../utils/EventUtil';
 
 export class Action extends BaseAction {
     /**

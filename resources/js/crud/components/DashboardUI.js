@@ -1,5 +1,5 @@
 import { SessionStateService } from './SessionStateService';
-
+import EventUtil from '../utils/EventUtil';
 
 
 // "primary":    $primary,

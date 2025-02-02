@@ -1,5 +1,6 @@
 import { AjaxErrorHandler } from '../components/AjaxErrorHandler';
 import { Action } from './Action';
+import EventUtil from '../utils/EventUtil';
 
 export class EditAction extends Action {
 
@@ -54,7 +55,7 @@ export class EditAction extends Action {
      * Gère les événements liés à la modification d'une entité.
      */
     handleEditEntity() {
-        $(document).on('click', `${this.config.crudSelector} .editEntity`, (e) => {
+        EventUtil.bindEvent('click', `${this.config.crudSelector} .editEntity`, (e) => {
             e.preventDefault();
             const id = $(e.currentTarget).data('id'); // Récupérer l'ID de l'entité
             this.editEntity(id);
@@ -115,7 +116,7 @@ export class EditAction extends Action {
     }
 
     handleSubmitForm() {
-        $(document).on('submit', this.config.formSelector, (e) => {
+        EventUtil.bindEvent('submit', this.config.formSelector, (e) => {
             e.preventDefault(); // Empêche le rechargement de la page
             this.submitEntity(); // Appelle la méthode de `CrudActions`
         });

@@ -1,3 +1,5 @@
+import EventUtil from './../utils/EventUtil';
+
 export class PaginationUI {
     constructor(config, indexUI) {
         this.config = config;
@@ -15,7 +17,7 @@ export class PaginationUI {
      * Gère les clics sur les liens de pagination.
      */
     handlePaginationClick() {
-        $(document).on('click', this.config.paginationSelector, (e) => {
+        EventUtil.bindEvent('click', this.config.paginationSelector, (e) => {
             e.preventDefault();
     
             const page = $(e.currentTarget).data('page') || $(e.target).text().trim();

@@ -64,17 +64,21 @@ export default class InitUIManagers {
             
             const uniqueKey = configHelper.id || JSON.stringify(editWithTabPanelManagerData);
            
-            if (InitUIManagers.processedManagers.has(uniqueKey)) return;
-            InitUIManagers.processedManagers.add(uniqueKey);
+            if (InitUIManagers.processedManagers.has(uniqueKey)) {
+                const editWithTabPanelManager = window.editWithTabPanelManagers[configHelper.id];
+                editWithTabPanelManager.init();
+            }else{
+                InitUIManagers.processedManagers.add(uniqueKey);
             
-          
-            const editWithTabPanelManager = new EditWithTabPanelManager(configHelper);
-            editWithTabPanelManager.init();
-
-            if (!window.editWithTabPanelManagers) {
-                window.editWithTabPanelManagers = {};
+                const editWithTabPanelManager = new EditWithTabPanelManager(configHelper);
+                editWithTabPanelManager.init();
+    
+                if (!window.editWithTabPanelManagers) {
+                    window.editWithTabPanelManagers = {};
+                }
+                window.editWithTabPanelManagers[configHelper.id] = editWithTabPanelManager;
             }
-            window.editWithTabPanelManagers[configHelper.id] = editWithTabPanelManager;
+          
         });
     }
 }

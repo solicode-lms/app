@@ -5,21 +5,26 @@ export class LoadingIndicator {
      */
     constructor(containerSelector = '#card_crud') {
       
-        this.loadingElementId = 'loading';
+        this.loadingElementId = 'gapp-loading';
         this.containerSelector = containerSelector;
-        this.init();
     }
+   
+    init (){
 
-    init(){
-        this.container = document.querySelector(this.containerSelector);
     }
+    
 
     /**
      * Affiche l'indicateur de chargement.
      * @returns {boolean} - Retourne `true` si le conteneur existe et le chargement est affiché.
      */
     show() {
-        if (!this.container) {
+
+
+     
+        const container  = document.querySelector(this.containerSelector);
+
+        if (!container) {
             console.error('Conteneur de chargement introuvable.');
             return false;
         }
@@ -40,8 +45,10 @@ export class LoadingIndicator {
             loadingDiv.style.zIndex = '1060'; // Inférieur à celui du modal (1050)
     
             loadingDiv.innerHTML = '<div class="spinner-border text-primary" role="status"></div>';
-            this.container.appendChild(loadingDiv);
+            console.log(loadingDiv);
+            container.appendChild(loadingDiv);
         }
+
         return true;
     }
 
@@ -49,16 +56,19 @@ export class LoadingIndicator {
      * Masque l'indicateur de chargement.
      */
     hide() {
-        if (!this.container) {
+
+        const container  = document.querySelector(this.containerSelector);
+
+        if (!container) {
             console.error('Conteneur de chargement introuvable.');
             return;
         }
 
         const loadingDiv = document.getElementById(this.loadingElementId);
         if (loadingDiv) {
-            this.container.removeChild(loadingDiv);
+            container.removeChild(loadingDiv);
         } else {
-            // console.warn('Indicateur de chargement introuvable.');
+            // console.warn('Indicateur de chargement introuvable  : ' + this.loadingElementId);
         }
     }
 
@@ -67,6 +77,7 @@ export class LoadingIndicator {
      * @returns {boolean} - `true` si le chargement est affiché, `false` sinon.
      */
     isLoadingVisible() {
-        return document.getElementById(this.loadingElementId) !== null;
+        const v =  document.getElementById(this.loadingElementId) !== null;
+        return v;
     }
 }

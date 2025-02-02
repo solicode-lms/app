@@ -1,3 +1,5 @@
+import EventUtil from './../../utils/EventUtil';
+
 export default class DynamicFieldVisibilityTreatment {
     constructor(entitiesArray) {
         // entitiesArray : liste des traitements pour chaque entité
@@ -30,7 +32,7 @@ export default class DynamicFieldVisibilityTreatment {
             this.handleVisibility(dataDefinitions, fieldMappings, typeField, "");
     
            
-            $(document).on('change', `#${targetDropdownId}`, (e) => {
+            EventUtil.bindEvent('change', `#${targetDropdownId}`, (e) => {
                 e.preventDefault();
                 this.handleVisibility(dataDefinitions, fieldMappings, typeField, e.target.value);
             });

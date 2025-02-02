@@ -5,6 +5,7 @@ import { FilterUI } from '../components/FilterUI';
 import { TableUI } from '../components/TableUI';
 import { PaginationUI } from '../components/PaginationUI';
 import { ModalUI } from '../components/ModalUI';
+import EventUtil from './../utils/EventUtil';
  
 /**
  * Classe principale pour Edit with HasMany
@@ -37,7 +38,7 @@ export class EditWithTabPanelManager {
 
 
     handleButtonSaveCardWithHasMany(){
-        $(document).on('click', `${this.config.cardTabSelector} .btn-card-header`, (e) => {
+        EventUtil.bindEvent('click', `${this.config.cardTabSelector} .btn-card-header`, (e) => {
             e.preventDefault();
             this.submitEntityAndRedirect(this.config.indexUrl);
          
