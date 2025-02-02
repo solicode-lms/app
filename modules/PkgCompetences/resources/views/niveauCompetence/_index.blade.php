@@ -2,8 +2,8 @@
 
 
 <script>
-    window.entitiesConfig = window.entitiesConfig || [];
-    window.entitiesConfig.push({
+    window.crudModalManagersConfig = window.crudModalManagersConfig || [];
+    window.crudModalManagersConfig.push({
         edit_has_many: {{ !isset($edit_has_many)? 'false' :  ($edit_has_many ? "true": "false") }},
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
         entity_name: 'niveauCompetence',

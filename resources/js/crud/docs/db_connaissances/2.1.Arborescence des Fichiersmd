@@ -27,8 +27,8 @@ L'architecture des fichiers et dossiers de ton projet semble bien organisée aut
 │   │── DynamicFieldVisibilityTreatment.js
 │
 │── managers/
-│   │── CrudManager.js
-│   │── EditWithHasManyManager.js
+│   │── CrudModalManager.js
+│   │── EditWithTabPanelManager.js
 │
 │── utils/
 │   │── ConfigHelper.js
@@ -39,7 +39,7 @@ L'architecture des fichiers et dossiers de ton projet semble bien organisée aut
 - **📁 `actions/`** : Implémente les actions CRUD (`Create`, `Edit`, `Delete`, `Show` et `LoadList`).
 - **📁 `eventsHandler/`** : Gère les événements liés aux actions et interactions utilisateur.
 - **📁 `treatments/`** : Contient les traitements spécifiques, comme la gestion dynamique des champs en fonction du contexte.
-- **📁 `managers/`** : Fournit des gestionnaires principaux (`CrudManager`, `EditWithHasManyManager`) pour orchestrer les interactions CRUD.
+- **📁 `managers/`** : Fournit des gestionnaires principaux (`CrudModalManager`, `EditWithTabPanelManager`) pour orchestrer les interactions CRUD.
 - **📁 `utils/`** : Contient des utilitaires pour la configuration.
 
 Cette organisation modulaire favorise la **réutilisation**, **l'extensibilité** et **la séparation des responsabilités**. Si tu veux des recommandations pour améliorer cette architecture ou ajouter des fonctionnalités spécifiques, fais-moi signe ! 🚀

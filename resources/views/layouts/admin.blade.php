@@ -28,29 +28,6 @@
 
 <body class="hold-transition sidebar-mini layout-fixed">
 
-     
-
-      
-      <!-- Conteneur de la modale -->
-      {{-- <div id="modal-example" class="iziModal">aaaaaaaaa</div>
-      <script type="module">
-        document.addEventListener("DOMContentLoaded", function () {
-   
-   
-
-        $("#modal-example").iziModal({
-            title: "Titre de la Modale",
-            headerColor: "#4CAF50",
-        });
-
-        $("#modal-example").iziModal("setContent", "bonjour");
-        $("#modal-example").iziModal("open");
-   
-});
-      </script> --}}
-
-
-  <div id="modal1">mmmmmmmmmmmmm</div>
     <div class="wrapper">
 
 

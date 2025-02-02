@@ -1,14 +1,11 @@
 
-// import $ from 'jquery';
-// const old_$ = window.$;
-// window.$ = $;
-// // window.$ = window.jQuery = $; // S'assurer que jQuery est global
+// Utilisation de JQuery et Plugin JQuery sans Vite : car il ne sont pas ES6
+// Le chargement de JQuery doit être avant le chargement des fichiers Vite, car les classe Vite 
+// utilise les plugin JQuery
 
-// import select2 from 'select2';
-// select2();
-
-
+// TODO : générer summerniote sans vite
 import 'summernote/dist/summernote-bs4.min';
+
 import 'admin-lte/plugins/bootstrap/js/bootstrap.bundle';
 import "admin-lte/dist/js/adminlte";
 
@@ -16,87 +13,37 @@ import "admin-lte/dist/js/adminlte";
 // Import Flatpickr CSS
 import 'flatpickr/dist/flatpickr.min.css';
 
-// Import Flatpickr
-import flatpickr from 'flatpickr';
-// Import the French locale
-import { French } from 'flatpickr/dist/l10n/fr.js';
-
-
-import { CrudManager } from './crud/CrudManager';
-import { ConfigHelper } from './crud/helpers/ConfigHelper';
 import { NotificationHandler } from './crud/components/NotificationHandler';
 import { FormUI } from './crud/components/FormUI';
-import { ContexteStateEventHandler } from './crud/eventsHandler/ContexteStateEventHandler';
-import { ContextStateService } from './crud/components/ContextStateService';
-import { EditWithHasManyManager } from './crud/EditWithHasManyManager';
-import DynamicFieldVisibilityTreatment from './crud/treatments/form/DynamicFieldVisibilityTreatment';
 import { DashboardUI } from './crud/components/DashboardUI';
-import InitCrudManagers from './crud/InitCrudManagers';
+import InitUIManagers from './crud/InitUIManagers';
 
 
-// Init CrudManagers in the page
+// Init CrudModalManagers in the page
 document.addEventListener("DOMContentLoaded", function () {
-
-    const isDebug = false;
 
     // Contexte State 
     let contextState = window.contextState;
     let sessionState = window.sessionState;
     
- 
+    // Adaptation de Dashboard à l'utilisateur
     const dashboardUI = new DashboardUI(sessionState);
     dashboardUI.init();
 
-    InitCrudManagers.init(),
+    // Initialisation des UI Manager comme CrudModalmanager, ..
+    InitUIManagers.init(),
 
+    // Affichage des notification global
     window.notifications.forEach((notificationData) => {
         new NotificationHandler(notificationData).show();
     });
     
 
     
-    // TODO : Appliquer la validation de formulaire dans une page création sans Model
-
-
+    // TODO : il faut ajouter une condition pour gérer une page PageUIManager
     FormUI.initializeSelect2();
     FormUI.initializeRichText();
     FormUI.initializeDate();
     FormUI.initCodeJar();
 
-    // if(window.dynamicFieldVisibilityTreatments){
-    //     new DynamicFieldVisibilityTreatment(window.dynamicFieldVisibilityTreatments)
-    //     .initialize();
-    // }
-
 });
-
-
-
-
-// // import iziModal from "izimodal/js/iziModal.min.js";
-// import iziModal from "izimodal/js/iziModal.min.js";
-// import "izimodal/css/iziModal.min.css";
-// $.fn.iziModal = iziModal;
-
-// document.addEventListener("DOMContentLoaded", function () {
-
-//     iziModal();
-
-//     // $("#modal-example").iziModal({
-//     //     title: "Titre de la Modale",
-//     //     headerColor: "#4CAF50",
-//     // });
-
-//     $("#modal-example").iziModal({
-//         title: "Titre de la Modale",
-//         headerColor: "#4CAF50",
-//     });
-
-//     $("#modal-example").iziModal("setContent", "bonjour");
-//     $("#modal-example").iziModal("open");
-// });
-
-
-
-
-// window.$ = old_$;

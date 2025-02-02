@@ -1,17 +1,17 @@
-import { ContexteStateEventHandler } from './eventsHandler/ContexteStateEventHandler';
-import { FormUI } from './components/FormUI';
-import { NotificationHandler } from './components/NotificationHandler';
-import { FilterUI } from './components/FilterUI';
-import { TableUI } from './components/TableUI';
-import { PaginationUI } from './components/PaginationUI';
-import { ModalUI } from './components/ModalUI';
+import { ContexteStateEventHandler } from '../eventsHandler/ContexteStateEventHandler';
+import { FormUI } from '../components/FormUI';
+import { NotificationHandler } from '../components/NotificationHandler';
+import { FilterUI } from '../components/FilterUI';
+import { TableUI } from '../components/TableUI';
+import { PaginationUI } from '../components/PaginationUI';
+import { ModalUI } from '../components/ModalUI';
  
 /**
  * Classe principale pour Edit with HasMany
  */
-export class EditWithHasManyManager {
+export class EditWithTabPanelManager {
     /**
-     * Constructeur de CrudManager.
+     * Constructeur de CrudModalManager.
      * @param {Object} config - Configuration globale pour le CRUD.
      */
     constructor(config) {
@@ -37,7 +37,7 @@ export class EditWithHasManyManager {
 
 
     handleButtonSaveCardWithHasMany(){
-        $(document).on('click', `${this.config.crudSelector} .btn-card-header`, (e) => {
+        $(document).on('click', `${this.config.cardTabSelector} .btn-card-header`, (e) => {
             e.preventDefault();
             this.submitEntityAndRedirect(this.config.indexUrl);
          

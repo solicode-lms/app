@@ -2,13 +2,10 @@
 
 
 <script>
-    window.entitiesConfig = window.entitiesConfig || [];
-    window.entitiesConfig.push({
-        edit_has_many: true,
-        page: "edit",
+    window.editWithTabPanelManagersConfig = window.editWithTabPanelManagersConfig || [];
+    window.editWithTabPanelManagersConfig.push({
         entity_name: 'competence',
-        filterFormSelector: '#competence-crud-filter-form',
-        crudSelector: '#card-tab-competence', 
+        cardTabSelector: '#card-tab-competence', 
         formSelector: '#competenceForm',
         editUrl: '{{ route('competences.edit',  ['competence' => ':id']) }}',
         indexUrl: '{{ route('competences.index') }}',

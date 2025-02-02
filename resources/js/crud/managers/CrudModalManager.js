@@ -1,20 +1,16 @@
 
 
-import { ContexteStateEventHandler } from './eventsHandler/ContexteStateEventHandler';
-import { TableUI } from "./components/TableUI";
-import { FilterUI } from "./components/FilterUI";
-import { PaginationUI } from './components/PaginationUI';
-import { FormUI } from './components/FormUI';
-import { Modal } from 'admin-lte/plugins/bootstrap/js/bootstrap.bundle';
-import { ModalUI } from './components/ModalUI';
+import { ContexteStateEventHandler } from '../eventsHandler/ContexteStateEventHandler';
+import { TableUI } from "../components/TableUI";
+import { FilterUI } from "../components/FilterUI";
+import { PaginationUI } from '../components/PaginationUI';
+import { FormUI } from '../components/FormUI';
+import { ModalUI } from '../components/ModalUI';
 
-// TODO: rename to IndexUI
-/**
- * Classe principale pour gérer le CRUD.
- */
-export class CrudManager {
+
+export class CrudModalManager {
     /**
-     * Constructeur de CrudManager.
+     * Constructeur de CrudModalManager.
      * @param {Object} config - Configuration globale pour le CRUD.
      */
     constructor(config) {
@@ -37,7 +33,6 @@ export class CrudManager {
         this.filterUI.init();
         this.tableUI.init();
         this.paginationUI.init();
-        // this.contexteEventHandler.init();
 
         if(this.config.isMany){
             this.adapterUiPour_isMany();         

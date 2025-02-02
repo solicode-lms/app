@@ -7,7 +7,12 @@ import { CodeJar } from 'codejar';
 import Prism from 'prismjs';
 import 'prismjs/themes/prism.css'; 
 import 'prismjs/components/prism-json';
-import InitCrudManagers from "../InitCrudManagers";
+import InitUIManagers from "../InitUIManagers";
+
+// Import Flatpickr
+import flatpickr from 'flatpickr';
+// Import the French locale
+import { French } from 'flatpickr/dist/l10n/fr.js';
 
 
 export class FormUI {
@@ -32,7 +37,7 @@ export class FormUI {
     init(submitHandler) {
 
 
-        InitCrudManagers.init(false)
+        InitUIManagers.init(false)
 
         this.handleCancelButton();
         this.handleCardFooter();
