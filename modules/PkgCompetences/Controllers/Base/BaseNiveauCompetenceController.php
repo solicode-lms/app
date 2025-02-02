@@ -82,15 +82,18 @@ class BaseNiveauCompetenceController extends AdminController
         );
     }
     public function show(string $id) {
+
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('niveau_competence_id', $id);
+        
         $itemNiveauCompetence = $this->niveauCompetenceService->find($id);
         $competences = $this->competenceService->all();
 
-
         if (request()->ajax()) {
-            return view('PkgCompetences::niveauCompetence._fields', compact('itemNiveauCompetence', 'competences'));
+            return view('PkgCompetences::niveauCompetence._edit', compact('itemNiveauCompetence', 'competences'));
         }
 
-        return view('PkgCompetences::niveauCompetence.show', compact('itemNiveauCompetence'));
+        return view('PkgCompetences::niveauCompetence.edit', compact('itemNiveauCompetence', 'competences'));
 
     }
     public function edit(string $id) {

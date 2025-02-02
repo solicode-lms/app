@@ -11,7 +11,6 @@
         crudSelector: '#niveauCompetence-crud',
         tableSelector: '#niveauCompetence-data-container',
         formSelector: '#niveauCompetenceForm',
-        modalSelector : '#niveauCompetenceModal',
         indexUrl: '{{ route('niveauCompetences.index') }}', 
         createUrl: '{{ route('niveauCompetences.create') }}',
         editUrl: '{{ route('niveauCompetences.edit',  ['niveauCompetence' => ':id']) }}',
@@ -102,8 +101,5 @@
             </div>
         </div>
     </section>
-    @show
-    @section('niveauCompetence-crud-modal')
-    <x-modal id="niveauCompetenceModal" title="Ajouter ou Modifier"></x-modal>
     @show
 </div>
