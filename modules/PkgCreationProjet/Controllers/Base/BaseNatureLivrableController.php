@@ -91,7 +91,7 @@ class BaseNatureLivrableController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('PkgCreationProjet::natureLivrable._edit', compact('itemNatureLivrable', 'livrables_data', 'livrables_stats', 'livrables_filters'));
+            return view('PkgCreationProjet::natureLivrable._fields', compact('itemNatureLivrable', 'livrables_data', 'livrables_stats', 'livrables_filters'));
         }
 
         return view('PkgCreationProjet::natureLivrable.edit', compact('itemNatureLivrable', 'livrables_data', 'livrables_stats', 'livrables_filters'));
@@ -110,7 +110,7 @@ class BaseNatureLivrableController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('PkgCreationProjet::natureLivrable._edit', compact('itemNatureLivrable', 'livrables_data', 'livrables_stats', 'livrables_filters'));
+            return view('PkgCreationProjet::natureLivrable._fields', compact('itemNatureLivrable', 'livrables_data', 'livrables_stats', 'livrables_filters'));
         }
 
         return view('PkgCreationProjet::natureLivrable.edit', compact('itemNatureLivrable', 'livrables_data', 'livrables_stats', 'livrables_filters'));

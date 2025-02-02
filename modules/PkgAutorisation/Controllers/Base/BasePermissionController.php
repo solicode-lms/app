@@ -106,7 +106,7 @@ class BasePermissionController extends AdminController
         $sysControllers = $this->sysControllerService->all();
 
         if (request()->ajax()) {
-            return view('PkgAutorisation::permission._edit', compact('itemPermission', 'features', 'roles', 'sysControllers'));
+            return view('PkgAutorisation::permission._fields', compact('itemPermission', 'features', 'roles', 'sysControllers'));
         }
 
         return view('PkgAutorisation::permission.edit', compact('itemPermission', 'features', 'roles', 'sysControllers'));
@@ -123,7 +123,7 @@ class BasePermissionController extends AdminController
         $sysControllers = $this->sysControllerService->all();
 
         if (request()->ajax()) {
-            return view('PkgAutorisation::permission._edit', compact('itemPermission', 'features', 'roles', 'sysControllers'));
+            return view('PkgAutorisation::permission._fields', compact('itemPermission', 'features', 'roles', 'sysControllers'));
         }
 
         return view('PkgAutorisation::permission.edit', compact('itemPermission', 'features', 'roles', 'sysControllers'));

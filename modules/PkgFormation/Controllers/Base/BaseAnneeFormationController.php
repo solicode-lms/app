@@ -97,7 +97,7 @@ class BaseAnneeFormationController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('PkgFormation::anneeFormation._edit', compact('itemAnneeFormation', 'affectationProjets_data', 'groupes_data', 'affectationProjets_stats', 'groupes_stats', 'affectationProjets_filters', 'groupes_filters'));
+            return view('PkgFormation::anneeFormation._fields', compact('itemAnneeFormation', 'affectationProjets_data', 'groupes_data', 'affectationProjets_stats', 'groupes_stats', 'affectationProjets_filters', 'groupes_filters'));
         }
 
         return view('PkgFormation::anneeFormation.edit', compact('itemAnneeFormation', 'affectationProjets_data', 'groupes_data', 'affectationProjets_stats', 'groupes_stats', 'affectationProjets_filters', 'groupes_filters'));
@@ -121,7 +121,7 @@ class BaseAnneeFormationController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('PkgFormation::anneeFormation._edit', compact('itemAnneeFormation', 'affectationProjets_data', 'groupes_data', 'affectationProjets_stats', 'groupes_stats', 'affectationProjets_filters', 'groupes_filters'));
+            return view('PkgFormation::anneeFormation._fields', compact('itemAnneeFormation', 'affectationProjets_data', 'groupes_data', 'affectationProjets_stats', 'groupes_stats', 'affectationProjets_filters', 'groupes_filters'));
         }
 
         return view('PkgFormation::anneeFormation.edit', compact('itemAnneeFormation', 'affectationProjets_data', 'groupes_data', 'affectationProjets_stats', 'groupes_stats', 'affectationProjets_filters', 'groupes_filters'));

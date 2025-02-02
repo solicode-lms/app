@@ -85,7 +85,7 @@ class BaseVilleController extends AdminController
         $itemVille = $this->villeService->find($id);
 
         if (request()->ajax()) {
-            return view('PkgApprenants::ville._edit', compact('itemVille'));
+            return view('PkgApprenants::ville._fields', compact('itemVille'));
         }
 
         return view('PkgApprenants::ville.edit', compact('itemVille'));
@@ -99,7 +99,7 @@ class BaseVilleController extends AdminController
         $itemVille = $this->villeService->find($id);
 
         if (request()->ajax()) {
-            return view('PkgApprenants::ville._edit', compact('itemVille'));
+            return view('PkgApprenants::ville._fields', compact('itemVille'));
         }
 
         return view('PkgApprenants::ville.edit', compact('itemVille'));

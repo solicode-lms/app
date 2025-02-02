@@ -93,7 +93,7 @@ class BaseSpecialiteController extends AdminController
         $formateurs = $this->formateurService->all();
 
         if (request()->ajax()) {
-            return view('PkgFormation::specialite._edit', compact('itemSpecialite', 'formateurs'));
+            return view('PkgFormation::specialite._fields', compact('itemSpecialite', 'formateurs'));
         }
 
         return view('PkgFormation::specialite.edit', compact('itemSpecialite', 'formateurs'));
@@ -108,7 +108,7 @@ class BaseSpecialiteController extends AdminController
         $formateurs = $this->formateurService->all();
 
         if (request()->ajax()) {
-            return view('PkgFormation::specialite._edit', compact('itemSpecialite', 'formateurs'));
+            return view('PkgFormation::specialite._fields', compact('itemSpecialite', 'formateurs'));
         }
 
         return view('PkgFormation::specialite.edit', compact('itemSpecialite', 'formateurs'));

@@ -96,7 +96,7 @@ class BaseNiveauDifficulteController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('PkgCompetences::niveauDifficulte._edit', compact('itemNiveauDifficulte', 'formateurs', 'transfertCompetences_data', 'transfertCompetences_stats', 'transfertCompetences_filters'));
+            return view('PkgCompetences::niveauDifficulte._fields', compact('itemNiveauDifficulte', 'formateurs', 'transfertCompetences_data', 'transfertCompetences_stats', 'transfertCompetences_filters'));
         }
 
         return view('PkgCompetences::niveauDifficulte.edit', compact('itemNiveauDifficulte', 'formateurs', 'transfertCompetences_data', 'transfertCompetences_stats', 'transfertCompetences_filters'));
@@ -116,7 +116,7 @@ class BaseNiveauDifficulteController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('PkgCompetences::niveauDifficulte._edit', compact('itemNiveauDifficulte', 'formateurs', 'transfertCompetences_data', 'transfertCompetences_stats', 'transfertCompetences_filters'));
+            return view('PkgCompetences::niveauDifficulte._fields', compact('itemNiveauDifficulte', 'formateurs', 'transfertCompetences_data', 'transfertCompetences_stats', 'transfertCompetences_filters'));
         }
 
         return view('PkgCompetences::niveauDifficulte.edit', compact('itemNiveauDifficulte', 'formateurs', 'transfertCompetences_data', 'transfertCompetences_stats', 'transfertCompetences_filters'));

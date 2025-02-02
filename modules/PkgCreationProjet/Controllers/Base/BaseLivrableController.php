@@ -95,7 +95,7 @@ class BaseLivrableController extends AdminController
         $projets = $this->projetService->all();
 
         if (request()->ajax()) {
-            return view('PkgCreationProjet::livrable._edit', compact('itemLivrable', 'natureLivrables', 'projets'));
+            return view('PkgCreationProjet::livrable._fields', compact('itemLivrable', 'natureLivrables', 'projets'));
         }
 
         return view('PkgCreationProjet::livrable.edit', compact('itemLivrable', 'natureLivrables', 'projets'));
@@ -111,7 +111,7 @@ class BaseLivrableController extends AdminController
         $projets = $this->projetService->all();
 
         if (request()->ajax()) {
-            return view('PkgCreationProjet::livrable._edit', compact('itemLivrable', 'natureLivrables', 'projets'));
+            return view('PkgCreationProjet::livrable._fields', compact('itemLivrable', 'natureLivrables', 'projets'));
         }
 
         return view('PkgCreationProjet::livrable.edit', compact('itemLivrable', 'natureLivrables', 'projets'));

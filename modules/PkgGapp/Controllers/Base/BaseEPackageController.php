@@ -91,7 +91,7 @@ class BaseEPackageController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('PkgGapp::ePackage._edit', compact('itemEPackage', 'eModels_data', 'eModels_stats', 'eModels_filters'));
+            return view('PkgGapp::ePackage._fields', compact('itemEPackage', 'eModels_data', 'eModels_stats', 'eModels_filters'));
         }
 
         return view('PkgGapp::ePackage.edit', compact('itemEPackage', 'eModels_data', 'eModels_stats', 'eModels_filters'));
@@ -110,7 +110,7 @@ class BaseEPackageController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('PkgGapp::ePackage._edit', compact('itemEPackage', 'eModels_data', 'eModels_stats', 'eModels_filters'));
+            return view('PkgGapp::ePackage._fields', compact('itemEPackage', 'eModels_data', 'eModels_stats', 'eModels_filters'));
         }
 
         return view('PkgGapp::ePackage.edit', compact('itemEPackage', 'eModels_data', 'eModels_stats', 'eModels_filters'));

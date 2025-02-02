@@ -91,7 +91,7 @@ class BaseCategoryTechnologyController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('PkgCompetences::categoryTechnology._edit', compact('itemCategoryTechnology', 'technologies_data', 'technologies_stats', 'technologies_filters'));
+            return view('PkgCompetences::categoryTechnology._fields', compact('itemCategoryTechnology', 'technologies_data', 'technologies_stats', 'technologies_filters'));
         }
 
         return view('PkgCompetences::categoryTechnology.edit', compact('itemCategoryTechnology', 'technologies_data', 'technologies_stats', 'technologies_filters'));
@@ -110,7 +110,7 @@ class BaseCategoryTechnologyController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('PkgCompetences::categoryTechnology._edit', compact('itemCategoryTechnology', 'technologies_data', 'technologies_stats', 'technologies_filters'));
+            return view('PkgCompetences::categoryTechnology._fields', compact('itemCategoryTechnology', 'technologies_data', 'technologies_stats', 'technologies_filters'));
         }
 
         return view('PkgCompetences::categoryTechnology.edit', compact('itemCategoryTechnology', 'technologies_data', 'technologies_stats', 'technologies_filters'));

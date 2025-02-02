@@ -106,7 +106,7 @@ class BaseTechnologyController extends AdminController
         $categoryTechnologies = $this->categoryTechnologyService->all();
 
         if (request()->ajax()) {
-            return view('PkgCompetences::technology._edit', compact('itemTechnology', 'competences', 'transfertCompetences', 'categoryTechnologies'));
+            return view('PkgCompetences::technology._fields', compact('itemTechnology', 'competences', 'transfertCompetences', 'categoryTechnologies'));
         }
 
         return view('PkgCompetences::technology.edit', compact('itemTechnology', 'competences', 'transfertCompetences', 'categoryTechnologies'));
@@ -123,7 +123,7 @@ class BaseTechnologyController extends AdminController
         $categoryTechnologies = $this->categoryTechnologyService->all();
 
         if (request()->ajax()) {
-            return view('PkgCompetences::technology._edit', compact('itemTechnology', 'competences', 'transfertCompetences', 'categoryTechnologies'));
+            return view('PkgCompetences::technology._fields', compact('itemTechnology', 'competences', 'transfertCompetences', 'categoryTechnologies'));
         }
 
         return view('PkgCompetences::technology.edit', compact('itemTechnology', 'competences', 'transfertCompetences', 'categoryTechnologies'));

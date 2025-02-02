@@ -100,7 +100,7 @@ class BaseEMetadatumController extends AdminController
         $eModels = $this->eModelService->all();
 
         if (request()->ajax()) {
-            return view('PkgGapp::eMetadatum._edit', compact('itemEMetadatum', 'eDataFields', 'eMetadataDefinitions', 'eModels'));
+            return view('PkgGapp::eMetadatum._fields', compact('itemEMetadatum', 'eDataFields', 'eMetadataDefinitions', 'eModels'));
         }
 
         return view('PkgGapp::eMetadatum.edit', compact('itemEMetadatum', 'eDataFields', 'eMetadataDefinitions', 'eModels'));
@@ -117,7 +117,7 @@ class BaseEMetadatumController extends AdminController
         $eModels = $this->eModelService->all();
 
         if (request()->ajax()) {
-            return view('PkgGapp::eMetadatum._edit', compact('itemEMetadatum', 'eDataFields', 'eMetadataDefinitions', 'eModels'));
+            return view('PkgGapp::eMetadatum._fields', compact('itemEMetadatum', 'eDataFields', 'eMetadataDefinitions', 'eModels'));
         }
 
         return view('PkgGapp::eMetadatum.edit', compact('itemEMetadatum', 'eDataFields', 'eMetadataDefinitions', 'eModels'));

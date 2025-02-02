@@ -90,7 +90,7 @@ class BaseLivrablesRealisationController extends AdminController
         $livrables = $this->livrableService->all();
 
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::livrablesRealisation._edit', compact('itemLivrablesRealisation', 'livrables'));
+            return view('PkgRealisationProjets::livrablesRealisation._fields', compact('itemLivrablesRealisation', 'livrables'));
         }
 
         return view('PkgRealisationProjets::livrablesRealisation.edit', compact('itemLivrablesRealisation', 'livrables'));
@@ -105,7 +105,7 @@ class BaseLivrablesRealisationController extends AdminController
         $livrables = $this->livrableService->all();
 
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::livrablesRealisation._edit', compact('itemLivrablesRealisation', 'livrables'));
+            return view('PkgRealisationProjets::livrablesRealisation._fields', compact('itemLivrablesRealisation', 'livrables'));
         }
 
         return view('PkgRealisationProjets::livrablesRealisation.edit', compact('itemLivrablesRealisation', 'livrables'));

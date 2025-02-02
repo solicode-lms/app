@@ -108,7 +108,7 @@ class BaseTransfertCompetenceController extends AdminController
         $projets = $this->projetService->all();
 
         if (request()->ajax()) {
-            return view('PkgCreationProjet::transfertCompetence._edit', compact('itemTransfertCompetence', 'technologies', 'competences', 'niveauDifficultes', 'projets'));
+            return view('PkgCreationProjet::transfertCompetence._fields', compact('itemTransfertCompetence', 'technologies', 'competences', 'niveauDifficultes', 'projets'));
         }
 
         return view('PkgCreationProjet::transfertCompetence.edit', compact('itemTransfertCompetence', 'technologies', 'competences', 'niveauDifficultes', 'projets'));
@@ -126,7 +126,7 @@ class BaseTransfertCompetenceController extends AdminController
         $projets = $this->projetService->all();
 
         if (request()->ajax()) {
-            return view('PkgCreationProjet::transfertCompetence._edit', compact('itemTransfertCompetence', 'technologies', 'competences', 'niveauDifficultes', 'projets'));
+            return view('PkgCreationProjet::transfertCompetence._fields', compact('itemTransfertCompetence', 'technologies', 'competences', 'niveauDifficultes', 'projets'));
         }
 
         return view('PkgCreationProjet::transfertCompetence.edit', compact('itemTransfertCompetence', 'technologies', 'competences', 'niveauDifficultes', 'projets'));

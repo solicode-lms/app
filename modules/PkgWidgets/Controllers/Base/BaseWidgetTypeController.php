@@ -91,7 +91,7 @@ class BaseWidgetTypeController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('PkgWidgets::widgetType._edit', compact('itemWidgetType', 'widgets_data', 'widgets_stats', 'widgets_filters'));
+            return view('PkgWidgets::widgetType._fields', compact('itemWidgetType', 'widgets_data', 'widgets_stats', 'widgets_filters'));
         }
 
         return view('PkgWidgets::widgetType.edit', compact('itemWidgetType', 'widgets_data', 'widgets_stats', 'widgets_filters'));
@@ -110,7 +110,7 @@ class BaseWidgetTypeController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('PkgWidgets::widgetType._edit', compact('itemWidgetType', 'widgets_data', 'widgets_stats', 'widgets_filters'));
+            return view('PkgWidgets::widgetType._fields', compact('itemWidgetType', 'widgets_data', 'widgets_stats', 'widgets_filters'));
         }
 
         return view('PkgWidgets::widgetType.edit', compact('itemWidgetType', 'widgets_data', 'widgets_stats', 'widgets_filters'));

@@ -90,7 +90,7 @@ class BaseResourceController extends AdminController
         $projets = $this->projetService->all();
 
         if (request()->ajax()) {
-            return view('PkgCreationProjet::resource._edit', compact('itemResource', 'projets'));
+            return view('PkgCreationProjet::resource._fields', compact('itemResource', 'projets'));
         }
 
         return view('PkgCreationProjet::resource.edit', compact('itemResource', 'projets'));
@@ -105,7 +105,7 @@ class BaseResourceController extends AdminController
         $projets = $this->projetService->all();
 
         if (request()->ajax()) {
-            return view('PkgCreationProjet::resource._edit', compact('itemResource', 'projets'));
+            return view('PkgCreationProjet::resource._fields', compact('itemResource', 'projets'));
         }
 
         return view('PkgCreationProjet::resource.edit', compact('itemResource', 'projets'));

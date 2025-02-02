@@ -96,7 +96,7 @@ class BaseSysControllerController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('Core::sysController._edit', compact('itemSysController', 'sysModules', 'permissions_data', 'permissions_stats', 'permissions_filters'));
+            return view('Core::sysController._fields', compact('itemSysController', 'sysModules', 'permissions_data', 'permissions_stats', 'permissions_filters'));
         }
 
         return view('Core::sysController.edit', compact('itemSysController', 'sysModules', 'permissions_data', 'permissions_stats', 'permissions_filters'));
@@ -116,7 +116,7 @@ class BaseSysControllerController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('Core::sysController._edit', compact('itemSysController', 'sysModules', 'permissions_data', 'permissions_stats', 'permissions_filters'));
+            return view('Core::sysController._fields', compact('itemSysController', 'sysModules', 'permissions_data', 'permissions_stats', 'permissions_filters'));
         }
 
         return view('Core::sysController.edit', compact('itemSysController', 'sysModules', 'permissions_data', 'permissions_stats', 'permissions_filters'));

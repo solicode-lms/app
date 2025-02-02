@@ -98,7 +98,7 @@ class BaseFeatureController extends AdminController
         $featureDomains = $this->featureDomainService->all();
 
         if (request()->ajax()) {
-            return view('Core::feature._edit', compact('itemFeature', 'permissions', 'featureDomains'));
+            return view('Core::feature._fields', compact('itemFeature', 'permissions', 'featureDomains'));
         }
 
         return view('Core::feature.edit', compact('itemFeature', 'permissions', 'featureDomains'));
@@ -114,7 +114,7 @@ class BaseFeatureController extends AdminController
         $featureDomains = $this->featureDomainService->all();
 
         if (request()->ajax()) {
-            return view('Core::feature._edit', compact('itemFeature', 'permissions', 'featureDomains'));
+            return view('Core::feature._fields', compact('itemFeature', 'permissions', 'featureDomains'));
         }
 
         return view('Core::feature.edit', compact('itemFeature', 'permissions', 'featureDomains'));

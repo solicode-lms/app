@@ -101,7 +101,7 @@ class BaseRoleController extends AdminController
         $users = $this->userService->all();
 
         if (request()->ajax()) {
-            return view('PkgAutorisation::role._edit', compact('itemRole', 'permissions', 'users'));
+            return view('PkgAutorisation::role._fields', compact('itemRole', 'permissions', 'users'));
         }
 
         return view('PkgAutorisation::role.edit', compact('itemRole', 'permissions', 'users'));
@@ -117,7 +117,7 @@ class BaseRoleController extends AdminController
         $users = $this->userService->all();
 
         if (request()->ajax()) {
-            return view('PkgAutorisation::role._edit', compact('itemRole', 'permissions', 'users'));
+            return view('PkgAutorisation::role._fields', compact('itemRole', 'permissions', 'users'));
         }
 
         return view('PkgAutorisation::role.edit', compact('itemRole', 'permissions', 'users'));

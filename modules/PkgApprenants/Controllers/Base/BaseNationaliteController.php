@@ -91,7 +91,7 @@ class BaseNationaliteController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('PkgApprenants::nationalite._edit', compact('itemNationalite', 'apprenants_data', 'apprenants_stats', 'apprenants_filters'));
+            return view('PkgApprenants::nationalite._fields', compact('itemNationalite', 'apprenants_data', 'apprenants_stats', 'apprenants_filters'));
         }
 
         return view('PkgApprenants::nationalite.edit', compact('itemNationalite', 'apprenants_data', 'apprenants_stats', 'apprenants_filters'));
@@ -110,7 +110,7 @@ class BaseNationaliteController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('PkgApprenants::nationalite._edit', compact('itemNationalite', 'apprenants_data', 'apprenants_stats', 'apprenants_filters'));
+            return view('PkgApprenants::nationalite._fields', compact('itemNationalite', 'apprenants_data', 'apprenants_stats', 'apprenants_filters'));
         }
 
         return view('PkgApprenants::nationalite.edit', compact('itemNationalite', 'apprenants_data', 'apprenants_stats', 'apprenants_filters'));

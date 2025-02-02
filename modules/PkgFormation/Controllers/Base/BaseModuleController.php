@@ -96,7 +96,7 @@ class BaseModuleController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('PkgFormation::module._edit', compact('itemModule', 'filieres', 'competences_data', 'competences_stats', 'competences_filters'));
+            return view('PkgFormation::module._fields', compact('itemModule', 'filieres', 'competences_data', 'competences_stats', 'competences_filters'));
         }
 
         return view('PkgFormation::module.edit', compact('itemModule', 'filieres', 'competences_data', 'competences_stats', 'competences_filters'));
@@ -116,7 +116,7 @@ class BaseModuleController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('PkgFormation::module._edit', compact('itemModule', 'filieres', 'competences_data', 'competences_stats', 'competences_filters'));
+            return view('PkgFormation::module._fields', compact('itemModule', 'filieres', 'competences_data', 'competences_stats', 'competences_filters'));
         }
 
         return view('PkgFormation::module.edit', compact('itemModule', 'filieres', 'competences_data', 'competences_stats', 'competences_filters'));
