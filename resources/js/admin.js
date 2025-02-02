@@ -3,12 +3,6 @@
 // Le chargement de JQuery doit être avant le chargement des fichiers Vite, car les classe Vite 
 // utilise les plugin JQuery
 
-// TODO : générer summerniote sans vite
-import 'summernote/dist/summernote-bs4.min';
-
-import 'admin-lte/plugins/bootstrap/js/bootstrap.bundle';
-import "admin-lte/dist/js/adminlte";
-
 
 // Import Flatpickr CSS
 import 'flatpickr/dist/flatpickr.min.css';

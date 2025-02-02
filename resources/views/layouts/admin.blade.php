@@ -7,11 +7,12 @@
     <title>@yield('title')</title>
   
     <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('vendor/admin-lte/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+   
     <script src="{{ asset('vendor/select2/js/select2.full.min.js') }}"></script>
     <script src="{{ asset('vendor/summernote/summernote-bs4.min.js') }}"></script>
 
-
-
+    <script src="{{ asset('vendor/admin-lte/js/adminlte.min.js') }}"></script>
 
     
     <!-- iziModal CSS -->
