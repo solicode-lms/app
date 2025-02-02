@@ -79,14 +79,22 @@ class BaseCategoryTechnologyController extends AdminController
         );
     }
     public function show(string $id) {
-        $itemCategoryTechnology = $this->categoryTechnologyService->find($id);
 
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('category_technology_id', $id);
+        
+        $itemCategoryTechnology = $this->categoryTechnologyService->find($id);
+        $technologyService =  new TechnologyService();
+        $technologies_data =  $itemCategoryTechnology->technologies()->paginate(10);
+        $technologies_stats = $technologyService->gettechnologyStats();
+        $technologies_filters = $technologyService->getFieldsFilterable();
+        
 
         if (request()->ajax()) {
-            return view('PkgCompetences::categoryTechnology._fields', compact('itemCategoryTechnology'));
+            return view('PkgCompetences::categoryTechnology._edit', compact('itemCategoryTechnology', 'technologies_data', 'technologies_stats', 'technologies_filters'));
         }
 
-        return view('PkgCompetences::categoryTechnology.show', compact('itemCategoryTechnology'));
+        return view('PkgCompetences::categoryTechnology.edit', compact('itemCategoryTechnology', 'technologies_data', 'technologies_stats', 'technologies_filters'));
 
     }
     public function edit(string $id) {
@@ -102,7 +110,7 @@ class BaseCategoryTechnologyController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('PkgCompetences::categoryTechnology._fields', compact('itemCategoryTechnology', 'technologies_data', 'technologies_stats', 'technologies_filters'));
+            return view('PkgCompetences::categoryTechnology._edit', compact('itemCategoryTechnology', 'technologies_data', 'technologies_stats', 'technologies_filters'));
         }
 
         return view('PkgCompetences::categoryTechnology.edit', compact('itemCategoryTechnology', 'technologies_data', 'technologies_stats', 'technologies_filters'));

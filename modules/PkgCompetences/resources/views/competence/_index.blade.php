@@ -19,7 +19,7 @@
         deleteUrl: '{{ route('competences.destroy',  ['competence' => ':id']) }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgCompetences::competence.singular") }}',
-        edit_title: '{{__("Core::msg.add") . " : " . __("PkgCompetences::competence.singular") }}',
+        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgCompetences::competence.singular") }}',
     });
 </script>
 

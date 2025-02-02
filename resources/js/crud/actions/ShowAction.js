@@ -75,24 +75,5 @@ export class ShowAction extends Action {
     }
 
 
-        /**
-     * Exécute les scripts inclus dans le contenu HTML chargé via AJAX.
-     * @param {string} html - Contenu HTML contenant potentiellement des scripts.
-     */
-        executeScripts(html) {
-            const scriptTags = $("<div>").html(html).find("script");
-    
-            scriptTags.each(function () {
-                const scriptText = $(this).text();
-                const scriptSrc = $(this).attr("src");
-    
-                if (scriptSrc) {
-                    // Charger et exécuter les scripts externes
-                    $.getScript(scriptSrc);
-                } else if (scriptText) {
-                    // Exécuter les scripts inline
-                    new Function(scriptText)();
-                }
-            });
-        }
+
 }

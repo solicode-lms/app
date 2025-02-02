@@ -294,17 +294,21 @@ export class FormUI {
 
     initializeSelect2_in_modal() {
         
+        // TODO : Select2 supprimer select2 de filtre 
+        // Peut être que il sont le même id : exemple : module_id dans le filtre 
+        // et module_id dans formulaire, 
         // Initialise les éléments Select2
-        $(`${this.formSelector} .select2`).select2({
-         
-            placeholder: "Sélectionnez une option", // Placeholder requis
-            allowClear : true,
+        $(`${this.formSelector} select.select2`).each(function () {
+            $(this).select2({
+                placeholder: "Sélectionnez une option",
+                allowClear: true,
+            });
         });
 
         // Initialise les éléments Select2 avec thème Bootstrap 4
-        $(`.select2bs4`).select2({
-            theme: 'bootstrap4',
-        });
+        // $(`.select2bs4`).select2({
+        //     theme: 'bootstrap4',
+        // });
     }
 
     static initializeSelect2() {
@@ -323,7 +327,7 @@ export class FormUI {
     static initializeRichText(){
         // Init sumernote
         $(`.richText`).summernote({
-            height: 100, //set editable area's height
+            height: 80, //set editable area's height
         });
     }
 

@@ -8,6 +8,7 @@ export class CreateAction extends Action {
     constructor(config, tableUI) {
         super(config);
         this.config = config;
+        
         this.tableUI = tableUI;
 
         

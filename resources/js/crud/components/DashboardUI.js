@@ -66,22 +66,22 @@ export class DashboardUI {
             return (className.match(/(^|\s)sidebar-dark-\S+/g) || []).join(' ');
         });
     
-        let colors = {
-            "color1": "#2973B2",
-            "color2": "#0D92F4",
-            "color3": "#229799",
-        };
+        // let colors = {
+        //     "color1": "#2973B2",
+        //     "color2": "#0D92F4",
+        //     "color3": "#229799",
+        // };
 
-        // Appliquer la classe correspondant au rôle
-        if (this.user.role === "apprenant") {
-            document.documentElement.style.setProperty("--gapp-info", colors.color1);
-        } else if (this.user.role === "formateur") {
-            document.documentElement.style.setProperty("--gapp-info", colors.color2);
-        } else if (this.user.role === "gapp") {
-            document.documentElement.style.setProperty("--gapp-info", colors.color3);
-        }else{
-            mainSidebar.addClass("sidebar-dark-info");
-        }
+        // // Appliquer la classe correspondant au rôle
+        // if (this.user.role === "apprenant") {
+        //     document.documentElement.style.setProperty("--gapp-info", colors.color1);
+        // } else if (this.user.role === "formateur") {
+        //     document.documentElement.style.setProperty("--gapp-info", colors.color2);
+        // } else if (this.user.role === "gapp") {
+        //     document.documentElement.style.setProperty("--gapp-info", colors.color3);
+        // }else{
+        //     mainSidebar.addClass("sidebar-dark-info");
+        // }
     }
 
 

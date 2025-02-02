@@ -64,6 +64,7 @@ export class FilterUI {
         $(document).on('input', `${formSelector} input, ${formSelector} select`, () => {
             clearTimeout(this.debounceTimeout);
             this.debounceTimeout = setTimeout(() => {
+                this.updateFilterState();
                 this.submitForm(); // Soumettre le formulaire après un délai
             }, this.debounceDelay);
         });
@@ -95,31 +96,35 @@ export class FilterUI {
     }
 
 
+      // Fonction pour vérifier l'état des filtres
+      updateFilterState (){
+        const filterIcon = document.querySelector(this.config.filterIconSelector);
+        const filterForm = document.querySelector(this.config.filterFormSelector);
+        const filters = new FormData(filterForm);
+        let hasActiveFilters = false;
+
+        for (let [key, value] of filters.entries()) {
+            if (value.trim() !== '' && key !== 'page') {
+                hasActiveFilters = true;
+                break;
+            }
+        }
+
+        if (hasActiveFilters) {
+            filterIcon.classList.remove('fa-filter');
+            filterIcon.classList.add('fa-times-circle');
+        } else {
+            filterIcon.classList.remove('fa-times-circle');
+            filterIcon.classList.add('fa-filter');
+        }
+    };
+
+
     initializeFilterResetHandler() {
         const filterIcon = document.querySelector(this.config.filterIconSelector);
         const filterForm = document.querySelector(this.config.filterFormSelector);
     
-        // Fonction pour vérifier l'état des filtres
-        const updateFilterState = () => {
-            const filters = new FormData(filterForm);
-            let hasActiveFilters = false;
-    
-            for (let [key, value] of filters.entries()) {
-                if (value.trim() !== '' && key !== 'page') {
-                    hasActiveFilters = true;
-                    break;
-                }
-            }
-    
-            if (hasActiveFilters) {
-                filterIcon.classList.remove('fa-filter');
-                filterIcon.classList.add('fa-times-circle');
-            } else {
-                filterIcon.classList.remove('fa-times-circle');
-                filterIcon.classList.add('fa-filter');
-            }
-        };
-    
+      
         // Réinitialiser les filtres au clic sur l'icône
         filterIcon.addEventListener('click', () => {
             filterForm.querySelectorAll('input, select').forEach((field) => {
@@ -130,13 +135,12 @@ export class FilterUI {
             $(filterForm).find('.select2').val(null).trigger('change');
 
 
-            updateFilterState();
+            this.updateFilterState();
             this.submitForm(); // Soumettre le formulaire après réinitialisation
         });
     
         // Vérifier l'état des filtres au chargement et sur modification
-        updateFilterState();
-        filterForm.addEventListener('input', updateFilterState);
+        this.updateFilterState();
     }
 
 

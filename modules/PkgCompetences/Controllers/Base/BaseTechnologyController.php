@@ -96,17 +96,20 @@ class BaseTechnologyController extends AdminController
         );
     }
     public function show(string $id) {
+
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('technology_id', $id);
+        
         $itemTechnology = $this->technologyService->find($id);
         $competences = $this->competenceService->all();
         $transfertCompetences = $this->transfertCompetenceService->all();
         $categoryTechnologies = $this->categoryTechnologyService->all();
 
-
         if (request()->ajax()) {
-            return view('PkgCompetences::technology._fields', compact('itemTechnology', 'competences', 'transfertCompetences', 'categoryTechnologies'));
+            return view('PkgCompetences::technology._edit', compact('itemTechnology', 'competences', 'transfertCompetences', 'categoryTechnologies'));
         }
 
-        return view('PkgCompetences::technology.show', compact('itemTechnology'));
+        return view('PkgCompetences::technology.edit', compact('itemTechnology', 'competences', 'transfertCompetences', 'categoryTechnologies'));
 
     }
     public function edit(string $id) {
@@ -120,7 +123,7 @@ class BaseTechnologyController extends AdminController
         $categoryTechnologies = $this->categoryTechnologyService->all();
 
         if (request()->ajax()) {
-            return view('PkgCompetences::technology._fields', compact('itemTechnology', 'competences', 'transfertCompetences', 'categoryTechnologies'));
+            return view('PkgCompetences::technology._edit', compact('itemTechnology', 'competences', 'transfertCompetences', 'categoryTechnologies'));
         }
 
         return view('PkgCompetences::technology.edit', compact('itemTechnology', 'competences', 'transfertCompetences', 'categoryTechnologies'));

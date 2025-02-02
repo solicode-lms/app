@@ -83,15 +83,23 @@ class BaseNiveauDifficulteController extends AdminController
         );
     }
     public function show(string $id) {
+
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('niveau_difficulte_id', $id);
+        
         $itemNiveauDifficulte = $this->niveauDifficulteService->find($id);
         $formateurs = $this->formateurService->all();
-
+        $transfertCompetenceService =  new TransfertCompetenceService();
+        $transfertCompetences_data =  $itemNiveauDifficulte->transfertCompetences()->paginate(10);
+        $transfertCompetences_stats = $transfertCompetenceService->gettransfertCompetenceStats();
+        $transfertCompetences_filters = $transfertCompetenceService->getFieldsFilterable();
+        
 
         if (request()->ajax()) {
-            return view('PkgCompetences::niveauDifficulte._fields', compact('itemNiveauDifficulte', 'formateurs'));
+            return view('PkgCompetences::niveauDifficulte._edit', compact('itemNiveauDifficulte', 'formateurs', 'transfertCompetences_data', 'transfertCompetences_stats', 'transfertCompetences_filters'));
         }
 
-        return view('PkgCompetences::niveauDifficulte.show', compact('itemNiveauDifficulte'));
+        return view('PkgCompetences::niveauDifficulte.edit', compact('itemNiveauDifficulte', 'formateurs', 'transfertCompetences_data', 'transfertCompetences_stats', 'transfertCompetences_filters'));
 
     }
     public function edit(string $id) {
@@ -108,7 +116,7 @@ class BaseNiveauDifficulteController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('PkgCompetences::niveauDifficulte._fields', compact('itemNiveauDifficulte', 'formateurs', 'transfertCompetences_data', 'transfertCompetences_stats', 'transfertCompetences_filters'));
+            return view('PkgCompetences::niveauDifficulte._edit', compact('itemNiveauDifficulte', 'formateurs', 'transfertCompetences_data', 'transfertCompetences_stats', 'transfertCompetences_filters'));
         }
 
         return view('PkgCompetences::niveauDifficulte.edit', compact('itemNiveauDifficulte', 'formateurs', 'transfertCompetences_data', 'transfertCompetences_stats', 'transfertCompetences_filters'));

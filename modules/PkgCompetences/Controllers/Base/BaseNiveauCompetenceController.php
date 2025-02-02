@@ -105,7 +105,7 @@ class BaseNiveauCompetenceController extends AdminController
         $competences = $this->competenceService->all();
 
         if (request()->ajax()) {
-            return view('PkgCompetences::niveauCompetence._fields', compact('itemNiveauCompetence', 'competences'));
+            return view('PkgCompetences::niveauCompetence._edit', compact('itemNiveauCompetence', 'competences'));
         }
 
         return view('PkgCompetences::niveauCompetence.edit', compact('itemNiveauCompetence', 'competences'));

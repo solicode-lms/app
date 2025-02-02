@@ -81,9 +81,9 @@ export class ModalUI {
         this.modal =  $(`#${this.currentModalId}`).iziModal({
             title: title,
             theme: '',  // light
-            headerColor: "#2973B2",
+            headerColor: "#17a2b8",
             width: 900,
-            padding: 10,
+            padding: 20,
             zindex: 1050,
             appendTo: 'body',
             closeButton  : true,
@@ -127,15 +127,19 @@ export class ModalUI {
         $(`#${this.currentModalId}`).iziModal("startLoading");
      
     }
+    startLoading(){
+        $(`#${this.currentModalId}`).iziModal("startLoading"); 
+    }
+    stopLoading(){
+        $(`#${this.currentModalId}`).iziModal("stopLoading");
+    }
+  
 
     /**
      * Ferme la modale actuellement ouverte.
      */
     close() {
-        if (this.currentModalId) {
             $(`#${this.currentModalId}`).iziModal("close");
-            this.currentModalId = null;
-        }
     }
 
     /**

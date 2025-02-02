@@ -41,8 +41,8 @@ export class EditAction extends Action {
             .done((html) => {
                 // Injecter le contenu du formulaire dans le modal
                 this.tableUI.indexUI.modalUI.showContent(html);
+                this.executeScripts(html);
                 this.tableUI.indexUI.formUI.init(() => this.submitEntity());
-                // this.handleSuccess('Formulaire de modification chargé avec succès.');
             })
             .fail((xhr) => {
                 this.tableUI.indexUI.formUI.modalManager.close();

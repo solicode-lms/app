@@ -1,9 +1,9 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-@push('scripts')
+
 <script>
-    window.entitiesConfig = window.entitiesConfig || [];
-    window.entitiesConfig.push({
+    window.crudModalManagersConfig = window.crudModalManagersConfig || [];
+    window.crudModalManagersConfig.push({
         edit_has_many: {{ !isset($edit_has_many)? 'true' :  ($edit_has_many ? "true": "false") }},
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
         entity_name: 'categoryTechnology',
@@ -11,7 +11,6 @@
         crudSelector: '#categoryTechnology-crud',
         tableSelector: '#categoryTechnology-data-container',
         formSelector: '#categoryTechnologyForm',
-        modalSelector : '#categoryTechnologyModal',
         indexUrl: '{{ route('categoryTechnologies.index') }}', 
         createUrl: '{{ route('categoryTechnologies.create') }}',
         editUrl: '{{ route('categoryTechnologies.edit',  ['categoryTechnology' => ':id']) }}',
@@ -20,10 +19,10 @@
         deleteUrl: '{{ route('categoryTechnologies.destroy',  ['categoryTechnology' => ':id']) }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgCompetences::categoryTechnology.singular") }}',
-        edit_title: '{{__("Core::msg.add") . " : " . __("PkgCompetences::categoryTechnology.singular") }}',
+        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgCompetences::categoryTechnology.singular") }}',
     });
 </script>
-@endpush
+
 <div id="categoryTechnology-crud" class="crud">
     @section('categoryTechnology-crud-header')
     @php
@@ -102,8 +101,5 @@
             </div>
         </div>
     </section>
-    @show
-    @section('categoryTechnology-crud-modal')
-    <x-modal id="categoryTechnologyModal" title="Ajouter ou Modifier"></x-modal>
     @show
 </div>

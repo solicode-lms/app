@@ -11,8 +11,6 @@ export class TableUI {
         this.config = config;
         this.indexUI = indexUI;
     
-        this.loadListAction = new LoadListAction(config);
-
         // Initialisation des actions CRUD
         this.entityCreator = new CreateAction(config,this);
         this.entityViewer = new ShowAction(config,this);
@@ -23,12 +21,7 @@ export class TableUI {
 
     init(){
 
-
-        if(!this.config.edit_has_many){
-            this.entityEditor.init();
-          
-        }
-        
+        this.entityEditor.init();
         this.entityCreator.init(); 
         this.entityDeleter.init();
         this.entityViewer.init();
