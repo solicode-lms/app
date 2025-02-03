@@ -38,6 +38,12 @@ if (!function_exists('loadDynamicMenus')) {
 
                 // Ajouter la vue au tableau des menus
               
+                 // Forcer Laravel à utiliser la langue active
+                app()->setLocale(config('app.locale'));
+
+                // Charger la vue après avoir forcé la locale
+                // $menuItems[] = view($viewPath)->render();
+                
                 // Exécuter le rendu dans le contexte de l'application
                 $menuItems[] = app()->call(function () use ($viewPath) {
                     return view($viewPath)->render();
