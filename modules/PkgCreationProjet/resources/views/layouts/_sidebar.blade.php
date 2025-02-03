@@ -24,7 +24,7 @@
         <li class="nav-item">
             <a href="{{ route('projets.index') }}" class="nav-link {{ Request::is('admin/PkgCreationProjet/projets') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-table"></i>
-                {{__('PkgCreationProjet::Projet.plural')}}
+                {{__('PkgCreationProjet::projet.plural')}}
             </a>
         </li>
         @endcan
@@ -40,7 +40,7 @@
         <li class="nav-item">
             <a href="{{ route('livrables.index') }}" class="nav-link {{ Request::is('admin/PkgCreationProjet/livrables') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-table"></i>
-                {{__('PkgCreationProjet::Livrable.plural')}}
+                {{__('PkgCreationProjet::livrable.plural')}}
             </a>
         </li>
         @endcan
