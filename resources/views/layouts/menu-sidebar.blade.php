@@ -7,7 +7,8 @@
     </a>
 </li>
 
-{{-- Charger les menus des packages dynamiquement --}}
-@foreach (loadDynamicMenus() as $menu)
-    {!! $menu !!}
+
+{{-- Charger les menus des modules dynamiquement --}}
+@foreach ($dynamicMenus as $menu)
+    @includeIf($menu)
 @endforeach
