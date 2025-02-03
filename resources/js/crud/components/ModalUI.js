@@ -33,6 +33,16 @@ export class ModalUI {
         // Ajouter la nouvelle modale
         $("body").append(`<div id="${this.currentModalId}" class="dynamic-modal"></div>`);
     
+
+         // Passer en mode plein écran si aucun autre modal n'est ouvert
+         if ($(".dynamic-modal:visible").length === 0 && !document.fullscreenElement) {
+            ModalUI.wasFullscreen = true;
+            document.documentElement.requestFullscreen().catch(err => {
+                console.warn(`Erreur lors du passage en plein écran : ${err.message}`);
+            });
+        }
+
+
         // Détecter le modal parent (le dernier modal ouvert)
         this.parentModal = $(".dynamic-modal").not(`#${this.currentModalId}`).last();
         
@@ -70,7 +80,7 @@ export class ModalUI {
             transitionOut: "fadeOut",
             overlayClose: true,
             autoOpen: true,
-            onClosed: () => this.restoreParentModal()
+            onClosed: () => this.handleClose()
         });
     }
     
@@ -125,6 +135,19 @@ export class ModalUI {
     showError(errorMessage) {
         this.showContent(`<div class="alert alert-danger">${errorMessage}</div>`);
         console.error(`Erreur dans le modal : ${errorMessage}`);
+    }
+
+    handleClose() {
+        this.restoreParentModal();
+
+        // Vérifier si tous les modals sont fermés
+        setTimeout(() => {
+            if ($(".dynamic-modal:visible").length === 0 && document.fullscreenElement && ModalUI.wasFullscreen) {
+                document.exitFullscreen().catch(err => {
+                    console.warn(`Erreur lors de la sortie du mode plein écran : ${err.message}`);
+                });
+            }
+        }, 100); // Petit délai pour éviter les erreurs de fermeture simultanée
     }
 
     restoreParentModal() {
