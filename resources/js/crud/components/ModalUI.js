@@ -7,11 +7,11 @@ import EventUtil from '../utils/EventUtil';
 export class ModalUI {
 
     static modalCounter = 0;
-
+    static wasFullscreen = false;
     constructor(config, indexUI) {
         this.config = config;
         this.indexUI = indexUI;
-
+        
         this.modalCounter = 0;
         this.curd_id = this.config.id;
         
@@ -19,6 +19,19 @@ export class ModalUI {
         this.modal = null;
         this.parentModal = null;
         this.isParentFullscreen = false; // Pour stocker l’état précédent du modal parent
+
+         // 🔹 Ajouter l'écouteur global pour activer le mode plein écran au premier clic
+         document.addEventListener('click', () => {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().then(() => {
+                    ModalUI.wasFullscreen = true;
+                }).catch(err => {
+                    console.warn(`Erreur lors du passage en plein écran : ${err.message}`);
+                });
+            }
+        }, { once: true }); // S'exécute une seule fois
+
+
     }
 
     /**
@@ -30,18 +43,23 @@ export class ModalUI {
         // Supprimer l'ancienne modale si elle existe déjà
         $(`#${this.currentModalId}`).remove();
     
-        // Ajouter la nouvelle modale
-        $("body").append(`<div id="${this.currentModalId}" class="dynamic-modal"></div>`);
-    
+      
 
-         // Passer en mode plein écran si aucun autre modal n'est ouvert
-         if ($(".dynamic-modal:visible").length === 0 && !document.fullscreenElement) {
-            ModalUI.wasFullscreen = true;
-            document.documentElement.requestFullscreen().catch(err => {
-                console.warn(`Erreur lors du passage en plein écran : ${err.message}`);
-            });
+        if ($(".dynamic-modal:visible").length === 0) {
+            // ✅ Vérifier si le document est déjà en plein écran AVANT d’activer fullscreen
+            if (!document.fullscreenElement) {
+                ModalUI.wasFullscreen = true; // Plein écran activé par le script
+                document.documentElement.requestFullscreen().catch(err => {
+                    console.warn(`Erreur lors du passage en plein écran : ${err.message}`);
+                });
+            } else {
+                ModalUI.wasFullscreen = false; // Déjà en plein écran, donc on ne change rien
+            }
         }
 
+        // Ajouter la nouvelle modale
+        $("body").append(`<div id="${this.currentModalId}" class="dynamic-modal"></div>`);
+            
 
         // Détecter le modal parent (le dernier modal ouvert)
         this.parentModal = $(".dynamic-modal").not(`#${this.currentModalId}`).last();
@@ -139,16 +157,21 @@ export class ModalUI {
 
     handleClose() {
         this.restoreParentModal();
-
-        // Vérifier si tous les modals sont fermés
+    
         setTimeout(() => {
-            if ($(".dynamic-modal:visible").length === 0 && document.fullscreenElement && ModalUI.wasFullscreen) {
-                document.exitFullscreen().catch(err => {
-                    console.warn(`Erreur lors de la sortie du mode plein écran : ${err.message}`);
-                });
+            if ($(".dynamic-modal:visible").length === 0) {
+                // Vérifier si le mode plein écran a été activé par la modale
+                if (ModalUI.wasFullscreen) {
+                    document.exitFullscreen().then(() => {
+                        ModalUI.wasFullscreen = false; // Réinitialiser après la sortie du mode plein écran
+                    }).catch(err => {
+                        console.warn(`Erreur lors de la sortie du mode plein écran : ${err.message}`);
+                    });
+                }
             }
-        }, 100); // Petit délai pour éviter les erreurs de fermeture simultanée
+        }, 100);
     }
+    
 
     restoreParentModal() {
         if (this.parentModal && this.parentModal.length > 0) {
