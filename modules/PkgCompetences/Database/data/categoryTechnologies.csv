@@ -1,21 +1,9 @@
 nom,description
-nom 1,description 1
-nom 2,description 2
-nom 3,description 3
-nom 4,description 4
-nom 5,description 5
-nom 6,description 6
-nom 7,description 7
-nom 8,description 8
-nom 9,description 9
-nom 10,description 10
-nom 11,description 11
-nom 12,description 12
-nom 13,description 13
-nom 14,description 14
-nom 15,description 15
-nom 16,description 16
-nom 17,description 17
-nom 18,description 18
-nom 19,description 19
-nom 20,description 20
+Langages de développement,"Langages utilisés pour le développement frontend et backend, y compris HTML, CSS, JavaScript, TypeScript, PHP, Python, et Node.js."
+Frameworks et bibliothèques,"Frameworks et bibliothèques utilisés pour simplifier et accélérer le développement, comme React, Bootstrap, Vue.js, Laravel, Symfony, et Django."
+Bases de données et API,"Technologies pour organiser les données et gérer les interactions entre systèmes, comme MySQL, MongoDB, REST, et GraphQL."
+Outils DevOps et gestion de version,"Technologies pour gérer les versions de code et automatiser les workflows, comme Git, Docker, Jenkins, et Kubernetes."
+Hébergement et cloud,"Services pour héberger, déployer et gérer des applications, comme AWS, Azure, Google Cloud, et Netlify."
+Systèmes de gestion de contenu et outils de développement,"Plateformes CMS comme WordPress et outils comme VS Code, WebStorm, et PhpStorm pour coder efficacement."
+Tests et sécurité,"Technologies pour tester et sécuriser les applications, comme Jest, Selenium, HTTPS, et OAuth."
+Conception et expérience utilisateur,"Outils pour créer des interfaces utilisateur et améliorer l'expérience, comme Figma, Adobe XD, et Sketch."

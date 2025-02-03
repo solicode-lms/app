@@ -1,6 +1,7 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form class="crud-form context-state" id="natureLivrableForm" action="{{ $itemNatureLivrable->id ? route('natureLivrables.update', $itemNatureLivrable->id) : route('natureLivrables.store') }}" method="POST" novalidate>
+@section('natureLivrable-form')
+<form class="crud-form custom-form context-state" id="natureLivrableForm" action="{{ $itemNatureLivrable->id ? route('natureLivrables.update', $itemNatureLivrable->id) : route('natureLivrables.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemNatureLivrable->id)
@@ -8,6 +9,7 @@
     @endif
 
     <div class="card-body">
+        
         <div class="form-group">
             <label for="nom">
                 {{ ucfirst(__('PkgCreationProjet::natureLivrable.nom')) }}
@@ -28,6 +30,7 @@
             @enderror
 </div>
 
+        
         <div class="form-group">
             <label for="description">
                 {{ ucfirst(__('PkgCreationProjet::natureLivrable.description')) }}
@@ -46,8 +49,9 @@
             @enderror
 </div>
 
+        
 
-        <!--   Livrable_HasMany HasMany --> 
+        <!--   Livrable HasMany --> 
 
     </div>
 
@@ -56,5 +60,10 @@
         <button type="submit" class="btn btn-info ml-2">{{ $itemNatureLivrable->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
+@show
 
+
+<script>
+
+</script>
 

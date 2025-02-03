@@ -1,40 +1,11 @@
 <?php
-// TODO : il manque 
-// public function featureDomains()
-// {
-//     return $this->hasMany(FeatureDomain::class, 'module_id', 'id');
-// }
+// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 namespace Modules\Core\Models;
+use Modules\Core\Models\Base\BaseSysModule;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-
-class SysModule extends Model
+class SysModule extends BaseSysModule
 {
-    use HasFactory;
-
-    protected $fillable = ['name', 'slug', 'description', 'is_active', 'order', 'version'];
-
-
-    public function __toString()
-    {
-        return $this->id;
-    }
-
-       /**
-     * Relation avec les domaines de fonctionnalités.
-     * Un module peut avoir plusieurs domaines de fonctionnalités.
-     */
-    public function featureDomains()
-    {
-        return $this->hasMany(FeatureDomain::class, 'module_id', 'id');
-    }
-
-    public function sysColor()
-    {
-        return $this->belongsTo(SysColor::class, 'color_id', 'id');
-    }
 
 }

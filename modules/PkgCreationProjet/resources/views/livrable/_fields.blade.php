@@ -1,6 +1,7 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form class="crud-form context-state" id="livrableForm" action="{{ $itemLivrable->id ? route('livrables.update', $itemLivrable->id) : route('livrables.store') }}" method="POST" novalidate>
+@section('livrable-form')
+<form class="crud-form custom-form context-state" id="livrableForm" action="{{ $itemLivrable->id ? route('livrables.update', $itemLivrable->id) : route('livrables.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemLivrable->id)
@@ -8,6 +9,7 @@
     @endif
 
     <div class="card-body">
+        
         <div class="form-group">
             <label for="titre">
                 {{ ucfirst(__('PkgCreationProjet::livrable.titre')) }}
@@ -29,6 +31,7 @@
 </div>
 
         
+        
     <div class="form-group">
             <label for="nature_livrable_id">
                 {{ ucfirst(__('PkgCreationProjet::natureLivrable.singular')) }}
@@ -40,7 +43,7 @@
             id="nature_livrable_id" 
             required
             name="nature_livrable_id" 
-            class="form-control">
+            class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($natureLivrables as $natureLivrable)
                     <option value="{{ $natureLivrable->id }}"
@@ -56,6 +59,7 @@
 
 
         
+        
     <div class="form-group">
             <label for="projet_id">
                 {{ ucfirst(__('PkgCreationProjet::projet.singular')) }}
@@ -67,7 +71,7 @@
             id="projet_id" 
             required
             name="projet_id" 
-            class="form-control">
+            class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($projets as $projet)
                     <option value="{{ $projet->id }}"
@@ -82,6 +86,7 @@
     </div>
 
 
+        
         <div class="form-group">
             <label for="description">
                 {{ ucfirst(__('PkgCreationProjet::livrable.description')) }}
@@ -100,6 +105,10 @@
             @enderror
 </div>
 
+        
+
+        <!--   LivrablesRealisation HasMany --> 
+
     </div>
 
     <div class="card-footer">
@@ -107,5 +116,10 @@
         <button type="submit" class="btn btn-info ml-2">{{ $itemLivrable->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
+@show
 
+
+<script>
+
+</script>
 

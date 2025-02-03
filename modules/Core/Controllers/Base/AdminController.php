@@ -4,6 +4,7 @@ namespace Modules\Core\Controllers\Base;
 
 use App\Http\Middleware\CheckDynamicPermission;
 use App\Http\Middleware\ContextStateMiddleware;
+use App\Http\Middleware\SessionStateMiddleware;
 use Modules\Core\Services\ContextState;
 
 /**
@@ -33,6 +34,9 @@ class AdminController extends AppController
 
         // Middleware appliqué à toutes les méthodes
         $this->middleware(ContextStateMiddleware::class);
+
+        // Middleware appliqué à toutes les méthodes
+        $this->middleware(SessionStateMiddleware::class);
 
         // Scrop management
         $this->contextState = app(ContextState::class);

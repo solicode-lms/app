@@ -1,6 +1,7 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form class="crud-form context-state" id="categoryTechnologyForm" action="{{ $itemCategoryTechnology->id ? route('categoryTechnologies.update', $itemCategoryTechnology->id) : route('categoryTechnologies.store') }}" method="POST" novalidate>
+@section('categoryTechnology-form')
+<form class="crud-form custom-form context-state" id="categoryTechnologyForm" action="{{ $itemCategoryTechnology->id ? route('categoryTechnologies.update', $itemCategoryTechnology->id) : route('categoryTechnologies.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemCategoryTechnology->id)
@@ -8,6 +9,7 @@
     @endif
 
     <div class="card-body">
+        
         <div class="form-group">
             <label for="nom">
                 {{ ucfirst(__('PkgCompetences::categoryTechnology.nom')) }}
@@ -28,6 +30,7 @@
             @enderror
 </div>
 
+        
         <div class="form-group">
             <label for="description">
                 {{ ucfirst(__('PkgCompetences::categoryTechnology.description')) }}
@@ -46,8 +49,9 @@
             @enderror
 </div>
 
+        
 
-        <!--   Technology_HasMany HasMany --> 
+        <!--   Technology HasMany --> 
 
     </div>
 
@@ -56,5 +60,10 @@
         <button type="submit" class="btn btn-info ml-2">{{ $itemCategoryTechnology->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
+@show
 
+
+<script>
+
+</script>
 

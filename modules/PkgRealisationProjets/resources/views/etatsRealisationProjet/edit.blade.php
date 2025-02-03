@@ -1,0 +1,7 @@
+{{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
+
+@extends('layouts.admin')
+@section('title', __('Core::msg.edit') . ' ' . __('PkgRealisationProjets::etatsRealisationProjet.singular'))
+@section('content')
+    @include('PkgRealisationProjets::etatsRealisationProjet._edit')
+@endsection

@@ -1,6 +1,7 @@
 <?php
 
+
 return [
-    'name' => 'Modules',
-    'icon' => 'fa-briefcase'
+    'name' => 'PkgCompetences',
+    'icon' => 'fa-bullseye'
 ];

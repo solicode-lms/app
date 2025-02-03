@@ -2,5 +2,8 @@
 
 return [
     App\Providers\AppServiceProvider::class,
+    App\Providers\AuthServiceProvider::class,
     App\Providers\ContextStateServiceProvider::class,
+    App\Providers\SessionStateServiceProvider::class,
+    App\Providers\ModuleViewFallbackProvider::class,
 ];

@@ -76,7 +76,7 @@
     "src": "node_modules/admin-lte/plugins/summernote/font/summernote.woff2"
   },
   "resources/css/admin.css": {
-    "file": "assets/admin-Ch12SxZu.css",
+    "file": "assets/admin-DQDWstMB.css",
     "src": "resources/css/admin.css",
     "isEntry": true
   },
@@ -137,17 +137,17 @@
     "src": "resources/css/font-adminlte/Source+Sans+Pro_700_normal.woff2"
   },
   "resources/css/public.css": {
-    "file": "assets/public-Bq512wju.css",
+    "file": "assets/public-BNXbRr-y.css",
     "src": "resources/css/public.css",
     "isEntry": true
   },
   "resources/js/admin.js": {
-    "file": "assets/admin-KOAA7Ves.js",
+    "file": "assets/admin-BEHaUe0R.js",
     "name": "admin",
     "src": "resources/js/admin.js",
     "isEntry": true,
     "css": [
-      "assets/admin-CksuuEqD.css"
+      "assets/admin-C9kWgRmX.css"
     ]
   },
   "resources/js/public.js": {

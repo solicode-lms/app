@@ -1,0 +1,76 @@
+<?php
+
+namespace Modules\PkgFormation\Services;
+
+use Modules\PkgAutorisation\Services\UserService;
+use Modules\PkgCompetences\Services\NiveauDifficulteService;
+use Modules\PkgFormation\Services\Base\BaseFormateurService;
+use Modules\PkgRealisationProjets\Models\EtatsRealisationProjet;
+use Modules\PkgRealisationProjets\Services\EtatsRealisationProjetService;
+use Modules\PkgCompetences\Models\NiveauDifficulte;
+
+/**
+ * Classe FormateurService pour gérer la persistance de l'entité Formateur.
+ */
+class FormateurService extends BaseFormateurService
+{
+    /**
+     * Crée un formateur et initialise ses dépendances.
+     *
+     * @param array $data
+     * @return mixed
+     */
+    public function create(array $data)
+    {
+        $formateur = parent::create($data);
+
+        // Création d'un utilisateur pour le formateur si non existant
+        if (is_null($formateur->user_id)) {
+            $userService = new UserService();
+            $user = $userService->createInstance();
+            $user->formateur_id = $formateur->id;
+            $user->name = strtoupper($formateur->nom) . " " . ucfirst($formateur->prenom);
+            $user->email = $formateur->matricule . "@solicode.co";
+            $user->password = $formateur->matricule;
+            $userService->create($user);
+        }
+
+        // Création des niveaux de difficulté pour le formateur
+        $niveauDifficulteService = new NiveauDifficulteService();
+        $niveauxDifficulte = [
+            ["Débutant", "Notions de base acquises.", 0, 5],
+            ["Intermédiaire", "Compétences appliquées avec assistance limitée.", 6, 10],
+            ["Avancé", "Bonne autonomie dans l'application des compétences.", 11, 15],
+            ["Expert", "Expertise démontrée avec capacité à résoudre des problèmes complexes.", 16, 18],
+            ["Maîtrise complète", "Maîtrise totale et capacité à enseigner ou guider les autres.", 19, 20]
+        ];
+
+        foreach ($niveauxDifficulte as $niveau) {
+            $niveauDifficulteService->create([
+                "nom" => $niveau[0],
+                "description" => $niveau[1],
+                "noteMin" => $niveau[2],
+                "noteMax" => $niveau[3],
+                "formateur_id" => $formateur->id
+            ]);
+        }
+
+        // Création des états de réalisation de projets pour le formateur
+        $etatsRealisationProjetService = new EtatsRealisationProjetService();
+        $etatsRealisationProjet = [
+            ["En cours", "Le projet est en cours de réalisation."],
+            ["Terminé", "Le projet a été finalisé avec succès."],
+            ["Annulé", "Le projet a été abandonné ou annulé."]
+        ];
+
+        foreach ($etatsRealisationProjet as $etat) {
+            $etatsRealisationProjetService->create([
+                "titre" => $etat[0],
+                "description" => $etat[1],
+                "formateur_id" => $formateur->id
+            ]);
+        }
+
+        return $formateur;
+    }
+}

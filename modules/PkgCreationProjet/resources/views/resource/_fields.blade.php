@@ -1,6 +1,7 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form class="crud-form context-state" id="resourceForm" action="{{ $itemResource->id ? route('resources.update', $itemResource->id) : route('resources.store') }}" method="POST" novalidate>
+@section('resource-form')
+<form class="crud-form custom-form context-state" id="resourceForm" action="{{ $itemResource->id ? route('resources.update', $itemResource->id) : route('resources.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemResource->id)
@@ -8,6 +9,7 @@
     @endif
 
     <div class="card-body">
+        
         <div class="form-group">
             <label for="nom">
                 {{ ucfirst(__('PkgCreationProjet::resource.nom')) }}
@@ -28,6 +30,7 @@
             @enderror
 </div>
 
+        
         <div class="form-group">
             <label for="lien">
                 {{ ucfirst(__('PkgCreationProjet::resource.lien')) }}
@@ -48,6 +51,7 @@
             @enderror
 </div>
 
+        
         <div class="form-group">
             <label for="description">
                 {{ ucfirst(__('PkgCreationProjet::resource.description')) }}
@@ -67,6 +71,7 @@
 </div>
 
         
+        
     <div class="form-group">
             <label for="projet_id">
                 {{ ucfirst(__('PkgCreationProjet::projet.singular')) }}
@@ -78,7 +83,7 @@
             id="projet_id" 
             required
             name="projet_id" 
-            class="form-control">
+            class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($projets as $projet)
                     <option value="{{ $projet->id }}"
@@ -100,5 +105,10 @@
         <button type="submit" class="btn btn-info ml-2">{{ $itemResource->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
+@show
 
+
+<script>
+
+</script>
 

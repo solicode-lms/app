@@ -3,28 +3,9 @@
 
 
 namespace Modules\PkgCompetences\Models;
+use Modules\PkgCompetences\Models\Base\BaseNiveauCompetence;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use App\Traits\HasDynamicContext;
-use Modules\PkgCompetences\Models\Competence;
-
-class NiveauCompetence extends Model
+class NiveauCompetence extends BaseNiveauCompetence
 {
-    use HasFactory, HasDynamicContext;
 
-    protected $fillable = ['nom', 'description', 'competence_id'];
-
-    public function competence()
-    {
-        return $this->belongsTo(Competence::class, 'competence_id', 'id');
-    }
-
-
-
-
-    public function __toString()
-    {
-        return $this->nom;
-    }
 }

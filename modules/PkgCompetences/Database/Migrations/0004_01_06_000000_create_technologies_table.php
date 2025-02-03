@@ -22,7 +22,7 @@ return new class extends Migration {
             $table->timestamps();
            
             $table->foreignId('category_technology_id')->constrained('category_technologies');
-
+            $table->string('reference')->unique();
         });
     }
 

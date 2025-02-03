@@ -1,65 +1,76 @@
+import { AjaxErrorHandler } from '../components/AjaxErrorHandler';
 import { LoadingIndicator } from '../components/LoadingIndicator';
 import { NotificationHandler } from '../components/NotificationHandler';
-import { Action } from './Action';
 import { BaseAction } from './BaseAction';
+import EventUtil from '../utils/EventUtil';
 
-// LoadListAction ne peut pas hérite de Action
-// pour éviter une dépendance circulaire des imports
 export class LoadListAction extends BaseAction {
     /**
      * Constructeur de LoadListAction.
      * @param {Object} config - Configuration pour le chargement des entités.
      */
-    constructor(config) {
+    constructor(config, tableUI) {
+
         super(config);
+        
+        this.config = config;
+        this.tableUI = tableUI;
+
+    
         this.indexUrl = this.appendParamsToUrl(
             config.indexUrl,
-            this.contextManager.getContextParams()
+            this.contextService.getContextParams()
         );
     }
 
     /**
      * Charge les entités depuis le serveur et met à jour la table ou la liste.
      * @param {number} page - Numéro de la page à charger (par défaut : 1).
-     * @param {string} q - Valeur de recherche pour filtrer les entités.
+     * @param {Object} filters - Objets contenant les filtres actifs.
      */
-    loadEntities(page , q ) {
+    loadEntities(page = 1, filters = {}) {
 
 
-        // Extraire les paramètres de l'URL si les arguments sont nuls
-        const urlParams = new URLSearchParams(window.location.search);
-        const _page = urlParams.get('page'); // "2"
-        const _query = urlParams.get('q');   // "test"
-
-        page = page || _page || 1;
-        q = q || _query || '';
-
-      
-        const search_params = `page=${page}&q=${q}`;
-
-        this.indexUrl = this.appendParamsToUrl(
-            this.indexUrl, search_params
+         // Filtrer les filtres pour exclure les champs avec des valeurs vides
+        const cleanedFilters = Object.fromEntries(
+            Object.entries(filters).filter(([key, value]) => value !== null && value !== undefined && value !== '')
         );
-
+        
+        // Récupérer les paramètres actuels depuis l'URL
+        const urlParams = new URLSearchParams(window.location.search);
+    
+        const v = Object.fromEntries(urlParams.entries());
+        // Intégrer les paramètres existants de l'URL et les nouveaux filtres
+        const searchParams = { ...Object.fromEntries(urlParams.entries()), ...cleanedFilters };
+        if(searchParams.page === undefined) {
+            searchParams.page = page;
+        }
+        // Générer la chaîne de requête
+        const queryString = new URLSearchParams(searchParams).toString();
+    
+        // Construire l'URL finale
+        const requestUrl = this.appendParamsToUrl(this.indexUrl, queryString);
+    
         // Afficher l'indicateur de chargement
         this.loader.show();
 
-        // Requête AJAX pour charger les entités
-        $.get(this.indexUrl)
-            .done((html) => {
-                // Mettre à jour le contenu de la table ou liste
-                $(this.config.tableSelector).html(html);
 
-                // Afficher un message de succès
+        // Requête AJAX pour charger les données
+        $.get(requestUrl)
+            .done((html) => {
+                // Mettre à jour le conteneur avec les nouvelles données
+                $(this.config.tableSelector).html(html);
+    
+                // Afficher un message de succès (optionnel)
                 // NotificationHandler.showSuccess('Données chargées avec succès.');
             })
-            .fail(() => {
-                // Gérer les erreurs
-                NotificationHandler.showError('Erreur lors du chargement des données.');
+            .fail((xhr) => {
+                AjaxErrorHandler.handleError(xhr, "Erreur lors du chargement des données.");
             })
             .always(() => {
                 // Masquer l'indicateur de chargement
                 this.loader.hide();
             });
     }
+    
 }

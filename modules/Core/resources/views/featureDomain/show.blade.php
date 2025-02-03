@@ -37,8 +37,8 @@
                                 <p>{{ $itemFeatureDomain->description }}</p>
                             </div>
                             <div class="col-sm-12">
-                                <label for="module_id">{{ ucfirst(__('Core::featureDomain.module_id')) }}:</label>
-                                <p>{{ $itemFeatureDomain->module_id }}</p>
+                                <label for="sys_module_id">{{ ucfirst(__('Core::featureDomain.sys_module_id')) }}:</label>
+                                <p>{{ $itemFeatureDomain->sys_module_id }}</p>
                             </div>
                         </div>
                     </div>

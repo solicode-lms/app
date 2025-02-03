@@ -1,0 +1,45 @@
+L'architecture des fichiers et dossiers de ton projet semble bien organisée autour de la gestion d'un CRUD avec des événements, des actions et une gestion du contexte. Voici une vue d'ensemble de la structure :
+
+```
+/ (Racine du projet)
+│── components/
+│   │── ContextStateService.js
+│   │── FormUI.js
+│   │── LoadingIndicator.js
+│   │── ModalUI.js
+│   │── NotificationHandler.js
+│
+│── actions/
+│   │── Action.js
+│   │── BaseAction.js
+│   │── CreateAction.js
+│   │── DeleteAction.js
+│   │── EditAction.js
+│   │── LoadListAction.js
+│   │── ShowAction.js
+│
+│── eventsHandler/
+│   │── ActionsEventHandler.js
+│   │── ContexteStateEventHandler.js
+│   │── SearchPaginationEventHandler.js
+│
+│── treatments/
+│   │── DynamicFieldVisibilityTreatment.js
+│
+│── managers/
+│   │── CrudModalManager.js
+│   │── EditWithTabPanelManager.js
+│
+│── utils/
+│   │── ConfigHelper.js
+```
+
+### 📂 **Détails des catégories de fichiers**
+- **📁 `components/`** : Contient les composants réutilisables du projet, notamment la gestion du formulaire, des notifications, du chargement et du modal.
+- **📁 `actions/`** : Implémente les actions CRUD (`Create`, `Edit`, `Delete`, `Show` et `LoadList`).
+- **📁 `eventsHandler/`** : Gère les événements liés aux actions et interactions utilisateur.
+- **📁 `treatments/`** : Contient les traitements spécifiques, comme la gestion dynamique des champs en fonction du contexte.
+- **📁 `managers/`** : Fournit des gestionnaires principaux (`CrudModalManager`, `EditWithTabPanelManager`) pour orchestrer les interactions CRUD.
+- **📁 `utils/`** : Contient des utilitaires pour la configuration.
+
+Cette organisation modulaire favorise la **réutilisation**, **l'extensibilité** et **la séparation des responsabilités**. Si tu veux des recommandations pour améliorer cette architecture ou ajouter des fonctionnalités spécifiques, fais-moi signe ! 🚀

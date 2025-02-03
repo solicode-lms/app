@@ -1,33 +1,43 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<div class="card-body table-responsive p-0 crud-table" id="featuresTable">
+<div class="card-body table-responsive p-0 crud-card-body" id="features-crud-card-body">
     <table class="table table-striped text-nowrap">
         <thead>
             <tr>
-                <th>{{ ucfirst(__('Core::feature.name')) }}</th>
-                <th>{{ ucfirst(__('Core::feature.description')) }}</th>
-                <th>{{ ucfirst(__('Core::featureDomain.singular')) }}</th>
+                <x-sortable-column field="name" label="{{ ucfirst(__('Core::feature.name')) }}" />
+                <x-sortable-column field="feature_domain_id" label="{{ ucfirst(__('Core::featureDomain.singular')) }}" />
+                <x-sortable-column field="Permission" label="{{ ucfirst(__('PkgAutorisation::permission.plural')) }}" />
+
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($features_data as $feature)
-                <tr>
-                    <td>{{ $feature->name }}</td>
-                    <td>{!! $feature->description !!}</td>
-                    <td>{{ $feature->featureDomain->name ?? '-' }}</td>
-                    <td class="text-center">
+                <tr id="feature-row-{{$feature->id}}">
+                    <td>@limit($feature->name, 80)</td>
+                    <td>@limit($feature->featureDomain->name ?? '-', 80)</td>
+                    <td>
+                        <ul>
+                            @foreach ($feature->permissions as $permission)
+                                <li>{{ $permission }}</li>
+                            @endforeach
+                        </ul>
+                    </td>
+                    <td class="text-right">
                         @can('show-feature')
                             <a href="{{ route('features.show', ['feature' => $feature->id]) }}" data-id="{{$feature->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
                         @endcan
                         @can('edit-feature')
+                        @can('update', $feature)
                             <a href="{{ route('features.edit', ['feature' => $feature->id]) }}" data-id="{{$feature->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endcan
+                        @endcan
                         @can('destroy-feature')
+                        @can('delete', $feature)
                             <form class="context-state" action="{{ route('features.destroy',['feature' => $feature->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
@@ -36,6 +46,7 @@
                                 </button>
                             </form>
                         @endcan
+                        @endcan
                     </td>
                 </tr>
             @endforeach
@@ -43,39 +54,10 @@
     </table>
 </div>
 
-
 <div class="card-footer">
-
-    <div class="d-md-flex justify-content-between align-items-center p-2">
-        <div class="d-flex align-items-center mb-2 ml-2 mt-2">
-            @can('import-feature')
-                <form action="{{ route('features.import') }}" method="post" class="mt-2" enctype="multipart/form-data"
-                    id="importForm">
-                    @csrf
-                    <label for="upload" class="btn btn-default btn-sm font-weight-normal">
-                        <i class="fas fa-file-download"></i>
-                        {{ __('Core::msg.import') }}
-                    </label>
-                    <input type="file" id="upload" name="file" style="display:none;" onchange="submitForm()" />
-                </form>
-            @endcan
-            @can('export-feature')
-                <form class="">
-                    <a href="{{ route('features.export') }}" class="btn btn-default btn-sm mt-0 mx-2">
-                        <i class="fas fa-file-export"></i>
-                        {{ __('Core::msg.export') }}</a>
-                </form>
-            @endcan
-        </div>
-
-        <ul class="pagination m-0 float-right">
-            {{ $features_data->onEachSide(1)->links() }}
-        </ul>
-    </div>
-
-    <script>
-        function submitForm() {
-            document.getElementById("importForm").submit();
-        }
-    </script>
+    @section('feature-crud-pagination')
+    <ul class="pagination m-0 d-flex justify-content-center">
+        {{ $features_data->onEachSide(1)->links() }}
+    </ul>
+    @show
 </div>

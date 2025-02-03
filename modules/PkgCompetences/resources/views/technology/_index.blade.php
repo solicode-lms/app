@@ -1,13 +1,16 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-@section('script')
-@parent
+
 <script>
-    window.entitiesConfig = window.entitiesConfig || [];
-    window.entitiesConfig.push({
-        edit_has_many: false,
+    window.crudModalManagersConfig = window.crudModalManagersConfig || [];
+    window.crudModalManagersConfig.push({
+        edit_has_many: {{ !isset($edit_has_many)? 'false' :  ($edit_has_many ? "true": "false") }},
+        isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
         entity_name: 'technology',
-        crudSelector: '#technology_crud',
+        filterFormSelector: '#technology-crud-filter-form',
+        crudSelector: '#technology-crud',
+        tableSelector: '#technology-data-container',
+        formSelector: '#technologyForm',
         indexUrl: '{{ route('technologies.index') }}', 
         createUrl: '{{ route('technologies.create') }}',
         editUrl: '{{ route('technologies.edit',  ['technology' => ':id']) }}',
@@ -16,84 +19,87 @@
         deleteUrl: '{{ route('technologies.destroy',  ['technology' => ':id']) }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgCompetences::technology.singular") }}',
-        edit_title: '{{__("Core::msg.add") . " : " . __("PkgCompetences::technology.singular") }}',
+        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgCompetences::technology.singular") }}',
     });
 </script>
-@endsection
-<div id="technology_crud">
-    <div class="content-header">
+
+<div id="technology-crud" class="crud">
+    @section('technology-crud-header')
+    @php
+        $package = __("PkgCompetences::PkgCompetences.name");
+       $titre = __("PkgCompetences::technology.singular");
+    @endphp
+    <x-crud-header 
+        id="technology-crud-header" icon="fas fa-bolt"  
+        iconColor="text-info"
+        title="{{ __('PkgCompetences::technology.plural') }}"
+        :breadcrumbs="[
+            ['label' => $package, 'url' => '#'],
+            ['label' => $titre]
+        ]"
+    />
+    @show
+    @section('technology-crud-table')
+    <section id="technology-crud-table" class="content crud-table">
         <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1>
-                        {{ curd_index_title('PkgCompetences::technology') }}
-                    </h1>
-                </div>
-                <div class="col-sm-6">
-                    <div class="float-sm-right">
-                        @can('create-technology')
-                        <a href="{{ route('technologies.create') }}" data-target="#technologyModal" class="btn btn-info btn-sm context-state addEntityButton">
-                            <i class="fas fa-plus"></i>
-                            {{ __('Core::msg.add') }}
-                        </a>
-                        @endcan
+            <div class="card card-outline card-info " id="card_crud">
+                @section('technology-crud-stats-bar')
+                <div class="card-header row">
+                    <!-- Statistiques et Actions -->
+                    <div class="col-sm-9">
+                        <x-crud-stats-summary
+                            icon="fas fa-chart-bar text-info"
+                            :stats="$technologies_stats"
+                        />
                     </div>
+                    <div class="col-sm-3">
+                        <x-crud-actions
+                            :createPermission="'create-technology'"
+                            :createRoute="route('technologies.create')"
+                            :createText="__('Ajouter')"
+                            :importPermission="'import-technology'"
+                            :importRoute="route('technologies.import')"
+                            :importText="__('Importer')"
+                            :exportPermission="'export-technology'"
+                            :exportRoute="route('technologies.export')"
+                            :exportText="__('Exporter')"
+                        />
+                    </div>
+                </div>
+                @show
+                @section('technology-crud-filters')
+                <div class="card-header">
+                    <form id="technology-crud-filter-form" method="GET" class="row">
+                        <x-filter-group count="{{count($technologies_filters ?? [])}}">
+                            <!-- Filtres spécifiques -->
+                            @foreach ($technologies_filters as $filter)
+                                <x-filter-field 
+                                    :label="$filter['label']" 
+                                    :type="$filter['type']" 
+                                    :field="$filter['field']" 
+                                    :options="$filter['options'] ?? []"
+                                    :placeholder="ucfirst(str_replace('_', ' ', $filter['field']))" />
+                            @endforeach
+                        </x-filter-group>
+                        @section('technology-crud-search-bar')
+                        <div id="technology-crud-search-bar"
+                            class="{{ count($technologies_filters) > 0 ? 'col-md-2' : 'col-md-6 mx-auto' }} text-md-right text-left">
+                            <x-search-bar
+                                :search="request('technologies_search')"
+                                name="technologies_search"
+                                id="technologies_search"
+                                placeholder="Recherche ..."
+                            />
+                        </div>
+                        @show
+                    </form>
+                </div>
+                @show
+                <div id="technology-data-container" class="data-container">
+                    @include('PkgCompetences::technology._table')
                 </div>
             </div>
         </div>
-    </div>
-    <section class="content" id="section_crud">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-12">
-                    <div class="card" id="card_crud">
-                        <div class="card-header col-md-12">
-                            <div class="p-0">
-                                <div class="input-group input-group-sm float-sm-right col-md-3 p-0">
-                                    <input type="text" value="{{ $technology_searchQuery ?? '' }}" name="crud_search_input" id="crud_search_input"
-                                           class="form-control float-right" placeholder="Recherche">
-                                    <div class="input-group-append">
-                                        <button type="submit" class="btn btn-default">
-                                            <i class="fas fa-search"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="technology-data-container" class="data-container">
-                            @include('PkgCompetences::technology._table')
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <input type="hidden" id='page' value="1">
     </section>
-
-
-<!-- Modal pour Ajouter/Modifier -->
-<div class="modal fade crud-modal" id="technologyModal" tabindex="-1" role="dialog" aria-labelledby="technologyModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-
-            <div id="modal-loading"  class="d-flex justify-content-center align-items-center" style="display: none; min-height: 200px;  ">
-                <div class="spinner-border text-primary" role="status">
-                </div>
-            </div>
-
-            <!-- Contenu injecté -->
-            <div id="modal-content-container" style="display: none;">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="technologyModalLabel"></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                      </button>
-                </div>
-                <div class="modal-body"></div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
+    @show
 </div>

@@ -1,6 +1,7 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form class="crud-form context-state" id="widgetForm" action="{{ $itemWidget->id ? route('widgets.update', $itemWidget->id) : route('widgets.store') }}" method="POST" novalidate>
+@section('widget-form')
+<form class="crud-form custom-form context-state" id="widgetForm" action="{{ $itemWidget->id ? route('widgets.update', $itemWidget->id) : route('widgets.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemWidget->id)
@@ -8,6 +9,7 @@
     @endif
 
     <div class="card-body">
+        
         <div class="form-group">
             <label for="name">
                 {{ ucfirst(__('PkgWidgets::widget.name')) }}
@@ -29,6 +31,7 @@
 </div>
 
         
+        
     <div class="form-group">
             <label for="type_id">
                 {{ ucfirst(__('PkgWidgets::widgetType.singular')) }}
@@ -40,7 +43,7 @@
             id="type_id" 
             required
             name="type_id" 
-            class="form-control">
+            class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($widgetTypes as $widgetType)
                     <option value="{{ $widgetType->id }}"
@@ -56,6 +59,7 @@
 
 
         
+        
     <div class="form-group">
             <label for="model_id">
                 {{ ucfirst(__('Core::sysModel.singular')) }}
@@ -67,7 +71,7 @@
             id="model_id" 
             required
             name="model_id" 
-            class="form-control">
+            class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($sysModels as $sysModel)
                     <option value="{{ $sysModel->id }}"
@@ -83,6 +87,7 @@
 
 
         
+        
     <div class="form-group">
             <label for="operation_id">
                 {{ ucfirst(__('PkgWidgets::widgetOperation.singular')) }}
@@ -94,7 +99,7 @@
             id="operation_id" 
             required
             name="operation_id" 
-            class="form-control">
+            class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($widgetOperations as $widgetOperation)
                     <option value="{{ $widgetOperation->id }}"
@@ -109,6 +114,7 @@
     </div>
 
 
+        
         <div class="form-group">
             <label for="color">
                 {{ ucfirst(__('PkgWidgets::widget.color')) }}
@@ -127,6 +133,7 @@
             @enderror
 </div>
 
+        
         <div class="form-group">
             <label for="icon">
                 {{ ucfirst(__('PkgWidgets::widget.icon')) }}
@@ -145,6 +152,7 @@
             @enderror
 </div>
 
+        
         <div class="form-group">
             <label for="label">
                 {{ ucfirst(__('PkgWidgets::widget.label')) }}
@@ -163,8 +171,32 @@
             @enderror
 </div>
 
+        
+        <div class="form-group">
+    <label for="parameters">
+        {{ ucfirst(__('PkgWidgets::widget.parameters')) }}
+        
+    </label>
+    
+    <div class="form-control editeur_json code-editor"
+        contenteditable="true">{{ $itemWidget ? $itemWidget->parameters : old('parameters') }}</div>
+    
+    <input
+        type="hidden"
+        name="parameters"
+        class="form-control"
+        id="parameters"
+         
+        value = "{{ $itemWidget ? $itemWidget->parameters : old('parameters') }}"
+    >
 
-        <!--   parameters JSON --> 
+
+    @error('parameters')
+        <div class="text-danger">{{ $message }}</div>
+    @enderror
+</div>
+
+
 
     </div>
 
@@ -173,5 +205,10 @@
         <button type="submit" class="btn btn-info ml-2">{{ $itemWidget->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
+@show
 
+
+<script>
+
+</script>
 

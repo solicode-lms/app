@@ -1,0 +1,11 @@
+{
+    "PkgCreationProjet" : {
+        "active": true
+    },
+    "PkgCompetences" : {
+        "active": true
+    },
+    "PkgUtilisateurs" : {
+        "active": true
+    }
+}

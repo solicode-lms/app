@@ -1,7 +1,10 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<li class="nav-item has-treeview {{ Request::is('PkgWidgets*') ? 'menu-open' : '' }}">
-    <a href="#" class="nav-link nav-link {{ Request::is('PkgWidgets*') ? 'active' : '' }}">
+
+@accessiblePermissions(['index-widgetType', 'index-widgetOperation', 'index-widget'])
+@if($accessiblePermissions->isNotEmpty())
+<li class="nav-item has-treeview {{ Request::is('admin/PkgWidgets*') ? 'menu-open' : '' }}">
+    <a href="#" class="nav-link nav-link {{ Request::is('admin/PkgWidgets*') ? 'active' : '' }}">
         <i class="nav-icon fas  {{__('PkgWidgets::PkgWidgets.icon')}}"></i>
         <p>
             {{__('PkgWidgets::PkgWidgets.name')}}
@@ -9,25 +12,31 @@
         </p>
     </a>
     <ul class="nav nav-treeview">
+        @can('index-widgetType') 
         <li class="nav-item">
-            <a href="{{ route('widgets.index') }}" class="nav-link {{ Request::is('PkgWidgets/widgets') ? 'active' : '' }}">
+            <a href="{{ route('widgetTypes.index') }}" class="nav-link {{ Request::is('admin/PkgWidgets/widgetTypes') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-table"></i>
-                <p>Widgets</p>
+                {{__('PkgWidgets::WidgetType.plural')}}
             </a>
         </li>
+        @endcan
+        @can('index-widgetOperation') 
         <li class="nav-item">
-            <a href="{{ route('widgetOperations.index') }}" class="nav-link {{ Request::is('PkgWidgets/widgetOperations') ? 'active' : '' }}">
+            <a href="{{ route('widgetOperations.index') }}" class="nav-link {{ Request::is('admin/PkgWidgets/widgetOperations') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-table"></i>
-                <p>WidgetOperations</p>
+                {{__('PkgWidgets::WidgetOperation.plural')}}
             </a>
         </li>
+        @endcan
+        @can('index-widget') 
         <li class="nav-item">
-            <a href="{{ route('widgetTypes.index') }}" class="nav-link {{ Request::is('PkgWidgets/widgetTypes') ? 'active' : '' }}">
+            <a href="{{ route('widgets.index') }}" class="nav-link {{ Request::is('admin/PkgWidgets/widgets') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-table"></i>
-                <p>WidgetTypes</p>
+                {{__('PkgWidgets::Widget.plural')}}
             </a>
         </li>
+        @endcan
     </ul>
 </li>
-
+@endif
 

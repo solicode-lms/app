@@ -1,6 +1,7 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form class="crud-form context-state" id="userForm" action="{{ $itemUser->id ? route('users.update', $itemUser->id) : route('users.store') }}" method="POST" novalidate>
+@section('user-form')
+<form class="crud-form custom-form context-state" id="userForm" action="{{ $itemUser->id ? route('users.update', $itemUser->id) : route('users.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemUser->id)
@@ -8,6 +9,7 @@
     @endif
 
     <div class="card-body">
+        
         <div class="form-group">
             <label for="name">
                 {{ ucfirst(__('PkgAutorisation::user.name')) }}
@@ -28,6 +30,7 @@
             @enderror
 </div>
 
+        
         <div class="form-group">
             <label for="email">
                 {{ ucfirst(__('PkgAutorisation::user.email')) }}
@@ -48,6 +51,7 @@
             @enderror
 </div>
 
+        
         <div class="form-group">
             <label for="email_verified_at">
                 {{ ucfirst(__('PkgAutorisation::user.email_verified_at')) }}
@@ -70,6 +74,7 @@
 
 
 
+        
         <div class="form-group">
             <label for="password">
                 {{ ucfirst(__('PkgAutorisation::user.password')) }}
@@ -90,6 +95,7 @@
             @enderror
 </div>
 
+        
         <div class="form-group">
             <label for="remember_token">
                 {{ ucfirst(__('PkgAutorisation::user.remember_token')) }}
@@ -108,29 +114,13 @@
             @enderror
 </div>
 
-                <div class="form-group">
-            <label for="roles">
-                {{ ucfirst(__('PkgAutorisation::Role.plural')) }}
-            </label>
-            <select
-                id="roles"
-                name="roles[]"
-                class="form-control select2"
-                multiple="multiple">
-               
-                @foreach ($roles as $role)
-                    <option value="{{ $role->id }}"
-                        {{ (isset($itemUser) && $itemUser->roles && $itemUser->roles->contains('id', $role->id)) || (is_array(old('roles')) && in_array($role->id, old('roles'))) ? 'selected' : '' }}>
-                        {{ $role }}
-                    </option>
-                @endforeach
-            </select>
-            @error('roles')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
+        
 
-        </div>
+        <!--   Apprenant HasMany --> 
 
+        
+
+        <!--   Formateur HasMany --> 
 
     </div>
 
@@ -139,5 +129,10 @@
         <button type="submit" class="btn btn-info ml-2">{{ $itemUser->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
+@show
 
+
+<script>
+
+</script>
 

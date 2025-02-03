@@ -1,6 +1,7 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form class="crud-form context-state" id="technologyForm" action="{{ $itemTechnology->id ? route('technologies.update', $itemTechnology->id) : route('technologies.store') }}" method="POST" novalidate>
+@section('technology-form')
+<form class="crud-form custom-form context-state" id="technologyForm" action="{{ $itemTechnology->id ? route('technologies.update', $itemTechnology->id) : route('technologies.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemTechnology->id)
@@ -8,6 +9,7 @@
     @endif
 
     <div class="card-body">
+        
         <div class="form-group">
             <label for="nom">
                 {{ ucfirst(__('PkgCompetences::technology.nom')) }}
@@ -28,6 +30,7 @@
             @enderror
 </div>
 
+        
         <div class="form-group">
             <label for="description">
                 {{ ucfirst(__('PkgCompetences::technology.description')) }}
@@ -47,6 +50,7 @@
 </div>
 
         
+        
     <div class="form-group">
             <label for="category_technology_id">
                 {{ ucfirst(__('PkgCompetences::categoryTechnology.singular')) }}
@@ -58,7 +62,7 @@
             id="category_technology_id" 
             required
             name="category_technology_id" 
-            class="form-control">
+            class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($categoryTechnologies as $categoryTechnology)
                     <option value="{{ $categoryTechnology->id }}"
@@ -73,6 +77,7 @@
     </div>
 
 
+        
                 <div class="form-group">
             <label for="competences">
                 {{ ucfirst(__('PkgCompetences::Competence.plural')) }}
@@ -97,6 +102,7 @@
         </div>
 
 
+        
                 <div class="form-group">
             <label for="transfertCompetences">
                 {{ ucfirst(__('PkgCreationProjet::TransfertCompetence.plural')) }}
@@ -128,5 +134,10 @@
         <button type="submit" class="btn btn-info ml-2">{{ $itemTechnology->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
+@show
 
+
+<script>
+
+</script>
 

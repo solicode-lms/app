@@ -2,18 +2,24 @@
 
 namespace Modules\PkgAutorisation\Models;
 
+use App\Traits\HasReference;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Modules\PkgFormation\Models\Formateur;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Support\Str;
 
 class User extends Authenticatable
 {
 
-    use HasFactory, Notifiable, HasRoles;
+    use HasFactory, Notifiable, HasRoles, HasReference;
 
     public const ADMIN = "admin";
     public const MEMBRE = "membre";
+
+    public const FORMATEUR = "formateur";
     
     /**
      * The attributes that are mass assignable.
@@ -24,6 +30,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'reference',
     ];
 
     /**
@@ -49,9 +56,42 @@ class User extends Authenticatable
         ];
     }
 
-    // HasRoles
-    // public function roles()
-    // {
-    //     return $this->belongsToMany(Role::class, 'model_has_roles');
-    // }
+    // Relation HasOne avec Formateur
+    public function formateur()
+    {
+        return $this->hasOne(Formateur::class);
+    }
+    
+    /**
+     * Gapp détecter la relation OneToOne comme ManyToOne
+     *
+     * @return HasMany
+     */
+    public function formateurs(): HasMany
+    {
+        return $this->hasMany(Formateur::class, 'user_id', 'id');
+    }
+
+ 
+    public function getUsersContext()
+    {
+        $contextUsers = [];
+        $formateur = $this->formateur;
+    
+        if ($formateur) {
+            $contextUsers['formateur_id'] = $formateur->id;
+        }
+    
+        return $contextUsers;
+    }
+    
+
+    // TODO : ajouter ce code dans Gapp, pour une relation ManyToManyPolymorphique
+    // Cette méthode est déja exist dans HasRoles
+    // Définir la relation avec les rôles via morphique
+    //    public function roles()
+    //    {
+    //        return $this->morphToMany(Role::class, 'model', 'model_has_roles', 'model_id', 'role_id');
+    //    }
+
 }

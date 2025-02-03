@@ -1,23 +1,38 @@
 {
 	"folders": [
 		{
-			"path": "."
+			"path": "./modules"
+		},
+		{
+			"path": "../docs"
 		},
 		{
 			"path": "../db_schemas/"
 		},
 		{
-			"path": "../modelisation"
-		},
-		{
 			"path": "../../laravel-builders/gapp3"
 		},
 		{
-			"path": "./modules"
+			"path": "."
 		}
 	],
 	"settings": {
 		"liveServer.settings.multiRootWorkspaceName": "app",
-		"git.autofetch": true
+		"git.autofetch": true,
+		"sqltools.connections": [
+			{
+				"mysqlOptions": {
+					"authProtocol": "default",
+					"enableSsl": "Disabled"
+				},
+				"previewLimit": 50,
+				"server": "localhost",
+				"port": 3306,
+				"driver": "MariaDB",
+				"name": "MySQL",
+				"database": "solicode_lms",
+				"username": "root"
+			}
+		]
 	}
 }

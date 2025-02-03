@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\ServiceProvider;
 
@@ -25,6 +26,17 @@ class AppServiceProvider extends ServiceProvider
         // dd("AppServiceProvider");
         // Configuration de la pagination pour utiliser le style Bootstrap.
         Paginator::useBootstrap();
+
+        //  Directive Blade Personnalisée
+        Blade::directive('limit', function ($expression) {
+            // Crée une directive : @limit($string, $length)
+            return "<?php echo \Illuminate\Support\Str::limit($expression); ?>";
+        });
+
+        Blade::directive('accessiblePermissions', function ($expression) {
+            return "<?php \$accessiblePermissions = collect($expression)->filter(fn(\$permission) => auth()->user()->can(\$permission)); ?>";
+        });
+        
     }
 
     /**
@@ -37,10 +49,25 @@ class AppServiceProvider extends ServiceProvider
         // Chemin vers le dossier contenant les modules.
         $moduleProvidersPath = base_path('modules');
 
+        // Chemin vers le fichier de configuration JSON.
+        $configFilePath = $moduleProvidersPath . '/modules.json';
+        $config = json_decode(file_get_contents($configFilePath), true);
+
         // Récupérer tous les fichiers correspondant à un ServiceProvider dans les modules.
         $providerFiles = glob($moduleProvidersPath . '/*/App/Providers/*ServiceProvider.php');
 
         foreach ($providerFiles as $providerFile) {
+
+             // Récupérer le nom du dossier du module à partir du chemin du fichier.
+            $moduleName = basename(dirname(dirname(dirname($providerFile))));
+
+            // Vérifier si le module est désactivé dans la configuration.
+            if (isset($config[$moduleName]['active']) && !$config[$moduleName]['active']) {
+                Log::info("Module désactivé : {$moduleName}");
+                echo "\033[33mModule désactivé : {$moduleName}\033[0m\n"; // Texte en jaune
+                continue;
+            }
+
             // Récupérer le nom complet de la classe du ServiceProvider.
             $providerClass = $this->getProviderClass($providerFile);
 

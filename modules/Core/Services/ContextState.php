@@ -8,13 +8,18 @@ namespace Modules\Core\Services;
 use Modules\Core\Models\SysColor;
 use Modules\Core\Services\BaseService;
 use Illuminate\Http\Request;
+use JsonSerializable;
 
 /**
  * Classe SysColorService pour gérer la persistance de l'entité SysColor.
  */
-class ContextState 
+class ContextState  implements JsonSerializable
 {
+    protected $title = null;
     protected $variables = [];
+
+    // array key value : [formateur_id => "3" ]
+    protected $userContexte = null;
 
     /**
      * Définir une variable.
@@ -71,6 +76,80 @@ class ContextState
                 $cleanKey = substr($key, strlen($prefix));
                 $this->set($cleanKey, $value);
             }
+        }
+    }
+
+   
+
+/**
+     * Définit le titre du contexte.
+     *
+     * @param string|null $title
+     * @return void
+     */
+    public function setTitle(?string $title)
+    {
+        $this->title = $title;
+    }
+
+    /**
+     * Retourne le titre du contexte, ou le génère si vide.
+     * Le titre est construit à partir des variables du contexte.
+     *
+     * @return string
+     */
+    public function getTitle(): string
+    {
+        if (empty($this->title)) {
+            $this->title = $this->generateTitleFromVariables();
+        }
+
+        return $this->title;
+    }
+
+    /**
+     * Génère un titre basé sur les variables du contexte.
+     *
+     * @return string
+     */
+    protected function generateTitleFromVariables(): string
+    {
+        $parts = [];
+
+        foreach ($this->variables as $key => $value) {
+            $parts[] = ucfirst($key) . ': ' . $value;
+        }
+
+        return implode(' | ', $parts);
+    }
+
+        /**
+     * Personnalise la structure JSON de l'objet.
+     *
+     * @return array
+     */
+    public function jsonSerialize(): array
+    {
+        return [
+            'title' => $this->getTitle(), // Utilise getOrGenerateTitle() si title est null
+            'variables' => $this->all(),
+        ];
+    }
+
+    /**
+     * Vérifie si le Context State est activé.
+     *
+     * @return bool
+     */
+    public function isContextStateEnable(): bool
+    {
+        return !empty($this->variables);
+    }
+
+    public function setUserContexe($userContexte): void{
+        $this->userContexte = $userContexte;
+        foreach ($this->userContexte as $key => $value) {
+            $this->set($key, $value);
         }
     }
 }

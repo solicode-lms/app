@@ -1,6 +1,6 @@
 name,email,password,role
 root,root@solicode.co,root,root
+gapp,gapp@solicode.co,gapp,gapp
 admin,admin@solicode.co,admin,admin
 membre,membre@solicode.co,admin,membre
-formateur,formateur@solicode.co,formateur,formateur
 essarraj,essarraj.fouad@solicode.co,formateur,formateur

@@ -1,6 +1,7 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form class="crud-form context-state" id="widgetOperationForm" action="{{ $itemWidgetOperation->id ? route('widgetOperations.update', $itemWidgetOperation->id) : route('widgetOperations.store') }}" method="POST" novalidate>
+@section('widgetOperation-form')
+<form class="crud-form custom-form context-state" id="widgetOperationForm" action="{{ $itemWidgetOperation->id ? route('widgetOperations.update', $itemWidgetOperation->id) : route('widgetOperations.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemWidgetOperation->id)
@@ -8,6 +9,7 @@
     @endif
 
     <div class="card-body">
+        
         <div class="form-group">
             <label for="operation">
                 {{ ucfirst(__('PkgWidgets::widgetOperation.operation')) }}
@@ -28,6 +30,7 @@
             @enderror
 </div>
 
+        
         <div class="form-group">
             <label for="description">
                 {{ ucfirst(__('PkgWidgets::widgetOperation.description')) }}
@@ -46,8 +49,9 @@
             @enderror
 </div>
 
+        
 
-        <!--   Widget_HasMany HasMany --> 
+        <!--   Widget HasMany --> 
 
     </div>
 
@@ -56,5 +60,10 @@
         <button type="submit" class="btn btn-info ml-2">{{ $itemWidgetOperation->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
+@show
 
+
+<script>
+
+</script>
 

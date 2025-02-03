@@ -21,7 +21,8 @@ return new class extends Migration {
             $table->integer('is_active');
             $table->integer('order');
             $table->string('version');
-            $table->foreignId('color_id')->constrained('sys_colors')->onDelete('cascade');
+            $table->foreignId('sys_color_id')->constrained('sys_colors')->onDelete('cascade');
+            $table->string('reference')->unique();
             $table->timestamps();
         });
     }

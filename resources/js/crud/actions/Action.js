@@ -1,11 +1,13 @@
 import { LoadingIndicator } from '../components/LoadingIndicator';
-import { ModalManager } from '../components/ModalManager';
+import { ModalUI } from '../components/ModalUI';
 import { NotificationHandler } from '../components/NotificationHandler';
 
-import { FormManager } from '../components/FormManager';
-import { ContextStateManager } from '../components/ContextStateManager';
+import { FormUI } from '../components/FormUI';
+import { ContextStateService } from '../components/ContextStateService';
 import { BaseAction } from './BaseAction';
 import { LoadListAction } from './LoadListAction';
+import { AjaxErrorHandler } from '../components/AjaxErrorHandler';
+import EventUtil from '../utils/EventUtil';
 
 export class Action extends BaseAction {
     /**
@@ -14,9 +16,6 @@ export class Action extends BaseAction {
     constructor(config) {
         super(config);
         this.config = config;
-        // Création des dépendances communes
-        this.entityLoader = new LoadListAction(config);
-
     }
 
 
@@ -25,7 +24,7 @@ export class Action extends BaseAction {
      * @param {string} errorMessage - Message d'erreur à afficher.
      */
     handleError(errorMessage) {
-        // this.modalManager.showError(errorMessage);
+        // this.tableUI.indexUI.modalUI.showError(errorMessage);
         NotificationHandler.showAlert("error", "Erreur", errorMessage);
     }
 
@@ -39,45 +38,26 @@ export class Action extends BaseAction {
 
 
 
-    /**
-     * Soumet le formulaire de modification via AJAX.
+         /**
+     * Exécute les scripts inclus dans le contenu HTML chargé via AJAX.
+     * @param {string} html - Contenu HTML contenant potentiellement des scripts.
      */
-    submitEntity(onSuccess) {
-        const form = $(this.config.formSelector);
-        const actionUrl = form.attr('action'); // URL définie dans le formulaire
-        const method = form.find('input[name="_method"]').val() || 'POST'; // Méthode HTTP
-        const formData = form.serialize(); // Sérialisation des données du formulaire
-        this.formManager.loader.show();
-
-        // Valider le formulaire avant la soumission
-        if (!this.formManager.validateForm()) {
-            NotificationHandler.showError('Validation échouée. Veuillez corriger les erreurs.');
-            this.formManager.loader.hide();
-            return; // Ne pas soumettre si la validation échoue
-        }
-
-        // Envoyer les données via une requête AJAX
-        $.ajax({
-            url: actionUrl,
-            method: method,
-            data: formData,
-        })
-            .done(() => {
-                this.formManager.loader.hide();
-                this.handleSuccess(this.SuscesMessage);
-                this.modalManager.close(); // Fermer le modal après succès
-                this.entityLoader.loadEntities(); // Recharger les entités
-                // Appeler le callback de succès si fourni
-                if (typeof onSuccess === 'function') {
-                    onSuccess();
+         executeScripts(html) {
+            const scriptTags = $("<div>").html(html).find("script");
+    
+            scriptTags.each(function () {
+                const scriptText = $(this).text();
+                const scriptSrc = $(this).attr("src");
+    
+                if (scriptSrc) {
+                    // Charger et exécuter les scripts externes
+                    $.getScript(scriptSrc);
+                } else if (scriptText) {
+                    // Exécuter les scripts inline
+                    new Function(scriptText)();
                 }
-            })
-            .fail((xhr) => {
-                this.formManager.loader.hide();
-                const errorMessage = xhr.responseJSON?.message || 'Une erreur s\'est produite lors de la modification.';
-                this.handleError(errorMessage); // Afficher une erreur
             });
-    }
+        }
 
 
 }

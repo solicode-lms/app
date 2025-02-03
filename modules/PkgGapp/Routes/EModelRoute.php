@@ -1,0 +1,21 @@
+<?php
+// Ce fichier est maintenu par ESSARRAJ Fouad
+
+
+
+use Illuminate\Support\Facades\Route;
+use Modules\PkgGapp\Controllers\EModelController;
+
+// routes for eModel management
+Route::middleware('auth')->group(function () {
+    Route::prefix('/admin/PkgGapp')->group(function () {
+
+        Route::get('eModels/getEModels', [EModelController::class, 'getEModels'])->name('eModels.all');
+        Route::resource('eModels', EModelController::class);
+        // Routes supplémentaires avec préfixe
+        Route::prefix('data')->group(function () {
+            Route::get('eModels/export', [EModelController::class, 'export'])->name('eModels.export');
+            Route::post('eModels/import', [EModelController::class, 'import'])->name('eModels.import');
+        });
+    });
+});

@@ -1,35 +1,45 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<div class="card-body table-responsive p-0 crud-table" id="sysControllersTable">
+<div class="card-body table-responsive p-0 crud-card-body" id="sysControllers-crud-card-body">
     <table class="table table-striped text-nowrap">
         <thead>
             <tr>
-                <th>{{ ucfirst(__('Core::sysModule.singular')) }}</th>
-                <th>{{ ucfirst(__('Core::sysController.name')) }}</th>
-                <th>{{ ucfirst(__('Core::sysController.description')) }}</th>
-                <th>{{ ucfirst(__('Core::sysController.is_active')) }}</th>
+                <x-sortable-column field="sys_module_id" label="{{ ucfirst(__('Core::sysModule.singular')) }}" />
+                <x-sortable-column field="name" label="{{ ucfirst(__('Core::sysController.name')) }}" />
+                <x-sortable-column field="is_active" label="{{ ucfirst(__('Core::sysController.is_active')) }}" />
+                <x-sortable-column field="Permission" label="{{ ucfirst(__('Core::sysController.plural')) }}" />
+
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($sysControllers_data as $sysController)
-                <tr>
-                    <td>{{ $sysController->sysModule->name ?? '-' }}</td>
-                    <td>{{ $sysController->name }}</td>
-                    <td>{!! $sysController->description !!}</td>
-                    <td>{{ $sysController->is_active }}</td>
-                    <td class="text-center">
+                <tr id="sysController-row-{{$sysController->id}}">
+                    <td>@limit($sysController->sysModule->name ?? '-', 80)</td>
+                    <td>@limit($sysController->name, 80)</td>
+                    <td>@limit($sysController->is_active, 80)</td>
+                    <td>
+                        <ul>
+                            @foreach ($sysController->permissions as $permission)
+                                <li>{{ $permission }}</li>
+                            @endforeach
+                        </ul>
+                    </td>
+                    <td class="text-right">
                         @can('show-sysController')
                             <a href="{{ route('sysControllers.show', ['sysController' => $sysController->id]) }}" data-id="{{$sysController->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
                         @endcan
                         @can('edit-sysController')
+                        @can('update', $sysController)
                             <a href="{{ route('sysControllers.edit', ['sysController' => $sysController->id]) }}" data-id="{{$sysController->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endcan
+                        @endcan
                         @can('destroy-sysController')
+                        @can('delete', $sysController)
                             <form class="context-state" action="{{ route('sysControllers.destroy',['sysController' => $sysController->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
@@ -38,6 +48,7 @@
                                 </button>
                             </form>
                         @endcan
+                        @endcan
                     </td>
                 </tr>
             @endforeach
@@ -45,39 +56,10 @@
     </table>
 </div>
 
-
 <div class="card-footer">
-
-    <div class="d-md-flex justify-content-between align-items-center p-2">
-        <div class="d-flex align-items-center mb-2 ml-2 mt-2">
-            @can('import-sysController')
-                <form action="{{ route('sysControllers.import') }}" method="post" class="mt-2" enctype="multipart/form-data"
-                    id="importForm">
-                    @csrf
-                    <label for="upload" class="btn btn-default btn-sm font-weight-normal">
-                        <i class="fas fa-file-download"></i>
-                        {{ __('Core::msg.import') }}
-                    </label>
-                    <input type="file" id="upload" name="file" style="display:none;" onchange="submitForm()" />
-                </form>
-            @endcan
-            @can('export-sysController')
-                <form class="">
-                    <a href="{{ route('sysControllers.export') }}" class="btn btn-default btn-sm mt-0 mx-2">
-                        <i class="fas fa-file-export"></i>
-                        {{ __('Core::msg.export') }}</a>
-                </form>
-            @endcan
-        </div>
-
-        <ul class="pagination m-0 float-right">
-            {{ $sysControllers_data->onEachSide(1)->links() }}
-        </ul>
-    </div>
-
-    <script>
-        function submitForm() {
-            document.getElementById("importForm").submit();
-        }
-    </script>
+    @section('sysController-crud-pagination')
+    <ul class="pagination m-0 d-flex justify-content-center">
+        {{ $sysControllers_data->onEachSide(1)->links() }}
+    </ul>
+    @show
 </div>

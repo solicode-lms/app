@@ -23,7 +23,10 @@
         "@rollup/plugin-commonjs": "^28.0.1",
         "admin-lte": "^3.2.0",
         "bootstrap-steps": "^1.0.3",
+        "codejar": "^4.2.0",
         "flatpickr": "^4.6.13",
+        "izimodal": "^1.6.1",
+        "prismjs": "^1.29.0",
         "select2": "^4.0.13",
         "sweetalert2": "^11.15.3"
     }

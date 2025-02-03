@@ -1,6 +1,7 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form class="crud-form context-state" id="niveauCompetenceForm" action="{{ $itemNiveauCompetence->id ? route('niveauCompetences.update', $itemNiveauCompetence->id) : route('niveauCompetences.store') }}" method="POST" novalidate>
+@section('niveauCompetence-form')
+<form class="crud-form custom-form context-state" id="niveauCompetenceForm" action="{{ $itemNiveauCompetence->id ? route('niveauCompetences.update', $itemNiveauCompetence->id) : route('niveauCompetences.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemNiveauCompetence->id)
@@ -8,6 +9,7 @@
     @endif
 
     <div class="card-body">
+        
         <div class="form-group">
             <label for="nom">
                 {{ ucfirst(__('PkgCompetences::niveauCompetence.nom')) }}
@@ -28,6 +30,7 @@
             @enderror
 </div>
 
+        
         <div class="form-group">
             <label for="description">
                 {{ ucfirst(__('PkgCompetences::niveauCompetence.description')) }}
@@ -47,6 +50,7 @@
 </div>
 
         
+        
     <div class="form-group">
             <label for="competence_id">
                 {{ ucfirst(__('PkgCompetences::competence.singular')) }}
@@ -58,7 +62,7 @@
             id="competence_id" 
             required
             name="competence_id" 
-            class="form-control">
+            class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($competences as $competence)
                     <option value="{{ $competence->id }}"
@@ -80,5 +84,10 @@
         <button type="submit" class="btn btn-info ml-2">{{ $itemNiveauCompetence->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
+@show
 
+
+<script>
+
+</script>
 

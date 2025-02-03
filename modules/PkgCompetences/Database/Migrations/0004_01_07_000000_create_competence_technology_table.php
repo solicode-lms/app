@@ -1,5 +1,4 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 
@@ -16,12 +15,9 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('competence_technology', function (Blueprint $table) {
-
             $table->timestamps();
-           
             $table->foreignId('technology_id')->constrained('technologies');
             $table->foreignId('competence_id')->constrained('competences');
-
         });
     }
 

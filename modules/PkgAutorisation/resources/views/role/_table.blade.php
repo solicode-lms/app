@@ -1,29 +1,41 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<div class="card-body table-responsive p-0 crud-table" id="rolesTable">
+<div class="card-body table-responsive p-0 crud-card-body" id="roles-crud-card-body">
     <table class="table table-striped text-nowrap">
         <thead>
             <tr>
-                <th>{{ ucfirst(__('PkgAutorisation::role.name')) }}</th>
+                <x-sortable-column field="name" label="{{ ucfirst(__('PkgAutorisation::role.name')) }}" />
+                <x-sortable-column field="Permission" label="{{ ucfirst(__('PkgAutorisation::permission.plural')) }}" />
+
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($roles_data as $role)
-                <tr>
-                    <td>{{ $role->name }}</td>
-                    <td class="text-center">
+                <tr id="role-row-{{$role->id}}">
+                    <td>@limit($role->name, 80)</td>
+                    <td>
+                        <ul>
+                            @foreach ($role->permissions as $permission)
+                                <li>{{ $permission }}</li>
+                            @endforeach
+                        </ul>
+                    </td>
+                    <td class="text-right">
                         @can('show-role')
                             <a href="{{ route('roles.show', ['role' => $role->id]) }}" data-id="{{$role->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
                         @endcan
                         @can('edit-role')
+                        @can('update', $role)
                             <a href="{{ route('roles.edit', ['role' => $role->id]) }}" data-id="{{$role->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endcan
+                        @endcan
                         @can('destroy-role')
+                        @can('delete', $role)
                             <form class="context-state" action="{{ route('roles.destroy',['role' => $role->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
@@ -32,6 +44,7 @@
                                 </button>
                             </form>
                         @endcan
+                        @endcan
                     </td>
                 </tr>
             @endforeach
@@ -39,39 +52,10 @@
     </table>
 </div>
 
-
 <div class="card-footer">
-
-    <div class="d-md-flex justify-content-between align-items-center p-2">
-        <div class="d-flex align-items-center mb-2 ml-2 mt-2">
-            @can('import-role')
-                <form action="{{ route('roles.import') }}" method="post" class="mt-2" enctype="multipart/form-data"
-                    id="importForm">
-                    @csrf
-                    <label for="upload" class="btn btn-default btn-sm font-weight-normal">
-                        <i class="fas fa-file-download"></i>
-                        {{ __('Core::msg.import') }}
-                    </label>
-                    <input type="file" id="upload" name="file" style="display:none;" onchange="submitForm()" />
-                </form>
-            @endcan
-            @can('export-role')
-                <form class="">
-                    <a href="{{ route('roles.export') }}" class="btn btn-default btn-sm mt-0 mx-2">
-                        <i class="fas fa-file-export"></i>
-                        {{ __('Core::msg.export') }}</a>
-                </form>
-            @endcan
-        </div>
-
-        <ul class="pagination m-0 float-right">
-            {{ $roles_data->onEachSide(1)->links() }}
-        </ul>
-    </div>
-
-    <script>
-        function submitForm() {
-            document.getElementById("importForm").submit();
-        }
-    </script>
+    @section('role-crud-pagination')
+    <ul class="pagination m-0 d-flex justify-content-center">
+        {{ $roles_data->onEachSide(1)->links() }}
+    </ul>
+    @show
 </div>

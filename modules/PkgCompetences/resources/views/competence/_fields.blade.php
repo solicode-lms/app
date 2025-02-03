@@ -1,6 +1,7 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form class="crud-form context-state" id="competenceForm" action="{{ $itemCompetence->id ? route('competences.update', $itemCompetence->id) : route('competences.store') }}" method="POST" novalidate>
+@section('competence-form')
+<form class="crud-form custom-form context-state" id="competenceForm" action="{{ $itemCompetence->id ? route('competences.update', $itemCompetence->id) : route('competences.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemCompetence->id)
@@ -8,6 +9,7 @@
     @endif
 
     <div class="card-body">
+        
         <div class="form-group">
             <label for="code">
                 {{ ucfirst(__('PkgCompetences::competence.code')) }}
@@ -28,6 +30,7 @@
             @enderror
 </div>
 
+        
         <div class="form-group">
             <label for="nom">
                 {{ ucfirst(__('PkgCompetences::competence.nom')) }}
@@ -48,6 +51,7 @@
             @enderror
 </div>
 
+        
         <div class="form-group">
             <label for="description">
                 {{ ucfirst(__('PkgCompetences::competence.description')) }}
@@ -67,9 +71,10 @@
 </div>
 
         
+        
     <div class="form-group">
             <label for="module_id">
-                {{ ucfirst(__('PkgCompetences::module.singular')) }}
+                {{ ucfirst(__('PkgFormation::module.singular')) }}
                 
                     <span class="text-danger">*</span>
                 
@@ -78,7 +83,7 @@
             id="module_id" 
             required
             name="module_id" 
-            class="form-control">
+            class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($modules as $module)
                     <option value="{{ $module->id }}"
@@ -93,6 +98,7 @@
     </div>
 
 
+        
                 <div class="form-group">
             <label for="technologies">
                 {{ ucfirst(__('PkgCompetences::Technology.plural')) }}
@@ -117,11 +123,13 @@
         </div>
 
 
+        
 
-        <!--   NiveauCompetence_HasMany HasMany --> 
+        <!--   NiveauCompetence HasMany --> 
 
+        
 
-        <!--   TransfertCompetence_HasMany HasMany --> 
+        <!--   TransfertCompetence HasMany --> 
 
     </div>
 
@@ -130,5 +138,10 @@
         <button type="submit" class="btn btn-info ml-2">{{ $itemCompetence->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
+@show
 
+
+<script>
+
+</script>
 

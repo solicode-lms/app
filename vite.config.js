@@ -7,11 +7,12 @@ import laravel from 'laravel-vite-plugin';
 // import inject from '@rollup/plugin-inject';
 
 export default defineConfig({
+
     plugins: [
-    // inject({
-    //     $: 'jquery',
-    //     jQuery: 'jquery',
-    //     }),
+        // inject({
+        //     $: 'jquery',
+        //     jQuery: 'jquery',
+        // }),
 
    
       laravel({
@@ -29,6 +30,9 @@ export default defineConfig({
         alias: {
             '$':'jQuery',
         }
+    },
+    optimizeDeps: {
+        include: ['izimodal/js/iziModal.min.js'] // Pré-charger iziModal
     },
     build: {
         sourcemap: true, // Générer les sourcemaps pour le débogage

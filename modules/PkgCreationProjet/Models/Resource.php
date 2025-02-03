@@ -3,28 +3,9 @@
 
 
 namespace Modules\PkgCreationProjet\Models;
+use Modules\PkgCreationProjet\Models\Base\BaseResource;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use App\Traits\HasDynamicContext;
-use Modules\PkgCreationProjet\Models\Projet;
-
-class Resource extends Model
+class Resource extends BaseResource
 {
-    use HasFactory, HasDynamicContext;
 
-    protected $fillable = ['nom', 'lien', 'description', 'projet_id'];
-
-    public function projet()
-    {
-        return $this->belongsTo(Projet::class, 'projet_id', 'id');
-    }
-
-
-
-
-    public function __toString()
-    {
-        return $this->nom;
-    }
 }

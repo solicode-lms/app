@@ -90,7 +90,7 @@ class SysColorSeeder extends Seeder
             [
                 'slug' => Str::slug($controllerName),
                 'description' => "Controller for $domainName",
-                'module_id' => $sysModule->id,
+                'sys_module_id' => $sysModule->id,
             ]
         );
 
@@ -100,7 +100,7 @@ class SysColorSeeder extends Seeder
             [
                 'name' => $domainName,
                 'description' => "Gestion des $domainName",
-                'module_id' => $sysModule->id, // ID dynamique du module
+                'sys_module_id' => $sysModule->id, // ID dynamique du module
                 
             ]
         );
@@ -111,7 +111,7 @@ class SysColorSeeder extends Seeder
                 ['name' => "$domainName - $featureName"],
                 [
                     'description' => "Feature $featureName for $domainName",
-                    'domain_id' => $featureDomain->id,
+                    'feature_domain_id' => $featureDomain->id,
                 ]
             );
 

@@ -11,5 +11,5 @@ return [
     'is_active' => 'is_active',
     'order' => 'order',
     'version' => 'version',
-    'color_id' => 'color_id',
+    'sys_color_id' => 'sys_color_id',
 ];

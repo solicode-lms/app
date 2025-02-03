@@ -1,13 +1,16 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-@section('script')
-@parent
+
 <script>
-    window.entitiesConfig = window.entitiesConfig || [];
-    window.entitiesConfig.push({
-        edit_has_many: false,
+    window.crudModalManagersConfig = window.crudModalManagersConfig || [];
+    window.crudModalManagersConfig.push({
+        edit_has_many: {{ !isset($edit_has_many)? 'false' :  ($edit_has_many ? "true": "false") }},
+        isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
         entity_name: 'resource',
-        crudSelector: '#resource_crud',
+        filterFormSelector: '#resource-crud-filter-form',
+        crudSelector: '#resource-crud',
+        tableSelector: '#resource-data-container',
+        formSelector: '#resourceForm',
         indexUrl: '{{ route('resources.index') }}', 
         createUrl: '{{ route('resources.create') }}',
         editUrl: '{{ route('resources.edit',  ['resource' => ':id']) }}',
@@ -16,84 +19,87 @@
         deleteUrl: '{{ route('resources.destroy',  ['resource' => ':id']) }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgCreationProjet::resource.singular") }}',
-        edit_title: '{{__("Core::msg.add") . " : " . __("PkgCreationProjet::resource.singular") }}',
+        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgCreationProjet::resource.singular") }}',
     });
 </script>
-@endsection
-<div id="resource_crud">
-    <div class="content-header">
+
+<div id="resource-crud" class="crud">
+    @section('resource-crud-header')
+    @php
+        $package = __("PkgCreationProjet::PkgCreationProjet.name");
+       $titre = __("PkgCreationProjet::resource.singular");
+    @endphp
+    <x-crud-header 
+        id="resource-crud-header" icon="fas fa-table"  
+        iconColor="text-info"
+        title="{{ __('PkgCreationProjet::resource.plural') }}"
+        :breadcrumbs="[
+            ['label' => $package, 'url' => '#'],
+            ['label' => $titre]
+        ]"
+    />
+    @show
+    @section('resource-crud-table')
+    <section id="resource-crud-table" class="content crud-table">
         <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1>
-                        {{ curd_index_title('PkgCreationProjet::resource') }}
-                    </h1>
-                </div>
-                <div class="col-sm-6">
-                    <div class="float-sm-right">
-                        @can('create-resource')
-                        <a href="{{ route('resources.create') }}" data-target="#resourceModal" class="btn btn-info btn-sm context-state addEntityButton">
-                            <i class="fas fa-plus"></i>
-                            {{ __('Core::msg.add') }}
-                        </a>
-                        @endcan
+            <div class="card card-outline card-info " id="card_crud">
+                @section('resource-crud-stats-bar')
+                <div class="card-header row">
+                    <!-- Statistiques et Actions -->
+                    <div class="col-sm-9">
+                        <x-crud-stats-summary
+                            icon="fas fa-chart-bar text-info"
+                            :stats="$resources_stats"
+                        />
                     </div>
+                    <div class="col-sm-3">
+                        <x-crud-actions
+                            :createPermission="'create-resource'"
+                            :createRoute="route('resources.create')"
+                            :createText="__('Ajouter')"
+                            :importPermission="'import-resource'"
+                            :importRoute="route('resources.import')"
+                            :importText="__('Importer')"
+                            :exportPermission="'export-resource'"
+                            :exportRoute="route('resources.export')"
+                            :exportText="__('Exporter')"
+                        />
+                    </div>
+                </div>
+                @show
+                @section('resource-crud-filters')
+                <div class="card-header">
+                    <form id="resource-crud-filter-form" method="GET" class="row">
+                        <x-filter-group count="{{count($resources_filters ?? [])}}">
+                            <!-- Filtres spécifiques -->
+                            @foreach ($resources_filters as $filter)
+                                <x-filter-field 
+                                    :label="$filter['label']" 
+                                    :type="$filter['type']" 
+                                    :field="$filter['field']" 
+                                    :options="$filter['options'] ?? []"
+                                    :placeholder="ucfirst(str_replace('_', ' ', $filter['field']))" />
+                            @endforeach
+                        </x-filter-group>
+                        @section('resource-crud-search-bar')
+                        <div id="resource-crud-search-bar"
+                            class="{{ count($resources_filters) > 0 ? 'col-md-2' : 'col-md-6 mx-auto' }} text-md-right text-left">
+                            <x-search-bar
+                                :search="request('resources_search')"
+                                name="resources_search"
+                                id="resources_search"
+                                placeholder="Recherche ..."
+                            />
+                        </div>
+                        @show
+                    </form>
+                </div>
+                @show
+                <div id="resource-data-container" class="data-container">
+                    @include('PkgCreationProjet::resource._table')
                 </div>
             </div>
         </div>
-    </div>
-    <section class="content" id="section_crud">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-12">
-                    <div class="card" id="card_crud">
-                        <div class="card-header col-md-12">
-                            <div class="p-0">
-                                <div class="input-group input-group-sm float-sm-right col-md-3 p-0">
-                                    <input type="text" value="{{ $resource_searchQuery ?? '' }}" name="crud_search_input" id="crud_search_input"
-                                           class="form-control float-right" placeholder="Recherche">
-                                    <div class="input-group-append">
-                                        <button type="submit" class="btn btn-default">
-                                            <i class="fas fa-search"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="resource-data-container" class="data-container">
-                            @include('PkgCreationProjet::resource._table')
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <input type="hidden" id='page' value="1">
     </section>
-
-
-<!-- Modal pour Ajouter/Modifier -->
-<div class="modal fade crud-modal" id="resourceModal" tabindex="-1" role="dialog" aria-labelledby="resourceModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-
-            <div id="modal-loading"  class="d-flex justify-content-center align-items-center" style="display: none; min-height: 200px;  ">
-                <div class="spinner-border text-primary" role="status">
-                </div>
-            </div>
-
-            <!-- Contenu injecté -->
-            <div id="modal-content-container" style="display: none;">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="resourceModalLabel"></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                      </button>
-                </div>
-                <div class="modal-body"></div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
+    @show
 </div>

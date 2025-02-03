@@ -1,0 +1,64 @@
+<?php
+// Ce fichier est maintenu par ESSARRAJ Fouad
+
+
+
+namespace Modules\PkgFormation\App\Requests\Base;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class BaseFormateurRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return true;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'matricule' => 'required|max:255',
+            'nom' => 'required|max:255',
+            'prenom' => 'required|max:255',
+            'prenom_arab' => 'nullable|max:255',
+            'nom_arab' => 'nullable|max:255',
+            'tele_num' => 'nullable|max:255',
+            'adresse' => 'nullable|max:255',
+            'diplome' => 'nullable|max:255',
+            'echelle' => 'nullable',
+            'echelon' => 'nullable',
+            'profile_image' => 'nullable|max:255',
+            'user_id' => 'nullable'
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'matricule.required' => __('validation.required', ['attribute' => __('PkgFormation::Formateur.matricule')]),
+            'matricule.max' => __('validation.matriculeMax'),
+            'nom.required' => __('validation.required', ['attribute' => __('PkgFormation::Formateur.nom')]),
+            'nom.max' => __('validation.nomMax'),
+            'prenom.required' => __('validation.required', ['attribute' => __('PkgFormation::Formateur.prenom')]),
+            'prenom.max' => __('validation.prenomMax'),
+            'prenom_arab.required' => __('validation.required', ['attribute' => __('PkgFormation::Formateur.prenom_arab')]),
+            'prenom_arab.max' => __('validation.prenom_arabMax'),
+            'nom_arab.required' => __('validation.required', ['attribute' => __('PkgFormation::Formateur.nom_arab')]),
+            'nom_arab.max' => __('validation.nom_arabMax'),
+            'tele_num.required' => __('validation.required', ['attribute' => __('PkgFormation::Formateur.tele_num')]),
+            'tele_num.max' => __('validation.tele_numMax'),
+            'adresse.required' => __('validation.required', ['attribute' => __('PkgFormation::Formateur.adresse')]),
+            'adresse.max' => __('validation.adresseMax'),
+            'diplome.required' => __('validation.required', ['attribute' => __('PkgFormation::Formateur.diplome')]),
+            'diplome.max' => __('validation.diplomeMax'),
+            'echelle.required' => __('validation.required', ['attribute' => __('PkgFormation::Formateur.echelle')]),
+            'echelle.max' => __('validation.echelleMax'),
+            'echelon.required' => __('validation.required', ['attribute' => __('PkgFormation::Formateur.echelon')]),
+            'echelon.max' => __('validation.echelonMax'),
+            'profile_image.required' => __('validation.required', ['attribute' => __('PkgFormation::Formateur.profile_image')]),
+            'profile_image.max' => __('validation.profile_imageMax'),
+            'user_id.required' => __('validation.required', ['attribute' => __('PkgFormation::Formateur.user_id')]),
+            'user_id.max' => __('validation.user_idMax')
+        ];
+    }
+}

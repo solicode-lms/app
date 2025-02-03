@@ -1,7 +1,10 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<li class="nav-item has-treeview {{ Request::is('PkgCompetences*') ? 'menu-open' : '' }}">
-    <a href="#" class="nav-link nav-link {{ Request::is('PkgCompetences*') ? 'active' : '' }}">
+
+@accessiblePermissions(['index-categoryTechnology', 'index-competence', 'index-niveauCompetence', 'index-technology', 'index-niveauDifficulte'])
+@if($accessiblePermissions->isNotEmpty())
+<li class="nav-item has-treeview {{ Request::is('admin/PkgCompetences*') ? 'menu-open' : '' }}">
+    <a href="#" class="nav-link nav-link {{ Request::is('admin/PkgCompetences*') ? 'active' : '' }}">
         <i class="nav-icon fas  {{__('PkgCompetences::PkgCompetences.icon')}}"></i>
         <p>
             {{__('PkgCompetences::PkgCompetences.name')}}
@@ -9,49 +12,47 @@
         </p>
     </a>
     <ul class="nav nav-treeview">
+        @can('index-categoryTechnology') 
         <li class="nav-item">
-            <a href="{{ route('appreciations.index') }}" class="nav-link {{ Request::is('PkgCompetences/appreciations') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-table"></i>
-                <p>Appreciations</p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{ route('categoryTechnologies.index') }}" class="nav-link {{ Request::is('PkgCompetences/categoryTechnologies') ? 'active' : '' }}">
+            <a href="{{ route('categoryTechnologies.index') }}" class="nav-link {{ Request::is('admin/PkgCompetences/categoryTechnologies') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-bolt"></i>
-                <p>CategoryTechnologies</p>
+                {{__('PkgCompetences::CategoryTechnology.plural')}}
             </a>
         </li>
+        @endcan
+        @can('index-competence') 
         <li class="nav-item">
-            <a href="{{ route('competences.index') }}" class="nav-link {{ Request::is('PkgCompetences/competences') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-brain"></i>
-                <p>Competences</p>
+            <a href="{{ route('competences.index') }}" class="nav-link {{ Request::is('admin/PkgCompetences/competences') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-tools"></i>
+                {{__('PkgCompetences::Competence.plural')}}
             </a>
         </li>
+        @endcan
+        @can('index-niveauCompetence') 
         <li class="nav-item">
-            <a href="{{ route('filieres.index') }}" class="nav-link {{ Request::is('PkgCompetences/filieres') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-book"></i>
-                <p>Filieres</p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{ route('modules.index') }}" class="nav-link {{ Request::is('PkgCompetences/modules') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-puzzle-piece"></i>
-                <p>Modules</p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{ route('niveauCompetences.index') }}" class="nav-link {{ Request::is('PkgCompetences/niveauCompetences') ? 'active' : '' }}">
+            <a href="{{ route('niveauCompetences.index') }}" class="nav-link {{ Request::is('admin/PkgCompetences/niveauCompetences') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-bars"></i>
-                <p>NiveauCompetences</p>
+                {{__('PkgCompetences::NiveauCompetence.plural')}}
             </a>
         </li>
+        @endcan
+        @can('index-technology') 
         <li class="nav-item">
-            <a href="{{ route('technologies.index') }}" class="nav-link {{ Request::is('PkgCompetences/technologies') ? 'active' : '' }}">
+            <a href="{{ route('technologies.index') }}" class="nav-link {{ Request::is('admin/PkgCompetences/technologies') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-bolt"></i>
-                <p>Technologies</p>
+                {{__('PkgCompetences::Technology.plural')}}
             </a>
         </li>
+        @endcan
+        @can('index-niveauDifficulte') 
+        <li class="nav-item">
+            <a href="{{ route('niveauDifficultes.index') }}" class="nav-link {{ Request::is('admin/PkgCompetences/niveauDifficultes') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-table"></i>
+                {{__('PkgCompetences::NiveauDifficulte.plural')}}
+            </a>
+        </li>
+        @endcan
     </ul>
 </li>
-
+@endif
 

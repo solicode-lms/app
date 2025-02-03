@@ -1,31 +1,30 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<div class="card-body table-responsive p-0 crud-table" id="widgetOperationsTable">
+<div class="card-body table-responsive p-0 crud-card-body" id="widgetOperations-crud-card-body">
     <table class="table table-striped text-nowrap">
         <thead>
             <tr>
-                <th>{{ ucfirst(__('PkgWidgets::widgetOperation.operation')) }}</th>
-                <th>{{ ucfirst(__('PkgWidgets::widgetOperation.description')) }}</th>
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($widgetOperations_data as $widgetOperation)
-                <tr>
-                    <td>{{ $widgetOperation->operation }}</td>
-                    <td>{!! $widgetOperation->description !!}</td>
-                    <td class="text-center">
+                <tr id="widgetOperation-row-{{$widgetOperation->id}}">
+                    <td class="text-right">
                         @can('show-widgetOperation')
                             <a href="{{ route('widgetOperations.show', ['widgetOperation' => $widgetOperation->id]) }}" data-id="{{$widgetOperation->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
                         @endcan
                         @can('edit-widgetOperation')
+                        @can('update', $widgetOperation)
                             <a href="{{ route('widgetOperations.edit', ['widgetOperation' => $widgetOperation->id]) }}" data-id="{{$widgetOperation->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endcan
+                        @endcan
                         @can('destroy-widgetOperation')
+                        @can('delete', $widgetOperation)
                             <form class="context-state" action="{{ route('widgetOperations.destroy',['widgetOperation' => $widgetOperation->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
@@ -34,6 +33,7 @@
                                 </button>
                             </form>
                         @endcan
+                        @endcan
                     </td>
                 </tr>
             @endforeach
@@ -41,39 +41,10 @@
     </table>
 </div>
 
-
 <div class="card-footer">
-
-    <div class="d-md-flex justify-content-between align-items-center p-2">
-        <div class="d-flex align-items-center mb-2 ml-2 mt-2">
-            @can('import-widgetOperation')
-                <form action="{{ route('widgetOperations.import') }}" method="post" class="mt-2" enctype="multipart/form-data"
-                    id="importForm">
-                    @csrf
-                    <label for="upload" class="btn btn-default btn-sm font-weight-normal">
-                        <i class="fas fa-file-download"></i>
-                        {{ __('Core::msg.import') }}
-                    </label>
-                    <input type="file" id="upload" name="file" style="display:none;" onchange="submitForm()" />
-                </form>
-            @endcan
-            @can('export-widgetOperation')
-                <form class="">
-                    <a href="{{ route('widgetOperations.export') }}" class="btn btn-default btn-sm mt-0 mx-2">
-                        <i class="fas fa-file-export"></i>
-                        {{ __('Core::msg.export') }}</a>
-                </form>
-            @endcan
-        </div>
-
-        <ul class="pagination m-0 float-right">
-            {{ $widgetOperations_data->onEachSide(1)->links() }}
-        </ul>
-    </div>
-
-    <script>
-        function submitForm() {
-            document.getElementById("importForm").submit();
-        }
-    </script>
+    @section('widgetOperation-crud-pagination')
+    <ul class="pagination m-0 d-flex justify-content-center">
+        {{ $widgetOperations_data->onEachSide(1)->links() }}
+    </ul>
+    @show
 </div>

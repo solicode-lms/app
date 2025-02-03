@@ -1,14 +1,24 @@
 import { Action } from './Action';
 import { NotificationHandler } from '../components/NotificationHandler';
 import { LoadListAction } from './LoadListAction';
+import { AjaxErrorHandler } from '../components/AjaxErrorHandler';
+import EventUtil from '../utils/EventUtil';
 
 export class DeleteAction extends Action {
 
-    constructor(config) {
+    constructor(config, tableUI) {
         super(config);
+        this.config = config;
+        this.tableUI = tableUI;
+       
+        
        
         this.suscesMessage = 'Entité supprimée avec succès.';
        
+    }
+
+    init() {
+        this.handleDeleteEntity();
     }
 
     /**
@@ -16,36 +26,37 @@ export class DeleteAction extends Action {
      * @param {number|string} id - Identifiant de l'entité à supprimer.
      */
     deleteEntity(id) {
-        
-        let deleteUrl = this.getUrlWithId(this.config.deleteUrl, id); // Générer l'URL dynamique
-        deleteUrl = this.appendParamsToUrl(
-            deleteUrl,
-            this.contextManager.getContextParams()
-        );
-
-        // Confirmer l'action avant de procéder
+        let deleteUrl = this.getUrlWithId(this.config.deleteUrl, id);
+        deleteUrl = this.appendParamsToUrl(deleteUrl, this.contextService.getContextParams());
+    
         NotificationHandler.confirmAction(
-            'Êtes-vous sûr ?',
-            'Cette action est irréversible.',
+            'Êtes-vous sûr ?', 'Cette action est irréversible.',
             () => {
-                // Afficher un message d'information pendant la suppression
                 NotificationHandler.showInfo('Suppression en cours...');
-                // Envoyer une requête DELETE
                 $.ajax({
                     url: deleteUrl,
                     method: 'DELETE',
-                    data: { _token: this.config.csrfToken }, // Inclure le jeton CSRF
+                    data: { _token: this.config.csrfToken }
+                }).done(() => {
+                    $(`#${this.config.entity_name}-row-${id}`).fadeOut(); // Supprime la ligne sans recharger
+                    this.handleSuccess(this.suscesMessage);
                 })
-                    .done(() => {
-                        this.handleSuccess(this.suscesMessage);
-                      
-                        this.entityLoader.loadEntities(); // Recharger les entités après suppression
-                    })
-                    .fail((xhr) => {
-                        const errorMessage = xhr.responseJSON?.message || "Erreur lors de la suppression de l\'entité."
-                        this.handleError(errorMessage);
-                    });
+                
+                .fail((xhr) => {
+                    AjaxErrorHandler.handleError(xhr, "Erreur lors de la suppression de l'entité.");
+                });
             }
         );
+    }
+
+    /**
+     * Gère les événements liés à la suppression d'une entité.
+     */
+    handleDeleteEntity() {
+        EventUtil.bindEvent('click', `${this.config.crudSelector} .deleteEntity`, (e) => {
+            e.preventDefault();
+            const id = $(e.currentTarget).data('id'); // Récupérer l'ID de l'entité
+            this.deleteEntity(id);
+        });
     }
 }

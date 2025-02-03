@@ -1,13 +1,16 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-@section('script')
-@parent
+
 <script>
-    window.entitiesConfig = window.entitiesConfig || [];
-    window.entitiesConfig.push({
-        edit_has_many: false,
+    window.crudModalManagersConfig = window.crudModalManagersConfig || [];
+    window.crudModalManagersConfig.push({
+        edit_has_many: {{ !isset($edit_has_many)? 'false' :  ($edit_has_many ? "true": "false") }},
+        isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
         entity_name: 'role',
-        crudSelector: '#role_crud',
+        filterFormSelector: '#role-crud-filter-form',
+        crudSelector: '#role-crud',
+        tableSelector: '#role-data-container',
+        formSelector: '#roleForm',
         indexUrl: '{{ route('roles.index') }}', 
         createUrl: '{{ route('roles.create') }}',
         editUrl: '{{ route('roles.edit',  ['role' => ':id']) }}',
@@ -16,84 +19,87 @@
         deleteUrl: '{{ route('roles.destroy',  ['role' => ':id']) }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgAutorisation::role.singular") }}',
-        edit_title: '{{__("Core::msg.add") . " : " . __("PkgAutorisation::role.singular") }}',
+        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgAutorisation::role.singular") }}',
     });
 </script>
-@endsection
-<div id="role_crud">
-    <div class="content-header">
+
+<div id="role-crud" class="crud">
+    @section('role-crud-header')
+    @php
+        $package = __("PkgAutorisation::PkgAutorisation.name");
+       $titre = __("PkgAutorisation::role.singular");
+    @endphp
+    <x-crud-header 
+        id="role-crud-header" icon="fas fa-id-badge"  
+        iconColor="text-info"
+        title="{{ __('PkgAutorisation::role.plural') }}"
+        :breadcrumbs="[
+            ['label' => $package, 'url' => '#'],
+            ['label' => $titre]
+        ]"
+    />
+    @show
+    @section('role-crud-table')
+    <section id="role-crud-table" class="content crud-table">
         <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1>
-                        {{ curd_index_title('PkgAutorisation::role') }}
-                    </h1>
-                </div>
-                <div class="col-sm-6">
-                    <div class="float-sm-right">
-                        @can('create-role')
-                        <a href="{{ route('roles.create') }}" data-target="#roleModal" class="btn btn-info btn-sm context-state addEntityButton">
-                            <i class="fas fa-plus"></i>
-                            {{ __('Core::msg.add') }}
-                        </a>
-                        @endcan
+            <div class="card card-outline card-info " id="card_crud">
+                @section('role-crud-stats-bar')
+                <div class="card-header row">
+                    <!-- Statistiques et Actions -->
+                    <div class="col-sm-9">
+                        <x-crud-stats-summary
+                            icon="fas fa-chart-bar text-info"
+                            :stats="$roles_stats"
+                        />
                     </div>
+                    <div class="col-sm-3">
+                        <x-crud-actions
+                            :createPermission="'create-role'"
+                            :createRoute="route('roles.create')"
+                            :createText="__('Ajouter')"
+                            :importPermission="'import-role'"
+                            :importRoute="route('roles.import')"
+                            :importText="__('Importer')"
+                            :exportPermission="'export-role'"
+                            :exportRoute="route('roles.export')"
+                            :exportText="__('Exporter')"
+                        />
+                    </div>
+                </div>
+                @show
+                @section('role-crud-filters')
+                <div class="card-header">
+                    <form id="role-crud-filter-form" method="GET" class="row">
+                        <x-filter-group count="{{count($roles_filters ?? [])}}">
+                            <!-- Filtres spécifiques -->
+                            @foreach ($roles_filters as $filter)
+                                <x-filter-field 
+                                    :label="$filter['label']" 
+                                    :type="$filter['type']" 
+                                    :field="$filter['field']" 
+                                    :options="$filter['options'] ?? []"
+                                    :placeholder="ucfirst(str_replace('_', ' ', $filter['field']))" />
+                            @endforeach
+                        </x-filter-group>
+                        @section('role-crud-search-bar')
+                        <div id="role-crud-search-bar"
+                            class="{{ count($roles_filters) > 0 ? 'col-md-2' : 'col-md-6 mx-auto' }} text-md-right text-left">
+                            <x-search-bar
+                                :search="request('roles_search')"
+                                name="roles_search"
+                                id="roles_search"
+                                placeholder="Recherche ..."
+                            />
+                        </div>
+                        @show
+                    </form>
+                </div>
+                @show
+                <div id="role-data-container" class="data-container">
+                    @include('PkgAutorisation::role._table')
                 </div>
             </div>
         </div>
-    </div>
-    <section class="content" id="section_crud">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-12">
-                    <div class="card" id="card_crud">
-                        <div class="card-header col-md-12">
-                            <div class="p-0">
-                                <div class="input-group input-group-sm float-sm-right col-md-3 p-0">
-                                    <input type="text" value="{{ $role_searchQuery ?? '' }}" name="crud_search_input" id="crud_search_input"
-                                           class="form-control float-right" placeholder="Recherche">
-                                    <div class="input-group-append">
-                                        <button type="submit" class="btn btn-default">
-                                            <i class="fas fa-search"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="role-data-container" class="data-container">
-                            @include('PkgAutorisation::role._table')
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <input type="hidden" id='page' value="1">
     </section>
-
-
-<!-- Modal pour Ajouter/Modifier -->
-<div class="modal fade crud-modal" id="roleModal" tabindex="-1" role="dialog" aria-labelledby="roleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-
-            <div id="modal-loading"  class="d-flex justify-content-center align-items-center" style="display: none; min-height: 200px;  ">
-                <div class="spinner-border text-primary" role="status">
-                </div>
-            </div>
-
-            <!-- Contenu injecté -->
-            <div id="modal-content-container" style="display: none;">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="roleModalLabel"></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                      </button>
-                </div>
-                <div class="modal-body"></div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
+    @show
 </div>

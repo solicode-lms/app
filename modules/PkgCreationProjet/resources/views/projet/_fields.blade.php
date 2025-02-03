@@ -1,6 +1,7 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form class="crud-form context-state" id="projetForm" action="{{ $itemProjet->id ? route('projets.update', $itemProjet->id) : route('projets.store') }}" method="POST" novalidate>
+@section('projet-form')
+<form class="crud-form custom-form context-state" id="projetForm" action="{{ $itemProjet->id ? route('projets.update', $itemProjet->id) : route('projets.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemProjet->id)
@@ -8,6 +9,7 @@
     @endif
 
     <div class="card-body">
+        
         <div class="form-group">
             <label for="titre">
                 {{ ucfirst(__('PkgCreationProjet::projet.titre')) }}
@@ -28,6 +30,7 @@
             @enderror
 </div>
 
+        
         <div class="form-group">
             <label for="travail_a_faire">
                 {{ ucfirst(__('PkgCreationProjet::projet.travail_a_faire')) }}
@@ -48,6 +51,7 @@
             @enderror
 </div>
 
+        
         <div class="form-group">
             <label for="critere_de_travail">
                 {{ ucfirst(__('PkgCreationProjet::projet.critere_de_travail')) }}
@@ -68,6 +72,7 @@
             @enderror
 </div>
 
+        
         <div class="form-group">
             <label for="description">
                 {{ ucfirst(__('PkgCreationProjet::projet.description')) }}
@@ -86,58 +91,32 @@
             @enderror
 </div>
 
+        
         <div class="form-group">
-            <label for="date_debut">
-                {{ ucfirst(__('PkgCreationProjet::projet.date_debut')) }}
+            <label for="nombre_jour">
+                {{ ucfirst(__('PkgCreationProjet::projet.nombre_jour')) }}
                 
                     <span class="text-danger">*</span>
                 
             </label>
             <input
-                name="date_debut"
-                type="date"
-                class="form-control datetimepicker"
+                name="nombre_jour"
+                type="number"
+                class="form-control"
                 required
-                id="date_debut"
-                placeholder="{{ __('PkgCreationProjet::projet.date_debut') }}"
-                value="{{ $itemProjet ? $itemProjet->date_debut : old('date_debut') }}">
-            @error('date_debut')
+                id="nombre_jour"
+                placeholder="{{ __('PkgCreationProjet::projet.nombre_jour') }}"
+                value="{{ $itemProjet ? $itemProjet->nombre_jour : old('nombre_jour') }}">
+            @error('nombre_jour')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
 
-
-
-
-
-        <div class="form-group">
-            <label for="date_fin">
-                {{ ucfirst(__('PkgCreationProjet::projet.date_fin')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
-                name="date_fin"
-                type="date"
-                class="form-control datetimepicker"
-                required
-                id="date_fin"
-                placeholder="{{ __('PkgCreationProjet::projet.date_fin') }}"
-                value="{{ $itemProjet ? $itemProjet->date_fin : old('date_fin') }}">
-            @error('date_fin')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
-
-
-
-
-
+        
         
     <div class="form-group">
             <label for="formateur_id">
-                {{ ucfirst(__('PkgUtilisateurs::formateur.singular')) }}
+                {{ ucfirst(__('PkgFormation::formateur.singular')) }}
                 
                     <span class="text-danger">*</span>
                 
@@ -146,7 +125,7 @@
             id="formateur_id" 
             required
             name="formateur_id" 
-            class="form-control">
+            class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($formateurs as $formateur)
                     <option value="{{ $formateur->id }}"
@@ -161,14 +140,21 @@
     </div>
 
 
+        
 
-        <!--   Livrable_HasMany HasMany --> 
+        <!--   AffectationProjet HasMany --> 
 
+        
 
-        <!--   Resource_HasMany HasMany --> 
+        <!--   Livrable HasMany --> 
 
+        
 
-        <!--   TransfertCompetence_HasMany HasMany --> 
+        <!--   Resource HasMany --> 
+
+        
+
+        <!--   TransfertCompetence HasMany --> 
 
     </div>
 
@@ -177,5 +163,10 @@
         <button type="submit" class="btn btn-info ml-2">{{ $itemProjet->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
+@show
 
+
+<script>
+
+</script>
 

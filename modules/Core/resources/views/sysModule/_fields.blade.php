@@ -1,6 +1,7 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form class="crud-form context-state" id="sysModuleForm" action="{{ $itemSysModule->id ? route('sysModules.update', $itemSysModule->id) : route('sysModules.store') }}" method="POST" novalidate>
+@section('sysModule-form')
+<form class="crud-form custom-form context-state" id="sysModuleForm" action="{{ $itemSysModule->id ? route('sysModules.update', $itemSysModule->id) : route('sysModules.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemSysModule->id)
@@ -8,6 +9,7 @@
     @endif
 
     <div class="card-body">
+        
         <div class="form-group">
             <label for="name">
                 {{ ucfirst(__('Core::sysModule.name')) }}
@@ -28,6 +30,7 @@
             @enderror
 </div>
 
+        
         <div class="form-group">
             <label for="slug">
                 {{ ucfirst(__('Core::sysModule.slug')) }}
@@ -48,6 +51,7 @@
             @enderror
 </div>
 
+        
         <div class="form-group">
             <label for="description">
                 {{ ucfirst(__('Core::sysModule.description')) }}
@@ -67,9 +71,48 @@
 </div>
 
         
+        <div class="form-group">
+            <label for="is_active">
+                {{ ucfirst(__('Core::sysModule.is_active')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <input
+                name="is_active"
+                type="number"
+                class="form-control"
+                required
+                id="is_active"
+                placeholder="{{ __('Core::sysModule.is_active') }}"
+                value="{{ $itemSysModule ? $itemSysModule->is_active : old('is_active') }}">
+            @error('is_active')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
 
         
+        <div class="form-group">
+            <label for="order">
+                {{ ucfirst(__('Core::sysModule.order')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <input
+                name="order"
+                type="number"
+                class="form-control"
+                required
+                id="order"
+                placeholder="{{ __('Core::sysModule.order') }}"
+                value="{{ $itemSysModule ? $itemSysModule->order : old('order') }}">
+            @error('order')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
 
+        
         <div class="form-group">
             <label for="version">
                 {{ ucfirst(__('Core::sysModule.version')) }}
@@ -91,40 +134,44 @@
 </div>
 
         
+        
     <div class="form-group">
-            <label for="color_id">
+            <label for="sys_color_id">
                 {{ ucfirst(__('Core::sysColor.singular')) }}
                 
                     <span class="text-danger">*</span>
                 
             </label>
             <select 
-            id="color_id" 
+            id="sys_color_id" 
             required
-            name="color_id" 
-            class="form-control">
+            name="sys_color_id" 
+            class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($sysColors as $sysColor)
                     <option value="{{ $sysColor->id }}"
-                        {{ (isset($itemSysModule) && $itemSysModule->color_id == $sysColor->id) || (old('color_id>') == $sysColor->id) ? 'selected' : '' }}>
+                        {{ (isset($itemSysModule) && $itemSysModule->sys_color_id == $sysColor->id) || (old('sys_color_id>') == $sysColor->id) ? 'selected' : '' }}>
                         {{ $sysColor }}
                     </option>
                 @endforeach
             </select>
-            @error('color_id')
+            @error('sys_color_id')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
     </div>
 
 
+        
 
-        <!--   FeatureDomain_HasMany HasMany --> 
+        <!--   FeatureDomain HasMany --> 
 
+        
 
-        <!--   SysController_HasMany HasMany --> 
+        <!--   SysController HasMany --> 
 
+        
 
-        <!--   SysModel_HasMany HasMany --> 
+        <!--   SysModel HasMany --> 
 
     </div>
 
@@ -133,5 +180,10 @@
         <button type="submit" class="btn btn-info ml-2">{{ $itemSysModule->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
+@show
 
+
+<script>
+
+</script>
 

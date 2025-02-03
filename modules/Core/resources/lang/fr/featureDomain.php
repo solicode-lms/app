@@ -8,5 +8,5 @@ return [
     'name' => 'name',
     'slug' => 'slug',
     'description' => 'description',
-    'module_id' => 'module_id',
+    'sys_module_id' => 'sys_module_id',
 ];

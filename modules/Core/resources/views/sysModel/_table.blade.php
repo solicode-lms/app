@@ -1,35 +1,36 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<div class="card-body table-responsive p-0 crud-table" id="sysModelsTable">
+<div class="card-body table-responsive p-0 crud-card-body" id="sysModels-crud-card-body">
     <table class="table table-striped text-nowrap">
         <thead>
             <tr>
-                <th>{{ ucfirst(__('Core::sysModel.name')) }}</th>
-                <th>{{ ucfirst(__('Core::sysModel.description')) }}</th>
-                <th>{{ ucfirst(__('Core::sysModule.singular')) }}</th>
-                <th>{{ ucfirst(__('Core::sysColor.singular')) }}</th>
+                <x-sortable-column field="name" label="{{ ucfirst(__('Core::sysModel.name')) }}" />
+                <x-sortable-column field="sys_module_id" label="{{ ucfirst(__('Core::sysModule.singular')) }}" />
+                <x-sortable-column field="sys_color_id" label="{{ ucfirst(__('Core::sysColor.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($sysModels_data as $sysModel)
-                <tr>
-                    <td>{{ $sysModel->name }}</td>
-                    <td>{!! $sysModel->description !!}</td>
-                    <td>{{ $sysModel->sysModule->name ?? '-' }}</td>
-                    <td>{{ $sysModel->sysColor->name ?? '-' }}</td>
-                    <td class="text-center">
+                <tr id="sysModel-row-{{$sysModel->id}}">
+                    <td>@limit($sysModel->name, 80)</td>
+                    <td>@limit($sysModel->sysModule->name ?? '-', 80)</td>
+                    <td>@limit($sysModel->sysColor->name ?? '-', 80)</td>
+                    <td class="text-right">
                         @can('show-sysModel')
                             <a href="{{ route('sysModels.show', ['sysModel' => $sysModel->id]) }}" data-id="{{$sysModel->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
                         @endcan
                         @can('edit-sysModel')
+                        @can('update', $sysModel)
                             <a href="{{ route('sysModels.edit', ['sysModel' => $sysModel->id]) }}" data-id="{{$sysModel->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endcan
+                        @endcan
                         @can('destroy-sysModel')
+                        @can('delete', $sysModel)
                             <form class="context-state" action="{{ route('sysModels.destroy',['sysModel' => $sysModel->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
@@ -38,6 +39,7 @@
                                 </button>
                             </form>
                         @endcan
+                        @endcan
                     </td>
                 </tr>
             @endforeach
@@ -45,39 +47,10 @@
     </table>
 </div>
 
-
 <div class="card-footer">
-
-    <div class="d-md-flex justify-content-between align-items-center p-2">
-        <div class="d-flex align-items-center mb-2 ml-2 mt-2">
-            @can('import-sysModel')
-                <form action="{{ route('sysModels.import') }}" method="post" class="mt-2" enctype="multipart/form-data"
-                    id="importForm">
-                    @csrf
-                    <label for="upload" class="btn btn-default btn-sm font-weight-normal">
-                        <i class="fas fa-file-download"></i>
-                        {{ __('Core::msg.import') }}
-                    </label>
-                    <input type="file" id="upload" name="file" style="display:none;" onchange="submitForm()" />
-                </form>
-            @endcan
-            @can('export-sysModel')
-                <form class="">
-                    <a href="{{ route('sysModels.export') }}" class="btn btn-default btn-sm mt-0 mx-2">
-                        <i class="fas fa-file-export"></i>
-                        {{ __('Core::msg.export') }}</a>
-                </form>
-            @endcan
-        </div>
-
-        <ul class="pagination m-0 float-right">
-            {{ $sysModels_data->onEachSide(1)->links() }}
-        </ul>
-    </div>
-
-    <script>
-        function submitForm() {
-            document.getElementById("importForm").submit();
-        }
-    </script>
+    @section('sysModel-crud-pagination')
+    <ul class="pagination m-0 d-flex justify-content-center">
+        {{ $sysModels_data->onEachSide(1)->links() }}
+    </ul>
+    @show
 </div>

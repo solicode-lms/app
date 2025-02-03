@@ -1,6 +1,7 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form class="crud-form context-state" id="permissionForm" action="{{ $itemPermission->id ? route('permissions.update', $itemPermission->id) : route('permissions.store') }}" method="POST" novalidate>
+@section('permission-form')
+<form class="crud-form custom-form context-state" id="permissionForm" action="{{ $itemPermission->id ? route('permissions.update', $itemPermission->id) : route('permissions.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemPermission->id)
@@ -8,6 +9,7 @@
     @endif
 
     <div class="card-body">
+        
         <div class="form-group">
             <label for="name">
                 {{ ucfirst(__('PkgAutorisation::permission.name')) }}
@@ -28,6 +30,7 @@
             @enderror
 </div>
 
+        
         <div class="form-group">
             <label for="guard_name">
                 {{ ucfirst(__('PkgAutorisation::permission.guard_name')) }}
@@ -49,6 +52,7 @@
 </div>
 
         
+        
     <div class="form-group">
             <label for="controller_id">
                 {{ ucfirst(__('Core::sysController.singular')) }}
@@ -58,7 +62,7 @@
             id="controller_id" 
             
             name="controller_id" 
-            class="form-control">
+            class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($sysControllers as $sysController)
                     <option value="{{ $sysController->id }}"
@@ -73,6 +77,7 @@
     </div>
 
 
+        
                 <div class="form-group">
             <label for="features">
                 {{ ucfirst(__('Core::Feature.plural')) }}
@@ -97,6 +102,7 @@
         </div>
 
 
+        
                 <div class="form-group">
             <label for="roles">
                 {{ ucfirst(__('PkgAutorisation::Role.plural')) }}
@@ -128,5 +134,10 @@
         <button type="submit" class="btn btn-info ml-2">{{ $itemPermission->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
+@show
 
+
+<script>
+
+</script>
 

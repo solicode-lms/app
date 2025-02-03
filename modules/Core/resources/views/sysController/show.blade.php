@@ -25,8 +25,8 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="col-sm-12">
-                                <label for="module_id">{{ ucfirst(__('Core::sysController.module_id')) }}:</label>
-                                <p>{{ $itemSysController->module_id }}</p>
+                                <label for="sys_module_id">{{ ucfirst(__('Core::sysController.sys_module_id')) }}:</label>
+                                <p>{{ $itemSysController->sys_module_id }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="name">{{ ucfirst(__('Core::sysController.name')) }}:</label>

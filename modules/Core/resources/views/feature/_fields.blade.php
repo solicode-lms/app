@@ -1,6 +1,7 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-<form class="crud-form context-state" id="featureForm" action="{{ $itemFeature->id ? route('features.update', $itemFeature->id) : route('features.store') }}" method="POST" novalidate>
+@section('feature-form')
+<form class="crud-form custom-form context-state" id="featureForm" action="{{ $itemFeature->id ? route('features.update', $itemFeature->id) : route('features.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemFeature->id)
@@ -8,6 +9,7 @@
     @endif
 
     <div class="card-body">
+        
         <div class="form-group">
             <label for="name">
                 {{ ucfirst(__('Core::feature.name')) }}
@@ -28,6 +30,7 @@
             @enderror
 </div>
 
+        
         <div class="form-group">
             <label for="description">
                 {{ ucfirst(__('Core::feature.description')) }}
@@ -47,32 +50,34 @@
 </div>
 
         
+        
     <div class="form-group">
-            <label for="domain_id">
+            <label for="feature_domain_id">
                 {{ ucfirst(__('Core::featureDomain.singular')) }}
                 
                     <span class="text-danger">*</span>
                 
             </label>
             <select 
-            id="domain_id" 
+            id="feature_domain_id" 
             required
-            name="domain_id" 
-            class="form-control">
+            name="feature_domain_id" 
+            class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($featureDomains as $featureDomain)
                     <option value="{{ $featureDomain->id }}"
-                        {{ (isset($itemFeature) && $itemFeature->domain_id == $featureDomain->id) || (old('domain_id>') == $featureDomain->id) ? 'selected' : '' }}>
+                        {{ (isset($itemFeature) && $itemFeature->feature_domain_id == $featureDomain->id) || (old('feature_domain_id>') == $featureDomain->id) ? 'selected' : '' }}>
                         {{ $featureDomain }}
                     </option>
                 @endforeach
             </select>
-            @error('domain_id')
+            @error('feature_domain_id')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
     </div>
 
 
+        
                 <div class="form-group">
             <label for="permissions">
                 {{ ucfirst(__('PkgAutorisation::Permission.plural')) }}
@@ -104,5 +109,10 @@
         <button type="submit" class="btn btn-info ml-2">{{ $itemFeature->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
     </div>
 </form>
+@show
 
+
+<script>
+
+</script>
 

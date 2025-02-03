@@ -4,31 +4,9 @@
 
 
 namespace Modules\PkgCompetences\App\Requests;
+use Modules\PkgCompetences\App\Requests\Base\BaseCategoryTechnologyRequest;
 
-use Illuminate\Foundation\Http\FormRequest;
-
-class CategoryTechnologyRequest extends FormRequest
+class CategoryTechnologyRequest extends BaseCategoryTechnologyRequest
 {
-    public function authorize(): bool
-    {
-        return true;
-    }
-
-    public function rules(): array
-    {
-        return [
-            'nom' => 'required|max:255',
-            'description' => 'nullable'
-        ];
-    }
-
-    public function messages(): array
-    {
-        return [
-            'nom.required' => __('validation.required', ['attribute' => __('PkgCompetences::CategoryTechnology.nom')]),
-            'nom.max' => __('validation.nomMax'),
-            'description.required' => __('validation.required', ['attribute' => __('PkgCompetences::CategoryTechnology.description')]),
-            'description.max' => __('validation.descriptionMax')
-        ];
-    }
+    
 }
