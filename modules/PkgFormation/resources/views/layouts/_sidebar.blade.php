@@ -16,7 +16,7 @@
         <li class="nav-item">
             <a href="{{ route('filieres.index') }}" class="nav-link {{ Request::is('admin/PkgFormation/filieres') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-book"></i>
-                {{__('PkgFormation::Filiere.plural')}}
+                {{__('PkgFormation::filiere.plural')}}
             </a>
         </li>
         @endcan
@@ -24,7 +24,7 @@
         <li class="nav-item">
             <a href="{{ route('modules.index') }}" class="nav-link {{ Request::is('admin/PkgFormation/modules') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-puzzle-piece"></i>
-                {{__('PkgFormation::Module.plural')}}
+                {{__('PkgFormation::module.plural')}}
             </a>
         </li>
         @endcan
@@ -32,7 +32,7 @@
         <li class="nav-item">
             <a href="{{ route('anneeFormations.index') }}" class="nav-link {{ Request::is('admin/PkgFormation/anneeFormations') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-table"></i>
-                {{__('PkgFormation::AnneeFormation.plural')}}
+                {{__('PkgFormation::anneeFormation.plural')}}
             </a>
         </li>
         @endcan
@@ -40,7 +40,7 @@
         <li class="nav-item">
             <a href="{{ route('specialites.index') }}" class="nav-link {{ Request::is('admin/PkgFormation/specialites') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-award"></i>
-                {{__('PkgFormation::Specialite.plural')}}
+                {{__('PkgFormation::specialite.plural')}}
             </a>
         </li>
         @endcan
@@ -48,7 +48,7 @@
         <li class="nav-item">
             <a href="{{ route('formateurs.index') }}" class="nav-link {{ Request::is('admin/PkgFormation/formateurs') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-chalkboard-teacher"></i>
-                {{__('PkgFormation::Formateur.plural')}}
+                {{__('PkgFormation::formateur.plural')}}
             </a>
         </li>
         @endcan

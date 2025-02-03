@@ -16,7 +16,7 @@
         <li class="nav-item">
             <a href="{{ route('natureLivrables.index') }}" class="nav-link {{ Request::is('admin/PkgCreationProjet/natureLivrables') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-table"></i>
-                {{__('PkgCreationProjet::NatureLivrable.plural')}}
+                {{__('PkgCreationProjet::natureLivrable.plural')}}
             </a>
         </li>
         @endcan
@@ -32,7 +32,7 @@
         <li class="nav-item">
             <a href="{{ route('resources.index') }}" class="nav-link {{ Request::is('admin/PkgCreationProjet/resources') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-table"></i>
-                {{__('PkgCreationProjet::Resource.plural')}}
+                {{__('PkgCreationProjet::resource.plural')}}
             </a>
         </li>
         @endcan
@@ -48,7 +48,7 @@
         <li class="nav-item">
             <a href="{{ route('transfertCompetences.index') }}" class="nav-link {{ Request::is('admin/PkgCreationProjet/transfertCompetences') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-table"></i>
-                {{__('PkgCreationProjet::TransfertCompetence.plural')}}
+                {{__('PkgCreationProjet::transfertCompetence.plural')}}
             </a>
         </li>
         @endcan

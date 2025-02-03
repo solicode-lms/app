@@ -16,7 +16,7 @@
         <li class="nav-item">
             <a href="{{ route('sysColors.index') }}" class="nav-link {{ Request::is('admin/Core/sysColors') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-table"></i>
-                {{__('Core::SysColor.plural')}}
+                {{__('Core::sysColor.plural')}}
             </a>
         </li>
         @endcan
@@ -24,7 +24,7 @@
         <li class="nav-item">
             <a href="{{ route('sysModules.index') }}" class="nav-link {{ Request::is('admin/Core/sysModules') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-table"></i>
-                {{__('Core::SysModule.plural')}}
+                {{__('Core::sysModule.plural')}}
             </a>
         </li>
         @endcan
@@ -32,7 +32,7 @@
         <li class="nav-item">
             <a href="{{ route('sysControllers.index') }}" class="nav-link {{ Request::is('admin/Core/sysControllers') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-table"></i>
-                {{__('Core::SysController.plural')}}
+                {{__('Core::sysController.plural')}}
             </a>
         </li>
         @endcan
@@ -40,7 +40,7 @@
         <li class="nav-item">
             <a href="{{ route('featureDomains.index') }}" class="nav-link {{ Request::is('admin/Core/featureDomains') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-table"></i>
-                {{__('Core::FeatureDomain.plural')}}
+                {{__('Core::featureDomain.plural')}}
             </a>
         </li>
         @endcan
@@ -48,7 +48,7 @@
         <li class="nav-item">
             <a href="{{ route('features.index') }}" class="nav-link {{ Request::is('admin/Core/features') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-table"></i>
-                {{__('Core::Feature.plural')}}
+                {{__('Core::feature.plural')}}
             </a>
         </li>
         @endcan
@@ -56,7 +56,7 @@
         <li class="nav-item">
             <a href="{{ route('sysModels.index') }}" class="nav-link {{ Request::is('admin/Core/sysModels') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-table"></i>
-                {{__('Core::SysModel.plural')}}
+                {{__('Core::sysModel.plural')}}
             </a>
         </li>
         @endcan

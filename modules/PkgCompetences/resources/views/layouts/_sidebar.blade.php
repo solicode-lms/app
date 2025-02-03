@@ -16,7 +16,7 @@
         <li class="nav-item">
             <a href="{{ route('categoryTechnologies.index') }}" class="nav-link {{ Request::is('admin/PkgCompetences/categoryTechnologies') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-bolt"></i>
-                {{__('PkgCompetences::CategoryTechnology.plural')}}
+                {{__('PkgCompetences::categoryTechnology.plural')}}
             </a>
         </li>
         @endcan
@@ -24,7 +24,7 @@
         <li class="nav-item">
             <a href="{{ route('competences.index') }}" class="nav-link {{ Request::is('admin/PkgCompetences/competences') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-tools"></i>
-                {{__('PkgCompetences::Competence.plural')}}
+                {{__('PkgCompetences::competence.plural')}}
             </a>
         </li>
         @endcan
@@ -32,7 +32,7 @@
         <li class="nav-item">
             <a href="{{ route('niveauCompetences.index') }}" class="nav-link {{ Request::is('admin/PkgCompetences/niveauCompetences') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-bars"></i>
-                {{__('PkgCompetences::NiveauCompetence.plural')}}
+                {{__('PkgCompetences::niveauCompetence.plural')}}
             </a>
         </li>
         @endcan
@@ -40,7 +40,7 @@
         <li class="nav-item">
             <a href="{{ route('technologies.index') }}" class="nav-link {{ Request::is('admin/PkgCompetences/technologies') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-bolt"></i>
-                {{__('PkgCompetences::Technology.plural')}}
+                {{__('PkgCompetences::technology.plural')}}
             </a>
         </li>
         @endcan
@@ -48,7 +48,7 @@
         <li class="nav-item">
             <a href="{{ route('niveauDifficultes.index') }}" class="nav-link {{ Request::is('admin/PkgCompetences/niveauDifficultes') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-table"></i>
-                {{__('PkgCompetences::NiveauDifficulte.plural')}}
+                {{__('PkgCompetences::niveauDifficulte.plural')}}
             </a>
         </li>
         @endcan

@@ -16,7 +16,7 @@
         <li class="nav-item">
             <a href="{{ route('eMetadataDefinitions.index') }}" class="nav-link {{ Request::is('admin/PkgGapp/eMetadataDefinitions') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-table"></i>
-                {{__('PkgGapp::EMetadataDefinition.plural')}}
+                {{__('PkgGapp::eMetadataDefinition.plural')}}
             </a>
         </li>
         @endcan
@@ -24,7 +24,7 @@
         <li class="nav-item">
             <a href="{{ route('ePackages.index') }}" class="nav-link {{ Request::is('admin/PkgGapp/ePackages') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-table"></i>
-                {{__('PkgGapp::EPackage.plural')}}
+                {{__('PkgGapp::ePackage.plural')}}
             </a>
         </li>
         @endcan
@@ -32,7 +32,7 @@
         <li class="nav-item">
             <a href="{{ route('eModels.index') }}" class="nav-link {{ Request::is('admin/PkgGapp/eModels') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-table"></i>
-                {{__('PkgGapp::EModel.plural')}}
+                {{__('PkgGapp::eModel.plural')}}
             </a>
         </li>
         @endcan
@@ -40,7 +40,7 @@
         <li class="nav-item">
             <a href="{{ route('eRelationships.index') }}" class="nav-link {{ Request::is('admin/PkgGapp/eRelationships') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-table"></i>
-                {{__('PkgGapp::ERelationship.plural')}}
+                {{__('PkgGapp::eRelationship.plural')}}
             </a>
         </li>
         @endcan
@@ -48,7 +48,7 @@
         <li class="nav-item">
             <a href="{{ route('eDataFields.index') }}" class="nav-link {{ Request::is('admin/PkgGapp/eDataFields') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-table"></i>
-                {{__('PkgGapp::EDataField.plural')}}
+                {{__('PkgGapp::eDataField.plural')}}
             </a>
         </li>
         @endcan
@@ -56,7 +56,7 @@
         <li class="nav-item">
             <a href="{{ route('eMetadata.index') }}" class="nav-link {{ Request::is('admin/PkgGapp/eMetadata') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-table"></i>
-                {{__('PkgGapp::EMetadatum.plural')}}
+                {{__('PkgGapp::eMetadatum.plural')}}
             </a>
         </li>
         @endcan

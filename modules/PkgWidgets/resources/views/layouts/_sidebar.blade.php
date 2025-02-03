@@ -16,7 +16,7 @@
         <li class="nav-item">
             <a href="{{ route('widgetTypes.index') }}" class="nav-link {{ Request::is('admin/PkgWidgets/widgetTypes') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-table"></i>
-                {{__('PkgWidgets::WidgetType.plural')}}
+                {{__('PkgWidgets::widgetType.plural')}}
             </a>
         </li>
         @endcan
@@ -24,7 +24,7 @@
         <li class="nav-item">
             <a href="{{ route('widgetOperations.index') }}" class="nav-link {{ Request::is('admin/PkgWidgets/widgetOperations') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-table"></i>
-                {{__('PkgWidgets::WidgetOperation.plural')}}
+                {{__('PkgWidgets::widgetOperation.plural')}}
             </a>
         </li>
         @endcan
@@ -32,7 +32,7 @@
         <li class="nav-item">
             <a href="{{ route('widgets.index') }}" class="nav-link {{ Request::is('admin/PkgWidgets/widgets') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-table"></i>
-                {{__('PkgWidgets::Widget.plural')}}
+                {{__('PkgWidgets::widget.plural')}}
             </a>
         </li>
         @endcan

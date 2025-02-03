@@ -16,7 +16,7 @@
         <li class="nav-item">
             <a href="{{ route('users.index') }}" class="nav-link {{ Request::is('admin/PkgAutorisation/users') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-user-circle1"></i>
-                {{__('PkgAutorisation::User.plural')}}
+                {{__('PkgAutorisation::user.plural')}}
             </a>
         </li>
         @endcan
@@ -24,7 +24,7 @@
         <li class="nav-item">
             <a href="{{ route('roles.index') }}" class="nav-link {{ Request::is('admin/PkgAutorisation/roles') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-id-badge"></i>
-                {{__('PkgAutorisation::Role.plural')}}
+                {{__('PkgAutorisation::role.plural')}}
             </a>
         </li>
         @endcan
@@ -32,7 +32,7 @@
         <li class="nav-item">
             <a href="{{ route('permissions.index') }}" class="nav-link {{ Request::is('admin/PkgAutorisation/permissions') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-lock-open"></i>
-                {{__('PkgAutorisation::Permission.plural')}}
+                {{__('PkgAutorisation::permission.plural')}}
             </a>
         </li>
         @endcan
