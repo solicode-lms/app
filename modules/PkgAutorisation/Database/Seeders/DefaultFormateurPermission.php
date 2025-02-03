@@ -21,7 +21,7 @@ class DefaultFormateurPermission extends Seeder
             return;
         }
 
-        // Ajouter EditeurMany 
+        // Ajouter Editeur 
         // Tableau de configuration : modèle et type d'accès
         $permissionsMap = [
             'competence' => 'Lecteur,Extraction',
@@ -29,9 +29,9 @@ class DefaultFormateurPermission extends Seeder
             'technology' => 'Lecteur,Extraction',
             'niveauDifficulte' => 'Editeur,Extraction',
             'projet' => 'Editeur,Extraction',
-            'livrable' => 'EditeurMany,Extraction',
-            'resource' => 'EditeurMany,Extraction',
-            'transfertCompetence' => 'EditeurMany,Extraction',
+            'livrable' => 'Editeur,Extraction',
+            'resource' => 'Editeur,Extraction',
+            'transfertCompetence' => 'Editeur,Extraction',
             'affectationProjet' => 'Editeur,Extraction',
             'etatsRealisationProjet' => 'Editeur,Extraction',
             'livrablesRealisation' => 'LecteurMany,Extraction',
@@ -44,7 +44,6 @@ class DefaultFormateurPermission extends Seeder
             'LecteurMany' => ['show'],
             'Lecteur' => ['index', 'show'],
             'Editeur' => ['index', 'show', 'create', 'store', 'edit', 'update', 'destroy'],
-            'EditeurMany' => ['show', 'create', 'store', 'edit', 'update', 'destroy'],
             'Extraction' => ['export'],
         ];
 

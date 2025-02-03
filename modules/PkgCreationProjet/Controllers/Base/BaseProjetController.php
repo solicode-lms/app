@@ -1,5 +1,5 @@
 <?php
-// return projet as json on stor par ajax
+// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 namespace Modules\PkgCreationProjet\Controllers\Base;
@@ -7,7 +7,6 @@ use Modules\PkgCreationProjet\Services\ProjetService;
 use Modules\PkgFormation\Services\FormateurService;
 use Modules\PkgRealisationProjets\Services\AffectationProjetService;
 use Modules\PkgCreationProjet\Services\LivrableService;
-use Modules\PkgRealisationProjets\Services\RealisationProjetService;
 use Modules\PkgCreationProjet\Services\ResourceService;
 use Modules\PkgCreationProjet\Services\TransfertCompetenceService;
 use Illuminate\Http\Request;
@@ -87,15 +86,38 @@ class BaseProjetController extends AdminController
         );
     }
     public function show(string $id) {
+
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('projet_id', $id);
+        
         $itemProjet = $this->projetService->find($id);
         $formateurs = $this->formateurService->all();
-
+        $affectationProjetService =  new AffectationProjetService();
+        $affectationProjets_data =  $itemProjet->affectationProjets()->paginate(10);
+        $affectationProjets_stats = $affectationProjetService->getaffectationProjetStats();
+        $affectationProjets_filters = $affectationProjetService->getFieldsFilterable();
+        
+        $livrableService =  new LivrableService();
+        $livrables_data =  $itemProjet->livrables()->paginate(10);
+        $livrables_stats = $livrableService->getlivrableStats();
+        $livrables_filters = $livrableService->getFieldsFilterable();
+        
+        $resourceService =  new ResourceService();
+        $resources_data =  $itemProjet->resources()->paginate(10);
+        $resources_stats = $resourceService->getresourceStats();
+        $resources_filters = $resourceService->getFieldsFilterable();
+        
+        $transfertCompetenceService =  new TransfertCompetenceService();
+        $transfertCompetences_data =  $itemProjet->transfertCompetences()->paginate(10);
+        $transfertCompetences_stats = $transfertCompetenceService->gettransfertCompetenceStats();
+        $transfertCompetences_filters = $transfertCompetenceService->getFieldsFilterable();
+        
 
         if (request()->ajax()) {
-            return view('PkgCreationProjet::projet._fields', compact('itemProjet', 'formateurs'));
+            return view('PkgCreationProjet::projet._edit', compact('itemProjet', 'formateurs', 'affectationProjets_data', 'livrables_data', 'resources_data', 'transfertCompetences_data', 'affectationProjets_stats', 'livrables_stats', 'resources_stats', 'transfertCompetences_stats', 'affectationProjets_filters', 'livrables_filters', 'resources_filters', 'transfertCompetences_filters'));
         }
 
-        return view('PkgCreationProjet::projet.show', compact('itemProjet'));
+        return view('PkgCreationProjet::projet.edit', compact('itemProjet', 'formateurs', 'affectationProjets_data', 'livrables_data', 'resources_data', 'transfertCompetences_data', 'affectationProjets_stats', 'livrables_stats', 'resources_stats', 'transfertCompetences_stats', 'affectationProjets_filters', 'livrables_filters', 'resources_filters', 'transfertCompetences_filters'));
 
     }
     public function edit(string $id) {
@@ -115,11 +137,6 @@ class BaseProjetController extends AdminController
         $livrables_stats = $livrableService->getlivrableStats();
         $livrables_filters = $livrableService->getFieldsFilterable();
         
-        $realisationProjetService =  new RealisationProjetService();
-        $realisationProjets_data =  $itemProjet->realisationProjets()->paginate(10);
-        $realisationProjets_stats = $realisationProjetService->getrealisationProjetStats();
-        $realisationProjets_filters = $realisationProjetService->getFieldsFilterable();
-        
         $resourceService =  new ResourceService();
         $resources_data =  $itemProjet->resources()->paginate(10);
         $resources_stats = $resourceService->getresourceStats();
@@ -132,10 +149,10 @@ class BaseProjetController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('PkgCreationProjet::projet._fields', compact('itemProjet', 'formateurs', 'affectationProjets_data', 'livrables_data', 'realisationProjets_data', 'resources_data', 'transfertCompetences_data', 'affectationProjets_stats', 'livrables_stats', 'realisationProjets_stats', 'resources_stats', 'transfertCompetences_stats', 'affectationProjets_filters', 'livrables_filters', 'realisationProjets_filters', 'resources_filters', 'transfertCompetences_filters'));
+            return view('PkgCreationProjet::projet._edit', compact('itemProjet', 'formateurs', 'affectationProjets_data', 'livrables_data', 'resources_data', 'transfertCompetences_data', 'affectationProjets_stats', 'livrables_stats', 'resources_stats', 'transfertCompetences_stats', 'affectationProjets_filters', 'livrables_filters', 'resources_filters', 'transfertCompetences_filters'));
         }
 
-        return view('PkgCreationProjet::projet.edit', compact('itemProjet', 'formateurs', 'affectationProjets_data', 'livrables_data', 'realisationProjets_data', 'resources_data', 'transfertCompetences_data', 'affectationProjets_stats', 'livrables_stats', 'realisationProjets_stats', 'resources_stats', 'transfertCompetences_stats', 'affectationProjets_filters', 'livrables_filters', 'realisationProjets_filters', 'resources_filters', 'transfertCompetences_filters'));
+        return view('PkgCreationProjet::projet.edit', compact('itemProjet', 'formateurs', 'affectationProjets_data', 'livrables_data', 'resources_data', 'transfertCompetences_data', 'affectationProjets_stats', 'livrables_stats', 'resources_stats', 'transfertCompetences_stats', 'affectationProjets_filters', 'livrables_filters', 'resources_filters', 'transfertCompetences_filters'));
 
     }
     public function update(ProjetRequest $request, string $id) {

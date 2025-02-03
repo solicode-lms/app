@@ -20,7 +20,7 @@ export class FormUI  {
     /**
      * Constructeur de la classe FormUI.
      * @param {string} formSelector - Sélecteur CSS du formulaire à gérer.
-     * @param {ModalUI} modalManager - Instance de ModalUI pour gérer les interactions modales.
+     * @param {ModalUI} modalUI - Instance de ModalUI pour gérer les interactions modales.
      */
     constructor(config, indexUI) {
         this.config = config;

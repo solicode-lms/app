@@ -39,7 +39,6 @@ class DefaultApprenantPermission extends Seeder
             'Lecteur' => ['index', 'show'],
             'Editeur' => ['index', 'show', 'create', 'store', 'edit', 'update', 'destroy'],
             'EditeurSansCreate' => ['index', 'show', 'store', 'edit', 'update'],
-            'EditeurMany' => ['show', 'create', 'store', 'edit', 'update', 'destroy'],
             'Extraction' => ['export'],
         ];
 
