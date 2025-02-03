@@ -37,7 +37,7 @@ if (!function_exists('loadDynamicMenus')) {
                 $viewPath = $moduleName . '::layouts._sidebar';
 
                 // Ajouter la vue au tableau des menus
-                $menuItems[] = view($viewPath)->render();
+                $menuItems[] = view($viewPath);
             }
         }
 

@@ -8,8 +8,8 @@ sudo npm install
 
 sudo chmod -R 755 /var/www/app/
 sudo chown -R www-data:www-data /var/www/app/
-php artisan config:clear
-php artisan cache:clear
+sudo php artisan config:clear
+sudo php artisan cache:clear
 ````
 
 ## Validation des noms des classes
@@ -21,6 +21,6 @@ composer dump-autoload
 
 ## Initialisation de la base de données
 ````bash
-sudo artisan migrate:fresh
-sudo artisan db:seed
+sudo php artisan migrate:fresh
+sudo php artisan db:seed
 ````
