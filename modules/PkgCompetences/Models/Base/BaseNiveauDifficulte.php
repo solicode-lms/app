@@ -34,7 +34,7 @@ class BaseNiveauDifficulte extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'nom', 'description', 'noteMin', 'noteMax', 'formateur_id'
+        'nom', 'noteMin', 'noteMax', 'formateur_id', 'description'
     ];
 
     /**

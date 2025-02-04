@@ -26,10 +26,10 @@ class BaseNiveauDifficulteExport implements FromCollection, WithHeadings, Should
     {
         return [
             'nom',
-            'description',
             'noteMin',
             'noteMax',
             'formateur_id',
+            'description',
             'reference',
         ];
     }
@@ -39,10 +39,10 @@ class BaseNiveauDifficulteExport implements FromCollection, WithHeadings, Should
         return $this->data->map(function ($niveauDifficulte) {
             return [
                 'nom' => $niveauDifficulte->nom,
-                'description' => $niveauDifficulte->description,
                 'noteMin' => $niveauDifficulte->noteMin,
                 'noteMax' => $niveauDifficulte->noteMax,
                 'formateur_id' => $niveauDifficulte->formateur_id,
+                'description' => $niveauDifficulte->description,
                 'reference' => $niveauDifficulte->reference,
             ];
         });

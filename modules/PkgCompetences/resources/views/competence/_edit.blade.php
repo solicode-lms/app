@@ -14,6 +14,7 @@
 </script>
 <script>
     window.contextState = @json($contextState);
+    window.modalTitle = '{{__("PkgCompetences::competence.singular") }} : {{$itemCompetence}}'
 </script>
 
 @section('content')
@@ -27,7 +28,6 @@
                         <li class="pt-2 px-3">
                             <h3 class="card-title">
                                 <i class="nav-icon fas fa-tools"></i>
-                                {{ __('Core::msg.edit') }}
                             </h3>
                         </li>
                         <li class="nav-item">

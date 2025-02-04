@@ -33,7 +33,7 @@ export class ShowAction extends Action {
 
 
         // Afficher le chargement dans le modal
-        this.tableUI.indexUI.modalUI.showLoading('Détails de l\'entité');
+        this.tableUI.indexUI.modalUI.showLoading('Chargement...');
 
         // Charger les détails de l'entité via AJAX
         $.get(showUrl)
@@ -44,6 +44,7 @@ export class ShowAction extends Action {
                 this.tableUI.indexUI.modalUI.showContent(html);
 
                 this.executeScripts(html);
+                this.tableUI.indexUI.modalUI.setTitle(window.modalTitle);
                 this.tableUI.indexUI.formUI.init();
                 this.tableUI.indexUI.formUI.setToReadOnly();
 

@@ -20,10 +20,10 @@ class BaseNiveauDifficulteService extends BaseService
      */
     protected $fieldsSearchable = [
         'nom',
-        'description',
         'noteMin',
         'noteMax',
-        'formateur_id'
+        'formateur_id',
+        'description'
     ];
 
     /**

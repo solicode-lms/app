@@ -32,25 +32,6 @@
 
         
         <div class="form-group">
-            <label for="description">
-                {{ ucfirst(__('PkgCompetences::niveauDifficulte.description')) }}
-                
-            </label>
-            <textarea rows="" cols=""
-                name="description"
-                class="form-control richText"
-                
-                id="description"
-                placeholder="{{ __('PkgCompetences::niveauDifficulte.description') }}">
-                {{ $itemNiveauDifficulte ? $itemNiveauDifficulte->description : old('description') }}
-            </textarea>
-            @error('description')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
-
-        
-        <div class="form-group">
     <label for="noteMin">
         {{ ucfirst(__('PkgCompetences::niveauDifficulte.noteMin')) }}
         
@@ -124,6 +105,25 @@
             @enderror
     </div>
 
+
+        
+        <div class="form-group">
+            <label for="description">
+                {{ ucfirst(__('PkgCompetences::niveauDifficulte.description')) }}
+                
+            </label>
+            <textarea rows="" cols=""
+                name="description"
+                class="form-control richText"
+                
+                id="description"
+                placeholder="{{ __('PkgCompetences::niveauDifficulte.description') }}">
+                {{ $itemNiveauDifficulte ? $itemNiveauDifficulte->description : old('description') }}
+            </textarea>
+            @error('description')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
 
         
 

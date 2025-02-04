@@ -50,6 +50,7 @@ export class EditAction extends Action {
                 // Injecter le contenu du formulaire dans le modal
                 this.tableUI.indexUI.modalUI.showContent(html);
                 this.executeScripts(html);
+                this.tableUI.indexUI.modalUI.setTitle(window.modalTitle);
                 this.tableUI.indexUI.formUI.init(() => this.submitEntity());
             })
             .fail((xhr) => {

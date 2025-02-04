@@ -29,10 +29,6 @@
                                 <p>{{ $itemNiveauDifficulte->nom }}</p>
                             </div>
                             <div class="col-sm-12">
-                                <label for="description">{{ ucfirst(__('PkgCompetences::niveauDifficulte.description')) }}:</label>
-                                <p>{{ $itemNiveauDifficulte->description }}</p>
-                            </div>
-                            <div class="col-sm-12">
                                 <label for="noteMin">{{ ucfirst(__('PkgCompetences::niveauDifficulte.noteMin')) }}:</label>
                                 <p>{{ $itemNiveauDifficulte->noteMin }}</p>
                             </div>
@@ -43,6 +39,10 @@
                             <div class="col-sm-12">
                                 <label for="formateur_id">{{ ucfirst(__('PkgCompetences::niveauDifficulte.formateur_id')) }}:</label>
                                 <p>{{ $itemNiveauDifficulte->formateur_id }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="description">{{ ucfirst(__('PkgCompetences::niveauDifficulte.description')) }}:</label>
+                                <p>{{ $itemNiveauDifficulte->description }}</p>
                             </div>
                         </div>
                     </div>

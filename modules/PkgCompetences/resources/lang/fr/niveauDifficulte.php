@@ -3,7 +3,7 @@
 return [
     'singular' => 'Niveau de Difficulté',
     'plural' => 'Niveaux de Difficulté',
-    'nom' => 'Nom',
+    'nom' => 'Difficulté',
     'description' => 'Description',
     'noteMin' => 'Note Minimum',
     'noteMax' => 'Note Maximum',

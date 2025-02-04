@@ -109,6 +109,11 @@ export class ModalUI {
      
     }
 
+
+    setTitle(title){
+        $(`#${this.currentModalId}`).iziModal("setTitle", title);
+    }
+    
     /**
      * Affiche le modal avec un titre et active l'indicateur de chargement.
      * @param {string} title - Titre à afficher dans le modal.
