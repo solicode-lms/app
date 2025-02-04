@@ -51,8 +51,8 @@ class BaseProjetSeeder extends Seeder
                     "titre" => $data[0] ,
                     "travail_a_faire" => $data[1] ,
                     "critere_de_travail" => $data[2] ,
-                    "description" => $data[3] ,
-                    "nombre_jour" => $data[4] ,
+                    "nombre_jour" => $data[3] ,
+                    "description" => $data[4] ,
                     "formateur_id" => $data[5] 
                 ]);
             }

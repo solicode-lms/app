@@ -74,25 +74,6 @@
 
         
         <div class="form-group">
-            <label for="description">
-                {{ ucfirst(__('PkgCreationProjet::projet.description')) }}
-                
-            </label>
-            <textarea rows="" cols=""
-                name="description"
-                class="form-control richText"
-                
-                id="description"
-                placeholder="{{ __('PkgCreationProjet::projet.description') }}">
-                {{ $itemProjet ? $itemProjet->description : old('description') }}
-            </textarea>
-            @error('description')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
-
-        
-        <div class="form-group">
             <label for="nombre_jour">
                 {{ ucfirst(__('PkgCreationProjet::projet.nombre_jour')) }}
                 
@@ -108,6 +89,25 @@
                 placeholder="{{ __('PkgCreationProjet::projet.nombre_jour') }}"
                 value="{{ $itemProjet ? $itemProjet->nombre_jour : old('nombre_jour') }}">
             @error('nombre_jour')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
+
+        
+        <div class="form-group">
+            <label for="description">
+                {{ ucfirst(__('PkgCreationProjet::projet.description')) }}
+                
+            </label>
+            <textarea rows="" cols=""
+                name="description"
+                class="form-control richText"
+                
+                id="description"
+                placeholder="{{ __('PkgCreationProjet::projet.description') }}">
+                {{ $itemProjet ? $itemProjet->description : old('description') }}
+            </textarea>
+            @error('description')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>

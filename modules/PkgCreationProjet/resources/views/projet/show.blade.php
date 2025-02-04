@@ -37,12 +37,12 @@
                                 <p>{{ $itemProjet->critere_de_travail }}</p>
                             </div>
                             <div class="col-sm-12">
-                                <label for="description">{{ ucfirst(__('PkgCreationProjet::projet.description')) }}:</label>
-                                <p>{{ $itemProjet->description }}</p>
-                            </div>
-                            <div class="col-sm-12">
                                 <label for="nombre_jour">{{ ucfirst(__('PkgCreationProjet::projet.nombre_jour')) }}:</label>
                                 <p>{{ $itemProjet->nombre_jour }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="description">{{ ucfirst(__('PkgCreationProjet::projet.description')) }}:</label>
+                                <p>{{ $itemProjet->description }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="formateur_id">{{ ucfirst(__('PkgCreationProjet::projet.formateur_id')) }}:</label>
