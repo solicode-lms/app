@@ -8,7 +8,6 @@
                 <x-sortable-column field="masse_horaire" label="{{ ucfirst(__('PkgFormation::module.masse_horaire')) }}" />
                 <x-sortable-column field="filiere_id" label="{{ ucfirst(__('PkgFormation::filiere.singular')) }}" />
                 <x-sortable-column field="Competence" label="{{ ucfirst(__('PkgFormation::module.plural')) }}" />
-
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

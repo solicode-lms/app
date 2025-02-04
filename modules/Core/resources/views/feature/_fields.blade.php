@@ -115,4 +115,6 @@
 <script>
 
 </script>
-
+<script>
+     window.modalTitle = '{{__("Core::feature.singular") }} : {{$itemFeature}}'
+</script>

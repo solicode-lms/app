@@ -43,4 +43,6 @@
 <script>
 
 </script>
-
+<script>
+     window.modalTitle = '{{__("PkgApprenants::ville.singular") }} : {{$itemVille}}'
+</script>

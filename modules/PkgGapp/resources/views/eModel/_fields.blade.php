@@ -167,4 +167,6 @@
 <script>
 
 </script>
-
+<script>
+     window.modalTitle = '{{__("PkgGapp::eModel.singular") }} : {{$itemEModel}}'
+</script>

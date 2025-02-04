@@ -89,4 +89,6 @@
 <script>
 
 </script>
-
+<script>
+     window.modalTitle = '{{__("PkgFormation::filiere.singular") }} : {{$itemFiliere}}'
+</script>

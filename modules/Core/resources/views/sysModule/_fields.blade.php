@@ -186,4 +186,6 @@
 <script>
 
 </script>
-
+<script>
+     window.modalTitle = '{{__("Core::sysModule.singular") }} : {{$itemSysModule}}'
+</script>

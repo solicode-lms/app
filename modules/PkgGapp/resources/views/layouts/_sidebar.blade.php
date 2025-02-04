@@ -1,7 +1,7 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 
-@accessiblePermissions(['index-eMetadataDefinition', 'index-ePackage', 'index-eModel', 'index-eRelationship', 'index-eMetadatum', 'index-eDataField'])
+@accessiblePermissions(['index-eMetadataDefinition', 'index-ePackage', 'index-eModel', 'index-eRelationship', 'index-eDataField', 'index-eMetadatum'])
 @if($accessiblePermissions->isNotEmpty())
 <li class="nav-item has-treeview {{ Request::is('admin/PkgGapp*') ? 'menu-open' : '' }}">
     <a href="#" class="nav-link nav-link {{ Request::is('admin/PkgGapp*') ? 'active' : '' }}">
@@ -44,19 +44,19 @@
             </a>
         </li>
         @endcan
-        @can('index-eMetadatum') 
-        <li class="nav-item">
-            <a href="{{ route('eMetadata.index') }}" class="nav-link {{ Request::is('admin/PkgGapp/eMetadata') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-table"></i>
-                {{__('PkgGapp::eMetadatum.plural')}}
-            </a>
-        </li>
-        @endcan
         @can('index-eDataField') 
         <li class="nav-item">
             <a href="{{ route('eDataFields.index') }}" class="nav-link {{ Request::is('admin/PkgGapp/eDataFields') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-table"></i>
                 {{__('PkgGapp::eDataField.plural')}}
+            </a>
+        </li>
+        @endcan
+        @can('index-eMetadatum') 
+        <li class="nav-item">
+            <a href="{{ route('eMetadata.index') }}" class="nav-link {{ Request::is('admin/PkgGapp/eMetadata') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-table"></i>
+                {{__('PkgGapp::eMetadatum.plural')}}
             </a>
         </li>
         @endcan

@@ -10,10 +10,6 @@
 
     <div class="card-body">
         
-
-        <!--   Value ComputableFields --> 
-
-        
         <div class="form-group">
             <label for="value_boolean">
                 {{ ucfirst(__('PkgGapp::eMetadatum.value_boolean')) }}
@@ -351,4 +347,6 @@
         });
     }
 </script>
-
+<script>
+     window.modalTitle = '{{__("PkgGapp::eMetadatum.singular") }} : {{$itemEMetadatum}}'
+</script>

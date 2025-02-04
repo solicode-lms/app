@@ -148,4 +148,6 @@
 <script>
 
 </script>
-
+<script>
+     window.modalTitle = '{{__("PkgGapp::eMetadataDefinition.singular") }} : {{$itemEMetadataDefinition}}'
+</script>

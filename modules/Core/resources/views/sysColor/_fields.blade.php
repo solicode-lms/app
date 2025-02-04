@@ -72,4 +72,6 @@
 <script>
 
 </script>
-
+<script>
+     window.modalTitle = '{{__("Core::sysColor.singular") }} : {{$itemSysColor}}'
+</script>

@@ -141,4 +141,6 @@
 <script>
 
 </script>
-
+<script>
+     window.modalTitle = '{{__("Core::sysModel.singular") }} : {{$itemSysModel}}'
+</script>

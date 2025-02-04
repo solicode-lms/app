@@ -140,4 +140,6 @@
 <script>
 
 </script>
-
+<script>
+     window.modalTitle = '{{__("PkgRealisationProjets::validation.singular") }} : {{$itemValidation}}'
+</script>

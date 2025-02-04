@@ -299,4 +299,6 @@
 <script>
 
 </script>
-
+<script>
+     window.modalTitle = '{{__("PkgGapp::eRelationship.singular") }} : {{$itemERelationship}}'
+</script>

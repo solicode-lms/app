@@ -77,6 +77,6 @@ class BaseTechnology extends BaseModel
      */
     public function __toString()
     {
-        return $this->nom;
+        return $this->nom ?? "";
     }
 }

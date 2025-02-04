@@ -101,4 +101,6 @@
 <script>
 
 </script>
-
+<script>
+     window.modalTitle = '{{__("PkgFormation::anneeFormation.singular") }} : {{$itemAnneeFormation}}'
+</script>

@@ -66,4 +66,6 @@
 <script>
 
 </script>
-
+<script>
+     window.modalTitle = '{{__("PkgWidgets::widgetOperation.singular") }} : {{$itemWidgetOperation}}'
+</script>

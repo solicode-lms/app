@@ -111,4 +111,6 @@
 <script>
 
 </script>
-
+<script>
+     window.modalTitle = '{{__("PkgCreationProjet::resource.singular") }} : {{$itemResource}}'
+</script>

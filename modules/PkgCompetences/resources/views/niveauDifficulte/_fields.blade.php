@@ -125,10 +125,6 @@
             @enderror
 </div>
 
-        
-
-        <!--   TransfertCompetence HasMany --> 
-
     </div>
 
     <div class="card-footer">

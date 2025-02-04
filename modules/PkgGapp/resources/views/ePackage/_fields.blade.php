@@ -66,4 +66,6 @@
 <script>
 
 </script>
-
+<script>
+     window.modalTitle = '{{__("PkgGapp::ePackage.singular") }} : {{$itemEPackage}}'
+</script>

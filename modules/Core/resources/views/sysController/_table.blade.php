@@ -8,7 +8,6 @@
                 <x-sortable-column field="name" label="{{ ucfirst(__('Core::sysController.name')) }}" />
                 <x-sortable-column field="is_active" label="{{ ucfirst(__('Core::sysController.is_active')) }}" />
                 <x-sortable-column field="Permission" label="{{ ucfirst(__('Core::sysController.plural')) }}" />
-
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

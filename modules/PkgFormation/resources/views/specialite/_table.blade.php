@@ -6,7 +6,6 @@
             <tr>
                 <x-sortable-column field="nom" label="{{ ucfirst(__('PkgFormation::specialite.nom')) }}" />
                 <x-sortable-column field="Formateur" label="{{ ucfirst(__('PkgFormation::formateur.plural')) }}" />
-
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

@@ -177,4 +177,6 @@
 <script>
 
 </script>
-
+<script>
+     window.modalTitle = '{{__("PkgRealisationProjets::affectationProjet.singular") }} : {{$itemAffectationProjet}}'
+</script>

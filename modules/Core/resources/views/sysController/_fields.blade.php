@@ -136,4 +136,6 @@
 <script>
 
 </script>
-
+<script>
+     window.modalTitle = '{{__("Core::sysController.singular") }} : {{$itemSysController}}'
+</script>

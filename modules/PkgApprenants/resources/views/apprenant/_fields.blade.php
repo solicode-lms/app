@@ -438,4 +438,6 @@
 <script>
 
 </script>
-
+<script>
+     window.modalTitle = '{{__("PkgApprenants::apprenant.singular") }} : {{$itemApprenant}}'
+</script>

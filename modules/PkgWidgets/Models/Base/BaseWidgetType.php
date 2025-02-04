@@ -57,6 +57,6 @@ class BaseWidgetType extends BaseModel
      */
     public function __toString()
     {
-        return $this->type;
+        return $this->type ?? "";
     }
 }

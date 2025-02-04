@@ -176,4 +176,6 @@
 <script>
 
 </script>
-
+<script>
+     window.modalTitle = '{{__("PkgCreationProjet::transfertCompetence.singular") }} : {{$itemTransfertCompetence}}'
+</script>

@@ -140,4 +140,6 @@
 <script>
 
 </script>
-
+<script>
+     window.modalTitle = '{{__("PkgAutorisation::permission.singular") }} : {{$itemPermission}}'
+</script>

@@ -85,4 +85,6 @@
 <script>
 
 </script>
-
+<script>
+     window.modalTitle = '{{__("PkgApprenants::niveauxScolaire.singular") }} : {{$itemNiveauxScolaire}}'
+</script>

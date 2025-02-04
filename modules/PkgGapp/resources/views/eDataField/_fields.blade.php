@@ -10,10 +10,6 @@
 
     <div class="card-body">
         
-
-        <!--   order ComputableFields --> 
-
-        
         <div class="form-group">
             <label for="name">
                 {{ ucfirst(__('PkgGapp::eDataField.name')) }}
@@ -269,4 +265,6 @@
 <script>
 
 </script>
-
+<script>
+     window.modalTitle = '{{__("PkgGapp::eDataField.singular") }} : {{$itemEDataField}}'
+</script>

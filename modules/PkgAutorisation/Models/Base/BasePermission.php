@@ -77,6 +77,6 @@ class BasePermission extends BaseModel
      */
     public function __toString()
     {
-        return $this->name;
+        return $this->name ?? "";
     }
 }

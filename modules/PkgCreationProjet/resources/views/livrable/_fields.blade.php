@@ -122,4 +122,6 @@
 <script>
 
 </script>
-
+<script>
+     window.modalTitle = '{{__("PkgCreationProjet::livrable.singular") }} : {{$itemLivrable}}'
+</script>

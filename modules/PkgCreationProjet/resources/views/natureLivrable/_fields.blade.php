@@ -66,4 +66,6 @@
 <script>
 
 </script>
-
+<script>
+     window.modalTitle = '{{__("PkgCreationProjet::natureLivrable.singular") }} : {{$itemNatureLivrable}}'
+</script>

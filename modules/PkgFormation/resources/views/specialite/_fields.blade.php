@@ -87,4 +87,6 @@
 <script>
 
 </script>
-
+<script>
+     window.modalTitle = '{{__("PkgFormation::specialite.singular") }} : {{$itemSpecialite}}'
+</script>

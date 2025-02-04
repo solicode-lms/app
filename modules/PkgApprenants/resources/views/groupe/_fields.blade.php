@@ -187,4 +187,6 @@
 <script>
 
 </script>
-
+<script>
+     window.modalTitle = '{{__("PkgApprenants::groupe.singular") }} : {{$itemGroupe}}'
+</script>
