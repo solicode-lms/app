@@ -23,6 +23,26 @@ export class CreateAction extends Action {
         this.handleAddEntity();
     } 
 
+    /**
+     * Gère l'ouverture du modal et l'ajout d'une nouvelle entité.
+     */
+    addEntity() {
+        // Afficher le chargement dans le modal
+        this.tableUI.indexUI.modalUI.showLoading(this.config.createTitle);
+
+        // Charger le formulaire d'ajout via une requête AJAX
+        $.get(this.createUrl)
+            .done((html) => {
+                // Injecter le contenu dans le modal et afficher le formulaire
+                this.tableUI.indexUI.modalUI.showContent(html);
+                this.executeScripts(html);
+                this.tableUI.indexUI.formUI.init(() => this.submitEntity());
+            })
+            .fail((xhr) => {
+                AjaxErrorHandler.handleError(xhr, 'Erreur lors de l\'ajout.');
+            });
+            
+    }
 
        /**
          * Soumet le formulaire de modification via AJAX.
@@ -94,25 +114,6 @@ export class CreateAction extends Action {
     
         }
 
-    /**
-     * Gère l'ouverture du modal et l'ajout d'une nouvelle entité.
-     */
-    addEntity() {
-        // Afficher le chargement dans le modal
-        this.tableUI.indexUI.modalUI.showLoading(this.config.createTitle);
-
-        // Charger le formulaire d'ajout via une requête AJAX
-        $.get(this.createUrl)
-            .done((html) => {
-                // Injecter le contenu dans le modal et afficher le formulaire
-                this.tableUI.indexUI.modalUI.showContent(html);
-                this.tableUI.indexUI.formUI.init(() => this.submitEntity());
-            })
-            .fail((xhr) => {
-                AjaxErrorHandler.handleError(xhr, 'Erreur lors de l\'ajout.');
-            });
-            
-    }
 
 
         /**
