@@ -15,7 +15,7 @@
         @can('index-natureLivrable') 
         <li class="nav-item">
             <a href="{{ route('natureLivrables.index') }}" class="nav-link {{ Request::is('admin/PkgCreationProjet/natureLivrables') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-table"></i>
+                <i class="nav-icon fas fa-file-archive"></i>
                 {{__('PkgCreationProjet::natureLivrable.plural')}}
             </a>
         </li>
@@ -23,7 +23,7 @@
         @can('index-projet') 
         <li class="nav-item">
             <a href="{{ route('projets.index') }}" class="nav-link {{ Request::is('admin/PkgCreationProjet/projets') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-table"></i>
+                <i class="nav-icon fas fa-project-diagram"></i>
                 {{__('PkgCreationProjet::projet.plural')}}
             </a>
         </li>
@@ -31,7 +31,7 @@
         @can('index-resource') 
         <li class="nav-item">
             <a href="{{ route('resources.index') }}" class="nav-link {{ Request::is('admin/PkgCreationProjet/resources') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-table"></i>
+                <i class="nav-icon fas fa-book"></i>
                 {{__('PkgCreationProjet::resource.plural')}}
             </a>
         </li>
@@ -39,7 +39,7 @@
         @can('index-livrable') 
         <li class="nav-item">
             <a href="{{ route('livrables.index') }}" class="nav-link {{ Request::is('admin/PkgCreationProjet/livrables') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-table"></i>
+                <i class="nav-icon fas fa-file-alt"></i>
                 {{__('PkgCreationProjet::livrable.plural')}}
             </a>
         </li>
@@ -47,7 +47,7 @@
         @can('index-transfertCompetence') 
         <li class="nav-item">
             <a href="{{ route('transfertCompetences.index') }}" class="nav-link {{ Request::is('admin/PkgCreationProjet/transfertCompetences') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-table"></i>
+                <i class="nav-icon fas fa-book-open"></i>
                 {{__('PkgCreationProjet::transfertCompetence.plural')}}
             </a>
         </li>

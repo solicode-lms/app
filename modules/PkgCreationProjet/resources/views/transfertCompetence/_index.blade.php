@@ -30,7 +30,7 @@
        $titre = __("PkgCreationProjet::transfertCompetence.singular");
     @endphp
     <x-crud-header 
-        id="transfertCompetence-crud-header" icon="fas fa-table"  
+        id="transfertCompetence-crud-header" icon="fas fa-book-open"  
         iconColor="text-info"
         title="{{ __('PkgCreationProjet::transfertCompetence.plural') }}"
         :breadcrumbs="[

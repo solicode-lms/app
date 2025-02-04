@@ -30,7 +30,7 @@
        $titre = __("PkgCreationProjet::natureLivrable.singular");
     @endphp
     <x-crud-header 
-        id="natureLivrable-crud-header" icon="fas fa-table"  
+        id="natureLivrable-crud-header" icon="fas fa-file-archive"  
         iconColor="text-info"
         title="{{ __('PkgCreationProjet::natureLivrable.plural') }}"
         :breadcrumbs="[
