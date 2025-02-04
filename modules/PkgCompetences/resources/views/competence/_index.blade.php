@@ -30,7 +30,7 @@
        $titre = __("PkgCompetences::competence.singular");
     @endphp
     <x-crud-header 
-        id="competence-crud-header" icon="fas fa-tools"  
+        id="competence-crud-header" icon="fas fa-user-graduate"  
         iconColor="text-info"
         title="{{ __('PkgCompetences::competence.plural') }}"
         :breadcrumbs="[

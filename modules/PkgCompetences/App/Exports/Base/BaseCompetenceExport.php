@@ -27,9 +27,9 @@ class BaseCompetenceExport implements FromCollection, WithHeadings, ShouldAutoSi
         return [
             'code',
             'nom',
-            'description',
             'module_id',
             'reference',
+            'description',
         ];
     }
 
@@ -39,9 +39,9 @@ class BaseCompetenceExport implements FromCollection, WithHeadings, ShouldAutoSi
             return [
                 'code' => $competence->code,
                 'nom' => $competence->nom,
-                'description' => $competence->description,
                 'module_id' => $competence->module_id,
                 'reference' => $competence->reference,
+                'description' => $competence->description,
             ];
         });
     }

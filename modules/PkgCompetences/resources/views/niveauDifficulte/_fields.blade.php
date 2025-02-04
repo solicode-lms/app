@@ -142,4 +142,6 @@
 <script>
 
 </script>
-
+<script>
+     window.modalTitle = '{{__("PkgCompetences::niveauDifficulte.singular") }} : {{$itemNiveauDifficulte}}'
+</script>

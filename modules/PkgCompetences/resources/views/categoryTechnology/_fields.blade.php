@@ -66,4 +66,6 @@
 <script>
 
 </script>
-
+<script>
+     window.modalTitle = '{{__("PkgCompetences::categoryTechnology.singular") }} : {{$itemCategoryTechnology}}'
+</script>

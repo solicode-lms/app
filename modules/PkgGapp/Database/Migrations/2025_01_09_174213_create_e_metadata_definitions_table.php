@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('groupe'); // Code unique pour identification technique
             $table->string('type'); // Stocke le type comme une chaîne
             $table->string('scope'); // Stocke la portée comme une chaîne
-            $table->string('description')->nullable(); // Description facultative
+            $table->longText('description')->nullable(); // Description facultative
             $table->string('default_value')->nullable(); // Valeur par défaut
             $table->timestamps();
         });

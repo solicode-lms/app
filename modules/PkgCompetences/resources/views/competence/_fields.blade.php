@@ -52,25 +52,6 @@
 </div>
 
         
-        <div class="form-group">
-            <label for="description">
-                {{ ucfirst(__('PkgCompetences::competence.description')) }}
-                
-            </label>
-            <textarea rows="" cols=""
-                name="description"
-                class="form-control richText"
-                
-                id="description"
-                placeholder="{{ __('PkgCompetences::competence.description') }}">
-                {{ $itemCompetence ? $itemCompetence->description : old('description') }}
-            </textarea>
-            @error('description')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
-
-        
         
     <div class="form-group">
             <label for="module_id">
@@ -131,6 +112,25 @@
 
         <!--   TransfertCompetence HasMany --> 
 
+        
+        <div class="form-group">
+            <label for="description">
+                {{ ucfirst(__('PkgCompetences::competence.description')) }}
+                
+            </label>
+            <textarea rows="" cols=""
+                name="description"
+                class="form-control richText"
+                
+                id="description"
+                placeholder="{{ __('PkgCompetences::competence.description') }}">
+                {{ $itemCompetence ? $itemCompetence->description : old('description') }}
+            </textarea>
+            @error('description')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
+
     </div>
 
     <div class="card-footer">
@@ -144,4 +144,6 @@
 <script>
 
 </script>
-
+<script>
+     window.modalTitle = '{{__("PkgCompetences::competence.singular") }} : {{$itemCompetence}}'
+</script>

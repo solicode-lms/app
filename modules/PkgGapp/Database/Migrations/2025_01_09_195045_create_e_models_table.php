@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('table_name'); 
             $table->string('icon')->nullable(); // Icône associée au modèle
             $table->boolean('is_pivot_table'); 
-            $table->text('description')->nullable(); // Description facultative
+            $table->longText('description')->nullable(); // Description facultative
             $table->foreignId('e_package_id')->constrained('e_packages')->onDelete('cascade'); // Relation avec IPackage
             $table->timestamps(); // Colonnes created_at et updated_at
         });

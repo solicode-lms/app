@@ -140,4 +140,6 @@
 <script>
 
 </script>
-
+<script>
+     window.modalTitle = '{{__("PkgCompetences::technology.singular") }} : {{$itemTechnology}}'
+</script>

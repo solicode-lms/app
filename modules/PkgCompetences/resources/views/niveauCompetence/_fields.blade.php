@@ -90,4 +90,6 @@
 <script>
 
 </script>
-
+<script>
+     window.modalTitle = '{{__("PkgCompetences::niveauCompetence.singular") }} : {{$itemNiveauCompetence}}'
+</script>

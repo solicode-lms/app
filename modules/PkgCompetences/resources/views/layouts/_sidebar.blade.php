@@ -23,7 +23,7 @@
         @can('index-competence') 
         <li class="nav-item">
             <a href="{{ route('competences.index') }}" class="nav-link {{ Request::is('admin/PkgCompetences/competences') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-tools"></i>
+                <i class="nav-icon fas fa-user-graduate"></i>
                 {{__('PkgCompetences::competence.plural')}}
             </a>
         </li>

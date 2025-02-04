@@ -40,9 +40,9 @@ class BaseCompetenceImport implements ToModel, WithHeadingRow
         return new Competence([
             'code' => $row['code'],
             'nom' => $row['nom'],
-            'description' => $row['description'],
             'module_id' => $row['module_id'],
             'reference' => $row['reference'],
+            'description' => $row['description'],
         ]);
     }
 }

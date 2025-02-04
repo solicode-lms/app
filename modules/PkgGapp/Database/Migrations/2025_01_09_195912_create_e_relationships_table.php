@@ -22,7 +22,7 @@ return new class extends Migration
             $table->foreignId('target_e_model_id')->constrained('e_models')->onDelete('cascade'); // Modèle cible
             $table->boolean('cascade_on_delete')->default(false); // Cascade sur suppression
             $table->boolean('is_cascade')->default(false); // Cascade sur suppression
-            $table->text('description')->nullable(); // Description facultative
+            $table->longText('description')->nullable(); // Description facultative
             $table->string('column_name')->nullable(); // Nom de la colonne source
             $table->string('referenced_table')->nullable(); // Nom de la table cible
             $table->string('referenced_column')->nullable(); // Colonne cible

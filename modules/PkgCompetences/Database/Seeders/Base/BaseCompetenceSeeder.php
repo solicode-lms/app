@@ -50,8 +50,8 @@ class BaseCompetenceSeeder extends Seeder
                 $competenceService->create([
                     "code" => $data[0] ,
                     "nom" => $data[1] ,
-                    "description" => $data[2] ,
-                    "module_id" => $data[3] 
+                    "module_id" => $data[2] ,
+                    "description" => $data[3] 
                 ]);
             }
             $firstline = false;
