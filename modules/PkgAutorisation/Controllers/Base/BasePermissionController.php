@@ -79,7 +79,7 @@ class BasePermissionController extends AdminController
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 
-            'permission_id' => $permission->id,
+            'entity_id' => $permission->id,
             'message' => 
              __('Core::msg.addSuccess', [
                 'entityToString' => $permission,

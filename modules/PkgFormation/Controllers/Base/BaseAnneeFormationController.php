@@ -63,7 +63,7 @@ class BaseAnneeFormationController extends AdminController
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 
-            'annee_formation_id' => $anneeFormation->id,
+            'entity_id' => $anneeFormation->id,
             'message' => 
              __('Core::msg.addSuccess', [
                 'entityToString' => $anneeFormation,

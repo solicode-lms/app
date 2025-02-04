@@ -1,7 +1,3 @@
-{{-- 
-- le champs code doit être calculer automatiquement
---}}
+{{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @extends('PkgGapp::eMetadatum._fields')
-
-

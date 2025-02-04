@@ -62,7 +62,7 @@ class BaseWidgetTypeController extends AdminController
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 
-            'widget_type_id' => $widgetType->id,
+            'entity_id' => $widgetType->id,
             'message' => 
              __('Core::msg.addSuccess', [
                 'entityToString' => $widgetType,

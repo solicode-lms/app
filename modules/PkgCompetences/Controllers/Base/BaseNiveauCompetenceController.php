@@ -65,7 +65,7 @@ class BaseNiveauCompetenceController extends AdminController
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 
-            'niveau_competence_id' => $niveauCompetence->id,
+            'entity_id' => $niveauCompetence->id,
             'message' => 
              __('Core::msg.addSuccess', [
                 'entityToString' => $niveauCompetence,

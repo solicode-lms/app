@@ -68,7 +68,7 @@ class BaseSysModuleController extends AdminController
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 
-            'sys_module_id' => $sysModule->id,
+            'entity_id' => $sysModule->id,
             'message' => 
              __('Core::msg.addSuccess', [
                 'entityToString' => $sysModule,

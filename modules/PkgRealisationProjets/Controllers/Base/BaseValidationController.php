@@ -69,7 +69,7 @@ class BaseValidationController extends AdminController
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 
-            'validation_id' => $validation->id,
+            'entity_id' => $validation->id,
             'message' => 
              __('Core::msg.addSuccess', [
                 'entityToString' => $validation,

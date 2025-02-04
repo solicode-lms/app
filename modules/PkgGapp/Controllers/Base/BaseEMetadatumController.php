@@ -73,7 +73,7 @@ class BaseEMetadatumController extends AdminController
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 
-            'e_metadatum_id' => $eMetadatum->id,
+            'entity_id' => $eMetadatum->id,
             'message' => 
              __('Core::msg.addSuccess', [
                 'entityToString' => $eMetadatum,

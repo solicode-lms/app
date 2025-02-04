@@ -70,7 +70,7 @@ class BaseEDataFieldController extends AdminController
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 
-            'e_data_field_id' => $eDataField->id,
+            'entity_id' => $eDataField->id,
             'message' => 
              __('Core::msg.addSuccess', [
                 'entityToString' => $eDataField,

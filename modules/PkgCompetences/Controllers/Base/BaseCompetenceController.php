@@ -73,7 +73,7 @@ class BaseCompetenceController extends AdminController
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 
-            'competence_id' => $competence->id,
+            'entity_id' => $competence->id,
             'message' => 
              __('Core::msg.addSuccess', [
                 'entityToString' => $competence,

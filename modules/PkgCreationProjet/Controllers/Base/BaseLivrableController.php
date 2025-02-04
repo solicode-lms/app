@@ -69,7 +69,7 @@ class BaseLivrableController extends AdminController
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 
-            'livrable_id' => $livrable->id,
+            'entity_id' => $livrable->id,
             'message' => 
              __('Core::msg.addSuccess', [
                 'entityToString' => $livrable,

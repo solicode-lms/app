@@ -62,7 +62,7 @@ class BaseEPackageController extends AdminController
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 
-            'e_package_id' => $ePackage->id,
+            'entity_id' => $ePackage->id,
             'message' => 
              __('Core::msg.addSuccess', [
                 'entityToString' => $ePackage,

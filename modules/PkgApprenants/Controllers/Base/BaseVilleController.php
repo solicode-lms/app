@@ -61,7 +61,7 @@ class BaseVilleController extends AdminController
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 
-            'ville_id' => $ville->id,
+            'entity_id' => $ville->id,
             'message' => 
              __('Core::msg.addSuccess', [
                 'entityToString' => $ville,

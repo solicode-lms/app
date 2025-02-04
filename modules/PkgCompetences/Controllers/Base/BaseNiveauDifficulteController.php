@@ -66,7 +66,7 @@ class BaseNiveauDifficulteController extends AdminController
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 
-            'niveau_difficulte_id' => $niveauDifficulte->id,
+            'entity_id' => $niveauDifficulte->id,
             'message' => 
              __('Core::msg.addSuccess', [
                 'entityToString' => $niveauDifficulte,

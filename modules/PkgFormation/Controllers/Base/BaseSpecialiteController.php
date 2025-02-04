@@ -68,7 +68,7 @@ class BaseSpecialiteController extends AdminController
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 
-            'specialite_id' => $specialite->id,
+            'entity_id' => $specialite->id,
             'message' => 
              __('Core::msg.addSuccess', [
                 'entityToString' => $specialite,

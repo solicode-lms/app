@@ -72,7 +72,7 @@ class BaseFeatureController extends AdminController
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 
-            'feature_id' => $feature->id,
+            'entity_id' => $feature->id,
             'message' => 
              __('Core::msg.addSuccess', [
                 'entityToString' => $feature,

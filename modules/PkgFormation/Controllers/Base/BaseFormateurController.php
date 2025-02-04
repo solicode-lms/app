@@ -82,7 +82,7 @@ class BaseFormateurController extends AdminController
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 
-            'formateur_id' => $formateur->id,
+            'entity_id' => $formateur->id,
             'message' => 
              __('Core::msg.addSuccess', [
                 'entityToString' => $formateur,

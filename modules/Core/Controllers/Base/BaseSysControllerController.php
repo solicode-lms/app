@@ -66,7 +66,7 @@ class BaseSysControllerController extends AdminController
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 
-            'sys_controller_id' => $sysController->id,
+            'entity_id' => $sysController->id,
             'message' => 
              __('Core::msg.addSuccess', [
                 'entityToString' => $sysController,

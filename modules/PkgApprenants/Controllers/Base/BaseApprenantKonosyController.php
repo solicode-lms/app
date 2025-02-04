@@ -61,7 +61,7 @@ class BaseApprenantKonosyController extends AdminController
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 
-            'apprenant_konosy_id' => $apprenantKonosy->id,
+            'entity_id' => $apprenantKonosy->id,
             'message' => 
              __('Core::msg.addSuccess', [
                 'entityToString' => $apprenantKonosy,

@@ -75,7 +75,7 @@ class BaseRoleController extends AdminController
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 
-            'role_id' => $role->id,
+            'entity_id' => $role->id,
             'message' => 
              __('Core::msg.addSuccess', [
                 'entityToString' => $role,

@@ -62,7 +62,7 @@ class BaseCategoryTechnologyController extends AdminController
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 
-            'category_technology_id' => $categoryTechnology->id,
+            'entity_id' => $categoryTechnology->id,
             'message' => 
              __('Core::msg.addSuccess', [
                 'entityToString' => $categoryTechnology,

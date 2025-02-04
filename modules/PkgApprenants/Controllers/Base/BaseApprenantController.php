@@ -81,7 +81,7 @@ class BaseApprenantController extends AdminController
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 
-            'apprenant_id' => $apprenant->id,
+            'entity_id' => $apprenant->id,
             'message' => 
              __('Core::msg.addSuccess', [
                 'entityToString' => $apprenant,

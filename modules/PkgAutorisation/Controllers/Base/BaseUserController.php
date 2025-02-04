@@ -70,7 +70,7 @@ class BaseUserController extends AdminController
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 
-            'user_id' => $user->id,
+            'entity_id' => $user->id,
             'message' => 
              __('Core::msg.addSuccess', [
                 'entityToString' => $user,

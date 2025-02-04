@@ -65,7 +65,7 @@ class BaseResourceController extends AdminController
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 
-            'resource_id' => $resource->id,
+            'entity_id' => $resource->id,
             'message' => 
              __('Core::msg.addSuccess', [
                 'entityToString' => $resource,
