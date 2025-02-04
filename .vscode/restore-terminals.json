@@ -36,8 +36,8 @@
       {
         "splitTerminals": [
           {
-            "name": "docs",
-            "commands": ["cd ../docs", "serve.ps1"],
+            "name": "appache",
+            "commands": ["cd C:\\AppServer\\solicode-lms", "git pull"],
             "shouldRunCommands": false
           }
         ]
