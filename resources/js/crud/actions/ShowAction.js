@@ -57,7 +57,7 @@ export class ShowAction extends Action {
                 // this.handleSuccess('Détails de l\'entité chargés avec succès.');
             })
             .fail((xhr) => {
-                this.tableUI.indexUI.formUI.modalUI.close();
+                this.tableUI.indexUI.modalUI.close();
                 AjaxErrorHandler.handleError(xhr, 'Erreur lors du chargement des détails de l\'entité.');
             });
             
