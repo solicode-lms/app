@@ -34,6 +34,8 @@ export class EditWithTabPanelManager {
         // this.tableUI.indexUI.formUI.hideSelectsByIdFromContext();
         this.handleButtonSaveCardWithHasMany();
         this.contexteEventHandler.init();
+
+        this.config.debugInfo("Init : " + this.config);
     }
 
 

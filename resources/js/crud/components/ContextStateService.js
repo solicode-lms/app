@@ -90,4 +90,8 @@ export class ContextStateService {
 
         return updatedConfig;
     }
+
+    toString(){
+        return  JSON.stringify(this.getVariables());
+    }
 }

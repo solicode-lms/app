@@ -28,12 +28,12 @@ export default class InitUIManagers {
 
             const uniqueKey = configHelper.id || JSON.stringify(crudModalManagerData);
             
-            if (InitUIManagers.processedManagers.has(uniqueKey)) {
+            // if (InitUIManagers.processedManagers.has(uniqueKey)) {
                 
-                const crudModalManager = window.crudModalManagers[configHelper.id];
-                crudModalManager.init();
+            //     const crudModalManager = window.crudModalManagers[configHelper.id];
+            //     crudModalManager.init();
 
-            }else{
+            // }else{
 
                 InitUIManagers.processedManagers.add(uniqueKey);
                 const crudModalManager = new CrudModalManager(configHelper);
@@ -43,7 +43,7 @@ export default class InitUIManagers {
                 }
                 window.crudModalManagers[configHelper.id] = crudModalManager;
 
-            }
+            // }
               
             
             
@@ -64,11 +64,11 @@ export default class InitUIManagers {
             
             const uniqueKey = configHelper.id || JSON.stringify(editWithTabPanelManagerData);
            
-            if (InitUIManagers.processedManagers.has(uniqueKey)) {
-                const editWithTabPanelManager = window.editWithTabPanelManagers[configHelper.id];
-                editWithTabPanelManager.init();
-            }else{
-                InitUIManagers.processedManagers.add(uniqueKey);
+            // if (InitUIManagers.processedManagers.has(uniqueKey)) {
+            //     const editWithTabPanelManager = window.editWithTabPanelManagers[configHelper.id];
+            //     editWithTabPanelManager.init();
+            // }else{
+                // InitUIManagers.processedManagers.add(uniqueKey);
             
                 const editWithTabPanelManager = new EditWithTabPanelManager(configHelper);
                 editWithTabPanelManager.init();
@@ -77,7 +77,7 @@ export default class InitUIManagers {
                     window.editWithTabPanelManagers = {};
                 }
                 window.editWithTabPanelManagers[configHelper.id] = editWithTabPanelManager;
-            }
+            // }
           
         });
     }
