@@ -9,6 +9,7 @@ export class FilterUI {
         // Temps de délai pour limiter les requêtes fréquentes
         this.debounceTimeout = null;
         this.debounceDelay = 500; // Par défaut : 500ms
+        this.page = 0;
     }
 
     init() {

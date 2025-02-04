@@ -1,8 +1,5 @@
 <?php
-// TODO : Edit :  Gapp : Relation A avec Plusieurs B
-// TODO : il faut ajotuer la version de Gapp, en cas de mise à jour afficher 
-// un warning pour mettre à jour le fichier
-// C'est mieux de gérer la version par template ejs
+// Ce fichier est maintenu par ESSARRAJ Fouad
 
 namespace Modules\PkgGapp\Controllers\Base;
 use Modules\PkgGapp\Services\EModelService;

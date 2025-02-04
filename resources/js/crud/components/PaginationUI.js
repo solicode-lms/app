@@ -4,6 +4,7 @@ export class PaginationUI {
     constructor(config, indexUI) {
         this.config = config;
         this.indexUI = indexUI; // Référence à `TableUI`
+        this.page = 0;
     }
 
     /**
@@ -25,6 +26,7 @@ export class PaginationUI {
             if (page) {
                 const filters = this.indexUI.filterUI.getFormData(true); // Inclure tous les champs, même vides
                 filters.page = page; // Ajouter le numéro de page
+                this.page = page;
     
                 // Mettre à jour l'URL avec tous les paramètres
                 this.indexUI.updateURLParameters(filters);

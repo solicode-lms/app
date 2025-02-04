@@ -94,7 +94,7 @@ export class EditAction extends Action {
             })
                 .done((data) => {
                     this.tableUI.indexUI.formUI.loader.hide();
-                    this.handleSuccess(this.SuscesMessage);
+                    this.handleSuccess(data.message);
                     this.tableUI.indexUI.modalUI.close(); // Fermer le modal après succès
 
                      // Appeler le callback de succès si fourni
