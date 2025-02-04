@@ -17,6 +17,7 @@ class BaseEMetadatumRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'Value' => 'nullable',
             'value_boolean' => 'nullable',
             'value_string' => 'nullable|max:255',
             'value_integer' => 'nullable',
@@ -35,6 +36,8 @@ class BaseEMetadatumRequest extends FormRequest
     public function messages(): array
     {
         return [
+            'Value.required' => __('validation.required', ['attribute' => __('PkgGapp::EMetadatum.Value')]),
+            'Value.max' => __('validation.ValueMax'),
             'value_boolean.required' => __('validation.required', ['attribute' => __('PkgGapp::EMetadatum.value_boolean')]),
             'value_boolean.max' => __('validation.value_booleanMax'),
             'value_string.required' => __('validation.required', ['attribute' => __('PkgGapp::EMetadatum.value_string')]),

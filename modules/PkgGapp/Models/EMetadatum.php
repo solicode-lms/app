@@ -30,6 +30,7 @@ class EMetadatum extends BaseEMetadatum
      */
     public function getValue()
     {
+
         if (!$this->eMetadataDefinition) {
             return null;
         }
@@ -50,7 +51,7 @@ class EMetadatum extends BaseEMetadatum
             case FieldTypeEnum::ENUM->value:
                 return $this->value_enum;
             case FieldTypeEnum::JSON->value:
-                return json_decode($this->value_json, true);
+                return $this->value_json;
             case FieldTypeEnum::TEXT->value:
                 return $this->value_text;
             default:
