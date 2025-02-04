@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('name'); 
             $table->string('column_name');
             $table->string('data_type'); 
+            $table->integer('field_order'); 
             $table->boolean('db_nullable'); 
             $table->boolean('db_primaryKey'); 
             $table->boolean('db_unique'); 
