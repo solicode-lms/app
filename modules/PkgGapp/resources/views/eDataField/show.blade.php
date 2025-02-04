@@ -37,6 +37,10 @@
                                 <p>{{ $itemEDataField->data_type }}</p>
                             </div>
                             <div class="col-sm-12">
+                                <label for="field_order">{{ ucfirst(__('PkgGapp::eDataField.field_order')) }}:</label>
+                                <p>{{ $itemEDataField->field_order }}</p>
+                            </div>
+                            <div class="col-sm-12">
                                 <label for="db_nullable">{{ ucfirst(__('PkgGapp::eDataField.db_nullable')) }}:</label>
                                 <p>{{ $itemEDataField->db_nullable }}</p>
                             </div>

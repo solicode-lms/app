@@ -42,6 +42,7 @@ class BaseEDataFieldImport implements ToModel, WithHeadingRow
             'name' => $row['name'],
             'column_name' => $row['column_name'],
             'data_type' => $row['data_type'],
+            'field_order' => $row['field_order'],
             'db_nullable' => $row['db_nullable'],
             'db_primaryKey' => $row['db_primaryKey'],
             'db_unique' => $row['db_unique'],

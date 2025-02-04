@@ -22,6 +22,7 @@ class BaseEDataFieldService extends BaseService
         'name',
         'column_name',
         'data_type',
+        'field_order',
         'db_nullable',
         'db_primaryKey',
         'db_unique',

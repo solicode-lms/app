@@ -74,6 +74,27 @@
 
         
         <div class="form-group">
+            <label for="field_order">
+                {{ ucfirst(__('PkgGapp::eDataField.field_order')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <input
+                name="field_order"
+                type="number"
+                class="form-control"
+                required
+                id="field_order"
+                placeholder="{{ __('PkgGapp::eDataField.field_order') }}"
+                value="{{ $itemEDataField ? $itemEDataField->field_order : old('field_order') }}">
+            @error('field_order')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
+
+        
+        <div class="form-group">
             <label for="db_nullable">
                 {{ ucfirst(__('PkgGapp::eDataField.db_nullable')) }}
                 
