@@ -40,6 +40,18 @@ export class FilterUI {
     }
 
     /**
+     * get les varaibles à ajouter dans le context pour assurer la persistance des valeurs de
+     * de filtre dans tous les interface
+     */
+    getFormDataAsFilterContext(){
+        const data = {};
+        Object.entries(this.getFormData()).forEach(([key, value]) => {
+            data[`filter_${key}`] = value;
+        });
+        return data;
+    }
+
+    /**
      * Soumet le formulaire en récupérant les données et recharge les entités.
      * @param {number} page - Numéro de la page à charger (par défaut : 1).
      */
@@ -82,9 +94,20 @@ export class FilterUI {
      * Masque les éléments <select> dont l'id correspond à une clé dans le contexte (state).
      */
     adapterPourContext() {
-        const contextState = this.config.contextStateService.getVariables();
 
-        Object.keys(contextState).forEach((key) => {
+        const data_clean = {}
+        const data = this.config.contextStateService.getVariables();
+
+
+        // Delete filter prifix from context variables
+        Object.entries(data).forEach(([key, value]) => {
+            key =  key.replace("filter_" , "");
+            data_clean[key] =  value;
+        });
+
+         
+      
+        Object.keys(data_clean).forEach((key) => {
             const filterElement = document.querySelector(`${this.config.filterFormSelector} #${key}`);
             if (filterElement) {
                 if (this.config.isDebug) {

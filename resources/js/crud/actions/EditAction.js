@@ -29,11 +29,18 @@ export class EditAction extends Action {
     editEntity(id) {
 
         let editUrl = this.getUrlWithId(this.config.editUrl, id); // Générer l'URL dynamique
+        
+
+        const filter_context_data= this.tableUI.indexUI.filterUI.getFormDataAsFilterContext();
+        this.contextService.addData(filter_context_data);
+
         editUrl = this.appendParamsToUrl(
             editUrl,
             this.contextService.getContextParams()
         );
 
+        // Add filter params to context 
+       
         // Afficher le chargement dans le modal
         this.tableUI.indexUI.modalUI.showLoading(this.config.editTitle);
 
