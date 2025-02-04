@@ -29,12 +29,12 @@
                                 <p>{{ $itemTechnology->nom }}</p>
                             </div>
                             <div class="col-sm-12">
-                                <label for="description">{{ ucfirst(__('PkgCompetences::technology.description')) }}:</label>
-                                <p>{{ $itemTechnology->description }}</p>
-                            </div>
-                            <div class="col-sm-12">
                                 <label for="category_technology_id">{{ ucfirst(__('PkgCompetences::technology.category_technology_id')) }}:</label>
                                 <p>{{ $itemTechnology->category_technology_id }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="description">{{ ucfirst(__('PkgCompetences::technology.description')) }}:</label>
+                                <p>{{ $itemTechnology->description }}</p>
                             </div>
                         </div>
                     </div>

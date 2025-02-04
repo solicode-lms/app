@@ -31,25 +31,6 @@
 </div>
 
         
-        <div class="form-group">
-            <label for="description">
-                {{ ucfirst(__('PkgCompetences::technology.description')) }}
-                
-            </label>
-            <textarea rows="" cols=""
-                name="description"
-                class="form-control richText"
-                
-                id="description"
-                placeholder="{{ __('PkgCompetences::technology.description') }}">
-                {{ $itemTechnology ? $itemTechnology->description : old('description') }}
-            </textarea>
-            @error('description')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
-
-        
         
     <div class="form-group">
             <label for="category_technology_id">
@@ -126,6 +107,25 @@
 
         </div>
 
+
+        
+        <div class="form-group">
+            <label for="description">
+                {{ ucfirst(__('PkgCompetences::technology.description')) }}
+                
+            </label>
+            <textarea rows="" cols=""
+                name="description"
+                class="form-control richText"
+                
+                id="description"
+                placeholder="{{ __('PkgCompetences::technology.description') }}">
+                {{ $itemTechnology ? $itemTechnology->description : old('description') }}
+            </textarea>
+            @error('description')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
 
     </div>
 

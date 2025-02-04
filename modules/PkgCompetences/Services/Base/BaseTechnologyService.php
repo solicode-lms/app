@@ -20,8 +20,8 @@ class BaseTechnologyService extends BaseService
      */
     protected $fieldsSearchable = [
         'nom',
-        'description',
-        'category_technology_id'
+        'category_technology_id',
+        'description'
     ];
 
     /**
