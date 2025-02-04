@@ -1,7 +1,3 @@
-// import $ from "jquery";
-// import iziModal from "izimodal/js/iziModal.min.js";
-// import "izimodal/css/iziModal.min.css";
-// $.fn.iziModal = iziModal;
 import EventUtil from '../utils/EventUtil';
 
 export class ModalUI {
@@ -40,9 +36,9 @@ export class ModalUI {
      * @param {boolean} showLoading - Afficher un spinner de chargement.
      */
     showModal(title = "titre test", showLoading = false) {
+
         // Supprimer l'ancienne modale si elle existe déjà
-        $(`#${this.currentModalId}`).remove();
-    
+        this.destroy();
       
 
         // if ($(".dynamic-modal:visible").length === 0) {
@@ -135,6 +131,7 @@ export class ModalUI {
      */
     close() {
             $(`#${this.currentModalId}`).iziModal("close");
+            this.destroy();
     }
 
     /**
@@ -143,7 +140,15 @@ export class ModalUI {
     closeAll() {
         $(".dynamic-modal").each(function () {
             $(this).iziModal("close");
+            $(this).iziModal('destroy');
+            $(this).remove();
+
         });
+    }
+
+    destroy(){
+        $(`#${this.currentModalId}`).iziModal('destroy');
+        $(`#${this.currentModalId}`).remove();
     }
 
     /**

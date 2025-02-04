@@ -45,7 +45,6 @@ export class LoadingIndicator {
             loadingDiv.style.zIndex = '1060'; // Inférieur à celui du modal (1050)
     
             loadingDiv.innerHTML = '<div class="spinner-border text-primary" role="status"></div>';
-            console.log(loadingDiv);
             container.appendChild(loadingDiv);
         }
 
