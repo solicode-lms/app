@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
+use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgApprenants\Models\Apprenant;
 use Modules\PkgFormation\Models\Formateur;
 
@@ -38,6 +39,15 @@ class BaseUser extends BaseModel
     ];
 
 
+    /**
+     * Relation ManyToMany pour Roles.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class, 'model_has_roles');
+    }
 
     /**
      * Relation HasMany pour Users.
