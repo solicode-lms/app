@@ -25,6 +25,7 @@ class BaseEDataFieldExport implements FromCollection, WithHeadings, ShouldAutoSi
     public function headings(): array
     {
         return [
+            'order',
             'reference',
             'name',
             'column_name',
@@ -44,6 +45,7 @@ class BaseEDataFieldExport implements FromCollection, WithHeadings, ShouldAutoSi
     {
         return $this->data->map(function ($eDataField) {
             return [
+                'order' => $eDataField->order,
                 'reference' => $eDataField->reference,
                 'name' => $eDataField->name,
                 'column_name' => $eDataField->column_name,

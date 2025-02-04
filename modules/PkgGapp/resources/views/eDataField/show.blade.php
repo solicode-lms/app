@@ -25,6 +25,10 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="col-sm-12">
+                                <label for="order">{{ ucfirst(__('PkgGapp::eDataField.order')) }}:</label>
+                                <p>{{ $itemEDataField->order }}</p>
+                            </div>
+                            <div class="col-sm-12">
                                 <label for="name">{{ ucfirst(__('PkgGapp::eDataField.name')) }}:</label>
                                 <p>{{ $itemEDataField->name }}</p>
                             </div>

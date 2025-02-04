@@ -4,7 +4,9 @@
     <table class="table table-striped text-nowrap">
         <thead>
             <tr>
-                <x-sortable-column field="Value" label="Value" />
+                 <th>
+                    Value
+                </th>
                 <x-sortable-column field="e_model_id" label="{{ ucfirst(__('PkgGapp::eModel.singular')) }}" />
                 <x-sortable-column field="e_data_field_id" label="{{ ucfirst(__('PkgGapp::eDataField.singular')) }}" />
                 <x-sortable-column field="e_metadata_definition_id" label="{{ ucfirst(__('PkgGapp::eMetadataDefinition.singular')) }}" />

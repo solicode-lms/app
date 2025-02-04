@@ -17,6 +17,7 @@ class BaseEDataFieldRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'order' => 'nullable',
             'name' => 'required|max:255',
             'column_name' => 'required|max:255',
             'data_type' => 'required|max:255',
@@ -34,6 +35,8 @@ class BaseEDataFieldRequest extends FormRequest
     public function messages(): array
     {
         return [
+            'order.required' => __('validation.required', ['attribute' => __('PkgGapp::EDataField.order')]),
+            'order.max' => __('validation.orderMax'),
             'name.required' => __('validation.required', ['attribute' => __('PkgGapp::EDataField.name')]),
             'name.max' => __('validation.nameMax'),
             'column_name.required' => __('validation.required', ['attribute' => __('PkgGapp::EDataField.column_name')]),
