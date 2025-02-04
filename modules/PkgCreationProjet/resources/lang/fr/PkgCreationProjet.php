@@ -3,6 +3,6 @@
 
 
 return [
-    'name' => 'PkgCreationProjet',
-    'icon' => 'fa-table'
+    'name' => 'Projets',
+    'icon' => 'fa-folder-open'
 ];

@@ -26,7 +26,7 @@
                         <ul class="nav nav-tabs mr-auto" id="edit-niveauDifficulte-tab" role="tablist">
                         <li class="pt-2 px-3">
                             <h3 class="card-title">
-                                <i class="nav-icon fas fa-table"></i>
+                                <i class="nav-icon fas fa-chart-line"></i>
                                 {{ __('Core::msg.edit') }}
                             </h3>
                         </li>

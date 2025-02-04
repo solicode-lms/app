@@ -30,7 +30,7 @@
        $titre = __("PkgCompetences::niveauDifficulte.singular");
     @endphp
     <x-crud-header 
-        id="niveauDifficulte-crud-header" icon="fas fa-table"  
+        id="niveauDifficulte-crud-header" icon="fas fa-chart-line"  
         iconColor="text-info"
         title="{{ __('PkgCompetences::niveauDifficulte.plural') }}"
         :breadcrumbs="[
