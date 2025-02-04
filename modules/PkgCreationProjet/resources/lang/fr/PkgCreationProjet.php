@@ -1,8 +1,7 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 return [
-    'name' => 'PkgCreationProjet',
-    'icon' => 'fa-table'
+    'name' => 'Préparation Projet', // Nom amélioré pour être plus générique
+    'icon' => 'fa-map-marked-alt' // Icône plus adapté à la gestion de projet
 ];
