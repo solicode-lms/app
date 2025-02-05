@@ -135,7 +135,7 @@ export class DynamicCalculationTreatment {
                 } 
                 // Vérifier si c'est un champ input classique ou textarea
                 else {
-                    field.val(value);
+                    field.val(value).trigger('change');
                 }
             }
         });

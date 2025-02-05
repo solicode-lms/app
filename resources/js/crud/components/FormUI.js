@@ -15,6 +15,7 @@ import flatpickr from 'flatpickr';
 // Import the French locale
 import { French } from 'flatpickr/dist/l10n/fr.js';
 import { DynamicCalculationTreatment } from "../treatments/form/DynamicCalculationTreatment";
+import { NotificationHandler } from "./NotificationHandler";
 
 
 export class FormUI  {
@@ -363,6 +364,8 @@ export class FormUI  {
             // Trouver l'input caché associé à cet éditeur
             const hiddenInput = editor.nextElementSibling;
 
+
+
             // Fonction de coloration syntaxique
             const highlight = (editorItem) => {
                 try {
@@ -386,6 +389,29 @@ export class FormUI  {
                     editor.style.borderColor = 'red'; // Bordure rouge si invalide
                 }
             });
+
+           // Ajouter un écouteur d'événement sur le hiddenInput
+            hiddenInput.addEventListener('change', () => {
+                try {
+                    editor.textContent = JSON.stringify(JSON.parse(hiddenInput.value), null, 2);
+                    highlight(editor);
+                } catch (error) {
+                    console.error("Erreur lors de la mise à jour de l'éditeur :", error);
+                }
+            });
+
+            // Utiliser EventUtil.bindEvent pour éviter les doublons d'événements
+            // TODO : ajouter selector de crud form
+            EventUtil.bindEvent('change', `#${hiddenInput.id}`, () => {
+                try {
+                    editor.textContent = hiddenInput.value;
+                    highlight(editor);
+                } catch (error) {
+                    NotificationHandler.showError("Mettre à jour JSON : " + error);
+                    console.error("Erreur lors de la mise à jour de l'éditeur :", error);
+                }
+            });
+
 
             // Charger le contenu initial, s'il existe
             if (hiddenInput.value) {
