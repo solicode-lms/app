@@ -22,6 +22,7 @@
                 type="input"
                 class="form-control"
                 required
+                
                 id="code"
                 placeholder="{{ __('PkgCompetences::competence.code') }}"
                 value="{{ $itemCompetence ? $itemCompetence->code : old('code') }}">
@@ -43,7 +44,7 @@
                 type="input"
                 class="form-control"
                 required
-                data-calcul="true"
+                data-calcul='true'
                 id="nom"
                 placeholder="{{ __('PkgCompetences::competence.nom') }}"
                 value="{{ $itemCompetence ? $itemCompetence->nom : old('nom') }}">
@@ -64,6 +65,7 @@
             <select 
             id="module_id" 
             required
+            
             name="module_id" 
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
@@ -89,6 +91,7 @@
                 id="technologies"
                 name="technologies[]"
                 class="form-control select2"
+                
                 multiple="multiple">
                
                 @foreach ($technologies as $technology)
@@ -122,6 +125,7 @@
             <textarea rows="" cols=""
                 name="description"
                 class="form-control richText"
+                
                 
                 id="description"
                 placeholder="{{ __('PkgCompetences::competence.description') }}">
