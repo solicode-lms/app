@@ -68,15 +68,6 @@ class BaseTechnologyController extends AdminController
         $validatedData = $request->validated();
         $technology = $this->technologyService->create($validatedData);
 
-
-        if ($request->has('competences')) {
-            $technology->competences()->sync($request->input('competences'));
-        }
-        if ($request->has('transfertCompetences')) {
-            $technology->transfertCompetences()->sync($request->input('transfertCompetences'));
-        }
-
-
         if ($request->ajax()) {
             return response()->json(['success' => true, 
             'entity_id' => $technology->id,
@@ -133,9 +124,6 @@ class BaseTechnologyController extends AdminController
 
         $validatedData = $request->validated();
         $technology = $this->technologyService->update($id, $validatedData);
-
-        $technology->competences()->sync($request->input('competences'));
-        $technology->transfertCompetences()->sync($request->input('transfertCompetences'));
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
@@ -209,5 +197,25 @@ class BaseTechnologyController extends AdminController
         $technologies = $this->technologyService->all();
         return response()->json($technologies);
     }
+
+
+    public function dataCalcul(Request $request)
+    {
+
+        // Extraire les données de la requête
+        $data = $request->all();
+
+        $technology = $this->technologyService->createInstance($data);
+    
+        // Mise à jour des attributs via le service
+        $updatedTechnology = $this->technologyService->dataCalcul($technology);
+    
+        return response()->json([
+            'success' => true,
+            'entity' => $updatedTechnology
+        ]);
+    }
+    
+
 
 }

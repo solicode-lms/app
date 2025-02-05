@@ -60,9 +60,6 @@ class BaseNiveauCompetenceController extends AdminController
         $validatedData = $request->validated();
         $niveauCompetence = $this->niveauCompetenceService->create($validatedData);
 
-
-
-
         if ($request->ajax()) {
             return response()->json(['success' => true, 
             'entity_id' => $niveauCompetence->id,
@@ -115,7 +112,6 @@ class BaseNiveauCompetenceController extends AdminController
 
         $validatedData = $request->validated();
         $niveauCompetence = $this->niveauCompetenceService->update($id, $validatedData);
-
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
@@ -189,5 +185,25 @@ class BaseNiveauCompetenceController extends AdminController
         $niveauCompetences = $this->niveauCompetenceService->all();
         return response()->json($niveauCompetences);
     }
+
+
+    public function dataCalcul(Request $request)
+    {
+
+        // Extraire les données de la requête
+        $data = $request->all();
+
+        $niveauCompetence = $this->niveauCompetenceService->createInstance($data);
+    
+        // Mise à jour des attributs via le service
+        $updatedNiveauCompetence = $this->niveauCompetenceService->dataCalcul($niveauCompetence);
+    
+        return response()->json([
+            'success' => true,
+            'entity' => $updatedNiveauCompetence
+        ]);
+    }
+    
+
 
 }

@@ -10,5 +10,13 @@ use Modules\PkgCompetences\Services\Base\BaseNiveauDifficulteService;
  */
 class NiveauDifficulteService extends BaseNiveauDifficulteService
 {
-   
+    public function dataCalcul($niveauDifficulte)
+    {
+        // En Cas d'édit
+        if(isset($niveauDifficulte->id)){
+          
+        }
+      
+        return $niveauDifficulte;
+    }
 }

@@ -60,9 +60,6 @@ class BaseNiveauDifficulteController extends AdminController
         $validatedData = $request->validated();
         $niveauDifficulte = $this->niveauDifficulteService->create($validatedData);
 
-
-
-
         if ($request->ajax()) {
             return response()->json(['success' => true, 
             'entity_id' => $niveauDifficulte->id,
@@ -115,7 +112,6 @@ class BaseNiveauDifficulteController extends AdminController
 
         $validatedData = $request->validated();
         $niveauDifficulte = $this->niveauDifficulteService->update($id, $validatedData);
-
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
@@ -189,5 +185,25 @@ class BaseNiveauDifficulteController extends AdminController
         $niveauDifficultes = $this->niveauDifficulteService->all();
         return response()->json($niveauDifficultes);
     }
+
+
+    public function dataCalcul(Request $request)
+    {
+
+        // Extraire les données de la requête
+        $data = $request->all();
+
+        $niveauDifficulte = $this->niveauDifficulteService->createInstance($data);
+    
+        // Mise à jour des attributs via le service
+        $updatedNiveauDifficulte = $this->niveauDifficulteService->dataCalcul($niveauDifficulte);
+    
+        return response()->json([
+            'success' => true,
+            'entity' => $updatedNiveauDifficulte
+        ]);
+    }
+    
+
 
 }

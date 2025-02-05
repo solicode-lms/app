@@ -38,11 +38,9 @@ class BaseCompetence extends BaseModel
     protected $fillable = [
         'code', 'nom', 'module_id', 'description'
     ];
-
     public $manyToMany = [
         'technologies'
     ];
-
 
     /**
      * Relation BelongsTo pour Module.

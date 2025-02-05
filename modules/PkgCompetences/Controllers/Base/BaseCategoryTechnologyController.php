@@ -57,9 +57,6 @@ class BaseCategoryTechnologyController extends AdminController
         $validatedData = $request->validated();
         $categoryTechnology = $this->categoryTechnologyService->create($validatedData);
 
-
-
-
         if ($request->ajax()) {
             return response()->json(['success' => true, 
             'entity_id' => $categoryTechnology->id,
@@ -120,7 +117,6 @@ class BaseCategoryTechnologyController extends AdminController
 
         $validatedData = $request->validated();
         $categoryTechnology = $this->categoryTechnologyService->update($id, $validatedData);
-
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
@@ -194,5 +190,25 @@ class BaseCategoryTechnologyController extends AdminController
         $categoryTechnologies = $this->categoryTechnologyService->all();
         return response()->json($categoryTechnologies);
     }
+
+
+    public function dataCalcul(Request $request)
+    {
+
+        // Extraire les données de la requête
+        $data = $request->all();
+
+        $categoryTechnology = $this->categoryTechnologyService->createInstance($data);
+    
+        // Mise à jour des attributs via le service
+        $updatedCategoryTechnology = $this->categoryTechnologyService->dataCalcul($categoryTechnology);
+    
+        return response()->json([
+            'success' => true,
+            'entity' => $updatedCategoryTechnology
+        ]);
+    }
+    
+
 
 }

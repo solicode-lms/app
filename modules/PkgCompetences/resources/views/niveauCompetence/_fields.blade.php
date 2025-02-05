@@ -22,6 +22,7 @@
                 type="input"
                 class="form-control"
                 required
+                
                 id="nom"
                 placeholder="{{ __('PkgCompetences::niveauCompetence.nom') }}"
                 value="{{ $itemNiveauCompetence ? $itemNiveauCompetence->nom : old('nom') }}">
@@ -39,6 +40,7 @@
             <textarea rows="" cols=""
                 name="description"
                 class="form-control richText"
+                
                 
                 id="description"
                 placeholder="{{ __('PkgCompetences::niveauCompetence.description') }}">
@@ -61,6 +63,7 @@
             <select 
             id="competence_id" 
             required
+            
             name="competence_id" 
             class="form-control select2">
              <option value="">Sélectionnez une option</option>

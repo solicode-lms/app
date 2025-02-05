@@ -17,6 +17,7 @@
         showUrl: '{{ route('niveauDifficultes.show',  ['niveauDifficulte' => ':id']) }}',
         storeUrl: '{{ route('niveauDifficultes.store') }}', 
         deleteUrl: '{{ route('niveauDifficultes.destroy',  ['niveauDifficulte' => ':id']) }}', 
+        calculationUrl:  '{{ route('niveauDifficultes.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgCompetences::niveauDifficulte.singular") }}',
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgCompetences::niveauDifficulte.singular") }}',

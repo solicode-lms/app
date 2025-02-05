@@ -17,6 +17,7 @@
         showUrl: '{{ route('technologies.show',  ['technology' => ':id']) }}',
         storeUrl: '{{ route('technologies.store') }}', 
         deleteUrl: '{{ route('technologies.destroy',  ['technology' => ':id']) }}', 
+        calculationUrl:  '{{ route('technologies.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgCompetences::technology.singular") }}',
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgCompetences::technology.singular") }}',

@@ -9,29 +9,42 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class BaseNiveauCompetenceRequest extends FormRequest
 {
+    /**
+     * Détermine si l'utilisateur est autorisé à effectuer cette requête.
+     *
+     * @return bool
+     */
     public function authorize(): bool
     {
         return true;
     }
 
+    /**
+     * Retourne les règles de validation appliquées aux champs de la requête.
+     *
+     * @return array
+     */
     public function rules(): array
     {
         return [
-            'nom' => 'required|max:255',
-            'description' => 'nullable',
+            'nom' => 'required|string|max:255',
+            'description' => 'nullable|string',
             'competence_id' => 'required'
         ];
     }
 
+    /**
+     * Retourne les messages de validation associés aux règles.
+     *
+     * @return array
+     */
     public function messages(): array
     {
         return [
             'nom.required' => __('validation.required', ['attribute' => __('PkgCompetences::NiveauCompetence.nom')]),
             'nom.max' => __('validation.nomMax'),
             'description.required' => __('validation.required', ['attribute' => __('PkgCompetences::NiveauCompetence.description')]),
-            'description.max' => __('validation.descriptionMax'),
-            'competence_id.required' => __('validation.required', ['attribute' => __('PkgCompetences::NiveauCompetence.competence_id')]),
-            'competence_id.max' => __('validation.competence_idMax')
+            'competence_id.required' => __('validation.required', ['attribute' => __('PkgCompetences::NiveauCompetence.competence_id')])
         ];
     }
 }

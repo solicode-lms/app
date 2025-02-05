@@ -37,6 +37,10 @@ class BaseTechnology extends BaseModel
     protected $fillable = [
         'nom', 'category_technology_id', 'description'
     ];
+    public $manyToMany = [
+        'competences',
+        'transfertCompetences'
+    ];
 
     /**
      * Relation BelongsTo pour CategoryTechnology.

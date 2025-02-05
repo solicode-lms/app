@@ -10,5 +10,13 @@ use Modules\PkgCompetences\Services\Base\BaseNiveauCompetenceService;
  */
 class NiveauCompetenceService extends BaseNiveauCompetenceService
 {
-   
+    public function dataCalcul($niveauCompetence)
+    {
+        // En Cas d'édit
+        if(isset($niveauCompetence->id)){
+          
+        }
+      
+        return $niveauCompetence;
+    }
 }
