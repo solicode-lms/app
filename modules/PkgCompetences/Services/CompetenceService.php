@@ -1,5 +1,4 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 namespace Modules\PkgCompetences\Services;
@@ -12,6 +11,8 @@ class CompetenceService extends BaseCompetenceService
 {
     public function dataCalcul($competence)
     {
+        
+        $competence->code = $competence->nom . "+++";
         // En Cas d'édit
         if(isset($competence->id)){
           

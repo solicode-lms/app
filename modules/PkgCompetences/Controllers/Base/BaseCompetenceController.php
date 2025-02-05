@@ -217,7 +217,7 @@ class BaseCompetenceController extends AdminController
     
         return response()->json([
             'success' => true,
-            'iModel' => $updatedCompetence
+            'entity' => $updatedCompetence
         ]);
     }
     
