@@ -76,7 +76,7 @@
     "src": "node_modules/admin-lte/plugins/summernote/font/summernote.woff2"
   },
   "resources/css/admin.css": {
-    "file": "assets/admin-DQDWstMB.css",
+    "file": "assets/admin-BziLQEjW.css",
     "src": "resources/css/admin.css",
     "isEntry": true
   },
@@ -142,7 +142,7 @@
     "isEntry": true
   },
   "resources/js/admin.js": {
-    "file": "assets/admin-DQeLODas.js",
+    "file": "assets/admin-CqMegw4C.js",
     "name": "admin",
     "src": "resources/js/admin.js",
     "isEntry": true,
