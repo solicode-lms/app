@@ -62,13 +62,14 @@ class BaseCompetenceController extends AdminController
         return view('PkgCompetences::competence.create', compact('itemCompetence', 'technologies', 'modules'));
     }
     public function store(CompetenceRequest $request) {
+
         $validatedData = $request->validated();
         $competence = $this->competenceService->create($validatedData);
 
 
-        if ($request->has('technologies')) {
-            $competence->technologies()->sync($request->input('technologies'));
-        }
+        // if ($request->has('technologies')) {
+        //     $competence->technologies()->sync($request->input('technologies'));
+        // }
 
 
         if ($request->ajax()) {
@@ -136,7 +137,7 @@ class BaseCompetenceController extends AdminController
         $validatedData = $request->validated();
         $competence = $this->competenceService->update($id, $validatedData);
 
-        $competence->technologies()->sync($request->input('technologies'));
+        // $competence->technologies()->sync($request->input('technologies'));
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 

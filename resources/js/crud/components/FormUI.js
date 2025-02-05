@@ -14,6 +14,7 @@ import InitUIManagers from "../InitUIManagers";
 import flatpickr from 'flatpickr';
 // Import the French locale
 import { French } from 'flatpickr/dist/l10n/fr.js';
+import { DynamicCalculationTreatment } from "../treatments/form/DynamicCalculationTreatment";
 
 
 export class FormUI  {
@@ -30,6 +31,8 @@ export class FormUI  {
         this.formSelector = this.config.formSelector
         this.contextService = this.config.contextStateService;
         this.loader = new LoadingIndicator(this.formSelector);
+
+        this.dynamicCalculationTreatment = new DynamicCalculationTreatment(config,this);
     }
 
     /**
@@ -50,7 +53,9 @@ export class FormUI  {
         FormUI.initializeRichText();
         FormUI.initializeDate();
         FormUI.initCodeJar();
-      
+        // Initialisation de la gestion des calculs dynamiques
+        this.dynamicCalculationTreatment.init();
+
         if(window.dynamicFieldVisibilityTreatments){
             new DynamicFieldVisibilityTreatment(window.dynamicFieldVisibilityTreatments)
             .initialize();
@@ -183,7 +188,6 @@ export class FormUI  {
         const form = $(this.formSelector);
         const data = form.serializeArray();
         const isValid = this.validateForm(data);
-
         return isValid ? data : null;
     }
 

@@ -20,7 +20,9 @@ class BaseCompetenceRequest extends FormRequest
             'code' => 'required|max:255',
             'nom' => 'required|max:255',
             'module_id' => 'required',
-            'description' => 'nullable'
+            'description' => 'nullable',
+            'technologies' => 'nullable|array', // Vérifie que c'est un tableau
+            'technologies.*' => 'integer|exists:technologies,id' // Vérifie que chaque valeur existe en DB
         ];
     }
 
@@ -34,7 +36,10 @@ class BaseCompetenceRequest extends FormRequest
             'module_id.required' => __('validation.required', ['attribute' => __('PkgCompetences::Competence.module_id')]),
             'module_id.max' => __('validation.module_idMax'),
             'description.required' => __('validation.required', ['attribute' => __('PkgCompetences::Competence.description')]),
-            'description.max' => __('validation.descriptionMax')
+            'description.max' => __('validation.descriptionMax'),
+            'technologies.array' => __('validation.array', ['attribute' => __('PkgCompetences::Competence.technologies')]),
+            'technologies.*.integer' => __('validation.integer', ['attribute' => __('PkgCompetences::Competence.technologies')]),
+            'technologies.*.exists' => __('validation.exists', ['attribute' => __('PkgCompetences::Competence.technologies')]),
         ];
     }
 }

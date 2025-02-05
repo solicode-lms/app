@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Builder;
 use Modules\Core\Services\Contracts\ServiceInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
- 
+use Modules\Core\Utils\EloquentRelationHelper;
+
 /**
  * Classe abstraite BaseService qui fournit une implémentation de base
  * pour les opérations courantes de manipulation des données.
@@ -207,7 +208,9 @@ abstract class BaseService implements ServiceInterface
      * @return mixed
      */
     public function create(array $data){
-        return $this->model->create($data);
+        $entity = $this->model->create($data);
+        $this->syncManyToManyRelations($entity, $data);
+        return  $entity;
     }
 
     /**
@@ -225,6 +228,8 @@ abstract class BaseService implements ServiceInterface
             return false;
         }
         $record->update($data);
+
+        $this->syncManyToManyRelations($record, $data);
         return $record;
     }
 
@@ -254,23 +259,39 @@ abstract class BaseService implements ServiceInterface
         return  $record;
     }
 
-    public function createInstance()
+    public function createInstance(array $data = [])
     {
         // Créer une nouvelle instance du modèle
         $item = $this->model::make();
-
-
+    
+        // Récupérer toutes les variables de contexte
         $contextVariables = $this->contextState->all();
     
-        // Parcourir les variables de contexte et modifier les attributs correspondants du modèle
-        foreach ($contextVariables as $key => $value) {
-                if ($item->isFillable($key)) { // Vérifier si l'attribut est fillable
-                    $item[$key] = $value;
-                }
+        // Fusionner les données ($data a la priorité sur $contextVariables)
+        $mergedData = array_merge($contextVariables, $data);
+    
+        // Appliquer les valeurs aux champs "fillable" du modèle
+        foreach ($mergedData as $key => $value) {
+            if ($item->isFillable($key)) { // Vérifier si l'attribut est fillable
+                $item->{$key} = $value;
+            }
         }
+
+        // Gérer les relations ManyToMany sans les enregistrer en base
+        if (property_exists($item, 'manyToMany')) {
+            foreach ($item->manyToMany as $relation) {
+                if (isset($mergedData[$relation]) && is_array($mergedData[$relation])) {
+                    // Stocker temporairement les relations sans affecter la base de données
+                    $item->setRelation($relation, collect($mergedData[$relation]));
+                }
+            }
+        }
+
+
     
         return $item;
     }
+    
 
     /**
      * Calcule des statistiques génériques sur une entité.
@@ -449,6 +470,31 @@ public function initStats(){
     ];
     return $stats;
 }
+
+
+
+    /**
+     * Gère la synchronisation des relations ManyToMany définies dans le modèle.
+     *
+     * @param Model $entity
+     * @param array $data
+     */
+    protected function syncManyToManyRelations(Model $entity, array $data)
+    {
+        if (!property_exists($entity, 'manyToMany')) {
+            return;
+        }
+
+        foreach ($entity->manyToMany as $relation) {
+            if (!isset($data[$relation]) || !is_array($data[$relation]) || empty($data[$relation])) {
+                // Si aucune donnée n'est fournie pour la relation, supprimer toutes les relations existantes
+                $entity->{$relation}()->sync([]);
+            } else {
+                // Mettre à jour les relations normalement
+                $entity->{$relation}()->sync($data[$relation]);
+            }
+        }
+    }
 
 
 }

@@ -39,6 +39,18 @@ class BaseCompetence extends BaseModel
         'code', 'nom', 'module_id', 'description'
     ];
 
+
+    /**
+     * Liste des relations Many-to-Many du modèle.
+     *
+     * @var array
+     */
+    public $manyToMany = [
+        'technologies'
+    ];
+
+
+
     /**
      * Relation BelongsTo pour Module.
      *

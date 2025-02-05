@@ -19,6 +19,7 @@ export default class ConfigCrudManagerHelper extends ConfigHelper {
         this.storeUrl = config.storeUrl;
         this.deleteUrl = config.deleteUrl;
         this.createTitle = config.create_title;
+        this.calculationUrl = config.calculationUrl;
 
         this.searchInputSelector = `${this.crudSelector} .crud-search-input`;
         this.paginationSelector = `${this.crudSelector} .pagination`;

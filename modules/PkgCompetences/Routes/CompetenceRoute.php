@@ -17,5 +17,8 @@ Route::middleware('auth')->group(function () {
             Route::get('competences/export', [CompetenceController::class, 'export'])->name('competences.export');
             Route::post('competences/import', [CompetenceController::class, 'import'])->name('competences.import');
         });
+
+        Route::post('competences/data-calcul', [CompetenceController::class, 'dataCalcul'])->name('competences.dataCalcul');
+
     });
 });
