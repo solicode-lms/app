@@ -274,7 +274,7 @@
             <select 
             id="e_metadata_definition_id" 
             required
-            
+            data-calcul='true'
             name="e_metadata_definition_id" 
             class="form-control select2">
              <option value="">Sélectionnez une option</option>

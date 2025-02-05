@@ -27,7 +27,7 @@ class BaseEDataFieldRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'order' => 'required',
+            'order' => 'nullable',
             'name' => 'required|string|max:255',
             'column_name' => 'required|string|max:255',
             'data_type' => 'required|string|max:255',

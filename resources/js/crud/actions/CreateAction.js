@@ -106,10 +106,10 @@ export class CreateAction extends Action {
                     
                     if (xhr.responseJSON?.errors) {
                         this.tableUI.indexUI.formUI.showFieldErrors(xhr.responseJSON.errors);
-                    } else {
-                        this.tableUI.indexUI.modalUI.close();
-                        AjaxErrorHandler.handleError(xhr, "Erreur lors du traitement du formulaire.");
-                    }
+                    } 
+                    
+                    this.tableUI.indexUI.modalUI.close();
+                    AjaxErrorHandler.handleError(xhr, "Erreur lors du traitement du formulaire.");
                 });
     
         }

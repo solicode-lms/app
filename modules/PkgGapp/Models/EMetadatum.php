@@ -51,7 +51,7 @@ class EMetadatum extends BaseEMetadatum
             case FieldTypeEnum::ENUM->value:
                 return $this->value_enum;
             case FieldTypeEnum::JSON->value:
-                return $this->value_json;
+                return "JSON";
             case FieldTypeEnum::TEXT->value:
                 return $this->value_text;
             default:

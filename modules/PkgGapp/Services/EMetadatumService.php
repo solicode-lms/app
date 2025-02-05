@@ -1,4 +1,6 @@
 <?php
+// Ce fichier est maintenu par ESSARRAJ Fouad
+
 
 namespace Modules\PkgGapp\Services;
 use Modules\PkgGapp\Services\Base\BaseEMetadatumService;
@@ -8,22 +10,13 @@ use Modules\PkgGapp\Services\Base\BaseEMetadatumService;
  */
 class EMetadatumService extends BaseEMetadatumService
 {
-    public function create(array $data)
+    public function dataCalcul($eMetadatum)
     {
-        // $objet = $data->object;
-        // $data->code = $objet.name . 
-        return parent::create($data);
+        // En Cas d'édit
+        if(isset($eMetadatum->id)){
+          
+        }
+      
+        return $eMetadatum;
     }
-    // public function createInstance()
-    // {
-    //     $objet = parent::createInstance();
-
-
-
-    //     // $data->code = $objet.name . 
-    //     return $objet;
-    // }
-
- 
-   
 }

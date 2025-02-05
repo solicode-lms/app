@@ -27,7 +27,7 @@ class BaseEMetadatumRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'Value' => 'required',
+            'Value' => 'nullable',
             'value_boolean' => 'nullable|integer',
             'value_string' => 'nullable|string|max:255',
             'value_integer' => 'nullable|integer',
