@@ -9,35 +9,48 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class BaseTransfertCompetenceRequest extends FormRequest
 {
+    /**
+     * Détermine si l'utilisateur est autorisé à effectuer cette requête.
+     *
+     * @return bool
+     */
     public function authorize(): bool
     {
         return true;
     }
 
+    /**
+     * Retourne les règles de validation appliquées aux champs de la requête.
+     *
+     * @return array
+     */
     public function rules(): array
     {
         return [
             'note' => 'nullable',
-            'question' => 'nullable',
+            'question' => 'nullable|string',
             'projet_id' => 'required',
             'competence_id' => 'required',
-            'niveau_difficulte_id' => 'required'
+            'niveau_difficulte_id' => 'required',
+            'technologies' => 'nullable|array'
         ];
     }
 
+    /**
+     * Retourne les messages de validation associés aux règles.
+     *
+     * @return array
+     */
     public function messages(): array
     {
         return [
             'note.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::TransfertCompetence.note')]),
-            'note.max' => __('validation.noteMax'),
             'question.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::TransfertCompetence.question')]),
-            'question.max' => __('validation.questionMax'),
             'projet_id.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::TransfertCompetence.projet_id')]),
-            'projet_id.max' => __('validation.projet_idMax'),
             'competence_id.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::TransfertCompetence.competence_id')]),
-            'competence_id.max' => __('validation.competence_idMax'),
             'niveau_difficulte_id.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::TransfertCompetence.niveau_difficulte_id')]),
-            'niveau_difficulte_id.max' => __('validation.niveau_difficulte_idMax')
+            'technologies.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::TransfertCompetence.technologies')]),
+            'technologies.array' => __('validation.array', ['attribute' => __('PkgCreationProjet::TransfertCompetence.technologies')])
         ];
     }
 }

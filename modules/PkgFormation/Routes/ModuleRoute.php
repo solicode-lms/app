@@ -17,5 +17,8 @@ Route::middleware('auth')->group(function () {
             Route::get('modules/export', [ModuleController::class, 'export'])->name('modules.export');
             Route::post('modules/import', [ModuleController::class, 'import'])->name('modules.import');
         });
+
+        Route::post('modules/data-calcul', [ModuleController::class, 'dataCalcul'])->name('modules.dataCalcul');
+
     });
 });

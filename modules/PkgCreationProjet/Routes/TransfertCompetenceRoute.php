@@ -17,5 +17,8 @@ Route::middleware('auth')->group(function () {
             Route::get('transfertCompetences/export', [TransfertCompetenceController::class, 'export'])->name('transfertCompetences.export');
             Route::post('transfertCompetences/import', [TransfertCompetenceController::class, 'import'])->name('transfertCompetences.import');
         });
+
+        Route::post('transfertCompetences/data-calcul', [TransfertCompetenceController::class, 'dataCalcul'])->name('transfertCompetences.dataCalcul');
+
     });
 });

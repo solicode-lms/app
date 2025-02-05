@@ -69,9 +69,6 @@ class BaseAffectationProjetController extends AdminController
         $validatedData = $request->validated();
         $affectationProjet = $this->affectationProjetService->create($validatedData);
 
-
-
-
         if ($request->ajax()) {
             return response()->json(['success' => true, 
             'entity_id' => $affectationProjet->id,
@@ -138,7 +135,6 @@ class BaseAffectationProjetController extends AdminController
 
         $validatedData = $request->validated();
         $affectationProjet = $this->affectationProjetService->update($id, $validatedData);
-
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
@@ -212,5 +208,25 @@ class BaseAffectationProjetController extends AdminController
         $affectationProjets = $this->affectationProjetService->all();
         return response()->json($affectationProjets);
     }
+
+
+    public function dataCalcul(Request $request)
+    {
+
+        // Extraire les données de la requête
+        $data = $request->all();
+
+        $affectationProjet = $this->affectationProjetService->createInstance($data);
+    
+        // Mise à jour des attributs via le service
+        $updatedAffectationProjet = $this->affectationProjetService->dataCalcul($affectationProjet);
+    
+        return response()->json([
+            'success' => true,
+            'entity' => $updatedAffectationProjet
+        ]);
+    }
+    
+
 
 }

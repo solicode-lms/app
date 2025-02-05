@@ -17,5 +17,8 @@ Route::middleware('auth')->group(function () {
             Route::get('widgetTypes/export', [WidgetTypeController::class, 'export'])->name('widgetTypes.export');
             Route::post('widgetTypes/import', [WidgetTypeController::class, 'import'])->name('widgetTypes.import');
         });
+
+        Route::post('widgetTypes/data-calcul', [WidgetTypeController::class, 'dataCalcul'])->name('widgetTypes.dataCalcul');
+
     });
 });

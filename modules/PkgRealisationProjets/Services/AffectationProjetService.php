@@ -10,5 +10,13 @@ use Modules\PkgRealisationProjets\Services\Base\BaseAffectationProjetService;
  */
 class AffectationProjetService extends BaseAffectationProjetService
 {
-   
+    public function dataCalcul($affectationProjet)
+    {
+        // En Cas d'édit
+        if(isset($affectationProjet->id)){
+          
+        }
+      
+        return $affectationProjet;
+    }
 }

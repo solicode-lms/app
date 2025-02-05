@@ -62,12 +62,6 @@ class BaseUserController extends AdminController
         $validatedData = $request->validated();
         $user = $this->userService->create($validatedData);
 
-
-        if ($request->has('roles')) {
-            $user->roles()->sync($request->input('roles'));
-        }
-
-
         if ($request->ajax()) {
             return response()->json(['success' => true, 
             'entity_id' => $user->id,
@@ -141,8 +135,6 @@ class BaseUserController extends AdminController
         $validatedData = $request->validated();
         $user = $this->userService->update($id, $validatedData);
 
-        $user->roles()->sync($request->input('roles'));
-
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
             __('Core::msg.updateSuccess', [
@@ -215,5 +207,25 @@ class BaseUserController extends AdminController
         $users = $this->userService->all();
         return response()->json($users);
     }
+
+
+    public function dataCalcul(Request $request)
+    {
+
+        // Extraire les données de la requête
+        $data = $request->all();
+
+        $user = $this->userService->createInstance($data);
+    
+        // Mise à jour des attributs via le service
+        $updatedUser = $this->userService->dataCalcul($user);
+    
+        return response()->json([
+            'success' => true,
+            'entity' => $updatedUser
+        ]);
+    }
+    
+
 
 }

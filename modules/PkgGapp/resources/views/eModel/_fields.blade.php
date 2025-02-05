@@ -22,6 +22,7 @@
                 type="input"
                 class="form-control"
                 required
+                
                 id="name"
                 placeholder="{{ __('PkgGapp::eModel.name') }}"
                 value="{{ $itemEModel ? $itemEModel->name : old('name') }}">
@@ -43,6 +44,7 @@
                 type="input"
                 class="form-control"
                 required
+                
                 id="table_name"
                 placeholder="{{ __('PkgGapp::eModel.table_name') }}"
                 value="{{ $itemEModel ? $itemEModel->table_name : old('table_name') }}">
@@ -61,6 +63,7 @@
                 name="icon"
                 type="input"
                 class="form-control"
+                
                 
                 id="icon"
                 placeholder="{{ __('PkgGapp::eModel.icon') }}"
@@ -83,6 +86,7 @@
                 type="number"
                 class="form-control"
                 required
+                
                 id="is_pivot_table"
                 placeholder="{{ __('PkgGapp::eModel.is_pivot_table') }}"
                 value="{{ $itemEModel ? $itemEModel->is_pivot_table : old('is_pivot_table') }}">
@@ -100,6 +104,7 @@
             <textarea rows="" cols=""
                 name="description"
                 class="form-control richText"
+                
                 
                 id="description"
                 placeholder="{{ __('PkgGapp::eModel.description') }}">
@@ -122,6 +127,7 @@
             <select 
             id="e_package_id" 
             required
+            
             name="e_package_id" 
             class="form-control select2">
              <option value="">Sélectionnez une option</option>

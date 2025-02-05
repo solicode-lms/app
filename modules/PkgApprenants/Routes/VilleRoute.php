@@ -17,5 +17,8 @@ Route::middleware('auth')->group(function () {
             Route::get('villes/export', [VilleController::class, 'export'])->name('villes.export');
             Route::post('villes/import', [VilleController::class, 'import'])->name('villes.import');
         });
+
+        Route::post('villes/data-calcul', [VilleController::class, 'dataCalcul'])->name('villes.dataCalcul');
+
     });
 });

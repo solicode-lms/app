@@ -17,5 +17,8 @@ Route::middleware('auth')->group(function () {
             Route::get('eRelationships/export', [ERelationshipController::class, 'export'])->name('eRelationships.export');
             Route::post('eRelationships/import', [ERelationshipController::class, 'import'])->name('eRelationships.import');
         });
+
+        Route::post('eRelationships/data-calcul', [ERelationshipController::class, 'dataCalcul'])->name('eRelationships.dataCalcul');
+
     });
 });

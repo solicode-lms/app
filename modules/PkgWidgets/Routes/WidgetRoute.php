@@ -17,5 +17,8 @@ Route::middleware('auth')->group(function () {
             Route::get('widgets/export', [WidgetController::class, 'export'])->name('widgets.export');
             Route::post('widgets/import', [WidgetController::class, 'import'])->name('widgets.import');
         });
+
+        Route::post('widgets/data-calcul', [WidgetController::class, 'dataCalcul'])->name('widgets.dataCalcul');
+
     });
 });

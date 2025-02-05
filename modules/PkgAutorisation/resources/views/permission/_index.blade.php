@@ -17,6 +17,7 @@
         showUrl: '{{ route('permissions.show',  ['permission' => ':id']) }}',
         storeUrl: '{{ route('permissions.store') }}', 
         deleteUrl: '{{ route('permissions.destroy',  ['permission' => ':id']) }}', 
+        calculationUrl:  '{{ route('permissions.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgAutorisation::permission.singular") }}',
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgAutorisation::permission.singular") }}',

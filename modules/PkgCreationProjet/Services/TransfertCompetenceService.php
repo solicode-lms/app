@@ -10,5 +10,13 @@ use Modules\PkgCreationProjet\Services\Base\BaseTransfertCompetenceService;
  */
 class TransfertCompetenceService extends BaseTransfertCompetenceService
 {
-   
+    public function dataCalcul($transfertCompetence)
+    {
+        // En Cas d'édit
+        if(isset($transfertCompetence->id)){
+          
+        }
+      
+        return $transfertCompetence;
+    }
 }

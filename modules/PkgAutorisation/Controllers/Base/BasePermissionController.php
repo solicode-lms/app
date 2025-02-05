@@ -68,15 +68,6 @@ class BasePermissionController extends AdminController
         $validatedData = $request->validated();
         $permission = $this->permissionService->create($validatedData);
 
-
-        if ($request->has('features')) {
-            $permission->features()->sync($request->input('features'));
-        }
-        if ($request->has('roles')) {
-            $permission->roles()->sync($request->input('roles'));
-        }
-
-
         if ($request->ajax()) {
             return response()->json(['success' => true, 
             'entity_id' => $permission->id,
@@ -133,9 +124,6 @@ class BasePermissionController extends AdminController
 
         $validatedData = $request->validated();
         $permission = $this->permissionService->update($id, $validatedData);
-
-        $permission->features()->sync($request->input('features'));
-        $permission->roles()->sync($request->input('roles'));
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
@@ -209,5 +197,25 @@ class BasePermissionController extends AdminController
         $permissions = $this->permissionService->all();
         return response()->json($permissions);
     }
+
+
+    public function dataCalcul(Request $request)
+    {
+
+        // Extraire les données de la requête
+        $data = $request->all();
+
+        $permission = $this->permissionService->createInstance($data);
+    
+        // Mise à jour des attributs via le service
+        $updatedPermission = $this->permissionService->dataCalcul($permission);
+    
+        return response()->json([
+            'success' => true,
+            'entity' => $updatedPermission
+        ]);
+    }
+    
+
 
 }

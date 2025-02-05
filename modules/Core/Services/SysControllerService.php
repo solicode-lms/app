@@ -10,5 +10,13 @@ use Modules\Core\Services\Base\BaseSysControllerService;
  */
 class SysControllerService extends BaseSysControllerService
 {
-   
+    public function dataCalcul($sysController)
+    {
+        // En Cas d'édit
+        if(isset($sysController->id)){
+          
+        }
+      
+        return $sysController;
+    }
 }

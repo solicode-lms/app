@@ -58,9 +58,6 @@ class BaseAnneeFormationController extends AdminController
         $validatedData = $request->validated();
         $anneeFormation = $this->anneeFormationService->create($validatedData);
 
-
-
-
         if ($request->ajax()) {
             return response()->json(['success' => true, 
             'entity_id' => $anneeFormation->id,
@@ -131,7 +128,6 @@ class BaseAnneeFormationController extends AdminController
 
         $validatedData = $request->validated();
         $anneeFormation = $this->anneeFormationService->update($id, $validatedData);
-
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
@@ -205,5 +201,25 @@ class BaseAnneeFormationController extends AdminController
         $anneeFormations = $this->anneeFormationService->all();
         return response()->json($anneeFormations);
     }
+
+
+    public function dataCalcul(Request $request)
+    {
+
+        // Extraire les données de la requête
+        $data = $request->all();
+
+        $anneeFormation = $this->anneeFormationService->createInstance($data);
+    
+        // Mise à jour des attributs via le service
+        $updatedAnneeFormation = $this->anneeFormationService->dataCalcul($anneeFormation);
+    
+        return response()->json([
+            'success' => true,
+            'entity' => $updatedAnneeFormation
+        ]);
+    }
+    
+
 
 }

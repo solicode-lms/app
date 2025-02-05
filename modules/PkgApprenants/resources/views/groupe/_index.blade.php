@@ -17,6 +17,7 @@
         showUrl: '{{ route('groupes.show',  ['groupe' => ':id']) }}',
         storeUrl: '{{ route('groupes.store') }}', 
         deleteUrl: '{{ route('groupes.destroy',  ['groupe' => ':id']) }}', 
+        calculationUrl:  '{{ route('groupes.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgApprenants::groupe.singular") }}',
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgApprenants::groupe.singular") }}',

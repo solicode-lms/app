@@ -39,6 +39,9 @@ class BaseTransfertCompetence extends BaseModel
     protected $fillable = [
         'note', 'question', 'projet_id', 'competence_id', 'niveau_difficulte_id'
     ];
+    public $manyToMany = [
+        'technologies'
+    ];
 
     /**
      * Relation BelongsTo pour Competence.

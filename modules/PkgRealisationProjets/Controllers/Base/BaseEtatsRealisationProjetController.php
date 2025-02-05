@@ -61,9 +61,6 @@ class BaseEtatsRealisationProjetController extends AdminController
         $validatedData = $request->validated();
         $etatsRealisationProjet = $this->etatsRealisationProjetService->create($validatedData);
 
-
-
-
         if ($request->ajax()) {
             return response()->json(['success' => true, 
             'entity_id' => $etatsRealisationProjet->id,
@@ -126,7 +123,6 @@ class BaseEtatsRealisationProjetController extends AdminController
 
         $validatedData = $request->validated();
         $etatsRealisationProjet = $this->etatsRealisationProjetService->update($id, $validatedData);
-
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
@@ -200,5 +196,25 @@ class BaseEtatsRealisationProjetController extends AdminController
         $etatsRealisationProjets = $this->etatsRealisationProjetService->all();
         return response()->json($etatsRealisationProjets);
     }
+
+
+    public function dataCalcul(Request $request)
+    {
+
+        // Extraire les données de la requête
+        $data = $request->all();
+
+        $etatsRealisationProjet = $this->etatsRealisationProjetService->createInstance($data);
+    
+        // Mise à jour des attributs via le service
+        $updatedEtatsRealisationProjet = $this->etatsRealisationProjetService->dataCalcul($etatsRealisationProjet);
+    
+        return response()->json([
+            'success' => true,
+            'entity' => $updatedEtatsRealisationProjet
+        ]);
+    }
+    
+
 
 }

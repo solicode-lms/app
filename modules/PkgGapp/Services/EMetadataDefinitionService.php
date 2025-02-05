@@ -10,5 +10,13 @@ use Modules\PkgGapp\Services\Base\BaseEMetadataDefinitionService;
  */
 class EMetadataDefinitionService extends BaseEMetadataDefinitionService
 {
-   
+    public function dataCalcul($eMetadataDefinition)
+    {
+        // En Cas d'édit
+        if(isset($eMetadataDefinition->id)){
+          
+        }
+      
+        return $eMetadataDefinition;
+    }
 }

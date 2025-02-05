@@ -17,5 +17,8 @@ Route::middleware('auth')->group(function () {
             Route::get('nationalites/export', [NationaliteController::class, 'export'])->name('nationalites.export');
             Route::post('nationalites/import', [NationaliteController::class, 'import'])->name('nationalites.import');
         });
+
+        Route::post('nationalites/data-calcul', [NationaliteController::class, 'dataCalcul'])->name('nationalites.dataCalcul');
+
     });
 });

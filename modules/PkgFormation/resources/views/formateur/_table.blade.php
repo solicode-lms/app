@@ -6,8 +6,8 @@
             <tr>
                 <x-sortable-column field="nom" label="{{ ucfirst(__('PkgFormation::formateur.nom')) }}" />
                 <x-sortable-column field="prenom" label="{{ ucfirst(__('PkgFormation::formateur.prenom')) }}" />
-                <x-sortable-column field="Groupe" label="{{ ucfirst(__('PkgApprenants::groupe.plural')) }}" />
-                <x-sortable-column field="Specialite" label="{{ ucfirst(__('PkgFormation::specialite.plural')) }}" />
+                <x-sortable-column field="groupes" label="{{ ucfirst(__('PkgApprenants::groupe.plural')) }}" />
+                <x-sortable-column field="specialites" label="{{ ucfirst(__('PkgFormation::specialite.plural')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

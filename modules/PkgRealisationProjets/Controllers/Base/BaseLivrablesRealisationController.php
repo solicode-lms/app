@@ -60,9 +60,6 @@ class BaseLivrablesRealisationController extends AdminController
         $validatedData = $request->validated();
         $livrablesRealisation = $this->livrablesRealisationService->create($validatedData);
 
-
-
-
         if ($request->ajax()) {
             return response()->json(['success' => true, 
             'entity_id' => $livrablesRealisation->id,
@@ -115,7 +112,6 @@ class BaseLivrablesRealisationController extends AdminController
 
         $validatedData = $request->validated();
         $livrablesRealisation = $this->livrablesRealisationService->update($id, $validatedData);
-
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
@@ -189,5 +185,25 @@ class BaseLivrablesRealisationController extends AdminController
         $livrablesRealisations = $this->livrablesRealisationService->all();
         return response()->json($livrablesRealisations);
     }
+
+
+    public function dataCalcul(Request $request)
+    {
+
+        // Extraire les données de la requête
+        $data = $request->all();
+
+        $livrablesRealisation = $this->livrablesRealisationService->createInstance($data);
+    
+        // Mise à jour des attributs via le service
+        $updatedLivrablesRealisation = $this->livrablesRealisationService->dataCalcul($livrablesRealisation);
+    
+        return response()->json([
+            'success' => true,
+            'entity' => $updatedLivrablesRealisation
+        ]);
+    }
+    
+
 
 }

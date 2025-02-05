@@ -64,9 +64,6 @@ class BaseLivrableController extends AdminController
         $validatedData = $request->validated();
         $livrable = $this->livrableService->create($validatedData);
 
-
-
-
         if ($request->ajax()) {
             return response()->json(['success' => true, 
             'entity_id' => $livrable->id,
@@ -121,7 +118,6 @@ class BaseLivrableController extends AdminController
 
         $validatedData = $request->validated();
         $livrable = $this->livrableService->update($id, $validatedData);
-
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
@@ -195,5 +191,25 @@ class BaseLivrableController extends AdminController
         $livrables = $this->livrableService->all();
         return response()->json($livrables);
     }
+
+
+    public function dataCalcul(Request $request)
+    {
+
+        // Extraire les données de la requête
+        $data = $request->all();
+
+        $livrable = $this->livrableService->createInstance($data);
+    
+        // Mise à jour des attributs via le service
+        $updatedLivrable = $this->livrableService->dataCalcul($livrable);
+    
+        return response()->json([
+            'success' => true,
+            'entity' => $updatedLivrable
+        ]);
+    }
+    
+
 
 }

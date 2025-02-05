@@ -22,6 +22,7 @@
                 type="input"
                 class="form-control"
                 required
+                
                 id="titre"
                 placeholder="{{ __('PkgRealisationProjets::livrablesRealisation.titre') }}"
                 value="{{ $itemLivrablesRealisation ? $itemLivrablesRealisation->titre : old('titre') }}">
@@ -39,6 +40,7 @@
             <textarea rows="" cols=""
                 name="description"
                 class="form-control richText"
+                
                 
                 id="description"
                 placeholder="{{ __('PkgRealisationProjets::livrablesRealisation.description') }}">
@@ -60,6 +62,7 @@
                 type="input"
                 class="form-control"
                 
+                
                 id="lien"
                 placeholder="{{ __('PkgRealisationProjets::livrablesRealisation.lien') }}"
                 value="{{ $itemLivrablesRealisation ? $itemLivrablesRealisation->lien : old('lien') }}">
@@ -80,6 +83,7 @@
             <select 
             id="livrable_id" 
             required
+            
             name="livrable_id" 
             class="form-control select2">
              <option value="">Sélectionnez une option</option>

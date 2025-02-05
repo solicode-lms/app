@@ -37,6 +37,10 @@ class BasePermission extends BaseModel
     protected $fillable = [
         'name', 'guard_name', 'controller_id'
     ];
+    public $manyToMany = [
+        'features',
+        'roles'
+    ];
 
     /**
      * Relation BelongsTo pour SysController.

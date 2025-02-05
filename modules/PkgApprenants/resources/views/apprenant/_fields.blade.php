@@ -22,6 +22,7 @@
                 type="input"
                 class="form-control"
                 required
+                
                 id="nom"
                 placeholder="{{ __('PkgApprenants::apprenant.nom') }}"
                 value="{{ $itemApprenant ? $itemApprenant->nom : old('nom') }}">
@@ -43,6 +44,7 @@
                 type="input"
                 class="form-control"
                 required
+                
                 id="prenom"
                 placeholder="{{ __('PkgApprenants::apprenant.prenom') }}"
                 value="{{ $itemApprenant ? $itemApprenant->prenom : old('prenom') }}">
@@ -64,6 +66,7 @@
                 type="input"
                 class="form-control"
                 required
+                
                 id="prenom_arab"
                 placeholder="{{ __('PkgApprenants::apprenant.prenom_arab') }}"
                 value="{{ $itemApprenant ? $itemApprenant->prenom_arab : old('prenom_arab') }}">
@@ -85,6 +88,7 @@
                 type="input"
                 class="form-control"
                 required
+                
                 id="nom_arab"
                 placeholder="{{ __('PkgApprenants::apprenant.nom_arab') }}"
                 value="{{ $itemApprenant ? $itemApprenant->nom_arab : old('nom_arab') }}">
@@ -106,6 +110,7 @@
                 type="input"
                 class="form-control"
                 required
+                
                 id="tele_num"
                 placeholder="{{ __('PkgApprenants::apprenant.tele_num') }}"
                 value="{{ $itemApprenant ? $itemApprenant->tele_num : old('tele_num') }}">
@@ -124,6 +129,7 @@
                 name="profile_image"
                 type="input"
                 class="form-control"
+                
                 
                 id="profile_image"
                 placeholder="{{ __('PkgApprenants::apprenant.profile_image') }}"
@@ -146,6 +152,7 @@
                 type="input"
                 class="form-control"
                 required
+                
                 id="matricule"
                 placeholder="{{ __('PkgApprenants::apprenant.matricule') }}"
                 value="{{ $itemApprenant ? $itemApprenant->matricule : old('matricule') }}">
@@ -167,6 +174,7 @@
                 type="input"
                 class="form-control"
                 required
+                
                 id="sexe"
                 placeholder="{{ __('PkgApprenants::apprenant.sexe') }}"
                 value="{{ $itemApprenant ? $itemApprenant->sexe : old('sexe') }}">
@@ -188,6 +196,7 @@
                 type="number"
                 class="form-control"
                 required
+                
                 id="actif"
                 placeholder="{{ __('PkgApprenants::apprenant.actif') }}"
                 value="{{ $itemApprenant ? $itemApprenant->actif : old('actif') }}">
@@ -207,6 +216,7 @@
                 type="input"
                 class="form-control"
                 
+                
                 id="diplome"
                 placeholder="{{ __('PkgApprenants::apprenant.diplome') }}"
                 value="{{ $itemApprenant ? $itemApprenant->diplome : old('diplome') }}">
@@ -225,6 +235,7 @@
                 name="date_naissance"
                 type="date"
                 class="form-control datetimepicker"
+                
                 
                 id="date_naissance"
                 placeholder="{{ __('PkgApprenants::apprenant.date_naissance') }}"
@@ -249,6 +260,7 @@
                 type="date"
                 class="form-control datetimepicker"
                 
+                
                 id="date_inscription"
                 placeholder="{{ __('PkgApprenants::apprenant.date_inscription') }}"
                 value="{{ $itemApprenant ? $itemApprenant->date_inscription : old('date_inscription') }}">
@@ -272,6 +284,7 @@
                 type="input"
                 class="form-control"
                 
+                
                 id="lieu_naissance"
                 placeholder="{{ __('PkgApprenants::apprenant.lieu_naissance') }}"
                 value="{{ $itemApprenant ? $itemApprenant->lieu_naissance : old('lieu_naissance') }}">
@@ -291,6 +304,7 @@
                 type="input"
                 class="form-control"
                 
+                
                 id="cin"
                 placeholder="{{ __('PkgApprenants::apprenant.cin') }}"
                 value="{{ $itemApprenant ? $itemApprenant->cin : old('cin') }}">
@@ -308,6 +322,7 @@
             <textarea rows="" cols=""
                 name="adresse"
                 class="form-control richText"
+                
                 
                 id="adresse"
                 placeholder="{{ __('PkgApprenants::apprenant.adresse') }}">
@@ -327,6 +342,7 @@
             </label>
             <select 
             id="niveaux_scolaire_id" 
+            
             
             name="niveaux_scolaire_id" 
             class="form-control select2">
@@ -354,6 +370,7 @@
             <select 
             id="nationalite_id" 
             
+            
             name="nationalite_id" 
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
@@ -380,6 +397,7 @@
             <select 
             id="user_id" 
             
+            
             name="user_id" 
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
@@ -405,6 +423,7 @@
                 id="groupes"
                 name="groupes[]"
                 class="form-control select2"
+                
                 multiple="multiple">
                
                 @foreach ($groupes as $groupe)

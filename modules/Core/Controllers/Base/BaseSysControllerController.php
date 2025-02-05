@@ -61,9 +61,6 @@ class BaseSysControllerController extends AdminController
         $validatedData = $request->validated();
         $sysController = $this->sysControllerService->create($validatedData);
 
-
-
-
         if ($request->ajax()) {
             return response()->json(['success' => true, 
             'entity_id' => $sysController->id,
@@ -126,7 +123,6 @@ class BaseSysControllerController extends AdminController
 
         $validatedData = $request->validated();
         $sysController = $this->sysControllerService->update($id, $validatedData);
-
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
@@ -200,5 +196,25 @@ class BaseSysControllerController extends AdminController
         $sysControllers = $this->sysControllerService->all();
         return response()->json($sysControllers);
     }
+
+
+    public function dataCalcul(Request $request)
+    {
+
+        // Extraire les données de la requête
+        $data = $request->all();
+
+        $sysController = $this->sysControllerService->createInstance($data);
+    
+        // Mise à jour des attributs via le service
+        $updatedSysController = $this->sysControllerService->dataCalcul($sysController);
+    
+        return response()->json([
+            'success' => true,
+            'entity' => $updatedSysController
+        ]);
+    }
+    
+
 
 }

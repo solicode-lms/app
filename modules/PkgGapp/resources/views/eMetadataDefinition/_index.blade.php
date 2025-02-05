@@ -17,6 +17,7 @@
         showUrl: '{{ route('eMetadataDefinitions.show',  ['eMetadataDefinition' => ':id']) }}',
         storeUrl: '{{ route('eMetadataDefinitions.store') }}', 
         deleteUrl: '{{ route('eMetadataDefinitions.destroy',  ['eMetadataDefinition' => ':id']) }}', 
+        calculationUrl:  '{{ route('eMetadataDefinitions.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgGapp::eMetadataDefinition.singular") }}',
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgGapp::eMetadataDefinition.singular") }}',

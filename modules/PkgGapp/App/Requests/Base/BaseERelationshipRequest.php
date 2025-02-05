@@ -9,30 +9,45 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class BaseERelationshipRequest extends FormRequest
 {
+    /**
+     * Détermine si l'utilisateur est autorisé à effectuer cette requête.
+     *
+     * @return bool
+     */
     public function authorize(): bool
     {
         return true;
     }
 
+    /**
+     * Retourne les règles de validation appliquées aux champs de la requête.
+     *
+     * @return array
+     */
     public function rules(): array
     {
         return [
-            'name' => 'required|max:255',
-            'type' => 'required|max:255',
+            'name' => 'required|string|max:255',
+            'type' => 'required|string|max:255',
             'source_e_model_id' => 'required',
             'target_e_model_id' => 'required',
-            'cascade_on_delete' => 'required',
-            'is_cascade' => 'required',
-            'description' => 'nullable',
-            'column_name' => 'nullable|max:255',
-            'referenced_table' => 'nullable|max:255',
-            'referenced_column' => 'nullable|max:255',
-            'through' => 'nullable|max:255',
-            'with_column' => 'nullable|max:255',
-            'morph_name' => 'nullable|max:255'
+            'cascade_on_delete' => 'required|integer',
+            'is_cascade' => 'required|integer',
+            'description' => 'nullable|string',
+            'column_name' => 'nullable|string|max:255',
+            'referenced_table' => 'nullable|string|max:255',
+            'referenced_column' => 'nullable|string|max:255',
+            'through' => 'nullable|string|max:255',
+            'with_column' => 'nullable|string|max:255',
+            'morph_name' => 'nullable|string|max:255'
         ];
     }
 
+    /**
+     * Retourne les messages de validation associés aux règles.
+     *
+     * @return array
+     */
     public function messages(): array
     {
         return [
@@ -41,15 +56,10 @@ class BaseERelationshipRequest extends FormRequest
             'type.required' => __('validation.required', ['attribute' => __('PkgGapp::ERelationship.type')]),
             'type.max' => __('validation.typeMax'),
             'source_e_model_id.required' => __('validation.required', ['attribute' => __('PkgGapp::ERelationship.source_e_model_id')]),
-            'source_e_model_id.max' => __('validation.source_e_model_idMax'),
             'target_e_model_id.required' => __('validation.required', ['attribute' => __('PkgGapp::ERelationship.target_e_model_id')]),
-            'target_e_model_id.max' => __('validation.target_e_model_idMax'),
             'cascade_on_delete.required' => __('validation.required', ['attribute' => __('PkgGapp::ERelationship.cascade_on_delete')]),
-            'cascade_on_delete.max' => __('validation.cascade_on_deleteMax'),
             'is_cascade.required' => __('validation.required', ['attribute' => __('PkgGapp::ERelationship.is_cascade')]),
-            'is_cascade.max' => __('validation.is_cascadeMax'),
             'description.required' => __('validation.required', ['attribute' => __('PkgGapp::ERelationship.description')]),
-            'description.max' => __('validation.descriptionMax'),
             'column_name.required' => __('validation.required', ['attribute' => __('PkgGapp::ERelationship.column_name')]),
             'column_name.max' => __('validation.column_nameMax'),
             'referenced_table.required' => __('validation.required', ['attribute' => __('PkgGapp::ERelationship.referenced_table')]),

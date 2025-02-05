@@ -68,9 +68,6 @@ class BaseEMetadatumController extends AdminController
         $validatedData = $request->validated();
         $eMetadatum = $this->eMetadatumService->create($validatedData);
 
-
-
-
         if ($request->ajax()) {
             return response()->json(['success' => true, 
             'entity_id' => $eMetadatum->id,
@@ -127,7 +124,6 @@ class BaseEMetadatumController extends AdminController
 
         $validatedData = $request->validated();
         $eMetadatum = $this->eMetadatumService->update($id, $validatedData);
-
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
@@ -201,5 +197,25 @@ class BaseEMetadatumController extends AdminController
         $eMetadata = $this->eMetadatumService->all();
         return response()->json($eMetadata);
     }
+
+
+    public function dataCalcul(Request $request)
+    {
+
+        // Extraire les données de la requête
+        $data = $request->all();
+
+        $eMetadatum = $this->eMetadatumService->createInstance($data);
+    
+        // Mise à jour des attributs via le service
+        $updatedEMetadatum = $this->eMetadatumService->dataCalcul($eMetadatum);
+    
+        return response()->json([
+            'success' => true,
+            'entity' => $updatedEMetadatum
+        ]);
+    }
+    
+
 
 }

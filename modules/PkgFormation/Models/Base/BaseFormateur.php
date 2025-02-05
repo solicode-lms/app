@@ -40,6 +40,10 @@ class BaseFormateur extends BaseModel
     protected $fillable = [
         'matricule', 'nom', 'prenom', 'prenom_arab', 'nom_arab', 'tele_num', 'adresse', 'diplome', 'echelle', 'echelon', 'profile_image', 'user_id'
     ];
+    public $manyToMany = [
+        'groupes',
+        'specialites'
+    ];
 
     /**
      * Relation BelongsTo pour User.

@@ -17,5 +17,8 @@ Route::middleware('auth')->group(function () {
             Route::get('groupes/export', [GroupeController::class, 'export'])->name('groupes.export');
             Route::post('groupes/import', [GroupeController::class, 'import'])->name('groupes.import');
         });
+
+        Route::post('groupes/data-calcul', [GroupeController::class, 'dataCalcul'])->name('groupes.dataCalcul');
+
     });
 });

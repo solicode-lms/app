@@ -17,5 +17,8 @@ Route::middleware('auth')->group(function () {
             Route::get('ePackages/export', [EPackageController::class, 'export'])->name('ePackages.export');
             Route::post('ePackages/import', [EPackageController::class, 'import'])->name('ePackages.import');
         });
+
+        Route::post('ePackages/data-calcul', [EPackageController::class, 'dataCalcul'])->name('ePackages.dataCalcul');
+
     });
 });

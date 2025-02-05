@@ -58,9 +58,6 @@ class BaseFiliereController extends AdminController
         $validatedData = $request->validated();
         $filiere = $this->filiereService->create($validatedData);
 
-
-
-
         if ($request->ajax()) {
             return response()->json(['success' => true, 
             'entity_id' => $filiere->id,
@@ -131,7 +128,6 @@ class BaseFiliereController extends AdminController
 
         $validatedData = $request->validated();
         $filiere = $this->filiereService->update($id, $validatedData);
-
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
@@ -205,5 +201,25 @@ class BaseFiliereController extends AdminController
         $filieres = $this->filiereService->all();
         return response()->json($filieres);
     }
+
+
+    public function dataCalcul(Request $request)
+    {
+
+        // Extraire les données de la requête
+        $data = $request->all();
+
+        $filiere = $this->filiereService->createInstance($data);
+    
+        // Mise à jour des attributs via le service
+        $updatedFiliere = $this->filiereService->dataCalcul($filiere);
+    
+        return response()->json([
+            'success' => true,
+            'entity' => $updatedFiliere
+        ]);
+    }
+    
+
 
 }

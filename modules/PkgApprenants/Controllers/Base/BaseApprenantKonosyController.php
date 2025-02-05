@@ -56,9 +56,6 @@ class BaseApprenantKonosyController extends AdminController
         $validatedData = $request->validated();
         $apprenantKonosy = $this->apprenantKonosyService->create($validatedData);
 
-
-
-
         if ($request->ajax()) {
             return response()->json(['success' => true, 
             'entity_id' => $apprenantKonosy->id,
@@ -109,7 +106,6 @@ class BaseApprenantKonosyController extends AdminController
 
         $validatedData = $request->validated();
         $apprenantKonosy = $this->apprenantKonosyService->update($id, $validatedData);
-
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
@@ -183,5 +179,25 @@ class BaseApprenantKonosyController extends AdminController
         $apprenantKonosies = $this->apprenantKonosyService->all();
         return response()->json($apprenantKonosies);
     }
+
+
+    public function dataCalcul(Request $request)
+    {
+
+        // Extraire les données de la requête
+        $data = $request->all();
+
+        $apprenantKonosy = $this->apprenantKonosyService->createInstance($data);
+    
+        // Mise à jour des attributs via le service
+        $updatedApprenantKonosy = $this->apprenantKonosyService->dataCalcul($apprenantKonosy);
+    
+        return response()->json([
+            'success' => true,
+            'entity' => $updatedApprenantKonosy
+        ]);
+    }
+    
+
 
 }

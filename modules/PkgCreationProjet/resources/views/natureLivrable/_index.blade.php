@@ -17,6 +17,7 @@
         showUrl: '{{ route('natureLivrables.show',  ['natureLivrable' => ':id']) }}',
         storeUrl: '{{ route('natureLivrables.store') }}', 
         deleteUrl: '{{ route('natureLivrables.destroy',  ['natureLivrable' => ':id']) }}', 
+        calculationUrl:  '{{ route('natureLivrables.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgCreationProjet::natureLivrable.singular") }}',
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgCreationProjet::natureLivrable.singular") }}',

@@ -62,9 +62,6 @@ class BaseEModelController extends AdminController
         $validatedData = $request->validated();
         $eModel = $this->eModelService->create($validatedData);
 
-
-
-
         if ($request->ajax()) {
             return response()->json(['success' => true, 
             'entity_id' => $eModel->id,
@@ -138,7 +135,6 @@ class BaseEModelController extends AdminController
         $validatedData = $request->validated();
         $eModel = $this->eModelService->update($id, $validatedData);
 
-
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
             __('Core::msg.updateSuccess', [
@@ -211,5 +207,25 @@ class BaseEModelController extends AdminController
         $eModels = $this->eModelService->all();
         return response()->json($eModels);
     }
+
+
+    public function dataCalcul(Request $request)
+    {
+
+        // Extraire les données de la requête
+        $data = $request->all();
+
+        $eModel = $this->eModelService->createInstance($data);
+    
+        // Mise à jour des attributs via le service
+        $updatedEModel = $this->eModelService->dataCalcul($eModel);
+    
+        return response()->json([
+            'success' => true,
+            'entity' => $updatedEModel
+        ]);
+    }
+    
+
 
 }

@@ -35,6 +35,9 @@ class BaseSpecialite extends BaseModel
     protected $fillable = [
         'nom', 'description'
     ];
+    public $manyToMany = [
+        'formateurs'
+    ];
 
 
     /**

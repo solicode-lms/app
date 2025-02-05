@@ -10,5 +10,13 @@ use Modules\PkgGapp\Services\Base\BaseEDataFieldService;
  */
 class EDataFieldService extends BaseEDataFieldService
 {
-   
+    public function dataCalcul($eDataField)
+    {
+        // En Cas d'édit
+        if(isset($eDataField->id)){
+          
+        }
+      
+        return $eDataField;
+    }
 }

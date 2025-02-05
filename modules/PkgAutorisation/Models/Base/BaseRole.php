@@ -36,6 +36,10 @@ class BaseRole extends BaseModel
     protected $fillable = [
         'name', 'guard_name'
     ];
+    public $manyToMany = [
+        'permissions',
+        'users'
+    ];
 
 
     /**

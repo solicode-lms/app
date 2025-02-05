@@ -37,6 +37,9 @@ class BaseUser extends BaseModel
     protected $fillable = [
         'name', 'email', 'email_verified_at', 'password', 'remember_token'
     ];
+    public $manyToMany = [
+        'roles'
+    ];
 
 
     /**

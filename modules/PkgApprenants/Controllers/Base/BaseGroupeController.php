@@ -73,15 +73,6 @@ class BaseGroupeController extends AdminController
         $validatedData = $request->validated();
         $groupe = $this->groupeService->create($validatedData);
 
-
-        if ($request->has('apprenants')) {
-            $groupe->apprenants()->sync($request->input('apprenants'));
-        }
-        if ($request->has('formateurs')) {
-            $groupe->formateurs()->sync($request->input('formateurs'));
-        }
-
-
         if ($request->ajax()) {
             return response()->json(['success' => true, 
             'entity_id' => $groupe->id,
@@ -150,9 +141,6 @@ class BaseGroupeController extends AdminController
 
         $validatedData = $request->validated();
         $groupe = $this->groupeService->update($id, $validatedData);
-
-        $groupe->apprenants()->sync($request->input('apprenants'));
-        $groupe->formateurs()->sync($request->input('formateurs'));
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
@@ -226,5 +214,25 @@ class BaseGroupeController extends AdminController
         $groupes = $this->groupeService->all();
         return response()->json($groupes);
     }
+
+
+    public function dataCalcul(Request $request)
+    {
+
+        // Extraire les données de la requête
+        $data = $request->all();
+
+        $groupe = $this->groupeService->createInstance($data);
+    
+        // Mise à jour des attributs via le service
+        $updatedGroupe = $this->groupeService->dataCalcul($groupe);
+    
+        return response()->json([
+            'success' => true,
+            'entity' => $updatedGroupe
+        ]);
+    }
+    
+
 
 }

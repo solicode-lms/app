@@ -64,15 +64,6 @@ class BaseRoleController extends AdminController
         $validatedData = $request->validated();
         $role = $this->roleService->create($validatedData);
 
-
-        if ($request->has('permissions')) {
-            $role->permissions()->sync($request->input('permissions'));
-        }
-        if ($request->has('users')) {
-            $role->users()->sync($request->input('users'));
-        }
-
-
         if ($request->ajax()) {
             return response()->json(['success' => true, 
             'entity_id' => $role->id,
@@ -127,9 +118,6 @@ class BaseRoleController extends AdminController
 
         $validatedData = $request->validated();
         $role = $this->roleService->update($id, $validatedData);
-
-        $role->permissions()->sync($request->input('permissions'));
-        $role->users()->sync($request->input('users'));
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
@@ -203,5 +191,25 @@ class BaseRoleController extends AdminController
         $roles = $this->roleService->all();
         return response()->json($roles);
     }
+
+
+    public function dataCalcul(Request $request)
+    {
+
+        // Extraire les données de la requête
+        $data = $request->all();
+
+        $role = $this->roleService->createInstance($data);
+    
+        // Mise à jour des attributs via le service
+        $updatedRole = $this->roleService->dataCalcul($role);
+    
+        return response()->json([
+            'success' => true,
+            'entity' => $updatedRole
+        ]);
+    }
+    
+
 
 }

@@ -17,5 +17,8 @@ Route::middleware('auth')->group(function () {
             Route::get('validations/export', [ValidationController::class, 'export'])->name('validations.export');
             Route::post('validations/import', [ValidationController::class, 'import'])->name('validations.import');
         });
+
+        Route::post('validations/data-calcul', [ValidationController::class, 'dataCalcul'])->name('validations.dataCalcul');
+
     });
 });

@@ -17,5 +17,8 @@ Route::middleware('auth')->group(function () {
             Route::get('eMetadataDefinitions/export', [EMetadataDefinitionController::class, 'export'])->name('eMetadataDefinitions.export');
             Route::post('eMetadataDefinitions/import', [EMetadataDefinitionController::class, 'import'])->name('eMetadataDefinitions.import');
         });
+
+        Route::post('eMetadataDefinitions/data-calcul', [EMetadataDefinitionController::class, 'dataCalcul'])->name('eMetadataDefinitions.dataCalcul');
+
     });
 });

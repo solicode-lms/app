@@ -17,6 +17,7 @@
         showUrl: '{{ route('modules.show',  ['module' => ':id']) }}',
         storeUrl: '{{ route('modules.store') }}', 
         deleteUrl: '{{ route('modules.destroy',  ['module' => ':id']) }}', 
+        calculationUrl:  '{{ route('modules.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgFormation::module.singular") }}',
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgFormation::module.singular") }}',

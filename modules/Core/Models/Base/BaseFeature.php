@@ -36,6 +36,9 @@ class BaseFeature extends BaseModel
     protected $fillable = [
         'name', 'description', 'feature_domain_id'
     ];
+    public $manyToMany = [
+        'permissions'
+    ];
 
     /**
      * Relation BelongsTo pour FeatureDomain.

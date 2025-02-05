@@ -17,6 +17,7 @@
         showUrl: '{{ route('filieres.show',  ['filiere' => ':id']) }}',
         storeUrl: '{{ route('filieres.store') }}', 
         deleteUrl: '{{ route('filieres.destroy',  ['filiere' => ':id']) }}', 
+        calculationUrl:  '{{ route('filieres.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgFormation::filiere.singular") }}',
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgFormation::filiere.singular") }}',

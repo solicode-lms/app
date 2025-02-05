@@ -61,9 +61,6 @@ class BaseFeatureDomainController extends AdminController
         $validatedData = $request->validated();
         $featureDomain = $this->featureDomainService->create($validatedData);
 
-
-
-
         if ($request->ajax()) {
             return response()->json(['success' => true, 
             'entity_id' => $featureDomain->id,
@@ -126,7 +123,6 @@ class BaseFeatureDomainController extends AdminController
 
         $validatedData = $request->validated();
         $featureDomain = $this->featureDomainService->update($id, $validatedData);
-
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
@@ -200,5 +196,25 @@ class BaseFeatureDomainController extends AdminController
         $featureDomains = $this->featureDomainService->all();
         return response()->json($featureDomains);
     }
+
+
+    public function dataCalcul(Request $request)
+    {
+
+        // Extraire les données de la requête
+        $data = $request->all();
+
+        $featureDomain = $this->featureDomainService->createInstance($data);
+    
+        // Mise à jour des attributs via le service
+        $updatedFeatureDomain = $this->featureDomainService->dataCalcul($featureDomain);
+    
+        return response()->json([
+            'success' => true,
+            'entity' => $updatedFeatureDomain
+        ]);
+    }
+    
+
 
 }

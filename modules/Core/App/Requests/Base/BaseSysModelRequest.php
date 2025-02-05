@@ -9,22 +9,37 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class BaseSysModelRequest extends FormRequest
 {
+    /**
+     * Détermine si l'utilisateur est autorisé à effectuer cette requête.
+     *
+     * @return bool
+     */
     public function authorize(): bool
     {
         return true;
     }
 
+    /**
+     * Retourne les règles de validation appliquées aux champs de la requête.
+     *
+     * @return array
+     */
     public function rules(): array
     {
         return [
-            'name' => 'required|max:255',
-            'model' => 'required|max:255',
-            'description' => 'nullable',
+            'name' => 'required|string|max:255',
+            'model' => 'required|string|max:255',
+            'description' => 'nullable|string',
             'sys_module_id' => 'required',
             'sys_color_id' => 'nullable'
         ];
     }
 
+    /**
+     * Retourne les messages de validation associés aux règles.
+     *
+     * @return array
+     */
     public function messages(): array
     {
         return [
@@ -33,11 +48,8 @@ class BaseSysModelRequest extends FormRequest
             'model.required' => __('validation.required', ['attribute' => __('Core::SysModel.model')]),
             'model.max' => __('validation.modelMax'),
             'description.required' => __('validation.required', ['attribute' => __('Core::SysModel.description')]),
-            'description.max' => __('validation.descriptionMax'),
             'sys_module_id.required' => __('validation.required', ['attribute' => __('Core::SysModel.sys_module_id')]),
-            'sys_module_id.max' => __('validation.sys_module_idMax'),
-            'sys_color_id.required' => __('validation.required', ['attribute' => __('Core::SysModel.sys_color_id')]),
-            'sys_color_id.max' => __('validation.sys_color_idMax')
+            'sys_color_id.required' => __('validation.required', ['attribute' => __('Core::SysModel.sys_color_id')])
         ];
     }
 }

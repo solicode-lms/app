@@ -10,5 +10,13 @@ use Modules\PkgGapp\Services\Base\BaseEModelService;
  */
 class EModelService extends BaseEModelService
 {
-   
+    public function dataCalcul($eModel)
+    {
+        // En Cas d'édit
+        if(isset($eModel->id)){
+          
+        }
+      
+        return $eModel;
+    }
 }

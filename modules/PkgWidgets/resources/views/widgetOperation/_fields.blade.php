@@ -22,6 +22,7 @@
                 type="input"
                 class="form-control"
                 required
+                
                 id="operation"
                 placeholder="{{ __('PkgWidgets::widgetOperation.operation') }}"
                 value="{{ $itemWidgetOperation ? $itemWidgetOperation->operation : old('operation') }}">
@@ -39,6 +40,7 @@
             <textarea rows="" cols=""
                 name="description"
                 class="form-control richText"
+                
                 
                 id="description"
                 placeholder="{{ __('PkgWidgets::widgetOperation.description') }}">

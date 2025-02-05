@@ -22,6 +22,7 @@
                 type="input"
                 class="form-control"
                 required
+                
                 id="code"
                 placeholder="{{ __('PkgFormation::filiere.code') }}"
                 value="{{ $itemFiliere ? $itemFiliere->code : old('code') }}">
@@ -41,6 +42,7 @@
                 type="input"
                 class="form-control"
                 
+                
                 id="nom"
                 placeholder="{{ __('PkgFormation::filiere.nom') }}"
                 value="{{ $itemFiliere ? $itemFiliere->nom : old('nom') }}">
@@ -58,6 +60,7 @@
             <textarea rows="" cols=""
                 name="description"
                 class="form-control richText"
+                
                 
                 id="description"
                 placeholder="{{ __('PkgFormation::filiere.description') }}">

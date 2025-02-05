@@ -9,20 +9,37 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class BasePermissionRequest extends FormRequest
 {
+    /**
+     * Détermine si l'utilisateur est autorisé à effectuer cette requête.
+     *
+     * @return bool
+     */
     public function authorize(): bool
     {
         return true;
     }
 
+    /**
+     * Retourne les règles de validation appliquées aux champs de la requête.
+     *
+     * @return array
+     */
     public function rules(): array
     {
         return [
-            'name' => 'required|max:255',
-            'guard_name' => 'required|max:255',
-            'controller_id' => 'nullable'
+            'name' => 'required|string|max:255',
+            'guard_name' => 'required|string|max:255',
+            'controller_id' => 'nullable',
+            'features' => 'nullable|array',
+            'roles' => 'nullable|array'
         ];
     }
 
+    /**
+     * Retourne les messages de validation associés aux règles.
+     *
+     * @return array
+     */
     public function messages(): array
     {
         return [
@@ -31,7 +48,10 @@ class BasePermissionRequest extends FormRequest
             'guard_name.required' => __('validation.required', ['attribute' => __('PkgAutorisation::Permission.guard_name')]),
             'guard_name.max' => __('validation.guard_nameMax'),
             'controller_id.required' => __('validation.required', ['attribute' => __('PkgAutorisation::Permission.controller_id')]),
-            'controller_id.max' => __('validation.controller_idMax')
+            'features.required' => __('validation.required', ['attribute' => __('PkgAutorisation::Permission.features')]),
+            'features.array' => __('validation.array', ['attribute' => __('PkgAutorisation::Permission.features')]),
+            'roles.required' => __('validation.required', ['attribute' => __('PkgAutorisation::Permission.roles')]),
+            'roles.array' => __('validation.array', ['attribute' => __('PkgAutorisation::Permission.roles')])
         ];
     }
 }

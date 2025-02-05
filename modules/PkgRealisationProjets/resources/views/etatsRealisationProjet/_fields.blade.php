@@ -22,6 +22,7 @@
                 type="input"
                 class="form-control"
                 required
+                
                 id="titre"
                 placeholder="{{ __('PkgRealisationProjets::etatsRealisationProjet.titre') }}"
                 value="{{ $itemEtatsRealisationProjet ? $itemEtatsRealisationProjet->titre : old('titre') }}">
@@ -39,6 +40,7 @@
             <textarea rows="" cols=""
                 name="description"
                 class="form-control richText"
+                
                 
                 id="description"
                 placeholder="{{ __('PkgRealisationProjets::etatsRealisationProjet.description') }}">
@@ -61,6 +63,7 @@
             <select 
             id="formateur_id" 
             required
+            
             name="formateur_id" 
             class="form-control select2">
              <option value="">Sélectionnez une option</option>

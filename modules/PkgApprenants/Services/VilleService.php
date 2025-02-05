@@ -10,5 +10,13 @@ use Modules\PkgApprenants\Services\Base\BaseVilleService;
  */
 class VilleService extends BaseVilleService
 {
-   
+    public function dataCalcul($ville)
+    {
+        // En Cas d'édit
+        if(isset($ville->id)){
+          
+        }
+      
+        return $ville;
+    }
 }

@@ -17,6 +17,7 @@
         showUrl: '{{ route('eModels.show',  ['eModel' => ':id']) }}',
         storeUrl: '{{ route('eModels.store') }}', 
         deleteUrl: '{{ route('eModels.destroy',  ['eModel' => ':id']) }}', 
+        calculationUrl:  '{{ route('eModels.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgGapp::eModel.singular") }}',
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgGapp::eModel.singular") }}',

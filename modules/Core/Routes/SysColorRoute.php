@@ -17,5 +17,8 @@ Route::middleware('auth')->group(function () {
             Route::get('sysColors/export', [SysColorController::class, 'export'])->name('sysColors.export');
             Route::post('sysColors/import', [SysColorController::class, 'import'])->name('sysColors.import');
         });
+
+        Route::post('sysColors/data-calcul', [SysColorController::class, 'dataCalcul'])->name('sysColors.dataCalcul');
+
     });
 });

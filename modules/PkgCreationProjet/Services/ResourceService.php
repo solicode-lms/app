@@ -10,5 +10,13 @@ use Modules\PkgCreationProjet\Services\Base\BaseResourceService;
  */
 class ResourceService extends BaseResourceService
 {
-   
+    public function dataCalcul($resource)
+    {
+        // En Cas d'édit
+        if(isset($resource->id)){
+          
+        }
+      
+        return $resource;
+    }
 }

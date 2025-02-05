@@ -17,5 +17,8 @@ Route::middleware('auth')->group(function () {
             Route::get('eModels/export', [EModelController::class, 'export'])->name('eModels.export');
             Route::post('eModels/import', [EModelController::class, 'import'])->name('eModels.import');
         });
+
+        Route::post('eModels/data-calcul', [EModelController::class, 'dataCalcul'])->name('eModels.dataCalcul');
+
     });
 });

@@ -71,15 +71,6 @@ class BaseFormateurController extends AdminController
         $validatedData = $request->validated();
         $formateur = $this->formateurService->create($validatedData);
 
-
-        if ($request->has('groupes')) {
-            $formateur->groupes()->sync($request->input('groupes'));
-        }
-        if ($request->has('specialites')) {
-            $formateur->specialites()->sync($request->input('specialites'));
-        }
-
-
         if ($request->ajax()) {
             return response()->json(['success' => true, 
             'entity_id' => $formateur->id,
@@ -167,9 +158,6 @@ class BaseFormateurController extends AdminController
         $validatedData = $request->validated();
         $formateur = $this->formateurService->update($id, $validatedData);
 
-        $formateur->groupes()->sync($request->input('groupes'));
-        $formateur->specialites()->sync($request->input('specialites'));
-
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
             __('Core::msg.updateSuccess', [
@@ -242,5 +230,25 @@ class BaseFormateurController extends AdminController
         $formateurs = $this->formateurService->all();
         return response()->json($formateurs);
     }
+
+
+    public function dataCalcul(Request $request)
+    {
+
+        // Extraire les données de la requête
+        $data = $request->all();
+
+        $formateur = $this->formateurService->createInstance($data);
+    
+        // Mise à jour des attributs via le service
+        $updatedFormateur = $this->formateurService->dataCalcul($formateur);
+    
+        return response()->json([
+            'success' => true,
+            'entity' => $updatedFormateur
+        ]);
+    }
+    
+
 
 }

@@ -17,5 +17,8 @@ Route::middleware('auth')->group(function () {
             Route::get('apprenantKonosies/export', [ApprenantKonosyController::class, 'export'])->name('apprenantKonosies.export');
             Route::post('apprenantKonosies/import', [ApprenantKonosyController::class, 'import'])->name('apprenantKonosies.import');
         });
+
+        Route::post('apprenantKonosies/data-calcul', [ApprenantKonosyController::class, 'dataCalcul'])->name('apprenantKonosies.dataCalcul');
+
     });
 });

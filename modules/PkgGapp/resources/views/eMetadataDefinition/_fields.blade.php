@@ -22,6 +22,7 @@
                 type="input"
                 class="form-control"
                 required
+                
                 id="name"
                 placeholder="{{ __('PkgGapp::eMetadataDefinition.name') }}"
                 value="{{ $itemEMetadataDefinition ? $itemEMetadataDefinition->name : old('name') }}">
@@ -43,6 +44,7 @@
                 type="input"
                 class="form-control"
                 required
+                
                 id="groupe"
                 placeholder="{{ __('PkgGapp::eMetadataDefinition.groupe') }}"
                 value="{{ $itemEMetadataDefinition ? $itemEMetadataDefinition->groupe : old('groupe') }}">
@@ -64,6 +66,7 @@
                 type="input"
                 class="form-control"
                 required
+                
                 id="type"
                 placeholder="{{ __('PkgGapp::eMetadataDefinition.type') }}"
                 value="{{ $itemEMetadataDefinition ? $itemEMetadataDefinition->type : old('type') }}">
@@ -85,6 +88,7 @@
                 type="input"
                 class="form-control"
                 required
+                
                 id="scope"
                 placeholder="{{ __('PkgGapp::eMetadataDefinition.scope') }}"
                 value="{{ $itemEMetadataDefinition ? $itemEMetadataDefinition->scope : old('scope') }}">
@@ -104,6 +108,7 @@
                 type="input"
                 class="form-control"
                 
+                
                 id="description"
                 placeholder="{{ __('PkgGapp::eMetadataDefinition.description') }}"
                 value="{{ $itemEMetadataDefinition ? $itemEMetadataDefinition->description : old('description') }}">
@@ -122,6 +127,7 @@
                 name="default_value"
                 type="input"
                 class="form-control"
+                
                 
                 id="default_value"
                 placeholder="{{ __('PkgGapp::eMetadataDefinition.default_value') }}"

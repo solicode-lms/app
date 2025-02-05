@@ -17,6 +17,7 @@
         showUrl: '{{ route('sysColors.show',  ['sysColor' => ':id']) }}',
         storeUrl: '{{ route('sysColors.store') }}', 
         deleteUrl: '{{ route('sysColors.destroy',  ['sysColor' => ':id']) }}', 
+        calculationUrl:  '{{ route('sysColors.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("Core::sysColor.singular") }}',
         edit_title: '{{__("Core::msg.edit") . " : " . __("Core::sysColor.singular") }}',

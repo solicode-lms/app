@@ -9,20 +9,35 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class BaseFiliereRequest extends FormRequest
 {
+    /**
+     * Détermine si l'utilisateur est autorisé à effectuer cette requête.
+     *
+     * @return bool
+     */
     public function authorize(): bool
     {
         return true;
     }
 
+    /**
+     * Retourne les règles de validation appliquées aux champs de la requête.
+     *
+     * @return array
+     */
     public function rules(): array
     {
         return [
-            'code' => 'required|max:255',
-            'nom' => 'nullable|max:255',
-            'description' => 'nullable'
+            'code' => 'required|string|max:255',
+            'nom' => 'nullable|string|max:255',
+            'description' => 'nullable|string'
         ];
     }
 
+    /**
+     * Retourne les messages de validation associés aux règles.
+     *
+     * @return array
+     */
     public function messages(): array
     {
         return [
@@ -30,8 +45,7 @@ class BaseFiliereRequest extends FormRequest
             'code.max' => __('validation.codeMax'),
             'nom.required' => __('validation.required', ['attribute' => __('PkgFormation::Filiere.nom')]),
             'nom.max' => __('validation.nomMax'),
-            'description.required' => __('validation.required', ['attribute' => __('PkgFormation::Filiere.description')]),
-            'description.max' => __('validation.descriptionMax')
+            'description.required' => __('validation.required', ['attribute' => __('PkgFormation::Filiere.description')])
         ];
     }
 }

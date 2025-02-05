@@ -56,9 +56,6 @@ class BaseEMetadataDefinitionController extends AdminController
         $validatedData = $request->validated();
         $eMetadataDefinition = $this->eMetadataDefinitionService->create($validatedData);
 
-
-
-
         if ($request->ajax()) {
             return response()->json(['success' => true, 
             'entity_id' => $eMetadataDefinition->id,
@@ -109,7 +106,6 @@ class BaseEMetadataDefinitionController extends AdminController
 
         $validatedData = $request->validated();
         $eMetadataDefinition = $this->eMetadataDefinitionService->update($id, $validatedData);
-
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
@@ -183,5 +179,25 @@ class BaseEMetadataDefinitionController extends AdminController
         $eMetadataDefinitions = $this->eMetadataDefinitionService->all();
         return response()->json($eMetadataDefinitions);
     }
+
+
+    public function dataCalcul(Request $request)
+    {
+
+        // Extraire les données de la requête
+        $data = $request->all();
+
+        $eMetadataDefinition = $this->eMetadataDefinitionService->createInstance($data);
+    
+        // Mise à jour des attributs via le service
+        $updatedEMetadataDefinition = $this->eMetadataDefinitionService->dataCalcul($eMetadataDefinition);
+    
+        return response()->json([
+            'success' => true,
+            'entity' => $updatedEMetadataDefinition
+        ]);
+    }
+    
+
 
 }

@@ -17,5 +17,8 @@ Route::middleware('auth')->group(function () {
             Route::get('livrables/export', [LivrableController::class, 'export'])->name('livrables.export');
             Route::post('livrables/import', [LivrableController::class, 'import'])->name('livrables.import');
         });
+
+        Route::post('livrables/data-calcul', [LivrableController::class, 'dataCalcul'])->name('livrables.dataCalcul');
+
     });
 });

@@ -9,21 +9,36 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class BaseFeatureDomainRequest extends FormRequest
 {
+    /**
+     * Détermine si l'utilisateur est autorisé à effectuer cette requête.
+     *
+     * @return bool
+     */
     public function authorize(): bool
     {
         return true;
     }
 
+    /**
+     * Retourne les règles de validation appliquées aux champs de la requête.
+     *
+     * @return array
+     */
     public function rules(): array
     {
         return [
-            'name' => 'required|max:255',
-            'slug' => 'required|max:255',
-            'description' => 'nullable',
+            'name' => 'required|string|max:255',
+            'slug' => 'required|string|max:255',
+            'description' => 'nullable|string',
             'sys_module_id' => 'required'
         ];
     }
 
+    /**
+     * Retourne les messages de validation associés aux règles.
+     *
+     * @return array
+     */
     public function messages(): array
     {
         return [
@@ -32,9 +47,7 @@ class BaseFeatureDomainRequest extends FormRequest
             'slug.required' => __('validation.required', ['attribute' => __('Core::FeatureDomain.slug')]),
             'slug.max' => __('validation.slugMax'),
             'description.required' => __('validation.required', ['attribute' => __('Core::FeatureDomain.description')]),
-            'description.max' => __('validation.descriptionMax'),
-            'sys_module_id.required' => __('validation.required', ['attribute' => __('Core::FeatureDomain.sys_module_id')]),
-            'sys_module_id.max' => __('validation.sys_module_idMax')
+            'sys_module_id.required' => __('validation.required', ['attribute' => __('Core::FeatureDomain.sys_module_id')])
         ];
     }
 }

@@ -9,36 +9,51 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class BaseApprenantKonosyRequest extends FormRequest
 {
+    /**
+     * Détermine si l'utilisateur est autorisé à effectuer cette requête.
+     *
+     * @return bool
+     */
     public function authorize(): bool
     {
         return true;
     }
 
+    /**
+     * Retourne les règles de validation appliquées aux champs de la requête.
+     *
+     * @return array
+     */
     public function rules(): array
     {
         return [
-            'MatriculeEtudiant' => 'required|max:255',
-            'Nom' => 'required|max:255',
-            'Prenom' => 'required|max:255',
-            'Sexe' => 'required|max:255',
-            'EtudiantActif' => 'required|max:255',
-            'Diplome' => 'nullable|max:255',
-            'Principale' => 'nullable|max:255',
-            'LibelleLong' => 'nullable|max:255',
-            'CodeDiplome' => 'nullable|max:255',
-            'DateNaissance' => 'nullable|max:255',
-            'DateInscription' => 'nullable|max:255',
-            'LieuNaissance' => 'nullable|max:255',
-            'CIN' => 'nullable|max:255',
-            'NTelephone' => 'nullable|max:255',
-            'Adresse' => 'nullable',
-            'Nationalite' => 'nullable|max:255',
-            'Nom_Arabe' => 'nullable|max:255',
-            'Prenom_Arabe' => 'nullable|max:255',
-            'NiveauScolaire' => 'nullable|max:255'
+            'MatriculeEtudiant' => 'required|string|max:255',
+            'Nom' => 'required|string|max:255',
+            'Prenom' => 'required|string|max:255',
+            'Sexe' => 'required|string|max:255',
+            'EtudiantActif' => 'required|string|max:255',
+            'Diplome' => 'nullable|string|max:255',
+            'Principale' => 'nullable|string|max:255',
+            'LibelleLong' => 'nullable|string|max:255',
+            'CodeDiplome' => 'nullable|string|max:255',
+            'DateNaissance' => 'nullable|string|max:255',
+            'DateInscription' => 'nullable|string|max:255',
+            'LieuNaissance' => 'nullable|string|max:255',
+            'CIN' => 'nullable|string|max:255',
+            'NTelephone' => 'nullable|string|max:255',
+            'Adresse' => 'nullable|string',
+            'Nationalite' => 'nullable|string|max:255',
+            'Nom_Arabe' => 'nullable|string|max:255',
+            'Prenom_Arabe' => 'nullable|string|max:255',
+            'NiveauScolaire' => 'nullable|string|max:255'
         ];
     }
 
+    /**
+     * Retourne les messages de validation associés aux règles.
+     *
+     * @return array
+     */
     public function messages(): array
     {
         return [
@@ -71,7 +86,6 @@ class BaseApprenantKonosyRequest extends FormRequest
             'NTelephone.required' => __('validation.required', ['attribute' => __('PkgApprenants::ApprenantKonosy.NTelephone')]),
             'NTelephone.max' => __('validation.NTelephoneMax'),
             'Adresse.required' => __('validation.required', ['attribute' => __('PkgApprenants::ApprenantKonosy.Adresse')]),
-            'Adresse.max' => __('validation.AdresseMax'),
             'Nationalite.required' => __('validation.required', ['attribute' => __('PkgApprenants::ApprenantKonosy.Nationalite')]),
             'Nationalite.max' => __('validation.NationaliteMax'),
             'Nom_Arabe.required' => __('validation.required', ['attribute' => __('PkgApprenants::ApprenantKonosy.Nom_Arabe')]),

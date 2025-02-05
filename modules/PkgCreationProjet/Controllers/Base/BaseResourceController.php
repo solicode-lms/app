@@ -60,9 +60,6 @@ class BaseResourceController extends AdminController
         $validatedData = $request->validated();
         $resource = $this->resourceService->create($validatedData);
 
-
-
-
         if ($request->ajax()) {
             return response()->json(['success' => true, 
             'entity_id' => $resource->id,
@@ -115,7 +112,6 @@ class BaseResourceController extends AdminController
 
         $validatedData = $request->validated();
         $resource = $this->resourceService->update($id, $validatedData);
-
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
@@ -189,5 +185,25 @@ class BaseResourceController extends AdminController
         $resources = $this->resourceService->all();
         return response()->json($resources);
     }
+
+
+    public function dataCalcul(Request $request)
+    {
+
+        // Extraire les données de la requête
+        $data = $request->all();
+
+        $resource = $this->resourceService->createInstance($data);
+    
+        // Mise à jour des attributs via le service
+        $updatedResource = $this->resourceService->dataCalcul($resource);
+    
+        return response()->json([
+            'success' => true,
+            'entity' => $updatedResource
+        ]);
+    }
+    
+
 
 }

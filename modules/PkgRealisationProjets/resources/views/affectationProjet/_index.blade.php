@@ -17,6 +17,7 @@
         showUrl: '{{ route('affectationProjets.show',  ['affectationProjet' => ':id']) }}',
         storeUrl: '{{ route('affectationProjets.store') }}', 
         deleteUrl: '{{ route('affectationProjets.destroy',  ['affectationProjet' => ':id']) }}', 
+        calculationUrl:  '{{ route('affectationProjets.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgRealisationProjets::affectationProjet.singular") }}',
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgRealisationProjets::affectationProjet.singular") }}',

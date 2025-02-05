@@ -9,32 +9,44 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class BaseLivrableRequest extends FormRequest
 {
+    /**
+     * Détermine si l'utilisateur est autorisé à effectuer cette requête.
+     *
+     * @return bool
+     */
     public function authorize(): bool
     {
         return true;
     }
 
+    /**
+     * Retourne les règles de validation appliquées aux champs de la requête.
+     *
+     * @return array
+     */
     public function rules(): array
     {
         return [
-            'titre' => 'required|max:255',
+            'titre' => 'required|string|max:255',
             'nature_livrable_id' => 'required',
             'projet_id' => 'required',
-            'description' => 'nullable'
+            'description' => 'nullable|string'
         ];
     }
 
+    /**
+     * Retourne les messages de validation associés aux règles.
+     *
+     * @return array
+     */
     public function messages(): array
     {
         return [
             'titre.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Livrable.titre')]),
             'titre.max' => __('validation.titreMax'),
             'nature_livrable_id.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Livrable.nature_livrable_id')]),
-            'nature_livrable_id.max' => __('validation.nature_livrable_idMax'),
             'projet_id.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Livrable.projet_id')]),
-            'projet_id.max' => __('validation.projet_idMax'),
-            'description.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Livrable.description')]),
-            'description.max' => __('validation.descriptionMax')
+            'description.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Livrable.description')])
         ];
     }
 }

@@ -73,12 +73,6 @@ class BaseApprenantController extends AdminController
         $validatedData = $request->validated();
         $apprenant = $this->apprenantService->create($validatedData);
 
-
-        if ($request->has('groupes')) {
-            $apprenant->groupes()->sync($request->input('groupes'));
-        }
-
-
         if ($request->ajax()) {
             return response()->json(['success' => true, 
             'entity_id' => $apprenant->id,
@@ -147,8 +141,6 @@ class BaseApprenantController extends AdminController
 
         $validatedData = $request->validated();
         $apprenant = $this->apprenantService->update($id, $validatedData);
-
-        $apprenant->groupes()->sync($request->input('groupes'));
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
@@ -222,5 +214,25 @@ class BaseApprenantController extends AdminController
         $apprenants = $this->apprenantService->all();
         return response()->json($apprenants);
     }
+
+
+    public function dataCalcul(Request $request)
+    {
+
+        // Extraire les données de la requête
+        $data = $request->all();
+
+        $apprenant = $this->apprenantService->createInstance($data);
+    
+        // Mise à jour des attributs via le service
+        $updatedApprenant = $this->apprenantService->dataCalcul($apprenant);
+    
+        return response()->json([
+            'success' => true,
+            'entity' => $updatedApprenant
+        ]);
+    }
+    
+
 
 }

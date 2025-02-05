@@ -56,9 +56,6 @@ class BaseVilleController extends AdminController
         $validatedData = $request->validated();
         $ville = $this->villeService->create($validatedData);
 
-
-
-
         if ($request->ajax()) {
             return response()->json(['success' => true, 
             'entity_id' => $ville->id,
@@ -109,7 +106,6 @@ class BaseVilleController extends AdminController
 
         $validatedData = $request->validated();
         $ville = $this->villeService->update($id, $validatedData);
-
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
@@ -183,5 +179,25 @@ class BaseVilleController extends AdminController
         $villes = $this->villeService->all();
         return response()->json($villes);
     }
+
+
+    public function dataCalcul(Request $request)
+    {
+
+        // Extraire les données de la requête
+        $data = $request->all();
+
+        $ville = $this->villeService->createInstance($data);
+    
+        // Mise à jour des attributs via le service
+        $updatedVille = $this->villeService->dataCalcul($ville);
+    
+        return response()->json([
+            'success' => true,
+            'entity' => $updatedVille
+        ]);
+    }
+    
+
 
 }

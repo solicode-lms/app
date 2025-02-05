@@ -17,6 +17,7 @@
         showUrl: '{{ route('specialites.show',  ['specialite' => ':id']) }}',
         storeUrl: '{{ route('specialites.store') }}', 
         deleteUrl: '{{ route('specialites.destroy',  ['specialite' => ':id']) }}', 
+        calculationUrl:  '{{ route('specialites.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgFormation::specialite.singular") }}',
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgFormation::specialite.singular") }}',

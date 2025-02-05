@@ -17,5 +17,8 @@ Route::middleware('auth')->group(function () {
             Route::get('anneeFormations/export', [AnneeFormationController::class, 'export'])->name('anneeFormations.export');
             Route::post('anneeFormations/import', [AnneeFormationController::class, 'import'])->name('anneeFormations.import');
         });
+
+        Route::post('anneeFormations/data-calcul', [AnneeFormationController::class, 'dataCalcul'])->name('anneeFormations.dataCalcul');
+
     });
 });

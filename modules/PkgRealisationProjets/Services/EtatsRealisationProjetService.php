@@ -10,5 +10,13 @@ use Modules\PkgRealisationProjets\Services\Base\BaseEtatsRealisationProjetServic
  */
 class EtatsRealisationProjetService extends BaseEtatsRealisationProjetService
 {
-   
+    public function dataCalcul($etatsRealisationProjet)
+    {
+        // En Cas d'édit
+        if(isset($etatsRealisationProjet->id)){
+          
+        }
+      
+        return $etatsRealisationProjet;
+    }
 }

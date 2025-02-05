@@ -58,9 +58,6 @@ class BaseSysColorController extends AdminController
         $validatedData = $request->validated();
         $sysColor = $this->sysColorService->create($validatedData);
 
-
-
-
         if ($request->ajax()) {
             return response()->json(['success' => true, 
             'entity_id' => $sysColor->id,
@@ -131,7 +128,6 @@ class BaseSysColorController extends AdminController
 
         $validatedData = $request->validated();
         $sysColor = $this->sysColorService->update($id, $validatedData);
-
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
@@ -205,5 +201,25 @@ class BaseSysColorController extends AdminController
         $sysColors = $this->sysColorService->all();
         return response()->json($sysColors);
     }
+
+
+    public function dataCalcul(Request $request)
+    {
+
+        // Extraire les données de la requête
+        $data = $request->all();
+
+        $sysColor = $this->sysColorService->createInstance($data);
+    
+        // Mise à jour des attributs via le service
+        $updatedSysColor = $this->sysColorService->dataCalcul($sysColor);
+    
+        return response()->json([
+            'success' => true,
+            'entity' => $updatedSysColor
+        ]);
+    }
+    
+
 
 }

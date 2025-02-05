@@ -57,9 +57,6 @@ class BaseNiveauxScolaireController extends AdminController
         $validatedData = $request->validated();
         $niveauxScolaire = $this->niveauxScolaireService->create($validatedData);
 
-
-
-
         if ($request->ajax()) {
             return response()->json(['success' => true, 
             'entity_id' => $niveauxScolaire->id,
@@ -120,7 +117,6 @@ class BaseNiveauxScolaireController extends AdminController
 
         $validatedData = $request->validated();
         $niveauxScolaire = $this->niveauxScolaireService->update($id, $validatedData);
-
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
@@ -194,5 +190,25 @@ class BaseNiveauxScolaireController extends AdminController
         $niveauxScolaires = $this->niveauxScolaireService->all();
         return response()->json($niveauxScolaires);
     }
+
+
+    public function dataCalcul(Request $request)
+    {
+
+        // Extraire les données de la requête
+        $data = $request->all();
+
+        $niveauxScolaire = $this->niveauxScolaireService->createInstance($data);
+    
+        // Mise à jour des attributs via le service
+        $updatedNiveauxScolaire = $this->niveauxScolaireService->dataCalcul($niveauxScolaire);
+    
+        return response()->json([
+            'success' => true,
+            'entity' => $updatedNiveauxScolaire
+        ]);
+    }
+    
+
 
 }

@@ -17,5 +17,8 @@ Route::middleware('auth')->group(function () {
             Route::get('affectationProjets/export', [AffectationProjetController::class, 'export'])->name('affectationProjets.export');
             Route::post('affectationProjets/import', [AffectationProjetController::class, 'import'])->name('affectationProjets.import');
         });
+
+        Route::post('affectationProjets/data-calcul', [AffectationProjetController::class, 'dataCalcul'])->name('affectationProjets.dataCalcul');
+
     });
 });

@@ -17,5 +17,8 @@ Route::middleware('auth')->group(function () {
             Route::get('projets/export', [ProjetController::class, 'export'])->name('projets.export');
             Route::post('projets/import', [ProjetController::class, 'import'])->name('projets.import');
         });
+
+        Route::post('projets/data-calcul', [ProjetController::class, 'dataCalcul'])->name('projets.dataCalcul');
+
     });
 });

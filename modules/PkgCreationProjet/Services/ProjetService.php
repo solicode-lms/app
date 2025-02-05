@@ -10,5 +10,13 @@ use Modules\PkgCreationProjet\Services\Base\BaseProjetService;
  */
 class ProjetService extends BaseProjetService
 {
-   
+    public function dataCalcul($projet)
+    {
+        // En Cas d'édit
+        if(isset($projet->id)){
+          
+        }
+      
+        return $projet;
+    }
 }

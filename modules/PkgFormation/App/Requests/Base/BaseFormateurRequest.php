@@ -9,29 +9,46 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class BaseFormateurRequest extends FormRequest
 {
+    /**
+     * Détermine si l'utilisateur est autorisé à effectuer cette requête.
+     *
+     * @return bool
+     */
     public function authorize(): bool
     {
         return true;
     }
 
+    /**
+     * Retourne les règles de validation appliquées aux champs de la requête.
+     *
+     * @return array
+     */
     public function rules(): array
     {
         return [
-            'matricule' => 'required|max:255',
-            'nom' => 'required|max:255',
-            'prenom' => 'required|max:255',
-            'prenom_arab' => 'nullable|max:255',
-            'nom_arab' => 'nullable|max:255',
-            'tele_num' => 'nullable|max:255',
-            'adresse' => 'nullable|max:255',
-            'diplome' => 'nullable|max:255',
-            'echelle' => 'nullable',
-            'echelon' => 'nullable',
-            'profile_image' => 'nullable|max:255',
-            'user_id' => 'nullable'
+            'matricule' => 'required|string|max:255',
+            'nom' => 'required|string|max:255',
+            'prenom' => 'required|string|max:255',
+            'prenom_arab' => 'nullable|string|max:255',
+            'nom_arab' => 'nullable|string|max:255',
+            'tele_num' => 'nullable|string|max:255',
+            'adresse' => 'nullable|string|max:255',
+            'diplome' => 'nullable|string|max:255',
+            'echelle' => 'nullable|integer',
+            'echelon' => 'nullable|integer',
+            'profile_image' => 'nullable|string|max:255',
+            'user_id' => 'nullable',
+            'groupes' => 'nullable|array',
+            'specialites' => 'nullable|array'
         ];
     }
 
+    /**
+     * Retourne les messages de validation associés aux règles.
+     *
+     * @return array
+     */
     public function messages(): array
     {
         return [
@@ -52,13 +69,14 @@ class BaseFormateurRequest extends FormRequest
             'diplome.required' => __('validation.required', ['attribute' => __('PkgFormation::Formateur.diplome')]),
             'diplome.max' => __('validation.diplomeMax'),
             'echelle.required' => __('validation.required', ['attribute' => __('PkgFormation::Formateur.echelle')]),
-            'echelle.max' => __('validation.echelleMax'),
             'echelon.required' => __('validation.required', ['attribute' => __('PkgFormation::Formateur.echelon')]),
-            'echelon.max' => __('validation.echelonMax'),
             'profile_image.required' => __('validation.required', ['attribute' => __('PkgFormation::Formateur.profile_image')]),
             'profile_image.max' => __('validation.profile_imageMax'),
             'user_id.required' => __('validation.required', ['attribute' => __('PkgFormation::Formateur.user_id')]),
-            'user_id.max' => __('validation.user_idMax')
+            'groupes.required' => __('validation.required', ['attribute' => __('PkgFormation::Formateur.groupes')]),
+            'groupes.array' => __('validation.array', ['attribute' => __('PkgFormation::Formateur.groupes')]),
+            'specialites.required' => __('validation.required', ['attribute' => __('PkgFormation::Formateur.specialites')]),
+            'specialites.array' => __('validation.array', ['attribute' => __('PkgFormation::Formateur.specialites')])
         ];
     }
 }

@@ -22,6 +22,7 @@
                 type="input"
                 class="form-control"
                 required
+                
                 id="name"
                 placeholder="{{ __('Core::sysModel.name') }}"
                 value="{{ $itemSysModel ? $itemSysModel->name : old('name') }}">
@@ -43,6 +44,7 @@
                 type="input"
                 class="form-control"
                 required
+                
                 id="model"
                 placeholder="{{ __('Core::sysModel.model') }}"
                 value="{{ $itemSysModel ? $itemSysModel->model : old('model') }}">
@@ -60,6 +62,7 @@
             <textarea rows="" cols=""
                 name="description"
                 class="form-control richText"
+                
                 
                 id="description"
                 placeholder="{{ __('Core::sysModel.description') }}">
@@ -82,6 +85,7 @@
             <select 
             id="sys_module_id" 
             required
+            
             name="sys_module_id" 
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
@@ -107,6 +111,7 @@
             </label>
             <select 
             id="sys_color_id" 
+            
             
             name="sys_color_id" 
             class="form-control select2">

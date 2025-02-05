@@ -9,22 +9,39 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class BaseGroupeRequest extends FormRequest
 {
+    /**
+     * Détermine si l'utilisateur est autorisé à effectuer cette requête.
+     *
+     * @return bool
+     */
     public function authorize(): bool
     {
         return true;
     }
 
+    /**
+     * Retourne les règles de validation appliquées aux champs de la requête.
+     *
+     * @return array
+     */
     public function rules(): array
     {
         return [
-            'code' => 'required|max:255',
-            'nom' => 'nullable|max:255',
-            'description' => 'nullable',
+            'code' => 'required|string|max:255',
+            'nom' => 'nullable|string|max:255',
+            'description' => 'nullable|string',
             'filiere_id' => 'nullable',
-            'annee_formation_id' => 'nullable'
+            'annee_formation_id' => 'nullable',
+            'apprenants' => 'nullable|array',
+            'formateurs' => 'nullable|array'
         ];
     }
 
+    /**
+     * Retourne les messages de validation associés aux règles.
+     *
+     * @return array
+     */
     public function messages(): array
     {
         return [
@@ -33,11 +50,12 @@ class BaseGroupeRequest extends FormRequest
             'nom.required' => __('validation.required', ['attribute' => __('PkgApprenants::Groupe.nom')]),
             'nom.max' => __('validation.nomMax'),
             'description.required' => __('validation.required', ['attribute' => __('PkgApprenants::Groupe.description')]),
-            'description.max' => __('validation.descriptionMax'),
             'filiere_id.required' => __('validation.required', ['attribute' => __('PkgApprenants::Groupe.filiere_id')]),
-            'filiere_id.max' => __('validation.filiere_idMax'),
             'annee_formation_id.required' => __('validation.required', ['attribute' => __('PkgApprenants::Groupe.annee_formation_id')]),
-            'annee_formation_id.max' => __('validation.annee_formation_idMax')
+            'apprenants.required' => __('validation.required', ['attribute' => __('PkgApprenants::Groupe.apprenants')]),
+            'apprenants.array' => __('validation.array', ['attribute' => __('PkgApprenants::Groupe.apprenants')]),
+            'formateurs.required' => __('validation.required', ['attribute' => __('PkgApprenants::Groupe.formateurs')]),
+            'formateurs.array' => __('validation.array', ['attribute' => __('PkgApprenants::Groupe.formateurs')])
         ];
     }
 }

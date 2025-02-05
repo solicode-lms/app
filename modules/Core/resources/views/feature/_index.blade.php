@@ -17,6 +17,7 @@
         showUrl: '{{ route('features.show',  ['feature' => ':id']) }}',
         storeUrl: '{{ route('features.store') }}', 
         deleteUrl: '{{ route('features.destroy',  ['feature' => ':id']) }}', 
+        calculationUrl:  '{{ route('features.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("Core::feature.singular") }}',
         edit_title: '{{__("Core::msg.edit") . " : " . __("Core::feature.singular") }}',

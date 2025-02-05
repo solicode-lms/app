@@ -9,35 +9,51 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class BaseApprenantRequest extends FormRequest
 {
+    /**
+     * Détermine si l'utilisateur est autorisé à effectuer cette requête.
+     *
+     * @return bool
+     */
     public function authorize(): bool
     {
         return true;
     }
 
+    /**
+     * Retourne les règles de validation appliquées aux champs de la requête.
+     *
+     * @return array
+     */
     public function rules(): array
     {
         return [
-            'nom' => 'required|max:255',
-            'prenom' => 'required|max:255',
-            'prenom_arab' => 'required|max:255',
-            'nom_arab' => 'required|max:255',
-            'tele_num' => 'required|max:255',
-            'profile_image' => 'nullable|max:255',
-            'matricule' => 'required|max:255',
-            'sexe' => 'required|max:255',
-            'actif' => 'required',
-            'diplome' => 'nullable|max:255',
+            'nom' => 'required|string|max:255',
+            'prenom' => 'required|string|max:255',
+            'prenom_arab' => 'required|string|max:255',
+            'nom_arab' => 'required|string|max:255',
+            'tele_num' => 'required|string|max:255',
+            'profile_image' => 'nullable|string|max:255',
+            'matricule' => 'required|string|max:255',
+            'sexe' => 'required|string|max:255',
+            'actif' => 'required|integer',
+            'diplome' => 'nullable|string|max:255',
             'date_naissance' => 'nullable',
             'date_inscription' => 'nullable',
-            'lieu_naissance' => 'nullable|max:255',
-            'cin' => 'nullable|max:255',
-            'adresse' => 'nullable',
+            'lieu_naissance' => 'nullable|string|max:255',
+            'cin' => 'nullable|string|max:255',
+            'adresse' => 'nullable|string',
             'niveaux_scolaire_id' => 'nullable',
             'nationalite_id' => 'nullable',
-            'user_id' => 'nullable'
+            'user_id' => 'nullable',
+            'groupes' => 'nullable|array'
         ];
     }
 
+    /**
+     * Retourne les messages de validation associés aux règles.
+     *
+     * @return array
+     */
     public function messages(): array
     {
         return [
@@ -58,25 +74,20 @@ class BaseApprenantRequest extends FormRequest
             'sexe.required' => __('validation.required', ['attribute' => __('PkgApprenants::Apprenant.sexe')]),
             'sexe.max' => __('validation.sexeMax'),
             'actif.required' => __('validation.required', ['attribute' => __('PkgApprenants::Apprenant.actif')]),
-            'actif.max' => __('validation.actifMax'),
             'diplome.required' => __('validation.required', ['attribute' => __('PkgApprenants::Apprenant.diplome')]),
             'diplome.max' => __('validation.diplomeMax'),
             'date_naissance.required' => __('validation.required', ['attribute' => __('PkgApprenants::Apprenant.date_naissance')]),
-            'date_naissance.max' => __('validation.date_naissanceMax'),
             'date_inscription.required' => __('validation.required', ['attribute' => __('PkgApprenants::Apprenant.date_inscription')]),
-            'date_inscription.max' => __('validation.date_inscriptionMax'),
             'lieu_naissance.required' => __('validation.required', ['attribute' => __('PkgApprenants::Apprenant.lieu_naissance')]),
             'lieu_naissance.max' => __('validation.lieu_naissanceMax'),
             'cin.required' => __('validation.required', ['attribute' => __('PkgApprenants::Apprenant.cin')]),
             'cin.max' => __('validation.cinMax'),
             'adresse.required' => __('validation.required', ['attribute' => __('PkgApprenants::Apprenant.adresse')]),
-            'adresse.max' => __('validation.adresseMax'),
             'niveaux_scolaire_id.required' => __('validation.required', ['attribute' => __('PkgApprenants::Apprenant.niveaux_scolaire_id')]),
-            'niveaux_scolaire_id.max' => __('validation.niveaux_scolaire_idMax'),
             'nationalite_id.required' => __('validation.required', ['attribute' => __('PkgApprenants::Apprenant.nationalite_id')]),
-            'nationalite_id.max' => __('validation.nationalite_idMax'),
             'user_id.required' => __('validation.required', ['attribute' => __('PkgApprenants::Apprenant.user_id')]),
-            'user_id.max' => __('validation.user_idMax')
+            'groupes.required' => __('validation.required', ['attribute' => __('PkgApprenants::Apprenant.groupes')]),
+            'groupes.array' => __('validation.array', ['attribute' => __('PkgApprenants::Apprenant.groupes')])
         ];
     }
 }

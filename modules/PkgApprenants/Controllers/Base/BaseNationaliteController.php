@@ -57,9 +57,6 @@ class BaseNationaliteController extends AdminController
         $validatedData = $request->validated();
         $nationalite = $this->nationaliteService->create($validatedData);
 
-
-
-
         if ($request->ajax()) {
             return response()->json(['success' => true, 
             'entity_id' => $nationalite->id,
@@ -120,7 +117,6 @@ class BaseNationaliteController extends AdminController
 
         $validatedData = $request->validated();
         $nationalite = $this->nationaliteService->update($id, $validatedData);
-
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
@@ -194,5 +190,25 @@ class BaseNationaliteController extends AdminController
         $nationalites = $this->nationaliteService->all();
         return response()->json($nationalites);
     }
+
+
+    public function dataCalcul(Request $request)
+    {
+
+        // Extraire les données de la requête
+        $data = $request->all();
+
+        $nationalite = $this->nationaliteService->createInstance($data);
+    
+        // Mise à jour des attributs via le service
+        $updatedNationalite = $this->nationaliteService->dataCalcul($nationalite);
+    
+        return response()->json([
+            'success' => true,
+            'entity' => $updatedNationalite
+        ]);
+    }
+    
+
 
 }

@@ -17,6 +17,7 @@
         showUrl: '{{ route('formateurs.show',  ['formateur' => ':id']) }}',
         storeUrl: '{{ route('formateurs.store') }}', 
         deleteUrl: '{{ route('formateurs.destroy',  ['formateur' => ':id']) }}', 
+        calculationUrl:  '{{ route('formateurs.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgFormation::formateur.singular") }}',
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgFormation::formateur.singular") }}',
