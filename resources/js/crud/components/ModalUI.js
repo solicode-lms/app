@@ -96,6 +96,10 @@ export class ModalUI {
             autoOpen: true,
             onClosed: () => this.handleClose()
         });
+
+        if(this.config.editOnFullScreen){
+            this.modal.iziModal('setFullscreen', true);
+        }
     }
     
 

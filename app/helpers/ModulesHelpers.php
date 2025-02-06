@@ -53,4 +53,19 @@ if (!function_exists('loadDynamicMenus')) {
 
         return $menuItems;
     }
+
+
+    function formatHtmlWithLineBreaks($text, $lineLength = 80)
+    {
+        // Supprimer les balises HTML pour compter uniquement le texte
+        $plainText = strip_tags($text);
+
+        // Découper le texte en lignes de 80 caractères sans couper les mots
+        $formattedText = wordwrap($plainText, $lineLength, "\n", true);
+
+        // Réinjecter le HTML d'origine
+        return nl2br(e($formattedText));
+    }
+
+
 }

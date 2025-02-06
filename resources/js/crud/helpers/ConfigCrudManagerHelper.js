@@ -9,6 +9,7 @@ export default class ConfigCrudManagerHelper extends ConfigHelper {
 
         // indique si la page CRUD est situé dans tab panel
         this.isMany = config.isMany;
+        this.editOnFullScreen = config.editOnFullScreen;
         this.edit_has_many = config.edit_has_many;
 
         this.crudSelector = config.crudSelector;

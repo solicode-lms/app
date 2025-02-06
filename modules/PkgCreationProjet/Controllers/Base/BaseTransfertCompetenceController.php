@@ -216,7 +216,6 @@ class BaseTransfertCompetenceController extends AdminController
         // Mise à jour des attributs via le service
         $updatedTransfertCompetence = $this->transfertCompetenceService->dataCalcul($transfertCompetence);
     
-
         return response()->json([
             'success' => true,
             'entity' => $updatedTransfertCompetence
