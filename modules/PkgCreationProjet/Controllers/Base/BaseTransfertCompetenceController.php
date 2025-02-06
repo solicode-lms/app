@@ -176,9 +176,9 @@ class BaseTransfertCompetenceController extends AdminController
         
         // Vérifier le format et exporter en conséquence
         if ($format === 'csv') {
-            return Excel::download(new TransfertCompetenceExport($transfertCompetences_data), 'transfertCompetence_export.csv', \Maatwebsite\Excel\Excel::CSV, ['Content-Type' => 'text/csv']);
+            return Excel::download(new TransfertCompetenceExport($transfertCompetences_data,'csv'), 'transfertCompetence_export.csv', \Maatwebsite\Excel\Excel::CSV, ['Content-Type' => 'text/csv']);
         } elseif ($format === 'xlsx') {
-            return Excel::download(new TransfertCompetenceExport($transfertCompetences_data), 'transfertCompetence_export.xlsx', \Maatwebsite\Excel\Excel::XLSX);
+            return Excel::download(new TransfertCompetenceExport($transfertCompetences_data,'xlsx'), 'transfertCompetence_export.xlsx', \Maatwebsite\Excel\Excel::XLSX);
         } else {
             return response()->json(['error' => 'Format non supporté'], 400);
         }

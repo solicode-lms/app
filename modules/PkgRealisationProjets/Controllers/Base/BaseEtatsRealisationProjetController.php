@@ -169,9 +169,9 @@ class BaseEtatsRealisationProjetController extends AdminController
         
         // Vérifier le format et exporter en conséquence
         if ($format === 'csv') {
-            return Excel::download(new EtatsRealisationProjetExport($etatsRealisationProjets_data), 'etatsRealisationProjet_export.csv', \Maatwebsite\Excel\Excel::CSV, ['Content-Type' => 'text/csv']);
+            return Excel::download(new EtatsRealisationProjetExport($etatsRealisationProjets_data,'csv'), 'etatsRealisationProjet_export.csv', \Maatwebsite\Excel\Excel::CSV, ['Content-Type' => 'text/csv']);
         } elseif ($format === 'xlsx') {
-            return Excel::download(new EtatsRealisationProjetExport($etatsRealisationProjets_data), 'etatsRealisationProjet_export.xlsx', \Maatwebsite\Excel\Excel::XLSX);
+            return Excel::download(new EtatsRealisationProjetExport($etatsRealisationProjets_data,'xlsx'), 'etatsRealisationProjet_export.xlsx', \Maatwebsite\Excel\Excel::XLSX);
         } else {
             return response()->json(['error' => 'Format non supporté'], 400);
         }

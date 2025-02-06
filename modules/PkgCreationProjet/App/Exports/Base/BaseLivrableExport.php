@@ -18,13 +18,23 @@ class BaseLivrableExport implements FromCollection, WithHeadings, ShouldAutoSize
 {
     protected $data;
 
-    public function __construct($data)
+    public function __construct($data,$format)
     {
         $this->data = $data;
+        $this->format = $format;
     }
 
     public function headings(): array
     {
+     if($this->format == 'csv'){
+        return [
+            'titre' => 'titre',
+            'nature_livrable_id' => 'nature_livrable_id',
+            'projet_id' => 'projet_id',
+            'description' => 'description',
+            'reference' => 'reference',
+        ];
+        }else{
         return [
             'titre' => __('PkgCreationProjet::livrable.titre'),
             'nature_livrable_id' => __('PkgCreationProjet::livrable.nature_livrable_id'),
@@ -32,6 +42,9 @@ class BaseLivrableExport implements FromCollection, WithHeadings, ShouldAutoSize
             'description' => __('PkgCreationProjet::livrable.description'),
             'reference' => __('Core::msg.reference'),
         ];
+
+        }
+   
     }
 
     public function collection()

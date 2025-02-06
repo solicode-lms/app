@@ -203,9 +203,9 @@ class BaseFormateurController extends AdminController
         
         // Vérifier le format et exporter en conséquence
         if ($format === 'csv') {
-            return Excel::download(new FormateurExport($formateurs_data), 'formateur_export.csv', \Maatwebsite\Excel\Excel::CSV, ['Content-Type' => 'text/csv']);
+            return Excel::download(new FormateurExport($formateurs_data,'csv'), 'formateur_export.csv', \Maatwebsite\Excel\Excel::CSV, ['Content-Type' => 'text/csv']);
         } elseif ($format === 'xlsx') {
-            return Excel::download(new FormateurExport($formateurs_data), 'formateur_export.xlsx', \Maatwebsite\Excel\Excel::XLSX);
+            return Excel::download(new FormateurExport($formateurs_data,'xlsx'), 'formateur_export.xlsx', \Maatwebsite\Excel\Excel::XLSX);
         } else {
             return response()->json(['error' => 'Format non supporté'], 400);
         }

@@ -152,9 +152,9 @@ class BaseApprenantKonosyController extends AdminController
         
         // Vérifier le format et exporter en conséquence
         if ($format === 'csv') {
-            return Excel::download(new ApprenantKonosyExport($apprenantKonosies_data), 'apprenantKonosy_export.csv', \Maatwebsite\Excel\Excel::CSV, ['Content-Type' => 'text/csv']);
+            return Excel::download(new ApprenantKonosyExport($apprenantKonosies_data,'csv'), 'apprenantKonosy_export.csv', \Maatwebsite\Excel\Excel::CSV, ['Content-Type' => 'text/csv']);
         } elseif ($format === 'xlsx') {
-            return Excel::download(new ApprenantKonosyExport($apprenantKonosies_data), 'apprenantKonosy_export.xlsx', \Maatwebsite\Excel\Excel::XLSX);
+            return Excel::download(new ApprenantKonosyExport($apprenantKonosies_data,'xlsx'), 'apprenantKonosy_export.xlsx', \Maatwebsite\Excel\Excel::XLSX);
         } else {
             return response()->json(['error' => 'Format non supporté'], 400);
         }

@@ -18,18 +18,29 @@ class BaseNatureLivrableExport implements FromCollection, WithHeadings, ShouldAu
 {
     protected $data;
 
-    public function __construct($data)
+    public function __construct($data,$format)
     {
         $this->data = $data;
+        $this->format = $format;
     }
 
     public function headings(): array
     {
+     if($this->format == 'csv'){
+        return [
+            'nom' => 'nom',
+            'description' => 'description',
+            'reference' => 'reference',
+        ];
+        }else{
         return [
             'nom' => __('PkgCreationProjet::natureLivrable.nom'),
             'description' => __('PkgCreationProjet::natureLivrable.description'),
             'reference' => __('Core::msg.reference'),
         ];
+
+        }
+   
     }
 
     public function collection()

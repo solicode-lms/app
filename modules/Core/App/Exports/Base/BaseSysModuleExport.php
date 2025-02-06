@@ -18,13 +18,26 @@ class BaseSysModuleExport implements FromCollection, WithHeadings, ShouldAutoSiz
 {
     protected $data;
 
-    public function __construct($data)
+    public function __construct($data,$format)
     {
         $this->data = $data;
+        $this->format = $format;
     }
 
     public function headings(): array
     {
+     if($this->format == 'csv'){
+        return [
+            'name' => 'name',
+            'slug' => 'slug',
+            'description' => 'description',
+            'is_active' => 'is_active',
+            'order' => 'order',
+            'version' => 'version',
+            'sys_color_id' => 'sys_color_id',
+            'reference' => 'reference',
+        ];
+        }else{
         return [
             'name' => __('Core::sysModule.name'),
             'slug' => __('Core::sysModule.slug'),
@@ -35,6 +48,9 @@ class BaseSysModuleExport implements FromCollection, WithHeadings, ShouldAutoSiz
             'sys_color_id' => __('Core::sysModule.sys_color_id'),
             'reference' => __('Core::msg.reference'),
         ];
+
+        }
+   
     }
 
     public function collection()

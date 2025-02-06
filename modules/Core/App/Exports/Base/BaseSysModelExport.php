@@ -18,13 +18,24 @@ class BaseSysModelExport implements FromCollection, WithHeadings, ShouldAutoSize
 {
     protected $data;
 
-    public function __construct($data)
+    public function __construct($data,$format)
     {
         $this->data = $data;
+        $this->format = $format;
     }
 
     public function headings(): array
     {
+     if($this->format == 'csv'){
+        return [
+            'name' => 'name',
+            'model' => 'model',
+            'description' => 'description',
+            'sys_module_id' => 'sys_module_id',
+            'sys_color_id' => 'sys_color_id',
+            'reference' => 'reference',
+        ];
+        }else{
         return [
             'name' => __('Core::sysModel.name'),
             'model' => __('Core::sysModel.model'),
@@ -33,6 +44,9 @@ class BaseSysModelExport implements FromCollection, WithHeadings, ShouldAutoSize
             'sys_color_id' => __('Core::sysModel.sys_color_id'),
             'reference' => __('Core::msg.reference'),
         ];
+
+        }
+   
     }
 
     public function collection()

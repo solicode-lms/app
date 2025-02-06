@@ -180,9 +180,9 @@ class BaseUserController extends AdminController
         
         // Vérifier le format et exporter en conséquence
         if ($format === 'csv') {
-            return Excel::download(new UserExport($users_data), 'user_export.csv', \Maatwebsite\Excel\Excel::CSV, ['Content-Type' => 'text/csv']);
+            return Excel::download(new UserExport($users_data,'csv'), 'user_export.csv', \Maatwebsite\Excel\Excel::CSV, ['Content-Type' => 'text/csv']);
         } elseif ($format === 'xlsx') {
-            return Excel::download(new UserExport($users_data), 'user_export.xlsx', \Maatwebsite\Excel\Excel::XLSX);
+            return Excel::download(new UserExport($users_data,'xlsx'), 'user_export.xlsx', \Maatwebsite\Excel\Excel::XLSX);
         } else {
             return response()->json(['error' => 'Format non supporté'], 400);
         }

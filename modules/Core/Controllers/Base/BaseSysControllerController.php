@@ -169,9 +169,9 @@ class BaseSysControllerController extends AdminController
         
         // Vérifier le format et exporter en conséquence
         if ($format === 'csv') {
-            return Excel::download(new SysControllerExport($sysControllers_data), 'sysController_export.csv', \Maatwebsite\Excel\Excel::CSV, ['Content-Type' => 'text/csv']);
+            return Excel::download(new SysControllerExport($sysControllers_data,'csv'), 'sysController_export.csv', \Maatwebsite\Excel\Excel::CSV, ['Content-Type' => 'text/csv']);
         } elseif ($format === 'xlsx') {
-            return Excel::download(new SysControllerExport($sysControllers_data), 'sysController_export.xlsx', \Maatwebsite\Excel\Excel::XLSX);
+            return Excel::download(new SysControllerExport($sysControllers_data,'xlsx'), 'sysController_export.xlsx', \Maatwebsite\Excel\Excel::XLSX);
         } else {
             return response()->json(['error' => 'Format non supporté'], 400);
         }

@@ -18,13 +18,24 @@ class BaseUserExport implements FromCollection, WithHeadings, ShouldAutoSize, Wi
 {
     protected $data;
 
-    public function __construct($data)
+    public function __construct($data,$format)
     {
         $this->data = $data;
+        $this->format = $format;
     }
 
     public function headings(): array
     {
+     if($this->format == 'csv'){
+        return [
+            'name' => 'name',
+            'email' => 'email',
+            'email_verified_at' => 'email_verified_at',
+            'password' => 'password',
+            'remember_token' => 'remember_token',
+            'reference' => 'reference',
+        ];
+        }else{
         return [
             'name' => __('PkgAutorisation::user.name'),
             'email' => __('PkgAutorisation::user.email'),
@@ -33,6 +44,9 @@ class BaseUserExport implements FromCollection, WithHeadings, ShouldAutoSize, Wi
             'remember_token' => __('PkgAutorisation::user.remember_token'),
             'reference' => __('Core::msg.reference'),
         ];
+
+        }
+   
     }
 
     public function collection()

@@ -18,13 +18,24 @@ class BaseSysControllerExport implements FromCollection, WithHeadings, ShouldAut
 {
     protected $data;
 
-    public function __construct($data)
+    public function __construct($data,$format)
     {
         $this->data = $data;
+        $this->format = $format;
     }
 
     public function headings(): array
     {
+     if($this->format == 'csv'){
+        return [
+            'sys_module_id' => 'sys_module_id',
+            'name' => 'name',
+            'slug' => 'slug',
+            'description' => 'description',
+            'is_active' => 'is_active',
+            'reference' => 'reference',
+        ];
+        }else{
         return [
             'sys_module_id' => __('Core::sysController.sys_module_id'),
             'name' => __('Core::sysController.name'),
@@ -33,6 +44,9 @@ class BaseSysControllerExport implements FromCollection, WithHeadings, ShouldAut
             'is_active' => __('Core::sysController.is_active'),
             'reference' => __('Core::msg.reference'),
         ];
+
+        }
+   
     }
 
     public function collection()

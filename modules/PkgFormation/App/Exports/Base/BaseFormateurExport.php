@@ -18,13 +18,31 @@ class BaseFormateurExport implements FromCollection, WithHeadings, ShouldAutoSiz
 {
     protected $data;
 
-    public function __construct($data)
+    public function __construct($data,$format)
     {
         $this->data = $data;
+        $this->format = $format;
     }
 
     public function headings(): array
     {
+     if($this->format == 'csv'){
+        return [
+            'matricule' => 'matricule',
+            'nom' => 'nom',
+            'prenom' => 'prenom',
+            'prenom_arab' => 'prenom_arab',
+            'nom_arab' => 'nom_arab',
+            'tele_num' => 'tele_num',
+            'adresse' => 'adresse',
+            'diplome' => 'diplome',
+            'echelle' => 'echelle',
+            'echelon' => 'echelon',
+            'profile_image' => 'profile_image',
+            'user_id' => 'user_id',
+            'reference' => 'reference',
+        ];
+        }else{
         return [
             'matricule' => __('PkgFormation::formateur.matricule'),
             'nom' => __('PkgFormation::formateur.nom'),
@@ -40,6 +58,9 @@ class BaseFormateurExport implements FromCollection, WithHeadings, ShouldAutoSiz
             'user_id' => __('PkgFormation::formateur.user_id'),
             'reference' => __('Core::msg.reference'),
         ];
+
+        }
+   
     }
 
     public function collection()

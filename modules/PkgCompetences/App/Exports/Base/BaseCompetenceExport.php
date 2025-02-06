@@ -18,13 +18,24 @@ class BaseCompetenceExport implements FromCollection, WithHeadings, ShouldAutoSi
 {
     protected $data;
 
-    public function __construct($data)
+    public function __construct($data,$format)
     {
         $this->data = $data;
+        $this->format = $format;
     }
 
     public function headings(): array
     {
+     if($this->format == 'csv'){
+        return [
+            'code' => 'code',
+            'mini_code' => 'mini_code',
+            'nom' => 'nom',
+            'module_id' => 'module_id',
+            'reference' => 'reference',
+            'description' => 'description',
+        ];
+        }else{
         return [
             'code' => __('PkgCompetences::competence.code'),
             'mini_code' => __('PkgCompetences::competence.mini_code'),
@@ -33,6 +44,9 @@ class BaseCompetenceExport implements FromCollection, WithHeadings, ShouldAutoSi
             'reference' => __('Core::msg.reference'),
             'description' => __('PkgCompetences::competence.description'),
         ];
+
+        }
+   
     }
 
     public function collection()

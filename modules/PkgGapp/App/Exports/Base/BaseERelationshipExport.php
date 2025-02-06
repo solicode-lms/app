@@ -18,13 +18,32 @@ class BaseERelationshipExport implements FromCollection, WithHeadings, ShouldAut
 {
     protected $data;
 
-    public function __construct($data)
+    public function __construct($data,$format)
     {
         $this->data = $data;
+        $this->format = $format;
     }
 
     public function headings(): array
     {
+     if($this->format == 'csv'){
+        return [
+            'reference' => 'reference',
+            'name' => 'name',
+            'type' => 'type',
+            'source_e_model_id' => 'source_e_model_id',
+            'target_e_model_id' => 'target_e_model_id',
+            'cascade_on_delete' => 'cascade_on_delete',
+            'is_cascade' => 'is_cascade',
+            'description' => 'description',
+            'column_name' => 'column_name',
+            'referenced_table' => 'referenced_table',
+            'referenced_column' => 'referenced_column',
+            'through' => 'through',
+            'with_column' => 'with_column',
+            'morph_name' => 'morph_name',
+        ];
+        }else{
         return [
             'reference' => __('Core::msg.reference'),
             'name' => __('PkgGapp::eRelationship.name'),
@@ -41,6 +60,9 @@ class BaseERelationshipExport implements FromCollection, WithHeadings, ShouldAut
             'with_column' => __('PkgGapp::eRelationship.with_column'),
             'morph_name' => __('PkgGapp::eRelationship.morph_name'),
         ];
+
+        }
+   
     }
 
     public function collection()

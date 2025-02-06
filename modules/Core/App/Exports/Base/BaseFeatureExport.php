@@ -18,19 +18,31 @@ class BaseFeatureExport implements FromCollection, WithHeadings, ShouldAutoSize,
 {
     protected $data;
 
-    public function __construct($data)
+    public function __construct($data,$format)
     {
         $this->data = $data;
+        $this->format = $format;
     }
 
     public function headings(): array
     {
+     if($this->format == 'csv'){
+        return [
+            'name' => 'name',
+            'description' => 'description',
+            'feature_domain_id' => 'feature_domain_id',
+            'reference' => 'reference',
+        ];
+        }else{
         return [
             'name' => __('Core::feature.name'),
             'description' => __('Core::feature.description'),
             'feature_domain_id' => __('Core::feature.feature_domain_id'),
             'reference' => __('Core::msg.reference'),
         ];
+
+        }
+   
     }
 
     public function collection()

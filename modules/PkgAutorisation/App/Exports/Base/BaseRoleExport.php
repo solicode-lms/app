@@ -18,18 +18,29 @@ class BaseRoleExport implements FromCollection, WithHeadings, ShouldAutoSize, Wi
 {
     protected $data;
 
-    public function __construct($data)
+    public function __construct($data,$format)
     {
         $this->data = $data;
+        $this->format = $format;
     }
 
     public function headings(): array
     {
+     if($this->format == 'csv'){
+        return [
+            'name' => 'name',
+            'guard_name' => 'guard_name',
+            'reference' => 'reference',
+        ];
+        }else{
         return [
             'name' => __('PkgAutorisation::role.name'),
             'guard_name' => __('PkgAutorisation::role.guard_name'),
             'reference' => __('Core::msg.reference'),
         ];
+
+        }
+   
     }
 
     public function collection()

@@ -18,13 +18,27 @@ class BaseWidgetExport implements FromCollection, WithHeadings, ShouldAutoSize, 
 {
     protected $data;
 
-    public function __construct($data)
+    public function __construct($data,$format)
     {
         $this->data = $data;
+        $this->format = $format;
     }
 
     public function headings(): array
     {
+     if($this->format == 'csv'){
+        return [
+            'name' => 'name',
+            'type_id' => 'type_id',
+            'model_id' => 'model_id',
+            'operation_id' => 'operation_id',
+            'color' => 'color',
+            'icon' => 'icon',
+            'label' => 'label',
+            'parameters' => 'parameters',
+            'reference' => 'reference',
+        ];
+        }else{
         return [
             'name' => __('PkgWidgets::widget.name'),
             'type_id' => __('PkgWidgets::widget.type_id'),
@@ -36,6 +50,9 @@ class BaseWidgetExport implements FromCollection, WithHeadings, ShouldAutoSize, 
             'parameters' => __('PkgWidgets::widget.parameters'),
             'reference' => __('Core::msg.reference'),
         ];
+
+        }
+   
     }
 
     public function collection()

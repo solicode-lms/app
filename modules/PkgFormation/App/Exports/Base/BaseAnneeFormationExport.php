@@ -18,19 +18,31 @@ class BaseAnneeFormationExport implements FromCollection, WithHeadings, ShouldAu
 {
     protected $data;
 
-    public function __construct($data)
+    public function __construct($data,$format)
     {
         $this->data = $data;
+        $this->format = $format;
     }
 
     public function headings(): array
     {
+     if($this->format == 'csv'){
+        return [
+            'titre' => 'titre',
+            'date_debut' => 'date_debut',
+            'date_fin' => 'date_fin',
+            'reference' => 'reference',
+        ];
+        }else{
         return [
             'titre' => __('PkgFormation::anneeFormation.titre'),
             'date_debut' => __('PkgFormation::anneeFormation.date_debut'),
             'date_fin' => __('PkgFormation::anneeFormation.date_fin'),
             'reference' => __('Core::msg.reference'),
         ];
+
+        }
+   
     }
 
     public function collection()

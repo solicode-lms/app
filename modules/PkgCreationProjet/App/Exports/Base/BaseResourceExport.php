@@ -18,13 +18,23 @@ class BaseResourceExport implements FromCollection, WithHeadings, ShouldAutoSize
 {
     protected $data;
 
-    public function __construct($data)
+    public function __construct($data,$format)
     {
         $this->data = $data;
+        $this->format = $format;
     }
 
     public function headings(): array
     {
+     if($this->format == 'csv'){
+        return [
+            'nom' => 'nom',
+            'lien' => 'lien',
+            'description' => 'description',
+            'projet_id' => 'projet_id',
+            'reference' => 'reference',
+        ];
+        }else{
         return [
             'nom' => __('PkgCreationProjet::resource.nom'),
             'lien' => __('PkgCreationProjet::resource.lien'),
@@ -32,6 +42,9 @@ class BaseResourceExport implements FromCollection, WithHeadings, ShouldAutoSize
             'projet_id' => __('PkgCreationProjet::resource.projet_id'),
             'reference' => __('Core::msg.reference'),
         ];
+
+        }
+   
     }
 
     public function collection()

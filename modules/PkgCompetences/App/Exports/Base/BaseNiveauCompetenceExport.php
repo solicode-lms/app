@@ -18,19 +18,31 @@ class BaseNiveauCompetenceExport implements FromCollection, WithHeadings, Should
 {
     protected $data;
 
-    public function __construct($data)
+    public function __construct($data,$format)
     {
         $this->data = $data;
+        $this->format = $format;
     }
 
     public function headings(): array
     {
+     if($this->format == 'csv'){
+        return [
+            'nom' => 'nom',
+            'description' => 'description',
+            'competence_id' => 'competence_id',
+            'reference' => 'reference',
+        ];
+        }else{
         return [
             'nom' => __('PkgCompetences::niveauCompetence.nom'),
             'description' => __('PkgCompetences::niveauCompetence.description'),
             'competence_id' => __('PkgCompetences::niveauCompetence.competence_id'),
             'reference' => __('Core::msg.reference'),
         ];
+
+        }
+   
     }
 
     public function collection()

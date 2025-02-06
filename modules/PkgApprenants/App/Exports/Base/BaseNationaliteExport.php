@@ -18,19 +18,31 @@ class BaseNationaliteExport implements FromCollection, WithHeadings, ShouldAutoS
 {
     protected $data;
 
-    public function __construct($data)
+    public function __construct($data,$format)
     {
         $this->data = $data;
+        $this->format = $format;
     }
 
     public function headings(): array
     {
+     if($this->format == 'csv'){
+        return [
+            'code' => 'code',
+            'nom' => 'nom',
+            'description' => 'description',
+            'reference' => 'reference',
+        ];
+        }else{
         return [
             'code' => __('PkgApprenants::nationalite.code'),
             'nom' => __('PkgApprenants::nationalite.nom'),
             'description' => __('PkgApprenants::nationalite.description'),
             'reference' => __('Core::msg.reference'),
         ];
+
+        }
+   
     }
 
     public function collection()

@@ -18,18 +18,29 @@ class BaseEPackageExport implements FromCollection, WithHeadings, ShouldAutoSize
 {
     protected $data;
 
-    public function __construct($data)
+    public function __construct($data,$format)
     {
         $this->data = $data;
+        $this->format = $format;
     }
 
     public function headings(): array
     {
+     if($this->format == 'csv'){
+        return [
+            'reference' => 'reference',
+            'name' => 'name',
+            'description' => 'description',
+        ];
+        }else{
         return [
             'reference' => __('Core::msg.reference'),
             'name' => __('PkgGapp::ePackage.name'),
             'description' => __('PkgGapp::ePackage.description'),
         ];
+
+        }
+   
     }
 
     public function collection()

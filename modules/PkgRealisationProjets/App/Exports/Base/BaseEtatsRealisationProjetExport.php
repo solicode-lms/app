@@ -18,19 +18,31 @@ class BaseEtatsRealisationProjetExport implements FromCollection, WithHeadings, 
 {
     protected $data;
 
-    public function __construct($data)
+    public function __construct($data,$format)
     {
         $this->data = $data;
+        $this->format = $format;
     }
 
     public function headings(): array
     {
+     if($this->format == 'csv'){
+        return [
+            'titre' => 'titre',
+            'description' => 'description',
+            'formateur_id' => 'formateur_id',
+            'reference' => 'reference',
+        ];
+        }else{
         return [
             'titre' => __('PkgRealisationProjets::etatsRealisationProjet.titre'),
             'description' => __('PkgRealisationProjets::etatsRealisationProjet.description'),
             'formateur_id' => __('PkgRealisationProjets::etatsRealisationProjet.formateur_id'),
             'reference' => __('Core::msg.reference'),
         ];
+
+        }
+   
     }
 
     public function collection()

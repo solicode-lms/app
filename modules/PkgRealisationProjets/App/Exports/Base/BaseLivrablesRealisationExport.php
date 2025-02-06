@@ -18,13 +18,23 @@ class BaseLivrablesRealisationExport implements FromCollection, WithHeadings, Sh
 {
     protected $data;
 
-    public function __construct($data)
+    public function __construct($data,$format)
     {
         $this->data = $data;
+        $this->format = $format;
     }
 
     public function headings(): array
     {
+     if($this->format == 'csv'){
+        return [
+            'titre' => 'titre',
+            'description' => 'description',
+            'lien' => 'lien',
+            'livrable_id' => 'livrable_id',
+            'reference' => 'reference',
+        ];
+        }else{
         return [
             'titre' => __('PkgRealisationProjets::livrablesRealisation.titre'),
             'description' => __('PkgRealisationProjets::livrablesRealisation.description'),
@@ -32,6 +42,9 @@ class BaseLivrablesRealisationExport implements FromCollection, WithHeadings, Sh
             'livrable_id' => __('PkgRealisationProjets::livrablesRealisation.livrable_id'),
             'reference' => __('Core::msg.reference'),
         ];
+
+        }
+   
     }
 
     public function collection()

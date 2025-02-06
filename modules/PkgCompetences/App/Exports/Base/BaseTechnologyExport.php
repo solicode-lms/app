@@ -18,19 +18,31 @@ class BaseTechnologyExport implements FromCollection, WithHeadings, ShouldAutoSi
 {
     protected $data;
 
-    public function __construct($data)
+    public function __construct($data,$format)
     {
         $this->data = $data;
+        $this->format = $format;
     }
 
     public function headings(): array
     {
+     if($this->format == 'csv'){
+        return [
+            'nom' => 'nom',
+            'category_technology_id' => 'category_technology_id',
+            'reference' => 'reference',
+            'description' => 'description',
+        ];
+        }else{
         return [
             'nom' => __('PkgCompetences::technology.nom'),
             'category_technology_id' => __('PkgCompetences::technology.category_technology_id'),
             'reference' => __('Core::msg.reference'),
             'description' => __('PkgCompetences::technology.description'),
         ];
+
+        }
+   
     }
 
     public function collection()

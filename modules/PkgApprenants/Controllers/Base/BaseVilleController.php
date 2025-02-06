@@ -152,9 +152,9 @@ class BaseVilleController extends AdminController
         
         // Vérifier le format et exporter en conséquence
         if ($format === 'csv') {
-            return Excel::download(new VilleExport($villes_data), 'ville_export.csv', \Maatwebsite\Excel\Excel::CSV, ['Content-Type' => 'text/csv']);
+            return Excel::download(new VilleExport($villes_data,'csv'), 'ville_export.csv', \Maatwebsite\Excel\Excel::CSV, ['Content-Type' => 'text/csv']);
         } elseif ($format === 'xlsx') {
-            return Excel::download(new VilleExport($villes_data), 'ville_export.xlsx', \Maatwebsite\Excel\Excel::XLSX);
+            return Excel::download(new VilleExport($villes_data,'xlsx'), 'ville_export.xlsx', \Maatwebsite\Excel\Excel::XLSX);
         } else {
             return response()->json(['error' => 'Format non supporté'], 400);
         }

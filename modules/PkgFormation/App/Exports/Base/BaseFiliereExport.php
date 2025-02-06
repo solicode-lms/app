@@ -18,19 +18,31 @@ class BaseFiliereExport implements FromCollection, WithHeadings, ShouldAutoSize,
 {
     protected $data;
 
-    public function __construct($data)
+    public function __construct($data,$format)
     {
         $this->data = $data;
+        $this->format = $format;
     }
 
     public function headings(): array
     {
+     if($this->format == 'csv'){
+        return [
+            'code' => 'code',
+            'nom' => 'nom',
+            'description' => 'description',
+            'reference' => 'reference',
+        ];
+        }else{
         return [
             'code' => __('PkgFormation::filiere.code'),
             'nom' => __('PkgFormation::filiere.nom'),
             'description' => __('PkgFormation::filiere.description'),
             'reference' => __('Core::msg.reference'),
         ];
+
+        }
+   
     }
 
     public function collection()

@@ -18,13 +18,37 @@ class BaseApprenantExport implements FromCollection, WithHeadings, ShouldAutoSiz
 {
     protected $data;
 
-    public function __construct($data)
+    public function __construct($data,$format)
     {
         $this->data = $data;
+        $this->format = $format;
     }
 
     public function headings(): array
     {
+     if($this->format == 'csv'){
+        return [
+            'nom' => 'nom',
+            'prenom' => 'prenom',
+            'prenom_arab' => 'prenom_arab',
+            'nom_arab' => 'nom_arab',
+            'tele_num' => 'tele_num',
+            'profile_image' => 'profile_image',
+            'matricule' => 'matricule',
+            'sexe' => 'sexe',
+            'actif' => 'actif',
+            'diplome' => 'diplome',
+            'date_naissance' => 'date_naissance',
+            'date_inscription' => 'date_inscription',
+            'lieu_naissance' => 'lieu_naissance',
+            'cin' => 'cin',
+            'adresse' => 'adresse',
+            'niveaux_scolaire_id' => 'niveaux_scolaire_id',
+            'nationalite_id' => 'nationalite_id',
+            'user_id' => 'user_id',
+            'reference' => 'reference',
+        ];
+        }else{
         return [
             'nom' => __('PkgApprenants::apprenant.nom'),
             'prenom' => __('PkgApprenants::apprenant.prenom'),
@@ -46,6 +70,9 @@ class BaseApprenantExport implements FromCollection, WithHeadings, ShouldAutoSiz
             'user_id' => __('PkgApprenants::apprenant.user_id'),
             'reference' => __('Core::msg.reference'),
         ];
+
+        }
+   
     }
 
     public function collection()

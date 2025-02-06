@@ -18,18 +18,29 @@ class BaseSysColorExport implements FromCollection, WithHeadings, ShouldAutoSize
 {
     protected $data;
 
-    public function __construct($data)
+    public function __construct($data,$format)
     {
         $this->data = $data;
+        $this->format = $format;
     }
 
     public function headings(): array
     {
+     if($this->format == 'csv'){
+        return [
+            'name' => 'name',
+            'hex' => 'hex',
+            'reference' => 'reference',
+        ];
+        }else{
         return [
             'name' => __('Core::sysColor.name'),
             'hex' => __('Core::sysColor.hex'),
             'reference' => __('Core::msg.reference'),
         ];
+
+        }
+   
     }
 
     public function collection()

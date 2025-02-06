@@ -181,9 +181,9 @@ class BaseAffectationProjetController extends AdminController
         
         // Vérifier le format et exporter en conséquence
         if ($format === 'csv') {
-            return Excel::download(new AffectationProjetExport($affectationProjets_data), 'affectationProjet_export.csv', \Maatwebsite\Excel\Excel::CSV, ['Content-Type' => 'text/csv']);
+            return Excel::download(new AffectationProjetExport($affectationProjets_data,'csv'), 'affectationProjet_export.csv', \Maatwebsite\Excel\Excel::CSV, ['Content-Type' => 'text/csv']);
         } elseif ($format === 'xlsx') {
-            return Excel::download(new AffectationProjetExport($affectationProjets_data), 'affectationProjet_export.xlsx', \Maatwebsite\Excel\Excel::XLSX);
+            return Excel::download(new AffectationProjetExport($affectationProjets_data,'xlsx'), 'affectationProjet_export.xlsx', \Maatwebsite\Excel\Excel::XLSX);
         } else {
             return response()->json(['error' => 'Format non supporté'], 400);
         }

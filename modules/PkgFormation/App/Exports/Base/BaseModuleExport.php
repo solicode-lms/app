@@ -18,13 +18,23 @@ class BaseModuleExport implements FromCollection, WithHeadings, ShouldAutoSize, 
 {
     protected $data;
 
-    public function __construct($data)
+    public function __construct($data,$format)
     {
         $this->data = $data;
+        $this->format = $format;
     }
 
     public function headings(): array
     {
+     if($this->format == 'csv'){
+        return [
+            'nom' => 'nom',
+            'description' => 'description',
+            'masse_horaire' => 'masse_horaire',
+            'filiere_id' => 'filiere_id',
+            'reference' => 'reference',
+        ];
+        }else{
         return [
             'nom' => __('PkgFormation::module.nom'),
             'description' => __('PkgFormation::module.description'),
@@ -32,6 +42,9 @@ class BaseModuleExport implements FromCollection, WithHeadings, ShouldAutoSize, 
             'filiere_id' => __('PkgFormation::module.filiere_id'),
             'reference' => __('Core::msg.reference'),
         ];
+
+        }
+   
     }
 
     public function collection()

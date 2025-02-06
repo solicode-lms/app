@@ -18,13 +18,38 @@ class BaseApprenantKonosyExport implements FromCollection, WithHeadings, ShouldA
 {
     protected $data;
 
-    public function __construct($data)
+    public function __construct($data,$format)
     {
         $this->data = $data;
+        $this->format = $format;
     }
 
     public function headings(): array
     {
+     if($this->format == 'csv'){
+        return [
+            'MatriculeEtudiant' => 'MatriculeEtudiant',
+            'Nom' => 'Nom',
+            'Prenom' => 'Prenom',
+            'Sexe' => 'Sexe',
+            'EtudiantActif' => 'EtudiantActif',
+            'Diplome' => 'Diplome',
+            'Principale' => 'Principale',
+            'LibelleLong' => 'LibelleLong',
+            'CodeDiplome' => 'CodeDiplome',
+            'DateNaissance' => 'DateNaissance',
+            'DateInscription' => 'DateInscription',
+            'LieuNaissance' => 'LieuNaissance',
+            'CIN' => 'CIN',
+            'NTelephone' => 'NTelephone',
+            'Adresse' => 'Adresse',
+            'Nationalite' => 'Nationalite',
+            'Nom_Arabe' => 'Nom_Arabe',
+            'Prenom_Arabe' => 'Prenom_Arabe',
+            'NiveauScolaire' => 'NiveauScolaire',
+            'reference' => 'reference',
+        ];
+        }else{
         return [
             'MatriculeEtudiant' => __('PkgApprenants::apprenantKonosy.MatriculeEtudiant'),
             'Nom' => __('PkgApprenants::apprenantKonosy.Nom'),
@@ -47,6 +72,9 @@ class BaseApprenantKonosyExport implements FromCollection, WithHeadings, ShouldA
             'NiveauScolaire' => __('PkgApprenants::apprenantKonosy.NiveauScolaire'),
             'reference' => __('Core::msg.reference'),
         ];
+
+        }
+   
     }
 
     public function collection()

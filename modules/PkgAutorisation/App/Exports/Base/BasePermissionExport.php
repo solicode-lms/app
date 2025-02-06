@@ -18,19 +18,31 @@ class BasePermissionExport implements FromCollection, WithHeadings, ShouldAutoSi
 {
     protected $data;
 
-    public function __construct($data)
+    public function __construct($data,$format)
     {
         $this->data = $data;
+        $this->format = $format;
     }
 
     public function headings(): array
     {
+     if($this->format == 'csv'){
+        return [
+            'name' => 'name',
+            'guard_name' => 'guard_name',
+            'controller_id' => 'controller_id',
+            'reference' => 'reference',
+        ];
+        }else{
         return [
             'name' => __('PkgAutorisation::permission.name'),
             'guard_name' => __('PkgAutorisation::permission.guard_name'),
             'controller_id' => __('PkgAutorisation::permission.controller_id'),
             'reference' => __('Core::msg.reference'),
         ];
+
+        }
+   
     }
 
     public function collection()

@@ -18,19 +18,31 @@ class BaseNiveauxScolaireExport implements FromCollection, WithHeadings, ShouldA
 {
     protected $data;
 
-    public function __construct($data)
+    public function __construct($data,$format)
     {
         $this->data = $data;
+        $this->format = $format;
     }
 
     public function headings(): array
     {
+     if($this->format == 'csv'){
+        return [
+            'code' => 'code',
+            'nom' => 'nom',
+            'description' => 'description',
+            'reference' => 'reference',
+        ];
+        }else{
         return [
             'code' => __('PkgApprenants::niveauxScolaire.code'),
             'nom' => __('PkgApprenants::niveauxScolaire.nom'),
             'description' => __('PkgApprenants::niveauxScolaire.description'),
             'reference' => __('Core::msg.reference'),
         ];
+
+        }
+   
     }
 
     public function collection()

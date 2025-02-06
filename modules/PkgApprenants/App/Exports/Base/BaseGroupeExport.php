@@ -18,13 +18,24 @@ class BaseGroupeExport implements FromCollection, WithHeadings, ShouldAutoSize, 
 {
     protected $data;
 
-    public function __construct($data)
+    public function __construct($data,$format)
     {
         $this->data = $data;
+        $this->format = $format;
     }
 
     public function headings(): array
     {
+     if($this->format == 'csv'){
+        return [
+            'code' => 'code',
+            'nom' => 'nom',
+            'description' => 'description',
+            'filiere_id' => 'filiere_id',
+            'annee_formation_id' => 'annee_formation_id',
+            'reference' => 'reference',
+        ];
+        }else{
         return [
             'code' => __('PkgApprenants::groupe.code'),
             'nom' => __('PkgApprenants::groupe.nom'),
@@ -33,6 +44,9 @@ class BaseGroupeExport implements FromCollection, WithHeadings, ShouldAutoSize, 
             'annee_formation_id' => __('PkgApprenants::groupe.annee_formation_id'),
             'reference' => __('Core::msg.reference'),
         ];
+
+        }
+   
     }
 
     public function collection()

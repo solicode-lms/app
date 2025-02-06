@@ -18,13 +18,25 @@ class BaseAffectationProjetExport implements FromCollection, WithHeadings, Shoul
 {
     protected $data;
 
-    public function __construct($data)
+    public function __construct($data,$format)
     {
         $this->data = $data;
+        $this->format = $format;
     }
 
     public function headings(): array
     {
+     if($this->format == 'csv'){
+        return [
+            'groupe_id' => 'groupe_id',
+            'date_debut' => 'date_debut',
+            'date_fin' => 'date_fin',
+            'projet_id' => 'projet_id',
+            'description' => 'description',
+            'reference' => 'reference',
+            'annee_formation_id' => 'annee_formation_id',
+        ];
+        }else{
         return [
             'groupe_id' => __('PkgRealisationProjets::affectationProjet.groupe_id'),
             'date_debut' => __('PkgRealisationProjets::affectationProjet.date_debut'),
@@ -34,6 +46,9 @@ class BaseAffectationProjetExport implements FromCollection, WithHeadings, Shoul
             'reference' => __('Core::msg.reference'),
             'annee_formation_id' => __('PkgRealisationProjets::affectationProjet.annee_formation_id'),
         ];
+
+        }
+   
     }
 
     public function collection()

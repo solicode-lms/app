@@ -18,13 +18,31 @@ class BaseEDataFieldExport implements FromCollection, WithHeadings, ShouldAutoSi
 {
     protected $data;
 
-    public function __construct($data)
+    public function __construct($data,$format)
     {
         $this->data = $data;
+        $this->format = $format;
     }
 
     public function headings(): array
     {
+     if($this->format == 'csv'){
+        return [
+            'order' => 'order',
+            'reference' => 'reference',
+            'name' => 'name',
+            'column_name' => 'column_name',
+            'data_type' => 'data_type',
+            'field_order' => 'field_order',
+            'db_nullable' => 'db_nullable',
+            'db_primaryKey' => 'db_primaryKey',
+            'db_unique' => 'db_unique',
+            'default_value' => 'default_value',
+            'description' => 'description',
+            'e_model_id' => 'e_model_id',
+            'e_relationship_id' => 'e_relationship_id',
+        ];
+        }else{
         return [
             'order' => __('PkgGapp::eDataField.order'),
             'reference' => __('Core::msg.reference'),
@@ -40,6 +58,9 @@ class BaseEDataFieldExport implements FromCollection, WithHeadings, ShouldAutoSi
             'e_model_id' => __('PkgGapp::eDataField.e_model_id'),
             'e_relationship_id' => __('PkgGapp::eDataField.e_relationship_id'),
         ];
+
+        }
+   
     }
 
     public function collection()

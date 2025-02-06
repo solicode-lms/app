@@ -18,18 +18,29 @@ class BaseSpecialiteExport implements FromCollection, WithHeadings, ShouldAutoSi
 {
     protected $data;
 
-    public function __construct($data)
+    public function __construct($data,$format)
     {
         $this->data = $data;
+        $this->format = $format;
     }
 
     public function headings(): array
     {
+     if($this->format == 'csv'){
+        return [
+            'nom' => 'nom',
+            'description' => 'description',
+            'reference' => 'reference',
+        ];
+        }else{
         return [
             'nom' => __('PkgFormation::specialite.nom'),
             'description' => __('PkgFormation::specialite.description'),
             'reference' => __('Core::msg.reference'),
         ];
+
+        }
+   
     }
 
     public function collection()

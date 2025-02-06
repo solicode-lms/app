@@ -18,13 +18,24 @@ class BaseTransfertCompetenceExport implements FromCollection, WithHeadings, Sho
 {
     protected $data;
 
-    public function __construct($data)
+    public function __construct($data,$format)
     {
         $this->data = $data;
+        $this->format = $format;
     }
 
     public function headings(): array
     {
+     if($this->format == 'csv'){
+        return [
+            'competence_id' => 'competence_id',
+            'question' => 'question',
+            'niveau_difficulte_id' => 'niveau_difficulte_id',
+            'note' => 'note',
+            'reference' => 'reference',
+            'projet_id' => 'projet_id',
+        ];
+        }else{
         return [
             'competence_id' => __('PkgCreationProjet::transfertCompetence.competence_id'),
             'question' => __('PkgCreationProjet::transfertCompetence.question'),
@@ -33,6 +44,9 @@ class BaseTransfertCompetenceExport implements FromCollection, WithHeadings, Sho
             'reference' => __('Core::msg.reference'),
             'projet_id' => __('PkgCreationProjet::transfertCompetence.projet_id'),
         ];
+
+        }
+   
     }
 
     public function collection()

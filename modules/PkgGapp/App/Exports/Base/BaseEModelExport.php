@@ -18,13 +18,25 @@ class BaseEModelExport implements FromCollection, WithHeadings, ShouldAutoSize, 
 {
     protected $data;
 
-    public function __construct($data)
+    public function __construct($data,$format)
     {
         $this->data = $data;
+        $this->format = $format;
     }
 
     public function headings(): array
     {
+     if($this->format == 'csv'){
+        return [
+            'reference' => 'reference',
+            'name' => 'name',
+            'table_name' => 'table_name',
+            'icon' => 'icon',
+            'is_pivot_table' => 'is_pivot_table',
+            'description' => 'description',
+            'e_package_id' => 'e_package_id',
+        ];
+        }else{
         return [
             'reference' => __('Core::msg.reference'),
             'name' => __('PkgGapp::eModel.name'),
@@ -34,6 +46,9 @@ class BaseEModelExport implements FromCollection, WithHeadings, ShouldAutoSize, 
             'description' => __('PkgGapp::eModel.description'),
             'e_package_id' => __('PkgGapp::eModel.e_package_id'),
         ];
+
+        }
+   
     }
 
     public function collection()

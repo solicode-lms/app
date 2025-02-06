@@ -18,18 +18,29 @@ class BaseWidgetOperationExport implements FromCollection, WithHeadings, ShouldA
 {
     protected $data;
 
-    public function __construct($data)
+    public function __construct($data,$format)
     {
         $this->data = $data;
+        $this->format = $format;
     }
 
     public function headings(): array
     {
+     if($this->format == 'csv'){
+        return [
+            'operation' => 'operation',
+            'description' => 'description',
+            'reference' => 'reference',
+        ];
+        }else{
         return [
             'operation' => __('PkgWidgets::widgetOperation.operation'),
             'description' => __('PkgWidgets::widgetOperation.description'),
             'reference' => __('Core::msg.reference'),
         ];
+
+        }
+   
     }
 
     public function collection()

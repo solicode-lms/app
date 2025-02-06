@@ -18,17 +18,27 @@ class BaseVilleExport implements FromCollection, WithHeadings, ShouldAutoSize, W
 {
     protected $data;
 
-    public function __construct($data)
+    public function __construct($data,$format)
     {
         $this->data = $data;
+        $this->format = $format;
     }
 
     public function headings(): array
     {
+     if($this->format == 'csv'){
+        return [
+            'nom' => 'nom',
+            'reference' => 'reference',
+        ];
+        }else{
         return [
             'nom' => __('PkgApprenants::ville.nom'),
             'reference' => __('Core::msg.reference'),
         ];
+
+        }
+   
     }
 
     public function collection()

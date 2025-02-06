@@ -18,13 +18,24 @@ class BaseValidationExport implements FromCollection, WithHeadings, ShouldAutoSi
 {
     protected $data;
 
-    public function __construct($data)
+    public function __construct($data,$format)
     {
         $this->data = $data;
+        $this->format = $format;
     }
 
     public function headings(): array
     {
+     if($this->format == 'csv'){
+        return [
+            'note' => 'note',
+            'message' => 'message',
+            'is_valide' => 'is_valide',
+            'transfert_competence_id' => 'transfert_competence_id',
+            'realisation_projet_id' => 'realisation_projet_id',
+            'reference' => 'reference',
+        ];
+        }else{
         return [
             'note' => __('PkgRealisationProjets::validation.note'),
             'message' => __('PkgRealisationProjets::validation.message'),
@@ -33,6 +44,9 @@ class BaseValidationExport implements FromCollection, WithHeadings, ShouldAutoSi
             'realisation_projet_id' => __('PkgRealisationProjets::validation.realisation_projet_id'),
             'reference' => __('Core::msg.reference'),
         ];
+
+        }
+   
     }
 
     public function collection()

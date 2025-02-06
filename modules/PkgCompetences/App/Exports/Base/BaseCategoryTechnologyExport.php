@@ -18,18 +18,29 @@ class BaseCategoryTechnologyExport implements FromCollection, WithHeadings, Shou
 {
     protected $data;
 
-    public function __construct($data)
+    public function __construct($data,$format)
     {
         $this->data = $data;
+        $this->format = $format;
     }
 
     public function headings(): array
     {
+     if($this->format == 'csv'){
+        return [
+            'nom' => 'nom',
+            'description' => 'description',
+            'reference' => 'reference',
+        ];
+        }else{
         return [
             'nom' => __('PkgCompetences::categoryTechnology.nom'),
             'description' => __('PkgCompetences::categoryTechnology.description'),
             'reference' => __('Core::msg.reference'),
         ];
+
+        }
+   
     }
 
     public function collection()

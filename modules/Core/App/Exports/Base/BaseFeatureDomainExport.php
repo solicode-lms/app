@@ -18,13 +18,23 @@ class BaseFeatureDomainExport implements FromCollection, WithHeadings, ShouldAut
 {
     protected $data;
 
-    public function __construct($data)
+    public function __construct($data,$format)
     {
         $this->data = $data;
+        $this->format = $format;
     }
 
     public function headings(): array
     {
+     if($this->format == 'csv'){
+        return [
+            'name' => 'name',
+            'slug' => 'slug',
+            'description' => 'description',
+            'sys_module_id' => 'sys_module_id',
+            'reference' => 'reference',
+        ];
+        }else{
         return [
             'name' => __('Core::featureDomain.name'),
             'slug' => __('Core::featureDomain.slug'),
@@ -32,6 +42,9 @@ class BaseFeatureDomainExport implements FromCollection, WithHeadings, ShouldAut
             'sys_module_id' => __('Core::featureDomain.sys_module_id'),
             'reference' => __('Core::msg.reference'),
         ];
+
+        }
+   
     }
 
     public function collection()

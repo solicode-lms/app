@@ -18,13 +18,25 @@ class BaseEMetadataDefinitionExport implements FromCollection, WithHeadings, Sho
 {
     protected $data;
 
-    public function __construct($data)
+    public function __construct($data,$format)
     {
         $this->data = $data;
+        $this->format = $format;
     }
 
     public function headings(): array
     {
+     if($this->format == 'csv'){
+        return [
+            'reference' => 'reference',
+            'name' => 'name',
+            'groupe' => 'groupe',
+            'type' => 'type',
+            'scope' => 'scope',
+            'description' => 'description',
+            'default_value' => 'default_value',
+        ];
+        }else{
         return [
             'reference' => __('Core::msg.reference'),
             'name' => __('PkgGapp::eMetadataDefinition.name'),
@@ -34,6 +46,9 @@ class BaseEMetadataDefinitionExport implements FromCollection, WithHeadings, Sho
             'description' => __('PkgGapp::eMetadataDefinition.description'),
             'default_value' => __('PkgGapp::eMetadataDefinition.default_value'),
         ];
+
+        }
+   
     }
 
     public function collection()

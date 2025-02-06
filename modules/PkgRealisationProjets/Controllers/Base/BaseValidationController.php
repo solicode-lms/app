@@ -164,9 +164,9 @@ class BaseValidationController extends AdminController
         
         // Vérifier le format et exporter en conséquence
         if ($format === 'csv') {
-            return Excel::download(new ValidationExport($validations_data), 'validation_export.csv', \Maatwebsite\Excel\Excel::CSV, ['Content-Type' => 'text/csv']);
+            return Excel::download(new ValidationExport($validations_data,'csv'), 'validation_export.csv', \Maatwebsite\Excel\Excel::CSV, ['Content-Type' => 'text/csv']);
         } elseif ($format === 'xlsx') {
-            return Excel::download(new ValidationExport($validations_data), 'validation_export.xlsx', \Maatwebsite\Excel\Excel::XLSX);
+            return Excel::download(new ValidationExport($validations_data,'xlsx'), 'validation_export.xlsx', \Maatwebsite\Excel\Excel::XLSX);
         } else {
             return response()->json(['error' => 'Format non supporté'], 400);
         }

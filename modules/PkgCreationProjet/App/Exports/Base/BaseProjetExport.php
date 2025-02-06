@@ -18,13 +18,25 @@ class BaseProjetExport implements FromCollection, WithHeadings, ShouldAutoSize, 
 {
     protected $data;
 
-    public function __construct($data)
+    public function __construct($data,$format)
     {
         $this->data = $data;
+        $this->format = $format;
     }
 
     public function headings(): array
     {
+     if($this->format == 'csv'){
+        return [
+            'titre' => 'titre',
+            'travail_a_faire' => 'travail_a_faire',
+            'critere_de_travail' => 'critere_de_travail',
+            'nombre_jour' => 'nombre_jour',
+            'description' => 'description',
+            'reference' => 'reference',
+            'formateur_id' => 'formateur_id',
+        ];
+        }else{
         return [
             'titre' => __('PkgCreationProjet::projet.titre'),
             'travail_a_faire' => __('PkgCreationProjet::projet.travail_a_faire'),
@@ -34,6 +46,9 @@ class BaseProjetExport implements FromCollection, WithHeadings, ShouldAutoSize, 
             'reference' => __('Core::msg.reference'),
             'formateur_id' => __('PkgCreationProjet::projet.formateur_id'),
         ];
+
+        }
+   
     }
 
     public function collection()

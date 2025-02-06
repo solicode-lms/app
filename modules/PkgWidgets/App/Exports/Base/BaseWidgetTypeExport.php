@@ -18,18 +18,29 @@ class BaseWidgetTypeExport implements FromCollection, WithHeadings, ShouldAutoSi
 {
     protected $data;
 
-    public function __construct($data)
+    public function __construct($data,$format)
     {
         $this->data = $data;
+        $this->format = $format;
     }
 
     public function headings(): array
     {
+     if($this->format == 'csv'){
+        return [
+            'type' => 'type',
+            'description' => 'description',
+            'reference' => 'reference',
+        ];
+        }else{
         return [
             'type' => __('PkgWidgets::widgetType.type'),
             'description' => __('PkgWidgets::widgetType.description'),
             'reference' => __('Core::msg.reference'),
         ];
+
+        }
+   
     }
 
     public function collection()

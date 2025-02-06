@@ -18,13 +18,32 @@ class BaseEMetadatumExport implements FromCollection, WithHeadings, ShouldAutoSi
 {
     protected $data;
 
-    public function __construct($data)
+    public function __construct($data,$format)
     {
         $this->data = $data;
+        $this->format = $format;
     }
 
     public function headings(): array
     {
+     if($this->format == 'csv'){
+        return [
+            'Value' => 'Value',
+            'reference' => 'reference',
+            'value_boolean' => 'value_boolean',
+            'value_string' => 'value_string',
+            'value_integer' => 'value_integer',
+            'value_float' => 'value_float',
+            'value_date' => 'value_date',
+            'value_datetime' => 'value_datetime',
+            'value_enum' => 'value_enum',
+            'value_json' => 'value_json',
+            'value_text' => 'value_text',
+            'e_model_id' => 'e_model_id',
+            'e_data_field_id' => 'e_data_field_id',
+            'e_metadata_definition_id' => 'e_metadata_definition_id',
+        ];
+        }else{
         return [
             'Value' => __('PkgGapp::eMetadatum.Value'),
             'reference' => __('Core::msg.reference'),
@@ -41,6 +60,9 @@ class BaseEMetadatumExport implements FromCollection, WithHeadings, ShouldAutoSi
             'e_data_field_id' => __('PkgGapp::eMetadatum.e_data_field_id'),
             'e_metadata_definition_id' => __('PkgGapp::eMetadatum.e_metadata_definition_id'),
         ];
+
+        }
+   
     }
 
     public function collection()
