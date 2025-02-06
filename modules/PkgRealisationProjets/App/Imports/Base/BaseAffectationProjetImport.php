@@ -38,13 +38,13 @@ class BaseAffectationProjetImport implements ToModel, WithHeadingRow
 
         // Crée un nouvel enregistrement à partir des données importées
         return new AffectationProjet([
+            'groupe_id' => $row['groupe_id'],
             'date_debut' => $row['date_debut'],
             'date_fin' => $row['date_fin'],
-            'annee_formation_id' => $row['annee_formation_id'],
-            'groupe_id' => $row['groupe_id'],
             'projet_id' => $row['projet_id'],
             'description' => $row['description'],
             'reference' => $row['reference'],
+            'annee_formation_id' => $row['annee_formation_id'],
         ]);
     }
 }

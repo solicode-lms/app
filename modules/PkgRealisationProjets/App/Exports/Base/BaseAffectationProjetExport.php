@@ -25,13 +25,13 @@ class BaseAffectationProjetExport implements FromCollection, WithHeadings, Shoul
     public function headings(): array
     {
         return [
+            'groupe_id',
             'date_debut',
             'date_fin',
-            'annee_formation_id',
-            'groupe_id',
             'projet_id',
             'description',
             'reference',
+            'annee_formation_id',
         ];
     }
 
@@ -39,13 +39,13 @@ class BaseAffectationProjetExport implements FromCollection, WithHeadings, Shoul
     {
         return $this->data->map(function ($affectationProjet) {
             return [
+                'groupe_id' => $affectationProjet->groupe_id,
                 'date_debut' => $affectationProjet->date_debut,
                 'date_fin' => $affectationProjet->date_fin,
-                'annee_formation_id' => $affectationProjet->annee_formation_id,
-                'groupe_id' => $affectationProjet->groupe_id,
                 'projet_id' => $affectationProjet->projet_id,
                 'description' => $affectationProjet->description,
                 'reference' => $affectationProjet->reference,
+                'annee_formation_id' => $affectationProjet->annee_formation_id,
             ];
         });
     }

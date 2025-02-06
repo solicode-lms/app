@@ -1,4 +1,5 @@
 import EventUtil from '../utils/EventUtil';
+import { LoadListAction } from './../actions/LoadListAction';
 
 export class ModalUI {
 
@@ -170,7 +171,10 @@ export class ModalUI {
     }
 
     handleClose() {
+
         this.restoreParentModal();
+        
+        this.indexUI.tableUI.entityLoader.loadEntities();
     
         // setTimeout(() => {
         //     if ($(".dynamic-modal:visible").length === 0) {

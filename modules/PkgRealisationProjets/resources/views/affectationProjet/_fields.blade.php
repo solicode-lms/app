@@ -10,6 +10,35 @@
 
     <div class="card-body">
         
+        
+    <div class="form-group">
+            <label for="groupe_id">
+                {{ ucfirst(__('PkgApprenants::groupe.singular')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <select 
+            id="groupe_id" 
+            required
+            
+            name="groupe_id" 
+            class="form-control select2">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($groupes as $groupe)
+                    <option value="{{ $groupe->id }}"
+                        {{ (isset($itemAffectationProjet) && $itemAffectationProjet->groupe_id == $groupe->id) || (old('groupe_id>') == $groupe->id) ? 'selected' : '' }}>
+                        {{ $groupe }}
+                    </option>
+                @endforeach
+            </select>
+            @error('groupe_id')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+    </div>
+
+
+        
         <div class="form-group">
             <label for="date_debut">
                 {{ ucfirst(__('PkgRealisationProjets::affectationProjet.date_debut')) }}
@@ -62,64 +91,6 @@
         
         
     <div class="form-group">
-            <label for="annee_formation_id">
-                {{ ucfirst(__('PkgFormation::anneeFormation.singular')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <select 
-            id="annee_formation_id" 
-            required
-            
-            name="annee_formation_id" 
-            class="form-control select2">
-             <option value="">Sélectionnez une option</option>
-                @foreach ($anneeFormations as $anneeFormation)
-                    <option value="{{ $anneeFormation->id }}"
-                        {{ (isset($itemAffectationProjet) && $itemAffectationProjet->annee_formation_id == $anneeFormation->id) || (old('annee_formation_id>') == $anneeFormation->id) ? 'selected' : '' }}>
-                        {{ $anneeFormation }}
-                    </option>
-                @endforeach
-            </select>
-            @error('annee_formation_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
-
-
-        
-        
-    <div class="form-group">
-            <label for="groupe_id">
-                {{ ucfirst(__('PkgApprenants::groupe.singular')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <select 
-            id="groupe_id" 
-            required
-            
-            name="groupe_id" 
-            class="form-control select2">
-             <option value="">Sélectionnez une option</option>
-                @foreach ($groupes as $groupe)
-                    <option value="{{ $groupe->id }}"
-                        {{ (isset($itemAffectationProjet) && $itemAffectationProjet->groupe_id == $groupe->id) || (old('groupe_id>') == $groupe->id) ? 'selected' : '' }}>
-                        {{ $groupe }}
-                    </option>
-                @endforeach
-            </select>
-            @error('groupe_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
-
-
-        
-        
-    <div class="form-group">
             <label for="projet_id">
                 {{ ucfirst(__('PkgCreationProjet::projet.singular')) }}
                 
@@ -165,6 +136,35 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
+
+        
+        
+    <div class="form-group">
+            <label for="annee_formation_id">
+                {{ ucfirst(__('PkgFormation::anneeFormation.singular')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <select 
+            id="annee_formation_id" 
+            required
+            
+            name="annee_formation_id" 
+            class="form-control select2">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($anneeFormations as $anneeFormation)
+                    <option value="{{ $anneeFormation->id }}"
+                        {{ (isset($itemAffectationProjet) && $itemAffectationProjet->annee_formation_id == $anneeFormation->id) || (old('annee_formation_id>') == $anneeFormation->id) ? 'selected' : '' }}>
+                        {{ $anneeFormation }}
+                    </option>
+                @endforeach
+            </select>
+            @error('annee_formation_id')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+    </div>
+
 
         
 

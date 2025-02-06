@@ -27,12 +27,12 @@ class BaseAffectationProjetRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'groupe_id' => 'required',
             'date_debut' => 'required',
             'date_fin' => 'nullable',
-            'annee_formation_id' => 'required',
-            'groupe_id' => 'required',
             'projet_id' => 'required',
-            'description' => 'nullable|string'
+            'description' => 'nullable|string',
+            'annee_formation_id' => 'required'
         ];
     }
 
@@ -44,12 +44,12 @@ class BaseAffectationProjetRequest extends FormRequest
     public function messages(): array
     {
         return [
+            'groupe_id.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::AffectationProjet.groupe_id')]),
             'date_debut.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::AffectationProjet.date_debut')]),
             'date_fin.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::AffectationProjet.date_fin')]),
-            'annee_formation_id.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::AffectationProjet.annee_formation_id')]),
-            'groupe_id.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::AffectationProjet.groupe_id')]),
             'projet_id.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::AffectationProjet.projet_id')]),
-            'description.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::AffectationProjet.description')])
+            'description.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::AffectationProjet.description')]),
+            'annee_formation_id.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::AffectationProjet.annee_formation_id')])
         ];
     }
 }
