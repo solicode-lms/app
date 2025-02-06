@@ -148,7 +148,7 @@
 
         
 
-        <!--   AffectationProjet HasMany --> 
+        <!--   TransfertCompetence HasMany --> 
 
         
 
@@ -160,7 +160,7 @@
 
         
 
-        <!--   TransfertCompetence HasMany --> 
+        <!--   AffectationProjet HasMany --> 
 
     </div>
 

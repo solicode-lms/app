@@ -4,20 +4,18 @@
     <table class="table table-striped text-nowrap">
         <thead>
             <tr>
-                <x-sortable-column field="note" label="{{ ucfirst(__('PkgCreationProjet::transfertCompetence.note')) }}" />
-                <x-sortable-column field="projet_id" label="{{ ucfirst(__('PkgCreationProjet::projet.singular')) }}" />
                 <x-sortable-column field="competence_id" label="{{ ucfirst(__('PkgCompetences::competence.singular')) }}" />
                 <x-sortable-column field="niveau_difficulte_id" label="{{ ucfirst(__('PkgCompetences::niveauDifficulte.singular')) }}" />
+                <x-sortable-column field="note" label="{{ ucfirst(__('PkgCreationProjet::transfertCompetence.note')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($transfertCompetences_data as $transfertCompetence)
                 <tr id="transfertCompetence-row-{{$transfertCompetence->id}}">
-                    <td>@limit($transfertCompetence->note, 80)</td>
-                    <td>@limit($transfertCompetence->projet->titre ?? '-', 80)</td>
                     <td>@limit($transfertCompetence->competence->code ?? '-', 80)</td>
                     <td>@limit($transfertCompetence->niveauDifficulte->nom ?? '-', 80)</td>
+                    <td>@limit($transfertCompetence->note, 80)</td>
                     <td class="text-right">
                         @can('show-transfertCompetence')
                             <a href="{{ route('transfertCompetences.show', ['transfertCompetence' => $transfertCompetence->id]) }}" data-id="{{$transfertCompetence->id}}" class="btn btn-default btn-sm context-state showEntity">

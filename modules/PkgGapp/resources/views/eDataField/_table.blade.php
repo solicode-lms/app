@@ -9,8 +9,6 @@
                 </th>
                 <x-sortable-column field="name" label="{{ ucfirst(__('PkgGapp::eDataField.name')) }}" />
                 <x-sortable-column field="data_type" label="{{ ucfirst(__('PkgGapp::eDataField.data_type')) }}" />
-                <x-sortable-column field="e_model_id" label="{{ ucfirst(__('PkgGapp::eModel.singular')) }}" />
-                <x-sortable-column field="e_relationship_id" label="{{ ucfirst(__('PkgGapp::eRelationship.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -20,8 +18,6 @@
                     <td>@limit($eDataField->getOrder(), 80)</td>
                     <td>@limit($eDataField->name, 80)</td>
                     <td>@limit($eDataField->data_type, 80)</td>
-                    <td>@limit($eDataField->eModel->name ?? '-', 80)</td>
-                    <td>@limit($eDataField->eRelationship->name ?? '-', 80)</td>
                     <td class="text-right">
                         @can('show-eDataField')
                             <a href="{{ route('eDataFields.show', ['eDataField' => $eDataField->id]) }}" data-id="{{$eDataField->id}}" class="btn btn-default btn-sm context-state showEntity">

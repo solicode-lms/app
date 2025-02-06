@@ -12,10 +12,10 @@ use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
 use Modules\PkgFormation\Models\Formateur;
-use Modules\PkgRealisationProjets\Models\AffectationProjet;
+use Modules\PkgCreationProjet\Models\TransfertCompetence;
 use Modules\PkgCreationProjet\Models\Livrable;
 use Modules\PkgCreationProjet\Models\Resource;
-use Modules\PkgCreationProjet\Models\TransfertCompetence;
+use Modules\PkgRealisationProjets\Models\AffectationProjet;
 
 /**
  * Classe BaseProjet
@@ -56,9 +56,9 @@ class BaseProjet extends BaseModel
      *
      * @return HasMany
      */
-    public function affectationProjets(): HasMany
+    public function transfertCompetences(): HasMany
     {
-        return $this->hasMany(AffectationProjet::class, 'projet_id', 'id');
+        return $this->hasMany(TransfertCompetence::class, 'projet_id', 'id');
     }
     /**
      * Relation HasMany pour Projets.
@@ -83,9 +83,9 @@ class BaseProjet extends BaseModel
      *
      * @return HasMany
      */
-    public function transfertCompetences(): HasMany
+    public function affectationProjets(): HasMany
     {
-        return $this->hasMany(TransfertCompetence::class, 'projet_id', 'id');
+        return $this->hasMany(AffectationProjet::class, 'projet_id', 'id');
     }
 
 

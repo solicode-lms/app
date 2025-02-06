@@ -37,7 +37,7 @@ class DefaultApprenantPermission extends Seeder
         $actionsByType = [
             'LecteurMany' => ['show'],
             'Lecteur' => ['index', 'show'],
-            'Editeur' => ['index', 'show', 'create', 'store', 'edit', 'update', 'destroy'],
+            'Editeur' => ['index', 'show', 'create', 'store', 'edit', 'update', 'destroy','dataCalcul'],
             'EditeurSansCreate' => ['index', 'show', 'store', 'edit', 'update'],
             'Extraction' => ['export'],
         ];

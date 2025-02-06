@@ -67,11 +67,11 @@ class BaseTransfertCompetenceSeeder extends Seeder
             
             if ($row) {
                 $transfertCompetenceService->create([
-                    "note" => $row["note"] ?? null ,
-                    "question" => $row["question"] ?? null ,
-                    "projet_id" => $row["projet_id"] ?? null ,
                     "competence_id" => $row["competence_id"] ?? null ,
-                    "niveau_difficulte_id" => $row["niveau_difficulte_id"] ?? null 
+                    "niveau_difficulte_id" => $row["niveau_difficulte_id"] ?? null ,
+                    "question" => $row["question"] ?? null ,
+                    "note" => $row["note"] ?? null ,
+                    "projet_id" => $row["projet_id"] ?? null 
                 ]);
             }
         }

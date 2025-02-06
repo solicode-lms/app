@@ -43,7 +43,7 @@ class DefaultFormateurPermission extends Seeder
         $actionsByType = [
             'LecteurMany' => ['show'],
             'Lecteur' => ['index', 'show'],
-            'Editeur' => ['index', 'show', 'create', 'store', 'edit', 'update', 'destroy'],
+            'Editeur' => ['index', 'show', 'create', 'store', 'edit', 'update', 'destroy','dataCalcul'],
             'Extraction' => ['export'],
         ];
 

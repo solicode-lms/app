@@ -34,7 +34,7 @@ class DefaultGappPermission extends Seeder
         // Actions par type d'accès
         $actionsByType = [
             'Lecteur' => ['index', 'show'],
-            'Editeur' => ['index', 'show', 'create', 'store', 'edit', 'update', 'destroy'],
+            'Editeur' => ['index', 'show', 'create', 'store', 'edit', 'update', 'destroy','dataCalcul'],
             'Extraction' => ['export'],
         ];
 
