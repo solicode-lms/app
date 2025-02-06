@@ -118,6 +118,22 @@
 </div>
 
         
+
+        <!--   TransfertCompetence HasMany --> 
+
+        
+
+        <!--   Livrable HasMany --> 
+
+        
+
+        <!--   Resource HasMany --> 
+
+        
+
+        <!--   AffectationProjet HasMany --> 
+
+        
         
     <div class="form-group">
             <label for="formateur_id">
@@ -145,22 +161,6 @@
             @enderror
     </div>
 
-
-        
-
-        <!--   TransfertCompetence HasMany --> 
-
-        
-
-        <!--   Livrable HasMany --> 
-
-        
-
-        <!--   Resource HasMany --> 
-
-        
-
-        <!--   AffectationProjet HasMany --> 
 
     </div>
 

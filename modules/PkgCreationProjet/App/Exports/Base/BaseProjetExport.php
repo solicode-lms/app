@@ -30,8 +30,8 @@ class BaseProjetExport implements FromCollection, WithHeadings, ShouldAutoSize, 
             'critere_de_travail',
             'nombre_jour',
             'description',
-            'formateur_id',
             'reference',
+            'formateur_id',
         ];
     }
 
@@ -44,8 +44,8 @@ class BaseProjetExport implements FromCollection, WithHeadings, ShouldAutoSize, 
                 'critere_de_travail' => $projet->critere_de_travail,
                 'nombre_jour' => $projet->nombre_jour,
                 'description' => $projet->description,
-                'formateur_id' => $projet->formateur_id,
                 'reference' => $projet->reference,
+                'formateur_id' => $projet->formateur_id,
             ];
         });
     }

@@ -1,14 +1,13 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 return [
-    'singular' => 'AffectationProjet',
-    'plural' => 'AffectationProjets',
-    'date_debut' => 'date_debut',
-    'date_fin' => 'date_fin',
-    'annee_formation_id' => 'annee_formation_id',
-    'groupe_id' => 'groupe_id',
-    'projet_id' => 'projet_id',
-    'description' => 'description',
+    'singular' => 'Affectation de projet',
+    'plural' => 'Affectations de projets',
+    'date_debut' => 'Date de début',
+    'date_fin' => 'Date de fin',
+    'annee_formation_id' => 'Année de formation',
+    'groupe_id' => 'Groupe',
+    'projet_id' => 'Projet',
+    'description' => 'Description',
 ];

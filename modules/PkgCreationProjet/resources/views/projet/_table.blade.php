@@ -5,6 +5,10 @@
         <thead>
             <tr>
                 <x-sortable-column field="titre" label="{{ ucfirst(__('PkgCreationProjet::projet.titre')) }}" />
+                <x-sortable-column field="TransfertCompetence" label="{{ ucfirst(__('PkgCreationProjet::transfertCompetence.plural')) }}" />
+
+                <x-sortable-column field="AffectationProjet" label="{{ ucfirst(__('PkgRealisationProjets::affectationProjet.plural')) }}" />
+
                 <x-sortable-column field="formateur_id" label="{{ ucfirst(__('PkgFormation::formateur.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
@@ -13,6 +17,20 @@
             @foreach ($projets_data as $projet)
                 <tr id="projet-row-{{$projet->id}}">
                     <td>@limit($projet->titre, 80)</td>
+                    <td>
+                        <ul>
+                            @foreach ($projet->transfertCompetences as $transfertCompetence)
+                                <li>{{ $transfertCompetence }}</li>
+                            @endforeach
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            @foreach ($projet->affectationProjets as $affectationProjet)
+                                <li>{{ $affectationProjet }}</li>
+                            @endforeach
+                        </ul>
+                    </td>
                     <td>@limit($projet->formateur->nom ?? '-', 80)</td>
                     <td class="text-right">
                         @can('show-projet')
