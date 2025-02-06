@@ -18,13 +18,24 @@ class BaseNiveauDifficulteExport implements FromCollection, WithHeadings, Should
 {
     protected $data;
 
-    public function __construct($data)
+    public function __construct($data,$format)
     {
         $this->data = $data;
+        $this->format = $format;
     }
 
     public function headings(): array
     {
+     if($this->format == 'csv'){
+        return [
+            'nom' => 'nom',
+            'noteMin' => 'noteMin',
+            'noteMax' => 'noteMax',
+            'formateur_id' => 'formateur_id',
+            'description' => 'description',
+            'reference' => 'reference',
+        ];
+        }else{
         return [
             'nom' => __('PkgCompetences::niveauDifficulte.nom'),
             'noteMin' => __('PkgCompetences::niveauDifficulte.noteMin'),
@@ -33,6 +44,9 @@ class BaseNiveauDifficulteExport implements FromCollection, WithHeadings, Should
             'description' => __('PkgCompetences::niveauDifficulte.description'),
             'reference' => __('Core::msg.reference'),
         ];
+
+        }
+   
     }
 
     public function collection()
