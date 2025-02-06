@@ -44,7 +44,7 @@
                 type="input"
                 class="form-control"
                 required
-                data-calcul='true'
+                
                 id="nom"
                 placeholder="{{ __('PkgCompetences::competence.nom') }}"
                 value="{{ $itemCompetence ? $itemCompetence->nom : old('nom') }}">
