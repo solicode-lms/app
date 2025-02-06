@@ -49,8 +49,8 @@ class BaseTechnologySeeder extends Seeder
             if (!$firstline) {
                 $technologyService->create([
                     "nom" => $data[0] ,
-                    "description" => $data[1] ,
-                    "category_technology_id" => $data[2] 
+                    "category_technology_id" => $data[1] ,
+                    "description" => $data[2] 
                 ]);
             }
             $firstline = false;

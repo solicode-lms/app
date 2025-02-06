@@ -17,5 +17,8 @@ Route::middleware('auth')->group(function () {
             Route::get('specialites/export', [SpecialiteController::class, 'export'])->name('specialites.export');
             Route::post('specialites/import', [SpecialiteController::class, 'import'])->name('specialites.import');
         });
+
+        Route::post('specialites/data-calcul', [SpecialiteController::class, 'dataCalcul'])->name('specialites.dataCalcul');
+
     });
 });

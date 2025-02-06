@@ -26,8 +26,7 @@
                         <ul class="nav nav-tabs mr-auto" id="edit-competence-tab" role="tablist">
                         <li class="pt-2 px-3">
                             <h3 class="card-title">
-                                <i class="nav-icon fas fa-tools"></i>
-                                {{ __('Core::msg.edit') }}
+                                <i class="nav-icon fas fa-user-graduate"></i>
                             </h3>
                         </li>
                         <li class="nav-item">
@@ -40,10 +39,6 @@
 
                        
                         </ul>
-                         <button type="button" class="btn btn-info btn-sm btn-card-header">
-                            <i class="fa fa-check"></i>
-                                Enregistrer
-                         </button>
                     </div>
                     <div class="card-body">
                         <div class="tab-content" id="edit-competence-tabContent">

@@ -1,5 +1,5 @@
 <?php
-// TODO : Edit :  Gapp : Relation A avec Plusieurs B
+// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 namespace Modules\PkgGapp\Controllers\Base;
@@ -7,7 +7,6 @@ use Modules\PkgGapp\Services\EModelService;
 use Modules\PkgGapp\Services\EPackageService;
 use Modules\PkgGapp\Services\EDataFieldService;
 use Modules\PkgGapp\Services\EMetadatumService;
-use Modules\PkgGapp\Services\ERelationshipService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\PkgGapp\App\Requests\EModelRequest;
@@ -63,11 +62,10 @@ class BaseEModelController extends AdminController
         $validatedData = $request->validated();
         $eModel = $this->eModelService->create($validatedData);
 
-
-
-
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
+            return response()->json(['success' => true, 
+            'entity_id' => $eModel->id,
+            'message' => 
              __('Core::msg.addSuccess', [
                 'entityToString' => $eModel,
                 'modelName' => __('PkgGapp::eModel.singular')])
@@ -83,15 +81,28 @@ class BaseEModelController extends AdminController
         );
     }
     public function show(string $id) {
+
+        // Utilisé dans l'édition des relation HasMany
+        $this->contextState->set('e_model_id', $id);
+        
         $itemEModel = $this->eModelService->find($id);
         $ePackages = $this->ePackageService->all();
-
+        $eDataFieldService =  new EDataFieldService();
+        $eDataFields_data =  $itemEModel->eDataFields()->paginate(10);
+        $eDataFields_stats = $eDataFieldService->geteDataFieldStats();
+        $eDataFields_filters = $eDataFieldService->getFieldsFilterable();
+        
+        $eMetadatumService =  new EMetadatumService();
+        $eMetadata_data =  $itemEModel->eMetadata()->paginate(10);
+        $eMetadata_stats = $eMetadatumService->geteMetadatumStats();
+        $eMetadata_filters = $eMetadatumService->getFieldsFilterable();
+        
 
         if (request()->ajax()) {
-            return view('PkgGapp::eModel._fields', compact('itemEModel', 'ePackages'));
+            return view('PkgGapp::eModel._edit', compact('itemEModel', 'ePackages', 'eDataFields_data', 'eMetadata_data', 'eDataFields_stats', 'eMetadata_stats', 'eDataFields_filters', 'eMetadata_filters'));
         }
 
-        return view('PkgGapp::eModel.show', compact('itemEModel'));
+        return view('PkgGapp::eModel.edit', compact('itemEModel', 'ePackages', 'eDataFields_data', 'eMetadata_data', 'eDataFields_stats', 'eMetadata_stats', 'eDataFields_filters', 'eMetadata_filters'));
 
     }
     public function edit(string $id) {
@@ -111,30 +122,18 @@ class BaseEModelController extends AdminController
         $eMetadata_stats = $eMetadatumService->geteMetadatumStats();
         $eMetadata_filters = $eMetadatumService->getFieldsFilterable();
         
-        // TODO : Relation A avec Plusieurs B
-        $eRelationshipService =  new ERelationshipService();
-        $eRelationships_data =  $itemEModel->sourceERelationships()->paginate(10);
-        $eRelationships_stats = $eRelationshipService->geteRelationshipStats();
-        $eRelationships_filters = $eRelationshipService->getFieldsFilterable();
-        
-        $eRelationshipService =  new ERelationshipService();
-        $eRelationships_data =  $itemEModel->targetERelationships()->paginate(10);
-        $eRelationships_stats = $eRelationshipService->geteRelationshipStats();
-        $eRelationships_filters = $eRelationshipService->getFieldsFilterable();
-        
 
         if (request()->ajax()) {
-            return view('PkgGapp::eModel._fields', compact('itemEModel', 'ePackages', 'eDataFields_data', 'eMetadata_data', 'eRelationships_data', 'eRelationships_data', 'eDataFields_stats', 'eMetadata_stats', 'eRelationships_stats', 'eRelationships_stats', 'eDataFields_filters', 'eMetadata_filters', 'eRelationships_filters', 'eRelationships_filters'));
+            return view('PkgGapp::eModel._edit', compact('itemEModel', 'ePackages', 'eDataFields_data', 'eMetadata_data', 'eDataFields_stats', 'eMetadata_stats', 'eDataFields_filters', 'eMetadata_filters'));
         }
 
-        return view('PkgGapp::eModel.edit', compact('itemEModel', 'ePackages', 'eDataFields_data', 'eMetadata_data', 'eRelationships_data', 'eRelationships_data', 'eDataFields_stats', 'eMetadata_stats', 'eRelationships_stats', 'eRelationships_stats', 'eDataFields_filters', 'eMetadata_filters', 'eRelationships_filters', 'eRelationships_filters'));
+        return view('PkgGapp::eModel.edit', compact('itemEModel', 'ePackages', 'eDataFields_data', 'eMetadata_data', 'eDataFields_stats', 'eMetadata_stats', 'eDataFields_filters', 'eMetadata_filters'));
 
     }
     public function update(EModelRequest $request, string $id) {
 
         $validatedData = $request->validated();
         $eModel = $this->eModelService->update($id, $validatedData);
-
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
@@ -208,5 +207,25 @@ class BaseEModelController extends AdminController
         $eModels = $this->eModelService->all();
         return response()->json($eModels);
     }
+
+
+    public function dataCalcul(Request $request)
+    {
+
+        // Extraire les données de la requête
+        $data = $request->all();
+
+        $eModel = $this->eModelService->createInstance($data);
+    
+        // Mise à jour des attributs via le service
+        $updatedEModel = $this->eModelService->dataCalcul($eModel);
+    
+        return response()->json([
+            'success' => true,
+            'entity' => $updatedEModel
+        ]);
+    }
+    
+
 
 }

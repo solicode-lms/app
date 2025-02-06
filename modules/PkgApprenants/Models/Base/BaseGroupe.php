@@ -39,6 +39,10 @@ class BaseGroupe extends BaseModel
     protected $fillable = [
         'code', 'nom', 'description', 'filiere_id', 'annee_formation_id'
     ];
+    public $manyToMany = [
+        'apprenants',
+        'formateurs'
+    ];
 
     /**
      * Relation BelongsTo pour AnneeFormation.
@@ -97,6 +101,6 @@ class BaseGroupe extends BaseModel
      */
     public function __toString()
     {
-        return $this->code;
+        return $this->code ?? "";
     }
 }

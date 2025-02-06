@@ -68,12 +68,9 @@ class BaseWidgetController extends AdminController
         $validatedData = $request->validated();
         $widget = $this->widgetService->create($validatedData);
 
-
-
-
         if ($request->ajax()) {
             return response()->json(['success' => true, 
-            'widget_id' => $widget->id,
+            'entity_id' => $widget->id,
             'message' => 
              __('Core::msg.addSuccess', [
                 'entityToString' => $widget,
@@ -127,7 +124,6 @@ class BaseWidgetController extends AdminController
 
         $validatedData = $request->validated();
         $widget = $this->widgetService->update($id, $validatedData);
-
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
@@ -201,5 +197,25 @@ class BaseWidgetController extends AdminController
         $widgets = $this->widgetService->all();
         return response()->json($widgets);
     }
+
+
+    public function dataCalcul(Request $request)
+    {
+
+        // Extraire les données de la requête
+        $data = $request->all();
+
+        $widget = $this->widgetService->createInstance($data);
+    
+        // Mise à jour des attributs via le service
+        $updatedWidget = $this->widgetService->dataCalcul($widget);
+    
+        return response()->json([
+            'success' => true,
+            'entity' => $updatedWidget
+        ]);
+    }
+    
+
 
 }

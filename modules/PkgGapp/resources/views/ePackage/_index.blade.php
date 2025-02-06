@@ -17,6 +17,7 @@
         showUrl: '{{ route('ePackages.show',  ['ePackage' => ':id']) }}',
         storeUrl: '{{ route('ePackages.store') }}', 
         deleteUrl: '{{ route('ePackages.destroy',  ['ePackage' => ':id']) }}', 
+        calculationUrl:  '{{ route('ePackages.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgGapp::ePackage.singular") }}',
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgGapp::ePackage.singular") }}',

@@ -10,5 +10,13 @@ use Modules\PkgCreationProjet\Services\Base\BaseLivrableService;
  */
 class LivrableService extends BaseLivrableService
 {
-   
+    public function dataCalcul($livrable)
+    {
+        // En Cas d'édit
+        if(isset($livrable->id)){
+          
+        }
+      
+        return $livrable;
+    }
 }

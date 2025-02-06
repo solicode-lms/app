@@ -17,6 +17,7 @@
         showUrl: '{{ route('niveauxScolaires.show',  ['niveauxScolaire' => ':id']) }}',
         storeUrl: '{{ route('niveauxScolaires.store') }}', 
         deleteUrl: '{{ route('niveauxScolaires.destroy',  ['niveauxScolaire' => ':id']) }}', 
+        calculationUrl:  '{{ route('niveauxScolaires.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgApprenants::niveauxScolaire.singular") }}',
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgApprenants::niveauxScolaire.singular") }}',

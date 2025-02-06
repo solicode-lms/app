@@ -37,6 +37,10 @@ class BasePermission extends BaseModel
     protected $fillable = [
         'name', 'guard_name', 'controller_id'
     ];
+    public $manyToMany = [
+        'features',
+        'roles'
+    ];
 
     /**
      * Relation BelongsTo pour SysController.
@@ -77,6 +81,6 @@ class BasePermission extends BaseModel
      */
     public function __toString()
     {
-        return $this->name;
+        return $this->name ?? "";
     }
 }

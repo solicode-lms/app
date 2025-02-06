@@ -23,6 +23,26 @@ export class CreateAction extends Action {
         this.handleAddEntity();
     } 
 
+    /**
+     * Gère l'ouverture du modal et l'ajout d'une nouvelle entité.
+     */
+    addEntity() {
+        // Afficher le chargement dans le modal
+        this.tableUI.indexUI.modalUI.showLoading(this.config.createTitle);
+
+        // Charger le formulaire d'ajout via une requête AJAX
+        $.get(this.createUrl)
+            .done((html) => {
+                // Injecter le contenu dans le modal et afficher le formulaire
+                this.tableUI.indexUI.modalUI.showContent(html);
+                this.executeScripts(html);
+                this.tableUI.indexUI.formUI.init(() => this.submitEntity());
+            })
+            .fail((xhr) => {
+                AjaxErrorHandler.handleError(xhr, 'Erreur lors de l\'ajout.');
+            });
+            
+    }
 
        /**
          * Soumet le formulaire de modification via AJAX.
@@ -59,7 +79,7 @@ export class CreateAction extends Action {
 
                     if(this.config.edit_has_many){
 
-                        const entity_id = parseInt( data[`${this.config.entity_name}_id`]);
+                        const entity_id = parseInt( data[`entity_id`]);
 
                         this.tableUI.entityEditor.editEntity(entity_id);
                         this.tableUI.entityLoader.loadEntities();
@@ -86,33 +106,14 @@ export class CreateAction extends Action {
                     
                     if (xhr.responseJSON?.errors) {
                         this.tableUI.indexUI.formUI.showFieldErrors(xhr.responseJSON.errors);
-                    } else {
-                        this.tableUI.indexUI.formUI.modalUI.close();
-                        AjaxErrorHandler.handleError(xhr, "Erreur lors du traitement du formulaire.");
-                    }
+                    } 
+                    
+                    this.tableUI.indexUI.modalUI.close();
+                    AjaxErrorHandler.handleError(xhr, "Erreur lors du traitement du formulaire.");
                 });
     
         }
 
-    /**
-     * Gère l'ouverture du modal et l'ajout d'une nouvelle entité.
-     */
-    addEntity() {
-        // Afficher le chargement dans le modal
-        this.tableUI.indexUI.modalUI.showLoading(this.config.createTitle);
-
-        // Charger le formulaire d'ajout via une requête AJAX
-        $.get(this.createUrl)
-            .done((html) => {
-                // Injecter le contenu dans le modal et afficher le formulaire
-                this.tableUI.indexUI.modalUI.showContent(html);
-                this.tableUI.indexUI.formUI.init(() => this.submitEntity());
-            })
-            .fail((xhr) => {
-                AjaxErrorHandler.handleError(xhr, 'Erreur lors de l\'ajout.');
-            });
-            
-    }
 
 
         /**

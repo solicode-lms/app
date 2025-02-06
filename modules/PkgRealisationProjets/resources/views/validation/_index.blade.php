@@ -17,6 +17,7 @@
         showUrl: '{{ route('validations.show',  ['validation' => ':id']) }}',
         storeUrl: '{{ route('validations.store') }}', 
         deleteUrl: '{{ route('validations.destroy',  ['validation' => ':id']) }}', 
+        calculationUrl:  '{{ route('validations.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgRealisationProjets::validation.singular") }}',
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgRealisationProjets::validation.singular") }}',

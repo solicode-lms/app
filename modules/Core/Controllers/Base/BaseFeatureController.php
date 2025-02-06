@@ -64,15 +64,9 @@ class BaseFeatureController extends AdminController
         $validatedData = $request->validated();
         $feature = $this->featureService->create($validatedData);
 
-
-        if ($request->has('permissions')) {
-            $feature->permissions()->sync($request->input('permissions'));
-        }
-
-
         if ($request->ajax()) {
             return response()->json(['success' => true, 
-            'feature_id' => $feature->id,
+            'entity_id' => $feature->id,
             'message' => 
              __('Core::msg.addSuccess', [
                 'entityToString' => $feature,
@@ -124,8 +118,6 @@ class BaseFeatureController extends AdminController
 
         $validatedData = $request->validated();
         $feature = $this->featureService->update($id, $validatedData);
-
-        $feature->permissions()->sync($request->input('permissions'));
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
@@ -199,5 +191,25 @@ class BaseFeatureController extends AdminController
         $features = $this->featureService->all();
         return response()->json($features);
     }
+
+
+    public function dataCalcul(Request $request)
+    {
+
+        // Extraire les données de la requête
+        $data = $request->all();
+
+        $feature = $this->featureService->createInstance($data);
+    
+        // Mise à jour des attributs via le service
+        $updatedFeature = $this->featureService->dataCalcul($feature);
+    
+        return response()->json([
+            'success' => true,
+            'entity' => $updatedFeature
+        ]);
+    }
+    
+
 
 }

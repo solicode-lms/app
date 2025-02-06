@@ -65,12 +65,9 @@ class BaseEDataFieldController extends AdminController
         $validatedData = $request->validated();
         $eDataField = $this->eDataFieldService->create($validatedData);
 
-
-
-
         if ($request->ajax()) {
             return response()->json(['success' => true, 
-            'e_data_field_id' => $eDataField->id,
+            'entity_id' => $eDataField->id,
             'message' => 
              __('Core::msg.addSuccess', [
                 'entityToString' => $eDataField,
@@ -132,7 +129,6 @@ class BaseEDataFieldController extends AdminController
 
         $validatedData = $request->validated();
         $eDataField = $this->eDataFieldService->update($id, $validatedData);
-
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
@@ -206,5 +202,25 @@ class BaseEDataFieldController extends AdminController
         $eDataFields = $this->eDataFieldService->all();
         return response()->json($eDataFields);
     }
+
+
+    public function dataCalcul(Request $request)
+    {
+
+        // Extraire les données de la requête
+        $data = $request->all();
+
+        $eDataField = $this->eDataFieldService->createInstance($data);
+    
+        // Mise à jour des attributs via le service
+        $updatedEDataField = $this->eDataFieldService->dataCalcul($eDataField);
+    
+        return response()->json([
+            'success' => true,
+            'entity' => $updatedEDataField
+        ]);
+    }
+    
+
 
 }

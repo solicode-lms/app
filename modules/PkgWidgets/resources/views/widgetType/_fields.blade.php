@@ -22,6 +22,7 @@
                 type="input"
                 class="form-control"
                 required
+                
                 id="type"
                 placeholder="{{ __('PkgWidgets::widgetType.type') }}"
                 value="{{ $itemWidgetType ? $itemWidgetType->type : old('type') }}">
@@ -39,6 +40,7 @@
             <textarea rows="" cols=""
                 name="description"
                 class="form-control richText"
+                
                 
                 id="description"
                 placeholder="{{ __('PkgWidgets::widgetType.description') }}">
@@ -66,4 +68,6 @@
 <script>
 
 </script>
-
+<script>
+     window.modalTitle = '{{__("PkgWidgets::widgetType.singular") }} : {{$itemWidgetType}}'
+</script>

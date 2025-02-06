@@ -9,29 +9,48 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class BaseTechnologyRequest extends FormRequest
 {
+    /**
+     * Détermine si l'utilisateur est autorisé à effectuer cette requête.
+     *
+     * @return bool
+     */
     public function authorize(): bool
     {
         return true;
     }
 
+    /**
+     * Retourne les règles de validation appliquées aux champs de la requête.
+     *
+     * @return array
+     */
     public function rules(): array
     {
         return [
-            'nom' => 'required|max:255',
-            'description' => 'nullable',
-            'category_technology_id' => 'required'
+            'nom' => 'required|string|max:255',
+            'category_technology_id' => 'required',
+            'competences' => 'nullable|array',
+            'transfertCompetences' => 'nullable|array',
+            'description' => 'nullable|string'
         ];
     }
 
+    /**
+     * Retourne les messages de validation associés aux règles.
+     *
+     * @return array
+     */
     public function messages(): array
     {
         return [
             'nom.required' => __('validation.required', ['attribute' => __('PkgCompetences::Technology.nom')]),
             'nom.max' => __('validation.nomMax'),
-            'description.required' => __('validation.required', ['attribute' => __('PkgCompetences::Technology.description')]),
-            'description.max' => __('validation.descriptionMax'),
             'category_technology_id.required' => __('validation.required', ['attribute' => __('PkgCompetences::Technology.category_technology_id')]),
-            'category_technology_id.max' => __('validation.category_technology_idMax')
+            'competences.required' => __('validation.required', ['attribute' => __('PkgCompetences::Technology.competences')]),
+            'competences.array' => __('validation.array', ['attribute' => __('PkgCompetences::Technology.competences')]),
+            'transfertCompetences.required' => __('validation.required', ['attribute' => __('PkgCompetences::Technology.transfertCompetences')]),
+            'transfertCompetences.array' => __('validation.array', ['attribute' => __('PkgCompetences::Technology.transfertCompetences')]),
+            'description.required' => __('validation.required', ['attribute' => __('PkgCompetences::Technology.description')])
         ];
     }
 }

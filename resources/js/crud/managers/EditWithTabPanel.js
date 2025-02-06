@@ -32,19 +32,21 @@ export class EditWithTabPanelManager {
      */
     init() {
         // this.tableUI.indexUI.formUI.hideSelectsByIdFromContext();
-        this.handleButtonSaveCardWithHasMany();
+        // this.handleButtonSaveCardWithHasMany();
         this.contexteEventHandler.init();
+
+        this.config.debugInfo("Init : " + this.config);
     }
 
 
-    handleButtonSaveCardWithHasMany(){
-        EventUtil.bindEvent('click', `${this.config.cardTabSelector} .btn-card-header`, (e) => {
-            e.preventDefault();
-            this.submitEntityAndRedirect(this.config.indexUrl);
+    // handleButtonSaveCardWithHasMany(){
+    //     EventUtil.bindEvent('click', `${this.config.cardTabSelector} .btn-card-header`, (e) => {
+    //         e.preventDefault();
+    //         this.submitEntityAndRedirect(this.config.indexUrl);
          
 
-        });
-    }
+    //     });
+    // }
 
     submitEntityAndRedirect(url){
 

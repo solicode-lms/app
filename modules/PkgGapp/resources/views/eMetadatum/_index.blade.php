@@ -17,6 +17,7 @@
         showUrl: '{{ route('eMetadata.show',  ['eMetadatum' => ':id']) }}',
         storeUrl: '{{ route('eMetadata.store') }}', 
         deleteUrl: '{{ route('eMetadata.destroy',  ['eMetadatum' => ':id']) }}', 
+        calculationUrl:  '{{ route('eMetadata.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgGapp::eMetadatum.singular") }}',
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgGapp::eMetadatum.singular") }}',

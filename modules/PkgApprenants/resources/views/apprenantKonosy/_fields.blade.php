@@ -22,6 +22,7 @@
                 type="input"
                 class="form-control"
                 required
+                
                 id="MatriculeEtudiant"
                 placeholder="{{ __('PkgApprenants::apprenantKonosy.MatriculeEtudiant') }}"
                 value="{{ $itemApprenantKonosy ? $itemApprenantKonosy->MatriculeEtudiant : old('MatriculeEtudiant') }}">
@@ -43,6 +44,7 @@
                 type="input"
                 class="form-control"
                 required
+                
                 id="Nom"
                 placeholder="{{ __('PkgApprenants::apprenantKonosy.Nom') }}"
                 value="{{ $itemApprenantKonosy ? $itemApprenantKonosy->Nom : old('Nom') }}">
@@ -64,6 +66,7 @@
                 type="input"
                 class="form-control"
                 required
+                
                 id="Prenom"
                 placeholder="{{ __('PkgApprenants::apprenantKonosy.Prenom') }}"
                 value="{{ $itemApprenantKonosy ? $itemApprenantKonosy->Prenom : old('Prenom') }}">
@@ -85,6 +88,7 @@
                 type="input"
                 class="form-control"
                 required
+                
                 id="Sexe"
                 placeholder="{{ __('PkgApprenants::apprenantKonosy.Sexe') }}"
                 value="{{ $itemApprenantKonosy ? $itemApprenantKonosy->Sexe : old('Sexe') }}">
@@ -106,6 +110,7 @@
                 type="input"
                 class="form-control"
                 required
+                
                 id="EtudiantActif"
                 placeholder="{{ __('PkgApprenants::apprenantKonosy.EtudiantActif') }}"
                 value="{{ $itemApprenantKonosy ? $itemApprenantKonosy->EtudiantActif : old('EtudiantActif') }}">
@@ -124,6 +129,7 @@
                 name="Diplome"
                 type="input"
                 class="form-control"
+                
                 
                 id="Diplome"
                 placeholder="{{ __('PkgApprenants::apprenantKonosy.Diplome') }}"
@@ -144,6 +150,7 @@
                 type="input"
                 class="form-control"
                 
+                
                 id="Principale"
                 placeholder="{{ __('PkgApprenants::apprenantKonosy.Principale') }}"
                 value="{{ $itemApprenantKonosy ? $itemApprenantKonosy->Principale : old('Principale') }}">
@@ -162,6 +169,7 @@
                 name="LibelleLong"
                 type="input"
                 class="form-control"
+                
                 
                 id="LibelleLong"
                 placeholder="{{ __('PkgApprenants::apprenantKonosy.LibelleLong') }}"
@@ -182,6 +190,7 @@
                 type="input"
                 class="form-control"
                 
+                
                 id="CodeDiplome"
                 placeholder="{{ __('PkgApprenants::apprenantKonosy.CodeDiplome') }}"
                 value="{{ $itemApprenantKonosy ? $itemApprenantKonosy->CodeDiplome : old('CodeDiplome') }}">
@@ -200,6 +209,7 @@
                 name="DateNaissance"
                 type="input"
                 class="form-control"
+                
                 
                 id="DateNaissance"
                 placeholder="{{ __('PkgApprenants::apprenantKonosy.DateNaissance') }}"
@@ -220,6 +230,7 @@
                 type="input"
                 class="form-control"
                 
+                
                 id="DateInscription"
                 placeholder="{{ __('PkgApprenants::apprenantKonosy.DateInscription') }}"
                 value="{{ $itemApprenantKonosy ? $itemApprenantKonosy->DateInscription : old('DateInscription') }}">
@@ -238,6 +249,7 @@
                 name="LieuNaissance"
                 type="input"
                 class="form-control"
+                
                 
                 id="LieuNaissance"
                 placeholder="{{ __('PkgApprenants::apprenantKonosy.LieuNaissance') }}"
@@ -258,6 +270,7 @@
                 type="input"
                 class="form-control"
                 
+                
                 id="CIN"
                 placeholder="{{ __('PkgApprenants::apprenantKonosy.CIN') }}"
                 value="{{ $itemApprenantKonosy ? $itemApprenantKonosy->CIN : old('CIN') }}">
@@ -277,6 +290,7 @@
                 type="input"
                 class="form-control"
                 
+                
                 id="NTelephone"
                 placeholder="{{ __('PkgApprenants::apprenantKonosy.NTelephone') }}"
                 value="{{ $itemApprenantKonosy ? $itemApprenantKonosy->NTelephone : old('NTelephone') }}">
@@ -294,6 +308,7 @@
             <textarea rows="" cols=""
                 name="Adresse"
                 class="form-control richText"
+                
                 
                 id="Adresse"
                 placeholder="{{ __('PkgApprenants::apprenantKonosy.Adresse') }}">
@@ -315,6 +330,7 @@
                 type="input"
                 class="form-control"
                 
+                
                 id="Nationalite"
                 placeholder="{{ __('PkgApprenants::apprenantKonosy.Nationalite') }}"
                 value="{{ $itemApprenantKonosy ? $itemApprenantKonosy->Nationalite : old('Nationalite') }}">
@@ -333,6 +349,7 @@
                 name="Nom_Arabe"
                 type="input"
                 class="form-control"
+                
                 
                 id="Nom_Arabe"
                 placeholder="{{ __('PkgApprenants::apprenantKonosy.Nom_Arabe') }}"
@@ -353,6 +370,7 @@
                 type="input"
                 class="form-control"
                 
+                
                 id="Prenom_Arabe"
                 placeholder="{{ __('PkgApprenants::apprenantKonosy.Prenom_Arabe') }}"
                 value="{{ $itemApprenantKonosy ? $itemApprenantKonosy->Prenom_Arabe : old('Prenom_Arabe') }}">
@@ -371,6 +389,7 @@
                 name="NiveauScolaire"
                 type="input"
                 class="form-control"
+                
                 
                 id="NiveauScolaire"
                 placeholder="{{ __('PkgApprenants::apprenantKonosy.NiveauScolaire') }}"
@@ -393,4 +412,6 @@
 <script>
 
 </script>
-
+<script>
+     window.modalTitle = '{{__("PkgApprenants::apprenantKonosy.singular") }} : {{$itemApprenantKonosy}}'
+</script>

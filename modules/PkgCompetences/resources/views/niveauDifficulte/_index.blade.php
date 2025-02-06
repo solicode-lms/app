@@ -4,7 +4,7 @@
 <script>
     window.crudModalManagersConfig = window.crudModalManagersConfig || [];
     window.crudModalManagersConfig.push({
-        edit_has_many: {{ !isset($edit_has_many)? 'true' :  ($edit_has_many ? "true": "false") }},
+        edit_has_many: {{ !isset($edit_has_many)? 'false' :  ($edit_has_many ? "true": "false") }},
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
         entity_name: 'niveauDifficulte',
         filterFormSelector: '#niveauDifficulte-crud-filter-form',
@@ -17,6 +17,7 @@
         showUrl: '{{ route('niveauDifficultes.show',  ['niveauDifficulte' => ':id']) }}',
         storeUrl: '{{ route('niveauDifficultes.store') }}', 
         deleteUrl: '{{ route('niveauDifficultes.destroy',  ['niveauDifficulte' => ':id']) }}', 
+        calculationUrl:  '{{ route('niveauDifficultes.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgCompetences::niveauDifficulte.singular") }}',
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgCompetences::niveauDifficulte.singular") }}',
@@ -30,7 +31,7 @@
        $titre = __("PkgCompetences::niveauDifficulte.singular");
     @endphp
     <x-crud-header 
-        id="niveauDifficulte-crud-header" icon="fas fa-table"  
+        id="niveauDifficulte-crud-header" icon="fas fa-chart-line"  
         iconColor="text-info"
         title="{{ __('PkgCompetences::niveauDifficulte.plural') }}"
         :breadcrumbs="[

@@ -17,6 +17,7 @@
         showUrl: '{{ route('projets.show',  ['projet' => ':id']) }}',
         storeUrl: '{{ route('projets.store') }}', 
         deleteUrl: '{{ route('projets.destroy',  ['projet' => ':id']) }}', 
+        calculationUrl:  '{{ route('projets.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgCreationProjet::projet.singular") }}',
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgCreationProjet::projet.singular") }}',
@@ -30,7 +31,7 @@
        $titre = __("PkgCreationProjet::projet.singular");
     @endphp
     <x-crud-header 
-        id="projet-crud-header" icon="fas fa-table"  
+        id="projet-crud-header" icon="fas fa-calendar-alt"  
         iconColor="text-info"
         title="{{ __('PkgCreationProjet::projet.plural') }}"
         :breadcrumbs="[

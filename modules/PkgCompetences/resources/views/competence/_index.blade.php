@@ -17,6 +17,7 @@
         showUrl: '{{ route('competences.show',  ['competence' => ':id']) }}',
         storeUrl: '{{ route('competences.store') }}', 
         deleteUrl: '{{ route('competences.destroy',  ['competence' => ':id']) }}', 
+        calculationUrl:  '{{ route('competences.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgCompetences::competence.singular") }}',
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgCompetences::competence.singular") }}',
@@ -30,7 +31,7 @@
        $titre = __("PkgCompetences::competence.singular");
     @endphp
     <x-crud-header 
-        id="competence-crud-header" icon="fas fa-tools"  
+        id="competence-crud-header" icon="fas fa-user-graduate"  
         iconColor="text-info"
         title="{{ __('PkgCompetences::competence.plural') }}"
         :breadcrumbs="[

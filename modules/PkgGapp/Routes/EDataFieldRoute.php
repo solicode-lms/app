@@ -17,5 +17,8 @@ Route::middleware('auth')->group(function () {
             Route::get('eDataFields/export', [EDataFieldController::class, 'export'])->name('eDataFields.export');
             Route::post('eDataFields/import', [EDataFieldController::class, 'import'])->name('eDataFields.import');
         });
+
+        Route::post('eDataFields/data-calcul', [EDataFieldController::class, 'dataCalcul'])->name('eDataFields.dataCalcul');
+
     });
 });

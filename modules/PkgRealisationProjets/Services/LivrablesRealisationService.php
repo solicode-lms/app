@@ -10,5 +10,13 @@ use Modules\PkgRealisationProjets\Services\Base\BaseLivrablesRealisationService;
  */
 class LivrablesRealisationService extends BaseLivrablesRealisationService
 {
-   
+    public function dataCalcul($livrablesRealisation)
+    {
+        // En Cas d'édit
+        if(isset($livrablesRealisation->id)){
+          
+        }
+      
+        return $livrablesRealisation;
+    }
 }

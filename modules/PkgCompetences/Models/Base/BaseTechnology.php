@@ -35,7 +35,11 @@ class BaseTechnology extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'nom', 'description', 'category_technology_id'
+        'nom', 'category_technology_id', 'description'
+    ];
+    public $manyToMany = [
+        'competences',
+        'transfertCompetences'
     ];
 
     /**
@@ -77,6 +81,6 @@ class BaseTechnology extends BaseModel
      */
     public function __toString()
     {
-        return $this->nom;
+        return $this->nom ?? "";
     }
 }

@@ -57,12 +57,9 @@ class BaseNatureLivrableController extends AdminController
         $validatedData = $request->validated();
         $natureLivrable = $this->natureLivrableService->create($validatedData);
 
-
-
-
         if ($request->ajax()) {
             return response()->json(['success' => true, 
-            'nature_livrable_id' => $natureLivrable->id,
+            'entity_id' => $natureLivrable->id,
             'message' => 
              __('Core::msg.addSuccess', [
                 'entityToString' => $natureLivrable,
@@ -120,7 +117,6 @@ class BaseNatureLivrableController extends AdminController
 
         $validatedData = $request->validated();
         $natureLivrable = $this->natureLivrableService->update($id, $validatedData);
-
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
@@ -194,5 +190,25 @@ class BaseNatureLivrableController extends AdminController
         $natureLivrables = $this->natureLivrableService->all();
         return response()->json($natureLivrables);
     }
+
+
+    public function dataCalcul(Request $request)
+    {
+
+        // Extraire les données de la requête
+        $data = $request->all();
+
+        $natureLivrable = $this->natureLivrableService->createInstance($data);
+    
+        // Mise à jour des attributs via le service
+        $updatedNatureLivrable = $this->natureLivrableService->dataCalcul($natureLivrable);
+    
+        return response()->json([
+            'success' => true,
+            'entity' => $updatedNatureLivrable
+        ]);
+    }
+    
+
 
 }

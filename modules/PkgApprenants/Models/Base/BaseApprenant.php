@@ -39,6 +39,9 @@ class BaseApprenant extends BaseModel
     protected $fillable = [
         'nom', 'prenom', 'prenom_arab', 'nom_arab', 'tele_num', 'profile_image', 'matricule', 'sexe', 'actif', 'diplome', 'date_naissance', 'date_inscription', 'lieu_naissance', 'cin', 'adresse', 'niveaux_scolaire_id', 'nationalite_id', 'user_id'
     ];
+    public $manyToMany = [
+        'groupes'
+    ];
 
     /**
      * Relation BelongsTo pour Nationalite.
@@ -97,6 +100,6 @@ class BaseApprenant extends BaseModel
      */
     public function __toString()
     {
-        return $this->nom;
+        return $this->nom ?? "";
     }
 }

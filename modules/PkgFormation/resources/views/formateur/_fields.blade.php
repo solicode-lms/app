@@ -22,6 +22,7 @@
                 type="input"
                 class="form-control"
                 required
+                
                 id="matricule"
                 placeholder="{{ __('PkgFormation::formateur.matricule') }}"
                 value="{{ $itemFormateur ? $itemFormateur->matricule : old('matricule') }}">
@@ -43,6 +44,7 @@
                 type="input"
                 class="form-control"
                 required
+                
                 id="nom"
                 placeholder="{{ __('PkgFormation::formateur.nom') }}"
                 value="{{ $itemFormateur ? $itemFormateur->nom : old('nom') }}">
@@ -64,6 +66,7 @@
                 type="input"
                 class="form-control"
                 required
+                
                 id="prenom"
                 placeholder="{{ __('PkgFormation::formateur.prenom') }}"
                 value="{{ $itemFormateur ? $itemFormateur->prenom : old('prenom') }}">
@@ -82,6 +85,7 @@
                 name="prenom_arab"
                 type="input"
                 class="form-control"
+                
                 
                 id="prenom_arab"
                 placeholder="{{ __('PkgFormation::formateur.prenom_arab') }}"
@@ -102,6 +106,7 @@
                 type="input"
                 class="form-control"
                 
+                
                 id="nom_arab"
                 placeholder="{{ __('PkgFormation::formateur.nom_arab') }}"
                 value="{{ $itemFormateur ? $itemFormateur->nom_arab : old('nom_arab') }}">
@@ -120,6 +125,7 @@
                 name="tele_num"
                 type="input"
                 class="form-control"
+                
                 
                 id="tele_num"
                 placeholder="{{ __('PkgFormation::formateur.tele_num') }}"
@@ -140,6 +146,7 @@
                 type="input"
                 class="form-control"
                 
+                
                 id="adresse"
                 placeholder="{{ __('PkgFormation::formateur.adresse') }}"
                 value="{{ $itemFormateur ? $itemFormateur->adresse : old('adresse') }}">
@@ -158,6 +165,7 @@
                 name="diplome"
                 type="input"
                 class="form-control"
+                
                 
                 id="diplome"
                 placeholder="{{ __('PkgFormation::formateur.diplome') }}"
@@ -178,6 +186,7 @@
                 type="number"
                 class="form-control"
                 
+                
                 id="echelle"
                 placeholder="{{ __('PkgFormation::formateur.echelle') }}"
                 value="{{ $itemFormateur ? $itemFormateur->echelle : old('echelle') }}">
@@ -196,6 +205,7 @@
                 name="echelon"
                 type="number"
                 class="form-control"
+                
                 
                 id="echelon"
                 placeholder="{{ __('PkgFormation::formateur.echelon') }}"
@@ -216,6 +226,7 @@
                 type="input"
                 class="form-control"
                 
+                
                 id="profile_image"
                 placeholder="{{ __('PkgFormation::formateur.profile_image') }}"
                 value="{{ $itemFormateur ? $itemFormateur->profile_image : old('profile_image') }}">
@@ -233,6 +244,7 @@
             </label>
             <select 
             id="user_id" 
+            
             
             name="user_id" 
             class="form-control select2">
@@ -263,6 +275,7 @@
                 id="groupes"
                 name="groupes[]"
                 class="form-control select2"
+                
                 multiple="multiple">
                
                 @foreach ($groupes as $groupe)
@@ -288,6 +301,7 @@
                 id="specialites"
                 name="specialites[]"
                 class="form-control select2"
+                
                 multiple="multiple">
                
                 @foreach ($specialites as $specialite)
@@ -325,4 +339,6 @@
 <script>
 
 </script>
-
+<script>
+     window.modalTitle = '{{__("PkgFormation::formateur.singular") }} : {{$itemFormateur}}'
+</script>

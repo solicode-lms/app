@@ -17,5 +17,8 @@ Route::middleware('auth')->group(function () {
             Route::get('filieres/export', [FiliereController::class, 'export'])->name('filieres.export');
             Route::post('filieres/import', [FiliereController::class, 'import'])->name('filieres.import');
         });
+
+        Route::post('filieres/data-calcul', [FiliereController::class, 'dataCalcul'])->name('filieres.dataCalcul');
+
     });
 });

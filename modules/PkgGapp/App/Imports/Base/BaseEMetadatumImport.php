@@ -38,6 +38,7 @@ class BaseEMetadatumImport implements ToModel, WithHeadingRow
 
         // Crée un nouvel enregistrement à partir des données importées
         return new EMetadatum([
+            'Value' => $row['Value'],
             'reference' => $row['reference'],
             'value_boolean' => $row['value_boolean'],
             'value_string' => $row['value_string'],

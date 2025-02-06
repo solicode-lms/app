@@ -10,5 +10,13 @@ use Modules\PkgFormation\Services\Base\BaseSpecialiteService;
  */
 class SpecialiteService extends BaseSpecialiteService
 {
-   
+    public function dataCalcul($specialite)
+    {
+        // En Cas d'édit
+        if(isset($specialite->id)){
+          
+        }
+      
+        return $specialite;
+    }
 }

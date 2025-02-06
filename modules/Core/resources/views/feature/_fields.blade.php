@@ -22,6 +22,7 @@
                 type="input"
                 class="form-control"
                 required
+                
                 id="name"
                 placeholder="{{ __('Core::feature.name') }}"
                 value="{{ $itemFeature ? $itemFeature->name : old('name') }}">
@@ -39,6 +40,7 @@
             <textarea rows="" cols=""
                 name="description"
                 class="form-control richText"
+                
                 
                 id="description"
                 placeholder="{{ __('Core::feature.description') }}">
@@ -61,6 +63,7 @@
             <select 
             id="feature_domain_id" 
             required
+            
             name="feature_domain_id" 
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
@@ -86,6 +89,7 @@
                 id="permissions"
                 name="permissions[]"
                 class="form-control select2"
+                
                 multiple="multiple">
                
                 @foreach ($permissions as $permission)
@@ -115,4 +119,6 @@
 <script>
 
 </script>
-
+<script>
+     window.modalTitle = '{{__("Core::feature.singular") }} : {{$itemFeature}}'
+</script>

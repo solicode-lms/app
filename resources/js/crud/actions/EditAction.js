@@ -29,11 +29,18 @@ export class EditAction extends Action {
     editEntity(id) {
 
         let editUrl = this.getUrlWithId(this.config.editUrl, id); // Générer l'URL dynamique
+        
+
+        const filter_context_data= this.tableUI.indexUI.filterUI.getFormDataAsFilterContext();
+        this.contextService.addData(filter_context_data);
+
         editUrl = this.appendParamsToUrl(
             editUrl,
             this.contextService.getContextParams()
         );
 
+        // Add filter params to context 
+       
         // Afficher le chargement dans le modal
         this.tableUI.indexUI.modalUI.showLoading(this.config.editTitle);
 
@@ -43,6 +50,7 @@ export class EditAction extends Action {
                 // Injecter le contenu du formulaire dans le modal
                 this.tableUI.indexUI.modalUI.showContent(html);
                 this.executeScripts(html);
+                this.tableUI.indexUI.modalUI.setTitle(window.modalTitle);
                 this.tableUI.indexUI.formUI.init(() => this.submitEntity());
             })
             .fail((xhr) => {
@@ -87,7 +95,7 @@ export class EditAction extends Action {
             })
                 .done((data) => {
                     this.tableUI.indexUI.formUI.loader.hide();
-                    this.handleSuccess(this.SuscesMessage);
+                    this.handleSuccess(data.message);
                     this.tableUI.indexUI.modalUI.close(); // Fermer le modal après succès
 
                      // Appeler le callback de succès si fourni
@@ -107,10 +115,11 @@ export class EditAction extends Action {
                     
                     if (xhr.responseJSON?.errors) {
                         this.tableUI.indexUI.formUI.showFieldErrors(xhr.responseJSON.errors);
-                    } else {
-                        this.tableUI.indexUI.formUI.modalUI.close();
-                        AjaxErrorHandler.handleError(xhr, "Erreur lors du traitement du formulaire.");
-                    }
+                    } 
+                    
+                    this.tableUI.indexUI.modalUI.close();
+                    AjaxErrorHandler.handleError(xhr, "Erreur lors du traitement du formulaire.");
+                    
                 });
     
     }

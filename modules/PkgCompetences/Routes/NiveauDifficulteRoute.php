@@ -17,5 +17,8 @@ Route::middleware('auth')->group(function () {
             Route::get('niveauDifficultes/export', [NiveauDifficulteController::class, 'export'])->name('niveauDifficultes.export');
             Route::post('niveauDifficultes/import', [NiveauDifficulteController::class, 'import'])->name('niveauDifficultes.import');
         });
+
+        Route::post('niveauDifficultes/data-calcul', [NiveauDifficulteController::class, 'dataCalcul'])->name('niveauDifficultes.dataCalcul');
+
     });
 });

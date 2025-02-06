@@ -22,6 +22,7 @@
                 type="input"
                 class="form-control"
                 required
+                
                 id="nom"
                 placeholder="{{ __('PkgCreationProjet::resource.nom') }}"
                 value="{{ $itemResource ? $itemResource->nom : old('nom') }}">
@@ -43,6 +44,7 @@
                 type="input"
                 class="form-control"
                 required
+                
                 id="lien"
                 placeholder="{{ __('PkgCreationProjet::resource.lien') }}"
                 value="{{ $itemResource ? $itemResource->lien : old('lien') }}">
@@ -60,6 +62,7 @@
             <textarea rows="" cols=""
                 name="description"
                 class="form-control richText"
+                
                 
                 id="description"
                 placeholder="{{ __('PkgCreationProjet::resource.description') }}">
@@ -82,6 +85,7 @@
             <select 
             id="projet_id" 
             required
+            
             name="projet_id" 
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
@@ -111,4 +115,6 @@
 <script>
 
 </script>
-
+<script>
+     window.modalTitle = '{{__("PkgCreationProjet::resource.singular") }} : {{$itemResource}}'
+</script>

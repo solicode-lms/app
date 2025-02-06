@@ -20,6 +20,7 @@
         type="number"
         class="form-control"
         
+        
         id="note"
         step="0.01"
         placeholder="{{ __('PkgCreationProjet::transfertCompetence.note') }}"
@@ -40,6 +41,7 @@
             <textarea rows="" cols=""
                 name="question"
                 class="form-control richText"
+                
                 
                 id="question"
                 placeholder="{{ __('PkgCreationProjet::transfertCompetence.question') }}">
@@ -62,6 +64,7 @@
             <select 
             id="projet_id" 
             required
+            
             name="projet_id" 
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
@@ -90,6 +93,7 @@
             <select 
             id="competence_id" 
             required
+            
             name="competence_id" 
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
@@ -118,6 +122,7 @@
             <select 
             id="niveau_difficulte_id" 
             required
+            
             name="niveau_difficulte_id" 
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
@@ -143,6 +148,7 @@
                 id="technologies"
                 name="technologies[]"
                 class="form-control select2"
+                
                 multiple="multiple">
                
                 @foreach ($technologies as $technology)
@@ -176,4 +182,6 @@
 <script>
 
 </script>
-
+<script>
+     window.modalTitle = '{{__("PkgCreationProjet::transfertCompetence.singular") }} : {{$itemTransfertCompetence}}'
+</script>

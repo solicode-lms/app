@@ -38,6 +38,7 @@ export class CrudModalManager {
             this.adapterUiPour_isMany();         
         }
 
+        this.config.debugInfo("Init : " + this.config);
     }
 
     adapterUiPour_isMany(){

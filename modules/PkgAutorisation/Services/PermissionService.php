@@ -10,5 +10,13 @@ use Modules\PkgAutorisation\Services\Base\BasePermissionService;
  */
 class PermissionService extends BasePermissionService
 {
-   
+    public function dataCalcul($permission)
+    {
+        // En Cas d'édit
+        if(isset($permission->id)){
+          
+        }
+      
+        return $permission;
+    }
 }

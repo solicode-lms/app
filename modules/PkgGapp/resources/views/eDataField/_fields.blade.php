@@ -22,6 +22,7 @@
                 type="input"
                 class="form-control"
                 required
+                
                 id="name"
                 placeholder="{{ __('PkgGapp::eDataField.name') }}"
                 value="{{ $itemEDataField ? $itemEDataField->name : old('name') }}">
@@ -43,6 +44,7 @@
                 type="input"
                 class="form-control"
                 required
+                
                 id="column_name"
                 placeholder="{{ __('PkgGapp::eDataField.column_name') }}"
                 value="{{ $itemEDataField ? $itemEDataField->column_name : old('column_name') }}">
@@ -64,10 +66,33 @@
                 type="input"
                 class="form-control"
                 required
+                
                 id="data_type"
                 placeholder="{{ __('PkgGapp::eDataField.data_type') }}"
                 value="{{ $itemEDataField ? $itemEDataField->data_type : old('data_type') }}">
             @error('data_type')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
+
+        
+        <div class="form-group">
+            <label for="field_order">
+                {{ ucfirst(__('PkgGapp::eDataField.field_order')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <input
+                name="field_order"
+                type="number"
+                class="form-control"
+                required
+                
+                id="field_order"
+                placeholder="{{ __('PkgGapp::eDataField.field_order') }}"
+                value="{{ $itemEDataField ? $itemEDataField->field_order : old('field_order') }}">
+            @error('field_order')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
@@ -85,6 +110,7 @@
                 type="number"
                 class="form-control"
                 required
+                
                 id="db_nullable"
                 placeholder="{{ __('PkgGapp::eDataField.db_nullable') }}"
                 value="{{ $itemEDataField ? $itemEDataField->db_nullable : old('db_nullable') }}">
@@ -106,6 +132,7 @@
                 type="number"
                 class="form-control"
                 required
+                
                 id="db_primaryKey"
                 placeholder="{{ __('PkgGapp::eDataField.db_primaryKey') }}"
                 value="{{ $itemEDataField ? $itemEDataField->db_primaryKey : old('db_primaryKey') }}">
@@ -127,6 +154,7 @@
                 type="number"
                 class="form-control"
                 required
+                
                 id="db_unique"
                 placeholder="{{ __('PkgGapp::eDataField.db_unique') }}"
                 value="{{ $itemEDataField ? $itemEDataField->db_unique : old('db_unique') }}">
@@ -146,6 +174,7 @@
                 type="input"
                 class="form-control"
                 
+                
                 id="default_value"
                 placeholder="{{ __('PkgGapp::eDataField.default_value') }}"
                 value="{{ $itemEDataField ? $itemEDataField->default_value : old('default_value') }}">
@@ -163,6 +192,7 @@
             <textarea rows="" cols=""
                 name="description"
                 class="form-control richText"
+                
                 
                 id="description"
                 placeholder="{{ __('PkgGapp::eDataField.description') }}">
@@ -185,6 +215,7 @@
             <select 
             id="e_model_id" 
             required
+            
             name="e_model_id" 
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
@@ -210,6 +241,7 @@
             </label>
             <select 
             id="e_relationship_id" 
+            
             
             name="e_relationship_id" 
             class="form-control select2">
@@ -244,4 +276,6 @@
 <script>
 
 </script>
-
+<script>
+     window.modalTitle = '{{__("PkgGapp::eDataField.singular") }} : {{$itemEDataField}}'
+</script>

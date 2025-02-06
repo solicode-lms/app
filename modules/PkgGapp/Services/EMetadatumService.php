@@ -1,6 +1,10 @@
 <?php
+// Ce fichier est maintenu par ESSARRAJ Fouad
+
 
 namespace Modules\PkgGapp\Services;
+
+use Modules\PkgGapp\App\Enums\FieldTypeEnum;
 use Modules\PkgGapp\Services\Base\BaseEMetadatumService;
 
 /**
@@ -8,22 +12,26 @@ use Modules\PkgGapp\Services\Base\BaseEMetadatumService;
  */
 class EMetadatumService extends BaseEMetadatumService
 {
-    public function create(array $data)
+    public function dataCalcul($eMetadatum)
     {
-        // $objet = $data->object;
-        // $data->code = $objet.name . 
-        return parent::create($data);
+        // En Cas d'édit
+        if(isset($eMetadatum->id)){
+          
+
+
+        }else{
+            if( isset($eMetadatum->e_metadata_definition_id)){
+                $metadataDefinition = (new EMetadataDefinitionService())
+                ->find($eMetadatum->e_metadata_definition_id);
+                if($metadataDefinition->type == "Json"){
+                    $eMetadatum->value_json = $metadataDefinition->default_value;
+                   
+                }
+               
+
+            }
+        }
+      
+        return $eMetadatum;
     }
-    // public function createInstance()
-    // {
-    //     $objet = parent::createInstance();
-
-
-
-    //     // $data->code = $objet.name . 
-    //     return $objet;
-    // }
-
- 
-   
 }

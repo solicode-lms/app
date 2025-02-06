@@ -9,35 +9,46 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class BaseNiveauDifficulteRequest extends FormRequest
 {
+    /**
+     * Détermine si l'utilisateur est autorisé à effectuer cette requête.
+     *
+     * @return bool
+     */
     public function authorize(): bool
     {
         return true;
     }
 
+    /**
+     * Retourne les règles de validation appliquées aux champs de la requête.
+     *
+     * @return array
+     */
     public function rules(): array
     {
         return [
-            'nom' => 'required|max:255',
-            'description' => 'nullable',
+            'nom' => 'required|string|max:255',
             'noteMin' => 'required',
             'noteMax' => 'required',
-            'formateur_id' => 'required'
+            'formateur_id' => 'required',
+            'description' => 'nullable|string'
         ];
     }
 
+    /**
+     * Retourne les messages de validation associés aux règles.
+     *
+     * @return array
+     */
     public function messages(): array
     {
         return [
             'nom.required' => __('validation.required', ['attribute' => __('PkgCompetences::NiveauDifficulte.nom')]),
             'nom.max' => __('validation.nomMax'),
-            'description.required' => __('validation.required', ['attribute' => __('PkgCompetences::NiveauDifficulte.description')]),
-            'description.max' => __('validation.descriptionMax'),
             'noteMin.required' => __('validation.required', ['attribute' => __('PkgCompetences::NiveauDifficulte.noteMin')]),
-            'noteMin.max' => __('validation.noteMinMax'),
             'noteMax.required' => __('validation.required', ['attribute' => __('PkgCompetences::NiveauDifficulte.noteMax')]),
-            'noteMax.max' => __('validation.noteMaxMax'),
             'formateur_id.required' => __('validation.required', ['attribute' => __('PkgCompetences::NiveauDifficulte.formateur_id')]),
-            'formateur_id.max' => __('validation.formateur_idMax')
+            'description.required' => __('validation.required', ['attribute' => __('PkgCompetences::NiveauDifficulte.description')])
         ];
     }
 }

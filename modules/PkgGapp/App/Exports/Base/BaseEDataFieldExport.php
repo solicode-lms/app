@@ -25,10 +25,12 @@ class BaseEDataFieldExport implements FromCollection, WithHeadings, ShouldAutoSi
     public function headings(): array
     {
         return [
+            'order',
             'reference',
             'name',
             'column_name',
             'data_type',
+            'field_order',
             'db_nullable',
             'db_primaryKey',
             'db_unique',
@@ -43,10 +45,12 @@ class BaseEDataFieldExport implements FromCollection, WithHeadings, ShouldAutoSi
     {
         return $this->data->map(function ($eDataField) {
             return [
+                'order' => $eDataField->order,
                 'reference' => $eDataField->reference,
                 'name' => $eDataField->name,
                 'column_name' => $eDataField->column_name,
                 'data_type' => $eDataField->data_type,
+                'field_order' => $eDataField->field_order,
                 'db_nullable' => $eDataField->db_nullable,
                 'db_primaryKey' => $eDataField->db_primaryKey,
                 'db_unique' => $eDataField->db_unique,

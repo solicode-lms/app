@@ -9,6 +9,7 @@ export default class ConfigHelper {
     constructor(config, contextState, sessionState) {
 
         this.isDebug = false;
+        this.isDebugInfo = true;
       
 
         this.contextStateService = new ContextStateService(contextState);
@@ -21,8 +22,17 @@ export default class ConfigHelper {
         this.editUrl = config.editUrl;
         this.csrfToken = config.csrfToken;
         this.editTitle = config.edit_title;
-
-  
-     
     }
+
+     debugInfo(message){
+        if( this.isDebugInfo){
+            console.log(`[DEBUG] ${message}`);
+        }
+
+    }
+
+    toString(){
+        return `${this.id} : ${this.contextStateService}`
+    }
+    
 }

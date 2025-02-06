@@ -22,6 +22,7 @@
                 type="input"
                 class="form-control"
                 required
+                
                 id="name"
                 placeholder="{{ __('Core::sysColor.name') }}"
                 value="{{ $itemSysColor ? $itemSysColor->name : old('name') }}">
@@ -43,6 +44,7 @@
                 type="input"
                 class="form-control"
                 required
+                
                 id="hex"
                 placeholder="{{ __('Core::sysColor.hex') }}"
                 value="{{ $itemSysColor ? $itemSysColor->hex : old('hex') }}">
@@ -72,4 +74,6 @@
 <script>
 
 </script>
-
+<script>
+     window.modalTitle = '{{__("Core::sysColor.singular") }} : {{$itemSysColor}}'
+</script>

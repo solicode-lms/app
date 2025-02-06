@@ -17,6 +17,7 @@
         showUrl: '{{ route('transfertCompetences.show',  ['transfertCompetence' => ':id']) }}',
         storeUrl: '{{ route('transfertCompetences.store') }}', 
         deleteUrl: '{{ route('transfertCompetences.destroy',  ['transfertCompetence' => ':id']) }}', 
+        calculationUrl:  '{{ route('transfertCompetences.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgCreationProjet::transfertCompetence.singular") }}',
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgCreationProjet::transfertCompetence.singular") }}',
@@ -30,7 +31,7 @@
        $titre = __("PkgCreationProjet::transfertCompetence.singular");
     @endphp
     <x-crud-header 
-        id="transfertCompetence-crud-header" icon="fas fa-table"  
+        id="transfertCompetence-crud-header" icon="fas fa-book-open"  
         iconColor="text-info"
         title="{{ __('PkgCreationProjet::transfertCompetence.plural') }}"
         :breadcrumbs="[

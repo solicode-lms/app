@@ -26,9 +26,9 @@ class BaseTechnologyExport implements FromCollection, WithHeadings, ShouldAutoSi
     {
         return [
             'nom',
-            'description',
             'category_technology_id',
             'reference',
+            'description',
         ];
     }
 
@@ -37,9 +37,9 @@ class BaseTechnologyExport implements FromCollection, WithHeadings, ShouldAutoSi
         return $this->data->map(function ($technology) {
             return [
                 'nom' => $technology->nom,
-                'description' => $technology->description,
                 'category_technology_id' => $technology->category_technology_id,
                 'reference' => $technology->reference,
+                'description' => $technology->description,
             ];
         });
     }

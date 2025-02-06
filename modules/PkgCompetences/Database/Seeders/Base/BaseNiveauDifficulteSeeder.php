@@ -49,10 +49,10 @@ class BaseNiveauDifficulteSeeder extends Seeder
             if (!$firstline) {
                 $niveauDifficulteService->create([
                     "nom" => $data[0] ,
-                    "description" => $data[1] ,
-                    "noteMin" => $data[2] ,
-                    "noteMax" => $data[3] ,
-                    "formateur_id" => $data[4] 
+                    "noteMin" => $data[1] ,
+                    "noteMax" => $data[2] ,
+                    "formateur_id" => $data[3] ,
+                    "description" => $data[4] 
                 ]);
             }
             $firstline = false;

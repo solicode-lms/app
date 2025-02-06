@@ -17,5 +17,8 @@ Route::middleware('auth')->group(function () {
             Route::get('technologies/export', [TechnologyController::class, 'export'])->name('technologies.export');
             Route::post('technologies/import', [TechnologyController::class, 'import'])->name('technologies.import');
         });
+
+        Route::post('technologies/data-calcul', [TechnologyController::class, 'dataCalcul'])->name('technologies.dataCalcul');
+
     });
 });

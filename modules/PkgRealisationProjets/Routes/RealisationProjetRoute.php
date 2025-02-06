@@ -17,5 +17,8 @@ Route::middleware('auth')->group(function () {
             Route::get('realisationProjets/export', [RealisationProjetController::class, 'export'])->name('realisationProjets.export');
             Route::post('realisationProjets/import', [RealisationProjetController::class, 'import'])->name('realisationProjets.import');
         });
+
+        Route::post('realisationProjets/data-calcul', [RealisationProjetController::class, 'dataCalcul'])->name('realisationProjets.dataCalcul');
+
     });
 });

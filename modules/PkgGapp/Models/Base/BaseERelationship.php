@@ -1,5 +1,6 @@
 <?php
 
+// TODO : il faut indiquer la cause de personnalisation de code
 
 namespace Modules\PkgGapp\Models\Base;
 

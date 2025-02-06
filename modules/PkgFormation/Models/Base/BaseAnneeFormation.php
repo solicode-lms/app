@@ -67,6 +67,6 @@ class BaseAnneeFormation extends BaseModel
      */
     public function __toString()
     {
-        return $this->titre;
+        return $this->titre ?? "";
     }
 }

@@ -35,7 +35,7 @@ class BaseEDataField extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'name', 'column_name', 'data_type', 'db_nullable', 'db_primaryKey', 'db_unique', 'default_value', 'description', 'e_model_id', 'e_relationship_id'
+        'order', 'name', 'column_name', 'data_type', 'field_order', 'db_nullable', 'db_primaryKey', 'db_unique', 'default_value', 'description', 'e_model_id', 'e_relationship_id'
     ];
 
     /**
@@ -77,6 +77,6 @@ class BaseEDataField extends BaseModel
      */
     public function __toString()
     {
-        return $this->name;
+        return $this->name ?? "";
     }
 }

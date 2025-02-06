@@ -9,23 +9,38 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class BaseEMetadataDefinitionRequest extends FormRequest
 {
+    /**
+     * Détermine si l'utilisateur est autorisé à effectuer cette requête.
+     *
+     * @return bool
+     */
     public function authorize(): bool
     {
         return true;
     }
 
+    /**
+     * Retourne les règles de validation appliquées aux champs de la requête.
+     *
+     * @return array
+     */
     public function rules(): array
     {
         return [
-            'name' => 'required|max:255',
-            'groupe' => 'required|max:255',
-            'type' => 'required|max:255',
-            'scope' => 'required|max:255',
-            'description' => 'nullable|max:255',
-            'default_value' => 'nullable|max:255'
+            'name' => 'required|string|max:255',
+            'groupe' => 'required|string|max:255',
+            'type' => 'required|string|max:255',
+            'scope' => 'required|string|max:255',
+            'description' => 'nullable|string|max:255',
+            'default_value' => 'nullable|string|max:255'
         ];
     }
 
+    /**
+     * Retourne les messages de validation associés aux règles.
+     *
+     * @return array
+     */
     public function messages(): array
     {
         return [

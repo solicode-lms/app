@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('reference')->unique();
             $table->string('name'); // Nom du package
-            $table->text('description')->nullable(); // Description facultative
+            $table->longText('description')->nullable(); // Description facultative
             $table->timestamps(); // Colonnes created_at et updated_at
         });
     }

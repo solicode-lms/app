@@ -27,7 +27,6 @@
                         <li class="pt-2 px-3">
                             <h3 class="card-title">
                                 <i class="nav-icon fas fa-table"></i>
-                                {{ __('Core::msg.edit') }}
                             </h3>
                         </li>
                         <li class="nav-item">
@@ -40,19 +39,9 @@
                         <li class="nav-item">
                             <a class="nav-link" id="eModel-hasmany-tabs-eMetadatum-tab" data-toggle="pill" href="#eModel-hasmany-tabs-eMetadatum" role="tab" aria-controls="eModel-hasmany-tabs-eMetadatum" aria-selected="false">{{__('PkgGapp::eMetadatum.plural')}}</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="eModel-hasmany-tabs-eRelationship-tab" data-toggle="pill" href="#eModel-hasmany-tabs-eRelationship" role="tab" aria-controls="eModel-hasmany-tabs-eRelationship" aria-selected="false">{{__('PkgGapp::eRelationship.plural')}}</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="eModel-hasmany-tabs-eRelationship-tab" data-toggle="pill" href="#eModel-hasmany-tabs-eRelationship" role="tab" aria-controls="eModel-hasmany-tabs-eRelationship" aria-selected="false">{{__('PkgGapp::eRelationship.plural')}}</a>
-                        </li>
 
                        
                         </ul>
-                         <button type="button" class="btn btn-info btn-sm btn-card-header">
-                            <i class="fa fa-check"></i>
-                                Enregistrer
-                         </button>
                     </div>
                     <div class="card-body">
                         <div class="tab-content" id="edit-eModel-tabContent">
@@ -65,12 +54,6 @@
                             </div>
                             <div class="tab-pane fade" id="eModel-hasmany-tabs-eMetadatum" role="tabpanel" aria-labelledby="eModel-hasmany-tabs-eMetadatum-tab">
                                 @include('PkgGapp::eMetadatum._index',['isMany' => true, "edit_has_many" => false])
-                            </div>
-                            <div class="tab-pane fade" id="eModel-hasmany-tabs-eRelationship" role="tabpanel" aria-labelledby="eModel-hasmany-tabs-eRelationship-tab">
-                                @include('PkgGapp::eRelationship._index',['isMany' => true, "edit_has_many" => false])
-                            </div>
-                            <div class="tab-pane fade" id="eModel-hasmany-tabs-eRelationship" role="tabpanel" aria-labelledby="eModel-hasmany-tabs-eRelationship-tab">
-                                @include('PkgGapp::eRelationship._index',['isMany' => true, "edit_has_many" => false])
                             </div>
 
                            

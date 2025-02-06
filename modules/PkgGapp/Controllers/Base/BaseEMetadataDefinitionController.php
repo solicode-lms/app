@@ -4,7 +4,6 @@
 
 namespace Modules\PkgGapp\Controllers\Base;
 use Modules\PkgGapp\Services\EMetadataDefinitionService;
-use Modules\PkgGapp\Services\EMetadatumService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\PkgGapp\App\Requests\EMetadataDefinitionRequest;
@@ -57,12 +56,9 @@ class BaseEMetadataDefinitionController extends AdminController
         $validatedData = $request->validated();
         $eMetadataDefinition = $this->eMetadataDefinitionService->create($validatedData);
 
-
-
-
         if ($request->ajax()) {
             return response()->json(['success' => true, 
-            'e_metadata_definition_id' => $eMetadataDefinition->id,
+            'entity_id' => $eMetadataDefinition->id,
             'message' => 
              __('Core::msg.addSuccess', [
                 'entityToString' => $eMetadataDefinition,
@@ -70,7 +66,7 @@ class BaseEMetadataDefinitionController extends AdminController
             ]);
         }
 
-        return redirect()->route('eMetadataDefinitions.edit',['eMetadataDefinition' => $eMetadataDefinition->id])->with(
+        return redirect()->route('eMetadataDefinitions.index')->with(
             'success',
             __('Core::msg.addSuccess', [
                 'entityToString' => $eMetadataDefinition,
@@ -84,17 +80,12 @@ class BaseEMetadataDefinitionController extends AdminController
         $this->contextState->set('e_metadata_definition_id', $id);
         
         $itemEMetadataDefinition = $this->eMetadataDefinitionService->find($id);
-        $eMetadatumService =  new EMetadatumService();
-        $eMetadata_data =  $itemEMetadataDefinition->eMetadata()->paginate(10);
-        $eMetadata_stats = $eMetadatumService->geteMetadatumStats();
-        $eMetadata_filters = $eMetadatumService->getFieldsFilterable();
-        
 
         if (request()->ajax()) {
-            return view('PkgGapp::eMetadataDefinition._edit', compact('itemEMetadataDefinition', 'eMetadata_data', 'eMetadata_stats', 'eMetadata_filters'));
+            return view('PkgGapp::eMetadataDefinition._fields', compact('itemEMetadataDefinition'));
         }
 
-        return view('PkgGapp::eMetadataDefinition.edit', compact('itemEMetadataDefinition', 'eMetadata_data', 'eMetadata_stats', 'eMetadata_filters'));
+        return view('PkgGapp::eMetadataDefinition.edit', compact('itemEMetadataDefinition'));
 
     }
     public function edit(string $id) {
@@ -103,24 +94,18 @@ class BaseEMetadataDefinitionController extends AdminController
         $this->contextState->set('e_metadata_definition_id', $id);
         
         $itemEMetadataDefinition = $this->eMetadataDefinitionService->find($id);
-        $eMetadatumService =  new EMetadatumService();
-        $eMetadata_data =  $itemEMetadataDefinition->eMetadata()->paginate(10);
-        $eMetadata_stats = $eMetadatumService->geteMetadatumStats();
-        $eMetadata_filters = $eMetadatumService->getFieldsFilterable();
-        
 
         if (request()->ajax()) {
-            return view('PkgGapp::eMetadataDefinition._edit', compact('itemEMetadataDefinition', 'eMetadata_data', 'eMetadata_stats', 'eMetadata_filters'));
+            return view('PkgGapp::eMetadataDefinition._fields', compact('itemEMetadataDefinition'));
         }
 
-        return view('PkgGapp::eMetadataDefinition.edit', compact('itemEMetadataDefinition', 'eMetadata_data', 'eMetadata_stats', 'eMetadata_filters'));
+        return view('PkgGapp::eMetadataDefinition.edit', compact('itemEMetadataDefinition'));
 
     }
     public function update(EMetadataDefinitionRequest $request, string $id) {
 
         $validatedData = $request->validated();
         $eMetadataDefinition = $this->eMetadataDefinitionService->update($id, $validatedData);
-
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
@@ -194,5 +179,25 @@ class BaseEMetadataDefinitionController extends AdminController
         $eMetadataDefinitions = $this->eMetadataDefinitionService->all();
         return response()->json($eMetadataDefinitions);
     }
+
+
+    public function dataCalcul(Request $request)
+    {
+
+        // Extraire les données de la requête
+        $data = $request->all();
+
+        $eMetadataDefinition = $this->eMetadataDefinitionService->createInstance($data);
+    
+        // Mise à jour des attributs via le service
+        $updatedEMetadataDefinition = $this->eMetadataDefinitionService->dataCalcul($eMetadataDefinition);
+    
+        return response()->json([
+            'success' => true,
+            'entity' => $updatedEMetadataDefinition
+        ]);
+    }
+    
+
 
 }

@@ -9,38 +9,48 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class BaseProjetRequest extends FormRequest
 {
+    /**
+     * Détermine si l'utilisateur est autorisé à effectuer cette requête.
+     *
+     * @return bool
+     */
     public function authorize(): bool
     {
         return true;
     }
 
+    /**
+     * Retourne les règles de validation appliquées aux champs de la requête.
+     *
+     * @return array
+     */
     public function rules(): array
     {
         return [
-            'titre' => 'required|max:255',
-            'travail_a_faire' => 'required',
-            'critere_de_travail' => 'required',
-            'description' => 'nullable',
-            'nombre_jour' => 'required',
+            'titre' => 'required|string|max:255',
+            'travail_a_faire' => 'required|string',
+            'critere_de_travail' => 'required|string',
+            'nombre_jour' => 'required|integer',
+            'description' => 'nullable|string',
             'formateur_id' => 'required'
         ];
     }
 
+    /**
+     * Retourne les messages de validation associés aux règles.
+     *
+     * @return array
+     */
     public function messages(): array
     {
         return [
             'titre.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Projet.titre')]),
             'titre.max' => __('validation.titreMax'),
             'travail_a_faire.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Projet.travail_a_faire')]),
-            'travail_a_faire.max' => __('validation.travail_a_faireMax'),
             'critere_de_travail.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Projet.critere_de_travail')]),
-            'critere_de_travail.max' => __('validation.critere_de_travailMax'),
-            'description.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Projet.description')]),
-            'description.max' => __('validation.descriptionMax'),
             'nombre_jour.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Projet.nombre_jour')]),
-            'nombre_jour.max' => __('validation.nombre_jourMax'),
-            'formateur_id.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Projet.formateur_id')]),
-            'formateur_id.max' => __('validation.formateur_idMax')
+            'description.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Projet.description')]),
+            'formateur_id.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Projet.formateur_id')])
         ];
     }
 }

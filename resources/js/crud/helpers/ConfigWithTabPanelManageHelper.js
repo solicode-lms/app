@@ -11,4 +11,6 @@ export default class ConfigWithTabPanelManageHelper extends ConfigHelper {
         this.cardTabSelector = this.cardTabSelector;
         this.hasTabs = true;
     }
+
+ 
 }

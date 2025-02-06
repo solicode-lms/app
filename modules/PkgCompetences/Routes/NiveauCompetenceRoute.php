@@ -17,5 +17,8 @@ Route::middleware('auth')->group(function () {
             Route::get('niveauCompetences/export', [NiveauCompetenceController::class, 'export'])->name('niveauCompetences.export');
             Route::post('niveauCompetences/import', [NiveauCompetenceController::class, 'import'])->name('niveauCompetences.import');
         });
+
+        Route::post('niveauCompetences/data-calcul', [NiveauCompetenceController::class, 'dataCalcul'])->name('niveauCompetences.dataCalcul');
+
     });
 });

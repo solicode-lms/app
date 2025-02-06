@@ -17,6 +17,7 @@
         showUrl: '{{ route('livrablesRealisations.show',  ['livrablesRealisation' => ':id']) }}',
         storeUrl: '{{ route('livrablesRealisations.store') }}', 
         deleteUrl: '{{ route('livrablesRealisations.destroy',  ['livrablesRealisation' => ':id']) }}', 
+        calculationUrl:  '{{ route('livrablesRealisations.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgRealisationProjets::livrablesRealisation.singular") }}',
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgRealisationProjets::livrablesRealisation.singular") }}',

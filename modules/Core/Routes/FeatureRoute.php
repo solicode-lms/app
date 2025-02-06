@@ -17,5 +17,8 @@ Route::middleware('auth')->group(function () {
             Route::get('features/export', [FeatureController::class, 'export'])->name('features.export');
             Route::post('features/import', [FeatureController::class, 'import'])->name('features.import');
         });
+
+        Route::post('features/data-calcul', [FeatureController::class, 'dataCalcul'])->name('features.dataCalcul');
+
     });
 });

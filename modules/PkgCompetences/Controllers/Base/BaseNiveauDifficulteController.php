@@ -5,7 +5,6 @@
 namespace Modules\PkgCompetences\Controllers\Base;
 use Modules\PkgCompetences\Services\NiveauDifficulteService;
 use Modules\PkgFormation\Services\FormateurService;
-use Modules\PkgCreationProjet\Services\TransfertCompetenceService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\PkgCompetences\App\Requests\NiveauDifficulteRequest;
@@ -61,12 +60,9 @@ class BaseNiveauDifficulteController extends AdminController
         $validatedData = $request->validated();
         $niveauDifficulte = $this->niveauDifficulteService->create($validatedData);
 
-
-
-
         if ($request->ajax()) {
             return response()->json(['success' => true, 
-            'niveau_difficulte_id' => $niveauDifficulte->id,
+            'entity_id' => $niveauDifficulte->id,
             'message' => 
              __('Core::msg.addSuccess', [
                 'entityToString' => $niveauDifficulte,
@@ -74,7 +70,7 @@ class BaseNiveauDifficulteController extends AdminController
             ]);
         }
 
-        return redirect()->route('niveauDifficultes.edit',['niveauDifficulte' => $niveauDifficulte->id])->with(
+        return redirect()->route('niveauDifficultes.index')->with(
             'success',
             __('Core::msg.addSuccess', [
                 'entityToString' => $niveauDifficulte,
@@ -89,17 +85,12 @@ class BaseNiveauDifficulteController extends AdminController
         
         $itemNiveauDifficulte = $this->niveauDifficulteService->find($id);
         $formateurs = $this->formateurService->all();
-        $transfertCompetenceService =  new TransfertCompetenceService();
-        $transfertCompetences_data =  $itemNiveauDifficulte->transfertCompetences()->paginate(10);
-        $transfertCompetences_stats = $transfertCompetenceService->gettransfertCompetenceStats();
-        $transfertCompetences_filters = $transfertCompetenceService->getFieldsFilterable();
-        
 
         if (request()->ajax()) {
-            return view('PkgCompetences::niveauDifficulte._edit', compact('itemNiveauDifficulte', 'formateurs', 'transfertCompetences_data', 'transfertCompetences_stats', 'transfertCompetences_filters'));
+            return view('PkgCompetences::niveauDifficulte._fields', compact('itemNiveauDifficulte', 'formateurs'));
         }
 
-        return view('PkgCompetences::niveauDifficulte.edit', compact('itemNiveauDifficulte', 'formateurs', 'transfertCompetences_data', 'transfertCompetences_stats', 'transfertCompetences_filters'));
+        return view('PkgCompetences::niveauDifficulte.edit', compact('itemNiveauDifficulte', 'formateurs'));
 
     }
     public function edit(string $id) {
@@ -109,24 +100,18 @@ class BaseNiveauDifficulteController extends AdminController
         
         $itemNiveauDifficulte = $this->niveauDifficulteService->find($id);
         $formateurs = $this->formateurService->all();
-        $transfertCompetenceService =  new TransfertCompetenceService();
-        $transfertCompetences_data =  $itemNiveauDifficulte->transfertCompetences()->paginate(10);
-        $transfertCompetences_stats = $transfertCompetenceService->gettransfertCompetenceStats();
-        $transfertCompetences_filters = $transfertCompetenceService->getFieldsFilterable();
-        
 
         if (request()->ajax()) {
-            return view('PkgCompetences::niveauDifficulte._edit', compact('itemNiveauDifficulte', 'formateurs', 'transfertCompetences_data', 'transfertCompetences_stats', 'transfertCompetences_filters'));
+            return view('PkgCompetences::niveauDifficulte._fields', compact('itemNiveauDifficulte', 'formateurs'));
         }
 
-        return view('PkgCompetences::niveauDifficulte.edit', compact('itemNiveauDifficulte', 'formateurs', 'transfertCompetences_data', 'transfertCompetences_stats', 'transfertCompetences_filters'));
+        return view('PkgCompetences::niveauDifficulte.edit', compact('itemNiveauDifficulte', 'formateurs'));
 
     }
     public function update(NiveauDifficulteRequest $request, string $id) {
 
         $validatedData = $request->validated();
         $niveauDifficulte = $this->niveauDifficulteService->update($id, $validatedData);
-
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
@@ -200,5 +185,25 @@ class BaseNiveauDifficulteController extends AdminController
         $niveauDifficultes = $this->niveauDifficulteService->all();
         return response()->json($niveauDifficultes);
     }
+
+
+    public function dataCalcul(Request $request)
+    {
+
+        // Extraire les données de la requête
+        $data = $request->all();
+
+        $niveauDifficulte = $this->niveauDifficulteService->createInstance($data);
+    
+        // Mise à jour des attributs via le service
+        $updatedNiveauDifficulte = $this->niveauDifficulteService->dataCalcul($niveauDifficulte);
+    
+        return response()->json([
+            'success' => true,
+            'entity' => $updatedNiveauDifficulte
+        ]);
+    }
+    
+
 
 }

@@ -22,6 +22,7 @@
                 type="input"
                 class="form-control"
                 required
+                
                 id="name"
                 placeholder="{{ __('PkgAutorisation::permission.name') }}"
                 value="{{ $itemPermission ? $itemPermission->name : old('name') }}">
@@ -43,6 +44,7 @@
                 type="input"
                 class="form-control"
                 required
+                
                 id="guard_name"
                 placeholder="{{ __('PkgAutorisation::permission.guard_name') }}"
                 value="{{ $itemPermission ? $itemPermission->guard_name : old('guard_name') }}">
@@ -60,6 +62,7 @@
             </label>
             <select 
             id="controller_id" 
+            
             
             name="controller_id" 
             class="form-control select2">
@@ -86,6 +89,7 @@
                 id="features"
                 name="features[]"
                 class="form-control select2"
+                
                 multiple="multiple">
                
                 @foreach ($features as $feature)
@@ -111,6 +115,7 @@
                 id="roles"
                 name="roles[]"
                 class="form-control select2"
+                
                 multiple="multiple">
                
                 @foreach ($roles as $role)
@@ -140,4 +145,6 @@
 <script>
 
 </script>
-
+<script>
+     window.modalTitle = '{{__("PkgAutorisation::permission.singular") }} : {{$itemPermission}}'
+</script>

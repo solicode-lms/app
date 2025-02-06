@@ -48,6 +48,6 @@ class BaseApprenantKonosy extends BaseModel
      */
     public function __toString()
     {
-        return $this->Nom;
+        return $this->Nom ?? "";
     }
 }

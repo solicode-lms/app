@@ -36,7 +36,10 @@ class BaseCompetence extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'code', 'nom', 'description', 'module_id'
+        'code', 'nom', 'module_id', 'description'
+    ];
+    public $manyToMany = [
+        'technologies'
     ];
 
     /**
@@ -87,6 +90,6 @@ class BaseCompetence extends BaseModel
      */
     public function __toString()
     {
-        return $this->code;
+        return $this->code ?? "";
     }
 }

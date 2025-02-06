@@ -17,6 +17,7 @@
         showUrl: '{{ route('natureLivrables.show',  ['natureLivrable' => ':id']) }}',
         storeUrl: '{{ route('natureLivrables.store') }}', 
         deleteUrl: '{{ route('natureLivrables.destroy',  ['natureLivrable' => ':id']) }}', 
+        calculationUrl:  '{{ route('natureLivrables.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgCreationProjet::natureLivrable.singular") }}',
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgCreationProjet::natureLivrable.singular") }}',
@@ -30,7 +31,7 @@
        $titre = __("PkgCreationProjet::natureLivrable.singular");
     @endphp
     <x-crud-header 
-        id="natureLivrable-crud-header" icon="fas fa-table"  
+        id="natureLivrable-crud-header" icon="fas fa-file-archive"  
         iconColor="text-info"
         title="{{ __('PkgCreationProjet::natureLivrable.plural') }}"
         :breadcrumbs="[

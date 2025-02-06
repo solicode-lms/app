@@ -2,6 +2,6 @@
 
 
 return [
-    'name' => 'PkgCompetences',
+    'name' => 'Compétences',
     'icon' => 'fa-bullseye'
 ];

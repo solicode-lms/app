@@ -57,12 +57,9 @@ class BaseEPackageController extends AdminController
         $validatedData = $request->validated();
         $ePackage = $this->ePackageService->create($validatedData);
 
-
-
-
         if ($request->ajax()) {
             return response()->json(['success' => true, 
-            'e_package_id' => $ePackage->id,
+            'entity_id' => $ePackage->id,
             'message' => 
              __('Core::msg.addSuccess', [
                 'entityToString' => $ePackage,
@@ -120,7 +117,6 @@ class BaseEPackageController extends AdminController
 
         $validatedData = $request->validated();
         $ePackage = $this->ePackageService->update($id, $validatedData);
-
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
@@ -194,5 +190,25 @@ class BaseEPackageController extends AdminController
         $ePackages = $this->ePackageService->all();
         return response()->json($ePackages);
     }
+
+
+    public function dataCalcul(Request $request)
+    {
+
+        // Extraire les données de la requête
+        $data = $request->all();
+
+        $ePackage = $this->ePackageService->createInstance($data);
+    
+        // Mise à jour des attributs via le service
+        $updatedEPackage = $this->ePackageService->dataCalcul($ePackage);
+    
+        return response()->json([
+            'success' => true,
+            'entity' => $updatedEPackage
+        ]);
+    }
+    
+
 
 }

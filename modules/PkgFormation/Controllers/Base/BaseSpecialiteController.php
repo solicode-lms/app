@@ -60,15 +60,9 @@ class BaseSpecialiteController extends AdminController
         $validatedData = $request->validated();
         $specialite = $this->specialiteService->create($validatedData);
 
-
-        if ($request->has('formateurs')) {
-            $specialite->formateurs()->sync($request->input('formateurs'));
-        }
-
-
         if ($request->ajax()) {
             return response()->json(['success' => true, 
-            'specialite_id' => $specialite->id,
+            'entity_id' => $specialite->id,
             'message' => 
              __('Core::msg.addSuccess', [
                 'entityToString' => $specialite,
@@ -118,8 +112,6 @@ class BaseSpecialiteController extends AdminController
 
         $validatedData = $request->validated();
         $specialite = $this->specialiteService->update($id, $validatedData);
-
-        $specialite->formateurs()->sync($request->input('formateurs'));
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
@@ -193,5 +185,25 @@ class BaseSpecialiteController extends AdminController
         $specialites = $this->specialiteService->all();
         return response()->json($specialites);
     }
+
+
+    public function dataCalcul(Request $request)
+    {
+
+        // Extraire les données de la requête
+        $data = $request->all();
+
+        $specialite = $this->specialiteService->createInstance($data);
+    
+        // Mise à jour des attributs via le service
+        $updatedSpecialite = $this->specialiteService->dataCalcul($specialite);
+    
+        return response()->json([
+            'success' => true,
+            'entity' => $updatedSpecialite
+        ]);
+    }
+    
+
 
 }

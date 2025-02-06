@@ -10,5 +10,13 @@ use Modules\PkgApprenants\Services\Base\BaseApprenantService;
  */
 class ApprenantService extends BaseApprenantService
 {
-   
+    public function dataCalcul($apprenant)
+    {
+        // En Cas d'édit
+        if(isset($apprenant->id)){
+          
+        }
+      
+        return $apprenant;
+    }
 }

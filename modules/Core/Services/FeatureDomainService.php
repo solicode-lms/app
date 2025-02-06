@@ -10,5 +10,13 @@ use Modules\Core\Services\Base\BaseFeatureDomainService;
  */
 class FeatureDomainService extends BaseFeatureDomainService
 {
-   
+    public function dataCalcul($featureDomain)
+    {
+        // En Cas d'édit
+        if(isset($featureDomain->id)){
+          
+        }
+      
+        return $featureDomain;
+    }
 }

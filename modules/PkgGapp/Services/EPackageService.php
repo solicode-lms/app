@@ -10,5 +10,13 @@ use Modules\PkgGapp\Services\Base\BaseEPackageService;
  */
 class EPackageService extends BaseEPackageService
 {
-   
+    public function dataCalcul($ePackage)
+    {
+        // En Cas d'édit
+        if(isset($ePackage->id)){
+          
+        }
+      
+        return $ePackage;
+    }
 }

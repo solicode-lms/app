@@ -17,6 +17,7 @@
         showUrl: '{{ route('villes.show',  ['ville' => ':id']) }}',
         storeUrl: '{{ route('villes.store') }}', 
         deleteUrl: '{{ route('villes.destroy',  ['ville' => ':id']) }}', 
+        calculationUrl:  '{{ route('villes.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgApprenants::ville.singular") }}',
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgApprenants::ville.singular") }}',

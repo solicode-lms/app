@@ -10,5 +10,13 @@ use Modules\PkgFormation\Services\Base\BaseFiliereService;
  */
 class FiliereService extends BaseFiliereService
 {
-   
+    public function dataCalcul($filiere)
+    {
+        // En Cas d'édit
+        if(isset($filiere->id)){
+          
+        }
+      
+        return $filiere;
+    }
 }

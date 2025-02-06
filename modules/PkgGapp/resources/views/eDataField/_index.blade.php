@@ -17,6 +17,7 @@
         showUrl: '{{ route('eDataFields.show',  ['eDataField' => ':id']) }}',
         storeUrl: '{{ route('eDataFields.store') }}', 
         deleteUrl: '{{ route('eDataFields.destroy',  ['eDataField' => ':id']) }}', 
+        calculationUrl:  '{{ route('eDataFields.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgGapp::eDataField.singular") }}',
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgGapp::eDataField.singular") }}',

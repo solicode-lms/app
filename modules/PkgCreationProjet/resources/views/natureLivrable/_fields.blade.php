@@ -22,6 +22,7 @@
                 type="input"
                 class="form-control"
                 required
+                
                 id="nom"
                 placeholder="{{ __('PkgCreationProjet::natureLivrable.nom') }}"
                 value="{{ $itemNatureLivrable ? $itemNatureLivrable->nom : old('nom') }}">
@@ -39,6 +40,7 @@
             <textarea rows="" cols=""
                 name="description"
                 class="form-control richText"
+                
                 
                 id="description"
                 placeholder="{{ __('PkgCreationProjet::natureLivrable.description') }}">
@@ -66,4 +68,6 @@
 <script>
 
 </script>
-
+<script>
+     window.modalTitle = '{{__("PkgCreationProjet::natureLivrable.singular") }} : {{$itemNatureLivrable}}'
+</script>

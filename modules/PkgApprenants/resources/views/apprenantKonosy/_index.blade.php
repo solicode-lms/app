@@ -17,6 +17,7 @@
         showUrl: '{{ route('apprenantKonosies.show',  ['apprenantKonosy' => ':id']) }}',
         storeUrl: '{{ route('apprenantKonosies.store') }}', 
         deleteUrl: '{{ route('apprenantKonosies.destroy',  ['apprenantKonosy' => ':id']) }}', 
+        calculationUrl:  '{{ route('apprenantKonosies.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgApprenants::apprenantKonosy.singular") }}',
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgApprenants::apprenantKonosy.singular") }}',

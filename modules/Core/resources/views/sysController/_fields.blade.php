@@ -21,6 +21,7 @@
             <select 
             id="sys_module_id" 
             required
+            
             name="sys_module_id" 
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
@@ -50,6 +51,7 @@
                 type="input"
                 class="form-control"
                 required
+                
                 id="name"
                 placeholder="{{ __('Core::sysController.name') }}"
                 value="{{ $itemSysController ? $itemSysController->name : old('name') }}">
@@ -71,6 +73,7 @@
                 type="input"
                 class="form-control"
                 required
+                
                 id="slug"
                 placeholder="{{ __('Core::sysController.slug') }}"
                 value="{{ $itemSysController ? $itemSysController->slug : old('slug') }}">
@@ -88,6 +91,7 @@
             <textarea rows="" cols=""
                 name="description"
                 class="form-control richText"
+                
                 
                 id="description"
                 placeholder="{{ __('Core::sysController.description') }}">
@@ -111,6 +115,7 @@
                 type="number"
                 class="form-control"
                 required
+                
                 id="is_active"
                 placeholder="{{ __('Core::sysController.is_active') }}"
                 value="{{ $itemSysController ? $itemSysController->is_active : old('is_active') }}">
@@ -136,4 +141,6 @@
 <script>
 
 </script>
-
+<script>
+     window.modalTitle = '{{__("Core::sysController.singular") }} : {{$itemSysController}}'
+</script>

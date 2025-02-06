@@ -17,6 +17,7 @@
         showUrl: '{{ route('resources.show',  ['resource' => ':id']) }}',
         storeUrl: '{{ route('resources.store') }}', 
         deleteUrl: '{{ route('resources.destroy',  ['resource' => ':id']) }}', 
+        calculationUrl:  '{{ route('resources.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgCreationProjet::resource.singular") }}',
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgCreationProjet::resource.singular") }}',
@@ -30,7 +31,7 @@
        $titre = __("PkgCreationProjet::resource.singular");
     @endphp
     <x-crud-header 
-        id="resource-crud-header" icon="fas fa-table"  
+        id="resource-crud-header" icon="fas fa-book"  
         iconColor="text-info"
         title="{{ __('PkgCreationProjet::resource.plural') }}"
         :breadcrumbs="[

@@ -10,5 +10,13 @@ use Modules\PkgCompetences\Services\Base\BaseTechnologyService;
  */
 class TechnologyService extends BaseTechnologyService
 {
-   
+    public function dataCalcul($technology)
+    {
+        // En Cas d'édit
+        if(isset($technology->id)){
+          
+        }
+      
+        return $technology;
+    }
 }

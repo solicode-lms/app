@@ -20,6 +20,7 @@
         type="number"
         class="form-control"
         
+        
         id="note"
         step="0.01"
         placeholder="{{ __('PkgRealisationProjets::validation.note') }}"
@@ -42,6 +43,7 @@
                 type="input"
                 class="form-control"
                 
+                
                 id="message"
                 placeholder="{{ __('PkgRealisationProjets::validation.message') }}"
                 value="{{ $itemValidation ? $itemValidation->message : old('message') }}">
@@ -63,6 +65,7 @@
                 type="number"
                 class="form-control"
                 required
+                
                 id="is_valide"
                 placeholder="{{ __('PkgRealisationProjets::validation.is_valide') }}"
                 value="{{ $itemValidation ? $itemValidation->is_valide : old('is_valide') }}">
@@ -83,6 +86,7 @@
             <select 
             id="transfert_competence_id" 
             required
+            
             name="transfert_competence_id" 
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
@@ -111,6 +115,7 @@
             <select 
             id="realisation_projet_id" 
             required
+            
             name="realisation_projet_id" 
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
@@ -140,4 +145,6 @@
 <script>
 
 </script>
-
+<script>
+     window.modalTitle = '{{__("PkgRealisationProjets::validation.singular") }} : {{$itemValidation}}'
+</script>

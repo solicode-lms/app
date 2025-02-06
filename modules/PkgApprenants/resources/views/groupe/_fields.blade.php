@@ -22,6 +22,7 @@
                 type="input"
                 class="form-control"
                 required
+                
                 id="code"
                 placeholder="{{ __('PkgApprenants::groupe.code') }}"
                 value="{{ $itemGroupe ? $itemGroupe->code : old('code') }}">
@@ -41,6 +42,7 @@
                 type="input"
                 class="form-control"
                 
+                
                 id="nom"
                 placeholder="{{ __('PkgApprenants::groupe.nom') }}"
                 value="{{ $itemGroupe ? $itemGroupe->nom : old('nom') }}">
@@ -58,6 +60,7 @@
             <textarea rows="" cols=""
                 name="description"
                 class="form-control richText"
+                
                 
                 id="description"
                 placeholder="{{ __('PkgApprenants::groupe.description') }}">
@@ -77,6 +80,7 @@
             </label>
             <select 
             id="filiere_id" 
+            
             
             name="filiere_id" 
             class="form-control select2">
@@ -103,6 +107,7 @@
             </label>
             <select 
             id="annee_formation_id" 
+            
             
             name="annee_formation_id" 
             class="form-control select2">
@@ -133,6 +138,7 @@
                 id="apprenants"
                 name="apprenants[]"
                 class="form-control select2"
+                
                 multiple="multiple">
                
                 @foreach ($apprenants as $apprenant)
@@ -158,6 +164,7 @@
                 id="formateurs"
                 name="formateurs[]"
                 class="form-control select2"
+                
                 multiple="multiple">
                
                 @foreach ($formateurs as $formateur)
@@ -187,4 +194,6 @@
 <script>
 
 </script>
-
+<script>
+     window.modalTitle = '{{__("PkgApprenants::groupe.singular") }} : {{$itemGroupe}}'
+</script>

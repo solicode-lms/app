@@ -17,6 +17,7 @@
         showUrl: '{{ route('realisationProjets.show',  ['realisationProjet' => ':id']) }}',
         storeUrl: '{{ route('realisationProjets.store') }}', 
         deleteUrl: '{{ route('realisationProjets.destroy',  ['realisationProjet' => ':id']) }}', 
+        calculationUrl:  '{{ route('realisationProjets.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgRealisationProjets::realisationProjet.singular") }}',
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgRealisationProjets::realisationProjet.singular") }}',

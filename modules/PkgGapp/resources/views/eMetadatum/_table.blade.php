@@ -4,6 +4,9 @@
     <table class="table table-striped text-nowrap">
         <thead>
             <tr>
+                 <th>
+                    Value
+                </th>
                 <x-sortable-column field="e_model_id" label="{{ ucfirst(__('PkgGapp::eModel.singular')) }}" />
                 <x-sortable-column field="e_data_field_id" label="{{ ucfirst(__('PkgGapp::eDataField.singular')) }}" />
                 <x-sortable-column field="e_metadata_definition_id" label="{{ ucfirst(__('PkgGapp::eMetadataDefinition.singular')) }}" />
@@ -13,6 +16,7 @@
         <tbody>
             @foreach ($eMetadata_data as $eMetadatum)
                 <tr id="eMetadatum-row-{{$eMetadatum->id}}">
+                    <td>@limit($eMetadatum->getValue(), 80)</td>
                     <td>@limit($eMetadatum->eModel->name ?? '-', 80)</td>
                     <td>@limit($eMetadatum->eDataField->name ?? '-', 80)</td>
                     <td>@limit($eMetadatum->eMetadataDefinition->name ?? '-', 80)</td>

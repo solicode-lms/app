@@ -35,7 +35,7 @@ class BaseEMetadatum extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'value_boolean', 'value_string', 'value_integer', 'value_float', 'value_date', 'value_datetime', 'value_enum', 'value_json', 'value_text', 'e_model_id', 'e_data_field_id', 'e_metadata_definition_id'
+        'Value', 'value_boolean', 'value_string', 'value_integer', 'value_float', 'value_date', 'value_datetime', 'value_enum', 'value_json', 'value_text', 'e_model_id', 'e_data_field_id', 'e_metadata_definition_id'
     ];
 
     /**
@@ -77,6 +77,6 @@ class BaseEMetadatum extends BaseModel
      */
     public function __toString()
     {
-        return $this->id;
+        return $this->id ?? "";
     }
 }

@@ -9,29 +9,42 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class BaseAnneeFormationRequest extends FormRequest
 {
+    /**
+     * Détermine si l'utilisateur est autorisé à effectuer cette requête.
+     *
+     * @return bool
+     */
     public function authorize(): bool
     {
         return true;
     }
 
+    /**
+     * Retourne les règles de validation appliquées aux champs de la requête.
+     *
+     * @return array
+     */
     public function rules(): array
     {
         return [
-            'titre' => 'required|max:255',
+            'titre' => 'required|string|max:255',
             'date_debut' => 'required',
             'date_fin' => 'required'
         ];
     }
 
+    /**
+     * Retourne les messages de validation associés aux règles.
+     *
+     * @return array
+     */
     public function messages(): array
     {
         return [
             'titre.required' => __('validation.required', ['attribute' => __('PkgFormation::AnneeFormation.titre')]),
             'titre.max' => __('validation.titreMax'),
             'date_debut.required' => __('validation.required', ['attribute' => __('PkgFormation::AnneeFormation.date_debut')]),
-            'date_debut.max' => __('validation.date_debutMax'),
-            'date_fin.required' => __('validation.required', ['attribute' => __('PkgFormation::AnneeFormation.date_fin')]),
-            'date_fin.max' => __('validation.date_finMax')
+            'date_fin.required' => __('validation.required', ['attribute' => __('PkgFormation::AnneeFormation.date_fin')])
         ];
     }
 }

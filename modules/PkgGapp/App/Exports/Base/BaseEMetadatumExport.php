@@ -25,6 +25,7 @@ class BaseEMetadatumExport implements FromCollection, WithHeadings, ShouldAutoSi
     public function headings(): array
     {
         return [
+            'Value',
             'reference',
             'value_boolean',
             'value_string',
@@ -45,6 +46,7 @@ class BaseEMetadatumExport implements FromCollection, WithHeadings, ShouldAutoSi
     {
         return $this->data->map(function ($eMetadatum) {
             return [
+                'Value' => $eMetadatum->Value,
                 'reference' => $eMetadatum->reference,
                 'value_boolean' => $eMetadatum->value_boolean,
                 'value_string' => $eMetadatum->value_string,

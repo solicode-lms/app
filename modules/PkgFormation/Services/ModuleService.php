@@ -10,5 +10,13 @@ use Modules\PkgFormation\Services\Base\BaseModuleService;
  */
 class ModuleService extends BaseModuleService
 {
-   
+    public function dataCalcul($module)
+    {
+        // En Cas d'édit
+        if(isset($module->id)){
+          
+        }
+      
+        return $module;
+    }
 }

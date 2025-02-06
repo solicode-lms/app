@@ -65,15 +65,9 @@ class BaseCompetenceController extends AdminController
         $validatedData = $request->validated();
         $competence = $this->competenceService->create($validatedData);
 
-
-        if ($request->has('technologies')) {
-            $competence->technologies()->sync($request->input('technologies'));
-        }
-
-
         if ($request->ajax()) {
             return response()->json(['success' => true, 
-            'competence_id' => $competence->id,
+            'entity_id' => $competence->id,
             'message' => 
              __('Core::msg.addSuccess', [
                 'entityToString' => $competence,
@@ -135,8 +129,6 @@ class BaseCompetenceController extends AdminController
 
         $validatedData = $request->validated();
         $competence = $this->competenceService->update($id, $validatedData);
-
-        $competence->technologies()->sync($request->input('technologies'));
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
@@ -210,5 +202,25 @@ class BaseCompetenceController extends AdminController
         $competences = $this->competenceService->all();
         return response()->json($competences);
     }
+
+
+    public function dataCalcul(Request $request)
+    {
+
+        // Extraire les données de la requête
+        $data = $request->all();
+
+        $competence = $this->competenceService->createInstance($data);
+    
+        // Mise à jour des attributs via le service
+        $updatedCompetence = $this->competenceService->dataCalcul($competence);
+    
+        return response()->json([
+            'success' => true,
+            'entity' => $updatedCompetence
+        ]);
+    }
+    
+
 
 }

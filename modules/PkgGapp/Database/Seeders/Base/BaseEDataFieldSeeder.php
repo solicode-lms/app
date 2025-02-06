@@ -48,16 +48,18 @@ class BaseEDataFieldSeeder extends Seeder
         while (($data = fgetcsv($csvFile)) !== false) {
             if (!$firstline) {
                 $eDataFieldService->create([
-                    "name" => $data[0] ,
-                    "column_name" => $data[1] ,
-                    "data_type" => $data[2] ,
-                    "db_nullable" => $data[3] ,
-                    "db_primaryKey" => $data[4] ,
-                    "db_unique" => $data[5] ,
-                    "default_value" => $data[6] ,
-                    "description" => $data[7] ,
-                    "e_model_id" => $data[8] ,
-                    "e_relationship_id" => $data[9] 
+                    "order" => $data[0] ,
+                    "name" => $data[1] ,
+                    "column_name" => $data[2] ,
+                    "data_type" => $data[3] ,
+                    "field_order" => $data[4] ,
+                    "db_nullable" => $data[5] ,
+                    "db_primaryKey" => $data[6] ,
+                    "db_unique" => $data[7] ,
+                    "default_value" => $data[8] ,
+                    "description" => $data[9] ,
+                    "e_model_id" => $data[10] ,
+                    "e_relationship_id" => $data[11] 
                 ]);
             }
             $firstline = false;

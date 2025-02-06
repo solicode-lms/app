@@ -22,6 +22,7 @@
                 type="input"
                 class="form-control"
                 required
+                
                 id="name"
                 placeholder="{{ __('PkgGapp::ePackage.name') }}"
                 value="{{ $itemEPackage ? $itemEPackage->name : old('name') }}">
@@ -39,6 +40,7 @@
             <textarea rows="" cols=""
                 name="description"
                 class="form-control richText"
+                
                 
                 id="description"
                 placeholder="{{ __('PkgGapp::ePackage.description') }}">
@@ -66,4 +68,6 @@
 <script>
 
 </script>
-
+<script>
+     window.modalTitle = '{{__("PkgGapp::ePackage.singular") }} : {{$itemEPackage}}'
+</script>

@@ -22,6 +22,7 @@
                 type="input"
                 class="form-control"
                 required
+                
                 id="name"
                 placeholder="{{ __('PkgGapp::eRelationship.name') }}"
                 value="{{ $itemERelationship ? $itemERelationship->name : old('name') }}">
@@ -43,6 +44,7 @@
                 type="input"
                 class="form-control"
                 required
+                
                 id="type"
                 placeholder="{{ __('PkgGapp::eRelationship.type') }}"
                 value="{{ $itemERelationship ? $itemERelationship->type : old('type') }}">
@@ -63,6 +65,7 @@
             <select 
             id="source_e_model_id" 
             required
+            
             name="source_e_model_id" 
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
@@ -91,6 +94,7 @@
             <select 
             id="target_e_model_id" 
             required
+            
             name="target_e_model_id" 
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
@@ -120,6 +124,7 @@
                 type="number"
                 class="form-control"
                 required
+                
                 id="cascade_on_delete"
                 placeholder="{{ __('PkgGapp::eRelationship.cascade_on_delete') }}"
                 value="{{ $itemERelationship ? $itemERelationship->cascade_on_delete : old('cascade_on_delete') }}">
@@ -141,6 +146,7 @@
                 type="number"
                 class="form-control"
                 required
+                
                 id="is_cascade"
                 placeholder="{{ __('PkgGapp::eRelationship.is_cascade') }}"
                 value="{{ $itemERelationship ? $itemERelationship->is_cascade : old('is_cascade') }}">
@@ -158,6 +164,7 @@
             <textarea rows="" cols=""
                 name="description"
                 class="form-control richText"
+                
                 
                 id="description"
                 placeholder="{{ __('PkgGapp::eRelationship.description') }}">
@@ -179,6 +186,7 @@
                 type="input"
                 class="form-control"
                 
+                
                 id="column_name"
                 placeholder="{{ __('PkgGapp::eRelationship.column_name') }}"
                 value="{{ $itemERelationship ? $itemERelationship->column_name : old('column_name') }}">
@@ -197,6 +205,7 @@
                 name="referenced_table"
                 type="input"
                 class="form-control"
+                
                 
                 id="referenced_table"
                 placeholder="{{ __('PkgGapp::eRelationship.referenced_table') }}"
@@ -217,6 +226,7 @@
                 type="input"
                 class="form-control"
                 
+                
                 id="referenced_column"
                 placeholder="{{ __('PkgGapp::eRelationship.referenced_column') }}"
                 value="{{ $itemERelationship ? $itemERelationship->referenced_column : old('referenced_column') }}">
@@ -235,6 +245,7 @@
                 name="through"
                 type="input"
                 class="form-control"
+                
                 
                 id="through"
                 placeholder="{{ __('PkgGapp::eRelationship.through') }}"
@@ -255,6 +266,7 @@
                 type="input"
                 class="form-control"
                 
+                
                 id="with_column"
                 placeholder="{{ __('PkgGapp::eRelationship.with_column') }}"
                 value="{{ $itemERelationship ? $itemERelationship->with_column : old('with_column') }}">
@@ -273,6 +285,7 @@
                 name="morph_name"
                 type="input"
                 class="form-control"
+                
                 
                 id="morph_name"
                 placeholder="{{ __('PkgGapp::eRelationship.morph_name') }}"
@@ -299,4 +312,6 @@
 <script>
 
 </script>
-
+<script>
+     window.modalTitle = '{{__("PkgGapp::eRelationship.singular") }} : {{$itemERelationship}}'
+</script>

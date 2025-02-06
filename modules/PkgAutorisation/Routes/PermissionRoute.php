@@ -17,5 +17,8 @@ Route::middleware('auth')->group(function () {
             Route::get('permissions/export', [PermissionController::class, 'export'])->name('permissions.export');
             Route::post('permissions/import', [PermissionController::class, 'import'])->name('permissions.import');
         });
+
+        Route::post('permissions/data-calcul', [PermissionController::class, 'dataCalcul'])->name('permissions.dataCalcul');
+
     });
 });

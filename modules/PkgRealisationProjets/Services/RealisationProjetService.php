@@ -10,5 +10,13 @@ use Modules\PkgRealisationProjets\Services\Base\BaseRealisationProjetService;
  */
 class RealisationProjetService extends BaseRealisationProjetService
 {
-   
+    public function dataCalcul($realisationProjet)
+    {
+        // En Cas d'édit
+        if(isset($realisationProjet->id)){
+          
+        }
+      
+        return $realisationProjet;
+    }
 }

@@ -21,8 +21,8 @@ class BaseCompetenceService extends BaseService
     protected $fieldsSearchable = [
         'code',
         'nom',
-        'description',
-        'module_id'
+        'module_id',
+        'description'
     ];
 
     /**

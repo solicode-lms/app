@@ -17,5 +17,8 @@ Route::middleware('auth')->group(function () {
             Route::get('eMetadata/export', [EMetadatumController::class, 'export'])->name('eMetadata.export');
             Route::post('eMetadata/import', [EMetadatumController::class, 'import'])->name('eMetadata.import');
         });
+
+        Route::post('eMetadata/data-calcul', [EMetadatumController::class, 'dataCalcul'])->name('eMetadata.dataCalcul');
+
     });
 });

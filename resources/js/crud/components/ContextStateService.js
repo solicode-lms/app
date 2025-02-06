@@ -13,6 +13,33 @@ export class ContextStateService {
         return this.contextState.variables;
     }
 
+   /**
+     * Ajoute une variable au contexte d'état.
+     * @param {String} key - La clé de la variable.
+     * @param {*} value - La valeur de la variable.
+     */
+    addVariable(key, value) {
+        if (!this.contextState.variables) {
+            this.contextState.variables = {};
+        }
+        this.contextState.variables[key] = value;
+    }
+
+
+    /**
+     * Ajoute plusieurs variables au contexte d'état à partir d'un objet.
+     * @param {Object} arrayData - Objet contenant les paires clé/valeur.
+     */
+    addData(data) {
+        if (!this.contextState.variables) {
+            this.contextState.variables = {};
+        }
+
+        Object.entries(data).forEach(([key, value]) => {
+            this.contextState.variables[key] = value;
+        });
+    }
+
     /**
      * Met à jour le contexte d'état.
      * @param {Object} newState - Les nouvelles variables à ajouter ou remplacer dans le contexte.
@@ -62,5 +89,9 @@ export class ContextStateService {
         });
 
         return updatedConfig;
+    }
+
+    toString(){
+        return  JSON.stringify(this.getVariables());
     }
 }

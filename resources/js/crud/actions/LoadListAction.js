@@ -15,8 +15,6 @@ export class LoadListAction extends BaseAction {
         
         this.config = config;
         this.tableUI = tableUI;
-
-    
         this.indexUrl = this.appendParamsToUrl(
             config.indexUrl,
             this.contextService.getContextParams()
@@ -28,7 +26,11 @@ export class LoadListAction extends BaseAction {
      * @param {number} page - Numéro de la page à charger (par défaut : 1).
      * @param {Object} filters - Objets contenant les filtres actifs.
      */
-    loadEntities(page = 1, filters = {}) {
+    loadEntities(page, filters = {}) {
+
+        if(page === undefined){
+            page = this.tableUI.indexUI.paginationUI.page;
+        }
 
 
          // Filtrer les filtres pour exclure les champs avec des valeurs vides
@@ -36,17 +38,21 @@ export class LoadListAction extends BaseAction {
             Object.entries(filters).filter(([key, value]) => value !== null && value !== undefined && value !== '')
         );
         
+        // lire les valeurs depuis filterUI et this.page
         // Récupérer les paramètres actuels depuis l'URL
-        const urlParams = new URLSearchParams(window.location.search);
-    
-        const v = Object.fromEntries(urlParams.entries());
+        // const urlParams = new URLSearchParams(window.location.search);
+        // const v = Object.fromEntries(urlParams.entries());
+
         // Intégrer les paramètres existants de l'URL et les nouveaux filtres
-        const searchParams = { ...Object.fromEntries(urlParams.entries()), ...cleanedFilters };
-        if(searchParams.page === undefined) {
-            searchParams.page = page;
-        }
+        // const searchParams = { ...Object.fromEntries(urlParams.entries()), ...cleanedFilters };
+        // if(searchParams.page === undefined) {
+        //     searchParams.page = page;
+        // }
+
         // Générer la chaîne de requête
-        const queryString = new URLSearchParams(searchParams).toString();
+       
+       
+        const queryString = new URLSearchParams({...cleanedFilters, page : page}).toString();
     
         // Construire l'URL finale
         const requestUrl = this.appendParamsToUrl(this.indexUrl, queryString);

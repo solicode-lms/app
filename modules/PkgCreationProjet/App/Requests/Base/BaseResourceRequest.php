@@ -9,21 +9,36 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class BaseResourceRequest extends FormRequest
 {
+    /**
+     * Détermine si l'utilisateur est autorisé à effectuer cette requête.
+     *
+     * @return bool
+     */
     public function authorize(): bool
     {
         return true;
     }
 
+    /**
+     * Retourne les règles de validation appliquées aux champs de la requête.
+     *
+     * @return array
+     */
     public function rules(): array
     {
         return [
-            'nom' => 'required|max:255',
-            'lien' => 'required|max:255',
-            'description' => 'nullable',
+            'nom' => 'required|string|max:255',
+            'lien' => 'required|string|max:255',
+            'description' => 'nullable|string',
             'projet_id' => 'required'
         ];
     }
 
+    /**
+     * Retourne les messages de validation associés aux règles.
+     *
+     * @return array
+     */
     public function messages(): array
     {
         return [
@@ -32,9 +47,7 @@ class BaseResourceRequest extends FormRequest
             'lien.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Resource.lien')]),
             'lien.max' => __('validation.lienMax'),
             'description.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Resource.description')]),
-            'description.max' => __('validation.descriptionMax'),
-            'projet_id.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Resource.projet_id')]),
-            'projet_id.max' => __('validation.projet_idMax')
+            'projet_id.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Resource.projet_id')])
         ];
     }
 }

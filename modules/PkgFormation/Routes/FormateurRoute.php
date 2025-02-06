@@ -17,5 +17,8 @@ Route::middleware('auth')->group(function () {
             Route::get('formateurs/export', [FormateurController::class, 'export'])->name('formateurs.export');
             Route::post('formateurs/import', [FormateurController::class, 'import'])->name('formateurs.import');
         });
+
+        Route::post('formateurs/data-calcul', [FormateurController::class, 'dataCalcul'])->name('formateurs.dataCalcul');
+
     });
 });

@@ -22,6 +22,7 @@
                 type="input"
                 class="form-control"
                 required
+                
                 id="nom"
                 placeholder="{{ __('PkgApprenants::ville.nom') }}"
                 value="{{ $itemVille ? $itemVille->nom : old('nom') }}">
@@ -43,4 +44,6 @@
 <script>
 
 </script>
-
+<script>
+     window.modalTitle = '{{__("PkgApprenants::ville.singular") }} : {{$itemVille}}'
+</script>

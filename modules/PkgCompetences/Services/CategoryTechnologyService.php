@@ -10,5 +10,13 @@ use Modules\PkgCompetences\Services\Base\BaseCategoryTechnologyService;
  */
 class CategoryTechnologyService extends BaseCategoryTechnologyService
 {
-   
+    public function dataCalcul($categoryTechnology)
+    {
+        // En Cas d'édit
+        if(isset($categoryTechnology->id)){
+          
+        }
+      
+        return $categoryTechnology;
+    }
 }

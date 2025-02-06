@@ -22,6 +22,7 @@
                 type="input"
                 class="form-control"
                 required
+                
                 id="nom"
                 placeholder="{{ __('PkgCompetences::categoryTechnology.nom') }}"
                 value="{{ $itemCategoryTechnology ? $itemCategoryTechnology->nom : old('nom') }}">
@@ -39,6 +40,7 @@
             <textarea rows="" cols=""
                 name="description"
                 class="form-control richText"
+                
                 
                 id="description"
                 placeholder="{{ __('PkgCompetences::categoryTechnology.description') }}">
@@ -66,4 +68,6 @@
 <script>
 
 </script>
-
+<script>
+     window.modalTitle = '{{__("PkgCompetences::categoryTechnology.singular") }} : {{$itemCategoryTechnology}}'
+</script>

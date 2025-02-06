@@ -17,5 +17,8 @@ Route::middleware('auth')->group(function () {
             Route::get('featureDomains/export', [FeatureDomainController::class, 'export'])->name('featureDomains.export');
             Route::post('featureDomains/import', [FeatureDomainController::class, 'import'])->name('featureDomains.import');
         });
+
+        Route::post('featureDomains/data-calcul', [FeatureDomainController::class, 'dataCalcul'])->name('featureDomains.dataCalcul');
+
     });
 });

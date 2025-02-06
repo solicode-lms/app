@@ -22,6 +22,7 @@
                 type="input"
                 class="form-control"
                 required
+                
                 id="nom"
                 placeholder="{{ __('PkgFormation::specialite.nom') }}"
                 value="{{ $itemSpecialite ? $itemSpecialite->nom : old('nom') }}">
@@ -39,6 +40,7 @@
             <textarea rows="" cols=""
                 name="description"
                 class="form-control richText"
+                
                 
                 id="description"
                 placeholder="{{ __('PkgFormation::specialite.description') }}">
@@ -58,6 +60,7 @@
                 id="formateurs"
                 name="formateurs[]"
                 class="form-control select2"
+                
                 multiple="multiple">
                
                 @foreach ($formateurs as $formateur)
@@ -87,4 +90,6 @@
 <script>
 
 </script>
-
+<script>
+     window.modalTitle = '{{__("PkgFormation::specialite.singular") }} : {{$itemSpecialite}}'
+</script>

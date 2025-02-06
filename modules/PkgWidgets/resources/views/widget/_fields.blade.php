@@ -22,6 +22,7 @@
                 type="input"
                 class="form-control"
                 required
+                
                 id="name"
                 placeholder="{{ __('PkgWidgets::widget.name') }}"
                 value="{{ $itemWidget ? $itemWidget->name : old('name') }}">
@@ -42,6 +43,7 @@
             <select 
             id="type_id" 
             required
+            
             name="type_id" 
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
@@ -70,6 +72,7 @@
             <select 
             id="model_id" 
             required
+            
             name="model_id" 
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
@@ -98,6 +101,7 @@
             <select 
             id="operation_id" 
             required
+            
             name="operation_id" 
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
@@ -125,6 +129,7 @@
                 type="input"
                 class="form-control"
                 
+                
                 id="color"
                 placeholder="{{ __('PkgWidgets::widget.color') }}"
                 value="{{ $itemWidget ? $itemWidget->color : old('color') }}">
@@ -144,6 +149,7 @@
                 type="input"
                 class="form-control"
                 
+                
                 id="icon"
                 placeholder="{{ __('PkgWidgets::widget.icon') }}"
                 value="{{ $itemWidget ? $itemWidget->icon : old('icon') }}">
@@ -162,6 +168,7 @@
                 name="label"
                 type="input"
                 class="form-control"
+                
                 
                 id="label"
                 placeholder="{{ __('PkgWidgets::widget.label') }}"
@@ -187,6 +194,7 @@
         class="form-control"
         id="parameters"
          
+        
         value = "{{ $itemWidget ? $itemWidget->parameters : old('parameters') }}"
     >
 
@@ -211,4 +219,6 @@
 <script>
 
 </script>
-
+<script>
+     window.modalTitle = '{{__("PkgWidgets::widget.singular") }} : {{$itemWidget}}'
+</script>

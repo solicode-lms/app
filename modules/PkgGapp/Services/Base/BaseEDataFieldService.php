@@ -19,9 +19,11 @@ class BaseEDataFieldService extends BaseService
      * @var array
      */
     protected $fieldsSearchable = [
+        'order',
         'name',
         'column_name',
         'data_type',
+        'field_order',
         'db_nullable',
         'db_primaryKey',
         'db_unique',

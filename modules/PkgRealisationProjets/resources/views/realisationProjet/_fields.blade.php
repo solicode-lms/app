@@ -22,6 +22,7 @@
                 type="date"
                 class="form-control datetimepicker"
                 required
+                
                 id="date_debut"
                 placeholder="{{ __('PkgRealisationProjets::realisationProjet.date_debut') }}"
                 value="{{ $itemRealisationProjet ? $itemRealisationProjet->date_debut : old('date_debut') }}">
@@ -45,6 +46,7 @@
                 type="date"
                 class="form-control datetimepicker"
                 
+                
                 id="date_fin"
                 placeholder="{{ __('PkgRealisationProjets::realisationProjet.date_fin') }}"
                 value="{{ $itemRealisationProjet ? $itemRealisationProjet->date_fin : old('date_fin') }}">
@@ -67,6 +69,7 @@
                 name="rapport"
                 class="form-control richText"
                 
+                
                 id="rapport"
                 placeholder="{{ __('PkgRealisationProjets::realisationProjet.rapport') }}">
                 {{ $itemRealisationProjet ? $itemRealisationProjet->rapport : old('rapport') }}
@@ -88,6 +91,7 @@
             <select 
             id="etats_realisation_projet_id" 
             required
+            
             name="etats_realisation_projet_id" 
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
@@ -116,6 +120,7 @@
             <select 
             id="apprenant_id" 
             required
+            
             name="apprenant_id" 
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
@@ -144,6 +149,7 @@
             <select 
             id="affectation_projet_id" 
             required
+            
             name="affectation_projet_id" 
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
@@ -177,4 +183,6 @@
 <script>
 
 </script>
-
+<script>
+     window.modalTitle = '{{__("PkgRealisationProjets::realisationProjet.singular") }} : {{$itemRealisationProjet}}'
+</script>

@@ -35,6 +35,9 @@ class BaseSpecialite extends BaseModel
     protected $fillable = [
         'nom', 'description'
     ];
+    public $manyToMany = [
+        'formateurs'
+    ];
 
 
     /**
@@ -57,6 +60,6 @@ class BaseSpecialite extends BaseModel
      */
     public function __toString()
     {
-        return $this->nom;
+        return $this->nom ?? "";
     }
 }

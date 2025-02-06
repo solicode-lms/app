@@ -17,5 +17,8 @@ Route::middleware('auth')->group(function () {
             Route::get('apprenants/export', [ApprenantController::class, 'export'])->name('apprenants.export');
             Route::post('apprenants/import', [ApprenantController::class, 'import'])->name('apprenants.import');
         });
+
+        Route::post('apprenants/data-calcul', [ApprenantController::class, 'dataCalcul'])->name('apprenants.dataCalcul');
+
     });
 });

@@ -72,15 +72,9 @@ class BaseTransfertCompetenceController extends AdminController
         $validatedData = $request->validated();
         $transfertCompetence = $this->transfertCompetenceService->create($validatedData);
 
-
-        if ($request->has('technologies')) {
-            $transfertCompetence->technologies()->sync($request->input('technologies'));
-        }
-
-
         if ($request->ajax()) {
             return response()->json(['success' => true, 
-            'transfert_competence_id' => $transfertCompetence->id,
+            'entity_id' => $transfertCompetence->id,
             'message' => 
              __('Core::msg.addSuccess', [
                 'entityToString' => $transfertCompetence,
@@ -136,8 +130,6 @@ class BaseTransfertCompetenceController extends AdminController
 
         $validatedData = $request->validated();
         $transfertCompetence = $this->transfertCompetenceService->update($id, $validatedData);
-
-        $transfertCompetence->technologies()->sync($request->input('technologies'));
 
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
@@ -211,5 +203,25 @@ class BaseTransfertCompetenceController extends AdminController
         $transfertCompetences = $this->transfertCompetenceService->all();
         return response()->json($transfertCompetences);
     }
+
+
+    public function dataCalcul(Request $request)
+    {
+
+        // Extraire les données de la requête
+        $data = $request->all();
+
+        $transfertCompetence = $this->transfertCompetenceService->createInstance($data);
+    
+        // Mise à jour des attributs via le service
+        $updatedTransfertCompetence = $this->transfertCompetenceService->dataCalcul($transfertCompetence);
+    
+        return response()->json([
+            'success' => true,
+            'entity' => $updatedTransfertCompetence
+        ]);
+    }
+    
+
 
 }

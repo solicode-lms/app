@@ -17,6 +17,7 @@
         showUrl: '{{ route('widgetOperations.show',  ['widgetOperation' => ':id']) }}',
         storeUrl: '{{ route('widgetOperations.store') }}', 
         deleteUrl: '{{ route('widgetOperations.destroy',  ['widgetOperation' => ':id']) }}', 
+        calculationUrl:  '{{ route('widgetOperations.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgWidgets::widgetOperation.singular") }}',
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgWidgets::widgetOperation.singular") }}',

@@ -64,12 +64,9 @@ class BaseProjetController extends AdminController
         $validatedData = $request->validated();
         $projet = $this->projetService->create($validatedData);
 
-
-
-
         if ($request->ajax()) {
             return response()->json(['success' => true, 
-            'projet_id' => $projet->id,
+            'entity_id' => $projet->id,
             'message' => 
              __('Core::msg.addSuccess', [
                 'entityToString' => $projet,
@@ -163,7 +160,6 @@ class BaseProjetController extends AdminController
         $validatedData = $request->validated();
         $projet = $this->projetService->update($id, $validatedData);
 
-
         if ($request->ajax()) {
             return response()->json(['success' => true, 'message' => 
             __('Core::msg.updateSuccess', [
@@ -239,5 +235,25 @@ class BaseProjetController extends AdminController
         $projets = $this->projetService->all();
         return response()->json($projets);
     }
+
+
+    public function dataCalcul(Request $request)
+    {
+
+        // Extraire les données de la requête
+        $data = $request->all();
+
+        $projet = $this->projetService->createInstance($data);
+    
+        // Mise à jour des attributs via le service
+        $updatedProjet = $this->projetService->dataCalcul($projet);
+    
+        return response()->json([
+            'success' => true,
+            'entity' => $updatedProjet
+        ]);
+    }
+    
+
 
 }

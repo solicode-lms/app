@@ -29,11 +29,7 @@
 .badge-info{
     background-color: var(--gapp-info) !important;
 }
-.card-info{
-    border-top: 3px solid var(--gapp-info) !important;
-}
 
- 
 
 /* Card - HasMany Edition */
 .btn-card-header{

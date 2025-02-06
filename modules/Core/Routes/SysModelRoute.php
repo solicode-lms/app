@@ -17,5 +17,8 @@ Route::middleware('auth')->group(function () {
             Route::get('sysModels/export', [SysModelController::class, 'export'])->name('sysModels.export');
             Route::post('sysModels/import', [SysModelController::class, 'import'])->name('sysModels.import');
         });
+
+        Route::post('sysModels/data-calcul', [SysModelController::class, 'dataCalcul'])->name('sysModels.dataCalcul');
+
     });
 });
