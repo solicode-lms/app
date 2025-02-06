@@ -14,8 +14,10 @@ Route::middleware('auth')->group(function () {
         Route::resource('niveauDifficultes', NiveauDifficulteController::class);
         // Routes supplémentaires avec préfixe
         Route::prefix('data')->group(function () {
-            Route::get('niveauDifficultes/export', [NiveauDifficulteController::class, 'export'])->name('niveauDifficultes.export');
             Route::post('niveauDifficultes/import', [NiveauDifficulteController::class, 'import'])->name('niveauDifficultes.import');
+            Route::get('niveauDifficultes/export/{format}', [NiveauDifficulteController::class, 'export'])
+            ->where('format', 'csv|xlsx')
+            ->name('niveauDifficultes.export');
         });
 
         Route::post('niveauDifficultes/data-calcul', [NiveauDifficulteController::class, 'dataCalcul'])->name('niveauDifficultes.dataCalcul');

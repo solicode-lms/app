@@ -1,0 +1,4 @@
+competence_id,question,niveau_difficulte_id,note,projet_id
+1,Création des maquettes en utilisant Figma,17,5,4,,,,,,,,,,,,,,,,,,,,
+2,Création de la base de données avec SQL et MySQL,17,5,4,,,,,,,,,,,,,,,,,,,,
+3,Développement de la partie back-end avec PHP , CSS, Javascript, Bootstrap,,18,10,4,,,,,,,,,,,,,,,,,,,,

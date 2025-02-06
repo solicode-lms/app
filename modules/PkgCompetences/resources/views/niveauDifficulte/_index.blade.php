@@ -63,7 +63,8 @@
                             :importRoute="route('niveauDifficultes.import')"
                             :importText="__('Importer')"
                             :exportPermission="'export-niveauDifficulte'"
-                            :exportRoute="route('niveauDifficultes.export')"
+                            :exportXlsxRoute="route('niveauDifficultes.export', ['format' => 'xlsx'])"
+                            :exportCsvRoute="route('niveauDifficultes.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
                         />
                     </div>
