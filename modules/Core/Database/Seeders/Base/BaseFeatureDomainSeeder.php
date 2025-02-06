@@ -98,7 +98,7 @@ class BaseFeatureDomainSeeder extends Seeder
 
         // Permissions spécifiques pour chaque type de fonctionnalité
         $featurePermissions = [
-            'Édition ' => [ 'create','store','edit','update','destroy','getFeatureDomains'],
+            'Édition ' => [ 'create','store','edit','update','destroy','getFeatureDomains','dataCalcul'],
             'Lecture' => ['index', 'show'],
             'Extraction' => ['import', 'export'],
         ];

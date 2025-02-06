@@ -98,7 +98,7 @@ class BaseNationaliteSeeder extends Seeder
 
         // Permissions spécifiques pour chaque type de fonctionnalité
         $featurePermissions = [
-            'Édition ' => [ 'create','store','edit','update','destroy','getNationalites'],
+            'Édition ' => [ 'create','store','edit','update','destroy','getNationalites','dataCalcul'],
             'Lecture' => ['index', 'show'],
             'Extraction' => ['import', 'export'],
         ];

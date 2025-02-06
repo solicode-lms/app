@@ -99,7 +99,7 @@ class BaseUserSeeder extends Seeder
 
         // Permissions spécifiques pour chaque type de fonctionnalité
         $featurePermissions = [
-            'Édition ' => [ 'create','store','edit','update','destroy','getUsers'],
+            'Édition ' => [ 'create','store','edit','update','destroy','getUsers','dataCalcul'],
             'Lecture' => ['index', 'show'],
             'Extraction' => ['import', 'export'],
         ];

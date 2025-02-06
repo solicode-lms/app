@@ -101,7 +101,7 @@ class BaseRealisationProjetSeeder extends Seeder
 
         // Permissions spécifiques pour chaque type de fonctionnalité
         $featurePermissions = [
-            'Édition ' => [ 'create','store','edit','update','destroy','getRealisationProjets'],
+            'Édition ' => [ 'create','store','edit','update','destroy','getRealisationProjets','dataCalcul'],
             'Lecture' => ['index', 'show'],
             'Extraction' => ['import', 'export'],
         ];

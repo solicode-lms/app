@@ -114,7 +114,7 @@ class BaseApprenantKonosySeeder extends Seeder
 
         // Permissions spécifiques pour chaque type de fonctionnalité
         $featurePermissions = [
-            'Édition ' => [ 'create','store','edit','update','destroy','getApprenantKonosies'],
+            'Édition ' => [ 'create','store','edit','update','destroy','getApprenantKonosies','dataCalcul'],
             'Lecture' => ['index', 'show'],
             'Extraction' => ['import', 'export'],
         ];

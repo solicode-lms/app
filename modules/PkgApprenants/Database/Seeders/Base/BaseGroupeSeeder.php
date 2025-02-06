@@ -100,7 +100,7 @@ class BaseGroupeSeeder extends Seeder
 
         // Permissions spécifiques pour chaque type de fonctionnalité
         $featurePermissions = [
-            'Édition ' => [ 'create','store','edit','update','destroy','getGroupes'],
+            'Édition ' => [ 'create','store','edit','update','destroy','getGroupes','dataCalcul'],
             'Lecture' => ['index', 'show'],
             'Extraction' => ['import', 'export'],
         ];

@@ -98,7 +98,7 @@ class BaseFiliereSeeder extends Seeder
 
         // Permissions spécifiques pour chaque type de fonctionnalité
         $featurePermissions = [
-            'Édition ' => [ 'create','store','edit','update','destroy','getFilieres'],
+            'Édition ' => [ 'create','store','edit','update','destroy','getFilieres','dataCalcul'],
             'Lecture' => ['index', 'show'],
             'Extraction' => ['import', 'export'],
         ];

@@ -96,7 +96,7 @@ class BaseVilleSeeder extends Seeder
 
         // Permissions spécifiques pour chaque type de fonctionnalité
         $featurePermissions = [
-            'Édition ' => [ 'create','store','edit','update','destroy','getVilles'],
+            'Édition ' => [ 'create','store','edit','update','destroy','getVilles','dataCalcul'],
             'Lecture' => ['index', 'show'],
             'Extraction' => ['import', 'export'],
         ];

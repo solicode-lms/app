@@ -100,7 +100,7 @@ class BaseSysModelSeeder extends Seeder
 
         // Permissions spécifiques pour chaque type de fonctionnalité
         $featurePermissions = [
-            'Édition ' => [ 'create','store','edit','update','destroy','getSysModels'],
+            'Édition ' => [ 'create','store','edit','update','destroy','getSysModels','dataCalcul'],
             'Lecture' => ['index', 'show'],
             'Extraction' => ['import', 'export'],
         ];

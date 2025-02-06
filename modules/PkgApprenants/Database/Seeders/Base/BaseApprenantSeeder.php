@@ -113,7 +113,7 @@ class BaseApprenantSeeder extends Seeder
 
         // Permissions spécifiques pour chaque type de fonctionnalité
         $featurePermissions = [
-            'Édition ' => [ 'create','store','edit','update','destroy','getApprenants'],
+            'Édition ' => [ 'create','store','edit','update','destroy','getApprenants','dataCalcul'],
             'Lecture' => ['index', 'show'],
             'Extraction' => ['import', 'export'],
         ];
