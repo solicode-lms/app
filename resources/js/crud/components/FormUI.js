@@ -331,10 +331,28 @@ export class FormUI  {
         });
     }
     static initializeRichText(){
+
+
+    // Initialiser Summernote
+    // $(`.richText`).summernote({
+    //     height: 80, // Hauteur de la zone éditable
+    // }).on('summernote.change', function() {
+    //     // Déclencher l'événement `change` sur le textarea caché
+    //     $(this).trigger('change');
+    // });
+
+
         // Init sumernote
         $(`.richText`).summernote({
             height: 80, //set editable area's height
         });
+
+        // Utiliser EventUtil pour gérer l'événement `summernote.change`
+        EventUtil.bindEvent('summernote.change', '.richText', function() {
+            $(this).trigger('change'); // Déclenche le `change` sur le textarea caché
+        });
+
+
     }
 
     getFormDataArray() {

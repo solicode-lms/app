@@ -77,7 +77,7 @@
                 name="question"
                 class="form-control richText"
                 
-                
+                data-calcul='true'
                 id="question"
                 placeholder="{{ __('PkgCreationProjet::transfertCompetence.question') }}">
                 {{ $itemTransfertCompetence ? $itemTransfertCompetence->question : old('question') }}
