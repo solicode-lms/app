@@ -1,10 +1,10 @@
 
 
 import { AjaxErrorHandler } from "../../components/AjaxErrorHandler";
-import { LoadingIndicator } from './../../components/LoadingIndicator';
-import EventUtil from './../../utils/EventUtil';
+import { LoadingIndicator } from '../../components/LoadingIndicator';
+import EventUtil from '../../utils/EventUtil';
 
-export class DynamicCalculationTreatment {
+export class DataCalculTreatment {
     /**
      * Constructeur pour initialiser la gestion des calculs dynamiques.
      * @param {string} formSelector - Sélecteur du formulaire à gérer.
@@ -13,7 +13,7 @@ export class DynamicCalculationTreatment {
     constructor(config, formUI) {
         this.formUI = formUI;
         this.config = config;
-        this.debounceDelay = 700; // Délai pour limiter les appels AJAX
+        this.debounceDelay = 500; // Délai pour limiter les appels AJAX
         this.currentRequest = null; // Stocke la requête en cours
         this.lastSentData = null; // Stocke les dernières données envoyées
         this.loader = new LoadingIndicator(this.config.formSelector);
@@ -67,8 +67,8 @@ export class DynamicCalculationTreatment {
              this.currentRequest.abort();
         }
 
-        this.loader.show();
-        // sourceField.prop('disabled', true);
+        // Il dirrange l'utilisateur
+        this.loader.showNomBloquante();
         this.currentRequest = $.ajax({
             url: this.config.calculationUrl,
             method: 'POST',

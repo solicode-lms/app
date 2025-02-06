@@ -6,7 +6,7 @@
     window.crudModalManagersConfig.push({
         edit_has_many: {{ !isset($edit_has_many)? 'true' :  ($edit_has_many ? "true": "false") }},
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
-        editOnFullScreen : true,
+        editOnFullScreen : false,
         entity_name: 'projet',
         filterFormSelector: '#projet-crud-filter-form',
         crudSelector: '#projet-crud',

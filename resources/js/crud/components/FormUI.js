@@ -14,7 +14,7 @@ import InitUIManagers from "../InitUIManagers";
 import flatpickr from 'flatpickr';
 // Import the French locale
 import { French } from 'flatpickr/dist/l10n/fr.js';
-import { DynamicCalculationTreatment } from "../treatments/form/DynamicCalculationTreatment";
+import { DataCalculTreatment } from "../treatments/form/DataCalculTreatment";
 import { NotificationHandler } from "./NotificationHandler";
 
 
@@ -33,7 +33,7 @@ export class FormUI  {
         this.contextService = this.config.contextStateService;
         this.loader = new LoadingIndicator(this.formSelector);
 
-        this.dynamicCalculationTreatment = new DynamicCalculationTreatment(config,this);
+        this.dynamicCalculationTreatment = new DataCalculTreatment(config,this);
     }
 
     /**
