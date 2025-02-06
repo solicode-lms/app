@@ -23,6 +23,8 @@ class DynamicContextScope implements Scope
         // Récupérer toutes les variables du contexte
         $contextVariables = $contextState->all();
 
+        // TODO : il ne support pas HasMany et ManyToMany relation
+        // groupe et formateur_id par exemple
         // Obtenir les colonnes disponibles dans le modèle
         $modelAttributes = $model->getFillable();
 
