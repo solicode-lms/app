@@ -41,24 +41,43 @@ class BaseLivrablesRealisationSeeder extends Seeder
 
     public function seedFromCsv(): void
     {
-        $csvFile = fopen(base_path("modules/PkgRealisationProjets/Database/data/livrablesRealisations.csv"), "r");
-        $firstline = true;
+        $filePath = base_path("modules/PkgRealisationProjets/Database/data/livrablesRealisations.csv");
+        
+        if (!file_exists($filePath) || filesize($filePath) === 0) {
+            return;
+        }
+
+        $csvFile = fopen($filePath, "r");
+        if (!$csvFile) {
+            return; 
+        }
+
+        // Lire la première ligne pour récupérer les noms des colonnes
+        $headers = fgetcsv($csvFile);
+        if (!$headers) {
+            fclose($csvFile);
+            return;
+        }
+
         $livrablesRealisationService = new LivrablesRealisationService();
 
+        // Lire les données restantes en associant chaque valeur à son nom de colonne
         while (($data = fgetcsv($csvFile)) !== false) {
-            if (!$firstline) {
+            $row = array_combine($headers, $data);
+            
+            if ($row) {
                 $livrablesRealisationService->create([
-                    "titre" => $data[0] ,
-                    "description" => $data[1] ,
-                    "lien" => $data[2] ,
-                    "livrable_id" => $data[3] 
+                    "titre" => $row["titre"] ?? null ,
+                    "description" => $row["description"] ?? null ,
+                    "lien" => $row["lien"] ?? null ,
+                    "livrable_id" => $row["livrable_id"] ?? null 
                 ]);
             }
-            $firstline = false;
         }
 
         fclose($csvFile);
     }
+
 
     private function addDefaultControllerDomainFeatures(): void
     {

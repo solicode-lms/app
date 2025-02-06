@@ -41,26 +41,45 @@ class BaseAffectationProjetSeeder extends Seeder
 
     public function seedFromCsv(): void
     {
-        $csvFile = fopen(base_path("modules/PkgRealisationProjets/Database/data/affectationProjets.csv"), "r");
-        $firstline = true;
+        $filePath = base_path("modules/PkgRealisationProjets/Database/data/affectationProjets.csv");
+        
+        if (!file_exists($filePath) || filesize($filePath) === 0) {
+            return;
+        }
+
+        $csvFile = fopen($filePath, "r");
+        if (!$csvFile) {
+            return; 
+        }
+
+        // Lire la première ligne pour récupérer les noms des colonnes
+        $headers = fgetcsv($csvFile);
+        if (!$headers) {
+            fclose($csvFile);
+            return;
+        }
+
         $affectationProjetService = new AffectationProjetService();
 
+        // Lire les données restantes en associant chaque valeur à son nom de colonne
         while (($data = fgetcsv($csvFile)) !== false) {
-            if (!$firstline) {
+            $row = array_combine($headers, $data);
+            
+            if ($row) {
                 $affectationProjetService->create([
-                    "date_debut" => $data[0] ,
-                    "date_fin" => $data[1] ,
-                    "annee_formation_id" => $data[2] ,
-                    "groupe_id" => $data[3] ,
-                    "projet_id" => $data[4] ,
-                    "description" => $data[5] 
+                    "date_debut" => $row["date_debut"] ?? null ,
+                    "date_fin" => $row["date_fin"] ?? null ,
+                    "annee_formation_id" => $row["annee_formation_id"] ?? null ,
+                    "groupe_id" => $row["groupe_id"] ?? null ,
+                    "projet_id" => $row["projet_id"] ?? null ,
+                    "description" => $row["description"] ?? null 
                 ]);
             }
-            $firstline = false;
         }
 
         fclose($csvFile);
     }
+
 
     private function addDefaultControllerDomainFeatures(): void
     {

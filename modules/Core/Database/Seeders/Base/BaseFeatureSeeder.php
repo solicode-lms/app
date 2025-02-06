@@ -40,23 +40,42 @@ class BaseFeatureSeeder extends Seeder
 
     public function seedFromCsv(): void
     {
-        $csvFile = fopen(base_path("modules/Core/Database/data/features.csv"), "r");
-        $firstline = true;
+        $filePath = base_path("modules/Core/Database/data/features.csv");
+        
+        if (!file_exists($filePath) || filesize($filePath) === 0) {
+            return;
+        }
+
+        $csvFile = fopen($filePath, "r");
+        if (!$csvFile) {
+            return; 
+        }
+
+        // Lire la première ligne pour récupérer les noms des colonnes
+        $headers = fgetcsv($csvFile);
+        if (!$headers) {
+            fclose($csvFile);
+            return;
+        }
+
         $featureService = new FeatureService();
 
+        // Lire les données restantes en associant chaque valeur à son nom de colonne
         while (($data = fgetcsv($csvFile)) !== false) {
-            if (!$firstline) {
+            $row = array_combine($headers, $data);
+            
+            if ($row) {
                 $featureService->create([
-                    "name" => $data[0] ,
-                    "description" => $data[1] ,
-                    "feature_domain_id" => $data[2] 
+                    "name" => $row["name"] ?? null ,
+                    "description" => $row["description"] ?? null ,
+                    "feature_domain_id" => $row["feature_domain_id"] ?? null 
                 ]);
             }
-            $firstline = false;
         }
 
         fclose($csvFile);
     }
+
 
     private function addDefaultControllerDomainFeatures(): void
     {

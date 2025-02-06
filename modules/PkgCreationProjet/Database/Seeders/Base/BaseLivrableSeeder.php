@@ -41,24 +41,43 @@ class BaseLivrableSeeder extends Seeder
 
     public function seedFromCsv(): void
     {
-        $csvFile = fopen(base_path("modules/PkgCreationProjet/Database/data/livrables.csv"), "r");
-        $firstline = true;
+        $filePath = base_path("modules/PkgCreationProjet/Database/data/livrables.csv");
+        
+        if (!file_exists($filePath) || filesize($filePath) === 0) {
+            return;
+        }
+
+        $csvFile = fopen($filePath, "r");
+        if (!$csvFile) {
+            return; 
+        }
+
+        // Lire la première ligne pour récupérer les noms des colonnes
+        $headers = fgetcsv($csvFile);
+        if (!$headers) {
+            fclose($csvFile);
+            return;
+        }
+
         $livrableService = new LivrableService();
 
+        // Lire les données restantes en associant chaque valeur à son nom de colonne
         while (($data = fgetcsv($csvFile)) !== false) {
-            if (!$firstline) {
+            $row = array_combine($headers, $data);
+            
+            if ($row) {
                 $livrableService->create([
-                    "titre" => $data[0] ,
-                    "nature_livrable_id" => $data[1] ,
-                    "projet_id" => $data[2] ,
-                    "description" => $data[3] 
+                    "titre" => $row["titre"] ?? null ,
+                    "nature_livrable_id" => $row["nature_livrable_id"] ?? null ,
+                    "projet_id" => $row["projet_id"] ?? null ,
+                    "description" => $row["description"] ?? null 
                 ]);
             }
-            $firstline = false;
         }
 
         fclose($csvFile);
     }
+
 
     private function addDefaultControllerDomainFeatures(): void
     {

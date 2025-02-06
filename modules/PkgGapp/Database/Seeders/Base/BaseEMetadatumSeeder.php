@@ -41,33 +41,52 @@ class BaseEMetadatumSeeder extends Seeder
 
     public function seedFromCsv(): void
     {
-        $csvFile = fopen(base_path("modules/PkgGapp/Database/data/eMetadata.csv"), "r");
-        $firstline = true;
+        $filePath = base_path("modules/PkgGapp/Database/data/eMetadata.csv");
+        
+        if (!file_exists($filePath) || filesize($filePath) === 0) {
+            return;
+        }
+
+        $csvFile = fopen($filePath, "r");
+        if (!$csvFile) {
+            return; 
+        }
+
+        // Lire la première ligne pour récupérer les noms des colonnes
+        $headers = fgetcsv($csvFile);
+        if (!$headers) {
+            fclose($csvFile);
+            return;
+        }
+
         $eMetadatumService = new EMetadatumService();
 
+        // Lire les données restantes en associant chaque valeur à son nom de colonne
         while (($data = fgetcsv($csvFile)) !== false) {
-            if (!$firstline) {
+            $row = array_combine($headers, $data);
+            
+            if ($row) {
                 $eMetadatumService->create([
-                    "Value" => $data[0] ,
-                    "value_boolean" => $data[1] ,
-                    "value_string" => $data[2] ,
-                    "value_integer" => $data[3] ,
-                    "value_float" => $data[4] ,
-                    "value_date" => $data[5] ,
-                    "value_datetime" => $data[6] ,
-                    "value_enum" => $data[7] ,
-                    "value_json" => $data[8] ,
-                    "value_text" => $data[9] ,
-                    "e_model_id" => $data[10] ,
-                    "e_data_field_id" => $data[11] ,
-                    "e_metadata_definition_id" => $data[12] 
+                    "Value" => $row["Value"] ?? null ,
+                    "value_boolean" => $row["value_boolean"] ?? null ,
+                    "value_string" => $row["value_string"] ?? null ,
+                    "value_integer" => $row["value_integer"] ?? null ,
+                    "value_float" => $row["value_float"] ?? null ,
+                    "value_date" => $row["value_date"] ?? null ,
+                    "value_datetime" => $row["value_datetime"] ?? null ,
+                    "value_enum" => $row["value_enum"] ?? null ,
+                    "value_json" => $row["value_json"] ?? null ,
+                    "value_text" => $row["value_text"] ?? null ,
+                    "e_model_id" => $row["e_model_id"] ?? null ,
+                    "e_data_field_id" => $row["e_data_field_id"] ?? null ,
+                    "e_metadata_definition_id" => $row["e_metadata_definition_id"] ?? null 
                 ]);
             }
-            $firstline = false;
         }
 
         fclose($csvFile);
     }
+
 
     private function addDefaultControllerDomainFeatures(): void
     {

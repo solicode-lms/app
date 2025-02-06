@@ -41,32 +41,51 @@ class BaseFormateurSeeder extends Seeder
 
     public function seedFromCsv(): void
     {
-        $csvFile = fopen(base_path("modules/PkgFormation/Database/data/formateurs.csv"), "r");
-        $firstline = true;
+        $filePath = base_path("modules/PkgFormation/Database/data/formateurs.csv");
+        
+        if (!file_exists($filePath) || filesize($filePath) === 0) {
+            return;
+        }
+
+        $csvFile = fopen($filePath, "r");
+        if (!$csvFile) {
+            return; 
+        }
+
+        // Lire la première ligne pour récupérer les noms des colonnes
+        $headers = fgetcsv($csvFile);
+        if (!$headers) {
+            fclose($csvFile);
+            return;
+        }
+
         $formateurService = new FormateurService();
 
+        // Lire les données restantes en associant chaque valeur à son nom de colonne
         while (($data = fgetcsv($csvFile)) !== false) {
-            if (!$firstline) {
+            $row = array_combine($headers, $data);
+            
+            if ($row) {
                 $formateurService->create([
-                    "matricule" => $data[0] ,
-                    "nom" => $data[1] ,
-                    "prenom" => $data[2] ,
-                    "prenom_arab" => $data[3] ,
-                    "nom_arab" => $data[4] ,
-                    "tele_num" => $data[5] ,
-                    "adresse" => $data[6] ,
-                    "diplome" => $data[7] ,
-                    "echelle" => $data[8] ,
-                    "echelon" => $data[9] ,
-                    "profile_image" => $data[10] ,
-                    "user_id" => $data[11] 
+                    "matricule" => $row["matricule"] ?? null ,
+                    "nom" => $row["nom"] ?? null ,
+                    "prenom" => $row["prenom"] ?? null ,
+                    "prenom_arab" => $row["prenom_arab"] ?? null ,
+                    "nom_arab" => $row["nom_arab"] ?? null ,
+                    "tele_num" => $row["tele_num"] ?? null ,
+                    "adresse" => $row["adresse"] ?? null ,
+                    "diplome" => $row["diplome"] ?? null ,
+                    "echelle" => $row["echelle"] ?? null ,
+                    "echelon" => $row["echelon"] ?? null ,
+                    "profile_image" => $row["profile_image"] ?? null ,
+                    "user_id" => $row["user_id"] ?? null 
                 ]);
             }
-            $firstline = false;
         }
 
         fclose($csvFile);
     }
+
 
     private function addDefaultControllerDomainFeatures(): void
     {

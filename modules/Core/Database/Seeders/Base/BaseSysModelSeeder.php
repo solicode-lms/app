@@ -41,25 +41,44 @@ class BaseSysModelSeeder extends Seeder
 
     public function seedFromCsv(): void
     {
-        $csvFile = fopen(base_path("modules/Core/Database/data/sysModels.csv"), "r");
-        $firstline = true;
+        $filePath = base_path("modules/Core/Database/data/sysModels.csv");
+        
+        if (!file_exists($filePath) || filesize($filePath) === 0) {
+            return;
+        }
+
+        $csvFile = fopen($filePath, "r");
+        if (!$csvFile) {
+            return; 
+        }
+
+        // Lire la première ligne pour récupérer les noms des colonnes
+        $headers = fgetcsv($csvFile);
+        if (!$headers) {
+            fclose($csvFile);
+            return;
+        }
+
         $sysModelService = new SysModelService();
 
+        // Lire les données restantes en associant chaque valeur à son nom de colonne
         while (($data = fgetcsv($csvFile)) !== false) {
-            if (!$firstline) {
+            $row = array_combine($headers, $data);
+            
+            if ($row) {
                 $sysModelService->create([
-                    "name" => $data[0] ,
-                    "model" => $data[1] ,
-                    "description" => $data[2] ,
-                    "sys_module_id" => $data[3] ,
-                    "sys_color_id" => $data[4] 
+                    "name" => $row["name"] ?? null ,
+                    "model" => $row["model"] ?? null ,
+                    "description" => $row["description"] ?? null ,
+                    "sys_module_id" => $row["sys_module_id"] ?? null ,
+                    "sys_color_id" => $row["sys_color_id"] ?? null 
                 ]);
             }
-            $firstline = false;
         }
 
         fclose($csvFile);
     }
+
 
     private function addDefaultControllerDomainFeatures(): void
     {

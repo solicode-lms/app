@@ -41,26 +41,45 @@ class BaseEMetadataDefinitionSeeder extends Seeder
 
     public function seedFromCsv(): void
     {
-        $csvFile = fopen(base_path("modules/PkgGapp/Database/data/eMetadataDefinitions.csv"), "r");
-        $firstline = true;
+        $filePath = base_path("modules/PkgGapp/Database/data/eMetadataDefinitions.csv");
+        
+        if (!file_exists($filePath) || filesize($filePath) === 0) {
+            return;
+        }
+
+        $csvFile = fopen($filePath, "r");
+        if (!$csvFile) {
+            return; 
+        }
+
+        // Lire la première ligne pour récupérer les noms des colonnes
+        $headers = fgetcsv($csvFile);
+        if (!$headers) {
+            fclose($csvFile);
+            return;
+        }
+
         $eMetadataDefinitionService = new EMetadataDefinitionService();
 
+        // Lire les données restantes en associant chaque valeur à son nom de colonne
         while (($data = fgetcsv($csvFile)) !== false) {
-            if (!$firstline) {
+            $row = array_combine($headers, $data);
+            
+            if ($row) {
                 $eMetadataDefinitionService->create([
-                    "name" => $data[0] ,
-                    "groupe" => $data[1] ,
-                    "type" => $data[2] ,
-                    "scope" => $data[3] ,
-                    "description" => $data[4] ,
-                    "default_value" => $data[5] 
+                    "name" => $row["name"] ?? null ,
+                    "groupe" => $row["groupe"] ?? null ,
+                    "type" => $row["type"] ?? null ,
+                    "scope" => $row["scope"] ?? null ,
+                    "description" => $row["description"] ?? null ,
+                    "default_value" => $row["default_value"] ?? null 
                 ]);
             }
-            $firstline = false;
         }
 
         fclose($csvFile);
     }
+
 
     private function addDefaultControllerDomainFeatures(): void
     {

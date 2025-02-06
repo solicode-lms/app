@@ -40,25 +40,44 @@ class BaseUserSeeder extends Seeder
 
     public function seedFromCsv(): void
     {
-        $csvFile = fopen(base_path("modules/PkgAutorisation/Database/data/users.csv"), "r");
-        $firstline = true;
+        $filePath = base_path("modules/PkgAutorisation/Database/data/users.csv");
+        
+        if (!file_exists($filePath) || filesize($filePath) === 0) {
+            return;
+        }
+
+        $csvFile = fopen($filePath, "r");
+        if (!$csvFile) {
+            return; 
+        }
+
+        // Lire la première ligne pour récupérer les noms des colonnes
+        $headers = fgetcsv($csvFile);
+        if (!$headers) {
+            fclose($csvFile);
+            return;
+        }
+
         $userService = new UserService();
 
+        // Lire les données restantes en associant chaque valeur à son nom de colonne
         while (($data = fgetcsv($csvFile)) !== false) {
-            if (!$firstline) {
+            $row = array_combine($headers, $data);
+            
+            if ($row) {
                 $userService->create([
-                    "name" => $data[0] ,
-                    "email" => $data[1] ,
-                    "email_verified_at" => $data[2] ,
-                    "password" => $data[3] ,
-                    "remember_token" => $data[4] 
+                    "name" => $row["name"] ?? null ,
+                    "email" => $row["email"] ?? null ,
+                    "email_verified_at" => $row["email_verified_at"] ?? null ,
+                    "password" => $row["password"] ?? null ,
+                    "remember_token" => $row["remember_token"] ?? null 
                 ]);
             }
-            $firstline = false;
         }
 
         fclose($csvFile);
     }
+
 
     private function addDefaultControllerDomainFeatures(): void
     {

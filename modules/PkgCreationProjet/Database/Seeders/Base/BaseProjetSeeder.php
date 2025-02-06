@@ -41,26 +41,45 @@ class BaseProjetSeeder extends Seeder
 
     public function seedFromCsv(): void
     {
-        $csvFile = fopen(base_path("modules/PkgCreationProjet/Database/data/projets.csv"), "r");
-        $firstline = true;
+        $filePath = base_path("modules/PkgCreationProjet/Database/data/projets.csv");
+        
+        if (!file_exists($filePath) || filesize($filePath) === 0) {
+            return;
+        }
+
+        $csvFile = fopen($filePath, "r");
+        if (!$csvFile) {
+            return; 
+        }
+
+        // Lire la première ligne pour récupérer les noms des colonnes
+        $headers = fgetcsv($csvFile);
+        if (!$headers) {
+            fclose($csvFile);
+            return;
+        }
+
         $projetService = new ProjetService();
 
+        // Lire les données restantes en associant chaque valeur à son nom de colonne
         while (($data = fgetcsv($csvFile)) !== false) {
-            if (!$firstline) {
+            $row = array_combine($headers, $data);
+            
+            if ($row) {
                 $projetService->create([
-                    "titre" => $data[0] ,
-                    "travail_a_faire" => $data[1] ,
-                    "critere_de_travail" => $data[2] ,
-                    "nombre_jour" => $data[3] ,
-                    "description" => $data[4] ,
-                    "formateur_id" => $data[5] 
+                    "titre" => $row["titre"] ?? null ,
+                    "travail_a_faire" => $row["travail_a_faire"] ?? null ,
+                    "critere_de_travail" => $row["critere_de_travail"] ?? null ,
+                    "nombre_jour" => $row["nombre_jour"] ?? null ,
+                    "description" => $row["description"] ?? null ,
+                    "formateur_id" => $row["formateur_id"] ?? null 
                 ]);
             }
-            $firstline = false;
         }
 
         fclose($csvFile);
     }
+
 
     private function addDefaultControllerDomainFeatures(): void
     {

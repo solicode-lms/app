@@ -41,26 +41,45 @@ class BaseRealisationProjetSeeder extends Seeder
 
     public function seedFromCsv(): void
     {
-        $csvFile = fopen(base_path("modules/PkgRealisationProjets/Database/data/realisationProjets.csv"), "r");
-        $firstline = true;
+        $filePath = base_path("modules/PkgRealisationProjets/Database/data/realisationProjets.csv");
+        
+        if (!file_exists($filePath) || filesize($filePath) === 0) {
+            return;
+        }
+
+        $csvFile = fopen($filePath, "r");
+        if (!$csvFile) {
+            return; 
+        }
+
+        // Lire la première ligne pour récupérer les noms des colonnes
+        $headers = fgetcsv($csvFile);
+        if (!$headers) {
+            fclose($csvFile);
+            return;
+        }
+
         $realisationProjetService = new RealisationProjetService();
 
+        // Lire les données restantes en associant chaque valeur à son nom de colonne
         while (($data = fgetcsv($csvFile)) !== false) {
-            if (!$firstline) {
+            $row = array_combine($headers, $data);
+            
+            if ($row) {
                 $realisationProjetService->create([
-                    "date_debut" => $data[0] ,
-                    "date_fin" => $data[1] ,
-                    "rapport" => $data[2] ,
-                    "etats_realisation_projet_id" => $data[3] ,
-                    "apprenant_id" => $data[4] ,
-                    "affectation_projet_id" => $data[5] 
+                    "date_debut" => $row["date_debut"] ?? null ,
+                    "date_fin" => $row["date_fin"] ?? null ,
+                    "rapport" => $row["rapport"] ?? null ,
+                    "etats_realisation_projet_id" => $row["etats_realisation_projet_id"] ?? null ,
+                    "apprenant_id" => $row["apprenant_id"] ?? null ,
+                    "affectation_projet_id" => $row["affectation_projet_id"] ?? null 
                 ]);
             }
-            $firstline = false;
         }
 
         fclose($csvFile);
     }
+
 
     private function addDefaultControllerDomainFeatures(): void
     {

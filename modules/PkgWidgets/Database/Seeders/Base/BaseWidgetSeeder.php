@@ -41,28 +41,47 @@ class BaseWidgetSeeder extends Seeder
 
     public function seedFromCsv(): void
     {
-        $csvFile = fopen(base_path("modules/PkgWidgets/Database/data/widgets.csv"), "r");
-        $firstline = true;
+        $filePath = base_path("modules/PkgWidgets/Database/data/widgets.csv");
+        
+        if (!file_exists($filePath) || filesize($filePath) === 0) {
+            return;
+        }
+
+        $csvFile = fopen($filePath, "r");
+        if (!$csvFile) {
+            return; 
+        }
+
+        // Lire la première ligne pour récupérer les noms des colonnes
+        $headers = fgetcsv($csvFile);
+        if (!$headers) {
+            fclose($csvFile);
+            return;
+        }
+
         $widgetService = new WidgetService();
 
+        // Lire les données restantes en associant chaque valeur à son nom de colonne
         while (($data = fgetcsv($csvFile)) !== false) {
-            if (!$firstline) {
+            $row = array_combine($headers, $data);
+            
+            if ($row) {
                 $widgetService->create([
-                    "name" => $data[0] ,
-                    "type_id" => $data[1] ,
-                    "model_id" => $data[2] ,
-                    "operation_id" => $data[3] ,
-                    "color" => $data[4] ,
-                    "icon" => $data[5] ,
-                    "label" => $data[6] ,
-                    "parameters" => $data[7] 
+                    "name" => $row["name"] ?? null ,
+                    "type_id" => $row["type_id"] ?? null ,
+                    "model_id" => $row["model_id"] ?? null ,
+                    "operation_id" => $row["operation_id"] ?? null ,
+                    "color" => $row["color"] ?? null ,
+                    "icon" => $row["icon"] ?? null ,
+                    "label" => $row["label"] ?? null ,
+                    "parameters" => $row["parameters"] ?? null 
                 ]);
             }
-            $firstline = false;
         }
 
         fclose($csvFile);
     }
+
 
     private function addDefaultControllerDomainFeatures(): void
     {

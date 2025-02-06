@@ -41,23 +41,42 @@ class BaseNiveauxScolaireSeeder extends Seeder
 
     public function seedFromCsv(): void
     {
-        $csvFile = fopen(base_path("modules/PkgApprenants/Database/data/niveauxScolaires.csv"), "r");
-        $firstline = true;
+        $filePath = base_path("modules/PkgApprenants/Database/data/niveauxScolaires.csv");
+        
+        if (!file_exists($filePath) || filesize($filePath) === 0) {
+            return;
+        }
+
+        $csvFile = fopen($filePath, "r");
+        if (!$csvFile) {
+            return; 
+        }
+
+        // Lire la première ligne pour récupérer les noms des colonnes
+        $headers = fgetcsv($csvFile);
+        if (!$headers) {
+            fclose($csvFile);
+            return;
+        }
+
         $niveauxScolaireService = new NiveauxScolaireService();
 
+        // Lire les données restantes en associant chaque valeur à son nom de colonne
         while (($data = fgetcsv($csvFile)) !== false) {
-            if (!$firstline) {
+            $row = array_combine($headers, $data);
+            
+            if ($row) {
                 $niveauxScolaireService->create([
-                    "code" => $data[0] ,
-                    "nom" => $data[1] ,
-                    "description" => $data[2] 
+                    "code" => $row["code"] ?? null ,
+                    "nom" => $row["nom"] ?? null ,
+                    "description" => $row["description"] ?? null 
                 ]);
             }
-            $firstline = false;
         }
 
         fclose($csvFile);
     }
+
 
     private function addDefaultControllerDomainFeatures(): void
     {

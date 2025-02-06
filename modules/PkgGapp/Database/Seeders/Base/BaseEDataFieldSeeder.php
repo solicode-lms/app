@@ -41,32 +41,51 @@ class BaseEDataFieldSeeder extends Seeder
 
     public function seedFromCsv(): void
     {
-        $csvFile = fopen(base_path("modules/PkgGapp/Database/data/eDataFields.csv"), "r");
-        $firstline = true;
+        $filePath = base_path("modules/PkgGapp/Database/data/eDataFields.csv");
+        
+        if (!file_exists($filePath) || filesize($filePath) === 0) {
+            return;
+        }
+
+        $csvFile = fopen($filePath, "r");
+        if (!$csvFile) {
+            return; 
+        }
+
+        // Lire la première ligne pour récupérer les noms des colonnes
+        $headers = fgetcsv($csvFile);
+        if (!$headers) {
+            fclose($csvFile);
+            return;
+        }
+
         $eDataFieldService = new EDataFieldService();
 
+        // Lire les données restantes en associant chaque valeur à son nom de colonne
         while (($data = fgetcsv($csvFile)) !== false) {
-            if (!$firstline) {
+            $row = array_combine($headers, $data);
+            
+            if ($row) {
                 $eDataFieldService->create([
-                    "order" => $data[0] ,
-                    "name" => $data[1] ,
-                    "column_name" => $data[2] ,
-                    "data_type" => $data[3] ,
-                    "field_order" => $data[4] ,
-                    "db_nullable" => $data[5] ,
-                    "db_primaryKey" => $data[6] ,
-                    "db_unique" => $data[7] ,
-                    "default_value" => $data[8] ,
-                    "description" => $data[9] ,
-                    "e_model_id" => $data[10] ,
-                    "e_relationship_id" => $data[11] 
+                    "order" => $row["order"] ?? null ,
+                    "name" => $row["name"] ?? null ,
+                    "column_name" => $row["column_name"] ?? null ,
+                    "data_type" => $row["data_type"] ?? null ,
+                    "field_order" => $row["field_order"] ?? null ,
+                    "db_nullable" => $row["db_nullable"] ?? null ,
+                    "db_primaryKey" => $row["db_primaryKey"] ?? null ,
+                    "db_unique" => $row["db_unique"] ?? null ,
+                    "default_value" => $row["default_value"] ?? null ,
+                    "description" => $row["description"] ?? null ,
+                    "e_model_id" => $row["e_model_id"] ?? null ,
+                    "e_relationship_id" => $row["e_relationship_id"] ?? null 
                 ]);
             }
-            $firstline = false;
         }
 
         fclose($csvFile);
     }
+
 
     private function addDefaultControllerDomainFeatures(): void
     {
