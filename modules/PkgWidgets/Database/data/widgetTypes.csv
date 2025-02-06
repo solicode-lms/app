@@ -1,6 +1,6 @@
 type,description
 card,Widget affichant une carte avec des données synthétiques
-chart,Widget affichant un graphique (barres, lignes, etc.)
+chart,Widget affichant un graphique
 table,Widget affichant un tableau de données
 statistic,Widget affichant une statistique rapide
 progress,Widget affichant une barre de progression
