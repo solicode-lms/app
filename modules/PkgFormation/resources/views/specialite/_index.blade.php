@@ -63,7 +63,8 @@
                             :importRoute="route('specialites.import')"
                             :importText="__('Importer')"
                             :exportPermission="'export-specialite'"
-                            :exportRoute="route('specialites.export')"
+                            :exportXlsxRoute="route('specialites.export', ['format' => 'xlsx'])"
+                            :exportCsvRoute="route('specialites.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
                         />
                     </div>

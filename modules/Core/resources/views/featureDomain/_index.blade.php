@@ -63,7 +63,8 @@
                             :importRoute="route('featureDomains.import')"
                             :importText="__('Importer')"
                             :exportPermission="'export-featureDomain'"
-                            :exportRoute="route('featureDomains.export')"
+                            :exportXlsxRoute="route('featureDomains.export', ['format' => 'xlsx'])"
+                            :exportCsvRoute="route('featureDomains.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
                         />
                     </div>

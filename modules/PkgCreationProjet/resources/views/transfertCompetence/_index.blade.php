@@ -63,7 +63,8 @@
                             :importRoute="route('transfertCompetences.import')"
                             :importText="__('Importer')"
                             :exportPermission="'export-transfertCompetence'"
-                            :exportRoute="route('transfertCompetences.export')"
+                            :exportXlsxRoute="route('transfertCompetences.export', ['format' => 'xlsx'])"
+                            :exportCsvRoute="route('transfertCompetences.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
                         />
                     </div>

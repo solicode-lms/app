@@ -12,6 +12,7 @@ use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Style\Border;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
 
 class BaseEMetadatumExport implements FromCollection, WithHeadings, ShouldAutoSize, WithStyles
 {
@@ -25,20 +26,20 @@ class BaseEMetadatumExport implements FromCollection, WithHeadings, ShouldAutoSi
     public function headings(): array
     {
         return [
-            'Value',
-            'reference',
-            'value_boolean',
-            'value_string',
-            'value_integer',
-            'value_float',
-            'value_date',
-            'value_datetime',
-            'value_enum',
-            'value_json',
-            'value_text',
-            'e_model_id',
-            'e_data_field_id',
-            'e_metadata_definition_id',
+            'Value' => __('PkgGapp::eMetadatum.Value'),
+            'reference' => __('Core::msg.reference'),
+            'value_boolean' => __('PkgGapp::eMetadatum.value_boolean'),
+            'value_string' => __('PkgGapp::eMetadatum.value_string'),
+            'value_integer' => __('PkgGapp::eMetadatum.value_integer'),
+            'value_float' => __('PkgGapp::eMetadatum.value_float'),
+            'value_date' => __('PkgGapp::eMetadatum.value_date'),
+            'value_datetime' => __('PkgGapp::eMetadatum.value_datetime'),
+            'value_enum' => __('PkgGapp::eMetadatum.value_enum'),
+            'value_json' => __('PkgGapp::eMetadatum.value_json'),
+            'value_text' => __('PkgGapp::eMetadatum.value_text'),
+            'e_model_id' => __('PkgGapp::eMetadatum.e_model_id'),
+            'e_data_field_id' => __('PkgGapp::eMetadatum.e_data_field_id'),
+            'e_metadata_definition_id' => __('PkgGapp::eMetadatum.e_metadata_definition_id'),
         ];
     }
 
@@ -67,8 +68,10 @@ class BaseEMetadatumExport implements FromCollection, WithHeadings, ShouldAutoSi
     public function styles(Worksheet $sheet)
     {
         $lastRow = $sheet->getHighestRow();
+        $lastColumn = $sheet->getHighestColumn();
 
-        $sheet->getStyle("A1:Z{$lastRow}")->applyFromArray([
+        // Appliquer les bordures à toutes les cellules contenant des données
+        $sheet->getStyle("A1:{$lastColumn}{$lastRow}")->applyFromArray([
             'borders' => [
                 'allBorders' => [
                     'borderStyle' => Border::BORDER_THIN,
@@ -77,16 +80,26 @@ class BaseEMetadatumExport implements FromCollection, WithHeadings, ShouldAutoSi
             ],
         ]);
 
-        $sheet->getStyle("A1:Z1")->applyFromArray([
+        // Appliquer un style spécifique aux en-têtes (ligne 1)
+        $sheet->getStyle("A1:{$lastColumn}1")->applyFromArray([
             'font' => [
                 'bold' => true,
+                'size' => 12,
+                'color' => ['argb' => 'FFFFFF'], // Texte blanc
             ],
             'fill' => [
-                'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
-                'startColor' => [
-                    'argb' => 'FFD3D3D3',
-                ],
+                'fillType' => Fill::FILL_SOLID,
+                'startColor' => ['argb' => '4F81BD'], // Fond bleu
+            ],
+            'alignment' => [
+                'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+                'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
             ],
         ]);
+
+        // Ajuster automatiquement la largeur des colonnes
+        foreach (range('A', $lastColumn) as $column) {
+            $sheet->getColumnDimension($column)->setAutoSize(true);
+        }
     }
 }

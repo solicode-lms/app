@@ -14,8 +14,11 @@ Route::middleware('auth')->group(function () {
         Route::resource('filieres', FiliereController::class);
         // Routes supplémentaires avec préfixe
         Route::prefix('data')->group(function () {
-            Route::get('filieres/export', [FiliereController::class, 'export'])->name('filieres.export');
             Route::post('filieres/import', [FiliereController::class, 'import'])->name('filieres.import');
+            Route::get('filieres/export/{format}', [FiliereController::class, 'export'])
+            ->where('format', 'csv|xlsx')
+            ->name('filieres.export');
+
         });
 
         Route::post('filieres/data-calcul', [FiliereController::class, 'dataCalcul'])->name('filieres.dataCalcul');

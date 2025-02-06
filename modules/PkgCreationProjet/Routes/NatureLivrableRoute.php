@@ -14,8 +14,11 @@ Route::middleware('auth')->group(function () {
         Route::resource('natureLivrables', NatureLivrableController::class);
         // Routes supplémentaires avec préfixe
         Route::prefix('data')->group(function () {
-            Route::get('natureLivrables/export', [NatureLivrableController::class, 'export'])->name('natureLivrables.export');
             Route::post('natureLivrables/import', [NatureLivrableController::class, 'import'])->name('natureLivrables.import');
+            Route::get('natureLivrables/export/{format}', [NatureLivrableController::class, 'export'])
+            ->where('format', 'csv|xlsx')
+            ->name('natureLivrables.export');
+
         });
 
         Route::post('natureLivrables/data-calcul', [NatureLivrableController::class, 'dataCalcul'])->name('natureLivrables.dataCalcul');

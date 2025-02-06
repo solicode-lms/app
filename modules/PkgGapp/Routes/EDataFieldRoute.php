@@ -14,8 +14,11 @@ Route::middleware('auth')->group(function () {
         Route::resource('eDataFields', EDataFieldController::class);
         // Routes supplémentaires avec préfixe
         Route::prefix('data')->group(function () {
-            Route::get('eDataFields/export', [EDataFieldController::class, 'export'])->name('eDataFields.export');
             Route::post('eDataFields/import', [EDataFieldController::class, 'import'])->name('eDataFields.import');
+            Route::get('eDataFields/export/{format}', [EDataFieldController::class, 'export'])
+            ->where('format', 'csv|xlsx')
+            ->name('eDataFields.export');
+
         });
 
         Route::post('eDataFields/data-calcul', [EDataFieldController::class, 'dataCalcul'])->name('eDataFields.dataCalcul');

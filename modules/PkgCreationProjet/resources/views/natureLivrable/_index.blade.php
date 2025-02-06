@@ -63,7 +63,8 @@
                             :importRoute="route('natureLivrables.import')"
                             :importText="__('Importer')"
                             :exportPermission="'export-natureLivrable'"
-                            :exportRoute="route('natureLivrables.export')"
+                            :exportXlsxRoute="route('natureLivrables.export', ['format' => 'xlsx'])"
+                            :exportCsvRoute="route('natureLivrables.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
                         />
                     </div>

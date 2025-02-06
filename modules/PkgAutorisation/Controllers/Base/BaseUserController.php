@@ -174,10 +174,18 @@ class BaseUserController extends AdminController
 
     }
 
-    public function export()
+    public function export($format)
     {
         $users_data = $this->userService->all();
-        return Excel::download(new UserExport($users_data), 'user_export.xlsx');
+        
+        // Vérifier le format et exporter en conséquence
+        if ($format === 'csv') {
+            return Excel::download(new UserExport($users_data), 'user_export.csv', \Maatwebsite\Excel\Excel::CSV, ['Content-Type' => 'text/csv']);
+        } elseif ($format === 'xlsx') {
+            return Excel::download(new UserExport($users_data), 'user_export.xlsx', \Maatwebsite\Excel\Excel::XLSX);
+        } else {
+            return response()->json(['error' => 'Format non supporté'], 400);
+        }
     }
 
     public function import(Request $request)

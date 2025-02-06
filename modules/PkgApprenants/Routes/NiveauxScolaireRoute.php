@@ -14,8 +14,11 @@ Route::middleware('auth')->group(function () {
         Route::resource('niveauxScolaires', NiveauxScolaireController::class);
         // Routes supplémentaires avec préfixe
         Route::prefix('data')->group(function () {
-            Route::get('niveauxScolaires/export', [NiveauxScolaireController::class, 'export'])->name('niveauxScolaires.export');
             Route::post('niveauxScolaires/import', [NiveauxScolaireController::class, 'import'])->name('niveauxScolaires.import');
+            Route::get('niveauxScolaires/export/{format}', [NiveauxScolaireController::class, 'export'])
+            ->where('format', 'csv|xlsx')
+            ->name('niveauxScolaires.export');
+
         });
 
         Route::post('niveauxScolaires/data-calcul', [NiveauxScolaireController::class, 'dataCalcul'])->name('niveauxScolaires.dataCalcul');

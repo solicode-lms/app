@@ -63,7 +63,8 @@
                             :importRoute="route('eModels.import')"
                             :importText="__('Importer')"
                             :exportPermission="'export-eModel'"
-                            :exportRoute="route('eModels.export')"
+                            :exportXlsxRoute="route('eModels.export', ['format' => 'xlsx'])"
+                            :exportCsvRoute="route('eModels.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
                         />
                     </div>

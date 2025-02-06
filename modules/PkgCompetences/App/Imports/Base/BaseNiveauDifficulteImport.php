@@ -1,6 +1,8 @@
 <?php
 // Ce fichier est maintenu par ESSARRAJ Fouad
 
+
+
 namespace Modules\PkgCompetences\App\Imports\Base;
 
 use Modules\PkgCompetences\Models\NiveauDifficulte;
@@ -54,12 +56,14 @@ class BaseNiveauDifficulteImport implements ToModel, WithHeadingRow
 
         // Création d'un nouvel enregistrement
         return new NiveauDifficulte([
-            'nom' => $values[0] ?? null,
-            'noteMin' => $values[1] ?? null,
-            'noteMax' => $values[2] ?? null,
-            'formateur_id' => $values[3] ?? null,
-            'description' => $values[4] ?? null,
-            'reference' => $reference,
+             'nom' => $values[0] ?? null,
+             'noteMin' => $values[1] ?? null,
+             'noteMax' => $values[2] ?? null,
+             'formateur_id' => $values[3] ?? null,
+             'description' => $values[4] ?? null,
+             'reference' => $reference,
         ]);
+
+
     }
 }

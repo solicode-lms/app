@@ -63,7 +63,8 @@
                             :importRoute="route('anneeFormations.import')"
                             :importText="__('Importer')"
                             :exportPermission="'export-anneeFormation'"
-                            :exportRoute="route('anneeFormations.export')"
+                            :exportXlsxRoute="route('anneeFormations.export', ['format' => 'xlsx'])"
+                            :exportCsvRoute="route('anneeFormations.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
                         />
                     </div>

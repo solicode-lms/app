@@ -5,46 +5,66 @@
 
 namespace Modules\PkgGapp\App\Imports\Base;
 
-use Carbon\Carbon;
 use Modules\PkgGapp\Models\EModel;
 use Maatwebsite\Excel\Concerns\ToModel;
-use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Illuminate\Support\Facades\Log;
 
 class BaseEModelImport implements ToModel, WithHeadingRow
 {
     /**
-     * Vérifie si une tâche avec les mêmes attributs existe déjà dans la base de données.
+     * Vérifie si un enregistrement avec la même référence existe.
      *
-     * @param array $row Ligne de données importée.
-     * @return bool
+     * @param string $reference Référence unique de l'enregistrement.
+     * @return EModel|null
      */
-    private function recordExists(array $row): bool
+    private function findExistingRecord($reference): ?EModel
     {
-        return EModel::where('reference', $row['reference'])->exists();
+        if($reference == null) return null;
+        return EModel::where('reference', $reference)->first();
     }
 
     /**
      * Crée ou met à jour un enregistrement à partir des données importées.
      *
      * @param array $row Ligne de données importée.
-     * @return <EModel|null
+     * @return EModel|null
      */
     public function model(array $row)
     {
-        if ($this->recordExists($row)) {
-            return null; // Enregistrement existant, aucune action
+        // Convertir en tableau indexé pour gérer les colonnes par position
+        $values = array_values($row);
+        $reference = $values[5] ?? null; // La colonne "reference"
+
+
+        // Vérifier si l'enregistrement existe
+        $existingRecord = $this->findExistingRecord($reference);
+
+        if ($existingRecord) {
+            // Mise à jour de l'enregistrement existant
+            $existingRecord->update([
+                'nom' => $values[0] ?? $existingRecord->nom,
+                'noteMin' => $values[1] ?? $existingRecord->noteMin,
+                'noteMax' => $values[2] ?? $existingRecord->noteMax,
+                'formateur_id' => $values[3] ?? $existingRecord->formateur_id,
+                'description' => $values[4] ?? $existingRecord->description,
+            ]);
+
+            Log::info("Mise à jour réussie pour la référence : {$reference}");
+            return null; // Retourner null pour éviter la création d'un doublon
         }
 
-        // Crée un nouvel enregistrement à partir des données importées
+        // Création d'un nouvel enregistrement
         return new EModel([
-            'reference' => $row['reference'],
-            'name' => $row['name'],
-            'table_name' => $row['table_name'],
-            'icon' => $row['icon'],
-            'is_pivot_table' => $row['is_pivot_table'],
-            'description' => $row['description'],
-            'e_package_id' => $row['e_package_id'],
+             'reference' => $reference,
+             'name' => $values[1] ?? null,
+             'table_name' => $values[2] ?? null,
+             'icon' => $values[3] ?? null,
+             'is_pivot_table' => $values[4] ?? null,
+             'description' => $values[5] ?? null,
+             'e_package_id' => $values[6] ?? null,
         ]);
+
+
     }
 }

@@ -63,7 +63,8 @@
                             :importRoute="route('sysColors.import')"
                             :importText="__('Importer')"
                             :exportPermission="'export-sysColor'"
-                            :exportRoute="route('sysColors.export')"
+                            :exportXlsxRoute="route('sysColors.export', ['format' => 'xlsx'])"
+                            :exportCsvRoute="route('sysColors.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
                         />
                     </div>

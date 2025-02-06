@@ -14,8 +14,11 @@ Route::middleware('auth')->group(function () {
         Route::resource('niveauCompetences', NiveauCompetenceController::class);
         // Routes supplémentaires avec préfixe
         Route::prefix('data')->group(function () {
-            Route::get('niveauCompetences/export', [NiveauCompetenceController::class, 'export'])->name('niveauCompetences.export');
             Route::post('niveauCompetences/import', [NiveauCompetenceController::class, 'import'])->name('niveauCompetences.import');
+            Route::get('niveauCompetences/export/{format}', [NiveauCompetenceController::class, 'export'])
+            ->where('format', 'csv|xlsx')
+            ->name('niveauCompetences.export');
+
         });
 
         Route::post('niveauCompetences/data-calcul', [NiveauCompetenceController::class, 'dataCalcul'])->name('niveauCompetences.dataCalcul');

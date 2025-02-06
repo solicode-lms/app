@@ -5,52 +5,72 @@
 
 namespace Modules\PkgFormation\App\Imports\Base;
 
-use Carbon\Carbon;
 use Modules\PkgFormation\Models\Formateur;
 use Maatwebsite\Excel\Concerns\ToModel;
-use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Illuminate\Support\Facades\Log;
 
 class BaseFormateurImport implements ToModel, WithHeadingRow
 {
     /**
-     * Vérifie si une tâche avec les mêmes attributs existe déjà dans la base de données.
+     * Vérifie si un enregistrement avec la même référence existe.
      *
-     * @param array $row Ligne de données importée.
-     * @return bool
+     * @param string $reference Référence unique de l'enregistrement.
+     * @return Formateur|null
      */
-    private function recordExists(array $row): bool
+    private function findExistingRecord($reference): ?Formateur
     {
-        return Formateur::where('nom', $row['nom'])->exists();
+        if($reference == null) return null;
+        return Formateur::where('reference', $reference)->first();
     }
 
     /**
      * Crée ou met à jour un enregistrement à partir des données importées.
      *
      * @param array $row Ligne de données importée.
-     * @return <Formateur|null
+     * @return Formateur|null
      */
     public function model(array $row)
     {
-        if ($this->recordExists($row)) {
-            return null; // Enregistrement existant, aucune action
+        // Convertir en tableau indexé pour gérer les colonnes par position
+        $values = array_values($row);
+        $reference = $values[5] ?? null; // La colonne "reference"
+
+
+        // Vérifier si l'enregistrement existe
+        $existingRecord = $this->findExistingRecord($reference);
+
+        if ($existingRecord) {
+            // Mise à jour de l'enregistrement existant
+            $existingRecord->update([
+                'nom' => $values[0] ?? $existingRecord->nom,
+                'noteMin' => $values[1] ?? $existingRecord->noteMin,
+                'noteMax' => $values[2] ?? $existingRecord->noteMax,
+                'formateur_id' => $values[3] ?? $existingRecord->formateur_id,
+                'description' => $values[4] ?? $existingRecord->description,
+            ]);
+
+            Log::info("Mise à jour réussie pour la référence : {$reference}");
+            return null; // Retourner null pour éviter la création d'un doublon
         }
 
-        // Crée un nouvel enregistrement à partir des données importées
+        // Création d'un nouvel enregistrement
         return new Formateur([
-            'matricule' => $row['matricule'],
-            'nom' => $row['nom'],
-            'prenom' => $row['prenom'],
-            'prenom_arab' => $row['prenom_arab'],
-            'nom_arab' => $row['nom_arab'],
-            'tele_num' => $row['tele_num'],
-            'adresse' => $row['adresse'],
-            'diplome' => $row['diplome'],
-            'echelle' => $row['echelle'],
-            'echelon' => $row['echelon'],
-            'profile_image' => $row['profile_image'],
-            'user_id' => $row['user_id'],
-            'reference' => $row['reference'],
+             'matricule' => $values[0] ?? null,
+             'nom' => $values[1] ?? null,
+             'prenom' => $values[2] ?? null,
+             'prenom_arab' => $values[3] ?? null,
+             'nom_arab' => $values[4] ?? null,
+             'tele_num' => $values[5] ?? null,
+             'adresse' => $values[6] ?? null,
+             'diplome' => $values[7] ?? null,
+             'echelle' => $values[8] ?? null,
+             'echelon' => $values[9] ?? null,
+             'profile_image' => $values[10] ?? null,
+             'user_id' => $values[11] ?? null,
+             'reference' => $reference,
         ]);
+
+
     }
 }

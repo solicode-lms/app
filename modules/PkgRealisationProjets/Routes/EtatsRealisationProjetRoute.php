@@ -14,8 +14,11 @@ Route::middleware('auth')->group(function () {
         Route::resource('etatsRealisationProjets', EtatsRealisationProjetController::class);
         // Routes supplémentaires avec préfixe
         Route::prefix('data')->group(function () {
-            Route::get('etatsRealisationProjets/export', [EtatsRealisationProjetController::class, 'export'])->name('etatsRealisationProjets.export');
             Route::post('etatsRealisationProjets/import', [EtatsRealisationProjetController::class, 'import'])->name('etatsRealisationProjets.import');
+            Route::get('etatsRealisationProjets/export/{format}', [EtatsRealisationProjetController::class, 'export'])
+            ->where('format', 'csv|xlsx')
+            ->name('etatsRealisationProjets.export');
+
         });
 
         Route::post('etatsRealisationProjets/data-calcul', [EtatsRealisationProjetController::class, 'dataCalcul'])->name('etatsRealisationProjets.dataCalcul');

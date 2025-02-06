@@ -5,59 +5,79 @@
 
 namespace Modules\PkgApprenants\App\Imports\Base;
 
-use Carbon\Carbon;
 use Modules\PkgApprenants\Models\ApprenantKonosy;
 use Maatwebsite\Excel\Concerns\ToModel;
-use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Illuminate\Support\Facades\Log;
 
 class BaseApprenantKonosyImport implements ToModel, WithHeadingRow
 {
     /**
-     * Vérifie si une tâche avec les mêmes attributs existe déjà dans la base de données.
+     * Vérifie si un enregistrement avec la même référence existe.
      *
-     * @param array $row Ligne de données importée.
-     * @return bool
+     * @param string $reference Référence unique de l'enregistrement.
+     * @return ApprenantKonosy|null
      */
-    private function recordExists(array $row): bool
+    private function findExistingRecord($reference): ?ApprenantKonosy
     {
-        return ApprenantKonosy::where('reference', $row['reference'])->exists();
+        if($reference == null) return null;
+        return ApprenantKonosy::where('reference', $reference)->first();
     }
 
     /**
      * Crée ou met à jour un enregistrement à partir des données importées.
      *
      * @param array $row Ligne de données importée.
-     * @return <ApprenantKonosy|null
+     * @return ApprenantKonosy|null
      */
     public function model(array $row)
     {
-        if ($this->recordExists($row)) {
-            return null; // Enregistrement existant, aucune action
+        // Convertir en tableau indexé pour gérer les colonnes par position
+        $values = array_values($row);
+        $reference = $values[5] ?? null; // La colonne "reference"
+
+
+        // Vérifier si l'enregistrement existe
+        $existingRecord = $this->findExistingRecord($reference);
+
+        if ($existingRecord) {
+            // Mise à jour de l'enregistrement existant
+            $existingRecord->update([
+                'nom' => $values[0] ?? $existingRecord->nom,
+                'noteMin' => $values[1] ?? $existingRecord->noteMin,
+                'noteMax' => $values[2] ?? $existingRecord->noteMax,
+                'formateur_id' => $values[3] ?? $existingRecord->formateur_id,
+                'description' => $values[4] ?? $existingRecord->description,
+            ]);
+
+            Log::info("Mise à jour réussie pour la référence : {$reference}");
+            return null; // Retourner null pour éviter la création d'un doublon
         }
 
-        // Crée un nouvel enregistrement à partir des données importées
+        // Création d'un nouvel enregistrement
         return new ApprenantKonosy([
-            'MatriculeEtudiant' => $row['MatriculeEtudiant'],
-            'Nom' => $row['Nom'],
-            'Prenom' => $row['Prenom'],
-            'Sexe' => $row['Sexe'],
-            'EtudiantActif' => $row['EtudiantActif'],
-            'Diplome' => $row['Diplome'],
-            'Principale' => $row['Principale'],
-            'LibelleLong' => $row['LibelleLong'],
-            'CodeDiplome' => $row['CodeDiplome'],
-            'DateNaissance' => $row['DateNaissance'],
-            'DateInscription' => $row['DateInscription'],
-            'LieuNaissance' => $row['LieuNaissance'],
-            'CIN' => $row['CIN'],
-            'NTelephone' => $row['NTelephone'],
-            'Adresse' => $row['Adresse'],
-            'Nationalite' => $row['Nationalite'],
-            'Nom_Arabe' => $row['Nom_Arabe'],
-            'Prenom_Arabe' => $row['Prenom_Arabe'],
-            'NiveauScolaire' => $row['NiveauScolaire'],
-            'reference' => $row['reference'],
+             'MatriculeEtudiant' => $values[0] ?? null,
+             'Nom' => $values[1] ?? null,
+             'Prenom' => $values[2] ?? null,
+             'Sexe' => $values[3] ?? null,
+             'EtudiantActif' => $values[4] ?? null,
+             'Diplome' => $values[5] ?? null,
+             'Principale' => $values[6] ?? null,
+             'LibelleLong' => $values[7] ?? null,
+             'CodeDiplome' => $values[8] ?? null,
+             'DateNaissance' => $values[9] ?? null,
+             'DateInscription' => $values[10] ?? null,
+             'LieuNaissance' => $values[11] ?? null,
+             'CIN' => $values[12] ?? null,
+             'NTelephone' => $values[13] ?? null,
+             'Adresse' => $values[14] ?? null,
+             'Nationalite' => $values[15] ?? null,
+             'Nom_Arabe' => $values[16] ?? null,
+             'Prenom_Arabe' => $values[17] ?? null,
+             'NiveauScolaire' => $values[18] ?? null,
+             'reference' => $reference,
         ]);
+
+
     }
 }

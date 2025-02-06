@@ -14,8 +14,11 @@ Route::middleware('auth')->group(function () {
         Route::resource('specialites', SpecialiteController::class);
         // Routes supplémentaires avec préfixe
         Route::prefix('data')->group(function () {
-            Route::get('specialites/export', [SpecialiteController::class, 'export'])->name('specialites.export');
             Route::post('specialites/import', [SpecialiteController::class, 'import'])->name('specialites.import');
+            Route::get('specialites/export/{format}', [SpecialiteController::class, 'export'])
+            ->where('format', 'csv|xlsx')
+            ->name('specialites.export');
+
         });
 
         Route::post('specialites/data-calcul', [SpecialiteController::class, 'dataCalcul'])->name('specialites.dataCalcul');

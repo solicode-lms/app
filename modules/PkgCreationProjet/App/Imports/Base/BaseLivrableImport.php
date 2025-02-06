@@ -5,44 +5,64 @@
 
 namespace Modules\PkgCreationProjet\App\Imports\Base;
 
-use Carbon\Carbon;
 use Modules\PkgCreationProjet\Models\Livrable;
 use Maatwebsite\Excel\Concerns\ToModel;
-use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Illuminate\Support\Facades\Log;
 
 class BaseLivrableImport implements ToModel, WithHeadingRow
 {
     /**
-     * Vérifie si une tâche avec les mêmes attributs existe déjà dans la base de données.
+     * Vérifie si un enregistrement avec la même référence existe.
      *
-     * @param array $row Ligne de données importée.
-     * @return bool
+     * @param string $reference Référence unique de l'enregistrement.
+     * @return Livrable|null
      */
-    private function recordExists(array $row): bool
+    private function findExistingRecord($reference): ?Livrable
     {
-        return Livrable::where('reference', $row['reference'])->exists();
+        if($reference == null) return null;
+        return Livrable::where('reference', $reference)->first();
     }
 
     /**
      * Crée ou met à jour un enregistrement à partir des données importées.
      *
      * @param array $row Ligne de données importée.
-     * @return <Livrable|null
+     * @return Livrable|null
      */
     public function model(array $row)
     {
-        if ($this->recordExists($row)) {
-            return null; // Enregistrement existant, aucune action
+        // Convertir en tableau indexé pour gérer les colonnes par position
+        $values = array_values($row);
+        $reference = $values[5] ?? null; // La colonne "reference"
+
+
+        // Vérifier si l'enregistrement existe
+        $existingRecord = $this->findExistingRecord($reference);
+
+        if ($existingRecord) {
+            // Mise à jour de l'enregistrement existant
+            $existingRecord->update([
+                'nom' => $values[0] ?? $existingRecord->nom,
+                'noteMin' => $values[1] ?? $existingRecord->noteMin,
+                'noteMax' => $values[2] ?? $existingRecord->noteMax,
+                'formateur_id' => $values[3] ?? $existingRecord->formateur_id,
+                'description' => $values[4] ?? $existingRecord->description,
+            ]);
+
+            Log::info("Mise à jour réussie pour la référence : {$reference}");
+            return null; // Retourner null pour éviter la création d'un doublon
         }
 
-        // Crée un nouvel enregistrement à partir des données importées
+        // Création d'un nouvel enregistrement
         return new Livrable([
-            'titre' => $row['titre'],
-            'nature_livrable_id' => $row['nature_livrable_id'],
-            'projet_id' => $row['projet_id'],
-            'description' => $row['description'],
-            'reference' => $row['reference'],
+             'titre' => $values[0] ?? null,
+             'nature_livrable_id' => $values[1] ?? null,
+             'projet_id' => $values[2] ?? null,
+             'description' => $values[3] ?? null,
+             'reference' => $reference,
         ]);
+
+
     }
 }

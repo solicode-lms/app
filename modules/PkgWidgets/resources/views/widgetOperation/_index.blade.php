@@ -63,7 +63,8 @@
                             :importRoute="route('widgetOperations.import')"
                             :importText="__('Importer')"
                             :exportPermission="'export-widgetOperation'"
-                            :exportRoute="route('widgetOperations.export')"
+                            :exportXlsxRoute="route('widgetOperations.export', ['format' => 'xlsx'])"
+                            :exportCsvRoute="route('widgetOperations.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
                         />
                     </div>

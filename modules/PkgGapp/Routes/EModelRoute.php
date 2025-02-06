@@ -14,8 +14,11 @@ Route::middleware('auth')->group(function () {
         Route::resource('eModels', EModelController::class);
         // Routes supplémentaires avec préfixe
         Route::prefix('data')->group(function () {
-            Route::get('eModels/export', [EModelController::class, 'export'])->name('eModels.export');
             Route::post('eModels/import', [EModelController::class, 'import'])->name('eModels.import');
+            Route::get('eModels/export/{format}', [EModelController::class, 'export'])
+            ->where('format', 'csv|xlsx')
+            ->name('eModels.export');
+
         });
 
         Route::post('eModels/data-calcul', [EModelController::class, 'dataCalcul'])->name('eModels.dataCalcul');

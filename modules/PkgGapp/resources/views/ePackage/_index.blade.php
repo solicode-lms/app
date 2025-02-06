@@ -63,7 +63,8 @@
                             :importRoute="route('ePackages.import')"
                             :importText="__('Importer')"
                             :exportPermission="'export-ePackage'"
-                            :exportRoute="route('ePackages.export')"
+                            :exportXlsxRoute="route('ePackages.export', ['format' => 'xlsx'])"
+                            :exportCsvRoute="route('ePackages.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
                         />
                     </div>

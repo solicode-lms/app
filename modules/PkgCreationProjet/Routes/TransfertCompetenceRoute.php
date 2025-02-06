@@ -14,8 +14,11 @@ Route::middleware('auth')->group(function () {
         Route::resource('transfertCompetences', TransfertCompetenceController::class);
         // Routes supplémentaires avec préfixe
         Route::prefix('data')->group(function () {
-            Route::get('transfertCompetences/export', [TransfertCompetenceController::class, 'export'])->name('transfertCompetences.export');
             Route::post('transfertCompetences/import', [TransfertCompetenceController::class, 'import'])->name('transfertCompetences.import');
+            Route::get('transfertCompetences/export/{format}', [TransfertCompetenceController::class, 'export'])
+            ->where('format', 'csv|xlsx')
+            ->name('transfertCompetences.export');
+
         });
 
         Route::post('transfertCompetences/data-calcul', [TransfertCompetenceController::class, 'dataCalcul'])->name('transfertCompetences.dataCalcul');

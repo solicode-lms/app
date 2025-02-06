@@ -63,7 +63,8 @@
                             :importRoute="route('formateurs.import')"
                             :importText="__('Importer')"
                             :exportPermission="'export-formateur'"
-                            :exportRoute="route('formateurs.export')"
+                            :exportXlsxRoute="route('formateurs.export', ['format' => 'xlsx'])"
+                            :exportCsvRoute="route('formateurs.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
                         />
                     </div>

@@ -63,7 +63,8 @@
                             :importRoute="route('features.import')"
                             :importText="__('Importer')"
                             :exportPermission="'export-feature'"
-                            :exportRoute="route('features.export')"
+                            :exportXlsxRoute="route('features.export', ['format' => 'xlsx'])"
+                            :exportCsvRoute="route('features.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
                         />
                     </div>

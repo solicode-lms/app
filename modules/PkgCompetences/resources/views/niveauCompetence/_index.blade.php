@@ -63,7 +63,8 @@
                             :importRoute="route('niveauCompetences.import')"
                             :importText="__('Importer')"
                             :exportPermission="'export-niveauCompetence'"
-                            :exportRoute="route('niveauCompetences.export')"
+                            :exportXlsxRoute="route('niveauCompetences.export', ['format' => 'xlsx'])"
+                            :exportCsvRoute="route('niveauCompetences.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
                         />
                     </div>

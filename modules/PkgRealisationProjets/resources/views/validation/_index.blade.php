@@ -63,7 +63,8 @@
                             :importRoute="route('validations.import')"
                             :importText="__('Importer')"
                             :exportPermission="'export-validation'"
-                            :exportRoute="route('validations.export')"
+                            :exportXlsxRoute="route('validations.export', ['format' => 'xlsx'])"
+                            :exportCsvRoute="route('validations.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
                         />
                     </div>

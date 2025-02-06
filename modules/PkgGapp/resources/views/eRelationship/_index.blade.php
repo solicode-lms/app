@@ -63,7 +63,8 @@
                             :importRoute="route('eRelationships.import')"
                             :importText="__('Importer')"
                             :exportPermission="'export-eRelationship'"
-                            :exportRoute="route('eRelationships.export')"
+                            :exportXlsxRoute="route('eRelationships.export', ['format' => 'xlsx'])"
+                            :exportCsvRoute="route('eRelationships.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
                         />
                     </div>

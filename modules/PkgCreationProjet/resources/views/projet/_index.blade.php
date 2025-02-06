@@ -63,7 +63,8 @@
                             :importRoute="route('projets.import')"
                             :importText="__('Importer')"
                             :exportPermission="'export-projet'"
-                            :exportRoute="route('projets.export')"
+                            :exportXlsxRoute="route('projets.export', ['format' => 'xlsx'])"
+                            :exportCsvRoute="route('projets.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
                         />
                     </div>

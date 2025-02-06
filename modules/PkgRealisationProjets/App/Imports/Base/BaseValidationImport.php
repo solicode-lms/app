@@ -5,45 +5,65 @@
 
 namespace Modules\PkgRealisationProjets\App\Imports\Base;
 
-use Carbon\Carbon;
 use Modules\PkgRealisationProjets\Models\Validation;
 use Maatwebsite\Excel\Concerns\ToModel;
-use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Illuminate\Support\Facades\Log;
 
 class BaseValidationImport implements ToModel, WithHeadingRow
 {
     /**
-     * Vérifie si une tâche avec les mêmes attributs existe déjà dans la base de données.
+     * Vérifie si un enregistrement avec la même référence existe.
      *
-     * @param array $row Ligne de données importée.
-     * @return bool
+     * @param string $reference Référence unique de l'enregistrement.
+     * @return Validation|null
      */
-    private function recordExists(array $row): bool
+    private function findExistingRecord($reference): ?Validation
     {
-        return Validation::where('reference', $row['reference'])->exists();
+        if($reference == null) return null;
+        return Validation::where('reference', $reference)->first();
     }
 
     /**
      * Crée ou met à jour un enregistrement à partir des données importées.
      *
      * @param array $row Ligne de données importée.
-     * @return <Validation|null
+     * @return Validation|null
      */
     public function model(array $row)
     {
-        if ($this->recordExists($row)) {
-            return null; // Enregistrement existant, aucune action
+        // Convertir en tableau indexé pour gérer les colonnes par position
+        $values = array_values($row);
+        $reference = $values[5] ?? null; // La colonne "reference"
+
+
+        // Vérifier si l'enregistrement existe
+        $existingRecord = $this->findExistingRecord($reference);
+
+        if ($existingRecord) {
+            // Mise à jour de l'enregistrement existant
+            $existingRecord->update([
+                'nom' => $values[0] ?? $existingRecord->nom,
+                'noteMin' => $values[1] ?? $existingRecord->noteMin,
+                'noteMax' => $values[2] ?? $existingRecord->noteMax,
+                'formateur_id' => $values[3] ?? $existingRecord->formateur_id,
+                'description' => $values[4] ?? $existingRecord->description,
+            ]);
+
+            Log::info("Mise à jour réussie pour la référence : {$reference}");
+            return null; // Retourner null pour éviter la création d'un doublon
         }
 
-        // Crée un nouvel enregistrement à partir des données importées
+        // Création d'un nouvel enregistrement
         return new Validation([
-            'note' => $row['note'],
-            'message' => $row['message'],
-            'is_valide' => $row['is_valide'],
-            'transfert_competence_id' => $row['transfert_competence_id'],
-            'realisation_projet_id' => $row['realisation_projet_id'],
-            'reference' => $row['reference'],
+             'note' => $values[0] ?? null,
+             'message' => $values[1] ?? null,
+             'is_valide' => $values[2] ?? null,
+             'transfert_competence_id' => $values[3] ?? null,
+             'realisation_projet_id' => $values[4] ?? null,
+             'reference' => $reference,
         ]);
+
+
     }
 }

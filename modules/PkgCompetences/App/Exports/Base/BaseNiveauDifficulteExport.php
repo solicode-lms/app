@@ -29,7 +29,7 @@ class BaseNiveauDifficulteExport implements FromCollection, WithHeadings, Should
             'nom' => __('PkgCompetences::niveauDifficulte.nom'),
             'noteMin' => __('PkgCompetences::niveauDifficulte.noteMin'),
             'noteMax' => __('PkgCompetences::niveauDifficulte.noteMax'),
-            'formateur_id' =>__('PkgCompetences::niveauDifficulte.formateur_id'),
+            'formateur_id' => __('PkgCompetences::niveauDifficulte.formateur_id'),
             'description' => __('PkgCompetences::niveauDifficulte.description'),
             'reference' => __('Core::msg.reference'),
         ];

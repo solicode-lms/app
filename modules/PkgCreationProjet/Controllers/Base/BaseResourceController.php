@@ -152,10 +152,18 @@ class BaseResourceController extends AdminController
 
     }
 
-    public function export()
+    public function export($format)
     {
         $resources_data = $this->resourceService->all();
-        return Excel::download(new ResourceExport($resources_data), 'resource_export.xlsx');
+        
+        // Vérifier le format et exporter en conséquence
+        if ($format === 'csv') {
+            return Excel::download(new ResourceExport($resources_data), 'resource_export.csv', \Maatwebsite\Excel\Excel::CSV, ['Content-Type' => 'text/csv']);
+        } elseif ($format === 'xlsx') {
+            return Excel::download(new ResourceExport($resources_data), 'resource_export.xlsx', \Maatwebsite\Excel\Excel::XLSX);
+        } else {
+            return response()->json(['error' => 'Format non supporté'], 400);
+        }
     }
 
     public function import(Request $request)

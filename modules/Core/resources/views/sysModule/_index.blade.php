@@ -63,7 +63,8 @@
                             :importRoute="route('sysModules.import')"
                             :importText="__('Importer')"
                             :exportPermission="'export-sysModule'"
-                            :exportRoute="route('sysModules.export')"
+                            :exportXlsxRoute="route('sysModules.export', ['format' => 'xlsx'])"
+                            :exportCsvRoute="route('sysModules.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
                         />
                     </div>

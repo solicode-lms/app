@@ -14,8 +14,11 @@ Route::middleware('auth')->group(function () {
         Route::resource('apprenants', ApprenantController::class);
         // Routes supplémentaires avec préfixe
         Route::prefix('data')->group(function () {
-            Route::get('apprenants/export', [ApprenantController::class, 'export'])->name('apprenants.export');
             Route::post('apprenants/import', [ApprenantController::class, 'import'])->name('apprenants.import');
+            Route::get('apprenants/export/{format}', [ApprenantController::class, 'export'])
+            ->where('format', 'csv|xlsx')
+            ->name('apprenants.export');
+
         });
 
         Route::post('apprenants/data-calcul', [ApprenantController::class, 'dataCalcul'])->name('apprenants.dataCalcul');

@@ -63,7 +63,8 @@
                             :importRoute="route('groupes.import')"
                             :importText="__('Importer')"
                             :exportPermission="'export-groupe'"
-                            :exportRoute="route('groupes.export')"
+                            :exportXlsxRoute="route('groupes.export', ['format' => 'xlsx'])"
+                            :exportCsvRoute="route('groupes.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
                         />
                     </div>

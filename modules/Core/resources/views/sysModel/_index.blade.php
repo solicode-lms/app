@@ -63,7 +63,8 @@
                             :importRoute="route('sysModels.import')"
                             :importText="__('Importer')"
                             :exportPermission="'export-sysModel'"
-                            :exportRoute="route('sysModels.export')"
+                            :exportXlsxRoute="route('sysModels.export', ['format' => 'xlsx'])"
+                            :exportCsvRoute="route('sysModels.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
                         />
                     </div>

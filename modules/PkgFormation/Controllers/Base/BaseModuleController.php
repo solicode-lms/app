@@ -163,10 +163,18 @@ class BaseModuleController extends AdminController
 
     }
 
-    public function export()
+    public function export($format)
     {
         $modules_data = $this->moduleService->all();
-        return Excel::download(new ModuleExport($modules_data), 'module_export.xlsx');
+        
+        // Vérifier le format et exporter en conséquence
+        if ($format === 'csv') {
+            return Excel::download(new ModuleExport($modules_data), 'module_export.csv', \Maatwebsite\Excel\Excel::CSV, ['Content-Type' => 'text/csv']);
+        } elseif ($format === 'xlsx') {
+            return Excel::download(new ModuleExport($modules_data), 'module_export.xlsx', \Maatwebsite\Excel\Excel::XLSX);
+        } else {
+            return response()->json(['error' => 'Format non supporté'], 400);
+        }
     }
 
     public function import(Request $request)

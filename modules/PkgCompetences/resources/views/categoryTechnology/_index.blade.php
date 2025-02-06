@@ -63,7 +63,8 @@
                             :importRoute="route('categoryTechnologies.import')"
                             :importText="__('Importer')"
                             :exportPermission="'export-categoryTechnology'"
-                            :exportRoute="route('categoryTechnologies.export')"
+                            :exportXlsxRoute="route('categoryTechnologies.export', ['format' => 'xlsx'])"
+                            :exportCsvRoute="route('categoryTechnologies.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
                         />
                     </div>

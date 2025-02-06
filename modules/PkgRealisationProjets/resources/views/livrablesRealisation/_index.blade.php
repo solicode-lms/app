@@ -63,7 +63,8 @@
                             :importRoute="route('livrablesRealisations.import')"
                             :importText="__('Importer')"
                             :exportPermission="'export-livrablesRealisation'"
-                            :exportRoute="route('livrablesRealisations.export')"
+                            :exportXlsxRoute="route('livrablesRealisations.export', ['format' => 'xlsx'])"
+                            :exportCsvRoute="route('livrablesRealisations.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
                         />
                     </div>

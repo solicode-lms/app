@@ -14,8 +14,11 @@ Route::middleware('auth')->group(function () {
         Route::resource('formateurs', FormateurController::class);
         // Routes supplémentaires avec préfixe
         Route::prefix('data')->group(function () {
-            Route::get('formateurs/export', [FormateurController::class, 'export'])->name('formateurs.export');
             Route::post('formateurs/import', [FormateurController::class, 'import'])->name('formateurs.import');
+            Route::get('formateurs/export/{format}', [FormateurController::class, 'export'])
+            ->where('format', 'csv|xlsx')
+            ->name('formateurs.export');
+
         });
 
         Route::post('formateurs/data-calcul', [FormateurController::class, 'dataCalcul'])->name('formateurs.dataCalcul');

@@ -63,7 +63,8 @@
                             :importRoute="route('eDataFields.import')"
                             :importText="__('Importer')"
                             :exportPermission="'export-eDataField'"
-                            :exportRoute="route('eDataFields.export')"
+                            :exportXlsxRoute="route('eDataFields.export', ['format' => 'xlsx'])"
+                            :exportCsvRoute="route('eDataFields.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
                         />
                     </div>

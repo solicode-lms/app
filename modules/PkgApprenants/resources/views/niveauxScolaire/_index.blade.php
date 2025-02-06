@@ -63,7 +63,8 @@
                             :importRoute="route('niveauxScolaires.import')"
                             :importText="__('Importer')"
                             :exportPermission="'export-niveauxScolaire'"
-                            :exportRoute="route('niveauxScolaires.export')"
+                            :exportXlsxRoute="route('niveauxScolaires.export', ['format' => 'xlsx'])"
+                            :exportCsvRoute="route('niveauxScolaires.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
                         />
                     </div>

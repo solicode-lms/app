@@ -63,7 +63,8 @@
                             :importRoute="route('eMetadata.import')"
                             :importText="__('Importer')"
                             :exportPermission="'export-eMetadatum'"
-                            :exportRoute="route('eMetadata.export')"
+                            :exportXlsxRoute="route('eMetadata.export', ['format' => 'xlsx'])"
+                            :exportCsvRoute="route('eMetadata.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
                         />
                     </div>

@@ -5,44 +5,64 @@
 
 namespace Modules\Core\App\Imports\Base;
 
-use Carbon\Carbon;
 use Modules\Core\Models\FeatureDomain;
 use Maatwebsite\Excel\Concerns\ToModel;
-use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Illuminate\Support\Facades\Log;
 
 class BaseFeatureDomainImport implements ToModel, WithHeadingRow
 {
     /**
-     * Vérifie si une tâche avec les mêmes attributs existe déjà dans la base de données.
+     * Vérifie si un enregistrement avec la même référence existe.
      *
-     * @param array $row Ligne de données importée.
-     * @return bool
+     * @param string $reference Référence unique de l'enregistrement.
+     * @return FeatureDomain|null
      */
-    private function recordExists(array $row): bool
+    private function findExistingRecord($reference): ?FeatureDomain
     {
-        return FeatureDomain::where('name', $row['name'])->exists();
+        if($reference == null) return null;
+        return FeatureDomain::where('reference', $reference)->first();
     }
 
     /**
      * Crée ou met à jour un enregistrement à partir des données importées.
      *
      * @param array $row Ligne de données importée.
-     * @return <FeatureDomain|null
+     * @return FeatureDomain|null
      */
     public function model(array $row)
     {
-        if ($this->recordExists($row)) {
-            return null; // Enregistrement existant, aucune action
+        // Convertir en tableau indexé pour gérer les colonnes par position
+        $values = array_values($row);
+        $reference = $values[5] ?? null; // La colonne "reference"
+
+
+        // Vérifier si l'enregistrement existe
+        $existingRecord = $this->findExistingRecord($reference);
+
+        if ($existingRecord) {
+            // Mise à jour de l'enregistrement existant
+            $existingRecord->update([
+                'nom' => $values[0] ?? $existingRecord->nom,
+                'noteMin' => $values[1] ?? $existingRecord->noteMin,
+                'noteMax' => $values[2] ?? $existingRecord->noteMax,
+                'formateur_id' => $values[3] ?? $existingRecord->formateur_id,
+                'description' => $values[4] ?? $existingRecord->description,
+            ]);
+
+            Log::info("Mise à jour réussie pour la référence : {$reference}");
+            return null; // Retourner null pour éviter la création d'un doublon
         }
 
-        // Crée un nouvel enregistrement à partir des données importées
+        // Création d'un nouvel enregistrement
         return new FeatureDomain([
-            'name' => $row['name'],
-            'slug' => $row['slug'],
-            'description' => $row['description'],
-            'sys_module_id' => $row['sys_module_id'],
-            'reference' => $row['reference'],
+             'name' => $values[0] ?? null,
+             'slug' => $values[1] ?? null,
+             'description' => $values[2] ?? null,
+             'sys_module_id' => $values[3] ?? null,
+             'reference' => $reference,
         ]);
+
+
     }
 }

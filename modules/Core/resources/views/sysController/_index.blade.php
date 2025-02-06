@@ -63,7 +63,8 @@
                             :importRoute="route('sysControllers.import')"
                             :importText="__('Importer')"
                             :exportPermission="'export-sysController'"
-                            :exportRoute="route('sysControllers.export')"
+                            :exportXlsxRoute="route('sysControllers.export', ['format' => 'xlsx'])"
+                            :exportCsvRoute="route('sysControllers.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
                         />
                     </div>

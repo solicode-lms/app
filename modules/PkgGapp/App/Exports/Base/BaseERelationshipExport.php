@@ -12,6 +12,7 @@ use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Style\Border;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
 
 class BaseERelationshipExport implements FromCollection, WithHeadings, ShouldAutoSize, WithStyles
 {
@@ -25,20 +26,20 @@ class BaseERelationshipExport implements FromCollection, WithHeadings, ShouldAut
     public function headings(): array
     {
         return [
-            'reference',
-            'name',
-            'type',
-            'source_e_model_id',
-            'target_e_model_id',
-            'cascade_on_delete',
-            'is_cascade',
-            'description',
-            'column_name',
-            'referenced_table',
-            'referenced_column',
-            'through',
-            'with_column',
-            'morph_name',
+            'reference' => __('Core::msg.reference'),
+            'name' => __('PkgGapp::eRelationship.name'),
+            'type' => __('PkgGapp::eRelationship.type'),
+            'source_e_model_id' => __('PkgGapp::eRelationship.source_e_model_id'),
+            'target_e_model_id' => __('PkgGapp::eRelationship.target_e_model_id'),
+            'cascade_on_delete' => __('PkgGapp::eRelationship.cascade_on_delete'),
+            'is_cascade' => __('PkgGapp::eRelationship.is_cascade'),
+            'description' => __('PkgGapp::eRelationship.description'),
+            'column_name' => __('PkgGapp::eRelationship.column_name'),
+            'referenced_table' => __('PkgGapp::eRelationship.referenced_table'),
+            'referenced_column' => __('PkgGapp::eRelationship.referenced_column'),
+            'through' => __('PkgGapp::eRelationship.through'),
+            'with_column' => __('PkgGapp::eRelationship.with_column'),
+            'morph_name' => __('PkgGapp::eRelationship.morph_name'),
         ];
     }
 
@@ -67,8 +68,10 @@ class BaseERelationshipExport implements FromCollection, WithHeadings, ShouldAut
     public function styles(Worksheet $sheet)
     {
         $lastRow = $sheet->getHighestRow();
+        $lastColumn = $sheet->getHighestColumn();
 
-        $sheet->getStyle("A1:Z{$lastRow}")->applyFromArray([
+        // Appliquer les bordures à toutes les cellules contenant des données
+        $sheet->getStyle("A1:{$lastColumn}{$lastRow}")->applyFromArray([
             'borders' => [
                 'allBorders' => [
                     'borderStyle' => Border::BORDER_THIN,
@@ -77,16 +80,26 @@ class BaseERelationshipExport implements FromCollection, WithHeadings, ShouldAut
             ],
         ]);
 
-        $sheet->getStyle("A1:Z1")->applyFromArray([
+        // Appliquer un style spécifique aux en-têtes (ligne 1)
+        $sheet->getStyle("A1:{$lastColumn}1")->applyFromArray([
             'font' => [
                 'bold' => true,
+                'size' => 12,
+                'color' => ['argb' => 'FFFFFF'], // Texte blanc
             ],
             'fill' => [
-                'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
-                'startColor' => [
-                    'argb' => 'FFD3D3D3',
-                ],
+                'fillType' => Fill::FILL_SOLID,
+                'startColor' => ['argb' => '4F81BD'], // Fond bleu
+            ],
+            'alignment' => [
+                'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+                'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
             ],
         ]);
+
+        // Ajuster automatiquement la largeur des colonnes
+        foreach (range('A', $lastColumn) as $column) {
+            $sheet->getColumnDimension($column)->setAutoSize(true);
+        }
     }
 }
