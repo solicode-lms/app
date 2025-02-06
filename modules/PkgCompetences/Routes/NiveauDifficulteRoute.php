@@ -18,6 +18,7 @@ Route::middleware('auth')->group(function () {
             Route::get('niveauDifficultes/export/{format}', [NiveauDifficulteController::class, 'export'])
             ->where('format', 'csv|xlsx')
             ->name('niveauDifficultes.export');
+
         });
 
         Route::post('niveauDifficultes/data-calcul', [NiveauDifficulteController::class, 'dataCalcul'])->name('niveauDifficultes.dataCalcul');
