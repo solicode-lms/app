@@ -36,7 +36,7 @@ class BaseCompetence extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'code', 'nom', 'module_id', 'description'
+        'code', 'mini_code', 'nom', 'module_id', 'description'
     ];
     public $manyToMany = [
         'technologies'

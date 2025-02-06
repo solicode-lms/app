@@ -39,6 +39,7 @@ class BaseCompetenceImport implements ToModel, WithHeadingRow
         // Crée un nouvel enregistrement à partir des données importées
         return new Competence([
             'code' => $row['code'],
+            'mini_code' => $row['mini_code'],
             'nom' => $row['nom'],
             'module_id' => $row['module_id'],
             'reference' => $row['reference'],

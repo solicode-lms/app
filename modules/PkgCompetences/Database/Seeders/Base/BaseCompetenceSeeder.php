@@ -68,6 +68,7 @@ class BaseCompetenceSeeder extends Seeder
             if ($row) {
                 $competenceService->create([
                     "code" => $row["code"] ?? null ,
+                    "mini_code" => $row["mini_code"] ?? null ,
                     "nom" => $row["nom"] ?? null ,
                     "module_id" => $row["module_id"] ?? null ,
                     "description" => $row["description"] ?? null 

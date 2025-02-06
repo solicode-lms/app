@@ -28,6 +28,7 @@ class BaseCompetenceRequest extends FormRequest
     {
         return [
             'code' => 'required|string|max:255',
+            'mini_code' => 'nullable|string|max:255',
             'nom' => 'required|string|max:255',
             'module_id' => 'required',
             'technologies' => 'nullable|array',
@@ -45,6 +46,8 @@ class BaseCompetenceRequest extends FormRequest
         return [
             'code.required' => __('validation.required', ['attribute' => __('PkgCompetences::Competence.code')]),
             'code.max' => __('validation.codeMax'),
+            'mini_code.required' => __('validation.required', ['attribute' => __('PkgCompetences::Competence.mini_code')]),
+            'mini_code.max' => __('validation.mini_codeMax'),
             'nom.required' => __('validation.required', ['attribute' => __('PkgCompetences::Competence.nom')]),
             'nom.max' => __('validation.nomMax'),
             'module_id.required' => __('validation.required', ['attribute' => __('PkgCompetences::Competence.module_id')]),

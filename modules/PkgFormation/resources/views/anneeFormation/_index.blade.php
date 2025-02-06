@@ -6,6 +6,7 @@
     window.crudModalManagersConfig.push({
         edit_has_many: {{ !isset($edit_has_many)? 'true' :  ($edit_has_many ? "true": "false") }},
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
+        editOnFullScreen : false,
         entity_name: 'anneeFormation',
         filterFormSelector: '#anneeFormation-crud-filter-form',
         crudSelector: '#anneeFormation-crud',
