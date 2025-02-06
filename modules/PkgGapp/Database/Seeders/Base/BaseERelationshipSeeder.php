@@ -41,33 +41,52 @@ class BaseERelationshipSeeder extends Seeder
 
     public function seedFromCsv(): void
     {
-        $csvFile = fopen(base_path("modules/PkgGapp/Database/data/eRelationships.csv"), "r");
-        $firstline = true;
+        $filePath = base_path("modules/PkgGapp/Database/data/eRelationships.csv");
+        
+        if (!file_exists($filePath) || filesize($filePath) === 0) {
+            return;
+        }
+
+        $csvFile = fopen($filePath, "r");
+        if (!$csvFile) {
+            return; 
+        }
+
+        // Lire la première ligne pour récupérer les noms des colonnes
+        $headers = fgetcsv($csvFile);
+        if (!$headers) {
+            fclose($csvFile);
+            return;
+        }
+
         $eRelationshipService = new ERelationshipService();
 
+        // Lire les données restantes en associant chaque valeur à son nom de colonne
         while (($data = fgetcsv($csvFile)) !== false) {
-            if (!$firstline) {
+            $row = array_combine($headers, $data);
+            
+            if ($row) {
                 $eRelationshipService->create([
-                    "name" => $data[0] ,
-                    "type" => $data[1] ,
-                    "source_e_model_id" => $data[2] ,
-                    "target_e_model_id" => $data[3] ,
-                    "cascade_on_delete" => $data[4] ,
-                    "is_cascade" => $data[5] ,
-                    "description" => $data[6] ,
-                    "column_name" => $data[7] ,
-                    "referenced_table" => $data[8] ,
-                    "referenced_column" => $data[9] ,
-                    "through" => $data[10] ,
-                    "with_column" => $data[11] ,
-                    "morph_name" => $data[12] 
+                    "name" => $row["name"] ?? null ,
+                    "type" => $row["type"] ?? null ,
+                    "source_e_model_id" => $row["source_e_model_id"] ?? null ,
+                    "target_e_model_id" => $row["target_e_model_id"] ?? null ,
+                    "cascade_on_delete" => $row["cascade_on_delete"] ?? null ,
+                    "is_cascade" => $row["is_cascade"] ?? null ,
+                    "description" => $row["description"] ?? null ,
+                    "column_name" => $row["column_name"] ?? null ,
+                    "referenced_table" => $row["referenced_table"] ?? null ,
+                    "referenced_column" => $row["referenced_column"] ?? null ,
+                    "through" => $row["through"] ?? null ,
+                    "with_column" => $row["with_column"] ?? null ,
+                    "morph_name" => $row["morph_name"] ?? null 
                 ]);
             }
-            $firstline = false;
         }
 
         fclose($csvFile);
     }
+
 
     private function addDefaultControllerDomainFeatures(): void
     {

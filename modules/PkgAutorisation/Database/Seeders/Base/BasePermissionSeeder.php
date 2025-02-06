@@ -40,23 +40,42 @@ class BasePermissionSeeder extends Seeder
 
     public function seedFromCsv(): void
     {
-        $csvFile = fopen(base_path("modules/PkgAutorisation/Database/data/permissions.csv"), "r");
-        $firstline = true;
+        $filePath = base_path("modules/PkgAutorisation/Database/data/permissions.csv");
+        
+        if (!file_exists($filePath) || filesize($filePath) === 0) {
+            return;
+        }
+
+        $csvFile = fopen($filePath, "r");
+        if (!$csvFile) {
+            return; 
+        }
+
+        // Lire la première ligne pour récupérer les noms des colonnes
+        $headers = fgetcsv($csvFile);
+        if (!$headers) {
+            fclose($csvFile);
+            return;
+        }
+
         $permissionService = new PermissionService();
 
+        // Lire les données restantes en associant chaque valeur à son nom de colonne
         while (($data = fgetcsv($csvFile)) !== false) {
-            if (!$firstline) {
+            $row = array_combine($headers, $data);
+            
+            if ($row) {
                 $permissionService->create([
-                    "name" => $data[0] ,
-                    "guard_name" => $data[1] ,
-                    "controller_id" => $data[2] 
+                    "name" => $row["name"] ?? null ,
+                    "guard_name" => $row["guard_name"] ?? null ,
+                    "controller_id" => $row["controller_id"] ?? null 
                 ]);
             }
-            $firstline = false;
         }
 
         fclose($csvFile);
     }
+
 
     private function addDefaultControllerDomainFeatures(): void
     {

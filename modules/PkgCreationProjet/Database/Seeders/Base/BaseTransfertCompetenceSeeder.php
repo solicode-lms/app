@@ -41,25 +41,44 @@ class BaseTransfertCompetenceSeeder extends Seeder
 
     public function seedFromCsv(): void
     {
-        $csvFile = fopen(base_path("modules/PkgCreationProjet/Database/data/transfertCompetences.csv"), "r");
-        $firstline = true;
+        $filePath = base_path("modules/PkgCreationProjet/Database/data/transfertCompetences.csv");
+        
+        if (!file_exists($filePath) || filesize($filePath) === 0) {
+            return;
+        }
+
+        $csvFile = fopen($filePath, "r");
+        if (!$csvFile) {
+            return; 
+        }
+
+        // Lire la première ligne pour récupérer les noms des colonnes
+        $headers = fgetcsv($csvFile);
+        if (!$headers) {
+            fclose($csvFile);
+            return;
+        }
+
         $transfertCompetenceService = new TransfertCompetenceService();
 
+        // Lire les données restantes en associant chaque valeur à son nom de colonne
         while (($data = fgetcsv($csvFile)) !== false) {
-            if (!$firstline) {
+            $row = array_combine($headers, $data);
+            
+            if ($row) {
                 $transfertCompetenceService->create([
-                    "note" => $data[0] ,
-                    "question" => $data[1] ,
-                    "projet_id" => $data[2] ,
-                    "competence_id" => $data[3] ,
-                    "niveau_difficulte_id" => $data[4] 
+                    "note" => $row["note"] ?? null ,
+                    "question" => $row["question"] ?? null ,
+                    "projet_id" => $row["projet_id"] ?? null ,
+                    "competence_id" => $row["competence_id"] ?? null ,
+                    "niveau_difficulte_id" => $row["niveau_difficulte_id"] ?? null 
                 ]);
             }
-            $firstline = false;
         }
 
         fclose($csvFile);
     }
+
 
     private function addDefaultControllerDomainFeatures(): void
     {

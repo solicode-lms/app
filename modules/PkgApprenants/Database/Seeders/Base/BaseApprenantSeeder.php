@@ -41,38 +41,57 @@ class BaseApprenantSeeder extends Seeder
 
     public function seedFromCsv(): void
     {
-        $csvFile = fopen(base_path("modules/PkgApprenants/Database/data/apprenants.csv"), "r");
-        $firstline = true;
+        $filePath = base_path("modules/PkgApprenants/Database/data/apprenants.csv");
+        
+        if (!file_exists($filePath) || filesize($filePath) === 0) {
+            return;
+        }
+
+        $csvFile = fopen($filePath, "r");
+        if (!$csvFile) {
+            return; 
+        }
+
+        // Lire la première ligne pour récupérer les noms des colonnes
+        $headers = fgetcsv($csvFile);
+        if (!$headers) {
+            fclose($csvFile);
+            return;
+        }
+
         $apprenantService = new ApprenantService();
 
+        // Lire les données restantes en associant chaque valeur à son nom de colonne
         while (($data = fgetcsv($csvFile)) !== false) {
-            if (!$firstline) {
+            $row = array_combine($headers, $data);
+            
+            if ($row) {
                 $apprenantService->create([
-                    "nom" => $data[0] ,
-                    "prenom" => $data[1] ,
-                    "prenom_arab" => $data[2] ,
-                    "nom_arab" => $data[3] ,
-                    "tele_num" => $data[4] ,
-                    "profile_image" => $data[5] ,
-                    "matricule" => $data[6] ,
-                    "sexe" => $data[7] ,
-                    "actif" => $data[8] ,
-                    "diplome" => $data[9] ,
-                    "date_naissance" => $data[10] ,
-                    "date_inscription" => $data[11] ,
-                    "lieu_naissance" => $data[12] ,
-                    "cin" => $data[13] ,
-                    "adresse" => $data[14] ,
-                    "niveaux_scolaire_id" => $data[15] ,
-                    "nationalite_id" => $data[16] ,
-                    "user_id" => $data[17] 
+                    "nom" => $row["nom"] ?? null ,
+                    "prenom" => $row["prenom"] ?? null ,
+                    "prenom_arab" => $row["prenom_arab"] ?? null ,
+                    "nom_arab" => $row["nom_arab"] ?? null ,
+                    "tele_num" => $row["tele_num"] ?? null ,
+                    "profile_image" => $row["profile_image"] ?? null ,
+                    "matricule" => $row["matricule"] ?? null ,
+                    "sexe" => $row["sexe"] ?? null ,
+                    "actif" => $row["actif"] ?? null ,
+                    "diplome" => $row["diplome"] ?? null ,
+                    "date_naissance" => $row["date_naissance"] ?? null ,
+                    "date_inscription" => $row["date_inscription"] ?? null ,
+                    "lieu_naissance" => $row["lieu_naissance"] ?? null ,
+                    "cin" => $row["cin"] ?? null ,
+                    "adresse" => $row["adresse"] ?? null ,
+                    "niveaux_scolaire_id" => $row["niveaux_scolaire_id"] ?? null ,
+                    "nationalite_id" => $row["nationalite_id"] ?? null ,
+                    "user_id" => $row["user_id"] ?? null 
                 ]);
             }
-            $firstline = false;
         }
 
         fclose($csvFile);
     }
+
 
     private function addDefaultControllerDomainFeatures(): void
     {

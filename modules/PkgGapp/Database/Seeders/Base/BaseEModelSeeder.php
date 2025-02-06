@@ -41,26 +41,45 @@ class BaseEModelSeeder extends Seeder
 
     public function seedFromCsv(): void
     {
-        $csvFile = fopen(base_path("modules/PkgGapp/Database/data/eModels.csv"), "r");
-        $firstline = true;
+        $filePath = base_path("modules/PkgGapp/Database/data/eModels.csv");
+        
+        if (!file_exists($filePath) || filesize($filePath) === 0) {
+            return;
+        }
+
+        $csvFile = fopen($filePath, "r");
+        if (!$csvFile) {
+            return; 
+        }
+
+        // Lire la première ligne pour récupérer les noms des colonnes
+        $headers = fgetcsv($csvFile);
+        if (!$headers) {
+            fclose($csvFile);
+            return;
+        }
+
         $eModelService = new EModelService();
 
+        // Lire les données restantes en associant chaque valeur à son nom de colonne
         while (($data = fgetcsv($csvFile)) !== false) {
-            if (!$firstline) {
+            $row = array_combine($headers, $data);
+            
+            if ($row) {
                 $eModelService->create([
-                    "name" => $data[0] ,
-                    "table_name" => $data[1] ,
-                    "icon" => $data[2] ,
-                    "is_pivot_table" => $data[3] ,
-                    "description" => $data[4] ,
-                    "e_package_id" => $data[5] 
+                    "name" => $row["name"] ?? null ,
+                    "table_name" => $row["table_name"] ?? null ,
+                    "icon" => $row["icon"] ?? null ,
+                    "is_pivot_table" => $row["is_pivot_table"] ?? null ,
+                    "description" => $row["description"] ?? null ,
+                    "e_package_id" => $row["e_package_id"] ?? null 
                 ]);
             }
-            $firstline = false;
         }
 
         fclose($csvFile);
     }
+
 
     private function addDefaultControllerDomainFeatures(): void
     {

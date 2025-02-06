@@ -39,27 +39,46 @@ class BaseSysModuleSeeder extends Seeder
 
     public function seedFromCsv(): void
     {
-        $csvFile = fopen(base_path("modules/Core/Database/data/sysModules.csv"), "r");
-        $firstline = true;
+        $filePath = base_path("modules/Core/Database/data/sysModules.csv");
+        
+        if (!file_exists($filePath) || filesize($filePath) === 0) {
+            return;
+        }
+
+        $csvFile = fopen($filePath, "r");
+        if (!$csvFile) {
+            return; 
+        }
+
+        // Lire la première ligne pour récupérer les noms des colonnes
+        $headers = fgetcsv($csvFile);
+        if (!$headers) {
+            fclose($csvFile);
+            return;
+        }
+
         $sysModuleService = new SysModuleService();
 
+        // Lire les données restantes en associant chaque valeur à son nom de colonne
         while (($data = fgetcsv($csvFile)) !== false) {
-            if (!$firstline) {
+            $row = array_combine($headers, $data);
+            
+            if ($row) {
                 $sysModuleService->create([
-                    "name" => $data[0] ,
-                    "slug" => $data[1] ,
-                    "description" => $data[2] ,
-                    "is_active" => $data[3] ,
-                    "order" => $data[4] ,
-                    "version" => $data[5] ,
-                    "sys_color_id" => $data[6] 
+                    "name" => $row["name"] ?? null ,
+                    "slug" => $row["slug"] ?? null ,
+                    "description" => $row["description"] ?? null ,
+                    "is_active" => $row["is_active"] ?? null ,
+                    "order" => $row["order"] ?? null ,
+                    "version" => $row["version"] ?? null ,
+                    "sys_color_id" => $row["sys_color_id"] ?? null 
                 ]);
             }
-            $firstline = false;
         }
 
         fclose($csvFile);
     }
+
 
     private function addDefaultControllerDomainFeatures(): void
     {

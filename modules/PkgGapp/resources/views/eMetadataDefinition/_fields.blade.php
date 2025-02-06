@@ -103,15 +103,15 @@
                 {{ ucfirst(__('PkgGapp::eMetadataDefinition.description')) }}
                 
             </label>
-            <input
+            <textarea rows="" cols=""
                 name="description"
-                type="input"
-                class="form-control"
+                class="form-control richText"
                 
                 
                 id="description"
-                placeholder="{{ __('PkgGapp::eMetadataDefinition.description') }}"
-                value="{{ $itemEMetadataDefinition ? $itemEMetadataDefinition->description : old('description') }}">
+                placeholder="{{ __('PkgGapp::eMetadataDefinition.description') }}">
+                {{ $itemEMetadataDefinition ? $itemEMetadataDefinition->description : old('description') }}
+            </textarea>
             @error('description')
                 <div class="text-danger">{{ $message }}</div>
             @enderror

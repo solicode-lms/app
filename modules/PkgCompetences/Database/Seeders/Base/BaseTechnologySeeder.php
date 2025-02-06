@@ -41,23 +41,42 @@ class BaseTechnologySeeder extends Seeder
 
     public function seedFromCsv(): void
     {
-        $csvFile = fopen(base_path("modules/PkgCompetences/Database/data/technologies.csv"), "r");
-        $firstline = true;
+        $filePath = base_path("modules/PkgCompetences/Database/data/technologies.csv");
+        
+        if (!file_exists($filePath) || filesize($filePath) === 0) {
+            return;
+        }
+
+        $csvFile = fopen($filePath, "r");
+        if (!$csvFile) {
+            return; 
+        }
+
+        // Lire la première ligne pour récupérer les noms des colonnes
+        $headers = fgetcsv($csvFile);
+        if (!$headers) {
+            fclose($csvFile);
+            return;
+        }
+
         $technologyService = new TechnologyService();
 
+        // Lire les données restantes en associant chaque valeur à son nom de colonne
         while (($data = fgetcsv($csvFile)) !== false) {
-            if (!$firstline) {
+            $row = array_combine($headers, $data);
+            
+            if ($row) {
                 $technologyService->create([
-                    "nom" => $data[0] ,
-                    "category_technology_id" => $data[1] ,
-                    "description" => $data[2] 
+                    "nom" => $row["nom"] ?? null ,
+                    "category_technology_id" => $row["category_technology_id"] ?? null ,
+                    "description" => $row["description"] ?? null 
                 ]);
             }
-            $firstline = false;
         }
 
         fclose($csvFile);
     }
+
 
     private function addDefaultControllerDomainFeatures(): void
     {

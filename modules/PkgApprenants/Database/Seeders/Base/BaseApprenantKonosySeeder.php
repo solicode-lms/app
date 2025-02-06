@@ -41,39 +41,58 @@ class BaseApprenantKonosySeeder extends Seeder
 
     public function seedFromCsv(): void
     {
-        $csvFile = fopen(base_path("modules/PkgApprenants/Database/data/apprenantKonosies.csv"), "r");
-        $firstline = true;
+        $filePath = base_path("modules/PkgApprenants/Database/data/apprenantKonosies.csv");
+        
+        if (!file_exists($filePath) || filesize($filePath) === 0) {
+            return;
+        }
+
+        $csvFile = fopen($filePath, "r");
+        if (!$csvFile) {
+            return; 
+        }
+
+        // Lire la première ligne pour récupérer les noms des colonnes
+        $headers = fgetcsv($csvFile);
+        if (!$headers) {
+            fclose($csvFile);
+            return;
+        }
+
         $apprenantKonosyService = new ApprenantKonosyService();
 
+        // Lire les données restantes en associant chaque valeur à son nom de colonne
         while (($data = fgetcsv($csvFile)) !== false) {
-            if (!$firstline) {
+            $row = array_combine($headers, $data);
+            
+            if ($row) {
                 $apprenantKonosyService->create([
-                    "MatriculeEtudiant" => $data[0] ,
-                    "Nom" => $data[1] ,
-                    "Prenom" => $data[2] ,
-                    "Sexe" => $data[3] ,
-                    "EtudiantActif" => $data[4] ,
-                    "Diplome" => $data[5] ,
-                    "Principale" => $data[6] ,
-                    "LibelleLong" => $data[7] ,
-                    "CodeDiplome" => $data[8] ,
-                    "DateNaissance" => $data[9] ,
-                    "DateInscription" => $data[10] ,
-                    "LieuNaissance" => $data[11] ,
-                    "CIN" => $data[12] ,
-                    "NTelephone" => $data[13] ,
-                    "Adresse" => $data[14] ,
-                    "Nationalite" => $data[15] ,
-                    "Nom_Arabe" => $data[16] ,
-                    "Prenom_Arabe" => $data[17] ,
-                    "NiveauScolaire" => $data[18] 
+                    "MatriculeEtudiant" => $row["MatriculeEtudiant"] ?? null ,
+                    "Nom" => $row["Nom"] ?? null ,
+                    "Prenom" => $row["Prenom"] ?? null ,
+                    "Sexe" => $row["Sexe"] ?? null ,
+                    "EtudiantActif" => $row["EtudiantActif"] ?? null ,
+                    "Diplome" => $row["Diplome"] ?? null ,
+                    "Principale" => $row["Principale"] ?? null ,
+                    "LibelleLong" => $row["LibelleLong"] ?? null ,
+                    "CodeDiplome" => $row["CodeDiplome"] ?? null ,
+                    "DateNaissance" => $row["DateNaissance"] ?? null ,
+                    "DateInscription" => $row["DateInscription"] ?? null ,
+                    "LieuNaissance" => $row["LieuNaissance"] ?? null ,
+                    "CIN" => $row["CIN"] ?? null ,
+                    "NTelephone" => $row["NTelephone"] ?? null ,
+                    "Adresse" => $row["Adresse"] ?? null ,
+                    "Nationalite" => $row["Nationalite"] ?? null ,
+                    "Nom_Arabe" => $row["Nom_Arabe"] ?? null ,
+                    "Prenom_Arabe" => $row["Prenom_Arabe"] ?? null ,
+                    "NiveauScolaire" => $row["NiveauScolaire"] ?? null 
                 ]);
             }
-            $firstline = false;
         }
 
         fclose($csvFile);
     }
+
 
     private function addDefaultControllerDomainFeatures(): void
     {

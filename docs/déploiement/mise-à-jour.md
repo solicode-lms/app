@@ -15,7 +15,7 @@ sudo php artisan cache:clear
 ## Validation des noms des classes
 
 ````bash
-composer dump-autoload
+sudo composer dump-autoload
 ````
 
 
