@@ -27,10 +27,10 @@ class BaseGroupeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'code' => 'required|string|max:255',
             'nom' => 'nullable|string|max:255',
             'description' => 'nullable|string',
             'filiere_id' => 'nullable',
+            'code' => 'required|string|max:255',
             'annee_formation_id' => 'nullable',
             'apprenants' => 'nullable|array',
             'formateurs' => 'nullable|array'
@@ -45,12 +45,12 @@ class BaseGroupeRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'code.required' => __('validation.required', ['attribute' => __('PkgApprenants::Groupe.code')]),
-            'code.max' => __('validation.codeMax'),
             'nom.required' => __('validation.required', ['attribute' => __('PkgApprenants::Groupe.nom')]),
             'nom.max' => __('validation.nomMax'),
             'description.required' => __('validation.required', ['attribute' => __('PkgApprenants::Groupe.description')]),
             'filiere_id.required' => __('validation.required', ['attribute' => __('PkgApprenants::Groupe.filiere_id')]),
+            'code.required' => __('validation.required', ['attribute' => __('PkgApprenants::Groupe.code')]),
+            'code.max' => __('validation.codeMax'),
             'annee_formation_id.required' => __('validation.required', ['attribute' => __('PkgApprenants::Groupe.annee_formation_id')]),
             'apprenants.required' => __('validation.required', ['attribute' => __('PkgApprenants::Groupe.apprenants')]),
             'apprenants.array' => __('validation.array', ['attribute' => __('PkgApprenants::Groupe.apprenants')]),

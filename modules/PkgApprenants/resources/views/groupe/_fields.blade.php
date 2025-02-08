@@ -11,28 +11,6 @@
     <div class="card-body">
         
         <div class="form-group">
-            <label for="code">
-                {{ ucfirst(__('PkgApprenants::groupe.code')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
-                name="code"
-                type="input"
-                class="form-control"
-                required
-                
-                id="code"
-                placeholder="{{ __('PkgApprenants::groupe.code') }}"
-                value="{{ $itemGroupe ? $itemGroupe->code : old('code') }}">
-            @error('code')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
-
-        
-        <div class="form-group">
             <label for="nom">
                 {{ ucfirst(__('PkgApprenants::groupe.nom')) }}
                 
@@ -97,6 +75,28 @@
             @enderror
     </div>
 
+
+        
+        <div class="form-group">
+            <label for="code">
+                {{ ucfirst(__('PkgApprenants::groupe.code')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <input
+                name="code"
+                type="input"
+                class="form-control"
+                required
+                
+                id="code"
+                placeholder="{{ __('PkgApprenants::groupe.code') }}"
+                value="{{ $itemGroupe ? $itemGroupe->code : old('code') }}">
+            @error('code')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
 
         
         

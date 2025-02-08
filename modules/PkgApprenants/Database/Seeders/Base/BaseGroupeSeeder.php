@@ -67,10 +67,10 @@ class BaseGroupeSeeder extends Seeder
             
             if ($row) {
                 $groupeService->create([
-                    "code" => $row["code"] ?? null ,
                     "nom" => $row["nom"] ?? null ,
                     "description" => $row["description"] ?? null ,
                     "filiere_id" => $row["filiere_id"] ?? null ,
+                    "code" => $row["code"] ?? null ,
                     "annee_formation_id" => $row["annee_formation_id"] ?? null 
                 ]);
             }
