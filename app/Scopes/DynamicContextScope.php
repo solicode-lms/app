@@ -35,16 +35,18 @@ class DynamicContextScope implements Scope
             }
         }
 
-        // Vérifier si le modèle a une propriété manyToMany définie
-        if (property_exists($model, 'manyToMany') && is_array($model->manyToMany)) {
-            foreach ($model->manyToMany as $relation) {
-                $relationKey = $relation . '_id'; // Exemple: formateurs_id ou apprenants_id
+         // Vérifier si le modèle a une propriété manyToMany définie
+         if (property_exists($model, 'manyToMany') && is_array($model->manyToMany)) {
+            foreach ($model->manyToMany as $relationInfo) {
+                $relationName = $relationInfo['relation']; // ex: apprenants, formateurs
+                $foreignKey = $relationInfo['foreign_key']; // ex: apprenant_id, formateur_id
 
-                if (isset($contextVariables[$relationKey]) && !is_null($contextVariables[$relationKey])) {
-                    $relationId = $contextVariables[$relationKey];
+                // Vérifier si une clé correspondant à la relation existe dans le contexte
+                if (isset($contextVariables[$foreignKey]) && !is_null($contextVariables[$foreignKey])) {
+                    $relationId = $contextVariables[$foreignKey];
 
                     // Appliquer whereHas() dynamiquement
-                    $builder->whereHas($relation, function ($query) use ($relationId) {
+                    $builder->whereHas($relationName, function ($query) use ($relationId) {
                         $query->where('id', $relationId);
                     });
                 }

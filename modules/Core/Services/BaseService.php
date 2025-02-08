@@ -279,7 +279,15 @@ abstract class BaseService implements ServiceInterface
 
         // Gérer les relations ManyToMany sans les enregistrer en base
         if (property_exists($item, 'manyToMany')) {
-            foreach ($item->manyToMany as $relation) {
+
+          
+            
+            foreach ($item->manyToMany as $relationConfig) {
+
+                $relation = $relationConfig['relation']; // ex: 'apprenants'
+                $foreignKey = $relationConfig['foreign_key']; // ex: 'apprenant_id'
+
+                
                 if (isset($mergedData[$relation]) && is_array($mergedData[$relation])) {
                     // Stocker temporairement les relations sans affecter la base de données
                     $item->setRelation($relation, collect($mergedData[$relation]));
