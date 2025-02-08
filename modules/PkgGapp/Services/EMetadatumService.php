@@ -62,36 +62,61 @@ class EMetadatumService extends BaseEMetadatumService
         return $metadatum;
     }
 
-   
-
-    /**
-     * Exécute une commande Node.js pour afficher la version dans la console.
-     */
     private function updateGappCrud($model)
     {
-
+        if (!$model) {
+            Log::error("Impossible de générer le CRUD : modèle non défini.");
+            return;
+        }
 
         $modelName = $model->name;
-    
-        $message = "Générateur de code en cours pour : " . $modelName;
+        $message = "Génération du CRUD pour {$modelName} en cours ..";
+        $makeCrudCommand = "gapp make:crud {$modelName} ../";
+        $metaExportCommand = "gapp meta:export ../";
 
-        $nodeCommand = "gapp make:crud {$modelName} ../";
-    
-        // Exécuter la commande et récupérer la sortie
-        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
-            $output = shell_exec($nodeCommand . " 2>&1");
-        } else {
-            $output = shell_exec($nodeCommand . " 2>&1");
-        }
-    
-        $this->pushServiceMessage('info', "Gapp", $message);
+        $this->pushServiceMessage("info","Gapp", $message);
+        // Exécution SYNCHRONE du CRUD
+        $this->executeCommandAsync($makeCrudCommand);
 
-        // Vérifier si la commande a généré une sortie
+        // Exécution ASYNCHRONE de l'export des métadonnées
+        $this->executeCommandAsync($metaExportCommand);
+    }
+   
+
+     /**
+     * Exécute une commande en mode synchrone
+     */
+    private function executeCommandSync($command, $logMessage)
+    {
+        Log::info("Exécution SYNCHRONE : " . $logMessage);
+
+        $output = (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') 
+            ? shell_exec($command . " 2>&1") 
+            : shell_exec($command . " 2>&1");
+
         if (!empty($output)) {
-            Log::info("Sortie de la commande Node.js :\n" . trim($output));
-          
+            Log::info("Sortie de la commande :\n" . trim($output));
         } else {
-             $this->pushServiceMessage("error", "Gapp", "La commande Node.js n'a retourné aucune sortie.");
+            Log::error("La commande n'a retourné aucune sortie : " . $command);
         }
     }
+
+    /**
+     * Exécute une commande en mode asynchrone
+     */
+    private function executeCommandAsync($command)
+    {
+        Log::info("Exécution ASYNCHRONE de la commande : " . $command);
+
+        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+            pclose(popen("start /B " . $command, "r"));
+        } else {
+            shell_exec($command . " > /dev/null 2>&1 &");
+        }
+    }
+
+    /**
+     * Met à jour le CRUD et lance l'export des métadonnées
+     */
+
 }
