@@ -29,14 +29,16 @@ class AdminController extends AppController
         // Exemple : Exclure certaines méthodes
         // $this->middleware('auth')->except(['help']);
 
-         // Middleware appliqué à toutes les méthodes
-         $this->middleware(CheckDynamicPermission::class);
+        // Middleware appliqué à toutes les méthodes
+        $this->middleware(CheckDynamicPermission::class);
+
+        // SessionState doit être charger avant ContextState
+        $this->middleware(SessionStateMiddleware::class);
 
         // Middleware appliqué à toutes les méthodes
         $this->middleware(ContextStateMiddleware::class);
 
-        // Middleware appliqué à toutes les méthodes
-        $this->middleware(SessionStateMiddleware::class);
+
 
         // Scrop management
         $this->contextState = app(ContextState::class);

@@ -34,5 +34,21 @@ class DynamicContextScope implements Scope
                 $builder->where($key, $value);
             }
         }
+
+        // Vérifier si le modèle a une propriété manyToMany définie
+        if (property_exists($model, 'manyToMany') && is_array($model->manyToMany)) {
+            foreach ($model->manyToMany as $relation) {
+                $relationKey = $relation . '_id'; // Exemple: formateurs_id ou apprenants_id
+
+                if (isset($contextVariables[$relationKey]) && !is_null($contextVariables[$relationKey])) {
+                    $relationId = $contextVariables[$relationKey];
+
+                    // Appliquer whereHas() dynamiquement
+                    $builder->whereHas($relation, function ($query) use ($relationId) {
+                        $query->where('id', $relationId);
+                    });
+                }
+            }
+        }
     }
 }
