@@ -6,14 +6,14 @@ export default class ConfigHelper {
      * Constructeur de la classe ConfigHelper.
      * @param {Object} config - Configuration des opérations CRUD.
      */
-    constructor(config, contextState, sessionState) {
+    constructor(config) {
 
-        this.isDebug = false;
+        this.isDebug = true;
         this.isDebugInfo = true;
       
 
-        this.contextStateService = new ContextStateService(contextState);
-        this.sessionStatService = new SessionStateService(sessionState);
+        this.contextStateService = new ContextStateService();
+        this.sessionStatService = new SessionStateService();
         
         this.entity_name = config.entity_name;
         this.formSelector = config.formSelector;
@@ -24,6 +24,10 @@ export default class ConfigHelper {
         this.editTitle = config.edit_title;
     }
 
+    init(){
+        this.contextStateService.init();
+        this.sessionStatService.init();
+    }
      debugInfo(message){
         if( this.isDebugInfo){
             console.log(`[DEBUG] ${message}`);

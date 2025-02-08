@@ -31,7 +31,38 @@ class ContextState  implements JsonSerializable
     public function set(string $key, $value)
     {
         $this->variables[$key] = $value;
-}
+    }
+
+    
+    public function setGlobalContext(string $key, $value)
+    {
+        $key =  "__" . "global" ."__" . $key ;
+        $this->variables[$key] = $value;
+    }
+
+    public function setModelContext(string $modelName, string $key, $value)
+    {
+        $key = $modelName . "__" . "model" ."__" . $key ;
+        $this->variables[$key] = $value;
+    }
+
+    public function setFormContext(string $modelName,string $key, $value)
+    {
+        $key = $modelName . "__" . "form" ."__" . $key ;
+        $this->variables[$key] = $value;
+    }
+    public function setFilterContext(string $modelName,string $key, $value)
+    {
+        $key = $modelName . "__" . "filter" ."__" . $key ;
+        $this->variables[$key] = $value;
+    }
+
+    public function setTableContext(string $modelName,string $key, $value)
+    {
+        $key = $modelName . "__" . "table" ."__" . $key ;
+        $this->variables[$key] = $value;
+    }
+
 
     /**
      * Récupérer une variable.
@@ -42,6 +73,21 @@ class ContextState  implements JsonSerializable
      */
     public function get(string $key, $default = null)
     {
+        return $this->variables[$key] ?? $default;
+    }
+    public function getModel(string $modelName,string $key, $default = null)
+    {
+        $key = $modelName . "__" . "model" ."__" . $key ;
+        return $this->variables[$key] ?? $default;
+    }
+    public function getModelForm(string $modelName,string $key, $default = null)
+    {
+        $key = $modelName . "__" . "form" ."__" . $key ;
+        return $this->variables[$key] ?? $default;
+    }
+    public function getModelFilter(string $modelName,string $key, $default = null)
+    { 
+        $key = $modelName . "__" . "filter" ."__" . $key ;
         return $this->variables[$key] ?? $default;
     }
 
@@ -55,6 +101,41 @@ class ContextState  implements JsonSerializable
         return $this->variables;
     }
 
+
+    public function getFormVariables(string $modelName): array
+    {
+        return $this->extractVariables($modelName, ['model', 'form']);
+    }
+
+    public function getTableVariables(string $modelName): array
+    {
+        return $this->extractVariables($modelName, ['table']);
+    }
+
+    public function getFilterVariables(string $modelName): array
+    {
+        return $this->extractVariables($modelName, ['filter']);
+    }
+
+    private function extractVariables(string $modelName, array $types): array
+    {
+        $variables = [];
+
+        foreach ($this->variables as $key => $value) {
+            foreach ($types as $type) {
+                if (str_contains($key, "{$modelName}__{$type}__") || str_contains($key, '__global__')) {
+                    // Nettoyer la clé en supprimant le préfixe
+                    $cleanKey = preg_replace("/^({$modelName}__{$type}__|__global__)/", '', $key);
+                    $variables[$cleanKey] = $value;
+                }
+            }
+        }
+
+        return $variables;
+    }
+
+
+
     /**
      * Lire les valeurs de la requête et de la route avec un préfixe spécifique,
      * puis les stocker dans le contexte.
@@ -63,21 +144,40 @@ class ContextState  implements JsonSerializable
      * @param string $prefix - Préfixe des clés à extraire (par exemple, "context_").
      * @return void
      */
-    public function readFromRequest(Request $request, string $prefix = 'context_')
+    public function readFromRequest(Request $request)
     {
         // Fusionner les données de la requête et de la route
         $allParams = array_merge($request->all(), $request->route() ? $request->route()->parameters() : []);
-
+        
+        $globalVariables = [];
+        $contextualVariables = [];
+    
         // Parcourir tous les paramètres
         foreach ($allParams as $key => $value) {
-            // Vérifier si la clé commence par le préfixe
-            if (str_starts_with($key, $prefix)) {
-                // Supprimer le préfixe avant de stocker dans le contexte
-                $cleanKey = substr($key, strlen($prefix));
-                $this->set($cleanKey, $value);
+            if (
+                str_contains($key, '__form__') 
+                || str_contains($key, '__filter__') 
+                || str_contains($key, '__table__')
+                || str_contains($key, '__model__')
+                || str_contains($key, '__global__')
+                ) 
+                {
+                // Stocker directement les variables contextuelles (form, filter, table)
+                $contextualVariables[$key] = $value;
             }
         }
+    
+        // Ajouter les variables globales au contexte
+        foreach ($globalVariables as $key => $value) {
+            $this->set($key, $value);
+        }
+    
+        // Ajouter les variables contextuelles au contexte
+        foreach ($contextualVariables as $key => $value) {
+            $this->set($key, $value);
+        }
     }
+    
 
    
 

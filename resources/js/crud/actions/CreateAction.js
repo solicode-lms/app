@@ -7,11 +7,8 @@ export class CreateAction extends Action {
 
     constructor(config, tableUI) {
         super(config);
-        this.config = config;
-        
+        this.config = config;  
         this.tableUI = tableUI;
-
-        
         this.SuscesMessage = 'Nouvelle entité ajoutée avec succès.';
         this.createUrl = this.appendParamsToUrl(
             this.config.createUrl,
@@ -36,6 +33,7 @@ export class CreateAction extends Action {
                 // Injecter le contenu dans le modal et afficher le formulaire
                 this.tableUI.indexUI.modalUI.showContent(html);
                 this.executeScripts(html);
+                this.config.init();
                 this.tableUI.indexUI.formUI.init(() => this.submitEntity());
             })
             .fail((xhr) => {

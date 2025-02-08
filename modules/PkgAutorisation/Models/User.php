@@ -83,12 +83,30 @@ class User extends Authenticatable
         $contextUsers['annee_formation_id'] = $sessionState->get("annee_formation_id");        
         $formateur = $this->formateur;
     
-        if ($formateur) {
-            $contextUsers['formateur_id'] = $formateur->id;
-        }
+        // il doit être ajouter seulement si la gestion de l'entity is OwnedByUser
+        // if ($formateur) {
+        //     $contextUsers['formateur_id'] = $formateur->id;
+        // }
     
         return $contextUsers;
     }
+
+    // public function getUsersSessionContext()
+    // {
+    //     $contextUsers = [];
+
+
+    //     $sessionState = app(SessionState::class);
+    //     $contextUsers['annee_formation_id'] = $sessionState->get("annee_formation_id");        
+    //     $formateur = $this->formateur;
+    
+    //     // il doit être ajouter seulement si la gestion de l'entity is OwnedByUser
+    //     // if ($formateur) {
+    //     //     $contextUsers['formateur_id'] = $formateur->id;
+    //     // }
+    
+    //     return $contextUsers;
+    // }
     
 
     // TODO : ajouter ce code dans Gapp, pour une relation ManyToManyPolymorphique

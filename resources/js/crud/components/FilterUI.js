@@ -3,6 +3,7 @@ import EventUtil from './../utils/EventUtil';
 
 export class FilterUI {
 
+
     constructor(config, indexUI) {
         this.config = config;
         this.indexUI = indexUI;
@@ -17,8 +18,6 @@ export class FilterUI {
         this.adapterPourContext(); // Masquer les filtres dynamiquement selon le contexte
         this.initializeFilterResetHandler();
     }
-
-
 
 
     /**
@@ -47,9 +46,17 @@ export class FilterUI {
     getFormDataAsFilterContext(){
         const data = {};
         Object.entries(this.getFormData()).forEach(([key, value]) => {
-            data[`filter_${key}`] = value;
+            data[`${this.config.entity_name}__filter__${key}`] = value;
         });
         return data;
+    }
+
+    getUrlParams() {
+        const prefixedContext = {};
+        Object.entries(this. getFormData()).forEach(([key, value]) => {
+            prefixedContext[`${key}`] = value;
+        });
+        return new URLSearchParams(prefixedContext).toString();
     }
 
     /**
@@ -66,6 +73,11 @@ export class FilterUI {
     
         // Charger les entités avec les paramètres
         this.indexUI.tableUI.entityLoader.loadEntities(page, formData);
+
+        // TODO 
+        // Update Context : ajouter ou supprimer les filtre de contexte pour adapter le formulaire 
+        // Création au filtre, c'est appliquer les valeurs de filtre pour les valeurs de formulaire
+        // Il faut gérer l'insertion et la suppression
     }
 
     /**
@@ -96,19 +108,10 @@ export class FilterUI {
      */
     adapterPourContext() {
 
-        const data_clean = {}
-        const data = this.config.contextStateService.getVariables();
 
+        const data = this.config.contextStateService.getFilterVariables();
 
-        // Delete filter prifix from context variables
-        Object.entries(data).forEach(([key, value]) => {
-            key =  key.replace("filter_" , "");
-            data_clean[key] =  value;
-        });
-
-         
-      
-        Object.keys(data_clean).forEach((key) => {
+        Object.keys(data).forEach((key) => {
             const filterElement = document.querySelector(`${this.config.filterFormSelector} #${key}`);
             if (filterElement) {
                 if (this.config.isDebug) {

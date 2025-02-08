@@ -6,6 +6,7 @@ use App\Http\Middleware\CheckDynamicPermission;
 use App\Http\Middleware\ContextStateMiddleware;
 use App\Http\Middleware\SessionStateMiddleware;
 use Modules\Core\Services\ContextState;
+use Modules\Core\Services\SessionState;
 
 /**
  * AdminController est responsable de la gestion des fonctionnalités liées aux administrateurs.
@@ -14,6 +15,7 @@ use Modules\Core\Services\ContextState;
 class AdminController extends AppController
 {
     protected $contextState;
+    protected $sessionState;
     
     /**
      * Constructeur du contrôleur.
@@ -42,6 +44,7 @@ class AdminController extends AppController
 
         // Scrop management
         $this->contextState = app(ContextState::class);
+        $this->sessionState = app(SessionState::class);
     }
 
     // /**

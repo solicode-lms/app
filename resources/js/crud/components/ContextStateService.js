@@ -2,16 +2,62 @@ export class ContextStateService {
     /**
      * Constructeur pour initialiser ContextStateService.
      * @param {Object} initialState - L'état initial du contexte.
-     * @param {String} prefix - Préfixe pour les paramètres.
      */
-    constructor(contextState = {}, prefix = 'context_') {
-        this.contextState = contextState;
-        this.prefix = prefix; // Préfixe pour les paramètres.
+    constructor() {
+        this.init();
+    }
+
+    init(){
+        this.contextState = window.contextState;
     }
 
     getVariables(){
         return this.contextState.variables;
     }
+    getVariablesByType(type) {
+        const allVariables = this.contextState.variables || {};
+        const filteredVariables = {};
+        const globalVariables = {};
+    
+        Object.entries(allVariables).forEach(([key, value]) => {
+            if (key.includes(`__${type}__`)) {
+                const cleanKey = key.replace(new RegExp(`^.*?__${type}__`), '');
+                filteredVariables[cleanKey] = value;
+            } else if (!key.includes('__form__') && !key.includes('__filter__') && !key.includes('__table__')) {
+                globalVariables[key] = value;
+            }
+        });
+    
+        return { ...globalVariables, ...filteredVariables };
+    }
+    
+    getFormVariables() {
+        return this.getVariablesByType('form');
+    }
+    
+    getTableVariables() {
+        return this.getVariablesByType('table');
+    }
+    
+    getFilterVariables() {
+        return this.getVariablesByType('filter');
+    }
+    
+    getGlobalVariables() {
+        const allVariables = this.contextState.variables || {};
+        const globalVariables = {};
+    
+        Object.entries(allVariables).forEach(([key, value]) => {
+            if (!key.includes('__form__') && !key.includes('__filter__') && !key.includes('__table__')) {
+                globalVariables[key] = value;
+            }
+        });
+    
+        return globalVariables;
+    }
+    
+    
+    
 
    /**
      * Ajoute une variable au contexte d'état.
@@ -55,7 +101,7 @@ export class ContextStateService {
     getContextParams() {
         const prefixedContext = {};
         Object.entries(this.contextState.variables).forEach(([key, value]) => {
-            prefixedContext[`${this.prefix}${key}`] = value;
+            prefixedContext[`${key}`] = value;
         });
         return new URLSearchParams(prefixedContext).toString();
     }
@@ -72,13 +118,8 @@ export class ContextStateService {
 
         // Préparer les paramètres de contexte sous forme de chaîne
         let contextParams;
-        const prefixedContext = {};
-        Object.entries(this.contextState).forEach(([key, value]) => {
-            prefixedContext[`${this.prefix}${key}`] = value;
-        });
-        contextParams = new URLSearchParams(prefixedContext).toString();
+        contextParams = new URLSearchParams(updatedConfig).toString();
     
-
         // Ajouter les paramètres de contexte aux URLs
         Object.keys(updatedConfig).forEach((key) => {
             if (key.toLowerCase().endsWith('url') && typeof updatedConfig[key] === 'string') {

@@ -27,12 +27,9 @@ export class FormUI  {
     constructor(config, indexUI) {
         this.config = config;
         this.indexUI = indexUI;
-
-        this.config = config
         this.formSelector = this.config.formSelector
         this.contextService = this.config.contextStateService;
         this.loader = new LoadingIndicator(this.formSelector);
-
         this.dynamicCalculationTreatment = new DataCalculTreatment(config,this);
     }
 
@@ -42,7 +39,7 @@ export class FormUI  {
     init(submitHandler) {
 
 
-        InitUIManagers.init(false)
+        InitUIManagers.init()
 
         this.handleCancelButton();
         this.handleCardFooter();
@@ -94,7 +91,8 @@ export class FormUI  {
          * Masque les éléments <select> dont l'id correspond à une clé dans le contextState.
          */
     hideSelectsByIdFromContext() {
-        const contextState = this.contextService.getVariables();
+
+        const contextState = this.contextService.getFormVariables();
 
         Object.keys(contextState).forEach((key) => {
             const selectElement = document.querySelector(`${this.config.formSelector} #${key} `);

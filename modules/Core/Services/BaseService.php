@@ -27,6 +27,8 @@ abstract class BaseService implements ServiceInterface
      */
     protected $model;
 
+    protected $modelName;
+
     /**
      * Limite de pagination par défaut.
      *
@@ -48,6 +50,7 @@ abstract class BaseService implements ServiceInterface
      */
     public function __construct(Model $model){
         $this->model = $model;
+        $this->modelName = class_basename($model);
         // Scrop management
         $this->contextState = app(ContextState::class);
     }
@@ -265,7 +268,7 @@ abstract class BaseService implements ServiceInterface
         $item = $this->model::make();
     
         // Récupérer toutes les variables de contexte
-        $contextVariables = $this->contextState->all();
+        $contextVariables = $this->contextState->getFormVariables($this->modelName);
     
         // Fusionner les données ($data a la priorité sur $contextVariables)
         $mergedData = array_merge($contextVariables, $data);
@@ -493,7 +496,10 @@ public function initStats(){
             return;
         }
 
-        foreach ($entity->manyToMany as $relation) {
+        foreach ($entity->manyToMany as $relationConfig) {
+
+            $relation = $relationConfig["relation"];
+
             if (!isset($data[$relation]) || !is_array($data[$relation]) || empty($data[$relation])) {
                 // Si aucune donnée n'est fournie pour la relation, supprimer toutes les relations existantes
                 $entity->{$relation}()->sync([]);

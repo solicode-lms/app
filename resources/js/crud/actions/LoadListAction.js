@@ -3,6 +3,7 @@ import { LoadingIndicator } from '../components/LoadingIndicator';
 import { NotificationHandler } from '../components/NotificationHandler';
 import { BaseAction } from './BaseAction';
 import EventUtil from '../utils/EventUtil';
+import ArrayUtil from './../utils/ArrayUtil';
 
 export class LoadListAction extends BaseAction {
     /**
@@ -15,10 +16,7 @@ export class LoadListAction extends BaseAction {
         
         this.config = config;
         this.tableUI = tableUI;
-        this.indexUrl = this.appendParamsToUrl(
-            config.indexUrl,
-            this.contextService.getContextParams()
-        );
+        this.indexUrl = config.indexUrl;
     }
 
     /**
@@ -35,13 +33,19 @@ export class LoadListAction extends BaseAction {
     
 
 
-        const filter_context_data= this.tableUI.indexUI.filterUI.getFormData();
-        this.contextService.addData(filter_context_data);
+        const filter_data= this.tableUI.indexUI.filterUI.getFormData();
+        const filter_data_params = new URLSearchParams(filter_data).toString();
 
         let indexUrl = this.indexUrl;
         indexUrl = this.appendParamsToUrl(
             indexUrl,
             pageString,
+        );
+
+
+        indexUrl = this.appendParamsToUrl(
+            indexUrl,
+            filter_data_params
         );
         indexUrl = this.appendParamsToUrl(
             indexUrl,

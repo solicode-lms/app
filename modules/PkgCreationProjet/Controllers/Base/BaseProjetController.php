@@ -52,8 +52,16 @@ class BaseProjetController extends AdminController
         return view('PkgCreationProjet::projet.index', compact('projets_data', 'projets_stats', 'projets_filters'));
     }
     public function create() {
+
+
+        // If Model as trait isOwnesByUser ans role is Formateur
+        $this->contextState->setFormContext('Projet','formateur_id', $this->sessionState->get('formateur_id'));
+        
         $itemProjet = $this->projetService->createInstance();
         $formateurs = $this->formateurService->all();
+
+        // TODO
+        // Ajouter formateur_id to context si model isOnwnedByUser
 
 
         if (request()->ajax()) {
@@ -127,7 +135,7 @@ class BaseProjetController extends AdminController
         $formateurs = $this->formateurService->all();
 
         // Il doit être après le chargement de edit form et avant les form hasMany
-        $this->contextState->set('projet_id', $id);
+        $this->contextState->setGlobalContext('projet_id', $id);
 
         $transfertCompetenceService =  new TransfertCompetenceService();
         $transfertCompetences_data =  $itemProjet->transfertCompetences()->paginate(10);
