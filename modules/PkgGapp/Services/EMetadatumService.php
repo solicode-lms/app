@@ -43,12 +43,12 @@ class EMetadatumService extends BaseEMetadatumService
     public function create($data)
     {
         // Appeler la méthode parente pour exécuter l'opération de création
-        $result = parent::create($data);
+        $metadatum = parent::create($data);
 
         // Afficher la version de Node.js dans la console
-        $this->logNodeVersion("Création d'une nouvelle entité avec ID: " . $result->id);
+        $this->updateGappCrud($metadatum->eDataField? $metadatum->eDataField->eModel : $metadatum->eModel);
 
-        return $result;
+        return $metadatum;
     }
 
     /**
@@ -56,13 +56,10 @@ class EMetadatumService extends BaseEMetadatumService
      */
     public function update($id, array $data): ?Model 
     {
-        // Appeler la méthode parente pour exécuter l'opération de mise à jour
-        $result = parent::update($id, $data);
 
-        // Afficher la version de Node.js dans la console
-        $this->logNodeVersion("Mise à jour de l'entité avec ID: " . $id);
-
-        return $result;
+        $metadatum = parent::update($id, $data);
+        $this->updateGappCrud($metadatum->eDataField? $metadatum->eDataField->eModel : $metadatum->eModel);
+        return $metadatum;
     }
 
    
@@ -70,11 +67,14 @@ class EMetadatumService extends BaseEMetadatumService
     /**
      * Exécute une commande Node.js pour afficher la version dans la console.
      */
-    private function logNodeVersion($message)
+    private function updateGappCrud($model)
     {
-        $modelName = "Competence";
+
+
+        $modelName = $model->name;
     
-       
+        $message = "Générateur de code en cours pour : " . $modelName;
+
         $nodeCommand = "gapp make:crud {$modelName} ../";
     
         // Exécuter la commande et récupérer la sortie
@@ -84,10 +84,12 @@ class EMetadatumService extends BaseEMetadatumService
             $output = shell_exec($nodeCommand . " 2>&1");
         }
     
+        $this->pushServiceMessage('info', "Gapp", $message);
+
         // Vérifier si la commande a généré une sortie
         if (!empty($output)) {
             Log::info("Sortie de la commande Node.js :\n" . trim($output));
-            // $this->pushServiceMessage('success', "Gapp", "CRUD pour {$modelName} généré avec succès !" .  trim($output));
+          
         } else {
              $this->pushServiceMessage("error", "Gapp", "La commande Node.js n'a retourné aucune sortie.");
         }
