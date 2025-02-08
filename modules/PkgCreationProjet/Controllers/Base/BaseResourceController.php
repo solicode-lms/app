@@ -7,6 +7,7 @@ use Modules\PkgCreationProjet\Services\ResourceService;
 use Modules\PkgCreationProjet\Services\ProjetService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
+use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgCreationProjet\App\Requests\ResourceRequest;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgCreationProjet\App\Exports\ResourceExport;
@@ -61,13 +62,14 @@ class BaseResourceController extends AdminController
         $resource = $this->resourceService->create($validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 
-            'entity_id' => $resource->id,
-            'message' => 
-             __('Core::msg.addSuccess', [
+             $message = __('Core::msg.addSuccess', [
                 'entityToString' => $resource,
-                'modelName' => __('PkgCreationProjet::resource.singular')])
-            ]);
+                'modelName' => __('PkgCreationProjet::resource.singular')]);
+        
+            return JsonResponseHelper::success(
+             $message,
+             ['entity_id' => $resource->id]
+            );
         }
 
         return redirect()->route('resources.index')->with(
@@ -114,11 +116,14 @@ class BaseResourceController extends AdminController
         $resource = $this->resourceService->update($id, $validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.updateSuccess', [
+             $message = __('Core::msg.updateSuccess', [
                 'entityToString' => $resource,
-                'modelName' =>  __('PkgCreationProjet::resource.singular')])
-            ]);
+                'modelName' =>  __('PkgCreationProjet::resource.singular')]);
+            
+            return JsonResponseHelper::success(
+                $message,
+                ['entity_id' => $resource->id]
+            );
         }
 
         return redirect()->route('resources.index')->with(
@@ -135,11 +140,14 @@ class BaseResourceController extends AdminController
         $resource = $this->resourceService->destroy($id);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.deleteSuccess', [
+            $message = __('Core::msg.deleteSuccess', [
                 'entityToString' => $resource,
-                'modelName' =>  __('PkgCreationProjet::resource.singular')])
-            ]);
+                'modelName' =>  __('PkgCreationProjet::resource.singular')]);
+            
+
+            return JsonResponseHelper::success(
+                $message
+            );
         }
 
         return redirect()->route('resources.index')->with(

@@ -8,6 +8,7 @@ use Modules\Core\Services\SysModuleService;
 use Modules\PkgAutorisation\Services\PermissionService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
+use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\Core\App\Requests\SysControllerRequest;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\Core\App\Exports\SysControllerExport;
@@ -62,13 +63,14 @@ class BaseSysControllerController extends AdminController
         $sysController = $this->sysControllerService->create($validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 
-            'entity_id' => $sysController->id,
-            'message' => 
-             __('Core::msg.addSuccess', [
+             $message = __('Core::msg.addSuccess', [
                 'entityToString' => $sysController,
-                'modelName' => __('Core::sysController.singular')])
-            ]);
+                'modelName' => __('Core::sysController.singular')]);
+        
+            return JsonResponseHelper::success(
+             $message,
+             ['entity_id' => $sysController->id]
+            );
         }
 
         return redirect()->route('sysControllers.edit',['sysController' => $sysController->id])->with(
@@ -125,11 +127,14 @@ class BaseSysControllerController extends AdminController
         $sysController = $this->sysControllerService->update($id, $validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.updateSuccess', [
+             $message = __('Core::msg.updateSuccess', [
                 'entityToString' => $sysController,
-                'modelName' =>  __('Core::sysController.singular')])
-            ]);
+                'modelName' =>  __('Core::sysController.singular')]);
+            
+            return JsonResponseHelper::success(
+                $message,
+                ['entity_id' => $sysController->id]
+            );
         }
 
         return redirect()->route('sysControllers.index')->with(
@@ -146,11 +151,14 @@ class BaseSysControllerController extends AdminController
         $sysController = $this->sysControllerService->destroy($id);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.deleteSuccess', [
+            $message = __('Core::msg.deleteSuccess', [
                 'entityToString' => $sysController,
-                'modelName' =>  __('Core::sysController.singular')])
-            ]);
+                'modelName' =>  __('Core::sysController.singular')]);
+            
+
+            return JsonResponseHelper::success(
+                $message
+            );
         }
 
         return redirect()->route('sysControllers.index')->with(

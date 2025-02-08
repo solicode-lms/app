@@ -9,6 +9,7 @@ use Modules\PkgWidgets\Services\WidgetOperationService;
 use Modules\PkgWidgets\Services\WidgetTypeService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
+use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgWidgets\App\Requests\WidgetRequest;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgWidgets\App\Exports\WidgetExport;
@@ -69,13 +70,14 @@ class BaseWidgetController extends AdminController
         $widget = $this->widgetService->create($validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 
-            'entity_id' => $widget->id,
-            'message' => 
-             __('Core::msg.addSuccess', [
+             $message = __('Core::msg.addSuccess', [
                 'entityToString' => $widget,
-                'modelName' => __('PkgWidgets::widget.singular')])
-            ]);
+                'modelName' => __('PkgWidgets::widget.singular')]);
+        
+            return JsonResponseHelper::success(
+             $message,
+             ['entity_id' => $widget->id]
+            );
         }
 
         return redirect()->route('widgets.index')->with(
@@ -126,11 +128,14 @@ class BaseWidgetController extends AdminController
         $widget = $this->widgetService->update($id, $validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.updateSuccess', [
+             $message = __('Core::msg.updateSuccess', [
                 'entityToString' => $widget,
-                'modelName' =>  __('PkgWidgets::widget.singular')])
-            ]);
+                'modelName' =>  __('PkgWidgets::widget.singular')]);
+            
+            return JsonResponseHelper::success(
+                $message,
+                ['entity_id' => $widget->id]
+            );
         }
 
         return redirect()->route('widgets.index')->with(
@@ -147,11 +152,14 @@ class BaseWidgetController extends AdminController
         $widget = $this->widgetService->destroy($id);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.deleteSuccess', [
+            $message = __('Core::msg.deleteSuccess', [
                 'entityToString' => $widget,
-                'modelName' =>  __('PkgWidgets::widget.singular')])
-            ]);
+                'modelName' =>  __('PkgWidgets::widget.singular')]);
+            
+
+            return JsonResponseHelper::success(
+                $message
+            );
         }
 
         return redirect()->route('widgets.index')->with(

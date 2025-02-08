@@ -8,6 +8,7 @@ use Modules\Core\Services\SysModuleService;
 use Modules\Core\Services\FeatureService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
+use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\Core\App\Requests\FeatureDomainRequest;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\Core\App\Exports\FeatureDomainExport;
@@ -62,13 +63,14 @@ class BaseFeatureDomainController extends AdminController
         $featureDomain = $this->featureDomainService->create($validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 
-            'entity_id' => $featureDomain->id,
-            'message' => 
-             __('Core::msg.addSuccess', [
+             $message = __('Core::msg.addSuccess', [
                 'entityToString' => $featureDomain,
-                'modelName' => __('Core::featureDomain.singular')])
-            ]);
+                'modelName' => __('Core::featureDomain.singular')]);
+        
+            return JsonResponseHelper::success(
+             $message,
+             ['entity_id' => $featureDomain->id]
+            );
         }
 
         return redirect()->route('featureDomains.edit',['featureDomain' => $featureDomain->id])->with(
@@ -125,11 +127,14 @@ class BaseFeatureDomainController extends AdminController
         $featureDomain = $this->featureDomainService->update($id, $validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.updateSuccess', [
+             $message = __('Core::msg.updateSuccess', [
                 'entityToString' => $featureDomain,
-                'modelName' =>  __('Core::featureDomain.singular')])
-            ]);
+                'modelName' =>  __('Core::featureDomain.singular')]);
+            
+            return JsonResponseHelper::success(
+                $message,
+                ['entity_id' => $featureDomain->id]
+            );
         }
 
         return redirect()->route('featureDomains.index')->with(
@@ -146,11 +151,14 @@ class BaseFeatureDomainController extends AdminController
         $featureDomain = $this->featureDomainService->destroy($id);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.deleteSuccess', [
+            $message = __('Core::msg.deleteSuccess', [
                 'entityToString' => $featureDomain,
-                'modelName' =>  __('Core::featureDomain.singular')])
-            ]);
+                'modelName' =>  __('Core::featureDomain.singular')]);
+            
+
+            return JsonResponseHelper::success(
+                $message
+            );
         }
 
         return redirect()->route('featureDomains.index')->with(

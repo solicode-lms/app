@@ -7,6 +7,7 @@ use Modules\PkgCompetences\Services\NiveauDifficulteService;
 use Modules\PkgFormation\Services\FormateurService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
+use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgCompetences\App\Requests\NiveauDifficulteRequest;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgCompetences\App\Exports\NiveauDifficulteExport;
@@ -61,13 +62,14 @@ class BaseNiveauDifficulteController extends AdminController
         $niveauDifficulte = $this->niveauDifficulteService->create($validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 
-            'entity_id' => $niveauDifficulte->id,
-            'message' => 
-             __('Core::msg.addSuccess', [
+             $message = __('Core::msg.addSuccess', [
                 'entityToString' => $niveauDifficulte,
-                'modelName' => __('PkgCompetences::niveauDifficulte.singular')])
-            ]);
+                'modelName' => __('PkgCompetences::niveauDifficulte.singular')]);
+        
+            return JsonResponseHelper::success(
+             $message,
+             ['entity_id' => $niveauDifficulte->id]
+            );
         }
 
         return redirect()->route('niveauDifficultes.index')->with(
@@ -114,11 +116,14 @@ class BaseNiveauDifficulteController extends AdminController
         $niveauDifficulte = $this->niveauDifficulteService->update($id, $validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.updateSuccess', [
+             $message = __('Core::msg.updateSuccess', [
                 'entityToString' => $niveauDifficulte,
-                'modelName' =>  __('PkgCompetences::niveauDifficulte.singular')])
-            ]);
+                'modelName' =>  __('PkgCompetences::niveauDifficulte.singular')]);
+            
+            return JsonResponseHelper::success(
+                $message,
+                ['entity_id' => $niveauDifficulte->id]
+            );
         }
 
         return redirect()->route('niveauDifficultes.index')->with(
@@ -135,11 +140,14 @@ class BaseNiveauDifficulteController extends AdminController
         $niveauDifficulte = $this->niveauDifficulteService->destroy($id);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.deleteSuccess', [
+            $message = __('Core::msg.deleteSuccess', [
                 'entityToString' => $niveauDifficulte,
-                'modelName' =>  __('PkgCompetences::niveauDifficulte.singular')])
-            ]);
+                'modelName' =>  __('PkgCompetences::niveauDifficulte.singular')]);
+            
+
+            return JsonResponseHelper::success(
+                $message
+            );
         }
 
         return redirect()->route('niveauDifficultes.index')->with(

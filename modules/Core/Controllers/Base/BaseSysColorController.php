@@ -8,6 +8,7 @@ use Modules\Core\Services\SysModelService;
 use Modules\Core\Services\SysModuleService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
+use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\Core\App\Requests\SysColorRequest;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\Core\App\Exports\SysColorExport;
@@ -59,13 +60,14 @@ class BaseSysColorController extends AdminController
         $sysColor = $this->sysColorService->create($validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 
-            'entity_id' => $sysColor->id,
-            'message' => 
-             __('Core::msg.addSuccess', [
+             $message = __('Core::msg.addSuccess', [
                 'entityToString' => $sysColor,
-                'modelName' => __('Core::sysColor.singular')])
-            ]);
+                'modelName' => __('Core::sysColor.singular')]);
+        
+            return JsonResponseHelper::success(
+             $message,
+             ['entity_id' => $sysColor->id]
+            );
         }
 
         return redirect()->route('sysColors.edit',['sysColor' => $sysColor->id])->with(
@@ -130,11 +132,14 @@ class BaseSysColorController extends AdminController
         $sysColor = $this->sysColorService->update($id, $validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.updateSuccess', [
+             $message = __('Core::msg.updateSuccess', [
                 'entityToString' => $sysColor,
-                'modelName' =>  __('Core::sysColor.singular')])
-            ]);
+                'modelName' =>  __('Core::sysColor.singular')]);
+            
+            return JsonResponseHelper::success(
+                $message,
+                ['entity_id' => $sysColor->id]
+            );
         }
 
         return redirect()->route('sysColors.index')->with(
@@ -151,11 +156,14 @@ class BaseSysColorController extends AdminController
         $sysColor = $this->sysColorService->destroy($id);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.deleteSuccess', [
+            $message = __('Core::msg.deleteSuccess', [
                 'entityToString' => $sysColor,
-                'modelName' =>  __('Core::sysColor.singular')])
-            ]);
+                'modelName' =>  __('Core::sysColor.singular')]);
+            
+
+            return JsonResponseHelper::success(
+                $message
+            );
         }
 
         return redirect()->route('sysColors.index')->with(

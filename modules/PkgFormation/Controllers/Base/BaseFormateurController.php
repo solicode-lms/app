@@ -12,6 +12,7 @@ use Modules\PkgCompetences\Services\NiveauDifficulteService;
 use Modules\PkgCreationProjet\Services\ProjetService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
+use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgFormation\App\Requests\FormateurRequest;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgFormation\App\Exports\FormateurExport;
@@ -72,13 +73,14 @@ class BaseFormateurController extends AdminController
         $formateur = $this->formateurService->create($validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 
-            'entity_id' => $formateur->id,
-            'message' => 
-             __('Core::msg.addSuccess', [
+             $message = __('Core::msg.addSuccess', [
                 'entityToString' => $formateur,
-                'modelName' => __('PkgFormation::formateur.singular')])
-            ]);
+                'modelName' => __('PkgFormation::formateur.singular')]);
+        
+            return JsonResponseHelper::success(
+             $message,
+             ['entity_id' => $formateur->id]
+            );
         }
 
         return redirect()->route('formateurs.edit',['formateur' => $formateur->id])->with(
@@ -159,11 +161,14 @@ class BaseFormateurController extends AdminController
         $formateur = $this->formateurService->update($id, $validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.updateSuccess', [
+             $message = __('Core::msg.updateSuccess', [
                 'entityToString' => $formateur,
-                'modelName' =>  __('PkgFormation::formateur.singular')])
-            ]);
+                'modelName' =>  __('PkgFormation::formateur.singular')]);
+            
+            return JsonResponseHelper::success(
+                $message,
+                ['entity_id' => $formateur->id]
+            );
         }
 
         return redirect()->route('formateurs.index')->with(
@@ -180,11 +185,14 @@ class BaseFormateurController extends AdminController
         $formateur = $this->formateurService->destroy($id);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.deleteSuccess', [
+            $message = __('Core::msg.deleteSuccess', [
                 'entityToString' => $formateur,
-                'modelName' =>  __('PkgFormation::formateur.singular')])
-            ]);
+                'modelName' =>  __('PkgFormation::formateur.singular')]);
+            
+
+            return JsonResponseHelper::success(
+                $message
+            );
         }
 
         return redirect()->route('formateurs.index')->with(

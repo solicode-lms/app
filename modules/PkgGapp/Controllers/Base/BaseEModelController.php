@@ -9,6 +9,7 @@ use Modules\PkgGapp\Services\EDataFieldService;
 use Modules\PkgGapp\Services\EMetadatumService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
+use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgGapp\App\Requests\EModelRequest;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgGapp\App\Exports\EModelExport;
@@ -63,13 +64,14 @@ class BaseEModelController extends AdminController
         $eModel = $this->eModelService->create($validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 
-            'entity_id' => $eModel->id,
-            'message' => 
-             __('Core::msg.addSuccess', [
+             $message = __('Core::msg.addSuccess', [
                 'entityToString' => $eModel,
-                'modelName' => __('PkgGapp::eModel.singular')])
-            ]);
+                'modelName' => __('PkgGapp::eModel.singular')]);
+        
+            return JsonResponseHelper::success(
+             $message,
+             ['entity_id' => $eModel->id]
+            );
         }
 
         return redirect()->route('eModels.edit',['eModel' => $eModel->id])->with(
@@ -136,11 +138,14 @@ class BaseEModelController extends AdminController
         $eModel = $this->eModelService->update($id, $validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.updateSuccess', [
+             $message = __('Core::msg.updateSuccess', [
                 'entityToString' => $eModel,
-                'modelName' =>  __('PkgGapp::eModel.singular')])
-            ]);
+                'modelName' =>  __('PkgGapp::eModel.singular')]);
+            
+            return JsonResponseHelper::success(
+                $message,
+                ['entity_id' => $eModel->id]
+            );
         }
 
         return redirect()->route('eModels.index')->with(
@@ -157,11 +162,14 @@ class BaseEModelController extends AdminController
         $eModel = $this->eModelService->destroy($id);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.deleteSuccess', [
+            $message = __('Core::msg.deleteSuccess', [
                 'entityToString' => $eModel,
-                'modelName' =>  __('PkgGapp::eModel.singular')])
-            ]);
+                'modelName' =>  __('PkgGapp::eModel.singular')]);
+            
+
+            return JsonResponseHelper::success(
+                $message
+            );
         }
 
         return redirect()->route('eModels.index')->with(

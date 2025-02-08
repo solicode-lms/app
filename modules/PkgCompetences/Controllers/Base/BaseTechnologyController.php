@@ -9,6 +9,7 @@ use Modules\PkgCompetences\Services\CategoryTechnologyService;
 use Modules\PkgCreationProjet\Services\TransfertCompetenceService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
+use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgCompetences\App\Requests\TechnologyRequest;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgCompetences\App\Exports\TechnologyExport;
@@ -69,13 +70,14 @@ class BaseTechnologyController extends AdminController
         $technology = $this->technologyService->create($validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 
-            'entity_id' => $technology->id,
-            'message' => 
-             __('Core::msg.addSuccess', [
+             $message = __('Core::msg.addSuccess', [
                 'entityToString' => $technology,
-                'modelName' => __('PkgCompetences::technology.singular')])
-            ]);
+                'modelName' => __('PkgCompetences::technology.singular')]);
+        
+            return JsonResponseHelper::success(
+             $message,
+             ['entity_id' => $technology->id]
+            );
         }
 
         return redirect()->route('technologies.index')->with(
@@ -126,11 +128,14 @@ class BaseTechnologyController extends AdminController
         $technology = $this->technologyService->update($id, $validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.updateSuccess', [
+             $message = __('Core::msg.updateSuccess', [
                 'entityToString' => $technology,
-                'modelName' =>  __('PkgCompetences::technology.singular')])
-            ]);
+                'modelName' =>  __('PkgCompetences::technology.singular')]);
+            
+            return JsonResponseHelper::success(
+                $message,
+                ['entity_id' => $technology->id]
+            );
         }
 
         return redirect()->route('technologies.index')->with(
@@ -147,11 +152,14 @@ class BaseTechnologyController extends AdminController
         $technology = $this->technologyService->destroy($id);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.deleteSuccess', [
+            $message = __('Core::msg.deleteSuccess', [
                 'entityToString' => $technology,
-                'modelName' =>  __('PkgCompetences::technology.singular')])
-            ]);
+                'modelName' =>  __('PkgCompetences::technology.singular')]);
+            
+
+            return JsonResponseHelper::success(
+                $message
+            );
         }
 
         return redirect()->route('technologies.index')->with(

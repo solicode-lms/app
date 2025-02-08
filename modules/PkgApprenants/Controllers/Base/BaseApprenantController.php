@@ -11,6 +11,7 @@ use Modules\PkgAutorisation\Services\UserService;
 use Modules\PkgRealisationProjets\Services\RealisationProjetService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
+use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgApprenants\App\Requests\ApprenantRequest;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgApprenants\App\Exports\ApprenantExport;
@@ -74,13 +75,14 @@ class BaseApprenantController extends AdminController
         $apprenant = $this->apprenantService->create($validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 
-            'entity_id' => $apprenant->id,
-            'message' => 
-             __('Core::msg.addSuccess', [
+             $message = __('Core::msg.addSuccess', [
                 'entityToString' => $apprenant,
-                'modelName' => __('PkgApprenants::apprenant.singular')])
-            ]);
+                'modelName' => __('PkgApprenants::apprenant.singular')]);
+        
+            return JsonResponseHelper::success(
+             $message,
+             ['entity_id' => $apprenant->id]
+            );
         }
 
         return redirect()->route('apprenants.edit',['apprenant' => $apprenant->id])->with(
@@ -143,11 +145,14 @@ class BaseApprenantController extends AdminController
         $apprenant = $this->apprenantService->update($id, $validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.updateSuccess', [
+             $message = __('Core::msg.updateSuccess', [
                 'entityToString' => $apprenant,
-                'modelName' =>  __('PkgApprenants::apprenant.singular')])
-            ]);
+                'modelName' =>  __('PkgApprenants::apprenant.singular')]);
+            
+            return JsonResponseHelper::success(
+                $message,
+                ['entity_id' => $apprenant->id]
+            );
         }
 
         return redirect()->route('apprenants.index')->with(
@@ -164,11 +169,14 @@ class BaseApprenantController extends AdminController
         $apprenant = $this->apprenantService->destroy($id);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.deleteSuccess', [
+            $message = __('Core::msg.deleteSuccess', [
                 'entityToString' => $apprenant,
-                'modelName' =>  __('PkgApprenants::apprenant.singular')])
-            ]);
+                'modelName' =>  __('PkgApprenants::apprenant.singular')]);
+            
+
+            return JsonResponseHelper::success(
+                $message
+            );
         }
 
         return redirect()->route('apprenants.index')->with(

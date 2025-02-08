@@ -7,6 +7,7 @@ use Modules\PkgGapp\Services\EPackageService;
 use Modules\PkgGapp\Services\EModelService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
+use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgGapp\App\Requests\EPackageRequest;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgGapp\App\Exports\EPackageExport;
@@ -58,13 +59,14 @@ class BaseEPackageController extends AdminController
         $ePackage = $this->ePackageService->create($validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 
-            'entity_id' => $ePackage->id,
-            'message' => 
-             __('Core::msg.addSuccess', [
+             $message = __('Core::msg.addSuccess', [
                 'entityToString' => $ePackage,
-                'modelName' => __('PkgGapp::ePackage.singular')])
-            ]);
+                'modelName' => __('PkgGapp::ePackage.singular')]);
+        
+            return JsonResponseHelper::success(
+             $message,
+             ['entity_id' => $ePackage->id]
+            );
         }
 
         return redirect()->route('ePackages.edit',['ePackage' => $ePackage->id])->with(
@@ -119,11 +121,14 @@ class BaseEPackageController extends AdminController
         $ePackage = $this->ePackageService->update($id, $validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.updateSuccess', [
+             $message = __('Core::msg.updateSuccess', [
                 'entityToString' => $ePackage,
-                'modelName' =>  __('PkgGapp::ePackage.singular')])
-            ]);
+                'modelName' =>  __('PkgGapp::ePackage.singular')]);
+            
+            return JsonResponseHelper::success(
+                $message,
+                ['entity_id' => $ePackage->id]
+            );
         }
 
         return redirect()->route('ePackages.index')->with(
@@ -140,11 +145,14 @@ class BaseEPackageController extends AdminController
         $ePackage = $this->ePackageService->destroy($id);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.deleteSuccess', [
+            $message = __('Core::msg.deleteSuccess', [
                 'entityToString' => $ePackage,
-                'modelName' =>  __('PkgGapp::ePackage.singular')])
-            ]);
+                'modelName' =>  __('PkgGapp::ePackage.singular')]);
+            
+
+            return JsonResponseHelper::success(
+                $message
+            );
         }
 
         return redirect()->route('ePackages.index')->with(

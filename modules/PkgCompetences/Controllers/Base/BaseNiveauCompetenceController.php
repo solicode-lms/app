@@ -7,6 +7,7 @@ use Modules\PkgCompetences\Services\NiveauCompetenceService;
 use Modules\PkgCompetences\Services\CompetenceService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
+use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgCompetences\App\Requests\NiveauCompetenceRequest;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgCompetences\App\Exports\NiveauCompetenceExport;
@@ -61,13 +62,14 @@ class BaseNiveauCompetenceController extends AdminController
         $niveauCompetence = $this->niveauCompetenceService->create($validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 
-            'entity_id' => $niveauCompetence->id,
-            'message' => 
-             __('Core::msg.addSuccess', [
+             $message = __('Core::msg.addSuccess', [
                 'entityToString' => $niveauCompetence,
-                'modelName' => __('PkgCompetences::niveauCompetence.singular')])
-            ]);
+                'modelName' => __('PkgCompetences::niveauCompetence.singular')]);
+        
+            return JsonResponseHelper::success(
+             $message,
+             ['entity_id' => $niveauCompetence->id]
+            );
         }
 
         return redirect()->route('niveauCompetences.index')->with(
@@ -114,11 +116,14 @@ class BaseNiveauCompetenceController extends AdminController
         $niveauCompetence = $this->niveauCompetenceService->update($id, $validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.updateSuccess', [
+             $message = __('Core::msg.updateSuccess', [
                 'entityToString' => $niveauCompetence,
-                'modelName' =>  __('PkgCompetences::niveauCompetence.singular')])
-            ]);
+                'modelName' =>  __('PkgCompetences::niveauCompetence.singular')]);
+            
+            return JsonResponseHelper::success(
+                $message,
+                ['entity_id' => $niveauCompetence->id]
+            );
         }
 
         return redirect()->route('niveauCompetences.index')->with(
@@ -135,11 +140,14 @@ class BaseNiveauCompetenceController extends AdminController
         $niveauCompetence = $this->niveauCompetenceService->destroy($id);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.deleteSuccess', [
+            $message = __('Core::msg.deleteSuccess', [
                 'entityToString' => $niveauCompetence,
-                'modelName' =>  __('PkgCompetences::niveauCompetence.singular')])
-            ]);
+                'modelName' =>  __('PkgCompetences::niveauCompetence.singular')]);
+            
+
+            return JsonResponseHelper::success(
+                $message
+            );
         }
 
         return redirect()->route('niveauCompetences.index')->with(

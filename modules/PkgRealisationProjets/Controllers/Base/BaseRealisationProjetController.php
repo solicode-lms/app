@@ -10,6 +10,7 @@ use Modules\PkgRealisationProjets\Services\EtatsRealisationProjetService;
 use Modules\PkgRealisationProjets\Services\ValidationService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
+use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgRealisationProjets\App\Requests\RealisationProjetRequest;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgRealisationProjets\App\Exports\RealisationProjetExport;
@@ -70,13 +71,14 @@ class BaseRealisationProjetController extends AdminController
         $realisationProjet = $this->realisationProjetService->create($validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 
-            'entity_id' => $realisationProjet->id,
-            'message' => 
-             __('Core::msg.addSuccess', [
+             $message = __('Core::msg.addSuccess', [
                 'entityToString' => $realisationProjet,
-                'modelName' => __('PkgRealisationProjets::realisationProjet.singular')])
-            ]);
+                'modelName' => __('PkgRealisationProjets::realisationProjet.singular')]);
+        
+            return JsonResponseHelper::success(
+             $message,
+             ['entity_id' => $realisationProjet->id]
+            );
         }
 
         return redirect()->route('realisationProjets.edit',['realisationProjet' => $realisationProjet->id])->with(
@@ -137,11 +139,14 @@ class BaseRealisationProjetController extends AdminController
         $realisationProjet = $this->realisationProjetService->update($id, $validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.updateSuccess', [
+             $message = __('Core::msg.updateSuccess', [
                 'entityToString' => $realisationProjet,
-                'modelName' =>  __('PkgRealisationProjets::realisationProjet.singular')])
-            ]);
+                'modelName' =>  __('PkgRealisationProjets::realisationProjet.singular')]);
+            
+            return JsonResponseHelper::success(
+                $message,
+                ['entity_id' => $realisationProjet->id]
+            );
         }
 
         return redirect()->route('realisationProjets.index')->with(
@@ -158,11 +163,14 @@ class BaseRealisationProjetController extends AdminController
         $realisationProjet = $this->realisationProjetService->destroy($id);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.deleteSuccess', [
+            $message = __('Core::msg.deleteSuccess', [
                 'entityToString' => $realisationProjet,
-                'modelName' =>  __('PkgRealisationProjets::realisationProjet.singular')])
-            ]);
+                'modelName' =>  __('PkgRealisationProjets::realisationProjet.singular')]);
+            
+
+            return JsonResponseHelper::success(
+                $message
+            );
         }
 
         return redirect()->route('realisationProjets.index')->with(

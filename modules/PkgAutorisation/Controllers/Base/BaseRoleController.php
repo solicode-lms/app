@@ -8,6 +8,7 @@ use Modules\PkgAutorisation\Services\PermissionService;
 use Modules\PkgAutorisation\Services\UserService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
+use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgAutorisation\App\Requests\RoleRequest;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgAutorisation\App\Exports\RoleExport;
@@ -65,13 +66,14 @@ class BaseRoleController extends AdminController
         $role = $this->roleService->create($validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 
-            'entity_id' => $role->id,
-            'message' => 
-             __('Core::msg.addSuccess', [
+             $message = __('Core::msg.addSuccess', [
                 'entityToString' => $role,
-                'modelName' => __('PkgAutorisation::role.singular')])
-            ]);
+                'modelName' => __('PkgAutorisation::role.singular')]);
+        
+            return JsonResponseHelper::success(
+             $message,
+             ['entity_id' => $role->id]
+            );
         }
 
         return redirect()->route('roles.index')->with(
@@ -120,11 +122,14 @@ class BaseRoleController extends AdminController
         $role = $this->roleService->update($id, $validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.updateSuccess', [
+             $message = __('Core::msg.updateSuccess', [
                 'entityToString' => $role,
-                'modelName' =>  __('PkgAutorisation::role.singular')])
-            ]);
+                'modelName' =>  __('PkgAutorisation::role.singular')]);
+            
+            return JsonResponseHelper::success(
+                $message,
+                ['entity_id' => $role->id]
+            );
         }
 
         return redirect()->route('roles.index')->with(
@@ -141,11 +146,14 @@ class BaseRoleController extends AdminController
         $role = $this->roleService->destroy($id);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.deleteSuccess', [
+            $message = __('Core::msg.deleteSuccess', [
                 'entityToString' => $role,
-                'modelName' =>  __('PkgAutorisation::role.singular')])
-            ]);
+                'modelName' =>  __('PkgAutorisation::role.singular')]);
+            
+
+            return JsonResponseHelper::success(
+                $message
+            );
         }
 
         return redirect()->route('roles.index')->with(

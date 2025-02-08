@@ -6,6 +6,7 @@ namespace Modules\PkgGapp\Controllers\Base;
 use Modules\PkgGapp\Services\EMetadataDefinitionService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
+use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgGapp\App\Requests\EMetadataDefinitionRequest;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgGapp\App\Exports\EMetadataDefinitionExport;
@@ -57,13 +58,14 @@ class BaseEMetadataDefinitionController extends AdminController
         $eMetadataDefinition = $this->eMetadataDefinitionService->create($validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 
-            'entity_id' => $eMetadataDefinition->id,
-            'message' => 
-             __('Core::msg.addSuccess', [
+             $message = __('Core::msg.addSuccess', [
                 'entityToString' => $eMetadataDefinition,
-                'modelName' => __('PkgGapp::eMetadataDefinition.singular')])
-            ]);
+                'modelName' => __('PkgGapp::eMetadataDefinition.singular')]);
+        
+            return JsonResponseHelper::success(
+             $message,
+             ['entity_id' => $eMetadataDefinition->id]
+            );
         }
 
         return redirect()->route('eMetadataDefinitions.index')->with(
@@ -108,11 +110,14 @@ class BaseEMetadataDefinitionController extends AdminController
         $eMetadataDefinition = $this->eMetadataDefinitionService->update($id, $validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.updateSuccess', [
+             $message = __('Core::msg.updateSuccess', [
                 'entityToString' => $eMetadataDefinition,
-                'modelName' =>  __('PkgGapp::eMetadataDefinition.singular')])
-            ]);
+                'modelName' =>  __('PkgGapp::eMetadataDefinition.singular')]);
+            
+            return JsonResponseHelper::success(
+                $message,
+                ['entity_id' => $eMetadataDefinition->id]
+            );
         }
 
         return redirect()->route('eMetadataDefinitions.index')->with(
@@ -129,11 +134,14 @@ class BaseEMetadataDefinitionController extends AdminController
         $eMetadataDefinition = $this->eMetadataDefinitionService->destroy($id);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.deleteSuccess', [
+            $message = __('Core::msg.deleteSuccess', [
                 'entityToString' => $eMetadataDefinition,
-                'modelName' =>  __('PkgGapp::eMetadataDefinition.singular')])
-            ]);
+                'modelName' =>  __('PkgGapp::eMetadataDefinition.singular')]);
+            
+
+            return JsonResponseHelper::success(
+                $message
+            );
         }
 
         return redirect()->route('eMetadataDefinitions.index')->with(

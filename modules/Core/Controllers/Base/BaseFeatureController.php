@@ -8,6 +8,7 @@ use Modules\PkgAutorisation\Services\PermissionService;
 use Modules\Core\Services\FeatureDomainService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
+use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\Core\App\Requests\FeatureRequest;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\Core\App\Exports\FeatureExport;
@@ -65,13 +66,14 @@ class BaseFeatureController extends AdminController
         $feature = $this->featureService->create($validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 
-            'entity_id' => $feature->id,
-            'message' => 
-             __('Core::msg.addSuccess', [
+             $message = __('Core::msg.addSuccess', [
                 'entityToString' => $feature,
-                'modelName' => __('Core::feature.singular')])
-            ]);
+                'modelName' => __('Core::feature.singular')]);
+        
+            return JsonResponseHelper::success(
+             $message,
+             ['entity_id' => $feature->id]
+            );
         }
 
         return redirect()->route('features.index')->with(
@@ -120,11 +122,14 @@ class BaseFeatureController extends AdminController
         $feature = $this->featureService->update($id, $validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.updateSuccess', [
+             $message = __('Core::msg.updateSuccess', [
                 'entityToString' => $feature,
-                'modelName' =>  __('Core::feature.singular')])
-            ]);
+                'modelName' =>  __('Core::feature.singular')]);
+            
+            return JsonResponseHelper::success(
+                $message,
+                ['entity_id' => $feature->id]
+            );
         }
 
         return redirect()->route('features.index')->with(
@@ -141,11 +146,14 @@ class BaseFeatureController extends AdminController
         $feature = $this->featureService->destroy($id);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.deleteSuccess', [
+            $message = __('Core::msg.deleteSuccess', [
                 'entityToString' => $feature,
-                'modelName' =>  __('Core::feature.singular')])
-            ]);
+                'modelName' =>  __('Core::feature.singular')]);
+            
+
+            return JsonResponseHelper::success(
+                $message
+            );
         }
 
         return redirect()->route('features.index')->with(

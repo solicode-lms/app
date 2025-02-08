@@ -7,6 +7,7 @@ use Modules\PkgApprenants\Services\NiveauxScolaireService;
 use Modules\PkgApprenants\Services\ApprenantService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
+use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgApprenants\App\Requests\NiveauxScolaireRequest;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgApprenants\App\Exports\NiveauxScolaireExport;
@@ -58,13 +59,14 @@ class BaseNiveauxScolaireController extends AdminController
         $niveauxScolaire = $this->niveauxScolaireService->create($validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 
-            'entity_id' => $niveauxScolaire->id,
-            'message' => 
-             __('Core::msg.addSuccess', [
+             $message = __('Core::msg.addSuccess', [
                 'entityToString' => $niveauxScolaire,
-                'modelName' => __('PkgApprenants::niveauxScolaire.singular')])
-            ]);
+                'modelName' => __('PkgApprenants::niveauxScolaire.singular')]);
+        
+            return JsonResponseHelper::success(
+             $message,
+             ['entity_id' => $niveauxScolaire->id]
+            );
         }
 
         return redirect()->route('niveauxScolaires.edit',['niveauxScolaire' => $niveauxScolaire->id])->with(
@@ -119,11 +121,14 @@ class BaseNiveauxScolaireController extends AdminController
         $niveauxScolaire = $this->niveauxScolaireService->update($id, $validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.updateSuccess', [
+             $message = __('Core::msg.updateSuccess', [
                 'entityToString' => $niveauxScolaire,
-                'modelName' =>  __('PkgApprenants::niveauxScolaire.singular')])
-            ]);
+                'modelName' =>  __('PkgApprenants::niveauxScolaire.singular')]);
+            
+            return JsonResponseHelper::success(
+                $message,
+                ['entity_id' => $niveauxScolaire->id]
+            );
         }
 
         return redirect()->route('niveauxScolaires.index')->with(
@@ -140,11 +145,14 @@ class BaseNiveauxScolaireController extends AdminController
         $niveauxScolaire = $this->niveauxScolaireService->destroy($id);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.deleteSuccess', [
+            $message = __('Core::msg.deleteSuccess', [
                 'entityToString' => $niveauxScolaire,
-                'modelName' =>  __('PkgApprenants::niveauxScolaire.singular')])
-            ]);
+                'modelName' =>  __('PkgApprenants::niveauxScolaire.singular')]);
+            
+
+            return JsonResponseHelper::success(
+                $message
+            );
         }
 
         return redirect()->route('niveauxScolaires.index')->with(

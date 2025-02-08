@@ -10,6 +10,7 @@ use Modules\Core\Services\SysControllerService;
 use Modules\Core\Services\SysModelService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
+use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\Core\App\Requests\SysModuleRequest;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\Core\App\Exports\SysModuleExport;
@@ -64,13 +65,14 @@ class BaseSysModuleController extends AdminController
         $sysModule = $this->sysModuleService->create($validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 
-            'entity_id' => $sysModule->id,
-            'message' => 
-             __('Core::msg.addSuccess', [
+             $message = __('Core::msg.addSuccess', [
                 'entityToString' => $sysModule,
-                'modelName' => __('Core::sysModule.singular')])
-            ]);
+                'modelName' => __('Core::sysModule.singular')]);
+        
+            return JsonResponseHelper::success(
+             $message,
+             ['entity_id' => $sysModule->id]
+            );
         }
 
         return redirect()->route('sysModules.edit',['sysModule' => $sysModule->id])->with(
@@ -147,11 +149,14 @@ class BaseSysModuleController extends AdminController
         $sysModule = $this->sysModuleService->update($id, $validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.updateSuccess', [
+             $message = __('Core::msg.updateSuccess', [
                 'entityToString' => $sysModule,
-                'modelName' =>  __('Core::sysModule.singular')])
-            ]);
+                'modelName' =>  __('Core::sysModule.singular')]);
+            
+            return JsonResponseHelper::success(
+                $message,
+                ['entity_id' => $sysModule->id]
+            );
         }
 
         return redirect()->route('sysModules.index')->with(
@@ -168,11 +173,14 @@ class BaseSysModuleController extends AdminController
         $sysModule = $this->sysModuleService->destroy($id);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.deleteSuccess', [
+            $message = __('Core::msg.deleteSuccess', [
                 'entityToString' => $sysModule,
-                'modelName' =>  __('Core::sysModule.singular')])
-            ]);
+                'modelName' =>  __('Core::sysModule.singular')]);
+            
+
+            return JsonResponseHelper::success(
+                $message
+            );
         }
 
         return redirect()->route('sysModules.index')->with(

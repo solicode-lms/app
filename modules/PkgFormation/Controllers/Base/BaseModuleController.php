@@ -8,6 +8,7 @@ use Modules\PkgFormation\Services\FiliereService;
 use Modules\PkgCompetences\Services\CompetenceService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
+use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgFormation\App\Requests\ModuleRequest;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgFormation\App\Exports\ModuleExport;
@@ -62,13 +63,14 @@ class BaseModuleController extends AdminController
         $module = $this->moduleService->create($validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 
-            'entity_id' => $module->id,
-            'message' => 
-             __('Core::msg.addSuccess', [
+             $message = __('Core::msg.addSuccess', [
                 'entityToString' => $module,
-                'modelName' => __('PkgFormation::module.singular')])
-            ]);
+                'modelName' => __('PkgFormation::module.singular')]);
+        
+            return JsonResponseHelper::success(
+             $message,
+             ['entity_id' => $module->id]
+            );
         }
 
         return redirect()->route('modules.edit',['module' => $module->id])->with(
@@ -125,11 +127,14 @@ class BaseModuleController extends AdminController
         $module = $this->moduleService->update($id, $validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.updateSuccess', [
+             $message = __('Core::msg.updateSuccess', [
                 'entityToString' => $module,
-                'modelName' =>  __('PkgFormation::module.singular')])
-            ]);
+                'modelName' =>  __('PkgFormation::module.singular')]);
+            
+            return JsonResponseHelper::success(
+                $message,
+                ['entity_id' => $module->id]
+            );
         }
 
         return redirect()->route('modules.index')->with(
@@ -146,11 +151,14 @@ class BaseModuleController extends AdminController
         $module = $this->moduleService->destroy($id);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.deleteSuccess', [
+            $message = __('Core::msg.deleteSuccess', [
                 'entityToString' => $module,
-                'modelName' =>  __('PkgFormation::module.singular')])
-            ]);
+                'modelName' =>  __('PkgFormation::module.singular')]);
+            
+
+            return JsonResponseHelper::success(
+                $message
+            );
         }
 
         return redirect()->route('modules.index')->with(

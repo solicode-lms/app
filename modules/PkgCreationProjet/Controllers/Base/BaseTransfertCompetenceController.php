@@ -10,6 +10,7 @@ use Modules\PkgCompetences\Services\NiveauDifficulteService;
 use Modules\PkgCreationProjet\Services\ProjetService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
+use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgCreationProjet\App\Requests\TransfertCompetenceRequest;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgCreationProjet\App\Exports\TransfertCompetenceExport;
@@ -73,13 +74,14 @@ class BaseTransfertCompetenceController extends AdminController
         $transfertCompetence = $this->transfertCompetenceService->create($validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 
-            'entity_id' => $transfertCompetence->id,
-            'message' => 
-             __('Core::msg.addSuccess', [
+             $message = __('Core::msg.addSuccess', [
                 'entityToString' => $transfertCompetence,
-                'modelName' => __('PkgCreationProjet::transfertCompetence.singular')])
-            ]);
+                'modelName' => __('PkgCreationProjet::transfertCompetence.singular')]);
+        
+            return JsonResponseHelper::success(
+             $message,
+             ['entity_id' => $transfertCompetence->id]
+            );
         }
 
         return redirect()->route('transfertCompetences.index')->with(
@@ -132,11 +134,14 @@ class BaseTransfertCompetenceController extends AdminController
         $transfertCompetence = $this->transfertCompetenceService->update($id, $validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.updateSuccess', [
+             $message = __('Core::msg.updateSuccess', [
                 'entityToString' => $transfertCompetence,
-                'modelName' =>  __('PkgCreationProjet::transfertCompetence.singular')])
-            ]);
+                'modelName' =>  __('PkgCreationProjet::transfertCompetence.singular')]);
+            
+            return JsonResponseHelper::success(
+                $message,
+                ['entity_id' => $transfertCompetence->id]
+            );
         }
 
         return redirect()->route('transfertCompetences.index')->with(
@@ -153,11 +158,14 @@ class BaseTransfertCompetenceController extends AdminController
         $transfertCompetence = $this->transfertCompetenceService->destroy($id);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.deleteSuccess', [
+            $message = __('Core::msg.deleteSuccess', [
                 'entityToString' => $transfertCompetence,
-                'modelName' =>  __('PkgCreationProjet::transfertCompetence.singular')])
-            ]);
+                'modelName' =>  __('PkgCreationProjet::transfertCompetence.singular')]);
+            
+
+            return JsonResponseHelper::success(
+                $message
+            );
         }
 
         return redirect()->route('transfertCompetences.index')->with(

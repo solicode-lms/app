@@ -6,6 +6,7 @@ namespace Modules\PkgApprenants\Controllers\Base;
 use Modules\PkgApprenants\Services\VilleService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
+use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgApprenants\App\Requests\VilleRequest;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgApprenants\App\Exports\VilleExport;
@@ -57,13 +58,14 @@ class BaseVilleController extends AdminController
         $ville = $this->villeService->create($validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 
-            'entity_id' => $ville->id,
-            'message' => 
-             __('Core::msg.addSuccess', [
+             $message = __('Core::msg.addSuccess', [
                 'entityToString' => $ville,
-                'modelName' => __('PkgApprenants::ville.singular')])
-            ]);
+                'modelName' => __('PkgApprenants::ville.singular')]);
+        
+            return JsonResponseHelper::success(
+             $message,
+             ['entity_id' => $ville->id]
+            );
         }
 
         return redirect()->route('villes.index')->with(
@@ -108,11 +110,14 @@ class BaseVilleController extends AdminController
         $ville = $this->villeService->update($id, $validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.updateSuccess', [
+             $message = __('Core::msg.updateSuccess', [
                 'entityToString' => $ville,
-                'modelName' =>  __('PkgApprenants::ville.singular')])
-            ]);
+                'modelName' =>  __('PkgApprenants::ville.singular')]);
+            
+            return JsonResponseHelper::success(
+                $message,
+                ['entity_id' => $ville->id]
+            );
         }
 
         return redirect()->route('villes.index')->with(
@@ -129,11 +134,14 @@ class BaseVilleController extends AdminController
         $ville = $this->villeService->destroy($id);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.deleteSuccess', [
+            $message = __('Core::msg.deleteSuccess', [
                 'entityToString' => $ville,
-                'modelName' =>  __('PkgApprenants::ville.singular')])
-            ]);
+                'modelName' =>  __('PkgApprenants::ville.singular')]);
+            
+
+            return JsonResponseHelper::success(
+                $message
+            );
         }
 
         return redirect()->route('villes.index')->with(

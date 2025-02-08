@@ -9,6 +9,7 @@ use Modules\PkgApprenants\Services\ApprenantService;
 use Modules\PkgFormation\Services\FormateurService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
+use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgAutorisation\App\Requests\UserRequest;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgAutorisation\App\Exports\UserExport;
@@ -63,13 +64,14 @@ class BaseUserController extends AdminController
         $user = $this->userService->create($validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 
-            'entity_id' => $user->id,
-            'message' => 
-             __('Core::msg.addSuccess', [
+             $message = __('Core::msg.addSuccess', [
                 'entityToString' => $user,
-                'modelName' => __('PkgAutorisation::user.singular')])
-            ]);
+                'modelName' => __('PkgAutorisation::user.singular')]);
+        
+            return JsonResponseHelper::success(
+             $message,
+             ['entity_id' => $user->id]
+            );
         }
 
         return redirect()->route('users.edit',['user' => $user->id])->with(
@@ -136,11 +138,14 @@ class BaseUserController extends AdminController
         $user = $this->userService->update($id, $validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.updateSuccess', [
+             $message = __('Core::msg.updateSuccess', [
                 'entityToString' => $user,
-                'modelName' =>  __('PkgAutorisation::user.singular')])
-            ]);
+                'modelName' =>  __('PkgAutorisation::user.singular')]);
+            
+            return JsonResponseHelper::success(
+                $message,
+                ['entity_id' => $user->id]
+            );
         }
 
         return redirect()->route('users.index')->with(
@@ -157,11 +162,14 @@ class BaseUserController extends AdminController
         $user = $this->userService->destroy($id);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.deleteSuccess', [
+            $message = __('Core::msg.deleteSuccess', [
                 'entityToString' => $user,
-                'modelName' =>  __('PkgAutorisation::user.singular')])
-            ]);
+                'modelName' =>  __('PkgAutorisation::user.singular')]);
+            
+
+            return JsonResponseHelper::success(
+                $message
+            );
         }
 
         return redirect()->route('users.index')->with(

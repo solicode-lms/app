@@ -7,6 +7,7 @@ use Modules\PkgCreationProjet\Services\NatureLivrableService;
 use Modules\PkgCreationProjet\Services\LivrableService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
+use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgCreationProjet\App\Requests\NatureLivrableRequest;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgCreationProjet\App\Exports\NatureLivrableExport;
@@ -58,13 +59,14 @@ class BaseNatureLivrableController extends AdminController
         $natureLivrable = $this->natureLivrableService->create($validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 
-            'entity_id' => $natureLivrable->id,
-            'message' => 
-             __('Core::msg.addSuccess', [
+             $message = __('Core::msg.addSuccess', [
                 'entityToString' => $natureLivrable,
-                'modelName' => __('PkgCreationProjet::natureLivrable.singular')])
-            ]);
+                'modelName' => __('PkgCreationProjet::natureLivrable.singular')]);
+        
+            return JsonResponseHelper::success(
+             $message,
+             ['entity_id' => $natureLivrable->id]
+            );
         }
 
         return redirect()->route('natureLivrables.edit',['natureLivrable' => $natureLivrable->id])->with(
@@ -119,11 +121,14 @@ class BaseNatureLivrableController extends AdminController
         $natureLivrable = $this->natureLivrableService->update($id, $validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.updateSuccess', [
+             $message = __('Core::msg.updateSuccess', [
                 'entityToString' => $natureLivrable,
-                'modelName' =>  __('PkgCreationProjet::natureLivrable.singular')])
-            ]);
+                'modelName' =>  __('PkgCreationProjet::natureLivrable.singular')]);
+            
+            return JsonResponseHelper::success(
+                $message,
+                ['entity_id' => $natureLivrable->id]
+            );
         }
 
         return redirect()->route('natureLivrables.index')->with(
@@ -140,11 +145,14 @@ class BaseNatureLivrableController extends AdminController
         $natureLivrable = $this->natureLivrableService->destroy($id);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.deleteSuccess', [
+            $message = __('Core::msg.deleteSuccess', [
                 'entityToString' => $natureLivrable,
-                'modelName' =>  __('PkgCreationProjet::natureLivrable.singular')])
-            ]);
+                'modelName' =>  __('PkgCreationProjet::natureLivrable.singular')]);
+            
+
+            return JsonResponseHelper::success(
+                $message
+            );
         }
 
         return redirect()->route('natureLivrables.index')->with(

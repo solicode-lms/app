@@ -9,6 +9,7 @@ use Modules\PkgGapp\Services\ERelationshipService;
 use Modules\PkgGapp\Services\EMetadatumService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
+use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgGapp\App\Requests\EDataFieldRequest;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgGapp\App\Exports\EDataFieldExport;
@@ -66,13 +67,14 @@ class BaseEDataFieldController extends AdminController
         $eDataField = $this->eDataFieldService->create($validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 
-            'entity_id' => $eDataField->id,
-            'message' => 
-             __('Core::msg.addSuccess', [
+             $message = __('Core::msg.addSuccess', [
                 'entityToString' => $eDataField,
-                'modelName' => __('PkgGapp::eDataField.singular')])
-            ]);
+                'modelName' => __('PkgGapp::eDataField.singular')]);
+        
+            return JsonResponseHelper::success(
+             $message,
+             ['entity_id' => $eDataField->id]
+            );
         }
 
         return redirect()->route('eDataFields.edit',['eDataField' => $eDataField->id])->with(
@@ -131,11 +133,14 @@ class BaseEDataFieldController extends AdminController
         $eDataField = $this->eDataFieldService->update($id, $validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.updateSuccess', [
+             $message = __('Core::msg.updateSuccess', [
                 'entityToString' => $eDataField,
-                'modelName' =>  __('PkgGapp::eDataField.singular')])
-            ]);
+                'modelName' =>  __('PkgGapp::eDataField.singular')]);
+            
+            return JsonResponseHelper::success(
+                $message,
+                ['entity_id' => $eDataField->id]
+            );
         }
 
         return redirect()->route('eDataFields.index')->with(
@@ -152,11 +157,14 @@ class BaseEDataFieldController extends AdminController
         $eDataField = $this->eDataFieldService->destroy($id);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.deleteSuccess', [
+            $message = __('Core::msg.deleteSuccess', [
                 'entityToString' => $eDataField,
-                'modelName' =>  __('PkgGapp::eDataField.singular')])
-            ]);
+                'modelName' =>  __('PkgGapp::eDataField.singular')]);
+            
+
+            return JsonResponseHelper::success(
+                $message
+            );
         }
 
         return redirect()->route('eDataFields.index')->with(

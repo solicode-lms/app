@@ -8,6 +8,7 @@ use Modules\PkgCreationProjet\Services\NatureLivrableService;
 use Modules\PkgCreationProjet\Services\ProjetService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
+use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgCreationProjet\App\Requests\LivrableRequest;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgCreationProjet\App\Exports\LivrableExport;
@@ -65,13 +66,14 @@ class BaseLivrableController extends AdminController
         $livrable = $this->livrableService->create($validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 
-            'entity_id' => $livrable->id,
-            'message' => 
-             __('Core::msg.addSuccess', [
+             $message = __('Core::msg.addSuccess', [
                 'entityToString' => $livrable,
-                'modelName' => __('PkgCreationProjet::livrable.singular')])
-            ]);
+                'modelName' => __('PkgCreationProjet::livrable.singular')]);
+        
+            return JsonResponseHelper::success(
+             $message,
+             ['entity_id' => $livrable->id]
+            );
         }
 
         return redirect()->route('livrables.index')->with(
@@ -120,11 +122,14 @@ class BaseLivrableController extends AdminController
         $livrable = $this->livrableService->update($id, $validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.updateSuccess', [
+             $message = __('Core::msg.updateSuccess', [
                 'entityToString' => $livrable,
-                'modelName' =>  __('PkgCreationProjet::livrable.singular')])
-            ]);
+                'modelName' =>  __('PkgCreationProjet::livrable.singular')]);
+            
+            return JsonResponseHelper::success(
+                $message,
+                ['entity_id' => $livrable->id]
+            );
         }
 
         return redirect()->route('livrables.index')->with(
@@ -141,11 +146,14 @@ class BaseLivrableController extends AdminController
         $livrable = $this->livrableService->destroy($id);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.deleteSuccess', [
+            $message = __('Core::msg.deleteSuccess', [
                 'entityToString' => $livrable,
-                'modelName' =>  __('PkgCreationProjet::livrable.singular')])
-            ]);
+                'modelName' =>  __('PkgCreationProjet::livrable.singular')]);
+            
+
+            return JsonResponseHelper::success(
+                $message
+            );
         }
 
         return redirect()->route('livrables.index')->with(

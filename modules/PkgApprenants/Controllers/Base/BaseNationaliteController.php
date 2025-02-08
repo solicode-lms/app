@@ -7,6 +7,7 @@ use Modules\PkgApprenants\Services\NationaliteService;
 use Modules\PkgApprenants\Services\ApprenantService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
+use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgApprenants\App\Requests\NationaliteRequest;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgApprenants\App\Exports\NationaliteExport;
@@ -58,13 +59,14 @@ class BaseNationaliteController extends AdminController
         $nationalite = $this->nationaliteService->create($validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 
-            'entity_id' => $nationalite->id,
-            'message' => 
-             __('Core::msg.addSuccess', [
+             $message = __('Core::msg.addSuccess', [
                 'entityToString' => $nationalite,
-                'modelName' => __('PkgApprenants::nationalite.singular')])
-            ]);
+                'modelName' => __('PkgApprenants::nationalite.singular')]);
+        
+            return JsonResponseHelper::success(
+             $message,
+             ['entity_id' => $nationalite->id]
+            );
         }
 
         return redirect()->route('nationalites.edit',['nationalite' => $nationalite->id])->with(
@@ -119,11 +121,14 @@ class BaseNationaliteController extends AdminController
         $nationalite = $this->nationaliteService->update($id, $validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.updateSuccess', [
+             $message = __('Core::msg.updateSuccess', [
                 'entityToString' => $nationalite,
-                'modelName' =>  __('PkgApprenants::nationalite.singular')])
-            ]);
+                'modelName' =>  __('PkgApprenants::nationalite.singular')]);
+            
+            return JsonResponseHelper::success(
+                $message,
+                ['entity_id' => $nationalite->id]
+            );
         }
 
         return redirect()->route('nationalites.index')->with(
@@ -140,11 +145,14 @@ class BaseNationaliteController extends AdminController
         $nationalite = $this->nationaliteService->destroy($id);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.deleteSuccess', [
+            $message = __('Core::msg.deleteSuccess', [
                 'entityToString' => $nationalite,
-                'modelName' =>  __('PkgApprenants::nationalite.singular')])
-            ]);
+                'modelName' =>  __('PkgApprenants::nationalite.singular')]);
+            
+
+            return JsonResponseHelper::success(
+                $message
+            );
         }
 
         return redirect()->route('nationalites.index')->with(

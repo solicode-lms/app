@@ -7,6 +7,7 @@ use Modules\PkgFormation\Services\SpecialiteService;
 use Modules\PkgFormation\Services\FormateurService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
+use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgFormation\App\Requests\SpecialiteRequest;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgFormation\App\Exports\SpecialiteExport;
@@ -61,13 +62,14 @@ class BaseSpecialiteController extends AdminController
         $specialite = $this->specialiteService->create($validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 
-            'entity_id' => $specialite->id,
-            'message' => 
-             __('Core::msg.addSuccess', [
+             $message = __('Core::msg.addSuccess', [
                 'entityToString' => $specialite,
-                'modelName' => __('PkgFormation::specialite.singular')])
-            ]);
+                'modelName' => __('PkgFormation::specialite.singular')]);
+        
+            return JsonResponseHelper::success(
+             $message,
+             ['entity_id' => $specialite->id]
+            );
         }
 
         return redirect()->route('specialites.index')->with(
@@ -114,11 +116,14 @@ class BaseSpecialiteController extends AdminController
         $specialite = $this->specialiteService->update($id, $validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.updateSuccess', [
+             $message = __('Core::msg.updateSuccess', [
                 'entityToString' => $specialite,
-                'modelName' =>  __('PkgFormation::specialite.singular')])
-            ]);
+                'modelName' =>  __('PkgFormation::specialite.singular')]);
+            
+            return JsonResponseHelper::success(
+                $message,
+                ['entity_id' => $specialite->id]
+            );
         }
 
         return redirect()->route('specialites.index')->with(
@@ -135,11 +140,14 @@ class BaseSpecialiteController extends AdminController
         $specialite = $this->specialiteService->destroy($id);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.deleteSuccess', [
+            $message = __('Core::msg.deleteSuccess', [
                 'entityToString' => $specialite,
-                'modelName' =>  __('PkgFormation::specialite.singular')])
-            ]);
+                'modelName' =>  __('PkgFormation::specialite.singular')]);
+            
+
+            return JsonResponseHelper::success(
+                $message
+            );
         }
 
         return redirect()->route('specialites.index')->with(

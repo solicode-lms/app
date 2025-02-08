@@ -6,6 +6,7 @@ namespace Modules\PkgApprenants\Controllers\Base;
 use Modules\PkgApprenants\Services\ApprenantKonosyService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
+use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgApprenants\App\Requests\ApprenantKonosyRequest;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgApprenants\App\Exports\ApprenantKonosyExport;
@@ -57,13 +58,14 @@ class BaseApprenantKonosyController extends AdminController
         $apprenantKonosy = $this->apprenantKonosyService->create($validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 
-            'entity_id' => $apprenantKonosy->id,
-            'message' => 
-             __('Core::msg.addSuccess', [
+             $message = __('Core::msg.addSuccess', [
                 'entityToString' => $apprenantKonosy,
-                'modelName' => __('PkgApprenants::apprenantKonosy.singular')])
-            ]);
+                'modelName' => __('PkgApprenants::apprenantKonosy.singular')]);
+        
+            return JsonResponseHelper::success(
+             $message,
+             ['entity_id' => $apprenantKonosy->id]
+            );
         }
 
         return redirect()->route('apprenantKonosies.index')->with(
@@ -108,11 +110,14 @@ class BaseApprenantKonosyController extends AdminController
         $apprenantKonosy = $this->apprenantKonosyService->update($id, $validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.updateSuccess', [
+             $message = __('Core::msg.updateSuccess', [
                 'entityToString' => $apprenantKonosy,
-                'modelName' =>  __('PkgApprenants::apprenantKonosy.singular')])
-            ]);
+                'modelName' =>  __('PkgApprenants::apprenantKonosy.singular')]);
+            
+            return JsonResponseHelper::success(
+                $message,
+                ['entity_id' => $apprenantKonosy->id]
+            );
         }
 
         return redirect()->route('apprenantKonosies.index')->with(
@@ -129,11 +134,14 @@ class BaseApprenantKonosyController extends AdminController
         $apprenantKonosy = $this->apprenantKonosyService->destroy($id);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.deleteSuccess', [
+            $message = __('Core::msg.deleteSuccess', [
                 'entityToString' => $apprenantKonosy,
-                'modelName' =>  __('PkgApprenants::apprenantKonosy.singular')])
-            ]);
+                'modelName' =>  __('PkgApprenants::apprenantKonosy.singular')]);
+            
+
+            return JsonResponseHelper::success(
+                $message
+            );
         }
 
         return redirect()->route('apprenantKonosies.index')->with(

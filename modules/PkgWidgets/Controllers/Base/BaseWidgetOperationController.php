@@ -7,6 +7,7 @@ use Modules\PkgWidgets\Services\WidgetOperationService;
 use Modules\PkgWidgets\Services\WidgetService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
+use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgWidgets\App\Requests\WidgetOperationRequest;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgWidgets\App\Exports\WidgetOperationExport;
@@ -58,13 +59,14 @@ class BaseWidgetOperationController extends AdminController
         $widgetOperation = $this->widgetOperationService->create($validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 
-            'entity_id' => $widgetOperation->id,
-            'message' => 
-             __('Core::msg.addSuccess', [
+             $message = __('Core::msg.addSuccess', [
                 'entityToString' => $widgetOperation,
-                'modelName' => __('PkgWidgets::widgetOperation.singular')])
-            ]);
+                'modelName' => __('PkgWidgets::widgetOperation.singular')]);
+        
+            return JsonResponseHelper::success(
+             $message,
+             ['entity_id' => $widgetOperation->id]
+            );
         }
 
         return redirect()->route('widgetOperations.edit',['widgetOperation' => $widgetOperation->id])->with(
@@ -119,11 +121,14 @@ class BaseWidgetOperationController extends AdminController
         $widgetOperation = $this->widgetOperationService->update($id, $validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.updateSuccess', [
+             $message = __('Core::msg.updateSuccess', [
                 'entityToString' => $widgetOperation,
-                'modelName' =>  __('PkgWidgets::widgetOperation.singular')])
-            ]);
+                'modelName' =>  __('PkgWidgets::widgetOperation.singular')]);
+            
+            return JsonResponseHelper::success(
+                $message,
+                ['entity_id' => $widgetOperation->id]
+            );
         }
 
         return redirect()->route('widgetOperations.index')->with(
@@ -140,11 +145,14 @@ class BaseWidgetOperationController extends AdminController
         $widgetOperation = $this->widgetOperationService->destroy($id);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.deleteSuccess', [
+            $message = __('Core::msg.deleteSuccess', [
                 'entityToString' => $widgetOperation,
-                'modelName' =>  __('PkgWidgets::widgetOperation.singular')])
-            ]);
+                'modelName' =>  __('PkgWidgets::widgetOperation.singular')]);
+            
+
+            return JsonResponseHelper::success(
+                $message
+            );
         }
 
         return redirect()->route('widgetOperations.index')->with(

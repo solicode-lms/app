@@ -9,6 +9,7 @@ use Modules\Core\Services\SysControllerService;
 use Modules\PkgAutorisation\Services\RoleService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
+use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgAutorisation\App\Requests\PermissionRequest;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgAutorisation\App\Exports\PermissionExport;
@@ -69,13 +70,14 @@ class BasePermissionController extends AdminController
         $permission = $this->permissionService->create($validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 
-            'entity_id' => $permission->id,
-            'message' => 
-             __('Core::msg.addSuccess', [
+             $message = __('Core::msg.addSuccess', [
                 'entityToString' => $permission,
-                'modelName' => __('PkgAutorisation::permission.singular')])
-            ]);
+                'modelName' => __('PkgAutorisation::permission.singular')]);
+        
+            return JsonResponseHelper::success(
+             $message,
+             ['entity_id' => $permission->id]
+            );
         }
 
         return redirect()->route('permissions.index')->with(
@@ -126,11 +128,14 @@ class BasePermissionController extends AdminController
         $permission = $this->permissionService->update($id, $validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.updateSuccess', [
+             $message = __('Core::msg.updateSuccess', [
                 'entityToString' => $permission,
-                'modelName' =>  __('PkgAutorisation::permission.singular')])
-            ]);
+                'modelName' =>  __('PkgAutorisation::permission.singular')]);
+            
+            return JsonResponseHelper::success(
+                $message,
+                ['entity_id' => $permission->id]
+            );
         }
 
         return redirect()->route('permissions.index')->with(
@@ -147,11 +152,14 @@ class BasePermissionController extends AdminController
         $permission = $this->permissionService->destroy($id);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.deleteSuccess', [
+            $message = __('Core::msg.deleteSuccess', [
                 'entityToString' => $permission,
-                'modelName' =>  __('PkgAutorisation::permission.singular')])
-            ]);
+                'modelName' =>  __('PkgAutorisation::permission.singular')]);
+            
+
+            return JsonResponseHelper::success(
+                $message
+            );
         }
 
         return redirect()->route('permissions.index')->with(

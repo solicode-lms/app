@@ -7,6 +7,7 @@ use Modules\PkgRealisationProjets\Services\LivrablesRealisationService;
 use Modules\PkgCreationProjet\Services\LivrableService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
+use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgRealisationProjets\App\Requests\LivrablesRealisationRequest;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgRealisationProjets\App\Exports\LivrablesRealisationExport;
@@ -61,13 +62,14 @@ class BaseLivrablesRealisationController extends AdminController
         $livrablesRealisation = $this->livrablesRealisationService->create($validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 
-            'entity_id' => $livrablesRealisation->id,
-            'message' => 
-             __('Core::msg.addSuccess', [
+             $message = __('Core::msg.addSuccess', [
                 'entityToString' => $livrablesRealisation,
-                'modelName' => __('PkgRealisationProjets::livrablesRealisation.singular')])
-            ]);
+                'modelName' => __('PkgRealisationProjets::livrablesRealisation.singular')]);
+        
+            return JsonResponseHelper::success(
+             $message,
+             ['entity_id' => $livrablesRealisation->id]
+            );
         }
 
         return redirect()->route('livrablesRealisations.index')->with(
@@ -114,11 +116,14 @@ class BaseLivrablesRealisationController extends AdminController
         $livrablesRealisation = $this->livrablesRealisationService->update($id, $validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.updateSuccess', [
+             $message = __('Core::msg.updateSuccess', [
                 'entityToString' => $livrablesRealisation,
-                'modelName' =>  __('PkgRealisationProjets::livrablesRealisation.singular')])
-            ]);
+                'modelName' =>  __('PkgRealisationProjets::livrablesRealisation.singular')]);
+            
+            return JsonResponseHelper::success(
+                $message,
+                ['entity_id' => $livrablesRealisation->id]
+            );
         }
 
         return redirect()->route('livrablesRealisations.index')->with(
@@ -135,11 +140,14 @@ class BaseLivrablesRealisationController extends AdminController
         $livrablesRealisation = $this->livrablesRealisationService->destroy($id);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.deleteSuccess', [
+            $message = __('Core::msg.deleteSuccess', [
                 'entityToString' => $livrablesRealisation,
-                'modelName' =>  __('PkgRealisationProjets::livrablesRealisation.singular')])
-            ]);
+                'modelName' =>  __('PkgRealisationProjets::livrablesRealisation.singular')]);
+            
+
+            return JsonResponseHelper::success(
+                $message
+            );
         }
 
         return redirect()->route('livrablesRealisations.index')->with(

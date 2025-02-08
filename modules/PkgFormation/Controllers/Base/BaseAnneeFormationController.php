@@ -8,6 +8,7 @@ use Modules\PkgRealisationProjets\Services\AffectationProjetService;
 use Modules\PkgApprenants\Services\GroupeService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
+use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgFormation\App\Requests\AnneeFormationRequest;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgFormation\App\Exports\AnneeFormationExport;
@@ -59,13 +60,14 @@ class BaseAnneeFormationController extends AdminController
         $anneeFormation = $this->anneeFormationService->create($validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 
-            'entity_id' => $anneeFormation->id,
-            'message' => 
-             __('Core::msg.addSuccess', [
+             $message = __('Core::msg.addSuccess', [
                 'entityToString' => $anneeFormation,
-                'modelName' => __('PkgFormation::anneeFormation.singular')])
-            ]);
+                'modelName' => __('PkgFormation::anneeFormation.singular')]);
+        
+            return JsonResponseHelper::success(
+             $message,
+             ['entity_id' => $anneeFormation->id]
+            );
         }
 
         return redirect()->route('anneeFormations.edit',['anneeFormation' => $anneeFormation->id])->with(
@@ -130,11 +132,14 @@ class BaseAnneeFormationController extends AdminController
         $anneeFormation = $this->anneeFormationService->update($id, $validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.updateSuccess', [
+             $message = __('Core::msg.updateSuccess', [
                 'entityToString' => $anneeFormation,
-                'modelName' =>  __('PkgFormation::anneeFormation.singular')])
-            ]);
+                'modelName' =>  __('PkgFormation::anneeFormation.singular')]);
+            
+            return JsonResponseHelper::success(
+                $message,
+                ['entity_id' => $anneeFormation->id]
+            );
         }
 
         return redirect()->route('anneeFormations.index')->with(
@@ -151,11 +156,14 @@ class BaseAnneeFormationController extends AdminController
         $anneeFormation = $this->anneeFormationService->destroy($id);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.deleteSuccess', [
+            $message = __('Core::msg.deleteSuccess', [
                 'entityToString' => $anneeFormation,
-                'modelName' =>  __('PkgFormation::anneeFormation.singular')])
-            ]);
+                'modelName' =>  __('PkgFormation::anneeFormation.singular')]);
+            
+
+            return JsonResponseHelper::success(
+                $message
+            );
         }
 
         return redirect()->route('anneeFormations.index')->with(

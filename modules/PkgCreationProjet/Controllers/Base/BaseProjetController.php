@@ -11,6 +11,7 @@ use Modules\PkgCreationProjet\Services\ResourceService;
 use Modules\PkgRealisationProjets\Services\AffectationProjetService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
+use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgCreationProjet\App\Requests\ProjetRequest;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgCreationProjet\App\Exports\ProjetExport;
@@ -65,13 +66,14 @@ class BaseProjetController extends AdminController
         $projet = $this->projetService->create($validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 
-            'entity_id' => $projet->id,
-            'message' => 
-             __('Core::msg.addSuccess', [
+             $message = __('Core::msg.addSuccess', [
                 'entityToString' => $projet,
-                'modelName' => __('PkgCreationProjet::projet.singular')])
-            ]);
+                'modelName' => __('PkgCreationProjet::projet.singular')]);
+        
+            return JsonResponseHelper::success(
+             $message,
+             ['entity_id' => $projet->id]
+            );
         }
 
         return redirect()->route('projets.edit',['projet' => $projet->id])->with(
@@ -161,11 +163,14 @@ class BaseProjetController extends AdminController
         $projet = $this->projetService->update($id, $validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.updateSuccess', [
+             $message = __('Core::msg.updateSuccess', [
                 'entityToString' => $projet,
-                'modelName' =>  __('PkgCreationProjet::projet.singular')])
-            ]);
+                'modelName' =>  __('PkgCreationProjet::projet.singular')]);
+            
+            return JsonResponseHelper::success(
+                $message,
+                ['entity_id' => $projet->id]
+            );
         }
 
         return redirect()->route('projets.index')->with(
@@ -185,11 +190,14 @@ class BaseProjetController extends AdminController
         $projet = $this->projetService->destroy($id);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.deleteSuccess', [
+            $message = __('Core::msg.deleteSuccess', [
                 'entityToString' => $projet,
-                'modelName' =>  __('PkgCreationProjet::projet.singular')])
-            ]);
+                'modelName' =>  __('PkgCreationProjet::projet.singular')]);
+            
+
+            return JsonResponseHelper::success(
+                $message
+            );
         }
 
         return redirect()->route('projets.index')->with(

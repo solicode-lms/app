@@ -8,6 +8,7 @@ use Modules\PkgRealisationProjets\Services\RealisationProjetService;
 use Modules\PkgCreationProjet\Services\TransfertCompetenceService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
+use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgRealisationProjets\App\Requests\ValidationRequest;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgRealisationProjets\App\Exports\ValidationExport;
@@ -65,13 +66,14 @@ class BaseValidationController extends AdminController
         $validation = $this->validationService->create($validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 
-            'entity_id' => $validation->id,
-            'message' => 
-             __('Core::msg.addSuccess', [
+             $message = __('Core::msg.addSuccess', [
                 'entityToString' => $validation,
-                'modelName' => __('PkgRealisationProjets::validation.singular')])
-            ]);
+                'modelName' => __('PkgRealisationProjets::validation.singular')]);
+        
+            return JsonResponseHelper::success(
+             $message,
+             ['entity_id' => $validation->id]
+            );
         }
 
         return redirect()->route('validations.index')->with(
@@ -120,11 +122,14 @@ class BaseValidationController extends AdminController
         $validation = $this->validationService->update($id, $validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.updateSuccess', [
+             $message = __('Core::msg.updateSuccess', [
                 'entityToString' => $validation,
-                'modelName' =>  __('PkgRealisationProjets::validation.singular')])
-            ]);
+                'modelName' =>  __('PkgRealisationProjets::validation.singular')]);
+            
+            return JsonResponseHelper::success(
+                $message,
+                ['entity_id' => $validation->id]
+            );
         }
 
         return redirect()->route('validations.index')->with(
@@ -141,11 +146,14 @@ class BaseValidationController extends AdminController
         $validation = $this->validationService->destroy($id);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.deleteSuccess', [
+            $message = __('Core::msg.deleteSuccess', [
                 'entityToString' => $validation,
-                'modelName' =>  __('PkgRealisationProjets::validation.singular')])
-            ]);
+                'modelName' =>  __('PkgRealisationProjets::validation.singular')]);
+            
+
+            return JsonResponseHelper::success(
+                $message
+            );
         }
 
         return redirect()->route('validations.index')->with(

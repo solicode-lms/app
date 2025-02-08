@@ -8,6 +8,7 @@ use Modules\PkgApprenants\Services\GroupeService;
 use Modules\PkgFormation\Services\ModuleService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
+use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgFormation\App\Requests\FiliereRequest;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgFormation\App\Exports\FiliereExport;
@@ -59,13 +60,14 @@ class BaseFiliereController extends AdminController
         $filiere = $this->filiereService->create($validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 
-            'entity_id' => $filiere->id,
-            'message' => 
-             __('Core::msg.addSuccess', [
+             $message = __('Core::msg.addSuccess', [
                 'entityToString' => $filiere,
-                'modelName' => __('PkgFormation::filiere.singular')])
-            ]);
+                'modelName' => __('PkgFormation::filiere.singular')]);
+        
+            return JsonResponseHelper::success(
+             $message,
+             ['entity_id' => $filiere->id]
+            );
         }
 
         return redirect()->route('filieres.edit',['filiere' => $filiere->id])->with(
@@ -130,11 +132,14 @@ class BaseFiliereController extends AdminController
         $filiere = $this->filiereService->update($id, $validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.updateSuccess', [
+             $message = __('Core::msg.updateSuccess', [
                 'entityToString' => $filiere,
-                'modelName' =>  __('PkgFormation::filiere.singular')])
-            ]);
+                'modelName' =>  __('PkgFormation::filiere.singular')]);
+            
+            return JsonResponseHelper::success(
+                $message,
+                ['entity_id' => $filiere->id]
+            );
         }
 
         return redirect()->route('filieres.index')->with(
@@ -151,11 +156,14 @@ class BaseFiliereController extends AdminController
         $filiere = $this->filiereService->destroy($id);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.deleteSuccess', [
+            $message = __('Core::msg.deleteSuccess', [
                 'entityToString' => $filiere,
-                'modelName' =>  __('PkgFormation::filiere.singular')])
-            ]);
+                'modelName' =>  __('PkgFormation::filiere.singular')]);
+            
+
+            return JsonResponseHelper::success(
+                $message
+            );
         }
 
         return redirect()->route('filieres.index')->with(
