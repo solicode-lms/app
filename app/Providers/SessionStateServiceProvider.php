@@ -11,7 +11,7 @@ class SessionStateServiceProvider extends ServiceProvider
     public function __construct($app)
     {
         parent::__construct($app);
-        Log::info('SessionStateServiceProvider chargé');
+        // Log::info('SessionStateServiceProvider chargé');
     }
 
     /**

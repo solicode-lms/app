@@ -75,7 +75,7 @@ class AppServiceProvider extends ServiceProvider
             // Vérifier si la classe existe avant de l'enregistrer.
             if (class_exists($providerClass)) {
                 $this->app->register($providerClass);
-                Log::info("ServiceProvider chargé : {$providerClass}");
+                // Log::info("ServiceProvider chargé : {$providerClass}");
             } else {
                 Log::error("ServiceProvider non trouvé : {$providerClass}");
             }

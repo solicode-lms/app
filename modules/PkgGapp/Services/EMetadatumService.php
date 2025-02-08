@@ -5,6 +5,7 @@ namespace Modules\PkgGapp\Services;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
 use Modules\PkgGapp\App\Enums\FieldTypeEnum;
 use Modules\PkgGapp\Services\Base\BaseEMetadatumService;
 
@@ -71,16 +72,24 @@ class EMetadatumService extends BaseEMetadatumService
      */
     private function logNodeVersion($message)
     {
-
-        $model_name = "Competence";
-        Log::info("Génération de CRUD pour la model : {$model_name}");
-        $nodeCommand = "gapp make:crud Competence ../";
-
-        // Exécuter la commande (compatible Windows et Linux)
+        $modelName = "Competence";
+    
+       
+        $nodeCommand = "gapp make:crud {$modelName} ../";
+    
+        // Exécuter la commande et récupérer la sortie
         if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
-            pclose(popen('start /B ' . $nodeCommand, 'r'));
+            $output = shell_exec($nodeCommand . " 2>&1");
         } else {
-            shell_exec($nodeCommand . ' > /dev/null 2>&1 &');
+            $output = shell_exec($nodeCommand . " 2>&1");
+        }
+    
+        // Vérifier si la commande a généré une sortie
+        if (!empty($output)) {
+            Log::info("Sortie de la commande Node.js :\n" . trim($output));
+            // $this->pushServiceMessage('success', "Gapp", "CRUD pour {$modelName} généré avec succès !" .  trim($output));
+        } else {
+             $this->pushServiceMessage("error", "Gapp", "La commande Node.js n'a retourné aucune sortie.");
         }
     }
 }

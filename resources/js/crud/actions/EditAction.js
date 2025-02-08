@@ -1,6 +1,7 @@
 import { AjaxErrorHandler } from '../components/AjaxErrorHandler';
 import { Action } from './Action';
 import EventUtil from '../utils/EventUtil';
+import { NotificationHandler } from '../components/NotificationHandler';
 
 export class EditAction extends Action {
 
@@ -95,7 +96,7 @@ export class EditAction extends Action {
             })
                 .done((data) => {
                     this.tableUI.indexUI.formUI.loader.hide();
-                    this.handleSuccess(data.message);
+                    NotificationHandler.show(data.type,data.title,data.message);
                     this.tableUI.indexUI.modalUI.close(); // Fermer le modal après succès
 
                      // Appeler le callback de succès si fourni

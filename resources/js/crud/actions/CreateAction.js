@@ -79,7 +79,7 @@ export class CreateAction extends Action {
 
                     if(this.config.edit_has_many){
 
-                        const entity_id = parseInt( data[`entity_id`]);
+                        const entity_id = parseInt( data.data[`entity_id`]);
 
                         this.tableUI.entityEditor.editEntity(entity_id);
                         this.tableUI.entityLoader.loadEntities();

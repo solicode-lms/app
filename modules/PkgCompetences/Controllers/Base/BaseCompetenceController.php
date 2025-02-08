@@ -9,6 +9,7 @@ use Modules\PkgFormation\Services\ModuleService;
 use Modules\PkgCompetences\Services\NiveauCompetenceService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
+use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgCompetences\App\Requests\CompetenceRequest;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgCompetences\App\Exports\CompetenceExport;
@@ -66,13 +67,14 @@ class BaseCompetenceController extends AdminController
         $competence = $this->competenceService->create($validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 
-            'entity_id' => $competence->id,
-            'message' => 
-             __('Core::msg.addSuccess', [
+             $message = __('Core::msg.addSuccess', [
                 'entityToString' => $competence,
-                'modelName' => __('PkgCompetences::competence.singular')])
-            ]);
+                'modelName' => __('PkgCompetences::competence.singular')]);
+        
+            return JsonResponseHelper::success(
+             $message,
+             ['entity_id' => $competence->id]
+            );
         }
 
         return redirect()->route('competences.edit',['competence' => $competence->id])->with(
@@ -131,11 +133,14 @@ class BaseCompetenceController extends AdminController
         $competence = $this->competenceService->update($id, $validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.updateSuccess', [
+             $message = __('Core::msg.updateSuccess', [
                 'entityToString' => $competence,
-                'modelName' =>  __('PkgCompetences::competence.singular')])
-            ]);
+                'modelName' =>  __('PkgCompetences::competence.singular')]);
+            
+            return JsonResponseHelper::success(
+                $message,
+                ['entity_id' => $competence->id]
+            );
         }
 
         return redirect()->route('competences.index')->with(
@@ -152,11 +157,14 @@ class BaseCompetenceController extends AdminController
         $competence = $this->competenceService->destroy($id);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.deleteSuccess', [
+            $message = __('Core::msg.deleteSuccess', [
                 'entityToString' => $competence,
-                'modelName' =>  __('PkgCompetences::competence.singular')])
-            ]);
+                'modelName' =>  __('PkgCompetences::competence.singular')]);
+            
+
+            return JsonResponseHelper::success(
+                $message
+            );
         }
 
         return redirect()->route('competences.index')->with(

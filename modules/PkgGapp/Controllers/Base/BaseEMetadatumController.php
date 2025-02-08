@@ -9,6 +9,7 @@ use Modules\PkgGapp\Services\EMetadataDefinitionService;
 use Modules\PkgGapp\Services\EModelService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
+use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgGapp\App\Requests\EMetadatumRequest;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgGapp\App\Exports\EMetadatumExport;
@@ -69,13 +70,14 @@ class BaseEMetadatumController extends AdminController
         $eMetadatum = $this->eMetadatumService->create($validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 
-            'entity_id' => $eMetadatum->id,
-            'message' => 
-             __('Core::msg.addSuccess', [
+             $message = __('Core::msg.addSuccess', [
                 'entityToString' => $eMetadatum,
-                'modelName' => __('PkgGapp::eMetadatum.singular')])
-            ]);
+                'modelName' => __('PkgGapp::eMetadatum.singular')]);
+        
+            return JsonResponseHelper::success(
+             $message,
+             ['entity_id' => $eMetadatum->id]
+            );
         }
 
         return redirect()->route('eMetadata.index')->with(
@@ -126,11 +128,14 @@ class BaseEMetadatumController extends AdminController
         $eMetadatum = $this->eMetadatumService->update($id, $validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.updateSuccess', [
+             $message = __('Core::msg.updateSuccess', [
                 'entityToString' => $eMetadatum,
-                'modelName' =>  __('PkgGapp::eMetadatum.singular')])
-            ]);
+                'modelName' =>  __('PkgGapp::eMetadatum.singular')]);
+            
+            return JsonResponseHelper::success(
+                $message,
+                ['entity_id' => $eMetadatum->id]
+            );
         }
 
         return redirect()->route('eMetadata.index')->with(
@@ -147,11 +152,14 @@ class BaseEMetadatumController extends AdminController
         $eMetadatum = $this->eMetadatumService->destroy($id);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.deleteSuccess', [
+            $message = __('Core::msg.deleteSuccess', [
                 'entityToString' => $eMetadatum,
-                'modelName' =>  __('PkgGapp::eMetadatum.singular')])
-            ]);
+                'modelName' =>  __('PkgGapp::eMetadatum.singular')]);
+            
+
+            return JsonResponseHelper::success(
+                $message
+            );
         }
 
         return redirect()->route('eMetadata.index')->with(

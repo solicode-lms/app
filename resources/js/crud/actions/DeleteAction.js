@@ -32,7 +32,7 @@ export class DeleteAction extends Action {
         NotificationHandler.confirmAction(
             'Êtes-vous sûr ?', 'Cette action est irréversible.',
             () => {
-                NotificationHandler.showInfo('Suppression en cours...');
+                NotificationHandler.showToast('info','Suppression en cours...');
                 $.ajax({
                     url: deleteUrl,
                     method: 'DELETE',
