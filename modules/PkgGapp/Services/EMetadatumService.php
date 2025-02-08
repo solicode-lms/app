@@ -75,6 +75,7 @@ class EMetadatumService extends BaseEMetadatumService
         $metaExportCommand = "gapp meta:export ../";
 
         $this->pushServiceMessage("info","Gapp", $message);
+        dd($message);
         // Exécution SYNCHRONE du CRUD
         $this->executeCommandAsync($makeCrudCommand);
 
