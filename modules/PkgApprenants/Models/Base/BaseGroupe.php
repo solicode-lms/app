@@ -37,7 +37,7 @@ class BaseGroupe extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'nom', 'description', 'filiere_id', 'code', 'annee_formation_id'
+        'code', 'nom', 'description', 'filiere_id', 'annee_formation_id'
     ];
     public $manyToMany = [
         'apprenants',

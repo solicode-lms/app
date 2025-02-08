@@ -25,6 +25,10 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="col-sm-12">
+                                <label for="code">{{ ucfirst(__('PkgApprenants::groupe.code')) }}:</label>
+                                <p>{{ $itemGroupe->code }}</p>
+                            </div>
+                            <div class="col-sm-12">
                                 <label for="nom">{{ ucfirst(__('PkgApprenants::groupe.nom')) }}:</label>
                                 <p>{{ $itemGroupe->nom }}</p>
                             </div>
@@ -35,10 +39,6 @@
                             <div class="col-sm-12">
                                 <label for="filiere_id">{{ ucfirst(__('PkgApprenants::groupe.filiere_id')) }}:</label>
                                 <p>{{ $itemGroupe->filiere_id }}</p>
-                            </div>
-                            <div class="col-sm-12">
-                                <label for="code">{{ ucfirst(__('PkgApprenants::groupe.code')) }}:</label>
-                                <p>{{ $itemGroupe->code }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="annee_formation_id">{{ ucfirst(__('PkgApprenants::groupe.annee_formation_id')) }}:</label>

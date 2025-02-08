@@ -19,10 +19,10 @@ class BaseGroupeService extends BaseService
      * @var array
      */
     protected $fieldsSearchable = [
+        'code',
         'nom',
         'description',
         'filiere_id',
-        'code',
         'annee_formation_id'
     ];
 

@@ -28,19 +28,19 @@ class BaseGroupeExport implements FromCollection, WithHeadings, ShouldAutoSize, 
     {
      if($this->format == 'csv'){
         return [
+            'code' => 'code',
             'nom' => 'nom',
             'description' => 'description',
             'filiere_id' => 'filiere_id',
-            'code' => 'code',
             'annee_formation_id' => 'annee_formation_id',
             'reference' => 'reference',
         ];
         }else{
         return [
+            'code' => __('PkgApprenants::groupe.code'),
             'nom' => __('PkgApprenants::groupe.nom'),
             'description' => __('PkgApprenants::groupe.description'),
             'filiere_id' => __('PkgApprenants::groupe.filiere_id'),
-            'code' => __('PkgApprenants::groupe.code'),
             'annee_formation_id' => __('PkgApprenants::groupe.annee_formation_id'),
             'reference' => __('Core::msg.reference'),
         ];
@@ -53,10 +53,10 @@ class BaseGroupeExport implements FromCollection, WithHeadings, ShouldAutoSize, 
     {
         return $this->data->map(function ($groupe) {
             return [
+                'code' => $groupe->code,
                 'nom' => $groupe->nom,
                 'description' => $groupe->description,
                 'filiere_id' => $groupe->filiere_id,
-                'code' => $groupe->code,
                 'annee_formation_id' => $groupe->annee_formation_id,
                 'reference' => $groupe->reference,
             ];

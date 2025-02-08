@@ -105,7 +105,7 @@
     },
     {
         "reference": "Groupe_code_displayOrder",
-        "value_integer": 6,
+        "value_integer": 2,
         "value_float": 0,
         "e_data_field_reference": "Groupe_code",
         "e_metadata_definition_reference": "displayOrder"
@@ -118,7 +118,8 @@
     },
     {
         "reference": "Groupe_description_displayOrder",
-        "value_integer": 4,
+        "value_integer": 5,
+        "value_float": 0,
         "e_data_field_reference": "Groupe_description",
         "e_metadata_definition_reference": "displayOrder"
     },

@@ -31,38 +31,29 @@ export class LoadListAction extends BaseAction {
         if(page === undefined){
             page = this.tableUI.indexUI.paginationUI.page;
         }
+        const pageString = new URLSearchParams({page : page}).toString();
+    
 
 
-         // Filtrer les filtres pour exclure les champs avec des valeurs vides
-        const cleanedFilters = Object.fromEntries(
-            Object.entries(filters).filter(([key, value]) => value !== null && value !== undefined && value !== '')
+        const filter_context_data= this.tableUI.indexUI.filterUI.getFormData();
+        this.contextService.addData(filter_context_data);
+
+        let indexUrl = this.indexUrl;
+        indexUrl = this.appendParamsToUrl(
+            indexUrl,
+            pageString,
         );
-        
-        // lire les valeurs depuis filterUI et this.page
-        // Récupérer les paramètres actuels depuis l'URL
-        // const urlParams = new URLSearchParams(window.location.search);
-        // const v = Object.fromEntries(urlParams.entries());
+        indexUrl = this.appendParamsToUrl(
+            indexUrl,
+            this.contextService.getContextParams()
+        );
 
-        // Intégrer les paramètres existants de l'URL et les nouveaux filtres
-        // const searchParams = { ...Object.fromEntries(urlParams.entries()), ...cleanedFilters };
-        // if(searchParams.page === undefined) {
-        //     searchParams.page = page;
-        // }
-
-        // Générer la chaîne de requête
-       
-       
-        const queryString = new URLSearchParams({...cleanedFilters, page : page}).toString();
-    
-        // Construire l'URL finale
-        const requestUrl = this.appendParamsToUrl(this.indexUrl, queryString);
-    
         // Afficher l'indicateur de chargement
         this.loader.show();
 
 
         // Requête AJAX pour charger les données
-        $.get(requestUrl)
+        $.get(indexUrl)
             .done((html) => {
                 // Mettre à jour le conteneur avec les nouvelles données
                 $(this.config.tableSelector).html(html);

@@ -56,10 +56,10 @@ class BaseGroupeImport implements ToModel, WithHeadingRow
 
         // Création d'un nouvel enregistrement
         return new Groupe([
-             'nom' => $values[0] ?? null,
-             'description' => $values[1] ?? null,
-             'filiere_id' => $values[2] ?? null,
-             'code' => $values[3] ?? null,
+             'code' => $values[0] ?? null,
+             'nom' => $values[1] ?? null,
+             'description' => $values[2] ?? null,
+             'filiere_id' => $values[3] ?? null,
              'annee_formation_id' => $values[4] ?? null,
              'reference' => $reference,
         ]);
