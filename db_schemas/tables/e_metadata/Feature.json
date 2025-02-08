@@ -1,0 +1,164 @@
+[
+    {
+        "reference": "features_creationOrder",
+        "value_integer": 10,
+        "e_model_reference": "features",
+        "e_metadata_definition_reference": "creationOrder"
+    },
+    {
+        "reference": "Feature_id_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "Feature_id",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "Feature_name_displayInTable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Feature_name",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "Feature_name_displayField",
+        "value_boolean": 1,
+        "e_data_field_reference": "Feature_name",
+        "e_metadata_definition_reference": "displayField"
+    },
+    {
+        "reference": "Feature_name_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "Feature_name",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "Feature_reference_required",
+        "value_boolean": 0,
+        "e_data_field_reference": "Feature_reference",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "features_permissions_feature_permission_m2m_m2m_displayInTable",
+        "value_boolean": 1,
+        "e_data_field_reference": "features_permissions_feature_permission_m2m_m2m",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "Feature_feature_domain_id_displayInTable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Feature_feature_domain_id",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "Feature_feature_domain_id_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "Feature_feature_domain_id",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "Feature_feature_domain_id_filterable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Feature_feature_domain_id",
+        "e_metadata_definition_reference": "filterable"
+    },
+    {
+        "reference": "Feature_id_displayOrder",
+        "value_integer": 1,
+        "e_data_field_reference": "Feature_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "Feature_name_displayOrder",
+        "value_integer": 2,
+        "e_data_field_reference": "Feature_name",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "Feature_description_displayOrder",
+        "value_integer": 3,
+        "e_data_field_reference": "Feature_description",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "Feature_feature_domain_id_displayOrder",
+        "value_integer": 4,
+        "e_data_field_reference": "Feature_feature_domain_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "Feature_reference_displayOrder",
+        "value_integer": 5,
+        "e_data_field_reference": "Feature_reference",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "Feature_created_at_displayOrder",
+        "value_integer": 6,
+        "e_data_field_reference": "Feature_created_at",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "Feature_updated_at_displayOrder",
+        "value_integer": 7,
+        "e_data_field_reference": "Feature_updated_at",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "features_permissions_feature_permission_m2m_m2m_displayOrder",
+        "value_integer": 8,
+        "e_data_field_reference": "features_permissions_feature_permission_m2m_m2m",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "Feature_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "Feature_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "Feature_name_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "Feature_name",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "Feature_description_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "Feature_description",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "Feature_feature_domain_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "Feature_feature_domain_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "Feature_reference_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "Feature_reference",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "Feature_created_at_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "Feature_created_at",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "Feature_updated_at_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "Feature_updated_at",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "features_permissions_feature_permission_m2m_m2m_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "features_permissions_feature_permission_m2m_m2m",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "features_displayInSideBar",
+        "value_boolean": 1,
+        "e_model_reference": "features",
+        "e_metadata_definition_reference": "displayInSideBar"
+    }
+]

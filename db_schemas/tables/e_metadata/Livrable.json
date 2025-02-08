@@ -1,0 +1,203 @@
+[
+    {
+        "reference": "livrables_creationOrder",
+        "value_integer": 40,
+        "e_model_reference": "livrables",
+        "e_metadata_definition_reference": "creationOrder"
+    },
+    {
+        "reference": "Livrable_id_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "Livrable_id",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "Livrable_titre_displayInTable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Livrable_titre",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "Livrable_titre_displayField",
+        "value_boolean": 1,
+        "e_data_field_reference": "Livrable_titre",
+        "e_metadata_definition_reference": "displayField"
+    },
+    {
+        "reference": "Livrable_titre_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "Livrable_titre",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "Livrable_nature_livrable_id_displayInTable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Livrable_nature_livrable_id",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "Livrable_nature_livrable_id_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "Livrable_nature_livrable_id",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "Livrable_projet_id_displayInTable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Livrable_projet_id",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "Livrable_projet_id_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "Livrable_projet_id",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "Livrable_nature_livrable_id_filterable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Livrable_nature_livrable_id",
+        "e_metadata_definition_reference": "filterable"
+    },
+    {
+        "reference": "Livrable_projet_id_filterable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Livrable_projet_id",
+        "e_metadata_definition_reference": "filterable"
+    },
+    {
+        "reference": "Livrable_reference_required",
+        "value_boolean": 0,
+        "e_data_field_reference": "Livrable_reference",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "livrables_hasMany_livrables_realisations_livrable_id_editHasMany",
+        "value_boolean": 0,
+        "value_float": 0,
+        "e_data_field_reference": "livrables_hasMany_livrables_realisations_livrable_id",
+        "e_metadata_definition_reference": "editHasMany"
+    },
+    {
+        "reference": "Livrable_id_displayOrder",
+        "value_integer": 1,
+        "e_data_field_reference": "Livrable_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "Livrable_titre_displayOrder",
+        "value_integer": 2,
+        "e_data_field_reference": "Livrable_titre",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "Livrable_nature_livrable_id_displayOrder",
+        "value_integer": 3,
+        "e_data_field_reference": "Livrable_nature_livrable_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "Livrable_projet_id_displayOrder",
+        "value_integer": 4,
+        "e_data_field_reference": "Livrable_projet_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "Livrable_description_displayOrder",
+        "value_integer": 5,
+        "e_data_field_reference": "Livrable_description",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "Livrable_reference_displayOrder",
+        "value_integer": 6,
+        "e_data_field_reference": "Livrable_reference",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "Livrable_created_at_displayOrder",
+        "value_integer": 7,
+        "e_data_field_reference": "Livrable_created_at",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "Livrable_updated_at_displayOrder",
+        "value_integer": 8,
+        "e_data_field_reference": "Livrable_updated_at",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "livrables_hasMany_livrables_realisations_livrable_id_displayOrder",
+        "value_integer": 9,
+        "e_data_field_reference": "livrables_hasMany_livrables_realisations_livrable_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "livrables_iconModel",
+        "value_string": "fa-file-alt",
+        "value_float": 0,
+        "e_model_reference": "livrables",
+        "e_metadata_definition_reference": "iconModel"
+    },
+    {
+        "reference": "Livrable_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "Livrable_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "Livrable_titre_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "Livrable_titre",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "Livrable_nature_livrable_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "Livrable_nature_livrable_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "Livrable_projet_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "Livrable_projet_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "Livrable_description_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "Livrable_description",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "Livrable_reference_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "Livrable_reference",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "Livrable_created_at_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "Livrable_created_at",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "Livrable_updated_at_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "Livrable_updated_at",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "livrables_hasMany_livrables_realisations_livrable_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "livrables_hasMany_livrables_realisations_livrable_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "livrables_displayInSideBar",
+        "value_boolean": 0,
+        "value_float": 0,
+        "e_model_reference": "livrables",
+        "e_metadata_definition_reference": "displayInSideBar"
+    }
+]

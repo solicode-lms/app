@@ -1,0 +1,44 @@
+[
+    {
+        "reference": "RoleHasPermission_permission_id_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "RoleHasPermission_permission_id",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "RoleHasPermission_role_id_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "RoleHasPermission_role_id",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "RoleHasPermission_permission_id_displayOrder",
+        "value_integer": 1,
+        "e_data_field_reference": "RoleHasPermission_permission_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "RoleHasPermission_role_id_displayOrder",
+        "value_integer": 2,
+        "e_data_field_reference": "RoleHasPermission_role_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "RoleHasPermission_permission_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "RoleHasPermission_permission_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "RoleHasPermission_role_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "RoleHasPermission_role_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "role_has_permissions_displayInSideBar",
+        "value_boolean": 1,
+        "e_model_reference": "role_has_permissions",
+        "e_metadata_definition_reference": "displayInSideBar"
+    }
+]

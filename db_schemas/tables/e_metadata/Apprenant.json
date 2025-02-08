@@ -1,0 +1,438 @@
+[
+    {
+        "reference": "apprenants_creationOrder",
+        "value_integer": 27,
+        "e_model_reference": "apprenants",
+        "e_metadata_definition_reference": "creationOrder"
+    },
+    {
+        "reference": "Apprenant_id_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_id",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "Apprenant_nom_displayInTable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_nom",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "Apprenant_nom_displayField",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_nom",
+        "e_metadata_definition_reference": "displayField"
+    },
+    {
+        "reference": "Apprenant_nom_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_nom",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "Apprenant_prenom_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_prenom",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "Apprenant_prenom_arab_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_prenom_arab",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "Apprenant_nom_arab_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_nom_arab",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "Apprenant_tele_num_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_tele_num",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "Apprenant_matricule_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_matricule",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "Apprenant_sexe_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_sexe",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "Apprenant_actif_displayInTable",
+        "value_boolean": 0,
+        "value_float": 0,
+        "e_data_field_reference": "Apprenant_actif",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "Apprenant_actif_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_actif",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "Apprenant_niveaux_scolaire_id_displayInTable",
+        "value_boolean": 0,
+        "value_float": 0,
+        "e_data_field_reference": "Apprenant_niveaux_scolaire_id",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "Apprenant_nationalite_id_displayInTable",
+        "value_boolean": 0,
+        "value_float": 0,
+        "e_data_field_reference": "Apprenant_nationalite_id",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "Apprenant_niveaux_scolaire_id_filterable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_niveaux_scolaire_id",
+        "e_metadata_definition_reference": "filterable"
+    },
+    {
+        "reference": "Apprenant_nationalite_id_filterable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_nationalite_id",
+        "e_metadata_definition_reference": "filterable"
+    },
+    {
+        "reference": "Apprenant_reference_required",
+        "value_boolean": 0,
+        "e_data_field_reference": "Apprenant_reference",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "apprenants_iconModel",
+        "value_string": "fa-user-graduate",
+        "e_model_reference": "apprenants",
+        "e_metadata_definition_reference": "iconModel"
+    },
+    {
+        "reference": "Apprenant_prenom_displayInTable",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "Apprenant_prenom",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "apprenants_hasMany_realisation_projets_apprenant_id_editHasMany",
+        "value_boolean": 1,
+        "e_data_field_reference": "apprenants_hasMany_realisation_projets_apprenant_id",
+        "e_metadata_definition_reference": "editHasMany"
+    },
+    {
+        "reference": "Apprenant_user_id_displayInTable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_user_id",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "Apprenant_user_id_filterable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_user_id",
+        "e_metadata_definition_reference": "filterable"
+    },
+    {
+        "reference": "Apprenant_id_displayOrder",
+        "value_integer": 1,
+        "e_data_field_reference": "Apprenant_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "Apprenant_nom_displayOrder",
+        "value_integer": 2,
+        "e_data_field_reference": "Apprenant_nom",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "Apprenant_prenom_displayOrder",
+        "value_integer": 3,
+        "e_data_field_reference": "Apprenant_prenom",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "Apprenant_prenom_arab_displayOrder",
+        "value_integer": 4,
+        "e_data_field_reference": "Apprenant_prenom_arab",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "Apprenant_nom_arab_displayOrder",
+        "value_integer": 5,
+        "e_data_field_reference": "Apprenant_nom_arab",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "Apprenant_tele_num_displayOrder",
+        "value_integer": 6,
+        "e_data_field_reference": "Apprenant_tele_num",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "Apprenant_profile_image_displayOrder",
+        "value_integer": 7,
+        "e_data_field_reference": "Apprenant_profile_image",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "Apprenant_matricule_displayOrder",
+        "value_integer": 8,
+        "e_data_field_reference": "Apprenant_matricule",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "Apprenant_sexe_displayOrder",
+        "value_integer": 9,
+        "e_data_field_reference": "Apprenant_sexe",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "Apprenant_actif_displayOrder",
+        "value_integer": 10,
+        "e_data_field_reference": "Apprenant_actif",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "Apprenant_diplome_displayOrder",
+        "value_integer": 11,
+        "e_data_field_reference": "Apprenant_diplome",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "Apprenant_date_naissance_displayOrder",
+        "value_integer": 12,
+        "e_data_field_reference": "Apprenant_date_naissance",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "Apprenant_date_inscription_displayOrder",
+        "value_integer": 13,
+        "e_data_field_reference": "Apprenant_date_inscription",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "Apprenant_lieu_naissance_displayOrder",
+        "value_integer": 14,
+        "e_data_field_reference": "Apprenant_lieu_naissance",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "Apprenant_cin_displayOrder",
+        "value_integer": 15,
+        "e_data_field_reference": "Apprenant_cin",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "Apprenant_adresse_displayOrder",
+        "value_integer": 16,
+        "e_data_field_reference": "Apprenant_adresse",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "Apprenant_created_at_displayOrder",
+        "value_integer": 17,
+        "e_data_field_reference": "Apprenant_created_at",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "Apprenant_updated_at_displayOrder",
+        "value_integer": 18,
+        "e_data_field_reference": "Apprenant_updated_at",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "Apprenant_niveaux_scolaire_id_displayOrder",
+        "value_integer": 19,
+        "e_data_field_reference": "Apprenant_niveaux_scolaire_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "Apprenant_nationalite_id_displayOrder",
+        "value_integer": 20,
+        "e_data_field_reference": "Apprenant_nationalite_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "Apprenant_user_id_displayOrder",
+        "value_integer": 21,
+        "e_data_field_reference": "Apprenant_user_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "Apprenant_reference_displayOrder",
+        "value_integer": 22,
+        "e_data_field_reference": "Apprenant_reference",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "apprenants_groupes_apprenant_groupe_m2m_m2m_displayOrder",
+        "value_integer": 23,
+        "e_data_field_reference": "apprenants_groupes_apprenant_groupe_m2m_m2m",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "apprenants_hasMany_realisation_projets_apprenant_id_displayOrder",
+        "value_integer": 24,
+        "e_data_field_reference": "apprenants_hasMany_realisation_projets_apprenant_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "Apprenant_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "Apprenant_nom_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_nom",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "Apprenant_prenom_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_prenom",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "Apprenant_prenom_arab_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_prenom_arab",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "Apprenant_nom_arab_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_nom_arab",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "Apprenant_tele_num_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_tele_num",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "Apprenant_profile_image_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_profile_image",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "Apprenant_matricule_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_matricule",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "Apprenant_sexe_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_sexe",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "Apprenant_actif_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_actif",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "Apprenant_diplome_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_diplome",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "Apprenant_date_naissance_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_date_naissance",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "Apprenant_date_inscription_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_date_inscription",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "Apprenant_lieu_naissance_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_lieu_naissance",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "Apprenant_cin_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_cin",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "Apprenant_adresse_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_adresse",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "Apprenant_created_at_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_created_at",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "Apprenant_updated_at_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_updated_at",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "Apprenant_niveaux_scolaire_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_niveaux_scolaire_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "Apprenant_nationalite_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_nationalite_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "Apprenant_user_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_user_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "Apprenant_reference_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_reference",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "apprenants_groupes_apprenant_groupe_m2m_m2m_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "apprenants_groupes_apprenant_groupe_m2m_m2m",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "apprenants_hasMany_realisation_projets_apprenant_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "apprenants_hasMany_realisation_projets_apprenant_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "apprenants_displayInSideBar",
+        "value_boolean": 1,
+        "e_model_reference": "apprenants",
+        "e_metadata_definition_reference": "displayInSideBar"
+    }
+]

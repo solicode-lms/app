@@ -1,0 +1,155 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Nom du modèle principal (par exemple : 'Article')"
+    },
+    "attributes": {
+      "type": "array",
+      "description": "Liste des attributs du modèle",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Nom de l'attribut"
+          },
+          "type": {
+            "type": "string",
+            "enum": ["Integer", "String", "Date"],
+            "description": "Type de l'attribut (par exemple : 'Integer', 'String', 'Date')"
+          },
+          "metaAttributes": {
+            "type": "object",
+            "description": "Métadonnées organisées par catégorie",
+            "properties": {
+              "general": {
+                "type": "object",
+                "properties": {
+                  "label": { "type": "string" },
+                  "description": { "type": "string" },
+                  "placeholder": { "type": "string" },
+                  "readOnly": { "type": "boolean" },
+                  "hidden": { "type": "boolean" },
+                  "defaultValue": { "type": "string" },
+                  "required": { "type": "boolean" },
+                  "tooltip": { "type": "string" },
+                  "toString": { "type": "boolean" }
+                }
+              },
+              "forms": {
+                "type": "object",
+                "properties": {
+                  "inputType": { "type": "string" },
+                  "validation": { "type": "object" },
+                  "editor": { "type": "object", "properties": { "width": { "type": "number" }, "height": { "type": "number" } } },
+                  "formatting": { "type": "array", "items": { "type": "string" } },
+                  "maxLength": { "type": "number" },
+                  "minLength": { "type": "number" },
+                  "accept": { "type": "string" },
+                  "options": { "type": "array", "items": { "type": "string" } },
+                  "multiSelect": { "type": "boolean" }
+                }
+              },
+              "tables": {
+                "type": "object",
+                "properties": {
+                  "sortable": { "type": "boolean" },
+                  "filterable": { "type": "boolean" },
+                  "displayInTable": { "type": "boolean" },
+                  "columnWidth": { "type": "number" },
+                  "format": { "type": "string" },
+                  "icon": { "type": "string" }
+                }
+              },
+              "relations": {
+                "type": "object",
+                "properties": {
+                  "relationType": { "type": "string" },
+                  "referencedTable": { "type": "string" },
+                  "referencedColumn": { "type": "string" },
+                  "displayColumn": { "type": "string" },
+                  "cascadeOnDelete": { "type": "boolean" }
+                }
+              },
+              "display": {
+                "type": "object",
+                "properties": {
+                  "alignment": { "type": "string" },
+                  "color": { "type": "string" },
+                  "displayOrder": { "type": "number" },
+                  "group": { "type": "string" },
+                  "badge": { "type": "boolean" },
+                  "badgeStyle": { "type": "string" },
+                  "imageThumbnail": { "type": "boolean" }
+                }
+              },
+              "database": {
+                "type": "object",
+                "properties": {
+                  "db_nullable": { "type": "boolean" },
+                  "db_primaryKey": { "type": "boolean" },
+                  "db_unique": { "type": "boolean" }
+                }
+              }
+            }
+          }
+        },
+        "required": ["name", "type"]
+      }
+    },
+    "oneToOneRelations": {
+      "type": "array",
+      "description": "Liste des relations One-to-One",
+      "items": {
+        "type": "object",
+        "properties": {
+          "column": { "type": "string" },
+          "referencedTable": { "type": "string" },
+          "referencedColumn": { "type": "string" }
+        },
+        "required": ["column", "referencedTable", "referencedColumn"]
+      }
+    },
+    "manyToOneRelations": {
+      "type": "array",
+      "description": "Liste des relations Many-to-One",
+      "items": {
+        "type": "object",
+        "properties": {
+          "column": { "type": "string" },
+          "referencedTable": { "type": "string" },
+          "referencedColumn": { "type": "string" }
+        },
+        "required": ["column", "referencedTable", "referencedColumn"]
+      }
+    },
+    "manyToManyRelations": {
+      "type": "array",
+      "description": "Liste des relations Many-to-Many",
+      "items": {
+        "type": "object",
+        "properties": {
+          "through": { "type": "string" },
+          "with": { "type": "string" }
+        },
+        "required": ["through", "with"]
+      }
+    },
+    "metaModels": {
+      "type": "array",
+      "description": "Liste des métadonnées globales associées au modèle",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "description": "Nom de la méta-donnée" },
+          "value": { "type": ["boolean", "integer", "string"], "description": "Valeur associée à la méta-donnée" }
+        },
+        "required": ["name", "value"]
+      }
+    }
+  },
+  "required": ["name", "attributes"]
+}

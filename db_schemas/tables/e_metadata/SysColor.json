@@ -1,0 +1,158 @@
+[
+    {
+        "reference": "sys_colors_creationOrder",
+        "value_integer": 6,
+        "e_model_reference": "sys_colors",
+        "e_metadata_definition_reference": "creationOrder"
+    },
+    {
+        "reference": "SysColor_id_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysColor_id",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "SysColor_name_displayInTable",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysColor_name",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "SysColor_name_displayField",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysColor_name",
+        "e_metadata_definition_reference": "displayField"
+    },
+    {
+        "reference": "SysColor_name_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysColor_name",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "SysColor_hex_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysColor_hex",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "SysColor_reference_required",
+        "value_boolean": 0,
+        "e_data_field_reference": "SysColor_reference",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "sys_colors_hasMany_sys_models_sys_color_id_editHasMany",
+        "value_boolean": 1,
+        "e_data_field_reference": "sys_colors_hasMany_sys_models_sys_color_id",
+        "e_metadata_definition_reference": "editHasMany"
+    },
+    {
+        "reference": "sys_colors_hasMany_sys_modules_sys_color_id_editHasMany",
+        "value_boolean": 1,
+        "e_data_field_reference": "sys_colors_hasMany_sys_modules_sys_color_id",
+        "e_metadata_definition_reference": "editHasMany"
+    },
+    {
+        "reference": "SysColor_id_displayOrder",
+        "value_integer": 1,
+        "e_data_field_reference": "SysColor_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "SysColor_name_displayOrder",
+        "value_integer": 2,
+        "e_data_field_reference": "SysColor_name",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "SysColor_hex_displayOrder",
+        "value_integer": 3,
+        "e_data_field_reference": "SysColor_hex",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "SysColor_reference_displayOrder",
+        "value_integer": 4,
+        "e_data_field_reference": "SysColor_reference",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "SysColor_created_at_displayOrder",
+        "value_integer": 5,
+        "e_data_field_reference": "SysColor_created_at",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "SysColor_updated_at_displayOrder",
+        "value_integer": 6,
+        "e_data_field_reference": "SysColor_updated_at",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "sys_colors_hasMany_sys_models_sys_color_id_displayOrder",
+        "value_integer": 7,
+        "e_data_field_reference": "sys_colors_hasMany_sys_models_sys_color_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "sys_colors_hasMany_sys_modules_sys_color_id_displayOrder",
+        "value_integer": 8,
+        "e_data_field_reference": "sys_colors_hasMany_sys_modules_sys_color_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "SysColor_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysColor_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "SysColor_name_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysColor_name",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "SysColor_hex_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysColor_hex",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "SysColor_reference_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysColor_reference",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "SysColor_created_at_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysColor_created_at",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "SysColor_updated_at_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysColor_updated_at",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "sys_colors_hasMany_sys_models_sys_color_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "sys_colors_hasMany_sys_models_sys_color_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "sys_colors_hasMany_sys_modules_sys_color_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "sys_colors_hasMany_sys_modules_sys_color_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "sys_colors_displayInSideBar",
+        "value_boolean": 1,
+        "e_model_reference": "sys_colors",
+        "e_metadata_definition_reference": "displayInSideBar"
+    }
+]

@@ -1,0 +1,238 @@
+{
+    "name": "Projet",
+    "icon": "fa-table",
+    "attributes": [
+        {
+            "name": "id",
+            "type": "Integer",
+            "metaAttributes": {
+                "general": {
+                    "required": true
+                },
+                "tables": {
+                    "displayInTable": true
+                },
+                "database": {
+                    "db_nullable": false,
+                    "db_primaryKey": true,
+                    "db_unique": false
+                }
+            }
+        },
+        {
+            "name": "titre",
+            "type": "String",
+            "metaAttributes": {
+                "general": {
+                    "displayField": true,
+                    "required": true
+                },
+                "tables": {
+                    "displayInTable": true
+                },
+                "database": {
+                    "db_nullable": false,
+                    "db_primaryKey": false,
+                    "db_unique": false
+                }
+            }
+        },
+        {
+            "name": "travail_a_faire",
+            "type": "Text",
+            "metaAttributes": {
+                "general": {
+                    "required": true
+                },
+                "database": {
+                    "db_nullable": false,
+                    "db_primaryKey": false,
+                    "db_unique": false
+                }
+            }
+        },
+        {
+            "name": "critere_de_travail",
+            "type": "Text",
+            "metaAttributes": {
+                "general": {
+                    "required": true
+                },
+                "database": {
+                    "db_nullable": false,
+                    "db_primaryKey": false,
+                    "db_unique": false
+                }
+            }
+        },
+        {
+            "name": "description",
+            "type": "Text",
+            "metaAttributes": {
+                "general": {
+                    "required": false
+                },
+                "database": {
+                    "db_nullable": false,
+                    "db_primaryKey": false,
+                    "db_unique": false
+                }
+            }
+        },
+        {
+            "name": "date_debut",
+            "type": "Date",
+            "metaAttributes": {
+                "general": {
+                    "required": true
+                },
+                "tables": {
+                    "displayInTable": true
+                },
+                "database": {
+                    "db_nullable": false,
+                    "db_primaryKey": false,
+                    "db_unique": false
+                }
+            }
+        },
+        {
+            "name": "date_fin",
+            "type": "Date",
+            "metaAttributes": {
+                "general": {
+                    "required": true
+                },
+                "tables": {
+                    "displayInTable": true
+                },
+                "database": {
+                    "db_nullable": false,
+                    "db_primaryKey": false,
+                    "db_unique": false
+                }
+            }
+        },
+        {
+            "name": "formateur_id",
+            "type": "ManyToOne",
+            "metaAttributes": {
+                "general": {
+                    "required": true
+                },
+                "tables": {
+                    "displayInTable": true
+                },
+                "relations": {
+                    "manyToOne": true,
+                    "relationType": "ManyToOne",
+                    "targetModelName": "Formateur",
+                    "targetTable": "formateurs"
+                },
+                "database": {
+                    "db_nullable": false,
+                    "db_primaryKey": false,
+                    "db_unique": false
+                }
+            }
+        },
+        {
+            "name": "created_at",
+            "type": "Date",
+            "metaAttributes": {
+                "tables": {
+                    "displayInTable": true
+                },
+                "database": {
+                    "db_nullable": true,
+                    "db_primaryKey": false,
+                    "db_unique": false
+                }
+            }
+        },
+        {
+            "name": "updated_at",
+            "type": "Date",
+            "metaAttributes": {
+                "tables": {
+                    "displayInTable": true
+                },
+                "database": {
+                    "db_nullable": true,
+                    "db_primaryKey": false,
+                    "db_unique": false
+                }
+            }
+        },
+        {
+            "name": "Livrable_HasMany",
+            "type": "HasMany",
+            "metaAttributes": {
+                "forms": {
+                    "editHasMany": true
+                },
+                "relations": {
+                    "relationType": "HasMany",
+                    "targetModelName": "Livrable",
+                    "targetTable": "livrables"
+                }
+            }
+        },
+        {
+            "name": "Resource_HasMany",
+            "type": "HasMany",
+            "metaAttributes": {
+                "forms": {
+                    "editHasMany": true
+                },
+                "relations": {
+                    "relationType": "HasMany",
+                    "targetModelName": "Resource",
+                    "targetTable": "resources"
+                }
+            }
+        },
+        {
+            "name": "TransfertCompetence_HasMany",
+            "type": "HasMany",
+            "metaAttributes": {
+                "forms": {
+                    "editHasMany": true
+                },
+                "relations": {
+                    "relationType": "HasMany",
+                    "targetModelName": "TransfertCompetence",
+                    "targetTable": "transfert_competences"
+                }
+            }
+        }
+    ],
+    "oneToOneRelations": [],
+    "manyToOneRelations": [
+        {
+            "column": "formateur_id",
+            "referencedTable": "formateurs",
+            "referencedColumn": "id"
+        }
+    ],
+    "hasManyRelations": [
+        {
+            "referencedTable": "livrables",
+            "columnName": "projet_id"
+        },
+        {
+            "referencedTable": "resources",
+            "columnName": "projet_id"
+        },
+        {
+            "referencedTable": "transfert_competences",
+            "columnName": "projet_id"
+        }
+    ],
+    "manyToManyRelations": [],
+    "metaModels": {
+        "creationOrder": 36,
+        "isOwnedByUser": true,
+        "isPivotTable": false
+    }
+}

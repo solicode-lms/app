@@ -1,0 +1,80 @@
+[
+    {
+        "reference": "ModelHasRole_role_id_displayInTable",
+        "value_boolean": 1,
+        "e_data_field_reference": "ModelHasRole_role_id",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "ModelHasRole_role_id_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "ModelHasRole_role_id",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "ModelHasRole_role_id_filterable",
+        "value_boolean": 1,
+        "e_data_field_reference": "ModelHasRole_role_id",
+        "e_metadata_definition_reference": "filterable"
+    },
+    {
+        "reference": "ModelHasRole_model_type_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "ModelHasRole_model_type",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "ModelHasRole_model_id_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "ModelHasRole_model_id",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "model_has_roles_creationOrder",
+        "value_integer": 48,
+        "e_model_reference": "model_has_roles",
+        "e_metadata_definition_reference": "creationOrder"
+    },
+    {
+        "reference": "ModelHasRole_role_id_displayOrder",
+        "value_integer": 1,
+        "e_data_field_reference": "ModelHasRole_role_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "ModelHasRole_model_type_displayOrder",
+        "value_integer": 2,
+        "e_data_field_reference": "ModelHasRole_model_type",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "ModelHasRole_model_id_displayOrder",
+        "value_integer": 3,
+        "e_data_field_reference": "ModelHasRole_model_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "ModelHasRole_role_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "ModelHasRole_role_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "ModelHasRole_model_type_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "ModelHasRole_model_type",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "ModelHasRole_model_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "ModelHasRole_model_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "model_has_roles_displayInSideBar",
+        "value_boolean": 1,
+        "e_model_reference": "model_has_roles",
+        "e_metadata_definition_reference": "displayInSideBar"
+    }
+]
