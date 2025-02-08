@@ -7,7 +7,7 @@
 			"path": "../docs"
 		},
 		{
-			"path": "../db_schemas/"
+			"path": "./db_schemas/"
 		},
 		{
 			"path": "../../laravel-builders/gapp3"
