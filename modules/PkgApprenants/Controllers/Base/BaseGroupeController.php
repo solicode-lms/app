@@ -11,6 +11,7 @@ use Modules\PkgFormation\Services\FiliereService;
 use Modules\PkgRealisationProjets\Services\AffectationProjetService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
+use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgApprenants\App\Requests\GroupeRequest;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgApprenants\App\Exports\GroupeExport;
@@ -74,13 +75,14 @@ class BaseGroupeController extends AdminController
         $groupe = $this->groupeService->create($validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 
-            'entity_id' => $groupe->id,
-            'message' => 
-             __('Core::msg.addSuccess', [
+             $message = __('Core::msg.addSuccess', [
                 'entityToString' => $groupe,
-                'modelName' => __('PkgApprenants::groupe.singular')])
-            ]);
+                'modelName' => __('PkgApprenants::groupe.singular')]);
+        
+            return JsonResponseHelper::success(
+             $message,
+             ['entity_id' => $groupe->id]
+            );
         }
 
         return redirect()->route('groupes.edit',['groupe' => $groupe->id])->with(
@@ -143,11 +145,14 @@ class BaseGroupeController extends AdminController
         $groupe = $this->groupeService->update($id, $validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.updateSuccess', [
+             $message = __('Core::msg.updateSuccess', [
                 'entityToString' => $groupe,
-                'modelName' =>  __('PkgApprenants::groupe.singular')])
-            ]);
+                'modelName' =>  __('PkgApprenants::groupe.singular')]);
+            
+            return JsonResponseHelper::success(
+                $message,
+                ['entity_id' => $groupe->id]
+            );
         }
 
         return redirect()->route('groupes.index')->with(
@@ -164,11 +169,14 @@ class BaseGroupeController extends AdminController
         $groupe = $this->groupeService->destroy($id);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.deleteSuccess', [
+            $message = __('Core::msg.deleteSuccess', [
                 'entityToString' => $groupe,
-                'modelName' =>  __('PkgApprenants::groupe.singular')])
-            ]);
+                'modelName' =>  __('PkgApprenants::groupe.singular')]);
+            
+
+            return JsonResponseHelper::success(
+                $message
+            );
         }
 
         return redirect()->route('groupes.index')->with(
