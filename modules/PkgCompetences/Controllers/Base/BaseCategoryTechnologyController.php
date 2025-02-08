@@ -98,10 +98,13 @@ class BaseCategoryTechnologyController extends AdminController
     }
     public function edit(string $id) {
 
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('category_technology_id', $id);
+
         
         $itemCategoryTechnology = $this->categoryTechnologyService->find($id);
+
+        // Il doit être après le chargement de edit form et avant les form hasMany
+        $this->contextState->set('category_technology_id', $id);
+
         $technologyService =  new TechnologyService();
         $technologies_data =  $itemCategoryTechnology->technologies()->paginate(10);
         $technologies_stats = $technologyService->gettechnologyStats();

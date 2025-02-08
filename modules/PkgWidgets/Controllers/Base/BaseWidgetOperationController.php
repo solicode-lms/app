@@ -98,10 +98,13 @@ class BaseWidgetOperationController extends AdminController
     }
     public function edit(string $id) {
 
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('widget_operation_id', $id);
+
         
         $itemWidgetOperation = $this->widgetOperationService->find($id);
+
+        // Il doit être après le chargement de edit form et avant les form hasMany
+        $this->contextState->set('widget_operation_id', $id);
+
         $widgetService =  new WidgetService();
         $widgets_data =  $itemWidgetOperation->widgets()->paginate(10);
         $widgets_stats = $widgetService->getwidgetStats();

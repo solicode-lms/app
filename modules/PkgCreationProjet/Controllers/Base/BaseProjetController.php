@@ -121,11 +121,14 @@ class BaseProjetController extends AdminController
     }
     public function edit(string $id) {
 
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('projet_id', $id);
+
         
         $itemProjet = $this->projetService->find($id);
         $formateurs = $this->formateurService->all();
+
+        // Il doit être après le chargement de edit form et avant les form hasMany
+        $this->contextState->set('projet_id', $id);
+
         $transfertCompetenceService =  new TransfertCompetenceService();
         $transfertCompetences_data =  $itemProjet->transfertCompetences()->paginate(10);
         $transfertCompetences_stats = $transfertCompetenceService->gettransfertCompetenceStats();

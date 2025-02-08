@@ -107,13 +107,16 @@ class BaseTechnologyController extends AdminController
     }
     public function edit(string $id) {
 
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('technology_id', $id);
+
         
         $itemTechnology = $this->technologyService->find($id);
         $competences = $this->competenceService->all();
         $transfertCompetences = $this->transfertCompetenceService->all();
         $categoryTechnologies = $this->categoryTechnologyService->all();
+
+        // Il doit être après le chargement de edit form et avant les form hasMany
+        $this->contextState->set('technology_id', $id);
+
 
         if (request()->ajax()) {
             return view('PkgCompetences::technology._fields', compact('itemTechnology', 'competences', 'transfertCompetences', 'categoryTechnologies'));

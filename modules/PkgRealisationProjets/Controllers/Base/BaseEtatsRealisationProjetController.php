@@ -103,11 +103,14 @@ class BaseEtatsRealisationProjetController extends AdminController
     }
     public function edit(string $id) {
 
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('etats_realisation_projet_id', $id);
+
         
         $itemEtatsRealisationProjet = $this->etatsRealisationProjetService->find($id);
         $formateurs = $this->formateurService->all();
+
+        // Il doit être après le chargement de edit form et avant les form hasMany
+        $this->contextState->set('etats_realisation_projet_id', $id);
+
         $realisationProjetService =  new RealisationProjetService();
         $realisationProjets_data =  $itemEtatsRealisationProjet->realisationProjets()->paginate(10);
         $realisationProjets_stats = $realisationProjetService->getrealisationProjetStats();

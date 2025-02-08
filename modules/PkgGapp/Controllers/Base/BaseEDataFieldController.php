@@ -108,12 +108,15 @@ class BaseEDataFieldController extends AdminController
     }
     public function edit(string $id) {
 
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('e_data_field_id', $id);
+
         
         $itemEDataField = $this->eDataFieldService->find($id);
         $eModels = $this->eModelService->all();
         $eRelationships = $this->eRelationshipService->all();
+
+        // Il doit être après le chargement de edit form et avant les form hasMany
+        $this->contextState->set('e_data_field_id', $id);
+
         $eMetadatumService =  new EMetadatumService();
         $eMetadata_data =  $itemEDataField->eMetadata()->paginate(10);
         $eMetadata_stats = $eMetadatumService->geteMetadatumStats();

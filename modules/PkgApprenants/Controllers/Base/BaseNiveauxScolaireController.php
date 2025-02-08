@@ -98,10 +98,13 @@ class BaseNiveauxScolaireController extends AdminController
     }
     public function edit(string $id) {
 
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('niveaux_scolaire_id', $id);
+
         
         $itemNiveauxScolaire = $this->niveauxScolaireService->find($id);
+
+        // Il doit être après le chargement de edit form et avant les form hasMany
+        $this->contextState->set('niveaux_scolaire_id', $id);
+
         $apprenantService =  new ApprenantService();
         $apprenants_data =  $itemNiveauxScolaire->apprenants()->paginate(10);
         $apprenants_stats = $apprenantService->getapprenantStats();

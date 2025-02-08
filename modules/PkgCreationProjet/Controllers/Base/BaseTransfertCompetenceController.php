@@ -112,14 +112,17 @@ class BaseTransfertCompetenceController extends AdminController
     }
     public function edit(string $id) {
 
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('transfert_competence_id', $id);
+
         
         $itemTransfertCompetence = $this->transfertCompetenceService->find($id);
         $technologies = $this->technologyService->all();
         $competences = $this->competenceService->all();
         $niveauDifficultes = $this->niveauDifficulteService->all();
         $projets = $this->projetService->all();
+
+        // Il doit être après le chargement de edit form et avant les form hasMany
+        $this->contextState->set('transfert_competence_id', $id);
+
 
         if (request()->ajax()) {
             return view('PkgCreationProjet::transfertCompetence._fields', compact('itemTransfertCompetence', 'technologies', 'competences', 'niveauDifficultes', 'projets'));

@@ -102,12 +102,15 @@ class BaseLivrableController extends AdminController
     }
     public function edit(string $id) {
 
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('livrable_id', $id);
+
         
         $itemLivrable = $this->livrableService->find($id);
         $natureLivrables = $this->natureLivrableService->all();
         $projets = $this->projetService->all();
+
+        // Il doit être après le chargement de edit form et avant les form hasMany
+        $this->contextState->set('livrable_id', $id);
+
 
         if (request()->ajax()) {
             return view('PkgCreationProjet::livrable._fields', compact('itemLivrable', 'natureLivrables', 'projets'));

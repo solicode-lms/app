@@ -104,10 +104,13 @@ class BaseFiliereController extends AdminController
     }
     public function edit(string $id) {
 
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('filiere_id', $id);
+
         
         $itemFiliere = $this->filiereService->find($id);
+
+        // Il doit être après le chargement de edit form et avant les form hasMany
+        $this->contextState->set('filiere_id', $id);
+
         $groupeService =  new GroupeService();
         $groupes_data =  $itemFiliere->groupes()->paginate(10);
         $groupes_stats = $groupeService->getgroupeStats();

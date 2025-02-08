@@ -109,11 +109,14 @@ class BaseUserController extends AdminController
     }
     public function edit(string $id) {
 
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('user_id', $id);
+
         
         $itemUser = $this->userService->find($id);
         $roles = $this->roleService->all();
+
+        // Il doit être après le chargement de edit form et avant les form hasMany
+        $this->contextState->set('user_id', $id);
+
         $apprenantService =  new ApprenantService();
         $apprenants_data =  $itemUser->apprenants()->paginate(10);
         $apprenants_stats = $apprenantService->getapprenantStats();

@@ -118,14 +118,17 @@ class BaseGroupeController extends AdminController
     }
     public function edit(string $id) {
 
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('groupe_id', $id);
+
         
         $itemGroupe = $this->groupeService->find($id);
         $apprenants = $this->apprenantService->all();
         $formateurs = $this->formateurService->all();
         $anneeFormations = $this->anneeFormationService->all();
         $filieres = $this->filiereService->all();
+
+        // Il doit être après le chargement de edit form et avant les form hasMany
+        $this->contextState->set('groupe_id', $id);
+
         $affectationProjetService =  new AffectationProjetService();
         $affectationProjets_data =  $itemGroupe->affectationProjets()->paginate(10);
         $affectationProjets_stats = $affectationProjetService->getaffectationProjetStats();

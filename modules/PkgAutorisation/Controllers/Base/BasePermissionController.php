@@ -107,13 +107,16 @@ class BasePermissionController extends AdminController
     }
     public function edit(string $id) {
 
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('permission_id', $id);
+
         
         $itemPermission = $this->permissionService->find($id);
         $features = $this->featureService->all();
         $roles = $this->roleService->all();
         $sysControllers = $this->sysControllerService->all();
+
+        // Il doit être après le chargement de edit form et avant les form hasMany
+        $this->contextState->set('permission_id', $id);
+
 
         if (request()->ajax()) {
             return view('PkgAutorisation::permission._fields', compact('itemPermission', 'features', 'roles', 'sysControllers'));

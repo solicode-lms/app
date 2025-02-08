@@ -98,10 +98,13 @@ class BaseNatureLivrableController extends AdminController
     }
     public function edit(string $id) {
 
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('nature_livrable_id', $id);
+
         
         $itemNatureLivrable = $this->natureLivrableService->find($id);
+
+        // Il doit être après le chargement de edit form et avant les form hasMany
+        $this->contextState->set('nature_livrable_id', $id);
+
         $livrableService =  new LivrableService();
         $livrables_data =  $itemNatureLivrable->livrables()->paginate(10);
         $livrables_stats = $livrableService->getlivrableStats();

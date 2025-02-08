@@ -102,12 +102,15 @@ class BaseRoleController extends AdminController
     }
     public function edit(string $id) {
 
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('role_id', $id);
+
         
         $itemRole = $this->roleService->find($id);
         $permissions = $this->permissionService->all();
         $users = $this->userService->all();
+
+        // Il doit être après le chargement de edit form et avant les form hasMany
+        $this->contextState->set('role_id', $id);
+
 
         if (request()->ajax()) {
             return view('PkgAutorisation::role._fields', compact('itemRole', 'permissions', 'users'));

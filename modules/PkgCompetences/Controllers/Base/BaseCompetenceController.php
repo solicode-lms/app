@@ -108,12 +108,15 @@ class BaseCompetenceController extends AdminController
     }
     public function edit(string $id) {
 
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('competence_id', $id);
+
         
         $itemCompetence = $this->competenceService->find($id);
         $technologies = $this->technologyService->all();
         $modules = $this->moduleService->all();
+
+        // Il doit être après le chargement de edit form et avant les form hasMany
+        $this->contextState->set('competence_id', $id);
+
         $niveauCompetenceService =  new NiveauCompetenceService();
         $niveauCompetences_data =  $itemCompetence->niveauCompetences()->paginate(10);
         $niveauCompetences_stats = $niveauCompetenceService->getniveauCompetenceStats();

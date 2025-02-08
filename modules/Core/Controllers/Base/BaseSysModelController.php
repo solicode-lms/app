@@ -108,12 +108,15 @@ class BaseSysModelController extends AdminController
     }
     public function edit(string $id) {
 
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('sys_model_id', $id);
+
         
         $itemSysModel = $this->sysModelService->find($id);
         $sysColors = $this->sysColorService->all();
         $sysModules = $this->sysModuleService->all();
+
+        // Il doit être après le chargement de edit form et avant les form hasMany
+        $this->contextState->set('sys_model_id', $id);
+
         $widgetService =  new WidgetService();
         $widgets_data =  $itemSysModel->widgets()->paginate(10);
         $widgets_stats = $widgetService->getwidgetStats();

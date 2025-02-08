@@ -102,12 +102,15 @@ class BaseFeatureController extends AdminController
     }
     public function edit(string $id) {
 
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('feature_id', $id);
+
         
         $itemFeature = $this->featureService->find($id);
         $permissions = $this->permissionService->all();
         $featureDomains = $this->featureDomainService->all();
+
+        // Il doit être après le chargement de edit form et avant les form hasMany
+        $this->contextState->set('feature_id', $id);
+
 
         if (request()->ajax()) {
             return view('Core::feature._fields', compact('itemFeature', 'permissions', 'featureDomains'));

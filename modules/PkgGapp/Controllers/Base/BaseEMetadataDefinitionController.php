@@ -92,10 +92,13 @@ class BaseEMetadataDefinitionController extends AdminController
     }
     public function edit(string $id) {
 
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('e_metadata_definition_id', $id);
+
         
         $itemEMetadataDefinition = $this->eMetadataDefinitionService->find($id);
+
+        // Il doit être après le chargement de edit form et avant les form hasMany
+        $this->contextState->set('e_metadata_definition_id', $id);
+
 
         if (request()->ajax()) {
             return view('PkgGapp::eMetadataDefinition._fields', compact('itemEMetadataDefinition'));

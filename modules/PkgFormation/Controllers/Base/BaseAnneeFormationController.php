@@ -104,10 +104,13 @@ class BaseAnneeFormationController extends AdminController
     }
     public function edit(string $id) {
 
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('annee_formation_id', $id);
+
         
         $itemAnneeFormation = $this->anneeFormationService->find($id);
+
+        // Il doit être après le chargement de edit form et avant les form hasMany
+        $this->contextState->set('annee_formation_id', $id);
+
         $affectationProjetService =  new AffectationProjetService();
         $affectationProjets_data =  $itemAnneeFormation->affectationProjets()->paginate(10);
         $affectationProjets_stats = $affectationProjetService->getaffectationProjetStats();

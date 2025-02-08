@@ -107,13 +107,16 @@ class BaseEMetadatumController extends AdminController
     }
     public function edit(string $id) {
 
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('e_metadatum_id', $id);
+
         
         $itemEMetadatum = $this->eMetadatumService->find($id);
         $eDataFields = $this->eDataFieldService->all();
         $eMetadataDefinitions = $this->eMetadataDefinitionService->all();
         $eModels = $this->eModelService->all();
+
+        // Il doit être après le chargement de edit form et avant les form hasMany
+        $this->contextState->set('e_metadatum_id', $id);
+
 
         if (request()->ajax()) {
             return view('PkgGapp::eMetadatum._fields', compact('itemEMetadatum', 'eDataFields', 'eMetadataDefinitions', 'eModels'));

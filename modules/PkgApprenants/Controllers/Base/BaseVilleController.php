@@ -92,10 +92,13 @@ class BaseVilleController extends AdminController
     }
     public function edit(string $id) {
 
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('ville_id', $id);
+
         
         $itemVille = $this->villeService->find($id);
+
+        // Il doit être après le chargement de edit form et avant les form hasMany
+        $this->contextState->set('ville_id', $id);
+
 
         if (request()->ajax()) {
             return view('PkgApprenants::ville._fields', compact('itemVille'));

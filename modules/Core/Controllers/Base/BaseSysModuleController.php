@@ -115,11 +115,14 @@ class BaseSysModuleController extends AdminController
     }
     public function edit(string $id) {
 
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('sys_module_id', $id);
+
         
         $itemSysModule = $this->sysModuleService->find($id);
         $sysColors = $this->sysColorService->all();
+
+        // Il doit être après le chargement de edit form et avant les form hasMany
+        $this->contextState->set('sys_module_id', $id);
+
         $featureDomainService =  new FeatureDomainService();
         $featureDomains_data =  $itemSysModule->featureDomains()->paginate(10);
         $featureDomains_stats = $featureDomainService->getfeatureDomainStats();

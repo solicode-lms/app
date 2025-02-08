@@ -125,13 +125,16 @@ class BaseFormateurController extends AdminController
     }
     public function edit(string $id) {
 
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('formateur_id', $id);
+
         
         $itemFormateur = $this->formateurService->find($id);
         $groupes = $this->groupeService->all();
         $specialites = $this->specialiteService->all();
         $users = $this->userService->all();
+
+        // Il doit être après le chargement de edit form et avant les form hasMany
+        $this->contextState->set('formateur_id', $id);
+
         $etatsRealisationProjetService =  new EtatsRealisationProjetService();
         $etatsRealisationProjets_data =  $itemFormateur->etatsRealisationProjets()->paginate(10);
         $etatsRealisationProjets_stats = $etatsRealisationProjetService->getetatsRealisationProjetStats();

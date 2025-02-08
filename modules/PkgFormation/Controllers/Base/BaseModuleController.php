@@ -103,11 +103,14 @@ class BaseModuleController extends AdminController
     }
     public function edit(string $id) {
 
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('module_id', $id);
+
         
         $itemModule = $this->moduleService->find($id);
         $filieres = $this->filiereService->all();
+
+        // Il doit être après le chargement de edit form et avant les form hasMany
+        $this->contextState->set('module_id', $id);
+
         $competenceService =  new CompetenceService();
         $competences_data =  $itemModule->competences()->paginate(10);
         $competences_stats = $competenceService->getcompetenceStats();

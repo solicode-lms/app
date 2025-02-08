@@ -102,12 +102,15 @@ class BaseValidationController extends AdminController
     }
     public function edit(string $id) {
 
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('validation_id', $id);
+
         
         $itemValidation = $this->validationService->find($id);
         $realisationProjets = $this->realisationProjetService->all();
         $transfertCompetences = $this->transfertCompetenceService->all();
+
+        // Il doit être après le chargement de edit form et avant les form hasMany
+        $this->contextState->set('validation_id', $id);
+
 
         if (request()->ajax()) {
             return view('PkgRealisationProjets::validation._fields', compact('itemValidation', 'realisationProjets', 'transfertCompetences'));

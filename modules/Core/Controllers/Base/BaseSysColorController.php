@@ -104,10 +104,13 @@ class BaseSysColorController extends AdminController
     }
     public function edit(string $id) {
 
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('sys_color_id', $id);
+
         
         $itemSysColor = $this->sysColorService->find($id);
+
+        // Il doit être après le chargement de edit form et avant les form hasMany
+        $this->contextState->set('sys_color_id', $id);
+
         $sysModelService =  new SysModelService();
         $sysModels_data =  $itemSysColor->sysModels()->paginate(10);
         $sysModels_stats = $sysModelService->getsysModelStats();

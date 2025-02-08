@@ -98,10 +98,13 @@ class BaseNationaliteController extends AdminController
     }
     public function edit(string $id) {
 
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('nationalite_id', $id);
+
         
         $itemNationalite = $this->nationaliteService->find($id);
+
+        // Il doit être après le chargement de edit form et avant les form hasMany
+        $this->contextState->set('nationalite_id', $id);
+
         $apprenantService =  new ApprenantService();
         $apprenants_data =  $itemNationalite->apprenants()->paginate(10);
         $apprenants_stats = $apprenantService->getapprenantStats();

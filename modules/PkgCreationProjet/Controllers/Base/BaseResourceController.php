@@ -97,11 +97,14 @@ class BaseResourceController extends AdminController
     }
     public function edit(string $id) {
 
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('resource_id', $id);
+
         
         $itemResource = $this->resourceService->find($id);
         $projets = $this->projetService->all();
+
+        // Il doit être après le chargement de edit form et avant les form hasMany
+        $this->contextState->set('resource_id', $id);
+
 
         if (request()->ajax()) {
             return view('PkgCreationProjet::resource._fields', compact('itemResource', 'projets'));

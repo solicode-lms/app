@@ -118,14 +118,17 @@ class BaseApprenantController extends AdminController
     }
     public function edit(string $id) {
 
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('apprenant_id', $id);
+
         
         $itemApprenant = $this->apprenantService->find($id);
         $groupes = $this->groupeService->all();
         $nationalites = $this->nationaliteService->all();
         $niveauxScolaires = $this->niveauxScolaireService->all();
         $users = $this->userService->all();
+
+        // Il doit être après le chargement de edit form et avant les form hasMany
+        $this->contextState->set('apprenant_id', $id);
+
         $realisationProjetService =  new RealisationProjetService();
         $realisationProjets_data =  $itemApprenant->realisationProjets()->paginate(10);
         $realisationProjets_stats = $realisationProjetService->getrealisationProjetStats();

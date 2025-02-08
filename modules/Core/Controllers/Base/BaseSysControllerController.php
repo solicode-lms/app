@@ -103,11 +103,14 @@ class BaseSysControllerController extends AdminController
     }
     public function edit(string $id) {
 
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('sys_controller_id', $id);
+
         
         $itemSysController = $this->sysControllerService->find($id);
         $sysModules = $this->sysModuleService->all();
+
+        // Il doit être après le chargement de edit form et avant les form hasMany
+        $this->contextState->set('sys_controller_id', $id);
+
         $permissionService =  new PermissionService();
         $permissions_data =  $itemSysController->permissions()->paginate(10);
         $permissions_stats = $permissionService->getpermissionStats();

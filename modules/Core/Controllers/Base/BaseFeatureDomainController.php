@@ -103,11 +103,14 @@ class BaseFeatureDomainController extends AdminController
     }
     public function edit(string $id) {
 
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('feature_domain_id', $id);
+
         
         $itemFeatureDomain = $this->featureDomainService->find($id);
         $sysModules = $this->sysModuleService->all();
+
+        // Il doit être après le chargement de edit form et avant les form hasMany
+        $this->contextState->set('feature_domain_id', $id);
+
         $featureService =  new FeatureService();
         $features_data =  $itemFeatureDomain->features()->paginate(10);
         $features_stats = $featureService->getfeatureStats();

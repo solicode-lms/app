@@ -97,11 +97,14 @@ class BaseNiveauDifficulteController extends AdminController
     }
     public function edit(string $id) {
 
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('niveau_difficulte_id', $id);
+
         
         $itemNiveauDifficulte = $this->niveauDifficulteService->find($id);
         $formateurs = $this->formateurService->all();
+
+        // Il doit être après le chargement de edit form et avant les form hasMany
+        $this->contextState->set('niveau_difficulte_id', $id);
+
 
         if (request()->ajax()) {
             return view('PkgCompetences::niveauDifficulte._fields', compact('itemNiveauDifficulte', 'formateurs'));

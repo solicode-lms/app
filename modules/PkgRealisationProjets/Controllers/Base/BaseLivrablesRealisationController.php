@@ -97,11 +97,14 @@ class BaseLivrablesRealisationController extends AdminController
     }
     public function edit(string $id) {
 
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('livrables_realisation_id', $id);
+
         
         $itemLivrablesRealisation = $this->livrablesRealisationService->find($id);
         $livrables = $this->livrableService->all();
+
+        // Il doit être après le chargement de edit form et avant les form hasMany
+        $this->contextState->set('livrables_realisation_id', $id);
+
 
         if (request()->ajax()) {
             return view('PkgRealisationProjets::livrablesRealisation._fields', compact('itemLivrablesRealisation', 'livrables'));

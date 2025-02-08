@@ -107,13 +107,16 @@ class BaseWidgetController extends AdminController
     }
     public function edit(string $id) {
 
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('widget_id', $id);
+
         
         $itemWidget = $this->widgetService->find($id);
         $sysModels = $this->sysModelService->all();
         $widgetOperations = $this->widgetOperationService->all();
         $widgetTypes = $this->widgetTypeService->all();
+
+        // Il doit être après le chargement de edit form et avant les form hasMany
+        $this->contextState->set('widget_id', $id);
+
 
         if (request()->ajax()) {
             return view('PkgWidgets::widget._fields', compact('itemWidget', 'sysModels', 'widgetOperations', 'widgetTypes'));
