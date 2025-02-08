@@ -40,8 +40,12 @@ class BaseTransfertCompetence extends BaseModel
         'competence_id', 'question', 'niveau_difficulte_id', 'note', 'projet_id'
     ];
     public $manyToMany = [
-        'technologies'
+        'Technology' => ['relation' => 'technologies' , "foreign_key" => "technology_id" ]
     ];
+
+       
+
+
 
     /**
      * Relation BelongsTo pour Competence.

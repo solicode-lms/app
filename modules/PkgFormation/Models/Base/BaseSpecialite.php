@@ -36,8 +36,12 @@ class BaseSpecialite extends BaseModel
         'nom', 'description'
     ];
     public $manyToMany = [
-        'formateurs'
+        'Formateur' => ['relation' => 'formateurs' , "foreign_key" => "formateur_id" ]
     ];
+
+       
+
+
 
 
     /**

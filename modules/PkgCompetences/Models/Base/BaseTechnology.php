@@ -38,9 +38,13 @@ class BaseTechnology extends BaseModel
         'nom', 'category_technology_id', 'description'
     ];
     public $manyToMany = [
-        'competences',
-        'transfertCompetences'
+        'Competence' => ['relation' => 'competences' , "foreign_key" => "competence_id" ],
+        'TransfertCompetence' => ['relation' => 'transfertCompetences' , "foreign_key" => "transfert_competence_id" ]
     ];
+
+       
+
+
 
     /**
      * Relation BelongsTo pour CategoryTechnology.

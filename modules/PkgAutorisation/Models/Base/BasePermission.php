@@ -38,9 +38,13 @@ class BasePermission extends BaseModel
         'name', 'guard_name', 'controller_id'
     ];
     public $manyToMany = [
-        'features',
-        'roles'
+        'Feature' => ['relation' => 'features' , "foreign_key" => "feature_id" ],
+        'Role' => ['relation' => 'roles' , "foreign_key" => "role_id" ]
     ];
+
+       
+
+
 
     /**
      * Relation BelongsTo pour SysController.

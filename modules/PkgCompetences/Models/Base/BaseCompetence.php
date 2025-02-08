@@ -39,8 +39,12 @@ class BaseCompetence extends BaseModel
         'code', 'mini_code', 'nom', 'module_id', 'description'
     ];
     public $manyToMany = [
-        'technologies'
+        'Technology' => ['relation' => 'technologies' , "foreign_key" => "technology_id" ]
     ];
+
+       
+
+
 
     /**
      * Relation BelongsTo pour Module.

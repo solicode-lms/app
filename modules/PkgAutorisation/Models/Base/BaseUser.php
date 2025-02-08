@@ -38,8 +38,12 @@ class BaseUser extends BaseModel
         'name', 'email', 'email_verified_at', 'password', 'remember_token'
     ];
     public $manyToMany = [
-        'roles'
+        'Role' => ['relation' => 'roles' , "foreign_key" => "role_id" ]
     ];
+
+       
+
+
 
 
     /**

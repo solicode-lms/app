@@ -37,9 +37,13 @@ class BaseRole extends BaseModel
         'name', 'guard_name'
     ];
     public $manyToMany = [
-        'permissions',
-        'users'
+        'Permission' => ['relation' => 'permissions' , "foreign_key" => "permission_id" ],
+        'User' => ['relation' => 'users' , "foreign_key" => "user_id" ]
     ];
+
+       
+
+
 
 
     /**
