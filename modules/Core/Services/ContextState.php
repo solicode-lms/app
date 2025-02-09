@@ -88,4 +88,9 @@ class ContextState implements JsonSerializable
     {
         return $this->all();
     }
+
+    public function isContextStateEnable(): bool
+    {
+        return !empty($this->variables);
+    }
 }

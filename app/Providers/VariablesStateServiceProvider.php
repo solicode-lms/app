@@ -21,7 +21,6 @@ class VariablesStateServiceProvider extends ServiceProvider
     {
         $this->app->singleton(ContextState::class);
         $this->app->singleton(SessionState::class, fn($app) => new SessionState());
-        $this->app->singleton(ViewState::class, fn($app) => new ViewState());
     }
 
     /**
@@ -31,11 +30,17 @@ class VariablesStateServiceProvider extends ServiceProvider
     {
         // Partager les états avec toutes les vues
         view()->composer('*', function ($view) {
-            $view->with([
+            $viewData = [];
+
+            if (app()->bound(ViewState::class)) {
+                $viewState = app(ViewState::class);
+                $viewData['viewState'] = $viewState->getViewData();
+            }
+
+            $view->with(array_merge($viewData, [
                 'contextState' => app(ContextState::class),
                 'sessionState' => tap(app(SessionState::class), fn($s) => $s->loadUserSessionData()),
-                'viewState' => app(ViewState::class)->get(app(ViewState::class)->getViewKey(), [])
-            ]);
+            ]));
         });
     }
 }

@@ -135,7 +135,10 @@
     window.contextState = @json($contextState);
     window.sessionState = @json($sessionState);
     window.viewState = @json($viewState);
-    console.log(window.contextStat);
+    console.log("contextState");
+    console.log(window.contextState);
+    console.log("viewState");
+    console.log(window.viewState);
     </script>
     @stack('scripts')
 </body>

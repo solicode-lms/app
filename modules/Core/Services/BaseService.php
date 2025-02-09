@@ -18,7 +18,7 @@ abstract class BaseService implements ServiceInterface
 
     protected array $fieldsFilterable;
 
-    protected $contextState;
+    protected $viewState;
 
     /**
      * Le modèle Eloquent associé à ce référentiel.
@@ -52,7 +52,7 @@ abstract class BaseService implements ServiceInterface
         $this->model = $model;
         $this->modelName = class_basename($model);
         // Scrop management
-        $this->contextState = app(ContextState::class);
+        $this->viewState = app(ViewState::class);
     }
 
     // /**

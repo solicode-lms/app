@@ -12,24 +12,33 @@ class ViewState
      */
     protected string $sessionKey = 'view_state';
 
+    protected $ViewStateData;
+
+    protected $title = null;
+
     /**
-     * Définir la vue actuelle dans la session.
-     *
-     * @param string $viewKey Nom unique de la vue (ex: 'projet.edit').
+     * Clé de la vue en cours.
      */
-    public function setViewKey(string $viewKey): void
+    protected string $currentViewKey;
+
+    /**
+     * Constructeur de ViewState.
+     *
+     * @param string $viewKey Clé unique de la vue (ex: 'projet.edit').
+     */
+    public function __construct(string $viewKey)
     {
-        Session::put("{$this->sessionKey}.current_view", $viewKey);
+        $this->currentViewKey = $viewKey;
     }
 
     /**
      * Récupérer la clé actuelle de la vue.
      *
-     * @return string|null Clé de la vue active.
+     * @return string Clé de la vue active.
      */
-    public function getViewKey(): ?string
+    public function getViewKey(): string
     {
-        return Session::get("{$this->sessionKey}.current_view");
+        return $this->currentViewKey;
     }
 
     /**
@@ -41,8 +50,7 @@ class ViewState
      */
     public function get(string $key, mixed $default = null): mixed
     {
-        $viewKey = $this->getViewKey();
-        return Arr::get(Session::get("{$this->sessionKey}.views.{$viewKey}", []), $key, $default);
+        return Arr::get(Session::get("{$this->sessionKey}.views.{$this->currentViewKey}", []), $key, $default);
     }
 
     /**
@@ -53,10 +61,10 @@ class ViewState
      */
     public function set(string $key, mixed $value): void
     {
-        $viewKey = $this->getViewKey();
-        $data = Session::get("{$this->sessionKey}.views.{$viewKey}", []);
+        $data = Session::get("{$this->sessionKey}.views.{$this->currentViewKey}", []);
         Arr::set($data, $key, $value);
-        Session::put("{$this->sessionKey}.views.{$viewKey}", $data);
+        Session::put("{$this->sessionKey}.views.{$this->currentViewKey}", $data);
+        $ViewStateData = $this->getViewData();
     }
 
     /**
@@ -67,8 +75,7 @@ class ViewState
      */
     public function has(string $key): bool
     {
-        $viewKey = $this->getViewKey();
-        return Arr::has(Session::get("{$this->sessionKey}.views.{$viewKey}", []), $key);
+        return Arr::has(Session::get("{$this->sessionKey}.views.{$this->currentViewKey}", []), $key);
     }
 
     /**
@@ -78,10 +85,9 @@ class ViewState
      */
     public function remove(string $key): void
     {
-        $viewKey = $this->getViewKey();
-        $data = Session::get("{$this->sessionKey}.views.{$viewKey}", []);
+        $data = Session::get("{$this->sessionKey}.views.{$this->currentViewKey}", []);
         Arr::forget($data, $key);
-        Session::put("{$this->sessionKey}.views.{$viewKey}", $data);
+        Session::put("{$this->sessionKey}.views.{$this->currentViewKey}", $data);
     }
 
     /**
@@ -89,7 +95,106 @@ class ViewState
      */
     public function clear(): void
     {
-        $viewKey = $this->getViewKey();
-        Session::forget("{$this->sessionKey}.views.{$viewKey}");
+        Session::forget("{$this->sessionKey}.views.{$this->currentViewKey}");
     }
+
+    /**
+     * Récupérer toutes les données de la vue actuelle.
+     *
+     * @return array Données stockées pour cette vue.
+     */
+    public function getViewData(): array
+    {
+        return Session::get("{$this->sessionKey}.views.{$this->currentViewKey}", []);
+    }
+
+        /**
+     * Retourne le titre du contexte, ou le génère si vide.
+     * Le titre est construit à partir des variables du contexte.
+     *
+     * @return string
+     */
+    public function getTitle(): string
+    {
+        if (empty($this->title)) {
+            $this->title = $this->generateTitleFromVariables();
+        }
+
+        return $this->title;
+    }
+
+        /**
+     * Génère un titre basé sur les variables du contexte.
+     *
+     * @return string
+     */
+    protected function generateTitleFromVariables(): string
+    {
+        $parts = [];
+
+        foreach ($this->getViewData() as $key => $value) {
+            $parts[] = ucfirst($key) . ': ' . $value;
+        }
+
+        return implode(' | ', $parts);
+    }
+
+
+        /**
+     * Récupérer les variables du formulaire pour un modèle donné.
+     *
+     * @param string $modelName
+     * @return array
+     */
+    public function getFormVariables(string $modelName): array
+    {
+        return $this->extractVariables($modelName, ['scope', 'global','form']);
+    }
+
+    /**
+     * Récupérer les variables de la table pour un modèle donné.
+     *
+     * @param string $modelName
+     * @return array
+     */
+    public function getTableVariables(string $modelName): array
+    {
+        return $this->extractVariables($modelName, ['scope', 'global','table']);
+    }
+
+    /**
+     * Récupérer les variables de filtre pour un modèle donné.
+     *
+     * @param string $modelName
+     * @return array
+     */
+    public function getFilterVariables(string $modelName): array
+    {
+        return $this->extractVariables($modelName, ['scope', 'global','filter']);
+    }
+
+    /**
+     * Extraire les variables selon le type et le modèle donné.
+     *
+     * @param string $modelName
+     * @param array $types
+     * @return array
+     */
+    private function extractVariables(string $modelName, array $types): array
+    {
+        $viewData = $this->getViewData();
+        $filteredVariables = [];
+
+        foreach ($viewData as $key => $value) {
+            foreach ($types as $type) {
+                if (str_starts_with($key, "$type.$modelName.")) {
+                    $filteredKey = str_replace("$type.$modelName.", '', $key);
+                    $filteredVariables[$filteredKey] = $value;
+                }
+            }
+        }
+
+        return $filteredVariables;
+    }
+
 }

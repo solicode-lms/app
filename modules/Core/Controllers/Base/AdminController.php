@@ -6,9 +6,9 @@ use App\Http\Middleware\CheckDynamicPermission;
 use App\Http\Middleware\ContextStateMiddleware;
 use App\Http\Middleware\SessionStateMiddleware;
 use App\Http\Middleware\SetViewStateMiddleware;
-use App\Services\ViewState;
 use Modules\Core\Services\ContextState;
 use Modules\Core\Services\SessionState;
+use Modules\Core\Services\ViewState;
 
 /**
  * AdminController est responsable de la gestion des fonctionnalités liées aux administrateurs.
