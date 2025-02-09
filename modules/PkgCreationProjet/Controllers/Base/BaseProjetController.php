@@ -1,5 +1,5 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
+// En prototype : passer le paramétres projet_id au livrable: Edition has many
 
 
 namespace Modules\PkgCreationProjet\Controllers\Base;
@@ -129,29 +129,44 @@ class BaseProjetController extends AdminController
     }
     public function edit(string $id) {
 
-
-        
         $itemProjet = $this->projetService->find($id);
         $formateurs = $this->formateurService->all();
 
+  
         // Il doit être après le chargement de edit form et avant les form hasMany
-        $this->contextState->setGlobalContext('projet_id', $id);
-
+        // TODO 
+        // projet_id peut être différent selon le foreignKey dans la table Livrable
+        // traitements à faire
+        // - DynamicContextScope : chargement seulement les livrables ayant projet_id = $id
+        // ne pas afficher select projet dans livrable form
+        // création de livrable instance avec le projet selectionnée
+        // Proposition 
+        // ajouter le variable livrable__scope__projet_id = $id
+        // changer le nom de state : contextState --> viewState
+        // chaque view peut avoit son valeur
+        // Le contextState consit = sessionSate[scop_global], view_scop
+        $this->viewState->set('scope.livrable.projet_id', $id);
+        $this->viewState->set('scope.resource.projet_id', $id);
+        
+        $this->viewState->set('scope.transfertCompetence.projet_id', $id);
         $transfertCompetenceService =  new TransfertCompetenceService();
         $transfertCompetences_data =  $itemProjet->transfertCompetences()->paginate(10);
         $transfertCompetences_stats = $transfertCompetenceService->gettransfertCompetenceStats();
         $transfertCompetences_filters = $transfertCompetenceService->getFieldsFilterable();
         
+        $this->viewState->set('scope.livrable.projet_id', $id);
         $livrableService =  new LivrableService();
         $livrables_data =  $itemProjet->livrables()->paginate(10);
         $livrables_stats = $livrableService->getlivrableStats();
         $livrables_filters = $livrableService->getFieldsFilterable();
         
+        $this->viewState->set('scope.resource.projet_id', $id);
         $resourceService =  new ResourceService();
         $resources_data =  $itemProjet->resources()->paginate(10);
         $resources_stats = $resourceService->getresourceStats();
         $resources_filters = $resourceService->getFieldsFilterable();
         
+        $this->viewState->set('scope.affectationProjet.projet_id', $id);
         $affectationProjetService =  new AffectationProjetService();
         $affectationProjets_data =  $itemProjet->affectationProjets()->paginate(10);
         $affectationProjets_stats = $affectationProjetService->getaffectationProjetStats();

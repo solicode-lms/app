@@ -1,6 +1,4 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
-
 
 
 namespace Modules\Core\Services;
@@ -10,9 +8,10 @@ use Modules\Core\Services\BaseService;
 use Illuminate\Http\Request;
 use JsonSerializable;
 
-/**
- * Classe SysColorService pour gérer la persistance de l'entité SysColor.
- */
+
+// Context State générer les variable global comme : 
+// annee_formation_id, 
+//  ens d'un model isOwnedByUser : user_id, formateur_id, apprenant_id
 class ContextState  implements JsonSerializable
 {
     protected $title = null;

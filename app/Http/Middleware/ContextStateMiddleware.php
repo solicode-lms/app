@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\View;
 use Modules\Core\Services\ContextState;
 use Symfony\Component\HttpFoundation\Response;
 
+// Remplir context state depuis request si le contexte est envoyer par GappCrud
+// 
 class ContextStateMiddleware
 {
     use PageState;
@@ -26,21 +28,16 @@ class ContextStateMiddleware
        
         $contextState =  app(ContextState::class);
 
-        // Charger les variables de contexte depuis la requête
-        $contextState->readFromRequest($request);
-
-        
-
-         // init contextUser in contexteState
+        // TODO : charger les variable de contexte depuis session
+        // il existe des vairables global : comme : annee_formation_id
+        // il eiste des variable de contexte : dans le cas d'un model est isOwnedByUser
+        // - dans ce cas : formateur_id, apprenant_id, user_id
+        // init contextUser in contexteState
         $user = Auth::user(); 
         $contextState->setUserContexe( $user->getUsersContext());
  
-
-       
- 
-        // // Partager les variables PageState avec toutes les vues Blade
-        // View::share('contextState', $contextState->all());
-
+        // Charger les variables de contexte depuis la requête
+        $contextState->readFromRequest($request);
 
         return $next($request);
     }
