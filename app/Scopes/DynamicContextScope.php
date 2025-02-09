@@ -5,9 +5,9 @@ namespace App\Scopes;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Scope;
-use App\Services\ViewState;
 use Illuminate\Support\Str;
 use Modules\Core\Services\ContextState;
+use Modules\Core\Services\ViewState;
 
 class DynamicContextScope implements Scope
 {
@@ -27,10 +27,10 @@ class DynamicContextScope implements Scope
         $modelKey = 'scope.' . Str::snake(class_basename($model));
         $scopeVariables = $viewState->get($modelKey, []);
 
-        // Récupérer toutes les variables globales depuis ContextState et les ajouter au ViewState si elles n'existent pas encore
+        // Récupérer uniquement les variables globales commençant par 'scope.' depuis ContextState
         $globalContextVariables = $contextState->all();
         foreach ($globalContextVariables as $key => $value) {
-            if (!isset($scopeVariables[$key])) {
+            if (Str::startsWith($key, 'scope.') && !isset($scopeVariables[$key])) {
                 $scopeVariables[$key] = $value;
             }
         }

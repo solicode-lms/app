@@ -1,254 +1,91 @@
 <?php
 
-
 namespace Modules\Core\Services;
 
-use Modules\Core\Models\SysColor;
-use Modules\Core\Services\BaseService;
-use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Session;
 use JsonSerializable;
 
-
-// Context State générer les variable global comme : 
-// annee_formation_id, 
-//  ens d'un model isOwnedByUser : user_id, formateur_id, apprenant_id
-class ContextState  implements JsonSerializable
+class ContextState implements JsonSerializable
 {
-    protected $title = null;
-    protected $variables = [];
-
-    // array key value : [formateur_id => "3" ]
-    protected $userContexte = null;
-
     /**
-     * Définir une variable.
-     *
-     * @param string $key
-     * @param mixed $value
-     * @return void
+     * Nom de la session principale où les données sont stockées.
      */
-    public function set(string $key, $value)
-    {
-        $this->variables[$key] = $value;
-    }
-
-    
-    public function setGlobalContext(string $key, $value)
-    {
-        $key =  "__" . "global" ."__" . $key ;
-        $this->variables[$key] = $value;
-    }
-
-    public function setModelContext(string $modelName, string $key, $value)
-    {
-        $key = $modelName . "__" . "model" ."__" . $key ;
-        $this->variables[$key] = $value;
-    }
-
-    public function setFormContext(string $modelName,string $key, $value)
-    {
-        $key = $modelName . "__" . "form" ."__" . $key ;
-        $this->variables[$key] = $value;
-    }
-    public function setFilterContext(string $modelName,string $key, $value)
-    {
-        $key = $modelName . "__" . "filter" ."__" . $key ;
-        $this->variables[$key] = $value;
-    }
-
-    public function setTableContext(string $modelName,string $key, $value)
-    {
-        $key = $modelName . "__" . "table" ."__" . $key ;
-        $this->variables[$key] = $value;
-    }
-
+    protected string $sessionKey = 'context_state';
 
     /**
-     * Récupérer une variable.
+     * Récupérer une valeur depuis le ContextState.
      *
-     * @param string $key
-     * @param mixed $default
-     * @return mixed
+     * @param string $key La clé à récupérer.
+     * @param mixed $default Valeur par défaut si la clé n'existe pas.
+     * @return mixed La valeur stockée ou la valeur par défaut.
      */
-    public function get(string $key, $default = null)
+    public function get(string $key, mixed $default = null): mixed
     {
-        return $this->variables[$key] ?? $default;
-    }
-    public function getModel(string $modelName,string $key, $default = null)
-    {
-        $key = $modelName . "__" . "model" ."__" . $key ;
-        return $this->variables[$key] ?? $default;
-    }
-    public function getModelForm(string $modelName,string $key, $default = null)
-    {
-        $key = $modelName . "__" . "form" ."__" . $key ;
-        return $this->variables[$key] ?? $default;
-    }
-    public function getModelFilter(string $modelName,string $key, $default = null)
-    { 
-        $key = $modelName . "__" . "filter" ."__" . $key ;
-        return $this->variables[$key] ?? $default;
+        return Arr::get(Session::get($this->sessionKey, []), $key, $default);
     }
 
     /**
-     * Obtenir toutes les variables.
+     * Définir une valeur dans le ContextState.
      *
-     * @return array
+     * @param string $key La clé à définir.
+     * @param mixed $value La valeur à stocker.
+     */
+    public function set(string $key, mixed $value): void
+    {
+        $data = Session::get($this->sessionKey, []);
+        Arr::set($data, $key, $value);
+        Session::put($this->sessionKey, $data);
+    }
+
+    /**
+     * Vérifier si une clé existe dans le ContextState.
+     *
+     * @param string $key La clé à vérifier.
+     * @return bool Retourne `true` si la clé existe, sinon `false`.
+     */
+    public function has(string $key): bool
+    {
+        return Arr::has(Session::get($this->sessionKey, []), $key);
+    }
+
+    /**
+     * Récupérer toutes les valeurs du ContextState.
+     *
+     * @return array Toutes les valeurs stockées.
      */
     public function all(): array
     {
-        return $this->variables;
-    }
-
-
-    public function getFormVariables(string $modelName): array
-    {
-        return $this->extractVariables($modelName, ['model', 'form']);
-    }
-
-    public function getTableVariables(string $modelName): array
-    {
-        return $this->extractVariables($modelName, ['table']);
-    }
-
-    public function getFilterVariables(string $modelName): array
-    {
-        return $this->extractVariables($modelName, ['filter']);
-    }
-
-    private function extractVariables(string $modelName, array $types): array
-    {
-        $variables = [];
-
-        foreach ($this->variables as $key => $value) {
-            foreach ($types as $type) {
-                if (str_contains($key, "{$modelName}__{$type}__") || str_contains($key, '__global__')) {
-                    // Nettoyer la clé en supprimant le préfixe
-                    $cleanKey = preg_replace("/^({$modelName}__{$type}__|__global__)/", '', $key);
-                    $variables[$cleanKey] = $value;
-                }
-            }
-        }
-
-        return $variables;
-    }
-
-
-
-    /**
-     * Lire les valeurs de la requête et de la route avec un préfixe spécifique,
-     * puis les stocker dans le contexte.
-     *
-     * @param Request $request
-     * @param string $prefix - Préfixe des clés à extraire (par exemple, "context_").
-     * @return void
-     */
-    public function readFromRequest(Request $request)
-    {
-        // Fusionner les données de la requête et de la route
-        $allParams = array_merge($request->all(), $request->route() ? $request->route()->parameters() : []);
-        
-        $globalVariables = [];
-        $contextualVariables = [];
-    
-        // Parcourir tous les paramètres
-        foreach ($allParams as $key => $value) {
-            if (
-                str_contains($key, '__form__') 
-                || str_contains($key, '__filter__') 
-                || str_contains($key, '__table__')
-                || str_contains($key, '__model__')
-                || str_contains($key, '__global__')
-                ) 
-                {
-                // Stocker directement les variables contextuelles (form, filter, table)
-                $contextualVariables[$key] = $value;
-            }
-        }
-    
-        // Ajouter les variables globales au contexte
-        foreach ($globalVariables as $key => $value) {
-            $this->set($key, $value);
-        }
-    
-        // Ajouter les variables contextuelles au contexte
-        foreach ($contextualVariables as $key => $value) {
-            $this->set($key, $value);
-        }
-    }
-    
-
-   
-
-/**
-     * Définit le titre du contexte.
-     *
-     * @param string|null $title
-     * @return void
-     */
-    public function setTitle(?string $title)
-    {
-        $this->title = $title;
+        return Session::get($this->sessionKey, []);
     }
 
     /**
-     * Retourne le titre du contexte, ou le génère si vide.
-     * Le titre est construit à partir des variables du contexte.
+     * Supprimer une clé du ContextState.
      *
-     * @return string
+     * @param string $key La clé à supprimer.
      */
-    public function getTitle(): string
+    public function remove(string $key): void
     {
-        if (empty($this->title)) {
-            $this->title = $this->generateTitleFromVariables();
-        }
-
-        return $this->title;
+        $data = Session::get($this->sessionKey, []);
+        Arr::forget($data, $key);
+        Session::put($this->sessionKey, $data);
     }
 
     /**
-     * Génère un titre basé sur les variables du contexte.
-     *
-     * @return string
+     * Réinitialiser complètement le ContextState.
      */
-    protected function generateTitleFromVariables(): string
+    public function clear(): void
     {
-        $parts = [];
-
-        foreach ($this->variables as $key => $value) {
-            $parts[] = ucfirst($key) . ': ' . $value;
-        }
-
-        return implode(' | ', $parts);
+        Session::forget($this->sessionKey);
     }
 
-        /**
-     * Personnalise la structure JSON de l'objet.
+    /**
+     * Implémentation de JsonSerializable pour permettre la sérialisation en JSON.
      *
      * @return array
      */
     public function jsonSerialize(): array
     {
-        return [
-            'title' => $this->getTitle(), // Utilise getOrGenerateTitle() si title est null
-            'variables' => $this->all(),
-        ];
-    }
-
-    /**
-     * Vérifie si le Context State est activé.
-     *
-     * @return bool
-     */
-    public function isContextStateEnable(): bool
-    {
-        return !empty($this->variables);
-    }
-
-    public function setUserContexe($userContexte): void{
-        $this->userContexte = $userContexte;
-        foreach ($this->userContexte as $key => $value) {
-            $this->set($key, $value);
-        }
+        return $this->all();
     }
 }

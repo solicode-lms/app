@@ -1,5 +1,6 @@
 import { SessionStateService } from '../components/SessionStateService';
 import { ContextStateService } from './../components/ContextStateService';
+import { ViewStateService } from './../components/ViewStateService';
 
 export default class ConfigHelper {
     /**
@@ -14,7 +15,9 @@ export default class ConfigHelper {
 
         this.contextStateService = new ContextStateService();
         this.sessionStatService = new SessionStateService();
-        
+        this.viewStatService = new ViewStateService();
+
+
         this.entity_name = config.entity_name;
         this.formSelector = config.formSelector;
 
