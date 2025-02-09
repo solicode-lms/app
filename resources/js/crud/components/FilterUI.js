@@ -109,7 +109,7 @@ export class FilterUI {
     adapterPourContext() {
 
 
-        const data = this.config.contextStateService.getFilterVariables();
+        const data = this.config.viewStateService.getFilterVariables();
 
         Object.keys(data).forEach((key) => {
             const filterElement = document.querySelector(`${this.config.filterFormSelector} #${key}`);

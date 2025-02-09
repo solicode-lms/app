@@ -6,96 +6,85 @@ export class ViewStateService {
         this.init();
     }
 
-    /**
-     * Initialise le ViewState depuis la fenêtre globale.
-     */
     init() {
-        this.viewState = window.viewState || { views: {}, current_view: null };
+        this.contextState = window.contextState || { scope: {}, form: {}, table: {}, filter: {}, global: {} };
     }
 
-    /**
-     * Définit la vue actuelle.
-     * @param {string} viewKey - La clé de la vue actuelle.
-     */
-    setViewKey(viewKey) {
-        this.viewState.current_view = viewKey;
+    getVariablesByType(type, modelName) {
+        const allVariables = this.contextState[type] || {};
+        const globalVariables = this.contextState[type]?.global || {};
+        return { ...globalVariables, ...allVariables[modelName] };
     }
 
-    /**
-     * Récupère la clé de la vue actuelle.
-     * @returns {string|null} - La clé de la vue actuelle.
-     */
-    getViewKey() {
-        return this.viewState.current_view;
+    getScopeVariables(modelName) {
+        return this.getVariablesByType('scope', modelName);
     }
 
-    /**
-     * Récupérer les variables spécifiques à la vue actuelle.
-     * @returns {Object} - Variables associées à la vue actuelle.
-     */
-    getVariables() {
-        const viewKey = this.getViewKey();
-        return this.viewState.views[viewKey] || {};
+    getFormVariables(modelName) {
+        return this.getVariablesByType('form', modelName);
     }
 
-    /**
-     * Ajoute une variable à la vue actuelle.
-     * @param {string} key - La clé de la variable.
-     * @param {*} value - La valeur de la variable.
-     */
-    addVariable(key, value) {
-        const viewKey = this.getViewKey();
-        if (!this.viewState.views[viewKey]) {
-            this.viewState.views[viewKey] = {};
+    getTableVariables(modelName) {
+        return this.getVariablesByType('table', modelName);
+    }
+
+    getFilterVariables(modelName) {
+        return this.getVariablesByType('filter', modelName);
+    }
+
+    addVariable(type, modelName, key, value) {
+        if (!this.contextState[type]) {
+            this.contextState[type] = {};
         }
-        this.viewState.views[viewKey][key] = value;
-    }
-
-    /**
-     * Ajoute plusieurs variables à la vue actuelle.
-     * @param {Object} data - Objet contenant les paires clé/valeur.
-     */
-    addData(data) {
-        const viewKey = this.getViewKey();
-        if (!this.viewState.views[viewKey]) {
-            this.viewState.views[viewKey] = {};
+        if (!this.contextState[type][modelName]) {
+            this.contextState[type][modelName] = {};
         }
-        Object.assign(this.viewState.views[viewKey], data);
+        this.contextState[type][modelName][key] = value;
     }
 
-    /**
-     * Met à jour le ViewState de la vue actuelle.
-     * @param {Object} newState - Nouvelles variables à ajouter ou remplacer.
-     */
-    updateViewState(newState) {
-        const viewKey = this.getViewKey();
-        this.viewState.views[viewKey] = { ...this.viewState.views[viewKey], ...newState };
-    }
-
-    /**
-     * Supprime une variable spécifique de la vue actuelle.
-     * @param {string} key - La clé à supprimer.
-     */
-    removeVariable(key) {
-        const viewKey = this.getViewKey();
-        if (this.viewState.views[viewKey]) {
-            delete this.viewState.views[viewKey][key];
+    addData(type, modelName, data) {
+        if (!this.contextState[type]) {
+            this.contextState[type] = {};
         }
+        if (!this.contextState[type][modelName]) {
+            this.contextState[type][modelName] = {};
+        }
+        Object.entries(data).forEach(([key, value]) => {
+            this.contextState[type][modelName][key] = value;
+        });
     }
 
-    /**
-     * Réinitialise les variables de la vue actuelle.
-     */
-    clearViewState() {
-        const viewKey = this.getViewKey();
-        this.viewState.views[viewKey] = {};
+    updateContext(newState) {
+        this.contextState = { ...this.contextState, ...newState };
     }
 
-    /**
-     * Sérialisation du ViewState en JSON.
-     * @returns {string} - JSON stringifié des variables de la vue actuelle.
-     */
+    getContextParams() {
+        const params = new URLSearchParams();
+        Object.entries(this.contextState).forEach(([type, models]) => {
+            Object.entries(models).forEach(([modelName, values]) => {
+                Object.entries(values).forEach(([key, value]) => {
+                    params.append(`${type}.${modelName}.${key}`, value);
+                });
+            });
+        });
+        return params.toString();
+    }
+
+    addContextToConfig(config) {
+        const updatedConfig = { ...config };
+        const contextParams = this.getContextParams();
+        
+        Object.keys(updatedConfig).forEach((key) => {
+            if (key.toLowerCase().endsWith('url') && typeof updatedConfig[key] === 'string') {
+                const url = new URL(updatedConfig[key], window.location.origin);
+                const separator = url.search ? '&' : '?';
+                updatedConfig[key] = `${url.toString()}${separator}${contextParams}`;
+            }
+        });
+        return updatedConfig;
+    }
+
     toString() {
-        return JSON.stringify(this.getVariables());
+        return JSON.stringify(this.contextState);
     }
 }

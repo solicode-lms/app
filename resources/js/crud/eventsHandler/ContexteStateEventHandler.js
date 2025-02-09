@@ -1,15 +1,15 @@
-import { ContextStateService } from "../components/ContextStateService";
+import { ViewStateService } from "../components/ViewStateService";
 
 
 export class ContexteStateEventHandler {
     /**
      * Constructeur pour initialiser ContexteStateEventHandler.
-     * @param {ContextStateService} stateManager - Instance de ContextStateService.
+     * @param {ViewStateService} stateManager - Instance de ViewStateService.
      * @param {String} targetClass - La classe CSS cible pour appliquer les modifications.
      */
     constructor(config, targetClass = 'context-state') {
         this.config = config;
-        this.contextStateService = this.config.contextStateService; // Instance de ContextStateService.
+        this.ViewStateService = this.config.viewStateService; // Instance de ViewStateService.
         this.targetClass = targetClass; // Classe CSS cible.
     }
 
@@ -17,7 +17,7 @@ export class ContexteStateEventHandler {
      * Ajoute les variables du contexte aux liens ayant la classe cible.
      */
     updateLinks() {
-        const contextParams = this.contextStateService.getContextParams();
+        const contextParams = this.ViewStateService.getContextParams();
 
         document.querySelectorAll(`${this.config.crudSelector} a.${this.targetClass}`).forEach(link => {
             const url = new URL(link.href, window.location.origin);
@@ -43,7 +43,7 @@ export class ContexteStateEventHandler {
      * @returns {Promise<Response>} - La réponse de la requête.
      */
     fetchWithContext(url, options = {}) {
-        const contextParams = this.contextStateService.getContextParams();
+        const contextParams = this.ViewStateService.getContextParams();
         const separator = url.includes('?') ? '&' : '?';
         const fullUrl = `${url}${separator}${contextParams}`;
         return fetch(fullUrl, options)

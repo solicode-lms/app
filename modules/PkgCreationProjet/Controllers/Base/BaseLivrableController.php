@@ -51,6 +51,7 @@ class BaseLivrableController extends AdminController
         return view('PkgCreationProjet::livrable.index', compact('livrables_data', 'livrables_stats', 'livrables_filters'));
     }
     public function create() {
+        
         $itemLivrable = $this->livrableService->createInstance();
         $natureLivrables = $this->natureLivrableService->all();
         $projets = $this->projetService->all();

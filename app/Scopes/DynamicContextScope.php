@@ -24,18 +24,10 @@ class DynamicContextScope implements Scope
         $contextState = app(ContextState::class);
         
         // Identifier la clé de scope basée sur le modèle
-        $modelKey = 'scope.' . Str::snake(class_basename($model));
-        $scopeVariables = $viewState->get($modelKey, []);
+        $modelName =  Str::lcfirst(class_basename($model));
+        $scopeVariables = $viewState->getScopeVariables($modelName);
 
-        // Récupérer uniquement les variables globales commençant par 'scope.' depuis ContextState
-        $globalContextVariables = $contextState->all();
-        foreach ($globalContextVariables as $key => $value) {
-            if (Str::startsWith($key, 'scope.') && !isset($scopeVariables[$key])) {
-                $scopeVariables[$key] = $value;
-            }
-        }
-
-                
+           
         // Obtenir les colonnes disponibles dans le modèle
         $modelAttributes = $model->getFillable();
 

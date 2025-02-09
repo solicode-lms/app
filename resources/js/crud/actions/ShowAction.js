@@ -27,7 +27,7 @@ export class ShowAction extends Action {
 
         showUrl = this.appendParamsToUrl(
             showUrl,
-            this.contextService.getContextParams()
+            this.viewStateService.getContextParams()
         );
 
 

@@ -1,5 +1,5 @@
 import { AjaxErrorHandler } from '../components/AjaxErrorHandler';
-import { ContextStateService } from '../components/ContextStateService';
+import { ViewStateService } from '../components/ViewStateService';
 import { NotificationHandler } from '../components/NotificationHandler';
 import { Action } from './Action';
 import EventUtil from '../utils/EventUtil';
@@ -12,7 +12,7 @@ export class CreateAction extends Action {
         this.SuscesMessage = 'Nouvelle entité ajoutée avec succès.';
         this.createUrl = this.appendParamsToUrl(
             this.config.createUrl,
-            this.contextService.getContextParams()
+            this.viewStateService.getContextParams()
         );
     }
 
@@ -86,7 +86,7 @@ export class CreateAction extends Action {
                         // let editUrl = this.getUrlWithId(this.config.editUrl, entity_id); // Générer l'URL dynamique
                         // editUrl = this.appendParamsToUrl(
                         //     editUrl,
-                        //     this.contextService.getContextParams()
+                        //     this.viewStateService.getContextParams()
                         // );
 
                         // window.location.href  = editUrl;

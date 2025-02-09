@@ -1,5 +1,5 @@
 import { LoadingIndicator } from "./LoadingIndicator";
-import { ContextStateService } from './ContextStateService';
+import { ViewStateService } from './ViewStateService';
 import DynamicFieldVisibilityTreatment from "../treatments/form/DynamicFieldVisibilityTreatment";
 import { CodeJar } from 'codejar';
 import EventUtil from './../utils/EventUtil';
@@ -28,7 +28,7 @@ export class FormUI  {
         this.config = config;
         this.indexUI = indexUI;
         this.formSelector = this.config.formSelector
-        this.contextService = this.config.contextStateService;
+        this.viewStateService = this.config.viewStateService;
         this.loader = new LoadingIndicator(this.formSelector);
         this.dynamicCalculationTreatment = new DataCalculTreatment(config,this);
     }
@@ -67,8 +67,8 @@ export class FormUI  {
      */
     addContextStateToForm() {
 
-        const contextStateVariables = this.config.contextStateService.getVariables();
-        const prefix = this.contextService.prefix;
+        const contextStateVariables = this.config.viewStateService.getVariables();
+        const prefix = this.viewStateService.prefix;
 
         if(contextStateVariables === undefined) return; 
 
@@ -92,7 +92,7 @@ export class FormUI  {
          */
     hideSelectsByIdFromContext() {
 
-        const contextState = this.contextService.getFormVariables();
+        const contextState = this.viewStateService.getFormVariables();
 
         Object.keys(contextState).forEach((key) => {
             const selectElement = document.querySelector(`${this.config.formSelector} #${key} `);

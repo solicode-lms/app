@@ -12,7 +12,7 @@ class ViewState
      */
     protected string $sessionKey = 'view_state';
 
-    protected $ViewStateData;
+    protected $viewStateData;
 
     protected $title = null;
 
@@ -64,7 +64,7 @@ class ViewState
         $data = Session::get("{$this->sessionKey}.views.{$this->currentViewKey}", []);
         Arr::set($data, $key, $value);
         Session::put("{$this->sessionKey}.views.{$this->currentViewKey}", $data);
-        $ViewStateData = $this->getViewData();
+        $this->viewStateData = $this->getViewData();
     }
 
     /**
@@ -105,7 +105,14 @@ class ViewState
      */
     public function getViewData(): array
     {
-        return Session::get("{$this->sessionKey}.views.{$this->currentViewKey}", []);
+        $data =  Session::get("{$this->sessionKey}.views.{$this->currentViewKey}", []);
+        $data =  Arr::dot($data) ;
+        return $data;
+    }
+    public function getArrayData(): array
+    {
+        $data =  Session::get("{$this->sessionKey}.views.{$this->currentViewKey}", []);
+        return $data;
     }
 
         /**
@@ -140,7 +147,14 @@ class ViewState
     }
 
 
-        /**
+
+
+    public function getScopeVariables(string $modelName): array
+    {
+        return $this->extractVariables($modelName, ['scope']);
+    }
+
+    /**
      * Récupérer les variables du formulaire pour un modèle donné.
      *
      * @param string $modelName
@@ -148,7 +162,7 @@ class ViewState
      */
     public function getFormVariables(string $modelName): array
     {
-        return $this->extractVariables($modelName, ['scope', 'global','form']);
+        return $this->extractVariables($modelName, ['scope','form']);
     }
 
     /**
@@ -159,7 +173,7 @@ class ViewState
      */
     public function getTableVariables(string $modelName): array
     {
-        return $this->extractVariables($modelName, ['scope', 'global','table']);
+        return $this->extractVariables($modelName, ['scope','table']);
     }
 
     /**
@@ -170,7 +184,7 @@ class ViewState
      */
     public function getFilterVariables(string $modelName): array
     {
-        return $this->extractVariables($modelName, ['scope', 'global','filter']);
+        return $this->extractVariables($modelName, ['scope','filter']);
     }
 
     /**
@@ -187,8 +201,12 @@ class ViewState
 
         foreach ($viewData as $key => $value) {
             foreach ($types as $type) {
-                if (str_starts_with($key, "$type.$modelName.")) {
+                if (str_starts_with($key, "$type.$modelName.") ) {
                     $filteredKey = str_replace("$type.$modelName.", '', $key);
+                    $filteredVariables[$filteredKey] = $value;
+                }
+                if (str_starts_with($key, "$type.global.")) {
+                    $filteredKey = str_replace("$type.global.", '', $key);
                     $filteredVariables[$filteredKey] = $value;
                 }
             }

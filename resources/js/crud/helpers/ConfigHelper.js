@@ -1,6 +1,5 @@
 import { SessionStateService } from '../components/SessionStateService';
-import { ContextStateService } from './../components/ContextStateService';
-import { ViewStateService } from './../components/ViewStateService';
+import { ViewStateService } from '../components/ViewStateService';
 
 export default class ConfigHelper {
     /**
@@ -12,10 +11,9 @@ export default class ConfigHelper {
         this.isDebug = true;
         this.isDebugInfo = true;
       
-
-        this.contextStateService = new ContextStateService();
+;
         this.sessionStatService = new SessionStateService();
-        this.viewStatService = new ViewStateService();
+        this.viewStateService = new ViewStateService();
 
 
         this.entity_name = config.entity_name;
@@ -28,7 +26,7 @@ export default class ConfigHelper {
     }
 
     init(){
-        this.contextStateService.init();
+        this.ViewStateService.init();
         this.sessionStatService.init();
     }
      debugInfo(message){
@@ -39,7 +37,7 @@ export default class ConfigHelper {
     }
 
     toString(){
-        return `${this.id} : ${this.contextStateService}`
+        return `${this.id} : ${this.ViewStateService}`
     }
     
 }

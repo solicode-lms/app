@@ -33,11 +33,11 @@ export class EditAction extends Action {
         
 
         const filter_context_data= this.tableUI.indexUI.filterUI.getFormDataAsFilterContext();
-        this.contextService.addData(filter_context_data);
+        this.viewStateService.addData(filter_context_data);
 
         editUrl = this.appendParamsToUrl(
             editUrl,
-            this.contextService.getContextParams()
+            this.viewStateService.getContextParams()
         );
 
         // Add filter params to context 

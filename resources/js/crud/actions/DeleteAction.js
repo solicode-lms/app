@@ -27,7 +27,7 @@ export class DeleteAction extends Action {
      */
     deleteEntity(id) {
         let deleteUrl = this.getUrlWithId(this.config.deleteUrl, id);
-        deleteUrl = this.appendParamsToUrl(deleteUrl, this.contextService.getContextParams());
+        deleteUrl = this.appendParamsToUrl(deleteUrl, this.viewStateService.getContextParams());
     
         NotificationHandler.confirmAction(
             'Êtes-vous sûr ?', 'Cette action est irréversible.',

@@ -3,7 +3,7 @@ import { ModalUI } from '../components/ModalUI';
 import { NotificationHandler } from '../components/NotificationHandler';
 
 import { FormUI } from '../components/FormUI';
-import { ContextStateService } from '../components/ContextStateService';
+import { ViewStateService } from '../components/ViewStateService';
 import { BaseAction } from './BaseAction';
 import { LoadListAction } from './LoadListAction';
 import { AjaxErrorHandler } from '../components/AjaxErrorHandler';

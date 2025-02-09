@@ -49,7 +49,7 @@ export class LoadListAction extends BaseAction {
         );
         indexUrl = this.appendParamsToUrl(
             indexUrl,
-            this.contextService.getContextParams()
+            this.viewStateService.getContextParams()
         );
 
         // Afficher l'indicateur de chargement

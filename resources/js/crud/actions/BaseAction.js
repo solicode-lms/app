@@ -1,4 +1,4 @@
-import { ContextStateService } from "../components/ContextStateService";
+import { ViewStateService } from "../components/ViewStateService";
 import { FormUI } from "../components/FormUI";
 import { LoadingIndicator } from "../components/LoadingIndicator";
 import { ModalUI } from "../components/ModalUI";
@@ -10,7 +10,7 @@ export class BaseAction {
         this.config = config;
         // Table Loader
         this.loader = new LoadingIndicator(config.tableSelector);
-        this.contextService = this.config.contextStateService;
+        this.viewStateService = this.config.viewStateService;
         this.SuscesMessage = "";
     }
     /**
