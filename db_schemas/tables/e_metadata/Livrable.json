@@ -43,7 +43,8 @@
     },
     {
         "reference": "Livrable_projet_id_displayInTable",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "Livrable_projet_id",
         "e_metadata_definition_reference": "displayInTable"
     },
