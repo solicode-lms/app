@@ -4,7 +4,7 @@
     window.editWithTabPanelManagersConfig = window.editWithTabPanelManagersConfig || [];
     window.editWithTabPanelManagersConfig.push({
         entity_name: 'ePackage',
-        contextKey: 'ePackage.edit_' . $itemEPackage->id,
+        contextKey: 'ePackage.edit_{{ $itemEPackage->id}}',
         cardTabSelector: '#card-tab-ePackage', 
         formSelector: '#ePackageForm',
         editUrl: '{{ route('ePackages.edit',  ['ePackage' => ':id']) }}',

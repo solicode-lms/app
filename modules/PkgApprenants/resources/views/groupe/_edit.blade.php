@@ -4,7 +4,7 @@
     window.editWithTabPanelManagersConfig = window.editWithTabPanelManagersConfig || [];
     window.editWithTabPanelManagersConfig.push({
         entity_name: 'groupe',
-        contextKey: 'groupe.edit_' . $itemGroupe->id,
+        contextKey: 'groupe.edit_{{ $itemGroupe->id}}',
         cardTabSelector: '#card-tab-groupe', 
         formSelector: '#groupeForm',
         editUrl: '{{ route('groupes.edit',  ['groupe' => ':id']) }}',

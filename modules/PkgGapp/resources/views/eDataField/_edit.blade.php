@@ -4,7 +4,7 @@
     window.editWithTabPanelManagersConfig = window.editWithTabPanelManagersConfig || [];
     window.editWithTabPanelManagersConfig.push({
         entity_name: 'eDataField',
-        contextKey: 'eDataField.edit_' . $itemEDataField->id,
+        contextKey: 'eDataField.edit_{{ $itemEDataField->id}}',
         cardTabSelector: '#card-tab-eDataField', 
         formSelector: '#eDataFieldForm',
         editUrl: '{{ route('eDataFields.edit',  ['eDataField' => ':id']) }}',

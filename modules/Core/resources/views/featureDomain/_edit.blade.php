@@ -4,7 +4,7 @@
     window.editWithTabPanelManagersConfig = window.editWithTabPanelManagersConfig || [];
     window.editWithTabPanelManagersConfig.push({
         entity_name: 'featureDomain',
-        contextKey: 'featureDomain.edit_' . $itemFeatureDomain->id,
+        contextKey: 'featureDomain.edit_{{ $itemFeatureDomain->id}}',
         cardTabSelector: '#card-tab-featureDomain', 
         formSelector: '#featureDomainForm',
         editUrl: '{{ route('featureDomains.edit',  ['featureDomain' => ':id']) }}',
