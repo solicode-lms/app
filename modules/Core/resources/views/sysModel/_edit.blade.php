@@ -4,7 +4,7 @@
     window.editWithTabPanelManagersConfig = window.editWithTabPanelManagersConfig || [];
     window.editWithTabPanelManagersConfig.push({
         entity_name: 'sysModel',
-        contextKey: 'sysModel.edit_{{$itemProjet->id}}',
+        contextKey: 'sysModel.edit_' . $itemSysModel->id,
         cardTabSelector: '#card-tab-sysModel', 
         formSelector: '#sysModelForm',
         editUrl: '{{ route('sysModels.edit',  ['sysModel' => ':id']) }}',

@@ -4,7 +4,7 @@
     window.editWithTabPanelManagersConfig = window.editWithTabPanelManagersConfig || [];
     window.editWithTabPanelManagersConfig.push({
         entity_name: 'filiere',
-        contextKey: 'filiere.edit_{{$itemProjet->id}}',
+        contextKey: 'filiere.edit_' . $itemFiliere->id,
         cardTabSelector: '#card-tab-filiere', 
         formSelector: '#filiereForm',
         editUrl: '{{ route('filieres.edit',  ['filiere' => ':id']) }}',

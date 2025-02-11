@@ -4,7 +4,7 @@
     window.editWithTabPanelManagersConfig = window.editWithTabPanelManagersConfig || [];
     window.editWithTabPanelManagersConfig.push({
         entity_name: 'formateur',
-        contextKey: 'formateur.edit_{{$itemProjet->id}}',
+        contextKey: 'formateur.edit_' . $itemFormateur->id,
         cardTabSelector: '#card-tab-formateur', 
         formSelector: '#formateurForm',
         editUrl: '{{ route('formateurs.edit',  ['formateur' => ':id']) }}',

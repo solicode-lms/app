@@ -4,7 +4,7 @@
     window.editWithTabPanelManagersConfig = window.editWithTabPanelManagersConfig || [];
     window.editWithTabPanelManagersConfig.push({
         entity_name: 'natureLivrable',
-        contextKey: 'natureLivrable.edit_{{$itemProjet->id}}',
+        contextKey: 'natureLivrable.edit_' . $itemNatureLivrable->id,
         cardTabSelector: '#card-tab-natureLivrable', 
         formSelector: '#natureLivrableForm',
         editUrl: '{{ route('natureLivrables.edit',  ['natureLivrable' => ':id']) }}',

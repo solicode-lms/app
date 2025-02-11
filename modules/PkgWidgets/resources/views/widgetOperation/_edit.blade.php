@@ -4,7 +4,7 @@
     window.editWithTabPanelManagersConfig = window.editWithTabPanelManagersConfig || [];
     window.editWithTabPanelManagersConfig.push({
         entity_name: 'widgetOperation',
-        contextKey: 'widgetOperation.edit_{{$itemProjet->id}}',
+        contextKey: 'widgetOperation.edit_' . $itemWidgetOperation->id,
         cardTabSelector: '#card-tab-widgetOperation', 
         formSelector: '#widgetOperationForm',
         editUrl: '{{ route('widgetOperations.edit',  ['widgetOperation' => ':id']) }}',

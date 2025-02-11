@@ -4,7 +4,7 @@
     window.editWithTabPanelManagersConfig = window.editWithTabPanelManagersConfig || [];
     window.editWithTabPanelManagersConfig.push({
         entity_name: 'sysColor',
-        contextKey: 'sysColor.edit_{{$itemProjet->id}}',
+        contextKey: 'sysColor.edit_' . $itemSysColor->id,
         cardTabSelector: '#card-tab-sysColor', 
         formSelector: '#sysColorForm',
         editUrl: '{{ route('sysColors.edit',  ['sysColor' => ':id']) }}',

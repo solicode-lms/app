@@ -4,7 +4,7 @@
     window.editWithTabPanelManagersConfig = window.editWithTabPanelManagersConfig || [];
     window.editWithTabPanelManagersConfig.push({
         entity_name: 'niveauxScolaire',
-        contextKey: 'niveauxScolaire.edit_{{$itemProjet->id}}',
+        contextKey: 'niveauxScolaire.edit_' . $itemNiveauxScolaire->id,
         cardTabSelector: '#card-tab-niveauxScolaire', 
         formSelector: '#niveauxScolaireForm',
         editUrl: '{{ route('niveauxScolaires.edit',  ['niveauxScolaire' => ':id']) }}',
