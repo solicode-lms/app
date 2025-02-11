@@ -10,10 +10,6 @@ export class CreateAction extends Action {
         this.config = config;  
         this.tableUI = tableUI;
         this.SuscesMessage = 'Nouvelle entité ajoutée avec succès.';
-        this.createUrl = this.appendParamsToUrl(
-            this.config.createUrl,
-            this.viewStateService.getContextParams()
-        );
     }
 
     init(){
@@ -24,6 +20,12 @@ export class CreateAction extends Action {
      * Gère l'ouverture du modal et l'ajout d'une nouvelle entité.
      */
     addEntity() {
+
+        this.createUrl = this.appendParamsToUrl(
+            this.config.createUrl,
+            this.viewStateService.getContextParams()
+        );
+        
         // Afficher le chargement dans le modal
         this.tableUI.indexUI.modalUI.showLoading(this.config.createTitle);
 

@@ -68,6 +68,8 @@ export class FilterUI {
         formData.page = page; // Ajouter le numéro de page aux données
     
 
+        // View State Filter 
+        this.config.viewStateService.updatFilterVariables(this.getFormData(true));
         // Mettre à jour l'URL avec les paramètres non vides
         this.indexUI.updateURLParameters(formData);
     
@@ -107,22 +109,35 @@ export class FilterUI {
      * Masque les éléments <select> dont l'id correspond à une clé dans le contexte (state).
      */
     adapterPourContext() {
-
-
-        const data = this.config.viewStateService.getFilterVariables();
-
-        Object.keys(data).forEach((key) => {
+        const scopeData = this.config.viewStateService.getScopeVariables();
+        const filterData = this.config.viewStateService.getFilterVariables();
+    
+        // Appliquer les variables de scope pour masquer ou surligner les filtres
+        Object.keys(scopeData).forEach((key) => {
             const filterElement = document.querySelector(`${this.config.filterFormSelector} #${key}`);
             if (filterElement) {
                 if (this.config.isDebug) {
                     filterElement.parentElement.style.backgroundColor = 'lightblue'; // Mode debug : surligner
                 } else {
-                    filterElement.parentElement.style.display = 'none'; // Masquer le filtre
+                    filterElement.parentElement.style.display = 'none'; // Masquer l'élément du filtre
                 }
             }
         });
+    
+        // Appliquer les valeurs des filtres et masquer si nécessaire
+        Object.keys(filterData).forEach((key) => {
+            const filterElement = document.querySelector(`${this.config.filterFormSelector} #${key}`);
+            if (filterElement) {
+                    if (filterElement.tagName === "INPUT" || filterElement.tagName === "TEXTAREA") {
+                        filterElement.value = filterData[key];
+                    } else if (filterElement.tagName === "SELECT") {
+                        filterElement.value = filterData[key];
+                        filterElement.dispatchEvent(new Event("change"));
+                    }
+            }
+        });
     }
-
+    
 
       // Fonction pour vérifier l'état des filtres
       updateFilterState (){

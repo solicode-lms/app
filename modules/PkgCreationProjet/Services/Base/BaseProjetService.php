@@ -85,7 +85,7 @@ class BaseProjetService extends BaseService
     public function getContextState()
     {
         // if(!$this->contextState->isContextStateEnable()) return null; 
-        $value = $this->viewState->getTitle();
+        $value = $this->viewState->generateTitleFromVariables();
         return [
                 "icon" => "fas fa-filter",
                 "label" => "Filtre",

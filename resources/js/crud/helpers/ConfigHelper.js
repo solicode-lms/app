@@ -11,14 +11,13 @@ export default class ConfigHelper {
         this.isDebug = true;
         this.isDebugInfo = true;
       
-;
-        this.sessionStatService = new SessionStateService();
-        this.viewStateService = new ViewStateService();
-
 
         this.entity_name = config.entity_name;
         this.contextKey = config.contextKey;
         this.formSelector = config.formSelector;
+
+        this.sessionStatService = new SessionStateService();
+        this.viewStateService = new ViewStateService(this.contextKey,this.entity_name);
 
         this.indexUrl = config.indexUrl;
         this.editUrl = config.editUrl;
@@ -27,8 +26,7 @@ export default class ConfigHelper {
     }
 
     init(){
-        this.ViewStateService.init();
-        this.sessionStatService.init();
+        ViewStateService.init();
     }
      debugInfo(message){
         if( this.isDebugInfo){

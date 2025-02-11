@@ -34,16 +34,22 @@ use Illuminate\Support\Facades\Auth;
      public function handle(Request $request, Closure $next)
      {
          $allParams = array_merge($request->all(), $request->route()?->parameters() ?? []);
-         $contextKey = $allParams["viewState"]["contextKey"] ?? 'default_context';
- 
+        
+        // Récupérer viewState et contextKey depuis les paramètres
+        $viewStateParams = $allParams["viewState"] ?? '{}';
+        $viewStateParams = is_string($viewStateParams) ? json_decode($viewStateParams, true) : $viewStateParams;
+        
+        $contextKey = $viewStateParams["contextKey"] ?? 'default_context';
+        $viewStateData = $viewStateParams["viewState"] ?? [];
+        
          if (!app()->bound(ViewStateService::class)) {
              app()->singleton(ViewStateService::class, fn() => new ViewStateService($contextKey));
          }
  
          $viewState = app(ViewStateService::class);
  
-         if (!empty($allParams["viewState"])) {
-             foreach ($allParams["viewState"] as $key => $value) {
+         if (!empty($viewStateData)) {
+             foreach ($viewStateData as $key => $value) {
                  if ($key !== 'contextKey') {
                      $viewState->set($key, $value);
                  }

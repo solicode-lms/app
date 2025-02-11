@@ -36,6 +36,10 @@ class ViewStateService
         $this->viewStateData[$currentContextKey] = [];
     }
 
+    public function setContextKey(string $currentContextKey){
+        $this->currentContextKey = $currentContextKey;
+    }
+
     public function getViewKey(): string
     {
         return $this->currentContextKey;
@@ -82,7 +86,7 @@ class ViewStateService
 
     public function getFormVariables(string $modelName): array
     {
-        return $this->extractVariables($modelName, ['scope', 'form']);
+        return $this->extractVariables($modelName, ['scope','filter', 'form']);
     }
 
     public function getTableVariables(string $modelName): array
@@ -95,7 +99,7 @@ class ViewStateService
         return $this->extractVariables($modelName, ['scope', 'filter']);
     }
 
-    protected function generateTitleFromVariables(): string
+    public function generateTitleFromVariables(): string
     {
         $parts = [];
         foreach ($this->viewStateData[$this->currentContextKey] as $key => $value) {

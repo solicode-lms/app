@@ -26,85 +26,133 @@
  * - **Transmission des Données** :
  *   - Toute requête AJAX envoie le `contextKey` en paramètre.
  *   - `viewState` contient des sous-catégories (`scope`, `form`, `table`, `filter`) 
- *     pour organiser les variables en fonction des modèles (`modelName`).
+ *     pour organiser les variables en fonction des modèles (`this.modelName`).
  */
 
 export class ViewStateService {
+    static viewState = window.viewState || {}; // Stocke tous les viewStates par contextKey
+
+    constructor(contextKey, modelName) {
+        this.contextKey = contextKey;
+        this.modelName = modelName;
+        ViewStateService.init();
+
+        if (!ViewStateService.viewState[this.contextKey]) {
+            ViewStateService.viewState[this.contextKey] = {};
+        }
+    }
+
     /**
-     * Constructeur pour initialiser ViewStateService.
+     * Initialise le ViewState en mettant à jour les contextes existants
+     * et en insérant les nouveaux contextes ajoutés par contextKey.
      */
-    constructor() {
-        this.init();
-    }
+    static init() {
 
-    init() {
-        this.viewState = window.viewState  || { scope: {}, form: {}, table: {}, filter: {}, global: {} };
-    }
-
-    getVariablesByType(type, modelName) {
-        const allVariables = this.viewState[type] || {};
-        const globalVariables = this.viewState[type]?.global || {};
-        return { ...globalVariables, ...allVariables[modelName] };
-    }
-
-    getScopeVariables(modelName) {
-        return this.getVariablesByType('scope', modelName);
-    }
-
-    getFormVariables(modelName) {
-        return this.getVariablesByType('form', modelName);
-    }
-
-    getTableVariables(modelName) {
-        return this.getVariablesByType('table', modelName);
-    }
-
-    getFilterVariables(modelName) {
-        return this.getVariablesByType('filter', modelName);
-    }
-
-    addVariable(type, modelName, key, value) {
-        if (!this.viewState[type]) {
-            this.viewState[type] = {};
-        }
-        if (!this.viewState[type][modelName]) {
-            this.viewState[type][modelName] = {};
-        }
-        this.viewState[type][modelName][key] = value;
-    }
-
-    addData(type, modelName, data) {
-        if (!this.viewState[type]) {
-            this.viewState[type] = {};
-        }
-        if (!this.viewState[type][modelName]) {
-            this.viewState[type][modelName] = {};
-        }
-        Object.entries(data).forEach(([key, value]) => {
-            this.viewState[type][modelName][key] = value;
+        const newViewState = window.viewState || {};
+        Object.entries(newViewState).forEach(([contextKey, contextData]) => {
+            if (!ViewStateService.viewState[contextKey]) {
+                ViewStateService.viewState[contextKey] = contextData;
+            } else {
+                Object.assign(ViewStateService.viewState[contextKey], contextData);
+            }
         });
     }
 
+    getContext() {
+        return ViewStateService.viewState[this.contextKey];
+    }
+
+    getVariable(key) {
+        return this.getContext()[key] ?? null;
+    }
+
+    setVariable(key, value) {
+        this.getContext()[key] = value;
+    }
+
+    removeVariable(key) {
+        delete this.getContext()[key];
+    }
+
+    /**
+     * Récupérer les variables par type et modèle.
+     * @param {Array|string} types - Liste des types (ex: ['scope', 'form'])
+     * @param {string} this.modelName - Nom du modèle concerné (ex: 'projet')
+     * @returns {Object} Variables filtrées
+     */
+    getVariablesByType(types) {
+        if (!Array.isArray(types)) {
+            types = [types];
+        }
+        
+        return Object.entries(this.getContext())
+            .filter(([key]) => 
+                types.some(type => key.startsWith(`${type}.${this.modelName}.`)) || 
+                types.some(type => key.startsWith(`${type}.global.`))
+            )
+            .reduce((acc, [key, value]) => {
+                types.forEach(type => {
+                    if (key.startsWith(`${type}.${this.modelName}.`)) {
+                        acc[key.replace(`${type}.${this.modelName}.`, '')] = value;
+                    } else if (key.startsWith(`${type}.global.`)) {
+                        acc[key.replace(`${type}.global.`, '')] = value;
+                    }
+                });
+                return acc;
+            }, {});
+    }
+
+    getScopeVariables() {
+        return this.getVariablesByType(['scope']);
+    }
+
+    getFormVariables() {
+        return this.getVariablesByType(['scope', 'form']);
+    }
+
+    getTableVariables() {
+        return this.getVariablesByType(['scope', 'table']);
+    }
+
+    getFilterVariables() {
+        return this.getVariablesByType(['scope', 'filter']);
+    }
+
+    updatFilterVariables(filterData) {
+        if (!ViewStateService.viewState[this.contextKey]) {
+            ViewStateService.viewState[this.contextKey] = {};
+        }
+    
+        Object.entries(filterData).forEach(([key, value]) => {
+            const filterKey = `filter.${this.modelName}.${key}`;
+    
+            if (value === "" || value === null || value === undefined) {
+                delete ViewStateService.viewState[this.contextKey][filterKey];
+            } else {
+                ViewStateService.viewState[this.contextKey][filterKey] = value;
+            }
+        });
+    }
+    
+
     updateContext(newState) {
-        this.viewState = { ...this.viewState, ...newState };
+        Object.assign(this.getContext(), newState);
     }
 
     getContextParams() {
         const params = new URLSearchParams();
-        Object.entries(this.viewState).forEach(([type, models]) => {
-            Object.entries(models).forEach(([modelName, values]) => {
-                Object.entries(values).forEach(([key, value]) => {
-                    params.append(`${type}.${modelName}.${key}`, value);
-                });
-            });
-        });
+        const contextData = { 
+            viewState: this.getContext(), 
+            contextKey: this.contextKey 
+        };
+        params.append('viewState', JSON.stringify(contextData));
         return params.toString();
     }
 
     addContextToConfig(config) {
         const updatedConfig = { ...config };
         const contextParams = this.getContextParams();
-        
+
         Object.keys(updatedConfig).forEach((key) => {
             if (key.toLowerCase().endsWith('url') && typeof updatedConfig[key] === 'string') {
                 const url = new URL(updatedConfig[key], window.location.origin);
@@ -116,6 +164,6 @@ export class ViewStateService {
     }
 
     toString() {
-        return JSON.stringify(this.viewState);
+        return JSON.stringify(ViewStateService.viewState);
     }
 }

@@ -31,10 +31,7 @@ export class EditAction extends Action {
 
         let editUrl = this.getUrlWithId(this.config.editUrl, id); // Générer l'URL dynamique
         
-
-        const filter_context_data= this.tableUI.indexUI.filterUI.getFormDataAsFilterContext();
-        this.viewStateService.addData(filter_context_data);
-
+        
         editUrl = this.appendParamsToUrl(
             editUrl,
             this.viewStateService.getContextParams()

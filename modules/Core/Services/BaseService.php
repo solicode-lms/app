@@ -50,7 +50,7 @@ abstract class BaseService implements ServiceInterface
      */
     public function __construct(Model $model){
         $this->model = $model;
-        $this->modelName = class_basename($model);
+        $this->modelName = lcfirst(class_basename($model));
         // Scrop management
         $this->viewState = app(ViewStateService::class);
     }
@@ -268,7 +268,7 @@ abstract class BaseService implements ServiceInterface
         $item = $this->model::make();
     
         // Récupérer toutes les variables de contexte
-        $contextVariables = $this->contextState->getFormVariables($this->modelName);
+        $contextVariables = $this->viewState->getFormVariables($this->modelName);
     
         // Fusionner les données ($data a la priorité sur $contextVariables)
         $mergedData = array_merge($contextVariables, $data);
