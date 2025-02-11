@@ -35,7 +35,9 @@ class BaseProjetController extends AdminController
         // Extraire les paramètres de recherche, page, et filtres
         $projets_params = array_merge(
             $request->only(['page','sort']),
-            ['search' => $request->get('projets_search', '')],
+            ['search' => $request->get('projets_search', 
+            $this->viewState->get("filter.projet.projets_search"))],
+            
             $request->except(['projets_search', 'page', 'sort'])
         );
 
