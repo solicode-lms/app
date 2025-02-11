@@ -1,5 +1,5 @@
 <?php
-// En prototype : passer le paramétres projet_id au livrable: Edition has many
+// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 namespace Modules\PkgCreationProjet\Controllers\Base;
@@ -30,10 +30,8 @@ class BaseProjetController extends AdminController
     }
 
     public function index(Request $request) {
-
+        
         $this->viewState->setContextKey('projet.index');
-      
-
         // Extraire les paramètres de recherche, page, et filtres
         $projets_params = array_merge(
             $request->only(['page','sort']),
@@ -56,17 +54,8 @@ class BaseProjetController extends AdminController
         return view('PkgCreationProjet::projet.index', compact('projets_data', 'projets_stats', 'projets_filters'));
     }
     public function create() {
-
-
-        // TODO 
-        // If Model as trait isOwnesByUser ans role is Formateur
-        // $this->viewState->setContextKey('Projet','formateur_id', $this->sessionState->get('formateur_id'));
-        
         $itemProjet = $this->projetService->createInstance();
         $formateurs = $this->formateurService->all();
-
-        // TODO
-        // Ajouter formateur_id to context si model isOnwnedByUser
 
 
         if (request()->ajax()) {
@@ -134,29 +123,11 @@ class BaseProjetController extends AdminController
     }
     public function edit(string $id) {
 
-
+        $this->viewState->setContextKey('projet.edit_' . $id);
+        
         $itemProjet = $this->projetService->find($id);
         $formateurs = $this->formateurService->all();
 
-  
-        // Il doit être après le chargement de edit form et avant les form hasMany
-        // TODO 
-        // projet_id peut être différent selon le foreignKey dans la table Livrable
-        // traitements à faire
-        // - DynamicContextScope : chargement seulement les livrables ayant projet_id = $id
-        // ne pas afficher select projet dans livrable form
-        // création de livrable instance avec le projet selectionnée
-        // Proposition 
-        // ajouter le variable livrable__scope__projet_id = $id
-        // changer le nom de state : contextState --> viewState
-        // chaque view peut avoit son valeur
-        // Le contextState consit = sessionSate[scop_global], view_scop
-
-        // un view state peut avoir plusieurs context dans un même requête http
-        // Dynamique scrop executer le code dans currentContextKey
-        $this->viewState->setContextKey('projet.edit_' . $id);
-        
-     
         $this->viewState->set('scope.transfertCompetence.projet_id', $id);
         $transfertCompetenceService =  new TransfertCompetenceService();
         $transfertCompetences_data =  $itemProjet->transfertCompetences()->paginate(10);

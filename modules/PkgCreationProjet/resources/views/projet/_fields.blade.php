@@ -176,7 +176,6 @@
 
 </script>
 <script>
-     // à chaque requête ajax : on mettre à jour les variables states 
      window.modalTitle = '{{__("PkgCreationProjet::projet.singular") }} : {{$itemProjet}}'
      window.contextState = @json($contextState);
      window.sessionState = @json($sessionState);

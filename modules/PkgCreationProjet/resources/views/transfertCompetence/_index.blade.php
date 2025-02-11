@@ -8,6 +8,7 @@
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
         editOnFullScreen : false,
         entity_name: 'transfertCompetence',
+        contextKey: '{{ isset($contextKey) ? $contextKey : 'transfertCompetence.index' }}', 
         filterFormSelector: '#transfertCompetence-crud-filter-form',
         crudSelector: '#transfertCompetence-crud',
         tableSelector: '#transfertCompetence-data-container',

@@ -6,9 +6,9 @@
     window.crudModalManagersConfig.push({
         edit_has_many: {{ !isset($edit_has_many)? 'false' :  ($edit_has_many ? "true": "false") }},
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
-        contextKey: '{{ isset($contextKey) ? $contextKey : 'livrable.index' }}', 
         editOnFullScreen : false,
         entity_name: 'livrable',
+        contextKey: '{{ isset($contextKey) ? $contextKey : 'livrable.index' }}', 
         filterFormSelector: '#livrable-crud-filter-form',
         crudSelector: '#livrable-crud',
         tableSelector: '#livrable-data-container',

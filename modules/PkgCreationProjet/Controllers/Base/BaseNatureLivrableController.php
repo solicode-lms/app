@@ -24,6 +24,8 @@ class BaseNatureLivrableController extends AdminController
     }
 
     public function index(Request $request) {
+        
+        $this->viewState->setContextKey('natureLivrable.index');
         // Extraire les paramètres de recherche, page, et filtres
         $natureLivrables_params = array_merge(
             $request->only(['page','sort']),
@@ -98,13 +100,11 @@ class BaseNatureLivrableController extends AdminController
     }
     public function edit(string $id) {
 
-
+        $this->viewState->setContextKey('natureLivrable.edit_' . $id);
         
         $itemNatureLivrable = $this->natureLivrableService->find($id);
 
-        // Il doit être après le chargement de edit form et avant les form hasMany
-        $this->contextState->set('nature_livrable_id', $id);
-
+        $this->viewState->set('scope.livrable.nature_livrable_id', $id);
         $livrableService =  new LivrableService();
         $livrables_data =  $itemNatureLivrable->livrables()->paginate(10);
         $livrables_stats = $livrableService->getlivrableStats();

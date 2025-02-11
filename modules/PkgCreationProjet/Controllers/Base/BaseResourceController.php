@@ -26,6 +26,8 @@ class BaseResourceController extends AdminController
     }
 
     public function index(Request $request) {
+        
+        $this->viewState->setContextKey('resource.index');
         // Extraire les paramètres de recherche, page, et filtres
         $resources_params = array_merge(
             $request->only(['page','sort']),
@@ -97,13 +99,10 @@ class BaseResourceController extends AdminController
     }
     public function edit(string $id) {
 
-
+        $this->viewState->setContextKey('resource.edit_' . $id);
         
         $itemResource = $this->resourceService->find($id);
         $projets = $this->projetService->all();
-
-        // Il doit être après le chargement de edit form et avant les form hasMany
-        $this->contextState->set('resource_id', $id);
 
 
         if (request()->ajax()) {

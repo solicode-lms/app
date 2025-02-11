@@ -184,4 +184,6 @@
 </script>
 <script>
      window.modalTitle = '{{__("PkgCreationProjet::transfertCompetence.singular") }} : {{$itemTransfertCompetence}}'
+     window.contextState = @json($contextState);
+     window.sessionState = @json($sessionState);
 </script>

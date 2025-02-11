@@ -35,6 +35,8 @@ class BaseTransfertCompetenceController extends AdminController
     }
 
     public function index(Request $request) {
+        
+        $this->viewState->setContextKey('transfertCompetence.index');
         // Extraire les paramètres de recherche, page, et filtres
         $transfertCompetences_params = array_merge(
             $request->only(['page','sort']),
@@ -112,16 +114,13 @@ class BaseTransfertCompetenceController extends AdminController
     }
     public function edit(string $id) {
 
-
+        $this->viewState->setContextKey('transfertCompetence.edit_' . $id);
         
         $itemTransfertCompetence = $this->transfertCompetenceService->find($id);
         $technologies = $this->technologyService->all();
         $competences = $this->competenceService->all();
         $niveauDifficultes = $this->niveauDifficulteService->all();
         $projets = $this->projetService->all();
-
-        // Il doit être après le chargement de edit form et avant les form hasMany
-        $this->contextState->set('transfert_competence_id', $id);
 
 
         if (request()->ajax()) {

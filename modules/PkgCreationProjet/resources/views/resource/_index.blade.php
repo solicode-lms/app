@@ -8,6 +8,7 @@
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
         editOnFullScreen : false,
         entity_name: 'resource',
+        contextKey: '{{ isset($contextKey) ? $contextKey : 'resource.index' }}', 
         filterFormSelector: '#resource-crud-filter-form',
         crudSelector: '#resource-crud',
         tableSelector: '#resource-data-container',
