@@ -30,7 +30,7 @@ class BaseLivrableController extends AdminController
 
     public function index(Request $request) {
         
-        $this->viewState->setContextKey('livrable.index');
+        $this->viewState->setContextKeyIfEmpty('livrable.index');
         // Extraire les paramètres de recherche, page, et filtres
         $livrables_params = array_merge(
             $request->only(['page','sort']),
@@ -53,6 +53,8 @@ class BaseLivrableController extends AdminController
         return view('PkgCreationProjet::livrable.index', compact('livrables_data', 'livrables_stats', 'livrables_filters'));
     }
     public function create() {
+
+
         $itemLivrable = $this->livrableService->createInstance();
         $natureLivrables = $this->natureLivrableService->all();
         $projets = $this->projetService->all();

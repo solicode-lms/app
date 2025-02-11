@@ -39,6 +39,12 @@ class ViewStateService
     public function setContextKey(string $currentContextKey){
         $this->currentContextKey = $currentContextKey;
     }
+    public function setContextKeyIfEmpty(string $currentContextKey){
+        if($this->currentContextKey == "default_context"){
+            $this->currentContextKey = $currentContextKey;
+        }
+       
+    }
 
     public function getViewKey(): string
     {
@@ -102,7 +108,7 @@ class ViewStateService
     public function generateTitleFromVariables(): string
     {
         $parts = [];
-        foreach ($this->viewStateData[$this->currentContextKey] as $key => $value) {
+        foreach ($this->getCurrentContextData() as $key => $value) {
             $parts[] = ucfirst($key) . ': ' . $value;
         }
         return implode(' | ', $parts);
@@ -111,7 +117,8 @@ class ViewStateService
     private function extractVariables(string $modelName, array $types): array
     {
         $filteredVariables = [];
-        foreach ($this->viewStateData[$this->currentContextKey] as $key => $value) {
+        
+        foreach ($this->getCurrentContextData() as $key => $value) {
             foreach ($types as $type) {
                 if (str_starts_with($key, "$type.$modelName.")) {
                     $filteredKey = str_replace("$type.$modelName.", '', $key);

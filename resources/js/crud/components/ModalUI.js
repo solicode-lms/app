@@ -55,7 +55,7 @@ export class ModalUI {
         // }
 
         // Ajouter la nouvelle modale
-        $("body").append(`<div id="${this.currentModalId}" class="dynamic-modal"></div>`);
+        $("body").append(`<div><div id="${this.currentModalId}" class="dynamic-modal"></div></div>`);
             
 
         // Détecter le modal parent (le dernier modal ouvert)
@@ -79,6 +79,8 @@ export class ModalUI {
             }
         }
     
+        
+
         this.modal =  $(`#${this.currentModalId}`).iziModal({
             title: title,
             headerColor: "#17a2b8", // Couleur normale du nouveau modal
@@ -140,8 +142,15 @@ export class ModalUI {
      * Ferme la modale actuellement ouverte.
      */
     close() {
-            $(`#${this.currentModalId}`).iziModal("close");
-            this.destroy();
+
+        // const modal = document.getElementById(this.currentModalId);
+
+        // // Check if any child inside the modal is currently focused
+        // if (modal.contains(document.activeElement)) {
+        //     document.activeElement.blur(); // Remove focus from it
+        // }
+
+         $(`#${this.currentModalId}`).iziModal("close");
     }
 
     /**
@@ -156,11 +165,20 @@ export class ModalUI {
         });
     }
 
-    destroy(){
-        $(`#${this.currentModalId}`).iziModal('destroy');
-        $(`#${this.currentModalId}`).remove();
+    destroy() {
+        if ($(`#${this.currentModalId}`).length > 0) {
+            $(`#${this.currentModalId}`).iziModal('destroy');
+            $(`#${this.currentModalId}`).remove();
+        }
+    
+        // 🔹 Réactiver le défilement du body
+        // if ($(".dynamic-modal:visible").length === 0) {
+        //     $("body").css({
+        //         "overflow": "auto",
+        //         "padding-right": "0px" // Corrige le décalage de la page dû aux modales
+        //     });
+        // }
     }
-
     /**
      * Gère une erreur en affichant un message d'erreur dans une modale.
      * @param {string} errorMessage - Message d'erreur à afficher.

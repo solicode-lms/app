@@ -109,6 +109,7 @@ export class FilterUI {
      * Masque les éléments <select> dont l'id correspond à une clé dans le contexte (state).
      */
     adapterPourContext() {
+        
         const scopeData = this.config.viewStateService.getScopeVariables();
         const filterData = this.config.viewStateService.getFilterVariables();
     

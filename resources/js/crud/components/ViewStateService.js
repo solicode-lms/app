@@ -50,11 +50,14 @@ export class ViewStateService {
 
         const newViewState = window.viewState || {};
         Object.entries(newViewState).forEach(([contextKey, contextData]) => {
-            if (!ViewStateService.viewState[contextKey]) {
-                ViewStateService.viewState[contextKey] = contextData;
-            } else {
-                Object.assign(ViewStateService.viewState[contextKey], contextData);
-            }
+
+            ViewStateService.viewState[contextKey] = contextData;
+
+            // if (!ViewStateService.viewState[contextKey]) {
+              
+            // } else {
+            //     Object.assign(ViewStateService.viewState[contextKey], contextData);
+            // }
         });
     }
 
@@ -105,9 +108,12 @@ export class ViewStateService {
     getScopeVariables() {
         return this.getVariablesByType(['scope']);
     }
-
+    getScopeFormVariables() {
+        return this.getVariablesByType(['scope','scope_form']);
+    }
+    
     getFormVariables() {
-        return this.getVariablesByType(['scope', 'form']);
+        return this.getVariablesByType(['scope','scope_form', 'form','filter']);
     }
 
     getTableVariables() {

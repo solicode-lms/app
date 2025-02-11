@@ -92,6 +92,7 @@ export class EditAction extends Action {
                 data: formData,
             })
                 .done((data) => {
+
                     this.tableUI.indexUI.formUI.loader.hide();
                     NotificationHandler.show(data.type,data.title,data.message);
                     this.tableUI.indexUI.modalUI.close(); // Fermer le modal après succès

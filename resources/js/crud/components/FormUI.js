@@ -45,8 +45,7 @@ export class FormUI  {
         this.handleCardFooter();
         this.handleFormSubmission(submitHandler);
         this.loader.init();
-        this.hideSelectsByIdFromContext();
-        this.addContextStateToForm()
+        this.adapterPourContext();
         this.initializeSelect2_in_modal();
         FormUI.initializeRichText();
         FormUI.initializeDate();
@@ -61,49 +60,35 @@ export class FormUI  {
 
     }
 
-
-    /**
-     * Ajoute les variables du contexte aux formulaires ayant la classe cible.
-     */
-    addContextStateToForm() {
-
-        const contextStateVariables = this.config.viewStateService.getVariables();
-        const prefix = this.viewStateService.prefix;
-
-        if(contextStateVariables === undefined) return; 
-
-
-        document.querySelectorAll(`${this.formSelector}`).forEach(form => {
-            Object.entries(contextStateVariables).forEach(([key, value]) => {
-                let input = form.querySelector(`input[name="${prefix}${key}"]`);
-                if (!input) {
-                    input = document.createElement('input');
-                    input.type = this.config.isDebug? 'text' : 'hidden';
-                    input.name = `${prefix}${key}`;
-                    form.appendChild(input);
-                }
-                input.value = value; // Ajouter le contexte préfixé
-            });
-        });
-    }
-
     /**
          * Masque les éléments <select> dont l'id correspond à une clé dans le contextState.
          */
-    hideSelectsByIdFromContext() {
+    adapterPourContext() {
 
-        const contextState = this.viewStateService.getFormVariables();
+        const scopeData = this.config.viewStateService.getScopeFormVariables();
+        const formData = this.config.viewStateService.getFormVariables();
 
-        Object.keys(contextState).forEach((key) => {
-            const selectElement = document.querySelector(`${this.config.formSelector} #${key} `);
-            if (selectElement) {
-
-                if(this.config.isDebug){
-                    selectElement.parentElement.style.backgroundColor = 'lightblue';
-                }else{
-                    selectElement.parentElement.style.display =  'none';
+        Object.keys(scopeData).forEach((key) => {
+            const filterElement = document.querySelector(`${this.config.formSelector} #${key}`);
+            if (filterElement) {
+                if (this.config.isDebug) {
+                    filterElement.parentElement.style.backgroundColor = 'lightblue'; // Mode debug : surligner
+                } else {
+                    filterElement.parentElement.style.display = 'none'; // Masquer l'élément du filtre
                 }
-               
+            }
+        });
+       
+        // Appliquer les valeurs des filtres et masquer si nécessaire
+        Object.keys(formData).forEach((key) => {
+            const filterElement = document.querySelector(`${this.config.formSelector} #${key}`);
+            if (filterElement) {
+                    if (filterElement.tagName === "INPUT" || filterElement.tagName === "TEXTAREA") {
+                        filterElement.value = formData[key];
+                    } else if (filterElement.tagName === "SELECT") {
+                        filterElement.value = formData[key];
+                        filterElement.dispatchEvent(new Event("change"));
+                    }
             }
         });
     }
@@ -298,6 +283,7 @@ export class FormUI  {
 
     initializeSelect2_in_modal() {
         
+
         // TODO : Select2 supprimer select2 de filtre 
         // Peut être que il sont le même id : exemple : module_id dans le filtre 
         // et module_id dans formulaire, 
@@ -309,6 +295,8 @@ export class FormUI  {
             });
         });
 
+
+     
         // Initialise les éléments Select2 avec thème Bootstrap 4
         // $(`.select2bs4`).select2({
         //     theme: 'bootstrap4',
