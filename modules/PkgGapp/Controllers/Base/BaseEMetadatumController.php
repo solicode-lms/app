@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgGapp\App\Requests\EMetadatumRequest;
+use Modules\PkgGapp\Models\EMetadatum;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgGapp\App\Exports\EMetadatumExport;
 use Modules\PkgGapp\App\Imports\EMetadatumImport;
@@ -32,10 +33,13 @@ class BaseEMetadatumController extends AdminController
     }
 
     public function index(Request $request) {
+        
+        $this->viewState->setContextKeyIfEmpty('eMetadatum.index');
+
         // Extraire les paramètres de recherche, page, et filtres
         $eMetadata_params = array_merge(
             $request->only(['page','sort']),
-            ['search' => $request->get('eMetadata_search', '')],
+            ['search' => $request->get('eMetadata_search', $this->viewState->get("filter.eMetadatum.eMetadata_search"))],
             $request->except(['eMetadata_search', 'page', 'sort'])
         );
 
@@ -54,6 +58,7 @@ class BaseEMetadatumController extends AdminController
         return view('PkgGapp::eMetadatum.index', compact('eMetadata_data', 'eMetadata_stats', 'eMetadata_filters'));
     }
     public function create() {
+
         $itemEMetadatum = $this->eMetadatumService->createInstance();
         $eDataFields = $this->eDataFieldService->all();
         $eMetadataDefinitions = $this->eMetadataDefinitionService->all();
@@ -89,33 +94,16 @@ class BaseEMetadatumController extends AdminController
         );
     }
     public function show(string $id) {
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('e_metadatum_id', $id);
-        
-        $itemEMetadatum = $this->eMetadatumService->find($id);
-        $eDataFields = $this->eDataFieldService->all();
-        $eMetadataDefinitions = $this->eMetadataDefinitionService->all();
-        $eModels = $this->eModelService->all();
-
-        if (request()->ajax()) {
-            return view('PkgGapp::eMetadatum._fields', compact('itemEMetadatum', 'eDataFields', 'eMetadataDefinitions', 'eModels'));
-        }
-
-        return view('PkgGapp::eMetadatum.edit', compact('itemEMetadatum', 'eDataFields', 'eMetadataDefinitions', 'eModels'));
-
+        return $this->edit( $id);
     }
     public function edit(string $id) {
 
-
+        $this->viewState->setContextKey('eMetadatum.edit_' . $id);
         
         $itemEMetadatum = $this->eMetadatumService->find($id);
         $eDataFields = $this->eDataFieldService->all();
         $eMetadataDefinitions = $this->eMetadataDefinitionService->all();
         $eModels = $this->eModelService->all();
-
-        // Il doit être après le chargement de edit form et avant les form hasMany
-        $this->contextState->set('e_metadatum_id', $id);
 
 
         if (request()->ajax()) {

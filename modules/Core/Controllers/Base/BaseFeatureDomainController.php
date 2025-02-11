@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\Core\App\Requests\FeatureDomainRequest;
+use Modules\Core\Models\FeatureDomain;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\Core\App\Exports\FeatureDomainExport;
 use Modules\Core\App\Imports\FeatureDomainImport;
@@ -27,10 +28,13 @@ class BaseFeatureDomainController extends AdminController
     }
 
     public function index(Request $request) {
+        
+        $this->viewState->setContextKeyIfEmpty('featureDomain.index');
+
         // Extraire les paramètres de recherche, page, et filtres
         $featureDomains_params = array_merge(
             $request->only(['page','sort']),
-            ['search' => $request->get('featureDomains_search', '')],
+            ['search' => $request->get('featureDomains_search', $this->viewState->get("filter.featureDomain.featureDomains_search"))],
             $request->except(['featureDomains_search', 'page', 'sort'])
         );
 
@@ -49,6 +53,7 @@ class BaseFeatureDomainController extends AdminController
         return view('Core::featureDomain.index', compact('featureDomains_data', 'featureDomains_stats', 'featureDomains_filters'));
     }
     public function create() {
+
         $itemFeatureDomain = $this->featureDomainService->createInstance();
         $sysModules = $this->sysModuleService->all();
 
@@ -82,35 +87,16 @@ class BaseFeatureDomainController extends AdminController
         );
     }
     public function show(string $id) {
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('feature_domain_id', $id);
-        
-        $itemFeatureDomain = $this->featureDomainService->find($id);
-        $sysModules = $this->sysModuleService->all();
-        $featureService =  new FeatureService();
-        $features_data =  $itemFeatureDomain->features()->paginate(10);
-        $features_stats = $featureService->getfeatureStats();
-        $features_filters = $featureService->getFieldsFilterable();
-        
-
-        if (request()->ajax()) {
-            return view('Core::featureDomain._edit', compact('itemFeatureDomain', 'sysModules', 'features_data', 'features_stats', 'features_filters'));
-        }
-
-        return view('Core::featureDomain.edit', compact('itemFeatureDomain', 'sysModules', 'features_data', 'features_stats', 'features_filters'));
-
+        return $this->edit( $id);
     }
     public function edit(string $id) {
 
-
+        $this->viewState->setContextKey('featureDomain.edit_' . $id);
         
         $itemFeatureDomain = $this->featureDomainService->find($id);
         $sysModules = $this->sysModuleService->all();
 
-        // Il doit être après le chargement de edit form et avant les form hasMany
-        $this->contextState->set('feature_domain_id', $id);
-
+        $this->viewState->set('scope.feature.feature_domain_id', $id);
         $featureService =  new FeatureService();
         $features_data =  $itemFeatureDomain->features()->paginate(10);
         $features_stats = $featureService->getfeatureStats();

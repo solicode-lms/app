@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgCompetences\App\Requests\CategoryTechnologyRequest;
+use Modules\PkgCompetences\Models\CategoryTechnology;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgCompetences\App\Exports\CategoryTechnologyExport;
 use Modules\PkgCompetences\App\Imports\CategoryTechnologyImport;
@@ -24,10 +25,13 @@ class BaseCategoryTechnologyController extends AdminController
     }
 
     public function index(Request $request) {
+        
+        $this->viewState->setContextKeyIfEmpty('categoryTechnology.index');
+
         // Extraire les paramètres de recherche, page, et filtres
         $categoryTechnologies_params = array_merge(
             $request->only(['page','sort']),
-            ['search' => $request->get('categoryTechnologies_search', '')],
+            ['search' => $request->get('categoryTechnologies_search', $this->viewState->get("filter.categoryTechnology.categoryTechnologies_search"))],
             $request->except(['categoryTechnologies_search', 'page', 'sort'])
         );
 
@@ -46,6 +50,7 @@ class BaseCategoryTechnologyController extends AdminController
         return view('PkgCompetences::categoryTechnology.index', compact('categoryTechnologies_data', 'categoryTechnologies_stats', 'categoryTechnologies_filters'));
     }
     public function create() {
+
         $itemCategoryTechnology = $this->categoryTechnologyService->createInstance();
 
 
@@ -78,33 +83,15 @@ class BaseCategoryTechnologyController extends AdminController
         );
     }
     public function show(string $id) {
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('category_technology_id', $id);
-        
-        $itemCategoryTechnology = $this->categoryTechnologyService->find($id);
-        $technologyService =  new TechnologyService();
-        $technologies_data =  $itemCategoryTechnology->technologies()->paginate(10);
-        $technologies_stats = $technologyService->gettechnologyStats();
-        $technologies_filters = $technologyService->getFieldsFilterable();
-        
-
-        if (request()->ajax()) {
-            return view('PkgCompetences::categoryTechnology._edit', compact('itemCategoryTechnology', 'technologies_data', 'technologies_stats', 'technologies_filters'));
-        }
-
-        return view('PkgCompetences::categoryTechnology.edit', compact('itemCategoryTechnology', 'technologies_data', 'technologies_stats', 'technologies_filters'));
-
+        return $this->edit( $id);
     }
     public function edit(string $id) {
 
-
+        $this->viewState->setContextKey('categoryTechnology.edit_' . $id);
         
         $itemCategoryTechnology = $this->categoryTechnologyService->find($id);
 
-        // Il doit être après le chargement de edit form et avant les form hasMany
-        $this->contextState->set('category_technology_id', $id);
-
+        $this->viewState->set('scope.technology.category_technology_id', $id);
         $technologyService =  new TechnologyService();
         $technologies_data =  $itemCategoryTechnology->technologies()->paginate(10);
         $technologies_stats = $technologyService->gettechnologyStats();

@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgApprenants\App\Requests\ApprenantRequest;
+use Modules\PkgApprenants\Models\Apprenant;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgApprenants\App\Exports\ApprenantExport;
 use Modules\PkgApprenants\App\Imports\ApprenantImport;
@@ -36,10 +37,13 @@ class BaseApprenantController extends AdminController
     }
 
     public function index(Request $request) {
+        
+        $this->viewState->setContextKeyIfEmpty('apprenant.index');
+
         // Extraire les paramètres de recherche, page, et filtres
         $apprenants_params = array_merge(
             $request->only(['page','sort']),
-            ['search' => $request->get('apprenants_search', '')],
+            ['search' => $request->get('apprenants_search', $this->viewState->get("filter.apprenant.apprenants_search"))],
             $request->except(['apprenants_search', 'page', 'sort'])
         );
 
@@ -58,6 +62,7 @@ class BaseApprenantController extends AdminController
         return view('PkgApprenants::apprenant.index', compact('apprenants_data', 'apprenants_stats', 'apprenants_filters'));
     }
     public function create() {
+
         $itemApprenant = $this->apprenantService->createInstance();
         $groupes = $this->groupeService->all();
         $nationalites = $this->nationaliteService->all();
@@ -94,31 +99,11 @@ class BaseApprenantController extends AdminController
         );
     }
     public function show(string $id) {
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('apprenant_id', $id);
-        
-        $itemApprenant = $this->apprenantService->find($id);
-        $groupes = $this->groupeService->all();
-        $nationalites = $this->nationaliteService->all();
-        $niveauxScolaires = $this->niveauxScolaireService->all();
-        $users = $this->userService->all();
-        $realisationProjetService =  new RealisationProjetService();
-        $realisationProjets_data =  $itemApprenant->realisationProjets()->paginate(10);
-        $realisationProjets_stats = $realisationProjetService->getrealisationProjetStats();
-        $realisationProjets_filters = $realisationProjetService->getFieldsFilterable();
-        
-
-        if (request()->ajax()) {
-            return view('PkgApprenants::apprenant._edit', compact('itemApprenant', 'groupes', 'nationalites', 'niveauxScolaires', 'users', 'realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters'));
-        }
-
-        return view('PkgApprenants::apprenant.edit', compact('itemApprenant', 'groupes', 'nationalites', 'niveauxScolaires', 'users', 'realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters'));
-
+        return $this->edit( $id);
     }
     public function edit(string $id) {
 
-
+        $this->viewState->setContextKey('apprenant.edit_' . $id);
         
         $itemApprenant = $this->apprenantService->find($id);
         $groupes = $this->groupeService->all();
@@ -126,9 +111,7 @@ class BaseApprenantController extends AdminController
         $niveauxScolaires = $this->niveauxScolaireService->all();
         $users = $this->userService->all();
 
-        // Il doit être après le chargement de edit form et avant les form hasMany
-        $this->contextState->set('apprenant_id', $id);
-
+        $this->viewState->set('scope.realisationProjet.apprenant_id', $id);
         $realisationProjetService =  new RealisationProjetService();
         $realisationProjets_data =  $itemApprenant->realisationProjets()->paginate(10);
         $realisationProjets_stats = $realisationProjetService->getrealisationProjetStats();

@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgCompetences\App\Requests\NiveauCompetenceRequest;
+use Modules\PkgCompetences\Models\NiveauCompetence;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgCompetences\App\Exports\NiveauCompetenceExport;
 use Modules\PkgCompetences\App\Imports\NiveauCompetenceImport;
@@ -26,10 +27,13 @@ class BaseNiveauCompetenceController extends AdminController
     }
 
     public function index(Request $request) {
+        
+        $this->viewState->setContextKeyIfEmpty('niveauCompetence.index');
+
         // Extraire les paramètres de recherche, page, et filtres
         $niveauCompetences_params = array_merge(
             $request->only(['page','sort']),
-            ['search' => $request->get('niveauCompetences_search', '')],
+            ['search' => $request->get('niveauCompetences_search', $this->viewState->get("filter.niveauCompetence.niveauCompetences_search"))],
             $request->except(['niveauCompetences_search', 'page', 'sort'])
         );
 
@@ -48,6 +52,7 @@ class BaseNiveauCompetenceController extends AdminController
         return view('PkgCompetences::niveauCompetence.index', compact('niveauCompetences_data', 'niveauCompetences_stats', 'niveauCompetences_filters'));
     }
     public function create() {
+
         $itemNiveauCompetence = $this->niveauCompetenceService->createInstance();
         $competences = $this->competenceService->all();
 
@@ -81,29 +86,14 @@ class BaseNiveauCompetenceController extends AdminController
         );
     }
     public function show(string $id) {
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('niveau_competence_id', $id);
-        
-        $itemNiveauCompetence = $this->niveauCompetenceService->find($id);
-        $competences = $this->competenceService->all();
-
-        if (request()->ajax()) {
-            return view('PkgCompetences::niveauCompetence._fields', compact('itemNiveauCompetence', 'competences'));
-        }
-
-        return view('PkgCompetences::niveauCompetence.edit', compact('itemNiveauCompetence', 'competences'));
-
+        return $this->edit( $id);
     }
     public function edit(string $id) {
 
-
+        $this->viewState->setContextKey('niveauCompetence.edit_' . $id);
         
         $itemNiveauCompetence = $this->niveauCompetenceService->find($id);
         $competences = $this->competenceService->all();
-
-        // Il doit être après le chargement de edit form et avant les form hasMany
-        $this->contextState->set('niveau_competence_id', $id);
 
 
         if (request()->ajax()) {

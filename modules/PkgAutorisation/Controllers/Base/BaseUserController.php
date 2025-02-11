@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgAutorisation\App\Requests\UserRequest;
+use Modules\PkgAutorisation\Models\User;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgAutorisation\App\Exports\UserExport;
 use Modules\PkgAutorisation\App\Imports\UserImport;
@@ -28,10 +29,13 @@ class BaseUserController extends AdminController
     }
 
     public function index(Request $request) {
+        
+        $this->viewState->setContextKeyIfEmpty('user.index');
+
         // Extraire les paramètres de recherche, page, et filtres
         $users_params = array_merge(
             $request->only(['page','sort']),
-            ['search' => $request->get('users_search', '')],
+            ['search' => $request->get('users_search', $this->viewState->get("filter.user.users_search"))],
             $request->except(['users_search', 'page', 'sort'])
         );
 
@@ -50,6 +54,7 @@ class BaseUserController extends AdminController
         return view('PkgAutorisation::user.index', compact('users_data', 'users_stats', 'users_filters'));
     }
     public function create() {
+
         $itemUser = $this->userService->createInstance();
         $roles = $this->roleService->all();
 
@@ -83,45 +88,22 @@ class BaseUserController extends AdminController
         );
     }
     public function show(string $id) {
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('user_id', $id);
-        
-        $itemUser = $this->userService->find($id);
-        $roles = $this->roleService->all();
-        $apprenantService =  new ApprenantService();
-        $apprenants_data =  $itemUser->apprenants()->paginate(10);
-        $apprenants_stats = $apprenantService->getapprenantStats();
-        $apprenants_filters = $apprenantService->getFieldsFilterable();
-        
-        $formateurService =  new FormateurService();
-        $formateurs_data =  $itemUser->formateurs()->paginate(10);
-        $formateurs_stats = $formateurService->getformateurStats();
-        $formateurs_filters = $formateurService->getFieldsFilterable();
-        
-
-        if (request()->ajax()) {
-            return view('PkgAutorisation::user._edit', compact('itemUser', 'roles', 'apprenants_data', 'formateurs_data', 'apprenants_stats', 'formateurs_stats', 'apprenants_filters', 'formateurs_filters'));
-        }
-
-        return view('PkgAutorisation::user.edit', compact('itemUser', 'roles', 'apprenants_data', 'formateurs_data', 'apprenants_stats', 'formateurs_stats', 'apprenants_filters', 'formateurs_filters'));
-
+        return $this->edit( $id);
     }
     public function edit(string $id) {
 
-
+        $this->viewState->setContextKey('user.edit_' . $id);
         
         $itemUser = $this->userService->find($id);
         $roles = $this->roleService->all();
 
-        // Il doit être après le chargement de edit form et avant les form hasMany
-        $this->contextState->set('user_id', $id);
-
+        $this->viewState->set('scope.apprenant.user_id', $id);
         $apprenantService =  new ApprenantService();
         $apprenants_data =  $itemUser->apprenants()->paginate(10);
         $apprenants_stats = $apprenantService->getapprenantStats();
         $apprenants_filters = $apprenantService->getFieldsFilterable();
         
+        $this->viewState->set('scope.formateur.user_id', $id);
         $formateurService =  new FormateurService();
         $formateurs_data =  $itemUser->formateurs()->paginate(10);
         $formateurs_stats = $formateurService->getformateurStats();

@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgFormation\App\Requests\ModuleRequest;
+use Modules\PkgFormation\Models\Module;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgFormation\App\Exports\ModuleExport;
 use Modules\PkgFormation\App\Imports\ModuleImport;
@@ -27,10 +28,13 @@ class BaseModuleController extends AdminController
     }
 
     public function index(Request $request) {
+        
+        $this->viewState->setContextKeyIfEmpty('module.index');
+
         // Extraire les paramètres de recherche, page, et filtres
         $modules_params = array_merge(
             $request->only(['page','sort']),
-            ['search' => $request->get('modules_search', '')],
+            ['search' => $request->get('modules_search', $this->viewState->get("filter.module.modules_search"))],
             $request->except(['modules_search', 'page', 'sort'])
         );
 
@@ -49,6 +53,7 @@ class BaseModuleController extends AdminController
         return view('PkgFormation::module.index', compact('modules_data', 'modules_stats', 'modules_filters'));
     }
     public function create() {
+
         $itemModule = $this->moduleService->createInstance();
         $filieres = $this->filiereService->all();
 
@@ -82,35 +87,16 @@ class BaseModuleController extends AdminController
         );
     }
     public function show(string $id) {
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('module_id', $id);
-        
-        $itemModule = $this->moduleService->find($id);
-        $filieres = $this->filiereService->all();
-        $competenceService =  new CompetenceService();
-        $competences_data =  $itemModule->competences()->paginate(10);
-        $competences_stats = $competenceService->getcompetenceStats();
-        $competences_filters = $competenceService->getFieldsFilterable();
-        
-
-        if (request()->ajax()) {
-            return view('PkgFormation::module._edit', compact('itemModule', 'filieres', 'competences_data', 'competences_stats', 'competences_filters'));
-        }
-
-        return view('PkgFormation::module.edit', compact('itemModule', 'filieres', 'competences_data', 'competences_stats', 'competences_filters'));
-
+        return $this->edit( $id);
     }
     public function edit(string $id) {
 
-
+        $this->viewState->setContextKey('module.edit_' . $id);
         
         $itemModule = $this->moduleService->find($id);
         $filieres = $this->filiereService->all();
 
-        // Il doit être après le chargement de edit form et avant les form hasMany
-        $this->contextState->set('module_id', $id);
-
+        $this->viewState->set('scope.competence.module_id', $id);
         $competenceService =  new CompetenceService();
         $competences_data =  $itemModule->competences()->paginate(10);
         $competences_stats = $competenceService->getcompetenceStats();

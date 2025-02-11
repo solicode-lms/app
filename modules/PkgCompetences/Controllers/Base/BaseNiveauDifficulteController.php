@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgCompetences\App\Requests\NiveauDifficulteRequest;
+use Modules\PkgCompetences\Models\NiveauDifficulte;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgCompetences\App\Exports\NiveauDifficulteExport;
 use Modules\PkgCompetences\App\Imports\NiveauDifficulteImport;
@@ -26,10 +27,13 @@ class BaseNiveauDifficulteController extends AdminController
     }
 
     public function index(Request $request) {
+        
+        $this->viewState->setContextKeyIfEmpty('niveauDifficulte.index');
+
         // Extraire les paramètres de recherche, page, et filtres
         $niveauDifficultes_params = array_merge(
             $request->only(['page','sort']),
-            ['search' => $request->get('niveauDifficultes_search', '')],
+            ['search' => $request->get('niveauDifficultes_search', $this->viewState->get("filter.niveauDifficulte.niveauDifficultes_search"))],
             $request->except(['niveauDifficultes_search', 'page', 'sort'])
         );
 
@@ -48,6 +52,7 @@ class BaseNiveauDifficulteController extends AdminController
         return view('PkgCompetences::niveauDifficulte.index', compact('niveauDifficultes_data', 'niveauDifficultes_stats', 'niveauDifficultes_filters'));
     }
     public function create() {
+
         $itemNiveauDifficulte = $this->niveauDifficulteService->createInstance();
         $formateurs = $this->formateurService->all();
 
@@ -81,29 +86,14 @@ class BaseNiveauDifficulteController extends AdminController
         );
     }
     public function show(string $id) {
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('niveau_difficulte_id', $id);
-        
-        $itemNiveauDifficulte = $this->niveauDifficulteService->find($id);
-        $formateurs = $this->formateurService->all();
-
-        if (request()->ajax()) {
-            return view('PkgCompetences::niveauDifficulte._fields', compact('itemNiveauDifficulte', 'formateurs'));
-        }
-
-        return view('PkgCompetences::niveauDifficulte.edit', compact('itemNiveauDifficulte', 'formateurs'));
-
+        return $this->edit( $id);
     }
     public function edit(string $id) {
 
-
+        $this->viewState->setContextKey('niveauDifficulte.edit_' . $id);
         
         $itemNiveauDifficulte = $this->niveauDifficulteService->find($id);
         $formateurs = $this->formateurService->all();
-
-        // Il doit être après le chargement de edit form et avant les form hasMany
-        $this->contextState->set('niveau_difficulte_id', $id);
 
 
         if (request()->ajax()) {

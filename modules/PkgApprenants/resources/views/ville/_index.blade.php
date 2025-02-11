@@ -8,6 +8,7 @@
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
         editOnFullScreen : false,
         entity_name: 'ville',
+        contextKey: '{{ isset($contextKey) ? $contextKey : 'ville.index' }}', 
         filterFormSelector: '#ville-crud-filter-form',
         crudSelector: '#ville-crud',
         tableSelector: '#ville-data-container',

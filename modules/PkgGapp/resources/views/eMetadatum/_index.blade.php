@@ -8,6 +8,7 @@
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
         editOnFullScreen : false,
         entity_name: 'eMetadatum',
+        contextKey: '{{ isset($contextKey) ? $contextKey : 'eMetadatum.index' }}', 
         filterFormSelector: '#eMetadatum-crud-filter-form',
         crudSelector: '#eMetadatum-crud',
         tableSelector: '#eMetadatum-data-container',

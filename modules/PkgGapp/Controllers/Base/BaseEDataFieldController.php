@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgGapp\App\Requests\EDataFieldRequest;
+use Modules\PkgGapp\Models\EDataField;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgGapp\App\Exports\EDataFieldExport;
 use Modules\PkgGapp\App\Imports\EDataFieldImport;
@@ -30,10 +31,13 @@ class BaseEDataFieldController extends AdminController
     }
 
     public function index(Request $request) {
+        
+        $this->viewState->setContextKeyIfEmpty('eDataField.index');
+
         // Extraire les paramètres de recherche, page, et filtres
         $eDataFields_params = array_merge(
             $request->only(['page','sort']),
-            ['search' => $request->get('eDataFields_search', '')],
+            ['search' => $request->get('eDataFields_search', $this->viewState->get("filter.eDataField.eDataFields_search"))],
             $request->except(['eDataFields_search', 'page', 'sort'])
         );
 
@@ -52,6 +56,7 @@ class BaseEDataFieldController extends AdminController
         return view('PkgGapp::eDataField.index', compact('eDataFields_data', 'eDataFields_stats', 'eDataFields_filters'));
     }
     public function create() {
+
         $itemEDataField = $this->eDataFieldService->createInstance();
         $eModels = $this->eModelService->all();
         $eRelationships = $this->eRelationshipService->all();
@@ -86,37 +91,17 @@ class BaseEDataFieldController extends AdminController
         );
     }
     public function show(string $id) {
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('e_data_field_id', $id);
-        
-        $itemEDataField = $this->eDataFieldService->find($id);
-        $eModels = $this->eModelService->all();
-        $eRelationships = $this->eRelationshipService->all();
-        $eMetadatumService =  new EMetadatumService();
-        $eMetadata_data =  $itemEDataField->eMetadata()->paginate(10);
-        $eMetadata_stats = $eMetadatumService->geteMetadatumStats();
-        $eMetadata_filters = $eMetadatumService->getFieldsFilterable();
-        
-
-        if (request()->ajax()) {
-            return view('PkgGapp::eDataField._edit', compact('itemEDataField', 'eModels', 'eRelationships', 'eMetadata_data', 'eMetadata_stats', 'eMetadata_filters'));
-        }
-
-        return view('PkgGapp::eDataField.edit', compact('itemEDataField', 'eModels', 'eRelationships', 'eMetadata_data', 'eMetadata_stats', 'eMetadata_filters'));
-
+        return $this->edit( $id);
     }
     public function edit(string $id) {
 
-
+        $this->viewState->setContextKey('eDataField.edit_' . $id);
         
         $itemEDataField = $this->eDataFieldService->find($id);
         $eModels = $this->eModelService->all();
         $eRelationships = $this->eRelationshipService->all();
 
-        // Il doit être après le chargement de edit form et avant les form hasMany
-        $this->contextState->set('e_data_field_id', $id);
-
+        $this->viewState->set('scope.eMetadatum.e_data_field_id', $id);
         $eMetadatumService =  new EMetadatumService();
         $eMetadata_data =  $itemEDataField->eMetadata()->paginate(10);
         $eMetadata_stats = $eMetadatumService->geteMetadatumStats();

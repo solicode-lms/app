@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgRealisationProjets\App\Requests\AffectationProjetRequest;
+use Modules\PkgRealisationProjets\Models\AffectationProjet;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgRealisationProjets\App\Exports\AffectationProjetExport;
 use Modules\PkgRealisationProjets\App\Imports\AffectationProjetImport;
@@ -33,10 +34,13 @@ class BaseAffectationProjetController extends AdminController
     }
 
     public function index(Request $request) {
+        
+        $this->viewState->setContextKeyIfEmpty('affectationProjet.index');
+
         // Extraire les paramètres de recherche, page, et filtres
         $affectationProjets_params = array_merge(
             $request->only(['page','sort']),
-            ['search' => $request->get('affectationProjets_search', '')],
+            ['search' => $request->get('affectationProjets_search', $this->viewState->get("filter.affectationProjet.affectationProjets_search"))],
             $request->except(['affectationProjets_search', 'page', 'sort'])
         );
 
@@ -55,6 +59,7 @@ class BaseAffectationProjetController extends AdminController
         return view('PkgRealisationProjets::affectationProjet.index', compact('affectationProjets_data', 'affectationProjets_stats', 'affectationProjets_filters'));
     }
     public function create() {
+
         $itemAffectationProjet = $this->affectationProjetService->createInstance();
         $anneeFormations = $this->anneeFormationService->all();
         $groupes = $this->groupeService->all();
@@ -90,39 +95,18 @@ class BaseAffectationProjetController extends AdminController
         );
     }
     public function show(string $id) {
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('affectation_projet_id', $id);
-        
-        $itemAffectationProjet = $this->affectationProjetService->find($id);
-        $anneeFormations = $this->anneeFormationService->all();
-        $groupes = $this->groupeService->all();
-        $projets = $this->projetService->all();
-        $realisationProjetService =  new RealisationProjetService();
-        $realisationProjets_data =  $itemAffectationProjet->realisationProjets()->paginate(10);
-        $realisationProjets_stats = $realisationProjetService->getrealisationProjetStats();
-        $realisationProjets_filters = $realisationProjetService->getFieldsFilterable();
-        
-
-        if (request()->ajax()) {
-            return view('PkgRealisationProjets::affectationProjet._edit', compact('itemAffectationProjet', 'anneeFormations', 'groupes', 'projets', 'realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters'));
-        }
-
-        return view('PkgRealisationProjets::affectationProjet.edit', compact('itemAffectationProjet', 'anneeFormations', 'groupes', 'projets', 'realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters'));
-
+        return $this->edit( $id);
     }
     public function edit(string $id) {
 
-
+        $this->viewState->setContextKey('affectationProjet.edit_' . $id);
         
         $itemAffectationProjet = $this->affectationProjetService->find($id);
         $anneeFormations = $this->anneeFormationService->all();
         $groupes = $this->groupeService->all();
         $projets = $this->projetService->all();
 
-        // Il doit être après le chargement de edit form et avant les form hasMany
-        $this->contextState->set('affectation_projet_id', $id);
-
+        $this->viewState->set('scope.realisationProjet.affectation_projet_id', $id);
         $realisationProjetService =  new RealisationProjetService();
         $realisationProjets_data =  $itemAffectationProjet->realisationProjets()->paginate(10);
         $realisationProjets_stats = $realisationProjetService->getrealisationProjetStats();

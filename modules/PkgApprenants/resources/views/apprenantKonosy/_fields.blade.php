@@ -414,4 +414,7 @@
 </script>
 <script>
      window.modalTitle = '{{__("PkgApprenants::apprenantKonosy.singular") }} : {{$itemApprenantKonosy}}'
+     window.contextState = @json($contextState);
+     window.sessionState = @json($sessionState);
+     window.viewState = @json($viewState);
 </script>

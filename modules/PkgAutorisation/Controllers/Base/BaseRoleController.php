@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgAutorisation\App\Requests\RoleRequest;
+use Modules\PkgAutorisation\Models\Role;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgAutorisation\App\Exports\RoleExport;
 use Modules\PkgAutorisation\App\Imports\RoleImport;
@@ -29,10 +30,13 @@ class BaseRoleController extends AdminController
     }
 
     public function index(Request $request) {
+        
+        $this->viewState->setContextKeyIfEmpty('role.index');
+
         // Extraire les paramètres de recherche, page, et filtres
         $roles_params = array_merge(
             $request->only(['page','sort']),
-            ['search' => $request->get('roles_search', '')],
+            ['search' => $request->get('roles_search', $this->viewState->get("filter.role.roles_search"))],
             $request->except(['roles_search', 'page', 'sort'])
         );
 
@@ -51,6 +55,7 @@ class BaseRoleController extends AdminController
         return view('PkgAutorisation::role.index', compact('roles_data', 'roles_stats', 'roles_filters'));
     }
     public function create() {
+
         $itemRole = $this->roleService->createInstance();
         $permissions = $this->permissionService->all();
         $users = $this->userService->all();
@@ -85,31 +90,15 @@ class BaseRoleController extends AdminController
         );
     }
     public function show(string $id) {
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('role_id', $id);
-        
-        $itemRole = $this->roleService->find($id);
-        $permissions = $this->permissionService->all();
-        $users = $this->userService->all();
-
-        if (request()->ajax()) {
-            return view('PkgAutorisation::role._fields', compact('itemRole', 'permissions', 'users'));
-        }
-
-        return view('PkgAutorisation::role.edit', compact('itemRole', 'permissions', 'users'));
-
+        return $this->edit( $id);
     }
     public function edit(string $id) {
 
-
+        $this->viewState->setContextKey('role.edit_' . $id);
         
         $itemRole = $this->roleService->find($id);
         $permissions = $this->permissionService->all();
         $users = $this->userService->all();
-
-        // Il doit être après le chargement de edit form et avant les form hasMany
-        $this->contextState->set('role_id', $id);
 
 
         if (request()->ajax()) {

@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgGapp\App\Requests\EPackageRequest;
+use Modules\PkgGapp\Models\EPackage;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgGapp\App\Exports\EPackageExport;
 use Modules\PkgGapp\App\Imports\EPackageImport;
@@ -24,10 +25,13 @@ class BaseEPackageController extends AdminController
     }
 
     public function index(Request $request) {
+        
+        $this->viewState->setContextKeyIfEmpty('ePackage.index');
+
         // Extraire les paramètres de recherche, page, et filtres
         $ePackages_params = array_merge(
             $request->only(['page','sort']),
-            ['search' => $request->get('ePackages_search', '')],
+            ['search' => $request->get('ePackages_search', $this->viewState->get("filter.ePackage.ePackages_search"))],
             $request->except(['ePackages_search', 'page', 'sort'])
         );
 
@@ -46,6 +50,7 @@ class BaseEPackageController extends AdminController
         return view('PkgGapp::ePackage.index', compact('ePackages_data', 'ePackages_stats', 'ePackages_filters'));
     }
     public function create() {
+
         $itemEPackage = $this->ePackageService->createInstance();
 
 
@@ -78,33 +83,15 @@ class BaseEPackageController extends AdminController
         );
     }
     public function show(string $id) {
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('e_package_id', $id);
-        
-        $itemEPackage = $this->ePackageService->find($id);
-        $eModelService =  new EModelService();
-        $eModels_data =  $itemEPackage->eModels()->paginate(10);
-        $eModels_stats = $eModelService->geteModelStats();
-        $eModels_filters = $eModelService->getFieldsFilterable();
-        
-
-        if (request()->ajax()) {
-            return view('PkgGapp::ePackage._edit', compact('itemEPackage', 'eModels_data', 'eModels_stats', 'eModels_filters'));
-        }
-
-        return view('PkgGapp::ePackage.edit', compact('itemEPackage', 'eModels_data', 'eModels_stats', 'eModels_filters'));
-
+        return $this->edit( $id);
     }
     public function edit(string $id) {
 
-
+        $this->viewState->setContextKey('ePackage.edit_' . $id);
         
         $itemEPackage = $this->ePackageService->find($id);
 
-        // Il doit être après le chargement de edit form et avant les form hasMany
-        $this->contextState->set('e_package_id', $id);
-
+        $this->viewState->set('scope.eModel.e_package_id', $id);
         $eModelService =  new EModelService();
         $eModels_data =  $itemEPackage->eModels()->paginate(10);
         $eModels_stats = $eModelService->geteModelStats();

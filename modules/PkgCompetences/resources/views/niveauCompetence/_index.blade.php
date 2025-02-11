@@ -8,6 +8,7 @@
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
         editOnFullScreen : false,
         entity_name: 'niveauCompetence',
+        contextKey: '{{ isset($contextKey) ? $contextKey : 'niveauCompetence.index' }}', 
         filterFormSelector: '#niveauCompetence-crud-filter-form',
         crudSelector: '#niveauCompetence-crud',
         tableSelector: '#niveauCompetence-data-container',

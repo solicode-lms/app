@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgGapp\App\Requests\EMetadataDefinitionRequest;
+use Modules\PkgGapp\Models\EMetadataDefinition;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgGapp\App\Exports\EMetadataDefinitionExport;
 use Modules\PkgGapp\App\Imports\EMetadataDefinitionImport;
@@ -23,10 +24,13 @@ class BaseEMetadataDefinitionController extends AdminController
     }
 
     public function index(Request $request) {
+        
+        $this->viewState->setContextKeyIfEmpty('eMetadataDefinition.index');
+
         // Extraire les paramètres de recherche, page, et filtres
         $eMetadataDefinitions_params = array_merge(
             $request->only(['page','sort']),
-            ['search' => $request->get('eMetadataDefinitions_search', '')],
+            ['search' => $request->get('eMetadataDefinitions_search', $this->viewState->get("filter.eMetadataDefinition.eMetadataDefinitions_search"))],
             $request->except(['eMetadataDefinitions_search', 'page', 'sort'])
         );
 
@@ -45,6 +49,7 @@ class BaseEMetadataDefinitionController extends AdminController
         return view('PkgGapp::eMetadataDefinition.index', compact('eMetadataDefinitions_data', 'eMetadataDefinitions_stats', 'eMetadataDefinitions_filters'));
     }
     public function create() {
+
         $itemEMetadataDefinition = $this->eMetadataDefinitionService->createInstance();
 
 
@@ -77,27 +82,13 @@ class BaseEMetadataDefinitionController extends AdminController
         );
     }
     public function show(string $id) {
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('e_metadata_definition_id', $id);
-        
-        $itemEMetadataDefinition = $this->eMetadataDefinitionService->find($id);
-
-        if (request()->ajax()) {
-            return view('PkgGapp::eMetadataDefinition._fields', compact('itemEMetadataDefinition'));
-        }
-
-        return view('PkgGapp::eMetadataDefinition.edit', compact('itemEMetadataDefinition'));
-
+        return $this->edit( $id);
     }
     public function edit(string $id) {
 
-
+        $this->viewState->setContextKey('eMetadataDefinition.edit_' . $id);
         
         $itemEMetadataDefinition = $this->eMetadataDefinitionService->find($id);
-
-        // Il doit être après le chargement de edit form et avant les form hasMany
-        $this->contextState->set('e_metadata_definition_id', $id);
 
 
         if (request()->ajax()) {

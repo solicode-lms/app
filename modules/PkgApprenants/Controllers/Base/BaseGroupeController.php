@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgApprenants\App\Requests\GroupeRequest;
+use Modules\PkgApprenants\Models\Groupe;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgApprenants\App\Exports\GroupeExport;
 use Modules\PkgApprenants\App\Imports\GroupeImport;
@@ -36,10 +37,13 @@ class BaseGroupeController extends AdminController
     }
 
     public function index(Request $request) {
+        
+        $this->viewState->setContextKeyIfEmpty('groupe.index');
+
         // Extraire les paramètres de recherche, page, et filtres
         $groupes_params = array_merge(
             $request->only(['page','sort']),
-            ['search' => $request->get('groupes_search', '')],
+            ['search' => $request->get('groupes_search', $this->viewState->get("filter.groupe.groupes_search"))],
             $request->except(['groupes_search', 'page', 'sort'])
         );
 
@@ -58,6 +62,7 @@ class BaseGroupeController extends AdminController
         return view('PkgApprenants::groupe.index', compact('groupes_data', 'groupes_stats', 'groupes_filters'));
     }
     public function create() {
+
         $itemGroupe = $this->groupeService->createInstance();
         $apprenants = $this->apprenantService->all();
         $formateurs = $this->formateurService->all();
@@ -94,31 +99,11 @@ class BaseGroupeController extends AdminController
         );
     }
     public function show(string $id) {
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('groupe_id', $id);
-        
-        $itemGroupe = $this->groupeService->find($id);
-        $apprenants = $this->apprenantService->all();
-        $formateurs = $this->formateurService->all();
-        $anneeFormations = $this->anneeFormationService->all();
-        $filieres = $this->filiereService->all();
-        $affectationProjetService =  new AffectationProjetService();
-        $affectationProjets_data =  $itemGroupe->affectationProjets()->paginate(10);
-        $affectationProjets_stats = $affectationProjetService->getaffectationProjetStats();
-        $affectationProjets_filters = $affectationProjetService->getFieldsFilterable();
-        
-
-        if (request()->ajax()) {
-            return view('PkgApprenants::groupe._edit', compact('itemGroupe', 'apprenants', 'formateurs', 'anneeFormations', 'filieres', 'affectationProjets_data', 'affectationProjets_stats', 'affectationProjets_filters'));
-        }
-
-        return view('PkgApprenants::groupe.edit', compact('itemGroupe', 'apprenants', 'formateurs', 'anneeFormations', 'filieres', 'affectationProjets_data', 'affectationProjets_stats', 'affectationProjets_filters'));
-
+        return $this->edit( $id);
     }
     public function edit(string $id) {
 
-
+        $this->viewState->setContextKey('groupe.edit_' . $id);
         
         $itemGroupe = $this->groupeService->find($id);
         $apprenants = $this->apprenantService->all();
@@ -126,9 +111,7 @@ class BaseGroupeController extends AdminController
         $anneeFormations = $this->anneeFormationService->all();
         $filieres = $this->filiereService->all();
 
-        // Il doit être après le chargement de edit form et avant les form hasMany
-        $this->contextState->set('groupe_id', $id);
-
+        $this->viewState->set('scope.affectationProjet.groupe_id', $id);
         $affectationProjetService =  new AffectationProjetService();
         $affectationProjets_data =  $itemGroupe->affectationProjets()->paginate(10);
         $affectationProjets_stats = $affectationProjetService->getaffectationProjetStats();

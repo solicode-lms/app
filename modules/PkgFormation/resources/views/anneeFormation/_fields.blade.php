@@ -106,4 +106,7 @@
 </script>
 <script>
      window.modalTitle = '{{__("PkgFormation::anneeFormation.singular") }} : {{$itemAnneeFormation}}'
+     window.contextState = @json($contextState);
+     window.sessionState = @json($sessionState);
+     window.viewState = @json($viewState);
 </script>

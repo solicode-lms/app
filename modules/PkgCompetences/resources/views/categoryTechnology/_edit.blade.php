@@ -4,6 +4,7 @@
     window.editWithTabPanelManagersConfig = window.editWithTabPanelManagersConfig || [];
     window.editWithTabPanelManagersConfig.push({
         entity_name: 'categoryTechnology',
+        contextKey: 'categoryTechnology.edit_{{$itemProjet->id}}',
         cardTabSelector: '#card-tab-categoryTechnology', 
         formSelector: '#categoryTechnologyForm',
         editUrl: '{{ route('categoryTechnologies.edit',  ['categoryTechnology' => ':id']) }}',
@@ -14,6 +15,7 @@
 </script>
 <script>
     window.contextState = @json($contextState);
+    window.viewState = @json($viewState);
 </script>
 
 @section('content')
@@ -47,7 +49,7 @@
                             </div>
 
                             <div class="tab-pane fade" id="categoryTechnology-hasmany-tabs-technology" role="tabpanel" aria-labelledby="categoryTechnology-hasmany-tabs-technology-tab">
-                                @include('PkgCompetences::technology._index',['isMany' => true, "edit_has_many" => false])
+                                @include('PkgCompetences::technology._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'categoryTechnology.edit_' . $itemCategoryTechnology->id])
                             </div>
 
                            

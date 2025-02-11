@@ -4,6 +4,7 @@
     window.editWithTabPanelManagersConfig = window.editWithTabPanelManagersConfig || [];
     window.editWithTabPanelManagersConfig.push({
         entity_name: 'featureDomain',
+        contextKey: 'featureDomain.edit_{{$itemProjet->id}}',
         cardTabSelector: '#card-tab-featureDomain', 
         formSelector: '#featureDomainForm',
         editUrl: '{{ route('featureDomains.edit',  ['featureDomain' => ':id']) }}',
@@ -14,6 +15,7 @@
 </script>
 <script>
     window.contextState = @json($contextState);
+    window.viewState = @json($viewState);
 </script>
 
 @section('content')
@@ -47,7 +49,7 @@
                             </div>
 
                             <div class="tab-pane fade" id="featureDomain-hasmany-tabs-feature" role="tabpanel" aria-labelledby="featureDomain-hasmany-tabs-feature-tab">
-                                @include('Core::feature._index',['isMany' => true, "edit_has_many" => false])
+                                @include('Core::feature._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'featureDomain.edit_' . $itemFeatureDomain->id])
                             </div>
 
                            

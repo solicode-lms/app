@@ -4,6 +4,7 @@
     window.editWithTabPanelManagersConfig = window.editWithTabPanelManagersConfig || [];
     window.editWithTabPanelManagersConfig.push({
         entity_name: 'module',
+        contextKey: 'module.edit_{{$itemProjet->id}}',
         cardTabSelector: '#card-tab-module', 
         formSelector: '#moduleForm',
         editUrl: '{{ route('modules.edit',  ['module' => ':id']) }}',
@@ -14,6 +15,7 @@
 </script>
 <script>
     window.contextState = @json($contextState);
+    window.viewState = @json($viewState);
 </script>
 
 @section('content')
@@ -47,7 +49,7 @@
                             </div>
 
                             <div class="tab-pane fade" id="module-hasmany-tabs-competence" role="tabpanel" aria-labelledby="module-hasmany-tabs-competence-tab">
-                                @include('PkgCompetences::competence._index',['isMany' => true, "edit_has_many" => false])
+                                @include('PkgCompetences::competence._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'module.edit_' . $itemModule->id])
                             </div>
 
                            

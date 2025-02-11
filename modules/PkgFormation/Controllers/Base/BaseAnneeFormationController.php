@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgFormation\App\Requests\AnneeFormationRequest;
+use Modules\PkgFormation\Models\AnneeFormation;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgFormation\App\Exports\AnneeFormationExport;
 use Modules\PkgFormation\App\Imports\AnneeFormationImport;
@@ -25,10 +26,13 @@ class BaseAnneeFormationController extends AdminController
     }
 
     public function index(Request $request) {
+        
+        $this->viewState->setContextKeyIfEmpty('anneeFormation.index');
+
         // Extraire les paramètres de recherche, page, et filtres
         $anneeFormations_params = array_merge(
             $request->only(['page','sort']),
-            ['search' => $request->get('anneeFormations_search', '')],
+            ['search' => $request->get('anneeFormations_search', $this->viewState->get("filter.anneeFormation.anneeFormations_search"))],
             $request->except(['anneeFormations_search', 'page', 'sort'])
         );
 
@@ -47,6 +51,7 @@ class BaseAnneeFormationController extends AdminController
         return view('PkgFormation::anneeFormation.index', compact('anneeFormations_data', 'anneeFormations_stats', 'anneeFormations_filters'));
     }
     public function create() {
+
         $itemAnneeFormation = $this->anneeFormationService->createInstance();
 
 
@@ -79,43 +84,21 @@ class BaseAnneeFormationController extends AdminController
         );
     }
     public function show(string $id) {
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('annee_formation_id', $id);
-        
-        $itemAnneeFormation = $this->anneeFormationService->find($id);
-        $affectationProjetService =  new AffectationProjetService();
-        $affectationProjets_data =  $itemAnneeFormation->affectationProjets()->paginate(10);
-        $affectationProjets_stats = $affectationProjetService->getaffectationProjetStats();
-        $affectationProjets_filters = $affectationProjetService->getFieldsFilterable();
-        
-        $groupeService =  new GroupeService();
-        $groupes_data =  $itemAnneeFormation->groupes()->paginate(10);
-        $groupes_stats = $groupeService->getgroupeStats();
-        $groupes_filters = $groupeService->getFieldsFilterable();
-        
-
-        if (request()->ajax()) {
-            return view('PkgFormation::anneeFormation._edit', compact('itemAnneeFormation', 'affectationProjets_data', 'groupes_data', 'affectationProjets_stats', 'groupes_stats', 'affectationProjets_filters', 'groupes_filters'));
-        }
-
-        return view('PkgFormation::anneeFormation.edit', compact('itemAnneeFormation', 'affectationProjets_data', 'groupes_data', 'affectationProjets_stats', 'groupes_stats', 'affectationProjets_filters', 'groupes_filters'));
-
+        return $this->edit( $id);
     }
     public function edit(string $id) {
 
-
+        $this->viewState->setContextKey('anneeFormation.edit_' . $id);
         
         $itemAnneeFormation = $this->anneeFormationService->find($id);
 
-        // Il doit être après le chargement de edit form et avant les form hasMany
-        $this->contextState->set('annee_formation_id', $id);
-
+        $this->viewState->set('scope.affectationProjet.annee_formation_id', $id);
         $affectationProjetService =  new AffectationProjetService();
         $affectationProjets_data =  $itemAnneeFormation->affectationProjets()->paginate(10);
         $affectationProjets_stats = $affectationProjetService->getaffectationProjetStats();
         $affectationProjets_filters = $affectationProjetService->getFieldsFilterable();
         
+        $this->viewState->set('scope.groupe.annee_formation_id', $id);
         $groupeService =  new GroupeService();
         $groupes_data =  $itemAnneeFormation->groupes()->paginate(10);
         $groupes_stats = $groupeService->getgroupeStats();

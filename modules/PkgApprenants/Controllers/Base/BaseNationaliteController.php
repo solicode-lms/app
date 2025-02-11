@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgApprenants\App\Requests\NationaliteRequest;
+use Modules\PkgApprenants\Models\Nationalite;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgApprenants\App\Exports\NationaliteExport;
 use Modules\PkgApprenants\App\Imports\NationaliteImport;
@@ -24,10 +25,13 @@ class BaseNationaliteController extends AdminController
     }
 
     public function index(Request $request) {
+        
+        $this->viewState->setContextKeyIfEmpty('nationalite.index');
+
         // Extraire les paramètres de recherche, page, et filtres
         $nationalites_params = array_merge(
             $request->only(['page','sort']),
-            ['search' => $request->get('nationalites_search', '')],
+            ['search' => $request->get('nationalites_search', $this->viewState->get("filter.nationalite.nationalites_search"))],
             $request->except(['nationalites_search', 'page', 'sort'])
         );
 
@@ -46,6 +50,7 @@ class BaseNationaliteController extends AdminController
         return view('PkgApprenants::nationalite.index', compact('nationalites_data', 'nationalites_stats', 'nationalites_filters'));
     }
     public function create() {
+
         $itemNationalite = $this->nationaliteService->createInstance();
 
 
@@ -78,33 +83,15 @@ class BaseNationaliteController extends AdminController
         );
     }
     public function show(string $id) {
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('nationalite_id', $id);
-        
-        $itemNationalite = $this->nationaliteService->find($id);
-        $apprenantService =  new ApprenantService();
-        $apprenants_data =  $itemNationalite->apprenants()->paginate(10);
-        $apprenants_stats = $apprenantService->getapprenantStats();
-        $apprenants_filters = $apprenantService->getFieldsFilterable();
-        
-
-        if (request()->ajax()) {
-            return view('PkgApprenants::nationalite._edit', compact('itemNationalite', 'apprenants_data', 'apprenants_stats', 'apprenants_filters'));
-        }
-
-        return view('PkgApprenants::nationalite.edit', compact('itemNationalite', 'apprenants_data', 'apprenants_stats', 'apprenants_filters'));
-
+        return $this->edit( $id);
     }
     public function edit(string $id) {
 
-
+        $this->viewState->setContextKey('nationalite.edit_' . $id);
         
         $itemNationalite = $this->nationaliteService->find($id);
 
-        // Il doit être après le chargement de edit form et avant les form hasMany
-        $this->contextState->set('nationalite_id', $id);
-
+        $this->viewState->set('scope.apprenant.nationalite_id', $id);
         $apprenantService =  new ApprenantService();
         $apprenants_data =  $itemNationalite->apprenants()->paginate(10);
         $apprenants_stats = $apprenantService->getapprenantStats();

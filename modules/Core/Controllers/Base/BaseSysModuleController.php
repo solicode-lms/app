@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\Core\App\Requests\SysModuleRequest;
+use Modules\Core\Models\SysModule;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\Core\App\Exports\SysModuleExport;
 use Modules\Core\App\Imports\SysModuleImport;
@@ -29,10 +30,13 @@ class BaseSysModuleController extends AdminController
     }
 
     public function index(Request $request) {
+        
+        $this->viewState->setContextKeyIfEmpty('sysModule.index');
+
         // Extraire les paramètres de recherche, page, et filtres
         $sysModules_params = array_merge(
             $request->only(['page','sort']),
-            ['search' => $request->get('sysModules_search', '')],
+            ['search' => $request->get('sysModules_search', $this->viewState->get("filter.sysModule.sysModules_search"))],
             $request->except(['sysModules_search', 'page', 'sort'])
         );
 
@@ -51,6 +55,7 @@ class BaseSysModuleController extends AdminController
         return view('Core::sysModule.index', compact('sysModules_data', 'sysModules_stats', 'sysModules_filters'));
     }
     public function create() {
+
         $itemSysModule = $this->sysModuleService->createInstance();
         $sysColors = $this->sysColorService->all();
 
@@ -84,55 +89,28 @@ class BaseSysModuleController extends AdminController
         );
     }
     public function show(string $id) {
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('sys_module_id', $id);
-        
-        $itemSysModule = $this->sysModuleService->find($id);
-        $sysColors = $this->sysColorService->all();
-        $featureDomainService =  new FeatureDomainService();
-        $featureDomains_data =  $itemSysModule->featureDomains()->paginate(10);
-        $featureDomains_stats = $featureDomainService->getfeatureDomainStats();
-        $featureDomains_filters = $featureDomainService->getFieldsFilterable();
-        
-        $sysControllerService =  new SysControllerService();
-        $sysControllers_data =  $itemSysModule->sysControllers()->paginate(10);
-        $sysControllers_stats = $sysControllerService->getsysControllerStats();
-        $sysControllers_filters = $sysControllerService->getFieldsFilterable();
-        
-        $sysModelService =  new SysModelService();
-        $sysModels_data =  $itemSysModule->sysModels()->paginate(10);
-        $sysModels_stats = $sysModelService->getsysModelStats();
-        $sysModels_filters = $sysModelService->getFieldsFilterable();
-        
-
-        if (request()->ajax()) {
-            return view('Core::sysModule._edit', compact('itemSysModule', 'sysColors', 'featureDomains_data', 'sysControllers_data', 'sysModels_data', 'featureDomains_stats', 'sysControllers_stats', 'sysModels_stats', 'featureDomains_filters', 'sysControllers_filters', 'sysModels_filters'));
-        }
-
-        return view('Core::sysModule.edit', compact('itemSysModule', 'sysColors', 'featureDomains_data', 'sysControllers_data', 'sysModels_data', 'featureDomains_stats', 'sysControllers_stats', 'sysModels_stats', 'featureDomains_filters', 'sysControllers_filters', 'sysModels_filters'));
-
+        return $this->edit( $id);
     }
     public function edit(string $id) {
 
-
+        $this->viewState->setContextKey('sysModule.edit_' . $id);
         
         $itemSysModule = $this->sysModuleService->find($id);
         $sysColors = $this->sysColorService->all();
 
-        // Il doit être après le chargement de edit form et avant les form hasMany
-        $this->contextState->set('sys_module_id', $id);
-
+        $this->viewState->set('scope.featureDomain.sys_module_id', $id);
         $featureDomainService =  new FeatureDomainService();
         $featureDomains_data =  $itemSysModule->featureDomains()->paginate(10);
         $featureDomains_stats = $featureDomainService->getfeatureDomainStats();
         $featureDomains_filters = $featureDomainService->getFieldsFilterable();
         
+        $this->viewState->set('scope.sysController.sys_module_id', $id);
         $sysControllerService =  new SysControllerService();
         $sysControllers_data =  $itemSysModule->sysControllers()->paginate(10);
         $sysControllers_stats = $sysControllerService->getsysControllerStats();
         $sysControllers_filters = $sysControllerService->getFieldsFilterable();
         
+        $this->viewState->set('scope.sysModel.sys_module_id', $id);
         $sysModelService =  new SysModelService();
         $sysModels_data =  $itemSysModule->sysModels()->paginate(10);
         $sysModels_stats = $sysModelService->getsysModelStats();

@@ -76,4 +76,7 @@
 </script>
 <script>
      window.modalTitle = '{{__("Core::sysColor.singular") }} : {{$itemSysColor}}'
+     window.contextState = @json($contextState);
+     window.sessionState = @json($sessionState);
+     window.viewState = @json($viewState);
 </script>

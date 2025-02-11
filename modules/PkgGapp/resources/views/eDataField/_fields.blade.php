@@ -278,4 +278,7 @@
 </script>
 <script>
      window.modalTitle = '{{__("PkgGapp::eDataField.singular") }} : {{$itemEDataField}}'
+     window.contextState = @json($contextState);
+     window.sessionState = @json($sessionState);
+     window.viewState = @json($viewState);
 </script>

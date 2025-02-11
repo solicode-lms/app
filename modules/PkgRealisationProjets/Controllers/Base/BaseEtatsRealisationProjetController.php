@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgRealisationProjets\App\Requests\EtatsRealisationProjetRequest;
+use Modules\PkgRealisationProjets\Models\EtatsRealisationProjet;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgRealisationProjets\App\Exports\EtatsRealisationProjetExport;
 use Modules\PkgRealisationProjets\App\Imports\EtatsRealisationProjetImport;
@@ -27,10 +28,13 @@ class BaseEtatsRealisationProjetController extends AdminController
     }
 
     public function index(Request $request) {
+        
+        $this->viewState->setContextKeyIfEmpty('etatsRealisationProjet.index');
+
         // Extraire les paramètres de recherche, page, et filtres
         $etatsRealisationProjets_params = array_merge(
             $request->only(['page','sort']),
-            ['search' => $request->get('etatsRealisationProjets_search', '')],
+            ['search' => $request->get('etatsRealisationProjets_search', $this->viewState->get("filter.etatsRealisationProjet.etatsRealisationProjets_search"))],
             $request->except(['etatsRealisationProjets_search', 'page', 'sort'])
         );
 
@@ -49,6 +53,7 @@ class BaseEtatsRealisationProjetController extends AdminController
         return view('PkgRealisationProjets::etatsRealisationProjet.index', compact('etatsRealisationProjets_data', 'etatsRealisationProjets_stats', 'etatsRealisationProjets_filters'));
     }
     public function create() {
+
         $itemEtatsRealisationProjet = $this->etatsRealisationProjetService->createInstance();
         $formateurs = $this->formateurService->all();
 
@@ -82,35 +87,16 @@ class BaseEtatsRealisationProjetController extends AdminController
         );
     }
     public function show(string $id) {
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('etats_realisation_projet_id', $id);
-        
-        $itemEtatsRealisationProjet = $this->etatsRealisationProjetService->find($id);
-        $formateurs = $this->formateurService->all();
-        $realisationProjetService =  new RealisationProjetService();
-        $realisationProjets_data =  $itemEtatsRealisationProjet->realisationProjets()->paginate(10);
-        $realisationProjets_stats = $realisationProjetService->getrealisationProjetStats();
-        $realisationProjets_filters = $realisationProjetService->getFieldsFilterable();
-        
-
-        if (request()->ajax()) {
-            return view('PkgRealisationProjets::etatsRealisationProjet._edit', compact('itemEtatsRealisationProjet', 'formateurs', 'realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters'));
-        }
-
-        return view('PkgRealisationProjets::etatsRealisationProjet.edit', compact('itemEtatsRealisationProjet', 'formateurs', 'realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters'));
-
+        return $this->edit( $id);
     }
     public function edit(string $id) {
 
-
+        $this->viewState->setContextKey('etatsRealisationProjet.edit_' . $id);
         
         $itemEtatsRealisationProjet = $this->etatsRealisationProjetService->find($id);
         $formateurs = $this->formateurService->all();
 
-        // Il doit être après le chargement de edit form et avant les form hasMany
-        $this->contextState->set('etats_realisation_projet_id', $id);
-
+        $this->viewState->set('scope.realisationProjet.etats_realisation_projet_id', $id);
         $realisationProjetService =  new RealisationProjetService();
         $realisationProjets_data =  $itemEtatsRealisationProjet->realisationProjets()->paginate(10);
         $realisationProjets_stats = $realisationProjetService->getrealisationProjetStats();

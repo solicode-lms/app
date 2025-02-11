@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgApprenants\App\Requests\ApprenantKonosyRequest;
+use Modules\PkgApprenants\Models\ApprenantKonosy;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgApprenants\App\Exports\ApprenantKonosyExport;
 use Modules\PkgApprenants\App\Imports\ApprenantKonosyImport;
@@ -23,10 +24,13 @@ class BaseApprenantKonosyController extends AdminController
     }
 
     public function index(Request $request) {
+        
+        $this->viewState->setContextKeyIfEmpty('apprenantKonosy.index');
+
         // Extraire les paramètres de recherche, page, et filtres
         $apprenantKonosies_params = array_merge(
             $request->only(['page','sort']),
-            ['search' => $request->get('apprenantKonosies_search', '')],
+            ['search' => $request->get('apprenantKonosies_search', $this->viewState->get("filter.apprenantKonosy.apprenantKonosies_search"))],
             $request->except(['apprenantKonosies_search', 'page', 'sort'])
         );
 
@@ -45,6 +49,7 @@ class BaseApprenantKonosyController extends AdminController
         return view('PkgApprenants::apprenantKonosy.index', compact('apprenantKonosies_data', 'apprenantKonosies_stats', 'apprenantKonosies_filters'));
     }
     public function create() {
+
         $itemApprenantKonosy = $this->apprenantKonosyService->createInstance();
 
 
@@ -77,27 +82,13 @@ class BaseApprenantKonosyController extends AdminController
         );
     }
     public function show(string $id) {
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('apprenant_konosy_id', $id);
-        
-        $itemApprenantKonosy = $this->apprenantKonosyService->find($id);
-
-        if (request()->ajax()) {
-            return view('PkgApprenants::apprenantKonosy._fields', compact('itemApprenantKonosy'));
-        }
-
-        return view('PkgApprenants::apprenantKonosy.edit', compact('itemApprenantKonosy'));
-
+        return $this->edit( $id);
     }
     public function edit(string $id) {
 
-
+        $this->viewState->setContextKey('apprenantKonosy.edit_' . $id);
         
         $itemApprenantKonosy = $this->apprenantKonosyService->find($id);
-
-        // Il doit être après le chargement de edit form et avant les form hasMany
-        $this->contextState->set('apprenant_konosy_id', $id);
 
 
         if (request()->ajax()) {

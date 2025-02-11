@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgFormation\App\Requests\SpecialiteRequest;
+use Modules\PkgFormation\Models\Specialite;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgFormation\App\Exports\SpecialiteExport;
 use Modules\PkgFormation\App\Imports\SpecialiteImport;
@@ -26,10 +27,13 @@ class BaseSpecialiteController extends AdminController
     }
 
     public function index(Request $request) {
+        
+        $this->viewState->setContextKeyIfEmpty('specialite.index');
+
         // Extraire les paramètres de recherche, page, et filtres
         $specialites_params = array_merge(
             $request->only(['page','sort']),
-            ['search' => $request->get('specialites_search', '')],
+            ['search' => $request->get('specialites_search', $this->viewState->get("filter.specialite.specialites_search"))],
             $request->except(['specialites_search', 'page', 'sort'])
         );
 
@@ -48,6 +52,7 @@ class BaseSpecialiteController extends AdminController
         return view('PkgFormation::specialite.index', compact('specialites_data', 'specialites_stats', 'specialites_filters'));
     }
     public function create() {
+
         $itemSpecialite = $this->specialiteService->createInstance();
         $formateurs = $this->formateurService->all();
 
@@ -81,29 +86,14 @@ class BaseSpecialiteController extends AdminController
         );
     }
     public function show(string $id) {
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('specialite_id', $id);
-        
-        $itemSpecialite = $this->specialiteService->find($id);
-        $formateurs = $this->formateurService->all();
-
-        if (request()->ajax()) {
-            return view('PkgFormation::specialite._fields', compact('itemSpecialite', 'formateurs'));
-        }
-
-        return view('PkgFormation::specialite.edit', compact('itemSpecialite', 'formateurs'));
-
+        return $this->edit( $id);
     }
     public function edit(string $id) {
 
-
+        $this->viewState->setContextKey('specialite.edit_' . $id);
         
         $itemSpecialite = $this->specialiteService->find($id);
         $formateurs = $this->formateurService->all();
-
-        // Il doit être après le chargement de edit form et avant les form hasMany
-        $this->contextState->set('specialite_id', $id);
 
 
         if (request()->ajax()) {

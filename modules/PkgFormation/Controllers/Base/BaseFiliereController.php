@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgFormation\App\Requests\FiliereRequest;
+use Modules\PkgFormation\Models\Filiere;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgFormation\App\Exports\FiliereExport;
 use Modules\PkgFormation\App\Imports\FiliereImport;
@@ -25,10 +26,13 @@ class BaseFiliereController extends AdminController
     }
 
     public function index(Request $request) {
+        
+        $this->viewState->setContextKeyIfEmpty('filiere.index');
+
         // Extraire les paramètres de recherche, page, et filtres
         $filieres_params = array_merge(
             $request->only(['page','sort']),
-            ['search' => $request->get('filieres_search', '')],
+            ['search' => $request->get('filieres_search', $this->viewState->get("filter.filiere.filieres_search"))],
             $request->except(['filieres_search', 'page', 'sort'])
         );
 
@@ -47,6 +51,7 @@ class BaseFiliereController extends AdminController
         return view('PkgFormation::filiere.index', compact('filieres_data', 'filieres_stats', 'filieres_filters'));
     }
     public function create() {
+
         $itemFiliere = $this->filiereService->createInstance();
 
 
@@ -79,43 +84,21 @@ class BaseFiliereController extends AdminController
         );
     }
     public function show(string $id) {
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('filiere_id', $id);
-        
-        $itemFiliere = $this->filiereService->find($id);
-        $groupeService =  new GroupeService();
-        $groupes_data =  $itemFiliere->groupes()->paginate(10);
-        $groupes_stats = $groupeService->getgroupeStats();
-        $groupes_filters = $groupeService->getFieldsFilterable();
-        
-        $moduleService =  new ModuleService();
-        $modules_data =  $itemFiliere->modules()->paginate(10);
-        $modules_stats = $moduleService->getmoduleStats();
-        $modules_filters = $moduleService->getFieldsFilterable();
-        
-
-        if (request()->ajax()) {
-            return view('PkgFormation::filiere._edit', compact('itemFiliere', 'groupes_data', 'modules_data', 'groupes_stats', 'modules_stats', 'groupes_filters', 'modules_filters'));
-        }
-
-        return view('PkgFormation::filiere.edit', compact('itemFiliere', 'groupes_data', 'modules_data', 'groupes_stats', 'modules_stats', 'groupes_filters', 'modules_filters'));
-
+        return $this->edit( $id);
     }
     public function edit(string $id) {
 
-
+        $this->viewState->setContextKey('filiere.edit_' . $id);
         
         $itemFiliere = $this->filiereService->find($id);
 
-        // Il doit être après le chargement de edit form et avant les form hasMany
-        $this->contextState->set('filiere_id', $id);
-
+        $this->viewState->set('scope.groupe.filiere_id', $id);
         $groupeService =  new GroupeService();
         $groupes_data =  $itemFiliere->groupes()->paginate(10);
         $groupes_stats = $groupeService->getgroupeStats();
         $groupes_filters = $groupeService->getFieldsFilterable();
         
+        $this->viewState->set('scope.module.filiere_id', $id);
         $moduleService =  new ModuleService();
         $modules_data =  $itemFiliere->modules()->paginate(10);
         $modules_stats = $moduleService->getmoduleStats();

@@ -4,6 +4,7 @@
     window.editWithTabPanelManagersConfig = window.editWithTabPanelManagersConfig || [];
     window.editWithTabPanelManagersConfig.push({
         entity_name: 'anneeFormation',
+        contextKey: 'anneeFormation.edit_{{$itemProjet->id}}',
         cardTabSelector: '#card-tab-anneeFormation', 
         formSelector: '#anneeFormationForm',
         editUrl: '{{ route('anneeFormations.edit',  ['anneeFormation' => ':id']) }}',
@@ -14,6 +15,7 @@
 </script>
 <script>
     window.contextState = @json($contextState);
+    window.viewState = @json($viewState);
 </script>
 
 @section('content')
@@ -50,10 +52,10 @@
                             </div>
 
                             <div class="tab-pane fade" id="anneeFormation-hasmany-tabs-affectationProjet" role="tabpanel" aria-labelledby="anneeFormation-hasmany-tabs-affectationProjet-tab">
-                                @include('PkgRealisationProjets::affectationProjet._index',['isMany' => true, "edit_has_many" => false])
+                                @include('PkgRealisationProjets::affectationProjet._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'anneeFormation.edit_' . $itemAnneeFormation->id])
                             </div>
                             <div class="tab-pane fade" id="anneeFormation-hasmany-tabs-groupe" role="tabpanel" aria-labelledby="anneeFormation-hasmany-tabs-groupe-tab">
-                                @include('PkgApprenants::groupe._index',['isMany' => true, "edit_has_many" => false])
+                                @include('PkgApprenants::groupe._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'anneeFormation.edit_' . $itemAnneeFormation->id])
                             </div>
 
                            

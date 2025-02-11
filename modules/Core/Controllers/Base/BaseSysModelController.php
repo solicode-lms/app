@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\Core\App\Requests\SysModelRequest;
+use Modules\Core\Models\SysModel;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\Core\App\Exports\SysModelExport;
 use Modules\Core\App\Imports\SysModelImport;
@@ -30,10 +31,13 @@ class BaseSysModelController extends AdminController
     }
 
     public function index(Request $request) {
+        
+        $this->viewState->setContextKeyIfEmpty('sysModel.index');
+
         // Extraire les paramètres de recherche, page, et filtres
         $sysModels_params = array_merge(
             $request->only(['page','sort']),
-            ['search' => $request->get('sysModels_search', '')],
+            ['search' => $request->get('sysModels_search', $this->viewState->get("filter.sysModel.sysModels_search"))],
             $request->except(['sysModels_search', 'page', 'sort'])
         );
 
@@ -52,6 +56,7 @@ class BaseSysModelController extends AdminController
         return view('Core::sysModel.index', compact('sysModels_data', 'sysModels_stats', 'sysModels_filters'));
     }
     public function create() {
+
         $itemSysModel = $this->sysModelService->createInstance();
         $sysColors = $this->sysColorService->all();
         $sysModules = $this->sysModuleService->all();
@@ -86,37 +91,17 @@ class BaseSysModelController extends AdminController
         );
     }
     public function show(string $id) {
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('sys_model_id', $id);
-        
-        $itemSysModel = $this->sysModelService->find($id);
-        $sysColors = $this->sysColorService->all();
-        $sysModules = $this->sysModuleService->all();
-        $widgetService =  new WidgetService();
-        $widgets_data =  $itemSysModel->widgets()->paginate(10);
-        $widgets_stats = $widgetService->getwidgetStats();
-        $widgets_filters = $widgetService->getFieldsFilterable();
-        
-
-        if (request()->ajax()) {
-            return view('Core::sysModel._edit', compact('itemSysModel', 'sysColors', 'sysModules', 'widgets_data', 'widgets_stats', 'widgets_filters'));
-        }
-
-        return view('Core::sysModel.edit', compact('itemSysModel', 'sysColors', 'sysModules', 'widgets_data', 'widgets_stats', 'widgets_filters'));
-
+        return $this->edit( $id);
     }
     public function edit(string $id) {
 
-
+        $this->viewState->setContextKey('sysModel.edit_' . $id);
         
         $itemSysModel = $this->sysModelService->find($id);
         $sysColors = $this->sysColorService->all();
         $sysModules = $this->sysModuleService->all();
 
-        // Il doit être après le chargement de edit form et avant les form hasMany
-        $this->contextState->set('sys_model_id', $id);
-
+        $this->viewState->set('scope.widget.model_id', $id);
         $widgetService =  new WidgetService();
         $widgets_data =  $itemSysModel->widgets()->paginate(10);
         $widgets_stats = $widgetService->getwidgetStats();

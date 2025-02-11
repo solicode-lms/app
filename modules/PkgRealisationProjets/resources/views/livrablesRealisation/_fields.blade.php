@@ -115,4 +115,7 @@
 </script>
 <script>
      window.modalTitle = '{{__("PkgRealisationProjets::livrablesRealisation.singular") }} : {{$itemLivrablesRealisation}}'
+     window.contextState = @json($contextState);
+     window.sessionState = @json($sessionState);
+     window.viewState = @json($viewState);
 </script>

@@ -90,4 +90,7 @@
 </script>
 <script>
      window.modalTitle = '{{__("PkgApprenants::nationalite.singular") }} : {{$itemNationalite}}'
+     window.contextState = @json($contextState);
+     window.sessionState = @json($sessionState);
+     window.viewState = @json($viewState);
 </script>

@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgRealisationProjets\App\Requests\LivrablesRealisationRequest;
+use Modules\PkgRealisationProjets\Models\LivrablesRealisation;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgRealisationProjets\App\Exports\LivrablesRealisationExport;
 use Modules\PkgRealisationProjets\App\Imports\LivrablesRealisationImport;
@@ -26,10 +27,13 @@ class BaseLivrablesRealisationController extends AdminController
     }
 
     public function index(Request $request) {
+        
+        $this->viewState->setContextKeyIfEmpty('livrablesRealisation.index');
+
         // Extraire les paramètres de recherche, page, et filtres
         $livrablesRealisations_params = array_merge(
             $request->only(['page','sort']),
-            ['search' => $request->get('livrablesRealisations_search', '')],
+            ['search' => $request->get('livrablesRealisations_search', $this->viewState->get("filter.livrablesRealisation.livrablesRealisations_search"))],
             $request->except(['livrablesRealisations_search', 'page', 'sort'])
         );
 
@@ -48,6 +52,7 @@ class BaseLivrablesRealisationController extends AdminController
         return view('PkgRealisationProjets::livrablesRealisation.index', compact('livrablesRealisations_data', 'livrablesRealisations_stats', 'livrablesRealisations_filters'));
     }
     public function create() {
+
         $itemLivrablesRealisation = $this->livrablesRealisationService->createInstance();
         $livrables = $this->livrableService->all();
 
@@ -81,29 +86,14 @@ class BaseLivrablesRealisationController extends AdminController
         );
     }
     public function show(string $id) {
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('livrables_realisation_id', $id);
-        
-        $itemLivrablesRealisation = $this->livrablesRealisationService->find($id);
-        $livrables = $this->livrableService->all();
-
-        if (request()->ajax()) {
-            return view('PkgRealisationProjets::livrablesRealisation._fields', compact('itemLivrablesRealisation', 'livrables'));
-        }
-
-        return view('PkgRealisationProjets::livrablesRealisation.edit', compact('itemLivrablesRealisation', 'livrables'));
-
+        return $this->edit( $id);
     }
     public function edit(string $id) {
 
-
+        $this->viewState->setContextKey('livrablesRealisation.edit_' . $id);
         
         $itemLivrablesRealisation = $this->livrablesRealisationService->find($id);
         $livrables = $this->livrableService->all();
-
-        // Il doit être après le chargement de edit form et avant les form hasMany
-        $this->contextState->set('livrables_realisation_id', $id);
 
 
         if (request()->ajax()) {

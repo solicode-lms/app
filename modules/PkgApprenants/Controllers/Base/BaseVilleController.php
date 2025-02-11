@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgApprenants\App\Requests\VilleRequest;
+use Modules\PkgApprenants\Models\Ville;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgApprenants\App\Exports\VilleExport;
 use Modules\PkgApprenants\App\Imports\VilleImport;
@@ -23,10 +24,13 @@ class BaseVilleController extends AdminController
     }
 
     public function index(Request $request) {
+        
+        $this->viewState->setContextKeyIfEmpty('ville.index');
+
         // Extraire les paramètres de recherche, page, et filtres
         $villes_params = array_merge(
             $request->only(['page','sort']),
-            ['search' => $request->get('villes_search', '')],
+            ['search' => $request->get('villes_search', $this->viewState->get("filter.ville.villes_search"))],
             $request->except(['villes_search', 'page', 'sort'])
         );
 
@@ -45,6 +49,7 @@ class BaseVilleController extends AdminController
         return view('PkgApprenants::ville.index', compact('villes_data', 'villes_stats', 'villes_filters'));
     }
     public function create() {
+
         $itemVille = $this->villeService->createInstance();
 
 
@@ -77,27 +82,13 @@ class BaseVilleController extends AdminController
         );
     }
     public function show(string $id) {
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('ville_id', $id);
-        
-        $itemVille = $this->villeService->find($id);
-
-        if (request()->ajax()) {
-            return view('PkgApprenants::ville._fields', compact('itemVille'));
-        }
-
-        return view('PkgApprenants::ville.edit', compact('itemVille'));
-
+        return $this->edit( $id);
     }
     public function edit(string $id) {
 
-
+        $this->viewState->setContextKey('ville.edit_' . $id);
         
         $itemVille = $this->villeService->find($id);
-
-        // Il doit être après le chargement de edit form et avant les form hasMany
-        $this->contextState->set('ville_id', $id);
 
 
         if (request()->ajax()) {

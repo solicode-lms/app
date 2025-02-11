@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgRealisationProjets\App\Requests\RealisationProjetRequest;
+use Modules\PkgRealisationProjets\Models\RealisationProjet;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgRealisationProjets\App\Exports\RealisationProjetExport;
 use Modules\PkgRealisationProjets\App\Imports\RealisationProjetImport;
@@ -33,10 +34,13 @@ class BaseRealisationProjetController extends AdminController
     }
 
     public function index(Request $request) {
+        
+        $this->viewState->setContextKeyIfEmpty('realisationProjet.index');
+
         // Extraire les paramètres de recherche, page, et filtres
         $realisationProjets_params = array_merge(
             $request->only(['page','sort']),
-            ['search' => $request->get('realisationProjets_search', '')],
+            ['search' => $request->get('realisationProjets_search', $this->viewState->get("filter.realisationProjet.realisationProjets_search"))],
             $request->except(['realisationProjets_search', 'page', 'sort'])
         );
 
@@ -55,6 +59,7 @@ class BaseRealisationProjetController extends AdminController
         return view('PkgRealisationProjets::realisationProjet.index', compact('realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters'));
     }
     public function create() {
+
         $itemRealisationProjet = $this->realisationProjetService->createInstance();
         $affectationProjets = $this->affectationProjetService->all();
         $apprenants = $this->apprenantService->all();
@@ -90,39 +95,18 @@ class BaseRealisationProjetController extends AdminController
         );
     }
     public function show(string $id) {
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('realisation_projet_id', $id);
-        
-        $itemRealisationProjet = $this->realisationProjetService->find($id);
-        $affectationProjets = $this->affectationProjetService->all();
-        $apprenants = $this->apprenantService->all();
-        $etatsRealisationProjets = $this->etatsRealisationProjetService->all();
-        $validationService =  new ValidationService();
-        $validations_data =  $itemRealisationProjet->validations()->paginate(10);
-        $validations_stats = $validationService->getvalidationStats();
-        $validations_filters = $validationService->getFieldsFilterable();
-        
-
-        if (request()->ajax()) {
-            return view('PkgRealisationProjets::realisationProjet._edit', compact('itemRealisationProjet', 'affectationProjets', 'apprenants', 'etatsRealisationProjets', 'validations_data', 'validations_stats', 'validations_filters'));
-        }
-
-        return view('PkgRealisationProjets::realisationProjet.edit', compact('itemRealisationProjet', 'affectationProjets', 'apprenants', 'etatsRealisationProjets', 'validations_data', 'validations_stats', 'validations_filters'));
-
+        return $this->edit( $id);
     }
     public function edit(string $id) {
 
-
+        $this->viewState->setContextKey('realisationProjet.edit_' . $id);
         
         $itemRealisationProjet = $this->realisationProjetService->find($id);
         $affectationProjets = $this->affectationProjetService->all();
         $apprenants = $this->apprenantService->all();
         $etatsRealisationProjets = $this->etatsRealisationProjetService->all();
 
-        // Il doit être après le chargement de edit form et avant les form hasMany
-        $this->contextState->set('realisation_projet_id', $id);
-
+        $this->viewState->set('scope.validation.realisation_projet_id', $id);
         $validationService =  new ValidationService();
         $validations_data =  $itemRealisationProjet->validations()->paginate(10);
         $validations_stats = $validationService->getvalidationStats();

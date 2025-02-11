@@ -156,4 +156,7 @@
 </script>
 <script>
      window.modalTitle = '{{__("PkgGapp::eMetadataDefinition.singular") }} : {{$itemEMetadataDefinition}}'
+     window.contextState = @json($contextState);
+     window.sessionState = @json($sessionState);
+     window.viewState = @json($viewState);
 </script>

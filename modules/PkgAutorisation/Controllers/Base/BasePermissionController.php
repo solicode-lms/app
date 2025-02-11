@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgAutorisation\App\Requests\PermissionRequest;
+use Modules\PkgAutorisation\Models\Permission;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgAutorisation\App\Exports\PermissionExport;
 use Modules\PkgAutorisation\App\Imports\PermissionImport;
@@ -32,10 +33,13 @@ class BasePermissionController extends AdminController
     }
 
     public function index(Request $request) {
+        
+        $this->viewState->setContextKeyIfEmpty('permission.index');
+
         // Extraire les paramètres de recherche, page, et filtres
         $permissions_params = array_merge(
             $request->only(['page','sort']),
-            ['search' => $request->get('permissions_search', '')],
+            ['search' => $request->get('permissions_search', $this->viewState->get("filter.permission.permissions_search"))],
             $request->except(['permissions_search', 'page', 'sort'])
         );
 
@@ -54,6 +58,7 @@ class BasePermissionController extends AdminController
         return view('PkgAutorisation::permission.index', compact('permissions_data', 'permissions_stats', 'permissions_filters'));
     }
     public function create() {
+
         $itemPermission = $this->permissionService->createInstance();
         $features = $this->featureService->all();
         $roles = $this->roleService->all();
@@ -89,33 +94,16 @@ class BasePermissionController extends AdminController
         );
     }
     public function show(string $id) {
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('permission_id', $id);
-        
-        $itemPermission = $this->permissionService->find($id);
-        $features = $this->featureService->all();
-        $roles = $this->roleService->all();
-        $sysControllers = $this->sysControllerService->all();
-
-        if (request()->ajax()) {
-            return view('PkgAutorisation::permission._fields', compact('itemPermission', 'features', 'roles', 'sysControllers'));
-        }
-
-        return view('PkgAutorisation::permission.edit', compact('itemPermission', 'features', 'roles', 'sysControllers'));
-
+        return $this->edit( $id);
     }
     public function edit(string $id) {
 
-
+        $this->viewState->setContextKey('permission.edit_' . $id);
         
         $itemPermission = $this->permissionService->find($id);
         $features = $this->featureService->all();
         $roles = $this->roleService->all();
         $sysControllers = $this->sysControllerService->all();
-
-        // Il doit être après le chargement de edit form et avant les form hasMany
-        $this->contextState->set('permission_id', $id);
 
 
         if (request()->ajax()) {

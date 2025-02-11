@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgRealisationProjets\App\Requests\ValidationRequest;
+use Modules\PkgRealisationProjets\Models\Validation;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgRealisationProjets\App\Exports\ValidationExport;
 use Modules\PkgRealisationProjets\App\Imports\ValidationImport;
@@ -29,10 +30,13 @@ class BaseValidationController extends AdminController
     }
 
     public function index(Request $request) {
+        
+        $this->viewState->setContextKeyIfEmpty('validation.index');
+
         // Extraire les paramètres de recherche, page, et filtres
         $validations_params = array_merge(
             $request->only(['page','sort']),
-            ['search' => $request->get('validations_search', '')],
+            ['search' => $request->get('validations_search', $this->viewState->get("filter.validation.validations_search"))],
             $request->except(['validations_search', 'page', 'sort'])
         );
 
@@ -51,6 +55,7 @@ class BaseValidationController extends AdminController
         return view('PkgRealisationProjets::validation.index', compact('validations_data', 'validations_stats', 'validations_filters'));
     }
     public function create() {
+
         $itemValidation = $this->validationService->createInstance();
         $realisationProjets = $this->realisationProjetService->all();
         $transfertCompetences = $this->transfertCompetenceService->all();
@@ -85,31 +90,15 @@ class BaseValidationController extends AdminController
         );
     }
     public function show(string $id) {
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('validation_id', $id);
-        
-        $itemValidation = $this->validationService->find($id);
-        $realisationProjets = $this->realisationProjetService->all();
-        $transfertCompetences = $this->transfertCompetenceService->all();
-
-        if (request()->ajax()) {
-            return view('PkgRealisationProjets::validation._fields', compact('itemValidation', 'realisationProjets', 'transfertCompetences'));
-        }
-
-        return view('PkgRealisationProjets::validation.edit', compact('itemValidation', 'realisationProjets', 'transfertCompetences'));
-
+        return $this->edit( $id);
     }
     public function edit(string $id) {
 
-
+        $this->viewState->setContextKey('validation.edit_' . $id);
         
         $itemValidation = $this->validationService->find($id);
         $realisationProjets = $this->realisationProjetService->all();
         $transfertCompetences = $this->transfertCompetenceService->all();
-
-        // Il doit être après le chargement de edit form et avant les form hasMany
-        $this->contextState->set('validation_id', $id);
 
 
         if (request()->ajax()) {

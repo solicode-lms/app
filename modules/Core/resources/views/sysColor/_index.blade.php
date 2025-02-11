@@ -8,6 +8,7 @@
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
         editOnFullScreen : false,
         entity_name: 'sysColor',
+        contextKey: '{{ isset($contextKey) ? $contextKey : 'sysColor.index' }}', 
         filterFormSelector: '#sysColor-crud-filter-form',
         crudSelector: '#sysColor-crud',
         tableSelector: '#sysColor-data-container',

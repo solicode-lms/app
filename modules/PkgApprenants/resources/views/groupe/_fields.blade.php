@@ -196,4 +196,7 @@
 </script>
 <script>
      window.modalTitle = '{{__("PkgApprenants::groupe.singular") }} : {{$itemGroupe}}'
+     window.contextState = @json($contextState);
+     window.sessionState = @json($sessionState);
+     window.viewState = @json($viewState);
 </script>

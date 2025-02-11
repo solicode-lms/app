@@ -175,4 +175,7 @@
 </script>
 <script>
      window.modalTitle = '{{__("PkgGapp::eModel.singular") }} : {{$itemEModel}}'
+     window.contextState = @json($contextState);
+     window.sessionState = @json($sessionState);
+     window.viewState = @json($viewState);
 </script>

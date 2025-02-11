@@ -8,6 +8,7 @@
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
         editOnFullScreen : false,
         entity_name: 'permission',
+        contextKey: '{{ isset($contextKey) ? $contextKey : 'permission.index' }}', 
         filterFormSelector: '#permission-crud-filter-form',
         crudSelector: '#permission-crud',
         tableSelector: '#permission-data-container',

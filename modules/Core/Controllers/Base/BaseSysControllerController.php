@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\Core\App\Requests\SysControllerRequest;
+use Modules\Core\Models\SysController;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\Core\App\Exports\SysControllerExport;
 use Modules\Core\App\Imports\SysControllerImport;
@@ -27,10 +28,13 @@ class BaseSysControllerController extends AdminController
     }
 
     public function index(Request $request) {
+        
+        $this->viewState->setContextKeyIfEmpty('sysController.index');
+
         // Extraire les paramètres de recherche, page, et filtres
         $sysControllers_params = array_merge(
             $request->only(['page','sort']),
-            ['search' => $request->get('sysControllers_search', '')],
+            ['search' => $request->get('sysControllers_search', $this->viewState->get("filter.sysController.sysControllers_search"))],
             $request->except(['sysControllers_search', 'page', 'sort'])
         );
 
@@ -49,6 +53,7 @@ class BaseSysControllerController extends AdminController
         return view('Core::sysController.index', compact('sysControllers_data', 'sysControllers_stats', 'sysControllers_filters'));
     }
     public function create() {
+
         $itemSysController = $this->sysControllerService->createInstance();
         $sysModules = $this->sysModuleService->all();
 
@@ -82,35 +87,16 @@ class BaseSysControllerController extends AdminController
         );
     }
     public function show(string $id) {
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('sys_controller_id', $id);
-        
-        $itemSysController = $this->sysControllerService->find($id);
-        $sysModules = $this->sysModuleService->all();
-        $permissionService =  new PermissionService();
-        $permissions_data =  $itemSysController->permissions()->paginate(10);
-        $permissions_stats = $permissionService->getpermissionStats();
-        $permissions_filters = $permissionService->getFieldsFilterable();
-        
-
-        if (request()->ajax()) {
-            return view('Core::sysController._edit', compact('itemSysController', 'sysModules', 'permissions_data', 'permissions_stats', 'permissions_filters'));
-        }
-
-        return view('Core::sysController.edit', compact('itemSysController', 'sysModules', 'permissions_data', 'permissions_stats', 'permissions_filters'));
-
+        return $this->edit( $id);
     }
     public function edit(string $id) {
 
-
+        $this->viewState->setContextKey('sysController.edit_' . $id);
         
         $itemSysController = $this->sysControllerService->find($id);
         $sysModules = $this->sysModuleService->all();
 
-        // Il doit être après le chargement de edit form et avant les form hasMany
-        $this->contextState->set('sys_controller_id', $id);
-
+        $this->viewState->set('scope.permission.controller_id', $id);
         $permissionService =  new PermissionService();
         $permissions_data =  $itemSysController->permissions()->paginate(10);
         $permissions_stats = $permissionService->getpermissionStats();

@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgWidgets\App\Requests\WidgetOperationRequest;
+use Modules\PkgWidgets\Models\WidgetOperation;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgWidgets\App\Exports\WidgetOperationExport;
 use Modules\PkgWidgets\App\Imports\WidgetOperationImport;
@@ -24,10 +25,13 @@ class BaseWidgetOperationController extends AdminController
     }
 
     public function index(Request $request) {
+        
+        $this->viewState->setContextKeyIfEmpty('widgetOperation.index');
+
         // Extraire les paramètres de recherche, page, et filtres
         $widgetOperations_params = array_merge(
             $request->only(['page','sort']),
-            ['search' => $request->get('widgetOperations_search', '')],
+            ['search' => $request->get('widgetOperations_search', $this->viewState->get("filter.widgetOperation.widgetOperations_search"))],
             $request->except(['widgetOperations_search', 'page', 'sort'])
         );
 
@@ -46,6 +50,7 @@ class BaseWidgetOperationController extends AdminController
         return view('PkgWidgets::widgetOperation.index', compact('widgetOperations_data', 'widgetOperations_stats', 'widgetOperations_filters'));
     }
     public function create() {
+
         $itemWidgetOperation = $this->widgetOperationService->createInstance();
 
 
@@ -78,33 +83,15 @@ class BaseWidgetOperationController extends AdminController
         );
     }
     public function show(string $id) {
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('widget_operation_id', $id);
-        
-        $itemWidgetOperation = $this->widgetOperationService->find($id);
-        $widgetService =  new WidgetService();
-        $widgets_data =  $itemWidgetOperation->widgets()->paginate(10);
-        $widgets_stats = $widgetService->getwidgetStats();
-        $widgets_filters = $widgetService->getFieldsFilterable();
-        
-
-        if (request()->ajax()) {
-            return view('PkgWidgets::widgetOperation._edit', compact('itemWidgetOperation', 'widgets_data', 'widgets_stats', 'widgets_filters'));
-        }
-
-        return view('PkgWidgets::widgetOperation.edit', compact('itemWidgetOperation', 'widgets_data', 'widgets_stats', 'widgets_filters'));
-
+        return $this->edit( $id);
     }
     public function edit(string $id) {
 
-
+        $this->viewState->setContextKey('widgetOperation.edit_' . $id);
         
         $itemWidgetOperation = $this->widgetOperationService->find($id);
 
-        // Il doit être après le chargement de edit form et avant les form hasMany
-        $this->contextState->set('widget_operation_id', $id);
-
+        $this->viewState->set('scope.widget.operation_id', $id);
         $widgetService =  new WidgetService();
         $widgets_data =  $itemWidgetOperation->widgets()->paginate(10);
         $widgets_stats = $widgetService->getwidgetStats();

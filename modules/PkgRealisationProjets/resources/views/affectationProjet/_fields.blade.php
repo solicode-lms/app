@@ -185,4 +185,7 @@
 </script>
 <script>
      window.modalTitle = '{{__("PkgRealisationProjets::affectationProjet.singular") }} : {{$itemAffectationProjet}}'
+     window.contextState = @json($contextState);
+     window.sessionState = @json($sessionState);
+     window.viewState = @json($viewState);
 </script>

@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\Core\App\Requests\FeatureRequest;
+use Modules\Core\Models\Feature;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\Core\App\Exports\FeatureExport;
 use Modules\Core\App\Imports\FeatureImport;
@@ -29,10 +30,13 @@ class BaseFeatureController extends AdminController
     }
 
     public function index(Request $request) {
+        
+        $this->viewState->setContextKeyIfEmpty('feature.index');
+
         // Extraire les paramètres de recherche, page, et filtres
         $features_params = array_merge(
             $request->only(['page','sort']),
-            ['search' => $request->get('features_search', '')],
+            ['search' => $request->get('features_search', $this->viewState->get("filter.feature.features_search"))],
             $request->except(['features_search', 'page', 'sort'])
         );
 
@@ -51,6 +55,7 @@ class BaseFeatureController extends AdminController
         return view('Core::feature.index', compact('features_data', 'features_stats', 'features_filters'));
     }
     public function create() {
+
         $itemFeature = $this->featureService->createInstance();
         $permissions = $this->permissionService->all();
         $featureDomains = $this->featureDomainService->all();
@@ -85,31 +90,15 @@ class BaseFeatureController extends AdminController
         );
     }
     public function show(string $id) {
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('feature_id', $id);
-        
-        $itemFeature = $this->featureService->find($id);
-        $permissions = $this->permissionService->all();
-        $featureDomains = $this->featureDomainService->all();
-
-        if (request()->ajax()) {
-            return view('Core::feature._fields', compact('itemFeature', 'permissions', 'featureDomains'));
-        }
-
-        return view('Core::feature.edit', compact('itemFeature', 'permissions', 'featureDomains'));
-
+        return $this->edit( $id);
     }
     public function edit(string $id) {
 
-
+        $this->viewState->setContextKey('feature.edit_' . $id);
         
         $itemFeature = $this->featureService->find($id);
         $permissions = $this->permissionService->all();
         $featureDomains = $this->featureDomainService->all();
-
-        // Il doit être après le chargement de edit form et avant les form hasMany
-        $this->contextState->set('feature_id', $id);
 
 
         if (request()->ajax()) {

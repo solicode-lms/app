@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\Core\App\Requests\SysColorRequest;
+use Modules\Core\Models\SysColor;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\Core\App\Exports\SysColorExport;
 use Modules\Core\App\Imports\SysColorImport;
@@ -25,10 +26,13 @@ class BaseSysColorController extends AdminController
     }
 
     public function index(Request $request) {
+        
+        $this->viewState->setContextKeyIfEmpty('sysColor.index');
+
         // Extraire les paramètres de recherche, page, et filtres
         $sysColors_params = array_merge(
             $request->only(['page','sort']),
-            ['search' => $request->get('sysColors_search', '')],
+            ['search' => $request->get('sysColors_search', $this->viewState->get("filter.sysColor.sysColors_search"))],
             $request->except(['sysColors_search', 'page', 'sort'])
         );
 
@@ -47,6 +51,7 @@ class BaseSysColorController extends AdminController
         return view('Core::sysColor.index', compact('sysColors_data', 'sysColors_stats', 'sysColors_filters'));
     }
     public function create() {
+
         $itemSysColor = $this->sysColorService->createInstance();
 
 
@@ -79,43 +84,21 @@ class BaseSysColorController extends AdminController
         );
     }
     public function show(string $id) {
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('sys_color_id', $id);
-        
-        $itemSysColor = $this->sysColorService->find($id);
-        $sysModelService =  new SysModelService();
-        $sysModels_data =  $itemSysColor->sysModels()->paginate(10);
-        $sysModels_stats = $sysModelService->getsysModelStats();
-        $sysModels_filters = $sysModelService->getFieldsFilterable();
-        
-        $sysModuleService =  new SysModuleService();
-        $sysModules_data =  $itemSysColor->sysModules()->paginate(10);
-        $sysModules_stats = $sysModuleService->getsysModuleStats();
-        $sysModules_filters = $sysModuleService->getFieldsFilterable();
-        
-
-        if (request()->ajax()) {
-            return view('Core::sysColor._edit', compact('itemSysColor', 'sysModels_data', 'sysModules_data', 'sysModels_stats', 'sysModules_stats', 'sysModels_filters', 'sysModules_filters'));
-        }
-
-        return view('Core::sysColor.edit', compact('itemSysColor', 'sysModels_data', 'sysModules_data', 'sysModels_stats', 'sysModules_stats', 'sysModels_filters', 'sysModules_filters'));
-
+        return $this->edit( $id);
     }
     public function edit(string $id) {
 
-
+        $this->viewState->setContextKey('sysColor.edit_' . $id);
         
         $itemSysColor = $this->sysColorService->find($id);
 
-        // Il doit être après le chargement de edit form et avant les form hasMany
-        $this->contextState->set('sys_color_id', $id);
-
+        $this->viewState->set('scope.sysModel.sys_color_id', $id);
         $sysModelService =  new SysModelService();
         $sysModels_data =  $itemSysColor->sysModels()->paginate(10);
         $sysModels_stats = $sysModelService->getsysModelStats();
         $sysModels_filters = $sysModelService->getFieldsFilterable();
         
+        $this->viewState->set('scope.sysModule.sys_color_id', $id);
         $sysModuleService =  new SysModuleService();
         $sysModules_data =  $itemSysColor->sysModules()->paginate(10);
         $sysModules_stats = $sysModuleService->getsysModuleStats();

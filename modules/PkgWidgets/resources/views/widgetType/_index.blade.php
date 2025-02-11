@@ -8,6 +8,7 @@
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
         editOnFullScreen : false,
         entity_name: 'widgetType',
+        contextKey: '{{ isset($contextKey) ? $contextKey : 'widgetType.index' }}', 
         filterFormSelector: '#widgetType-crud-filter-form',
         crudSelector: '#widgetType-crud',
         tableSelector: '#widgetType-data-container',

@@ -4,6 +4,7 @@
     window.editWithTabPanelManagersConfig = window.editWithTabPanelManagersConfig || [];
     window.editWithTabPanelManagersConfig.push({
         entity_name: 'realisationProjet',
+        contextKey: 'realisationProjet.edit_{{$itemProjet->id}}',
         cardTabSelector: '#card-tab-realisationProjet', 
         formSelector: '#realisationProjetForm',
         editUrl: '{{ route('realisationProjets.edit',  ['realisationProjet' => ':id']) }}',
@@ -14,6 +15,7 @@
 </script>
 <script>
     window.contextState = @json($contextState);
+    window.viewState = @json($viewState);
 </script>
 
 @section('content')
@@ -47,7 +49,7 @@
                             </div>
 
                             <div class="tab-pane fade" id="realisationProjet-hasmany-tabs-validation" role="tabpanel" aria-labelledby="realisationProjet-hasmany-tabs-validation-tab">
-                                @include('PkgRealisationProjets::validation._index',['isMany' => true, "edit_has_many" => false])
+                                @include('PkgRealisationProjets::validation._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'realisationProjet.edit_' . $itemRealisationProjet->id])
                             </div>
 
                            

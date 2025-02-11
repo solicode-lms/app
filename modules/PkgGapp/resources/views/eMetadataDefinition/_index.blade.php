@@ -8,6 +8,7 @@
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
         editOnFullScreen : false,
         entity_name: 'eMetadataDefinition',
+        contextKey: '{{ isset($contextKey) ? $contextKey : 'eMetadataDefinition.index' }}', 
         filterFormSelector: '#eMetadataDefinition-crud-filter-form',
         crudSelector: '#eMetadataDefinition-crud',
         tableSelector: '#eMetadataDefinition-data-container',

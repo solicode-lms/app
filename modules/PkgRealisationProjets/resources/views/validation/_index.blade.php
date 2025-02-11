@@ -8,6 +8,7 @@
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
         editOnFullScreen : false,
         entity_name: 'validation',
+        contextKey: '{{ isset($contextKey) ? $contextKey : 'validation.index' }}', 
         filterFormSelector: '#validation-crud-filter-form',
         crudSelector: '#validation-crud',
         tableSelector: '#validation-data-container',

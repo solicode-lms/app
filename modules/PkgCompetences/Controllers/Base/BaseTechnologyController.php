@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgCompetences\App\Requests\TechnologyRequest;
+use Modules\PkgCompetences\Models\Technology;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgCompetences\App\Exports\TechnologyExport;
 use Modules\PkgCompetences\App\Imports\TechnologyImport;
@@ -32,10 +33,13 @@ class BaseTechnologyController extends AdminController
     }
 
     public function index(Request $request) {
+        
+        $this->viewState->setContextKeyIfEmpty('technology.index');
+
         // Extraire les paramètres de recherche, page, et filtres
         $technologies_params = array_merge(
             $request->only(['page','sort']),
-            ['search' => $request->get('technologies_search', '')],
+            ['search' => $request->get('technologies_search', $this->viewState->get("filter.technology.technologies_search"))],
             $request->except(['technologies_search', 'page', 'sort'])
         );
 
@@ -54,6 +58,7 @@ class BaseTechnologyController extends AdminController
         return view('PkgCompetences::technology.index', compact('technologies_data', 'technologies_stats', 'technologies_filters'));
     }
     public function create() {
+
         $itemTechnology = $this->technologyService->createInstance();
         $competences = $this->competenceService->all();
         $transfertCompetences = $this->transfertCompetenceService->all();
@@ -89,33 +94,16 @@ class BaseTechnologyController extends AdminController
         );
     }
     public function show(string $id) {
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('technology_id', $id);
-        
-        $itemTechnology = $this->technologyService->find($id);
-        $competences = $this->competenceService->all();
-        $transfertCompetences = $this->transfertCompetenceService->all();
-        $categoryTechnologies = $this->categoryTechnologyService->all();
-
-        if (request()->ajax()) {
-            return view('PkgCompetences::technology._fields', compact('itemTechnology', 'competences', 'transfertCompetences', 'categoryTechnologies'));
-        }
-
-        return view('PkgCompetences::technology.edit', compact('itemTechnology', 'competences', 'transfertCompetences', 'categoryTechnologies'));
-
+        return $this->edit( $id);
     }
     public function edit(string $id) {
 
-
+        $this->viewState->setContextKey('technology.edit_' . $id);
         
         $itemTechnology = $this->technologyService->find($id);
         $competences = $this->competenceService->all();
         $transfertCompetences = $this->transfertCompetenceService->all();
         $categoryTechnologies = $this->categoryTechnologyService->all();
-
-        // Il doit être après le chargement de edit form et avant les form hasMany
-        $this->contextState->set('technology_id', $id);
 
 
         if (request()->ajax()) {

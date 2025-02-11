@@ -92,4 +92,7 @@
 </script>
 <script>
      window.modalTitle = '{{__("PkgFormation::specialite.singular") }} : {{$itemSpecialite}}'
+     window.contextState = @json($contextState);
+     window.sessionState = @json($sessionState);
+     window.viewState = @json($viewState);
 </script>

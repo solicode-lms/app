@@ -4,6 +4,7 @@
     window.editWithTabPanelManagersConfig = window.editWithTabPanelManagersConfig || [];
     window.editWithTabPanelManagersConfig.push({
         entity_name: 'filiere',
+        contextKey: 'filiere.edit_{{$itemProjet->id}}',
         cardTabSelector: '#card-tab-filiere', 
         formSelector: '#filiereForm',
         editUrl: '{{ route('filieres.edit',  ['filiere' => ':id']) }}',
@@ -14,6 +15,7 @@
 </script>
 <script>
     window.contextState = @json($contextState);
+    window.viewState = @json($viewState);
 </script>
 
 @section('content')
@@ -50,10 +52,10 @@
                             </div>
 
                             <div class="tab-pane fade" id="filiere-hasmany-tabs-groupe" role="tabpanel" aria-labelledby="filiere-hasmany-tabs-groupe-tab">
-                                @include('PkgApprenants::groupe._index',['isMany' => true, "edit_has_many" => false])
+                                @include('PkgApprenants::groupe._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'filiere.edit_' . $itemFiliere->id])
                             </div>
                             <div class="tab-pane fade" id="filiere-hasmany-tabs-module" role="tabpanel" aria-labelledby="filiere-hasmany-tabs-module-tab">
-                                @include('PkgFormation::module._index',['isMany' => true, "edit_has_many" => false])
+                                @include('PkgFormation::module._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'filiere.edit_' . $itemFiliere->id])
                             </div>
 
                            
