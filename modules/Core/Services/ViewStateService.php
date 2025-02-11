@@ -81,7 +81,7 @@ class ViewStateService
 
     public function getScopeVariables(string $modelName): array
     {
-        return $this->extractVariables($modelName, ['scope']);
+        return $this->extractVariables($modelName, ['scope','filter']);
     }
 
     public function getFormVariables(string $modelName): array

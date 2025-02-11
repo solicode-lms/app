@@ -31,22 +31,12 @@ export class LoadListAction extends BaseAction {
         }
         const pageString = new URLSearchParams({page : page}).toString();
     
-
-
-        const filter_data= this.tableUI.indexUI.filterUI.getFormData();
-        const filter_data_params = new URLSearchParams(filter_data).toString();
-
         let indexUrl = this.indexUrl;
         indexUrl = this.appendParamsToUrl(
             indexUrl,
             pageString,
         );
 
-
-        indexUrl = this.appendParamsToUrl(
-            indexUrl,
-            filter_data_params
-        );
         indexUrl = this.appendParamsToUrl(
             indexUrl,
             this.viewStateService.getContextParams()
