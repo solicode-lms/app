@@ -137,7 +137,7 @@
     },
     {
         "reference": "AffectationProjet_description_displayOrder",
-        "value_integer": 6,
+        "value_integer": 7,
         "value_float": 0,
         "e_data_field_reference": "AffectationProjet_description",
         "e_metadata_definition_reference": "displayOrder"
