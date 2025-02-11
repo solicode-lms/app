@@ -35,7 +35,7 @@ class BaseLivrableController extends AdminController
         // Extraire les paramètres de recherche, page, et filtres
         $livrables_params = array_merge(
             $request->only(['page','sort']),
-            ['search' => $request->get('livrables_search', '$this->viewState->get("filter.livrable.livrables_search")')],
+            ['search' => $request->get('livrables_search', $this->viewState->get("filter.livrable.livrables_search"))],
             $request->except(['livrables_search', 'page', 'sort'])
         );
 

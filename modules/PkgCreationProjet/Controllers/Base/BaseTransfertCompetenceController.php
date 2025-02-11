@@ -41,7 +41,7 @@ class BaseTransfertCompetenceController extends AdminController
         // Extraire les paramètres de recherche, page, et filtres
         $transfertCompetences_params = array_merge(
             $request->only(['page','sort']),
-            ['search' => $request->get('transfertCompetences_search', '$this->viewState->get("filter.transfertCompetence.transfertCompetences_search")')],
+            ['search' => $request->get('transfertCompetences_search', $this->viewState->get("filter.transfertCompetence.transfertCompetences_search"))],
             $request->except(['transfertCompetences_search', 'page', 'sort'])
         );
 

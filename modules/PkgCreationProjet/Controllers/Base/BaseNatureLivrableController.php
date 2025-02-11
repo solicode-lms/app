@@ -30,7 +30,7 @@ class BaseNatureLivrableController extends AdminController
         // Extraire les paramètres de recherche, page, et filtres
         $natureLivrables_params = array_merge(
             $request->only(['page','sort']),
-            ['search' => $request->get('natureLivrables_search', '$this->viewState->get("filter.natureLivrable.natureLivrables_search")')],
+            ['search' => $request->get('natureLivrables_search', $this->viewState->get("filter.natureLivrable.natureLivrables_search"))],
             $request->except(['natureLivrables_search', 'page', 'sort'])
         );
 
