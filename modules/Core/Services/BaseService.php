@@ -52,7 +52,7 @@ abstract class BaseService implements ServiceInterface
         $this->model = $model;
         $this->modelName = class_basename($model);
         // Scrop management
-        $this->viewState = app(ViewState::class);
+        $this->viewState = app(ViewStateService::class);
     }
 
     // /**

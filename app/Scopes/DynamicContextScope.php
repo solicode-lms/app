@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Scope;
 use Illuminate\Support\Str;
 use Modules\Core\Services\ContextState;
-use Modules\Core\Services\ViewState;
+use Modules\Core\Services\ViewStateService;
 
 class DynamicContextScope implements Scope
 {
@@ -20,7 +20,7 @@ class DynamicContextScope implements Scope
     public function apply(Builder $builder, Model $model)
     {
         // Obtenir l'instance de ViewState
-        $viewState = app(ViewState::class);
+        $viewState = app(ViewStateService::class);
         $contextState = app(ContextState::class);
         
         // Identifier la clé de scope basée sur le modèle

@@ -17,6 +17,7 @@ export default class ConfigHelper {
 
 
         this.entity_name = config.entity_name;
+        this.contextKey = config.contextKey;
         this.formSelector = config.formSelector;
 
         this.indexUrl = config.indexUrl;

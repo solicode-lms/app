@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Providers;
+namespace Modules\Core\App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Modules\Core\Services\ContextState;
 use Modules\Core\Services\SessionState;
-use Modules\Core\Services\ViewState;
+use Modules\Core\Services\ViewStateService;
 
 class VariablesStateServiceProvider extends ServiceProvider
 {
@@ -32,9 +32,9 @@ class VariablesStateServiceProvider extends ServiceProvider
         view()->composer('*', function ($view) {
             $viewData = [];
 
-            if (app()->bound(ViewState::class)) {
-                $viewState = app(ViewState::class);
-                $viewData['viewState'] = $viewState->getViewData();
+            if (app()->bound(ViewStateService::class)) {
+                $viewState = app(ViewStateService::class);
+                $viewData['viewState'] = $viewState->getViewStateData();
             }
 
             $view->with(array_merge($viewData, [

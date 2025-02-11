@@ -129,6 +129,7 @@ class BaseProjetController extends AdminController
     }
     public function edit(string $id) {
 
+
         $itemProjet = $this->projetService->find($id);
         $formateurs = $this->formateurService->all();
 
@@ -145,9 +146,12 @@ class BaseProjetController extends AdminController
         // changer le nom de state : contextState --> viewState
         // chaque view peut avoit son valeur
         // Le contextState consit = sessionSate[scop_global], view_scop
-        $this->viewState->set('scope.livrable.projet_id', $id);
-        $this->viewState->set('scope.resource.projet_id', $id);
+
+        // un view state peut avoir plusieurs context dans un même requête http
+        // Dynamique scrop executer le code dans currentContextKey
+        $this->viewState->setContextKey('projet.edit_' . $id);
         
+     
         $this->viewState->set('scope.transfertCompetence.projet_id', $id);
         $transfertCompetenceService =  new TransfertCompetenceService();
         $transfertCompetences_data =  $itemProjet->transfertCompetences()->paginate(10);

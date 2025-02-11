@@ -4,73 +4,58 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Modules\Core\Services\ViewState;
+use Modules\Core\Services\ViewStateService;
 use Illuminate\Support\Facades\Auth;
 
-class SetViewStateMiddleware
-{
-    /**
-     * Manipuler la requête entrante.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
-     * @return mixed
-     */
-    public function handle(Request $request, Closure $next)
-    {
+/**
+ * `SetViewStateMiddleware` initialise et gère le `ViewStateService` pour chaque requête HTTP.  
+ * Il permet une gestion dynamique des contextes (`contextKey`) et des variables d'état entre le frontend et le backend.
+ *
+ * ## Règles de gestion :
+ * 1. **Gestion du `contextKey`**  
+ *    - Chaque requête est associée à un `contextKey` unique.  
+ *    - Si absent, un `contextKey` par défaut (`default_context`) est utilisé.
+ *
+ * 2. **Transmission des données de `viewState`**  
+ *    - `viewState` est transmis comme un objet `viewState[]` pour gérer plusieurs contextes simultanément.  
+ *    - Les variables de `viewState` sont envoyées au serveur et mises à jour dynamiquement côté frontend.
+ *
+ * 3. **Séparation et Isolation des Contextes**  
+ *    - Plusieurs `contextKey` peuvent exister simultanément dans une `Gapp Page`.
+ *    - Chaque requête HTTP met à jour uniquement son `contextKey` sans affecter les autres.
+ *
+ * 4. **Sécurité et Consistance**  
+ *    - L'utilisateur authentifié voit ses variables contextuelles ajoutées automatiquement.
+ *    - Assure l'intégrité des données entre les différentes requêtes AJAX.
+ */
 
-
-        // Fusionner les données de la requête et de la route
-        $allParams = array_merge($request->all(), $request->route() ? $request->route()->parameters() : []);
-    
-        // Définir un nom unique pour chaque vue basée sur la route actuelle
-        // $viewKey = $allParams["viewKey"] ? $allParams["viewKey"] : 'default_view';
-       
-        $viewKey = 'default_view';
-
-        // Enregistrer ViewState comme singleton dans le container Laravel si non existant
-        if (!app()->bound(ViewState::class)) {
-                app()->singleton(ViewState::class, fn() => new ViewState($viewKey));
-        }
-
-        // Récupérer l'instance de ViewState
-        $viewState = app(ViewState::class);
-                
-        // Parcourir tous les paramètres
-        foreach ($allParams as $key => $value) {
-            if (str_starts_with($key, 'scope.') || str_starts_with($key, 'global.')) {
-                $viewState->set($key, $value);
-            }
-        }
-
-        // Remplir ViewState avec les valeurs issues de la requête
-        // $this->readFromRequest($request, $viewState);
-
-
-
-        $user = Auth::user(); 
-        // Charger le contexte utilisateur si authentifié
-        if (Auth::check()) {
-                $user = Auth::user();
-                foreach ($user->getUsersContext() as $key => $value) {
-                    
-                    $viewState->set($key, $value);
-                }
-        }
-
-        return $next($request);
-    }
-
-    /**
-     * Lire et stocker les variables de contexte depuis la requête dans ViewState.
-     *
-     * @param Request $request
-     * @param ViewState $viewState
-     */
-    protected function readFromRequest(Request $request, ViewState $viewState)
-    {
-        
-    }
-
-
-}
+ class SetViewStateMiddleware
+ {
+     public function handle(Request $request, Closure $next)
+     {
+         $allParams = array_merge($request->all(), $request->route()?->parameters() ?? []);
+         $contextKey = $allParams["viewState"]["contextKey"] ?? 'default_context';
+ 
+         if (!app()->bound(ViewStateService::class)) {
+             app()->singleton(ViewStateService::class, fn() => new ViewStateService($contextKey));
+         }
+ 
+         $viewState = app(ViewStateService::class);
+ 
+         if (!empty($allParams["viewState"])) {
+             foreach ($allParams["viewState"] as $key => $value) {
+                 if ($key !== 'contextKey') {
+                     $viewState->set($key, $value);
+                 }
+             }
+         }
+ 
+         if (Auth::check()) {
+             foreach (Auth::user()->getUsersContext() as $key => $value) {
+                 $viewState->set($key, $value);
+             }
+         }
+ 
+         return $next($request);
+     }
+ }

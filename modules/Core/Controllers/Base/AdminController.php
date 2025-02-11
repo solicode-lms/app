@@ -8,8 +8,7 @@ use App\Http\Middleware\SessionStateMiddleware;
 use App\Http\Middleware\SetViewStateMiddleware;
 use Modules\Core\Services\ContextState;
 use Modules\Core\Services\SessionState;
-use Modules\Core\Services\ViewState;
-
+use Modules\Core\Services\ViewStateService;
 /**
  * AdminController est responsable de la gestion des fonctionnalités liées aux administrateurs.
  * Il hérite de AppController, ce qui permet de centraliser les comportements communs.
@@ -50,7 +49,7 @@ class AdminController extends AppController
         // Scrop management
         $this->contextState = app(ContextState::class);
         $this->sessionState = app(SessionState::class);
-        $this->viewState = app(ViewState::class);
+        $this->viewState = app(ViewStateService::class);
     }
 
     // /**
