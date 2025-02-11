@@ -49,7 +49,7 @@
                             </div>
 
                             <div class="tab-pane fade" id="natureLivrable-hasmany-tabs-livrable" role="tabpanel" aria-labelledby="natureLivrable-hasmany-tabs-livrable-tab">
-                                @include('PkgCreationProjet::livrable._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'natureLivrable.edit_{{$itemNatureLivrable->id}}'])
+                                @include('PkgCreationProjet::livrable._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'natureLivrable.edit_' . $itemNatureLivrable->id])
                             </div>
 
                            

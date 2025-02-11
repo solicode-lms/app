@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgCreationProjet\App\Requests\LivrableRequest;
+use Modules\PkgCreationProjet\Models\Livrable;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgCreationProjet\App\Exports\LivrableExport;
 use Modules\PkgCreationProjet\App\Imports\LivrableImport;
@@ -34,7 +35,7 @@ class BaseLivrableController extends AdminController
         // Extraire les paramètres de recherche, page, et filtres
         $livrables_params = array_merge(
             $request->only(['page','sort']),
-            ['search' => $request->get('livrables_search', '')],
+            ['search' => $request->get('livrables_search', '$this->viewState->get("filter.livrable.livrables_search")')],
             $request->except(['livrables_search', 'page', 'sort'])
         );
 
@@ -53,7 +54,6 @@ class BaseLivrableController extends AdminController
         return view('PkgCreationProjet::livrable.index', compact('livrables_data', 'livrables_stats', 'livrables_filters'));
     }
     public function create() {
-
 
         $itemLivrable = $this->livrableService->createInstance();
         $natureLivrables = $this->natureLivrableService->all();

@@ -130,4 +130,5 @@
      window.modalTitle = '{{__("PkgCreationProjet::livrable.singular") }} : {{$itemLivrable}}'
      window.contextState = @json($contextState);
      window.sessionState = @json($sessionState);
+     window.viewState = @json($viewState);
 </script>

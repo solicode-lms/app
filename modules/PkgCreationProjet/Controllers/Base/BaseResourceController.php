@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgCreationProjet\App\Requests\ResourceRequest;
+use Modules\PkgCreationProjet\Models\Resource;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgCreationProjet\App\Exports\ResourceExport;
 use Modules\PkgCreationProjet\App\Imports\ResourceImport;
@@ -27,11 +28,11 @@ class BaseResourceController extends AdminController
 
     public function index(Request $request) {
         
-        $this->viewState->setContextKey('resource.index');
+        $this->viewState->setContextKeyIfEmpty('resource.index');
         // Extraire les paramètres de recherche, page, et filtres
         $resources_params = array_merge(
             $request->only(['page','sort']),
-            ['search' => $request->get('resources_search', '')],
+            ['search' => $request->get('resources_search', '$this->viewState->get("filter.resource.resources_search")')],
             $request->except(['resources_search', 'page', 'sort'])
         );
 
@@ -50,6 +51,7 @@ class BaseResourceController extends AdminController
         return view('PkgCreationProjet::resource.index', compact('resources_data', 'resources_stats', 'resources_filters'));
     }
     public function create() {
+
         $itemResource = $this->resourceService->createInstance();
         $projets = $this->projetService->all();
 

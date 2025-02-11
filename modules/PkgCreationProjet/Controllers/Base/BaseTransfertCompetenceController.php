@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgCreationProjet\App\Requests\TransfertCompetenceRequest;
+use Modules\PkgCreationProjet\Models\TransfertCompetence;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgCreationProjet\App\Exports\TransfertCompetenceExport;
 use Modules\PkgCreationProjet\App\Imports\TransfertCompetenceImport;
@@ -36,11 +37,11 @@ class BaseTransfertCompetenceController extends AdminController
 
     public function index(Request $request) {
         
-        $this->viewState->setContextKey('transfertCompetence.index');
+        $this->viewState->setContextKeyIfEmpty('transfertCompetence.index');
         // Extraire les paramètres de recherche, page, et filtres
         $transfertCompetences_params = array_merge(
             $request->only(['page','sort']),
-            ['search' => $request->get('transfertCompetences_search', '')],
+            ['search' => $request->get('transfertCompetences_search', '$this->viewState->get("filter.transfertCompetence.transfertCompetences_search")')],
             $request->except(['transfertCompetences_search', 'page', 'sort'])
         );
 
@@ -59,6 +60,7 @@ class BaseTransfertCompetenceController extends AdminController
         return view('PkgCreationProjet::transfertCompetence.index', compact('transfertCompetences_data', 'transfertCompetences_stats', 'transfertCompetences_filters'));
     }
     public function create() {
+
         $itemTransfertCompetence = $this->transfertCompetenceService->createInstance();
         $technologies = $this->technologyService->all();
         $competences = $this->competenceService->all();

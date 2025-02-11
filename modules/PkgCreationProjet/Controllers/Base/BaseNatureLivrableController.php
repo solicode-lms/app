@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgCreationProjet\App\Requests\NatureLivrableRequest;
+use Modules\PkgCreationProjet\Models\NatureLivrable;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgCreationProjet\App\Exports\NatureLivrableExport;
 use Modules\PkgCreationProjet\App\Imports\NatureLivrableImport;
@@ -25,11 +26,11 @@ class BaseNatureLivrableController extends AdminController
 
     public function index(Request $request) {
         
-        $this->viewState->setContextKey('natureLivrable.index');
+        $this->viewState->setContextKeyIfEmpty('natureLivrable.index');
         // Extraire les paramètres de recherche, page, et filtres
         $natureLivrables_params = array_merge(
             $request->only(['page','sort']),
-            ['search' => $request->get('natureLivrables_search', '')],
+            ['search' => $request->get('natureLivrables_search', '$this->viewState->get("filter.natureLivrable.natureLivrables_search")')],
             $request->except(['natureLivrables_search', 'page', 'sort'])
         );
 
@@ -48,6 +49,7 @@ class BaseNatureLivrableController extends AdminController
         return view('PkgCreationProjet::natureLivrable.index', compact('natureLivrables_data', 'natureLivrables_stats', 'natureLivrables_filters'));
     }
     public function create() {
+
         $itemNatureLivrable = $this->natureLivrableService->createInstance();
 
 
