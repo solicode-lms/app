@@ -29,6 +29,7 @@ class BaseResourceController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('resource.index');
+
         // Extraire les paramètres de recherche, page, et filtres
         $resources_params = array_merge(
             $request->only(['page','sort']),
@@ -85,19 +86,7 @@ class BaseResourceController extends AdminController
         );
     }
     public function show(string $id) {
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('resource_id', $id);
-        
-        $itemResource = $this->resourceService->find($id);
-        $projets = $this->projetService->all();
-
-        if (request()->ajax()) {
-            return view('PkgCreationProjet::resource._fields', compact('itemResource', 'projets'));
-        }
-
-        return view('PkgCreationProjet::resource.edit', compact('itemResource', 'projets'));
-
+        return $this->edit( $id);
     }
     public function edit(string $id) {
 

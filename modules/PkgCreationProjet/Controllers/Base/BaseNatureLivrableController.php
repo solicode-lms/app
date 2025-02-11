@@ -27,6 +27,7 @@ class BaseNatureLivrableController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('natureLivrable.index');
+
         // Extraire les paramètres de recherche, page, et filtres
         $natureLivrables_params = array_merge(
             $request->only(['page','sort']),
@@ -82,23 +83,7 @@ class BaseNatureLivrableController extends AdminController
         );
     }
     public function show(string $id) {
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('nature_livrable_id', $id);
-        
-        $itemNatureLivrable = $this->natureLivrableService->find($id);
-        $livrableService =  new LivrableService();
-        $livrables_data =  $itemNatureLivrable->livrables()->paginate(10);
-        $livrables_stats = $livrableService->getlivrableStats();
-        $livrables_filters = $livrableService->getFieldsFilterable();
-        
-
-        if (request()->ajax()) {
-            return view('PkgCreationProjet::natureLivrable._edit', compact('itemNatureLivrable', 'livrables_data', 'livrables_stats', 'livrables_filters'));
-        }
-
-        return view('PkgCreationProjet::natureLivrable.edit', compact('itemNatureLivrable', 'livrables_data', 'livrables_stats', 'livrables_filters'));
-
+        return $this->edit( $id);
     }
     public function edit(string $id) {
 

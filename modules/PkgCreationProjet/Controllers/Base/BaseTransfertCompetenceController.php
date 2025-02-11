@@ -38,6 +38,7 @@ class BaseTransfertCompetenceController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('transfertCompetence.index');
+
         // Extraire les paramètres de recherche, page, et filtres
         $transfertCompetences_params = array_merge(
             $request->only(['page','sort']),
@@ -97,22 +98,7 @@ class BaseTransfertCompetenceController extends AdminController
         );
     }
     public function show(string $id) {
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('transfert_competence_id', $id);
-        
-        $itemTransfertCompetence = $this->transfertCompetenceService->find($id);
-        $technologies = $this->technologyService->all();
-        $competences = $this->competenceService->all();
-        $niveauDifficultes = $this->niveauDifficulteService->all();
-        $projets = $this->projetService->all();
-
-        if (request()->ajax()) {
-            return view('PkgCreationProjet::transfertCompetence._fields', compact('itemTransfertCompetence', 'technologies', 'competences', 'niveauDifficultes', 'projets'));
-        }
-
-        return view('PkgCreationProjet::transfertCompetence.edit', compact('itemTransfertCompetence', 'technologies', 'competences', 'niveauDifficultes', 'projets'));
-
+        return $this->edit( $id);
     }
     public function edit(string $id) {
 

@@ -32,6 +32,7 @@ class BaseLivrableController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('livrable.index');
+
         // Extraire les paramètres de recherche, page, et filtres
         $livrables_params = array_merge(
             $request->only(['page','sort']),
@@ -89,20 +90,7 @@ class BaseLivrableController extends AdminController
         );
     }
     public function show(string $id) {
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('livrable_id', $id);
-        
-        $itemLivrable = $this->livrableService->find($id);
-        $natureLivrables = $this->natureLivrableService->all();
-        $projets = $this->projetService->all();
-
-        if (request()->ajax()) {
-            return view('PkgCreationProjet::livrable._fields', compact('itemLivrable', 'natureLivrables', 'projets'));
-        }
-
-        return view('PkgCreationProjet::livrable.edit', compact('itemLivrable', 'natureLivrables', 'projets'));
-
+        return $this->edit( $id);
     }
     public function edit(string $id) {
 
