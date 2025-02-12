@@ -28,6 +28,7 @@ class BaseNatureLivrableController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('natureLivrable.index');
 
+
         // Extraire les paramètres de recherche, page, et filtres
         $natureLivrables_params = array_merge(
             $request->only(['page','sort']),
@@ -50,7 +51,6 @@ class BaseNatureLivrableController extends AdminController
         return view('PkgCreationProjet::natureLivrable.index', compact('natureLivrables_data', 'natureLivrables_stats', 'natureLivrables_filters'));
     }
     public function create() {
-
         $itemNatureLivrable = $this->natureLivrableService->createInstance();
 
 
@@ -88,7 +88,7 @@ class BaseNatureLivrableController extends AdminController
     public function edit(string $id) {
 
         $this->viewState->setContextKey('natureLivrable.edit_' . $id);
-        
+
         $itemNatureLivrable = $this->natureLivrableService->find($id);
 
         $this->viewState->set('scope.livrable.nature_livrable_id', $id);

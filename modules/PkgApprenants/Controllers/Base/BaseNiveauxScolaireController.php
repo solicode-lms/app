@@ -28,6 +28,7 @@ class BaseNiveauxScolaireController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('niveauxScolaire.index');
 
+
         // Extraire les paramètres de recherche, page, et filtres
         $niveauxScolaires_params = array_merge(
             $request->only(['page','sort']),
@@ -50,7 +51,6 @@ class BaseNiveauxScolaireController extends AdminController
         return view('PkgApprenants::niveauxScolaire.index', compact('niveauxScolaires_data', 'niveauxScolaires_stats', 'niveauxScolaires_filters'));
     }
     public function create() {
-
         $itemNiveauxScolaire = $this->niveauxScolaireService->createInstance();
 
 
@@ -88,7 +88,7 @@ class BaseNiveauxScolaireController extends AdminController
     public function edit(string $id) {
 
         $this->viewState->setContextKey('niveauxScolaire.edit_' . $id);
-        
+
         $itemNiveauxScolaire = $this->niveauxScolaireService->find($id);
 
         $this->viewState->set('scope.apprenant.niveaux_scolaire_id', $id);

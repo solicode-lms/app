@@ -36,6 +36,7 @@ class BaseWidgetController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('widget.index');
 
+
         // Extraire les paramètres de recherche, page, et filtres
         $widgets_params = array_merge(
             $request->only(['page','sort']),
@@ -58,7 +59,6 @@ class BaseWidgetController extends AdminController
         return view('PkgWidgets::widget.index', compact('widgets_data', 'widgets_stats', 'widgets_filters'));
     }
     public function create() {
-
         $itemWidget = $this->widgetService->createInstance();
         $sysModels = $this->sysModelService->all();
         $widgetOperations = $this->widgetOperationService->all();
@@ -99,7 +99,7 @@ class BaseWidgetController extends AdminController
     public function edit(string $id) {
 
         $this->viewState->setContextKey('widget.edit_' . $id);
-        
+
         $itemWidget = $this->widgetService->find($id);
         $sysModels = $this->sysModelService->all();
         $widgetOperations = $this->widgetOperationService->all();

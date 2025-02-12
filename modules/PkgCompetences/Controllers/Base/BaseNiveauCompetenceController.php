@@ -30,6 +30,7 @@ class BaseNiveauCompetenceController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('niveauCompetence.index');
 
+
         // Extraire les paramètres de recherche, page, et filtres
         $niveauCompetences_params = array_merge(
             $request->only(['page','sort']),
@@ -52,7 +53,6 @@ class BaseNiveauCompetenceController extends AdminController
         return view('PkgCompetences::niveauCompetence.index', compact('niveauCompetences_data', 'niveauCompetences_stats', 'niveauCompetences_filters'));
     }
     public function create() {
-
         $itemNiveauCompetence = $this->niveauCompetenceService->createInstance();
         $competences = $this->competenceService->all();
 
@@ -91,7 +91,7 @@ class BaseNiveauCompetenceController extends AdminController
     public function edit(string $id) {
 
         $this->viewState->setContextKey('niveauCompetence.edit_' . $id);
-        
+
         $itemNiveauCompetence = $this->niveauCompetenceService->find($id);
         $competences = $this->competenceService->all();
 

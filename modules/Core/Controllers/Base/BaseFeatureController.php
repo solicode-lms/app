@@ -33,6 +33,7 @@ class BaseFeatureController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('feature.index');
 
+
         // Extraire les paramètres de recherche, page, et filtres
         $features_params = array_merge(
             $request->only(['page','sort']),
@@ -55,7 +56,6 @@ class BaseFeatureController extends AdminController
         return view('Core::feature.index', compact('features_data', 'features_stats', 'features_filters'));
     }
     public function create() {
-
         $itemFeature = $this->featureService->createInstance();
         $permissions = $this->permissionService->all();
         $featureDomains = $this->featureDomainService->all();
@@ -95,7 +95,7 @@ class BaseFeatureController extends AdminController
     public function edit(string $id) {
 
         $this->viewState->setContextKey('feature.edit_' . $id);
-        
+
         $itemFeature = $this->featureService->find($id);
         $permissions = $this->permissionService->all();
         $featureDomains = $this->featureDomainService->all();

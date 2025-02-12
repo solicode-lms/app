@@ -34,6 +34,7 @@ class BaseCompetenceController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('competence.index');
 
+
         // Extraire les paramètres de recherche, page, et filtres
         $competences_params = array_merge(
             $request->only(['page','sort']),
@@ -56,7 +57,6 @@ class BaseCompetenceController extends AdminController
         return view('PkgCompetences::competence.index', compact('competences_data', 'competences_stats', 'competences_filters'));
     }
     public function create() {
-
         $itemCompetence = $this->competenceService->createInstance();
         $technologies = $this->technologyService->all();
         $modules = $this->moduleService->all();
@@ -96,7 +96,7 @@ class BaseCompetenceController extends AdminController
     public function edit(string $id) {
 
         $this->viewState->setContextKey('competence.edit_' . $id);
-        
+
         $itemCompetence = $this->competenceService->find($id);
         $technologies = $this->technologyService->all();
         $modules = $this->moduleService->all();

@@ -31,6 +31,7 @@ class BaseModuleController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('module.index');
 
+
         // Extraire les paramètres de recherche, page, et filtres
         $modules_params = array_merge(
             $request->only(['page','sort']),
@@ -53,7 +54,6 @@ class BaseModuleController extends AdminController
         return view('PkgFormation::module.index', compact('modules_data', 'modules_stats', 'modules_filters'));
     }
     public function create() {
-
         $itemModule = $this->moduleService->createInstance();
         $filieres = $this->filiereService->all();
 
@@ -92,7 +92,7 @@ class BaseModuleController extends AdminController
     public function edit(string $id) {
 
         $this->viewState->setContextKey('module.edit_' . $id);
-        
+
         $itemModule = $this->moduleService->find($id);
         $filieres = $this->filiereService->all();
 

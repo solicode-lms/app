@@ -40,6 +40,7 @@ class BaseGroupeController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('groupe.index');
 
+
         // Extraire les paramètres de recherche, page, et filtres
         $groupes_params = array_merge(
             $request->only(['page','sort']),
@@ -62,7 +63,6 @@ class BaseGroupeController extends AdminController
         return view('PkgApprenants::groupe.index', compact('groupes_data', 'groupes_stats', 'groupes_filters'));
     }
     public function create() {
-
         $itemGroupe = $this->groupeService->createInstance();
         $apprenants = $this->apprenantService->all();
         $formateurs = $this->formateurService->all();
@@ -104,7 +104,7 @@ class BaseGroupeController extends AdminController
     public function edit(string $id) {
 
         $this->viewState->setContextKey('groupe.edit_' . $id);
-        
+
         $itemGroupe = $this->groupeService->find($id);
         $apprenants = $this->apprenantService->all();
         $formateurs = $this->formateurService->all();

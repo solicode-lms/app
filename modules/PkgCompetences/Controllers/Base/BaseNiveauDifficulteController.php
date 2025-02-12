@@ -29,7 +29,7 @@ class BaseNiveauDifficulteController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('niveauDifficulte.index');
-        $this->viewState->set('scope_form.niveauDifficulte.formateur_id'  , $this->sessionState->get('formateur_id'));
+        $this->viewState->set('filter.niveauDifficulte.formateur_id'  , $this->sessionState->get('formateur_id'));
 
 
         // Extraire les paramètres de recherche, page, et filtres

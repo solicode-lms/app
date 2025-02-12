@@ -34,6 +34,7 @@ class BaseEDataFieldController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('eDataField.index');
 
+
         // Extraire les paramètres de recherche, page, et filtres
         $eDataFields_params = array_merge(
             $request->only(['page','sort']),
@@ -56,7 +57,6 @@ class BaseEDataFieldController extends AdminController
         return view('PkgGapp::eDataField.index', compact('eDataFields_data', 'eDataFields_stats', 'eDataFields_filters'));
     }
     public function create() {
-
         $itemEDataField = $this->eDataFieldService->createInstance();
         $eModels = $this->eModelService->all();
         $eRelationships = $this->eRelationshipService->all();
@@ -96,7 +96,7 @@ class BaseEDataFieldController extends AdminController
     public function edit(string $id) {
 
         $this->viewState->setContextKey('eDataField.edit_' . $id);
-        
+
         $itemEDataField = $this->eDataFieldService->find($id);
         $eModels = $this->eModelService->all();
         $eRelationships = $this->eRelationshipService->all();

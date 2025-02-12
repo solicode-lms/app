@@ -30,6 +30,7 @@ class BaseSpecialiteController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('specialite.index');
 
+
         // Extraire les paramètres de recherche, page, et filtres
         $specialites_params = array_merge(
             $request->only(['page','sort']),
@@ -52,7 +53,6 @@ class BaseSpecialiteController extends AdminController
         return view('PkgFormation::specialite.index', compact('specialites_data', 'specialites_stats', 'specialites_filters'));
     }
     public function create() {
-
         $itemSpecialite = $this->specialiteService->createInstance();
         $formateurs = $this->formateurService->all();
 
@@ -91,7 +91,7 @@ class BaseSpecialiteController extends AdminController
     public function edit(string $id) {
 
         $this->viewState->setContextKey('specialite.edit_' . $id);
-        
+
         $itemSpecialite = $this->specialiteService->find($id);
         $formateurs = $this->formateurService->all();
 

@@ -28,6 +28,7 @@ class BaseNationaliteController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('nationalite.index');
 
+
         // Extraire les paramètres de recherche, page, et filtres
         $nationalites_params = array_merge(
             $request->only(['page','sort']),
@@ -50,7 +51,6 @@ class BaseNationaliteController extends AdminController
         return view('PkgApprenants::nationalite.index', compact('nationalites_data', 'nationalites_stats', 'nationalites_filters'));
     }
     public function create() {
-
         $itemNationalite = $this->nationaliteService->createInstance();
 
 
@@ -88,7 +88,7 @@ class BaseNationaliteController extends AdminController
     public function edit(string $id) {
 
         $this->viewState->setContextKey('nationalite.edit_' . $id);
-        
+
         $itemNationalite = $this->nationaliteService->find($id);
 
         $this->viewState->set('scope.apprenant.nationalite_id', $id);

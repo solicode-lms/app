@@ -40,6 +40,7 @@ class BaseApprenantController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('apprenant.index');
 
+
         // Extraire les paramètres de recherche, page, et filtres
         $apprenants_params = array_merge(
             $request->only(['page','sort']),
@@ -62,7 +63,6 @@ class BaseApprenantController extends AdminController
         return view('PkgApprenants::apprenant.index', compact('apprenants_data', 'apprenants_stats', 'apprenants_filters'));
     }
     public function create() {
-
         $itemApprenant = $this->apprenantService->createInstance();
         $groupes = $this->groupeService->all();
         $nationalites = $this->nationaliteService->all();
@@ -104,7 +104,7 @@ class BaseApprenantController extends AdminController
     public function edit(string $id) {
 
         $this->viewState->setContextKey('apprenant.edit_' . $id);
-        
+
         $itemApprenant = $this->apprenantService->find($id);
         $groupes = $this->groupeService->all();
         $nationalites = $this->nationaliteService->all();

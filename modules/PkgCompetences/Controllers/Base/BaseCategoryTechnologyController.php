@@ -28,6 +28,7 @@ class BaseCategoryTechnologyController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('categoryTechnology.index');
 
+
         // Extraire les paramètres de recherche, page, et filtres
         $categoryTechnologies_params = array_merge(
             $request->only(['page','sort']),
@@ -50,7 +51,6 @@ class BaseCategoryTechnologyController extends AdminController
         return view('PkgCompetences::categoryTechnology.index', compact('categoryTechnologies_data', 'categoryTechnologies_stats', 'categoryTechnologies_filters'));
     }
     public function create() {
-
         $itemCategoryTechnology = $this->categoryTechnologyService->createInstance();
 
 
@@ -88,7 +88,7 @@ class BaseCategoryTechnologyController extends AdminController
     public function edit(string $id) {
 
         $this->viewState->setContextKey('categoryTechnology.edit_' . $id);
-        
+
         $itemCategoryTechnology = $this->categoryTechnologyService->find($id);
 
         $this->viewState->set('scope.technology.category_technology_id', $id);

@@ -39,6 +39,7 @@ class BaseFormateurController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('formateur.index');
 
+
         // Extraire les paramètres de recherche, page, et filtres
         $formateurs_params = array_merge(
             $request->only(['page','sort']),
@@ -61,7 +62,6 @@ class BaseFormateurController extends AdminController
         return view('PkgFormation::formateur.index', compact('formateurs_data', 'formateurs_stats', 'formateurs_filters'));
     }
     public function create() {
-
         $itemFormateur = $this->formateurService->createInstance();
         $groupes = $this->groupeService->all();
         $specialites = $this->specialiteService->all();
@@ -102,7 +102,7 @@ class BaseFormateurController extends AdminController
     public function edit(string $id) {
 
         $this->viewState->setContextKey('formateur.edit_' . $id);
-        
+
         $itemFormateur = $this->formateurService->find($id);
         $groupes = $this->groupeService->all();
         $specialites = $this->specialiteService->all();

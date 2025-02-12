@@ -33,6 +33,7 @@ class BaseRoleController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('role.index');
 
+
         // Extraire les paramètres de recherche, page, et filtres
         $roles_params = array_merge(
             $request->only(['page','sort']),
@@ -55,7 +56,6 @@ class BaseRoleController extends AdminController
         return view('PkgAutorisation::role.index', compact('roles_data', 'roles_stats', 'roles_filters'));
     }
     public function create() {
-
         $itemRole = $this->roleService->createInstance();
         $permissions = $this->permissionService->all();
         $users = $this->userService->all();
@@ -95,7 +95,7 @@ class BaseRoleController extends AdminController
     public function edit(string $id) {
 
         $this->viewState->setContextKey('role.edit_' . $id);
-        
+
         $itemRole = $this->roleService->find($id);
         $permissions = $this->permissionService->all();
         $users = $this->userService->all();

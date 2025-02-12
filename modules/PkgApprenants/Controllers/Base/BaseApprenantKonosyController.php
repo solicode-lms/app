@@ -27,6 +27,7 @@ class BaseApprenantKonosyController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('apprenantKonosy.index');
 
+
         // Extraire les paramètres de recherche, page, et filtres
         $apprenantKonosies_params = array_merge(
             $request->only(['page','sort']),
@@ -49,7 +50,6 @@ class BaseApprenantKonosyController extends AdminController
         return view('PkgApprenants::apprenantKonosy.index', compact('apprenantKonosies_data', 'apprenantKonosies_stats', 'apprenantKonosies_filters'));
     }
     public function create() {
-
         $itemApprenantKonosy = $this->apprenantKonosyService->createInstance();
 
 
@@ -87,7 +87,7 @@ class BaseApprenantKonosyController extends AdminController
     public function edit(string $id) {
 
         $this->viewState->setContextKey('apprenantKonosy.edit_' . $id);
-        
+
         $itemApprenantKonosy = $this->apprenantKonosyService->find($id);
 
 

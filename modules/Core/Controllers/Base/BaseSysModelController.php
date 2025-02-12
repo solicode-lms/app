@@ -34,6 +34,7 @@ class BaseSysModelController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('sysModel.index');
 
+
         // Extraire les paramètres de recherche, page, et filtres
         $sysModels_params = array_merge(
             $request->only(['page','sort']),
@@ -56,7 +57,6 @@ class BaseSysModelController extends AdminController
         return view('Core::sysModel.index', compact('sysModels_data', 'sysModels_stats', 'sysModels_filters'));
     }
     public function create() {
-
         $itemSysModel = $this->sysModelService->createInstance();
         $sysColors = $this->sysColorService->all();
         $sysModules = $this->sysModuleService->all();
@@ -96,7 +96,7 @@ class BaseSysModelController extends AdminController
     public function edit(string $id) {
 
         $this->viewState->setContextKey('sysModel.edit_' . $id);
-        
+
         $itemSysModel = $this->sysModelService->find($id);
         $sysColors = $this->sysColorService->all();
         $sysModules = $this->sysModuleService->all();

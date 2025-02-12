@@ -28,6 +28,7 @@ class BaseEPackageController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('ePackage.index');
 
+
         // Extraire les paramètres de recherche, page, et filtres
         $ePackages_params = array_merge(
             $request->only(['page','sort']),
@@ -50,7 +51,6 @@ class BaseEPackageController extends AdminController
         return view('PkgGapp::ePackage.index', compact('ePackages_data', 'ePackages_stats', 'ePackages_filters'));
     }
     public function create() {
-
         $itemEPackage = $this->ePackageService->createInstance();
 
 
@@ -88,7 +88,7 @@ class BaseEPackageController extends AdminController
     public function edit(string $id) {
 
         $this->viewState->setContextKey('ePackage.edit_' . $id);
-        
+
         $itemEPackage = $this->ePackageService->find($id);
 
         $this->viewState->set('scope.eModel.e_package_id', $id);

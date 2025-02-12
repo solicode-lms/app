@@ -36,6 +36,7 @@ class BasePermissionController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('permission.index');
 
+
         // Extraire les paramètres de recherche, page, et filtres
         $permissions_params = array_merge(
             $request->only(['page','sort']),
@@ -58,7 +59,6 @@ class BasePermissionController extends AdminController
         return view('PkgAutorisation::permission.index', compact('permissions_data', 'permissions_stats', 'permissions_filters'));
     }
     public function create() {
-
         $itemPermission = $this->permissionService->createInstance();
         $features = $this->featureService->all();
         $roles = $this->roleService->all();
@@ -99,7 +99,7 @@ class BasePermissionController extends AdminController
     public function edit(string $id) {
 
         $this->viewState->setContextKey('permission.edit_' . $id);
-        
+
         $itemPermission = $this->permissionService->find($id);
         $features = $this->featureService->all();
         $roles = $this->roleService->all();

@@ -31,6 +31,7 @@ class BaseFeatureDomainController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('featureDomain.index');
 
+
         // Extraire les paramètres de recherche, page, et filtres
         $featureDomains_params = array_merge(
             $request->only(['page','sort']),
@@ -53,7 +54,6 @@ class BaseFeatureDomainController extends AdminController
         return view('Core::featureDomain.index', compact('featureDomains_data', 'featureDomains_stats', 'featureDomains_filters'));
     }
     public function create() {
-
         $itemFeatureDomain = $this->featureDomainService->createInstance();
         $sysModules = $this->sysModuleService->all();
 
@@ -92,7 +92,7 @@ class BaseFeatureDomainController extends AdminController
     public function edit(string $id) {
 
         $this->viewState->setContextKey('featureDomain.edit_' . $id);
-        
+
         $itemFeatureDomain = $this->featureDomainService->find($id);
         $sysModules = $this->sysModuleService->all();
 

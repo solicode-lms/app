@@ -29,6 +29,7 @@ class BaseFiliereController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('filiere.index');
 
+
         // Extraire les paramètres de recherche, page, et filtres
         $filieres_params = array_merge(
             $request->only(['page','sort']),
@@ -51,7 +52,6 @@ class BaseFiliereController extends AdminController
         return view('PkgFormation::filiere.index', compact('filieres_data', 'filieres_stats', 'filieres_filters'));
     }
     public function create() {
-
         $itemFiliere = $this->filiereService->createInstance();
 
 
@@ -89,7 +89,7 @@ class BaseFiliereController extends AdminController
     public function edit(string $id) {
 
         $this->viewState->setContextKey('filiere.edit_' . $id);
-        
+
         $itemFiliere = $this->filiereService->find($id);
 
         $this->viewState->set('scope.groupe.filiere_id', $id);

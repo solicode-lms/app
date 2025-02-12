@@ -39,6 +39,7 @@ class BaseTransfertCompetenceController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('transfertCompetence.index');
 
+
         // Extraire les paramètres de recherche, page, et filtres
         $transfertCompetences_params = array_merge(
             $request->only(['page','sort']),
@@ -61,7 +62,6 @@ class BaseTransfertCompetenceController extends AdminController
         return view('PkgCreationProjet::transfertCompetence.index', compact('transfertCompetences_data', 'transfertCompetences_stats', 'transfertCompetences_filters'));
     }
     public function create() {
-
         $itemTransfertCompetence = $this->transfertCompetenceService->createInstance();
         $technologies = $this->technologyService->all();
         $competences = $this->competenceService->all();
@@ -103,7 +103,7 @@ class BaseTransfertCompetenceController extends AdminController
     public function edit(string $id) {
 
         $this->viewState->setContextKey('transfertCompetence.edit_' . $id);
-        
+
         $itemTransfertCompetence = $this->transfertCompetenceService->find($id);
         $technologies = $this->technologyService->all();
         $competences = $this->competenceService->all();

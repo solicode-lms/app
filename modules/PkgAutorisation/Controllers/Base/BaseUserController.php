@@ -32,6 +32,7 @@ class BaseUserController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('user.index');
 
+
         // Extraire les paramètres de recherche, page, et filtres
         $users_params = array_merge(
             $request->only(['page','sort']),
@@ -54,7 +55,6 @@ class BaseUserController extends AdminController
         return view('PkgAutorisation::user.index', compact('users_data', 'users_stats', 'users_filters'));
     }
     public function create() {
-
         $itemUser = $this->userService->createInstance();
         $roles = $this->roleService->all();
 
@@ -93,7 +93,7 @@ class BaseUserController extends AdminController
     public function edit(string $id) {
 
         $this->viewState->setContextKey('user.edit_' . $id);
-        
+
         $itemUser = $this->userService->find($id);
         $roles = $this->roleService->all();
 

@@ -27,6 +27,7 @@ class BaseEMetadataDefinitionController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('eMetadataDefinition.index');
 
+
         // Extraire les paramètres de recherche, page, et filtres
         $eMetadataDefinitions_params = array_merge(
             $request->only(['page','sort']),
@@ -49,7 +50,6 @@ class BaseEMetadataDefinitionController extends AdminController
         return view('PkgGapp::eMetadataDefinition.index', compact('eMetadataDefinitions_data', 'eMetadataDefinitions_stats', 'eMetadataDefinitions_filters'));
     }
     public function create() {
-
         $itemEMetadataDefinition = $this->eMetadataDefinitionService->createInstance();
 
 
@@ -87,7 +87,7 @@ class BaseEMetadataDefinitionController extends AdminController
     public function edit(string $id) {
 
         $this->viewState->setContextKey('eMetadataDefinition.edit_' . $id);
-        
+
         $itemEMetadataDefinition = $this->eMetadataDefinitionService->find($id);
 
 

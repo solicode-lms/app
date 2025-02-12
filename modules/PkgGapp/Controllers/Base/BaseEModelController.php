@@ -32,6 +32,7 @@ class BaseEModelController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('eModel.index');
 
+
         // Extraire les paramètres de recherche, page, et filtres
         $eModels_params = array_merge(
             $request->only(['page','sort']),
@@ -54,7 +55,6 @@ class BaseEModelController extends AdminController
         return view('PkgGapp::eModel.index', compact('eModels_data', 'eModels_stats', 'eModels_filters'));
     }
     public function create() {
-
         $itemEModel = $this->eModelService->createInstance();
         $ePackages = $this->ePackageService->all();
 
@@ -93,7 +93,7 @@ class BaseEModelController extends AdminController
     public function edit(string $id) {
 
         $this->viewState->setContextKey('eModel.edit_' . $id);
-        
+
         $itemEModel = $this->eModelService->find($id);
         $ePackages = $this->ePackageService->all();
 

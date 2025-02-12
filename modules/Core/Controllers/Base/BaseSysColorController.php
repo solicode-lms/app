@@ -29,6 +29,7 @@ class BaseSysColorController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('sysColor.index');
 
+
         // Extraire les paramètres de recherche, page, et filtres
         $sysColors_params = array_merge(
             $request->only(['page','sort']),
@@ -51,7 +52,6 @@ class BaseSysColorController extends AdminController
         return view('Core::sysColor.index', compact('sysColors_data', 'sysColors_stats', 'sysColors_filters'));
     }
     public function create() {
-
         $itemSysColor = $this->sysColorService->createInstance();
 
 
@@ -89,7 +89,7 @@ class BaseSysColorController extends AdminController
     public function edit(string $id) {
 
         $this->viewState->setContextKey('sysColor.edit_' . $id);
-        
+
         $itemSysColor = $this->sysColorService->find($id);
 
         $this->viewState->set('scope.sysModel.sys_color_id', $id);

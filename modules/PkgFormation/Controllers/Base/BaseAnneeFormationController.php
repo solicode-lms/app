@@ -29,6 +29,7 @@ class BaseAnneeFormationController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('anneeFormation.index');
 
+
         // Extraire les paramètres de recherche, page, et filtres
         $anneeFormations_params = array_merge(
             $request->only(['page','sort']),
@@ -51,7 +52,6 @@ class BaseAnneeFormationController extends AdminController
         return view('PkgFormation::anneeFormation.index', compact('anneeFormations_data', 'anneeFormations_stats', 'anneeFormations_filters'));
     }
     public function create() {
-
         $itemAnneeFormation = $this->anneeFormationService->createInstance();
 
 
@@ -89,7 +89,7 @@ class BaseAnneeFormationController extends AdminController
     public function edit(string $id) {
 
         $this->viewState->setContextKey('anneeFormation.edit_' . $id);
-        
+
         $itemAnneeFormation = $this->anneeFormationService->find($id);
 
         $this->viewState->set('scope.affectationProjet.annee_formation_id', $id);
