@@ -30,6 +30,7 @@ class BaseLivrablesRealisationController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('livrablesRealisation.index');
 
+
         // Extraire les paramètres de recherche, page, et filtres
         $livrablesRealisations_params = array_merge(
             $request->only(['page','sort']),
@@ -52,7 +53,6 @@ class BaseLivrablesRealisationController extends AdminController
         return view('PkgRealisationProjets::livrablesRealisation.index', compact('livrablesRealisations_data', 'livrablesRealisations_stats', 'livrablesRealisations_filters'));
     }
     public function create() {
-
         $itemLivrablesRealisation = $this->livrablesRealisationService->createInstance();
         $livrables = $this->livrableService->all();
 
@@ -91,7 +91,7 @@ class BaseLivrablesRealisationController extends AdminController
     public function edit(string $id) {
 
         $this->viewState->setContextKey('livrablesRealisation.edit_' . $id);
-        
+
         $itemLivrablesRealisation = $this->livrablesRealisationService->find($id);
         $livrables = $this->livrableService->all();
 

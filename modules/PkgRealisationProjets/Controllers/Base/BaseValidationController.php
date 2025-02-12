@@ -33,6 +33,7 @@ class BaseValidationController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('validation.index');
 
+
         // Extraire les paramètres de recherche, page, et filtres
         $validations_params = array_merge(
             $request->only(['page','sort']),
@@ -55,7 +56,6 @@ class BaseValidationController extends AdminController
         return view('PkgRealisationProjets::validation.index', compact('validations_data', 'validations_stats', 'validations_filters'));
     }
     public function create() {
-
         $itemValidation = $this->validationService->createInstance();
         $realisationProjets = $this->realisationProjetService->all();
         $transfertCompetences = $this->transfertCompetenceService->all();
@@ -95,7 +95,7 @@ class BaseValidationController extends AdminController
     public function edit(string $id) {
 
         $this->viewState->setContextKey('validation.edit_' . $id);
-        
+
         $itemValidation = $this->validationService->find($id);
         $realisationProjets = $this->realisationProjetService->all();
         $transfertCompetences = $this->transfertCompetenceService->all();

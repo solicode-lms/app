@@ -37,6 +37,7 @@ class BaseRealisationProjetController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('realisationProjet.index');
 
+
         // Extraire les paramètres de recherche, page, et filtres
         $realisationProjets_params = array_merge(
             $request->only(['page','sort']),
@@ -59,7 +60,6 @@ class BaseRealisationProjetController extends AdminController
         return view('PkgRealisationProjets::realisationProjet.index', compact('realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters'));
     }
     public function create() {
-
         $itemRealisationProjet = $this->realisationProjetService->createInstance();
         $affectationProjets = $this->affectationProjetService->all();
         $apprenants = $this->apprenantService->all();
@@ -100,7 +100,7 @@ class BaseRealisationProjetController extends AdminController
     public function edit(string $id) {
 
         $this->viewState->setContextKey('realisationProjet.edit_' . $id);
-        
+
         $itemRealisationProjet = $this->realisationProjetService->find($id);
         $affectationProjets = $this->affectationProjetService->all();
         $apprenants = $this->apprenantService->all();

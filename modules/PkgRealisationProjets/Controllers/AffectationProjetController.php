@@ -9,7 +9,6 @@ use Modules\PkgRealisationProjets\Controllers\Base\BaseAffectationProjetControll
 class AffectationProjetController extends BaseAffectationProjetController
 {
 
-
     // public function create() {
     //     // TODO: add metaData : SelectByAffectedUser : { modelUserName : "formateur" }
     //     $this->viewState->set('scope.groupe.formateur_id', auth()->user()->formateur->id);

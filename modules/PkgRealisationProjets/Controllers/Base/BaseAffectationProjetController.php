@@ -37,6 +37,7 @@ class BaseAffectationProjetController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('affectationProjet.index');
 
+
         // Extraire les paramètres de recherche, page, et filtres
         $affectationProjets_params = array_merge(
             $request->only(['page','sort']),
