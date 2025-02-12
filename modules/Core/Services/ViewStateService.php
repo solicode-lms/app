@@ -30,6 +30,9 @@ class ViewStateService
     protected ?string $title = null;
     protected string $currentContextKey;
 
+    // Indique si nous somme en première création de view state pour appliquer les paramètre d'initialisation
+    protected bool $isInit = false;
+
     public function __construct(string $currentContextKey)
     {
         $this->currentContextKey = $currentContextKey;
@@ -42,6 +45,7 @@ class ViewStateService
     public function setContextKeyIfEmpty(string $currentContextKey){
         if($this->currentContextKey == "default_context"){
             $this->currentContextKey = $currentContextKey;
+            $this->isInit = true;
         }
        
     }
@@ -59,6 +63,20 @@ class ViewStateService
     public function set(string $key, mixed $value): void
     {
         $this->viewStateData[$this->currentContextKey][$key] = $value;
+    }
+    public function setIfEmpty(string $key, mixed $value): void
+    {
+        if($this->get($key) == null){
+            $this->viewStateData[$this->currentContextKey][$key] = $value;
+        }
+       
+    }
+    public function init(string $key, mixed $value): void
+    {
+        if($this->isInit){
+            $this->viewStateData[$this->currentContextKey][$key] = $value;
+        }
+       
     }
 
     public function has(string $key): bool
