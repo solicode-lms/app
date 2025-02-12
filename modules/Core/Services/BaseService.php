@@ -459,10 +459,14 @@ protected function generatePolymorphicFilter(string $label, string $field, strin
     ];
 }
 
-
+public function initFieldsFilterable(){
+    // Il doit être appele aprés le choix de context par index par exemple , pour appliquer 
+    // le scope de le contextKey
+}
 
 public function getFieldsFilterable(): array
 {
+    $this->initFieldsFilterable();
     return $this->fieldsFilterable;
 }
 

@@ -36,7 +36,7 @@ class BaseAffectationProjetController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('affectationProjet.index');
-
+        $this->viewState->set('scope.groupe.formateur_id', auth()->user()->formateur->id);
 
         // Extraire les paramètres de recherche, page, et filtres
         $affectationProjets_params = array_merge(
