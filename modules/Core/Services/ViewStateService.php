@@ -33,7 +33,7 @@ class ViewStateService
     // Indique si nous somme en première création de view state pour appliquer les paramètre d'initialisation
     protected bool $isInit = false;
 
-    public function __construct(string $currentContextKey)
+    public function __construct(string $currentContextKey = "default_context")
     {
         $this->currentContextKey = $currentContextKey;
         $this->viewStateData[$currentContextKey] = [];
