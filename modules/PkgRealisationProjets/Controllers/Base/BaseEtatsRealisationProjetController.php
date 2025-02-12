@@ -30,6 +30,7 @@ class BaseEtatsRealisationProjetController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('etatsRealisationProjet.index');
+        $this->viewState->set('filter.etatsRealisationProjet.' . EtatsRealisationProjet::$user_column_name , $this->sessionState->get(EtatsRealisationProjet::$user_column_name));
 
         // Extraire les paramètres de recherche, page, et filtres
         $etatsRealisationProjets_params = array_merge(
@@ -53,6 +54,7 @@ class BaseEtatsRealisationProjetController extends AdminController
         return view('PkgRealisationProjets::etatsRealisationProjet.index', compact('etatsRealisationProjets_data', 'etatsRealisationProjets_stats', 'etatsRealisationProjets_filters'));
     }
     public function create() {
+        $this->viewState->set('scope_form.etatsRealisationProjet.' . EtatsRealisationProjet::$user_column_name , $this->sessionState->get(EtatsRealisationProjet::$user_column_name));
 
         $itemEtatsRealisationProjet = $this->etatsRealisationProjetService->createInstance();
         $formateurs = $this->formateurService->all();
@@ -111,6 +113,9 @@ class BaseEtatsRealisationProjetController extends AdminController
 
     }
     public function update(EtatsRealisationProjetRequest $request, string $id) {
+        // Vérifie si l'utilisateur peut mettre à jour l'objet 
+        $etatsRealisationProjet = $this->etatsRealisationProjetService->find($id);
+        $this->authorize('update', $etatsRealisationProjet);
 
         $validatedData = $request->validated();
         $etatsRealisationProjet = $this->etatsRealisationProjetService->update($id, $validatedData);
@@ -136,6 +141,9 @@ class BaseEtatsRealisationProjetController extends AdminController
 
     }
     public function destroy(Request $request, string $id) {
+        // Vérifie si l'utilisateur peut mettre à jour l'objet 
+        $etatsRealisationProjet = $this->etatsRealisationProjetService->find($id);
+        $this->authorize('delete', $etatsRealisationProjet);
 
         $etatsRealisationProjet = $this->etatsRealisationProjetService->destroy($id);
 
