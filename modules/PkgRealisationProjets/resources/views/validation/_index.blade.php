@@ -33,7 +33,7 @@
        $titre = __("PkgRealisationProjets::validation.singular");
     @endphp
     <x-crud-header 
-        id="validation-crud-header" icon="fas fa-table"  
+        id="validation-crud-header" icon="fas fa-check-circle"  
         iconColor="text-info"
         title="{{ __('PkgRealisationProjets::validation.plural') }}"
         :breadcrumbs="[

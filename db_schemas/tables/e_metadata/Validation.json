@@ -184,5 +184,12 @@
         "value_boolean": 1,
         "e_model_reference": "validations",
         "e_metadata_definition_reference": "displayInSideBar"
+    },
+    {
+        "reference": "validations_iconModel",
+        "value_string": "fa-check-circle",
+        "value_float": 0,
+        "e_model_reference": "validations",
+        "e_metadata_definition_reference": "iconModel"
     }
 ]

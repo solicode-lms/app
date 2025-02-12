@@ -160,5 +160,12 @@
         "value_boolean": 1,
         "e_model_reference": "etats_realisation_projets",
         "e_metadata_definition_reference": "displayInSideBar"
+    },
+    {
+        "reference": "etats_realisation_projets_iconModel",
+        "value_string": "fa-star-half",
+        "value_float": 0,
+        "e_model_reference": "etats_realisation_projets",
+        "e_metadata_definition_reference": "iconModel"
     }
 ]

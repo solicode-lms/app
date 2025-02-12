@@ -23,7 +23,7 @@
         @can('index-etatsRealisationProjet') 
         <li class="nav-item">
             <a href="{{ route('etatsRealisationProjets.index') }}" class="nav-link {{ Request::is('admin/PkgRealisationProjets/etatsRealisationProjets') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-table"></i>
+                <i class="nav-icon fas fa-star-half"></i>
                 {{__('PkgRealisationProjets::etatsRealisationProjet.plural')}}
             </a>
         </li>
@@ -31,7 +31,7 @@
         @can('index-livrablesRealisation') 
         <li class="nav-item">
             <a href="{{ route('livrablesRealisations.index') }}" class="nav-link {{ Request::is('admin/PkgRealisationProjets/livrablesRealisations') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-table"></i>
+                <i class="nav-icon fas fa-file-code"></i>
                 {{__('PkgRealisationProjets::livrablesRealisation.plural')}}
             </a>
         </li>
@@ -39,7 +39,7 @@
         @can('index-realisationProjet') 
         <li class="nav-item">
             <a href="{{ route('realisationProjets.index') }}" class="nav-link {{ Request::is('admin/PkgRealisationProjets/realisationProjets') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-table"></i>
+                <i class="nav-icon fas fa-laptop-code"></i>
                 {{__('PkgRealisationProjets::realisationProjet.plural')}}
             </a>
         </li>
@@ -47,7 +47,7 @@
         @can('index-validation') 
         <li class="nav-item">
             <a href="{{ route('validations.index') }}" class="nav-link {{ Request::is('admin/PkgRealisationProjets/validations') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-table"></i>
+                <i class="nav-icon fas fa-check-circle"></i>
                 {{__('PkgRealisationProjets::validation.plural')}}
             </a>
         </li>
