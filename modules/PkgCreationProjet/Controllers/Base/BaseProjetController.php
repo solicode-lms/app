@@ -33,7 +33,8 @@ class BaseProjetController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('projet.index');
-        $this->viewState->set('filter.projet.' . Projet::$user_column_name , $this->sessionState->get(Projet::$user_column_name));
+        $this->viewState->set('filter.projet.formateur_id'  , $this->sessionState->get('formateur_id'));
+
 
         // Extraire les paramètres de recherche, page, et filtres
         $projets_params = array_merge(
@@ -57,8 +58,7 @@ class BaseProjetController extends AdminController
         return view('PkgCreationProjet::projet.index', compact('projets_data', 'projets_stats', 'projets_filters'));
     }
     public function create() {
-        $this->viewState->set('scope_form.projet.' . Projet::$user_column_name , $this->sessionState->get(Projet::$user_column_name));
-
+        $this->viewState->set('scope_form.projet.formateur_id'  , $this->sessionState->get('formateur_id'));
         $itemProjet = $this->projetService->createInstance();
         $formateurs = $this->formateurService->all();
 
@@ -97,7 +97,7 @@ class BaseProjetController extends AdminController
     public function edit(string $id) {
 
         $this->viewState->setContextKey('projet.edit_' . $id);
-        
+
         $itemProjet = $this->projetService->find($id);
         $formateurs = $this->formateurService->all();
 

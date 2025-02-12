@@ -30,7 +30,8 @@ class BaseEtatsRealisationProjetController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('etatsRealisationProjet.index');
-        $this->viewState->set('filter.etatsRealisationProjet.' . EtatsRealisationProjet::$user_column_name , $this->sessionState->get(EtatsRealisationProjet::$user_column_name));
+        $this->viewState->set('filter.etatsRealisationProjet.formateur_id'  , $this->sessionState->get('formateur_id'));
+
 
         // Extraire les paramètres de recherche, page, et filtres
         $etatsRealisationProjets_params = array_merge(
@@ -54,8 +55,7 @@ class BaseEtatsRealisationProjetController extends AdminController
         return view('PkgRealisationProjets::etatsRealisationProjet.index', compact('etatsRealisationProjets_data', 'etatsRealisationProjets_stats', 'etatsRealisationProjets_filters'));
     }
     public function create() {
-        $this->viewState->set('scope_form.etatsRealisationProjet.' . EtatsRealisationProjet::$user_column_name , $this->sessionState->get(EtatsRealisationProjet::$user_column_name));
-
+        $this->viewState->set('scope_form.etatsRealisationProjet.formateur_id'  , $this->sessionState->get('formateur_id'));
         $itemEtatsRealisationProjet = $this->etatsRealisationProjetService->createInstance();
         $formateurs = $this->formateurService->all();
 
@@ -94,7 +94,7 @@ class BaseEtatsRealisationProjetController extends AdminController
     public function edit(string $id) {
 
         $this->viewState->setContextKey('etatsRealisationProjet.edit_' . $id);
-        
+
         $itemEtatsRealisationProjet = $this->etatsRealisationProjetService->find($id);
         $formateurs = $this->formateurService->all();
 

@@ -84,11 +84,14 @@
         "e_metadata_definition_reference": "required"
     },
     {
-        "reference": "projets_isOwnedByUser",
+        "reference": "projets_ownedByUser",
         "value_boolean": 1,
         "value_float": 0,
+        "value_json": {
+            "userModelName": "Formateur"
+        },
         "e_model_reference": "projets",
-        "e_metadata_definition_reference": "isOwnedByUser"
+        "e_metadata_definition_reference": "ownedByUser"
     },
     {
         "reference": "Projet_nombre_jour_required",

@@ -29,6 +29,8 @@ class BaseNiveauDifficulteController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('niveauDifficulte.index');
+        $this->viewState->set('scope_form.niveauDifficulte.formateur_id'  , $this->sessionState->get('formateur_id'));
+
 
         // Extraire les paramètres de recherche, page, et filtres
         $niveauDifficultes_params = array_merge(
@@ -52,7 +54,7 @@ class BaseNiveauDifficulteController extends AdminController
         return view('PkgCompetences::niveauDifficulte.index', compact('niveauDifficultes_data', 'niveauDifficultes_stats', 'niveauDifficultes_filters'));
     }
     public function create() {
-
+        $this->viewState->set('scope_form.niveauDifficulte.formateur_id'  , $this->sessionState->get('formateur_id'));
         $itemNiveauDifficulte = $this->niveauDifficulteService->createInstance();
         $formateurs = $this->formateurService->all();
 
@@ -91,7 +93,7 @@ class BaseNiveauDifficulteController extends AdminController
     public function edit(string $id) {
 
         $this->viewState->setContextKey('niveauDifficulte.edit_' . $id);
-        
+
         $itemNiveauDifficulte = $this->niveauDifficulteService->find($id);
         $formateurs = $this->formateurService->all();
 
@@ -104,6 +106,9 @@ class BaseNiveauDifficulteController extends AdminController
 
     }
     public function update(NiveauDifficulteRequest $request, string $id) {
+        // Vérifie si l'utilisateur peut mettre à jour l'objet 
+        $niveauDifficulte = $this->niveauDifficulteService->find($id);
+        $this->authorize('update', $niveauDifficulte);
 
         $validatedData = $request->validated();
         $niveauDifficulte = $this->niveauDifficulteService->update($id, $validatedData);
@@ -129,6 +134,9 @@ class BaseNiveauDifficulteController extends AdminController
 
     }
     public function destroy(Request $request, string $id) {
+        // Vérifie si l'utilisateur peut mettre à jour l'objet 
+        $niveauDifficulte = $this->niveauDifficulteService->find($id);
+        $this->authorize('delete', $niveauDifficulte);
 
         $niveauDifficulte = $this->niveauDifficulteService->destroy($id);
 
