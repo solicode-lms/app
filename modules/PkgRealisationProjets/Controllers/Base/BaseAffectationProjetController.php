@@ -37,6 +37,7 @@ class BaseAffectationProjetController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('affectationProjet.index');
         $this->viewState->set('scope.groupe.formateur_id', auth()->user()->formateur->id);
+        $this->viewState->set('scope.projet.formateur_id', auth()->user()->formateur->id);
 
         // Extraire les paramètres de recherche, page, et filtres
         $affectationProjets_params = array_merge(
@@ -61,6 +62,7 @@ class BaseAffectationProjetController extends AdminController
     }
     public function create() {
         $this->viewState->set('scope.groupe.formateur_id', auth()->user()->formateur->id);
+        $this->viewState->set('scope.projet.formateur_id', auth()->user()->formateur->id);
         $itemAffectationProjet = $this->affectationProjetService->createInstance();
         $anneeFormations = $this->anneeFormationService->all();
         $groupes = $this->groupeService->all();
@@ -102,6 +104,7 @@ class BaseAffectationProjetController extends AdminController
 
         $this->viewState->setContextKey('affectationProjet.edit_' . $id);
         $this->viewState->set('scope.groupe.formateur_id', auth()->user()->formateur->id);
+        $this->viewState->set('scope.projet.formateur_id', auth()->user()->formateur->id);
 
         $itemAffectationProjet = $this->affectationProjetService->find($id);
         $anneeFormations = $this->anneeFormationService->all();
