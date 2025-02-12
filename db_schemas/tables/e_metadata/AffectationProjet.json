@@ -244,5 +244,14 @@
         "value_float": 0,
         "e_model_reference": "affectation_projets",
         "e_metadata_definition_reference": "iconModel"
+    },
+    {
+        "reference": "AffectationProjet_groupe_id_useAssigned",
+        "value_float": 0,
+        "value_json": {
+            "userModelName": "Formateur"
+        },
+        "e_data_field_reference": "AffectationProjet_groupe_id",
+        "e_metadata_definition_reference": "useAssigned"
     }
 ]

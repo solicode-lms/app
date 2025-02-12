@@ -2,8 +2,8 @@
 
 
 return [
-    'singular' => 'État de Réalisation du Projet',
-    'plural' => 'États de Réalisation des Projets',
+    'singular' => 'État de Projet',
+    'plural' => 'États des Projets',
     'titre' => 'Titre',
     'description' => 'Description',
     'formateur_id' => 'ID du formateur',

@@ -586,5 +586,17 @@
         "description": "Edit le le formulaire en plein écran",
         "created_at": null,
         "updated_at": null
+    },
+    {
+        "id": 60,
+        "reference": "useAssigned",
+        "name": "useAssigned",
+        "type": "Json",
+        "scope": "field",
+        "default_value": "{\"userModelName\":\"formateur\"}",
+        "groupe": "form",
+        "description": "Il permet de restreindre les relations d’un modèle aux entités qui lui sont explicitement assignées. Par exemple, il peut être utilisé pour filtrer uniquement les groupes, projets ou ressources affectés à un utilisateur spécifique.",
+        "created_at": null,
+        "updated_at": null
     }
 ]
