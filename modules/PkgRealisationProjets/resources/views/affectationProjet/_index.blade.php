@@ -33,7 +33,7 @@
        $titre = __("PkgRealisationProjets::affectationProjet.singular");
     @endphp
     <x-crud-header 
-        id="affectationProjet-crud-header" icon="fas fa-table"  
+        id="affectationProjet-crud-header" icon="fas fa-user-check"  
         iconColor="text-info"
         title="{{ __('PkgRealisationProjets::affectationProjet.plural') }}"
         :breadcrumbs="[

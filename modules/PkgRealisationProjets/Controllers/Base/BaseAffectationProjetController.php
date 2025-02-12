@@ -60,8 +60,6 @@ class BaseAffectationProjetController extends AdminController
     }
     public function create() {
 
-        $this->viewState->set('scope.groupe.formateur_id', auth()->user()->formateur->id);
-
         $itemAffectationProjet = $this->affectationProjetService->createInstance();
         $anneeFormations = $this->anneeFormationService->all();
         $groupes = $this->groupeService->all();

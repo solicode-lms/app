@@ -1,6 +1,12 @@
 <?php
 
 
+// - Affectation de projet : fa-user-check
+// - État de Réalisation du Projet : fa-star-half
+// - Livrable de Réalisation : fa-file-code
+// - Réalisation de Projet : fa-code-branch , fa-laptop-code
+// - Validation : fa-check-circle
+
 return [
     'singular' => 'Affectation de projet',
     'plural' => 'Affectations de projets',

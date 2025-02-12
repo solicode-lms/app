@@ -1,12 +1,11 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 return [
-    'singular' => 'LivrablesRealisation',
-    'plural' => 'LivrablesRealisations',
-    'titre' => 'titre',
-    'description' => 'description',
-    'lien' => 'lien',
-    'livrable_id' => 'livrable_id',
+    'singular' => 'Livrable de Réalisation',
+    'plural' => 'Livrables de Réalisation',
+    'titre' => 'Titre',
+    'description' => 'Description',
+    'lien' => 'Lien',
+    'livrable_id' => 'ID du livrable',
 ];

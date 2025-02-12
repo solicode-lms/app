@@ -15,7 +15,7 @@
         @can('index-affectationProjet') 
         <li class="nav-item">
             <a href="{{ route('affectationProjets.index') }}" class="nav-link {{ Request::is('admin/PkgRealisationProjets/affectationProjets') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-table"></i>
+                <i class="nav-icon fas fa-user-check"></i>
                 {{__('PkgRealisationProjets::affectationProjet.plural')}}
             </a>
         </li>

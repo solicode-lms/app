@@ -1,11 +1,10 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 return [
-    'singular' => 'EtatsRealisationProjet',
-    'plural' => 'EtatsRealisationProjets',
-    'titre' => 'titre',
-    'description' => 'description',
-    'formateur_id' => 'formateur_id',
+    'singular' => 'État de Réalisation du Projet',
+    'plural' => 'États de Réalisation des Projets',
+    'titre' => 'Titre',
+    'description' => 'Description',
+    'formateur_id' => 'ID du formateur',
 ];

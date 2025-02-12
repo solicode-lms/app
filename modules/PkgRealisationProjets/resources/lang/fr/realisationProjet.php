@@ -1,14 +1,13 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 return [
-    'singular' => 'RealisationProjet',
-    'plural' => 'RealisationProjets',
-    'date_debut' => 'date_debut',
-    'date_fin' => 'date_fin',
-    'rapport' => 'rapport',
-    'etats_realisation_projet_id' => 'etats_realisation_projet_id',
-    'apprenant_id' => 'apprenant_id',
-    'affectation_projet_id' => 'affectation_projet_id',
+    'singular' => 'Réalisation de Projet',
+    'plural' => 'Réalisations de Projets',
+    'date_debut' => 'Date de début',
+    'date_fin' => 'Date de fin',
+    'rapport' => 'Rapport',
+    'etats_realisation_projet_id' => 'État de réalisation du projet',
+    'apprenant_id' => 'Apprenant',
+    'affectation_projet_id' => 'Affectation du projet',
 ];
