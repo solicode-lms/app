@@ -43,12 +43,11 @@ class BaseAffectationProjetService extends BaseService
     public function __construct()
     {
         parent::__construct(new AffectationProjet());
-
         $this->fieldsFilterable = [];
     }
 
     public function initFieldsFilterable(){
-     // Initialiser les filtres configurables dynamiquement
+       // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
             $this->generateManyToOneFilter(__("PkgApprenants::groupe.plural"), 'groupe_id', \Modules\PkgApprenants\Models\Groupe::class, 'code'),
             $this->generateManyToOneFilter(__("PkgCreationProjet::projet.plural"), 'projet_id', \Modules\PkgCreationProjet\Models\Projet::class, 'titre'),
