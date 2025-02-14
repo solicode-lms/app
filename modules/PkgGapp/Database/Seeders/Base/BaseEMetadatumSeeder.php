@@ -108,7 +108,7 @@ class BaseEMetadatumSeeder extends Seeder
 
         // Permissions spécifiques pour chaque type de fonctionnalité
         $featurePermissions = [
-            'Édition ' => [ 'create','store','edit','update','destroy','getEMetadata'],
+            'Édition ' => [ 'create','store','edit','update','destroy','getEMetadata','dataCalcul'],
             'Lecture' => ['index', 'show'],
             'Extraction' => ['import', 'export'],
         ];

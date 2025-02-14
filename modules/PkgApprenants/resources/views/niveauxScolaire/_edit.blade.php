@@ -4,6 +4,7 @@
     window.editWithTabPanelManagersConfig = window.editWithTabPanelManagersConfig || [];
     window.editWithTabPanelManagersConfig.push({
         entity_name: 'niveauxScolaire',
+        contextKey: 'niveauxScolaire.edit_{{ $itemNiveauxScolaire->id}}',
         cardTabSelector: '#card-tab-niveauxScolaire', 
         formSelector: '#niveauxScolaireForm',
         editUrl: '{{ route('niveauxScolaires.edit',  ['niveauxScolaire' => ':id']) }}',
@@ -14,6 +15,7 @@
 </script>
 <script>
     window.contextState = @json($contextState);
+    window.viewState = @json($viewState);
 </script>
 
 @section('content')
@@ -47,7 +49,7 @@
                             </div>
 
                             <div class="tab-pane fade" id="niveauxScolaire-hasmany-tabs-apprenant" role="tabpanel" aria-labelledby="niveauxScolaire-hasmany-tabs-apprenant-tab">
-                                @include('PkgApprenants::apprenant._index',['isMany' => true, "edit_has_many" => false])
+                                @include('PkgApprenants::apprenant._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'niveauxScolaire.edit_' . $itemNiveauxScolaire->id])
                             </div>
 
                            

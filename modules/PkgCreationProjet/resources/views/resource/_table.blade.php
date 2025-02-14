@@ -6,7 +6,6 @@
             <tr>
                 <x-sortable-column field="nom" label="{{ ucfirst(__('PkgCreationProjet::resource.nom')) }}" />
                 <x-sortable-column field="lien" label="{{ ucfirst(__('PkgCreationProjet::resource.lien')) }}" />
-                <x-sortable-column field="projet_id" label="{{ ucfirst(__('PkgCreationProjet::projet.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -15,7 +14,6 @@
                 <tr id="resource-row-{{$resource->id}}">
                     <td>@limit($resource->nom, 80)</td>
                     <td>@limit($resource->lien, 80)</td>
-                    <td>@limit($resource->projet->titre ?? '-', 80)</td>
                     <td class="text-right">
                         @can('show-resource')
                             <a href="{{ route('resources.show', ['resource' => $resource->id]) }}" data-id="{{$resource->id}}" class="btn btn-default btn-sm context-state showEntity">

@@ -14,8 +14,11 @@ Route::middleware('auth')->group(function () {
         Route::resource('sysColors', SysColorController::class);
         // Routes supplémentaires avec préfixe
         Route::prefix('data')->group(function () {
-            Route::get('sysColors/export', [SysColorController::class, 'export'])->name('sysColors.export');
             Route::post('sysColors/import', [SysColorController::class, 'import'])->name('sysColors.import');
+            Route::get('sysColors/export/{format}', [SysColorController::class, 'export'])
+            ->where('format', 'csv|xlsx')
+            ->name('sysColors.export');
+
         });
 
         Route::post('sysColors/data-calcul', [SysColorController::class, 'dataCalcul'])->name('sysColors.dataCalcul');

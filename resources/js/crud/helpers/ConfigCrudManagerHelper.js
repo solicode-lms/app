@@ -2,13 +2,14 @@ import ConfigHelper from './ConfigHelper';
 
 export default class ConfigCrudManagerHelper extends ConfigHelper {
 
-    constructor(config, contextState, sessionState) {
-        super(config, contextState, sessionState);
+    constructor(config) {
+        super(config);
 
         this.id = `${this.entity_name}-crud`;
 
         // indique si la page CRUD est situé dans tab panel
         this.isMany = config.isMany;
+        this.editOnFullScreen = config.editOnFullScreen;
         this.edit_has_many = config.edit_has_many;
 
         this.crudSelector = config.crudSelector;
@@ -26,12 +27,5 @@ export default class ConfigCrudManagerHelper extends ConfigHelper {
         this.dataContainerSelector = `${this.tableSelector}`;
         this.filterIconSelector = `${this.filterFormSelector} .filter-icon`;
         this.sortableColumnSelector = `${this.tableSelector} .sortable-column`;
-
-
-        
-
-
     }
-
- 
 }

@@ -6,7 +6,9 @@
     window.crudModalManagersConfig.push({
         edit_has_many: {{ !isset($edit_has_many)? 'false' :  ($edit_has_many ? "true": "false") }},
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
+        editOnFullScreen : false,
         entity_name: 'specialite',
+        contextKey: '{{ isset($contextKey) ? $contextKey : 'specialite.index' }}', 
         filterFormSelector: '#specialite-crud-filter-form',
         crudSelector: '#specialite-crud',
         tableSelector: '#specialite-data-container',
@@ -62,7 +64,8 @@
                             :importRoute="route('specialites.import')"
                             :importText="__('Importer')"
                             :exportPermission="'export-specialite'"
-                            :exportRoute="route('specialites.export')"
+                            :exportXlsxRoute="route('specialites.export', ['format' => 'xlsx'])"
+                            :exportCsvRoute="route('specialites.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
                         />
                     </div>

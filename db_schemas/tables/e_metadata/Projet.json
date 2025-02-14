@@ -1,0 +1,315 @@
+[
+    {
+        "reference": "projets_creationOrder",
+        "value_integer": 38,
+        "e_model_reference": "projets",
+        "e_metadata_definition_reference": "creationOrder"
+    },
+    {
+        "reference": "Projet_id_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "Projet_id",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "Projet_titre_displayInTable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Projet_titre",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "Projet_titre_displayField",
+        "value_boolean": 1,
+        "e_data_field_reference": "Projet_titre",
+        "e_metadata_definition_reference": "displayField"
+    },
+    {
+        "reference": "Projet_titre_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "Projet_titre",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "Projet_travail_a_faire_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "Projet_travail_a_faire",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "Projet_critere_de_travail_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "Projet_critere_de_travail",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "Projet_formateur_id_displayInTable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Projet_formateur_id",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "Projet_formateur_id_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "Projet_formateur_id",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "projets_hasMany_livrables_projet_id_editHasMany",
+        "value_boolean": 1,
+        "e_data_field_reference": "projets_hasMany_livrables_projet_id",
+        "e_metadata_definition_reference": "editHasMany"
+    },
+    {
+        "reference": "projets_hasMany_resources_projet_id_editHasMany",
+        "value_boolean": 1,
+        "e_data_field_reference": "projets_hasMany_resources_projet_id",
+        "e_metadata_definition_reference": "editHasMany"
+    },
+    {
+        "reference": "projets_hasMany_transfert_competences_projet_id_editHasMany",
+        "value_boolean": 1,
+        "e_data_field_reference": "projets_hasMany_transfert_competences_projet_id",
+        "e_metadata_definition_reference": "editHasMany"
+    },
+    {
+        "reference": "Projet_formateur_id_filterable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Projet_formateur_id",
+        "e_metadata_definition_reference": "filterable"
+    },
+    {
+        "reference": "Projet_reference_required",
+        "value_boolean": 0,
+        "e_data_field_reference": "Projet_reference",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "projets_ownedByUser",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "userModelName": "Formateur"
+        },
+        "e_model_reference": "projets",
+        "e_metadata_definition_reference": "ownedByUser"
+    },
+    {
+        "reference": "Projet_nombre_jour_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "Projet_nombre_jour",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "projets_hasMany_affectation_projets_projet_id_editHasMany",
+        "value_boolean": 1,
+        "e_data_field_reference": "projets_hasMany_affectation_projets_projet_id",
+        "e_metadata_definition_reference": "editHasMany"
+    },
+    {
+        "reference": "Projet_id_displayOrder",
+        "value_integer": 1,
+        "e_data_field_reference": "Projet_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "Projet_titre_displayOrder",
+        "value_integer": 2,
+        "e_data_field_reference": "Projet_titre",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "Projet_travail_a_faire_displayOrder",
+        "value_integer": 3,
+        "e_data_field_reference": "Projet_travail_a_faire",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "Projet_critere_de_travail_displayOrder",
+        "value_integer": 4,
+        "e_data_field_reference": "Projet_critere_de_travail",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "Projet_description_displayOrder",
+        "value_integer": 6,
+        "value_float": 0,
+        "e_data_field_reference": "Projet_description",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "Projet_nombre_jour_displayOrder",
+        "value_integer": 5,
+        "value_float": 0,
+        "e_data_field_reference": "Projet_nombre_jour",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "Projet_formateur_id_displayOrder",
+        "value_integer": 20,
+        "value_float": 0,
+        "e_data_field_reference": "Projet_formateur_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "Projet_reference_displayOrder",
+        "value_integer": 8,
+        "e_data_field_reference": "Projet_reference",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "Projet_created_at_displayOrder",
+        "value_integer": 9,
+        "e_data_field_reference": "Projet_created_at",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "Projet_updated_at_displayOrder",
+        "value_integer": 10,
+        "e_data_field_reference": "Projet_updated_at",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "projets_hasMany_affectation_projets_projet_id_displayOrder",
+        "value_integer": 14,
+        "value_float": 0,
+        "e_data_field_reference": "projets_hasMany_affectation_projets_projet_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "projets_hasMany_livrables_projet_id_displayOrder",
+        "value_integer": 12,
+        "e_data_field_reference": "projets_hasMany_livrables_projet_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "projets_hasMany_resources_projet_id_displayOrder",
+        "value_integer": 13,
+        "e_data_field_reference": "projets_hasMany_resources_projet_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "projets_hasMany_transfert_competences_projet_id_displayOrder",
+        "value_integer": 11,
+        "value_float": 0,
+        "e_data_field_reference": "projets_hasMany_transfert_competences_projet_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "projets_iconModel",
+        "value_string": "fa-calendar-alt",
+        "value_float": 0,
+        "e_model_reference": "projets",
+        "e_metadata_definition_reference": "iconModel"
+    },
+    {
+        "reference": "Projet_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "Projet_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "Projet_titre_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "Projet_titre",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "Projet_travail_a_faire_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "Projet_travail_a_faire",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "Projet_critere_de_travail_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "Projet_critere_de_travail",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "Projet_description_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "Projet_description",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "Projet_nombre_jour_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "Projet_nombre_jour",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "Projet_formateur_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "Projet_formateur_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "Projet_reference_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "Projet_reference",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "Projet_created_at_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "Projet_created_at",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "Projet_updated_at_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "Projet_updated_at",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "projets_hasMany_affectation_projets_projet_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "projets_hasMany_affectation_projets_projet_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "projets_hasMany_livrables_projet_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "projets_hasMany_livrables_projet_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "projets_hasMany_resources_projet_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "projets_hasMany_resources_projet_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "projets_hasMany_transfert_competences_projet_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "projets_hasMany_transfert_competences_projet_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "projets_displayInSideBar",
+        "value_boolean": 1,
+        "e_model_reference": "projets",
+        "e_metadata_definition_reference": "displayInSideBar"
+    },
+    {
+        "reference": "projets_hasMany_affectation_projets_projet_id_displayInTable",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "projets_hasMany_affectation_projets_projet_id",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "projets_hasMany_transfert_competences_projet_id_displayInTable",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "projets_hasMany_transfert_competences_projet_id",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "projets_editOnFullScreen",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_model_reference": "projets",
+        "e_metadata_definition_reference": "editOnFullScreen"
+    }
+]

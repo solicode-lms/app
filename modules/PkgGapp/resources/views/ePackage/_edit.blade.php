@@ -4,6 +4,7 @@
     window.editWithTabPanelManagersConfig = window.editWithTabPanelManagersConfig || [];
     window.editWithTabPanelManagersConfig.push({
         entity_name: 'ePackage',
+        contextKey: 'ePackage.edit_{{ $itemEPackage->id}}',
         cardTabSelector: '#card-tab-ePackage', 
         formSelector: '#ePackageForm',
         editUrl: '{{ route('ePackages.edit',  ['ePackage' => ':id']) }}',
@@ -14,6 +15,7 @@
 </script>
 <script>
     window.contextState = @json($contextState);
+    window.viewState = @json($viewState);
 </script>
 
 @section('content')
@@ -47,7 +49,7 @@
                             </div>
 
                             <div class="tab-pane fade" id="ePackage-hasmany-tabs-eModel" role="tabpanel" aria-labelledby="ePackage-hasmany-tabs-eModel-tab">
-                                @include('PkgGapp::eModel._index',['isMany' => true, "edit_has_many" => false])
+                                @include('PkgGapp::eModel._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'ePackage.edit_' . $itemEPackage->id])
                             </div>
 
                            

@@ -7,7 +7,9 @@ use Modules\PkgFormation\Services\SpecialiteService;
 use Modules\PkgFormation\Services\FormateurService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
+use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgFormation\App\Requests\SpecialiteRequest;
+use Modules\PkgFormation\Models\Specialite;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgFormation\App\Exports\SpecialiteExport;
 use Modules\PkgFormation\App\Imports\SpecialiteImport;
@@ -25,10 +27,14 @@ class BaseSpecialiteController extends AdminController
     }
 
     public function index(Request $request) {
+        
+        $this->viewState->setContextKeyIfEmpty('specialite.index');
+
+
         // Extraire les paramètres de recherche, page, et filtres
         $specialites_params = array_merge(
             $request->only(['page','sort']),
-            ['search' => $request->get('specialites_search', '')],
+            ['search' => $request->get('specialites_search', $this->viewState->get("filter.specialite.specialites_search"))],
             $request->except(['specialites_search', 'page', 'sort'])
         );
 
@@ -61,13 +67,14 @@ class BaseSpecialiteController extends AdminController
         $specialite = $this->specialiteService->create($validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 
-            'entity_id' => $specialite->id,
-            'message' => 
-             __('Core::msg.addSuccess', [
+             $message = __('Core::msg.addSuccess', [
                 'entityToString' => $specialite,
-                'modelName' => __('PkgFormation::specialite.singular')])
-            ]);
+                'modelName' => __('PkgFormation::specialite.singular')]);
+        
+            return JsonResponseHelper::success(
+             $message,
+             ['entity_id' => $specialite->id]
+            );
         }
 
         return redirect()->route('specialites.index')->with(
@@ -79,27 +86,15 @@ class BaseSpecialiteController extends AdminController
         );
     }
     public function show(string $id) {
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('specialite_id', $id);
-        
-        $itemSpecialite = $this->specialiteService->find($id);
-        $formateurs = $this->formateurService->all();
-
-        if (request()->ajax()) {
-            return view('PkgFormation::specialite._fields', compact('itemSpecialite', 'formateurs'));
-        }
-
-        return view('PkgFormation::specialite.edit', compact('itemSpecialite', 'formateurs'));
-
+        return $this->edit( $id);
     }
     public function edit(string $id) {
 
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('specialite_id', $id);
-        
+        $this->viewState->setContextKey('specialite.edit_' . $id);
+
         $itemSpecialite = $this->specialiteService->find($id);
         $formateurs = $this->formateurService->all();
+
 
         if (request()->ajax()) {
             return view('PkgFormation::specialite._fields', compact('itemSpecialite', 'formateurs'));
@@ -114,11 +109,14 @@ class BaseSpecialiteController extends AdminController
         $specialite = $this->specialiteService->update($id, $validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.updateSuccess', [
+             $message = __('Core::msg.updateSuccess', [
                 'entityToString' => $specialite,
-                'modelName' =>  __('PkgFormation::specialite.singular')])
-            ]);
+                'modelName' =>  __('PkgFormation::specialite.singular')]);
+            
+            return JsonResponseHelper::success(
+                $message,
+                ['entity_id' => $specialite->id]
+            );
         }
 
         return redirect()->route('specialites.index')->with(
@@ -135,11 +133,14 @@ class BaseSpecialiteController extends AdminController
         $specialite = $this->specialiteService->destroy($id);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.deleteSuccess', [
+            $message = __('Core::msg.deleteSuccess', [
                 'entityToString' => $specialite,
-                'modelName' =>  __('PkgFormation::specialite.singular')])
-            ]);
+                'modelName' =>  __('PkgFormation::specialite.singular')]);
+            
+
+            return JsonResponseHelper::success(
+                $message
+            );
         }
 
         return redirect()->route('specialites.index')->with(
@@ -152,10 +153,18 @@ class BaseSpecialiteController extends AdminController
 
     }
 
-    public function export()
+    public function export($format)
     {
         $specialites_data = $this->specialiteService->all();
-        return Excel::download(new SpecialiteExport($specialites_data), 'specialite_export.xlsx');
+        
+        // Vérifier le format et exporter en conséquence
+        if ($format === 'csv') {
+            return Excel::download(new SpecialiteExport($specialites_data,'csv'), 'specialite_export.csv', \Maatwebsite\Excel\Excel::CSV, ['Content-Type' => 'text/csv']);
+        } elseif ($format === 'xlsx') {
+            return Excel::download(new SpecialiteExport($specialites_data,'xlsx'), 'specialite_export.xlsx', \Maatwebsite\Excel\Excel::XLSX);
+        } else {
+            return response()->json(['error' => 'Format non supporté'], 400);
+        }
     }
 
     public function import(Request $request)

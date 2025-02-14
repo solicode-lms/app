@@ -8,7 +8,9 @@ use Modules\PkgAutorisation\Services\PermissionService;
 use Modules\PkgAutorisation\Services\UserService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
+use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgAutorisation\App\Requests\RoleRequest;
+use Modules\PkgAutorisation\Models\Role;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgAutorisation\App\Exports\RoleExport;
 use Modules\PkgAutorisation\App\Imports\RoleImport;
@@ -28,10 +30,14 @@ class BaseRoleController extends AdminController
     }
 
     public function index(Request $request) {
+        
+        $this->viewState->setContextKeyIfEmpty('role.index');
+
+
         // Extraire les paramètres de recherche, page, et filtres
         $roles_params = array_merge(
             $request->only(['page','sort']),
-            ['search' => $request->get('roles_search', '')],
+            ['search' => $request->get('roles_search', $this->viewState->get("filter.role.roles_search"))],
             $request->except(['roles_search', 'page', 'sort'])
         );
 
@@ -65,13 +71,14 @@ class BaseRoleController extends AdminController
         $role = $this->roleService->create($validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 
-            'entity_id' => $role->id,
-            'message' => 
-             __('Core::msg.addSuccess', [
+             $message = __('Core::msg.addSuccess', [
                 'entityToString' => $role,
-                'modelName' => __('PkgAutorisation::role.singular')])
-            ]);
+                'modelName' => __('PkgAutorisation::role.singular')]);
+        
+            return JsonResponseHelper::success(
+             $message,
+             ['entity_id' => $role->id]
+            );
         }
 
         return redirect()->route('roles.index')->with(
@@ -83,29 +90,16 @@ class BaseRoleController extends AdminController
         );
     }
     public function show(string $id) {
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('role_id', $id);
-        
-        $itemRole = $this->roleService->find($id);
-        $permissions = $this->permissionService->all();
-        $users = $this->userService->all();
-
-        if (request()->ajax()) {
-            return view('PkgAutorisation::role._fields', compact('itemRole', 'permissions', 'users'));
-        }
-
-        return view('PkgAutorisation::role.edit', compact('itemRole', 'permissions', 'users'));
-
+        return $this->edit( $id);
     }
     public function edit(string $id) {
 
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('role_id', $id);
-        
+        $this->viewState->setContextKey('role.edit_' . $id);
+
         $itemRole = $this->roleService->find($id);
         $permissions = $this->permissionService->all();
         $users = $this->userService->all();
+
 
         if (request()->ajax()) {
             return view('PkgAutorisation::role._fields', compact('itemRole', 'permissions', 'users'));
@@ -120,11 +114,14 @@ class BaseRoleController extends AdminController
         $role = $this->roleService->update($id, $validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.updateSuccess', [
+             $message = __('Core::msg.updateSuccess', [
                 'entityToString' => $role,
-                'modelName' =>  __('PkgAutorisation::role.singular')])
-            ]);
+                'modelName' =>  __('PkgAutorisation::role.singular')]);
+            
+            return JsonResponseHelper::success(
+                $message,
+                ['entity_id' => $role->id]
+            );
         }
 
         return redirect()->route('roles.index')->with(
@@ -141,11 +138,14 @@ class BaseRoleController extends AdminController
         $role = $this->roleService->destroy($id);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.deleteSuccess', [
+            $message = __('Core::msg.deleteSuccess', [
                 'entityToString' => $role,
-                'modelName' =>  __('PkgAutorisation::role.singular')])
-            ]);
+                'modelName' =>  __('PkgAutorisation::role.singular')]);
+            
+
+            return JsonResponseHelper::success(
+                $message
+            );
         }
 
         return redirect()->route('roles.index')->with(
@@ -158,10 +158,18 @@ class BaseRoleController extends AdminController
 
     }
 
-    public function export()
+    public function export($format)
     {
         $roles_data = $this->roleService->all();
-        return Excel::download(new RoleExport($roles_data), 'role_export.xlsx');
+        
+        // Vérifier le format et exporter en conséquence
+        if ($format === 'csv') {
+            return Excel::download(new RoleExport($roles_data,'csv'), 'role_export.csv', \Maatwebsite\Excel\Excel::CSV, ['Content-Type' => 'text/csv']);
+        } elseif ($format === 'xlsx') {
+            return Excel::download(new RoleExport($roles_data,'xlsx'), 'role_export.xlsx', \Maatwebsite\Excel\Excel::XLSX);
+        } else {
+            return response()->json(['error' => 'Format non supporté'], 400);
+        }
     }
 
     public function import(Request $request)

@@ -6,7 +6,9 @@
     window.crudModalManagersConfig.push({
         edit_has_many: {{ !isset($edit_has_many)? 'true' :  ($edit_has_many ? "true": "false") }},
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
+        editOnFullScreen : false,
         entity_name: 'ePackage',
+        contextKey: '{{ isset($contextKey) ? $contextKey : 'ePackage.index' }}', 
         filterFormSelector: '#ePackage-crud-filter-form',
         crudSelector: '#ePackage-crud',
         tableSelector: '#ePackage-data-container',
@@ -62,7 +64,8 @@
                             :importRoute="route('ePackages.import')"
                             :importText="__('Importer')"
                             :exportPermission="'export-ePackage'"
-                            :exportRoute="route('ePackages.export')"
+                            :exportXlsxRoute="route('ePackages.export', ['format' => 'xlsx'])"
+                            :exportCsvRoute="route('ePackages.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
                         />
                     </div>

@@ -23,8 +23,8 @@ class BaseUser extends BaseModel
 {
     use HasFactory, HasDynamicContext;
 
-    public function __construct() {
-        parent::__construct(); 
+    public function __construct(array $attributes = []) {
+        parent::__construct($attributes); 
         $this->isOwnedByUser =  false;
     }
 
@@ -38,8 +38,12 @@ class BaseUser extends BaseModel
         'name', 'email', 'email_verified_at', 'password', 'remember_token'
     ];
     public $manyToMany = [
-        'roles'
+        'Role' => ['relation' => 'roles' , "foreign_key" => "role_id" ]
     ];
+
+       
+
+
 
 
     /**

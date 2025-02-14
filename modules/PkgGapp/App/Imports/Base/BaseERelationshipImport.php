@@ -5,53 +5,73 @@
 
 namespace Modules\PkgGapp\App\Imports\Base;
 
-use Carbon\Carbon;
 use Modules\PkgGapp\Models\ERelationship;
 use Maatwebsite\Excel\Concerns\ToModel;
-use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Illuminate\Support\Facades\Log;
 
 class BaseERelationshipImport implements ToModel, WithHeadingRow
 {
     /**
-     * Vérifie si une tâche avec les mêmes attributs existe déjà dans la base de données.
+     * Vérifie si un enregistrement avec la même référence existe.
      *
-     * @param array $row Ligne de données importée.
-     * @return bool
+     * @param string $reference Référence unique de l'enregistrement.
+     * @return ERelationship|null
      */
-    private function recordExists(array $row): bool
+    private function findExistingRecord($reference): ?ERelationship
     {
-        return ERelationship::where('reference', $row['reference'])->exists();
+        if($reference == null) return null;
+        return ERelationship::where('reference', $reference)->first();
     }
 
     /**
      * Crée ou met à jour un enregistrement à partir des données importées.
      *
      * @param array $row Ligne de données importée.
-     * @return <ERelationship|null
+     * @return ERelationship|null
      */
     public function model(array $row)
     {
-        if ($this->recordExists($row)) {
-            return null; // Enregistrement existant, aucune action
+        // Convertir en tableau indexé pour gérer les colonnes par position
+        $values = array_values($row);
+        $reference = $values[5] ?? null; // La colonne "reference"
+
+
+        // Vérifier si l'enregistrement existe
+        $existingRecord = $this->findExistingRecord($reference);
+
+        if ($existingRecord) {
+            // Mise à jour de l'enregistrement existant
+            $existingRecord->update([
+                'nom' => $values[0] ?? $existingRecord->nom,
+                'noteMin' => $values[1] ?? $existingRecord->noteMin,
+                'noteMax' => $values[2] ?? $existingRecord->noteMax,
+                'formateur_id' => $values[3] ?? $existingRecord->formateur_id,
+                'description' => $values[4] ?? $existingRecord->description,
+            ]);
+
+            Log::info("Mise à jour réussie pour la référence : {$reference}");
+            return null; // Retourner null pour éviter la création d'un doublon
         }
 
-        // Crée un nouvel enregistrement à partir des données importées
+        // Création d'un nouvel enregistrement
         return new ERelationship([
-            'reference' => $row['reference'],
-            'name' => $row['name'],
-            'type' => $row['type'],
-            'source_e_model_id' => $row['source_e_model_id'],
-            'target_e_model_id' => $row['target_e_model_id'],
-            'cascade_on_delete' => $row['cascade_on_delete'],
-            'is_cascade' => $row['is_cascade'],
-            'description' => $row['description'],
-            'column_name' => $row['column_name'],
-            'referenced_table' => $row['referenced_table'],
-            'referenced_column' => $row['referenced_column'],
-            'through' => $row['through'],
-            'with_column' => $row['with_column'],
-            'morph_name' => $row['morph_name'],
+             'reference' => $reference,
+             'name' => $values[1] ?? null,
+             'type' => $values[2] ?? null,
+             'source_e_model_id' => $values[3] ?? null,
+             'target_e_model_id' => $values[4] ?? null,
+             'cascade_on_delete' => $values[5] ?? null,
+             'is_cascade' => $values[6] ?? null,
+             'description' => $values[7] ?? null,
+             'column_name' => $values[8] ?? null,
+             'referenced_table' => $values[9] ?? null,
+             'referenced_column' => $values[10] ?? null,
+             'through' => $values[11] ?? null,
+             'with_column' => $values[12] ?? null,
+             'morph_name' => $values[13] ?? null,
         ]);
+
+
     }
 }

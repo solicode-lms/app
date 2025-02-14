@@ -6,7 +6,9 @@
     window.crudModalManagersConfig.push({
         edit_has_many: {{ !isset($edit_has_many)? 'false' :  ($edit_has_many ? "true": "false") }},
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
+        editOnFullScreen : false,
         entity_name: 'permission',
+        contextKey: '{{ isset($contextKey) ? $contextKey : 'permission.index' }}', 
         filterFormSelector: '#permission-crud-filter-form',
         crudSelector: '#permission-crud',
         tableSelector: '#permission-data-container',
@@ -62,7 +64,8 @@
                             :importRoute="route('permissions.import')"
                             :importText="__('Importer')"
                             :exportPermission="'export-permission'"
-                            :exportRoute="route('permissions.export')"
+                            :exportXlsxRoute="route('permissions.export', ['format' => 'xlsx'])"
+                            :exportCsvRoute="route('permissions.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
                         />
                     </div>

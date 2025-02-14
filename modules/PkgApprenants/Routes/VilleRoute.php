@@ -14,8 +14,11 @@ Route::middleware('auth')->group(function () {
         Route::resource('villes', VilleController::class);
         // Routes supplémentaires avec préfixe
         Route::prefix('data')->group(function () {
-            Route::get('villes/export', [VilleController::class, 'export'])->name('villes.export');
             Route::post('villes/import', [VilleController::class, 'import'])->name('villes.import');
+            Route::get('villes/export/{format}', [VilleController::class, 'export'])
+            ->where('format', 'csv|xlsx')
+            ->name('villes.export');
+
         });
 
         Route::post('villes/data-calcul', [VilleController::class, 'dataCalcul'])->name('villes.dataCalcul');

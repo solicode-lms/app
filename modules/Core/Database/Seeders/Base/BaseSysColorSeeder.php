@@ -97,7 +97,7 @@ class BaseSysColorSeeder extends Seeder
 
         // Permissions spécifiques pour chaque type de fonctionnalité
         $featurePermissions = [
-            'Édition ' => [ 'create','store','edit','update','destroy','getSysColors'],
+            'Édition ' => [ 'create','store','edit','update','destroy','getSysColors','dataCalcul'],
             'Lecture' => ['index', 'show'],
             'Extraction' => ['import', 'export'],
         ];

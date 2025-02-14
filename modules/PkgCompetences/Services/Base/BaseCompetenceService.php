@@ -20,6 +20,7 @@ class BaseCompetenceService extends BaseService
      */
     protected $fieldsSearchable = [
         'code',
+        'mini_code',
         'nom',
         'module_id',
         'description'

@@ -9,7 +9,9 @@ use Modules\PkgGapp\Services\EMetadataDefinitionService;
 use Modules\PkgGapp\Services\EModelService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
+use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgGapp\App\Requests\EMetadatumRequest;
+use Modules\PkgGapp\Models\EMetadatum;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgGapp\App\Exports\EMetadatumExport;
 use Modules\PkgGapp\App\Imports\EMetadatumImport;
@@ -31,10 +33,14 @@ class BaseEMetadatumController extends AdminController
     }
 
     public function index(Request $request) {
+        
+        $this->viewState->setContextKeyIfEmpty('eMetadatum.index');
+
+
         // Extraire les paramètres de recherche, page, et filtres
         $eMetadata_params = array_merge(
             $request->only(['page','sort']),
-            ['search' => $request->get('eMetadata_search', '')],
+            ['search' => $request->get('eMetadata_search', $this->viewState->get("filter.eMetadatum.eMetadata_search"))],
             $request->except(['eMetadata_search', 'page', 'sort'])
         );
 
@@ -69,13 +75,14 @@ class BaseEMetadatumController extends AdminController
         $eMetadatum = $this->eMetadatumService->create($validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 
-            'entity_id' => $eMetadatum->id,
-            'message' => 
-             __('Core::msg.addSuccess', [
+             $message = __('Core::msg.addSuccess', [
                 'entityToString' => $eMetadatum,
-                'modelName' => __('PkgGapp::eMetadatum.singular')])
-            ]);
+                'modelName' => __('PkgGapp::eMetadatum.singular')]);
+        
+            return JsonResponseHelper::success(
+             $message,
+             ['entity_id' => $eMetadatum->id]
+            );
         }
 
         return redirect()->route('eMetadata.index')->with(
@@ -87,31 +94,17 @@ class BaseEMetadatumController extends AdminController
         );
     }
     public function show(string $id) {
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('e_metadatum_id', $id);
-        
-        $itemEMetadatum = $this->eMetadatumService->find($id);
-        $eDataFields = $this->eDataFieldService->all();
-        $eMetadataDefinitions = $this->eMetadataDefinitionService->all();
-        $eModels = $this->eModelService->all();
-
-        if (request()->ajax()) {
-            return view('PkgGapp::eMetadatum._fields', compact('itemEMetadatum', 'eDataFields', 'eMetadataDefinitions', 'eModels'));
-        }
-
-        return view('PkgGapp::eMetadatum.edit', compact('itemEMetadatum', 'eDataFields', 'eMetadataDefinitions', 'eModels'));
-
+        return $this->edit( $id);
     }
     public function edit(string $id) {
 
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('e_metadatum_id', $id);
-        
+        $this->viewState->setContextKey('eMetadatum.edit_' . $id);
+
         $itemEMetadatum = $this->eMetadatumService->find($id);
         $eDataFields = $this->eDataFieldService->all();
         $eMetadataDefinitions = $this->eMetadataDefinitionService->all();
         $eModels = $this->eModelService->all();
+
 
         if (request()->ajax()) {
             return view('PkgGapp::eMetadatum._fields', compact('itemEMetadatum', 'eDataFields', 'eMetadataDefinitions', 'eModels'));
@@ -126,11 +119,14 @@ class BaseEMetadatumController extends AdminController
         $eMetadatum = $this->eMetadatumService->update($id, $validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.updateSuccess', [
+             $message = __('Core::msg.updateSuccess', [
                 'entityToString' => $eMetadatum,
-                'modelName' =>  __('PkgGapp::eMetadatum.singular')])
-            ]);
+                'modelName' =>  __('PkgGapp::eMetadatum.singular')]);
+            
+            return JsonResponseHelper::success(
+                $message,
+                ['entity_id' => $eMetadatum->id]
+            );
         }
 
         return redirect()->route('eMetadata.index')->with(
@@ -147,11 +143,14 @@ class BaseEMetadatumController extends AdminController
         $eMetadatum = $this->eMetadatumService->destroy($id);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.deleteSuccess', [
+            $message = __('Core::msg.deleteSuccess', [
                 'entityToString' => $eMetadatum,
-                'modelName' =>  __('PkgGapp::eMetadatum.singular')])
-            ]);
+                'modelName' =>  __('PkgGapp::eMetadatum.singular')]);
+            
+
+            return JsonResponseHelper::success(
+                $message
+            );
         }
 
         return redirect()->route('eMetadata.index')->with(
@@ -164,10 +163,18 @@ class BaseEMetadatumController extends AdminController
 
     }
 
-    public function export()
+    public function export($format)
     {
         $eMetadata_data = $this->eMetadatumService->all();
-        return Excel::download(new EMetadatumExport($eMetadata_data), 'eMetadatum_export.xlsx');
+        
+        // Vérifier le format et exporter en conséquence
+        if ($format === 'csv') {
+            return Excel::download(new EMetadatumExport($eMetadata_data,'csv'), 'eMetadatum_export.csv', \Maatwebsite\Excel\Excel::CSV, ['Content-Type' => 'text/csv']);
+        } elseif ($format === 'xlsx') {
+            return Excel::download(new EMetadatumExport($eMetadata_data,'xlsx'), 'eMetadatum_export.xlsx', \Maatwebsite\Excel\Excel::XLSX);
+        } else {
+            return response()->json(['error' => 'Format non supporté'], 400);
+        }
     }
 
     public function import(Request $request)

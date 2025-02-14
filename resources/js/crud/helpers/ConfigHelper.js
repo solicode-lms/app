@@ -1,22 +1,23 @@
 import { SessionStateService } from '../components/SessionStateService';
-import { ContextStateService } from './../components/ContextStateService';
+import { ViewStateService } from '../components/ViewStateService';
 
 export default class ConfigHelper {
     /**
      * Constructeur de la classe ConfigHelper.
      * @param {Object} config - Configuration des opérations CRUD.
      */
-    constructor(config, contextState, sessionState) {
+    constructor(config) {
 
         this.isDebug = false;
         this.isDebugInfo = true;
       
 
-        this.contextStateService = new ContextStateService(contextState);
-        this.sessionStatService = new SessionStateService(sessionState);
-        
         this.entity_name = config.entity_name;
+        this.contextKey = config.contextKey;
         this.formSelector = config.formSelector;
+
+        this.sessionStatService = new SessionStateService();
+        this.viewStateService = new ViewStateService(this.contextKey,this.entity_name);
 
         this.indexUrl = config.indexUrl;
         this.editUrl = config.editUrl;
@@ -24,6 +25,9 @@ export default class ConfigHelper {
         this.editTitle = config.edit_title;
     }
 
+    init(){
+        ViewStateService.init();
+    }
      debugInfo(message){
         if( this.isDebugInfo){
             console.log(`[DEBUG] ${message}`);
@@ -32,7 +36,7 @@ export default class ConfigHelper {
     }
 
     toString(){
-        return `${this.id} : ${this.contextStateService}`
+        return `${this.id} : ${this.ViewStateService}`
     }
     
 }

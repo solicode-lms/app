@@ -39,6 +39,26 @@
 
 
         
+        <div class="form-group">
+            <label for="question">
+                {{ ucfirst(__('PkgCreationProjet::transfertCompetence.question')) }}
+                
+            </label>
+            <textarea rows="" cols=""
+                name="question"
+                class="form-control richText"
+                
+                data-calcul='true'
+                id="question"
+                placeholder="{{ __('PkgCreationProjet::transfertCompetence.question') }}">
+                {{ $itemTransfertCompetence ? $itemTransfertCompetence->question : old('question') }}
+            </textarea>
+            @error('question')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
+
+        
         
     <div class="form-group">
             <label for="niveau_difficulte_id">
@@ -66,26 +86,6 @@
             @enderror
     </div>
 
-
-        
-        <div class="form-group">
-            <label for="question">
-                {{ ucfirst(__('PkgCreationProjet::transfertCompetence.question')) }}
-                
-            </label>
-            <textarea rows="" cols=""
-                name="question"
-                class="form-control richText"
-                
-                
-                id="question"
-                placeholder="{{ __('PkgCreationProjet::transfertCompetence.question') }}">
-                {{ $itemTransfertCompetence ? $itemTransfertCompetence->question : old('question') }}
-            </textarea>
-            @error('question')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
 
         
                 <div class="form-group">
@@ -184,4 +184,7 @@
 </script>
 <script>
      window.modalTitle = '{{__("PkgCreationProjet::transfertCompetence.singular") }} : {{$itemTransfertCompetence}}'
+     window.contextState = @json($contextState);
+     window.sessionState = @json($sessionState);
+     window.viewState = @json($viewState);
 </script>

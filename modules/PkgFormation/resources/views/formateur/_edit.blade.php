@@ -4,6 +4,7 @@
     window.editWithTabPanelManagersConfig = window.editWithTabPanelManagersConfig || [];
     window.editWithTabPanelManagersConfig.push({
         entity_name: 'formateur',
+        contextKey: 'formateur.edit_{{ $itemFormateur->id}}',
         cardTabSelector: '#card-tab-formateur', 
         formSelector: '#formateurForm',
         editUrl: '{{ route('formateurs.edit',  ['formateur' => ':id']) }}',
@@ -14,6 +15,7 @@
 </script>
 <script>
     window.contextState = @json($contextState);
+    window.viewState = @json($viewState);
 </script>
 
 @section('content')
@@ -53,13 +55,13 @@
                             </div>
 
                             <div class="tab-pane fade" id="formateur-hasmany-tabs-etatsRealisationProjet" role="tabpanel" aria-labelledby="formateur-hasmany-tabs-etatsRealisationProjet-tab">
-                                @include('PkgRealisationProjets::etatsRealisationProjet._index',['isMany' => true, "edit_has_many" => false])
+                                @include('PkgRealisationProjets::etatsRealisationProjet._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'formateur.edit_' . $itemFormateur->id])
                             </div>
                             <div class="tab-pane fade" id="formateur-hasmany-tabs-niveauDifficulte" role="tabpanel" aria-labelledby="formateur-hasmany-tabs-niveauDifficulte-tab">
-                                @include('PkgCompetences::niveauDifficulte._index',['isMany' => true, "edit_has_many" => false])
+                                @include('PkgCompetences::niveauDifficulte._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'formateur.edit_' . $itemFormateur->id])
                             </div>
                             <div class="tab-pane fade" id="formateur-hasmany-tabs-projet" role="tabpanel" aria-labelledby="formateur-hasmany-tabs-projet-tab">
-                                @include('PkgCreationProjet::projet._index',['isMany' => true, "edit_has_many" => false])
+                                @include('PkgCreationProjet::projet._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'formateur.edit_' . $itemFormateur->id])
                             </div>
 
                            

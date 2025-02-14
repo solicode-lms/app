@@ -1,0 +1,130 @@
+{
+    "name": "Role",
+    "icon": "fa-id-badge",
+    "attributes": [
+        {
+            "name": "id",
+            "type": "Integer",
+            "metaAttributes": {
+                "general": {
+                    "required": true
+                },
+                "tables": {
+                    "displayInTable": true
+                },
+                "database": {
+                    "db_nullable": false,
+                    "db_primaryKey": true,
+                    "db_unique": false
+                }
+            }
+        },
+        {
+            "name": "name",
+            "type": "String",
+            "metaAttributes": {
+                "general": {
+                    "displayField": true,
+                    "required": true
+                },
+                "tables": {
+                    "displayInTable": true
+                },
+                "database": {
+                    "db_nullable": false,
+                    "db_primaryKey": false,
+                    "db_unique": false
+                }
+            }
+        },
+        {
+            "name": "guard_name",
+            "type": "String",
+            "metaAttributes": {
+                "general": {
+                    "required": true
+                },
+                "database": {
+                    "db_nullable": false,
+                    "db_primaryKey": false,
+                    "db_unique": false
+                }
+            }
+        },
+        {
+            "name": "created_at",
+            "type": "Date",
+            "metaAttributes": {
+                "tables": {
+                    "displayInTable": true
+                },
+                "database": {
+                    "db_nullable": true,
+                    "db_primaryKey": false,
+                    "db_unique": false
+                }
+            }
+        },
+        {
+            "name": "updated_at",
+            "type": "Date",
+            "metaAttributes": {
+                "tables": {
+                    "displayInTable": true
+                },
+                "database": {
+                    "db_nullable": true,
+                    "db_primaryKey": false,
+                    "db_unique": false
+                }
+            }
+        },
+        {
+            "name": "Permission_ManyToMany",
+            "type": "ManyToMany",
+            "metaAttributes": {
+                "relations": {
+                    "relationType": "ManyToMany",
+                    "targetTable": "permissions",
+                    "throughTable": "role_has_permissions"
+                },
+                "tables": {
+                    "displayInTable": true
+                }
+            }
+        },
+        {
+            "name": "User_ManyToMany",
+            "type": "ManyToMany",
+            "metaAttributes": {
+                "relations": {
+                    "relationType": "ManyToMany",
+                    "targetTable": "users",
+                    "throughTable": "model_has_roles"
+                },
+                "tables": {
+                    "displayInTable": true
+                }
+            }
+        }
+    ],
+    "oneToOneRelations": [],
+    "manyToOneRelations": [],
+    "hasManyRelations": [],
+    "manyToManyRelations": [
+        {
+            "through": "role_has_permissions",
+            "with": "permissions",
+            "columnName": "permission_id"
+        },
+        {
+            "through": "model_has_roles",
+            "with": "users",
+            "columnName": "model_id"
+        }
+    ],
+    "metaModels": {
+        "creationOrder": 2,
+        "isPivotTable": false
+    }
+}

@@ -46,7 +46,9 @@ class FormateurService extends BaseFormateurService
         ];
 
         foreach ($niveauxDifficulte as $niveau) {
-            $niveauDifficulteService->create([
+            $niveauDifficulteService->updateOrCreate(
+                [  "nom" => $niveau[0], "formateur_id" => $formateur->id],
+                [
                 "nom" => $niveau[0],
                 "description" => $niveau[1],
                 "noteMin" => $niveau[2],
@@ -64,7 +66,10 @@ class FormateurService extends BaseFormateurService
         ];
 
         foreach ($etatsRealisationProjet as $etat) {
-            $etatsRealisationProjetService->create([
+            $etatsRealisationProjetService->updateOrCreate ([
+                "titre" => $etat[0],
+                "formateur_id" => $formateur->id
+            ],[
                 "titre" => $etat[0],
                 "description" => $etat[1],
                 "formateur_id" => $formateur->id

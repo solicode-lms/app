@@ -6,7 +6,9 @@
     window.crudModalManagersConfig.push({
         edit_has_many: {{ !isset($edit_has_many)? 'true' :  ($edit_has_many ? "true": "false") }},
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
+        editOnFullScreen : false,
         entity_name: 'widgetType',
+        contextKey: '{{ isset($contextKey) ? $contextKey : 'widgetType.index' }}', 
         filterFormSelector: '#widgetType-crud-filter-form',
         crudSelector: '#widgetType-crud',
         tableSelector: '#widgetType-data-container',
@@ -62,7 +64,8 @@
                             :importRoute="route('widgetTypes.import')"
                             :importText="__('Importer')"
                             :exportPermission="'export-widgetType'"
-                            :exportRoute="route('widgetTypes.export')"
+                            :exportXlsxRoute="route('widgetTypes.export', ['format' => 'xlsx'])"
+                            :exportCsvRoute="route('widgetTypes.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
                         />
                     </div>

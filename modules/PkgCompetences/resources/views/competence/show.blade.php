@@ -29,6 +29,10 @@
                                 <p>{{ $itemCompetence->code }}</p>
                             </div>
                             <div class="col-sm-12">
+                                <label for="mini_code">{{ ucfirst(__('PkgCompetences::competence.mini_code')) }}:</label>
+                                <p>{{ $itemCompetence->mini_code }}</p>
+                            </div>
+                            <div class="col-sm-12">
                                 <label for="nom">{{ ucfirst(__('PkgCompetences::competence.nom')) }}:</label>
                                 <p>{{ $itemCompetence->nom }}</p>
                             </div>

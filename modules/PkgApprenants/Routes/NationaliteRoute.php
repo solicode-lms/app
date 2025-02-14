@@ -14,8 +14,11 @@ Route::middleware('auth')->group(function () {
         Route::resource('nationalites', NationaliteController::class);
         // Routes supplémentaires avec préfixe
         Route::prefix('data')->group(function () {
-            Route::get('nationalites/export', [NationaliteController::class, 'export'])->name('nationalites.export');
             Route::post('nationalites/import', [NationaliteController::class, 'import'])->name('nationalites.import');
+            Route::get('nationalites/export/{format}', [NationaliteController::class, 'export'])
+            ->where('format', 'csv|xlsx')
+            ->name('nationalites.export');
+
         });
 
         Route::post('nationalites/data-calcul', [NationaliteController::class, 'dataCalcul'])->name('nationalites.dataCalcul');

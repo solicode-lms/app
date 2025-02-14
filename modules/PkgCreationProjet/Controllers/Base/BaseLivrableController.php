@@ -8,7 +8,9 @@ use Modules\PkgCreationProjet\Services\NatureLivrableService;
 use Modules\PkgCreationProjet\Services\ProjetService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
+use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgCreationProjet\App\Requests\LivrableRequest;
+use Modules\PkgCreationProjet\Models\Livrable;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgCreationProjet\App\Exports\LivrableExport;
 use Modules\PkgCreationProjet\App\Imports\LivrableImport;
@@ -28,10 +30,14 @@ class BaseLivrableController extends AdminController
     }
 
     public function index(Request $request) {
+        
+        $this->viewState->setContextKeyIfEmpty('livrable.index');
+
+
         // Extraire les paramètres de recherche, page, et filtres
         $livrables_params = array_merge(
             $request->only(['page','sort']),
-            ['search' => $request->get('livrables_search', '')],
+            ['search' => $request->get('livrables_search', $this->viewState->get("filter.livrable.livrables_search"))],
             $request->except(['livrables_search', 'page', 'sort'])
         );
 
@@ -65,13 +71,14 @@ class BaseLivrableController extends AdminController
         $livrable = $this->livrableService->create($validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 
-            'entity_id' => $livrable->id,
-            'message' => 
-             __('Core::msg.addSuccess', [
+             $message = __('Core::msg.addSuccess', [
                 'entityToString' => $livrable,
-                'modelName' => __('PkgCreationProjet::livrable.singular')])
-            ]);
+                'modelName' => __('PkgCreationProjet::livrable.singular')]);
+        
+            return JsonResponseHelper::success(
+             $message,
+             ['entity_id' => $livrable->id]
+            );
         }
 
         return redirect()->route('livrables.index')->with(
@@ -83,29 +90,16 @@ class BaseLivrableController extends AdminController
         );
     }
     public function show(string $id) {
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('livrable_id', $id);
-        
-        $itemLivrable = $this->livrableService->find($id);
-        $natureLivrables = $this->natureLivrableService->all();
-        $projets = $this->projetService->all();
-
-        if (request()->ajax()) {
-            return view('PkgCreationProjet::livrable._fields', compact('itemLivrable', 'natureLivrables', 'projets'));
-        }
-
-        return view('PkgCreationProjet::livrable.edit', compact('itemLivrable', 'natureLivrables', 'projets'));
-
+        return $this->edit( $id);
     }
     public function edit(string $id) {
 
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('livrable_id', $id);
-        
+        $this->viewState->setContextKey('livrable.edit_' . $id);
+
         $itemLivrable = $this->livrableService->find($id);
         $natureLivrables = $this->natureLivrableService->all();
         $projets = $this->projetService->all();
+
 
         if (request()->ajax()) {
             return view('PkgCreationProjet::livrable._fields', compact('itemLivrable', 'natureLivrables', 'projets'));
@@ -120,11 +114,14 @@ class BaseLivrableController extends AdminController
         $livrable = $this->livrableService->update($id, $validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.updateSuccess', [
+             $message = __('Core::msg.updateSuccess', [
                 'entityToString' => $livrable,
-                'modelName' =>  __('PkgCreationProjet::livrable.singular')])
-            ]);
+                'modelName' =>  __('PkgCreationProjet::livrable.singular')]);
+            
+            return JsonResponseHelper::success(
+                $message,
+                ['entity_id' => $livrable->id]
+            );
         }
 
         return redirect()->route('livrables.index')->with(
@@ -141,11 +138,14 @@ class BaseLivrableController extends AdminController
         $livrable = $this->livrableService->destroy($id);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.deleteSuccess', [
+            $message = __('Core::msg.deleteSuccess', [
                 'entityToString' => $livrable,
-                'modelName' =>  __('PkgCreationProjet::livrable.singular')])
-            ]);
+                'modelName' =>  __('PkgCreationProjet::livrable.singular')]);
+            
+
+            return JsonResponseHelper::success(
+                $message
+            );
         }
 
         return redirect()->route('livrables.index')->with(
@@ -158,10 +158,18 @@ class BaseLivrableController extends AdminController
 
     }
 
-    public function export()
+    public function export($format)
     {
         $livrables_data = $this->livrableService->all();
-        return Excel::download(new LivrableExport($livrables_data), 'livrable_export.xlsx');
+        
+        // Vérifier le format et exporter en conséquence
+        if ($format === 'csv') {
+            return Excel::download(new LivrableExport($livrables_data,'csv'), 'livrable_export.csv', \Maatwebsite\Excel\Excel::CSV, ['Content-Type' => 'text/csv']);
+        } elseif ($format === 'xlsx') {
+            return Excel::download(new LivrableExport($livrables_data,'xlsx'), 'livrable_export.xlsx', \Maatwebsite\Excel\Excel::XLSX);
+        } else {
+            return response()->json(['error' => 'Format non supporté'], 400);
+        }
     }
 
     public function import(Request $request)

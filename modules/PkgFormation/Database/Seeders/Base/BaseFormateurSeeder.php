@@ -107,7 +107,7 @@ class BaseFormateurSeeder extends Seeder
 
         // Permissions spécifiques pour chaque type de fonctionnalité
         $featurePermissions = [
-            'Édition ' => [ 'create','store','edit','update','destroy','getFormateurs'],
+            'Édition ' => [ 'create','store','edit','update','destroy','getFormateurs','dataCalcul'],
             'Lecture' => ['index', 'show'],
             'Extraction' => ['import', 'export'],
         ];

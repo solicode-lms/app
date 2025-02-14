@@ -98,7 +98,7 @@ class BaseTechnologySeeder extends Seeder
 
         // Permissions spécifiques pour chaque type de fonctionnalité
         $featurePermissions = [
-            'Édition ' => [ 'create','store','edit','update','destroy','getTechnologies'],
+            'Édition ' => [ 'create','store','edit','update','destroy','getTechnologies','dataCalcul'],
             'Lecture' => ['index', 'show'],
             'Extraction' => ['import', 'export'],
         ];

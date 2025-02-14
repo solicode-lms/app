@@ -5,6 +5,7 @@
         <thead>
             <tr>
                 <x-sortable-column field="code" label="{{ ucfirst(__('PkgCompetences::competence.code')) }}" />
+                <x-sortable-column field="mini_code" label="{{ ucfirst(__('PkgCompetences::competence.mini_code')) }}" />
                 <x-sortable-column field="nom" label="{{ ucfirst(__('PkgCompetences::competence.nom')) }}" />
                 <x-sortable-column field="module_id" label="{{ ucfirst(__('PkgFormation::module.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
@@ -14,6 +15,7 @@
             @foreach ($competences_data as $competence)
                 <tr id="competence-row-{{$competence->id}}">
                     <td>@limit($competence->code, 80)</td>
+                    <td>@limit($competence->mini_code, 80)</td>
                     <td>@limit($competence->nom, 80)</td>
                     <td>@limit($competence->module->nom ?? '-', 80)</td>
                     <td class="text-right">

@@ -1,0 +1,160 @@
+{
+    "name": "EMetadatum",
+    "icon": "fa-table",
+    "attributes": [
+        {
+            "name": "id",
+            "type": "Integer",
+            "metaAttributes": {
+                "general": {
+                    "required": true
+                },
+                "tables": {
+                    "displayInTable": true
+                },
+                "database": {
+                    "db_nullable": false,
+                    "db_primaryKey": true,
+                    "db_unique": false
+                }
+            }
+        },
+        {
+            "name": "value_boolean",
+            "type": "Integer",
+            "metaAttributes": {
+                "database": {
+                    "db_nullable": true,
+                    "db_primaryKey": false,
+                    "db_unique": false
+                }
+            }
+        },
+        {
+            "name": "value_string",
+            "type": "String",
+            "metaAttributes": {
+                "database": {
+                    "db_nullable": true,
+                    "db_primaryKey": false,
+                    "db_unique": false
+                }
+            }
+        },
+        {
+            "name": "value_int",
+            "type": "Integer",
+            "metaAttributes": {
+                "database": {
+                    "db_nullable": true,
+                    "db_primaryKey": false,
+                    "db_unique": false
+                }
+            }
+        },
+        {
+            "name": "value_object",
+            "type": "JSON",
+            "metaAttributes": {
+                "database": {
+                    "db_nullable": true,
+                    "db_primaryKey": false,
+                    "db_unique": false
+                }
+            }
+        },
+        {
+            "name": "object_id",
+            "type": "Integer",
+            "metaAttributes": {
+                "general": {
+                    "required": true
+                },
+                "database": {
+                    "db_nullable": false,
+                    "db_primaryKey": false,
+                    "db_unique": false
+                }
+            }
+        },
+        {
+            "name": "object_type",
+            "type": "String",
+            "metaAttributes": {
+                "general": {
+                    "required": true
+                },
+                "database": {
+                    "db_nullable": false,
+                    "db_primaryKey": false,
+                    "db_unique": false
+                }
+            }
+        },
+        {
+            "name": "e_metadata_definition_id",
+            "type": "ManyToOne",
+            "metaAttributes": {
+                "general": {
+                    "required": true
+                },
+                "tables": {
+                    "displayInTable": true
+                },
+                "relations": {
+                    "manyToOne": true,
+                    "relationType": "ManyToOne",
+                    "targetModelName": "EMetadataDefinition",
+                    "targetTable": "e_metadata_definitions"
+                },
+                "database": {
+                    "db_nullable": false,
+                    "db_primaryKey": false,
+                    "db_unique": false
+                }
+            }
+        },
+        {
+            "name": "created_at",
+            "type": "Date",
+            "metaAttributes": {
+                "tables": {
+                    "displayInTable": true
+                },
+                "database": {
+                    "db_nullable": true,
+                    "db_primaryKey": false,
+                    "db_unique": false
+                }
+            }
+        },
+        {
+            "name": "updated_at",
+            "type": "Date",
+            "metaAttributes": {
+                "tables": {
+                    "displayInTable": true
+                },
+                "database": {
+                    "db_nullable": true,
+                    "db_primaryKey": false,
+                    "db_unique": false
+                }
+            }
+        }
+    ],
+    "oneToOneRelations": [],
+    "manyToOneRelations": [
+        {
+            "column": "e_metadata_definition_id",
+            "referencedTable": "e_metadata_definitions",
+            "referencedColumn": "id"
+        }
+    ],
+    "hasManyRelations": [],
+    "manyToManyRelations": [],
+    "metaModels": {
+        "creationOrder": 43,
+        "isPivotTable": false
+    }
+}

@@ -6,7 +6,6 @@
             <tr>
                 <x-sortable-column field="titre" label="{{ ucfirst(__('PkgCreationProjet::livrable.titre')) }}" />
                 <x-sortable-column field="nature_livrable_id" label="{{ ucfirst(__('PkgCreationProjet::natureLivrable.singular')) }}" />
-                <x-sortable-column field="projet_id" label="{{ ucfirst(__('PkgCreationProjet::projet.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -15,7 +14,6 @@
                 <tr id="livrable-row-{{$livrable->id}}">
                     <td>@limit($livrable->titre, 80)</td>
                     <td>@limit($livrable->natureLivrable->nom ?? '-', 80)</td>
-                    <td>@limit($livrable->projet->titre ?? '-', 80)</td>
                     <td class="text-right">
                         @can('show-livrable')
                             <a href="{{ route('livrables.show', ['livrable' => $livrable->id]) }}" data-id="{{$livrable->id}}" class="btn btn-default btn-sm context-state showEntity">

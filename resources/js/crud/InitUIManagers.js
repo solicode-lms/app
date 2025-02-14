@@ -24,7 +24,7 @@ export default class InitUIManagers {
         
         window.crudModalManagersConfig.forEach((crudModalManagerData) => {
 
-            const configHelper = new ConfigCrudManagerHelper(crudModalManagerData, window.contextState,window.sessionState);
+            const configHelper = new ConfigCrudManagerHelper(crudModalManagerData);
 
             const uniqueKey = configHelper.id || JSON.stringify(crudModalManagerData);
             
@@ -60,7 +60,7 @@ export default class InitUIManagers {
         }
         
         window.editWithTabPanelManagersConfig.forEach((editWithTabPanelManagerData) => {
-            const configHelper = new ConfigWithTabPanelManageHelper(editWithTabPanelManagerData, window.contextState, window.sessionState);
+            const configHelper = new ConfigWithTabPanelManageHelper(editWithTabPanelManagerData);
             
             const uniqueKey = configHelper.id || JSON.stringify(editWithTabPanelManagerData);
            

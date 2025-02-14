@@ -14,8 +14,11 @@ Route::middleware('auth')->group(function () {
         Route::resource('eMetadata', EMetadatumController::class);
         // Routes supplémentaires avec préfixe
         Route::prefix('data')->group(function () {
-            Route::get('eMetadata/export', [EMetadatumController::class, 'export'])->name('eMetadata.export');
             Route::post('eMetadata/import', [EMetadatumController::class, 'import'])->name('eMetadata.import');
+            Route::get('eMetadata/export/{format}', [EMetadatumController::class, 'export'])
+            ->where('format', 'csv|xlsx')
+            ->name('eMetadata.export');
+
         });
 
         Route::post('eMetadata/data-calcul', [EMetadatumController::class, 'dataCalcul'])->name('eMetadata.dataCalcul');

@@ -5,8 +5,12 @@ export class SessionStateService {
      * @param {String} prefix - Préfixe pour les paramètres.
      */
     constructor(sessionState = {}, prefix = 'session_') {
-        this.sessionState = sessionState;
         this.prefix = prefix; // Préfixe pour les paramètres de session.
+        this.init();
+    }
+
+    init(){
+        this.sessionState = window.sessionState ; 
     }
 
     /**

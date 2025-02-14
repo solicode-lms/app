@@ -4,7 +4,7 @@ export class PaginationUI {
     constructor(config, indexUI) {
         this.config = config;
         this.indexUI = indexUI; // Référence à `TableUI`
-        this.page = 0;
+        this.page = 1;
     }
 
     /**

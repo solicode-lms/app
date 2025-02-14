@@ -6,7 +6,9 @@
     window.crudModalManagersConfig.push({
         edit_has_many: {{ !isset($edit_has_many)? 'true' :  ($edit_has_many ? "true": "false") }},
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
+        editOnFullScreen : false,
         entity_name: 'nationalite',
+        contextKey: '{{ isset($contextKey) ? $contextKey : 'nationalite.index' }}', 
         filterFormSelector: '#nationalite-crud-filter-form',
         crudSelector: '#nationalite-crud',
         tableSelector: '#nationalite-data-container',
@@ -62,7 +64,8 @@
                             :importRoute="route('nationalites.import')"
                             :importText="__('Importer')"
                             :exportPermission="'export-nationalite'"
-                            :exportRoute="route('nationalites.export')"
+                            :exportXlsxRoute="route('nationalites.export', ['format' => 'xlsx'])"
+                            :exportCsvRoute="route('nationalites.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
                         />
                     </div>

@@ -14,8 +14,11 @@ Route::middleware('auth')->group(function () {
         Route::resource('anneeFormations', AnneeFormationController::class);
         // Routes supplémentaires avec préfixe
         Route::prefix('data')->group(function () {
-            Route::get('anneeFormations/export', [AnneeFormationController::class, 'export'])->name('anneeFormations.export');
             Route::post('anneeFormations/import', [AnneeFormationController::class, 'import'])->name('anneeFormations.import');
+            Route::get('anneeFormations/export/{format}', [AnneeFormationController::class, 'export'])
+            ->where('format', 'csv|xlsx')
+            ->name('anneeFormations.export');
+
         });
 
         Route::post('anneeFormations/data-calcul', [AnneeFormationController::class, 'dataCalcul'])->name('anneeFormations.dataCalcul');

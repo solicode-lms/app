@@ -9,7 +9,9 @@ use Modules\PkgGapp\Services\ERelationshipService;
 use Modules\PkgGapp\Services\EMetadatumService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
+use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgGapp\App\Requests\EDataFieldRequest;
+use Modules\PkgGapp\Models\EDataField;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgGapp\App\Exports\EDataFieldExport;
 use Modules\PkgGapp\App\Imports\EDataFieldImport;
@@ -29,10 +31,14 @@ class BaseEDataFieldController extends AdminController
     }
 
     public function index(Request $request) {
+        
+        $this->viewState->setContextKeyIfEmpty('eDataField.index');
+
+
         // Extraire les paramètres de recherche, page, et filtres
         $eDataFields_params = array_merge(
             $request->only(['page','sort']),
-            ['search' => $request->get('eDataFields_search', '')],
+            ['search' => $request->get('eDataFields_search', $this->viewState->get("filter.eDataField.eDataFields_search"))],
             $request->except(['eDataFields_search', 'page', 'sort'])
         );
 
@@ -66,13 +72,14 @@ class BaseEDataFieldController extends AdminController
         $eDataField = $this->eDataFieldService->create($validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 
-            'entity_id' => $eDataField->id,
-            'message' => 
-             __('Core::msg.addSuccess', [
+             $message = __('Core::msg.addSuccess', [
                 'entityToString' => $eDataField,
-                'modelName' => __('PkgGapp::eDataField.singular')])
-            ]);
+                'modelName' => __('PkgGapp::eDataField.singular')]);
+        
+            return JsonResponseHelper::success(
+             $message,
+             ['entity_id' => $eDataField->id]
+            );
         }
 
         return redirect()->route('eDataFields.edit',['eDataField' => $eDataField->id])->with(
@@ -84,34 +91,17 @@ class BaseEDataFieldController extends AdminController
         );
     }
     public function show(string $id) {
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('e_data_field_id', $id);
-        
-        $itemEDataField = $this->eDataFieldService->find($id);
-        $eModels = $this->eModelService->all();
-        $eRelationships = $this->eRelationshipService->all();
-        $eMetadatumService =  new EMetadatumService();
-        $eMetadata_data =  $itemEDataField->eMetadata()->paginate(10);
-        $eMetadata_stats = $eMetadatumService->geteMetadatumStats();
-        $eMetadata_filters = $eMetadatumService->getFieldsFilterable();
-        
-
-        if (request()->ajax()) {
-            return view('PkgGapp::eDataField._edit', compact('itemEDataField', 'eModels', 'eRelationships', 'eMetadata_data', 'eMetadata_stats', 'eMetadata_filters'));
-        }
-
-        return view('PkgGapp::eDataField.edit', compact('itemEDataField', 'eModels', 'eRelationships', 'eMetadata_data', 'eMetadata_stats', 'eMetadata_filters'));
-
+        return $this->edit( $id);
     }
     public function edit(string $id) {
 
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('e_data_field_id', $id);
-        
+        $this->viewState->setContextKey('eDataField.edit_' . $id);
+
         $itemEDataField = $this->eDataFieldService->find($id);
         $eModels = $this->eModelService->all();
         $eRelationships = $this->eRelationshipService->all();
+
+        $this->viewState->set('scope.eMetadatum.e_data_field_id', $id);
         $eMetadatumService =  new EMetadatumService();
         $eMetadata_data =  $itemEDataField->eMetadata()->paginate(10);
         $eMetadata_stats = $eMetadatumService->geteMetadatumStats();
@@ -131,11 +121,14 @@ class BaseEDataFieldController extends AdminController
         $eDataField = $this->eDataFieldService->update($id, $validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.updateSuccess', [
+             $message = __('Core::msg.updateSuccess', [
                 'entityToString' => $eDataField,
-                'modelName' =>  __('PkgGapp::eDataField.singular')])
-            ]);
+                'modelName' =>  __('PkgGapp::eDataField.singular')]);
+            
+            return JsonResponseHelper::success(
+                $message,
+                ['entity_id' => $eDataField->id]
+            );
         }
 
         return redirect()->route('eDataFields.index')->with(
@@ -152,11 +145,14 @@ class BaseEDataFieldController extends AdminController
         $eDataField = $this->eDataFieldService->destroy($id);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.deleteSuccess', [
+            $message = __('Core::msg.deleteSuccess', [
                 'entityToString' => $eDataField,
-                'modelName' =>  __('PkgGapp::eDataField.singular')])
-            ]);
+                'modelName' =>  __('PkgGapp::eDataField.singular')]);
+            
+
+            return JsonResponseHelper::success(
+                $message
+            );
         }
 
         return redirect()->route('eDataFields.index')->with(
@@ -169,10 +165,18 @@ class BaseEDataFieldController extends AdminController
 
     }
 
-    public function export()
+    public function export($format)
     {
         $eDataFields_data = $this->eDataFieldService->all();
-        return Excel::download(new EDataFieldExport($eDataFields_data), 'eDataField_export.xlsx');
+        
+        // Vérifier le format et exporter en conséquence
+        if ($format === 'csv') {
+            return Excel::download(new EDataFieldExport($eDataFields_data,'csv'), 'eDataField_export.csv', \Maatwebsite\Excel\Excel::CSV, ['Content-Type' => 'text/csv']);
+        } elseif ($format === 'xlsx') {
+            return Excel::download(new EDataFieldExport($eDataFields_data,'xlsx'), 'eDataField_export.xlsx', \Maatwebsite\Excel\Excel::XLSX);
+        } else {
+            return response()->json(['error' => 'Format non supporté'], 400);
+        }
     }
 
     public function import(Request $request)

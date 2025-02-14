@@ -6,7 +6,9 @@
     window.crudModalManagersConfig.push({
         edit_has_many: {{ !isset($edit_has_many)? 'true' :  ($edit_has_many ? "true": "false") }},
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
+        editOnFullScreen : false,
         entity_name: 'filiere',
+        contextKey: '{{ isset($contextKey) ? $contextKey : 'filiere.index' }}', 
         filterFormSelector: '#filiere-crud-filter-form',
         crudSelector: '#filiere-crud',
         tableSelector: '#filiere-data-container',
@@ -62,7 +64,8 @@
                             :importRoute="route('filieres.import')"
                             :importText="__('Importer')"
                             :exportPermission="'export-filiere'"
-                            :exportRoute="route('filieres.export')"
+                            :exportXlsxRoute="route('filieres.export', ['format' => 'xlsx'])"
+                            :exportCsvRoute="route('filieres.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
                         />
                     </div>

@@ -4,6 +4,7 @@
     window.editWithTabPanelManagersConfig = window.editWithTabPanelManagersConfig || [];
     window.editWithTabPanelManagersConfig.push({
         entity_name: 'sysColor',
+        contextKey: 'sysColor.edit_{{ $itemSysColor->id}}',
         cardTabSelector: '#card-tab-sysColor', 
         formSelector: '#sysColorForm',
         editUrl: '{{ route('sysColors.edit',  ['sysColor' => ':id']) }}',
@@ -14,6 +15,7 @@
 </script>
 <script>
     window.contextState = @json($contextState);
+    window.viewState = @json($viewState);
 </script>
 
 @section('content')
@@ -50,10 +52,10 @@
                             </div>
 
                             <div class="tab-pane fade" id="sysColor-hasmany-tabs-sysModel" role="tabpanel" aria-labelledby="sysColor-hasmany-tabs-sysModel-tab">
-                                @include('Core::sysModel._index',['isMany' => true, "edit_has_many" => false])
+                                @include('Core::sysModel._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sysColor.edit_' . $itemSysColor->id])
                             </div>
                             <div class="tab-pane fade" id="sysColor-hasmany-tabs-sysModule" role="tabpanel" aria-labelledby="sysColor-hasmany-tabs-sysModule-tab">
-                                @include('Core::sysModule._index',['isMany' => true, "edit_has_many" => false])
+                                @include('Core::sysModule._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sysColor.edit_' . $itemSysColor->id])
                             </div>
 
                            

@@ -4,6 +4,7 @@
     window.editWithTabPanelManagersConfig = window.editWithTabPanelManagersConfig || [];
     window.editWithTabPanelManagersConfig.push({
         entity_name: 'widgetType',
+        contextKey: 'widgetType.edit_{{ $itemWidgetType->id}}',
         cardTabSelector: '#card-tab-widgetType', 
         formSelector: '#widgetTypeForm',
         editUrl: '{{ route('widgetTypes.edit',  ['widgetType' => ':id']) }}',
@@ -14,6 +15,7 @@
 </script>
 <script>
     window.contextState = @json($contextState);
+    window.viewState = @json($viewState);
 </script>
 
 @section('content')
@@ -47,7 +49,7 @@
                             </div>
 
                             <div class="tab-pane fade" id="widgetType-hasmany-tabs-widget" role="tabpanel" aria-labelledby="widgetType-hasmany-tabs-widget-tab">
-                                @include('PkgWidgets::widget._index',['isMany' => true, "edit_has_many" => false])
+                                @include('PkgWidgets::widget._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'widgetType.edit_' . $itemWidgetType->id])
                             </div>
 
                            

@@ -26,4 +26,5 @@ return [
     'checkAll' => 'Tout cocher',
     'date' => 'Date',
     'select' => 'Sélectionner',
+    'reference' => 'Référence'
 ];

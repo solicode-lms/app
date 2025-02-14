@@ -1,5 +1,5 @@
 import { AjaxErrorHandler } from '../components/AjaxErrorHandler';
-import { ContextStateService } from '../components/ContextStateService';
+import { ViewStateService } from '../components/ViewStateService';
 import { NotificationHandler } from '../components/NotificationHandler';
 import { Action } from './Action';
 import EventUtil from '../utils/EventUtil';
@@ -7,16 +7,9 @@ export class CreateAction extends Action {
 
     constructor(config, tableUI) {
         super(config);
-        this.config = config;
-        
+        this.config = config;  
         this.tableUI = tableUI;
-
-        
         this.SuscesMessage = 'Nouvelle entité ajoutée avec succès.';
-        this.createUrl = this.appendParamsToUrl(
-            this.config.createUrl,
-            this.contextService.getContextParams()
-        );
     }
 
     init(){
@@ -27,6 +20,12 @@ export class CreateAction extends Action {
      * Gère l'ouverture du modal et l'ajout d'une nouvelle entité.
      */
     addEntity() {
+
+        this.createUrl = this.appendParamsToUrl(
+            this.config.createUrl,
+            this.viewStateService.getContextParams()
+        );
+        
         // Afficher le chargement dans le modal
         this.tableUI.indexUI.modalUI.showLoading(this.config.createTitle);
 
@@ -36,6 +35,7 @@ export class CreateAction extends Action {
                 // Injecter le contenu dans le modal et afficher le formulaire
                 this.tableUI.indexUI.modalUI.showContent(html);
                 this.executeScripts(html);
+                this.config.init();
                 this.tableUI.indexUI.formUI.init(() => this.submitEntity());
             })
             .fail((xhr) => {
@@ -79,7 +79,7 @@ export class CreateAction extends Action {
 
                     if(this.config.edit_has_many){
 
-                        const entity_id = parseInt( data[`entity_id`]);
+                        const entity_id = parseInt( data.data[`entity_id`]);
 
                         this.tableUI.entityEditor.editEntity(entity_id);
                         this.tableUI.entityLoader.loadEntities();
@@ -88,7 +88,7 @@ export class CreateAction extends Action {
                         // let editUrl = this.getUrlWithId(this.config.editUrl, entity_id); // Générer l'URL dynamique
                         // editUrl = this.appendParamsToUrl(
                         //     editUrl,
-                        //     this.contextService.getContextParams()
+                        //     this.viewStateService.getContextParams()
                         // );
 
                         // window.location.href  = editUrl;

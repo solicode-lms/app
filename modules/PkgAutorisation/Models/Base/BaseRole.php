@@ -22,8 +22,8 @@ class BaseRole extends BaseModel
 {
     use HasFactory, HasDynamicContext;
 
-    public function __construct() {
-        parent::__construct(); 
+    public function __construct(array $attributes = []) {
+        parent::__construct($attributes); 
         $this->isOwnedByUser =  false;
     }
 
@@ -37,9 +37,13 @@ class BaseRole extends BaseModel
         'name', 'guard_name'
     ];
     public $manyToMany = [
-        'permissions',
-        'users'
+        'Permission' => ['relation' => 'permissions' , "foreign_key" => "permission_id" ],
+        'User' => ['relation' => 'users' , "foreign_key" => "user_id" ]
     ];
+
+       
+
+
 
 
     /**

@@ -1,0 +1,1 @@
+Create DATABASE solicode_lms_schemas

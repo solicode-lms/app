@@ -147,4 +147,7 @@
 </script>
 <script>
      window.modalTitle = '{{__("PkgAutorisation::permission.singular") }} : {{$itemPermission}}'
+     window.contextState = @json($contextState);
+     window.sessionState = @json($sessionState);
+     window.viewState = @json($viewState);
 </script>

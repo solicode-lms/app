@@ -1,0 +1,177 @@
+{
+    "name": "EModel",
+    "icon": "fa-table",
+    "attributes": [
+        {
+            "name": "id",
+            "type": "Integer",
+            "metaAttributes": {
+                "general": {
+                    "required": true
+                },
+                "tables": {
+                    "displayInTable": true
+                },
+                "database": {
+                    "db_nullable": false,
+                    "db_primaryKey": true,
+                    "db_unique": false
+                }
+            }
+        },
+        {
+            "name": "name",
+            "type": "String",
+            "metaAttributes": {
+                "general": {
+                    "displayField": true,
+                    "required": true
+                },
+                "tables": {
+                    "displayInTable": true
+                },
+                "database": {
+                    "db_nullable": false,
+                    "db_primaryKey": false,
+                    "db_unique": false
+                }
+            }
+        },
+        {
+            "name": "icon",
+            "type": "String",
+            "metaAttributes": {
+                "tables": {
+                    "displayInTable": true
+                },
+                "database": {
+                    "db_nullable": true,
+                    "db_primaryKey": false,
+                    "db_unique": false
+                }
+            }
+        },
+        {
+            "name": "description",
+            "type": "Text",
+            "metaAttributes": {
+                "database": {
+                    "db_nullable": true,
+                    "db_primaryKey": false,
+                    "db_unique": false
+                }
+            }
+        },
+        {
+            "name": "e_package_id",
+            "type": "ManyToOne",
+            "metaAttributes": {
+                "general": {
+                    "required": true
+                },
+                "tables": {
+                    "displayInTable": true
+                },
+                "relations": {
+                    "manyToOne": true,
+                    "relationType": "ManyToOne",
+                    "targetModelName": "EPackage",
+                    "targetTable": "e_packages"
+                },
+                "database": {
+                    "db_nullable": false,
+                    "db_primaryKey": false,
+                    "db_unique": false
+                }
+            }
+        },
+        {
+            "name": "created_at",
+            "type": "Date",
+            "metaAttributes": {
+                "tables": {
+                    "displayInTable": true
+                },
+                "database": {
+                    "db_nullable": true,
+                    "db_primaryKey": false,
+                    "db_unique": false
+                }
+            }
+        },
+        {
+            "name": "updated_at",
+            "type": "Date",
+            "metaAttributes": {
+                "tables": {
+                    "displayInTable": true
+                },
+                "database": {
+                    "db_nullable": true,
+                    "db_primaryKey": false,
+                    "db_unique": false
+                }
+            }
+        },
+        {
+            "name": "EDataField_HasMany",
+            "type": "HasMany",
+            "metaAttributes": {
+                "relations": {
+                    "relationType": "HasMany",
+                    "targetModelName": "EDataField",
+                    "targetTable": "e_data_fields"
+                }
+            }
+        },
+        {
+            "name": "ERelationship_HasMany",
+            "type": "HasMany",
+            "metaAttributes": {
+                "relations": {
+                    "relationType": "HasMany",
+                    "targetModelName": "ERelationship",
+                    "targetTable": "e_relationships"
+                }
+            }
+        },
+        {
+            "name": "ERelationship_HasMany",
+            "type": "HasMany",
+            "metaAttributes": {
+                "relations": {
+                    "relationType": "HasMany",
+                    "targetModelName": "ERelationship",
+                    "targetTable": "e_relationships"
+                }
+            }
+        }
+    ],
+    "oneToOneRelations": [],
+    "manyToOneRelations": [
+        {
+            "column": "e_package_id",
+            "referencedTable": "e_packages",
+            "referencedColumn": "id"
+        }
+    ],
+    "hasManyRelations": [
+        {
+            "referencedTable": "e_data_fields",
+            "columnName": "e_model_id"
+        },
+        {
+            "referencedTable": "e_relationships",
+            "columnName": "source_e_model_id"
+        },
+        {
+            "referencedTable": "e_relationships",
+            "columnName": "target_e_model_id"
+        }
+    ],
+    "manyToManyRelations": [],
+    "metaModels": {
+        "creationOrder": 45,
+        "isPivotTable": false
+    }
+}

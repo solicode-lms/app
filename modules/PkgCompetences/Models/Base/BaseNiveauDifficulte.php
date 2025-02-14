@@ -20,11 +20,11 @@ use Modules\PkgCreationProjet\Models\TransfertCompetence;
  */
 class BaseNiveauDifficulte extends BaseModel
 {
-    use HasFactory, HasDynamicContext;
+    use HasFactory, HasDynamicContext, OwnedByUser;
 
-    public function __construct() {
-        parent::__construct(); 
-        $this->isOwnedByUser =  false;
+    public function __construct(array $attributes = []) {
+        parent::__construct($attributes); 
+        $this->isOwnedByUser =  true;
     }
 
     

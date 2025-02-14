@@ -19,12 +19,12 @@ class BaseAffectationProjetService extends BaseService
      * @var array
      */
     protected $fieldsSearchable = [
+        'groupe_id',
         'date_debut',
         'date_fin',
-        'annee_formation_id',
-        'groupe_id',
         'projet_id',
-        'description'
+        'description',
+        'annee_formation_id'
     ];
 
     /**
@@ -43,14 +43,15 @@ class BaseAffectationProjetService extends BaseService
     public function __construct()
     {
         parent::__construct(new AffectationProjet());
+        $this->fieldsFilterable = [];
+    }
 
-        // Initialiser les filtres configurables dynamiquement
+    public function initFieldsFilterable(){
+       // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
-            $this->generateManyToOneFilter(__("PkgFormation::anneeFormation.plural"), 'annee_formation_id', \Modules\PkgFormation\Models\AnneeFormation::class, 'titre'),
             $this->generateManyToOneFilter(__("PkgApprenants::groupe.plural"), 'groupe_id', \Modules\PkgApprenants\Models\Groupe::class, 'code'),
             $this->generateManyToOneFilter(__("PkgCreationProjet::projet.plural"), 'projet_id', \Modules\PkgCreationProjet\Models\Projet::class, 'titre'),
         ];
-
     }
 
     /**

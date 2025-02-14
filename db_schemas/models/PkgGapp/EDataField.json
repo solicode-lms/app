@@ -1,0 +1,132 @@
+{
+    "name": "EDataField",
+    "icon": "fa-table",
+    "attributes": [
+        {
+            "name": "id",
+            "type": "Integer",
+            "metaAttributes": {
+                "general": {
+                    "required": true
+                },
+                "tables": {
+                    "displayInTable": true
+                },
+                "database": {
+                    "db_nullable": false,
+                    "db_primaryKey": true,
+                    "db_unique": false
+                }
+            }
+        },
+        {
+            "name": "name",
+            "type": "String",
+            "metaAttributes": {
+                "general": {
+                    "displayField": true,
+                    "required": true
+                },
+                "tables": {
+                    "displayInTable": true
+                },
+                "database": {
+                    "db_nullable": false,
+                    "db_primaryKey": false,
+                    "db_unique": false
+                }
+            }
+        },
+        {
+            "name": "type",
+            "type": "String",
+            "metaAttributes": {
+                "general": {
+                    "displayField": true,
+                    "required": true
+                },
+                "database": {
+                    "db_nullable": false,
+                    "db_primaryKey": false,
+                    "db_unique": false
+                }
+            }
+        },
+        {
+            "name": "e_model_id",
+            "type": "ManyToOne",
+            "metaAttributes": {
+                "general": {
+                    "required": true
+                },
+                "tables": {
+                    "displayInTable": true
+                },
+                "relations": {
+                    "manyToOne": true,
+                    "relationType": "ManyToOne",
+                    "targetModelName": "EModel",
+                    "targetTable": "e_models"
+                },
+                "database": {
+                    "db_nullable": false,
+                    "db_primaryKey": false,
+                    "db_unique": false
+                }
+            }
+        },
+        {
+            "name": "description",
+            "type": "Text",
+            "metaAttributes": {
+                "database": {
+                    "db_nullable": true,
+                    "db_primaryKey": false,
+                    "db_unique": false
+                }
+            }
+        },
+        {
+            "name": "created_at",
+            "type": "Date",
+            "metaAttributes": {
+                "tables": {
+                    "displayInTable": true
+                },
+                "database": {
+                    "db_nullable": true,
+                    "db_primaryKey": false,
+                    "db_unique": false
+                }
+            }
+        },
+        {
+            "name": "updated_at",
+            "type": "Date",
+            "metaAttributes": {
+                "tables": {
+                    "displayInTable": true
+                },
+                "database": {
+                    "db_nullable": true,
+                    "db_primaryKey": false,
+                    "db_unique": false
+                }
+            }
+        }
+    ],
+    "oneToOneRelations": [],
+    "manyToOneRelations": [
+        {
+            "column": "e_model_id",
+            "referencedTable": "e_models",
+            "referencedColumn": "id"
+        }
+    ],
+    "hasManyRelations": [],
+    "manyToManyRelations": [],
+    "metaModels": {
+        "creationOrder": 46,
+        "isPivotTable": false
+    }
+}

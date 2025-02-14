@@ -5,52 +5,72 @@
 
 namespace Modules\PkgGapp\App\Imports\Base;
 
-use Carbon\Carbon;
 use Modules\PkgGapp\Models\EDataField;
 use Maatwebsite\Excel\Concerns\ToModel;
-use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Illuminate\Support\Facades\Log;
 
 class BaseEDataFieldImport implements ToModel, WithHeadingRow
 {
     /**
-     * Vérifie si une tâche avec les mêmes attributs existe déjà dans la base de données.
+     * Vérifie si un enregistrement avec la même référence existe.
      *
-     * @param array $row Ligne de données importée.
-     * @return bool
+     * @param string $reference Référence unique de l'enregistrement.
+     * @return EDataField|null
      */
-    private function recordExists(array $row): bool
+    private function findExistingRecord($reference): ?EDataField
     {
-        return EDataField::where('reference', $row['reference'])->exists();
+        if($reference == null) return null;
+        return EDataField::where('reference', $reference)->first();
     }
 
     /**
      * Crée ou met à jour un enregistrement à partir des données importées.
      *
      * @param array $row Ligne de données importée.
-     * @return <EDataField|null
+     * @return EDataField|null
      */
     public function model(array $row)
     {
-        if ($this->recordExists($row)) {
-            return null; // Enregistrement existant, aucune action
+        // Convertir en tableau indexé pour gérer les colonnes par position
+        $values = array_values($row);
+        $reference = $values[5] ?? null; // La colonne "reference"
+
+
+        // Vérifier si l'enregistrement existe
+        $existingRecord = $this->findExistingRecord($reference);
+
+        if ($existingRecord) {
+            // Mise à jour de l'enregistrement existant
+            $existingRecord->update([
+                'nom' => $values[0] ?? $existingRecord->nom,
+                'noteMin' => $values[1] ?? $existingRecord->noteMin,
+                'noteMax' => $values[2] ?? $existingRecord->noteMax,
+                'formateur_id' => $values[3] ?? $existingRecord->formateur_id,
+                'description' => $values[4] ?? $existingRecord->description,
+            ]);
+
+            Log::info("Mise à jour réussie pour la référence : {$reference}");
+            return null; // Retourner null pour éviter la création d'un doublon
         }
 
-        // Crée un nouvel enregistrement à partir des données importées
+        // Création d'un nouvel enregistrement
         return new EDataField([
-            'order' => $row['order'],
-            'reference' => $row['reference'],
-            'name' => $row['name'],
-            'column_name' => $row['column_name'],
-            'data_type' => $row['data_type'],
-            'field_order' => $row['field_order'],
-            'db_nullable' => $row['db_nullable'],
-            'db_primaryKey' => $row['db_primaryKey'],
-            'db_unique' => $row['db_unique'],
-            'default_value' => $row['default_value'],
-            'description' => $row['description'],
-            'e_model_id' => $row['e_model_id'],
-            'e_relationship_id' => $row['e_relationship_id'],
+             'order' => $values[0] ?? null,
+             'reference' => $reference,
+             'name' => $values[2] ?? null,
+             'column_name' => $values[3] ?? null,
+             'data_type' => $values[4] ?? null,
+             'field_order' => $values[5] ?? null,
+             'db_nullable' => $values[6] ?? null,
+             'db_primaryKey' => $values[7] ?? null,
+             'db_unique' => $values[8] ?? null,
+             'default_value' => $values[9] ?? null,
+             'description' => $values[10] ?? null,
+             'e_model_id' => $values[11] ?? null,
+             'e_relationship_id' => $values[12] ?? null,
         ]);
+
+
     }
 }

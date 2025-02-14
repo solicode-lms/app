@@ -1,0 +1,124 @@
+{
+    "name": "NiveauxScolaire",
+    "icon": "fa-graduation-cap",
+    "attributes": [
+        {
+            "name": "id",
+            "type": "Integer",
+            "metaAttributes": {
+                "general": {
+                    "required": true
+                },
+                "tables": {
+                    "displayInTable": true
+                },
+                "database": {
+                    "db_nullable": false,
+                    "db_primaryKey": true,
+                    "db_unique": false
+                }
+            }
+        },
+        {
+            "name": "code",
+            "type": "String",
+            "metaAttributes": {
+                "general": {
+                    "displayField": true,
+                    "required": true
+                },
+                "tables": {
+                    "displayInTable": true
+                },
+                "database": {
+                    "db_nullable": false,
+                    "db_primaryKey": false,
+                    "db_unique": false
+                }
+            }
+        },
+        {
+            "name": "nom",
+            "type": "String",
+            "metaAttributes": {
+                "general": {
+                    "displayField": false
+                },
+                "tables": {
+                    "displayInTable": false
+                },
+                "database": {
+                    "db_nullable": true,
+                    "db_primaryKey": false,
+                    "db_unique": false
+                }
+            }
+        },
+        {
+            "name": "description",
+            "type": "Text",
+            "metaAttributes": {
+                "tables": {
+                    "displayInTable": false
+                },
+                "database": {
+                    "db_nullable": true,
+                    "db_primaryKey": false,
+                    "db_unique": false
+                }
+            }
+        },
+        {
+            "name": "created_at",
+            "type": "Date",
+            "metaAttributes": {
+                "tables": {
+                    "displayInTable": true
+                },
+                "database": {
+                    "db_nullable": true,
+                    "db_primaryKey": false,
+                    "db_unique": false
+                }
+            }
+        },
+        {
+            "name": "updated_at",
+            "type": "Date",
+            "metaAttributes": {
+                "tables": {
+                    "displayInTable": true
+                },
+                "database": {
+                    "db_nullable": true,
+                    "db_primaryKey": false,
+                    "db_unique": false
+                }
+            }
+        },
+        {
+            "name": "Apprenant_HasMany",
+            "type": "HasMany",
+            "metaAttributes": {
+                "relations": {
+                    "relationType": "HasMany",
+                    "targetModelName": "Apprenant",
+                    "targetTable": "apprenants"
+                }
+            }
+        }
+    ],
+    "oneToOneRelations": [],
+    "manyToOneRelations": [],
+    "hasManyRelations": [
+        {
+            "referencedTable": "apprenants",
+            "columnName": "niveaux_scolaire_id"
+        }
+    ],
+    "manyToManyRelations": [],
+    "metaModels": {
+        "creationOrder": 22,
+        "isPivotTable": false
+    }
+}

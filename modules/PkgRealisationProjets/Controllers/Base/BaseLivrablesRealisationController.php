@@ -7,7 +7,9 @@ use Modules\PkgRealisationProjets\Services\LivrablesRealisationService;
 use Modules\PkgCreationProjet\Services\LivrableService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
+use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgRealisationProjets\App\Requests\LivrablesRealisationRequest;
+use Modules\PkgRealisationProjets\Models\LivrablesRealisation;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgRealisationProjets\App\Exports\LivrablesRealisationExport;
 use Modules\PkgRealisationProjets\App\Imports\LivrablesRealisationImport;
@@ -25,10 +27,14 @@ class BaseLivrablesRealisationController extends AdminController
     }
 
     public function index(Request $request) {
+        
+        $this->viewState->setContextKeyIfEmpty('livrablesRealisation.index');
+
+
         // Extraire les paramètres de recherche, page, et filtres
         $livrablesRealisations_params = array_merge(
             $request->only(['page','sort']),
-            ['search' => $request->get('livrablesRealisations_search', '')],
+            ['search' => $request->get('livrablesRealisations_search', $this->viewState->get("filter.livrablesRealisation.livrablesRealisations_search"))],
             $request->except(['livrablesRealisations_search', 'page', 'sort'])
         );
 
@@ -61,13 +67,14 @@ class BaseLivrablesRealisationController extends AdminController
         $livrablesRealisation = $this->livrablesRealisationService->create($validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 
-            'entity_id' => $livrablesRealisation->id,
-            'message' => 
-             __('Core::msg.addSuccess', [
+             $message = __('Core::msg.addSuccess', [
                 'entityToString' => $livrablesRealisation,
-                'modelName' => __('PkgRealisationProjets::livrablesRealisation.singular')])
-            ]);
+                'modelName' => __('PkgRealisationProjets::livrablesRealisation.singular')]);
+        
+            return JsonResponseHelper::success(
+             $message,
+             ['entity_id' => $livrablesRealisation->id]
+            );
         }
 
         return redirect()->route('livrablesRealisations.index')->with(
@@ -79,27 +86,15 @@ class BaseLivrablesRealisationController extends AdminController
         );
     }
     public function show(string $id) {
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('livrables_realisation_id', $id);
-        
-        $itemLivrablesRealisation = $this->livrablesRealisationService->find($id);
-        $livrables = $this->livrableService->all();
-
-        if (request()->ajax()) {
-            return view('PkgRealisationProjets::livrablesRealisation._fields', compact('itemLivrablesRealisation', 'livrables'));
-        }
-
-        return view('PkgRealisationProjets::livrablesRealisation.edit', compact('itemLivrablesRealisation', 'livrables'));
-
+        return $this->edit( $id);
     }
     public function edit(string $id) {
 
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('livrables_realisation_id', $id);
-        
+        $this->viewState->setContextKey('livrablesRealisation.edit_' . $id);
+
         $itemLivrablesRealisation = $this->livrablesRealisationService->find($id);
         $livrables = $this->livrableService->all();
+
 
         if (request()->ajax()) {
             return view('PkgRealisationProjets::livrablesRealisation._fields', compact('itemLivrablesRealisation', 'livrables'));
@@ -114,11 +109,14 @@ class BaseLivrablesRealisationController extends AdminController
         $livrablesRealisation = $this->livrablesRealisationService->update($id, $validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.updateSuccess', [
+             $message = __('Core::msg.updateSuccess', [
                 'entityToString' => $livrablesRealisation,
-                'modelName' =>  __('PkgRealisationProjets::livrablesRealisation.singular')])
-            ]);
+                'modelName' =>  __('PkgRealisationProjets::livrablesRealisation.singular')]);
+            
+            return JsonResponseHelper::success(
+                $message,
+                ['entity_id' => $livrablesRealisation->id]
+            );
         }
 
         return redirect()->route('livrablesRealisations.index')->with(
@@ -135,11 +133,14 @@ class BaseLivrablesRealisationController extends AdminController
         $livrablesRealisation = $this->livrablesRealisationService->destroy($id);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.deleteSuccess', [
+            $message = __('Core::msg.deleteSuccess', [
                 'entityToString' => $livrablesRealisation,
-                'modelName' =>  __('PkgRealisationProjets::livrablesRealisation.singular')])
-            ]);
+                'modelName' =>  __('PkgRealisationProjets::livrablesRealisation.singular')]);
+            
+
+            return JsonResponseHelper::success(
+                $message
+            );
         }
 
         return redirect()->route('livrablesRealisations.index')->with(
@@ -152,10 +153,18 @@ class BaseLivrablesRealisationController extends AdminController
 
     }
 
-    public function export()
+    public function export($format)
     {
         $livrablesRealisations_data = $this->livrablesRealisationService->all();
-        return Excel::download(new LivrablesRealisationExport($livrablesRealisations_data), 'livrablesRealisation_export.xlsx');
+        
+        // Vérifier le format et exporter en conséquence
+        if ($format === 'csv') {
+            return Excel::download(new LivrablesRealisationExport($livrablesRealisations_data,'csv'), 'livrablesRealisation_export.csv', \Maatwebsite\Excel\Excel::CSV, ['Content-Type' => 'text/csv']);
+        } elseif ($format === 'xlsx') {
+            return Excel::download(new LivrablesRealisationExport($livrablesRealisations_data,'xlsx'), 'livrablesRealisation_export.xlsx', \Maatwebsite\Excel\Excel::XLSX);
+        } else {
+            return response()->json(['error' => 'Format non supporté'], 400);
+        }
     }
 
     public function import(Request $request)

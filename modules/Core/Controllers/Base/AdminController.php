@@ -5,8 +5,10 @@ namespace Modules\Core\Controllers\Base;
 use App\Http\Middleware\CheckDynamicPermission;
 use App\Http\Middleware\ContextStateMiddleware;
 use App\Http\Middleware\SessionStateMiddleware;
+use App\Http\Middleware\SetViewStateMiddleware;
 use Modules\Core\Services\ContextState;
-
+use Modules\Core\Services\SessionState;
+use Modules\Core\Services\ViewStateService;
 /**
  * AdminController est responsable de la gestion des fonctionnalités liées aux administrateurs.
  * Il hérite de AppController, ce qui permet de centraliser les comportements communs.
@@ -14,6 +16,9 @@ use Modules\Core\Services\ContextState;
 class AdminController extends AppController
 {
     protected $contextState;
+    protected $sessionState;
+
+    protected $viewState ;
     
     /**
      * Constructeur du contrôleur.
@@ -29,17 +34,22 @@ class AdminController extends AppController
         // Exemple : Exclure certaines méthodes
         // $this->middleware('auth')->except(['help']);
 
-         // Middleware appliqué à toutes les méthodes
-         $this->middleware(CheckDynamicPermission::class);
+        // Middleware appliqué à toutes les méthodes
+        $this->middleware(CheckDynamicPermission::class);
+
+        // SessionState doit être charger avant ContextState
+        $this->middleware(SessionStateMiddleware::class);
 
         // Middleware appliqué à toutes les méthodes
         $this->middleware(ContextStateMiddleware::class);
 
-        // Middleware appliqué à toutes les méthodes
-        $this->middleware(SessionStateMiddleware::class);
+        $this->middleware(SetViewStateMiddleware::class);
+
 
         // Scrop management
         $this->contextState = app(ContextState::class);
+        $this->sessionState = app(SessionState::class);
+        $this->viewState = app(ViewStateService::class);
     }
 
     // /**

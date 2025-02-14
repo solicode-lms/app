@@ -10,7 +10,9 @@ use Modules\Core\Services\SysControllerService;
 use Modules\Core\Services\SysModelService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
+use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\Core\App\Requests\SysModuleRequest;
+use Modules\Core\Models\SysModule;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\Core\App\Exports\SysModuleExport;
 use Modules\Core\App\Imports\SysModuleImport;
@@ -28,10 +30,14 @@ class BaseSysModuleController extends AdminController
     }
 
     public function index(Request $request) {
+        
+        $this->viewState->setContextKeyIfEmpty('sysModule.index');
+
+
         // Extraire les paramètres de recherche, page, et filtres
         $sysModules_params = array_merge(
             $request->only(['page','sort']),
-            ['search' => $request->get('sysModules_search', '')],
+            ['search' => $request->get('sysModules_search', $this->viewState->get("filter.sysModule.sysModules_search"))],
             $request->except(['sysModules_search', 'page', 'sort'])
         );
 
@@ -64,13 +70,14 @@ class BaseSysModuleController extends AdminController
         $sysModule = $this->sysModuleService->create($validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 
-            'entity_id' => $sysModule->id,
-            'message' => 
-             __('Core::msg.addSuccess', [
+             $message = __('Core::msg.addSuccess', [
                 'entityToString' => $sysModule,
-                'modelName' => __('Core::sysModule.singular')])
-            ]);
+                'modelName' => __('Core::sysModule.singular')]);
+        
+            return JsonResponseHelper::success(
+             $message,
+             ['entity_id' => $sysModule->id]
+            );
         }
 
         return redirect()->route('sysModules.edit',['sysModule' => $sysModule->id])->with(
@@ -82,52 +89,28 @@ class BaseSysModuleController extends AdminController
         );
     }
     public function show(string $id) {
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('sys_module_id', $id);
-        
-        $itemSysModule = $this->sysModuleService->find($id);
-        $sysColors = $this->sysColorService->all();
-        $featureDomainService =  new FeatureDomainService();
-        $featureDomains_data =  $itemSysModule->featureDomains()->paginate(10);
-        $featureDomains_stats = $featureDomainService->getfeatureDomainStats();
-        $featureDomains_filters = $featureDomainService->getFieldsFilterable();
-        
-        $sysControllerService =  new SysControllerService();
-        $sysControllers_data =  $itemSysModule->sysControllers()->paginate(10);
-        $sysControllers_stats = $sysControllerService->getsysControllerStats();
-        $sysControllers_filters = $sysControllerService->getFieldsFilterable();
-        
-        $sysModelService =  new SysModelService();
-        $sysModels_data =  $itemSysModule->sysModels()->paginate(10);
-        $sysModels_stats = $sysModelService->getsysModelStats();
-        $sysModels_filters = $sysModelService->getFieldsFilterable();
-        
-
-        if (request()->ajax()) {
-            return view('Core::sysModule._edit', compact('itemSysModule', 'sysColors', 'featureDomains_data', 'sysControllers_data', 'sysModels_data', 'featureDomains_stats', 'sysControllers_stats', 'sysModels_stats', 'featureDomains_filters', 'sysControllers_filters', 'sysModels_filters'));
-        }
-
-        return view('Core::sysModule.edit', compact('itemSysModule', 'sysColors', 'featureDomains_data', 'sysControllers_data', 'sysModels_data', 'featureDomains_stats', 'sysControllers_stats', 'sysModels_stats', 'featureDomains_filters', 'sysControllers_filters', 'sysModels_filters'));
-
+        return $this->edit( $id);
     }
     public function edit(string $id) {
 
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('sys_module_id', $id);
-        
+        $this->viewState->setContextKey('sysModule.edit_' . $id);
+
         $itemSysModule = $this->sysModuleService->find($id);
         $sysColors = $this->sysColorService->all();
+
+        $this->viewState->set('scope.featureDomain.sys_module_id', $id);
         $featureDomainService =  new FeatureDomainService();
         $featureDomains_data =  $itemSysModule->featureDomains()->paginate(10);
         $featureDomains_stats = $featureDomainService->getfeatureDomainStats();
         $featureDomains_filters = $featureDomainService->getFieldsFilterable();
         
+        $this->viewState->set('scope.sysController.sys_module_id', $id);
         $sysControllerService =  new SysControllerService();
         $sysControllers_data =  $itemSysModule->sysControllers()->paginate(10);
         $sysControllers_stats = $sysControllerService->getsysControllerStats();
         $sysControllers_filters = $sysControllerService->getFieldsFilterable();
         
+        $this->viewState->set('scope.sysModel.sys_module_id', $id);
         $sysModelService =  new SysModelService();
         $sysModels_data =  $itemSysModule->sysModels()->paginate(10);
         $sysModels_stats = $sysModelService->getsysModelStats();
@@ -147,11 +130,14 @@ class BaseSysModuleController extends AdminController
         $sysModule = $this->sysModuleService->update($id, $validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.updateSuccess', [
+             $message = __('Core::msg.updateSuccess', [
                 'entityToString' => $sysModule,
-                'modelName' =>  __('Core::sysModule.singular')])
-            ]);
+                'modelName' =>  __('Core::sysModule.singular')]);
+            
+            return JsonResponseHelper::success(
+                $message,
+                ['entity_id' => $sysModule->id]
+            );
         }
 
         return redirect()->route('sysModules.index')->with(
@@ -168,11 +154,14 @@ class BaseSysModuleController extends AdminController
         $sysModule = $this->sysModuleService->destroy($id);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.deleteSuccess', [
+            $message = __('Core::msg.deleteSuccess', [
                 'entityToString' => $sysModule,
-                'modelName' =>  __('Core::sysModule.singular')])
-            ]);
+                'modelName' =>  __('Core::sysModule.singular')]);
+            
+
+            return JsonResponseHelper::success(
+                $message
+            );
         }
 
         return redirect()->route('sysModules.index')->with(
@@ -185,10 +174,18 @@ class BaseSysModuleController extends AdminController
 
     }
 
-    public function export()
+    public function export($format)
     {
         $sysModules_data = $this->sysModuleService->all();
-        return Excel::download(new SysModuleExport($sysModules_data), 'sysModule_export.xlsx');
+        
+        // Vérifier le format et exporter en conséquence
+        if ($format === 'csv') {
+            return Excel::download(new SysModuleExport($sysModules_data,'csv'), 'sysModule_export.csv', \Maatwebsite\Excel\Excel::CSV, ['Content-Type' => 'text/csv']);
+        } elseif ($format === 'xlsx') {
+            return Excel::download(new SysModuleExport($sysModules_data,'xlsx'), 'sysModule_export.xlsx', \Maatwebsite\Excel\Excel::XLSX);
+        } else {
+            return response()->json(['error' => 'Format non supporté'], 400);
+        }
     }
 
     public function import(Request $request)

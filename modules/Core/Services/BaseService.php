@@ -18,7 +18,7 @@ abstract class BaseService implements ServiceInterface
 
     protected array $fieldsFilterable;
 
-    protected $contextState;
+    protected $viewState;
 
     /**
      * Le modèle Eloquent associé à ce référentiel.
@@ -26,6 +26,8 @@ abstract class BaseService implements ServiceInterface
      * @var Model
      */
     protected $model;
+
+    protected $modelName;
 
     /**
      * Limite de pagination par défaut.
@@ -48,8 +50,9 @@ abstract class BaseService implements ServiceInterface
      */
     public function __construct(Model $model){
         $this->model = $model;
+        $this->modelName = lcfirst(class_basename($model));
         // Scrop management
-        $this->contextState = app(ContextState::class);
+        $this->viewState = app(ViewStateService::class);
     }
 
     // /**
@@ -265,7 +268,7 @@ abstract class BaseService implements ServiceInterface
         $item = $this->model::make();
     
         // Récupérer toutes les variables de contexte
-        $contextVariables = $this->contextState->all();
+        $contextVariables = $this->viewState->getFormVariables($this->modelName);
     
         // Fusionner les données ($data a la priorité sur $contextVariables)
         $mergedData = array_merge($contextVariables, $data);
@@ -279,7 +282,15 @@ abstract class BaseService implements ServiceInterface
 
         // Gérer les relations ManyToMany sans les enregistrer en base
         if (property_exists($item, 'manyToMany')) {
-            foreach ($item->manyToMany as $relation) {
+
+          
+            
+            foreach ($item->manyToMany as $relationConfig) {
+
+                $relation = $relationConfig['relation']; // ex: 'apprenants'
+                $foreignKey = $relationConfig['foreign_key']; // ex: 'apprenant_id'
+
+                
                 if (isset($mergedData[$relation]) && is_array($mergedData[$relation])) {
                     // Stocker temporairement les relations sans affecter la base de données
                     $item->setRelation($relation, collect($mergedData[$relation]));
@@ -448,10 +459,14 @@ protected function generatePolymorphicFilter(string $label, string $field, strin
     ];
 }
 
-
+public function initFieldsFilterable(){
+    // Il doit être appele aprés le choix de context par index par exemple , pour appliquer 
+    // le scope de le contextKey
+}
 
 public function getFieldsFilterable(): array
 {
+    $this->initFieldsFilterable();
     return $this->fieldsFilterable;
 }
 
@@ -485,7 +500,10 @@ public function initStats(){
             return;
         }
 
-        foreach ($entity->manyToMany as $relation) {
+        foreach ($entity->manyToMany as $relationConfig) {
+
+            $relation = $relationConfig["relation"];
+
             if (!isset($data[$relation]) || !is_array($data[$relation]) || empty($data[$relation])) {
                 // Si aucune donnée n'est fournie pour la relation, supprimer toutes les relations existantes
                 $entity->{$relation}()->sync([]);
@@ -494,6 +512,23 @@ public function initStats(){
                 $entity->{$relation}()->sync($data[$relation]);
             }
         }
+    }
+
+
+    public function pushServiceMessage(string $type, string $title, string $message): void
+    {
+        // Récupérer les messages existants ou initialiser un tableau vide
+        $messages = session()->get('service_messages', []);
+
+        // Ajouter un nouveau message au tableau
+        $messages[] = [
+            'type' => $type,
+            'title' => $title,
+            'message' => $message,
+        ];
+
+        // Stocker la liste mise à jour dans la session avec flash
+        session()->flash('service_messages', $messages);
     }
 
 

@@ -4,6 +4,7 @@
     window.editWithTabPanelManagersConfig = window.editWithTabPanelManagersConfig || [];
     window.editWithTabPanelManagersConfig.push({
         entity_name: 'sysController',
+        contextKey: 'sysController.edit_{{ $itemSysController->id}}',
         cardTabSelector: '#card-tab-sysController', 
         formSelector: '#sysControllerForm',
         editUrl: '{{ route('sysControllers.edit',  ['sysController' => ':id']) }}',
@@ -14,6 +15,7 @@
 </script>
 <script>
     window.contextState = @json($contextState);
+    window.viewState = @json($viewState);
 </script>
 
 @section('content')
@@ -47,7 +49,7 @@
                             </div>
 
                             <div class="tab-pane fade" id="sysController-hasmany-tabs-permission" role="tabpanel" aria-labelledby="sysController-hasmany-tabs-permission-tab">
-                                @include('PkgAutorisation::permission._index',['isMany' => true, "edit_has_many" => false])
+                                @include('PkgAutorisation::permission._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sysController.edit_' . $itemSysController->id])
                             </div>
 
                            

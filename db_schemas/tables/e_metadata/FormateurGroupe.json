@@ -1,0 +1,74 @@
+[
+    {
+        "reference": "formateur_groupe_creationOrder",
+        "value_integer": 52,
+        "e_model_reference": "formateur_groupe",
+        "e_metadata_definition_reference": "creationOrder"
+    },
+    {
+        "reference": "FormateurGroupe_groupe_id_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "FormateurGroupe_groupe_id",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "FormateurGroupe_formateur_id_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "FormateurGroupe_formateur_id",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "FormateurGroupe_created_at_displayOrder",
+        "value_integer": 1,
+        "e_data_field_reference": "FormateurGroupe_created_at",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "FormateurGroupe_updated_at_displayOrder",
+        "value_integer": 2,
+        "e_data_field_reference": "FormateurGroupe_updated_at",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "FormateurGroupe_groupe_id_displayOrder",
+        "value_integer": 3,
+        "e_data_field_reference": "FormateurGroupe_groupe_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "FormateurGroupe_formateur_id_displayOrder",
+        "value_integer": 4,
+        "e_data_field_reference": "FormateurGroupe_formateur_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "FormateurGroupe_created_at_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "FormateurGroupe_created_at",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "FormateurGroupe_updated_at_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "FormateurGroupe_updated_at",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "FormateurGroupe_groupe_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "FormateurGroupe_groupe_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "FormateurGroupe_formateur_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "FormateurGroupe_formateur_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "formateur_groupe_displayInSideBar",
+        "value_boolean": 1,
+        "e_model_reference": "formateur_groupe",
+        "e_metadata_definition_reference": "displayInSideBar"
+    }
+]

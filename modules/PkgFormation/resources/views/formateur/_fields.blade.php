@@ -341,4 +341,7 @@
 </script>
 <script>
      window.modalTitle = '{{__("PkgFormation::formateur.singular") }} : {{$itemFormateur}}'
+     window.contextState = @json($contextState);
+     window.sessionState = @json($sessionState);
+     window.viewState = @json($viewState);
 </script>

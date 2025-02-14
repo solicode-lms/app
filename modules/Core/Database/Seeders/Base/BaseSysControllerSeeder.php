@@ -99,7 +99,7 @@ class BaseSysControllerSeeder extends Seeder
 
         // Permissions spécifiques pour chaque type de fonctionnalité
         $featurePermissions = [
-            'Édition ' => [ 'create','store','edit','update','destroy','getSysControllers'],
+            'Édition ' => [ 'create','store','edit','update','destroy','getSysControllers','dataCalcul'],
             'Lecture' => ['index', 'show'],
             'Extraction' => ['import', 'export'],
         ];

@@ -21,8 +21,8 @@ class BaseSpecialite extends BaseModel
 {
     use HasFactory, HasDynamicContext;
 
-    public function __construct() {
-        parent::__construct(); 
+    public function __construct(array $attributes = []) {
+        parent::__construct($attributes); 
         $this->isOwnedByUser =  false;
     }
 
@@ -36,8 +36,12 @@ class BaseSpecialite extends BaseModel
         'nom', 'description'
     ];
     public $manyToMany = [
-        'formateurs'
+        'Formateur' => ['relation' => 'formateurs' , "foreign_key" => "formateur_id" ]
     ];
+
+       
+
+
 
 
     /**

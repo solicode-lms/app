@@ -6,7 +6,9 @@
     window.crudModalManagersConfig.push({
         edit_has_many: {{ !isset($edit_has_many)? 'false' :  ($edit_has_many ? "true": "false") }},
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
+        editOnFullScreen : false,
         entity_name: 'apprenantKonosy',
+        contextKey: '{{ isset($contextKey) ? $contextKey : 'apprenantKonosy.index' }}', 
         filterFormSelector: '#apprenantKonosy-crud-filter-form',
         crudSelector: '#apprenantKonosy-crud',
         tableSelector: '#apprenantKonosy-data-container',
@@ -62,7 +64,8 @@
                             :importRoute="route('apprenantKonosies.import')"
                             :importText="__('Importer')"
                             :exportPermission="'export-apprenantKonosy'"
-                            :exportRoute="route('apprenantKonosies.export')"
+                            :exportXlsxRoute="route('apprenantKonosies.export', ['format' => 'xlsx'])"
+                            :exportCsvRoute="route('apprenantKonosies.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
                         />
                     </div>

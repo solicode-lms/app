@@ -9,7 +9,9 @@ use Modules\Core\Services\SysControllerService;
 use Modules\PkgAutorisation\Services\RoleService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
+use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgAutorisation\App\Requests\PermissionRequest;
+use Modules\PkgAutorisation\Models\Permission;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgAutorisation\App\Exports\PermissionExport;
 use Modules\PkgAutorisation\App\Imports\PermissionImport;
@@ -31,10 +33,14 @@ class BasePermissionController extends AdminController
     }
 
     public function index(Request $request) {
+        
+        $this->viewState->setContextKeyIfEmpty('permission.index');
+
+
         // Extraire les paramètres de recherche, page, et filtres
         $permissions_params = array_merge(
             $request->only(['page','sort']),
-            ['search' => $request->get('permissions_search', '')],
+            ['search' => $request->get('permissions_search', $this->viewState->get("filter.permission.permissions_search"))],
             $request->except(['permissions_search', 'page', 'sort'])
         );
 
@@ -69,13 +75,14 @@ class BasePermissionController extends AdminController
         $permission = $this->permissionService->create($validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 
-            'entity_id' => $permission->id,
-            'message' => 
-             __('Core::msg.addSuccess', [
+             $message = __('Core::msg.addSuccess', [
                 'entityToString' => $permission,
-                'modelName' => __('PkgAutorisation::permission.singular')])
-            ]);
+                'modelName' => __('PkgAutorisation::permission.singular')]);
+        
+            return JsonResponseHelper::success(
+             $message,
+             ['entity_id' => $permission->id]
+            );
         }
 
         return redirect()->route('permissions.index')->with(
@@ -87,31 +94,17 @@ class BasePermissionController extends AdminController
         );
     }
     public function show(string $id) {
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('permission_id', $id);
-        
-        $itemPermission = $this->permissionService->find($id);
-        $features = $this->featureService->all();
-        $roles = $this->roleService->all();
-        $sysControllers = $this->sysControllerService->all();
-
-        if (request()->ajax()) {
-            return view('PkgAutorisation::permission._fields', compact('itemPermission', 'features', 'roles', 'sysControllers'));
-        }
-
-        return view('PkgAutorisation::permission.edit', compact('itemPermission', 'features', 'roles', 'sysControllers'));
-
+        return $this->edit( $id);
     }
     public function edit(string $id) {
 
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('permission_id', $id);
-        
+        $this->viewState->setContextKey('permission.edit_' . $id);
+
         $itemPermission = $this->permissionService->find($id);
         $features = $this->featureService->all();
         $roles = $this->roleService->all();
         $sysControllers = $this->sysControllerService->all();
+
 
         if (request()->ajax()) {
             return view('PkgAutorisation::permission._fields', compact('itemPermission', 'features', 'roles', 'sysControllers'));
@@ -126,11 +119,14 @@ class BasePermissionController extends AdminController
         $permission = $this->permissionService->update($id, $validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.updateSuccess', [
+             $message = __('Core::msg.updateSuccess', [
                 'entityToString' => $permission,
-                'modelName' =>  __('PkgAutorisation::permission.singular')])
-            ]);
+                'modelName' =>  __('PkgAutorisation::permission.singular')]);
+            
+            return JsonResponseHelper::success(
+                $message,
+                ['entity_id' => $permission->id]
+            );
         }
 
         return redirect()->route('permissions.index')->with(
@@ -147,11 +143,14 @@ class BasePermissionController extends AdminController
         $permission = $this->permissionService->destroy($id);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.deleteSuccess', [
+            $message = __('Core::msg.deleteSuccess', [
                 'entityToString' => $permission,
-                'modelName' =>  __('PkgAutorisation::permission.singular')])
-            ]);
+                'modelName' =>  __('PkgAutorisation::permission.singular')]);
+            
+
+            return JsonResponseHelper::success(
+                $message
+            );
         }
 
         return redirect()->route('permissions.index')->with(
@@ -164,10 +163,18 @@ class BasePermissionController extends AdminController
 
     }
 
-    public function export()
+    public function export($format)
     {
         $permissions_data = $this->permissionService->all();
-        return Excel::download(new PermissionExport($permissions_data), 'permission_export.xlsx');
+        
+        // Vérifier le format et exporter en conséquence
+        if ($format === 'csv') {
+            return Excel::download(new PermissionExport($permissions_data,'csv'), 'permission_export.csv', \Maatwebsite\Excel\Excel::CSV, ['Content-Type' => 'text/csv']);
+        } elseif ($format === 'xlsx') {
+            return Excel::download(new PermissionExport($permissions_data,'xlsx'), 'permission_export.xlsx', \Maatwebsite\Excel\Excel::XLSX);
+        } else {
+            return response()->json(['error' => 'Format non supporté'], 400);
+        }
     }
 
     public function import(Request $request)

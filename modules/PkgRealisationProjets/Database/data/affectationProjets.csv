@@ -1,1 +1,2 @@
-date_debut,date_fin,annee_formation_id,description
+"groupe_id","date_debut","date_fin","projet_id","description","reference","annee_formation_id"
+"1","2025-02-03","2025-02-08","4","","400a20c9-4154-4c2e-836f-f3599bf681ef","1"

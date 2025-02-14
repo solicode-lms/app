@@ -4,6 +4,7 @@
     <a href="{{ route('home') }}" class="brand-link">
         <img src="{{ asset('images/logo.png') }}" alt="logo ofppt" class="brand-image img-circle elevation-3 style="opacity: .8"">
         <span class="brand-text font-weight-light">SoliLMS</span>
+        <span class="brand-text font-weight-light"> {{$sessionState->all()["user_annee_formation"]}} </span>
     </a>
     <div class="sidebar">
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">

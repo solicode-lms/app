@@ -9,7 +9,9 @@ use Modules\PkgWidgets\Services\WidgetOperationService;
 use Modules\PkgWidgets\Services\WidgetTypeService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
+use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgWidgets\App\Requests\WidgetRequest;
+use Modules\PkgWidgets\Models\Widget;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgWidgets\App\Exports\WidgetExport;
 use Modules\PkgWidgets\App\Imports\WidgetImport;
@@ -31,10 +33,14 @@ class BaseWidgetController extends AdminController
     }
 
     public function index(Request $request) {
+        
+        $this->viewState->setContextKeyIfEmpty('widget.index');
+
+
         // Extraire les paramètres de recherche, page, et filtres
         $widgets_params = array_merge(
             $request->only(['page','sort']),
-            ['search' => $request->get('widgets_search', '')],
+            ['search' => $request->get('widgets_search', $this->viewState->get("filter.widget.widgets_search"))],
             $request->except(['widgets_search', 'page', 'sort'])
         );
 
@@ -69,13 +75,14 @@ class BaseWidgetController extends AdminController
         $widget = $this->widgetService->create($validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 
-            'entity_id' => $widget->id,
-            'message' => 
-             __('Core::msg.addSuccess', [
+             $message = __('Core::msg.addSuccess', [
                 'entityToString' => $widget,
-                'modelName' => __('PkgWidgets::widget.singular')])
-            ]);
+                'modelName' => __('PkgWidgets::widget.singular')]);
+        
+            return JsonResponseHelper::success(
+             $message,
+             ['entity_id' => $widget->id]
+            );
         }
 
         return redirect()->route('widgets.index')->with(
@@ -87,31 +94,17 @@ class BaseWidgetController extends AdminController
         );
     }
     public function show(string $id) {
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('widget_id', $id);
-        
-        $itemWidget = $this->widgetService->find($id);
-        $sysModels = $this->sysModelService->all();
-        $widgetOperations = $this->widgetOperationService->all();
-        $widgetTypes = $this->widgetTypeService->all();
-
-        if (request()->ajax()) {
-            return view('PkgWidgets::widget._fields', compact('itemWidget', 'sysModels', 'widgetOperations', 'widgetTypes'));
-        }
-
-        return view('PkgWidgets::widget.edit', compact('itemWidget', 'sysModels', 'widgetOperations', 'widgetTypes'));
-
+        return $this->edit( $id);
     }
     public function edit(string $id) {
 
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('widget_id', $id);
-        
+        $this->viewState->setContextKey('widget.edit_' . $id);
+
         $itemWidget = $this->widgetService->find($id);
         $sysModels = $this->sysModelService->all();
         $widgetOperations = $this->widgetOperationService->all();
         $widgetTypes = $this->widgetTypeService->all();
+
 
         if (request()->ajax()) {
             return view('PkgWidgets::widget._fields', compact('itemWidget', 'sysModels', 'widgetOperations', 'widgetTypes'));
@@ -126,11 +119,14 @@ class BaseWidgetController extends AdminController
         $widget = $this->widgetService->update($id, $validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.updateSuccess', [
+             $message = __('Core::msg.updateSuccess', [
                 'entityToString' => $widget,
-                'modelName' =>  __('PkgWidgets::widget.singular')])
-            ]);
+                'modelName' =>  __('PkgWidgets::widget.singular')]);
+            
+            return JsonResponseHelper::success(
+                $message,
+                ['entity_id' => $widget->id]
+            );
         }
 
         return redirect()->route('widgets.index')->with(
@@ -147,11 +143,14 @@ class BaseWidgetController extends AdminController
         $widget = $this->widgetService->destroy($id);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.deleteSuccess', [
+            $message = __('Core::msg.deleteSuccess', [
                 'entityToString' => $widget,
-                'modelName' =>  __('PkgWidgets::widget.singular')])
-            ]);
+                'modelName' =>  __('PkgWidgets::widget.singular')]);
+            
+
+            return JsonResponseHelper::success(
+                $message
+            );
         }
 
         return redirect()->route('widgets.index')->with(
@@ -164,10 +163,18 @@ class BaseWidgetController extends AdminController
 
     }
 
-    public function export()
+    public function export($format)
     {
         $widgets_data = $this->widgetService->all();
-        return Excel::download(new WidgetExport($widgets_data), 'widget_export.xlsx');
+        
+        // Vérifier le format et exporter en conséquence
+        if ($format === 'csv') {
+            return Excel::download(new WidgetExport($widgets_data,'csv'), 'widget_export.csv', \Maatwebsite\Excel\Excel::CSV, ['Content-Type' => 'text/csv']);
+        } elseif ($format === 'xlsx') {
+            return Excel::download(new WidgetExport($widgets_data,'xlsx'), 'widget_export.xlsx', \Maatwebsite\Excel\Excel::XLSX);
+        } else {
+            return response()->json(['error' => 'Format non supporté'], 400);
+        }
     }
 
     public function import(Request $request)

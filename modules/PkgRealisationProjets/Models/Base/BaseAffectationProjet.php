@@ -24,8 +24,8 @@ class BaseAffectationProjet extends BaseModel
 {
     use HasFactory, HasDynamicContext;
 
-    public function __construct() {
-        parent::__construct(); 
+    public function __construct(array $attributes = []) {
+        parent::__construct($attributes); 
         $this->isOwnedByUser =  false;
     }
 
@@ -36,7 +36,7 @@ class BaseAffectationProjet extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'date_debut', 'date_fin', 'annee_formation_id', 'groupe_id', 'projet_id', 'description'
+        'groupe_id', 'date_debut', 'date_fin', 'projet_id', 'description', 'annee_formation_id'
     ];
 
     /**

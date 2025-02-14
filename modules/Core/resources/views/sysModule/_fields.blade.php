@@ -195,4 +195,7 @@
 </script>
 <script>
      window.modalTitle = '{{__("Core::sysModule.singular") }} : {{$itemSysModule}}'
+     window.contextState = @json($contextState);
+     window.sessionState = @json($sessionState);
+     window.viewState = @json($viewState);
 </script>

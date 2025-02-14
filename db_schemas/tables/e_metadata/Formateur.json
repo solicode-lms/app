@@ -1,0 +1,378 @@
+[
+    {
+        "reference": "formateurs_creationOrder",
+        "value_integer": 29,
+        "e_model_reference": "formateurs",
+        "e_metadata_definition_reference": "creationOrder"
+    },
+    {
+        "reference": "Formateur_id_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formateur_id",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "Formateur_matricule_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formateur_matricule",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "Formateur_nom_displayInTable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formateur_nom",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "Formateur_nom_displayField",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formateur_nom",
+        "e_metadata_definition_reference": "displayField"
+    },
+    {
+        "reference": "Formateur_nom_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formateur_nom",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "Formateur_prenom_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formateur_prenom",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "Formateur_user_id_displayInTable",
+        "value_boolean": 0,
+        "value_float": 0,
+        "e_data_field_reference": "Formateur_user_id",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "formateurs_hasMany_projets_formateur_id_editHasMany",
+        "value_boolean": 1,
+        "e_data_field_reference": "formateurs_hasMany_projets_formateur_id",
+        "e_metadata_definition_reference": "editHasMany"
+    },
+    {
+        "reference": "Formateur_user_id_filterable",
+        "value_boolean": 0,
+        "value_float": 0,
+        "e_data_field_reference": "Formateur_user_id",
+        "e_metadata_definition_reference": "filterable"
+    },
+    {
+        "reference": "Formateur_reference_required",
+        "value_boolean": 0,
+        "e_data_field_reference": "Formateur_reference",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "formateurs_iconModel",
+        "value_string": "fa-chalkboard-teacher",
+        "e_model_reference": "formateurs",
+        "e_metadata_definition_reference": "iconModel"
+    },
+    {
+        "reference": "Formateur_prenom_displayInTable",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "Formateur_prenom",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "formateurs_specialites_formateur_specialite_m2m_m2m_displayInTable",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "formateurs_specialites_formateur_specialite_m2m_m2m",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "formateurs_groupes_formateur_groupe_m2m_m2m_displayInTable",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "formateurs_groupes_formateur_groupe_m2m_m2m",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "formateurs_specialites_formateur_specialite_m2m_m2m_relationStats",
+        "value_float": 0,
+        "value_json": {
+            "icon": "fas fa-chart-pie",
+            "relation": "formateurs",
+            "modelName": "Specialite"
+        },
+        "e_data_field_reference": "formateurs_specialites_formateur_specialite_m2m_m2m",
+        "e_metadata_definition_reference": "relationStats"
+    },
+    {
+        "reference": "formateurs_hasMany_niveau_difficultes_formateur_id_editHasMany",
+        "value_boolean": 1,
+        "e_data_field_reference": "formateurs_hasMany_niveau_difficultes_formateur_id",
+        "e_metadata_definition_reference": "editHasMany"
+    },
+    {
+        "reference": "formateurs_hasMany_etats_realisation_projets_formateur_id_editHasMany",
+        "value_boolean": 1,
+        "e_data_field_reference": "formateurs_hasMany_etats_realisation_projets_formateur_id",
+        "e_metadata_definition_reference": "editHasMany"
+    },
+    {
+        "reference": "Formateur_id_displayOrder",
+        "value_integer": 1,
+        "e_data_field_reference": "Formateur_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "Formateur_matricule_displayOrder",
+        "value_integer": 2,
+        "e_data_field_reference": "Formateur_matricule",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "Formateur_nom_displayOrder",
+        "value_integer": 3,
+        "e_data_field_reference": "Formateur_nom",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "Formateur_prenom_displayOrder",
+        "value_integer": 4,
+        "e_data_field_reference": "Formateur_prenom",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "Formateur_prenom_arab_displayOrder",
+        "value_integer": 5,
+        "e_data_field_reference": "Formateur_prenom_arab",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "Formateur_nom_arab_displayOrder",
+        "value_integer": 6,
+        "e_data_field_reference": "Formateur_nom_arab",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "Formateur_tele_num_displayOrder",
+        "value_integer": 7,
+        "e_data_field_reference": "Formateur_tele_num",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "Formateur_adresse_displayOrder",
+        "value_integer": 8,
+        "e_data_field_reference": "Formateur_adresse",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "Formateur_diplome_displayOrder",
+        "value_integer": 9,
+        "e_data_field_reference": "Formateur_diplome",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "Formateur_echelle_displayOrder",
+        "value_integer": 10,
+        "e_data_field_reference": "Formateur_echelle",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "Formateur_echelon_displayOrder",
+        "value_integer": 11,
+        "e_data_field_reference": "Formateur_echelon",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "Formateur_profile_image_displayOrder",
+        "value_integer": 12,
+        "e_data_field_reference": "Formateur_profile_image",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "Formateur_user_id_displayOrder",
+        "value_integer": 13,
+        "e_data_field_reference": "Formateur_user_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "Formateur_reference_displayOrder",
+        "value_integer": 14,
+        "e_data_field_reference": "Formateur_reference",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "Formateur_created_at_displayOrder",
+        "value_integer": 15,
+        "e_data_field_reference": "Formateur_created_at",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "Formateur_updated_at_displayOrder",
+        "value_integer": 16,
+        "e_data_field_reference": "Formateur_updated_at",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "formateurs_hasMany_etats_realisation_projets_formateur_id_displayOrder",
+        "value_integer": 17,
+        "e_data_field_reference": "formateurs_hasMany_etats_realisation_projets_formateur_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "formateurs_groupes_formateur_groupe_m2m_m2m_displayOrder",
+        "value_integer": 18,
+        "e_data_field_reference": "formateurs_groupes_formateur_groupe_m2m_m2m",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "formateurs_specialites_formateur_specialite_m2m_m2m_displayOrder",
+        "value_integer": 19,
+        "e_data_field_reference": "formateurs_specialites_formateur_specialite_m2m_m2m",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "formateurs_hasMany_niveau_difficultes_formateur_id_displayOrder",
+        "value_integer": 20,
+        "e_data_field_reference": "formateurs_hasMany_niveau_difficultes_formateur_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "formateurs_hasMany_projets_formateur_id_displayOrder",
+        "value_integer": 21,
+        "e_data_field_reference": "formateurs_hasMany_projets_formateur_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "Formateur_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formateur_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "Formateur_matricule_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formateur_matricule",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "Formateur_nom_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formateur_nom",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "Formateur_prenom_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formateur_prenom",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "Formateur_prenom_arab_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formateur_prenom_arab",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "Formateur_nom_arab_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formateur_nom_arab",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "Formateur_tele_num_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formateur_tele_num",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "Formateur_adresse_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formateur_adresse",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "Formateur_diplome_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formateur_diplome",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "Formateur_echelle_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formateur_echelle",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "Formateur_echelon_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formateur_echelon",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "Formateur_profile_image_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formateur_profile_image",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "Formateur_user_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formateur_user_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "Formateur_reference_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formateur_reference",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "Formateur_created_at_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formateur_created_at",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "Formateur_updated_at_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formateur_updated_at",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "formateurs_hasMany_etats_realisation_projets_formateur_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "formateurs_hasMany_etats_realisation_projets_formateur_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "formateurs_groupes_formateur_groupe_m2m_m2m_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "formateurs_groupes_formateur_groupe_m2m_m2m",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "formateurs_specialites_formateur_specialite_m2m_m2m_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "formateurs_specialites_formateur_specialite_m2m_m2m",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "formateurs_hasMany_niveau_difficultes_formateur_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "formateurs_hasMany_niveau_difficultes_formateur_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "formateurs_hasMany_projets_formateur_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "formateurs_hasMany_projets_formateur_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "formateurs_displayInSideBar",
+        "value_boolean": 1,
+        "e_model_reference": "formateurs",
+        "e_metadata_definition_reference": "displayInSideBar"
+    }
+]

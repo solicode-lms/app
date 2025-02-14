@@ -12,39 +12,67 @@ use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Style\Border;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
 
 class BaseApprenantExport implements FromCollection, WithHeadings, ShouldAutoSize, WithStyles
 {
     protected $data;
 
-    public function __construct($data)
+    public function __construct($data,$format)
     {
         $this->data = $data;
+        $this->format = $format;
     }
 
     public function headings(): array
     {
+     if($this->format == 'csv'){
         return [
-            'nom',
-            'prenom',
-            'prenom_arab',
-            'nom_arab',
-            'tele_num',
-            'profile_image',
-            'matricule',
-            'sexe',
-            'actif',
-            'diplome',
-            'date_naissance',
-            'date_inscription',
-            'lieu_naissance',
-            'cin',
-            'adresse',
-            'niveaux_scolaire_id',
-            'nationalite_id',
-            'user_id',
-            'reference',
+            'nom' => 'nom',
+            'prenom' => 'prenom',
+            'prenom_arab' => 'prenom_arab',
+            'nom_arab' => 'nom_arab',
+            'tele_num' => 'tele_num',
+            'profile_image' => 'profile_image',
+            'matricule' => 'matricule',
+            'sexe' => 'sexe',
+            'actif' => 'actif',
+            'diplome' => 'diplome',
+            'date_naissance' => 'date_naissance',
+            'date_inscription' => 'date_inscription',
+            'lieu_naissance' => 'lieu_naissance',
+            'cin' => 'cin',
+            'adresse' => 'adresse',
+            'niveaux_scolaire_id' => 'niveaux_scolaire_id',
+            'nationalite_id' => 'nationalite_id',
+            'user_id' => 'user_id',
+            'reference' => 'reference',
         ];
+        }else{
+        return [
+            'nom' => __('PkgApprenants::apprenant.nom'),
+            'prenom' => __('PkgApprenants::apprenant.prenom'),
+            'prenom_arab' => __('PkgApprenants::apprenant.prenom_arab'),
+            'nom_arab' => __('PkgApprenants::apprenant.nom_arab'),
+            'tele_num' => __('PkgApprenants::apprenant.tele_num'),
+            'profile_image' => __('PkgApprenants::apprenant.profile_image'),
+            'matricule' => __('PkgApprenants::apprenant.matricule'),
+            'sexe' => __('PkgApprenants::apprenant.sexe'),
+            'actif' => __('PkgApprenants::apprenant.actif'),
+            'diplome' => __('PkgApprenants::apprenant.diplome'),
+            'date_naissance' => __('PkgApprenants::apprenant.date_naissance'),
+            'date_inscription' => __('PkgApprenants::apprenant.date_inscription'),
+            'lieu_naissance' => __('PkgApprenants::apprenant.lieu_naissance'),
+            'cin' => __('PkgApprenants::apprenant.cin'),
+            'adresse' => __('PkgApprenants::apprenant.adresse'),
+            'niveaux_scolaire_id' => __('PkgApprenants::apprenant.niveaux_scolaire_id'),
+            'nationalite_id' => __('PkgApprenants::apprenant.nationalite_id'),
+            'user_id' => __('PkgApprenants::apprenant.user_id'),
+            'reference' => __('Core::msg.reference'),
+        ];
+
+        }
+   
     }
 
     public function collection()
@@ -77,8 +105,10 @@ class BaseApprenantExport implements FromCollection, WithHeadings, ShouldAutoSiz
     public function styles(Worksheet $sheet)
     {
         $lastRow = $sheet->getHighestRow();
+        $lastColumn = $sheet->getHighestColumn();
 
-        $sheet->getStyle("A1:Z{$lastRow}")->applyFromArray([
+        // Appliquer les bordures à toutes les cellules contenant des données
+        $sheet->getStyle("A1:{$lastColumn}{$lastRow}")->applyFromArray([
             'borders' => [
                 'allBorders' => [
                     'borderStyle' => Border::BORDER_THIN,
@@ -87,16 +117,26 @@ class BaseApprenantExport implements FromCollection, WithHeadings, ShouldAutoSiz
             ],
         ]);
 
-        $sheet->getStyle("A1:Z1")->applyFromArray([
+        // Appliquer un style spécifique aux en-têtes (ligne 1)
+        $sheet->getStyle("A1:{$lastColumn}1")->applyFromArray([
             'font' => [
                 'bold' => true,
+                'size' => 12,
+                'color' => ['argb' => 'FFFFFF'], // Texte blanc
             ],
             'fill' => [
-                'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
-                'startColor' => [
-                    'argb' => 'FFD3D3D3',
-                ],
+                'fillType' => Fill::FILL_SOLID,
+                'startColor' => ['argb' => '4F81BD'], // Fond bleu
+            ],
+            'alignment' => [
+                'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+                'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
             ],
         ]);
+
+        // Ajuster automatiquement la largeur des colonnes
+        foreach (range('A', $lastColumn) as $column) {
+            $sheet->getColumnDimension($column)->setAutoSize(true);
+        }
     }
 }

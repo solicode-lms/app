@@ -1,0 +1,228 @@
+{
+    "name": "SysModule",
+    "icon": "fa-table",
+    "attributes": [
+        {
+            "name": "id",
+            "type": "Integer",
+            "metaAttributes": {
+                "general": {
+                    "required": true
+                },
+                "tables": {
+                    "displayInTable": true
+                },
+                "database": {
+                    "db_nullable": false,
+                    "db_primaryKey": true,
+                    "db_unique": false
+                }
+            }
+        },
+        {
+            "name": "name",
+            "type": "String",
+            "metaAttributes": {
+                "general": {
+                    "displayField": true,
+                    "required": true
+                },
+                "tables": {
+                    "displayInTable": true
+                },
+                "database": {
+                    "db_nullable": false,
+                    "db_primaryKey": false,
+                    "db_unique": true
+                }
+            }
+        },
+        {
+            "name": "slug",
+            "type": "String",
+            "metaAttributes": {
+                "general": {
+                    "required": true
+                },
+                "database": {
+                    "db_nullable": false,
+                    "db_primaryKey": false,
+                    "db_unique": true
+                }
+            }
+        },
+        {
+            "name": "description",
+            "type": "Text",
+            "metaAttributes": {
+                "general": {
+                    "required": false
+                },
+                "tables": {
+                    "displayInTable": true
+                },
+                "database": {
+                    "db_nullable": true,
+                    "db_primaryKey": false,
+                    "db_unique": false
+                }
+            }
+        },
+        {
+            "name": "is_active",
+            "type": "Integer",
+            "metaAttributes": {
+                "general": {
+                    "required": true
+                },
+                "tables": {
+                    "displayInTable": true
+                },
+                "database": {
+                    "db_nullable": false,
+                    "db_primaryKey": false,
+                    "db_unique": false
+                }
+            }
+        },
+        {
+            "name": "order",
+            "type": "Integer",
+            "metaAttributes": {
+                "general": {
+                    "required": true
+                },
+                "database": {
+                    "db_nullable": false,
+                    "db_primaryKey": false,
+                    "db_unique": false
+                }
+            }
+        },
+        {
+            "name": "version",
+            "type": "String",
+            "metaAttributes": {
+                "general": {
+                    "required": true
+                },
+                "database": {
+                    "db_nullable": true,
+                    "db_primaryKey": false,
+                    "db_unique": false
+                }
+            }
+        },
+        {
+            "name": "color_id",
+            "type": "ManyToOne",
+            "metaAttributes": {
+                "general": {
+                    "required": true
+                },
+                "tables": {
+                    "displayInTable": true
+                },
+                "relations": {
+                    "manyToOne": true,
+                    "relationType": "ManyToOne",
+                    "targetModelName": "SysColor",
+                    "targetTable": "sys_colors"
+                },
+                "database": {
+                    "db_nullable": false,
+                    "db_primaryKey": false,
+                    "db_unique": false
+                }
+            }
+        },
+        {
+            "name": "created_at",
+            "type": "Date",
+            "metaAttributes": {
+                "tables": {
+                    "displayInTable": true
+                },
+                "database": {
+                    "db_nullable": true,
+                    "db_primaryKey": false,
+                    "db_unique": false
+                }
+            }
+        },
+        {
+            "name": "updated_at",
+            "type": "Date",
+            "metaAttributes": {
+                "tables": {
+                    "displayInTable": true
+                },
+                "database": {
+                    "db_nullable": true,
+                    "db_primaryKey": false,
+                    "db_unique": false
+                }
+            }
+        },
+        {
+            "name": "FeatureDomain_HasMany",
+            "type": "HasMany",
+            "metaAttributes": {
+                "relations": {
+                    "relationType": "HasMany",
+                    "targetModelName": "FeatureDomain",
+                    "targetTable": "feature_domains"
+                }
+            }
+        },
+        {
+            "name": "SysController_HasMany",
+            "type": "HasMany",
+            "metaAttributes": {
+                "relations": {
+                    "relationType": "HasMany",
+                    "targetModelName": "SysController",
+                    "targetTable": "sys_controllers"
+                }
+            }
+        },
+        {
+            "name": "SysModel_HasMany",
+            "type": "HasMany",
+            "metaAttributes": {
+                "relations": {
+                    "relationType": "HasMany",
+                    "targetModelName": "SysModel",
+                    "targetTable": "sys_models"
+                }
+            }
+        }
+    ],
+    "oneToOneRelations": [],
+    "manyToOneRelations": [
+        {
+            "column": "color_id",
+            "referencedTable": "sys_colors",
+            "referencedColumn": "id"
+        }
+    ],
+    "hasManyRelations": [
+        {
+            "referencedTable": "feature_domains",
+            "columnName": "module_id"
+        },
+        {
+            "referencedTable": "sys_controllers",
+            "columnName": "module_id"
+        },
+        {
+            "referencedTable": "sys_models",
+            "columnName": "module_id"
+        }
+    ],
+    "manyToManyRelations": [],
+    "metaModels": {
+        "creationOrder": 7,
+        "isPivotTable": false
+    }
+}

@@ -14,8 +14,11 @@ Route::middleware('auth')->group(function () {
         Route::resource('permissions', PermissionController::class);
         // Routes supplémentaires avec préfixe
         Route::prefix('data')->group(function () {
-            Route::get('permissions/export', [PermissionController::class, 'export'])->name('permissions.export');
             Route::post('permissions/import', [PermissionController::class, 'import'])->name('permissions.import');
+            Route::get('permissions/export/{format}', [PermissionController::class, 'export'])
+            ->where('format', 'csv|xlsx')
+            ->name('permissions.export');
+
         });
 
         Route::post('permissions/data-calcul', [PermissionController::class, 'dataCalcul'])->name('permissions.dataCalcul');

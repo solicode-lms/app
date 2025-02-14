@@ -6,7 +6,9 @@
     window.crudModalManagersConfig.push({
         edit_has_many: {{ !isset($edit_has_many)? 'true' :  ($edit_has_many ? "true": "false") }},
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
+        editOnFullScreen : false,
         entity_name: 'formateur',
+        contextKey: '{{ isset($contextKey) ? $contextKey : 'formateur.index' }}', 
         filterFormSelector: '#formateur-crud-filter-form',
         crudSelector: '#formateur-crud',
         tableSelector: '#formateur-data-container',
@@ -62,7 +64,8 @@
                             :importRoute="route('formateurs.import')"
                             :importText="__('Importer')"
                             :exportPermission="'export-formateur'"
-                            :exportRoute="route('formateurs.export')"
+                            :exportXlsxRoute="route('formateurs.export', ['format' => 'xlsx'])"
+                            :exportCsvRoute="route('formateurs.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
                         />
                     </div>

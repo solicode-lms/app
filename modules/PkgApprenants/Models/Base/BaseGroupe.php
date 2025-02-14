@@ -25,8 +25,8 @@ class BaseGroupe extends BaseModel
 {
     use HasFactory, HasDynamicContext;
 
-    public function __construct() {
-        parent::__construct(); 
+    public function __construct(array $attributes = []) {
+        parent::__construct($attributes); 
         $this->isOwnedByUser =  false;
     }
 
@@ -40,9 +40,13 @@ class BaseGroupe extends BaseModel
         'code', 'nom', 'description', 'filiere_id', 'annee_formation_id'
     ];
     public $manyToMany = [
-        'apprenants',
-        'formateurs'
+        'Apprenant' => ['relation' => 'apprenants' , "foreign_key" => "apprenant_id" ],
+        'Formateur' => ['relation' => 'formateurs' , "foreign_key" => "formateur_id" ]
     ];
+
+       
+
+
 
     /**
      * Relation BelongsTo pour AnneeFormation.

@@ -7,7 +7,9 @@ use Modules\PkgCompetences\Services\NiveauDifficulteService;
 use Modules\PkgFormation\Services\FormateurService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
+use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgCompetences\App\Requests\NiveauDifficulteRequest;
+use Modules\PkgCompetences\Models\NiveauDifficulte;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgCompetences\App\Exports\NiveauDifficulteExport;
 use Modules\PkgCompetences\App\Imports\NiveauDifficulteImport;
@@ -25,10 +27,15 @@ class BaseNiveauDifficulteController extends AdminController
     }
 
     public function index(Request $request) {
+        
+        $this->viewState->setContextKeyIfEmpty('niveauDifficulte.index');
+        $this->viewState->init('filter.niveauDifficulte.formateur_id'  , $this->sessionState->get('formateur_id'));
+
+
         // Extraire les paramètres de recherche, page, et filtres
         $niveauDifficultes_params = array_merge(
             $request->only(['page','sort']),
-            ['search' => $request->get('niveauDifficultes_search', '')],
+            ['search' => $request->get('niveauDifficultes_search', $this->viewState->get("filter.niveauDifficulte.niveauDifficultes_search"))],
             $request->except(['niveauDifficultes_search', 'page', 'sort'])
         );
 
@@ -47,6 +54,7 @@ class BaseNiveauDifficulteController extends AdminController
         return view('PkgCompetences::niveauDifficulte.index', compact('niveauDifficultes_data', 'niveauDifficultes_stats', 'niveauDifficultes_filters'));
     }
     public function create() {
+        $this->viewState->set('scope_form.niveauDifficulte.formateur_id'  , $this->sessionState->get('formateur_id'));
         $itemNiveauDifficulte = $this->niveauDifficulteService->createInstance();
         $formateurs = $this->formateurService->all();
 
@@ -61,13 +69,14 @@ class BaseNiveauDifficulteController extends AdminController
         $niveauDifficulte = $this->niveauDifficulteService->create($validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 
-            'entity_id' => $niveauDifficulte->id,
-            'message' => 
-             __('Core::msg.addSuccess', [
+             $message = __('Core::msg.addSuccess', [
                 'entityToString' => $niveauDifficulte,
-                'modelName' => __('PkgCompetences::niveauDifficulte.singular')])
-            ]);
+                'modelName' => __('PkgCompetences::niveauDifficulte.singular')]);
+        
+            return JsonResponseHelper::success(
+             $message,
+             ['entity_id' => $niveauDifficulte->id]
+            );
         }
 
         return redirect()->route('niveauDifficultes.index')->with(
@@ -79,27 +88,15 @@ class BaseNiveauDifficulteController extends AdminController
         );
     }
     public function show(string $id) {
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('niveau_difficulte_id', $id);
-        
-        $itemNiveauDifficulte = $this->niveauDifficulteService->find($id);
-        $formateurs = $this->formateurService->all();
-
-        if (request()->ajax()) {
-            return view('PkgCompetences::niveauDifficulte._fields', compact('itemNiveauDifficulte', 'formateurs'));
-        }
-
-        return view('PkgCompetences::niveauDifficulte.edit', compact('itemNiveauDifficulte', 'formateurs'));
-
+        return $this->edit( $id);
     }
     public function edit(string $id) {
 
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('niveau_difficulte_id', $id);
-        
+        $this->viewState->setContextKey('niveauDifficulte.edit_' . $id);
+
         $itemNiveauDifficulte = $this->niveauDifficulteService->find($id);
         $formateurs = $this->formateurService->all();
+
 
         if (request()->ajax()) {
             return view('PkgCompetences::niveauDifficulte._fields', compact('itemNiveauDifficulte', 'formateurs'));
@@ -109,16 +106,22 @@ class BaseNiveauDifficulteController extends AdminController
 
     }
     public function update(NiveauDifficulteRequest $request, string $id) {
+        // Vérifie si l'utilisateur peut mettre à jour l'objet 
+        $niveauDifficulte = $this->niveauDifficulteService->find($id);
+        $this->authorize('update', $niveauDifficulte);
 
         $validatedData = $request->validated();
         $niveauDifficulte = $this->niveauDifficulteService->update($id, $validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.updateSuccess', [
+             $message = __('Core::msg.updateSuccess', [
                 'entityToString' => $niveauDifficulte,
-                'modelName' =>  __('PkgCompetences::niveauDifficulte.singular')])
-            ]);
+                'modelName' =>  __('PkgCompetences::niveauDifficulte.singular')]);
+            
+            return JsonResponseHelper::success(
+                $message,
+                ['entity_id' => $niveauDifficulte->id]
+            );
         }
 
         return redirect()->route('niveauDifficultes.index')->with(
@@ -131,15 +134,21 @@ class BaseNiveauDifficulteController extends AdminController
 
     }
     public function destroy(Request $request, string $id) {
+        // Vérifie si l'utilisateur peut mettre à jour l'objet 
+        $niveauDifficulte = $this->niveauDifficulteService->find($id);
+        $this->authorize('delete', $niveauDifficulte);
 
         $niveauDifficulte = $this->niveauDifficulteService->destroy($id);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.deleteSuccess', [
+            $message = __('Core::msg.deleteSuccess', [
                 'entityToString' => $niveauDifficulte,
-                'modelName' =>  __('PkgCompetences::niveauDifficulte.singular')])
-            ]);
+                'modelName' =>  __('PkgCompetences::niveauDifficulte.singular')]);
+            
+
+            return JsonResponseHelper::success(
+                $message
+            );
         }
 
         return redirect()->route('niveauDifficultes.index')->with(
@@ -152,10 +161,18 @@ class BaseNiveauDifficulteController extends AdminController
 
     }
 
-    public function export()
+    public function export($format)
     {
         $niveauDifficultes_data = $this->niveauDifficulteService->all();
-        return Excel::download(new NiveauDifficulteExport($niveauDifficultes_data), 'niveauDifficulte_export.xlsx');
+        
+        // Vérifier le format et exporter en conséquence
+        if ($format === 'csv') {
+            return Excel::download(new NiveauDifficulteExport($niveauDifficultes_data,'csv'), 'niveauDifficulte_export.csv', \Maatwebsite\Excel\Excel::CSV, ['Content-Type' => 'text/csv']);
+        } elseif ($format === 'xlsx') {
+            return Excel::download(new NiveauDifficulteExport($niveauDifficultes_data,'xlsx'), 'niveauDifficulte_export.xlsx', \Maatwebsite\Excel\Excel::XLSX);
+        } else {
+            return response()->json(['error' => 'Format non supporté'], 400);
+        }
     }
 
     public function import(Request $request)

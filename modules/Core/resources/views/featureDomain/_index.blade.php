@@ -6,7 +6,9 @@
     window.crudModalManagersConfig.push({
         edit_has_many: {{ !isset($edit_has_many)? 'true' :  ($edit_has_many ? "true": "false") }},
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
+        editOnFullScreen : false,
         entity_name: 'featureDomain',
+        contextKey: '{{ isset($contextKey) ? $contextKey : 'featureDomain.index' }}', 
         filterFormSelector: '#featureDomain-crud-filter-form',
         crudSelector: '#featureDomain-crud',
         tableSelector: '#featureDomain-data-container',
@@ -62,7 +64,8 @@
                             :importRoute="route('featureDomains.import')"
                             :importText="__('Importer')"
                             :exportPermission="'export-featureDomain'"
-                            :exportRoute="route('featureDomains.export')"
+                            :exportXlsxRoute="route('featureDomains.export', ['format' => 'xlsx'])"
+                            :exportCsvRoute="route('featureDomains.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
                         />
                     </div>

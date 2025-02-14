@@ -9,7 +9,9 @@ use Modules\PkgCompetences\Services\CategoryTechnologyService;
 use Modules\PkgCreationProjet\Services\TransfertCompetenceService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
+use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgCompetences\App\Requests\TechnologyRequest;
+use Modules\PkgCompetences\Models\Technology;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgCompetences\App\Exports\TechnologyExport;
 use Modules\PkgCompetences\App\Imports\TechnologyImport;
@@ -31,10 +33,14 @@ class BaseTechnologyController extends AdminController
     }
 
     public function index(Request $request) {
+        
+        $this->viewState->setContextKeyIfEmpty('technology.index');
+
+
         // Extraire les paramètres de recherche, page, et filtres
         $technologies_params = array_merge(
             $request->only(['page','sort']),
-            ['search' => $request->get('technologies_search', '')],
+            ['search' => $request->get('technologies_search', $this->viewState->get("filter.technology.technologies_search"))],
             $request->except(['technologies_search', 'page', 'sort'])
         );
 
@@ -69,13 +75,14 @@ class BaseTechnologyController extends AdminController
         $technology = $this->technologyService->create($validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 
-            'entity_id' => $technology->id,
-            'message' => 
-             __('Core::msg.addSuccess', [
+             $message = __('Core::msg.addSuccess', [
                 'entityToString' => $technology,
-                'modelName' => __('PkgCompetences::technology.singular')])
-            ]);
+                'modelName' => __('PkgCompetences::technology.singular')]);
+        
+            return JsonResponseHelper::success(
+             $message,
+             ['entity_id' => $technology->id]
+            );
         }
 
         return redirect()->route('technologies.index')->with(
@@ -87,31 +94,17 @@ class BaseTechnologyController extends AdminController
         );
     }
     public function show(string $id) {
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('technology_id', $id);
-        
-        $itemTechnology = $this->technologyService->find($id);
-        $competences = $this->competenceService->all();
-        $transfertCompetences = $this->transfertCompetenceService->all();
-        $categoryTechnologies = $this->categoryTechnologyService->all();
-
-        if (request()->ajax()) {
-            return view('PkgCompetences::technology._fields', compact('itemTechnology', 'competences', 'transfertCompetences', 'categoryTechnologies'));
-        }
-
-        return view('PkgCompetences::technology.edit', compact('itemTechnology', 'competences', 'transfertCompetences', 'categoryTechnologies'));
-
+        return $this->edit( $id);
     }
     public function edit(string $id) {
 
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('technology_id', $id);
-        
+        $this->viewState->setContextKey('technology.edit_' . $id);
+
         $itemTechnology = $this->technologyService->find($id);
         $competences = $this->competenceService->all();
         $transfertCompetences = $this->transfertCompetenceService->all();
         $categoryTechnologies = $this->categoryTechnologyService->all();
+
 
         if (request()->ajax()) {
             return view('PkgCompetences::technology._fields', compact('itemTechnology', 'competences', 'transfertCompetences', 'categoryTechnologies'));
@@ -126,11 +119,14 @@ class BaseTechnologyController extends AdminController
         $technology = $this->technologyService->update($id, $validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.updateSuccess', [
+             $message = __('Core::msg.updateSuccess', [
                 'entityToString' => $technology,
-                'modelName' =>  __('PkgCompetences::technology.singular')])
-            ]);
+                'modelName' =>  __('PkgCompetences::technology.singular')]);
+            
+            return JsonResponseHelper::success(
+                $message,
+                ['entity_id' => $technology->id]
+            );
         }
 
         return redirect()->route('technologies.index')->with(
@@ -147,11 +143,14 @@ class BaseTechnologyController extends AdminController
         $technology = $this->technologyService->destroy($id);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.deleteSuccess', [
+            $message = __('Core::msg.deleteSuccess', [
                 'entityToString' => $technology,
-                'modelName' =>  __('PkgCompetences::technology.singular')])
-            ]);
+                'modelName' =>  __('PkgCompetences::technology.singular')]);
+            
+
+            return JsonResponseHelper::success(
+                $message
+            );
         }
 
         return redirect()->route('technologies.index')->with(
@@ -164,10 +163,18 @@ class BaseTechnologyController extends AdminController
 
     }
 
-    public function export()
+    public function export($format)
     {
         $technologies_data = $this->technologyService->all();
-        return Excel::download(new TechnologyExport($technologies_data), 'technology_export.xlsx');
+        
+        // Vérifier le format et exporter en conséquence
+        if ($format === 'csv') {
+            return Excel::download(new TechnologyExport($technologies_data,'csv'), 'technology_export.csv', \Maatwebsite\Excel\Excel::CSV, ['Content-Type' => 'text/csv']);
+        } elseif ($format === 'xlsx') {
+            return Excel::download(new TechnologyExport($technologies_data,'xlsx'), 'technology_export.xlsx', \Maatwebsite\Excel\Excel::XLSX);
+        } else {
+            return response()->json(['error' => 'Format non supporté'], 400);
+        }
     }
 
     public function import(Request $request)

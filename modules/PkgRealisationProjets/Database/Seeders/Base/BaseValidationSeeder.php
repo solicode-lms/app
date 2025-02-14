@@ -100,7 +100,7 @@ class BaseValidationSeeder extends Seeder
 
         // Permissions spécifiques pour chaque type de fonctionnalité
         $featurePermissions = [
-            'Édition ' => [ 'create','store','edit','update','destroy','getValidations'],
+            'Édition ' => [ 'create','store','edit','update','destroy','getValidations','dataCalcul'],
             'Lecture' => ['index', 'show'],
             'Extraction' => ['import', 'export'],
         ];

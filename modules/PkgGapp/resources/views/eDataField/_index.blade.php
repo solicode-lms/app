@@ -6,7 +6,9 @@
     window.crudModalManagersConfig.push({
         edit_has_many: {{ !isset($edit_has_many)? 'true' :  ($edit_has_many ? "true": "false") }},
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
+        editOnFullScreen : false,
         entity_name: 'eDataField',
+        contextKey: '{{ isset($contextKey) ? $contextKey : 'eDataField.index' }}', 
         filterFormSelector: '#eDataField-crud-filter-form',
         crudSelector: '#eDataField-crud',
         tableSelector: '#eDataField-data-container',
@@ -62,7 +64,8 @@
                             :importRoute="route('eDataFields.import')"
                             :importText="__('Importer')"
                             :exportPermission="'export-eDataField'"
-                            :exportRoute="route('eDataFields.export')"
+                            :exportXlsxRoute="route('eDataFields.export', ['format' => 'xlsx'])"
+                            :exportCsvRoute="route('eDataFields.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
                         />
                     </div>

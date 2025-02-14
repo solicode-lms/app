@@ -17,6 +17,17 @@ export class NotificationHandler {
         }
     }
 
+
+    static show(type, title, message){
+        switch (type) {
+            case "info": NotificationHandler.showInfo(title,message);break;
+            case "success": NotificationHandler.showSuccess(message);break;
+            case "error": NotificationHandler.showError(this.message);break;
+            default: NotificationHandler.showInfo(this.message);break;
+        }
+    }
+
+
     /**
      * Affiche une notification toast.
      * @param {string} type - Type de message (success, error, warning, info).
@@ -91,8 +102,9 @@ export class NotificationHandler {
         Swal.fire({
             icon: type,
             title: title,
-            text: text,
+            html: text,
             confirmButtonText: 'OK',
+            width: "auto", 
         });
     }
 
@@ -116,7 +128,7 @@ export class NotificationHandler {
      * Affiche un message d'information générique.
      * @param {string} [message='Action en cours...'] - Message d'information à afficher.
      */
-    static showInfo(message = 'Action en cours...') {
-        NotificationHandler.showToast('info', message);
+    static showInfo(title, message) {
+        NotificationHandler.showAlert('info',title, message);
     }
 }

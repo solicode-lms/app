@@ -6,7 +6,9 @@ namespace Modules\PkgGapp\Controllers\Base;
 use Modules\PkgGapp\Services\EMetadataDefinitionService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
+use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgGapp\App\Requests\EMetadataDefinitionRequest;
+use Modules\PkgGapp\Models\EMetadataDefinition;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgGapp\App\Exports\EMetadataDefinitionExport;
 use Modules\PkgGapp\App\Imports\EMetadataDefinitionImport;
@@ -22,10 +24,14 @@ class BaseEMetadataDefinitionController extends AdminController
     }
 
     public function index(Request $request) {
+        
+        $this->viewState->setContextKeyIfEmpty('eMetadataDefinition.index');
+
+
         // Extraire les paramètres de recherche, page, et filtres
         $eMetadataDefinitions_params = array_merge(
             $request->only(['page','sort']),
-            ['search' => $request->get('eMetadataDefinitions_search', '')],
+            ['search' => $request->get('eMetadataDefinitions_search', $this->viewState->get("filter.eMetadataDefinition.eMetadataDefinitions_search"))],
             $request->except(['eMetadataDefinitions_search', 'page', 'sort'])
         );
 
@@ -57,13 +63,14 @@ class BaseEMetadataDefinitionController extends AdminController
         $eMetadataDefinition = $this->eMetadataDefinitionService->create($validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 
-            'entity_id' => $eMetadataDefinition->id,
-            'message' => 
-             __('Core::msg.addSuccess', [
+             $message = __('Core::msg.addSuccess', [
                 'entityToString' => $eMetadataDefinition,
-                'modelName' => __('PkgGapp::eMetadataDefinition.singular')])
-            ]);
+                'modelName' => __('PkgGapp::eMetadataDefinition.singular')]);
+        
+            return JsonResponseHelper::success(
+             $message,
+             ['entity_id' => $eMetadataDefinition->id]
+            );
         }
 
         return redirect()->route('eMetadataDefinitions.index')->with(
@@ -75,25 +82,14 @@ class BaseEMetadataDefinitionController extends AdminController
         );
     }
     public function show(string $id) {
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('e_metadata_definition_id', $id);
-        
-        $itemEMetadataDefinition = $this->eMetadataDefinitionService->find($id);
-
-        if (request()->ajax()) {
-            return view('PkgGapp::eMetadataDefinition._fields', compact('itemEMetadataDefinition'));
-        }
-
-        return view('PkgGapp::eMetadataDefinition.edit', compact('itemEMetadataDefinition'));
-
+        return $this->edit( $id);
     }
     public function edit(string $id) {
 
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('e_metadata_definition_id', $id);
-        
+        $this->viewState->setContextKey('eMetadataDefinition.edit_' . $id);
+
         $itemEMetadataDefinition = $this->eMetadataDefinitionService->find($id);
+
 
         if (request()->ajax()) {
             return view('PkgGapp::eMetadataDefinition._fields', compact('itemEMetadataDefinition'));
@@ -108,11 +104,14 @@ class BaseEMetadataDefinitionController extends AdminController
         $eMetadataDefinition = $this->eMetadataDefinitionService->update($id, $validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.updateSuccess', [
+             $message = __('Core::msg.updateSuccess', [
                 'entityToString' => $eMetadataDefinition,
-                'modelName' =>  __('PkgGapp::eMetadataDefinition.singular')])
-            ]);
+                'modelName' =>  __('PkgGapp::eMetadataDefinition.singular')]);
+            
+            return JsonResponseHelper::success(
+                $message,
+                ['entity_id' => $eMetadataDefinition->id]
+            );
         }
 
         return redirect()->route('eMetadataDefinitions.index')->with(
@@ -129,11 +128,14 @@ class BaseEMetadataDefinitionController extends AdminController
         $eMetadataDefinition = $this->eMetadataDefinitionService->destroy($id);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.deleteSuccess', [
+            $message = __('Core::msg.deleteSuccess', [
                 'entityToString' => $eMetadataDefinition,
-                'modelName' =>  __('PkgGapp::eMetadataDefinition.singular')])
-            ]);
+                'modelName' =>  __('PkgGapp::eMetadataDefinition.singular')]);
+            
+
+            return JsonResponseHelper::success(
+                $message
+            );
         }
 
         return redirect()->route('eMetadataDefinitions.index')->with(
@@ -146,10 +148,18 @@ class BaseEMetadataDefinitionController extends AdminController
 
     }
 
-    public function export()
+    public function export($format)
     {
         $eMetadataDefinitions_data = $this->eMetadataDefinitionService->all();
-        return Excel::download(new EMetadataDefinitionExport($eMetadataDefinitions_data), 'eMetadataDefinition_export.xlsx');
+        
+        // Vérifier le format et exporter en conséquence
+        if ($format === 'csv') {
+            return Excel::download(new EMetadataDefinitionExport($eMetadataDefinitions_data,'csv'), 'eMetadataDefinition_export.csv', \Maatwebsite\Excel\Excel::CSV, ['Content-Type' => 'text/csv']);
+        } elseif ($format === 'xlsx') {
+            return Excel::download(new EMetadataDefinitionExport($eMetadataDefinitions_data,'xlsx'), 'eMetadataDefinition_export.xlsx', \Maatwebsite\Excel\Excel::XLSX);
+        } else {
+            return response()->json(['error' => 'Format non supporté'], 400);
+        }
     }
 
     public function import(Request $request)

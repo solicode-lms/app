@@ -10,7 +10,9 @@ use Modules\PkgCreationProjet\Services\ProjetService;
 use Modules\PkgRealisationProjets\Services\RealisationProjetService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
+use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgRealisationProjets\App\Requests\AffectationProjetRequest;
+use Modules\PkgRealisationProjets\Models\AffectationProjet;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgRealisationProjets\App\Exports\AffectationProjetExport;
 use Modules\PkgRealisationProjets\App\Imports\AffectationProjetImport;
@@ -32,10 +34,15 @@ class BaseAffectationProjetController extends AdminController
     }
 
     public function index(Request $request) {
+        
+        $this->viewState->setContextKeyIfEmpty('affectationProjet.index');
+        $this->viewState->set('scope.groupe.formateur_id', auth()->user()->formateur->id);
+        $this->viewState->set('scope.projet.formateur_id', auth()->user()->formateur->id);
+
         // Extraire les paramètres de recherche, page, et filtres
         $affectationProjets_params = array_merge(
             $request->only(['page','sort']),
-            ['search' => $request->get('affectationProjets_search', '')],
+            ['search' => $request->get('affectationProjets_search', $this->viewState->get("filter.affectationProjet.affectationProjets_search"))],
             $request->except(['affectationProjets_search', 'page', 'sort'])
         );
 
@@ -54,6 +61,8 @@ class BaseAffectationProjetController extends AdminController
         return view('PkgRealisationProjets::affectationProjet.index', compact('affectationProjets_data', 'affectationProjets_stats', 'affectationProjets_filters'));
     }
     public function create() {
+        $this->viewState->set('scope.groupe.formateur_id', auth()->user()->formateur->id);
+        $this->viewState->set('scope.projet.formateur_id', auth()->user()->formateur->id);
         $itemAffectationProjet = $this->affectationProjetService->createInstance();
         $anneeFormations = $this->anneeFormationService->all();
         $groupes = $this->groupeService->all();
@@ -70,13 +79,14 @@ class BaseAffectationProjetController extends AdminController
         $affectationProjet = $this->affectationProjetService->create($validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 
-            'entity_id' => $affectationProjet->id,
-            'message' => 
-             __('Core::msg.addSuccess', [
+             $message = __('Core::msg.addSuccess', [
                 'entityToString' => $affectationProjet,
-                'modelName' => __('PkgRealisationProjets::affectationProjet.singular')])
-            ]);
+                'modelName' => __('PkgRealisationProjets::affectationProjet.singular')]);
+        
+            return JsonResponseHelper::success(
+             $message,
+             ['entity_id' => $affectationProjet->id]
+            );
         }
 
         return redirect()->route('affectationProjets.edit',['affectationProjet' => $affectationProjet->id])->with(
@@ -88,36 +98,20 @@ class BaseAffectationProjetController extends AdminController
         );
     }
     public function show(string $id) {
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('affectation_projet_id', $id);
-        
-        $itemAffectationProjet = $this->affectationProjetService->find($id);
-        $anneeFormations = $this->anneeFormationService->all();
-        $groupes = $this->groupeService->all();
-        $projets = $this->projetService->all();
-        $realisationProjetService =  new RealisationProjetService();
-        $realisationProjets_data =  $itemAffectationProjet->realisationProjets()->paginate(10);
-        $realisationProjets_stats = $realisationProjetService->getrealisationProjetStats();
-        $realisationProjets_filters = $realisationProjetService->getFieldsFilterable();
-        
-
-        if (request()->ajax()) {
-            return view('PkgRealisationProjets::affectationProjet._edit', compact('itemAffectationProjet', 'anneeFormations', 'groupes', 'projets', 'realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters'));
-        }
-
-        return view('PkgRealisationProjets::affectationProjet.edit', compact('itemAffectationProjet', 'anneeFormations', 'groupes', 'projets', 'realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters'));
-
+        return $this->edit( $id);
     }
     public function edit(string $id) {
 
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('affectation_projet_id', $id);
-        
+        $this->viewState->setContextKey('affectationProjet.edit_' . $id);
+        $this->viewState->set('scope.groupe.formateur_id', auth()->user()->formateur->id);
+        $this->viewState->set('scope.projet.formateur_id', auth()->user()->formateur->id);
+
         $itemAffectationProjet = $this->affectationProjetService->find($id);
         $anneeFormations = $this->anneeFormationService->all();
         $groupes = $this->groupeService->all();
         $projets = $this->projetService->all();
+
+        $this->viewState->set('scope.realisationProjet.affectation_projet_id', $id);
         $realisationProjetService =  new RealisationProjetService();
         $realisationProjets_data =  $itemAffectationProjet->realisationProjets()->paginate(10);
         $realisationProjets_stats = $realisationProjetService->getrealisationProjetStats();
@@ -137,11 +131,14 @@ class BaseAffectationProjetController extends AdminController
         $affectationProjet = $this->affectationProjetService->update($id, $validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.updateSuccess', [
+             $message = __('Core::msg.updateSuccess', [
                 'entityToString' => $affectationProjet,
-                'modelName' =>  __('PkgRealisationProjets::affectationProjet.singular')])
-            ]);
+                'modelName' =>  __('PkgRealisationProjets::affectationProjet.singular')]);
+            
+            return JsonResponseHelper::success(
+                $message,
+                ['entity_id' => $affectationProjet->id]
+            );
         }
 
         return redirect()->route('affectationProjets.index')->with(
@@ -158,11 +155,14 @@ class BaseAffectationProjetController extends AdminController
         $affectationProjet = $this->affectationProjetService->destroy($id);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.deleteSuccess', [
+            $message = __('Core::msg.deleteSuccess', [
                 'entityToString' => $affectationProjet,
-                'modelName' =>  __('PkgRealisationProjets::affectationProjet.singular')])
-            ]);
+                'modelName' =>  __('PkgRealisationProjets::affectationProjet.singular')]);
+            
+
+            return JsonResponseHelper::success(
+                $message
+            );
         }
 
         return redirect()->route('affectationProjets.index')->with(
@@ -175,10 +175,18 @@ class BaseAffectationProjetController extends AdminController
 
     }
 
-    public function export()
+    public function export($format)
     {
         $affectationProjets_data = $this->affectationProjetService->all();
-        return Excel::download(new AffectationProjetExport($affectationProjets_data), 'affectationProjet_export.xlsx');
+        
+        // Vérifier le format et exporter en conséquence
+        if ($format === 'csv') {
+            return Excel::download(new AffectationProjetExport($affectationProjets_data,'csv'), 'affectationProjet_export.csv', \Maatwebsite\Excel\Excel::CSV, ['Content-Type' => 'text/csv']);
+        } elseif ($format === 'xlsx') {
+            return Excel::download(new AffectationProjetExport($affectationProjets_data,'xlsx'), 'affectationProjet_export.xlsx', \Maatwebsite\Excel\Excel::XLSX);
+        } else {
+            return response()->json(['error' => 'Format non supporté'], 400);
+        }
     }
 
     public function import(Request $request)

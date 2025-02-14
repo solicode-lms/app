@@ -6,7 +6,9 @@
     window.crudModalManagersConfig.push({
         edit_has_many: {{ !isset($edit_has_many)? 'false' :  ($edit_has_many ? "true": "false") }},
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
+        editOnFullScreen : false,
         entity_name: 'resource',
+        contextKey: '{{ isset($contextKey) ? $contextKey : 'resource.index' }}', 
         filterFormSelector: '#resource-crud-filter-form',
         crudSelector: '#resource-crud',
         tableSelector: '#resource-data-container',
@@ -62,7 +64,8 @@
                             :importRoute="route('resources.import')"
                             :importText="__('Importer')"
                             :exportPermission="'export-resource'"
-                            :exportRoute="route('resources.export')"
+                            :exportXlsxRoute="route('resources.export', ['format' => 'xlsx'])"
+                            :exportCsvRoute="route('resources.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
                         />
                     </div>

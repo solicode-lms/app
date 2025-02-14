@@ -6,7 +6,9 @@
     window.crudModalManagersConfig.push({
         edit_has_many: {{ !isset($edit_has_many)? 'true' :  ($edit_has_many ? "true": "false") }},
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
+        editOnFullScreen : false,
         entity_name: 'realisationProjet',
+        contextKey: '{{ isset($contextKey) ? $contextKey : 'realisationProjet.index' }}', 
         filterFormSelector: '#realisationProjet-crud-filter-form',
         crudSelector: '#realisationProjet-crud',
         tableSelector: '#realisationProjet-data-container',
@@ -31,7 +33,7 @@
        $titre = __("PkgRealisationProjets::realisationProjet.singular");
     @endphp
     <x-crud-header 
-        id="realisationProjet-crud-header" icon="fas fa-table"  
+        id="realisationProjet-crud-header" icon="fas fa-laptop-code"  
         iconColor="text-info"
         title="{{ __('PkgRealisationProjets::realisationProjet.plural') }}"
         :breadcrumbs="[
@@ -62,7 +64,8 @@
                             :importRoute="route('realisationProjets.import')"
                             :importText="__('Importer')"
                             :exportPermission="'export-realisationProjet'"
-                            :exportRoute="route('realisationProjets.export')"
+                            :exportXlsxRoute="route('realisationProjets.export', ['format' => 'xlsx'])"
+                            :exportCsvRoute="route('realisationProjets.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
                         />
                     </div>

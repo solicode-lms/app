@@ -25,8 +25,8 @@ class BaseTransfertCompetence extends BaseModel
 {
     use HasFactory, HasDynamicContext;
 
-    public function __construct() {
-        parent::__construct(); 
+    public function __construct(array $attributes = []) {
+        parent::__construct($attributes); 
         $this->isOwnedByUser =  false;
     }
 
@@ -37,11 +37,15 @@ class BaseTransfertCompetence extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'competence_id', 'niveau_difficulte_id', 'question', 'note', 'projet_id'
+        'competence_id', 'question', 'niveau_difficulte_id', 'note', 'projet_id'
     ];
     public $manyToMany = [
-        'technologies'
+        'Technology' => ['relation' => 'technologies' , "foreign_key" => "technology_id" ]
     ];
+
+       
+
+
 
     /**
      * Relation BelongsTo pour Competence.

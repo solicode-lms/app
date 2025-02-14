@@ -7,7 +7,9 @@ use Modules\PkgCreationProjet\Services\NatureLivrableService;
 use Modules\PkgCreationProjet\Services\LivrableService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
+use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgCreationProjet\App\Requests\NatureLivrableRequest;
+use Modules\PkgCreationProjet\Models\NatureLivrable;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgCreationProjet\App\Exports\NatureLivrableExport;
 use Modules\PkgCreationProjet\App\Imports\NatureLivrableImport;
@@ -23,10 +25,14 @@ class BaseNatureLivrableController extends AdminController
     }
 
     public function index(Request $request) {
+        
+        $this->viewState->setContextKeyIfEmpty('natureLivrable.index');
+
+
         // Extraire les paramètres de recherche, page, et filtres
         $natureLivrables_params = array_merge(
             $request->only(['page','sort']),
-            ['search' => $request->get('natureLivrables_search', '')],
+            ['search' => $request->get('natureLivrables_search', $this->viewState->get("filter.natureLivrable.natureLivrables_search"))],
             $request->except(['natureLivrables_search', 'page', 'sort'])
         );
 
@@ -58,13 +64,14 @@ class BaseNatureLivrableController extends AdminController
         $natureLivrable = $this->natureLivrableService->create($validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 
-            'entity_id' => $natureLivrable->id,
-            'message' => 
-             __('Core::msg.addSuccess', [
+             $message = __('Core::msg.addSuccess', [
                 'entityToString' => $natureLivrable,
-                'modelName' => __('PkgCreationProjet::natureLivrable.singular')])
-            ]);
+                'modelName' => __('PkgCreationProjet::natureLivrable.singular')]);
+        
+            return JsonResponseHelper::success(
+             $message,
+             ['entity_id' => $natureLivrable->id]
+            );
         }
 
         return redirect()->route('natureLivrables.edit',['natureLivrable' => $natureLivrable->id])->with(
@@ -76,30 +83,15 @@ class BaseNatureLivrableController extends AdminController
         );
     }
     public function show(string $id) {
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('nature_livrable_id', $id);
-        
-        $itemNatureLivrable = $this->natureLivrableService->find($id);
-        $livrableService =  new LivrableService();
-        $livrables_data =  $itemNatureLivrable->livrables()->paginate(10);
-        $livrables_stats = $livrableService->getlivrableStats();
-        $livrables_filters = $livrableService->getFieldsFilterable();
-        
-
-        if (request()->ajax()) {
-            return view('PkgCreationProjet::natureLivrable._edit', compact('itemNatureLivrable', 'livrables_data', 'livrables_stats', 'livrables_filters'));
-        }
-
-        return view('PkgCreationProjet::natureLivrable.edit', compact('itemNatureLivrable', 'livrables_data', 'livrables_stats', 'livrables_filters'));
-
+        return $this->edit( $id);
     }
     public function edit(string $id) {
 
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('nature_livrable_id', $id);
-        
+        $this->viewState->setContextKey('natureLivrable.edit_' . $id);
+
         $itemNatureLivrable = $this->natureLivrableService->find($id);
+
+        $this->viewState->set('scope.livrable.nature_livrable_id', $id);
         $livrableService =  new LivrableService();
         $livrables_data =  $itemNatureLivrable->livrables()->paginate(10);
         $livrables_stats = $livrableService->getlivrableStats();
@@ -119,11 +111,14 @@ class BaseNatureLivrableController extends AdminController
         $natureLivrable = $this->natureLivrableService->update($id, $validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.updateSuccess', [
+             $message = __('Core::msg.updateSuccess', [
                 'entityToString' => $natureLivrable,
-                'modelName' =>  __('PkgCreationProjet::natureLivrable.singular')])
-            ]);
+                'modelName' =>  __('PkgCreationProjet::natureLivrable.singular')]);
+            
+            return JsonResponseHelper::success(
+                $message,
+                ['entity_id' => $natureLivrable->id]
+            );
         }
 
         return redirect()->route('natureLivrables.index')->with(
@@ -140,11 +135,14 @@ class BaseNatureLivrableController extends AdminController
         $natureLivrable = $this->natureLivrableService->destroy($id);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.deleteSuccess', [
+            $message = __('Core::msg.deleteSuccess', [
                 'entityToString' => $natureLivrable,
-                'modelName' =>  __('PkgCreationProjet::natureLivrable.singular')])
-            ]);
+                'modelName' =>  __('PkgCreationProjet::natureLivrable.singular')]);
+            
+
+            return JsonResponseHelper::success(
+                $message
+            );
         }
 
         return redirect()->route('natureLivrables.index')->with(
@@ -157,10 +155,18 @@ class BaseNatureLivrableController extends AdminController
 
     }
 
-    public function export()
+    public function export($format)
     {
         $natureLivrables_data = $this->natureLivrableService->all();
-        return Excel::download(new NatureLivrableExport($natureLivrables_data), 'natureLivrable_export.xlsx');
+        
+        // Vérifier le format et exporter en conséquence
+        if ($format === 'csv') {
+            return Excel::download(new NatureLivrableExport($natureLivrables_data,'csv'), 'natureLivrable_export.csv', \Maatwebsite\Excel\Excel::CSV, ['Content-Type' => 'text/csv']);
+        } elseif ($format === 'xlsx') {
+            return Excel::download(new NatureLivrableExport($natureLivrables_data,'xlsx'), 'natureLivrable_export.xlsx', \Maatwebsite\Excel\Excel::XLSX);
+        } else {
+            return response()->json(['error' => 'Format non supporté'], 400);
+        }
     }
 
     public function import(Request $request)

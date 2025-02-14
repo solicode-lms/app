@@ -5,10 +5,11 @@
 namespace Modules\PkgRealisationProjets\Controllers\Base;
 use Modules\PkgRealisationProjets\Services\EtatsRealisationProjetService;
 use Modules\PkgFormation\Services\FormateurService;
-use Modules\PkgRealisationProjets\Services\RealisationProjetService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
+use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgRealisationProjets\App\Requests\EtatsRealisationProjetRequest;
+use Modules\PkgRealisationProjets\Models\EtatsRealisationProjet;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgRealisationProjets\App\Exports\EtatsRealisationProjetExport;
 use Modules\PkgRealisationProjets\App\Imports\EtatsRealisationProjetImport;
@@ -26,10 +27,15 @@ class BaseEtatsRealisationProjetController extends AdminController
     }
 
     public function index(Request $request) {
+        
+        $this->viewState->setContextKeyIfEmpty('etatsRealisationProjet.index');
+        $this->viewState->init('filter.etatsRealisationProjet.formateur_id'  , $this->sessionState->get('formateur_id'));
+
+
         // Extraire les paramètres de recherche, page, et filtres
         $etatsRealisationProjets_params = array_merge(
             $request->only(['page','sort']),
-            ['search' => $request->get('etatsRealisationProjets_search', '')],
+            ['search' => $request->get('etatsRealisationProjets_search', $this->viewState->get("filter.etatsRealisationProjet.etatsRealisationProjets_search"))],
             $request->except(['etatsRealisationProjets_search', 'page', 'sort'])
         );
 
@@ -48,6 +54,7 @@ class BaseEtatsRealisationProjetController extends AdminController
         return view('PkgRealisationProjets::etatsRealisationProjet.index', compact('etatsRealisationProjets_data', 'etatsRealisationProjets_stats', 'etatsRealisationProjets_filters'));
     }
     public function create() {
+        $this->viewState->set('scope_form.etatsRealisationProjet.formateur_id'  , $this->sessionState->get('formateur_id'));
         $itemEtatsRealisationProjet = $this->etatsRealisationProjetService->createInstance();
         $formateurs = $this->formateurService->all();
 
@@ -62,16 +69,17 @@ class BaseEtatsRealisationProjetController extends AdminController
         $etatsRealisationProjet = $this->etatsRealisationProjetService->create($validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 
-            'entity_id' => $etatsRealisationProjet->id,
-            'message' => 
-             __('Core::msg.addSuccess', [
+             $message = __('Core::msg.addSuccess', [
                 'entityToString' => $etatsRealisationProjet,
-                'modelName' => __('PkgRealisationProjets::etatsRealisationProjet.singular')])
-            ]);
+                'modelName' => __('PkgRealisationProjets::etatsRealisationProjet.singular')]);
+        
+            return JsonResponseHelper::success(
+             $message,
+             ['entity_id' => $etatsRealisationProjet->id]
+            );
         }
 
-        return redirect()->route('etatsRealisationProjets.edit',['etatsRealisationProjet' => $etatsRealisationProjet->id])->with(
+        return redirect()->route('etatsRealisationProjets.index')->with(
             'success',
             __('Core::msg.addSuccess', [
                 'entityToString' => $etatsRealisationProjet,
@@ -80,56 +88,40 @@ class BaseEtatsRealisationProjetController extends AdminController
         );
     }
     public function show(string $id) {
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('etats_realisation_projet_id', $id);
-        
-        $itemEtatsRealisationProjet = $this->etatsRealisationProjetService->find($id);
-        $formateurs = $this->formateurService->all();
-        $realisationProjetService =  new RealisationProjetService();
-        $realisationProjets_data =  $itemEtatsRealisationProjet->realisationProjets()->paginate(10);
-        $realisationProjets_stats = $realisationProjetService->getrealisationProjetStats();
-        $realisationProjets_filters = $realisationProjetService->getFieldsFilterable();
-        
-
-        if (request()->ajax()) {
-            return view('PkgRealisationProjets::etatsRealisationProjet._edit', compact('itemEtatsRealisationProjet', 'formateurs', 'realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters'));
-        }
-
-        return view('PkgRealisationProjets::etatsRealisationProjet.edit', compact('itemEtatsRealisationProjet', 'formateurs', 'realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters'));
-
+        return $this->edit( $id);
     }
     public function edit(string $id) {
 
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('etats_realisation_projet_id', $id);
-        
+        $this->viewState->setContextKey('etatsRealisationProjet.edit_' . $id);
+
         $itemEtatsRealisationProjet = $this->etatsRealisationProjetService->find($id);
         $formateurs = $this->formateurService->all();
-        $realisationProjetService =  new RealisationProjetService();
-        $realisationProjets_data =  $itemEtatsRealisationProjet->realisationProjets()->paginate(10);
-        $realisationProjets_stats = $realisationProjetService->getrealisationProjetStats();
-        $realisationProjets_filters = $realisationProjetService->getFieldsFilterable();
-        
+
 
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::etatsRealisationProjet._edit', compact('itemEtatsRealisationProjet', 'formateurs', 'realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters'));
+            return view('PkgRealisationProjets::etatsRealisationProjet._fields', compact('itemEtatsRealisationProjet', 'formateurs'));
         }
 
-        return view('PkgRealisationProjets::etatsRealisationProjet.edit', compact('itemEtatsRealisationProjet', 'formateurs', 'realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters'));
+        return view('PkgRealisationProjets::etatsRealisationProjet.edit', compact('itemEtatsRealisationProjet', 'formateurs'));
 
     }
     public function update(EtatsRealisationProjetRequest $request, string $id) {
+        // Vérifie si l'utilisateur peut mettre à jour l'objet 
+        $etatsRealisationProjet = $this->etatsRealisationProjetService->find($id);
+        $this->authorize('update', $etatsRealisationProjet);
 
         $validatedData = $request->validated();
         $etatsRealisationProjet = $this->etatsRealisationProjetService->update($id, $validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.updateSuccess', [
+             $message = __('Core::msg.updateSuccess', [
                 'entityToString' => $etatsRealisationProjet,
-                'modelName' =>  __('PkgRealisationProjets::etatsRealisationProjet.singular')])
-            ]);
+                'modelName' =>  __('PkgRealisationProjets::etatsRealisationProjet.singular')]);
+            
+            return JsonResponseHelper::success(
+                $message,
+                ['entity_id' => $etatsRealisationProjet->id]
+            );
         }
 
         return redirect()->route('etatsRealisationProjets.index')->with(
@@ -142,15 +134,21 @@ class BaseEtatsRealisationProjetController extends AdminController
 
     }
     public function destroy(Request $request, string $id) {
+        // Vérifie si l'utilisateur peut mettre à jour l'objet 
+        $etatsRealisationProjet = $this->etatsRealisationProjetService->find($id);
+        $this->authorize('delete', $etatsRealisationProjet);
 
         $etatsRealisationProjet = $this->etatsRealisationProjetService->destroy($id);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.deleteSuccess', [
+            $message = __('Core::msg.deleteSuccess', [
                 'entityToString' => $etatsRealisationProjet,
-                'modelName' =>  __('PkgRealisationProjets::etatsRealisationProjet.singular')])
-            ]);
+                'modelName' =>  __('PkgRealisationProjets::etatsRealisationProjet.singular')]);
+            
+
+            return JsonResponseHelper::success(
+                $message
+            );
         }
 
         return redirect()->route('etatsRealisationProjets.index')->with(
@@ -163,10 +161,18 @@ class BaseEtatsRealisationProjetController extends AdminController
 
     }
 
-    public function export()
+    public function export($format)
     {
         $etatsRealisationProjets_data = $this->etatsRealisationProjetService->all();
-        return Excel::download(new EtatsRealisationProjetExport($etatsRealisationProjets_data), 'etatsRealisationProjet_export.xlsx');
+        
+        // Vérifier le format et exporter en conséquence
+        if ($format === 'csv') {
+            return Excel::download(new EtatsRealisationProjetExport($etatsRealisationProjets_data,'csv'), 'etatsRealisationProjet_export.csv', \Maatwebsite\Excel\Excel::CSV, ['Content-Type' => 'text/csv']);
+        } elseif ($format === 'xlsx') {
+            return Excel::download(new EtatsRealisationProjetExport($etatsRealisationProjets_data,'xlsx'), 'etatsRealisationProjet_export.xlsx', \Maatwebsite\Excel\Excel::XLSX);
+        } else {
+            return response()->json(['error' => 'Format non supporté'], 400);
+        }
     }
 
     public function import(Request $request)

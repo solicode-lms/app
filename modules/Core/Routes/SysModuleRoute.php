@@ -14,8 +14,11 @@ Route::middleware('auth')->group(function () {
         Route::resource('sysModules', SysModuleController::class);
         // Routes supplémentaires avec préfixe
         Route::prefix('data')->group(function () {
-            Route::get('sysModules/export', [SysModuleController::class, 'export'])->name('sysModules.export');
             Route::post('sysModules/import', [SysModuleController::class, 'import'])->name('sysModules.import');
+            Route::get('sysModules/export/{format}', [SysModuleController::class, 'export'])
+            ->where('format', 'csv|xlsx')
+            ->name('sysModules.export');
+
         });
 
         Route::post('sysModules/data-calcul', [SysModuleController::class, 'dataCalcul'])->name('sysModules.dataCalcul');

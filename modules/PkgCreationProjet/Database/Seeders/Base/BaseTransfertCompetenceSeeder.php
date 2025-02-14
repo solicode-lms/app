@@ -68,8 +68,8 @@ class BaseTransfertCompetenceSeeder extends Seeder
             if ($row) {
                 $transfertCompetenceService->create([
                     "competence_id" => $row["competence_id"] ?? null ,
-                    "niveau_difficulte_id" => $row["niveau_difficulte_id"] ?? null ,
                     "question" => $row["question"] ?? null ,
+                    "niveau_difficulte_id" => $row["niveau_difficulte_id"] ?? null ,
                     "note" => $row["note"] ?? null ,
                     "projet_id" => $row["projet_id"] ?? null 
                 ]);
@@ -100,7 +100,7 @@ class BaseTransfertCompetenceSeeder extends Seeder
 
         // Permissions spécifiques pour chaque type de fonctionnalité
         $featurePermissions = [
-            'Édition ' => [ 'create','store','edit','update','destroy','getTransfertCompetences'],
+            'Édition ' => [ 'create','store','edit','update','destroy','getTransfertCompetences','dataCalcul'],
             'Lecture' => ['index', 'show'],
             'Extraction' => ['import', 'export'],
         ];

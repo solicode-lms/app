@@ -6,7 +6,9 @@
     window.crudModalManagersConfig.push({
         edit_has_many: {{ !isset($edit_has_many)? 'true' :  ($edit_has_many ? "true": "false") }},
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
+        editOnFullScreen : false,
         entity_name: 'groupe',
+        contextKey: '{{ isset($contextKey) ? $contextKey : 'groupe.index' }}', 
         filterFormSelector: '#groupe-crud-filter-form',
         crudSelector: '#groupe-crud',
         tableSelector: '#groupe-data-container',
@@ -62,7 +64,8 @@
                             :importRoute="route('groupes.import')"
                             :importText="__('Importer')"
                             :exportPermission="'export-groupe'"
-                            :exportRoute="route('groupes.export')"
+                            :exportXlsxRoute="route('groupes.export', ['format' => 'xlsx'])"
+                            :exportCsvRoute="route('groupes.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
                         />
                     </div>

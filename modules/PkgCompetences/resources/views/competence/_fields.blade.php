@@ -33,6 +33,26 @@
 
         
         <div class="form-group">
+            <label for="mini_code">
+                {{ ucfirst(__('PkgCompetences::competence.mini_code')) }}
+                
+            </label>
+            <input
+                name="mini_code"
+                type="input"
+                class="form-control"
+                
+                
+                id="mini_code"
+                placeholder="{{ __('PkgCompetences::competence.mini_code') }}"
+                value="{{ $itemCompetence ? $itemCompetence->mini_code : old('mini_code') }}">
+            @error('mini_code')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
+
+        
+        <div class="form-group">
             <label for="nom">
                 {{ ucfirst(__('PkgCompetences::competence.nom')) }}
                 
@@ -151,4 +171,7 @@
 </script>
 <script>
      window.modalTitle = '{{__("PkgCompetences::competence.singular") }} : {{$itemCompetence}}'
+     window.contextState = @json($contextState);
+     window.sessionState = @json($sessionState);
+     window.viewState = @json($viewState);
 </script>

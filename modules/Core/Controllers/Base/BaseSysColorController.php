@@ -8,7 +8,9 @@ use Modules\Core\Services\SysModelService;
 use Modules\Core\Services\SysModuleService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
+use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\Core\App\Requests\SysColorRequest;
+use Modules\Core\Models\SysColor;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\Core\App\Exports\SysColorExport;
 use Modules\Core\App\Imports\SysColorImport;
@@ -24,10 +26,14 @@ class BaseSysColorController extends AdminController
     }
 
     public function index(Request $request) {
+        
+        $this->viewState->setContextKeyIfEmpty('sysColor.index');
+
+
         // Extraire les paramètres de recherche, page, et filtres
         $sysColors_params = array_merge(
             $request->only(['page','sort']),
-            ['search' => $request->get('sysColors_search', '')],
+            ['search' => $request->get('sysColors_search', $this->viewState->get("filter.sysColor.sysColors_search"))],
             $request->except(['sysColors_search', 'page', 'sort'])
         );
 
@@ -59,13 +65,14 @@ class BaseSysColorController extends AdminController
         $sysColor = $this->sysColorService->create($validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 
-            'entity_id' => $sysColor->id,
-            'message' => 
-             __('Core::msg.addSuccess', [
+             $message = __('Core::msg.addSuccess', [
                 'entityToString' => $sysColor,
-                'modelName' => __('Core::sysColor.singular')])
-            ]);
+                'modelName' => __('Core::sysColor.singular')]);
+        
+            return JsonResponseHelper::success(
+             $message,
+             ['entity_id' => $sysColor->id]
+            );
         }
 
         return redirect()->route('sysColors.edit',['sysColor' => $sysColor->id])->with(
@@ -77,40 +84,21 @@ class BaseSysColorController extends AdminController
         );
     }
     public function show(string $id) {
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('sys_color_id', $id);
-        
-        $itemSysColor = $this->sysColorService->find($id);
-        $sysModelService =  new SysModelService();
-        $sysModels_data =  $itemSysColor->sysModels()->paginate(10);
-        $sysModels_stats = $sysModelService->getsysModelStats();
-        $sysModels_filters = $sysModelService->getFieldsFilterable();
-        
-        $sysModuleService =  new SysModuleService();
-        $sysModules_data =  $itemSysColor->sysModules()->paginate(10);
-        $sysModules_stats = $sysModuleService->getsysModuleStats();
-        $sysModules_filters = $sysModuleService->getFieldsFilterable();
-        
-
-        if (request()->ajax()) {
-            return view('Core::sysColor._edit', compact('itemSysColor', 'sysModels_data', 'sysModules_data', 'sysModels_stats', 'sysModules_stats', 'sysModels_filters', 'sysModules_filters'));
-        }
-
-        return view('Core::sysColor.edit', compact('itemSysColor', 'sysModels_data', 'sysModules_data', 'sysModels_stats', 'sysModules_stats', 'sysModels_filters', 'sysModules_filters'));
-
+        return $this->edit( $id);
     }
     public function edit(string $id) {
 
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('sys_color_id', $id);
-        
+        $this->viewState->setContextKey('sysColor.edit_' . $id);
+
         $itemSysColor = $this->sysColorService->find($id);
+
+        $this->viewState->set('scope.sysModel.sys_color_id', $id);
         $sysModelService =  new SysModelService();
         $sysModels_data =  $itemSysColor->sysModels()->paginate(10);
         $sysModels_stats = $sysModelService->getsysModelStats();
         $sysModels_filters = $sysModelService->getFieldsFilterable();
         
+        $this->viewState->set('scope.sysModule.sys_color_id', $id);
         $sysModuleService =  new SysModuleService();
         $sysModules_data =  $itemSysColor->sysModules()->paginate(10);
         $sysModules_stats = $sysModuleService->getsysModuleStats();
@@ -130,11 +118,14 @@ class BaseSysColorController extends AdminController
         $sysColor = $this->sysColorService->update($id, $validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.updateSuccess', [
+             $message = __('Core::msg.updateSuccess', [
                 'entityToString' => $sysColor,
-                'modelName' =>  __('Core::sysColor.singular')])
-            ]);
+                'modelName' =>  __('Core::sysColor.singular')]);
+            
+            return JsonResponseHelper::success(
+                $message,
+                ['entity_id' => $sysColor->id]
+            );
         }
 
         return redirect()->route('sysColors.index')->with(
@@ -151,11 +142,14 @@ class BaseSysColorController extends AdminController
         $sysColor = $this->sysColorService->destroy($id);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.deleteSuccess', [
+            $message = __('Core::msg.deleteSuccess', [
                 'entityToString' => $sysColor,
-                'modelName' =>  __('Core::sysColor.singular')])
-            ]);
+                'modelName' =>  __('Core::sysColor.singular')]);
+            
+
+            return JsonResponseHelper::success(
+                $message
+            );
         }
 
         return redirect()->route('sysColors.index')->with(
@@ -168,10 +162,18 @@ class BaseSysColorController extends AdminController
 
     }
 
-    public function export()
+    public function export($format)
     {
         $sysColors_data = $this->sysColorService->all();
-        return Excel::download(new SysColorExport($sysColors_data), 'sysColor_export.xlsx');
+        
+        // Vérifier le format et exporter en conséquence
+        if ($format === 'csv') {
+            return Excel::download(new SysColorExport($sysColors_data,'csv'), 'sysColor_export.csv', \Maatwebsite\Excel\Excel::CSV, ['Content-Type' => 'text/csv']);
+        } elseif ($format === 'xlsx') {
+            return Excel::download(new SysColorExport($sysColors_data,'xlsx'), 'sysColor_export.xlsx', \Maatwebsite\Excel\Excel::XLSX);
+        } else {
+            return response()->json(['error' => 'Format non supporté'], 400);
+        }
     }
 
     public function import(Request $request)

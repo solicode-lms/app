@@ -99,7 +99,7 @@ class BaseLivrableSeeder extends Seeder
 
         // Permissions spécifiques pour chaque type de fonctionnalité
         $featurePermissions = [
-            'Édition ' => [ 'create','store','edit','update','destroy','getLivrables'],
+            'Édition ' => [ 'create','store','edit','update','destroy','getLivrables','dataCalcul'],
             'Lecture' => ['index', 'show'],
             'Extraction' => ['import', 'export'],
         ];

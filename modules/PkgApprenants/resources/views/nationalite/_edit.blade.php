@@ -4,6 +4,7 @@
     window.editWithTabPanelManagersConfig = window.editWithTabPanelManagersConfig || [];
     window.editWithTabPanelManagersConfig.push({
         entity_name: 'nationalite',
+        contextKey: 'nationalite.edit_{{ $itemNationalite->id}}',
         cardTabSelector: '#card-tab-nationalite', 
         formSelector: '#nationaliteForm',
         editUrl: '{{ route('nationalites.edit',  ['nationalite' => ':id']) }}',
@@ -14,6 +15,7 @@
 </script>
 <script>
     window.contextState = @json($contextState);
+    window.viewState = @json($viewState);
 </script>
 
 @section('content')
@@ -47,7 +49,7 @@
                             </div>
 
                             <div class="tab-pane fade" id="nationalite-hasmany-tabs-apprenant" role="tabpanel" aria-labelledby="nationalite-hasmany-tabs-apprenant-tab">
-                                @include('PkgApprenants::apprenant._index',['isMany' => true, "edit_has_many" => false])
+                                @include('PkgApprenants::apprenant._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'nationalite.edit_' . $itemNationalite->id])
                             </div>
 
                            

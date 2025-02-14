@@ -1,3 +1,4 @@
+@props(['label', 'isSorted','field'])
 <th>
     <a href="{{ $getSortUrl() }}" class="sortable-column" data-sort="{{$field}}">
         {{ $label }}

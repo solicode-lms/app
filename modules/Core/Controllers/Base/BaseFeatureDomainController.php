@@ -8,7 +8,9 @@ use Modules\Core\Services\SysModuleService;
 use Modules\Core\Services\FeatureService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
+use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\Core\App\Requests\FeatureDomainRequest;
+use Modules\Core\Models\FeatureDomain;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\Core\App\Exports\FeatureDomainExport;
 use Modules\Core\App\Imports\FeatureDomainImport;
@@ -26,10 +28,14 @@ class BaseFeatureDomainController extends AdminController
     }
 
     public function index(Request $request) {
+        
+        $this->viewState->setContextKeyIfEmpty('featureDomain.index');
+
+
         // Extraire les paramètres de recherche, page, et filtres
         $featureDomains_params = array_merge(
             $request->only(['page','sort']),
-            ['search' => $request->get('featureDomains_search', '')],
+            ['search' => $request->get('featureDomains_search', $this->viewState->get("filter.featureDomain.featureDomains_search"))],
             $request->except(['featureDomains_search', 'page', 'sort'])
         );
 
@@ -62,13 +68,14 @@ class BaseFeatureDomainController extends AdminController
         $featureDomain = $this->featureDomainService->create($validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 
-            'entity_id' => $featureDomain->id,
-            'message' => 
-             __('Core::msg.addSuccess', [
+             $message = __('Core::msg.addSuccess', [
                 'entityToString' => $featureDomain,
-                'modelName' => __('Core::featureDomain.singular')])
-            ]);
+                'modelName' => __('Core::featureDomain.singular')]);
+        
+            return JsonResponseHelper::success(
+             $message,
+             ['entity_id' => $featureDomain->id]
+            );
         }
 
         return redirect()->route('featureDomains.edit',['featureDomain' => $featureDomain->id])->with(
@@ -80,32 +87,16 @@ class BaseFeatureDomainController extends AdminController
         );
     }
     public function show(string $id) {
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('feature_domain_id', $id);
-        
-        $itemFeatureDomain = $this->featureDomainService->find($id);
-        $sysModules = $this->sysModuleService->all();
-        $featureService =  new FeatureService();
-        $features_data =  $itemFeatureDomain->features()->paginate(10);
-        $features_stats = $featureService->getfeatureStats();
-        $features_filters = $featureService->getFieldsFilterable();
-        
-
-        if (request()->ajax()) {
-            return view('Core::featureDomain._edit', compact('itemFeatureDomain', 'sysModules', 'features_data', 'features_stats', 'features_filters'));
-        }
-
-        return view('Core::featureDomain.edit', compact('itemFeatureDomain', 'sysModules', 'features_data', 'features_stats', 'features_filters'));
-
+        return $this->edit( $id);
     }
     public function edit(string $id) {
 
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('feature_domain_id', $id);
-        
+        $this->viewState->setContextKey('featureDomain.edit_' . $id);
+
         $itemFeatureDomain = $this->featureDomainService->find($id);
         $sysModules = $this->sysModuleService->all();
+
+        $this->viewState->set('scope.feature.feature_domain_id', $id);
         $featureService =  new FeatureService();
         $features_data =  $itemFeatureDomain->features()->paginate(10);
         $features_stats = $featureService->getfeatureStats();
@@ -125,11 +116,14 @@ class BaseFeatureDomainController extends AdminController
         $featureDomain = $this->featureDomainService->update($id, $validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.updateSuccess', [
+             $message = __('Core::msg.updateSuccess', [
                 'entityToString' => $featureDomain,
-                'modelName' =>  __('Core::featureDomain.singular')])
-            ]);
+                'modelName' =>  __('Core::featureDomain.singular')]);
+            
+            return JsonResponseHelper::success(
+                $message,
+                ['entity_id' => $featureDomain->id]
+            );
         }
 
         return redirect()->route('featureDomains.index')->with(
@@ -146,11 +140,14 @@ class BaseFeatureDomainController extends AdminController
         $featureDomain = $this->featureDomainService->destroy($id);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.deleteSuccess', [
+            $message = __('Core::msg.deleteSuccess', [
                 'entityToString' => $featureDomain,
-                'modelName' =>  __('Core::featureDomain.singular')])
-            ]);
+                'modelName' =>  __('Core::featureDomain.singular')]);
+            
+
+            return JsonResponseHelper::success(
+                $message
+            );
         }
 
         return redirect()->route('featureDomains.index')->with(
@@ -163,10 +160,18 @@ class BaseFeatureDomainController extends AdminController
 
     }
 
-    public function export()
+    public function export($format)
     {
         $featureDomains_data = $this->featureDomainService->all();
-        return Excel::download(new FeatureDomainExport($featureDomains_data), 'featureDomain_export.xlsx');
+        
+        // Vérifier le format et exporter en conséquence
+        if ($format === 'csv') {
+            return Excel::download(new FeatureDomainExport($featureDomains_data,'csv'), 'featureDomain_export.csv', \Maatwebsite\Excel\Excel::CSV, ['Content-Type' => 'text/csv']);
+        } elseif ($format === 'xlsx') {
+            return Excel::download(new FeatureDomainExport($featureDomains_data,'xlsx'), 'featureDomain_export.xlsx', \Maatwebsite\Excel\Excel::XLSX);
+        } else {
+            return response()->json(['error' => 'Format non supporté'], 400);
+        }
     }
 
     public function import(Request $request)

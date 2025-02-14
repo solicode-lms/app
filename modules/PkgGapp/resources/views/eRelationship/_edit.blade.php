@@ -4,6 +4,7 @@
     window.editWithTabPanelManagersConfig = window.editWithTabPanelManagersConfig || [];
     window.editWithTabPanelManagersConfig.push({
         entity_name: 'eRelationship',
+        contextKey: 'eRelationship.edit_{{ $itemERelationship->id}}',
         cardTabSelector: '#card-tab-eRelationship', 
         formSelector: '#eRelationshipForm',
         editUrl: '{{ route('eRelationships.edit',  ['eRelationship' => ':id']) }}',
@@ -14,6 +15,7 @@
 </script>
 <script>
     window.contextState = @json($contextState);
+    window.viewState = @json($viewState);
 </script>
 
 @section('content')
@@ -47,7 +49,7 @@
                             </div>
 
                             <div class="tab-pane fade" id="eRelationship-hasmany-tabs-eDataField" role="tabpanel" aria-labelledby="eRelationship-hasmany-tabs-eDataField-tab">
-                                @include('PkgGapp::eDataField._index',['isMany' => true, "edit_has_many" => false])
+                                @include('PkgGapp::eDataField._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'eRelationship.edit_' . $itemERelationship->id])
                             </div>
 
                            

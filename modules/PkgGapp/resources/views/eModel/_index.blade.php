@@ -6,7 +6,9 @@
     window.crudModalManagersConfig.push({
         edit_has_many: {{ !isset($edit_has_many)? 'true' :  ($edit_has_many ? "true": "false") }},
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
+        editOnFullScreen : false,
         entity_name: 'eModel',
+        contextKey: '{{ isset($contextKey) ? $contextKey : 'eModel.index' }}', 
         filterFormSelector: '#eModel-crud-filter-form',
         crudSelector: '#eModel-crud',
         tableSelector: '#eModel-data-container',
@@ -62,7 +64,8 @@
                             :importRoute="route('eModels.import')"
                             :importText="__('Importer')"
                             :exportPermission="'export-eModel'"
-                            :exportRoute="route('eModels.export')"
+                            :exportXlsxRoute="route('eModels.export', ['format' => 'xlsx'])"
+                            :exportCsvRoute="route('eModels.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
                         />
                     </div>

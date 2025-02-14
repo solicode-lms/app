@@ -7,7 +7,7 @@
         "splitTerminals": [
           {
             "name": "vite",
-            "commands": ["npm run dev"],
+            "commands": ["cd C:\\AppServer\\solicode-lms","npm run dev"],
             "shouldRunCommands": false
           }
         ]
@@ -17,7 +17,7 @@
         "splitTerminals": [
           {
             "name": "server",
-            "commands": ["php artisan serve"],
+            "commands": ["cd C:\\AppServer\\solicode-lms","php artisan serve"],
             "shouldRunCommands": false
           }
         ]
@@ -27,7 +27,7 @@
         "splitTerminals": [
           {
             "name": "gapp",
-            "commands": ["gapp make:all"],
+            "commands": ["cd C:\\AppServer\\solicode-lms","gapp make:all"],
             "shouldRunCommands": false
           }
         ]

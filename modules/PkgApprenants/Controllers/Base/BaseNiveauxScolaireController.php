@@ -7,7 +7,9 @@ use Modules\PkgApprenants\Services\NiveauxScolaireService;
 use Modules\PkgApprenants\Services\ApprenantService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
+use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgApprenants\App\Requests\NiveauxScolaireRequest;
+use Modules\PkgApprenants\Models\NiveauxScolaire;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgApprenants\App\Exports\NiveauxScolaireExport;
 use Modules\PkgApprenants\App\Imports\NiveauxScolaireImport;
@@ -23,10 +25,14 @@ class BaseNiveauxScolaireController extends AdminController
     }
 
     public function index(Request $request) {
+        
+        $this->viewState->setContextKeyIfEmpty('niveauxScolaire.index');
+
+
         // Extraire les paramètres de recherche, page, et filtres
         $niveauxScolaires_params = array_merge(
             $request->only(['page','sort']),
-            ['search' => $request->get('niveauxScolaires_search', '')],
+            ['search' => $request->get('niveauxScolaires_search', $this->viewState->get("filter.niveauxScolaire.niveauxScolaires_search"))],
             $request->except(['niveauxScolaires_search', 'page', 'sort'])
         );
 
@@ -58,13 +64,14 @@ class BaseNiveauxScolaireController extends AdminController
         $niveauxScolaire = $this->niveauxScolaireService->create($validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 
-            'entity_id' => $niveauxScolaire->id,
-            'message' => 
-             __('Core::msg.addSuccess', [
+             $message = __('Core::msg.addSuccess', [
                 'entityToString' => $niveauxScolaire,
-                'modelName' => __('PkgApprenants::niveauxScolaire.singular')])
-            ]);
+                'modelName' => __('PkgApprenants::niveauxScolaire.singular')]);
+        
+            return JsonResponseHelper::success(
+             $message,
+             ['entity_id' => $niveauxScolaire->id]
+            );
         }
 
         return redirect()->route('niveauxScolaires.edit',['niveauxScolaire' => $niveauxScolaire->id])->with(
@@ -76,30 +83,15 @@ class BaseNiveauxScolaireController extends AdminController
         );
     }
     public function show(string $id) {
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('niveaux_scolaire_id', $id);
-        
-        $itemNiveauxScolaire = $this->niveauxScolaireService->find($id);
-        $apprenantService =  new ApprenantService();
-        $apprenants_data =  $itemNiveauxScolaire->apprenants()->paginate(10);
-        $apprenants_stats = $apprenantService->getapprenantStats();
-        $apprenants_filters = $apprenantService->getFieldsFilterable();
-        
-
-        if (request()->ajax()) {
-            return view('PkgApprenants::niveauxScolaire._edit', compact('itemNiveauxScolaire', 'apprenants_data', 'apprenants_stats', 'apprenants_filters'));
-        }
-
-        return view('PkgApprenants::niveauxScolaire.edit', compact('itemNiveauxScolaire', 'apprenants_data', 'apprenants_stats', 'apprenants_filters'));
-
+        return $this->edit( $id);
     }
     public function edit(string $id) {
 
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('niveaux_scolaire_id', $id);
-        
+        $this->viewState->setContextKey('niveauxScolaire.edit_' . $id);
+
         $itemNiveauxScolaire = $this->niveauxScolaireService->find($id);
+
+        $this->viewState->set('scope.apprenant.niveaux_scolaire_id', $id);
         $apprenantService =  new ApprenantService();
         $apprenants_data =  $itemNiveauxScolaire->apprenants()->paginate(10);
         $apprenants_stats = $apprenantService->getapprenantStats();
@@ -119,11 +111,14 @@ class BaseNiveauxScolaireController extends AdminController
         $niveauxScolaire = $this->niveauxScolaireService->update($id, $validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.updateSuccess', [
+             $message = __('Core::msg.updateSuccess', [
                 'entityToString' => $niveauxScolaire,
-                'modelName' =>  __('PkgApprenants::niveauxScolaire.singular')])
-            ]);
+                'modelName' =>  __('PkgApprenants::niveauxScolaire.singular')]);
+            
+            return JsonResponseHelper::success(
+                $message,
+                ['entity_id' => $niveauxScolaire->id]
+            );
         }
 
         return redirect()->route('niveauxScolaires.index')->with(
@@ -140,11 +135,14 @@ class BaseNiveauxScolaireController extends AdminController
         $niveauxScolaire = $this->niveauxScolaireService->destroy($id);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.deleteSuccess', [
+            $message = __('Core::msg.deleteSuccess', [
                 'entityToString' => $niveauxScolaire,
-                'modelName' =>  __('PkgApprenants::niveauxScolaire.singular')])
-            ]);
+                'modelName' =>  __('PkgApprenants::niveauxScolaire.singular')]);
+            
+
+            return JsonResponseHelper::success(
+                $message
+            );
         }
 
         return redirect()->route('niveauxScolaires.index')->with(
@@ -157,10 +155,18 @@ class BaseNiveauxScolaireController extends AdminController
 
     }
 
-    public function export()
+    public function export($format)
     {
         $niveauxScolaires_data = $this->niveauxScolaireService->all();
-        return Excel::download(new NiveauxScolaireExport($niveauxScolaires_data), 'niveauxScolaire_export.xlsx');
+        
+        // Vérifier le format et exporter en conséquence
+        if ($format === 'csv') {
+            return Excel::download(new NiveauxScolaireExport($niveauxScolaires_data,'csv'), 'niveauxScolaire_export.csv', \Maatwebsite\Excel\Excel::CSV, ['Content-Type' => 'text/csv']);
+        } elseif ($format === 'xlsx') {
+            return Excel::download(new NiveauxScolaireExport($niveauxScolaires_data,'xlsx'), 'niveauxScolaire_export.xlsx', \Maatwebsite\Excel\Excel::XLSX);
+        } else {
+            return response()->json(['error' => 'Format non supporté'], 400);
+        }
     }
 
     public function import(Request $request)

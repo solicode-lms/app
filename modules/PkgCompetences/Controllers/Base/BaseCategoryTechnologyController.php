@@ -7,7 +7,9 @@ use Modules\PkgCompetences\Services\CategoryTechnologyService;
 use Modules\PkgCompetences\Services\TechnologyService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
+use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgCompetences\App\Requests\CategoryTechnologyRequest;
+use Modules\PkgCompetences\Models\CategoryTechnology;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgCompetences\App\Exports\CategoryTechnologyExport;
 use Modules\PkgCompetences\App\Imports\CategoryTechnologyImport;
@@ -23,10 +25,14 @@ class BaseCategoryTechnologyController extends AdminController
     }
 
     public function index(Request $request) {
+        
+        $this->viewState->setContextKeyIfEmpty('categoryTechnology.index');
+
+
         // Extraire les paramètres de recherche, page, et filtres
         $categoryTechnologies_params = array_merge(
             $request->only(['page','sort']),
-            ['search' => $request->get('categoryTechnologies_search', '')],
+            ['search' => $request->get('categoryTechnologies_search', $this->viewState->get("filter.categoryTechnology.categoryTechnologies_search"))],
             $request->except(['categoryTechnologies_search', 'page', 'sort'])
         );
 
@@ -58,13 +64,14 @@ class BaseCategoryTechnologyController extends AdminController
         $categoryTechnology = $this->categoryTechnologyService->create($validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 
-            'entity_id' => $categoryTechnology->id,
-            'message' => 
-             __('Core::msg.addSuccess', [
+             $message = __('Core::msg.addSuccess', [
                 'entityToString' => $categoryTechnology,
-                'modelName' => __('PkgCompetences::categoryTechnology.singular')])
-            ]);
+                'modelName' => __('PkgCompetences::categoryTechnology.singular')]);
+        
+            return JsonResponseHelper::success(
+             $message,
+             ['entity_id' => $categoryTechnology->id]
+            );
         }
 
         return redirect()->route('categoryTechnologies.edit',['categoryTechnology' => $categoryTechnology->id])->with(
@@ -76,30 +83,15 @@ class BaseCategoryTechnologyController extends AdminController
         );
     }
     public function show(string $id) {
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('category_technology_id', $id);
-        
-        $itemCategoryTechnology = $this->categoryTechnologyService->find($id);
-        $technologyService =  new TechnologyService();
-        $technologies_data =  $itemCategoryTechnology->technologies()->paginate(10);
-        $technologies_stats = $technologyService->gettechnologyStats();
-        $technologies_filters = $technologyService->getFieldsFilterable();
-        
-
-        if (request()->ajax()) {
-            return view('PkgCompetences::categoryTechnology._edit', compact('itemCategoryTechnology', 'technologies_data', 'technologies_stats', 'technologies_filters'));
-        }
-
-        return view('PkgCompetences::categoryTechnology.edit', compact('itemCategoryTechnology', 'technologies_data', 'technologies_stats', 'technologies_filters'));
-
+        return $this->edit( $id);
     }
     public function edit(string $id) {
 
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('category_technology_id', $id);
-        
+        $this->viewState->setContextKey('categoryTechnology.edit_' . $id);
+
         $itemCategoryTechnology = $this->categoryTechnologyService->find($id);
+
+        $this->viewState->set('scope.technology.category_technology_id', $id);
         $technologyService =  new TechnologyService();
         $technologies_data =  $itemCategoryTechnology->technologies()->paginate(10);
         $technologies_stats = $technologyService->gettechnologyStats();
@@ -119,11 +111,14 @@ class BaseCategoryTechnologyController extends AdminController
         $categoryTechnology = $this->categoryTechnologyService->update($id, $validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.updateSuccess', [
+             $message = __('Core::msg.updateSuccess', [
                 'entityToString' => $categoryTechnology,
-                'modelName' =>  __('PkgCompetences::categoryTechnology.singular')])
-            ]);
+                'modelName' =>  __('PkgCompetences::categoryTechnology.singular')]);
+            
+            return JsonResponseHelper::success(
+                $message,
+                ['entity_id' => $categoryTechnology->id]
+            );
         }
 
         return redirect()->route('categoryTechnologies.index')->with(
@@ -140,11 +135,14 @@ class BaseCategoryTechnologyController extends AdminController
         $categoryTechnology = $this->categoryTechnologyService->destroy($id);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.deleteSuccess', [
+            $message = __('Core::msg.deleteSuccess', [
                 'entityToString' => $categoryTechnology,
-                'modelName' =>  __('PkgCompetences::categoryTechnology.singular')])
-            ]);
+                'modelName' =>  __('PkgCompetences::categoryTechnology.singular')]);
+            
+
+            return JsonResponseHelper::success(
+                $message
+            );
         }
 
         return redirect()->route('categoryTechnologies.index')->with(
@@ -157,10 +155,18 @@ class BaseCategoryTechnologyController extends AdminController
 
     }
 
-    public function export()
+    public function export($format)
     {
         $categoryTechnologies_data = $this->categoryTechnologyService->all();
-        return Excel::download(new CategoryTechnologyExport($categoryTechnologies_data), 'categoryTechnology_export.xlsx');
+        
+        // Vérifier le format et exporter en conséquence
+        if ($format === 'csv') {
+            return Excel::download(new CategoryTechnologyExport($categoryTechnologies_data,'csv'), 'categoryTechnology_export.csv', \Maatwebsite\Excel\Excel::CSV, ['Content-Type' => 'text/csv']);
+        } elseif ($format === 'xlsx') {
+            return Excel::download(new CategoryTechnologyExport($categoryTechnologies_data,'xlsx'), 'categoryTechnology_export.xlsx', \Maatwebsite\Excel\Excel::XLSX);
+        } else {
+            return response()->json(['error' => 'Format non supporté'], 400);
+        }
     }
 
     public function import(Request $request)

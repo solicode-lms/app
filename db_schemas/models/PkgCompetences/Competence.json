@@ -1,0 +1,200 @@
+{
+    "name": "Competence",
+    "icon": "fa-tools",
+    "attributes": [
+        {
+            "name": "id",
+            "type": "Integer",
+            "metaAttributes": {
+                "general": {
+                    "required": true
+                },
+                "tables": {
+                    "displayInTable": true
+                },
+                "database": {
+                    "db_nullable": false,
+                    "db_primaryKey": true,
+                    "db_unique": false
+                }
+            }
+        },
+        {
+            "name": "code",
+            "type": "String",
+            "metaAttributes": {
+                "general": {
+                    "displayField": true,
+                    "required": true
+                },
+                "tables": {
+                    "displayInTable": true
+                },
+                "database": {
+                    "db_nullable": false,
+                    "db_primaryKey": false,
+                    "db_unique": false
+                }
+            }
+        },
+        {
+            "name": "nom",
+            "type": "String",
+            "metaAttributes": {
+                "general": {
+                    "displayField": true,
+                    "required": true
+                },
+                "tables": {
+                    "displayInTable": true
+                },
+                "database": {
+                    "db_nullable": false,
+                    "db_primaryKey": false,
+                    "db_unique": false
+                }
+            }
+        },
+        {
+            "name": "description",
+            "type": "Text",
+            "metaAttributes": {
+                "general": {
+                    "required": false
+                },
+                "tables": {
+                    "displayInTable": false
+                },
+                "database": {
+                    "db_nullable": true,
+                    "db_primaryKey": false,
+                    "db_unique": false
+                }
+            }
+        },
+        {
+            "name": "created_at",
+            "type": "Date",
+            "metaAttributes": {
+                "tables": {
+                    "displayInTable": true
+                },
+                "database": {
+                    "db_nullable": true,
+                    "db_primaryKey": false,
+                    "db_unique": false
+                }
+            }
+        },
+        {
+            "name": "updated_at",
+            "type": "Date",
+            "metaAttributes": {
+                "tables": {
+                    "displayInTable": true
+                },
+                "database": {
+                    "db_nullable": true,
+                    "db_primaryKey": false,
+                    "db_unique": false
+                }
+            }
+        },
+        {
+            "name": "module_id",
+            "type": "ManyToOne",
+            "metaAttributes": {
+                "general": {
+                    "required": true
+                },
+                "tables": {
+                    "displayInTable": true,
+                    "relationStats": {
+                        "modelName": "Filiere",
+                        "relation": "modules.competences",
+                        "icon": "fas fa-chart-pie"
+                    }
+                },
+                "relations": {
+                    "manyToOne": true,
+                    "relationType": "ManyToOne",
+                    "targetModelName": "Module",
+                    "targetTable": "modules"
+                },
+                "database": {
+                    "db_nullable": true,
+                    "db_primaryKey": false,
+                    "db_unique": false
+                }
+            }
+        },
+        {
+            "name": "Technology_ManyToMany",
+            "type": "ManyToMany",
+            "metaAttributes": {
+                "relations": {
+                    "relationType": "ManyToMany",
+                    "targetTable": "technologies",
+                    "throughTable": "competence_technology"
+                },
+                "tables": {
+                    "displayInTable": true
+                }
+            }
+        },
+        {
+            "name": "NiveauCompetence_HasMany",
+            "type": "HasMany",
+            "metaAttributes": {
+                "forms": {
+                    "editHasMany": true
+                },
+                "relations": {
+                    "relationType": "HasMany",
+                    "targetModelName": "NiveauCompetence",
+                    "targetTable": "niveau_competences"
+                }
+            }
+        },
+        {
+            "name": "TransfertCompetence_HasMany",
+            "type": "HasMany",
+            "metaAttributes": {
+                "relations": {
+                    "relationType": "HasMany",
+                    "targetModelName": "TransfertCompetence",
+                    "targetTable": "transfert_competences"
+                }
+            }
+        }
+    ],
+    "oneToOneRelations": [],
+    "manyToOneRelations": [
+        {
+            "column": "module_id",
+            "referencedTable": "modules",
+            "referencedColumn": "id"
+        }
+    ],
+    "hasManyRelations": [
+        {
+            "referencedTable": "niveau_competences",
+            "columnName": "competence_id"
+        },
+        {
+            "referencedTable": "transfert_competences",
+            "columnName": "competence_id"
+        }
+    ],
+    "manyToManyRelations": [
+        {
+            "through": "competence_technology",
+            "with": "technologies",
+            "columnName": "technology_id"
+        }
+    ],
+    "metaModels": {
+        "creationOrder": 18,
+        "isPivotTable": false
+    }
+}

@@ -221,4 +221,7 @@
 </script>
 <script>
      window.modalTitle = '{{__("PkgWidgets::widget.singular") }} : {{$itemWidget}}'
+     window.contextState = @json($contextState);
+     window.sessionState = @json($sessionState);
+     window.viewState = @json($viewState);
 </script>

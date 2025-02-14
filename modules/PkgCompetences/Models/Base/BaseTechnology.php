@@ -23,8 +23,8 @@ class BaseTechnology extends BaseModel
 {
     use HasFactory, HasDynamicContext;
 
-    public function __construct() {
-        parent::__construct(); 
+    public function __construct(array $attributes = []) {
+        parent::__construct($attributes); 
         $this->isOwnedByUser =  false;
     }
 
@@ -38,9 +38,13 @@ class BaseTechnology extends BaseModel
         'nom', 'category_technology_id', 'description'
     ];
     public $manyToMany = [
-        'competences',
-        'transfertCompetences'
+        'Competence' => ['relation' => 'competences' , "foreign_key" => "competence_id" ],
+        'TransfertCompetence' => ['relation' => 'transfertCompetences' , "foreign_key" => "transfert_competence_id" ]
     ];
+
+       
+
+
 
     /**
      * Relation BelongsTo pour CategoryTechnology.

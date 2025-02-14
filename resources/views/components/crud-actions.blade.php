@@ -32,8 +32,14 @@
 
             @can($exportPermission ?? '')
                 <form class="dropdown-item">
-                    <a href="{{ $exportRoute ?? '#' }}">
+                    <a href="{{ $exportXlsxRoute ?? '#' }}">
                         <i class="fas fa-file-excel"></i>
+                        {{ $exportText ?? __('Core::msg.export') }}
+                    </a>
+                </form>
+                <form class="dropdown-item">
+                    <a href="{{ $exportCsvRoute ?? '#' }}">
+                        <i class="fas fa-file-csv"></i>
                         {{ $exportText ?? __('Core::msg.export') }}
                     </a>
                 </form>

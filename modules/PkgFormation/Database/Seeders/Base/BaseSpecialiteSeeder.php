@@ -97,7 +97,7 @@ class BaseSpecialiteSeeder extends Seeder
 
         // Permissions spécifiques pour chaque type de fonctionnalité
         $featurePermissions = [
-            'Édition ' => [ 'create','store','edit','update','destroy','getSpecialites'],
+            'Édition ' => [ 'create','store','edit','update','destroy','getSpecialites','dataCalcul'],
             'Lecture' => ['index', 'show'],
             'Extraction' => ['import', 'export'],
         ];

@@ -4,6 +4,7 @@
     window.editWithTabPanelManagersConfig = window.editWithTabPanelManagersConfig || [];
     window.editWithTabPanelManagersConfig.push({
         entity_name: 'projet',
+        contextKey: 'projet.edit_{{ $itemProjet->id}}',
         cardTabSelector: '#card-tab-projet', 
         formSelector: '#projetForm',
         editUrl: '{{ route('projets.edit',  ['projet' => ':id']) }}',
@@ -14,6 +15,7 @@
 </script>
 <script>
     window.contextState = @json($contextState);
+    window.viewState = @json($viewState);
 </script>
 
 @section('content')
@@ -56,16 +58,16 @@
                             </div>
 
                             <div class="tab-pane fade" id="projet-hasmany-tabs-transfertCompetence" role="tabpanel" aria-labelledby="projet-hasmany-tabs-transfertCompetence-tab">
-                                @include('PkgCreationProjet::transfertCompetence._index',['isMany' => true, "edit_has_many" => false])
+                                @include('PkgCreationProjet::transfertCompetence._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'projet.edit_' . $itemProjet->id])
                             </div>
                             <div class="tab-pane fade" id="projet-hasmany-tabs-livrable" role="tabpanel" aria-labelledby="projet-hasmany-tabs-livrable-tab">
-                                @include('PkgCreationProjet::livrable._index',['isMany' => true, "edit_has_many" => false])
+                                @include('PkgCreationProjet::livrable._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'projet.edit_' . $itemProjet->id])
                             </div>
                             <div class="tab-pane fade" id="projet-hasmany-tabs-resource" role="tabpanel" aria-labelledby="projet-hasmany-tabs-resource-tab">
-                                @include('PkgCreationProjet::resource._index',['isMany' => true, "edit_has_many" => false])
+                                @include('PkgCreationProjet::resource._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'projet.edit_' . $itemProjet->id])
                             </div>
                             <div class="tab-pane fade" id="projet-hasmany-tabs-affectationProjet" role="tabpanel" aria-labelledby="projet-hasmany-tabs-affectationProjet-tab">
-                                @include('PkgRealisationProjets::affectationProjet._index',['isMany' => true, "edit_has_many" => false])
+                                @include('PkgRealisationProjets::affectationProjet._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'projet.edit_' . $itemProjet->id])
                             </div>
 
                            

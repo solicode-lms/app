@@ -7,7 +7,9 @@ use Modules\PkgGapp\Services\EPackageService;
 use Modules\PkgGapp\Services\EModelService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
+use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgGapp\App\Requests\EPackageRequest;
+use Modules\PkgGapp\Models\EPackage;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgGapp\App\Exports\EPackageExport;
 use Modules\PkgGapp\App\Imports\EPackageImport;
@@ -23,10 +25,14 @@ class BaseEPackageController extends AdminController
     }
 
     public function index(Request $request) {
+        
+        $this->viewState->setContextKeyIfEmpty('ePackage.index');
+
+
         // Extraire les paramètres de recherche, page, et filtres
         $ePackages_params = array_merge(
             $request->only(['page','sort']),
-            ['search' => $request->get('ePackages_search', '')],
+            ['search' => $request->get('ePackages_search', $this->viewState->get("filter.ePackage.ePackages_search"))],
             $request->except(['ePackages_search', 'page', 'sort'])
         );
 
@@ -58,13 +64,14 @@ class BaseEPackageController extends AdminController
         $ePackage = $this->ePackageService->create($validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 
-            'entity_id' => $ePackage->id,
-            'message' => 
-             __('Core::msg.addSuccess', [
+             $message = __('Core::msg.addSuccess', [
                 'entityToString' => $ePackage,
-                'modelName' => __('PkgGapp::ePackage.singular')])
-            ]);
+                'modelName' => __('PkgGapp::ePackage.singular')]);
+        
+            return JsonResponseHelper::success(
+             $message,
+             ['entity_id' => $ePackage->id]
+            );
         }
 
         return redirect()->route('ePackages.edit',['ePackage' => $ePackage->id])->with(
@@ -76,30 +83,15 @@ class BaseEPackageController extends AdminController
         );
     }
     public function show(string $id) {
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('e_package_id', $id);
-        
-        $itemEPackage = $this->ePackageService->find($id);
-        $eModelService =  new EModelService();
-        $eModels_data =  $itemEPackage->eModels()->paginate(10);
-        $eModels_stats = $eModelService->geteModelStats();
-        $eModels_filters = $eModelService->getFieldsFilterable();
-        
-
-        if (request()->ajax()) {
-            return view('PkgGapp::ePackage._edit', compact('itemEPackage', 'eModels_data', 'eModels_stats', 'eModels_filters'));
-        }
-
-        return view('PkgGapp::ePackage.edit', compact('itemEPackage', 'eModels_data', 'eModels_stats', 'eModels_filters'));
-
+        return $this->edit( $id);
     }
     public function edit(string $id) {
 
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('e_package_id', $id);
-        
+        $this->viewState->setContextKey('ePackage.edit_' . $id);
+
         $itemEPackage = $this->ePackageService->find($id);
+
+        $this->viewState->set('scope.eModel.e_package_id', $id);
         $eModelService =  new EModelService();
         $eModels_data =  $itemEPackage->eModels()->paginate(10);
         $eModels_stats = $eModelService->geteModelStats();
@@ -119,11 +111,14 @@ class BaseEPackageController extends AdminController
         $ePackage = $this->ePackageService->update($id, $validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.updateSuccess', [
+             $message = __('Core::msg.updateSuccess', [
                 'entityToString' => $ePackage,
-                'modelName' =>  __('PkgGapp::ePackage.singular')])
-            ]);
+                'modelName' =>  __('PkgGapp::ePackage.singular')]);
+            
+            return JsonResponseHelper::success(
+                $message,
+                ['entity_id' => $ePackage->id]
+            );
         }
 
         return redirect()->route('ePackages.index')->with(
@@ -140,11 +135,14 @@ class BaseEPackageController extends AdminController
         $ePackage = $this->ePackageService->destroy($id);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.deleteSuccess', [
+            $message = __('Core::msg.deleteSuccess', [
                 'entityToString' => $ePackage,
-                'modelName' =>  __('PkgGapp::ePackage.singular')])
-            ]);
+                'modelName' =>  __('PkgGapp::ePackage.singular')]);
+            
+
+            return JsonResponseHelper::success(
+                $message
+            );
         }
 
         return redirect()->route('ePackages.index')->with(
@@ -157,10 +155,18 @@ class BaseEPackageController extends AdminController
 
     }
 
-    public function export()
+    public function export($format)
     {
         $ePackages_data = $this->ePackageService->all();
-        return Excel::download(new EPackageExport($ePackages_data), 'ePackage_export.xlsx');
+        
+        // Vérifier le format et exporter en conséquence
+        if ($format === 'csv') {
+            return Excel::download(new EPackageExport($ePackages_data,'csv'), 'ePackage_export.csv', \Maatwebsite\Excel\Excel::CSV, ['Content-Type' => 'text/csv']);
+        } elseif ($format === 'xlsx') {
+            return Excel::download(new EPackageExport($ePackages_data,'xlsx'), 'ePackage_export.xlsx', \Maatwebsite\Excel\Excel::XLSX);
+        } else {
+            return response()->json(['error' => 'Format non supporté'], 400);
+        }
     }
 
     public function import(Request $request)

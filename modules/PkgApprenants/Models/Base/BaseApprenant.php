@@ -25,8 +25,8 @@ class BaseApprenant extends BaseModel
 {
     use HasFactory, HasDynamicContext;
 
-    public function __construct() {
-        parent::__construct(); 
+    public function __construct(array $attributes = []) {
+        parent::__construct($attributes); 
         $this->isOwnedByUser =  false;
     }
 
@@ -40,8 +40,12 @@ class BaseApprenant extends BaseModel
         'nom', 'prenom', 'prenom_arab', 'nom_arab', 'tele_num', 'profile_image', 'matricule', 'sexe', 'actif', 'diplome', 'date_naissance', 'date_inscription', 'lieu_naissance', 'cin', 'adresse', 'niveaux_scolaire_id', 'nationalite_id', 'user_id'
     ];
     public $manyToMany = [
-        'groupes'
+        'Groupe' => ['relation' => 'groupes' , "foreign_key" => "groupe_id" ]
     ];
+
+       
+
+
 
     /**
      * Relation BelongsTo pour Nationalite.

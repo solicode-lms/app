@@ -11,7 +11,9 @@ use Modules\PkgAutorisation\Services\UserService;
 use Modules\PkgRealisationProjets\Services\RealisationProjetService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
+use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgApprenants\App\Requests\ApprenantRequest;
+use Modules\PkgApprenants\Models\Apprenant;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgApprenants\App\Exports\ApprenantExport;
 use Modules\PkgApprenants\App\Imports\ApprenantImport;
@@ -35,10 +37,14 @@ class BaseApprenantController extends AdminController
     }
 
     public function index(Request $request) {
+        
+        $this->viewState->setContextKeyIfEmpty('apprenant.index');
+
+
         // Extraire les paramètres de recherche, page, et filtres
         $apprenants_params = array_merge(
             $request->only(['page','sort']),
-            ['search' => $request->get('apprenants_search', '')],
+            ['search' => $request->get('apprenants_search', $this->viewState->get("filter.apprenant.apprenants_search"))],
             $request->except(['apprenants_search', 'page', 'sort'])
         );
 
@@ -74,13 +80,14 @@ class BaseApprenantController extends AdminController
         $apprenant = $this->apprenantService->create($validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 
-            'entity_id' => $apprenant->id,
-            'message' => 
-             __('Core::msg.addSuccess', [
+             $message = __('Core::msg.addSuccess', [
                 'entityToString' => $apprenant,
-                'modelName' => __('PkgApprenants::apprenant.singular')])
-            ]);
+                'modelName' => __('PkgApprenants::apprenant.singular')]);
+        
+            return JsonResponseHelper::success(
+             $message,
+             ['entity_id' => $apprenant->id]
+            );
         }
 
         return redirect()->route('apprenants.edit',['apprenant' => $apprenant->id])->with(
@@ -92,38 +99,19 @@ class BaseApprenantController extends AdminController
         );
     }
     public function show(string $id) {
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('apprenant_id', $id);
-        
-        $itemApprenant = $this->apprenantService->find($id);
-        $groupes = $this->groupeService->all();
-        $nationalites = $this->nationaliteService->all();
-        $niveauxScolaires = $this->niveauxScolaireService->all();
-        $users = $this->userService->all();
-        $realisationProjetService =  new RealisationProjetService();
-        $realisationProjets_data =  $itemApprenant->realisationProjets()->paginate(10);
-        $realisationProjets_stats = $realisationProjetService->getrealisationProjetStats();
-        $realisationProjets_filters = $realisationProjetService->getFieldsFilterable();
-        
-
-        if (request()->ajax()) {
-            return view('PkgApprenants::apprenant._edit', compact('itemApprenant', 'groupes', 'nationalites', 'niveauxScolaires', 'users', 'realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters'));
-        }
-
-        return view('PkgApprenants::apprenant.edit', compact('itemApprenant', 'groupes', 'nationalites', 'niveauxScolaires', 'users', 'realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters'));
-
+        return $this->edit( $id);
     }
     public function edit(string $id) {
 
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('apprenant_id', $id);
-        
+        $this->viewState->setContextKey('apprenant.edit_' . $id);
+
         $itemApprenant = $this->apprenantService->find($id);
         $groupes = $this->groupeService->all();
         $nationalites = $this->nationaliteService->all();
         $niveauxScolaires = $this->niveauxScolaireService->all();
         $users = $this->userService->all();
+
+        $this->viewState->set('scope.realisationProjet.apprenant_id', $id);
         $realisationProjetService =  new RealisationProjetService();
         $realisationProjets_data =  $itemApprenant->realisationProjets()->paginate(10);
         $realisationProjets_stats = $realisationProjetService->getrealisationProjetStats();
@@ -143,11 +131,14 @@ class BaseApprenantController extends AdminController
         $apprenant = $this->apprenantService->update($id, $validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.updateSuccess', [
+             $message = __('Core::msg.updateSuccess', [
                 'entityToString' => $apprenant,
-                'modelName' =>  __('PkgApprenants::apprenant.singular')])
-            ]);
+                'modelName' =>  __('PkgApprenants::apprenant.singular')]);
+            
+            return JsonResponseHelper::success(
+                $message,
+                ['entity_id' => $apprenant->id]
+            );
         }
 
         return redirect()->route('apprenants.index')->with(
@@ -164,11 +155,14 @@ class BaseApprenantController extends AdminController
         $apprenant = $this->apprenantService->destroy($id);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.deleteSuccess', [
+            $message = __('Core::msg.deleteSuccess', [
                 'entityToString' => $apprenant,
-                'modelName' =>  __('PkgApprenants::apprenant.singular')])
-            ]);
+                'modelName' =>  __('PkgApprenants::apprenant.singular')]);
+            
+
+            return JsonResponseHelper::success(
+                $message
+            );
         }
 
         return redirect()->route('apprenants.index')->with(
@@ -181,10 +175,18 @@ class BaseApprenantController extends AdminController
 
     }
 
-    public function export()
+    public function export($format)
     {
         $apprenants_data = $this->apprenantService->all();
-        return Excel::download(new ApprenantExport($apprenants_data), 'apprenant_export.xlsx');
+        
+        // Vérifier le format et exporter en conséquence
+        if ($format === 'csv') {
+            return Excel::download(new ApprenantExport($apprenants_data,'csv'), 'apprenant_export.csv', \Maatwebsite\Excel\Excel::CSV, ['Content-Type' => 'text/csv']);
+        } elseif ($format === 'xlsx') {
+            return Excel::download(new ApprenantExport($apprenants_data,'xlsx'), 'apprenant_export.xlsx', \Maatwebsite\Excel\Excel::XLSX);
+        } else {
+            return response()->json(['error' => 'Format non supporté'], 400);
+        }
     }
 
     public function import(Request $request)

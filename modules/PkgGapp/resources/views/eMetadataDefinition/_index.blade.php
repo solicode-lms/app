@@ -6,7 +6,9 @@
     window.crudModalManagersConfig.push({
         edit_has_many: {{ !isset($edit_has_many)? 'false' :  ($edit_has_many ? "true": "false") }},
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
+        editOnFullScreen : false,
         entity_name: 'eMetadataDefinition',
+        contextKey: '{{ isset($contextKey) ? $contextKey : 'eMetadataDefinition.index' }}', 
         filterFormSelector: '#eMetadataDefinition-crud-filter-form',
         crudSelector: '#eMetadataDefinition-crud',
         tableSelector: '#eMetadataDefinition-data-container',
@@ -62,7 +64,8 @@
                             :importRoute="route('eMetadataDefinitions.import')"
                             :importText="__('Importer')"
                             :exportPermission="'export-eMetadataDefinition'"
-                            :exportRoute="route('eMetadataDefinitions.export')"
+                            :exportXlsxRoute="route('eMetadataDefinitions.export', ['format' => 'xlsx'])"
+                            :exportCsvRoute="route('eMetadataDefinitions.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
                         />
                     </div>

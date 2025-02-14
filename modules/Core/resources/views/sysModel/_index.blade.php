@@ -6,7 +6,9 @@
     window.crudModalManagersConfig.push({
         edit_has_many: {{ !isset($edit_has_many)? 'true' :  ($edit_has_many ? "true": "false") }},
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
+        editOnFullScreen : false,
         entity_name: 'sysModel',
+        contextKey: '{{ isset($contextKey) ? $contextKey : 'sysModel.index' }}', 
         filterFormSelector: '#sysModel-crud-filter-form',
         crudSelector: '#sysModel-crud',
         tableSelector: '#sysModel-data-container',
@@ -62,7 +64,8 @@
                             :importRoute="route('sysModels.import')"
                             :importText="__('Importer')"
                             :exportPermission="'export-sysModel'"
-                            :exportRoute="route('sysModels.export')"
+                            :exportXlsxRoute="route('sysModels.export', ['format' => 'xlsx'])"
+                            :exportCsvRoute="route('sysModels.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
                         />
                     </div>

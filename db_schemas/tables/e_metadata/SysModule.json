@@ -1,0 +1,278 @@
+[
+    {
+        "reference": "sys_modules_creationOrder",
+        "value_integer": 7,
+        "e_model_reference": "sys_modules",
+        "e_metadata_definition_reference": "creationOrder"
+    },
+    {
+        "reference": "SysModule_id_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModule_id",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "SysModule_name_displayInTable",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModule_name",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "SysModule_name_displayField",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModule_name",
+        "e_metadata_definition_reference": "displayField"
+    },
+    {
+        "reference": "SysModule_name_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModule_name",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "SysModule_slug_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModule_slug",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "SysModule_is_active_displayInTable",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModule_is_active",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "SysModule_is_active_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModule_is_active",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "SysModule_order_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModule_order",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "SysModule_version_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModule_version",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "SysModule_reference_required",
+        "value_boolean": 0,
+        "e_data_field_reference": "SysModule_reference",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "SysModule_sys_color_id_displayInTable",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModule_sys_color_id",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "SysModule_sys_color_id_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModule_sys_color_id",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "SysModule_sys_color_id_filterable",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModule_sys_color_id",
+        "e_metadata_definition_reference": "filterable"
+    },
+    {
+        "reference": "sys_modules_hasMany_feature_domains_sys_module_id_editHasMany",
+        "value_boolean": 1,
+        "e_data_field_reference": "sys_modules_hasMany_feature_domains_sys_module_id",
+        "e_metadata_definition_reference": "editHasMany"
+    },
+    {
+        "reference": "sys_modules_hasMany_sys_controllers_sys_module_id_editHasMany",
+        "value_boolean": 1,
+        "e_data_field_reference": "sys_modules_hasMany_sys_controllers_sys_module_id",
+        "e_metadata_definition_reference": "editHasMany"
+    },
+    {
+        "reference": "sys_modules_hasMany_sys_models_sys_module_id_editHasMany",
+        "value_boolean": 1,
+        "e_data_field_reference": "sys_modules_hasMany_sys_models_sys_module_id",
+        "e_metadata_definition_reference": "editHasMany"
+    },
+    {
+        "reference": "SysModule_id_displayOrder",
+        "value_integer": 1,
+        "e_data_field_reference": "SysModule_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "SysModule_name_displayOrder",
+        "value_integer": 2,
+        "e_data_field_reference": "SysModule_name",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "SysModule_slug_displayOrder",
+        "value_integer": 3,
+        "e_data_field_reference": "SysModule_slug",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "SysModule_description_displayOrder",
+        "value_integer": 4,
+        "e_data_field_reference": "SysModule_description",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "SysModule_is_active_displayOrder",
+        "value_integer": 5,
+        "e_data_field_reference": "SysModule_is_active",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "SysModule_order_displayOrder",
+        "value_integer": 6,
+        "e_data_field_reference": "SysModule_order",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "SysModule_version_displayOrder",
+        "value_integer": 7,
+        "e_data_field_reference": "SysModule_version",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "SysModule_sys_color_id_displayOrder",
+        "value_integer": 8,
+        "e_data_field_reference": "SysModule_sys_color_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "SysModule_reference_displayOrder",
+        "value_integer": 9,
+        "e_data_field_reference": "SysModule_reference",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "SysModule_created_at_displayOrder",
+        "value_integer": 10,
+        "e_data_field_reference": "SysModule_created_at",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "SysModule_updated_at_displayOrder",
+        "value_integer": 11,
+        "e_data_field_reference": "SysModule_updated_at",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "sys_modules_hasMany_feature_domains_sys_module_id_displayOrder",
+        "value_integer": 12,
+        "e_data_field_reference": "sys_modules_hasMany_feature_domains_sys_module_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "sys_modules_hasMany_sys_controllers_sys_module_id_displayOrder",
+        "value_integer": 13,
+        "e_data_field_reference": "sys_modules_hasMany_sys_controllers_sys_module_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "sys_modules_hasMany_sys_models_sys_module_id_displayOrder",
+        "value_integer": 14,
+        "e_data_field_reference": "sys_modules_hasMany_sys_models_sys_module_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "SysModule_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModule_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "SysModule_name_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModule_name",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "SysModule_slug_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModule_slug",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "SysModule_description_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModule_description",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "SysModule_is_active_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModule_is_active",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "SysModule_order_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModule_order",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "SysModule_version_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModule_version",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "SysModule_sys_color_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModule_sys_color_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "SysModule_reference_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModule_reference",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "SysModule_created_at_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModule_created_at",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "SysModule_updated_at_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModule_updated_at",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "sys_modules_hasMany_feature_domains_sys_module_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "sys_modules_hasMany_feature_domains_sys_module_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "sys_modules_hasMany_sys_controllers_sys_module_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "sys_modules_hasMany_sys_controllers_sys_module_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "sys_modules_hasMany_sys_models_sys_module_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "sys_modules_hasMany_sys_models_sys_module_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "sys_modules_displayInSideBar",
+        "value_boolean": 1,
+        "e_model_reference": "sys_modules",
+        "e_metadata_definition_reference": "displayInSideBar"
+    }
+]

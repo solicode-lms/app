@@ -11,7 +11,9 @@ use Modules\PkgCreationProjet\Services\ResourceService;
 use Modules\PkgRealisationProjets\Services\AffectationProjetService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
+use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgCreationProjet\App\Requests\ProjetRequest;
+use Modules\PkgCreationProjet\Models\Projet;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgCreationProjet\App\Exports\ProjetExport;
 use Modules\PkgCreationProjet\App\Imports\ProjetImport;
@@ -29,10 +31,15 @@ class BaseProjetController extends AdminController
     }
 
     public function index(Request $request) {
+        
+        $this->viewState->setContextKeyIfEmpty('projet.index');
+        $this->viewState->init('filter.projet.formateur_id'  , $this->sessionState->get('formateur_id'));
+
+
         // Extraire les paramètres de recherche, page, et filtres
         $projets_params = array_merge(
             $request->only(['page','sort']),
-            ['search' => $request->get('projets_search', '')],
+            ['search' => $request->get('projets_search', $this->viewState->get("filter.projet.projets_search"))],
             $request->except(['projets_search', 'page', 'sort'])
         );
 
@@ -51,6 +58,7 @@ class BaseProjetController extends AdminController
         return view('PkgCreationProjet::projet.index', compact('projets_data', 'projets_stats', 'projets_filters'));
     }
     public function create() {
+        $this->viewState->set('scope_form.projet.formateur_id'  , $this->sessionState->get('formateur_id'));
         $itemProjet = $this->projetService->createInstance();
         $formateurs = $this->formateurService->all();
 
@@ -65,13 +73,14 @@ class BaseProjetController extends AdminController
         $projet = $this->projetService->create($validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 
-            'entity_id' => $projet->id,
-            'message' => 
-             __('Core::msg.addSuccess', [
+             $message = __('Core::msg.addSuccess', [
                 'entityToString' => $projet,
-                'modelName' => __('PkgCreationProjet::projet.singular')])
-            ]);
+                'modelName' => __('PkgCreationProjet::projet.singular')]);
+        
+            return JsonResponseHelper::success(
+             $message,
+             ['entity_id' => $projet->id]
+            );
         }
 
         return redirect()->route('projets.edit',['projet' => $projet->id])->with(
@@ -83,62 +92,34 @@ class BaseProjetController extends AdminController
         );
     }
     public function show(string $id) {
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('projet_id', $id);
-        
-        $itemProjet = $this->projetService->find($id);
-        $formateurs = $this->formateurService->all();
-        $transfertCompetenceService =  new TransfertCompetenceService();
-        $transfertCompetences_data =  $itemProjet->transfertCompetences()->paginate(10);
-        $transfertCompetences_stats = $transfertCompetenceService->gettransfertCompetenceStats();
-        $transfertCompetences_filters = $transfertCompetenceService->getFieldsFilterable();
-        
-        $livrableService =  new LivrableService();
-        $livrables_data =  $itemProjet->livrables()->paginate(10);
-        $livrables_stats = $livrableService->getlivrableStats();
-        $livrables_filters = $livrableService->getFieldsFilterable();
-        
-        $resourceService =  new ResourceService();
-        $resources_data =  $itemProjet->resources()->paginate(10);
-        $resources_stats = $resourceService->getresourceStats();
-        $resources_filters = $resourceService->getFieldsFilterable();
-        
-        $affectationProjetService =  new AffectationProjetService();
-        $affectationProjets_data =  $itemProjet->affectationProjets()->paginate(10);
-        $affectationProjets_stats = $affectationProjetService->getaffectationProjetStats();
-        $affectationProjets_filters = $affectationProjetService->getFieldsFilterable();
-        
-
-        if (request()->ajax()) {
-            return view('PkgCreationProjet::projet._edit', compact('itemProjet', 'formateurs', 'transfertCompetences_data', 'livrables_data', 'resources_data', 'affectationProjets_data', 'transfertCompetences_stats', 'livrables_stats', 'resources_stats', 'affectationProjets_stats', 'transfertCompetences_filters', 'livrables_filters', 'resources_filters', 'affectationProjets_filters'));
-        }
-
-        return view('PkgCreationProjet::projet.edit', compact('itemProjet', 'formateurs', 'transfertCompetences_data', 'livrables_data', 'resources_data', 'affectationProjets_data', 'transfertCompetences_stats', 'livrables_stats', 'resources_stats', 'affectationProjets_stats', 'transfertCompetences_filters', 'livrables_filters', 'resources_filters', 'affectationProjets_filters'));
-
+        return $this->edit( $id);
     }
     public function edit(string $id) {
 
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('projet_id', $id);
-        
+        $this->viewState->setContextKey('projet.edit_' . $id);
+
         $itemProjet = $this->projetService->find($id);
         $formateurs = $this->formateurService->all();
+
+        $this->viewState->set('scope.transfertCompetence.projet_id', $id);
         $transfertCompetenceService =  new TransfertCompetenceService();
         $transfertCompetences_data =  $itemProjet->transfertCompetences()->paginate(10);
         $transfertCompetences_stats = $transfertCompetenceService->gettransfertCompetenceStats();
         $transfertCompetences_filters = $transfertCompetenceService->getFieldsFilterable();
         
+        $this->viewState->set('scope.livrable.projet_id', $id);
         $livrableService =  new LivrableService();
         $livrables_data =  $itemProjet->livrables()->paginate(10);
         $livrables_stats = $livrableService->getlivrableStats();
         $livrables_filters = $livrableService->getFieldsFilterable();
         
+        $this->viewState->set('scope.resource.projet_id', $id);
         $resourceService =  new ResourceService();
         $resources_data =  $itemProjet->resources()->paginate(10);
         $resources_stats = $resourceService->getresourceStats();
         $resources_filters = $resourceService->getFieldsFilterable();
         
+        $this->viewState->set('scope.affectationProjet.projet_id', $id);
         $affectationProjetService =  new AffectationProjetService();
         $affectationProjets_data =  $itemProjet->affectationProjets()->paginate(10);
         $affectationProjets_stats = $affectationProjetService->getaffectationProjetStats();
@@ -161,11 +142,14 @@ class BaseProjetController extends AdminController
         $projet = $this->projetService->update($id, $validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.updateSuccess', [
+             $message = __('Core::msg.updateSuccess', [
                 'entityToString' => $projet,
-                'modelName' =>  __('PkgCreationProjet::projet.singular')])
-            ]);
+                'modelName' =>  __('PkgCreationProjet::projet.singular')]);
+            
+            return JsonResponseHelper::success(
+                $message,
+                ['entity_id' => $projet->id]
+            );
         }
 
         return redirect()->route('projets.index')->with(
@@ -185,11 +169,14 @@ class BaseProjetController extends AdminController
         $projet = $this->projetService->destroy($id);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.deleteSuccess', [
+            $message = __('Core::msg.deleteSuccess', [
                 'entityToString' => $projet,
-                'modelName' =>  __('PkgCreationProjet::projet.singular')])
-            ]);
+                'modelName' =>  __('PkgCreationProjet::projet.singular')]);
+            
+
+            return JsonResponseHelper::success(
+                $message
+            );
         }
 
         return redirect()->route('projets.index')->with(
@@ -202,10 +189,18 @@ class BaseProjetController extends AdminController
 
     }
 
-    public function export()
+    public function export($format)
     {
         $projets_data = $this->projetService->all();
-        return Excel::download(new ProjetExport($projets_data), 'projet_export.xlsx');
+        
+        // Vérifier le format et exporter en conséquence
+        if ($format === 'csv') {
+            return Excel::download(new ProjetExport($projets_data,'csv'), 'projet_export.csv', \Maatwebsite\Excel\Excel::CSV, ['Content-Type' => 'text/csv']);
+        } elseif ($format === 'xlsx') {
+            return Excel::download(new ProjetExport($projets_data,'xlsx'), 'projet_export.xlsx', \Maatwebsite\Excel\Excel::XLSX);
+        } else {
+            return response()->json(['error' => 'Format non supporté'], 400);
+        }
     }
 
     public function import(Request $request)

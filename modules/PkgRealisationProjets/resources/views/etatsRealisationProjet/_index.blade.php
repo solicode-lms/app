@@ -4,9 +4,11 @@
 <script>
     window.crudModalManagersConfig = window.crudModalManagersConfig || [];
     window.crudModalManagersConfig.push({
-        edit_has_many: {{ !isset($edit_has_many)? 'true' :  ($edit_has_many ? "true": "false") }},
+        edit_has_many: {{ !isset($edit_has_many)? 'false' :  ($edit_has_many ? "true": "false") }},
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
+        editOnFullScreen : false,
         entity_name: 'etatsRealisationProjet',
+        contextKey: '{{ isset($contextKey) ? $contextKey : 'etatsRealisationProjet.index' }}', 
         filterFormSelector: '#etatsRealisationProjet-crud-filter-form',
         crudSelector: '#etatsRealisationProjet-crud',
         tableSelector: '#etatsRealisationProjet-data-container',
@@ -31,7 +33,7 @@
        $titre = __("PkgRealisationProjets::etatsRealisationProjet.singular");
     @endphp
     <x-crud-header 
-        id="etatsRealisationProjet-crud-header" icon="fas fa-table"  
+        id="etatsRealisationProjet-crud-header" icon="fas fa-star-half"  
         iconColor="text-info"
         title="{{ __('PkgRealisationProjets::etatsRealisationProjet.plural') }}"
         :breadcrumbs="[
@@ -62,7 +64,8 @@
                             :importRoute="route('etatsRealisationProjets.import')"
                             :importText="__('Importer')"
                             :exportPermission="'export-etatsRealisationProjet'"
-                            :exportRoute="route('etatsRealisationProjets.export')"
+                            :exportXlsxRoute="route('etatsRealisationProjets.export', ['format' => 'xlsx'])"
+                            :exportCsvRoute="route('etatsRealisationProjets.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
                         />
                     </div>

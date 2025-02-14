@@ -1,0 +1,4272 @@
+{
+    "appreciations": {
+        "name": "appreciations",
+        "columns": [
+            {
+                "name": "id",
+                "type": "Integer",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": true,
+                    "unique": false
+                }
+            },
+            {
+                "name": "nom",
+                "type": "String",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "description",
+                "type": "Text",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "noteMin",
+                "type": "Float",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "noteMax",
+                "type": "Float",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "formateur_id",
+                "type": "ManyToOne",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "created_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "updated_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            }
+        ],
+        "oneToOneRelations": [],
+        "manyToOneRelations": [
+            {
+                "column": "formateur_id",
+                "referencedTable": "formateurs",
+                "referencedColumn": "id"
+            }
+        ],
+        "manyToManyRelations": [],
+        "hasManyRelations": [
+            {
+                "referencedTable": "transfert_competences",
+                "column": "appreciation_id"
+            }
+        ],
+        "isPivotTable": false,
+        "creationOrder": 3
+    },
+    "apprenant_konosies": {
+        "name": "apprenant_konosies",
+        "columns": [
+            {
+                "name": "id",
+                "type": "Integer",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": true,
+                    "unique": false
+                }
+            },
+            {
+                "name": "MatriculeEtudiant",
+                "type": "String",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": true
+                }
+            },
+            {
+                "name": "Nom",
+                "type": "String",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "Prenom",
+                "type": "String",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "Sexe",
+                "type": "String",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "EtudiantActif",
+                "type": "String",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "Diplome",
+                "type": "String",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "Principale",
+                "type": "String",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "LibelleLong",
+                "type": "String",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "CodeDiplome",
+                "type": "String",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "DateNaissance",
+                "type": "String",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "DateInscription",
+                "type": "String",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "LieuNaissance",
+                "type": "String",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "CIN",
+                "type": "String",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "NTelephone",
+                "type": "String",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "Adresse",
+                "type": "Text",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "Nationalite",
+                "type": "String",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "Nom_Arabe",
+                "type": "String",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "Prenom_Arabe",
+                "type": "String",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "NiveauScolaire",
+                "type": "String",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "created_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "updated_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            }
+        ],
+        "oneToOneRelations": [],
+        "manyToOneRelations": [],
+        "manyToManyRelations": [],
+        "hasManyRelations": [],
+        "isPivotTable": false,
+        "creationOrder": 4
+    },
+    "apprenants": {
+        "name": "apprenants",
+        "columns": [
+            {
+                "name": "id",
+                "type": "Integer",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": true,
+                    "unique": false
+                }
+            },
+            {
+                "name": "nom",
+                "type": "String",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "prenom",
+                "type": "String",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "prenom_arab",
+                "type": "String",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "nom_arab",
+                "type": "String",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "tele_num",
+                "type": "String",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "profile_image",
+                "type": "String",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "matricule",
+                "type": "String",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": true
+                }
+            },
+            {
+                "name": "sexe",
+                "type": "String",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "actif",
+                "type": "Integer",
+                "options": {
+                    "nullable": false,
+                    "default": "1",
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "diplome",
+                "type": "String",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "date_naissance",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "date_inscription",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "lieu_naissance",
+                "type": "String",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "cin",
+                "type": "String",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "adresse",
+                "type": "Text",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "created_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "updated_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "groupe_id",
+                "type": "ManyToOne",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "niveaux_scolaire_id",
+                "type": "ManyToOne",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "nationalite_id",
+                "type": "ManyToOne",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            }
+        ],
+        "oneToOneRelations": [],
+        "manyToOneRelations": [
+            {
+                "column": "groupe_id",
+                "referencedTable": "groupes",
+                "referencedColumn": "id"
+            },
+            {
+                "column": "nationalite_id",
+                "referencedTable": "nationalites",
+                "referencedColumn": "id"
+            },
+            {
+                "column": "niveaux_scolaire_id",
+                "referencedTable": "niveaux_scolaires",
+                "referencedColumn": "id"
+            }
+        ],
+        "manyToManyRelations": [],
+        "hasManyRelations": [],
+        "isPivotTable": false,
+        "creationOrder": 9
+    },
+    "category_technologies": {
+        "name": "category_technologies",
+        "columns": [
+            {
+                "name": "id",
+                "type": "Integer",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": true,
+                    "unique": false
+                }
+            },
+            {
+                "name": "nom",
+                "type": "String",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "description",
+                "type": "Text",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "created_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "updated_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            }
+        ],
+        "oneToOneRelations": [],
+        "manyToOneRelations": [],
+        "manyToManyRelations": [],
+        "hasManyRelations": [
+            {
+                "referencedTable": "technologies",
+                "column": "category_technology_id"
+            }
+        ],
+        "isPivotTable": false,
+        "creationOrder": 10
+    },
+    "competence_technology": {
+        "name": "competence_technology",
+        "columns": [
+            {
+                "name": "created_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "updated_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "technology_id",
+                "type": "ManyToOne",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "competence_id",
+                "type": "ManyToOne",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            }
+        ],
+        "oneToOneRelations": [],
+        "manyToOneRelations": [
+            {
+                "column": "competence_id",
+                "referencedTable": "competences",
+                "referencedColumn": "id"
+            },
+            {
+                "column": "technology_id",
+                "referencedTable": "technologies",
+                "referencedColumn": "id"
+            }
+        ],
+        "manyToManyRelations": [],
+        "hasManyRelations": [],
+        "isPivotTable": true,
+        "creationOrder": 14
+    },
+    "competences": {
+        "name": "competences",
+        "columns": [
+            {
+                "name": "id",
+                "type": "Integer",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": true,
+                    "unique": false
+                }
+            },
+            {
+                "name": "code",
+                "type": "String",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "nom",
+                "type": "String",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "description",
+                "type": "Text",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "created_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "updated_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "module_id",
+                "type": "ManyToOne",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            }
+        ],
+        "oneToOneRelations": [],
+        "manyToOneRelations": [
+            {
+                "column": "module_id",
+                "referencedTable": "modules",
+                "referencedColumn": "id"
+            }
+        ],
+        "manyToManyRelations": [
+            {
+                "through": "competence_technology",
+                "with": "technologies",
+                "column": "technology_id"
+            }
+        ],
+        "hasManyRelations": [
+            {
+                "referencedTable": "niveau_competences",
+                "column": "competence_id"
+            },
+            {
+                "referencedTable": "transfert_competences",
+                "column": "competence_id"
+            }
+        ],
+        "isPivotTable": false,
+        "creationOrder": 12
+    },
+    "e_data_fields": {
+        "name": "e_data_fields",
+        "columns": [
+            {
+                "name": "id",
+                "type": "Integer",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": true,
+                    "unique": false
+                }
+            },
+            {
+                "name": "name",
+                "type": "String",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "type",
+                "type": "String",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "e_model_id",
+                "type": "ManyToOne",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "description",
+                "type": "Text",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "created_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "updated_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            }
+        ],
+        "oneToOneRelations": [],
+        "manyToOneRelations": [
+            {
+                "column": "e_model_id",
+                "referencedTable": "e_models",
+                "referencedColumn": "id"
+            }
+        ],
+        "manyToManyRelations": [],
+        "hasManyRelations": [],
+        "isPivotTable": false,
+        "creationOrder": 17
+    },
+    "e_metadata": {
+        "name": "e_metadata",
+        "columns": [
+            {
+                "name": "id",
+                "type": "Integer",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": true,
+                    "unique": false
+                }
+            },
+            {
+                "name": "value_boolean",
+                "type": "Integer",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "value_string",
+                "type": "String",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "value_int",
+                "type": "Integer",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "value_object",
+                "type": "JSON",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "object_id",
+                "type": "Integer",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "object_type",
+                "type": "String",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "e_metadata_definition_id",
+                "type": "ManyToOne",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "created_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "updated_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            }
+        ],
+        "oneToOneRelations": [],
+        "manyToOneRelations": [
+            {
+                "column": "e_metadata_definition_id",
+                "referencedTable": "e_metadata_definitions",
+                "referencedColumn": "id"
+            }
+        ],
+        "manyToManyRelations": [],
+        "hasManyRelations": [],
+        "isPivotTable": false,
+        "creationOrder": 19
+    },
+    "e_metadata_definitions": {
+        "name": "e_metadata_definitions",
+        "columns": [
+            {
+                "name": "id",
+                "type": "Integer",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": true,
+                    "unique": false
+                }
+            },
+            {
+                "name": "name",
+                "type": "String",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "code",
+                "type": "String",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": true
+                }
+            },
+            {
+                "name": "groupe",
+                "type": "String",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "type",
+                "type": "String",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "scope",
+                "type": "String",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "description",
+                "type": "String",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "default_value",
+                "type": "String",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "created_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "updated_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            }
+        ],
+        "oneToOneRelations": [],
+        "manyToOneRelations": [],
+        "manyToManyRelations": [],
+        "hasManyRelations": [
+            {
+                "referencedTable": "e_metadata",
+                "column": "e_metadata_definition_id"
+            }
+        ],
+        "isPivotTable": false,
+        "creationOrder": 18
+    },
+    "e_models": {
+        "name": "e_models",
+        "columns": [
+            {
+                "name": "id",
+                "type": "Integer",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": true,
+                    "unique": false
+                }
+            },
+            {
+                "name": "name",
+                "type": "String",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "icon",
+                "type": "String",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "description",
+                "type": "Text",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "e_package_id",
+                "type": "ManyToOne",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "created_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "updated_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            }
+        ],
+        "oneToOneRelations": [],
+        "manyToOneRelations": [
+            {
+                "column": "e_package_id",
+                "referencedTable": "e_packages",
+                "referencedColumn": "id"
+            }
+        ],
+        "manyToManyRelations": [],
+        "hasManyRelations": [
+            {
+                "referencedTable": "e_data_fields",
+                "column": "e_model_id"
+            },
+            {
+                "referencedTable": "e_relationships",
+                "column": "source_e_model_id"
+            },
+            {
+                "referencedTable": "e_relationships",
+                "column": "target_e_model_id"
+            }
+        ],
+        "isPivotTable": false,
+        "creationOrder": 16
+    },
+    "e_packages": {
+        "name": "e_packages",
+        "columns": [
+            {
+                "name": "id",
+                "type": "Integer",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": true,
+                    "unique": false
+                }
+            },
+            {
+                "name": "name",
+                "type": "String",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "description",
+                "type": "Text",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "created_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "updated_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            }
+        ],
+        "oneToOneRelations": [],
+        "manyToOneRelations": [],
+        "manyToManyRelations": [],
+        "hasManyRelations": [
+            {
+                "referencedTable": "e_models",
+                "column": "e_package_id"
+            }
+        ],
+        "isPivotTable": false,
+        "creationOrder": 15
+    },
+    "e_relationships": {
+        "name": "e_relationships",
+        "columns": [
+            {
+                "name": "id",
+                "type": "Integer",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": true,
+                    "unique": false
+                }
+            },
+            {
+                "name": "source_e_model_id",
+                "type": "ManyToOne",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "target_e_model_id",
+                "type": "ManyToOne",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "type",
+                "type": "String",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "cascade_on_delete",
+                "type": "Integer",
+                "options": {
+                    "nullable": false,
+                    "default": "0",
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "description",
+                "type": "Text",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "column",
+                "type": "String",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "referenced_table",
+                "type": "String",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "referenced_column",
+                "type": "String",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "through",
+                "type": "String",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "with_column",
+                "type": "String",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "created_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "updated_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            }
+        ],
+        "oneToOneRelations": [],
+        "manyToOneRelations": [
+            {
+                "column": "source_e_model_id",
+                "referencedTable": "e_models",
+                "referencedColumn": "id"
+            },
+            {
+                "column": "target_e_model_id",
+                "referencedTable": "e_models",
+                "referencedColumn": "id"
+            }
+        ],
+        "manyToManyRelations": [],
+        "hasManyRelations": [],
+        "isPivotTable": false,
+        "creationOrder": 20
+    },
+    "feature_domains": {
+        "name": "feature_domains",
+        "columns": [
+            {
+                "name": "id",
+                "type": "Integer",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": true,
+                    "unique": false
+                }
+            },
+            {
+                "name": "name",
+                "type": "String",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": true
+                }
+            },
+            {
+                "name": "slug",
+                "type": "String",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": true
+                }
+            },
+            {
+                "name": "description",
+                "type": "Text",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "module_id",
+                "type": "ManyToOne",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "created_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "updated_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            }
+        ],
+        "oneToOneRelations": [],
+        "manyToOneRelations": [
+            {
+                "column": "module_id",
+                "referencedTable": "sys_modules",
+                "referencedColumn": "id"
+            }
+        ],
+        "manyToManyRelations": [],
+        "hasManyRelations": [
+            {
+                "referencedTable": "features",
+                "column": "domain_id"
+            }
+        ],
+        "isPivotTable": false,
+        "creationOrder": 23
+    },
+    "feature_permission": {
+        "name": "feature_permission",
+        "columns": [
+            {
+                "name": "id",
+                "type": "Integer",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": true,
+                    "unique": false
+                }
+            },
+            {
+                "name": "feature_id",
+                "type": "ManyToOne",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "permission_id",
+                "type": "ManyToOne",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "created_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "updated_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            }
+        ],
+        "oneToOneRelations": [],
+        "manyToOneRelations": [
+            {
+                "column": "feature_id",
+                "referencedTable": "features",
+                "referencedColumn": "id"
+            },
+            {
+                "column": "permission_id",
+                "referencedTable": "permissions",
+                "referencedColumn": "id"
+            }
+        ],
+        "manyToManyRelations": [],
+        "hasManyRelations": [],
+        "isPivotTable": true,
+        "creationOrder": 27
+    },
+    "features": {
+        "name": "features",
+        "columns": [
+            {
+                "name": "id",
+                "type": "Integer",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": true,
+                    "unique": false
+                }
+            },
+            {
+                "name": "name",
+                "type": "String",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": true
+                }
+            },
+            {
+                "name": "description",
+                "type": "Text",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "domain_id",
+                "type": "ManyToOne",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "created_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "updated_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            }
+        ],
+        "oneToOneRelations": [],
+        "manyToOneRelations": [
+            {
+                "column": "domain_id",
+                "referencedTable": "feature_domains",
+                "referencedColumn": "id"
+            }
+        ],
+        "manyToManyRelations": [
+            {
+                "through": "feature_permission",
+                "with": "permissions",
+                "column": "permission_id"
+            }
+        ],
+        "hasManyRelations": [],
+        "isPivotTable": false,
+        "creationOrder": 24
+    },
+    "filieres": {
+        "name": "filieres",
+        "columns": [
+            {
+                "name": "id",
+                "type": "Integer",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": true,
+                    "unique": false
+                }
+            },
+            {
+                "name": "code",
+                "type": "String",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "nom",
+                "type": "String",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "description",
+                "type": "Text",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "created_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "updated_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            }
+        ],
+        "oneToOneRelations": [],
+        "manyToOneRelations": [],
+        "manyToManyRelations": [],
+        "hasManyRelations": [
+            {
+                "referencedTable": "groupes",
+                "column": "filiere_id"
+            },
+            {
+                "referencedTable": "modules",
+                "column": "filiere_id"
+            }
+        ],
+        "isPivotTable": false,
+        "creationOrder": 5
+    },
+    "formateur_groupe": {
+        "name": "formateur_groupe",
+        "columns": [
+            {
+                "name": "created_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "updated_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "groupe_id",
+                "type": "ManyToOne",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "formateur_id",
+                "type": "ManyToOne",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            }
+        ],
+        "oneToOneRelations": [],
+        "manyToOneRelations": [
+            {
+                "column": "formateur_id",
+                "referencedTable": "formateurs",
+                "referencedColumn": "id"
+            },
+            {
+                "column": "groupe_id",
+                "referencedTable": "groupes",
+                "referencedColumn": "id"
+            }
+        ],
+        "manyToManyRelations": [],
+        "hasManyRelations": [],
+        "isPivotTable": true,
+        "creationOrder": 28
+    },
+    "formateur_specialite": {
+        "name": "formateur_specialite",
+        "columns": [
+            {
+                "name": "created_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "updated_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "specialite_id",
+                "type": "ManyToOne",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "formateur_id",
+                "type": "ManyToOne",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            }
+        ],
+        "oneToOneRelations": [],
+        "manyToOneRelations": [
+            {
+                "column": "formateur_id",
+                "referencedTable": "formateurs",
+                "referencedColumn": "id"
+            },
+            {
+                "column": "specialite_id",
+                "referencedTable": "specialites",
+                "referencedColumn": "id"
+            }
+        ],
+        "manyToManyRelations": [],
+        "hasManyRelations": [],
+        "isPivotTable": true,
+        "creationOrder": 30
+    },
+    "formateurs": {
+        "name": "formateurs",
+        "columns": [
+            {
+                "name": "id",
+                "type": "Integer",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": true,
+                    "unique": false
+                }
+            },
+            {
+                "name": "matricule",
+                "type": "String",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": true
+                }
+            },
+            {
+                "name": "nom",
+                "type": "String",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "prenom",
+                "type": "String",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "prenom_arab",
+                "type": "String",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "nom_arab",
+                "type": "String",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "tele_num",
+                "type": "String",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "adresse",
+                "type": "String",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "diplome",
+                "type": "String",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "echelle",
+                "type": "Integer",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "echelon",
+                "type": "Integer",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "profile_image",
+                "type": "String",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "user_id",
+                "type": "ManyToOne",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "created_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "updated_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            }
+        ],
+        "oneToOneRelations": [],
+        "manyToOneRelations": [
+            {
+                "column": "user_id",
+                "referencedTable": "users",
+                "referencedColumn": "id"
+            }
+        ],
+        "manyToManyRelations": [
+            {
+                "through": "formateur_groupe",
+                "with": "groupes",
+                "column": "groupe_id"
+            },
+            {
+                "through": "formateur_specialite",
+                "with": "specialites",
+                "column": "specialite_id"
+            }
+        ],
+        "hasManyRelations": [
+            {
+                "referencedTable": "appreciations",
+                "column": "formateur_id"
+            },
+            {
+                "referencedTable": "projets",
+                "column": "formateur_id"
+            }
+        ],
+        "isPivotTable": false,
+        "creationOrder": 2
+    },
+    "groupes": {
+        "name": "groupes",
+        "columns": [
+            {
+                "name": "id",
+                "type": "Integer",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": true,
+                    "unique": false
+                }
+            },
+            {
+                "name": "code",
+                "type": "String",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "nom",
+                "type": "String",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "description",
+                "type": "Text",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "filiere_id",
+                "type": "ManyToOne",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "created_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "updated_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            }
+        ],
+        "oneToOneRelations": [],
+        "manyToOneRelations": [
+            {
+                "column": "filiere_id",
+                "referencedTable": "filieres",
+                "referencedColumn": "id"
+            }
+        ],
+        "manyToManyRelations": [
+            {
+                "through": "formateur_groupe",
+                "with": "formateurs",
+                "column": "formateur_id"
+            }
+        ],
+        "hasManyRelations": [
+            {
+                "referencedTable": "apprenants",
+                "column": "groupe_id"
+            }
+        ],
+        "isPivotTable": false,
+        "creationOrder": 6
+    },
+    "livrables": {
+        "name": "livrables",
+        "columns": [
+            {
+                "name": "id",
+                "type": "Integer",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": true,
+                    "unique": false
+                }
+            },
+            {
+                "name": "titre",
+                "type": "String",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "nature_livrable_id",
+                "type": "ManyToOne",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "projet_id",
+                "type": "ManyToOne",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "description",
+                "type": "Text",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "created_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "updated_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            }
+        ],
+        "oneToOneRelations": [],
+        "manyToOneRelations": [
+            {
+                "column": "nature_livrable_id",
+                "referencedTable": "nature_livrables",
+                "referencedColumn": "id"
+            },
+            {
+                "column": "projet_id",
+                "referencedTable": "projets",
+                "referencedColumn": "id"
+            }
+        ],
+        "manyToManyRelations": [],
+        "hasManyRelations": [],
+        "isPivotTable": false,
+        "creationOrder": 33
+    },
+    "model_has_roles": {
+        "name": "model_has_roles",
+        "columns": [
+            {
+                "name": "role_id",
+                "type": "ManyToOne",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": true,
+                    "unique": false
+                }
+            },
+            {
+                "name": "model_type",
+                "type": "String",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": true,
+                    "unique": false
+                }
+            },
+            {
+                "name": "model_id",
+                "type": "Integer",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": true,
+                    "unique": false
+                }
+            }
+        ],
+        "oneToOneRelations": [],
+        "manyToOneRelations": [
+            {
+                "column": "role_id",
+                "referencedTable": "roles",
+                "referencedColumn": "id"
+            }
+        ],
+        "manyToManyRelations": [],
+        "hasManyRelations": [],
+        "isPivotTable": true,
+        "creationOrder": 35
+    },
+    "modules": {
+        "name": "modules",
+        "columns": [
+            {
+                "name": "id",
+                "type": "Integer",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": true,
+                    "unique": false
+                }
+            },
+            {
+                "name": "nom",
+                "type": "String",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "description",
+                "type": "Text",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "masse_horaire",
+                "type": "String",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "created_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "updated_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "filiere_id",
+                "type": "ManyToOne",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            }
+        ],
+        "oneToOneRelations": [],
+        "manyToOneRelations": [
+            {
+                "column": "filiere_id",
+                "referencedTable": "filieres",
+                "referencedColumn": "id"
+            }
+        ],
+        "manyToManyRelations": [],
+        "hasManyRelations": [
+            {
+                "referencedTable": "competences",
+                "column": "module_id"
+            }
+        ],
+        "isPivotTable": false,
+        "creationOrder": 11
+    },
+    "nationalites": {
+        "name": "nationalites",
+        "columns": [
+            {
+                "name": "id",
+                "type": "Integer",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": true,
+                    "unique": false
+                }
+            },
+            {
+                "name": "code",
+                "type": "String",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "nom",
+                "type": "String",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "description",
+                "type": "Text",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "created_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "updated_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            }
+        ],
+        "oneToOneRelations": [],
+        "manyToOneRelations": [],
+        "manyToManyRelations": [],
+        "hasManyRelations": [
+            {
+                "referencedTable": "apprenants",
+                "column": "nationalite_id"
+            }
+        ],
+        "isPivotTable": false,
+        "creationOrder": 7
+    },
+    "nature_livrables": {
+        "name": "nature_livrables",
+        "columns": [
+            {
+                "name": "id",
+                "type": "Integer",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": true,
+                    "unique": false
+                }
+            },
+            {
+                "name": "nom",
+                "type": "String",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "description",
+                "type": "Text",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "created_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "updated_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            }
+        ],
+        "oneToOneRelations": [],
+        "manyToOneRelations": [],
+        "manyToManyRelations": [],
+        "hasManyRelations": [
+            {
+                "referencedTable": "livrables",
+                "column": "nature_livrable_id"
+            }
+        ],
+        "isPivotTable": false,
+        "creationOrder": 31
+    },
+    "niveau_competences": {
+        "name": "niveau_competences",
+        "columns": [
+            {
+                "name": "id",
+                "type": "Integer",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": true,
+                    "unique": false
+                }
+            },
+            {
+                "name": "nom",
+                "type": "String",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "description",
+                "type": "Text",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "created_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "updated_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "competence_id",
+                "type": "ManyToOne",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            }
+        ],
+        "oneToOneRelations": [],
+        "manyToOneRelations": [
+            {
+                "column": "competence_id",
+                "referencedTable": "competences",
+                "referencedColumn": "id"
+            }
+        ],
+        "manyToManyRelations": [],
+        "hasManyRelations": [],
+        "isPivotTable": false,
+        "creationOrder": 36
+    },
+    "niveaux_scolaires": {
+        "name": "niveaux_scolaires",
+        "columns": [
+            {
+                "name": "id",
+                "type": "Integer",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": true,
+                    "unique": false
+                }
+            },
+            {
+                "name": "code",
+                "type": "String",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "nom",
+                "type": "String",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "description",
+                "type": "Text",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "created_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "updated_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            }
+        ],
+        "oneToOneRelations": [],
+        "manyToOneRelations": [],
+        "manyToManyRelations": [],
+        "hasManyRelations": [
+            {
+                "referencedTable": "apprenants",
+                "column": "niveaux_scolaire_id"
+            }
+        ],
+        "isPivotTable": false,
+        "creationOrder": 8
+    },
+    "permissions": {
+        "name": "permissions",
+        "columns": [
+            {
+                "name": "id",
+                "type": "Integer",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": true,
+                    "unique": false
+                }
+            },
+            {
+                "name": "name",
+                "type": "String",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "guard_name",
+                "type": "String",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "controller_id",
+                "type": "ManyToOne",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "created_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "updated_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            }
+        ],
+        "oneToOneRelations": [],
+        "manyToOneRelations": [
+            {
+                "column": "controller_id",
+                "referencedTable": "sys_controllers",
+                "referencedColumn": "id"
+            }
+        ],
+        "manyToManyRelations": [
+            {
+                "through": "feature_permission",
+                "with": "features",
+                "column": "feature_id"
+            },
+            {
+                "through": "role_has_permissions",
+                "with": "roles",
+                "column": "role_id"
+            }
+        ],
+        "hasManyRelations": [],
+        "isPivotTable": false,
+        "creationOrder": 26
+    },
+    "projets": {
+        "name": "projets",
+        "columns": [
+            {
+                "name": "id",
+                "type": "Integer",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": true,
+                    "unique": false
+                }
+            },
+            {
+                "name": "titre",
+                "type": "String",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "travail_a_faire",
+                "type": "Text",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "critere_de_travail",
+                "type": "Text",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "description",
+                "type": "Text",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "date_debut",
+                "type": "Date",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "date_fin",
+                "type": "Date",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "formateur_id",
+                "type": "ManyToOne",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "created_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "updated_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            }
+        ],
+        "oneToOneRelations": [],
+        "manyToOneRelations": [
+            {
+                "column": "formateur_id",
+                "referencedTable": "formateurs",
+                "referencedColumn": "id"
+            }
+        ],
+        "manyToManyRelations": [],
+        "hasManyRelations": [
+            {
+                "referencedTable": "livrables",
+                "column": "projet_id"
+            },
+            {
+                "referencedTable": "resources",
+                "column": "projet_id"
+            },
+            {
+                "referencedTable": "transfert_competences",
+                "column": "projet_id"
+            }
+        ],
+        "isPivotTable": false,
+        "creationOrder": 32
+    },
+    "resources": {
+        "name": "resources",
+        "columns": [
+            {
+                "name": "id",
+                "type": "Integer",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": true,
+                    "unique": false
+                }
+            },
+            {
+                "name": "nom",
+                "type": "String",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "lien",
+                "type": "String",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "description",
+                "type": "Text",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "projet_id",
+                "type": "ManyToOne",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "created_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "updated_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            }
+        ],
+        "oneToOneRelations": [],
+        "manyToOneRelations": [
+            {
+                "column": "projet_id",
+                "referencedTable": "projets",
+                "referencedColumn": "id"
+            }
+        ],
+        "manyToManyRelations": [],
+        "hasManyRelations": [],
+        "isPivotTable": false,
+        "creationOrder": 37
+    },
+    "role_has_permissions": {
+        "name": "role_has_permissions",
+        "columns": [
+            {
+                "name": "permission_id",
+                "type": "ManyToOne",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": true,
+                    "unique": false
+                }
+            },
+            {
+                "name": "role_id",
+                "type": "ManyToOne",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": true,
+                    "unique": false
+                }
+            }
+        ],
+        "oneToOneRelations": [],
+        "manyToOneRelations": [
+            {
+                "column": "permission_id",
+                "referencedTable": "permissions",
+                "referencedColumn": "id"
+            },
+            {
+                "column": "role_id",
+                "referencedTable": "roles",
+                "referencedColumn": "id"
+            }
+        ],
+        "manyToManyRelations": [],
+        "hasManyRelations": [],
+        "isPivotTable": true,
+        "creationOrder": 38
+    },
+    "roles": {
+        "name": "roles",
+        "columns": [
+            {
+                "name": "id",
+                "type": "Integer",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": true,
+                    "unique": false
+                }
+            },
+            {
+                "name": "name",
+                "type": "String",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "guard_name",
+                "type": "String",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "created_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "updated_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            }
+        ],
+        "oneToOneRelations": [],
+        "manyToOneRelations": [],
+        "manyToManyRelations": [
+            {
+                "through": "role_has_permissions",
+                "with": "permissions",
+                "column": "permission_id"
+            },
+            {
+                "through": "model_has_roles",
+                "with": "users",
+                "column": "model_id"
+            }
+        ],
+        "hasManyRelations": [],
+        "isPivotTable": false,
+        "creationOrder": 34
+    },
+    "specialites": {
+        "name": "specialites",
+        "columns": [
+            {
+                "name": "id",
+                "type": "Integer",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": true,
+                    "unique": false
+                }
+            },
+            {
+                "name": "nom",
+                "type": "String",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "description",
+                "type": "Text",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "created_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "updated_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            }
+        ],
+        "oneToOneRelations": [],
+        "manyToOneRelations": [],
+        "manyToManyRelations": [
+            {
+                "through": "formateur_specialite",
+                "with": "formateurs",
+                "column": "formateur_id"
+            }
+        ],
+        "hasManyRelations": [],
+        "isPivotTable": false,
+        "creationOrder": 29
+    },
+    "sys_colors": {
+        "name": "sys_colors",
+        "columns": [
+            {
+                "name": "id",
+                "type": "Integer",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": true,
+                    "unique": false
+                }
+            },
+            {
+                "name": "name",
+                "type": "String",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "hex",
+                "type": "String",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "created_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "updated_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            }
+        ],
+        "oneToOneRelations": [],
+        "manyToOneRelations": [],
+        "manyToManyRelations": [],
+        "hasManyRelations": [
+            {
+                "referencedTable": "sys_models",
+                "column": "color_id"
+            },
+            {
+                "referencedTable": "sys_modules",
+                "column": "color_id"
+            }
+        ],
+        "isPivotTable": false,
+        "creationOrder": 21
+    },
+    "sys_controllers": {
+        "name": "sys_controllers",
+        "columns": [
+            {
+                "name": "id",
+                "type": "Integer",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": true,
+                    "unique": false
+                }
+            },
+            {
+                "name": "module_id",
+                "type": "ManyToOne",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "name",
+                "type": "String",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": true
+                }
+            },
+            {
+                "name": "slug",
+                "type": "String",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": true
+                }
+            },
+            {
+                "name": "description",
+                "type": "Text",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "is_active",
+                "type": "Integer",
+                "options": {
+                    "nullable": false,
+                    "default": "1",
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "created_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "updated_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            }
+        ],
+        "oneToOneRelations": [],
+        "manyToOneRelations": [
+            {
+                "column": "module_id",
+                "referencedTable": "sys_modules",
+                "referencedColumn": "id"
+            }
+        ],
+        "manyToManyRelations": [],
+        "hasManyRelations": [
+            {
+                "referencedTable": "permissions",
+                "column": "controller_id"
+            }
+        ],
+        "isPivotTable": false,
+        "creationOrder": 25
+    },
+    "sys_models": {
+        "name": "sys_models",
+        "columns": [
+            {
+                "name": "id",
+                "type": "Integer",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": true,
+                    "unique": false
+                }
+            },
+            {
+                "name": "name",
+                "type": "String",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "model",
+                "type": "String",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "description",
+                "type": "Text",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "module_id",
+                "type": "ManyToOne",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "color_id",
+                "type": "ManyToOne",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "created_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "updated_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            }
+        ],
+        "oneToOneRelations": [],
+        "manyToOneRelations": [
+            {
+                "column": "color_id",
+                "referencedTable": "sys_colors",
+                "referencedColumn": "id"
+            },
+            {
+                "column": "module_id",
+                "referencedTable": "sys_modules",
+                "referencedColumn": "id"
+            }
+        ],
+        "manyToManyRelations": [],
+        "hasManyRelations": [
+            {
+                "referencedTable": "widgets",
+                "column": "model_id"
+            }
+        ],
+        "isPivotTable": false,
+        "creationOrder": 39
+    },
+    "sys_modules": {
+        "name": "sys_modules",
+        "columns": [
+            {
+                "name": "id",
+                "type": "Integer",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": true,
+                    "unique": false
+                }
+            },
+            {
+                "name": "name",
+                "type": "String",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "slug",
+                "type": "String",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "description",
+                "type": "Text",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "is_active",
+                "type": "Integer",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "order",
+                "type": "Integer",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "version",
+                "type": "String",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "color_id",
+                "type": "ManyToOne",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "created_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "updated_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            }
+        ],
+        "oneToOneRelations": [],
+        "manyToOneRelations": [
+            {
+                "column": "color_id",
+                "referencedTable": "sys_colors",
+                "referencedColumn": "id"
+            }
+        ],
+        "manyToManyRelations": [],
+        "hasManyRelations": [
+            {
+                "referencedTable": "feature_domains",
+                "column": "module_id"
+            },
+            {
+                "referencedTable": "sys_controllers",
+                "column": "module_id"
+            },
+            {
+                "referencedTable": "sys_models",
+                "column": "module_id"
+            }
+        ],
+        "isPivotTable": false,
+        "creationOrder": 22
+    },
+    "technologies": {
+        "name": "technologies",
+        "columns": [
+            {
+                "name": "id",
+                "type": "Integer",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": true,
+                    "unique": false
+                }
+            },
+            {
+                "name": "nom",
+                "type": "String",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "description",
+                "type": "Text",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "created_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "updated_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "category_technology_id",
+                "type": "ManyToOne",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            }
+        ],
+        "oneToOneRelations": [],
+        "manyToOneRelations": [
+            {
+                "column": "category_technology_id",
+                "referencedTable": "category_technologies",
+                "referencedColumn": "id"
+            }
+        ],
+        "manyToManyRelations": [
+            {
+                "through": "competence_technology",
+                "with": "competences",
+                "column": "competence_id"
+            },
+            {
+                "through": "technology_transfert_competence",
+                "with": "transfert_competences",
+                "column": "transfert_competence_id"
+            }
+        ],
+        "hasManyRelations": [],
+        "isPivotTable": false,
+        "creationOrder": 13
+    },
+    "technology_transfert_competence": {
+        "name": "technology_transfert_competence",
+        "columns": [
+            {
+                "name": "technology_id",
+                "type": "ManyToOne",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "transfert_competence_id",
+                "type": "ManyToOne",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "created_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "updated_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            }
+        ],
+        "oneToOneRelations": [],
+        "manyToOneRelations": [
+            {
+                "column": "technology_id",
+                "referencedTable": "technologies",
+                "referencedColumn": "id"
+            },
+            {
+                "column": "transfert_competence_id",
+                "referencedTable": "transfert_competences",
+                "referencedColumn": "id"
+            }
+        ],
+        "manyToManyRelations": [],
+        "hasManyRelations": [],
+        "isPivotTable": true,
+        "creationOrder": 41
+    },
+    "transfert_competences": {
+        "name": "transfert_competences",
+        "columns": [
+            {
+                "name": "id",
+                "type": "Integer",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": true,
+                    "unique": false
+                }
+            },
+            {
+                "name": "description",
+                "type": "Text",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "projet_id",
+                "type": "ManyToOne",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "competence_id",
+                "type": "ManyToOne",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "appreciation_id",
+                "type": "ManyToOne",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "created_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "updated_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            }
+        ],
+        "oneToOneRelations": [],
+        "manyToOneRelations": [
+            {
+                "column": "appreciation_id",
+                "referencedTable": "appreciations",
+                "referencedColumn": "id"
+            },
+            {
+                "column": "competence_id",
+                "referencedTable": "competences",
+                "referencedColumn": "id"
+            },
+            {
+                "column": "projet_id",
+                "referencedTable": "projets",
+                "referencedColumn": "id"
+            }
+        ],
+        "manyToManyRelations": [
+            {
+                "through": "technology_transfert_competence",
+                "with": "technologies",
+                "column": "technology_id"
+            }
+        ],
+        "hasManyRelations": [],
+        "isPivotTable": false,
+        "creationOrder": 40
+    },
+    "users": {
+        "name": "users",
+        "columns": [
+            {
+                "name": "id",
+                "type": "Integer",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": true,
+                    "unique": false
+                }
+            },
+            {
+                "name": "name",
+                "type": "String",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "email",
+                "type": "String",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": true
+                }
+            },
+            {
+                "name": "email_verified_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "password",
+                "type": "String",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "remember_token",
+                "type": "String",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "created_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "updated_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            }
+        ],
+        "oneToOneRelations": [],
+        "manyToOneRelations": [],
+        "manyToManyRelations": [
+            {
+                "through": "model_has_roles",
+                "with": "roles",
+                "column": "role_id"
+            }
+        ],
+        "hasManyRelations": [
+            {
+                "referencedTable": "formateurs",
+                "column": "user_id"
+            }
+        ],
+        "isPivotTable": false,
+        "creationOrder": 1
+    },
+    "villes": {
+        "name": "villes",
+        "columns": [
+            {
+                "name": "id",
+                "type": "Integer",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": true,
+                    "unique": false
+                }
+            },
+            {
+                "name": "nom",
+                "type": "String",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "created_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "updated_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            }
+        ],
+        "oneToOneRelations": [],
+        "manyToOneRelations": [],
+        "manyToManyRelations": [],
+        "hasManyRelations": [],
+        "isPivotTable": false,
+        "creationOrder": 42
+    },
+    "widget_operations": {
+        "name": "widget_operations",
+        "columns": [
+            {
+                "name": "id",
+                "type": "Integer",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": true,
+                    "unique": false
+                }
+            },
+            {
+                "name": "operation",
+                "type": "String",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "description",
+                "type": "Text",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "created_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "updated_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            }
+        ],
+        "oneToOneRelations": [],
+        "manyToOneRelations": [],
+        "manyToManyRelations": [],
+        "hasManyRelations": [
+            {
+                "referencedTable": "widgets",
+                "column": "operation_id"
+            }
+        ],
+        "isPivotTable": false,
+        "creationOrder": 43
+    },
+    "widget_types": {
+        "name": "widget_types",
+        "columns": [
+            {
+                "name": "id",
+                "type": "Integer",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": true,
+                    "unique": false
+                }
+            },
+            {
+                "name": "type",
+                "type": "String",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "description",
+                "type": "Text",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "created_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "updated_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            }
+        ],
+        "oneToOneRelations": [],
+        "manyToOneRelations": [],
+        "manyToManyRelations": [],
+        "hasManyRelations": [
+            {
+                "referencedTable": "widgets",
+                "column": "type_id"
+            }
+        ],
+        "isPivotTable": false,
+        "creationOrder": 44
+    },
+    "widgets": {
+        "name": "widgets",
+        "columns": [
+            {
+                "name": "id",
+                "type": "Integer",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": true,
+                    "unique": false
+                }
+            },
+            {
+                "name": "name",
+                "type": "String",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "type_id",
+                "type": "ManyToOne",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "model_id",
+                "type": "ManyToOne",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "operation_id",
+                "type": "ManyToOne",
+                "options": {
+                    "nullable": false,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "color",
+                "type": "String",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "icon",
+                "type": "String",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "label",
+                "type": "String",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "parameters",
+                "type": "JSON",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "created_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            },
+            {
+                "name": "updated_at",
+                "type": "Date",
+                "options": {
+                    "nullable": true,
+                    "default": null,
+                    "primaryKey": false,
+                    "unique": false
+                }
+            }
+        ],
+        "oneToOneRelations": [],
+        "manyToOneRelations": [
+            {
+                "column": "model_id",
+                "referencedTable": "sys_models",
+                "referencedColumn": "id"
+            },
+            {
+                "column": "operation_id",
+                "referencedTable": "widget_operations",
+                "referencedColumn": "id"
+            },
+            {
+                "column": "type_id",
+                "referencedTable": "widget_types",
+                "referencedColumn": "id"
+            }
+        ],
+        "manyToManyRelations": [],
+        "hasManyRelations": [],
+        "isPivotTable": false,
+        "creationOrder": 45
+    }
+}

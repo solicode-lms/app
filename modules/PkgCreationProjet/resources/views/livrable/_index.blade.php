@@ -6,7 +6,9 @@
     window.crudModalManagersConfig.push({
         edit_has_many: {{ !isset($edit_has_many)? 'false' :  ($edit_has_many ? "true": "false") }},
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
+        editOnFullScreen : false,
         entity_name: 'livrable',
+        contextKey: '{{ isset($contextKey) ? $contextKey : 'livrable.index' }}', 
         filterFormSelector: '#livrable-crud-filter-form',
         crudSelector: '#livrable-crud',
         tableSelector: '#livrable-data-container',
@@ -62,7 +64,8 @@
                             :importRoute="route('livrables.import')"
                             :importText="__('Importer')"
                             :exportPermission="'export-livrable'"
-                            :exportRoute="route('livrables.export')"
+                            :exportXlsxRoute="route('livrables.export', ['format' => 'xlsx'])"
+                            :exportCsvRoute="route('livrables.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
                         />
                     </div>

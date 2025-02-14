@@ -94,4 +94,7 @@
 </script>
 <script>
      window.modalTitle = '{{__("PkgFormation::filiere.singular") }} : {{$itemFiliere}}'
+     window.contextState = @json($contextState);
+     window.sessionState = @json($sessionState);
+     window.viewState = @json($viewState);
 </script>

@@ -1,0 +1,156 @@
+{
+    "name": "Permission",
+    "icon": "fa-lock-open",
+    "attributes": [
+        {
+            "name": "id",
+            "type": "Integer",
+            "metaAttributes": {
+                "general": {
+                    "required": true
+                },
+                "tables": {
+                    "displayInTable": true
+                },
+                "database": {
+                    "db_nullable": false,
+                    "db_primaryKey": true,
+                    "db_unique": false
+                }
+            }
+        },
+        {
+            "name": "name",
+            "type": "String",
+            "metaAttributes": {
+                "general": {
+                    "displayField": true,
+                    "required": true
+                },
+                "tables": {
+                    "displayInTable": true
+                },
+                "database": {
+                    "db_nullable": false,
+                    "db_primaryKey": false,
+                    "db_unique": false
+                }
+            }
+        },
+        {
+            "name": "guard_name",
+            "type": "String",
+            "metaAttributes": {
+                "general": {
+                    "required": true
+                },
+                "database": {
+                    "db_nullable": false,
+                    "db_primaryKey": false,
+                    "db_unique": false
+                }
+            }
+        },
+        {
+            "name": "controller_id",
+            "type": "ManyToOne",
+            "metaAttributes": {
+                "tables": {
+                    "displayInTable": true
+                },
+                "relations": {
+                    "manyToOne": true,
+                    "relationType": "ManyToOne",
+                    "targetModelName": "SysController",
+                    "targetTable": "sys_controllers"
+                },
+                "database": {
+                    "db_nullable": true,
+                    "db_primaryKey": false,
+                    "db_unique": false
+                }
+            }
+        },
+        {
+            "name": "created_at",
+            "type": "Date",
+            "metaAttributes": {
+                "tables": {
+                    "displayInTable": true
+                },
+                "database": {
+                    "db_nullable": true,
+                    "db_primaryKey": false,
+                    "db_unique": false
+                }
+            }
+        },
+        {
+            "name": "updated_at",
+            "type": "Date",
+            "metaAttributes": {
+                "tables": {
+                    "displayInTable": true
+                },
+                "database": {
+                    "db_nullable": true,
+                    "db_primaryKey": false,
+                    "db_unique": false
+                }
+            }
+        },
+        {
+            "name": "Feature_ManyToMany",
+            "type": "ManyToMany",
+            "metaAttributes": {
+                "relations": {
+                    "relationType": "ManyToMany",
+                    "targetTable": "features",
+                    "throughTable": "feature_permission"
+                },
+                "tables": {
+                    "displayInTable": true
+                }
+            }
+        },
+        {
+            "name": "Role_ManyToMany",
+            "type": "ManyToMany",
+            "metaAttributes": {
+                "relations": {
+                    "relationType": "ManyToMany",
+                    "targetTable": "roles",
+                    "throughTable": "role_has_permissions"
+                },
+                "tables": {
+                    "displayInTable": true
+                }
+            }
+        }
+    ],
+    "oneToOneRelations": [],
+    "manyToOneRelations": [
+        {
+            "column": "controller_id",
+            "referencedTable": "sys_controllers",
+            "referencedColumn": "id"
+        }
+    ],
+    "hasManyRelations": [],
+    "manyToManyRelations": [
+        {
+            "through": "feature_permission",
+            "with": "features",
+            "columnName": "feature_id"
+        },
+        {
+            "through": "role_has_permissions",
+            "with": "roles",
+            "columnName": "role_id"
+        }
+    ],
+    "metaModels": {
+        "creationOrder": 3,
+        "isPivotTable": false
+    }
+}

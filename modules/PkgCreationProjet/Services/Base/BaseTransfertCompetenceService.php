@@ -20,8 +20,8 @@ class BaseTransfertCompetenceService extends BaseService
      */
     protected $fieldsSearchable = [
         'competence_id',
-        'niveau_difficulte_id',
         'question',
+        'niveau_difficulte_id',
         'note',
         'projet_id'
     ];

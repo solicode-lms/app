@@ -6,7 +6,9 @@
     window.crudModalManagersConfig.push({
         edit_has_many: {{ !isset($edit_has_many)? 'true' :  ($edit_has_many ? "true": "false") }},
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
+        editOnFullScreen : false,
         entity_name: 'sysColor',
+        contextKey: '{{ isset($contextKey) ? $contextKey : 'sysColor.index' }}', 
         filterFormSelector: '#sysColor-crud-filter-form',
         crudSelector: '#sysColor-crud',
         tableSelector: '#sysColor-data-container',
@@ -62,7 +64,8 @@
                             :importRoute="route('sysColors.import')"
                             :importText="__('Importer')"
                             :exportPermission="'export-sysColor'"
-                            :exportRoute="route('sysColors.export')"
+                            :exportXlsxRoute="route('sysColors.export', ['format' => 'xlsx'])"
+                            :exportCsvRoute="route('sysColors.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
                         />
                     </div>

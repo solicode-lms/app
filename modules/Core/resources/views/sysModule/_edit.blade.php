@@ -4,6 +4,7 @@
     window.editWithTabPanelManagersConfig = window.editWithTabPanelManagersConfig || [];
     window.editWithTabPanelManagersConfig.push({
         entity_name: 'sysModule',
+        contextKey: 'sysModule.edit_{{ $itemSysModule->id}}',
         cardTabSelector: '#card-tab-sysModule', 
         formSelector: '#sysModuleForm',
         editUrl: '{{ route('sysModules.edit',  ['sysModule' => ':id']) }}',
@@ -14,6 +15,7 @@
 </script>
 <script>
     window.contextState = @json($contextState);
+    window.viewState = @json($viewState);
 </script>
 
 @section('content')
@@ -53,13 +55,13 @@
                             </div>
 
                             <div class="tab-pane fade" id="sysModule-hasmany-tabs-featureDomain" role="tabpanel" aria-labelledby="sysModule-hasmany-tabs-featureDomain-tab">
-                                @include('Core::featureDomain._index',['isMany' => true, "edit_has_many" => false])
+                                @include('Core::featureDomain._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sysModule.edit_' . $itemSysModule->id])
                             </div>
                             <div class="tab-pane fade" id="sysModule-hasmany-tabs-sysController" role="tabpanel" aria-labelledby="sysModule-hasmany-tabs-sysController-tab">
-                                @include('Core::sysController._index',['isMany' => true, "edit_has_many" => false])
+                                @include('Core::sysController._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sysModule.edit_' . $itemSysModule->id])
                             </div>
                             <div class="tab-pane fade" id="sysModule-hasmany-tabs-sysModel" role="tabpanel" aria-labelledby="sysModule-hasmany-tabs-sysModel-tab">
-                                @include('Core::sysModel._index',['isMany' => true, "edit_has_many" => false])
+                                @include('Core::sysModel._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sysModule.edit_' . $itemSysModule->id])
                             </div>
 
                            

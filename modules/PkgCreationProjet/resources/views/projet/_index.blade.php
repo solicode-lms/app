@@ -6,7 +6,9 @@
     window.crudModalManagersConfig.push({
         edit_has_many: {{ !isset($edit_has_many)? 'true' :  ($edit_has_many ? "true": "false") }},
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
+        editOnFullScreen : true,
         entity_name: 'projet',
+        contextKey: '{{ isset($contextKey) ? $contextKey : 'projet.index' }}', 
         filterFormSelector: '#projet-crud-filter-form',
         crudSelector: '#projet-crud',
         tableSelector: '#projet-data-container',
@@ -62,7 +64,8 @@
                             :importRoute="route('projets.import')"
                             :importText="__('Importer')"
                             :exportPermission="'export-projet'"
-                            :exportRoute="route('projets.export')"
+                            :exportXlsxRoute="route('projets.export', ['format' => 'xlsx'])"
+                            :exportCsvRoute="route('projets.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
                         />
                     </div>

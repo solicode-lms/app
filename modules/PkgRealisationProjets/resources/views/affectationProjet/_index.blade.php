@@ -6,7 +6,9 @@
     window.crudModalManagersConfig.push({
         edit_has_many: {{ !isset($edit_has_many)? 'true' :  ($edit_has_many ? "true": "false") }},
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
+        editOnFullScreen : false,
         entity_name: 'affectationProjet',
+        contextKey: '{{ isset($contextKey) ? $contextKey : 'affectationProjet.index' }}', 
         filterFormSelector: '#affectationProjet-crud-filter-form',
         crudSelector: '#affectationProjet-crud',
         tableSelector: '#affectationProjet-data-container',
@@ -31,7 +33,7 @@
        $titre = __("PkgRealisationProjets::affectationProjet.singular");
     @endphp
     <x-crud-header 
-        id="affectationProjet-crud-header" icon="fas fa-table"  
+        id="affectationProjet-crud-header" icon="fas fa-user-check"  
         iconColor="text-info"
         title="{{ __('PkgRealisationProjets::affectationProjet.plural') }}"
         :breadcrumbs="[
@@ -62,7 +64,8 @@
                             :importRoute="route('affectationProjets.import')"
                             :importText="__('Importer')"
                             :exportPermission="'export-affectationProjet'"
-                            :exportRoute="route('affectationProjets.export')"
+                            :exportXlsxRoute="route('affectationProjets.export', ['format' => 'xlsx'])"
+                            :exportCsvRoute="route('affectationProjets.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
                         />
                     </div>

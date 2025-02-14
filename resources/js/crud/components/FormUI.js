@@ -1,5 +1,5 @@
 import { LoadingIndicator } from "./LoadingIndicator";
-import { ContextStateService } from './ContextStateService';
+import { ViewStateService } from './ViewStateService';
 import DynamicFieldVisibilityTreatment from "../treatments/form/DynamicFieldVisibilityTreatment";
 import { CodeJar } from 'codejar';
 import EventUtil from './../utils/EventUtil';
@@ -14,7 +14,7 @@ import InitUIManagers from "../InitUIManagers";
 import flatpickr from 'flatpickr';
 // Import the French locale
 import { French } from 'flatpickr/dist/l10n/fr.js';
-import { DynamicCalculationTreatment } from "../treatments/form/DynamicCalculationTreatment";
+import { DataCalculTreatment } from "../treatments/form/DataCalculTreatment";
 import { NotificationHandler } from "./NotificationHandler";
 
 
@@ -27,13 +27,10 @@ export class FormUI  {
     constructor(config, indexUI) {
         this.config = config;
         this.indexUI = indexUI;
-
-        this.config = config
         this.formSelector = this.config.formSelector
-        this.contextService = this.config.contextStateService;
+        this.viewStateService = this.config.viewStateService;
         this.loader = new LoadingIndicator(this.formSelector);
-
-        this.dynamicCalculationTreatment = new DynamicCalculationTreatment(config,this);
+        this.dynamicCalculationTreatment = new DataCalculTreatment(config,this);
     }
 
     /**
@@ -42,14 +39,13 @@ export class FormUI  {
     init(submitHandler) {
 
 
-        InitUIManagers.init(false)
+        InitUIManagers.init()
 
         this.handleCancelButton();
         this.handleCardFooter();
         this.handleFormSubmission(submitHandler);
         this.loader.init();
-        this.hideSelectsByIdFromContext();
-        this.addContextStateToForm()
+        this.adapterPourContext();
         this.initializeSelect2_in_modal();
         FormUI.initializeRichText();
         FormUI.initializeDate();
@@ -64,48 +60,35 @@ export class FormUI  {
 
     }
 
-
-    /**
-     * Ajoute les variables du contexte aux formulaires ayant la classe cible.
-     */
-    addContextStateToForm() {
-
-        const contextStateVariables = this.config.contextStateService.getVariables();
-        const prefix = this.contextService.prefix;
-
-        if(contextStateVariables === undefined) return; 
-
-
-        document.querySelectorAll(`${this.formSelector}`).forEach(form => {
-            Object.entries(contextStateVariables).forEach(([key, value]) => {
-                let input = form.querySelector(`input[name="${prefix}${key}"]`);
-                if (!input) {
-                    input = document.createElement('input');
-                    input.type = this.config.isDebug? 'text' : 'hidden';
-                    input.name = `${prefix}${key}`;
-                    form.appendChild(input);
-                }
-                input.value = value; // Ajouter le contexte préfixé
-            });
-        });
-    }
-
     /**
          * Masque les éléments <select> dont l'id correspond à une clé dans le contextState.
          */
-    hideSelectsByIdFromContext() {
-        const contextState = this.contextService.getVariables();
+    adapterPourContext() {
 
-        Object.keys(contextState).forEach((key) => {
-            const selectElement = document.querySelector(`${this.config.formSelector} #${key} `);
-            if (selectElement) {
+        const scopeData = this.config.viewStateService.getScopeFormVariables();
+        const formData = this.config.viewStateService.getFormVariables();
 
-                if(this.config.isDebug){
-                    selectElement.parentElement.style.backgroundColor = 'lightblue';
-                }else{
-                    selectElement.parentElement.style.display =  'none';
+        Object.keys(scopeData).forEach((key) => {
+            const filterElement = document.querySelector(`${this.config.formSelector} #${key}`);
+            if (filterElement) {
+                if (this.config.isDebug) {
+                    filterElement.parentElement.style.backgroundColor = 'lightblue'; // Mode debug : surligner
+                } else {
+                    filterElement.parentElement.style.display = 'none'; // Masquer l'élément du filtre
                 }
-               
+            }
+        });
+       
+        // Appliquer les valeurs des filtres et masquer si nécessaire
+        Object.keys(formData).forEach((key) => {
+            const filterElement = document.querySelector(`${this.config.formSelector} #${key}`);
+            if (filterElement) {
+                    if (filterElement.tagName === "INPUT" || filterElement.tagName === "TEXTAREA") {
+                        filterElement.value = formData[key];
+                    } else if (filterElement.tagName === "SELECT") {
+                        filterElement.value = formData[key];
+                        filterElement.dispatchEvent(new Event("change"));
+                    }
             }
         });
     }
@@ -300,6 +283,7 @@ export class FormUI  {
 
     initializeSelect2_in_modal() {
         
+
         // TODO : Select2 supprimer select2 de filtre 
         // Peut être que il sont le même id : exemple : module_id dans le filtre 
         // et module_id dans formulaire, 
@@ -311,6 +295,8 @@ export class FormUI  {
             });
         });
 
+
+     
         // Initialise les éléments Select2 avec thème Bootstrap 4
         // $(`.select2bs4`).select2({
         //     theme: 'bootstrap4',
@@ -331,10 +317,28 @@ export class FormUI  {
         });
     }
     static initializeRichText(){
+
+
+    // Initialiser Summernote
+    // $(`.richText`).summernote({
+    //     height: 80, // Hauteur de la zone éditable
+    // }).on('summernote.change', function() {
+    //     // Déclencher l'événement `change` sur le textarea caché
+    //     $(this).trigger('change');
+    // });
+
+
         // Init sumernote
         $(`.richText`).summernote({
             height: 80, //set editable area's height
         });
+
+        // Utiliser EventUtil pour gérer l'événement `summernote.change`
+        EventUtil.bindEvent('summernote.change', '.richText', function() {
+            $(this).trigger('change'); // Déclenche le `change` sur le textarea caché
+        });
+
+
     }
 
     getFormDataArray() {

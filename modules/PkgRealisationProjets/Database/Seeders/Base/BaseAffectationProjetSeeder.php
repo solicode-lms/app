@@ -67,12 +67,12 @@ class BaseAffectationProjetSeeder extends Seeder
             
             if ($row) {
                 $affectationProjetService->create([
+                    "groupe_id" => $row["groupe_id"] ?? null ,
                     "date_debut" => $row["date_debut"] ?? null ,
                     "date_fin" => $row["date_fin"] ?? null ,
-                    "annee_formation_id" => $row["annee_formation_id"] ?? null ,
-                    "groupe_id" => $row["groupe_id"] ?? null ,
                     "projet_id" => $row["projet_id"] ?? null ,
-                    "description" => $row["description"] ?? null 
+                    "description" => $row["description"] ?? null ,
+                    "annee_formation_id" => $row["annee_formation_id"] ?? null 
                 ]);
             }
         }
@@ -101,7 +101,7 @@ class BaseAffectationProjetSeeder extends Seeder
 
         // Permissions spécifiques pour chaque type de fonctionnalité
         $featurePermissions = [
-            'Édition ' => [ 'create','store','edit','update','destroy','getAffectationProjets'],
+            'Édition ' => [ 'create','store','edit','update','destroy','getAffectationProjets','dataCalcul'],
             'Lecture' => ['index', 'show'],
             'Extraction' => ['import', 'export'],
         ];

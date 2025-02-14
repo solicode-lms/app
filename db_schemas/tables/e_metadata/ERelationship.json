@@ -1,0 +1,320 @@
+[
+    {
+        "reference": "e_relationships_creationOrder",
+        "value_integer": 47,
+        "e_model_reference": "e_relationships",
+        "e_metadata_definition_reference": "creationOrder"
+    },
+    {
+        "reference": "ERelationship_id_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "ERelationship_id",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "ERelationship_reference_required",
+        "value_boolean": 0,
+        "e_data_field_reference": "ERelationship_reference",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "ERelationship_name_displayInTable",
+        "value_boolean": 1,
+        "e_data_field_reference": "ERelationship_name",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "ERelationship_name_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "ERelationship_name",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "ERelationship_type_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "ERelationship_type",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "ERelationship_source_e_model_id_displayInTable",
+        "value_boolean": 1,
+        "e_data_field_reference": "ERelationship_source_e_model_id",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "ERelationship_source_e_model_id_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "ERelationship_source_e_model_id",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "ERelationship_target_e_model_id_displayInTable",
+        "value_boolean": 1,
+        "e_data_field_reference": "ERelationship_target_e_model_id",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "ERelationship_target_e_model_id_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "ERelationship_target_e_model_id",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "ERelationship_cascade_on_delete_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "ERelationship_cascade_on_delete",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "ERelationship_is_cascade_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "ERelationship_is_cascade",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "ERelationship_source_e_model_id_filterable",
+        "value_boolean": 1,
+        "e_data_field_reference": "ERelationship_source_e_model_id",
+        "e_metadata_definition_reference": "filterable"
+    },
+    {
+        "reference": "ERelationship_target_e_model_id_filterable",
+        "value_boolean": 1,
+        "e_data_field_reference": "ERelationship_target_e_model_id",
+        "e_metadata_definition_reference": "filterable"
+    },
+    {
+        "reference": "ERelationship_name_displayField",
+        "value_boolean": 1,
+        "e_data_field_reference": "ERelationship_name",
+        "e_metadata_definition_reference": "displayField"
+    },
+    {
+        "reference": "e_relationships_hasMany_e_data_fields_e_relationship_id_editHasMany",
+        "value_boolean": 1,
+        "e_data_field_reference": "e_relationships_hasMany_e_data_fields_e_relationship_id",
+        "e_metadata_definition_reference": "editHasMany"
+    },
+    {
+        "reference": "ERelationship_id_displayOrder",
+        "value_integer": 1,
+        "e_data_field_reference": "ERelationship_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "ERelationship_reference_displayOrder",
+        "value_integer": 2,
+        "e_data_field_reference": "ERelationship_reference",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "ERelationship_name_displayOrder",
+        "value_integer": 3,
+        "e_data_field_reference": "ERelationship_name",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "ERelationship_type_displayOrder",
+        "value_integer": 4,
+        "e_data_field_reference": "ERelationship_type",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "ERelationship_source_e_model_id_displayOrder",
+        "value_integer": 5,
+        "e_data_field_reference": "ERelationship_source_e_model_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "ERelationship_target_e_model_id_displayOrder",
+        "value_integer": 6,
+        "e_data_field_reference": "ERelationship_target_e_model_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "ERelationship_cascade_on_delete_displayOrder",
+        "value_integer": 7,
+        "e_data_field_reference": "ERelationship_cascade_on_delete",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "ERelationship_is_cascade_displayOrder",
+        "value_integer": 8,
+        "e_data_field_reference": "ERelationship_is_cascade",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "ERelationship_description_displayOrder",
+        "value_integer": 9,
+        "e_data_field_reference": "ERelationship_description",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "ERelationship_column_name_displayOrder",
+        "value_integer": 10,
+        "e_data_field_reference": "ERelationship_column_name",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "ERelationship_referenced_table_displayOrder",
+        "value_integer": 11,
+        "e_data_field_reference": "ERelationship_referenced_table",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "ERelationship_referenced_column_displayOrder",
+        "value_integer": 12,
+        "e_data_field_reference": "ERelationship_referenced_column",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "ERelationship_through_displayOrder",
+        "value_integer": 13,
+        "e_data_field_reference": "ERelationship_through",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "ERelationship_with_column_displayOrder",
+        "value_integer": 14,
+        "e_data_field_reference": "ERelationship_with_column",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "ERelationship_morph_name_displayOrder",
+        "value_integer": 15,
+        "e_data_field_reference": "ERelationship_morph_name",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "ERelationship_created_at_displayOrder",
+        "value_integer": 16,
+        "e_data_field_reference": "ERelationship_created_at",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "ERelationship_updated_at_displayOrder",
+        "value_integer": 17,
+        "e_data_field_reference": "ERelationship_updated_at",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "e_relationships_hasMany_e_data_fields_e_relationship_id_displayOrder",
+        "value_integer": 18,
+        "e_data_field_reference": "e_relationships_hasMany_e_data_fields_e_relationship_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "ERelationship_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "ERelationship_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "ERelationship_reference_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "ERelationship_reference",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "ERelationship_name_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "ERelationship_name",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "ERelationship_type_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "ERelationship_type",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "ERelationship_source_e_model_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "ERelationship_source_e_model_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "ERelationship_target_e_model_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "ERelationship_target_e_model_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "ERelationship_cascade_on_delete_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "ERelationship_cascade_on_delete",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "ERelationship_is_cascade_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "ERelationship_is_cascade",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "ERelationship_description_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "ERelationship_description",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "ERelationship_column_name_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "ERelationship_column_name",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "ERelationship_referenced_table_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "ERelationship_referenced_table",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "ERelationship_referenced_column_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "ERelationship_referenced_column",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "ERelationship_through_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "ERelationship_through",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "ERelationship_with_column_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "ERelationship_with_column",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "ERelationship_morph_name_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "ERelationship_morph_name",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "ERelationship_created_at_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "ERelationship_created_at",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "ERelationship_updated_at_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "ERelationship_updated_at",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "e_relationships_hasMany_e_data_fields_e_relationship_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "e_relationships_hasMany_e_data_fields_e_relationship_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "e_relationships_displayInSideBar",
+        "value_boolean": 1,
+        "e_model_reference": "e_relationships",
+        "e_metadata_definition_reference": "displayInSideBar"
+    }
+]

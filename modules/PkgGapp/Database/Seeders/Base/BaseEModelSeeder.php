@@ -101,7 +101,7 @@ class BaseEModelSeeder extends Seeder
 
         // Permissions spécifiques pour chaque type de fonctionnalité
         $featurePermissions = [
-            'Édition ' => [ 'create','store','edit','update','destroy','getEModels'],
+            'Édition ' => [ 'create','store','edit','update','destroy','getEModels','dataCalcul'],
             'Lecture' => ['index', 'show'],
             'Extraction' => ['import', 'export'],
         ];

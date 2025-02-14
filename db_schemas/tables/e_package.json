@@ -1,0 +1,74 @@
+[
+    {
+        "id": 1,
+        "reference": "PkgGapp",
+        "name": "PkgGapp",
+        "description": "Automatically generated package for PkgGapp",
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 2,
+        "reference": "Core",
+        "name": "Core",
+        "description": "Automatically generated package for Core",
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 3,
+        "reference": "PkgAutorisation",
+        "name": "PkgAutorisation",
+        "description": "Automatically generated package for PkgAutorisation",
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 4,
+        "reference": "PkgWidgets",
+        "name": "PkgWidgets",
+        "description": "Automatically generated package for PkgWidgets",
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 5,
+        "reference": "PkgFormation",
+        "name": "PkgFormation",
+        "description": "Automatically generated package for PkgFormation",
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 6,
+        "reference": "PkgApprenants",
+        "name": "PkgApprenants",
+        "description": "Automatically generated package for PkgApprenants",
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 7,
+        "reference": "PkgCompetences",
+        "name": "PkgCompetences",
+        "description": "Automatically generated package for PkgCompetences",
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 8,
+        "reference": "PkgCreationProjet",
+        "name": "PkgCreationProjet",
+        "description": "Automatically generated package for PkgCreationProjet",
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 9,
+        "reference": "PkgRealisationProjets",
+        "name": "PkgRealisationProjets",
+        "description": "Automatically generated package for PkgRealisationProjets",
+        "created_at": null,
+        "updated_at": null
+    }
+]

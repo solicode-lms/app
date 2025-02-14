@@ -1,8 +1,8 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
-
 
 namespace Modules\PkgGapp\Services;
+
+use Illuminate\Database\Eloquent\Model;
 use Modules\PkgGapp\Services\Base\BaseEMetadataDefinitionService;
 
 /**
@@ -19,4 +19,8 @@ class EMetadataDefinitionService extends BaseEMetadataDefinitionService
       
         return $eMetadataDefinition;
     }
+
+   
+
+
 }

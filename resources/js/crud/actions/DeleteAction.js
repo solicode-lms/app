@@ -27,12 +27,12 @@ export class DeleteAction extends Action {
      */
     deleteEntity(id) {
         let deleteUrl = this.getUrlWithId(this.config.deleteUrl, id);
-        deleteUrl = this.appendParamsToUrl(deleteUrl, this.contextService.getContextParams());
+        deleteUrl = this.appendParamsToUrl(deleteUrl, this.viewStateService.getContextParams());
     
         NotificationHandler.confirmAction(
             'Êtes-vous sûr ?', 'Cette action est irréversible.',
             () => {
-                NotificationHandler.showInfo('Suppression en cours...');
+                NotificationHandler.showToast('info','Suppression en cours...');
                 $.ajax({
                     url: deleteUrl,
                     method: 'DELETE',

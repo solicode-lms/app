@@ -14,8 +14,11 @@ Route::middleware('auth')->group(function () {
         Route::resource('livrables', LivrableController::class);
         // Routes supplémentaires avec préfixe
         Route::prefix('data')->group(function () {
-            Route::get('livrables/export', [LivrableController::class, 'export'])->name('livrables.export');
             Route::post('livrables/import', [LivrableController::class, 'import'])->name('livrables.import');
+            Route::get('livrables/export/{format}', [LivrableController::class, 'export'])
+            ->where('format', 'csv|xlsx')
+            ->name('livrables.export');
+
         });
 
         Route::post('livrables/data-calcul', [LivrableController::class, 'dataCalcul'])->name('livrables.dataCalcul');

@@ -70,4 +70,7 @@
 </script>
 <script>
      window.modalTitle = '{{__("PkgGapp::ePackage.singular") }} : {{$itemEPackage}}'
+     window.contextState = @json($contextState);
+     window.sessionState = @json($sessionState);
+     window.viewState = @json($viewState);
 </script>

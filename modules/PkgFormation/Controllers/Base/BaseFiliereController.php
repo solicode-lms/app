@@ -8,7 +8,9 @@ use Modules\PkgApprenants\Services\GroupeService;
 use Modules\PkgFormation\Services\ModuleService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
+use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgFormation\App\Requests\FiliereRequest;
+use Modules\PkgFormation\Models\Filiere;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgFormation\App\Exports\FiliereExport;
 use Modules\PkgFormation\App\Imports\FiliereImport;
@@ -24,10 +26,14 @@ class BaseFiliereController extends AdminController
     }
 
     public function index(Request $request) {
+        
+        $this->viewState->setContextKeyIfEmpty('filiere.index');
+
+
         // Extraire les paramètres de recherche, page, et filtres
         $filieres_params = array_merge(
             $request->only(['page','sort']),
-            ['search' => $request->get('filieres_search', '')],
+            ['search' => $request->get('filieres_search', $this->viewState->get("filter.filiere.filieres_search"))],
             $request->except(['filieres_search', 'page', 'sort'])
         );
 
@@ -59,13 +65,14 @@ class BaseFiliereController extends AdminController
         $filiere = $this->filiereService->create($validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 
-            'entity_id' => $filiere->id,
-            'message' => 
-             __('Core::msg.addSuccess', [
+             $message = __('Core::msg.addSuccess', [
                 'entityToString' => $filiere,
-                'modelName' => __('PkgFormation::filiere.singular')])
-            ]);
+                'modelName' => __('PkgFormation::filiere.singular')]);
+        
+            return JsonResponseHelper::success(
+             $message,
+             ['entity_id' => $filiere->id]
+            );
         }
 
         return redirect()->route('filieres.edit',['filiere' => $filiere->id])->with(
@@ -77,40 +84,21 @@ class BaseFiliereController extends AdminController
         );
     }
     public function show(string $id) {
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('filiere_id', $id);
-        
-        $itemFiliere = $this->filiereService->find($id);
-        $groupeService =  new GroupeService();
-        $groupes_data =  $itemFiliere->groupes()->paginate(10);
-        $groupes_stats = $groupeService->getgroupeStats();
-        $groupes_filters = $groupeService->getFieldsFilterable();
-        
-        $moduleService =  new ModuleService();
-        $modules_data =  $itemFiliere->modules()->paginate(10);
-        $modules_stats = $moduleService->getmoduleStats();
-        $modules_filters = $moduleService->getFieldsFilterable();
-        
-
-        if (request()->ajax()) {
-            return view('PkgFormation::filiere._edit', compact('itemFiliere', 'groupes_data', 'modules_data', 'groupes_stats', 'modules_stats', 'groupes_filters', 'modules_filters'));
-        }
-
-        return view('PkgFormation::filiere.edit', compact('itemFiliere', 'groupes_data', 'modules_data', 'groupes_stats', 'modules_stats', 'groupes_filters', 'modules_filters'));
-
+        return $this->edit( $id);
     }
     public function edit(string $id) {
 
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('filiere_id', $id);
-        
+        $this->viewState->setContextKey('filiere.edit_' . $id);
+
         $itemFiliere = $this->filiereService->find($id);
+
+        $this->viewState->set('scope.groupe.filiere_id', $id);
         $groupeService =  new GroupeService();
         $groupes_data =  $itemFiliere->groupes()->paginate(10);
         $groupes_stats = $groupeService->getgroupeStats();
         $groupes_filters = $groupeService->getFieldsFilterable();
         
+        $this->viewState->set('scope.module.filiere_id', $id);
         $moduleService =  new ModuleService();
         $modules_data =  $itemFiliere->modules()->paginate(10);
         $modules_stats = $moduleService->getmoduleStats();
@@ -130,11 +118,14 @@ class BaseFiliereController extends AdminController
         $filiere = $this->filiereService->update($id, $validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.updateSuccess', [
+             $message = __('Core::msg.updateSuccess', [
                 'entityToString' => $filiere,
-                'modelName' =>  __('PkgFormation::filiere.singular')])
-            ]);
+                'modelName' =>  __('PkgFormation::filiere.singular')]);
+            
+            return JsonResponseHelper::success(
+                $message,
+                ['entity_id' => $filiere->id]
+            );
         }
 
         return redirect()->route('filieres.index')->with(
@@ -151,11 +142,14 @@ class BaseFiliereController extends AdminController
         $filiere = $this->filiereService->destroy($id);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.deleteSuccess', [
+            $message = __('Core::msg.deleteSuccess', [
                 'entityToString' => $filiere,
-                'modelName' =>  __('PkgFormation::filiere.singular')])
-            ]);
+                'modelName' =>  __('PkgFormation::filiere.singular')]);
+            
+
+            return JsonResponseHelper::success(
+                $message
+            );
         }
 
         return redirect()->route('filieres.index')->with(
@@ -168,10 +162,18 @@ class BaseFiliereController extends AdminController
 
     }
 
-    public function export()
+    public function export($format)
     {
         $filieres_data = $this->filiereService->all();
-        return Excel::download(new FiliereExport($filieres_data), 'filiere_export.xlsx');
+        
+        // Vérifier le format et exporter en conséquence
+        if ($format === 'csv') {
+            return Excel::download(new FiliereExport($filieres_data,'csv'), 'filiere_export.csv', \Maatwebsite\Excel\Excel::CSV, ['Content-Type' => 'text/csv']);
+        } elseif ($format === 'xlsx') {
+            return Excel::download(new FiliereExport($filieres_data,'xlsx'), 'filiere_export.xlsx', \Maatwebsite\Excel\Excel::XLSX);
+        } else {
+            return response()->json(['error' => 'Format non supporté'], 400);
+        }
     }
 
     public function import(Request $request)

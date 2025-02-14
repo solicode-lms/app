@@ -6,7 +6,9 @@
     window.crudModalManagersConfig.push({
         edit_has_many: {{ !isset($edit_has_many)? 'false' :  ($edit_has_many ? "true": "false") }},
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
+        editOnFullScreen : false,
         entity_name: 'niveauCompetence',
+        contextKey: '{{ isset($contextKey) ? $contextKey : 'niveauCompetence.index' }}', 
         filterFormSelector: '#niveauCompetence-crud-filter-form',
         crudSelector: '#niveauCompetence-crud',
         tableSelector: '#niveauCompetence-data-container',
@@ -62,7 +64,8 @@
                             :importRoute="route('niveauCompetences.import')"
                             :importText="__('Importer')"
                             :exportPermission="'export-niveauCompetence'"
-                            :exportRoute="route('niveauCompetences.export')"
+                            :exportXlsxRoute="route('niveauCompetences.export', ['format' => 'xlsx'])"
+                            :exportCsvRoute="route('niveauCompetences.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
                         />
                     </div>

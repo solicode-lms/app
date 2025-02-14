@@ -4,6 +4,7 @@
     window.editWithTabPanelManagersConfig = window.editWithTabPanelManagersConfig || [];
     window.editWithTabPanelManagersConfig.push({
         entity_name: 'sysModel',
+        contextKey: 'sysModel.edit_{{ $itemSysModel->id}}',
         cardTabSelector: '#card-tab-sysModel', 
         formSelector: '#sysModelForm',
         editUrl: '{{ route('sysModels.edit',  ['sysModel' => ':id']) }}',
@@ -14,6 +15,7 @@
 </script>
 <script>
     window.contextState = @json($contextState);
+    window.viewState = @json($viewState);
 </script>
 
 @section('content')
@@ -47,7 +49,7 @@
                             </div>
 
                             <div class="tab-pane fade" id="sysModel-hasmany-tabs-widget" role="tabpanel" aria-labelledby="sysModel-hasmany-tabs-widget-tab">
-                                @include('PkgWidgets::widget._index',['isMany' => true, "edit_has_many" => false])
+                                @include('PkgWidgets::widget._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sysModel.edit_' . $itemSysModel->id])
                             </div>
 
                            

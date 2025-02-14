@@ -22,8 +22,8 @@ class BaseFeature extends BaseModel
 {
     use HasFactory, HasDynamicContext;
 
-    public function __construct() {
-        parent::__construct(); 
+    public function __construct(array $attributes = []) {
+        parent::__construct($attributes); 
         $this->isOwnedByUser =  false;
     }
 
@@ -37,8 +37,12 @@ class BaseFeature extends BaseModel
         'name', 'description', 'feature_domain_id'
     ];
     public $manyToMany = [
-        'permissions'
+        'Permission' => ['relation' => 'permissions' , "foreign_key" => "permission_id" ]
     ];
+
+       
+
+
 
     /**
      * Relation BelongsTo pour FeatureDomain.

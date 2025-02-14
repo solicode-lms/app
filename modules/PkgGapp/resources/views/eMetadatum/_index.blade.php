@@ -6,7 +6,9 @@
     window.crudModalManagersConfig.push({
         edit_has_many: {{ !isset($edit_has_many)? 'false' :  ($edit_has_many ? "true": "false") }},
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
+        editOnFullScreen : false,
         entity_name: 'eMetadatum',
+        contextKey: '{{ isset($contextKey) ? $contextKey : 'eMetadatum.index' }}', 
         filterFormSelector: '#eMetadatum-crud-filter-form',
         crudSelector: '#eMetadatum-crud',
         tableSelector: '#eMetadatum-data-container',
@@ -62,7 +64,8 @@
                             :importRoute="route('eMetadata.import')"
                             :importText="__('Importer')"
                             :exportPermission="'export-eMetadatum'"
-                            :exportRoute="route('eMetadata.export')"
+                            :exportXlsxRoute="route('eMetadata.export', ['format' => 'xlsx'])"
+                            :exportCsvRoute="route('eMetadata.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
                         />
                     </div>

@@ -4,6 +4,7 @@
     window.editWithTabPanelManagersConfig = window.editWithTabPanelManagersConfig || [];
     window.editWithTabPanelManagersConfig.push({
         entity_name: 'eModel',
+        contextKey: 'eModel.edit_{{ $itemEModel->id}}',
         cardTabSelector: '#card-tab-eModel', 
         formSelector: '#eModelForm',
         editUrl: '{{ route('eModels.edit',  ['eModel' => ':id']) }}',
@@ -14,6 +15,7 @@
 </script>
 <script>
     window.contextState = @json($contextState);
+    window.viewState = @json($viewState);
 </script>
 
 @section('content')
@@ -50,10 +52,10 @@
                             </div>
 
                             <div class="tab-pane fade" id="eModel-hasmany-tabs-eDataField" role="tabpanel" aria-labelledby="eModel-hasmany-tabs-eDataField-tab">
-                                @include('PkgGapp::eDataField._index',['isMany' => true, "edit_has_many" => false])
+                                @include('PkgGapp::eDataField._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'eModel.edit_' . $itemEModel->id])
                             </div>
                             <div class="tab-pane fade" id="eModel-hasmany-tabs-eMetadatum" role="tabpanel" aria-labelledby="eModel-hasmany-tabs-eMetadatum-tab">
-                                @include('PkgGapp::eMetadatum._index',['isMany' => true, "edit_has_many" => false])
+                                @include('PkgGapp::eMetadatum._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'eModel.edit_' . $itemEModel->id])
                             </div>
 
                            

@@ -108,7 +108,7 @@ class BaseERelationshipSeeder extends Seeder
 
         // Permissions spécifiques pour chaque type de fonctionnalité
         $featurePermissions = [
-            'Édition ' => [ 'create','store','edit','update','destroy','getERelationships'],
+            'Édition ' => [ 'create','store','edit','update','destroy','getERelationships','dataCalcul'],
             'Lecture' => ['index', 'show'],
             'Extraction' => ['import', 'export'],
         ];

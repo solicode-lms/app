@@ -6,7 +6,9 @@
     window.crudModalManagersConfig.push({
         edit_has_many: {{ !isset($edit_has_many)? 'false' :  ($edit_has_many ? "true": "false") }},
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
+        editOnFullScreen : false,
         entity_name: 'validation',
+        contextKey: '{{ isset($contextKey) ? $contextKey : 'validation.index' }}', 
         filterFormSelector: '#validation-crud-filter-form',
         crudSelector: '#validation-crud',
         tableSelector: '#validation-data-container',
@@ -31,7 +33,7 @@
        $titre = __("PkgRealisationProjets::validation.singular");
     @endphp
     <x-crud-header 
-        id="validation-crud-header" icon="fas fa-table"  
+        id="validation-crud-header" icon="fas fa-check-circle"  
         iconColor="text-info"
         title="{{ __('PkgRealisationProjets::validation.plural') }}"
         :breadcrumbs="[
@@ -62,7 +64,8 @@
                             :importRoute="route('validations.import')"
                             :importText="__('Importer')"
                             :exportPermission="'export-validation'"
-                            :exportRoute="route('validations.export')"
+                            :exportXlsxRoute="route('validations.export', ['format' => 'xlsx'])"
+                            :exportCsvRoute="route('validations.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
                         />
                     </div>

@@ -6,7 +6,9 @@
     window.crudModalManagersConfig.push({
         edit_has_many: {{ !isset($edit_has_many)? 'true' :  ($edit_has_many ? "true": "false") }},
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
+        editOnFullScreen : false,
         entity_name: 'niveauxScolaire',
+        contextKey: '{{ isset($contextKey) ? $contextKey : 'niveauxScolaire.index' }}', 
         filterFormSelector: '#niveauxScolaire-crud-filter-form',
         crudSelector: '#niveauxScolaire-crud',
         tableSelector: '#niveauxScolaire-data-container',
@@ -62,7 +64,8 @@
                             :importRoute="route('niveauxScolaires.import')"
                             :importText="__('Importer')"
                             :exportPermission="'export-niveauxScolaire'"
-                            :exportRoute="route('niveauxScolaires.export')"
+                            :exportXlsxRoute="route('niveauxScolaires.export', ['format' => 'xlsx'])"
+                            :exportCsvRoute="route('niveauxScolaires.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
                         />
                     </div>

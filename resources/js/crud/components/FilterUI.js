@@ -3,6 +3,7 @@ import EventUtil from './../utils/EventUtil';
 
 export class FilterUI {
 
+
     constructor(config, indexUI) {
         this.config = config;
         this.indexUI = indexUI;
@@ -17,8 +18,6 @@ export class FilterUI {
         this.adapterPourContext(); // Masquer les filtres dynamiquement selon le contexte
         this.initializeFilterResetHandler();
     }
-
-
 
 
     /**
@@ -47,9 +46,17 @@ export class FilterUI {
     getFormDataAsFilterContext(){
         const data = {};
         Object.entries(this.getFormData()).forEach(([key, value]) => {
-            data[`filter_${key}`] = value;
+            data[`${this.config.entity_name}__filter__${key}`] = value;
         });
         return data;
+    }
+
+    getUrlParams() {
+        const prefixedContext = {};
+        Object.entries(this. getFormData()).forEach(([key, value]) => {
+            prefixedContext[`${key}`] = value;
+        });
+        return new URLSearchParams(prefixedContext).toString();
     }
 
     /**
@@ -61,11 +68,18 @@ export class FilterUI {
         formData.page = page; // Ajouter le numéro de page aux données
     
 
+        // View State Filter 
+        this.config.viewStateService.updatFilterVariables(this.getFormData(true));
         // Mettre à jour l'URL avec les paramètres non vides
         this.indexUI.updateURLParameters(formData);
     
         // Charger les entités avec les paramètres
         this.indexUI.tableUI.entityLoader.loadEntities(page, formData);
+
+        // TODO 
+        // Update Context : ajouter ou supprimer les filtre de contexte pour adapter le formulaire 
+        // Création au filtre, c'est appliquer les valeurs de filtre pour les valeurs de formulaire
+        // Il faut gérer l'insertion et la suppression
     }
 
     /**
@@ -95,31 +109,36 @@ export class FilterUI {
      * Masque les éléments <select> dont l'id correspond à une clé dans le contexte (state).
      */
     adapterPourContext() {
-
-        const data_clean = {}
-        const data = this.config.contextStateService.getVariables();
-
-
-        // Delete filter prifix from context variables
-        Object.entries(data).forEach(([key, value]) => {
-            key =  key.replace("filter_" , "");
-            data_clean[key] =  value;
-        });
-
-         
-      
-        Object.keys(data_clean).forEach((key) => {
+        
+        const scopeData = this.config.viewStateService.getScopeVariables();
+        const filterData = this.config.viewStateService.getFilterVariables();
+    
+        // Appliquer les variables de scope pour masquer ou surligner les filtres
+        Object.keys(scopeData).forEach((key) => {
             const filterElement = document.querySelector(`${this.config.filterFormSelector} #${key}`);
             if (filterElement) {
                 if (this.config.isDebug) {
                     filterElement.parentElement.style.backgroundColor = 'lightblue'; // Mode debug : surligner
                 } else {
-                    filterElement.parentElement.style.display = 'none'; // Masquer le filtre
+                    filterElement.parentElement.style.display = 'none'; // Masquer l'élément du filtre
                 }
             }
         });
+    
+        // Appliquer les valeurs des filtres et masquer si nécessaire
+        Object.keys(filterData).forEach((key) => {
+            const filterElement = document.querySelector(`${this.config.filterFormSelector} #${key}`);
+            if (filterElement) {
+                    if (filterElement.tagName === "INPUT" || filterElement.tagName === "TEXTAREA") {
+                        filterElement.value = filterData[key];
+                    } else if (filterElement.tagName === "SELECT") {
+                        filterElement.value = filterData[key];
+                        filterElement.dispatchEvent(new Event("change"));
+                    }
+            }
+        });
     }
-
+    
 
       // Fonction pour vérifier l'état des filtres
       updateFilterState (){

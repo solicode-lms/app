@@ -3,6 +3,7 @@ import { LoadingIndicator } from '../components/LoadingIndicator';
 import { NotificationHandler } from '../components/NotificationHandler';
 import { BaseAction } from './BaseAction';
 import EventUtil from '../utils/EventUtil';
+import ArrayUtil from './../utils/ArrayUtil';
 
 export class LoadListAction extends BaseAction {
     /**
@@ -15,10 +16,7 @@ export class LoadListAction extends BaseAction {
         
         this.config = config;
         this.tableUI = tableUI;
-        this.indexUrl = this.appendParamsToUrl(
-            config.indexUrl,
-            this.contextService.getContextParams()
-        );
+        this.indexUrl = config.indexUrl;
     }
 
     /**
@@ -31,38 +29,25 @@ export class LoadListAction extends BaseAction {
         if(page === undefined){
             page = this.tableUI.indexUI.paginationUI.page;
         }
-
-
-         // Filtrer les filtres pour exclure les champs avec des valeurs vides
-        const cleanedFilters = Object.fromEntries(
-            Object.entries(filters).filter(([key, value]) => value !== null && value !== undefined && value !== '')
+        const pageString = new URLSearchParams({page : page}).toString();
+    
+        let indexUrl = this.indexUrl;
+        indexUrl = this.appendParamsToUrl(
+            indexUrl,
+            pageString,
         );
-        
-        // lire les valeurs depuis filterUI et this.page
-        // Récupérer les paramètres actuels depuis l'URL
-        // const urlParams = new URLSearchParams(window.location.search);
-        // const v = Object.fromEntries(urlParams.entries());
 
-        // Intégrer les paramètres existants de l'URL et les nouveaux filtres
-        // const searchParams = { ...Object.fromEntries(urlParams.entries()), ...cleanedFilters };
-        // if(searchParams.page === undefined) {
-        //     searchParams.page = page;
-        // }
+        indexUrl = this.appendParamsToUrl(
+            indexUrl,
+            this.viewStateService.getContextParams()
+        );
 
-        // Générer la chaîne de requête
-       
-       
-        const queryString = new URLSearchParams({...cleanedFilters, page : page}).toString();
-    
-        // Construire l'URL finale
-        const requestUrl = this.appendParamsToUrl(this.indexUrl, queryString);
-    
         // Afficher l'indicateur de chargement
         this.loader.show();
 
 
         // Requête AJAX pour charger les données
-        $.get(requestUrl)
+        $.get(indexUrl)
             .done((html) => {
                 // Mettre à jour le conteneur avec les nouvelles données
                 $(this.config.tableSelector).html(html);

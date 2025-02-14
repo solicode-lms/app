@@ -6,7 +6,9 @@
     window.crudModalManagersConfig.push({
         edit_has_many: {{ !isset($edit_has_many)? 'false' :  ($edit_has_many ? "true": "false") }},
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
+        editOnFullScreen : false,
         entity_name: 'niveauDifficulte',
+        contextKey: '{{ isset($contextKey) ? $contextKey : 'niveauDifficulte.index' }}', 
         filterFormSelector: '#niveauDifficulte-crud-filter-form',
         crudSelector: '#niveauDifficulte-crud',
         tableSelector: '#niveauDifficulte-data-container',
@@ -62,7 +64,8 @@
                             :importRoute="route('niveauDifficultes.import')"
                             :importText="__('Importer')"
                             :exportPermission="'export-niveauDifficulte'"
-                            :exportRoute="route('niveauDifficultes.export')"
+                            :exportXlsxRoute="route('niveauDifficultes.export', ['format' => 'xlsx'])"
+                            :exportCsvRoute="route('niveauDifficultes.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
                         />
                     </div>

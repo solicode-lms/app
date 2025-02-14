@@ -8,7 +8,9 @@ use Modules\PkgRealisationProjets\Services\AffectationProjetService;
 use Modules\PkgApprenants\Services\GroupeService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
+use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgFormation\App\Requests\AnneeFormationRequest;
+use Modules\PkgFormation\Models\AnneeFormation;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgFormation\App\Exports\AnneeFormationExport;
 use Modules\PkgFormation\App\Imports\AnneeFormationImport;
@@ -24,10 +26,14 @@ class BaseAnneeFormationController extends AdminController
     }
 
     public function index(Request $request) {
+        
+        $this->viewState->setContextKeyIfEmpty('anneeFormation.index');
+
+
         // Extraire les paramètres de recherche, page, et filtres
         $anneeFormations_params = array_merge(
             $request->only(['page','sort']),
-            ['search' => $request->get('anneeFormations_search', '')],
+            ['search' => $request->get('anneeFormations_search', $this->viewState->get("filter.anneeFormation.anneeFormations_search"))],
             $request->except(['anneeFormations_search', 'page', 'sort'])
         );
 
@@ -59,13 +65,14 @@ class BaseAnneeFormationController extends AdminController
         $anneeFormation = $this->anneeFormationService->create($validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 
-            'entity_id' => $anneeFormation->id,
-            'message' => 
-             __('Core::msg.addSuccess', [
+             $message = __('Core::msg.addSuccess', [
                 'entityToString' => $anneeFormation,
-                'modelName' => __('PkgFormation::anneeFormation.singular')])
-            ]);
+                'modelName' => __('PkgFormation::anneeFormation.singular')]);
+        
+            return JsonResponseHelper::success(
+             $message,
+             ['entity_id' => $anneeFormation->id]
+            );
         }
 
         return redirect()->route('anneeFormations.edit',['anneeFormation' => $anneeFormation->id])->with(
@@ -77,40 +84,21 @@ class BaseAnneeFormationController extends AdminController
         );
     }
     public function show(string $id) {
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('annee_formation_id', $id);
-        
-        $itemAnneeFormation = $this->anneeFormationService->find($id);
-        $affectationProjetService =  new AffectationProjetService();
-        $affectationProjets_data =  $itemAnneeFormation->affectationProjets()->paginate(10);
-        $affectationProjets_stats = $affectationProjetService->getaffectationProjetStats();
-        $affectationProjets_filters = $affectationProjetService->getFieldsFilterable();
-        
-        $groupeService =  new GroupeService();
-        $groupes_data =  $itemAnneeFormation->groupes()->paginate(10);
-        $groupes_stats = $groupeService->getgroupeStats();
-        $groupes_filters = $groupeService->getFieldsFilterable();
-        
-
-        if (request()->ajax()) {
-            return view('PkgFormation::anneeFormation._edit', compact('itemAnneeFormation', 'affectationProjets_data', 'groupes_data', 'affectationProjets_stats', 'groupes_stats', 'affectationProjets_filters', 'groupes_filters'));
-        }
-
-        return view('PkgFormation::anneeFormation.edit', compact('itemAnneeFormation', 'affectationProjets_data', 'groupes_data', 'affectationProjets_stats', 'groupes_stats', 'affectationProjets_filters', 'groupes_filters'));
-
+        return $this->edit( $id);
     }
     public function edit(string $id) {
 
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('annee_formation_id', $id);
-        
+        $this->viewState->setContextKey('anneeFormation.edit_' . $id);
+
         $itemAnneeFormation = $this->anneeFormationService->find($id);
+
+        $this->viewState->set('scope.affectationProjet.annee_formation_id', $id);
         $affectationProjetService =  new AffectationProjetService();
         $affectationProjets_data =  $itemAnneeFormation->affectationProjets()->paginate(10);
         $affectationProjets_stats = $affectationProjetService->getaffectationProjetStats();
         $affectationProjets_filters = $affectationProjetService->getFieldsFilterable();
         
+        $this->viewState->set('scope.groupe.annee_formation_id', $id);
         $groupeService =  new GroupeService();
         $groupes_data =  $itemAnneeFormation->groupes()->paginate(10);
         $groupes_stats = $groupeService->getgroupeStats();
@@ -130,11 +118,14 @@ class BaseAnneeFormationController extends AdminController
         $anneeFormation = $this->anneeFormationService->update($id, $validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.updateSuccess', [
+             $message = __('Core::msg.updateSuccess', [
                 'entityToString' => $anneeFormation,
-                'modelName' =>  __('PkgFormation::anneeFormation.singular')])
-            ]);
+                'modelName' =>  __('PkgFormation::anneeFormation.singular')]);
+            
+            return JsonResponseHelper::success(
+                $message,
+                ['entity_id' => $anneeFormation->id]
+            );
         }
 
         return redirect()->route('anneeFormations.index')->with(
@@ -151,11 +142,14 @@ class BaseAnneeFormationController extends AdminController
         $anneeFormation = $this->anneeFormationService->destroy($id);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.deleteSuccess', [
+            $message = __('Core::msg.deleteSuccess', [
                 'entityToString' => $anneeFormation,
-                'modelName' =>  __('PkgFormation::anneeFormation.singular')])
-            ]);
+                'modelName' =>  __('PkgFormation::anneeFormation.singular')]);
+            
+
+            return JsonResponseHelper::success(
+                $message
+            );
         }
 
         return redirect()->route('anneeFormations.index')->with(
@@ -168,10 +162,18 @@ class BaseAnneeFormationController extends AdminController
 
     }
 
-    public function export()
+    public function export($format)
     {
         $anneeFormations_data = $this->anneeFormationService->all();
-        return Excel::download(new AnneeFormationExport($anneeFormations_data), 'anneeFormation_export.xlsx');
+        
+        // Vérifier le format et exporter en conséquence
+        if ($format === 'csv') {
+            return Excel::download(new AnneeFormationExport($anneeFormations_data,'csv'), 'anneeFormation_export.csv', \Maatwebsite\Excel\Excel::CSV, ['Content-Type' => 'text/csv']);
+        } elseif ($format === 'xlsx') {
+            return Excel::download(new AnneeFormationExport($anneeFormations_data,'xlsx'), 'anneeFormation_export.xlsx', \Maatwebsite\Excel\Excel::XLSX);
+        } else {
+            return response()->json(['error' => 'Format non supporté'], 400);
+        }
     }
 
     public function import(Request $request)

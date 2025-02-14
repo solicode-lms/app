@@ -118,6 +118,22 @@
 </div>
 
         
+
+        <!--   TransfertCompetence HasMany --> 
+
+        
+
+        <!--   Livrable HasMany --> 
+
+        
+
+        <!--   Resource HasMany --> 
+
+        
+
+        <!--   AffectationProjet HasMany --> 
+
+        
         
     <div class="form-group">
             <label for="formateur_id">
@@ -146,22 +162,6 @@
     </div>
 
 
-        
-
-        <!--   TransfertCompetence HasMany --> 
-
-        
-
-        <!--   Livrable HasMany --> 
-
-        
-
-        <!--   Resource HasMany --> 
-
-        
-
-        <!--   AffectationProjet HasMany --> 
-
     </div>
 
     <div class="card-footer">
@@ -177,4 +177,7 @@
 </script>
 <script>
      window.modalTitle = '{{__("PkgCreationProjet::projet.singular") }} : {{$itemProjet}}'
+     window.contextState = @json($contextState);
+     window.sessionState = @json($sessionState);
+     window.viewState = @json($viewState);
 </script>

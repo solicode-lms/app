@@ -98,7 +98,7 @@ class BaseAnneeFormationSeeder extends Seeder
 
         // Permissions spécifiques pour chaque type de fonctionnalité
         $featurePermissions = [
-            'Édition ' => [ 'create','store','edit','update','destroy','getAnneeFormations'],
+            'Édition ' => [ 'create','store','edit','update','destroy','getAnneeFormations','dataCalcul'],
             'Lecture' => ['index', 'show'],
             'Extraction' => ['import', 'export'],
         ];

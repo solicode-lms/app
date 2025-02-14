@@ -10,7 +10,9 @@ use Modules\PkgCompetences\Services\NiveauDifficulteService;
 use Modules\PkgCreationProjet\Services\ProjetService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
+use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgCreationProjet\App\Requests\TransfertCompetenceRequest;
+use Modules\PkgCreationProjet\Models\TransfertCompetence;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgCreationProjet\App\Exports\TransfertCompetenceExport;
 use Modules\PkgCreationProjet\App\Imports\TransfertCompetenceImport;
@@ -34,10 +36,14 @@ class BaseTransfertCompetenceController extends AdminController
     }
 
     public function index(Request $request) {
+        
+        $this->viewState->setContextKeyIfEmpty('transfertCompetence.index');
+
+
         // Extraire les paramètres de recherche, page, et filtres
         $transfertCompetences_params = array_merge(
             $request->only(['page','sort']),
-            ['search' => $request->get('transfertCompetences_search', '')],
+            ['search' => $request->get('transfertCompetences_search', $this->viewState->get("filter.transfertCompetence.transfertCompetences_search"))],
             $request->except(['transfertCompetences_search', 'page', 'sort'])
         );
 
@@ -73,13 +79,14 @@ class BaseTransfertCompetenceController extends AdminController
         $transfertCompetence = $this->transfertCompetenceService->create($validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 
-            'entity_id' => $transfertCompetence->id,
-            'message' => 
-             __('Core::msg.addSuccess', [
+             $message = __('Core::msg.addSuccess', [
                 'entityToString' => $transfertCompetence,
-                'modelName' => __('PkgCreationProjet::transfertCompetence.singular')])
-            ]);
+                'modelName' => __('PkgCreationProjet::transfertCompetence.singular')]);
+        
+            return JsonResponseHelper::success(
+             $message,
+             ['entity_id' => $transfertCompetence->id]
+            );
         }
 
         return redirect()->route('transfertCompetences.index')->with(
@@ -91,33 +98,18 @@ class BaseTransfertCompetenceController extends AdminController
         );
     }
     public function show(string $id) {
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('transfert_competence_id', $id);
-        
-        $itemTransfertCompetence = $this->transfertCompetenceService->find($id);
-        $technologies = $this->technologyService->all();
-        $competences = $this->competenceService->all();
-        $niveauDifficultes = $this->niveauDifficulteService->all();
-        $projets = $this->projetService->all();
-
-        if (request()->ajax()) {
-            return view('PkgCreationProjet::transfertCompetence._fields', compact('itemTransfertCompetence', 'technologies', 'competences', 'niveauDifficultes', 'projets'));
-        }
-
-        return view('PkgCreationProjet::transfertCompetence.edit', compact('itemTransfertCompetence', 'technologies', 'competences', 'niveauDifficultes', 'projets'));
-
+        return $this->edit( $id);
     }
     public function edit(string $id) {
 
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('transfert_competence_id', $id);
-        
+        $this->viewState->setContextKey('transfertCompetence.edit_' . $id);
+
         $itemTransfertCompetence = $this->transfertCompetenceService->find($id);
         $technologies = $this->technologyService->all();
         $competences = $this->competenceService->all();
         $niveauDifficultes = $this->niveauDifficulteService->all();
         $projets = $this->projetService->all();
+
 
         if (request()->ajax()) {
             return view('PkgCreationProjet::transfertCompetence._fields', compact('itemTransfertCompetence', 'technologies', 'competences', 'niveauDifficultes', 'projets'));
@@ -132,11 +124,14 @@ class BaseTransfertCompetenceController extends AdminController
         $transfertCompetence = $this->transfertCompetenceService->update($id, $validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.updateSuccess', [
+             $message = __('Core::msg.updateSuccess', [
                 'entityToString' => $transfertCompetence,
-                'modelName' =>  __('PkgCreationProjet::transfertCompetence.singular')])
-            ]);
+                'modelName' =>  __('PkgCreationProjet::transfertCompetence.singular')]);
+            
+            return JsonResponseHelper::success(
+                $message,
+                ['entity_id' => $transfertCompetence->id]
+            );
         }
 
         return redirect()->route('transfertCompetences.index')->with(
@@ -153,11 +148,14 @@ class BaseTransfertCompetenceController extends AdminController
         $transfertCompetence = $this->transfertCompetenceService->destroy($id);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.deleteSuccess', [
+            $message = __('Core::msg.deleteSuccess', [
                 'entityToString' => $transfertCompetence,
-                'modelName' =>  __('PkgCreationProjet::transfertCompetence.singular')])
-            ]);
+                'modelName' =>  __('PkgCreationProjet::transfertCompetence.singular')]);
+            
+
+            return JsonResponseHelper::success(
+                $message
+            );
         }
 
         return redirect()->route('transfertCompetences.index')->with(
@@ -170,10 +168,18 @@ class BaseTransfertCompetenceController extends AdminController
 
     }
 
-    public function export()
+    public function export($format)
     {
         $transfertCompetences_data = $this->transfertCompetenceService->all();
-        return Excel::download(new TransfertCompetenceExport($transfertCompetences_data), 'transfertCompetence_export.xlsx');
+        
+        // Vérifier le format et exporter en conséquence
+        if ($format === 'csv') {
+            return Excel::download(new TransfertCompetenceExport($transfertCompetences_data,'csv'), 'transfertCompetence_export.csv', \Maatwebsite\Excel\Excel::CSV, ['Content-Type' => 'text/csv']);
+        } elseif ($format === 'xlsx') {
+            return Excel::download(new TransfertCompetenceExport($transfertCompetences_data,'xlsx'), 'transfertCompetence_export.xlsx', \Maatwebsite\Excel\Excel::XLSX);
+        } else {
+            return response()->json(['error' => 'Format non supporté'], 400);
+        }
     }
 
     public function import(Request $request)

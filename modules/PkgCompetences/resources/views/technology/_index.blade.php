@@ -6,7 +6,9 @@
     window.crudModalManagersConfig.push({
         edit_has_many: {{ !isset($edit_has_many)? 'false' :  ($edit_has_many ? "true": "false") }},
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
+        editOnFullScreen : false,
         entity_name: 'technology',
+        contextKey: '{{ isset($contextKey) ? $contextKey : 'technology.index' }}', 
         filterFormSelector: '#technology-crud-filter-form',
         crudSelector: '#technology-crud',
         tableSelector: '#technology-data-container',
@@ -62,7 +64,8 @@
                             :importRoute="route('technologies.import')"
                             :importText="__('Importer')"
                             :exportPermission="'export-technology'"
-                            :exportRoute="route('technologies.export')"
+                            :exportXlsxRoute="route('technologies.export', ['format' => 'xlsx'])"
+                            :exportCsvRoute="route('technologies.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
                         />
                     </div>

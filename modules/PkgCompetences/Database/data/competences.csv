@@ -1,8 +1,8 @@
-code,nom,description,module_id
-C1,"Maquetter une application mobile","Création et design des interfaces utilisateur pour une application mobile en utilisant des outils de maquette.",2
-C2,"Manipuler une base de données - perfectionnement","Approfondissement des concepts de gestion et manipulation des bases de données pour les applications mobiles.",4
-C3,"Développer la partie back-end d’une application web ou web mobile - perfectionnement","Conception et développement des services backend pour les applications, avec un focus sur l'intégration et l'optimisation.",5
-C4,"Collaborer à la gestion d’un projet informatique et à l’organisation de l’environnement de développement - perfectionnement","Techniques avancées pour participer efficacement à la gestion de projet et au développement collaboratif.",3
-C5,"Développer une application mobile native, avec Android et React Native","Développement d’applications mobiles natives en utilisant Android et React Native.",6
-C6,"Préparer et exécuter les plans de tests d’une application","Mise en œuvre de tests automatisés et manuels pour assurer la qualité des applications.",5
-C7,"Préparer et exécuter le déploiement d’une application web et mobile - perfectionnement","Étapes pour préparer, tester, et déployer une application sur les environnements de production.",7
+code,mini_code,nom,description,module_id
+C1,"Maquettage","Maquetter une application mobile","Création et design des interfaces utilisateur pour une application mobile en utilisant des outils de maquette.",2
+C2,"Database","Manipuler une base de données - perfectionnement","Approfondissement des concepts de gestion et manipulation des bases de données pour les applications mobiles.",4
+C3,"Back-end","Développer la partie back-end d’une application web ou web mobile - perfectionnement","Conception et développement des services backend pour les applications, avec un focus sur l'intégration et l'optimisation.",5
+C4,"Gestion projet","Collaborer à la gestion d’un projet informatique et à l’organisation de l’environnement de développement - perfectionnement","Techniques avancées pour participer efficacement à la gestion de projet et au développement collaboratif.",3
+C5,"Mobile","Développer une application mobile native, avec Android et React Native","Développement d’applications mobiles natives en utilisant Android et React Native.",6
+C6,"Test","Préparer et exécuter les plans de tests d’une application","Mise en œuvre de tests automatisés et manuels pour assurer la qualité des applications.",5
+C7,"Déploiement","Préparer et exécuter le déploiement d’une application web et mobile - perfectionnement","Étapes pour préparer, tester, et déployer une application sur les environnements de production.",7

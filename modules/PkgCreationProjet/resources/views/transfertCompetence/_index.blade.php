@@ -6,7 +6,9 @@
     window.crudModalManagersConfig.push({
         edit_has_many: {{ !isset($edit_has_many)? 'false' :  ($edit_has_many ? "true": "false") }},
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
+        editOnFullScreen : false,
         entity_name: 'transfertCompetence',
+        contextKey: '{{ isset($contextKey) ? $contextKey : 'transfertCompetence.index' }}', 
         filterFormSelector: '#transfertCompetence-crud-filter-form',
         crudSelector: '#transfertCompetence-crud',
         tableSelector: '#transfertCompetence-data-container',
@@ -62,7 +64,8 @@
                             :importRoute="route('transfertCompetences.import')"
                             :importText="__('Importer')"
                             :exportPermission="'export-transfertCompetence'"
-                            :exportRoute="route('transfertCompetences.export')"
+                            :exportXlsxRoute="route('transfertCompetences.export', ['format' => 'xlsx'])"
+                            :exportCsvRoute="route('transfertCompetences.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
                         />
                     </div>

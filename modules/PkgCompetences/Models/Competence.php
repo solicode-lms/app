@@ -9,6 +9,6 @@ class Competence extends BaseCompetence
 
     public function __toString()
     {
-        return $this->code . "-" .$this->nom;
+        return $this->code . "-" . ($this->mini_code ? $this->mini_code : $this->nom);
     }
 }

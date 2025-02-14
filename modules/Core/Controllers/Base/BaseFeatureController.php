@@ -8,7 +8,9 @@ use Modules\PkgAutorisation\Services\PermissionService;
 use Modules\Core\Services\FeatureDomainService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
+use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\Core\App\Requests\FeatureRequest;
+use Modules\Core\Models\Feature;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\Core\App\Exports\FeatureExport;
 use Modules\Core\App\Imports\FeatureImport;
@@ -28,10 +30,14 @@ class BaseFeatureController extends AdminController
     }
 
     public function index(Request $request) {
+        
+        $this->viewState->setContextKeyIfEmpty('feature.index');
+
+
         // Extraire les paramètres de recherche, page, et filtres
         $features_params = array_merge(
             $request->only(['page','sort']),
-            ['search' => $request->get('features_search', '')],
+            ['search' => $request->get('features_search', $this->viewState->get("filter.feature.features_search"))],
             $request->except(['features_search', 'page', 'sort'])
         );
 
@@ -65,13 +71,14 @@ class BaseFeatureController extends AdminController
         $feature = $this->featureService->create($validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 
-            'entity_id' => $feature->id,
-            'message' => 
-             __('Core::msg.addSuccess', [
+             $message = __('Core::msg.addSuccess', [
                 'entityToString' => $feature,
-                'modelName' => __('Core::feature.singular')])
-            ]);
+                'modelName' => __('Core::feature.singular')]);
+        
+            return JsonResponseHelper::success(
+             $message,
+             ['entity_id' => $feature->id]
+            );
         }
 
         return redirect()->route('features.index')->with(
@@ -83,29 +90,16 @@ class BaseFeatureController extends AdminController
         );
     }
     public function show(string $id) {
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('feature_id', $id);
-        
-        $itemFeature = $this->featureService->find($id);
-        $permissions = $this->permissionService->all();
-        $featureDomains = $this->featureDomainService->all();
-
-        if (request()->ajax()) {
-            return view('Core::feature._fields', compact('itemFeature', 'permissions', 'featureDomains'));
-        }
-
-        return view('Core::feature.edit', compact('itemFeature', 'permissions', 'featureDomains'));
-
+        return $this->edit( $id);
     }
     public function edit(string $id) {
 
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('feature_id', $id);
-        
+        $this->viewState->setContextKey('feature.edit_' . $id);
+
         $itemFeature = $this->featureService->find($id);
         $permissions = $this->permissionService->all();
         $featureDomains = $this->featureDomainService->all();
+
 
         if (request()->ajax()) {
             return view('Core::feature._fields', compact('itemFeature', 'permissions', 'featureDomains'));
@@ -120,11 +114,14 @@ class BaseFeatureController extends AdminController
         $feature = $this->featureService->update($id, $validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.updateSuccess', [
+             $message = __('Core::msg.updateSuccess', [
                 'entityToString' => $feature,
-                'modelName' =>  __('Core::feature.singular')])
-            ]);
+                'modelName' =>  __('Core::feature.singular')]);
+            
+            return JsonResponseHelper::success(
+                $message,
+                ['entity_id' => $feature->id]
+            );
         }
 
         return redirect()->route('features.index')->with(
@@ -141,11 +138,14 @@ class BaseFeatureController extends AdminController
         $feature = $this->featureService->destroy($id);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.deleteSuccess', [
+            $message = __('Core::msg.deleteSuccess', [
                 'entityToString' => $feature,
-                'modelName' =>  __('Core::feature.singular')])
-            ]);
+                'modelName' =>  __('Core::feature.singular')]);
+            
+
+            return JsonResponseHelper::success(
+                $message
+            );
         }
 
         return redirect()->route('features.index')->with(
@@ -158,10 +158,18 @@ class BaseFeatureController extends AdminController
 
     }
 
-    public function export()
+    public function export($format)
     {
         $features_data = $this->featureService->all();
-        return Excel::download(new FeatureExport($features_data), 'feature_export.xlsx');
+        
+        // Vérifier le format et exporter en conséquence
+        if ($format === 'csv') {
+            return Excel::download(new FeatureExport($features_data,'csv'), 'feature_export.csv', \Maatwebsite\Excel\Excel::CSV, ['Content-Type' => 'text/csv']);
+        } elseif ($format === 'xlsx') {
+            return Excel::download(new FeatureExport($features_data,'xlsx'), 'feature_export.xlsx', \Maatwebsite\Excel\Excel::XLSX);
+        } else {
+            return response()->json(['error' => 'Format non supporté'], 400);
+        }
     }
 
     public function import(Request $request)

@@ -6,7 +6,9 @@ namespace Modules\PkgApprenants\Controllers\Base;
 use Modules\PkgApprenants\Services\VilleService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
+use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgApprenants\App\Requests\VilleRequest;
+use Modules\PkgApprenants\Models\Ville;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgApprenants\App\Exports\VilleExport;
 use Modules\PkgApprenants\App\Imports\VilleImport;
@@ -22,10 +24,14 @@ class BaseVilleController extends AdminController
     }
 
     public function index(Request $request) {
+        
+        $this->viewState->setContextKeyIfEmpty('ville.index');
+
+
         // Extraire les paramètres de recherche, page, et filtres
         $villes_params = array_merge(
             $request->only(['page','sort']),
-            ['search' => $request->get('villes_search', '')],
+            ['search' => $request->get('villes_search', $this->viewState->get("filter.ville.villes_search"))],
             $request->except(['villes_search', 'page', 'sort'])
         );
 
@@ -57,13 +63,14 @@ class BaseVilleController extends AdminController
         $ville = $this->villeService->create($validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 
-            'entity_id' => $ville->id,
-            'message' => 
-             __('Core::msg.addSuccess', [
+             $message = __('Core::msg.addSuccess', [
                 'entityToString' => $ville,
-                'modelName' => __('PkgApprenants::ville.singular')])
-            ]);
+                'modelName' => __('PkgApprenants::ville.singular')]);
+        
+            return JsonResponseHelper::success(
+             $message,
+             ['entity_id' => $ville->id]
+            );
         }
 
         return redirect()->route('villes.index')->with(
@@ -75,25 +82,14 @@ class BaseVilleController extends AdminController
         );
     }
     public function show(string $id) {
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('ville_id', $id);
-        
-        $itemVille = $this->villeService->find($id);
-
-        if (request()->ajax()) {
-            return view('PkgApprenants::ville._fields', compact('itemVille'));
-        }
-
-        return view('PkgApprenants::ville.edit', compact('itemVille'));
-
+        return $this->edit( $id);
     }
     public function edit(string $id) {
 
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('ville_id', $id);
-        
+        $this->viewState->setContextKey('ville.edit_' . $id);
+
         $itemVille = $this->villeService->find($id);
+
 
         if (request()->ajax()) {
             return view('PkgApprenants::ville._fields', compact('itemVille'));
@@ -108,11 +104,14 @@ class BaseVilleController extends AdminController
         $ville = $this->villeService->update($id, $validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.updateSuccess', [
+             $message = __('Core::msg.updateSuccess', [
                 'entityToString' => $ville,
-                'modelName' =>  __('PkgApprenants::ville.singular')])
-            ]);
+                'modelName' =>  __('PkgApprenants::ville.singular')]);
+            
+            return JsonResponseHelper::success(
+                $message,
+                ['entity_id' => $ville->id]
+            );
         }
 
         return redirect()->route('villes.index')->with(
@@ -129,11 +128,14 @@ class BaseVilleController extends AdminController
         $ville = $this->villeService->destroy($id);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.deleteSuccess', [
+            $message = __('Core::msg.deleteSuccess', [
                 'entityToString' => $ville,
-                'modelName' =>  __('PkgApprenants::ville.singular')])
-            ]);
+                'modelName' =>  __('PkgApprenants::ville.singular')]);
+            
+
+            return JsonResponseHelper::success(
+                $message
+            );
         }
 
         return redirect()->route('villes.index')->with(
@@ -146,10 +148,18 @@ class BaseVilleController extends AdminController
 
     }
 
-    public function export()
+    public function export($format)
     {
         $villes_data = $this->villeService->all();
-        return Excel::download(new VilleExport($villes_data), 'ville_export.xlsx');
+        
+        // Vérifier le format et exporter en conséquence
+        if ($format === 'csv') {
+            return Excel::download(new VilleExport($villes_data,'csv'), 'ville_export.csv', \Maatwebsite\Excel\Excel::CSV, ['Content-Type' => 'text/csv']);
+        } elseif ($format === 'xlsx') {
+            return Excel::download(new VilleExport($villes_data,'xlsx'), 'ville_export.xlsx', \Maatwebsite\Excel\Excel::XLSX);
+        } else {
+            return response()->json(['error' => 'Format non supporté'], 400);
+        }
     }
 
     public function import(Request $request)

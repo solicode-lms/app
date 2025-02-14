@@ -121,4 +121,7 @@
 </script>
 <script>
      window.modalTitle = '{{__("PkgFormation::module.singular") }} : {{$itemModule}}'
+     window.contextState = @json($contextState);
+     window.sessionState = @json($sessionState);
+     window.viewState = @json($viewState);
 </script>

@@ -25,8 +25,8 @@ class BaseProjet extends BaseModel
 {
     use HasFactory, HasDynamicContext, OwnedByUser;
 
-    public function __construct() {
-        parent::__construct(); 
+    public function __construct(array $attributes = []) {
+        parent::__construct($attributes); 
         $this->isOwnedByUser =  true;
     }
 

@@ -7,7 +7,9 @@ use Modules\PkgCreationProjet\Services\ResourceService;
 use Modules\PkgCreationProjet\Services\ProjetService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
+use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgCreationProjet\App\Requests\ResourceRequest;
+use Modules\PkgCreationProjet\Models\Resource;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgCreationProjet\App\Exports\ResourceExport;
 use Modules\PkgCreationProjet\App\Imports\ResourceImport;
@@ -25,10 +27,14 @@ class BaseResourceController extends AdminController
     }
 
     public function index(Request $request) {
+        
+        $this->viewState->setContextKeyIfEmpty('resource.index');
+
+
         // Extraire les paramètres de recherche, page, et filtres
         $resources_params = array_merge(
             $request->only(['page','sort']),
-            ['search' => $request->get('resources_search', '')],
+            ['search' => $request->get('resources_search', $this->viewState->get("filter.resource.resources_search"))],
             $request->except(['resources_search', 'page', 'sort'])
         );
 
@@ -61,13 +67,14 @@ class BaseResourceController extends AdminController
         $resource = $this->resourceService->create($validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 
-            'entity_id' => $resource->id,
-            'message' => 
-             __('Core::msg.addSuccess', [
+             $message = __('Core::msg.addSuccess', [
                 'entityToString' => $resource,
-                'modelName' => __('PkgCreationProjet::resource.singular')])
-            ]);
+                'modelName' => __('PkgCreationProjet::resource.singular')]);
+        
+            return JsonResponseHelper::success(
+             $message,
+             ['entity_id' => $resource->id]
+            );
         }
 
         return redirect()->route('resources.index')->with(
@@ -79,27 +86,15 @@ class BaseResourceController extends AdminController
         );
     }
     public function show(string $id) {
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('resource_id', $id);
-        
-        $itemResource = $this->resourceService->find($id);
-        $projets = $this->projetService->all();
-
-        if (request()->ajax()) {
-            return view('PkgCreationProjet::resource._fields', compact('itemResource', 'projets'));
-        }
-
-        return view('PkgCreationProjet::resource.edit', compact('itemResource', 'projets'));
-
+        return $this->edit( $id);
     }
     public function edit(string $id) {
 
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('resource_id', $id);
-        
+        $this->viewState->setContextKey('resource.edit_' . $id);
+
         $itemResource = $this->resourceService->find($id);
         $projets = $this->projetService->all();
+
 
         if (request()->ajax()) {
             return view('PkgCreationProjet::resource._fields', compact('itemResource', 'projets'));
@@ -114,11 +109,14 @@ class BaseResourceController extends AdminController
         $resource = $this->resourceService->update($id, $validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.updateSuccess', [
+             $message = __('Core::msg.updateSuccess', [
                 'entityToString' => $resource,
-                'modelName' =>  __('PkgCreationProjet::resource.singular')])
-            ]);
+                'modelName' =>  __('PkgCreationProjet::resource.singular')]);
+            
+            return JsonResponseHelper::success(
+                $message,
+                ['entity_id' => $resource->id]
+            );
         }
 
         return redirect()->route('resources.index')->with(
@@ -135,11 +133,14 @@ class BaseResourceController extends AdminController
         $resource = $this->resourceService->destroy($id);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.deleteSuccess', [
+            $message = __('Core::msg.deleteSuccess', [
                 'entityToString' => $resource,
-                'modelName' =>  __('PkgCreationProjet::resource.singular')])
-            ]);
+                'modelName' =>  __('PkgCreationProjet::resource.singular')]);
+            
+
+            return JsonResponseHelper::success(
+                $message
+            );
         }
 
         return redirect()->route('resources.index')->with(
@@ -152,10 +153,18 @@ class BaseResourceController extends AdminController
 
     }
 
-    public function export()
+    public function export($format)
     {
         $resources_data = $this->resourceService->all();
-        return Excel::download(new ResourceExport($resources_data), 'resource_export.xlsx');
+        
+        // Vérifier le format et exporter en conséquence
+        if ($format === 'csv') {
+            return Excel::download(new ResourceExport($resources_data,'csv'), 'resource_export.csv', \Maatwebsite\Excel\Excel::CSV, ['Content-Type' => 'text/csv']);
+        } elseif ($format === 'xlsx') {
+            return Excel::download(new ResourceExport($resources_data,'xlsx'), 'resource_export.xlsx', \Maatwebsite\Excel\Excel::XLSX);
+        } else {
+            return response()->json(['error' => 'Format non supporté'], 400);
+        }
     }
 
     public function import(Request $request)

@@ -28,8 +28,8 @@ class BaseTransfertCompetenceRequest extends FormRequest
     {
         return [
             'competence_id' => 'required',
-            'niveau_difficulte_id' => 'required',
             'question' => 'nullable|string',
+            'niveau_difficulte_id' => 'required',
             'technologies' => 'nullable|array',
             'note' => 'nullable',
             'projet_id' => 'required'
@@ -45,8 +45,8 @@ class BaseTransfertCompetenceRequest extends FormRequest
     {
         return [
             'competence_id.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::TransfertCompetence.competence_id')]),
-            'niveau_difficulte_id.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::TransfertCompetence.niveau_difficulte_id')]),
             'question.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::TransfertCompetence.question')]),
+            'niveau_difficulte_id.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::TransfertCompetence.niveau_difficulte_id')]),
             'technologies.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::TransfertCompetence.technologies')]),
             'technologies.array' => __('validation.array', ['attribute' => __('PkgCreationProjet::TransfertCompetence.technologies')]),
             'note.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::TransfertCompetence.note')]),

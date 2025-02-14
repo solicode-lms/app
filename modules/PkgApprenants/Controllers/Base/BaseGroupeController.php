@@ -11,7 +11,9 @@ use Modules\PkgFormation\Services\FiliereService;
 use Modules\PkgRealisationProjets\Services\AffectationProjetService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
+use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgApprenants\App\Requests\GroupeRequest;
+use Modules\PkgApprenants\Models\Groupe;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgApprenants\App\Exports\GroupeExport;
 use Modules\PkgApprenants\App\Imports\GroupeImport;
@@ -35,10 +37,14 @@ class BaseGroupeController extends AdminController
     }
 
     public function index(Request $request) {
+        
+        $this->viewState->setContextKeyIfEmpty('groupe.index');
+
+
         // Extraire les paramètres de recherche, page, et filtres
         $groupes_params = array_merge(
             $request->only(['page','sort']),
-            ['search' => $request->get('groupes_search', '')],
+            ['search' => $request->get('groupes_search', $this->viewState->get("filter.groupe.groupes_search"))],
             $request->except(['groupes_search', 'page', 'sort'])
         );
 
@@ -74,13 +80,14 @@ class BaseGroupeController extends AdminController
         $groupe = $this->groupeService->create($validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 
-            'entity_id' => $groupe->id,
-            'message' => 
-             __('Core::msg.addSuccess', [
+             $message = __('Core::msg.addSuccess', [
                 'entityToString' => $groupe,
-                'modelName' => __('PkgApprenants::groupe.singular')])
-            ]);
+                'modelName' => __('PkgApprenants::groupe.singular')]);
+        
+            return JsonResponseHelper::success(
+             $message,
+             ['entity_id' => $groupe->id]
+            );
         }
 
         return redirect()->route('groupes.edit',['groupe' => $groupe->id])->with(
@@ -92,38 +99,19 @@ class BaseGroupeController extends AdminController
         );
     }
     public function show(string $id) {
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('groupe_id', $id);
-        
-        $itemGroupe = $this->groupeService->find($id);
-        $apprenants = $this->apprenantService->all();
-        $formateurs = $this->formateurService->all();
-        $anneeFormations = $this->anneeFormationService->all();
-        $filieres = $this->filiereService->all();
-        $affectationProjetService =  new AffectationProjetService();
-        $affectationProjets_data =  $itemGroupe->affectationProjets()->paginate(10);
-        $affectationProjets_stats = $affectationProjetService->getaffectationProjetStats();
-        $affectationProjets_filters = $affectationProjetService->getFieldsFilterable();
-        
-
-        if (request()->ajax()) {
-            return view('PkgApprenants::groupe._edit', compact('itemGroupe', 'apprenants', 'formateurs', 'anneeFormations', 'filieres', 'affectationProjets_data', 'affectationProjets_stats', 'affectationProjets_filters'));
-        }
-
-        return view('PkgApprenants::groupe.edit', compact('itemGroupe', 'apprenants', 'formateurs', 'anneeFormations', 'filieres', 'affectationProjets_data', 'affectationProjets_stats', 'affectationProjets_filters'));
-
+        return $this->edit( $id);
     }
     public function edit(string $id) {
 
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('groupe_id', $id);
-        
+        $this->viewState->setContextKey('groupe.edit_' . $id);
+
         $itemGroupe = $this->groupeService->find($id);
         $apprenants = $this->apprenantService->all();
         $formateurs = $this->formateurService->all();
         $anneeFormations = $this->anneeFormationService->all();
         $filieres = $this->filiereService->all();
+
+        $this->viewState->set('scope.affectationProjet.groupe_id', $id);
         $affectationProjetService =  new AffectationProjetService();
         $affectationProjets_data =  $itemGroupe->affectationProjets()->paginate(10);
         $affectationProjets_stats = $affectationProjetService->getaffectationProjetStats();
@@ -143,11 +131,14 @@ class BaseGroupeController extends AdminController
         $groupe = $this->groupeService->update($id, $validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.updateSuccess', [
+             $message = __('Core::msg.updateSuccess', [
                 'entityToString' => $groupe,
-                'modelName' =>  __('PkgApprenants::groupe.singular')])
-            ]);
+                'modelName' =>  __('PkgApprenants::groupe.singular')]);
+            
+            return JsonResponseHelper::success(
+                $message,
+                ['entity_id' => $groupe->id]
+            );
         }
 
         return redirect()->route('groupes.index')->with(
@@ -164,11 +155,14 @@ class BaseGroupeController extends AdminController
         $groupe = $this->groupeService->destroy($id);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.deleteSuccess', [
+            $message = __('Core::msg.deleteSuccess', [
                 'entityToString' => $groupe,
-                'modelName' =>  __('PkgApprenants::groupe.singular')])
-            ]);
+                'modelName' =>  __('PkgApprenants::groupe.singular')]);
+            
+
+            return JsonResponseHelper::success(
+                $message
+            );
         }
 
         return redirect()->route('groupes.index')->with(
@@ -181,10 +175,18 @@ class BaseGroupeController extends AdminController
 
     }
 
-    public function export()
+    public function export($format)
     {
         $groupes_data = $this->groupeService->all();
-        return Excel::download(new GroupeExport($groupes_data), 'groupe_export.xlsx');
+        
+        // Vérifier le format et exporter en conséquence
+        if ($format === 'csv') {
+            return Excel::download(new GroupeExport($groupes_data,'csv'), 'groupe_export.csv', \Maatwebsite\Excel\Excel::CSV, ['Content-Type' => 'text/csv']);
+        } elseif ($format === 'xlsx') {
+            return Excel::download(new GroupeExport($groupes_data,'xlsx'), 'groupe_export.xlsx', \Maatwebsite\Excel\Excel::XLSX);
+        } else {
+            return response()->json(['error' => 'Format non supporté'], 400);
+        }
     }
 
     public function import(Request $request)

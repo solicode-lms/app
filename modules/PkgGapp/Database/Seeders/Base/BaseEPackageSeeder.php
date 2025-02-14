@@ -97,7 +97,7 @@ class BaseEPackageSeeder extends Seeder
 
         // Permissions spécifiques pour chaque type de fonctionnalité
         $featurePermissions = [
-            'Édition ' => [ 'create','store','edit','update','destroy','getEPackages'],
+            'Édition ' => [ 'create','store','edit','update','destroy','getEPackages','dataCalcul'],
             'Lecture' => ['index', 'show'],
             'Extraction' => ['import', 'export'],
         ];

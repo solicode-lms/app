@@ -1,0 +1,331 @@
+[
+    {
+        "reference": "e_data_fields_computableFields",
+        "value_integer": 48,
+        "value_float": 0,
+        "value_json": [
+            {
+                "name": "order",
+                "label": "Ordre",
+                "method": "getOrder",
+                "dispalyOrder": 1
+            }
+        ],
+        "e_model_reference": "e_data_fields",
+        "e_metadata_definition_reference": "computableFields"
+    },
+    {
+        "reference": "EDataField_id_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "EDataField_id",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "EDataField_reference_required",
+        "value_boolean": 0,
+        "e_data_field_reference": "EDataField_reference",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "EDataField_name_displayInTable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EDataField_name",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "EDataField_name_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "EDataField_name",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "EDataField_column_name_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "EDataField_column_name",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "EDataField_data_type_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "EDataField_data_type",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "EDataField_db_nullable_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "EDataField_db_nullable",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "EDataField_db_primaryKey_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "EDataField_db_primaryKey",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "EDataField_db_unique_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "EDataField_db_unique",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "EDataField_e_model_id_displayInTable",
+        "value_boolean": 0,
+        "value_float": 0,
+        "e_data_field_reference": "EDataField_e_model_id",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "EDataField_e_model_id_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "EDataField_e_model_id",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "EDataField_e_model_id_filterable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EDataField_e_model_id",
+        "e_metadata_definition_reference": "filterable"
+    },
+    {
+        "reference": "EDataField_name_displayField",
+        "value_boolean": 1,
+        "e_data_field_reference": "EDataField_name",
+        "e_metadata_definition_reference": "displayField"
+    },
+    {
+        "reference": "EDataField_data_type_displayInTable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EDataField_data_type",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "e_data_fields_hasMany_e_metadata_e_data_field_id_editHasMany",
+        "value_boolean": 1,
+        "e_data_field_reference": "e_data_fields_hasMany_e_metadata_e_data_field_id",
+        "e_metadata_definition_reference": "editHasMany"
+    },
+    {
+        "reference": "EDataField_e_relationship_id_displayInTable",
+        "value_boolean": 0,
+        "value_float": 0,
+        "e_data_field_reference": "EDataField_e_relationship_id",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "EDataField_e_relationship_id_filterable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EDataField_e_relationship_id",
+        "e_metadata_definition_reference": "filterable"
+    },
+    {
+        "reference": "EDataField_field_order_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "EDataField_field_order",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "EDataField_id_displayOrder",
+        "value_integer": 1,
+        "e_data_field_reference": "EDataField_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "EDataField_reference_displayOrder",
+        "value_integer": 2,
+        "e_data_field_reference": "EDataField_reference",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "EDataField_name_displayOrder",
+        "value_integer": 3,
+        "e_data_field_reference": "EDataField_name",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "EDataField_column_name_displayOrder",
+        "value_integer": 4,
+        "e_data_field_reference": "EDataField_column_name",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "EDataField_data_type_displayOrder",
+        "value_integer": 5,
+        "e_data_field_reference": "EDataField_data_type",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "EDataField_field_order_displayOrder",
+        "value_integer": 6,
+        "e_data_field_reference": "EDataField_field_order",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "EDataField_db_nullable_displayOrder",
+        "value_integer": 7,
+        "e_data_field_reference": "EDataField_db_nullable",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "EDataField_db_primaryKey_displayOrder",
+        "value_integer": 8,
+        "e_data_field_reference": "EDataField_db_primaryKey",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "EDataField_db_unique_displayOrder",
+        "value_integer": 9,
+        "e_data_field_reference": "EDataField_db_unique",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "EDataField_default_value_displayOrder",
+        "value_integer": 10,
+        "e_data_field_reference": "EDataField_default_value",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "EDataField_description_displayOrder",
+        "value_integer": 11,
+        "e_data_field_reference": "EDataField_description",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "EDataField_e_model_id_displayOrder",
+        "value_integer": 12,
+        "e_data_field_reference": "EDataField_e_model_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "EDataField_e_relationship_id_displayOrder",
+        "value_integer": 13,
+        "e_data_field_reference": "EDataField_e_relationship_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "EDataField_created_at_displayOrder",
+        "value_integer": 14,
+        "e_data_field_reference": "EDataField_created_at",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "EDataField_updated_at_displayOrder",
+        "value_integer": 15,
+        "e_data_field_reference": "EDataField_updated_at",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "e_data_fields_hasMany_e_metadata_e_data_field_id_displayOrder",
+        "value_integer": 16,
+        "e_data_field_reference": "e_data_fields_hasMany_e_metadata_e_data_field_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "e_data_fields_creationOrder",
+        "value_integer": 48,
+        "e_model_reference": "e_data_fields",
+        "e_metadata_definition_reference": "creationOrder"
+    },
+    {
+        "reference": "EDataField_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "EDataField_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "EDataField_reference_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "EDataField_reference",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "EDataField_name_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "EDataField_name",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "EDataField_column_name_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "EDataField_column_name",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "EDataField_data_type_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "EDataField_data_type",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "EDataField_field_order_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "EDataField_field_order",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "EDataField_db_nullable_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "EDataField_db_nullable",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "EDataField_db_primaryKey_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "EDataField_db_primaryKey",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "EDataField_db_unique_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "EDataField_db_unique",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "EDataField_default_value_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "EDataField_default_value",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "EDataField_description_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "EDataField_description",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "EDataField_e_model_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "EDataField_e_model_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "EDataField_e_relationship_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "EDataField_e_relationship_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "EDataField_created_at_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "EDataField_created_at",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "EDataField_updated_at_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "EDataField_updated_at",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "e_data_fields_hasMany_e_metadata_e_data_field_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "e_data_fields_hasMany_e_metadata_e_data_field_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "e_data_fields_displayInSideBar",
+        "value_boolean": 1,
+        "e_model_reference": "e_data_fields",
+        "e_metadata_definition_reference": "displayInSideBar"
+    }
+]

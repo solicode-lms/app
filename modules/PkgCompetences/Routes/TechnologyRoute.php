@@ -14,8 +14,11 @@ Route::middleware('auth')->group(function () {
         Route::resource('technologies', TechnologyController::class);
         // Routes supplémentaires avec préfixe
         Route::prefix('data')->group(function () {
-            Route::get('technologies/export', [TechnologyController::class, 'export'])->name('technologies.export');
             Route::post('technologies/import', [TechnologyController::class, 'import'])->name('technologies.import');
+            Route::get('technologies/export/{format}', [TechnologyController::class, 'export'])
+            ->where('format', 'csv|xlsx')
+            ->name('technologies.export');
+
         });
 
         Route::post('technologies/data-calcul', [TechnologyController::class, 'dataCalcul'])->name('technologies.dataCalcul');

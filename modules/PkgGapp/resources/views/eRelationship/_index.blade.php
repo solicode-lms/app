@@ -6,7 +6,9 @@
     window.crudModalManagersConfig.push({
         edit_has_many: {{ !isset($edit_has_many)? 'true' :  ($edit_has_many ? "true": "false") }},
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
+        editOnFullScreen : false,
         entity_name: 'eRelationship',
+        contextKey: '{{ isset($contextKey) ? $contextKey : 'eRelationship.index' }}', 
         filterFormSelector: '#eRelationship-crud-filter-form',
         crudSelector: '#eRelationship-crud',
         tableSelector: '#eRelationship-data-container',
@@ -62,7 +64,8 @@
                             :importRoute="route('eRelationships.import')"
                             :importText="__('Importer')"
                             :exportPermission="'export-eRelationship'"
-                            :exportRoute="route('eRelationships.export')"
+                            :exportXlsxRoute="route('eRelationships.export', ['format' => 'xlsx'])"
+                            :exportCsvRoute="route('eRelationships.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
                         />
                     </div>

@@ -7,7 +7,9 @@ use Modules\PkgWidgets\Services\WidgetOperationService;
 use Modules\PkgWidgets\Services\WidgetService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
+use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgWidgets\App\Requests\WidgetOperationRequest;
+use Modules\PkgWidgets\Models\WidgetOperation;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgWidgets\App\Exports\WidgetOperationExport;
 use Modules\PkgWidgets\App\Imports\WidgetOperationImport;
@@ -23,10 +25,14 @@ class BaseWidgetOperationController extends AdminController
     }
 
     public function index(Request $request) {
+        
+        $this->viewState->setContextKeyIfEmpty('widgetOperation.index');
+
+
         // Extraire les paramètres de recherche, page, et filtres
         $widgetOperations_params = array_merge(
             $request->only(['page','sort']),
-            ['search' => $request->get('widgetOperations_search', '')],
+            ['search' => $request->get('widgetOperations_search', $this->viewState->get("filter.widgetOperation.widgetOperations_search"))],
             $request->except(['widgetOperations_search', 'page', 'sort'])
         );
 
@@ -58,13 +64,14 @@ class BaseWidgetOperationController extends AdminController
         $widgetOperation = $this->widgetOperationService->create($validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 
-            'entity_id' => $widgetOperation->id,
-            'message' => 
-             __('Core::msg.addSuccess', [
+             $message = __('Core::msg.addSuccess', [
                 'entityToString' => $widgetOperation,
-                'modelName' => __('PkgWidgets::widgetOperation.singular')])
-            ]);
+                'modelName' => __('PkgWidgets::widgetOperation.singular')]);
+        
+            return JsonResponseHelper::success(
+             $message,
+             ['entity_id' => $widgetOperation->id]
+            );
         }
 
         return redirect()->route('widgetOperations.edit',['widgetOperation' => $widgetOperation->id])->with(
@@ -76,30 +83,15 @@ class BaseWidgetOperationController extends AdminController
         );
     }
     public function show(string $id) {
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('widget_operation_id', $id);
-        
-        $itemWidgetOperation = $this->widgetOperationService->find($id);
-        $widgetService =  new WidgetService();
-        $widgets_data =  $itemWidgetOperation->widgets()->paginate(10);
-        $widgets_stats = $widgetService->getwidgetStats();
-        $widgets_filters = $widgetService->getFieldsFilterable();
-        
-
-        if (request()->ajax()) {
-            return view('PkgWidgets::widgetOperation._edit', compact('itemWidgetOperation', 'widgets_data', 'widgets_stats', 'widgets_filters'));
-        }
-
-        return view('PkgWidgets::widgetOperation.edit', compact('itemWidgetOperation', 'widgets_data', 'widgets_stats', 'widgets_filters'));
-
+        return $this->edit( $id);
     }
     public function edit(string $id) {
 
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('widget_operation_id', $id);
-        
+        $this->viewState->setContextKey('widgetOperation.edit_' . $id);
+
         $itemWidgetOperation = $this->widgetOperationService->find($id);
+
+        $this->viewState->set('scope.widget.operation_id', $id);
         $widgetService =  new WidgetService();
         $widgets_data =  $itemWidgetOperation->widgets()->paginate(10);
         $widgets_stats = $widgetService->getwidgetStats();
@@ -119,11 +111,14 @@ class BaseWidgetOperationController extends AdminController
         $widgetOperation = $this->widgetOperationService->update($id, $validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.updateSuccess', [
+             $message = __('Core::msg.updateSuccess', [
                 'entityToString' => $widgetOperation,
-                'modelName' =>  __('PkgWidgets::widgetOperation.singular')])
-            ]);
+                'modelName' =>  __('PkgWidgets::widgetOperation.singular')]);
+            
+            return JsonResponseHelper::success(
+                $message,
+                ['entity_id' => $widgetOperation->id]
+            );
         }
 
         return redirect()->route('widgetOperations.index')->with(
@@ -140,11 +135,14 @@ class BaseWidgetOperationController extends AdminController
         $widgetOperation = $this->widgetOperationService->destroy($id);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.deleteSuccess', [
+            $message = __('Core::msg.deleteSuccess', [
                 'entityToString' => $widgetOperation,
-                'modelName' =>  __('PkgWidgets::widgetOperation.singular')])
-            ]);
+                'modelName' =>  __('PkgWidgets::widgetOperation.singular')]);
+            
+
+            return JsonResponseHelper::success(
+                $message
+            );
         }
 
         return redirect()->route('widgetOperations.index')->with(
@@ -157,10 +155,18 @@ class BaseWidgetOperationController extends AdminController
 
     }
 
-    public function export()
+    public function export($format)
     {
         $widgetOperations_data = $this->widgetOperationService->all();
-        return Excel::download(new WidgetOperationExport($widgetOperations_data), 'widgetOperation_export.xlsx');
+        
+        // Vérifier le format et exporter en conséquence
+        if ($format === 'csv') {
+            return Excel::download(new WidgetOperationExport($widgetOperations_data,'csv'), 'widgetOperation_export.csv', \Maatwebsite\Excel\Excel::CSV, ['Content-Type' => 'text/csv']);
+        } elseif ($format === 'xlsx') {
+            return Excel::download(new WidgetOperationExport($widgetOperations_data,'xlsx'), 'widgetOperation_export.xlsx', \Maatwebsite\Excel\Excel::XLSX);
+        } else {
+            return response()->json(['error' => 'Format non supporté'], 400);
+        }
     }
 
     public function import(Request $request)

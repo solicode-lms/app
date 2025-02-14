@@ -1,0 +1,113 @@
+{
+"PkgGapp": {
+    "name": "PkgGapp",
+    "tables": [
+        "e_metadata_definitions",
+        "e_packages",
+        "e_models",
+        "e_data_fields",
+        "e_metadata",
+        "e_relationships"
+    ]
+},
+"Core": {
+    "name": "Core",
+    "tables": [
+        "features",
+        "feature_domains",
+        "sys_controllers",
+        "sys_modules",
+        "sys_models",
+        "sys_colors",
+        "feature_permission"
+]
+},
+"PkgAutorisation": {
+    "name": "PkgAutorisation",
+    "tables": [
+        "roles",
+        "permissions",
+        "users",
+        "model_has_roles",
+        "role_has_permissions"
+]
+},
+"PkgWidgets":{
+    "name": "PkgWidgets",
+    "tables": [
+        "widgets",
+        "widget_operations",
+        "widget_types"
+]
+},
+
+"PkgFormation": {
+    "name": "PkgFormation",
+    "tables": [
+        "filieres", 
+        "modules",
+        "formateurs",
+        "specialites",
+        "formateur_specialite",
+        "annee_formations"
+    ]
+},
+"PkgApprenants": {
+    "name": "PkgApprenants",
+    "tables": [
+        "villes", 
+        "groupes",
+        "niveaux_scolaires",
+        "formateur_groupe",
+        "apprenant_groupe",
+        "apprenants",
+        "nationalites",
+        "apprenant_konosies"
+    ]
+},
+
+"PkgCompetences": {
+    "name": "PkgCompetences",
+    "tables": [
+        "niveau_difficultes",
+        "appreciations",
+        "competences",
+        "niveau_competences",
+        "category_technologies",
+        "technologies",
+        "competence_technology",
+        "appreciations",
+         "technology_transfert_competence"
+    ]
+
+},
+"PkgCreationProjet": {
+
+    "name": "PkgCreationProjet",
+    "tables": [
+        "nature_livrables",
+        "projets",
+        "resources",
+        "livrables",
+        "transfert_competences"
+    ]
+
+},
+"PkgRealisationProjets": {
+
+    "name": "PkgRealisationProjets",
+    "tables": [
+        "etats_realisation_projets",
+        "affectation_projets",
+        "realisation_projets",
+        "livrables_realisations",
+        "validations"
+    ]
+
+}
+
+
+
+        
+}
+

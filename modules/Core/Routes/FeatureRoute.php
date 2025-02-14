@@ -14,8 +14,11 @@ Route::middleware('auth')->group(function () {
         Route::resource('features', FeatureController::class);
         // Routes supplémentaires avec préfixe
         Route::prefix('data')->group(function () {
-            Route::get('features/export', [FeatureController::class, 'export'])->name('features.export');
             Route::post('features/import', [FeatureController::class, 'import'])->name('features.import');
+            Route::get('features/export/{format}', [FeatureController::class, 'export'])
+            ->where('format', 'csv|xlsx')
+            ->name('features.export');
+
         });
 
         Route::post('features/data-calcul', [FeatureController::class, 'dataCalcul'])->name('features.dataCalcul');

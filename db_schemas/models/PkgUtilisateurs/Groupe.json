@@ -1,0 +1,170 @@
+{
+    "name": "Groupe",
+    "icon": "fa-cubes",
+    "attributes": [
+        {
+            "name": "id",
+            "type": "Integer",
+            "metaAttributes": {
+                "general": {
+                    "required": true
+                },
+                "tables": {
+                    "displayInTable": true
+                },
+                "database": {
+                    "db_nullable": false,
+                    "db_primaryKey": true,
+                    "db_unique": false
+                }
+            }
+        },
+        {
+            "name": "code",
+            "type": "String",
+            "metaAttributes": {
+                "general": {
+                    "displayField": true,
+                    "required": true
+                },
+                "tables": {
+                    "displayInTable": true
+                },
+                "database": {
+                    "db_nullable": false,
+                    "db_primaryKey": false,
+                    "db_unique": false
+                }
+            }
+        },
+        {
+            "name": "nom",
+            "type": "String",
+            "metaAttributes": {
+                "general": {
+                    "displayField": true
+                },
+                "tables": {
+                    "displayInTable": true
+                },
+                "database": {
+                    "db_nullable": true,
+                    "db_primaryKey": false,
+                    "db_unique": false
+                }
+            }
+        },
+        {
+            "name": "description",
+            "type": "Text",
+            "metaAttributes": {
+                "tables": {
+                    "displayInTable": false
+                },
+                "database": {
+                    "db_nullable": true,
+                    "db_primaryKey": false,
+                    "db_unique": false
+                }
+            }
+        },
+        {
+            "name": "filiere_id",
+            "type": "ManyToOne",
+            "metaAttributes": {
+                "tables": {
+                    "displayInTable": true
+                },
+                "relations": {
+                    "manyToOne": true,
+                    "relationType": "ManyToOne",
+                    "targetModelName": "Filiere",
+                    "targetTable": "filieres"
+                },
+                "database": {
+                    "db_nullable": true,
+                    "db_primaryKey": false,
+                    "db_unique": false
+                }
+            }
+        },
+        {
+            "name": "created_at",
+            "type": "Date",
+            "metaAttributes": {
+                "tables": {
+                    "displayInTable": true
+                },
+                "database": {
+                    "db_nullable": true,
+                    "db_primaryKey": false,
+                    "db_unique": false
+                }
+            }
+        },
+        {
+            "name": "updated_at",
+            "type": "Date",
+            "metaAttributes": {
+                "tables": {
+                    "displayInTable": true
+                },
+                "database": {
+                    "db_nullable": true,
+                    "db_primaryKey": false,
+                    "db_unique": false
+                }
+            }
+        },
+        {
+            "name": "Formateur_ManyToMany",
+            "type": "ManyToMany",
+            "metaAttributes": {
+                "relations": {
+                    "relationType": "ManyToMany",
+                    "targetTable": "formateurs",
+                    "throughTable": "formateur_groupe"
+                },
+                "tables": {
+                    "displayInTable": true
+                }
+            }
+        },
+        {
+            "name": "Apprenant_HasMany",
+            "type": "HasMany",
+            "metaAttributes": {
+                "relations": {
+                    "relationType": "HasMany",
+                    "targetModelName": "Apprenant",
+                    "targetTable": "apprenants"
+                }
+            }
+        }
+    ],
+    "oneToOneRelations": [],
+    "manyToOneRelations": [
+        {
+            "column": "filiere_id",
+            "referencedTable": "filieres",
+            "referencedColumn": "id"
+        }
+    ],
+    "hasManyRelations": [
+        {
+            "referencedTable": "apprenants",
+            "columnName": "groupe_id"
+        }
+    ],
+    "manyToManyRelations": [
+        {
+            "through": "formateur_groupe",
+            "with": "formateurs",
+            "columnName": "formateur_id"
+        }
+    ],
+    "metaModels": {
+        "creationOrder": 25,
+        "isPivotTable": false
+    }
+}

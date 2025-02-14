@@ -26,8 +26,8 @@ class BaseFormateur extends BaseModel
 {
     use HasFactory, HasDynamicContext;
 
-    public function __construct() {
-        parent::__construct(); 
+    public function __construct(array $attributes = []) {
+        parent::__construct($attributes); 
         $this->isOwnedByUser =  false;
     }
 
@@ -41,9 +41,13 @@ class BaseFormateur extends BaseModel
         'matricule', 'nom', 'prenom', 'prenom_arab', 'nom_arab', 'tele_num', 'adresse', 'diplome', 'echelle', 'echelon', 'profile_image', 'user_id'
     ];
     public $manyToMany = [
-        'groupes',
-        'specialites'
+        'Groupe' => ['relation' => 'groupes' , "foreign_key" => "groupe_id" ],
+        'Specialite' => ['relation' => 'specialites' , "foreign_key" => "specialite_id" ]
     ];
+
+       
+
+
 
     /**
      * Relation BelongsTo pour User.

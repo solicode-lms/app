@@ -1,14 +1,19 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
 
+
+// - Affectation de projet : fa-user-check
+// - État de Réalisation du Projet : fa-star-half
+// - Livrable de Réalisation : fa-file-code
+// - Réalisation de Projet : fa-code-branch , fa-laptop-code
+// - Validation : fa-check-circle
 
 return [
-    'singular' => 'AffectationProjet',
-    'plural' => 'AffectationProjets',
-    'date_debut' => 'date_debut',
-    'date_fin' => 'date_fin',
-    'annee_formation_id' => 'annee_formation_id',
-    'groupe_id' => 'groupe_id',
-    'projet_id' => 'projet_id',
-    'description' => 'description',
+    'singular' => 'Affectation de projet',
+    'plural' => 'Affectations de projets',
+    'date_debut' => 'Date de début',
+    'date_fin' => 'Date de fin',
+    'annee_formation_id' => 'Année de formation',
+    'groupe_id' => 'Groupe',
+    'projet_id' => 'Projet',
+    'description' => 'Description',
 ];

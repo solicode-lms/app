@@ -9,7 +9,9 @@ use Modules\PkgGapp\Services\EDataFieldService;
 use Modules\PkgGapp\Services\EMetadatumService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
+use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgGapp\App\Requests\EModelRequest;
+use Modules\PkgGapp\Models\EModel;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgGapp\App\Exports\EModelExport;
 use Modules\PkgGapp\App\Imports\EModelImport;
@@ -27,10 +29,14 @@ class BaseEModelController extends AdminController
     }
 
     public function index(Request $request) {
+        
+        $this->viewState->setContextKeyIfEmpty('eModel.index');
+
+
         // Extraire les paramètres de recherche, page, et filtres
         $eModels_params = array_merge(
             $request->only(['page','sort']),
-            ['search' => $request->get('eModels_search', '')],
+            ['search' => $request->get('eModels_search', $this->viewState->get("filter.eModel.eModels_search"))],
             $request->except(['eModels_search', 'page', 'sort'])
         );
 
@@ -63,13 +69,14 @@ class BaseEModelController extends AdminController
         $eModel = $this->eModelService->create($validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 
-            'entity_id' => $eModel->id,
-            'message' => 
-             __('Core::msg.addSuccess', [
+             $message = __('Core::msg.addSuccess', [
                 'entityToString' => $eModel,
-                'modelName' => __('PkgGapp::eModel.singular')])
-            ]);
+                'modelName' => __('PkgGapp::eModel.singular')]);
+        
+            return JsonResponseHelper::success(
+             $message,
+             ['entity_id' => $eModel->id]
+            );
         }
 
         return redirect()->route('eModels.edit',['eModel' => $eModel->id])->with(
@@ -81,42 +88,22 @@ class BaseEModelController extends AdminController
         );
     }
     public function show(string $id) {
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('e_model_id', $id);
-        
-        $itemEModel = $this->eModelService->find($id);
-        $ePackages = $this->ePackageService->all();
-        $eDataFieldService =  new EDataFieldService();
-        $eDataFields_data =  $itemEModel->eDataFields()->paginate(10);
-        $eDataFields_stats = $eDataFieldService->geteDataFieldStats();
-        $eDataFields_filters = $eDataFieldService->getFieldsFilterable();
-        
-        $eMetadatumService =  new EMetadatumService();
-        $eMetadata_data =  $itemEModel->eMetadata()->paginate(10);
-        $eMetadata_stats = $eMetadatumService->geteMetadatumStats();
-        $eMetadata_filters = $eMetadatumService->getFieldsFilterable();
-        
-
-        if (request()->ajax()) {
-            return view('PkgGapp::eModel._edit', compact('itemEModel', 'ePackages', 'eDataFields_data', 'eMetadata_data', 'eDataFields_stats', 'eMetadata_stats', 'eDataFields_filters', 'eMetadata_filters'));
-        }
-
-        return view('PkgGapp::eModel.edit', compact('itemEModel', 'ePackages', 'eDataFields_data', 'eMetadata_data', 'eDataFields_stats', 'eMetadata_stats', 'eDataFields_filters', 'eMetadata_filters'));
-
+        return $this->edit( $id);
     }
     public function edit(string $id) {
 
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('e_model_id', $id);
-        
+        $this->viewState->setContextKey('eModel.edit_' . $id);
+
         $itemEModel = $this->eModelService->find($id);
         $ePackages = $this->ePackageService->all();
+
+        $this->viewState->set('scope.eDataField.e_model_id', $id);
         $eDataFieldService =  new EDataFieldService();
         $eDataFields_data =  $itemEModel->eDataFields()->paginate(10);
         $eDataFields_stats = $eDataFieldService->geteDataFieldStats();
         $eDataFields_filters = $eDataFieldService->getFieldsFilterable();
         
+        $this->viewState->set('scope.eMetadatum.e_model_id', $id);
         $eMetadatumService =  new EMetadatumService();
         $eMetadata_data =  $itemEModel->eMetadata()->paginate(10);
         $eMetadata_stats = $eMetadatumService->geteMetadatumStats();
@@ -136,11 +123,14 @@ class BaseEModelController extends AdminController
         $eModel = $this->eModelService->update($id, $validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.updateSuccess', [
+             $message = __('Core::msg.updateSuccess', [
                 'entityToString' => $eModel,
-                'modelName' =>  __('PkgGapp::eModel.singular')])
-            ]);
+                'modelName' =>  __('PkgGapp::eModel.singular')]);
+            
+            return JsonResponseHelper::success(
+                $message,
+                ['entity_id' => $eModel->id]
+            );
         }
 
         return redirect()->route('eModels.index')->with(
@@ -157,11 +147,14 @@ class BaseEModelController extends AdminController
         $eModel = $this->eModelService->destroy($id);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.deleteSuccess', [
+            $message = __('Core::msg.deleteSuccess', [
                 'entityToString' => $eModel,
-                'modelName' =>  __('PkgGapp::eModel.singular')])
-            ]);
+                'modelName' =>  __('PkgGapp::eModel.singular')]);
+            
+
+            return JsonResponseHelper::success(
+                $message
+            );
         }
 
         return redirect()->route('eModels.index')->with(
@@ -174,10 +167,18 @@ class BaseEModelController extends AdminController
 
     }
 
-    public function export()
+    public function export($format)
     {
         $eModels_data = $this->eModelService->all();
-        return Excel::download(new EModelExport($eModels_data), 'eModel_export.xlsx');
+        
+        // Vérifier le format et exporter en conséquence
+        if ($format === 'csv') {
+            return Excel::download(new EModelExport($eModels_data,'csv'), 'eModel_export.csv', \Maatwebsite\Excel\Excel::CSV, ['Content-Type' => 'text/csv']);
+        } elseif ($format === 'xlsx') {
+            return Excel::download(new EModelExport($eModels_data,'xlsx'), 'eModel_export.xlsx', \Maatwebsite\Excel\Excel::XLSX);
+        } else {
+            return response()->json(['error' => 'Format non supporté'], 400);
+        }
     }
 
     public function import(Request $request)

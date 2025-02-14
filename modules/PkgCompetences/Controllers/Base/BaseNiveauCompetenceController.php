@@ -7,7 +7,9 @@ use Modules\PkgCompetences\Services\NiveauCompetenceService;
 use Modules\PkgCompetences\Services\CompetenceService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
+use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgCompetences\App\Requests\NiveauCompetenceRequest;
+use Modules\PkgCompetences\Models\NiveauCompetence;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgCompetences\App\Exports\NiveauCompetenceExport;
 use Modules\PkgCompetences\App\Imports\NiveauCompetenceImport;
@@ -25,10 +27,14 @@ class BaseNiveauCompetenceController extends AdminController
     }
 
     public function index(Request $request) {
+        
+        $this->viewState->setContextKeyIfEmpty('niveauCompetence.index');
+
+
         // Extraire les paramètres de recherche, page, et filtres
         $niveauCompetences_params = array_merge(
             $request->only(['page','sort']),
-            ['search' => $request->get('niveauCompetences_search', '')],
+            ['search' => $request->get('niveauCompetences_search', $this->viewState->get("filter.niveauCompetence.niveauCompetences_search"))],
             $request->except(['niveauCompetences_search', 'page', 'sort'])
         );
 
@@ -61,13 +67,14 @@ class BaseNiveauCompetenceController extends AdminController
         $niveauCompetence = $this->niveauCompetenceService->create($validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 
-            'entity_id' => $niveauCompetence->id,
-            'message' => 
-             __('Core::msg.addSuccess', [
+             $message = __('Core::msg.addSuccess', [
                 'entityToString' => $niveauCompetence,
-                'modelName' => __('PkgCompetences::niveauCompetence.singular')])
-            ]);
+                'modelName' => __('PkgCompetences::niveauCompetence.singular')]);
+        
+            return JsonResponseHelper::success(
+             $message,
+             ['entity_id' => $niveauCompetence->id]
+            );
         }
 
         return redirect()->route('niveauCompetences.index')->with(
@@ -79,27 +86,15 @@ class BaseNiveauCompetenceController extends AdminController
         );
     }
     public function show(string $id) {
-
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('niveau_competence_id', $id);
-        
-        $itemNiveauCompetence = $this->niveauCompetenceService->find($id);
-        $competences = $this->competenceService->all();
-
-        if (request()->ajax()) {
-            return view('PkgCompetences::niveauCompetence._fields', compact('itemNiveauCompetence', 'competences'));
-        }
-
-        return view('PkgCompetences::niveauCompetence.edit', compact('itemNiveauCompetence', 'competences'));
-
+        return $this->edit( $id);
     }
     public function edit(string $id) {
 
-        // Utilisé dans l'édition des relation HasMany
-        $this->contextState->set('niveau_competence_id', $id);
-        
+        $this->viewState->setContextKey('niveauCompetence.edit_' . $id);
+
         $itemNiveauCompetence = $this->niveauCompetenceService->find($id);
         $competences = $this->competenceService->all();
+
 
         if (request()->ajax()) {
             return view('PkgCompetences::niveauCompetence._fields', compact('itemNiveauCompetence', 'competences'));
@@ -114,11 +109,14 @@ class BaseNiveauCompetenceController extends AdminController
         $niveauCompetence = $this->niveauCompetenceService->update($id, $validatedData);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.updateSuccess', [
+             $message = __('Core::msg.updateSuccess', [
                 'entityToString' => $niveauCompetence,
-                'modelName' =>  __('PkgCompetences::niveauCompetence.singular')])
-            ]);
+                'modelName' =>  __('PkgCompetences::niveauCompetence.singular')]);
+            
+            return JsonResponseHelper::success(
+                $message,
+                ['entity_id' => $niveauCompetence->id]
+            );
         }
 
         return redirect()->route('niveauCompetences.index')->with(
@@ -135,11 +133,14 @@ class BaseNiveauCompetenceController extends AdminController
         $niveauCompetence = $this->niveauCompetenceService->destroy($id);
 
         if ($request->ajax()) {
-            return response()->json(['success' => true, 'message' => 
-            __('Core::msg.deleteSuccess', [
+            $message = __('Core::msg.deleteSuccess', [
                 'entityToString' => $niveauCompetence,
-                'modelName' =>  __('PkgCompetences::niveauCompetence.singular')])
-            ]);
+                'modelName' =>  __('PkgCompetences::niveauCompetence.singular')]);
+            
+
+            return JsonResponseHelper::success(
+                $message
+            );
         }
 
         return redirect()->route('niveauCompetences.index')->with(
@@ -152,10 +153,18 @@ class BaseNiveauCompetenceController extends AdminController
 
     }
 
-    public function export()
+    public function export($format)
     {
         $niveauCompetences_data = $this->niveauCompetenceService->all();
-        return Excel::download(new NiveauCompetenceExport($niveauCompetences_data), 'niveauCompetence_export.xlsx');
+        
+        // Vérifier le format et exporter en conséquence
+        if ($format === 'csv') {
+            return Excel::download(new NiveauCompetenceExport($niveauCompetences_data,'csv'), 'niveauCompetence_export.csv', \Maatwebsite\Excel\Excel::CSV, ['Content-Type' => 'text/csv']);
+        } elseif ($format === 'xlsx') {
+            return Excel::download(new NiveauCompetenceExport($niveauCompetences_data,'xlsx'), 'niveauCompetence_export.xlsx', \Maatwebsite\Excel\Excel::XLSX);
+        } else {
+            return response()->json(['error' => 'Format non supporté'], 400);
+        }
     }
 
     public function import(Request $request)

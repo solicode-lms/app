@@ -1,6 +1,7 @@
 import { AjaxErrorHandler } from '../components/AjaxErrorHandler';
 import { Action } from './Action';
 import EventUtil from '../utils/EventUtil';
+import { NotificationHandler } from '../components/NotificationHandler';
 
 export class EditAction extends Action {
 
@@ -30,13 +31,10 @@ export class EditAction extends Action {
 
         let editUrl = this.getUrlWithId(this.config.editUrl, id); // Générer l'URL dynamique
         
-
-        const filter_context_data= this.tableUI.indexUI.filterUI.getFormDataAsFilterContext();
-        this.contextService.addData(filter_context_data);
-
+        
         editUrl = this.appendParamsToUrl(
             editUrl,
-            this.contextService.getContextParams()
+            this.viewStateService.getContextParams()
         );
 
         // Add filter params to context 
@@ -94,8 +92,9 @@ export class EditAction extends Action {
                 data: formData,
             })
                 .done((data) => {
+
                     this.tableUI.indexUI.formUI.loader.hide();
-                    this.handleSuccess(data.message);
+                    NotificationHandler.show(data.type,data.title,data.message);
                     this.tableUI.indexUI.modalUI.close(); // Fermer le modal après succès
 
                      // Appeler le callback de succès si fourni

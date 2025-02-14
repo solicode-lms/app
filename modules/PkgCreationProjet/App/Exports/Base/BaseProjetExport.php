@@ -12,27 +12,43 @@ use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Style\Border;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
 
 class BaseProjetExport implements FromCollection, WithHeadings, ShouldAutoSize, WithStyles
 {
     protected $data;
 
-    public function __construct($data)
+    public function __construct($data,$format)
     {
         $this->data = $data;
+        $this->format = $format;
     }
 
     public function headings(): array
     {
+     if($this->format == 'csv'){
         return [
-            'titre',
-            'travail_a_faire',
-            'critere_de_travail',
-            'nombre_jour',
-            'description',
-            'formateur_id',
-            'reference',
+            'titre' => 'titre',
+            'travail_a_faire' => 'travail_a_faire',
+            'critere_de_travail' => 'critere_de_travail',
+            'nombre_jour' => 'nombre_jour',
+            'description' => 'description',
+            'reference' => 'reference',
+            'formateur_id' => 'formateur_id',
         ];
+        }else{
+        return [
+            'titre' => __('PkgCreationProjet::projet.titre'),
+            'travail_a_faire' => __('PkgCreationProjet::projet.travail_a_faire'),
+            'critere_de_travail' => __('PkgCreationProjet::projet.critere_de_travail'),
+            'nombre_jour' => __('PkgCreationProjet::projet.nombre_jour'),
+            'description' => __('PkgCreationProjet::projet.description'),
+            'reference' => __('Core::msg.reference'),
+            'formateur_id' => __('PkgCreationProjet::projet.formateur_id'),
+        ];
+
+        }
+   
     }
 
     public function collection()
@@ -44,8 +60,8 @@ class BaseProjetExport implements FromCollection, WithHeadings, ShouldAutoSize, 
                 'critere_de_travail' => $projet->critere_de_travail,
                 'nombre_jour' => $projet->nombre_jour,
                 'description' => $projet->description,
-                'formateur_id' => $projet->formateur_id,
                 'reference' => $projet->reference,
+                'formateur_id' => $projet->formateur_id,
             ];
         });
     }
@@ -53,8 +69,10 @@ class BaseProjetExport implements FromCollection, WithHeadings, ShouldAutoSize, 
     public function styles(Worksheet $sheet)
     {
         $lastRow = $sheet->getHighestRow();
+        $lastColumn = $sheet->getHighestColumn();
 
-        $sheet->getStyle("A1:Z{$lastRow}")->applyFromArray([
+        // Appliquer les bordures à toutes les cellules contenant des données
+        $sheet->getStyle("A1:{$lastColumn}{$lastRow}")->applyFromArray([
             'borders' => [
                 'allBorders' => [
                     'borderStyle' => Border::BORDER_THIN,
@@ -63,16 +81,26 @@ class BaseProjetExport implements FromCollection, WithHeadings, ShouldAutoSize, 
             ],
         ]);
 
-        $sheet->getStyle("A1:Z1")->applyFromArray([
+        // Appliquer un style spécifique aux en-têtes (ligne 1)
+        $sheet->getStyle("A1:{$lastColumn}1")->applyFromArray([
             'font' => [
                 'bold' => true,
+                'size' => 12,
+                'color' => ['argb' => 'FFFFFF'], // Texte blanc
             ],
             'fill' => [
-                'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
-                'startColor' => [
-                    'argb' => 'FFD3D3D3',
-                ],
+                'fillType' => Fill::FILL_SOLID,
+                'startColor' => ['argb' => '4F81BD'], // Fond bleu
+            ],
+            'alignment' => [
+                'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+                'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
             ],
         ]);
+
+        // Ajuster automatiquement la largeur des colonnes
+        foreach (range('A', $lastColumn) as $column) {
+            $sheet->getColumnDimension($column)->setAutoSize(true);
+        }
     }
 }
