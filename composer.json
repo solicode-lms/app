@@ -32,7 +32,8 @@
         } ,
         "files": [
             "app/helpers/ModulesHelpers.php",
-            "app/helpers/TranslationHelper.php"
+            "app/helpers/TranslationHelper.php",
+            "app/helpers/TextHelper.php"
         ]   
     },
     "autoload-dev": {
