@@ -27,9 +27,9 @@ class BaseEtatsRealisationProjetRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'formateur_id' => 'required',
             'titre' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'formateur_id' => 'required'
+            'description' => 'nullable|string'
         ];
     }
 
@@ -41,10 +41,10 @@ class BaseEtatsRealisationProjetRequest extends FormRequest
     public function messages(): array
     {
         return [
+            'formateur_id.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::EtatsRealisationProjet.formateur_id')]),
             'titre.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::EtatsRealisationProjet.titre')]),
             'titre.max' => __('validation.titreMax'),
-            'description.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::EtatsRealisationProjet.description')]),
-            'formateur_id.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::EtatsRealisationProjet.formateur_id')])
+            'description.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::EtatsRealisationProjet.description')])
         ];
     }
 }

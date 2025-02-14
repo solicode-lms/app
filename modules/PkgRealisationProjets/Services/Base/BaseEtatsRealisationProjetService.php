@@ -19,9 +19,9 @@ class BaseEtatsRealisationProjetService extends BaseService
      * @var array
      */
     protected $fieldsSearchable = [
+        'formateur_id',
         'titre',
-        'description',
-        'formateur_id'
+        'description'
     ];
 
     /**
@@ -40,12 +40,14 @@ class BaseEtatsRealisationProjetService extends BaseService
     public function __construct()
     {
         parent::__construct(new EtatsRealisationProjet());
+        $this->fieldsFilterable = [];
+    }
 
-        // Initialiser les filtres configurables dynamiquement
+    public function initFieldsFilterable(){
+       // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
             $this->generateManyToOneFilter(__("PkgFormation::formateur.plural"), 'formateur_id', \Modules\PkgFormation\Models\Formateur::class, 'nom'),
         ];
-
     }
 
     /**

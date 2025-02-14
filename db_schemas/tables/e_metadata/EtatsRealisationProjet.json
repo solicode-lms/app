@@ -80,7 +80,8 @@
     },
     {
         "reference": "EtatsRealisationProjet_formateur_id_displayOrder",
-        "value_integer": 4,
+        "value_integer": 1,
+        "value_float": 0,
         "e_data_field_reference": "EtatsRealisationProjet_formateur_id",
         "e_metadata_definition_reference": "displayOrder"
     },

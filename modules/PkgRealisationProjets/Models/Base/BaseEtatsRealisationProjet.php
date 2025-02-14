@@ -34,7 +34,7 @@ class BaseEtatsRealisationProjet extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'titre', 'description', 'formateur_id'
+        'formateur_id', 'titre', 'description'
     ];
 
     /**
