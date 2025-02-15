@@ -32,7 +32,6 @@ class BaseUserController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('user.index');
 
-
         // Extraire les paramètres de recherche, page, et filtres
         $users_params = array_merge(
             $request->only(['page','sort']),

@@ -61,7 +61,8 @@
     },
     {
         "reference": "users_iconModel",
-        "value_string": "fa-user-circle1",
+        "value_string": "fa-user",
+        "value_float": 0,
         "e_model_reference": "users",
         "e_metadata_definition_reference": "iconModel"
     },

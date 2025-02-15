@@ -76,5 +76,11 @@
         "value_boolean": 1,
         "e_model_reference": "model_has_roles",
         "e_metadata_definition_reference": "displayInSideBar"
+    },
+    {
+        "reference": "model_has_roles_iconModel",
+        "value_string": "fa-table",
+        "e_model_reference": "model_has_roles",
+        "e_metadata_definition_reference": "iconModel"
     }
 ]

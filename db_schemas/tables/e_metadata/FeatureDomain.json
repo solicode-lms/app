@@ -178,5 +178,11 @@
         "value_boolean": 1,
         "e_model_reference": "feature_domains",
         "e_metadata_definition_reference": "displayInSideBar"
+    },
+    {
+        "reference": "feature_domains_iconModel",
+        "value_string": "fa-table",
+        "e_model_reference": "feature_domains",
+        "e_metadata_definition_reference": "iconModel"
     }
 ]

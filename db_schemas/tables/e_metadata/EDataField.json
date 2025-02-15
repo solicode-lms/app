@@ -327,5 +327,11 @@
         "value_boolean": 1,
         "e_model_reference": "e_data_fields",
         "e_metadata_definition_reference": "displayInSideBar"
+    },
+    {
+        "reference": "e_data_fields_iconModel",
+        "value_string": "fa-table",
+        "e_model_reference": "e_data_fields",
+        "e_metadata_definition_reference": "iconModel"
     }
 ]
