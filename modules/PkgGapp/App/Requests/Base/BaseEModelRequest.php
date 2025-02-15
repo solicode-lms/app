@@ -30,7 +30,7 @@ class BaseEModelRequest extends FormRequest
             'icon' => 'nullable|string|max:255',
             'name' => 'required|string|max:255',
             'table_name' => 'required|string|max:255',
-            'is_pivot_table' => 'required|integer',
+            'is_pivot_table' => 'required|boolean',
             'description' => 'nullable|string',
             'e_package_id' => 'required'
         ];

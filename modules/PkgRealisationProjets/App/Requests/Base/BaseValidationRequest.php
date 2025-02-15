@@ -29,7 +29,7 @@ class BaseValidationRequest extends FormRequest
         return [
             'note' => 'nullable',
             'message' => 'nullable|string|max:255',
-            'is_valide' => 'required|integer',
+            'is_valide' => 'required|boolean',
             'transfert_competence_id' => 'required',
             'realisation_projet_id' => 'required'
         ];

@@ -110,15 +110,16 @@
                     <span class="text-danger">*</span>
                 
             </label>
+            <input type="hidden" name="is_active" value="0">
             <input
                 name="is_active"
-                type="number"
+                type="checkbox"
                 class="form-control"
                 required
                 
                 id="is_active"
-                placeholder="{{ __('Core::sysController.is_active') }}"
-                value="{{ $itemSysController ? $itemSysController->is_active : old('is_active') }}">
+                value="1"
+                {{ old('is_active', $itemSysController ? $itemSysController->is_active : 0) ? 'checked' : '' }}>
             @error('is_active')
                 <div class="text-danger">{{ $message }}</div>
             @enderror

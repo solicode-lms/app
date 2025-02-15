@@ -61,15 +61,16 @@
                     <span class="text-danger">*</span>
                 
             </label>
+            <input type="hidden" name="is_pivot_table" value="0">
             <input
                 name="is_pivot_table"
-                type="number"
+                type="checkbox"
                 class="form-control"
                 required
                 
                 id="is_pivot_table"
-                placeholder="{{ __('PkgGapp::eModel.is_pivot_table') }}"
-                value="{{ $itemEModel ? $itemEModel->is_pivot_table : old('is_pivot_table') }}">
+                value="1"
+                {{ old('is_pivot_table', $itemEModel ? $itemEModel->is_pivot_table : 0) ? 'checked' : '' }}>
             @error('is_pivot_table')
                 <div class="text-danger">{{ $message }}</div>
             @enderror

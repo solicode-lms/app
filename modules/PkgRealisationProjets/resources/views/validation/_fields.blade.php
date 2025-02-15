@@ -31,7 +31,6 @@
 </div>
 
 
-
         
         <div class="form-group">
             <label for="message">
@@ -60,15 +59,16 @@
                     <span class="text-danger">*</span>
                 
             </label>
+            <input type="hidden" name="is_valide" value="0">
             <input
                 name="is_valide"
-                type="number"
+                type="checkbox"
                 class="form-control"
                 required
                 
                 id="is_valide"
-                placeholder="{{ __('PkgRealisationProjets::validation.is_valide') }}"
-                value="{{ $itemValidation ? $itemValidation->is_valide : old('is_valide') }}">
+                value="1"
+                {{ old('is_valide', $itemValidation ? $itemValidation->is_valide : 0) ? 'checked' : '' }}>
             @error('is_valide')
                 <div class="text-danger">{{ $message }}</div>
             @enderror

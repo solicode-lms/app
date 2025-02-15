@@ -28,7 +28,7 @@ class BaseEMetadatumRequest extends FormRequest
     {
         return [
             'Value' => 'nullable',
-            'value_boolean' => 'nullable|integer',
+            'value_boolean' => 'nullable|boolean',
             'value_string' => 'nullable|string|max:255',
             'value_integer' => 'nullable|integer',
             'value_float' => 'nullable',

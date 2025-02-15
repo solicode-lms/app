@@ -119,15 +119,16 @@
                     <span class="text-danger">*</span>
                 
             </label>
+            <input type="hidden" name="cascade_on_delete" value="0">
             <input
                 name="cascade_on_delete"
-                type="number"
+                type="checkbox"
                 class="form-control"
                 required
                 
                 id="cascade_on_delete"
-                placeholder="{{ __('PkgGapp::eRelationship.cascade_on_delete') }}"
-                value="{{ $itemERelationship ? $itemERelationship->cascade_on_delete : old('cascade_on_delete') }}">
+                value="1"
+                {{ old('cascade_on_delete', $itemERelationship ? $itemERelationship->cascade_on_delete : 0) ? 'checked' : '' }}>
             @error('cascade_on_delete')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -141,15 +142,16 @@
                     <span class="text-danger">*</span>
                 
             </label>
+            <input type="hidden" name="is_cascade" value="0">
             <input
                 name="is_cascade"
-                type="number"
+                type="checkbox"
                 class="form-control"
                 required
                 
                 id="is_cascade"
-                placeholder="{{ __('PkgGapp::eRelationship.is_cascade') }}"
-                value="{{ $itemERelationship ? $itemERelationship->is_cascade : old('is_cascade') }}">
+                value="1"
+                {{ old('is_cascade', $itemERelationship ? $itemERelationship->is_cascade : 0) ? 'checked' : '' }}>
             @error('is_cascade')
                 <div class="text-danger">{{ $message }}</div>
             @enderror

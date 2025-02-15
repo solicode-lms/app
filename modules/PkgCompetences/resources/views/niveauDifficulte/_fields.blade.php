@@ -55,7 +55,6 @@
 </div>
 
 
-
         
         <div class="form-group">
     <label for="noteMax">
@@ -78,7 +77,6 @@
         <div class="text-danger">{{ $message }}</div>
     @enderror
 </div>
-
 
 
         

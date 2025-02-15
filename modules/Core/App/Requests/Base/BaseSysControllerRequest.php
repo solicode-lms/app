@@ -31,7 +31,7 @@ class BaseSysControllerRequest extends FormRequest
             'name' => 'required|string|max:255',
             'slug' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'is_active' => 'required|integer'
+            'is_active' => 'required|boolean'
         ];
     }
 
