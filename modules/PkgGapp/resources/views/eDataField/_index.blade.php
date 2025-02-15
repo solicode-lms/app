@@ -33,7 +33,7 @@
        $titre = __("PkgGapp::eDataField.singular");
     @endphp
     <x-crud-header 
-        id="eDataField-crud-header" icon="fas fa-table"  
+        id="eDataField-crud-header" icon="fas fa-th"  
         iconColor="text-info"
         title="{{ __('PkgGapp::eDataField.plural') }}"
         :breadcrumbs="[

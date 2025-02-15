@@ -33,7 +33,7 @@
        $titre = __("PkgGapp::ePackage.singular");
     @endphp
     <x-crud-header 
-        id="ePackage-crud-header" icon="fas fa-table"  
+        id="ePackage-crud-header" icon="fas fa-box"  
         iconColor="text-info"
         title="{{ __('PkgGapp::ePackage.plural') }}"
         :breadcrumbs="[

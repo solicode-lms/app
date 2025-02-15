@@ -150,7 +150,8 @@
     },
     {
         "reference": "EDataField_data_type_displayOrder",
-        "value_integer": 5,
+        "value_integer": 14,
+        "value_float": 0,
         "e_data_field_reference": "EDataField_data_type",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -330,7 +331,8 @@
     },
     {
         "reference": "e_data_fields_iconModel",
-        "value_string": "fa-table",
+        "value_string": "fa-th",
+        "value_float": 0,
         "e_model_reference": "e_data_fields",
         "e_metadata_definition_reference": "iconModel"
     },

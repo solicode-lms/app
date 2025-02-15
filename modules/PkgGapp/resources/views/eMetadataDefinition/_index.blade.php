@@ -33,7 +33,7 @@
        $titre = __("PkgGapp::eMetadataDefinition.singular");
     @endphp
     <x-crud-header 
-        id="eMetadataDefinition-crud-header" icon="fas fa-table"  
+        id="eMetadataDefinition-crud-header" icon="fas fa-database"  
         iconColor="text-info"
         title="{{ __('PkgGapp::eMetadataDefinition.plural') }}"
         :breadcrumbs="[

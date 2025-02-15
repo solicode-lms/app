@@ -22,7 +22,6 @@ class BaseEDataFieldService extends BaseService
         'order',
         'name',
         'column_name',
-        'data_type',
         'field_order',
         'db_nullable',
         'db_primaryKey',
@@ -30,7 +29,8 @@ class BaseEDataFieldService extends BaseService
         'default_value',
         'description',
         'e_model_id',
-        'e_relationship_id'
+        'e_relationship_id',
+        'data_type'
     ];
 
     /**
@@ -55,9 +55,9 @@ class BaseEDataFieldService extends BaseService
     public function initFieldsFilterable(){
        // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
-            ['field' => 'data_type', 'type' => 'String', 'label' => 'data_type'],
             $this->generateManyToOneFilter(__("PkgGapp::eModel.plural"), 'e_model_id', \Modules\PkgGapp\Models\EModel::class, 'name'),
             $this->generateManyToOneFilter(__("PkgGapp::eRelationship.plural"), 'e_relationship_id', \Modules\PkgGapp\Models\ERelationship::class, 'name'),
+            ['field' => 'data_type', 'type' => 'String', 'label' => 'data_type'],
         ];
     }
 

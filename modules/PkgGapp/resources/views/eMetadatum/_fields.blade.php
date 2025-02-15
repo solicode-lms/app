@@ -15,15 +15,16 @@
                 {{ ucfirst(__('PkgGapp::eMetadatum.value_boolean')) }}
                 
             </label>
+            <input type="hidden" name="value_boolean" value="0">
             <input
                 name="value_boolean"
-                type="number"
+                type="checkbox"
                 class="form-control"
-                
-                
                 id="value_boolean"
                 placeholder="{{ __('PkgGapp::eMetadatum.value_boolean') }}"
-                value="{{ $itemEMetadatum ? $itemEMetadatum->value_boolean : old('value_boolean') }}">
+                value="1"
+                {{ old('value_boolean', $itemEMetadatum ? $itemEMetadatum->value_boolean : 0) ? 'checked' : '' }}>
+
             @error('value_boolean')
                 <div class="text-danger">{{ $message }}</div>
             @enderror

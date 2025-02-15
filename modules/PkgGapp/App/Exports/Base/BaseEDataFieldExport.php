@@ -32,7 +32,6 @@ class BaseEDataFieldExport implements FromCollection, WithHeadings, ShouldAutoSi
             'reference' => 'reference',
             'name' => 'name',
             'column_name' => 'column_name',
-            'data_type' => 'data_type',
             'field_order' => 'field_order',
             'db_nullable' => 'db_nullable',
             'db_primaryKey' => 'db_primaryKey',
@@ -41,6 +40,7 @@ class BaseEDataFieldExport implements FromCollection, WithHeadings, ShouldAutoSi
             'description' => 'description',
             'e_model_id' => 'e_model_id',
             'e_relationship_id' => 'e_relationship_id',
+            'data_type' => 'data_type',
         ];
         }else{
         return [
@@ -48,7 +48,6 @@ class BaseEDataFieldExport implements FromCollection, WithHeadings, ShouldAutoSi
             'reference' => __('Core::msg.reference'),
             'name' => __('PkgGapp::eDataField.name'),
             'column_name' => __('PkgGapp::eDataField.column_name'),
-            'data_type' => __('PkgGapp::eDataField.data_type'),
             'field_order' => __('PkgGapp::eDataField.field_order'),
             'db_nullable' => __('PkgGapp::eDataField.db_nullable'),
             'db_primaryKey' => __('PkgGapp::eDataField.db_primaryKey'),
@@ -57,6 +56,7 @@ class BaseEDataFieldExport implements FromCollection, WithHeadings, ShouldAutoSi
             'description' => __('PkgGapp::eDataField.description'),
             'e_model_id' => __('PkgGapp::eDataField.e_model_id'),
             'e_relationship_id' => __('PkgGapp::eDataField.e_relationship_id'),
+            'data_type' => __('PkgGapp::eDataField.data_type'),
         ];
 
         }
@@ -71,7 +71,6 @@ class BaseEDataFieldExport implements FromCollection, WithHeadings, ShouldAutoSi
                 'reference' => $eDataField->reference,
                 'name' => $eDataField->name,
                 'column_name' => $eDataField->column_name,
-                'data_type' => $eDataField->data_type,
                 'field_order' => $eDataField->field_order,
                 'db_nullable' => $eDataField->db_nullable,
                 'db_primaryKey' => $eDataField->db_primaryKey,
@@ -80,6 +79,7 @@ class BaseEDataFieldExport implements FromCollection, WithHeadings, ShouldAutoSi
                 'description' => $eDataField->description,
                 'e_model_id' => $eDataField->e_model_id,
                 'e_relationship_id' => $eDataField->e_relationship_id,
+                'data_type' => $eDataField->data_type,
             ];
         });
     }

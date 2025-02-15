@@ -55,28 +55,6 @@
 
         
         <div class="form-group">
-            <label for="data_type">
-                {{ ucfirst(__('PkgGapp::eDataField.data_type')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
-                name="data_type"
-                type="input"
-                class="form-control"
-                required
-                
-                id="data_type"
-                placeholder="{{ __('PkgGapp::eDataField.data_type') }}"
-                value="{{ $itemEDataField ? $itemEDataField->data_type : old('data_type') }}">
-            @error('data_type')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
-
-        
-        <div class="form-group">
             <label for="field_order">
                 {{ ucfirst(__('PkgGapp::eDataField.field_order')) }}
                 
@@ -258,6 +236,28 @@
             @enderror
     </div>
 
+
+        
+        <div class="form-group">
+            <label for="data_type">
+                {{ ucfirst(__('PkgGapp::eDataField.data_type')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <input
+                name="data_type"
+                type="input"
+                class="form-control"
+                required
+                
+                id="data_type"
+                placeholder="{{ __('PkgGapp::eDataField.data_type') }}"
+                value="{{ $itemEDataField ? $itemEDataField->data_type : old('data_type') }}">
+            @error('data_type')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
 
         
 

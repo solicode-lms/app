@@ -33,7 +33,7 @@
        $titre = __("PkgGapp::eMetadatum.singular");
     @endphp
     <x-crud-header 
-        id="eMetadatum-crud-header" icon="fas fa-table"  
+        id="eMetadatum-crud-header" icon="fas fa-th-list"  
         iconColor="text-info"
         title="{{ __('PkgGapp::eMetadatum.plural') }}"
         :breadcrumbs="[

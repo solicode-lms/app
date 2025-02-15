@@ -33,7 +33,7 @@
        $titre = __("PkgGapp::eRelationship.singular");
     @endphp
     <x-crud-header 
-        id="eRelationship-crud-header" icon="fas fa-table"  
+        id="eRelationship-crud-header" icon="fas fa-directions"  
         iconColor="text-info"
         title="{{ __('PkgGapp::eRelationship.plural') }}"
         :breadcrumbs="[

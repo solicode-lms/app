@@ -33,7 +33,7 @@
        $titre = __("Core::sysController.singular");
     @endphp
     <x-crud-header 
-        id="sysController-crud-header" icon="fas fa-table"  
+        id="sysController-crud-header" icon="fas fa-server"  
         iconColor="text-info"
         title="{{ __('Core::sysController.plural') }}"
         :breadcrumbs="[

@@ -38,6 +38,7 @@
     {
         "reference": "User_password_displayInTable",
         "value_boolean": 1,
+        "value_float": 0,
         "e_data_field_reference": "User_password",
         "e_metadata_definition_reference": "displayInTable"
     },
