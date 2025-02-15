@@ -533,7 +533,7 @@
         "name": "computableFields",
         "type": "Json",
         "scope": "model",
-        "default_value": "{     \"name\": \"Value\",     \"method\": \"getValue\",     \"dispalyOrder\": 10   }",
+        "default_value": "[             {                 \"name\": \"Value\",                 \"label\": \"Value\",                 \"method\": \"getValue\",                 \"dispalyOrder\": 10             }         ]",
         "groupe": "model",
         "description": "Le traitement **ComputableField** permet d’obtenir une valeur calculée dynamiquement en fonction d’une méthode définie.",
         "created_at": null,

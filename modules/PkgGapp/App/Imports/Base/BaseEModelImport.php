@@ -56,13 +56,14 @@ class BaseEModelImport implements ToModel, WithHeadingRow
 
         // Création d'un nouvel enregistrement
         return new EModel([
+             'icon' => $values[0] ?? null,
              'reference' => $reference,
-             'name' => $values[1] ?? null,
-             'table_name' => $values[2] ?? null,
-             'icon' => $values[3] ?? null,
-             'is_pivot_table' => $values[4] ?? null,
-             'description' => $values[5] ?? null,
-             'e_package_id' => $values[6] ?? null,
+             'name' => $values[2] ?? null,
+             'table_name' => $values[3] ?? null,
+             'icon' => $values[4] ?? null,
+             'is_pivot_table' => $values[5] ?? null,
+             'description' => $values[6] ?? null,
+             'e_package_id' => $values[7] ?? null,
         ]);
 
 

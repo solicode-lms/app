@@ -19,6 +19,7 @@ class BaseEModelService extends BaseService
      * @var array
      */
     protected $fieldsSearchable = [
+        'icon',
         'name',
         'table_name',
         'icon',
@@ -43,12 +44,14 @@ class BaseEModelService extends BaseService
     public function __construct()
     {
         parent::__construct(new EModel());
+        $this->fieldsFilterable = [];
+    }
 
-        // Initialiser les filtres configurables dynamiquement
+    public function initFieldsFilterable(){
+       // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
             $this->generateManyToOneFilter(__("PkgGapp::ePackage.plural"), 'e_package_id', \Modules\PkgGapp\Models\EPackage::class, 'name'),
         ];
-
     }
 
     /**

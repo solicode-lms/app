@@ -1,15 +1,14 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 return [
-    'singular' => 'SysModule',
-    'plural' => 'SysModules',
-    'name' => 'name',
-    'slug' => 'slug',
-    'description' => 'description',
-    'is_active' => 'is_active',
-    'order' => 'order',
-    'version' => 'version',
-    'sys_color_id' => 'sys_color_id',
+    'singular' => 'Module',
+    'plural' => 'Modules',
+    'name' => 'Nom',
+    'slug' => 'Slug',
+    'description' => 'Description',
+    'is_active' => 'Activé',
+    'order' => 'Ordre',
+    'version' => 'Version',
+    'sys_color_id' => 'Couleur',
 ];

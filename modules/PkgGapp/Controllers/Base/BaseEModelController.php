@@ -32,7 +32,6 @@ class BaseEModelController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('eModel.index');
 
-
         // Extraire les paramètres de recherche, page, et filtres
         $eModels_params = array_merge(
             $request->only(['page','sort']),

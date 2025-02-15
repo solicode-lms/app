@@ -27,9 +27,9 @@ class BaseEModelRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'icon' => 'nullable|string|max:255',
             'name' => 'required|string|max:255',
             'table_name' => 'required|string|max:255',
-            'icon' => 'nullable|string|max:255',
             'is_pivot_table' => 'required|integer',
             'description' => 'nullable|string',
             'e_package_id' => 'required'
@@ -44,11 +44,11 @@ class BaseEModelRequest extends FormRequest
     public function messages(): array
     {
         return [
+            'icon.required' => __('validation.required', ['attribute' => __('PkgGapp::EModel.icon')]),
             'name.required' => __('validation.required', ['attribute' => __('PkgGapp::EModel.name')]),
             'name.max' => __('validation.nameMax'),
             'table_name.required' => __('validation.required', ['attribute' => __('PkgGapp::EModel.table_name')]),
             'table_name.max' => __('validation.table_nameMax'),
-            'icon.required' => __('validation.required', ['attribute' => __('PkgGapp::EModel.icon')]),
             'icon.max' => __('validation.iconMax'),
             'is_pivot_table.required' => __('validation.required', ['attribute' => __('PkgGapp::EModel.is_pivot_table')]),
             'description.required' => __('validation.required', ['attribute' => __('PkgGapp::EModel.description')]),

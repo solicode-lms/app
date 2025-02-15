@@ -33,7 +33,7 @@
        $titre = __("Core::sysColor.singular");
     @endphp
     <x-crud-header 
-        id="sysColor-crud-header" icon="fas fa-table"  
+        id="sysColor-crud-header" icon="fas fa-palette"  
         iconColor="text-info"
         title="{{ __('Core::sysColor.plural') }}"
         :breadcrumbs="[

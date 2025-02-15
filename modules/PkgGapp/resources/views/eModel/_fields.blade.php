@@ -55,26 +55,6 @@
 
         
         <div class="form-group">
-            <label for="icon">
-                {{ ucfirst(__('PkgGapp::eModel.icon')) }}
-                
-            </label>
-            <input
-                name="icon"
-                type="input"
-                class="form-control"
-                
-                
-                id="icon"
-                placeholder="{{ __('PkgGapp::eModel.icon') }}"
-                value="{{ $itemEModel ? $itemEModel->icon : old('icon') }}">
-            @error('icon')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
-
-        
-        <div class="form-group">
             <label for="is_pivot_table">
                 {{ ucfirst(__('PkgGapp::eModel.is_pivot_table')) }}
                 

@@ -29,7 +29,6 @@ class BaseSysColorController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('sysColor.index');
 
-
         // Extraire les paramètres de recherche, page, et filtres
         $sysColors_params = array_merge(
             $request->only(['page','sort']),

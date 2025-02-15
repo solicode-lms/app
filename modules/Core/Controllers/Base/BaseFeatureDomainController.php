@@ -31,7 +31,6 @@ class BaseFeatureDomainController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('featureDomain.index');
 
-
         // Extraire les paramètres de recherche, page, et filtres
         $featureDomains_params = array_merge(
             $request->only(['page','sort']),

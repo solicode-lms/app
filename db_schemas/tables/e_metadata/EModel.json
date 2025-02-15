@@ -37,7 +37,8 @@
     },
     {
         "reference": "EModel_icon_displayInTable",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "EModel_icon",
         "e_metadata_definition_reference": "displayInTable"
     },
@@ -207,7 +208,8 @@
     },
     {
         "reference": "EModel_icon_displayInForm",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "EModel_icon",
         "e_metadata_definition_reference": "displayInForm"
     },
@@ -276,5 +278,19 @@
         "value_string": "fa-table",
         "e_model_reference": "e_models",
         "e_metadata_definition_reference": "iconModel"
+    },
+    {
+        "reference": "e_models_computableFields",
+        "value_float": 0,
+        "value_json": [
+            {
+                "name": "icon",
+                "label": "Icône",
+                "method": "getIcone",
+                "dispalyOrder": 2
+            }
+        ],
+        "e_model_reference": "e_models",
+        "e_metadata_definition_reference": "computableFields"
     }
 ]

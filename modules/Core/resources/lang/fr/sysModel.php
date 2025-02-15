@@ -1,13 +1,11 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
-
 
 return [
-    'singular' => 'SysModel',
-    'plural' => 'SysModels',
-    'name' => 'name',
-    'model' => 'model',
-    'description' => 'description',
-    'sys_module_id' => 'sys_module_id',
-    'sys_color_id' => 'sys_color_id',
+    'singular' => 'Modèle',
+    'plural' => 'Modèles',
+    'name' => 'Nom',
+    'model' => 'Modèle',
+    'description' => 'Description',
+    'sys_module_id' => 'Module',
+    'sys_color_id' => 'Couleur',
 ];

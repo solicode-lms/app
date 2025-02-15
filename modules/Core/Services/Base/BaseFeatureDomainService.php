@@ -41,12 +41,14 @@ class BaseFeatureDomainService extends BaseService
     public function __construct()
     {
         parent::__construct(new FeatureDomain());
+        $this->fieldsFilterable = [];
+    }
 
-        // Initialiser les filtres configurables dynamiquement
+    public function initFieldsFilterable(){
+       // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
             $this->generateManyToOneFilter(__("Core::sysModule.plural"), 'sys_module_id', \Modules\Core\Models\SysModule::class, 'name'),
         ];
-
     }
 
     /**
