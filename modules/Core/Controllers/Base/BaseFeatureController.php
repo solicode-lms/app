@@ -33,7 +33,6 @@ class BaseFeatureController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('feature.index');
 
-
         // Extraire les paramètres de recherche, page, et filtres
         $features_params = array_merge(
             $request->only(['page','sort']),

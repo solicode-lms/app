@@ -23,7 +23,7 @@
         @can('index-feature') 
         <li class="nav-item">
             <a href="{{ route('features.index') }}" class="nav-link {{ Request::is('admin/Core/features') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-table"></i>
+                <i class="nav-icon fas fa-plug"></i>
                 {{__('Core::feature.plural')}}
             </a>
         </li>

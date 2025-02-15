@@ -33,7 +33,7 @@
        $titre = __("Core::feature.singular");
     @endphp
     <x-crud-header 
-        id="feature-crud-header" icon="fas fa-table"  
+        id="feature-crud-header" icon="fas fa-plug"  
         iconColor="text-info"
         title="{{ __('Core::feature.plural') }}"
         :breadcrumbs="[
