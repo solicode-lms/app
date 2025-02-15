@@ -22,7 +22,8 @@ class BaseLivrablesRealisationService extends BaseService
         'titre',
         'description',
         'lien',
-        'livrable_id'
+        'livrable_id',
+        'realisation_projet_id'
     ];
 
     /**
@@ -48,6 +49,7 @@ class BaseLivrablesRealisationService extends BaseService
        // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
             $this->generateManyToOneFilter(__("PkgCreationProjet::livrable.plural"), 'livrable_id', \Modules\PkgCreationProjet\Models\Livrable::class, 'titre'),
+            $this->generateManyToOneFilter(__("PkgRealisationProjets::realisationProjet.plural"), 'realisation_projet_id', \Modules\PkgRealisationProjets\Models\RealisationProjet::class, 'id'),
         ];
     }
 

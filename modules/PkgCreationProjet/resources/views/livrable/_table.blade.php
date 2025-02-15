@@ -13,7 +13,7 @@
             @foreach ($livrables_data as $livrable)
                 <tr id="livrable-row-{{$livrable->id}}">
                     <td>@limit($livrable->titre, 80)</td>
-                    <td>@limit($livrable->natureLivrable->nom ?? '-', 80)</td>
+                    <td>@limit($livrable->natureLivrable, 80)</td>
                     <td class="text-right">
                         @can('show-livrable')
                             <a href="{{ route('livrables.show', ['livrable' => $livrable->id]) }}" data-id="{{$livrable->id}}" class="btn btn-default btn-sm context-state showEntity">

@@ -15,7 +15,7 @@
         <tbody>
             @foreach ($sysControllers_data as $sysController)
                 <tr id="sysController-row-{{$sysController->id}}">
-                    <td>@limit($sysController->sysModule->name ?? '-', 80)</td>
+                    <td>@limit($sysController->sysModule, 80)</td>
                     <td>@limit($sysController->name, 80)</td>
                     <td>@limit($sysController->is_active, 80)</td>
                     <td>

@@ -29,7 +29,7 @@ class BaseValidationRequest extends FormRequest
         return [
             'transfert_competence_id' => 'required',
             'note' => 'nullable',
-            'message' => 'nullable|string|max:255',
+            'message' => 'nullable|string',
             'is_valide' => 'required|boolean',
             'realisation_projet_id' => 'required'
         ];
@@ -46,7 +46,6 @@ class BaseValidationRequest extends FormRequest
             'transfert_competence_id.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::Validation.transfert_competence_id')]),
             'note.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::Validation.note')]),
             'message.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::Validation.message')]),
-            'message.max' => __('validation.messageMax'),
             'is_valide.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::Validation.is_valide')]),
             'realisation_projet_id.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::Validation.realisation_projet_id')])
         ];

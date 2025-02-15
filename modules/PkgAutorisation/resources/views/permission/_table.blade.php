@@ -14,7 +14,7 @@
             @foreach ($permissions_data as $permission)
                 <tr id="permission-row-{{$permission->id}}">
                     <td>@limit($permission->name, 80)</td>
-                    <td>@limit($permission->controller->name ?? '-', 80)</td>
+                    <td>@limit($permission->controller, 80)</td>
                     <td>
                         <ul>
                             @foreach ($permission->roles as $role)

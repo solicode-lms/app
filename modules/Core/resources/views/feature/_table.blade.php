@@ -14,7 +14,7 @@
             @foreach ($features_data as $feature)
                 <tr id="feature-row-{{$feature->id}}">
                     <td>@limit($feature->name, 80)</td>
-                    <td>@limit($feature->featureDomain->name ?? '-', 80)</td>
+                    <td>@limit($feature->featureDomain, 80)</td>
                     <td>
                         <ul>
                             @foreach ($feature->permissions as $permission)

@@ -1,7 +1,7 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 
-@accessiblePermissions(['index-permission', 'index-role', 'index-user'])
+@accessiblePermissions(['index-user', 'index-role', 'index-permission'])
 @if($accessiblePermissions->isNotEmpty())
 <li class="nav-item has-treeview {{ Request::is('admin/PkgAutorisation*') ? 'menu-open' : '' }}">
     <a href="#" class="nav-link nav-link {{ Request::is('admin/PkgAutorisation*') ? 'active' : '' }}">
@@ -12,11 +12,11 @@
         </p>
     </a>
     <ul class="nav nav-treeview">
-        @can('index-permission') 
+        @can('index-user') 
         <li class="nav-item">
-            <a href="{{ route('permissions.index') }}" class="nav-link {{ Request::is('admin/PkgAutorisation/permissions') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-lock-open"></i>
-                {{__('PkgAutorisation::permission.plural')}}
+            <a href="{{ route('users.index') }}" class="nav-link {{ Request::is('admin/PkgAutorisation/users') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-user"></i>
+                {{__('PkgAutorisation::user.plural')}}
             </a>
         </li>
         @endcan
@@ -28,11 +28,11 @@
             </a>
         </li>
         @endcan
-        @can('index-user') 
+        @can('index-permission') 
         <li class="nav-item">
-            <a href="{{ route('users.index') }}" class="nav-link {{ Request::is('admin/PkgAutorisation/users') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-user"></i>
-                {{__('PkgAutorisation::user.plural')}}
+            <a href="{{ route('permissions.index') }}" class="nav-link {{ Request::is('admin/PkgAutorisation/permissions') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-lock-open"></i>
+                {{__('PkgAutorisation::permission.plural')}}
             </a>
         </li>
         @endcan

@@ -66,15 +66,15 @@
                 {{ ucfirst(__('PkgRealisationProjets::validation.message')) }}
                 
             </label>
-            <input
+            <textarea rows="" cols=""
                 name="message"
-                type="input"
-                class="form-control"
+                class="form-control richText"
                 
                 
                 id="message"
-                placeholder="{{ __('PkgRealisationProjets::validation.message') }}"
-                value="{{ $itemValidation ? $itemValidation->message : old('message') }}">
+                placeholder="{{ __('PkgRealisationProjets::validation.message') }}">
+                {{ $itemValidation ? $itemValidation->message : old('message') }}
+            </textarea>
             @error('message')
                 <div class="text-danger">{{ $message }}</div>
             @enderror

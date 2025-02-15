@@ -40,6 +40,10 @@
                                 <label for="livrable_id">{{ ucfirst(__('PkgRealisationProjets::livrablesRealisation.livrable_id')) }}:</label>
                                 <p>{{ $itemLivrablesRealisation->livrable_id }}</p>
                             </div>
+                            <div class="col-sm-12">
+                                <label for="realisation_projet_id">{{ ucfirst(__('PkgRealisationProjets::livrablesRealisation.realisation_projet_id')) }}:</label>
+                                <p>{{ $itemLivrablesRealisation->realisation_projet_id }}</p>
+                            </div>
                         </div>
                     </div>
                 </div>

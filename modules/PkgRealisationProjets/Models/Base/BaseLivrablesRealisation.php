@@ -12,6 +12,7 @@ use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
 use Modules\PkgCreationProjet\Models\Livrable;
+use Modules\PkgRealisationProjets\Models\RealisationProjet;
 
 /**
  * Classe BaseLivrablesRealisation
@@ -33,7 +34,7 @@ class BaseLivrablesRealisation extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'titre', 'description', 'lien', 'livrable_id'
+        'titre', 'description', 'lien', 'livrable_id', 'realisation_projet_id'
     ];
 
     /**
@@ -44,6 +45,15 @@ class BaseLivrablesRealisation extends BaseModel
     public function livrable(): BelongsTo
     {
         return $this->belongsTo(Livrable::class, 'livrable_id', 'id');
+    }
+    /**
+     * Relation BelongsTo pour RealisationProjet.
+     *
+     * @return BelongsTo
+     */
+    public function realisationProjet(): BelongsTo
+    {
+        return $this->belongsTo(RealisationProjet::class, 'realisation_projet_id', 'id');
     }
 
 

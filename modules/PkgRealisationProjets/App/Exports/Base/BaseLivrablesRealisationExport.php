@@ -32,6 +32,7 @@ class BaseLivrablesRealisationExport implements FromCollection, WithHeadings, Sh
             'description' => 'description',
             'lien' => 'lien',
             'livrable_id' => 'livrable_id',
+            'realisation_projet_id' => 'realisation_projet_id',
             'reference' => 'reference',
         ];
         }else{
@@ -40,6 +41,7 @@ class BaseLivrablesRealisationExport implements FromCollection, WithHeadings, Sh
             'description' => __('PkgRealisationProjets::livrablesRealisation.description'),
             'lien' => __('PkgRealisationProjets::livrablesRealisation.lien'),
             'livrable_id' => __('PkgRealisationProjets::livrablesRealisation.livrable_id'),
+            'realisation_projet_id' => __('PkgRealisationProjets::livrablesRealisation.realisation_projet_id'),
             'reference' => __('Core::msg.reference'),
         ];
 
@@ -55,6 +57,7 @@ class BaseLivrablesRealisationExport implements FromCollection, WithHeadings, Sh
                 'description' => $livrablesRealisation->description,
                 'lien' => $livrablesRealisation->lien,
                 'livrable_id' => $livrablesRealisation->livrable_id,
+                'realisation_projet_id' => $livrablesRealisation->realisation_projet_id,
                 'reference' => $livrablesRealisation->reference,
             ];
         });

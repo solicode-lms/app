@@ -100,6 +100,35 @@
     </div>
 
 
+        
+        
+    <div class="form-group">
+            <label for="realisation_projet_id">
+                {{ ucfirst(__('PkgRealisationProjets::realisationProjet.singular')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <select 
+            id="realisation_projet_id" 
+            required
+            
+            name="realisation_projet_id" 
+            class="form-control select2">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($realisationProjets as $realisationProjet)
+                    <option value="{{ $realisationProjet->id }}"
+                        {{ (isset($itemLivrablesRealisation) && $itemLivrablesRealisation->realisation_projet_id == $realisationProjet->id) || (old('realisation_projet_id>') == $realisationProjet->id) ? 'selected' : '' }}>
+                        {{ $realisationProjet }}
+                    </option>
+                @endforeach
+            </select>
+            @error('realisation_projet_id')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+    </div>
+
+
     </div>
 
     <div class="card-footer">

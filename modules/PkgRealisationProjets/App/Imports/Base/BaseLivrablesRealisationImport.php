@@ -60,6 +60,7 @@ class BaseLivrablesRealisationImport implements ToModel, WithHeadingRow
              'description' => $values[1] ?? null,
              'lien' => $values[2] ?? null,
              'livrable_id' => $values[3] ?? null,
+             'realisation_projet_id' => $values[4] ?? null,
              'reference' => $reference,
         ]);
 

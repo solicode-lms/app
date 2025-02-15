@@ -30,7 +30,8 @@ class BaseLivrablesRealisationRequest extends FormRequest
             'titre' => 'required|string|max:255',
             'description' => 'nullable|string',
             'lien' => 'nullable|string|max:255',
-            'livrable_id' => 'required'
+            'livrable_id' => 'required',
+            'realisation_projet_id' => 'required'
         ];
     }
 
@@ -47,7 +48,8 @@ class BaseLivrablesRealisationRequest extends FormRequest
             'description.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::LivrablesRealisation.description')]),
             'lien.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::LivrablesRealisation.lien')]),
             'lien.max' => __('validation.lienMax'),
-            'livrable_id.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::LivrablesRealisation.livrable_id')])
+            'livrable_id.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::LivrablesRealisation.livrable_id')]),
+            'realisation_projet_id.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::LivrablesRealisation.realisation_projet_id')])
         ];
     }
 }

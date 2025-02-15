@@ -70,7 +70,8 @@ class BaseLivrablesRealisationSeeder extends Seeder
                     "titre" => $row["titre"] ?? null ,
                     "description" => $row["description"] ?? null ,
                     "lien" => $row["lien"] ?? null ,
-                    "livrable_id" => $row["livrable_id"] ?? null 
+                    "livrable_id" => $row["livrable_id"] ?? null ,
+                    "realisation_projet_id" => $row["realisation_projet_id"] ?? null 
                 ]);
             }
         }

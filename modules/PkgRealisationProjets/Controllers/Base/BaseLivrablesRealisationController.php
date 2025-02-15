@@ -5,6 +5,7 @@
 namespace Modules\PkgRealisationProjets\Controllers\Base;
 use Modules\PkgRealisationProjets\Services\LivrablesRealisationService;
 use Modules\PkgCreationProjet\Services\LivrableService;
+use Modules\PkgRealisationProjets\Services\RealisationProjetService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
@@ -19,11 +20,13 @@ class BaseLivrablesRealisationController extends AdminController
 {
     protected $livrablesRealisationService;
     protected $livrableService;
+    protected $realisationProjetService;
 
-    public function __construct(LivrablesRealisationService $livrablesRealisationService, LivrableService $livrableService) {
+    public function __construct(LivrablesRealisationService $livrablesRealisationService, LivrableService $livrableService, RealisationProjetService $realisationProjetService) {
         parent::__construct();
         $this->livrablesRealisationService = $livrablesRealisationService;
         $this->livrableService = $livrableService;
+        $this->realisationProjetService = $realisationProjetService;
     }
 
     public function index(Request $request) {
@@ -54,12 +57,13 @@ class BaseLivrablesRealisationController extends AdminController
     public function create() {
         $itemLivrablesRealisation = $this->livrablesRealisationService->createInstance();
         $livrables = $this->livrableService->all();
+        $realisationProjets = $this->realisationProjetService->all();
 
 
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::livrablesRealisation._fields', compact('itemLivrablesRealisation', 'livrables'));
+            return view('PkgRealisationProjets::livrablesRealisation._fields', compact('itemLivrablesRealisation', 'livrables', 'realisationProjets'));
         }
-        return view('PkgRealisationProjets::livrablesRealisation.create', compact('itemLivrablesRealisation', 'livrables'));
+        return view('PkgRealisationProjets::livrablesRealisation.create', compact('itemLivrablesRealisation', 'livrables', 'realisationProjets'));
     }
     public function store(LivrablesRealisationRequest $request) {
         $validatedData = $request->validated();
@@ -93,13 +97,14 @@ class BaseLivrablesRealisationController extends AdminController
 
         $itemLivrablesRealisation = $this->livrablesRealisationService->find($id);
         $livrables = $this->livrableService->all();
+        $realisationProjets = $this->realisationProjetService->all();
 
 
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::livrablesRealisation._fields', compact('itemLivrablesRealisation', 'livrables'));
+            return view('PkgRealisationProjets::livrablesRealisation._fields', compact('itemLivrablesRealisation', 'livrables', 'realisationProjets'));
         }
 
-        return view('PkgRealisationProjets::livrablesRealisation.edit', compact('itemLivrablesRealisation', 'livrables'));
+        return view('PkgRealisationProjets::livrablesRealisation.edit', compact('itemLivrablesRealisation', 'livrables', 'realisationProjets'));
 
     }
     public function update(LivrablesRealisationRequest $request, string $id) {

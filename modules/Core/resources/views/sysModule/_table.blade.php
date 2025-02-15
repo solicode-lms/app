@@ -15,7 +15,7 @@
                 <tr id="sysModule-row-{{$sysModule->id}}">
                     <td>@limit($sysModule->name, 80)</td>
                     <td>@limit($sysModule->is_active, 80)</td>
-                    <td>@limit($sysModule->sysColor->name ?? '-', 80)</td>
+                    <td>@limit($sysModule->sysColor, 80)</td>
                     <td class="text-right">
                         @can('show-sysModule')
                             <a href="{{ route('sysModules.show', ['sysModule' => $sysModule->id]) }}" data-id="{{$sysModule->id}}" class="btn btn-default btn-sm context-state showEntity">

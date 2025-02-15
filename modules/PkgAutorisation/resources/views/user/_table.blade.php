@@ -18,7 +18,6 @@
                     <td>
                         <ul>
                             @foreach ($user->roles as $role)
-                         
                                 <li>{{ $role }}</li>
                             @endforeach
                         </ul>

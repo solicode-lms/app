@@ -15,7 +15,7 @@
                 <tr id="apprenant-row-{{$apprenant->id}}">
                     <td>@limit($apprenant->nom, 80)</td>
                     <td>@limit($apprenant->prenom, 80)</td>
-                    <td>@limit($apprenant->user->name ?? '-', 80)</td>
+                    <td>@limit($apprenant->user, 80)</td>
                     <td class="text-right">
                         @can('show-apprenant')
                             <a href="{{ route('apprenants.show', ['apprenant' => $apprenant->id]) }}" data-id="{{$apprenant->id}}" class="btn btn-default btn-sm context-state showEntity">

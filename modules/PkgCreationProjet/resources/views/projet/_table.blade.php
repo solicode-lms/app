@@ -31,7 +31,7 @@
                             @endforeach
                         </ul>
                     </td>
-                    <td>@limit($projet->formateur->nom ?? '-', 80)</td>
+                    <td>@limit($projet->formateur, 80)</td>
                     <td class="text-right">
                         @can('show-projet')
                             <a href="{{ route('projets.show', ['projet' => $projet->id]) }}" data-id="{{$projet->id}}" class="btn btn-default btn-sm context-state showEntity">

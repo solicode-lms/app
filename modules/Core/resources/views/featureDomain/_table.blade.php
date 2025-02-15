@@ -13,7 +13,7 @@
             @foreach ($featureDomains_data as $featureDomain)
                 <tr id="featureDomain-row-{{$featureDomain->id}}">
                     <td>@limit($featureDomain->name, 80)</td>
-                    <td>@limit($featureDomain->sysModule->name ?? '-', 80)</td>
+                    <td>@limit($featureDomain->sysModule, 80)</td>
                     <td class="text-right">
                         @can('show-featureDomain')
                             <a href="{{ route('featureDomains.show', ['featureDomain' => $featureDomain->id]) }}" data-id="{{$featureDomain->id}}" class="btn btn-default btn-sm context-state showEntity">

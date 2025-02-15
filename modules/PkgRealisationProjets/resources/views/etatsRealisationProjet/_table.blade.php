@@ -12,7 +12,7 @@
         <tbody>
             @foreach ($etatsRealisationProjets_data as $etatsRealisationProjet)
                 <tr id="etatsRealisationProjet-row-{{$etatsRealisationProjet->id}}">
-                    <td>@limit($etatsRealisationProjet->formateur->nom ?? '-', 80)</td>
+                    <td>@limit($etatsRealisationProjet->formateur, 80)</td>
                     <td>@limit($etatsRealisationProjet->titre, 80)</td>
                     <td class="text-right">
                         @can('show-etatsRealisationProjet')
