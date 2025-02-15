@@ -17,9 +17,9 @@
             @foreach ($widgets_data as $widget)
                 <tr id="widget-row-{{$widget->id}}">
                     <td>@limit($widget->name, 80)</td>
-                    <td>@limit($widget->widgetType->type ?? '-', 80)</td>
-                    <td>@limit($widget->sysModel->name ?? '-', 80)</td>
-                    <td>@limit($widget->widgetOperation->id ?? '-', 80)</td>
+                    <td>@limit($widget->type->type ?? '-', 80)</td>
+                    <td>@limit($widget->model->name ?? '-', 80)</td>
+                    <td>@limit($widget->operation->id ?? '-', 80)</td>
                     <td>@limit($widget->icon, 80)</td>
                     <td>@limit($widget->label, 80)</td>
                     <td class="text-right">

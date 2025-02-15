@@ -35,7 +35,7 @@ class DashboardController extends AppController
     public function index()
     {
         // Charger tous les widgets configurés avec leurs relations
-        $widgets = Widget::with(['widgetType', 'sysModel', 'widgetOperation'])->get();
+        $widgets = Widget::with(['type', 'model', 'operation'])->get();
 
         // Exécuter la requête de chaque widget et récupérer les données
         foreach ($widgets as $widget) {
