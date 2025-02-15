@@ -1,6 +1,6 @@
 <?php
 
-// TODO : il faut indiquer la cause de personnalisation de code
+//  fix la realtion sourceEModel et targerEModel
 
 namespace Modules\PkgGapp\Models\Base;
 

@@ -329,5 +329,12 @@
         "value_float": 0,
         "e_data_field_reference": "ERelationship_type",
         "e_metadata_definition_reference": "filterable"
+    },
+    {
+        "reference": "ERelationship_type_displayInTable",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "ERelationship_type",
+        "e_metadata_definition_reference": "displayInTable"
     }
 ]

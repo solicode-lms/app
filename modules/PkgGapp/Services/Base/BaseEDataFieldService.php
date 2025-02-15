@@ -49,13 +49,16 @@ class BaseEDataFieldService extends BaseService
     public function __construct()
     {
         parent::__construct(new EDataField());
+        $this->fieldsFilterable = [];
+    }
 
-        // Initialiser les filtres configurables dynamiquement
+    public function initFieldsFilterable(){
+       // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
+            ['field' => 'data_type', 'type' => 'String', 'label' => 'data_type'],
             $this->generateManyToOneFilter(__("PkgGapp::eModel.plural"), 'e_model_id', \Modules\PkgGapp\Models\EModel::class, 'name'),
             $this->generateManyToOneFilter(__("PkgGapp::eRelationship.plural"), 'e_relationship_id', \Modules\PkgGapp\Models\ERelationship::class, 'name'),
         ];
-
     }
 
     /**

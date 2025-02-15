@@ -34,7 +34,6 @@ class BaseEDataFieldController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('eDataField.index');
 
-
         // Extraire les paramètres de recherche, page, et filtres
         $eDataFields_params = array_merge(
             $request->only(['page','sort']),
