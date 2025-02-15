@@ -42,12 +42,14 @@ class BaseCompetenceService extends BaseService
     public function __construct()
     {
         parent::__construct(new Competence());
+        $this->fieldsFilterable = [];
+    }
 
-        // Initialiser les filtres configurables dynamiquement
+    public function initFieldsFilterable(){
+       // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
             $this->generateManyToOneFilter(__("PkgFormation::module.plural"), 'module_id', \Modules\PkgFormation\Models\Module::class, 'nom'),
         ];
-
     }
 
     /**

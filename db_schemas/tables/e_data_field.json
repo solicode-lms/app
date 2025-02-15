@@ -53,7 +53,7 @@
     {
         "id": 4,
         "reference": "AffectationProjet_annee_formation_id",
-        "name": "anneeFormation",
+        "name": "annee_formation_id",
         "column_name": "annee_formation_id",
         "data_type": "ManyToOne",
         "field_order": 4,
@@ -70,7 +70,7 @@
     {
         "id": 5,
         "reference": "AffectationProjet_groupe_id",
-        "name": "groupe",
+        "name": "groupe_id",
         "column_name": "groupe_id",
         "data_type": "ManyToOne",
         "field_order": 5,
@@ -87,7 +87,7 @@
     {
         "id": 6,
         "reference": "AffectationProjet_projet_id",
-        "name": "projet",
+        "name": "projet_id",
         "column_name": "projet_id",
         "data_type": "ManyToOne",
         "field_order": 6,
@@ -1056,7 +1056,7 @@
     {
         "id": 63,
         "reference": "Apprenant_niveaux_scolaire_id",
-        "name": "niveauxScolaire",
+        "name": "niveaux_scolaire_id",
         "column_name": "niveaux_scolaire_id",
         "data_type": "ManyToOne",
         "field_order": 19,
@@ -1073,7 +1073,7 @@
     {
         "id": 64,
         "reference": "Apprenant_nationalite_id",
-        "name": "nationalite",
+        "name": "nationalite_id",
         "column_name": "nationalite_id",
         "data_type": "ManyToOne",
         "field_order": 20,
@@ -1090,7 +1090,7 @@
     {
         "id": 65,
         "reference": "Apprenant_user_id",
-        "name": "user",
+        "name": "user_id",
         "column_name": "user_id",
         "data_type": "ManyToOne",
         "field_order": 21,
@@ -1413,7 +1413,7 @@
     {
         "id": 84,
         "reference": "Competence_module_id",
-        "name": "module",
+        "name": "module_id",
         "column_name": "module_id",
         "data_type": "ManyToOne",
         "field_order": 8,
@@ -1634,7 +1634,7 @@
     {
         "id": 97,
         "reference": "EDataField_e_model_id",
-        "name": "eModel",
+        "name": "e_model_id",
         "column_name": "e_model_id",
         "data_type": "ManyToOne",
         "field_order": 12,
@@ -1651,7 +1651,7 @@
     {
         "id": 98,
         "reference": "EDataField_e_relationship_id",
-        "name": "eRelationship",
+        "name": "e_relationship_id",
         "column_name": "e_relationship_id",
         "data_type": "ManyToOne",
         "field_order": 13,
@@ -1889,7 +1889,7 @@
     {
         "id": 112,
         "reference": "EMetadatum_e_model_id",
-        "name": "eModel",
+        "name": "e_model_id",
         "column_name": "e_model_id",
         "data_type": "ManyToOne",
         "field_order": 12,
@@ -1906,7 +1906,7 @@
     {
         "id": 113,
         "reference": "EMetadatum_e_data_field_id",
-        "name": "eDataField",
+        "name": "e_data_field_id",
         "column_name": "e_data_field_id",
         "data_type": "ManyToOne",
         "field_order": 13,
@@ -1923,7 +1923,7 @@
     {
         "id": 114,
         "reference": "EMetadatum_e_metadata_definition_id",
-        "name": "eMetadataDefinition",
+        "name": "e_metadata_definition_id",
         "column_name": "e_metadata_definition_id",
         "data_type": "ManyToOne",
         "field_order": 14,
@@ -2263,7 +2263,7 @@
     {
         "id": 134,
         "reference": "EModel_e_package_id",
-        "name": "ePackage",
+        "name": "e_package_id",
         "column_name": "e_package_id",
         "data_type": "ManyToOne",
         "field_order": 8,
@@ -2484,7 +2484,7 @@
     {
         "id": 147,
         "reference": "ERelationship_source_e_model_id",
-        "name": "sourceEModel",
+        "name": "source_e_model_id",
         "column_name": "source_e_model_id",
         "data_type": "ManyToOne",
         "field_order": 5,
@@ -2501,7 +2501,7 @@
     {
         "id": 148,
         "reference": "ERelationship_target_e_model_id",
-        "name": "targetEModel",
+        "name": "target_e_model_id",
         "column_name": "target_e_model_id",
         "data_type": "ManyToOne",
         "field_order": 6,
@@ -2756,7 +2756,7 @@
     {
         "id": 163,
         "reference": "EtatsRealisationProjet_formateur_id",
-        "name": "formateur",
+        "name": "formateur_id",
         "column_name": "formateur_id",
         "data_type": "ManyToOne",
         "field_order": 4,
@@ -2892,7 +2892,7 @@
     {
         "id": 171,
         "reference": "FeatureDomain_sys_module_id",
-        "name": "sysModule",
+        "name": "sys_module_id",
         "column_name": "sys_module_id",
         "data_type": "ManyToOne",
         "field_order": 5,
@@ -3096,7 +3096,7 @@
     {
         "id": 183,
         "reference": "Feature_feature_domain_id",
-        "name": "featureDomain",
+        "name": "feature_domain_id",
         "column_name": "feature_domain_id",
         "data_type": "ManyToOne",
         "field_order": 4,
@@ -3623,7 +3623,7 @@
     {
         "id": 214,
         "reference": "Formateur_user_id",
-        "name": "user",
+        "name": "user_id",
         "column_name": "user_id",
         "data_type": "ManyToOne",
         "field_order": 13,
@@ -3759,7 +3759,7 @@
     {
         "id": 222,
         "reference": "Groupe_filiere_id",
-        "name": "filiere",
+        "name": "filiere_id",
         "column_name": "filiere_id",
         "data_type": "ManyToOne",
         "field_order": 5,
@@ -3776,7 +3776,7 @@
     {
         "id": 223,
         "reference": "Groupe_annee_formation_id",
-        "name": "anneeFormation",
+        "name": "annee_formation_id",
         "column_name": "annee_formation_id",
         "data_type": "ManyToOne",
         "field_order": 6,
@@ -3878,7 +3878,7 @@
     {
         "id": 229,
         "reference": "Livrable_nature_livrable_id",
-        "name": "natureLivrable",
+        "name": "nature_livrable_id",
         "column_name": "nature_livrable_id",
         "data_type": "ManyToOne",
         "field_order": 3,
@@ -3895,7 +3895,7 @@
     {
         "id": 230,
         "reference": "Livrable_projet_id",
-        "name": "projet",
+        "name": "projet_id",
         "column_name": "projet_id",
         "data_type": "ManyToOne",
         "field_order": 4,
@@ -4048,7 +4048,7 @@
     {
         "id": 239,
         "reference": "LivrablesRealisation_livrable_id",
-        "name": "livrable",
+        "name": "livrable_id",
         "column_name": "livrable_id",
         "data_type": "ManyToOne",
         "field_order": 5,
@@ -4269,7 +4269,7 @@
     {
         "id": 252,
         "reference": "Module_filiere_id",
-        "name": "filiere",
+        "name": "filiere_id",
         "column_name": "filiere_id",
         "data_type": "ManyToOne",
         "field_order": 7,
@@ -4609,7 +4609,7 @@
     {
         "id": 272,
         "reference": "NiveauCompetence_competence_id",
-        "name": "competence",
+        "name": "competence_id",
         "column_name": "competence_id",
         "data_type": "ManyToOne",
         "field_order": 6,
@@ -4728,7 +4728,7 @@
     {
         "id": 279,
         "reference": "NiveauDifficulte_formateur_id",
-        "name": "formateur",
+        "name": "formateur_id",
         "column_name": "formateur_id",
         "data_type": "ManyToOne",
         "field_order": 6,
@@ -4966,7 +4966,7 @@
     {
         "id": 293,
         "reference": "Permission_controller_id",
-        "name": "controller",
+        "name": "controller_id",
         "column_name": "controller_id",
         "data_type": "ManyToOne",
         "field_order": 4,
@@ -5136,7 +5136,7 @@
     {
         "id": 303,
         "reference": "Projet_formateur_id",
-        "name": "formateur",
+        "name": "formateur_id",
         "column_name": "formateur_id",
         "data_type": "ManyToOne",
         "field_order": 7,
@@ -5272,7 +5272,7 @@
     {
         "id": 311,
         "reference": "RealisationProjet_etats_realisation_projet_id",
-        "name": "etatsRealisationProjet",
+        "name": "etats_realisation_projet_id",
         "column_name": "etats_realisation_projet_id",
         "data_type": "ManyToOne",
         "field_order": 5,
@@ -5289,7 +5289,7 @@
     {
         "id": 312,
         "reference": "RealisationProjet_apprenant_id",
-        "name": "apprenant",
+        "name": "apprenant_id",
         "column_name": "apprenant_id",
         "data_type": "ManyToOne",
         "field_order": 6,
@@ -5306,7 +5306,7 @@
     {
         "id": 313,
         "reference": "RealisationProjet_affectation_projet_id",
-        "name": "affectationProjet",
+        "name": "affectation_projet_id",
         "column_name": "affectation_projet_id",
         "data_type": "ManyToOne",
         "field_order": 7,
@@ -5442,7 +5442,7 @@
     {
         "id": 321,
         "reference": "Resource_projet_id",
-        "name": "projet",
+        "name": "projet_id",
         "column_name": "projet_id",
         "data_type": "ManyToOne",
         "field_order": 5,
@@ -5867,7 +5867,7 @@
     {
         "id": 346,
         "reference": "SysController_sys_module_id",
-        "name": "sysModule",
+        "name": "sys_module_id",
         "column_name": "sys_module_id",
         "data_type": "ManyToOne",
         "field_order": 2,
@@ -6071,7 +6071,7 @@
     {
         "id": 358,
         "reference": "SysModel_sys_module_id",
-        "name": "sysModule",
+        "name": "sys_module_id",
         "column_name": "sys_module_id",
         "data_type": "ManyToOne",
         "field_order": 5,
@@ -6088,7 +6088,7 @@
     {
         "id": 359,
         "reference": "SysModel_sys_color_id",
-        "name": "sysColor",
+        "name": "sys_color_id",
         "column_name": "sys_color_id",
         "data_type": "ManyToOne",
         "field_order": 6,
@@ -6275,7 +6275,7 @@
     {
         "id": 370,
         "reference": "SysModule_sys_color_id",
-        "name": "sysColor",
+        "name": "sys_color_id",
         "column_name": "sys_color_id",
         "data_type": "ManyToOne",
         "field_order": 8,
@@ -6428,7 +6428,7 @@
     {
         "id": 379,
         "reference": "Technology_category_technology_id",
-        "name": "categoryTechnology",
+        "name": "category_technology_id",
         "column_name": "category_technology_id",
         "data_type": "ManyToOne",
         "field_order": 6,
@@ -6581,7 +6581,7 @@
     {
         "id": 388,
         "reference": "TransfertCompetence_projet_id",
-        "name": "projet",
+        "name": "projet_id",
         "column_name": "projet_id",
         "data_type": "ManyToOne",
         "field_order": 4,
@@ -6598,7 +6598,7 @@
     {
         "id": 389,
         "reference": "TransfertCompetence_competence_id",
-        "name": "competence",
+        "name": "competence_id",
         "column_name": "competence_id",
         "data_type": "ManyToOne",
         "field_order": 5,
@@ -6615,7 +6615,7 @@
     {
         "id": 390,
         "reference": "TransfertCompetence_niveau_difficulte_id",
-        "name": "niveauDifficulte",
+        "name": "niveau_difficulte_id",
         "column_name": "niveau_difficulte_id",
         "data_type": "ManyToOne",
         "field_order": 6,
@@ -6904,7 +6904,7 @@
     {
         "id": 407,
         "reference": "Validation_transfert_competence_id",
-        "name": "transfertCompetence",
+        "name": "transfert_competence_id",
         "column_name": "transfert_competence_id",
         "data_type": "ManyToOne",
         "field_order": 5,
@@ -6921,7 +6921,7 @@
     {
         "id": 408,
         "reference": "Validation_realisation_projet_id",
-        "name": "realisationProjet",
+        "name": "realisation_projet_id",
         "column_name": "realisation_projet_id",
         "data_type": "ManyToOne",
         "field_order": 6,
@@ -7312,7 +7312,7 @@
     {
         "id": 431,
         "reference": "Widget_type_id",
-        "name": "type",
+        "name": "type_id",
         "column_name": "type_id",
         "data_type": "ManyToOne",
         "field_order": 3,
@@ -7329,7 +7329,7 @@
     {
         "id": 432,
         "reference": "Widget_model_id",
-        "name": "model",
+        "name": "model_id",
         "column_name": "model_id",
         "data_type": "ManyToOne",
         "field_order": 4,
@@ -7346,7 +7346,7 @@
     {
         "id": 433,
         "reference": "Widget_operation_id",
-        "name": "operation",
+        "name": "operation_id",
         "column_name": "operation_id",
         "data_type": "ManyToOne",
         "field_order": 5,
