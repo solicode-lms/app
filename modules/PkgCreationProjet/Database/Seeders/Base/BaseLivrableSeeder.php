@@ -67,8 +67,8 @@ class BaseLivrableSeeder extends Seeder
             
             if ($row) {
                 $livrableService->create([
-                    "titre" => $row["titre"] ?? null ,
                     "nature_livrable_id" => $row["nature_livrable_id"] ?? null ,
+                    "titre" => $row["titre"] ?? null ,
                     "projet_id" => $row["projet_id"] ?? null ,
                     "description" => $row["description"] ?? null 
                 ]);

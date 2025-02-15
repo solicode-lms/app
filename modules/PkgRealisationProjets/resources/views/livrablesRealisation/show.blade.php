@@ -25,20 +25,20 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="col-sm-12">
-                                <label for="titre">{{ ucfirst(__('PkgRealisationProjets::livrablesRealisation.titre')) }}:</label>
-                                <p>{{ $itemLivrablesRealisation->titre }}</p>
-                            </div>
-                            <div class="col-sm-12">
-                                <label for="description">{{ ucfirst(__('PkgRealisationProjets::livrablesRealisation.description')) }}:</label>
-                                <p>{{ $itemLivrablesRealisation->description }}</p>
+                                <label for="livrable_id">{{ ucfirst(__('PkgRealisationProjets::livrablesRealisation.livrable_id')) }}:</label>
+                                <p>{{ $itemLivrablesRealisation->livrable_id }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="lien">{{ ucfirst(__('PkgRealisationProjets::livrablesRealisation.lien')) }}:</label>
                                 <p>{{ $itemLivrablesRealisation->lien }}</p>
                             </div>
                             <div class="col-sm-12">
-                                <label for="livrable_id">{{ ucfirst(__('PkgRealisationProjets::livrablesRealisation.livrable_id')) }}:</label>
-                                <p>{{ $itemLivrablesRealisation->livrable_id }}</p>
+                                <label for="titre">{{ ucfirst(__('PkgRealisationProjets::livrablesRealisation.titre')) }}:</label>
+                                <p>{{ $itemLivrablesRealisation->titre }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="description">{{ ucfirst(__('PkgRealisationProjets::livrablesRealisation.description')) }}:</label>
+                                <p>{{ $itemLivrablesRealisation->description }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="realisation_projet_id">{{ ucfirst(__('PkgRealisationProjets::livrablesRealisation.realisation_projet_id')) }}:</label>

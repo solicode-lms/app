@@ -10,6 +10,55 @@
 
     <div class="card-body">
         
+        
+    <div class="form-group">
+            <label for="livrable_id">
+                {{ ucfirst(__('PkgCreationProjet::livrable.singular')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <select 
+            id="livrable_id" 
+            required
+            
+            name="livrable_id" 
+            class="form-control select2">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($livrables as $livrable)
+                    <option value="{{ $livrable->id }}"
+                        {{ (isset($itemLivrablesRealisation) && $itemLivrablesRealisation->livrable_id == $livrable->id) || (old('livrable_id>') == $livrable->id) ? 'selected' : '' }}>
+                        {{ $livrable }}
+                    </option>
+                @endforeach
+            </select>
+            @error('livrable_id')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+    </div>
+
+
+        
+        <div class="form-group">
+            <label for="lien">
+                {{ ucfirst(__('PkgRealisationProjets::livrablesRealisation.lien')) }}
+                
+            </label>
+            <input
+                name="lien"
+                type="input"
+                class="form-control"
+                
+                
+                id="lien"
+                placeholder="{{ __('PkgRealisationProjets::livrablesRealisation.lien') }}"
+                value="{{ $itemLivrablesRealisation ? $itemLivrablesRealisation->lien : old('lien') }}">
+            @error('lien')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
+
+        
         <div class="form-group">
             <label for="titre">
                 {{ ucfirst(__('PkgRealisationProjets::livrablesRealisation.titre')) }}
@@ -50,55 +99,6 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-
-        
-        <div class="form-group">
-            <label for="lien">
-                {{ ucfirst(__('PkgRealisationProjets::livrablesRealisation.lien')) }}
-                
-            </label>
-            <input
-                name="lien"
-                type="input"
-                class="form-control"
-                
-                
-                id="lien"
-                placeholder="{{ __('PkgRealisationProjets::livrablesRealisation.lien') }}"
-                value="{{ $itemLivrablesRealisation ? $itemLivrablesRealisation->lien : old('lien') }}">
-            @error('lien')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
-
-        
-        
-    <div class="form-group">
-            <label for="livrable_id">
-                {{ ucfirst(__('PkgCreationProjet::livrable.singular')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <select 
-            id="livrable_id" 
-            required
-            
-            name="livrable_id" 
-            class="form-control select2">
-             <option value="">Sélectionnez une option</option>
-                @foreach ($livrables as $livrable)
-                    <option value="{{ $livrable->id }}"
-                        {{ (isset($itemLivrablesRealisation) && $itemLivrablesRealisation->livrable_id == $livrable->id) || (old('livrable_id>') == $livrable->id) ? 'selected' : '' }}>
-                        {{ $livrable }}
-                    </option>
-                @endforeach
-            </select>
-            @error('livrable_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
-
 
         
         

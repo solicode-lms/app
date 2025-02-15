@@ -26,7 +26,6 @@ class DefaultApprenantPermission extends Seeder
             'competence' => 'Lecteur',
             'module' => 'LecteurMany',
             'technology' => 'LecteurMany',
-            'affectationProjet' => 'Lecteur',
             'livrable' => 'LecteurMany',
             'resource' => 'LecteurMany',
             'transfertCompetence' => 'transfertCompetence',

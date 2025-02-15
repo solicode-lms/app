@@ -27,10 +27,10 @@ class BaseLivrablesRealisationRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'livrable_id' => 'required',
+            'lien' => 'nullable|string|max:255',
             'titre' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'lien' => 'nullable|string|max:255',
-            'livrable_id' => 'required',
             'realisation_projet_id' => 'required'
         ];
     }
@@ -43,12 +43,12 @@ class BaseLivrablesRealisationRequest extends FormRequest
     public function messages(): array
     {
         return [
+            'livrable_id.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::LivrablesRealisation.livrable_id')]),
+            'lien.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::LivrablesRealisation.lien')]),
+            'lien.max' => __('validation.lienMax'),
             'titre.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::LivrablesRealisation.titre')]),
             'titre.max' => __('validation.titreMax'),
             'description.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::LivrablesRealisation.description')]),
-            'lien.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::LivrablesRealisation.lien')]),
-            'lien.max' => __('validation.lienMax'),
-            'livrable_id.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::LivrablesRealisation.livrable_id')]),
             'realisation_projet_id.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::LivrablesRealisation.realisation_projet_id')])
         ];
     }

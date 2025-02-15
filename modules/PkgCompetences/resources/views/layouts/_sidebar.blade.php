@@ -1,7 +1,7 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 
-@accessiblePermissions(['index-categoryTechnology', 'index-competence', 'index-niveauCompetence', 'index-technology', 'index-niveauDifficulte'])
+@accessiblePermissions(['index-categoryTechnology', 'index-niveauCompetence', 'index-niveauDifficulte'])
 @if($accessiblePermissions->isNotEmpty())
 <li class="nav-item has-treeview {{ Request::is('admin/PkgCompetences*') ? 'menu-open' : '' }}">
     <a href="#" class="nav-link nav-link {{ Request::is('admin/PkgCompetences*') ? 'active' : '' }}">
@@ -20,27 +20,11 @@
             </a>
         </li>
         @endcan
-        @can('index-competence') 
-        <li class="nav-item">
-            <a href="{{ route('competences.index') }}" class="nav-link {{ Request::is('admin/PkgCompetences/competences') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-user-graduate"></i>
-                {{__('PkgCompetences::competence.plural')}}
-            </a>
-        </li>
-        @endcan
         @can('index-niveauCompetence') 
         <li class="nav-item">
             <a href="{{ route('niveauCompetences.index') }}" class="nav-link {{ Request::is('admin/PkgCompetences/niveauCompetences') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-bars"></i>
                 {{__('PkgCompetences::niveauCompetence.plural')}}
-            </a>
-        </li>
-        @endcan
-        @can('index-technology') 
-        <li class="nav-item">
-            <a href="{{ route('technologies.index') }}" class="nav-link {{ Request::is('admin/PkgCompetences/technologies') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-bolt"></i>
-                {{__('PkgCompetences::technology.plural')}}
             </a>
         </li>
         @endcan

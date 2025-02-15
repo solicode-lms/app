@@ -34,7 +34,7 @@ class BaseLivrablesRealisation extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'titre', 'description', 'lien', 'livrable_id', 'realisation_projet_id'
+        'livrable_id', 'lien', 'titre', 'description', 'realisation_projet_id'
     ];
 
     /**

@@ -27,8 +27,8 @@ class BaseLivrableRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'titre' => 'required|string|max:255',
             'nature_livrable_id' => 'required',
+            'titre' => 'required|string|max:255',
             'projet_id' => 'required',
             'description' => 'nullable|string'
         ];
@@ -42,9 +42,9 @@ class BaseLivrableRequest extends FormRequest
     public function messages(): array
     {
         return [
+            'nature_livrable_id.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Livrable.nature_livrable_id')]),
             'titre.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Livrable.titre')]),
             'titre.max' => __('validation.titreMax'),
-            'nature_livrable_id.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Livrable.nature_livrable_id')]),
             'projet_id.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Livrable.projet_id')]),
             'description.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Livrable.description')])
         ];
