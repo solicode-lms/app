@@ -35,7 +35,7 @@ class DefaultFormateurPermission extends Seeder
             'affectationProjet' => 'Editeur,Extraction',
             'etatsRealisationProjet' => 'Editeur,Extraction',
             'livrablesRealisation' => 'LecteurMany,Extraction',
-            'realisationProjet' => 'Lecteur,Extraction',
+            'realisationProjet' => 'Editeur,Extraction',
             'validation' => 'Editeur,Extraction',
         ];
 

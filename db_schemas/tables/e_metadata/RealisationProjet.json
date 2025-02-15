@@ -252,5 +252,23 @@
         "value_float": 0,
         "e_model_reference": "realisation_projets",
         "e_metadata_definition_reference": "iconModel"
+    },
+    {
+        "reference": "realisation_projets_hasMany_livrables_realisations_realisation_projet_id_editHasMany",
+        "value_boolean": 1,
+        "e_data_field_reference": "realisation_projets_hasMany_livrables_realisations_realisation_projet_id",
+        "e_metadata_definition_reference": "editHasMany"
+    },
+    {
+        "reference": "realisation_projets_hasMany_livrables_realisations_realisation_projet_id_displayOrder",
+        "value_integer": 11,
+        "e_data_field_reference": "realisation_projets_hasMany_livrables_realisations_realisation_projet_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "realisation_projets_hasMany_livrables_realisations_realisation_projet_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "realisation_projets_hasMany_livrables_realisations_realisation_projet_id",
+        "e_metadata_definition_reference": "displayInForm"
     }
 ]
