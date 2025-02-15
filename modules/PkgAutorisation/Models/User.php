@@ -11,6 +11,7 @@ use Modules\PkgFormation\Models\Formateur;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Support\Str;
 use Modules\Core\Services\SessionState;
+use Modules\PkgApprenants\Models\Apprenant;
 
 class User extends Authenticatable
 {
@@ -62,6 +63,11 @@ class User extends Authenticatable
     {
         return $this->hasOne(Formateur::class);
     }
+
+    public function apprenant()
+    {
+        return $this->hasOne(Apprenant::class);
+    }
     
     /**
      * Gapp détecter la relation OneToOne comme ManyToOne
@@ -71,6 +77,10 @@ class User extends Authenticatable
     public function formateurs(): HasMany
     {
         return $this->hasMany(Formateur::class, 'user_id', 'id');
+    }
+    public function apprenants(): HasMany
+    {
+        return $this->hasMany(Apprenant::class, 'user_id', 'id');
     }
 
  
@@ -116,5 +126,10 @@ class User extends Authenticatable
     //    {
     //        return $this->morphToMany(Role::class, 'model', 'model_has_roles', 'model_id', 'role_id');
     //    }
+
+    public function __toString()
+    {
+        return $this->email ?? "";
+    }
 
 }
