@@ -11,8 +11,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
-use Modules\PkgApprenants\Models\Groupe;
 use Modules\PkgCreationProjet\Models\Projet;
+use Modules\PkgApprenants\Models\Groupe;
 use Modules\PkgFormation\Models\AnneeFormation;
 use Modules\PkgRealisationProjets\Models\RealisationProjet;
 
@@ -36,18 +36,9 @@ class BaseAffectationProjet extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'groupe_id', 'date_debut', 'date_fin', 'projet_id', 'description', 'annee_formation_id'
+        'projet_id', 'groupe_id', 'date_debut', 'date_fin', 'description', 'annee_formation_id'
     ];
 
-    /**
-     * Relation BelongsTo pour Groupe.
-     *
-     * @return BelongsTo
-     */
-    public function groupe(): BelongsTo
-    {
-        return $this->belongsTo(Groupe::class, 'groupe_id', 'id');
-    }
     /**
      * Relation BelongsTo pour Projet.
      *
@@ -56,6 +47,15 @@ class BaseAffectationProjet extends BaseModel
     public function projet(): BelongsTo
     {
         return $this->belongsTo(Projet::class, 'projet_id', 'id');
+    }
+    /**
+     * Relation BelongsTo pour Groupe.
+     *
+     * @return BelongsTo
+     */
+    public function groupe(): BelongsTo
+    {
+        return $this->belongsTo(Groupe::class, 'groupe_id', 'id');
     }
     /**
      * Relation BelongsTo pour AnneeFormation.

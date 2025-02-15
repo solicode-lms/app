@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('validations', function (Blueprint $table) {
             $table->id(); // Clé primaire auto-incrémentée
             $table->float('note', 5, 2)->nullable(); // Note avec deux décimales, ex: 18.75
-            $table->string('message')->nullable(); // Message d’évaluation
+            $table->longText('message')->nullable(); // Message d’évaluation
             $table->boolean('is_valide')->default(false); // Indique si la validation est acceptée
             $table->foreignId('transfert_competence_id')->constrained('transfert_competences');
             $table->foreignId('realisation_projet_id')->constrained('realisation_projets');

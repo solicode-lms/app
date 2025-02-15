@@ -56,10 +56,10 @@ class BaseValidationImport implements ToModel, WithHeadingRow
 
         // Création d'un nouvel enregistrement
         return new Validation([
-             'note' => $values[0] ?? null,
-             'message' => $values[1] ?? null,
-             'is_valide' => $values[2] ?? null,
-             'transfert_competence_id' => $values[3] ?? null,
+             'transfert_competence_id' => $values[0] ?? null,
+             'note' => $values[1] ?? null,
+             'message' => $values[2] ?? null,
+             'is_valide' => $values[3] ?? null,
              'realisation_projet_id' => $values[4] ?? null,
              'reference' => $reference,
         ]);

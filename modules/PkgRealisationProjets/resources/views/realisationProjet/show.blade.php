@@ -25,6 +25,18 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="col-sm-12">
+                                <label for="affectation_projet_id">{{ ucfirst(__('PkgRealisationProjets::realisationProjet.affectation_projet_id')) }}:</label>
+                                <p>{{ $itemRealisationProjet->affectation_projet_id }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="apprenant_id">{{ ucfirst(__('PkgRealisationProjets::realisationProjet.apprenant_id')) }}:</label>
+                                <p>{{ $itemRealisationProjet->apprenant_id }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="etats_realisation_projet_id">{{ ucfirst(__('PkgRealisationProjets::realisationProjet.etats_realisation_projet_id')) }}:</label>
+                                <p>{{ $itemRealisationProjet->etats_realisation_projet_id }}</p>
+                            </div>
+                            <div class="col-sm-12">
                                 <label for="date_debut">{{ ucfirst(__('PkgRealisationProjets::realisationProjet.date_debut')) }}:</label>
                                 <p>{{ $itemRealisationProjet->date_debut }}</p>
                             </div>
@@ -35,18 +47,6 @@
                             <div class="col-sm-12">
                                 <label for="rapport">{{ ucfirst(__('PkgRealisationProjets::realisationProjet.rapport')) }}:</label>
                                 <p>{{ $itemRealisationProjet->rapport }}</p>
-                            </div>
-                            <div class="col-sm-12">
-                                <label for="etats_realisation_projet_id">{{ ucfirst(__('PkgRealisationProjets::realisationProjet.etats_realisation_projet_id')) }}:</label>
-                                <p>{{ $itemRealisationProjet->etats_realisation_projet_id }}</p>
-                            </div>
-                            <div class="col-sm-12">
-                                <label for="apprenant_id">{{ ucfirst(__('PkgRealisationProjets::realisationProjet.apprenant_id')) }}:</label>
-                                <p>{{ $itemRealisationProjet->apprenant_id }}</p>
-                            </div>
-                            <div class="col-sm-12">
-                                <label for="affectation_projet_id">{{ ucfirst(__('PkgRealisationProjets::realisationProjet.affectation_projet_id')) }}:</label>
-                                <p>{{ $itemRealisationProjet->affectation_projet_id }}</p>
                             </div>
                         </div>
                     </div>

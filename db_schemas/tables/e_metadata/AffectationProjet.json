@@ -133,7 +133,9 @@
     },
     {
         "reference": "AffectationProjet_projet_id_displayOrder",
-        "value_integer": 6,
+        "value_boolean": 0,
+        "value_integer": 1,
+        "value_float": 0,
         "e_data_field_reference": "AffectationProjet_projet_id",
         "e_metadata_definition_reference": "displayOrder"
     },

@@ -10,6 +10,93 @@
 
     <div class="card-body">
         
+        
+    <div class="form-group">
+            <label for="affectation_projet_id">
+                {{ ucfirst(__('PkgRealisationProjets::affectationProjet.singular')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <select 
+            id="affectation_projet_id" 
+            required
+            
+            name="affectation_projet_id" 
+            class="form-control select2">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($affectationProjets as $affectationProjet)
+                    <option value="{{ $affectationProjet->id }}"
+                        {{ (isset($itemRealisationProjet) && $itemRealisationProjet->affectation_projet_id == $affectationProjet->id) || (old('affectation_projet_id>') == $affectationProjet->id) ? 'selected' : '' }}>
+                        {{ $affectationProjet }}
+                    </option>
+                @endforeach
+            </select>
+            @error('affectation_projet_id')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+    </div>
+
+
+        
+        
+    <div class="form-group">
+            <label for="apprenant_id">
+                {{ ucfirst(__('PkgApprenants::apprenant.singular')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <select 
+            id="apprenant_id" 
+            required
+            
+            name="apprenant_id" 
+            class="form-control select2">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($apprenants as $apprenant)
+                    <option value="{{ $apprenant->id }}"
+                        {{ (isset($itemRealisationProjet) && $itemRealisationProjet->apprenant_id == $apprenant->id) || (old('apprenant_id>') == $apprenant->id) ? 'selected' : '' }}>
+                        {{ $apprenant }}
+                    </option>
+                @endforeach
+            </select>
+            @error('apprenant_id')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+    </div>
+
+
+        
+        
+    <div class="form-group">
+            <label for="etats_realisation_projet_id">
+                {{ ucfirst(__('PkgRealisationProjets::etatsRealisationProjet.singular')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <select 
+            id="etats_realisation_projet_id" 
+            required
+            
+            name="etats_realisation_projet_id" 
+            class="form-control select2">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($etatsRealisationProjets as $etatsRealisationProjet)
+                    <option value="{{ $etatsRealisationProjet->id }}"
+                        {{ (isset($itemRealisationProjet) && $itemRealisationProjet->etats_realisation_projet_id == $etatsRealisationProjet->id) || (old('etats_realisation_projet_id>') == $etatsRealisationProjet->id) ? 'selected' : '' }}>
+                        {{ $etatsRealisationProjet }}
+                    </option>
+                @endforeach
+            </select>
+            @error('etats_realisation_projet_id')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+    </div>
+
+
+        
         <div class="form-group">
             <label for="date_debut">
                 {{ ucfirst(__('PkgRealisationProjets::realisationProjet.date_debut')) }}
@@ -60,6 +147,10 @@
 
 
         
+
+        <!--   Validation HasMany --> 
+
+        
         <div class="form-group">
             <label for="rapport">
                 {{ ucfirst(__('PkgRealisationProjets::realisationProjet.rapport')) }}
@@ -78,97 +169,6 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-
-        
-        
-    <div class="form-group">
-            <label for="etats_realisation_projet_id">
-                {{ ucfirst(__('PkgRealisationProjets::etatsRealisationProjet.singular')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <select 
-            id="etats_realisation_projet_id" 
-            required
-            
-            name="etats_realisation_projet_id" 
-            class="form-control select2">
-             <option value="">Sélectionnez une option</option>
-                @foreach ($etatsRealisationProjets as $etatsRealisationProjet)
-                    <option value="{{ $etatsRealisationProjet->id }}"
-                        {{ (isset($itemRealisationProjet) && $itemRealisationProjet->etats_realisation_projet_id == $etatsRealisationProjet->id) || (old('etats_realisation_projet_id>') == $etatsRealisationProjet->id) ? 'selected' : '' }}>
-                        {{ $etatsRealisationProjet }}
-                    </option>
-                @endforeach
-            </select>
-            @error('etats_realisation_projet_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
-
-
-        
-        
-    <div class="form-group">
-            <label for="apprenant_id">
-                {{ ucfirst(__('PkgApprenants::apprenant.singular')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <select 
-            id="apprenant_id" 
-            required
-            
-            name="apprenant_id" 
-            class="form-control select2">
-             <option value="">Sélectionnez une option</option>
-                @foreach ($apprenants as $apprenant)
-                    <option value="{{ $apprenant->id }}"
-                        {{ (isset($itemRealisationProjet) && $itemRealisationProjet->apprenant_id == $apprenant->id) || (old('apprenant_id>') == $apprenant->id) ? 'selected' : '' }}>
-                        {{ $apprenant }}
-                    </option>
-                @endforeach
-            </select>
-            @error('apprenant_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
-
-
-        
-        
-    <div class="form-group">
-            <label for="affectation_projet_id">
-                {{ ucfirst(__('PkgRealisationProjets::affectationProjet.singular')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <select 
-            id="affectation_projet_id" 
-            required
-            
-            name="affectation_projet_id" 
-            class="form-control select2">
-             <option value="">Sélectionnez une option</option>
-                @foreach ($affectationProjets as $affectationProjet)
-                    <option value="{{ $affectationProjet->id }}"
-                        {{ (isset($itemRealisationProjet) && $itemRealisationProjet->affectation_projet_id == $affectationProjet->id) || (old('affectation_projet_id>') == $affectationProjet->id) ? 'selected' : '' }}>
-                        {{ $affectationProjet }}
-                    </option>
-                @endforeach
-            </select>
-            @error('affectation_projet_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
-
-
-        
-
-        <!--   Validation HasMany --> 
 
     </div>
 

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->string('lien')->nullable(); // Lien vers le livrable (ex: Google Drive, GitHub)
             $table->foreignId('livrable_id')->constrained('livrables');
+            $table->foreignId('realisation_projet_id')->constrained('realisation_projets');
             $table->string('reference')->unique();
             $table->timestamps();
         });

@@ -8,6 +8,6 @@ class AffectationProjet extends BaseAffectationProjet
 
     public function __toString()
     {
-        return ($this->groupe ?? "") . " [" . ($this->date_debut ?? "") . "]" ;
+        return  ($this->projet ?? "") . " [" . ($this->groupe ?? "") . "]" ;
     }
 }

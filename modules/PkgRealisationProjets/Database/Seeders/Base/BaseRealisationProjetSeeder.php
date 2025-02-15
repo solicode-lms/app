@@ -67,12 +67,12 @@ class BaseRealisationProjetSeeder extends Seeder
             
             if ($row) {
                 $realisationProjetService->create([
+                    "affectation_projet_id" => $row["affectation_projet_id"] ?? null ,
+                    "apprenant_id" => $row["apprenant_id"] ?? null ,
+                    "etats_realisation_projet_id" => $row["etats_realisation_projet_id"] ?? null ,
                     "date_debut" => $row["date_debut"] ?? null ,
                     "date_fin" => $row["date_fin"] ?? null ,
-                    "rapport" => $row["rapport"] ?? null ,
-                    "etats_realisation_projet_id" => $row["etats_realisation_projet_id"] ?? null ,
-                    "apprenant_id" => $row["apprenant_id"] ?? null ,
-                    "affectation_projet_id" => $row["affectation_projet_id"] ?? null 
+                    "rapport" => $row["rapport"] ?? null 
                 ]);
             }
         }

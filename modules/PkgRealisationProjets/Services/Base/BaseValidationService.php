@@ -19,10 +19,10 @@ class BaseValidationService extends BaseService
      * @var array
      */
     protected $fieldsSearchable = [
+        'transfert_competence_id',
         'note',
         'message',
         'is_valide',
-        'transfert_competence_id',
         'realisation_projet_id'
     ];
 

@@ -67,10 +67,10 @@ class BaseValidationSeeder extends Seeder
             
             if ($row) {
                 $validationService->create([
+                    "transfert_competence_id" => $row["transfert_competence_id"] ?? null ,
                     "note" => $row["note"] ?? null ,
                     "message" => $row["message"] ?? null ,
                     "is_valide" => $row["is_valide"] ?? null ,
-                    "transfert_competence_id" => $row["transfert_competence_id"] ?? null ,
                     "realisation_projet_id" => $row["realisation_projet_id"] ?? null 
                 ]);
             }

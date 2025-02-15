@@ -34,7 +34,7 @@ class BaseValidation extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'note', 'message', 'is_valide', 'transfert_competence_id', 'realisation_projet_id'
+        'transfert_competence_id', 'note', 'message', 'is_valide', 'realisation_projet_id'
     ];
 
     /**

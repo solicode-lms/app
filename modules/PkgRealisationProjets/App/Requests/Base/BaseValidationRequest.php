@@ -27,10 +27,10 @@ class BaseValidationRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'transfert_competence_id' => 'required',
             'note' => 'nullable',
             'message' => 'nullable|string|max:255',
             'is_valide' => 'required|boolean',
-            'transfert_competence_id' => 'required',
             'realisation_projet_id' => 'required'
         ];
     }
@@ -43,11 +43,11 @@ class BaseValidationRequest extends FormRequest
     public function messages(): array
     {
         return [
+            'transfert_competence_id.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::Validation.transfert_competence_id')]),
             'note.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::Validation.note')]),
             'message.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::Validation.message')]),
             'message.max' => __('validation.messageMax'),
             'is_valide.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::Validation.is_valide')]),
-            'transfert_competence_id.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::Validation.transfert_competence_id')]),
             'realisation_projet_id.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::Validation.realisation_projet_id')])
         ];
     }
