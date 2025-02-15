@@ -40,12 +40,14 @@ class BaseNiveauCompetenceService extends BaseService
     public function __construct()
     {
         parent::__construct(new NiveauCompetence());
+        $this->fieldsFilterable = [];
+    }
 
-        // Initialiser les filtres configurables dynamiquement
+    public function initFieldsFilterable(){
+       // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
             $this->generateManyToOneFilter(__("PkgCompetences::competence.plural"), 'competence_id', \Modules\PkgCompetences\Models\Competence::class, 'code'),
         ];
-
     }
 
     /**

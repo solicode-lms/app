@@ -30,7 +30,6 @@ class BaseNiveauCompetenceController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('niveauCompetence.index');
 
-
         // Extraire les paramètres de recherche, page, et filtres
         $niveauCompetences_params = array_merge(
             $request->only(['page','sort']),

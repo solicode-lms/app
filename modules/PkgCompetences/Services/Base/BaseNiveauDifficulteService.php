@@ -42,12 +42,14 @@ class BaseNiveauDifficulteService extends BaseService
     public function __construct()
     {
         parent::__construct(new NiveauDifficulte());
+        $this->fieldsFilterable = [];
+    }
 
-        // Initialiser les filtres configurables dynamiquement
+    public function initFieldsFilterable(){
+       // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
             $this->generateManyToOneFilter(__("PkgFormation::formateur.plural"), 'formateur_id', \Modules\PkgFormation\Models\Formateur::class, 'nom'),
         ];
-
     }
 
     /**

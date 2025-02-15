@@ -36,7 +36,6 @@ class BaseTechnologyController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('technology.index');
 
-
         // Extraire les paramètres de recherche, page, et filtres
         $technologies_params = array_merge(
             $request->only(['page','sort']),
