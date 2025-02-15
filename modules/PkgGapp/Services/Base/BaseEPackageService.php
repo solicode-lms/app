@@ -39,11 +39,13 @@ class BaseEPackageService extends BaseService
     public function __construct()
     {
         parent::__construct(new EPackage());
+        $this->fieldsFilterable = [];
+    }
 
-        // Initialiser les filtres configurables dynamiquement
+    public function initFieldsFilterable(){
+       // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
         ];
-
     }
 
     /**

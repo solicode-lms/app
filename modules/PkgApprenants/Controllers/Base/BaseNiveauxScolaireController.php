@@ -28,7 +28,6 @@ class BaseNiveauxScolaireController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('niveauxScolaire.index');
 
-
         // Extraire les paramètres de recherche, page, et filtres
         $niveauxScolaires_params = array_merge(
             $request->only(['page','sort']),

@@ -30,7 +30,6 @@ class BaseResourceController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('resource.index');
 
-
         // Extraire les paramètres de recherche, page, et filtres
         $resources_params = array_merge(
             $request->only(['page','sort']),

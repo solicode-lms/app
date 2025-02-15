@@ -28,7 +28,6 @@ class BaseNationaliteController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('nationalite.index');
 
-
         // Extraire les paramètres de recherche, page, et filtres
         $nationalites_params = array_merge(
             $request->only(['page','sort']),

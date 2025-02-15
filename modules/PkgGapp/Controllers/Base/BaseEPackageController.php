@@ -28,7 +28,6 @@ class BaseEPackageController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('ePackage.index');
 
-
         // Extraire les paramètres de recherche, page, et filtres
         $ePackages_params = array_merge(
             $request->only(['page','sort']),

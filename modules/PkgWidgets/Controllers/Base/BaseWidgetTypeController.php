@@ -28,7 +28,6 @@ class BaseWidgetTypeController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('widgetType.index');
 
-
         // Extraire les paramètres de recherche, page, et filtres
         $widgetTypes_params = array_merge(
             $request->only(['page','sort']),

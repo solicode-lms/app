@@ -33,7 +33,6 @@ class BaseLivrableController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('livrable.index');
 
-
         // Extraire les paramètres de recherche, page, et filtres
         $livrables_params = array_merge(
             $request->only(['page','sort']),

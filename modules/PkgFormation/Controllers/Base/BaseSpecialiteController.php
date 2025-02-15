@@ -30,7 +30,6 @@ class BaseSpecialiteController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('specialite.index');
 
-
         // Extraire les paramètres de recherche, page, et filtres
         $specialites_params = array_merge(
             $request->only(['page','sort']),

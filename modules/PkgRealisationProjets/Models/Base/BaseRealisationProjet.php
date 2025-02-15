@@ -11,9 +11,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
-use Modules\PkgRealisationProjets\Models\AffectationProjet;
-use Modules\PkgApprenants\Models\Apprenant;
 use Modules\PkgRealisationProjets\Models\EtatsRealisationProjet;
+use Modules\PkgApprenants\Models\Apprenant;
+use Modules\PkgRealisationProjets\Models\AffectationProjet;
 use Modules\PkgRealisationProjets\Models\Validation;
 
 /**
@@ -40,13 +40,13 @@ class BaseRealisationProjet extends BaseModel
     ];
 
     /**
-     * Relation BelongsTo pour AffectationProjet.
+     * Relation BelongsTo pour EtatsRealisationProjet.
      *
      * @return BelongsTo
      */
-    public function affectationProjet(): BelongsTo
+    public function etatsRealisationProjet(): BelongsTo
     {
-        return $this->belongsTo(AffectationProjet::class, 'affectation_projet_id', 'id');
+        return $this->belongsTo(EtatsRealisationProjet::class, 'etats_realisation_projet_id', 'id');
     }
     /**
      * Relation BelongsTo pour Apprenant.
@@ -58,13 +58,13 @@ class BaseRealisationProjet extends BaseModel
         return $this->belongsTo(Apprenant::class, 'apprenant_id', 'id');
     }
     /**
-     * Relation BelongsTo pour EtatsRealisationProjet.
+     * Relation BelongsTo pour AffectationProjet.
      *
      * @return BelongsTo
      */
-    public function etatsRealisationProjet(): BelongsTo
+    public function affectationProjet(): BelongsTo
     {
-        return $this->belongsTo(EtatsRealisationProjet::class, 'etats_realisation_projet_id', 'id');
+        return $this->belongsTo(AffectationProjet::class, 'affectation_projet_id', 'id');
     }
 
 

@@ -31,7 +31,6 @@ class BaseModuleController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('module.index');
 
-
         // Extraire les paramètres de recherche, page, et filtres
         $modules_params = array_merge(
             $request->only(['page','sort']),

@@ -28,7 +28,6 @@ class BaseWidgetOperationController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('widgetOperation.index');
 
-
         // Extraire les paramètres de recherche, page, et filtres
         $widgetOperations_params = array_merge(
             $request->only(['page','sort']),

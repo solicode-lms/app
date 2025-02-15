@@ -40,12 +40,14 @@ class BasePermissionService extends BaseService
     public function __construct()
     {
         parent::__construct(new Permission());
+        $this->fieldsFilterable = [];
+    }
 
-        // Initialiser les filtres configurables dynamiquement
+    public function initFieldsFilterable(){
+       // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
             $this->generateManyToOneFilter(__("Core::sysController.plural"), 'controller_id', \Modules\Core\Models\SysController::class, 'name'),
         ];
-
     }
 
     /**

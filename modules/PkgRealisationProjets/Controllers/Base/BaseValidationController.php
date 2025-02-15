@@ -33,7 +33,6 @@ class BaseValidationController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('validation.index');
 
-
         // Extraire les paramètres de recherche, page, et filtres
         $validations_params = array_merge(
             $request->only(['page','sort']),

@@ -30,7 +30,6 @@ class BaseLivrablesRealisationController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('livrablesRealisation.index');
 
-
         // Extraire les paramètres de recherche, page, et filtres
         $livrablesRealisations_params = array_merge(
             $request->only(['page','sort']),

@@ -36,7 +36,6 @@ class BasePermissionController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('permission.index');
 
-
         // Extraire les paramètres de recherche, page, et filtres
         $permissions_params = array_merge(
             $request->only(['page','sort']),

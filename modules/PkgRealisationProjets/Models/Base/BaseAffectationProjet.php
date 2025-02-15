@@ -11,9 +11,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
-use Modules\PkgFormation\Models\AnneeFormation;
 use Modules\PkgApprenants\Models\Groupe;
 use Modules\PkgCreationProjet\Models\Projet;
+use Modules\PkgFormation\Models\AnneeFormation;
 use Modules\PkgRealisationProjets\Models\RealisationProjet;
 
 /**
@@ -40,15 +40,6 @@ class BaseAffectationProjet extends BaseModel
     ];
 
     /**
-     * Relation BelongsTo pour AnneeFormation.
-     *
-     * @return BelongsTo
-     */
-    public function anneeFormation(): BelongsTo
-    {
-        return $this->belongsTo(AnneeFormation::class, 'annee_formation_id', 'id');
-    }
-    /**
      * Relation BelongsTo pour Groupe.
      *
      * @return BelongsTo
@@ -65,6 +56,15 @@ class BaseAffectationProjet extends BaseModel
     public function projet(): BelongsTo
     {
         return $this->belongsTo(Projet::class, 'projet_id', 'id');
+    }
+    /**
+     * Relation BelongsTo pour AnneeFormation.
+     *
+     * @return BelongsTo
+     */
+    public function anneeFormation(): BelongsTo
+    {
+        return $this->belongsTo(AnneeFormation::class, 'annee_formation_id', 'id');
     }
 
 

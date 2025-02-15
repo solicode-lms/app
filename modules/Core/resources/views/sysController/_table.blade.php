@@ -20,7 +20,7 @@
                     <td>@limit($sysController->is_active, 80)</td>
                     <td>
                         <ul>
-                            @foreach ($sysController->controllerIdPermissions ?? [] as $permission)
+                            @foreach ($sysController->permissions as $permission)
                                 <li>{{ $permission }}</li>
                             @endforeach
                         </ul>

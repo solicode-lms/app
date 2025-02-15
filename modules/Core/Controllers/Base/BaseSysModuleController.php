@@ -33,7 +33,6 @@ class BaseSysModuleController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('sysModule.index');
 
-
         // Extraire les paramètres de recherche, page, et filtres
         $sysModules_params = array_merge(
             $request->only(['page','sort']),

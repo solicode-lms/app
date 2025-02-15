@@ -41,12 +41,14 @@ class BaseModuleService extends BaseService
     public function __construct()
     {
         parent::__construct(new Module());
+        $this->fieldsFilterable = [];
+    }
 
-        // Initialiser les filtres configurables dynamiquement
+    public function initFieldsFilterable(){
+       // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
             $this->generateManyToOneFilter(__("PkgFormation::filiere.plural"), 'filiere_id', \Modules\PkgFormation\Models\Filiere::class, 'code'),
         ];
-
     }
 
     /**

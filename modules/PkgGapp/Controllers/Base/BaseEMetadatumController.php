@@ -36,7 +36,6 @@ class BaseEMetadatumController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('eMetadatum.index');
 
-
         // Extraire les paramètres de recherche, page, et filtres
         $eMetadata_params = array_merge(
             $request->only(['page','sort']),

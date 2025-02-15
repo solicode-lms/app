@@ -27,7 +27,6 @@ class BaseEMetadataDefinitionController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('eMetadataDefinition.index');
 
-
         // Extraire les paramètres de recherche, page, et filtres
         $eMetadataDefinitions_params = array_merge(
             $request->only(['page','sort']),

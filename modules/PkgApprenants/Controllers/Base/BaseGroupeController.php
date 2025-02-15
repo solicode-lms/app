@@ -40,7 +40,6 @@ class BaseGroupeController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('groupe.index');
 
-
         // Extraire les paramètres de recherche, page, et filtres
         $groupes_params = array_merge(
             $request->only(['page','sort']),

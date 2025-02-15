@@ -11,8 +11,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
-use Modules\Core\Models\SysColor;
 use Modules\Core\Models\SysModule;
+use Modules\Core\Models\SysColor;
 use Modules\PkgWidgets\Models\Widget;
 
 /**
@@ -39,15 +39,6 @@ class BaseSysModel extends BaseModel
     ];
 
     /**
-     * Relation BelongsTo pour SysColor.
-     *
-     * @return BelongsTo
-     */
-    public function sysColor(): BelongsTo
-    {
-        return $this->belongsTo(SysColor::class, 'sys_color_id', 'id');
-    }
-    /**
      * Relation BelongsTo pour SysModule.
      *
      * @return BelongsTo
@@ -55,6 +46,15 @@ class BaseSysModel extends BaseModel
     public function sysModule(): BelongsTo
     {
         return $this->belongsTo(SysModule::class, 'sys_module_id', 'id');
+    }
+    /**
+     * Relation BelongsTo pour SysColor.
+     *
+     * @return BelongsTo
+     */
+    public function sysColor(): BelongsTo
+    {
+        return $this->belongsTo(SysColor::class, 'sys_color_id', 'id');
     }
 
 

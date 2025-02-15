@@ -11,8 +11,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
-use Modules\PkgApprenants\Models\Nationalite;
 use Modules\PkgApprenants\Models\NiveauxScolaire;
+use Modules\PkgApprenants\Models\Nationalite;
 use Modules\PkgAutorisation\Models\User;
 use Modules\PkgApprenants\Models\Groupe;
 use Modules\PkgRealisationProjets\Models\RealisationProjet;
@@ -48,15 +48,6 @@ class BaseApprenant extends BaseModel
 
 
     /**
-     * Relation BelongsTo pour Nationalite.
-     *
-     * @return BelongsTo
-     */
-    public function nationalite(): BelongsTo
-    {
-        return $this->belongsTo(Nationalite::class, 'nationalite_id', 'id');
-    }
-    /**
      * Relation BelongsTo pour NiveauxScolaire.
      *
      * @return BelongsTo
@@ -64,6 +55,15 @@ class BaseApprenant extends BaseModel
     public function niveauxScolaire(): BelongsTo
     {
         return $this->belongsTo(NiveauxScolaire::class, 'niveaux_scolaire_id', 'id');
+    }
+    /**
+     * Relation BelongsTo pour Nationalite.
+     *
+     * @return BelongsTo
+     */
+    public function nationalite(): BelongsTo
+    {
+        return $this->belongsTo(Nationalite::class, 'nationalite_id', 'id');
     }
     /**
      * Relation BelongsTo pour User.

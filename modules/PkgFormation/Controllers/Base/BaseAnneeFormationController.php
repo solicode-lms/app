@@ -29,7 +29,6 @@ class BaseAnneeFormationController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('anneeFormation.index');
 
-
         // Extraire les paramètres de recherche, page, et filtres
         $anneeFormations_params = array_merge(
             $request->only(['page','sort']),

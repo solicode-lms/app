@@ -33,7 +33,6 @@ class BaseRoleController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('role.index');
 
-
         // Extraire les paramètres de recherche, page, et filtres
         $roles_params = array_merge(
             $request->only(['page','sort']),

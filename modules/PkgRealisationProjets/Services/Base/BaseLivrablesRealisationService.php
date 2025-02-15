@@ -41,12 +41,14 @@ class BaseLivrablesRealisationService extends BaseService
     public function __construct()
     {
         parent::__construct(new LivrablesRealisation());
+        $this->fieldsFilterable = [];
+    }
 
-        // Initialiser les filtres configurables dynamiquement
+    public function initFieldsFilterable(){
+       // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
             $this->generateManyToOneFilter(__("PkgCreationProjet::livrable.plural"), 'livrable_id', \Modules\PkgCreationProjet\Models\Livrable::class, 'titre'),
         ];
-
     }
 
     /**

@@ -27,7 +27,6 @@ class BaseApprenantKonosyController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('apprenantKonosy.index');
 
-
         // Extraire les paramètres de recherche, page, et filtres
         $apprenantKonosies_params = array_merge(
             $request->only(['page','sort']),

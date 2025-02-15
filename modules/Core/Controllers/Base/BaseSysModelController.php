@@ -34,7 +34,6 @@ class BaseSysModelController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('sysModel.index');
 
-
         // Extraire les paramètres de recherche, page, et filtres
         $sysModels_params = array_merge(
             $request->only(['page','sort']),

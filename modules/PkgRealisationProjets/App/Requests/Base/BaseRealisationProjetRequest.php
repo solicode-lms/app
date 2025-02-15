@@ -30,7 +30,7 @@ class BaseRealisationProjetRequest extends FormRequest
             'date_debut' => 'required',
             'date_fin' => 'nullable',
             'rapport' => 'nullable|string',
-            'etats_realisation_projet_id' => 'required',
+            'etats_realisation_projet_id' => 'nullable',
             'apprenant_id' => 'required',
             'affectation_projet_id' => 'required'
         ];

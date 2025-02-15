@@ -27,7 +27,6 @@ class BaseVilleController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('ville.index');
 
-
         // Extraire les paramètres de recherche, page, et filtres
         $villes_params = array_merge(
             $request->only(['page','sort']),

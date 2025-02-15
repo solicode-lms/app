@@ -39,7 +39,6 @@ class BaseTransfertCompetenceController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('transfertCompetence.index');
 
-
         // Extraire les paramètres de recherche, page, et filtres
         $transfertCompetences_params = array_merge(
             $request->only(['page','sort']),

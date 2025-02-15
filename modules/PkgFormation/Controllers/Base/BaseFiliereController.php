@@ -29,7 +29,6 @@ class BaseFiliereController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('filiere.index');
 
-
         // Extraire les paramètres de recherche, page, et filtres
         $filieres_params = array_merge(
             $request->only(['page','sort']),
