@@ -11,14 +11,14 @@
 
         @case('Date')
             <input type="date" 
-                     id="{{ $field }}" 
+                   id="{{ $field }}" 
                    name="{{ $field }}" 
                    class="form-control form-control-sm" 
                    value="{{ request($field) }}">
             @break
 
         @case('ManyToOne')
-            <select id="{{ $field }}"  name="{{ $field }}" class="form-select form-control form-control-sm select2">
+            <select id="filter_{{ $field }}"  name="{{ $field }}" class="form-select form-control form-control-sm select2">
                 <option value="">{{ $label }}</option>
                 @foreach ($options as $option)
                     <option value="{{ $option['id'] }}" 

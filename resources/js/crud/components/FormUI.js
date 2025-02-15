@@ -284,10 +284,9 @@ export class FormUI  {
     initializeSelect2_in_modal() {
         
 
-        // TODO : Select2 supprimer select2 de filtre 
-        // Peut être que il sont le même id : exemple : module_id dans le filtre 
-        // et module_id dans formulaire, 
-        // Initialise les éléments Select2
+        // Bug : Select2 ne peut pas initialiser deux select avec même id
+        // l'autre select exist dans filter
+        // Solution : changement de id de filter
         $(`${this.formSelector} select.select2`).each(function () {
             $(this).select2({
                 placeholder: "Sélectionnez une option",

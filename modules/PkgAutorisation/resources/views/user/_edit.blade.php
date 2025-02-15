@@ -4,6 +4,7 @@
     window.editWithTabPanelManagersConfig = window.editWithTabPanelManagersConfig || [];
     window.editWithTabPanelManagersConfig.push({
         entity_name: 'user',
+        contextKey: 'user.edit_{{ $itemUser->id}}',
         cardTabSelector: '#card-tab-user', 
         formSelector: '#userForm',
         editUrl: '{{ route('users.edit',  ['user' => ':id']) }}',
@@ -14,6 +15,7 @@
 </script>
 <script>
     window.contextState = @json($contextState);
+    window.viewState = @json($viewState);
 </script>
 
 @section('content')
@@ -26,8 +28,7 @@
                         <ul class="nav nav-tabs mr-auto" id="edit-user-tab" role="tablist">
                         <li class="pt-2 px-3">
                             <h3 class="card-title">
-                                <i class="nav-icon fas fa-user-circle1"></i>
-                                {{ __('Core::msg.edit') }}
+                                <i class="nav-icon fas fa-user"></i>
                             </h3>
                         </li>
                         <li class="nav-item">
@@ -43,10 +44,6 @@
 
                        
                         </ul>
-                         <button type="button" class="btn btn-info btn-sm btn-card-header">
-                            <i class="fa fa-check"></i>
-                                Enregistrer
-                         </button>
                     </div>
                     <div class="card-body">
                         <div class="tab-content" id="edit-user-tabContent">
@@ -55,10 +52,10 @@
                             </div>
 
                             <div class="tab-pane fade" id="user-hasmany-tabs-apprenant" role="tabpanel" aria-labelledby="user-hasmany-tabs-apprenant-tab">
-                                @include('PkgApprenants::apprenant._index',['isMany' => true, "edit_has_many" => false])
+                                @include('PkgApprenants::apprenant._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'user.edit_' . $itemUser->id])
                             </div>
                             <div class="tab-pane fade" id="user-hasmany-tabs-formateur" role="tabpanel" aria-labelledby="user-hasmany-tabs-formateur-tab">
-                                @include('PkgFormation::formateur._index',['isMany' => true, "edit_has_many" => false])
+                                @include('PkgFormation::formateur._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'user.edit_' . $itemUser->id])
                             </div>
 
                            

@@ -14,8 +14,14 @@ Route::middleware('auth')->group(function () {
         Route::resource('roles', RoleController::class);
         // Routes supplémentaires avec préfixe
         Route::prefix('data')->group(function () {
-            Route::get('roles/export', [RoleController::class, 'export'])->name('roles.export');
             Route::post('roles/import', [RoleController::class, 'import'])->name('roles.import');
+            Route::get('roles/export/{format}', [RoleController::class, 'export'])
+            ->where('format', 'csv|xlsx')
+            ->name('roles.export');
+
         });
+
+        Route::post('roles/data-calcul', [RoleController::class, 'dataCalcul'])->name('roles.dataCalcul');
+
     });
 });

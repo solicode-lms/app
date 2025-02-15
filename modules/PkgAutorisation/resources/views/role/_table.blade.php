@@ -5,7 +5,7 @@
         <thead>
             <tr>
                 <x-sortable-column field="name" label="{{ ucfirst(__('PkgAutorisation::role.name')) }}" />
-                <x-sortable-column field="Permission" label="{{ ucfirst(__('PkgAutorisation::permission.plural')) }}" />
+                <x-sortable-column field="permissions" label="{{ ucfirst(__('PkgAutorisation::permission.plural')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

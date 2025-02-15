@@ -5,7 +5,9 @@
         <thead>
             <tr>
                 <x-sortable-column field="name" label="{{ ucfirst(__('PkgAutorisation::user.name')) }}" />
+                <x-sortable-column field="email" label="{{ ucfirst(__('PkgAutorisation::user.email')) }}" />
                 <x-sortable-column field="password" label="{{ ucfirst(__('PkgAutorisation::user.password')) }}" />
+                <x-sortable-column field="roles" label="{{ ucfirst(__('PkgAutorisation::role.plural')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -13,7 +15,15 @@
             @foreach ($users_data as $user)
                 <tr id="user-row-{{$user->id}}">
                     <td>@limit($user->name, 80)</td>
+                    <td>@limit($user->email, 80)</td>
                     <td>@limit($user->password, 80)</td>
+                    <td>
+                        <ul>
+                            @foreach ($user->roles as $role)
+                                <li>{{ $role }}</li>
+                            @endforeach
+                        </ul>
+                    </td>
                     <td class="text-right">
                         @can('show-user')
                             <a href="{{ route('users.show', ['user' => $user->id]) }}" data-id="{{$user->id}}" class="btn btn-default btn-sm context-state showEntity">

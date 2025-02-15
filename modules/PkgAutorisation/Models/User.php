@@ -1,5 +1,5 @@
 <?php
-
+// User extends Authenticatable
 namespace Modules\PkgAutorisation\Models;
 
 use App\Traits\HasReference;

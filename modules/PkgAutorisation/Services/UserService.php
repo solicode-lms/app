@@ -10,5 +10,13 @@ use Modules\PkgAutorisation\Services\Base\BaseUserService;
  */
 class UserService extends BaseUserService
 {
-   
+    public function dataCalcul($user)
+    {
+        // En Cas d'édit
+        if(isset($user->id)){
+          
+        }
+      
+        return $user;
+    }
 }
