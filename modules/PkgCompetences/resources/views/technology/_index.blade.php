@@ -56,6 +56,7 @@
                         />
                     </div>
                     <div class="col-sm-3">
+                        @can('create', $technology_instance)
                         <x-crud-actions
                             :createPermission="'create-technology'"
                             :createRoute="route('technologies.create')"
@@ -68,6 +69,7 @@
                             :exportCsvRoute="route('technologies.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
                         />
+                        @endcan
                     </div>
                 </div>
                 @show

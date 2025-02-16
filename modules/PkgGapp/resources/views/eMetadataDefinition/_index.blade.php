@@ -56,6 +56,7 @@
                         />
                     </div>
                     <div class="col-sm-3">
+                        @can('create', $eMetadataDefinition_instance)
                         <x-crud-actions
                             :createPermission="'create-eMetadataDefinition'"
                             :createRoute="route('eMetadataDefinitions.create')"
@@ -68,6 +69,7 @@
                             :exportCsvRoute="route('eMetadataDefinitions.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
                         />
+                        @endcan
                     </div>
                 </div>
                 @show

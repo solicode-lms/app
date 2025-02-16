@@ -44,13 +44,13 @@ class BaseSysControllerController extends AdminController
         // Récupérer les statistiques et les champs filtrables
         $sysControllers_stats = $this->sysControllerService->getsysControllerStats();
         $sysControllers_filters = $this->sysControllerService->getFieldsFilterable();
-
+        $sysController_instance =  $this->sysControllerService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('Core::sysController._table', compact('sysControllers_data', 'sysControllers_stats', 'sysControllers_filters'))->render();
+            return view('Core::sysController._table', compact('sysControllers_data', 'sysControllers_stats', 'sysControllers_filters','sysController_instance'))->render();
         }
 
-        return view('Core::sysController.index', compact('sysControllers_data', 'sysControllers_stats', 'sysControllers_filters'));
+        return view('Core::sysController.index', compact('sysControllers_data', 'sysControllers_stats', 'sysControllers_filters','sysController_instance'));
     }
     public function create() {
         $itemSysController = $this->sysControllerService->createInstance();
@@ -86,13 +86,11 @@ class BaseSysControllerController extends AdminController
         );
     }
     public function show(string $id) {
-        return $this->edit( $id);
-    }
-    public function edit(string $id) {
 
         $this->viewState->setContextKey('sysController.edit_' . $id);
 
         $itemSysController = $this->sysControllerService->find($id);
+  
         $sysModules = $this->sysModuleService->all();
 
         $this->viewState->set('scope.permission.controller_id', $id);
@@ -100,13 +98,35 @@ class BaseSysControllerController extends AdminController
         $permissions_data =  $itemSysController->permissions()->paginate(10);
         $permissions_stats = $permissionService->getpermissionStats();
         $permissions_filters = $permissionService->getFieldsFilterable();
-        
+        $permission_instance =  $permissionService->createInstance();
 
         if (request()->ajax()) {
-            return view('Core::sysController._edit', compact('itemSysController', 'sysModules', 'permissions_data', 'permissions_stats', 'permissions_filters'));
+            return view('Core::sysController._edit', compact('itemSysController', 'sysModules', 'permissions_data', 'permissions_stats', 'permissions_filters', 'permission_instance'));
         }
 
-        return view('Core::sysController.edit', compact('itemSysController', 'sysModules', 'permissions_data', 'permissions_stats', 'permissions_filters'));
+        return view('Core::sysController.edit', compact('itemSysController', 'sysModules', 'permissions_data', 'permissions_stats', 'permissions_filters', 'permission_instance'));
+
+    }
+    public function edit(string $id) {
+
+        $this->viewState->setContextKey('sysController.edit_' . $id);
+
+        $itemSysController = $this->sysControllerService->find($id);
+
+        $sysModules = $this->sysModuleService->all();
+
+        $this->viewState->set('scope.permission.controller_id', $id);
+        $permissionService =  new PermissionService();
+        $permissions_data =  $itemSysController->permissions()->paginate(10);
+        $permissions_stats = $permissionService->getpermissionStats();
+        $permissions_filters = $permissionService->getFieldsFilterable();
+        $permission_instance =  $permissionService->createInstance();
+
+        if (request()->ajax()) {
+            return view('Core::sysController._edit', compact('itemSysController', 'sysModules', 'permissions_data', 'permissions_stats', 'permissions_filters', 'permission_instance'));
+        }
+
+        return view('Core::sysController.edit', compact('itemSysController', 'sysModules', 'permissions_data', 'permissions_stats', 'permissions_filters', 'permission_instance'));
 
     }
     public function update(SysControllerRequest $request, string $id) {
@@ -219,6 +239,5 @@ class BaseSysControllerController extends AdminController
         ]);
     }
     
-
 
 }

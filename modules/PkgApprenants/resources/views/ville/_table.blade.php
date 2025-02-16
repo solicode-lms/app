@@ -13,6 +13,7 @@
                 <tr id="ville-row-{{$ville->id}}">
                     <td>@limit($ville->nom, 80)</td>
                     <td class="text-right">
+
                         @can('show-ville')
                             <a href="{{ route('villes.show', ['ville' => $ville->id]) }}" data-id="{{$ville->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>

@@ -23,6 +23,7 @@
                     <td>@limit($widget->icon, 80)</td>
                     <td>@limit($widget->label, 80)</td>
                     <td class="text-right">
+
                         @can('show-widget')
                             <a href="{{ route('widgets.show', ['widget' => $widget->id]) }}" data-id="{{$widget->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>

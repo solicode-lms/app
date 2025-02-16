@@ -41,13 +41,13 @@ class BaseNationaliteController extends AdminController
         // Récupérer les statistiques et les champs filtrables
         $nationalites_stats = $this->nationaliteService->getnationaliteStats();
         $nationalites_filters = $this->nationaliteService->getFieldsFilterable();
-
+        $nationalite_instance =  $this->nationaliteService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgApprenants::nationalite._table', compact('nationalites_data', 'nationalites_stats', 'nationalites_filters'))->render();
+            return view('PkgApprenants::nationalite._table', compact('nationalites_data', 'nationalites_stats', 'nationalites_filters','nationalite_instance'))->render();
         }
 
-        return view('PkgApprenants::nationalite.index', compact('nationalites_data', 'nationalites_stats', 'nationalites_filters'));
+        return view('PkgApprenants::nationalite.index', compact('nationalites_data', 'nationalites_stats', 'nationalites_filters','nationalite_instance'));
     }
     public function create() {
         $itemNationalite = $this->nationaliteService->createInstance();
@@ -82,7 +82,25 @@ class BaseNationaliteController extends AdminController
         );
     }
     public function show(string $id) {
-        return $this->edit( $id);
+
+        $this->viewState->setContextKey('nationalite.edit_' . $id);
+
+        $itemNationalite = $this->nationaliteService->find($id);
+  
+
+        $this->viewState->set('scope.apprenant.nationalite_id', $id);
+        $apprenantService =  new ApprenantService();
+        $apprenants_data =  $itemNationalite->apprenants()->paginate(10);
+        $apprenants_stats = $apprenantService->getapprenantStats();
+        $apprenants_filters = $apprenantService->getFieldsFilterable();
+        $apprenant_instance =  $apprenantService->createInstance();
+
+        if (request()->ajax()) {
+            return view('PkgApprenants::nationalite._edit', compact('itemNationalite', 'apprenants_data', 'apprenants_stats', 'apprenants_filters', 'apprenant_instance'));
+        }
+
+        return view('PkgApprenants::nationalite.edit', compact('itemNationalite', 'apprenants_data', 'apprenants_stats', 'apprenants_filters', 'apprenant_instance'));
+
     }
     public function edit(string $id) {
 
@@ -90,18 +108,19 @@ class BaseNationaliteController extends AdminController
 
         $itemNationalite = $this->nationaliteService->find($id);
 
+
         $this->viewState->set('scope.apprenant.nationalite_id', $id);
         $apprenantService =  new ApprenantService();
         $apprenants_data =  $itemNationalite->apprenants()->paginate(10);
         $apprenants_stats = $apprenantService->getapprenantStats();
         $apprenants_filters = $apprenantService->getFieldsFilterable();
-        
+        $apprenant_instance =  $apprenantService->createInstance();
 
         if (request()->ajax()) {
-            return view('PkgApprenants::nationalite._edit', compact('itemNationalite', 'apprenants_data', 'apprenants_stats', 'apprenants_filters'));
+            return view('PkgApprenants::nationalite._edit', compact('itemNationalite', 'apprenants_data', 'apprenants_stats', 'apprenants_filters', 'apprenant_instance'));
         }
 
-        return view('PkgApprenants::nationalite.edit', compact('itemNationalite', 'apprenants_data', 'apprenants_stats', 'apprenants_filters'));
+        return view('PkgApprenants::nationalite.edit', compact('itemNationalite', 'apprenants_data', 'apprenants_stats', 'apprenants_filters', 'apprenant_instance'));
 
     }
     public function update(NationaliteRequest $request, string $id) {
@@ -214,6 +233,5 @@ class BaseNationaliteController extends AdminController
         ]);
     }
     
-
 
 }

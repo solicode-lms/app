@@ -46,13 +46,13 @@ class BaseRoleController extends AdminController
         // Récupérer les statistiques et les champs filtrables
         $roles_stats = $this->roleService->getroleStats();
         $roles_filters = $this->roleService->getFieldsFilterable();
-
+        $role_instance =  $this->roleService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgAutorisation::role._table', compact('roles_data', 'roles_stats', 'roles_filters'))->render();
+            return view('PkgAutorisation::role._table', compact('roles_data', 'roles_stats', 'roles_filters','role_instance'))->render();
         }
 
-        return view('PkgAutorisation::role.index', compact('roles_data', 'roles_stats', 'roles_filters'));
+        return view('PkgAutorisation::role.index', compact('roles_data', 'roles_stats', 'roles_filters','role_instance'));
     }
     public function create() {
         $itemRole = $this->roleService->createInstance();
@@ -89,13 +89,28 @@ class BaseRoleController extends AdminController
         );
     }
     public function show(string $id) {
-        return $this->edit( $id);
+
+        $this->viewState->setContextKey('role.edit_' . $id);
+
+        $itemRole = $this->roleService->find($id);
+  
+        $permissions = $this->permissionService->all();
+        $users = $this->userService->all();
+
+
+        if (request()->ajax()) {
+            return view('PkgAutorisation::role._fields', compact('itemRole', 'permissions', 'users'));
+        }
+
+        return view('PkgAutorisation::role.edit', compact('itemRole', 'permissions', 'users'));
+
     }
     public function edit(string $id) {
 
         $this->viewState->setContextKey('role.edit_' . $id);
 
         $itemRole = $this->roleService->find($id);
+
         $permissions = $this->permissionService->all();
         $users = $this->userService->all();
 
@@ -217,6 +232,5 @@ class BaseRoleController extends AdminController
         ]);
     }
     
-
 
 }

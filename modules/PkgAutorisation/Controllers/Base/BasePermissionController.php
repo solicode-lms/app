@@ -49,13 +49,13 @@ class BasePermissionController extends AdminController
         // Récupérer les statistiques et les champs filtrables
         $permissions_stats = $this->permissionService->getpermissionStats();
         $permissions_filters = $this->permissionService->getFieldsFilterable();
-
+        $permission_instance =  $this->permissionService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgAutorisation::permission._table', compact('permissions_data', 'permissions_stats', 'permissions_filters'))->render();
+            return view('PkgAutorisation::permission._table', compact('permissions_data', 'permissions_stats', 'permissions_filters','permission_instance'))->render();
         }
 
-        return view('PkgAutorisation::permission.index', compact('permissions_data', 'permissions_stats', 'permissions_filters'));
+        return view('PkgAutorisation::permission.index', compact('permissions_data', 'permissions_stats', 'permissions_filters','permission_instance'));
     }
     public function create() {
         $itemPermission = $this->permissionService->createInstance();
@@ -93,13 +93,29 @@ class BasePermissionController extends AdminController
         );
     }
     public function show(string $id) {
-        return $this->edit( $id);
+
+        $this->viewState->setContextKey('permission.edit_' . $id);
+
+        $itemPermission = $this->permissionService->find($id);
+  
+        $features = $this->featureService->all();
+        $roles = $this->roleService->all();
+        $sysControllers = $this->sysControllerService->all();
+
+
+        if (request()->ajax()) {
+            return view('PkgAutorisation::permission._fields', compact('itemPermission', 'features', 'roles', 'sysControllers'));
+        }
+
+        return view('PkgAutorisation::permission.edit', compact('itemPermission', 'features', 'roles', 'sysControllers'));
+
     }
     public function edit(string $id) {
 
         $this->viewState->setContextKey('permission.edit_' . $id);
 
         $itemPermission = $this->permissionService->find($id);
+
         $features = $this->featureService->all();
         $roles = $this->roleService->all();
         $sysControllers = $this->sysControllerService->all();
@@ -222,6 +238,5 @@ class BasePermissionController extends AdminController
         ]);
     }
     
-
 
 }

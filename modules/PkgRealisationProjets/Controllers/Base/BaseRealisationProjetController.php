@@ -51,13 +51,13 @@ class BaseRealisationProjetController extends AdminController
         // Récupérer les statistiques et les champs filtrables
         $realisationProjets_stats = $this->realisationProjetService->getrealisationProjetStats();
         $realisationProjets_filters = $this->realisationProjetService->getFieldsFilterable();
-
+        $realisationProjet_instance =  $this->realisationProjetService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgRealisationProjets::realisationProjet._table', compact('realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters'))->render();
+            return view('PkgRealisationProjets::realisationProjet._table', compact('realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters','realisationProjet_instance'))->render();
         }
 
-        return view('PkgRealisationProjets::realisationProjet.index', compact('realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters'));
+        return view('PkgRealisationProjets::realisationProjet.index', compact('realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters','realisationProjet_instance'));
     }
     public function create() {
         $itemRealisationProjet = $this->realisationProjetService->createInstance();
@@ -95,13 +95,11 @@ class BaseRealisationProjetController extends AdminController
         );
     }
     public function show(string $id) {
-        return $this->edit( $id);
-    }
-    public function edit(string $id) {
 
         $this->viewState->setContextKey('realisationProjet.edit_' . $id);
 
         $itemRealisationProjet = $this->realisationProjetService->find($id);
+  
         $affectationProjets = $this->affectationProjetService->all();
         $apprenants = $this->apprenantService->all();
         $etatsRealisationProjets = $this->etatsRealisationProjetService->all();
@@ -111,19 +109,49 @@ class BaseRealisationProjetController extends AdminController
         $livrablesRealisations_data =  $itemRealisationProjet->livrablesRealisations()->paginate(10);
         $livrablesRealisations_stats = $livrablesRealisationService->getlivrablesRealisationStats();
         $livrablesRealisations_filters = $livrablesRealisationService->getFieldsFilterable();
-        
+        $livrablesRealisation_instance =  $livrablesRealisationService->createInstance();
         $this->viewState->set('scope.validation.realisation_projet_id', $id);
         $validationService =  new ValidationService();
         $validations_data =  $itemRealisationProjet->validations()->paginate(10);
         $validations_stats = $validationService->getvalidationStats();
         $validations_filters = $validationService->getFieldsFilterable();
-        
+        $validation_instance =  $validationService->createInstance();
 
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::realisationProjet._edit', compact('itemRealisationProjet', 'affectationProjets', 'apprenants', 'etatsRealisationProjets', 'livrablesRealisations_data', 'validations_data', 'livrablesRealisations_stats', 'validations_stats', 'livrablesRealisations_filters', 'validations_filters'));
+            return view('PkgRealisationProjets::realisationProjet._edit', compact('itemRealisationProjet', 'affectationProjets', 'apprenants', 'etatsRealisationProjets', 'livrablesRealisations_data', 'validations_data', 'livrablesRealisations_stats', 'validations_stats', 'livrablesRealisations_filters', 'validations_filters', 'livrablesRealisation_instance', 'validation_instance'));
         }
 
-        return view('PkgRealisationProjets::realisationProjet.edit', compact('itemRealisationProjet', 'affectationProjets', 'apprenants', 'etatsRealisationProjets', 'livrablesRealisations_data', 'validations_data', 'livrablesRealisations_stats', 'validations_stats', 'livrablesRealisations_filters', 'validations_filters'));
+        return view('PkgRealisationProjets::realisationProjet.edit', compact('itemRealisationProjet', 'affectationProjets', 'apprenants', 'etatsRealisationProjets', 'livrablesRealisations_data', 'validations_data', 'livrablesRealisations_stats', 'validations_stats', 'livrablesRealisations_filters', 'validations_filters', 'livrablesRealisation_instance', 'validation_instance'));
+
+    }
+    public function edit(string $id) {
+
+        $this->viewState->setContextKey('realisationProjet.edit_' . $id);
+
+        $itemRealisationProjet = $this->realisationProjetService->find($id);
+
+        $affectationProjets = $this->affectationProjetService->all();
+        $apprenants = $this->apprenantService->all();
+        $etatsRealisationProjets = $this->etatsRealisationProjetService->all();
+
+        $this->viewState->set('scope.livrablesRealisation.realisation_projet_id', $id);
+        $livrablesRealisationService =  new LivrablesRealisationService();
+        $livrablesRealisations_data =  $itemRealisationProjet->livrablesRealisations()->paginate(10);
+        $livrablesRealisations_stats = $livrablesRealisationService->getlivrablesRealisationStats();
+        $livrablesRealisations_filters = $livrablesRealisationService->getFieldsFilterable();
+        $livrablesRealisation_instance =  $livrablesRealisationService->createInstance();
+        $this->viewState->set('scope.validation.realisation_projet_id', $id);
+        $validationService =  new ValidationService();
+        $validations_data =  $itemRealisationProjet->validations()->paginate(10);
+        $validations_stats = $validationService->getvalidationStats();
+        $validations_filters = $validationService->getFieldsFilterable();
+        $validation_instance =  $validationService->createInstance();
+
+        if (request()->ajax()) {
+            return view('PkgRealisationProjets::realisationProjet._edit', compact('itemRealisationProjet', 'affectationProjets', 'apprenants', 'etatsRealisationProjets', 'livrablesRealisations_data', 'validations_data', 'livrablesRealisations_stats', 'validations_stats', 'livrablesRealisations_filters', 'validations_filters', 'livrablesRealisation_instance', 'validation_instance'));
+        }
+
+        return view('PkgRealisationProjets::realisationProjet.edit', compact('itemRealisationProjet', 'affectationProjets', 'apprenants', 'etatsRealisationProjets', 'livrablesRealisations_data', 'validations_data', 'livrablesRealisations_stats', 'validations_stats', 'livrablesRealisations_filters', 'validations_filters', 'livrablesRealisation_instance', 'validation_instance'));
 
     }
     public function update(RealisationProjetRequest $request, string $id) {
@@ -236,6 +264,5 @@ class BaseRealisationProjetController extends AdminController
         ]);
     }
     
-
 
 }

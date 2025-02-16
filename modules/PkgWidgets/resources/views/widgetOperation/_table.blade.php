@@ -11,6 +11,7 @@
             @foreach ($widgetOperations_data as $widgetOperation)
                 <tr id="widgetOperation-row-{{$widgetOperation->id}}">
                     <td class="text-right">
+
                         @can('show-widgetOperation')
                             <a href="{{ route('widgetOperations.show', ['widgetOperation' => $widgetOperation->id]) }}" data-id="{{$widgetOperation->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>

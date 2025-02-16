@@ -19,4 +19,5 @@ class CategoryTechnologyService extends BaseCategoryTechnologyService
       
         return $categoryTechnology;
     }
+   
 }

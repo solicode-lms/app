@@ -19,6 +19,7 @@
                     <td>@limit($affectationProjet->date_debut, 80)</td>
                     <td>@limit($affectationProjet->date_fin, 80)</td>
                     <td class="text-right">
+
                         @can('show-affectationProjet')
                             <a href="{{ route('affectationProjets.show', ['affectationProjet' => $affectationProjet->id]) }}" data-id="{{$affectationProjet->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>

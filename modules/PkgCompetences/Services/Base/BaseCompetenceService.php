@@ -84,4 +84,6 @@ class BaseCompetenceService extends BaseService
         return $stats;
     }
 
+
+
 }

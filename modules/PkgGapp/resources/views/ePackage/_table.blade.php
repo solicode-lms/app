@@ -13,6 +13,7 @@
                 <tr id="ePackage-row-{{$ePackage->id}}">
                     <td>@limit($ePackage->name, 80)</td>
                     <td class="text-right">
+
                         @can('show-ePackage')
                             <a href="{{ route('ePackages.show', ['ePackage' => $ePackage->id]) }}" data-id="{{$ePackage->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>

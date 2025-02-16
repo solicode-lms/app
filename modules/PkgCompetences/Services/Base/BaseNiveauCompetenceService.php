@@ -76,4 +76,6 @@ class BaseNiveauCompetenceService extends BaseService
         return $stats;
     }
 
+
+
 }

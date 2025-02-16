@@ -17,6 +17,7 @@
                     <td>@limit($livrablesRealisation->lien, 80)</td>
                     <td>@limit($livrablesRealisation->titre, 80)</td>
                     <td class="text-right">
+
                         @can('show-livrablesRealisation')
                             <a href="{{ route('livrablesRealisations.show', ['livrablesRealisation' => $livrablesRealisation->id]) }}" data-id="{{$livrablesRealisation->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>

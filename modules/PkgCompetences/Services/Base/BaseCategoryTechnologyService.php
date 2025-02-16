@@ -74,4 +74,6 @@ class BaseCategoryTechnologyService extends BaseService
         return $stats;
     }
 
+
+
 }

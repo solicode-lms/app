@@ -44,13 +44,13 @@ class BaseEtatsRealisationProjetController extends AdminController
         // Récupérer les statistiques et les champs filtrables
         $etatsRealisationProjets_stats = $this->etatsRealisationProjetService->getetatsRealisationProjetStats();
         $etatsRealisationProjets_filters = $this->etatsRealisationProjetService->getFieldsFilterable();
-
+        $etatsRealisationProjet_instance =  $this->etatsRealisationProjetService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgRealisationProjets::etatsRealisationProjet._table', compact('etatsRealisationProjets_data', 'etatsRealisationProjets_stats', 'etatsRealisationProjets_filters'))->render();
+            return view('PkgRealisationProjets::etatsRealisationProjet._table', compact('etatsRealisationProjets_data', 'etatsRealisationProjets_stats', 'etatsRealisationProjets_filters','etatsRealisationProjet_instance'))->render();
         }
 
-        return view('PkgRealisationProjets::etatsRealisationProjet.index', compact('etatsRealisationProjets_data', 'etatsRealisationProjets_stats', 'etatsRealisationProjets_filters'));
+        return view('PkgRealisationProjets::etatsRealisationProjet.index', compact('etatsRealisationProjets_data', 'etatsRealisationProjets_stats', 'etatsRealisationProjets_filters','etatsRealisationProjet_instance'));
     }
     public function create() {
         $this->viewState->set('scope_form.etatsRealisationProjet.formateur_id'  , $this->sessionState->get('formateur_id'));
@@ -87,7 +87,20 @@ class BaseEtatsRealisationProjetController extends AdminController
         );
     }
     public function show(string $id) {
-        return $this->edit( $id);
+
+        $this->viewState->setContextKey('etatsRealisationProjet.edit_' . $id);
+
+        $itemEtatsRealisationProjet = $this->etatsRealisationProjetService->find($id);
+  
+        $formateurs = $this->formateurService->all();
+
+
+        if (request()->ajax()) {
+            return view('PkgRealisationProjets::etatsRealisationProjet._fields', compact('itemEtatsRealisationProjet', 'formateurs'));
+        }
+
+        return view('PkgRealisationProjets::etatsRealisationProjet.edit', compact('itemEtatsRealisationProjet', 'formateurs'));
+
     }
     public function edit(string $id) {
 

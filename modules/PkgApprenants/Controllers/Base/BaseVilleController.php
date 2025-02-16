@@ -40,13 +40,13 @@ class BaseVilleController extends AdminController
         // Récupérer les statistiques et les champs filtrables
         $villes_stats = $this->villeService->getvilleStats();
         $villes_filters = $this->villeService->getFieldsFilterable();
-
+        $ville_instance =  $this->villeService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgApprenants::ville._table', compact('villes_data', 'villes_stats', 'villes_filters'))->render();
+            return view('PkgApprenants::ville._table', compact('villes_data', 'villes_stats', 'villes_filters','ville_instance'))->render();
         }
 
-        return view('PkgApprenants::ville.index', compact('villes_data', 'villes_stats', 'villes_filters'));
+        return view('PkgApprenants::ville.index', compact('villes_data', 'villes_stats', 'villes_filters','ville_instance'));
     }
     public function create() {
         $itemVille = $this->villeService->createInstance();
@@ -81,13 +81,26 @@ class BaseVilleController extends AdminController
         );
     }
     public function show(string $id) {
-        return $this->edit( $id);
+
+        $this->viewState->setContextKey('ville.edit_' . $id);
+
+        $itemVille = $this->villeService->find($id);
+  
+
+
+        if (request()->ajax()) {
+            return view('PkgApprenants::ville._fields', compact('itemVille'));
+        }
+
+        return view('PkgApprenants::ville.edit', compact('itemVille'));
+
     }
     public function edit(string $id) {
 
         $this->viewState->setContextKey('ville.edit_' . $id);
 
         $itemVille = $this->villeService->find($id);
+
 
 
         if (request()->ajax()) {
@@ -207,6 +220,5 @@ class BaseVilleController extends AdminController
         ]);
     }
     
-
 
 }

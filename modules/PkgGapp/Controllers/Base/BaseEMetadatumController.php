@@ -49,13 +49,13 @@ class BaseEMetadatumController extends AdminController
         // Récupérer les statistiques et les champs filtrables
         $eMetadata_stats = $this->eMetadatumService->geteMetadatumStats();
         $eMetadata_filters = $this->eMetadatumService->getFieldsFilterable();
-
+        $eMetadatum_instance =  $this->eMetadatumService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgGapp::eMetadatum._table', compact('eMetadata_data', 'eMetadata_stats', 'eMetadata_filters'))->render();
+            return view('PkgGapp::eMetadatum._table', compact('eMetadata_data', 'eMetadata_stats', 'eMetadata_filters','eMetadatum_instance'))->render();
         }
 
-        return view('PkgGapp::eMetadatum.index', compact('eMetadata_data', 'eMetadata_stats', 'eMetadata_filters'));
+        return view('PkgGapp::eMetadatum.index', compact('eMetadata_data', 'eMetadata_stats', 'eMetadata_filters','eMetadatum_instance'));
     }
     public function create() {
         $itemEMetadatum = $this->eMetadatumService->createInstance();
@@ -93,13 +93,29 @@ class BaseEMetadatumController extends AdminController
         );
     }
     public function show(string $id) {
-        return $this->edit( $id);
+
+        $this->viewState->setContextKey('eMetadatum.edit_' . $id);
+
+        $itemEMetadatum = $this->eMetadatumService->find($id);
+  
+        $eDataFields = $this->eDataFieldService->all();
+        $eMetadataDefinitions = $this->eMetadataDefinitionService->all();
+        $eModels = $this->eModelService->all();
+
+
+        if (request()->ajax()) {
+            return view('PkgGapp::eMetadatum._fields', compact('itemEMetadatum', 'eDataFields', 'eMetadataDefinitions', 'eModels'));
+        }
+
+        return view('PkgGapp::eMetadatum.edit', compact('itemEMetadatum', 'eDataFields', 'eMetadataDefinitions', 'eModels'));
+
     }
     public function edit(string $id) {
 
         $this->viewState->setContextKey('eMetadatum.edit_' . $id);
 
         $itemEMetadatum = $this->eMetadatumService->find($id);
+
         $eDataFields = $this->eDataFieldService->all();
         $eMetadataDefinitions = $this->eMetadataDefinitionService->all();
         $eModels = $this->eModelService->all();
@@ -222,6 +238,5 @@ class BaseEMetadatumController extends AdminController
         ]);
     }
     
-
 
 }

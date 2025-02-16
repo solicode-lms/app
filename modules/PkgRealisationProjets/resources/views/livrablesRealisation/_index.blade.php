@@ -56,6 +56,7 @@
                         />
                     </div>
                     <div class="col-sm-3">
+                        @can('create', $livrablesRealisation_instance)
                         <x-crud-actions
                             :createPermission="'create-livrablesRealisation'"
                             :createRoute="route('livrablesRealisations.create')"
@@ -68,6 +69,7 @@
                             :exportCsvRoute="route('livrablesRealisations.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
                         />
+                        @endcan
                     </div>
                 </div>
                 @show

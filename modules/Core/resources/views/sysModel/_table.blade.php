@@ -17,6 +17,7 @@
                     <td>@limit($sysModel->sysModule, 80)</td>
                     <td>@limit($sysModel->sysColor, 80)</td>
                     <td class="text-right">
+
                         @can('show-sysModel')
                             <a href="{{ route('sysModels.show', ['sysModel' => $sysModel->id]) }}" data-id="{{$sysModel->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>

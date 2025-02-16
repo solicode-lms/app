@@ -80,4 +80,6 @@ class BaseAffectationProjetService extends BaseService
         return $stats;
     }
 
+
+
 }

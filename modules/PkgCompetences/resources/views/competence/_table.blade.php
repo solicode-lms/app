@@ -19,6 +19,7 @@
                     <td>@limit($competence->nom, 80)</td>
                     <td>@limit($competence->module, 80)</td>
                     <td class="text-right">
+
                         @can('show-competence')
                             <a href="{{ route('competences.show', ['competence' => $competence->id]) }}" data-id="{{$competence->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>

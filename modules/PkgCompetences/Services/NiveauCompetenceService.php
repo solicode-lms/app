@@ -19,4 +19,5 @@ class NiveauCompetenceService extends BaseNiveauCompetenceService
       
         return $niveauCompetence;
     }
+   
 }

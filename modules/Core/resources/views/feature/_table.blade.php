@@ -23,6 +23,7 @@
                         </ul>
                     </td>
                     <td class="text-right">
+
                         @can('show-feature')
                             <a href="{{ route('features.show', ['feature' => $feature->id]) }}" data-id="{{$feature->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>

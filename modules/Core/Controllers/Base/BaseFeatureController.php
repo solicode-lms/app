@@ -46,13 +46,13 @@ class BaseFeatureController extends AdminController
         // Récupérer les statistiques et les champs filtrables
         $features_stats = $this->featureService->getfeatureStats();
         $features_filters = $this->featureService->getFieldsFilterable();
-
+        $feature_instance =  $this->featureService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('Core::feature._table', compact('features_data', 'features_stats', 'features_filters'))->render();
+            return view('Core::feature._table', compact('features_data', 'features_stats', 'features_filters','feature_instance'))->render();
         }
 
-        return view('Core::feature.index', compact('features_data', 'features_stats', 'features_filters'));
+        return view('Core::feature.index', compact('features_data', 'features_stats', 'features_filters','feature_instance'));
     }
     public function create() {
         $itemFeature = $this->featureService->createInstance();
@@ -89,13 +89,28 @@ class BaseFeatureController extends AdminController
         );
     }
     public function show(string $id) {
-        return $this->edit( $id);
+
+        $this->viewState->setContextKey('feature.edit_' . $id);
+
+        $itemFeature = $this->featureService->find($id);
+  
+        $permissions = $this->permissionService->all();
+        $featureDomains = $this->featureDomainService->all();
+
+
+        if (request()->ajax()) {
+            return view('Core::feature._fields', compact('itemFeature', 'permissions', 'featureDomains'));
+        }
+
+        return view('Core::feature.edit', compact('itemFeature', 'permissions', 'featureDomains'));
+
     }
     public function edit(string $id) {
 
         $this->viewState->setContextKey('feature.edit_' . $id);
 
         $itemFeature = $this->featureService->find($id);
+
         $permissions = $this->permissionService->all();
         $featureDomains = $this->featureDomainService->all();
 
@@ -217,6 +232,5 @@ class BaseFeatureController extends AdminController
         ]);
     }
     
-
 
 }

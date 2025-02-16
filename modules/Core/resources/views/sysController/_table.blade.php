@@ -26,6 +26,7 @@
                         </ul>
                     </td>
                     <td class="text-right">
+
                         @can('show-sysController')
                             <a href="{{ route('sysControllers.show', ['sysController' => $sysController->id]) }}" data-id="{{$sysController->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>

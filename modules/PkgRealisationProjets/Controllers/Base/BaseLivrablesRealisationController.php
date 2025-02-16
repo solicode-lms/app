@@ -46,13 +46,13 @@ class BaseLivrablesRealisationController extends AdminController
         // Récupérer les statistiques et les champs filtrables
         $livrablesRealisations_stats = $this->livrablesRealisationService->getlivrablesRealisationStats();
         $livrablesRealisations_filters = $this->livrablesRealisationService->getFieldsFilterable();
-
+        $livrablesRealisation_instance =  $this->livrablesRealisationService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgRealisationProjets::livrablesRealisation._table', compact('livrablesRealisations_data', 'livrablesRealisations_stats', 'livrablesRealisations_filters'))->render();
+            return view('PkgRealisationProjets::livrablesRealisation._table', compact('livrablesRealisations_data', 'livrablesRealisations_stats', 'livrablesRealisations_filters','livrablesRealisation_instance'))->render();
         }
 
-        return view('PkgRealisationProjets::livrablesRealisation.index', compact('livrablesRealisations_data', 'livrablesRealisations_stats', 'livrablesRealisations_filters'));
+        return view('PkgRealisationProjets::livrablesRealisation.index', compact('livrablesRealisations_data', 'livrablesRealisations_stats', 'livrablesRealisations_filters','livrablesRealisation_instance'));
     }
     public function create() {
         $itemLivrablesRealisation = $this->livrablesRealisationService->createInstance();
@@ -89,13 +89,28 @@ class BaseLivrablesRealisationController extends AdminController
         );
     }
     public function show(string $id) {
-        return $this->edit( $id);
+
+        $this->viewState->setContextKey('livrablesRealisation.edit_' . $id);
+
+        $itemLivrablesRealisation = $this->livrablesRealisationService->find($id);
+  
+        $livrables = $this->livrableService->all();
+        $realisationProjets = $this->realisationProjetService->all();
+
+
+        if (request()->ajax()) {
+            return view('PkgRealisationProjets::livrablesRealisation._fields', compact('itemLivrablesRealisation', 'livrables', 'realisationProjets'));
+        }
+
+        return view('PkgRealisationProjets::livrablesRealisation.edit', compact('itemLivrablesRealisation', 'livrables', 'realisationProjets'));
+
     }
     public function edit(string $id) {
 
         $this->viewState->setContextKey('livrablesRealisation.edit_' . $id);
 
         $itemLivrablesRealisation = $this->livrablesRealisationService->find($id);
+
         $livrables = $this->livrableService->all();
         $realisationProjets = $this->realisationProjetService->all();
 
@@ -217,6 +232,5 @@ class BaseLivrablesRealisationController extends AdminController
         ]);
     }
     
-
 
 }

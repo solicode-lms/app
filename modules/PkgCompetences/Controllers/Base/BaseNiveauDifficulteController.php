@@ -44,13 +44,13 @@ class BaseNiveauDifficulteController extends AdminController
         // Récupérer les statistiques et les champs filtrables
         $niveauDifficultes_stats = $this->niveauDifficulteService->getniveauDifficulteStats();
         $niveauDifficultes_filters = $this->niveauDifficulteService->getFieldsFilterable();
-
+        $niveauDifficulte_instance =  $this->niveauDifficulteService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgCompetences::niveauDifficulte._table', compact('niveauDifficultes_data', 'niveauDifficultes_stats', 'niveauDifficultes_filters'))->render();
+            return view('PkgCompetences::niveauDifficulte._table', compact('niveauDifficultes_data', 'niveauDifficultes_stats', 'niveauDifficultes_filters','niveauDifficulte_instance'))->render();
         }
 
-        return view('PkgCompetences::niveauDifficulte.index', compact('niveauDifficultes_data', 'niveauDifficultes_stats', 'niveauDifficultes_filters'));
+        return view('PkgCompetences::niveauDifficulte.index', compact('niveauDifficultes_data', 'niveauDifficultes_stats', 'niveauDifficultes_filters','niveauDifficulte_instance'));
     }
     public function create() {
         $this->viewState->set('scope_form.niveauDifficulte.formateur_id'  , $this->sessionState->get('formateur_id'));
@@ -87,7 +87,20 @@ class BaseNiveauDifficulteController extends AdminController
         );
     }
     public function show(string $id) {
-        return $this->edit( $id);
+
+        $this->viewState->setContextKey('niveauDifficulte.edit_' . $id);
+
+        $itemNiveauDifficulte = $this->niveauDifficulteService->find($id);
+  
+        $formateurs = $this->formateurService->all();
+
+
+        if (request()->ajax()) {
+            return view('PkgCompetences::niveauDifficulte._fields', compact('itemNiveauDifficulte', 'formateurs'));
+        }
+
+        return view('PkgCompetences::niveauDifficulte.edit', compact('itemNiveauDifficulte', 'formateurs'));
+
     }
     public function edit(string $id) {
 

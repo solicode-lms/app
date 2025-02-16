@@ -19,4 +19,5 @@ class WidgetTypeService extends BaseWidgetTypeService
       
         return $widgetType;
     }
+   
 }

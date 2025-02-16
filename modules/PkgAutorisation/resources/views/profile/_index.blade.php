@@ -56,6 +56,7 @@
                         />
                     </div>
                     <div class="col-sm-3">
+                        @can('create', $profile_instance)
                         <x-crud-actions
                             :createPermission="'create-profile'"
                             :createRoute="route('profiles.create')"
@@ -68,6 +69,7 @@
                             :exportCsvRoute="route('profiles.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
                         />
+                        @endcan
                     </div>
                 </div>
                 @show

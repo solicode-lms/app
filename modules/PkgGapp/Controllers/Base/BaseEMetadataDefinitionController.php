@@ -40,13 +40,13 @@ class BaseEMetadataDefinitionController extends AdminController
         // Récupérer les statistiques et les champs filtrables
         $eMetadataDefinitions_stats = $this->eMetadataDefinitionService->geteMetadataDefinitionStats();
         $eMetadataDefinitions_filters = $this->eMetadataDefinitionService->getFieldsFilterable();
-
+        $eMetadataDefinition_instance =  $this->eMetadataDefinitionService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgGapp::eMetadataDefinition._table', compact('eMetadataDefinitions_data', 'eMetadataDefinitions_stats', 'eMetadataDefinitions_filters'))->render();
+            return view('PkgGapp::eMetadataDefinition._table', compact('eMetadataDefinitions_data', 'eMetadataDefinitions_stats', 'eMetadataDefinitions_filters','eMetadataDefinition_instance'))->render();
         }
 
-        return view('PkgGapp::eMetadataDefinition.index', compact('eMetadataDefinitions_data', 'eMetadataDefinitions_stats', 'eMetadataDefinitions_filters'));
+        return view('PkgGapp::eMetadataDefinition.index', compact('eMetadataDefinitions_data', 'eMetadataDefinitions_stats', 'eMetadataDefinitions_filters','eMetadataDefinition_instance'));
     }
     public function create() {
         $itemEMetadataDefinition = $this->eMetadataDefinitionService->createInstance();
@@ -81,13 +81,26 @@ class BaseEMetadataDefinitionController extends AdminController
         );
     }
     public function show(string $id) {
-        return $this->edit( $id);
+
+        $this->viewState->setContextKey('eMetadataDefinition.edit_' . $id);
+
+        $itemEMetadataDefinition = $this->eMetadataDefinitionService->find($id);
+  
+
+
+        if (request()->ajax()) {
+            return view('PkgGapp::eMetadataDefinition._fields', compact('itemEMetadataDefinition'));
+        }
+
+        return view('PkgGapp::eMetadataDefinition.edit', compact('itemEMetadataDefinition'));
+
     }
     public function edit(string $id) {
 
         $this->viewState->setContextKey('eMetadataDefinition.edit_' . $id);
 
         $itemEMetadataDefinition = $this->eMetadataDefinitionService->find($id);
+
 
 
         if (request()->ajax()) {
@@ -207,6 +220,5 @@ class BaseEMetadataDefinitionController extends AdminController
         ]);
     }
     
-
 
 }

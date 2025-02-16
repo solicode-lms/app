@@ -44,13 +44,13 @@ class BaseProfileController extends AdminController
         // Récupérer les statistiques et les champs filtrables
         $profiles_stats = $this->profileService->getprofileStats();
         $profiles_filters = $this->profileService->getFieldsFilterable();
-
+        $profile_instance =  $this->profileService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgAutorisation::profile._table', compact('profiles_data', 'profiles_stats', 'profiles_filters'))->render();
+            return view('PkgAutorisation::profile._table', compact('profiles_data', 'profiles_stats', 'profiles_filters','profile_instance'))->render();
         }
 
-        return view('PkgAutorisation::profile.index', compact('profiles_data', 'profiles_stats', 'profiles_filters'));
+        return view('PkgAutorisation::profile.index', compact('profiles_data', 'profiles_stats', 'profiles_filters','profile_instance'));
     }
     public function create() {
         $this->viewState->set('scope_form.profile.user_id'  , $this->sessionState->get('user_id'));
@@ -87,7 +87,20 @@ class BaseProfileController extends AdminController
         );
     }
     public function show(string $id) {
-        return $this->edit( $id);
+
+        $this->viewState->setContextKey('profile.edit_' . $id);
+
+        $itemProfile = $this->profileService->find($id);
+  
+        $users = $this->userService->all();
+
+
+        if (request()->ajax()) {
+            return view('PkgAutorisation::profile._fields', compact('itemProfile', 'users'));
+        }
+
+        return view('PkgAutorisation::profile.edit', compact('itemProfile', 'users'));
+
     }
     public function edit(string $id) {
 

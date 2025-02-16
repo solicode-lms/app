@@ -46,13 +46,13 @@ class BaseValidationController extends AdminController
         // Récupérer les statistiques et les champs filtrables
         $validations_stats = $this->validationService->getvalidationStats();
         $validations_filters = $this->validationService->getFieldsFilterable();
-
+        $validation_instance =  $this->validationService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgRealisationProjets::validation._table', compact('validations_data', 'validations_stats', 'validations_filters'))->render();
+            return view('PkgRealisationProjets::validation._table', compact('validations_data', 'validations_stats', 'validations_filters','validation_instance'))->render();
         }
 
-        return view('PkgRealisationProjets::validation.index', compact('validations_data', 'validations_stats', 'validations_filters'));
+        return view('PkgRealisationProjets::validation.index', compact('validations_data', 'validations_stats', 'validations_filters','validation_instance'));
     }
     public function create() {
         $itemValidation = $this->validationService->createInstance();
@@ -89,13 +89,28 @@ class BaseValidationController extends AdminController
         );
     }
     public function show(string $id) {
-        return $this->edit( $id);
+
+        $this->viewState->setContextKey('validation.edit_' . $id);
+
+        $itemValidation = $this->validationService->find($id);
+  
+        $realisationProjets = $this->realisationProjetService->all();
+        $transfertCompetences = $this->transfertCompetenceService->all();
+
+
+        if (request()->ajax()) {
+            return view('PkgRealisationProjets::validation._fields', compact('itemValidation', 'realisationProjets', 'transfertCompetences'));
+        }
+
+        return view('PkgRealisationProjets::validation.edit', compact('itemValidation', 'realisationProjets', 'transfertCompetences'));
+
     }
     public function edit(string $id) {
 
         $this->viewState->setContextKey('validation.edit_' . $id);
 
         $itemValidation = $this->validationService->find($id);
+
         $realisationProjets = $this->realisationProjetService->all();
         $transfertCompetences = $this->transfertCompetenceService->all();
 
@@ -217,6 +232,5 @@ class BaseValidationController extends AdminController
         ]);
     }
     
-
 
 }

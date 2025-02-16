@@ -13,6 +13,7 @@
                 <tr id="eMetadataDefinition-row-{{$eMetadataDefinition->id}}">
                     <td>@limit($eMetadataDefinition->name, 80)</td>
                     <td class="text-right">
+
                         @can('show-eMetadataDefinition')
                             <a href="{{ route('eMetadataDefinitions.show', ['eMetadataDefinition' => $eMetadataDefinition->id]) }}" data-id="{{$eMetadataDefinition->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>

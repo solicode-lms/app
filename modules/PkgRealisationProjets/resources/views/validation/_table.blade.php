@@ -17,6 +17,7 @@
                     <td>@limit($validation->note, 80)</td>
                     <td>{!! \App\Helpers\TextHelper::formatHtmlWithLineBreaks($validation->message, 80) !!}</td>
                     <td class="text-right">
+
                         @can('show-validation')
                             <a href="{{ route('validations.show', ['validation' => $validation->id]) }}" data-id="{{$validation->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
