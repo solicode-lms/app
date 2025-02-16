@@ -41,7 +41,7 @@ class UserService extends BaseUserService
         $user->must_change_password = true; // Obliger l'utilisateur à changer son mot de passe après connexion
 
         $value =  $user->save();
-        $this->pushServiceMessage("info","Initialisation de mot de passe", "Le mot de passe a été modifier avec succès à sa valeur initial : 12345678");
+        $this->pushServiceMessage("info","Initialisation de mot de passe", "à sa valeur initial : 12345678");
         return $value;
     }
 }

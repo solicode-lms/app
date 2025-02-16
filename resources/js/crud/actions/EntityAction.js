@@ -43,10 +43,11 @@ export class EntityAction extends Action {
                     NotificationHandler.showToast('info', 'Action en cours...');
                     $.ajax({
                         url: actionUrl,
-                        method: 'POST',
+                        method: 'GET',
                         data: { _token: this.config.csrfToken }
-                    }).done(() => {
-                        this.handleSuccess(this.successMessage);
+                    }).done((data) => {
+                        NotificationHandler.show(data.type,data.title,data.message);
+                        this.tableUI.entityLoader.loadEntities();
                     }).fail((xhr) => {
                         AjaxErrorHandler.handleError(xhr, "Erreur lors de l'exécution de l'action sur l'entité.");
                     });

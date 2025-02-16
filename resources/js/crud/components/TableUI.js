@@ -28,7 +28,7 @@ export class TableUI {
         this.entityCreator.init(); 
         this.entityDeleter.init();
         this.entityViewer.init();
-
+        this.entityAction.init();
         this.handleSorting();
     }
 
