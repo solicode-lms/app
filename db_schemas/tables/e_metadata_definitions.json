@@ -137,9 +137,9 @@
         "name": "inputType",
         "type": "String",
         "scope": "field",
-        "default_value": " mot de passe",
+        "default_value": "Icone",
         "groupe": "forms",
-        "description": "Type d'entrée (texte",
+        "description": "Détermine de type de l'input : Image, Icone, Password, Couleur, ..",
         "created_at": null,
         "updated_at": null
     },
@@ -608,6 +608,18 @@
         "default_value": "[   {     \"name\": \"order\",     \"label\": \"Ordre\",     \"dispalyOrder\": 1   } ]",
         "groupe": "form",
         "description": "Détermine les champs à saisie seulement dans le formulaire",
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 62,
+        "reference": "isConfirmed",
+        "name": "isConfirmed",
+        "type": "Boolean",
+        "scope": "field",
+        "default_value": null,
+        "groupe": "form",
+        "description": "Il est utiliser pour le champs password, c'est une sort de validation laravel pour ajouter une champs de confirmation dans le formulaire",
         "created_at": null,
         "updated_at": null
     }

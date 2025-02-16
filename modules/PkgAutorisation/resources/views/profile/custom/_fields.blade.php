@@ -2,7 +2,7 @@
 @extends('PkgAutorisation::profile._fields')
 
 
-@section('profile-form')
+@section('profile-form2')
 
 <form class="crud-form custom-form context-state" id="profileForm" action="{{ $itemProfile->id ? route('profiles.update', $itemProfile->id) : route('profiles.store') }}" method="POST" novalidate>
     @csrf

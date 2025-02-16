@@ -10,6 +10,64 @@
 
     <div class="card-body">
         
+        <div class="form-group">
+            <label for="old_password">
+                {{ ucfirst(__('PkgAutorisation::profile.old_password')) }}
+                
+            </label>
+            <input
+                name="old_password"
+                type="password"
+                class="form-control"
+                
+                
+                id="old_password"
+                placeholder="{{ __('PkgAutorisation::profile.old_password') }}"
+                value="{{ $itemProfile ? $itemProfile->old_password : old('old_password') }}">
+            @error('old_password')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
+
+        
+        <div class="form-group">
+            <label for="password">
+                {{ ucfirst(__('PkgAutorisation::profile.password')) }}
+                
+            </label>
+            <input
+                name="password"
+                type="password"
+                class="form-control"
+                
+                
+                id="password"
+                placeholder="{{ __('PkgAutorisation::profile.password') }}"
+                value="{{ $itemProfile ? $itemProfile->password : old('password') }}">
+            @error('password')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
+<div class="form-group">
+            <label for="password_confirmation">
+                {{ ucfirst(__('PkgAutorisation::profile.confirm_password')) }}
+                
+            </label>
+            <input
+                name="password_confirmation"
+                type="password"
+                class="form-control"
+                
+                
+                id="password_confirmation"
+                placeholder="{{ __('PkgAutorisation::profile.confirm_password') }}"
+                value="{{ $itemProfile ? $itemProfile->password : old('password') }}">
+            @error('password')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
+
+        
         
     <div class="form-group">
             <label for="user_id">
@@ -54,26 +112,6 @@
                 placeholder="{{ __('PkgAutorisation::profile.phone') }}"
                 value="{{ $itemProfile ? $itemProfile->phone : old('phone') }}">
             @error('phone')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
-
-        
-        <div class="form-group">
-            <label for="profile_picture">
-                {{ ucfirst(__('PkgAutorisation::profile.profile_picture')) }}
-                
-            </label>
-            <input
-                name="profile_picture"
-                type="input"
-                class="form-control"
-                
-                
-                id="profile_picture"
-                placeholder="{{ __('PkgAutorisation::profile.profile_picture') }}"
-                value="{{ $itemProfile ? $itemProfile->profile_picture : old('profile_picture') }}">
-            @error('profile_picture')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
