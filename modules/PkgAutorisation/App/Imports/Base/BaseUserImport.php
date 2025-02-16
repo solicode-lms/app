@@ -60,7 +60,8 @@ class BaseUserImport implements ToModel, WithHeadingRow
              'email' => $values[1] ?? null,
              'email_verified_at' => $values[2] ?? null,
              'password' => $values[3] ?? null,
-             'remember_token' => $values[4] ?? null,
+             'must_change_password' => $values[4] ?? null,
+             'remember_token' => $values[5] ?? null,
              'reference' => $reference,
         ]);
 

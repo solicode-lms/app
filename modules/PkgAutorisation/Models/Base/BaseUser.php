@@ -36,7 +36,7 @@ class BaseUser extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'email_verified_at', 'password', 'remember_token'
+        'name', 'email', 'email_verified_at', 'password', 'must_change_password', 'remember_token'
     ];
     public $manyToMany = [
         'Role' => ['relation' => 'roles' , "foreign_key" => "role_id" ]

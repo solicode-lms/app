@@ -32,6 +32,7 @@ class BaseUserExport implements FromCollection, WithHeadings, ShouldAutoSize, Wi
             'email' => 'email',
             'email_verified_at' => 'email_verified_at',
             'password' => 'password',
+            'must_change_password' => 'must_change_password',
             'remember_token' => 'remember_token',
             'reference' => 'reference',
         ];
@@ -41,6 +42,7 @@ class BaseUserExport implements FromCollection, WithHeadings, ShouldAutoSize, Wi
             'email' => __('PkgAutorisation::user.email'),
             'email_verified_at' => __('PkgAutorisation::user.email_verified_at'),
             'password' => __('PkgAutorisation::user.password'),
+            'must_change_password' => __('PkgAutorisation::user.must_change_password'),
             'remember_token' => __('PkgAutorisation::user.remember_token'),
             'reference' => __('Core::msg.reference'),
         ];
@@ -57,6 +59,7 @@ class BaseUserExport implements FromCollection, WithHeadings, ShouldAutoSize, Wi
                 'email' => $user->email,
                 'email_verified_at' => $user->email_verified_at,
                 'password' => $user->password,
+                'must_change_password' => $user->must_change_password,
                 'remember_token' => $user->remember_token,
                 'reference' => $user->reference,
             ];

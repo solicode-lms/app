@@ -41,6 +41,10 @@
                                 <p>{{ $itemUser->password }}</p>
                             </div>
                             <div class="col-sm-12">
+                                <label for="must_change_password">{{ ucfirst(__('PkgAutorisation::user.must_change_password')) }}:</label>
+                                <p>{{ $itemUser->must_change_password }}</p>
+                            </div>
+                            <div class="col-sm-12">
                                 <label for="remember_token">{{ ucfirst(__('PkgAutorisation::user.remember_token')) }}:</label>
                                 <p>{{ $itemUser->remember_token }}</p>
                             </div>

@@ -23,6 +23,7 @@ class BaseUserService extends BaseService
         'email',
         'email_verified_at',
         'password',
+        'must_change_password',
         'remember_token'
     ];
 

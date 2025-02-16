@@ -101,6 +101,29 @@
 
         
         <div class="form-group">
+            <label for="must_change_password">
+                {{ ucfirst(__('PkgAutorisation::user.must_change_password')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <input type="hidden" name="must_change_password" value="0">
+            <input
+                name="must_change_password"
+                type="checkbox"
+                class="form-control"
+                required
+                
+                id="must_change_password"
+                value="1"
+                {{ old('must_change_password', $itemUser ? $itemUser->must_change_password : 0) ? 'checked' : '' }}>
+            @error('must_change_password')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
+
+        
+        <div class="form-group">
             <label for="remember_token">
                 {{ ucfirst(__('PkgAutorisation::user.remember_token')) }}
                 
