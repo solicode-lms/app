@@ -1,8 +1,10 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 namespace Modules\PkgAutorisation\Services;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Hash;
 use Modules\PkgAutorisation\Services\Base\BaseProfileService;
 
 /**
@@ -18,5 +20,27 @@ class ProfileService extends BaseProfileService
         }
       
         return $profile;
+    }
+
+    public function update($id, array $data): ?Model 
+    {
+        $return_value = parent::update($id, $data);
+    
+        // Récupérer l'objet correspondant à l'ID
+        $modelInstance = $this->find($id);
+    
+        // Vérifier si le modèle existe et possède une relation avec `user`
+        if ($modelInstance && isset($modelInstance->user)) {
+            $user = $modelInstance->user;
+    
+            // Vérifier si un nouveau mot de passe est défini
+            if (isset($data['password'])) {
+                $user->password = Hash::make($data["password"]);
+                $user->must_change_password = false; // Désactiver l'obligation de changement après modification
+                $user->save();
+            }
+        }
+    
+        return $return_value;
     }
 }

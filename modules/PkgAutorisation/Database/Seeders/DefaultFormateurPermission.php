@@ -24,6 +24,7 @@ class DefaultFormateurPermission extends Seeder
         // Ajouter Editeur 
         // Tableau de configuration : modèle et type d'accès
         $permissionsMap = [
+            'profile' => 'EditeurSansCreate',
             'competence' => 'Lecteur,Extraction',
             'module' => 'Lecteur,Extraction',
             'technology' => 'Lecteur,Extraction',

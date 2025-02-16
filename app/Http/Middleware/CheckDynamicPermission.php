@@ -18,9 +18,19 @@ class CheckDynamicPermission
     public function handle($request, Closure $next)
     {
 
+        // Récupérer l'action actuelle (Contrôleur@Méthode)
+        $action = $request->route()->getActionName();
+        [$controller, $method] = explode('@', class_basename($action));
+
+        // Supprimer "Controller" du nom du contrôleur
+        $controller = lcfirst(preg_replace('/Controller$/', '', $controller));
+
+        // Construire dynamiquement le nom de la permission
+        $permission = "{$method}-{$controller}";
+     
         // ForcePasswordChange
-        if (Auth::check() && Auth::user()->must_change_password && !$request->is('profile')) {
-            return redirect()->route('profile.edit')->with('warning', 'Vous devez changer votre mot de passe avant d’accéder à l’application.');
+        if (Auth::check() && Auth::user()->must_change_password &&  $controller != 'profile') {
+            return redirect()->route('profiles.edit',['profile' => Auth::user()->profile->id])->with('warning', 'Vous devez changer votre mot de passe avant d’accéder à l’application.');
         }
 
         // Bypass les vérifications si l'utilisateur est Super Admin
@@ -28,16 +38,8 @@ class CheckDynamicPermission
             return $next($request);
         }
 
-        // Récupérer l'action actuelle (Contrôleur@Méthode)
-        $action = $request->route()->getActionName();
-        [$controller, $method] = explode('@', class_basename($action));
-    
-        // Supprimer "Controller" du nom du contrôleur
-        $controller = lcfirst(preg_replace('/Controller$/', '', $controller));
-
-        // Construire dynamiquement le nom de la permission
-        $permission = "{$method}-{$controller}";
-    
+      
+       
         // Vérifier si l'utilisateur a la permission ou une permission parent
         if (!Auth::user()->can($permission)) {
             abort(403, 'Access Denied - Insufficient Permissions');

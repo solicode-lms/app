@@ -23,6 +23,7 @@ class DefaultGappPermission extends Seeder
 
         // Tableau de configuration : modèle et type d'accès
         $permissionsMap = [
+            'profile' => 'EditeurSansCreate',
             'EDataField' => 'Editeur,Extraction',
             'EMetadataDefinition' => 'Editeur,Extraction',
             'EMetadatum' => 'Editeur,Extraction',

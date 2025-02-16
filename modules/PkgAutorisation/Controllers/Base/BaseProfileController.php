@@ -29,6 +29,7 @@ class BaseProfileController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('profile.index');
+        $this->viewState->init('filter.profile.user_id'  , $this->sessionState->get('user_id'));
 
         // Extraire les paramètres de recherche, page, et filtres
         $profiles_params = array_merge(
@@ -52,6 +53,7 @@ class BaseProfileController extends AdminController
         return view('PkgAutorisation::profile.index', compact('profiles_data', 'profiles_stats', 'profiles_filters'));
     }
     public function create() {
+        $this->viewState->set('scope_form.profile.user_id'  , $this->sessionState->get('user_id'));
         $itemProfile = $this->profileService->createInstance();
         $users = $this->userService->all();
 
@@ -103,6 +105,9 @@ class BaseProfileController extends AdminController
 
     }
     public function update(ProfileRequest $request, string $id) {
+        // Vérifie si l'utilisateur peut mettre à jour l'objet 
+        $profile = $this->profileService->find($id);
+        $this->authorize('update', $profile);
 
         $validatedData = $request->validated();
         $profile = $this->profileService->update($id, $validatedData);
@@ -128,6 +133,9 @@ class BaseProfileController extends AdminController
 
     }
     public function destroy(Request $request, string $id) {
+        // Vérifie si l'utilisateur peut mettre à jour l'objet 
+        $profile = $this->profileService->find($id);
+        $this->authorize('delete', $profile);
 
         $profile = $this->profileService->destroy($id);
 
