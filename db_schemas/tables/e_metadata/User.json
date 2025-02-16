@@ -271,5 +271,21 @@
         "value_boolean": 1,
         "e_data_field_reference": "User_must_change_password",
         "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "users_entityActions",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": [
+            {
+                "icon": "fa-unlock-alt",
+                "title": "Initialiser le mot de passe",
+                "methode": "initPassword",
+                "actionType": "confirm",
+                "successMessage": "Le mot de passe a été modifier avec succès"
+            }
+        ],
+        "e_model_reference": "users",
+        "e_metadata_definition_reference": "entityActions"
     }
 ]

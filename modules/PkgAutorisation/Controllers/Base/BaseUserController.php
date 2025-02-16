@@ -95,6 +95,7 @@ class BaseUserController extends AdminController
         $this->viewState->setContextKey('user.edit_' . $id);
 
         $itemUser = $this->userService->find($id);
+
         $roles = $this->roleService->all();
 
         $this->viewState->set('scope.apprenant.user_id', $id);
@@ -233,6 +234,18 @@ class BaseUserController extends AdminController
         ]);
     }
     
-
-
+    public function initPassword(Request $request, string $id) {
+        $user = $this->userService->initPassword($id);
+        if ($request->ajax()) {
+            $message = "Le mot de passe a été modifier avec succès";
+            return JsonResponseHelper::success(
+                $message
+            );
+        }
+        return redirect()->route('User.index')->with(
+            'success',
+            "Le mot de passe a été modifier avec succès"
+        );
+    }
+    
 }

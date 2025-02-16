@@ -78,4 +78,16 @@ class BaseUserService extends BaseService
         return $stats;
     }
 
+
+    public function initPassword(int $userId)
+    {
+        $user = $this->find($userId);
+        if (!$user) {
+            return false; 
+        }
+        $value =  $user->save();
+        $this->pushServiceMessage("info","Traitement title", "message : résultat de traitement");
+        return $value;
+    }
+    
 }

@@ -23,7 +23,7 @@
                         </ul>
                     </td>
                     <td class="text-right">
-                        @can('initPassword-user')
+                       @can('initPassword-user')
                         <a 
                         data-toggle="tooltip" 
                         title="Initialiser le mot de passe" 
@@ -35,6 +35,7 @@
                             <i class="fas fa-unlock-alt"></i>
                         </a>
                         @endcan
+                        
                         @can('show-user')
                             <a href="{{ route('users.show', ['user' => $user->id]) }}" data-id="{{$user->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>

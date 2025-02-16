@@ -622,5 +622,17 @@
         "description": "Il est utiliser pour le champs password, c'est une sort de validation laravel pour ajouter une champs de confirmation dans le formulaire",
         "created_at": null,
         "updated_at": null
+    },
+    {
+        "id": 64,
+        "reference": "entityActions",
+        "name": "entityActions",
+        "type": "Json",
+        "scope": "model",
+        "default_value": "[   {     \"icon\": \"fa-unlock-alt\",     \"title\": \"Initialiser le mot de passe\",     \"methode\": \"initPassword\",     \"actionType\": \"confirm\",     \"successMessage\": \"Le mot de passe a été modifier avec succès\"   } ]",
+        "groupe": "table",
+        "description": "Détermine les actions à ajouter dans TableUI",
+        "created_at": null,
+        "updated_at": null
     }
 ]
