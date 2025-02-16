@@ -9,7 +9,7 @@
     </div>
     <div class="card-body">
         {{-- TODO :  --}}
-        <p class="login-box-msg">Connectez-vous pour démarrer votre session</p>
+        <p class="login-box-msg">Connectez-vous pour commencer.</p>
 
         <form method="POST" action="{{ route('login') }}">
             @csrf
@@ -60,7 +60,7 @@
         </form>
 
        
-        @if (Route::has('password.request'))
+        {{-- @if (Route::has('password.request'))
             <p class="mb-1">
                 <a href="{{ route('password.request') }}">I forgot my password</a>
             </p>
@@ -68,7 +68,7 @@
 
         <p class="mb-0">
             <a href="{{ route('register') }}" class="text-center">Register a new membership</a>
-        </p>
+        </p> --}}
     </div>
 </div>
 @endsection
