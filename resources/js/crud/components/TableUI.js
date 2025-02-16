@@ -30,6 +30,7 @@ export class TableUI {
         this.entityViewer.init();
         this.entityAction.init();
         this.handleSorting();
+        TableUI.initTooltip();
     }
 
     
@@ -75,6 +76,24 @@ export class TableUI {
             this.indexUI.updateURLParameters(filters); // Mettre à jour l'URL
             this.entityLoader.loadEntities(1, filters); // Recharger la table
         });
+    }
+
+    static initTooltip(){
+
+        // Supprime tous les tooltips actifs avant de les recréer
+        const tooltips = $('[data-toggle="tooltip"]').tooltip({
+             placement: "auto"
+        });
+
+        tooltips.on('shown.bs.tooltip', function () {
+            const $this = $(this);
+            setTimeout(() => {
+                $this.tooltip('hide'); // Cache le tooltip
+            }, 3000); // Temps en ms avant de cacher le tooltip (ici 3 secondes)
+        });
+
+        // $('[data-toggle="tooltip"]').tooltip();
+      
     }
 
 }

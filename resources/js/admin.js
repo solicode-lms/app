@@ -11,6 +11,7 @@ import { NotificationHandler } from './crud/components/NotificationHandler';
 import { FormUI } from './crud/components/FormUI';
 import { DashboardUI } from './crud/components/DashboardUI';
 import InitUIManagers from './crud/InitUIManagers';
+import { TableUI } from './crud/components/TableUI';
 
 
 // Init CrudModalManagers in the page
@@ -39,7 +40,7 @@ document.addEventListener("DOMContentLoaded", function () {
     FormUI.initializeRichText();
     FormUI.initializeDate();
     FormUI.initCodeJar();
-    FormUI.initTooltip();
+    TableUI.initTooltip();
 
    
 

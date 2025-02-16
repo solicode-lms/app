@@ -71,7 +71,8 @@ export class EntityAction extends Action {
             .done((html) => {
                 this.tableUI.indexUI.modalUI.showContent(html);
                 this.executeScripts(html);
-                this.tableUI.indexUI.formUI.init(() => this.submitForm());
+              
+                this.tableUI.entityLoader.loadEntities(); 
             })
             .fail((xhr) => {
                 AjaxErrorHandler.handleError(xhr, 'Erreur lors du chargement du formulaire.');
@@ -120,6 +121,9 @@ export class EntityAction extends Action {
     bindEntityActions() {
         EventUtil.bindEvent('click', `${this.config.crudSelector} .actionEntity`, (event) => {
             event.preventDefault();
+
+           
+
             const entityId = $(event.currentTarget).data('id'); // Récupération de l'ID de l'entité
             const actionUrl = $(event.currentTarget).data('url'); // Récupération de l'URL d'action
             const actionType = $(event.currentTarget).data('action-type'); // Type d'action
