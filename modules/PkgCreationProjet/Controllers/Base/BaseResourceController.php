@@ -85,7 +85,20 @@ class BaseResourceController extends AdminController
         );
     }
     public function show(string $id) {
-        return $this->edit( $id);
+
+        $this->viewState->setContextKey('resource.edit_' . $id);
+
+        $itemResource = $this->resourceService->find($id);
+  
+        $projets = $this->projetService->all();
+
+
+        if (request()->ajax()) {
+            return view('PkgCreationProjet::resource._fields', compact('itemResource', 'projets'));
+        }
+
+        return view('PkgCreationProjet::resource.edit', compact('itemResource', 'projets'));
+
     }
     public function edit(string $id) {
 

@@ -89,7 +89,21 @@ class BaseLivrableController extends AdminController
         );
     }
     public function show(string $id) {
-        return $this->edit( $id);
+
+        $this->viewState->setContextKey('livrable.edit_' . $id);
+
+        $itemLivrable = $this->livrableService->find($id);
+  
+        $natureLivrables = $this->natureLivrableService->all();
+        $projets = $this->projetService->all();
+
+
+        if (request()->ajax()) {
+            return view('PkgCreationProjet::livrable._fields', compact('itemLivrable', 'natureLivrables', 'projets'));
+        }
+
+        return view('PkgCreationProjet::livrable.edit', compact('itemLivrable', 'natureLivrables', 'projets'));
+
     }
     public function edit(string $id) {
 

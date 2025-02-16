@@ -91,7 +91,44 @@ class BaseProjetController extends AdminController
         );
     }
     public function show(string $id) {
-        return $this->edit( $id);
+
+        $this->viewState->setContextKey('projet.edit_' . $id);
+
+        $itemProjet = $this->projetService->find($id);
+  
+        $formateurs = $this->formateurService->all();
+
+        $this->viewState->set('scope.transfertCompetence.projet_id', $id);
+        $transfertCompetenceService =  new TransfertCompetenceService();
+        $transfertCompetences_data =  $itemProjet->transfertCompetences()->paginate(10);
+        $transfertCompetences_stats = $transfertCompetenceService->gettransfertCompetenceStats();
+        $transfertCompetences_filters = $transfertCompetenceService->getFieldsFilterable();
+        $transfertCompetence_instance =  $transfertCompetenceService->createInstance();
+        $this->viewState->set('scope.livrable.projet_id', $id);
+        $livrableService =  new LivrableService();
+        $livrables_data =  $itemProjet->livrables()->paginate(10);
+        $livrables_stats = $livrableService->getlivrableStats();
+        $livrables_filters = $livrableService->getFieldsFilterable();
+        $livrable_instance =  $livrableService->createInstance();
+        $this->viewState->set('scope.resource.projet_id', $id);
+        $resourceService =  new ResourceService();
+        $resources_data =  $itemProjet->resources()->paginate(10);
+        $resources_stats = $resourceService->getresourceStats();
+        $resources_filters = $resourceService->getFieldsFilterable();
+        $resource_instance =  $resourceService->createInstance();
+        $this->viewState->set('scope.affectationProjet.projet_id', $id);
+        $affectationProjetService =  new AffectationProjetService();
+        $affectationProjets_data =  $itemProjet->affectationProjets()->paginate(10);
+        $affectationProjets_stats = $affectationProjetService->getaffectationProjetStats();
+        $affectationProjets_filters = $affectationProjetService->getFieldsFilterable();
+        $affectationProjet_instance =  $affectationProjetService->createInstance();
+
+        if (request()->ajax()) {
+            return view('PkgCreationProjet::projet._edit', compact('itemProjet', 'formateurs', 'transfertCompetences_data', 'livrables_data', 'resources_data', 'affectationProjets_data', 'transfertCompetences_stats', 'livrables_stats', 'resources_stats', 'affectationProjets_stats', 'transfertCompetences_filters', 'livrables_filters', 'resources_filters', 'affectationProjets_filters', 'transfertCompetence_instance', 'livrable_instance', 'resource_instance', 'affectationProjet_instance'));
+        }
+
+        return view('PkgCreationProjet::projet.edit', compact('itemProjet', 'formateurs', 'transfertCompetences_data', 'livrables_data', 'resources_data', 'affectationProjets_data', 'transfertCompetences_stats', 'livrables_stats', 'resources_stats', 'affectationProjets_stats', 'transfertCompetences_filters', 'livrables_filters', 'resources_filters', 'affectationProjets_filters', 'transfertCompetence_instance', 'livrable_instance', 'resource_instance', 'affectationProjet_instance'));
+
     }
     public function edit(string $id) {
 
