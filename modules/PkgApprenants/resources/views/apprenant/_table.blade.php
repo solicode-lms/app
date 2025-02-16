@@ -17,6 +17,19 @@
                     <td>@limit($apprenant->prenom, 80)</td>
                     <td>@limit($apprenant->user, 80)</td>
                     <td class="text-right">
+                       @can('initPassword-apprenant')
+                        <a 
+                        data-toggle="tooltip" 
+                        title="Initialiser le mot de passe" 
+                        href="{{ route('apprenants.initPassword', ['id' => $apprenant->id]) }}" 
+                        data-id="{{$apprenant->id}}" 
+                        data-url="{{ route('apprenants.initPassword', ['id' => $apprenant->id]) }}" 
+                        data-action-type="confirm"
+                        class="btn btn-default btn-sm context-state actionEntity">
+                            <i class="fas fa-unlock-alt"></i>
+                        </a>
+                        @endcan
+                        
                         @can('show-apprenant')
                             <a href="{{ route('apprenants.show', ['apprenant' => $apprenant->id]) }}" data-id="{{$apprenant->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>

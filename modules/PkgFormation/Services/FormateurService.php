@@ -78,4 +78,16 @@ class FormateurService extends BaseFormateurService
 
         return $formateur;
     }
+
+
+    public function initPassword(int $formateurId)
+    {
+        $formateur = $this->find($formateurId);
+        if (!$formateur) {
+            return false; 
+        }
+        $userService = new UserService();
+        $value = $userService->initPassword($formateur->user->id);
+        return $value;
+    }
 }

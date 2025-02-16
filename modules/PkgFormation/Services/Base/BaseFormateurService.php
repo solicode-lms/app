@@ -90,4 +90,16 @@ class BaseFormateurService extends BaseService
         return $stats;
     }
 
+
+    public function initPassword(int $formateurId)
+    {
+        $formateur = $this->find($formateurId);
+        if (!$formateur) {
+            return false; 
+        }
+        $value =  $formateur->save();
+        $this->pushServiceMessage("info","Traitement title", "message : résultat de traitement");
+        return $value;
+    }
+    
 }

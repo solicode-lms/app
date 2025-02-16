@@ -22,6 +22,7 @@ Route::middleware('auth')->group(function () {
         });
 
         Route::post('formateurs/data-calcul', [FormateurController::class, 'dataCalcul'])->name('formateurs.dataCalcul');
-
+        Route::get('formateurs/initPassword/{id}', [FormateurController::class, 'initPassword'])->name('formateurs.initPassword');
+    
     });
 });

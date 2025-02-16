@@ -103,6 +103,7 @@ class BaseFormateurController extends AdminController
         $this->viewState->setContextKey('formateur.edit_' . $id);
 
         $itemFormateur = $this->formateurService->find($id);
+
         $groupes = $this->groupeService->all();
         $specialites = $this->specialiteService->all();
         $users = $this->userService->all();
@@ -243,6 +244,18 @@ class BaseFormateurController extends AdminController
         ]);
     }
     
-
-
+    public function initPassword(Request $request, string $id) {
+        $formateur = $this->formateurService->initPassword($id);
+        if ($request->ajax()) {
+            $message = "Le mot de passe a été modifier avec succès";
+            return JsonResponseHelper::success(
+                $message
+            );
+        }
+        return redirect()->route('Formateur.index')->with(
+            'success',
+            "Le mot de passe a été modifier avec succès"
+        );
+    }
+    
 }

@@ -105,6 +105,7 @@ class BaseApprenantController extends AdminController
         $this->viewState->setContextKey('apprenant.edit_' . $id);
 
         $itemApprenant = $this->apprenantService->find($id);
+
         $groupes = $this->groupeService->all();
         $nationalites = $this->nationaliteService->all();
         $niveauxScolaires = $this->niveauxScolaireService->all();
@@ -234,6 +235,18 @@ class BaseApprenantController extends AdminController
         ]);
     }
     
-
-
+    public function initPassword(Request $request, string $id) {
+        $apprenant = $this->apprenantService->initPassword($id);
+        if ($request->ajax()) {
+            $message = "Le mot de passe a été modifier avec succès";
+            return JsonResponseHelper::success(
+                $message
+            );
+        }
+        return redirect()->route('Apprenant.index')->with(
+            'success',
+            "Le mot de passe a été modifier avec succès"
+        );
+    }
+    
 }

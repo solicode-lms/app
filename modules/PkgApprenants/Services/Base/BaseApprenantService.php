@@ -93,4 +93,16 @@ class BaseApprenantService extends BaseService
         return $stats;
     }
 
+
+    public function initPassword(int $apprenantId)
+    {
+        $apprenant = $this->find($apprenantId);
+        if (!$apprenant) {
+            return false; 
+        }
+        $value =  $apprenant->save();
+        $this->pushServiceMessage("info","Traitement title", "message : résultat de traitement");
+        return $value;
+    }
+    
 }
