@@ -1,3 +1,10 @@
+# Authentification 
+
+login : solicode
+password : admin
+
+
+
 ### **1. Télécharger les outils nécessaires**
 - **VirtualBox** : Téléchargez-le et installez-le à partir de [VirtualBox](https://www.virtualbox.org/).
 - **Ubuntu ISO** : Téléchargez la version serveur ou desktop à partir de [Ubuntu](https://ubuntu.com/download).
