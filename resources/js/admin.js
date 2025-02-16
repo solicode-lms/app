@@ -39,5 +39,8 @@ document.addEventListener("DOMContentLoaded", function () {
     FormUI.initializeRichText();
     FormUI.initializeDate();
     FormUI.initCodeJar();
+    FormUI.initTooltip();
+
+   
 
 });

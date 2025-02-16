@@ -22,6 +22,7 @@ Route::middleware('auth')->group(function () {
         });
 
         Route::post('users/data-calcul', [UserController::class, 'dataCalcul'])->name('users.dataCalcul');
-
+        Route::get('users/initPassword/{id}', [UserController::class, 'initPassword'])->name('users.initPassword');
+        
     });
 });

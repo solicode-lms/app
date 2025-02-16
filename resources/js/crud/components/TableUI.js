@@ -5,6 +5,7 @@ import { ShowAction } from '../actions/ShowAction';
 import { EditAction } from '../actions/EditAction';
 import { DeleteAction } from '../actions/DeleteAction';
 import EventUtil from './../utils/EventUtil';
+import { EntityAction } from './../actions/EntityAction';
 
 export class TableUI {
     constructor(config, indexUI) {
@@ -18,6 +19,7 @@ export class TableUI {
         this.entityEditor = new EditAction(config,this);
         this.entityDeleter = new DeleteAction(config,this);
         this.entityLoader = new LoadListAction(config,this);
+        this.entityAction = new EntityAction(config,this);
     }
 
     init(){

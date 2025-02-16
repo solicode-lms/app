@@ -50,6 +50,7 @@ export class FormUI  {
         FormUI.initializeRichText();
         FormUI.initializeDate();
         FormUI.initCodeJar();
+        FormUI.initTooltip();
         // Initialisation de la gestion des calculs dynamiques
         this.dynamicCalculationTreatment.init();
 
@@ -442,6 +443,11 @@ export class FormUI  {
                 });
             }
         });
+    }
+
+
+    static initTooltip(){
+        $('[data-toggle="tooltip"]').tooltip();
     }
   
 
