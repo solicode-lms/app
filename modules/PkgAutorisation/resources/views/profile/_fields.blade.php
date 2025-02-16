@@ -60,26 +60,6 @@
 
         
         <div class="form-group">
-            <label for="address">
-                {{ ucfirst(__('PkgAutorisation::profile.address')) }}
-                
-            </label>
-            <input
-                name="address"
-                type="input"
-                class="form-control"
-                
-                
-                id="address"
-                placeholder="{{ __('PkgAutorisation::profile.address') }}"
-                value="{{ $itemProfile ? $itemProfile->address : old('address') }}">
-            @error('address')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
-
-        
-        <div class="form-group">
             <label for="profile_picture">
                 {{ ucfirst(__('PkgAutorisation::profile.profile_picture')) }}
                 

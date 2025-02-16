@@ -79,7 +79,8 @@
     },
     {
         "reference": "Profile_address_displayInForm",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "Profile_address",
         "e_metadata_definition_reference": "displayInForm"
     },

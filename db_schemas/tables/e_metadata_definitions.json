@@ -598,5 +598,17 @@
         "description": "Il permet de restreindre les relations d’un modèle aux entités qui lui sont explicitement assignées. Par exemple, il peut être utilisé pour filtrer uniquement les groupes, projets ou ressources affectés à un utilisateur spécifique.",
         "created_at": null,
         "updated_at": null
+    },
+    {
+        "id": 61,
+        "reference": "inputFields",
+        "name": "inputFields",
+        "type": "Json",
+        "scope": "model",
+        "default_value": "[   {     \"name\": \"order\",     \"label\": \"Ordre\",     \"dispalyOrder\": 1   } ]",
+        "groupe": "form",
+        "description": "Détermine les champs à saisie seulement dans le formulaire",
+        "created_at": null,
+        "updated_at": null
     }
 ]
