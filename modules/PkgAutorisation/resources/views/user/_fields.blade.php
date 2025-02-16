@@ -128,6 +128,10 @@
         <!--   Formateur HasMany --> 
 
         
+
+        <!--   Profile HasMany --> 
+
+        
                 <div class="form-group">
             <label for="roles">
                 {{ ucfirst(__('PkgAutorisation::Role.plural')) }}

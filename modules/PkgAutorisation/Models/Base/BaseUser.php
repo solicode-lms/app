@@ -14,6 +14,7 @@ use Modules\Core\Models\BaseModel;
 use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgApprenants\Models\Apprenant;
 use Modules\PkgFormation\Models\Formateur;
+use Modules\PkgAutorisation\Models\Profile;
 
 /**
  * Classe BaseUser
@@ -73,6 +74,15 @@ class BaseUser extends BaseModel
     public function formateurs(): HasMany
     {
         return $this->hasMany(Formateur::class, 'user_id', 'id');
+    }
+    /**
+     * Relation HasMany pour Users.
+     *
+     * @return HasMany
+     */
+    public function profiles(): HasMany
+    {
+        return $this->hasMany(Profile::class, 'user_id', 'id');
     }
 
 

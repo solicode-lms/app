@@ -397,6 +397,18 @@
     },
     {
         "id": 34,
+        "reference": "profiles",
+        "name": "Profile",
+        "table_name": "profiles",
+        "icon": "fa-table",
+        "description": "Automatically generated model for profiles",
+        "e_package_id": 3,
+        "is_pivot_table": 0,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 35,
         "reference": "projets",
         "name": "Projet",
         "table_name": "projets",
@@ -408,7 +420,7 @@
         "updated_at": null
     },
     {
-        "id": 35,
+        "id": 36,
         "reference": "realisation_projets",
         "name": "RealisationProjet",
         "table_name": "realisation_projets",
@@ -420,7 +432,7 @@
         "updated_at": null
     },
     {
-        "id": 36,
+        "id": 37,
         "reference": "resources",
         "name": "Resource",
         "table_name": "resources",
@@ -432,7 +444,7 @@
         "updated_at": null
     },
     {
-        "id": 37,
+        "id": 38,
         "reference": "role_has_permissions",
         "name": "RoleHasPermission",
         "table_name": "role_has_permissions",
@@ -444,7 +456,7 @@
         "updated_at": null
     },
     {
-        "id": 38,
+        "id": 39,
         "reference": "roles",
         "name": "Role",
         "table_name": "roles",
@@ -456,7 +468,7 @@
         "updated_at": null
     },
     {
-        "id": 39,
+        "id": 40,
         "reference": "specialites",
         "name": "Specialite",
         "table_name": "specialites",
@@ -468,7 +480,7 @@
         "updated_at": null
     },
     {
-        "id": 40,
+        "id": 41,
         "reference": "sys_colors",
         "name": "SysColor",
         "table_name": "sys_colors",
@@ -480,7 +492,7 @@
         "updated_at": null
     },
     {
-        "id": 41,
+        "id": 42,
         "reference": "sys_controllers",
         "name": "SysController",
         "table_name": "sys_controllers",
@@ -492,7 +504,7 @@
         "updated_at": null
     },
     {
-        "id": 42,
+        "id": 43,
         "reference": "sys_models",
         "name": "SysModel",
         "table_name": "sys_models",
@@ -504,7 +516,7 @@
         "updated_at": null
     },
     {
-        "id": 43,
+        "id": 44,
         "reference": "sys_modules",
         "name": "SysModule",
         "table_name": "sys_modules",
@@ -516,7 +528,7 @@
         "updated_at": null
     },
     {
-        "id": 44,
+        "id": 45,
         "reference": "technologies",
         "name": "Technology",
         "table_name": "technologies",
@@ -528,7 +540,7 @@
         "updated_at": null
     },
     {
-        "id": 45,
+        "id": 46,
         "reference": "technology_transfert_competence",
         "name": "TechnologyTransfertCompetence",
         "table_name": "technology_transfert_competence",
@@ -540,7 +552,7 @@
         "updated_at": null
     },
     {
-        "id": 46,
+        "id": 47,
         "reference": "transfert_competences",
         "name": "TransfertCompetence",
         "table_name": "transfert_competences",
@@ -552,7 +564,7 @@
         "updated_at": null
     },
     {
-        "id": 47,
+        "id": 48,
         "reference": "users",
         "name": "User",
         "table_name": "users",
@@ -564,7 +576,7 @@
         "updated_at": null
     },
     {
-        "id": 48,
+        "id": 49,
         "reference": "validations",
         "name": "Validation",
         "table_name": "validations",
@@ -576,7 +588,7 @@
         "updated_at": null
     },
     {
-        "id": 49,
+        "id": 50,
         "reference": "villes",
         "name": "Ville",
         "table_name": "villes",
@@ -588,7 +600,7 @@
         "updated_at": null
     },
     {
-        "id": 50,
+        "id": 51,
         "reference": "widget_operations",
         "name": "WidgetOperation",
         "table_name": "widget_operations",
@@ -600,7 +612,7 @@
         "updated_at": null
     },
     {
-        "id": 51,
+        "id": 52,
         "reference": "widget_types",
         "name": "WidgetType",
         "table_name": "widget_types",
@@ -612,7 +624,7 @@
         "updated_at": null
     },
     {
-        "id": 52,
+        "id": 53,
         "reference": "widgets",
         "name": "Widget",
         "table_name": "widgets",
