@@ -46,13 +46,13 @@ class BaseLivrableController extends AdminController
         // Récupérer les statistiques et les champs filtrables
         $livrables_stats = $this->livrableService->getlivrableStats();
         $livrables_filters = $this->livrableService->getFieldsFilterable();
-
+        $livrable_instance =  $this->livrableService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgCreationProjet::livrable._table', compact('livrables_data', 'livrables_stats', 'livrables_filters'))->render();
+            return view('PkgCreationProjet::livrable._table', compact('livrables_data', 'livrables_stats', 'livrables_filters','livrable_instance'))->render();
         }
 
-        return view('PkgCreationProjet::livrable.index', compact('livrables_data', 'livrables_stats', 'livrables_filters'));
+        return view('PkgCreationProjet::livrable.index', compact('livrables_data', 'livrables_stats', 'livrables_filters','livrable_instance'));
     }
     public function create() {
         $itemLivrable = $this->livrableService->createInstance();
@@ -96,6 +96,7 @@ class BaseLivrableController extends AdminController
         $this->viewState->setContextKey('livrable.edit_' . $id);
 
         $itemLivrable = $this->livrableService->find($id);
+
         $natureLivrables = $this->natureLivrableService->all();
         $projets = $this->projetService->all();
 
@@ -217,6 +218,5 @@ class BaseLivrableController extends AdminController
         ]);
     }
     
-
 
 }

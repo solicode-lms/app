@@ -74,4 +74,6 @@ class BaseNatureLivrableService extends BaseService
         return $stats;
     }
 
+
+
 }

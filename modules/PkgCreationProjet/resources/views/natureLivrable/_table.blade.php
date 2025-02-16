@@ -13,6 +13,7 @@
                 <tr id="natureLivrable-row-{{$natureLivrable->id}}">
                     <td>@limit($natureLivrable->nom, 80)</td>
                     <td class="text-right">
+
                         @can('show-natureLivrable')
                             <a href="{{ route('natureLivrables.show', ['natureLivrable' => $natureLivrable->id]) }}" data-id="{{$natureLivrable->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>

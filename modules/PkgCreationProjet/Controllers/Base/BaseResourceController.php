@@ -43,13 +43,13 @@ class BaseResourceController extends AdminController
         // Récupérer les statistiques et les champs filtrables
         $resources_stats = $this->resourceService->getresourceStats();
         $resources_filters = $this->resourceService->getFieldsFilterable();
-
+        $resource_instance =  $this->resourceService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgCreationProjet::resource._table', compact('resources_data', 'resources_stats', 'resources_filters'))->render();
+            return view('PkgCreationProjet::resource._table', compact('resources_data', 'resources_stats', 'resources_filters','resource_instance'))->render();
         }
 
-        return view('PkgCreationProjet::resource.index', compact('resources_data', 'resources_stats', 'resources_filters'));
+        return view('PkgCreationProjet::resource.index', compact('resources_data', 'resources_stats', 'resources_filters','resource_instance'));
     }
     public function create() {
         $itemResource = $this->resourceService->createInstance();
@@ -92,6 +92,7 @@ class BaseResourceController extends AdminController
         $this->viewState->setContextKey('resource.edit_' . $id);
 
         $itemResource = $this->resourceService->find($id);
+
         $projets = $this->projetService->all();
 
 
@@ -212,6 +213,5 @@ class BaseResourceController extends AdminController
         ]);
     }
     
-
 
 }

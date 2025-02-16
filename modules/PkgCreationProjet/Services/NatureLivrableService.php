@@ -19,4 +19,5 @@ class NatureLivrableService extends BaseNatureLivrableService
       
         return $natureLivrable;
     }
+   
 }

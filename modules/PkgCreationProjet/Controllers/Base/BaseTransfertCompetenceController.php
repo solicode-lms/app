@@ -53,13 +53,13 @@ class BaseTransfertCompetenceController extends AdminController
         // Récupérer les statistiques et les champs filtrables
         $transfertCompetences_stats = $this->transfertCompetenceService->gettransfertCompetenceStats();
         $transfertCompetences_filters = $this->transfertCompetenceService->getFieldsFilterable();
-
+        $transfertCompetence_instance =  $this->transfertCompetenceService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgCreationProjet::transfertCompetence._table', compact('transfertCompetences_data', 'transfertCompetences_stats', 'transfertCompetences_filters'))->render();
+            return view('PkgCreationProjet::transfertCompetence._table', compact('transfertCompetences_data', 'transfertCompetences_stats', 'transfertCompetences_filters','transfertCompetence_instance'))->render();
         }
 
-        return view('PkgCreationProjet::transfertCompetence.index', compact('transfertCompetences_data', 'transfertCompetences_stats', 'transfertCompetences_filters'));
+        return view('PkgCreationProjet::transfertCompetence.index', compact('transfertCompetences_data', 'transfertCompetences_stats', 'transfertCompetences_filters','transfertCompetence_instance'));
     }
     public function create() {
         $this->viewState->set('scope_form.transfertCompetence.formateur_id'  , $this->sessionState->get('formateur_id'));
