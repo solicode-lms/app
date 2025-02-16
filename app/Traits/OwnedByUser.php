@@ -20,6 +20,7 @@ trait OwnedByUser
 
         foreach ($relations as $relation) {
             if (method_exists($owner, $relation)) {
+                if($owner->$relation == null) return null;
                 $owner = $owner->$relation;
             } else {
                 return null; // Relation introuvable

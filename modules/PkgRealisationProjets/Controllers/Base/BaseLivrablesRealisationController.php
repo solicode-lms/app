@@ -32,6 +32,7 @@ class BaseLivrablesRealisationController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('livrablesRealisation.index');
+        $this->viewState->init('filter.livrablesRealisation.apprenant_id'  , $this->sessionState->get('apprenant_id'));
 
         // Extraire les paramètres de recherche, page, et filtres
         $livrablesRealisations_params = array_merge(
@@ -55,6 +56,7 @@ class BaseLivrablesRealisationController extends AdminController
         return view('PkgRealisationProjets::livrablesRealisation.index', compact('livrablesRealisations_data', 'livrablesRealisations_stats', 'livrablesRealisations_filters','livrablesRealisation_instance'));
     }
     public function create() {
+        $this->viewState->set('scope_form.livrablesRealisation.apprenant_id'  , $this->sessionState->get('apprenant_id'));
         $itemLivrablesRealisation = $this->livrablesRealisationService->createInstance();
         $livrables = $this->livrableService->all();
         $realisationProjets = $this->realisationProjetService->all();
@@ -110,6 +112,7 @@ class BaseLivrablesRealisationController extends AdminController
         $this->viewState->setContextKey('livrablesRealisation.edit_' . $id);
 
         $itemLivrablesRealisation = $this->livrablesRealisationService->find($id);
+        $this->authorize('edit', $itemLivrablesRealisation);
 
         $livrables = $this->livrableService->all();
         $realisationProjets = $this->realisationProjetService->all();
@@ -123,6 +126,9 @@ class BaseLivrablesRealisationController extends AdminController
 
     }
     public function update(LivrablesRealisationRequest $request, string $id) {
+        // Vérifie si l'utilisateur peut mettre à jour l'objet 
+        $livrablesRealisation = $this->livrablesRealisationService->find($id);
+        $this->authorize('update', $livrablesRealisation);
 
         $validatedData = $request->validated();
         $livrablesRealisation = $this->livrablesRealisationService->update($id, $validatedData);
@@ -148,6 +154,9 @@ class BaseLivrablesRealisationController extends AdminController
 
     }
     public function destroy(Request $request, string $id) {
+        // Vérifie si l'utilisateur peut mettre à jour l'objet 
+        $livrablesRealisation = $this->livrablesRealisationService->find($id);
+        $this->authorize('delete', $livrablesRealisation);
 
         $livrablesRealisation = $this->livrablesRealisationService->destroy($id);
 

@@ -207,5 +207,17 @@
         "value_boolean": 1,
         "e_data_field_reference": "LivrablesRealisation_realisation_projet_id",
         "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "livrables_realisations_ownedByUser",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "dataScope": "filter",
+            "userModelName": "Apprenant",
+            "ownerRelationPath": "realisationProjet.apprenant.user"
+        },
+        "e_model_reference": "livrables_realisations",
+        "e_metadata_definition_reference": "ownedByUser"
     }
 ]

@@ -37,6 +37,7 @@ class BaseRealisationProjetController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('realisationProjet.index');
+        $this->viewState->init('filter.realisationProjet.formateur_id'  , $this->sessionState->get('formateur_id'));
 
         // Extraire les paramètres de recherche, page, et filtres
         $realisationProjets_params = array_merge(
@@ -60,6 +61,7 @@ class BaseRealisationProjetController extends AdminController
         return view('PkgRealisationProjets::realisationProjet.index', compact('realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters','realisationProjet_instance'));
     }
     public function create() {
+        $this->viewState->set('scope_form.realisationProjet.formateur_id'  , $this->sessionState->get('formateur_id'));
         $itemRealisationProjet = $this->realisationProjetService->createInstance();
         $affectationProjets = $this->affectationProjetService->all();
         $apprenants = $this->apprenantService->all();
@@ -129,6 +131,7 @@ class BaseRealisationProjetController extends AdminController
         $this->viewState->setContextKey('realisationProjet.edit_' . $id);
 
         $itemRealisationProjet = $this->realisationProjetService->find($id);
+        $this->authorize('edit', $itemRealisationProjet);
 
         $affectationProjets = $this->affectationProjetService->all();
         $apprenants = $this->apprenantService->all();
@@ -155,6 +158,9 @@ class BaseRealisationProjetController extends AdminController
 
     }
     public function update(RealisationProjetRequest $request, string $id) {
+        // Vérifie si l'utilisateur peut mettre à jour l'objet 
+        $realisationProjet = $this->realisationProjetService->find($id);
+        $this->authorize('update', $realisationProjet);
 
         $validatedData = $request->validated();
         $realisationProjet = $this->realisationProjetService->update($id, $validatedData);
@@ -180,6 +186,9 @@ class BaseRealisationProjetController extends AdminController
 
     }
     public function destroy(Request $request, string $id) {
+        // Vérifie si l'utilisateur peut mettre à jour l'objet 
+        $realisationProjet = $this->realisationProjetService->find($id);
+        $this->authorize('delete', $realisationProjet);
 
         $realisationProjet = $this->realisationProjetService->destroy($id);
 
