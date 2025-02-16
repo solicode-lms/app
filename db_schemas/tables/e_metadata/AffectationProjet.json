@@ -266,5 +266,17 @@
         },
         "e_data_field_reference": "AffectationProjet_projet_id",
         "e_metadata_definition_reference": "useAssigned"
+    },
+    {
+        "reference": "affectation_projets_ownedByUser",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "dataScope": "filter",
+            "userModelName": "Formateur",
+            "ownerRelationPath": "projet.formateur"
+        },
+        "e_model_reference": "affectation_projets",
+        "e_metadata_definition_reference": "ownedByUser"
     }
 ]

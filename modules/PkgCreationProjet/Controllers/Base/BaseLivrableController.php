@@ -32,6 +32,7 @@ class BaseLivrableController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('livrable.index');
+        $this->viewState->init('filter.livrable.formateur_id'  , $this->sessionState->get('formateur_id'));
 
         // Extraire les paramètres de recherche, page, et filtres
         $livrables_params = array_merge(
@@ -55,6 +56,7 @@ class BaseLivrableController extends AdminController
         return view('PkgCreationProjet::livrable.index', compact('livrables_data', 'livrables_stats', 'livrables_filters','livrable_instance'));
     }
     public function create() {
+        $this->viewState->set('scope_form.livrable.formateur_id'  , $this->sessionState->get('formateur_id'));
         $itemLivrable = $this->livrableService->createInstance();
         $natureLivrables = $this->natureLivrableService->all();
         $projets = $this->projetService->all();
@@ -110,6 +112,7 @@ class BaseLivrableController extends AdminController
         $this->viewState->setContextKey('livrable.edit_' . $id);
 
         $itemLivrable = $this->livrableService->find($id);
+        $this->authorize('edit', $itemLivrable);
 
         $natureLivrables = $this->natureLivrableService->all();
         $projets = $this->projetService->all();
@@ -123,6 +126,9 @@ class BaseLivrableController extends AdminController
 
     }
     public function update(LivrableRequest $request, string $id) {
+        // Vérifie si l'utilisateur peut mettre à jour l'objet 
+        $livrable = $this->livrableService->find($id);
+        $this->authorize('update', $livrable);
 
         $validatedData = $request->validated();
         $livrable = $this->livrableService->update($id, $validatedData);
@@ -148,6 +154,9 @@ class BaseLivrableController extends AdminController
 
     }
     public function destroy(Request $request, string $id) {
+        // Vérifie si l'utilisateur peut mettre à jour l'objet 
+        $livrable = $this->livrableService->find($id);
+        $this->authorize('delete', $livrable);
 
         $livrable = $this->livrableService->destroy($id);
 

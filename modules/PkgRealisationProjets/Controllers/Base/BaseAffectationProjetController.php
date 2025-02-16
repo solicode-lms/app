@@ -36,6 +36,7 @@ class BaseAffectationProjetController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('affectationProjet.index');
+        $this->viewState->init('filter.affectationProjet.formateur_id'  , $this->sessionState->get('formateur_id'));
         $this->viewState->set('scope.projet.formateur_id', auth()->user()->formateur->id);
         $this->viewState->set('scope.groupe.formateur_id', auth()->user()->formateur->id);
 
@@ -61,6 +62,7 @@ class BaseAffectationProjetController extends AdminController
         return view('PkgRealisationProjets::affectationProjet.index', compact('affectationProjets_data', 'affectationProjets_stats', 'affectationProjets_filters','affectationProjet_instance'));
     }
     public function create() {
+        $this->viewState->set('scope_form.affectationProjet.formateur_id'  , $this->sessionState->get('formateur_id'));
         $this->viewState->set('scope.projet.formateur_id', auth()->user()->formateur->id);
         $this->viewState->set('scope.groupe.formateur_id', auth()->user()->formateur->id);
         $itemAffectationProjet = $this->affectationProjetService->createInstance();
@@ -130,6 +132,7 @@ class BaseAffectationProjetController extends AdminController
         $this->viewState->set('scope.groupe.formateur_id', auth()->user()->formateur->id);
 
         $itemAffectationProjet = $this->affectationProjetService->find($id);
+        $this->authorize('edit', $itemAffectationProjet);
 
         $anneeFormations = $this->anneeFormationService->all();
         $groupes = $this->groupeService->all();
@@ -150,6 +153,9 @@ class BaseAffectationProjetController extends AdminController
 
     }
     public function update(AffectationProjetRequest $request, string $id) {
+        // Vérifie si l'utilisateur peut mettre à jour l'objet 
+        $affectationProjet = $this->affectationProjetService->find($id);
+        $this->authorize('update', $affectationProjet);
 
         $validatedData = $request->validated();
         $affectationProjet = $this->affectationProjetService->update($id, $validatedData);
@@ -175,6 +181,9 @@ class BaseAffectationProjetController extends AdminController
 
     }
     public function destroy(Request $request, string $id) {
+        // Vérifie si l'utilisateur peut mettre à jour l'objet 
+        $affectationProjet = $this->affectationProjetService->find($id);
+        $this->authorize('delete', $affectationProjet);
 
         $affectationProjet = $this->affectationProjetService->destroy($id);
 

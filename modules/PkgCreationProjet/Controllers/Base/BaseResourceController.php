@@ -29,6 +29,7 @@ class BaseResourceController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('resource.index');
+        $this->viewState->init('filter.resource.formateur_id'  , $this->sessionState->get('formateur_id'));
 
         // Extraire les paramètres de recherche, page, et filtres
         $resources_params = array_merge(
@@ -52,6 +53,7 @@ class BaseResourceController extends AdminController
         return view('PkgCreationProjet::resource.index', compact('resources_data', 'resources_stats', 'resources_filters','resource_instance'));
     }
     public function create() {
+        $this->viewState->set('scope_form.resource.formateur_id'  , $this->sessionState->get('formateur_id'));
         $itemResource = $this->resourceService->createInstance();
         $projets = $this->projetService->all();
 
@@ -105,6 +107,7 @@ class BaseResourceController extends AdminController
         $this->viewState->setContextKey('resource.edit_' . $id);
 
         $itemResource = $this->resourceService->find($id);
+        $this->authorize('edit', $itemResource);
 
         $projets = $this->projetService->all();
 
@@ -117,6 +120,9 @@ class BaseResourceController extends AdminController
 
     }
     public function update(ResourceRequest $request, string $id) {
+        // Vérifie si l'utilisateur peut mettre à jour l'objet 
+        $resource = $this->resourceService->find($id);
+        $this->authorize('update', $resource);
 
         $validatedData = $request->validated();
         $resource = $this->resourceService->update($id, $validatedData);
@@ -142,6 +148,9 @@ class BaseResourceController extends AdminController
 
     }
     public function destroy(Request $request, string $id) {
+        // Vérifie si l'utilisateur peut mettre à jour l'objet 
+        $resource = $this->resourceService->find($id);
+        $this->authorize('delete', $resource);
 
         $resource = $this->resourceService->destroy($id);
 
