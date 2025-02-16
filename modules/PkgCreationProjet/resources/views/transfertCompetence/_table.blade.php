@@ -19,6 +19,7 @@
                     <td>@limit($transfertCompetence->niveauDifficulte, 80)</td>
                     <td>@limit($transfertCompetence->note, 80)</td>
                     <td class="text-right">
+
                         @can('show-transfertCompetence')
                             <a href="{{ route('transfertCompetences.show', ['transfertCompetence' => $transfertCompetence->id]) }}" data-id="{{$transfertCompetence->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>

@@ -15,7 +15,7 @@ class ProfileRequest extends BaseProfileRequest
             'profile_picture' => 'nullable|string|max:255',
             'bio' => 'nullable|string',
             'password' => 'nullable|min:8|confirmed',
-            'old_password' => 'nullable|min:8',
+            'old_password' => 'nullable',
         ];
     }
 

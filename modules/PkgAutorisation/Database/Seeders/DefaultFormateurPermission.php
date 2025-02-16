@@ -46,6 +46,7 @@ class DefaultFormateurPermission extends Seeder
             'Lecteur' => ['index', 'show'],
             'Editeur' => ['index', 'show', 'create', 'store', 'edit', 'update', 'destroy','dataCalcul'],
             'Extraction' => ['export'],
+            'EditeurSansCreate' => ['index', 'show', 'store', 'edit', 'update'],
         ];
 
         foreach ($permissionsMap as $model => $accessTypes) {
