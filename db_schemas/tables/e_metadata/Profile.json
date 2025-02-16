@@ -142,6 +142,7 @@
         "value_boolean": 1,
         "value_float": 0,
         "value_json": {
+            "dataScope": "scope",
             "userModelName": "User"
         },
         "e_model_reference": "profiles",

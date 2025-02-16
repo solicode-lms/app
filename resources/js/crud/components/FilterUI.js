@@ -115,7 +115,7 @@ export class FilterUI {
     
         // Appliquer les variables de scope pour masquer ou surligner les filtres
         Object.keys(scopeData).forEach((key) => {
-            const filterElement = document.querySelector(`${this.config.filterFormSelector} #${key}`);
+            const filterElement = document.querySelector(`${this.config.filterFormSelector} [name="${key}"]`);
             if (filterElement) {
                 if (this.config.isDebug) {
                     filterElement.parentElement.style.backgroundColor = 'lightblue'; // Mode debug : surligner
@@ -127,7 +127,7 @@ export class FilterUI {
     
         // Appliquer les valeurs des filtres et masquer si nécessaire
         Object.keys(filterData).forEach((key) => {
-            const filterElement = document.querySelector(`${this.config.filterFormSelector} #${key}`);
+            const filterElement = document.querySelector(`${this.config.filterFormSelector} [name="${key}"]`);
             if (filterElement) {
                     if (filterElement.tagName === "INPUT" || filterElement.tagName === "TEXTAREA") {
                         filterElement.value = filterData[key];

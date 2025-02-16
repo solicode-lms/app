@@ -29,7 +29,7 @@ class BaseProfileController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('profile.index');
-        $this->viewState->init('filter.profile.user_id'  , $this->sessionState->get('user_id'));
+        $this->viewState->init('scope.profile.user_id'  , $this->sessionState->get('user_id'));
 
         // Extraire les paramètres de recherche, page, et filtres
         $profiles_params = array_merge(

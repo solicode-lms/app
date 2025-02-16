@@ -175,6 +175,7 @@
         "value_boolean": 1,
         "value_float": 0,
         "value_json": {
+            "dataScope": "scope",
             "userModelName": "Formateur"
         },
         "e_model_reference": "etats_realisation_projets",

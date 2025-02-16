@@ -78,12 +78,17 @@ class SessionState implements JsonSerializable
                 
             }  
 
+            // ajouter l'id de user dans la session
+            $this->set("user_id",$user->id);
             $formateur = $user->formateur;
             if ($formateur) {
                 $this->set("formateur_id",$formateur->id);
             }
-    
            
+            $apprenant = $user->apprenant;
+            if ($apprenant) {
+                $this->set("apprenant_id",$apprenant->id);
+            }
         }
     }
 
