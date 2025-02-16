@@ -209,8 +209,10 @@
     },
     {
         "reference": "niveau_difficultes_ownedByUser",
+        "value_boolean": 0,
         "value_float": 0,
         "value_json": {
+            "dataScope": "scope",
             "userModelName": "Formateur"
         },
         "e_model_reference": "niveau_difficultes",
