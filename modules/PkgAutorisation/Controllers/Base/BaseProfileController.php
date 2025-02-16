@@ -94,6 +94,8 @@ class BaseProfileController extends AdminController
         $this->viewState->setContextKey('profile.edit_' . $id);
 
         $itemProfile = $this->profileService->find($id);
+        $this->authorize('edit', $itemProfile);
+
         $users = $this->userService->all();
 
 

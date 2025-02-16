@@ -89,7 +89,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Apprenant::class, 'user_id', 'id');
     }
-
+    public function profiles(): HasMany
+    {
+        return $this->hasMany(Profile::class, 'user_id', 'id');
+    }
  
     public function getUsersContext()
     {

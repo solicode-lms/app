@@ -24,6 +24,17 @@ class GenericPolicy
         return true;
     }
 
+    public function edit(User $user, $model): bool
+    {
+        // Vérifie si le modèle utilise le trait OwnedByUser
+        if ($this->hasTrait($model, 'App\Traits\OwnedByUser')) {
+            $owner = $model->getOwner();
+            return $owner && $owner->id === $user->id;
+        }
+
+        return true;
+    }
+
     /**
      * Vérifie si l'utilisateur peut supprimer l'objet.
      *

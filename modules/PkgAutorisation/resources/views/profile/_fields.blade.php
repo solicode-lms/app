@@ -101,37 +101,19 @@
             <label for="phone">
                 {{ ucfirst(__('PkgAutorisation::profile.phone')) }}
                 
+                    <span class="text-danger">*</span>
+                
             </label>
             <input
                 name="phone"
                 type="input"
                 class="form-control"
-                
+                required
                 
                 id="phone"
                 placeholder="{{ __('PkgAutorisation::profile.phone') }}"
                 value="{{ $itemProfile ? $itemProfile->phone : old('phone') }}">
             @error('phone')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
-
-        
-        <div class="form-group">
-            <label for="bio">
-                {{ ucfirst(__('PkgAutorisation::profile.bio')) }}
-                
-            </label>
-            <textarea rows="" cols=""
-                name="bio"
-                class="form-control richText"
-                
-                
-                id="bio"
-                placeholder="{{ __('PkgAutorisation::profile.bio') }}">
-                {{ $itemProfile ? $itemProfile->bio : old('bio') }}
-            </textarea>
-            @error('bio')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
