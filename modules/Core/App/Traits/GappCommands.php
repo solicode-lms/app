@@ -8,6 +8,20 @@ use Modules\PkgGapp\App\Enums\FieldTypeEnum;
 trait GappCommands
 {
 
+
+    private function metaExport()
+    {
+    
+        $message = "Export metaData en cours ..";
+        $metaExportCommand = "gapp meta:export ../";
+
+        $this->pushServiceMessage("info","Gapp", $message);
+
+        // Exécution ASYNCHRONE de l'export des métadonnées
+        $this->executeCommandAsync($metaExportCommand);
+    }
+
+
     private function updateGappCrud($model)
     {
         if (!$model) {
