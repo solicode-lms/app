@@ -94,6 +94,8 @@ class BaseEtatsRealisationProjetController extends AdminController
         $this->viewState->setContextKey('etatsRealisationProjet.edit_' . $id);
 
         $itemEtatsRealisationProjet = $this->etatsRealisationProjetService->find($id);
+        $this->authorize('edit', $itemEtatsRealisationProjet);
+
         $formateurs = $this->formateurService->all();
 
 
@@ -220,6 +222,5 @@ class BaseEtatsRealisationProjetController extends AdminController
         ]);
     }
     
-
 
 }

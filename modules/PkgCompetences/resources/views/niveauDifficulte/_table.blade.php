@@ -15,6 +15,7 @@
                     <td>@limit($niveauDifficulte->nom, 80)</td>
                     <td>@limit($niveauDifficulte->formateur, 80)</td>
                     <td class="text-right">
+
                         @can('show-niveauDifficulte')
                             <a href="{{ route('niveauDifficultes.show', ['niveauDifficulte' => $niveauDifficulte->id]) }}" data-id="{{$niveauDifficulte->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>

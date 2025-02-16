@@ -257,7 +257,8 @@
         "value_float": 0,
         "value_json": {
             "dataScope": "scope",
-            "userModelName": "Formateur"
+            "userModelName": "Formateur",
+            "ownerRelationPath": "projet.formateur.user"
         },
         "e_model_reference": "transfert_competences",
         "e_metadata_definition_reference": "ownedByUser"

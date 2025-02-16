@@ -15,6 +15,7 @@
                     <td>@limit($etatsRealisationProjet->formateur, 80)</td>
                     <td>@limit($etatsRealisationProjet->titre, 80)</td>
                     <td class="text-right">
+
                         @can('show-etatsRealisationProjet')
                             <a href="{{ route('etatsRealisationProjets.show', ['etatsRealisationProjet' => $etatsRealisationProjet->id]) }}" data-id="{{$etatsRealisationProjet->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>

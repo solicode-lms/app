@@ -213,7 +213,8 @@
         "value_float": 0,
         "value_json": {
             "dataScope": "scope",
-            "userModelName": "Formateur"
+            "userModelName": "Formateur",
+            "ownerRelationPath": "formateur.user"
         },
         "e_model_reference": "niveau_difficultes",
         "e_metadata_definition_reference": "ownedByUser"

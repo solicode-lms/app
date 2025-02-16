@@ -13,6 +13,7 @@
                 <tr id="profile-row-{{$profile->id}}">
                     <td>@limit($profile->user, 80)</td>
                     <td class="text-right">
+
                         @can('show-profile')
                             <a href="{{ route('profiles.show', ['profile' => $profile->id]) }}" data-id="{{$profile->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>

@@ -94,6 +94,8 @@ class BaseNiveauDifficulteController extends AdminController
         $this->viewState->setContextKey('niveauDifficulte.edit_' . $id);
 
         $itemNiveauDifficulte = $this->niveauDifficulteService->find($id);
+        $this->authorize('edit', $itemNiveauDifficulte);
+
         $formateurs = $this->formateurService->all();
 
 
@@ -220,6 +222,5 @@ class BaseNiveauDifficulteController extends AdminController
         ]);
     }
     
-
 
 }

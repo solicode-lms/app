@@ -146,7 +146,8 @@
         "value_float": 0,
         "value_json": {
             "dataScope": "scope",
-            "userModelName": "User"
+            "userModelName": "User",
+            "ownerRelationPath": "user"
         },
         "e_model_reference": "profiles",
         "e_metadata_definition_reference": "ownedByUser"
