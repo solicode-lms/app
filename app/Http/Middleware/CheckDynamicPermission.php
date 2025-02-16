@@ -18,6 +18,11 @@ class CheckDynamicPermission
     public function handle($request, Closure $next)
     {
 
+        // ForcePasswordChange
+        if (Auth::check() && Auth::user()->must_change_password && !$request->is('profile')) {
+            return redirect()->route('profile.edit')->with('warning', 'Vous devez changer votre mot de passe avant d’accéder à l’application.');
+        }
+
         // Bypass les vérifications si l'utilisateur est Super Admin
         if (Auth::user()->hasRole('root')) {
             return $next($request);

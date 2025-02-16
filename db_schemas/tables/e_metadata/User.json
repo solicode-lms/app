@@ -253,5 +253,23 @@
         "value_boolean": 1,
         "e_data_field_reference": "users_hasMany_profiles_user_id",
         "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "User_must_change_password_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "User_must_change_password",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "User_must_change_password_displayOrder",
+        "value_integer": 6,
+        "e_data_field_reference": "User_must_change_password",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "User_must_change_password_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "User_must_change_password",
+        "e_metadata_definition_reference": "displayInForm"
     }
 ]

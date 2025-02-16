@@ -22,7 +22,7 @@ use Modules\PkgAutorisation\Services\ProfileService;
 
 class BaseProfileSeeder extends Seeder
 {
-    public static int $order = ;
+    public static int $order = 10;
 
     public function run(): void
     {
