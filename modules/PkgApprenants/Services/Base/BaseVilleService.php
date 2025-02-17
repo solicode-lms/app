@@ -38,11 +38,13 @@ class BaseVilleService extends BaseService
     public function __construct()
     {
         parent::__construct(new Ville());
+        $this->fieldsFilterable = [];
+    }
 
-        // Initialiser les filtres configurables dynamiquement
+    public function initFieldsFilterable(){
+       // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
         ];
-
     }
 
     /**
@@ -70,5 +72,7 @@ class BaseVilleService extends BaseService
 
         return $stats;
     }
+
+
 
 }

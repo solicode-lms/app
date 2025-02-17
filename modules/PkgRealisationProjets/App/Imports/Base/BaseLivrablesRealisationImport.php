@@ -56,10 +56,11 @@ class BaseLivrablesRealisationImport implements ToModel, WithHeadingRow
 
         // Création d'un nouvel enregistrement
         return new LivrablesRealisation([
-             'titre' => $values[0] ?? null,
-             'description' => $values[1] ?? null,
-             'lien' => $values[2] ?? null,
-             'livrable_id' => $values[3] ?? null,
+             'livrable_id' => $values[0] ?? null,
+             'lien' => $values[1] ?? null,
+             'titre' => $values[2] ?? null,
+             'description' => $values[3] ?? null,
+             'realisation_projet_id' => $values[4] ?? null,
              'reference' => $reference,
         ]);
 

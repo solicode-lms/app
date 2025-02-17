@@ -6,7 +6,9 @@
     window.crudModalManagersConfig.push({
         edit_has_many: {{ !isset($edit_has_many)? 'true' :  ($edit_has_many ? "true": "false") }},
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
+        editOnFullScreen : false,
         entity_name: 'user',
+        contextKey: '{{ isset($contextKey) ? $contextKey : 'user.index' }}', 
         filterFormSelector: '#user-crud-filter-form',
         crudSelector: '#user-crud',
         tableSelector: '#user-data-container',
@@ -17,6 +19,7 @@
         showUrl: '{{ route('users.show',  ['user' => ':id']) }}',
         storeUrl: '{{ route('users.store') }}', 
         deleteUrl: '{{ route('users.destroy',  ['user' => ':id']) }}', 
+        calculationUrl:  '{{ route('users.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgAutorisation::user.singular") }}',
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgAutorisation::user.singular") }}',
@@ -30,7 +33,7 @@
        $titre = __("PkgAutorisation::user.singular");
     @endphp
     <x-crud-header 
-        id="user-crud-header" icon="fas fa-user-circle1"  
+        id="user-crud-header" icon="fas fa-user"  
         iconColor="text-info"
         title="{{ __('PkgAutorisation::user.plural') }}"
         :breadcrumbs="[
@@ -53,6 +56,7 @@
                         />
                     </div>
                     <div class="col-sm-3">
+                        @can('create', $user_instance)
                         <x-crud-actions
                             :createPermission="'create-user'"
                             :createRoute="route('users.create')"
@@ -61,9 +65,11 @@
                             :importRoute="route('users.import')"
                             :importText="__('Importer')"
                             :exportPermission="'export-user'"
-                            :exportRoute="route('users.export')"
+                            :exportXlsxRoute="route('users.export', ['format' => 'xlsx'])"
+                            :exportCsvRoute="route('users.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
                         />
+                        @endcan
                     </div>
                 </div>
                 @show

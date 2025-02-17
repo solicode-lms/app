@@ -19,10 +19,11 @@ class BaseLivrablesRealisationService extends BaseService
      * @var array
      */
     protected $fieldsSearchable = [
+        'livrable_id',
+        'lien',
         'titre',
         'description',
-        'lien',
-        'livrable_id'
+        'realisation_projet_id'
     ];
 
     /**
@@ -41,12 +42,15 @@ class BaseLivrablesRealisationService extends BaseService
     public function __construct()
     {
         parent::__construct(new LivrablesRealisation());
+        $this->fieldsFilterable = [];
+    }
 
-        // Initialiser les filtres configurables dynamiquement
+    public function initFieldsFilterable(){
+       // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
             $this->generateManyToOneFilter(__("PkgCreationProjet::livrable.plural"), 'livrable_id', \Modules\PkgCreationProjet\Models\Livrable::class, 'titre'),
+            $this->generateManyToOneFilter(__("PkgRealisationProjets::realisationProjet.plural"), 'realisation_projet_id', \Modules\PkgRealisationProjets\Models\RealisationProjet::class, 'id'),
         ];
-
     }
 
     /**
@@ -70,9 +74,25 @@ class BaseLivrablesRealisationService extends BaseService
 
         $stats = $this->initStats();
 
+        // Ajouter les statistiques du propriétaire
+        $contexteState = $this->getContextState();
+        if ($contexteState !== null) {
+            $stats[] = $contexteState;
+        }
         
 
         return $stats;
     }
+
+    public function getContextState()
+    {
+        $value = $this->viewState->generateTitleFromVariables();
+        return [
+                "icon" => "fas fa-filter",
+                "label" => "Filtre",
+                "value" =>  $value
+        ];
+    }
+
 
 }

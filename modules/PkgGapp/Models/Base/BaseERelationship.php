@@ -1,6 +1,6 @@
 <?php
+// Ce fichier est maintenu par ESSARRAJ Fouad
 
-// TODO : il faut indiquer la cause de personnalisation de code
 
 namespace Modules\PkgGapp\Models\Base;
 
@@ -12,6 +12,7 @@ use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
 use Modules\PkgGapp\Models\EModel;
+use Modules\PkgGapp\Models\EDataField;
 
 /**
  * Classe BaseERelationship
@@ -21,9 +22,10 @@ class BaseERelationship extends BaseModel
 {
     use HasFactory, HasDynamicContext;
 
-    public function __construct() {
-        parent::__construct(); 
+    public function __construct(array $attributes = []) {
+        parent::__construct($attributes); 
         $this->isOwnedByUser =  false;
+
     }
 
     
@@ -33,7 +35,7 @@ class BaseERelationship extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'source_e_model_id', 'target_e_model_id', 'type', 'source_field', 'target_field', 'cascade_on_delete', 'description'
+        'name', 'type', 'source_e_model_id', 'target_e_model_id', 'cascade_on_delete', 'is_cascade', 'description', 'column_name', 'referenced_table', 'referenced_column', 'through', 'with_column', 'morph_name'
     ];
 
     /**
@@ -41,9 +43,29 @@ class BaseERelationship extends BaseModel
      *
      * @return BelongsTo
      */
-    public function eModel(): BelongsTo
+    public function sourceEModel(): BelongsTo
     {
         return $this->belongsTo(EModel::class, 'source_e_model_id', 'id');
+    }
+    /**
+     * Relation BelongsTo pour EModel.
+     *
+     * @return BelongsTo
+     */
+    public function targetEModel(): BelongsTo
+    {
+        return $this->belongsTo(EModel::class, 'target_e_model_id', 'id');
+    }
+
+
+    /**
+     * Relation HasMany pour ERelationships.
+     *
+     * @return HasMany
+     */
+    public function eDataFields(): HasMany
+    {
+        return $this->hasMany(EDataField::class, 'e_relationship_id', 'id');
     }
 
 
@@ -55,6 +77,6 @@ class BaseERelationship extends BaseModel
      */
     public function __toString()
     {
-        return $this->type;
+        return $this->name ?? "";
     }
 }

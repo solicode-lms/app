@@ -25,6 +25,8 @@ class BaseEtatsRealisationProjet extends BaseModel
     public function __construct(array $attributes = []) {
         parent::__construct($attributes); 
         $this->isOwnedByUser =  true;
+        $this->ownerRelationPath = "formateur.user";
+        
     }
 
     
@@ -34,7 +36,7 @@ class BaseEtatsRealisationProjet extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'titre', 'description', 'formateur_id'
+        'formateur_id', 'titre', 'description'
     ];
 
     /**

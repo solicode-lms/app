@@ -56,8 +56,8 @@ class BaseLivrableImport implements ToModel, WithHeadingRow
 
         // Création d'un nouvel enregistrement
         return new Livrable([
-             'titre' => $values[0] ?? null,
-             'nature_livrable_id' => $values[1] ?? null,
+             'nature_livrable_id' => $values[0] ?? null,
+             'titre' => $values[1] ?? null,
              'projet_id' => $values[2] ?? null,
              'description' => $values[3] ?? null,
              'reference' => $reference,

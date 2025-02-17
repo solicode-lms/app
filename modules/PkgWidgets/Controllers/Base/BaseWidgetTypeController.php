@@ -28,7 +28,6 @@ class BaseWidgetTypeController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('widgetType.index');
 
-
         // Extraire les paramètres de recherche, page, et filtres
         $widgetTypes_params = array_merge(
             $request->only(['page','sort']),
@@ -42,13 +41,13 @@ class BaseWidgetTypeController extends AdminController
         // Récupérer les statistiques et les champs filtrables
         $widgetTypes_stats = $this->widgetTypeService->getwidgetTypeStats();
         $widgetTypes_filters = $this->widgetTypeService->getFieldsFilterable();
-
+        $widgetType_instance =  $this->widgetTypeService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgWidgets::widgetType._table', compact('widgetTypes_data', 'widgetTypes_stats', 'widgetTypes_filters'))->render();
+            return view('PkgWidgets::widgetType._table', compact('widgetTypes_data', 'widgetTypes_stats', 'widgetTypes_filters','widgetType_instance'))->render();
         }
 
-        return view('PkgWidgets::widgetType.index', compact('widgetTypes_data', 'widgetTypes_stats', 'widgetTypes_filters'));
+        return view('PkgWidgets::widgetType.index', compact('widgetTypes_data', 'widgetTypes_stats', 'widgetTypes_filters','widgetType_instance'));
     }
     public function create() {
         $itemWidgetType = $this->widgetTypeService->createInstance();
@@ -83,7 +82,25 @@ class BaseWidgetTypeController extends AdminController
         );
     }
     public function show(string $id) {
-        return $this->edit( $id);
+
+        $this->viewState->setContextKey('widgetType.edit_' . $id);
+
+        $itemWidgetType = $this->widgetTypeService->find($id);
+  
+
+        $this->viewState->set('scope.widget.type_id', $id);
+        $widgetService =  new WidgetService();
+        $widgets_data =  $itemWidgetType->widgets()->paginate(10);
+        $widgets_stats = $widgetService->getwidgetStats();
+        $widgets_filters = $widgetService->getFieldsFilterable();
+        $widget_instance =  $widgetService->createInstance();
+
+        if (request()->ajax()) {
+            return view('PkgWidgets::widgetType._edit', compact('itemWidgetType', 'widgets_data', 'widgets_stats', 'widgets_filters', 'widget_instance'));
+        }
+
+        return view('PkgWidgets::widgetType.edit', compact('itemWidgetType', 'widgets_data', 'widgets_stats', 'widgets_filters', 'widget_instance'));
+
     }
     public function edit(string $id) {
 
@@ -91,18 +108,19 @@ class BaseWidgetTypeController extends AdminController
 
         $itemWidgetType = $this->widgetTypeService->find($id);
 
+
         $this->viewState->set('scope.widget.type_id', $id);
         $widgetService =  new WidgetService();
         $widgets_data =  $itemWidgetType->widgets()->paginate(10);
         $widgets_stats = $widgetService->getwidgetStats();
         $widgets_filters = $widgetService->getFieldsFilterable();
-        
+        $widget_instance =  $widgetService->createInstance();
 
         if (request()->ajax()) {
-            return view('PkgWidgets::widgetType._edit', compact('itemWidgetType', 'widgets_data', 'widgets_stats', 'widgets_filters'));
+            return view('PkgWidgets::widgetType._edit', compact('itemWidgetType', 'widgets_data', 'widgets_stats', 'widgets_filters', 'widget_instance'));
         }
 
-        return view('PkgWidgets::widgetType.edit', compact('itemWidgetType', 'widgets_data', 'widgets_stats', 'widgets_filters'));
+        return view('PkgWidgets::widgetType.edit', compact('itemWidgetType', 'widgets_data', 'widgets_stats', 'widgets_filters', 'widget_instance'));
 
     }
     public function update(WidgetTypeRequest $request, string $id) {
@@ -215,6 +233,5 @@ class BaseWidgetTypeController extends AdminController
         ]);
     }
     
-
 
 }

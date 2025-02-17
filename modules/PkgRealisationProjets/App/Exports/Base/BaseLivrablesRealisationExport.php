@@ -28,18 +28,20 @@ class BaseLivrablesRealisationExport implements FromCollection, WithHeadings, Sh
     {
      if($this->format == 'csv'){
         return [
+            'livrable_id' => 'livrable_id',
+            'lien' => 'lien',
             'titre' => 'titre',
             'description' => 'description',
-            'lien' => 'lien',
-            'livrable_id' => 'livrable_id',
+            'realisation_projet_id' => 'realisation_projet_id',
             'reference' => 'reference',
         ];
         }else{
         return [
+            'livrable_id' => __('PkgRealisationProjets::livrablesRealisation.livrable_id'),
+            'lien' => __('PkgRealisationProjets::livrablesRealisation.lien'),
             'titre' => __('PkgRealisationProjets::livrablesRealisation.titre'),
             'description' => __('PkgRealisationProjets::livrablesRealisation.description'),
-            'lien' => __('PkgRealisationProjets::livrablesRealisation.lien'),
-            'livrable_id' => __('PkgRealisationProjets::livrablesRealisation.livrable_id'),
+            'realisation_projet_id' => __('PkgRealisationProjets::livrablesRealisation.realisation_projet_id'),
             'reference' => __('Core::msg.reference'),
         ];
 
@@ -51,10 +53,11 @@ class BaseLivrablesRealisationExport implements FromCollection, WithHeadings, Sh
     {
         return $this->data->map(function ($livrablesRealisation) {
             return [
+                'livrable_id' => $livrablesRealisation->livrable_id,
+                'lien' => $livrablesRealisation->lien,
                 'titre' => $livrablesRealisation->titre,
                 'description' => $livrablesRealisation->description,
-                'lien' => $livrablesRealisation->lien,
-                'livrable_id' => $livrablesRealisation->livrable_id,
+                'realisation_projet_id' => $livrablesRealisation->realisation_projet_id,
                 'reference' => $livrablesRealisation->reference,
             ];
         });

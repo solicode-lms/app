@@ -2,6 +2,6 @@
 
 
 return [
-    'name' => 'PkgApprenants',
+    'name' => 'Apprenants',
     'icon' => 'fa-user'
 ];

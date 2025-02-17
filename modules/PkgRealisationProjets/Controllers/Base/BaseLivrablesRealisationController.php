@@ -5,6 +5,7 @@
 namespace Modules\PkgRealisationProjets\Controllers\Base;
 use Modules\PkgRealisationProjets\Services\LivrablesRealisationService;
 use Modules\PkgCreationProjet\Services\LivrableService;
+use Modules\PkgRealisationProjets\Services\RealisationProjetService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
@@ -19,17 +20,19 @@ class BaseLivrablesRealisationController extends AdminController
 {
     protected $livrablesRealisationService;
     protected $livrableService;
+    protected $realisationProjetService;
 
-    public function __construct(LivrablesRealisationService $livrablesRealisationService, LivrableService $livrableService) {
+    public function __construct(LivrablesRealisationService $livrablesRealisationService, LivrableService $livrableService, RealisationProjetService $realisationProjetService) {
         parent::__construct();
         $this->livrablesRealisationService = $livrablesRealisationService;
         $this->livrableService = $livrableService;
+        $this->realisationProjetService = $realisationProjetService;
     }
 
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('livrablesRealisation.index');
-
+        $this->viewState->init('filter.livrablesRealisation.apprenant_id'  , $this->sessionState->get('apprenant_id'));
 
         // Extraire les paramètres de recherche, page, et filtres
         $livrablesRealisations_params = array_merge(
@@ -44,23 +47,25 @@ class BaseLivrablesRealisationController extends AdminController
         // Récupérer les statistiques et les champs filtrables
         $livrablesRealisations_stats = $this->livrablesRealisationService->getlivrablesRealisationStats();
         $livrablesRealisations_filters = $this->livrablesRealisationService->getFieldsFilterable();
-
+        $livrablesRealisation_instance =  $this->livrablesRealisationService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgRealisationProjets::livrablesRealisation._table', compact('livrablesRealisations_data', 'livrablesRealisations_stats', 'livrablesRealisations_filters'))->render();
+            return view('PkgRealisationProjets::livrablesRealisation._table', compact('livrablesRealisations_data', 'livrablesRealisations_stats', 'livrablesRealisations_filters','livrablesRealisation_instance'))->render();
         }
 
-        return view('PkgRealisationProjets::livrablesRealisation.index', compact('livrablesRealisations_data', 'livrablesRealisations_stats', 'livrablesRealisations_filters'));
+        return view('PkgRealisationProjets::livrablesRealisation.index', compact('livrablesRealisations_data', 'livrablesRealisations_stats', 'livrablesRealisations_filters','livrablesRealisation_instance'));
     }
     public function create() {
+        $this->viewState->set('scope_form.livrablesRealisation.apprenant_id'  , $this->sessionState->get('apprenant_id'));
         $itemLivrablesRealisation = $this->livrablesRealisationService->createInstance();
         $livrables = $this->livrableService->all();
+        $realisationProjets = $this->realisationProjetService->all();
 
 
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::livrablesRealisation._fields', compact('itemLivrablesRealisation', 'livrables'));
+            return view('PkgRealisationProjets::livrablesRealisation._fields', compact('itemLivrablesRealisation', 'livrables', 'realisationProjets'));
         }
-        return view('PkgRealisationProjets::livrablesRealisation.create', compact('itemLivrablesRealisation', 'livrables'));
+        return view('PkgRealisationProjets::livrablesRealisation.create', compact('itemLivrablesRealisation', 'livrables', 'realisationProjets'));
     }
     public function store(LivrablesRealisationRequest $request) {
         $validatedData = $request->validated();
@@ -86,24 +91,44 @@ class BaseLivrablesRealisationController extends AdminController
         );
     }
     public function show(string $id) {
-        return $this->edit( $id);
+
+        $this->viewState->setContextKey('livrablesRealisation.edit_' . $id);
+
+        $itemLivrablesRealisation = $this->livrablesRealisationService->find($id);
+  
+        $livrables = $this->livrableService->all();
+        $realisationProjets = $this->realisationProjetService->all();
+
+
+        if (request()->ajax()) {
+            return view('PkgRealisationProjets::livrablesRealisation._fields', compact('itemLivrablesRealisation', 'livrables', 'realisationProjets'));
+        }
+
+        return view('PkgRealisationProjets::livrablesRealisation.edit', compact('itemLivrablesRealisation', 'livrables', 'realisationProjets'));
+
     }
     public function edit(string $id) {
 
         $this->viewState->setContextKey('livrablesRealisation.edit_' . $id);
 
         $itemLivrablesRealisation = $this->livrablesRealisationService->find($id);
+        $this->authorize('edit', $itemLivrablesRealisation);
+
         $livrables = $this->livrableService->all();
+        $realisationProjets = $this->realisationProjetService->all();
 
 
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::livrablesRealisation._fields', compact('itemLivrablesRealisation', 'livrables'));
+            return view('PkgRealisationProjets::livrablesRealisation._fields', compact('itemLivrablesRealisation', 'livrables', 'realisationProjets'));
         }
 
-        return view('PkgRealisationProjets::livrablesRealisation.edit', compact('itemLivrablesRealisation', 'livrables'));
+        return view('PkgRealisationProjets::livrablesRealisation.edit', compact('itemLivrablesRealisation', 'livrables', 'realisationProjets'));
 
     }
     public function update(LivrablesRealisationRequest $request, string $id) {
+        // Vérifie si l'utilisateur peut mettre à jour l'objet 
+        $livrablesRealisation = $this->livrablesRealisationService->find($id);
+        $this->authorize('update', $livrablesRealisation);
 
         $validatedData = $request->validated();
         $livrablesRealisation = $this->livrablesRealisationService->update($id, $validatedData);
@@ -129,6 +154,9 @@ class BaseLivrablesRealisationController extends AdminController
 
     }
     public function destroy(Request $request, string $id) {
+        // Vérifie si l'utilisateur peut mettre à jour l'objet 
+        $livrablesRealisation = $this->livrablesRealisationService->find($id);
+        $this->authorize('delete', $livrablesRealisation);
 
         $livrablesRealisation = $this->livrablesRealisationService->destroy($id);
 
@@ -213,6 +241,5 @@ class BaseLivrablesRealisationController extends AdminController
         ]);
     }
     
-
 
 }

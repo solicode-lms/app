@@ -10,71 +10,6 @@
 
     <div class="card-body">
         
-        <div class="form-group">
-    <label for="note">
-        {{ ucfirst(__('PkgRealisationProjets::validation.note')) }}
-        
-    </label>
-    <input
-        name="note"
-        type="number"
-        class="form-control"
-        
-        
-        id="note"
-        step="0.01"
-        placeholder="{{ __('PkgRealisationProjets::validation.note') }}"
-        value="{{ $itemValidation ? number_format($itemValidation->note, 2, '.', '') : old('note') }}">
-    @error('note')
-        <div class="text-danger">{{ $message }}</div>
-    @enderror
-</div>
-
-
-
-        
-        <div class="form-group">
-            <label for="message">
-                {{ ucfirst(__('PkgRealisationProjets::validation.message')) }}
-                
-            </label>
-            <input
-                name="message"
-                type="input"
-                class="form-control"
-                
-                
-                id="message"
-                placeholder="{{ __('PkgRealisationProjets::validation.message') }}"
-                value="{{ $itemValidation ? $itemValidation->message : old('message') }}">
-            @error('message')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
-
-        
-        <div class="form-group">
-            <label for="is_valide">
-                {{ ucfirst(__('PkgRealisationProjets::validation.is_valide')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
-                name="is_valide"
-                type="number"
-                class="form-control"
-                required
-                
-                id="is_valide"
-                placeholder="{{ __('PkgRealisationProjets::validation.is_valide') }}"
-                value="{{ $itemValidation ? $itemValidation->is_valide : old('is_valide') }}">
-            @error('is_valide')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
-
-        
         
     <div class="form-group">
             <label for="transfert_competence_id">
@@ -102,6 +37,71 @@
             @enderror
     </div>
 
+
+        
+        <div class="form-group">
+    <label for="note">
+        {{ ucfirst(__('PkgRealisationProjets::validation.note')) }}
+        
+    </label>
+    <input
+        name="note"
+        type="number"
+        class="form-control"
+        
+        
+        id="note"
+        step="0.01"
+        placeholder="{{ __('PkgRealisationProjets::validation.note') }}"
+        value="{{ $itemValidation ? number_format($itemValidation->note, 2, '.', '') : old('note') }}">
+    @error('note')
+        <div class="text-danger">{{ $message }}</div>
+    @enderror
+</div>
+
+
+        
+        <div class="form-group">
+            <label for="message">
+                {{ ucfirst(__('PkgRealisationProjets::validation.message')) }}
+                
+            </label>
+            <textarea rows="" cols=""
+                name="message"
+                class="form-control richText"
+                
+                
+                id="message"
+                placeholder="{{ __('PkgRealisationProjets::validation.message') }}">
+                {{ $itemValidation ? $itemValidation->message : old('message') }}
+            </textarea>
+            @error('message')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
+
+        
+        <div class="form-group">
+            <label for="is_valide">
+                {{ ucfirst(__('PkgRealisationProjets::validation.is_valide')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <input type="hidden" name="is_valide" value="0">
+            <input
+                name="is_valide"
+                type="checkbox"
+                class="form-control"
+                required
+                
+                id="is_valide"
+                value="1"
+                {{ old('is_valide', $itemValidation ? $itemValidation->is_valide : 0) ? 'checked' : '' }}>
+            @error('is_valide')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
 
         
         

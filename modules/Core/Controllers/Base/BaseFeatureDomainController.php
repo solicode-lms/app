@@ -31,7 +31,6 @@ class BaseFeatureDomainController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('featureDomain.index');
 
-
         // Extraire les paramètres de recherche, page, et filtres
         $featureDomains_params = array_merge(
             $request->only(['page','sort']),
@@ -45,13 +44,13 @@ class BaseFeatureDomainController extends AdminController
         // Récupérer les statistiques et les champs filtrables
         $featureDomains_stats = $this->featureDomainService->getfeatureDomainStats();
         $featureDomains_filters = $this->featureDomainService->getFieldsFilterable();
-
+        $featureDomain_instance =  $this->featureDomainService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('Core::featureDomain._table', compact('featureDomains_data', 'featureDomains_stats', 'featureDomains_filters'))->render();
+            return view('Core::featureDomain._table', compact('featureDomains_data', 'featureDomains_stats', 'featureDomains_filters','featureDomain_instance'))->render();
         }
 
-        return view('Core::featureDomain.index', compact('featureDomains_data', 'featureDomains_stats', 'featureDomains_filters'));
+        return view('Core::featureDomain.index', compact('featureDomains_data', 'featureDomains_stats', 'featureDomains_filters','featureDomain_instance'));
     }
     public function create() {
         $itemFeatureDomain = $this->featureDomainService->createInstance();
@@ -87,13 +86,11 @@ class BaseFeatureDomainController extends AdminController
         );
     }
     public function show(string $id) {
-        return $this->edit( $id);
-    }
-    public function edit(string $id) {
 
         $this->viewState->setContextKey('featureDomain.edit_' . $id);
 
         $itemFeatureDomain = $this->featureDomainService->find($id);
+  
         $sysModules = $this->sysModuleService->all();
 
         $this->viewState->set('scope.feature.feature_domain_id', $id);
@@ -101,13 +98,35 @@ class BaseFeatureDomainController extends AdminController
         $features_data =  $itemFeatureDomain->features()->paginate(10);
         $features_stats = $featureService->getfeatureStats();
         $features_filters = $featureService->getFieldsFilterable();
-        
+        $feature_instance =  $featureService->createInstance();
 
         if (request()->ajax()) {
-            return view('Core::featureDomain._edit', compact('itemFeatureDomain', 'sysModules', 'features_data', 'features_stats', 'features_filters'));
+            return view('Core::featureDomain._edit', compact('itemFeatureDomain', 'sysModules', 'features_data', 'features_stats', 'features_filters', 'feature_instance'));
         }
 
-        return view('Core::featureDomain.edit', compact('itemFeatureDomain', 'sysModules', 'features_data', 'features_stats', 'features_filters'));
+        return view('Core::featureDomain.edit', compact('itemFeatureDomain', 'sysModules', 'features_data', 'features_stats', 'features_filters', 'feature_instance'));
+
+    }
+    public function edit(string $id) {
+
+        $this->viewState->setContextKey('featureDomain.edit_' . $id);
+
+        $itemFeatureDomain = $this->featureDomainService->find($id);
+
+        $sysModules = $this->sysModuleService->all();
+
+        $this->viewState->set('scope.feature.feature_domain_id', $id);
+        $featureService =  new FeatureService();
+        $features_data =  $itemFeatureDomain->features()->paginate(10);
+        $features_stats = $featureService->getfeatureStats();
+        $features_filters = $featureService->getFieldsFilterable();
+        $feature_instance =  $featureService->createInstance();
+
+        if (request()->ajax()) {
+            return view('Core::featureDomain._edit', compact('itemFeatureDomain', 'sysModules', 'features_data', 'features_stats', 'features_filters', 'feature_instance'));
+        }
+
+        return view('Core::featureDomain.edit', compact('itemFeatureDomain', 'sysModules', 'features_data', 'features_stats', 'features_filters', 'feature_instance'));
 
     }
     public function update(FeatureDomainRequest $request, string $id) {
@@ -220,6 +239,5 @@ class BaseFeatureDomainController extends AdminController
         ]);
     }
     
-
 
 }

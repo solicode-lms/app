@@ -12,6 +12,35 @@
         
         
     <div class="form-group">
+            <label for="projet_id">
+                {{ ucfirst(__('PkgCreationProjet::projet.singular')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <select 
+            id="projet_id" 
+            required
+            
+            name="projet_id" 
+            class="form-control select2">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($projets as $projet)
+                    <option value="{{ $projet->id }}"
+                        {{ (isset($itemAffectationProjet) && $itemAffectationProjet->projet_id == $projet->id) || (old('projet_id>') == $projet->id) ? 'selected' : '' }}>
+                        {{ $projet }}
+                    </option>
+                @endforeach
+            </select>
+            @error('projet_id')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+    </div>
+
+
+        
+        
+    <div class="form-group">
             <label for="groupe_id">
                 {{ ucfirst(__('PkgApprenants::groupe.singular')) }}
                 
@@ -86,35 +115,6 @@
 
 
 
-
-
-        
-        
-    <div class="form-group">
-            <label for="projet_id">
-                {{ ucfirst(__('PkgCreationProjet::projet.singular')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <select 
-            id="projet_id" 
-            required
-            
-            name="projet_id" 
-            class="form-control select2">
-             <option value="">Sélectionnez une option</option>
-                @foreach ($projets as $projet)
-                    <option value="{{ $projet->id }}"
-                        {{ (isset($itemAffectationProjet) && $itemAffectationProjet->projet_id == $projet->id) || (old('projet_id>') == $projet->id) ? 'selected' : '' }}>
-                        {{ $projet }}
-                    </option>
-                @endforeach
-            </select>
-            @error('projet_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
 
 
         

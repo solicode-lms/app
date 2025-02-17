@@ -28,19 +28,19 @@ class BaseValidationExport implements FromCollection, WithHeadings, ShouldAutoSi
     {
      if($this->format == 'csv'){
         return [
+            'transfert_competence_id' => 'transfert_competence_id',
             'note' => 'note',
             'message' => 'message',
             'is_valide' => 'is_valide',
-            'transfert_competence_id' => 'transfert_competence_id',
             'realisation_projet_id' => 'realisation_projet_id',
             'reference' => 'reference',
         ];
         }else{
         return [
+            'transfert_competence_id' => __('PkgRealisationProjets::validation.transfert_competence_id'),
             'note' => __('PkgRealisationProjets::validation.note'),
             'message' => __('PkgRealisationProjets::validation.message'),
             'is_valide' => __('PkgRealisationProjets::validation.is_valide'),
-            'transfert_competence_id' => __('PkgRealisationProjets::validation.transfert_competence_id'),
             'realisation_projet_id' => __('PkgRealisationProjets::validation.realisation_projet_id'),
             'reference' => __('Core::msg.reference'),
         ];
@@ -53,10 +53,10 @@ class BaseValidationExport implements FromCollection, WithHeadings, ShouldAutoSi
     {
         return $this->data->map(function ($validation) {
             return [
+                'transfert_competence_id' => $validation->transfert_competence_id,
                 'note' => $validation->note,
                 'message' => $validation->message,
                 'is_valide' => $validation->is_valide,
-                'transfert_competence_id' => $validation->transfert_competence_id,
                 'realisation_projet_id' => $validation->realisation_projet_id,
                 'reference' => $validation->reference,
             ];

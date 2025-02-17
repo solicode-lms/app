@@ -3,15 +3,17 @@ import Swal from 'sweetalert2';
 export class NotificationHandler {
 
 
-    constructor ({type,message}){
+    constructor ({title,type,message}){
+        this.title = title,
         this.type = type;
         this.message = message;
     }
 
     show(){
         switch (this.type) {
-            case "info": NotificationHandler.showInfo(this.message);break;
+            case "info": NotificationHandler.showInfo(this.title , this.message);break;
             case "success": NotificationHandler.showSuccess(this.message);break;
+            case "warning": NotificationHandler.showWarning(this.title ,this.message);break;
             case "error": NotificationHandler.showError(this.message);break;
             default: NotificationHandler.showInfo(this.message);break;
         }
@@ -128,7 +130,11 @@ export class NotificationHandler {
      * Affiche un message d'information générique.
      * @param {string} [message='Action en cours...'] - Message d'information à afficher.
      */
-    static showInfo(title, message) {
+    static showInfo(title = "Information", message) {
         NotificationHandler.showAlert('info',title, message);
+    }
+
+    static showWarning(title = "Avertissement", message) {
+        NotificationHandler.showAlert('warning',title, message);
     }
 }

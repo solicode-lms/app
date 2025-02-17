@@ -5,6 +5,7 @@ import { ShowAction } from '../actions/ShowAction';
 import { EditAction } from '../actions/EditAction';
 import { DeleteAction } from '../actions/DeleteAction';
 import EventUtil from './../utils/EventUtil';
+import { EntityAction } from './../actions/EntityAction';
 
 export class TableUI {
     constructor(config, indexUI) {
@@ -18,6 +19,7 @@ export class TableUI {
         this.entityEditor = new EditAction(config,this);
         this.entityDeleter = new DeleteAction(config,this);
         this.entityLoader = new LoadListAction(config,this);
+        this.entityAction = new EntityAction(config,this);
     }
 
     init(){
@@ -26,8 +28,9 @@ export class TableUI {
         this.entityCreator.init(); 
         this.entityDeleter.init();
         this.entityViewer.init();
-
+        this.entityAction.init();
         this.handleSorting();
+        TableUI.initTooltip();
     }
 
     
@@ -73,6 +76,24 @@ export class TableUI {
             this.indexUI.updateURLParameters(filters); // Mettre à jour l'URL
             this.entityLoader.loadEntities(1, filters); // Recharger la table
         });
+    }
+
+    static initTooltip(){
+
+        // Supprime tous les tooltips actifs avant de les recréer
+        const tooltips = $('[data-toggle="tooltip"]').tooltip({
+             placement: "auto"
+        });
+
+        tooltips.on('shown.bs.tooltip', function () {
+            const $this = $(this);
+            setTimeout(() => {
+                $this.tooltip('hide'); // Cache le tooltip
+            }, 3000); // Temps en ms avant de cacher le tooltip (ici 3 secondes)
+        });
+
+        // $('[data-toggle="tooltip"]').tooltip();
+      
     }
 
 }

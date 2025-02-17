@@ -33,7 +33,7 @@
        $titre = __("PkgGapp::eRelationship.singular");
     @endphp
     <x-crud-header 
-        id="eRelationship-crud-header" icon="fas fa-table"  
+        id="eRelationship-crud-header" icon="fas fa-directions"  
         iconColor="text-info"
         title="{{ __('PkgGapp::eRelationship.plural') }}"
         :breadcrumbs="[
@@ -56,6 +56,7 @@
                         />
                     </div>
                     <div class="col-sm-3">
+                        @can('create', $eRelationship_instance)
                         <x-crud-actions
                             :createPermission="'create-eRelationship'"
                             :createRoute="route('eRelationships.create')"
@@ -68,6 +69,7 @@
                             :exportCsvRoute="route('eRelationships.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
                         />
+                        @endcan
                     </div>
                 </div>
                 @show

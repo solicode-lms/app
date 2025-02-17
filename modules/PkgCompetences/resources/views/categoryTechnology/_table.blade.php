@@ -13,6 +13,7 @@
                 <tr id="categoryTechnology-row-{{$categoryTechnology->id}}">
                     <td>@limit($categoryTechnology->nom, 80)</td>
                     <td class="text-right">
+
                         @can('show-categoryTechnology')
                             <a href="{{ route('categoryTechnologies.show', ['categoryTechnology' => $categoryTechnology->id]) }}" data-id="{{$categoryTechnology->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>

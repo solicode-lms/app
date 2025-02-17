@@ -22,6 +22,7 @@ Route::middleware('auth')->group(function () {
         });
 
         Route::post('apprenants/data-calcul', [ApprenantController::class, 'dataCalcul'])->name('apprenants.dataCalcul');
-
+        Route::get('apprenants/initPassword/{id}', [ApprenantController::class, 'initPassword'])->name('apprenants.initPassword');
+    
     });
 });

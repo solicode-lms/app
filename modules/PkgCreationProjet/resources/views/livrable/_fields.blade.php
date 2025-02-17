@@ -10,28 +10,6 @@
 
     <div class="card-body">
         
-        <div class="form-group">
-            <label for="titre">
-                {{ ucfirst(__('PkgCreationProjet::livrable.titre')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
-                name="titre"
-                type="input"
-                class="form-control"
-                required
-                
-                id="titre"
-                placeholder="{{ __('PkgCreationProjet::livrable.titre') }}"
-                value="{{ $itemLivrable ? $itemLivrable->titre : old('titre') }}">
-            @error('titre')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
-
-        
         
     <div class="form-group">
             <label for="nature_livrable_id">
@@ -59,6 +37,28 @@
             @enderror
     </div>
 
+
+        
+        <div class="form-group">
+            <label for="titre">
+                {{ ucfirst(__('PkgCreationProjet::livrable.titre')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <input
+                name="titre"
+                type="input"
+                class="form-control"
+                required
+                
+                id="titre"
+                placeholder="{{ __('PkgCreationProjet::livrable.titre') }}"
+                value="{{ $itemLivrable ? $itemLivrable->titre : old('titre') }}">
+            @error('titre')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
 
         
         

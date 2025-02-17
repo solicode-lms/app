@@ -5,6 +5,7 @@
         <thead>
             <tr>
                 <x-sortable-column field="name" label="{{ ucfirst(__('PkgGapp::eRelationship.name')) }}" />
+                <x-sortable-column field="type" label="{{ ucfirst(__('PkgGapp::eRelationship.type')) }}" />
                 <x-sortable-column field="source_e_model_id" label="{{ ucfirst(__('PkgGapp::eModel.singular')) }}" />
                 <x-sortable-column field="target_e_model_id" label="{{ ucfirst(__('PkgGapp::eModel.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
@@ -14,9 +15,11 @@
             @foreach ($eRelationships_data as $eRelationship)
                 <tr id="eRelationship-row-{{$eRelationship->id}}">
                     <td>@limit($eRelationship->name, 80)</td>
-                    <td>@limit($eRelationship->eModel->name ?? '-', 80)</td>
-                    <td>@limit($eRelationship->eModel->name ?? '-', 80)</td>
+                    <td>@limit($eRelationship->type, 80)</td>
+                    <td>@limit($eRelationship->sourceEModel, 80)</td>
+                    <td>@limit($eRelationship->targetEModel, 80)</td>
                     <td class="text-right">
+
                         @can('show-eRelationship')
                             <a href="{{ route('eRelationships.show', ['eRelationship' => $eRelationship->id]) }}" data-id="{{$eRelationship->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>

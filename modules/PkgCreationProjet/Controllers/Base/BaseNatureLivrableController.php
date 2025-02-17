@@ -28,7 +28,6 @@ class BaseNatureLivrableController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('natureLivrable.index');
 
-
         // Extraire les paramètres de recherche, page, et filtres
         $natureLivrables_params = array_merge(
             $request->only(['page','sort']),
@@ -42,13 +41,13 @@ class BaseNatureLivrableController extends AdminController
         // Récupérer les statistiques et les champs filtrables
         $natureLivrables_stats = $this->natureLivrableService->getnatureLivrableStats();
         $natureLivrables_filters = $this->natureLivrableService->getFieldsFilterable();
-
+        $natureLivrable_instance =  $this->natureLivrableService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgCreationProjet::natureLivrable._table', compact('natureLivrables_data', 'natureLivrables_stats', 'natureLivrables_filters'))->render();
+            return view('PkgCreationProjet::natureLivrable._table', compact('natureLivrables_data', 'natureLivrables_stats', 'natureLivrables_filters','natureLivrable_instance'))->render();
         }
 
-        return view('PkgCreationProjet::natureLivrable.index', compact('natureLivrables_data', 'natureLivrables_stats', 'natureLivrables_filters'));
+        return view('PkgCreationProjet::natureLivrable.index', compact('natureLivrables_data', 'natureLivrables_stats', 'natureLivrables_filters','natureLivrable_instance'));
     }
     public function create() {
         $itemNatureLivrable = $this->natureLivrableService->createInstance();
@@ -83,7 +82,25 @@ class BaseNatureLivrableController extends AdminController
         );
     }
     public function show(string $id) {
-        return $this->edit( $id);
+
+        $this->viewState->setContextKey('natureLivrable.edit_' . $id);
+
+        $itemNatureLivrable = $this->natureLivrableService->find($id);
+  
+
+        $this->viewState->set('scope.livrable.nature_livrable_id', $id);
+        $livrableService =  new LivrableService();
+        $livrables_data =  $itemNatureLivrable->livrables()->paginate(10);
+        $livrables_stats = $livrableService->getlivrableStats();
+        $livrables_filters = $livrableService->getFieldsFilterable();
+        $livrable_instance =  $livrableService->createInstance();
+
+        if (request()->ajax()) {
+            return view('PkgCreationProjet::natureLivrable._edit', compact('itemNatureLivrable', 'livrables_data', 'livrables_stats', 'livrables_filters', 'livrable_instance'));
+        }
+
+        return view('PkgCreationProjet::natureLivrable.edit', compact('itemNatureLivrable', 'livrables_data', 'livrables_stats', 'livrables_filters', 'livrable_instance'));
+
     }
     public function edit(string $id) {
 
@@ -91,18 +108,19 @@ class BaseNatureLivrableController extends AdminController
 
         $itemNatureLivrable = $this->natureLivrableService->find($id);
 
+
         $this->viewState->set('scope.livrable.nature_livrable_id', $id);
         $livrableService =  new LivrableService();
         $livrables_data =  $itemNatureLivrable->livrables()->paginate(10);
         $livrables_stats = $livrableService->getlivrableStats();
         $livrables_filters = $livrableService->getFieldsFilterable();
-        
+        $livrable_instance =  $livrableService->createInstance();
 
         if (request()->ajax()) {
-            return view('PkgCreationProjet::natureLivrable._edit', compact('itemNatureLivrable', 'livrables_data', 'livrables_stats', 'livrables_filters'));
+            return view('PkgCreationProjet::natureLivrable._edit', compact('itemNatureLivrable', 'livrables_data', 'livrables_stats', 'livrables_filters', 'livrable_instance'));
         }
 
-        return view('PkgCreationProjet::natureLivrable.edit', compact('itemNatureLivrable', 'livrables_data', 'livrables_stats', 'livrables_filters'));
+        return view('PkgCreationProjet::natureLivrable.edit', compact('itemNatureLivrable', 'livrables_data', 'livrables_stats', 'livrables_filters', 'livrable_instance'));
 
     }
     public function update(NatureLivrableRequest $request, string $id) {
@@ -215,6 +233,5 @@ class BaseNatureLivrableController extends AdminController
         ]);
     }
     
-
 
 }

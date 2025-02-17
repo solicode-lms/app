@@ -150,7 +150,8 @@
     },
     {
         "reference": "EDataField_data_type_displayOrder",
-        "value_integer": 5,
+        "value_integer": 14,
+        "value_float": 0,
         "e_data_field_reference": "EDataField_data_type",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -327,5 +328,19 @@
         "value_boolean": 1,
         "e_model_reference": "e_data_fields",
         "e_metadata_definition_reference": "displayInSideBar"
+    },
+    {
+        "reference": "e_data_fields_iconModel",
+        "value_string": "fa-th",
+        "value_float": 0,
+        "e_model_reference": "e_data_fields",
+        "e_metadata_definition_reference": "iconModel"
+    },
+    {
+        "reference": "EDataField_data_type_filterable",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "EDataField_data_type",
+        "e_metadata_definition_reference": "filterable"
     }
 ]

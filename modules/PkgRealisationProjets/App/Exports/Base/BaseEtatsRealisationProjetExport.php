@@ -28,16 +28,16 @@ class BaseEtatsRealisationProjetExport implements FromCollection, WithHeadings, 
     {
      if($this->format == 'csv'){
         return [
+            'formateur_id' => 'formateur_id',
             'titre' => 'titre',
             'description' => 'description',
-            'formateur_id' => 'formateur_id',
             'reference' => 'reference',
         ];
         }else{
         return [
+            'formateur_id' => __('PkgRealisationProjets::etatsRealisationProjet.formateur_id'),
             'titre' => __('PkgRealisationProjets::etatsRealisationProjet.titre'),
             'description' => __('PkgRealisationProjets::etatsRealisationProjet.description'),
-            'formateur_id' => __('PkgRealisationProjets::etatsRealisationProjet.formateur_id'),
             'reference' => __('Core::msg.reference'),
         ];
 
@@ -49,9 +49,9 @@ class BaseEtatsRealisationProjetExport implements FromCollection, WithHeadings, 
     {
         return $this->data->map(function ($etatsRealisationProjet) {
             return [
+                'formateur_id' => $etatsRealisationProjet->formateur_id,
                 'titre' => $etatsRealisationProjet->titre,
                 'description' => $etatsRealisationProjet->description,
-                'formateur_id' => $etatsRealisationProjet->formateur_id,
                 'reference' => $etatsRealisationProjet->reference,
             ];
         });

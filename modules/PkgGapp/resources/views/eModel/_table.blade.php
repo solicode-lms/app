@@ -4,8 +4,10 @@
     <table class="table table-striped text-nowrap">
         <thead>
             <tr>
+                 <th>
+                    IcôNe
+                </th>
                 <x-sortable-column field="name" label="{{ ucfirst(__('PkgGapp::eModel.name')) }}" />
-                <x-sortable-column field="icon" label="{{ ucfirst(__('PkgGapp::eModel.icon')) }}" />
                 <x-sortable-column field="e_package_id" label="{{ ucfirst(__('PkgGapp::ePackage.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
@@ -13,10 +15,11 @@
         <tbody>
             @foreach ($eModels_data as $eModel)
                 <tr id="eModel-row-{{$eModel->id}}">
+                    <td>@limit($eModel->getIcone(), 80)</td>
                     <td>@limit($eModel->name, 80)</td>
-                    <td>@limit($eModel->icon, 80)</td>
-                    <td>@limit($eModel->ePackage->name ?? '-', 80)</td>
+                    <td>@limit($eModel->ePackage, 80)</td>
                     <td class="text-right">
+
                         @can('show-eModel')
                             <a href="{{ route('eModels.show', ['eModel' => $eModel->id]) }}" data-id="{{$eModel->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>

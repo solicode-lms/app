@@ -44,12 +44,14 @@ class BaseSysModuleService extends BaseService
     public function __construct()
     {
         parent::__construct(new SysModule());
+        $this->fieldsFilterable = [];
+    }
 
-        // Initialiser les filtres configurables dynamiquement
+    public function initFieldsFilterable(){
+       // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
             $this->generateManyToOneFilter(__("Core::sysColor.plural"), 'sys_color_id', \Modules\Core\Models\SysColor::class, 'name'),
         ];
-
     }
 
     /**
@@ -77,5 +79,7 @@ class BaseSysModuleService extends BaseService
 
         return $stats;
     }
+
+
 
 }

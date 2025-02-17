@@ -191,15 +191,16 @@
                     <span class="text-danger">*</span>
                 
             </label>
+            <input type="hidden" name="actif" value="0">
             <input
                 name="actif"
-                type="number"
+                type="checkbox"
                 class="form-control"
                 required
                 
                 id="actif"
-                placeholder="{{ __('PkgApprenants::apprenant.actif') }}"
-                value="{{ $itemApprenant ? $itemApprenant->actif : old('actif') }}">
+                value="1"
+                {{ old('actif', $itemApprenant ? $itemApprenant->actif : 0) ? 'checked' : '' }}>
             @error('actif')
                 <div class="text-danger">{{ $message }}</div>
             @enderror

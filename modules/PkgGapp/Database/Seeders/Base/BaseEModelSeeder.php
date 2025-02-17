@@ -67,6 +67,7 @@ class BaseEModelSeeder extends Seeder
             
             if ($row) {
                 $eModelService->create([
+                    "icon" => $row["icon"] ?? null ,
                     "name" => $row["name"] ?? null ,
                     "table_name" => $row["table_name"] ?? null ,
                     "icon" => $row["icon"] ?? null ,

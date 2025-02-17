@@ -11,6 +11,7 @@
             @foreach ($widgetTypes_data as $widgetType)
                 <tr id="widgetType-row-{{$widgetType->id}}">
                     <td class="text-right">
+
                         @can('show-widgetType')
                             <a href="{{ route('widgetTypes.show', ['widgetType' => $widgetType->id]) }}" data-id="{{$widgetType->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>

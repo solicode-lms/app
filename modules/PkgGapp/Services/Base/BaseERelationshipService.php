@@ -50,13 +50,16 @@ class BaseERelationshipService extends BaseService
     public function __construct()
     {
         parent::__construct(new ERelationship());
+        $this->fieldsFilterable = [];
+    }
 
-        // Initialiser les filtres configurables dynamiquement
+    public function initFieldsFilterable(){
+       // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
+            ['field' => 'type', 'type' => 'String', 'label' => 'type'],
             $this->generateManyToOneFilter(__("PkgGapp::eModel.plural"), 'source_e_model_id', \Modules\PkgGapp\Models\EModel::class, 'name'),
             $this->generateManyToOneFilter(__("PkgGapp::eModel.plural"), 'target_e_model_id', \Modules\PkgGapp\Models\EModel::class, 'name'),
         ];
-
     }
 
     /**
@@ -84,5 +87,7 @@ class BaseERelationshipService extends BaseService
 
         return $stats;
     }
+
+
 
 }

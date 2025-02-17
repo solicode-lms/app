@@ -55,41 +55,22 @@
 
         
         <div class="form-group">
-            <label for="icon">
-                {{ ucfirst(__('PkgGapp::eModel.icon')) }}
-                
-            </label>
-            <input
-                name="icon"
-                type="input"
-                class="form-control"
-                
-                
-                id="icon"
-                placeholder="{{ __('PkgGapp::eModel.icon') }}"
-                value="{{ $itemEModel ? $itemEModel->icon : old('icon') }}">
-            @error('icon')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
-
-        
-        <div class="form-group">
             <label for="is_pivot_table">
                 {{ ucfirst(__('PkgGapp::eModel.is_pivot_table')) }}
                 
                     <span class="text-danger">*</span>
                 
             </label>
+            <input type="hidden" name="is_pivot_table" value="0">
             <input
                 name="is_pivot_table"
-                type="number"
+                type="checkbox"
                 class="form-control"
                 required
                 
                 id="is_pivot_table"
-                placeholder="{{ __('PkgGapp::eModel.is_pivot_table') }}"
-                value="{{ $itemEModel ? $itemEModel->is_pivot_table : old('is_pivot_table') }}">
+                value="1"
+                {{ old('is_pivot_table', $itemEModel ? $itemEModel->is_pivot_table : 0) ? 'checked' : '' }}>
             @error('is_pivot_table')
                 <div class="text-danger">{{ $message }}</div>
             @enderror

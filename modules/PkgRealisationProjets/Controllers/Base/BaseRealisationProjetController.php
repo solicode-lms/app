@@ -7,6 +7,7 @@ use Modules\PkgRealisationProjets\Services\RealisationProjetService;
 use Modules\PkgRealisationProjets\Services\AffectationProjetService;
 use Modules\PkgApprenants\Services\ApprenantService;
 use Modules\PkgRealisationProjets\Services\EtatsRealisationProjetService;
+use Modules\PkgRealisationProjets\Services\LivrablesRealisationService;
 use Modules\PkgRealisationProjets\Services\ValidationService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
@@ -36,7 +37,7 @@ class BaseRealisationProjetController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('realisationProjet.index');
-
+        $this->viewState->init('filter.realisationProjet.formateur_id'  , $this->sessionState->get('formateur_id'));
 
         // Extraire les paramètres de recherche, page, et filtres
         $realisationProjets_params = array_merge(
@@ -51,15 +52,16 @@ class BaseRealisationProjetController extends AdminController
         // Récupérer les statistiques et les champs filtrables
         $realisationProjets_stats = $this->realisationProjetService->getrealisationProjetStats();
         $realisationProjets_filters = $this->realisationProjetService->getFieldsFilterable();
-
+        $realisationProjet_instance =  $this->realisationProjetService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgRealisationProjets::realisationProjet._table', compact('realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters'))->render();
+            return view('PkgRealisationProjets::realisationProjet._table', compact('realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters','realisationProjet_instance'))->render();
         }
 
-        return view('PkgRealisationProjets::realisationProjet.index', compact('realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters'));
+        return view('PkgRealisationProjets::realisationProjet.index', compact('realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters','realisationProjet_instance'));
     }
     public function create() {
+        $this->viewState->set('scope_form.realisationProjet.formateur_id'  , $this->sessionState->get('formateur_id'));
         $itemRealisationProjet = $this->realisationProjetService->createInstance();
         $affectationProjets = $this->affectationProjetService->all();
         $apprenants = $this->apprenantService->all();
@@ -95,32 +97,70 @@ class BaseRealisationProjetController extends AdminController
         );
     }
     public function show(string $id) {
-        return $this->edit( $id);
+
+        $this->viewState->setContextKey('realisationProjet.edit_' . $id);
+
+        $itemRealisationProjet = $this->realisationProjetService->find($id);
+  
+        $affectationProjets = $this->affectationProjetService->all();
+        $apprenants = $this->apprenantService->all();
+        $etatsRealisationProjets = $this->etatsRealisationProjetService->all();
+
+        $this->viewState->set('scope.livrablesRealisation.realisation_projet_id', $id);
+        $livrablesRealisationService =  new LivrablesRealisationService();
+        $livrablesRealisations_data =  $itemRealisationProjet->livrablesRealisations()->paginate(10);
+        $livrablesRealisations_stats = $livrablesRealisationService->getlivrablesRealisationStats();
+        $livrablesRealisations_filters = $livrablesRealisationService->getFieldsFilterable();
+        $livrablesRealisation_instance =  $livrablesRealisationService->createInstance();
+        $this->viewState->set('scope.validation.realisation_projet_id', $id);
+        $validationService =  new ValidationService();
+        $validations_data =  $itemRealisationProjet->validations()->paginate(10);
+        $validations_stats = $validationService->getvalidationStats();
+        $validations_filters = $validationService->getFieldsFilterable();
+        $validation_instance =  $validationService->createInstance();
+
+        if (request()->ajax()) {
+            return view('PkgRealisationProjets::realisationProjet._edit', compact('itemRealisationProjet', 'affectationProjets', 'apprenants', 'etatsRealisationProjets', 'livrablesRealisations_data', 'validations_data', 'livrablesRealisations_stats', 'validations_stats', 'livrablesRealisations_filters', 'validations_filters', 'livrablesRealisation_instance', 'validation_instance'));
+        }
+
+        return view('PkgRealisationProjets::realisationProjet.edit', compact('itemRealisationProjet', 'affectationProjets', 'apprenants', 'etatsRealisationProjets', 'livrablesRealisations_data', 'validations_data', 'livrablesRealisations_stats', 'validations_stats', 'livrablesRealisations_filters', 'validations_filters', 'livrablesRealisation_instance', 'validation_instance'));
+
     }
     public function edit(string $id) {
 
         $this->viewState->setContextKey('realisationProjet.edit_' . $id);
 
         $itemRealisationProjet = $this->realisationProjetService->find($id);
+        $this->authorize('edit', $itemRealisationProjet);
+
         $affectationProjets = $this->affectationProjetService->all();
         $apprenants = $this->apprenantService->all();
         $etatsRealisationProjets = $this->etatsRealisationProjetService->all();
 
+        $this->viewState->set('scope.livrablesRealisation.realisation_projet_id', $id);
+        $livrablesRealisationService =  new LivrablesRealisationService();
+        $livrablesRealisations_data =  $itemRealisationProjet->livrablesRealisations()->paginate(10);
+        $livrablesRealisations_stats = $livrablesRealisationService->getlivrablesRealisationStats();
+        $livrablesRealisations_filters = $livrablesRealisationService->getFieldsFilterable();
+        $livrablesRealisation_instance =  $livrablesRealisationService->createInstance();
         $this->viewState->set('scope.validation.realisation_projet_id', $id);
         $validationService =  new ValidationService();
         $validations_data =  $itemRealisationProjet->validations()->paginate(10);
         $validations_stats = $validationService->getvalidationStats();
         $validations_filters = $validationService->getFieldsFilterable();
-        
+        $validation_instance =  $validationService->createInstance();
 
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::realisationProjet._edit', compact('itemRealisationProjet', 'affectationProjets', 'apprenants', 'etatsRealisationProjets', 'validations_data', 'validations_stats', 'validations_filters'));
+            return view('PkgRealisationProjets::realisationProjet._edit', compact('itemRealisationProjet', 'affectationProjets', 'apprenants', 'etatsRealisationProjets', 'livrablesRealisations_data', 'validations_data', 'livrablesRealisations_stats', 'validations_stats', 'livrablesRealisations_filters', 'validations_filters', 'livrablesRealisation_instance', 'validation_instance'));
         }
 
-        return view('PkgRealisationProjets::realisationProjet.edit', compact('itemRealisationProjet', 'affectationProjets', 'apprenants', 'etatsRealisationProjets', 'validations_data', 'validations_stats', 'validations_filters'));
+        return view('PkgRealisationProjets::realisationProjet.edit', compact('itemRealisationProjet', 'affectationProjets', 'apprenants', 'etatsRealisationProjets', 'livrablesRealisations_data', 'validations_data', 'livrablesRealisations_stats', 'validations_stats', 'livrablesRealisations_filters', 'validations_filters', 'livrablesRealisation_instance', 'validation_instance'));
 
     }
     public function update(RealisationProjetRequest $request, string $id) {
+        // Vérifie si l'utilisateur peut mettre à jour l'objet 
+        $realisationProjet = $this->realisationProjetService->find($id);
+        $this->authorize('update', $realisationProjet);
 
         $validatedData = $request->validated();
         $realisationProjet = $this->realisationProjetService->update($id, $validatedData);
@@ -146,6 +186,9 @@ class BaseRealisationProjetController extends AdminController
 
     }
     public function destroy(Request $request, string $id) {
+        // Vérifie si l'utilisateur peut mettre à jour l'objet 
+        $realisationProjet = $this->realisationProjetService->find($id);
+        $this->authorize('delete', $realisationProjet);
 
         $realisationProjet = $this->realisationProjetService->destroy($id);
 
@@ -230,6 +273,5 @@ class BaseRealisationProjetController extends AdminController
         ]);
     }
     
-
 
 }

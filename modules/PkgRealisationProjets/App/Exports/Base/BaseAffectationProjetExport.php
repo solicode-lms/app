@@ -28,20 +28,20 @@ class BaseAffectationProjetExport implements FromCollection, WithHeadings, Shoul
     {
      if($this->format == 'csv'){
         return [
+            'projet_id' => 'projet_id',
             'groupe_id' => 'groupe_id',
             'date_debut' => 'date_debut',
             'date_fin' => 'date_fin',
-            'projet_id' => 'projet_id',
             'description' => 'description',
             'reference' => 'reference',
             'annee_formation_id' => 'annee_formation_id',
         ];
         }else{
         return [
+            'projet_id' => __('PkgRealisationProjets::affectationProjet.projet_id'),
             'groupe_id' => __('PkgRealisationProjets::affectationProjet.groupe_id'),
             'date_debut' => __('PkgRealisationProjets::affectationProjet.date_debut'),
             'date_fin' => __('PkgRealisationProjets::affectationProjet.date_fin'),
-            'projet_id' => __('PkgRealisationProjets::affectationProjet.projet_id'),
             'description' => __('PkgRealisationProjets::affectationProjet.description'),
             'reference' => __('Core::msg.reference'),
             'annee_formation_id' => __('PkgRealisationProjets::affectationProjet.annee_formation_id'),
@@ -55,10 +55,10 @@ class BaseAffectationProjetExport implements FromCollection, WithHeadings, Shoul
     {
         return $this->data->map(function ($affectationProjet) {
             return [
+                'projet_id' => $affectationProjet->projet_id,
                 'groupe_id' => $affectationProjet->groupe_id,
                 'date_debut' => $affectationProjet->date_debut,
                 'date_fin' => $affectationProjet->date_fin,
-                'projet_id' => $affectationProjet->projet_id,
                 'description' => $affectationProjet->description,
                 'reference' => $affectationProjet->reference,
                 'annee_formation_id' => $affectationProjet->annee_formation_id,

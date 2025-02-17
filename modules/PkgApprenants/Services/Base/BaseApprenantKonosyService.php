@@ -56,11 +56,13 @@ class BaseApprenantKonosyService extends BaseService
     public function __construct()
     {
         parent::__construct(new ApprenantKonosy());
+        $this->fieldsFilterable = [];
+    }
 
-        // Initialiser les filtres configurables dynamiquement
+    public function initFieldsFilterable(){
+       // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
         ];
-
     }
 
     /**
@@ -88,5 +90,7 @@ class BaseApprenantKonosyService extends BaseService
 
         return $stats;
     }
+
+
 
 }

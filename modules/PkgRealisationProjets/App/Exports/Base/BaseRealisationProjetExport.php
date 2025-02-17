@@ -28,23 +28,23 @@ class BaseRealisationProjetExport implements FromCollection, WithHeadings, Shoul
     {
      if($this->format == 'csv'){
         return [
+            'affectation_projet_id' => 'affectation_projet_id',
+            'apprenant_id' => 'apprenant_id',
+            'etats_realisation_projet_id' => 'etats_realisation_projet_id',
             'date_debut' => 'date_debut',
             'date_fin' => 'date_fin',
-            'rapport' => 'rapport',
-            'etats_realisation_projet_id' => 'etats_realisation_projet_id',
-            'apprenant_id' => 'apprenant_id',
-            'affectation_projet_id' => 'affectation_projet_id',
             'reference' => 'reference',
+            'rapport' => 'rapport',
         ];
         }else{
         return [
+            'affectation_projet_id' => __('PkgRealisationProjets::realisationProjet.affectation_projet_id'),
+            'apprenant_id' => __('PkgRealisationProjets::realisationProjet.apprenant_id'),
+            'etats_realisation_projet_id' => __('PkgRealisationProjets::realisationProjet.etats_realisation_projet_id'),
             'date_debut' => __('PkgRealisationProjets::realisationProjet.date_debut'),
             'date_fin' => __('PkgRealisationProjets::realisationProjet.date_fin'),
-            'rapport' => __('PkgRealisationProjets::realisationProjet.rapport'),
-            'etats_realisation_projet_id' => __('PkgRealisationProjets::realisationProjet.etats_realisation_projet_id'),
-            'apprenant_id' => __('PkgRealisationProjets::realisationProjet.apprenant_id'),
-            'affectation_projet_id' => __('PkgRealisationProjets::realisationProjet.affectation_projet_id'),
             'reference' => __('Core::msg.reference'),
+            'rapport' => __('PkgRealisationProjets::realisationProjet.rapport'),
         ];
 
         }
@@ -55,13 +55,13 @@ class BaseRealisationProjetExport implements FromCollection, WithHeadings, Shoul
     {
         return $this->data->map(function ($realisationProjet) {
             return [
+                'affectation_projet_id' => $realisationProjet->affectation_projet_id,
+                'apprenant_id' => $realisationProjet->apprenant_id,
+                'etats_realisation_projet_id' => $realisationProjet->etats_realisation_projet_id,
                 'date_debut' => $realisationProjet->date_debut,
                 'date_fin' => $realisationProjet->date_fin,
-                'rapport' => $realisationProjet->rapport,
-                'etats_realisation_projet_id' => $realisationProjet->etats_realisation_projet_id,
-                'apprenant_id' => $realisationProjet->apprenant_id,
-                'affectation_projet_id' => $realisationProjet->affectation_projet_id,
                 'reference' => $realisationProjet->reference,
+                'rapport' => $realisationProjet->rapport,
             ];
         });
     }

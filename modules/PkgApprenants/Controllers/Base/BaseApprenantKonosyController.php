@@ -27,7 +27,6 @@ class BaseApprenantKonosyController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('apprenantKonosy.index');
 
-
         // Extraire les paramètres de recherche, page, et filtres
         $apprenantKonosies_params = array_merge(
             $request->only(['page','sort']),
@@ -41,13 +40,13 @@ class BaseApprenantKonosyController extends AdminController
         // Récupérer les statistiques et les champs filtrables
         $apprenantKonosies_stats = $this->apprenantKonosyService->getapprenantKonosyStats();
         $apprenantKonosies_filters = $this->apprenantKonosyService->getFieldsFilterable();
-
+        $apprenantKonosy_instance =  $this->apprenantKonosyService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgApprenants::apprenantKonosy._table', compact('apprenantKonosies_data', 'apprenantKonosies_stats', 'apprenantKonosies_filters'))->render();
+            return view('PkgApprenants::apprenantKonosy._table', compact('apprenantKonosies_data', 'apprenantKonosies_stats', 'apprenantKonosies_filters','apprenantKonosy_instance'))->render();
         }
 
-        return view('PkgApprenants::apprenantKonosy.index', compact('apprenantKonosies_data', 'apprenantKonosies_stats', 'apprenantKonosies_filters'));
+        return view('PkgApprenants::apprenantKonosy.index', compact('apprenantKonosies_data', 'apprenantKonosies_stats', 'apprenantKonosies_filters','apprenantKonosy_instance'));
     }
     public function create() {
         $itemApprenantKonosy = $this->apprenantKonosyService->createInstance();
@@ -82,13 +81,26 @@ class BaseApprenantKonosyController extends AdminController
         );
     }
     public function show(string $id) {
-        return $this->edit( $id);
+
+        $this->viewState->setContextKey('apprenantKonosy.edit_' . $id);
+
+        $itemApprenantKonosy = $this->apprenantKonosyService->find($id);
+  
+
+
+        if (request()->ajax()) {
+            return view('PkgApprenants::apprenantKonosy._fields', compact('itemApprenantKonosy'));
+        }
+
+        return view('PkgApprenants::apprenantKonosy.edit', compact('itemApprenantKonosy'));
+
     }
     public function edit(string $id) {
 
         $this->viewState->setContextKey('apprenantKonosy.edit_' . $id);
 
         $itemApprenantKonosy = $this->apprenantKonosyService->find($id);
+
 
 
         if (request()->ajax()) {
@@ -208,6 +220,5 @@ class BaseApprenantKonosyController extends AdminController
         ]);
     }
     
-
 
 }

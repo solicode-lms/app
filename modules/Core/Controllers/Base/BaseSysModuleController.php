@@ -33,7 +33,6 @@ class BaseSysModuleController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('sysModule.index');
 
-
         // Extraire les paramètres de recherche, page, et filtres
         $sysModules_params = array_merge(
             $request->only(['page','sort']),
@@ -47,13 +46,13 @@ class BaseSysModuleController extends AdminController
         // Récupérer les statistiques et les champs filtrables
         $sysModules_stats = $this->sysModuleService->getsysModuleStats();
         $sysModules_filters = $this->sysModuleService->getFieldsFilterable();
-
+        $sysModule_instance =  $this->sysModuleService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('Core::sysModule._table', compact('sysModules_data', 'sysModules_stats', 'sysModules_filters'))->render();
+            return view('Core::sysModule._table', compact('sysModules_data', 'sysModules_stats', 'sysModules_filters','sysModule_instance'))->render();
         }
 
-        return view('Core::sysModule.index', compact('sysModules_data', 'sysModules_stats', 'sysModules_filters'));
+        return view('Core::sysModule.index', compact('sysModules_data', 'sysModules_stats', 'sysModules_filters','sysModule_instance'));
     }
     public function create() {
         $itemSysModule = $this->sysModuleService->createInstance();
@@ -89,13 +88,11 @@ class BaseSysModuleController extends AdminController
         );
     }
     public function show(string $id) {
-        return $this->edit( $id);
-    }
-    public function edit(string $id) {
 
         $this->viewState->setContextKey('sysModule.edit_' . $id);
 
         $itemSysModule = $this->sysModuleService->find($id);
+  
         $sysColors = $this->sysColorService->all();
 
         $this->viewState->set('scope.featureDomain.sys_module_id', $id);
@@ -103,25 +100,59 @@ class BaseSysModuleController extends AdminController
         $featureDomains_data =  $itemSysModule->featureDomains()->paginate(10);
         $featureDomains_stats = $featureDomainService->getfeatureDomainStats();
         $featureDomains_filters = $featureDomainService->getFieldsFilterable();
-        
+        $featureDomain_instance =  $featureDomainService->createInstance();
         $this->viewState->set('scope.sysController.sys_module_id', $id);
         $sysControllerService =  new SysControllerService();
         $sysControllers_data =  $itemSysModule->sysControllers()->paginate(10);
         $sysControllers_stats = $sysControllerService->getsysControllerStats();
         $sysControllers_filters = $sysControllerService->getFieldsFilterable();
-        
+        $sysController_instance =  $sysControllerService->createInstance();
         $this->viewState->set('scope.sysModel.sys_module_id', $id);
         $sysModelService =  new SysModelService();
         $sysModels_data =  $itemSysModule->sysModels()->paginate(10);
         $sysModels_stats = $sysModelService->getsysModelStats();
         $sysModels_filters = $sysModelService->getFieldsFilterable();
-        
+        $sysModel_instance =  $sysModelService->createInstance();
 
         if (request()->ajax()) {
-            return view('Core::sysModule._edit', compact('itemSysModule', 'sysColors', 'featureDomains_data', 'sysControllers_data', 'sysModels_data', 'featureDomains_stats', 'sysControllers_stats', 'sysModels_stats', 'featureDomains_filters', 'sysControllers_filters', 'sysModels_filters'));
+            return view('Core::sysModule._edit', compact('itemSysModule', 'sysColors', 'featureDomains_data', 'sysControllers_data', 'sysModels_data', 'featureDomains_stats', 'sysControllers_stats', 'sysModels_stats', 'featureDomains_filters', 'sysControllers_filters', 'sysModels_filters', 'featureDomain_instance', 'sysController_instance', 'sysModel_instance'));
         }
 
-        return view('Core::sysModule.edit', compact('itemSysModule', 'sysColors', 'featureDomains_data', 'sysControllers_data', 'sysModels_data', 'featureDomains_stats', 'sysControllers_stats', 'sysModels_stats', 'featureDomains_filters', 'sysControllers_filters', 'sysModels_filters'));
+        return view('Core::sysModule.edit', compact('itemSysModule', 'sysColors', 'featureDomains_data', 'sysControllers_data', 'sysModels_data', 'featureDomains_stats', 'sysControllers_stats', 'sysModels_stats', 'featureDomains_filters', 'sysControllers_filters', 'sysModels_filters', 'featureDomain_instance', 'sysController_instance', 'sysModel_instance'));
+
+    }
+    public function edit(string $id) {
+
+        $this->viewState->setContextKey('sysModule.edit_' . $id);
+
+        $itemSysModule = $this->sysModuleService->find($id);
+
+        $sysColors = $this->sysColorService->all();
+
+        $this->viewState->set('scope.featureDomain.sys_module_id', $id);
+        $featureDomainService =  new FeatureDomainService();
+        $featureDomains_data =  $itemSysModule->featureDomains()->paginate(10);
+        $featureDomains_stats = $featureDomainService->getfeatureDomainStats();
+        $featureDomains_filters = $featureDomainService->getFieldsFilterable();
+        $featureDomain_instance =  $featureDomainService->createInstance();
+        $this->viewState->set('scope.sysController.sys_module_id', $id);
+        $sysControllerService =  new SysControllerService();
+        $sysControllers_data =  $itemSysModule->sysControllers()->paginate(10);
+        $sysControllers_stats = $sysControllerService->getsysControllerStats();
+        $sysControllers_filters = $sysControllerService->getFieldsFilterable();
+        $sysController_instance =  $sysControllerService->createInstance();
+        $this->viewState->set('scope.sysModel.sys_module_id', $id);
+        $sysModelService =  new SysModelService();
+        $sysModels_data =  $itemSysModule->sysModels()->paginate(10);
+        $sysModels_stats = $sysModelService->getsysModelStats();
+        $sysModels_filters = $sysModelService->getFieldsFilterable();
+        $sysModel_instance =  $sysModelService->createInstance();
+
+        if (request()->ajax()) {
+            return view('Core::sysModule._edit', compact('itemSysModule', 'sysColors', 'featureDomains_data', 'sysControllers_data', 'sysModels_data', 'featureDomains_stats', 'sysControllers_stats', 'sysModels_stats', 'featureDomains_filters', 'sysControllers_filters', 'sysModels_filters', 'featureDomain_instance', 'sysController_instance', 'sysModel_instance'));
+        }
+
+        return view('Core::sysModule.edit', compact('itemSysModule', 'sysColors', 'featureDomains_data', 'sysControllers_data', 'sysModels_data', 'featureDomains_stats', 'sysControllers_stats', 'sysModels_stats', 'featureDomains_filters', 'sysControllers_filters', 'sysModels_filters', 'featureDomain_instance', 'sysController_instance', 'sysModel_instance'));
 
     }
     public function update(SysModuleRequest $request, string $id) {
@@ -234,6 +265,5 @@ class BaseSysModuleController extends AdminController
         ]);
     }
     
-
 
 }

@@ -33,7 +33,7 @@
        $titre = __("Core::sysColor.singular");
     @endphp
     <x-crud-header 
-        id="sysColor-crud-header" icon="fas fa-table"  
+        id="sysColor-crud-header" icon="fas fa-palette"  
         iconColor="text-info"
         title="{{ __('Core::sysColor.plural') }}"
         :breadcrumbs="[
@@ -56,6 +56,7 @@
                         />
                     </div>
                     <div class="col-sm-3">
+                        @can('create', $sysColor_instance)
                         <x-crud-actions
                             :createPermission="'create-sysColor'"
                             :createRoute="route('sysColors.create')"
@@ -68,6 +69,7 @@
                             :exportCsvRoute="route('sysColors.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
                         />
+                        @endcan
                     </div>
                 </div>
                 @show

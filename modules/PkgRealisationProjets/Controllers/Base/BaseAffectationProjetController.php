@@ -36,8 +36,9 @@ class BaseAffectationProjetController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('affectationProjet.index');
-        $this->viewState->set('scope.groupe.formateur_id', auth()->user()->formateur->id);
+        $this->viewState->init('filter.affectationProjet.formateur_id'  , $this->sessionState->get('formateur_id'));
         $this->viewState->set('scope.projet.formateur_id', auth()->user()->formateur->id);
+        $this->viewState->set('scope.groupe.formateur_id', auth()->user()->formateur->id);
 
         // Extraire les paramètres de recherche, page, et filtres
         $affectationProjets_params = array_merge(
@@ -52,17 +53,18 @@ class BaseAffectationProjetController extends AdminController
         // Récupérer les statistiques et les champs filtrables
         $affectationProjets_stats = $this->affectationProjetService->getaffectationProjetStats();
         $affectationProjets_filters = $this->affectationProjetService->getFieldsFilterable();
-
+        $affectationProjet_instance =  $this->affectationProjetService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgRealisationProjets::affectationProjet._table', compact('affectationProjets_data', 'affectationProjets_stats', 'affectationProjets_filters'))->render();
+            return view('PkgRealisationProjets::affectationProjet._table', compact('affectationProjets_data', 'affectationProjets_stats', 'affectationProjets_filters','affectationProjet_instance'))->render();
         }
 
-        return view('PkgRealisationProjets::affectationProjet.index', compact('affectationProjets_data', 'affectationProjets_stats', 'affectationProjets_filters'));
+        return view('PkgRealisationProjets::affectationProjet.index', compact('affectationProjets_data', 'affectationProjets_stats', 'affectationProjets_filters','affectationProjet_instance'));
     }
     public function create() {
-        $this->viewState->set('scope.groupe.formateur_id', auth()->user()->formateur->id);
+        $this->viewState->set('scope_form.affectationProjet.formateur_id'  , $this->sessionState->get('formateur_id'));
         $this->viewState->set('scope.projet.formateur_id', auth()->user()->formateur->id);
+        $this->viewState->set('scope.groupe.formateur_id', auth()->user()->formateur->id);
         $itemAffectationProjet = $this->affectationProjetService->createInstance();
         $anneeFormations = $this->anneeFormationService->all();
         $groupes = $this->groupeService->all();
@@ -98,15 +100,13 @@ class BaseAffectationProjetController extends AdminController
         );
     }
     public function show(string $id) {
-        return $this->edit( $id);
-    }
-    public function edit(string $id) {
 
         $this->viewState->setContextKey('affectationProjet.edit_' . $id);
-        $this->viewState->set('scope.groupe.formateur_id', auth()->user()->formateur->id);
         $this->viewState->set('scope.projet.formateur_id', auth()->user()->formateur->id);
+        $this->viewState->set('scope.groupe.formateur_id', auth()->user()->formateur->id);
 
         $itemAffectationProjet = $this->affectationProjetService->find($id);
+  
         $anneeFormations = $this->anneeFormationService->all();
         $groupes = $this->groupeService->all();
         $projets = $this->projetService->all();
@@ -116,16 +116,46 @@ class BaseAffectationProjetController extends AdminController
         $realisationProjets_data =  $itemAffectationProjet->realisationProjets()->paginate(10);
         $realisationProjets_stats = $realisationProjetService->getrealisationProjetStats();
         $realisationProjets_filters = $realisationProjetService->getFieldsFilterable();
-        
+        $realisationProjet_instance =  $realisationProjetService->createInstance();
 
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::affectationProjet._edit', compact('itemAffectationProjet', 'anneeFormations', 'groupes', 'projets', 'realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters'));
+            return view('PkgRealisationProjets::affectationProjet._edit', compact('itemAffectationProjet', 'anneeFormations', 'groupes', 'projets', 'realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters', 'realisationProjet_instance'));
         }
 
-        return view('PkgRealisationProjets::affectationProjet.edit', compact('itemAffectationProjet', 'anneeFormations', 'groupes', 'projets', 'realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters'));
+        return view('PkgRealisationProjets::affectationProjet.edit', compact('itemAffectationProjet', 'anneeFormations', 'groupes', 'projets', 'realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters', 'realisationProjet_instance'));
+
+    }
+    public function edit(string $id) {
+
+        $this->viewState->setContextKey('affectationProjet.edit_' . $id);
+        $this->viewState->set('scope.projet.formateur_id', auth()->user()->formateur->id);
+        $this->viewState->set('scope.groupe.formateur_id', auth()->user()->formateur->id);
+
+        $itemAffectationProjet = $this->affectationProjetService->find($id);
+        $this->authorize('edit', $itemAffectationProjet);
+
+        $anneeFormations = $this->anneeFormationService->all();
+        $groupes = $this->groupeService->all();
+        $projets = $this->projetService->all();
+
+        $this->viewState->set('scope.realisationProjet.affectation_projet_id', $id);
+        $realisationProjetService =  new RealisationProjetService();
+        $realisationProjets_data =  $itemAffectationProjet->realisationProjets()->paginate(10);
+        $realisationProjets_stats = $realisationProjetService->getrealisationProjetStats();
+        $realisationProjets_filters = $realisationProjetService->getFieldsFilterable();
+        $realisationProjet_instance =  $realisationProjetService->createInstance();
+
+        if (request()->ajax()) {
+            return view('PkgRealisationProjets::affectationProjet._edit', compact('itemAffectationProjet', 'anneeFormations', 'groupes', 'projets', 'realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters', 'realisationProjet_instance'));
+        }
+
+        return view('PkgRealisationProjets::affectationProjet.edit', compact('itemAffectationProjet', 'anneeFormations', 'groupes', 'projets', 'realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters', 'realisationProjet_instance'));
 
     }
     public function update(AffectationProjetRequest $request, string $id) {
+        // Vérifie si l'utilisateur peut mettre à jour l'objet 
+        $affectationProjet = $this->affectationProjetService->find($id);
+        $this->authorize('update', $affectationProjet);
 
         $validatedData = $request->validated();
         $affectationProjet = $this->affectationProjetService->update($id, $validatedData);
@@ -151,6 +181,9 @@ class BaseAffectationProjetController extends AdminController
 
     }
     public function destroy(Request $request, string $id) {
+        // Vérifie si l'utilisateur peut mettre à jour l'objet 
+        $affectationProjet = $this->affectationProjetService->find($id);
+        $this->authorize('delete', $affectationProjet);
 
         $affectationProjet = $this->affectationProjetService->destroy($id);
 
@@ -235,6 +268,5 @@ class BaseAffectationProjetController extends AdminController
         ]);
     }
     
-
 
 }

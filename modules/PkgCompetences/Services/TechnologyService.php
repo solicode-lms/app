@@ -19,4 +19,5 @@ class TechnologyService extends BaseTechnologyService
       
         return $technology;
     }
+   
 }

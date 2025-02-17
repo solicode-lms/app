@@ -42,14 +42,16 @@ class BaseTransfertCompetenceService extends BaseService
     public function __construct()
     {
         parent::__construct(new TransfertCompetence());
+        $this->fieldsFilterable = [];
+    }
 
-        // Initialiser les filtres configurables dynamiquement
+    public function initFieldsFilterable(){
+       // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
             $this->generateManyToOneFilter(__("PkgCompetences::competence.plural"), 'competence_id', \Modules\PkgCompetences\Models\Competence::class, 'code'),
             $this->generateManyToOneFilter(__("PkgCompetences::niveauDifficulte.plural"), 'niveau_difficulte_id', \Modules\PkgCompetences\Models\NiveauDifficulte::class, 'nom'),
             $this->generateManyToOneFilter(__("PkgCreationProjet::projet.plural"), 'projet_id', \Modules\PkgCreationProjet\Models\Projet::class, 'titre'),
         ];
-
     }
 
     /**
@@ -73,9 +75,25 @@ class BaseTransfertCompetenceService extends BaseService
 
         $stats = $this->initStats();
 
+        // Ajouter les statistiques du propriétaire
+        $contexteState = $this->getContextState();
+        if ($contexteState !== null) {
+            $stats[] = $contexteState;
+        }
         
 
         return $stats;
     }
+
+    public function getContextState()
+    {
+        $value = $this->viewState->generateTitleFromVariables();
+        return [
+                "icon" => "fas fa-filter",
+                "label" => "Filtre",
+                "value" =>  $value
+        ];
+    }
+
 
 }

@@ -56,10 +56,10 @@ class BaseAffectationProjetImport implements ToModel, WithHeadingRow
 
         // Création d'un nouvel enregistrement
         return new AffectationProjet([
-             'groupe_id' => $values[0] ?? null,
-             'date_debut' => $values[1] ?? null,
-             'date_fin' => $values[2] ?? null,
-             'projet_id' => $values[3] ?? null,
+             'projet_id' => $values[0] ?? null,
+             'groupe_id' => $values[1] ?? null,
+             'date_debut' => $values[2] ?? null,
+             'date_fin' => $values[3] ?? null,
              'description' => $values[4] ?? null,
              'reference' => $reference,
              'annee_formation_id' => $values[6] ?? null,

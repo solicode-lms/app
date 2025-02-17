@@ -21,6 +21,7 @@
                         </ul>
                     </td>
                     <td class="text-right">
+
                         @can('show-specialite')
                             <a href="{{ route('specialites.show', ['specialite' => $specialite->id]) }}" data-id="{{$specialite->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>

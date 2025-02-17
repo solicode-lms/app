@@ -108,27 +108,44 @@
         </footer>
     </div>
 
+
+    @if(session('warning'))
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        {{ session('warning') }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+@endif
+
+
     <script>
         window.notifications = window.notifications || [];
-        @if (session('success'))
-    
+        @if (session('info'))
         window.notifications.push({
-            type : "showSuccess",
+            type : "info",
+            message: "{{ session('info') }}"
+        });   
+        @endif
+        @if (session('success'))
+        window.notifications.push({
+            type : "success",
             message: "{{ session('success') }}"
+        });   
+        @endif
+        @if (session('warning'))
+        window.notifications.push({
+            type : "warning",
+            message: "{{ session('warning') }}"
         });   
         @endif
         @if (session('error'))
         window.notifications.push({
-            type : "showError",
+            type : "error",
             message: "{{ session('error') }}"
         });   
         @endif
-        @if (session('info'))
-        window.notifications.push({
-            type : "showInfo",
-            message: "{{ session('info') }}"
-        });   
-        @endif
+      
     </script>
 
     <script>

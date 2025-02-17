@@ -5,8 +5,8 @@
 return [
     'singular' => 'Livrable',
     'plural' => 'Livrables',
-    'titre' => 'titre',
     'nature_livrable_id' => 'nature_livrable_id',
+    'titre' => 'titre',
     'projet_id' => 'projet_id',
     'description' => 'description',
 ];

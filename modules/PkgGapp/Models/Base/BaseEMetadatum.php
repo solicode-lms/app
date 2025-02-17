@@ -11,9 +11,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
+use Modules\PkgGapp\Models\EModel;
 use Modules\PkgGapp\Models\EDataField;
 use Modules\PkgGapp\Models\EMetadataDefinition;
-use Modules\PkgGapp\Models\EModel;
 
 /**
  * Classe BaseEMetadatum
@@ -26,6 +26,7 @@ class BaseEMetadatum extends BaseModel
     public function __construct(array $attributes = []) {
         parent::__construct($attributes); 
         $this->isOwnedByUser =  false;
+
     }
 
     
@@ -38,6 +39,15 @@ class BaseEMetadatum extends BaseModel
         'Value', 'value_boolean', 'value_string', 'value_integer', 'value_float', 'value_date', 'value_datetime', 'value_enum', 'value_json', 'value_text', 'e_model_id', 'e_data_field_id', 'e_metadata_definition_id'
     ];
 
+    /**
+     * Relation BelongsTo pour EModel.
+     *
+     * @return BelongsTo
+     */
+    public function eModel(): BelongsTo
+    {
+        return $this->belongsTo(EModel::class, 'e_model_id', 'id');
+    }
     /**
      * Relation BelongsTo pour EDataField.
      *
@@ -55,15 +65,6 @@ class BaseEMetadatum extends BaseModel
     public function eMetadataDefinition(): BelongsTo
     {
         return $this->belongsTo(EMetadataDefinition::class, 'e_metadata_definition_id', 'id');
-    }
-    /**
-     * Relation BelongsTo pour EModel.
-     *
-     * @return BelongsTo
-     */
-    public function eModel(): BelongsTo
-    {
-        return $this->belongsTo(EModel::class, 'e_model_id', 'id');
     }
 
 

@@ -19,10 +19,10 @@ class BaseValidationService extends BaseService
      * @var array
      */
     protected $fieldsSearchable = [
+        'transfert_competence_id',
         'note',
         'message',
         'is_valide',
-        'transfert_competence_id',
         'realisation_projet_id'
     ];
 
@@ -42,13 +42,15 @@ class BaseValidationService extends BaseService
     public function __construct()
     {
         parent::__construct(new Validation());
+        $this->fieldsFilterable = [];
+    }
 
-        // Initialiser les filtres configurables dynamiquement
+    public function initFieldsFilterable(){
+       // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
             $this->generateManyToOneFilter(__("PkgCreationProjet::transfertCompetence.plural"), 'transfert_competence_id', \Modules\PkgCreationProjet\Models\TransfertCompetence::class, 'id'),
             $this->generateManyToOneFilter(__("PkgRealisationProjets::realisationProjet.plural"), 'realisation_projet_id', \Modules\PkgRealisationProjets\Models\RealisationProjet::class, 'id'),
         ];
-
     }
 
     /**
@@ -76,5 +78,7 @@ class BaseValidationService extends BaseService
 
         return $stats;
     }
+
+
 
 }

@@ -56,6 +56,7 @@
                         />
                     </div>
                     <div class="col-sm-3">
+                        @can('create', $widget_instance)
                         <x-crud-actions
                             :createPermission="'create-widget'"
                             :createRoute="route('widgets.create')"
@@ -68,6 +69,7 @@
                             :exportCsvRoute="route('widgets.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
                         />
+                        @endcan
                     </div>
                 </div>
                 @show

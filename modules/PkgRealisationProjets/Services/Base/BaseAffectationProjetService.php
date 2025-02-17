@@ -19,10 +19,10 @@ class BaseAffectationProjetService extends BaseService
      * @var array
      */
     protected $fieldsSearchable = [
+        'projet_id',
         'groupe_id',
         'date_debut',
         'date_fin',
-        'projet_id',
         'description',
         'annee_formation_id'
     ];
@@ -49,8 +49,8 @@ class BaseAffectationProjetService extends BaseService
     public function initFieldsFilterable(){
        // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
-            $this->generateManyToOneFilter(__("PkgApprenants::groupe.plural"), 'groupe_id', \Modules\PkgApprenants\Models\Groupe::class, 'code'),
             $this->generateManyToOneFilter(__("PkgCreationProjet::projet.plural"), 'projet_id', \Modules\PkgCreationProjet\Models\Projet::class, 'titre'),
+            $this->generateManyToOneFilter(__("PkgApprenants::groupe.plural"), 'groupe_id', \Modules\PkgApprenants\Models\Groupe::class, 'code'),
         ];
     }
 
@@ -75,9 +75,25 @@ class BaseAffectationProjetService extends BaseService
 
         $stats = $this->initStats();
 
+        // Ajouter les statistiques du propriétaire
+        $contexteState = $this->getContextState();
+        if ($contexteState !== null) {
+            $stats[] = $contexteState;
+        }
         
 
         return $stats;
     }
+
+    public function getContextState()
+    {
+        $value = $this->viewState->generateTitleFromVariables();
+        return [
+                "icon" => "fas fa-filter",
+                "label" => "Filtre",
+                "value" =>  $value
+        ];
+    }
+
 
 }

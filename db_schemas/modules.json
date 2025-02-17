@@ -29,7 +29,8 @@
         "permissions",
         "users",
         "model_has_roles",
-        "role_has_permissions"
+        "role_has_permissions",
+        "profiles"
 ]
 },
 "PkgWidgets":{

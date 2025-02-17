@@ -23,6 +23,7 @@ class BaseUserService extends BaseService
         'email',
         'email_verified_at',
         'password',
+        'must_change_password',
         'remember_token'
     ];
 
@@ -42,11 +43,13 @@ class BaseUserService extends BaseService
     public function __construct()
     {
         parent::__construct(new User());
+        $this->fieldsFilterable = [];
+    }
 
-        // Initialiser les filtres configurables dynamiquement
+    public function initFieldsFilterable(){
+       // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
         ];
-
     }
 
     /**
@@ -75,4 +78,16 @@ class BaseUserService extends BaseService
         return $stats;
     }
 
+
+    public function initPassword(int $userId)
+    {
+        $user = $this->find($userId);
+        if (!$user) {
+            return false; 
+        }
+        $value =  $user->save();
+        $this->pushServiceMessage("info","Traitement title", "message : résultat de traitement");
+        return $value;
+    }
+    
 }

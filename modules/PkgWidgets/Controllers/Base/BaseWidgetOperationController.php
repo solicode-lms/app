@@ -28,7 +28,6 @@ class BaseWidgetOperationController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('widgetOperation.index');
 
-
         // Extraire les paramètres de recherche, page, et filtres
         $widgetOperations_params = array_merge(
             $request->only(['page','sort']),
@@ -42,13 +41,13 @@ class BaseWidgetOperationController extends AdminController
         // Récupérer les statistiques et les champs filtrables
         $widgetOperations_stats = $this->widgetOperationService->getwidgetOperationStats();
         $widgetOperations_filters = $this->widgetOperationService->getFieldsFilterable();
-
+        $widgetOperation_instance =  $this->widgetOperationService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgWidgets::widgetOperation._table', compact('widgetOperations_data', 'widgetOperations_stats', 'widgetOperations_filters'))->render();
+            return view('PkgWidgets::widgetOperation._table', compact('widgetOperations_data', 'widgetOperations_stats', 'widgetOperations_filters','widgetOperation_instance'))->render();
         }
 
-        return view('PkgWidgets::widgetOperation.index', compact('widgetOperations_data', 'widgetOperations_stats', 'widgetOperations_filters'));
+        return view('PkgWidgets::widgetOperation.index', compact('widgetOperations_data', 'widgetOperations_stats', 'widgetOperations_filters','widgetOperation_instance'));
     }
     public function create() {
         $itemWidgetOperation = $this->widgetOperationService->createInstance();
@@ -83,7 +82,25 @@ class BaseWidgetOperationController extends AdminController
         );
     }
     public function show(string $id) {
-        return $this->edit( $id);
+
+        $this->viewState->setContextKey('widgetOperation.edit_' . $id);
+
+        $itemWidgetOperation = $this->widgetOperationService->find($id);
+  
+
+        $this->viewState->set('scope.widget.operation_id', $id);
+        $widgetService =  new WidgetService();
+        $widgets_data =  $itemWidgetOperation->widgets()->paginate(10);
+        $widgets_stats = $widgetService->getwidgetStats();
+        $widgets_filters = $widgetService->getFieldsFilterable();
+        $widget_instance =  $widgetService->createInstance();
+
+        if (request()->ajax()) {
+            return view('PkgWidgets::widgetOperation._edit', compact('itemWidgetOperation', 'widgets_data', 'widgets_stats', 'widgets_filters', 'widget_instance'));
+        }
+
+        return view('PkgWidgets::widgetOperation.edit', compact('itemWidgetOperation', 'widgets_data', 'widgets_stats', 'widgets_filters', 'widget_instance'));
+
     }
     public function edit(string $id) {
 
@@ -91,18 +108,19 @@ class BaseWidgetOperationController extends AdminController
 
         $itemWidgetOperation = $this->widgetOperationService->find($id);
 
+
         $this->viewState->set('scope.widget.operation_id', $id);
         $widgetService =  new WidgetService();
         $widgets_data =  $itemWidgetOperation->widgets()->paginate(10);
         $widgets_stats = $widgetService->getwidgetStats();
         $widgets_filters = $widgetService->getFieldsFilterable();
-        
+        $widget_instance =  $widgetService->createInstance();
 
         if (request()->ajax()) {
-            return view('PkgWidgets::widgetOperation._edit', compact('itemWidgetOperation', 'widgets_data', 'widgets_stats', 'widgets_filters'));
+            return view('PkgWidgets::widgetOperation._edit', compact('itemWidgetOperation', 'widgets_data', 'widgets_stats', 'widgets_filters', 'widget_instance'));
         }
 
-        return view('PkgWidgets::widgetOperation.edit', compact('itemWidgetOperation', 'widgets_data', 'widgets_stats', 'widgets_filters'));
+        return view('PkgWidgets::widgetOperation.edit', compact('itemWidgetOperation', 'widgets_data', 'widgets_stats', 'widgets_filters', 'widget_instance'));
 
     }
     public function update(WidgetOperationRequest $request, string $id) {
@@ -215,6 +233,5 @@ class BaseWidgetOperationController extends AdminController
         ]);
     }
     
-
 
 }

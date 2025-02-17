@@ -43,11 +43,13 @@ class BaseEMetadataDefinitionService extends BaseService
     public function __construct()
     {
         parent::__construct(new EMetadataDefinition());
+        $this->fieldsFilterable = [];
+    }
 
-        // Initialiser les filtres configurables dynamiquement
+    public function initFieldsFilterable(){
+       // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
         ];
-
     }
 
     /**
@@ -75,5 +77,7 @@ class BaseEMetadataDefinitionService extends BaseService
 
         return $stats;
     }
+
+
 
 }

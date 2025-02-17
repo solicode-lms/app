@@ -33,7 +33,7 @@
        $titre = __("Core::featureDomain.singular");
     @endphp
     <x-crud-header 
-        id="featureDomain-crud-header" icon="fas fa-table"  
+        id="featureDomain-crud-header" icon="fas fa-th-large"  
         iconColor="text-info"
         title="{{ __('Core::featureDomain.plural') }}"
         :breadcrumbs="[
@@ -56,6 +56,7 @@
                         />
                     </div>
                     <div class="col-sm-3">
+                        @can('create', $featureDomain_instance)
                         <x-crud-actions
                             :createPermission="'create-featureDomain'"
                             :createRoute="route('featureDomains.create')"
@@ -68,6 +69,7 @@
                             :exportCsvRoute="route('featureDomains.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
                         />
+                        @endcan
                     </div>
                 </div>
                 @show

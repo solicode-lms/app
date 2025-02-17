@@ -6,6 +6,20 @@ use Modules\PkgAutorisation\Models\User;
 
 class GenericPolicy
 {
+
+
+    public function create(User $user, $model): bool
+    {
+        // Vérifie si le modèle utilise le trait OwnedByUser
+        if ($this->hasTrait($model, 'App\Traits\OwnedByUser')) {
+            $owner = $model->getUserOwner();
+            return $owner && $owner->id === $user->id;
+        }
+
+        return true;
+    }
+
+
     /**
      * Vérifie si l'utilisateur peut mettre à jour l'objet.
      *
@@ -17,7 +31,18 @@ class GenericPolicy
     {
         // Vérifie si le modèle utilise le trait OwnedByUser
         if ($this->hasTrait($model, 'App\Traits\OwnedByUser')) {
-            $owner = $model->getOwner();
+            $owner = $model->getUserOwner();
+            return $owner && $owner->id === $user->id;
+        }
+
+        return true;
+    }
+
+    public function edit(User $user, $model): bool
+    {
+        // Vérifie si le modèle utilise le trait OwnedByUser
+        if ($this->hasTrait($model, 'App\Traits\OwnedByUser')) {
+            $owner = $model->getUserOwner();
             return $owner && $owner->id === $user->id;
         }
 
@@ -35,7 +60,7 @@ class GenericPolicy
     {
         // Vérifie si le modèle utilise le trait OwnedByUser
         if ($this->hasTrait($model, 'App\Traits\OwnedByUser')) {
-            $owner = $model->getOwner();
+            $owner = $model->getUserOwner();
             return $owner && $owner->id === $user->id;
         }
 
@@ -53,7 +78,7 @@ class GenericPolicy
     {
         // Vérifie si le modèle utilise le trait OwnedByUser
         if ($this->hasTrait($model, 'App\Traits\OwnedByUser')) {
-            $owner = $model->getOwner();
+            $owner = $model->getUserOwner();
             return $owner && $owner->id === $user->id;
         }
 

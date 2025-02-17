@@ -14,11 +14,12 @@
         <tbody>
             @foreach ($transfertCompetences_data as $transfertCompetence)
                 <tr id="transfertCompetence-row-{{$transfertCompetence->id}}">
-                    <td>@limit($transfertCompetence->competence->code ?? '-', 80)</td>
+                    <td>@limit($transfertCompetence->competence, 80)</td>
                     <td>{!! \App\Helpers\TextHelper::formatHtmlWithLineBreaks($transfertCompetence->question, 80) !!}</td>
-                    <td>@limit($transfertCompetence->niveauDifficulte->nom ?? '-', 80)</td>
+                    <td>@limit($transfertCompetence->niveauDifficulte, 80)</td>
                     <td>@limit($transfertCompetence->note, 80)</td>
                     <td class="text-right">
+
                         @can('show-transfertCompetence')
                             <a href="{{ route('transfertCompetences.show', ['transfertCompetence' => $transfertCompetence->id]) }}" data-id="{{$transfertCompetence->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>

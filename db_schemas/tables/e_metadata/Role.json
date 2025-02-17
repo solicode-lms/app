@@ -43,7 +43,8 @@
     },
     {
         "reference": "roles_permissions_role_has_permissions_m2m_m2m_displayInTable",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "roles_permissions_role_has_permissions_m2m_m2m",
         "e_metadata_definition_reference": "displayInTable"
     },

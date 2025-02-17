@@ -29,7 +29,6 @@ class BaseFiliereController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('filiere.index');
 
-
         // Extraire les paramètres de recherche, page, et filtres
         $filieres_params = array_merge(
             $request->only(['page','sort']),
@@ -43,13 +42,13 @@ class BaseFiliereController extends AdminController
         // Récupérer les statistiques et les champs filtrables
         $filieres_stats = $this->filiereService->getfiliereStats();
         $filieres_filters = $this->filiereService->getFieldsFilterable();
-
+        $filiere_instance =  $this->filiereService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgFormation::filiere._table', compact('filieres_data', 'filieres_stats', 'filieres_filters'))->render();
+            return view('PkgFormation::filiere._table', compact('filieres_data', 'filieres_stats', 'filieres_filters','filiere_instance'))->render();
         }
 
-        return view('PkgFormation::filiere.index', compact('filieres_data', 'filieres_stats', 'filieres_filters'));
+        return view('PkgFormation::filiere.index', compact('filieres_data', 'filieres_stats', 'filieres_filters','filiere_instance'));
     }
     public function create() {
         $itemFiliere = $this->filiereService->createInstance();
@@ -84,7 +83,31 @@ class BaseFiliereController extends AdminController
         );
     }
     public function show(string $id) {
-        return $this->edit( $id);
+
+        $this->viewState->setContextKey('filiere.edit_' . $id);
+
+        $itemFiliere = $this->filiereService->find($id);
+  
+
+        $this->viewState->set('scope.groupe.filiere_id', $id);
+        $groupeService =  new GroupeService();
+        $groupes_data =  $itemFiliere->groupes()->paginate(10);
+        $groupes_stats = $groupeService->getgroupeStats();
+        $groupes_filters = $groupeService->getFieldsFilterable();
+        $groupe_instance =  $groupeService->createInstance();
+        $this->viewState->set('scope.module.filiere_id', $id);
+        $moduleService =  new ModuleService();
+        $modules_data =  $itemFiliere->modules()->paginate(10);
+        $modules_stats = $moduleService->getmoduleStats();
+        $modules_filters = $moduleService->getFieldsFilterable();
+        $module_instance =  $moduleService->createInstance();
+
+        if (request()->ajax()) {
+            return view('PkgFormation::filiere._edit', compact('itemFiliere', 'groupes_data', 'modules_data', 'groupes_stats', 'modules_stats', 'groupes_filters', 'modules_filters', 'groupe_instance', 'module_instance'));
+        }
+
+        return view('PkgFormation::filiere.edit', compact('itemFiliere', 'groupes_data', 'modules_data', 'groupes_stats', 'modules_stats', 'groupes_filters', 'modules_filters', 'groupe_instance', 'module_instance'));
+
     }
     public function edit(string $id) {
 
@@ -92,24 +115,25 @@ class BaseFiliereController extends AdminController
 
         $itemFiliere = $this->filiereService->find($id);
 
+
         $this->viewState->set('scope.groupe.filiere_id', $id);
         $groupeService =  new GroupeService();
         $groupes_data =  $itemFiliere->groupes()->paginate(10);
         $groupes_stats = $groupeService->getgroupeStats();
         $groupes_filters = $groupeService->getFieldsFilterable();
-        
+        $groupe_instance =  $groupeService->createInstance();
         $this->viewState->set('scope.module.filiere_id', $id);
         $moduleService =  new ModuleService();
         $modules_data =  $itemFiliere->modules()->paginate(10);
         $modules_stats = $moduleService->getmoduleStats();
         $modules_filters = $moduleService->getFieldsFilterable();
-        
+        $module_instance =  $moduleService->createInstance();
 
         if (request()->ajax()) {
-            return view('PkgFormation::filiere._edit', compact('itemFiliere', 'groupes_data', 'modules_data', 'groupes_stats', 'modules_stats', 'groupes_filters', 'modules_filters'));
+            return view('PkgFormation::filiere._edit', compact('itemFiliere', 'groupes_data', 'modules_data', 'groupes_stats', 'modules_stats', 'groupes_filters', 'modules_filters', 'groupe_instance', 'module_instance'));
         }
 
-        return view('PkgFormation::filiere.edit', compact('itemFiliere', 'groupes_data', 'modules_data', 'groupes_stats', 'modules_stats', 'groupes_filters', 'modules_filters'));
+        return view('PkgFormation::filiere.edit', compact('itemFiliere', 'groupes_data', 'modules_data', 'groupes_stats', 'modules_stats', 'groupes_filters', 'modules_filters', 'groupe_instance', 'module_instance'));
 
     }
     public function update(FiliereRequest $request, string $id) {
@@ -222,6 +246,5 @@ class BaseFiliereController extends AdminController
         ]);
     }
     
-
 
 }

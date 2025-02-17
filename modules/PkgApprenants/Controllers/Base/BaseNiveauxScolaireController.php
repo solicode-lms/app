@@ -28,7 +28,6 @@ class BaseNiveauxScolaireController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('niveauxScolaire.index');
 
-
         // Extraire les paramètres de recherche, page, et filtres
         $niveauxScolaires_params = array_merge(
             $request->only(['page','sort']),
@@ -42,13 +41,13 @@ class BaseNiveauxScolaireController extends AdminController
         // Récupérer les statistiques et les champs filtrables
         $niveauxScolaires_stats = $this->niveauxScolaireService->getniveauxScolaireStats();
         $niveauxScolaires_filters = $this->niveauxScolaireService->getFieldsFilterable();
-
+        $niveauxScolaire_instance =  $this->niveauxScolaireService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgApprenants::niveauxScolaire._table', compact('niveauxScolaires_data', 'niveauxScolaires_stats', 'niveauxScolaires_filters'))->render();
+            return view('PkgApprenants::niveauxScolaire._table', compact('niveauxScolaires_data', 'niveauxScolaires_stats', 'niveauxScolaires_filters','niveauxScolaire_instance'))->render();
         }
 
-        return view('PkgApprenants::niveauxScolaire.index', compact('niveauxScolaires_data', 'niveauxScolaires_stats', 'niveauxScolaires_filters'));
+        return view('PkgApprenants::niveauxScolaire.index', compact('niveauxScolaires_data', 'niveauxScolaires_stats', 'niveauxScolaires_filters','niveauxScolaire_instance'));
     }
     public function create() {
         $itemNiveauxScolaire = $this->niveauxScolaireService->createInstance();
@@ -83,7 +82,25 @@ class BaseNiveauxScolaireController extends AdminController
         );
     }
     public function show(string $id) {
-        return $this->edit( $id);
+
+        $this->viewState->setContextKey('niveauxScolaire.edit_' . $id);
+
+        $itemNiveauxScolaire = $this->niveauxScolaireService->find($id);
+  
+
+        $this->viewState->set('scope.apprenant.niveaux_scolaire_id', $id);
+        $apprenantService =  new ApprenantService();
+        $apprenants_data =  $itemNiveauxScolaire->apprenants()->paginate(10);
+        $apprenants_stats = $apprenantService->getapprenantStats();
+        $apprenants_filters = $apprenantService->getFieldsFilterable();
+        $apprenant_instance =  $apprenantService->createInstance();
+
+        if (request()->ajax()) {
+            return view('PkgApprenants::niveauxScolaire._edit', compact('itemNiveauxScolaire', 'apprenants_data', 'apprenants_stats', 'apprenants_filters', 'apprenant_instance'));
+        }
+
+        return view('PkgApprenants::niveauxScolaire.edit', compact('itemNiveauxScolaire', 'apprenants_data', 'apprenants_stats', 'apprenants_filters', 'apprenant_instance'));
+
     }
     public function edit(string $id) {
 
@@ -91,18 +108,19 @@ class BaseNiveauxScolaireController extends AdminController
 
         $itemNiveauxScolaire = $this->niveauxScolaireService->find($id);
 
+
         $this->viewState->set('scope.apprenant.niveaux_scolaire_id', $id);
         $apprenantService =  new ApprenantService();
         $apprenants_data =  $itemNiveauxScolaire->apprenants()->paginate(10);
         $apprenants_stats = $apprenantService->getapprenantStats();
         $apprenants_filters = $apprenantService->getFieldsFilterable();
-        
+        $apprenant_instance =  $apprenantService->createInstance();
 
         if (request()->ajax()) {
-            return view('PkgApprenants::niveauxScolaire._edit', compact('itemNiveauxScolaire', 'apprenants_data', 'apprenants_stats', 'apprenants_filters'));
+            return view('PkgApprenants::niveauxScolaire._edit', compact('itemNiveauxScolaire', 'apprenants_data', 'apprenants_stats', 'apprenants_filters', 'apprenant_instance'));
         }
 
-        return view('PkgApprenants::niveauxScolaire.edit', compact('itemNiveauxScolaire', 'apprenants_data', 'apprenants_stats', 'apprenants_filters'));
+        return view('PkgApprenants::niveauxScolaire.edit', compact('itemNiveauxScolaire', 'apprenants_data', 'apprenants_stats', 'apprenants_filters', 'apprenant_instance'));
 
     }
     public function update(NiveauxScolaireRequest $request, string $id) {
@@ -215,6 +233,5 @@ class BaseNiveauxScolaireController extends AdminController
         ]);
     }
     
-
 
 }

@@ -19,8 +19,8 @@ class BaseLivrableService extends BaseService
      * @var array
      */
     protected $fieldsSearchable = [
-        'titre',
         'nature_livrable_id',
+        'titre',
         'projet_id',
         'description'
     ];
@@ -41,13 +41,15 @@ class BaseLivrableService extends BaseService
     public function __construct()
     {
         parent::__construct(new Livrable());
+        $this->fieldsFilterable = [];
+    }
 
-        // Initialiser les filtres configurables dynamiquement
+    public function initFieldsFilterable(){
+       // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
             $this->generateManyToOneFilter(__("PkgCreationProjet::natureLivrable.plural"), 'nature_livrable_id', \Modules\PkgCreationProjet\Models\NatureLivrable::class, 'nom'),
             $this->generateManyToOneFilter(__("PkgCreationProjet::projet.plural"), 'projet_id', \Modules\PkgCreationProjet\Models\Projet::class, 'titre'),
         ];
-
     }
 
     /**
@@ -71,9 +73,25 @@ class BaseLivrableService extends BaseService
 
         $stats = $this->initStats();
 
+        // Ajouter les statistiques du propriétaire
+        $contexteState = $this->getContextState();
+        if ($contexteState !== null) {
+            $stats[] = $contexteState;
+        }
         
 
         return $stats;
     }
+
+    public function getContextState()
+    {
+        $value = $this->viewState->generateTitleFromVariables();
+        return [
+                "icon" => "fas fa-filter",
+                "label" => "Filtre",
+                "value" =>  $value
+        ];
+    }
+
 
 }

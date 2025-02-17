@@ -27,12 +27,12 @@ class BaseRealisationProjetRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'affectation_projet_id' => 'required',
+            'apprenant_id' => 'required',
+            'etats_realisation_projet_id' => 'nullable',
             'date_debut' => 'required',
             'date_fin' => 'nullable',
-            'rapport' => 'nullable|string',
-            'etats_realisation_projet_id' => 'required',
-            'apprenant_id' => 'required',
-            'affectation_projet_id' => 'required'
+            'rapport' => 'nullable|string'
         ];
     }
 
@@ -44,12 +44,12 @@ class BaseRealisationProjetRequest extends FormRequest
     public function messages(): array
     {
         return [
+            'affectation_projet_id.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::RealisationProjet.affectation_projet_id')]),
+            'apprenant_id.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::RealisationProjet.apprenant_id')]),
+            'etats_realisation_projet_id.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::RealisationProjet.etats_realisation_projet_id')]),
             'date_debut.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::RealisationProjet.date_debut')]),
             'date_fin.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::RealisationProjet.date_fin')]),
-            'rapport.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::RealisationProjet.rapport')]),
-            'etats_realisation_projet_id.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::RealisationProjet.etats_realisation_projet_id')]),
-            'apprenant_id.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::RealisationProjet.apprenant_id')]),
-            'affectation_projet_id.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::RealisationProjet.affectation_projet_id')])
+            'rapport.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::RealisationProjet.rapport')])
         ];
     }
 }

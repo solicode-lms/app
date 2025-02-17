@@ -31,7 +31,6 @@ class BaseModuleController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('module.index');
 
-
         // Extraire les paramètres de recherche, page, et filtres
         $modules_params = array_merge(
             $request->only(['page','sort']),
@@ -45,13 +44,13 @@ class BaseModuleController extends AdminController
         // Récupérer les statistiques et les champs filtrables
         $modules_stats = $this->moduleService->getmoduleStats();
         $modules_filters = $this->moduleService->getFieldsFilterable();
-
+        $module_instance =  $this->moduleService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgFormation::module._table', compact('modules_data', 'modules_stats', 'modules_filters'))->render();
+            return view('PkgFormation::module._table', compact('modules_data', 'modules_stats', 'modules_filters','module_instance'))->render();
         }
 
-        return view('PkgFormation::module.index', compact('modules_data', 'modules_stats', 'modules_filters'));
+        return view('PkgFormation::module.index', compact('modules_data', 'modules_stats', 'modules_filters','module_instance'));
     }
     public function create() {
         $itemModule = $this->moduleService->createInstance();
@@ -87,13 +86,11 @@ class BaseModuleController extends AdminController
         );
     }
     public function show(string $id) {
-        return $this->edit( $id);
-    }
-    public function edit(string $id) {
 
         $this->viewState->setContextKey('module.edit_' . $id);
 
         $itemModule = $this->moduleService->find($id);
+  
         $filieres = $this->filiereService->all();
 
         $this->viewState->set('scope.competence.module_id', $id);
@@ -101,13 +98,35 @@ class BaseModuleController extends AdminController
         $competences_data =  $itemModule->competences()->paginate(10);
         $competences_stats = $competenceService->getcompetenceStats();
         $competences_filters = $competenceService->getFieldsFilterable();
-        
+        $competence_instance =  $competenceService->createInstance();
 
         if (request()->ajax()) {
-            return view('PkgFormation::module._edit', compact('itemModule', 'filieres', 'competences_data', 'competences_stats', 'competences_filters'));
+            return view('PkgFormation::module._edit', compact('itemModule', 'filieres', 'competences_data', 'competences_stats', 'competences_filters', 'competence_instance'));
         }
 
-        return view('PkgFormation::module.edit', compact('itemModule', 'filieres', 'competences_data', 'competences_stats', 'competences_filters'));
+        return view('PkgFormation::module.edit', compact('itemModule', 'filieres', 'competences_data', 'competences_stats', 'competences_filters', 'competence_instance'));
+
+    }
+    public function edit(string $id) {
+
+        $this->viewState->setContextKey('module.edit_' . $id);
+
+        $itemModule = $this->moduleService->find($id);
+
+        $filieres = $this->filiereService->all();
+
+        $this->viewState->set('scope.competence.module_id', $id);
+        $competenceService =  new CompetenceService();
+        $competences_data =  $itemModule->competences()->paginate(10);
+        $competences_stats = $competenceService->getcompetenceStats();
+        $competences_filters = $competenceService->getFieldsFilterable();
+        $competence_instance =  $competenceService->createInstance();
+
+        if (request()->ajax()) {
+            return view('PkgFormation::module._edit', compact('itemModule', 'filieres', 'competences_data', 'competences_stats', 'competences_filters', 'competence_instance'));
+        }
+
+        return view('PkgFormation::module.edit', compact('itemModule', 'filieres', 'competences_data', 'competences_stats', 'competences_filters', 'competence_instance'));
 
     }
     public function update(ModuleRequest $request, string $id) {
@@ -220,6 +239,5 @@ class BaseModuleController extends AdminController
         ]);
     }
     
-
 
 }

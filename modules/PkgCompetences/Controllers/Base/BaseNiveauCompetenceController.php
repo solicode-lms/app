@@ -30,7 +30,6 @@ class BaseNiveauCompetenceController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('niveauCompetence.index');
 
-
         // Extraire les paramètres de recherche, page, et filtres
         $niveauCompetences_params = array_merge(
             $request->only(['page','sort']),
@@ -44,13 +43,13 @@ class BaseNiveauCompetenceController extends AdminController
         // Récupérer les statistiques et les champs filtrables
         $niveauCompetences_stats = $this->niveauCompetenceService->getniveauCompetenceStats();
         $niveauCompetences_filters = $this->niveauCompetenceService->getFieldsFilterable();
-
+        $niveauCompetence_instance =  $this->niveauCompetenceService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgCompetences::niveauCompetence._table', compact('niveauCompetences_data', 'niveauCompetences_stats', 'niveauCompetences_filters'))->render();
+            return view('PkgCompetences::niveauCompetence._table', compact('niveauCompetences_data', 'niveauCompetences_stats', 'niveauCompetences_filters','niveauCompetence_instance'))->render();
         }
 
-        return view('PkgCompetences::niveauCompetence.index', compact('niveauCompetences_data', 'niveauCompetences_stats', 'niveauCompetences_filters'));
+        return view('PkgCompetences::niveauCompetence.index', compact('niveauCompetences_data', 'niveauCompetences_stats', 'niveauCompetences_filters','niveauCompetence_instance'));
     }
     public function create() {
         $itemNiveauCompetence = $this->niveauCompetenceService->createInstance();
@@ -86,13 +85,27 @@ class BaseNiveauCompetenceController extends AdminController
         );
     }
     public function show(string $id) {
-        return $this->edit( $id);
+
+        $this->viewState->setContextKey('niveauCompetence.edit_' . $id);
+
+        $itemNiveauCompetence = $this->niveauCompetenceService->find($id);
+  
+        $competences = $this->competenceService->all();
+
+
+        if (request()->ajax()) {
+            return view('PkgCompetences::niveauCompetence._fields', compact('itemNiveauCompetence', 'competences'));
+        }
+
+        return view('PkgCompetences::niveauCompetence.edit', compact('itemNiveauCompetence', 'competences'));
+
     }
     public function edit(string $id) {
 
         $this->viewState->setContextKey('niveauCompetence.edit_' . $id);
 
         $itemNiveauCompetence = $this->niveauCompetenceService->find($id);
+
         $competences = $this->competenceService->all();
 
 
@@ -213,6 +226,5 @@ class BaseNiveauCompetenceController extends AdminController
         ]);
     }
     
-
 
 }

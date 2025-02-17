@@ -25,16 +25,16 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="col-sm-12">
+                                <label for="formateur_id">{{ ucfirst(__('PkgRealisationProjets::etatsRealisationProjet.formateur_id')) }}:</label>
+                                <p>{{ $itemEtatsRealisationProjet->formateur_id }}</p>
+                            </div>
+                            <div class="col-sm-12">
                                 <label for="titre">{{ ucfirst(__('PkgRealisationProjets::etatsRealisationProjet.titre')) }}:</label>
                                 <p>{{ $itemEtatsRealisationProjet->titre }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="description">{{ ucfirst(__('PkgRealisationProjets::etatsRealisationProjet.description')) }}:</label>
                                 <p>{{ $itemEtatsRealisationProjet->description }}</p>
-                            </div>
-                            <div class="col-sm-12">
-                                <label for="formateur_id">{{ ucfirst(__('PkgRealisationProjets::etatsRealisationProjet.formateur_id')) }}:</label>
-                                <p>{{ $itemEtatsRealisationProjet->formateur_id }}</p>
                             </div>
                         </div>
                     </div>

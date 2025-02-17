@@ -13,7 +13,8 @@
     },
     {
         "reference": "RealisationProjet_date_debut_displayInTable",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "RealisationProjet_date_debut",
         "e_metadata_definition_reference": "displayInTable"
     },
@@ -25,7 +26,8 @@
     },
     {
         "reference": "RealisationProjet_date_fin_displayInTable",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "RealisationProjet_date_fin",
         "e_metadata_definition_reference": "displayInTable"
     },
@@ -103,37 +105,49 @@
     },
     {
         "reference": "RealisationProjet_date_debut_displayOrder",
-        "value_integer": 2,
+        "value_boolean": 0,
+        "value_integer": 4,
+        "value_float": 0,
         "e_data_field_reference": "RealisationProjet_date_debut",
         "e_metadata_definition_reference": "displayOrder"
     },
     {
         "reference": "RealisationProjet_date_fin_displayOrder",
-        "value_integer": 3,
+        "value_boolean": 0,
+        "value_integer": 5,
+        "value_float": 0,
         "e_data_field_reference": "RealisationProjet_date_fin",
         "e_metadata_definition_reference": "displayOrder"
     },
     {
         "reference": "RealisationProjet_rapport_displayOrder",
-        "value_integer": 4,
+        "value_boolean": 0,
+        "value_integer": 15,
+        "value_float": 0,
         "e_data_field_reference": "RealisationProjet_rapport",
         "e_metadata_definition_reference": "displayOrder"
     },
     {
         "reference": "RealisationProjet_etats_realisation_projet_id_displayOrder",
-        "value_integer": 5,
+        "value_boolean": 0,
+        "value_integer": 3,
+        "value_float": 0,
         "e_data_field_reference": "RealisationProjet_etats_realisation_projet_id",
         "e_metadata_definition_reference": "displayOrder"
     },
     {
         "reference": "RealisationProjet_apprenant_id_displayOrder",
-        "value_integer": 6,
+        "value_boolean": 0,
+        "value_integer": 2,
+        "value_float": 0,
         "e_data_field_reference": "RealisationProjet_apprenant_id",
         "e_metadata_definition_reference": "displayOrder"
     },
     {
         "reference": "RealisationProjet_affectation_projet_id_displayOrder",
-        "value_integer": 7,
+        "value_boolean": 0,
+        "value_integer": 1,
+        "value_float": 0,
         "e_data_field_reference": "RealisationProjet_affectation_projet_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -239,5 +253,49 @@
         "value_float": 0,
         "e_model_reference": "realisation_projets",
         "e_metadata_definition_reference": "iconModel"
+    },
+    {
+        "reference": "realisation_projets_hasMany_livrables_realisations_realisation_projet_id_editHasMany",
+        "value_boolean": 1,
+        "e_data_field_reference": "realisation_projets_hasMany_livrables_realisations_realisation_projet_id",
+        "e_metadata_definition_reference": "editHasMany"
+    },
+    {
+        "reference": "realisation_projets_hasMany_livrables_realisations_realisation_projet_id_displayOrder",
+        "value_integer": 11,
+        "e_data_field_reference": "realisation_projets_hasMany_livrables_realisations_realisation_projet_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "realisation_projets_hasMany_livrables_realisations_realisation_projet_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "realisation_projets_hasMany_livrables_realisations_realisation_projet_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "realisation_projets_hasMany_livrables_realisations_realisation_projet_id_displayInTable",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "realisation_projets_hasMany_livrables_realisations_realisation_projet_id",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "realisation_projets_hasMany_validations_realisation_projet_id_displayInTable",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "realisation_projets_hasMany_validations_realisation_projet_id",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "realisation_projets_ownedByUser",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "dataScope": "filter",
+            "userModelName": "Formateur",
+            "ownerRelationPath": "apprenant.user"
+        },
+        "e_model_reference": "realisation_projets",
+        "e_metadata_definition_reference": "ownedByUser"
     }
 ]

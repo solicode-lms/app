@@ -24,6 +24,7 @@ class DefaultFormateurPermission extends Seeder
         // Ajouter Editeur 
         // Tableau de configuration : modèle et type d'accès
         $permissionsMap = [
+            'profile' => 'EditeurSansCreate',
             'competence' => 'Lecteur,Extraction',
             'module' => 'Lecteur,Extraction',
             'technology' => 'Lecteur,Extraction',
@@ -34,8 +35,8 @@ class DefaultFormateurPermission extends Seeder
             'transfertCompetence' => 'Editeur,Extraction',
             'affectationProjet' => 'Editeur,Extraction',
             'etatsRealisationProjet' => 'Editeur,Extraction',
-            'livrablesRealisation' => 'LecteurMany,Extraction',
-            'realisationProjet' => 'Lecteur,Extraction',
+            'livrablesRealisation' => 'Editeur,Extraction',
+            'realisationProjet' => 'Editeur,Extraction',
             'validation' => 'Editeur,Extraction',
         ];
 
@@ -45,6 +46,7 @@ class DefaultFormateurPermission extends Seeder
             'Lecteur' => ['index', 'show'],
             'Editeur' => ['index', 'show', 'create', 'store', 'edit', 'update', 'destroy','dataCalcul'],
             'Extraction' => ['export'],
+            'EditeurSansCreate' => ['index', 'show', 'store', 'edit', 'update'],
         ];
 
         foreach ($permissionsMap as $model => $accessTypes) {

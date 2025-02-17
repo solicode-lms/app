@@ -14,7 +14,7 @@
             @foreach ($features_data as $feature)
                 <tr id="feature-row-{{$feature->id}}">
                     <td>@limit($feature->name, 80)</td>
-                    <td>@limit($feature->featureDomain->name ?? '-', 80)</td>
+                    <td>@limit($feature->featureDomain, 80)</td>
                     <td>
                         <ul>
                             @foreach ($feature->permissions as $permission)
@@ -23,6 +23,7 @@
                         </ul>
                     </td>
                     <td class="text-right">
+
                         @can('show-feature')
                             <a href="{{ route('features.show', ['feature' => $feature->id]) }}" data-id="{{$feature->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>

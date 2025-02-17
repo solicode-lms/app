@@ -4,23 +4,38 @@
     <table class="table table-striped text-nowrap">
         <thead>
             <tr>
-                <x-sortable-column field="date_debut" label="{{ ucfirst(__('PkgRealisationProjets::realisationProjet.date_debut')) }}" />
-                <x-sortable-column field="date_fin" label="{{ ucfirst(__('PkgRealisationProjets::realisationProjet.date_fin')) }}" />
-                <x-sortable-column field="etats_realisation_projet_id" label="{{ ucfirst(__('PkgRealisationProjets::etatsRealisationProjet.singular')) }}" />
-                <x-sortable-column field="apprenant_id" label="{{ ucfirst(__('PkgApprenants::apprenant.singular')) }}" />
                 <x-sortable-column field="affectation_projet_id" label="{{ ucfirst(__('PkgRealisationProjets::affectationProjet.singular')) }}" />
+                <x-sortable-column field="apprenant_id" label="{{ ucfirst(__('PkgApprenants::apprenant.singular')) }}" />
+                <x-sortable-column field="etats_realisation_projet_id" label="{{ ucfirst(__('PkgRealisationProjets::etatsRealisationProjet.singular')) }}" />
+                <x-sortable-column field="LivrablesRealisation" label="{{ ucfirst(__('PkgRealisationProjets::livrablesRealisation.plural')) }}" />
+
+                <x-sortable-column field="Validation" label="{{ ucfirst(__('PkgRealisationProjets::validation.plural')) }}" />
+
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($realisationProjets_data as $realisationProjet)
                 <tr id="realisationProjet-row-{{$realisationProjet->id}}">
-                    <td>@limit($realisationProjet->date_debut, 80)</td>
-                    <td>@limit($realisationProjet->date_fin, 80)</td>
-                    <td>@limit($realisationProjet->etatsRealisationProjet->titre ?? '-', 80)</td>
-                    <td>@limit($realisationProjet->apprenant->nom ?? '-', 80)</td>
-                    <td>@limit($realisationProjet->affectationProjet->id ?? '-', 80)</td>
+                    <td>@limit($realisationProjet->affectationProjet, 80)</td>
+                    <td>@limit($realisationProjet->apprenant, 80)</td>
+                    <td>@limit($realisationProjet->etatsRealisationProjet, 80)</td>
+                    <td>
+                        <ul>
+                            @foreach ($realisationProjet->livrablesRealisations as $livrablesRealisation)
+                                <li>{{ $livrablesRealisation }}</li>
+                            @endforeach
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            @foreach ($realisationProjet->validations as $validation)
+                                <li>{{ $validation }}</li>
+                            @endforeach
+                        </ul>
+                    </td>
                     <td class="text-right">
+
                         @can('show-realisationProjet')
                             <a href="{{ route('realisationProjets.show', ['realisationProjet' => $realisationProjet->id]) }}" data-id="{{$realisationProjet->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>

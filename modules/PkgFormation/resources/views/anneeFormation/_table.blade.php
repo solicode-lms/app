@@ -17,6 +17,7 @@
                     <td>@limit($anneeFormation->date_debut, 80)</td>
                     <td>@limit($anneeFormation->date_fin, 80)</td>
                     <td class="text-right">
+
                         @can('show-anneeFormation')
                             <a href="{{ route('anneeFormations.show', ['anneeFormation' => $anneeFormation->id]) }}" data-id="{{$anneeFormation->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>

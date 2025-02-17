@@ -6,7 +6,9 @@
     window.crudModalManagersConfig.push({
         edit_has_many: {{ !isset($edit_has_many)? 'false' :  ($edit_has_many ? "true": "false") }},
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
+        editOnFullScreen : false,
         entity_name: 'role',
+        contextKey: '{{ isset($contextKey) ? $contextKey : 'role.index' }}', 
         filterFormSelector: '#role-crud-filter-form',
         crudSelector: '#role-crud',
         tableSelector: '#role-data-container',
@@ -17,6 +19,7 @@
         showUrl: '{{ route('roles.show',  ['role' => ':id']) }}',
         storeUrl: '{{ route('roles.store') }}', 
         deleteUrl: '{{ route('roles.destroy',  ['role' => ':id']) }}', 
+        calculationUrl:  '{{ route('roles.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgAutorisation::role.singular") }}',
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgAutorisation::role.singular") }}',
@@ -53,6 +56,7 @@
                         />
                     </div>
                     <div class="col-sm-3">
+                        @can('create', $role_instance)
                         <x-crud-actions
                             :createPermission="'create-role'"
                             :createRoute="route('roles.create')"
@@ -61,9 +65,11 @@
                             :importRoute="route('roles.import')"
                             :importText="__('Importer')"
                             :exportPermission="'export-role'"
-                            :exportRoute="route('roles.export')"
+                            :exportXlsxRoute="route('roles.export', ['format' => 'xlsx'])"
+                            :exportCsvRoute="route('roles.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
                         />
+                        @endcan
                     </div>
                 </div>
                 @show

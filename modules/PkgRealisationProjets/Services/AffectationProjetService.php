@@ -1,6 +1,4 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
-
 
 namespace Modules\PkgRealisationProjets\Services;
 use Modules\PkgRealisationProjets\Services\Base\BaseAffectationProjetService;
@@ -19,7 +17,6 @@ class AffectationProjetService extends BaseAffectationProjetService
       
         return $affectationProjet;
     }
-
 
     public function create(array $data)
     {
@@ -65,5 +62,4 @@ class AffectationProjetService extends BaseAffectationProjetService
         return $affectationProjet;
     }
     
-
 }

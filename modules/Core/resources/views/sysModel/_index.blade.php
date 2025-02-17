@@ -33,7 +33,7 @@
        $titre = __("Core::sysModel.singular");
     @endphp
     <x-crud-header 
-        id="sysModel-crud-header" icon="fas fa-table"  
+        id="sysModel-crud-header" icon="fas fa-cubes"  
         iconColor="text-info"
         title="{{ __('Core::sysModel.plural') }}"
         :breadcrumbs="[
@@ -56,6 +56,7 @@
                         />
                     </div>
                     <div class="col-sm-3">
+                        @can('create', $sysModel_instance)
                         <x-crud-actions
                             :createPermission="'create-sysModel'"
                             :createRoute="route('sysModels.create')"
@@ -68,6 +69,7 @@
                             :exportCsvRoute="route('sysModels.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
                         />
+                        @endcan
                     </div>
                 </div>
                 @show

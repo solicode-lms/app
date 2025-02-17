@@ -19,4 +19,5 @@ class SysColorService extends BaseSysColorService
       
         return $sysColor;
     }
+   
 }

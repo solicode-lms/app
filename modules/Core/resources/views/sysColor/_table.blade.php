@@ -13,6 +13,7 @@
                 <tr id="sysColor-row-{{$sysColor->id}}">
                     <td>@limit($sysColor->name, 80)</td>
                     <td class="text-right">
+
                         @can('show-sysColor')
                             <a href="{{ route('sysColors.show', ['sysColor' => $sysColor->id]) }}" data-id="{{$sysColor->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>

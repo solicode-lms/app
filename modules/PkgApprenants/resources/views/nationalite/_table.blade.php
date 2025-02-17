@@ -13,6 +13,7 @@
                 <tr id="nationalite-row-{{$nationalite->id}}">
                     <td>@limit($nationalite->code, 80)</td>
                     <td class="text-right">
+
                         @can('show-nationalite')
                             <a href="{{ route('nationalites.show', ['nationalite' => $nationalite->id]) }}" data-id="{{$nationalite->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>

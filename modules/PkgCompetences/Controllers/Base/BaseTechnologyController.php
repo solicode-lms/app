@@ -36,7 +36,6 @@ class BaseTechnologyController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('technology.index');
 
-
         // Extraire les paramètres de recherche, page, et filtres
         $technologies_params = array_merge(
             $request->only(['page','sort']),
@@ -50,13 +49,13 @@ class BaseTechnologyController extends AdminController
         // Récupérer les statistiques et les champs filtrables
         $technologies_stats = $this->technologyService->gettechnologyStats();
         $technologies_filters = $this->technologyService->getFieldsFilterable();
-
+        $technology_instance =  $this->technologyService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgCompetences::technology._table', compact('technologies_data', 'technologies_stats', 'technologies_filters'))->render();
+            return view('PkgCompetences::technology._table', compact('technologies_data', 'technologies_stats', 'technologies_filters','technology_instance'))->render();
         }
 
-        return view('PkgCompetences::technology.index', compact('technologies_data', 'technologies_stats', 'technologies_filters'));
+        return view('PkgCompetences::technology.index', compact('technologies_data', 'technologies_stats', 'technologies_filters','technology_instance'));
     }
     public function create() {
         $itemTechnology = $this->technologyService->createInstance();
@@ -94,13 +93,29 @@ class BaseTechnologyController extends AdminController
         );
     }
     public function show(string $id) {
-        return $this->edit( $id);
+
+        $this->viewState->setContextKey('technology.edit_' . $id);
+
+        $itemTechnology = $this->technologyService->find($id);
+  
+        $competences = $this->competenceService->all();
+        $transfertCompetences = $this->transfertCompetenceService->all();
+        $categoryTechnologies = $this->categoryTechnologyService->all();
+
+
+        if (request()->ajax()) {
+            return view('PkgCompetences::technology._fields', compact('itemTechnology', 'competences', 'transfertCompetences', 'categoryTechnologies'));
+        }
+
+        return view('PkgCompetences::technology.edit', compact('itemTechnology', 'competences', 'transfertCompetences', 'categoryTechnologies'));
+
     }
     public function edit(string $id) {
 
         $this->viewState->setContextKey('technology.edit_' . $id);
 
         $itemTechnology = $this->technologyService->find($id);
+
         $competences = $this->competenceService->all();
         $transfertCompetences = $this->transfertCompetenceService->all();
         $categoryTechnologies = $this->categoryTechnologyService->all();
@@ -223,6 +238,5 @@ class BaseTechnologyController extends AdminController
         ]);
     }
     
-
 
 }

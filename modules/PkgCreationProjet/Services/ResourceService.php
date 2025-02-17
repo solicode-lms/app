@@ -19,4 +19,5 @@ class ResourceService extends BaseResourceService
       
         return $resource;
     }
+   
 }

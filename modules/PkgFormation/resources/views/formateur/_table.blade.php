@@ -31,6 +31,19 @@
                         </ul>
                     </td>
                     <td class="text-right">
+                       @can('initPassword-formateur')
+                        <a 
+                        data-toggle="tooltip" 
+                        title="Initialiser le mot de passe" 
+                        href="{{ route('formateurs.initPassword', ['id' => $formateur->id]) }}" 
+                        data-id="{{$formateur->id}}" 
+                        data-url="{{ route('formateurs.initPassword', ['id' => $formateur->id]) }}" 
+                        data-action-type="confirm"
+                        class="btn btn-default btn-sm context-state actionEntity">
+                            <i class="fas fa-unlock-alt"></i>
+                        </a>
+                        @endcan
+                        
                         @can('show-formateur')
                             <a href="{{ route('formateurs.show', ['formateur' => $formateur->id]) }}" data-id="{{$formateur->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>

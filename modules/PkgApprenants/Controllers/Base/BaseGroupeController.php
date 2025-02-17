@@ -40,7 +40,6 @@ class BaseGroupeController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('groupe.index');
 
-
         // Extraire les paramètres de recherche, page, et filtres
         $groupes_params = array_merge(
             $request->only(['page','sort']),
@@ -54,13 +53,13 @@ class BaseGroupeController extends AdminController
         // Récupérer les statistiques et les champs filtrables
         $groupes_stats = $this->groupeService->getgroupeStats();
         $groupes_filters = $this->groupeService->getFieldsFilterable();
-
+        $groupe_instance =  $this->groupeService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgApprenants::groupe._table', compact('groupes_data', 'groupes_stats', 'groupes_filters'))->render();
+            return view('PkgApprenants::groupe._table', compact('groupes_data', 'groupes_stats', 'groupes_filters','groupe_instance'))->render();
         }
 
-        return view('PkgApprenants::groupe.index', compact('groupes_data', 'groupes_stats', 'groupes_filters'));
+        return view('PkgApprenants::groupe.index', compact('groupes_data', 'groupes_stats', 'groupes_filters','groupe_instance'));
     }
     public function create() {
         $itemGroupe = $this->groupeService->createInstance();
@@ -99,13 +98,11 @@ class BaseGroupeController extends AdminController
         );
     }
     public function show(string $id) {
-        return $this->edit( $id);
-    }
-    public function edit(string $id) {
 
         $this->viewState->setContextKey('groupe.edit_' . $id);
 
         $itemGroupe = $this->groupeService->find($id);
+  
         $apprenants = $this->apprenantService->all();
         $formateurs = $this->formateurService->all();
         $anneeFormations = $this->anneeFormationService->all();
@@ -116,13 +113,38 @@ class BaseGroupeController extends AdminController
         $affectationProjets_data =  $itemGroupe->affectationProjets()->paginate(10);
         $affectationProjets_stats = $affectationProjetService->getaffectationProjetStats();
         $affectationProjets_filters = $affectationProjetService->getFieldsFilterable();
-        
+        $affectationProjet_instance =  $affectationProjetService->createInstance();
 
         if (request()->ajax()) {
-            return view('PkgApprenants::groupe._edit', compact('itemGroupe', 'apprenants', 'formateurs', 'anneeFormations', 'filieres', 'affectationProjets_data', 'affectationProjets_stats', 'affectationProjets_filters'));
+            return view('PkgApprenants::groupe._edit', compact('itemGroupe', 'apprenants', 'formateurs', 'anneeFormations', 'filieres', 'affectationProjets_data', 'affectationProjets_stats', 'affectationProjets_filters', 'affectationProjet_instance'));
         }
 
-        return view('PkgApprenants::groupe.edit', compact('itemGroupe', 'apprenants', 'formateurs', 'anneeFormations', 'filieres', 'affectationProjets_data', 'affectationProjets_stats', 'affectationProjets_filters'));
+        return view('PkgApprenants::groupe.edit', compact('itemGroupe', 'apprenants', 'formateurs', 'anneeFormations', 'filieres', 'affectationProjets_data', 'affectationProjets_stats', 'affectationProjets_filters', 'affectationProjet_instance'));
+
+    }
+    public function edit(string $id) {
+
+        $this->viewState->setContextKey('groupe.edit_' . $id);
+
+        $itemGroupe = $this->groupeService->find($id);
+
+        $apprenants = $this->apprenantService->all();
+        $formateurs = $this->formateurService->all();
+        $anneeFormations = $this->anneeFormationService->all();
+        $filieres = $this->filiereService->all();
+
+        $this->viewState->set('scope.affectationProjet.groupe_id', $id);
+        $affectationProjetService =  new AffectationProjetService();
+        $affectationProjets_data =  $itemGroupe->affectationProjets()->paginate(10);
+        $affectationProjets_stats = $affectationProjetService->getaffectationProjetStats();
+        $affectationProjets_filters = $affectationProjetService->getFieldsFilterable();
+        $affectationProjet_instance =  $affectationProjetService->createInstance();
+
+        if (request()->ajax()) {
+            return view('PkgApprenants::groupe._edit', compact('itemGroupe', 'apprenants', 'formateurs', 'anneeFormations', 'filieres', 'affectationProjets_data', 'affectationProjets_stats', 'affectationProjets_filters', 'affectationProjet_instance'));
+        }
+
+        return view('PkgApprenants::groupe.edit', compact('itemGroupe', 'apprenants', 'formateurs', 'anneeFormations', 'filieres', 'affectationProjets_data', 'affectationProjets_stats', 'affectationProjets_filters', 'affectationProjet_instance'));
 
     }
     public function update(GroupeRequest $request, string $id) {
@@ -235,6 +257,5 @@ class BaseGroupeController extends AdminController
         ]);
     }
     
-
 
 }

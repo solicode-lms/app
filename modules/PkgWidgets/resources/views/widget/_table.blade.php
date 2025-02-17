@@ -17,12 +17,13 @@
             @foreach ($widgets_data as $widget)
                 <tr id="widget-row-{{$widget->id}}">
                     <td>@limit($widget->name, 80)</td>
-                    <td>@limit($widget->widgetType->type ?? '-', 80)</td>
-                    <td>@limit($widget->sysModel->name ?? '-', 80)</td>
-                    <td>@limit($widget->widgetOperation->id ?? '-', 80)</td>
+                    <td>@limit($widget->type, 80)</td>
+                    <td>@limit($widget->model, 80)</td>
+                    <td>@limit($widget->operation, 80)</td>
                     <td>@limit($widget->icon, 80)</td>
                     <td>@limit($widget->label, 80)</td>
                     <td class="text-right">
+
                         @can('show-widget')
                             <a href="{{ route('widgets.show', ['widget' => $widget->id]) }}" data-id="{{$widget->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>

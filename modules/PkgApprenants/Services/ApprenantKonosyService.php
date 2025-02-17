@@ -128,7 +128,7 @@ class ApprenantKonosyService extends BaseService
         $user_data = [
             'name' => ucfirst(strtolower($apprenantKonosy->Nom)) . '.' . ucfirst(strtolower($apprenantKonosy->Prenom)),
             'email' => strtolower($apprenantKonosy->MatriculeEtudiant) . '@solicode.co',
-            'password' => bcrypt($apprenantKonosy->MatriculeEtudiant)
+            'password' => bcrypt("12345678")
         ];
 
         // Créer ou mettre à jour l'utilisateur

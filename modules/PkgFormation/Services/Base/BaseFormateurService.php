@@ -49,11 +49,13 @@ class BaseFormateurService extends BaseService
     public function __construct()
     {
         parent::__construct(new Formateur());
+        $this->fieldsFilterable = [];
+    }
 
-        // Initialiser les filtres configurables dynamiquement
+    public function initFieldsFilterable(){
+       // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
         ];
-
     }
 
     /**
@@ -88,4 +90,16 @@ class BaseFormateurService extends BaseService
         return $stats;
     }
 
+
+    public function initPassword(int $formateurId)
+    {
+        $formateur = $this->find($formateurId);
+        if (!$formateur) {
+            return false; 
+        }
+        $value =  $formateur->save();
+        $this->pushServiceMessage("info","Traitement title", "message : résultat de traitement");
+        return $value;
+    }
+    
 }

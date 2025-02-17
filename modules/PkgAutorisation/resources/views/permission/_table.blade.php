@@ -14,7 +14,7 @@
             @foreach ($permissions_data as $permission)
                 <tr id="permission-row-{{$permission->id}}">
                     <td>@limit($permission->name, 80)</td>
-                    <td>@limit($permission->sysController->name ?? '-', 80)</td>
+                    <td>@limit($permission->controller, 80)</td>
                     <td>
                         <ul>
                             @foreach ($permission->roles as $role)
@@ -23,6 +23,7 @@
                         </ul>
                     </td>
                     <td class="text-right">
+
                         @can('show-permission')
                             <a href="{{ route('permissions.show', ['permission' => $permission->id]) }}" data-id="{{$permission->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>

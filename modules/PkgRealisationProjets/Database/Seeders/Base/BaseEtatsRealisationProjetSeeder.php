@@ -67,9 +67,9 @@ class BaseEtatsRealisationProjetSeeder extends Seeder
             
             if ($row) {
                 $etatsRealisationProjetService->create([
+                    "formateur_id" => $row["formateur_id"] ?? null ,
                     "titre" => $row["titre"] ?? null ,
-                    "description" => $row["description"] ?? null ,
-                    "formateur_id" => $row["formateur_id"] ?? null 
+                    "description" => $row["description"] ?? null 
                 ]);
             }
         }

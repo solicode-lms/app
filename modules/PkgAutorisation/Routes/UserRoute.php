@@ -14,8 +14,15 @@ Route::middleware('auth')->group(function () {
         Route::resource('users', UserController::class);
         // Routes supplémentaires avec préfixe
         Route::prefix('data')->group(function () {
-            Route::get('users/export', [UserController::class, 'export'])->name('users.export');
             Route::post('users/import', [UserController::class, 'import'])->name('users.import');
+            Route::get('users/export/{format}', [UserController::class, 'export'])
+            ->where('format', 'csv|xlsx')
+            ->name('users.export');
+
         });
+
+        Route::post('users/data-calcul', [UserController::class, 'dataCalcul'])->name('users.dataCalcul');
+        Route::get('users/initPassword/{id}', [UserController::class, 'initPassword'])->name('users.initPassword');
+    
     });
 });

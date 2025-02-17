@@ -36,7 +36,6 @@ class BaseWidgetController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('widget.index');
 
-
         // Extraire les paramètres de recherche, page, et filtres
         $widgets_params = array_merge(
             $request->only(['page','sort']),
@@ -50,13 +49,13 @@ class BaseWidgetController extends AdminController
         // Récupérer les statistiques et les champs filtrables
         $widgets_stats = $this->widgetService->getwidgetStats();
         $widgets_filters = $this->widgetService->getFieldsFilterable();
-
+        $widget_instance =  $this->widgetService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgWidgets::widget._table', compact('widgets_data', 'widgets_stats', 'widgets_filters'))->render();
+            return view('PkgWidgets::widget._table', compact('widgets_data', 'widgets_stats', 'widgets_filters','widget_instance'))->render();
         }
 
-        return view('PkgWidgets::widget.index', compact('widgets_data', 'widgets_stats', 'widgets_filters'));
+        return view('PkgWidgets::widget.index', compact('widgets_data', 'widgets_stats', 'widgets_filters','widget_instance'));
     }
     public function create() {
         $itemWidget = $this->widgetService->createInstance();
@@ -94,13 +93,29 @@ class BaseWidgetController extends AdminController
         );
     }
     public function show(string $id) {
-        return $this->edit( $id);
+
+        $this->viewState->setContextKey('widget.edit_' . $id);
+
+        $itemWidget = $this->widgetService->find($id);
+  
+        $sysModels = $this->sysModelService->all();
+        $widgetOperations = $this->widgetOperationService->all();
+        $widgetTypes = $this->widgetTypeService->all();
+
+
+        if (request()->ajax()) {
+            return view('PkgWidgets::widget._fields', compact('itemWidget', 'sysModels', 'widgetOperations', 'widgetTypes'));
+        }
+
+        return view('PkgWidgets::widget.edit', compact('itemWidget', 'sysModels', 'widgetOperations', 'widgetTypes'));
+
     }
     public function edit(string $id) {
 
         $this->viewState->setContextKey('widget.edit_' . $id);
 
         $itemWidget = $this->widgetService->find($id);
+
         $sysModels = $this->sysModelService->all();
         $widgetOperations = $this->widgetOperationService->all();
         $widgetTypes = $this->widgetTypeService->all();
@@ -223,6 +238,5 @@ class BaseWidgetController extends AdminController
         ]);
     }
     
-
 
 }

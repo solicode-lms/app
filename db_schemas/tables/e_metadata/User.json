@@ -37,7 +37,8 @@
     },
     {
         "reference": "User_password_displayInTable",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "User_password",
         "e_metadata_definition_reference": "displayInTable"
     },
@@ -61,7 +62,8 @@
     },
     {
         "reference": "users_iconModel",
-        "value_string": "fa-user-circle1",
+        "value_string": "fa-user",
+        "value_float": 0,
         "e_model_reference": "users",
         "e_metadata_definition_reference": "iconModel"
     },
@@ -226,5 +228,64 @@
         "value_boolean": 1,
         "e_model_reference": "users",
         "e_metadata_definition_reference": "displayInSideBar"
+    },
+    {
+        "reference": "User_email_displayInTable",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "User_email",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "users_hasMany_profiles_user_id_editHasMany",
+        "value_boolean": 1,
+        "e_data_field_reference": "users_hasMany_profiles_user_id",
+        "e_metadata_definition_reference": "editHasMany"
+    },
+    {
+        "reference": "users_hasMany_profiles_user_id_displayOrder",
+        "value_integer": 12,
+        "e_data_field_reference": "users_hasMany_profiles_user_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "users_hasMany_profiles_user_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "users_hasMany_profiles_user_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "User_must_change_password_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "User_must_change_password",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "User_must_change_password_displayOrder",
+        "value_integer": 6,
+        "e_data_field_reference": "User_must_change_password",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "User_must_change_password_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "User_must_change_password",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "users_entityActions",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": [
+            {
+                "icon": "fa-unlock-alt",
+                "title": "Initialiser le mot de passe",
+                "methode": "initPassword",
+                "actionType": "confirm",
+                "successMessage": "Le mot de passe a été modifier avec succès"
+            }
+        ],
+        "e_model_reference": "users",
+        "e_metadata_definition_reference": "entityActions"
     }
 ]

@@ -56,6 +56,7 @@
                         />
                     </div>
                     <div class="col-sm-3">
+                        @can('create', $competence_instance)
                         <x-crud-actions
                             :createPermission="'create-competence'"
                             :createRoute="route('competences.create')"
@@ -68,6 +69,7 @@
                             :exportCsvRoute="route('competences.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
                         />
+                        @endcan
                     </div>
                 </div>
                 @show

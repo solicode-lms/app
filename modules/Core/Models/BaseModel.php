@@ -11,5 +11,6 @@ class BaseModel extends Model
     use HasReference;
     
     public bool $isOwnedByUser = false;
+    public string $ownerRelationPath = "";
 
 }

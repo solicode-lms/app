@@ -56,6 +56,7 @@
                         />
                     </div>
                     <div class="col-sm-3">
+                        @can('create', $filiere_instance)
                         <x-crud-actions
                             :createPermission="'create-filiere'"
                             :createRoute="route('filieres.create')"
@@ -68,6 +69,7 @@
                             :exportCsvRoute="route('filieres.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
                         />
+                        @endcan
                     </div>
                 </div>
                 @show

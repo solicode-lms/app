@@ -33,7 +33,7 @@
        $titre = __("PkgGapp::eDataField.singular");
     @endphp
     <x-crud-header 
-        id="eDataField-crud-header" icon="fas fa-table"  
+        id="eDataField-crud-header" icon="fas fa-th"  
         iconColor="text-info"
         title="{{ __('PkgGapp::eDataField.plural') }}"
         :breadcrumbs="[
@@ -56,6 +56,7 @@
                         />
                     </div>
                     <div class="col-sm-3">
+                        @can('create', $eDataField_instance)
                         <x-crud-actions
                             :createPermission="'create-eDataField'"
                             :createRoute="route('eDataFields.create')"
@@ -68,6 +69,7 @@
                             :exportCsvRoute="route('eDataFields.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
                         />
+                        @endcan
                     </div>
                 </div>
                 @show

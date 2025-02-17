@@ -26,6 +26,7 @@ class BaseEDataField extends BaseModel
     public function __construct(array $attributes = []) {
         parent::__construct($attributes); 
         $this->isOwnedByUser =  false;
+
     }
 
     
@@ -35,7 +36,7 @@ class BaseEDataField extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'order', 'name', 'column_name', 'data_type', 'field_order', 'db_nullable', 'db_primaryKey', 'db_unique', 'default_value', 'description', 'e_model_id', 'e_relationship_id'
+        'order', 'name', 'column_name', 'field_order', 'db_nullable', 'db_primaryKey', 'db_unique', 'default_value', 'description', 'e_model_id', 'e_relationship_id', 'data_type'
     ];
 
     /**

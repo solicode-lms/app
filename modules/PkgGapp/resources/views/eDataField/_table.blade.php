@@ -5,7 +5,7 @@
         <thead>
             <tr>
                  <th>
-                    Order
+                    Ordre
                 </th>
                 <x-sortable-column field="name" label="{{ ucfirst(__('PkgGapp::eDataField.name')) }}" />
                 <x-sortable-column field="data_type" label="{{ ucfirst(__('PkgGapp::eDataField.data_type')) }}" />
@@ -19,6 +19,7 @@
                     <td>@limit($eDataField->name, 80)</td>
                     <td>@limit($eDataField->data_type, 80)</td>
                     <td class="text-right">
+
                         @can('show-eDataField')
                             <a href="{{ route('eDataFields.show', ['eDataField' => $eDataField->id]) }}" data-id="{{$eDataField->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>

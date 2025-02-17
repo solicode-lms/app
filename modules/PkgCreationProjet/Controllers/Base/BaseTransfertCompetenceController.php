@@ -38,7 +38,7 @@ class BaseTransfertCompetenceController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('transfertCompetence.index');
-
+        $this->viewState->init('scope.transfertCompetence.formateur_id'  , $this->sessionState->get('formateur_id'));
 
         // Extraire les paramètres de recherche, page, et filtres
         $transfertCompetences_params = array_merge(
@@ -53,15 +53,16 @@ class BaseTransfertCompetenceController extends AdminController
         // Récupérer les statistiques et les champs filtrables
         $transfertCompetences_stats = $this->transfertCompetenceService->gettransfertCompetenceStats();
         $transfertCompetences_filters = $this->transfertCompetenceService->getFieldsFilterable();
-
+        $transfertCompetence_instance =  $this->transfertCompetenceService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgCreationProjet::transfertCompetence._table', compact('transfertCompetences_data', 'transfertCompetences_stats', 'transfertCompetences_filters'))->render();
+            return view('PkgCreationProjet::transfertCompetence._table', compact('transfertCompetences_data', 'transfertCompetences_stats', 'transfertCompetences_filters','transfertCompetence_instance'))->render();
         }
 
-        return view('PkgCreationProjet::transfertCompetence.index', compact('transfertCompetences_data', 'transfertCompetences_stats', 'transfertCompetences_filters'));
+        return view('PkgCreationProjet::transfertCompetence.index', compact('transfertCompetences_data', 'transfertCompetences_stats', 'transfertCompetences_filters','transfertCompetence_instance'));
     }
     public function create() {
+        $this->viewState->set('scope_form.transfertCompetence.formateur_id'  , $this->sessionState->get('formateur_id'));
         $itemTransfertCompetence = $this->transfertCompetenceService->createInstance();
         $technologies = $this->technologyService->all();
         $competences = $this->competenceService->all();
@@ -98,13 +99,31 @@ class BaseTransfertCompetenceController extends AdminController
         );
     }
     public function show(string $id) {
-        return $this->edit( $id);
+
+        $this->viewState->setContextKey('transfertCompetence.edit_' . $id);
+
+        $itemTransfertCompetence = $this->transfertCompetenceService->find($id);
+  
+        $technologies = $this->technologyService->all();
+        $competences = $this->competenceService->all();
+        $niveauDifficultes = $this->niveauDifficulteService->all();
+        $projets = $this->projetService->all();
+
+
+        if (request()->ajax()) {
+            return view('PkgCreationProjet::transfertCompetence._fields', compact('itemTransfertCompetence', 'technologies', 'competences', 'niveauDifficultes', 'projets'));
+        }
+
+        return view('PkgCreationProjet::transfertCompetence.edit', compact('itemTransfertCompetence', 'technologies', 'competences', 'niveauDifficultes', 'projets'));
+
     }
     public function edit(string $id) {
 
         $this->viewState->setContextKey('transfertCompetence.edit_' . $id);
 
         $itemTransfertCompetence = $this->transfertCompetenceService->find($id);
+        $this->authorize('edit', $itemTransfertCompetence);
+
         $technologies = $this->technologyService->all();
         $competences = $this->competenceService->all();
         $niveauDifficultes = $this->niveauDifficulteService->all();
@@ -119,6 +138,9 @@ class BaseTransfertCompetenceController extends AdminController
 
     }
     public function update(TransfertCompetenceRequest $request, string $id) {
+        // Vérifie si l'utilisateur peut mettre à jour l'objet 
+        $transfertCompetence = $this->transfertCompetenceService->find($id);
+        $this->authorize('update', $transfertCompetence);
 
         $validatedData = $request->validated();
         $transfertCompetence = $this->transfertCompetenceService->update($id, $validatedData);
@@ -144,6 +166,9 @@ class BaseTransfertCompetenceController extends AdminController
 
     }
     public function destroy(Request $request, string $id) {
+        // Vérifie si l'utilisateur peut mettre à jour l'objet 
+        $transfertCompetence = $this->transfertCompetenceService->find($id);
+        $this->authorize('delete', $transfertCompetence);
 
         $transfertCompetence = $this->transfertCompetenceService->destroy($id);
 
@@ -228,6 +253,5 @@ class BaseTransfertCompetenceController extends AdminController
         ]);
     }
     
-
 
 }

@@ -88,5 +88,11 @@
         "value_boolean": 1,
         "e_model_reference": "technology_transfert_competence",
         "e_metadata_definition_reference": "displayInSideBar"
+    },
+    {
+        "reference": "technology_transfert_competence_iconModel",
+        "value_string": "fa-table",
+        "e_model_reference": "technology_transfert_competence",
+        "e_metadata_definition_reference": "iconModel"
     }
 ]

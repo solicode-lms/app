@@ -4,21 +4,20 @@
     <table class="table table-striped text-nowrap">
         <thead>
             <tr>
+                <x-sortable-column field="transfert_competence_id" label="{{ ucfirst(__('PkgCreationProjet::transfertCompetence.singular')) }}" />
                 <x-sortable-column field="note" label="{{ ucfirst(__('PkgRealisationProjets::validation.note')) }}" />
                 <x-sortable-column field="message" label="{{ ucfirst(__('PkgRealisationProjets::validation.message')) }}" />
-                <x-sortable-column field="transfert_competence_id" label="{{ ucfirst(__('PkgCreationProjet::transfertCompetence.singular')) }}" />
-                <x-sortable-column field="realisation_projet_id" label="{{ ucfirst(__('PkgRealisationProjets::realisationProjet.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($validations_data as $validation)
                 <tr id="validation-row-{{$validation->id}}">
+                    <td>@limit($validation->transfertCompetence, 80)</td>
                     <td>@limit($validation->note, 80)</td>
-                    <td>@limit($validation->message, 80)</td>
-                    <td>@limit($validation->transfertCompetence->id ?? '-', 80)</td>
-                    <td>@limit($validation->realisationProjet->id ?? '-', 80)</td>
+                    <td>{!! \App\Helpers\TextHelper::formatHtmlWithLineBreaks($validation->message, 80) !!}</td>
                     <td class="text-right">
+
                         @can('show-validation')
                             <a href="{{ route('validations.show', ['validation' => $validation->id]) }}" data-id="{{$validation->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>

@@ -28,16 +28,16 @@ class BaseLivrableExport implements FromCollection, WithHeadings, ShouldAutoSize
     {
      if($this->format == 'csv'){
         return [
-            'titre' => 'titre',
             'nature_livrable_id' => 'nature_livrable_id',
+            'titre' => 'titre',
             'projet_id' => 'projet_id',
             'description' => 'description',
             'reference' => 'reference',
         ];
         }else{
         return [
-            'titre' => __('PkgCreationProjet::livrable.titre'),
             'nature_livrable_id' => __('PkgCreationProjet::livrable.nature_livrable_id'),
+            'titre' => __('PkgCreationProjet::livrable.titre'),
             'projet_id' => __('PkgCreationProjet::livrable.projet_id'),
             'description' => __('PkgCreationProjet::livrable.description'),
             'reference' => __('Core::msg.reference'),
@@ -51,8 +51,8 @@ class BaseLivrableExport implements FromCollection, WithHeadings, ShouldAutoSize
     {
         return $this->data->map(function ($livrable) {
             return [
-                'titre' => $livrable->titre,
                 'nature_livrable_id' => $livrable->nature_livrable_id,
+                'titre' => $livrable->titre,
                 'projet_id' => $livrable->projet_id,
                 'description' => $livrable->description,
                 'reference' => $livrable->reference,

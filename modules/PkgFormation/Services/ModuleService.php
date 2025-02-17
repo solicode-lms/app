@@ -19,4 +19,5 @@ class ModuleService extends BaseModuleService
       
         return $module;
     }
+   
 }

@@ -19,12 +19,12 @@ class BaseRealisationProjetService extends BaseService
      * @var array
      */
     protected $fieldsSearchable = [
+        'affectation_projet_id',
+        'apprenant_id',
+        'etats_realisation_projet_id',
         'date_debut',
         'date_fin',
-        'rapport',
-        'etats_realisation_projet_id',
-        'apprenant_id',
-        'affectation_projet_id'
+        'rapport'
     ];
 
     /**
@@ -43,14 +43,16 @@ class BaseRealisationProjetService extends BaseService
     public function __construct()
     {
         parent::__construct(new RealisationProjet());
+        $this->fieldsFilterable = [];
+    }
 
-        // Initialiser les filtres configurables dynamiquement
+    public function initFieldsFilterable(){
+       // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
-            $this->generateManyToOneFilter(__("PkgRealisationProjets::etatsRealisationProjet.plural"), 'etats_realisation_projet_id', \Modules\PkgRealisationProjets\Models\EtatsRealisationProjet::class, 'titre'),
-            $this->generateManyToOneFilter(__("PkgApprenants::apprenant.plural"), 'apprenant_id', \Modules\PkgApprenants\Models\Apprenant::class, 'nom'),
             $this->generateManyToOneFilter(__("PkgRealisationProjets::affectationProjet.plural"), 'affectation_projet_id', \Modules\PkgRealisationProjets\Models\AffectationProjet::class, 'id'),
+            $this->generateManyToOneFilter(__("PkgApprenants::apprenant.plural"), 'apprenant_id', \Modules\PkgApprenants\Models\Apprenant::class, 'nom'),
+            $this->generateManyToOneFilter(__("PkgRealisationProjets::etatsRealisationProjet.plural"), 'etats_realisation_projet_id', \Modules\PkgRealisationProjets\Models\EtatsRealisationProjet::class, 'titre'),
         ];
-
     }
 
     /**
@@ -74,9 +76,25 @@ class BaseRealisationProjetService extends BaseService
 
         $stats = $this->initStats();
 
+        // Ajouter les statistiques du propriétaire
+        $contexteState = $this->getContextState();
+        if ($contexteState !== null) {
+            $stats[] = $contexteState;
+        }
         
 
         return $stats;
     }
+
+    public function getContextState()
+    {
+        $value = $this->viewState->generateTitleFromVariables();
+        return [
+                "icon" => "fas fa-filter",
+                "label" => "Filtre",
+                "value" =>  $value
+        ];
+    }
+
 
 }

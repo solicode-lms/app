@@ -29,7 +29,7 @@ class BaseResourceController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('resource.index');
-
+        $this->viewState->init('filter.resource.formateur_id'  , $this->sessionState->get('formateur_id'));
 
         // Extraire les paramètres de recherche, page, et filtres
         $resources_params = array_merge(
@@ -44,15 +44,16 @@ class BaseResourceController extends AdminController
         // Récupérer les statistiques et les champs filtrables
         $resources_stats = $this->resourceService->getresourceStats();
         $resources_filters = $this->resourceService->getFieldsFilterable();
-
+        $resource_instance =  $this->resourceService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgCreationProjet::resource._table', compact('resources_data', 'resources_stats', 'resources_filters'))->render();
+            return view('PkgCreationProjet::resource._table', compact('resources_data', 'resources_stats', 'resources_filters','resource_instance'))->render();
         }
 
-        return view('PkgCreationProjet::resource.index', compact('resources_data', 'resources_stats', 'resources_filters'));
+        return view('PkgCreationProjet::resource.index', compact('resources_data', 'resources_stats', 'resources_filters','resource_instance'));
     }
     public function create() {
+        $this->viewState->set('scope_form.resource.formateur_id'  , $this->sessionState->get('formateur_id'));
         $itemResource = $this->resourceService->createInstance();
         $projets = $this->projetService->all();
 
@@ -86,13 +87,28 @@ class BaseResourceController extends AdminController
         );
     }
     public function show(string $id) {
-        return $this->edit( $id);
+
+        $this->viewState->setContextKey('resource.edit_' . $id);
+
+        $itemResource = $this->resourceService->find($id);
+  
+        $projets = $this->projetService->all();
+
+
+        if (request()->ajax()) {
+            return view('PkgCreationProjet::resource._fields', compact('itemResource', 'projets'));
+        }
+
+        return view('PkgCreationProjet::resource.edit', compact('itemResource', 'projets'));
+
     }
     public function edit(string $id) {
 
         $this->viewState->setContextKey('resource.edit_' . $id);
 
         $itemResource = $this->resourceService->find($id);
+        $this->authorize('edit', $itemResource);
+
         $projets = $this->projetService->all();
 
 
@@ -104,6 +120,9 @@ class BaseResourceController extends AdminController
 
     }
     public function update(ResourceRequest $request, string $id) {
+        // Vérifie si l'utilisateur peut mettre à jour l'objet 
+        $resource = $this->resourceService->find($id);
+        $this->authorize('update', $resource);
 
         $validatedData = $request->validated();
         $resource = $this->resourceService->update($id, $validatedData);
@@ -129,6 +148,9 @@ class BaseResourceController extends AdminController
 
     }
     public function destroy(Request $request, string $id) {
+        // Vérifie si l'utilisateur peut mettre à jour l'objet 
+        $resource = $this->resourceService->find($id);
+        $this->authorize('delete', $resource);
 
         $resource = $this->resourceService->destroy($id);
 
@@ -213,6 +235,5 @@ class BaseResourceController extends AdminController
         ]);
     }
     
-
 
 }

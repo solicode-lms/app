@@ -14,6 +14,7 @@ use Modules\Core\Models\BaseModel;
 use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgApprenants\Models\Apprenant;
 use Modules\PkgFormation\Models\Formateur;
+use Modules\PkgAutorisation\Models\Profile;
 
 /**
  * Classe BaseUser
@@ -26,6 +27,7 @@ class BaseUser extends BaseModel
     public function __construct(array $attributes = []) {
         parent::__construct($attributes); 
         $this->isOwnedByUser =  false;
+
     }
 
     
@@ -35,7 +37,7 @@ class BaseUser extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'email_verified_at', 'password', 'remember_token'
+        'name', 'email', 'email_verified_at', 'password', 'must_change_password', 'remember_token'
     ];
     public $manyToMany = [
         'Role' => ['relation' => 'roles' , "foreign_key" => "role_id" ]
@@ -73,6 +75,15 @@ class BaseUser extends BaseModel
     public function formateurs(): HasMany
     {
         return $this->hasMany(Formateur::class, 'user_id', 'id');
+    }
+    /**
+     * Relation HasMany pour Users.
+     *
+     * @return HasMany
+     */
+    public function profiles(): HasMany
+    {
+        return $this->hasMany(Profile::class, 'user_id', 'id');
     }
 
 

@@ -11,9 +11,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
+use Modules\PkgWidgets\Models\WidgetType;
 use Modules\Core\Models\SysModel;
 use Modules\PkgWidgets\Models\WidgetOperation;
-use Modules\PkgWidgets\Models\WidgetType;
 
 /**
  * Classe BaseWidget
@@ -26,6 +26,7 @@ class BaseWidget extends BaseModel
     public function __construct(array $attributes = []) {
         parent::__construct($attributes); 
         $this->isOwnedByUser =  false;
+
     }
 
     
@@ -39,11 +40,20 @@ class BaseWidget extends BaseModel
     ];
 
     /**
+     * Relation BelongsTo pour WidgetType.
+     *
+     * @return BelongsTo
+     */
+    public function type(): BelongsTo
+    {
+        return $this->belongsTo(WidgetType::class, 'type_id', 'id');
+    }
+    /**
      * Relation BelongsTo pour SysModel.
      *
      * @return BelongsTo
      */
-    public function sysModel(): BelongsTo
+    public function model(): BelongsTo
     {
         return $this->belongsTo(SysModel::class, 'model_id', 'id');
     }
@@ -52,18 +62,9 @@ class BaseWidget extends BaseModel
      *
      * @return BelongsTo
      */
-    public function widgetOperation(): BelongsTo
+    public function operation(): BelongsTo
     {
         return $this->belongsTo(WidgetOperation::class, 'operation_id', 'id');
-    }
-    /**
-     * Relation BelongsTo pour WidgetType.
-     *
-     * @return BelongsTo
-     */
-    public function widgetType(): BelongsTo
-    {
-        return $this->belongsTo(WidgetType::class, 'type_id', 'id');
     }
 
 

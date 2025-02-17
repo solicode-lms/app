@@ -70,6 +70,7 @@ class BaseUserSeeder extends Seeder
                     "email" => $row["email"] ?? null ,
                     "email_verified_at" => $row["email_verified_at"] ?? null ,
                     "password" => $row["password"] ?? null ,
+                    "must_change_password" => $row["must_change_password"] ?? null ,
                     "remember_token" => $row["remember_token"] ?? null 
                 ]);
             }

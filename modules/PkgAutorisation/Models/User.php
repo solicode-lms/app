@@ -1,16 +1,18 @@
 <?php
-
+// User extends Authenticatable
 namespace Modules\PkgAutorisation\Models;
 
 use App\Traits\HasReference;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Modules\PkgFormation\Models\Formateur;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Support\Str;
 use Modules\Core\Services\SessionState;
+use Modules\PkgApprenants\Models\Apprenant;
 
 class User extends Authenticatable
 {
@@ -58,10 +60,21 @@ class User extends Authenticatable
     }
 
     // Relation HasOne avec Formateur
-    public function formateur()
+    public function formateur(): HasOne
     {
         return $this->hasOne(Formateur::class);
     }
+
+    public function apprenant(): HasOne
+    {
+        return $this->hasOne(Apprenant::class);
+    }
+
+    public function profile(): HasOne
+    {
+        return $this->hasOne(Profile::class);
+    }
+
     
     /**
      * Gapp détecter la relation OneToOne comme ManyToOne
@@ -72,7 +85,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Formateur::class, 'user_id', 'id');
     }
-
+    public function apprenants(): HasMany
+    {
+        return $this->hasMany(Apprenant::class, 'user_id', 'id');
+    }
+    public function profiles(): HasMany
+    {
+        return $this->hasMany(Profile::class, 'user_id', 'id');
+    }
  
     public function getUsersContext()
     {
@@ -91,30 +111,21 @@ class User extends Authenticatable
         return $contextUsers;
     }
 
-    // public function getUsersSessionContext()
-    // {
-    //     $contextUsers = [];
-
-
-    //     $sessionState = app(SessionState::class);
-    //     $contextUsers['annee_formation_id'] = $sessionState->get("annee_formation_id");        
-    //     $formateur = $this->formateur;
-    
-    //     // il doit être ajouter seulement si la gestion de l'entity is OwnedByUser
-    //     // if ($formateur) {
-    //     //     $contextUsers['formateur_id'] = $formateur->id;
-    //     // }
-    
-    //     return $contextUsers;
-    // }
+   
     
 
-    // TODO : ajouter ce code dans Gapp, pour une relation ManyToManyPolymorphique
-    // Cette méthode est déja exist dans HasRoles
-    // Définir la relation avec les rôles via morphique
-    //    public function roles()
-    //    {
-    //        return $this->morphToMany(Role::class, 'model', 'model_has_roles', 'model_id', 'role_id');
-    //    }
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function ($user) {
+            $user->profile()->create(); // Crée un profil vide lors de la création de l'utilisateur
+        });
+    }
+
+    public function __toString()
+    {
+        return $this->email ?? "";
+    }
 
 }

@@ -55,14 +55,16 @@ class BaseApprenantService extends BaseService
     public function __construct()
     {
         parent::__construct(new Apprenant());
+        $this->fieldsFilterable = [];
+    }
 
-        // Initialiser les filtres configurables dynamiquement
+    public function initFieldsFilterable(){
+       // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
             $this->generateManyToOneFilter(__("PkgApprenants::niveauxScolaire.plural"), 'niveaux_scolaire_id', \Modules\PkgApprenants\Models\NiveauxScolaire::class, 'code'),
             $this->generateManyToOneFilter(__("PkgApprenants::nationalite.plural"), 'nationalite_id', \Modules\PkgApprenants\Models\Nationalite::class, 'code'),
             $this->generateManyToOneFilter(__("PkgAutorisation::user.plural"), 'user_id', \Modules\PkgAutorisation\Models\User::class, 'name'),
         ];
-
     }
 
     /**
@@ -91,4 +93,16 @@ class BaseApprenantService extends BaseService
         return $stats;
     }
 
+
+    public function initPassword(int $apprenantId)
+    {
+        $apprenant = $this->find($apprenantId);
+        if (!$apprenant) {
+            return false; 
+        }
+        $value =  $apprenant->save();
+        $this->pushServiceMessage("info","Traitement title", "message : résultat de traitement");
+        return $value;
+    }
+    
 }

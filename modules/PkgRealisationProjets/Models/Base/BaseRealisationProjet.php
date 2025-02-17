@@ -14,6 +14,7 @@ use Modules\Core\Models\BaseModel;
 use Modules\PkgRealisationProjets\Models\AffectationProjet;
 use Modules\PkgApprenants\Models\Apprenant;
 use Modules\PkgRealisationProjets\Models\EtatsRealisationProjet;
+use Modules\PkgRealisationProjets\Models\LivrablesRealisation;
 use Modules\PkgRealisationProjets\Models\Validation;
 
 /**
@@ -22,11 +23,13 @@ use Modules\PkgRealisationProjets\Models\Validation;
  */
 class BaseRealisationProjet extends BaseModel
 {
-    use HasFactory, HasDynamicContext;
+    use HasFactory, HasDynamicContext, OwnedByUser;
 
     public function __construct(array $attributes = []) {
         parent::__construct($attributes); 
-        $this->isOwnedByUser =  false;
+        $this->isOwnedByUser =  true;
+        $this->ownerRelationPath = "apprenant.user";
+        
     }
 
     
@@ -36,7 +39,7 @@ class BaseRealisationProjet extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'date_debut', 'date_fin', 'rapport', 'etats_realisation_projet_id', 'apprenant_id', 'affectation_projet_id'
+        'affectation_projet_id', 'apprenant_id', 'etats_realisation_projet_id', 'date_debut', 'date_fin', 'rapport'
     ];
 
     /**
@@ -68,6 +71,15 @@ class BaseRealisationProjet extends BaseModel
     }
 
 
+    /**
+     * Relation HasMany pour RealisationProjets.
+     *
+     * @return HasMany
+     */
+    public function livrablesRealisations(): HasMany
+    {
+        return $this->hasMany(LivrablesRealisation::class, 'realisation_projet_id', 'id');
+    }
     /**
      * Relation HasMany pour RealisationProjets.
      *

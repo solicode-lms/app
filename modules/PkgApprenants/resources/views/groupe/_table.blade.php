@@ -14,7 +14,7 @@
             @foreach ($groupes_data as $groupe)
                 <tr id="groupe-row-{{$groupe->id}}">
                     <td>@limit($groupe->code, 80)</td>
-                    <td>@limit($groupe->filiere->code ?? '-', 80)</td>
+                    <td>@limit($groupe->filiere, 80)</td>
                     <td>
                         <ul>
                             @foreach ($groupe->formateurs as $formateur)
@@ -23,6 +23,7 @@
                         </ul>
                     </td>
                     <td class="text-right">
+
                         @can('show-groupe')
                             <a href="{{ route('groupes.show', ['groupe' => $groupe->id]) }}" data-id="{{$groupe->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>

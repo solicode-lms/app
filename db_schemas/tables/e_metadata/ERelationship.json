@@ -316,5 +316,26 @@
         "value_boolean": 1,
         "e_model_reference": "e_relationships",
         "e_metadata_definition_reference": "displayInSideBar"
+    },
+    {
+        "reference": "e_relationships_iconModel",
+        "value_string": "fa-directions",
+        "value_float": 0,
+        "e_model_reference": "e_relationships",
+        "e_metadata_definition_reference": "iconModel"
+    },
+    {
+        "reference": "ERelationship_type_filterable",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "ERelationship_type",
+        "e_metadata_definition_reference": "filterable"
+    },
+    {
+        "reference": "ERelationship_type_displayInTable",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "ERelationship_type",
+        "e_metadata_definition_reference": "displayInTable"
     }
 ]

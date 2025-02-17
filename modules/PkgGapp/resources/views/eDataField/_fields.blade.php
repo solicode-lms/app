@@ -55,28 +55,6 @@
 
         
         <div class="form-group">
-            <label for="data_type">
-                {{ ucfirst(__('PkgGapp::eDataField.data_type')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
-                name="data_type"
-                type="input"
-                class="form-control"
-                required
-                
-                id="data_type"
-                placeholder="{{ __('PkgGapp::eDataField.data_type') }}"
-                value="{{ $itemEDataField ? $itemEDataField->data_type : old('data_type') }}">
-            @error('data_type')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
-
-        
-        <div class="form-group">
             <label for="field_order">
                 {{ ucfirst(__('PkgGapp::eDataField.field_order')) }}
                 
@@ -105,15 +83,16 @@
                     <span class="text-danger">*</span>
                 
             </label>
+            <input type="hidden" name="db_nullable" value="0">
             <input
                 name="db_nullable"
-                type="number"
+                type="checkbox"
                 class="form-control"
                 required
                 
                 id="db_nullable"
-                placeholder="{{ __('PkgGapp::eDataField.db_nullable') }}"
-                value="{{ $itemEDataField ? $itemEDataField->db_nullable : old('db_nullable') }}">
+                value="1"
+                {{ old('db_nullable', $itemEDataField ? $itemEDataField->db_nullable : 0) ? 'checked' : '' }}>
             @error('db_nullable')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -127,15 +106,16 @@
                     <span class="text-danger">*</span>
                 
             </label>
+            <input type="hidden" name="db_primaryKey" value="0">
             <input
                 name="db_primaryKey"
-                type="number"
+                type="checkbox"
                 class="form-control"
                 required
                 
                 id="db_primaryKey"
-                placeholder="{{ __('PkgGapp::eDataField.db_primaryKey') }}"
-                value="{{ $itemEDataField ? $itemEDataField->db_primaryKey : old('db_primaryKey') }}">
+                value="1"
+                {{ old('db_primaryKey', $itemEDataField ? $itemEDataField->db_primaryKey : 0) ? 'checked' : '' }}>
             @error('db_primaryKey')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -149,15 +129,16 @@
                     <span class="text-danger">*</span>
                 
             </label>
+            <input type="hidden" name="db_unique" value="0">
             <input
                 name="db_unique"
-                type="number"
+                type="checkbox"
                 class="form-control"
                 required
                 
                 id="db_unique"
-                placeholder="{{ __('PkgGapp::eDataField.db_unique') }}"
-                value="{{ $itemEDataField ? $itemEDataField->db_unique : old('db_unique') }}">
+                value="1"
+                {{ old('db_unique', $itemEDataField ? $itemEDataField->db_unique : 0) ? 'checked' : '' }}>
             @error('db_unique')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -258,6 +239,28 @@
             @enderror
     </div>
 
+
+        
+        <div class="form-group">
+            <label for="data_type">
+                {{ ucfirst(__('PkgGapp::eDataField.data_type')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <input
+                name="data_type"
+                type="input"
+                class="form-control"
+                required
+                
+                id="data_type"
+                placeholder="{{ __('PkgGapp::eDataField.data_type') }}"
+                value="{{ $itemEDataField ? $itemEDataField->data_type : old('data_type') }}">
+            @error('data_type')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
 
         
 

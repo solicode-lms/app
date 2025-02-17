@@ -12,6 +12,7 @@ use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
 use Modules\PkgCreationProjet\Models\Livrable;
+use Modules\PkgRealisationProjets\Models\RealisationProjet;
 
 /**
  * Classe BaseLivrablesRealisation
@@ -19,11 +20,13 @@ use Modules\PkgCreationProjet\Models\Livrable;
  */
 class BaseLivrablesRealisation extends BaseModel
 {
-    use HasFactory, HasDynamicContext;
+    use HasFactory, HasDynamicContext, OwnedByUser;
 
     public function __construct(array $attributes = []) {
         parent::__construct($attributes); 
-        $this->isOwnedByUser =  false;
+        $this->isOwnedByUser =  true;
+        $this->ownerRelationPath = "realisationProjet.apprenant.user";
+        
     }
 
     
@@ -33,7 +36,7 @@ class BaseLivrablesRealisation extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'titre', 'description', 'lien', 'livrable_id'
+        'livrable_id', 'lien', 'titre', 'description', 'realisation_projet_id'
     ];
 
     /**
@@ -44,6 +47,15 @@ class BaseLivrablesRealisation extends BaseModel
     public function livrable(): BelongsTo
     {
         return $this->belongsTo(Livrable::class, 'livrable_id', 'id');
+    }
+    /**
+     * Relation BelongsTo pour RealisationProjet.
+     *
+     * @return BelongsTo
+     */
+    public function realisationProjet(): BelongsTo
+    {
+        return $this->belongsTo(RealisationProjet::class, 'realisation_projet_id', 'id');
     }
 
 

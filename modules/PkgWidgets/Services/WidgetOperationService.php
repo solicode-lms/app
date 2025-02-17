@@ -19,4 +19,5 @@ class WidgetOperationService extends BaseWidgetOperationService
       
         return $widgetOperation;
     }
+   
 }

@@ -17,7 +17,7 @@
                 <tr id="module-row-{{$module->id}}">
                     <td>@limit($module->nom, 80)</td>
                     <td>@limit($module->masse_horaire, 80)</td>
-                    <td>@limit($module->filiere->code ?? '-', 80)</td>
+                    <td>@limit($module->filiere, 80)</td>
                     <td>
                         <ul>
                             @foreach ($module->competences as $competence)
@@ -26,6 +26,7 @@
                         </ul>
                     </td>
                     <td class="text-right">
+
                         @can('show-module')
                             <a href="{{ route('modules.show', ['module' => $module->id]) }}" data-id="{{$module->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>

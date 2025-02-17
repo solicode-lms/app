@@ -6,6 +6,7 @@ import { FilterUI } from "../components/FilterUI";
 import { PaginationUI } from '../components/PaginationUI';
 import { FormUI } from '../components/FormUI';
 import { ModalUI } from '../components/ModalUI';
+import { ShowAction } from './../actions/ShowAction';
 
 
 export class CrudModalManager {
@@ -37,6 +38,8 @@ export class CrudModalManager {
         if(this.config.isMany){
             this.adapterUiPour_isMany();         
         }
+
+        this.applyActionFromURL();
 
         this.config.debugInfo("Init : " + this.config);
     }
@@ -73,4 +76,28 @@ export class CrudModalManager {
     // Mettre à jour l'URL sans recharger la page
     window.history.replaceState({}, '', url);
 }
+
+    /**
+     * Exécute une action basée sur les paramètres de l'URL (edit, show).
+     */
+    applyActionFromURL() {
+        const url = new URL(window.location.href);
+        const actionName = url.searchParams.get("action");
+        const actionId = url.searchParams.get("id");
+
+        if (!actionName || !actionId) return; // Vérification : si action ou id est manquant, on arrête l'exécution
+
+        switch (actionName.toLowerCase()) {
+            case "edit":
+                this.tableUI.entityEditor.editEntity(actionId);
+                break;
+            case "show":
+                this.tableUI.entityEditor.showEntity(actionId); // Correction : appel correct de la méthode
+                break;
+            default:
+                console.warn(`Action inconnue : ${actionName}`);
+                break;
+        }
+    }
+
 }

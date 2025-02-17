@@ -11,8 +11,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
-use Modules\PkgFormation\Models\AnneeFormation;
 use Modules\PkgFormation\Models\Filiere;
+use Modules\PkgFormation\Models\AnneeFormation;
 use Modules\PkgApprenants\Models\Apprenant;
 use Modules\PkgFormation\Models\Formateur;
 use Modules\PkgRealisationProjets\Models\AffectationProjet;
@@ -28,6 +28,7 @@ class BaseGroupe extends BaseModel
     public function __construct(array $attributes = []) {
         parent::__construct($attributes); 
         $this->isOwnedByUser =  false;
+
     }
 
     
@@ -49,15 +50,6 @@ class BaseGroupe extends BaseModel
 
 
     /**
-     * Relation BelongsTo pour AnneeFormation.
-     *
-     * @return BelongsTo
-     */
-    public function anneeFormation(): BelongsTo
-    {
-        return $this->belongsTo(AnneeFormation::class, 'annee_formation_id', 'id');
-    }
-    /**
      * Relation BelongsTo pour Filiere.
      *
      * @return BelongsTo
@@ -65,6 +57,15 @@ class BaseGroupe extends BaseModel
     public function filiere(): BelongsTo
     {
         return $this->belongsTo(Filiere::class, 'filiere_id', 'id');
+    }
+    /**
+     * Relation BelongsTo pour AnneeFormation.
+     *
+     * @return BelongsTo
+     */
+    public function anneeFormation(): BelongsTo
+    {
+        return $this->belongsTo(AnneeFormation::class, 'annee_formation_id', 'id');
     }
 
     /**

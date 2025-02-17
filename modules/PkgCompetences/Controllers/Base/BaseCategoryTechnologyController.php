@@ -28,7 +28,6 @@ class BaseCategoryTechnologyController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('categoryTechnology.index');
 
-
         // Extraire les paramètres de recherche, page, et filtres
         $categoryTechnologies_params = array_merge(
             $request->only(['page','sort']),
@@ -42,13 +41,13 @@ class BaseCategoryTechnologyController extends AdminController
         // Récupérer les statistiques et les champs filtrables
         $categoryTechnologies_stats = $this->categoryTechnologyService->getcategoryTechnologyStats();
         $categoryTechnologies_filters = $this->categoryTechnologyService->getFieldsFilterable();
-
+        $categoryTechnology_instance =  $this->categoryTechnologyService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgCompetences::categoryTechnology._table', compact('categoryTechnologies_data', 'categoryTechnologies_stats', 'categoryTechnologies_filters'))->render();
+            return view('PkgCompetences::categoryTechnology._table', compact('categoryTechnologies_data', 'categoryTechnologies_stats', 'categoryTechnologies_filters','categoryTechnology_instance'))->render();
         }
 
-        return view('PkgCompetences::categoryTechnology.index', compact('categoryTechnologies_data', 'categoryTechnologies_stats', 'categoryTechnologies_filters'));
+        return view('PkgCompetences::categoryTechnology.index', compact('categoryTechnologies_data', 'categoryTechnologies_stats', 'categoryTechnologies_filters','categoryTechnology_instance'));
     }
     public function create() {
         $itemCategoryTechnology = $this->categoryTechnologyService->createInstance();
@@ -83,7 +82,25 @@ class BaseCategoryTechnologyController extends AdminController
         );
     }
     public function show(string $id) {
-        return $this->edit( $id);
+
+        $this->viewState->setContextKey('categoryTechnology.edit_' . $id);
+
+        $itemCategoryTechnology = $this->categoryTechnologyService->find($id);
+  
+
+        $this->viewState->set('scope.technology.category_technology_id', $id);
+        $technologyService =  new TechnologyService();
+        $technologies_data =  $itemCategoryTechnology->technologies()->paginate(10);
+        $technologies_stats = $technologyService->gettechnologyStats();
+        $technologies_filters = $technologyService->getFieldsFilterable();
+        $technology_instance =  $technologyService->createInstance();
+
+        if (request()->ajax()) {
+            return view('PkgCompetences::categoryTechnology._edit', compact('itemCategoryTechnology', 'technologies_data', 'technologies_stats', 'technologies_filters', 'technology_instance'));
+        }
+
+        return view('PkgCompetences::categoryTechnology.edit', compact('itemCategoryTechnology', 'technologies_data', 'technologies_stats', 'technologies_filters', 'technology_instance'));
+
     }
     public function edit(string $id) {
 
@@ -91,18 +108,19 @@ class BaseCategoryTechnologyController extends AdminController
 
         $itemCategoryTechnology = $this->categoryTechnologyService->find($id);
 
+
         $this->viewState->set('scope.technology.category_technology_id', $id);
         $technologyService =  new TechnologyService();
         $technologies_data =  $itemCategoryTechnology->technologies()->paginate(10);
         $technologies_stats = $technologyService->gettechnologyStats();
         $technologies_filters = $technologyService->getFieldsFilterable();
-        
+        $technology_instance =  $technologyService->createInstance();
 
         if (request()->ajax()) {
-            return view('PkgCompetences::categoryTechnology._edit', compact('itemCategoryTechnology', 'technologies_data', 'technologies_stats', 'technologies_filters'));
+            return view('PkgCompetences::categoryTechnology._edit', compact('itemCategoryTechnology', 'technologies_data', 'technologies_stats', 'technologies_filters', 'technology_instance'));
         }
 
-        return view('PkgCompetences::categoryTechnology.edit', compact('itemCategoryTechnology', 'technologies_data', 'technologies_stats', 'technologies_filters'));
+        return view('PkgCompetences::categoryTechnology.edit', compact('itemCategoryTechnology', 'technologies_data', 'technologies_stats', 'technologies_filters', 'technology_instance'));
 
     }
     public function update(CategoryTechnologyRequest $request, string $id) {
@@ -215,6 +233,5 @@ class BaseCategoryTechnologyController extends AdminController
         ]);
     }
     
-
 
 }

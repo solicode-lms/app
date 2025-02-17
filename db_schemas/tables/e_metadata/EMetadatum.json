@@ -328,5 +328,12 @@
         "value_float": 0,
         "e_data_field_reference": "EMetadatum_e_metadata_definition_id",
         "e_metadata_definition_reference": "dataCalcul"
+    },
+    {
+        "reference": "e_metadata_iconModel",
+        "value_string": "fa-th-list",
+        "value_float": 0,
+        "e_model_reference": "e_metadata",
+        "e_metadata_definition_reference": "iconModel"
     }
 ]

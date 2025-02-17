@@ -23,10 +23,10 @@ class DefaultApprenantPermission extends Seeder
 
         // Tableau de configuration : modèle et type d'accès
         $permissionsMap = [
+            'profile' => 'EditeurSansCreate',
             'competence' => 'Lecteur',
             'module' => 'LecteurMany',
             'technology' => 'LecteurMany',
-            'affectationProjet' => 'Lecteur',
             'livrable' => 'LecteurMany',
             'resource' => 'LecteurMany',
             'transfertCompetence' => 'transfertCompetence',

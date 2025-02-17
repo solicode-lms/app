@@ -25,6 +25,10 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="col-sm-12">
+                                <label for="transfert_competence_id">{{ ucfirst(__('PkgRealisationProjets::validation.transfert_competence_id')) }}:</label>
+                                <p>{{ $itemValidation->transfert_competence_id }}</p>
+                            </div>
+                            <div class="col-sm-12">
                                 <label for="note">{{ ucfirst(__('PkgRealisationProjets::validation.note')) }}:</label>
                                 <p>{{ $itemValidation->note }}</p>
                             </div>
@@ -35,10 +39,6 @@
                             <div class="col-sm-12">
                                 <label for="is_valide">{{ ucfirst(__('PkgRealisationProjets::validation.is_valide')) }}:</label>
                                 <p>{{ $itemValidation->is_valide }}</p>
-                            </div>
-                            <div class="col-sm-12">
-                                <label for="transfert_competence_id">{{ ucfirst(__('PkgRealisationProjets::validation.transfert_competence_id')) }}:</label>
-                                <p>{{ $itemValidation->transfert_competence_id }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="realisation_projet_id">{{ ucfirst(__('PkgRealisationProjets::validation.realisation_projet_id')) }}:</label>

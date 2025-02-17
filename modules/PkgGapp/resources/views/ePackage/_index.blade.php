@@ -33,7 +33,7 @@
        $titre = __("PkgGapp::ePackage.singular");
     @endphp
     <x-crud-header 
-        id="ePackage-crud-header" icon="fas fa-table"  
+        id="ePackage-crud-header" icon="fas fa-box"  
         iconColor="text-info"
         title="{{ __('PkgGapp::ePackage.plural') }}"
         :breadcrumbs="[
@@ -56,6 +56,7 @@
                         />
                     </div>
                     <div class="col-sm-3">
+                        @can('create', $ePackage_instance)
                         <x-crud-actions
                             :createPermission="'create-ePackage'"
                             :createRoute="route('ePackages.create')"
@@ -68,6 +69,7 @@
                             :exportCsvRoute="route('ePackages.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
                         />
+                        @endcan
                     </div>
                 </div>
                 @show

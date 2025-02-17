@@ -56,6 +56,7 @@
                         />
                     </div>
                     <div class="col-sm-3">
+                        @can('create', $natureLivrable_instance)
                         <x-crud-actions
                             :createPermission="'create-natureLivrable'"
                             :createRoute="route('natureLivrables.create')"
@@ -68,6 +69,7 @@
                             :exportCsvRoute="route('natureLivrables.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
                         />
+                        @endcan
                     </div>
                 </div>
                 @show

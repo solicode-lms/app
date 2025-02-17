@@ -39,11 +39,13 @@ class BaseWidgetOperationService extends BaseService
     public function __construct()
     {
         parent::__construct(new WidgetOperation());
+        $this->fieldsFilterable = [];
+    }
 
-        // Initialiser les filtres configurables dynamiquement
+    public function initFieldsFilterable(){
+       // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
         ];
-
     }
 
     /**
@@ -71,5 +73,7 @@ class BaseWidgetOperationService extends BaseService
 
         return $stats;
     }
+
+
 
 }

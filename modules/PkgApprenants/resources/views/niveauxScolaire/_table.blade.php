@@ -13,6 +13,7 @@
                 <tr id="niveauxScolaire-row-{{$niveauxScolaire->id}}">
                     <td>@limit($niveauxScolaire->code, 80)</td>
                     <td class="text-right">
+
                         @can('show-niveauxScolaire')
                             <a href="{{ route('niveauxScolaires.show', ['niveauxScolaire' => $niveauxScolaire->id]) }}" data-id="{{$niveauxScolaire->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>

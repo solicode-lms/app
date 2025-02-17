@@ -22,6 +22,7 @@
                 type="input"
                 class="form-control"
                 required
+                
                 id="name"
                 placeholder="{{ __('PkgAutorisation::user.name') }}"
                 value="{{ $itemUser ? $itemUser->name : old('name') }}">
@@ -43,6 +44,7 @@
                 type="input"
                 class="form-control"
                 required
+                
                 id="email"
                 placeholder="{{ __('PkgAutorisation::user.email') }}"
                 value="{{ $itemUser ? $itemUser->email : old('email') }}">
@@ -61,6 +63,7 @@
                 name="email_verified_at"
                 type="date"
                 class="form-control datetimepicker"
+                
                 
                 id="email_verified_at"
                 placeholder="{{ __('PkgAutorisation::user.email_verified_at') }}"
@@ -87,10 +90,34 @@
                 type="input"
                 class="form-control"
                 required
+                
                 id="password"
                 placeholder="{{ __('PkgAutorisation::user.password') }}"
                 value="{{ $itemUser ? $itemUser->password : old('password') }}">
             @error('password')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
+
+        
+        <div class="form-group">
+            <label for="must_change_password">
+                {{ ucfirst(__('PkgAutorisation::user.must_change_password')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <input type="hidden" name="must_change_password" value="0">
+            <input
+                name="must_change_password"
+                type="checkbox"
+                class="form-control"
+                required
+                
+                id="must_change_password"
+                value="1"
+                {{ old('must_change_password', $itemUser ? $itemUser->must_change_password : 0) ? 'checked' : '' }}>
+            @error('must_change_password')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
@@ -105,6 +132,7 @@
                 name="remember_token"
                 type="input"
                 class="form-control"
+                
                 
                 id="remember_token"
                 placeholder="{{ __('PkgAutorisation::user.remember_token') }}"
@@ -122,6 +150,36 @@
 
         <!--   Formateur HasMany --> 
 
+        
+
+        <!--   Profile HasMany --> 
+
+        
+                <div class="form-group">
+            <label for="roles">
+                {{ ucfirst(__('PkgAutorisation::Role.plural')) }}
+            </label>
+            <select
+                id="roles"
+                name="roles[]"
+                class="form-control select2"
+                
+                multiple="multiple">
+               
+                @foreach ($roles as $role)
+                    <option value="{{ $role->id }}"
+                        {{ (isset($itemUser) && $itemUser->roles && $itemUser->roles->contains('id', $role->id)) || (is_array(old('roles')) && in_array($role->id, old('roles'))) ? 'selected' : '' }}>
+                        {{ $role }}
+                    </option>
+                @endforeach
+            </select>
+            @error('roles')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+
+        </div>
+
+
     </div>
 
     <div class="card-footer">
@@ -135,4 +193,9 @@
 <script>
 
 </script>
-
+<script>
+     window.modalTitle = '{{__("PkgAutorisation::user.singular") }} : {{$itemUser}}'
+     window.contextState = @json($contextState);
+     window.sessionState = @json($sessionState);
+     window.viewState = @json($viewState);
+</script>

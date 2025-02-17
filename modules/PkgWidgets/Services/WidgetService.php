@@ -130,8 +130,8 @@ class WidgetService extends BaseService
     public function executeWidget($widget)
     {
         $query = [
-            'model' => $widget->sysModel->model,
-            'operation' => $widget->widgetOperation->operation,
+            'model' => $widget->model->model,
+            'operation' => $widget->operation->operation,
             'conditions' => json_decode($widget->parameters, true) ?? [],
         ];
 

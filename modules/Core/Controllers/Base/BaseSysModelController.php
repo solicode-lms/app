@@ -34,7 +34,6 @@ class BaseSysModelController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('sysModel.index');
 
-
         // Extraire les paramètres de recherche, page, et filtres
         $sysModels_params = array_merge(
             $request->only(['page','sort']),
@@ -48,13 +47,13 @@ class BaseSysModelController extends AdminController
         // Récupérer les statistiques et les champs filtrables
         $sysModels_stats = $this->sysModelService->getsysModelStats();
         $sysModels_filters = $this->sysModelService->getFieldsFilterable();
-
+        $sysModel_instance =  $this->sysModelService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('Core::sysModel._table', compact('sysModels_data', 'sysModels_stats', 'sysModels_filters'))->render();
+            return view('Core::sysModel._table', compact('sysModels_data', 'sysModels_stats', 'sysModels_filters','sysModel_instance'))->render();
         }
 
-        return view('Core::sysModel.index', compact('sysModels_data', 'sysModels_stats', 'sysModels_filters'));
+        return view('Core::sysModel.index', compact('sysModels_data', 'sysModels_stats', 'sysModels_filters','sysModel_instance'));
     }
     public function create() {
         $itemSysModel = $this->sysModelService->createInstance();
@@ -91,13 +90,11 @@ class BaseSysModelController extends AdminController
         );
     }
     public function show(string $id) {
-        return $this->edit( $id);
-    }
-    public function edit(string $id) {
 
         $this->viewState->setContextKey('sysModel.edit_' . $id);
 
         $itemSysModel = $this->sysModelService->find($id);
+  
         $sysColors = $this->sysColorService->all();
         $sysModules = $this->sysModuleService->all();
 
@@ -106,13 +103,36 @@ class BaseSysModelController extends AdminController
         $widgets_data =  $itemSysModel->widgets()->paginate(10);
         $widgets_stats = $widgetService->getwidgetStats();
         $widgets_filters = $widgetService->getFieldsFilterable();
-        
+        $widget_instance =  $widgetService->createInstance();
 
         if (request()->ajax()) {
-            return view('Core::sysModel._edit', compact('itemSysModel', 'sysColors', 'sysModules', 'widgets_data', 'widgets_stats', 'widgets_filters'));
+            return view('Core::sysModel._edit', compact('itemSysModel', 'sysColors', 'sysModules', 'widgets_data', 'widgets_stats', 'widgets_filters', 'widget_instance'));
         }
 
-        return view('Core::sysModel.edit', compact('itemSysModel', 'sysColors', 'sysModules', 'widgets_data', 'widgets_stats', 'widgets_filters'));
+        return view('Core::sysModel.edit', compact('itemSysModel', 'sysColors', 'sysModules', 'widgets_data', 'widgets_stats', 'widgets_filters', 'widget_instance'));
+
+    }
+    public function edit(string $id) {
+
+        $this->viewState->setContextKey('sysModel.edit_' . $id);
+
+        $itemSysModel = $this->sysModelService->find($id);
+
+        $sysColors = $this->sysColorService->all();
+        $sysModules = $this->sysModuleService->all();
+
+        $this->viewState->set('scope.widget.model_id', $id);
+        $widgetService =  new WidgetService();
+        $widgets_data =  $itemSysModel->widgets()->paginate(10);
+        $widgets_stats = $widgetService->getwidgetStats();
+        $widgets_filters = $widgetService->getFieldsFilterable();
+        $widget_instance =  $widgetService->createInstance();
+
+        if (request()->ajax()) {
+            return view('Core::sysModel._edit', compact('itemSysModel', 'sysColors', 'sysModules', 'widgets_data', 'widgets_stats', 'widgets_filters', 'widget_instance'));
+        }
+
+        return view('Core::sysModel.edit', compact('itemSysModel', 'sysColors', 'sysModules', 'widgets_data', 'widgets_stats', 'widgets_filters', 'widget_instance'));
 
     }
     public function update(SysModelRequest $request, string $id) {
@@ -225,6 +245,5 @@ class BaseSysModelController extends AdminController
         ]);
     }
     
-
 
 }

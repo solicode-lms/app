@@ -67,10 +67,11 @@ class BaseLivrablesRealisationSeeder extends Seeder
             
             if ($row) {
                 $livrablesRealisationService->create([
+                    "livrable_id" => $row["livrable_id"] ?? null ,
+                    "lien" => $row["lien"] ?? null ,
                     "titre" => $row["titre"] ?? null ,
                     "description" => $row["description"] ?? null ,
-                    "lien" => $row["lien"] ?? null ,
-                    "livrable_id" => $row["livrable_id"] ?? null 
+                    "realisation_projet_id" => $row["realisation_projet_id"] ?? null 
                 ]);
             }
         }

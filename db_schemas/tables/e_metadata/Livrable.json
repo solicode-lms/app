@@ -93,7 +93,9 @@
     },
     {
         "reference": "Livrable_nature_livrable_id_displayOrder",
-        "value_integer": 3,
+        "value_boolean": 0,
+        "value_integer": 1,
+        "value_float": 0,
         "e_data_field_reference": "Livrable_nature_livrable_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -200,5 +202,17 @@
         "value_float": 0,
         "e_model_reference": "livrables",
         "e_metadata_definition_reference": "displayInSideBar"
+    },
+    {
+        "reference": "livrables_ownedByUser",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "dataScope": "filter",
+            "userModelName": "Formateur",
+            "ownerRelationPath": "projet.formateur.user"
+        },
+        "e_model_reference": "livrables",
+        "e_metadata_definition_reference": "ownedByUser"
     }
 ]

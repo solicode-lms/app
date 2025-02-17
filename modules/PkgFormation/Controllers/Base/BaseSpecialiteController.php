@@ -30,7 +30,6 @@ class BaseSpecialiteController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('specialite.index');
 
-
         // Extraire les paramètres de recherche, page, et filtres
         $specialites_params = array_merge(
             $request->only(['page','sort']),
@@ -44,13 +43,13 @@ class BaseSpecialiteController extends AdminController
         // Récupérer les statistiques et les champs filtrables
         $specialites_stats = $this->specialiteService->getspecialiteStats();
         $specialites_filters = $this->specialiteService->getFieldsFilterable();
-
+        $specialite_instance =  $this->specialiteService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgFormation::specialite._table', compact('specialites_data', 'specialites_stats', 'specialites_filters'))->render();
+            return view('PkgFormation::specialite._table', compact('specialites_data', 'specialites_stats', 'specialites_filters','specialite_instance'))->render();
         }
 
-        return view('PkgFormation::specialite.index', compact('specialites_data', 'specialites_stats', 'specialites_filters'));
+        return view('PkgFormation::specialite.index', compact('specialites_data', 'specialites_stats', 'specialites_filters','specialite_instance'));
     }
     public function create() {
         $itemSpecialite = $this->specialiteService->createInstance();
@@ -86,13 +85,27 @@ class BaseSpecialiteController extends AdminController
         );
     }
     public function show(string $id) {
-        return $this->edit( $id);
+
+        $this->viewState->setContextKey('specialite.edit_' . $id);
+
+        $itemSpecialite = $this->specialiteService->find($id);
+  
+        $formateurs = $this->formateurService->all();
+
+
+        if (request()->ajax()) {
+            return view('PkgFormation::specialite._fields', compact('itemSpecialite', 'formateurs'));
+        }
+
+        return view('PkgFormation::specialite.edit', compact('itemSpecialite', 'formateurs'));
+
     }
     public function edit(string $id) {
 
         $this->viewState->setContextKey('specialite.edit_' . $id);
 
         $itemSpecialite = $this->specialiteService->find($id);
+
         $formateurs = $this->formateurService->all();
 
 
@@ -213,6 +226,5 @@ class BaseSpecialiteController extends AdminController
         ]);
     }
     
-
 
 }

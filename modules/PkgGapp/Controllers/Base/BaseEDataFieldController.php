@@ -34,7 +34,6 @@ class BaseEDataFieldController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('eDataField.index');
 
-
         // Extraire les paramètres de recherche, page, et filtres
         $eDataFields_params = array_merge(
             $request->only(['page','sort']),
@@ -48,13 +47,13 @@ class BaseEDataFieldController extends AdminController
         // Récupérer les statistiques et les champs filtrables
         $eDataFields_stats = $this->eDataFieldService->geteDataFieldStats();
         $eDataFields_filters = $this->eDataFieldService->getFieldsFilterable();
-
+        $eDataField_instance =  $this->eDataFieldService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgGapp::eDataField._table', compact('eDataFields_data', 'eDataFields_stats', 'eDataFields_filters'))->render();
+            return view('PkgGapp::eDataField._table', compact('eDataFields_data', 'eDataFields_stats', 'eDataFields_filters','eDataField_instance'))->render();
         }
 
-        return view('PkgGapp::eDataField.index', compact('eDataFields_data', 'eDataFields_stats', 'eDataFields_filters'));
+        return view('PkgGapp::eDataField.index', compact('eDataFields_data', 'eDataFields_stats', 'eDataFields_filters','eDataField_instance'));
     }
     public function create() {
         $itemEDataField = $this->eDataFieldService->createInstance();
@@ -91,13 +90,11 @@ class BaseEDataFieldController extends AdminController
         );
     }
     public function show(string $id) {
-        return $this->edit( $id);
-    }
-    public function edit(string $id) {
 
         $this->viewState->setContextKey('eDataField.edit_' . $id);
 
         $itemEDataField = $this->eDataFieldService->find($id);
+  
         $eModels = $this->eModelService->all();
         $eRelationships = $this->eRelationshipService->all();
 
@@ -106,13 +103,36 @@ class BaseEDataFieldController extends AdminController
         $eMetadata_data =  $itemEDataField->eMetadata()->paginate(10);
         $eMetadata_stats = $eMetadatumService->geteMetadatumStats();
         $eMetadata_filters = $eMetadatumService->getFieldsFilterable();
-        
+        $eMetadatum_instance =  $eMetadatumService->createInstance();
 
         if (request()->ajax()) {
-            return view('PkgGapp::eDataField._edit', compact('itemEDataField', 'eModels', 'eRelationships', 'eMetadata_data', 'eMetadata_stats', 'eMetadata_filters'));
+            return view('PkgGapp::eDataField._edit', compact('itemEDataField', 'eModels', 'eRelationships', 'eMetadata_data', 'eMetadata_stats', 'eMetadata_filters', 'eMetadatum_instance'));
         }
 
-        return view('PkgGapp::eDataField.edit', compact('itemEDataField', 'eModels', 'eRelationships', 'eMetadata_data', 'eMetadata_stats', 'eMetadata_filters'));
+        return view('PkgGapp::eDataField.edit', compact('itemEDataField', 'eModels', 'eRelationships', 'eMetadata_data', 'eMetadata_stats', 'eMetadata_filters', 'eMetadatum_instance'));
+
+    }
+    public function edit(string $id) {
+
+        $this->viewState->setContextKey('eDataField.edit_' . $id);
+
+        $itemEDataField = $this->eDataFieldService->find($id);
+
+        $eModels = $this->eModelService->all();
+        $eRelationships = $this->eRelationshipService->all();
+
+        $this->viewState->set('scope.eMetadatum.e_data_field_id', $id);
+        $eMetadatumService =  new EMetadatumService();
+        $eMetadata_data =  $itemEDataField->eMetadata()->paginate(10);
+        $eMetadata_stats = $eMetadatumService->geteMetadatumStats();
+        $eMetadata_filters = $eMetadatumService->getFieldsFilterable();
+        $eMetadatum_instance =  $eMetadatumService->createInstance();
+
+        if (request()->ajax()) {
+            return view('PkgGapp::eDataField._edit', compact('itemEDataField', 'eModels', 'eRelationships', 'eMetadata_data', 'eMetadata_stats', 'eMetadata_filters', 'eMetadatum_instance'));
+        }
+
+        return view('PkgGapp::eDataField.edit', compact('itemEDataField', 'eModels', 'eRelationships', 'eMetadata_data', 'eMetadata_stats', 'eMetadata_filters', 'eMetadatum_instance'));
 
     }
     public function update(EDataFieldRequest $request, string $id) {
@@ -225,6 +245,5 @@ class BaseEDataFieldController extends AdminController
         ]);
     }
     
-
 
 }

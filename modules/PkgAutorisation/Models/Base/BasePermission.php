@@ -26,6 +26,7 @@ class BasePermission extends BaseModel
     public function __construct(array $attributes = []) {
         parent::__construct($attributes); 
         $this->isOwnedByUser =  false;
+
     }
 
     
@@ -51,7 +52,7 @@ class BasePermission extends BaseModel
      *
      * @return BelongsTo
      */
-    public function sysController(): BelongsTo
+    public function controller(): BelongsTo
     {
         return $this->belongsTo(SysController::class, 'controller_id', 'id');
     }

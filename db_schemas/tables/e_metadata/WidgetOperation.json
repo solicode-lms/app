@@ -118,5 +118,11 @@
         "value_boolean": 1,
         "e_model_reference": "widget_operations",
         "e_metadata_definition_reference": "displayInSideBar"
+    },
+    {
+        "reference": "widget_operations_iconModel",
+        "value_string": "fa-table",
+        "e_model_reference": "widget_operations",
+        "e_metadata_definition_reference": "iconModel"
     }
 ]

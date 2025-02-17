@@ -25,6 +25,10 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="col-sm-12">
+                                <label for="projet_id">{{ ucfirst(__('PkgRealisationProjets::affectationProjet.projet_id')) }}:</label>
+                                <p>{{ $itemAffectationProjet->projet_id }}</p>
+                            </div>
+                            <div class="col-sm-12">
                                 <label for="groupe_id">{{ ucfirst(__('PkgRealisationProjets::affectationProjet.groupe_id')) }}:</label>
                                 <p>{{ $itemAffectationProjet->groupe_id }}</p>
                             </div>
@@ -35,10 +39,6 @@
                             <div class="col-sm-12">
                                 <label for="date_fin">{{ ucfirst(__('PkgRealisationProjets::affectationProjet.date_fin')) }}:</label>
                                 <p>{{ $itemAffectationProjet->date_fin }}</p>
-                            </div>
-                            <div class="col-sm-12">
-                                <label for="projet_id">{{ ucfirst(__('PkgRealisationProjets::affectationProjet.projet_id')) }}:</label>
-                                <p>{{ $itemAffectationProjet->projet_id }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="description">{{ ucfirst(__('PkgRealisationProjets::affectationProjet.description')) }}:</label>

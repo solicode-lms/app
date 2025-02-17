@@ -32,7 +32,6 @@ class BaseEModelController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('eModel.index');
 
-
         // Extraire les paramètres de recherche, page, et filtres
         $eModels_params = array_merge(
             $request->only(['page','sort']),
@@ -46,13 +45,13 @@ class BaseEModelController extends AdminController
         // Récupérer les statistiques et les champs filtrables
         $eModels_stats = $this->eModelService->geteModelStats();
         $eModels_filters = $this->eModelService->getFieldsFilterable();
-
+        $eModel_instance =  $this->eModelService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgGapp::eModel._table', compact('eModels_data', 'eModels_stats', 'eModels_filters'))->render();
+            return view('PkgGapp::eModel._table', compact('eModels_data', 'eModels_stats', 'eModels_filters','eModel_instance'))->render();
         }
 
-        return view('PkgGapp::eModel.index', compact('eModels_data', 'eModels_stats', 'eModels_filters'));
+        return view('PkgGapp::eModel.index', compact('eModels_data', 'eModels_stats', 'eModels_filters','eModel_instance'));
     }
     public function create() {
         $itemEModel = $this->eModelService->createInstance();
@@ -88,13 +87,11 @@ class BaseEModelController extends AdminController
         );
     }
     public function show(string $id) {
-        return $this->edit( $id);
-    }
-    public function edit(string $id) {
 
         $this->viewState->setContextKey('eModel.edit_' . $id);
 
         $itemEModel = $this->eModelService->find($id);
+  
         $ePackages = $this->ePackageService->all();
 
         $this->viewState->set('scope.eDataField.e_model_id', $id);
@@ -102,19 +99,47 @@ class BaseEModelController extends AdminController
         $eDataFields_data =  $itemEModel->eDataFields()->paginate(10);
         $eDataFields_stats = $eDataFieldService->geteDataFieldStats();
         $eDataFields_filters = $eDataFieldService->getFieldsFilterable();
-        
+        $eDataField_instance =  $eDataFieldService->createInstance();
         $this->viewState->set('scope.eMetadatum.e_model_id', $id);
         $eMetadatumService =  new EMetadatumService();
         $eMetadata_data =  $itemEModel->eMetadata()->paginate(10);
         $eMetadata_stats = $eMetadatumService->geteMetadatumStats();
         $eMetadata_filters = $eMetadatumService->getFieldsFilterable();
-        
+        $eMetadatum_instance =  $eMetadatumService->createInstance();
 
         if (request()->ajax()) {
-            return view('PkgGapp::eModel._edit', compact('itemEModel', 'ePackages', 'eDataFields_data', 'eMetadata_data', 'eDataFields_stats', 'eMetadata_stats', 'eDataFields_filters', 'eMetadata_filters'));
+            return view('PkgGapp::eModel._edit', compact('itemEModel', 'ePackages', 'eDataFields_data', 'eMetadata_data', 'eDataFields_stats', 'eMetadata_stats', 'eDataFields_filters', 'eMetadata_filters', 'eDataField_instance', 'eMetadatum_instance'));
         }
 
-        return view('PkgGapp::eModel.edit', compact('itemEModel', 'ePackages', 'eDataFields_data', 'eMetadata_data', 'eDataFields_stats', 'eMetadata_stats', 'eDataFields_filters', 'eMetadata_filters'));
+        return view('PkgGapp::eModel.edit', compact('itemEModel', 'ePackages', 'eDataFields_data', 'eMetadata_data', 'eDataFields_stats', 'eMetadata_stats', 'eDataFields_filters', 'eMetadata_filters', 'eDataField_instance', 'eMetadatum_instance'));
+
+    }
+    public function edit(string $id) {
+
+        $this->viewState->setContextKey('eModel.edit_' . $id);
+
+        $itemEModel = $this->eModelService->find($id);
+
+        $ePackages = $this->ePackageService->all();
+
+        $this->viewState->set('scope.eDataField.e_model_id', $id);
+        $eDataFieldService =  new EDataFieldService();
+        $eDataFields_data =  $itemEModel->eDataFields()->paginate(10);
+        $eDataFields_stats = $eDataFieldService->geteDataFieldStats();
+        $eDataFields_filters = $eDataFieldService->getFieldsFilterable();
+        $eDataField_instance =  $eDataFieldService->createInstance();
+        $this->viewState->set('scope.eMetadatum.e_model_id', $id);
+        $eMetadatumService =  new EMetadatumService();
+        $eMetadata_data =  $itemEModel->eMetadata()->paginate(10);
+        $eMetadata_stats = $eMetadatumService->geteMetadatumStats();
+        $eMetadata_filters = $eMetadatumService->getFieldsFilterable();
+        $eMetadatum_instance =  $eMetadatumService->createInstance();
+
+        if (request()->ajax()) {
+            return view('PkgGapp::eModel._edit', compact('itemEModel', 'ePackages', 'eDataFields_data', 'eMetadata_data', 'eDataFields_stats', 'eMetadata_stats', 'eDataFields_filters', 'eMetadata_filters', 'eDataField_instance', 'eMetadatum_instance'));
+        }
+
+        return view('PkgGapp::eModel.edit', compact('itemEModel', 'ePackages', 'eDataFields_data', 'eMetadata_data', 'eDataFields_stats', 'eMetadata_stats', 'eDataFields_filters', 'eMetadata_filters', 'eDataField_instance', 'eMetadatum_instance'));
 
     }
     public function update(EModelRequest $request, string $id) {
@@ -227,6 +252,5 @@ class BaseEModelController extends AdminController
         ]);
     }
     
-
 
 }

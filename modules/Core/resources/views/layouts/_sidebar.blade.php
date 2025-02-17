@@ -15,7 +15,7 @@
         @can('index-sysColor') 
         <li class="nav-item">
             <a href="{{ route('sysColors.index') }}" class="nav-link {{ Request::is('admin/Core/sysColors') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-table"></i>
+                <i class="nav-icon fas fa-palette"></i>
                 {{__('Core::sysColor.plural')}}
             </a>
         </li>
@@ -23,7 +23,7 @@
         @can('index-sysModule') 
         <li class="nav-item">
             <a href="{{ route('sysModules.index') }}" class="nav-link {{ Request::is('admin/Core/sysModules') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-table"></i>
+                <i class="nav-icon fas fa-box"></i>
                 {{__('Core::sysModule.plural')}}
             </a>
         </li>
@@ -31,7 +31,7 @@
         @can('index-sysController') 
         <li class="nav-item">
             <a href="{{ route('sysControllers.index') }}" class="nav-link {{ Request::is('admin/Core/sysControllers') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-table"></i>
+                <i class="nav-icon fas fa-server"></i>
                 {{__('Core::sysController.plural')}}
             </a>
         </li>
@@ -39,7 +39,7 @@
         @can('index-featureDomain') 
         <li class="nav-item">
             <a href="{{ route('featureDomains.index') }}" class="nav-link {{ Request::is('admin/Core/featureDomains') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-table"></i>
+                <i class="nav-icon fas fa-th-large"></i>
                 {{__('Core::featureDomain.plural')}}
             </a>
         </li>
@@ -47,7 +47,7 @@
         @can('index-feature') 
         <li class="nav-item">
             <a href="{{ route('features.index') }}" class="nav-link {{ Request::is('admin/Core/features') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-table"></i>
+                <i class="nav-icon fas fa-plug"></i>
                 {{__('Core::feature.plural')}}
             </a>
         </li>
@@ -55,7 +55,7 @@
         @can('index-sysModel') 
         <li class="nav-item">
             <a href="{{ route('sysModels.index') }}" class="nav-link {{ Request::is('admin/Core/sysModels') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-table"></i>
+                <i class="nav-icon fas fa-cubes"></i>
                 {{__('Core::sysModel.plural')}}
             </a>
         </li>

@@ -35,7 +35,7 @@ class BaseApprenantRequest extends FormRequest
             'profile_image' => 'nullable|string|max:255',
             'matricule' => 'required|string|max:255',
             'sexe' => 'required|string|max:255',
-            'actif' => 'required|integer',
+            'actif' => 'required|boolean',
             'diplome' => 'nullable|string|max:255',
             'date_naissance' => 'nullable',
             'date_inscription' => 'nullable',

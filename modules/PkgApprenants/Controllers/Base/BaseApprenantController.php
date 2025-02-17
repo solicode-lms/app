@@ -40,7 +40,6 @@ class BaseApprenantController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('apprenant.index');
 
-
         // Extraire les paramètres de recherche, page, et filtres
         $apprenants_params = array_merge(
             $request->only(['page','sort']),
@@ -54,13 +53,13 @@ class BaseApprenantController extends AdminController
         // Récupérer les statistiques et les champs filtrables
         $apprenants_stats = $this->apprenantService->getapprenantStats();
         $apprenants_filters = $this->apprenantService->getFieldsFilterable();
-
+        $apprenant_instance =  $this->apprenantService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgApprenants::apprenant._table', compact('apprenants_data', 'apprenants_stats', 'apprenants_filters'))->render();
+            return view('PkgApprenants::apprenant._table', compact('apprenants_data', 'apprenants_stats', 'apprenants_filters','apprenant_instance'))->render();
         }
 
-        return view('PkgApprenants::apprenant.index', compact('apprenants_data', 'apprenants_stats', 'apprenants_filters'));
+        return view('PkgApprenants::apprenant.index', compact('apprenants_data', 'apprenants_stats', 'apprenants_filters','apprenant_instance'));
     }
     public function create() {
         $itemApprenant = $this->apprenantService->createInstance();
@@ -99,13 +98,11 @@ class BaseApprenantController extends AdminController
         );
     }
     public function show(string $id) {
-        return $this->edit( $id);
-    }
-    public function edit(string $id) {
 
         $this->viewState->setContextKey('apprenant.edit_' . $id);
 
         $itemApprenant = $this->apprenantService->find($id);
+  
         $groupes = $this->groupeService->all();
         $nationalites = $this->nationaliteService->all();
         $niveauxScolaires = $this->niveauxScolaireService->all();
@@ -116,13 +113,38 @@ class BaseApprenantController extends AdminController
         $realisationProjets_data =  $itemApprenant->realisationProjets()->paginate(10);
         $realisationProjets_stats = $realisationProjetService->getrealisationProjetStats();
         $realisationProjets_filters = $realisationProjetService->getFieldsFilterable();
-        
+        $realisationProjet_instance =  $realisationProjetService->createInstance();
 
         if (request()->ajax()) {
-            return view('PkgApprenants::apprenant._edit', compact('itemApprenant', 'groupes', 'nationalites', 'niveauxScolaires', 'users', 'realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters'));
+            return view('PkgApprenants::apprenant._edit', compact('itemApprenant', 'groupes', 'nationalites', 'niveauxScolaires', 'users', 'realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters', 'realisationProjet_instance'));
         }
 
-        return view('PkgApprenants::apprenant.edit', compact('itemApprenant', 'groupes', 'nationalites', 'niveauxScolaires', 'users', 'realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters'));
+        return view('PkgApprenants::apprenant.edit', compact('itemApprenant', 'groupes', 'nationalites', 'niveauxScolaires', 'users', 'realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters', 'realisationProjet_instance'));
+
+    }
+    public function edit(string $id) {
+
+        $this->viewState->setContextKey('apprenant.edit_' . $id);
+
+        $itemApprenant = $this->apprenantService->find($id);
+
+        $groupes = $this->groupeService->all();
+        $nationalites = $this->nationaliteService->all();
+        $niveauxScolaires = $this->niveauxScolaireService->all();
+        $users = $this->userService->all();
+
+        $this->viewState->set('scope.realisationProjet.apprenant_id', $id);
+        $realisationProjetService =  new RealisationProjetService();
+        $realisationProjets_data =  $itemApprenant->realisationProjets()->paginate(10);
+        $realisationProjets_stats = $realisationProjetService->getrealisationProjetStats();
+        $realisationProjets_filters = $realisationProjetService->getFieldsFilterable();
+        $realisationProjet_instance =  $realisationProjetService->createInstance();
+
+        if (request()->ajax()) {
+            return view('PkgApprenants::apprenant._edit', compact('itemApprenant', 'groupes', 'nationalites', 'niveauxScolaires', 'users', 'realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters', 'realisationProjet_instance'));
+        }
+
+        return view('PkgApprenants::apprenant.edit', compact('itemApprenant', 'groupes', 'nationalites', 'niveauxScolaires', 'users', 'realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters', 'realisationProjet_instance'));
 
     }
     public function update(ApprenantRequest $request, string $id) {
@@ -235,6 +257,18 @@ class BaseApprenantController extends AdminController
         ]);
     }
     
-
-
+    public function initPassword(Request $request, string $id) {
+        $apprenant = $this->apprenantService->initPassword($id);
+        if ($request->ajax()) {
+            $message = "Le mot de passe a été modifier avec succès";
+            return JsonResponseHelper::success(
+                $message
+            );
+        }
+        return redirect()->route('Apprenant.index')->with(
+            'success',
+            "Le mot de passe a été modifier avec succès"
+        );
+    }
+    
 }

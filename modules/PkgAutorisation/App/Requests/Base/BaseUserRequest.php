@@ -9,22 +9,39 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class BaseUserRequest extends FormRequest
 {
+    /**
+     * Détermine si l'utilisateur est autorisé à effectuer cette requête.
+     *
+     * @return bool
+     */
     public function authorize(): bool
     {
         return true;
     }
 
+    /**
+     * Retourne les règles de validation appliquées aux champs de la requête.
+     *
+     * @return array
+     */
     public function rules(): array
     {
         return [
-            'name' => 'required|max:255',
-            'email' => 'required|max:255',
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|max:255',
             'email_verified_at' => 'nullable',
-            'password' => 'required|max:255',
-            'remember_token' => 'nullable|max:255'
+            'password' => 'required|string|max:255',
+            'must_change_password' => 'required|boolean',
+            'remember_token' => 'nullable|string|max:255',
+            'roles' => 'nullable|array'
         ];
     }
 
+    /**
+     * Retourne les messages de validation associés aux règles.
+     *
+     * @return array
+     */
     public function messages(): array
     {
         return [
@@ -33,11 +50,13 @@ class BaseUserRequest extends FormRequest
             'email.required' => __('validation.required', ['attribute' => __('PkgAutorisation::User.email')]),
             'email.max' => __('validation.emailMax'),
             'email_verified_at.required' => __('validation.required', ['attribute' => __('PkgAutorisation::User.email_verified_at')]),
-            'email_verified_at.max' => __('validation.email_verified_atMax'),
             'password.required' => __('validation.required', ['attribute' => __('PkgAutorisation::User.password')]),
             'password.max' => __('validation.passwordMax'),
+            'must_change_password.required' => __('validation.required', ['attribute' => __('PkgAutorisation::User.must_change_password')]),
             'remember_token.required' => __('validation.required', ['attribute' => __('PkgAutorisation::User.remember_token')]),
-            'remember_token.max' => __('validation.remember_tokenMax')
+            'remember_token.max' => __('validation.remember_tokenMax'),
+            'roles.required' => __('validation.required', ['attribute' => __('PkgAutorisation::User.roles')]),
+            'roles.array' => __('validation.array', ['attribute' => __('PkgAutorisation::User.roles')])
         ];
     }
 }
