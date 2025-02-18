@@ -97,7 +97,7 @@ class BaseSpecialiteSeeder extends Seeder
         $featurePermissions = [
             'Afficher' => ['show'],
             'Lecture' => ['index', 'show'],
-            'Édition sans Ajouter' => ['index', 'show','edit','update','destroy','getSpecialites','dataCalcul'],
+            'Édition sans Ajouter' => ['index', 'show','edit','update','getSpecialites','dataCalcul'],
             'Édition ' => [ 'index', 'show','create','store','edit','update','destroy','getSpecialites','dataCalcul'],
             'Extraction' => ['import', 'export'],
 

@@ -179,5 +179,12 @@
         "value_integer": 6,
         "e_data_field_reference": "specialites_formateurs_formateur_specialite_m2m_m2m",
         "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "specialites_formateurs_formateur_specialite_m2m_m2m_filterable",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "specialites_formateurs_formateur_specialite_m2m_m2m",
+        "e_metadata_definition_reference": "filterable"
     }
 ]

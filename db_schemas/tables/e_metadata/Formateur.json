@@ -555,5 +555,12 @@
         "value_float": 0,
         "e_data_field_reference": "formateurs_specialites_formateur_specialite_m2m_m2m",
         "e_metadata_definition_reference": "filterable"
+    },
+    {
+        "reference": "formateurs_groupes_formateur_groupe_m2m_m2m_filterable",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "formateurs_groupes_formateur_groupe_m2m_m2m",
+        "e_metadata_definition_reference": "filterable"
     }
 ]

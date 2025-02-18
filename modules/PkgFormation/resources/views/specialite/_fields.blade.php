@@ -52,7 +52,7 @@
 </div>
 
         
-                <div class="form-group col-12 col-md-6">
+                    <div class="form-group col-12 col-md-6">
             <label for="formateurs">
                 {{ ucfirst(__('PkgFormation::Formateur.plural')) }}
             </label>
