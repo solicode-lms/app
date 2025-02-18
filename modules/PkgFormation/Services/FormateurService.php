@@ -20,7 +20,7 @@ class FormateurService extends BaseFormateurService
      * @param array $data
      * @return mixed
      */
-    public function create(array $data)
+    public function create($data)
     {
         $formateur = parent::create($data);
 
@@ -28,12 +28,18 @@ class FormateurService extends BaseFormateurService
         if (is_null($formateur->user_id)) {
             $userService = new UserService();
             $user = $userService->createInstance();
-            $user->formateur_id = $formateur->id;
             $user->name = strtoupper($formateur->nom) . " " . ucfirst($formateur->prenom);
-            $user->email = strtolower(trim(str_replace(' ', '-', $formateur->nom))). strtolower(trim(str_replace(' ', '-', $formateur->prenom))) . "@ofppt-edu.ma";
-            $user->password = $formateur->matricule;
+            if($formateur->email){
+                $user->email = $formateur->email;
+            }else{
+                $user->email = strtolower(trim(str_replace(' ', '-', $formateur->nom))). strtolower(trim(str_replace(' ', '-', $formateur->prenom))) . "@ofppt-edu.ma";
+            }
+           
+            $user->password = "12345678";
             $userService->create($user);
-        }
+            $formateur->user_id =  $user->id;
+            $formateur->save();
+         }
 
         // Création des niveaux de difficulté pour le formateur
         $niveauDifficulteService = new NiveauDifficulteService();

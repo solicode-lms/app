@@ -21,7 +21,7 @@ class Role extends ModelsRole
     //     return $this->morphedByMany(User::class, 'model', 'model_has_roles', 'role_id', 'model_id');
     // }
 
-
+    public const ADMIN_ROLE = "admin";
     public const FORMATEUR_ROLE = "formateur";
     public const GAPP_ROLE = "gapp";
 
