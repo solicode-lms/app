@@ -181,5 +181,53 @@
         },
         "e_model_reference": "etats_realisation_projets",
         "e_metadata_definition_reference": "ownedByUser"
+    },
+    {
+        "reference": "EtatsRealisationProjet_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "EtatsRealisationProjet_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "EtatsRealisationProjet_titre_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "EtatsRealisationProjet_titre",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "EtatsRealisationProjet_description_inputMdWidth",
+        "value_integer": 12,
+        "e_data_field_reference": "EtatsRealisationProjet_description",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "EtatsRealisationProjet_formateur_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "EtatsRealisationProjet_formateur_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "EtatsRealisationProjet_reference_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "EtatsRealisationProjet_reference",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "EtatsRealisationProjet_created_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "EtatsRealisationProjet_created_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "EtatsRealisationProjet_updated_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "EtatsRealisationProjet_updated_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "etats_realisation_projets_hasMany_realisation_projets_etats_realisation_projet_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "etats_realisation_projets_hasMany_realisation_projets_etats_realisation_projet_id",
+        "e_metadata_definition_reference": "inputMdWidth"
     }
 ]

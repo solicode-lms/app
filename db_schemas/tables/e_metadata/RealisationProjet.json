@@ -297,5 +297,77 @@
         },
         "e_model_reference": "realisation_projets",
         "e_metadata_definition_reference": "ownedByUser"
+    },
+    {
+        "reference": "RealisationProjet_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "RealisationProjet_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "RealisationProjet_date_debut_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "RealisationProjet_date_debut",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "RealisationProjet_date_fin_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "RealisationProjet_date_fin",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "RealisationProjet_rapport_inputMdWidth",
+        "value_integer": 12,
+        "e_data_field_reference": "RealisationProjet_rapport",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "RealisationProjet_etats_realisation_projet_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "RealisationProjet_etats_realisation_projet_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "RealisationProjet_apprenant_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "RealisationProjet_apprenant_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "RealisationProjet_affectation_projet_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "RealisationProjet_affectation_projet_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "RealisationProjet_reference_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "RealisationProjet_reference",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "RealisationProjet_created_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "RealisationProjet_created_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "RealisationProjet_updated_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "RealisationProjet_updated_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "realisation_projets_hasMany_livrables_realisations_realisation_projet_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "realisation_projets_hasMany_livrables_realisations_realisation_projet_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "realisation_projets_hasMany_validations_realisation_projet_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "realisation_projets_hasMany_validations_realisation_projet_id",
+        "e_metadata_definition_reference": "inputMdWidth"
     }
 ]

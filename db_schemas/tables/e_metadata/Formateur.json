@@ -416,5 +416,137 @@
         "value_boolean": 1,
         "e_data_field_reference": "Formateur_email",
         "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "Formateur_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Formateur_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Formateur_matricule_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Formateur_matricule",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Formateur_nom_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Formateur_nom",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Formateur_prenom_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Formateur_prenom",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Formateur_prenom_arab_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Formateur_prenom_arab",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Formateur_nom_arab_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Formateur_nom_arab",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Formateur_email_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Formateur_email",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Formateur_tele_num_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Formateur_tele_num",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Formateur_adresse_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Formateur_adresse",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Formateur_diplome_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Formateur_diplome",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Formateur_echelle_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Formateur_echelle",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Formateur_echelon_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Formateur_echelon",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Formateur_profile_image_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Formateur_profile_image",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Formateur_user_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Formateur_user_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Formateur_reference_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Formateur_reference",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Formateur_created_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Formateur_created_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Formateur_updated_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Formateur_updated_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "formateurs_hasMany_etats_realisation_projets_formateur_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "formateurs_hasMany_etats_realisation_projets_formateur_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "formateurs_groupes_formateur_groupe_m2m_m2m_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "formateurs_groupes_formateur_groupe_m2m_m2m",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "formateurs_specialites_formateur_specialite_m2m_m2m_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "formateurs_specialites_formateur_specialite_m2m_m2m",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "formateurs_hasMany_niveau_difficultes_formateur_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "formateurs_hasMany_niveau_difficultes_formateur_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "formateurs_hasMany_projets_formateur_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "formateurs_hasMany_projets_formateur_id",
+        "e_metadata_definition_reference": "inputMdWidth"
     }
 ]

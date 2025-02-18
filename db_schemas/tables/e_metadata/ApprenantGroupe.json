@@ -76,5 +76,29 @@
         "value_string": "fa-table",
         "e_model_reference": "apprenant_groupe",
         "e_metadata_definition_reference": "iconModel"
+    },
+    {
+        "reference": "ApprenantGroupe_created_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "ApprenantGroupe_created_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "ApprenantGroupe_updated_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "ApprenantGroupe_updated_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "ApprenantGroupe_groupe_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "ApprenantGroupe_groupe_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "ApprenantGroupe_apprenant_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "ApprenantGroupe_apprenant_id",
+        "e_metadata_definition_reference": "inputMdWidth"
     }
 ]

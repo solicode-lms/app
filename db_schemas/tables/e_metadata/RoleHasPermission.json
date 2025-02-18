@@ -46,5 +46,17 @@
         "value_string": "fa-table",
         "e_model_reference": "role_has_permissions",
         "e_metadata_definition_reference": "iconModel"
+    },
+    {
+        "reference": "RoleHasPermission_permission_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "RoleHasPermission_permission_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "RoleHasPermission_role_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "RoleHasPermission_role_id",
+        "e_metadata_definition_reference": "inputMdWidth"
     }
 ]

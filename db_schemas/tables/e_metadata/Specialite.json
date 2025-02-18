@@ -137,5 +137,47 @@
         "value_boolean": 1,
         "e_model_reference": "specialites",
         "e_metadata_definition_reference": "displayInSideBar"
+    },
+    {
+        "reference": "Specialite_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Specialite_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Specialite_nom_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Specialite_nom",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Specialite_description_inputMdWidth",
+        "value_integer": 12,
+        "e_data_field_reference": "Specialite_description",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Specialite_reference_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Specialite_reference",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Specialite_created_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Specialite_created_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Specialite_updated_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Specialite_updated_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "specialites_formateurs_formateur_specialite_m2m_m2m_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "specialites_formateurs_formateur_specialite_m2m_m2m",
+        "e_metadata_definition_reference": "inputMdWidth"
     }
 ]

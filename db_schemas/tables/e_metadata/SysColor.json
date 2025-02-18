@@ -161,5 +161,53 @@
         "value_float": 0,
         "e_model_reference": "sys_colors",
         "e_metadata_definition_reference": "iconModel"
+    },
+    {
+        "reference": "SysColor_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "SysColor_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "SysColor_name_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "SysColor_name",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "SysColor_hex_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "SysColor_hex",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "SysColor_reference_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "SysColor_reference",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "SysColor_created_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "SysColor_created_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "SysColor_updated_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "SysColor_updated_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "sys_colors_hasMany_sys_models_sys_color_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "sys_colors_hasMany_sys_models_sys_color_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "sys_colors_hasMany_sys_modules_sys_color_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "sys_colors_hasMany_sys_modules_sys_color_id",
+        "e_metadata_definition_reference": "inputMdWidth"
     }
 ]

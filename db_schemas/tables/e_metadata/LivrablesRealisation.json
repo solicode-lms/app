@@ -219,5 +219,59 @@
         },
         "e_model_reference": "livrables_realisations",
         "e_metadata_definition_reference": "ownedByUser"
+    },
+    {
+        "reference": "LivrablesRealisation_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "LivrablesRealisation_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "LivrablesRealisation_titre_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "LivrablesRealisation_titre",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "LivrablesRealisation_description_inputMdWidth",
+        "value_integer": 12,
+        "e_data_field_reference": "LivrablesRealisation_description",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "LivrablesRealisation_lien_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "LivrablesRealisation_lien",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "LivrablesRealisation_livrable_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "LivrablesRealisation_livrable_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "LivrablesRealisation_realisation_projet_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "LivrablesRealisation_realisation_projet_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "LivrablesRealisation_reference_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "LivrablesRealisation_reference",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "LivrablesRealisation_created_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "LivrablesRealisation_created_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "LivrablesRealisation_updated_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "LivrablesRealisation_updated_at",
+        "e_metadata_definition_reference": "inputMdWidth"
     }
 ]

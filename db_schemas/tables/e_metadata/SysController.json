@@ -215,5 +215,65 @@
         "value_float": 0,
         "e_model_reference": "sys_controllers",
         "e_metadata_definition_reference": "iconModel"
+    },
+    {
+        "reference": "SysController_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "SysController_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "SysController_sys_module_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "SysController_sys_module_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "SysController_name_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "SysController_name",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "SysController_slug_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "SysController_slug",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "SysController_description_inputMdWidth",
+        "value_integer": 12,
+        "e_data_field_reference": "SysController_description",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "SysController_is_active_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "SysController_is_active",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "SysController_reference_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "SysController_reference",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "SysController_created_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "SysController_created_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "SysController_updated_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "SysController_updated_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "sys_controllers_hasMany_permissions_controller_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "sys_controllers_hasMany_permissions_controller_id",
+        "e_metadata_definition_reference": "inputMdWidth"
     }
 ]

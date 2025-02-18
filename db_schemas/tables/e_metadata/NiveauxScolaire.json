@@ -155,5 +155,53 @@
         "value_boolean": 1,
         "e_model_reference": "niveaux_scolaires",
         "e_metadata_definition_reference": "displayInSideBar"
+    },
+    {
+        "reference": "NiveauxScolaire_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "NiveauxScolaire_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "NiveauxScolaire_code_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "NiveauxScolaire_code",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "NiveauxScolaire_nom_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "NiveauxScolaire_nom",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "NiveauxScolaire_description_inputMdWidth",
+        "value_integer": 12,
+        "e_data_field_reference": "NiveauxScolaire_description",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "NiveauxScolaire_reference_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "NiveauxScolaire_reference",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "NiveauxScolaire_created_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "NiveauxScolaire_created_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "NiveauxScolaire_updated_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "NiveauxScolaire_updated_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "niveaux_scolaires_hasMany_apprenants_niveaux_scolaire_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "niveaux_scolaires_hasMany_apprenants_niveaux_scolaire_id",
+        "e_metadata_definition_reference": "inputMdWidth"
     }
 ]

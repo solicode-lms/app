@@ -82,5 +82,23 @@
         "value_string": "fa-table",
         "e_model_reference": "model_has_roles",
         "e_metadata_definition_reference": "iconModel"
+    },
+    {
+        "reference": "ModelHasRole_role_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "ModelHasRole_role_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "ModelHasRole_model_type_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "ModelHasRole_model_type",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "ModelHasRole_model_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "ModelHasRole_model_id",
+        "e_metadata_definition_reference": "inputMdWidth"
     }
 ]

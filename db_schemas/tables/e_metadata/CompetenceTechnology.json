@@ -76,5 +76,29 @@
         "value_string": "fa-table",
         "e_model_reference": "competence_technology",
         "e_metadata_definition_reference": "iconModel"
+    },
+    {
+        "reference": "CompetenceTechnology_created_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "CompetenceTechnology_created_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "CompetenceTechnology_updated_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "CompetenceTechnology_updated_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "CompetenceTechnology_technology_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "CompetenceTechnology_technology_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "CompetenceTechnology_competence_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "CompetenceTechnology_competence_id",
+        "e_metadata_definition_reference": "inputMdWidth"
     }
 ]

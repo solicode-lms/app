@@ -187,5 +187,53 @@
         },
         "e_model_reference": "resources",
         "e_metadata_definition_reference": "ownedByUser"
+    },
+    {
+        "reference": "Resource_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Resource_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Resource_nom_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Resource_nom",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Resource_lien_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Resource_lien",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Resource_description_inputMdWidth",
+        "value_integer": 12,
+        "e_data_field_reference": "Resource_description",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Resource_projet_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Resource_projet_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Resource_reference_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Resource_reference",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Resource_created_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Resource_created_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Resource_updated_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Resource_updated_at",
+        "e_metadata_definition_reference": "inputMdWidth"
     }
 ]

@@ -256,5 +256,77 @@
         "value_string": "fa-table",
         "e_model_reference": "widgets",
         "e_metadata_definition_reference": "iconModel"
+    },
+    {
+        "reference": "Widget_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Widget_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Widget_name_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Widget_name",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Widget_type_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Widget_type_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Widget_model_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Widget_model_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Widget_operation_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Widget_operation_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Widget_color_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Widget_color",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Widget_icon_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Widget_icon",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Widget_label_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Widget_label",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Widget_parameters_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Widget_parameters",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Widget_reference_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Widget_reference",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Widget_created_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Widget_created_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Widget_updated_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Widget_updated_at",
+        "e_metadata_definition_reference": "inputMdWidth"
     }
 ]

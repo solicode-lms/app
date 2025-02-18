@@ -342,5 +342,101 @@
         "value_float": 0,
         "e_data_field_reference": "EDataField_data_type",
         "e_metadata_definition_reference": "filterable"
+    },
+    {
+        "reference": "EDataField_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "EDataField_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "EDataField_reference_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "EDataField_reference",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "EDataField_name_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "EDataField_name",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "EDataField_column_name_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "EDataField_column_name",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "EDataField_data_type_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "EDataField_data_type",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "EDataField_field_order_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "EDataField_field_order",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "EDataField_db_nullable_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "EDataField_db_nullable",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "EDataField_db_primaryKey_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "EDataField_db_primaryKey",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "EDataField_db_unique_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "EDataField_db_unique",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "EDataField_default_value_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "EDataField_default_value",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "EDataField_description_inputMdWidth",
+        "value_integer": 12,
+        "e_data_field_reference": "EDataField_description",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "EDataField_e_model_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "EDataField_e_model_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "EDataField_e_relationship_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "EDataField_e_relationship_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "EDataField_created_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "EDataField_created_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "EDataField_updated_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "EDataField_updated_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "e_data_fields_hasMany_e_metadata_e_data_field_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "e_data_fields_hasMany_e_metadata_e_data_field_id",
+        "e_metadata_definition_reference": "inputMdWidth"
     }
 ]

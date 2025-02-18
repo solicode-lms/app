@@ -137,5 +137,47 @@
         "value_boolean": 1,
         "e_model_reference": "category_technologies",
         "e_metadata_definition_reference": "displayInSideBar"
+    },
+    {
+        "reference": "CategoryTechnology_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "CategoryTechnology_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "CategoryTechnology_nom_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "CategoryTechnology_nom",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "CategoryTechnology_description_inputMdWidth",
+        "value_integer": 12,
+        "e_data_field_reference": "CategoryTechnology_description",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "CategoryTechnology_reference_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "CategoryTechnology_reference",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "CategoryTechnology_created_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "CategoryTechnology_created_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "CategoryTechnology_updated_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "CategoryTechnology_updated_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "category_technologies_hasMany_technologies_category_technology_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "category_technologies_hasMany_technologies_category_technology_id",
+        "e_metadata_definition_reference": "inputMdWidth"
     }
 ]

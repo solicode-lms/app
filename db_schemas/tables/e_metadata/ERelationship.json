@@ -337,5 +337,113 @@
         "value_float": 0,
         "e_data_field_reference": "ERelationship_type",
         "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "ERelationship_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "ERelationship_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "ERelationship_reference_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "ERelationship_reference",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "ERelationship_name_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "ERelationship_name",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "ERelationship_type_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "ERelationship_type",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "ERelationship_source_e_model_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "ERelationship_source_e_model_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "ERelationship_target_e_model_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "ERelationship_target_e_model_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "ERelationship_cascade_on_delete_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "ERelationship_cascade_on_delete",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "ERelationship_is_cascade_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "ERelationship_is_cascade",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "ERelationship_description_inputMdWidth",
+        "value_integer": 12,
+        "e_data_field_reference": "ERelationship_description",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "ERelationship_column_name_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "ERelationship_column_name",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "ERelationship_referenced_table_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "ERelationship_referenced_table",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "ERelationship_referenced_column_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "ERelationship_referenced_column",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "ERelationship_through_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "ERelationship_through",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "ERelationship_with_column_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "ERelationship_with_column",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "ERelationship_morph_name_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "ERelationship_morph_name",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "ERelationship_created_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "ERelationship_created_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "ERelationship_updated_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "ERelationship_updated_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "e_relationships_hasMany_e_data_fields_e_relationship_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "e_relationships_hasMany_e_data_fields_e_relationship_id",
+        "e_metadata_definition_reference": "inputMdWidth"
     }
 ]

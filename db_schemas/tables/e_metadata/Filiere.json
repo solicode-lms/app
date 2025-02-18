@@ -174,5 +174,59 @@
         "value_boolean": 1,
         "e_model_reference": "filieres",
         "e_metadata_definition_reference": "displayInSideBar"
+    },
+    {
+        "reference": "Filiere_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Filiere_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Filiere_code_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Filiere_code",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Filiere_nom_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Filiere_nom",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Filiere_description_inputMdWidth",
+        "value_integer": 12,
+        "e_data_field_reference": "Filiere_description",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Filiere_reference_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Filiere_reference",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Filiere_created_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Filiere_created_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Filiere_updated_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Filiere_updated_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "filieres_hasMany_groupes_filiere_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "filieres_hasMany_groupes_filiere_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "filieres_hasMany_modules_filiere_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "filieres_hasMany_modules_filiere_id",
+        "e_metadata_definition_reference": "inputMdWidth"
     }
 ]

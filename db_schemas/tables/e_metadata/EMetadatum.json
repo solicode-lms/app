@@ -335,5 +335,101 @@
         "value_float": 0,
         "e_model_reference": "e_metadata",
         "e_metadata_definition_reference": "iconModel"
+    },
+    {
+        "reference": "EMetadatum_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "EMetadatum_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "EMetadatum_reference_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "EMetadatum_reference",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "EMetadatum_value_boolean_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "EMetadatum_value_boolean",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "EMetadatum_value_string_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "EMetadatum_value_string",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "EMetadatum_value_integer_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "EMetadatum_value_integer",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "EMetadatum_value_float_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "EMetadatum_value_float",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "EMetadatum_value_date_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "EMetadatum_value_date",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "EMetadatum_value_datetime_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "EMetadatum_value_datetime",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "EMetadatum_value_enum_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "EMetadatum_value_enum",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "EMetadatum_value_json_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "EMetadatum_value_json",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "EMetadatum_value_text_inputMdWidth",
+        "value_integer": 12,
+        "e_data_field_reference": "EMetadatum_value_text",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "EMetadatum_e_model_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "EMetadatum_e_model_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "EMetadatum_e_data_field_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "EMetadatum_e_data_field_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "EMetadatum_e_metadata_definition_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "EMetadatum_e_metadata_definition_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "EMetadatum_created_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "EMetadatum_created_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "EMetadatum_updated_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "EMetadatum_updated_at",
+        "e_metadata_definition_reference": "inputMdWidth"
     }
 ]

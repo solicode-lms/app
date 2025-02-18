@@ -176,5 +176,59 @@
         "value_float": 0,
         "e_model_reference": "technologies",
         "e_metadata_definition_reference": "displayInSideBar"
+    },
+    {
+        "reference": "Technology_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Technology_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Technology_nom_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Technology_nom",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Technology_description_inputMdWidth",
+        "value_integer": 12,
+        "e_data_field_reference": "Technology_description",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Technology_created_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Technology_created_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Technology_updated_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Technology_updated_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Technology_category_technology_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Technology_category_technology_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Technology_reference_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Technology_reference",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "technologies_competences_competence_technology_m2m_m2m_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "technologies_competences_competence_technology_m2m_m2m",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "technologies_transfert_competences_technology_transfert_competence_m2m_m2m_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "technologies_transfert_competences_technology_transfert_competence_m2m_m2m",
+        "e_metadata_definition_reference": "inputMdWidth"
     }
 ]

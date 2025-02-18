@@ -281,5 +281,89 @@
         "value_float": 0,
         "e_model_reference": "sys_modules",
         "e_metadata_definition_reference": "iconModel"
+    },
+    {
+        "reference": "SysModule_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "SysModule_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "SysModule_name_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "SysModule_name",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "SysModule_slug_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "SysModule_slug",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "SysModule_description_inputMdWidth",
+        "value_integer": 12,
+        "e_data_field_reference": "SysModule_description",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "SysModule_is_active_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "SysModule_is_active",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "SysModule_order_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "SysModule_order",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "SysModule_version_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "SysModule_version",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "SysModule_sys_color_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "SysModule_sys_color_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "SysModule_reference_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "SysModule_reference",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "SysModule_created_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "SysModule_created_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "SysModule_updated_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "SysModule_updated_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "sys_modules_hasMany_feature_domains_sys_module_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "sys_modules_hasMany_feature_domains_sys_module_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "sys_modules_hasMany_sys_controllers_sys_module_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "sys_modules_hasMany_sys_controllers_sys_module_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "sys_modules_hasMany_sys_models_sys_module_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "sys_modules_hasMany_sys_models_sys_module_id",
+        "e_metadata_definition_reference": "inputMdWidth"
     }
 ]

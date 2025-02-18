@@ -262,5 +262,71 @@
         },
         "e_model_reference": "transfert_competences",
         "e_metadata_definition_reference": "ownedByUser"
+    },
+    {
+        "reference": "TransfertCompetence_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "TransfertCompetence_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "TransfertCompetence_note_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "TransfertCompetence_note",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "TransfertCompetence_question_inputMdWidth",
+        "value_integer": 12,
+        "e_data_field_reference": "TransfertCompetence_question",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "TransfertCompetence_projet_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "TransfertCompetence_projet_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "TransfertCompetence_competence_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "TransfertCompetence_competence_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "TransfertCompetence_niveau_difficulte_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "TransfertCompetence_niveau_difficulte_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "TransfertCompetence_reference_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "TransfertCompetence_reference",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "TransfertCompetence_created_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "TransfertCompetence_created_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "TransfertCompetence_updated_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "TransfertCompetence_updated_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "transfert_competences_technologies_technology_transfert_competence_m2m_m2m_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "transfert_competences_technologies_technology_transfert_competence_m2m_m2m",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "transfert_competences_hasMany_validations_transfert_competence_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "transfert_competences_hasMany_validations_transfert_competence_id",
+        "e_metadata_definition_reference": "inputMdWidth"
     }
 ]

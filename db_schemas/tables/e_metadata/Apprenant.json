@@ -480,5 +480,149 @@
         "value_float": 0,
         "e_data_field_reference": "apprenants_groupes_apprenant_groupe_m2m_m2m",
         "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "Apprenant_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Apprenant_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Apprenant_nom_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Apprenant_nom",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Apprenant_prenom_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Apprenant_prenom",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Apprenant_prenom_arab_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Apprenant_prenom_arab",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Apprenant_nom_arab_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Apprenant_nom_arab",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Apprenant_tele_num_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Apprenant_tele_num",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Apprenant_profile_image_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Apprenant_profile_image",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Apprenant_matricule_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Apprenant_matricule",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Apprenant_sexe_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Apprenant_sexe",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Apprenant_actif_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Apprenant_actif",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Apprenant_diplome_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Apprenant_diplome",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Apprenant_date_naissance_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Apprenant_date_naissance",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Apprenant_date_inscription_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Apprenant_date_inscription",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Apprenant_lieu_naissance_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Apprenant_lieu_naissance",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Apprenant_cin_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Apprenant_cin",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Apprenant_adresse_inputMdWidth",
+        "value_integer": 12,
+        "e_data_field_reference": "Apprenant_adresse",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Apprenant_created_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Apprenant_created_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Apprenant_updated_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Apprenant_updated_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Apprenant_niveaux_scolaire_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Apprenant_niveaux_scolaire_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Apprenant_nationalite_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Apprenant_nationalite_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Apprenant_user_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Apprenant_user_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Apprenant_reference_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Apprenant_reference",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "apprenants_groupes_apprenant_groupe_m2m_m2m_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "apprenants_groupes_apprenant_groupe_m2m_m2m",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "apprenants_hasMany_realisation_projets_apprenant_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "apprenants_hasMany_realisation_projets_apprenant_id",
+        "e_metadata_definition_reference": "inputMdWidth"
     }
 ]

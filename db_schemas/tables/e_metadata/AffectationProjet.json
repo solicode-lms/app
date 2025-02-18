@@ -278,5 +278,71 @@
         },
         "e_model_reference": "affectation_projets",
         "e_metadata_definition_reference": "ownedByUser"
+    },
+    {
+        "reference": "AffectationProjet_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "AffectationProjet_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "AffectationProjet_date_debut_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "AffectationProjet_date_debut",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "AffectationProjet_date_fin_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "AffectationProjet_date_fin",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "AffectationProjet_annee_formation_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "AffectationProjet_annee_formation_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "AffectationProjet_groupe_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "AffectationProjet_groupe_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "AffectationProjet_projet_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "AffectationProjet_projet_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "AffectationProjet_description_inputMdWidth",
+        "value_integer": 12,
+        "e_data_field_reference": "AffectationProjet_description",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "AffectationProjet_reference_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "AffectationProjet_reference",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "AffectationProjet_created_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "AffectationProjet_created_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "AffectationProjet_updated_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "AffectationProjet_updated_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "affectation_projets_hasMany_realisation_projets_affectation_projet_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "affectation_projets_hasMany_realisation_projets_affectation_projet_id",
+        "e_metadata_definition_reference": "inputMdWidth"
     }
 ]

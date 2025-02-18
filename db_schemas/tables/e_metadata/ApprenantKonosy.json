@@ -346,5 +346,143 @@
         "value_string": "fa-table",
         "e_model_reference": "apprenant_konosies",
         "e_metadata_definition_reference": "iconModel"
+    },
+    {
+        "reference": "ApprenantKonosy_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "ApprenantKonosy_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "ApprenantKonosy_MatriculeEtudiant_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "ApprenantKonosy_MatriculeEtudiant",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "ApprenantKonosy_Nom_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "ApprenantKonosy_Nom",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "ApprenantKonosy_Prenom_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "ApprenantKonosy_Prenom",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "ApprenantKonosy_Sexe_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "ApprenantKonosy_Sexe",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "ApprenantKonosy_EtudiantActif_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "ApprenantKonosy_EtudiantActif",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "ApprenantKonosy_Diplome_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "ApprenantKonosy_Diplome",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "ApprenantKonosy_Principale_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "ApprenantKonosy_Principale",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "ApprenantKonosy_LibelleLong_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "ApprenantKonosy_LibelleLong",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "ApprenantKonosy_CodeDiplome_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "ApprenantKonosy_CodeDiplome",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "ApprenantKonosy_DateNaissance_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "ApprenantKonosy_DateNaissance",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "ApprenantKonosy_DateInscription_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "ApprenantKonosy_DateInscription",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "ApprenantKonosy_LieuNaissance_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "ApprenantKonosy_LieuNaissance",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "ApprenantKonosy_CIN_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "ApprenantKonosy_CIN",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "ApprenantKonosy_NTelephone_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "ApprenantKonosy_NTelephone",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "ApprenantKonosy_Adresse_inputMdWidth",
+        "value_integer": 12,
+        "e_data_field_reference": "ApprenantKonosy_Adresse",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "ApprenantKonosy_Nationalite_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "ApprenantKonosy_Nationalite",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "ApprenantKonosy_Nom_Arabe_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "ApprenantKonosy_Nom_Arabe",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "ApprenantKonosy_Prenom_Arabe_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "ApprenantKonosy_Prenom_Arabe",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "ApprenantKonosy_NiveauScolaire_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "ApprenantKonosy_NiveauScolaire",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "ApprenantKonosy_reference_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "ApprenantKonosy_reference",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "ApprenantKonosy_created_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "ApprenantKonosy_created_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "ApprenantKonosy_updated_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "ApprenantKonosy_updated_at",
+        "e_metadata_definition_reference": "inputMdWidth"
     }
 ]

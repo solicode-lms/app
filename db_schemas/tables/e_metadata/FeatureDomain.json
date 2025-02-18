@@ -185,5 +185,59 @@
         "value_float": 0,
         "e_model_reference": "feature_domains",
         "e_metadata_definition_reference": "iconModel"
+    },
+    {
+        "reference": "FeatureDomain_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "FeatureDomain_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "FeatureDomain_name_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "FeatureDomain_name",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "FeatureDomain_slug_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "FeatureDomain_slug",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "FeatureDomain_description_inputMdWidth",
+        "value_integer": 12,
+        "e_data_field_reference": "FeatureDomain_description",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "FeatureDomain_sys_module_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "FeatureDomain_sys_module_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "FeatureDomain_reference_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "FeatureDomain_reference",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "FeatureDomain_created_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "FeatureDomain_created_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "FeatureDomain_updated_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "FeatureDomain_updated_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "feature_domains_hasMany_features_feature_domain_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "feature_domains_hasMany_features_feature_domain_id",
+        "e_metadata_definition_reference": "inputMdWidth"
     }
 ]
