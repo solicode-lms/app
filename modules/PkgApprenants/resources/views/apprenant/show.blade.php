@@ -41,24 +41,16 @@
                                 <p>{{ $itemApprenant->nom_arab }}</p>
                             </div>
                             <div class="col-sm-12">
-                                <label for="tele_num">{{ ucfirst(__('PkgApprenants::apprenant.tele_num')) }}:</label>
-                                <p>{{ $itemApprenant->tele_num }}</p>
-                            </div>
-                            <div class="col-sm-12">
                                 <label for="profile_image">{{ ucfirst(__('PkgApprenants::apprenant.profile_image')) }}:</label>
                                 <p>{{ $itemApprenant->profile_image }}</p>
-                            </div>
-                            <div class="col-sm-12">
-                                <label for="matricule">{{ ucfirst(__('PkgApprenants::apprenant.matricule')) }}:</label>
-                                <p>{{ $itemApprenant->matricule }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="sexe">{{ ucfirst(__('PkgApprenants::apprenant.sexe')) }}:</label>
                                 <p>{{ $itemApprenant->sexe }}</p>
                             </div>
                             <div class="col-sm-12">
-                                <label for="actif">{{ ucfirst(__('PkgApprenants::apprenant.actif')) }}:</label>
-                                <p>{{ $itemApprenant->actif }}</p>
+                                <label for="tele_num">{{ ucfirst(__('PkgApprenants::apprenant.tele_num')) }}:</label>
+                                <p>{{ $itemApprenant->tele_num }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="diplome">{{ ucfirst(__('PkgApprenants::apprenant.diplome')) }}:</label>
@@ -67,10 +59,6 @@
                             <div class="col-sm-12">
                                 <label for="date_naissance">{{ ucfirst(__('PkgApprenants::apprenant.date_naissance')) }}:</label>
                                 <p>{{ $itemApprenant->date_naissance }}</p>
-                            </div>
-                            <div class="col-sm-12">
-                                <label for="date_inscription">{{ ucfirst(__('PkgApprenants::apprenant.date_inscription')) }}:</label>
-                                <p>{{ $itemApprenant->date_inscription }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="lieu_naissance">{{ ucfirst(__('PkgApprenants::apprenant.lieu_naissance')) }}:</label>
@@ -89,8 +77,20 @@
                                 <p>{{ $itemApprenant->niveaux_scolaire_id }}</p>
                             </div>
                             <div class="col-sm-12">
+                                <label for="matricule">{{ ucfirst(__('PkgApprenants::apprenant.matricule')) }}:</label>
+                                <p>{{ $itemApprenant->matricule }}</p>
+                            </div>
+                            <div class="col-sm-12">
                                 <label for="nationalite_id">{{ ucfirst(__('PkgApprenants::apprenant.nationalite_id')) }}:</label>
                                 <p>{{ $itemApprenant->nationalite_id }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="actif">{{ ucfirst(__('PkgApprenants::apprenant.actif')) }}:</label>
+                                <p>{{ $itemApprenant->actif }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="date_inscription">{{ ucfirst(__('PkgApprenants::apprenant.date_inscription')) }}:</label>
+                                <p>{{ $itemApprenant->date_inscription }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="user_id">{{ ucfirst(__('PkgApprenants::apprenant.user_id')) }}:</label>

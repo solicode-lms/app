@@ -126,7 +126,8 @@
     },
     {
         "reference": "apprenants_hasMany_realisation_projets_apprenant_id_editHasMany",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "apprenants_hasMany_realisation_projets_apprenant_id",
         "e_metadata_definition_reference": "editHasMany"
     },
@@ -176,7 +177,9 @@
     },
     {
         "reference": "Apprenant_tele_num_displayOrder",
-        "value_integer": 6,
+        "value_boolean": 0,
+        "value_integer": 10,
+        "value_float": 0,
         "e_data_field_reference": "Apprenant_tele_num",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -188,7 +191,9 @@
     },
     {
         "reference": "Apprenant_matricule_displayOrder",
-        "value_integer": 8,
+        "value_boolean": 0,
+        "value_integer": 20,
+        "value_float": 0,
         "e_data_field_reference": "Apprenant_matricule",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -200,7 +205,9 @@
     },
     {
         "reference": "Apprenant_actif_displayOrder",
-        "value_integer": 10,
+        "value_boolean": 0,
+        "value_integer": 21,
+        "value_float": 0,
         "e_data_field_reference": "Apprenant_actif",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -218,7 +225,9 @@
     },
     {
         "reference": "Apprenant_date_inscription_displayOrder",
-        "value_integer": 13,
+        "value_boolean": 0,
+        "value_integer": 22,
+        "value_float": 0,
         "e_data_field_reference": "Apprenant_date_inscription",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -266,7 +275,9 @@
     },
     {
         "reference": "Apprenant_user_id_displayOrder",
-        "value_integer": 21,
+        "value_boolean": 0,
+        "value_integer": 30,
+        "value_float": 0,
         "e_data_field_reference": "Apprenant_user_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -326,7 +337,8 @@
     },
     {
         "reference": "Apprenant_profile_image_displayInForm",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "Apprenant_profile_image",
         "e_metadata_definition_reference": "displayInForm"
     },
@@ -350,7 +362,8 @@
     },
     {
         "reference": "Apprenant_diplome_displayInForm",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "Apprenant_diplome",
         "e_metadata_definition_reference": "displayInForm"
     },

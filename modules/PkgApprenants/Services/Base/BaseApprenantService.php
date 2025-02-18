@@ -23,19 +23,19 @@ class BaseApprenantService extends BaseService
         'prenom',
         'prenom_arab',
         'nom_arab',
-        'tele_num',
         'profile_image',
-        'matricule',
         'sexe',
-        'actif',
+        'tele_num',
         'diplome',
         'date_naissance',
-        'date_inscription',
         'lieu_naissance',
         'cin',
         'adresse',
         'niveaux_scolaire_id',
+        'matricule',
         'nationalite_id',
+        'actif',
+        'date_inscription',
         'user_id'
     ];
 
