@@ -108,6 +108,7 @@ abstract class BaseService implements ServiceInterface
             });
         }
 
+        // Les filtre sopnt appliquer dans DynamiqueContextScope
         // Appliquer les filtres spécifiques (URL aplatie)
         foreach ($params as $field => $value) {
             if (in_array($field, $this->getFieldsSearchable()) && !empty($value)) {
@@ -124,8 +125,9 @@ abstract class BaseService implements ServiceInterface
       
 
         // Appliquer le tri multi-colonnes
-        if (!empty($params['sort'])) {
-            $this->applySort($query,$params['sort']);
+        $sortVariables = $this->viewState->getSortVariables($this->modelName);
+        if (!empty($sortVariables)) {
+            $this->applySort($query,$sortVariables);
 
             // $sortFields = explode(',', $params['sort']);
             // foreach ($sortFields as $sortField) {
@@ -147,7 +149,7 @@ abstract class BaseService implements ServiceInterface
     public function applySort($query, $sort)
     {
         if ($sort) {
-            $sortFields = explode(',', $sort);
+            $sortFields = explode(',', $sort["sort"]);
     
             foreach ($sortFields as $sortField) {
                 $fieldParts = explode('_', $sortField);

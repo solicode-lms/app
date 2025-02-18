@@ -139,6 +139,22 @@ export class ViewStateService {
             }
         });
     }
+
+    updatSortVariables(sortData) {
+        if (!ViewStateService.viewState[this.contextKey]) {
+            ViewStateService.viewState[this.contextKey] = {};
+        }
+    
+        Object.entries(sortData).forEach(([key, value]) => {
+            const filterKey = `sort.${this.modelName}.${key}`;
+    
+            if (value === "" || value === null || value === undefined) {
+                delete ViewStateService.viewState[this.contextKey][filterKey];
+            } else {
+                ViewStateService.viewState[this.contextKey][filterKey] = value;
+            }
+        });
+    }
     
 
     updateContext(newState) {

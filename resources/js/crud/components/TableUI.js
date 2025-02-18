@@ -71,7 +71,10 @@ export class TableUI {
             const newSortArray = this.updateSortArray(sortArray, column);
 
             const filters = this.indexUI.filterUI.getFormData(); // Inclure les données de recherche et filtres
-            filters.sort = newSortArray.join(',');
+            const sort = newSortArray.join(',');
+            filters.sort = sort;
+            this.config.viewStateService.updatSortVariables({"sort" : sort});
+
 
             this.indexUI.updateURLParameters(filters); // Mettre à jour l'URL
             this.entityLoader.loadEntities(1, filters); // Recharger la table

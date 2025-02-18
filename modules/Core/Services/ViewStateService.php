@@ -122,7 +122,10 @@ class ViewStateService
     {
         return $this->extractVariables($modelName, ['scope', 'filter']);
     }
-
+    public function getSortVariables(string $modelName): array
+    {
+        return $this->extractVariables($modelName, ['sort']);
+    }
     public function generateTitleFromVariables(): string
     {
         $parts = [];

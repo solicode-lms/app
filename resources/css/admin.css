@@ -97,6 +97,10 @@
 .sortable.desc:after {
     content: '\f161'; /* FontAwesome icon for sort-down */
 }
+.sortable {
+    cursor: pointer;
+}
+
 
 
 /* Formulaire */

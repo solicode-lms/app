@@ -3,10 +3,11 @@
 <div class="card-body table-responsive p-0 crud-card-body" id="apprenants-crud-card-body">
     <table class="table table-striped text-nowrap">
         <thead>
-            <tr>
-                <x-sortable-column field="nom" label="{{ ucfirst(__('PkgApprenants::apprenant.nom')) }}" />
-                <x-sortable-column field="prenom" label="{{ ucfirst(__('PkgApprenants::apprenant.prenom')) }}" />
-                <x-sortable-column field="groupes" label="{{ ucfirst(__('PkgApprenants::groupe.plural')) }}" />
+            <tr> 
+                <x-sortable-column field="nom" modelname="apprenant" label="{{ ucfirst(__('PkgApprenants::apprenant.nom')) }}" />
+                <x-sortable-column field="prenom" modelname="apprenant" label="{{ ucfirst(__('PkgApprenants::apprenant.prenom')) }}" />
+                <x-sortable-column field="groupes" modelname="apprenant" label="{{ ucfirst(__('PkgApprenants::groupe.plural')) }}" />
+               
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

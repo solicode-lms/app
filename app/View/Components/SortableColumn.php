@@ -2,11 +2,15 @@
 namespace App\View\Components;
 
 use Illuminate\View\Component;
+use Modules\Core\Services\ViewStateService;
 
 class SortableColumn extends Component
 {
     public $field;
     public $label;
+
+    public $modelname;
+    protected $viewState;
 
     /**
      * Constructeur.
@@ -14,10 +18,12 @@ class SortableColumn extends Component
      * @param string $field - Le champ à trier
      * @param string $label - Le label à afficher dans la colonne
      */
-    public function __construct($field, $label)
+    public function __construct($field, $modelname  , $label)
     {
         $this->field = $field;
         $this->label = $label;
+        $this->modelname = $modelname;
+        $this->viewState = app(ViewStateService::class);
     }
 
     /**
@@ -27,7 +33,8 @@ class SortableColumn extends Component
      */
     public function isSorted()
     {
-        $currentSort = request('sort', ''); // Récupère le paramètre "sort" de l'URL
+        $sortVariables = $this->viewState->getSortVariables(modelName: $this->modelname);
+        $currentSort = $sortVariables["sort"] ?? "";
         if (!$currentSort) {
             return false; // Pas de tri si "sort" est vide
         }
@@ -48,7 +55,8 @@ class SortableColumn extends Component
      */
     public function getSortDirection()
     {
-        $currentSort = request('sort', '');
+        $sortVariables = $this->viewState->getSortVariables($this->modelname );
+        $currentSort = $sortVariables["sort"] ?? "";
         return collect(explode(',', $currentSort))
             ->filter(fn($sort) => str_starts_with($sort, $this->field . '_'))
             ->map(fn($sort) => last(explode('_', $sort)) ?? 'asc') // Récupérer le dernier segment après "_"
