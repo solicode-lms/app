@@ -6,7 +6,7 @@
             <tr>
                 <x-sortable-column field="nom" label="{{ ucfirst(__('PkgApprenants::apprenant.nom')) }}" />
                 <x-sortable-column field="prenom" label="{{ ucfirst(__('PkgApprenants::apprenant.prenom')) }}" />
-                <x-sortable-column field="user_id" label="{{ ucfirst(__('PkgAutorisation::user.singular')) }}" />
+                <x-sortable-column field="groupes" label="{{ ucfirst(__('PkgApprenants::groupe.plural')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -15,7 +15,13 @@
                 <tr id="apprenant-row-{{$apprenant->id}}">
                     <td>@limit($apprenant->nom, 80)</td>
                     <td>@limit($apprenant->prenom, 80)</td>
-                    <td>@limit($apprenant->user, 80)</td>
+                    <td>
+                        <ul>
+                            @foreach ($apprenant->groupes as $groupe)
+                                <li>{{ $groupe }}</li>
+                            @endforeach
+                        </ul>
+                    </td>
                     <td class="text-right">
                        @can('initPassword-apprenant')
                         <a 
