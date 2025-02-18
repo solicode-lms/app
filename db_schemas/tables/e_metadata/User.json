@@ -269,5 +269,23 @@
         ],
         "e_model_reference": "users",
         "e_metadata_definition_reference": "entityActions"
+    },
+    {
+        "reference": "users_PolymorphicManyToMany_roles_model_has_roles_m2m_displayInTable",
+        "value_boolean": 1,
+        "e_data_field_reference": "users_PolymorphicManyToMany_roles_model_has_roles_m2m",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "users_PolymorphicManyToMany_roles_model_has_roles_m2m_displayOrder",
+        "value_integer": 14,
+        "e_data_field_reference": "users_PolymorphicManyToMany_roles_model_has_roles_m2m",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "users_PolymorphicManyToMany_roles_model_has_roles_m2m_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "users_PolymorphicManyToMany_roles_model_has_roles_m2m",
+        "e_metadata_definition_reference": "displayInForm"
     }
 ]

@@ -32,7 +32,8 @@ class BaseUserRequest extends FormRequest
             'email_verified_at' => 'nullable',
             'password' => 'required|string|max:255',
             'must_change_password' => 'required|boolean',
-            'remember_token' => 'nullable|string|max:255'
+            'remember_token' => 'nullable|string|max:255',
+            'roles' => 'nullable|array'
         ];
     }
 
@@ -53,7 +54,9 @@ class BaseUserRequest extends FormRequest
             'password.max' => __('validation.passwordMax'),
             'must_change_password.required' => __('validation.required', ['attribute' => __('PkgAutorisation::User.must_change_password')]),
             'remember_token.required' => __('validation.required', ['attribute' => __('PkgAutorisation::User.remember_token')]),
-            'remember_token.max' => __('validation.remember_tokenMax')
+            'remember_token.max' => __('validation.remember_tokenMax'),
+            'roles.required' => __('validation.required', ['attribute' => __('PkgAutorisation::User.roles')]),
+            'roles.array' => __('validation.array', ['attribute' => __('PkgAutorisation::User.roles')])
         ];
     }
 }

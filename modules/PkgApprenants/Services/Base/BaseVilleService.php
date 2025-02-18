@@ -53,7 +53,7 @@ class BaseVilleService extends BaseService
      * @param array $data Données pour la création.
      * @return mixed
      */
-    public function create(array $data)
+    public function create(array|object $data)
     {
         return parent::create($data);
     }

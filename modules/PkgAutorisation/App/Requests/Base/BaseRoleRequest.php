@@ -29,7 +29,8 @@ class BaseRoleRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'guard_name' => 'required|string|max:255',
-            'permissions' => 'nullable|array'
+            'permissions' => 'nullable|array',
+            'users' => 'nullable|array'
         ];
     }
 
@@ -46,7 +47,9 @@ class BaseRoleRequest extends FormRequest
             'guard_name.required' => __('validation.required', ['attribute' => __('PkgAutorisation::Role.guard_name')]),
             'guard_name.max' => __('validation.guard_nameMax'),
             'permissions.required' => __('validation.required', ['attribute' => __('PkgAutorisation::Role.permissions')]),
-            'permissions.array' => __('validation.array', ['attribute' => __('PkgAutorisation::Role.permissions')])
+            'permissions.array' => __('validation.array', ['attribute' => __('PkgAutorisation::Role.permissions')]),
+            'users.required' => __('validation.required', ['attribute' => __('PkgAutorisation::Role.users')]),
+            'users.array' => __('validation.array', ['attribute' => __('PkgAutorisation::Role.users')])
         ];
     }
 }

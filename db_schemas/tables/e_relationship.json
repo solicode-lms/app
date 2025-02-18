@@ -1176,5 +1176,43 @@
         "cascade_on_delete": 0,
         "created_at": null,
         "updated_at": null
+    },
+    {
+        "id": 64,
+        "reference": "roles_ManyToManyPolymorphic_users_model_has_roles",
+        "name": "User",
+        "type": "ManyToManyPolymorphic",
+        "source_e_model_id": 39,
+        "target_e_model_id": 48,
+        "column_name": "role_id",
+        "referenced_table": null,
+        "referenced_column": null,
+        "through": "model_has_roles",
+        "with_column": "model_id",
+        "is_cascade": 0,
+        "morph_name": "model",
+        "description": "ManyToManyPolymorphic relation detected for base: model targeting User",
+        "cascade_on_delete": 0,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 65,
+        "reference": "users_PolymorphicManyToMany_roles_model_has_roles",
+        "name": "Role",
+        "type": "PolymorphicManyToMany",
+        "source_e_model_id": 48,
+        "target_e_model_id": 39,
+        "column_name": "model_id",
+        "referenced_table": null,
+        "referenced_column": null,
+        "through": "model_has_roles",
+        "with_column": "role_id",
+        "is_cascade": 0,
+        "morph_name": "model",
+        "description": "PolymorphicManyToMany relation detected for base: model targeting Role",
+        "cascade_on_delete": 0,
+        "created_at": null,
+        "updated_at": null
     }
 ]

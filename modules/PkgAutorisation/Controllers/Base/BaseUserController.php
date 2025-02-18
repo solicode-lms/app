@@ -4,6 +4,7 @@
 
 namespace Modules\PkgAutorisation\Controllers\Base;
 use Modules\PkgAutorisation\Services\UserService;
+use Modules\PkgAutorisation\Services\RoleService;
 use Modules\PkgApprenants\Services\ApprenantService;
 use Modules\PkgFormation\Services\FormateurService;
 use Modules\PkgAutorisation\Services\ProfileService;
@@ -20,10 +21,12 @@ use Modules\Core\Services\ContextState;
 class BaseUserController extends AdminController
 {
     protected $userService;
+    protected $roleService;
 
-    public function __construct(UserService $userService) {
+    public function __construct(UserService $userService, RoleService $roleService) {
         parent::__construct();
         $this->userService = $userService;
+        $this->roleService = $roleService;
     }
 
     public function index(Request $request) {
@@ -53,12 +56,13 @@ class BaseUserController extends AdminController
     }
     public function create() {
         $itemUser = $this->userService->createInstance();
+        $roles = $this->roleService->all();
 
 
         if (request()->ajax()) {
-            return view('PkgAutorisation::user._fields', compact('itemUser'));
+            return view('PkgAutorisation::user._fields', compact('itemUser', 'roles'));
         }
-        return view('PkgAutorisation::user.create', compact('itemUser'));
+        return view('PkgAutorisation::user.create', compact('itemUser', 'roles'));
     }
     public function store(UserRequest $request) {
         $validatedData = $request->validated();
@@ -89,6 +93,7 @@ class BaseUserController extends AdminController
 
         $itemUser = $this->userService->find($id);
   
+        $roles = $this->roleService->all();
 
         $this->viewState->set('scope.apprenant.user_id', $id);
         $apprenantService =  new ApprenantService();
@@ -110,10 +115,10 @@ class BaseUserController extends AdminController
         $profile_instance =  $profileService->createInstance();
 
         if (request()->ajax()) {
-            return view('PkgAutorisation::user._edit', compact('itemUser', 'apprenants_data', 'formateurs_data', 'profiles_data', 'apprenants_stats', 'formateurs_stats', 'profiles_stats', 'apprenants_filters', 'formateurs_filters', 'profiles_filters', 'apprenant_instance', 'formateur_instance', 'profile_instance'));
+            return view('PkgAutorisation::user._edit', compact('itemUser', 'roles', 'apprenants_data', 'formateurs_data', 'profiles_data', 'apprenants_stats', 'formateurs_stats', 'profiles_stats', 'apprenants_filters', 'formateurs_filters', 'profiles_filters', 'apprenant_instance', 'formateur_instance', 'profile_instance'));
         }
 
-        return view('PkgAutorisation::user.edit', compact('itemUser', 'apprenants_data', 'formateurs_data', 'profiles_data', 'apprenants_stats', 'formateurs_stats', 'profiles_stats', 'apprenants_filters', 'formateurs_filters', 'profiles_filters', 'apprenant_instance', 'formateur_instance', 'profile_instance'));
+        return view('PkgAutorisation::user.edit', compact('itemUser', 'roles', 'apprenants_data', 'formateurs_data', 'profiles_data', 'apprenants_stats', 'formateurs_stats', 'profiles_stats', 'apprenants_filters', 'formateurs_filters', 'profiles_filters', 'apprenant_instance', 'formateur_instance', 'profile_instance'));
 
     }
     public function edit(string $id) {
@@ -122,6 +127,7 @@ class BaseUserController extends AdminController
 
         $itemUser = $this->userService->find($id);
 
+        $roles = $this->roleService->all();
 
         $this->viewState->set('scope.apprenant.user_id', $id);
         $apprenantService =  new ApprenantService();
@@ -143,10 +149,10 @@ class BaseUserController extends AdminController
         $profile_instance =  $profileService->createInstance();
 
         if (request()->ajax()) {
-            return view('PkgAutorisation::user._edit', compact('itemUser', 'apprenants_data', 'formateurs_data', 'profiles_data', 'apprenants_stats', 'formateurs_stats', 'profiles_stats', 'apprenants_filters', 'formateurs_filters', 'profiles_filters', 'apprenant_instance', 'formateur_instance', 'profile_instance'));
+            return view('PkgAutorisation::user._edit', compact('itemUser', 'roles', 'apprenants_data', 'formateurs_data', 'profiles_data', 'apprenants_stats', 'formateurs_stats', 'profiles_stats', 'apprenants_filters', 'formateurs_filters', 'profiles_filters', 'apprenant_instance', 'formateur_instance', 'profile_instance'));
         }
 
-        return view('PkgAutorisation::user.edit', compact('itemUser', 'apprenants_data', 'formateurs_data', 'profiles_data', 'apprenants_stats', 'formateurs_stats', 'profiles_stats', 'apprenants_filters', 'formateurs_filters', 'profiles_filters', 'apprenant_instance', 'formateur_instance', 'profile_instance'));
+        return view('PkgAutorisation::user.edit', compact('itemUser', 'roles', 'apprenants_data', 'formateurs_data', 'profiles_data', 'apprenants_stats', 'formateurs_stats', 'profiles_stats', 'apprenants_filters', 'formateurs_filters', 'profiles_filters', 'apprenant_instance', 'formateur_instance', 'profile_instance'));
 
     }
     public function update(UserRequest $request, string $id) {

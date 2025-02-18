@@ -210,7 +210,15 @@ abstract class BaseService implements ServiceInterface
      * @param array $data Données de l'élément à créer.
      * @return mixed
      */
-    public function create(array $data){
+    public function create(array|object $data){
+
+        if (is_object($data) && $data instanceof \Illuminate\Database\Eloquent\Model) {
+            $data = $data->toArray(); // Convertit l'objet Eloquent en tableau
+        }
+        if (!is_array($data)) {
+            throw new \InvalidArgumentException('Les données doivent être un tableau ou un objet Eloquent.');
+        }
+        
         $entity = $this->model->create($data);
         $this->syncManyToManyRelations($entity, $data);
         return  $entity;

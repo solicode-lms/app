@@ -8719,5 +8719,39 @@
         "e_relationship_id": 63,
         "created_at": null,
         "updated_at": null
+    },
+    {
+        "id": 514,
+        "reference": "roles_ManyToManyPolymorphic_users_model_has_roles_m2m",
+        "name": "User",
+        "column_name": "",
+        "data_type": "ManyToMany",
+        "field_order": 8,
+        "db_nullable": 1,
+        "db_primaryKey": 0,
+        "db_unique": 0,
+        "default_value": null,
+        "description": "Field for ManyToMany relation with User",
+        "e_model_id": 39,
+        "e_relationship_id": 64,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 515,
+        "reference": "users_PolymorphicManyToMany_roles_model_has_roles_m2m",
+        "name": "Role",
+        "column_name": "",
+        "data_type": "ManyToMany",
+        "field_order": 14,
+        "db_nullable": 1,
+        "db_primaryKey": 0,
+        "db_unique": 0,
+        "default_value": null,
+        "description": "Field for ManyToMany relation with Role",
+        "e_model_id": 48,
+        "e_relationship_id": 65,
+        "created_at": null,
+        "updated_at": null
     }
 ]

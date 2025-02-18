@@ -6,6 +6,7 @@
             <tr>
                 <x-sortable-column field="name" label="{{ ucfirst(__('PkgAutorisation::user.name')) }}" />
                 <x-sortable-column field="email" label="{{ ucfirst(__('PkgAutorisation::user.email')) }}" />
+                <x-sortable-column field="roles" label="{{ ucfirst(__('PkgAutorisation::role.plural')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -14,6 +15,13 @@
                 <tr id="user-row-{{$user->id}}">
                     <td>@limit($user->name, 80)</td>
                     <td>@limit($user->email, 80)</td>
+                    <td>
+                        <ul>
+                            @foreach ($user->roles as $role)
+                                <li>{{ $role }}</li>
+                            @endforeach
+                        </ul>
+                    </td>
                     <td class="text-right">
                        @can('initPassword-user')
                         <a 
