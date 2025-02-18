@@ -62,14 +62,18 @@ class BaseModuleSeeder extends Seeder
         // Lire les données restantes en associant chaque valeur à son nom de colonne
         while (($data = fgetcsv($csvFile)) !== false) {
             $row = array_combine($headers, $data);
-            
             if ($row) {
-                $moduleService->create([
+                $moduleData =[
                     "nom" => $row["nom"] ?? null ,
                     "description" => $row["description"] ?? null ,
                     "masse_horaire" => $row["masse_horaire"] ?? null ,
                     "filiere_id" => $row["filiere_id"] ?? null 
-                ]);
+                ];
+                if (!empty($data["reference"])) {
+                    $moduleService->updateOrCreate(["reference" => $data["reference"]], $moduleData);
+                } else {
+                    $moduleService->create($moduleData);
+                }
             }
         }
 

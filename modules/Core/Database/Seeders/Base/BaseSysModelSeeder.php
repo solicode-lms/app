@@ -62,15 +62,19 @@ class BaseSysModelSeeder extends Seeder
         // Lire les données restantes en associant chaque valeur à son nom de colonne
         while (($data = fgetcsv($csvFile)) !== false) {
             $row = array_combine($headers, $data);
-            
             if ($row) {
-                $sysModelService->create([
+                $sysModelData =[
                     "name" => $row["name"] ?? null ,
                     "model" => $row["model"] ?? null ,
                     "description" => $row["description"] ?? null ,
                     "sys_module_id" => $row["sys_module_id"] ?? null ,
                     "sys_color_id" => $row["sys_color_id"] ?? null 
-                ]);
+                ];
+                if (!empty($data["reference"])) {
+                    $sysModelService->updateOrCreate(["reference" => $data["reference"]], $sysModelData);
+                } else {
+                    $sysModelService->create($sysModelData);
+                }
             }
         }
 

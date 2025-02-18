@@ -62,9 +62,8 @@ class BaseEModelSeeder extends Seeder
         // Lire les données restantes en associant chaque valeur à son nom de colonne
         while (($data = fgetcsv($csvFile)) !== false) {
             $row = array_combine($headers, $data);
-            
             if ($row) {
-                $eModelService->create([
+                $eModelData =[
                     "icon" => $row["icon"] ?? null ,
                     "name" => $row["name"] ?? null ,
                     "table_name" => $row["table_name"] ?? null ,
@@ -72,7 +71,12 @@ class BaseEModelSeeder extends Seeder
                     "is_pivot_table" => $row["is_pivot_table"] ?? null ,
                     "description" => $row["description"] ?? null ,
                     "e_package_id" => $row["e_package_id"] ?? null 
-                ]);
+                ];
+                if (!empty($data["reference"])) {
+                    $eModelService->updateOrCreate(["reference" => $data["reference"]], $eModelData);
+                } else {
+                    $eModelService->create($eModelData);
+                }
             }
         }
 

@@ -62,15 +62,19 @@ class BaseProfileSeeder extends Seeder
         // Lire les données restantes en associant chaque valeur à son nom de colonne
         while (($data = fgetcsv($csvFile)) !== false) {
             $row = array_combine($headers, $data);
-            
             if ($row) {
-                $profileService->create([
+                $profileData =[
                     "user_id" => $row["user_id"] ?? null ,
                     "phone" => $row["phone"] ?? null ,
                     "address" => $row["address"] ?? null ,
                     "profile_picture" => $row["profile_picture"] ?? null ,
                     "bio" => $row["bio"] ?? null 
-                ]);
+                ];
+                if (!empty($data["reference"])) {
+                    $profileService->updateOrCreate(["reference" => $data["reference"]], $profileData);
+                } else {
+                    $profileService->create($profileData);
+                }
             }
         }
 

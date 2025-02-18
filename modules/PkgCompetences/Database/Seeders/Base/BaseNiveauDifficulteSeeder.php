@@ -62,15 +62,19 @@ class BaseNiveauDifficulteSeeder extends Seeder
         // Lire les données restantes en associant chaque valeur à son nom de colonne
         while (($data = fgetcsv($csvFile)) !== false) {
             $row = array_combine($headers, $data);
-            
             if ($row) {
-                $niveauDifficulteService->create([
+                $niveauDifficulteData =[
                     "nom" => $row["nom"] ?? null ,
                     "noteMin" => $row["noteMin"] ?? null ,
                     "noteMax" => $row["noteMax"] ?? null ,
                     "formateur_id" => $row["formateur_id"] ?? null ,
                     "description" => $row["description"] ?? null 
-                ]);
+                ];
+                if (!empty($data["reference"])) {
+                    $niveauDifficulteService->updateOrCreate(["reference" => $data["reference"]], $niveauDifficulteData);
+                } else {
+                    $niveauDifficulteService->create($niveauDifficulteData);
+                }
             }
         }
 

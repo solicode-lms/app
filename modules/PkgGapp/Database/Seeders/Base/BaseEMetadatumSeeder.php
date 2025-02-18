@@ -62,9 +62,8 @@ class BaseEMetadatumSeeder extends Seeder
         // Lire les données restantes en associant chaque valeur à son nom de colonne
         while (($data = fgetcsv($csvFile)) !== false) {
             $row = array_combine($headers, $data);
-            
             if ($row) {
-                $eMetadatumService->create([
+                $eMetadatumData =[
                     "Value" => $row["Value"] ?? null ,
                     "value_boolean" => $row["value_boolean"] ?? null ,
                     "value_string" => $row["value_string"] ?? null ,
@@ -78,7 +77,12 @@ class BaseEMetadatumSeeder extends Seeder
                     "e_model_id" => $row["e_model_id"] ?? null ,
                     "e_data_field_id" => $row["e_data_field_id"] ?? null ,
                     "e_metadata_definition_id" => $row["e_metadata_definition_id"] ?? null 
-                ]);
+                ];
+                if (!empty($data["reference"])) {
+                    $eMetadatumService->updateOrCreate(["reference" => $data["reference"]], $eMetadatumData);
+                } else {
+                    $eMetadatumService->create($eMetadatumData);
+                }
             }
         }
 

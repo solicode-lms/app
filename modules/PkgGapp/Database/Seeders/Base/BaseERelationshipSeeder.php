@@ -62,9 +62,8 @@ class BaseERelationshipSeeder extends Seeder
         // Lire les données restantes en associant chaque valeur à son nom de colonne
         while (($data = fgetcsv($csvFile)) !== false) {
             $row = array_combine($headers, $data);
-            
             if ($row) {
-                $eRelationshipService->create([
+                $eRelationshipData =[
                     "name" => $row["name"] ?? null ,
                     "type" => $row["type"] ?? null ,
                     "source_e_model_id" => $row["source_e_model_id"] ?? null ,
@@ -78,7 +77,12 @@ class BaseERelationshipSeeder extends Seeder
                     "through" => $row["through"] ?? null ,
                     "with_column" => $row["with_column"] ?? null ,
                     "morph_name" => $row["morph_name"] ?? null 
-                ]);
+                ];
+                if (!empty($data["reference"])) {
+                    $eRelationshipService->updateOrCreate(["reference" => $data["reference"]], $eRelationshipData);
+                } else {
+                    $eRelationshipService->create($eRelationshipData);
+                }
             }
         }
 

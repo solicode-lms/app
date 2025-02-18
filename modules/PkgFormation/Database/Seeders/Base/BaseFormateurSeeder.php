@@ -62,9 +62,8 @@ class BaseFormateurSeeder extends Seeder
         // Lire les données restantes en associant chaque valeur à son nom de colonne
         while (($data = fgetcsv($csvFile)) !== false) {
             $row = array_combine($headers, $data);
-            
             if ($row) {
-                $formateurService->create([
+                $formateurData =[
                     "matricule" => $row["matricule"] ?? null ,
                     "nom" => $row["nom"] ?? null ,
                     "prenom" => $row["prenom"] ?? null ,
@@ -78,7 +77,12 @@ class BaseFormateurSeeder extends Seeder
                     "echelon" => $row["echelon"] ?? null ,
                     "profile_image" => $row["profile_image"] ?? null ,
                     "user_id" => $row["user_id"] ?? null 
-                ]);
+                ];
+                if (!empty($data["reference"])) {
+                    $formateurService->updateOrCreate(["reference" => $data["reference"]], $formateurData);
+                } else {
+                    $formateurService->create($formateurData);
+                }
             }
         }
 

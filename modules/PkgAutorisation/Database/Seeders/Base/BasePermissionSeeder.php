@@ -61,13 +61,17 @@ class BasePermissionSeeder extends Seeder
         // Lire les données restantes en associant chaque valeur à son nom de colonne
         while (($data = fgetcsv($csvFile)) !== false) {
             $row = array_combine($headers, $data);
-            
             if ($row) {
-                $permissionService->create([
+                $permissionData =[
                     "name" => $row["name"] ?? null ,
                     "guard_name" => $row["guard_name"] ?? null ,
                     "controller_id" => $row["controller_id"] ?? null 
-                ]);
+                ];
+                if (!empty($data["reference"])) {
+                    $permissionService->updateOrCreate(["reference" => $data["reference"]], $permissionData);
+                } else {
+                    $permissionService->create($permissionData);
+                }
             }
         }
 

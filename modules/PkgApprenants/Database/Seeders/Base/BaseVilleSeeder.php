@@ -62,11 +62,15 @@ class BaseVilleSeeder extends Seeder
         // Lire les données restantes en associant chaque valeur à son nom de colonne
         while (($data = fgetcsv($csvFile)) !== false) {
             $row = array_combine($headers, $data);
-            
             if ($row) {
-                $villeService->create([
+                $villeData =[
                     "nom" => $row["nom"] ?? null 
-                ]);
+                ];
+                if (!empty($data["reference"])) {
+                    $villeService->updateOrCreate(["reference" => $data["reference"]], $villeData);
+                } else {
+                    $villeService->create($villeData);
+                }
             }
         }
 

@@ -61,16 +61,20 @@ class BaseUserSeeder extends Seeder
         // Lire les données restantes en associant chaque valeur à son nom de colonne
         while (($data = fgetcsv($csvFile)) !== false) {
             $row = array_combine($headers, $data);
-            
             if ($row) {
-                $userService->create([
+                $userData =[
                     "name" => $row["name"] ?? null ,
                     "email" => $row["email"] ?? null ,
                     "email_verified_at" => $row["email_verified_at"] ?? null ,
                     "password" => $row["password"] ?? null ,
                     "must_change_password" => $row["must_change_password"] ?? null ,
                     "remember_token" => $row["remember_token"] ?? null 
-                ]);
+                ];
+                if (!empty($data["reference"])) {
+                    $userService->updateOrCreate(["reference" => $data["reference"]], $userData);
+                } else {
+                    $userService->create($userData);
+                }
             }
         }
 

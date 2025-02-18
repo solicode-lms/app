@@ -62,9 +62,8 @@ class BaseApprenantSeeder extends Seeder
         // Lire les données restantes en associant chaque valeur à son nom de colonne
         while (($data = fgetcsv($csvFile)) !== false) {
             $row = array_combine($headers, $data);
-            
             if ($row) {
-                $apprenantService->create([
+                $apprenantData =[
                     "nom" => $row["nom"] ?? null ,
                     "nom_arab" => $row["nom_arab"] ?? null ,
                     "prenom" => $row["prenom"] ?? null ,
@@ -83,7 +82,12 @@ class BaseApprenantSeeder extends Seeder
                     "matricule" => $row["matricule"] ?? null ,
                     "date_inscription" => $row["date_inscription"] ?? null ,
                     "actif" => $row["actif"] ?? null 
-                ]);
+                ];
+                if (!empty($data["reference"])) {
+                    $apprenantService->updateOrCreate(["reference" => $data["reference"]], $apprenantData);
+                } else {
+                    $apprenantService->create($apprenantData);
+                }
             }
         }
 

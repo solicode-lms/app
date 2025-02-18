@@ -62,13 +62,17 @@ class BaseNationaliteSeeder extends Seeder
         // Lire les données restantes en associant chaque valeur à son nom de colonne
         while (($data = fgetcsv($csvFile)) !== false) {
             $row = array_combine($headers, $data);
-            
             if ($row) {
-                $nationaliteService->create([
+                $nationaliteData =[
                     "code" => $row["code"] ?? null ,
                     "nom" => $row["nom"] ?? null ,
                     "description" => $row["description"] ?? null 
-                ]);
+                ];
+                if (!empty($data["reference"])) {
+                    $nationaliteService->updateOrCreate(["reference" => $data["reference"]], $nationaliteData);
+                } else {
+                    $nationaliteService->create($nationaliteData);
+                }
             }
         }
 

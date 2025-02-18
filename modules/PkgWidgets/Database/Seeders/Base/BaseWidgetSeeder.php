@@ -62,9 +62,8 @@ class BaseWidgetSeeder extends Seeder
         // Lire les données restantes en associant chaque valeur à son nom de colonne
         while (($data = fgetcsv($csvFile)) !== false) {
             $row = array_combine($headers, $data);
-            
             if ($row) {
-                $widgetService->create([
+                $widgetData =[
                     "name" => $row["name"] ?? null ,
                     "type_id" => $row["type_id"] ?? null ,
                     "model_id" => $row["model_id"] ?? null ,
@@ -73,7 +72,12 @@ class BaseWidgetSeeder extends Seeder
                     "icon" => $row["icon"] ?? null ,
                     "label" => $row["label"] ?? null ,
                     "parameters" => $row["parameters"] ?? null 
-                ]);
+                ];
+                if (!empty($data["reference"])) {
+                    $widgetService->updateOrCreate(["reference" => $data["reference"]], $widgetData);
+                } else {
+                    $widgetService->create($widgetData);
+                }
             }
         }
 

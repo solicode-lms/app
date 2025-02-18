@@ -62,15 +62,19 @@ class BaseValidationSeeder extends Seeder
         // Lire les données restantes en associant chaque valeur à son nom de colonne
         while (($data = fgetcsv($csvFile)) !== false) {
             $row = array_combine($headers, $data);
-            
             if ($row) {
-                $validationService->create([
+                $validationData =[
                     "transfert_competence_id" => $row["transfert_competence_id"] ?? null ,
                     "note" => $row["note"] ?? null ,
                     "message" => $row["message"] ?? null ,
                     "is_valide" => $row["is_valide"] ?? null ,
                     "realisation_projet_id" => $row["realisation_projet_id"] ?? null 
-                ]);
+                ];
+                if (!empty($data["reference"])) {
+                    $validationService->updateOrCreate(["reference" => $data["reference"]], $validationData);
+                } else {
+                    $validationService->create($validationData);
+                }
             }
         }
 

@@ -61,13 +61,17 @@ class BaseFeatureSeeder extends Seeder
         // Lire les données restantes en associant chaque valeur à son nom de colonne
         while (($data = fgetcsv($csvFile)) !== false) {
             $row = array_combine($headers, $data);
-            
             if ($row) {
-                $featureService->create([
+                $featureData =[
                     "name" => $row["name"] ?? null ,
                     "description" => $row["description"] ?? null ,
                     "feature_domain_id" => $row["feature_domain_id"] ?? null 
-                ]);
+                ];
+                if (!empty($data["reference"])) {
+                    $featureService->updateOrCreate(["reference" => $data["reference"]], $featureData);
+                } else {
+                    $featureService->create($featureData);
+                }
             }
         }
 

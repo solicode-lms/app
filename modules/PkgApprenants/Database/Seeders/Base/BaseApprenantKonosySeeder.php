@@ -62,9 +62,8 @@ class BaseApprenantKonosySeeder extends Seeder
         // Lire les données restantes en associant chaque valeur à son nom de colonne
         while (($data = fgetcsv($csvFile)) !== false) {
             $row = array_combine($headers, $data);
-            
             if ($row) {
-                $apprenantKonosyService->create([
+                $apprenantKonosyData =[
                     "MatriculeEtudiant" => $row["MatriculeEtudiant"] ?? null ,
                     "Nom" => $row["Nom"] ?? null ,
                     "Prenom" => $row["Prenom"] ?? null ,
@@ -84,7 +83,12 @@ class BaseApprenantKonosySeeder extends Seeder
                     "Nom_Arabe" => $row["Nom_Arabe"] ?? null ,
                     "Prenom_Arabe" => $row["Prenom_Arabe"] ?? null ,
                     "NiveauScolaire" => $row["NiveauScolaire"] ?? null 
-                ]);
+                ];
+                if (!empty($data["reference"])) {
+                    $apprenantKonosyService->updateOrCreate(["reference" => $data["reference"]], $apprenantKonosyData);
+                } else {
+                    $apprenantKonosyService->create($apprenantKonosyData);
+                }
             }
         }
 

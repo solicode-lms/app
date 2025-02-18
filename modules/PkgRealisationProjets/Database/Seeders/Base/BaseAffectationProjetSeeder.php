@@ -62,16 +62,20 @@ class BaseAffectationProjetSeeder extends Seeder
         // Lire les données restantes en associant chaque valeur à son nom de colonne
         while (($data = fgetcsv($csvFile)) !== false) {
             $row = array_combine($headers, $data);
-            
             if ($row) {
-                $affectationProjetService->create([
+                $affectationProjetData =[
                     "projet_id" => $row["projet_id"] ?? null ,
                     "groupe_id" => $row["groupe_id"] ?? null ,
                     "date_debut" => $row["date_debut"] ?? null ,
                     "date_fin" => $row["date_fin"] ?? null ,
                     "description" => $row["description"] ?? null ,
                     "annee_formation_id" => $row["annee_formation_id"] ?? null 
-                ]);
+                ];
+                if (!empty($data["reference"])) {
+                    $affectationProjetService->updateOrCreate(["reference" => $data["reference"]], $affectationProjetData);
+                } else {
+                    $affectationProjetService->create($affectationProjetData);
+                }
             }
         }
 

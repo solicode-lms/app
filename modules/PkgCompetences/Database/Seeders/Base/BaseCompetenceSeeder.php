@@ -62,15 +62,19 @@ class BaseCompetenceSeeder extends Seeder
         // Lire les données restantes en associant chaque valeur à son nom de colonne
         while (($data = fgetcsv($csvFile)) !== false) {
             $row = array_combine($headers, $data);
-            
             if ($row) {
-                $competenceService->create([
+                $competenceData =[
                     "code" => $row["code"] ?? null ,
                     "mini_code" => $row["mini_code"] ?? null ,
                     "nom" => $row["nom"] ?? null ,
                     "module_id" => $row["module_id"] ?? null ,
                     "description" => $row["description"] ?? null 
-                ]);
+                ];
+                if (!empty($data["reference"])) {
+                    $competenceService->updateOrCreate(["reference" => $data["reference"]], $competenceData);
+                } else {
+                    $competenceService->create($competenceData);
+                }
             }
         }
 

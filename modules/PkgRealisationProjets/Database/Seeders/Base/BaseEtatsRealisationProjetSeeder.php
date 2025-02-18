@@ -62,13 +62,17 @@ class BaseEtatsRealisationProjetSeeder extends Seeder
         // Lire les données restantes en associant chaque valeur à son nom de colonne
         while (($data = fgetcsv($csvFile)) !== false) {
             $row = array_combine($headers, $data);
-            
             if ($row) {
-                $etatsRealisationProjetService->create([
+                $etatsRealisationProjetData =[
                     "formateur_id" => $row["formateur_id"] ?? null ,
                     "titre" => $row["titre"] ?? null ,
                     "description" => $row["description"] ?? null 
-                ]);
+                ];
+                if (!empty($data["reference"])) {
+                    $etatsRealisationProjetService->updateOrCreate(["reference" => $data["reference"]], $etatsRealisationProjetData);
+                } else {
+                    $etatsRealisationProjetService->create($etatsRealisationProjetData);
+                }
             }
         }
 

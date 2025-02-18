@@ -62,12 +62,16 @@ class BaseCategoryTechnologySeeder extends Seeder
         // Lire les données restantes en associant chaque valeur à son nom de colonne
         while (($data = fgetcsv($csvFile)) !== false) {
             $row = array_combine($headers, $data);
-            
             if ($row) {
-                $categoryTechnologyService->create([
+                $categoryTechnologyData =[
                     "nom" => $row["nom"] ?? null ,
                     "description" => $row["description"] ?? null 
-                ]);
+                ];
+                if (!empty($data["reference"])) {
+                    $categoryTechnologyService->updateOrCreate(["reference" => $data["reference"]], $categoryTechnologyData);
+                } else {
+                    $categoryTechnologyService->create($categoryTechnologyData);
+                }
             }
         }
 

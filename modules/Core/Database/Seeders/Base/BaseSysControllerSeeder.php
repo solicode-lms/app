@@ -61,15 +61,19 @@ class BaseSysControllerSeeder extends Seeder
         // Lire les données restantes en associant chaque valeur à son nom de colonne
         while (($data = fgetcsv($csvFile)) !== false) {
             $row = array_combine($headers, $data);
-            
             if ($row) {
-                $sysControllerService->create([
+                $sysControllerData =[
                     "sys_module_id" => $row["sys_module_id"] ?? null ,
                     "name" => $row["name"] ?? null ,
                     "slug" => $row["slug"] ?? null ,
                     "description" => $row["description"] ?? null ,
                     "is_active" => $row["is_active"] ?? null 
-                ]);
+                ];
+                if (!empty($data["reference"])) {
+                    $sysControllerService->updateOrCreate(["reference" => $data["reference"]], $sysControllerData);
+                } else {
+                    $sysControllerService->create($sysControllerData);
+                }
             }
         }
 

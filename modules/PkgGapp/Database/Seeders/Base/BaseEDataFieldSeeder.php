@@ -62,9 +62,8 @@ class BaseEDataFieldSeeder extends Seeder
         // Lire les données restantes en associant chaque valeur à son nom de colonne
         while (($data = fgetcsv($csvFile)) !== false) {
             $row = array_combine($headers, $data);
-            
             if ($row) {
-                $eDataFieldService->create([
+                $eDataFieldData =[
                     "order" => $row["order"] ?? null ,
                     "name" => $row["name"] ?? null ,
                     "column_name" => $row["column_name"] ?? null ,
@@ -77,7 +76,12 @@ class BaseEDataFieldSeeder extends Seeder
                     "e_model_id" => $row["e_model_id"] ?? null ,
                     "e_relationship_id" => $row["e_relationship_id"] ?? null ,
                     "data_type" => $row["data_type"] ?? null 
-                ]);
+                ];
+                if (!empty($data["reference"])) {
+                    $eDataFieldService->updateOrCreate(["reference" => $data["reference"]], $eDataFieldData);
+                } else {
+                    $eDataFieldService->create($eDataFieldData);
+                }
             }
         }
 

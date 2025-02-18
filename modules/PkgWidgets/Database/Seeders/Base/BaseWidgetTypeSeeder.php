@@ -62,12 +62,16 @@ class BaseWidgetTypeSeeder extends Seeder
         // Lire les données restantes en associant chaque valeur à son nom de colonne
         while (($data = fgetcsv($csvFile)) !== false) {
             $row = array_combine($headers, $data);
-            
             if ($row) {
-                $widgetTypeService->create([
+                $widgetTypeData =[
                     "type" => $row["type"] ?? null ,
                     "description" => $row["description"] ?? null 
-                ]);
+                ];
+                if (!empty($data["reference"])) {
+                    $widgetTypeService->updateOrCreate(["reference" => $data["reference"]], $widgetTypeData);
+                } else {
+                    $widgetTypeService->create($widgetTypeData);
+                }
             }
         }
 

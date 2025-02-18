@@ -62,14 +62,18 @@ class BaseLivrableSeeder extends Seeder
         // Lire les données restantes en associant chaque valeur à son nom de colonne
         while (($data = fgetcsv($csvFile)) !== false) {
             $row = array_combine($headers, $data);
-            
             if ($row) {
-                $livrableService->create([
+                $livrableData =[
                     "nature_livrable_id" => $row["nature_livrable_id"] ?? null ,
                     "titre" => $row["titre"] ?? null ,
                     "projet_id" => $row["projet_id"] ?? null ,
                     "description" => $row["description"] ?? null 
-                ]);
+                ];
+                if (!empty($data["reference"])) {
+                    $livrableService->updateOrCreate(["reference" => $data["reference"]], $livrableData);
+                } else {
+                    $livrableService->create($livrableData);
+                }
             }
         }
 

@@ -62,12 +62,16 @@ class BaseSysColorSeeder extends Seeder
         // Lire les données restantes en associant chaque valeur à son nom de colonne
         while (($data = fgetcsv($csvFile)) !== false) {
             $row = array_combine($headers, $data);
-            
             if ($row) {
-                $sysColorService->create([
+                $sysColorData =[
                     "name" => $row["name"] ?? null ,
                     "hex" => $row["hex"] ?? null 
-                ]);
+                ];
+                if (!empty($data["reference"])) {
+                    $sysColorService->updateOrCreate(["reference" => $data["reference"]], $sysColorData);
+                } else {
+                    $sysColorService->create($sysColorData);
+                }
             }
         }
 
