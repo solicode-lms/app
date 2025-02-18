@@ -34,7 +34,7 @@ trait GappCommands
         $makeCrudCommand = "gapp make:crud {$modelName} ../";
         $metaExportCommand = "gapp meta:export ../";
 
-        $this->pushServiceMessage("info","Gapp", $message);
+        $this->pushServiceMessage("success","Gapp", $message);
 
         // Exécution SYNCHRONE du CRUD
         $this->executeCommandAsync($makeCrudCommand);

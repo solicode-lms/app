@@ -76,44 +76,56 @@
 </div>
 
         
-        <div class="form-group">
-            <label for="prenom_arab">
-                {{ ucfirst(__('PkgFormation::formateur.prenom_arab')) }}
-                
+                <div class="form-group">
+            <label for="specialites">
+                {{ ucfirst(__('PkgFormation::Specialite.plural')) }}
             </label>
-            <input
-                name="prenom_arab"
-                type="input"
-                class="form-control"
+            <select
+                id="specialites"
+                name="specialites[]"
+                class="form-control select2"
                 
-                
-                id="prenom_arab"
-                placeholder="{{ __('PkgFormation::formateur.prenom_arab') }}"
-                value="{{ $itemFormateur ? $itemFormateur->prenom_arab : old('prenom_arab') }}">
-            @error('prenom_arab')
+                multiple="multiple">
+               
+                @foreach ($specialites as $specialite)
+                    <option value="{{ $specialite->id }}"
+                        {{ (isset($itemFormateur) && $itemFormateur->specialites && $itemFormateur->specialites->contains('id', $specialite->id)) || (is_array(old('specialites')) && in_array($specialite->id, old('specialites'))) ? 'selected' : '' }}>
+                        {{ $specialite }}
+                    </option>
+                @endforeach
+            </select>
+            @error('specialites')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-</div>
+
+        </div>
+
 
         
-        <div class="form-group">
-            <label for="nom_arab">
-                {{ ucfirst(__('PkgFormation::formateur.nom_arab')) }}
-                
+                <div class="form-group">
+            <label for="groupes">
+                {{ ucfirst(__('PkgApprenants::Groupe.plural')) }}
             </label>
-            <input
-                name="nom_arab"
-                type="input"
-                class="form-control"
+            <select
+                id="groupes"
+                name="groupes[]"
+                class="form-control select2"
                 
-                
-                id="nom_arab"
-                placeholder="{{ __('PkgFormation::formateur.nom_arab') }}"
-                value="{{ $itemFormateur ? $itemFormateur->nom_arab : old('nom_arab') }}">
-            @error('nom_arab')
+                multiple="multiple">
+               
+                @foreach ($groupes as $groupe)
+                    <option value="{{ $groupe->id }}"
+                        {{ (isset($itemFormateur) && $itemFormateur->groupes && $itemFormateur->groupes->contains('id', $groupe->id)) || (is_array(old('groupes')) && in_array($groupe->id, old('groupes'))) ? 'selected' : '' }}>
+                        {{ $groupe }}
+                    </option>
+                @endforeach
+            </select>
+            @error('groupes')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-</div>
+
+        </div>
+
 
         
         <div class="form-group">
@@ -156,106 +168,6 @@
 </div>
 
         
-        <div class="form-group">
-            <label for="adresse">
-                {{ ucfirst(__('PkgFormation::formateur.adresse')) }}
-                
-            </label>
-            <input
-                name="adresse"
-                type="input"
-                class="form-control"
-                
-                
-                id="adresse"
-                placeholder="{{ __('PkgFormation::formateur.adresse') }}"
-                value="{{ $itemFormateur ? $itemFormateur->adresse : old('adresse') }}">
-            @error('adresse')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
-
-        
-        <div class="form-group">
-            <label for="diplome">
-                {{ ucfirst(__('PkgFormation::formateur.diplome')) }}
-                
-            </label>
-            <input
-                name="diplome"
-                type="input"
-                class="form-control"
-                
-                
-                id="diplome"
-                placeholder="{{ __('PkgFormation::formateur.diplome') }}"
-                value="{{ $itemFormateur ? $itemFormateur->diplome : old('diplome') }}">
-            @error('diplome')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
-
-        
-        <div class="form-group">
-            <label for="echelle">
-                {{ ucfirst(__('PkgFormation::formateur.echelle')) }}
-                
-            </label>
-            <input
-                name="echelle"
-                type="number"
-                class="form-control"
-                
-                
-                id="echelle"
-                placeholder="{{ __('PkgFormation::formateur.echelle') }}"
-                value="{{ $itemFormateur ? $itemFormateur->echelle : old('echelle') }}">
-            @error('echelle')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
-
-        
-        <div class="form-group">
-            <label for="echelon">
-                {{ ucfirst(__('PkgFormation::formateur.echelon')) }}
-                
-            </label>
-            <input
-                name="echelon"
-                type="number"
-                class="form-control"
-                
-                
-                id="echelon"
-                placeholder="{{ __('PkgFormation::formateur.echelon') }}"
-                value="{{ $itemFormateur ? $itemFormateur->echelon : old('echelon') }}">
-            @error('echelon')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
-
-        
-        <div class="form-group">
-            <label for="profile_image">
-                {{ ucfirst(__('PkgFormation::formateur.profile_image')) }}
-                
-            </label>
-            <input
-                name="profile_image"
-                type="input"
-                class="form-control"
-                
-                
-                id="profile_image"
-                placeholder="{{ __('PkgFormation::formateur.profile_image') }}"
-                value="{{ $itemFormateur ? $itemFormateur->profile_image : old('profile_image') }}">
-            @error('profile_image')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
-
-        
         
     <div class="form-group">
             <label for="user_id">
@@ -285,58 +197,6 @@
         
 
         <!--   EtatsRealisationProjet HasMany --> 
-
-        
-                <div class="form-group">
-            <label for="groupes">
-                {{ ucfirst(__('PkgApprenants::Groupe.plural')) }}
-            </label>
-            <select
-                id="groupes"
-                name="groupes[]"
-                class="form-control select2"
-                
-                multiple="multiple">
-               
-                @foreach ($groupes as $groupe)
-                    <option value="{{ $groupe->id }}"
-                        {{ (isset($itemFormateur) && $itemFormateur->groupes && $itemFormateur->groupes->contains('id', $groupe->id)) || (is_array(old('groupes')) && in_array($groupe->id, old('groupes'))) ? 'selected' : '' }}>
-                        {{ $groupe }}
-                    </option>
-                @endforeach
-            </select>
-            @error('groupes')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-
-        </div>
-
-
-        
-                <div class="form-group">
-            <label for="specialites">
-                {{ ucfirst(__('PkgFormation::Specialite.plural')) }}
-            </label>
-            <select
-                id="specialites"
-                name="specialites[]"
-                class="form-control select2"
-                
-                multiple="multiple">
-               
-                @foreach ($specialites as $specialite)
-                    <option value="{{ $specialite->id }}"
-                        {{ (isset($itemFormateur) && $itemFormateur->specialites && $itemFormateur->specialites->contains('id', $specialite->id)) || (is_array(old('specialites')) && in_array($specialite->id, old('specialites'))) ? 'selected' : '' }}>
-                        {{ $specialite }}
-                    </option>
-                @endforeach
-            </select>
-            @error('specialites')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-
-        </div>
-
 
         
 

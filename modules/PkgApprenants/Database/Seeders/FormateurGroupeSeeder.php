@@ -6,48 +6,61 @@ use Illuminate\Database\Seeder;
 use Modules\PkgApprenants\Models\Groupe;
 use Modules\PkgFormation\Models\Formateur;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Modules\PkgApprenants\Services\GroupeService;
+use Modules\PkgFormation\Services\FormateurService;
 
 class FormateurGroupeSeeder extends Seeder
 {
     public function run(): void
     {
-        // ID du groupe et du formateur à affecter
-        $groupeId = 1;
-        $formateurId = 4;
+        $this->affecterFormateurAGroupe("0001", "DMB101-2024-2025");
+        $this->affecterFormateurAGroupe("0002", "DWB101-2024-2025");
+        $this->affecterFormateurAGroupe("0003", "DWB102-2024-2025");
+        $this->affecterFormateurAGroupe("0004", "DWB103-2024-2025");
+        $this->affecterFormateurAGroupe("0005", "DWB104-2024-2025");
+    }
 
-        // Vérifier si le groupe et le formateur existent
-        $groupe = Groupe::find($groupeId);
-        $formateur = Formateur::find($formateurId);
+    /**
+     * Affecte un formateur à un groupe en vérifiant son existence et l'unicité de l'affectation.
+     *
+     * @param int $formateurId
+     * @param int $groupeId
+     * @return void
+     */
+    private function affecterFormateurAGroupe(string $formateur_reference, string $groupe_reference): void
+    {
+        $groupeService = new GroupeService();
+        $formateurService = new FormateurService();
 
-        if (!$groupe) {
-            $this->command->error("Le groupe avec l'ID $groupeId n'existe pas.");
+        // Vérification de l'existence du formateur et du groupe
+        $groupe =$groupeService->getByReference($groupe_reference);
+        $formateur = $formateurService->getByReference($formateur_reference);
+
+        if (!$groupe || !$formateur) {
+            $this->command->error("Erreur : Le groupe ($groupe_reference) ou le formateur ($formateur_reference) n'existe pas.");
             return;
         }
 
-        if (!$formateur) {
-            $this->command->error("Le formateur avec l'ID $formateurId n'existe pas.");
-            return;
-        }
-
-        // Vérifier si l'affectation existe déjà
+        // Vérification de l'affectation existante
         $exists = DB::table('formateur_groupe')
-            ->where('groupe_id', $groupeId)
-            ->where('formateur_id', $formateurId)
+            ->where('groupe_id', $groupe->id)
+            ->where('formateur_id', $formateur->id)
             ->exists();
 
         if ($exists) {
-            $this->command->info("Le formateur ID $formateurId est déjà affecté au groupe ID $groupeId.");
+            $this->command->info("Le formateur $formateur_reference est déjà affecté au groupe  $groupe_reference.");
             return;
         }
 
-        // Insérer l'affectation dans la table pivot
-        DB::table('formateur_groupe')->insert([
-            'groupe_id' => $groupeId,
-            'formateur_id' => $formateurId,
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
-
-        // $this->command->info("Le formateur ID $formateurId a été affecté au groupe ID $groupeId avec succès.");
+        // Affectation avec une transaction pour éviter les incohérences
+        DB::transaction(function () use ($groupe, $formateur) {
+            DB::table('formateur_groupe')->insert([
+                'groupe_id' => $groupe->id,
+                'formateur_id' => $formateur->id,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        });
     }
 }

@@ -539,5 +539,15 @@ public function initStats(){
         session()->flash('service_messages', $messages);
     }
 
-
+    /**
+     * Récupère un élément à partir de sa référence unique.
+     *
+     * @param string $reference Le champ de référence unique.
+     * @param array $columns Colonnes à récupérer.
+     * @return Model|null
+     */
+    public function getByReference(string $reference, array $columns = ['*'])
+    {
+        return $this->model->where('reference', $reference)->first($columns);
+    }
 }
