@@ -30,7 +30,7 @@ class FormateurService extends BaseFormateurService
             $user = $userService->createInstance();
             $user->formateur_id = $formateur->id;
             $user->name = strtoupper($formateur->nom) . " " . ucfirst($formateur->prenom);
-            $user->email = $formateur->matricule . "@solicode.co";
+            $user->email = strtolower(trim(str_replace(' ', '-', $formateur->nom))). strtolower(trim(str_replace(' ', '-', $formateur->prenom))) . "@ofppt-edu.ma";
             $user->password = $formateur->matricule;
             $userService->create($user);
         }

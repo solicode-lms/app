@@ -21,6 +21,7 @@ return new class extends Migration {
             $table->string('prenom');
             $table->string('prenom_arab')->nullable();
             $table->string('nom_arab')->nullable();
+            $table->string('email')->nullable();
             $table->string('tele_num')->nullable();
             $table->string('adresse')->nullable();
             $table->string('diplome')->nullable();
