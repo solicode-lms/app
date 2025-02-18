@@ -111,6 +111,7 @@ class BaseFormateurSeeder extends Seeder
             'Édition sans Ajouter' => ['index', 'show','edit','update','destroy','getFormateurs','dataCalcul'],
             'Édition ' => [ 'index', 'show','create','store','edit','update','destroy','getFormateurs','dataCalcul'],
             'Extraction' => ['import', 'export'],
+            'initPassword' => ['initPassword'],
         ];
 
         // Ajouter le contrôleur
