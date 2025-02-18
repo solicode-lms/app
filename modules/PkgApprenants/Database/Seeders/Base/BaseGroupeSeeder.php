@@ -36,7 +36,7 @@ class BaseGroupeSeeder extends Seeder
         $this->addDefaultControllerDomainFeatures();
 
         // Associer les permissions aux rôles
-        $this->assignPermissionsToRoles($AdminRole, $MembreRole);
+        // $this->assignPermissionsToRoles($AdminRole, $MembreRole);
     }
 
     public function seedFromCsv(): void
@@ -100,8 +100,10 @@ class BaseGroupeSeeder extends Seeder
 
         // Permissions spécifiques pour chaque type de fonctionnalité
         $featurePermissions = [
-            'Édition ' => [ 'create','store','edit','update','destroy','getGroupes','dataCalcul'],
+            'Afficher' => ['show'],
             'Lecture' => ['index', 'show'],
+            'Édition sans Ajouter' => ['index', 'show','edit','update','destroy','getGroupes','dataCalcul'],
+            'Édition ' => [ 'index', 'show','create','store','edit','update','destroy','getGroupes','dataCalcul'],
             'Extraction' => ['import', 'export'],
         ];
 

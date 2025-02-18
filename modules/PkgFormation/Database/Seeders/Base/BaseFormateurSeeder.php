@@ -36,7 +36,7 @@ class BaseFormateurSeeder extends Seeder
         $this->addDefaultControllerDomainFeatures();
 
         // Associer les permissions aux rôles
-        $this->assignPermissionsToRoles($AdminRole, $MembreRole);
+        // $this->assignPermissionsToRoles($AdminRole, $MembreRole);
     }
 
     public function seedFromCsv(): void
@@ -72,6 +72,7 @@ class BaseFormateurSeeder extends Seeder
                     "prenom" => $row["prenom"] ?? null ,
                     "prenom_arab" => $row["prenom_arab"] ?? null ,
                     "nom_arab" => $row["nom_arab"] ?? null ,
+                    "email" => $row["email"] ?? null ,
                     "tele_num" => $row["tele_num"] ?? null ,
                     "adresse" => $row["adresse"] ?? null ,
                     "diplome" => $row["diplome"] ?? null ,
@@ -107,8 +108,10 @@ class BaseFormateurSeeder extends Seeder
 
         // Permissions spécifiques pour chaque type de fonctionnalité
         $featurePermissions = [
-            'Édition ' => [ 'create','store','edit','update','destroy','getFormateurs','dataCalcul'],
+            'Afficher' => ['show'],
             'Lecture' => ['index', 'show'],
+            'Édition sans Ajouter' => ['index', 'show','edit','update','destroy','getFormateurs','dataCalcul'],
+            'Édition ' => [ 'index', 'show','create','store','edit','update','destroy','getFormateurs','dataCalcul'],
             'Extraction' => ['import', 'export'],
         ];
 

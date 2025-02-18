@@ -390,5 +390,17 @@
         ],
         "e_model_reference": "formateurs",
         "e_metadata_definition_reference": "entityActions"
+    },
+    {
+        "reference": "Formateur_email_displayOrder",
+        "value_integer": 7,
+        "e_data_field_reference": "Formateur_email",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "Formateur_email_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formateur_email",
+        "e_metadata_definition_reference": "displayInForm"
     }
 ]

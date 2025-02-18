@@ -36,7 +36,7 @@ class BaseTechnologySeeder extends Seeder
         $this->addDefaultControllerDomainFeatures();
 
         // Associer les permissions aux rôles
-        $this->assignPermissionsToRoles($AdminRole, $MembreRole);
+        // $this->assignPermissionsToRoles($AdminRole, $MembreRole);
     }
 
     public function seedFromCsv(): void
@@ -98,8 +98,10 @@ class BaseTechnologySeeder extends Seeder
 
         // Permissions spécifiques pour chaque type de fonctionnalité
         $featurePermissions = [
-            'Édition ' => [ 'create','store','edit','update','destroy','getTechnologies','dataCalcul'],
+            'Afficher' => ['show'],
             'Lecture' => ['index', 'show'],
+            'Édition sans Ajouter' => ['index', 'show','edit','update','destroy','getTechnologies','dataCalcul'],
+            'Édition ' => [ 'index', 'show','create','store','edit','update','destroy','getTechnologies','dataCalcul'],
             'Extraction' => ['import', 'export'],
         ];
 

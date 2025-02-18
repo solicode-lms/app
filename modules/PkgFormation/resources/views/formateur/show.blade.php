@@ -45,6 +45,10 @@
                                 <p>{{ $itemFormateur->nom_arab }}</p>
                             </div>
                             <div class="col-sm-12">
+                                <label for="email">{{ ucfirst(__('PkgFormation::formateur.email')) }}:</label>
+                                <p>{{ $itemFormateur->email }}</p>
+                            </div>
+                            <div class="col-sm-12">
                                 <label for="tele_num">{{ ucfirst(__('PkgFormation::formateur.tele_num')) }}:</label>
                                 <p>{{ $itemFormateur->tele_num }}</p>
                             </div>

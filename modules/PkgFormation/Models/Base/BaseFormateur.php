@@ -39,7 +39,7 @@ class BaseFormateur extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'matricule', 'nom', 'prenom', 'prenom_arab', 'nom_arab', 'tele_num', 'adresse', 'diplome', 'echelle', 'echelon', 'profile_image', 'user_id'
+        'matricule', 'nom', 'prenom', 'prenom_arab', 'nom_arab', 'email', 'tele_num', 'adresse', 'diplome', 'echelle', 'echelon', 'profile_image', 'user_id'
     ];
     public $manyToMany = [
         'Groupe' => ['relation' => 'groupes' , "foreign_key" => "groupe_id" ],

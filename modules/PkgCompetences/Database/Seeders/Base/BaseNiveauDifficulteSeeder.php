@@ -36,7 +36,7 @@ class BaseNiveauDifficulteSeeder extends Seeder
         $this->addDefaultControllerDomainFeatures();
 
         // Associer les permissions aux rôles
-        $this->assignPermissionsToRoles($AdminRole, $MembreRole);
+        // $this->assignPermissionsToRoles($AdminRole, $MembreRole);
     }
 
     public function seedFromCsv(): void
@@ -100,8 +100,10 @@ class BaseNiveauDifficulteSeeder extends Seeder
 
         // Permissions spécifiques pour chaque type de fonctionnalité
         $featurePermissions = [
-            'Édition ' => [ 'create','store','edit','update','destroy','getNiveauDifficultes','dataCalcul'],
+            'Afficher' => ['show'],
             'Lecture' => ['index', 'show'],
+            'Édition sans Ajouter' => ['index', 'show','edit','update','destroy','getNiveauDifficultes','dataCalcul'],
+            'Édition ' => [ 'index', 'show','create','store','edit','update','destroy','getNiveauDifficultes','dataCalcul'],
             'Extraction' => ['import', 'export'],
         ];
 

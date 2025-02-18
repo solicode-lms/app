@@ -11,7 +11,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
-use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgApprenants\Models\Apprenant;
 use Modules\PkgFormation\Models\Formateur;
 use Modules\PkgAutorisation\Models\Profile;
@@ -39,24 +38,8 @@ class BaseUser extends BaseModel
     protected $fillable = [
         'name', 'email', 'email_verified_at', 'password', 'must_change_password', 'remember_token'
     ];
-    public $manyToMany = [
-        'Role' => ['relation' => 'roles' , "foreign_key" => "role_id" ]
-    ];
-
-       
 
 
-
-
-    /**
-     * Relation ManyToMany pour Roles.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function roles()
-    {
-        return $this->belongsToMany(Role::class, 'model_has_roles');
-    }
 
     /**
      * Relation HasMany pour Users.

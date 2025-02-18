@@ -74,12 +74,6 @@
         "e_metadata_definition_reference": "editHasMany"
     },
     {
-        "reference": "users_PolymorphicManyToMany_roles_model_has_roles_m2m_displayInTable",
-        "value_boolean": 1,
-        "e_data_field_reference": "users_PolymorphicManyToMany_roles_model_has_roles_m2m",
-        "e_metadata_definition_reference": "displayInTable"
-    },
-    {
         "reference": "User_id_displayOrder",
         "value_integer": 1,
         "e_data_field_reference": "User_id",
@@ -146,12 +140,6 @@
         "e_metadata_definition_reference": "displayOrder"
     },
     {
-        "reference": "users_PolymorphicManyToMany_roles_model_has_roles_m2m_displayOrder",
-        "value_integer": 12,
-        "e_data_field_reference": "users_PolymorphicManyToMany_roles_model_has_roles_m2m",
-        "e_metadata_definition_reference": "displayOrder"
-    },
-    {
         "reference": "User_id_displayInForm",
         "value_boolean": 1,
         "e_data_field_reference": "User_id",
@@ -215,12 +203,6 @@
         "reference": "users_hasMany_formateurs_user_id_displayInForm",
         "value_boolean": 1,
         "e_data_field_reference": "users_hasMany_formateurs_user_id",
-        "e_metadata_definition_reference": "displayInForm"
-    },
-    {
-        "reference": "users_PolymorphicManyToMany_roles_model_has_roles_m2m_displayInForm",
-        "value_boolean": 1,
-        "e_data_field_reference": "users_PolymorphicManyToMany_roles_model_has_roles_m2m",
         "e_metadata_definition_reference": "displayInForm"
     },
     {

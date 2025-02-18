@@ -12,7 +12,6 @@ use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
 use Modules\PkgAutorisation\Models\Permission;
-use Modules\PkgAutorisation\Models\User;
 
 /**
  * Classe BaseRole
@@ -38,8 +37,7 @@ class BaseRole extends BaseModel
         'name', 'guard_name'
     ];
     public $manyToMany = [
-        'Permission' => ['relation' => 'permissions' , "foreign_key" => "permission_id" ],
-        'User' => ['relation' => 'users' , "foreign_key" => "user_id" ]
+        'Permission' => ['relation' => 'permissions' , "foreign_key" => "permission_id" ]
     ];
 
        
@@ -55,15 +53,6 @@ class BaseRole extends BaseModel
     public function permissions()
     {
         return $this->belongsToMany(Permission::class, 'role_has_permissions');
-    }
-    /**
-     * Relation ManyToMany pour Users.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function users()
-    {
-        return $this->belongsToMany(User::class, 'model_has_roles');
     }
 
 

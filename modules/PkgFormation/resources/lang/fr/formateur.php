@@ -10,6 +10,7 @@ return [
     'prenom' => 'prenom',
     'prenom_arab' => 'prenom_arab',
     'nom_arab' => 'nom_arab',
+    'email' => 'email',
     'tele_num' => 'tele_num',
     'adresse' => 'adresse',
     'diplome' => 'diplome',

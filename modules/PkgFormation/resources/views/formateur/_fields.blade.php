@@ -117,6 +117,26 @@
 
         
         <div class="form-group">
+            <label for="email">
+                {{ ucfirst(__('PkgFormation::formateur.email')) }}
+                
+            </label>
+            <input
+                name="email"
+                type="input"
+                class="form-control"
+                
+                
+                id="email"
+                placeholder="{{ __('PkgFormation::formateur.email') }}"
+                value="{{ $itemFormateur ? $itemFormateur->email : old('email') }}">
+            @error('email')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
+
+        
+        <div class="form-group">
             <label for="tele_num">
                 {{ ucfirst(__('PkgFormation::formateur.tele_num')) }}
                 

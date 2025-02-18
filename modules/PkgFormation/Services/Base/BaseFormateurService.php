@@ -24,6 +24,7 @@ class BaseFormateurService extends BaseService
         'prenom',
         'prenom_arab',
         'nom_arab',
+        'email',
         'tele_num',
         'adresse',
         'diplome',
