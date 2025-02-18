@@ -13,6 +13,7 @@ class GenericPolicy
         // Vérifie si le modèle utilise le trait OwnedByUser
         if ($this->hasTrait($model, 'App\Traits\OwnedByUser')) {
             $owner = $model->getUserOwner();
+            if($owner == null) return true;
             return $owner && $owner->id === $user->id;
         }
 
