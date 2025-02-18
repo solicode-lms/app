@@ -54,8 +54,7 @@
 </div>
 
         
-        
-    <div class="form-group col-12 col-md-6">
+            <div class="form-group col-12 col-md-6">
             <label for="controller_id">
                 {{ ucfirst(__('Core::sysController.singular')) }}
                 
@@ -81,7 +80,7 @@
 
 
         
-                <div class="form-group col-12 col-md-6">
+                    <div class="form-group col-12 col-md-6">
             <label for="features">
                 {{ ucfirst(__('Core::Feature.plural')) }}
             </label>
@@ -107,7 +106,7 @@
 
 
         
-                <div class="form-group col-12 col-md-6">
+                    <div class="form-group col-12 col-md-6">
             <label for="roles">
                 {{ ucfirst(__('PkgAutorisation::Role.plural')) }}
             </label>

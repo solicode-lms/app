@@ -98,7 +98,7 @@ class BaseNationaliteSeeder extends Seeder
         $featurePermissions = [
             'Afficher' => ['show'],
             'Lecture' => ['index', 'show'],
-            'Édition sans Ajouter' => ['index', 'show','edit','update','destroy','getNationalites','dataCalcul'],
+            'Édition sans Ajouter' => ['index', 'show','edit','update','getNationalites','dataCalcul'],
             'Édition ' => [ 'index', 'show','create','store','edit','update','destroy','getNationalites','dataCalcul'],
             'Extraction' => ['import', 'export'],
 

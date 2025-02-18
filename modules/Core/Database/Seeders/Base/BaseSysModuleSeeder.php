@@ -100,7 +100,7 @@ class BaseSysModuleSeeder extends Seeder
         $featurePermissions = [
             'Afficher' => ['show'],
             'Lecture' => ['index', 'show'],
-            'Édition sans Ajouter' => ['index', 'show','edit','update','destroy','getSysModules','dataCalcul'],
+            'Édition sans Ajouter' => ['index', 'show','edit','update','getSysModules','dataCalcul'],
             'Édition ' => [ 'index', 'show','create','store','edit','update','destroy','getSysModules','dataCalcul'],
             'Extraction' => ['import', 'export'],
 

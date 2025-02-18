@@ -98,7 +98,7 @@ class BaseEtatsRealisationProjetSeeder extends Seeder
         $featurePermissions = [
             'Afficher' => ['show'],
             'Lecture' => ['index', 'show'],
-            'Édition sans Ajouter' => ['index', 'show','edit','update','destroy','getEtatsRealisationProjets','dataCalcul'],
+            'Édition sans Ajouter' => ['index', 'show','edit','update','getEtatsRealisationProjets','dataCalcul'],
             'Édition ' => [ 'index', 'show','create','store','edit','update','destroy','getEtatsRealisationProjets','dataCalcul'],
             'Extraction' => ['import', 'export'],
 

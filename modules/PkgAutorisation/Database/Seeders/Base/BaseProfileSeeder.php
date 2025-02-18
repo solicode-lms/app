@@ -100,7 +100,7 @@ class BaseProfileSeeder extends Seeder
         $featurePermissions = [
             'Afficher' => ['show'],
             'Lecture' => ['index', 'show'],
-            'Édition sans Ajouter' => ['index', 'show','edit','update','destroy','getProfiles','dataCalcul'],
+            'Édition sans Ajouter' => ['index', 'show','edit','update','getProfiles','dataCalcul'],
             'Édition ' => [ 'index', 'show','create','store','edit','update','destroy','getProfiles','dataCalcul'],
             'Extraction' => ['import', 'export'],
 

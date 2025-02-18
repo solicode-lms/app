@@ -102,7 +102,7 @@ class BaseEModelSeeder extends Seeder
         $featurePermissions = [
             'Afficher' => ['show'],
             'Lecture' => ['index', 'show'],
-            'Édition sans Ajouter' => ['index', 'show','edit','update','destroy','getEModels','dataCalcul'],
+            'Édition sans Ajouter' => ['index', 'show','edit','update','getEModels','dataCalcul'],
             'Édition ' => [ 'index', 'show','create','store','edit','update','destroy','getEModels','dataCalcul'],
             'Extraction' => ['import', 'export'],
 

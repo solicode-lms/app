@@ -108,7 +108,7 @@ class BaseERelationshipSeeder extends Seeder
         $featurePermissions = [
             'Afficher' => ['show'],
             'Lecture' => ['index', 'show'],
-            'Édition sans Ajouter' => ['index', 'show','edit','update','destroy','getERelationships','dataCalcul'],
+            'Édition sans Ajouter' => ['index', 'show','edit','update','getERelationships','dataCalcul'],
             'Édition ' => [ 'index', 'show','create','store','edit','update','destroy','getERelationships','dataCalcul'],
             'Extraction' => ['import', 'export'],
 

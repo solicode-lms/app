@@ -98,7 +98,7 @@ class BaseNiveauxScolaireSeeder extends Seeder
         $featurePermissions = [
             'Afficher' => ['show'],
             'Lecture' => ['index', 'show'],
-            'Édition sans Ajouter' => ['index', 'show','edit','update','destroy','getNiveauxScolaires','dataCalcul'],
+            'Édition sans Ajouter' => ['index', 'show','edit','update','getNiveauxScolaires','dataCalcul'],
             'Édition ' => [ 'index', 'show','create','store','edit','update','destroy','getNiveauxScolaires','dataCalcul'],
             'Extraction' => ['import', 'export'],
 

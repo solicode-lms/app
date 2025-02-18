@@ -32,7 +32,7 @@ class BaseLivrableController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('livrable.index');
-        $this->viewState->init('filter.livrable.formateur_id'  , $this->sessionState->get('formateur_id'));
+        if($this->sessionState->get('formateur_id')) $this->viewState->init('filter.livrable.formateur_id'  , $this->sessionState->get('formateur_id'));
 
         // Extraire les paramètres de recherche, page, et filtres
         $livrables_params = array_merge(

@@ -10,8 +10,7 @@
 
     <div class="card-body row">
         
-        
-    <div class="form-group col-12 col-md-6">
+            <div class="form-group col-12 col-md-6">
             <label for="affectation_projet_id">
                 {{ ucfirst(__('PkgRealisationProjets::affectationProjet.singular')) }}
                 
@@ -39,8 +38,7 @@
 
 
         
-        
-    <div class="form-group col-12 col-md-6">
+            <div class="form-group col-12 col-md-6">
             <label for="apprenant_id">
                 {{ ucfirst(__('PkgApprenants::apprenant.singular')) }}
                 
@@ -68,8 +66,7 @@
 
 
         
-        
-    <div class="form-group col-12 col-md-6">
+            <div class="form-group col-12 col-md-6">
             <label for="etats_realisation_projet_id">
                 {{ ucfirst(__('PkgRealisationProjets::etatsRealisationProjet.singular')) }}
                 

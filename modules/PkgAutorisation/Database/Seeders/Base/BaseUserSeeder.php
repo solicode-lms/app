@@ -100,7 +100,7 @@ class BaseUserSeeder extends Seeder
         $featurePermissions = [
             'Afficher' => ['show'],
             'Lecture' => ['index', 'show'],
-            'Édition sans Ajouter' => ['index', 'show','edit','update','destroy','getUsers','dataCalcul'],
+            'Édition sans Ajouter' => ['index', 'show','edit','update','getUsers','dataCalcul'],
             'Édition ' => [ 'index', 'show','create','store','edit','update','destroy','getUsers','dataCalcul'],
             'Extraction' => ['import', 'export'],
             'initPassword' => ['initPassword'],

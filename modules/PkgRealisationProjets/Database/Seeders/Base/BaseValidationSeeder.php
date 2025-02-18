@@ -100,7 +100,7 @@ class BaseValidationSeeder extends Seeder
         $featurePermissions = [
             'Afficher' => ['show'],
             'Lecture' => ['index', 'show'],
-            'Édition sans Ajouter' => ['index', 'show','edit','update','destroy','getValidations','dataCalcul'],
+            'Édition sans Ajouter' => ['index', 'show','edit','update','getValidations','dataCalcul'],
             'Édition ' => [ 'index', 'show','create','store','edit','update','destroy','getValidations','dataCalcul'],
             'Extraction' => ['import', 'export'],
 

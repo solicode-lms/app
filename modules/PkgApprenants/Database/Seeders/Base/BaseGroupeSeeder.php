@@ -100,7 +100,7 @@ class BaseGroupeSeeder extends Seeder
         $featurePermissions = [
             'Afficher' => ['show'],
             'Lecture' => ['index', 'show'],
-            'Édition sans Ajouter' => ['index', 'show','edit','update','destroy','getGroupes','dataCalcul'],
+            'Édition sans Ajouter' => ['index', 'show','edit','update','getGroupes','dataCalcul'],
             'Édition ' => [ 'index', 'show','create','store','edit','update','destroy','getGroupes','dataCalcul'],
             'Extraction' => ['import', 'export'],
 

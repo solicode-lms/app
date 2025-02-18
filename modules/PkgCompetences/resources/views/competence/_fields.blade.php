@@ -74,8 +74,7 @@
 </div>
 
         
-        
-    <div class="form-group col-12 col-md-6">
+            <div class="form-group col-12 col-md-6">
             <label for="module_id">
                 {{ ucfirst(__('PkgFormation::module.singular')) }}
                 
@@ -103,7 +102,7 @@
 
 
         
-                <div class="form-group col-12 col-md-6">
+                    <div class="form-group col-12 col-md-6">
             <label for="technologies">
                 {{ ucfirst(__('PkgCompetences::Technology.plural')) }}
             </label>

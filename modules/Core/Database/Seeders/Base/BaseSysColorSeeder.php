@@ -97,7 +97,7 @@ class BaseSysColorSeeder extends Seeder
         $featurePermissions = [
             'Afficher' => ['show'],
             'Lecture' => ['index', 'show'],
-            'Édition sans Ajouter' => ['index', 'show','edit','update','destroy','getSysColors','dataCalcul'],
+            'Édition sans Ajouter' => ['index', 'show','edit','update','getSysColors','dataCalcul'],
             'Édition ' => [ 'index', 'show','create','store','edit','update','destroy','getSysColors','dataCalcul'],
             'Extraction' => ['import', 'export'],
 

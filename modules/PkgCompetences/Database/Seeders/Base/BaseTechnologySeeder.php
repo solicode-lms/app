@@ -98,7 +98,7 @@ class BaseTechnologySeeder extends Seeder
         $featurePermissions = [
             'Afficher' => ['show'],
             'Lecture' => ['index', 'show'],
-            'Édition sans Ajouter' => ['index', 'show','edit','update','destroy','getTechnologies','dataCalcul'],
+            'Édition sans Ajouter' => ['index', 'show','edit','update','getTechnologies','dataCalcul'],
             'Édition ' => [ 'index', 'show','create','store','edit','update','destroy','getTechnologies','dataCalcul'],
             'Extraction' => ['import', 'export'],
 

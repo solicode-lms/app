@@ -114,7 +114,7 @@ class BaseApprenantKonosySeeder extends Seeder
         $featurePermissions = [
             'Afficher' => ['show'],
             'Lecture' => ['index', 'show'],
-            'Édition sans Ajouter' => ['index', 'show','edit','update','destroy','getApprenantKonosies','dataCalcul'],
+            'Édition sans Ajouter' => ['index', 'show','edit','update','getApprenantKonosies','dataCalcul'],
             'Édition ' => [ 'index', 'show','create','store','edit','update','destroy','getApprenantKonosies','dataCalcul'],
             'Extraction' => ['import', 'export'],
 

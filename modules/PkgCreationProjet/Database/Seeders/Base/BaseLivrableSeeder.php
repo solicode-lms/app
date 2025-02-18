@@ -99,7 +99,7 @@ class BaseLivrableSeeder extends Seeder
         $featurePermissions = [
             'Afficher' => ['show'],
             'Lecture' => ['index', 'show'],
-            'Édition sans Ajouter' => ['index', 'show','edit','update','destroy','getLivrables','dataCalcul'],
+            'Édition sans Ajouter' => ['index', 'show','edit','update','getLivrables','dataCalcul'],
             'Édition ' => [ 'index', 'show','create','store','edit','update','destroy','getLivrables','dataCalcul'],
             'Extraction' => ['import', 'export'],
 

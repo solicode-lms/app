@@ -98,7 +98,7 @@ class BaseNiveauCompetenceSeeder extends Seeder
         $featurePermissions = [
             'Afficher' => ['show'],
             'Lecture' => ['index', 'show'],
-            'Édition sans Ajouter' => ['index', 'show','edit','update','destroy','getNiveauCompetences','dataCalcul'],
+            'Édition sans Ajouter' => ['index', 'show','edit','update','getNiveauCompetences','dataCalcul'],
             'Édition ' => [ 'index', 'show','create','store','edit','update','destroy','getNiveauCompetences','dataCalcul'],
             'Extraction' => ['import', 'export'],
 

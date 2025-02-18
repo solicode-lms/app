@@ -99,7 +99,7 @@ class BaseSysControllerSeeder extends Seeder
         $featurePermissions = [
             'Afficher' => ['show'],
             'Lecture' => ['index', 'show'],
-            'Édition sans Ajouter' => ['index', 'show','edit','update','destroy','getSysControllers','dataCalcul'],
+            'Édition sans Ajouter' => ['index', 'show','edit','update','getSysControllers','dataCalcul'],
             'Édition ' => [ 'index', 'show','create','store','edit','update','destroy','getSysControllers','dataCalcul'],
             'Extraction' => ['import', 'export'],
 

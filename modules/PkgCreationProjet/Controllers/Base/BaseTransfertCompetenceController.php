@@ -38,7 +38,7 @@ class BaseTransfertCompetenceController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('transfertCompetence.index');
-        $this->viewState->init('scope.transfertCompetence.formateur_id'  , $this->sessionState->get('formateur_id'));
+        if($this->sessionState->get('formateur_id')) $this->viewState->init('scope.transfertCompetence.formateur_id'  , $this->sessionState->get('formateur_id'));
 
         // Extraire les paramètres de recherche, page, et filtres
         $transfertCompetences_params = array_merge(

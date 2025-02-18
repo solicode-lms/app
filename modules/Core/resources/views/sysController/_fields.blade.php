@@ -10,8 +10,7 @@
 
     <div class="card-body row">
         
-        
-    <div class="form-group col-12 col-md-6">
+            <div class="form-group col-12 col-md-6">
             <label for="sys_module_id">
                 {{ ucfirst(__('Core::sysModule.singular')) }}
                 

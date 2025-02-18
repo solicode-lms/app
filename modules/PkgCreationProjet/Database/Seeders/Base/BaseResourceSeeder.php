@@ -99,7 +99,7 @@ class BaseResourceSeeder extends Seeder
         $featurePermissions = [
             'Afficher' => ['show'],
             'Lecture' => ['index', 'show'],
-            'Édition sans Ajouter' => ['index', 'show','edit','update','destroy','getResources','dataCalcul'],
+            'Édition sans Ajouter' => ['index', 'show','edit','update','getResources','dataCalcul'],
             'Édition ' => [ 'index', 'show','create','store','edit','update','destroy','getResources','dataCalcul'],
             'Extraction' => ['import', 'export'],
 

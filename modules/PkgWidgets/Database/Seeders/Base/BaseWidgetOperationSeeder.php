@@ -97,7 +97,7 @@ class BaseWidgetOperationSeeder extends Seeder
         $featurePermissions = [
             'Afficher' => ['show'],
             'Lecture' => ['index', 'show'],
-            'Édition sans Ajouter' => ['index', 'show','edit','update','destroy','getWidgetOperations','dataCalcul'],
+            'Édition sans Ajouter' => ['index', 'show','edit','update','getWidgetOperations','dataCalcul'],
             'Édition ' => [ 'index', 'show','create','store','edit','update','destroy','getWidgetOperations','dataCalcul'],
             'Extraction' => ['import', 'export'],
 

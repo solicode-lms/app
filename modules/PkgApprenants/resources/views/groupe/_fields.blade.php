@@ -72,8 +72,7 @@
 </div>
 
         
-        
-    <div class="form-group col-12 col-md-6">
+            <div class="form-group col-12 col-md-6">
             <label for="filiere_id">
                 {{ ucfirst(__('PkgFormation::filiere.singular')) }}
                 
@@ -99,8 +98,7 @@
 
 
         
-        
-    <div class="form-group col-12 col-md-6">
+            <div class="form-group col-12 col-md-6">
             <label for="annee_formation_id">
                 {{ ucfirst(__('PkgFormation::anneeFormation.singular')) }}
                 
@@ -130,7 +128,7 @@
         <!--   AffectationProjet HasMany --> 
 
         
-                <div class="form-group col-12 col-md-6">
+                    <div class="form-group col-12 col-md-6">
             <label for="apprenants">
                 {{ ucfirst(__('PkgApprenants::Apprenant.plural')) }}
             </label>
@@ -156,7 +154,7 @@
 
 
         
-                <div class="form-group col-12 col-md-6">
+                    <div class="form-group col-12 col-md-6">
             <label for="formateurs">
                 {{ ucfirst(__('PkgFormation::Formateur.plural')) }}
             </label>

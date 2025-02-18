@@ -96,7 +96,7 @@ class BaseRoleSeeder extends Seeder
         $featurePermissions = [
             'Afficher' => ['show'],
             'Lecture' => ['index', 'show'],
-            'Édition sans Ajouter' => ['index', 'show','edit','update','destroy','getRoles','dataCalcul'],
+            'Édition sans Ajouter' => ['index', 'show','edit','update','getRoles','dataCalcul'],
             'Édition ' => [ 'index', 'show','create','store','edit','update','destroy','getRoles','dataCalcul'],
             'Extraction' => ['import', 'export'],
 

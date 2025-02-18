@@ -52,8 +52,7 @@
 </div>
 
         
-        
-    <div class="form-group col-12 col-md-6">
+            <div class="form-group col-12 col-md-6">
             <label for="competence_id">
                 {{ ucfirst(__('PkgCompetences::competence.singular')) }}
                 
