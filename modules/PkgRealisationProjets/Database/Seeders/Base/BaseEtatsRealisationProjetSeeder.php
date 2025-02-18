@@ -101,6 +101,7 @@ class BaseEtatsRealisationProjetSeeder extends Seeder
             'Édition sans Ajouter' => ['index', 'show','edit','update','destroy','getEtatsRealisationProjets','dataCalcul'],
             'Édition ' => [ 'index', 'show','create','store','edit','update','destroy','getEtatsRealisationProjets','dataCalcul'],
             'Extraction' => ['import', 'export'],
+
         ];
 
         // Ajouter le contrôleur

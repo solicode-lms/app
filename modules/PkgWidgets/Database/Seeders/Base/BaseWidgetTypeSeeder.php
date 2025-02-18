@@ -100,6 +100,7 @@ class BaseWidgetTypeSeeder extends Seeder
             'Édition sans Ajouter' => ['index', 'show','edit','update','destroy','getWidgetTypes','dataCalcul'],
             'Édition ' => [ 'index', 'show','create','store','edit','update','destroy','getWidgetTypes','dataCalcul'],
             'Extraction' => ['import', 'export'],
+
         ];
 
         // Ajouter le contrôleur

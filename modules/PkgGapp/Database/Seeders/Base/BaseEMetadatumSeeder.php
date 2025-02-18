@@ -111,6 +111,7 @@ class BaseEMetadatumSeeder extends Seeder
             'Édition sans Ajouter' => ['index', 'show','edit','update','destroy','getEMetadata','dataCalcul'],
             'Édition ' => [ 'index', 'show','create','store','edit','update','destroy','getEMetadata','dataCalcul'],
             'Extraction' => ['import', 'export'],
+
         ];
 
         // Ajouter le contrôleur

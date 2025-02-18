@@ -100,6 +100,7 @@ class BaseFeatureSeeder extends Seeder
             'Édition sans Ajouter' => ['index', 'show','edit','update','destroy','getFeatures','dataCalcul'],
             'Édition ' => [ 'index', 'show','create','store','edit','update','destroy','getFeatures','dataCalcul'],
             'Extraction' => ['import', 'export'],
+
         ];
 
         // Ajouter le contrôleur

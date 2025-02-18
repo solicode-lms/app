@@ -102,6 +102,7 @@ class BaseSysControllerSeeder extends Seeder
             'Édition sans Ajouter' => ['index', 'show','edit','update','destroy','getSysControllers','dataCalcul'],
             'Édition ' => [ 'index', 'show','create','store','edit','update','destroy','getSysControllers','dataCalcul'],
             'Extraction' => ['import', 'export'],
+
         ];
 
         // Ajouter le contrôleur

@@ -103,6 +103,7 @@ class BaseCompetenceSeeder extends Seeder
             'Édition sans Ajouter' => ['index', 'show','edit','update','destroy','getCompetences','dataCalcul'],
             'Édition ' => [ 'index', 'show','create','store','edit','update','destroy','getCompetences','dataCalcul'],
             'Extraction' => ['import', 'export'],
+
         ];
 
         // Ajouter le contrôleur

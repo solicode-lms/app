@@ -101,6 +101,7 @@ class BaseNiveauCompetenceSeeder extends Seeder
             'Édition sans Ajouter' => ['index', 'show','edit','update','destroy','getNiveauCompetences','dataCalcul'],
             'Édition ' => [ 'index', 'show','create','store','edit','update','destroy','getNiveauCompetences','dataCalcul'],
             'Extraction' => ['import', 'export'],
+
         ];
 
         // Ajouter le contrôleur

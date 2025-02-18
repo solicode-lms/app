@@ -101,6 +101,7 @@ class BaseNationaliteSeeder extends Seeder
             'Édition sans Ajouter' => ['index', 'show','edit','update','destroy','getNationalites','dataCalcul'],
             'Édition ' => [ 'index', 'show','create','store','edit','update','destroy','getNationalites','dataCalcul'],
             'Extraction' => ['import', 'export'],
+
         ];
 
         // Ajouter le contrôleur

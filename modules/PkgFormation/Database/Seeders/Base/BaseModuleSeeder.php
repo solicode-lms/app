@@ -102,6 +102,7 @@ class BaseModuleSeeder extends Seeder
             'Édition sans Ajouter' => ['index', 'show','edit','update','destroy','getModules','dataCalcul'],
             'Édition ' => [ 'index', 'show','create','store','edit','update','destroy','getModules','dataCalcul'],
             'Extraction' => ['import', 'export'],
+
         ];
 
         // Ajouter le contrôleur

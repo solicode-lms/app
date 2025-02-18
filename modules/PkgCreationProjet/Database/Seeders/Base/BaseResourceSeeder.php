@@ -102,6 +102,7 @@ class BaseResourceSeeder extends Seeder
             'Édition sans Ajouter' => ['index', 'show','edit','update','destroy','getResources','dataCalcul'],
             'Édition ' => [ 'index', 'show','create','store','edit','update','destroy','getResources','dataCalcul'],
             'Extraction' => ['import', 'export'],
+
         ];
 
         // Ajouter le contrôleur

@@ -103,6 +103,7 @@ class BaseNiveauDifficulteSeeder extends Seeder
             'Édition sans Ajouter' => ['index', 'show','edit','update','destroy','getNiveauDifficultes','dataCalcul'],
             'Édition ' => [ 'index', 'show','create','store','edit','update','destroy','getNiveauDifficultes','dataCalcul'],
             'Extraction' => ['import', 'export'],
+
         ];
 
         // Ajouter le contrôleur

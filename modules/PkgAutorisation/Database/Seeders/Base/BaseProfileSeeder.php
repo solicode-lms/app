@@ -103,6 +103,7 @@ class BaseProfileSeeder extends Seeder
             'Édition sans Ajouter' => ['index', 'show','edit','update','destroy','getProfiles','dataCalcul'],
             'Édition ' => [ 'index', 'show','create','store','edit','update','destroy','getProfiles','dataCalcul'],
             'Extraction' => ['import', 'export'],
+
         ];
 
         // Ajouter le contrôleur

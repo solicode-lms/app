@@ -105,6 +105,7 @@ class BaseEModelSeeder extends Seeder
             'Édition sans Ajouter' => ['index', 'show','edit','update','destroy','getEModels','dataCalcul'],
             'Édition ' => [ 'index', 'show','create','store','edit','update','destroy','getEModels','dataCalcul'],
             'Extraction' => ['import', 'export'],
+
         ];
 
         // Ajouter le contrôleur

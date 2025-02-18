@@ -104,6 +104,7 @@ class BaseProjetSeeder extends Seeder
             'Édition sans Ajouter' => ['index', 'show','edit','update','destroy','getProjets','dataCalcul'],
             'Édition ' => [ 'index', 'show','create','store','edit','update','destroy','getProjets','dataCalcul'],
             'Extraction' => ['import', 'export'],
+
         ];
 
         // Ajouter le contrôleur

@@ -116,6 +116,8 @@ class BaseApprenantSeeder extends Seeder
             'Édition sans Ajouter' => ['index', 'show','edit','update','destroy','getApprenants','dataCalcul'],
             'Édition ' => [ 'index', 'show','create','store','edit','update','destroy','getApprenants','dataCalcul'],
             'Extraction' => ['import', 'export'],
+            'initPassword' => ['initPassword'],
+            
         ];
 
         // Ajouter le contrôleur

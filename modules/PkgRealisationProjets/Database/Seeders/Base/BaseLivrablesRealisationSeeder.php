@@ -103,6 +103,7 @@ class BaseLivrablesRealisationSeeder extends Seeder
             'Édition sans Ajouter' => ['index', 'show','edit','update','destroy','getLivrablesRealisations','dataCalcul'],
             'Édition ' => [ 'index', 'show','create','store','edit','update','destroy','getLivrablesRealisations','dataCalcul'],
             'Extraction' => ['import', 'export'],
+
         ];
 
         // Ajouter le contrôleur

@@ -117,6 +117,7 @@ class BaseApprenantKonosySeeder extends Seeder
             'Édition sans Ajouter' => ['index', 'show','edit','update','destroy','getApprenantKonosies','dataCalcul'],
             'Édition ' => [ 'index', 'show','create','store','edit','update','destroy','getApprenantKonosies','dataCalcul'],
             'Extraction' => ['import', 'export'],
+
         ];
 
         // Ajouter le contrôleur

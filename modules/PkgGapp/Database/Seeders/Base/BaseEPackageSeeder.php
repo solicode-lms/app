@@ -100,6 +100,7 @@ class BaseEPackageSeeder extends Seeder
             'Édition sans Ajouter' => ['index', 'show','edit','update','destroy','getEPackages','dataCalcul'],
             'Édition ' => [ 'index', 'show','create','store','edit','update','destroy','getEPackages','dataCalcul'],
             'Extraction' => ['import', 'export'],
+
         ];
 
         // Ajouter le contrôleur

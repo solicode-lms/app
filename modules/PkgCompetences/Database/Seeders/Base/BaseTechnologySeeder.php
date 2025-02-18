@@ -101,6 +101,7 @@ class BaseTechnologySeeder extends Seeder
             'Édition sans Ajouter' => ['index', 'show','edit','update','destroy','getTechnologies','dataCalcul'],
             'Édition ' => [ 'index', 'show','create','store','edit','update','destroy','getTechnologies','dataCalcul'],
             'Extraction' => ['import', 'export'],
+
         ];
 
         // Ajouter le contrôleur

@@ -103,6 +103,7 @@ class BaseGroupeSeeder extends Seeder
             'Édition sans Ajouter' => ['index', 'show','edit','update','destroy','getGroupes','dataCalcul'],
             'Édition ' => [ 'index', 'show','create','store','edit','update','destroy','getGroupes','dataCalcul'],
             'Extraction' => ['import', 'export'],
+
         ];
 
         // Ajouter le contrôleur

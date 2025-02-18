@@ -101,6 +101,7 @@ class BaseAnneeFormationSeeder extends Seeder
             'Édition sans Ajouter' => ['index', 'show','edit','update','destroy','getAnneeFormations','dataCalcul'],
             'Édition ' => [ 'index', 'show','create','store','edit','update','destroy','getAnneeFormations','dataCalcul'],
             'Extraction' => ['import', 'export'],
+
         ];
 
         // Ajouter le contrôleur

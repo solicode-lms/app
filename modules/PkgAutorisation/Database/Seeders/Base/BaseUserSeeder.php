@@ -103,6 +103,8 @@ class BaseUserSeeder extends Seeder
             'Édition sans Ajouter' => ['index', 'show','edit','update','destroy','getUsers','dataCalcul'],
             'Édition ' => [ 'index', 'show','create','store','edit','update','destroy','getUsers','dataCalcul'],
             'Extraction' => ['import', 'export'],
+            'initPassword' => ['initPassword'],
+            
         ];
 
         // Ajouter le contrôleur

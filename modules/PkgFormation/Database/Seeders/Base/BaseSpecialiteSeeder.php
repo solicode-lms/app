@@ -100,6 +100,7 @@ class BaseSpecialiteSeeder extends Seeder
             'Édition sans Ajouter' => ['index', 'show','edit','update','destroy','getSpecialites','dataCalcul'],
             'Édition ' => [ 'index', 'show','create','store','edit','update','destroy','getSpecialites','dataCalcul'],
             'Extraction' => ['import', 'export'],
+
         ];
 
         // Ajouter le contrôleur
