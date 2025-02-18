@@ -61,8 +61,8 @@ class BaseApprenantService extends BaseService
     public function initFieldsFilterable(){
        // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
-            $this->generateManyToOneFilter(__("PkgApprenants::niveauxScolaire.plural"),  'niveaux_scolaire_id', \Modules\PkgApprenants\Models\NiveauxScolaire::class, 'code'),
-            $this->generateManyToManyFilter(__("PkgApprenants::groupe.plural"),  'groupe_id', \Modules\PkgApprenants\Models\Groupe::class, 'code'),
+            $this->generateManyToOneFilter(__("PkgApprenants::niveauxScolaire.plural"), 'niveaux_scolaire_id', \Modules\PkgApprenants\Models\NiveauxScolaire::class, 'code'),
+            $this->generateManyToManyFilter(__("PkgApprenants::groupe.plural"), 'groupe_id', \Modules\PkgApprenants\Models\Groupe::class, 'code'),
         ];
     }
 
