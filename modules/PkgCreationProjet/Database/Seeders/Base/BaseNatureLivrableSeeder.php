@@ -101,8 +101,8 @@ class BaseNatureLivrableSeeder extends Seeder
         $featurePermissions = [
             'Afficher' => ['show'],
             'Lecture' => ['index', 'show'],
-            'Édition sans Ajouter' => ['index', 'show','edit','update','getNatureLivrables','dataCalcul'],
-            'Édition ' => [ 'index', 'show','create','store','edit','update','destroy','getNatureLivrables','dataCalcul'],
+            'Édition sans Ajouter' => ['index', 'show','edit','update','dataCalcul'],
+            'Édition ' => [ 'index', 'show','create','store','edit','update','destroy','dataCalcul'],
             'Extraction' => ['import', 'export'],
 
         ];

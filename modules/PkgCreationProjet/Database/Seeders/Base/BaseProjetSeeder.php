@@ -105,8 +105,8 @@ class BaseProjetSeeder extends Seeder
         $featurePermissions = [
             'Afficher' => ['show'],
             'Lecture' => ['index', 'show'],
-            'Édition sans Ajouter' => ['index', 'show','edit','update','getProjets','dataCalcul'],
-            'Édition ' => [ 'index', 'show','create','store','edit','update','destroy','getProjets','dataCalcul'],
+            'Édition sans Ajouter' => ['index', 'show','edit','update','dataCalcul'],
+            'Édition ' => [ 'index', 'show','create','store','edit','update','destroy','dataCalcul'],
             'Extraction' => ['import', 'export'],
 
         ];

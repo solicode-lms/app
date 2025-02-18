@@ -117,8 +117,8 @@ class BaseApprenantSeeder extends Seeder
         $featurePermissions = [
             'Afficher' => ['show'],
             'Lecture' => ['index', 'show'],
-            'Édition sans Ajouter' => ['index', 'show','edit','update','getApprenants','dataCalcul'],
-            'Édition ' => [ 'index', 'show','create','store','edit','update','destroy','getApprenants','dataCalcul'],
+            'Édition sans Ajouter' => ['index', 'show','edit','update','dataCalcul'],
+            'Édition ' => [ 'index', 'show','create','store','edit','update','destroy','dataCalcul'],
             'Extraction' => ['import', 'export'],
             'initPassword' => ['initPassword'],
             

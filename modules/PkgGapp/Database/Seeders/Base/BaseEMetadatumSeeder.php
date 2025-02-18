@@ -112,8 +112,8 @@ class BaseEMetadatumSeeder extends Seeder
         $featurePermissions = [
             'Afficher' => ['show'],
             'Lecture' => ['index', 'show'],
-            'Édition sans Ajouter' => ['index', 'show','edit','update','getEMetadata','dataCalcul'],
-            'Édition ' => [ 'index', 'show','create','store','edit','update','destroy','getEMetadata','dataCalcul'],
+            'Édition sans Ajouter' => ['index', 'show','edit','update','dataCalcul'],
+            'Édition ' => [ 'index', 'show','create','store','edit','update','destroy','dataCalcul'],
             'Extraction' => ['import', 'export'],
 
         ];

@@ -102,8 +102,8 @@ class BaseFeatureDomainSeeder extends Seeder
         $featurePermissions = [
             'Afficher' => ['show'],
             'Lecture' => ['index', 'show'],
-            'Édition sans Ajouter' => ['index', 'show','edit','update','getFeatureDomains','dataCalcul'],
-            'Édition ' => [ 'index', 'show','create','store','edit','update','destroy','getFeatureDomains','dataCalcul'],
+            'Édition sans Ajouter' => ['index', 'show','edit','update','dataCalcul'],
+            'Édition ' => [ 'index', 'show','create','store','edit','update','destroy','dataCalcul'],
             'Extraction' => ['import', 'export'],
 
         ];

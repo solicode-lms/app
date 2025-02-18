@@ -15,3 +15,4 @@
 - Apprenant 
   - Ajouter livrable
     - Afficher seulement les livrable à livrer pour le projet
+- Le formateur ne doit pas ajouter une réalisation de projet dans un projet qui ne luis appartient pas
