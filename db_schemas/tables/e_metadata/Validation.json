@@ -249,5 +249,17 @@
         "value_integer": 6,
         "e_data_field_reference": "Validation_updated_at",
         "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "validations_ownedByUser",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "dataScope": "filter",
+            "userModelName": "Formateur",
+            "ownerRelationPath": "realisationProjet.affectationProjet.projet.formateur.user"
+        },
+        "e_model_reference": "validations",
+        "e_metadata_definition_reference": "ownedByUser"
     }
 ]

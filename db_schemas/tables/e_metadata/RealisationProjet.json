@@ -293,7 +293,10 @@
         "value_json": {
             "dataScope": "filter",
             "userModelName": "Formateur",
-            "ownerRelationPath": "apprenant.user"
+            "ownerRelationPath": [
+                "apprenant.user",
+                "affectationProjet.projet.formateur.user"
+            ]
         },
         "e_model_reference": "realisation_projets",
         "e_metadata_definition_reference": "ownedByUser"
