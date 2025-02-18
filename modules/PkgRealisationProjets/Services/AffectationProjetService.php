@@ -18,7 +18,7 @@ class AffectationProjetService extends BaseAffectationProjetService
         return $affectationProjet;
     }
 
-    public function create(array $data)
+    public function create($data)
     {
         // Vérification des champs obligatoires
         if (empty($data['groupe_id']) || empty($data['projet_id'])) {
