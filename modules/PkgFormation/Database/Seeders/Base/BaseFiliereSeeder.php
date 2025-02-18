@@ -68,8 +68,8 @@ class BaseFiliereSeeder extends Seeder
                     "nom" => $row["nom"] ?? null ,
                     "description" => $row["description"] ?? null 
                 ];
-                if (!empty($data["reference"])) {
-                    $filiereService->updateOrCreate(["reference" => $data["reference"]], $filiereData);
+                if (!empty($row["reference"])) {
+                    $filiereService->updateOrCreate(["reference" => $row["reference"]], $filiereData);
                 } else {
                     $filiereService->create($filiereData);
                 }

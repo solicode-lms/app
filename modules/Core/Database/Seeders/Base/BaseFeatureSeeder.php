@@ -67,8 +67,8 @@ class BaseFeatureSeeder extends Seeder
                     "description" => $row["description"] ?? null ,
                     "feature_domain_id" => $row["feature_domain_id"] ?? null 
                 ];
-                if (!empty($data["reference"])) {
-                    $featureService->updateOrCreate(["reference" => $data["reference"]], $featureData);
+                if (!empty($row["reference"])) {
+                    $featureService->updateOrCreate(["reference" => $row["reference"]], $featureData);
                 } else {
                     $featureService->create($featureData);
                 }

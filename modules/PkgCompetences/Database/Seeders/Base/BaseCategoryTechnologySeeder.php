@@ -67,8 +67,8 @@ class BaseCategoryTechnologySeeder extends Seeder
                     "nom" => $row["nom"] ?? null ,
                     "description" => $row["description"] ?? null 
                 ];
-                if (!empty($data["reference"])) {
-                    $categoryTechnologyService->updateOrCreate(["reference" => $data["reference"]], $categoryTechnologyData);
+                if (!empty($row["reference"])) {
+                    $categoryTechnologyService->updateOrCreate(["reference" => $row["reference"]], $categoryTechnologyData);
                 } else {
                     $categoryTechnologyService->create($categoryTechnologyData);
                 }

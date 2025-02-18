@@ -70,8 +70,8 @@ class BaseCompetenceSeeder extends Seeder
                     "module_id" => $row["module_id"] ?? null ,
                     "description" => $row["description"] ?? null 
                 ];
-                if (!empty($data["reference"])) {
-                    $competenceService->updateOrCreate(["reference" => $data["reference"]], $competenceData);
+                if (!empty($row["reference"])) {
+                    $competenceService->updateOrCreate(["reference" => $row["reference"]], $competenceData);
                 } else {
                     $competenceService->create($competenceData);
                 }

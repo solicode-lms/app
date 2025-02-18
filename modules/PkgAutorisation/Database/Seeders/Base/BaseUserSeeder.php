@@ -70,8 +70,8 @@ class BaseUserSeeder extends Seeder
                     "must_change_password" => $row["must_change_password"] ?? null ,
                     "remember_token" => $row["remember_token"] ?? null 
                 ];
-                if (!empty($data["reference"])) {
-                    $userService->updateOrCreate(["reference" => $data["reference"]], $userData);
+                if (!empty($row["reference"])) {
+                    $userService->updateOrCreate(["reference" => $row["reference"]], $userData);
                 } else {
                     $userService->create($userData);
                 }

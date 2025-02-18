@@ -68,8 +68,8 @@ class BaseNationaliteSeeder extends Seeder
                     "nom" => $row["nom"] ?? null ,
                     "description" => $row["description"] ?? null 
                 ];
-                if (!empty($data["reference"])) {
-                    $nationaliteService->updateOrCreate(["reference" => $data["reference"]], $nationaliteData);
+                if (!empty($row["reference"])) {
+                    $nationaliteService->updateOrCreate(["reference" => $row["reference"]], $nationaliteData);
                 } else {
                     $nationaliteService->create($nationaliteData);
                 }

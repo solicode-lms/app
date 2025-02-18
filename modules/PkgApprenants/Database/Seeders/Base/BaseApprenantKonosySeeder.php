@@ -84,8 +84,8 @@ class BaseApprenantKonosySeeder extends Seeder
                     "Prenom_Arabe" => $row["Prenom_Arabe"] ?? null ,
                     "NiveauScolaire" => $row["NiveauScolaire"] ?? null 
                 ];
-                if (!empty($data["reference"])) {
-                    $apprenantKonosyService->updateOrCreate(["reference" => $data["reference"]], $apprenantKonosyData);
+                if (!empty($row["reference"])) {
+                    $apprenantKonosyService->updateOrCreate(["reference" => $row["reference"]], $apprenantKonosyData);
                 } else {
                     $apprenantKonosyService->create($apprenantKonosyData);
                 }

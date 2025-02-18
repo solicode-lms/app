@@ -77,8 +77,8 @@ class BaseEDataFieldSeeder extends Seeder
                     "e_relationship_id" => $row["e_relationship_id"] ?? null ,
                     "data_type" => $row["data_type"] ?? null 
                 ];
-                if (!empty($data["reference"])) {
-                    $eDataFieldService->updateOrCreate(["reference" => $data["reference"]], $eDataFieldData);
+                if (!empty($row["reference"])) {
+                    $eDataFieldService->updateOrCreate(["reference" => $row["reference"]], $eDataFieldData);
                 } else {
                     $eDataFieldService->create($eDataFieldData);
                 }

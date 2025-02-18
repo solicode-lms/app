@@ -70,8 +70,8 @@ class BaseSysModelSeeder extends Seeder
                     "sys_module_id" => $row["sys_module_id"] ?? null ,
                     "sys_color_id" => $row["sys_color_id"] ?? null 
                 ];
-                if (!empty($data["reference"])) {
-                    $sysModelService->updateOrCreate(["reference" => $data["reference"]], $sysModelData);
+                if (!empty($row["reference"])) {
+                    $sysModelService->updateOrCreate(["reference" => $row["reference"]], $sysModelData);
                 } else {
                     $sysModelService->create($sysModelData);
                 }

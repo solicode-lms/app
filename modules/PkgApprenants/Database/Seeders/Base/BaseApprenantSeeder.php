@@ -83,8 +83,8 @@ class BaseApprenantSeeder extends Seeder
                     "date_inscription" => $row["date_inscription"] ?? null ,
                     "actif" => $row["actif"] ?? null 
                 ];
-                if (!empty($data["reference"])) {
-                    $apprenantService->updateOrCreate(["reference" => $data["reference"]], $apprenantData);
+                if (!empty($row["reference"])) {
+                    $apprenantService->updateOrCreate(["reference" => $row["reference"]], $apprenantData);
                 } else {
                     $apprenantService->create($apprenantData);
                 }

@@ -71,8 +71,8 @@ class BaseProjetSeeder extends Seeder
                     "description" => $row["description"] ?? null ,
                     "formateur_id" => $row["formateur_id"] ?? null 
                 ];
-                if (!empty($data["reference"])) {
-                    $projetService->updateOrCreate(["reference" => $data["reference"]], $projetData);
+                if (!empty($row["reference"])) {
+                    $projetService->updateOrCreate(["reference" => $row["reference"]], $projetData);
                 } else {
                     $projetService->create($projetData);
                 }

@@ -67,8 +67,8 @@ class BaseSpecialiteSeeder extends Seeder
                     "nom" => $row["nom"] ?? null ,
                     "description" => $row["description"] ?? null 
                 ];
-                if (!empty($data["reference"])) {
-                    $specialiteService->updateOrCreate(["reference" => $data["reference"]], $specialiteData);
+                if (!empty($row["reference"])) {
+                    $specialiteService->updateOrCreate(["reference" => $row["reference"]], $specialiteData);
                 } else {
                     $specialiteService->create($specialiteData);
                 }

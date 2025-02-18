@@ -70,8 +70,8 @@ class BaseTransfertCompetenceSeeder extends Seeder
                     "note" => $row["note"] ?? null ,
                     "projet_id" => $row["projet_id"] ?? null 
                 ];
-                if (!empty($data["reference"])) {
-                    $transfertCompetenceService->updateOrCreate(["reference" => $data["reference"]], $transfertCompetenceData);
+                if (!empty($row["reference"])) {
+                    $transfertCompetenceService->updateOrCreate(["reference" => $row["reference"]], $transfertCompetenceData);
                 } else {
                     $transfertCompetenceService->create($transfertCompetenceData);
                 }

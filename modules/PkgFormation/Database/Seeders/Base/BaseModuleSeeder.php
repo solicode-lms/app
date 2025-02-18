@@ -69,8 +69,8 @@ class BaseModuleSeeder extends Seeder
                     "masse_horaire" => $row["masse_horaire"] ?? null ,
                     "filiere_id" => $row["filiere_id"] ?? null 
                 ];
-                if (!empty($data["reference"])) {
-                    $moduleService->updateOrCreate(["reference" => $data["reference"]], $moduleData);
+                if (!empty($row["reference"])) {
+                    $moduleService->updateOrCreate(["reference" => $row["reference"]], $moduleData);
                 } else {
                     $moduleService->create($moduleData);
                 }

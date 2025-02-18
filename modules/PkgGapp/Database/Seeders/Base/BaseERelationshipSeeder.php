@@ -78,8 +78,8 @@ class BaseERelationshipSeeder extends Seeder
                     "with_column" => $row["with_column"] ?? null ,
                     "morph_name" => $row["morph_name"] ?? null 
                 ];
-                if (!empty($data["reference"])) {
-                    $eRelationshipService->updateOrCreate(["reference" => $data["reference"]], $eRelationshipData);
+                if (!empty($row["reference"])) {
+                    $eRelationshipService->updateOrCreate(["reference" => $row["reference"]], $eRelationshipData);
                 } else {
                     $eRelationshipService->create($eRelationshipData);
                 }

@@ -66,8 +66,8 @@ class BaseVilleSeeder extends Seeder
                 $villeData =[
                     "nom" => $row["nom"] ?? null 
                 ];
-                if (!empty($data["reference"])) {
-                    $villeService->updateOrCreate(["reference" => $data["reference"]], $villeData);
+                if (!empty($row["reference"])) {
+                    $villeService->updateOrCreate(["reference" => $row["reference"]], $villeData);
                 } else {
                     $villeService->create($villeData);
                 }

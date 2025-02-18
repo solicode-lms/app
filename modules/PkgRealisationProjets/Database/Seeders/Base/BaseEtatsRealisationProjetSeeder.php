@@ -68,8 +68,8 @@ class BaseEtatsRealisationProjetSeeder extends Seeder
                     "titre" => $row["titre"] ?? null ,
                     "description" => $row["description"] ?? null 
                 ];
-                if (!empty($data["reference"])) {
-                    $etatsRealisationProjetService->updateOrCreate(["reference" => $data["reference"]], $etatsRealisationProjetData);
+                if (!empty($row["reference"])) {
+                    $etatsRealisationProjetService->updateOrCreate(["reference" => $row["reference"]], $etatsRealisationProjetData);
                 } else {
                     $etatsRealisationProjetService->create($etatsRealisationProjetData);
                 }

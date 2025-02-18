@@ -67,8 +67,8 @@ class BaseWidgetOperationSeeder extends Seeder
                     "operation" => $row["operation"] ?? null ,
                     "description" => $row["description"] ?? null 
                 ];
-                if (!empty($data["reference"])) {
-                    $widgetOperationService->updateOrCreate(["reference" => $data["reference"]], $widgetOperationData);
+                if (!empty($row["reference"])) {
+                    $widgetOperationService->updateOrCreate(["reference" => $row["reference"]], $widgetOperationData);
                 } else {
                     $widgetOperationService->create($widgetOperationData);
                 }

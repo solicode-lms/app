@@ -70,8 +70,8 @@ class BaseValidationSeeder extends Seeder
                     "is_valide" => $row["is_valide"] ?? null ,
                     "realisation_projet_id" => $row["realisation_projet_id"] ?? null 
                 ];
-                if (!empty($data["reference"])) {
-                    $validationService->updateOrCreate(["reference" => $data["reference"]], $validationData);
+                if (!empty($row["reference"])) {
+                    $validationService->updateOrCreate(["reference" => $row["reference"]], $validationData);
                 } else {
                     $validationService->create($validationData);
                 }

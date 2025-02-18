@@ -70,8 +70,8 @@ class BaseNiveauDifficulteSeeder extends Seeder
                     "formateur_id" => $row["formateur_id"] ?? null ,
                     "description" => $row["description"] ?? null 
                 ];
-                if (!empty($data["reference"])) {
-                    $niveauDifficulteService->updateOrCreate(["reference" => $data["reference"]], $niveauDifficulteData);
+                if (!empty($row["reference"])) {
+                    $niveauDifficulteService->updateOrCreate(["reference" => $row["reference"]], $niveauDifficulteData);
                 } else {
                     $niveauDifficulteService->create($niveauDifficulteData);
                 }

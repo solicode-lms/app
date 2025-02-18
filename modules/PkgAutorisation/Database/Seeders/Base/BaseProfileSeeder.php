@@ -70,8 +70,8 @@ class BaseProfileSeeder extends Seeder
                     "profile_picture" => $row["profile_picture"] ?? null ,
                     "bio" => $row["bio"] ?? null 
                 ];
-                if (!empty($data["reference"])) {
-                    $profileService->updateOrCreate(["reference" => $data["reference"]], $profileData);
+                if (!empty($row["reference"])) {
+                    $profileService->updateOrCreate(["reference" => $row["reference"]], $profileData);
                 } else {
                     $profileService->create($profileData);
                 }

@@ -71,8 +71,8 @@ class BaseEMetadataDefinitionSeeder extends Seeder
                     "description" => $row["description"] ?? null ,
                     "default_value" => $row["default_value"] ?? null 
                 ];
-                if (!empty($data["reference"])) {
-                    $eMetadataDefinitionService->updateOrCreate(["reference" => $data["reference"]], $eMetadataDefinitionData);
+                if (!empty($row["reference"])) {
+                    $eMetadataDefinitionService->updateOrCreate(["reference" => $row["reference"]], $eMetadataDefinitionData);
                 } else {
                     $eMetadataDefinitionService->create($eMetadataDefinitionData);
                 }

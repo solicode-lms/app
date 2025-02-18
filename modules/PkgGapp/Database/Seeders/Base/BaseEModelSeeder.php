@@ -72,8 +72,8 @@ class BaseEModelSeeder extends Seeder
                     "description" => $row["description"] ?? null ,
                     "e_package_id" => $row["e_package_id"] ?? null 
                 ];
-                if (!empty($data["reference"])) {
-                    $eModelService->updateOrCreate(["reference" => $data["reference"]], $eModelData);
+                if (!empty($row["reference"])) {
+                    $eModelService->updateOrCreate(["reference" => $row["reference"]], $eModelData);
                 } else {
                     $eModelService->create($eModelData);
                 }

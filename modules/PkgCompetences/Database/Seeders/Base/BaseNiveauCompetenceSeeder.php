@@ -68,8 +68,8 @@ class BaseNiveauCompetenceSeeder extends Seeder
                     "description" => $row["description"] ?? null ,
                     "competence_id" => $row["competence_id"] ?? null 
                 ];
-                if (!empty($data["reference"])) {
-                    $niveauCompetenceService->updateOrCreate(["reference" => $data["reference"]], $niveauCompetenceData);
+                if (!empty($row["reference"])) {
+                    $niveauCompetenceService->updateOrCreate(["reference" => $row["reference"]], $niveauCompetenceData);
                 } else {
                     $niveauCompetenceService->create($niveauCompetenceData);
                 }

@@ -71,8 +71,8 @@ class BaseAffectationProjetSeeder extends Seeder
                     "description" => $row["description"] ?? null ,
                     "annee_formation_id" => $row["annee_formation_id"] ?? null 
                 ];
-                if (!empty($data["reference"])) {
-                    $affectationProjetService->updateOrCreate(["reference" => $data["reference"]], $affectationProjetData);
+                if (!empty($row["reference"])) {
+                    $affectationProjetService->updateOrCreate(["reference" => $row["reference"]], $affectationProjetData);
                 } else {
                     $affectationProjetService->create($affectationProjetData);
                 }

@@ -70,8 +70,8 @@ class BaseGroupeSeeder extends Seeder
                     "filiere_id" => $row["filiere_id"] ?? null ,
                     "annee_formation_id" => $row["annee_formation_id"] ?? null 
                 ];
-                if (!empty($data["reference"])) {
-                    $groupeService->updateOrCreate(["reference" => $data["reference"]], $groupeData);
+                if (!empty($row["reference"])) {
+                    $groupeService->updateOrCreate(["reference" => $row["reference"]], $groupeData);
                 } else {
                     $groupeService->create($groupeData);
                 }

@@ -78,8 +78,8 @@ class BaseFormateurSeeder extends Seeder
                     "profile_image" => $row["profile_image"] ?? null ,
                     "user_id" => $row["user_id"] ?? null 
                 ];
-                if (!empty($data["reference"])) {
-                    $formateurService->updateOrCreate(["reference" => $data["reference"]], $formateurData);
+                if (!empty($row["reference"])) {
+                    $formateurService->updateOrCreate(["reference" => $row["reference"]], $formateurData);
                 } else {
                     $formateurService->create($formateurData);
                 }

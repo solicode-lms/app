@@ -69,8 +69,8 @@ class BaseResourceSeeder extends Seeder
                     "description" => $row["description"] ?? null ,
                     "projet_id" => $row["projet_id"] ?? null 
                 ];
-                if (!empty($data["reference"])) {
-                    $resourceService->updateOrCreate(["reference" => $data["reference"]], $resourceData);
+                if (!empty($row["reference"])) {
+                    $resourceService->updateOrCreate(["reference" => $row["reference"]], $resourceData);
                 } else {
                     $resourceService->create($resourceData);
                 }

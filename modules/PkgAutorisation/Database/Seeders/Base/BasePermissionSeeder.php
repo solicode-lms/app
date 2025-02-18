@@ -67,8 +67,8 @@ class BasePermissionSeeder extends Seeder
                     "guard_name" => $row["guard_name"] ?? null ,
                     "controller_id" => $row["controller_id"] ?? null 
                 ];
-                if (!empty($data["reference"])) {
-                    $permissionService->updateOrCreate(["reference" => $data["reference"]], $permissionData);
+                if (!empty($row["reference"])) {
+                    $permissionService->updateOrCreate(["reference" => $row["reference"]], $permissionData);
                 } else {
                     $permissionService->create($permissionData);
                 }

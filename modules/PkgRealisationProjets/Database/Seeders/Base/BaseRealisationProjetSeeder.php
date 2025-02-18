@@ -71,8 +71,8 @@ class BaseRealisationProjetSeeder extends Seeder
                     "date_fin" => $row["date_fin"] ?? null ,
                     "rapport" => $row["rapport"] ?? null 
                 ];
-                if (!empty($data["reference"])) {
-                    $realisationProjetService->updateOrCreate(["reference" => $data["reference"]], $realisationProjetData);
+                if (!empty($row["reference"])) {
+                    $realisationProjetService->updateOrCreate(["reference" => $row["reference"]], $realisationProjetData);
                 } else {
                     $realisationProjetService->create($realisationProjetData);
                 }
