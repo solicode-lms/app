@@ -276,7 +276,7 @@
         "value_json": {
             "dataScope": "filter",
             "userModelName": "Formateur",
-            "ownerRelationPath": "projet.formateur"
+            "ownerRelationPath": "projet.formateur.user"
         },
         "e_model_reference": "affectation_projets",
         "e_metadata_definition_reference": "ownedByUser"
