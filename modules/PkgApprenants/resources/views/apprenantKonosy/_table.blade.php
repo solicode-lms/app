@@ -4,7 +4,7 @@
     <table class="table table-striped text-nowrap">
         <thead>
             <tr>
-                <x-sortable-column field="Nom" label="{{ ucfirst(__('PkgApprenants::apprenantKonosy.Nom')) }}" />
+                <x-sortable-column field="Nom" modelname="apprenantKonosy" label="{{ ucfirst(__('PkgApprenants::apprenantKonosy.Nom')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

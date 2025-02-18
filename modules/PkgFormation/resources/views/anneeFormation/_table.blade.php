@@ -4,9 +4,9 @@
     <table class="table table-striped text-nowrap">
         <thead>
             <tr>
-                <x-sortable-column field="titre" label="{{ ucfirst(__('PkgFormation::anneeFormation.titre')) }}" />
-                <x-sortable-column field="date_debut" label="{{ ucfirst(__('PkgFormation::anneeFormation.date_debut')) }}" />
-                <x-sortable-column field="date_fin" label="{{ ucfirst(__('PkgFormation::anneeFormation.date_fin')) }}" />
+                <x-sortable-column field="titre" modelname="anneeFormation" label="{{ ucfirst(__('PkgFormation::anneeFormation.titre')) }}" />
+                <x-sortable-column field="date_debut" modelname="anneeFormation" label="{{ ucfirst(__('PkgFormation::anneeFormation.date_debut')) }}" />
+                <x-sortable-column field="date_fin" modelname="anneeFormation" label="{{ ucfirst(__('PkgFormation::anneeFormation.date_fin')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

@@ -4,9 +4,9 @@
     <table class="table table-striped text-nowrap">
         <thead>
             <tr>
-                <x-sortable-column field="livrable_id" label="{{ ucfirst(__('PkgCreationProjet::livrable.singular')) }}" />
-                <x-sortable-column field="lien" label="{{ ucfirst(__('PkgRealisationProjets::livrablesRealisation.lien')) }}" />
-                <x-sortable-column field="titre" label="{{ ucfirst(__('PkgRealisationProjets::livrablesRealisation.titre')) }}" />
+                <x-sortable-column field="livrable_id" modelname="livrablesRealisation" label="{{ ucfirst(__('PkgCreationProjet::livrable.singular')) }}" />
+                <x-sortable-column field="lien" modelname="livrablesRealisation" label="{{ ucfirst(__('PkgRealisationProjets::livrablesRealisation.lien')) }}" />
+                <x-sortable-column field="titre" modelname="livrablesRealisation" label="{{ ucfirst(__('PkgRealisationProjets::livrablesRealisation.titre')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

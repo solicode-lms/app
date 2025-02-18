@@ -4,8 +4,8 @@
     <table class="table table-striped text-nowrap">
         <thead>
             <tr>
-                <x-sortable-column field="nom" label="{{ ucfirst(__('PkgFormation::specialite.nom')) }}" />
-                <x-sortable-column field="formateurs" label="{{ ucfirst(__('PkgFormation::formateur.plural')) }}" />
+                <x-sortable-column field="nom" modelname="specialite" label="{{ ucfirst(__('PkgFormation::specialite.nom')) }}" />
+                <x-sortable-column field="formateurs" modelname="specialite" label="{{ ucfirst(__('PkgFormation::formateur.plural')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

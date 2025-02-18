@@ -4,10 +4,10 @@
     <table class="table table-striped text-nowrap">
         <thead>
             <tr>
-                <x-sortable-column field="code" label="{{ ucfirst(__('PkgCompetences::competence.code')) }}" />
-                <x-sortable-column field="mini_code" label="{{ ucfirst(__('PkgCompetences::competence.mini_code')) }}" />
-                <x-sortable-column field="nom" label="{{ ucfirst(__('PkgCompetences::competence.nom')) }}" />
-                <x-sortable-column field="module_id" label="{{ ucfirst(__('PkgFormation::module.singular')) }}" />
+                <x-sortable-column field="code" modelname="competence" label="{{ ucfirst(__('PkgCompetences::competence.code')) }}" />
+                <x-sortable-column field="mini_code" modelname="competence" label="{{ ucfirst(__('PkgCompetences::competence.mini_code')) }}" />
+                <x-sortable-column field="nom" modelname="competence" label="{{ ucfirst(__('PkgCompetences::competence.nom')) }}" />
+                <x-sortable-column field="module_id" modelname="competence" label="{{ ucfirst(__('PkgFormation::module.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

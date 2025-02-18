@@ -4,10 +4,10 @@
     <table class="table table-striped text-nowrap">
         <thead>
             <tr>
-                <x-sortable-column field="competence_id" label="{{ ucfirst(__('PkgCompetences::competence.singular')) }}" />
-                <x-sortable-column field="question" label="{{ ucfirst(__('PkgCreationProjet::transfertCompetence.question')) }}" />
-                <x-sortable-column field="niveau_difficulte_id" label="{{ ucfirst(__('PkgCompetences::niveauDifficulte.singular')) }}" />
-                <x-sortable-column field="note" label="{{ ucfirst(__('PkgCreationProjet::transfertCompetence.note')) }}" />
+                <x-sortable-column field="competence_id" modelname="transfertCompetence" label="{{ ucfirst(__('PkgCompetences::competence.singular')) }}" />
+                <x-sortable-column field="question" modelname="transfertCompetence" label="{{ ucfirst(__('PkgCreationProjet::transfertCompetence.question')) }}" />
+                <x-sortable-column field="niveau_difficulte_id" modelname="transfertCompetence" label="{{ ucfirst(__('PkgCompetences::niveauDifficulte.singular')) }}" />
+                <x-sortable-column field="note" modelname="transfertCompetence" label="{{ ucfirst(__('PkgCreationProjet::transfertCompetence.note')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

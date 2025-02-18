@@ -4,12 +4,12 @@
     <table class="table table-striped text-nowrap">
         <thead>
             <tr>
-                <x-sortable-column field="titre" label="{{ ucfirst(__('PkgCreationProjet::projet.titre')) }}" />
-                <x-sortable-column field="TransfertCompetence" label="{{ ucfirst(__('PkgCreationProjet::transfertCompetence.plural')) }}" />
+                <x-sortable-column field="titre" modelname="projet" label="{{ ucfirst(__('PkgCreationProjet::projet.titre')) }}" />
+                <x-sortable-column field="TransfertCompetence" modelname="projet" label="{{ ucfirst(__('PkgCreationProjet::transfertCompetence.plural')) }}" />
 
-                <x-sortable-column field="AffectationProjet" label="{{ ucfirst(__('PkgRealisationProjets::affectationProjet.plural')) }}" />
+                <x-sortable-column field="AffectationProjet" modelname="projet" label="{{ ucfirst(__('PkgRealisationProjets::affectationProjet.plural')) }}" />
 
-                <x-sortable-column field="formateur_id" label="{{ ucfirst(__('PkgFormation::formateur.singular')) }}" />
+                <x-sortable-column field="formateur_id" modelname="projet" label="{{ ucfirst(__('PkgFormation::formateur.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

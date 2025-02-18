@@ -4,10 +4,10 @@
     <table class="table table-striped text-nowrap">
         <thead>
             <tr>
-                <x-sortable-column field="projet_id" label="{{ ucfirst(__('PkgCreationProjet::projet.singular')) }}" />
-                <x-sortable-column field="groupe_id" label="{{ ucfirst(__('PkgApprenants::groupe.singular')) }}" />
-                <x-sortable-column field="date_debut" label="{{ ucfirst(__('PkgRealisationProjets::affectationProjet.date_debut')) }}" />
-                <x-sortable-column field="date_fin" label="{{ ucfirst(__('PkgRealisationProjets::affectationProjet.date_fin')) }}" />
+                <x-sortable-column field="projet_id" modelname="affectationProjet" label="{{ ucfirst(__('PkgCreationProjet::projet.singular')) }}" />
+                <x-sortable-column field="groupe_id" modelname="affectationProjet" label="{{ ucfirst(__('PkgApprenants::groupe.singular')) }}" />
+                <x-sortable-column field="date_debut" modelname="affectationProjet" label="{{ ucfirst(__('PkgRealisationProjets::affectationProjet.date_debut')) }}" />
+                <x-sortable-column field="date_fin" modelname="affectationProjet" label="{{ ucfirst(__('PkgRealisationProjets::affectationProjet.date_fin')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
