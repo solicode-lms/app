@@ -634,5 +634,17 @@
         "description": "Détermine les actions à ajouter dans TableUI",
         "created_at": null,
         "updated_at": null
+    },
+    {
+        "id": 65,
+        "reference": "inputMdWidth",
+        "name": "inputMdWidth",
+        "type": "Integer",
+        "scope": "field",
+        "default_value": "12",
+        "groupe": "form",
+        "description": "Indique col-md value in row pour un champs dans le formulaire",
+        "created_at": null,
+        "updated_at": null
     }
 ]
