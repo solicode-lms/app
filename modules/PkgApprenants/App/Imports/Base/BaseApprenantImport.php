@@ -57,9 +57,9 @@ class BaseApprenantImport implements ToModel, WithHeadingRow
         // Création d'un nouvel enregistrement
         return new Apprenant([
              'nom' => $values[0] ?? null,
-             'prenom' => $values[1] ?? null,
-             'prenom_arab' => $values[2] ?? null,
-             'nom_arab' => $values[3] ?? null,
+             'nom_arab' => $values[1] ?? null,
+             'prenom' => $values[2] ?? null,
+             'prenom_arab' => $values[3] ?? null,
              'profile_image' => $values[4] ?? null,
              'sexe' => $values[5] ?? null,
              'tele_num' => $values[6] ?? null,

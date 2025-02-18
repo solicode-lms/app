@@ -66,9 +66,9 @@ class BaseApprenantSeeder extends Seeder
             if ($row) {
                 $apprenantService->create([
                     "nom" => $row["nom"] ?? null ,
+                    "nom_arab" => $row["nom_arab"] ?? null ,
                     "prenom" => $row["prenom"] ?? null ,
                     "prenom_arab" => $row["prenom_arab"] ?? null ,
-                    "nom_arab" => $row["nom_arab"] ?? null ,
                     "profile_image" => $row["profile_image"] ?? null ,
                     "sexe" => $row["sexe"] ?? null ,
                     "tele_num" => $row["tele_num"] ?? null ,

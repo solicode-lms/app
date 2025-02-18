@@ -28,9 +28,9 @@ class BaseApprenantRequest extends FormRequest
     {
         return [
             'nom' => 'required|string|max:255',
+            'nom_arab' => 'required|string|max:255',
             'prenom' => 'required|string|max:255',
             'prenom_arab' => 'required|string|max:255',
-            'nom_arab' => 'required|string|max:255',
             'profile_image' => 'nullable|string|max:255',
             'sexe' => 'required|string|max:255',
             'tele_num' => 'required|string|max:255',
@@ -59,12 +59,12 @@ class BaseApprenantRequest extends FormRequest
         return [
             'nom.required' => __('validation.required', ['attribute' => __('PkgApprenants::Apprenant.nom')]),
             'nom.max' => __('validation.nomMax'),
+            'nom_arab.required' => __('validation.required', ['attribute' => __('PkgApprenants::Apprenant.nom_arab')]),
+            'nom_arab.max' => __('validation.nom_arabMax'),
             'prenom.required' => __('validation.required', ['attribute' => __('PkgApprenants::Apprenant.prenom')]),
             'prenom.max' => __('validation.prenomMax'),
             'prenom_arab.required' => __('validation.required', ['attribute' => __('PkgApprenants::Apprenant.prenom_arab')]),
             'prenom_arab.max' => __('validation.prenom_arabMax'),
-            'nom_arab.required' => __('validation.required', ['attribute' => __('PkgApprenants::Apprenant.nom_arab')]),
-            'nom_arab.max' => __('validation.nom_arabMax'),
             'profile_image.required' => __('validation.required', ['attribute' => __('PkgApprenants::Apprenant.profile_image')]),
             'profile_image.max' => __('validation.profile_imageMax'),
             'sexe.required' => __('validation.required', ['attribute' => __('PkgApprenants::Apprenant.sexe')]),

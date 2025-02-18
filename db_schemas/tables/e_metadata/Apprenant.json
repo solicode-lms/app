@@ -159,19 +159,25 @@
     },
     {
         "reference": "Apprenant_prenom_displayOrder",
-        "value_integer": 3,
+        "value_boolean": 0,
+        "value_integer": 4,
+        "value_float": 0,
         "e_data_field_reference": "Apprenant_prenom",
         "e_metadata_definition_reference": "displayOrder"
     },
     {
         "reference": "Apprenant_prenom_arab_displayOrder",
-        "value_integer": 4,
+        "value_boolean": 0,
+        "value_integer": 5,
+        "value_float": 0,
         "e_data_field_reference": "Apprenant_prenom_arab",
         "e_metadata_definition_reference": "displayOrder"
     },
     {
         "reference": "Apprenant_nom_arab_displayOrder",
-        "value_integer": 5,
+        "value_boolean": 0,
+        "value_integer": 3,
+        "value_float": 0,
         "e_data_field_reference": "Apprenant_nom_arab",
         "e_metadata_definition_reference": "displayOrder"
     },

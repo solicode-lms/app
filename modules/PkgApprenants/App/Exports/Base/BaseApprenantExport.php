@@ -29,9 +29,9 @@ class BaseApprenantExport implements FromCollection, WithHeadings, ShouldAutoSiz
      if($this->format == 'csv'){
         return [
             'nom' => 'nom',
+            'nom_arab' => 'nom_arab',
             'prenom' => 'prenom',
             'prenom_arab' => 'prenom_arab',
-            'nom_arab' => 'nom_arab',
             'profile_image' => 'profile_image',
             'sexe' => 'sexe',
             'tele_num' => 'tele_num',
@@ -51,9 +51,9 @@ class BaseApprenantExport implements FromCollection, WithHeadings, ShouldAutoSiz
         }else{
         return [
             'nom' => __('PkgApprenants::apprenant.nom'),
+            'nom_arab' => __('PkgApprenants::apprenant.nom_arab'),
             'prenom' => __('PkgApprenants::apprenant.prenom'),
             'prenom_arab' => __('PkgApprenants::apprenant.prenom_arab'),
-            'nom_arab' => __('PkgApprenants::apprenant.nom_arab'),
             'profile_image' => __('PkgApprenants::apprenant.profile_image'),
             'sexe' => __('PkgApprenants::apprenant.sexe'),
             'tele_num' => __('PkgApprenants::apprenant.tele_num'),
@@ -80,9 +80,9 @@ class BaseApprenantExport implements FromCollection, WithHeadings, ShouldAutoSiz
         return $this->data->map(function ($apprenant) {
             return [
                 'nom' => $apprenant->nom,
+                'nom_arab' => $apprenant->nom_arab,
                 'prenom' => $apprenant->prenom,
                 'prenom_arab' => $apprenant->prenom_arab,
-                'nom_arab' => $apprenant->nom_arab,
                 'profile_image' => $apprenant->profile_image,
                 'sexe' => $apprenant->sexe,
                 'tele_num' => $apprenant->tele_num,

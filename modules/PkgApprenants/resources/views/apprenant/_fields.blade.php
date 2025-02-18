@@ -10,6 +10,11 @@
 
     <div class="card-body row">
         
+        
+        <h4 class="debut-groupe-title col-12 text-info">{{ __('État Civil') }}</h4>
+        <hr class="debut-groupe-hr col-12">
+
+        
         <div class="form-group col-12 col-md-6">
             <label for="nom">
                 {{ ucfirst(__('PkgApprenants::apprenant.nom')) }}
@@ -27,6 +32,28 @@
                 placeholder="{{ __('PkgApprenants::apprenant.nom') }}"
                 value="{{ $itemApprenant ? $itemApprenant->nom : old('nom') }}">
             @error('nom')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
+
+        
+        <div class="form-group col-12 col-md-6">
+            <label for="nom_arab">
+                {{ ucfirst(__('PkgApprenants::apprenant.nom_arab')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <input
+                name="nom_arab"
+                type="input"
+                class="form-control"
+                required
+                
+                id="nom_arab"
+                placeholder="{{ __('PkgApprenants::apprenant.nom_arab') }}"
+                value="{{ $itemApprenant ? $itemApprenant->nom_arab : old('nom_arab') }}">
+            @error('nom_arab')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
@@ -71,28 +98,6 @@
                 placeholder="{{ __('PkgApprenants::apprenant.prenom_arab') }}"
                 value="{{ $itemApprenant ? $itemApprenant->prenom_arab : old('prenom_arab') }}">
             @error('prenom_arab')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
-
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="nom_arab">
-                {{ ucfirst(__('PkgApprenants::apprenant.nom_arab')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
-                name="nom_arab"
-                type="input"
-                class="form-control"
-                required
-                
-                id="nom_arab"
-                placeholder="{{ __('PkgApprenants::apprenant.nom_arab') }}"
-                value="{{ $itemApprenant ? $itemApprenant->nom_arab : old('nom_arab') }}">
-            @error('nom_arab')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>

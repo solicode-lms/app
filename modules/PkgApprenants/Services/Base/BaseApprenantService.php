@@ -20,9 +20,9 @@ class BaseApprenantService extends BaseService
      */
     protected $fieldsSearchable = [
         'nom',
+        'nom_arab',
         'prenom',
         'prenom_arab',
-        'nom_arab',
         'profile_image',
         'sexe',
         'tele_num',

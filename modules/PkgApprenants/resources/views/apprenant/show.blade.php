@@ -29,16 +29,16 @@
                                 <p>{{ $itemApprenant->nom }}</p>
                             </div>
                             <div class="col-sm-12">
+                                <label for="nom_arab">{{ ucfirst(__('PkgApprenants::apprenant.nom_arab')) }}:</label>
+                                <p>{{ $itemApprenant->nom_arab }}</p>
+                            </div>
+                            <div class="col-sm-12">
                                 <label for="prenom">{{ ucfirst(__('PkgApprenants::apprenant.prenom')) }}:</label>
                                 <p>{{ $itemApprenant->prenom }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="prenom_arab">{{ ucfirst(__('PkgApprenants::apprenant.prenom_arab')) }}:</label>
                                 <p>{{ $itemApprenant->prenom_arab }}</p>
-                            </div>
-                            <div class="col-sm-12">
-                                <label for="nom_arab">{{ ucfirst(__('PkgApprenants::apprenant.nom_arab')) }}:</label>
-                                <p>{{ $itemApprenant->nom_arab }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="profile_image">{{ ucfirst(__('PkgApprenants::apprenant.profile_image')) }}:</label>
