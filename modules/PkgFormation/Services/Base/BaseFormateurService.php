@@ -56,6 +56,7 @@ class BaseFormateurService extends BaseService
     public function initFieldsFilterable(){
        // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
+            $this->generateManyToManyFilter(__("PkgFormation::specialite.plural"), 'specialite_id', \Modules\PkgFormation\Models\Specialite::class, 'nom'),
         ];
     }
 

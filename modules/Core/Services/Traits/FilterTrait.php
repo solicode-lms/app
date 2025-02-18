@@ -27,8 +27,8 @@ trait FilterTrait
             'label' => $label,
             'field' => $field,
             'type' => 'ManyToOne',
-            'options' => $model::all(['id', $display_field])
-                ->map(fn($item) => ['id' => $item['id'], 'label' => $item[$display_field]])
+            'options' => $model::all()
+                ->map(fn($item) => ['id' => $item['id'], 'label' => $item])
                 ->toArray(),
             'sortable' => "{$modelInstance->getTable()}.{$display_field}",
         ];

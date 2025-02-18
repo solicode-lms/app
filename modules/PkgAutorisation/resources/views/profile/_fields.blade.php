@@ -10,7 +10,7 @@
 
     <div class="card-body row">
         
-        <div class="form-group col-12 col-md-">
+        <div class="form-group col-12 col-md-12">
             <label for="old_password">
                 {{ ucfirst(__('PkgAutorisation::profile.old_password')) }}
                 
@@ -30,7 +30,7 @@
 </div>
 
         
-        <div class="form-group col-12 col-md-">
+        <div class="form-group col-12 col-md-12">
             <label for="password">
                 {{ ucfirst(__('PkgAutorisation::profile.password')) }}
                 
@@ -48,7 +48,7 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
-<div class="form-group">
+<div class="form-group col-12 col-md-12">
             <label for="password_confirmation">
                 {{ ucfirst(__('PkgAutorisation::profile.confirm_password')) }}
                 
@@ -68,8 +68,7 @@
 </div>
 
         
-        
-    <div class="form-group col-12 col-md-6">
+            <div class="form-group col-12 col-md-6">
             <label for="user_id">
                 {{ ucfirst(__('PkgAutorisation::user.singular')) }}
                 
@@ -97,7 +96,7 @@
 
 
         
-        <div class="form-group col-12 col-md-6">
+        <div class="form-group col-12 col-md-12">
             <label for="phone">
                 {{ ucfirst(__('PkgAutorisation::profile.phone')) }}
                 

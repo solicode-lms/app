@@ -19,7 +19,7 @@
     },
     {
         "reference": "Filiere_nom_displayInTable",
-        "value_boolean": 0,
+        "value_boolean": 1,
         "value_float": 0,
         "e_data_field_reference": "Filiere_nom",
         "e_metadata_definition_reference": "displayInTable"

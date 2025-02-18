@@ -548,5 +548,12 @@
         "value_integer": 6,
         "e_data_field_reference": "formateurs_hasMany_projets_formateur_id",
         "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "formateurs_specialites_formateur_specialite_m2m_m2m_filterable",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "formateurs_specialites_formateur_specialite_m2m_m2m",
+        "e_metadata_definition_reference": "filterable"
     }
 ]

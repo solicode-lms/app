@@ -162,7 +162,8 @@
                 "type": "String",
                 "label": "Ancien Mode de passe",
                 "inputType": "Password",
-                "dispalyOrder": 2
+                "dispalyOrder": 4,
+                "inputMdWidth": "12"
             },
             {
                 "name": "password",
@@ -170,7 +171,8 @@
                 "label": "Mode de passe",
                 "inputType": "Password",
                 "isConfirmed": "true",
-                "dispalyOrder": 2
+                "dispalyOrder": 1,
+                "inputMdWidth": "12"
             }
         ],
         "e_model_reference": "profiles",
@@ -197,7 +199,9 @@
     },
     {
         "reference": "Profile_phone_inputMdWidth",
-        "value_integer": 6,
+        "value_boolean": 0,
+        "value_integer": 12,
+        "value_float": 0,
         "e_data_field_reference": "Profile_phone",
         "e_metadata_definition_reference": "inputMdWidth"
     },

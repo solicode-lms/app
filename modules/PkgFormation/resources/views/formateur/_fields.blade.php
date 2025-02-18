@@ -76,7 +76,7 @@
 </div>
 
         
-                <div class="form-group col-12 col-md-6">
+                    <div class="form-group col-12 col-md-6">
             <label for="specialites">
                 {{ ucfirst(__('PkgFormation::Specialite.plural')) }}
             </label>
@@ -102,7 +102,7 @@
 
 
         
-                <div class="form-group col-12 col-md-6">
+                    <div class="form-group col-12 col-md-6">
             <label for="groupes">
                 {{ ucfirst(__('PkgApprenants::Groupe.plural')) }}
             </label>
@@ -168,8 +168,7 @@
 </div>
 
         
-        
-    <div class="form-group col-12 col-md-6">
+            <div class="form-group col-12 col-md-6">
             <label for="user_id">
                 {{ ucfirst(__('PkgAutorisation::user.singular')) }}
                 

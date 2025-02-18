@@ -2,7 +2,7 @@ titre,travail_a_faire,critere_de_travail,description,nombre_jour,formateur_id
 "Création d'un site vitrine","Développer une interface statique en HTML et CSS","Design responsive, utilisation des balises sémantiques","Un site vitrine pour une entreprise locale.","6",1
 "Gestion de bibliothèque","Construire un système de gestion en PHP","CRUD complet, bonne organisation du code","Un système pour gérer les livres et emprunteurs.","3",2
 "Portfolio personnel","Créer un portfolio en HTML et CSS","Design unique, bonne présentation","Un portfolio pour afficher les projets personnels.","3",3
-"Forum de discussion","Développer un forum en PHP","CRUD des posts, authentification utilisateur","Un forum pour discuter sur divers sujets.","3",4
+"Forum de discussion","Développer un forum en PHP","CRUD des posts, authentification utilisateur","Un forum pour discuter sur divers sujets.","3",1
 "Blog multi-utilisateurs","Créer un blog avec PHP","Gestion des utilisateurs, modération des commentaires","Un blog multi-utilisateurs avec publication d'articles.","4",1
 "Site de recettes","Développer un site de recettes interactif","Design attrayant, filtrage des recettes","Un site pour partager et rechercher des recettes.","4",2
 "Page d'accueil d'un service","Créer une page d'accueil pour un service en ligne","Design professionnel, navigation fluide","Page d'accueil pour un service SaaS.","4",3

@@ -76,6 +76,7 @@
     {
         "reference": "AffectationProjet_projet_id_filterable",
         "value_boolean": 1,
+        "value_float": 0,
         "e_data_field_reference": "AffectationProjet_projet_id",
         "e_metadata_definition_reference": "filterable"
     },
@@ -94,6 +95,7 @@
     {
         "reference": "AffectationProjet_groupe_id_filterable",
         "value_boolean": 1,
+        "value_float": 0,
         "e_data_field_reference": "AffectationProjet_groupe_id",
         "e_metadata_definition_reference": "filterable"
     },
