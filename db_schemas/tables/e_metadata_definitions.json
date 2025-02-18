@@ -646,5 +646,17 @@
         "description": "Indique col-md value in row pour un champs dans le formulaire",
         "created_at": null,
         "updated_at": null
+    },
+    {
+        "id": 66,
+        "reference": "formStartGroup",
+        "name": "formStartGroup",
+        "type": "Json",
+        "scope": "field",
+        "default_value": "{\"label\":\"Groupe\"}",
+        "groupe": "form",
+        "description": "Indique le début d'un groupe des input : il contient title de type h4 et un séparateur hr",
+        "created_at": null,
+        "updated_at": null
     }
 ]

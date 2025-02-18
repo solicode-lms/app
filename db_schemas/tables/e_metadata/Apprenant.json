@@ -630,5 +630,15 @@
         "value_integer": 6,
         "e_data_field_reference": "apprenants_hasMany_realisation_projets_apprenant_id",
         "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Apprenant_nom_formStartGroup",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "label": "État Civil"
+        },
+        "e_data_field_reference": "Apprenant_nom",
+        "e_metadata_definition_reference": "formStartGroup"
     }
 ]

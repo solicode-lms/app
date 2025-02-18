@@ -10,12 +10,9 @@
 
     <div class="card-body row">
         
-        
         <h4 class="debut-groupe-title col-12 text-info">{{ __('État Civil') }}</h4>
-        <hr class="debut-groupe-hr col-12">
-
-        
-        <div class="form-group col-12 col-md-6">
+<hr class="debut-groupe-hr col-12">
+<div class="form-group col-12 col-md-6">
             <label for="nom">
                 {{ ucfirst(__('PkgApprenants::apprenant.nom')) }}
                 
