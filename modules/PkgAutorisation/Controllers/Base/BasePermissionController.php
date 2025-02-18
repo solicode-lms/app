@@ -95,7 +95,7 @@ class BasePermissionController extends AdminController
     public function show(string $id) {
 
         $this->viewState->setContextKey('permission.edit_' . $id);
-
+     
         $itemPermission = $this->permissionService->find($id);
   
         $features = $this->featureService->all();

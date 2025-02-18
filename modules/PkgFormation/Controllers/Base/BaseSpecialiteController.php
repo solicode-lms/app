@@ -87,7 +87,7 @@ class BaseSpecialiteController extends AdminController
     public function show(string $id) {
 
         $this->viewState->setContextKey('specialite.edit_' . $id);
-
+     
         $itemSpecialite = $this->specialiteService->find($id);
   
         $formateurs = $this->formateurService->all();

@@ -83,7 +83,7 @@ class BaseApprenantKonosyController extends AdminController
     public function show(string $id) {
 
         $this->viewState->setContextKey('apprenantKonosy.edit_' . $id);
-
+     
         $itemApprenantKonosy = $this->apprenantKonosyService->find($id);
   
 

@@ -99,7 +99,7 @@ class BaseRealisationProjetController extends AdminController
     public function show(string $id) {
 
         $this->viewState->setContextKey('realisationProjet.edit_' . $id);
-
+     
         $itemRealisationProjet = $this->realisationProjetService->find($id);
   
         $affectationProjets = $this->affectationProjetService->all();

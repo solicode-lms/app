@@ -89,7 +89,7 @@ class BaseProfileController extends AdminController
     public function show(string $id) {
 
         $this->viewState->setContextKey('profile.edit_' . $id);
-
+     
         $itemProfile = $this->profileService->find($id);
   
         $users = $this->userService->all();

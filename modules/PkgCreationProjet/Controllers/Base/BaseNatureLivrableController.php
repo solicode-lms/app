@@ -84,7 +84,7 @@ class BaseNatureLivrableController extends AdminController
     public function show(string $id) {
 
         $this->viewState->setContextKey('natureLivrable.edit_' . $id);
-
+     
         $itemNatureLivrable = $this->natureLivrableService->find($id);
   
 

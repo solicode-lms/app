@@ -93,7 +93,7 @@ class BaseProjetController extends AdminController
     public function show(string $id) {
 
         $this->viewState->setContextKey('projet.edit_' . $id);
-
+     
         $itemProjet = $this->projetService->find($id);
   
         $formateurs = $this->formateurService->all();

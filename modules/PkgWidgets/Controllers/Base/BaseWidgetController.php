@@ -95,7 +95,7 @@ class BaseWidgetController extends AdminController
     public function show(string $id) {
 
         $this->viewState->setContextKey('widget.edit_' . $id);
-
+     
         $itemWidget = $this->widgetService->find($id);
   
         $sysModels = $this->sysModelService->all();

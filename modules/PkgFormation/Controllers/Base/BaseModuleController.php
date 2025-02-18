@@ -88,7 +88,7 @@ class BaseModuleController extends AdminController
     public function show(string $id) {
 
         $this->viewState->setContextKey('module.edit_' . $id);
-
+     
         $itemModule = $this->moduleService->find($id);
   
         $filieres = $this->filiereService->all();

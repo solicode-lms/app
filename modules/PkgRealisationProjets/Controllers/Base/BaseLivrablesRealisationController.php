@@ -93,7 +93,7 @@ class BaseLivrablesRealisationController extends AdminController
     public function show(string $id) {
 
         $this->viewState->setContextKey('livrablesRealisation.edit_' . $id);
-
+     
         $itemLivrablesRealisation = $this->livrablesRealisationService->find($id);
   
         $livrables = $this->livrableService->all();

@@ -90,7 +90,7 @@ class BaseUserController extends AdminController
     public function show(string $id) {
 
         $this->viewState->setContextKey('user.edit_' . $id);
-
+     
         $itemUser = $this->userService->find($id);
   
         $roles = $this->roleService->all();
