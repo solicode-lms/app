@@ -10,7 +10,7 @@
 
     <div class="card-body row">
         
-        <div class="form-group col-6">
+        <div class="form-group col-12 col-md-6">
             <label for="nom">
                 {{ ucfirst(__('PkgApprenants::apprenant.nom')) }}
                 
@@ -32,7 +32,7 @@
 </div>
 
         
-        <div class="form-group col-6">
+        <div class="form-group col-12 col-md-6">
             <label for="prenom">
                 {{ ucfirst(__('PkgApprenants::apprenant.prenom')) }}
                 
@@ -54,7 +54,7 @@
 </div>
 
         
-        <div class="form-group col-6">
+        <div class="form-group col-12 col-md-6">
             <label for="prenom_arab">
                 {{ ucfirst(__('PkgApprenants::apprenant.prenom_arab')) }}
                 
@@ -76,7 +76,7 @@
 </div>
 
         
-        <div class="form-group col-6">
+        <div class="form-group col-12 col-md-6">
             <label for="nom_arab">
                 {{ ucfirst(__('PkgApprenants::apprenant.nom_arab')) }}
                 
@@ -98,7 +98,7 @@
 </div>
 
         
-        <div class="form-group col-6">
+        <div class="form-group col-12 col-md-6">
             <label for="sexe">
                 {{ ucfirst(__('PkgApprenants::apprenant.sexe')) }}
                 
@@ -120,7 +120,7 @@
 </div>
 
         
-        <div class="form-group col-6">
+        <div class="form-group col-12 col-md-6">
             <label for="tele_num">
                 {{ ucfirst(__('PkgApprenants::apprenant.tele_num')) }}
                 
@@ -142,7 +142,7 @@
 </div>
 
         
-        <div class="form-group col-6">
+        <div class="form-group col-12 col-md-6">
             <label for="date_naissance">
                 {{ ucfirst(__('PkgApprenants::apprenant.date_naissance')) }}
                 
@@ -166,7 +166,7 @@
 
 
         
-        <div class="form-group col-6">
+        <div class="form-group col-12 col-md-6">
             <label for="lieu_naissance">
                 {{ ucfirst(__('PkgApprenants::apprenant.lieu_naissance')) }}
                 
@@ -186,7 +186,7 @@
 </div>
 
         
-        <div class="form-group col-6">
+        <div class="form-group col-12 col-md-6">
             <label for="cin">
                 {{ ucfirst(__('PkgApprenants::apprenant.cin')) }}
                 
@@ -206,7 +206,7 @@
 </div>
 
         
-        <div class="form-group col-12">
+        <div class="form-group col-12 col-md-12">
             <label for="adresse">
                 {{ ucfirst(__('PkgApprenants::apprenant.adresse')) }}
                 
@@ -227,7 +227,7 @@
 
         
         
-    <div class="form-group col-6">
+    <div class="form-group col-12 col-md-6">
             <label for="niveaux_scolaire_id">
                 {{ ucfirst(__('PkgApprenants::niveauxScolaire.singular')) }}
                 
@@ -253,7 +253,7 @@
 
 
         
-        <div class="form-group col-6">
+        <div class="form-group col-12 col-md-6">
             <label for="matricule">
                 {{ ucfirst(__('PkgApprenants::apprenant.matricule')) }}
                 
@@ -276,7 +276,7 @@
 
         
         
-    <div class="form-group col-6">
+    <div class="form-group col-12 col-md-6">
             <label for="nationalite_id">
                 {{ ucfirst(__('PkgApprenants::nationalite.singular')) }}
                 
@@ -302,7 +302,7 @@
 
 
         
-        <div class="form-group col-6">
+        <div class="form-group col-12 col-md-6">
             <label for="actif">
                 {{ ucfirst(__('PkgApprenants::apprenant.actif')) }}
                 
@@ -325,7 +325,7 @@
 </div>
 
         
-        <div class="form-group col-6">
+        <div class="form-group col-12 col-md-6">
             <label for="date_inscription">
                 {{ ucfirst(__('PkgApprenants::apprenant.date_inscription')) }}
                 
@@ -349,7 +349,7 @@
 
 
         
-                <div class="form-group col-6">
+                <div class="form-group col-12 col-md-6">
             <label for="groupes">
                 {{ ucfirst(__('PkgApprenants::Groupe.plural')) }}
             </label>
@@ -380,7 +380,7 @@
 
         
         
-    <div class="form-group col-6">
+    <div class="form-group col-12 col-md-6">
             <label for="user_id">
                 {{ ucfirst(__('PkgAutorisation::user.singular')) }}
                 

@@ -1,16 +1,16 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @section('projet-form')
-<form class="crud-form custom-form context-state" id="projetForm" action="{{ $itemProjet->id ? route('projets.update', $itemProjet->id) : route('projets.store') }}" method="POST" novalidate>
+<form class="crud-form custom-form context-state container" id="projetForm" action="{{ $itemProjet->id ? route('projets.update', $itemProjet->id) : route('projets.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemProjet->id)
         @method('PUT')
     @endif
 
-    <div class="card-body">
+    <div class="card-body row">
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="titre">
                 {{ ucfirst(__('PkgCreationProjet::projet.titre')) }}
                 
@@ -32,7 +32,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-12">
             <label for="travail_a_faire">
                 {{ ucfirst(__('PkgCreationProjet::projet.travail_a_faire')) }}
                 
@@ -54,7 +54,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-12">
             <label for="critere_de_travail">
                 {{ ucfirst(__('PkgCreationProjet::projet.critere_de_travail')) }}
                 
@@ -76,7 +76,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="nombre_jour">
                 {{ ucfirst(__('PkgCreationProjet::projet.nombre_jour')) }}
                 
@@ -98,7 +98,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-12">
             <label for="description">
                 {{ ucfirst(__('PkgCreationProjet::projet.description')) }}
                 
@@ -135,7 +135,7 @@
 
         
         
-    <div class="form-group">
+    <div class="form-group col-12 col-md-6">
             <label for="formateur_id">
                 {{ ucfirst(__('PkgFormation::formateur.singular')) }}
                 

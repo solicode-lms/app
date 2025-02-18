@@ -1,17 +1,17 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @section('etatsRealisationProjet-form')
-<form class="crud-form custom-form context-state" id="etatsRealisationProjetForm" action="{{ $itemEtatsRealisationProjet->id ? route('etatsRealisationProjets.update', $itemEtatsRealisationProjet->id) : route('etatsRealisationProjets.store') }}" method="POST" novalidate>
+<form class="crud-form custom-form context-state container" id="etatsRealisationProjetForm" action="{{ $itemEtatsRealisationProjet->id ? route('etatsRealisationProjets.update', $itemEtatsRealisationProjet->id) : route('etatsRealisationProjets.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemEtatsRealisationProjet->id)
         @method('PUT')
     @endif
 
-    <div class="card-body">
+    <div class="card-body row">
         
         
-    <div class="form-group">
+    <div class="form-group col-12 col-md-6">
             <label for="formateur_id">
                 {{ ucfirst(__('PkgFormation::formateur.singular')) }}
                 
@@ -39,7 +39,7 @@
 
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="titre">
                 {{ ucfirst(__('PkgRealisationProjets::etatsRealisationProjet.titre')) }}
                 
@@ -61,7 +61,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-12">
             <label for="description">
                 {{ ucfirst(__('PkgRealisationProjets::etatsRealisationProjet.description')) }}
                 

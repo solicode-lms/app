@@ -1,16 +1,16 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @section('eMetadatum-form')
-<form class="crud-form custom-form context-state" id="eMetadatumForm" action="{{ $itemEMetadatum->id ? route('eMetadata.update', $itemEMetadatum->id) : route('eMetadata.store') }}" method="POST" novalidate>
+<form class="crud-form custom-form context-state container" id="eMetadatumForm" action="{{ $itemEMetadatum->id ? route('eMetadata.update', $itemEMetadatum->id) : route('eMetadata.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemEMetadatum->id)
         @method('PUT')
     @endif
 
-    <div class="card-body">
+    <div class="card-body row">
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="value_boolean">
                 {{ ucfirst(__('PkgGapp::eMetadatum.value_boolean')) }}
                 
@@ -31,7 +31,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="value_string">
                 {{ ucfirst(__('PkgGapp::eMetadatum.value_string')) }}
                 
@@ -51,7 +51,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="value_integer">
                 {{ ucfirst(__('PkgGapp::eMetadatum.value_integer')) }}
                 
@@ -71,7 +71,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
     <label for="value_float">
         {{ ucfirst(__('PkgGapp::eMetadatum.value_float')) }}
         
@@ -93,7 +93,7 @@
 
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="value_date">
                 {{ ucfirst(__('PkgGapp::eMetadatum.value_date')) }}
                 
@@ -117,7 +117,7 @@
 
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="value_datetime">
                 {{ ucfirst(__('PkgGapp::eMetadatum.value_datetime')) }}
                 
@@ -141,7 +141,7 @@
 
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="value_enum">
                 {{ ucfirst(__('PkgGapp::eMetadatum.value_enum')) }}
                 
@@ -161,7 +161,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
     <label for="value_json">
         {{ ucfirst(__('PkgGapp::eMetadatum.value_json')) }}
         
@@ -189,7 +189,7 @@
 
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-12">
             <label for="value_text">
                 {{ ucfirst(__('PkgGapp::eMetadatum.value_text')) }}
                 
@@ -210,7 +210,7 @@
 
         
         
-    <div class="form-group">
+    <div class="form-group col-12 col-md-6">
             <label for="e_model_id">
                 {{ ucfirst(__('PkgGapp::eModel.singular')) }}
                 
@@ -237,7 +237,7 @@
 
         
         
-    <div class="form-group">
+    <div class="form-group col-12 col-md-6">
             <label for="e_data_field_id">
                 {{ ucfirst(__('PkgGapp::eDataField.singular')) }}
                 
@@ -264,7 +264,7 @@
 
         
         
-    <div class="form-group">
+    <div class="form-group col-12 col-md-6">
             <label for="e_metadata_definition_id">
                 {{ ucfirst(__('PkgGapp::eMetadataDefinition.singular')) }}
                 

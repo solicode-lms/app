@@ -1,16 +1,16 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @section('apprenantKonosy-form')
-<form class="crud-form custom-form context-state" id="apprenantKonosyForm" action="{{ $itemApprenantKonosy->id ? route('apprenantKonosies.update', $itemApprenantKonosy->id) : route('apprenantKonosies.store') }}" method="POST" novalidate>
+<form class="crud-form custom-form context-state container" id="apprenantKonosyForm" action="{{ $itemApprenantKonosy->id ? route('apprenantKonosies.update', $itemApprenantKonosy->id) : route('apprenantKonosies.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemApprenantKonosy->id)
         @method('PUT')
     @endif
 
-    <div class="card-body">
+    <div class="card-body row">
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="MatriculeEtudiant">
                 {{ ucfirst(__('PkgApprenants::apprenantKonosy.MatriculeEtudiant')) }}
                 
@@ -32,7 +32,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="Nom">
                 {{ ucfirst(__('PkgApprenants::apprenantKonosy.Nom')) }}
                 
@@ -54,7 +54,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="Prenom">
                 {{ ucfirst(__('PkgApprenants::apprenantKonosy.Prenom')) }}
                 
@@ -76,7 +76,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="Sexe">
                 {{ ucfirst(__('PkgApprenants::apprenantKonosy.Sexe')) }}
                 
@@ -98,7 +98,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="EtudiantActif">
                 {{ ucfirst(__('PkgApprenants::apprenantKonosy.EtudiantActif')) }}
                 
@@ -120,7 +120,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="Diplome">
                 {{ ucfirst(__('PkgApprenants::apprenantKonosy.Diplome')) }}
                 
@@ -140,7 +140,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="Principale">
                 {{ ucfirst(__('PkgApprenants::apprenantKonosy.Principale')) }}
                 
@@ -160,7 +160,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="LibelleLong">
                 {{ ucfirst(__('PkgApprenants::apprenantKonosy.LibelleLong')) }}
                 
@@ -180,7 +180,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="CodeDiplome">
                 {{ ucfirst(__('PkgApprenants::apprenantKonosy.CodeDiplome')) }}
                 
@@ -200,7 +200,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="DateNaissance">
                 {{ ucfirst(__('PkgApprenants::apprenantKonosy.DateNaissance')) }}
                 
@@ -220,7 +220,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="DateInscription">
                 {{ ucfirst(__('PkgApprenants::apprenantKonosy.DateInscription')) }}
                 
@@ -240,7 +240,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="LieuNaissance">
                 {{ ucfirst(__('PkgApprenants::apprenantKonosy.LieuNaissance')) }}
                 
@@ -260,7 +260,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="CIN">
                 {{ ucfirst(__('PkgApprenants::apprenantKonosy.CIN')) }}
                 
@@ -280,7 +280,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="NTelephone">
                 {{ ucfirst(__('PkgApprenants::apprenantKonosy.NTelephone')) }}
                 
@@ -300,7 +300,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-12">
             <label for="Adresse">
                 {{ ucfirst(__('PkgApprenants::apprenantKonosy.Adresse')) }}
                 
@@ -320,7 +320,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="Nationalite">
                 {{ ucfirst(__('PkgApprenants::apprenantKonosy.Nationalite')) }}
                 
@@ -340,7 +340,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="Nom_Arabe">
                 {{ ucfirst(__('PkgApprenants::apprenantKonosy.Nom_Arabe')) }}
                 
@@ -360,7 +360,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="Prenom_Arabe">
                 {{ ucfirst(__('PkgApprenants::apprenantKonosy.Prenom_Arabe')) }}
                 
@@ -380,7 +380,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="NiveauScolaire">
                 {{ ucfirst(__('PkgApprenants::apprenantKonosy.NiveauScolaire')) }}
                 

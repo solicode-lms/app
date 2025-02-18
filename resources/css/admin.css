@@ -196,3 +196,12 @@
 .dynamic-modal {
     min-height: 300px !important;
 }
+
+/* Boolean */
+.form-group input[type=checkbox] {
+    width: 20px; 
+    height: 20px; 
+    margin-left: 10px;
+    cursor: pointer;
+    margin-top: 8px;
+}

@@ -1,16 +1,16 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @section('eDataField-form')
-<form class="crud-form custom-form context-state" id="eDataFieldForm" action="{{ $itemEDataField->id ? route('eDataFields.update', $itemEDataField->id) : route('eDataFields.store') }}" method="POST" novalidate>
+<form class="crud-form custom-form context-state container" id="eDataFieldForm" action="{{ $itemEDataField->id ? route('eDataFields.update', $itemEDataField->id) : route('eDataFields.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemEDataField->id)
         @method('PUT')
     @endif
 
-    <div class="card-body">
+    <div class="card-body row">
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="name">
                 {{ ucfirst(__('PkgGapp::eDataField.name')) }}
                 
@@ -32,7 +32,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="column_name">
                 {{ ucfirst(__('PkgGapp::eDataField.column_name')) }}
                 
@@ -54,7 +54,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="field_order">
                 {{ ucfirst(__('PkgGapp::eDataField.field_order')) }}
                 
@@ -76,7 +76,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="db_nullable">
                 {{ ucfirst(__('PkgGapp::eDataField.db_nullable')) }}
                 
@@ -99,7 +99,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="db_primaryKey">
                 {{ ucfirst(__('PkgGapp::eDataField.db_primaryKey')) }}
                 
@@ -122,7 +122,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="db_unique">
                 {{ ucfirst(__('PkgGapp::eDataField.db_unique')) }}
                 
@@ -145,7 +145,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="default_value">
                 {{ ucfirst(__('PkgGapp::eDataField.default_value')) }}
                 
@@ -165,7 +165,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-12">
             <label for="description">
                 {{ ucfirst(__('PkgGapp::eDataField.description')) }}
                 
@@ -186,7 +186,7 @@
 
         
         
-    <div class="form-group">
+    <div class="form-group col-12 col-md-6">
             <label for="e_model_id">
                 {{ ucfirst(__('PkgGapp::eModel.singular')) }}
                 
@@ -215,7 +215,7 @@
 
         
         
-    <div class="form-group">
+    <div class="form-group col-12 col-md-6">
             <label for="e_relationship_id">
                 {{ ucfirst(__('PkgGapp::eRelationship.singular')) }}
                 
@@ -241,7 +241,7 @@
 
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="data_type">
                 {{ ucfirst(__('PkgGapp::eDataField.data_type')) }}
                 

@@ -1,17 +1,17 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @section('realisationProjet-form')
-<form class="crud-form custom-form context-state" id="realisationProjetForm" action="{{ $itemRealisationProjet->id ? route('realisationProjets.update', $itemRealisationProjet->id) : route('realisationProjets.store') }}" method="POST" novalidate>
+<form class="crud-form custom-form context-state container" id="realisationProjetForm" action="{{ $itemRealisationProjet->id ? route('realisationProjets.update', $itemRealisationProjet->id) : route('realisationProjets.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemRealisationProjet->id)
         @method('PUT')
     @endif
 
-    <div class="card-body">
+    <div class="card-body row">
         
         
-    <div class="form-group">
+    <div class="form-group col-12 col-md-6">
             <label for="affectation_projet_id">
                 {{ ucfirst(__('PkgRealisationProjets::affectationProjet.singular')) }}
                 
@@ -40,7 +40,7 @@
 
         
         
-    <div class="form-group">
+    <div class="form-group col-12 col-md-6">
             <label for="apprenant_id">
                 {{ ucfirst(__('PkgApprenants::apprenant.singular')) }}
                 
@@ -69,7 +69,7 @@
 
         
         
-    <div class="form-group">
+    <div class="form-group col-12 col-md-6">
             <label for="etats_realisation_projet_id">
                 {{ ucfirst(__('PkgRealisationProjets::etatsRealisationProjet.singular')) }}
                 
@@ -97,7 +97,7 @@
 
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="date_debut">
                 {{ ucfirst(__('PkgRealisationProjets::realisationProjet.date_debut')) }}
                 
@@ -123,7 +123,7 @@
 
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="date_fin">
                 {{ ucfirst(__('PkgRealisationProjets::realisationProjet.date_fin')) }}
                 
@@ -155,7 +155,7 @@
         <!--   Validation HasMany --> 
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-12">
             <label for="rapport">
                 {{ ucfirst(__('PkgRealisationProjets::realisationProjet.rapport')) }}
                 

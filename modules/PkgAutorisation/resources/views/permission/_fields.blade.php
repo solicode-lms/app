@@ -1,16 +1,16 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @section('permission-form')
-<form class="crud-form custom-form context-state" id="permissionForm" action="{{ $itemPermission->id ? route('permissions.update', $itemPermission->id) : route('permissions.store') }}" method="POST" novalidate>
+<form class="crud-form custom-form context-state container" id="permissionForm" action="{{ $itemPermission->id ? route('permissions.update', $itemPermission->id) : route('permissions.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemPermission->id)
         @method('PUT')
     @endif
 
-    <div class="card-body">
+    <div class="card-body row">
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="name">
                 {{ ucfirst(__('PkgAutorisation::permission.name')) }}
                 
@@ -32,7 +32,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="guard_name">
                 {{ ucfirst(__('PkgAutorisation::permission.guard_name')) }}
                 
@@ -55,7 +55,7 @@
 
         
         
-    <div class="form-group">
+    <div class="form-group col-12 col-md-6">
             <label for="controller_id">
                 {{ ucfirst(__('Core::sysController.singular')) }}
                 
@@ -81,7 +81,7 @@
 
 
         
-                <div class="form-group">
+                <div class="form-group col-12 col-md-6">
             <label for="features">
                 {{ ucfirst(__('Core::Feature.plural')) }}
             </label>
@@ -107,7 +107,7 @@
 
 
         
-                <div class="form-group">
+                <div class="form-group col-12 col-md-6">
             <label for="roles">
                 {{ ucfirst(__('PkgAutorisation::Role.plural')) }}
             </label>

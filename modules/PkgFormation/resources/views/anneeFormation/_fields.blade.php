@@ -1,16 +1,16 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @section('anneeFormation-form')
-<form class="crud-form custom-form context-state" id="anneeFormationForm" action="{{ $itemAnneeFormation->id ? route('anneeFormations.update', $itemAnneeFormation->id) : route('anneeFormations.store') }}" method="POST" novalidate>
+<form class="crud-form custom-form context-state container" id="anneeFormationForm" action="{{ $itemAnneeFormation->id ? route('anneeFormations.update', $itemAnneeFormation->id) : route('anneeFormations.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemAnneeFormation->id)
         @method('PUT')
     @endif
 
-    <div class="card-body">
+    <div class="card-body row">
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="titre">
                 {{ ucfirst(__('PkgFormation::anneeFormation.titre')) }}
                 
@@ -32,7 +32,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="date_debut">
                 {{ ucfirst(__('PkgFormation::anneeFormation.date_debut')) }}
                 
@@ -58,7 +58,7 @@
 
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="date_fin">
                 {{ ucfirst(__('PkgFormation::anneeFormation.date_fin')) }}
                 

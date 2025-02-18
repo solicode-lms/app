@@ -1,16 +1,16 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @section('groupe-form')
-<form class="crud-form custom-form context-state" id="groupeForm" action="{{ $itemGroupe->id ? route('groupes.update', $itemGroupe->id) : route('groupes.store') }}" method="POST" novalidate>
+<form class="crud-form custom-form context-state container" id="groupeForm" action="{{ $itemGroupe->id ? route('groupes.update', $itemGroupe->id) : route('groupes.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemGroupe->id)
         @method('PUT')
     @endif
 
-    <div class="card-body">
+    <div class="card-body row">
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="code">
                 {{ ucfirst(__('PkgApprenants::groupe.code')) }}
                 
@@ -32,7 +32,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="nom">
                 {{ ucfirst(__('PkgApprenants::groupe.nom')) }}
                 
@@ -52,7 +52,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-12">
             <label for="description">
                 {{ ucfirst(__('PkgApprenants::groupe.description')) }}
                 
@@ -73,7 +73,7 @@
 
         
         
-    <div class="form-group">
+    <div class="form-group col-12 col-md-6">
             <label for="filiere_id">
                 {{ ucfirst(__('PkgFormation::filiere.singular')) }}
                 
@@ -100,7 +100,7 @@
 
         
         
-    <div class="form-group">
+    <div class="form-group col-12 col-md-6">
             <label for="annee_formation_id">
                 {{ ucfirst(__('PkgFormation::anneeFormation.singular')) }}
                 
@@ -130,7 +130,7 @@
         <!--   AffectationProjet HasMany --> 
 
         
-                <div class="form-group">
+                <div class="form-group col-12 col-md-6">
             <label for="apprenants">
                 {{ ucfirst(__('PkgApprenants::Apprenant.plural')) }}
             </label>
@@ -156,7 +156,7 @@
 
 
         
-                <div class="form-group">
+                <div class="form-group col-12 col-md-6">
             <label for="formateurs">
                 {{ ucfirst(__('PkgFormation::Formateur.plural')) }}
             </label>

@@ -1,16 +1,16 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @section('formateur-form')
-<form class="crud-form custom-form context-state" id="formateurForm" action="{{ $itemFormateur->id ? route('formateurs.update', $itemFormateur->id) : route('formateurs.store') }}" method="POST" novalidate>
+<form class="crud-form custom-form context-state container" id="formateurForm" action="{{ $itemFormateur->id ? route('formateurs.update', $itemFormateur->id) : route('formateurs.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemFormateur->id)
         @method('PUT')
     @endif
 
-    <div class="card-body">
+    <div class="card-body row">
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="matricule">
                 {{ ucfirst(__('PkgFormation::formateur.matricule')) }}
                 
@@ -32,7 +32,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="nom">
                 {{ ucfirst(__('PkgFormation::formateur.nom')) }}
                 
@@ -54,7 +54,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="prenom">
                 {{ ucfirst(__('PkgFormation::formateur.prenom')) }}
                 
@@ -76,7 +76,7 @@
 </div>
 
         
-                <div class="form-group">
+                <div class="form-group col-12 col-md-6">
             <label for="specialites">
                 {{ ucfirst(__('PkgFormation::Specialite.plural')) }}
             </label>
@@ -102,7 +102,7 @@
 
 
         
-                <div class="form-group">
+                <div class="form-group col-12 col-md-6">
             <label for="groupes">
                 {{ ucfirst(__('PkgApprenants::Groupe.plural')) }}
             </label>
@@ -128,7 +128,7 @@
 
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="email">
                 {{ ucfirst(__('PkgFormation::formateur.email')) }}
                 
@@ -148,7 +148,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="tele_num">
                 {{ ucfirst(__('PkgFormation::formateur.tele_num')) }}
                 
@@ -169,7 +169,7 @@
 
         
         
-    <div class="form-group">
+    <div class="form-group col-12 col-md-6">
             <label for="user_id">
                 {{ ucfirst(__('PkgAutorisation::user.singular')) }}
                 

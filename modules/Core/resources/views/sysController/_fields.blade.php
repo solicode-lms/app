@@ -1,17 +1,17 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @section('sysController-form')
-<form class="crud-form custom-form context-state" id="sysControllerForm" action="{{ $itemSysController->id ? route('sysControllers.update', $itemSysController->id) : route('sysControllers.store') }}" method="POST" novalidate>
+<form class="crud-form custom-form context-state container" id="sysControllerForm" action="{{ $itemSysController->id ? route('sysControllers.update', $itemSysController->id) : route('sysControllers.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemSysController->id)
         @method('PUT')
     @endif
 
-    <div class="card-body">
+    <div class="card-body row">
         
         
-    <div class="form-group">
+    <div class="form-group col-12 col-md-6">
             <label for="sys_module_id">
                 {{ ucfirst(__('Core::sysModule.singular')) }}
                 
@@ -39,7 +39,7 @@
 
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="name">
                 {{ ucfirst(__('Core::sysController.name')) }}
                 
@@ -61,7 +61,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="slug">
                 {{ ucfirst(__('Core::sysController.slug')) }}
                 
@@ -83,7 +83,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-12">
             <label for="description">
                 {{ ucfirst(__('Core::sysController.description')) }}
                 
@@ -103,7 +103,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="is_active">
                 {{ ucfirst(__('Core::sysController.is_active')) }}
                 

@@ -1,17 +1,17 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @section('livrablesRealisation-form')
-<form class="crud-form custom-form context-state" id="livrablesRealisationForm" action="{{ $itemLivrablesRealisation->id ? route('livrablesRealisations.update', $itemLivrablesRealisation->id) : route('livrablesRealisations.store') }}" method="POST" novalidate>
+<form class="crud-form custom-form context-state container" id="livrablesRealisationForm" action="{{ $itemLivrablesRealisation->id ? route('livrablesRealisations.update', $itemLivrablesRealisation->id) : route('livrablesRealisations.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemLivrablesRealisation->id)
         @method('PUT')
     @endif
 
-    <div class="card-body">
+    <div class="card-body row">
         
         
-    <div class="form-group">
+    <div class="form-group col-12 col-md-6">
             <label for="livrable_id">
                 {{ ucfirst(__('PkgCreationProjet::livrable.singular')) }}
                 
@@ -39,7 +39,7 @@
 
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="lien">
                 {{ ucfirst(__('PkgRealisationProjets::livrablesRealisation.lien')) }}
                 
@@ -59,7 +59,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="titre">
                 {{ ucfirst(__('PkgRealisationProjets::livrablesRealisation.titre')) }}
                 
@@ -81,7 +81,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-12">
             <label for="description">
                 {{ ucfirst(__('PkgRealisationProjets::livrablesRealisation.description')) }}
                 
@@ -102,7 +102,7 @@
 
         
         
-    <div class="form-group">
+    <div class="form-group col-12 col-md-6">
             <label for="realisation_projet_id">
                 {{ ucfirst(__('PkgRealisationProjets::realisationProjet.singular')) }}
                 

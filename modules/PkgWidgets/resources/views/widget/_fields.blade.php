@@ -1,16 +1,16 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @section('widget-form')
-<form class="crud-form custom-form context-state" id="widgetForm" action="{{ $itemWidget->id ? route('widgets.update', $itemWidget->id) : route('widgets.store') }}" method="POST" novalidate>
+<form class="crud-form custom-form context-state container" id="widgetForm" action="{{ $itemWidget->id ? route('widgets.update', $itemWidget->id) : route('widgets.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemWidget->id)
         @method('PUT')
     @endif
 
-    <div class="card-body">
+    <div class="card-body row">
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="name">
                 {{ ucfirst(__('PkgWidgets::widget.name')) }}
                 
@@ -33,7 +33,7 @@
 
         
         
-    <div class="form-group">
+    <div class="form-group col-12 col-md-6">
             <label for="type_id">
                 {{ ucfirst(__('PkgWidgets::widgetType.singular')) }}
                 
@@ -62,7 +62,7 @@
 
         
         
-    <div class="form-group">
+    <div class="form-group col-12 col-md-6">
             <label for="model_id">
                 {{ ucfirst(__('Core::sysModel.singular')) }}
                 
@@ -91,7 +91,7 @@
 
         
         
-    <div class="form-group">
+    <div class="form-group col-12 col-md-6">
             <label for="operation_id">
                 {{ ucfirst(__('PkgWidgets::widgetOperation.singular')) }}
                 
@@ -119,7 +119,7 @@
 
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="color">
                 {{ ucfirst(__('PkgWidgets::widget.color')) }}
                 
@@ -139,7 +139,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="icon">
                 {{ ucfirst(__('PkgWidgets::widget.icon')) }}
                 
@@ -159,7 +159,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="label">
                 {{ ucfirst(__('PkgWidgets::widget.label')) }}
                 
@@ -179,7 +179,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
     <label for="parameters">
         {{ ucfirst(__('PkgWidgets::widget.parameters')) }}
         

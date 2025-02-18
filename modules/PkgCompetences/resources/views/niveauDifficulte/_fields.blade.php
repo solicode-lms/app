@@ -1,16 +1,16 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @section('niveauDifficulte-form')
-<form class="crud-form custom-form context-state" id="niveauDifficulteForm" action="{{ $itemNiveauDifficulte->id ? route('niveauDifficultes.update', $itemNiveauDifficulte->id) : route('niveauDifficultes.store') }}" method="POST" novalidate>
+<form class="crud-form custom-form context-state container" id="niveauDifficulteForm" action="{{ $itemNiveauDifficulte->id ? route('niveauDifficultes.update', $itemNiveauDifficulte->id) : route('niveauDifficultes.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemNiveauDifficulte->id)
         @method('PUT')
     @endif
 
-    <div class="card-body">
+    <div class="card-body row">
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="nom">
                 {{ ucfirst(__('PkgCompetences::niveauDifficulte.nom')) }}
                 
@@ -32,7 +32,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
     <label for="noteMin">
         {{ ucfirst(__('PkgCompetences::niveauDifficulte.noteMin')) }}
         
@@ -56,7 +56,7 @@
 
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
     <label for="noteMax">
         {{ ucfirst(__('PkgCompetences::niveauDifficulte.noteMax')) }}
         
@@ -81,7 +81,7 @@
 
         
         
-    <div class="form-group">
+    <div class="form-group col-12 col-md-6">
             <label for="formateur_id">
                 {{ ucfirst(__('PkgFormation::formateur.singular')) }}
                 
@@ -109,7 +109,7 @@
 
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-12">
             <label for="description">
                 {{ ucfirst(__('PkgCompetences::niveauDifficulte.description')) }}
                 

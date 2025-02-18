@@ -1,17 +1,17 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @section('livrable-form')
-<form class="crud-form custom-form context-state" id="livrableForm" action="{{ $itemLivrable->id ? route('livrables.update', $itemLivrable->id) : route('livrables.store') }}" method="POST" novalidate>
+<form class="crud-form custom-form context-state container" id="livrableForm" action="{{ $itemLivrable->id ? route('livrables.update', $itemLivrable->id) : route('livrables.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemLivrable->id)
         @method('PUT')
     @endif
 
-    <div class="card-body">
+    <div class="card-body row">
         
         
-    <div class="form-group">
+    <div class="form-group col-12 col-md-6">
             <label for="nature_livrable_id">
                 {{ ucfirst(__('PkgCreationProjet::natureLivrable.singular')) }}
                 
@@ -39,7 +39,7 @@
 
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="titre">
                 {{ ucfirst(__('PkgCreationProjet::livrable.titre')) }}
                 
@@ -62,7 +62,7 @@
 
         
         
-    <div class="form-group">
+    <div class="form-group col-12 col-md-6">
             <label for="projet_id">
                 {{ ucfirst(__('PkgCreationProjet::projet.singular')) }}
                 
@@ -90,7 +90,7 @@
 
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-12">
             <label for="description">
                 {{ ucfirst(__('PkgCreationProjet::livrable.description')) }}
                 

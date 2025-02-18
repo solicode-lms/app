@@ -1,16 +1,16 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @section('ePackage-form')
-<form class="crud-form custom-form context-state" id="ePackageForm" action="{{ $itemEPackage->id ? route('ePackages.update', $itemEPackage->id) : route('ePackages.store') }}" method="POST" novalidate>
+<form class="crud-form custom-form context-state container" id="ePackageForm" action="{{ $itemEPackage->id ? route('ePackages.update', $itemEPackage->id) : route('ePackages.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemEPackage->id)
         @method('PUT')
     @endif
 
-    <div class="card-body">
+    <div class="card-body row">
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="name">
                 {{ ucfirst(__('PkgGapp::ePackage.name')) }}
                 
@@ -32,7 +32,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-12">
             <label for="description">
                 {{ ucfirst(__('PkgGapp::ePackage.description')) }}
                 

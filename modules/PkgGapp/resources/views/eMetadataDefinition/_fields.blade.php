@@ -1,16 +1,16 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @section('eMetadataDefinition-form')
-<form class="crud-form custom-form context-state" id="eMetadataDefinitionForm" action="{{ $itemEMetadataDefinition->id ? route('eMetadataDefinitions.update', $itemEMetadataDefinition->id) : route('eMetadataDefinitions.store') }}" method="POST" novalidate>
+<form class="crud-form custom-form context-state container" id="eMetadataDefinitionForm" action="{{ $itemEMetadataDefinition->id ? route('eMetadataDefinitions.update', $itemEMetadataDefinition->id) : route('eMetadataDefinitions.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemEMetadataDefinition->id)
         @method('PUT')
     @endif
 
-    <div class="card-body">
+    <div class="card-body row">
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="name">
                 {{ ucfirst(__('PkgGapp::eMetadataDefinition.name')) }}
                 
@@ -32,7 +32,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="groupe">
                 {{ ucfirst(__('PkgGapp::eMetadataDefinition.groupe')) }}
                 
@@ -54,7 +54,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="type">
                 {{ ucfirst(__('PkgGapp::eMetadataDefinition.type')) }}
                 
@@ -76,7 +76,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="scope">
                 {{ ucfirst(__('PkgGapp::eMetadataDefinition.scope')) }}
                 
@@ -98,7 +98,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-12">
             <label for="description">
                 {{ ucfirst(__('PkgGapp::eMetadataDefinition.description')) }}
                 
@@ -118,7 +118,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="default_value">
                 {{ ucfirst(__('PkgGapp::eMetadataDefinition.default_value')) }}
                 

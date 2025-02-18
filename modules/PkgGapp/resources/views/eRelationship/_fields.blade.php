@@ -1,16 +1,16 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @section('eRelationship-form')
-<form class="crud-form custom-form context-state" id="eRelationshipForm" action="{{ $itemERelationship->id ? route('eRelationships.update', $itemERelationship->id) : route('eRelationships.store') }}" method="POST" novalidate>
+<form class="crud-form custom-form context-state container" id="eRelationshipForm" action="{{ $itemERelationship->id ? route('eRelationships.update', $itemERelationship->id) : route('eRelationships.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemERelationship->id)
         @method('PUT')
     @endif
 
-    <div class="card-body">
+    <div class="card-body row">
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="name">
                 {{ ucfirst(__('PkgGapp::eRelationship.name')) }}
                 
@@ -32,7 +32,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="type">
                 {{ ucfirst(__('PkgGapp::eRelationship.type')) }}
                 
@@ -55,7 +55,7 @@
 
         
         
-    <div class="form-group">
+    <div class="form-group col-12 col-md-6">
             <label for="source_e_model_id">
                 {{ ucfirst(__('PkgGapp::eModel.singular')) }}
                 
@@ -84,7 +84,7 @@
 
         
         
-    <div class="form-group">
+    <div class="form-group col-12 col-md-6">
             <label for="target_e_model_id">
                 {{ ucfirst(__('PkgGapp::eModel.singular')) }}
                 
@@ -112,7 +112,7 @@
 
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="cascade_on_delete">
                 {{ ucfirst(__('PkgGapp::eRelationship.cascade_on_delete')) }}
                 
@@ -135,7 +135,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="is_cascade">
                 {{ ucfirst(__('PkgGapp::eRelationship.is_cascade')) }}
                 
@@ -158,7 +158,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-12">
             <label for="description">
                 {{ ucfirst(__('PkgGapp::eRelationship.description')) }}
                 
@@ -178,7 +178,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="column_name">
                 {{ ucfirst(__('PkgGapp::eRelationship.column_name')) }}
                 
@@ -198,7 +198,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="referenced_table">
                 {{ ucfirst(__('PkgGapp::eRelationship.referenced_table')) }}
                 
@@ -218,7 +218,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="referenced_column">
                 {{ ucfirst(__('PkgGapp::eRelationship.referenced_column')) }}
                 
@@ -238,7 +238,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="through">
                 {{ ucfirst(__('PkgGapp::eRelationship.through')) }}
                 
@@ -258,7 +258,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="with_column">
                 {{ ucfirst(__('PkgGapp::eRelationship.with_column')) }}
                 
@@ -278,7 +278,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="morph_name">
                 {{ ucfirst(__('PkgGapp::eRelationship.morph_name')) }}
                 
