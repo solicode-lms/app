@@ -11,3 +11,7 @@
 - Validation 
   - Affichage seulement les questions : compétences évaluable
   - Affichage de la note de barème 
+
+- Apprenant 
+  - Ajouter livrable
+    - Afficher seulement les livrable à livrer pour le projet

@@ -110,7 +110,8 @@
                                             id="feature-{{ $feature->id }}" 
                                             name="features[]" 
                                             value="{{ $feature->id }}"
-                                            {{ $itemRole->permissions->pluck('id')->intersect($feature->permissions->pluck('id'))->isNotEmpty() ? 'checked' : '' }}>
+                                            {{ $itemRole->permissions->pluck('id')->diff($feature->permissions->pluck('id'))->isEmpty() 
+    && $feature->permissions->pluck('id')->diff($itemRole->permissions->pluck('id'))->isEmpty() ? 'checked' : '' }}>
                                         <label for="feature-{{ $feature->id }}">
                                             {{ $feature->name }}
                                             @if ($feature->description)

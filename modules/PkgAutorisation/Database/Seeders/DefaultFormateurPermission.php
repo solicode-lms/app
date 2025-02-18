@@ -44,7 +44,7 @@ class DefaultFormateurPermission extends Seeder
         $featurePermissions = [
             'Afficher' => ['show'],
             'Lecture' => ['index', 'show'],
-            'Édition sans Ajouter' => ['index', 'show','edit','update','destroy','get<%= iModel.Names %>','dataCalcul'],
+            'Édition sans Ajouter' => ['index', 'show','edit','update','get<%= iModel.Names %>','dataCalcul'],
             'Édition' => [ 'index', 'show','create','store','edit','update','destroy','get<%= iModel.Names %>','dataCalcul'],
             'Extraction' => ['import', 'export'],
         ];
