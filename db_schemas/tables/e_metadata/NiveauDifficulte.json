@@ -212,7 +212,7 @@
         "value_boolean": 0,
         "value_float": 0,
         "value_json": {
-            "dataScope": "scope",
+            "dataScope": "filter",
             "userModelName": "Formateur",
             "ownerRelationPath": "formateur.user"
         },

@@ -184,7 +184,7 @@
     {
         "reference": "Apprenant_tele_num_displayOrder",
         "value_boolean": 0,
-        "value_integer": 10,
+        "value_integer": 20,
         "value_float": 0,
         "e_data_field_reference": "Apprenant_tele_num",
         "e_metadata_definition_reference": "displayOrder"
@@ -198,7 +198,7 @@
     {
         "reference": "Apprenant_matricule_displayOrder",
         "value_boolean": 0,
-        "value_integer": 20,
+        "value_integer": 30,
         "value_float": 0,
         "e_data_field_reference": "Apprenant_matricule",
         "e_metadata_definition_reference": "displayOrder"
@@ -212,7 +212,7 @@
     {
         "reference": "Apprenant_actif_displayOrder",
         "value_boolean": 0,
-        "value_integer": 21,
+        "value_integer": 33,
         "value_float": 0,
         "e_data_field_reference": "Apprenant_actif",
         "e_metadata_definition_reference": "displayOrder"
@@ -225,27 +225,33 @@
     },
     {
         "reference": "Apprenant_date_naissance_displayOrder",
-        "value_integer": 12,
+        "value_boolean": 0,
+        "value_integer": 8,
+        "value_float": 0,
         "e_data_field_reference": "Apprenant_date_naissance",
         "e_metadata_definition_reference": "displayOrder"
     },
     {
         "reference": "Apprenant_date_inscription_displayOrder",
         "value_boolean": 0,
-        "value_integer": 22,
+        "value_integer": 32,
         "value_float": 0,
         "e_data_field_reference": "Apprenant_date_inscription",
         "e_metadata_definition_reference": "displayOrder"
     },
     {
         "reference": "Apprenant_lieu_naissance_displayOrder",
-        "value_integer": 14,
+        "value_boolean": 0,
+        "value_integer": 10,
+        "value_float": 0,
         "e_data_field_reference": "Apprenant_lieu_naissance",
         "e_metadata_definition_reference": "displayOrder"
     },
     {
         "reference": "Apprenant_cin_displayOrder",
-        "value_integer": 15,
+        "value_boolean": 0,
+        "value_integer": 7,
+        "value_float": 0,
         "e_data_field_reference": "Apprenant_cin",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -275,14 +281,16 @@
     },
     {
         "reference": "Apprenant_nationalite_id_displayOrder",
-        "value_integer": 20,
+        "value_boolean": 0,
+        "value_integer": 9,
+        "value_float": 0,
         "e_data_field_reference": "Apprenant_nationalite_id",
         "e_metadata_definition_reference": "displayOrder"
     },
     {
         "reference": "Apprenant_user_id_displayOrder",
         "value_boolean": 0,
-        "value_integer": 30,
+        "value_integer": 21,
         "value_float": 0,
         "e_data_field_reference": "Apprenant_user_id",
         "e_metadata_definition_reference": "displayOrder"
@@ -295,7 +303,9 @@
     },
     {
         "reference": "apprenants_groupes_apprenant_groupe_m2m_m2m_displayOrder",
-        "value_integer": 23,
+        "value_boolean": 0,
+        "value_integer": 31,
+        "value_float": 0,
         "e_data_field_reference": "apprenants_groupes_apprenant_groupe_m2m_m2m",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -399,7 +409,8 @@
     },
     {
         "reference": "Apprenant_adresse_displayInForm",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "Apprenant_adresse",
         "e_metadata_definition_reference": "displayInForm"
     },
@@ -495,25 +506,33 @@
     },
     {
         "reference": "Apprenant_nom_inputMdWidth",
-        "value_integer": 6,
+        "value_boolean": 0,
+        "value_integer": 3,
+        "value_float": 0,
         "e_data_field_reference": "Apprenant_nom",
         "e_metadata_definition_reference": "inputMdWidth"
     },
     {
         "reference": "Apprenant_prenom_inputMdWidth",
-        "value_integer": 6,
+        "value_boolean": 0,
+        "value_integer": 3,
+        "value_float": 0,
         "e_data_field_reference": "Apprenant_prenom",
         "e_metadata_definition_reference": "inputMdWidth"
     },
     {
         "reference": "Apprenant_prenom_arab_inputMdWidth",
-        "value_integer": 6,
+        "value_boolean": 0,
+        "value_integer": 3,
+        "value_float": 0,
         "e_data_field_reference": "Apprenant_prenom_arab",
         "e_metadata_definition_reference": "inputMdWidth"
     },
     {
         "reference": "Apprenant_nom_arab_inputMdWidth",
-        "value_integer": 6,
+        "value_boolean": 0,
+        "value_integer": 3,
+        "value_float": 0,
         "e_data_field_reference": "Apprenant_nom_arab",
         "e_metadata_definition_reference": "inputMdWidth"
     },
@@ -537,7 +556,9 @@
     },
     {
         "reference": "Apprenant_sexe_inputMdWidth",
-        "value_integer": 6,
+        "value_boolean": 0,
+        "value_integer": 3,
+        "value_float": 0,
         "e_data_field_reference": "Apprenant_sexe",
         "e_metadata_definition_reference": "inputMdWidth"
     },
@@ -555,7 +576,9 @@
     },
     {
         "reference": "Apprenant_date_naissance_inputMdWidth",
-        "value_integer": 6,
+        "value_boolean": 0,
+        "value_integer": 3,
+        "value_float": 0,
         "e_data_field_reference": "Apprenant_date_naissance",
         "e_metadata_definition_reference": "inputMdWidth"
     },
@@ -567,13 +590,17 @@
     },
     {
         "reference": "Apprenant_lieu_naissance_inputMdWidth",
-        "value_integer": 6,
+        "value_boolean": 0,
+        "value_integer": 3,
+        "value_float": 0,
         "e_data_field_reference": "Apprenant_lieu_naissance",
         "e_metadata_definition_reference": "inputMdWidth"
     },
     {
         "reference": "Apprenant_cin_inputMdWidth",
-        "value_integer": 6,
+        "value_boolean": 0,
+        "value_integer": 3,
+        "value_float": 0,
         "e_data_field_reference": "Apprenant_cin",
         "e_metadata_definition_reference": "inputMdWidth"
     },
@@ -597,13 +624,17 @@
     },
     {
         "reference": "Apprenant_niveaux_scolaire_id_inputMdWidth",
-        "value_integer": 6,
+        "value_boolean": 0,
+        "value_integer": 9,
+        "value_float": 0,
         "e_data_field_reference": "Apprenant_niveaux_scolaire_id",
         "e_metadata_definition_reference": "inputMdWidth"
     },
     {
         "reference": "Apprenant_nationalite_id_inputMdWidth",
-        "value_integer": 6,
+        "value_boolean": 0,
+        "value_integer": 3,
+        "value_float": 0,
         "e_data_field_reference": "Apprenant_nationalite_id",
         "e_metadata_definition_reference": "inputMdWidth"
     },
@@ -639,6 +670,26 @@
             "label": "État Civil"
         },
         "e_data_field_reference": "Apprenant_nom",
+        "e_metadata_definition_reference": "formStartGroup"
+    },
+    {
+        "reference": "Apprenant_tele_num_formStartGroup",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "label": "Informations de Contact"
+        },
+        "e_data_field_reference": "Apprenant_tele_num",
+        "e_metadata_definition_reference": "formStartGroup"
+    },
+    {
+        "reference": "Apprenant_matricule_formStartGroup",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "label": "Informations Académiques"
+        },
+        "e_data_field_reference": "Apprenant_matricule",
         "e_metadata_definition_reference": "formStartGroup"
     }
 ]

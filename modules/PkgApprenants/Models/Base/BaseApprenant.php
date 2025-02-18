@@ -11,8 +11,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
-use Modules\PkgApprenants\Models\NiveauxScolaire;
 use Modules\PkgApprenants\Models\Nationalite;
+use Modules\PkgApprenants\Models\NiveauxScolaire;
 use Modules\PkgAutorisation\Models\User;
 use Modules\PkgApprenants\Models\Groupe;
 use Modules\PkgRealisationProjets\Models\RealisationProjet;
@@ -38,7 +38,7 @@ class BaseApprenant extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'nom', 'nom_arab', 'prenom', 'prenom_arab', 'profile_image', 'sexe', 'tele_num', 'diplome', 'date_naissance', 'lieu_naissance', 'cin', 'adresse', 'niveaux_scolaire_id', 'matricule', 'nationalite_id', 'actif', 'date_inscription', 'user_id'
+        'nom', 'nom_arab', 'prenom', 'prenom_arab', 'profile_image', 'cin', 'date_naissance', 'sexe', 'nationalite_id', 'lieu_naissance', 'diplome', 'adresse', 'niveaux_scolaire_id', 'tele_num', 'user_id', 'matricule', 'date_inscription', 'actif'
     ];
     public $manyToMany = [
         'Groupe' => ['relation' => 'groupes' , "foreign_key" => "groupe_id" ]
@@ -49,15 +49,6 @@ class BaseApprenant extends BaseModel
 
 
     /**
-     * Relation BelongsTo pour NiveauxScolaire.
-     *
-     * @return BelongsTo
-     */
-    public function niveauxScolaire(): BelongsTo
-    {
-        return $this->belongsTo(NiveauxScolaire::class, 'niveaux_scolaire_id', 'id');
-    }
-    /**
      * Relation BelongsTo pour Nationalite.
      *
      * @return BelongsTo
@@ -65,6 +56,15 @@ class BaseApprenant extends BaseModel
     public function nationalite(): BelongsTo
     {
         return $this->belongsTo(Nationalite::class, 'nationalite_id', 'id');
+    }
+    /**
+     * Relation BelongsTo pour NiveauxScolaire.
+     *
+     * @return BelongsTo
+     */
+    public function niveauxScolaire(): BelongsTo
+    {
+        return $this->belongsTo(NiveauxScolaire::class, 'niveaux_scolaire_id', 'id');
     }
     /**
      * Relation BelongsTo pour User.

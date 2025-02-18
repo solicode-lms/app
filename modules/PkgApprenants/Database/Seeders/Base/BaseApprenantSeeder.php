@@ -70,19 +70,19 @@ class BaseApprenantSeeder extends Seeder
                     "prenom" => $row["prenom"] ?? null ,
                     "prenom_arab" => $row["prenom_arab"] ?? null ,
                     "profile_image" => $row["profile_image"] ?? null ,
-                    "sexe" => $row["sexe"] ?? null ,
-                    "tele_num" => $row["tele_num"] ?? null ,
-                    "diplome" => $row["diplome"] ?? null ,
-                    "date_naissance" => $row["date_naissance"] ?? null ,
-                    "lieu_naissance" => $row["lieu_naissance"] ?? null ,
                     "cin" => $row["cin"] ?? null ,
+                    "date_naissance" => $row["date_naissance"] ?? null ,
+                    "sexe" => $row["sexe"] ?? null ,
+                    "nationalite_id" => $row["nationalite_id"] ?? null ,
+                    "lieu_naissance" => $row["lieu_naissance"] ?? null ,
+                    "diplome" => $row["diplome"] ?? null ,
                     "adresse" => $row["adresse"] ?? null ,
                     "niveaux_scolaire_id" => $row["niveaux_scolaire_id"] ?? null ,
+                    "tele_num" => $row["tele_num"] ?? null ,
+                    "user_id" => $row["user_id"] ?? null ,
                     "matricule" => $row["matricule"] ?? null ,
-                    "nationalite_id" => $row["nationalite_id"] ?? null ,
-                    "actif" => $row["actif"] ?? null ,
                     "date_inscription" => $row["date_inscription"] ?? null ,
-                    "user_id" => $row["user_id"] ?? null 
+                    "actif" => $row["actif"] ?? null 
                 ]);
             }
         }
