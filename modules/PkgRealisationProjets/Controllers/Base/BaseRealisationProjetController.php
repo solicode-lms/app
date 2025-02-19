@@ -1,6 +1,6 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
 
+// TODO scope etatsRealisationProjet pour Formateur (Owner de projet)
 
 namespace Modules\PkgRealisationProjets\Controllers\Base;
 use Modules\PkgRealisationProjets\Services\RealisationProjetService;

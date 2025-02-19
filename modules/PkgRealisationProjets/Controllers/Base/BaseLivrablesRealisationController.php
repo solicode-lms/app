@@ -1,8 +1,9 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
+// TODO scope livrable pour Projet  
 
 
 namespace Modules\PkgRealisationProjets\Controllers\Base;
+use Modules\PkgRealisationProjets\Services\AffectationProjetService;
 use Modules\PkgRealisationProjets\Services\LivrablesRealisationService;
 use Modules\PkgCreationProjet\Services\LivrableService;
 use Modules\PkgRealisationProjets\Services\RealisationProjetService;
@@ -58,7 +59,16 @@ class BaseLivrablesRealisationController extends AdminController
     public function create() {
         $this->viewState->set('scope_form.livrablesRealisation.apprenant_id'  , $this->sessionState->get('apprenant_id'));
         $itemLivrablesRealisation = $this->livrablesRealisationService->createInstance();
+        
+        // TODO scope livrable pour Projet 
+        //  realisationProjet
+        $realisation_projet = (new RealisationProjetService())
+            ->find($itemLivrablesRealisation->realisation_projet_id);
+     
+        $projet_id = $realisation_projet->affectationProjet->projet->id;
+        $this->viewState->set('scope.livrable.projet_id', $projet_id);
         $livrables = $this->livrableService->all();
+        
         $realisationProjets = $this->realisationProjetService->all();
 
 
