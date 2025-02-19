@@ -9,6 +9,6 @@ class TransfertCompetence extends BaseTransfertCompetence
 
     public function __toString()
     {
-        return ($this->niveauDifficulte->nom ?? "") . "-" . ($this->competence->code ?? "")  ;
+        return ($this->niveauDifficulte->nom ?? "") . "-" . ($this->competence ?? "")  ;
     }
 }

@@ -61,10 +61,8 @@ class BaseLivrablesRealisationController extends AdminController
         $itemLivrablesRealisation = $this->livrablesRealisationService->createInstance();
         
         // TODO scope livrable pour Projet 
-        //  realisationProjet
         $realisation_projet = (new RealisationProjetService())
             ->find($itemLivrablesRealisation->realisation_projet_id);
-     
         $projet_id = $realisation_projet->affectationProjet->projet->id;
         $this->viewState->set('scope.livrable.projet_id', $projet_id);
         $livrables = $this->livrableService->all();
@@ -123,6 +121,12 @@ class BaseLivrablesRealisationController extends AdminController
 
         $itemLivrablesRealisation = $this->livrablesRealisationService->find($id);
         $this->authorize('edit', $itemLivrablesRealisation);
+
+        // TODO scope livrable pour Projet 
+        $realisation_projet = (new RealisationProjetService())
+        ->find($itemLivrablesRealisation->realisation_projet_id);
+        $projet_id = $realisation_projet->affectationProjet->projet->id;
+        $this->viewState->set('scope.livrable.projet_id', $projet_id);
 
         $livrables = $this->livrableService->all();
         $realisationProjets = $this->realisationProjetService->all();
