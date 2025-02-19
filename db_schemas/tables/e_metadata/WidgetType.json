@@ -130,5 +130,47 @@
         "value_string": "fa-table",
         "e_model_reference": "widget_types",
         "e_metadata_definition_reference": "iconModel"
+    },
+    {
+        "reference": "WidgetType_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "WidgetType_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "WidgetType_type_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "WidgetType_type",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "WidgetType_description_inputMdWidth",
+        "value_integer": 12,
+        "e_data_field_reference": "WidgetType_description",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "WidgetType_reference_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "WidgetType_reference",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "WidgetType_created_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "WidgetType_created_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "WidgetType_updated_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "WidgetType_updated_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "widget_types_hasMany_widgets_type_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "widget_types_hasMany_widgets_type_id",
+        "e_metadata_definition_reference": "inputMdWidth"
     }
 ]

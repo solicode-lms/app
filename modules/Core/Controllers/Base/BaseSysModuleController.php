@@ -90,7 +90,7 @@ class BaseSysModuleController extends AdminController
     public function show(string $id) {
 
         $this->viewState->setContextKey('sysModule.edit_' . $id);
-
+     
         $itemSysModule = $this->sysModuleService->find($id);
   
         $sysColors = $this->sysColorService->all();

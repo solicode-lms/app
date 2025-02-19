@@ -85,7 +85,7 @@ class BaseAnneeFormationController extends AdminController
     public function show(string $id) {
 
         $this->viewState->setContextKey('anneeFormation.edit_' . $id);
-
+     
         $itemAnneeFormation = $this->anneeFormationService->find($id);
   
 

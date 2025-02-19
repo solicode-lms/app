@@ -178,5 +178,59 @@
         "value_boolean": 1,
         "e_model_reference": "permissions",
         "e_metadata_definition_reference": "displayInSideBar"
+    },
+    {
+        "reference": "Permission_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Permission_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Permission_name_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Permission_name",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Permission_guard_name_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Permission_guard_name",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Permission_controller_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Permission_controller_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Permission_created_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Permission_created_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Permission_updated_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Permission_updated_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Permission_reference_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Permission_reference",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "permissions_features_feature_permission_m2m_m2m_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "permissions_features_feature_permission_m2m_m2m",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "permissions_roles_role_has_permissions_m2m_m2m_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "permissions_roles_role_has_permissions_m2m_m2m",
+        "e_metadata_definition_reference": "inputMdWidth"
     }
 ]

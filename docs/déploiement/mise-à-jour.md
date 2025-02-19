@@ -10,6 +10,7 @@ sudo chmod -R 755 /var/www/app/
 sudo chown -R www-data:www-data /var/www/app/
 sudo php artisan config:clear
 sudo php artisan cache:clear
+sudo php artisan optimize:clear
 ````
 
 ## Validation des noms des classes

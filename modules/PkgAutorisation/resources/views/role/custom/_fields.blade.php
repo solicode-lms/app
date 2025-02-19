@@ -104,13 +104,19 @@
             
                                 @foreach ($featureDomain->features as $feature)
                                     <div class="feature-item icheck-info ">
-                                       
+
+                                    <!-- 
+                                       {{$itemRole->permissions->pluck('id')}}
+                                       <hr>
+                                       {{$feature->permissions->pluck('id')}}
+                                       <hr> <hr> 
+                                    -->
                                         <input 
                                             type="checkbox" 
                                             id="feature-{{ $feature->id }}" 
                                             name="features[]" 
                                             value="{{ $feature->id }}"
-                                            {{ $itemRole->permissions->pluck('id')->intersect($feature->permissions->pluck('id'))->isNotEmpty() ? 'checked' : '' }}>
+                                            {{ $feature->permissions->pluck('id')->diff($itemRole->permissions->pluck('id'))->isEmpty() ? 'checked' : '' }}>
                                         <label for="feature-{{ $feature->id }}">
                                             {{ $feature->name }}
                                             @if ($feature->description)

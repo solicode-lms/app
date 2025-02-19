@@ -84,7 +84,7 @@ class BaseCategoryTechnologyController extends AdminController
     public function show(string $id) {
 
         $this->viewState->setContextKey('categoryTechnology.edit_' . $id);
-
+     
         $itemCategoryTechnology = $this->categoryTechnologyService->find($id);
   
 

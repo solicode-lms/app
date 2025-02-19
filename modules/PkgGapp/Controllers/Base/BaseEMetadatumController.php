@@ -95,7 +95,7 @@ class BaseEMetadatumController extends AdminController
     public function show(string $id) {
 
         $this->viewState->setContextKey('eMetadatum.edit_' . $id);
-
+     
         $itemEMetadatum = $this->eMetadatumService->find($id);
   
         $eDataFields = $this->eDataFieldService->all();

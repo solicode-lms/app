@@ -31,16 +31,17 @@ class BaseFormateurRequest extends FormRequest
             'nom' => 'required|string|max:255',
             'prenom' => 'required|string|max:255',
             'prenom_arab' => 'nullable|string|max:255',
+            'specialites' => 'nullable|array',
             'nom_arab' => 'nullable|string|max:255',
+            'groupes' => 'nullable|array',
+            'email' => 'nullable|string|max:255',
             'tele_num' => 'nullable|string|max:255',
             'adresse' => 'nullable|string|max:255',
             'diplome' => 'nullable|string|max:255',
             'echelle' => 'nullable|integer',
             'echelon' => 'nullable|integer',
             'profile_image' => 'nullable|string|max:255',
-            'user_id' => 'nullable',
-            'groupes' => 'nullable|array',
-            'specialites' => 'nullable|array'
+            'user_id' => 'nullable'
         ];
     }
 
@@ -60,8 +61,14 @@ class BaseFormateurRequest extends FormRequest
             'prenom.max' => __('validation.prenomMax'),
             'prenom_arab.required' => __('validation.required', ['attribute' => __('PkgFormation::Formateur.prenom_arab')]),
             'prenom_arab.max' => __('validation.prenom_arabMax'),
+            'specialites.required' => __('validation.required', ['attribute' => __('PkgFormation::Formateur.specialites')]),
+            'specialites.array' => __('validation.array', ['attribute' => __('PkgFormation::Formateur.specialites')]),
             'nom_arab.required' => __('validation.required', ['attribute' => __('PkgFormation::Formateur.nom_arab')]),
             'nom_arab.max' => __('validation.nom_arabMax'),
+            'groupes.required' => __('validation.required', ['attribute' => __('PkgFormation::Formateur.groupes')]),
+            'groupes.array' => __('validation.array', ['attribute' => __('PkgFormation::Formateur.groupes')]),
+            'email.required' => __('validation.required', ['attribute' => __('PkgFormation::Formateur.email')]),
+            'email.max' => __('validation.emailMax'),
             'tele_num.required' => __('validation.required', ['attribute' => __('PkgFormation::Formateur.tele_num')]),
             'tele_num.max' => __('validation.tele_numMax'),
             'adresse.required' => __('validation.required', ['attribute' => __('PkgFormation::Formateur.adresse')]),
@@ -72,11 +79,7 @@ class BaseFormateurRequest extends FormRequest
             'echelon.required' => __('validation.required', ['attribute' => __('PkgFormation::Formateur.echelon')]),
             'profile_image.required' => __('validation.required', ['attribute' => __('PkgFormation::Formateur.profile_image')]),
             'profile_image.max' => __('validation.profile_imageMax'),
-            'user_id.required' => __('validation.required', ['attribute' => __('PkgFormation::Formateur.user_id')]),
-            'groupes.required' => __('validation.required', ['attribute' => __('PkgFormation::Formateur.groupes')]),
-            'groupes.array' => __('validation.array', ['attribute' => __('PkgFormation::Formateur.groupes')]),
-            'specialites.required' => __('validation.required', ['attribute' => __('PkgFormation::Formateur.specialites')]),
-            'specialites.array' => __('validation.array', ['attribute' => __('PkgFormation::Formateur.specialites')])
+            'user_id.required' => __('validation.required', ['attribute' => __('PkgFormation::Formateur.user_id')])
         ];
     }
 }

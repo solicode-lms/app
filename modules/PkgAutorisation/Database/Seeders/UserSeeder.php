@@ -29,7 +29,7 @@ class UserSeeder extends BaseUserSeeder
                     "name" => $data[0] ,
                     "email" => $data[1] ,
                     "password" => $data[2]
-                ])->assignRole($data[3]);;
+                ])->assignRole($data[3]);
             }
             $firstline = false;
         }

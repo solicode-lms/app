@@ -35,8 +35,6 @@ class BaseFormateurSeeder extends Seeder
         // Ajouter le contrôleur, le domaine, les fonctionnalités et leurs permissions
         $this->addDefaultControllerDomainFeatures();
 
-        // Associer les permissions aux rôles
-        $this->assignPermissionsToRoles($AdminRole, $MembreRole);
     }
 
     public function seedFromCsv(): void
@@ -64,14 +62,14 @@ class BaseFormateurSeeder extends Seeder
         // Lire les données restantes en associant chaque valeur à son nom de colonne
         while (($data = fgetcsv($csvFile)) !== false) {
             $row = array_combine($headers, $data);
-            
             if ($row) {
-                $formateurService->create([
+                $formateurData =[
                     "matricule" => $row["matricule"] ?? null ,
                     "nom" => $row["nom"] ?? null ,
                     "prenom" => $row["prenom"] ?? null ,
                     "prenom_arab" => $row["prenom_arab"] ?? null ,
                     "nom_arab" => $row["nom_arab"] ?? null ,
+                    "email" => $row["email"] ?? null ,
                     "tele_num" => $row["tele_num"] ?? null ,
                     "adresse" => $row["adresse"] ?? null ,
                     "diplome" => $row["diplome"] ?? null ,
@@ -79,7 +77,12 @@ class BaseFormateurSeeder extends Seeder
                     "echelon" => $row["echelon"] ?? null ,
                     "profile_image" => $row["profile_image"] ?? null ,
                     "user_id" => $row["user_id"] ?? null 
-                ]);
+                ];
+                if (!empty($row["reference"])) {
+                    $formateurService->updateOrCreate(["reference" => $row["reference"]], $formateurData);
+                } else {
+                    $formateurService->create($formateurData);
+                }
             }
         }
 
@@ -107,9 +110,13 @@ class BaseFormateurSeeder extends Seeder
 
         // Permissions spécifiques pour chaque type de fonctionnalité
         $featurePermissions = [
-            'Édition ' => [ 'create','store','edit','update','destroy','getFormateurs','dataCalcul'],
+            'Afficher' => ['show'],
             'Lecture' => ['index', 'show'],
+            'Édition sans Ajouter' => ['index', 'show','edit','update','dataCalcul'],
+            'Édition ' => [ 'index', 'show','create','store','edit','update','destroy','dataCalcul'],
             'Extraction' => ['import', 'export'],
+            'initPassword' => ['initPassword'],
+            
         ];
 
         // Ajouter le contrôleur
@@ -161,24 +168,5 @@ class BaseFormateurSeeder extends Seeder
             // Associer les Permissions à la Feature via la table pivot
             $feature->permissions()->syncWithoutDetaching($permissionIds);
         }
-    }
-
-    private function assignPermissionsToRoles(string $AdminRole, string $MembreRole): void
-    {
-        $admin = Role::where('name', $AdminRole)->first();
-        $membre = Role::where('name', $MembreRole)->first();
-
-        // Permissions pour l'administrateur (toutes les permissions du module)
-        $adminPermissions = Permission::pluck('name')->toArray();
-
-        // Permissions pour le membre (lecture seule)
-        $memberPermissions = Permission::whereIn('name', [
-            'index-formateur',
-            'show-formateur',
-        ])->pluck('name')->toArray();
-
-        // Associer les permissions aux rôles
-        $admin->givePermissionTo($adminPermissions);
-        $membre->givePermissionTo($memberPermissions);
     }
 }

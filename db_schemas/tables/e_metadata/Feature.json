@@ -167,5 +167,53 @@
         "value_float": 0,
         "e_model_reference": "features",
         "e_metadata_definition_reference": "iconModel"
+    },
+    {
+        "reference": "Feature_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Feature_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Feature_name_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Feature_name",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Feature_description_inputMdWidth",
+        "value_integer": 12,
+        "e_data_field_reference": "Feature_description",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Feature_feature_domain_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Feature_feature_domain_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Feature_reference_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Feature_reference",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Feature_created_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Feature_created_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Feature_updated_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Feature_updated_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "features_permissions_feature_permission_m2m_m2m_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "features_permissions_feature_permission_m2m_m2m",
+        "e_metadata_definition_reference": "inputMdWidth"
     }
 ]

@@ -4,8 +4,8 @@
     <table class="table table-striped text-nowrap">
         <thead>
             <tr>
-                <x-sortable-column field="nom" label="{{ ucfirst(__('PkgCreationProjet::resource.nom')) }}" />
-                <x-sortable-column field="lien" label="{{ ucfirst(__('PkgCreationProjet::resource.lien')) }}" />
+                <x-sortable-column field="nom" modelname="resource" label="{{ ucfirst(__('PkgCreationProjet::resource.nom')) }}" />
+                <x-sortable-column field="lien" modelname="resource" label="{{ ucfirst(__('PkgCreationProjet::resource.lien')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

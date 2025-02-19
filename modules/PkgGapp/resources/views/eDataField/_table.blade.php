@@ -7,8 +7,8 @@
                  <th>
                     Ordre
                 </th>
-                <x-sortable-column field="name" label="{{ ucfirst(__('PkgGapp::eDataField.name')) }}" />
-                <x-sortable-column field="data_type" label="{{ ucfirst(__('PkgGapp::eDataField.data_type')) }}" />
+                <x-sortable-column field="name" modelname="eDataField" label="{{ ucfirst(__('PkgGapp::eDataField.name')) }}" />
+                <x-sortable-column field="data_type" modelname="eDataField" label="{{ ucfirst(__('PkgGapp::eDataField.data_type')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

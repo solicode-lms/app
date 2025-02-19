@@ -1,17 +1,16 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @section('affectationProjet-form')
-<form class="crud-form custom-form context-state" id="affectationProjetForm" action="{{ $itemAffectationProjet->id ? route('affectationProjets.update', $itemAffectationProjet->id) : route('affectationProjets.store') }}" method="POST" novalidate>
+<form class="crud-form custom-form context-state container" id="affectationProjetForm" action="{{ $itemAffectationProjet->id ? route('affectationProjets.update', $itemAffectationProjet->id) : route('affectationProjets.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemAffectationProjet->id)
         @method('PUT')
     @endif
 
-    <div class="card-body">
+    <div class="card-body row">
         
-        
-    <div class="form-group">
+            <div class="form-group col-12 col-md-6">
             <label for="projet_id">
                 {{ ucfirst(__('PkgCreationProjet::projet.singular')) }}
                 
@@ -39,8 +38,7 @@
 
 
         
-        
-    <div class="form-group">
+            <div class="form-group col-12 col-md-6">
             <label for="groupe_id">
                 {{ ucfirst(__('PkgApprenants::groupe.singular')) }}
                 
@@ -68,7 +66,7 @@
 
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="date_debut">
                 {{ ucfirst(__('PkgRealisationProjets::affectationProjet.date_debut')) }}
                 
@@ -94,7 +92,7 @@
 
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="date_fin">
                 {{ ucfirst(__('PkgRealisationProjets::affectationProjet.date_fin')) }}
                 
@@ -118,7 +116,7 @@
 
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-12">
             <label for="description">
                 {{ ucfirst(__('PkgRealisationProjets::affectationProjet.description')) }}
                 
@@ -138,8 +136,7 @@
 </div>
 
         
-        
-    <div class="form-group">
+            <div class="form-group col-12 col-md-6">
             <label for="annee_formation_id">
                 {{ ucfirst(__('PkgFormation::anneeFormation.singular')) }}
                 

@@ -20,23 +20,23 @@ class BaseApprenantService extends BaseService
      */
     protected $fieldsSearchable = [
         'nom',
+        'nom_arab',
         'prenom',
         'prenom_arab',
-        'nom_arab',
-        'tele_num',
         'profile_image',
-        'matricule',
-        'sexe',
-        'actif',
-        'diplome',
-        'date_naissance',
-        'date_inscription',
-        'lieu_naissance',
         'cin',
+        'date_naissance',
+        'sexe',
+        'nationalite_id',
+        'lieu_naissance',
+        'diplome',
         'adresse',
         'niveaux_scolaire_id',
-        'nationalite_id',
-        'user_id'
+        'tele_num',
+        'user_id',
+        'matricule',
+        'date_inscription',
+        'actif'
     ];
 
     /**
@@ -62,8 +62,7 @@ class BaseApprenantService extends BaseService
        // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
             $this->generateManyToOneFilter(__("PkgApprenants::niveauxScolaire.plural"), 'niveaux_scolaire_id', \Modules\PkgApprenants\Models\NiveauxScolaire::class, 'code'),
-            $this->generateManyToOneFilter(__("PkgApprenants::nationalite.plural"), 'nationalite_id', \Modules\PkgApprenants\Models\Nationalite::class, 'code'),
-            $this->generateManyToOneFilter(__("PkgAutorisation::user.plural"), 'user_id', \Modules\PkgAutorisation\Models\User::class, 'name'),
+            $this->generateManyToManyFilter(__("PkgApprenants::groupe.plural"), 'groupe_id', \Modules\PkgApprenants\Models\Groupe::class, 'code'),
         ];
     }
 
@@ -73,7 +72,7 @@ class BaseApprenantService extends BaseService
      * @param array $data Données pour la création.
      * @return mixed
      */
-    public function create(array $data)
+    public function create(array|object $data)
     {
         return parent::create($data);
     }

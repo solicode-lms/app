@@ -35,8 +35,6 @@ class BaseERelationshipSeeder extends Seeder
         // Ajouter le contrôleur, le domaine, les fonctionnalités et leurs permissions
         $this->addDefaultControllerDomainFeatures();
 
-        // Associer les permissions aux rôles
-        $this->assignPermissionsToRoles($AdminRole, $MembreRole);
     }
 
     public function seedFromCsv(): void
@@ -64,9 +62,8 @@ class BaseERelationshipSeeder extends Seeder
         // Lire les données restantes en associant chaque valeur à son nom de colonne
         while (($data = fgetcsv($csvFile)) !== false) {
             $row = array_combine($headers, $data);
-            
             if ($row) {
-                $eRelationshipService->create([
+                $eRelationshipData =[
                     "name" => $row["name"] ?? null ,
                     "type" => $row["type"] ?? null ,
                     "source_e_model_id" => $row["source_e_model_id"] ?? null ,
@@ -80,7 +77,12 @@ class BaseERelationshipSeeder extends Seeder
                     "through" => $row["through"] ?? null ,
                     "with_column" => $row["with_column"] ?? null ,
                     "morph_name" => $row["morph_name"] ?? null 
-                ]);
+                ];
+                if (!empty($row["reference"])) {
+                    $eRelationshipService->updateOrCreate(["reference" => $row["reference"]], $eRelationshipData);
+                } else {
+                    $eRelationshipService->create($eRelationshipData);
+                }
             }
         }
 
@@ -108,9 +110,12 @@ class BaseERelationshipSeeder extends Seeder
 
         // Permissions spécifiques pour chaque type de fonctionnalité
         $featurePermissions = [
-            'Édition ' => [ 'create','store','edit','update','destroy','getERelationships','dataCalcul'],
+            'Afficher' => ['show'],
             'Lecture' => ['index', 'show'],
+            'Édition sans Ajouter' => ['index', 'show','edit','update','dataCalcul'],
+            'Édition ' => [ 'index', 'show','create','store','edit','update','destroy','dataCalcul'],
             'Extraction' => ['import', 'export'],
+
         ];
 
         // Ajouter le contrôleur
@@ -162,24 +167,5 @@ class BaseERelationshipSeeder extends Seeder
             // Associer les Permissions à la Feature via la table pivot
             $feature->permissions()->syncWithoutDetaching($permissionIds);
         }
-    }
-
-    private function assignPermissionsToRoles(string $AdminRole, string $MembreRole): void
-    {
-        $admin = Role::where('name', $AdminRole)->first();
-        $membre = Role::where('name', $MembreRole)->first();
-
-        // Permissions pour l'administrateur (toutes les permissions du module)
-        $adminPermissions = Permission::pluck('name')->toArray();
-
-        // Permissions pour le membre (lecture seule)
-        $memberPermissions = Permission::whereIn('name', [
-            'index-eRelationship',
-            'show-eRelationship',
-        ])->pluck('name')->toArray();
-
-        // Associer les permissions aux rôles
-        $admin->givePermissionTo($adminPermissions);
-        $membre->givePermissionTo($memberPermissions);
     }
 }

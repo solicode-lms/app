@@ -84,7 +84,7 @@ class BaseWidgetTypeController extends AdminController
     public function show(string $id) {
 
         $this->viewState->setContextKey('widgetType.edit_' . $id);
-
+     
         $itemWidgetType = $this->widgetTypeService->find($id);
   
 

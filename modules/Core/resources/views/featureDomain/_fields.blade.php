@@ -1,16 +1,16 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @section('featureDomain-form')
-<form class="crud-form custom-form context-state" id="featureDomainForm" action="{{ $itemFeatureDomain->id ? route('featureDomains.update', $itemFeatureDomain->id) : route('featureDomains.store') }}" method="POST" novalidate>
+<form class="crud-form custom-form context-state container" id="featureDomainForm" action="{{ $itemFeatureDomain->id ? route('featureDomains.update', $itemFeatureDomain->id) : route('featureDomains.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemFeatureDomain->id)
         @method('PUT')
     @endif
 
-    <div class="card-body">
+    <div class="card-body row">
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="name">
                 {{ ucfirst(__('Core::featureDomain.name')) }}
                 
@@ -32,7 +32,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="slug">
                 {{ ucfirst(__('Core::featureDomain.slug')) }}
                 
@@ -54,7 +54,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-12">
             <label for="description">
                 {{ ucfirst(__('Core::featureDomain.description')) }}
                 
@@ -74,8 +74,7 @@
 </div>
 
         
-        
-    <div class="form-group">
+            <div class="form-group col-12 col-md-6">
             <label for="sys_module_id">
                 {{ ucfirst(__('Core::sysModule.singular')) }}
                 

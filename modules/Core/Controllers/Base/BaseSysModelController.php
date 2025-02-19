@@ -92,7 +92,7 @@ class BaseSysModelController extends AdminController
     public function show(string $id) {
 
         $this->viewState->setContextKey('sysModel.edit_' . $id);
-
+     
         $itemSysModel = $this->sysModelService->find($id);
   
         $sysColors = $this->sysColorService->all();

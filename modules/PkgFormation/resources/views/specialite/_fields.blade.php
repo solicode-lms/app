@@ -1,16 +1,16 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @section('specialite-form')
-<form class="crud-form custom-form context-state" id="specialiteForm" action="{{ $itemSpecialite->id ? route('specialites.update', $itemSpecialite->id) : route('specialites.store') }}" method="POST" novalidate>
+<form class="crud-form custom-form context-state container" id="specialiteForm" action="{{ $itemSpecialite->id ? route('specialites.update', $itemSpecialite->id) : route('specialites.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemSpecialite->id)
         @method('PUT')
     @endif
 
-    <div class="card-body">
+    <div class="card-body row">
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="nom">
                 {{ ucfirst(__('PkgFormation::specialite.nom')) }}
                 
@@ -32,7 +32,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-12">
             <label for="description">
                 {{ ucfirst(__('PkgFormation::specialite.description')) }}
                 
@@ -52,7 +52,7 @@
 </div>
 
         
-                <div class="form-group">
+                    <div class="form-group col-12 col-md-6">
             <label for="formateurs">
                 {{ ucfirst(__('PkgFormation::Formateur.plural')) }}
             </label>

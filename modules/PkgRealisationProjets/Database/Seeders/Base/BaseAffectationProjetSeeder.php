@@ -35,8 +35,6 @@ class BaseAffectationProjetSeeder extends Seeder
         // Ajouter le contrôleur, le domaine, les fonctionnalités et leurs permissions
         $this->addDefaultControllerDomainFeatures();
 
-        // Associer les permissions aux rôles
-        $this->assignPermissionsToRoles($AdminRole, $MembreRole);
     }
 
     public function seedFromCsv(): void
@@ -64,16 +62,20 @@ class BaseAffectationProjetSeeder extends Seeder
         // Lire les données restantes en associant chaque valeur à son nom de colonne
         while (($data = fgetcsv($csvFile)) !== false) {
             $row = array_combine($headers, $data);
-            
             if ($row) {
-                $affectationProjetService->create([
+                $affectationProjetData =[
                     "projet_id" => $row["projet_id"] ?? null ,
                     "groupe_id" => $row["groupe_id"] ?? null ,
                     "date_debut" => $row["date_debut"] ?? null ,
                     "date_fin" => $row["date_fin"] ?? null ,
                     "description" => $row["description"] ?? null ,
                     "annee_formation_id" => $row["annee_formation_id"] ?? null 
-                ]);
+                ];
+                if (!empty($row["reference"])) {
+                    $affectationProjetService->updateOrCreate(["reference" => $row["reference"]], $affectationProjetData);
+                } else {
+                    $affectationProjetService->create($affectationProjetData);
+                }
             }
         }
 
@@ -101,9 +103,12 @@ class BaseAffectationProjetSeeder extends Seeder
 
         // Permissions spécifiques pour chaque type de fonctionnalité
         $featurePermissions = [
-            'Édition ' => [ 'create','store','edit','update','destroy','getAffectationProjets','dataCalcul'],
+            'Afficher' => ['show'],
             'Lecture' => ['index', 'show'],
+            'Édition sans Ajouter' => ['index', 'show','edit','update','dataCalcul'],
+            'Édition ' => [ 'index', 'show','create','store','edit','update','destroy','dataCalcul'],
             'Extraction' => ['import', 'export'],
+
         ];
 
         // Ajouter le contrôleur
@@ -155,24 +160,5 @@ class BaseAffectationProjetSeeder extends Seeder
             // Associer les Permissions à la Feature via la table pivot
             $feature->permissions()->syncWithoutDetaching($permissionIds);
         }
-    }
-
-    private function assignPermissionsToRoles(string $AdminRole, string $MembreRole): void
-    {
-        $admin = Role::where('name', $AdminRole)->first();
-        $membre = Role::where('name', $MembreRole)->first();
-
-        // Permissions pour l'administrateur (toutes les permissions du module)
-        $adminPermissions = Permission::pluck('name')->toArray();
-
-        // Permissions pour le membre (lecture seule)
-        $memberPermissions = Permission::whereIn('name', [
-            'index-affectationProjet',
-            'show-affectationProjet',
-        ])->pluck('name')->toArray();
-
-        // Associer les permissions aux rôles
-        $admin->givePermissionTo($adminPermissions);
-        $membre->givePermissionTo($memberPermissions);
     }
 }

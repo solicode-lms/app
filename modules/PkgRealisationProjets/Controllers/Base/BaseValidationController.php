@@ -32,6 +32,7 @@ class BaseValidationController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('validation.index');
+        if($this->sessionState->get('formateur_id')) $this->viewState->init('filter.validation.formateur_id'  , $this->sessionState->get('formateur_id'));
 
         // Extraire les paramètres de recherche, page, et filtres
         $validations_params = array_merge(
@@ -55,6 +56,7 @@ class BaseValidationController extends AdminController
         return view('PkgRealisationProjets::validation.index', compact('validations_data', 'validations_stats', 'validations_filters','validation_instance'));
     }
     public function create() {
+        $this->viewState->set('scope_form.validation.formateur_id'  , $this->sessionState->get('formateur_id'));
         $itemValidation = $this->validationService->createInstance();
         $realisationProjets = $this->realisationProjetService->all();
         $transfertCompetences = $this->transfertCompetenceService->all();
@@ -91,7 +93,7 @@ class BaseValidationController extends AdminController
     public function show(string $id) {
 
         $this->viewState->setContextKey('validation.edit_' . $id);
-
+     
         $itemValidation = $this->validationService->find($id);
   
         $realisationProjets = $this->realisationProjetService->all();
@@ -110,6 +112,7 @@ class BaseValidationController extends AdminController
         $this->viewState->setContextKey('validation.edit_' . $id);
 
         $itemValidation = $this->validationService->find($id);
+        $this->authorize('edit', $itemValidation);
 
         $realisationProjets = $this->realisationProjetService->all();
         $transfertCompetences = $this->transfertCompetenceService->all();
@@ -123,6 +126,9 @@ class BaseValidationController extends AdminController
 
     }
     public function update(ValidationRequest $request, string $id) {
+        // Vérifie si l'utilisateur peut mettre à jour l'objet 
+        $validation = $this->validationService->find($id);
+        $this->authorize('update', $validation);
 
         $validatedData = $request->validated();
         $validation = $this->validationService->update($id, $validatedData);
@@ -148,6 +154,9 @@ class BaseValidationController extends AdminController
 
     }
     public function destroy(Request $request, string $id) {
+        // Vérifie si l'utilisateur peut mettre à jour l'objet 
+        $validation = $this->validationService->find($id);
+        $this->authorize('delete', $validation);
 
         $validation = $this->validationService->destroy($id);
 

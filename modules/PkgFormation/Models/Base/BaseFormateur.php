@@ -12,8 +12,8 @@ use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
 use Modules\PkgAutorisation\Models\User;
-use Modules\PkgApprenants\Models\Groupe;
 use Modules\PkgFormation\Models\Specialite;
+use Modules\PkgApprenants\Models\Groupe;
 use Modules\PkgRealisationProjets\Models\EtatsRealisationProjet;
 use Modules\PkgCompetences\Models\NiveauDifficulte;
 use Modules\PkgCreationProjet\Models\Projet;
@@ -39,11 +39,11 @@ class BaseFormateur extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'matricule', 'nom', 'prenom', 'prenom_arab', 'nom_arab', 'tele_num', 'adresse', 'diplome', 'echelle', 'echelon', 'profile_image', 'user_id'
+        'matricule', 'nom', 'prenom', 'prenom_arab', 'nom_arab', 'email', 'tele_num', 'adresse', 'diplome', 'echelle', 'echelon', 'profile_image', 'user_id'
     ];
     public $manyToMany = [
-        'Groupe' => ['relation' => 'groupes' , "foreign_key" => "groupe_id" ],
-        'Specialite' => ['relation' => 'specialites' , "foreign_key" => "specialite_id" ]
+        'Specialite' => ['relation' => 'specialites' , "foreign_key" => "specialite_id" ],
+        'Groupe' => ['relation' => 'groupes' , "foreign_key" => "groupe_id" ]
     ];
 
        
@@ -61,15 +61,6 @@ class BaseFormateur extends BaseModel
     }
 
     /**
-     * Relation ManyToMany pour Groupes.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function groupes()
-    {
-        return $this->belongsToMany(Groupe::class, 'formateur_groupe');
-    }
-    /**
      * Relation ManyToMany pour Specialites.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
@@ -77,6 +68,15 @@ class BaseFormateur extends BaseModel
     public function specialites()
     {
         return $this->belongsToMany(Specialite::class, 'formateur_specialite');
+    }
+    /**
+     * Relation ManyToMany pour Groupes.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function groupes()
+    {
+        return $this->belongsToMany(Groupe::class, 'formateur_groupe');
     }
 
     /**

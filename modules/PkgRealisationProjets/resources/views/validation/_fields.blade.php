@@ -1,17 +1,16 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @section('validation-form')
-<form class="crud-form custom-form context-state" id="validationForm" action="{{ $itemValidation->id ? route('validations.update', $itemValidation->id) : route('validations.store') }}" method="POST" novalidate>
+<form class="crud-form custom-form context-state container" id="validationForm" action="{{ $itemValidation->id ? route('validations.update', $itemValidation->id) : route('validations.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemValidation->id)
         @method('PUT')
     @endif
 
-    <div class="card-body">
+    <div class="card-body row">
         
-        
-    <div class="form-group">
+            <div class="form-group col-12 col-md-6">
             <label for="transfert_competence_id">
                 {{ ucfirst(__('PkgCreationProjet::transfertCompetence.singular')) }}
                 
@@ -39,7 +38,7 @@
 
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
     <label for="note">
         {{ ucfirst(__('PkgRealisationProjets::validation.note')) }}
         
@@ -61,7 +60,7 @@
 
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-12">
             <label for="message">
                 {{ ucfirst(__('PkgRealisationProjets::validation.message')) }}
                 
@@ -81,7 +80,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="is_valide">
                 {{ ucfirst(__('PkgRealisationProjets::validation.is_valide')) }}
                 
@@ -104,8 +103,7 @@
 </div>
 
         
-        
-    <div class="form-group">
+            <div class="form-group col-12 col-md-6">
             <label for="realisation_projet_id">
                 {{ ucfirst(__('PkgRealisationProjets::realisationProjet.singular')) }}
                 

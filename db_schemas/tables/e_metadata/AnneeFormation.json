@@ -190,5 +190,59 @@
         "value_string": "fa-table",
         "e_model_reference": "annee_formations",
         "e_metadata_definition_reference": "iconModel"
+    },
+    {
+        "reference": "AnneeFormation_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "AnneeFormation_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "AnneeFormation_titre_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "AnneeFormation_titre",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "AnneeFormation_date_debut_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "AnneeFormation_date_debut",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "AnneeFormation_date_fin_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "AnneeFormation_date_fin",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "AnneeFormation_reference_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "AnneeFormation_reference",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "AnneeFormation_created_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "AnneeFormation_created_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "AnneeFormation_updated_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "AnneeFormation_updated_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "annee_formations_hasMany_affectation_projets_annee_formation_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "annee_formations_hasMany_affectation_projets_annee_formation_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "annee_formations_hasMany_groupes_annee_formation_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "annee_formations_hasMany_groupes_annee_formation_id",
+        "e_metadata_definition_reference": "inputMdWidth"
     }
 ]

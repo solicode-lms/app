@@ -85,7 +85,7 @@ class BaseFiliereController extends AdminController
     public function show(string $id) {
 
         $this->viewState->setContextKey('filiere.edit_' . $id);
-
+     
         $itemFiliere = $this->filiereService->find($id);
   
 

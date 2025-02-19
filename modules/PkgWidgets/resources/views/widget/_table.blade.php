@@ -4,12 +4,12 @@
     <table class="table table-striped text-nowrap">
         <thead>
             <tr>
-                <x-sortable-column field="name" label="{{ ucfirst(__('PkgWidgets::widget.name')) }}" />
-                <x-sortable-column field="type_id" label="{{ ucfirst(__('PkgWidgets::widgetType.singular')) }}" />
-                <x-sortable-column field="model_id" label="{{ ucfirst(__('Core::sysModel.singular')) }}" />
-                <x-sortable-column field="operation_id" label="{{ ucfirst(__('PkgWidgets::widgetOperation.singular')) }}" />
-                <x-sortable-column field="icon" label="{{ ucfirst(__('PkgWidgets::widget.icon')) }}" />
-                <x-sortable-column field="label" label="{{ ucfirst(__('PkgWidgets::widget.label')) }}" />
+                <x-sortable-column field="name" modelname="widget" label="{{ ucfirst(__('PkgWidgets::widget.name')) }}" />
+                <x-sortable-column field="type_id" modelname="widget" label="{{ ucfirst(__('PkgWidgets::widgetType.singular')) }}" />
+                <x-sortable-column field="model_id" modelname="widget" label="{{ ucfirst(__('Core::sysModel.singular')) }}" />
+                <x-sortable-column field="operation_id" modelname="widget" label="{{ ucfirst(__('PkgWidgets::widgetOperation.singular')) }}" />
+                <x-sortable-column field="icon" modelname="widget" label="{{ ucfirst(__('PkgWidgets::widget.icon')) }}" />
+                <x-sortable-column field="label" modelname="widget" label="{{ ucfirst(__('PkgWidgets::widget.label')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

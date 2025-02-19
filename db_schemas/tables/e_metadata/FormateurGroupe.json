@@ -76,5 +76,29 @@
         "value_string": "fa-table",
         "e_model_reference": "formateur_groupe",
         "e_metadata_definition_reference": "iconModel"
+    },
+    {
+        "reference": "FormateurGroupe_created_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "FormateurGroupe_created_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "FormateurGroupe_updated_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "FormateurGroupe_updated_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "FormateurGroupe_groupe_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "FormateurGroupe_groupe_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "FormateurGroupe_formateur_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "FormateurGroupe_formateur_id",
+        "e_metadata_definition_reference": "inputMdWidth"
     }
 ]

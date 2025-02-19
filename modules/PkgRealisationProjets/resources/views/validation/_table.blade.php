@@ -4,9 +4,9 @@
     <table class="table table-striped text-nowrap">
         <thead>
             <tr>
-                <x-sortable-column field="transfert_competence_id" label="{{ ucfirst(__('PkgCreationProjet::transfertCompetence.singular')) }}" />
-                <x-sortable-column field="note" label="{{ ucfirst(__('PkgRealisationProjets::validation.note')) }}" />
-                <x-sortable-column field="message" label="{{ ucfirst(__('PkgRealisationProjets::validation.message')) }}" />
+                <x-sortable-column field="transfert_competence_id" modelname="validation" label="{{ ucfirst(__('PkgCreationProjet::transfertCompetence.singular')) }}" />
+                <x-sortable-column field="note" modelname="validation" label="{{ ucfirst(__('PkgRealisationProjets::validation.note')) }}" />
+                <x-sortable-column field="message" modelname="validation" label="{{ ucfirst(__('PkgRealisationProjets::validation.message')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

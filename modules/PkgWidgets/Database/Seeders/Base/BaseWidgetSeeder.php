@@ -35,8 +35,6 @@ class BaseWidgetSeeder extends Seeder
         // Ajouter le contrôleur, le domaine, les fonctionnalités et leurs permissions
         $this->addDefaultControllerDomainFeatures();
 
-        // Associer les permissions aux rôles
-        $this->assignPermissionsToRoles($AdminRole, $MembreRole);
     }
 
     public function seedFromCsv(): void
@@ -64,9 +62,8 @@ class BaseWidgetSeeder extends Seeder
         // Lire les données restantes en associant chaque valeur à son nom de colonne
         while (($data = fgetcsv($csvFile)) !== false) {
             $row = array_combine($headers, $data);
-            
             if ($row) {
-                $widgetService->create([
+                $widgetData =[
                     "name" => $row["name"] ?? null ,
                     "type_id" => $row["type_id"] ?? null ,
                     "model_id" => $row["model_id"] ?? null ,
@@ -75,7 +72,12 @@ class BaseWidgetSeeder extends Seeder
                     "icon" => $row["icon"] ?? null ,
                     "label" => $row["label"] ?? null ,
                     "parameters" => $row["parameters"] ?? null 
-                ]);
+                ];
+                if (!empty($row["reference"])) {
+                    $widgetService->updateOrCreate(["reference" => $row["reference"]], $widgetData);
+                } else {
+                    $widgetService->create($widgetData);
+                }
             }
         }
 
@@ -103,9 +105,12 @@ class BaseWidgetSeeder extends Seeder
 
         // Permissions spécifiques pour chaque type de fonctionnalité
         $featurePermissions = [
-            'Édition ' => [ 'create','store','edit','update','destroy','getWidgets','dataCalcul'],
+            'Afficher' => ['show'],
             'Lecture' => ['index', 'show'],
+            'Édition sans Ajouter' => ['index', 'show','edit','update','dataCalcul'],
+            'Édition ' => [ 'index', 'show','create','store','edit','update','destroy','dataCalcul'],
             'Extraction' => ['import', 'export'],
+
         ];
 
         // Ajouter le contrôleur
@@ -157,24 +162,5 @@ class BaseWidgetSeeder extends Seeder
             // Associer les Permissions à la Feature via la table pivot
             $feature->permissions()->syncWithoutDetaching($permissionIds);
         }
-    }
-
-    private function assignPermissionsToRoles(string $AdminRole, string $MembreRole): void
-    {
-        $admin = Role::where('name', $AdminRole)->first();
-        $membre = Role::where('name', $MembreRole)->first();
-
-        // Permissions pour l'administrateur (toutes les permissions du module)
-        $adminPermissions = Permission::pluck('name')->toArray();
-
-        // Permissions pour le membre (lecture seule)
-        $memberPermissions = Permission::whereIn('name', [
-            'index-widget',
-            'show-widget',
-        ])->pluck('name')->toArray();
-
-        // Associer les permissions aux rôles
-        $admin->givePermissionTo($adminPermissions);
-        $membre->givePermissionTo($memberPermissions);
     }
 }

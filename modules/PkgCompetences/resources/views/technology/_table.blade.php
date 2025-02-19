@@ -4,8 +4,8 @@
     <table class="table table-striped text-nowrap">
         <thead>
             <tr>
-                <x-sortable-column field="nom" label="{{ ucfirst(__('PkgCompetences::technology.nom')) }}" />
-                <x-sortable-column field="category_technology_id" label="{{ ucfirst(__('PkgCompetences::categoryTechnology.singular')) }}" />
+                <x-sortable-column field="nom" modelname="technology" label="{{ ucfirst(__('PkgCompetences::technology.nom')) }}" />
+                <x-sortable-column field="category_technology_id" modelname="technology" label="{{ ucfirst(__('PkgCompetences::categoryTechnology.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

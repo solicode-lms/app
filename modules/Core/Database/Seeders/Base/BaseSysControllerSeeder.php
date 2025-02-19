@@ -34,8 +34,6 @@ class BaseSysControllerSeeder extends Seeder
         // Ajouter le contrôleur, le domaine, les fonctionnalités et leurs permissions
         $this->addDefaultControllerDomainFeatures();
 
-        // Associer les permissions aux rôles
-        $this->assignPermissionsToRoles($AdminRole, $MembreRole);
     }
 
     public function seedFromCsv(): void
@@ -63,15 +61,19 @@ class BaseSysControllerSeeder extends Seeder
         // Lire les données restantes en associant chaque valeur à son nom de colonne
         while (($data = fgetcsv($csvFile)) !== false) {
             $row = array_combine($headers, $data);
-            
             if ($row) {
-                $sysControllerService->create([
+                $sysControllerData =[
                     "sys_module_id" => $row["sys_module_id"] ?? null ,
                     "name" => $row["name"] ?? null ,
                     "slug" => $row["slug"] ?? null ,
                     "description" => $row["description"] ?? null ,
                     "is_active" => $row["is_active"] ?? null 
-                ]);
+                ];
+                if (!empty($row["reference"])) {
+                    $sysControllerService->updateOrCreate(["reference" => $row["reference"]], $sysControllerData);
+                } else {
+                    $sysControllerService->create($sysControllerData);
+                }
             }
         }
 
@@ -99,9 +101,12 @@ class BaseSysControllerSeeder extends Seeder
 
         // Permissions spécifiques pour chaque type de fonctionnalité
         $featurePermissions = [
-            'Édition ' => [ 'create','store','edit','update','destroy','getSysControllers','dataCalcul'],
+            'Afficher' => ['show'],
             'Lecture' => ['index', 'show'],
+            'Édition sans Ajouter' => ['index', 'show','edit','update','dataCalcul'],
+            'Édition ' => [ 'index', 'show','create','store','edit','update','destroy','dataCalcul'],
             'Extraction' => ['import', 'export'],
+
         ];
 
         // Ajouter le contrôleur
@@ -153,24 +158,5 @@ class BaseSysControllerSeeder extends Seeder
             // Associer les Permissions à la Feature via la table pivot
             $feature->permissions()->syncWithoutDetaching($permissionIds);
         }
-    }
-
-    private function assignPermissionsToRoles(string $AdminRole, string $MembreRole): void
-    {
-        $admin = Role::where('name', $AdminRole)->first();
-        $membre = Role::where('name', $MembreRole)->first();
-
-        // Permissions pour l'administrateur (toutes les permissions du module)
-        $adminPermissions = Permission::pluck('name')->toArray();
-
-        // Permissions pour le membre (lecture seule)
-        $memberPermissions = Permission::whereIn('name', [
-            'index-sysController',
-            'show-sysController',
-        ])->pluck('name')->toArray();
-
-        // Associer les permissions aux rôles
-        $admin->givePermissionTo($adminPermissions);
-        $membre->givePermissionTo($memberPermissions);
     }
 }

@@ -1,16 +1,16 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @section('natureLivrable-form')
-<form class="crud-form custom-form context-state" id="natureLivrableForm" action="{{ $itemNatureLivrable->id ? route('natureLivrables.update', $itemNatureLivrable->id) : route('natureLivrables.store') }}" method="POST" novalidate>
+<form class="crud-form custom-form context-state container" id="natureLivrableForm" action="{{ $itemNatureLivrable->id ? route('natureLivrables.update', $itemNatureLivrable->id) : route('natureLivrables.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemNatureLivrable->id)
         @method('PUT')
     @endif
 
-    <div class="card-body">
+    <div class="card-body row">
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="nom">
                 {{ ucfirst(__('PkgCreationProjet::natureLivrable.nom')) }}
                 
@@ -32,7 +32,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-12">
             <label for="description">
                 {{ ucfirst(__('PkgCreationProjet::natureLivrable.description')) }}
                 

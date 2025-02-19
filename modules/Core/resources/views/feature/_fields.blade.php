@@ -1,16 +1,16 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @section('feature-form')
-<form class="crud-form custom-form context-state" id="featureForm" action="{{ $itemFeature->id ? route('features.update', $itemFeature->id) : route('features.store') }}" method="POST" novalidate>
+<form class="crud-form custom-form context-state container" id="featureForm" action="{{ $itemFeature->id ? route('features.update', $itemFeature->id) : route('features.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemFeature->id)
         @method('PUT')
     @endif
 
-    <div class="card-body">
+    <div class="card-body row">
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="name">
                 {{ ucfirst(__('Core::feature.name')) }}
                 
@@ -32,7 +32,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-12">
             <label for="description">
                 {{ ucfirst(__('Core::feature.description')) }}
                 
@@ -52,8 +52,7 @@
 </div>
 
         
-        
-    <div class="form-group">
+            <div class="form-group col-12 col-md-6">
             <label for="feature_domain_id">
                 {{ ucfirst(__('Core::featureDomain.singular')) }}
                 
@@ -81,7 +80,7 @@
 
 
         
-                <div class="form-group">
+                    <div class="form-group col-12 col-md-6">
             <label for="permissions">
                 {{ ucfirst(__('PkgAutorisation::Permission.plural')) }}
             </label>

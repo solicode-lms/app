@@ -97,12 +97,6 @@
         "e_metadata_definition_reference": "displayOrder"
     },
     {
-        "reference": "roles_ManyToManyPolymorphic_users_model_has_roles_m2m_displayOrder",
-        "value_integer": 8,
-        "e_data_field_reference": "roles_ManyToManyPolymorphic_users_model_has_roles_m2m",
-        "e_metadata_definition_reference": "displayOrder"
-    },
-    {
         "reference": "Role_id_displayInForm",
         "value_boolean": 1,
         "e_data_field_reference": "Role_id",
@@ -145,15 +139,69 @@
         "e_metadata_definition_reference": "displayInForm"
     },
     {
+        "reference": "roles_displayInSideBar",
+        "value_boolean": 1,
+        "e_model_reference": "roles",
+        "e_metadata_definition_reference": "displayInSideBar"
+    },
+    {
+        "reference": "roles_ManyToManyPolymorphic_users_model_has_roles_m2m_displayOrder",
+        "value_integer": 8,
+        "e_data_field_reference": "roles_ManyToManyPolymorphic_users_model_has_roles_m2m",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
         "reference": "roles_ManyToManyPolymorphic_users_model_has_roles_m2m_displayInForm",
         "value_boolean": 1,
         "e_data_field_reference": "roles_ManyToManyPolymorphic_users_model_has_roles_m2m",
         "e_metadata_definition_reference": "displayInForm"
     },
     {
-        "reference": "roles_displayInSideBar",
-        "value_boolean": 1,
-        "e_model_reference": "roles",
-        "e_metadata_definition_reference": "displayInSideBar"
+        "reference": "Role_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Role_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Role_name_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Role_name",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Role_guard_name_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Role_guard_name",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Role_created_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Role_created_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Role_updated_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Role_updated_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Role_reference_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Role_reference",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "roles_permissions_role_has_permissions_m2m_m2m_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "roles_permissions_role_has_permissions_m2m_m2m",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "roles_ManyToManyPolymorphic_users_model_has_roles_m2m_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "roles_ManyToManyPolymorphic_users_model_has_roles_m2m",
+        "e_metadata_definition_reference": "inputMdWidth"
     }
 ]

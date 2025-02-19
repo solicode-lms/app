@@ -85,7 +85,7 @@ class BaseSysColorController extends AdminController
     public function show(string $id) {
 
         $this->viewState->setContextKey('sysColor.edit_' . $id);
-
+     
         $itemSysColor = $this->sysColorService->find($id);
   
 

@@ -4,7 +4,8 @@
     <table class="table table-striped text-nowrap">
         <thead>
             <tr>
-                <x-sortable-column field="code" label="{{ ucfirst(__('PkgFormation::filiere.code')) }}" />
+                <x-sortable-column field="code" modelname="filiere" label="{{ ucfirst(__('PkgFormation::filiere.code')) }}" />
+                <x-sortable-column field="nom" modelname="filiere" label="{{ ucfirst(__('PkgFormation::filiere.nom')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -12,6 +13,7 @@
             @foreach ($filieres_data as $filiere)
                 <tr id="filiere-row-{{$filiere->id}}">
                     <td>@limit($filiere->code, 80)</td>
+                    <td>@limit($filiere->nom, 80)</td>
                     <td class="text-right">
 
                         @can('show-filiere')

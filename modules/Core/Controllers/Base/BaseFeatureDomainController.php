@@ -88,7 +88,7 @@ class BaseFeatureDomainController extends AdminController
     public function show(string $id) {
 
         $this->viewState->setContextKey('featureDomain.edit_' . $id);
-
+     
         $itemFeatureDomain = $this->featureDomainService->find($id);
   
         $sysModules = $this->sysModuleService->all();

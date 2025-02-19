@@ -35,8 +35,6 @@ class BaseApprenantSeeder extends Seeder
         // Ajouter le contrôleur, le domaine, les fonctionnalités et leurs permissions
         $this->addDefaultControllerDomainFeatures();
 
-        // Associer les permissions aux rôles
-        $this->assignPermissionsToRoles($AdminRole, $MembreRole);
     }
 
     public function seedFromCsv(): void
@@ -64,28 +62,32 @@ class BaseApprenantSeeder extends Seeder
         // Lire les données restantes en associant chaque valeur à son nom de colonne
         while (($data = fgetcsv($csvFile)) !== false) {
             $row = array_combine($headers, $data);
-            
             if ($row) {
-                $apprenantService->create([
+                $apprenantData =[
                     "nom" => $row["nom"] ?? null ,
+                    "nom_arab" => $row["nom_arab"] ?? null ,
                     "prenom" => $row["prenom"] ?? null ,
                     "prenom_arab" => $row["prenom_arab"] ?? null ,
-                    "nom_arab" => $row["nom_arab"] ?? null ,
-                    "tele_num" => $row["tele_num"] ?? null ,
                     "profile_image" => $row["profile_image"] ?? null ,
-                    "matricule" => $row["matricule"] ?? null ,
-                    "sexe" => $row["sexe"] ?? null ,
-                    "actif" => $row["actif"] ?? null ,
-                    "diplome" => $row["diplome"] ?? null ,
-                    "date_naissance" => $row["date_naissance"] ?? null ,
-                    "date_inscription" => $row["date_inscription"] ?? null ,
-                    "lieu_naissance" => $row["lieu_naissance"] ?? null ,
                     "cin" => $row["cin"] ?? null ,
+                    "date_naissance" => $row["date_naissance"] ?? null ,
+                    "sexe" => $row["sexe"] ?? null ,
+                    "nationalite_id" => $row["nationalite_id"] ?? null ,
+                    "lieu_naissance" => $row["lieu_naissance"] ?? null ,
+                    "diplome" => $row["diplome"] ?? null ,
                     "adresse" => $row["adresse"] ?? null ,
                     "niveaux_scolaire_id" => $row["niveaux_scolaire_id"] ?? null ,
-                    "nationalite_id" => $row["nationalite_id"] ?? null ,
-                    "user_id" => $row["user_id"] ?? null 
-                ]);
+                    "tele_num" => $row["tele_num"] ?? null ,
+                    "user_id" => $row["user_id"] ?? null ,
+                    "matricule" => $row["matricule"] ?? null ,
+                    "date_inscription" => $row["date_inscription"] ?? null ,
+                    "actif" => $row["actif"] ?? null 
+                ];
+                if (!empty($row["reference"])) {
+                    $apprenantService->updateOrCreate(["reference" => $row["reference"]], $apprenantData);
+                } else {
+                    $apprenantService->create($apprenantData);
+                }
             }
         }
 
@@ -113,9 +115,13 @@ class BaseApprenantSeeder extends Seeder
 
         // Permissions spécifiques pour chaque type de fonctionnalité
         $featurePermissions = [
-            'Édition ' => [ 'create','store','edit','update','destroy','getApprenants','dataCalcul'],
+            'Afficher' => ['show'],
             'Lecture' => ['index', 'show'],
+            'Édition sans Ajouter' => ['index', 'show','edit','update','dataCalcul'],
+            'Édition ' => [ 'index', 'show','create','store','edit','update','destroy','dataCalcul'],
             'Extraction' => ['import', 'export'],
+            'initPassword' => ['initPassword'],
+            
         ];
 
         // Ajouter le contrôleur
@@ -167,24 +173,5 @@ class BaseApprenantSeeder extends Seeder
             // Associer les Permissions à la Feature via la table pivot
             $feature->permissions()->syncWithoutDetaching($permissionIds);
         }
-    }
-
-    private function assignPermissionsToRoles(string $AdminRole, string $MembreRole): void
-    {
-        $admin = Role::where('name', $AdminRole)->first();
-        $membre = Role::where('name', $MembreRole)->first();
-
-        // Permissions pour l'administrateur (toutes les permissions du module)
-        $adminPermissions = Permission::pluck('name')->toArray();
-
-        // Permissions pour le membre (lecture seule)
-        $memberPermissions = Permission::whereIn('name', [
-            'index-apprenant',
-            'show-apprenant',
-        ])->pluck('name')->toArray();
-
-        // Associer les permissions aux rôles
-        $admin->givePermissionTo($adminPermissions);
-        $membre->givePermissionTo($memberPermissions);
     }
 }

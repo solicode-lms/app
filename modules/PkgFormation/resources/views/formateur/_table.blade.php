@@ -4,10 +4,10 @@
     <table class="table table-striped text-nowrap">
         <thead>
             <tr>
-                <x-sortable-column field="nom" label="{{ ucfirst(__('PkgFormation::formateur.nom')) }}" />
-                <x-sortable-column field="prenom" label="{{ ucfirst(__('PkgFormation::formateur.prenom')) }}" />
-                <x-sortable-column field="groupes" label="{{ ucfirst(__('PkgApprenants::groupe.plural')) }}" />
-                <x-sortable-column field="specialites" label="{{ ucfirst(__('PkgFormation::specialite.plural')) }}" />
+                <x-sortable-column field="nom" modelname="formateur" label="{{ ucfirst(__('PkgFormation::formateur.nom')) }}" />
+                <x-sortable-column field="prenom" modelname="formateur" label="{{ ucfirst(__('PkgFormation::formateur.prenom')) }}" />
+                <x-sortable-column field="specialites" modelname="formateur" label="{{ ucfirst(__('PkgFormation::specialite.plural')) }}" />
+                <x-sortable-column field="groupes" modelname="formateur" label="{{ ucfirst(__('PkgApprenants::groupe.plural')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -18,15 +18,15 @@
                     <td>@limit($formateur->prenom, 80)</td>
                     <td>
                         <ul>
-                            @foreach ($formateur->groupes as $groupe)
-                                <li>{{ $groupe }}</li>
+                            @foreach ($formateur->specialites as $specialite)
+                                <li>{{ $specialite }}</li>
                             @endforeach
                         </ul>
                     </td>
                     <td>
                         <ul>
-                            @foreach ($formateur->specialites as $specialite)
-                                <li>{{ $specialite }}</li>
+                            @foreach ($formateur->groupes as $groupe)
+                                <li>{{ $groupe }}</li>
                             @endforeach
                         </ul>
                     </td>

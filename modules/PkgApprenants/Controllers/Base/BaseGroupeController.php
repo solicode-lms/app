@@ -100,7 +100,7 @@ class BaseGroupeController extends AdminController
     public function show(string $id) {
 
         $this->viewState->setContextKey('groupe.edit_' . $id);
-
+     
         $itemGroupe = $this->groupeService->find($id);
   
         $apprenants = $this->apprenantService->all();

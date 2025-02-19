@@ -2,6 +2,7 @@
 
 namespace Modules\PkgFormation\Services;
 
+use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgAutorisation\Services\UserService;
 use Modules\PkgCompetences\Services\NiveauDifficulteService;
 use Modules\PkgFormation\Services\Base\BaseFormateurService;
@@ -20,20 +21,31 @@ class FormateurService extends BaseFormateurService
      * @param array $data
      * @return mixed
      */
-    public function create(array $data)
+    public function create($data)
     {
         $formateur = parent::create($data);
 
-        // Création d'un utilisateur pour le formateur si non existant
-        if (is_null($formateur->user_id)) {
+     
+            // Création d'un utilisateur pour le formateur si non existant
+            if (is_null($formateur->user_id)) {
             $userService = new UserService();
-            $user = $userService->createInstance();
-            $user->formateur_id = $formateur->id;
-            $user->name = strtoupper($formateur->nom) . " " . ucfirst($formateur->prenom);
-            $user->email = $formateur->matricule . "@solicode.co";
-            $user->password = $formateur->matricule;
-            $userService->create($user);
+            $userData = [
+                'name' => strtoupper($formateur->nom) . " " . ucfirst($formateur->prenom),
+                'email' => $formateur->email 
+                    ? $formateur->email 
+                    : strtolower(trim(str_replace(' ', '-', $formateur->nom))) . strtolower(trim(str_replace(' ', '-', $formateur->prenom))) . "@ofppt-edu.ma",
+                'password' => bcrypt("12345678"), // Hash du mot de passe pour sécurité
+            ];
+
+            $user = $userService->create($userData);
+
+            if ($user) {
+                $user->assignRole(Role::FORMATEUR_ROLE);
+                $formateur->user_id = $user->id;
+                $formateur->save();
+            }
         }
+
 
         // Création des niveaux de difficulté pour le formateur
         $niveauDifficulteService = new NiveauDifficulteService();

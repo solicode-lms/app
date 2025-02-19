@@ -1,16 +1,16 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @section('niveauxScolaire-form')
-<form class="crud-form custom-form context-state" id="niveauxScolaireForm" action="{{ $itemNiveauxScolaire->id ? route('niveauxScolaires.update', $itemNiveauxScolaire->id) : route('niveauxScolaires.store') }}" method="POST" novalidate>
+<form class="crud-form custom-form context-state container" id="niveauxScolaireForm" action="{{ $itemNiveauxScolaire->id ? route('niveauxScolaires.update', $itemNiveauxScolaire->id) : route('niveauxScolaires.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemNiveauxScolaire->id)
         @method('PUT')
     @endif
 
-    <div class="card-body">
+    <div class="card-body row">
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="code">
                 {{ ucfirst(__('PkgApprenants::niveauxScolaire.code')) }}
                 
@@ -32,7 +32,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="nom">
                 {{ ucfirst(__('PkgApprenants::niveauxScolaire.nom')) }}
                 
@@ -52,7 +52,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-12">
             <label for="description">
                 {{ ucfirst(__('PkgApprenants::niveauxScolaire.description')) }}
                 

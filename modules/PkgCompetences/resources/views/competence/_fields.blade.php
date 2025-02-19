@@ -1,16 +1,16 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @section('competence-form')
-<form class="crud-form custom-form context-state" id="competenceForm" action="{{ $itemCompetence->id ? route('competences.update', $itemCompetence->id) : route('competences.store') }}" method="POST" novalidate>
+<form class="crud-form custom-form context-state container" id="competenceForm" action="{{ $itemCompetence->id ? route('competences.update', $itemCompetence->id) : route('competences.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemCompetence->id)
         @method('PUT')
     @endif
 
-    <div class="card-body">
+    <div class="card-body row">
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="code">
                 {{ ucfirst(__('PkgCompetences::competence.code')) }}
                 
@@ -32,7 +32,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="mini_code">
                 {{ ucfirst(__('PkgCompetences::competence.mini_code')) }}
                 
@@ -52,7 +52,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="nom">
                 {{ ucfirst(__('PkgCompetences::competence.nom')) }}
                 
@@ -74,8 +74,7 @@
 </div>
 
         
-        
-    <div class="form-group">
+            <div class="form-group col-12 col-md-6">
             <label for="module_id">
                 {{ ucfirst(__('PkgFormation::module.singular')) }}
                 
@@ -103,7 +102,7 @@
 
 
         
-                <div class="form-group">
+                    <div class="form-group col-12 col-md-6">
             <label for="technologies">
                 {{ ucfirst(__('PkgCompetences::Technology.plural')) }}
             </label>
@@ -137,7 +136,7 @@
         <!--   TransfertCompetence HasMany --> 
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-12">
             <label for="description">
                 {{ ucfirst(__('PkgCompetences::competence.description')) }}
                 

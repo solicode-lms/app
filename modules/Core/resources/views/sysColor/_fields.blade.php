@@ -1,16 +1,16 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @section('sysColor-form')
-<form class="crud-form custom-form context-state" id="sysColorForm" action="{{ $itemSysColor->id ? route('sysColors.update', $itemSysColor->id) : route('sysColors.store') }}" method="POST" novalidate>
+<form class="crud-form custom-form context-state container" id="sysColorForm" action="{{ $itemSysColor->id ? route('sysColors.update', $itemSysColor->id) : route('sysColors.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemSysColor->id)
         @method('PUT')
     @endif
 
-    <div class="card-body">
+    <div class="card-body row">
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="name">
                 {{ ucfirst(__('Core::sysColor.name')) }}
                 
@@ -32,7 +32,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="hex">
                 {{ ucfirst(__('Core::sysColor.hex')) }}
                 

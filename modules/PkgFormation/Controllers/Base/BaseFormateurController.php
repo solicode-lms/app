@@ -7,9 +7,6 @@ use Modules\PkgFormation\Services\FormateurService;
 use Modules\PkgApprenants\Services\GroupeService;
 use Modules\PkgFormation\Services\SpecialiteService;
 use Modules\PkgAutorisation\Services\UserService;
-use Modules\PkgRealisationProjets\Services\EtatsRealisationProjetService;
-use Modules\PkgCompetences\Services\NiveauDifficulteService;
-use Modules\PkgCreationProjet\Services\ProjetService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
@@ -87,7 +84,7 @@ class BaseFormateurController extends AdminController
             );
         }
 
-        return redirect()->route('formateurs.edit',['formateur' => $formateur->id])->with(
+        return redirect()->route('formateurs.index')->with(
             'success',
             __('Core::msg.addSuccess', [
                 'entityToString' => $formateur,
@@ -98,37 +95,19 @@ class BaseFormateurController extends AdminController
     public function show(string $id) {
 
         $this->viewState->setContextKey('formateur.edit_' . $id);
-
+     
         $itemFormateur = $this->formateurService->find($id);
   
         $groupes = $this->groupeService->all();
         $specialites = $this->specialiteService->all();
         $users = $this->userService->all();
 
-        $this->viewState->set('scope.etatsRealisationProjet.formateur_id', $id);
-        $etatsRealisationProjetService =  new EtatsRealisationProjetService();
-        $etatsRealisationProjets_data =  $itemFormateur->etatsRealisationProjets()->paginate(10);
-        $etatsRealisationProjets_stats = $etatsRealisationProjetService->getetatsRealisationProjetStats();
-        $etatsRealisationProjets_filters = $etatsRealisationProjetService->getFieldsFilterable();
-        $etatsRealisationProjet_instance =  $etatsRealisationProjetService->createInstance();
-        $this->viewState->set('scope.niveauDifficulte.formateur_id', $id);
-        $niveauDifficulteService =  new NiveauDifficulteService();
-        $niveauDifficultes_data =  $itemFormateur->niveauDifficultes()->paginate(10);
-        $niveauDifficultes_stats = $niveauDifficulteService->getniveauDifficulteStats();
-        $niveauDifficultes_filters = $niveauDifficulteService->getFieldsFilterable();
-        $niveauDifficulte_instance =  $niveauDifficulteService->createInstance();
-        $this->viewState->set('scope.projet.formateur_id', $id);
-        $projetService =  new ProjetService();
-        $projets_data =  $itemFormateur->projets()->paginate(10);
-        $projets_stats = $projetService->getprojetStats();
-        $projets_filters = $projetService->getFieldsFilterable();
-        $projet_instance =  $projetService->createInstance();
 
         if (request()->ajax()) {
-            return view('PkgFormation::formateur._edit', compact('itemFormateur', 'groupes', 'specialites', 'users', 'etatsRealisationProjets_data', 'niveauDifficultes_data', 'projets_data', 'etatsRealisationProjets_stats', 'niveauDifficultes_stats', 'projets_stats', 'etatsRealisationProjets_filters', 'niveauDifficultes_filters', 'projets_filters', 'etatsRealisationProjet_instance', 'niveauDifficulte_instance', 'projet_instance'));
+            return view('PkgFormation::formateur._fields', compact('itemFormateur', 'groupes', 'specialites', 'users'));
         }
 
-        return view('PkgFormation::formateur.edit', compact('itemFormateur', 'groupes', 'specialites', 'users', 'etatsRealisationProjets_data', 'niveauDifficultes_data', 'projets_data', 'etatsRealisationProjets_stats', 'niveauDifficultes_stats', 'projets_stats', 'etatsRealisationProjets_filters', 'niveauDifficultes_filters', 'projets_filters', 'etatsRealisationProjet_instance', 'niveauDifficulte_instance', 'projet_instance'));
+        return view('PkgFormation::formateur.edit', compact('itemFormateur', 'groupes', 'specialites', 'users'));
 
     }
     public function edit(string $id) {
@@ -141,30 +120,12 @@ class BaseFormateurController extends AdminController
         $specialites = $this->specialiteService->all();
         $users = $this->userService->all();
 
-        $this->viewState->set('scope.etatsRealisationProjet.formateur_id', $id);
-        $etatsRealisationProjetService =  new EtatsRealisationProjetService();
-        $etatsRealisationProjets_data =  $itemFormateur->etatsRealisationProjets()->paginate(10);
-        $etatsRealisationProjets_stats = $etatsRealisationProjetService->getetatsRealisationProjetStats();
-        $etatsRealisationProjets_filters = $etatsRealisationProjetService->getFieldsFilterable();
-        $etatsRealisationProjet_instance =  $etatsRealisationProjetService->createInstance();
-        $this->viewState->set('scope.niveauDifficulte.formateur_id', $id);
-        $niveauDifficulteService =  new NiveauDifficulteService();
-        $niveauDifficultes_data =  $itemFormateur->niveauDifficultes()->paginate(10);
-        $niveauDifficultes_stats = $niveauDifficulteService->getniveauDifficulteStats();
-        $niveauDifficultes_filters = $niveauDifficulteService->getFieldsFilterable();
-        $niveauDifficulte_instance =  $niveauDifficulteService->createInstance();
-        $this->viewState->set('scope.projet.formateur_id', $id);
-        $projetService =  new ProjetService();
-        $projets_data =  $itemFormateur->projets()->paginate(10);
-        $projets_stats = $projetService->getprojetStats();
-        $projets_filters = $projetService->getFieldsFilterable();
-        $projet_instance =  $projetService->createInstance();
 
         if (request()->ajax()) {
-            return view('PkgFormation::formateur._edit', compact('itemFormateur', 'groupes', 'specialites', 'users', 'etatsRealisationProjets_data', 'niveauDifficultes_data', 'projets_data', 'etatsRealisationProjets_stats', 'niveauDifficultes_stats', 'projets_stats', 'etatsRealisationProjets_filters', 'niveauDifficultes_filters', 'projets_filters', 'etatsRealisationProjet_instance', 'niveauDifficulte_instance', 'projet_instance'));
+            return view('PkgFormation::formateur._fields', compact('itemFormateur', 'groupes', 'specialites', 'users'));
         }
 
-        return view('PkgFormation::formateur.edit', compact('itemFormateur', 'groupes', 'specialites', 'users', 'etatsRealisationProjets_data', 'niveauDifficultes_data', 'projets_data', 'etatsRealisationProjets_stats', 'niveauDifficultes_stats', 'projets_stats', 'etatsRealisationProjets_filters', 'niveauDifficultes_filters', 'projets_filters', 'etatsRealisationProjet_instance', 'niveauDifficulte_instance', 'projet_instance'));
+        return view('PkgFormation::formateur.edit', compact('itemFormateur', 'groupes', 'specialites', 'users'));
 
     }
     public function update(FormateurRequest $request, string $id) {

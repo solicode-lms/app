@@ -1,6 +1,0 @@
-nom,description,noteMin,noteMax,formateur_id
-Débutant,"Notions de base acquises.",0,5,1
-Intermédiaire,"Compétences appliquées avec assistance limitée.",6,10,1
-Avancé,"Bonne autonomie dans l'application des compétences.",11,15,1
-Expert,"Expertise démontrée avec capacité à résoudre des problèmes complexes.",16,18,1
-Maîtrise complète,"Maîtrise totale et capacité à enseigner ou guider les autres.",19,20,1

@@ -1,16 +1,16 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @section('eModel-form')
-<form class="crud-form custom-form context-state" id="eModelForm" action="{{ $itemEModel->id ? route('eModels.update', $itemEModel->id) : route('eModels.store') }}" method="POST" novalidate>
+<form class="crud-form custom-form context-state container" id="eModelForm" action="{{ $itemEModel->id ? route('eModels.update', $itemEModel->id) : route('eModels.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemEModel->id)
         @method('PUT')
     @endif
 
-    <div class="card-body">
+    <div class="card-body row">
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="name">
                 {{ ucfirst(__('PkgGapp::eModel.name')) }}
                 
@@ -32,7 +32,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="table_name">
                 {{ ucfirst(__('PkgGapp::eModel.table_name')) }}
                 
@@ -54,7 +54,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="is_pivot_table">
                 {{ ucfirst(__('PkgGapp::eModel.is_pivot_table')) }}
                 
@@ -77,7 +77,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-12">
             <label for="description">
                 {{ ucfirst(__('PkgGapp::eModel.description')) }}
                 
@@ -97,8 +97,7 @@
 </div>
 
         
-        
-    <div class="form-group">
+            <div class="form-group col-12 col-md-6">
             <label for="e_package_id">
                 {{ ucfirst(__('PkgGapp::ePackage.singular')) }}
                 

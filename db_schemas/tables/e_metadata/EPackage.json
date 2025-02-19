@@ -137,5 +137,47 @@
         "value_float": 0,
         "e_model_reference": "e_packages",
         "e_metadata_definition_reference": "iconModel"
+    },
+    {
+        "reference": "EPackage_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "EPackage_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "EPackage_reference_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "EPackage_reference",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "EPackage_name_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "EPackage_name",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "EPackage_description_inputMdWidth",
+        "value_integer": 12,
+        "e_data_field_reference": "EPackage_description",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "EPackage_created_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "EPackage_created_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "EPackage_updated_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "EPackage_updated_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "e_packages_hasMany_e_models_e_package_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "e_packages_hasMany_e_models_e_package_id",
+        "e_metadata_definition_reference": "inputMdWidth"
     }
 ]

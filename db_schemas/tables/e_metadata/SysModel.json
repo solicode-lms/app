@@ -209,5 +209,65 @@
         "value_float": 0,
         "e_model_reference": "sys_models",
         "e_metadata_definition_reference": "iconModel"
+    },
+    {
+        "reference": "SysModel_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "SysModel_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "SysModel_name_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "SysModel_name",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "SysModel_model_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "SysModel_model",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "SysModel_description_inputMdWidth",
+        "value_integer": 12,
+        "e_data_field_reference": "SysModel_description",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "SysModel_sys_module_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "SysModel_sys_module_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "SysModel_sys_color_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "SysModel_sys_color_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "SysModel_reference_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "SysModel_reference",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "SysModel_created_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "SysModel_created_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "SysModel_updated_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "SysModel_updated_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "sys_models_hasMany_widgets_model_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "sys_models_hasMany_widgets_model_id",
+        "e_metadata_definition_reference": "inputMdWidth"
     }
 ]

@@ -212,11 +212,71 @@
         "value_boolean": 0,
         "value_float": 0,
         "value_json": {
-            "dataScope": "scope",
+            "dataScope": "filter",
             "userModelName": "Formateur",
             "ownerRelationPath": "formateur.user"
         },
         "e_model_reference": "niveau_difficultes",
         "e_metadata_definition_reference": "ownedByUser"
+    },
+    {
+        "reference": "NiveauDifficulte_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "NiveauDifficulte_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "NiveauDifficulte_nom_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "NiveauDifficulte_nom",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "NiveauDifficulte_description_inputMdWidth",
+        "value_integer": 12,
+        "e_data_field_reference": "NiveauDifficulte_description",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "NiveauDifficulte_noteMin_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "NiveauDifficulte_noteMin",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "NiveauDifficulte_noteMax_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "NiveauDifficulte_noteMax",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "NiveauDifficulte_formateur_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "NiveauDifficulte_formateur_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "NiveauDifficulte_reference_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "NiveauDifficulte_reference",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "NiveauDifficulte_created_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "NiveauDifficulte_created_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "NiveauDifficulte_updated_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "NiveauDifficulte_updated_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "niveau_difficultes_hasMany_transfert_competences_niveau_difficulte_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "niveau_difficultes_hasMany_transfert_competences_niveau_difficulte_id",
+        "e_metadata_definition_reference": "inputMdWidth"
     }
 ]

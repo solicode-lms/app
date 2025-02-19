@@ -1,17 +1,16 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @section('transfertCompetence-form')
-<form class="crud-form custom-form context-state" id="transfertCompetenceForm" action="{{ $itemTransfertCompetence->id ? route('transfertCompetences.update', $itemTransfertCompetence->id) : route('transfertCompetences.store') }}" method="POST" novalidate>
+<form class="crud-form custom-form context-state container" id="transfertCompetenceForm" action="{{ $itemTransfertCompetence->id ? route('transfertCompetences.update', $itemTransfertCompetence->id) : route('transfertCompetences.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemTransfertCompetence->id)
         @method('PUT')
     @endif
 
-    <div class="card-body">
+    <div class="card-body row">
         
-        
-    <div class="form-group">
+            <div class="form-group col-12 col-md-6">
             <label for="competence_id">
                 {{ ucfirst(__('PkgCompetences::competence.singular')) }}
                 
@@ -39,7 +38,7 @@
 
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-12">
             <label for="question">
                 {{ ucfirst(__('PkgCreationProjet::transfertCompetence.question')) }}
                 
@@ -59,8 +58,7 @@
 </div>
 
         
-        
-    <div class="form-group">
+            <div class="form-group col-12 col-md-6">
             <label for="niveau_difficulte_id">
                 {{ ucfirst(__('PkgCompetences::niveauDifficulte.singular')) }}
                 
@@ -88,7 +86,7 @@
 
 
         
-                <div class="form-group">
+                    <div class="form-group col-12 col-md-6">
             <label for="technologies">
                 {{ ucfirst(__('PkgCompetences::Technology.plural')) }}
             </label>
@@ -114,7 +112,7 @@
 
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
     <label for="note">
         {{ ucfirst(__('PkgCreationProjet::transfertCompetence.note')) }}
         
@@ -140,8 +138,7 @@
         <!--   Validation HasMany --> 
 
         
-        
-    <div class="form-group">
+            <div class="form-group col-12 col-md-6">
             <label for="projet_id">
                 {{ ucfirst(__('PkgCreationProjet::projet.singular')) }}
                 

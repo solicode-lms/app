@@ -8,7 +8,6 @@ use Modules\PkgApprenants\Services\GroupeService;
 use Modules\PkgApprenants\Services\NationaliteService;
 use Modules\PkgApprenants\Services\NiveauxScolaireService;
 use Modules\PkgAutorisation\Services\UserService;
-use Modules\PkgRealisationProjets\Services\RealisationProjetService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
@@ -89,7 +88,7 @@ class BaseApprenantController extends AdminController
             );
         }
 
-        return redirect()->route('apprenants.edit',['apprenant' => $apprenant->id])->with(
+        return redirect()->route('apprenants.index')->with(
             'success',
             __('Core::msg.addSuccess', [
                 'entityToString' => $apprenant,
@@ -100,7 +99,7 @@ class BaseApprenantController extends AdminController
     public function show(string $id) {
 
         $this->viewState->setContextKey('apprenant.edit_' . $id);
-
+     
         $itemApprenant = $this->apprenantService->find($id);
   
         $groupes = $this->groupeService->all();
@@ -108,18 +107,12 @@ class BaseApprenantController extends AdminController
         $niveauxScolaires = $this->niveauxScolaireService->all();
         $users = $this->userService->all();
 
-        $this->viewState->set('scope.realisationProjet.apprenant_id', $id);
-        $realisationProjetService =  new RealisationProjetService();
-        $realisationProjets_data =  $itemApprenant->realisationProjets()->paginate(10);
-        $realisationProjets_stats = $realisationProjetService->getrealisationProjetStats();
-        $realisationProjets_filters = $realisationProjetService->getFieldsFilterable();
-        $realisationProjet_instance =  $realisationProjetService->createInstance();
 
         if (request()->ajax()) {
-            return view('PkgApprenants::apprenant._edit', compact('itemApprenant', 'groupes', 'nationalites', 'niveauxScolaires', 'users', 'realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters', 'realisationProjet_instance'));
+            return view('PkgApprenants::apprenant._fields', compact('itemApprenant', 'groupes', 'nationalites', 'niveauxScolaires', 'users'));
         }
 
-        return view('PkgApprenants::apprenant.edit', compact('itemApprenant', 'groupes', 'nationalites', 'niveauxScolaires', 'users', 'realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters', 'realisationProjet_instance'));
+        return view('PkgApprenants::apprenant.edit', compact('itemApprenant', 'groupes', 'nationalites', 'niveauxScolaires', 'users'));
 
     }
     public function edit(string $id) {
@@ -133,18 +126,12 @@ class BaseApprenantController extends AdminController
         $niveauxScolaires = $this->niveauxScolaireService->all();
         $users = $this->userService->all();
 
-        $this->viewState->set('scope.realisationProjet.apprenant_id', $id);
-        $realisationProjetService =  new RealisationProjetService();
-        $realisationProjets_data =  $itemApprenant->realisationProjets()->paginate(10);
-        $realisationProjets_stats = $realisationProjetService->getrealisationProjetStats();
-        $realisationProjets_filters = $realisationProjetService->getFieldsFilterable();
-        $realisationProjet_instance =  $realisationProjetService->createInstance();
 
         if (request()->ajax()) {
-            return view('PkgApprenants::apprenant._edit', compact('itemApprenant', 'groupes', 'nationalites', 'niveauxScolaires', 'users', 'realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters', 'realisationProjet_instance'));
+            return view('PkgApprenants::apprenant._fields', compact('itemApprenant', 'groupes', 'nationalites', 'niveauxScolaires', 'users'));
         }
 
-        return view('PkgApprenants::apprenant.edit', compact('itemApprenant', 'groupes', 'nationalites', 'niveauxScolaires', 'users', 'realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters', 'realisationProjet_instance'));
+        return view('PkgApprenants::apprenant.edit', compact('itemApprenant', 'groupes', 'nationalites', 'niveauxScolaires', 'users'));
 
     }
     public function update(ApprenantRequest $request, string $id) {

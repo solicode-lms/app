@@ -32,7 +32,7 @@ class BaseLivrablesRealisationController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('livrablesRealisation.index');
-        $this->viewState->init('filter.livrablesRealisation.apprenant_id'  , $this->sessionState->get('apprenant_id'));
+        if($this->sessionState->get('apprenant_id')) $this->viewState->init('filter.livrablesRealisation.apprenant_id'  , $this->sessionState->get('apprenant_id'));
 
         // Extraire les paramètres de recherche, page, et filtres
         $livrablesRealisations_params = array_merge(
@@ -93,7 +93,7 @@ class BaseLivrablesRealisationController extends AdminController
     public function show(string $id) {
 
         $this->viewState->setContextKey('livrablesRealisation.edit_' . $id);
-
+     
         $itemLivrablesRealisation = $this->livrablesRealisationService->find($id);
   
         $livrables = $this->livrableService->all();

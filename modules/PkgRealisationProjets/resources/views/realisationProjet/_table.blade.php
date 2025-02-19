@@ -4,12 +4,12 @@
     <table class="table table-striped text-nowrap">
         <thead>
             <tr>
-                <x-sortable-column field="affectation_projet_id" label="{{ ucfirst(__('PkgRealisationProjets::affectationProjet.singular')) }}" />
-                <x-sortable-column field="apprenant_id" label="{{ ucfirst(__('PkgApprenants::apprenant.singular')) }}" />
-                <x-sortable-column field="etats_realisation_projet_id" label="{{ ucfirst(__('PkgRealisationProjets::etatsRealisationProjet.singular')) }}" />
-                <x-sortable-column field="LivrablesRealisation" label="{{ ucfirst(__('PkgRealisationProjets::livrablesRealisation.plural')) }}" />
+                <x-sortable-column field="affectation_projet_id" modelname="realisationProjet" label="{{ ucfirst(__('PkgRealisationProjets::affectationProjet.singular')) }}" />
+                <x-sortable-column field="apprenant_id" modelname="realisationProjet" label="{{ ucfirst(__('PkgApprenants::apprenant.singular')) }}" />
+                <x-sortable-column field="etats_realisation_projet_id" modelname="realisationProjet" label="{{ ucfirst(__('PkgRealisationProjets::etatsRealisationProjet.singular')) }}" />
+                <x-sortable-column field="LivrablesRealisation" modelname="realisationProjet" label="{{ ucfirst(__('PkgRealisationProjets::livrablesRealisation.plural')) }}" />
 
-                <x-sortable-column field="Validation" label="{{ ucfirst(__('PkgRealisationProjets::validation.plural')) }}" />
+                <x-sortable-column field="Validation" modelname="realisationProjet" label="{{ ucfirst(__('PkgRealisationProjets::validation.plural')) }}" />
 
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>

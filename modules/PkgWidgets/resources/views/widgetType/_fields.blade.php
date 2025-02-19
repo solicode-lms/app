@@ -1,16 +1,16 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @section('widgetType-form')
-<form class="crud-form custom-form context-state" id="widgetTypeForm" action="{{ $itemWidgetType->id ? route('widgetTypes.update', $itemWidgetType->id) : route('widgetTypes.store') }}" method="POST" novalidate>
+<form class="crud-form custom-form context-state container" id="widgetTypeForm" action="{{ $itemWidgetType->id ? route('widgetTypes.update', $itemWidgetType->id) : route('widgetTypes.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemWidgetType->id)
         @method('PUT')
     @endif
 
-    <div class="card-body">
+    <div class="card-body row">
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="type">
                 {{ ucfirst(__('PkgWidgets::widgetType.type')) }}
                 
@@ -32,7 +32,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-12">
             <label for="description">
                 {{ ucfirst(__('PkgWidgets::widgetType.description')) }}
                 

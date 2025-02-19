@@ -13,7 +13,7 @@ class AnneeFormation extends BaseAnneeFormation
         $date_debut = Carbon::parse(str_replace('/', '-',$this->date_debut ));
         $date_fin = Carbon::parse(str_replace('/', '-',$this->date_fin ));
 
-        $reference = $date_debut->year . "/" . $date_fin->year;
+        $reference = $date_debut->year . "-" . $date_fin->year;
         return $reference;
     }
 

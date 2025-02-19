@@ -94,5 +94,35 @@
         "value_string": "fa-table",
         "e_model_reference": "feature_permission",
         "e_metadata_definition_reference": "iconModel"
+    },
+    {
+        "reference": "FeaturePermission_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "FeaturePermission_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "FeaturePermission_feature_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "FeaturePermission_feature_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "FeaturePermission_permission_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "FeaturePermission_permission_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "FeaturePermission_created_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "FeaturePermission_created_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "FeaturePermission_updated_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "FeaturePermission_updated_at",
+        "e_metadata_definition_reference": "inputMdWidth"
     }
 ]

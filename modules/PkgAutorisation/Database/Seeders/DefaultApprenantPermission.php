@@ -23,24 +23,27 @@ class DefaultApprenantPermission extends Seeder
 
         // Tableau de configuration : modèle et type d'accès
         $permissionsMap = [
-            'profile' => 'EditeurSansCreate',
-            'competence' => 'Lecteur',
-            'module' => 'LecteurMany',
-            'technology' => 'LecteurMany',
-            'livrable' => 'LecteurMany',
-            'resource' => 'LecteurMany',
-            'transfertCompetence' => 'transfertCompetence',
-            'realisationProjet' => 'EditeurSansCreate',
+            'profile' => 'Édition sans Ajouter',
+            'competence' => 'Lecture',
+            'module' => 'Afficher',
+            'technology' => 'Afficher',
+            'livrable' => 'Afficher',
+            'resource' => 'Afficher',
+            'transfertCompetence' => 'Lecture',
+            'realisationProjet' => 'Édition sans Ajouter',
+            'livrablesRealisation' => 'Édition',
+            'validation' => 'Lecture',
         ];
 
         // Actions par type d'accès
-        $actionsByType = [
-            'LecteurMany' => ['show'],
-            'Lecteur' => ['index', 'show'],
-            'Editeur' => ['index', 'show', 'create', 'store', 'edit', 'update', 'destroy','dataCalcul'],
-            'EditeurSansCreate' => ['index', 'show', 'store', 'edit', 'update'],
-            'Extraction' => ['export'],
+        $featurePermissions = [
+            'Afficher' => ['show'],
+            'Lecture' => ['index', 'show'],
+            'Édition sans Ajouter' => ['index', 'show','edit','update','dataCalcul'],
+            'Édition' => [ 'index', 'show','create','store','edit','update','destroy','dataCalcul'],
+            'Extraction' => ['import', 'export'],
         ];
+
 
         foreach ($permissionsMap as $model => $accessTypes) {
             // Diviser les types d'accès en cas de multiples valeurs
@@ -48,7 +51,7 @@ class DefaultApprenantPermission extends Seeder
 
             foreach ($types as $type) {
                 $type = trim($type); // Supprimer les espaces éventuels
-                $actions = $actionsByType[$type] ?? [];
+                $actions = $featurePermissions[$type] ?? [];
 
                 foreach ($actions as $action) {
                     // Nom de la permission : action + modèle

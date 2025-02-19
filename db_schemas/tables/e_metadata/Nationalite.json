@@ -155,5 +155,53 @@
         "value_string": "fa-table",
         "e_model_reference": "nationalites",
         "e_metadata_definition_reference": "iconModel"
+    },
+    {
+        "reference": "Nationalite_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Nationalite_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Nationalite_code_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Nationalite_code",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Nationalite_nom_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Nationalite_nom",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Nationalite_description_inputMdWidth",
+        "value_integer": 12,
+        "e_data_field_reference": "Nationalite_description",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Nationalite_reference_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Nationalite_reference",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Nationalite_created_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Nationalite_created_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Nationalite_updated_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Nationalite_updated_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "nationalites_hasMany_apprenants_nationalite_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "nationalites_hasMany_apprenants_nationalite_id",
+        "e_metadata_definition_reference": "inputMdWidth"
     }
 ]

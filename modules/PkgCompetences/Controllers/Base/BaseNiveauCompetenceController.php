@@ -87,7 +87,7 @@ class BaseNiveauCompetenceController extends AdminController
     public function show(string $id) {
 
         $this->viewState->setContextKey('niveauCompetence.edit_' . $id);
-
+     
         $itemNiveauCompetence = $this->niveauCompetenceService->find($id);
   
         $competences = $this->competenceService->all();

@@ -7,8 +7,8 @@
                  <th>
                     IcôNe
                 </th>
-                <x-sortable-column field="name" label="{{ ucfirst(__('PkgGapp::eModel.name')) }}" />
-                <x-sortable-column field="e_package_id" label="{{ ucfirst(__('PkgGapp::ePackage.singular')) }}" />
+                <x-sortable-column field="name" modelname="eModel" label="{{ ucfirst(__('PkgGapp::eModel.name')) }}" />
+                <x-sortable-column field="e_package_id" modelname="eModel" label="{{ ucfirst(__('PkgGapp::ePackage.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

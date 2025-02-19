@@ -84,7 +84,7 @@ class BaseNiveauxScolaireController extends AdminController
     public function show(string $id) {
 
         $this->viewState->setContextKey('niveauxScolaire.edit_' . $id);
-
+     
         $itemNiveauxScolaire = $this->niveauxScolaireService->find($id);
   
 

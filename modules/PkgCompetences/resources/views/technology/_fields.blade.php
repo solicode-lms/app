@@ -1,16 +1,16 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @section('technology-form')
-<form class="crud-form custom-form context-state" id="technologyForm" action="{{ $itemTechnology->id ? route('technologies.update', $itemTechnology->id) : route('technologies.store') }}" method="POST" novalidate>
+<form class="crud-form custom-form context-state container" id="technologyForm" action="{{ $itemTechnology->id ? route('technologies.update', $itemTechnology->id) : route('technologies.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemTechnology->id)
         @method('PUT')
     @endif
 
-    <div class="card-body">
+    <div class="card-body row">
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="nom">
                 {{ ucfirst(__('PkgCompetences::technology.nom')) }}
                 
@@ -32,8 +32,7 @@
 </div>
 
         
-        
-    <div class="form-group">
+            <div class="form-group col-12 col-md-6">
             <label for="category_technology_id">
                 {{ ucfirst(__('PkgCompetences::categoryTechnology.singular')) }}
                 
@@ -61,7 +60,7 @@
 
 
         
-                <div class="form-group">
+                    <div class="form-group col-12 col-md-6">
             <label for="competences">
                 {{ ucfirst(__('PkgCompetences::Competence.plural')) }}
             </label>
@@ -87,7 +86,7 @@
 
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-12">
             <label for="description">
                 {{ ucfirst(__('PkgCompetences::technology.description')) }}
                 

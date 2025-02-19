@@ -1,16 +1,16 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @section('sysModule-form')
-<form class="crud-form custom-form context-state" id="sysModuleForm" action="{{ $itemSysModule->id ? route('sysModules.update', $itemSysModule->id) : route('sysModules.store') }}" method="POST" novalidate>
+<form class="crud-form custom-form context-state container" id="sysModuleForm" action="{{ $itemSysModule->id ? route('sysModules.update', $itemSysModule->id) : route('sysModules.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemSysModule->id)
         @method('PUT')
     @endif
 
-    <div class="card-body">
+    <div class="card-body row">
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="name">
                 {{ ucfirst(__('Core::sysModule.name')) }}
                 
@@ -32,7 +32,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="slug">
                 {{ ucfirst(__('Core::sysModule.slug')) }}
                 
@@ -54,7 +54,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-12">
             <label for="description">
                 {{ ucfirst(__('Core::sysModule.description')) }}
                 
@@ -74,7 +74,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="is_active">
                 {{ ucfirst(__('Core::sysModule.is_active')) }}
                 
@@ -96,7 +96,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="order">
                 {{ ucfirst(__('Core::sysModule.order')) }}
                 
@@ -118,7 +118,7 @@
 </div>
 
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="version">
                 {{ ucfirst(__('Core::sysModule.version')) }}
                 
@@ -140,8 +140,7 @@
 </div>
 
         
-        
-    <div class="form-group">
+            <div class="form-group col-12 col-md-6">
             <label for="sys_color_id">
                 {{ ucfirst(__('Core::sysColor.singular')) }}
                 

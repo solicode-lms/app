@@ -4,9 +4,9 @@
     <table class="table table-striped text-nowrap">
         <thead>
             <tr>
-                <x-sortable-column field="name" label="{{ ucfirst(__('PkgAutorisation::user.name')) }}" />
-                <x-sortable-column field="email" label="{{ ucfirst(__('PkgAutorisation::user.email')) }}" />
-                <x-sortable-column field="roles" label="{{ ucfirst(__('PkgAutorisation::role.plural')) }}" />
+                <x-sortable-column field="name" modelname="user" label="{{ ucfirst(__('PkgAutorisation::user.name')) }}" />
+                <x-sortable-column field="email" modelname="user" label="{{ ucfirst(__('PkgAutorisation::user.email')) }}" />
+                <x-sortable-column field="roles" modelname="user" label="{{ ucfirst(__('PkgAutorisation::role.plural')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

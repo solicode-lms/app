@@ -70,7 +70,7 @@ class ApprenantKonosyService extends BaseService
      * @param array $data Données pour la création.
      * @return mixed
      */
-    public function create(array $data)
+    public function create($data)
     {
         $apprenantKonosy =  parent::create($data);
         $this->updateOrCreateDataFromApprenantKonosys($apprenantKonosy);
@@ -127,7 +127,7 @@ class ApprenantKonosyService extends BaseService
         // Générer les informations de l'utilisateur
         $user_data = [
             'name' => ucfirst(strtolower($apprenantKonosy->Nom)) . '.' . ucfirst(strtolower($apprenantKonosy->Prenom)),
-            'email' => strtolower($apprenantKonosy->MatriculeEtudiant) . '@solicode.co',
+            'email' => strtolower($apprenantKonosy->MatriculeEtudiant) . '@ofppt-edu.ma',
             'password' => bcrypt("12345678")
         ];
 

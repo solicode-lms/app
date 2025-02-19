@@ -23,7 +23,7 @@ class AnneeFormationService extends BaseAnneeFormationService
     {
         $annee_debut = $date_inscription->month >= 9 ? $date_inscription->year : $date_inscription->year - 1;
         $annee_fin = $annee_debut + 1;
-        $reference = "{$annee_debut}/{$annee_fin}";
+        $reference = "{$annee_debut}-{$annee_fin}";
         $titre = $reference;
 
         return AnneeFormation::firstOrCreate(
@@ -47,7 +47,7 @@ class AnneeFormationService extends BaseAnneeFormationService
         $currentDate = Carbon::now();
         $annee_debut = $currentDate->month >= 9 ? $currentDate->year : $currentDate->year - 1;
         $annee_fin = $annee_debut + 1;
-        $reference = "{$annee_debut}/{$annee_fin}";
+        $reference = "{$annee_debut}-{$annee_fin}";
 
         return AnneeFormation::firstOrCreate(
             ['reference' => $reference],

@@ -214,5 +214,59 @@
         },
         "e_model_reference": "livrables",
         "e_metadata_definition_reference": "ownedByUser"
+    },
+    {
+        "reference": "Livrable_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Livrable_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Livrable_titre_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Livrable_titre",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Livrable_nature_livrable_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Livrable_nature_livrable_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Livrable_projet_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Livrable_projet_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Livrable_description_inputMdWidth",
+        "value_integer": 12,
+        "e_data_field_reference": "Livrable_description",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Livrable_reference_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Livrable_reference",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Livrable_created_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Livrable_created_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Livrable_updated_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Livrable_updated_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "livrables_hasMany_livrables_realisations_livrable_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "livrables_hasMany_livrables_realisations_livrable_id",
+        "e_metadata_definition_reference": "inputMdWidth"
     }
 ]

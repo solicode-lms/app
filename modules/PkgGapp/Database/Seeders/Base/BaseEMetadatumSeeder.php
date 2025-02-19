@@ -35,8 +35,6 @@ class BaseEMetadatumSeeder extends Seeder
         // Ajouter le contrôleur, le domaine, les fonctionnalités et leurs permissions
         $this->addDefaultControllerDomainFeatures();
 
-        // Associer les permissions aux rôles
-        $this->assignPermissionsToRoles($AdminRole, $MembreRole);
     }
 
     public function seedFromCsv(): void
@@ -64,9 +62,8 @@ class BaseEMetadatumSeeder extends Seeder
         // Lire les données restantes en associant chaque valeur à son nom de colonne
         while (($data = fgetcsv($csvFile)) !== false) {
             $row = array_combine($headers, $data);
-            
             if ($row) {
-                $eMetadatumService->create([
+                $eMetadatumData =[
                     "Value" => $row["Value"] ?? null ,
                     "value_boolean" => $row["value_boolean"] ?? null ,
                     "value_string" => $row["value_string"] ?? null ,
@@ -80,7 +77,12 @@ class BaseEMetadatumSeeder extends Seeder
                     "e_model_id" => $row["e_model_id"] ?? null ,
                     "e_data_field_id" => $row["e_data_field_id"] ?? null ,
                     "e_metadata_definition_id" => $row["e_metadata_definition_id"] ?? null 
-                ]);
+                ];
+                if (!empty($row["reference"])) {
+                    $eMetadatumService->updateOrCreate(["reference" => $row["reference"]], $eMetadatumData);
+                } else {
+                    $eMetadatumService->create($eMetadatumData);
+                }
             }
         }
 
@@ -108,9 +110,12 @@ class BaseEMetadatumSeeder extends Seeder
 
         // Permissions spécifiques pour chaque type de fonctionnalité
         $featurePermissions = [
-            'Édition ' => [ 'create','store','edit','update','destroy','getEMetadata','dataCalcul'],
+            'Afficher' => ['show'],
             'Lecture' => ['index', 'show'],
+            'Édition sans Ajouter' => ['index', 'show','edit','update','dataCalcul'],
+            'Édition ' => [ 'index', 'show','create','store','edit','update','destroy','dataCalcul'],
             'Extraction' => ['import', 'export'],
+
         ];
 
         // Ajouter le contrôleur
@@ -162,24 +167,5 @@ class BaseEMetadatumSeeder extends Seeder
             // Associer les Permissions à la Feature via la table pivot
             $feature->permissions()->syncWithoutDetaching($permissionIds);
         }
-    }
-
-    private function assignPermissionsToRoles(string $AdminRole, string $MembreRole): void
-    {
-        $admin = Role::where('name', $AdminRole)->first();
-        $membre = Role::where('name', $MembreRole)->first();
-
-        // Permissions pour l'administrateur (toutes les permissions du module)
-        $adminPermissions = Permission::pluck('name')->toArray();
-
-        // Permissions pour le membre (lecture seule)
-        $memberPermissions = Permission::whereIn('name', [
-            'index-eMetadatum',
-            'show-eMetadatum',
-        ])->pluck('name')->toArray();
-
-        // Associer les permissions aux rôles
-        $admin->givePermissionTo($adminPermissions);
-        $membre->givePermissionTo($memberPermissions);
     }
 }

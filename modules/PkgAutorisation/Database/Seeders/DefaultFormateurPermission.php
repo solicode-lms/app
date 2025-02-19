@@ -21,32 +21,32 @@ class DefaultFormateurPermission extends Seeder
             return;
         }
 
-        // Ajouter Editeur 
+        // Ajouter Édition 
         // Tableau de configuration : modèle et type d'accès
         $permissionsMap = [
-            'profile' => 'EditeurSansCreate',
-            'competence' => 'Lecteur,Extraction',
-            'module' => 'Lecteur,Extraction',
-            'technology' => 'Lecteur,Extraction',
-            'niveauDifficulte' => 'Editeur,Extraction',
-            'projet' => 'Editeur,Extraction',
-            'livrable' => 'Editeur,Extraction',
-            'resource' => 'Editeur,Extraction',
-            'transfertCompetence' => 'Editeur,Extraction',
-            'affectationProjet' => 'Editeur,Extraction',
-            'etatsRealisationProjet' => 'Editeur,Extraction',
-            'livrablesRealisation' => 'Editeur,Extraction',
-            'realisationProjet' => 'Editeur,Extraction',
-            'validation' => 'Editeur,Extraction',
+            'profile' => 'Édition sans Ajouter',
+            'competence' => 'Lecture,Extraction',
+            'module' => 'Lecture,Extraction',
+            'technology' => 'Lecture,Extraction',
+            'niveauDifficulte' => 'Édition,Extraction',
+            'projet' => 'Édition,Extraction',
+            'livrable' => 'Édition,Extraction',
+            'resource' => 'Édition,Extraction',
+            'transfertCompetence' => 'Édition,Extraction',
+            'affectationProjet' => 'Édition,Extraction',
+            'etatsRealisationProjet' => 'Édition,Extraction',
+            'livrablesRealisation' => 'Édition,Extraction',
+            'realisationProjet' => 'Édition,Extraction',
+            'validation' => 'Édition,Extraction',
         ];
 
         // Actions par type d'accès
-        $actionsByType = [
-            'LecteurMany' => ['show'],
-            'Lecteur' => ['index', 'show'],
-            'Editeur' => ['index', 'show', 'create', 'store', 'edit', 'update', 'destroy','dataCalcul'],
-            'Extraction' => ['export'],
-            'EditeurSansCreate' => ['index', 'show', 'store', 'edit', 'update'],
+        $featurePermissions = [
+            'Afficher' => ['show'],
+            'Lecture' => ['index', 'show'],
+            'Édition sans Ajouter' => ['index', 'show','edit','update','dataCalcul'],
+            'Édition' => [ 'index', 'show','create','store','edit','update','destroy','dataCalcul'],
+            'Extraction' => ['import', 'export'],
         ];
 
         foreach ($permissionsMap as $model => $accessTypes) {
@@ -55,7 +55,7 @@ class DefaultFormateurPermission extends Seeder
 
             foreach ($types as $type) {
                 $type = trim($type); // Supprimer les espaces éventuels
-                $actions = $actionsByType[$type] ?? [];
+                $actions = $featurePermissions[$type] ?? [];
 
                 foreach ($actions as $action) {
                     // Nom de la permission : action + modèle

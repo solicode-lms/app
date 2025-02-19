@@ -1,16 +1,16 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @section('ville-form')
-<form class="crud-form custom-form context-state" id="villeForm" action="{{ $itemVille->id ? route('villes.update', $itemVille->id) : route('villes.store') }}" method="POST" novalidate>
+<form class="crud-form custom-form context-state container" id="villeForm" action="{{ $itemVille->id ? route('villes.update', $itemVille->id) : route('villes.store') }}" method="POST" novalidate>
     @csrf
 
     @if ($itemVille->id)
         @method('PUT')
     @endif
 
-    <div class="card-body">
+    <div class="card-body row">
         
-        <div class="form-group">
+        <div class="form-group col-12 col-md-6">
             <label for="nom">
                 {{ ucfirst(__('PkgApprenants::ville.nom')) }}
                 
