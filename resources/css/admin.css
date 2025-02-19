@@ -121,6 +121,11 @@
     /* height: auto !important;  */
 }
 
+.form-group .disabled {
+    pointer-events: none;  /* Désactive les interactions (clics, focus) */
+    opacity: 0.6;  /* Réduit l'opacité pour donner un effet désactivé */
+    background-color: #f0f0f0; /* Couleur de fond grisée */
+}
  
 
 

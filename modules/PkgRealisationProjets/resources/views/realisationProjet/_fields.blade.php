@@ -1,4 +1,4 @@
-{{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
+{{-- //TODO Apprenant et Affectation projet doit être readOnly --}}
 
 @section('realisationProjet-form')
 <form class="crud-form custom-form context-state container" id="realisationProjetForm" action="{{ $itemRealisationProjet->id ? route('realisationProjets.update', $itemRealisationProjet->id) : route('realisationProjets.store') }}" method="POST" novalidate>
@@ -10,7 +10,7 @@
 
     <div class="card-body row">
         
-            <div class="form-group col-12 col-md-6">
+            <div class="form-group col-12 col-md-6" style="display:none" >
             <label for="affectation_projet_id">
                 {{ ucfirst(__('PkgRealisationProjets::affectationProjet.singular')) }}
                 
@@ -38,7 +38,7 @@
 
 
         
-            <div class="form-group col-12 col-md-6">
+            <div class="form-group col-12 col-md-6" style="display:none">
             <label for="apprenant_id">
                 {{ ucfirst(__('PkgApprenants::apprenant.singular')) }}
                 

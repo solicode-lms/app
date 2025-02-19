@@ -1,5 +1,5 @@
 <?php
-// TODO ce Table de pivot exsiste déja dans le PkgCreation Table 
+// ce Table de pivot exsiste déja dans le PkgCreation Table 
 
 
 

@@ -372,5 +372,16 @@
         "value_integer": 6,
         "e_data_field_reference": "realisation_projets_hasMany_validations_realisation_projet_id",
         "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "RealisationProjet_etats_realisation_projet_id_scopeData",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "key": "scope.etatsRealisationProjet.formateur_id",
+            "value": "affectationProjet.projet.formateur.id"
+        },
+        "e_data_field_reference": "RealisationProjet_etats_realisation_projet_id",
+        "e_metadata_definition_reference": "scopeData"
     }
 ]

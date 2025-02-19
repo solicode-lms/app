@@ -48,6 +48,7 @@ class BaseRealisationProjetService extends BaseService
 
     public function initFieldsFilterable(){
        // Initialiser les filtres configurables dynamiquement
+
         $this->fieldsFilterable = [
             $this->generateManyToOneFilter(__("PkgRealisationProjets::affectationProjet.plural"), 'affectation_projet_id', \Modules\PkgRealisationProjets\Models\AffectationProjet::class, 'id'),
             $this->generateManyToOneFilter(__("PkgApprenants::apprenant.plural"), 'apprenant_id', \Modules\PkgApprenants\Models\Apprenant::class, 'nom'),

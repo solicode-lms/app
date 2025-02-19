@@ -1,6 +1,6 @@
 <?php
+// Ce fichier est maintenu par ESSARRAJ Fouad
 
-// TODO scope etatsRealisationProjet pour Formateur (Owner de projet)
 
 namespace Modules\PkgRealisationProjets\Controllers\Base;
 use Modules\PkgRealisationProjets\Services\RealisationProjetService;
@@ -38,6 +38,7 @@ class BaseRealisationProjetController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('realisationProjet.index');
         if($this->sessionState->get('formateur_id')) $this->viewState->init('filter.realisationProjet.formateur_id'  , $this->sessionState->get('formateur_id'));
+        if($this->sessionState->get('apprenant_id')) $this->viewState->init('filter.realisationProjet.apprenant_id'  , $this->sessionState->get('apprenant_id'));
 
         // Extraire les paramètres de recherche, page, et filtres
         $realisationProjets_params = array_merge(
@@ -63,8 +64,12 @@ class BaseRealisationProjetController extends AdminController
     public function create() {
         $this->viewState->set('scope_form.realisationProjet.formateur_id'  , $this->sessionState->get('formateur_id'));
         $itemRealisationProjet = $this->realisationProjetService->createInstance();
+        
         $affectationProjets = $this->affectationProjetService->all();
         $apprenants = $this->apprenantService->all();
+        $value = $itemRealisationProjet->getNestedValue('affectationProjet.projet.formateur.id');
+        $key = 'scope.etatsRealisationProjet.formateur_id';
+        $this->viewState->set($key, $value);
         $etatsRealisationProjets = $this->etatsRealisationProjetService->all();
 
 
@@ -135,9 +140,9 @@ class BaseRealisationProjetController extends AdminController
 
         $affectationProjets = $this->affectationProjetService->all();
         $apprenants = $this->apprenantService->all();
-
-        // TODO scope etatsRealisationProjet pour Formateur (Owner de projet)
-        $this->viewState->set('scope.etatsRealisationProjet.formateur_id', $itemRealisationProjet->affectationProjet->projet->formateur->id);
+        $value = $itemRealisationProjet->getNestedValue('affectationProjet.projet.formateur.id');
+        $key = 'scope.etatsRealisationProjet.formateur_id';
+        $this->viewState->set($key, $value);
         $etatsRealisationProjets = $this->etatsRealisationProjetService->all();
 
         $this->viewState->set('scope.livrablesRealisation.realisation_projet_id', $id);
