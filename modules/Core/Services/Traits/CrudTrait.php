@@ -116,6 +116,7 @@ trait CrudTrait
         foreach ($mergedData as $key => $value) {
             if ($item->isFillable($key)) { // Vérifier si l'attribut est fillable
                 $item->{$key} = $value;
+                $item->loadBelongsToRelations();
             }
         }
 

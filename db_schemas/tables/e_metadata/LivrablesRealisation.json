@@ -273,5 +273,16 @@
         "value_integer": 6,
         "e_data_field_reference": "LivrablesRealisation_updated_at",
         "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "LivrablesRealisation_livrable_id_scopeData",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "key ": "scope.livrable.projet_id",
+            "value": "realisationProjet.affectationProjet.projet.id"
+        },
+        "e_data_field_reference": "LivrablesRealisation_livrable_id",
+        "e_metadata_definition_reference": "scopeData"
     }
 ]

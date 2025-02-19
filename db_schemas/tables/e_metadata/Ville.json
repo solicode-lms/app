@@ -49,9 +49,7 @@
     },
     {
         "reference": "Ville_nom_displayOrder",
-        "value_boolean": 0,
-        "value_integer": 3,
-        "value_float": 0,
+        "value_integer": 2,
         "e_data_field_reference": "Ville_nom",
         "e_metadata_definition_reference": "displayOrder"
     },
