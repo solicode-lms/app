@@ -60,11 +60,12 @@ class BaseLivrablesRealisationController extends AdminController
         $this->viewState->set('scope_form.livrablesRealisation.apprenant_id'  , $this->sessionState->get('apprenant_id'));
         $itemLivrablesRealisation = $this->livrablesRealisationService->createInstance();
         
-        // TODO scope livrable pour Projet 
-        $realisation_projet = (new RealisationProjetService())
-            ->find($itemLivrablesRealisation->realisation_projet_id);
-        $projet_id = $realisation_projet->affectationProjet->projet->id;
-        $this->viewState->set('scope.livrable.projet_id', $projet_id);
+
+        // scopeData = { variable : "scope.livrable.projet_id", value:"realisationProjet.affectationProjet.projet.id" }
+        $value = $itemLivrablesRealisation->getNestedValue('realisationProjet.affectationProjet.projet.id');
+        $key = 'scope.livrable.projet_id';
+        $this->viewState->set($key, $value);
+
         $livrables = $this->livrableService->all();
         
         $realisationProjets = $this->realisationProjetService->all();
@@ -78,7 +79,8 @@ class BaseLivrablesRealisationController extends AdminController
     public function store(LivrablesRealisationRequest $request) {
         $validatedData = $request->validated();
         $livrablesRealisation = $this->livrablesRealisationService->create($validatedData);
-
+        
+       
         if ($request->ajax()) {
              $message = __('Core::msg.addSuccess', [
                 'entityToString' => $livrablesRealisation,
@@ -122,11 +124,9 @@ class BaseLivrablesRealisationController extends AdminController
         $itemLivrablesRealisation = $this->livrablesRealisationService->find($id);
         $this->authorize('edit', $itemLivrablesRealisation);
 
-        // TODO scope livrable pour Projet 
-        $realisation_projet = (new RealisationProjetService())
-        ->find($itemLivrablesRealisation->realisation_projet_id);
-        $projet_id = $realisation_projet->affectationProjet->projet->id;
-        $this->viewState->set('scope.livrable.projet_id', $projet_id);
+        $value = $itemLivrablesRealisation->getNestedValue('realisationProjet.affectationProjet.projet.id');
+        $key = 'scope.livrable.projet_id';
+        $this->viewState->set($key, $value);
 
         $livrables = $this->livrableService->all();
         $realisationProjets = $this->realisationProjetService->all();
