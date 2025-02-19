@@ -135,6 +135,9 @@ class BaseRealisationProjetController extends AdminController
 
         $affectationProjets = $this->affectationProjetService->all();
         $apprenants = $this->apprenantService->all();
+
+        // TODO scope etatsRealisationProjet pour Formateur (Owner de projet)
+        $this->viewState->set('scope.etatsRealisationProjet.formateur_id', $itemRealisationProjet->affectationProjet->projet->formateur->id);
         $etatsRealisationProjets = $this->etatsRealisationProjetService->all();
 
         $this->viewState->set('scope.livrablesRealisation.realisation_projet_id', $id);
