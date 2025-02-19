@@ -3,7 +3,6 @@
 
 
 namespace Modules\PkgRealisationProjets\Controllers\Base;
-use Modules\PkgRealisationProjets\Services\AffectationProjetService;
 use Modules\PkgRealisationProjets\Services\LivrablesRealisationService;
 use Modules\PkgCreationProjet\Services\LivrableService;
 use Modules\PkgRealisationProjets\Services\RealisationProjetService;
@@ -60,14 +59,10 @@ class BaseLivrablesRealisationController extends AdminController
         $this->viewState->set('scope_form.livrablesRealisation.apprenant_id'  , $this->sessionState->get('apprenant_id'));
         $itemLivrablesRealisation = $this->livrablesRealisationService->createInstance();
         
-
-        // scopeData = { variable : "scope.livrable.projet_id", value:"realisationProjet.affectationProjet.projet.id" }
         $value = $itemLivrablesRealisation->getNestedValue('realisationProjet.affectationProjet.projet.id');
         $key = 'scope.livrable.projet_id';
         $this->viewState->set($key, $value);
-
         $livrables = $this->livrableService->all();
-        
         $realisationProjets = $this->realisationProjetService->all();
 
 
@@ -79,8 +74,7 @@ class BaseLivrablesRealisationController extends AdminController
     public function store(LivrablesRealisationRequest $request) {
         $validatedData = $request->validated();
         $livrablesRealisation = $this->livrablesRealisationService->create($validatedData);
-        
-       
+
         if ($request->ajax()) {
              $message = __('Core::msg.addSuccess', [
                 'entityToString' => $livrablesRealisation,
@@ -127,7 +121,6 @@ class BaseLivrablesRealisationController extends AdminController
         $value = $itemLivrablesRealisation->getNestedValue('realisationProjet.affectationProjet.projet.id');
         $key = 'scope.livrable.projet_id';
         $this->viewState->set($key, $value);
-
         $livrables = $this->livrableService->all();
         $realisationProjets = $this->realisationProjetService->all();
 

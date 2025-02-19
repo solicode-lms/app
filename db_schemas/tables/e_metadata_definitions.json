@@ -665,7 +665,7 @@
         "name": "scopeData",
         "type": "Json",
         "scope": "field",
-        "default_value": "{   \"key \": \"scope.livrable.projet_id\",   \"value\": \"realisationProjet.affectationProjet.projet.id\" }",
+        "default_value": "{   \"key\": \"scope.livrable.projet_id\",   \"value\": \"realisationProjet.affectationProjet.projet.id\" }",
         "groupe": "form",
         "description": "scope les données dans un select dans une relation ManyToOne et ManyToMany",
         "created_at": null,
