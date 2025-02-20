@@ -51,6 +51,7 @@ class BaseNationaliteController extends AdminController
     }
     public function create() {
         $itemNationalite = $this->nationaliteService->createInstance();
+        
 
 
         if (request()->ajax()) {

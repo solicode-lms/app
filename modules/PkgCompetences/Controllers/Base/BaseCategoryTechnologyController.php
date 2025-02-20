@@ -51,6 +51,7 @@ class BaseCategoryTechnologyController extends AdminController
     }
     public function create() {
         $itemCategoryTechnology = $this->categoryTechnologyService->createInstance();
+        
 
 
         if (request()->ajax()) {

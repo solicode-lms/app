@@ -59,9 +59,10 @@ class BaseEMetadatumController extends AdminController
     }
     public function create() {
         $itemEMetadatum = $this->eMetadatumService->createInstance();
+        
+        $eModels = $this->eModelService->all();
         $eDataFields = $this->eDataFieldService->all();
         $eMetadataDefinitions = $this->eMetadataDefinitionService->all();
-        $eModels = $this->eModelService->all();
 
 
         if (request()->ajax()) {
@@ -116,9 +117,9 @@ class BaseEMetadatumController extends AdminController
 
         $itemEMetadatum = $this->eMetadatumService->find($id);
 
+        $eModels = $this->eModelService->all();
         $eDataFields = $this->eDataFieldService->all();
         $eMetadataDefinitions = $this->eMetadataDefinitionService->all();
-        $eModels = $this->eModelService->all();
 
 
         if (request()->ajax()) {

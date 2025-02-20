@@ -64,9 +64,10 @@ class BaseTransfertCompetenceController extends AdminController
     public function create() {
         $this->viewState->set('scope_form.transfertCompetence.formateur_id'  , $this->sessionState->get('formateur_id'));
         $itemTransfertCompetence = $this->transfertCompetenceService->createInstance();
-        $technologies = $this->technologyService->all();
+        
         $competences = $this->competenceService->all();
         $niveauDifficultes = $this->niveauDifficulteService->all();
+        $technologies = $this->technologyService->all();
         $projets = $this->projetService->all();
 
 
@@ -124,9 +125,9 @@ class BaseTransfertCompetenceController extends AdminController
         $itemTransfertCompetence = $this->transfertCompetenceService->find($id);
         $this->authorize('edit', $itemTransfertCompetence);
 
-        $technologies = $this->technologyService->all();
         $competences = $this->competenceService->all();
         $niveauDifficultes = $this->niveauDifficulteService->all();
+        $technologies = $this->technologyService->all();
         $projets = $this->projetService->all();
 
 

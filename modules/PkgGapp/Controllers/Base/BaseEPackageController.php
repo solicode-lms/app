@@ -51,6 +51,7 @@ class BaseEPackageController extends AdminController
     }
     public function create() {
         $itemEPackage = $this->ePackageService->createInstance();
+        
 
 
         if (request()->ajax()) {

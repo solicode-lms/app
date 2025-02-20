@@ -55,6 +55,7 @@ class BaseNiveauDifficulteController extends AdminController
     public function create() {
         $this->viewState->set('scope_form.niveauDifficulte.formateur_id'  , $this->sessionState->get('formateur_id'));
         $itemNiveauDifficulte = $this->niveauDifficulteService->createInstance();
+        
         $formateurs = $this->formateurService->all();
 
 

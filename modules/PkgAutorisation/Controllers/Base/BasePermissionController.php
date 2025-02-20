@@ -59,9 +59,10 @@ class BasePermissionController extends AdminController
     }
     public function create() {
         $itemPermission = $this->permissionService->createInstance();
+        
+        $sysControllers = $this->sysControllerService->all();
         $features = $this->featureService->all();
         $roles = $this->roleService->all();
-        $sysControllers = $this->sysControllerService->all();
 
 
         if (request()->ajax()) {
@@ -116,9 +117,9 @@ class BasePermissionController extends AdminController
 
         $itemPermission = $this->permissionService->find($id);
 
+        $sysControllers = $this->sysControllerService->all();
         $features = $this->featureService->all();
         $roles = $this->roleService->all();
-        $sysControllers = $this->sysControllerService->all();
 
 
         if (request()->ajax()) {

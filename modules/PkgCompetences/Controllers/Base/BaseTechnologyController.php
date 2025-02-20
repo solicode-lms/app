@@ -59,9 +59,10 @@ class BaseTechnologyController extends AdminController
     }
     public function create() {
         $itemTechnology = $this->technologyService->createInstance();
+        
+        $categoryTechnologies = $this->categoryTechnologyService->all();
         $competences = $this->competenceService->all();
         $transfertCompetences = $this->transfertCompetenceService->all();
-        $categoryTechnologies = $this->categoryTechnologyService->all();
 
 
         if (request()->ajax()) {
@@ -116,9 +117,9 @@ class BaseTechnologyController extends AdminController
 
         $itemTechnology = $this->technologyService->find($id);
 
+        $categoryTechnologies = $this->categoryTechnologyService->all();
         $competences = $this->competenceService->all();
         $transfertCompetences = $this->transfertCompetenceService->all();
-        $categoryTechnologies = $this->categoryTechnologyService->all();
 
 
         if (request()->ajax()) {

@@ -51,6 +51,7 @@ class BaseNatureLivrableController extends AdminController
     }
     public function create() {
         $itemNatureLivrable = $this->natureLivrableService->createInstance();
+        
 
 
         if (request()->ajax()) {

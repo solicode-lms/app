@@ -59,8 +59,9 @@ class BaseFormateurController extends AdminController
     }
     public function create() {
         $itemFormateur = $this->formateurService->createInstance();
-        $groupes = $this->groupeService->all();
+        
         $specialites = $this->specialiteService->all();
+        $groupes = $this->groupeService->all();
         $users = $this->userService->all();
 
 
@@ -116,8 +117,8 @@ class BaseFormateurController extends AdminController
 
         $itemFormateur = $this->formateurService->find($id);
 
-        $groupes = $this->groupeService->all();
         $specialites = $this->specialiteService->all();
+        $groupes = $this->groupeService->all();
         $users = $this->userService->all();
 
 

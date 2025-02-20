@@ -56,8 +56,9 @@ class BaseFeatureController extends AdminController
     }
     public function create() {
         $itemFeature = $this->featureService->createInstance();
-        $permissions = $this->permissionService->all();
+        
         $featureDomains = $this->featureDomainService->all();
+        $permissions = $this->permissionService->all();
 
 
         if (request()->ajax()) {
@@ -111,8 +112,8 @@ class BaseFeatureController extends AdminController
 
         $itemFeature = $this->featureService->find($id);
 
-        $permissions = $this->permissionService->all();
         $featureDomains = $this->featureDomainService->all();
+        $permissions = $this->permissionService->all();
 
 
         if (request()->ajax()) {

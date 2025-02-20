@@ -55,6 +55,7 @@ class BaseProfileController extends AdminController
     public function create() {
         $this->viewState->set('scope_form.profile.user_id'  , $this->sessionState->get('user_id'));
         $itemProfile = $this->profileService->createInstance();
+        
         $users = $this->userService->all();
 
 

@@ -62,10 +62,11 @@ class BaseApprenantController extends AdminController
     }
     public function create() {
         $itemApprenant = $this->apprenantService->createInstance();
-        $groupes = $this->groupeService->all();
+        
         $nationalites = $this->nationaliteService->all();
         $niveauxScolaires = $this->niveauxScolaireService->all();
         $users = $this->userService->all();
+        $groupes = $this->groupeService->all();
 
 
         if (request()->ajax()) {
@@ -121,10 +122,10 @@ class BaseApprenantController extends AdminController
 
         $itemApprenant = $this->apprenantService->find($id);
 
-        $groupes = $this->groupeService->all();
         $nationalites = $this->nationaliteService->all();
         $niveauxScolaires = $this->niveauxScolaireService->all();
         $users = $this->userService->all();
+        $groupes = $this->groupeService->all();
 
 
         if (request()->ajax()) {

@@ -58,8 +58,9 @@ class BaseValidationController extends AdminController
     public function create() {
         $this->viewState->set('scope_form.validation.formateur_id'  , $this->sessionState->get('formateur_id'));
         $itemValidation = $this->validationService->createInstance();
-        $realisationProjets = $this->realisationProjetService->all();
+        
         $transfertCompetences = $this->transfertCompetenceService->all();
+        $realisationProjets = $this->realisationProjetService->all();
 
 
         if (request()->ajax()) {
@@ -114,8 +115,8 @@ class BaseValidationController extends AdminController
         $itemValidation = $this->validationService->find($id);
         $this->authorize('edit', $itemValidation);
 
-        $realisationProjets = $this->realisationProjetService->all();
         $transfertCompetences = $this->transfertCompetenceService->all();
+        $realisationProjets = $this->realisationProjetService->all();
 
 
         if (request()->ajax()) {

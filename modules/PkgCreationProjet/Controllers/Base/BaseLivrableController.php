@@ -58,6 +58,7 @@ class BaseLivrableController extends AdminController
     public function create() {
         $this->viewState->set('scope_form.livrable.formateur_id'  , $this->sessionState->get('formateur_id'));
         $itemLivrable = $this->livrableService->createInstance();
+        
         $natureLivrables = $this->natureLivrableService->all();
         $projets = $this->projetService->all();
 

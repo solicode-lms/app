@@ -52,6 +52,7 @@ class BaseAnneeFormationController extends AdminController
     }
     public function create() {
         $itemAnneeFormation = $this->anneeFormationService->createInstance();
+        
 
 
         if (request()->ajax()) {

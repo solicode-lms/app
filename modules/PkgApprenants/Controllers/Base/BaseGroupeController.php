@@ -63,10 +63,11 @@ class BaseGroupeController extends AdminController
     }
     public function create() {
         $itemGroupe = $this->groupeService->createInstance();
+        
+        $filieres = $this->filiereService->all();
+        $anneeFormations = $this->anneeFormationService->all();
         $apprenants = $this->apprenantService->all();
         $formateurs = $this->formateurService->all();
-        $anneeFormations = $this->anneeFormationService->all();
-        $filieres = $this->filiereService->all();
 
 
         if (request()->ajax()) {
@@ -128,10 +129,10 @@ class BaseGroupeController extends AdminController
 
         $itemGroupe = $this->groupeService->find($id);
 
+        $filieres = $this->filiereService->all();
+        $anneeFormations = $this->anneeFormationService->all();
         $apprenants = $this->apprenantService->all();
         $formateurs = $this->formateurService->all();
-        $anneeFormations = $this->anneeFormationService->all();
-        $filieres = $this->filiereService->all();
 
         $this->viewState->set('scope.affectationProjet.groupe_id', $id);
         $affectationProjetService =  new AffectationProjetService();

@@ -57,8 +57,9 @@ class BaseSysModelController extends AdminController
     }
     public function create() {
         $itemSysModel = $this->sysModelService->createInstance();
-        $sysColors = $this->sysColorService->all();
+        
         $sysModules = $this->sysModuleService->all();
+        $sysColors = $this->sysColorService->all();
 
 
         if (request()->ajax()) {
@@ -118,8 +119,8 @@ class BaseSysModelController extends AdminController
 
         $itemSysModel = $this->sysModelService->find($id);
 
-        $sysColors = $this->sysColorService->all();
         $sysModules = $this->sysModuleService->all();
+        $sysColors = $this->sysColorService->all();
 
         $this->viewState->set('scope.widget.model_id', $id);
         $widgetService =  new WidgetService();

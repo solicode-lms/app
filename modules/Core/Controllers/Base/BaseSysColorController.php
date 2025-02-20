@@ -52,6 +52,7 @@ class BaseSysColorController extends AdminController
     }
     public function create() {
         $itemSysColor = $this->sysColorService->createInstance();
+        
 
 
         if (request()->ajax()) {

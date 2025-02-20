@@ -52,6 +52,7 @@ class BaseFiliereController extends AdminController
     }
     public function create() {
         $itemFiliere = $this->filiereService->createInstance();
+        
 
 
         if (request()->ajax()) {

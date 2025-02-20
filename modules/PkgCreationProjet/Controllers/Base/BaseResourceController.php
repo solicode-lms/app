@@ -55,6 +55,7 @@ class BaseResourceController extends AdminController
     public function create() {
         $this->viewState->set('scope_form.resource.formateur_id'  , $this->sessionState->get('formateur_id'));
         $itemResource = $this->resourceService->createInstance();
+        
         $projets = $this->projetService->all();
 
 

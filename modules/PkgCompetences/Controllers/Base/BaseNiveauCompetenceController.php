@@ -53,6 +53,7 @@ class BaseNiveauCompetenceController extends AdminController
     }
     public function create() {
         $itemNiveauCompetence = $this->niveauCompetenceService->createInstance();
+        
         $competences = $this->competenceService->all();
 
 

@@ -51,6 +51,7 @@ class BaseWidgetTypeController extends AdminController
     }
     public function create() {
         $itemWidgetType = $this->widgetTypeService->createInstance();
+        
 
 
         if (request()->ajax()) {

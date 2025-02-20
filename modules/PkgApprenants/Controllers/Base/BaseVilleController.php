@@ -50,6 +50,7 @@ class BaseVilleController extends AdminController
     }
     public function create() {
         $itemVille = $this->villeService->createInstance();
+        
 
 
         if (request()->ajax()) {

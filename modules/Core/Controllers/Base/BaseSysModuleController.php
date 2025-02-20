@@ -56,6 +56,7 @@ class BaseSysModuleController extends AdminController
     }
     public function create() {
         $itemSysModule = $this->sysModuleService->createInstance();
+        
         $sysColors = $this->sysColorService->all();
 
 

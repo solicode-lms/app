@@ -57,8 +57,9 @@ class BaseCompetenceController extends AdminController
     }
     public function create() {
         $itemCompetence = $this->competenceService->createInstance();
-        $technologies = $this->technologyService->all();
+        
         $modules = $this->moduleService->all();
+        $technologies = $this->technologyService->all();
 
 
         if (request()->ajax()) {
@@ -118,8 +119,8 @@ class BaseCompetenceController extends AdminController
 
         $itemCompetence = $this->competenceService->find($id);
 
-        $technologies = $this->technologyService->all();
         $modules = $this->moduleService->all();
+        $technologies = $this->technologyService->all();
 
         $this->viewState->set('scope.niveauCompetence.competence_id', $id);
         $niveauCompetenceService =  new NiveauCompetenceService();

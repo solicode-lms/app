@@ -54,6 +54,7 @@ class BaseModuleController extends AdminController
     }
     public function create() {
         $itemModule = $this->moduleService->createInstance();
+        
         $filieres = $this->filiereService->all();
 
 

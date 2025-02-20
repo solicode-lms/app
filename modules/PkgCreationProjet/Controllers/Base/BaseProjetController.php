@@ -59,6 +59,7 @@ class BaseProjetController extends AdminController
     public function create() {
         $this->viewState->set('scope_form.projet.formateur_id'  , $this->sessionState->get('formateur_id'));
         $itemProjet = $this->projetService->createInstance();
+        
         $formateurs = $this->formateurService->all();
 
 

@@ -66,9 +66,10 @@ class BaseAffectationProjetController extends AdminController
         $this->viewState->set('scope.projet.formateur_id', auth()->user()->formateur->id);
         $this->viewState->set('scope.groupe.formateur_id', auth()->user()->formateur->id);
         $itemAffectationProjet = $this->affectationProjetService->createInstance();
-        $anneeFormations = $this->anneeFormationService->all();
-        $groupes = $this->groupeService->all();
+        
         $projets = $this->projetService->all();
+        $groupes = $this->groupeService->all();
+        $anneeFormations = $this->anneeFormationService->all();
 
 
         if (request()->ajax()) {
@@ -132,9 +133,9 @@ class BaseAffectationProjetController extends AdminController
         $itemAffectationProjet = $this->affectationProjetService->find($id);
         $this->authorize('edit', $itemAffectationProjet);
 
-        $anneeFormations = $this->anneeFormationService->all();
-        $groupes = $this->groupeService->all();
         $projets = $this->projetService->all();
+        $groupes = $this->groupeService->all();
+        $anneeFormations = $this->anneeFormationService->all();
 
         $this->viewState->set('scope.realisationProjet.affectation_projet_id', $id);
         $realisationProjetService =  new RealisationProjetService();

@@ -50,6 +50,7 @@ class BaseEMetadataDefinitionController extends AdminController
     }
     public function create() {
         $itemEMetadataDefinition = $this->eMetadataDefinitionService->createInstance();
+        
 
 
         if (request()->ajax()) {

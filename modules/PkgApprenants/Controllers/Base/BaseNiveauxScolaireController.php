@@ -51,6 +51,7 @@ class BaseNiveauxScolaireController extends AdminController
     }
     public function create() {
         $itemNiveauxScolaire = $this->niveauxScolaireService->createInstance();
+        
 
 
         if (request()->ajax()) {

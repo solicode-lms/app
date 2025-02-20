@@ -55,6 +55,7 @@ class BaseEtatsRealisationProjetController extends AdminController
     public function create() {
         $this->viewState->set('scope_form.etatsRealisationProjet.formateur_id'  , $this->sessionState->get('formateur_id'));
         $itemEtatsRealisationProjet = $this->etatsRealisationProjetService->createInstance();
+        
         $formateurs = $this->formateurService->all();
 
 

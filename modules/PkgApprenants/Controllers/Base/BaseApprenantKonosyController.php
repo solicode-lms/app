@@ -50,6 +50,7 @@ class BaseApprenantKonosyController extends AdminController
     }
     public function create() {
         $itemApprenantKonosy = $this->apprenantKonosyService->createInstance();
+        
 
 
         if (request()->ajax()) {

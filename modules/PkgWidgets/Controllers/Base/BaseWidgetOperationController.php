@@ -51,6 +51,7 @@ class BaseWidgetOperationController extends AdminController
     }
     public function create() {
         $itemWidgetOperation = $this->widgetOperationService->createInstance();
+        
 
 
         if (request()->ajax()) {
