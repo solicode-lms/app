@@ -36,7 +36,7 @@ class BaseAffectationProjetController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('affectationProjet.index');
-        if($this->sessionState->get('formateur_id')) $this->viewState->init('filter.affectationProjet.formateur_id'  , $this->sessionState->get('formateur_id'));
+        if($this->sessionState->get('formateur_id')) $this->viewState->init('scope.affectationProjet.formateur_id'  , $this->sessionState->get('formateur_id'));
         if(auth()->user()->formateur) $this->viewState->set('scope.projet.formateur_id', auth()->user()->formateur->id);
         if(auth()->user()->formateur) $this->viewState->set('scope.groupe.formateur_id', auth()->user()->formateur->id);
 
