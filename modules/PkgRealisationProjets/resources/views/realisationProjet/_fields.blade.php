@@ -1,4 +1,4 @@
-{{-- //TODO Apprenant et Affectation projet doit être readOnly --}}
+{{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @section('realisationProjet-form')
 <form class="crud-form custom-form context-state container" id="realisationProjetForm" action="{{ $itemRealisationProjet->id ? route('realisationProjets.update', $itemRealisationProjet->id) : route('realisationProjets.store') }}" method="POST" novalidate>
@@ -9,18 +9,20 @@
     @endif
 
     <div class="card-body row">
-            <div class="form-group col-12 col-md-6"  >
+        
+        @php $canEditaffectation_projet_id = Auth::user()->hasAnyRole(explode(',', 'formateur')); @endphp
+<div class="form-group col-12 col-md-6">
             <label for="affectation_projet_id">
                 {{ ucfirst(__('PkgRealisationProjets::affectationProjet.singular')) }}
                 
                     <span class="text-danger">*</span>
                 
             </label>
-            @php $canEditAffectation = Auth::user()->hasAnyRole(explode(',', 'Formateur,Admin')); @endphp
             <select 
             id="affectation_projet_id" 
+            {{ $canEditaffectation_projet_id ? '' : 'disabled' }}
             required
-            {{ $canEditAffectation ? '' : 'disabled' }}
+            
             name="affectation_projet_id" 
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
@@ -38,18 +40,19 @@
 
 
         
-            <div class="form-group col-12 col-md-6">
+        @php $canEditapprenant_id = Auth::user()->hasAnyRole(explode(',', 'formateur')); @endphp
+<div class="form-group col-12 col-md-6">
             <label for="apprenant_id">
                 {{ ucfirst(__('PkgApprenants::apprenant.singular')) }}
                 
                     <span class="text-danger">*</span>
                 
             </label>
-            @php $canEditApprenant = Auth::user()->hasAnyRole(explode(',', 'Formateur,Apprenant')); @endphp
             <select 
             id="apprenant_id" 
+            {{ $canEditapprenant_id ? '' : 'disabled' }}
             required
-            {{ $canEditApprenant ? '' : 'disabled' }}
+            
             name="apprenant_id" 
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
@@ -67,7 +70,7 @@
 
 
         
-            <div class="form-group col-12 col-md-6">
+        <div class="form-group col-12 col-md-6">
             <label for="etats_realisation_projet_id">
                 {{ ucfirst(__('PkgRealisationProjets::etatsRealisationProjet.singular')) }}
                 

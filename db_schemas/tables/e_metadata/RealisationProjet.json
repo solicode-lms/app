@@ -383,5 +383,25 @@
         },
         "e_data_field_reference": "RealisationProjet_etats_realisation_projet_id",
         "e_metadata_definition_reference": "scopeData"
+    },
+    {
+        "reference": "RealisationProjet_apprenant_id_editableByRoles",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "roles": "formateur"
+        },
+        "e_data_field_reference": "RealisationProjet_apprenant_id",
+        "e_metadata_definition_reference": "editableByRoles"
+    },
+    {
+        "reference": "RealisationProjet_affectation_projet_id_editableByRoles",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "roles": "formateur"
+        },
+        "e_data_field_reference": "RealisationProjet_affectation_projet_id",
+        "e_metadata_definition_reference": "editableByRoles"
     }
 ]

@@ -1,5 +1,5 @@
 <?php
-// TODO Gapp : add autorisation metaData : {editBy : ["formateur"],}
+// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 
@@ -26,37 +26,47 @@ class BaseRealisationProjetRequest extends FormRequest
      *
      * @return array
      */
-    /**
-     * Retourne les règles de validation appliquées aux champs de la requête.
-     *
-     * @return array
-     */
     public function rules(): array
     {
-   
-        // Définition des règles par défaut (tous les champs obligatoires)
-        $rules = [
+        return [
             'affectation_projet_id' => 'required',
             'apprenant_id' => 'required',
             'etats_realisation_projet_id' => 'nullable',
             'date_debut' => 'required',
             'date_fin' => 'nullable',
-            'rapport' => 'nullable|string',
+            'rapport' => 'nullable|string'
         ];
-    
-
-        return $rules;
     }
 
+    /**
+     * Retourne les messages de validation associés aux règles.
+     *
+     * @return array
+     */
+    public function messages(): array
+    {
+        return [
+            'affectation_projet_id.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::RealisationProjet.affectation_projet_id')]),
+            'apprenant_id.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::RealisationProjet.apprenant_id')]),
+            'etats_realisation_projet_id.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::RealisationProjet.etats_realisation_projet_id')]),
+            'date_debut.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::RealisationProjet.date_debut')]),
+            'date_fin.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::RealisationProjet.date_fin')]),
+            'rapport.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::RealisationProjet.rapport')])
+        ];
+    }
 
+    
     protected function prepareForValidation()
     {
         $user = Auth::user();
 
         // Définition des rôles autorisés pour chaque champ
         $editableFieldsByRoles = [
-            'affectation_projet_id' => "Formateur,Admin",
-            'apprenant_id' => "Formateur,Apprenant",
+            
+            'affectation_projet_id' => "formateur",
+            
+            'apprenant_id' => "formateur",
+            
         ];
 
         // Charger l'instance actuelle du modèle (optionnel, selon ton contexte)
@@ -78,21 +88,5 @@ class BaseRealisationProjetRequest extends FormRequest
             }
         }
     }
-
-    /**
-     * Retourne les messages de validation associés aux règles.
-     *
-     * @return array
-     */
-    public function messages(): array
-    {
-        return [
-            'affectation_projet_id.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::RealisationProjet.affectation_projet_id')]),
-            'apprenant_id.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::RealisationProjet.apprenant_id')]),
-            'etats_realisation_projet_id.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::RealisationProjet.etats_realisation_projet_id')]),
-            'date_debut.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::RealisationProjet.date_debut')]),
-            'date_fin.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::RealisationProjet.date_fin')]),
-            'rapport.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::RealisationProjet.rapport')])
-        ];
-    }
+    
 }
