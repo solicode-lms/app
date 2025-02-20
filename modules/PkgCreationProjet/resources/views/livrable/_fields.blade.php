@@ -10,7 +10,7 @@
 
     <div class="card-body row">
         
-            <div class="form-group col-12 col-md-6">
+        <div class="form-group col-12 col-md-6">
             <label for="nature_livrable_id">
                 {{ ucfirst(__('PkgCreationProjet::natureLivrable.singular')) }}
                 
@@ -60,7 +60,7 @@
 </div>
 
         
-            <div class="form-group col-12 col-md-6">
+        <div class="form-group col-12 col-md-6">
             <label for="projet_id">
                 {{ ucfirst(__('PkgCreationProjet::projet.singular')) }}
                 

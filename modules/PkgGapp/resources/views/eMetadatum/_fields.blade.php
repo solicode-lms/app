@@ -209,7 +209,7 @@
 </div>
 
         
-            <div class="form-group col-12 col-md-6">
+        <div class="form-group col-12 col-md-6">
             <label for="e_model_id">
                 {{ ucfirst(__('PkgGapp::eModel.singular')) }}
                 
@@ -235,7 +235,7 @@
 
 
         
-            <div class="form-group col-12 col-md-6">
+        <div class="form-group col-12 col-md-6">
             <label for="e_data_field_id">
                 {{ ucfirst(__('PkgGapp::eDataField.singular')) }}
                 
@@ -261,7 +261,7 @@
 
 
         
-            <div class="form-group col-12 col-md-6">
+        <div class="form-group col-12 col-md-6">
             <label for="e_metadata_definition_id">
                 {{ ucfirst(__('PkgGapp::eMetadataDefinition.singular')) }}
                 

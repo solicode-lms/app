@@ -6,6 +6,8 @@
 namespace Modules\Core\App\Requests\Base;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
+use Modules\Core\Models\SysModel;
 
 class BaseSysModelRequest extends FormRequest
 {
@@ -52,4 +54,6 @@ class BaseSysModelRequest extends FormRequest
             'sys_color_id.required' => __('validation.required', ['attribute' => __('Core::SysModel.sys_color_id')])
         ];
     }
+
+    
 }

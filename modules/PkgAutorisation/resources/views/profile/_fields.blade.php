@@ -68,7 +68,7 @@
 </div>
 
         
-            <div class="form-group col-12 col-md-6">
+        <div class="form-group col-12 col-md-6">
             <label for="user_id">
                 {{ ucfirst(__('PkgAutorisation::user.singular')) }}
                 

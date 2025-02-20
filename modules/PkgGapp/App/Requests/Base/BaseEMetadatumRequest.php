@@ -6,6 +6,8 @@
 namespace Modules\PkgGapp\App\Requests\Base;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
+use Modules\PkgGapp\Models\EMetadatum;
 
 class BaseEMetadatumRequest extends FormRequest
 {
@@ -68,4 +70,6 @@ class BaseEMetadatumRequest extends FormRequest
             'e_metadata_definition_id.required' => __('validation.required', ['attribute' => __('PkgGapp::EMetadatum.e_metadata_definition_id')])
         ];
     }
+
+    
 }

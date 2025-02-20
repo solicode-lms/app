@@ -6,6 +6,8 @@
 namespace Modules\Core\App\Requests\Base;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
+use Modules\Core\Models\SysController;
 
 class BaseSysControllerRequest extends FormRequest
 {
@@ -52,4 +54,6 @@ class BaseSysControllerRequest extends FormRequest
             'is_active.required' => __('validation.required', ['attribute' => __('Core::SysController.is_active')])
         ];
     }
+
+    
 }

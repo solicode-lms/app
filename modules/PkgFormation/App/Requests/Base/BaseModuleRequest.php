@@ -6,6 +6,8 @@
 namespace Modules\PkgFormation\App\Requests\Base;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
+use Modules\PkgFormation\Models\Module;
 
 class BaseModuleRequest extends FormRequest
 {
@@ -50,4 +52,6 @@ class BaseModuleRequest extends FormRequest
             'filiere_id.required' => __('validation.required', ['attribute' => __('PkgFormation::Module.filiere_id')])
         ];
     }
+
+    
 }

@@ -32,7 +32,7 @@
 </div>
 
         
-            <div class="form-group col-12 col-md-6">
+        <div class="form-group col-12 col-md-6">
             <label for="type_id">
                 {{ ucfirst(__('PkgWidgets::widgetType.singular')) }}
                 
@@ -60,7 +60,7 @@
 
 
         
-            <div class="form-group col-12 col-md-6">
+        <div class="form-group col-12 col-md-6">
             <label for="model_id">
                 {{ ucfirst(__('Core::sysModel.singular')) }}
                 
@@ -88,7 +88,7 @@
 
 
         
-            <div class="form-group col-12 col-md-6">
+        <div class="form-group col-12 col-md-6">
             <label for="operation_id">
                 {{ ucfirst(__('PkgWidgets::widgetOperation.singular')) }}
                 

@@ -10,7 +10,7 @@
 
     <div class="card-body row">
         
-            <div class="form-group col-12 col-md-6">
+        <div class="form-group col-12 col-md-6">
             <label for="transfert_competence_id">
                 {{ ucfirst(__('PkgCreationProjet::transfertCompetence.singular')) }}
                 
@@ -103,7 +103,7 @@
 </div>
 
         
-            <div class="form-group col-12 col-md-6">
+        <div class="form-group col-12 col-md-6">
             <label for="realisation_projet_id">
                 {{ ucfirst(__('PkgRealisationProjets::realisationProjet.singular')) }}
                 

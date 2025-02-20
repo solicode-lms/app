@@ -6,6 +6,8 @@
 namespace Modules\PkgRealisationProjets\App\Requests\Base;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
+use Modules\PkgRealisationProjets\Models\Validation;
 
 class BaseValidationRequest extends FormRequest
 {
@@ -50,4 +52,6 @@ class BaseValidationRequest extends FormRequest
             'realisation_projet_id.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::Validation.realisation_projet_id')])
         ];
     }
+
+    
 }

@@ -185,7 +185,7 @@
 </div>
 
         
-            <div class="form-group col-12 col-md-6">
+        <div class="form-group col-12 col-md-6">
             <label for="e_model_id">
                 {{ ucfirst(__('PkgGapp::eModel.singular')) }}
                 
@@ -213,7 +213,7 @@
 
 
         
-            <div class="form-group col-12 col-md-6">
+        <div class="form-group col-12 col-md-6">
             <label for="e_relationship_id">
                 {{ ucfirst(__('PkgGapp::eRelationship.singular')) }}
                 

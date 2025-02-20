@@ -6,6 +6,8 @@
 namespace Modules\PkgApprenants\App\Requests\Base;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
+use Modules\PkgApprenants\Models\Apprenant;
 
 class BaseApprenantRequest extends FormRequest
 {
@@ -90,4 +92,6 @@ class BaseApprenantRequest extends FormRequest
             'actif.required' => __('validation.required', ['attribute' => __('PkgApprenants::Apprenant.actif')])
         ];
     }
+
+    
 }

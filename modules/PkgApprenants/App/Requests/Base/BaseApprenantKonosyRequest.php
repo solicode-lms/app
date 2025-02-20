@@ -6,6 +6,8 @@
 namespace Modules\PkgApprenants\App\Requests\Base;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
+use Modules\PkgApprenants\Models\ApprenantKonosy;
 
 class BaseApprenantKonosyRequest extends FormRequest
 {
@@ -96,4 +98,6 @@ class BaseApprenantKonosyRequest extends FormRequest
             'NiveauScolaire.max' => __('validation.NiveauScolaireMax')
         ];
     }
+
+    
 }

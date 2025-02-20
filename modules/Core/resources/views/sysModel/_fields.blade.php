@@ -74,7 +74,7 @@
 </div>
 
         
-            <div class="form-group col-12 col-md-6">
+        <div class="form-group col-12 col-md-6">
             <label for="sys_module_id">
                 {{ ucfirst(__('Core::sysModule.singular')) }}
                 
@@ -102,7 +102,7 @@
 
 
         
-            <div class="form-group col-12 col-md-6">
+        <div class="form-group col-12 col-md-6">
             <label for="sys_color_id">
                 {{ ucfirst(__('Core::sysColor.singular')) }}
                 

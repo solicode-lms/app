@@ -6,6 +6,8 @@
 namespace Modules\PkgCreationProjet\App\Requests\Base;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
+use Modules\PkgCreationProjet\Models\Projet;
 
 class BaseProjetRequest extends FormRequest
 {
@@ -53,4 +55,6 @@ class BaseProjetRequest extends FormRequest
             'formateur_id.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Projet.formateur_id')])
         ];
     }
+
+    
 }

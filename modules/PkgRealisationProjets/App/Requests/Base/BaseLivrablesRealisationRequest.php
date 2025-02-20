@@ -6,6 +6,8 @@
 namespace Modules\PkgRealisationProjets\App\Requests\Base;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
+use Modules\PkgRealisationProjets\Models\LivrablesRealisation;
 
 class BaseLivrablesRealisationRequest extends FormRequest
 {
@@ -52,4 +54,6 @@ class BaseLivrablesRealisationRequest extends FormRequest
             'realisation_projet_id.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::LivrablesRealisation.realisation_projet_id')])
         ];
     }
+
+    
 }

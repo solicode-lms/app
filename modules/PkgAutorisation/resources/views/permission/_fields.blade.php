@@ -54,7 +54,7 @@
 </div>
 
         
-            <div class="form-group col-12 col-md-6">
+        <div class="form-group col-12 col-md-6">
             <label for="controller_id">
                 {{ ucfirst(__('Core::sysController.singular')) }}
                 

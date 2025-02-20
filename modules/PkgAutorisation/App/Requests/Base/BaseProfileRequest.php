@@ -6,6 +6,8 @@
 namespace Modules\PkgAutorisation\App\Requests\Base;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
+use Modules\PkgAutorisation\Models\Profile;
 
 class BaseProfileRequest extends FormRequest
 {
@@ -53,4 +55,6 @@ class BaseProfileRequest extends FormRequest
             'bio.required' => __('validation.required', ['attribute' => __('PkgAutorisation::Profile.bio')])
         ];
     }
+
+    
 }

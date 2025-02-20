@@ -6,6 +6,8 @@
 namespace Modules\PkgWidgets\App\Requests\Base;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
+use Modules\PkgWidgets\Models\Widget;
 
 class BaseWidgetRequest extends FormRequest
 {
@@ -60,4 +62,6 @@ class BaseWidgetRequest extends FormRequest
             'parameters.required' => __('validation.required', ['attribute' => __('PkgWidgets::Widget.parameters')])
         ];
     }
+
+    
 }

@@ -6,6 +6,8 @@
 namespace Modules\Core\App\Requests\Base;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
+use Modules\Core\Models\Feature;
 
 class BaseFeatureRequest extends FormRequest
 {
@@ -50,4 +52,6 @@ class BaseFeatureRequest extends FormRequest
             'permissions.array' => __('validation.array', ['attribute' => __('Core::Feature.permissions')])
         ];
     }
+
+    
 }

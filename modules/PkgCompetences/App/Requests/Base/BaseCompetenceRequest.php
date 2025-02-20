@@ -6,6 +6,8 @@
 namespace Modules\PkgCompetences\App\Requests\Base;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
+use Modules\PkgCompetences\Models\Competence;
 
 class BaseCompetenceRequest extends FormRequest
 {
@@ -56,4 +58,6 @@ class BaseCompetenceRequest extends FormRequest
             'description.required' => __('validation.required', ['attribute' => __('PkgCompetences::Competence.description')])
         ];
     }
+
+    
 }

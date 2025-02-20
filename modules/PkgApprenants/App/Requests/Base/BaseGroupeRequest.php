@@ -6,6 +6,8 @@
 namespace Modules\PkgApprenants\App\Requests\Base;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
+use Modules\PkgApprenants\Models\Groupe;
 
 class BaseGroupeRequest extends FormRequest
 {
@@ -58,4 +60,6 @@ class BaseGroupeRequest extends FormRequest
             'formateurs.array' => __('validation.array', ['attribute' => __('PkgApprenants::Groupe.formateurs')])
         ];
     }
+
+    
 }

@@ -6,6 +6,8 @@
 namespace Modules\PkgFormation\App\Requests\Base;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
+use Modules\PkgFormation\Models\Formateur;
 
 class BaseFormateurRequest extends FormRequest
 {
@@ -82,4 +84,6 @@ class BaseFormateurRequest extends FormRequest
             'user_id.required' => __('validation.required', ['attribute' => __('PkgFormation::Formateur.user_id')])
         ];
     }
+
+    
 }

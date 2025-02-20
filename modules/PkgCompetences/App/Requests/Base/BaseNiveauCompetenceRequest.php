@@ -6,6 +6,8 @@
 namespace Modules\PkgCompetences\App\Requests\Base;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
+use Modules\PkgCompetences\Models\NiveauCompetence;
 
 class BaseNiveauCompetenceRequest extends FormRequest
 {
@@ -47,4 +49,6 @@ class BaseNiveauCompetenceRequest extends FormRequest
             'competence_id.required' => __('validation.required', ['attribute' => __('PkgCompetences::NiveauCompetence.competence_id')])
         ];
     }
+
+    
 }

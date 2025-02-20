@@ -6,6 +6,8 @@
 namespace Modules\Core\App\Requests\Base;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
+use Modules\Core\Models\FeatureDomain;
 
 class BaseFeatureDomainRequest extends FormRequest
 {
@@ -50,4 +52,6 @@ class BaseFeatureDomainRequest extends FormRequest
             'sys_module_id.required' => __('validation.required', ['attribute' => __('Core::FeatureDomain.sys_module_id')])
         ];
     }
+
+    
 }

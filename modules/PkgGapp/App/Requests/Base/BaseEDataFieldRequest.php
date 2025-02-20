@@ -6,6 +6,8 @@
 namespace Modules\PkgGapp\App\Requests\Base;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
+use Modules\PkgGapp\Models\EDataField;
 
 class BaseEDataFieldRequest extends FormRequest
 {
@@ -68,4 +70,6 @@ class BaseEDataFieldRequest extends FormRequest
             'data_type.max' => __('validation.data_typeMax')
         ];
     }
+
+    
 }

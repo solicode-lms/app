@@ -6,6 +6,8 @@
 namespace Modules\PkgCreationProjet\App\Requests\Base;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
+use Modules\PkgCreationProjet\Models\TransfertCompetence;
 
 class BaseTransfertCompetenceRequest extends FormRequest
 {
@@ -53,4 +55,6 @@ class BaseTransfertCompetenceRequest extends FormRequest
             'projet_id.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::TransfertCompetence.projet_id')])
         ];
     }
+
+    
 }

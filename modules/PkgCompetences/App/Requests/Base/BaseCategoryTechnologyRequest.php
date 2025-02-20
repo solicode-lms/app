@@ -6,6 +6,8 @@
 namespace Modules\PkgCompetences\App\Requests\Base;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
+use Modules\PkgCompetences\Models\CategoryTechnology;
 
 class BaseCategoryTechnologyRequest extends FormRequest
 {
@@ -45,4 +47,6 @@ class BaseCategoryTechnologyRequest extends FormRequest
             'description.required' => __('validation.required', ['attribute' => __('PkgCompetences::CategoryTechnology.description')])
         ];
     }
+
+    
 }

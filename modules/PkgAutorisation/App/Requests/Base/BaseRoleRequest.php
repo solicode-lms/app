@@ -6,6 +6,8 @@
 namespace Modules\PkgAutorisation\App\Requests\Base;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
+use Modules\PkgAutorisation\Models\Role;
 
 class BaseRoleRequest extends FormRequest
 {
@@ -52,4 +54,6 @@ class BaseRoleRequest extends FormRequest
             'users.array' => __('validation.array', ['attribute' => __('PkgAutorisation::Role.users')])
         ];
     }
+
+    
 }

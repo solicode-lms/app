@@ -166,7 +166,7 @@
 </div>
 
         
-            <div class="form-group col-12 col-md-3">
+        <div class="form-group col-12 col-md-3">
             <label for="nationalite_id">
                 {{ ucfirst(__('PkgApprenants::nationalite.singular')) }}
                 
@@ -212,7 +212,7 @@
 </div>
 
         
-            <div class="form-group col-12 col-md-9">
+        <div class="form-group col-12 col-md-9">
             <label for="niveaux_scolaire_id">
                 {{ ucfirst(__('PkgApprenants::niveauxScolaire.singular')) }}
                 
@@ -262,7 +262,7 @@
 </div>
 
         
-            <div class="form-group col-12 col-md-6">
+        <div class="form-group col-12 col-md-6">
             <label for="user_id">
                 {{ ucfirst(__('PkgAutorisation::user.singular')) }}
                 

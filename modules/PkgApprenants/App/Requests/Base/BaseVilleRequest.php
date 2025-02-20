@@ -6,6 +6,8 @@
 namespace Modules\PkgApprenants\App\Requests\Base;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
+use Modules\PkgApprenants\Models\Ville;
 
 class BaseVilleRequest extends FormRequest
 {
@@ -43,4 +45,6 @@ class BaseVilleRequest extends FormRequest
             'nom.max' => __('validation.nomMax')
         ];
     }
+
+    
 }

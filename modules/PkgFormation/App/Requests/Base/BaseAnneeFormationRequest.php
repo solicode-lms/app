@@ -6,6 +6,8 @@
 namespace Modules\PkgFormation\App\Requests\Base;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
+use Modules\PkgFormation\Models\AnneeFormation;
 
 class BaseAnneeFormationRequest extends FormRequest
 {
@@ -47,4 +49,6 @@ class BaseAnneeFormationRequest extends FormRequest
             'date_fin.required' => __('validation.required', ['attribute' => __('PkgFormation::AnneeFormation.date_fin')])
         ];
     }
+
+    
 }

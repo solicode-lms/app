@@ -80,7 +80,7 @@
 
 
         
-            <div class="form-group col-12 col-md-6">
+        <div class="form-group col-12 col-md-6">
             <label for="formateur_id">
                 {{ ucfirst(__('PkgFormation::formateur.singular')) }}
                 

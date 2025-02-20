@@ -6,6 +6,8 @@
 namespace Modules\PkgApprenants\App\Requests\Base;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
+use Modules\PkgApprenants\Models\Nationalite;
 
 class BaseNationaliteRequest extends FormRequest
 {
@@ -48,4 +50,6 @@ class BaseNationaliteRequest extends FormRequest
             'description.required' => __('validation.required', ['attribute' => __('PkgApprenants::Nationalite.description')])
         ];
     }
+
+    
 }

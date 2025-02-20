@@ -6,6 +6,8 @@
 namespace Modules\PkgCompetences\App\Requests\Base;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
+use Modules\PkgCompetences\Models\NiveauDifficulte;
 
 class BaseNiveauDifficulteRequest extends FormRequest
 {
@@ -51,4 +53,6 @@ class BaseNiveauDifficulteRequest extends FormRequest
             'description.required' => __('validation.required', ['attribute' => __('PkgCompetences::NiveauDifficulte.description')])
         ];
     }
+
+    
 }

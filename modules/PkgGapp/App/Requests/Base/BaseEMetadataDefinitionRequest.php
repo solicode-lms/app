@@ -6,6 +6,8 @@
 namespace Modules\PkgGapp\App\Requests\Base;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
+use Modules\PkgGapp\Models\EMetadataDefinition;
 
 class BaseEMetadataDefinitionRequest extends FormRequest
 {
@@ -57,4 +59,6 @@ class BaseEMetadataDefinitionRequest extends FormRequest
             'default_value.max' => __('validation.default_valueMax')
         ];
     }
+
+    
 }

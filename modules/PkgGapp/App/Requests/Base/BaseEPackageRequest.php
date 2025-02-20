@@ -6,6 +6,8 @@
 namespace Modules\PkgGapp\App\Requests\Base;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
+use Modules\PkgGapp\Models\EPackage;
 
 class BaseEPackageRequest extends FormRequest
 {
@@ -45,4 +47,6 @@ class BaseEPackageRequest extends FormRequest
             'description.required' => __('validation.required', ['attribute' => __('PkgGapp::EPackage.description')])
         ];
     }
+
+    
 }

@@ -6,6 +6,8 @@
 namespace Modules\PkgFormation\App\Requests\Base;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
+use Modules\PkgFormation\Models\Filiere;
 
 class BaseFiliereRequest extends FormRequest
 {
@@ -48,4 +50,6 @@ class BaseFiliereRequest extends FormRequest
             'description.required' => __('validation.required', ['attribute' => __('PkgFormation::Filiere.description')])
         ];
     }
+
+    
 }

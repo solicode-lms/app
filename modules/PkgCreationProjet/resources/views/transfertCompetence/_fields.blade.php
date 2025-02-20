@@ -10,7 +10,7 @@
 
     <div class="card-body row">
         
-            <div class="form-group col-12 col-md-6">
+        <div class="form-group col-12 col-md-6">
             <label for="competence_id">
                 {{ ucfirst(__('PkgCompetences::competence.singular')) }}
                 
@@ -58,7 +58,7 @@
 </div>
 
         
-            <div class="form-group col-12 col-md-6">
+        <div class="form-group col-12 col-md-6">
             <label for="niveau_difficulte_id">
                 {{ ucfirst(__('PkgCompetences::niveauDifficulte.singular')) }}
                 
@@ -138,7 +138,7 @@
         <!--   Validation HasMany --> 
 
         
-            <div class="form-group col-12 col-md-6">
+        <div class="form-group col-12 col-md-6">
             <label for="projet_id">
                 {{ ucfirst(__('PkgCreationProjet::projet.singular')) }}
                 

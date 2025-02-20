@@ -6,6 +6,8 @@
 namespace Modules\PkgCreationProjet\App\Requests\Base;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
+use Modules\PkgCreationProjet\Models\NatureLivrable;
 
 class BaseNatureLivrableRequest extends FormRequest
 {
@@ -45,4 +47,6 @@ class BaseNatureLivrableRequest extends FormRequest
             'description.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::NatureLivrable.description')])
         ];
     }
+
+    
 }

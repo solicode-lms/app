@@ -6,6 +6,8 @@
 namespace Modules\PkgRealisationProjets\App\Requests\Base;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
+use Modules\PkgRealisationProjets\Models\AffectationProjet;
 
 class BaseAffectationProjetRequest extends FormRequest
 {
@@ -52,4 +54,6 @@ class BaseAffectationProjetRequest extends FormRequest
             'annee_formation_id.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::AffectationProjet.annee_formation_id')])
         ];
     }
+
+    
 }

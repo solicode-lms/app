@@ -6,6 +6,8 @@
 namespace Modules\PkgFormation\App\Requests\Base;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
+use Modules\PkgFormation\Models\Specialite;
 
 class BaseSpecialiteRequest extends FormRequest
 {
@@ -48,4 +50,6 @@ class BaseSpecialiteRequest extends FormRequest
             'formateurs.array' => __('validation.array', ['attribute' => __('PkgFormation::Specialite.formateurs')])
         ];
     }
+
+    
 }

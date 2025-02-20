@@ -52,7 +52,7 @@
 </div>
 
         
-            <div class="form-group col-12 col-md-6">
+        <div class="form-group col-12 col-md-6">
             <label for="feature_domain_id">
                 {{ ucfirst(__('Core::featureDomain.singular')) }}
                 

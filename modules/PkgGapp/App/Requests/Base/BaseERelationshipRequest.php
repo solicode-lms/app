@@ -6,6 +6,8 @@
 namespace Modules\PkgGapp\App\Requests\Base;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
+use Modules\PkgGapp\Models\ERelationship;
 
 class BaseERelationshipRequest extends FormRequest
 {
@@ -74,4 +76,6 @@ class BaseERelationshipRequest extends FormRequest
             'morph_name.max' => __('validation.morph_nameMax')
         ];
     }
+
+    
 }

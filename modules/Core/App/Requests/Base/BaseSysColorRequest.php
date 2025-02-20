@@ -6,6 +6,8 @@
 namespace Modules\Core\App\Requests\Base;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
+use Modules\Core\Models\SysColor;
 
 class BaseSysColorRequest extends FormRequest
 {
@@ -46,4 +48,6 @@ class BaseSysColorRequest extends FormRequest
             'hex.max' => __('validation.hexMax')
         ];
     }
+
+    
 }

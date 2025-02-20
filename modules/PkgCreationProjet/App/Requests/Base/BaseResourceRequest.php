@@ -6,6 +6,8 @@
 namespace Modules\PkgCreationProjet\App\Requests\Base;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
+use Modules\PkgCreationProjet\Models\Resource;
 
 class BaseResourceRequest extends FormRequest
 {
@@ -50,4 +52,6 @@ class BaseResourceRequest extends FormRequest
             'projet_id.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Resource.projet_id')])
         ];
     }
+
+    
 }
