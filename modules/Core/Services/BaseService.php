@@ -3,6 +3,7 @@
 namespace Modules\Core\Services;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Modules\Core\Services\Contracts\ServiceInterface;
 
 use Modules\Core\Services\Traits\{
@@ -35,6 +36,7 @@ abstract class BaseService implements ServiceInterface
 
     protected array $fieldsFilterable;
     protected $viewState;
+    protected $sessionState;
     protected $model;
     protected $modelName;
     protected $paginationLimit = 20;
@@ -56,5 +58,6 @@ abstract class BaseService implements ServiceInterface
         $this->modelName = lcfirst(class_basename($model));
         // Scrop management
         $this->viewState = app(ViewStateService::class);
+        $this->sessionState = app(SessionState::class);
     }
 }

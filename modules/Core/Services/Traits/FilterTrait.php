@@ -19,15 +19,15 @@ trait FilterTrait
      * @param string $display_field Le champ affiché dans la liste déroulante.
      * @return array Le filtre formaté.
      */
-    protected function generateManyToOneFilter(string $label, string $field, string $model, string $display_field): array
+    protected function generateManyToOneFilter(string $label, string $field, string $model, string $display_field,$data = null): array
     {
         $modelInstance = new $model();
-
+        if($data == null) $data =  $model::all();
         return [
             'label' => $label,
             'field' => $field,
             'type' => 'ManyToOne',
-            'options' => $model::all()
+            'options' => $data
                 ->map(fn($item) => ['id' => $item['id'], 'label' => $item])
                 ->toArray(),
             'sortable' => "{$modelInstance->getTable()}.{$display_field}",

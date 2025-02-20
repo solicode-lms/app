@@ -1,6 +1,8 @@
 <?php
 
 namespace Modules\PkgApprenants\Services;
+
+use Modules\PkgApprenants\Models\Apprenant;
 use Modules\PkgApprenants\Services\Base\BaseApprenantService;
 use Modules\PkgAutorisation\Services\UserService;
 
@@ -29,5 +31,20 @@ class ApprenantService extends BaseApprenantService
         $value = $userService->initPassword($apprenant->user->id);
         return $value;
     }
+
+/**
+ * Trouver la liste des apprenants appartenant aux mêmes groupes qu'un apprenant donné.
+ *
+ * @param int $apprenantId
+ * @return \Illuminate\Database\Eloquent\Collection
+ */
+public function getApprenantsDeGroupe($apprenantId)
+{
+    return Apprenant::whereHas('groupes', function ($query) use ($apprenantId) {
+        $query->whereHas('apprenants', function ($q) use ($apprenantId) {
+            $q->where('apprenants.id', $apprenantId);
+        });
+    })->get();
+}
    
 }

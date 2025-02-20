@@ -2,6 +2,7 @@
 
 namespace Modules\PkgFormation\Services;
 
+use Modules\PkgApprenants\Models\Apprenant;
 use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgAutorisation\Services\UserService;
 use Modules\PkgCompetences\Services\NiveauDifficulteService;
@@ -101,5 +102,21 @@ class FormateurService extends BaseFormateurService
         $userService = new UserService();
         $value = $userService->initPassword($formateur->user->id);
         return $value;
+    }
+
+
+    /**
+     * Trouver la liste des apprenants enseignés par un formateur.
+     *
+     * @param int $formateur_id
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function getApprenants($formateur_id)
+    {
+        return Apprenant::whereHas('groupes', function ($query) use ($formateur_id) {
+            $query->whereHas('formateurs', function ($q) use ($formateur_id) {
+                $q->where('formateurs.id', $formateur_id);
+            });
+        })->get();
     }
 }

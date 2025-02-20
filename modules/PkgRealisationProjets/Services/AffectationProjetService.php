@@ -1,6 +1,8 @@
 <?php
 
 namespace Modules\PkgRealisationProjets\Services;
+
+use Modules\PkgRealisationProjets\Models\AffectationProjet;
 use Modules\PkgRealisationProjets\Services\Base\BaseAffectationProjetService;
 
 /**
@@ -62,4 +64,33 @@ class AffectationProjetService extends BaseAffectationProjetService
         return $affectationProjet;
     }
     
+    /**
+     * Trouver la liste des affectations de projets d'un formateur donné.
+     *
+     * @param int $formateur_id
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function getAffectationProjetsByFormateur($formateur_id)
+    {
+        return AffectationProjet::whereHas('groupe', function ($query) use ($formateur_id) {
+            $query->whereHas('formateurs', function ($q) use ($formateur_id) {
+                $q->where('formateurs.id', $formateur_id);
+            });
+        })->get();
+    }
+
+    /**
+     * Trouver la liste des affectations de projets d'un apprenant donné.
+     *
+     * @param int $apprenant_id
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function getAffectationProjetsByApprenant($apprenant_id)
+    {
+        return AffectationProjet::whereHas('groupe', function ($query) use ($apprenant_id) {
+            $query->whereHas('apprenants', function ($q) use ($apprenant_id) {
+                $q->where('apprenants.id', $apprenant_id);
+            });
+        })->get();
+    }
 }
