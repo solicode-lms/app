@@ -39,8 +39,6 @@ class BaseRealisationProjetController extends AdminController
         $this->viewState->setContextKeyIfEmpty('realisationProjet.index');
         if($this->sessionState->get('formateur_id')) $this->viewState->init('filter.realisationProjet.formateur_id'  , $this->sessionState->get('formateur_id'));
 
- 
-
         // Extraire les paramètres de recherche, page, et filtres
         $realisationProjets_params = array_merge(
             $request->only(['page','sort']),

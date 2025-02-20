@@ -661,6 +661,18 @@
     },
     {
         "id": 67,
+        "reference": "scopeData",
+        "name": "scopeData",
+        "type": "Json",
+        "scope": "field",
+        "default_value": "{   \"key\": \"scope.livrable.projet_id\",   \"value\": \"realisationProjet.affectationProjet.projet.id\" }",
+        "groupe": "form",
+        "description": "scope les données dans un select dans une relation ManyToOne et ManyToMany",
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 68,
         "reference": "editableByRoles",
         "name": "editableByRoles",
         "type": "Json",
@@ -668,18 +680,6 @@
         "default_value": "{\"roles\":\"formateur,admin\"}",
         "groupe": "form",
         "description": "<p>Problème : autorisation d'édition des champs par rôle</p><p>Exemple : Apprenant a l'autorisation de modifier l'état de réalisation de projet mais n'a pas le droit de modifier l'apprenant et l'affectation de projet.</p>",
-        "created_at": null,
-        "updated_at": null
-    },
-    {
-        "id": 68,
-        "reference": "scopeData",
-        "name": "scopeData",
-        "type": "Json",
-        "scope": "field",
-        "default_value": "{             \"key\": \"scope.livrable.projet_id\",             \"value\": \"realisationProjet.affectationProjet.projet.id\"         }",
-        "groupe": "form",
-        "description": "",
         "created_at": null,
         "updated_at": null
     }
