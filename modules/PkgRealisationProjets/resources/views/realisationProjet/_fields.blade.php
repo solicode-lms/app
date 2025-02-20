@@ -9,18 +9,18 @@
     @endif
 
     <div class="card-body row">
-        
-            <div class="form-group col-12 col-md-6" style="display:none" >
+            <div class="form-group col-12 col-md-6"  >
             <label for="affectation_projet_id">
                 {{ ucfirst(__('PkgRealisationProjets::affectationProjet.singular')) }}
                 
                     <span class="text-danger">*</span>
                 
             </label>
+            @php $canEditAffectation = Auth::user()->hasAnyRole(explode(',', 'Formateur,Admin')); @endphp
             <select 
             id="affectation_projet_id" 
             required
-            
+            {{ $canEditAffectation ? '' : 'disabled' }}
             name="affectation_projet_id" 
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
@@ -38,17 +38,18 @@
 
 
         
-            <div class="form-group col-12 col-md-6" style="display:none">
+            <div class="form-group col-12 col-md-6">
             <label for="apprenant_id">
                 {{ ucfirst(__('PkgApprenants::apprenant.singular')) }}
                 
                     <span class="text-danger">*</span>
                 
             </label>
+            @php $canEditApprenant = Auth::user()->hasAnyRole(explode(',', 'Formateur,Apprenant')); @endphp
             <select 
             id="apprenant_id" 
             required
-            
+            {{ $canEditApprenant ? '' : 'disabled' }}
             name="apprenant_id" 
             class="form-control select2">
              <option value="">Sélectionnez une option</option>

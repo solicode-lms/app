@@ -1,11 +1,13 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
+// TODO Gapp : add autorisation metaData : {editBy : ["formateur"],}
 
 
 
 namespace Modules\PkgRealisationProjets\App\Requests\Base;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
+use Modules\PkgRealisationProjets\Models\RealisationProjet;
 
 class BaseRealisationProjetRequest extends FormRequest
 {
@@ -24,16 +26,57 @@ class BaseRealisationProjetRequest extends FormRequest
      *
      * @return array
      */
+    /**
+     * Retourne les règles de validation appliquées aux champs de la requête.
+     *
+     * @return array
+     */
     public function rules(): array
     {
-        return [
+   
+        // Définition des règles par défaut (tous les champs obligatoires)
+        $rules = [
             'affectation_projet_id' => 'required',
             'apprenant_id' => 'required',
             'etats_realisation_projet_id' => 'nullable',
             'date_debut' => 'required',
             'date_fin' => 'nullable',
-            'rapport' => 'nullable|string'
+            'rapport' => 'nullable|string',
         ];
+    
+
+        return $rules;
+    }
+
+
+    protected function prepareForValidation()
+    {
+        $user = Auth::user();
+
+        // Définition des rôles autorisés pour chaque champ
+        $editableFieldsByRoles = [
+            'affectation_projet_id' => "Formateur,Admin",
+            'apprenant_id' => "Formateur,Apprenant",
+        ];
+
+        // Charger l'instance actuelle du modèle (optionnel, selon ton contexte)
+        $realisation_projet_id = $this->route('realisationProjet'); // Remplace 'model' par le bon paramètre de route
+        $model = RealisationProjet::find($realisation_projet_id);
+
+        
+        // Vérification et suppression des champs non autorisés
+        foreach ($editableFieldsByRoles as $field => $roles) {
+            if (!$user->hasAnyRole(explode(',', $roles))) {
+                
+
+                // Supprimer le champ pour éviter l'écrasement
+                $this->request->remove($field);
+
+                // Si le champ est absent dans la requête, on garde la valeur actuelle
+                $this->merge([$field => $model->$field]);
+                
+            }
+        }
     }
 
     /**
