@@ -2,6 +2,7 @@
 // User extends Authenticatable
 namespace Modules\PkgAutorisation\Models;
 
+use App\Traits\HasDynamicContext;
 use App\Traits\HasReference;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -17,7 +18,7 @@ use Modules\PkgApprenants\Models\Apprenant;
 class User extends Authenticatable
 {
 
-    use HasFactory, Notifiable, HasRoles, HasReference;
+    use HasFactory, Notifiable, HasRoles, HasReference, HasDynamicContext;
 
     public const ADMIN = "admin";
     public const MEMBRE = "membre";

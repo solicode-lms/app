@@ -13,7 +13,7 @@ class BaseModel extends Model
     public bool $isOwnedByUser = false;
     public string $ownerRelationPath = "";
 
-    public static bool $activeScope = false;
+
 
     public function loadBelongsToRelations()
     {
@@ -54,14 +54,6 @@ class BaseModel extends Model
         return $value;
     }
 
-
-    public static function withScope(callable $callback)
-    {
-        static::$activeScope = true;
-        $result = $callback();
-        static::$activeScope = false;
-        return $result;
-    }
 
 
 }
