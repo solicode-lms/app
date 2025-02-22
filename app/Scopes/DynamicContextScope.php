@@ -19,6 +19,11 @@ class DynamicContextScope implements Scope
      */
     public function apply(Builder $builder, Model $model)
     {
+        // Désactiver le scope si la variable globale est activée
+        if (!$model::$activeScope) {
+            return;
+        }
+
         // Obtenir l'instance de ViewState
         $viewState = app(ViewStateService::class);
         $contextState = app(ContextState::class);
@@ -30,6 +35,9 @@ class DynamicContextScope implements Scope
            
         // Obtenir les colonnes disponibles dans le modèle
         $modelAttributes = $model->getFillable();
+
+        // Charger automatiquement les relations nécessaires
+        $relationsToLoad = [];
 
         foreach ($scopeVariables as $key => $value) {
             if (is_null($value)) {
@@ -43,6 +51,10 @@ class DynamicContextScope implements Scope
         
                 // Vérifier si la première relation existe sur le modèle
                 if (method_exists($model, $relations[0])) {
+                    
+                    // Ajouter la relation à charger
+                    $relationsToLoad[] = implode('.', $relations);
+                    
                     // Appliquer whereHas récursivement
                     $builder->whereHas(implode('.', $relations), function ($query) use ($attribute, $value) {
                         $query->where($attribute, $value);
@@ -64,7 +76,8 @@ class DynamicContextScope implements Scope
                 // Vérifier si une clé correspondant à la relation existe dans ViewState
                 if (isset($scopeVariables[$foreignKey]) && !is_null($scopeVariables[$foreignKey])) {
                     $relationId = $scopeVariables[$foreignKey];
-
+                    // Ajouter la relation à charger
+                    $relationsToLoad[] = $relationName;
                     // Appliquer whereHas() dynamiquement
                     $builder->whereHas($relationName, function ($query) use ($relationId) {
                         $query->where('id', $relationId);
@@ -72,5 +85,11 @@ class DynamicContextScope implements Scope
                 }
             }
         }
+
+        // Appliquer le eager loading si des relations doivent être chargées
+        if (!empty($relationsToLoad)) {
+            $builder->with(array_unique($relationsToLoad));
+        }
+        
     }
 }

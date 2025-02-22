@@ -3,7 +3,6 @@
 namespace Modules\Core\Services\Traits;
 
 use Illuminate\Database\Eloquent\Builder;
-use Modules\PkgRealisationProjets\Models\AffectationProjet;
 
 trait QueryBuilderTrait
 {
@@ -18,8 +17,7 @@ trait QueryBuilderTrait
      */
     public function allQuery(array $params = []): Builder
     {
-        // $query = AffectationProjet::with(['projet', 'groupe'])->newQuery();
-        $query = AffectationProjet::query()->with(['projet', 'groupe']);
+        $query = $this->model->newQuery();
 
         // Appliquer la recherche globale
         if (!empty($params['search'])) {

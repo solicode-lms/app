@@ -12,7 +12,15 @@ trait PaginateTrait
     public function paginate(array $params = [], int $perPage = 0, array $columns = ['*']): LengthAwarePaginator
     {
         $perPage = $perPage ?: $this->paginationLimit;
-        $query = $this->allQuery($params);
-        return $query->paginate($perPage, $columns);
+    
+        return $this->model::withScope(function () use ($params, $perPage, $columns) {
+            $query = $this->allQuery($params);
+            
+            // TODO : Gapp : EagerLoading Charger les relations nécessaires : DataFields de type ManyToOne, ManyToMany ayant DisplayInTable
+            // $relationsToLoad = ["projet", "groupe"];
+            // $query->with(array_unique($relationsToLoad));
+    
+            return $query->paginate($perPage, $columns);
+        });
     }
 }

@@ -22,7 +22,10 @@ trait FilterTrait
     protected function generateManyToOneFilter(string $label, string $field, string $model, string $display_field,$data = null): array
     {
         $modelInstance = new $model();
-        if($data == null) $data =  $model::all();
+       
+        // Appliquer `withScope()` pour activer les scopes si disponibles
+        $data = $data ?? $model::withScope(fn() => $model::all());
+
         return [
             'label' => $label,
             'field' => $field,
