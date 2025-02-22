@@ -589,8 +589,8 @@
     },
     {
         "id": 50,
-        "reference": "useAssigned",
-        "name": "useAssigned",
+        "reference": "scopeDataByRole",
+        "name": "scopeDataByRole",
         "type": "Json",
         "scope": "field",
         "default_value": "{\"userModelName\":\"Formateur\"}",

@@ -252,13 +252,18 @@
         "e_metadata_definition_reference": "iconModel"
     },
     {
-        "reference": "AffectationProjet_projet_id_useAssigned",
+        "reference": "AffectationProjet_projet_id_scopeDataByRole",
+        "value_boolean": 0,
         "value_float": 0,
-        "value_json": {
-            "userModelName": "Formateur"
-        },
+        "value_json": [
+            {
+                "key": "scope.projet.formateur_id",
+                "role": "formateur",
+                "value": "formateur_id"
+            }
+        ],
         "e_data_field_reference": "AffectationProjet_projet_id",
-        "e_metadata_definition_reference": "useAssigned"
+        "e_metadata_definition_reference": "scopeDataByRole"
     },
     {
         "reference": "affectation_projets_ownedByUser",
