@@ -3,7 +3,7 @@
 
 @accessiblePermissions(['index-eMetadataDefinition', 'index-ePackage', 'index-eModel', 'index-eRelationship', 'index-eDataField', 'index-eMetadatum'])
 @if($accessiblePermissions->isNotEmpty())
-<li class="nav-item has-treeview id='menu-PkgGapp' {{ Request::is('admin/PkgGapp*') ? 'menu-open' : '' }}">
+<li id="menu-PkgGapp" class="nav-item has-treeview  {{ Request::is('admin/PkgGapp*') ? 'menu-open' : '' }}">
     <a href="#" class="nav-link nav-link {{ Request::is('admin/PkgGapp*') ? 'active' : '' }}">
         <i class="nav-icon fas  {{__('PkgGapp::PkgGapp.icon')}}"></i>
         <p>
@@ -13,7 +13,7 @@
     </a>
     <ul class="nav nav-treeview">
         @can('index-eMetadataDefinition') 
-        <li class="nav-item" id='menu-eMetadataDefinitions'>
+        <li class="nav-item" id="menu-eMetadataDefinitions">
             <a href="{{ route('eMetadataDefinitions.index') }}" class="nav-link {{ Request::is('admin/PkgGapp/eMetadataDefinitions') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-database"></i>
                 {{__('PkgGapp::eMetadataDefinition.plural')}}
@@ -21,7 +21,7 @@
         </li>
         @endcan
         @can('index-ePackage') 
-        <li class="nav-item" id='menu-ePackages'>
+        <li class="nav-item" id="menu-ePackages">
             <a href="{{ route('ePackages.index') }}" class="nav-link {{ Request::is('admin/PkgGapp/ePackages') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-box"></i>
                 {{__('PkgGapp::ePackage.plural')}}
@@ -29,7 +29,7 @@
         </li>
         @endcan
         @can('index-eModel') 
-        <li class="nav-item" id='menu-eModels'>
+        <li class="nav-item" id="menu-eModels">
             <a href="{{ route('eModels.index') }}" class="nav-link {{ Request::is('admin/PkgGapp/eModels') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-table"></i>
                 {{__('PkgGapp::eModel.plural')}}
@@ -37,7 +37,7 @@
         </li>
         @endcan
         @can('index-eRelationship') 
-        <li class="nav-item" id='menu-eRelationships'>
+        <li class="nav-item" id="menu-eRelationships">
             <a href="{{ route('eRelationships.index') }}" class="nav-link {{ Request::is('admin/PkgGapp/eRelationships') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-directions"></i>
                 {{__('PkgGapp::eRelationship.plural')}}
@@ -45,7 +45,7 @@
         </li>
         @endcan
         @can('index-eDataField') 
-        <li class="nav-item" id='menu-eDataFields'>
+        <li class="nav-item" id="menu-eDataFields">
             <a href="{{ route('eDataFields.index') }}" class="nav-link {{ Request::is('admin/PkgGapp/eDataFields') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-th"></i>
                 {{__('PkgGapp::eDataField.plural')}}
@@ -53,7 +53,7 @@
         </li>
         @endcan
         @can('index-eMetadatum') 
-        <li class="nav-item" id='menu-eMetadata'>
+        <li class="nav-item" id="menu-eMetadata">
             <a href="{{ route('eMetadata.index') }}" class="nav-link {{ Request::is('admin/PkgGapp/eMetadata') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-th-list"></i>
                 {{__('PkgGapp::eMetadatum.plural')}}

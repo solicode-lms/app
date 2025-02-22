@@ -46,52 +46,90 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 
-
 $(document).ready(function () {
     let activeMenuItems = JSON.parse(localStorage.getItem('activeMenuItems')) || [];
+    let sidebarState = localStorage.getItem('sidebarState') || 'expanded';
 
-    // Restaurer l'état des éléments actifs du menu
-    $('.nav-sidebar .nav-item').each(function () {
-        let menuItem = $(this);
-        let itemId = menuItem.attr('id');
+    // Appliquer l'état initial de la sidebar et restaurer l'état des menus actifs
+    if (sidebarState === 'collapsed') {
+        $('body').addClass('sidebar-collapse');
+    } else {
+        restoreMenuState();
+    }
 
-        if (itemId && activeMenuItems.includes(itemId)) {
-            menuItem.addClass('menu-open');
-            menuItem.children('.nav-link').addClass('active');
-            menuItem.children('.nav-treeview').show();
-        }
-    });
-
-    // Écouter les clics sur les éléments de menu pour sauvegarder leur état
-    $('.nav-sidebar .nav-item .nav-link').on('click', function () {
-        let menuItem = $(this).parent();
-        let itemId = menuItem.attr('id');
-
-        if (itemId) {
-            if (menuItem.hasClass('menu-open')) {
-                // Si l'élément est ouvert, on l'enlève de la liste
-                activeMenuItems = activeMenuItems.filter(item => item !== itemId);
-            } else {
-                // Sinon, on l'ajoute
-                activeMenuItems.push(itemId);
-            }
-            localStorage.setItem('activeMenuItems', JSON.stringify(activeMenuItems));
-        }
-    });
-
-    // Gérer la fermeture/activation de la sidebar
+    // Gérer le bouton toggle de la sidebar
     $('.nav-link[data-widget="pushmenu"]').on('click', function () {
         setTimeout(() => {
             if ($('body').hasClass('sidebar-collapse')) {
                 localStorage.setItem('sidebarState', 'collapsed');
+                closeAllMenus();
             } else {
                 localStorage.setItem('sidebarState', 'expanded');
+                restoreMenuState(); // Restaurer les menus actifs après l'expansion
             }
         }, 200);
     });
 
-    // Appliquer l'état de la sidebar au chargement
-    if (localStorage.getItem('sidebarState') === 'collapsed') {
-        $('body').addClass('sidebar-collapse');
+    // Ouvrir la sidebar au survol (hover) si elle est réduite
+    $('.main-sidebar').hover(
+        function () {
+            if ($('body').hasClass('sidebar-collapse')) {
+                $('body').removeClass('sidebar-collapse').addClass('sidebar-open');
+                restoreMenuState(); // Restaurer les menus ouverts au survol
+            }
+        },
+        function () {
+            if ($('body').hasClass('sidebar-open')) {
+                $('body').removeClass('sidebar-open').addClass('sidebar-collapse');
+                closeAllMenus(); // Fermer les menus quand on quitte la sidebar
+            }
+        }
+    );
+
+    // Gestion des clics sur les éléments de menu
+    $('.nav-sidebar .nav-item .nav-link').on('click', function (e) {
+        let menuItem = $(this).parent();
+        let itemId = menuItem.attr('id');
+
+        if (menuItem.hasClass('menu-open')) {
+            menuItem.removeClass('menu-open');
+            menuItem.children('.nav-treeview').slideUp();
+            menuItem.children('.nav-link').removeClass('active');
+            activeMenuItems = activeMenuItems.filter(item => item !== itemId);
+        } else {
+            $('.nav-sidebar .nav-item').removeClass('menu-open');
+            $('.nav-sidebar .nav-item .nav-link').removeClass('active');
+            $('.nav-sidebar .nav-treeview').slideUp();
+
+            menuItem.addClass('menu-open');
+            menuItem.children('.nav-link').addClass('active');
+            menuItem.children('.nav-treeview').slideDown();
+            activeMenuItems = [itemId];
+        }
+
+        localStorage.setItem('activeMenuItems', JSON.stringify(activeMenuItems));
+
+        e.stopPropagation();
+    });
+
+    // Fonction pour fermer tous les menus
+    function closeAllMenus() {
+        $('.nav-item').removeClass('menu-open');
+        $('.nav-item .nav-link').removeClass('active');
+        $('.nav-item .nav-treeview').slideUp();
+    }
+
+    // Fonction pour restaurer l'état des menus actifs
+    function restoreMenuState() {
+        $('.nav-item').each(function () {
+            let menuItem = $(this);
+            let itemId = menuItem.attr('id');
+
+            if (activeMenuItems.includes(itemId)) {
+                menuItem.addClass('menu-open');
+                menuItem.children('.nav-link').addClass('active');
+                menuItem.children('.nav-treeview').show();
+            }
+        });
     }
 });

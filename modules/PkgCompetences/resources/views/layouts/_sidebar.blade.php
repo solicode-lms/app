@@ -3,7 +3,7 @@
 
 @accessiblePermissions(['index-categoryTechnology', 'index-niveauCompetence', 'index-niveauDifficulte'])
 @if($accessiblePermissions->isNotEmpty())
-<li class="nav-item has-treeview id='menu-PkgCompetences' {{ Request::is('admin/PkgCompetences*') ? 'menu-open' : '' }}">
+<li id="menu-PkgCompetences" class="nav-item has-treeview  {{ Request::is('admin/PkgCompetences*') ? 'menu-open' : '' }}">
     <a href="#" class="nav-link nav-link {{ Request::is('admin/PkgCompetences*') ? 'active' : '' }}">
         <i class="nav-icon fas  {{__('PkgCompetences::PkgCompetences.icon')}}"></i>
         <p>
@@ -13,7 +13,7 @@
     </a>
     <ul class="nav nav-treeview">
         @can('index-categoryTechnology') 
-        <li class="nav-item" id='menu-categoryTechnologies'>
+        <li class="nav-item" id="menu-categoryTechnologies">
             <a href="{{ route('categoryTechnologies.index') }}" class="nav-link {{ Request::is('admin/PkgCompetences/categoryTechnologies') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-bolt"></i>
                 {{__('PkgCompetences::categoryTechnology.plural')}}
@@ -21,7 +21,7 @@
         </li>
         @endcan
         @can('index-niveauCompetence') 
-        <li class="nav-item" id='menu-niveauCompetences'>
+        <li class="nav-item" id="menu-niveauCompetences">
             <a href="{{ route('niveauCompetences.index') }}" class="nav-link {{ Request::is('admin/PkgCompetences/niveauCompetences') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-bars"></i>
                 {{__('PkgCompetences::niveauCompetence.plural')}}
@@ -29,7 +29,7 @@
         </li>
         @endcan
         @can('index-niveauDifficulte') 
-        <li class="nav-item" id='menu-niveauDifficultes'>
+        <li class="nav-item" id="menu-niveauDifficultes">
             <a href="{{ route('niveauDifficultes.index') }}" class="nav-link {{ Request::is('admin/PkgCompetences/niveauDifficultes') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-chart-line"></i>
                 {{__('PkgCompetences::niveauDifficulte.plural')}}
