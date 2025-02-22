@@ -21,7 +21,7 @@ trait CrudTrait
      */
     public function all(array $columns = ['*']): Collection
     {
-        return $this->model::all($columns);
+        return $this->model->withScope(fn() =>  $this->model::all());
     }
 
     /**
