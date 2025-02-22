@@ -99,12 +99,12 @@ class BaseTechnologyController extends AdminController
     public function show(string $id) {
 
         $this->viewState->setContextKey('technology.edit_' . $id);
-     
+
         $itemTechnology = $this->technologyService->find($id);
-  
+
+        $categoryTechnologies = $this->categoryTechnologyService->all();
         $competences = $this->competenceService->all();
         $transfertCompetences = $this->transfertCompetenceService->all();
-        $categoryTechnologies = $this->categoryTechnologyService->all();
 
 
         if (request()->ajax()) {

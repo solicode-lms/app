@@ -103,13 +103,13 @@ class BaseApprenantController extends AdminController
     public function show(string $id) {
 
         $this->viewState->setContextKey('apprenant.edit_' . $id);
-     
+
         $itemApprenant = $this->apprenantService->find($id);
-  
-        $groupes = $this->groupeService->all();
+
         $nationalites = $this->nationaliteService->all();
         $niveauxScolaires = $this->niveauxScolaireService->all();
         $users = $this->userService->all();
+        $groupes = $this->groupeService->all();
 
 
         if (request()->ajax()) {

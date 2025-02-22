@@ -87,9 +87,9 @@ class BaseVilleController extends AdminController
     public function show(string $id) {
 
         $this->viewState->setContextKey('ville.edit_' . $id);
-     
+
         $itemVille = $this->villeService->find($id);
-  
+
 
 
         if (request()->ajax()) {

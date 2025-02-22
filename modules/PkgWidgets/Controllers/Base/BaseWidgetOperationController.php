@@ -88,9 +88,10 @@ class BaseWidgetOperationController extends AdminController
     public function show(string $id) {
 
         $this->viewState->setContextKey('widgetOperation.edit_' . $id);
-     
+
         $itemWidgetOperation = $this->widgetOperationService->find($id);
-  
+
+
 
         $this->viewState->set('scope.widget.operation_id', $id);
         $widgetService =  new WidgetService();

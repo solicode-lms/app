@@ -99,9 +99,9 @@ class BaseNiveauDifficulteController extends AdminController
     public function show(string $id) {
 
         $this->viewState->setContextKey('niveauDifficulte.edit_' . $id);
-     
+
         $itemNiveauDifficulte = $this->niveauDifficulteService->find($id);
-  
+
         $formateurs = $this->formateurService->all();
 
 

@@ -115,20 +115,28 @@ class BaseRealisationProjetController extends AdminController
     public function show(string $id) {
 
         $this->viewState->setContextKey('realisationProjet.edit_' . $id);
-     
+
         $itemRealisationProjet = $this->realisationProjetService->find($id);
-  
+
         $affectationProjets = $this->affectationProjetService->all();
         $apprenants = $this->apprenantService->all();
         $etatsRealisationProjets = $this->etatsRealisationProjetService->all();
 
+
         $this->viewState->set('scope.livrablesRealisation.realisation_projet_id', $id);
+        $value = $itemRealisationProjet->getNestedValue('affectationProjet.projet.id');
+        $key = 'scope.livrable.projet_id';
+        $this->viewState->set($key, $value);
         $livrablesRealisationService =  new LivrablesRealisationService();
         $livrablesRealisations_data =  $itemRealisationProjet->livrablesRealisations()->paginate(10);
         $livrablesRealisations_stats = $livrablesRealisationService->getlivrablesRealisationStats();
         $livrablesRealisations_filters = $livrablesRealisationService->getFieldsFilterable();
         $livrablesRealisation_instance =  $livrablesRealisationService->createInstance();
+
         $this->viewState->set('scope.validation.realisation_projet_id', $id);
+        $value = $itemRealisationProjet->getNestedValue('affectationProjet.projet.id');
+        $key = 'scope.transfertCompetence.projet_id';
+        $this->viewState->set($key, $value);
         $validationService =  new ValidationService();
         $validations_data =  $itemRealisationProjet->validations()->paginate(10);
         $validations_stats = $validationService->getvalidationStats();

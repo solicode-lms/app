@@ -96,11 +96,12 @@ class BaseEDataFieldController extends AdminController
     public function show(string $id) {
 
         $this->viewState->setContextKey('eDataField.edit_' . $id);
-     
+
         $itemEDataField = $this->eDataFieldService->find($id);
-  
+
         $eModels = $this->eModelService->all();
         $eRelationships = $this->eRelationshipService->all();
+
 
         $this->viewState->set('scope.eMetadatum.e_data_field_id', $id);
         $eMetadatumService =  new EMetadatumService();

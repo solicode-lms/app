@@ -99,12 +99,12 @@ class BaseEMetadatumController extends AdminController
     public function show(string $id) {
 
         $this->viewState->setContextKey('eMetadatum.edit_' . $id);
-     
+
         $itemEMetadatum = $this->eMetadatumService->find($id);
-  
+
+        $eModels = $this->eModelService->all();
         $eDataFields = $this->eDataFieldService->all();
         $eMetadataDefinitions = $this->eMetadataDefinitionService->all();
-        $eModels = $this->eModelService->all();
 
 
         if (request()->ajax()) {

@@ -99,12 +99,12 @@ class BaseWidgetController extends AdminController
     public function show(string $id) {
 
         $this->viewState->setContextKey('widget.edit_' . $id);
-     
+
         $itemWidget = $this->widgetService->find($id);
-  
+
+        $widgetTypes = $this->widgetTypeService->all();
         $sysModels = $this->sysModelService->all();
         $widgetOperations = $this->widgetOperationService->all();
-        $widgetTypes = $this->widgetTypeService->all();
 
 
         if (request()->ajax()) {

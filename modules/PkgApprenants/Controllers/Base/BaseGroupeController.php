@@ -104,15 +104,19 @@ class BaseGroupeController extends AdminController
     public function show(string $id) {
 
         $this->viewState->setContextKey('groupe.edit_' . $id);
-     
+
         $itemGroupe = $this->groupeService->find($id);
-  
+
+        $filieres = $this->filiereService->all();
+        $anneeFormations = $this->anneeFormationService->all();
         $apprenants = $this->apprenantService->all();
         $formateurs = $this->formateurService->all();
-        $anneeFormations = $this->anneeFormationService->all();
-        $filieres = $this->filiereService->all();
+
 
         $this->viewState->set('scope.affectationProjet.groupe_id', $id);
+        $value = $itemGroupe->getNestedValue('formateur_id');
+        $key = 'scope.groupe.formateurs.formateur_id';
+        $this->viewState->set($key, $value);
         $affectationProjetService =  new AffectationProjetService();
         $affectationProjets_data =  $itemGroupe->affectationProjets()->paginate(10);
         $affectationProjets_stats = $affectationProjetService->getaffectationProjetStats();

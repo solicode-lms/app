@@ -93,10 +93,11 @@ class BaseEModelController extends AdminController
     public function show(string $id) {
 
         $this->viewState->setContextKey('eModel.edit_' . $id);
-     
+
         $itemEModel = $this->eModelService->find($id);
-  
+
         $ePackages = $this->ePackageService->all();
+
 
         $this->viewState->set('scope.eDataField.e_model_id', $id);
         $eDataFieldService =  new EDataFieldService();
@@ -104,6 +105,7 @@ class BaseEModelController extends AdminController
         $eDataFields_stats = $eDataFieldService->geteDataFieldStats();
         $eDataFields_filters = $eDataFieldService->getFieldsFilterable();
         $eDataField_instance =  $eDataFieldService->createInstance();
+
         $this->viewState->set('scope.eMetadatum.e_model_id', $id);
         $eMetadatumService =  new EMetadatumService();
         $eMetadata_data =  $itemEModel->eMetadata()->paginate(10);

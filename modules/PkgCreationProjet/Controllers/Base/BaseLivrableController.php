@@ -103,9 +103,9 @@ class BaseLivrableController extends AdminController
     public function show(string $id) {
 
         $this->viewState->setContextKey('livrable.edit_' . $id);
-     
+
         $itemLivrable = $this->livrableService->find($id);
-  
+
         $natureLivrables = $this->natureLivrableService->all();
         $projets = $this->projetService->all();
 

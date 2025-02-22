@@ -90,9 +90,10 @@ class BaseFiliereController extends AdminController
     public function show(string $id) {
 
         $this->viewState->setContextKey('filiere.edit_' . $id);
-     
+
         $itemFiliere = $this->filiereService->find($id);
-  
+
+
 
         $this->viewState->set('scope.groupe.filiere_id', $id);
         $groupeService =  new GroupeService();
@@ -100,12 +101,14 @@ class BaseFiliereController extends AdminController
         $groupes_stats = $groupeService->getgroupeStats();
         $groupes_filters = $groupeService->getFieldsFilterable();
         $groupe_instance =  $groupeService->createInstance();
+
         $this->viewState->set('scope.module.filiere_id', $id);
         $moduleService =  new ModuleService();
         $modules_data =  $itemFiliere->modules()->paginate(10);
         $modules_stats = $moduleService->getmoduleStats();
         $modules_filters = $moduleService->getFieldsFilterable();
         $module_instance =  $moduleService->createInstance();
+
         $this->viewState->set('scope.projet.filiere_id', $id);
         $projetService =  new ProjetService();
         $projets_data =  $itemFiliere->projets()->paginate(10);

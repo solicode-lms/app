@@ -96,11 +96,12 @@ class BaseCompetenceController extends AdminController
     public function show(string $id) {
 
         $this->viewState->setContextKey('competence.edit_' . $id);
-     
+
         $itemCompetence = $this->competenceService->find($id);
-  
-        $technologies = $this->technologyService->all();
+
         $modules = $this->moduleService->all();
+        $technologies = $this->technologyService->all();
+
 
         $this->viewState->set('scope.niveauCompetence.competence_id', $id);
         $niveauCompetenceService =  new NiveauCompetenceService();

@@ -95,11 +95,11 @@ class BaseFeatureController extends AdminController
     public function show(string $id) {
 
         $this->viewState->setContextKey('feature.edit_' . $id);
-     
+
         $itemFeature = $this->featureService->find($id);
-  
-        $permissions = $this->permissionService->all();
+
         $featureDomains = $this->featureDomainService->all();
+        $permissions = $this->permissionService->all();
 
 
         if (request()->ajax()) {

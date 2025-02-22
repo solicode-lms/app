@@ -99,9 +99,9 @@ class BaseEtatsRealisationProjetController extends AdminController
     public function show(string $id) {
 
         $this->viewState->setContextKey('etatsRealisationProjet.edit_' . $id);
-     
+
         $itemEtatsRealisationProjet = $this->etatsRealisationProjetService->find($id);
-  
+
         $formateurs = $this->formateurService->all();
 
 

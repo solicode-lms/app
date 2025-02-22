@@ -99,9 +99,9 @@ class BaseResourceController extends AdminController
     public function show(string $id) {
 
         $this->viewState->setContextKey('resource.edit_' . $id);
-     
+
         $itemResource = $this->resourceService->find($id);
-  
+
         $projets = $this->projetService->all();
 
 

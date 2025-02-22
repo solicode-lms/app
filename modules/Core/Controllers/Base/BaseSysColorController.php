@@ -89,9 +89,10 @@ class BaseSysColorController extends AdminController
     public function show(string $id) {
 
         $this->viewState->setContextKey('sysColor.edit_' . $id);
-     
+
         $itemSysColor = $this->sysColorService->find($id);
-  
+
+
 
         $this->viewState->set('scope.sysModel.sys_color_id', $id);
         $sysModelService =  new SysModelService();
@@ -99,6 +100,7 @@ class BaseSysColorController extends AdminController
         $sysModels_stats = $sysModelService->getsysModelStats();
         $sysModels_filters = $sysModelService->getFieldsFilterable();
         $sysModel_instance =  $sysModelService->createInstance();
+
         $this->viewState->set('scope.sysModule.sys_color_id', $id);
         $sysModuleService =  new SysModuleService();
         $sysModules_data =  $itemSysColor->sysModules()->paginate(10);

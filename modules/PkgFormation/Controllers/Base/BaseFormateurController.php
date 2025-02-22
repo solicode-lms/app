@@ -99,11 +99,11 @@ class BaseFormateurController extends AdminController
     public function show(string $id) {
 
         $this->viewState->setContextKey('formateur.edit_' . $id);
-     
+
         $itemFormateur = $this->formateurService->find($id);
-  
-        $groupes = $this->groupeService->all();
+
         $specialites = $this->specialiteService->all();
+        $groupes = $this->groupeService->all();
         $users = $this->userService->all();
 
 

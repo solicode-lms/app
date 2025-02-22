@@ -88,9 +88,10 @@ class BaseNationaliteController extends AdminController
     public function show(string $id) {
 
         $this->viewState->setContextKey('nationalite.edit_' . $id);
-     
+
         $itemNationalite = $this->nationaliteService->find($id);
-  
+
+
 
         $this->viewState->set('scope.apprenant.nationalite_id', $id);
         $apprenantService =  new ApprenantService();

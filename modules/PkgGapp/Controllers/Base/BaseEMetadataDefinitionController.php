@@ -87,9 +87,9 @@ class BaseEMetadataDefinitionController extends AdminController
     public function show(string $id) {
 
         $this->viewState->setContextKey('eMetadataDefinition.edit_' . $id);
-     
+
         $itemEMetadataDefinition = $this->eMetadataDefinitionService->find($id);
-  
+
 
 
         if (request()->ajax()) {

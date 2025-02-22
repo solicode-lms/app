@@ -121,14 +121,24 @@ class BaseAffectationProjetController extends AdminController
     public function show(string $id) {
 
         $this->viewState->setContextKey('affectationProjet.edit_' . $id);
-     
+
+        if(Auth::user()->hasRole('formateur')){
+            $this->viewState->init('scope.projet.formateur_id'  , $this->sessionState->get('formateur_id'));
+        }
+        if(Auth::user()->hasRole('formateur')){
+            $this->viewState->init('scope.groupe.formateurs.formateur_id'  , $this->sessionState->get('formateur_id'));
+        }
         $itemAffectationProjet = $this->affectationProjetService->find($id);
-  
-        $anneeFormations = $this->anneeFormationService->all();
-        $groupes = $this->groupeService->all();
+
         $projets = $this->projetService->all();
+        $groupes = $this->groupeService->all();
+        $anneeFormations = $this->anneeFormationService->all();
+
 
         $this->viewState->set('scope.realisationProjet.affectation_projet_id', $id);
+        $value = $itemAffectationProjet->getNestedValue('projet.formateur.id');
+        $key = 'scope.etatsRealisationProjet.formateur_id';
+        $this->viewState->set($key, $value);
         $realisationProjetService =  new RealisationProjetService();
         $realisationProjets_data =  $itemAffectationProjet->realisationProjets()->paginate(10);
         $realisationProjets_stats = $realisationProjetService->getrealisationProjetStats();

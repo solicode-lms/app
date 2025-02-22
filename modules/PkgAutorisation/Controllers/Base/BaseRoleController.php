@@ -95,9 +95,9 @@ class BaseRoleController extends AdminController
     public function show(string $id) {
 
         $this->viewState->setContextKey('role.edit_' . $id);
-     
+
         $itemRole = $this->roleService->find($id);
-  
+
         $permissions = $this->permissionService->all();
         $users = $this->userService->all();
 

@@ -111,12 +111,12 @@ class BaseTransfertCompetenceController extends AdminController
     public function show(string $id) {
 
         $this->viewState->setContextKey('transfertCompetence.edit_' . $id);
-     
+
         $itemTransfertCompetence = $this->transfertCompetenceService->find($id);
-  
-        $technologies = $this->technologyService->all();
+
         $competences = $this->competenceService->all();
         $niveauDifficultes = $this->niveauDifficulteService->all();
+        $technologies = $this->technologyService->all();
         $projets = $this->projetService->all();
 
 
