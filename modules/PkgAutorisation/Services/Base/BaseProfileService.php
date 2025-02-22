@@ -74,10 +74,10 @@ class BaseProfileService extends BaseService
         $stats = $this->initStats();
 
         // Ajouter les statistiques du propriétaire
-        $contexteState = $this->getContextState();
-        if ($contexteState !== null) {
-            $stats[] = $contexteState;
-        }
+        //$contexteState = $this->getContextState();
+        // if ($contexteState !== null) {
+        //     $stats[] = $contexteState;
+        // }
         
 
         return $stats;

@@ -135,6 +135,38 @@ class ViewStateService
         return implode(' | ', $parts);
     }
 
+    public function getScopeVariablesTitles($modelName, $model): string
+    {
+        $parts = [];
+        foreach ($this->getScopeVariables($modelName) as $key => $value) {
+            $title = $this->resolveTitle($key, $value, $model);
+            $parts[] = ucfirst($key) . ': ' . $title;
+        }
+        return implode(' | ', $parts);
+    }
+    
+    /**
+     * Résoudre le titre en fonction de l'ID et de la relation.
+     */
+    private function resolveTitle($key, $id, $model): string
+    {
+        
+        // Vérifier si la clé correspond à une relation ManyToOne
+        if (isset($model->relations) && array_key_exists($key, $model->relations)) {
+            $relationModelClass = $model->relations[$key];
+            if (class_exists($relationModelClass)) {
+                $relatedModel = $relationModelClass::find($id);
+                if ($relatedModel) {
+                    return $relatedModel->name ?? $relatedModel->title ?? (string) $id;
+                }
+            }
+        }
+    
+        // Si aucune relation trouvée, retourner l'ID
+        return (string) $id;
+    }
+
+
     private function extractVariables(string $modelName, array $types): array
     {
         $filteredVariables = [];

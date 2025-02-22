@@ -46,6 +46,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 
+
 $(document).ready(function () {
     let activeMenuItems = JSON.parse(localStorage.getItem('activeMenuItems')) || [];
     let sidebarState = localStorage.getItem('sidebarState') || 'expanded';
