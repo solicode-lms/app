@@ -5,7 +5,6 @@
         <thead>
             <tr>
                 <x-sortable-column field="titre" modelname="projet" label="{{ ucfirst(__('PkgCreationProjet::projet.titre')) }}" />
-                <x-sortable-column field="filiere_id" modelname="projet" label="{{ ucfirst(__('PkgFormation::filiere.singular')) }}" />
                 <x-sortable-column field="TransfertCompetence" modelname="projet" label="{{ ucfirst(__('PkgCreationProjet::transfertCompetence.plural')) }}" />
 
                 <x-sortable-column field="AffectationProjet" modelname="projet" label="{{ ucfirst(__('PkgRealisationProjets::affectationProjet.plural')) }}" />
@@ -18,7 +17,6 @@
             @foreach ($projets_data as $projet)
                 <tr id="projet-row-{{$projet->id}}">
                     <td>@limit($projet->titre, 50)</td>
-                    <td>@limit($projet->filiere, 50)</td>
                     <td>
                         <ul>
                             @foreach ($projet->transfertCompetences as $transfertCompetence)

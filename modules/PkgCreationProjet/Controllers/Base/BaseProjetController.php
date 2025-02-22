@@ -105,11 +105,17 @@ class BaseProjetController extends AdminController
         $formateurs = $this->formateurService->all();
 
         $this->viewState->set('scope.transfertCompetence.projet_id', $id);
+
+
+
         $transfertCompetenceService =  new TransfertCompetenceService();
         $transfertCompetences_data =  $itemProjet->transfertCompetences()->paginate(10);
         $transfertCompetences_stats = $transfertCompetenceService->gettransfertCompetenceStats();
         $transfertCompetences_filters = $transfertCompetenceService->getFieldsFilterable();
         $transfertCompetence_instance =  $transfertCompetenceService->createInstance();
+
+
+
         $this->viewState->set('scope.livrable.projet_id', $id);
         $livrableService =  new LivrableService();
         $livrables_data =  $itemProjet->livrables()->paginate(10);
@@ -147,6 +153,13 @@ class BaseProjetController extends AdminController
         $formateurs = $this->formateurService->all();
 
         $this->viewState->set('scope.transfertCompetence.projet_id', $id);
+       
+       
+        $value = $itemProjet->getNestedValue('filiere_id');
+        $key = 'scope.competence.module.filiere_id';
+        $this->viewState->set($key, $value);
+
+       
         $transfertCompetenceService =  new TransfertCompetenceService();
         $transfertCompetences_data =  $itemProjet->transfertCompetences()->paginate(10);
         $transfertCompetences_stats = $transfertCompetenceService->gettransfertCompetenceStats();

@@ -31,12 +31,29 @@ class DynamicContextScope implements Scope
         // Obtenir les colonnes disponibles dans le modèle
         $modelAttributes = $model->getFillable();
 
-        // Appliquer les filtres spécifiques au modèle
         foreach ($scopeVariables as $key => $value) {
-            if (in_array($key, $modelAttributes) && !is_null($value)) {
+            if (is_null($value)) {
+                continue;
+            }
+        
+            // Vérifier si la clé contient une relation imbriquée (ex: competence.module.ecole.filiere_id)
+            if (Str::contains($key, '.')) {
+                $relations = explode('.', $key);
+                $attribute = array_pop($relations); // Récupère le dernier élément (filiere_id)
+        
+                // Vérifier si la première relation existe sur le modèle
+                if (method_exists($model, $relations[0])) {
+                    // Appliquer whereHas récursivement
+                    $builder->whereHas(implode('.', $relations), function ($query) use ($attribute, $value) {
+                        $query->where($attribute, $value);
+                    });
+                }
+            } elseif (in_array($key, $modelAttributes)) {
+                // Appliquer un filtre simple si c'est une colonne du modèle
                 $builder->where($key, $value);
             }
         }
+        
 
         // Vérifier si le modèle a une propriété manyToMany définie
         if (property_exists($model, 'manyToMany') && is_array($model->manyToMany)) {

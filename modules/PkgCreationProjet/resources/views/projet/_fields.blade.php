@@ -10,7 +10,7 @@
 
     <div class="card-body row">
         
-        <div class="form-group col-12 col-md-6">
+        <div class="form-group col-12 col-md-10">
             <label for="titre">
                 {{ ucfirst(__('PkgCreationProjet::projet.titre')) }}
                 
@@ -98,34 +98,16 @@
 </div>
 
         
-        <div class="form-group col-12 col-md-12">
-            <label for="description">
-                {{ ucfirst(__('PkgCreationProjet::projet.description')) }}
-                
-            </label>
-            <textarea rows="" cols=""
-                name="description"
-                class="form-control richText"
-                
-                
-                id="description"
-                placeholder="{{ __('PkgCreationProjet::projet.description') }}">
-                {{ $itemProjet ? $itemProjet->description : old('description') }}
-            </textarea>
-            @error('description')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
-
-        
         <div class="form-group col-12 col-md-6">
             <label for="filiere_id">
                 {{ ucfirst(__('PkgFormation::filiere.singular')) }}
                 
+                    <span class="text-danger">*</span>
+                
             </label>
             <select 
             id="filiere_id" 
-            
+            required
             
             name="filiere_id" 
             class="form-control select2">

@@ -46,6 +46,9 @@ class BaseTransfertCompetenceService extends BaseService
     }
 
     public function initFieldsFilterable(){
+
+    
+
        // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
             $this->generateManyToOneFilter(__("PkgCompetences::competence.plural"), 'competence_id', \Modules\PkgCompetences\Models\Competence::class, 'code'),

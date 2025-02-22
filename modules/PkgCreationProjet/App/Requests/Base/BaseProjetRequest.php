@@ -34,7 +34,7 @@ class BaseProjetRequest extends FormRequest
             'critere_de_travail' => 'required|string',
             'nombre_jour' => 'required|integer',
             'description' => 'nullable|string',
-            'filiere_id' => 'nullable',
+            'filiere_id' => 'required',
             'formateur_id' => 'required'
         ];
     }

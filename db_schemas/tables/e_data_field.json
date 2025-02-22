@@ -5344,7 +5344,7 @@
         "column_name": "filiere_id",
         "data_type": "ManyToOne",
         "field_order": 8,
-        "db_nullable": 1,
+        "db_nullable": 0,
         "db_primaryKey": 0,
         "db_unique": 0,
         "default_value": null,
