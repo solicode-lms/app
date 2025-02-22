@@ -175,6 +175,9 @@ class BaseProjetController extends AdminController
         $resource_instance =  $resourceService->createInstance();
 
         $this->viewState->set('scope.affectationProjet.projet_id', $id);
+        $value = $itemProjet->getNestedValue('formateur_id');
+        $key = 'scope.groupe.formateurs.formateur_id';
+        $this->viewState->set($key, $value);
         $affectationProjetService =  new AffectationProjetService();
         $affectationProjets_data =  $itemProjet->affectationProjets()->paginate(10);
         $affectationProjets_stats = $affectationProjetService->getaffectationProjetStats();
