@@ -64,6 +64,7 @@ class BaseModuleSeeder extends Seeder
             $row = array_combine($headers, $data);
             if ($row) {
                 $moduleData =[
+                    "code" => $row["code"] ?? null ,
                     "nom" => $row["nom"] ?? null ,
                     "description" => $row["description"] ?? null ,
                     "masse_horaire" => $row["masse_horaire"] ?? null ,

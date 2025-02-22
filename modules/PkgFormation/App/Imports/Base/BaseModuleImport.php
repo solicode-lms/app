@@ -56,10 +56,11 @@ class BaseModuleImport implements ToModel, WithHeadingRow
 
         // Création d'un nouvel enregistrement
         return new Module([
-             'nom' => $values[0] ?? null,
-             'description' => $values[1] ?? null,
-             'masse_horaire' => $values[2] ?? null,
-             'filiere_id' => $values[3] ?? null,
+             'code' => $values[0] ?? null,
+             'nom' => $values[1] ?? null,
+             'description' => $values[2] ?? null,
+             'masse_horaire' => $values[3] ?? null,
+             'filiere_id' => $values[4] ?? null,
              'reference' => $reference,
         ]);
 

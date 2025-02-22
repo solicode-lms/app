@@ -48,7 +48,7 @@ class BaseCompetenceService extends BaseService
     public function initFieldsFilterable(){
        // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
-            $this->generateManyToOneFilter(__("PkgFormation::module.plural"), 'module_id', \Modules\PkgFormation\Models\Module::class, 'nom'),
+            $this->generateManyToOneFilter(__("PkgFormation::module.plural"), 'module_id', \Modules\PkgFormation\Models\Module::class, 'code'),
         ];
     }
 

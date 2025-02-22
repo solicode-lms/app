@@ -28,6 +28,7 @@ class BaseModuleExport implements FromCollection, WithHeadings, ShouldAutoSize, 
     {
      if($this->format == 'csv'){
         return [
+            'code' => 'code',
             'nom' => 'nom',
             'description' => 'description',
             'masse_horaire' => 'masse_horaire',
@@ -36,6 +37,7 @@ class BaseModuleExport implements FromCollection, WithHeadings, ShouldAutoSize, 
         ];
         }else{
         return [
+            'code' => __('PkgFormation::module.code'),
             'nom' => __('PkgFormation::module.nom'),
             'description' => __('PkgFormation::module.description'),
             'masse_horaire' => __('PkgFormation::module.masse_horaire'),
@@ -51,6 +53,7 @@ class BaseModuleExport implements FromCollection, WithHeadings, ShouldAutoSize, 
     {
         return $this->data->map(function ($module) {
             return [
+                'code' => $module->code,
                 'nom' => $module->nom,
                 'description' => $module->description,
                 'masse_horaire' => $module->masse_horaire,

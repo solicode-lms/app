@@ -19,6 +19,7 @@ class BaseModuleService extends BaseService
      * @var array
      */
     protected $fieldsSearchable = [
+        'code',
         'nom',
         'description',
         'masse_horaire',

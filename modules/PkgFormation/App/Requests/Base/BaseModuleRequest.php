@@ -29,6 +29,7 @@ class BaseModuleRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'code' => 'required|string|max:255',
             'nom' => 'required|string|max:255',
             'description' => 'nullable|string',
             'masse_horaire' => 'required|string|max:255',
@@ -44,6 +45,8 @@ class BaseModuleRequest extends FormRequest
     public function messages(): array
     {
         return [
+            'code.required' => __('validation.required', ['attribute' => __('PkgFormation::Module.code')]),
+            'code.max' => __('validation.codeMax'),
             'nom.required' => __('validation.required', ['attribute' => __('PkgFormation::Module.nom')]),
             'nom.max' => __('validation.nomMax'),
             'description.required' => __('validation.required', ['attribute' => __('PkgFormation::Module.description')]),

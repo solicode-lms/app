@@ -25,6 +25,10 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="col-sm-12">
+                                <label for="code">{{ ucfirst(__('PkgFormation::module.code')) }}:</label>
+                                <p>{{ $itemModule->code }}</p>
+                            </div>
+                            <div class="col-sm-12">
                                 <label for="nom">{{ ucfirst(__('PkgFormation::module.nom')) }}:</label>
                                 <p>{{ $itemModule->nom }}</p>
                             </div>

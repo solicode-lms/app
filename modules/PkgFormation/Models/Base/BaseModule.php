@@ -35,7 +35,7 @@ class BaseModule extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'nom', 'description', 'masse_horaire', 'filiere_id'
+        'code', 'nom', 'description', 'masse_horaire', 'filiere_id'
     ];
 
     /**
@@ -68,6 +68,6 @@ class BaseModule extends BaseModel
      */
     public function __toString()
     {
-        return $this->nom ?? "";
+        return $this->code ?? "";
     }
 }

@@ -4,6 +4,7 @@
     <table class="table table-striped text-nowrap">
         <thead>
             <tr>
+                <x-sortable-column field="code" modelname="module" label="{{ ucfirst(__('PkgFormation::module.code')) }}" />
                 <x-sortable-column field="nom" modelname="module" label="{{ ucfirst(__('PkgFormation::module.nom')) }}" />
                 <x-sortable-column field="masse_horaire" modelname="module" label="{{ ucfirst(__('PkgFormation::module.masse_horaire')) }}" />
                 <x-sortable-column field="filiere_id" modelname="module" label="{{ ucfirst(__('PkgFormation::filiere.singular')) }}" />
@@ -15,6 +16,7 @@
         <tbody>
             @foreach ($modules_data as $module)
                 <tr id="module-row-{{$module->id}}">
+                    <td>@limit($module->code, 80)</td>
                     <td>@limit($module->nom, 80)</td>
                     <td>@limit($module->masse_horaire, 80)</td>
                     <td>@limit($module->filiere, 80)</td>
