@@ -122,6 +122,7 @@ class BaseCompetenceController extends AdminController
         $modules = $this->moduleService->all();
         $technologies = $this->technologyService->all();
 
+
         $this->viewState->set('scope.niveauCompetence.competence_id', $id);
         $niveauCompetenceService =  new NiveauCompetenceService();
         $niveauCompetences_data =  $itemCompetence->niveauCompetences()->paginate(10);

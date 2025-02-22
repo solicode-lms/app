@@ -116,6 +116,7 @@ class BaseFeatureDomainController extends AdminController
 
         $sysModules = $this->sysModuleService->all();
 
+
         $this->viewState->set('scope.feature.feature_domain_id', $id);
         $featureService =  new FeatureService();
         $features_data =  $itemFeatureDomain->features()->paginate(10);

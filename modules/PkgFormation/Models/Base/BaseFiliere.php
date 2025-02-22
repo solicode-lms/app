@@ -13,6 +13,7 @@ use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
 use Modules\PkgApprenants\Models\Groupe;
 use Modules\PkgFormation\Models\Module;
+use Modules\PkgCreationProjet\Models\Projet;
 
 /**
  * Classe BaseFiliere
@@ -57,6 +58,15 @@ class BaseFiliere extends BaseModel
     public function modules(): HasMany
     {
         return $this->hasMany(Module::class, 'filiere_id', 'id');
+    }
+    /**
+     * Relation HasMany pour Filieres.
+     *
+     * @return HasMany
+     */
+    public function projets(): HasMany
+    {
+        return $this->hasMany(Projet::class, 'filiere_id', 'id');
     }
 
 

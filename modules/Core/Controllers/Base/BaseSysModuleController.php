@@ -130,18 +130,21 @@ class BaseSysModuleController extends AdminController
 
         $sysColors = $this->sysColorService->all();
 
+
         $this->viewState->set('scope.featureDomain.sys_module_id', $id);
         $featureDomainService =  new FeatureDomainService();
         $featureDomains_data =  $itemSysModule->featureDomains()->paginate(10);
         $featureDomains_stats = $featureDomainService->getfeatureDomainStats();
         $featureDomains_filters = $featureDomainService->getFieldsFilterable();
         $featureDomain_instance =  $featureDomainService->createInstance();
+
         $this->viewState->set('scope.sysController.sys_module_id', $id);
         $sysControllerService =  new SysControllerService();
         $sysControllers_data =  $itemSysModule->sysControllers()->paginate(10);
         $sysControllers_stats = $sysControllerService->getsysControllerStats();
         $sysControllers_filters = $sysControllerService->getFieldsFilterable();
         $sysController_instance =  $sysControllerService->createInstance();
+
         $this->viewState->set('scope.sysModel.sys_module_id', $id);
         $sysModelService =  new SysModelService();
         $sysModels_data =  $itemSysModule->sysModels()->paginate(10);

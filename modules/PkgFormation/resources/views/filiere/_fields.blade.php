@@ -79,6 +79,10 @@
 
         <!--   Module HasMany --> 
 
+        
+
+        <!--   Projet HasMany --> 
+
     </div>
 
     <div class="card-footer">

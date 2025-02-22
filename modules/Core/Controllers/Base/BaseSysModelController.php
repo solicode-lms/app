@@ -122,6 +122,7 @@ class BaseSysModelController extends AdminController
         $sysModules = $this->sysModuleService->all();
         $sysColors = $this->sysColorService->all();
 
+
         $this->viewState->set('scope.widget.model_id', $id);
         $widgetService =  new WidgetService();
         $widgets_data =  $itemSysModel->widgets()->paginate(10);

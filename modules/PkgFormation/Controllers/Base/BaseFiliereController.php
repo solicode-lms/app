@@ -6,6 +6,7 @@ namespace Modules\PkgFormation\Controllers\Base;
 use Modules\PkgFormation\Services\FiliereService;
 use Modules\PkgApprenants\Services\GroupeService;
 use Modules\PkgFormation\Services\ModuleService;
+use Modules\PkgCreationProjet\Services\ProjetService;
 use Illuminate\Http\Request;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
@@ -102,12 +103,18 @@ class BaseFiliereController extends AdminController
         $modules_stats = $moduleService->getmoduleStats();
         $modules_filters = $moduleService->getFieldsFilterable();
         $module_instance =  $moduleService->createInstance();
+        $this->viewState->set('scope.projet.filiere_id', $id);
+        $projetService =  new ProjetService();
+        $projets_data =  $itemFiliere->projets()->paginate(10);
+        $projets_stats = $projetService->getprojetStats();
+        $projets_filters = $projetService->getFieldsFilterable();
+        $projet_instance =  $projetService->createInstance();
 
         if (request()->ajax()) {
-            return view('PkgFormation::filiere._edit', compact('itemFiliere', 'groupes_data', 'modules_data', 'groupes_stats', 'modules_stats', 'groupes_filters', 'modules_filters', 'groupe_instance', 'module_instance'));
+            return view('PkgFormation::filiere._edit', compact('itemFiliere', 'groupes_data', 'modules_data', 'projets_data', 'groupes_stats', 'modules_stats', 'projets_stats', 'groupes_filters', 'modules_filters', 'projets_filters', 'groupe_instance', 'module_instance', 'projet_instance'));
         }
 
-        return view('PkgFormation::filiere.edit', compact('itemFiliere', 'groupes_data', 'modules_data', 'groupes_stats', 'modules_stats', 'groupes_filters', 'modules_filters', 'groupe_instance', 'module_instance'));
+        return view('PkgFormation::filiere.edit', compact('itemFiliere', 'groupes_data', 'modules_data', 'projets_data', 'groupes_stats', 'modules_stats', 'projets_stats', 'groupes_filters', 'modules_filters', 'projets_filters', 'groupe_instance', 'module_instance', 'projet_instance'));
 
     }
     public function edit(string $id) {
@@ -117,12 +124,14 @@ class BaseFiliereController extends AdminController
         $itemFiliere = $this->filiereService->find($id);
 
 
+
         $this->viewState->set('scope.groupe.filiere_id', $id);
         $groupeService =  new GroupeService();
         $groupes_data =  $itemFiliere->groupes()->paginate(10);
         $groupes_stats = $groupeService->getgroupeStats();
         $groupes_filters = $groupeService->getFieldsFilterable();
         $groupe_instance =  $groupeService->createInstance();
+
         $this->viewState->set('scope.module.filiere_id', $id);
         $moduleService =  new ModuleService();
         $modules_data =  $itemFiliere->modules()->paginate(10);
@@ -130,11 +139,18 @@ class BaseFiliereController extends AdminController
         $modules_filters = $moduleService->getFieldsFilterable();
         $module_instance =  $moduleService->createInstance();
 
+        $this->viewState->set('scope.projet.filiere_id', $id);
+        $projetService =  new ProjetService();
+        $projets_data =  $itemFiliere->projets()->paginate(10);
+        $projets_stats = $projetService->getprojetStats();
+        $projets_filters = $projetService->getFieldsFilterable();
+        $projet_instance =  $projetService->createInstance();
+
         if (request()->ajax()) {
-            return view('PkgFormation::filiere._edit', compact('itemFiliere', 'groupes_data', 'modules_data', 'groupes_stats', 'modules_stats', 'groupes_filters', 'modules_filters', 'groupe_instance', 'module_instance'));
+            return view('PkgFormation::filiere._edit', compact('itemFiliere', 'groupes_data', 'modules_data', 'projets_data', 'groupes_stats', 'modules_stats', 'projets_stats', 'groupes_filters', 'modules_filters', 'projets_filters', 'groupe_instance', 'module_instance', 'projet_instance'));
         }
 
-        return view('PkgFormation::filiere.edit', compact('itemFiliere', 'groupes_data', 'modules_data', 'groupes_stats', 'modules_stats', 'groupes_filters', 'modules_filters', 'groupe_instance', 'module_instance'));
+        return view('PkgFormation::filiere.edit', compact('itemFiliere', 'groupes_data', 'modules_data', 'projets_data', 'groupes_stats', 'modules_stats', 'projets_stats', 'groupes_filters', 'modules_filters', 'projets_filters', 'groupe_instance', 'module_instance', 'projet_instance'));
 
     }
     public function update(FiliereRequest $request, string $id) {

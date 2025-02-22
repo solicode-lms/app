@@ -117,12 +117,14 @@ class BaseAnneeFormationController extends AdminController
         $itemAnneeFormation = $this->anneeFormationService->find($id);
 
 
+
         $this->viewState->set('scope.affectationProjet.annee_formation_id', $id);
         $affectationProjetService =  new AffectationProjetService();
         $affectationProjets_data =  $itemAnneeFormation->affectationProjets()->paginate(10);
         $affectationProjets_stats = $affectationProjetService->getaffectationProjetStats();
         $affectationProjets_filters = $affectationProjetService->getFieldsFilterable();
         $affectationProjet_instance =  $affectationProjetService->createInstance();
+
         $this->viewState->set('scope.groupe.annee_formation_id', $id);
         $groupeService =  new GroupeService();
         $groupes_data =  $itemAnneeFormation->groupes()->paginate(10);

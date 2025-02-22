@@ -130,18 +130,21 @@ class BaseUserController extends AdminController
 
         $roles = $this->roleService->all();
 
+
         $this->viewState->set('scope.apprenant.user_id', $id);
         $apprenantService =  new ApprenantService();
         $apprenants_data =  $itemUser->apprenants()->paginate(10);
         $apprenants_stats = $apprenantService->getapprenantStats();
         $apprenants_filters = $apprenantService->getFieldsFilterable();
         $apprenant_instance =  $apprenantService->createInstance();
+
         $this->viewState->set('scope.formateur.user_id', $id);
         $formateurService =  new FormateurService();
         $formateurs_data =  $itemUser->formateurs()->paginate(10);
         $formateurs_stats = $formateurService->getformateurStats();
         $formateurs_filters = $formateurService->getFieldsFilterable();
         $formateur_instance =  $formateurService->createInstance();
+
         $this->viewState->set('scope.profile.user_id', $id);
         $profileService =  new ProfileService();
         $profiles_data =  $itemUser->profiles()->paginate(10);

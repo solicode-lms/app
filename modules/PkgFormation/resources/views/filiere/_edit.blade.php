@@ -41,6 +41,9 @@
                         <li class="nav-item">
                             <a class="nav-link" id="filiere-hasmany-tabs-module-tab" data-toggle="pill" href="#filiere-hasmany-tabs-module" role="tab" aria-controls="filiere-hasmany-tabs-module" aria-selected="false">{{__('PkgFormation::module.plural')}}</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="filiere-hasmany-tabs-projet-tab" data-toggle="pill" href="#filiere-hasmany-tabs-projet" role="tab" aria-controls="filiere-hasmany-tabs-projet" aria-selected="false">{{__('PkgCreationProjet::projet.plural')}}</a>
+                        </li>
 
                        
                         </ul>
@@ -56,6 +59,9 @@
                             </div>
                             <div class="tab-pane fade" id="filiere-hasmany-tabs-module" role="tabpanel" aria-labelledby="filiere-hasmany-tabs-module-tab">
                                 @include('PkgFormation::module._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'filiere.edit_' . $itemFiliere->id])
+                            </div>
+                            <div class="tab-pane fade" id="filiere-hasmany-tabs-projet" role="tabpanel" aria-labelledby="filiere-hasmany-tabs-projet-tab">
+                                @include('PkgCreationProjet::projet._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'filiere.edit_' . $itemFiliere->id])
                             </div>
 
                            

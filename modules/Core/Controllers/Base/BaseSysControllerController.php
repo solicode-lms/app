@@ -116,6 +116,7 @@ class BaseSysControllerController extends AdminController
 
         $sysModules = $this->sysModuleService->all();
 
+
         $this->viewState->set('scope.permission.controller_id', $id);
         $permissionService =  new PermissionService();
         $permissions_data =  $itemSysController->permissions()->paginate(10);

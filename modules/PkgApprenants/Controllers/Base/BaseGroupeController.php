@@ -134,6 +134,7 @@ class BaseGroupeController extends AdminController
         $apprenants = $this->apprenantService->all();
         $formateurs = $this->formateurService->all();
 
+
         $this->viewState->set('scope.affectationProjet.groupe_id', $id);
         $affectationProjetService =  new AffectationProjetService();
         $affectationProjets_data =  $itemGroupe->affectationProjets()->paginate(10);
