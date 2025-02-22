@@ -59,6 +59,9 @@ class BaseValidationController extends AdminController
         $this->viewState->set('scope_form.validation.formateur_id'  , $this->sessionState->get('formateur_id'));
         $itemValidation = $this->validationService->createInstance();
         
+        $value = $itemValidation->getNestedValue('realisationProjet.affectationProjet.projet.id');
+        $key = 'scope.transfertCompetence.projet_id';
+        $this->viewState->set($key, $value);
         $transfertCompetences = $this->transfertCompetenceService->all();
         $realisationProjets = $this->realisationProjetService->all();
 
@@ -115,6 +118,9 @@ class BaseValidationController extends AdminController
         $itemValidation = $this->validationService->find($id);
         $this->authorize('edit', $itemValidation);
 
+        $value = $itemValidation->getNestedValue('realisationProjet.affectationProjet.projet.id');
+        $key = 'scope.transfertCompetence.projet_id';
+        $this->viewState->set($key, $value);
         $transfertCompetences = $this->transfertCompetenceService->all();
         $realisationProjets = $this->realisationProjetService->all();
 

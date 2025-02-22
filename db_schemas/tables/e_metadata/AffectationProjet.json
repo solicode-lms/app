@@ -346,5 +346,12 @@
         "value_integer": 6,
         "e_data_field_reference": "affectation_projets_hasMany_realisation_projets_affectation_projet_id",
         "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "affectation_projets_editOnFullScreen",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_model_reference": "affectation_projets",
+        "e_metadata_definition_reference": "editOnFullScreen"
     }
 ]
