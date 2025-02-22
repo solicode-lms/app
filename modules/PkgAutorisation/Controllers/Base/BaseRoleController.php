@@ -57,6 +57,8 @@ class BaseRoleController extends AdminController
         return view('PkgAutorisation::role.index', compact('roles_data', 'roles_stats', 'roles_filters','role_instance'));
     }
     public function create() {
+
+
         $itemRole = $this->roleService->createInstance();
         
         $permissions = $this->permissionService->all();

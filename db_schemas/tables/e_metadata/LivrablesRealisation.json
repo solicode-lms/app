@@ -212,11 +212,14 @@
         "reference": "livrables_realisations_ownedByUser",
         "value_boolean": 1,
         "value_float": 0,
-        "value_json": {
-            "dataScope": "filter",
-            "userModelName": "Apprenant",
-            "ownerRelationPath": "realisationProjet.apprenant.user"
-        },
+        "value_json": [
+            {
+                "role": "apprenant",
+                "dataScope": "filter",
+                "userModelName": "Apprenant",
+                "ownerRelationPath": "realisationProjet.apprenant.user"
+            }
+        ],
         "e_model_reference": "livrables_realisations",
         "e_metadata_definition_reference": "ownedByUser"
     },

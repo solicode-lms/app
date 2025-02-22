@@ -54,6 +54,8 @@ class BaseFiliereController extends AdminController
         return view('PkgFormation::filiere.index', compact('filieres_data', 'filieres_stats', 'filieres_filters','filiere_instance'));
     }
     public function create() {
+
+
         $itemFiliere = $this->filiereService->createInstance();
         
 

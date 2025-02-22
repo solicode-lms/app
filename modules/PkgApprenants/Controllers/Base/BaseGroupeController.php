@@ -64,6 +64,8 @@ class BaseGroupeController extends AdminController
         return view('PkgApprenants::groupe.index', compact('groupes_data', 'groupes_stats', 'groupes_filters','groupe_instance'));
     }
     public function create() {
+
+
         $itemGroupe = $this->groupeService->createInstance();
         
         $filieres = $this->filiereService->all();

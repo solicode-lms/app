@@ -52,6 +52,8 @@ class BaseNationaliteController extends AdminController
         return view('PkgApprenants::nationalite.index', compact('nationalites_data', 'nationalites_stats', 'nationalites_filters','nationalite_instance'));
     }
     public function create() {
+
+
         $itemNationalite = $this->nationaliteService->createInstance();
         
 

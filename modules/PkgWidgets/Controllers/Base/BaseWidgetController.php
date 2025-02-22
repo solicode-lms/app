@@ -60,6 +60,8 @@ class BaseWidgetController extends AdminController
         return view('PkgWidgets::widget.index', compact('widgets_data', 'widgets_stats', 'widgets_filters','widget_instance'));
     }
     public function create() {
+
+
         $itemWidget = $this->widgetService->createInstance();
         
         $widgetTypes = $this->widgetTypeService->all();

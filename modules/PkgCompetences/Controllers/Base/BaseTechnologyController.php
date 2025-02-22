@@ -60,6 +60,8 @@ class BaseTechnologyController extends AdminController
         return view('PkgCompetences::technology.index', compact('technologies_data', 'technologies_stats', 'technologies_filters','technology_instance'));
     }
     public function create() {
+
+
         $itemTechnology = $this->technologyService->createInstance();
         
         $categoryTechnologies = $this->categoryTechnologyService->all();

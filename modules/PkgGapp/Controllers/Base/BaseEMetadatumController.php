@@ -60,6 +60,8 @@ class BaseEMetadatumController extends AdminController
         return view('PkgGapp::eMetadatum.index', compact('eMetadata_data', 'eMetadata_stats', 'eMetadata_filters','eMetadatum_instance'));
     }
     public function create() {
+
+
         $itemEMetadatum = $this->eMetadatumService->createInstance();
         
         $eModels = $this->eModelService->all();

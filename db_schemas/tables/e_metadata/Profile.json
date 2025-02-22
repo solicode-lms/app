@@ -144,11 +144,20 @@
         "reference": "profiles_ownedByUser",
         "value_boolean": 1,
         "value_float": 0,
-        "value_json": {
-            "dataScope": "scope",
-            "userModelName": "User",
-            "ownerRelationPath": "user"
-        },
+        "value_json": [
+            {
+                "role": "formateur",
+                "dataScope": "scope",
+                "userModelName": "User",
+                "ownerRelationPath": "user"
+            },
+            {
+                "role": "apprenant",
+                "dataScope": "scope",
+                "userModelName": "User",
+                "ownerRelationPath": "user"
+            }
+        ],
         "e_model_reference": "profiles",
         "e_metadata_definition_reference": "ownedByUser"
     },

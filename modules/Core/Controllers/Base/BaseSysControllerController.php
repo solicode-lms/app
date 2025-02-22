@@ -55,6 +55,8 @@ class BaseSysControllerController extends AdminController
         return view('Core::sysController.index', compact('sysControllers_data', 'sysControllers_stats', 'sysControllers_filters','sysController_instance'));
     }
     public function create() {
+
+
         $itemSysController = $this->sysControllerService->createInstance();
         
         $sysModules = $this->sysModuleService->all();

@@ -521,7 +521,7 @@
         "name": "ownedByUser",
         "type": "Json",
         "scope": "model",
-        "default_value": "{   \"dataScope\": \"filter\",   \"userModelName\": \"Formateur\",   \"ownerRelationPath\": \"formateur.user\" }",
+        "default_value": "[   {     \"role\": \"formateur\",     \"dataScope\": \"filter\",     \"userModelName\": \"Formateur\",     \"ownerRelationPath\": \"formateur.user\"   } ]",
         "groupe": "general",
         "description": "Cette solution permet de gérer dynamiquement les permissions dans Laravel pour que seuls les utilisateurs propriétaires de certains objets puissent effectuer des actions spécifiques (par exemple, modifier, supprimer, ou afficher)",
         "created_at": null,

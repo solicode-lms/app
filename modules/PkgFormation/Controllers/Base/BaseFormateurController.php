@@ -60,6 +60,8 @@ class BaseFormateurController extends AdminController
         return view('PkgFormation::formateur.index', compact('formateurs_data', 'formateurs_stats', 'formateurs_filters','formateur_instance'));
     }
     public function create() {
+
+
         $itemFormateur = $this->formateurService->createInstance();
         
         $specialites = $this->specialiteService->all();

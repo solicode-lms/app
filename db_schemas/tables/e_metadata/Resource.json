@@ -180,11 +180,14 @@
         "reference": "resources_ownedByUser",
         "value_boolean": 1,
         "value_float": 0,
-        "value_json": {
-            "dataScope": "filter",
-            "userModelName": "Formateur",
-            "ownerRelationPath": "projet.formateur.user"
-        },
+        "value_json": [
+            {
+                "role": "formateur",
+                "dataScope": "filter",
+                "userModelName": "Formateur",
+                "ownerRelationPath": "projet.formateur.user"
+            }
+        ],
         "e_model_reference": "resources",
         "e_metadata_definition_reference": "ownedByUser"
     },

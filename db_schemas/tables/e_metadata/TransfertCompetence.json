@@ -255,11 +255,14 @@
         "reference": "transfert_competences_ownedByUser",
         "value_boolean": 1,
         "value_float": 0,
-        "value_json": {
-            "dataScope": "scope",
-            "userModelName": "Formateur",
-            "ownerRelationPath": "projet.formateur.user"
-        },
+        "value_json": [
+            {
+                "role": "formateur",
+                "dataScope": "scope",
+                "userModelName": "Formateur",
+                "ownerRelationPath": "projet.formateur.user"
+            }
+        ],
         "e_model_reference": "transfert_competences",
         "e_metadata_definition_reference": "ownedByUser"
     },

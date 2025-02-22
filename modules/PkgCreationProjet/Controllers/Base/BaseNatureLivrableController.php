@@ -52,6 +52,8 @@ class BaseNatureLivrableController extends AdminController
         return view('PkgCreationProjet::natureLivrable.index', compact('natureLivrables_data', 'natureLivrables_stats', 'natureLivrables_filters','natureLivrable_instance'));
     }
     public function create() {
+
+
         $itemNatureLivrable = $this->natureLivrableService->createInstance();
         
 

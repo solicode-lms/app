@@ -30,9 +30,13 @@ class BaseProfileController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('profile.index');
-        
         // ownedByUser
-        if($this->sessionState->get('user_id')) $this->viewState->init('scope.profile.user_id'  , $this->sessionState->get('user_id'));
+        if(Auth::user()->hasRole('formateur')){
+           $this->viewState->init('scope.profile.user.id'  , $this->sessionState->get('user_id'));
+        }
+        if(Auth::user()->hasRole('apprenant')){
+           $this->viewState->init('scope.profile.user.id'  , $this->sessionState->get('user_id'));
+        }
 
 
         // Extraire les paramètres de recherche, page, et filtres
@@ -57,7 +61,15 @@ class BaseProfileController extends AdminController
         return view('PkgAutorisation::profile.index', compact('profiles_data', 'profiles_stats', 'profiles_filters','profile_instance'));
     }
     public function create() {
-        $this->viewState->set('scope_form.profile.user_id'  , $this->sessionState->get('user_id'));
+        // ownedByUser
+        if(Auth::user()->hasRole('formateur')){
+           $this->viewState->set('scope_form.profile.user.id'  , $this->sessionState->get('user_id'));
+        }
+        if(Auth::user()->hasRole('apprenant')){
+           $this->viewState->set('scope_form.profile.user.id'  , $this->sessionState->get('user_id'));
+        }
+
+
         $itemProfile = $this->profileService->createInstance();
         
         $users = $this->userService->all();

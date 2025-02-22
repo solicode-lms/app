@@ -52,6 +52,8 @@ class BaseCategoryTechnologyController extends AdminController
         return view('PkgCompetences::categoryTechnology.index', compact('categoryTechnologies_data', 'categoryTechnologies_stats', 'categoryTechnologies_filters','categoryTechnology_instance'));
     }
     public function create() {
+
+
         $itemCategoryTechnology = $this->categoryTechnologyService->createInstance();
         
 

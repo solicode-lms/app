@@ -30,9 +30,10 @@ class BaseEtatsRealisationProjetController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('etatsRealisationProjet.index');
-        
         // ownedByUser
-        if($this->sessionState->get('formateur_id')) $this->viewState->init('scope.etatsRealisationProjet.formateur_id'  , $this->sessionState->get('formateur_id'));
+        if(Auth::user()->hasRole('formateur')){
+           $this->viewState->init('scope.etatsRealisationProjet.formateur.id'  , $this->sessionState->get('formateur_id'));
+        }
 
 
         // Extraire les paramètres de recherche, page, et filtres
@@ -57,7 +58,12 @@ class BaseEtatsRealisationProjetController extends AdminController
         return view('PkgRealisationProjets::etatsRealisationProjet.index', compact('etatsRealisationProjets_data', 'etatsRealisationProjets_stats', 'etatsRealisationProjets_filters','etatsRealisationProjet_instance'));
     }
     public function create() {
-        $this->viewState->set('scope_form.etatsRealisationProjet.formateur_id'  , $this->sessionState->get('formateur_id'));
+        // ownedByUser
+        if(Auth::user()->hasRole('formateur')){
+           $this->viewState->set('scope_form.etatsRealisationProjet.formateur.id'  , $this->sessionState->get('formateur_id'));
+        }
+
+
         $itemEtatsRealisationProjet = $this->etatsRealisationProjetService->createInstance();
         
         $formateurs = $this->formateurService->all();

@@ -51,6 +51,8 @@ class BaseVilleController extends AdminController
         return view('PkgApprenants::ville.index', compact('villes_data', 'villes_stats', 'villes_filters','ville_instance'));
     }
     public function create() {
+
+
         $itemVille = $this->villeService->createInstance();
         
 

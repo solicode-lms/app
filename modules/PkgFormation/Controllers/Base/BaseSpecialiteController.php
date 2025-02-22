@@ -54,6 +54,8 @@ class BaseSpecialiteController extends AdminController
         return view('PkgFormation::specialite.index', compact('specialites_data', 'specialites_stats', 'specialites_filters','specialite_instance'));
     }
     public function create() {
+
+
         $itemSpecialite = $this->specialiteService->createInstance();
         
         $formateurs = $this->formateurService->all();

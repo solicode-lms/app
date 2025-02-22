@@ -52,6 +52,8 @@ class BaseWidgetOperationController extends AdminController
         return view('PkgWidgets::widgetOperation.index', compact('widgetOperations_data', 'widgetOperations_stats', 'widgetOperations_filters','widgetOperation_instance'));
     }
     public function create() {
+
+
         $itemWidgetOperation = $this->widgetOperationService->createInstance();
         
 

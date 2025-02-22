@@ -33,9 +33,10 @@ class BaseValidationController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('validation.index');
-        
         // ownedByUser
-        if($this->sessionState->get('formateur_id')) $this->viewState->init('filter.validation.formateur_id'  , $this->sessionState->get('formateur_id'));
+        if(Auth::user()->hasRole('formateur')){
+           $this->viewState->init('filter.validation.realisationProjet.affectationProjet.projet.formateur.id'  , $this->sessionState->get('formateur_id'));
+        }
 
 
         // Extraire les paramètres de recherche, page, et filtres
@@ -60,7 +61,12 @@ class BaseValidationController extends AdminController
         return view('PkgRealisationProjets::validation.index', compact('validations_data', 'validations_stats', 'validations_filters','validation_instance'));
     }
     public function create() {
-        $this->viewState->set('scope_form.validation.formateur_id'  , $this->sessionState->get('formateur_id'));
+        // ownedByUser
+        if(Auth::user()->hasRole('formateur')){
+           $this->viewState->set('scope_form.validation.realisationProjet.affectationProjet.projet.formateur.id'  , $this->sessionState->get('formateur_id'));
+        }
+
+
         $itemValidation = $this->validationService->createInstance();
         
         $transfertCompetences = $this->transfertCompetenceService->all();

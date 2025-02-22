@@ -53,6 +53,8 @@ class BaseAnneeFormationController extends AdminController
         return view('PkgFormation::anneeFormation.index', compact('anneeFormations_data', 'anneeFormations_stats', 'anneeFormations_filters','anneeFormation_instance'));
     }
     public function create() {
+
+
         $itemAnneeFormation = $this->anneeFormationService->createInstance();
         
 

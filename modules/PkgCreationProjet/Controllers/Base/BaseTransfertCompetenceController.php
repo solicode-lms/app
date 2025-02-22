@@ -39,9 +39,10 @@ class BaseTransfertCompetenceController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('transfertCompetence.index');
-        
         // ownedByUser
-        if($this->sessionState->get('formateur_id')) $this->viewState->init('scope.transfertCompetence.formateur_id'  , $this->sessionState->get('formateur_id'));
+        if(Auth::user()->hasRole('formateur')){
+           $this->viewState->init('scope.transfertCompetence.projet.formateur.id'  , $this->sessionState->get('formateur_id'));
+        }
 
 
         // Extraire les paramètres de recherche, page, et filtres
@@ -66,7 +67,12 @@ class BaseTransfertCompetenceController extends AdminController
         return view('PkgCreationProjet::transfertCompetence.index', compact('transfertCompetences_data', 'transfertCompetences_stats', 'transfertCompetences_filters','transfertCompetence_instance'));
     }
     public function create() {
-        $this->viewState->set('scope_form.transfertCompetence.formateur_id'  , $this->sessionState->get('formateur_id'));
+        // ownedByUser
+        if(Auth::user()->hasRole('formateur')){
+           $this->viewState->set('scope_form.transfertCompetence.projet.formateur.id'  , $this->sessionState->get('formateur_id'));
+        }
+
+
         $itemTransfertCompetence = $this->transfertCompetenceService->createInstance();
         
         $competences = $this->competenceService->all();

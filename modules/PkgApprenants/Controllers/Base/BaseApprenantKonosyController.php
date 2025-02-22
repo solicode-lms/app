@@ -51,6 +51,8 @@ class BaseApprenantKonosyController extends AdminController
         return view('PkgApprenants::apprenantKonosy.index', compact('apprenantKonosies_data', 'apprenantKonosies_stats', 'apprenantKonosies_filters','apprenantKonosy_instance'));
     }
     public function create() {
+
+
         $itemApprenantKonosy = $this->apprenantKonosyService->createInstance();
         
 

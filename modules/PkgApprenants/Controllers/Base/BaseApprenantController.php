@@ -63,6 +63,8 @@ class BaseApprenantController extends AdminController
         return view('PkgApprenants::apprenant.index', compact('apprenants_data', 'apprenants_stats', 'apprenants_filters','apprenant_instance'));
     }
     public function create() {
+
+
         $itemApprenant = $this->apprenantService->createInstance();
         
         $nationalites = $this->nationaliteService->all();

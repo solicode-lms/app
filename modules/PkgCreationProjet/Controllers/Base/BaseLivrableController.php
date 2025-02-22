@@ -33,9 +33,10 @@ class BaseLivrableController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('livrable.index');
-        
         // ownedByUser
-        if($this->sessionState->get('formateur_id')) $this->viewState->init('filter.livrable.formateur_id'  , $this->sessionState->get('formateur_id'));
+        if(Auth::user()->hasRole('formateur')){
+           $this->viewState->init('filter.livrable.projet.formateur.id'  , $this->sessionState->get('formateur_id'));
+        }
 
 
         // Extraire les paramètres de recherche, page, et filtres
@@ -60,7 +61,12 @@ class BaseLivrableController extends AdminController
         return view('PkgCreationProjet::livrable.index', compact('livrables_data', 'livrables_stats', 'livrables_filters','livrable_instance'));
     }
     public function create() {
-        $this->viewState->set('scope_form.livrable.formateur_id'  , $this->sessionState->get('formateur_id'));
+        // ownedByUser
+        if(Auth::user()->hasRole('formateur')){
+           $this->viewState->set('scope_form.livrable.projet.formateur.id'  , $this->sessionState->get('formateur_id'));
+        }
+
+
         $itemLivrable = $this->livrableService->createInstance();
         
         $natureLivrables = $this->natureLivrableService->all();

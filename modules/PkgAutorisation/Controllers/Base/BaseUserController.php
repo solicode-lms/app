@@ -57,6 +57,8 @@ class BaseUserController extends AdminController
         return view('PkgAutorisation::user.index', compact('users_data', 'users_stats', 'users_filters','user_instance'));
     }
     public function create() {
+
+
         $itemUser = $this->userService->createInstance();
         
         $roles = $this->roleService->all();

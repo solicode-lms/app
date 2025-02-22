@@ -53,6 +53,8 @@ class BaseSysColorController extends AdminController
         return view('Core::sysColor.index', compact('sysColors_data', 'sysColors_stats', 'sysColors_filters','sysColor_instance'));
     }
     public function create() {
+
+
         $itemSysColor = $this->sysColorService->createInstance();
         
 

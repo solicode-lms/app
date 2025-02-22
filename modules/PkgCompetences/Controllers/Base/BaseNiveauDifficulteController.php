@@ -30,9 +30,10 @@ class BaseNiveauDifficulteController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('niveauDifficulte.index');
-        
         // ownedByUser
-        if($this->sessionState->get('formateur_id')) $this->viewState->init('filter.niveauDifficulte.formateur_id'  , $this->sessionState->get('formateur_id'));
+        if(Auth::user()->hasRole('formateur')){
+           $this->viewState->init('filter.niveauDifficulte.formateur.id'  , $this->sessionState->get('formateur_id'));
+        }
 
 
         // Extraire les paramètres de recherche, page, et filtres
@@ -57,7 +58,12 @@ class BaseNiveauDifficulteController extends AdminController
         return view('PkgCompetences::niveauDifficulte.index', compact('niveauDifficultes_data', 'niveauDifficultes_stats', 'niveauDifficultes_filters','niveauDifficulte_instance'));
     }
     public function create() {
-        $this->viewState->set('scope_form.niveauDifficulte.formateur_id'  , $this->sessionState->get('formateur_id'));
+        // ownedByUser
+        if(Auth::user()->hasRole('formateur')){
+           $this->viewState->set('scope_form.niveauDifficulte.formateur.id'  , $this->sessionState->get('formateur_id'));
+        }
+
+
         $itemNiveauDifficulte = $this->niveauDifficulteService->createInstance();
         
         $formateurs = $this->formateurService->all();

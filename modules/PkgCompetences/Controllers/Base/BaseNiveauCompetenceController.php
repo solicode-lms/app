@@ -54,6 +54,8 @@ class BaseNiveauCompetenceController extends AdminController
         return view('PkgCompetences::niveauCompetence.index', compact('niveauCompetences_data', 'niveauCompetences_stats', 'niveauCompetences_filters','niveauCompetence_instance'));
     }
     public function create() {
+
+
         $itemNiveauCompetence = $this->niveauCompetenceService->createInstance();
         
         $competences = $this->competenceService->all();

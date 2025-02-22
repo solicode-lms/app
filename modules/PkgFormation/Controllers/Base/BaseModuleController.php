@@ -55,6 +55,8 @@ class BaseModuleController extends AdminController
         return view('PkgFormation::module.index', compact('modules_data', 'modules_stats', 'modules_filters','module_instance'));
     }
     public function create() {
+
+
         $itemModule = $this->moduleService->createInstance();
         
         $filieres = $this->filiereService->all();

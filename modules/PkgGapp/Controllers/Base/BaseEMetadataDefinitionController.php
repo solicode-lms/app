@@ -51,6 +51,8 @@ class BaseEMetadataDefinitionController extends AdminController
         return view('PkgGapp::eMetadataDefinition.index', compact('eMetadataDefinitions_data', 'eMetadataDefinitions_stats', 'eMetadataDefinitions_filters','eMetadataDefinition_instance'));
     }
     public function create() {
+
+
         $itemEMetadataDefinition = $this->eMetadataDefinitionService->createInstance();
         
 

@@ -174,11 +174,14 @@
         "reference": "etats_realisation_projets_ownedByUser",
         "value_boolean": 1,
         "value_float": 0,
-        "value_json": {
-            "dataScope": "scope",
-            "userModelName": "Formateur",
-            "ownerRelationPath": "formateur.user"
-        },
+        "value_json": [
+            {
+                "role": "formateur",
+                "dataScope": "scope",
+                "userModelName": "Formateur",
+                "ownerRelationPath": "formateur.user"
+            }
+        ],
         "e_model_reference": "etats_realisation_projets",
         "e_metadata_definition_reference": "ownedByUser"
     },

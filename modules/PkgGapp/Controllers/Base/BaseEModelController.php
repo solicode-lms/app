@@ -56,6 +56,8 @@ class BaseEModelController extends AdminController
         return view('PkgGapp::eModel.index', compact('eModels_data', 'eModels_stats', 'eModels_filters','eModel_instance'));
     }
     public function create() {
+
+
         $itemEModel = $this->eModelService->createInstance();
         
         $ePackages = $this->ePackageService->all();

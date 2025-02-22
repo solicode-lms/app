@@ -52,6 +52,8 @@ class BaseNiveauxScolaireController extends AdminController
         return view('PkgApprenants::niveauxScolaire.index', compact('niveauxScolaires_data', 'niveauxScolaires_stats', 'niveauxScolaires_filters','niveauxScolaire_instance'));
     }
     public function create() {
+
+
         $itemNiveauxScolaire = $this->niveauxScolaireService->createInstance();
         
 

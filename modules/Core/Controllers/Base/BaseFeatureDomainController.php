@@ -55,6 +55,8 @@ class BaseFeatureDomainController extends AdminController
         return view('Core::featureDomain.index', compact('featureDomains_data', 'featureDomains_stats', 'featureDomains_filters','featureDomain_instance'));
     }
     public function create() {
+
+
         $itemFeatureDomain = $this->featureDomainService->createInstance();
         
         $sysModules = $this->sysModuleService->all();

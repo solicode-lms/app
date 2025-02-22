@@ -52,6 +52,8 @@ class BaseEPackageController extends AdminController
         return view('PkgGapp::ePackage.index', compact('ePackages_data', 'ePackages_stats', 'ePackages_filters','ePackage_instance'));
     }
     public function create() {
+
+
         $itemEPackage = $this->ePackageService->createInstance();
         
 

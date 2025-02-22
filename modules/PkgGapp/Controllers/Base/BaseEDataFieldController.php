@@ -58,6 +58,8 @@ class BaseEDataFieldController extends AdminController
         return view('PkgGapp::eDataField.index', compact('eDataFields_data', 'eDataFields_stats', 'eDataFields_filters','eDataField_instance'));
     }
     public function create() {
+
+
         $itemEDataField = $this->eDataFieldService->createInstance();
         
         $eModels = $this->eModelService->all();

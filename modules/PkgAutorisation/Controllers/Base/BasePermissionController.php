@@ -60,6 +60,8 @@ class BasePermissionController extends AdminController
         return view('PkgAutorisation::permission.index', compact('permissions_data', 'permissions_stats', 'permissions_filters','permission_instance'));
     }
     public function create() {
+
+
         $itemPermission = $this->permissionService->createInstance();
         
         $sysControllers = $this->sysControllerService->all();

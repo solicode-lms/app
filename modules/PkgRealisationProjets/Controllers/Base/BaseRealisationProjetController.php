@@ -38,9 +38,13 @@ class BaseRealisationProjetController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('realisationProjet.index');
-        
         // ownedByUser
-        if($this->sessionState->get('formateur_id')) $this->viewState->init('filter.realisationProjet.formateur_id'  , $this->sessionState->get('formateur_id'));
+        if(Auth::user()->hasRole('formateur')){
+           $this->viewState->init('filter.realisationProjet.affectationProjet.projet.formateur.id'  , $this->sessionState->get('formateur_id'));
+        }
+        if(Auth::user()->hasRole('apprenant')){
+           $this->viewState->init('filter.realisationProjet.apprenant.id'  , $this->sessionState->get('formateur_id'));
+        }
 
 
         // Extraire les paramètres de recherche, page, et filtres
@@ -65,7 +69,15 @@ class BaseRealisationProjetController extends AdminController
         return view('PkgRealisationProjets::realisationProjet.index', compact('realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters','realisationProjet_instance'));
     }
     public function create() {
-        $this->viewState->set('scope_form.realisationProjet.formateur_id'  , $this->sessionState->get('formateur_id'));
+        // ownedByUser
+        if(Auth::user()->hasRole('formateur')){
+           $this->viewState->set('scope_form.realisationProjet.affectationProjet.projet.formateur.id'  , $this->sessionState->get('formateur_id'));
+        }
+        if(Auth::user()->hasRole('apprenant')){
+           $this->viewState->set('scope_form.realisationProjet.apprenant.id'  , $this->sessionState->get('formateur_id'));
+        }
+
+
         $itemRealisationProjet = $this->realisationProjetService->createInstance();
         
         $affectationProjets = $this->affectationProjetService->all();

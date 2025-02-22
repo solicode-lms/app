@@ -58,6 +58,8 @@ class BaseSysModelController extends AdminController
         return view('Core::sysModel.index', compact('sysModels_data', 'sysModels_stats', 'sysModels_filters','sysModel_instance'));
     }
     public function create() {
+
+
         $itemSysModel = $this->sysModelService->createInstance();
         
         $sysModules = $this->sysModuleService->all();

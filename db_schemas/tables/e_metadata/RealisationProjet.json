@@ -290,14 +290,20 @@
         "reference": "realisation_projets_ownedByUser",
         "value_boolean": 1,
         "value_float": 0,
-        "value_json": {
-            "dataScope": "filter",
-            "userModelName": "Formateur",
-            "ownerRelationPath": [
-                "apprenant.user",
-                "affectationProjet.projet.formateur.user"
-            ]
-        },
+        "value_json": [
+            {
+                "role": "formateur",
+                "dataScope": "filter",
+                "userModelName": "Formateur",
+                "ownerRelationPath": "affectationProjet.projet.formateur.user"
+            },
+            {
+                "role": "apprenant",
+                "dataScope": "filter",
+                "userModelName": "Formateur",
+                "ownerRelationPath": "apprenant.user"
+            }
+        ],
         "e_model_reference": "realisation_projets",
         "e_metadata_definition_reference": "ownedByUser"
     },

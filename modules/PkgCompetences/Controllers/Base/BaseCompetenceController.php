@@ -58,6 +58,8 @@ class BaseCompetenceController extends AdminController
         return view('PkgCompetences::competence.index', compact('competences_data', 'competences_stats', 'competences_filters','competence_instance'));
     }
     public function create() {
+
+
         $itemCompetence = $this->competenceService->createInstance();
         
         $modules = $this->moduleService->all();

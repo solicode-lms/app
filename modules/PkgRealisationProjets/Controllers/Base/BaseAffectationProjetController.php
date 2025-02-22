@@ -37,9 +37,10 @@ class BaseAffectationProjetController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('affectationProjet.index');
-        
         // ownedByUser
-        if($this->sessionState->get('formateur_id')) $this->viewState->init('scope.affectationProjet.formateur_id'  , $this->sessionState->get('formateur_id'));
+        if(Auth::user()->hasRole('formateur')){
+           $this->viewState->init('scope.affectationProjet.projet.formateur.id'  , $this->sessionState->get('formateur_id'));
+        }
 
         // scopeDataByRole
         if(Auth::user()->hasRole('formateur')){
@@ -71,7 +72,12 @@ class BaseAffectationProjetController extends AdminController
         return view('PkgRealisationProjets::affectationProjet.index', compact('affectationProjets_data', 'affectationProjets_stats', 'affectationProjets_filters','affectationProjet_instance'));
     }
     public function create() {
-        $this->viewState->set('scope_form.affectationProjet.formateur_id'  , $this->sessionState->get('formateur_id'));
+        // ownedByUser
+        if(Auth::user()->hasRole('formateur')){
+           $this->viewState->set('scope_form.affectationProjet.projet.formateur.id'  , $this->sessionState->get('formateur_id'));
+        }
+
+
         if(Auth::user()->hasRole('formateur')){
             $this->viewState->init('scope.projet.formateur_id'  , $this->sessionState->get('formateur_id'));
         }
