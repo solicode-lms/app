@@ -516,7 +516,7 @@
         "updated_at": null
     },
     {
-        "id": 46,
+        "id": 44,
         "reference": "ownedByUser",
         "name": "ownedByUser",
         "type": "Json",
@@ -528,7 +528,7 @@
         "updated_at": null
     },
     {
-        "id": 55,
+        "id": 45,
         "reference": "computableFields",
         "name": "computableFields",
         "type": "Json",
@@ -540,7 +540,7 @@
         "updated_at": null
     },
     {
-        "id": 56,
+        "id": 46,
         "reference": "displayInSideBar",
         "name": "displayInSideBar",
         "type": "Boolean",
@@ -552,7 +552,7 @@
         "updated_at": null
     },
     {
-        "id": 57,
+        "id": 47,
         "reference": "displayInForm",
         "name": "displayInForm",
         "type": "Boolean",
@@ -564,7 +564,7 @@
         "updated_at": null
     },
     {
-        "id": 58,
+        "id": 48,
         "reference": "dataCalcul",
         "name": "dataCalcul",
         "type": "Boolean",
@@ -576,7 +576,7 @@
         "updated_at": null
     },
     {
-        "id": 59,
+        "id": 49,
         "reference": "editOnFullScreen",
         "name": "editOnFullScreen",
         "type": "Boolean",
@@ -588,7 +588,7 @@
         "updated_at": null
     },
     {
-        "id": 60,
+        "id": 50,
         "reference": "useAssigned",
         "name": "useAssigned",
         "type": "Json",
@@ -600,7 +600,7 @@
         "updated_at": null
     },
     {
-        "id": 61,
+        "id": 51,
         "reference": "inputFields",
         "name": "inputFields",
         "type": "Json",
@@ -612,7 +612,7 @@
         "updated_at": null
     },
     {
-        "id": 62,
+        "id": 52,
         "reference": "isConfirmed",
         "name": "isConfirmed",
         "type": "Boolean",
@@ -624,7 +624,7 @@
         "updated_at": null
     },
     {
-        "id": 64,
+        "id": 53,
         "reference": "entityActions",
         "name": "entityActions",
         "type": "Json",
@@ -636,7 +636,7 @@
         "updated_at": null
     },
     {
-        "id": 65,
+        "id": 54,
         "reference": "inputMdWidth",
         "name": "inputMdWidth",
         "type": "Integer",
@@ -648,7 +648,7 @@
         "updated_at": null
     },
     {
-        "id": 66,
+        "id": 55,
         "reference": "formStartGroup",
         "name": "formStartGroup",
         "type": "Json",
@@ -660,7 +660,7 @@
         "updated_at": null
     },
     {
-        "id": 67,
+        "id": 56,
         "reference": "scopeData",
         "name": "scopeData",
         "type": "Json",
@@ -672,7 +672,7 @@
         "updated_at": null
     },
     {
-        "id": 68,
+        "id": 57,
         "reference": "editableByRoles",
         "name": "editableByRoles",
         "type": "Json",

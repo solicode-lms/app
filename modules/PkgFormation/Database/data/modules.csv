@@ -1,4 +1,4 @@
-nom,description,masse_horaire,filiere_id
+code,nom,masse_horaire,filiere_id
 M05,"Initiation à l’environnement du développement mobile par la pédagogie active",70,2
 M06,"Maquettage d’une application mobile",50,2
 M07,"Gestion de projet",50,2
