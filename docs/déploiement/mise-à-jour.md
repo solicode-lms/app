@@ -21,7 +21,7 @@ sudo composer dump-autoload
 
 
 ## Initialisation de la base de données
+
 ````bash
-sudo php artisan migrate:fresh
-sudo php artisan db:seed
+sudo php artisan migrate
 ````
