@@ -7,6 +7,7 @@ use Modules\PkgRealisationProjets\Services\ValidationService;
 use Modules\PkgRealisationProjets\Services\RealisationProjetService;
 use Modules\PkgCreationProjet\Services\TransfertCompetenceService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgRealisationProjets\App\Requests\ValidationRequest;
@@ -32,8 +33,9 @@ class BaseValidationController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('validation.index');
+        
+        // ownedByUser
         if($this->sessionState->get('formateur_id')) $this->viewState->init('filter.validation.formateur_id'  , $this->sessionState->get('formateur_id'));
-
 
 
         // Extraire les paramètres de recherche, page, et filtres

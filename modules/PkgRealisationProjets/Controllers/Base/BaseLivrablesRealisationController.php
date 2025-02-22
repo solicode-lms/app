@@ -7,6 +7,7 @@ use Modules\PkgRealisationProjets\Services\LivrablesRealisationService;
 use Modules\PkgCreationProjet\Services\LivrableService;
 use Modules\PkgRealisationProjets\Services\RealisationProjetService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgRealisationProjets\App\Requests\LivrablesRealisationRequest;
@@ -32,8 +33,9 @@ class BaseLivrablesRealisationController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('livrablesRealisation.index');
+        
+        // ownedByUser
         if($this->sessionState->get('apprenant_id')) $this->viewState->init('filter.livrablesRealisation.apprenant_id'  , $this->sessionState->get('apprenant_id'));
-
 
 
         // Extraire les paramètres de recherche, page, et filtres

@@ -6,6 +6,7 @@ namespace Modules\PkgRealisationProjets\Controllers\Base;
 use Modules\PkgRealisationProjets\Services\EtatsRealisationProjetService;
 use Modules\PkgFormation\Services\FormateurService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgRealisationProjets\App\Requests\EtatsRealisationProjetRequest;
@@ -29,8 +30,9 @@ class BaseEtatsRealisationProjetController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('etatsRealisationProjet.index');
+        
+        // ownedByUser
         if($this->sessionState->get('formateur_id')) $this->viewState->init('scope.etatsRealisationProjet.formateur_id'  , $this->sessionState->get('formateur_id'));
-
 
 
         // Extraire les paramètres de recherche, page, et filtres
