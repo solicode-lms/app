@@ -12,7 +12,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // Étape 1 : Ajouter la colonne sans la contrainte de clé étrangère
+        // Étape 1 : Ajouter la colonne filiere_id en nullable
         Schema::table('projets', function (Blueprint $table) {
             $table->unsignedBigInteger('filiere_id')->nullable()->after('formateur_id');
         });
@@ -21,12 +21,13 @@ return new class extends Migration
         $defaultFiliereId = DB::table('filieres')->first()?->id ?? null;
 
         if ($defaultFiliereId) {
-            DB::table('projets')->update(['filiere_id' => $defaultFiliereId]);
+            DB::table('projets')->whereNull('filiere_id')->update(['filiere_id' => $defaultFiliereId]);
         }
 
-        // Étape 3 : Ajouter la contrainte de clé étrangère après remplissage des données
+        // Étape 3 : Modifier la colonne pour la rendre non nullable et ajouter la contrainte de clé étrangère
         Schema::table('projets', function (Blueprint $table) {
-            $table->foreign('filiere_id')->nullable(false)->references('id')->on('filieres')->onDelete('cascade');
+            $table->unsignedBigInteger('filiere_id')->nullable(false)->change();
+            $table->foreign('filiere_id')->references('id')->on('filieres')->onDelete('cascade');
         });
     }
 
