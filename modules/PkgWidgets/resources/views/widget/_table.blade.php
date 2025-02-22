@@ -16,12 +16,12 @@
         <tbody>
             @foreach ($widgets_data as $widget)
                 <tr id="widget-row-{{$widget->id}}">
-                    <td>@limit($widget->name, 80)</td>
-                    <td>@limit($widget->type, 80)</td>
-                    <td>@limit($widget->model, 80)</td>
-                    <td>@limit($widget->operation, 80)</td>
-                    <td>@limit($widget->icon, 80)</td>
-                    <td>@limit($widget->label, 80)</td>
+                    <td>@limit($widget->name, 50)</td>
+                    <td>@limit($widget->type, 50)</td>
+                    <td>@limit($widget->model, 50)</td>
+                    <td>@limit($widget->operation, 50)</td>
+                    <td>@limit($widget->icon, 50)</td>
+                    <td>@limit($widget->label, 50)</td>
                     <td class="text-right">
 
                         @can('show-widget')

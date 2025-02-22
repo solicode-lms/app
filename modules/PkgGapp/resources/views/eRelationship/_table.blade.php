@@ -14,10 +14,10 @@
         <tbody>
             @foreach ($eRelationships_data as $eRelationship)
                 <tr id="eRelationship-row-{{$eRelationship->id}}">
-                    <td>@limit($eRelationship->name, 80)</td>
-                    <td>@limit($eRelationship->type, 80)</td>
-                    <td>@limit($eRelationship->sourceEModel, 80)</td>
-                    <td>@limit($eRelationship->targetEModel, 80)</td>
+                    <td>@limit($eRelationship->name, 50)</td>
+                    <td>@limit($eRelationship->type, 50)</td>
+                    <td>@limit($eRelationship->sourceEModel, 50)</td>
+                    <td>@limit($eRelationship->targetEModel, 50)</td>
                     <td class="text-right">
 
                         @can('show-eRelationship')

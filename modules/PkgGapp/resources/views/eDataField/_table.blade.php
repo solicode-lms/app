@@ -15,9 +15,9 @@
         <tbody>
             @foreach ($eDataFields_data as $eDataField)
                 <tr id="eDataField-row-{{$eDataField->id}}">
-                    <td>@limit($eDataField->getOrder(), 80)</td>
-                    <td>@limit($eDataField->name, 80)</td>
-                    <td>@limit($eDataField->data_type, 80)</td>
+                    <td>@limit($eDataField->getOrder(), 50)</td>
+                    <td>@limit($eDataField->name, 50)</td>
+                    <td>@limit($eDataField->data_type, 50)</td>
                     <td class="text-right">
 
                         @can('show-eDataField')

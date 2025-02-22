@@ -11,7 +11,7 @@
         <tbody>
             @foreach ($eMetadataDefinitions_data as $eMetadataDefinition)
                 <tr id="eMetadataDefinition-row-{{$eMetadataDefinition->id}}">
-                    <td>@limit($eMetadataDefinition->name, 80)</td>
+                    <td>@limit($eMetadataDefinition->name, 50)</td>
                     <td class="text-right">
 
                         @can('show-eMetadataDefinition')

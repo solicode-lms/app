@@ -11,7 +11,7 @@
         <tbody>
             @foreach ($natureLivrables_data as $natureLivrable)
                 <tr id="natureLivrable-row-{{$natureLivrable->id}}">
-                    <td>@limit($natureLivrable->nom, 80)</td>
+                    <td>@limit($natureLivrable->nom, 50)</td>
                     <td class="text-right">
 
                         @can('show-natureLivrable')

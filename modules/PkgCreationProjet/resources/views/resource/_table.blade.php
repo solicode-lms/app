@@ -12,8 +12,8 @@
         <tbody>
             @foreach ($resources_data as $resource)
                 <tr id="resource-row-{{$resource->id}}">
-                    <td>@limit($resource->nom, 80)</td>
-                    <td>@limit($resource->lien, 80)</td>
+                    <td>@limit($resource->nom, 50)</td>
+                    <td>@limit($resource->lien, 50)</td>
                     <td class="text-right">
 
                         @can('show-resource')

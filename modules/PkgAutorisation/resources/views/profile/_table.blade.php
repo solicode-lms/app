@@ -11,7 +11,7 @@
         <tbody>
             @foreach ($profiles_data as $profile)
                 <tr id="profile-row-{{$profile->id}}">
-                    <td>@limit($profile->user, 80)</td>
+                    <td>@limit($profile->user, 50)</td>
                     <td class="text-right">
 
                         @can('show-profile')

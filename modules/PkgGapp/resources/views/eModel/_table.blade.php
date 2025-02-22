@@ -15,9 +15,9 @@
         <tbody>
             @foreach ($eModels_data as $eModel)
                 <tr id="eModel-row-{{$eModel->id}}">
-                    <td>@limit($eModel->getIcone(), 80)</td>
-                    <td>@limit($eModel->name, 80)</td>
-                    <td>@limit($eModel->ePackage, 80)</td>
+                    <td>@limit($eModel->getIcone(), 50)</td>
+                    <td>@limit($eModel->name, 50)</td>
+                    <td>@limit($eModel->ePackage, 50)</td>
                     <td class="text-right">
 
                         @can('show-eModel')

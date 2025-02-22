@@ -11,7 +11,7 @@
         <tbody>
             @foreach ($ePackages_data as $ePackage)
                 <tr id="ePackage-row-{{$ePackage->id}}">
-                    <td>@limit($ePackage->name, 80)</td>
+                    <td>@limit($ePackage->name, 50)</td>
                     <td class="text-right">
 
                         @can('show-ePackage')

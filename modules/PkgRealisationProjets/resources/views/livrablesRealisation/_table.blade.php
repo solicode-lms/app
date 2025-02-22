@@ -13,9 +13,9 @@
         <tbody>
             @foreach ($livrablesRealisations_data as $livrablesRealisation)
                 <tr id="livrablesRealisation-row-{{$livrablesRealisation->id}}">
-                    <td>@limit($livrablesRealisation->livrable, 80)</td>
-                    <td>@limit($livrablesRealisation->lien, 80)</td>
-                    <td>@limit($livrablesRealisation->titre, 80)</td>
+                    <td>@limit($livrablesRealisation->livrable, 50)</td>
+                    <td>@limit($livrablesRealisation->lien, 50)</td>
+                    <td>@limit($livrablesRealisation->titre, 50)</td>
                     <td class="text-right">
 
                         @can('show-livrablesRealisation')

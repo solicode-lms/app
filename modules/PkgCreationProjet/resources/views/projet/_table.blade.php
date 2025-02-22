@@ -16,7 +16,7 @@
         <tbody>
             @foreach ($projets_data as $projet)
                 <tr id="projet-row-{{$projet->id}}">
-                    <td>@limit($projet->titre, 80)</td>
+                    <td>@limit($projet->titre, 50)</td>
                     <td>
                         <ul>
                             @foreach ($projet->transfertCompetences as $transfertCompetence)
@@ -31,7 +31,7 @@
                             @endforeach
                         </ul>
                     </td>
-                    <td>@limit($projet->formateur, 80)</td>
+                    <td>@limit($projet->formateur, 50)</td>
                     <td class="text-right">
 
                         @can('show-projet')

@@ -13,8 +13,8 @@
         <tbody>
             @foreach ($users_data as $user)
                 <tr id="user-row-{{$user->id}}">
-                    <td>@limit($user->name, 80)</td>
-                    <td>@limit($user->email, 80)</td>
+                    <td>@limit($user->name, 50)</td>
+                    <td>@limit($user->email, 50)</td>
                     <td>
                         <ul>
                             @foreach ($user->roles as $role)

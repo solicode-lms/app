@@ -16,10 +16,10 @@
         <tbody>
             @foreach ($modules_data as $module)
                 <tr id="module-row-{{$module->id}}">
-                    <td>@limit($module->code, 80)</td>
-                    <td>@limit($module->nom, 80)</td>
-                    <td>@limit($module->masse_horaire, 80)</td>
-                    <td>@limit($module->filiere, 80)</td>
+                    <td>@limit($module->code, 50)</td>
+                    <td>@limit($module->nom, 50)</td>
+                    <td>@limit($module->masse_horaire, 50)</td>
+                    <td>@limit($module->filiere, 50)</td>
                     <td>
                         <ul>
                             @foreach ($module->competences as $competence)

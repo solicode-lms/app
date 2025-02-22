@@ -11,7 +11,7 @@
         <tbody>
             @foreach ($roles_data as $role)
                 <tr id="role-row-{{$role->id}}">
-                    <td>@limit($role->name, 80)</td>
+                    <td>@limit($role->name, 50)</td>
                     <td class="text-right">
 
                         @can('show-role')

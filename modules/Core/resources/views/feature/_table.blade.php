@@ -13,8 +13,8 @@
         <tbody>
             @foreach ($features_data as $feature)
                 <tr id="feature-row-{{$feature->id}}">
-                    <td>@limit($feature->name, 80)</td>
-                    <td>@limit($feature->featureDomain, 80)</td>
+                    <td>@limit($feature->name, 50)</td>
+                    <td>@limit($feature->featureDomain, 50)</td>
                     <td>
                         <ul>
                             @foreach ($feature->permissions as $permission)

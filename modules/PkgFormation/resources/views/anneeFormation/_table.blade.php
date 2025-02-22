@@ -13,9 +13,9 @@
         <tbody>
             @foreach ($anneeFormations_data as $anneeFormation)
                 <tr id="anneeFormation-row-{{$anneeFormation->id}}">
-                    <td>@limit($anneeFormation->titre, 80)</td>
-                    <td>@limit($anneeFormation->date_debut, 80)</td>
-                    <td>@limit($anneeFormation->date_fin, 80)</td>
+                    <td>@limit($anneeFormation->titre, 50)</td>
+                    <td>@limit($anneeFormation->date_debut, 50)</td>
+                    <td>@limit($anneeFormation->date_fin, 50)</td>
                     <td class="text-right">
 
                         @can('show-anneeFormation')

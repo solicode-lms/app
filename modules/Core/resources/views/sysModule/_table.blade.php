@@ -13,9 +13,9 @@
         <tbody>
             @foreach ($sysModules_data as $sysModule)
                 <tr id="sysModule-row-{{$sysModule->id}}">
-                    <td>@limit($sysModule->name, 80)</td>
-                    <td>@limit($sysModule->is_active, 80)</td>
-                    <td>@limit($sysModule->sysColor, 80)</td>
+                    <td>@limit($sysModule->name, 50)</td>
+                    <td>@limit($sysModule->is_active, 50)</td>
+                    <td>@limit($sysModule->sysColor, 50)</td>
                     <td class="text-right">
 
                         @can('show-sysModule')

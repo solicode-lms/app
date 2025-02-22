@@ -12,7 +12,7 @@
         <tbody>
             @foreach ($specialites_data as $specialite)
                 <tr id="specialite-row-{{$specialite->id}}">
-                    <td>@limit($specialite->nom, 80)</td>
+                    <td>@limit($specialite->nom, 50)</td>
                     <td>
                         <ul>
                             @foreach ($specialite->formateurs as $formateur)

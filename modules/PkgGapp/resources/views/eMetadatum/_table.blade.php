@@ -16,10 +16,10 @@
         <tbody>
             @foreach ($eMetadata_data as $eMetadatum)
                 <tr id="eMetadatum-row-{{$eMetadatum->id}}">
-                    <td>@limit($eMetadatum->getValue(), 80)</td>
-                    <td>@limit($eMetadatum->eModel, 80)</td>
-                    <td>@limit($eMetadatum->eDataField, 80)</td>
-                    <td>@limit($eMetadatum->eMetadataDefinition, 80)</td>
+                    <td>@limit($eMetadatum->getValue(), 50)</td>
+                    <td>@limit($eMetadatum->eModel, 50)</td>
+                    <td>@limit($eMetadatum->eDataField, 50)</td>
+                    <td>@limit($eMetadatum->eMetadataDefinition, 50)</td>
                     <td class="text-right">
 
                         @can('show-eMetadatum')

@@ -14,10 +14,10 @@
         <tbody>
             @foreach ($affectationProjets_data as $affectationProjet)
                 <tr id="affectationProjet-row-{{$affectationProjet->id}}">
-                    <td>@limit($affectationProjet->projet, 80)</td>
-                    <td>@limit($affectationProjet->groupe, 80)</td>
-                    <td>@limit($affectationProjet->date_debut, 80)</td>
-                    <td>@limit($affectationProjet->date_fin, 80)</td>
+                    <td>@limit($affectationProjet->projet, 50)</td>
+                    <td>@limit($affectationProjet->groupe, 50)</td>
+                    <td>@limit($affectationProjet->date_debut, 50)</td>
+                    <td>@limit($affectationProjet->date_fin, 50)</td>
                     <td class="text-right">
 
                         @can('show-affectationProjet')

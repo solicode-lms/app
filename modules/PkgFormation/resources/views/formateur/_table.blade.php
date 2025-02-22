@@ -14,8 +14,8 @@
         <tbody>
             @foreach ($formateurs_data as $formateur)
                 <tr id="formateur-row-{{$formateur->id}}">
-                    <td>@limit($formateur->nom, 80)</td>
-                    <td>@limit($formateur->prenom, 80)</td>
+                    <td>@limit($formateur->nom, 50)</td>
+                    <td>@limit($formateur->prenom, 50)</td>
                     <td>
                         <ul>
                             @foreach ($formateur->specialites as $specialite)

@@ -11,7 +11,7 @@
         <tbody>
             @foreach ($nationalites_data as $nationalite)
                 <tr id="nationalite-row-{{$nationalite->id}}">
-                    <td>@limit($nationalite->code, 80)</td>
+                    <td>@limit($nationalite->code, 50)</td>
                     <td class="text-right">
 
                         @can('show-nationalite')

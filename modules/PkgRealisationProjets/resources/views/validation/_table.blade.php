@@ -13,9 +13,9 @@
         <tbody>
             @foreach ($validations_data as $validation)
                 <tr id="validation-row-{{$validation->id}}">
-                    <td>@limit($validation->transfertCompetence, 80)</td>
-                    <td>@limit($validation->note, 80)</td>
-                    <td>{!! \App\Helpers\TextHelper::formatHtmlWithLineBreaks($validation->message, 80) !!}</td>
+                    <td>@limit($validation->transfertCompetence, 50)</td>
+                    <td>@limit($validation->note, 50)</td>
+                    <td>{!! \App\Helpers\TextHelper::formatHtmlWithLineBreaks($validation->message, 50) !!}</td>
                     <td class="text-right">
 
                         @can('show-validation')

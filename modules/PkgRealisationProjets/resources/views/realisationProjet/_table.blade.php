@@ -17,9 +17,9 @@
         <tbody>
             @foreach ($realisationProjets_data as $realisationProjet)
                 <tr id="realisationProjet-row-{{$realisationProjet->id}}">
-                    <td>@limit($realisationProjet->affectationProjet, 80)</td>
-                    <td>@limit($realisationProjet->apprenant, 80)</td>
-                    <td>@limit($realisationProjet->etatsRealisationProjet, 80)</td>
+                    <td>@limit($realisationProjet->affectationProjet, 50)</td>
+                    <td>@limit($realisationProjet->apprenant, 50)</td>
+                    <td>@limit($realisationProjet->etatsRealisationProjet, 50)</td>
                     <td>
                         <ul>
                             @foreach ($realisationProjet->livrablesRealisations as $livrablesRealisation)

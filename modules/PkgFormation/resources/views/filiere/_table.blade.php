@@ -12,8 +12,8 @@
         <tbody>
             @foreach ($filieres_data as $filiere)
                 <tr id="filiere-row-{{$filiere->id}}">
-                    <td>@limit($filiere->code, 80)</td>
-                    <td>@limit($filiere->nom, 80)</td>
+                    <td>@limit($filiere->code, 50)</td>
+                    <td>@limit($filiere->nom, 50)</td>
                     <td class="text-right">
 
                         @can('show-filiere')

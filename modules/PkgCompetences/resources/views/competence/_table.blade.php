@@ -14,10 +14,10 @@
         <tbody>
             @foreach ($competences_data as $competence)
                 <tr id="competence-row-{{$competence->id}}">
-                    <td>@limit($competence->code, 80)</td>
-                    <td>@limit($competence->mini_code, 80)</td>
-                    <td>@limit($competence->nom, 80)</td>
-                    <td>@limit($competence->module, 80)</td>
+                    <td>@limit($competence->code, 50)</td>
+                    <td>@limit($competence->mini_code, 50)</td>
+                    <td>@limit($competence->nom, 50)</td>
+                    <td>@limit($competence->module, 50)</td>
                     <td class="text-right">
 
                         @can('show-competence')

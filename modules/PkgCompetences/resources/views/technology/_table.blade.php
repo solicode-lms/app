@@ -12,8 +12,8 @@
         <tbody>
             @foreach ($technologies_data as $technology)
                 <tr id="technology-row-{{$technology->id}}">
-                    <td>@limit($technology->nom, 80)</td>
-                    <td>@limit($technology->categoryTechnology, 80)</td>
+                    <td>@limit($technology->nom, 50)</td>
+                    <td>@limit($technology->categoryTechnology, 50)</td>
                     <td class="text-right">
 
                         @can('show-technology')

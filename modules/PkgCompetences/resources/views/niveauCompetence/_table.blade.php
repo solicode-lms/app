@@ -12,8 +12,8 @@
         <tbody>
             @foreach ($niveauCompetences_data as $niveauCompetence)
                 <tr id="niveauCompetence-row-{{$niveauCompetence->id}}">
-                    <td>@limit($niveauCompetence->nom, 80)</td>
-                    <td>@limit($niveauCompetence->competence, 80)</td>
+                    <td>@limit($niveauCompetence->nom, 50)</td>
+                    <td>@limit($niveauCompetence->competence, 50)</td>
                     <td class="text-right">
 
                         @can('show-niveauCompetence')

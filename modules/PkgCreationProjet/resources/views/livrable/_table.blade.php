@@ -12,8 +12,8 @@
         <tbody>
             @foreach ($livrables_data as $livrable)
                 <tr id="livrable-row-{{$livrable->id}}">
-                    <td>@limit($livrable->natureLivrable, 80)</td>
-                    <td>@limit($livrable->titre, 80)</td>
+                    <td>@limit($livrable->natureLivrable, 50)</td>
+                    <td>@limit($livrable->titre, 50)</td>
                     <td class="text-right">
 
                         @can('show-livrable')
