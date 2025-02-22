@@ -339,5 +339,16 @@
         },
         "e_data_field_reference": "TransfertCompetence_niveau_difficulte_id",
         "e_metadata_definition_reference": "scopeData"
+    },
+    {
+        "reference": "TransfertCompetence_competence_id_scopeData",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "key": "scope.competence.module.filiere_id",
+            "value": "projet.filiere_id"
+        },
+        "e_data_field_reference": "TransfertCompetence_competence_id",
+        "e_metadata_definition_reference": "scopeData"
     }
 ]

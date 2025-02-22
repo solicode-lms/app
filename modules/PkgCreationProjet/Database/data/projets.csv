@@ -1,21 +1,21 @@
-titre,travail_a_faire,critere_de_travail,description,nombre_jour,formateur_id
-"Création d'un site vitrine","Développer une interface statique en HTML et CSS","Design responsive, utilisation des balises sémantiques","Un site vitrine pour une entreprise locale.","6",1
-"Gestion de bibliothèque","Construire un système de gestion en PHP","CRUD complet, bonne organisation du code","Un système pour gérer les livres et emprunteurs.","3",2
-"Portfolio personnel","Créer un portfolio en HTML et CSS","Design unique, bonne présentation","Un portfolio pour afficher les projets personnels.","3",3
-"Forum de discussion","Développer un forum en PHP","CRUD des posts, authentification utilisateur","Un forum pour discuter sur divers sujets.","3",1
-"Blog multi-utilisateurs","Créer un blog avec PHP","Gestion des utilisateurs, modération des commentaires","Un blog multi-utilisateurs avec publication d'articles.","4",1
-"Site de recettes","Développer un site de recettes interactif","Design attrayant, filtrage des recettes","Un site pour partager et rechercher des recettes.","4",2
-"Page d'accueil d'un service","Créer une page d'accueil pour un service en ligne","Design professionnel, navigation fluide","Page d'accueil pour un service SaaS.","4",3
-"E-commerce basique","Construire un site e-commerce en PHP","Gestion des produits, panier, paiement","Un site pour vendre des produits en ligne.","3",4
-"Système de réservation","Créer un système de réservation en PHP","Gestion des horaires, utilisateurs","Un système pour réserver des services ou salles.","4",1
-"Quiz interactif","Développer un quiz en ligne en PHP","Chronomètre, correction automatique","Un site de quiz avec classement des scores.","4",2
-"Gestion des tâches","Créer une application Laravel de gestion des tâches","CRUD des tâches, affectation utilisateur","Une application pour suivre les tâches d'une équipe.","4",3
-"E-commerce avancé","Construire un e-commerce en Laravel","Intégration de Stripe, gestion des commandes","Une plateforme e-commerce complète.","4",4
-"Application de blog","Développer un blog multi-utilisateurs en Laravel","Création de posts, commentaires, modération","Un blog avec fonctionnalités avancées.","4",1
-"Dashboard d'administration","Créer un dashboard en Laravel","Gestion des rôles, statistiques visuelles","Un dashboard pour gérer une application.","4",2
-"Site de gestion d'événements","Développer un site en Laravel","Inscription aux événements, gestion de calendrier","Une plateforme pour organiser des événements.","4",3
-"Système d'authentification avancé","Créer un système d'authentification en Laravel","Authentification sociale, réinitialisation mot de passe","Un système sécurisé pour les utilisateurs.","4",4
-"Système de commentaires","Développer un système de commentaires en Laravel","Hiérarchie des commentaires, modération","Une fonctionnalité pour commenter sur des articles.","4",1
-"Outil de gestion de projets","Créer une application de gestion de projets","Suivi des tâches, collaboration des équipes","Une application pour organiser et suivre des projets.","4",2
-"Plateforme éducative","Développer une plateforme éducative en Laravel","Gestion des cours, espace élève et professeur","Une plateforme pour partager des contenus éducatifs.","4",3
-"Application Scrum","Créer une application pour gérer des sprints","Backlog produit, tableaux Scrum interactifs","Un outil pour les équipes Scrum.","4",4
+titre,travail_a_faire,critere_de_travail,description,nombre_jour,formateur_id,filiere_id
+"Création d'un site vitrine","Développer une interface statique en HTML et CSS","Design responsive, utilisation des balises sémantiques","Un site vitrine pour une entreprise locale.","6",1,1
+"Gestion de bibliothèque","Construire un système de gestion en PHP","CRUD complet, bonne organisation du code","Un système pour gérer les livres et emprunteurs.","3",2,2
+"Portfolio personnel","Créer un portfolio en HTML et CSS","Design unique, bonne présentation","Un portfolio pour afficher les projets personnels.","3",3,2
+"Forum de discussion","Développer un forum en PHP","CRUD des posts, authentification utilisateur","Un forum pour discuter sur divers sujets.","3",1,1
+"Blog multi-utilisateurs","Créer un blog avec PHP","Gestion des utilisateurs, modération des commentaires","Un blog multi-utilisateurs avec publication d'articles.","4",1,1
+"Site de recettes","Développer un site de recettes interactif","Design attrayant, filtrage des recettes","Un site pour partager et rechercher des recettes.","4",2,2
+"Page d'accueil d'un service","Créer une page d'accueil pour un service en ligne","Design professionnel, navigation fluide","Page d'accueil pour un service SaaS.","4",3,2
+"E-commerce basique","Construire un site e-commerce en PHP","Gestion des produits, panier, paiement","Un site pour vendre des produits en ligne.","3",4,2
+"Système de réservation","Créer un système de réservation en PHP","Gestion des horaires, utilisateurs","Un système pour réserver des services ou salles.","4",1,1
+"Quiz interactif","Développer un quiz en ligne en PHP","Chronomètre, correction automatique","Un site de quiz avec classement des scores.","4",2,2
+"Gestion des tâches","Créer une application Laravel de gestion des tâches","CRUD des tâches, affectation utilisateur","Une application pour suivre les tâches d'une équipe.","4",3,2
+"E-commerce avancé","Construire un e-commerce en Laravel","Intégration de Stripe, gestion des commandes","Une plateforme e-commerce complète.","4",4,2
+"Application de blog","Développer un blog multi-utilisateurs en Laravel","Création de posts, commentaires, modération","Un blog avec fonctionnalités avancées.","4",1,1
+"Dashboard d'administration","Créer un dashboard en Laravel","Gestion des rôles, statistiques visuelles","Un dashboard pour gérer une application.","4",2,2
+"Site de gestion d'événements","Développer un site en Laravel","Inscription aux événements, gestion de calendrier","Une plateforme pour organiser des événements.","4",3,2
+"Système d'authentification avancé","Créer un système d'authentification en Laravel","Authentification sociale, réinitialisation mot de passe","Un système sécurisé pour les utilisateurs.","4",4,2
+"Système de commentaires","Développer un système de commentaires en Laravel","Hiérarchie des commentaires, modération","Une fonctionnalité pour commenter sur des articles.","4",1,1
+"Outil de gestion de projets","Créer une application de gestion de projets","Suivi des tâches, collaboration des équipes","Une application pour organiser et suivre des projets.","4",2,2
+"Plateforme éducative","Développer une plateforme éducative en Laravel","Gestion des cours, espace élève et professeur","Une plateforme pour partager des contenus éducatifs.","4",3,2
+"Application Scrum","Créer une application pour gérer des sprints","Backlog produit, tableaux Scrum interactifs","Un outil pour les équipes Scrum.","4",4,2
