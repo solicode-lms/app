@@ -66,6 +66,9 @@ class BaseTransfertCompetenceController extends AdminController
         $itemTransfertCompetence = $this->transfertCompetenceService->createInstance();
         
         $competences = $this->competenceService->all();
+        $value = $itemTransfertCompetence->getNestedValue('projet.formateur_id');
+        $key = 'scope.niveauDifficulte.formateur_id';
+        $this->viewState->set($key, $value);
         $niveauDifficultes = $this->niveauDifficulteService->all();
         $technologies = $this->technologyService->all();
         $projets = $this->projetService->all();
@@ -126,6 +129,9 @@ class BaseTransfertCompetenceController extends AdminController
         $this->authorize('edit', $itemTransfertCompetence);
 
         $competences = $this->competenceService->all();
+        $value = $itemTransfertCompetence->getNestedValue('projet.formateur_id');
+        $key = 'scope.niveauDifficulte.formateur_id';
+        $this->viewState->set($key, $value);
         $niveauDifficultes = $this->niveauDifficulteService->all();
         $technologies = $this->technologyService->all();
         $projets = $this->projetService->all();

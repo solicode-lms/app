@@ -328,5 +328,16 @@
         "value_integer": 6,
         "e_data_field_reference": "transfert_competences_hasMany_validations_transfert_competence_id",
         "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "TransfertCompetence_niveau_difficulte_id_scopeData",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "key": "scope.niveauDifficulte.formateur_id",
+            "value": "projet.formateur_id"
+        },
+        "e_data_field_reference": "TransfertCompetence_niveau_difficulte_id",
+        "e_metadata_definition_reference": "scopeData"
     }
 ]
