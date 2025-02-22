@@ -105,17 +105,11 @@ class BaseProjetController extends AdminController
         $formateurs = $this->formateurService->all();
 
         $this->viewState->set('scope.transfertCompetence.projet_id', $id);
-
-
-
         $transfertCompetenceService =  new TransfertCompetenceService();
         $transfertCompetences_data =  $itemProjet->transfertCompetences()->paginate(10);
         $transfertCompetences_stats = $transfertCompetenceService->gettransfertCompetenceStats();
         $transfertCompetences_filters = $transfertCompetenceService->getFieldsFilterable();
         $transfertCompetence_instance =  $transfertCompetenceService->createInstance();
-
-
-
         $this->viewState->set('scope.livrable.projet_id', $id);
         $livrableService =  new LivrableService();
         $livrables_data =  $itemProjet->livrables()->paginate(10);
@@ -152,31 +146,34 @@ class BaseProjetController extends AdminController
         $filieres = $this->filiereService->all();
         $formateurs = $this->formateurService->all();
 
+
         $this->viewState->set('scope.transfertCompetence.projet_id', $id);
-       
-       
         $value = $itemProjet->getNestedValue('filiere_id');
         $key = 'scope.competence.module.filiere_id';
         $this->viewState->set($key, $value);
-
-       
+        $value = $itemProjet->getNestedValue('formateur_id');
+        $key = 'scope.niveauDifficulte.formateur_id';
+        $this->viewState->set($key, $value);
         $transfertCompetenceService =  new TransfertCompetenceService();
         $transfertCompetences_data =  $itemProjet->transfertCompetences()->paginate(10);
         $transfertCompetences_stats = $transfertCompetenceService->gettransfertCompetenceStats();
         $transfertCompetences_filters = $transfertCompetenceService->getFieldsFilterable();
         $transfertCompetence_instance =  $transfertCompetenceService->createInstance();
+
         $this->viewState->set('scope.livrable.projet_id', $id);
         $livrableService =  new LivrableService();
         $livrables_data =  $itemProjet->livrables()->paginate(10);
         $livrables_stats = $livrableService->getlivrableStats();
         $livrables_filters = $livrableService->getFieldsFilterable();
         $livrable_instance =  $livrableService->createInstance();
+
         $this->viewState->set('scope.resource.projet_id', $id);
         $resourceService =  new ResourceService();
         $resources_data =  $itemProjet->resources()->paginate(10);
         $resources_stats = $resourceService->getresourceStats();
         $resources_filters = $resourceService->getFieldsFilterable();
         $resource_instance =  $resourceService->createInstance();
+
         $this->viewState->set('scope.affectationProjet.projet_id', $id);
         $affectationProjetService =  new AffectationProjetService();
         $affectationProjets_data =  $itemProjet->affectationProjets()->paginate(10);
