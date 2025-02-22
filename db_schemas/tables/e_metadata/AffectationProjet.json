@@ -360,5 +360,19 @@
         },
         "e_data_field_reference": "AffectationProjet_groupe_id",
         "e_metadata_definition_reference": "scopeDataInEditContext"
+    },
+    {
+        "reference": "AffectationProjet_groupe_id_scopeDataByRole",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": [
+            {
+                "key": "scope.groupe.formateurs.formateur_id",
+                "role": "formateur",
+                "value": "formateur_id"
+            }
+        ],
+        "e_data_field_reference": "AffectationProjet_groupe_id",
+        "e_metadata_definition_reference": "scopeDataByRole"
     }
 ]

@@ -40,6 +40,8 @@ class BaseTransfertCompetenceController extends AdminController
         $this->viewState->setContextKeyIfEmpty('transfertCompetence.index');
         if($this->sessionState->get('formateur_id')) $this->viewState->init('scope.transfertCompetence.formateur_id'  , $this->sessionState->get('formateur_id'));
 
+
+
         // Extraire les paramètres de recherche, page, et filtres
         $transfertCompetences_params = array_merge(
             $request->only(['page','sort']),
@@ -69,7 +71,6 @@ class BaseTransfertCompetenceController extends AdminController
         $niveauDifficultes = $this->niveauDifficulteService->all();
         $technologies = $this->technologyService->all();
         $projets = $this->projetService->all();
-
 
         if (request()->ajax()) {
             return view('PkgCreationProjet::transfertCompetence._fields', compact('itemTransfertCompetence', 'technologies', 'competences', 'niveauDifficultes', 'projets'));

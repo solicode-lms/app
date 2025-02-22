@@ -34,6 +34,8 @@ class BaseLivrablesRealisationController extends AdminController
         $this->viewState->setContextKeyIfEmpty('livrablesRealisation.index');
         if($this->sessionState->get('apprenant_id')) $this->viewState->init('filter.livrablesRealisation.apprenant_id'  , $this->sessionState->get('apprenant_id'));
 
+
+
         // Extraire les paramètres de recherche, page, et filtres
         $livrablesRealisations_params = array_merge(
             $request->only(['page','sort']),
@@ -61,7 +63,6 @@ class BaseLivrablesRealisationController extends AdminController
         
         $livrables = $this->livrableService->all();
         $realisationProjets = $this->realisationProjetService->all();
-
 
         if (request()->ajax()) {
             return view('PkgRealisationProjets::livrablesRealisation._fields', compact('itemLivrablesRealisation', 'livrables', 'realisationProjets'));

@@ -34,6 +34,8 @@ class BaseValidationController extends AdminController
         $this->viewState->setContextKeyIfEmpty('validation.index');
         if($this->sessionState->get('formateur_id')) $this->viewState->init('filter.validation.formateur_id'  , $this->sessionState->get('formateur_id'));
 
+
+
         // Extraire les paramètres de recherche, page, et filtres
         $validations_params = array_merge(
             $request->only(['page','sort']),
@@ -61,7 +63,6 @@ class BaseValidationController extends AdminController
         
         $transfertCompetences = $this->transfertCompetenceService->all();
         $realisationProjets = $this->realisationProjetService->all();
-
 
         if (request()->ajax()) {
             return view('PkgRealisationProjets::validation._fields', compact('itemValidation', 'realisationProjets', 'transfertCompetences'));

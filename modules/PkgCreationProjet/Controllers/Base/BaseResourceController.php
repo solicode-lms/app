@@ -31,6 +31,8 @@ class BaseResourceController extends AdminController
         $this->viewState->setContextKeyIfEmpty('resource.index');
         if($this->sessionState->get('formateur_id')) $this->viewState->init('filter.resource.formateur_id'  , $this->sessionState->get('formateur_id'));
 
+
+
         // Extraire les paramètres de recherche, page, et filtres
         $resources_params = array_merge(
             $request->only(['page','sort']),
@@ -57,7 +59,6 @@ class BaseResourceController extends AdminController
         $itemResource = $this->resourceService->createInstance();
         
         $projets = $this->projetService->all();
-
 
         if (request()->ajax()) {
             return view('PkgCreationProjet::resource._fields', compact('itemResource', 'projets'));

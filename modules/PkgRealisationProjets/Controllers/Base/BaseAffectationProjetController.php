@@ -9,6 +9,7 @@ use Modules\PkgApprenants\Services\GroupeService;
 use Modules\PkgCreationProjet\Services\ProjetService;
 use Modules\PkgRealisationProjets\Services\RealisationProjetService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgRealisationProjets\App\Requests\AffectationProjetRequest;
@@ -37,13 +38,14 @@ class BaseAffectationProjetController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('affectationProjet.index');
         if($this->sessionState->get('formateur_id')) $this->viewState->init('scope.affectationProjet.formateur_id'  , $this->sessionState->get('formateur_id'));
-        if(auth()->user()->formateur) $this->viewState->set('scope.projet.formateur_id', auth()->user()->formateur->id);
 
 
         if(Auth::user()->hasRole('formateur')){
             $this->viewState->init('scope.projet.formateur_id'  , $this->sessionState->get('formateur_id'));
         }
-      
+        if(Auth::user()->hasRole('formateur')){
+            $this->viewState->init('scope.groupe.formateurs.formateur_id'  , $this->sessionState->get('formateur_id'));
+        }
 
         // Extraire les paramètres de recherche, page, et filtres
         $affectationProjets_params = array_merge(
@@ -68,13 +70,17 @@ class BaseAffectationProjetController extends AdminController
     }
     public function create() {
         $this->viewState->set('scope_form.affectationProjet.formateur_id'  , $this->sessionState->get('formateur_id'));
-        $this->viewState->set('scope.projet.formateur_id', auth()->user()->formateur->id);
+        if(Auth::user()->hasRole('formateur')){
+            $this->viewState->init('scope.projet.formateur_id'  , $this->sessionState->get('formateur_id'));
+        }
+        if(Auth::user()->hasRole('formateur')){
+            $this->viewState->init('scope.groupe.formateurs.formateur_id'  , $this->sessionState->get('formateur_id'));
+        }
         $itemAffectationProjet = $this->affectationProjetService->createInstance();
         
         $projets = $this->projetService->all();
         $groupes = $this->groupeService->all();
         $anneeFormations = $this->anneeFormationService->all();
-
 
         if (request()->ajax()) {
             return view('PkgRealisationProjets::affectationProjet._fields', compact('itemAffectationProjet', 'anneeFormations', 'groupes', 'projets'));
@@ -131,8 +137,13 @@ class BaseAffectationProjetController extends AdminController
     public function edit(string $id) {
 
         $this->viewState->setContextKey('affectationProjet.edit_' . $id);
-        $this->viewState->set('scope.projet.formateur_id', auth()->user()->formateur->id);
 
+        if(Auth::user()->hasRole('formateur')){
+            $this->viewState->init('scope.projet.formateur_id'  , $this->sessionState->get('formateur_id'));
+        }
+        if(Auth::user()->hasRole('formateur')){
+            $this->viewState->init('scope.groupe.formateurs.formateur_id'  , $this->sessionState->get('formateur_id'));
+        }
         $itemAffectationProjet = $this->affectationProjetService->find($id);
         $this->authorize('edit', $itemAffectationProjet);
 

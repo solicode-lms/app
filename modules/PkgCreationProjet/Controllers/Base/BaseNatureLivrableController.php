@@ -28,6 +28,8 @@ class BaseNatureLivrableController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('natureLivrable.index');
 
+
+
         // Extraire les paramètres de recherche, page, et filtres
         $natureLivrables_params = array_merge(
             $request->only(['page','sort']),
@@ -52,7 +54,6 @@ class BaseNatureLivrableController extends AdminController
     public function create() {
         $itemNatureLivrable = $this->natureLivrableService->createInstance();
         
-
 
         if (request()->ajax()) {
             return view('PkgCreationProjet::natureLivrable._fields', compact('itemNatureLivrable'));

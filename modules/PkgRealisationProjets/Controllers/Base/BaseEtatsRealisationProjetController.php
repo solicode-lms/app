@@ -31,6 +31,8 @@ class BaseEtatsRealisationProjetController extends AdminController
         $this->viewState->setContextKeyIfEmpty('etatsRealisationProjet.index');
         if($this->sessionState->get('formateur_id')) $this->viewState->init('scope.etatsRealisationProjet.formateur_id'  , $this->sessionState->get('formateur_id'));
 
+
+
         // Extraire les paramètres de recherche, page, et filtres
         $etatsRealisationProjets_params = array_merge(
             $request->only(['page','sort']),
@@ -57,7 +59,6 @@ class BaseEtatsRealisationProjetController extends AdminController
         $itemEtatsRealisationProjet = $this->etatsRealisationProjetService->createInstance();
         
         $formateurs = $this->formateurService->all();
-
 
         if (request()->ajax()) {
             return view('PkgRealisationProjets::etatsRealisationProjet._fields', compact('itemEtatsRealisationProjet', 'formateurs'));

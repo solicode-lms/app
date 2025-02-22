@@ -38,6 +38,8 @@ class BaseProjetController extends AdminController
         $this->viewState->setContextKeyIfEmpty('projet.index');
         if($this->sessionState->get('formateur_id')) $this->viewState->init('filter.projet.formateur_id'  , $this->sessionState->get('formateur_id'));
 
+
+
         // Extraire les paramètres de recherche, page, et filtres
         $projets_params = array_merge(
             $request->only(['page','sort']),
@@ -65,7 +67,6 @@ class BaseProjetController extends AdminController
         
         $filieres = $this->filiereService->all();
         $formateurs = $this->formateurService->all();
-
 
         if (request()->ajax()) {
             return view('PkgCreationProjet::projet._fields', compact('itemProjet', 'filieres', 'formateurs'));
