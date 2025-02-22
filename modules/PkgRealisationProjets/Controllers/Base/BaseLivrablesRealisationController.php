@@ -59,9 +59,6 @@ class BaseLivrablesRealisationController extends AdminController
         $this->viewState->set('scope_form.livrablesRealisation.apprenant_id'  , $this->sessionState->get('apprenant_id'));
         $itemLivrablesRealisation = $this->livrablesRealisationService->createInstance();
         
-        $value = $itemLivrablesRealisation->getNestedValue('realisationProjet.affectationProjet.projet.id');
-        $key = 'scope.livrable.projet_id';
-        $this->viewState->set($key, $value);
         $livrables = $this->livrableService->all();
         $realisationProjets = $this->realisationProjetService->all();
 
@@ -118,9 +115,6 @@ class BaseLivrablesRealisationController extends AdminController
         $itemLivrablesRealisation = $this->livrablesRealisationService->find($id);
         $this->authorize('edit', $itemLivrablesRealisation);
 
-        $value = $itemLivrablesRealisation->getNestedValue('realisationProjet.affectationProjet.projet.id');
-        $key = 'scope.livrable.projet_id';
-        $this->viewState->set($key, $value);
         $livrables = $this->livrableService->all();
         $realisationProjets = $this->realisationProjetService->all();
 

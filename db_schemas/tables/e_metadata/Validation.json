@@ -263,12 +263,12 @@
         "e_metadata_definition_reference": "ownedByUser"
     },
     {
-        "reference": "Validation_transfert_competence_id_scopeData",
+        "reference": "Validation_transfert_competence_id_scopeDataInEditContext",
         "value_boolean": 1,
         "value_float": 0,
         "value_json": {
             "key": "scope.transfertCompetence.projet_id",
-            "value": "realisationProjet.affectationProjet.projet.id"
+            "value": "affectationProjet.projet.id"
         },
         "e_data_field_reference": "Validation_transfert_competence_id",
         "e_metadata_definition_reference": "scopeDataInEditContext"

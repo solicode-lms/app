@@ -374,12 +374,12 @@
         "e_metadata_definition_reference": "inputMdWidth"
     },
     {
-        "reference": "RealisationProjet_etats_realisation_projet_id_scopeData",
+        "reference": "RealisationProjet_etats_realisation_projet_id_scopeDataInEditContext",
         "value_boolean": 1,
         "value_float": 0,
         "value_json": {
             "key": "scope.etatsRealisationProjet.formateur_id",
-            "value": "affectationProjet.projet.formateur.id"
+            "value": "projet.formateur.id"
         },
         "e_data_field_reference": "RealisationProjet_etats_realisation_projet_id",
         "e_metadata_definition_reference": "scopeDataInEditContext"

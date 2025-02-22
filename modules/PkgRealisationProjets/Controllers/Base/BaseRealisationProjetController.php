@@ -66,9 +66,6 @@ class BaseRealisationProjetController extends AdminController
         
         $affectationProjets = $this->affectationProjetService->all();
         $apprenants = $this->apprenantService->all();
-        $value = $itemRealisationProjet->getNestedValue('affectationProjet.projet.formateur.id');
-        $key = 'scope.etatsRealisationProjet.formateur_id';
-        $this->viewState->set($key, $value);
         $etatsRealisationProjets = $this->etatsRealisationProjetService->all();
 
 
@@ -139,9 +136,6 @@ class BaseRealisationProjetController extends AdminController
 
         $affectationProjets = $this->affectationProjetService->all();
         $apprenants = $this->apprenantService->all();
-        $value = $itemRealisationProjet->getNestedValue('affectationProjet.projet.formateur.id');
-        $key = 'scope.etatsRealisationProjet.formateur_id';
-        $this->viewState->set($key, $value);
         $etatsRealisationProjets = $this->etatsRealisationProjetService->all();
 
         $this->viewState->set('scope.livrablesRealisation.realisation_projet_id', $id);

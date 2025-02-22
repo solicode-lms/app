@@ -330,23 +330,23 @@
         "e_metadata_definition_reference": "inputMdWidth"
     },
     {
-        "reference": "TransfertCompetence_niveau_difficulte_id_scopeData",
+        "reference": "TransfertCompetence_niveau_difficulte_id_scopeDataInEditContext",
         "value_boolean": 1,
         "value_float": 0,
         "value_json": {
             "key": "scope.niveauDifficulte.formateur_id",
-            "value": "projet.formateur_id"
+            "value": "formateur_id"
         },
         "e_data_field_reference": "TransfertCompetence_niveau_difficulte_id",
         "e_metadata_definition_reference": "scopeDataInEditContext"
     },
     {
-        "reference": "TransfertCompetence_competence_id_scopeData",
+        "reference": "TransfertCompetence_competence_id_scopeDataInEditContext",
         "value_boolean": 1,
         "value_float": 0,
         "value_json": {
             "key": "scope.competence.module.filiere_id",
-            "value": "projet.filiere_id"
+            "value": "filiere_id"
         },
         "e_data_field_reference": "TransfertCompetence_competence_id",
         "e_metadata_definition_reference": "scopeDataInEditContext"
