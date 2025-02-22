@@ -45,3 +45,53 @@ document.addEventListener("DOMContentLoaded", function () {
    
 
 });
+
+
+$(document).ready(function () {
+    let activeMenuItems = JSON.parse(localStorage.getItem('activeMenuItems')) || [];
+
+    // Restaurer l'état des éléments actifs du menu
+    $('.nav-sidebar .nav-item').each(function () {
+        let menuItem = $(this);
+        let itemId = menuItem.attr('id');
+
+        if (itemId && activeMenuItems.includes(itemId)) {
+            menuItem.addClass('menu-open');
+            menuItem.children('.nav-link').addClass('active');
+            menuItem.children('.nav-treeview').show();
+        }
+    });
+
+    // Écouter les clics sur les éléments de menu pour sauvegarder leur état
+    $('.nav-sidebar .nav-item .nav-link').on('click', function () {
+        let menuItem = $(this).parent();
+        let itemId = menuItem.attr('id');
+
+        if (itemId) {
+            if (menuItem.hasClass('menu-open')) {
+                // Si l'élément est ouvert, on l'enlève de la liste
+                activeMenuItems = activeMenuItems.filter(item => item !== itemId);
+            } else {
+                // Sinon, on l'ajoute
+                activeMenuItems.push(itemId);
+            }
+            localStorage.setItem('activeMenuItems', JSON.stringify(activeMenuItems));
+        }
+    });
+
+    // Gérer la fermeture/activation de la sidebar
+    $('.nav-link[data-widget="pushmenu"]').on('click', function () {
+        setTimeout(() => {
+            if ($('body').hasClass('sidebar-collapse')) {
+                localStorage.setItem('sidebarState', 'collapsed');
+            } else {
+                localStorage.setItem('sidebarState', 'expanded');
+            }
+        }, 200);
+    });
+
+    // Appliquer l'état de la sidebar au chargement
+    if (localStorage.getItem('sidebarState') === 'collapsed') {
+        $('body').addClass('sidebar-collapse');
+    }
+});

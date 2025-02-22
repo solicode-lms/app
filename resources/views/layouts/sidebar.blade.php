@@ -21,7 +21,9 @@
         </div>
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column nav-flat nav-child-indent nav-legacy" data-widget="treeview" role="menu"
-                data-accordion="false">
+                data-accordion="false"
+                id="menu-side-bar"
+                >
                 @include('layouts.menu-sidebar')
             </ul>
         </nav>
