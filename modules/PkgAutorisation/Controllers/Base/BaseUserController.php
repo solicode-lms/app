@@ -9,6 +9,7 @@ use Modules\PkgApprenants\Services\ApprenantService;
 use Modules\PkgFormation\Services\FormateurService;
 use Modules\PkgAutorisation\Services\ProfileService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgAutorisation\App\Requests\UserRequest;
@@ -32,6 +33,7 @@ class BaseUserController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('user.index');
+
 
         // Extraire les paramètres de recherche, page, et filtres
         $users_params = array_merge(
@@ -58,7 +60,6 @@ class BaseUserController extends AdminController
         $itemUser = $this->userService->createInstance();
         
         $roles = $this->roleService->all();
-
 
         if (request()->ajax()) {
             return view('PkgAutorisation::user._fields', compact('itemUser', 'roles'));

@@ -6,6 +6,7 @@ namespace Modules\PkgAutorisation\Controllers\Base;
 use Modules\PkgAutorisation\Services\ProfileService;
 use Modules\PkgAutorisation\Services\UserService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgAutorisation\App\Requests\ProfileRequest;
@@ -29,7 +30,10 @@ class BaseProfileController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('profile.index');
+        
+        // ownedByUser
         if($this->sessionState->get('user_id')) $this->viewState->init('scope.profile.user_id'  , $this->sessionState->get('user_id'));
+
 
         // Extraire les paramètres de recherche, page, et filtres
         $profiles_params = array_merge(
@@ -57,7 +61,6 @@ class BaseProfileController extends AdminController
         $itemProfile = $this->profileService->createInstance();
         
         $users = $this->userService->all();
-
 
         if (request()->ajax()) {
             return view('PkgAutorisation::profile._fields', compact('itemProfile', 'users'));

@@ -8,6 +8,7 @@ use Modules\PkgCompetences\Services\CompetenceService;
 use Modules\PkgCompetences\Services\CategoryTechnologyService;
 use Modules\PkgCreationProjet\Services\TransfertCompetenceService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgCompetences\App\Requests\TechnologyRequest;
@@ -36,6 +37,7 @@ class BaseTechnologyController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('technology.index');
 
+
         // Extraire les paramètres de recherche, page, et filtres
         $technologies_params = array_merge(
             $request->only(['page','sort']),
@@ -63,7 +65,6 @@ class BaseTechnologyController extends AdminController
         $categoryTechnologies = $this->categoryTechnologyService->all();
         $competences = $this->competenceService->all();
         $transfertCompetences = $this->transfertCompetenceService->all();
-
 
         if (request()->ajax()) {
             return view('PkgCompetences::technology._fields', compact('itemTechnology', 'competences', 'transfertCompetences', 'categoryTechnologies'));

@@ -59,8 +59,6 @@ class BaseAffectationProjetController extends AdminController
         // Paginer les affectationProjets
         $affectationProjets_data = $this->affectationProjetService->paginate($affectationProjets_params);
 
-     
-
         // Récupérer les statistiques et les champs filtrables
         $affectationProjets_stats = $this->affectationProjetService->getaffectationProjetStats();
         $affectationProjets_filters = $this->affectationProjetService->getFieldsFilterable();

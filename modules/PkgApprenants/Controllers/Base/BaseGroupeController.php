@@ -10,6 +10,7 @@ use Modules\PkgFormation\Services\AnneeFormationService;
 use Modules\PkgFormation\Services\FiliereService;
 use Modules\PkgRealisationProjets\Services\AffectationProjetService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgApprenants\App\Requests\GroupeRequest;
@@ -40,6 +41,7 @@ class BaseGroupeController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('groupe.index');
 
+
         // Extraire les paramètres de recherche, page, et filtres
         $groupes_params = array_merge(
             $request->only(['page','sort']),
@@ -68,7 +70,6 @@ class BaseGroupeController extends AdminController
         $anneeFormations = $this->anneeFormationService->all();
         $apprenants = $this->apprenantService->all();
         $formateurs = $this->formateurService->all();
-
 
         if (request()->ajax()) {
             return view('PkgApprenants::groupe._fields', compact('itemGroupe', 'apprenants', 'formateurs', 'anneeFormations', 'filieres'));
@@ -136,6 +137,9 @@ class BaseGroupeController extends AdminController
 
 
         $this->viewState->set('scope.affectationProjet.groupe_id', $id);
+        $value = $itemGroupe->getNestedValue('formateur_id');
+        $key = 'scope.groupe.formateurs.formateur_id';
+        $this->viewState->set($key, $value);
         $affectationProjetService =  new AffectationProjetService();
         $affectationProjets_data =  $itemGroupe->affectationProjets()->paginate(10);
         $affectationProjets_stats = $affectationProjetService->getaffectationProjetStats();

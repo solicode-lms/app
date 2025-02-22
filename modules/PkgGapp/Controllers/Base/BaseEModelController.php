@@ -8,6 +8,7 @@ use Modules\PkgGapp\Services\EPackageService;
 use Modules\PkgGapp\Services\EDataFieldService;
 use Modules\PkgGapp\Services\EMetadatumService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgGapp\App\Requests\EModelRequest;
@@ -31,6 +32,7 @@ class BaseEModelController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('eModel.index');
+
 
         // Extraire les paramètres de recherche, page, et filtres
         $eModels_params = array_merge(
@@ -57,7 +59,6 @@ class BaseEModelController extends AdminController
         $itemEModel = $this->eModelService->createInstance();
         
         $ePackages = $this->ePackageService->all();
-
 
         if (request()->ajax()) {
             return view('PkgGapp::eModel._fields', compact('itemEModel', 'ePackages'));

@@ -7,6 +7,7 @@ use Modules\Core\Services\FeatureService;
 use Modules\PkgAutorisation\Services\PermissionService;
 use Modules\Core\Services\FeatureDomainService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\Core\App\Requests\FeatureRequest;
@@ -32,6 +33,7 @@ class BaseFeatureController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('feature.index');
+
 
         // Extraire les paramètres de recherche, page, et filtres
         $features_params = array_merge(
@@ -59,7 +61,6 @@ class BaseFeatureController extends AdminController
         
         $featureDomains = $this->featureDomainService->all();
         $permissions = $this->permissionService->all();
-
 
         if (request()->ajax()) {
             return view('Core::feature._fields', compact('itemFeature', 'permissions', 'featureDomains'));

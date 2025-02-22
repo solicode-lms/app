@@ -5,6 +5,7 @@
 namespace Modules\PkgApprenants\Controllers\Base;
 use Modules\PkgApprenants\Services\VilleService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgApprenants\App\Requests\VilleRequest;
@@ -26,6 +27,7 @@ class BaseVilleController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('ville.index');
+
 
         // Extraire les paramètres de recherche, page, et filtres
         $villes_params = array_merge(
@@ -51,7 +53,6 @@ class BaseVilleController extends AdminController
     public function create() {
         $itemVille = $this->villeService->createInstance();
         
-
 
         if (request()->ajax()) {
             return view('PkgApprenants::ville._fields', compact('itemVille'));

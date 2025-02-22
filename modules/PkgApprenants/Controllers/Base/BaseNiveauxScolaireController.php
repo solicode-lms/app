@@ -6,6 +6,7 @@ namespace Modules\PkgApprenants\Controllers\Base;
 use Modules\PkgApprenants\Services\NiveauxScolaireService;
 use Modules\PkgApprenants\Services\ApprenantService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgApprenants\App\Requests\NiveauxScolaireRequest;
@@ -27,6 +28,7 @@ class BaseNiveauxScolaireController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('niveauxScolaire.index');
+
 
         // Extraire les paramètres de recherche, page, et filtres
         $niveauxScolaires_params = array_merge(
@@ -52,7 +54,6 @@ class BaseNiveauxScolaireController extends AdminController
     public function create() {
         $itemNiveauxScolaire = $this->niveauxScolaireService->createInstance();
         
-
 
         if (request()->ajax()) {
             return view('PkgApprenants::niveauxScolaire._fields', compact('itemNiveauxScolaire'));

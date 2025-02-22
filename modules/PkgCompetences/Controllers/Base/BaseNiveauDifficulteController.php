@@ -6,6 +6,7 @@ namespace Modules\PkgCompetences\Controllers\Base;
 use Modules\PkgCompetences\Services\NiveauDifficulteService;
 use Modules\PkgFormation\Services\FormateurService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgCompetences\App\Requests\NiveauDifficulteRequest;
@@ -29,7 +30,10 @@ class BaseNiveauDifficulteController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('niveauDifficulte.index');
+        
+        // ownedByUser
         if($this->sessionState->get('formateur_id')) $this->viewState->init('filter.niveauDifficulte.formateur_id'  , $this->sessionState->get('formateur_id'));
+
 
         // Extraire les paramètres de recherche, page, et filtres
         $niveauDifficultes_params = array_merge(
@@ -57,7 +61,6 @@ class BaseNiveauDifficulteController extends AdminController
         $itemNiveauDifficulte = $this->niveauDifficulteService->createInstance();
         
         $formateurs = $this->formateurService->all();
-
 
         if (request()->ajax()) {
             return view('PkgCompetences::niveauDifficulte._fields', compact('itemNiveauDifficulte', 'formateurs'));

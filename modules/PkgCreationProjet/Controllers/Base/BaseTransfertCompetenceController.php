@@ -9,6 +9,7 @@ use Modules\PkgCompetences\Services\CompetenceService;
 use Modules\PkgCompetences\Services\NiveauDifficulteService;
 use Modules\PkgCreationProjet\Services\ProjetService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgCreationProjet\App\Requests\TransfertCompetenceRequest;
@@ -38,8 +39,9 @@ class BaseTransfertCompetenceController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('transfertCompetence.index');
+        
+        // ownedByUser
         if($this->sessionState->get('formateur_id')) $this->viewState->init('scope.transfertCompetence.formateur_id'  , $this->sessionState->get('formateur_id'));
-
 
 
         // Extraire les paramètres de recherche, page, et filtres

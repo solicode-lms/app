@@ -7,6 +7,7 @@ use Modules\PkgFormation\Services\AnneeFormationService;
 use Modules\PkgRealisationProjets\Services\AffectationProjetService;
 use Modules\PkgApprenants\Services\GroupeService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgFormation\App\Requests\AnneeFormationRequest;
@@ -28,6 +29,7 @@ class BaseAnneeFormationController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('anneeFormation.index');
+
 
         // Extraire les paramètres de recherche, page, et filtres
         $anneeFormations_params = array_merge(
@@ -53,7 +55,6 @@ class BaseAnneeFormationController extends AdminController
     public function create() {
         $itemAnneeFormation = $this->anneeFormationService->createInstance();
         
-
 
         if (request()->ajax()) {
             return view('PkgFormation::anneeFormation._fields', compact('itemAnneeFormation'));
@@ -119,6 +120,9 @@ class BaseAnneeFormationController extends AdminController
 
 
         $this->viewState->set('scope.affectationProjet.annee_formation_id', $id);
+        $value = $itemAnneeFormation->getNestedValue('formateur_id');
+        $key = 'scope.groupe.formateurs.formateur_id';
+        $this->viewState->set($key, $value);
         $affectationProjetService =  new AffectationProjetService();
         $affectationProjets_data =  $itemAnneeFormation->affectationProjets()->paginate(10);
         $affectationProjets_stats = $affectationProjetService->getaffectationProjetStats();

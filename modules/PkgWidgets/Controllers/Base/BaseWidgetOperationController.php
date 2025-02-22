@@ -6,6 +6,7 @@ namespace Modules\PkgWidgets\Controllers\Base;
 use Modules\PkgWidgets\Services\WidgetOperationService;
 use Modules\PkgWidgets\Services\WidgetService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgWidgets\App\Requests\WidgetOperationRequest;
@@ -27,6 +28,7 @@ class BaseWidgetOperationController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('widgetOperation.index');
+
 
         // Extraire les paramètres de recherche, page, et filtres
         $widgetOperations_params = array_merge(
@@ -52,7 +54,6 @@ class BaseWidgetOperationController extends AdminController
     public function create() {
         $itemWidgetOperation = $this->widgetOperationService->createInstance();
         
-
 
         if (request()->ajax()) {
             return view('PkgWidgets::widgetOperation._fields', compact('itemWidgetOperation'));

@@ -6,6 +6,7 @@ namespace Modules\PkgWidgets\Controllers\Base;
 use Modules\PkgWidgets\Services\WidgetTypeService;
 use Modules\PkgWidgets\Services\WidgetService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgWidgets\App\Requests\WidgetTypeRequest;
@@ -27,6 +28,7 @@ class BaseWidgetTypeController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('widgetType.index');
+
 
         // Extraire les paramètres de recherche, page, et filtres
         $widgetTypes_params = array_merge(
@@ -52,7 +54,6 @@ class BaseWidgetTypeController extends AdminController
     public function create() {
         $itemWidgetType = $this->widgetTypeService->createInstance();
         
-
 
         if (request()->ajax()) {
             return view('PkgWidgets::widgetType._fields', compact('itemWidgetType'));

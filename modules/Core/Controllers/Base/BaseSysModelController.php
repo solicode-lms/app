@@ -8,6 +8,7 @@ use Modules\Core\Services\SysColorService;
 use Modules\Core\Services\SysModuleService;
 use Modules\PkgWidgets\Services\WidgetService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\Core\App\Requests\SysModelRequest;
@@ -33,6 +34,7 @@ class BaseSysModelController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('sysModel.index');
+
 
         // Extraire les paramètres de recherche, page, et filtres
         $sysModels_params = array_merge(
@@ -60,7 +62,6 @@ class BaseSysModelController extends AdminController
         
         $sysModules = $this->sysModuleService->all();
         $sysColors = $this->sysColorService->all();
-
 
         if (request()->ajax()) {
             return view('Core::sysModel._fields', compact('itemSysModel', 'sysColors', 'sysModules'));

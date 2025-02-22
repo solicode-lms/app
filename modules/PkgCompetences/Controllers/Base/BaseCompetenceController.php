@@ -8,6 +8,7 @@ use Modules\PkgCompetences\Services\TechnologyService;
 use Modules\PkgFormation\Services\ModuleService;
 use Modules\PkgCompetences\Services\NiveauCompetenceService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgCompetences\App\Requests\CompetenceRequest;
@@ -33,6 +34,7 @@ class BaseCompetenceController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('competence.index');
+
 
         // Extraire les paramètres de recherche, page, et filtres
         $competences_params = array_merge(
@@ -60,7 +62,6 @@ class BaseCompetenceController extends AdminController
         
         $modules = $this->moduleService->all();
         $technologies = $this->technologyService->all();
-
 
         if (request()->ajax()) {
             return view('PkgCompetences::competence._fields', compact('itemCompetence', 'technologies', 'modules'));

@@ -8,6 +8,7 @@ use Modules\Core\Services\SysModelService;
 use Modules\PkgWidgets\Services\WidgetOperationService;
 use Modules\PkgWidgets\Services\WidgetTypeService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgWidgets\App\Requests\WidgetRequest;
@@ -36,6 +37,7 @@ class BaseWidgetController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('widget.index');
 
+
         // Extraire les paramètres de recherche, page, et filtres
         $widgets_params = array_merge(
             $request->only(['page','sort']),
@@ -63,7 +65,6 @@ class BaseWidgetController extends AdminController
         $widgetTypes = $this->widgetTypeService->all();
         $sysModels = $this->sysModelService->all();
         $widgetOperations = $this->widgetOperationService->all();
-
 
         if (request()->ajax()) {
             return view('PkgWidgets::widget._fields', compact('itemWidget', 'sysModels', 'widgetOperations', 'widgetTypes'));

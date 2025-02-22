@@ -5,6 +5,7 @@
 namespace Modules\PkgApprenants\Controllers\Base;
 use Modules\PkgApprenants\Services\ApprenantKonosyService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgApprenants\App\Requests\ApprenantKonosyRequest;
@@ -26,6 +27,7 @@ class BaseApprenantKonosyController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('apprenantKonosy.index');
+
 
         // Extraire les paramètres de recherche, page, et filtres
         $apprenantKonosies_params = array_merge(
@@ -51,7 +53,6 @@ class BaseApprenantKonosyController extends AdminController
     public function create() {
         $itemApprenantKonosy = $this->apprenantKonosyService->createInstance();
         
-
 
         if (request()->ajax()) {
             return view('PkgApprenants::apprenantKonosy._fields', compact('itemApprenantKonosy'));

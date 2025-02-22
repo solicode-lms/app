@@ -8,6 +8,7 @@ use Modules\PkgGapp\Services\EModelService;
 use Modules\PkgGapp\Services\ERelationshipService;
 use Modules\PkgGapp\Services\EMetadatumService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgGapp\App\Requests\EDataFieldRequest;
@@ -33,6 +34,7 @@ class BaseEDataFieldController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('eDataField.index');
+
 
         // Extraire les paramètres de recherche, page, et filtres
         $eDataFields_params = array_merge(
@@ -60,7 +62,6 @@ class BaseEDataFieldController extends AdminController
         
         $eModels = $this->eModelService->all();
         $eRelationships = $this->eRelationshipService->all();
-
 
         if (request()->ajax()) {
             return view('PkgGapp::eDataField._fields', compact('itemEDataField', 'eModels', 'eRelationships'));

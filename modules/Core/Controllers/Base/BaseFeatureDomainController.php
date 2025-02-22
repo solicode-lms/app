@@ -7,6 +7,7 @@ use Modules\Core\Services\FeatureDomainService;
 use Modules\Core\Services\SysModuleService;
 use Modules\Core\Services\FeatureService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\Core\App\Requests\FeatureDomainRequest;
@@ -30,6 +31,7 @@ class BaseFeatureDomainController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('featureDomain.index');
+
 
         // Extraire les paramètres de recherche, page, et filtres
         $featureDomains_params = array_merge(
@@ -56,7 +58,6 @@ class BaseFeatureDomainController extends AdminController
         $itemFeatureDomain = $this->featureDomainService->createInstance();
         
         $sysModules = $this->sysModuleService->all();
-
 
         if (request()->ajax()) {
             return view('Core::featureDomain._fields', compact('itemFeatureDomain', 'sysModules'));

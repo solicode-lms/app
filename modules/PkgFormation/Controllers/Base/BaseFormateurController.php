@@ -8,6 +8,7 @@ use Modules\PkgApprenants\Services\GroupeService;
 use Modules\PkgFormation\Services\SpecialiteService;
 use Modules\PkgAutorisation\Services\UserService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgFormation\App\Requests\FormateurRequest;
@@ -36,6 +37,7 @@ class BaseFormateurController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('formateur.index');
 
+
         // Extraire les paramètres de recherche, page, et filtres
         $formateurs_params = array_merge(
             $request->only(['page','sort']),
@@ -63,7 +65,6 @@ class BaseFormateurController extends AdminController
         $specialites = $this->specialiteService->all();
         $groupes = $this->groupeService->all();
         $users = $this->userService->all();
-
 
         if (request()->ajax()) {
             return view('PkgFormation::formateur._fields', compact('itemFormateur', 'groupes', 'specialites', 'users'));

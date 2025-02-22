@@ -7,6 +7,7 @@ use Modules\Core\Services\SysControllerService;
 use Modules\Core\Services\SysModuleService;
 use Modules\PkgAutorisation\Services\PermissionService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\Core\App\Requests\SysControllerRequest;
@@ -30,6 +31,7 @@ class BaseSysControllerController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('sysController.index');
+
 
         // Extraire les paramètres de recherche, page, et filtres
         $sysControllers_params = array_merge(
@@ -56,7 +58,6 @@ class BaseSysControllerController extends AdminController
         $itemSysController = $this->sysControllerService->createInstance();
         
         $sysModules = $this->sysModuleService->all();
-
 
         if (request()->ajax()) {
             return view('Core::sysController._fields', compact('itemSysController', 'sysModules'));

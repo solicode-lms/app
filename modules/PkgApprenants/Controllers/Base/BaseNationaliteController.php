@@ -6,6 +6,7 @@ namespace Modules\PkgApprenants\Controllers\Base;
 use Modules\PkgApprenants\Services\NationaliteService;
 use Modules\PkgApprenants\Services\ApprenantService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgApprenants\App\Requests\NationaliteRequest;
@@ -27,6 +28,7 @@ class BaseNationaliteController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('nationalite.index');
+
 
         // Extraire les paramètres de recherche, page, et filtres
         $nationalites_params = array_merge(
@@ -52,7 +54,6 @@ class BaseNationaliteController extends AdminController
     public function create() {
         $itemNationalite = $this->nationaliteService->createInstance();
         
-
 
         if (request()->ajax()) {
             return view('PkgApprenants::nationalite._fields', compact('itemNationalite'));

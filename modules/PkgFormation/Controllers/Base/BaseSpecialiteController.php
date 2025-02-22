@@ -6,6 +6,7 @@ namespace Modules\PkgFormation\Controllers\Base;
 use Modules\PkgFormation\Services\SpecialiteService;
 use Modules\PkgFormation\Services\FormateurService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgFormation\App\Requests\SpecialiteRequest;
@@ -29,6 +30,7 @@ class BaseSpecialiteController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('specialite.index');
+
 
         // Extraire les paramètres de recherche, page, et filtres
         $specialites_params = array_merge(
@@ -55,7 +57,6 @@ class BaseSpecialiteController extends AdminController
         $itemSpecialite = $this->specialiteService->createInstance();
         
         $formateurs = $this->formateurService->all();
-
 
         if (request()->ajax()) {
             return view('PkgFormation::specialite._fields', compact('itemSpecialite', 'formateurs'));

@@ -8,6 +8,7 @@ use Modules\PkgApprenants\Services\GroupeService;
 use Modules\PkgFormation\Services\ModuleService;
 use Modules\PkgCreationProjet\Services\ProjetService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgFormation\App\Requests\FiliereRequest;
@@ -29,6 +30,7 @@ class BaseFiliereController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('filiere.index');
+
 
         // Extraire les paramètres de recherche, page, et filtres
         $filieres_params = array_merge(
@@ -54,7 +56,6 @@ class BaseFiliereController extends AdminController
     public function create() {
         $itemFiliere = $this->filiereService->createInstance();
         
-
 
         if (request()->ajax()) {
             return view('PkgFormation::filiere._fields', compact('itemFiliere'));

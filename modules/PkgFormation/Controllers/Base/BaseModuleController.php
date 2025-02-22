@@ -7,6 +7,7 @@ use Modules\PkgFormation\Services\ModuleService;
 use Modules\PkgFormation\Services\FiliereService;
 use Modules\PkgCompetences\Services\CompetenceService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgFormation\App\Requests\ModuleRequest;
@@ -30,6 +31,7 @@ class BaseModuleController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('module.index');
+
 
         // Extraire les paramètres de recherche, page, et filtres
         $modules_params = array_merge(
@@ -56,7 +58,6 @@ class BaseModuleController extends AdminController
         $itemModule = $this->moduleService->createInstance();
         
         $filieres = $this->filiereService->all();
-
 
         if (request()->ajax()) {
             return view('PkgFormation::module._fields', compact('itemModule', 'filieres'));

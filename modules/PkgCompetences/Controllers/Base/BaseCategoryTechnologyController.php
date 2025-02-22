@@ -6,6 +6,7 @@ namespace Modules\PkgCompetences\Controllers\Base;
 use Modules\PkgCompetences\Services\CategoryTechnologyService;
 use Modules\PkgCompetences\Services\TechnologyService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgCompetences\App\Requests\CategoryTechnologyRequest;
@@ -27,6 +28,7 @@ class BaseCategoryTechnologyController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('categoryTechnology.index');
+
 
         // Extraire les paramètres de recherche, page, et filtres
         $categoryTechnologies_params = array_merge(
@@ -52,7 +54,6 @@ class BaseCategoryTechnologyController extends AdminController
     public function create() {
         $itemCategoryTechnology = $this->categoryTechnologyService->createInstance();
         
-
 
         if (request()->ajax()) {
             return view('PkgCompetences::categoryTechnology._fields', compact('itemCategoryTechnology'));

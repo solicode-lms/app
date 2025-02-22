@@ -8,6 +8,7 @@ use Modules\PkgGapp\Services\EDataFieldService;
 use Modules\PkgGapp\Services\EMetadataDefinitionService;
 use Modules\PkgGapp\Services\EModelService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgGapp\App\Requests\EMetadatumRequest;
@@ -36,6 +37,7 @@ class BaseEMetadatumController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('eMetadatum.index');
 
+
         // Extraire les paramètres de recherche, page, et filtres
         $eMetadata_params = array_merge(
             $request->only(['page','sort']),
@@ -63,7 +65,6 @@ class BaseEMetadatumController extends AdminController
         $eModels = $this->eModelService->all();
         $eDataFields = $this->eDataFieldService->all();
         $eMetadataDefinitions = $this->eMetadataDefinitionService->all();
-
 
         if (request()->ajax()) {
             return view('PkgGapp::eMetadatum._fields', compact('itemEMetadatum', 'eDataFields', 'eMetadataDefinitions', 'eModels'));

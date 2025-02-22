@@ -6,6 +6,7 @@ namespace Modules\PkgGapp\Controllers\Base;
 use Modules\PkgGapp\Services\EPackageService;
 use Modules\PkgGapp\Services\EModelService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgGapp\App\Requests\EPackageRequest;
@@ -27,6 +28,7 @@ class BaseEPackageController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('ePackage.index');
+
 
         // Extraire les paramètres de recherche, page, et filtres
         $ePackages_params = array_merge(
@@ -52,7 +54,6 @@ class BaseEPackageController extends AdminController
     public function create() {
         $itemEPackage = $this->ePackageService->createInstance();
         
-
 
         if (request()->ajax()) {
             return view('PkgGapp::ePackage._fields', compact('itemEPackage'));

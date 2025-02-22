@@ -5,6 +5,7 @@
 namespace Modules\PkgGapp\Controllers\Base;
 use Modules\PkgGapp\Services\EMetadataDefinitionService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgGapp\App\Requests\EMetadataDefinitionRequest;
@@ -26,6 +27,7 @@ class BaseEMetadataDefinitionController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('eMetadataDefinition.index');
+
 
         // Extraire les paramètres de recherche, page, et filtres
         $eMetadataDefinitions_params = array_merge(
@@ -51,7 +53,6 @@ class BaseEMetadataDefinitionController extends AdminController
     public function create() {
         $itemEMetadataDefinition = $this->eMetadataDefinitionService->createInstance();
         
-
 
         if (request()->ajax()) {
             return view('PkgGapp::eMetadataDefinition._fields', compact('itemEMetadataDefinition'));

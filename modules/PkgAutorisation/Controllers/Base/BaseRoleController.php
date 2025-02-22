@@ -7,6 +7,7 @@ use Modules\PkgAutorisation\Services\RoleService;
 use Modules\PkgAutorisation\Services\PermissionService;
 use Modules\PkgAutorisation\Services\UserService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgAutorisation\App\Requests\RoleRequest;
@@ -32,6 +33,7 @@ class BaseRoleController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('role.index');
+
 
         // Extraire les paramètres de recherche, page, et filtres
         $roles_params = array_merge(
@@ -59,7 +61,6 @@ class BaseRoleController extends AdminController
         
         $permissions = $this->permissionService->all();
         $users = $this->userService->all();
-
 
         if (request()->ajax()) {
             return view('PkgAutorisation::role._fields', compact('itemRole', 'permissions', 'users'));

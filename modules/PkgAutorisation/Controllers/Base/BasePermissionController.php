@@ -8,6 +8,7 @@ use Modules\Core\Services\FeatureService;
 use Modules\Core\Services\SysControllerService;
 use Modules\PkgAutorisation\Services\RoleService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgAutorisation\App\Requests\PermissionRequest;
@@ -36,6 +37,7 @@ class BasePermissionController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('permission.index');
 
+
         // Extraire les paramètres de recherche, page, et filtres
         $permissions_params = array_merge(
             $request->only(['page','sort']),
@@ -63,7 +65,6 @@ class BasePermissionController extends AdminController
         $sysControllers = $this->sysControllerService->all();
         $features = $this->featureService->all();
         $roles = $this->roleService->all();
-
 
         if (request()->ajax()) {
             return view('PkgAutorisation::permission._fields', compact('itemPermission', 'features', 'roles', 'sysControllers'));
