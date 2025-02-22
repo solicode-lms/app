@@ -382,7 +382,7 @@
             "value": "affectationProjet.projet.formateur.id"
         },
         "e_data_field_reference": "RealisationProjet_etats_realisation_projet_id",
-        "e_metadata_definition_reference": "scopeData"
+        "e_metadata_definition_reference": "scopeDataInEditContext"
     },
     {
         "reference": "RealisationProjet_apprenant_id_editableByRoles",

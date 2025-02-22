@@ -283,6 +283,6 @@
             "value": "realisationProjet.affectationProjet.projet.id"
         },
         "e_data_field_reference": "LivrablesRealisation_livrable_id",
-        "e_metadata_definition_reference": "scopeData"
+        "e_metadata_definition_reference": "scopeDataInEditContext"
     }
 ]

@@ -661,13 +661,13 @@
     },
     {
         "id": 56,
-        "reference": "scopeData",
-        "name": "scopeData",
+        "reference": "scopeDataInEditContext",
+        "name": "scopeDataInEditContext",
         "type": "Json",
         "scope": "field",
         "default_value": "{   \"key\": \"scope.livrable.projet_id\",   \"value\": \"realisationProjet.affectationProjet.projet.id\" }",
         "groupe": "form",
-        "description": "scope les données dans un select dans une relation ManyToOne et ManyToMany",
+        "description": "<p>                scope les données dans un select dans pour une relation ManyToOne et ManyToMany, dans le context Edit avec has many,&nbsp;</p><p>Il exist une autre meta : scopeDataRole, scopeDataByConnectedUser</p>",
         "created_at": null,
         "updated_at": null
     },
