@@ -35,7 +35,7 @@ class BaseValidationController extends AdminController
         $this->viewState->setContextKeyIfEmpty('validation.index');
         // ownedByUser
         if(Auth::user()->hasRole('formateur')){
-           $this->viewState->init('filter.validation.realisationProjet.affectationProjet.projet.formateur.id'  , $this->sessionState->get('formateur_id'));
+           $this->viewState->init('filter.validation.realisationProjet.affectationProjet.projet.formateur_id'  , $this->sessionState->get('formateur_id'));
         }
 
 
@@ -63,7 +63,7 @@ class BaseValidationController extends AdminController
     public function create() {
         // ownedByUser
         if(Auth::user()->hasRole('formateur')){
-           $this->viewState->set('scope_form.validation.realisationProjet.affectationProjet.projet.formateur.id'  , $this->sessionState->get('formateur_id'));
+           $this->viewState->set('scope_form.validation.realisationProjet.affectationProjet.projet.formateur_id'  , $this->sessionState->get('formateur_id'));
         }
 
 

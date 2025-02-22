@@ -32,7 +32,7 @@ class BaseResourceController extends AdminController
         $this->viewState->setContextKeyIfEmpty('resource.index');
         // ownedByUser
         if(Auth::user()->hasRole('formateur')){
-           $this->viewState->init('filter.resource.projet.formateur.id'  , $this->sessionState->get('formateur_id'));
+           $this->viewState->init('filter.resource.projet.formateur_id'  , $this->sessionState->get('formateur_id'));
         }
 
 
@@ -60,7 +60,7 @@ class BaseResourceController extends AdminController
     public function create() {
         // ownedByUser
         if(Auth::user()->hasRole('formateur')){
-           $this->viewState->set('scope_form.resource.projet.formateur.id'  , $this->sessionState->get('formateur_id'));
+           $this->viewState->set('scope_form.resource.projet.formateur_id'  , $this->sessionState->get('formateur_id'));
         }
 
 

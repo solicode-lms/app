@@ -35,7 +35,7 @@ class BaseLivrablesRealisationController extends AdminController
         $this->viewState->setContextKeyIfEmpty('livrablesRealisation.index');
         // ownedByUser
         if(Auth::user()->hasRole('apprenant')){
-           $this->viewState->init('filter.livrablesRealisation.realisationProjet.apprenant.id'  , $this->sessionState->get('apprenant_id'));
+           $this->viewState->init('filter.livrablesRealisation.realisationProjet.apprenant_id'  , $this->sessionState->get('apprenant_id'));
         }
 
 
@@ -63,7 +63,7 @@ class BaseLivrablesRealisationController extends AdminController
     public function create() {
         // ownedByUser
         if(Auth::user()->hasRole('apprenant')){
-           $this->viewState->set('scope_form.livrablesRealisation.realisationProjet.apprenant.id'  , $this->sessionState->get('apprenant_id'));
+           $this->viewState->set('scope_form.livrablesRealisation.realisationProjet.apprenant_id'  , $this->sessionState->get('apprenant_id'));
         }
 
 

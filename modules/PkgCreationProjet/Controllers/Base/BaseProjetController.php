@@ -39,7 +39,7 @@ class BaseProjetController extends AdminController
         $this->viewState->setContextKeyIfEmpty('projet.index');
         // ownedByUser
         if(Auth::user()->hasRole('formateur')){
-           $this->viewState->init('filter.projet.formateur.id'  , $this->sessionState->get('formateur_id'));
+           $this->viewState->init('filter.projet.formateur_id'  , $this->sessionState->get('formateur_id'));
         }
 
 
@@ -67,7 +67,7 @@ class BaseProjetController extends AdminController
     public function create() {
         // ownedByUser
         if(Auth::user()->hasRole('formateur')){
-           $this->viewState->set('scope_form.projet.formateur.id'  , $this->sessionState->get('formateur_id'));
+           $this->viewState->set('scope_form.projet.formateur_id'  , $this->sessionState->get('formateur_id'));
         }
 
 

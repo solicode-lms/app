@@ -32,10 +32,10 @@ class BaseProfileController extends AdminController
         $this->viewState->setContextKeyIfEmpty('profile.index');
         // ownedByUser
         if(Auth::user()->hasRole('formateur')){
-           $this->viewState->init('scope.profile.user.id'  , $this->sessionState->get('user_id'));
+           $this->viewState->init('scope.profile.user_id'  , $this->sessionState->get('user_id'));
         }
         if(Auth::user()->hasRole('apprenant')){
-           $this->viewState->init('scope.profile.user.id'  , $this->sessionState->get('user_id'));
+           $this->viewState->init('scope.profile.user_id'  , $this->sessionState->get('user_id'));
         }
 
 
@@ -63,10 +63,10 @@ class BaseProfileController extends AdminController
     public function create() {
         // ownedByUser
         if(Auth::user()->hasRole('formateur')){
-           $this->viewState->set('scope_form.profile.user.id'  , $this->sessionState->get('user_id'));
+           $this->viewState->set('scope_form.profile.user_id'  , $this->sessionState->get('user_id'));
         }
         if(Auth::user()->hasRole('apprenant')){
-           $this->viewState->set('scope_form.profile.user.id'  , $this->sessionState->get('user_id'));
+           $this->viewState->set('scope_form.profile.user_id'  , $this->sessionState->get('user_id'));
         }
 
 

@@ -32,7 +32,7 @@ class BaseNiveauDifficulteController extends AdminController
         $this->viewState->setContextKeyIfEmpty('niveauDifficulte.index');
         // ownedByUser
         if(Auth::user()->hasRole('formateur')){
-           $this->viewState->init('filter.niveauDifficulte.formateur.id'  , $this->sessionState->get('formateur_id'));
+           $this->viewState->init('filter.niveauDifficulte.formateur_id'  , $this->sessionState->get('formateur_id'));
         }
 
 
@@ -60,7 +60,7 @@ class BaseNiveauDifficulteController extends AdminController
     public function create() {
         // ownedByUser
         if(Auth::user()->hasRole('formateur')){
-           $this->viewState->set('scope_form.niveauDifficulte.formateur.id'  , $this->sessionState->get('formateur_id'));
+           $this->viewState->set('scope_form.niveauDifficulte.formateur_id'  , $this->sessionState->get('formateur_id'));
         }
 
 

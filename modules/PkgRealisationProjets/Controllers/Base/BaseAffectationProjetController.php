@@ -39,7 +39,7 @@ class BaseAffectationProjetController extends AdminController
         $this->viewState->setContextKeyIfEmpty('affectationProjet.index');
         // ownedByUser
         if(Auth::user()->hasRole('formateur')){
-           $this->viewState->init('scope.affectationProjet.projet.formateur.id'  , $this->sessionState->get('formateur_id'));
+           $this->viewState->init('scope.affectationProjet.projet.formateur_id'  , $this->sessionState->get('formateur_id'));
         }
 
         // scopeDataByRole
@@ -74,7 +74,7 @@ class BaseAffectationProjetController extends AdminController
     public function create() {
         // ownedByUser
         if(Auth::user()->hasRole('formateur')){
-           $this->viewState->set('scope_form.affectationProjet.projet.formateur.id'  , $this->sessionState->get('formateur_id'));
+           $this->viewState->set('scope_form.affectationProjet.projet.formateur_id'  , $this->sessionState->get('formateur_id'));
         }
 
 

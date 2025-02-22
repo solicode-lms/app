@@ -35,7 +35,7 @@ class BaseLivrableController extends AdminController
         $this->viewState->setContextKeyIfEmpty('livrable.index');
         // ownedByUser
         if(Auth::user()->hasRole('formateur')){
-           $this->viewState->init('filter.livrable.projet.formateur.id'  , $this->sessionState->get('formateur_id'));
+           $this->viewState->init('filter.livrable.projet.formateur_id'  , $this->sessionState->get('formateur_id'));
         }
 
 
@@ -63,7 +63,7 @@ class BaseLivrableController extends AdminController
     public function create() {
         // ownedByUser
         if(Auth::user()->hasRole('formateur')){
-           $this->viewState->set('scope_form.livrable.projet.formateur.id'  , $this->sessionState->get('formateur_id'));
+           $this->viewState->set('scope_form.livrable.projet.formateur_id'  , $this->sessionState->get('formateur_id'));
         }
 
 
