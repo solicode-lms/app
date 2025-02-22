@@ -24,6 +24,7 @@ class BaseProjetService extends BaseService
         'critere_de_travail',
         'nombre_jour',
         'description',
+        'filiere_id',
         'formateur_id'
     ];
 
@@ -49,6 +50,7 @@ class BaseProjetService extends BaseService
     public function initFieldsFilterable(){
        // Initialiser les filtres configurables dynamiquement
         $this->fieldsFilterable = [
+            $this->generateManyToOneFilter(__("PkgFormation::filiere.plural"), 'filiere_id', \Modules\PkgFormation\Models\Filiere::class, 'code'),
             $this->generateManyToOneFilter(__("PkgFormation::formateur.plural"), 'formateur_id', \Modules\PkgFormation\Models\Formateur::class, 'nom'),
         ];
     }

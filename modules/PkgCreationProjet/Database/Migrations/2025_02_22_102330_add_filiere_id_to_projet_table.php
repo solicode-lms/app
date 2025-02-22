@@ -26,7 +26,7 @@ return new class extends Migration
 
         // Étape 3 : Ajouter la contrainte de clé étrangère après remplissage des données
         Schema::table('projets', function (Blueprint $table) {
-            $table->foreign('filiere_id')->references('id')->on('filieres')->onDelete('cascade');
+            $table->foreign('filiere_id')->nullable(false)->references('id')->on('filieres')->onDelete('cascade');
         });
     }
 

@@ -45,6 +45,10 @@
                                 <p>{{ $itemProjet->description }}</p>
                             </div>
                             <div class="col-sm-12">
+                                <label for="filiere_id">{{ ucfirst(__('PkgCreationProjet::projet.filiere_id')) }}:</label>
+                                <p>{{ $itemProjet->filiere_id }}</p>
+                            </div>
+                            <div class="col-sm-12">
                                 <label for="formateur_id">{{ ucfirst(__('PkgCreationProjet::projet.formateur_id')) }}:</label>
                                 <p>{{ $itemProjet->formateur_id }}</p>
                             </div>

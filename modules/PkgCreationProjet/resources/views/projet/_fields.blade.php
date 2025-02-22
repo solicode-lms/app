@@ -118,6 +118,32 @@
 </div>
 
         
+        <div class="form-group col-12 col-md-6">
+            <label for="filiere_id">
+                {{ ucfirst(__('PkgFormation::filiere.singular')) }}
+                
+            </label>
+            <select 
+            id="filiere_id" 
+            
+            
+            name="filiere_id" 
+            class="form-control select2">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($filieres as $filiere)
+                    <option value="{{ $filiere->id }}"
+                        {{ (isset($itemProjet) && $itemProjet->filiere_id == $filiere->id) || (old('filiere_id>') == $filiere->id) ? 'selected' : '' }}>
+                        {{ $filiere }}
+                    </option>
+                @endforeach
+            </select>
+            @error('filiere_id')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+    </div>
+
+
+        
 
         <!--   TransfertCompetence HasMany --> 
 
