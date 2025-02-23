@@ -142,7 +142,7 @@ class BaseAffectationProjetController extends AdminController
         $this->viewState->set('scope.realisationProjet.affectation_projet_id', $id);
 
         // scopeDataInEditContext
-        $value = $itemAffectationProjet->getNestedValue('affectationProjet.projet.formateur.id');
+        $value = $itemAffectationProjet->getNestedValue('projet.formateur.id');
         $key = 'scope.etatsRealisationProjet.formateur_id';
         $this->viewState->set($key, $value);
 
@@ -182,7 +182,7 @@ class BaseAffectationProjetController extends AdminController
         $this->viewState->set('scope.realisationProjet.affectation_projet_id', $id);
         
         // scopeDataInEditContext
-        $value = $itemAffectationProjet->getNestedValue('affectationProjet.projet.formateur.id');
+        $value = $itemAffectationProjet->getNestedValue('projet.formateur.id');
         $key = 'scope.etatsRealisationProjet.formateur_id';
         $this->viewState->set($key, $value);
 

@@ -68,6 +68,7 @@ class BaseGroupeController extends AdminController
 
         $itemGroupe = $this->groupeService->createInstance();
         
+
         $filieres = $this->filiereService->all();
         $anneeFormations = $this->anneeFormationService->all();
         $apprenants = $this->apprenantService->all();
@@ -105,7 +106,9 @@ class BaseGroupeController extends AdminController
 
         $this->viewState->setContextKey('groupe.edit_' . $id);
 
+
         $itemGroupe = $this->groupeService->find($id);
+
 
         $filieres = $this->filiereService->all();
         $anneeFormations = $this->anneeFormationService->all();
@@ -114,9 +117,8 @@ class BaseGroupeController extends AdminController
 
 
         $this->viewState->set('scope.affectationProjet.groupe_id', $id);
-        $value = $itemGroupe->getNestedValue('formateur_id');
-        $key = 'scope.groupe.formateurs.formateur_id';
-        $this->viewState->set($key, $value);
+
+
         $affectationProjetService =  new AffectationProjetService();
         $affectationProjets_data =  $itemGroupe->affectationProjets()->paginate(10);
         $affectationProjets_stats = $affectationProjetService->getaffectationProjetStats();
@@ -134,7 +136,9 @@ class BaseGroupeController extends AdminController
 
         $this->viewState->setContextKey('groupe.edit_' . $id);
 
+
         $itemGroupe = $this->groupeService->find($id);
+
 
         $filieres = $this->filiereService->all();
         $anneeFormations = $this->anneeFormationService->all();
@@ -143,9 +147,8 @@ class BaseGroupeController extends AdminController
 
 
         $this->viewState->set('scope.affectationProjet.groupe_id', $id);
-        $value = $itemGroupe->getNestedValue('formateur_id');
-        $key = 'scope.groupe.formateurs.formateur_id';
-        $this->viewState->set($key, $value);
+        
+
         $affectationProjetService =  new AffectationProjetService();
         $affectationProjets_data =  $itemGroupe->affectationProjets()->paginate(10);
         $affectationProjets_stats = $affectationProjetService->getaffectationProjetStats();

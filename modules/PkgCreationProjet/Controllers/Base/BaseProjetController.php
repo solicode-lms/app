@@ -119,12 +119,12 @@ class BaseProjetController extends AdminController
 
 
         $this->viewState->set('scope.transfertCompetence.projet_id', $id);
+
+        // scopeDataInEditContext
         $value = $itemProjet->getNestedValue('filiere_id');
         $key = 'scope.competence.module.filiere_id';
         $this->viewState->set($key, $value);
-        $value = $itemProjet->getNestedValue('');
-        $key = '';
-        $this->viewState->set($key, $value);
+
         $transfertCompetenceService =  new TransfertCompetenceService();
         $transfertCompetences_data =  $itemProjet->transfertCompetences()->paginate(10);
         $transfertCompetences_stats = $transfertCompetenceService->gettransfertCompetenceStats();
@@ -132,9 +132,12 @@ class BaseProjetController extends AdminController
         $transfertCompetence_instance =  $transfertCompetenceService->createInstance();
 
         $this->viewState->set('scope.affectationProjet.projet_id', $id);
-        $value = $itemProjet->getNestedValue('');
-        $key = '';
+
+        // scopeDataInEditContext
+        $value = $itemProjet->getNestedValue('formateur_id');
+        $key = 'scope.groupe.formateurs.formateur_id';
         $this->viewState->set($key, $value);
+
         $affectationProjetService =  new AffectationProjetService();
         $affectationProjets_data =  $itemProjet->affectationProjets()->paginate(10);
         $affectationProjets_stats = $affectationProjetService->getaffectationProjetStats();
@@ -142,6 +145,8 @@ class BaseProjetController extends AdminController
         $affectationProjet_instance =  $affectationProjetService->createInstance();
 
         $this->viewState->set('scope.livrable.projet_id', $id);
+
+
         $livrableService =  new LivrableService();
         $livrables_data =  $itemProjet->livrables()->paginate(10);
         $livrables_stats = $livrableService->getlivrableStats();
@@ -149,6 +154,8 @@ class BaseProjetController extends AdminController
         $livrable_instance =  $livrableService->createInstance();
 
         $this->viewState->set('scope.resource.projet_id', $id);
+
+
         $resourceService =  new ResourceService();
         $resources_data =  $itemProjet->resources()->paginate(10);
         $resources_stats = $resourceService->getresourceStats();
@@ -177,6 +184,10 @@ class BaseProjetController extends AdminController
 
         $this->viewState->set('scope.transfertCompetence.projet_id', $id);
         
+        // scopeDataInEditContext
+        $value = $itemProjet->getNestedValue('filiere_id');
+        $key = 'scope.competence.module.filiere_id';
+        $this->viewState->set($key, $value);
 
         $transfertCompetenceService =  new TransfertCompetenceService();
         $transfertCompetences_data =  $itemProjet->transfertCompetences()->paginate(10);
@@ -186,6 +197,10 @@ class BaseProjetController extends AdminController
 
         $this->viewState->set('scope.affectationProjet.projet_id', $id);
         
+        // scopeDataInEditContext
+        $value = $itemProjet->getNestedValue('formateur_id');
+        $key = 'scope.groupe.formateurs.formateur_id';
+        $this->viewState->set($key, $value);
 
         $affectationProjetService =  new AffectationProjetService();
         $affectationProjets_data =  $itemProjet->affectationProjets()->paginate(10);

@@ -58,6 +58,7 @@ class BaseAnneeFormationController extends AdminController
         $itemAnneeFormation = $this->anneeFormationService->createInstance();
         
 
+
         if (request()->ajax()) {
             return view('PkgFormation::anneeFormation._fields', compact('itemAnneeFormation'));
         }
@@ -90,14 +91,15 @@ class BaseAnneeFormationController extends AdminController
 
         $this->viewState->setContextKey('anneeFormation.edit_' . $id);
 
+
         $itemAnneeFormation = $this->anneeFormationService->find($id);
 
 
 
+
         $this->viewState->set('scope.affectationProjet.annee_formation_id', $id);
-        $value = $itemAnneeFormation->getNestedValue('formateur_id');
-        $key = 'scope.groupe.formateurs.formateur_id';
-        $this->viewState->set($key, $value);
+
+
         $affectationProjetService =  new AffectationProjetService();
         $affectationProjets_data =  $itemAnneeFormation->affectationProjets()->paginate(10);
         $affectationProjets_stats = $affectationProjetService->getaffectationProjetStats();
@@ -105,6 +107,8 @@ class BaseAnneeFormationController extends AdminController
         $affectationProjet_instance =  $affectationProjetService->createInstance();
 
         $this->viewState->set('scope.groupe.annee_formation_id', $id);
+
+
         $groupeService =  new GroupeService();
         $groupes_data =  $itemAnneeFormation->groupes()->paginate(10);
         $groupes_stats = $groupeService->getgroupeStats();
@@ -122,14 +126,15 @@ class BaseAnneeFormationController extends AdminController
 
         $this->viewState->setContextKey('anneeFormation.edit_' . $id);
 
+
         $itemAnneeFormation = $this->anneeFormationService->find($id);
 
 
 
+
         $this->viewState->set('scope.affectationProjet.annee_formation_id', $id);
-        $value = $itemAnneeFormation->getNestedValue('formateur_id');
-        $key = 'scope.groupe.formateurs.formateur_id';
-        $this->viewState->set($key, $value);
+        
+
         $affectationProjetService =  new AffectationProjetService();
         $affectationProjets_data =  $itemAnneeFormation->affectationProjets()->paginate(10);
         $affectationProjets_stats = $affectationProjetService->getaffectationProjetStats();
@@ -137,6 +142,8 @@ class BaseAnneeFormationController extends AdminController
         $affectationProjet_instance =  $affectationProjetService->createInstance();
 
         $this->viewState->set('scope.groupe.annee_formation_id', $id);
+        
+
         $groupeService =  new GroupeService();
         $groupes_data =  $itemAnneeFormation->groupes()->paginate(10);
         $groupes_stats = $groupeService->getgroupeStats();

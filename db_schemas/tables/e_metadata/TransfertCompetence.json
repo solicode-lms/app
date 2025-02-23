@@ -350,11 +350,13 @@
         "reference": "TransfertCompetence_competence_id_scopeDataInEditContext",
         "value_boolean": 1,
         "value_float": 0,
-        "value_json": {
-            "key": "scope.competence.module.filiere_id",
-            "value": "filiere_id",
-            "moduleName": ""
-        },
+        "value_json": [
+            {
+                "key": "scope.competence.module.filiere_id",
+                "value": "filiere_id",
+                "modelName": "Projet"
+            }
+        ],
         "e_data_field_reference": "TransfertCompetence_competence_id",
         "e_metadata_definition_reference": "scopeDataInEditContext"
     }
