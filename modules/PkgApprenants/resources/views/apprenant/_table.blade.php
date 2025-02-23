@@ -37,9 +37,11 @@
                         @endcan
                         
                         @can('show-apprenant')
+                        @can('view', $apprenant)
                             <a href="{{ route('apprenants.show', ['apprenant' => $apprenant->id]) }}" data-id="{{$apprenant->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
+                        @endcan
                         @endcan
                         @can('edit-apprenant')
                         @can('update', $apprenant)

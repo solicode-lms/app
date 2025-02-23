@@ -15,9 +15,11 @@
                     <td class="text-right">
 
                         @can('show-categoryTechnology')
+                        @can('view', $categoryTechnology)
                             <a href="{{ route('categoryTechnologies.show', ['categoryTechnology' => $categoryTechnology->id]) }}" data-id="{{$categoryTechnology->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
+                        @endcan
                         @endcan
                         @can('edit-categoryTechnology')
                         @can('update', $categoryTechnology)

@@ -15,9 +15,11 @@
                     <td class="text-right">
 
                         @can('show-nationalite')
+                        @can('view', $nationalite)
                             <a href="{{ route('nationalites.show', ['nationalite' => $nationalite->id]) }}" data-id="{{$nationalite->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
+                        @endcan
                         @endcan
                         @can('edit-nationalite')
                         @can('update', $nationalite)

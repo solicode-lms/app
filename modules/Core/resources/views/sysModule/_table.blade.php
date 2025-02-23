@@ -19,9 +19,11 @@
                     <td class="text-right">
 
                         @can('show-sysModule')
+                        @can('view', $sysModule)
                             <a href="{{ route('sysModules.show', ['sysModule' => $sysModule->id]) }}" data-id="{{$sysModule->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
+                        @endcan
                         @endcan
                         @can('edit-sysModule')
                         @can('update', $sysModule)

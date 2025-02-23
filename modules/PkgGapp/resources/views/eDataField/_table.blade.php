@@ -21,9 +21,11 @@
                     <td class="text-right">
 
                         @can('show-eDataField')
+                        @can('view', $eDataField)
                             <a href="{{ route('eDataFields.show', ['eDataField' => $eDataField->id]) }}" data-id="{{$eDataField->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
+                        @endcan
                         @endcan
                         @can('edit-eDataField')
                         @can('update', $eDataField)

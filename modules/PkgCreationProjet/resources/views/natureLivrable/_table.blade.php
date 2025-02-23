@@ -15,9 +15,11 @@
                     <td class="text-right">
 
                         @can('show-natureLivrable')
+                        @can('view', $natureLivrable)
                             <a href="{{ route('natureLivrables.show', ['natureLivrable' => $natureLivrable->id]) }}" data-id="{{$natureLivrable->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
+                        @endcan
                         @endcan
                         @can('edit-natureLivrable')
                         @can('update', $natureLivrable)

@@ -17,9 +17,11 @@
                     <td class="text-right">
 
                         @can('show-resource')
+                        @can('view', $resource)
                             <a href="{{ route('resources.show', ['resource' => $resource->id]) }}" data-id="{{$resource->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
+                        @endcan
                         @endcan
                         @can('edit-resource')
                         @can('update', $resource)

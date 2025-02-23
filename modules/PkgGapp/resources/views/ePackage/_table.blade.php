@@ -15,9 +15,11 @@
                     <td class="text-right">
 
                         @can('show-ePackage')
+                        @can('view', $ePackage)
                             <a href="{{ route('ePackages.show', ['ePackage' => $ePackage->id]) }}" data-id="{{$ePackage->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
+                        @endcan
                         @endcan
                         @can('edit-ePackage')
                         @can('update', $ePackage)

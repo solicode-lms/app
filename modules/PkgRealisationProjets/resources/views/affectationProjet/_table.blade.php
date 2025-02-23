@@ -21,9 +21,11 @@
                     <td class="text-right">
 
                         @can('show-affectationProjet')
+                        @can('view', $affectationProjet)
                             <a href="{{ route('affectationProjets.show', ['affectationProjet' => $affectationProjet->id]) }}" data-id="{{$affectationProjet->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
+                        @endcan
                         @endcan
                         @can('edit-affectationProjet')
                         @can('update', $affectationProjet)

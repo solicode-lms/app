@@ -17,9 +17,11 @@
                     <td class="text-right">
 
                         @can('show-niveauDifficulte')
+                        @can('view', $niveauDifficulte)
                             <a href="{{ route('niveauDifficultes.show', ['niveauDifficulte' => $niveauDifficulte->id]) }}" data-id="{{$niveauDifficulte->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
+                        @endcan
                         @endcan
                         @can('edit-niveauDifficulte')
                         @can('update', $niveauDifficulte)

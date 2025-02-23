@@ -17,9 +17,11 @@
                     <td class="text-right">
 
                         @can('show-featureDomain')
+                        @can('view', $featureDomain)
                             <a href="{{ route('featureDomains.show', ['featureDomain' => $featureDomain->id]) }}" data-id="{{$featureDomain->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
+                        @endcan
                         @endcan
                         @can('edit-featureDomain')
                         @can('update', $featureDomain)

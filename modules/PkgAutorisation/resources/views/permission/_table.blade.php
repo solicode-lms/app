@@ -25,9 +25,11 @@
                     <td class="text-right">
 
                         @can('show-permission')
+                        @can('view', $permission)
                             <a href="{{ route('permissions.show', ['permission' => $permission->id]) }}" data-id="{{$permission->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
+                        @endcan
                         @endcan
                         @can('edit-permission')
                         @can('update', $permission)

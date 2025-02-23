@@ -25,9 +25,11 @@
                     <td class="text-right">
 
                         @can('show-widget')
+                        @can('view', $widget)
                             <a href="{{ route('widgets.show', ['widget' => $widget->id]) }}" data-id="{{$widget->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
+                        @endcan
                         @endcan
                         @can('edit-widget')
                         @can('update', $widget)

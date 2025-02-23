@@ -25,9 +25,11 @@
                     <td class="text-right">
 
                         @can('show-groupe')
+                        @can('view', $groupe)
                             <a href="{{ route('groupes.show', ['groupe' => $groupe->id]) }}" data-id="{{$groupe->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
+                        @endcan
                         @endcan
                         @can('edit-groupe')
                         @can('update', $groupe)

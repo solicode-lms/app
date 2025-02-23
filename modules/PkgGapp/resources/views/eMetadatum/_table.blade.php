@@ -23,9 +23,11 @@
                     <td class="text-right">
 
                         @can('show-eMetadatum')
+                        @can('view', $eMetadatum)
                             <a href="{{ route('eMetadata.show', ['eMetadatum' => $eMetadatum->id]) }}" data-id="{{$eMetadatum->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
+                        @endcan
                         @endcan
                         @can('edit-eMetadatum')
                         @can('update', $eMetadatum)

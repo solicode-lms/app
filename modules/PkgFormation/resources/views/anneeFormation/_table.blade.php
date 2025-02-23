@@ -19,9 +19,11 @@
                     <td class="text-right">
 
                         @can('show-anneeFormation')
+                        @can('view', $anneeFormation)
                             <a href="{{ route('anneeFormations.show', ['anneeFormation' => $anneeFormation->id]) }}" data-id="{{$anneeFormation->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
+                        @endcan
                         @endcan
                         @can('edit-anneeFormation')
                         @can('update', $anneeFormation)

@@ -30,9 +30,11 @@
                     <td class="text-right">
 
                         @can('show-module')
+                        @can('view', $module)
                             <a href="{{ route('modules.show', ['module' => $module->id]) }}" data-id="{{$module->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
+                        @endcan
                         @endcan
                         @can('edit-module')
                         @can('update', $module)

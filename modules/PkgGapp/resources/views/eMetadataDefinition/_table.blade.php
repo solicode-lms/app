@@ -15,9 +15,11 @@
                     <td class="text-right">
 
                         @can('show-eMetadataDefinition')
+                        @can('view', $eMetadataDefinition)
                             <a href="{{ route('eMetadataDefinitions.show', ['eMetadataDefinition' => $eMetadataDefinition->id]) }}" data-id="{{$eMetadataDefinition->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
+                        @endcan
                         @endcan
                         @can('edit-eMetadataDefinition')
                         @can('update', $eMetadataDefinition)

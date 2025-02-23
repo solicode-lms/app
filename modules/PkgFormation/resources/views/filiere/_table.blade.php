@@ -17,9 +17,11 @@
                     <td class="text-right">
 
                         @can('show-filiere')
+                        @can('view', $filiere)
                             <a href="{{ route('filieres.show', ['filiere' => $filiere->id]) }}" data-id="{{$filiere->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
+                        @endcan
                         @endcan
                         @can('edit-filiere')
                         @can('update', $filiere)

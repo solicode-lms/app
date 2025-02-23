@@ -19,9 +19,11 @@
                     <td class="text-right">
 
                         @can('show-validation')
+                        @can('view', $validation)
                             <a href="{{ route('validations.show', ['validation' => $validation->id]) }}" data-id="{{$validation->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
+                        @endcan
                         @endcan
                         @can('edit-validation')
                         @can('update', $validation)

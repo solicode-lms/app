@@ -17,9 +17,11 @@
                     <td class="text-right">
 
                         @can('show-livrable')
+                        @can('view', $livrable)
                             <a href="{{ route('livrables.show', ['livrable' => $livrable->id]) }}" data-id="{{$livrable->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
+                        @endcan
                         @endcan
                         @can('edit-livrable')
                         @can('update', $livrable)
