@@ -56,7 +56,7 @@
                         />
                     </div>
                     <div class="col-sm-3">
-                        @can('create', $sysColor_instance)
+                        @canany(['create-sysColor','import-sysColor','export-sysColor'])
                         <x-crud-actions
                             :createPermission="'create-sysColor'"
                             :createRoute="route('sysColors.create')"

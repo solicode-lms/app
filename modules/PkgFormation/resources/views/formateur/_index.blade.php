@@ -56,7 +56,7 @@
                         />
                     </div>
                     <div class="col-sm-3">
-                        @can('create', $formateur_instance)
+                        @canany(['create-formateur','import-formateur','export-formateur'])
                         <x-crud-actions
                             :createPermission="'create-formateur'"
                             :createRoute="route('formateurs.create')"

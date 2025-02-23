@@ -56,7 +56,7 @@
                         />
                     </div>
                     <div class="col-sm-3">
-                        @can('create', $sysModel_instance)
+                        @canany(['create-sysModel','import-sysModel','export-sysModel'])
                         <x-crud-actions
                             :createPermission="'create-sysModel'"
                             :createRoute="route('sysModels.create')"

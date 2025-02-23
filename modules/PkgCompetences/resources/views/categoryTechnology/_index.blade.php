@@ -56,7 +56,7 @@
                         />
                     </div>
                     <div class="col-sm-3">
-                        @can('create', $categoryTechnology_instance)
+                        @canany(['create-categoryTechnology','import-categoryTechnology','export-categoryTechnology'])
                         <x-crud-actions
                             :createPermission="'create-categoryTechnology'"
                             :createRoute="route('categoryTechnologies.create')"

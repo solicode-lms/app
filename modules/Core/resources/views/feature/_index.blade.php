@@ -56,7 +56,7 @@
                         />
                     </div>
                     <div class="col-sm-3">
-                        @can('create', $feature_instance)
+                        @canany(['create-feature','import-feature','export-feature'])
                         <x-crud-actions
                             :createPermission="'create-feature'"
                             :createRoute="route('features.create')"

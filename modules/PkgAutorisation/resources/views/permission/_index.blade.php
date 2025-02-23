@@ -56,7 +56,7 @@
                         />
                     </div>
                     <div class="col-sm-3">
-                        @can('create', $permission_instance)
+                        @canany(['create-permission','import-permission','export-permission'])
                         <x-crud-actions
                             :createPermission="'create-permission'"
                             :createRoute="route('permissions.create')"

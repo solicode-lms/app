@@ -56,7 +56,7 @@
                         />
                     </div>
                     <div class="col-sm-3">
-                        @can('create', $filiere_instance)
+                        @canany(['create-filiere','import-filiere','export-filiere'])
                         <x-crud-actions
                             :createPermission="'create-filiere'"
                             :createRoute="route('filieres.create')"

@@ -56,7 +56,7 @@
                         />
                     </div>
                     <div class="col-sm-3">
-                        @can('create', $nationalite_instance)
+                        @canany(['create-nationalite','import-nationalite','export-nationalite'])
                         <x-crud-actions
                             :createPermission="'create-nationalite'"
                             :createRoute="route('nationalites.create')"

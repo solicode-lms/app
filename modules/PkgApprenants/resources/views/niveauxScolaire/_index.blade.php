@@ -56,7 +56,7 @@
                         />
                     </div>
                     <div class="col-sm-3">
-                        @can('create', $niveauxScolaire_instance)
+                        @canany(['create-niveauxScolaire','import-niveauxScolaire','export-niveauxScolaire'])
                         <x-crud-actions
                             :createPermission="'create-niveauxScolaire'"
                             :createRoute="route('niveauxScolaires.create')"

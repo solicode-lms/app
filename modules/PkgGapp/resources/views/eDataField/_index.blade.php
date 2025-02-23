@@ -56,7 +56,7 @@
                         />
                     </div>
                     <div class="col-sm-3">
-                        @can('create', $eDataField_instance)
+                        @canany(['create-eDataField','import-eDataField','export-eDataField'])
                         <x-crud-actions
                             :createPermission="'create-eDataField'"
                             :createRoute="route('eDataFields.create')"

@@ -56,7 +56,7 @@
                         />
                     </div>
                     <div class="col-sm-3">
-                        @can('create', $natureLivrable_instance)
+                        @canany(['create-natureLivrable','import-natureLivrable','export-natureLivrable'])
                         <x-crud-actions
                             :createPermission="'create-natureLivrable'"
                             :createRoute="route('natureLivrables.create')"

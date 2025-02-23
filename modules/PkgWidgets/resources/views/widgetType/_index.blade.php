@@ -56,7 +56,7 @@
                         />
                     </div>
                     <div class="col-sm-3">
-                        @can('create', $widgetType_instance)
+                        @canany(['create-widgetType','import-widgetType','export-widgetType'])
                         <x-crud-actions
                             :createPermission="'create-widgetType'"
                             :createRoute="route('widgetTypes.create')"

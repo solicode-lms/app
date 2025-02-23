@@ -56,7 +56,7 @@
                         />
                     </div>
                     <div class="col-sm-3">
-                        @can('create', $resource_instance)
+                        @canany(['create-resource','import-resource','export-resource'])
                         <x-crud-actions
                             :createPermission="'create-resource'"
                             :createRoute="route('resources.create')"

@@ -56,7 +56,7 @@
                         />
                     </div>
                     <div class="col-sm-3">
-                        @can('create', $validation_instance)
+                        @canany(['create-validation','import-validation','export-validation'])
                         <x-crud-actions
                             :createPermission="'create-validation'"
                             :createRoute="route('validations.create')"

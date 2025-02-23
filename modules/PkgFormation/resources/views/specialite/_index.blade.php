@@ -56,7 +56,7 @@
                         />
                     </div>
                     <div class="col-sm-3">
-                        @can('create', $specialite_instance)
+                        @canany(['create-specialite','import-specialite','export-specialite'])
                         <x-crud-actions
                             :createPermission="'create-specialite'"
                             :createRoute="route('specialites.create')"

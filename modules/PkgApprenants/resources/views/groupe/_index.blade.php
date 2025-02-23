@@ -56,7 +56,7 @@
                         />
                     </div>
                     <div class="col-sm-3">
-                        @can('create', $groupe_instance)
+                        @canany(['create-groupe','import-groupe','export-groupe'])
                         <x-crud-actions
                             :createPermission="'create-groupe'"
                             :createRoute="route('groupes.create')"

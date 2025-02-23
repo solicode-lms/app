@@ -56,7 +56,7 @@
                         />
                     </div>
                     <div class="col-sm-3">
-                        @can('create', $livrablesRealisation_instance)
+                        @canany(['create-livrablesRealisation','import-livrablesRealisation','export-livrablesRealisation'])
                         <x-crud-actions
                             :createPermission="'create-livrablesRealisation'"
                             :createRoute="route('livrablesRealisations.create')"

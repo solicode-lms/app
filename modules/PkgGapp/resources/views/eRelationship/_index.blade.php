@@ -56,7 +56,7 @@
                         />
                     </div>
                     <div class="col-sm-3">
-                        @can('create', $eRelationship_instance)
+                        @canany(['create-eRelationship','import-eRelationship','export-eRelationship'])
                         <x-crud-actions
                             :createPermission="'create-eRelationship'"
                             :createRoute="route('eRelationships.create')"

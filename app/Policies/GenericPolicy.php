@@ -8,6 +8,7 @@ class GenericPolicy
 {
 
 
+    // TODO : Dans le cas de profile : nous avons scope.profile.user_id ce qui donner toujour le droit d'ajouter
     public function create(User $user, $model): bool
     {
         // Vérifie si le modèle utilise le trait OwnedByUser

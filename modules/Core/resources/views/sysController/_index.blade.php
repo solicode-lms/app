@@ -56,7 +56,7 @@
                         />
                     </div>
                     <div class="col-sm-3">
-                        @can('create', $sysController_instance)
+                        @canany(['create-sysController','import-sysController','export-sysController'])
                         <x-crud-actions
                             :createPermission="'create-sysController'"
                             :createRoute="route('sysControllers.create')"

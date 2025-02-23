@@ -56,7 +56,7 @@
                         />
                     </div>
                     <div class="col-sm-3">
-                        @can('create', $ePackage_instance)
+                        @canany(['create-ePackage','import-ePackage','export-ePackage'])
                         <x-crud-actions
                             :createPermission="'create-ePackage'"
                             :createRoute="route('ePackages.create')"

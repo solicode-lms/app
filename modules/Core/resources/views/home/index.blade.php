@@ -1,5 +1,5 @@
 @extends('layouts.public')
-@section('title', curd_index_title('PkgBlog::category'))
+@section('title', "Soli-LMS")
 @section('content')
   <!-- Hero Section -->
   <section class="bg-blue-600 text-white py-16">
@@ -19,7 +19,7 @@
         <div class="p-4">
           <h3 class="text-xl font-bold text-gray-800">Pédagogie Active et Suivi Individualisé</h3>
           <p class="text-gray-600 mt-2">SoliLMS guide les formateurs dans l'application des méthodes de pédagogie active. Il permet un suivi personnalisé de chaque apprenant, détectant leurs difficultés et proposant des solutions adaptées.</p>
-          <a href="#" class="inline-block mt-4 text-blue-500 hover:underline">Lire plus</a>
+          <a href="#" class="inline-block mt-4 text-blue-500 hover:underline" style="display: none">Lire plus</a>
         </div>
       </div>
       
@@ -33,7 +33,7 @@
         <div class="p-4">
           <h3 class="text-xl font-bold text-gray-800">Gestion et Validation des Projets</h3>
           <p class="text-gray-600 mt-2">La plateforme peut générer automatiquement des briefs de projets, assurer leur validation par les formateurs, et centraliser les évaluations pour une meilleure gestion pédagogique.</p>
-        <a href="#" class="inline-block mt-4 text-blue-500 hover:underline">Lire plus</a>
+        <a href="#" class="inline-block mt-4 text-blue-500 hover:underline"  style="display: none">Lire plus</a>
         </div>
       </div>
        
@@ -43,7 +43,7 @@
             <div class="p-4">
               <h3 class="text-xl font-bold text-gray-800">Notes et Appréciations Personnalisées</h3>
               <p class="text-gray-600 mt-2">Avec SoliLMS, chaque formation dispose d'un système d'appréciation précis. Les notes des modules et projets sont gérées efficacement après les évaluations des formateurs.</p>
-              <a href="#" class="inline-block mt-4 text-blue-500 hover:underline">Lire plus</a>
+              <a href="#" class="inline-block mt-4 text-blue-500 hover:underline"  style="display: none">Lire plus</a>
             </div>
           </div>
     

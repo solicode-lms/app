@@ -56,7 +56,7 @@
                         />
                     </div>
                     <div class="col-sm-3">
-                        @can('create', $ville_instance)
+                        @canany(['create-ville','import-ville','export-ville'])
                         <x-crud-actions
                             :createPermission="'create-ville'"
                             :createRoute="route('villes.create')"

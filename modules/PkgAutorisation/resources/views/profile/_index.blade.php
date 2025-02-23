@@ -56,7 +56,7 @@
                         />
                     </div>
                     <div class="col-sm-3">
-                        @can('create', $profile_instance)
+                        @canany(['create-profile','import-profile','export-profile'])
                         <x-crud-actions
                             :createPermission="'create-profile'"
                             :createRoute="route('profiles.create')"

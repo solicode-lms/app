@@ -56,7 +56,7 @@
                         />
                     </div>
                     <div class="col-sm-3">
-                        @can('create', $apprenantKonosy_instance)
+                        @canany(['create-apprenantKonosy','import-apprenantKonosy','export-apprenantKonosy'])
                         <x-crud-actions
                             :createPermission="'create-apprenantKonosy'"
                             :createRoute="route('apprenantKonosies.create')"

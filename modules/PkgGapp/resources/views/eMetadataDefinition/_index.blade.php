@@ -56,7 +56,7 @@
                         />
                     </div>
                     <div class="col-sm-3">
-                        @can('create', $eMetadataDefinition_instance)
+                        @canany(['create-eMetadataDefinition','import-eMetadataDefinition','export-eMetadataDefinition'])
                         <x-crud-actions
                             :createPermission="'create-eMetadataDefinition'"
                             :createRoute="route('eMetadataDefinitions.create')"
