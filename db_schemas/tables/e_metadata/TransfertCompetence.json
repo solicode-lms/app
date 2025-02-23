@@ -340,7 +340,7 @@
             {
                 "key": "scope.niveauDifficulte.formateur_id",
                 "value": "formateur_id",
-                "moduleName": "TransfertCompetence"
+                "modelName": "Projet"
             }
         ],
         "e_data_field_reference": "TransfertCompetence_niveau_difficulte_id",

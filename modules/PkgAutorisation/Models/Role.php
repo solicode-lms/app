@@ -5,13 +5,14 @@
 
 namespace Modules\PkgAutorisation\Models;
 
+use App\Traits\HasDynamicContext;
 use App\Traits\HasReference;
 use Spatie\Permission\Models\Role as ModelsRole;
 
 class Role extends ModelsRole
 {
 
-    use HasReference;
+    use HasReference,HasDynamicContext;
     
     // TODO : ajouter ce code à GApp pour une rleation ManyToManyPolymorphique
     // il est déclarer dans : ModelsRole

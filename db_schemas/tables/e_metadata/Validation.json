@@ -260,6 +260,12 @@
                 "dataScope": "filter",
                 "userModelName": "Formateur",
                 "ownerRelationPath": "realisationProjet.affectationProjet.projet.formateur.user"
+            },
+            {
+                "role": "apprenant",
+                "dataScope": "filter",
+                "userModelName": "Apprenant",
+                "ownerRelationPath": "realisationProjet.apprenant.user"
             }
         ],
         "e_model_reference": "validations",

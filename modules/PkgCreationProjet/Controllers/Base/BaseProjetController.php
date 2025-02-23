@@ -124,6 +124,10 @@ class BaseProjetController extends AdminController
         $value = $itemProjet->getNestedValue('filiere_id');
         $key = 'scope.competence.module.filiere_id';
         $this->viewState->set($key, $value);
+        // scopeDataInEditContext
+        $value = $itemProjet->getNestedValue('formateur_id');
+        $key = 'scope.niveauDifficulte.formateur_id';
+        $this->viewState->set($key, $value);
 
         $transfertCompetenceService =  new TransfertCompetenceService();
         $transfertCompetences_data =  $itemProjet->transfertCompetences()->paginate(10);
@@ -187,6 +191,10 @@ class BaseProjetController extends AdminController
         // scopeDataInEditContext
         $value = $itemProjet->getNestedValue('filiere_id');
         $key = 'scope.competence.module.filiere_id';
+        $this->viewState->set($key, $value);
+        // scopeDataInEditContext
+        $value = $itemProjet->getNestedValue('formateur_id');
+        $key = 'scope.niveauDifficulte.formateur_id';
         $this->viewState->set($key, $value);
 
         $transfertCompetenceService =  new TransfertCompetenceService();

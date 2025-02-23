@@ -4,6 +4,7 @@
 
 namespace Modules\PkgAutorisation\Models;
 
+use App\Traits\HasDynamicContext;
 use App\Traits\HasReference;
 use Modules\Core\Models\Feature;
 use Modules\Core\Models\SysController;
@@ -12,7 +13,7 @@ use Spatie\Permission\Models\Permission as ModelsPermission;
 class Permission extends ModelsPermission
 {
 
-    use HasReference;
+    use HasReference,HasDynamicContext;
     
     public function sysController()
     {

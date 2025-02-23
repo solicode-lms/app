@@ -25,7 +25,7 @@ class BaseValidation extends BaseModel
     public function __construct(array $attributes = []) {
         parent::__construct($attributes); 
         $this->isOwnedByUser =  true;
-        $this->ownerRelationPath = "realisationProjet.affectationProjet.projet.formateur.user";
+        $this->ownerRelationPath = "realisationProjet.affectationProjet.projet.formateur.user,realisationProjet.apprenant.user";
         
     }
 

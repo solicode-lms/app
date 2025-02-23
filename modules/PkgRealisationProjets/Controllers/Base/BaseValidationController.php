@@ -37,6 +37,9 @@ class BaseValidationController extends AdminController
         if(Auth::user()->hasRole('formateur')){
            $this->viewState->init('filter.validation.realisationProjet.affectationProjet.projet.formateur_id'  , $this->sessionState->get('formateur_id'));
         }
+        if(Auth::user()->hasRole('apprenant')){
+           $this->viewState->init('filter.validation.realisationProjet.apprenant_id'  , $this->sessionState->get('apprenant_id'));
+        }
 
 
         // Extraire les paramètres de recherche, page, et filtres
@@ -64,6 +67,9 @@ class BaseValidationController extends AdminController
         // ownedByUser
         if(Auth::user()->hasRole('formateur')){
            $this->viewState->set('scope_form.validation.realisationProjet.affectationProjet.projet.formateur_id'  , $this->sessionState->get('formateur_id'));
+        }
+        if(Auth::user()->hasRole('apprenant')){
+           $this->viewState->set('scope_form.validation.realisationProjet.apprenant_id'  , $this->sessionState->get('apprenant_id'));
         }
 
 
