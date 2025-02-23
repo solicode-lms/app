@@ -98,6 +98,8 @@ class BaseSysColorController extends AdminController
 
 
         $this->viewState->set('scope.sysModel.sys_color_id', $id);
+
+
         $sysModelService =  new SysModelService();
         $sysModels_data =  $itemSysColor->sysModels()->paginate(10);
         $sysModels_stats = $sysModelService->getsysModelStats();
@@ -105,6 +107,8 @@ class BaseSysColorController extends AdminController
         $sysModel_instance =  $sysModelService->createInstance();
 
         $this->viewState->set('scope.sysModule.sys_color_id', $id);
+
+
         $sysModuleService =  new SysModuleService();
         $sysModules_data =  $itemSysColor->sysModules()->paginate(10);
         $sysModules_stats = $sysModuleService->getsysModuleStats();

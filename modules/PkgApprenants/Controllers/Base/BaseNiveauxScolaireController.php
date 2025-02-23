@@ -97,6 +97,8 @@ class BaseNiveauxScolaireController extends AdminController
 
 
         $this->viewState->set('scope.apprenant.niveaux_scolaire_id', $id);
+
+
         $apprenantService =  new ApprenantService();
         $apprenants_data =  $itemNiveauxScolaire->apprenants()->paginate(10);
         $apprenants_stats = $apprenantService->getapprenantStats();

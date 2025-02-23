@@ -104,6 +104,8 @@ class BaseSysModuleController extends AdminController
 
 
         $this->viewState->set('scope.featureDomain.sys_module_id', $id);
+
+
         $featureDomainService =  new FeatureDomainService();
         $featureDomains_data =  $itemSysModule->featureDomains()->paginate(10);
         $featureDomains_stats = $featureDomainService->getfeatureDomainStats();
@@ -111,6 +113,8 @@ class BaseSysModuleController extends AdminController
         $featureDomain_instance =  $featureDomainService->createInstance();
 
         $this->viewState->set('scope.sysController.sys_module_id', $id);
+
+
         $sysControllerService =  new SysControllerService();
         $sysControllers_data =  $itemSysModule->sysControllers()->paginate(10);
         $sysControllers_stats = $sysControllerService->getsysControllerStats();
@@ -118,6 +122,8 @@ class BaseSysModuleController extends AdminController
         $sysController_instance =  $sysControllerService->createInstance();
 
         $this->viewState->set('scope.sysModel.sys_module_id', $id);
+
+
         $sysModelService =  new SysModelService();
         $sysModels_data =  $itemSysModule->sysModels()->paginate(10);
         $sysModels_stats = $sysModelService->getsysModelStats();

@@ -97,6 +97,8 @@ class BaseEPackageController extends AdminController
 
 
         $this->viewState->set('scope.eModel.e_package_id', $id);
+
+
         $eModelService =  new EModelService();
         $eModels_data =  $itemEPackage->eModels()->paginate(10);
         $eModels_stats = $eModelService->geteModelStats();

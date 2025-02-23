@@ -97,6 +97,8 @@ class BaseNatureLivrableController extends AdminController
 
 
         $this->viewState->set('scope.livrable.nature_livrable_id', $id);
+
+
         $livrableService =  new LivrableService();
         $livrables_data =  $itemNatureLivrable->livrables()->paginate(10);
         $livrables_stats = $livrableService->getlivrableStats();

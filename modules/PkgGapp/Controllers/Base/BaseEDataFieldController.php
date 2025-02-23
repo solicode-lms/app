@@ -107,6 +107,8 @@ class BaseEDataFieldController extends AdminController
 
 
         $this->viewState->set('scope.eMetadatum.e_data_field_id', $id);
+
+
         $eMetadatumService =  new EMetadatumService();
         $eMetadata_data =  $itemEDataField->eMetadata()->paginate(10);
         $eMetadata_stats = $eMetadatumService->geteMetadatumStats();

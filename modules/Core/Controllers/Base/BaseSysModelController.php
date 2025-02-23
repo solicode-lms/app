@@ -107,6 +107,8 @@ class BaseSysModelController extends AdminController
 
 
         $this->viewState->set('scope.widget.model_id', $id);
+
+
         $widgetService =  new WidgetService();
         $widgets_data =  $itemSysModel->widgets()->paginate(10);
         $widgets_stats = $widgetService->getwidgetStats();

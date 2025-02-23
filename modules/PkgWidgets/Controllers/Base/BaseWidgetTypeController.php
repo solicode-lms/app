@@ -97,6 +97,8 @@ class BaseWidgetTypeController extends AdminController
 
 
         $this->viewState->set('scope.widget.type_id', $id);
+
+
         $widgetService =  new WidgetService();
         $widgets_data =  $itemWidgetType->widgets()->paginate(10);
         $widgets_stats = $widgetService->getwidgetStats();

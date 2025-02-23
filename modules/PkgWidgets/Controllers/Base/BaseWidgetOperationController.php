@@ -97,6 +97,8 @@ class BaseWidgetOperationController extends AdminController
 
 
         $this->viewState->set('scope.widget.operation_id', $id);
+
+
         $widgetService =  new WidgetService();
         $widgets_data =  $itemWidgetOperation->widgets()->paginate(10);
         $widgets_stats = $widgetService->getwidgetStats();

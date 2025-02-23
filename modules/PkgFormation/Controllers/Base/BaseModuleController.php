@@ -102,6 +102,8 @@ class BaseModuleController extends AdminController
 
 
         $this->viewState->set('scope.competence.module_id', $id);
+
+
         $competenceService =  new CompetenceService();
         $competences_data =  $itemModule->competences()->paginate(10);
         $competences_stats = $competenceService->getcompetenceStats();
