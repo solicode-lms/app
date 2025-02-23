@@ -12,6 +12,7 @@
             </tr>
         </thead>
         <tbody>
+            @section('transfertCompetence-table-tbody')
             @foreach ($transfertCompetences_data as $transfertCompetence)
                 <tr id="transfertCompetence-row-{{$transfertCompetence->id}}">
                     <td>@limit($transfertCompetence->competence, 50)</td>
@@ -48,6 +49,7 @@
                     </td>
                 </tr>
             @endforeach
+            @show
         </tbody>
     </table>
 </div>

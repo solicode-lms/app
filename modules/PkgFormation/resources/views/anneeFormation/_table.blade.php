@@ -11,6 +11,7 @@
             </tr>
         </thead>
         <tbody>
+            @section('anneeFormation-table-tbody')
             @foreach ($anneeFormations_data as $anneeFormation)
                 <tr id="anneeFormation-row-{{$anneeFormation->id}}">
                     <td>@limit($anneeFormation->titre, 50)</td>
@@ -46,6 +47,7 @@
                     </td>
                 </tr>
             @endforeach
+            @show
         </tbody>
     </table>
 </div>

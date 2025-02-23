@@ -12,6 +12,7 @@
             </tr>
         </thead>
         <tbody>
+            @section('affectationProjet-table-tbody')
             @foreach ($affectationProjets_data as $affectationProjet)
                 <tr id="affectationProjet-row-{{$affectationProjet->id}}">
                     <td>@limit($affectationProjet->projet, 50)</td>
@@ -48,6 +49,7 @@
                     </td>
                 </tr>
             @endforeach
+            @show
         </tbody>
     </table>
 </div>

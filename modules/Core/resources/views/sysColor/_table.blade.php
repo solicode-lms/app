@@ -9,6 +9,7 @@
             </tr>
         </thead>
         <tbody>
+            @section('sysColor-table-tbody')
             @foreach ($sysColors_data as $sysColor)
                 <tr id="sysColor-row-{{$sysColor->id}}">
                     <td>@limit($sysColor->name, 50)</td>
@@ -42,6 +43,7 @@
                     </td>
                 </tr>
             @endforeach
+            @show
         </tbody>
     </table>
 </div>

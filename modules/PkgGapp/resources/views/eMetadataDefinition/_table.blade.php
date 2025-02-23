@@ -9,6 +9,7 @@
             </tr>
         </thead>
         <tbody>
+            @section('eMetadataDefinition-table-tbody')
             @foreach ($eMetadataDefinitions_data as $eMetadataDefinition)
                 <tr id="eMetadataDefinition-row-{{$eMetadataDefinition->id}}">
                     <td>@limit($eMetadataDefinition->name, 50)</td>
@@ -42,6 +43,7 @@
                     </td>
                 </tr>
             @endforeach
+            @show
         </tbody>
     </table>
 </div>

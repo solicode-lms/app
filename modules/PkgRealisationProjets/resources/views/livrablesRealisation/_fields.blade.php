@@ -42,12 +42,14 @@
             <label for="lien">
                 {{ ucfirst(__('PkgRealisationProjets::livrablesRealisation.lien')) }}
                 
+                    <span class="text-danger">*</span>
+                
             </label>
             <input
                 name="lien"
                 type="input"
                 class="form-control"
-                
+                required
                 
                 id="lien"
                 placeholder="{{ __('PkgRealisationProjets::livrablesRealisation.lien') }}"

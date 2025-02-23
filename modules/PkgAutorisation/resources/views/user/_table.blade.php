@@ -11,6 +11,7 @@
             </tr>
         </thead>
         <tbody>
+            @section('user-table-tbody')
             @foreach ($users_data as $user)
                 <tr id="user-row-{{$user->id}}">
                     <td>@limit($user->name, 50)</td>
@@ -64,6 +65,7 @@
                     </td>
                 </tr>
             @endforeach
+            @show
         </tbody>
     </table>
 </div>

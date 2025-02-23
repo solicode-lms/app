@@ -14,6 +14,7 @@
             </tr>
         </thead>
         <tbody>
+            @section('module-table-tbody')
             @foreach ($modules_data as $module)
                 <tr id="module-row-{{$module->id}}">
                     <td>@limit($module->code, 50)</td>
@@ -57,6 +58,7 @@
                     </td>
                 </tr>
             @endforeach
+            @show
         </tbody>
     </table>
 </div>

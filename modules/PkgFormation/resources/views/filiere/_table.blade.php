@@ -10,6 +10,7 @@
             </tr>
         </thead>
         <tbody>
+            @section('filiere-table-tbody')
             @foreach ($filieres_data as $filiere)
                 <tr id="filiere-row-{{$filiere->id}}">
                     <td>@limit($filiere->code, 50)</td>
@@ -44,6 +45,7 @@
                     </td>
                 </tr>
             @endforeach
+            @show
         </tbody>
     </table>
 </div>

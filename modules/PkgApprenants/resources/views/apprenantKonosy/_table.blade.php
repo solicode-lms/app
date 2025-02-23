@@ -9,6 +9,7 @@
             </tr>
         </thead>
         <tbody>
+            @section('apprenantKonosy-table-tbody')
             @foreach ($apprenantKonosies_data as $apprenantKonosy)
                 <tr id="apprenantKonosy-row-{{$apprenantKonosy->id}}">
                     <td>@limit($apprenantKonosy->Nom, 50)</td>
@@ -42,6 +43,7 @@
                     </td>
                 </tr>
             @endforeach
+            @show
         </tbody>
     </table>
 </div>

@@ -290,5 +290,12 @@
         ],
         "e_data_field_reference": "LivrablesRealisation_livrable_id",
         "e_metadata_definition_reference": "scopeDataInEditContext"
+    },
+    {
+        "reference": "LivrablesRealisation_lien_required",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "LivrablesRealisation_lien",
+        "e_metadata_definition_reference": "required"
     }
 ]

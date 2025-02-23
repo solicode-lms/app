@@ -9,6 +9,7 @@
             </tr>
         </thead>
         <tbody>
+            @section('ePackage-table-tbody')
             @foreach ($ePackages_data as $ePackage)
                 <tr id="ePackage-row-{{$ePackage->id}}">
                     <td>@limit($ePackage->name, 50)</td>
@@ -42,6 +43,7 @@
                     </td>
                 </tr>
             @endforeach
+            @show
         </tbody>
     </table>
 </div>

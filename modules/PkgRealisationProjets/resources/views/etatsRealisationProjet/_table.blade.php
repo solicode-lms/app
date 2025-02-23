@@ -10,6 +10,7 @@
             </tr>
         </thead>
         <tbody>
+            @section('etatsRealisationProjet-table-tbody')
             @foreach ($etatsRealisationProjets_data as $etatsRealisationProjet)
                 <tr id="etatsRealisationProjet-row-{{$etatsRealisationProjet->id}}">
                     <td>@limit($etatsRealisationProjet->formateur, 50)</td>
@@ -44,6 +45,7 @@
                     </td>
                 </tr>
             @endforeach
+            @show
         </tbody>
     </table>
 </div>

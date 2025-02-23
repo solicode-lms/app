@@ -9,6 +9,7 @@
             </tr>
         </thead>
         <tbody>
+            @section('ville-table-tbody')
             @foreach ($villes_data as $ville)
                 <tr id="ville-row-{{$ville->id}}">
                     <td>@limit($ville->nom, 50)</td>
@@ -42,6 +43,7 @@
                     </td>
                 </tr>
             @endforeach
+            @show
         </tbody>
     </table>
 </div>

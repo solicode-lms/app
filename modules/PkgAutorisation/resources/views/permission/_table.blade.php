@@ -11,6 +11,7 @@
             </tr>
         </thead>
         <tbody>
+            @section('permission-table-tbody')
             @foreach ($permissions_data as $permission)
                 <tr id="permission-row-{{$permission->id}}">
                     <td>@limit($permission->name, 50)</td>
@@ -52,6 +53,7 @@
                     </td>
                 </tr>
             @endforeach
+            @show
         </tbody>
     </table>
 </div>

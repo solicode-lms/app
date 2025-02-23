@@ -8,6 +8,7 @@
             </tr>
         </thead>
         <tbody>
+            @section('widgetType-table-tbody')
             @foreach ($widgetTypes_data as $widgetType)
                 <tr id="widgetType-row-{{$widgetType->id}}">
                     <td class="text-right">
@@ -40,6 +41,7 @@
                     </td>
                 </tr>
             @endforeach
+            @show
         </tbody>
     </table>
 </div>

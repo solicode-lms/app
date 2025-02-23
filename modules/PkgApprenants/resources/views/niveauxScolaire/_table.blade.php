@@ -9,6 +9,7 @@
             </tr>
         </thead>
         <tbody>
+            @section('niveauxScolaire-table-tbody')
             @foreach ($niveauxScolaires_data as $niveauxScolaire)
                 <tr id="niveauxScolaire-row-{{$niveauxScolaire->id}}">
                     <td>@limit($niveauxScolaire->code, 50)</td>
@@ -42,6 +43,7 @@
                     </td>
                 </tr>
             @endforeach
+            @show
         </tbody>
     </table>
 </div>

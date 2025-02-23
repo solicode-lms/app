@@ -9,6 +9,7 @@
             </tr>
         </thead>
         <tbody>
+            @section('natureLivrable-table-tbody')
             @foreach ($natureLivrables_data as $natureLivrable)
                 <tr id="natureLivrable-row-{{$natureLivrable->id}}">
                     <td>@limit($natureLivrable->nom, 50)</td>
@@ -42,6 +43,7 @@
                     </td>
                 </tr>
             @endforeach
+            @show
         </tbody>
     </table>
 </div>

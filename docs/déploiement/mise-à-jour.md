@@ -1,6 +1,11 @@
 # Procédure de mise à jour de code 
 
 
+- execution de migration 
+  - insertion de module : code 
+- Ajouter le droit d'afficher, lecture Projet pour afficher les projet qui lui sont affectés
+
+
 ````bash
 sudo git pull
 sudo npm install

@@ -12,6 +12,7 @@
             </tr>
         </thead>
         <tbody>
+            @section('eRelationship-table-tbody')
             @foreach ($eRelationships_data as $eRelationship)
                 <tr id="eRelationship-row-{{$eRelationship->id}}">
                     <td>@limit($eRelationship->name, 50)</td>
@@ -48,6 +49,7 @@
                     </td>
                 </tr>
             @endforeach
+            @show
         </tbody>
     </table>
 </div>

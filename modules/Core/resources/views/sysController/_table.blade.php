@@ -13,6 +13,7 @@
             </tr>
         </thead>
         <tbody>
+            @section('sysController-table-tbody')
             @foreach ($sysControllers_data as $sysController)
                 <tr id="sysController-row-{{$sysController->id}}">
                     <td>@limit($sysController->sysModule, 50)</td>
@@ -55,6 +56,7 @@
                     </td>
                 </tr>
             @endforeach
+            @show
         </tbody>
     </table>
 </div>

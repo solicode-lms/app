@@ -13,6 +13,7 @@
             </tr>
         </thead>
         <tbody>
+            @section('eModel-table-tbody')
             @foreach ($eModels_data as $eModel)
                 <tr id="eModel-row-{{$eModel->id}}">
                     <td>@limit($eModel->getIcone(), 50)</td>
@@ -48,6 +49,7 @@
                     </td>
                 </tr>
             @endforeach
+            @show
         </tbody>
     </table>
 </div>

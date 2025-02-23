@@ -14,6 +14,7 @@
             </tr>
         </thead>
         <tbody>
+            @section('eMetadatum-table-tbody')
             @foreach ($eMetadata_data as $eMetadatum)
                 <tr id="eMetadatum-row-{{$eMetadatum->id}}">
                     <td>@limit($eMetadatum->getValue(), 50)</td>
@@ -50,6 +51,7 @@
                     </td>
                 </tr>
             @endforeach
+            @show
         </tbody>
     </table>
 </div>

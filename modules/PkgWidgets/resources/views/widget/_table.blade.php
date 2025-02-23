@@ -14,6 +14,7 @@
             </tr>
         </thead>
         <tbody>
+            @section('widget-table-tbody')
             @foreach ($widgets_data as $widget)
                 <tr id="widget-row-{{$widget->id}}">
                     <td>@limit($widget->name, 50)</td>
@@ -52,6 +53,7 @@
                     </td>
                 </tr>
             @endforeach
+            @show
         </tbody>
     </table>
 </div>

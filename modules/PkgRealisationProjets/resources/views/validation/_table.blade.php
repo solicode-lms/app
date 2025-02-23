@@ -11,6 +11,7 @@
             </tr>
         </thead>
         <tbody>
+            @section('validation-table-tbody')
             @foreach ($validations_data as $validation)
                 <tr id="validation-row-{{$validation->id}}">
                     <td>@limit($validation->transfertCompetence, 50)</td>
@@ -46,6 +47,7 @@
                     </td>
                 </tr>
             @endforeach
+            @show
         </tbody>
     </table>
 </div>

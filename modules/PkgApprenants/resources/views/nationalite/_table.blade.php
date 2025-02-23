@@ -9,6 +9,7 @@
             </tr>
         </thead>
         <tbody>
+            @section('nationalite-table-tbody')
             @foreach ($nationalites_data as $nationalite)
                 <tr id="nationalite-row-{{$nationalite->id}}">
                     <td>@limit($nationalite->code, 50)</td>
@@ -42,6 +43,7 @@
                     </td>
                 </tr>
             @endforeach
+            @show
         </tbody>
     </table>
 </div>

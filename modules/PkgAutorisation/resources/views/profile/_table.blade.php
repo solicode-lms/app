@@ -9,6 +9,7 @@
             </tr>
         </thead>
         <tbody>
+            @section('profile-table-tbody')
             @foreach ($profiles_data as $profile)
                 <tr id="profile-row-{{$profile->id}}">
                     <td>@limit($profile->user, 50)</td>
@@ -42,6 +43,7 @@
                     </td>
                 </tr>
             @endforeach
+            @show
         </tbody>
     </table>
 </div>

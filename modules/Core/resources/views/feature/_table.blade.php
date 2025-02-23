@@ -11,6 +11,7 @@
             </tr>
         </thead>
         <tbody>
+            @section('feature-table-tbody')
             @foreach ($features_data as $feature)
                 <tr id="feature-row-{{$feature->id}}">
                     <td>@limit($feature->name, 50)</td>
@@ -52,6 +53,7 @@
                     </td>
                 </tr>
             @endforeach
+            @show
         </tbody>
     </table>
 </div>

@@ -13,6 +13,7 @@
             </tr>
         </thead>
         <tbody>
+            @section('eDataField-table-tbody')
             @foreach ($eDataFields_data as $eDataField)
                 <tr id="eDataField-row-{{$eDataField->id}}">
                     <td>@limit($eDataField->getOrder(), 50)</td>
@@ -48,6 +49,7 @@
                     </td>
                 </tr>
             @endforeach
+            @show
         </tbody>
     </table>
 </div>

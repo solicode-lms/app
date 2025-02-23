@@ -10,6 +10,7 @@
             </tr>
         </thead>
         <tbody>
+            @section('niveauDifficulte-table-tbody')
             @foreach ($niveauDifficultes_data as $niveauDifficulte)
                 <tr id="niveauDifficulte-row-{{$niveauDifficulte->id}}">
                     <td>@limit($niveauDifficulte->nom, 50)</td>
@@ -44,6 +45,7 @@
                     </td>
                 </tr>
             @endforeach
+            @show
         </tbody>
     </table>
 </div>

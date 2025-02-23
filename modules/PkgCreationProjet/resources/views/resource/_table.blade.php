@@ -10,6 +10,7 @@
             </tr>
         </thead>
         <tbody>
+            @section('resource-table-tbody')
             @foreach ($resources_data as $resource)
                 <tr id="resource-row-{{$resource->id}}">
                     <td>@limit($resource->nom, 50)</td>
@@ -44,6 +45,7 @@
                     </td>
                 </tr>
             @endforeach
+            @show
         </tbody>
     </table>
 </div>

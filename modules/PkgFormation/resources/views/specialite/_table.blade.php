@@ -10,6 +10,7 @@
             </tr>
         </thead>
         <tbody>
+            @section('specialite-table-tbody')
             @foreach ($specialites_data as $specialite)
                 <tr id="specialite-row-{{$specialite->id}}">
                     <td>@limit($specialite->nom, 50)</td>
@@ -50,6 +51,7 @@
                     </td>
                 </tr>
             @endforeach
+            @show
         </tbody>
     </table>
 </div>

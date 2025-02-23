@@ -8,6 +8,7 @@
             </tr>
         </thead>
         <tbody>
+            @section('widgetOperation-table-tbody')
             @foreach ($widgetOperations_data as $widgetOperation)
                 <tr id="widgetOperation-row-{{$widgetOperation->id}}">
                     <td class="text-right">
@@ -40,6 +41,7 @@
                     </td>
                 </tr>
             @endforeach
+            @show
         </tbody>
     </table>
 </div>

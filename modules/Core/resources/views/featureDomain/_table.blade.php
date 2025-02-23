@@ -10,6 +10,7 @@
             </tr>
         </thead>
         <tbody>
+            @section('featureDomain-table-tbody')
             @foreach ($featureDomains_data as $featureDomain)
                 <tr id="featureDomain-row-{{$featureDomain->id}}">
                     <td>@limit($featureDomain->name, 50)</td>
@@ -44,6 +45,7 @@
                     </td>
                 </tr>
             @endforeach
+            @show
         </tbody>
     </table>
 </div>

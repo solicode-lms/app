@@ -9,6 +9,7 @@
             </tr>
         </thead>
         <tbody>
+            @section('role-table-tbody')
             @foreach ($roles_data as $role)
                 <tr id="role-row-{{$role->id}}">
                     <td>@limit($role->name, 50)</td>
@@ -42,6 +43,7 @@
                     </td>
                 </tr>
             @endforeach
+            @show
         </tbody>
     </table>
 </div>

@@ -10,6 +10,7 @@
             </tr>
         </thead>
         <tbody>
+            @section('technology-table-tbody')
             @foreach ($technologies_data as $technology)
                 <tr id="technology-row-{{$technology->id}}">
                     <td>@limit($technology->nom, 50)</td>
@@ -44,6 +45,7 @@
                     </td>
                 </tr>
             @endforeach
+            @show
         </tbody>
     </table>
 </div>
