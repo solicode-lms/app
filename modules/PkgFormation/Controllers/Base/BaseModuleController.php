@@ -59,6 +59,7 @@ class BaseModuleController extends AdminController
 
         $itemModule = $this->moduleService->createInstance();
         
+
         $filieres = $this->filiereService->all();
 
         if (request()->ajax()) {
@@ -93,7 +94,9 @@ class BaseModuleController extends AdminController
 
         $this->viewState->setContextKey('module.edit_' . $id);
 
+
         $itemModule = $this->moduleService->find($id);
+
 
         $filieres = $this->filiereService->all();
 
@@ -116,12 +119,16 @@ class BaseModuleController extends AdminController
 
         $this->viewState->setContextKey('module.edit_' . $id);
 
+
         $itemModule = $this->moduleService->find($id);
+
 
         $filieres = $this->filiereService->all();
 
 
         $this->viewState->set('scope.competence.module_id', $id);
+        
+
         $competenceService =  new CompetenceService();
         $competences_data =  $itemModule->competences()->paginate(10);
         $competences_stats = $competenceService->getcompetenceStats();

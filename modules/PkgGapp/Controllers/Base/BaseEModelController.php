@@ -60,6 +60,7 @@ class BaseEModelController extends AdminController
 
         $itemEModel = $this->eModelService->createInstance();
         
+
         $ePackages = $this->ePackageService->all();
 
         if (request()->ajax()) {
@@ -94,7 +95,9 @@ class BaseEModelController extends AdminController
 
         $this->viewState->setContextKey('eModel.edit_' . $id);
 
+
         $itemEModel = $this->eModelService->find($id);
+
 
         $ePackages = $this->ePackageService->all();
 
@@ -124,12 +127,16 @@ class BaseEModelController extends AdminController
 
         $this->viewState->setContextKey('eModel.edit_' . $id);
 
+
         $itemEModel = $this->eModelService->find($id);
+
 
         $ePackages = $this->ePackageService->all();
 
 
         $this->viewState->set('scope.eDataField.e_model_id', $id);
+        
+
         $eDataFieldService =  new EDataFieldService();
         $eDataFields_data =  $itemEModel->eDataFields()->paginate(10);
         $eDataFields_stats = $eDataFieldService->geteDataFieldStats();
@@ -137,6 +144,8 @@ class BaseEModelController extends AdminController
         $eDataField_instance =  $eDataFieldService->createInstance();
 
         $this->viewState->set('scope.eMetadatum.e_model_id', $id);
+        
+
         $eMetadatumService =  new EMetadatumService();
         $eMetadata_data =  $itemEModel->eMetadata()->paginate(10);
         $eMetadata_stats = $eMetadatumService->geteMetadatumStats();

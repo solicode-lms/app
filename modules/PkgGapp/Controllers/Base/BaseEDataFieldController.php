@@ -62,6 +62,7 @@ class BaseEDataFieldController extends AdminController
 
         $itemEDataField = $this->eDataFieldService->createInstance();
         
+
         $eModels = $this->eModelService->all();
         $eRelationships = $this->eRelationshipService->all();
 
@@ -97,7 +98,9 @@ class BaseEDataFieldController extends AdminController
 
         $this->viewState->setContextKey('eDataField.edit_' . $id);
 
+
         $itemEDataField = $this->eDataFieldService->find($id);
+
 
         $eModels = $this->eModelService->all();
         $eRelationships = $this->eRelationshipService->all();
@@ -121,13 +124,17 @@ class BaseEDataFieldController extends AdminController
 
         $this->viewState->setContextKey('eDataField.edit_' . $id);
 
+
         $itemEDataField = $this->eDataFieldService->find($id);
+
 
         $eModels = $this->eModelService->all();
         $eRelationships = $this->eRelationshipService->all();
 
 
         $this->viewState->set('scope.eMetadatum.e_data_field_id', $id);
+        
+
         $eMetadatumService =  new EMetadatumService();
         $eMetadata_data =  $itemEDataField->eMetadata()->paginate(10);
         $eMetadata_stats = $eMetadatumService->geteMetadatumStats();

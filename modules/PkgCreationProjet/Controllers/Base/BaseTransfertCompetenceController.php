@@ -75,6 +75,7 @@ class BaseTransfertCompetenceController extends AdminController
 
         $itemTransfertCompetence = $this->transfertCompetenceService->createInstance();
         
+
         $competences = $this->competenceService->all();
         $niveauDifficultes = $this->niveauDifficulteService->all();
         $technologies = $this->technologyService->all();
@@ -112,8 +113,10 @@ class BaseTransfertCompetenceController extends AdminController
 
         $this->viewState->setContextKey('transfertCompetence.edit_' . $id);
 
+
         $itemTransfertCompetence = $this->transfertCompetenceService->find($id);
         $this->authorize('view', $itemTransfertCompetence);
+
 
         $competences = $this->competenceService->all();
         $niveauDifficultes = $this->niveauDifficulteService->all();
@@ -132,8 +135,10 @@ class BaseTransfertCompetenceController extends AdminController
 
         $this->viewState->setContextKey('transfertCompetence.edit_' . $id);
 
+
         $itemTransfertCompetence = $this->transfertCompetenceService->find($id);
         $this->authorize('edit', $itemTransfertCompetence);
+
 
         $competences = $this->competenceService->all();
         $niveauDifficultes = $this->niveauDifficulteService->all();

@@ -69,6 +69,7 @@ class BaseValidationController extends AdminController
 
         $itemValidation = $this->validationService->createInstance();
         
+
         $transfertCompetences = $this->transfertCompetenceService->all();
         $realisationProjets = $this->realisationProjetService->all();
 
@@ -104,8 +105,10 @@ class BaseValidationController extends AdminController
 
         $this->viewState->setContextKey('validation.edit_' . $id);
 
+
         $itemValidation = $this->validationService->find($id);
         $this->authorize('view', $itemValidation);
+
 
         $transfertCompetences = $this->transfertCompetenceService->all();
         $realisationProjets = $this->realisationProjetService->all();
@@ -122,8 +125,10 @@ class BaseValidationController extends AdminController
 
         $this->viewState->setContextKey('validation.edit_' . $id);
 
+
         $itemValidation = $this->validationService->find($id);
         $this->authorize('edit', $itemValidation);
+
 
         $transfertCompetences = $this->transfertCompetenceService->all();
         $realisationProjets = $this->realisationProjetService->all();

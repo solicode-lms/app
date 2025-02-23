@@ -57,6 +57,7 @@ class BaseNatureLivrableController extends AdminController
         $itemNatureLivrable = $this->natureLivrableService->createInstance();
         
 
+
         if (request()->ajax()) {
             return view('PkgCreationProjet::natureLivrable._fields', compact('itemNatureLivrable'));
         }
@@ -89,7 +90,9 @@ class BaseNatureLivrableController extends AdminController
 
         $this->viewState->setContextKey('natureLivrable.edit_' . $id);
 
+
         $itemNatureLivrable = $this->natureLivrableService->find($id);
+
 
 
 
@@ -111,11 +114,15 @@ class BaseNatureLivrableController extends AdminController
 
         $this->viewState->setContextKey('natureLivrable.edit_' . $id);
 
+
         $itemNatureLivrable = $this->natureLivrableService->find($id);
 
 
 
+
         $this->viewState->set('scope.livrable.nature_livrable_id', $id);
+        
+
         $livrableService =  new LivrableService();
         $livrables_data =  $itemNatureLivrable->livrables()->paginate(10);
         $livrables_stats = $livrableService->getlivrableStats();

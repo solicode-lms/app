@@ -69,6 +69,7 @@ class BaseLivrableController extends AdminController
 
         $itemLivrable = $this->livrableService->createInstance();
         
+
         $natureLivrables = $this->natureLivrableService->all();
         $projets = $this->projetService->all();
 
@@ -104,8 +105,10 @@ class BaseLivrableController extends AdminController
 
         $this->viewState->setContextKey('livrable.edit_' . $id);
 
+
         $itemLivrable = $this->livrableService->find($id);
         $this->authorize('view', $itemLivrable);
+
 
         $natureLivrables = $this->natureLivrableService->all();
         $projets = $this->projetService->all();
@@ -122,8 +125,10 @@ class BaseLivrableController extends AdminController
 
         $this->viewState->setContextKey('livrable.edit_' . $id);
 
+
         $itemLivrable = $this->livrableService->find($id);
         $this->authorize('edit', $itemLivrable);
+
 
         $natureLivrables = $this->natureLivrableService->all();
         $projets = $this->projetService->all();

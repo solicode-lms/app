@@ -56,6 +56,7 @@ class BaseApprenantKonosyController extends AdminController
         $itemApprenantKonosy = $this->apprenantKonosyService->createInstance();
         
 
+
         if (request()->ajax()) {
             return view('PkgApprenants::apprenantKonosy._fields', compact('itemApprenantKonosy'));
         }
@@ -88,7 +89,9 @@ class BaseApprenantKonosyController extends AdminController
 
         $this->viewState->setContextKey('apprenantKonosy.edit_' . $id);
 
+
         $itemApprenantKonosy = $this->apprenantKonosyService->find($id);
+
 
 
 
@@ -103,7 +106,9 @@ class BaseApprenantKonosyController extends AdminController
 
         $this->viewState->setContextKey('apprenantKonosy.edit_' . $id);
 
+
         $itemApprenantKonosy = $this->apprenantKonosyService->find($id);
+
 
 
 

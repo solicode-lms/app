@@ -66,6 +66,7 @@ class BaseResourceController extends AdminController
 
         $itemResource = $this->resourceService->createInstance();
         
+
         $projets = $this->projetService->all();
 
         if (request()->ajax()) {
@@ -100,8 +101,10 @@ class BaseResourceController extends AdminController
 
         $this->viewState->setContextKey('resource.edit_' . $id);
 
+
         $itemResource = $this->resourceService->find($id);
         $this->authorize('view', $itemResource);
+
 
         $projets = $this->projetService->all();
 
@@ -117,8 +120,10 @@ class BaseResourceController extends AdminController
 
         $this->viewState->setContextKey('resource.edit_' . $id);
 
+
         $itemResource = $this->resourceService->find($id);
         $this->authorize('edit', $itemResource);
+
 
         $projets = $this->projetService->all();
 

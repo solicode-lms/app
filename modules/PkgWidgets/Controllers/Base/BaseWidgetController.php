@@ -64,6 +64,7 @@ class BaseWidgetController extends AdminController
 
         $itemWidget = $this->widgetService->createInstance();
         
+
         $widgetTypes = $this->widgetTypeService->all();
         $sysModels = $this->sysModelService->all();
         $widgetOperations = $this->widgetOperationService->all();
@@ -100,7 +101,9 @@ class BaseWidgetController extends AdminController
 
         $this->viewState->setContextKey('widget.edit_' . $id);
 
+
         $itemWidget = $this->widgetService->find($id);
+
 
         $widgetTypes = $this->widgetTypeService->all();
         $sysModels = $this->sysModelService->all();
@@ -118,7 +121,9 @@ class BaseWidgetController extends AdminController
 
         $this->viewState->setContextKey('widget.edit_' . $id);
 
+
         $itemWidget = $this->widgetService->find($id);
+
 
         $widgetTypes = $this->widgetTypeService->all();
         $sysModels = $this->sysModelService->all();

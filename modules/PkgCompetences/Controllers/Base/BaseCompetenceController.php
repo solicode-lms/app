@@ -62,6 +62,7 @@ class BaseCompetenceController extends AdminController
 
         $itemCompetence = $this->competenceService->createInstance();
         
+
         $modules = $this->moduleService->all();
         $technologies = $this->technologyService->all();
 
@@ -97,7 +98,9 @@ class BaseCompetenceController extends AdminController
 
         $this->viewState->setContextKey('competence.edit_' . $id);
 
+
         $itemCompetence = $this->competenceService->find($id);
+
 
         $modules = $this->moduleService->all();
         $technologies = $this->technologyService->all();
@@ -121,13 +124,17 @@ class BaseCompetenceController extends AdminController
 
         $this->viewState->setContextKey('competence.edit_' . $id);
 
+
         $itemCompetence = $this->competenceService->find($id);
+
 
         $modules = $this->moduleService->all();
         $technologies = $this->technologyService->all();
 
 
         $this->viewState->set('scope.niveauCompetence.competence_id', $id);
+        
+
         $niveauCompetenceService =  new NiveauCompetenceService();
         $niveauCompetences_data =  $itemCompetence->niveauCompetences()->paginate(10);
         $niveauCompetences_stats = $niveauCompetenceService->getniveauCompetenceStats();

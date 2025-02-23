@@ -59,6 +59,7 @@ class BaseFeatureDomainController extends AdminController
 
         $itemFeatureDomain = $this->featureDomainService->createInstance();
         
+
         $sysModules = $this->sysModuleService->all();
 
         if (request()->ajax()) {
@@ -93,7 +94,9 @@ class BaseFeatureDomainController extends AdminController
 
         $this->viewState->setContextKey('featureDomain.edit_' . $id);
 
+
         $itemFeatureDomain = $this->featureDomainService->find($id);
+
 
         $sysModules = $this->sysModuleService->all();
 
@@ -116,12 +119,16 @@ class BaseFeatureDomainController extends AdminController
 
         $this->viewState->setContextKey('featureDomain.edit_' . $id);
 
+
         $itemFeatureDomain = $this->featureDomainService->find($id);
+
 
         $sysModules = $this->sysModuleService->all();
 
 
         $this->viewState->set('scope.feature.feature_domain_id', $id);
+        
+
         $featureService =  new FeatureService();
         $features_data =  $itemFeatureDomain->features()->paginate(10);
         $features_stats = $featureService->getfeatureStats();

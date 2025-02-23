@@ -70,7 +70,7 @@ class GenericPolicy
             $owners = $model->getUserOwners();
             return in_array($user->id, array_map(fn($owner) => $owner->id, $owners));
         }
-        return false;
+        return true;
     }
 
     /**

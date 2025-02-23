@@ -56,6 +56,7 @@ class BaseVilleController extends AdminController
         $itemVille = $this->villeService->createInstance();
         
 
+
         if (request()->ajax()) {
             return view('PkgApprenants::ville._fields', compact('itemVille'));
         }
@@ -88,7 +89,9 @@ class BaseVilleController extends AdminController
 
         $this->viewState->setContextKey('ville.edit_' . $id);
 
+
         $itemVille = $this->villeService->find($id);
+
 
 
 
@@ -103,7 +106,9 @@ class BaseVilleController extends AdminController
 
         $this->viewState->setContextKey('ville.edit_' . $id);
 
+
         $itemVille = $this->villeService->find($id);
+
 
 
 

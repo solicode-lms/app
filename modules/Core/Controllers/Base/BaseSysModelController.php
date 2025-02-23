@@ -62,6 +62,7 @@ class BaseSysModelController extends AdminController
 
         $itemSysModel = $this->sysModelService->createInstance();
         
+
         $sysModules = $this->sysModuleService->all();
         $sysColors = $this->sysColorService->all();
 
@@ -97,7 +98,9 @@ class BaseSysModelController extends AdminController
 
         $this->viewState->setContextKey('sysModel.edit_' . $id);
 
+
         $itemSysModel = $this->sysModelService->find($id);
+
 
         $sysModules = $this->sysModuleService->all();
         $sysColors = $this->sysColorService->all();
@@ -121,13 +124,17 @@ class BaseSysModelController extends AdminController
 
         $this->viewState->setContextKey('sysModel.edit_' . $id);
 
+
         $itemSysModel = $this->sysModelService->find($id);
+
 
         $sysModules = $this->sysModuleService->all();
         $sysColors = $this->sysColorService->all();
 
 
         $this->viewState->set('scope.widget.model_id', $id);
+        
+
         $widgetService =  new WidgetService();
         $widgets_data =  $itemSysModel->widgets()->paginate(10);
         $widgets_stats = $widgetService->getwidgetStats();

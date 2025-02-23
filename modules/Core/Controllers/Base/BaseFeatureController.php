@@ -61,6 +61,7 @@ class BaseFeatureController extends AdminController
 
         $itemFeature = $this->featureService->createInstance();
         
+
         $featureDomains = $this->featureDomainService->all();
         $permissions = $this->permissionService->all();
 
@@ -96,7 +97,9 @@ class BaseFeatureController extends AdminController
 
         $this->viewState->setContextKey('feature.edit_' . $id);
 
+
         $itemFeature = $this->featureService->find($id);
+
 
         $featureDomains = $this->featureDomainService->all();
         $permissions = $this->permissionService->all();
@@ -113,7 +116,9 @@ class BaseFeatureController extends AdminController
 
         $this->viewState->setContextKey('feature.edit_' . $id);
 
+
         $itemFeature = $this->featureService->find($id);
+
 
         $featureDomains = $this->featureDomainService->all();
         $permissions = $this->permissionService->all();

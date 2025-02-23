@@ -66,6 +66,7 @@ class BaseEtatsRealisationProjetController extends AdminController
 
         $itemEtatsRealisationProjet = $this->etatsRealisationProjetService->createInstance();
         
+
         $formateurs = $this->formateurService->all();
 
         if (request()->ajax()) {
@@ -100,8 +101,10 @@ class BaseEtatsRealisationProjetController extends AdminController
 
         $this->viewState->setContextKey('etatsRealisationProjet.edit_' . $id);
 
+
         $itemEtatsRealisationProjet = $this->etatsRealisationProjetService->find($id);
         $this->authorize('view', $itemEtatsRealisationProjet);
+
 
         $formateurs = $this->formateurService->all();
 
@@ -117,8 +120,10 @@ class BaseEtatsRealisationProjetController extends AdminController
 
         $this->viewState->setContextKey('etatsRealisationProjet.edit_' . $id);
 
+
         $itemEtatsRealisationProjet = $this->etatsRealisationProjetService->find($id);
         $this->authorize('edit', $itemEtatsRealisationProjet);
+
 
         $formateurs = $this->formateurService->all();
 

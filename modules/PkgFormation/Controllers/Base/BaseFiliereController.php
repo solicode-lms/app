@@ -59,6 +59,7 @@ class BaseFiliereController extends AdminController
         $itemFiliere = $this->filiereService->createInstance();
         
 
+
         if (request()->ajax()) {
             return view('PkgFormation::filiere._fields', compact('itemFiliere'));
         }
@@ -91,7 +92,9 @@ class BaseFiliereController extends AdminController
 
         $this->viewState->setContextKey('filiere.edit_' . $id);
 
+
         $itemFiliere = $this->filiereService->find($id);
+
 
 
 
@@ -127,11 +130,15 @@ class BaseFiliereController extends AdminController
 
         $this->viewState->setContextKey('filiere.edit_' . $id);
 
+
         $itemFiliere = $this->filiereService->find($id);
 
 
 
+
         $this->viewState->set('scope.groupe.filiere_id', $id);
+        
+
         $groupeService =  new GroupeService();
         $groupes_data =  $itemFiliere->groupes()->paginate(10);
         $groupes_stats = $groupeService->getgroupeStats();
@@ -139,6 +146,8 @@ class BaseFiliereController extends AdminController
         $groupe_instance =  $groupeService->createInstance();
 
         $this->viewState->set('scope.module.filiere_id', $id);
+        
+
         $moduleService =  new ModuleService();
         $modules_data =  $itemFiliere->modules()->paginate(10);
         $modules_stats = $moduleService->getmoduleStats();
@@ -146,6 +155,8 @@ class BaseFiliereController extends AdminController
         $module_instance =  $moduleService->createInstance();
 
         $this->viewState->set('scope.projet.filiere_id', $id);
+        
+
         $projetService =  new ProjetService();
         $projets_data =  $itemFiliere->projets()->paginate(10);
         $projets_stats = $projetService->getprojetStats();

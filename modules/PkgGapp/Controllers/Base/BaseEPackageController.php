@@ -57,6 +57,7 @@ class BaseEPackageController extends AdminController
         $itemEPackage = $this->ePackageService->createInstance();
         
 
+
         if (request()->ajax()) {
             return view('PkgGapp::ePackage._fields', compact('itemEPackage'));
         }
@@ -89,7 +90,9 @@ class BaseEPackageController extends AdminController
 
         $this->viewState->setContextKey('ePackage.edit_' . $id);
 
+
         $itemEPackage = $this->ePackageService->find($id);
+
 
 
 
@@ -111,11 +114,15 @@ class BaseEPackageController extends AdminController
 
         $this->viewState->setContextKey('ePackage.edit_' . $id);
 
+
         $itemEPackage = $this->ePackageService->find($id);
 
 
 
+
         $this->viewState->set('scope.eModel.e_package_id', $id);
+        
+
         $eModelService =  new EModelService();
         $eModels_data =  $itemEPackage->eModels()->paginate(10);
         $eModels_stats = $eModelService->geteModelStats();

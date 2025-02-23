@@ -64,6 +64,7 @@ class BaseEMetadatumController extends AdminController
 
         $itemEMetadatum = $this->eMetadatumService->createInstance();
         
+
         $eModels = $this->eModelService->all();
         $eDataFields = $this->eDataFieldService->all();
         $eMetadataDefinitions = $this->eMetadataDefinitionService->all();
@@ -100,7 +101,9 @@ class BaseEMetadatumController extends AdminController
 
         $this->viewState->setContextKey('eMetadatum.edit_' . $id);
 
+
         $itemEMetadatum = $this->eMetadatumService->find($id);
+
 
         $eModels = $this->eModelService->all();
         $eDataFields = $this->eDataFieldService->all();
@@ -118,7 +121,9 @@ class BaseEMetadatumController extends AdminController
 
         $this->viewState->setContextKey('eMetadatum.edit_' . $id);
 
+
         $itemEMetadatum = $this->eMetadatumService->find($id);
+
 
         $eModels = $this->eModelService->all();
         $eDataFields = $this->eDataFieldService->all();

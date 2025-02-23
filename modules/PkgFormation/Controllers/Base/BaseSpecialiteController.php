@@ -58,6 +58,7 @@ class BaseSpecialiteController extends AdminController
 
         $itemSpecialite = $this->specialiteService->createInstance();
         
+
         $formateurs = $this->formateurService->all();
 
         if (request()->ajax()) {
@@ -92,7 +93,9 @@ class BaseSpecialiteController extends AdminController
 
         $this->viewState->setContextKey('specialite.edit_' . $id);
 
+
         $itemSpecialite = $this->specialiteService->find($id);
+
 
         $formateurs = $this->formateurService->all();
 
@@ -108,7 +111,9 @@ class BaseSpecialiteController extends AdminController
 
         $this->viewState->setContextKey('specialite.edit_' . $id);
 
+
         $itemSpecialite = $this->specialiteService->find($id);
+
 
         $formateurs = $this->formateurService->all();
 

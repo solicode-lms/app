@@ -69,6 +69,7 @@ class BaseLivrablesRealisationController extends AdminController
 
         $itemLivrablesRealisation = $this->livrablesRealisationService->createInstance();
         
+
         $livrables = $this->livrableService->all();
         $realisationProjets = $this->realisationProjetService->all();
 
@@ -104,8 +105,10 @@ class BaseLivrablesRealisationController extends AdminController
 
         $this->viewState->setContextKey('livrablesRealisation.edit_' . $id);
 
+
         $itemLivrablesRealisation = $this->livrablesRealisationService->find($id);
         $this->authorize('view', $itemLivrablesRealisation);
+
 
         $livrables = $this->livrableService->all();
         $realisationProjets = $this->realisationProjetService->all();
@@ -122,8 +125,10 @@ class BaseLivrablesRealisationController extends AdminController
 
         $this->viewState->setContextKey('livrablesRealisation.edit_' . $id);
 
+
         $itemLivrablesRealisation = $this->livrablesRealisationService->find($id);
         $this->authorize('edit', $itemLivrablesRealisation);
+
 
         $livrables = $this->livrableService->all();
         $realisationProjets = $this->realisationProjetService->all();

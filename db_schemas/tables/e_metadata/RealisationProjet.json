@@ -384,10 +384,18 @@
         "reference": "RealisationProjet_etats_realisation_projet_id_scopeDataInEditContext",
         "value_boolean": 1,
         "value_float": 0,
-        "value_json": {
-            "key": "scope.etatsRealisationProjet.formateur_id",
-            "value": "projet.formateur.id"
-        },
+        "value_json": [
+            {
+                "key": "scope.etatsRealisationProjet.formateur_id",
+                "value": "affectationProjet.projet.formateur.id",
+                "modelName": "RealisationProjet"
+            },
+            {
+                "key": "scope.etatsRealisationProjet.formateur_id",
+                "value": "projet.formateur.id",
+                "modelName": "AffectationProjet"
+            }
+        ],
         "e_data_field_reference": "RealisationProjet_etats_realisation_projet_id",
         "e_metadata_definition_reference": "scopeDataInEditContext"
     },

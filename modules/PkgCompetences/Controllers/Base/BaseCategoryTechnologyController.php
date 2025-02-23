@@ -57,6 +57,7 @@ class BaseCategoryTechnologyController extends AdminController
         $itemCategoryTechnology = $this->categoryTechnologyService->createInstance();
         
 
+
         if (request()->ajax()) {
             return view('PkgCompetences::categoryTechnology._fields', compact('itemCategoryTechnology'));
         }
@@ -89,7 +90,9 @@ class BaseCategoryTechnologyController extends AdminController
 
         $this->viewState->setContextKey('categoryTechnology.edit_' . $id);
 
+
         $itemCategoryTechnology = $this->categoryTechnologyService->find($id);
+
 
 
 
@@ -111,11 +114,15 @@ class BaseCategoryTechnologyController extends AdminController
 
         $this->viewState->setContextKey('categoryTechnology.edit_' . $id);
 
+
         $itemCategoryTechnology = $this->categoryTechnologyService->find($id);
 
 
 
+
         $this->viewState->set('scope.technology.category_technology_id', $id);
+        
+
         $technologyService =  new TechnologyService();
         $technologies_data =  $itemCategoryTechnology->technologies()->paginate(10);
         $technologies_stats = $technologyService->gettechnologyStats();

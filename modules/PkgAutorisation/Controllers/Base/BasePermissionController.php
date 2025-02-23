@@ -64,6 +64,7 @@ class BasePermissionController extends AdminController
 
         $itemPermission = $this->permissionService->createInstance();
         
+
         $sysControllers = $this->sysControllerService->all();
         $features = $this->featureService->all();
         $roles = $this->roleService->all();
@@ -100,7 +101,9 @@ class BasePermissionController extends AdminController
 
         $this->viewState->setContextKey('permission.edit_' . $id);
 
+
         $itemPermission = $this->permissionService->find($id);
+
 
         $sysControllers = $this->sysControllerService->all();
         $features = $this->featureService->all();
@@ -118,7 +121,9 @@ class BasePermissionController extends AdminController
 
         $this->viewState->setContextKey('permission.edit_' . $id);
 
+
         $itemPermission = $this->permissionService->find($id);
+
 
         $sysControllers = $this->sysControllerService->all();
         $features = $this->featureService->all();

@@ -57,6 +57,7 @@ class BaseWidgetOperationController extends AdminController
         $itemWidgetOperation = $this->widgetOperationService->createInstance();
         
 
+
         if (request()->ajax()) {
             return view('PkgWidgets::widgetOperation._fields', compact('itemWidgetOperation'));
         }
@@ -89,7 +90,9 @@ class BaseWidgetOperationController extends AdminController
 
         $this->viewState->setContextKey('widgetOperation.edit_' . $id);
 
+
         $itemWidgetOperation = $this->widgetOperationService->find($id);
+
 
 
 
@@ -111,11 +114,15 @@ class BaseWidgetOperationController extends AdminController
 
         $this->viewState->setContextKey('widgetOperation.edit_' . $id);
 
+
         $itemWidgetOperation = $this->widgetOperationService->find($id);
 
 
 
+
         $this->viewState->set('scope.widget.operation_id', $id);
+        
+
         $widgetService =  new WidgetService();
         $widgets_data =  $itemWidgetOperation->widgets()->paginate(10);
         $widgets_stats = $widgetService->getwidgetStats();

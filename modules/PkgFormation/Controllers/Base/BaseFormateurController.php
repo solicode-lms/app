@@ -64,6 +64,7 @@ class BaseFormateurController extends AdminController
 
         $itemFormateur = $this->formateurService->createInstance();
         
+
         $specialites = $this->specialiteService->all();
         $groupes = $this->groupeService->all();
         $users = $this->userService->all();
@@ -100,7 +101,9 @@ class BaseFormateurController extends AdminController
 
         $this->viewState->setContextKey('formateur.edit_' . $id);
 
+
         $itemFormateur = $this->formateurService->find($id);
+
 
         $specialites = $this->specialiteService->all();
         $groupes = $this->groupeService->all();
@@ -118,7 +121,9 @@ class BaseFormateurController extends AdminController
 
         $this->viewState->setContextKey('formateur.edit_' . $id);
 
+
         $itemFormateur = $this->formateurService->find($id);
+
 
         $specialites = $this->specialiteService->all();
         $groupes = $this->groupeService->all();

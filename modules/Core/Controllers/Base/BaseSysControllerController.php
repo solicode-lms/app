@@ -59,6 +59,7 @@ class BaseSysControllerController extends AdminController
 
         $itemSysController = $this->sysControllerService->createInstance();
         
+
         $sysModules = $this->sysModuleService->all();
 
         if (request()->ajax()) {
@@ -93,7 +94,9 @@ class BaseSysControllerController extends AdminController
 
         $this->viewState->setContextKey('sysController.edit_' . $id);
 
+
         $itemSysController = $this->sysControllerService->find($id);
+
 
         $sysModules = $this->sysModuleService->all();
 
@@ -116,12 +119,16 @@ class BaseSysControllerController extends AdminController
 
         $this->viewState->setContextKey('sysController.edit_' . $id);
 
+
         $itemSysController = $this->sysControllerService->find($id);
+
 
         $sysModules = $this->sysModuleService->all();
 
 
         $this->viewState->set('scope.permission.controller_id', $id);
+        
+
         $permissionService =  new PermissionService();
         $permissions_data =  $itemSysController->permissions()->paginate(10);
         $permissions_stats = $permissionService->getpermissionStats();

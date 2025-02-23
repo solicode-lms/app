@@ -64,6 +64,7 @@ class BaseTechnologyController extends AdminController
 
         $itemTechnology = $this->technologyService->createInstance();
         
+
         $categoryTechnologies = $this->categoryTechnologyService->all();
         $competences = $this->competenceService->all();
         $transfertCompetences = $this->transfertCompetenceService->all();
@@ -100,7 +101,9 @@ class BaseTechnologyController extends AdminController
 
         $this->viewState->setContextKey('technology.edit_' . $id);
 
+
         $itemTechnology = $this->technologyService->find($id);
+
 
         $categoryTechnologies = $this->categoryTechnologyService->all();
         $competences = $this->competenceService->all();
@@ -118,7 +121,9 @@ class BaseTechnologyController extends AdminController
 
         $this->viewState->setContextKey('technology.edit_' . $id);
 
+
         $itemTechnology = $this->technologyService->find($id);
+
 
         $categoryTechnologies = $this->categoryTechnologyService->all();
         $competences = $this->competenceService->all();

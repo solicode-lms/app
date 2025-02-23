@@ -85,6 +85,7 @@ class BaseProfileController extends AdminController
         }
         $itemProfile = $this->profileService->createInstance();
         
+
         $users = $this->userService->all();
 
         if (request()->ajax()) {
@@ -125,8 +126,10 @@ class BaseProfileController extends AdminController
         if(Auth::user()->hasRole('apprenant')){
             $this->viewState->set('scope.user.apprenant.id'  , $this->sessionState->get('apprenant_id'));
         }
+
         $itemProfile = $this->profileService->find($id);
         $this->authorize('view', $itemProfile);
+
 
         $users = $this->userService->all();
 
@@ -148,8 +151,10 @@ class BaseProfileController extends AdminController
         if(Auth::user()->hasRole('apprenant')){
             $this->viewState->set('scope.user.apprenant.id'  , $this->sessionState->get('apprenant_id'));
         }
+
         $itemProfile = $this->profileService->find($id);
         $this->authorize('edit', $itemProfile);
+
 
         $users = $this->userService->all();
 

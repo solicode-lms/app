@@ -57,6 +57,7 @@ class BaseWidgetTypeController extends AdminController
         $itemWidgetType = $this->widgetTypeService->createInstance();
         
 
+
         if (request()->ajax()) {
             return view('PkgWidgets::widgetType._fields', compact('itemWidgetType'));
         }
@@ -89,7 +90,9 @@ class BaseWidgetTypeController extends AdminController
 
         $this->viewState->setContextKey('widgetType.edit_' . $id);
 
+
         $itemWidgetType = $this->widgetTypeService->find($id);
+
 
 
 
@@ -111,11 +114,15 @@ class BaseWidgetTypeController extends AdminController
 
         $this->viewState->setContextKey('widgetType.edit_' . $id);
 
+
         $itemWidgetType = $this->widgetTypeService->find($id);
 
 
 
+
         $this->viewState->set('scope.widget.type_id', $id);
+        
+
         $widgetService =  new WidgetService();
         $widgets_data =  $itemWidgetType->widgets()->paginate(10);
         $widgets_stats = $widgetService->getwidgetStats();

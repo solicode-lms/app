@@ -58,6 +58,7 @@ class BaseNiveauCompetenceController extends AdminController
 
         $itemNiveauCompetence = $this->niveauCompetenceService->createInstance();
         
+
         $competences = $this->competenceService->all();
 
         if (request()->ajax()) {
@@ -92,7 +93,9 @@ class BaseNiveauCompetenceController extends AdminController
 
         $this->viewState->setContextKey('niveauCompetence.edit_' . $id);
 
+
         $itemNiveauCompetence = $this->niveauCompetenceService->find($id);
+
 
         $competences = $this->competenceService->all();
 
@@ -108,7 +111,9 @@ class BaseNiveauCompetenceController extends AdminController
 
         $this->viewState->setContextKey('niveauCompetence.edit_' . $id);
 
+
         $itemNiveauCompetence = $this->niveauCompetenceService->find($id);
+
 
         $competences = $this->competenceService->all();
 

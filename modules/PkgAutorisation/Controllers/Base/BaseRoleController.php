@@ -61,6 +61,7 @@ class BaseRoleController extends AdminController
 
         $itemRole = $this->roleService->createInstance();
         
+
         $permissions = $this->permissionService->all();
         $users = $this->userService->all();
 
@@ -96,7 +97,9 @@ class BaseRoleController extends AdminController
 
         $this->viewState->setContextKey('role.edit_' . $id);
 
+
         $itemRole = $this->roleService->find($id);
+
 
         $permissions = $this->permissionService->all();
         $users = $this->userService->all();
@@ -113,7 +116,9 @@ class BaseRoleController extends AdminController
 
         $this->viewState->setContextKey('role.edit_' . $id);
 
+
         $itemRole = $this->roleService->find($id);
+
 
         $permissions = $this->permissionService->all();
         $users = $this->userService->all();

@@ -61,6 +61,7 @@ class BaseUserController extends AdminController
 
         $itemUser = $this->userService->createInstance();
         
+
         $roles = $this->roleService->all();
 
         if (request()->ajax()) {
@@ -95,7 +96,9 @@ class BaseUserController extends AdminController
 
         $this->viewState->setContextKey('user.edit_' . $id);
 
+
         $itemUser = $this->userService->find($id);
+
 
         $roles = $this->roleService->all();
 
@@ -132,12 +135,16 @@ class BaseUserController extends AdminController
 
         $this->viewState->setContextKey('user.edit_' . $id);
 
+
         $itemUser = $this->userService->find($id);
+
 
         $roles = $this->roleService->all();
 
 
         $this->viewState->set('scope.apprenant.user_id', $id);
+        
+
         $apprenantService =  new ApprenantService();
         $apprenants_data =  $itemUser->apprenants()->paginate(10);
         $apprenants_stats = $apprenantService->getapprenantStats();
@@ -145,6 +152,8 @@ class BaseUserController extends AdminController
         $apprenant_instance =  $apprenantService->createInstance();
 
         $this->viewState->set('scope.formateur.user_id', $id);
+        
+
         $formateurService =  new FormateurService();
         $formateurs_data =  $itemUser->formateurs()->paginate(10);
         $formateurs_stats = $formateurService->getformateurStats();
@@ -152,6 +161,8 @@ class BaseUserController extends AdminController
         $formateur_instance =  $formateurService->createInstance();
 
         $this->viewState->set('scope.profile.user_id', $id);
+        
+
         $profileService =  new ProfileService();
         $profiles_data =  $itemUser->profiles()->paginate(10);
         $profiles_stats = $profileService->getprofileStats();

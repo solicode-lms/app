@@ -67,6 +67,7 @@ class BaseApprenantController extends AdminController
 
         $itemApprenant = $this->apprenantService->createInstance();
         
+
         $nationalites = $this->nationaliteService->all();
         $niveauxScolaires = $this->niveauxScolaireService->all();
         $users = $this->userService->all();
@@ -104,7 +105,9 @@ class BaseApprenantController extends AdminController
 
         $this->viewState->setContextKey('apprenant.edit_' . $id);
 
+
         $itemApprenant = $this->apprenantService->find($id);
+
 
         $nationalites = $this->nationaliteService->all();
         $niveauxScolaires = $this->niveauxScolaireService->all();
@@ -123,7 +126,9 @@ class BaseApprenantController extends AdminController
 
         $this->viewState->setContextKey('apprenant.edit_' . $id);
 
+
         $itemApprenant = $this->apprenantService->find($id);
+
 
         $nationalites = $this->nationaliteService->all();
         $niveauxScolaires = $this->niveauxScolaireService->all();
