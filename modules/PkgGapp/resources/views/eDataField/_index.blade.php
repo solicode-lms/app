@@ -58,6 +58,7 @@
                     <div class="col-sm-3">
                         @canany(['create-eDataField','import-eDataField','export-eDataField'])
                         <x-crud-actions
+                            :instanceItem="$eDataField_instance"
                             :createPermission="'create-eDataField'"
                             :createRoute="route('eDataFields.create')"
                             :createText="__('Ajouter')"

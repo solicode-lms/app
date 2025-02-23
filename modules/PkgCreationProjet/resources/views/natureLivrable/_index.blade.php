@@ -58,6 +58,7 @@
                     <div class="col-sm-3">
                         @canany(['create-natureLivrable','import-natureLivrable','export-natureLivrable'])
                         <x-crud-actions
+                            :instanceItem="$natureLivrable_instance"
                             :createPermission="'create-natureLivrable'"
                             :createRoute="route('natureLivrables.create')"
                             :createText="__('Ajouter')"

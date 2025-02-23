@@ -58,6 +58,7 @@
                     <div class="col-sm-3">
                         @canany(['create-niveauDifficulte','import-niveauDifficulte','export-niveauDifficulte'])
                         <x-crud-actions
+                            :instanceItem="$niveauDifficulte_instance"
                             :createPermission="'create-niveauDifficulte'"
                             :createRoute="route('niveauDifficultes.create')"
                             :createText="__('Ajouter')"

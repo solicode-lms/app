@@ -58,6 +58,7 @@
                     <div class="col-sm-3">
                         @canany(['create-feature','import-feature','export-feature'])
                         <x-crud-actions
+                            :instanceItem="$feature_instance"
                             :createPermission="'create-feature'"
                             :createRoute="route('features.create')"
                             :createText="__('Ajouter')"

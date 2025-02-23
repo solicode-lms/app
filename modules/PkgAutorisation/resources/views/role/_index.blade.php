@@ -58,6 +58,7 @@
                     <div class="col-sm-3">
                         @canany(['create-role','import-role','export-role'])
                         <x-crud-actions
+                            :instanceItem="$role_instance"
                             :createPermission="'create-role'"
                             :createRoute="route('roles.create')"
                             :createText="__('Ajouter')"

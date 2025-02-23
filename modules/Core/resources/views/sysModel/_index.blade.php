@@ -58,6 +58,7 @@
                     <div class="col-sm-3">
                         @canany(['create-sysModel','import-sysModel','export-sysModel'])
                         <x-crud-actions
+                            :instanceItem="$sysModel_instance"
                             :createPermission="'create-sysModel'"
                             :createRoute="route('sysModels.create')"
                             :createText="__('Ajouter')"

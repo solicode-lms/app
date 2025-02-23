@@ -58,6 +58,7 @@
                     <div class="col-sm-3">
                         @canany(['create-niveauxScolaire','import-niveauxScolaire','export-niveauxScolaire'])
                         <x-crud-actions
+                            :instanceItem="$niveauxScolaire_instance"
                             :createPermission="'create-niveauxScolaire'"
                             :createRoute="route('niveauxScolaires.create')"
                             :createText="__('Ajouter')"

@@ -58,6 +58,7 @@
                     <div class="col-sm-3">
                         @canany(['create-apprenant','import-apprenant','export-apprenant'])
                         <x-crud-actions
+                            :instanceItem="$apprenant_instance"
                             :createPermission="'create-apprenant'"
                             :createRoute="route('apprenants.create')"
                             :createText="__('Ajouter')"

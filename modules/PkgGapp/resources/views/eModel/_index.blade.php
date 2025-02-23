@@ -58,6 +58,7 @@
                     <div class="col-sm-3">
                         @canany(['create-eModel','import-eModel','export-eModel'])
                         <x-crud-actions
+                            :instanceItem="$eModel_instance"
                             :createPermission="'create-eModel'"
                             :createRoute="route('eModels.create')"
                             :createText="__('Ajouter')"

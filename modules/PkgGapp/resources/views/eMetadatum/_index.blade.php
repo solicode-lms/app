@@ -58,6 +58,7 @@
                     <div class="col-sm-3">
                         @canany(['create-eMetadatum','import-eMetadatum','export-eMetadatum'])
                         <x-crud-actions
+                            :instanceItem="$eMetadatum_instance"
                             :createPermission="'create-eMetadatum'"
                             :createRoute="route('eMetadata.create')"
                             :createText="__('Ajouter')"

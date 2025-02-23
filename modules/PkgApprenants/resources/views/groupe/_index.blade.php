@@ -58,6 +58,7 @@
                     <div class="col-sm-3">
                         @canany(['create-groupe','import-groupe','export-groupe'])
                         <x-crud-actions
+                            :instanceItem="$groupe_instance"
                             :createPermission="'create-groupe'"
                             :createRoute="route('groupes.create')"
                             :createText="__('Ajouter')"

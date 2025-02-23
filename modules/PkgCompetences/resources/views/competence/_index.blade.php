@@ -58,6 +58,7 @@
                     <div class="col-sm-3">
                         @canany(['create-competence','import-competence','export-competence'])
                         <x-crud-actions
+                            :instanceItem="$competence_instance"
                             :createPermission="'create-competence'"
                             :createRoute="route('competences.create')"
                             :createText="__('Ajouter')"

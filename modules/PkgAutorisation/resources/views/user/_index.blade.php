@@ -58,6 +58,7 @@
                     <div class="col-sm-3">
                         @canany(['create-user','import-user','export-user'])
                         <x-crud-actions
+                            :instanceItem="$user_instance"
                             :createPermission="'create-user'"
                             :createRoute="route('users.create')"
                             :createText="__('Ajouter')"

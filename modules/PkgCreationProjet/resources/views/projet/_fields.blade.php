@@ -10,7 +10,7 @@
 
     <div class="card-body row">
         
-        <div class="form-group col-12 col-md-10">
+        <div class="form-group col-12 col-md-12">
             <label for="titre">
                 {{ ucfirst(__('PkgCreationProjet::projet.titre')) }}
                 

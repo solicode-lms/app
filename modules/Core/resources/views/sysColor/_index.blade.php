@@ -58,6 +58,7 @@
                     <div class="col-sm-3">
                         @canany(['create-sysColor','import-sysColor','export-sysColor'])
                         <x-crud-actions
+                            :instanceItem="$sysColor_instance"
                             :createPermission="'create-sysColor'"
                             :createRoute="route('sysColors.create')"
                             :createText="__('Ajouter')"

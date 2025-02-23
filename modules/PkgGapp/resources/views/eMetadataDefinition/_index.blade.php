@@ -58,6 +58,7 @@
                     <div class="col-sm-3">
                         @canany(['create-eMetadataDefinition','import-eMetadataDefinition','export-eMetadataDefinition'])
                         <x-crud-actions
+                            :instanceItem="$eMetadataDefinition_instance"
                             :createPermission="'create-eMetadataDefinition'"
                             :createRoute="route('eMetadataDefinitions.create')"
                             :createText="__('Ajouter')"

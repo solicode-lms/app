@@ -58,6 +58,7 @@
                     <div class="col-sm-3">
                         @canany(['create-specialite','import-specialite','export-specialite'])
                         <x-crud-actions
+                            :instanceItem="$specialite_instance"
                             :createPermission="'create-specialite'"
                             :createRoute="route('specialites.create')"
                             :createText="__('Ajouter')"

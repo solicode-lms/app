@@ -58,6 +58,7 @@
                     <div class="col-sm-3">
                         @canany(['create-ePackage','import-ePackage','export-ePackage'])
                         <x-crud-actions
+                            :instanceItem="$ePackage_instance"
                             :createPermission="'create-ePackage'"
                             :createRoute="route('ePackages.create')"
                             :createText="__('Ajouter')"

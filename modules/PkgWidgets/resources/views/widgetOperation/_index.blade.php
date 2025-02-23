@@ -58,6 +58,7 @@
                     <div class="col-sm-3">
                         @canany(['create-widgetOperation','import-widgetOperation','export-widgetOperation'])
                         <x-crud-actions
+                            :instanceItem="$widgetOperation_instance"
                             :createPermission="'create-widgetOperation'"
                             :createRoute="route('widgetOperations.create')"
                             :createText="__('Ajouter')"

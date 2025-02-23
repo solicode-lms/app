@@ -58,6 +58,7 @@
                     <div class="col-sm-3">
                         @canany(['create-nationalite','import-nationalite','export-nationalite'])
                         <x-crud-actions
+                            :instanceItem="$nationalite_instance"
                             :createPermission="'create-nationalite'"
                             :createRoute="route('nationalites.create')"
                             :createText="__('Ajouter')"

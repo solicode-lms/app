@@ -58,6 +58,7 @@
                     <div class="col-sm-3">
                         @canany(['create-anneeFormation','import-anneeFormation','export-anneeFormation'])
                         <x-crud-actions
+                            :instanceItem="$anneeFormation_instance"
                             :createPermission="'create-anneeFormation'"
                             :createRoute="route('anneeFormations.create')"
                             :createText="__('Ajouter')"

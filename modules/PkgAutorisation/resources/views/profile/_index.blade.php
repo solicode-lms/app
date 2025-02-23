@@ -58,6 +58,7 @@
                     <div class="col-sm-3">
                         @canany(['create-profile','import-profile','export-profile'])
                         <x-crud-actions
+                            :instanceItem="$profile_instance"
                             :createPermission="'create-profile'"
                             :createRoute="route('profiles.create')"
                             :createText="__('Ajouter')"

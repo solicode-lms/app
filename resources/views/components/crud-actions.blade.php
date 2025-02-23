@@ -1,9 +1,11 @@
 <div class="actions d-flex align-items-center justify-content-end">
     @can($createPermission ?? '')
+    @can('create', $instanceItem)
         <a href="{{ $createRoute ?? '#' }}" data-target="#entityModal" class="btn btn-success btn-sm mr-2 context-state addEntityButton">
             <i class="fas fa-plus"></i>
             {{ $createText ?? __('Core::msg.add') }}
         </a>
+    @endcan
     @endcan
 
     <div class="dropdown">

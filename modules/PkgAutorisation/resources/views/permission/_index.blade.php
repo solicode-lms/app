@@ -58,6 +58,7 @@
                     <div class="col-sm-3">
                         @canany(['create-permission','import-permission','export-permission'])
                         <x-crud-actions
+                            :instanceItem="$permission_instance"
                             :createPermission="'create-permission'"
                             :createRoute="route('permissions.create')"
                             :createText="__('Ajouter')"

@@ -58,6 +58,7 @@
                     <div class="col-sm-3">
                         @canany(['create-filiere','import-filiere','export-filiere'])
                         <x-crud-actions
+                            :instanceItem="$filiere_instance"
                             :createPermission="'create-filiere'"
                             :createRoute="route('filieres.create')"
                             :createText="__('Ajouter')"

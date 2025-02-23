@@ -58,6 +58,7 @@
                     <div class="col-sm-3">
                         @canany(['create-realisationProjet','import-realisationProjet','export-realisationProjet'])
                         <x-crud-actions
+                            :instanceItem="$realisationProjet_instance"
                             :createPermission="'create-realisationProjet'"
                             :createRoute="route('realisationProjets.create')"
                             :createText="__('Ajouter')"

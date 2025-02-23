@@ -58,6 +58,7 @@
                     <div class="col-sm-3">
                         @canany(['create-eRelationship','import-eRelationship','export-eRelationship'])
                         <x-crud-actions
+                            :instanceItem="$eRelationship_instance"
                             :createPermission="'create-eRelationship'"
                             :createRoute="route('eRelationships.create')"
                             :createText="__('Ajouter')"

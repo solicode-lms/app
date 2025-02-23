@@ -58,6 +58,7 @@
                     <div class="col-sm-3">
                         @canany(['create-ville','import-ville','export-ville'])
                         <x-crud-actions
+                            :instanceItem="$ville_instance"
                             :createPermission="'create-ville'"
                             :createRoute="route('villes.create')"
                             :createText="__('Ajouter')"

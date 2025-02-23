@@ -58,6 +58,7 @@
                     <div class="col-sm-3">
                         @canany(['create-module','import-module','export-module'])
                         <x-crud-actions
+                            :instanceItem="$module_instance"
                             :createPermission="'create-module'"
                             :createRoute="route('modules.create')"
                             :createText="__('Ajouter')"

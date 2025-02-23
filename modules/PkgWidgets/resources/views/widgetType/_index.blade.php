@@ -58,6 +58,7 @@
                     <div class="col-sm-3">
                         @canany(['create-widgetType','import-widgetType','export-widgetType'])
                         <x-crud-actions
+                            :instanceItem="$widgetType_instance"
                             :createPermission="'create-widgetType'"
                             :createRoute="route('widgetTypes.create')"
                             :createText="__('Ajouter')"

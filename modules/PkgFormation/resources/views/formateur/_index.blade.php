@@ -58,6 +58,7 @@
                     <div class="col-sm-3">
                         @canany(['create-formateur','import-formateur','export-formateur'])
                         <x-crud-actions
+                            :instanceItem="$formateur_instance"
                             :createPermission="'create-formateur'"
                             :createRoute="route('formateurs.create')"
                             :createText="__('Ajouter')"

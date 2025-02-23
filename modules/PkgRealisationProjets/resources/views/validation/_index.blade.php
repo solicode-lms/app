@@ -58,6 +58,7 @@
                     <div class="col-sm-3">
                         @canany(['create-validation','import-validation','export-validation'])
                         <x-crud-actions
+                            :instanceItem="$validation_instance"
                             :createPermission="'create-validation'"
                             :createRoute="route('validations.create')"
                             :createText="__('Ajouter')"

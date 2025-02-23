@@ -1,7 +1,7 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 
-@accessiblePermissions(['index-affectationProjet', 'index-etatsRealisationProjet', 'index-realisationProjet'])
+@accessiblePermissions(['index-etatsRealisationProjet', 'index-affectationProjet', 'index-realisationProjet'])
 @if($accessiblePermissions->isNotEmpty())
 <li id="menu-PkgRealisationProjets" class="nav-item has-treeview  {{ Request::is('admin/PkgRealisationProjets*') ? 'menu-open' : '' }}">
     <a href="#" class="nav-link nav-link {{ Request::is('admin/PkgRealisationProjets*') ? 'active' : '' }}">
@@ -12,19 +12,19 @@
         </p>
     </a>
     <ul class="nav nav-treeview">
-        @can('index-affectationProjet') 
-        <li class="nav-item" id="menu-affectationProjets">
-            <a href="{{ route('affectationProjets.index') }}" class="nav-link {{ Request::is('admin/PkgRealisationProjets/affectationProjets') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-user-check"></i>
-                {{__('PkgRealisationProjets::affectationProjet.plural')}}
-            </a>
-        </li>
-        @endcan
         @can('index-etatsRealisationProjet') 
         <li class="nav-item" id="menu-etatsRealisationProjets">
             <a href="{{ route('etatsRealisationProjets.index') }}" class="nav-link {{ Request::is('admin/PkgRealisationProjets/etatsRealisationProjets') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-star-half"></i>
                 {{__('PkgRealisationProjets::etatsRealisationProjet.plural')}}
+            </a>
+        </li>
+        @endcan
+        @can('index-affectationProjet') 
+        <li class="nav-item" id="menu-affectationProjets">
+            <a href="{{ route('affectationProjets.index') }}" class="nav-link {{ Request::is('admin/PkgRealisationProjets/affectationProjets') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-user-check"></i>
+                {{__('PkgRealisationProjets::affectationProjet.plural')}}
             </a>
         </li>
         @endcan

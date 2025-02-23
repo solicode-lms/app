@@ -58,6 +58,7 @@
                     <div class="col-sm-3">
                         @canany(['create-technology','import-technology','export-technology'])
                         <x-crud-actions
+                            :instanceItem="$technology_instance"
                             :createPermission="'create-technology'"
                             :createRoute="route('technologies.create')"
                             :createText="__('Ajouter')"

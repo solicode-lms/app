@@ -58,6 +58,7 @@
                     <div class="col-sm-3">
                         @canany(['create-resource','import-resource','export-resource'])
                         <x-crud-actions
+                            :instanceItem="$resource_instance"
                             :createPermission="'create-resource'"
                             :createRoute="route('resources.create')"
                             :createText="__('Ajouter')"
