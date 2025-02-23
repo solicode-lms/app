@@ -262,5 +262,15 @@
         ],
         "e_data_field_reference": "Profile_user_id",
         "e_metadata_definition_reference": "scopeDataByRole"
+    },
+    {
+        "reference": "Profile_user_id_editableByRoles",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "roles": "admin"
+        },
+        "e_data_field_reference": "Profile_user_id",
+        "e_metadata_definition_reference": "editableByRoles"
     }
 ]

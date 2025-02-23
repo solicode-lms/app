@@ -9,8 +9,9 @@ trait StatsTrait
     
 public function initStats(){
 
-    // Calculer le total global des compétences
-    $total = $this->model::count();
+
+    // Calculer le total global
+    $total = $this->model->withScope(fn() =>  $this->model::count());
 
     // Initialiser les statistiques avec le total global
     $stats = [
@@ -43,10 +44,10 @@ public function initStats(){
         foreach ($conditions as $key => $condition) {
             if (is_null($condition)) {
                 // Compte total sans condition
-                $stats[$key] = $this->model->count();
+                $stats[$key] = $this->model->withScope(fn() =>  $this->model->count());
             } else {
                 // Compte basé sur une condition
-                $stats[$key] = $this->model->where($condition)->count();
+                $stats[$key] =$this->model->withScope(fn() =>  $this->model->where($condition)->count()); 
             }
         }
 
@@ -71,7 +72,8 @@ public function getStatsByRelation($relationModel,$nestedRelation, $attribute ):
             $relationEntity->id // Passer l'ID de la filière pour filtrer
         );
 
-        $count = $entities->count();
+        $count =$this->model->withScope(fn() =>   $entities->count()); 
+        
         if($count > 0) {   
             $stats[] = [
                 'icon' => 'fas fa-chart-pie',

@@ -68,7 +68,8 @@
 </div>
 
         
-        <div class="form-group col-12 col-md-6">
+        @php $canEdituser_id = Auth::user()->hasAnyRole(explode(',', 'admin')); @endphp
+<div class="form-group col-12 col-md-6">
             <label for="user_id">
                 {{ ucfirst(__('PkgAutorisation::user.singular')) }}
                 
@@ -77,6 +78,7 @@
             </label>
             <select 
             id="user_id" 
+            {{ $canEdituser_id ? '' : 'disabled' }}
             required
             
             name="user_id" 

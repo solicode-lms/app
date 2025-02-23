@@ -120,10 +120,10 @@ class BaseProfileController extends AdminController
         $this->viewState->setContextKey('profile.edit_' . $id);
 
         if(Auth::user()->hasRole('formateur')){
-            $this->viewState->init('scope.user.formateur.id'  , $this->sessionState->get('formateur_id'));
+            $this->viewState->set('scope.user.formateur.id'  , $this->sessionState->get('formateur_id'));
         }
         if(Auth::user()->hasRole('apprenant')){
-            $this->viewState->init('scope.user.apprenant.id'  , $this->sessionState->get('apprenant_id'));
+            $this->viewState->set('scope.user.apprenant.id'  , $this->sessionState->get('apprenant_id'));
         }
         $itemProfile = $this->profileService->find($id);
         $this->authorize('view', $itemProfile);
@@ -143,10 +143,10 @@ class BaseProfileController extends AdminController
         $this->viewState->setContextKey('profile.edit_' . $id);
 
         if(Auth::user()->hasRole('formateur')){
-            $this->viewState->init('scope.user.formateur.id'  , $this->sessionState->get('formateur_id'));
+            $this->viewState->set('scope.user.formateur.id'  , $this->sessionState->get('formateur_id'));
         }
         if(Auth::user()->hasRole('apprenant')){
-            $this->viewState->init('scope.user.apprenant.id'  , $this->sessionState->get('apprenant_id'));
+            $this->viewState->set('scope.user.apprenant.id'  , $this->sessionState->get('apprenant_id'));
         }
         $itemProfile = $this->profileService->find($id);
         $this->authorize('edit', $itemProfile);

@@ -8,7 +8,7 @@ export default class ConfigHelper {
      */
     constructor(config) {
 
-        this.isDebug = true;
+        this.isDebug = false;
         this.isDebugInfo = true;
       
 

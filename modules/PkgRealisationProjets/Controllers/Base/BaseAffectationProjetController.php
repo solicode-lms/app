@@ -123,10 +123,10 @@ class BaseAffectationProjetController extends AdminController
         $this->viewState->setContextKey('affectationProjet.edit_' . $id);
 
         if(Auth::user()->hasRole('formateur')){
-            $this->viewState->init('scope.projet.formateur_id'  , $this->sessionState->get('formateur_id'));
+            $this->viewState->set('scope.projet.formateur_id'  , $this->sessionState->get('formateur_id'));
         }
         if(Auth::user()->hasRole('formateur')){
-            $this->viewState->init('scope.groupe.formateurs.formateur_id'  , $this->sessionState->get('formateur_id'));
+            $this->viewState->set('scope.groupe.formateurs.formateur_id'  , $this->sessionState->get('formateur_id'));
         }
         $itemAffectationProjet = $this->affectationProjetService->find($id);
         $this->authorize('view', $itemAffectationProjet);
@@ -158,10 +158,10 @@ class BaseAffectationProjetController extends AdminController
         $this->viewState->setContextKey('affectationProjet.edit_' . $id);
 
         if(Auth::user()->hasRole('formateur')){
-            $this->viewState->init('scope.projet.formateur_id'  , $this->sessionState->get('formateur_id'));
+            $this->viewState->set('scope.projet.formateur_id'  , $this->sessionState->get('formateur_id'));
         }
         if(Auth::user()->hasRole('formateur')){
-            $this->viewState->init('scope.groupe.formateurs.formateur_id'  , $this->sessionState->get('formateur_id'));
+            $this->viewState->set('scope.groupe.formateurs.formateur_id'  , $this->sessionState->get('formateur_id'));
         }
         $itemAffectationProjet = $this->affectationProjetService->find($id);
         $this->authorize('edit', $itemAffectationProjet);
