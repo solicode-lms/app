@@ -41,6 +41,9 @@ class BaseProjetController extends AdminController
         if(Auth::user()->hasRole('formateur')){
            $this->viewState->init('filter.projet.formateur_id'  , $this->sessionState->get('formateur_id'));
         }
+        if(Auth::user()->hasRole('apprenant')){
+           $this->viewState->init('scope.projet.affectationProjets.realisationProjets.apprenant_id'  , $this->sessionState->get('apprenant_id'));
+        }
 
 
         // Extraire les paramètres de recherche, page, et filtres
@@ -68,6 +71,9 @@ class BaseProjetController extends AdminController
         // ownedByUser
         if(Auth::user()->hasRole('formateur')){
            $this->viewState->set('scope_form.projet.formateur_id'  , $this->sessionState->get('formateur_id'));
+        }
+        if(Auth::user()->hasRole('apprenant')){
+           $this->viewState->set('scope_form.projet.affectationProjets.realisationProjets.apprenant_id'  , $this->sessionState->get('apprenant_id'));
         }
 
 
