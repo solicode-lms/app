@@ -9,10 +9,12 @@ trait OwnedByUser
 {
  
     
-    public function getUserOwner()
+    public function getUserOwners(): array
     {
+        $users = [];
+
         if (!$this->isOwnedByUser || empty($this->ownerRelationPath)) {
-            return null; // Si pas de gestion de propriété, retourne null
+            return $users; // Retourne un tableau vide si aucune relation n'est définie
         }
     
         // Séparer les différents chemins possibles
@@ -35,13 +37,13 @@ trait OwnedByUser
                 }
             }
     
-            // Si un chemin aboutit à un propriétaire valide, on retourne immédiatement
-            if ($owner !== null) {
-                return $owner;
+            // Vérifier si le propriétaire final est bien un utilisateur et l'ajouter à la liste
+            if ($owner instanceof User && !in_array($owner, $users)) {
+                $users[] = $owner;
             }
         }
     
-        return null; // Aucun chemin valide trouvé
+        return $users;
     }
     
     

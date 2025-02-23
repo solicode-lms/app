@@ -20,9 +20,9 @@ class DynamicContextScope implements Scope
     public function apply(Builder $builder, Model $model)
     {
         // Désactiver le scope si la variable globale est activée
-        if (!$model::$activeScope) {
-            return;
-        }
+        // if (!$model::$activeScope) {
+        //     return;
+        // }
 
         // Obtenir l'instance de ViewState
         $viewState = app(ViewStateService::class);

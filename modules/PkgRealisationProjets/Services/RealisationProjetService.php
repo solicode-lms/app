@@ -107,6 +107,11 @@ class RealisationProjetService extends BaseRealisationProjetService
                 });
             }
 
+          
+            $relationsToLoad = ["affectationProjet","apprenant","etatsRealisationProjet","livrablesRealisations","validations"];
+            $query->with(array_unique($relationsToLoad));
+
+
             return $query->paginate($perPage, $columns);
         });
 
