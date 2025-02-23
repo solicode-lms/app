@@ -105,7 +105,7 @@ class ViewStateService
 
     public function getScopeVariables(string $modelName): array
     {
-        return $this->extractVariables($modelName, ['scope','filter']);
+        return $this->extractVariables($modelName, ['scope']);
     }
 
     public function getFormVariables(string $modelName): array
@@ -120,7 +120,7 @@ class ViewStateService
 
     public function getFilterVariables(string $modelName): array
     {
-        return $this->extractVariables($modelName, ['scope', 'filter']);
+        return $this->extractVariables($modelName, ['filter']);
     }
     public function getSortVariables(string $modelName): array
     {

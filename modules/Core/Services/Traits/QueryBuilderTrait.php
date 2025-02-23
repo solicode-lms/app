@@ -3,11 +3,12 @@
 namespace Modules\Core\Services\Traits;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Str;
 
 trait QueryBuilderTrait
 {
 
-        // TODO : ajouter une recherche sur les relation ManyToOne,
+    // TODO : ajouter une recherche sur les relation ManyToOne,
     // TODO : ajouter recherche par nom de filiere : Apprenant, ManyToOne/ManyToOne
     /**
      * Construit une requête de récupération des données.
@@ -30,18 +31,19 @@ trait QueryBuilderTrait
 
         // Les filtre sopnt appliquer dans DynamiqueContextScope
         // Appliquer les filtres spécifiques (URL aplatie)
-        foreach ($params as $field => $value) {
-            if (in_array($field, $this->getFieldsSearchable()) && !empty($value)) {
-                if (is_numeric($value)) {
-                    // Utiliser "=" pour les valeurs numériques
-                    $query->where($field, '=', $value);
-                } else {
-                    // Utiliser "LIKE" pour les chaînes
-                    $query->where($field, 'LIKE', "%{$value}%");
-                }
-            }
-        }
-
+        // foreach ($params as $field => $value) {
+        //     if (in_array($field, $this->getFieldsSearchable()) && !empty($value)) {
+        //         if (is_numeric($value)) {
+        //             // Utiliser "=" pour les valeurs numériques
+        //             $query->where($field, '=', $value);
+        //         } else {
+        //             // Utiliser "LIKE" pour les chaînes
+        //             $query->where($field, 'LIKE', "%{$value}%");
+        //         }
+        //     }
+        // }
+        $filterVariables = $this->viewState->getFilterVariables($this->modelName);
+        $this->filter($query,$this->model,$filterVariables);
       
 
         // Appliquer le tri multi-colonnes
@@ -96,6 +98,73 @@ trait QueryBuilderTrait
         }
     
         return $query;
+    }
+
+        /**
+     * Cette fonction est utilisé aussi Dans DynamiqueContextScope
+     * @param \Illuminate\Database\Eloquent\Builder $builder
+     * @param mixed $model
+     * @return void
+     */
+    public function filter(Builder $builder, $model, $filterVariables){
+   
+        // Obtenir les colonnes disponibles dans le modèle
+        $modelAttributes = $model->getFillable();
+
+        // Charger automatiquement les relations nécessaires
+        $relationsToLoad = [];
+
+        foreach ($filterVariables as $key => $value) {
+            if (is_null($value)) {
+                continue;
+            }
+
+            // Vérifier si la clé contient une relation imbriquée (ex: competence.module.ecole.filiere_id)
+            if (Str::contains($key, '.')) {
+                $relations = explode('.', $key);
+                $attribute = array_pop($relations); // Récupère le dernier élément (filiere_id)
+
+                // Vérifier si la première relation existe sur le modèle
+                if (method_exists($model, $relations[0])) {
+                    
+                    // Ajouter la relation à charger
+                    $relationsToLoad[] = implode('.', $relations);
+                    
+                    // Appliquer whereHas récursivement
+                    $builder->whereHas(implode('.', $relations), function ($query) use ($attribute, $value) {
+                        $query->where($attribute, $value);
+                    });
+                }
+            } elseif (in_array($key, $modelAttributes)) {
+                // Appliquer un filtre simple si c'est une colonne du modèle
+                $builder->where($key, $value);
+            }
+        }
+
+
+        // Vérifier si le modèle a une propriété manyToMany définie
+        if (property_exists($model, 'manyToMany') && is_array($model->manyToMany)) {
+            foreach ($model->manyToMany as $relationInfo) {
+                $relationName = $relationInfo['relation']; // ex: apprenants, formateurs
+                $foreignKey = $relationInfo['foreign_key']; // ex: apprenant_id, formateur_id
+
+                // Vérifier si une clé correspondant à la relation existe dans ViewState
+                if (isset($filterVariables[$foreignKey]) && !is_null($filterVariables[$foreignKey])) {
+                    $relationId = $filterVariables[$foreignKey];
+                    // Ajouter la relation à charger
+                    $relationsToLoad[] = $relationName;
+                    // Appliquer whereHas() dynamiquement
+                    $builder->whereHas($relationName, function ($query) use ($relationId) {
+                        $query->where('id', $relationId);
+                    });
+                }
+            }
+        }
+
+        // Appliquer le eager loading si des relations doivent être chargées
+        if (!empty($relationsToLoad)) {
+            $builder->with(array_unique($relationsToLoad));
+        }
     }
     
 }
