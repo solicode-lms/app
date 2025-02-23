@@ -1,7 +1,7 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 
-@accessiblePermissions(['index-user', 'index-role', 'index-permission', 'index-profile'])
+@accessiblePermissions(['index-user', 'index-role', 'index-permission'])
 @if($accessiblePermissions->isNotEmpty())
 <li id="menu-PkgAutorisation" class="nav-item has-treeview  {{ Request::is('admin/PkgAutorisation*') ? 'menu-open' : '' }}">
     <a href="#" class="nav-link nav-link {{ Request::is('admin/PkgAutorisation*') ? 'active' : '' }}">
@@ -33,14 +33,6 @@
             <a href="{{ route('permissions.index') }}" class="nav-link {{ Request::is('admin/PkgAutorisation/permissions') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-lock-open"></i>
                 {{__('PkgAutorisation::permission.plural')}}
-            </a>
-        </li>
-        @endcan
-        @can('index-profile') 
-        <li class="nav-item" id="menu-profiles">
-            <a href="{{ route('profiles.index') }}" class="nav-link {{ Request::is('admin/PkgAutorisation/profiles') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-table"></i>
-                {{__('PkgAutorisation::profile.plural')}}
             </a>
         </li>
         @endcan

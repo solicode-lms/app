@@ -79,33 +79,39 @@ class RealisationProjetService extends BaseRealisationProjetService
     public function paginate(array $params = [], int $perPage = 0, array $columns = ['*']): LengthAwarePaginator
     {
         $perPage = $perPage ?: $this->paginationLimit;
-        $query = $this->allQuery($params);
 
-         // Vérification et application du filtre par formateur si disponible
-        if (isset($params['formateur_id']) && !empty($params['formateur_id'])) {
-            $formateur_id = $params['formateur_id'];
+        return $this->model::withScope(function () use ($params, $perPage, $columns) {
+            $query = $this->allQuery($params);
 
-            $query->whereHas('affectationProjet', function ($query) use ($formateur_id) {
-                $query->whereHas('projet', function ($q) use ($formateur_id) {
-                    $q->where('formateur_id', $formateur_id);
-                });
-            });
-        }
+            // Vérification et application du filtre par formateur si disponible
+            if (isset($params['formateur_id']) && !empty($params['formateur_id'])) {
+                $formateur_id = $params['formateur_id'];
 
-         // Filtrer par groupe des apprenants du même groupe
-        if (!empty($params['scope_groupe_apprenant_id'])) {
-            $apprenant_id = $params['scope_groupe_apprenant_id'];
-
-            $query->whereHas('apprenant', function ($q) use ($apprenant_id) {
-                $q->whereHas('groupes', function ($g) use ($apprenant_id) {
-                    $g->whereHas('apprenants', function ($a) use ($apprenant_id) {
-                        $a->where('apprenants.id', $apprenant_id);
+                $query->whereHas('affectationProjet', function ($query) use ($formateur_id) {
+                    $query->whereHas('projet', function ($q) use ($formateur_id) {
+                        $q->where('formateur_id', $formateur_id);
                     });
                 });
-            });
-        }
+            }
 
-        return $query->paginate($perPage, $columns);
+            // Filtrer par groupe des apprenants du même groupe
+            if (!empty($params['scope_groupe_apprenant_id'])) {
+                $apprenant_id = $params['scope_groupe_apprenant_id'];
+
+                $query->whereHas('apprenant', function ($q) use ($apprenant_id) {
+                    $q->whereHas('groupes', function ($g) use ($apprenant_id) {
+                        $g->whereHas('apprenants', function ($a) use ($apprenant_id) {
+                            $a->where('apprenants.id', $apprenant_id);
+                        });
+                    });
+                });
+            }
+
+            return $query->paginate($perPage, $columns);
+        });
+
+
+       
     }
     
  

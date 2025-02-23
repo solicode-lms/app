@@ -43,7 +43,7 @@ class BaseRealisationProjetController extends AdminController
            $this->viewState->init('filter.realisationProjet.affectationProjet.projet.formateur_id'  , $this->sessionState->get('formateur_id'));
         }
         if(Auth::user()->hasRole('apprenant')){
-           $this->viewState->init('filter.realisationProjet.apprenant_id'  , $this->sessionState->get('formateur_id'));
+           $this->viewState->init('filter.realisationProjet.apprenant_id'  , $this->sessionState->get('apprenant_id'));
         }
 
 
@@ -74,7 +74,7 @@ class BaseRealisationProjetController extends AdminController
            $this->viewState->set('scope_form.realisationProjet.affectationProjet.projet.formateur_id'  , $this->sessionState->get('formateur_id'));
         }
         if(Auth::user()->hasRole('apprenant')){
-           $this->viewState->set('scope_form.realisationProjet.apprenant_id'  , $this->sessionState->get('formateur_id'));
+           $this->viewState->set('scope_form.realisationProjet.apprenant_id'  , $this->sessionState->get('apprenant_id'));
         }
 
 

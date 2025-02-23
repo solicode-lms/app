@@ -2,5 +2,5 @@
 
 return [
     'name' => 'Réalisations',
-    'icon' => 'fa-user-cog'
+    'icon' => 'fa-laptop-code'
 ];

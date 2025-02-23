@@ -12,7 +12,7 @@
               <img src="{{ asset('images/man.png') }}" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-              <a href="{{ route('profiles.edit',  ['profile' => Auth::user()->id]) }}" class="d-block">
+              <a href="{{ route('profiles.index',  ['action' => 'edit' ,'id' => Auth::user()->id]) }}" class="d-block">
                 @if (Auth::check() && Auth::user()->name)
                     {{ Auth::user()->name }} 
                 @endif

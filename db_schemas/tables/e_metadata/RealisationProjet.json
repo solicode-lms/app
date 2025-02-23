@@ -249,7 +249,8 @@
     },
     {
         "reference": "realisation_projets_iconModel",
-        "value_string": "fa-laptop-code",
+        "value_boolean": 0,
+        "value_string": "fa-coffee",
         "value_float": 0,
         "e_model_reference": "realisation_projets",
         "e_metadata_definition_reference": "iconModel"
@@ -300,7 +301,7 @@
             {
                 "role": "apprenant",
                 "dataScope": "filter",
-                "userModelName": "Formateur",
+                "userModelName": "Apprenant",
                 "ownerRelationPath": "apprenant.user"
             }
         ],
