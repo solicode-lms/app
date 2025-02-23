@@ -101,6 +101,7 @@ class BaseResourceController extends AdminController
         $this->viewState->setContextKey('resource.edit_' . $id);
 
         $itemResource = $this->resourceService->find($id);
+        $this->authorize('view', $itemResource);
 
         $projets = $this->projetService->all();
 

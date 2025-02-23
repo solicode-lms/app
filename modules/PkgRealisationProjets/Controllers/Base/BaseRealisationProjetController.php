@@ -117,6 +117,7 @@ class BaseRealisationProjetController extends AdminController
         $this->viewState->setContextKey('realisationProjet.edit_' . $id);
 
         $itemRealisationProjet = $this->realisationProjetService->find($id);
+        $this->authorize('view', $itemRealisationProjet);
 
         $affectationProjets = $this->affectationProjetService->all();
         $apprenants = $this->apprenantService->all();

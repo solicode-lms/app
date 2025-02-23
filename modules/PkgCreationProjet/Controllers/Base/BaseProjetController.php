@@ -109,6 +109,7 @@ class BaseProjetController extends AdminController
         $this->viewState->setContextKey('projet.edit_' . $id);
 
         $itemProjet = $this->projetService->find($id);
+        $this->authorize('view', $itemProjet);
 
         $filieres = $this->filiereService->all();
         $formateurs = $this->formateurService->all();

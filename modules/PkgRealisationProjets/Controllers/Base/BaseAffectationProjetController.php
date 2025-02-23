@@ -129,6 +129,7 @@ class BaseAffectationProjetController extends AdminController
             $this->viewState->init('scope.groupe.formateurs.formateur_id'  , $this->sessionState->get('formateur_id'));
         }
         $itemAffectationProjet = $this->affectationProjetService->find($id);
+        $this->authorize('view', $itemAffectationProjet);
 
         $projets = $this->projetService->all();
         $groupes = $this->groupeService->all();

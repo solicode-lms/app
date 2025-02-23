@@ -105,6 +105,7 @@ class BaseValidationController extends AdminController
         $this->viewState->setContextKey('validation.edit_' . $id);
 
         $itemValidation = $this->validationService->find($id);
+        $this->authorize('view', $itemValidation);
 
         $transfertCompetences = $this->transfertCompetenceService->all();
         $realisationProjets = $this->realisationProjetService->all();

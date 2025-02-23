@@ -38,6 +38,13 @@ class BaseProfileController extends AdminController
            $this->viewState->init('scope.profile.user_id'  , $this->sessionState->get('user_id'));
         }
 
+        // scopeDataByRole
+        if(Auth::user()->hasRole('formateur')){
+            $this->viewState->init('scope.user.formateur_id'  , $this->sessionState->get('formateur_id'));
+        }
+        if(Auth::user()->hasRole('apprenant')){
+            $this->viewState->init('scope.user.apprenant_id'  , $this->sessionState->get('apprenant_id'));
+        }
 
         // Extraire les paramètres de recherche, page, et filtres
         $profiles_params = array_merge(
@@ -70,6 +77,12 @@ class BaseProfileController extends AdminController
         }
 
 
+        if(Auth::user()->hasRole('formateur')){
+            $this->viewState->init('scope.user.formateur_id'  , $this->sessionState->get('formateur_id'));
+        }
+        if(Auth::user()->hasRole('apprenant')){
+            $this->viewState->init('scope.user.apprenant_id'  , $this->sessionState->get('apprenant_id'));
+        }
         $itemProfile = $this->profileService->createInstance();
         
         $users = $this->userService->all();
@@ -106,7 +119,14 @@ class BaseProfileController extends AdminController
 
         $this->viewState->setContextKey('profile.edit_' . $id);
 
+        if(Auth::user()->hasRole('formateur')){
+            $this->viewState->init('scope.user.formateur_id'  , $this->sessionState->get('formateur_id'));
+        }
+        if(Auth::user()->hasRole('apprenant')){
+            $this->viewState->init('scope.user.apprenant_id'  , $this->sessionState->get('apprenant_id'));
+        }
         $itemProfile = $this->profileService->find($id);
+        $this->authorize('view', $itemProfile);
 
         $users = $this->userService->all();
 
@@ -122,6 +142,12 @@ class BaseProfileController extends AdminController
 
         $this->viewState->setContextKey('profile.edit_' . $id);
 
+        if(Auth::user()->hasRole('formateur')){
+            $this->viewState->init('scope.user.formateur_id'  , $this->sessionState->get('formateur_id'));
+        }
+        if(Auth::user()->hasRole('apprenant')){
+            $this->viewState->init('scope.user.apprenant_id'  , $this->sessionState->get('apprenant_id'));
+        }
         $itemProfile = $this->profileService->find($id);
         $this->authorize('edit', $itemProfile);
 
