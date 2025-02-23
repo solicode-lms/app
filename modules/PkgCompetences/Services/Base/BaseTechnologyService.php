@@ -43,11 +43,16 @@ class BaseTechnologyService extends BaseService
         $this->fieldsFilterable = [];
     }
 
-    public function initFieldsFilterable(){
-       // Initialiser les filtres configurables dynamiquement
-        $this->fieldsFilterable = [
-            $this->generateManyToOneFilter(__("PkgCompetences::categoryTechnology.plural"), 'category_technology_id', \Modules\PkgCompetences\Models\CategoryTechnology::class, 'nom'),
-        ];
+
+    public function initFieldsFilterable()
+    {
+        // Initialiser les filtres configurables dynamiquement
+        $scopeVariables = $this->viewState->getScopeVariables('technology');
+        $this->fieldsFilterable = [];
+    
+        if (!array_key_exists('category_technology_id', $scopeVariables)) {
+        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgCompetences::categoryTechnology.plural"), 'category_technology_id', \Modules\PkgCompetences\Models\CategoryTechnology::class, 'nom');
+        }
     }
 
     /**

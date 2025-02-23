@@ -58,12 +58,19 @@ class BaseApprenantService extends BaseService
         $this->fieldsFilterable = [];
     }
 
-    public function initFieldsFilterable(){
-       // Initialiser les filtres configurables dynamiquement
-        $this->fieldsFilterable = [
-            $this->generateManyToOneFilter(__("PkgApprenants::niveauxScolaire.plural"), 'niveaux_scolaire_id', \Modules\PkgApprenants\Models\NiveauxScolaire::class, 'code'),
-            $this->generateManyToManyFilter(__("PkgApprenants::groupe.plural"), 'groupe_id', \Modules\PkgApprenants\Models\Groupe::class, 'code'),
-        ];
+
+    public function initFieldsFilterable()
+    {
+        // Initialiser les filtres configurables dynamiquement
+        $scopeVariables = $this->viewState->getScopeVariables('apprenant');
+        $this->fieldsFilterable = [];
+    
+        if (!array_key_exists('niveaux_scolaire_id', $scopeVariables)) {
+        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgApprenants::niveauxScolaire.plural"), 'niveaux_scolaire_id', \Modules\PkgApprenants\Models\NiveauxScolaire::class, 'code');
+        }
+        if (!array_key_exists('groupes', $scopeVariables)) {
+        $this->fieldsFilterable[] = $this->generateManyToManyFilter(__("PkgApprenants::groupe.plural"), 'groupe_id', \Modules\PkgApprenants\Models\Groupe::class, 'code');
+        }
     }
 
     /**

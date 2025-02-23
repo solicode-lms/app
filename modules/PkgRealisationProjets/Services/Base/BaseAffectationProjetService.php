@@ -46,12 +46,19 @@ class BaseAffectationProjetService extends BaseService
         $this->fieldsFilterable = [];
     }
 
-    public function initFieldsFilterable(){
-       // Initialiser les filtres configurables dynamiquement
-        $this->fieldsFilterable = [
-            $this->generateManyToOneFilter(__("PkgCreationProjet::projet.plural"), 'projet_id', \Modules\PkgCreationProjet\Models\Projet::class, 'titre'),
-            $this->generateManyToOneFilter(__("PkgApprenants::groupe.plural"), 'groupe_id', \Modules\PkgApprenants\Models\Groupe::class, 'code'),
-        ];
+
+    public function initFieldsFilterable()
+    {
+        // Initialiser les filtres configurables dynamiquement
+        $scopeVariables = $this->viewState->getScopeVariables('affectationProjet');
+        $this->fieldsFilterable = [];
+    
+        if (!array_key_exists('projet_id', $scopeVariables)) {
+        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgCreationProjet::projet.plural"), 'projet_id', \Modules\PkgCreationProjet\Models\Projet::class, 'titre');
+        }
+        if (!array_key_exists('groupe_id', $scopeVariables)) {
+        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgApprenants::groupe.plural"), 'groupe_id', \Modules\PkgApprenants\Models\Groupe::class, 'code');
+        }
     }
 
     /**

@@ -45,12 +45,19 @@ class BaseSysModelService extends BaseService
         $this->fieldsFilterable = [];
     }
 
-    public function initFieldsFilterable(){
-       // Initialiser les filtres configurables dynamiquement
-        $this->fieldsFilterable = [
-            $this->generateManyToOneFilter(__("Core::sysModule.plural"), 'sys_module_id', \Modules\Core\Models\SysModule::class, 'name'),
-            $this->generateManyToOneFilter(__("Core::sysColor.plural"), 'sys_color_id', \Modules\Core\Models\SysColor::class, 'name'),
-        ];
+
+    public function initFieldsFilterable()
+    {
+        // Initialiser les filtres configurables dynamiquement
+        $scopeVariables = $this->viewState->getScopeVariables('sysModel');
+        $this->fieldsFilterable = [];
+    
+        if (!array_key_exists('sys_module_id', $scopeVariables)) {
+        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("Core::sysModule.plural"), 'sys_module_id', \Modules\Core\Models\SysModule::class, 'name');
+        }
+        if (!array_key_exists('sys_color_id', $scopeVariables)) {
+        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("Core::sysColor.plural"), 'sys_color_id', \Modules\Core\Models\SysColor::class, 'name');
+        }
     }
 
     /**

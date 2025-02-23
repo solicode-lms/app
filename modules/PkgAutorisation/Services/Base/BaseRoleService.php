@@ -42,10 +42,13 @@ class BaseRoleService extends BaseService
         $this->fieldsFilterable = [];
     }
 
-    public function initFieldsFilterable(){
-       // Initialiser les filtres configurables dynamiquement
-        $this->fieldsFilterable = [
-        ];
+
+    public function initFieldsFilterable()
+    {
+        // Initialiser les filtres configurables dynamiquement
+        $scopeVariables = $this->viewState->getScopeVariables('role');
+        $this->fieldsFilterable = [];
+    
     }
 
     /**

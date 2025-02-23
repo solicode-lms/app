@@ -46,13 +46,22 @@ class BaseRealisationProjetService extends BaseService
         $this->fieldsFilterable = [];
     }
 
-    public function initFieldsFilterable(){
-       // Initialiser les filtres configurables dynamiquement
-        $this->fieldsFilterable = [
-            $this->generateManyToOneFilter(__("PkgRealisationProjets::affectationProjet.plural"), 'affectation_projet_id', \Modules\PkgRealisationProjets\Models\AffectationProjet::class, 'id'),
-            $this->generateManyToOneFilter(__("PkgApprenants::apprenant.plural"), 'apprenant_id', \Modules\PkgApprenants\Models\Apprenant::class, 'nom'),
-            $this->generateManyToOneFilter(__("PkgRealisationProjets::etatsRealisationProjet.plural"), 'etats_realisation_projet_id', \Modules\PkgRealisationProjets\Models\EtatsRealisationProjet::class, 'titre'),
-        ];
+
+    public function initFieldsFilterable()
+    {
+        // Initialiser les filtres configurables dynamiquement
+        $scopeVariables = $this->viewState->getScopeVariables('realisationProjet');
+        $this->fieldsFilterable = [];
+    
+        if (!array_key_exists('affectation_projet_id', $scopeVariables)) {
+        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgRealisationProjets::affectationProjet.plural"), 'affectation_projet_id', \Modules\PkgRealisationProjets\Models\AffectationProjet::class, 'id');
+        }
+        if (!array_key_exists('apprenant_id', $scopeVariables)) {
+        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgApprenants::apprenant.plural"), 'apprenant_id', \Modules\PkgApprenants\Models\Apprenant::class, 'nom');
+        }
+        if (!array_key_exists('etats_realisation_projet_id', $scopeVariables)) {
+        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgRealisationProjets::etatsRealisationProjet.plural"), 'etats_realisation_projet_id', \Modules\PkgRealisationProjets\Models\EtatsRealisationProjet::class, 'titre');
+        }
     }
 
     /**

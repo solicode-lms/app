@@ -250,12 +250,12 @@
         "value_float": 0,
         "value_json": [
             {
-                "key": "scope.user.formateur_id",
+                "key": "scope.user.formateur.id",
                 "role": "formateur",
                 "value": "formateur_id"
             },
             {
-                "key": "scope.user.apprenant_id",
+                "key": "scope.user.apprenant.id",
                 "role": "apprenant",
                 "value": "apprenant_id"
             }

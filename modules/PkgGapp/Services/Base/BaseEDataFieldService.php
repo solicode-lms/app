@@ -52,13 +52,22 @@ class BaseEDataFieldService extends BaseService
         $this->fieldsFilterable = [];
     }
 
-    public function initFieldsFilterable(){
-       // Initialiser les filtres configurables dynamiquement
-        $this->fieldsFilterable = [
-            $this->generateManyToOneFilter(__("PkgGapp::eModel.plural"), 'e_model_id', \Modules\PkgGapp\Models\EModel::class, 'name'),
-            $this->generateManyToOneFilter(__("PkgGapp::eRelationship.plural"), 'e_relationship_id', \Modules\PkgGapp\Models\ERelationship::class, 'name'),
-            ['field' => 'data_type', 'type' => 'String', 'label' => 'data_type'],
-        ];
+
+    public function initFieldsFilterable()
+    {
+        // Initialiser les filtres configurables dynamiquement
+        $scopeVariables = $this->viewState->getScopeVariables('eDataField');
+        $this->fieldsFilterable = [];
+    
+        if (!array_key_exists('e_model_id', $scopeVariables)) {
+        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgGapp::eModel.plural"), 'e_model_id', \Modules\PkgGapp\Models\EModel::class, 'name');
+        }
+        if (!array_key_exists('e_relationship_id', $scopeVariables)) {
+        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgGapp::eRelationship.plural"), 'e_relationship_id', \Modules\PkgGapp\Models\ERelationship::class, 'name');
+        }
+        if (!array_key_exists('data_type', $scopeVariables)) {
+        $this->fieldsFilterable[] = ['field' => 'data_type', 'type' => 'String', 'label' => 'data_type'];
+        }
     }
 
     /**

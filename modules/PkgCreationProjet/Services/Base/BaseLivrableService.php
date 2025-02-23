@@ -44,12 +44,19 @@ class BaseLivrableService extends BaseService
         $this->fieldsFilterable = [];
     }
 
-    public function initFieldsFilterable(){
-       // Initialiser les filtres configurables dynamiquement
-        $this->fieldsFilterable = [
-            $this->generateManyToOneFilter(__("PkgCreationProjet::natureLivrable.plural"), 'nature_livrable_id', \Modules\PkgCreationProjet\Models\NatureLivrable::class, 'nom'),
-            $this->generateManyToOneFilter(__("PkgCreationProjet::projet.plural"), 'projet_id', \Modules\PkgCreationProjet\Models\Projet::class, 'titre'),
-        ];
+
+    public function initFieldsFilterable()
+    {
+        // Initialiser les filtres configurables dynamiquement
+        $scopeVariables = $this->viewState->getScopeVariables('livrable');
+        $this->fieldsFilterable = [];
+    
+        if (!array_key_exists('nature_livrable_id', $scopeVariables)) {
+        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgCreationProjet::natureLivrable.plural"), 'nature_livrable_id', \Modules\PkgCreationProjet\Models\NatureLivrable::class, 'nom');
+        }
+        if (!array_key_exists('projet_id', $scopeVariables)) {
+        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgCreationProjet::projet.plural"), 'projet_id', \Modules\PkgCreationProjet\Models\Projet::class, 'titre');
+        }
     }
 
     /**

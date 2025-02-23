@@ -43,11 +43,16 @@ class BaseFeatureService extends BaseService
         $this->fieldsFilterable = [];
     }
 
-    public function initFieldsFilterable(){
-       // Initialiser les filtres configurables dynamiquement
-        $this->fieldsFilterable = [
-            $this->generateManyToOneFilter(__("Core::featureDomain.plural"), 'feature_domain_id', \Modules\Core\Models\FeatureDomain::class, 'name'),
-        ];
+
+    public function initFieldsFilterable()
+    {
+        // Initialiser les filtres configurables dynamiquement
+        $scopeVariables = $this->viewState->getScopeVariables('feature');
+        $this->fieldsFilterable = [];
+    
+        if (!array_key_exists('feature_domain_id', $scopeVariables)) {
+        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("Core::featureDomain.plural"), 'feature_domain_id', \Modules\Core\Models\FeatureDomain::class, 'name');
+        }
     }
 
     /**

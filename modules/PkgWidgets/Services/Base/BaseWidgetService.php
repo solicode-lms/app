@@ -48,13 +48,22 @@ class BaseWidgetService extends BaseService
         $this->fieldsFilterable = [];
     }
 
-    public function initFieldsFilterable(){
-       // Initialiser les filtres configurables dynamiquement
-        $this->fieldsFilterable = [
-            $this->generateManyToOneFilter(__("PkgWidgets::widgetType.plural"), 'type_id', \Modules\PkgWidgets\Models\WidgetType::class, 'type'),
-            $this->generateManyToOneFilter(__("Core::sysModel.plural"), 'model_id', \Modules\Core\Models\SysModel::class, 'name'),
-            $this->generateManyToOneFilter(__("PkgWidgets::widgetOperation.plural"), 'operation_id', \Modules\PkgWidgets\Models\WidgetOperation::class, 'id'),
-        ];
+
+    public function initFieldsFilterable()
+    {
+        // Initialiser les filtres configurables dynamiquement
+        $scopeVariables = $this->viewState->getScopeVariables('widget');
+        $this->fieldsFilterable = [];
+    
+        if (!array_key_exists('type_id', $scopeVariables)) {
+        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgWidgets::widgetType.plural"), 'type_id', \Modules\PkgWidgets\Models\WidgetType::class, 'type');
+        }
+        if (!array_key_exists('model_id', $scopeVariables)) {
+        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("Core::sysModel.plural"), 'model_id', \Modules\Core\Models\SysModel::class, 'name');
+        }
+        if (!array_key_exists('operation_id', $scopeVariables)) {
+        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgWidgets::widgetOperation.plural"), 'operation_id', \Modules\PkgWidgets\Models\WidgetOperation::class, 'id');
+        }
     }
 
     /**

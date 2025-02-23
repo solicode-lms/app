@@ -53,13 +53,22 @@ class BaseEMetadatumService extends BaseService
         $this->fieldsFilterable = [];
     }
 
-    public function initFieldsFilterable(){
-       // Initialiser les filtres configurables dynamiquement
-        $this->fieldsFilterable = [
-            $this->generateManyToOneFilter(__("PkgGapp::eModel.plural"), 'e_model_id', \Modules\PkgGapp\Models\EModel::class, 'name'),
-            $this->generateManyToOneFilter(__("PkgGapp::eDataField.plural"), 'e_data_field_id', \Modules\PkgGapp\Models\EDataField::class, 'name'),
-            $this->generateManyToOneFilter(__("PkgGapp::eMetadataDefinition.plural"), 'e_metadata_definition_id', \Modules\PkgGapp\Models\EMetadataDefinition::class, 'name'),
-        ];
+
+    public function initFieldsFilterable()
+    {
+        // Initialiser les filtres configurables dynamiquement
+        $scopeVariables = $this->viewState->getScopeVariables('eMetadatum');
+        $this->fieldsFilterable = [];
+    
+        if (!array_key_exists('e_model_id', $scopeVariables)) {
+        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgGapp::eModel.plural"), 'e_model_id', \Modules\PkgGapp\Models\EModel::class, 'name');
+        }
+        if (!array_key_exists('e_data_field_id', $scopeVariables)) {
+        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgGapp::eDataField.plural"), 'e_data_field_id', \Modules\PkgGapp\Models\EDataField::class, 'name');
+        }
+        if (!array_key_exists('e_metadata_definition_id', $scopeVariables)) {
+        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgGapp::eMetadataDefinition.plural"), 'e_metadata_definition_id', \Modules\PkgGapp\Models\EMetadataDefinition::class, 'name');
+        }
     }
 
     /**

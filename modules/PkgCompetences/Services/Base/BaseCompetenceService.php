@@ -45,11 +45,16 @@ class BaseCompetenceService extends BaseService
         $this->fieldsFilterable = [];
     }
 
-    public function initFieldsFilterable(){
-       // Initialiser les filtres configurables dynamiquement
-        $this->fieldsFilterable = [
-            $this->generateManyToOneFilter(__("PkgFormation::module.plural"), 'module_id', \Modules\PkgFormation\Models\Module::class, 'code'),
-        ];
+
+    public function initFieldsFilterable()
+    {
+        // Initialiser les filtres configurables dynamiquement
+        $scopeVariables = $this->viewState->getScopeVariables('competence');
+        $this->fieldsFilterable = [];
+    
+        if (!array_key_exists('module_id', $scopeVariables)) {
+        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgFormation::module.plural"), 'module_id', \Modules\PkgFormation\Models\Module::class, 'code');
+        }
     }
 
     /**
