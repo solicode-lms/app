@@ -5,29 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title')</title>
-  
     <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('vendor/admin-lte/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-   
     <script src="{{ asset('vendor/select2/js/select2.full.min.js') }}"></script>
     <script src="{{ asset('vendor/summernote/summernote-bs4.min.js') }}"></script>
-
     <script src="{{ asset('vendor/admin-lte/js/adminlte.min.js') }}"></script>
-
-    
     <!-- iziModal CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izimodal/1.6.1/css/iziModal.min.css">
     <!-- iziModal JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/izimodal/1.6.1/js/iziModal.min.js"></script>
-
     @vite(['resources/css/admin.css', 'resources/js/admin.js'])
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
-
     <div class="wrapper">
-
-
         <nav class="main-header navbar navbar-expand navbar-white navbar-light">
             <!-- Left navbar links -->
             <ul class="navbar-nav">
@@ -88,16 +79,12 @@
               </li>
             </ul>
         </nav>
-
-
         <!-- Left side column. contains the logo and sidebar -->
         @include('layouts.sidebar')
-
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             @yield('content')
         </div>
-
         <!-- Main Footer -->
         <footer class="main-footer">
             <div class="float-right d-none d-sm-block">
@@ -107,8 +94,6 @@
             réservés.
         </footer>
     </div>
-
-
     @if(session('warning'))
     <div class="alert alert-warning alert-dismissible fade show" role="alert">
         {{ session('warning') }}
@@ -117,8 +102,6 @@
         </button>
     </div>
 @endif
-
-
     <script>
         window.notifications = window.notifications || [];
         @if (session('info'))
@@ -145,9 +128,7 @@
             message: "{{ session('error') }}"
         });   
         @endif
-      
     </script>
-
     <script>
     window.contextState = @json($contextState);
     window.sessionState = @json($sessionState);
