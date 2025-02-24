@@ -19,12 +19,16 @@ return new class extends Migration
             $table->string('code')->nullable()->after('id'); 
         });
 
-        // Étape 2 : Remplir les anciennes lignes avec des valeurs uniques
-        DB::table('modules')->get()->each(function ($module) {
+    
+
+         // Étape 2 : Remplir les anciennes lignes avec un code généré
+         DB::table('modules')->get()->each(function ($module) {
+            $generatedCode = 'MOD-' . str_pad($module->id, 5, '0', STR_PAD_LEFT) . '-' . substr(md5(uniqid()), 0, 6);
             DB::table('modules')
                 ->where('id', $module->id)
-                ->update(['code' => $module->nom, 'nom' => $module->description ]);
+                ->update(['code' => $generatedCode]);
         });
+        
 
         // Étape 3 : Rendre la colonne unique
         Schema::table('modules', function (Blueprint $table) {

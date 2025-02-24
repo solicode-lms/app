@@ -5,8 +5,11 @@
 
 
 ````bash
-mysqldump -u root -p nom_base_de_donnees > sauvegarde.sql
+mysqldump -u root -p solicode_lms > sauvegarde.sql
 ````
+
+
+
 
 2. Migration 
 - execution de migration 
