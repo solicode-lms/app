@@ -1,6 +1,15 @@
-# Procédure de mise à jour de code 
+# Procédure de mise à jour de SoliLMS sur le serveur
 
 
+1. Backup de la base de donnée 
+
+
+````bash
+mysqldump -u root -p nom_base_de_donnees > sauvegarde.sql
+````
+
+
+2. Migration 
 - execution de migration 
   - insertion de module : code 
 - Ajouter le droit d'afficher, lecture Projet pour afficher les projet qui lui sont affectés
