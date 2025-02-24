@@ -8,7 +8,6 @@
 mysqldump -u root -p nom_base_de_donnees > sauvegarde.sql
 ````
 
-
 2. Migration 
 - execution de migration 
   - insertion de module : code 
