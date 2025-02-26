@@ -9,11 +9,19 @@
     <td>@limit($realisationProjet->apprenant, 50)</td>
     <td>
        
-        @if ($realisationProjet->etatsRealisationProjet?->titre == "Terminé")
-        <span class="badge badge-primary">@limit($realisationProjet->etatsRealisationProjet, 10)</span>
-        @else
-        <span class="badge badge-success">@limit($realisationProjet->etatsRealisationProjet, 10)</span>
-        @endif
+        @php
+            $etat = $realisationProjet->etatsRealisationProjet?->titre ?? '';
+            $couleurs = [
+                "En cours" => "badge-success",
+                "Terminé" => "badge-primary",
+                "Annulé" => "badge-secondary",
+                "En validation" => "badge-warning",
+                "En pause" => "badge-danger",
+                "En présentation" => "badge-info"
+            ];
+            $classeBadge = $couleurs[$etat] ?? "badge-secondary";
+        @endphp
+        <span class="badge {{ $classeBadge }}">@limit($realisationProjet->etatsRealisationProjet, 10)</span>
     </td>
     <td>
         <ul>
