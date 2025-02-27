@@ -12,4 +12,9 @@ class Apprenant extends BaseApprenant
         return optional($this->realisationProjets->first()?->affectationProjet?->projet?->formateur)->id;
     }
 
+    public function __toString()
+    {
+        return ($this->nom ?? "") . " " . $this->prenom ?? "";
+    }
+
 }

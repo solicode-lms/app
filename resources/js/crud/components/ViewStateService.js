@@ -123,6 +123,9 @@ export class ViewStateService {
     getFilterVariables() {
         return this.getVariablesByType(['scope', 'filter']);
     }
+    getStatsVariables() {
+        return this.getVariablesByType(['stats']);
+    }
 
     updatFilterVariables(filterData) {
         if (!ViewStateService.viewState[this.contextKey]) {

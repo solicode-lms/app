@@ -41,6 +41,8 @@ abstract class BaseService implements ServiceInterface
     protected $modelName;
     protected $paginationLimit = 20;
 
+    protected $totalFilteredCount;
+
     /**
      * Méthode abstraite pour obtenir les champs recherchables.
      *

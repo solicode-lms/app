@@ -51,7 +51,9 @@ export class LoadListAction extends BaseAction {
             .done((html) => {
                 // Mettre à jour le conteneur avec les nouvelles données
                 $(this.config.tableSelector).html(html);
+                this.executeScripts(html);
                 this.tableUI.init();
+                this.tableUI.indexUI.filterUI.init();
                 // Afficher un message de succès (optionnel)
                 // NotificationHandler.showSuccess('Données chargées avec succès.');
             })

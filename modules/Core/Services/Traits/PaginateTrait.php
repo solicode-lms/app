@@ -20,6 +20,9 @@ trait PaginateTrait
             // $relationsToLoad = ["projet", "groupe"];
             // $query->with(array_unique($relationsToLoad));
     
+                    // Calcul du nombre total des résultats filtrés
+            $this->totalFilteredCount = $query->count();
+
             return $query->paginate($perPage, $columns);
         });
     }

@@ -8,6 +8,6 @@ return [
     'projet_id' => 'ID du Projet',
     'competence_id' => 'ID de la Compétence',
     'appreciation_id' => 'ID de l\'Appréciation',
-    'note' => 'Note de validation',
+    'note' => 'Barème(note)',
     'question' => 'Tâche à Réaliser'
 ];

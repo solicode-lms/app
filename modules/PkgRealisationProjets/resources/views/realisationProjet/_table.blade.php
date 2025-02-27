@@ -1,4 +1,4 @@
-{{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
+{{-- add view State :  window.viewState = @json($viewState); --}}
 
 <div class="card-body table-responsive p-0 crud-card-body" id="realisationProjets-crud-card-body">
     <table class="table table-striped text-nowrap">
@@ -77,3 +77,6 @@
     </ul>
     @show
 </div>
+<script>
+    window.viewState = @json($viewState);
+</script>

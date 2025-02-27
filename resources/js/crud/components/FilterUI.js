@@ -14,9 +14,11 @@ export class FilterUI {
     }
 
     init() {
+        this.config.init();
         this.handleFormInput(); // Gérer les entrées dans le formulaire (recherche + filtres)
         this.adapterPourContext(); // Masquer les filtres dynamiquement selon le contexte
         this.initializeFilterResetHandler();
+        this.initStats();
     }
 
 
@@ -186,6 +188,39 @@ export class FilterUI {
         // Vérifier l'état des filtres au chargement et sur modification
         this.updateFilterState();
     }
+
+
+/**
+ * Initialise l'affichage des statistiques.
+ */
+initStats() {
+    // Sélectionner le conteneur des statistiques
+    const statsContainer = document.querySelector(`${this.config.crudSelector} .stats-summary-items`);
+
+    if (!statsContainer) {
+        console.warn("Le conteneur des statistiques n'a pas été trouvé.");
+        return;
+    }
+
+    // Récupérer les statistiques depuis le service de contexte
+    const statsData = this.config.viewStateService.getStatsVariables();
+
+    // Vérifier si l'objet statsData et statsData.stats existent et sont valides
+    if (!statsData || !Array.isArray(statsData.stats) || statsData.stats.length === 0) {
+        statsContainer.innerHTML = '<span class="text-muted">Aucune statistique disponible</span>';
+        return;
+    }
+
+    // Générer les badges de statistiques dynamiquement
+    statsContainer.innerHTML = statsData.stats
+        .map(stat => `
+            <span class="badge badge-info mr-2 p-1" style="margin-bottom: 4px">
+                <i class="${stat.icon}"></i> ${stat.label} : ${stat.value}
+            </span>
+        `)
+        .join("");
+}
+
 
 
 

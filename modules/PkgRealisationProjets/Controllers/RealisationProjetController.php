@@ -12,6 +12,7 @@ class RealisationProjetController extends BaseRealisationProjetController
     public function index(Request $request) {
 
 
+        // TODO : ajouter commentaire
         if(Auth::user()->hasRole(Role::FORMATEUR_ROLE)){
             $request->merge(['formateur_id' => $this->sessionState->get('formateur_id')]);
         } elseif (Auth::user()->hasRole(Role::APPRENANT_ROLE)){

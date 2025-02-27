@@ -11,8 +11,8 @@ public function initStats(){
 
 
     // Calculer le total global
-    $total = $this->model->withScope(fn() =>  $this->model::count());
-
+    // $total = $this->model->withScope(fn() =>  $this->model::count());
+    $total = $this->totalFilteredCount;
     // Initialiser les statistiques avec le total global
     $stats = [
         [

@@ -59,10 +59,13 @@ class BaseRealisationProjetController extends AdminController
 
         // Récupérer les statistiques et les champs filtrables
         $realisationProjets_stats = $this->realisationProjetService->getrealisationProjetStats();
+        $this->viewState->set('stats.realisationProjet.stats'  , $realisationProjets_stats);
+
         $realisationProjets_filters = $this->realisationProjetService->getFieldsFilterable();
         $realisationProjet_instance =  $this->realisationProjetService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
+           
             return view('PkgRealisationProjets::realisationProjet._table', compact('realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters','realisationProjet_instance'))->render();
         }
 
