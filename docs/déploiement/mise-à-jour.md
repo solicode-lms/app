@@ -12,9 +12,6 @@ mysqldump -u root -p solicode_lms > sauvegarde.sql
 
 
 2. Migration 
-- execution de migration 
-  - insertion de module : code 
-- Ajouter le droit d'afficher, lecture Projet pour afficher les projet qui lui sont affectés
 
 
 ````bash
