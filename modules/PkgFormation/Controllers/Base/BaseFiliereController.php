@@ -44,6 +44,7 @@ class BaseFiliereController extends AdminController
 
         // Récupérer les statistiques et les champs filtrables
         $filieres_stats = $this->filiereService->getfiliereStats();
+        $this->viewState->set('stats.filiere.stats'  , $filieres_stats);
         $filieres_filters = $this->filiereService->getFieldsFilterable();
         $filiere_instance =  $this->filiereService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX
@@ -148,6 +149,7 @@ class BaseFiliereController extends AdminController
         $groupeService =  new GroupeService();
         $groupes_data =  $itemFiliere->groupes()->paginate(10);
         $groupes_stats = $groupeService->getgroupeStats();
+        $this->viewState->set('stats.groupe.stats'  , $groupes_stats);
         $groupes_filters = $groupeService->getFieldsFilterable();
         $groupe_instance =  $groupeService->createInstance();
 
@@ -157,6 +159,7 @@ class BaseFiliereController extends AdminController
         $moduleService =  new ModuleService();
         $modules_data =  $itemFiliere->modules()->paginate(10);
         $modules_stats = $moduleService->getmoduleStats();
+        $this->viewState->set('stats.module.stats'  , $modules_stats);
         $modules_filters = $moduleService->getFieldsFilterable();
         $module_instance =  $moduleService->createInstance();
 
@@ -166,6 +169,7 @@ class BaseFiliereController extends AdminController
         $projetService =  new ProjetService();
         $projets_data =  $itemFiliere->projets()->paginate(10);
         $projets_stats = $projetService->getprojetStats();
+        $this->viewState->set('stats.projet.stats'  , $projets_stats);
         $projets_filters = $projetService->getFieldsFilterable();
         $projet_instance =  $projetService->createInstance();
 

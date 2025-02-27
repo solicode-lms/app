@@ -42,6 +42,7 @@ class BaseCategoryTechnologyController extends AdminController
 
         // Récupérer les statistiques et les champs filtrables
         $categoryTechnologies_stats = $this->categoryTechnologyService->getcategoryTechnologyStats();
+        $this->viewState->set('stats.categoryTechnology.stats'  , $categoryTechnologies_stats);
         $categoryTechnologies_filters = $this->categoryTechnologyService->getFieldsFilterable();
         $categoryTechnology_instance =  $this->categoryTechnologyService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX
@@ -128,6 +129,7 @@ class BaseCategoryTechnologyController extends AdminController
         $technologyService =  new TechnologyService();
         $technologies_data =  $itemCategoryTechnology->technologies()->paginate(10);
         $technologies_stats = $technologyService->gettechnologyStats();
+        $this->viewState->set('stats.technology.stats'  , $technologies_stats);
         $technologies_filters = $technologyService->getFieldsFilterable();
         $technology_instance =  $technologyService->createInstance();
 

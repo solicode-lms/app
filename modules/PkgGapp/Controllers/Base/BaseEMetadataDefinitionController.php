@@ -41,6 +41,7 @@ class BaseEMetadataDefinitionController extends AdminController
 
         // Récupérer les statistiques et les champs filtrables
         $eMetadataDefinitions_stats = $this->eMetadataDefinitionService->geteMetadataDefinitionStats();
+        $this->viewState->set('stats.eMetadataDefinition.stats'  , $eMetadataDefinitions_stats);
         $eMetadataDefinitions_filters = $this->eMetadataDefinitionService->getFieldsFilterable();
         $eMetadataDefinition_instance =  $this->eMetadataDefinitionService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX

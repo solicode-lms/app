@@ -47,6 +47,7 @@ class BaseUserController extends AdminController
 
         // Récupérer les statistiques et les champs filtrables
         $users_stats = $this->userService->getuserStats();
+        $this->viewState->set('stats.user.stats'  , $users_stats);
         $users_filters = $this->userService->getFieldsFilterable();
         $user_instance =  $this->userService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX
@@ -154,6 +155,7 @@ class BaseUserController extends AdminController
         $apprenantService =  new ApprenantService();
         $apprenants_data =  $itemUser->apprenants()->paginate(10);
         $apprenants_stats = $apprenantService->getapprenantStats();
+        $this->viewState->set('stats.apprenant.stats'  , $apprenants_stats);
         $apprenants_filters = $apprenantService->getFieldsFilterable();
         $apprenant_instance =  $apprenantService->createInstance();
 
@@ -163,6 +165,7 @@ class BaseUserController extends AdminController
         $formateurService =  new FormateurService();
         $formateurs_data =  $itemUser->formateurs()->paginate(10);
         $formateurs_stats = $formateurService->getformateurStats();
+        $this->viewState->set('stats.formateur.stats'  , $formateurs_stats);
         $formateurs_filters = $formateurService->getFieldsFilterable();
         $formateur_instance =  $formateurService->createInstance();
 
@@ -172,6 +175,7 @@ class BaseUserController extends AdminController
         $profileService =  new ProfileService();
         $profiles_data =  $itemUser->profiles()->paginate(10);
         $profiles_stats = $profileService->getprofileStats();
+        $this->viewState->set('stats.profile.stats'  , $profiles_stats);
         $profiles_filters = $profileService->getFieldsFilterable();
         $profile_instance =  $profileService->createInstance();
 

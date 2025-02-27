@@ -47,6 +47,7 @@ class BaseRoleController extends AdminController
 
         // Récupérer les statistiques et les champs filtrables
         $roles_stats = $this->roleService->getroleStats();
+        $this->viewState->set('stats.role.stats'  , $roles_stats);
         $roles_filters = $this->roleService->getFieldsFilterable();
         $role_instance =  $this->roleService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX

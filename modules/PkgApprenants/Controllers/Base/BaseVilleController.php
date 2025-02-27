@@ -41,6 +41,7 @@ class BaseVilleController extends AdminController
 
         // Récupérer les statistiques et les champs filtrables
         $villes_stats = $this->villeService->getvilleStats();
+        $this->viewState->set('stats.ville.stats'  , $villes_stats);
         $villes_filters = $this->villeService->getFieldsFilterable();
         $ville_instance =  $this->villeService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX

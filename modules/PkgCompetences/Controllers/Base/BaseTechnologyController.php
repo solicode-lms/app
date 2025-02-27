@@ -50,6 +50,7 @@ class BaseTechnologyController extends AdminController
 
         // Récupérer les statistiques et les champs filtrables
         $technologies_stats = $this->technologyService->gettechnologyStats();
+        $this->viewState->set('stats.technology.stats'  , $technologies_stats);
         $technologies_filters = $this->technologyService->getFieldsFilterable();
         $technology_instance =  $this->technologyService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX

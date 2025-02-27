@@ -50,6 +50,7 @@ class BasePermissionController extends AdminController
 
         // Récupérer les statistiques et les champs filtrables
         $permissions_stats = $this->permissionService->getpermissionStats();
+        $this->viewState->set('stats.permission.stats'  , $permissions_stats);
         $permissions_filters = $this->permissionService->getFieldsFilterable();
         $permission_instance =  $this->permissionService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX

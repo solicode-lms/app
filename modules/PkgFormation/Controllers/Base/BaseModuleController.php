@@ -45,6 +45,7 @@ class BaseModuleController extends AdminController
 
         // Récupérer les statistiques et les champs filtrables
         $modules_stats = $this->moduleService->getmoduleStats();
+        $this->viewState->set('stats.module.stats'  , $modules_stats);
         $modules_filters = $this->moduleService->getFieldsFilterable();
         $module_instance =  $this->moduleService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX
@@ -134,6 +135,7 @@ class BaseModuleController extends AdminController
         $competenceService =  new CompetenceService();
         $competences_data =  $itemModule->competences()->paginate(10);
         $competences_stats = $competenceService->getcompetenceStats();
+        $this->viewState->set('stats.competence.stats'  , $competences_stats);
         $competences_filters = $competenceService->getFieldsFilterable();
         $competence_instance =  $competenceService->createInstance();
 

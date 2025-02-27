@@ -50,6 +50,7 @@ class BaseWidgetController extends AdminController
 
         // Récupérer les statistiques et les champs filtrables
         $widgets_stats = $this->widgetService->getwidgetStats();
+        $this->viewState->set('stats.widget.stats'  , $widgets_stats);
         $widgets_filters = $this->widgetService->getFieldsFilterable();
         $widget_instance =  $this->widgetService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX

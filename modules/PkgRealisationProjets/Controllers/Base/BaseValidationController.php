@@ -54,6 +54,7 @@ class BaseValidationController extends AdminController
 
         // Récupérer les statistiques et les champs filtrables
         $validations_stats = $this->validationService->getvalidationStats();
+        $this->viewState->set('stats.validation.stats'  , $validations_stats);
         $validations_filters = $this->validationService->getFieldsFilterable();
         $validation_instance =  $this->validationService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX

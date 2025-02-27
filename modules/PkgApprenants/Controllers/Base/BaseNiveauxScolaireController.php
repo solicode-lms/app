@@ -42,6 +42,7 @@ class BaseNiveauxScolaireController extends AdminController
 
         // Récupérer les statistiques et les champs filtrables
         $niveauxScolaires_stats = $this->niveauxScolaireService->getniveauxScolaireStats();
+        $this->viewState->set('stats.niveauxScolaire.stats'  , $niveauxScolaires_stats);
         $niveauxScolaires_filters = $this->niveauxScolaireService->getFieldsFilterable();
         $niveauxScolaire_instance =  $this->niveauxScolaireService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX
@@ -128,6 +129,7 @@ class BaseNiveauxScolaireController extends AdminController
         $apprenantService =  new ApprenantService();
         $apprenants_data =  $itemNiveauxScolaire->apprenants()->paginate(10);
         $apprenants_stats = $apprenantService->getapprenantStats();
+        $this->viewState->set('stats.apprenant.stats'  , $apprenants_stats);
         $apprenants_filters = $apprenantService->getFieldsFilterable();
         $apprenant_instance =  $apprenantService->createInstance();
 

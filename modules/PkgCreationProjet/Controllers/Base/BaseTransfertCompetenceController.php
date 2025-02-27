@@ -57,6 +57,7 @@ class BaseTransfertCompetenceController extends AdminController
 
         // Récupérer les statistiques et les champs filtrables
         $transfertCompetences_stats = $this->transfertCompetenceService->gettransfertCompetenceStats();
+        $this->viewState->set('stats.transfertCompetence.stats'  , $transfertCompetences_stats);
         $transfertCompetences_filters = $this->transfertCompetenceService->getFieldsFilterable();
         $transfertCompetence_instance =  $this->transfertCompetenceService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX

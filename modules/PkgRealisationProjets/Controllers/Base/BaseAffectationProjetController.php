@@ -62,6 +62,7 @@ class BaseAffectationProjetController extends AdminController
 
         // Récupérer les statistiques et les champs filtrables
         $affectationProjets_stats = $this->affectationProjetService->getaffectationProjetStats();
+        $this->viewState->set('stats.affectationProjet.stats'  , $affectationProjets_stats);
         $affectationProjets_filters = $this->affectationProjetService->getFieldsFilterable();
         $affectationProjet_instance =  $this->affectationProjetService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX
@@ -189,6 +190,7 @@ class BaseAffectationProjetController extends AdminController
         $realisationProjetService =  new RealisationProjetService();
         $realisationProjets_data =  $itemAffectationProjet->realisationProjets()->paginate(10);
         $realisationProjets_stats = $realisationProjetService->getrealisationProjetStats();
+        $this->viewState->set('stats.realisationProjet.stats'  , $realisationProjets_stats);
         $realisationProjets_filters = $realisationProjetService->getFieldsFilterable();
         $realisationProjet_instance =  $realisationProjetService->createInstance();
 

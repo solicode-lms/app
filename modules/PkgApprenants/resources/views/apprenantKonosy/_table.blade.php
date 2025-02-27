@@ -55,3 +55,6 @@
     </ul>
     @show
 </div>
+<script>
+    window.viewState = @json($viewState);
+</script>

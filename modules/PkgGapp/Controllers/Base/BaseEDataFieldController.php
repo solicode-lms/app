@@ -48,6 +48,7 @@ class BaseEDataFieldController extends AdminController
 
         // Récupérer les statistiques et les champs filtrables
         $eDataFields_stats = $this->eDataFieldService->geteDataFieldStats();
+        $this->viewState->set('stats.eDataField.stats'  , $eDataFields_stats);
         $eDataFields_filters = $this->eDataFieldService->getFieldsFilterable();
         $eDataField_instance =  $this->eDataFieldService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX
@@ -140,6 +141,7 @@ class BaseEDataFieldController extends AdminController
         $eMetadatumService =  new EMetadatumService();
         $eMetadata_data =  $itemEDataField->eMetadata()->paginate(10);
         $eMetadata_stats = $eMetadatumService->geteMetadatumStats();
+        $this->viewState->set('stats.eMetadatum.stats'  , $eMetadata_stats);
         $eMetadata_filters = $eMetadatumService->getFieldsFilterable();
         $eMetadatum_instance =  $eMetadatumService->createInstance();
 

@@ -41,6 +41,7 @@ class BaseApprenantKonosyController extends AdminController
 
         // Récupérer les statistiques et les champs filtrables
         $apprenantKonosies_stats = $this->apprenantKonosyService->getapprenantKonosyStats();
+        $this->viewState->set('stats.apprenantKonosy.stats'  , $apprenantKonosies_stats);
         $apprenantKonosies_filters = $this->apprenantKonosyService->getFieldsFilterable();
         $apprenantKonosy_instance =  $this->apprenantKonosyService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX

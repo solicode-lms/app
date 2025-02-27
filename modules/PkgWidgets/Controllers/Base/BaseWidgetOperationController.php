@@ -42,6 +42,7 @@ class BaseWidgetOperationController extends AdminController
 
         // Récupérer les statistiques et les champs filtrables
         $widgetOperations_stats = $this->widgetOperationService->getwidgetOperationStats();
+        $this->viewState->set('stats.widgetOperation.stats'  , $widgetOperations_stats);
         $widgetOperations_filters = $this->widgetOperationService->getFieldsFilterable();
         $widgetOperation_instance =  $this->widgetOperationService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX
@@ -128,6 +129,7 @@ class BaseWidgetOperationController extends AdminController
         $widgetService =  new WidgetService();
         $widgets_data =  $itemWidgetOperation->widgets()->paginate(10);
         $widgets_stats = $widgetService->getwidgetStats();
+        $this->viewState->set('stats.widget.stats'  , $widgets_stats);
         $widgets_filters = $widgetService->getFieldsFilterable();
         $widget_instance =  $widgetService->createInstance();
 

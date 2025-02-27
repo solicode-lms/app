@@ -42,6 +42,7 @@ class BaseEPackageController extends AdminController
 
         // Récupérer les statistiques et les champs filtrables
         $ePackages_stats = $this->ePackageService->getePackageStats();
+        $this->viewState->set('stats.ePackage.stats'  , $ePackages_stats);
         $ePackages_filters = $this->ePackageService->getFieldsFilterable();
         $ePackage_instance =  $this->ePackageService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX
@@ -128,6 +129,7 @@ class BaseEPackageController extends AdminController
         $eModelService =  new EModelService();
         $eModels_data =  $itemEPackage->eModels()->paginate(10);
         $eModels_stats = $eModelService->geteModelStats();
+        $this->viewState->set('stats.eModel.stats'  , $eModels_stats);
         $eModels_filters = $eModelService->getFieldsFilterable();
         $eModel_instance =  $eModelService->createInstance();
 

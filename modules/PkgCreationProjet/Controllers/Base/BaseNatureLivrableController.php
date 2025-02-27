@@ -42,6 +42,7 @@ class BaseNatureLivrableController extends AdminController
 
         // Récupérer les statistiques et les champs filtrables
         $natureLivrables_stats = $this->natureLivrableService->getnatureLivrableStats();
+        $this->viewState->set('stats.natureLivrable.stats'  , $natureLivrables_stats);
         $natureLivrables_filters = $this->natureLivrableService->getFieldsFilterable();
         $natureLivrable_instance =  $this->natureLivrableService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX
@@ -128,6 +129,7 @@ class BaseNatureLivrableController extends AdminController
         $livrableService =  new LivrableService();
         $livrables_data =  $itemNatureLivrable->livrables()->paginate(10);
         $livrables_stats = $livrableService->getlivrableStats();
+        $this->viewState->set('stats.livrable.stats'  , $livrables_stats);
         $livrables_filters = $livrableService->getFieldsFilterable();
         $livrable_instance =  $livrableService->createInstance();
 

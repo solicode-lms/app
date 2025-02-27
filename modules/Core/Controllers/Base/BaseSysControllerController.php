@@ -45,6 +45,7 @@ class BaseSysControllerController extends AdminController
 
         // Récupérer les statistiques et les champs filtrables
         $sysControllers_stats = $this->sysControllerService->getsysControllerStats();
+        $this->viewState->set('stats.sysController.stats'  , $sysControllers_stats);
         $sysControllers_filters = $this->sysControllerService->getFieldsFilterable();
         $sysController_instance =  $this->sysControllerService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX
@@ -134,6 +135,7 @@ class BaseSysControllerController extends AdminController
         $permissionService =  new PermissionService();
         $permissions_data =  $itemSysController->permissions()->paginate(10);
         $permissions_stats = $permissionService->getpermissionStats();
+        $this->viewState->set('stats.permission.stats'  , $permissions_stats);
         $permissions_filters = $permissionService->getFieldsFilterable();
         $permission_instance =  $permissionService->createInstance();
 

@@ -48,6 +48,7 @@ class BaseResourceController extends AdminController
 
         // Récupérer les statistiques et les champs filtrables
         $resources_stats = $this->resourceService->getresourceStats();
+        $this->viewState->set('stats.resource.stats'  , $resources_stats);
         $resources_filters = $this->resourceService->getFieldsFilterable();
         $resource_instance =  $this->resourceService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX

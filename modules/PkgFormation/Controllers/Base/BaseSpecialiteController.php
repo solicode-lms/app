@@ -44,6 +44,7 @@ class BaseSpecialiteController extends AdminController
 
         // Récupérer les statistiques et les champs filtrables
         $specialites_stats = $this->specialiteService->getspecialiteStats();
+        $this->viewState->set('stats.specialite.stats'  , $specialites_stats);
         $specialites_filters = $this->specialiteService->getFieldsFilterable();
         $specialite_instance =  $this->specialiteService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX

@@ -51,6 +51,7 @@ class BaseLivrablesRealisationController extends AdminController
 
         // Récupérer les statistiques et les champs filtrables
         $livrablesRealisations_stats = $this->livrablesRealisationService->getlivrablesRealisationStats();
+        $this->viewState->set('stats.livrablesRealisation.stats'  , $livrablesRealisations_stats);
         $livrablesRealisations_filters = $this->livrablesRealisationService->getFieldsFilterable();
         $livrablesRealisation_instance =  $this->livrablesRealisationService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX

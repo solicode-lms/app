@@ -54,6 +54,7 @@ class BaseGroupeController extends AdminController
 
         // Récupérer les statistiques et les champs filtrables
         $groupes_stats = $this->groupeService->getgroupeStats();
+        $this->viewState->set('stats.groupe.stats'  , $groupes_stats);
         $groupes_filters = $this->groupeService->getFieldsFilterable();
         $groupe_instance =  $this->groupeService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX
@@ -152,6 +153,7 @@ class BaseGroupeController extends AdminController
         $affectationProjetService =  new AffectationProjetService();
         $affectationProjets_data =  $itemGroupe->affectationProjets()->paginate(10);
         $affectationProjets_stats = $affectationProjetService->getaffectationProjetStats();
+        $this->viewState->set('stats.affectationProjet.stats'  , $affectationProjets_stats);
         $affectationProjets_filters = $affectationProjetService->getFieldsFilterable();
         $affectationProjet_instance =  $affectationProjetService->createInstance();
 

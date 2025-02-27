@@ -50,6 +50,7 @@ class BaseEMetadatumController extends AdminController
 
         // Récupérer les statistiques et les champs filtrables
         $eMetadata_stats = $this->eMetadatumService->geteMetadatumStats();
+        $this->viewState->set('stats.eMetadatum.stats'  , $eMetadata_stats);
         $eMetadata_filters = $this->eMetadatumService->getFieldsFilterable();
         $eMetadatum_instance =  $this->eMetadatumService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX

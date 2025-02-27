@@ -58,6 +58,7 @@ class BaseProjetController extends AdminController
 
         // Récupérer les statistiques et les champs filtrables
         $projets_stats = $this->projetService->getprojetStats();
+        $this->viewState->set('stats.projet.stats'  , $projets_stats);
         $projets_filters = $this->projetService->getFieldsFilterable();
         $projet_instance =  $this->projetService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX
@@ -206,6 +207,7 @@ class BaseProjetController extends AdminController
         $transfertCompetenceService =  new TransfertCompetenceService();
         $transfertCompetences_data =  $itemProjet->transfertCompetences()->paginate(10);
         $transfertCompetences_stats = $transfertCompetenceService->gettransfertCompetenceStats();
+        $this->viewState->set('stats.transfertCompetence.stats'  , $transfertCompetences_stats);
         $transfertCompetences_filters = $transfertCompetenceService->getFieldsFilterable();
         $transfertCompetence_instance =  $transfertCompetenceService->createInstance();
 
@@ -219,6 +221,7 @@ class BaseProjetController extends AdminController
         $affectationProjetService =  new AffectationProjetService();
         $affectationProjets_data =  $itemProjet->affectationProjets()->paginate(10);
         $affectationProjets_stats = $affectationProjetService->getaffectationProjetStats();
+        $this->viewState->set('stats.affectationProjet.stats'  , $affectationProjets_stats);
         $affectationProjets_filters = $affectationProjetService->getFieldsFilterable();
         $affectationProjet_instance =  $affectationProjetService->createInstance();
 
@@ -228,6 +231,7 @@ class BaseProjetController extends AdminController
         $livrableService =  new LivrableService();
         $livrables_data =  $itemProjet->livrables()->paginate(10);
         $livrables_stats = $livrableService->getlivrableStats();
+        $this->viewState->set('stats.livrable.stats'  , $livrables_stats);
         $livrables_filters = $livrableService->getFieldsFilterable();
         $livrable_instance =  $livrableService->createInstance();
 
@@ -237,6 +241,7 @@ class BaseProjetController extends AdminController
         $resourceService =  new ResourceService();
         $resources_data =  $itemProjet->resources()->paginate(10);
         $resources_stats = $resourceService->getresourceStats();
+        $this->viewState->set('stats.resource.stats'  , $resources_stats);
         $resources_filters = $resourceService->getFieldsFilterable();
         $resource_instance =  $resourceService->createInstance();
 

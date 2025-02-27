@@ -47,6 +47,7 @@ class BaseFeatureController extends AdminController
 
         // Récupérer les statistiques et les champs filtrables
         $features_stats = $this->featureService->getfeatureStats();
+        $this->viewState->set('stats.feature.stats'  , $features_stats);
         $features_filters = $this->featureService->getFieldsFilterable();
         $feature_instance =  $this->featureService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX

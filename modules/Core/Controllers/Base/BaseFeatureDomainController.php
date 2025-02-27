@@ -45,6 +45,7 @@ class BaseFeatureDomainController extends AdminController
 
         // Récupérer les statistiques et les champs filtrables
         $featureDomains_stats = $this->featureDomainService->getfeatureDomainStats();
+        $this->viewState->set('stats.featureDomain.stats'  , $featureDomains_stats);
         $featureDomains_filters = $this->featureDomainService->getFieldsFilterable();
         $featureDomain_instance =  $this->featureDomainService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX
@@ -134,6 +135,7 @@ class BaseFeatureDomainController extends AdminController
         $featureService =  new FeatureService();
         $features_data =  $itemFeatureDomain->features()->paginate(10);
         $features_stats = $featureService->getfeatureStats();
+        $this->viewState->set('stats.feature.stats'  , $features_stats);
         $features_filters = $featureService->getFieldsFilterable();
         $feature_instance =  $featureService->createInstance();
 

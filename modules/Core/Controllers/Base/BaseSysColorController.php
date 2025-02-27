@@ -43,6 +43,7 @@ class BaseSysColorController extends AdminController
 
         // Récupérer les statistiques et les champs filtrables
         $sysColors_stats = $this->sysColorService->getsysColorStats();
+        $this->viewState->set('stats.sysColor.stats'  , $sysColors_stats);
         $sysColors_filters = $this->sysColorService->getFieldsFilterable();
         $sysColor_instance =  $this->sysColorService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX
@@ -138,6 +139,7 @@ class BaseSysColorController extends AdminController
         $sysModelService =  new SysModelService();
         $sysModels_data =  $itemSysColor->sysModels()->paginate(10);
         $sysModels_stats = $sysModelService->getsysModelStats();
+        $this->viewState->set('stats.sysModel.stats'  , $sysModels_stats);
         $sysModels_filters = $sysModelService->getFieldsFilterable();
         $sysModel_instance =  $sysModelService->createInstance();
 
@@ -147,6 +149,7 @@ class BaseSysColorController extends AdminController
         $sysModuleService =  new SysModuleService();
         $sysModules_data =  $itemSysColor->sysModules()->paginate(10);
         $sysModules_stats = $sysModuleService->getsysModuleStats();
+        $this->viewState->set('stats.sysModule.stats'  , $sysModules_stats);
         $sysModules_filters = $sysModuleService->getFieldsFilterable();
         $sysModule_instance =  $sysModuleService->createInstance();
 

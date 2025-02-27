@@ -48,6 +48,7 @@ class BaseCompetenceController extends AdminController
 
         // Récupérer les statistiques et les champs filtrables
         $competences_stats = $this->competenceService->getcompetenceStats();
+        $this->viewState->set('stats.competence.stats'  , $competences_stats);
         $competences_filters = $this->competenceService->getFieldsFilterable();
         $competence_instance =  $this->competenceService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX
@@ -140,6 +141,7 @@ class BaseCompetenceController extends AdminController
         $niveauCompetenceService =  new NiveauCompetenceService();
         $niveauCompetences_data =  $itemCompetence->niveauCompetences()->paginate(10);
         $niveauCompetences_stats = $niveauCompetenceService->getniveauCompetenceStats();
+        $this->viewState->set('stats.niveauCompetence.stats'  , $niveauCompetences_stats);
         $niveauCompetences_filters = $niveauCompetenceService->getFieldsFilterable();
         $niveauCompetence_instance =  $niveauCompetenceService->createInstance();
 

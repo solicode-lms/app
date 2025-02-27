@@ -48,6 +48,7 @@ class BaseEtatsRealisationProjetController extends AdminController
 
         // Récupérer les statistiques et les champs filtrables
         $etatsRealisationProjets_stats = $this->etatsRealisationProjetService->getetatsRealisationProjetStats();
+        $this->viewState->set('stats.etatsRealisationProjet.stats'  , $etatsRealisationProjets_stats);
         $etatsRealisationProjets_filters = $this->etatsRealisationProjetService->getFieldsFilterable();
         $etatsRealisationProjet_instance =  $this->etatsRealisationProjetService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX

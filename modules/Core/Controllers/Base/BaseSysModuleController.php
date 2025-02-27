@@ -47,6 +47,7 @@ class BaseSysModuleController extends AdminController
 
         // Récupérer les statistiques et les champs filtrables
         $sysModules_stats = $this->sysModuleService->getsysModuleStats();
+        $this->viewState->set('stats.sysModule.stats'  , $sysModules_stats);
         $sysModules_filters = $this->sysModuleService->getFieldsFilterable();
         $sysModule_instance =  $this->sysModuleService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX
@@ -154,6 +155,7 @@ class BaseSysModuleController extends AdminController
         $featureDomainService =  new FeatureDomainService();
         $featureDomains_data =  $itemSysModule->featureDomains()->paginate(10);
         $featureDomains_stats = $featureDomainService->getfeatureDomainStats();
+        $this->viewState->set('stats.featureDomain.stats'  , $featureDomains_stats);
         $featureDomains_filters = $featureDomainService->getFieldsFilterable();
         $featureDomain_instance =  $featureDomainService->createInstance();
 
@@ -163,6 +165,7 @@ class BaseSysModuleController extends AdminController
         $sysControllerService =  new SysControllerService();
         $sysControllers_data =  $itemSysModule->sysControllers()->paginate(10);
         $sysControllers_stats = $sysControllerService->getsysControllerStats();
+        $this->viewState->set('stats.sysController.stats'  , $sysControllers_stats);
         $sysControllers_filters = $sysControllerService->getFieldsFilterable();
         $sysController_instance =  $sysControllerService->createInstance();
 
@@ -172,6 +175,7 @@ class BaseSysModuleController extends AdminController
         $sysModelService =  new SysModelService();
         $sysModels_data =  $itemSysModule->sysModels()->paginate(10);
         $sysModels_stats = $sysModelService->getsysModelStats();
+        $this->viewState->set('stats.sysModel.stats'  , $sysModels_stats);
         $sysModels_filters = $sysModelService->getFieldsFilterable();
         $sysModel_instance =  $sysModelService->createInstance();
 

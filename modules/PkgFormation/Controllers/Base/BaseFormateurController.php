@@ -50,6 +50,7 @@ class BaseFormateurController extends AdminController
 
         // Récupérer les statistiques et les champs filtrables
         $formateurs_stats = $this->formateurService->getformateurStats();
+        $this->viewState->set('stats.formateur.stats'  , $formateurs_stats);
         $formateurs_filters = $this->formateurService->getFieldsFilterable();
         $formateur_instance =  $this->formateurService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX

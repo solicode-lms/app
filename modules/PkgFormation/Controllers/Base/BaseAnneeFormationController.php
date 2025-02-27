@@ -43,6 +43,7 @@ class BaseAnneeFormationController extends AdminController
 
         // Récupérer les statistiques et les champs filtrables
         $anneeFormations_stats = $this->anneeFormationService->getanneeFormationStats();
+        $this->viewState->set('stats.anneeFormation.stats'  , $anneeFormations_stats);
         $anneeFormations_filters = $this->anneeFormationService->getFieldsFilterable();
         $anneeFormation_instance =  $this->anneeFormationService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX
@@ -138,6 +139,7 @@ class BaseAnneeFormationController extends AdminController
         $affectationProjetService =  new AffectationProjetService();
         $affectationProjets_data =  $itemAnneeFormation->affectationProjets()->paginate(10);
         $affectationProjets_stats = $affectationProjetService->getaffectationProjetStats();
+        $this->viewState->set('stats.affectationProjet.stats'  , $affectationProjets_stats);
         $affectationProjets_filters = $affectationProjetService->getFieldsFilterable();
         $affectationProjet_instance =  $affectationProjetService->createInstance();
 
@@ -147,6 +149,7 @@ class BaseAnneeFormationController extends AdminController
         $groupeService =  new GroupeService();
         $groupes_data =  $itemAnneeFormation->groupes()->paginate(10);
         $groupes_stats = $groupeService->getgroupeStats();
+        $this->viewState->set('stats.groupe.stats'  , $groupes_stats);
         $groupes_filters = $groupeService->getFieldsFilterable();
         $groupe_instance =  $groupeService->createInstance();
 

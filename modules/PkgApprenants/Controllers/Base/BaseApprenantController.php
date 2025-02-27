@@ -53,6 +53,7 @@ class BaseApprenantController extends AdminController
 
         // Récupérer les statistiques et les champs filtrables
         $apprenants_stats = $this->apprenantService->getapprenantStats();
+        $this->viewState->set('stats.apprenant.stats'  , $apprenants_stats);
         $apprenants_filters = $this->apprenantService->getFieldsFilterable();
         $apprenant_instance =  $this->apprenantService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX

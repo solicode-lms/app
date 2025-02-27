@@ -58,6 +58,7 @@ class BaseProfileController extends AdminController
 
         // Récupérer les statistiques et les champs filtrables
         $profiles_stats = $this->profileService->getprofileStats();
+        $this->viewState->set('stats.profile.stats'  , $profiles_stats);
         $profiles_filters = $this->profileService->getFieldsFilterable();
         $profile_instance =  $this->profileService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX

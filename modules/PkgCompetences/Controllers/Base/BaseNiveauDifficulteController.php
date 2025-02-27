@@ -48,6 +48,7 @@ class BaseNiveauDifficulteController extends AdminController
 
         // Récupérer les statistiques et les champs filtrables
         $niveauDifficultes_stats = $this->niveauDifficulteService->getniveauDifficulteStats();
+        $this->viewState->set('stats.niveauDifficulte.stats'  , $niveauDifficultes_stats);
         $niveauDifficultes_filters = $this->niveauDifficulteService->getFieldsFilterable();
         $niveauDifficulte_instance =  $this->niveauDifficulteService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX

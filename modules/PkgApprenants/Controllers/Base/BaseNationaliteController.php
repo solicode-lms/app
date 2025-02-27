@@ -42,6 +42,7 @@ class BaseNationaliteController extends AdminController
 
         // Récupérer les statistiques et les champs filtrables
         $nationalites_stats = $this->nationaliteService->getnationaliteStats();
+        $this->viewState->set('stats.nationalite.stats'  , $nationalites_stats);
         $nationalites_filters = $this->nationaliteService->getFieldsFilterable();
         $nationalite_instance =  $this->nationaliteService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX
@@ -128,6 +129,7 @@ class BaseNationaliteController extends AdminController
         $apprenantService =  new ApprenantService();
         $apprenants_data =  $itemNationalite->apprenants()->paginate(10);
         $apprenants_stats = $apprenantService->getapprenantStats();
+        $this->viewState->set('stats.apprenant.stats'  , $apprenants_stats);
         $apprenants_filters = $apprenantService->getFieldsFilterable();
         $apprenant_instance =  $apprenantService->createInstance();
 

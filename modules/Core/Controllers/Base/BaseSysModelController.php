@@ -48,6 +48,7 @@ class BaseSysModelController extends AdminController
 
         // Récupérer les statistiques et les champs filtrables
         $sysModels_stats = $this->sysModelService->getsysModelStats();
+        $this->viewState->set('stats.sysModel.stats'  , $sysModels_stats);
         $sysModels_filters = $this->sysModelService->getFieldsFilterable();
         $sysModel_instance =  $this->sysModelService->createInstance();
         // Retourner la vue ou les données pour une requête AJAX
@@ -140,6 +141,7 @@ class BaseSysModelController extends AdminController
         $widgetService =  new WidgetService();
         $widgets_data =  $itemSysModel->widgets()->paginate(10);
         $widgets_stats = $widgetService->getwidgetStats();
+        $this->viewState->set('stats.widget.stats'  , $widgets_stats);
         $widgets_filters = $widgetService->getFieldsFilterable();
         $widget_instance =  $widgetService->createInstance();
 
