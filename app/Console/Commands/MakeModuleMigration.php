@@ -8,7 +8,7 @@ use Symfony\Component\Console\Input\InputArgument;
 class MakeModuleMigration extends GeneratorCommand
 {
     /**
-     * exemple : php artisan make:module-migration annees_formation PkgFormation
+     * exemple : php artisan make:module-migration fixDeleteOnCascade PkgCreationProjet
      *
      * @var string
      */
