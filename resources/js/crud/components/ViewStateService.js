@@ -84,6 +84,7 @@ export class ViewStateService {
      * @returns {Object} Variables filtrées
      */
     getVariablesByType(types) {
+        
         if (!Array.isArray(types)) {
             types = [types];
         }
