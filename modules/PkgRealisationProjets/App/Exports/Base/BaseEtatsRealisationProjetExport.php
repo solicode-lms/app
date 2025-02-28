@@ -32,6 +32,7 @@ class BaseEtatsRealisationProjetExport implements FromCollection, WithHeadings, 
             'titre' => 'titre',
             'description' => 'description',
             'reference' => 'reference',
+            'is_editable_by_formateur' => 'is_editable_by_formateur',
         ];
         }else{
         return [
@@ -39,6 +40,7 @@ class BaseEtatsRealisationProjetExport implements FromCollection, WithHeadings, 
             'titre' => __('PkgRealisationProjets::etatsRealisationProjet.titre'),
             'description' => __('PkgRealisationProjets::etatsRealisationProjet.description'),
             'reference' => __('Core::msg.reference'),
+            'is_editable_by_formateur' => __('PkgRealisationProjets::etatsRealisationProjet.is_editable_by_formateur'),
         ];
 
         }
@@ -53,6 +55,7 @@ class BaseEtatsRealisationProjetExport implements FromCollection, WithHeadings, 
                 'titre' => $etatsRealisationProjet->titre,
                 'description' => $etatsRealisationProjet->description,
                 'reference' => $etatsRealisationProjet->reference,
+                'is_editable_by_formateur' => $etatsRealisationProjet->is_editable_by_formateur,
             ];
         });
     }

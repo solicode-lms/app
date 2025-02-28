@@ -36,6 +36,10 @@
                                 <label for="description">{{ ucfirst(__('PkgRealisationProjets::etatsRealisationProjet.description')) }}:</label>
                                 <p>{{ $itemEtatsRealisationProjet->description }}</p>
                             </div>
+                            <div class="col-sm-12">
+                                <label for="is_editable_by_formateur">{{ ucfirst(__('PkgRealisationProjets::etatsRealisationProjet.is_editable_by_formateur')) }}:</label>
+                                <p>{{ $itemEtatsRealisationProjet->is_editable_by_formateur }}</p>
+                            </div>
                         </div>
                     </div>
                 </div>

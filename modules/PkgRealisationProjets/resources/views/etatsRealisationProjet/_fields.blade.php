@@ -80,6 +80,29 @@
 </div>
 
         
+        <div class="form-group col-12 col-md-6">
+            <label for="is_editable_by_formateur">
+                {{ ucfirst(__('PkgRealisationProjets::etatsRealisationProjet.is_editable_by_formateur')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <input type="hidden" name="is_editable_by_formateur" value="0">
+            <input
+                name="is_editable_by_formateur"
+                type="checkbox"
+                class="form-control"
+                required
+                
+                id="is_editable_by_formateur"
+                value="1"
+                {{ old('is_editable_by_formateur', $itemEtatsRealisationProjet ? $itemEtatsRealisationProjet->is_editable_by_formateur : 0) ? 'checked' : '' }}>
+            @error('is_editable_by_formateur')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
+
+        
 
         <!--   RealisationProjet HasMany --> 
 

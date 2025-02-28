@@ -21,7 +21,8 @@ class BaseEtatsRealisationProjetService extends BaseService
     protected $fieldsSearchable = [
         'formateur_id',
         'titre',
-        'description'
+        'description',
+        'is_editable_by_formateur'
     ];
 
     /**

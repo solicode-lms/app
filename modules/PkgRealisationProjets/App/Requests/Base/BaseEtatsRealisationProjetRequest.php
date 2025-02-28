@@ -31,7 +31,8 @@ class BaseEtatsRealisationProjetRequest extends FormRequest
         return [
             'formateur_id' => 'required',
             'titre' => 'required|string|max:255',
-            'description' => 'nullable|string'
+            'description' => 'nullable|string',
+            'is_editable_by_formateur' => 'required|boolean'
         ];
     }
 
@@ -46,7 +47,8 @@ class BaseEtatsRealisationProjetRequest extends FormRequest
             'formateur_id.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::EtatsRealisationProjet.formateur_id')]),
             'titre.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::EtatsRealisationProjet.titre')]),
             'titre.max' => __('validation.titreMax'),
-            'description.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::EtatsRealisationProjet.description')])
+            'description.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::EtatsRealisationProjet.description')]),
+            'is_editable_by_formateur.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::EtatsRealisationProjet.is_editable_by_formateur')])
         ];
     }
 

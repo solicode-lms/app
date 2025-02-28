@@ -36,7 +36,7 @@ class BaseEtatsRealisationProjet extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'formateur_id', 'titre', 'description'
+        'formateur_id', 'titre', 'description', 'is_editable_by_formateur'
     ];
 
     /**
