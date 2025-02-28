@@ -1,4 +1,4 @@
-{{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
+{{-- desable etat en cas d'une état modifier par le formateur --}}
 
 @section('realisationProjet-form')
 <form class="crud-form custom-form context-state container" id="realisationProjetForm" action="{{ $itemRealisationProjet->id ? route('realisationProjets.update', $itemRealisationProjet->id) : route('realisationProjets.store') }}" method="POST" novalidate>
@@ -80,7 +80,7 @@
             <select 
             id="etats_realisation_projet_id" 
             required
-            
+            {{ isset($itemRealisationProjet) && optional($itemRealisationProjet->etatsRealisationProjet)->is_editable_by_formateur ? 'disabled' : '' }}
             name="etats_realisation_projet_id" 
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
