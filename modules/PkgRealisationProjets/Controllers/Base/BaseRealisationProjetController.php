@@ -42,8 +42,8 @@ class BaseRealisationProjetController extends AdminController
         if(Auth::user()->hasRole('formateur')){
            $this->viewState->init('filter.realisationProjet.affectationProjet.projet.formateur_id'  , $this->sessionState->get('formateur_id'));
         }
-        if(Auth::user()->hasRole('apprenant')){
-           $this->viewState->init('filter.realisationProjet.apprenant_id'  , $this->sessionState->get('apprenant_id'));
+        if(Auth::user()->hasRole('apprenant') && $this->viewState->get('filter.realisationProjet.apprenant_id') == null ){
+            $this->viewState->init('filter.realisationProjet.apprenant_id'  , $this->sessionState->get('apprenant_id'));
         }
 
 

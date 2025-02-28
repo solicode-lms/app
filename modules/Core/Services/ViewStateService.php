@@ -45,6 +45,7 @@ class ViewStateService
     public function setContextKeyIfEmpty(string $currentContextKey){
         if($this->currentContextKey == "default_context"){
             $this->currentContextKey = $currentContextKey;
+            $this->viewStateData[$currentContextKey] = $this->viewStateData["default_context"];
             $this->isInit = true;
         }
        

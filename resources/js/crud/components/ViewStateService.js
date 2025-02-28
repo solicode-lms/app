@@ -106,6 +106,29 @@ export class ViewStateService {
             }, {});
     }
 
+    getStateVariablesByType(types) {
+        
+        if (!Array.isArray(types)) {
+            types = [types];
+        }
+        
+        return Object.entries(this.getContext())
+            .filter(([key]) => 
+                types.some(type => key.startsWith(`${type}.${this.modelName}.`)) || 
+                types.some(type => key.startsWith(`${type}.global.`))
+            )
+            .reduce((acc, [key, value]) => {
+                types.forEach(type => {
+                    if (key.startsWith(`${type}.${this.modelName}.`)) {
+                        acc[key] = value;
+                    } else if (key.startsWith(`${type}.global.`)) {
+                        acc[key] = value;
+                    }
+                });
+                return acc;
+            }, {});
+    }
+
     getScopeVariables() {
         return this.getVariablesByType(['scope']);
     }

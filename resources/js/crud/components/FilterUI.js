@@ -45,11 +45,14 @@ export class FilterUI {
      * get les varaibles à ajouter dans le context pour assurer la persistance des valeurs de
      * de filtre dans tous les interface
      */
-    getFormDataAsFilterContext(){
+    getFormDataAsStateVariables(){
         const data = {};
-        Object.entries(this.getFormData()).forEach(([key, value]) => {
-            data[`${this.config.entity_name}__filter__${key}`] = value;
+        Object.entries(this.getFormData(true)).forEach(([key, value]) => {
+            data[`filter.${this.config.entity_name}.${key}`] = value;
         });
+
+       
+        
         return data;
     }
 
@@ -73,7 +76,7 @@ export class FilterUI {
         // View State Filter 
         this.config.viewStateService.updatFilterVariables(this.getFormData(true));
         // Mettre à jour l'URL avec les paramètres non vides
-        this.indexUI.updateURLParameters(formData);
+        this.indexUI.updateURLParameters(this.getFormDataAsStateVariables());
     
         // Charger les entités avec les paramètres
         this.indexUI.tableUI.entityLoader.loadEntities(page, formData);

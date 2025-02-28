@@ -20,8 +20,12 @@ class RealisationProjetController extends BaseRealisationProjetController
         } 
 
        
-        $this->viewState->setContextKeyIfEmpty('realisationProjet.index');
-        if($this->sessionState->get('apprenant_id')) $this->viewState->init('filter.realisationProjet.apprenant_id'  , $this->sessionState->get('apprenant_id'));
+        // $this->viewState->setContextKeyIfEmpty('realisationProjet.index');
+     
+        // if($this->viewState->get('filter.realisationProjet.apprenant_id') == null){
+        //     if($this->sessionState->get('apprenant_id')) $this->viewState->init('filter.realisationProjet.apprenant_id'  , $this->sessionState->get('apprenant_id'));
+        // }
+
 
         return parent::index($request);
     }

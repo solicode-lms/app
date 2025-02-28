@@ -132,13 +132,17 @@ class RealisationProjetService extends BaseRealisationProjetService
     public function update($id, array $data)
     {
         $record =  $this->find($id);
-        // Vérifier si l'état de réalisation du projet est défini
+
+
         if (!empty($data["etats_realisation_projet_id"])) {
             
-            $etatsRealisationProjet = (new EtatsRealisationProjetService())->find($data["etats_realisation_projet_id"]);
+            $etats_realisation_projet_id = $data["etats_realisation_projet_id"];
     
             // Vérifier si l'état est éditable uniquement par le formateur
-            if ($record->etatsRealisationProjet && $record->etatsRealisationProjet->is_editable_by_formateur && !Auth::user()->hasRole(Role::FORMATEUR_ROLE)) {
+            if ($record->etatsRealisationProjet 
+                && $record->etatsRealisationProjet->is_editable_by_formateur 
+                && $record->etatsRealisationProjet->id  != $etats_realisation_projet_id
+                && !Auth::user()->hasRole(Role::FORMATEUR_ROLE)) {
               
                 throw ValidationException::withMessages([
                     'etats_realisation_projet_id' => "L'état de réalisation du projet spécifié est invalide."

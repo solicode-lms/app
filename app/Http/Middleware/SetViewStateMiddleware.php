@@ -61,7 +61,44 @@ use Illuminate\Support\Facades\Auth;
                  $viewState->set($key, $value);
              }
          }
+
+        // Charger les variables de contexte depuis la requête
+        $this->readFromRequest($request,$viewState);
+
  
          return $next($request);
      }
+
+     /**
+     * Lire les valeurs de la requête et de la route avec des préfixes spécifiques,
+     * puis les stocker dans le contexte.
+     *
+     * @param Request $request
+     * @param ContextState $contextState
+     */
+    protected function readFromRequest(Request $request, ViewStateService $viewState)
+    {
+        // Fusionner les données de la requête et de la route
+        $allParams = array_merge($request->all(), $request->route() ? $request->route()->parameters() : []);
+    
+        foreach ($allParams as $key => $value) {
+            if (preg_match('/^(filter|scope)_(.*?)_(.*?)$/', $key, $matches)) {
+                // Récupérer le préfixe (filter ou scope)
+                $prefix = $matches[1];
+    
+                // Récupérer le ModelName (entre les underscores)
+                $modelName = $matches[2];
+    
+                // Récupérer le reste de l'attribut
+                $attribute = $matches[3];
+    
+                // Construire la nouvelle clé avec des "."
+                $normalizedKey = "$prefix.$modelName.$attribute";
+    
+                // Enregistrer la valeur corrigée dans ViewState
+                $viewState->set($normalizedKey, $value);
+            } 
+        }
+    }
+    
  }
