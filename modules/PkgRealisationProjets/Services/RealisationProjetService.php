@@ -13,7 +13,9 @@ use Modules\PkgRealisationProjets\Models\RealisationProjet;
 use Modules\PkgRealisationProjets\Services\Base\BaseRealisationProjetService;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Modules\PkgRealisationProjets\Models\EtatsRealisationProjet;
-
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Validation\ValidationException;
 /**
  * 
  * Classe RealisationProjetService pour gérer la persistance de l'entité RealisationProjet.
@@ -120,6 +122,38 @@ class RealisationProjetService extends BaseRealisationProjetService
 
        
     }
+    
+ 
+
+    /**
+     * Summary of update
+     * 
+     */
+    public function update($id, array $data)
+    {
+        $record =  $this->find($id);
+        // Vérifier si l'état de réalisation du projet est défini
+        if (!empty($data["etats_realisation_projet_id"])) {
+            
+            $etatsRealisationProjet = (new EtatsRealisationProjetService())->find($data["etats_realisation_projet_id"]);
+    
+            // Vérifier si l'état est éditable uniquement par le formateur
+            if ($record->etatsRealisationProjet && $record->etatsRealisationProjet->is_editable_by_formateur && !Auth::user()->hasRole(Role::FORMATEUR_ROLE)) {
+              
+                throw ValidationException::withMessages([
+                    'etats_realisation_projet_id' => "L'état de réalisation du projet spécifié est invalide."
+                ]);
+
+
+                return $record;
+            }
+        }
+    
+        // Mise à jour standard du projet
+        return parent::update($id, $data);
+    }
+    
+
     
  
    

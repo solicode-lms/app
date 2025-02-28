@@ -54,7 +54,7 @@ class EMetadatumService extends BaseEMetadatumService
     /**
      * Override de la méthode update
      */
-    public function update($id, array $data): ?Model 
+    public function update($id, array $data)
     {
 
         $metadatum = parent::update($id, $data);

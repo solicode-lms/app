@@ -25,7 +25,7 @@ class ProfileService extends BaseProfileService
 
  
     
-    public function update($id, array $data): ?Model 
+    public function update($id, array $data)
     {
         $return_value = parent::update($id, $data);
     

@@ -24,7 +24,8 @@ export class NotificationHandler {
         switch (type) {
             case "info": NotificationHandler.showInfo(title,message);break;
             case "success": NotificationHandler.showSuccess(message);break;
-            case "error": NotificationHandler.showError(this.message);break;
+            case "error": NotificationHandler.showError(message);break;
+            case "warning": NotificationHandler.showWarning(title, message);break;
             default: NotificationHandler.showInfo(this.message);break;
         }
     }

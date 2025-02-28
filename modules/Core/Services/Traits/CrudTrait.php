@@ -62,7 +62,7 @@ trait CrudTrait
      * @param array $data Données à mettre à jour.
      * @return Entity modifié
      */
-    public function update($id, array $data): ?Model 
+    public function update($id, array $data)
     {
         $record = $this->model->find($id);
 

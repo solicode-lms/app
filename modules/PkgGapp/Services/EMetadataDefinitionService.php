@@ -37,7 +37,7 @@ class EMetadataDefinitionService extends BaseEMetadataDefinitionService
     /**
      * Override de la méthode update
      */
-    public function update($id, array $data): ?Model 
+    public function update($id, array $data)
     {
         $value = parent::update($id, $data);
         $this->metaExport();

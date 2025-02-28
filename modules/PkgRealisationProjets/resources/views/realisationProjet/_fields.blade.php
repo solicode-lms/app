@@ -80,7 +80,6 @@
             <select 
             id="etats_realisation_projet_id" 
             required
-            {{ isset($itemRealisationProjet) && optional($itemRealisationProjet->etatsRealisationProjet)->is_editable_by_formateur ? 'disabled' : '' }}
             name="etats_realisation_projet_id" 
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
