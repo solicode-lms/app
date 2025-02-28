@@ -24,8 +24,8 @@ class BaseProjetService extends BaseService
         'critere_de_travail',
         'nombre_jour',
         'description',
-        'filiere_id',
-        'formateur_id'
+        'formateur_id',
+        'filiere_id'
     ];
 
     /**
@@ -54,11 +54,11 @@ class BaseProjetService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('projet');
         $this->fieldsFilterable = [];
     
-        if (!array_key_exists('filiere_id', $scopeVariables)) {
-        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgFormation::filiere.plural"), 'filiere_id', \Modules\PkgFormation\Models\Filiere::class, 'code');
-        }
         if (!array_key_exists('formateur_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgFormation::formateur.plural"), 'formateur_id', \Modules\PkgFormation\Models\Formateur::class, 'nom');
+        }
+        if (!array_key_exists('filiere_id', $scopeVariables)) {
+        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgFormation::filiere.plural"), 'filiere_id', \Modules\PkgFormation\Models\Filiere::class, 'code');
         }
     }
 

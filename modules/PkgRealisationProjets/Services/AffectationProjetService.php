@@ -93,4 +93,50 @@ class AffectationProjetService extends BaseAffectationProjetService
             });
         })->get();
     }
+
+
+    /**
+     * Récupérer la dernière affectation de projet d'un formateur en fonction de la date actuelle.
+     *
+     * @param int $formateur_id
+     * @return AffectationProjet|null
+     */
+    public function getCurrentFormateurAffectation($formateur_id)
+    {
+        return AffectationProjet::whereHas('groupe', function ($query) use ($formateur_id) {
+                $query->whereHas('formateurs', function ($q) use ($formateur_id) {
+                    $q->where('formateurs.id', $formateur_id);
+                });
+            })
+            ->where('date_debut', '<=', now()) // Date de début <= aujourd'hui
+            ->where(function ($query) {
+                $query->whereNull('date_fin') // Si pas de date de fin, considéré comme en cours
+                    ->orWhere('date_fin', '>=', now()); // Ou date de fin >= aujourd’hui
+            })
+            ->orderBy('date_debut', 'desc') // Trier par date de début descendante (dernier projet en premier)
+            ->first(); // Prendre le plus récent
+    }
+
+    /**
+     * Récupérer la dernière affectation de projet d'un apprenant en fonction de la date actuelle.
+     *
+     * @param int $apprenant_id
+     * @return AffectationProjet|null
+     */
+    public function getCurrentApprenantAffectation($apprenant_id)
+    {
+        return AffectationProjet::whereHas('groupe', function ($query) use ($apprenant_id) {
+                $query->whereHas('apprenants', function ($q) use ($apprenant_id) {
+                    $q->where('apprenants.id', $apprenant_id);
+                });
+            })
+            ->where('date_debut', '<=', now()) // L'affectation doit avoir déjà commencé
+            ->where(function ($query) {
+                $query->whereNull('date_fin') // Considérer actif si pas de date de fin
+                    ->orWhere('date_fin', '>=', now()); // Ou si la date de fin est dans le futur
+            })
+            ->orderBy('date_debut', 'desc') // Trier par la date de début la plus récente
+            ->first(); // Récupérer la dernière affectation active
+    }
+
 }

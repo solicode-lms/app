@@ -11,8 +11,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
-use Modules\PkgFormation\Models\Filiere;
 use Modules\PkgFormation\Models\Formateur;
+use Modules\PkgFormation\Models\Filiere;
 use Modules\PkgCreationProjet\Models\TransfertCompetence;
 use Modules\PkgRealisationProjets\Models\AffectationProjet;
 use Modules\PkgCreationProjet\Models\Livrable;
@@ -40,18 +40,9 @@ class BaseProjet extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'titre', 'travail_a_faire', 'critere_de_travail', 'nombre_jour', 'description', 'filiere_id', 'formateur_id'
+        'titre', 'travail_a_faire', 'critere_de_travail', 'nombre_jour', 'description', 'formateur_id', 'filiere_id'
     ];
 
-    /**
-     * Relation BelongsTo pour Filiere.
-     *
-     * @return BelongsTo
-     */
-    public function filiere(): BelongsTo
-    {
-        return $this->belongsTo(Filiere::class, 'filiere_id', 'id');
-    }
     /**
      * Relation BelongsTo pour Formateur.
      *
@@ -60,6 +51,15 @@ class BaseProjet extends BaseModel
     public function formateur(): BelongsTo
     {
         return $this->belongsTo(Formateur::class, 'formateur_id', 'id');
+    }
+    /**
+     * Relation BelongsTo pour Filiere.
+     *
+     * @return BelongsTo
+     */
+    public function filiere(): BelongsTo
+    {
+        return $this->belongsTo(Filiere::class, 'filiere_id', 'id');
     }
 
 

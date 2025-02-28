@@ -98,6 +98,46 @@
 </div>
 
         
+
+        <!--   TransfertCompetence HasMany --> 
+
+        
+
+        <!--   AffectationProjet HasMany --> 
+
+        
+        <div class="form-group col-12 col-md-6">
+            <label for="formateur_id">
+                {{ ucfirst(__('PkgFormation::formateur.singular')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <select 
+            id="formateur_id" 
+            required
+            
+            name="formateur_id" 
+            class="form-control select2">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($formateurs as $formateur)
+                    <option value="{{ $formateur->id }}"
+                        {{ (isset($itemProjet) && $itemProjet->formateur_id == $formateur->id) || (old('formateur_id>') == $formateur->id) ? 'selected' : '' }}>
+                        {{ $formateur }}
+                    </option>
+                @endforeach
+            </select>
+            @error('formateur_id')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+    </div>
+
+
+        
+
+        <!--   Livrable HasMany --> 
+
+        
         <div class="form-group col-12 col-md-6">
             <label for="filiere_id">
                 {{ ucfirst(__('PkgFormation::filiere.singular')) }}
@@ -127,47 +167,7 @@
 
         
 
-        <!--   TransfertCompetence HasMany --> 
-
-        
-
-        <!--   AffectationProjet HasMany --> 
-
-        
-
-        <!--   Livrable HasMany --> 
-
-        
-
         <!--   Resource HasMany --> 
-
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="formateur_id">
-                {{ ucfirst(__('PkgFormation::formateur.singular')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <select 
-            id="formateur_id" 
-            required
-            
-            name="formateur_id" 
-            class="form-control select2">
-             <option value="">Sélectionnez une option</option>
-                @foreach ($formateurs as $formateur)
-                    <option value="{{ $formateur->id }}"
-                        {{ (isset($itemProjet) && $itemProjet->formateur_id == $formateur->id) || (old('formateur_id>') == $formateur->id) ? 'selected' : '' }}>
-                        {{ $formateur }}
-                    </option>
-                @endforeach
-            </select>
-            @error('formateur_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
-
 
     </div>
 

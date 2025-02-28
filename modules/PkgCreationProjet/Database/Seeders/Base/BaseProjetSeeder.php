@@ -69,8 +69,8 @@ class BaseProjetSeeder extends Seeder
                     "critere_de_travail" => $row["critere_de_travail"] ?? null ,
                     "nombre_jour" => $row["nombre_jour"] ?? null ,
                     "description" => $row["description"] ?? null ,
-                    "filiere_id" => $row["filiere_id"] ?? null ,
-                    "formateur_id" => $row["formateur_id"] ?? null 
+                    "formateur_id" => $row["formateur_id"] ?? null ,
+                    "filiere_id" => $row["filiere_id"] ?? null 
                 ];
                 if (!empty($row["reference"])) {
                     $projetService->updateOrCreate(["reference" => $row["reference"]], $projetData);

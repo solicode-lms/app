@@ -288,9 +288,13 @@ export class FormUI  {
         // Bug : Select2 ne peut pas initialiser deux select avec même id
         // l'autre select exist dans filter
         // Solution : changement de id de filter
-        $(`${this.formSelector} select.select2`).each(function () {
+        $(`.select2`).each(function () {
+
+            let placeholder = $(this).data('label') || "Sélectionnez une option"; // Récupérer data-label ou valeur par défaut
+
             $(this).select2({
-                placeholder: "Sélectionnez une option",
+                placeholder: placeholder, // Utiliser data-label comme placeholder
+                width: '100%',
                 allowClear: true,
             });
         });
@@ -305,15 +309,14 @@ export class FormUI  {
 
     static initializeSelect2() {
         // Initialise les éléments Select2
-        $(`.select2`).select2({
-            // placeholder: "Sélectionnez une option", // Placeholder requis
-            width: '100%',
-            // allowClear : true,
-        });
+        $('.select2').each(function() {
+            let placeholder = $(this).data('label') || "Sélectionnez une option"; // Récupérer data-label ou valeur par défaut
 
-        // Initialise les éléments Select2 avec thème Bootstrap 4
-        $(`.select2bs4`).select2({
-            theme: 'bootstrap4',
+            $(this).select2({
+                placeholder: placeholder, // Utiliser data-label comme placeholder
+                width: '100%',
+                allowClear: true,
+            });
         });
     }
     static initializeRichText(){

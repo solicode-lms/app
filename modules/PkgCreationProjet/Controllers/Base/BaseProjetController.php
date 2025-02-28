@@ -81,8 +81,8 @@ class BaseProjetController extends AdminController
         $itemProjet = $this->projetService->createInstance();
         
 
-        $filieres = $this->filiereService->all();
         $formateurs = $this->formateurService->all();
+        $filieres = $this->filiereService->all();
 
         if (request()->ajax()) {
             return view('PkgCreationProjet::projet._fields', compact('itemProjet', 'filieres', 'formateurs'));
@@ -121,8 +121,8 @@ class BaseProjetController extends AdminController
         $this->authorize('view', $itemProjet);
 
 
-        $filieres = $this->filiereService->all();
         $formateurs = $this->formateurService->all();
+        $filieres = $this->filiereService->all();
 
 
         $this->viewState->set('scope.transfertCompetence.projet_id', $id);
@@ -189,8 +189,8 @@ class BaseProjetController extends AdminController
         $this->authorize('edit', $itemProjet);
 
 
-        $filieres = $this->filiereService->all();
         $formateurs = $this->formateurService->all();
+        $filieres = $this->filiereService->all();
 
 
         $this->viewState->set('scope.transfertCompetence.projet_id', $id);

@@ -18,7 +18,8 @@
             @break
 
         @case('ManyToOne')
-            <select id="filter_{{ $field }}"  name="{{ $field }}" class="form-select form-control form-control-sm select2">
+            
+            <select id="filter_{{ $field }}" data-label="{{$label}}"  name="{{ $field }}" class="form-select form-control form-control-sm select2">
                 <option value="">{{ $label }}</option>
                 @foreach ($options as $option)
                     <option value="{{ $option['id'] }}" 

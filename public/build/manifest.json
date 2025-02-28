@@ -137,12 +137,12 @@
     "src": "resources/css/font-adminlte/Source+Sans+Pro_700_normal.woff2"
   },
   "resources/css/public.css": {
-    "file": "assets/public-BqgFk4GZ.css",
+    "file": "assets/public-BnCTiNJF.css",
     "src": "resources/css/public.css",
     "isEntry": true
   },
   "resources/js/admin.js": {
-    "file": "assets/admin-DnDKqJdW.js",
+    "file": "assets/admin-C9mvdtsU.js",
     "name": "admin",
     "src": "resources/js/admin.js",
     "isEntry": true,
