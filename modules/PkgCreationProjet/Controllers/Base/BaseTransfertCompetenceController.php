@@ -40,7 +40,7 @@ class BaseTransfertCompetenceController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('transfertCompetence.index');
         // ownedByUser
-        if(Auth::user()->hasRole('formateur')){
+        if(Auth::user()->hasRole('formateur') && $this->viewState->get('scope.transfertCompetence.projet.formateur_id') == null){
            $this->viewState->init('scope.transfertCompetence.projet.formateur_id'  , $this->sessionState->get('formateur_id'));
         }
 

@@ -31,10 +31,10 @@ class BaseProfileController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('profile.index');
         // ownedByUser
-        if(Auth::user()->hasRole('formateur')){
+        if(Auth::user()->hasRole('formateur') && $this->viewState->get('scope.profile.user_id') == null){
            $this->viewState->init('scope.profile.user_id'  , $this->sessionState->get('user_id'));
         }
-        if(Auth::user()->hasRole('apprenant')){
+        if(Auth::user()->hasRole('apprenant') && $this->viewState->get('scope.profile.user_id') == null){
            $this->viewState->init('scope.profile.user_id'  , $this->sessionState->get('user_id'));
         }
 

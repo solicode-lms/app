@@ -84,13 +84,15 @@
             <label for="is_editable_by_formateur">
                 {{ ucfirst(__('PkgRealisationProjets::etatsRealisationProjet.is_editable_by_formateur')) }}
                 
+                    <span class="text-danger">*</span>
+                
             </label>
             <input type="hidden" name="is_editable_by_formateur" value="0">
             <input
                 name="is_editable_by_formateur"
                 type="checkbox"
                 class="form-control"
-                
+                required
                 
                 id="is_editable_by_formateur"
                 value="1"

@@ -38,7 +38,7 @@ class BaseAffectationProjetController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('affectationProjet.index');
         // ownedByUser
-        if(Auth::user()->hasRole('formateur')){
+        if(Auth::user()->hasRole('formateur') && $this->viewState->get('scope.affectationProjet.projet.formateur_id') == null){
            $this->viewState->init('scope.affectationProjet.projet.formateur_id'  , $this->sessionState->get('formateur_id'));
         }
 

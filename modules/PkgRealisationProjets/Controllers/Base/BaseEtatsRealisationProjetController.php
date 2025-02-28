@@ -31,7 +31,7 @@ class BaseEtatsRealisationProjetController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('etatsRealisationProjet.index');
         // ownedByUser
-        if(Auth::user()->hasRole('formateur')){
+        if(Auth::user()->hasRole('formateur') && $this->viewState->get('scope.etatsRealisationProjet.formateur_id') == null){
            $this->viewState->init('scope.etatsRealisationProjet.formateur_id'  , $this->sessionState->get('formateur_id'));
         }
 

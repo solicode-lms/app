@@ -31,7 +31,7 @@ class BaseResourceController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('resource.index');
         // ownedByUser
-        if(Auth::user()->hasRole('formateur')){
+        if(Auth::user()->hasRole('formateur') && $this->viewState->get('filter.resource.projet.formateur_id') == null){
            $this->viewState->init('filter.resource.projet.formateur_id'  , $this->sessionState->get('formateur_id'));
         }
 

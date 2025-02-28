@@ -39,11 +39,11 @@ class BaseRealisationProjetController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('realisationProjet.index');
         // ownedByUser
-        if(Auth::user()->hasRole('formateur')){
+        if(Auth::user()->hasRole('formateur') && $this->viewState->get('filter.realisationProjet.affectationProjet.projet.formateur_id') == null){
            $this->viewState->init('filter.realisationProjet.affectationProjet.projet.formateur_id'  , $this->sessionState->get('formateur_id'));
         }
-        if(Auth::user()->hasRole('apprenant') && $this->viewState->get('filter.realisationProjet.apprenant_id') == null ){
-            $this->viewState->init('filter.realisationProjet.apprenant_id'  , $this->sessionState->get('apprenant_id'));
+        if(Auth::user()->hasRole('apprenant') && $this->viewState->get('filter.realisationProjet.apprenant_id') == null){
+           $this->viewState->init('filter.realisationProjet.apprenant_id'  , $this->sessionState->get('apprenant_id'));
         }
 
 

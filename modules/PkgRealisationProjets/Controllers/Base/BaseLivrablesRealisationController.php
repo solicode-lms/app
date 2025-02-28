@@ -34,7 +34,7 @@ class BaseLivrablesRealisationController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('livrablesRealisation.index');
         // ownedByUser
-        if(Auth::user()->hasRole('apprenant')){
+        if(Auth::user()->hasRole('apprenant') && $this->viewState->get('filter.livrablesRealisation.realisationProjet.apprenant_id') == null){
            $this->viewState->init('filter.livrablesRealisation.realisationProjet.apprenant_id'  , $this->sessionState->get('apprenant_id'));
         }
 
