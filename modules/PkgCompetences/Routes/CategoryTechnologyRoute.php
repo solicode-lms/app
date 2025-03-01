@@ -11,7 +11,8 @@ Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgCompetences')->group(function () {
 
         Route::get('categoryTechnologies/getCategoryTechnologies', [CategoryTechnologyController::class, 'getCategoryTechnologies'])->name('categoryTechnologies.all');
-        Route::resource('categoryTechnologies', CategoryTechnologyController::class);
+        Route::resource('categoryTechnologies', CategoryTechnologyController::class)
+            ->parameters(['categoryTechnologies' => 'categoryTechnology']);
         // Routes supplémentaires avec préfixe
         Route::prefix('data')->group(function () {
             Route::post('categoryTechnologies/import', [CategoryTechnologyController::class, 'import'])->name('categoryTechnologies.import');

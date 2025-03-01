@@ -11,7 +11,8 @@ Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgRealisationProjets')->group(function () {
 
         Route::get('realisationProjets/getRealisationProjets', [RealisationProjetController::class, 'getRealisationProjets'])->name('realisationProjets.all');
-        Route::resource('realisationProjets', RealisationProjetController::class);
+        Route::resource('realisationProjets', RealisationProjetController::class)
+            ->parameters(['realisationProjets' => 'realisationProjet']);
         // Routes supplémentaires avec préfixe
         Route::prefix('data')->group(function () {
             Route::post('realisationProjets/import', [RealisationProjetController::class, 'import'])->name('realisationProjets.import');

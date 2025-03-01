@@ -11,7 +11,8 @@ Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgApprenants')->group(function () {
 
         Route::get('niveauxScolaires/getNiveauxScolaires', [NiveauxScolaireController::class, 'getNiveauxScolaires'])->name('niveauxScolaires.all');
-        Route::resource('niveauxScolaires', NiveauxScolaireController::class);
+        Route::resource('niveauxScolaires', NiveauxScolaireController::class)
+            ->parameters(['niveauxScolaires' => 'niveauxScolaire']);
         // Routes supplémentaires avec préfixe
         Route::prefix('data')->group(function () {
             Route::post('niveauxScolaires/import', [NiveauxScolaireController::class, 'import'])->name('niveauxScolaires.import');

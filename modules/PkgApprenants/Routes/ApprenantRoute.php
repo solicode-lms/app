@@ -11,7 +11,8 @@ Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgApprenants')->group(function () {
 
         Route::get('apprenants/getApprenants', [ApprenantController::class, 'getApprenants'])->name('apprenants.all');
-        Route::resource('apprenants', ApprenantController::class);
+        Route::resource('apprenants', ApprenantController::class)
+            ->parameters(['apprenants' => 'apprenant']);
         // Routes supplémentaires avec préfixe
         Route::prefix('data')->group(function () {
             Route::post('apprenants/import', [ApprenantController::class, 'import'])->name('apprenants.import');

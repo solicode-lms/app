@@ -11,7 +11,8 @@ Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgGestionTaches')->group(function () {
 
         Route::get('prioriteTaches/getPrioriteTaches', [PrioriteTacheController::class, 'getPrioriteTaches'])->name('prioriteTaches.all');
-        Route::resource('prioriteTaches', PrioriteTacheController::class);
+        Route::resource('prioriteTaches', PrioriteTacheController::class)
+            ->parameters(['prioriteTaches' => 'prioriteTache']);
         // Routes supplémentaires avec préfixe
         Route::prefix('data')->group(function () {
             Route::post('prioriteTaches/import', [PrioriteTacheController::class, 'import'])->name('prioriteTaches.import');

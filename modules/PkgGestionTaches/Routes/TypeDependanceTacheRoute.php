@@ -11,7 +11,8 @@ Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgGestionTaches')->group(function () {
 
         Route::get('typeDependanceTaches/getTypeDependanceTaches', [TypeDependanceTacheController::class, 'getTypeDependanceTaches'])->name('typeDependanceTaches.all');
-        Route::resource('typeDependanceTaches', TypeDependanceTacheController::class);
+        Route::resource('typeDependanceTaches', TypeDependanceTacheController::class)
+            ->parameters(['typeDependanceTaches' => 'typeDependanceTache']);
         // Routes supplémentaires avec préfixe
         Route::prefix('data')->group(function () {
             Route::post('typeDependanceTaches/import', [TypeDependanceTacheController::class, 'import'])->name('typeDependanceTaches.import');

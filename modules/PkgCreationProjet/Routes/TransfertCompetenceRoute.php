@@ -11,7 +11,8 @@ Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgCreationProjet')->group(function () {
 
         Route::get('transfertCompetences/getTransfertCompetences', [TransfertCompetenceController::class, 'getTransfertCompetences'])->name('transfertCompetences.all');
-        Route::resource('transfertCompetences', TransfertCompetenceController::class);
+        Route::resource('transfertCompetences', TransfertCompetenceController::class)
+            ->parameters(['transfertCompetences' => 'transfertCompetence']);
         // Routes supplémentaires avec préfixe
         Route::prefix('data')->group(function () {
             Route::post('transfertCompetences/import', [TransfertCompetenceController::class, 'import'])->name('transfertCompetences.import');

@@ -11,7 +11,8 @@ Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgRealisationProjets')->group(function () {
 
         Route::get('validations/getValidations', [ValidationController::class, 'getValidations'])->name('validations.all');
-        Route::resource('validations', ValidationController::class);
+        Route::resource('validations', ValidationController::class)
+            ->parameters(['validations' => 'validation']);
         // Routes supplémentaires avec préfixe
         Route::prefix('data')->group(function () {
             Route::post('validations/import', [ValidationController::class, 'import'])->name('validations.import');

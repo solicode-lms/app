@@ -11,7 +11,8 @@ Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgAutorisation')->group(function () {
 
         Route::get('profiles/getProfiles', [ProfileController::class, 'getProfiles'])->name('profiles.all');
-        Route::resource('profiles', ProfileController::class);
+        Route::resource('profiles', ProfileController::class)
+            ->parameters(['profiles' => 'profile']);
         // Routes supplémentaires avec préfixe
         Route::prefix('data')->group(function () {
             Route::post('profiles/import', [ProfileController::class, 'import'])->name('profiles.import');

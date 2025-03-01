@@ -11,7 +11,8 @@ Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgGapp')->group(function () {
 
         Route::get('eRelationships/getERelationships', [ERelationshipController::class, 'getERelationships'])->name('eRelationships.all');
-        Route::resource('eRelationships', ERelationshipController::class);
+        Route::resource('eRelationships', ERelationshipController::class)
+            ->parameters(['eRelationships' => 'eRelationship']);
         // Routes supplémentaires avec préfixe
         Route::prefix('data')->group(function () {
             Route::post('eRelationships/import', [ERelationshipController::class, 'import'])->name('eRelationships.import');

@@ -11,7 +11,8 @@ Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgAutorisation')->group(function () {
 
         Route::get('roles/getRoles', [RoleController::class, 'getRoles'])->name('roles.all');
-        Route::resource('roles', RoleController::class);
+        Route::resource('roles', RoleController::class)
+            ->parameters(['roles' => 'role']);
         // Routes supplémentaires avec préfixe
         Route::prefix('data')->group(function () {
             Route::post('roles/import', [RoleController::class, 'import'])->name('roles.import');

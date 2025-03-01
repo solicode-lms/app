@@ -11,7 +11,8 @@ Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgGestionTaches')->group(function () {
 
         Route::get('commentaireRealisationTaches/getCommentaireRealisationTaches', [CommentaireRealisationTacheController::class, 'getCommentaireRealisationTaches'])->name('commentaireRealisationTaches.all');
-        Route::resource('commentaireRealisationTaches', CommentaireRealisationTacheController::class);
+        Route::resource('commentaireRealisationTaches', CommentaireRealisationTacheController::class)
+            ->parameters(['commentaireRealisationTaches' => 'commentaireRealisationTache']);
         // Routes supplémentaires avec préfixe
         Route::prefix('data')->group(function () {
             Route::post('commentaireRealisationTaches/import', [CommentaireRealisationTacheController::class, 'import'])->name('commentaireRealisationTaches.import');

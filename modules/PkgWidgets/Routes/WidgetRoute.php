@@ -11,7 +11,8 @@ Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgWidgets')->group(function () {
 
         Route::get('widgets/getWidgets', [WidgetController::class, 'getWidgets'])->name('widgets.all');
-        Route::resource('widgets', WidgetController::class);
+        Route::resource('widgets', WidgetController::class)
+            ->parameters(['widgets' => 'widget']);
         // Routes supplémentaires avec préfixe
         Route::prefix('data')->group(function () {
             Route::post('widgets/import', [WidgetController::class, 'import'])->name('widgets.import');

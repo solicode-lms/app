@@ -11,7 +11,8 @@ Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgGestionTaches')->group(function () {
 
         Route::get('labelRealisationTaches/getLabelRealisationTaches', [LabelRealisationTacheController::class, 'getLabelRealisationTaches'])->name('labelRealisationTaches.all');
-        Route::resource('labelRealisationTaches', LabelRealisationTacheController::class);
+        Route::resource('labelRealisationTaches', LabelRealisationTacheController::class)
+            ->parameters(['labelRealisationTaches' => 'labelRealisationTache']);
         // Routes supplémentaires avec préfixe
         Route::prefix('data')->group(function () {
             Route::post('labelRealisationTaches/import', [LabelRealisationTacheController::class, 'import'])->name('labelRealisationTaches.import');

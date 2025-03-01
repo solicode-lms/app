@@ -11,7 +11,8 @@ Route::middleware('auth')->group(function () {
     Route::prefix('/admin/Core')->group(function () {
 
         Route::get('sysControllers/getSysControllers', [SysControllerController::class, 'getSysControllers'])->name('sysControllers.all');
-        Route::resource('sysControllers', SysControllerController::class);
+        Route::resource('sysControllers', SysControllerController::class)
+            ->parameters(['sysControllers' => 'sysController']);
         // Routes supplémentaires avec préfixe
         Route::prefix('data')->group(function () {
             Route::post('sysControllers/import', [SysControllerController::class, 'import'])->name('sysControllers.import');

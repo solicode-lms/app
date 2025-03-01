@@ -11,7 +11,8 @@ Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgApprenants')->group(function () {
 
         Route::get('villes/getVilles', [VilleController::class, 'getVilles'])->name('villes.all');
-        Route::resource('villes', VilleController::class);
+        Route::resource('villes', VilleController::class)
+            ->parameters(['villes' => 'ville']);
         // Routes supplémentaires avec préfixe
         Route::prefix('data')->group(function () {
             Route::post('villes/import', [VilleController::class, 'import'])->name('villes.import');

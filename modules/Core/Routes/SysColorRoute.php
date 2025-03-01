@@ -11,7 +11,8 @@ Route::middleware('auth')->group(function () {
     Route::prefix('/admin/Core')->group(function () {
 
         Route::get('sysColors/getSysColors', [SysColorController::class, 'getSysColors'])->name('sysColors.all');
-        Route::resource('sysColors', SysColorController::class);
+        Route::resource('sysColors', SysColorController::class)
+            ->parameters(['sysColors' => 'sysColor']);
         // Routes supplémentaires avec préfixe
         Route::prefix('data')->group(function () {
             Route::post('sysColors/import', [SysColorController::class, 'import'])->name('sysColors.import');

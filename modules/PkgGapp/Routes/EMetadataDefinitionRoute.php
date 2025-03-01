@@ -11,7 +11,8 @@ Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgGapp')->group(function () {
 
         Route::get('eMetadataDefinitions/getEMetadataDefinitions', [EMetadataDefinitionController::class, 'getEMetadataDefinitions'])->name('eMetadataDefinitions.all');
-        Route::resource('eMetadataDefinitions', EMetadataDefinitionController::class);
+        Route::resource('eMetadataDefinitions', EMetadataDefinitionController::class)
+            ->parameters(['eMetadataDefinitions' => 'eMetadataDefinition']);
         // Routes supplémentaires avec préfixe
         Route::prefix('data')->group(function () {
             Route::post('eMetadataDefinitions/import', [EMetadataDefinitionController::class, 'import'])->name('eMetadataDefinitions.import');

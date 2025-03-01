@@ -11,7 +11,8 @@ Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgFormation')->group(function () {
 
         Route::get('anneeFormations/getAnneeFormations', [AnneeFormationController::class, 'getAnneeFormations'])->name('anneeFormations.all');
-        Route::resource('anneeFormations', AnneeFormationController::class);
+        Route::resource('anneeFormations', AnneeFormationController::class)
+            ->parameters(['anneeFormations' => 'anneeFormation']);
         // Routes supplémentaires avec préfixe
         Route::prefix('data')->group(function () {
             Route::post('anneeFormations/import', [AnneeFormationController::class, 'import'])->name('anneeFormations.import');

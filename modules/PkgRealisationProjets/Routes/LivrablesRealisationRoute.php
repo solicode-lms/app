@@ -11,7 +11,8 @@ Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgRealisationProjets')->group(function () {
 
         Route::get('livrablesRealisations/getLivrablesRealisations', [LivrablesRealisationController::class, 'getLivrablesRealisations'])->name('livrablesRealisations.all');
-        Route::resource('livrablesRealisations', LivrablesRealisationController::class);
+        Route::resource('livrablesRealisations', LivrablesRealisationController::class)
+            ->parameters(['livrablesRealisations' => 'livrablesRealisation']);
         // Routes supplémentaires avec préfixe
         Route::prefix('data')->group(function () {
             Route::post('livrablesRealisations/import', [LivrablesRealisationController::class, 'import'])->name('livrablesRealisations.import');

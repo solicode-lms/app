@@ -11,7 +11,8 @@ Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgFormation')->group(function () {
 
         Route::get('formateurs/getFormateurs', [FormateurController::class, 'getFormateurs'])->name('formateurs.all');
-        Route::resource('formateurs', FormateurController::class);
+        Route::resource('formateurs', FormateurController::class)
+            ->parameters(['formateurs' => 'formateur']);
         // Routes supplémentaires avec préfixe
         Route::prefix('data')->group(function () {
             Route::post('formateurs/import', [FormateurController::class, 'import'])->name('formateurs.import');

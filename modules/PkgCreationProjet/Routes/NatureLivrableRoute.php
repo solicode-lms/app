@@ -11,7 +11,8 @@ Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgCreationProjet')->group(function () {
 
         Route::get('natureLivrables/getNatureLivrables', [NatureLivrableController::class, 'getNatureLivrables'])->name('natureLivrables.all');
-        Route::resource('natureLivrables', NatureLivrableController::class);
+        Route::resource('natureLivrables', NatureLivrableController::class)
+            ->parameters(['natureLivrables' => 'natureLivrable']);
         // Routes supplémentaires avec préfixe
         Route::prefix('data')->group(function () {
             Route::post('natureLivrables/import', [NatureLivrableController::class, 'import'])->name('natureLivrables.import');

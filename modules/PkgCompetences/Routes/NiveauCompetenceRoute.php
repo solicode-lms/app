@@ -11,7 +11,8 @@ Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgCompetences')->group(function () {
 
         Route::get('niveauCompetences/getNiveauCompetences', [NiveauCompetenceController::class, 'getNiveauCompetences'])->name('niveauCompetences.all');
-        Route::resource('niveauCompetences', NiveauCompetenceController::class);
+        Route::resource('niveauCompetences', NiveauCompetenceController::class)
+            ->parameters(['niveauCompetences' => 'niveauCompetence']);
         // Routes supplémentaires avec préfixe
         Route::prefix('data')->group(function () {
             Route::post('niveauCompetences/import', [NiveauCompetenceController::class, 'import'])->name('niveauCompetences.import');

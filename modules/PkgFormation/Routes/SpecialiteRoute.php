@@ -11,7 +11,8 @@ Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgFormation')->group(function () {
 
         Route::get('specialites/getSpecialites', [SpecialiteController::class, 'getSpecialites'])->name('specialites.all');
-        Route::resource('specialites', SpecialiteController::class);
+        Route::resource('specialites', SpecialiteController::class)
+            ->parameters(['specialites' => 'specialite']);
         // Routes supplémentaires avec préfixe
         Route::prefix('data')->group(function () {
             Route::post('specialites/import', [SpecialiteController::class, 'import'])->name('specialites.import');

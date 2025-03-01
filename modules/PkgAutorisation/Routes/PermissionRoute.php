@@ -11,7 +11,8 @@ Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgAutorisation')->group(function () {
 
         Route::get('permissions/getPermissions', [PermissionController::class, 'getPermissions'])->name('permissions.all');
-        Route::resource('permissions', PermissionController::class);
+        Route::resource('permissions', PermissionController::class)
+            ->parameters(['permissions' => 'permission']);
         // Routes supplémentaires avec préfixe
         Route::prefix('data')->group(function () {
             Route::post('permissions/import', [PermissionController::class, 'import'])->name('permissions.import');

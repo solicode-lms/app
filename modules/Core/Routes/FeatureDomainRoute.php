@@ -11,7 +11,8 @@ Route::middleware('auth')->group(function () {
     Route::prefix('/admin/Core')->group(function () {
 
         Route::get('featureDomains/getFeatureDomains', [FeatureDomainController::class, 'getFeatureDomains'])->name('featureDomains.all');
-        Route::resource('featureDomains', FeatureDomainController::class);
+        Route::resource('featureDomains', FeatureDomainController::class)
+            ->parameters(['featureDomains' => 'featureDomain']);
         // Routes supplémentaires avec préfixe
         Route::prefix('data')->group(function () {
             Route::post('featureDomains/import', [FeatureDomainController::class, 'import'])->name('featureDomains.import');

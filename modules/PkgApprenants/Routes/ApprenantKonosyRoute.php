@@ -11,7 +11,8 @@ Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgApprenants')->group(function () {
 
         Route::get('apprenantKonosies/getApprenantKonosies', [ApprenantKonosyController::class, 'getApprenantKonosies'])->name('apprenantKonosies.all');
-        Route::resource('apprenantKonosies', ApprenantKonosyController::class);
+        Route::resource('apprenantKonosies', ApprenantKonosyController::class)
+            ->parameters(['apprenantKonosies' => 'apprenantKonosy']);
         // Routes supplémentaires avec préfixe
         Route::prefix('data')->group(function () {
             Route::post('apprenantKonosies/import', [ApprenantKonosyController::class, 'import'])->name('apprenantKonosies.import');

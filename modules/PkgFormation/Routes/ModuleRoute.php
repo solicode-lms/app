@@ -11,7 +11,8 @@ Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgFormation')->group(function () {
 
         Route::get('modules/getModules', [ModuleController::class, 'getModules'])->name('modules.all');
-        Route::resource('modules', ModuleController::class);
+        Route::resource('modules', ModuleController::class)
+            ->parameters(['modules' => 'module']);
         // Routes supplémentaires avec préfixe
         Route::prefix('data')->group(function () {
             Route::post('modules/import', [ModuleController::class, 'import'])->name('modules.import');

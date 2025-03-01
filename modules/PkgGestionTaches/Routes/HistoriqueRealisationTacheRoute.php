@@ -11,7 +11,8 @@ Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgGestionTaches')->group(function () {
 
         Route::get('historiqueRealisationTaches/getHistoriqueRealisationTaches', [HistoriqueRealisationTacheController::class, 'getHistoriqueRealisationTaches'])->name('historiqueRealisationTaches.all');
-        Route::resource('historiqueRealisationTaches', HistoriqueRealisationTacheController::class);
+        Route::resource('historiqueRealisationTaches', HistoriqueRealisationTacheController::class)
+            ->parameters(['historiqueRealisationTaches' => 'historiqueRealisationTache']);
         // Routes supplémentaires avec préfixe
         Route::prefix('data')->group(function () {
             Route::post('historiqueRealisationTaches/import', [HistoriqueRealisationTacheController::class, 'import'])->name('historiqueRealisationTaches.import');
