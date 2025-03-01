@@ -5,7 +5,7 @@
         <thead>
             <tr>
                 <x-sortable-column field="nom" modelname="niveauCompetence" label="{{ ucfirst(__('PkgCompetences::niveauCompetence.nom')) }}" />
-                <x-sortable-column field="competence_id" modelname="niveauCompetence" label="{{ ucfirst(__('PkgCompetences::competence.singular')) }}" />
+                <x-sortable-column field="competence_id" modelname="niveauCompetence" label="{{ ucfirst(__('PkgCompetences::niveauCompetence.competence_id')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

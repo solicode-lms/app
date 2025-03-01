@@ -5,8 +5,8 @@
         <thead>
             <tr>
                 <x-sortable-column field="titre" modelname="tache" label="{{ ucfirst(__('PkgGestionTaches::tache.titre')) }}" />
-                <x-sortable-column field="projet_id" modelname="tache" label="{{ ucfirst(__('PkgCreationProjet::projet.singular')) }}" />
-                <x-sortable-column field="priorite_tache_id" modelname="tache" label="{{ ucfirst(__('PkgGestionTaches::prioriteTache.singular')) }}" />
+                <x-sortable-column field="projet_id" modelname="tache" label="{{ ucfirst(__('PkgGestionTaches::tache.projet_id')) }}" />
+                <x-sortable-column field="priorite_tache_id" modelname="tache" label="{{ ucfirst(__('PkgGestionTaches::tache.priorite_tache_id')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

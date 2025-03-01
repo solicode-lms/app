@@ -6,7 +6,7 @@
             <tr>
                 <x-sortable-column field="tache_id" modelname="dependanceTache" label="{{ ucfirst(__('PkgGestionTaches::dependanceTache.tache_id')) }}" />
                 <x-sortable-column field="tache_cible_id" modelname="dependanceTache" label="{{ ucfirst(__('PkgGestionTaches::dependanceTache.tache_cible_id')) }}" />
-                <x-sortable-column field="type_dependance_tache_id" modelname="dependanceTache" label="{{ ucfirst(__('PkgGestionTaches::typeDependanceTache.singular')) }}" />
+                <x-sortable-column field="type_dependance_tache_id" modelname="dependanceTache" label="{{ ucfirst(__('PkgGestionTaches::dependanceTache.type_dependance_tache_id')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

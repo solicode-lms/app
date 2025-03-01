@@ -1,7 +1,7 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 
-@accessiblePermissions(['index-etatRealisationTache', 'index-labelRealisationTache', 'index-prioriteTache', 'index-realisationTache', 'index-typeDependanceTache'])
+@accessiblePermissions(['index-etatRealisationTache', 'index-labelRealisationTache', 'index-prioriteTache', 'index-typeDependanceTache', 'index-realisationTache'])
 @if($accessiblePermissions->isNotEmpty())
 <li id="menu-PkgGestionTaches" class="nav-item has-treeview  {{ Request::is('admin/PkgGestionTaches*') ? 'menu-open' : '' }}">
     <a href="#" class="nav-link nav-link {{ Request::is('admin/PkgGestionTaches*') ? 'active' : '' }}">
@@ -36,19 +36,19 @@
             </a>
         </li>
         @endcan
-        @can('index-realisationTache') 
-        <li class="nav-item" id="menu-realisationTaches">
-            <a href="{{ route('realisationTaches.index') }}" class="nav-link {{ Request::is('admin/PkgGestionTaches/realisationTaches') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-tasks"></i>
-                {{__('PkgGestionTaches::realisationTache.plural')}}
-            </a>
-        </li>
-        @endcan
         @can('index-typeDependanceTache') 
         <li class="nav-item" id="menu-typeDependanceTaches">
             <a href="{{ route('typeDependanceTaches.index') }}" class="nav-link {{ Request::is('admin/PkgGestionTaches/typeDependanceTaches') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-random"></i>
                 {{__('PkgGestionTaches::typeDependanceTache.plural')}}
+            </a>
+        </li>
+        @endcan
+        @can('index-realisationTache') 
+        <li class="nav-item" id="menu-realisationTaches">
+            <a href="{{ route('realisationTaches.index') }}" class="nav-link {{ Request::is('admin/PkgGestionTaches/realisationTaches') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-tasks"></i>
+                {{__('PkgGestionTaches::realisationTache.plural')}}
             </a>
         </li>
         @endcan

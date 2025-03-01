@@ -9,7 +9,7 @@
 
                 <x-sortable-column field="AffectationProjet" modelname="projet" label="{{ ucfirst(__('PkgRealisationProjets::affectationProjet.plural')) }}" />
 
-                <x-sortable-column field="formateur_id" modelname="projet" label="{{ ucfirst(__('PkgFormation::formateur.singular')) }}" />
+                <x-sortable-column field="formateur_id" modelname="projet" label="{{ ucfirst(__('PkgCreationProjet::projet.formateur_id')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

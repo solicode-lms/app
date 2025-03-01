@@ -4,7 +4,7 @@
     <table class="table table-striped text-nowrap">
         <thead>
             <tr>
-                <x-sortable-column field="sys_module_id" modelname="sysController" label="{{ ucfirst(__('Core::sysModule.singular')) }}" />
+                <x-sortable-column field="sys_module_id" modelname="sysController" label="{{ ucfirst(__('Core::sysController.sys_module_id')) }}" />
                 <x-sortable-column field="name" modelname="sysController" label="{{ ucfirst(__('Core::sysController.name')) }}" />
                 <x-sortable-column field="is_active" modelname="sysController" label="{{ ucfirst(__('Core::sysController.is_active')) }}" />
                 <x-sortable-column field="Permission" modelname="sysController" label="{{ ucfirst(__('PkgAutorisation::permission.plural')) }}" />

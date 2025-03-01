@@ -5,8 +5,8 @@
         <thead>
             <tr>
                 <x-sortable-column field="name" modelname="sysModel" label="{{ ucfirst(__('Core::sysModel.name')) }}" />
-                <x-sortable-column field="sys_module_id" modelname="sysModel" label="{{ ucfirst(__('Core::sysModule.singular')) }}" />
-                <x-sortable-column field="sys_color_id" modelname="sysModel" label="{{ ucfirst(__('Core::sysColor.singular')) }}" />
+                <x-sortable-column field="sys_module_id" modelname="sysModel" label="{{ ucfirst(__('Core::sysModel.sys_module_id')) }}" />
+                <x-sortable-column field="sys_color_id" modelname="sysModel" label="{{ ucfirst(__('Core::sysModel.sys_color_id')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
