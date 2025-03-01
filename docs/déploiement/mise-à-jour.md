@@ -57,6 +57,8 @@ php artisan db:seed --class=Modules\PkgGestionTaches\Database\Seeders\Realisatio
 php artisan db:seed --class=Modules\PkgGestionTaches\Database\Seeders\TacheSeeder
 php artisan db:seed --class=Modules\PkgGestionTaches\Database\Seeders\TypeDependanceTacheSeeder
 
+
+
 ````
 
 

@@ -262,7 +262,8 @@
     },
     {
         "reference": "taches_hasMany_dependance_taches_tache_cible_id_editHasMany",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "taches_hasMany_dependance_taches_tache_cible_id",
         "e_metadata_definition_reference": "editHasMany"
     },

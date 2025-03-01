@@ -108,15 +108,6 @@ class BaseTacheController extends AdminController
         $prioriteTaches = $this->prioriteTacheService->all();
 
 
-        $this->viewState->set('scope.dependanceTache.tache_cible_id', $id);
-
-
-        $dependanceTacheService =  new DependanceTacheService();
-        $dependanceTaches_data =  $itemTache->dependanceTaches()->paginate(10);
-        $dependanceTaches_stats = $dependanceTacheService->getdependanceTacheStats();
-        $dependanceTaches_filters = $dependanceTacheService->getFieldsFilterable();
-        $dependanceTache_instance =  $dependanceTacheService->createInstance();
-
         $this->viewState->set('scope.dependanceTache.tache_id', $id);
 
 
@@ -136,10 +127,10 @@ class BaseTacheController extends AdminController
         $realisationTache_instance =  $realisationTacheService->createInstance();
 
         if (request()->ajax()) {
-            return view('PkgGestionTaches::tache._edit', compact('itemTache', 'prioriteTaches', 'projets', 'dependanceTaches_data', 'dependanceTaches_data', 'realisationTaches_data', 'dependanceTaches_stats', 'dependanceTaches_stats', 'realisationTaches_stats', 'dependanceTaches_filters', 'dependanceTaches_filters', 'realisationTaches_filters', 'dependanceTache_instance', 'dependanceTache_instance', 'realisationTache_instance'));
+            return view('PkgGestionTaches::tache._edit', compact('itemTache', 'prioriteTaches', 'projets', 'dependanceTaches_data', 'realisationTaches_data', 'dependanceTaches_stats', 'realisationTaches_stats', 'dependanceTaches_filters', 'realisationTaches_filters', 'dependanceTache_instance', 'realisationTache_instance'));
         }
 
-        return view('PkgGestionTaches::tache.edit', compact('itemTache', 'prioriteTaches', 'projets', 'dependanceTaches_data', 'dependanceTaches_data', 'realisationTaches_data', 'dependanceTaches_stats', 'dependanceTaches_stats', 'realisationTaches_stats', 'dependanceTaches_filters', 'dependanceTaches_filters', 'realisationTaches_filters', 'dependanceTache_instance', 'dependanceTache_instance', 'realisationTache_instance'));
+        return view('PkgGestionTaches::tache.edit', compact('itemTache', 'prioriteTaches', 'projets', 'dependanceTaches_data', 'realisationTaches_data', 'dependanceTaches_stats', 'realisationTaches_stats', 'dependanceTaches_filters', 'realisationTaches_filters', 'dependanceTache_instance', 'realisationTache_instance'));
 
     }
     public function edit(string $id) {
@@ -153,16 +144,6 @@ class BaseTacheController extends AdminController
         $projets = $this->projetService->all();
         $prioriteTaches = $this->prioriteTacheService->all();
 
-
-        $this->viewState->set('scope.dependanceTache.tache_cible_id', $id);
-        
-
-        $dependanceTacheService =  new DependanceTacheService();
-        $dependanceTaches_data =  $itemTache->dependanceTaches()->paginate(10);
-        $dependanceTaches_stats = $dependanceTacheService->getdependanceTacheStats();
-        $this->viewState->set('stats.dependanceTache.stats'  , $dependanceTaches_stats);
-        $dependanceTaches_filters = $dependanceTacheService->getFieldsFilterable();
-        $dependanceTache_instance =  $dependanceTacheService->createInstance();
 
         $this->viewState->set('scope.dependanceTache.tache_id', $id);
         
@@ -185,10 +166,10 @@ class BaseTacheController extends AdminController
         $realisationTache_instance =  $realisationTacheService->createInstance();
 
         if (request()->ajax()) {
-            return view('PkgGestionTaches::tache._edit', compact('itemTache', 'prioriteTaches', 'projets', 'dependanceTaches_data', 'dependanceTaches_data', 'realisationTaches_data', 'dependanceTaches_stats', 'dependanceTaches_stats', 'realisationTaches_stats', 'dependanceTaches_filters', 'dependanceTaches_filters', 'realisationTaches_filters', 'dependanceTache_instance', 'dependanceTache_instance', 'realisationTache_instance'));
+            return view('PkgGestionTaches::tache._edit', compact('itemTache', 'prioriteTaches', 'projets', 'dependanceTaches_data', 'realisationTaches_data', 'dependanceTaches_stats', 'realisationTaches_stats', 'dependanceTaches_filters', 'realisationTaches_filters', 'dependanceTache_instance', 'realisationTache_instance'));
         }
 
-        return view('PkgGestionTaches::tache.edit', compact('itemTache', 'prioriteTaches', 'projets', 'dependanceTaches_data', 'dependanceTaches_data', 'realisationTaches_data', 'dependanceTaches_stats', 'dependanceTaches_stats', 'realisationTaches_stats', 'dependanceTaches_filters', 'dependanceTaches_filters', 'realisationTaches_filters', 'dependanceTache_instance', 'dependanceTache_instance', 'realisationTache_instance'));
+        return view('PkgGestionTaches::tache.edit', compact('itemTache', 'prioriteTaches', 'projets', 'dependanceTaches_data', 'realisationTaches_data', 'dependanceTaches_stats', 'realisationTaches_stats', 'dependanceTaches_filters', 'realisationTaches_filters', 'dependanceTache_instance', 'realisationTache_instance'));
 
     }
     public function update(TacheRequest $request, string $id) {

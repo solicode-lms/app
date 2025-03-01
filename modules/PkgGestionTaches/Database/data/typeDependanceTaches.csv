@@ -1,1 +1,5 @@
-titre,description
+titre,description,reference
+"Début après la fin d’une autre tâche (FS)","Une tâche B ne peut commencer que lorsque la tâche A est terminée.","Finish-to-Start"
+"Début simultané de deux tâches (SS)","Deux tâches doivent commencer en même temps, mais peuvent finir séparément.","Start-to-Start"
+"Fin simultanée de deux tâches (FF)","Une tâche ne peut être terminée que si une autre l’est aussi.","Finish-to-Finish"
+"Fin après le début d’une autre tâche (SF)","Une tâche B ne peut être terminée que si une autre tâche A a commencé.","Start-to-Finish"
