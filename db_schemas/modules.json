@@ -105,9 +105,22 @@
         "validations"
     ]
 
+},
+
+"PkgGestionTaches": {
+    "name": "PkgGestionTaches",
+    "tables": [
+        "etat_realisation_taches",
+        "label_realisation_taches",
+        "priorite_taches",
+        "taches",
+        "type_dependance_taches",
+        "dependance_taches",
+        "realisation_taches",
+        "historique_taches",
+        "commentaire_realisation_taches"
+    ]
 }
-
-
 
         
 }
