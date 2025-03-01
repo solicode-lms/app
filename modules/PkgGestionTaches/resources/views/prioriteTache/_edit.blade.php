@@ -1,0 +1,64 @@
+{{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
+
+<script>
+    window.editWithTabPanelManagersConfig = window.editWithTabPanelManagersConfig || [];
+    window.editWithTabPanelManagersConfig.push({
+        entity_name: 'prioriteTache',
+        contextKey: 'prioriteTache.edit_{{ $itemPrioriteTache->id}}',
+        cardTabSelector: '#card-tab-prioriteTache', 
+        formSelector: '#prioriteTacheForm',
+        editUrl: '{{ route('prioriteTaches.edit',  ['prioriteTache' => ':id']) }}',
+        indexUrl: '{{ route('prioriteTaches.index') }}',
+        csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
+        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgGestionTaches::prioriteTache.singular") }}',
+    });
+</script>
+<script>
+    window.contextState = @json($contextState);
+    window.viewState = @json($viewState);
+</script>
+
+@section('content')
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                <div id="card-tab-prioriteTache" class="card card-info card-tabs card-workflow">
+                    <div class="card-header d-flex justify-content-between p-0 pt-1">
+                        <ul class="nav nav-tabs mr-auto" id="edit-prioriteTache-tab" role="tablist">
+                        <li class="pt-2 px-3">
+                            <h3 class="card-title">
+                                <i class="nav-icon fas fa-table"></i>
+                            </h3>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" id="prioriteTache-hasmany-tabs-home-tab" data-toggle="pill" href="#prioriteTache-hasmany-tabs-home" role="tab" aria-controls="prioriteTache-hasmany-tabs-home" aria-selected="true">{{__('PkgGestionTaches::prioriteTache.singular')}}</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" id="prioriteTache-hasmany-tabs-tache-tab" data-toggle="pill" href="#prioriteTache-hasmany-tabs-tache" role="tab" aria-controls="prioriteTache-hasmany-tabs-tache" aria-selected="false">{{__('PkgGestionTaches::tache.plural')}}</a>
+                        </li>
+
+                       
+                        </ul>
+                    </div>
+                    <div class="card-body">
+                        <div class="tab-content" id="edit-prioriteTache-tabContent">
+                            <div class="tab-pane fade show active" id="prioriteTache-hasmany-tabs-home" role="tabpanel" aria-labelledby="prioriteTache-hasmany-tabs-home-tab">
+                                @include('PkgGestionTaches::prioriteTache._fields')
+                            </div>
+
+                            <div class="tab-pane fade" id="prioriteTache-hasmany-tabs-tache" role="tabpanel" aria-labelledby="prioriteTache-hasmany-tabs-tache-tab">
+                                @include('PkgGestionTaches::tache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'prioriteTache.edit_' . $itemPrioriteTache->id])
+                            </div>
+
+                           
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                </div>
+            </div>
+        </div>
+    </section>
+@show

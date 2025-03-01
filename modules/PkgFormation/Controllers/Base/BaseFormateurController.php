@@ -7,6 +7,10 @@ use Modules\PkgFormation\Services\FormateurService;
 use Modules\PkgApprenants\Services\GroupeService;
 use Modules\PkgFormation\Services\SpecialiteService;
 use Modules\PkgAutorisation\Services\UserService;
+use Modules\PkgGestionTaches\Services\CommentaireRealisationTacheService;
+use Modules\PkgGestionTaches\Services\EtatRealisationTacheService;
+use Modules\PkgGestionTaches\Services\LabelRealisationTacheService;
+use Modules\PkgGestionTaches\Services\PrioriteTacheService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
@@ -90,7 +94,7 @@ class BaseFormateurController extends AdminController
             );
         }
 
-        return redirect()->route('formateurs.index')->with(
+        return redirect()->route('formateurs.edit',['formateur' => $formateur->id])->with(
             'success',
             __('Core::msg.addSuccess', [
                 'entityToString' => $formateur,
@@ -111,11 +115,47 @@ class BaseFormateurController extends AdminController
         $users = $this->userService->all();
 
 
+        $this->viewState->set('scope.commentaireRealisationTache.formateur_id', $id);
+
+
+        $commentaireRealisationTacheService =  new CommentaireRealisationTacheService();
+        $commentaireRealisationTaches_data =  $itemFormateur->commentaireRealisationTaches()->paginate(10);
+        $commentaireRealisationTaches_stats = $commentaireRealisationTacheService->getcommentaireRealisationTacheStats();
+        $commentaireRealisationTaches_filters = $commentaireRealisationTacheService->getFieldsFilterable();
+        $commentaireRealisationTache_instance =  $commentaireRealisationTacheService->createInstance();
+
+        $this->viewState->set('scope.etatRealisationTache.formateur_id', $id);
+
+
+        $etatRealisationTacheService =  new EtatRealisationTacheService();
+        $etatRealisationTaches_data =  $itemFormateur->etatRealisationTaches()->paginate(10);
+        $etatRealisationTaches_stats = $etatRealisationTacheService->getetatRealisationTacheStats();
+        $etatRealisationTaches_filters = $etatRealisationTacheService->getFieldsFilterable();
+        $etatRealisationTache_instance =  $etatRealisationTacheService->createInstance();
+
+        $this->viewState->set('scope.labelRealisationTache.formateur_id', $id);
+
+
+        $labelRealisationTacheService =  new LabelRealisationTacheService();
+        $labelRealisationTaches_data =  $itemFormateur->labelRealisationTaches()->paginate(10);
+        $labelRealisationTaches_stats = $labelRealisationTacheService->getlabelRealisationTacheStats();
+        $labelRealisationTaches_filters = $labelRealisationTacheService->getFieldsFilterable();
+        $labelRealisationTache_instance =  $labelRealisationTacheService->createInstance();
+
+        $this->viewState->set('scope.prioriteTache.formateur_id', $id);
+
+
+        $prioriteTacheService =  new PrioriteTacheService();
+        $prioriteTaches_data =  $itemFormateur->prioriteTaches()->paginate(10);
+        $prioriteTaches_stats = $prioriteTacheService->getprioriteTacheStats();
+        $prioriteTaches_filters = $prioriteTacheService->getFieldsFilterable();
+        $prioriteTache_instance =  $prioriteTacheService->createInstance();
+
         if (request()->ajax()) {
-            return view('PkgFormation::formateur._fields', compact('itemFormateur', 'groupes', 'specialites', 'users'));
+            return view('PkgFormation::formateur._edit', compact('itemFormateur', 'groupes', 'specialites', 'users', 'commentaireRealisationTaches_data', 'etatRealisationTaches_data', 'labelRealisationTaches_data', 'prioriteTaches_data', 'commentaireRealisationTaches_stats', 'etatRealisationTaches_stats', 'labelRealisationTaches_stats', 'prioriteTaches_stats', 'commentaireRealisationTaches_filters', 'etatRealisationTaches_filters', 'labelRealisationTaches_filters', 'prioriteTaches_filters', 'commentaireRealisationTache_instance', 'etatRealisationTache_instance', 'labelRealisationTache_instance', 'prioriteTache_instance'));
         }
 
-        return view('PkgFormation::formateur.edit', compact('itemFormateur', 'groupes', 'specialites', 'users'));
+        return view('PkgFormation::formateur.edit', compact('itemFormateur', 'groupes', 'specialites', 'users', 'commentaireRealisationTaches_data', 'etatRealisationTaches_data', 'labelRealisationTaches_data', 'prioriteTaches_data', 'commentaireRealisationTaches_stats', 'etatRealisationTaches_stats', 'labelRealisationTaches_stats', 'prioriteTaches_stats', 'commentaireRealisationTaches_filters', 'etatRealisationTaches_filters', 'labelRealisationTaches_filters', 'prioriteTaches_filters', 'commentaireRealisationTache_instance', 'etatRealisationTache_instance', 'labelRealisationTache_instance', 'prioriteTache_instance'));
 
     }
     public function edit(string $id) {
@@ -131,11 +171,51 @@ class BaseFormateurController extends AdminController
         $users = $this->userService->all();
 
 
+        $this->viewState->set('scope.commentaireRealisationTache.formateur_id', $id);
+        
+
+        $commentaireRealisationTacheService =  new CommentaireRealisationTacheService();
+        $commentaireRealisationTaches_data =  $itemFormateur->commentaireRealisationTaches()->paginate(10);
+        $commentaireRealisationTaches_stats = $commentaireRealisationTacheService->getcommentaireRealisationTacheStats();
+        $this->viewState->set('stats.commentaireRealisationTache.stats'  , $commentaireRealisationTaches_stats);
+        $commentaireRealisationTaches_filters = $commentaireRealisationTacheService->getFieldsFilterable();
+        $commentaireRealisationTache_instance =  $commentaireRealisationTacheService->createInstance();
+
+        $this->viewState->set('scope.etatRealisationTache.formateur_id', $id);
+        
+
+        $etatRealisationTacheService =  new EtatRealisationTacheService();
+        $etatRealisationTaches_data =  $itemFormateur->etatRealisationTaches()->paginate(10);
+        $etatRealisationTaches_stats = $etatRealisationTacheService->getetatRealisationTacheStats();
+        $this->viewState->set('stats.etatRealisationTache.stats'  , $etatRealisationTaches_stats);
+        $etatRealisationTaches_filters = $etatRealisationTacheService->getFieldsFilterable();
+        $etatRealisationTache_instance =  $etatRealisationTacheService->createInstance();
+
+        $this->viewState->set('scope.labelRealisationTache.formateur_id', $id);
+        
+
+        $labelRealisationTacheService =  new LabelRealisationTacheService();
+        $labelRealisationTaches_data =  $itemFormateur->labelRealisationTaches()->paginate(10);
+        $labelRealisationTaches_stats = $labelRealisationTacheService->getlabelRealisationTacheStats();
+        $this->viewState->set('stats.labelRealisationTache.stats'  , $labelRealisationTaches_stats);
+        $labelRealisationTaches_filters = $labelRealisationTacheService->getFieldsFilterable();
+        $labelRealisationTache_instance =  $labelRealisationTacheService->createInstance();
+
+        $this->viewState->set('scope.prioriteTache.formateur_id', $id);
+        
+
+        $prioriteTacheService =  new PrioriteTacheService();
+        $prioriteTaches_data =  $itemFormateur->prioriteTaches()->paginate(10);
+        $prioriteTaches_stats = $prioriteTacheService->getprioriteTacheStats();
+        $this->viewState->set('stats.prioriteTache.stats'  , $prioriteTaches_stats);
+        $prioriteTaches_filters = $prioriteTacheService->getFieldsFilterable();
+        $prioriteTache_instance =  $prioriteTacheService->createInstance();
+
         if (request()->ajax()) {
-            return view('PkgFormation::formateur._fields', compact('itemFormateur', 'groupes', 'specialites', 'users'));
+            return view('PkgFormation::formateur._edit', compact('itemFormateur', 'groupes', 'specialites', 'users', 'commentaireRealisationTaches_data', 'etatRealisationTaches_data', 'labelRealisationTaches_data', 'prioriteTaches_data', 'commentaireRealisationTaches_stats', 'etatRealisationTaches_stats', 'labelRealisationTaches_stats', 'prioriteTaches_stats', 'commentaireRealisationTaches_filters', 'etatRealisationTaches_filters', 'labelRealisationTaches_filters', 'prioriteTaches_filters', 'commentaireRealisationTache_instance', 'etatRealisationTache_instance', 'labelRealisationTache_instance', 'prioriteTache_instance'));
         }
 
-        return view('PkgFormation::formateur.edit', compact('itemFormateur', 'groupes', 'specialites', 'users'));
+        return view('PkgFormation::formateur.edit', compact('itemFormateur', 'groupes', 'specialites', 'users', 'commentaireRealisationTaches_data', 'etatRealisationTaches_data', 'labelRealisationTaches_data', 'prioriteTaches_data', 'commentaireRealisationTaches_stats', 'etatRealisationTaches_stats', 'labelRealisationTaches_stats', 'prioriteTaches_stats', 'commentaireRealisationTaches_filters', 'etatRealisationTaches_filters', 'labelRealisationTaches_filters', 'prioriteTaches_filters', 'commentaireRealisationTache_instance', 'etatRealisationTache_instance', 'labelRealisationTache_instance', 'prioriteTache_instance'));
 
     }
     public function update(FormateurRequest $request, string $id) {

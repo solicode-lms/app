@@ -15,8 +15,12 @@ use Modules\PkgAutorisation\Models\User;
 use Modules\PkgFormation\Models\Specialite;
 use Modules\PkgApprenants\Models\Groupe;
 use Modules\PkgRealisationProjets\Models\EtatsRealisationProjet;
+use Modules\PkgGestionTaches\Models\CommentaireRealisationTache;
+use Modules\PkgGestionTaches\Models\EtatRealisationTache;
 use Modules\PkgCompetences\Models\NiveauDifficulte;
 use Modules\PkgCreationProjet\Models\Projet;
+use Modules\PkgGestionTaches\Models\LabelRealisationTache;
+use Modules\PkgGestionTaches\Models\PrioriteTache;
 
 /**
  * Classe BaseFormateur
@@ -93,6 +97,24 @@ class BaseFormateur extends BaseModel
      *
      * @return HasMany
      */
+    public function commentaireRealisationTaches(): HasMany
+    {
+        return $this->hasMany(CommentaireRealisationTache::class, 'formateur_id', 'id');
+    }
+    /**
+     * Relation HasMany pour Formateurs.
+     *
+     * @return HasMany
+     */
+    public function etatRealisationTaches(): HasMany
+    {
+        return $this->hasMany(EtatRealisationTache::class, 'formateur_id', 'id');
+    }
+    /**
+     * Relation HasMany pour Formateurs.
+     *
+     * @return HasMany
+     */
     public function niveauDifficultes(): HasMany
     {
         return $this->hasMany(NiveauDifficulte::class, 'formateur_id', 'id');
@@ -105,6 +127,24 @@ class BaseFormateur extends BaseModel
     public function projets(): HasMany
     {
         return $this->hasMany(Projet::class, 'formateur_id', 'id');
+    }
+    /**
+     * Relation HasMany pour Formateurs.
+     *
+     * @return HasMany
+     */
+    public function labelRealisationTaches(): HasMany
+    {
+        return $this->hasMany(LabelRealisationTache::class, 'formateur_id', 'id');
+    }
+    /**
+     * Relation HasMany pour Formateurs.
+     *
+     * @return HasMany
+     */
+    public function prioriteTaches(): HasMany
+    {
+        return $this->hasMany(PrioriteTache::class, 'formateur_id', 'id');
     }
 
 

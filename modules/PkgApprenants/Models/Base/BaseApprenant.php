@@ -15,6 +15,7 @@ use Modules\PkgApprenants\Models\Nationalite;
 use Modules\PkgApprenants\Models\NiveauxScolaire;
 use Modules\PkgAutorisation\Models\User;
 use Modules\PkgApprenants\Models\Groupe;
+use Modules\PkgGestionTaches\Models\CommentaireRealisationTache;
 use Modules\PkgRealisationProjets\Models\RealisationProjet;
 
 /**
@@ -86,6 +87,15 @@ class BaseApprenant extends BaseModel
         return $this->belongsToMany(Groupe::class, 'apprenant_groupe');
     }
 
+    /**
+     * Relation HasMany pour Apprenants.
+     *
+     * @return HasMany
+     */
+    public function commentaireRealisationTaches(): HasMany
+    {
+        return $this->hasMany(CommentaireRealisationTache::class, 'apprenant_id', 'id');
+    }
     /**
      * Relation HasMany pour Apprenants.
      *

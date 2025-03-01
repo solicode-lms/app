@@ -11,7 +11,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
+use Modules\PkgGestionTaches\Models\EtatRealisationTache;
 use Modules\Core\Models\SysModel;
+use Modules\PkgGestionTaches\Models\LabelRealisationTache;
 use Modules\Core\Models\SysModule;
 
 /**
@@ -45,9 +47,27 @@ class BaseSysColor extends BaseModel
      *
      * @return HasMany
      */
+    public function etatRealisationTaches(): HasMany
+    {
+        return $this->hasMany(EtatRealisationTache::class, 'sys_color_id', 'id');
+    }
+    /**
+     * Relation HasMany pour SysColors.
+     *
+     * @return HasMany
+     */
     public function sysModels(): HasMany
     {
         return $this->hasMany(SysModel::class, 'sys_color_id', 'id');
+    }
+    /**
+     * Relation HasMany pour SysColors.
+     *
+     * @return HasMany
+     */
+    public function labelRealisationTaches(): HasMany
+    {
+        return $this->hasMany(LabelRealisationTache::class, 'sys_color_id', 'id');
     }
     /**
      * Relation HasMany pour SysColors.

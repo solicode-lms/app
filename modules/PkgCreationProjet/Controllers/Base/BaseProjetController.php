@@ -9,6 +9,7 @@ use Modules\PkgFormation\Services\FormateurService;
 use Modules\PkgCreationProjet\Services\TransfertCompetenceService;
 use Modules\PkgRealisationProjets\Services\AffectationProjetService;
 use Modules\PkgCreationProjet\Services\LivrableService;
+use Modules\PkgGestionTaches\Services\TacheService;
 use Modules\PkgCreationProjet\Services\ResourceService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -164,6 +165,15 @@ class BaseProjetController extends AdminController
         $livrables_filters = $livrableService->getFieldsFilterable();
         $livrable_instance =  $livrableService->createInstance();
 
+        $this->viewState->set('scope.tache.projet_id', $id);
+
+
+        $tacheService =  new TacheService();
+        $taches_data =  $itemProjet->taches()->paginate(10);
+        $taches_stats = $tacheService->gettacheStats();
+        $taches_filters = $tacheService->getFieldsFilterable();
+        $tache_instance =  $tacheService->createInstance();
+
         $this->viewState->set('scope.resource.projet_id', $id);
 
 
@@ -174,10 +184,10 @@ class BaseProjetController extends AdminController
         $resource_instance =  $resourceService->createInstance();
 
         if (request()->ajax()) {
-            return view('PkgCreationProjet::projet._edit', compact('itemProjet', 'filieres', 'formateurs', 'transfertCompetences_data', 'affectationProjets_data', 'livrables_data', 'resources_data', 'transfertCompetences_stats', 'affectationProjets_stats', 'livrables_stats', 'resources_stats', 'transfertCompetences_filters', 'affectationProjets_filters', 'livrables_filters', 'resources_filters', 'transfertCompetence_instance', 'affectationProjet_instance', 'livrable_instance', 'resource_instance'));
+            return view('PkgCreationProjet::projet._edit', compact('itemProjet', 'filieres', 'formateurs', 'transfertCompetences_data', 'affectationProjets_data', 'livrables_data', 'taches_data', 'resources_data', 'transfertCompetences_stats', 'affectationProjets_stats', 'livrables_stats', 'taches_stats', 'resources_stats', 'transfertCompetences_filters', 'affectationProjets_filters', 'livrables_filters', 'taches_filters', 'resources_filters', 'transfertCompetence_instance', 'affectationProjet_instance', 'livrable_instance', 'tache_instance', 'resource_instance'));
         }
 
-        return view('PkgCreationProjet::projet.edit', compact('itemProjet', 'filieres', 'formateurs', 'transfertCompetences_data', 'affectationProjets_data', 'livrables_data', 'resources_data', 'transfertCompetences_stats', 'affectationProjets_stats', 'livrables_stats', 'resources_stats', 'transfertCompetences_filters', 'affectationProjets_filters', 'livrables_filters', 'resources_filters', 'transfertCompetence_instance', 'affectationProjet_instance', 'livrable_instance', 'resource_instance'));
+        return view('PkgCreationProjet::projet.edit', compact('itemProjet', 'filieres', 'formateurs', 'transfertCompetences_data', 'affectationProjets_data', 'livrables_data', 'taches_data', 'resources_data', 'transfertCompetences_stats', 'affectationProjets_stats', 'livrables_stats', 'taches_stats', 'resources_stats', 'transfertCompetences_filters', 'affectationProjets_filters', 'livrables_filters', 'taches_filters', 'resources_filters', 'transfertCompetence_instance', 'affectationProjet_instance', 'livrable_instance', 'tache_instance', 'resource_instance'));
 
     }
     public function edit(string $id) {
@@ -235,6 +245,16 @@ class BaseProjetController extends AdminController
         $livrables_filters = $livrableService->getFieldsFilterable();
         $livrable_instance =  $livrableService->createInstance();
 
+        $this->viewState->set('scope.tache.projet_id', $id);
+        
+
+        $tacheService =  new TacheService();
+        $taches_data =  $itemProjet->taches()->paginate(10);
+        $taches_stats = $tacheService->gettacheStats();
+        $this->viewState->set('stats.tache.stats'  , $taches_stats);
+        $taches_filters = $tacheService->getFieldsFilterable();
+        $tache_instance =  $tacheService->createInstance();
+
         $this->viewState->set('scope.resource.projet_id', $id);
         
 
@@ -246,10 +266,10 @@ class BaseProjetController extends AdminController
         $resource_instance =  $resourceService->createInstance();
 
         if (request()->ajax()) {
-            return view('PkgCreationProjet::projet._edit', compact('itemProjet', 'filieres', 'formateurs', 'transfertCompetences_data', 'affectationProjets_data', 'livrables_data', 'resources_data', 'transfertCompetences_stats', 'affectationProjets_stats', 'livrables_stats', 'resources_stats', 'transfertCompetences_filters', 'affectationProjets_filters', 'livrables_filters', 'resources_filters', 'transfertCompetence_instance', 'affectationProjet_instance', 'livrable_instance', 'resource_instance'));
+            return view('PkgCreationProjet::projet._edit', compact('itemProjet', 'filieres', 'formateurs', 'transfertCompetences_data', 'affectationProjets_data', 'livrables_data', 'taches_data', 'resources_data', 'transfertCompetences_stats', 'affectationProjets_stats', 'livrables_stats', 'taches_stats', 'resources_stats', 'transfertCompetences_filters', 'affectationProjets_filters', 'livrables_filters', 'taches_filters', 'resources_filters', 'transfertCompetence_instance', 'affectationProjet_instance', 'livrable_instance', 'tache_instance', 'resource_instance'));
         }
 
-        return view('PkgCreationProjet::projet.edit', compact('itemProjet', 'filieres', 'formateurs', 'transfertCompetences_data', 'affectationProjets_data', 'livrables_data', 'resources_data', 'transfertCompetences_stats', 'affectationProjets_stats', 'livrables_stats', 'resources_stats', 'transfertCompetences_filters', 'affectationProjets_filters', 'livrables_filters', 'resources_filters', 'transfertCompetence_instance', 'affectationProjet_instance', 'livrable_instance', 'resource_instance'));
+        return view('PkgCreationProjet::projet.edit', compact('itemProjet', 'filieres', 'formateurs', 'transfertCompetences_data', 'affectationProjets_data', 'livrables_data', 'taches_data', 'resources_data', 'transfertCompetences_stats', 'affectationProjets_stats', 'livrables_stats', 'taches_stats', 'resources_stats', 'transfertCompetences_filters', 'affectationProjets_filters', 'livrables_filters', 'taches_filters', 'resources_filters', 'transfertCompetence_instance', 'affectationProjet_instance', 'livrable_instance', 'tache_instance', 'resource_instance'));
 
     }
     public function update(ProjetRequest $request, string $id) {

@@ -45,6 +45,9 @@
                             <a class="nav-link" id="projet-hasmany-tabs-livrable-tab" data-toggle="pill" href="#projet-hasmany-tabs-livrable" role="tab" aria-controls="projet-hasmany-tabs-livrable" aria-selected="false">{{__('PkgCreationProjet::livrable.plural')}}</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" id="projet-hasmany-tabs-tache-tab" data-toggle="pill" href="#projet-hasmany-tabs-tache" role="tab" aria-controls="projet-hasmany-tabs-tache" aria-selected="false">{{__('PkgGestionTaches::tache.plural')}}</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" id="projet-hasmany-tabs-resource-tab" data-toggle="pill" href="#projet-hasmany-tabs-resource" role="tab" aria-controls="projet-hasmany-tabs-resource" aria-selected="false">{{__('PkgCreationProjet::resource.plural')}}</a>
                         </li>
 
@@ -65,6 +68,9 @@
                             </div>
                             <div class="tab-pane fade" id="projet-hasmany-tabs-livrable" role="tabpanel" aria-labelledby="projet-hasmany-tabs-livrable-tab">
                                 @include('PkgCreationProjet::livrable._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'projet.edit_' . $itemProjet->id])
+                            </div>
+                            <div class="tab-pane fade" id="projet-hasmany-tabs-tache" role="tabpanel" aria-labelledby="projet-hasmany-tabs-tache-tab">
+                                @include('PkgGestionTaches::tache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'projet.edit_' . $itemProjet->id])
                             </div>
                             <div class="tab-pane fade" id="projet-hasmany-tabs-resource" role="tabpanel" aria-labelledby="projet-hasmany-tabs-resource-tab">
                                 @include('PkgCreationProjet::resource._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'projet.edit_' . $itemProjet->id])

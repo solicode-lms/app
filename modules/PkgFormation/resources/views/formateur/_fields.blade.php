@@ -199,11 +199,27 @@
 
         
 
+        <!--   CommentaireRealisationTache HasMany --> 
+
+        
+
+        <!--   EtatRealisationTache HasMany --> 
+
+        
+
         <!--   NiveauDifficulte HasMany --> 
 
         
 
         <!--   Projet HasMany --> 
+
+        
+
+        <!--   LabelRealisationTache HasMany --> 
+
+        
+
+        <!--   PrioriteTache HasMany --> 
 
     </div>
 

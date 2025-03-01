@@ -36,7 +36,13 @@
                         </li>
 
                         <li class="nav-item">
+                            <a class="nav-link" id="sysColor-hasmany-tabs-etatRealisationTache-tab" data-toggle="pill" href="#sysColor-hasmany-tabs-etatRealisationTache" role="tab" aria-controls="sysColor-hasmany-tabs-etatRealisationTache" aria-selected="false">{{__('PkgGestionTaches::etatRealisationTache.plural')}}</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" id="sysColor-hasmany-tabs-sysModel-tab" data-toggle="pill" href="#sysColor-hasmany-tabs-sysModel" role="tab" aria-controls="sysColor-hasmany-tabs-sysModel" aria-selected="false">{{__('Core::sysModel.plural')}}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="sysColor-hasmany-tabs-labelRealisationTache-tab" data-toggle="pill" href="#sysColor-hasmany-tabs-labelRealisationTache" role="tab" aria-controls="sysColor-hasmany-tabs-labelRealisationTache" aria-selected="false">{{__('PkgGestionTaches::labelRealisationTache.plural')}}</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="sysColor-hasmany-tabs-sysModule-tab" data-toggle="pill" href="#sysColor-hasmany-tabs-sysModule" role="tab" aria-controls="sysColor-hasmany-tabs-sysModule" aria-selected="false">{{__('Core::sysModule.plural')}}</a>
@@ -51,8 +57,14 @@
                                 @include('Core::sysColor._fields')
                             </div>
 
+                            <div class="tab-pane fade" id="sysColor-hasmany-tabs-etatRealisationTache" role="tabpanel" aria-labelledby="sysColor-hasmany-tabs-etatRealisationTache-tab">
+                                @include('PkgGestionTaches::etatRealisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sysColor.edit_' . $itemSysColor->id])
+                            </div>
                             <div class="tab-pane fade" id="sysColor-hasmany-tabs-sysModel" role="tabpanel" aria-labelledby="sysColor-hasmany-tabs-sysModel-tab">
                                 @include('Core::sysModel._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sysColor.edit_' . $itemSysColor->id])
+                            </div>
+                            <div class="tab-pane fade" id="sysColor-hasmany-tabs-labelRealisationTache" role="tabpanel" aria-labelledby="sysColor-hasmany-tabs-labelRealisationTache-tab">
+                                @include('PkgGestionTaches::labelRealisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sysColor.edit_' . $itemSysColor->id])
                             </div>
                             <div class="tab-pane fade" id="sysColor-hasmany-tabs-sysModule" role="tabpanel" aria-labelledby="sysColor-hasmany-tabs-sysModule-tab">
                                 @include('Core::sysModule._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sysColor.edit_' . $itemSysColor->id])

@@ -55,7 +55,15 @@
 
         
 
+        <!--   EtatRealisationTache HasMany --> 
+
+        
+
         <!--   SysModel HasMany --> 
+
+        
+
+        <!--   LabelRealisationTache HasMany --> 
 
         
 

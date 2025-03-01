@@ -138,6 +138,10 @@
         <!--   Livrable HasMany --> 
 
         
+
+        <!--   Tache HasMany --> 
+
+        
         <div class="form-group col-12 col-md-6">
             <label for="filiere_id">
                 {{ ucfirst(__('PkgFormation::filiere.singular')) }}
