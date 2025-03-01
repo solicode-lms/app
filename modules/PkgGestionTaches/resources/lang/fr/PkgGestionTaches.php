@@ -3,5 +3,5 @@
 
 return [
     'name' => 'Gestion des Tâches',
-    'icon' => 'fa-table'
+    'icon' => 'fa-clipboard-list'
 ];

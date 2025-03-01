@@ -58,3 +58,10 @@ php artisan db:seed --class=Modules\PkgGestionTaches\Database\Seeders\TacheSeede
 php artisan db:seed --class=Modules\PkgGestionTaches\Database\Seeders\TypeDependanceTacheSeeder
 
 ````
+
+
+## Ajouter les droit d'accès au formateur 
+
+- Pkg : Gestion tâches
+
+## Ajouter les droit d'accès au apprenant
