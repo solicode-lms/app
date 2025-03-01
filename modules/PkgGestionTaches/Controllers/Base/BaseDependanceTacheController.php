@@ -21,13 +21,11 @@ class BaseDependanceTacheController extends AdminController
 {
     protected $dependanceTacheService;
     protected $tacheService;
-    protected $tacheService;
     protected $typeDependanceTacheService;
 
     public function __construct(DependanceTacheService $dependanceTacheService, TacheService $tacheService, TacheService $tacheService, TypeDependanceTacheService $typeDependanceTacheService) {
         parent::__construct();
         $this->dependanceTacheService = $dependanceTacheService;
-        $this->tacheService = $tacheService;
         $this->tacheService = $tacheService;
         $this->typeDependanceTacheService = $typeDependanceTacheService;
     }
