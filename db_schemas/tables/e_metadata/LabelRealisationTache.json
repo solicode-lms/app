@@ -228,5 +228,20 @@
         "value_integer": 6,
         "e_data_field_reference": "LabelRealisationTache_updated_at",
         "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "label_realisation_taches_ownedByUser",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": [
+            {
+                "role": "formateur",
+                "dataScope": "scope",
+                "userModelName": "Formateur",
+                "ownerRelationPath": "formateur.user"
+            }
+        ],
+        "e_model_reference": "label_realisation_taches",
+        "e_metadata_definition_reference": "ownedByUser"
     }
 ]

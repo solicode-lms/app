@@ -33,6 +33,10 @@ class BaseLabelRealisationTacheController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('labelRealisationTache.index');
+        // ownedByUser
+        if(Auth::user()->hasRole('formateur') && $this->viewState->get('scope.labelRealisationTache.formateur_id') == null){
+           $this->viewState->init('scope.labelRealisationTache.formateur_id'  , $this->sessionState->get('formateur_id'));
+        }
 
 
         // Extraire les paramètres de recherche, page, et filtres
@@ -58,6 +62,10 @@ class BaseLabelRealisationTacheController extends AdminController
         return view('PkgGestionTaches::labelRealisationTache.index', compact('labelRealisationTaches_data', 'labelRealisationTaches_stats', 'labelRealisationTaches_filters','labelRealisationTache_instance'));
     }
     public function create() {
+        // ownedByUser
+        if(Auth::user()->hasRole('formateur')){
+           $this->viewState->set('scope_form.labelRealisationTache.formateur_id'  , $this->sessionState->get('formateur_id'));
+        }
 
 
         $itemLabelRealisationTache = $this->labelRealisationTacheService->createInstance();
@@ -100,6 +108,7 @@ class BaseLabelRealisationTacheController extends AdminController
 
 
         $itemLabelRealisationTache = $this->labelRealisationTacheService->find($id);
+        $this->authorize('view', $itemLabelRealisationTache);
 
 
         $formateurs = $this->formateurService->all();
@@ -119,6 +128,7 @@ class BaseLabelRealisationTacheController extends AdminController
 
 
         $itemLabelRealisationTache = $this->labelRealisationTacheService->find($id);
+        $this->authorize('edit', $itemLabelRealisationTache);
 
 
         $formateurs = $this->formateurService->all();
@@ -133,6 +143,9 @@ class BaseLabelRealisationTacheController extends AdminController
 
     }
     public function update(LabelRealisationTacheRequest $request, string $id) {
+        // Vérifie si l'utilisateur peut mettre à jour l'objet 
+        $labelRealisationTache = $this->labelRealisationTacheService->find($id);
+        $this->authorize('update', $labelRealisationTache);
 
         $validatedData = $request->validated();
         $labelRealisationTache = $this->labelRealisationTacheService->update($id, $validatedData);
@@ -158,6 +171,9 @@ class BaseLabelRealisationTacheController extends AdminController
 
     }
     public function destroy(Request $request, string $id) {
+        // Vérifie si l'utilisateur peut mettre à jour l'objet 
+        $labelRealisationTache = $this->labelRealisationTacheService->find($id);
+        $this->authorize('delete', $labelRealisationTache);
 
         $labelRealisationTache = $this->labelRealisationTacheService->destroy($id);
 

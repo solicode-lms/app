@@ -6,7 +6,6 @@ namespace Modules\PkgGestionTaches\Controllers\Base;
 use Modules\PkgGestionTaches\Services\EtatRealisationTacheService;
 use Modules\PkgFormation\Services\FormateurService;
 use Modules\Core\Services\SysColorService;
-use Modules\PkgGestionTaches\Services\RealisationTacheService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
@@ -34,6 +33,10 @@ class BaseEtatRealisationTacheController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('etatRealisationTache.index');
+        // ownedByUser
+        if(Auth::user()->hasRole('formateur') && $this->viewState->get('scope.etatRealisationTache.formateur_id') == null){
+           $this->viewState->init('scope.etatRealisationTache.formateur_id'  , $this->sessionState->get('formateur_id'));
+        }
 
 
         // Extraire les paramètres de recherche, page, et filtres
@@ -59,6 +62,10 @@ class BaseEtatRealisationTacheController extends AdminController
         return view('PkgGestionTaches::etatRealisationTache.index', compact('etatRealisationTaches_data', 'etatRealisationTaches_stats', 'etatRealisationTaches_filters','etatRealisationTache_instance'));
     }
     public function create() {
+        // ownedByUser
+        if(Auth::user()->hasRole('formateur')){
+           $this->viewState->set('scope_form.etatRealisationTache.formateur_id'  , $this->sessionState->get('formateur_id'));
+        }
 
 
         $itemEtatRealisationTache = $this->etatRealisationTacheService->createInstance();
@@ -87,7 +94,7 @@ class BaseEtatRealisationTacheController extends AdminController
             );
         }
 
-        return redirect()->route('etatRealisationTaches.edit',['etatRealisationTache' => $etatRealisationTache->id])->with(
+        return redirect()->route('etatRealisationTaches.index')->with(
             'success',
             __('Core::msg.addSuccess', [
                 'entityToString' => $etatRealisationTache,
@@ -101,26 +108,18 @@ class BaseEtatRealisationTacheController extends AdminController
 
 
         $itemEtatRealisationTache = $this->etatRealisationTacheService->find($id);
+        $this->authorize('view', $itemEtatRealisationTache);
 
 
         $formateurs = $this->formateurService->all();
         $sysColors = $this->sysColorService->all();
 
 
-        $this->viewState->set('scope.realisationTache.etat_realisation_tache_id', $id);
-
-
-        $realisationTacheService =  new RealisationTacheService();
-        $realisationTaches_data =  $itemEtatRealisationTache->realisationTaches()->paginate(10);
-        $realisationTaches_stats = $realisationTacheService->getrealisationTacheStats();
-        $realisationTaches_filters = $realisationTacheService->getFieldsFilterable();
-        $realisationTache_instance =  $realisationTacheService->createInstance();
-
         if (request()->ajax()) {
-            return view('PkgGestionTaches::etatRealisationTache._edit', compact('itemEtatRealisationTache', 'formateurs', 'sysColors', 'realisationTaches_data', 'realisationTaches_stats', 'realisationTaches_filters', 'realisationTache_instance'));
+            return view('PkgGestionTaches::etatRealisationTache._fields', compact('itemEtatRealisationTache', 'formateurs', 'sysColors'));
         }
 
-        return view('PkgGestionTaches::etatRealisationTache.edit', compact('itemEtatRealisationTache', 'formateurs', 'sysColors', 'realisationTaches_data', 'realisationTaches_stats', 'realisationTaches_filters', 'realisationTache_instance'));
+        return view('PkgGestionTaches::etatRealisationTache.edit', compact('itemEtatRealisationTache', 'formateurs', 'sysColors'));
 
     }
     public function edit(string $id) {
@@ -129,30 +128,24 @@ class BaseEtatRealisationTacheController extends AdminController
 
 
         $itemEtatRealisationTache = $this->etatRealisationTacheService->find($id);
+        $this->authorize('edit', $itemEtatRealisationTache);
 
 
         $formateurs = $this->formateurService->all();
         $sysColors = $this->sysColorService->all();
 
 
-        $this->viewState->set('scope.realisationTache.etat_realisation_tache_id', $id);
-        
-
-        $realisationTacheService =  new RealisationTacheService();
-        $realisationTaches_data =  $itemEtatRealisationTache->realisationTaches()->paginate(10);
-        $realisationTaches_stats = $realisationTacheService->getrealisationTacheStats();
-        $this->viewState->set('stats.realisationTache.stats'  , $realisationTaches_stats);
-        $realisationTaches_filters = $realisationTacheService->getFieldsFilterable();
-        $realisationTache_instance =  $realisationTacheService->createInstance();
-
         if (request()->ajax()) {
-            return view('PkgGestionTaches::etatRealisationTache._edit', compact('itemEtatRealisationTache', 'formateurs', 'sysColors', 'realisationTaches_data', 'realisationTaches_stats', 'realisationTaches_filters', 'realisationTache_instance'));
+            return view('PkgGestionTaches::etatRealisationTache._fields', compact('itemEtatRealisationTache', 'formateurs', 'sysColors'));
         }
 
-        return view('PkgGestionTaches::etatRealisationTache.edit', compact('itemEtatRealisationTache', 'formateurs', 'sysColors', 'realisationTaches_data', 'realisationTaches_stats', 'realisationTaches_filters', 'realisationTache_instance'));
+        return view('PkgGestionTaches::etatRealisationTache.edit', compact('itemEtatRealisationTache', 'formateurs', 'sysColors'));
 
     }
     public function update(EtatRealisationTacheRequest $request, string $id) {
+        // Vérifie si l'utilisateur peut mettre à jour l'objet 
+        $etatRealisationTache = $this->etatRealisationTacheService->find($id);
+        $this->authorize('update', $etatRealisationTache);
 
         $validatedData = $request->validated();
         $etatRealisationTache = $this->etatRealisationTacheService->update($id, $validatedData);
@@ -178,6 +171,9 @@ class BaseEtatRealisationTacheController extends AdminController
 
     }
     public function destroy(Request $request, string $id) {
+        // Vérifie si l'utilisateur peut mettre à jour l'objet 
+        $etatRealisationTache = $this->etatRealisationTacheService->find($id);
+        $this->authorize('delete', $etatRealisationTache);
 
         $etatRealisationTache = $this->etatRealisationTacheService->destroy($id);
 

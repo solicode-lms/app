@@ -5,7 +5,6 @@
 namespace Modules\PkgGestionTaches\Controllers\Base;
 use Modules\PkgGestionTaches\Services\PrioriteTacheService;
 use Modules\PkgFormation\Services\FormateurService;
-use Modules\PkgGestionTaches\Services\TacheService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
@@ -31,6 +30,10 @@ class BasePrioriteTacheController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('prioriteTache.index');
+        // ownedByUser
+        if(Auth::user()->hasRole('formateur') && $this->viewState->get('scope.prioriteTache.formateur_id') == null){
+           $this->viewState->init('scope.prioriteTache.formateur_id'  , $this->sessionState->get('formateur_id'));
+        }
 
 
         // Extraire les paramètres de recherche, page, et filtres
@@ -56,6 +59,10 @@ class BasePrioriteTacheController extends AdminController
         return view('PkgGestionTaches::prioriteTache.index', compact('prioriteTaches_data', 'prioriteTaches_stats', 'prioriteTaches_filters','prioriteTache_instance'));
     }
     public function create() {
+        // ownedByUser
+        if(Auth::user()->hasRole('formateur')){
+           $this->viewState->set('scope_form.prioriteTache.formateur_id'  , $this->sessionState->get('formateur_id'));
+        }
 
 
         $itemPrioriteTache = $this->prioriteTacheService->createInstance();
@@ -83,7 +90,7 @@ class BasePrioriteTacheController extends AdminController
             );
         }
 
-        return redirect()->route('prioriteTaches.edit',['prioriteTache' => $prioriteTache->id])->with(
+        return redirect()->route('prioriteTaches.index')->with(
             'success',
             __('Core::msg.addSuccess', [
                 'entityToString' => $prioriteTache,
@@ -97,25 +104,17 @@ class BasePrioriteTacheController extends AdminController
 
 
         $itemPrioriteTache = $this->prioriteTacheService->find($id);
+        $this->authorize('view', $itemPrioriteTache);
 
 
         $formateurs = $this->formateurService->all();
 
 
-        $this->viewState->set('scope.tache.priorite_tache_id', $id);
-
-
-        $tacheService =  new TacheService();
-        $taches_data =  $itemPrioriteTache->taches()->paginate(10);
-        $taches_stats = $tacheService->gettacheStats();
-        $taches_filters = $tacheService->getFieldsFilterable();
-        $tache_instance =  $tacheService->createInstance();
-
         if (request()->ajax()) {
-            return view('PkgGestionTaches::prioriteTache._edit', compact('itemPrioriteTache', 'formateurs', 'taches_data', 'taches_stats', 'taches_filters', 'tache_instance'));
+            return view('PkgGestionTaches::prioriteTache._fields', compact('itemPrioriteTache', 'formateurs'));
         }
 
-        return view('PkgGestionTaches::prioriteTache.edit', compact('itemPrioriteTache', 'formateurs', 'taches_data', 'taches_stats', 'taches_filters', 'tache_instance'));
+        return view('PkgGestionTaches::prioriteTache.edit', compact('itemPrioriteTache', 'formateurs'));
 
     }
     public function edit(string $id) {
@@ -124,29 +123,23 @@ class BasePrioriteTacheController extends AdminController
 
 
         $itemPrioriteTache = $this->prioriteTacheService->find($id);
+        $this->authorize('edit', $itemPrioriteTache);
 
 
         $formateurs = $this->formateurService->all();
 
 
-        $this->viewState->set('scope.tache.priorite_tache_id', $id);
-        
-
-        $tacheService =  new TacheService();
-        $taches_data =  $itemPrioriteTache->taches()->paginate(10);
-        $taches_stats = $tacheService->gettacheStats();
-        $this->viewState->set('stats.tache.stats'  , $taches_stats);
-        $taches_filters = $tacheService->getFieldsFilterable();
-        $tache_instance =  $tacheService->createInstance();
-
         if (request()->ajax()) {
-            return view('PkgGestionTaches::prioriteTache._edit', compact('itemPrioriteTache', 'formateurs', 'taches_data', 'taches_stats', 'taches_filters', 'tache_instance'));
+            return view('PkgGestionTaches::prioriteTache._fields', compact('itemPrioriteTache', 'formateurs'));
         }
 
-        return view('PkgGestionTaches::prioriteTache.edit', compact('itemPrioriteTache', 'formateurs', 'taches_data', 'taches_stats', 'taches_filters', 'tache_instance'));
+        return view('PkgGestionTaches::prioriteTache.edit', compact('itemPrioriteTache', 'formateurs'));
 
     }
     public function update(PrioriteTacheRequest $request, string $id) {
+        // Vérifie si l'utilisateur peut mettre à jour l'objet 
+        $prioriteTache = $this->prioriteTacheService->find($id);
+        $this->authorize('update', $prioriteTache);
 
         $validatedData = $request->validated();
         $prioriteTache = $this->prioriteTacheService->update($id, $validatedData);
@@ -172,6 +165,9 @@ class BasePrioriteTacheController extends AdminController
 
     }
     public function destroy(Request $request, string $id) {
+        // Vérifie si l'utilisateur peut mettre à jour l'objet 
+        $prioriteTache = $this->prioriteTacheService->find($id);
+        $this->authorize('delete', $prioriteTache);
 
         $prioriteTache = $this->prioriteTacheService->destroy($id);
 

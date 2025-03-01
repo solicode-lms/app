@@ -249,7 +249,8 @@
     },
     {
         "reference": "etat_realisation_taches_hasMany_realisation_taches_etat_realisation_tache_id_editHasMany",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "etat_realisation_taches_hasMany_realisation_taches_etat_realisation_tache_id",
         "e_metadata_definition_reference": "editHasMany"
     },
@@ -270,5 +271,20 @@
         "value_integer": 6,
         "e_data_field_reference": "etat_realisation_taches_hasMany_realisation_taches_etat_realisation_tache_id",
         "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "etat_realisation_taches_ownedByUser",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": [
+            {
+                "role": "formateur",
+                "dataScope": "scope",
+                "userModelName": "Formateur",
+                "ownerRelationPath": "formateur.user"
+            }
+        ],
+        "e_model_reference": "etat_realisation_taches",
+        "e_metadata_definition_reference": "ownedByUser"
     }
 ]
