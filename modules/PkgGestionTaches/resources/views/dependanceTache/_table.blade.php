@@ -4,7 +4,7 @@
     <table class="table table-striped text-nowrap">
         <thead>
             <tr>
-                <x-sortable-column field="tache_source_id" modelname="dependanceTache" label="{{ ucfirst(__('PkgGestionTaches::tache.singular')) }}" />
+                <x-sortable-column field="tache_id" modelname="dependanceTache" label="{{ ucfirst(__('PkgGestionTaches::tache.singular')) }}" />
                 <x-sortable-column field="tache_cible_id" modelname="dependanceTache" label="{{ ucfirst(__('PkgGestionTaches::tache.singular')) }}" />
                 <x-sortable-column field="type_dependance_tache_id" modelname="dependanceTache" label="{{ ucfirst(__('PkgGestionTaches::typeDependanceTache.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
@@ -14,7 +14,7 @@
             @section('dependanceTache-table-tbody')
             @foreach ($dependanceTaches_data as $dependanceTache)
                 <tr id="dependanceTache-row-{{$dependanceTache->id}}">
-                    <td>@limit($dependanceTache->tacheSource, 50)</td>
+                    <td>@limit($dependanceTache->tache, 50)</td>
                     <td>@limit($dependanceTache->tacheCible, 50)</td>
                     <td>@limit($dependanceTache->typeDependanceTache, 50)</td>
                     <td class="text-right">

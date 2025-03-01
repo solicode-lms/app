@@ -29,7 +29,7 @@ class BaseDependanceTacheRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'tache_source_id' => 'required',
+            'tache_id' => 'required',
             'tache_cible_id' => 'required',
             'type_dependance_tache_id' => 'nullable'
         ];
@@ -43,7 +43,7 @@ class BaseDependanceTacheRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'tache_source_id.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::DependanceTache.tache_source_id')]),
+            'tache_id.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::DependanceTache.tache_id')]),
             'tache_cible_id.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::DependanceTache.tache_cible_id')]),
             'type_dependance_tache_id.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::DependanceTache.type_dependance_tache_id')])
         ];

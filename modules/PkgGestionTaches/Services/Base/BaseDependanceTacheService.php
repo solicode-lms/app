@@ -19,7 +19,7 @@ class BaseDependanceTacheService extends BaseService
      * @var array
      */
     protected $fieldsSearchable = [
-        'tache_source_id',
+        'tache_id',
         'tache_cible_id',
         'type_dependance_tache_id'
     ];
@@ -50,8 +50,8 @@ class BaseDependanceTacheService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('dependanceTache');
         $this->fieldsFilterable = [];
     
-        if (!array_key_exists('tache_source_id', $scopeVariables)) {
-        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgGestionTaches::tache.plural"), 'tache_source_id', \Modules\PkgGestionTaches\Models\Tache::class, 'titre');
+        if (!array_key_exists('tache_id', $scopeVariables)) {
+        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgGestionTaches::tache.plural"), 'tache_id', \Modules\PkgGestionTaches\Models\Tache::class, 'titre');
         }
         if (!array_key_exists('tache_cible_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgGestionTaches::tache.plural"), 'tache_cible_id', \Modules\PkgGestionTaches\Models\Tache::class, 'titre');

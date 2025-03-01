@@ -29,14 +29,14 @@ class BaseDependanceTacheExport implements FromCollection, WithHeadings, ShouldA
      if($this->format == 'csv'){
         return [
             'reference' => 'reference',
-            'tache_source_id' => 'tache_source_id',
+            'tache_id' => 'tache_id',
             'tache_cible_id' => 'tache_cible_id',
             'type_dependance_tache_id' => 'type_dependance_tache_id',
         ];
         }else{
         return [
             'reference' => __('Core::msg.reference'),
-            'tache_source_id' => __('PkgGestionTaches::dependanceTache.tache_source_id'),
+            'tache_id' => __('PkgGestionTaches::dependanceTache.tache_id'),
             'tache_cible_id' => __('PkgGestionTaches::dependanceTache.tache_cible_id'),
             'type_dependance_tache_id' => __('PkgGestionTaches::dependanceTache.type_dependance_tache_id'),
         ];
@@ -50,7 +50,7 @@ class BaseDependanceTacheExport implements FromCollection, WithHeadings, ShouldA
         return $this->data->map(function ($dependanceTache) {
             return [
                 'reference' => $dependanceTache->reference,
-                'tache_source_id' => $dependanceTache->tache_source_id,
+                'tache_id' => $dependanceTache->tache_id,
                 'tache_cible_id' => $dependanceTache->tache_cible_id,
                 'type_dependance_tache_id' => $dependanceTache->type_dependance_tache_id,
             ];

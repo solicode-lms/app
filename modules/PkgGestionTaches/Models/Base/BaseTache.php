@@ -74,9 +74,9 @@ class BaseTache extends BaseModel
      *
      * @return HasMany
      */
-    public function tacheSourceIdDependanceTaches(): HasMany
+    public function dependanceTaches(): HasMany
     {
-        return $this->hasMany(DependanceTache::class, 'tache_source_id', 'id');
+        return $this->hasMany(DependanceTache::class, 'tache_id', 'id');
     }
     /**
      * Relation HasMany pour Taches.

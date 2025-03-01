@@ -11,27 +11,27 @@
     <div class="card-body row">
         
         <div class="form-group col-12 col-md-6">
-            <label for="tache_source_id">
+            <label for="tache_id">
                 {{ ucfirst(__('PkgGestionTaches::tache.singular')) }}
                 
                     <span class="text-danger">*</span>
                 
             </label>
             <select 
-            id="tache_source_id" 
+            id="tache_id" 
             required
             
-            name="tache_source_id" 
+            name="tache_id" 
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($taches as $tache)
                     <option value="{{ $tache->id }}"
-                        {{ (isset($itemDependanceTache) && $itemDependanceTache->tache_source_id == $tache->id) || (old('tache_source_id>') == $tache->id) ? 'selected' : '' }}>
+                        {{ (isset($itemDependanceTache) && $itemDependanceTache->tache_id == $tache->id) || (old('tache_id>') == $tache->id) ? 'selected' : '' }}>
                         {{ $tache }}
                     </option>
                 @endforeach
             </select>
-            @error('tache_source_id')
+            @error('tache_id')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
     </div>

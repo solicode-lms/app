@@ -25,8 +25,8 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="col-sm-12">
-                                <label for="tache_source_id">{{ ucfirst(__('PkgGestionTaches::dependanceTache.tache_source_id')) }}:</label>
-                                <p>{{ $itemDependanceTache->tache_source_id }}</p>
+                                <label for="tache_id">{{ ucfirst(__('PkgGestionTaches::dependanceTache.tache_id')) }}:</label>
+                                <p>{{ $itemDependanceTache->tache_id }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="tache_cible_id">{{ ucfirst(__('PkgGestionTaches::dependanceTache.tache_cible_id')) }}:</label>

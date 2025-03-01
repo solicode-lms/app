@@ -117,7 +117,7 @@ class BaseTacheController extends AdminController
         $dependanceTaches_filters = $dependanceTacheService->getFieldsFilterable();
         $dependanceTache_instance =  $dependanceTacheService->createInstance();
 
-        $this->viewState->set('scope.dependanceTache.tache_source_id', $id);
+        $this->viewState->set('scope.dependanceTache.tache_id', $id);
 
 
         $dependanceTacheService =  new DependanceTacheService();
@@ -164,7 +164,7 @@ class BaseTacheController extends AdminController
         $dependanceTaches_filters = $dependanceTacheService->getFieldsFilterable();
         $dependanceTache_instance =  $dependanceTacheService->createInstance();
 
-        $this->viewState->set('scope.dependanceTache.tache_source_id', $id);
+        $this->viewState->set('scope.dependanceTache.tache_id', $id);
         
 
         $dependanceTacheService =  new DependanceTacheService();
