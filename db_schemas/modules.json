@@ -117,7 +117,7 @@
         "type_dependance_taches",
         "dependance_taches",
         "realisation_taches",
-        "historique_taches",
+        "historique_realisation_taches",
         "commentaire_realisation_taches"
     ]
 }
