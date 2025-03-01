@@ -64,10 +64,11 @@ class BaseResourceSeeder extends Seeder
             $row = array_combine($headers, $data);
             if ($row) {
                 $resourceData =[
-                    "nom" => $row["nom"] ?? null ,
-                    "lien" => $row["lien"] ?? null ,
-                    "description" => $row["description"] ?? null ,
-                    "projet_id" => $row["projet_id"] ?? null 
+                    "nom" => $row["nom"] ?? null,
+                    "lien" => $row["lien"] ?? null,
+                    "description" => $row["description"] ?? null,
+                    "projet_id" => $row["projet_id"] ?? null,
+                    "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {
                     $resourceService->updateOrCreate(["reference" => $row["reference"]], $resourceData);

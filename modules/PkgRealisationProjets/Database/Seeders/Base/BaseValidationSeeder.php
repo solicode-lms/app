@@ -64,11 +64,12 @@ class BaseValidationSeeder extends Seeder
             $row = array_combine($headers, $data);
             if ($row) {
                 $validationData =[
-                    "transfert_competence_id" => $row["transfert_competence_id"] ?? null ,
-                    "note" => $row["note"] ?? null ,
-                    "message" => $row["message"] ?? null ,
-                    "is_valide" => $row["is_valide"] ?? null ,
-                    "realisation_projet_id" => $row["realisation_projet_id"] ?? null 
+                    "transfert_competence_id" => $row["transfert_competence_id"] ?? null,
+                    "note" => $row["note"] ?? null,
+                    "message" => $row["message"] ?? null,
+                    "is_valide" => $row["is_valide"] ?? null,
+                    "realisation_projet_id" => $row["realisation_projet_id"] ?? null,
+                    "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {
                     $validationService->updateOrCreate(["reference" => $row["reference"]], $validationData);

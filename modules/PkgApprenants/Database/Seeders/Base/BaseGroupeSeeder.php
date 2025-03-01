@@ -64,11 +64,12 @@ class BaseGroupeSeeder extends Seeder
             $row = array_combine($headers, $data);
             if ($row) {
                 $groupeData =[
-                    "code" => $row["code"] ?? null ,
-                    "nom" => $row["nom"] ?? null ,
-                    "description" => $row["description"] ?? null ,
-                    "filiere_id" => $row["filiere_id"] ?? null ,
-                    "annee_formation_id" => $row["annee_formation_id"] ?? null 
+                    "code" => $row["code"] ?? null,
+                    "nom" => $row["nom"] ?? null,
+                    "description" => $row["description"] ?? null,
+                    "filiere_id" => $row["filiere_id"] ?? null,
+                    "annee_formation_id" => $row["annee_formation_id"] ?? null,
+                    "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {
                     $groupeService->updateOrCreate(["reference" => $row["reference"]], $groupeData);

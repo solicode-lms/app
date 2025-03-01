@@ -64,11 +64,12 @@ class BaseCompetenceSeeder extends Seeder
             $row = array_combine($headers, $data);
             if ($row) {
                 $competenceData =[
-                    "code" => $row["code"] ?? null ,
-                    "mini_code" => $row["mini_code"] ?? null ,
-                    "nom" => $row["nom"] ?? null ,
-                    "module_id" => $row["module_id"] ?? null ,
-                    "description" => $row["description"] ?? null 
+                    "code" => $row["code"] ?? null,
+                    "mini_code" => $row["mini_code"] ?? null,
+                    "nom" => $row["nom"] ?? null,
+                    "module_id" => $row["module_id"] ?? null,
+                    "description" => $row["description"] ?? null,
+                    "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {
                     $competenceService->updateOrCreate(["reference" => $row["reference"]], $competenceData);

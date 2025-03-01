@@ -64,9 +64,10 @@ class BaseNiveauxScolaireSeeder extends Seeder
             $row = array_combine($headers, $data);
             if ($row) {
                 $niveauxScolaireData =[
-                    "code" => $row["code"] ?? null ,
-                    "nom" => $row["nom"] ?? null ,
-                    "description" => $row["description"] ?? null 
+                    "code" => $row["code"] ?? null,
+                    "nom" => $row["nom"] ?? null,
+                    "description" => $row["description"] ?? null,
+                    "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {
                     $niveauxScolaireService->updateOrCreate(["reference" => $row["reference"]], $niveauxScolaireData);

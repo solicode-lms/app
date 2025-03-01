@@ -64,19 +64,20 @@ class BaseEMetadatumSeeder extends Seeder
             $row = array_combine($headers, $data);
             if ($row) {
                 $eMetadatumData =[
-                    "Value" => $row["Value"] ?? null ,
-                    "value_boolean" => $row["value_boolean"] ?? null ,
-                    "value_string" => $row["value_string"] ?? null ,
-                    "value_integer" => $row["value_integer"] ?? null ,
-                    "value_float" => $row["value_float"] ?? null ,
-                    "value_date" => $row["value_date"] ?? null ,
-                    "value_datetime" => $row["value_datetime"] ?? null ,
-                    "value_enum" => $row["value_enum"] ?? null ,
-                    "value_json" => $row["value_json"] ?? null ,
-                    "value_text" => $row["value_text"] ?? null ,
-                    "e_model_id" => $row["e_model_id"] ?? null ,
-                    "e_data_field_id" => $row["e_data_field_id"] ?? null ,
-                    "e_metadata_definition_id" => $row["e_metadata_definition_id"] ?? null 
+                    "Value" => $row["Value"] ?? null,
+                    "value_boolean" => $row["value_boolean"] ?? null,
+                    "value_string" => $row["value_string"] ?? null,
+                    "value_integer" => $row["value_integer"] ?? null,
+                    "value_float" => $row["value_float"] ?? null,
+                    "value_date" => $row["value_date"] ?? null,
+                    "value_datetime" => $row["value_datetime"] ?? null,
+                    "value_enum" => $row["value_enum"] ?? null,
+                    "value_json" => $row["value_json"] ?? null,
+                    "value_text" => $row["value_text"] ?? null,
+                    "e_model_id" => $row["e_model_id"] ?? null,
+                    "e_data_field_id" => $row["e_data_field_id"] ?? null,
+                    "e_metadata_definition_id" => $row["e_metadata_definition_id"] ?? null,
+                    "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {
                     $eMetadatumService->updateOrCreate(["reference" => $row["reference"]], $eMetadatumData);

@@ -64,19 +64,20 @@ class BaseERelationshipSeeder extends Seeder
             $row = array_combine($headers, $data);
             if ($row) {
                 $eRelationshipData =[
-                    "name" => $row["name"] ?? null ,
-                    "type" => $row["type"] ?? null ,
-                    "source_e_model_id" => $row["source_e_model_id"] ?? null ,
-                    "target_e_model_id" => $row["target_e_model_id"] ?? null ,
-                    "cascade_on_delete" => $row["cascade_on_delete"] ?? null ,
-                    "is_cascade" => $row["is_cascade"] ?? null ,
-                    "description" => $row["description"] ?? null ,
-                    "column_name" => $row["column_name"] ?? null ,
-                    "referenced_table" => $row["referenced_table"] ?? null ,
-                    "referenced_column" => $row["referenced_column"] ?? null ,
-                    "through" => $row["through"] ?? null ,
-                    "with_column" => $row["with_column"] ?? null ,
-                    "morph_name" => $row["morph_name"] ?? null 
+                    "name" => $row["name"] ?? null,
+                    "type" => $row["type"] ?? null,
+                    "source_e_model_id" => $row["source_e_model_id"] ?? null,
+                    "target_e_model_id" => $row["target_e_model_id"] ?? null,
+                    "cascade_on_delete" => $row["cascade_on_delete"] ?? null,
+                    "is_cascade" => $row["is_cascade"] ?? null,
+                    "description" => $row["description"] ?? null,
+                    "column_name" => $row["column_name"] ?? null,
+                    "referenced_table" => $row["referenced_table"] ?? null,
+                    "referenced_column" => $row["referenced_column"] ?? null,
+                    "through" => $row["through"] ?? null,
+                    "with_column" => $row["with_column"] ?? null,
+                    "morph_name" => $row["morph_name"] ?? null,
+                    "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {
                     $eRelationshipService->updateOrCreate(["reference" => $row["reference"]], $eRelationshipData);

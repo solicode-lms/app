@@ -64,18 +64,19 @@ class BaseEDataFieldSeeder extends Seeder
             $row = array_combine($headers, $data);
             if ($row) {
                 $eDataFieldData =[
-                    "order" => $row["order"] ?? null ,
-                    "name" => $row["name"] ?? null ,
-                    "column_name" => $row["column_name"] ?? null ,
-                    "field_order" => $row["field_order"] ?? null ,
-                    "db_nullable" => $row["db_nullable"] ?? null ,
-                    "db_primaryKey" => $row["db_primaryKey"] ?? null ,
-                    "db_unique" => $row["db_unique"] ?? null ,
-                    "default_value" => $row["default_value"] ?? null ,
-                    "description" => $row["description"] ?? null ,
-                    "e_model_id" => $row["e_model_id"] ?? null ,
-                    "e_relationship_id" => $row["e_relationship_id"] ?? null ,
-                    "data_type" => $row["data_type"] ?? null 
+                    "order" => $row["order"] ?? null,
+                    "name" => $row["name"] ?? null,
+                    "column_name" => $row["column_name"] ?? null,
+                    "field_order" => $row["field_order"] ?? null,
+                    "db_nullable" => $row["db_nullable"] ?? null,
+                    "db_primaryKey" => $row["db_primaryKey"] ?? null,
+                    "db_unique" => $row["db_unique"] ?? null,
+                    "default_value" => $row["default_value"] ?? null,
+                    "description" => $row["description"] ?? null,
+                    "e_model_id" => $row["e_model_id"] ?? null,
+                    "e_relationship_id" => $row["e_relationship_id"] ?? null,
+                    "data_type" => $row["data_type"] ?? null,
+                    "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {
                     $eDataFieldService->updateOrCreate(["reference" => $row["reference"]], $eDataFieldData);

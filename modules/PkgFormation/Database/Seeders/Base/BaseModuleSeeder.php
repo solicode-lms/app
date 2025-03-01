@@ -64,11 +64,12 @@ class BaseModuleSeeder extends Seeder
             $row = array_combine($headers, $data);
             if ($row) {
                 $moduleData =[
-                    "code" => $row["code"] ?? null ,
-                    "nom" => $row["nom"] ?? null ,
-                    "description" => $row["description"] ?? null ,
-                    "masse_horaire" => $row["masse_horaire"] ?? null ,
-                    "filiere_id" => $row["filiere_id"] ?? null 
+                    "code" => $row["code"] ?? null,
+                    "nom" => $row["nom"] ?? null,
+                    "description" => $row["description"] ?? null,
+                    "masse_horaire" => $row["masse_horaire"] ?? null,
+                    "filiere_id" => $row["filiere_id"] ?? null,
+                    "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {
                     $moduleService->updateOrCreate(["reference" => $row["reference"]], $moduleData);

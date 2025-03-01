@@ -64,13 +64,14 @@ class BaseEModelSeeder extends Seeder
             $row = array_combine($headers, $data);
             if ($row) {
                 $eModelData =[
-                    "icon" => $row["icon"] ?? null ,
-                    "name" => $row["name"] ?? null ,
-                    "table_name" => $row["table_name"] ?? null ,
-                    "icon" => $row["icon"] ?? null ,
-                    "is_pivot_table" => $row["is_pivot_table"] ?? null ,
-                    "description" => $row["description"] ?? null ,
-                    "e_package_id" => $row["e_package_id"] ?? null 
+                    "icon" => $row["icon"] ?? null,
+                    "name" => $row["name"] ?? null,
+                    "table_name" => $row["table_name"] ?? null,
+                    "icon" => $row["icon"] ?? null,
+                    "is_pivot_table" => $row["is_pivot_table"] ?? null,
+                    "description" => $row["description"] ?? null,
+                    "e_package_id" => $row["e_package_id"] ?? null,
+                    "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {
                     $eModelService->updateOrCreate(["reference" => $row["reference"]], $eModelData);

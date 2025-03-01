@@ -64,9 +64,10 @@ class BaseFiliereSeeder extends Seeder
             $row = array_combine($headers, $data);
             if ($row) {
                 $filiereData =[
-                    "code" => $row["code"] ?? null ,
-                    "nom" => $row["nom"] ?? null ,
-                    "description" => $row["description"] ?? null 
+                    "code" => $row["code"] ?? null,
+                    "nom" => $row["nom"] ?? null,
+                    "description" => $row["description"] ?? null,
+                    "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {
                     $filiereService->updateOrCreate(["reference" => $row["reference"]], $filiereData);

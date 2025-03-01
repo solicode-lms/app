@@ -64,11 +64,12 @@ class BaseCommentaireRealisationTacheSeeder extends Seeder
             $row = array_combine($headers, $data);
             if ($row) {
                 $commentaireRealisationTacheData =[
-                    "commentaire" => $row["commentaire"] ?? null ,
-                    "dateCommentaire" => $row["dateCommentaire"] ?? null ,
-                    "realisation_tache_id" => $row["realisation_tache_id"] ?? null ,
-                    "formateur_id" => $row["formateur_id"] ?? null ,
-                    "apprenant_id" => $row["apprenant_id"] ?? null 
+                    "commentaire" => $row["commentaire"] ?? null,
+                    "dateCommentaire" => $row["dateCommentaire"] ?? null,
+                    "realisation_tache_id" => $row["realisation_tache_id"] ?? null,
+                    "formateur_id" => $row["formateur_id"] ?? null,
+                    "apprenant_id" => $row["apprenant_id"] ?? null,
+                    "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {
                     $commentaireRealisationTacheService->updateOrCreate(["reference" => $row["reference"]], $commentaireRealisationTacheData);

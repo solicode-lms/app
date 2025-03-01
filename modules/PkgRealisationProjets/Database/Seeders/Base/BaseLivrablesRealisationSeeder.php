@@ -64,11 +64,12 @@ class BaseLivrablesRealisationSeeder extends Seeder
             $row = array_combine($headers, $data);
             if ($row) {
                 $livrablesRealisationData =[
-                    "livrable_id" => $row["livrable_id"] ?? null ,
-                    "lien" => $row["lien"] ?? null ,
-                    "titre" => $row["titre"] ?? null ,
-                    "description" => $row["description"] ?? null ,
-                    "realisation_projet_id" => $row["realisation_projet_id"] ?? null 
+                    "livrable_id" => $row["livrable_id"] ?? null,
+                    "lien" => $row["lien"] ?? null,
+                    "titre" => $row["titre"] ?? null,
+                    "description" => $row["description"] ?? null,
+                    "realisation_projet_id" => $row["realisation_projet_id"] ?? null,
+                    "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {
                     $livrablesRealisationService->updateOrCreate(["reference" => $row["reference"]], $livrablesRealisationData);

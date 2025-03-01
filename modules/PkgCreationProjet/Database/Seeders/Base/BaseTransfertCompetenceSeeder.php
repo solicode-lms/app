@@ -64,11 +64,12 @@ class BaseTransfertCompetenceSeeder extends Seeder
             $row = array_combine($headers, $data);
             if ($row) {
                 $transfertCompetenceData =[
-                    "competence_id" => $row["competence_id"] ?? null ,
-                    "question" => $row["question"] ?? null ,
-                    "niveau_difficulte_id" => $row["niveau_difficulte_id"] ?? null ,
-                    "note" => $row["note"] ?? null ,
-                    "projet_id" => $row["projet_id"] ?? null 
+                    "competence_id" => $row["competence_id"] ?? null,
+                    "question" => $row["question"] ?? null,
+                    "niveau_difficulte_id" => $row["niveau_difficulte_id"] ?? null,
+                    "note" => $row["note"] ?? null,
+                    "projet_id" => $row["projet_id"] ?? null,
+                    "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {
                     $transfertCompetenceService->updateOrCreate(["reference" => $row["reference"]], $transfertCompetenceData);

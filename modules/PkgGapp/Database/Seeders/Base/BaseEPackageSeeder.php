@@ -64,8 +64,9 @@ class BaseEPackageSeeder extends Seeder
             $row = array_combine($headers, $data);
             if ($row) {
                 $ePackageData =[
-                    "name" => $row["name"] ?? null ,
-                    "description" => $row["description"] ?? null 
+                    "name" => $row["name"] ?? null,
+                    "description" => $row["description"] ?? null,
+                    "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {
                     $ePackageService->updateOrCreate(["reference" => $row["reference"]], $ePackageData);

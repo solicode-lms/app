@@ -64,8 +64,9 @@ class BaseTypeDependanceTacheSeeder extends Seeder
             $row = array_combine($headers, $data);
             if ($row) {
                 $typeDependanceTacheData =[
-                    "titre" => $row["titre"] ?? null ,
-                    "description" => $row["description"] ?? null 
+                    "titre" => $row["titre"] ?? null,
+                    "description" => $row["description"] ?? null,
+                    "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {
                     $typeDependanceTacheService->updateOrCreate(["reference" => $row["reference"]], $typeDependanceTacheData);

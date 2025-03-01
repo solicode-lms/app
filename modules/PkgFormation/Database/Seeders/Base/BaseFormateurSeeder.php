@@ -64,19 +64,20 @@ class BaseFormateurSeeder extends Seeder
             $row = array_combine($headers, $data);
             if ($row) {
                 $formateurData =[
-                    "matricule" => $row["matricule"] ?? null ,
-                    "nom" => $row["nom"] ?? null ,
-                    "prenom" => $row["prenom"] ?? null ,
-                    "prenom_arab" => $row["prenom_arab"] ?? null ,
-                    "nom_arab" => $row["nom_arab"] ?? null ,
-                    "email" => $row["email"] ?? null ,
-                    "tele_num" => $row["tele_num"] ?? null ,
-                    "adresse" => $row["adresse"] ?? null ,
-                    "diplome" => $row["diplome"] ?? null ,
-                    "echelle" => $row["echelle"] ?? null ,
-                    "echelon" => $row["echelon"] ?? null ,
-                    "profile_image" => $row["profile_image"] ?? null ,
-                    "user_id" => $row["user_id"] ?? null 
+                    "matricule" => $row["matricule"] ?? null,
+                    "nom" => $row["nom"] ?? null,
+                    "prenom" => $row["prenom"] ?? null,
+                    "prenom_arab" => $row["prenom_arab"] ?? null,
+                    "nom_arab" => $row["nom_arab"] ?? null,
+                    "email" => $row["email"] ?? null,
+                    "tele_num" => $row["tele_num"] ?? null,
+                    "adresse" => $row["adresse"] ?? null,
+                    "diplome" => $row["diplome"] ?? null,
+                    "echelle" => $row["echelle"] ?? null,
+                    "echelon" => $row["echelon"] ?? null,
+                    "profile_image" => $row["profile_image"] ?? null,
+                    "user_id" => $row["user_id"] ?? null,
+                    "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {
                     $formateurService->updateOrCreate(["reference" => $row["reference"]], $formateurData);

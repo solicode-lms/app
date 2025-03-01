@@ -64,8 +64,9 @@ class BaseSysColorSeeder extends Seeder
             $row = array_combine($headers, $data);
             if ($row) {
                 $sysColorData =[
-                    "name" => $row["name"] ?? null ,
-                    "hex" => $row["hex"] ?? null 
+                    "name" => $row["name"] ?? null,
+                    "hex" => $row["hex"] ?? null,
+                    "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {
                     $sysColorService->updateOrCreate(["reference" => $row["reference"]], $sysColorData);

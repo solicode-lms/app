@@ -63,8 +63,9 @@ class BaseRoleSeeder extends Seeder
             $row = array_combine($headers, $data);
             if ($row) {
                 $roleData =[
-                    "name" => $row["name"] ?? null ,
-                    "guard_name" => $row["guard_name"] ?? null 
+                    "name" => $row["name"] ?? null,
+                    "guard_name" => $row["guard_name"] ?? null,
+                    "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {
                     $roleService->updateOrCreate(["reference" => $row["reference"]], $roleData);

@@ -64,10 +64,11 @@ class BaseLabelRealisationTacheSeeder extends Seeder
             $row = array_combine($headers, $data);
             if ($row) {
                 $labelRealisationTacheData =[
-                    "nom" => $row["nom"] ?? null ,
-                    "description" => $row["description"] ?? null ,
-                    "formateur_id" => $row["formateur_id"] ?? null ,
-                    "sys_color_id" => $row["sys_color_id"] ?? null 
+                    "nom" => $row["nom"] ?? null,
+                    "description" => $row["description"] ?? null,
+                    "formateur_id" => $row["formateur_id"] ?? null,
+                    "sys_color_id" => $row["sys_color_id"] ?? null,
+                    "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {
                     $labelRealisationTacheService->updateOrCreate(["reference" => $row["reference"]], $labelRealisationTacheData);

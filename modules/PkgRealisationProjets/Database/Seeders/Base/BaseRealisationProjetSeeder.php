@@ -64,12 +64,13 @@ class BaseRealisationProjetSeeder extends Seeder
             $row = array_combine($headers, $data);
             if ($row) {
                 $realisationProjetData =[
-                    "affectation_projet_id" => $row["affectation_projet_id"] ?? null ,
-                    "apprenant_id" => $row["apprenant_id"] ?? null ,
-                    "etats_realisation_projet_id" => $row["etats_realisation_projet_id"] ?? null ,
-                    "date_debut" => $row["date_debut"] ?? null ,
-                    "date_fin" => $row["date_fin"] ?? null ,
-                    "rapport" => $row["rapport"] ?? null 
+                    "affectation_projet_id" => $row["affectation_projet_id"] ?? null,
+                    "apprenant_id" => $row["apprenant_id"] ?? null,
+                    "etats_realisation_projet_id" => $row["etats_realisation_projet_id"] ?? null,
+                    "date_debut" => $row["date_debut"] ?? null,
+                    "date_fin" => $row["date_fin"] ?? null,
+                    "rapport" => $row["rapport"] ?? null,
+                    "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {
                     $realisationProjetService->updateOrCreate(["reference" => $row["reference"]], $realisationProjetData);

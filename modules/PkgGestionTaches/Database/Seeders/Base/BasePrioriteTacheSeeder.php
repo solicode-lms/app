@@ -64,10 +64,11 @@ class BasePrioriteTacheSeeder extends Seeder
             $row = array_combine($headers, $data);
             if ($row) {
                 $prioriteTacheData =[
-                    "nom" => $row["nom"] ?? null ,
-                    "ordre" => $row["ordre"] ?? null ,
-                    "description" => $row["description"] ?? null ,
-                    "formateur_id" => $row["formateur_id"] ?? null 
+                    "nom" => $row["nom"] ?? null,
+                    "ordre" => $row["ordre"] ?? null,
+                    "description" => $row["description"] ?? null,
+                    "formateur_id" => $row["formateur_id"] ?? null,
+                    "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {
                     $prioriteTacheService->updateOrCreate(["reference" => $row["reference"]], $prioriteTacheData);

@@ -64,10 +64,11 @@ class BaseEtatsRealisationProjetSeeder extends Seeder
             $row = array_combine($headers, $data);
             if ($row) {
                 $etatsRealisationProjetData =[
-                    "formateur_id" => $row["formateur_id"] ?? null ,
-                    "titre" => $row["titre"] ?? null ,
-                    "description" => $row["description"] ?? null ,
-                    "is_editable_by_formateur" => $row["is_editable_by_formateur"] ?? null 
+                    "formateur_id" => $row["formateur_id"] ?? null,
+                    "titre" => $row["titre"] ?? null,
+                    "description" => $row["description"] ?? null,
+                    "is_editable_by_formateur" => $row["is_editable_by_formateur"] ?? null,
+                    "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {
                     $etatsRealisationProjetService->updateOrCreate(["reference" => $row["reference"]], $etatsRealisationProjetData);

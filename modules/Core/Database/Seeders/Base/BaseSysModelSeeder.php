@@ -64,11 +64,12 @@ class BaseSysModelSeeder extends Seeder
             $row = array_combine($headers, $data);
             if ($row) {
                 $sysModelData =[
-                    "name" => $row["name"] ?? null ,
-                    "model" => $row["model"] ?? null ,
-                    "description" => $row["description"] ?? null ,
-                    "sys_module_id" => $row["sys_module_id"] ?? null ,
-                    "sys_color_id" => $row["sys_color_id"] ?? null 
+                    "name" => $row["name"] ?? null,
+                    "model" => $row["model"] ?? null,
+                    "description" => $row["description"] ?? null,
+                    "sys_module_id" => $row["sys_module_id"] ?? null,
+                    "sys_color_id" => $row["sys_color_id"] ?? null,
+                    "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {
                     $sysModelService->updateOrCreate(["reference" => $row["reference"]], $sysModelData);

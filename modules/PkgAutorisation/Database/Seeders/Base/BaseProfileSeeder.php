@@ -64,11 +64,12 @@ class BaseProfileSeeder extends Seeder
             $row = array_combine($headers, $data);
             if ($row) {
                 $profileData =[
-                    "user_id" => $row["user_id"] ?? null ,
-                    "phone" => $row["phone"] ?? null ,
-                    "address" => $row["address"] ?? null ,
-                    "profile_picture" => $row["profile_picture"] ?? null ,
-                    "bio" => $row["bio"] ?? null 
+                    "user_id" => $row["user_id"] ?? null,
+                    "phone" => $row["phone"] ?? null,
+                    "address" => $row["address"] ?? null,
+                    "profile_picture" => $row["profile_picture"] ?? null,
+                    "bio" => $row["bio"] ?? null,
+                    "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {
                     $profileService->updateOrCreate(["reference" => $row["reference"]], $profileData);

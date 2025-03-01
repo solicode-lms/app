@@ -63,11 +63,12 @@ class BaseSysControllerSeeder extends Seeder
             $row = array_combine($headers, $data);
             if ($row) {
                 $sysControllerData =[
-                    "sys_module_id" => $row["sys_module_id"] ?? null ,
-                    "name" => $row["name"] ?? null ,
-                    "slug" => $row["slug"] ?? null ,
-                    "description" => $row["description"] ?? null ,
-                    "is_active" => $row["is_active"] ?? null 
+                    "sys_module_id" => $row["sys_module_id"] ?? null,
+                    "name" => $row["name"] ?? null,
+                    "slug" => $row["slug"] ?? null,
+                    "description" => $row["description"] ?? null,
+                    "is_active" => $row["is_active"] ?? null,
+                    "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {
                     $sysControllerService->updateOrCreate(["reference" => $row["reference"]], $sysControllerData);

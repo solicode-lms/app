@@ -64,24 +64,25 @@ class BaseApprenantSeeder extends Seeder
             $row = array_combine($headers, $data);
             if ($row) {
                 $apprenantData =[
-                    "nom" => $row["nom"] ?? null ,
-                    "nom_arab" => $row["nom_arab"] ?? null ,
-                    "prenom" => $row["prenom"] ?? null ,
-                    "prenom_arab" => $row["prenom_arab"] ?? null ,
-                    "profile_image" => $row["profile_image"] ?? null ,
-                    "cin" => $row["cin"] ?? null ,
-                    "date_naissance" => $row["date_naissance"] ?? null ,
-                    "sexe" => $row["sexe"] ?? null ,
-                    "nationalite_id" => $row["nationalite_id"] ?? null ,
-                    "lieu_naissance" => $row["lieu_naissance"] ?? null ,
-                    "diplome" => $row["diplome"] ?? null ,
-                    "adresse" => $row["adresse"] ?? null ,
-                    "niveaux_scolaire_id" => $row["niveaux_scolaire_id"] ?? null ,
-                    "tele_num" => $row["tele_num"] ?? null ,
-                    "user_id" => $row["user_id"] ?? null ,
-                    "matricule" => $row["matricule"] ?? null ,
-                    "date_inscription" => $row["date_inscription"] ?? null ,
-                    "actif" => $row["actif"] ?? null 
+                    "nom" => $row["nom"] ?? null,
+                    "nom_arab" => $row["nom_arab"] ?? null,
+                    "prenom" => $row["prenom"] ?? null,
+                    "prenom_arab" => $row["prenom_arab"] ?? null,
+                    "profile_image" => $row["profile_image"] ?? null,
+                    "cin" => $row["cin"] ?? null,
+                    "date_naissance" => $row["date_naissance"] ?? null,
+                    "sexe" => $row["sexe"] ?? null,
+                    "nationalite_id" => $row["nationalite_id"] ?? null,
+                    "lieu_naissance" => $row["lieu_naissance"] ?? null,
+                    "diplome" => $row["diplome"] ?? null,
+                    "adresse" => $row["adresse"] ?? null,
+                    "niveaux_scolaire_id" => $row["niveaux_scolaire_id"] ?? null,
+                    "tele_num" => $row["tele_num"] ?? null,
+                    "user_id" => $row["user_id"] ?? null,
+                    "matricule" => $row["matricule"] ?? null,
+                    "date_inscription" => $row["date_inscription"] ?? null,
+                    "actif" => $row["actif"] ?? null,
+                    "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {
                     $apprenantService->updateOrCreate(["reference" => $row["reference"]], $apprenantData);

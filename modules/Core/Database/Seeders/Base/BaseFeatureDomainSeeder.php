@@ -63,10 +63,11 @@ class BaseFeatureDomainSeeder extends Seeder
             $row = array_combine($headers, $data);
             if ($row) {
                 $featureDomainData =[
-                    "name" => $row["name"] ?? null ,
-                    "slug" => $row["slug"] ?? null ,
-                    "description" => $row["description"] ?? null ,
-                    "sys_module_id" => $row["sys_module_id"] ?? null 
+                    "name" => $row["name"] ?? null,
+                    "slug" => $row["slug"] ?? null,
+                    "description" => $row["description"] ?? null,
+                    "sys_module_id" => $row["sys_module_id"] ?? null,
+                    "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {
                     $featureDomainService->updateOrCreate(["reference" => $row["reference"]], $featureDomainData);

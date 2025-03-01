@@ -64,9 +64,10 @@ class BaseTechnologySeeder extends Seeder
             $row = array_combine($headers, $data);
             if ($row) {
                 $technologyData =[
-                    "nom" => $row["nom"] ?? null ,
-                    "category_technology_id" => $row["category_technology_id"] ?? null ,
-                    "description" => $row["description"] ?? null 
+                    "nom" => $row["nom"] ?? null,
+                    "category_technology_id" => $row["category_technology_id"] ?? null,
+                    "description" => $row["description"] ?? null,
+                    "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {
                     $technologyService->updateOrCreate(["reference" => $row["reference"]], $technologyData);

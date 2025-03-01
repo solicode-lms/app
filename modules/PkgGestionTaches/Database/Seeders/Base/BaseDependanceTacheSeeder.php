@@ -64,9 +64,10 @@ class BaseDependanceTacheSeeder extends Seeder
             $row = array_combine($headers, $data);
             if ($row) {
                 $dependanceTacheData =[
-                    "tache_source_id" => $row["tache_source_id"] ?? null ,
-                    "tache_cible_id" => $row["tache_cible_id"] ?? null ,
-                    "type_dependance_tache_id" => $row["type_dependance_tache_id"] ?? null 
+                    "tache_source_id" => $row["tache_source_id"] ?? null,
+                    "tache_cible_id" => $row["tache_cible_id"] ?? null,
+                    "type_dependance_tache_id" => $row["type_dependance_tache_id"] ?? null,
+                    "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {
                     $dependanceTacheService->updateOrCreate(["reference" => $row["reference"]], $dependanceTacheData);

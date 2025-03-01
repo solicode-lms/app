@@ -63,12 +63,13 @@ class BaseUserSeeder extends Seeder
             $row = array_combine($headers, $data);
             if ($row) {
                 $userData =[
-                    "name" => $row["name"] ?? null ,
-                    "email" => $row["email"] ?? null ,
-                    "email_verified_at" => $row["email_verified_at"] ?? null ,
-                    "password" => $row["password"] ?? null ,
-                    "must_change_password" => $row["must_change_password"] ?? null ,
-                    "remember_token" => $row["remember_token"] ?? null 
+                    "name" => $row["name"] ?? null,
+                    "email" => $row["email"] ?? null,
+                    "email_verified_at" => $row["email_verified_at"] ?? null,
+                    "password" => $row["password"] ?? null,
+                    "must_change_password" => $row["must_change_password"] ?? null,
+                    "remember_token" => $row["remember_token"] ?? null,
+                    "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {
                     $userService->updateOrCreate(["reference" => $row["reference"]], $userData);

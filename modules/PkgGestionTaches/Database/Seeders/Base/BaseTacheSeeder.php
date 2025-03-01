@@ -64,12 +64,13 @@ class BaseTacheSeeder extends Seeder
             $row = array_combine($headers, $data);
             if ($row) {
                 $tacheData =[
-                    "titre" => $row["titre"] ?? null ,
-                    "description" => $row["description"] ?? null ,
-                    "dateDebut" => $row["dateDebut"] ?? null ,
-                    "dateFin" => $row["dateFin"] ?? null ,
-                    "projet_id" => $row["projet_id"] ?? null ,
-                    "priorite_tache_id" => $row["priorite_tache_id"] ?? null 
+                    "titre" => $row["titre"] ?? null,
+                    "description" => $row["description"] ?? null,
+                    "dateDebut" => $row["dateDebut"] ?? null,
+                    "dateFin" => $row["dateFin"] ?? null,
+                    "projet_id" => $row["projet_id"] ?? null,
+                    "priorite_tache_id" => $row["priorite_tache_id"] ?? null,
+                    "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {
                     $tacheService->updateOrCreate(["reference" => $row["reference"]], $tacheData);

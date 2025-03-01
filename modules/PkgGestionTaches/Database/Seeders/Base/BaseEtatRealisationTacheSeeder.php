@@ -64,11 +64,12 @@ class BaseEtatRealisationTacheSeeder extends Seeder
             $row = array_combine($headers, $data);
             if ($row) {
                 $etatRealisationTacheData =[
-                    "nom" => $row["nom"] ?? null ,
-                    "description" => $row["description"] ?? null ,
-                    "is_editable_only_by_formateur" => $row["is_editable_only_by_formateur"] ?? null ,
-                    "formateur_id" => $row["formateur_id"] ?? null ,
-                    "sys_color_id" => $row["sys_color_id"] ?? null 
+                    "nom" => $row["nom"] ?? null,
+                    "description" => $row["description"] ?? null,
+                    "is_editable_only_by_formateur" => $row["is_editable_only_by_formateur"] ?? null,
+                    "formateur_id" => $row["formateur_id"] ?? null,
+                    "sys_color_id" => $row["sys_color_id"] ?? null,
+                    "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {
                     $etatRealisationTacheService->updateOrCreate(["reference" => $row["reference"]], $etatRealisationTacheData);

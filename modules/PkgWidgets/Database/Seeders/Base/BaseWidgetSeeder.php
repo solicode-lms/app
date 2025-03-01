@@ -64,14 +64,15 @@ class BaseWidgetSeeder extends Seeder
             $row = array_combine($headers, $data);
             if ($row) {
                 $widgetData =[
-                    "name" => $row["name"] ?? null ,
-                    "type_id" => $row["type_id"] ?? null ,
-                    "model_id" => $row["model_id"] ?? null ,
-                    "operation_id" => $row["operation_id"] ?? null ,
-                    "color" => $row["color"] ?? null ,
-                    "icon" => $row["icon"] ?? null ,
-                    "label" => $row["label"] ?? null ,
-                    "parameters" => $row["parameters"] ?? null 
+                    "name" => $row["name"] ?? null,
+                    "type_id" => $row["type_id"] ?? null,
+                    "model_id" => $row["model_id"] ?? null,
+                    "operation_id" => $row["operation_id"] ?? null,
+                    "color" => $row["color"] ?? null,
+                    "icon" => $row["icon"] ?? null,
+                    "label" => $row["label"] ?? null,
+                    "parameters" => $row["parameters"] ?? null,
+                    "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {
                     $widgetService->updateOrCreate(["reference" => $row["reference"]], $widgetData);

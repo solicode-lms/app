@@ -64,10 +64,11 @@ class BaseLivrableSeeder extends Seeder
             $row = array_combine($headers, $data);
             if ($row) {
                 $livrableData =[
-                    "nature_livrable_id" => $row["nature_livrable_id"] ?? null ,
-                    "titre" => $row["titre"] ?? null ,
-                    "projet_id" => $row["projet_id"] ?? null ,
-                    "description" => $row["description"] ?? null 
+                    "nature_livrable_id" => $row["nature_livrable_id"] ?? null,
+                    "titre" => $row["titre"] ?? null,
+                    "projet_id" => $row["projet_id"] ?? null,
+                    "description" => $row["description"] ?? null,
+                    "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {
                     $livrableService->updateOrCreate(["reference" => $row["reference"]], $livrableData);

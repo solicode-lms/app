@@ -64,9 +64,10 @@ class BaseHistoriqueRealisationTacheSeeder extends Seeder
             $row = array_combine($headers, $data);
             if ($row) {
                 $historiqueRealisationTacheData =[
-                    "dateModification" => $row["dateModification"] ?? null ,
-                    "changement" => $row["changement"] ?? null ,
-                    "realisation_tache_id" => $row["realisation_tache_id"] ?? null 
+                    "dateModification" => $row["dateModification"] ?? null,
+                    "changement" => $row["changement"] ?? null,
+                    "realisation_tache_id" => $row["realisation_tache_id"] ?? null,
+                    "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {
                     $historiqueRealisationTacheService->updateOrCreate(["reference" => $row["reference"]], $historiqueRealisationTacheData);

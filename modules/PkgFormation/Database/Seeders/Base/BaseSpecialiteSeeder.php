@@ -64,8 +64,9 @@ class BaseSpecialiteSeeder extends Seeder
             $row = array_combine($headers, $data);
             if ($row) {
                 $specialiteData =[
-                    "nom" => $row["nom"] ?? null ,
-                    "description" => $row["description"] ?? null 
+                    "nom" => $row["nom"] ?? null,
+                    "description" => $row["description"] ?? null,
+                    "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {
                     $specialiteService->updateOrCreate(["reference" => $row["reference"]], $specialiteData);

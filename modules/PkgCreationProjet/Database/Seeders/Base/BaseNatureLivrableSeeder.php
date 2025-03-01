@@ -64,8 +64,9 @@ class BaseNatureLivrableSeeder extends Seeder
             $row = array_combine($headers, $data);
             if ($row) {
                 $natureLivrableData =[
-                    "nom" => $row["nom"] ?? null ,
-                    "description" => $row["description"] ?? null 
+                    "nom" => $row["nom"] ?? null,
+                    "description" => $row["description"] ?? null,
+                    "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {
                     $natureLivrableService->updateOrCreate(["reference" => $row["reference"]], $natureLivrableData);

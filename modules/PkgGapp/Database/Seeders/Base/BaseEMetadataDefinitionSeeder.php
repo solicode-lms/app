@@ -64,12 +64,13 @@ class BaseEMetadataDefinitionSeeder extends Seeder
             $row = array_combine($headers, $data);
             if ($row) {
                 $eMetadataDefinitionData =[
-                    "name" => $row["name"] ?? null ,
-                    "groupe" => $row["groupe"] ?? null ,
-                    "type" => $row["type"] ?? null ,
-                    "scope" => $row["scope"] ?? null ,
-                    "description" => $row["description"] ?? null ,
-                    "default_value" => $row["default_value"] ?? null 
+                    "name" => $row["name"] ?? null,
+                    "groupe" => $row["groupe"] ?? null,
+                    "type" => $row["type"] ?? null,
+                    "scope" => $row["scope"] ?? null,
+                    "description" => $row["description"] ?? null,
+                    "default_value" => $row["default_value"] ?? null,
+                    "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {
                     $eMetadataDefinitionService->updateOrCreate(["reference" => $row["reference"]], $eMetadataDefinitionData);
