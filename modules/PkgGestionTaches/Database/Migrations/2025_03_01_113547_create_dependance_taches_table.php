@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('reference')->unique(); // Référence unique pour la dépendance
             
             // Relations
-            $table->foreignId('tache_source_id')->constrained('taches')->onDelete('cascade'); // La tâche qui dépend d'une autre
+            $table->foreignId('tache_id')->constrained('taches')->onDelete('cascade'); // La tâche qui dépend d'une autre
             $table->foreignId('tache_cible_id')->constrained('taches')->onDelete('cascade'); // La tâche cible de la dépendance
             $table->foreignId('type_dependance_tache_id')->nullable()->constrained('type_dependance_taches')->onDelete('set null'); // Type de dépendance
             
