@@ -1,11 +1,12 @@
-name,slug,description,is_active,order,version,sys_color_id
-Core,Core,Contient les tables principales du système,1,1,1.0,1
-PkgAutorisation,PkgAutorisation,Contient les tables liées aux autorisations,1,2,1.0,2
-PkgUtilisateurs,PkgUtilisateurs,Contient les tables liées aux utilisateurs et leurs données associées,1,3,1.0,3
-PkgCompetences,PkgCompetences,Contient les tables liées aux compétences et technologies,1,4,1.0,4
-PkgWidgets,PkgWidgets,Contient les tables liées aux widgets,1,5,1.0,5
-PkgCreationProjet,PkgCreationProjet,Contient les tables liées aux création des projets,1,6,1.0,6
-PkgGapp,PkgGapp,Contient les tables liées aux création des PkgGapp,1,7,1.0,6
-PkgApprenants,PkgApprenants,Contient les tables PkgApprenants ,1,8,1.0,6
-PkgFormation,PkgFormation,Contient les tables PkgApprenants ,1,9,1.0,6
-PkgRealisationProjets,PkgRealisationProjets,Contient les tables,1,10,1.0,6
+"name","slug","description","is_active","order","version","sys_color_id","reference"
+"Core","Core","Contient les tables principales du système","1","1","1","1","ea2025e0-321b-498f-a3f5-a9a03f2e2df2"
+"PkgAutorisation","PkgAutorisation","Contient les tables liées aux autorisations","1","2","1","2","c88bec0f-fb64-4848-a469-e7cf52d65bb2"
+"PkgUtilisateurs","PkgUtilisateurs","Contient les tables liées aux utilisateurs et leurs données associées","1","3","1","3","ddd202c1-f0dc-4939-8591-a7a6aa76bb46"
+"PkgCompetences","PkgCompetences","Contient les tables liées aux compétences et technologies","1","4","1","4","a5233378-6c90-4c08-9662-9b9815a853ab"
+"PkgWidgets","PkgWidgets","Contient les tables liées aux widgets","1","5","1","5","bb6f2761-cce8-4ad8-8e04-96276e5845bf"
+"PkgCreationProjet","PkgCreationProjet","Contient les tables liées aux création des projets","1","6","1","6","fe6f7a3c-3ebc-44af-a65c-6787e2827132"
+"PkgGapp","PkgGapp","Contient les tables liées aux création des PkgGapp","1","7","1","6","3caa83d5-53e5-4659-98ce-b7ad6a91dc15"
+"PkgApprenants","PkgApprenants","Contient les tables PkgApprenants ","1","8","1","6","025157ec-87e8-4e03-896e-54d10b9b5cdc"
+"PkgFormation","PkgFormation","Contient les tables PkgApprenants ","1","9","1","6","6aa1276a-24b7-4e3a-8fc1-fd93b14bd3af"
+"PkgRealisationProjets","PkgRealisationProjets","Contient les tables","1","10","1","6","dd4fdd2e-d8af-4a55-aaa9-e26d52a39587"
+"PkgGestionTaches","PkgGestionTaches","Contient les tables PkgGestionTaches","1","11","1","6","PkgGestionTaches"

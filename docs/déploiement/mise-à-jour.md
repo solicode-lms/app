@@ -1,17 +1,14 @@
 # Procédure de mise à jour de SoliLMS sur le serveur
 
 
+
+
 1. Backup de la base de donnée 
 
 
 ````bash
 mysqldump -u root -p solicode_lms > sauvegarde.sql
 ````
-
-
-
-
-2. Migration 
 
 
 ````bash
@@ -33,8 +30,22 @@ sudo composer dump-autoload
 ````
 
 
+
+
 ## Initialisation de la base de données
 
 ````bash
 sudo php artisan migrate
+````
+
+
+## Seeders 
+
+- Supprimer les sys_module en doublons 
+
+
+````bash
+# Ajouter le package PkgGestionTaches
+php artisan db:seed --class=Modules\Core\Database\Seeders\Base\BaseSysModuleSeeder
+php artisan db:seed --class=Modules\PkgGestionTaches\Database\Seeders\EtatRealisationTacheSeeder
 ````

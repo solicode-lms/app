@@ -12,16 +12,17 @@ trait HasReference
     protected static function bootHasReference()
     {
         static::creating(function ($model) {
-            if ($model->hasColumn('reference')) {
+            if ($model->hasColumn('reference') && empty($model->reference)) {
                 $model->reference = $model->generateReference();
             }
         });
 
-        static::updating(function ($model) {
-            if ($model->hasColumn('reference')) {
-                $model->reference = $model->generateReference();
-            }
-        });
+        // Ne pas mettre à jour la référence il doit être déterminé à la création
+        // static::updating(function ($model) {
+        //     if ($model->hasColumn('reference')) {
+        //         $model->reference = $model->generateReference();
+        //     }
+        // });
     }
 
     /**
