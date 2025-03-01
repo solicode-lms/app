@@ -13,7 +13,9 @@
     },
     {
         "reference": "realisation_taches_iconModel",
-        "value_string": "fa-table",
+        "value_boolean": 0,
+        "value_string": "fa-tasks",
+        "value_float": 0,
         "e_model_reference": "realisation_taches",
         "e_metadata_definition_reference": "iconModel"
     },

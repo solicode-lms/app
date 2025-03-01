@@ -33,7 +33,7 @@
        $titre = __("PkgGestionTaches::commentaireRealisationTache.singular");
     @endphp
     <x-crud-header 
-        id="commentaireRealisationTache-crud-header" icon="fas fa-table"  
+        id="commentaireRealisationTache-crud-header" icon="fas fa-comments"  
         iconColor="text-info"
         title="{{ __('PkgGestionTaches::commentaireRealisationTache.plural') }}"
         :breadcrumbs="[

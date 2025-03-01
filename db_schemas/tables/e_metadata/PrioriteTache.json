@@ -13,7 +13,9 @@
     },
     {
         "reference": "priorite_taches_iconModel",
-        "value_string": "fa-table",
+        "value_boolean": 0,
+        "value_string": "fa-exclamation-circle",
+        "value_float": 0,
         "e_model_reference": "priorite_taches",
         "e_metadata_definition_reference": "iconModel"
     },

@@ -33,7 +33,7 @@
        $titre = __("PkgGestionTaches::prioriteTache.singular");
     @endphp
     <x-crud-header 
-        id="prioriteTache-crud-header" icon="fas fa-table"  
+        id="prioriteTache-crud-header" icon="fas fa-exclamation-circle"  
         iconColor="text-info"
         title="{{ __('PkgGestionTaches::prioriteTache.plural') }}"
         :breadcrumbs="[

@@ -33,7 +33,7 @@
        $titre = __("PkgGestionTaches::historiqueRealisationTache.singular");
     @endphp
     <x-crud-header 
-        id="historiqueRealisationTache-crud-header" icon="fas fa-table"  
+        id="historiqueRealisationTache-crud-header" icon="fas fa-history"  
         iconColor="text-info"
         title="{{ __('PkgGestionTaches::historiqueRealisationTache.plural') }}"
         :breadcrumbs="[
