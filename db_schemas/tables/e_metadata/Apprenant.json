@@ -691,5 +691,29 @@
         },
         "e_data_field_reference": "Apprenant_matricule",
         "e_metadata_definition_reference": "formStartGroup"
+    },
+    {
+        "reference": "apprenants_hasMany_commentaire_realisation_taches_apprenant_id_editHasMany",
+        "value_boolean": 1,
+        "e_data_field_reference": "apprenants_hasMany_commentaire_realisation_taches_apprenant_id",
+        "e_metadata_definition_reference": "editHasMany"
+    },
+    {
+        "reference": "apprenants_hasMany_commentaire_realisation_taches_apprenant_id_displayOrder",
+        "value_integer": 24,
+        "e_data_field_reference": "apprenants_hasMany_commentaire_realisation_taches_apprenant_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "apprenants_hasMany_commentaire_realisation_taches_apprenant_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "apprenants_hasMany_commentaire_realisation_taches_apprenant_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "apprenants_hasMany_commentaire_realisation_taches_apprenant_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "apprenants_hasMany_commentaire_realisation_taches_apprenant_id",
+        "e_metadata_definition_reference": "inputMdWidth"
     }
 ]

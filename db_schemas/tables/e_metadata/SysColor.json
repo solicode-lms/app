@@ -209,5 +209,53 @@
         "value_integer": 6,
         "e_data_field_reference": "sys_colors_hasMany_sys_modules_sys_color_id",
         "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "sys_colors_hasMany_etat_realisation_taches_sys_color_id_editHasMany",
+        "value_boolean": 1,
+        "e_data_field_reference": "sys_colors_hasMany_etat_realisation_taches_sys_color_id",
+        "e_metadata_definition_reference": "editHasMany"
+    },
+    {
+        "reference": "sys_colors_hasMany_etat_realisation_taches_sys_color_id_displayOrder",
+        "value_integer": 7,
+        "e_data_field_reference": "sys_colors_hasMany_etat_realisation_taches_sys_color_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "sys_colors_hasMany_etat_realisation_taches_sys_color_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "sys_colors_hasMany_etat_realisation_taches_sys_color_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "sys_colors_hasMany_etat_realisation_taches_sys_color_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "sys_colors_hasMany_etat_realisation_taches_sys_color_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "sys_colors_hasMany_label_realisation_taches_sys_color_id_editHasMany",
+        "value_boolean": 1,
+        "e_data_field_reference": "sys_colors_hasMany_label_realisation_taches_sys_color_id",
+        "e_metadata_definition_reference": "editHasMany"
+    },
+    {
+        "reference": "sys_colors_hasMany_label_realisation_taches_sys_color_id_displayOrder",
+        "value_integer": 8,
+        "e_data_field_reference": "sys_colors_hasMany_label_realisation_taches_sys_color_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "sys_colors_hasMany_label_realisation_taches_sys_color_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "sys_colors_hasMany_label_realisation_taches_sys_color_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "sys_colors_hasMany_label_realisation_taches_sys_color_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "sys_colors_hasMany_label_realisation_taches_sys_color_id",
+        "e_metadata_definition_reference": "inputMdWidth"
     }
 ]
