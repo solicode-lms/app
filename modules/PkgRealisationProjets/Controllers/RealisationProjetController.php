@@ -14,20 +14,17 @@ class RealisationProjetController extends BaseRealisationProjetController
 
         $this->viewState->setContextKeyIfEmpty('realisationProjet.index');
 
-        // TODO : ajouter commentaire
+        // Insertion des paramètres dans request : ces deux paramètres sont utilise par paginate
+        // filtrer les données 
         if(Auth::user()->hasRole(Role::FORMATEUR_ROLE)){
+            // Affichage seulement des realisation de projet du formateur connecté
+            // TODO : je pense que on pas besoin car le formateur est le owner : 
+            // nous avons une metaData onwnedByUser
             $request->merge(['formateur_id' => $this->sessionState->get('formateur_id')]);
         } elseif (Auth::user()->hasRole(Role::APPRENANT_ROLE)){
+            // Afficher seulement les realisation de projet des apprenants de même groupe
             $request->merge(['scope_groupe_apprenant_id' => $this->sessionState->get('apprenant_id')]);
         } 
-
-       
-         
-        // if($this->viewState->get('filter.realisationProjet.affectation_projet_id') == null){
-         
-        //     $this->viewState->init('filter.realisationProjet.affectation_projet_id'  , $this->sessionState->get('apprenant_id'));
-        // }
-
 
         // Fix le filtre au projet en cours : pour le formateur et l'apprenant
         if ($this->viewState->get('filter.realisationProjet.affectation_projet_id') === null) {

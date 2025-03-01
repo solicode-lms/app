@@ -38,6 +38,13 @@ class BaseRealisationTacheController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('realisationTache.index');
+        // ownedByUser
+        if(Auth::user()->hasRole('formateur') && $this->viewState->get('filter.realisationTache.realisationProjet.affectationProjet.projet.formateur_id') == null){
+           $this->viewState->init('filter.realisationTache.realisationProjet.affectationProjet.projet.formateur_id'  , $this->sessionState->get('formateur_id'));
+        }
+        if(Auth::user()->hasRole('apprenant') && $this->viewState->get('filter.realisationTache.realisationProjet.apprenant_id') == null){
+           $this->viewState->init('filter.realisationTache.realisationProjet.apprenant_id'  , $this->sessionState->get('apprenant_id'));
+        }
 
 
         // Extraire les paramètres de recherche, page, et filtres
@@ -63,6 +70,13 @@ class BaseRealisationTacheController extends AdminController
         return view('PkgGestionTaches::realisationTache.index', compact('realisationTaches_data', 'realisationTaches_stats', 'realisationTaches_filters','realisationTache_instance'));
     }
     public function create() {
+        // ownedByUser
+        if(Auth::user()->hasRole('formateur')){
+           $this->viewState->set('scope_form.realisationTache.realisationProjet.affectationProjet.projet.formateur_id'  , $this->sessionState->get('formateur_id'));
+        }
+        if(Auth::user()->hasRole('apprenant')){
+           $this->viewState->set('scope_form.realisationTache.realisationProjet.apprenant_id'  , $this->sessionState->get('apprenant_id'));
+        }
 
 
         $itemRealisationTache = $this->realisationTacheService->createInstance();
@@ -106,6 +120,7 @@ class BaseRealisationTacheController extends AdminController
 
 
         $itemRealisationTache = $this->realisationTacheService->find($id);
+        $this->authorize('view', $itemRealisationTache);
 
 
         $taches = $this->tacheService->all();
@@ -144,6 +159,7 @@ class BaseRealisationTacheController extends AdminController
 
 
         $itemRealisationTache = $this->realisationTacheService->find($id);
+        $this->authorize('edit', $itemRealisationTache);
 
 
         $taches = $this->tacheService->all();
@@ -179,6 +195,9 @@ class BaseRealisationTacheController extends AdminController
 
     }
     public function update(RealisationTacheRequest $request, string $id) {
+        // Vérifie si l'utilisateur peut mettre à jour l'objet 
+        $realisationTache = $this->realisationTacheService->find($id);
+        $this->authorize('update', $realisationTache);
 
         $validatedData = $request->validated();
         $realisationTache = $this->realisationTacheService->update($id, $validatedData);
@@ -204,6 +223,9 @@ class BaseRealisationTacheController extends AdminController
 
     }
     public function destroy(Request $request, string $id) {
+        // Vérifie si l'utilisateur peut mettre à jour l'objet 
+        $realisationTache = $this->realisationTacheService->find($id);
+        $this->authorize('delete', $realisationTache);
 
         $realisationTache = $this->realisationTacheService->destroy($id);
 

@@ -85,6 +85,36 @@ trait FilterTrait
         ];
     }
 
+
+    /**
+     * Génère un filtre basé sur une relation définie entre les modèles.
+     *
+     * @param string $label Le label du filtre.
+     * @param string $relation La relation définie entre les modèles.
+     * @param string $relatedModel Le modèle lié à la relation.
+     * @param string|null $displayField Le champ affiché dans la liste déroulante (optionnel, par défaut 'id').
+     * @return array Le filtre formaté.
+     */
+    protected function generateRelationFilter(string $label, string $relation, string $relatedModel, string $displayField = 'id', $data = null): array
+    {
+        $relatedInstance = new $relatedModel();
+
+        // Récupération des données du modèle lié en tenant compte des relations
+        $data = $data ?? $relatedModel::withScope(fn() => $relatedModel::all());
+
+          $data =  $data->map(fn($item) => ['id' => $item['id'], 'label' => $item])
+            ->toArray();
+
+        return [
+            'label' => $label,
+            'field' => $relation,
+            'type' => 'Relation',
+            'options' => $data,
+            'sortable' => "{$relatedInstance->getTable()}.{$displayField}",
+        ];
+    }
+
+
     /**
      * Initialisation des champs filtrables.
      * Doit être appelée après le choix du contexte (exemple : index).

@@ -81,6 +81,8 @@ use Illuminate\Support\Facades\Auth;
         // Fusionner les données de la requête et de la route
         $allParams = array_merge($request->all(), $request->route() ? $request->route()->parameters() : []);
     
+        // TODO : dans ui : remplacer "." ver "__" ensuit ici, replace "__" to "." pour resoudre le problème de 
+        // convertion automatique de "." vers "_" par laravel
         foreach ($allParams as $key => $value) {
             if (preg_match('/^(filter|scope)_(.*?)_(.*?)$/', $key, $matches)) {
                 // Récupérer le préfixe (filter ou scope)
@@ -89,9 +91,11 @@ use Illuminate\Support\Facades\Auth;
                 // Récupérer le ModelName (entre les underscores)
                 $modelName = $matches[2];
     
-                // Récupérer le reste de l'attribut
-                $attribute = $matches[3];
-    
+                // L'attribut peut être une relation 
+                // La relation est envoyer par "/" et non par "." car Laravel converti "." vers "_"
+                // Récupérer et normaliser l'attribut (remplacer "/" par ".")
+                $attribute = str_replace('/', '.', $matches[3]);
+
                 // Construire la nouvelle clé avec des "."
                 $normalizedKey = "$prefix.$modelName.$attribute";
     

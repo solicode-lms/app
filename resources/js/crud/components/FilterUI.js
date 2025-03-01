@@ -34,6 +34,7 @@ export class FilterUI {
         form.serializeArray().forEach((field) => {
             const value = field.value.trim(); // Supprimer les espaces inutiles
             if (withEmpty || value) { // Inclure les champs vides seulement si demandé
+                field.name = field.name.replace("/",".");
                 formData[field.name] = value;
             }
         });

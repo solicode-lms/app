@@ -288,5 +288,26 @@
         "value_integer": 6,
         "e_data_field_reference": "realisation_taches_hasMany_historique_realisation_taches_realisation_tache_id",
         "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "realisation_taches_ownedByUser",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": [
+            {
+                "role": "formateur",
+                "dataScope": "filter",
+                "userModelName": "Formateur",
+                "ownerRelationPath": "realisationProjet.affectationProjet.projet.formateur.user"
+            },
+            {
+                "role": "apprenant",
+                "dataScope": "filter",
+                "userModelName": "Apprenant",
+                "ownerRelationPath": "realisationProjet.apprenant.user"
+            }
+        ],
+        "e_model_reference": "realisation_taches",
+        "e_metadata_definition_reference": "ownedByUser"
     }
 ]
