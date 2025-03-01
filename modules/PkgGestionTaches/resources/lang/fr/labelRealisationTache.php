@@ -1,12 +1,11 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 return [
-    'singular' => 'LabelRealisationTache',
-    'plural' => 'LabelRealisationTaches',
-    'nom' => 'nom',
-    'description' => 'description',
-    'formateur_id' => 'formateur_id',
-    'sys_color_id' => 'sys_color_id',
+    'singular' => 'Label',
+    'plural' => 'Labels',
+    'nom' => 'Nom',
+    'description' => 'Description',
+    'formateur_id' => 'Formateur',
+    'sys_color_id' => 'Couleur associée',
 ];

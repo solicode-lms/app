@@ -1,13 +1,12 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 return [
-    'singular' => 'RealisationTache',
-    'plural' => 'RealisationTaches',
-    'dateDebut' => 'dateDebut',
-    'dateFin' => 'dateFin',
-    'tache_id' => 'tache_id',
-    'realisation_projet_id' => 'realisation_projet_id',
-    'etat_realisation_tache_id' => 'etat_realisation_tache_id',
+    'singular' => 'Réalisation de Tâche',
+    'plural' => 'Réalisations de Tâches',
+    'dateDebut' => 'Date de début',
+    'dateFin' => 'Date de fin',
+    'tache_id' => 'Tâche',
+    'realisation_projet_id' => 'Réalisation du projet',
+    'etat_realisation_tache_id' => 'État de réalisation de la tâche',
 ];

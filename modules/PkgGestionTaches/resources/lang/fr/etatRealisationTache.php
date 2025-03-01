@@ -1,13 +1,12 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 return [
-    'singular' => 'EtatRealisationTache',
-    'plural' => 'EtatRealisationTaches',
-    'nom' => 'nom',
-    'description' => 'description',
-    'is_editable_only_by_formateur' => 'is_editable_only_by_formateur',
-    'formateur_id' => 'formateur_id',
-    'sys_color_id' => 'sys_color_id',
+    'singular' => 'État de Réalisation de Tâche',
+    'plural' => 'États de Réalisation de Tâches',
+    'nom' => 'Nom',
+    'description' => 'Description',
+    'is_editable_only_by_formateur' => 'Modifiable uniquement par le formateur',
+    'formateur_id' => 'Formateur',
+    'sys_color_id' => 'Couleur associée',
 ];

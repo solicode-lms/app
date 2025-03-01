@@ -1,14 +1,12 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
-
 
 return [
-    'singular' => 'Tache',
-    'plural' => 'Taches',
-    'titre' => 'titre',
-    'description' => 'description',
-    'dateDebut' => 'dateDebut',
-    'dateFin' => 'dateFin',
-    'projet_id' => 'projet_id',
-    'priorite_tache_id' => 'priorite_tache_id',
+    'singular' => 'Tâche',
+    'plural' => 'Tâches',
+    'titre' => 'Titre',
+    'description' => 'Description',
+    'dateDebut' => 'Date de début',
+    'dateFin' => 'Date de fin',
+    'projet_id' => 'Projet',
+    'priorite_tache_id' => 'Priorité de la tâche',
 ];

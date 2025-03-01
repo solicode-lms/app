@@ -1,8 +1,7 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 return [
-    'name' => 'PkgGestionTaches',
+    'name' => 'Gestion des Tâches',
     'icon' => 'fa-table'
 ];

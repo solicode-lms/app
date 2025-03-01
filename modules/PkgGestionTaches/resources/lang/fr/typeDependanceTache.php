@@ -1,10 +1,8 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
-
 
 return [
-    'singular' => 'TypeDependanceTache',
-    'plural' => 'TypeDependanceTaches',
-    'titre' => 'titre',
-    'description' => 'description',
+    'singular' => 'Type de Dépendance de Tâche',
+    'plural' => 'Types de Dépendance de Tâches',
+    'titre' => 'Titre',
+    'description' => 'Description',
 ];
