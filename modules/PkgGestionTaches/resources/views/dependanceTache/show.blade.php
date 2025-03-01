@@ -29,12 +29,12 @@
                                 <p>{{ $itemDependanceTache->tache_id }}</p>
                             </div>
                             <div class="col-sm-12">
-                                <label for="tache_cible_id">{{ ucfirst(__('PkgGestionTaches::dependanceTache.tache_cible_id')) }}:</label>
-                                <p>{{ $itemDependanceTache->tache_cible_id }}</p>
-                            </div>
-                            <div class="col-sm-12">
                                 <label for="type_dependance_tache_id">{{ ucfirst(__('PkgGestionTaches::dependanceTache.type_dependance_tache_id')) }}:</label>
                                 <p>{{ $itemDependanceTache->type_dependance_tache_id }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="tache_cible_id">{{ ucfirst(__('PkgGestionTaches::dependanceTache.tache_cible_id')) }}:</label>
+                                <p>{{ $itemDependanceTache->tache_cible_id }}</p>
                             </div>
                         </div>
                     </div>

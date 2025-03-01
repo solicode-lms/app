@@ -39,6 +39,32 @@
 
         
         <div class="form-group col-12 col-md-6">
+            <label for="type_dependance_tache_id">
+                {{ ucfirst(__('PkgGestionTaches::typeDependanceTache.singular')) }}
+                
+            </label>
+            <select 
+            id="type_dependance_tache_id" 
+            
+            
+            name="type_dependance_tache_id" 
+            class="form-control select2">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($typeDependanceTaches as $typeDependanceTache)
+                    <option value="{{ $typeDependanceTache->id }}"
+                        {{ (isset($itemDependanceTache) && $itemDependanceTache->type_dependance_tache_id == $typeDependanceTache->id) || (old('type_dependance_tache_id>') == $typeDependanceTache->id) ? 'selected' : '' }}>
+                        {{ $typeDependanceTache }}
+                    </option>
+                @endforeach
+            </select>
+            @error('type_dependance_tache_id')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+    </div>
+
+
+        
+        <div class="form-group col-12 col-md-6">
             <label for="tache_cible_id">
                 {{ ucfirst(__('PkgGestionTaches::tache.singular')) }}
                 
@@ -60,32 +86,6 @@
                 @endforeach
             </select>
             @error('tache_cible_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
-
-
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="type_dependance_tache_id">
-                {{ ucfirst(__('PkgGestionTaches::typeDependanceTache.singular')) }}
-                
-            </label>
-            <select 
-            id="type_dependance_tache_id" 
-            
-            
-            name="type_dependance_tache_id" 
-            class="form-control select2">
-             <option value="">Sélectionnez une option</option>
-                @foreach ($typeDependanceTaches as $typeDependanceTache)
-                    <option value="{{ $typeDependanceTache->id }}"
-                        {{ (isset($itemDependanceTache) && $itemDependanceTache->type_dependance_tache_id == $typeDependanceTache->id) || (old('type_dependance_tache_id>') == $typeDependanceTache->id) ? 'selected' : '' }}>
-                        {{ $typeDependanceTache }}
-                    </option>
-                @endforeach
-            </select>
-            @error('type_dependance_tache_id')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
     </div>

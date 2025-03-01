@@ -30,15 +30,15 @@ class BaseDependanceTacheExport implements FromCollection, WithHeadings, ShouldA
         return [
             'reference' => 'reference',
             'tache_id' => 'tache_id',
-            'tache_cible_id' => 'tache_cible_id',
             'type_dependance_tache_id' => 'type_dependance_tache_id',
+            'tache_cible_id' => 'tache_cible_id',
         ];
         }else{
         return [
             'reference' => __('Core::msg.reference'),
             'tache_id' => __('PkgGestionTaches::dependanceTache.tache_id'),
-            'tache_cible_id' => __('PkgGestionTaches::dependanceTache.tache_cible_id'),
             'type_dependance_tache_id' => __('PkgGestionTaches::dependanceTache.type_dependance_tache_id'),
+            'tache_cible_id' => __('PkgGestionTaches::dependanceTache.tache_cible_id'),
         ];
 
         }
@@ -51,8 +51,8 @@ class BaseDependanceTacheExport implements FromCollection, WithHeadings, ShouldA
             return [
                 'reference' => $dependanceTache->reference,
                 'tache_id' => $dependanceTache->tache_id,
-                'tache_cible_id' => $dependanceTache->tache_cible_id,
                 'type_dependance_tache_id' => $dependanceTache->type_dependance_tache_id,
+                'tache_cible_id' => $dependanceTache->tache_cible_id,
             ];
         });
     }

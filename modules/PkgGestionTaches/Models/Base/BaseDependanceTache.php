@@ -35,7 +35,7 @@ class BaseDependanceTache extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'tache_id', 'tache_cible_id', 'type_dependance_tache_id'
+        'tache_id', 'type_dependance_tache_id', 'tache_cible_id'
     ];
 
     /**
@@ -48,15 +48,6 @@ class BaseDependanceTache extends BaseModel
         return $this->belongsTo(Tache::class, 'tache_id', 'id');
     }
     /**
-     * Relation BelongsTo pour Tache.
-     *
-     * @return BelongsTo
-     */
-    public function tacheCible(): BelongsTo
-    {
-        return $this->belongsTo(Tache::class, 'tache_cible_id', 'id');
-    }
-    /**
      * Relation BelongsTo pour TypeDependanceTache.
      *
      * @return BelongsTo
@@ -64,6 +55,15 @@ class BaseDependanceTache extends BaseModel
     public function typeDependanceTache(): BelongsTo
     {
         return $this->belongsTo(TypeDependanceTache::class, 'type_dependance_tache_id', 'id');
+    }
+    /**
+     * Relation BelongsTo pour Tache.
+     *
+     * @return BelongsTo
+     */
+    public function tacheCible(): BelongsTo
+    {
+        return $this->belongsTo(Tache::class, 'tache_cible_id', 'id');
     }
 
 

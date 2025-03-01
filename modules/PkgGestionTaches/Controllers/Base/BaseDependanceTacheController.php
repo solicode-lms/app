@@ -64,8 +64,8 @@ class BaseDependanceTacheController extends AdminController
         
 
         $taches = $this->tacheService->all();
-        $taches = $this->tacheService->all();
         $typeDependanceTaches = $this->typeDependanceTacheService->all();
+        $taches = $this->tacheService->all();
 
         if (request()->ajax()) {
             return view('PkgGestionTaches::dependanceTache._fields', compact('itemDependanceTache', 'taches', 'taches', 'typeDependanceTaches'));
@@ -104,8 +104,8 @@ class BaseDependanceTacheController extends AdminController
 
 
         $taches = $this->tacheService->all();
-        $taches = $this->tacheService->all();
         $typeDependanceTaches = $this->typeDependanceTacheService->all();
+        $taches = $this->tacheService->all();
 
 
         if (request()->ajax()) {
@@ -124,8 +124,8 @@ class BaseDependanceTacheController extends AdminController
 
 
         $taches = $this->tacheService->all();
-        $taches = $this->tacheService->all();
         $typeDependanceTaches = $this->typeDependanceTacheService->all();
+        $taches = $this->tacheService->all();
 
 
         if (request()->ajax()) {

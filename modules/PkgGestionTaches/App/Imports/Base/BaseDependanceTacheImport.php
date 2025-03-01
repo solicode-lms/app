@@ -58,8 +58,8 @@ class BaseDependanceTacheImport implements ToModel, WithHeadingRow
         return new DependanceTache([
              'reference' => $reference,
              'tache_id' => $values[1] ?? null,
-             'tache_cible_id' => $values[2] ?? null,
-             'type_dependance_tache_id' => $values[3] ?? null,
+             'type_dependance_tache_id' => $values[2] ?? null,
+             'tache_cible_id' => $values[3] ?? null,
         ]);
 
 

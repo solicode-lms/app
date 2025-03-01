@@ -88,7 +88,9 @@
     },
     {
         "reference": "DependanceTache_tache_cible_id_displayOrder",
-        "value_integer": 4,
+        "value_boolean": 0,
+        "value_integer": 5,
+        "value_float": 0,
         "e_data_field_reference": "DependanceTache_tache_cible_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -118,7 +120,9 @@
     },
     {
         "reference": "DependanceTache_type_dependance_tache_id_displayOrder",
-        "value_integer": 5,
+        "value_boolean": 0,
+        "value_integer": 4,
+        "value_float": 0,
         "e_data_field_reference": "DependanceTache_type_dependance_tache_id",
         "e_metadata_definition_reference": "displayOrder"
     },
