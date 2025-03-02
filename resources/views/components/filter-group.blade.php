@@ -3,6 +3,10 @@
         <div class="d-flex align-items-center mb-3">
             <i class="fas text-info filter-icon fa-times-circle mr-3" title="Réinitialiser les filtres"></i>
         </div>
-        {{ $slot }}
+        <div class="col-11">
+            <div class="row">
+            {{ $slot }}
+            </div>
+        </div>
     </div>
 </div>

@@ -28,9 +28,9 @@ class RealisationProjetService extends BaseRealisationProjetService
 
         // affectationProjet data
         if(Auth::user()->hasRole(Role::FORMATEUR_ROLE)){
-            $affectationProjets = (new AffectationProjetService())->getAffectationProjetsByFormateur($this->sessionState->get("formateur_id"));
+            $affectationProjets = (new AffectationProjetService())->getAffectationProjetsByFormateurId($this->sessionState->get("formateur_id"));
         } elseif (Auth::user()->hasRole(Role::APPRENANT_ROLE)){
-            $affectationProjets = (new AffectationProjetService())->getAffectationProjetsByApprenant($this->sessionState->get("apprenant_id"));
+            $affectationProjets = (new AffectationProjetService())->getAffectationProjetsByApprenantId($this->sessionState->get("apprenant_id"));
         } else{
             $affectationProjets = AffectationProjet::all();
         }

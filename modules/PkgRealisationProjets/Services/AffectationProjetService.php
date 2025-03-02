@@ -70,7 +70,7 @@ class AffectationProjetService extends BaseAffectationProjetService
      * @param int $formateur_id
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function getAffectationProjetsByFormateur($formateur_id)
+    public function getAffectationProjetsByFormateurId($formateur_id)
     {
         return AffectationProjet::whereHas('groupe', function ($query) use ($formateur_id) {
             $query->whereHas('formateurs', function ($q) use ($formateur_id) {
@@ -85,7 +85,7 @@ class AffectationProjetService extends BaseAffectationProjetService
      * @param int $apprenant_id
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function getAffectationProjetsByApprenant($apprenant_id)
+    public function getAffectationProjetsByApprenantId($apprenant_id)
     {
         return AffectationProjet::whereHas('groupe', function ($query) use ($apprenant_id) {
             $query->whereHas('apprenants', function ($q) use ($apprenant_id) {
