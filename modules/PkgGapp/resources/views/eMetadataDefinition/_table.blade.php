@@ -5,6 +5,8 @@
         <thead>
             <tr>
                 <x-sortable-column field="name" modelname="eMetadataDefinition" label="{{ ucfirst(__('PkgGapp::eMetadataDefinition.name')) }}" />
+                <x-sortable-column field="groupe" modelname="eMetadataDefinition" label="{{ ucfirst(__('PkgGapp::eMetadataDefinition.groupe')) }}" />
+                <x-sortable-column field="description" modelname="eMetadataDefinition" label="{{ ucfirst(__('PkgGapp::eMetadataDefinition.description')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -13,6 +15,8 @@
             @foreach ($eMetadataDefinitions_data as $eMetadataDefinition)
                 <tr id="eMetadataDefinition-row-{{$eMetadataDefinition->id}}">
                     <td>@limit($eMetadataDefinition->name, 50)</td>
+                    <td>@limit($eMetadataDefinition->groupe, 50)</td>
+                    <td>{!! \App\Helpers\TextHelper::formatHtmlWithLineBreaks($eMetadataDefinition->description, 50) !!}</td>
                     <td class="text-right">
 
                         @can('show-eMetadataDefinition')

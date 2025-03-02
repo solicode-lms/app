@@ -59,6 +59,32 @@ class TacheService extends BaseTacheService
         return parent::update($id,$data);
     }
 
-   
+   /**
+     * Récupérer les tâches associées aux projets d'un formateur donné.
+     *
+     * @param int $formateurId
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function getTacheByFormateurId(int $formateurId)
+    {
+        return $this->model->whereHas('projet', function ($query) use ($formateurId) {
+            $query->where('formateur_id', $formateurId);
+        })->get();
+    }
+
+    /**
+     * Récupérer les tâches associées aux projets d'un apprenant donné.
+     *
+     * @param int $apprenantId
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function getTacheByApprenantId(int $apprenantId)
+    {
+        return $this->model->whereHas('realisationTaches', function ($query) use ($apprenantId) {
+            $query->whereHas('realisationProjet', function ($q) use ($apprenantId) {
+                $q->where('apprenant_id', $apprenantId);
+            });
+        })->get();
+    }
 
 }

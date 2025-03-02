@@ -330,7 +330,7 @@
         "type": "Json",
         "scope": "field",
         "default_value": "{                         \"modelName\": \"Filiere\",                         \"relation\": \"modules.competences\",                         \"icon\": \"fas fa-chart-pie\"                     }",
-        "groupe": "tables",
+        "groupe": "filter",
         "description": "Statistiques ou informations sur les relations (modèle",
         "created_at": null,
         "updated_at": null
@@ -630,7 +630,7 @@
         "type": "Json",
         "scope": "model",
         "default_value": "[   {     \"icon\": \"fa-unlock-alt\",     \"title\": \"Initialiser le mot de passe\",     \"methode\": \"initPassword\",     \"actionType\": \"confirm\",     \"successMessage\": \"Le mot de passe a été modifier avec succès\"   } ]",
-        "groupe": "table",
+        "groupe": "tables",
         "description": "Détermine les actions à ajouter dans TableUI",
         "created_at": null,
         "updated_at": null

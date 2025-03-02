@@ -4,6 +4,7 @@
 
 namespace Modules\PkgGapp\Controllers\Base;
 use Modules\PkgGapp\Services\EMetadataDefinitionService;
+use Modules\PkgGapp\Services\EMetadatumService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
@@ -78,7 +79,7 @@ class BaseEMetadataDefinitionController extends AdminController
             );
         }
 
-        return redirect()->route('eMetadataDefinitions.index')->with(
+        return redirect()->route('eMetadataDefinitions.edit',['eMetadataDefinition' => $eMetadataDefinition->id])->with(
             'success',
             __('Core::msg.addSuccess', [
                 'entityToString' => $eMetadataDefinition,
@@ -96,11 +97,20 @@ class BaseEMetadataDefinitionController extends AdminController
 
 
 
+        $this->viewState->set('scope.eMetadatum.e_metadata_definition_id', $id);
+
+
+        $eMetadatumService =  new EMetadatumService();
+        $eMetadata_data =  $itemEMetadataDefinition->eMetadata()->paginate(10);
+        $eMetadata_stats = $eMetadatumService->geteMetadatumStats();
+        $eMetadata_filters = $eMetadatumService->getFieldsFilterable();
+        $eMetadatum_instance =  $eMetadatumService->createInstance();
+
         if (request()->ajax()) {
-            return view('PkgGapp::eMetadataDefinition._fields', compact('itemEMetadataDefinition'));
+            return view('PkgGapp::eMetadataDefinition._edit', compact('itemEMetadataDefinition', 'eMetadata_data', 'eMetadata_stats', 'eMetadata_filters', 'eMetadatum_instance'));
         }
 
-        return view('PkgGapp::eMetadataDefinition.edit', compact('itemEMetadataDefinition'));
+        return view('PkgGapp::eMetadataDefinition.edit', compact('itemEMetadataDefinition', 'eMetadata_data', 'eMetadata_stats', 'eMetadata_filters', 'eMetadatum_instance'));
 
     }
     public function edit(string $id) {
@@ -113,11 +123,21 @@ class BaseEMetadataDefinitionController extends AdminController
 
 
 
+        $this->viewState->set('scope.eMetadatum.e_metadata_definition_id', $id);
+        
+
+        $eMetadatumService =  new EMetadatumService();
+        $eMetadata_data =  $itemEMetadataDefinition->eMetadata()->paginate(10);
+        $eMetadata_stats = $eMetadatumService->geteMetadatumStats();
+        $this->viewState->set('stats.eMetadatum.stats'  , $eMetadata_stats);
+        $eMetadata_filters = $eMetadatumService->getFieldsFilterable();
+        $eMetadatum_instance =  $eMetadatumService->createInstance();
+
         if (request()->ajax()) {
-            return view('PkgGapp::eMetadataDefinition._fields', compact('itemEMetadataDefinition'));
+            return view('PkgGapp::eMetadataDefinition._edit', compact('itemEMetadataDefinition', 'eMetadata_data', 'eMetadata_stats', 'eMetadata_filters', 'eMetadatum_instance'));
         }
 
-        return view('PkgGapp::eMetadataDefinition.edit', compact('itemEMetadataDefinition'));
+        return view('PkgGapp::eMetadataDefinition.edit', compact('itemEMetadataDefinition', 'eMetadata_data', 'eMetadata_stats', 'eMetadata_filters', 'eMetadatum_instance'));
 
     }
     public function update(EMetadataDefinitionRequest $request, string $id) {
