@@ -10,8 +10,6 @@
         <td>@limit($realisationTache->realisationProjet, 50)</td>
         <td>
             
-        
-
             @php
             $etat = $realisationTache->etatRealisationTache?->nom ?? '';
             $couleurs = [
@@ -56,4 +54,4 @@
         </td>
     </tr>
 @endforeach
-@show
+@endsection
