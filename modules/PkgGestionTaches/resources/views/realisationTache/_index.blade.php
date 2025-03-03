@@ -80,7 +80,6 @@
                         <x-filter-group count="{{count($realisationTaches_filters ?? [])}}">
                             <!-- Filtres spécifiques -->
                             @foreach ($realisationTaches_filters as $filter)
-                           
                                 <x-filter-field 
                                     :label="$filter['label']" 
                                     :type="$filter['type']" 
