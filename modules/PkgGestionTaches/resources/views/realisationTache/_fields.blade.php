@@ -10,6 +10,66 @@
 
     <div class="card-body row">
         
+        @php $canEdittache_id = Auth::user()->hasAnyRole(explode(',', 'formateur,admin')); @endphp
+<div class="form-group col-12 col-md-6">
+            <label for="tache_id">
+                {{ ucfirst(__('PkgGestionTaches::tache.singular')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <select 
+            id="tache_id" 
+            {{ $canEdittache_id ? '' : 'disabled' }}
+            required
+            
+            name="tache_id" 
+            class="form-control select2">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($taches as $tache)
+                    <option value="{{ $tache->id }}"
+                        {{ (isset($itemRealisationTache) && $itemRealisationTache->tache_id == $tache->id) || (old('tache_id>') == $tache->id) ? 'selected' : '' }}>
+                        {{ $tache }}
+                    </option>
+                @endforeach
+            </select>
+            @error('tache_id')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+    </div>
+
+
+        
+        @php $canEditrealisation_projet_id = Auth::user()->hasAnyRole(explode(',', 'formateur,admin')); @endphp
+<div class="form-group col-12 col-md-6">
+            <label for="realisation_projet_id">
+                {{ ucfirst(__('PkgRealisationProjets::realisationProjet.singular')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <select 
+            id="realisation_projet_id" 
+            {{ $canEditrealisation_projet_id ? '' : 'disabled' }}
+            required
+            
+            name="realisation_projet_id" 
+            class="form-control select2">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($realisationProjets as $realisationProjet)
+                    <option value="{{ $realisationProjet->id }}"
+                        {{ (isset($itemRealisationTache) && $itemRealisationTache->realisation_projet_id == $realisationProjet->id) || (old('realisation_projet_id>') == $realisationProjet->id) ? 'selected' : '' }}>
+                        {{ $realisationProjet }}
+                    </option>
+                @endforeach
+            </select>
+            @error('realisation_projet_id')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+    </div>
+
+
+        
         <div class="form-group col-12 col-md-6">
             <label for="dateDebut">
                 {{ ucfirst(__('PkgGestionTaches::realisationTache.dateDebut')) }}
@@ -40,14 +100,12 @@
             <label for="dateFin">
                 {{ ucfirst(__('PkgGestionTaches::realisationTache.dateFin')) }}
                 
-                    <span class="text-danger">*</span>
-                
             </label>
             <input
                 name="dateFin"
                 type="date"
                 class="form-control datetimepicker"
-                required
+                
                 
                 id="dateFin"
                 placeholder="{{ __('PkgGestionTaches::realisationTache.dateFin') }}"
@@ -59,62 +117,6 @@
 
 
 
-
-
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="tache_id">
-                {{ ucfirst(__('PkgGestionTaches::tache.singular')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <select 
-            id="tache_id" 
-            required
-            
-            name="tache_id" 
-            class="form-control select2">
-             <option value="">Sélectionnez une option</option>
-                @foreach ($taches as $tache)
-                    <option value="{{ $tache->id }}"
-                        {{ (isset($itemRealisationTache) && $itemRealisationTache->tache_id == $tache->id) || (old('tache_id>') == $tache->id) ? 'selected' : '' }}>
-                        {{ $tache }}
-                    </option>
-                @endforeach
-            </select>
-            @error('tache_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
-
-
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="realisation_projet_id">
-                {{ ucfirst(__('PkgRealisationProjets::realisationProjet.singular')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <select 
-            id="realisation_projet_id" 
-            required
-            
-            name="realisation_projet_id" 
-            class="form-control select2">
-             <option value="">Sélectionnez une option</option>
-                @foreach ($realisationProjets as $realisationProjet)
-                    <option value="{{ $realisationProjet->id }}"
-                        {{ (isset($itemRealisationTache) && $itemRealisationTache->realisation_projet_id == $realisationProjet->id) || (old('realisation_projet_id>') == $realisationProjet->id) ? 'selected' : '' }}>
-                        {{ $realisationProjet }}
-                    </option>
-                @endforeach
-            </select>
-            @error('realisation_projet_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
 
 
         

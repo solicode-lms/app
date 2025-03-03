@@ -25,20 +25,20 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="col-sm-12">
-                                <label for="dateDebut">{{ ucfirst(__('PkgGestionTaches::realisationTache.dateDebut')) }}:</label>
-                                <p>{{ $itemRealisationTache->dateDebut }}</p>
-                            </div>
-                            <div class="col-sm-12">
-                                <label for="dateFin">{{ ucfirst(__('PkgGestionTaches::realisationTache.dateFin')) }}:</label>
-                                <p>{{ $itemRealisationTache->dateFin }}</p>
-                            </div>
-                            <div class="col-sm-12">
                                 <label for="tache_id">{{ ucfirst(__('PkgGestionTaches::realisationTache.tache_id')) }}:</label>
                                 <p>{{ $itemRealisationTache->tache_id }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="realisation_projet_id">{{ ucfirst(__('PkgGestionTaches::realisationTache.realisation_projet_id')) }}:</label>
                                 <p>{{ $itemRealisationTache->realisation_projet_id }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="dateDebut">{{ ucfirst(__('PkgGestionTaches::realisationTache.dateDebut')) }}:</label>
+                                <p>{{ $itemRealisationTache->dateDebut }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="dateFin">{{ ucfirst(__('PkgGestionTaches::realisationTache.dateFin')) }}:</label>
+                                <p>{{ $itemRealisationTache->dateFin }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="etat_realisation_tache_id">{{ ucfirst(__('PkgGestionTaches::realisationTache.etat_realisation_tache_id')) }}:</label>

@@ -28,20 +28,20 @@ class BaseRealisationTacheExport implements FromCollection, WithHeadings, Should
     {
      if($this->format == 'csv'){
         return [
+            'tache_id' => 'tache_id',
+            'realisation_projet_id' => 'realisation_projet_id',
             'dateDebut' => 'dateDebut',
             'dateFin' => 'dateFin',
             'reference' => 'reference',
-            'tache_id' => 'tache_id',
-            'realisation_projet_id' => 'realisation_projet_id',
             'etat_realisation_tache_id' => 'etat_realisation_tache_id',
         ];
         }else{
         return [
+            'tache_id' => __('PkgGestionTaches::realisationTache.tache_id'),
+            'realisation_projet_id' => __('PkgGestionTaches::realisationTache.realisation_projet_id'),
             'dateDebut' => __('PkgGestionTaches::realisationTache.dateDebut'),
             'dateFin' => __('PkgGestionTaches::realisationTache.dateFin'),
             'reference' => __('Core::msg.reference'),
-            'tache_id' => __('PkgGestionTaches::realisationTache.tache_id'),
-            'realisation_projet_id' => __('PkgGestionTaches::realisationTache.realisation_projet_id'),
             'etat_realisation_tache_id' => __('PkgGestionTaches::realisationTache.etat_realisation_tache_id'),
         ];
 
@@ -53,11 +53,11 @@ class BaseRealisationTacheExport implements FromCollection, WithHeadings, Should
     {
         return $this->data->map(function ($realisationTache) {
             return [
+                'tache_id' => $realisationTache->tache_id,
+                'realisation_projet_id' => $realisationTache->realisation_projet_id,
                 'dateDebut' => $realisationTache->dateDebut,
                 'dateFin' => $realisationTache->dateFin,
                 'reference' => $realisationTache->reference,
-                'tache_id' => $realisationTache->tache_id,
-                'realisation_projet_id' => $realisationTache->realisation_projet_id,
                 'etat_realisation_tache_id' => $realisationTache->etat_realisation_tache_id,
             ];
         });

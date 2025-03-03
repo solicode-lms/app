@@ -29,10 +29,10 @@ class BaseRealisationTacheRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'dateDebut' => 'nullable',
-            'dateFin' => 'nullable',
             'tache_id' => 'required',
             'realisation_projet_id' => 'required',
+            'dateDebut' => 'nullable',
+            'dateFin' => 'nullable',
             'etat_realisation_tache_id' => 'nullable'
         ];
     }
@@ -45,13 +45,46 @@ class BaseRealisationTacheRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'dateDebut.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::RealisationTache.dateDebut')]),
-            'dateFin.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::RealisationTache.dateFin')]),
             'tache_id.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::RealisationTache.tache_id')]),
             'realisation_projet_id.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::RealisationTache.realisation_projet_id')]),
+            'dateDebut.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::RealisationTache.dateDebut')]),
+            'dateFin.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::RealisationTache.dateFin')]),
             'etat_realisation_tache_id.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::RealisationTache.etat_realisation_tache_id')])
         ];
     }
 
+    
+    protected function prepareForValidation()
+    {
+        $user = Auth::user();
+
+        // Définition des rôles autorisés pour chaque champ
+        $editableFieldsByRoles = [
+            
+            'tache_id' => "formateur,admin",
+            
+            'realisation_projet_id' => "formateur,admin",
+            
+        ];
+
+        // Charger l'instance actuelle du modèle (optionnel, selon ton contexte)
+        $realisation_tache_id = $this->route('realisationTache'); // Remplace 'model' par le bon paramètre de route
+        $model = RealisationTache::find($realisation_tache_id);
+
+        
+        // Vérification et suppression des champs non autorisés
+        foreach ($editableFieldsByRoles as $field => $roles) {
+            if (!$user->hasAnyRole(explode(',', $roles))) {
+                
+
+                // Supprimer le champ pour éviter l'écrasement
+                $this->request->remove($field);
+
+                // Si le champ est absent dans la requête, on garde la valeur actuelle
+                $this->merge([$field => $model->$field]);
+                
+            }
+        }
+    }
     
 }

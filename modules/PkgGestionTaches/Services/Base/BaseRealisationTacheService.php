@@ -19,10 +19,10 @@ class BaseRealisationTacheService extends BaseService
      * @var array
      */
     protected $fieldsSearchable = [
-        'dateDebut',
-        'dateFin',
         'tache_id',
         'realisation_projet_id',
+        'dateDebut',
+        'dateFin',
         'etat_realisation_tache_id'
     ];
 
