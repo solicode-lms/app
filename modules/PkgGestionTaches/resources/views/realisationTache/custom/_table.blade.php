@@ -1,4 +1,3 @@
-{{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @extends('PkgGestionTaches::realisationTache._table')
 
@@ -15,6 +14,7 @@
             $couleurs = [
                 "En cours" => "badge-success",
                 "Terminé" => "badge-primary",
+                "Terminée" => "badge-primary",
                 "Annulé" => "badge-secondary",
                 "En validation" => "badge-warning",
                 "En pause" => "badge-danger",

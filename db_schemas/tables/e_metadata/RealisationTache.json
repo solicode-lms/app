@@ -45,7 +45,9 @@
     },
     {
         "reference": "RealisationTache_dateDebut_displayOrder",
+        "value_boolean": 0,
         "value_integer": 2,
+        "value_float": 0,
         "e_data_field_reference": "RealisationTache_dateDebut",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -63,7 +65,9 @@
     },
     {
         "reference": "RealisationTache_dateFin_displayOrder",
+        "value_boolean": 0,
         "value_integer": 3,
+        "value_float": 0,
         "e_data_field_reference": "RealisationTache_dateFin",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -309,5 +313,19 @@
         ],
         "e_model_reference": "realisation_taches",
         "e_metadata_definition_reference": "ownedByUser"
+    },
+    {
+        "reference": "RealisationTache_dateDebut_required",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationTache_dateDebut",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "RealisationTache_dateFin_required",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationTache_dateFin",
+        "e_metadata_definition_reference": "required"
     }
 ]

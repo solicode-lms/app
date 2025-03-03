@@ -30,17 +30,25 @@ trait GappCommands
         }
 
         $modelName = $model->name;
+
         $message = "Génération du CRUD pour {$modelName} en cours ..";
-        $makeCrudCommand = "npx gapp make:crud {$modelName} ../";
-        $metaExportCommand = "npx gapp meta:export ../";
+
+        $npxPath = "C:\\Program Files\\nodejs\\npx.cmd";
+        $makeCrudCommand = "\"$npxPath\" gapp make:crud {$modelName} ../";
+        $metaExportCommand = "\"$npxPath\" gapp meta:export ../";
+
+
+
+        // $makeCrudCommand = "npx gapp make:crud {$modelName} ../";
+        // $metaExportCommand = "npx gapp meta:export ../";
 
         $this->pushServiceMessage("success","Gapp", $message);
 
         // Exécution SYNCHRONE du CRUD
-        $this->executeCommandSync($makeCrudCommand);
+        $this->executeCommandAsync($makeCrudCommand);
 
         // Exécution ASYNCHRONE de l'export des métadonnées
-        $this->executeCommandSync($metaExportCommand);
+        $this->executeCommandAsync($metaExportCommand);
     }
    
 

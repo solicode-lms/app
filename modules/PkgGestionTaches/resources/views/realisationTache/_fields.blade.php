@@ -14,12 +14,14 @@
             <label for="dateDebut">
                 {{ ucfirst(__('PkgGestionTaches::realisationTache.dateDebut')) }}
                 
+                    <span class="text-danger">*</span>
+                
             </label>
             <input
                 name="dateDebut"
                 type="date"
                 class="form-control datetimepicker"
-                
+                required
                 
                 id="dateDebut"
                 placeholder="{{ __('PkgGestionTaches::realisationTache.dateDebut') }}"
@@ -38,12 +40,14 @@
             <label for="dateFin">
                 {{ ucfirst(__('PkgGestionTaches::realisationTache.dateFin')) }}
                 
+                    <span class="text-danger">*</span>
+                
             </label>
             <input
                 name="dateFin"
                 type="date"
                 class="form-control datetimepicker"
-                
+                required
                 
                 id="dateFin"
                 placeholder="{{ __('PkgGestionTaches::realisationTache.dateFin') }}"
