@@ -21,7 +21,7 @@
             ];
             $classeBadge = $couleurs[$etat] ?? "badge-secondary";
         @endphp
-        <span class="badge {{ $classeBadge }}">@limit($realisationProjet->etatsRealisationProjet, 10)</span>
+        <span class="badge {{ $classeBadge }}">@limit($realisationProjet->etatsRealisationProjet, 20)</span>
     </td>
     <td>
         <ul>

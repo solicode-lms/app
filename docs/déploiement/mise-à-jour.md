@@ -44,16 +44,21 @@ sudo php artisan migrate
 
 ````bash
 # Ajouter les seeders et droit d'accès
-php artisan db:seed --class=Modules\Core\Database\Seeders\Base\BaseSysModuleSeeder
-php artisan db:seed --class=Modules\PkgGestionTaches\Database\Seeders\CommentaireRealisationTacheSeeder
-php artisan db:seed --class=Modules\PkgGestionTaches\Database\Seeders\DependanceTacheSeeder
-php artisan db:seed --class=Modules\PkgGestionTaches\Database\Seeders\EtatRealisationTacheSeeder
-php artisan db:seed --class=Modules\PkgGestionTaches\Database\Seeders\HistoriqueRealisationTacheSeeder
-php artisan db:seed --class=Modules\PkgGestionTaches\Database\Seeders\LabelRealisationTacheSeeder
-php artisan db:seed --class=Modules\PkgGestionTaches\Database\Seeders\PrioriteTacheSeeder
-php artisan db:seed --class=Modules\PkgGestionTaches\Database\Seeders\RealisationTacheSeeder
-php artisan db:seed --class=Modules\PkgGestionTaches\Database\Seeders\TacheSeeder
-php artisan db:seed --class=Modules\PkgGestionTaches\Database\Seeders\TypeDependanceTacheSeeder
+sudo php artisan db:seed --class=Modules\\Core\\Database\\Seeders\\Base\\BaseSysModuleSeeder
+
+sudo php artisan db:seed --class=Modules\\PkgGestionTaches\\Database\\Seeders\\CommentaireRealisationTacheSeeder
+
+
+sudo php artisan db:seed --class=Modules\\PkgGestionTaches\\Database\\Seeders\\DependanceTacheSeeder
+sudo php artisan db:seed --class=Modules\\PkgGestionTaches\\Database\\Seeders\\EtatRealisationTacheSeeder
+
+
+sudo php artisan db:seed --class=Modules\\PkgGestionTaches\\Database\\Seeders\\HistoriqueRealisationTacheSeeder
+sudo php artisan db:seed --class=Modules\\PkgGestionTaches\\Database\\Seeders\\LabelRealisationTacheSeeder
+sudo php artisan db:seed --class=Modules\\PkgGestionTaches\\Database\\Seeders\\PrioriteTacheSeeder
+sudo php artisan db:seed --class=Modules\\PkgGestionTaches\\Database\\Seeders\\RealisationTacheSeeder
+sudo php artisan db:seed --class=Modules\\PkgGestionTaches\\Database\\Seeders\\TacheSeeder
+sudo php artisan db:seed --class=Modules\\PkgGestionTaches\\Database\\Seeders\\TypeDependanceTacheSeeder
 
 
 
