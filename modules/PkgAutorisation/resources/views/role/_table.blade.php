@@ -1,5 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
+@section('role-table')
 <div class="card-body table-responsive p-0 crud-card-body" id="roles-crud-card-body">
     <table class="table table-striped text-nowrap">
         <thead>
@@ -47,6 +48,7 @@
         </tbody>
     </table>
 </div>
+@show
 
 <div class="card-footer">
     @section('role-crud-pagination')
