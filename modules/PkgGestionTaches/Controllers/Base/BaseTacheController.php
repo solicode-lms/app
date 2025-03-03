@@ -67,6 +67,10 @@ class BaseTacheController extends AdminController
 
         $itemTache = $this->tacheService->createInstance();
         
+        // scopeDataInEditContext
+        $value = $itemTache->getNestedValue('projet_id');
+        $key = 'scope.livrable.projet_id';
+        $this->viewState->set($key, $value);
 
         $projets = $this->projetService->all();
         $prioriteTaches = $this->prioriteTacheService->all();
@@ -107,6 +111,10 @@ class BaseTacheController extends AdminController
 
         $itemTache = $this->tacheService->find($id);
 
+        // scopeDataInEditContext
+        $value = $itemTache->getNestedValue('projet_id');
+        $key = 'scope.livrable.projet_id';
+        $this->viewState->set($key, $value);
 
         $projets = $this->projetService->all();
         $prioriteTaches = $this->prioriteTacheService->all();
@@ -145,6 +153,10 @@ class BaseTacheController extends AdminController
 
         $itemTache = $this->tacheService->find($id);
 
+        // scopeDataInEditContext
+        $value = $itemTache->getNestedValue('projet_id');
+        $key = 'scope.livrable.projet_id';
+        $this->viewState->set($key, $value);
 
         $projets = $this->projetService->all();
         $prioriteTaches = $this->prioriteTacheService->all();
