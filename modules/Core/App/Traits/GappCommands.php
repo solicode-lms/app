@@ -31,23 +31,23 @@ trait GappCommands
 
         $modelName = $model->name;
         $message = "Génération du CRUD pour {$modelName} en cours ..";
-        $makeCrudCommand = "gapp make:crud {$modelName} ../";
-        $metaExportCommand = "gapp meta:export ../";
+        $makeCrudCommand = "npx gapp make:crud {$modelName} ../";
+        $metaExportCommand = "npx gapp meta:export ../";
 
         $this->pushServiceMessage("success","Gapp", $message);
 
         // Exécution SYNCHRONE du CRUD
-        $this->executeCommandAsync($makeCrudCommand);
+        $this->executeCommandSync($makeCrudCommand);
 
         // Exécution ASYNCHRONE de l'export des métadonnées
-        $this->executeCommandAsync($metaExportCommand);
+        $this->executeCommandSync($metaExportCommand);
     }
    
 
      /**
      * Exécute une commande en mode synchrone
      */
-    private function executeCommandSync($command, $logMessage)
+    private function executeCommandSync($command, $logMessage = "")
     {
         Log::info("Exécution SYNCHRONE : " . $logMessage);
 
