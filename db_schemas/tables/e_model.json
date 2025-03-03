@@ -337,6 +337,18 @@
     },
     {
         "id": 29,
+        "reference": "livrable_tache",
+        "name": "LivrableTache",
+        "table_name": "livrable_tache",
+        "icon": "fa-table",
+        "description": "Automatically generated model for livrable_tache",
+        "e_package_id": 10,
+        "is_pivot_table": 1,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 30,
         "reference": "livrables",
         "name": "Livrable",
         "table_name": "livrables",
@@ -348,7 +360,7 @@
         "updated_at": null
     },
     {
-        "id": 30,
+        "id": 31,
         "reference": "livrables_realisations",
         "name": "LivrablesRealisation",
         "table_name": "livrables_realisations",
@@ -360,7 +372,7 @@
         "updated_at": null
     },
     {
-        "id": 31,
+        "id": 32,
         "reference": "model_has_roles",
         "name": "ModelHasRole",
         "table_name": "model_has_roles",
@@ -372,7 +384,7 @@
         "updated_at": null
     },
     {
-        "id": 32,
+        "id": 33,
         "reference": "modules",
         "name": "Module",
         "table_name": "modules",
@@ -384,7 +396,7 @@
         "updated_at": null
     },
     {
-        "id": 33,
+        "id": 34,
         "reference": "nationalites",
         "name": "Nationalite",
         "table_name": "nationalites",
@@ -396,7 +408,7 @@
         "updated_at": null
     },
     {
-        "id": 34,
+        "id": 35,
         "reference": "nature_livrables",
         "name": "NatureLivrable",
         "table_name": "nature_livrables",
@@ -408,7 +420,7 @@
         "updated_at": null
     },
     {
-        "id": 35,
+        "id": 36,
         "reference": "niveau_competences",
         "name": "NiveauCompetence",
         "table_name": "niveau_competences",
@@ -420,7 +432,7 @@
         "updated_at": null
     },
     {
-        "id": 36,
+        "id": 37,
         "reference": "niveau_difficultes",
         "name": "NiveauDifficulte",
         "table_name": "niveau_difficultes",
@@ -432,7 +444,7 @@
         "updated_at": null
     },
     {
-        "id": 37,
+        "id": 38,
         "reference": "niveaux_scolaires",
         "name": "NiveauxScolaire",
         "table_name": "niveaux_scolaires",
@@ -444,7 +456,7 @@
         "updated_at": null
     },
     {
-        "id": 38,
+        "id": 39,
         "reference": "permissions",
         "name": "Permission",
         "table_name": "permissions",
@@ -456,7 +468,7 @@
         "updated_at": null
     },
     {
-        "id": 39,
+        "id": 40,
         "reference": "priorite_taches",
         "name": "PrioriteTache",
         "table_name": "priorite_taches",
@@ -468,7 +480,7 @@
         "updated_at": null
     },
     {
-        "id": 40,
+        "id": 41,
         "reference": "profiles",
         "name": "Profile",
         "table_name": "profiles",
@@ -480,7 +492,7 @@
         "updated_at": null
     },
     {
-        "id": 41,
+        "id": 42,
         "reference": "projets",
         "name": "Projet",
         "table_name": "projets",
@@ -492,7 +504,7 @@
         "updated_at": null
     },
     {
-        "id": 42,
+        "id": 43,
         "reference": "realisation_projets",
         "name": "RealisationProjet",
         "table_name": "realisation_projets",
@@ -504,7 +516,7 @@
         "updated_at": null
     },
     {
-        "id": 43,
+        "id": 44,
         "reference": "realisation_taches",
         "name": "RealisationTache",
         "table_name": "realisation_taches",
@@ -516,7 +528,7 @@
         "updated_at": null
     },
     {
-        "id": 44,
+        "id": 45,
         "reference": "resources",
         "name": "Resource",
         "table_name": "resources",
@@ -528,7 +540,7 @@
         "updated_at": null
     },
     {
-        "id": 45,
+        "id": 46,
         "reference": "role_has_permissions",
         "name": "RoleHasPermission",
         "table_name": "role_has_permissions",
@@ -540,7 +552,7 @@
         "updated_at": null
     },
     {
-        "id": 46,
+        "id": 47,
         "reference": "roles",
         "name": "Role",
         "table_name": "roles",
@@ -552,7 +564,7 @@
         "updated_at": null
     },
     {
-        "id": 47,
+        "id": 48,
         "reference": "specialites",
         "name": "Specialite",
         "table_name": "specialites",
@@ -564,7 +576,7 @@
         "updated_at": null
     },
     {
-        "id": 48,
+        "id": 49,
         "reference": "sys_colors",
         "name": "SysColor",
         "table_name": "sys_colors",
@@ -576,7 +588,7 @@
         "updated_at": null
     },
     {
-        "id": 49,
+        "id": 50,
         "reference": "sys_controllers",
         "name": "SysController",
         "table_name": "sys_controllers",
@@ -588,7 +600,7 @@
         "updated_at": null
     },
     {
-        "id": 50,
+        "id": 51,
         "reference": "sys_models",
         "name": "SysModel",
         "table_name": "sys_models",
@@ -600,7 +612,7 @@
         "updated_at": null
     },
     {
-        "id": 51,
+        "id": 52,
         "reference": "sys_modules",
         "name": "SysModule",
         "table_name": "sys_modules",
@@ -612,7 +624,7 @@
         "updated_at": null
     },
     {
-        "id": 52,
+        "id": 53,
         "reference": "taches",
         "name": "Tache",
         "table_name": "taches",
@@ -624,7 +636,7 @@
         "updated_at": null
     },
     {
-        "id": 53,
+        "id": 54,
         "reference": "technologies",
         "name": "Technology",
         "table_name": "technologies",
@@ -636,7 +648,7 @@
         "updated_at": null
     },
     {
-        "id": 54,
+        "id": 55,
         "reference": "technology_transfert_competence",
         "name": "TechnologyTransfertCompetence",
         "table_name": "technology_transfert_competence",
@@ -648,7 +660,7 @@
         "updated_at": null
     },
     {
-        "id": 55,
+        "id": 56,
         "reference": "transfert_competences",
         "name": "TransfertCompetence",
         "table_name": "transfert_competences",
@@ -660,7 +672,7 @@
         "updated_at": null
     },
     {
-        "id": 56,
+        "id": 57,
         "reference": "type_dependance_taches",
         "name": "TypeDependanceTache",
         "table_name": "type_dependance_taches",
@@ -672,7 +684,7 @@
         "updated_at": null
     },
     {
-        "id": 57,
+        "id": 58,
         "reference": "users",
         "name": "User",
         "table_name": "users",
@@ -684,7 +696,7 @@
         "updated_at": null
     },
     {
-        "id": 58,
+        "id": 59,
         "reference": "validations",
         "name": "Validation",
         "table_name": "validations",
@@ -696,7 +708,7 @@
         "updated_at": null
     },
     {
-        "id": 59,
+        "id": 60,
         "reference": "villes",
         "name": "Ville",
         "table_name": "villes",
@@ -708,7 +720,7 @@
         "updated_at": null
     },
     {
-        "id": 60,
+        "id": 61,
         "reference": "widget_operations",
         "name": "WidgetOperation",
         "table_name": "widget_operations",
@@ -720,7 +732,7 @@
         "updated_at": null
     },
     {
-        "id": 61,
+        "id": 62,
         "reference": "widget_types",
         "name": "WidgetType",
         "table_name": "widget_types",
@@ -732,7 +744,7 @@
         "updated_at": null
     },
     {
-        "id": 62,
+        "id": 63,
         "reference": "widgets",
         "name": "Widget",
         "table_name": "widgets",

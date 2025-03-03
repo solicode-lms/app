@@ -108,6 +108,32 @@
 </div>
 
         
+                    <div class="form-group col-12 col-md-6">
+            <label for="taches">
+                {{ ucfirst(__('PkgGestionTaches::Tache.plural')) }}
+            </label>
+            <select
+                id="taches"
+                name="taches[]"
+                class="form-control select2"
+                
+                multiple="multiple">
+               
+                @foreach ($taches as $tache)
+                    <option value="{{ $tache->id }}"
+                        {{ (isset($itemLivrable) && $itemLivrable->taches && $itemLivrable->taches->contains('id', $tache->id)) || (is_array(old('taches')) && in_array($tache->id, old('taches'))) ? 'selected' : '' }}>
+                        {{ $tache }}
+                    </option>
+                @endforeach
+            </select>
+            @error('taches')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+
+        </div>
+
+
+        
 
         <!--   LivrablesRealisation HasMany --> 
 

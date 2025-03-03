@@ -34,7 +34,8 @@ class BaseTacheRequest extends FormRequest
             'dateDebut' => 'nullable',
             'dateFin' => 'nullable',
             'projet_id' => 'required',
-            'priorite_tache_id' => 'nullable'
+            'priorite_tache_id' => 'nullable',
+            'livrables' => 'nullable|array'
         ];
     }
 
@@ -52,7 +53,9 @@ class BaseTacheRequest extends FormRequest
             'dateDebut.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::Tache.dateDebut')]),
             'dateFin.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::Tache.dateFin')]),
             'projet_id.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::Tache.projet_id')]),
-            'priorite_tache_id.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::Tache.priorite_tache_id')])
+            'priorite_tache_id.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::Tache.priorite_tache_id')]),
+            'livrables.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::Tache.livrables')]),
+            'livrables.array' => __('validation.array', ['attribute' => __('PkgGestionTaches::Tache.livrables')])
         ];
     }
 

@@ -271,5 +271,23 @@
         "value_integer": 6,
         "e_data_field_reference": "livrables_hasMany_livrables_realisations_livrable_id",
         "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "livrables_taches_livrable_tache_m2m_m2m_displayOrder",
+        "value_integer": 9,
+        "e_data_field_reference": "livrables_taches_livrable_tache_m2m_m2m",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "livrables_taches_livrable_tache_m2m_m2m_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "livrables_taches_livrable_tache_m2m_m2m",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "livrables_taches_livrable_tache_m2m_m2m_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "livrables_taches_livrable_tache_m2m_m2m",
+        "e_metadata_definition_reference": "inputMdWidth"
     }
 ]

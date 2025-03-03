@@ -13,6 +13,7 @@ use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
 use Modules\PkgCreationProjet\Models\Projet;
 use Modules\PkgGestionTaches\Models\PrioriteTache;
+use Modules\PkgCreationProjet\Models\Livrable;
 use Modules\PkgGestionTaches\Models\DependanceTache;
 use Modules\PkgGestionTaches\Models\RealisationTache;
 
@@ -39,6 +40,13 @@ class BaseTache extends BaseModel
     protected $fillable = [
         'titre', 'description', 'dateDebut', 'dateFin', 'projet_id', 'priorite_tache_id'
     ];
+    public $manyToMany = [
+        'Livrable' => ['relation' => 'livrables' , "foreign_key" => "livrable_id" ]
+    ];
+
+       
+
+
 
     /**
      * Relation BelongsTo pour Projet.
@@ -59,6 +67,15 @@ class BaseTache extends BaseModel
         return $this->belongsTo(PrioriteTache::class, 'priorite_tache_id', 'id');
     }
 
+    /**
+     * Relation ManyToMany pour Livrables.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function livrables()
+    {
+        return $this->belongsToMany(Livrable::class, 'livrable_tache');
+    }
 
     /**
      * Relation HasMany pour Taches.

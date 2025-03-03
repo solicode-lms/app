@@ -32,7 +32,8 @@ class BaseLivrableRequest extends FormRequest
             'nature_livrable_id' => 'required',
             'titre' => 'required|string|max:255',
             'projet_id' => 'required',
-            'description' => 'nullable|string'
+            'description' => 'nullable|string',
+            'taches' => 'nullable|array'
         ];
     }
 
@@ -48,7 +49,9 @@ class BaseLivrableRequest extends FormRequest
             'titre.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Livrable.titre')]),
             'titre.max' => __('validation.titreMax'),
             'projet_id.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Livrable.projet_id')]),
-            'description.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Livrable.description')])
+            'description.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Livrable.description')]),
+            'taches.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Livrable.taches')]),
+            'taches.array' => __('validation.array', ['attribute' => __('PkgCreationProjet::Livrable.taches')])
         ];
     }
 

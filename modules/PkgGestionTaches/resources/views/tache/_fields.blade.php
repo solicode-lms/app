@@ -162,6 +162,32 @@
         <!--   DependanceTache HasMany --> 
 
         
+                    <div class="form-group col-12 col-md-6">
+            <label for="livrables">
+                {{ ucfirst(__('PkgCreationProjet::Livrable.plural')) }}
+            </label>
+            <select
+                id="livrables"
+                name="livrables[]"
+                class="form-control select2"
+                
+                multiple="multiple">
+               
+                @foreach ($livrables as $livrable)
+                    <option value="{{ $livrable->id }}"
+                        {{ (isset($itemTache) && $itemTache->livrables && $itemTache->livrables->contains('id', $livrable->id)) || (is_array(old('livrables')) && in_array($livrable->id, old('livrables'))) ? 'selected' : '' }}>
+                        {{ $livrable }}
+                    </option>
+                @endforeach
+            </select>
+            @error('livrables')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+
+        </div>
+
+
+        
 
         <!--   RealisationTache HasMany --> 
 

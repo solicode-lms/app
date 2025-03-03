@@ -75,7 +75,7 @@
                 {{ ucfirst(__('PkgGestionTaches::realisationTache.dateDebut')) }}
                 
                     <span class="text-danger">*</span>
-               
+                
             </label>
             <input
                 name="dateDebut"

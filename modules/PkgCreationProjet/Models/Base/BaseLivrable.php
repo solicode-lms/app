@@ -13,6 +13,7 @@ use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
 use Modules\PkgCreationProjet\Models\NatureLivrable;
 use Modules\PkgCreationProjet\Models\Projet;
+use Modules\PkgGestionTaches\Models\Tache;
 use Modules\PkgRealisationProjets\Models\LivrablesRealisation;
 
 /**
@@ -39,6 +40,13 @@ class BaseLivrable extends BaseModel
     protected $fillable = [
         'nature_livrable_id', 'titre', 'projet_id', 'description'
     ];
+    public $manyToMany = [
+        'Tache' => ['relation' => 'taches' , "foreign_key" => "tache_id" ]
+    ];
+
+       
+
+
 
     /**
      * Relation BelongsTo pour NatureLivrable.
@@ -59,6 +67,15 @@ class BaseLivrable extends BaseModel
         return $this->belongsTo(Projet::class, 'projet_id', 'id');
     }
 
+    /**
+     * Relation ManyToMany pour Taches.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function taches()
+    {
+        return $this->belongsToMany(Tache::class, 'livrable_tache');
+    }
 
     /**
      * Relation HasMany pour Livrables.

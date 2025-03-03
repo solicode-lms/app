@@ -4,6 +4,7 @@
 
 namespace Modules\PkgCreationProjet\Controllers\Base;
 use Modules\PkgCreationProjet\Services\LivrableService;
+use Modules\PkgGestionTaches\Services\TacheService;
 use Modules\PkgCreationProjet\Services\NatureLivrableService;
 use Modules\PkgCreationProjet\Services\ProjetService;
 use Illuminate\Http\Request;
@@ -20,12 +21,14 @@ use Modules\Core\Services\ContextState;
 class BaseLivrableController extends AdminController
 {
     protected $livrableService;
+    protected $tacheService;
     protected $natureLivrableService;
     protected $projetService;
 
-    public function __construct(LivrableService $livrableService, NatureLivrableService $natureLivrableService, ProjetService $projetService) {
+    public function __construct(LivrableService $livrableService, TacheService $tacheService, NatureLivrableService $natureLivrableService, ProjetService $projetService) {
         parent::__construct();
         $this->livrableService = $livrableService;
+        $this->tacheService = $tacheService;
         $this->natureLivrableService = $natureLivrableService;
         $this->projetService = $projetService;
     }
@@ -73,11 +76,12 @@ class BaseLivrableController extends AdminController
 
         $natureLivrables = $this->natureLivrableService->all();
         $projets = $this->projetService->all();
+        $taches = $this->tacheService->all();
 
         if (request()->ajax()) {
-            return view('PkgCreationProjet::livrable._fields', compact('itemLivrable', 'natureLivrables', 'projets'));
+            return view('PkgCreationProjet::livrable._fields', compact('itemLivrable', 'taches', 'natureLivrables', 'projets'));
         }
-        return view('PkgCreationProjet::livrable.create', compact('itemLivrable', 'natureLivrables', 'projets'));
+        return view('PkgCreationProjet::livrable.create', compact('itemLivrable', 'taches', 'natureLivrables', 'projets'));
     }
     public function store(LivrableRequest $request) {
         $validatedData = $request->validated();
@@ -113,13 +117,14 @@ class BaseLivrableController extends AdminController
 
         $natureLivrables = $this->natureLivrableService->all();
         $projets = $this->projetService->all();
+        $taches = $this->tacheService->all();
 
 
         if (request()->ajax()) {
-            return view('PkgCreationProjet::livrable._fields', compact('itemLivrable', 'natureLivrables', 'projets'));
+            return view('PkgCreationProjet::livrable._fields', compact('itemLivrable', 'taches', 'natureLivrables', 'projets'));
         }
 
-        return view('PkgCreationProjet::livrable.edit', compact('itemLivrable', 'natureLivrables', 'projets'));
+        return view('PkgCreationProjet::livrable.edit', compact('itemLivrable', 'taches', 'natureLivrables', 'projets'));
 
     }
     public function edit(string $id) {
@@ -133,13 +138,14 @@ class BaseLivrableController extends AdminController
 
         $natureLivrables = $this->natureLivrableService->all();
         $projets = $this->projetService->all();
+        $taches = $this->tacheService->all();
 
 
         if (request()->ajax()) {
-            return view('PkgCreationProjet::livrable._fields', compact('itemLivrable', 'natureLivrables', 'projets'));
+            return view('PkgCreationProjet::livrable._fields', compact('itemLivrable', 'taches', 'natureLivrables', 'projets'));
         }
 
-        return view('PkgCreationProjet::livrable.edit', compact('itemLivrable', 'natureLivrables', 'projets'));
+        return view('PkgCreationProjet::livrable.edit', compact('itemLivrable', 'taches', 'natureLivrables', 'projets'));
 
     }
     public function update(LivrableRequest $request, string $id) {
