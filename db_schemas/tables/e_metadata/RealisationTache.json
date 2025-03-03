@@ -351,5 +351,20 @@
         },
         "e_data_field_reference": "RealisationTache_realisation_projet_id",
         "e_metadata_definition_reference": "editableByRoles"
+    },
+    {
+        "reference": "realisation_taches_computableFields",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": [
+            {
+                "name": "Livrables",
+                "label": "Livrables",
+                "method": "livrables",
+                "dispalyOrder": 50
+            }
+        ],
+        "e_model_reference": "realisation_taches",
+        "e_metadata_definition_reference": "computableFields"
     }
 ]

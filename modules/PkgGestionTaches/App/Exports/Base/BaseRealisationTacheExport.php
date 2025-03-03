@@ -28,6 +28,7 @@ class BaseRealisationTacheExport implements FromCollection, WithHeadings, Should
     {
      if($this->format == 'csv'){
         return [
+            'Livrables' => 'Livrables',
             'tache_id' => 'tache_id',
             'realisation_projet_id' => 'realisation_projet_id',
             'dateDebut' => 'dateDebut',
@@ -37,6 +38,7 @@ class BaseRealisationTacheExport implements FromCollection, WithHeadings, Should
         ];
         }else{
         return [
+            'Livrables' => __('PkgGestionTaches::realisationTache.Livrables'),
             'tache_id' => __('PkgGestionTaches::realisationTache.tache_id'),
             'realisation_projet_id' => __('PkgGestionTaches::realisationTache.realisation_projet_id'),
             'dateDebut' => __('PkgGestionTaches::realisationTache.dateDebut'),
@@ -53,6 +55,7 @@ class BaseRealisationTacheExport implements FromCollection, WithHeadings, Should
     {
         return $this->data->map(function ($realisationTache) {
             return [
+                'Livrables' => $realisationTache->Livrables,
                 'tache_id' => $realisationTache->tache_id,
                 'realisation_projet_id' => $realisationTache->realisation_projet_id,
                 'dateDebut' => $realisationTache->dateDebut,

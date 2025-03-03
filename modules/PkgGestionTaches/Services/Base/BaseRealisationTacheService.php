@@ -19,6 +19,7 @@ class BaseRealisationTacheService extends BaseService
      * @var array
      */
     protected $fieldsSearchable = [
+        'Livrables',
         'tache_id',
         'realisation_projet_id',
         'dateDebut',
