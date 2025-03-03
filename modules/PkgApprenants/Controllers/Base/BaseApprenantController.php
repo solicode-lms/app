@@ -8,7 +8,6 @@ use Modules\PkgApprenants\Services\GroupeService;
 use Modules\PkgApprenants\Services\NationaliteService;
 use Modules\PkgApprenants\Services\NiveauxScolaireService;
 use Modules\PkgAutorisation\Services\UserService;
-use Modules\PkgGestionTaches\Services\CommentaireRealisationTacheService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
@@ -95,7 +94,7 @@ class BaseApprenantController extends AdminController
             );
         }
 
-        return redirect()->route('apprenants.edit',['apprenant' => $apprenant->id])->with(
+        return redirect()->route('apprenants.index')->with(
             'success',
             __('Core::msg.addSuccess', [
                 'entityToString' => $apprenant,
@@ -117,20 +116,11 @@ class BaseApprenantController extends AdminController
         $groupes = $this->groupeService->all();
 
 
-        $this->viewState->set('scope.commentaireRealisationTache.apprenant_id', $id);
-
-
-        $commentaireRealisationTacheService =  new CommentaireRealisationTacheService();
-        $commentaireRealisationTaches_data =  $itemApprenant->commentaireRealisationTaches()->paginate(10);
-        $commentaireRealisationTaches_stats = $commentaireRealisationTacheService->getcommentaireRealisationTacheStats();
-        $commentaireRealisationTaches_filters = $commentaireRealisationTacheService->getFieldsFilterable();
-        $commentaireRealisationTache_instance =  $commentaireRealisationTacheService->createInstance();
-
         if (request()->ajax()) {
-            return view('PkgApprenants::apprenant._edit', compact('itemApprenant', 'groupes', 'nationalites', 'niveauxScolaires', 'users', 'commentaireRealisationTaches_data', 'commentaireRealisationTaches_stats', 'commentaireRealisationTaches_filters', 'commentaireRealisationTache_instance'));
+            return view('PkgApprenants::apprenant._fields', compact('itemApprenant', 'groupes', 'nationalites', 'niveauxScolaires', 'users'));
         }
 
-        return view('PkgApprenants::apprenant.edit', compact('itemApprenant', 'groupes', 'nationalites', 'niveauxScolaires', 'users', 'commentaireRealisationTaches_data', 'commentaireRealisationTaches_stats', 'commentaireRealisationTaches_filters', 'commentaireRealisationTache_instance'));
+        return view('PkgApprenants::apprenant.edit', compact('itemApprenant', 'groupes', 'nationalites', 'niveauxScolaires', 'users'));
 
     }
     public function edit(string $id) {
@@ -147,21 +137,11 @@ class BaseApprenantController extends AdminController
         $groupes = $this->groupeService->all();
 
 
-        $this->viewState->set('scope.commentaireRealisationTache.apprenant_id', $id);
-        
-
-        $commentaireRealisationTacheService =  new CommentaireRealisationTacheService();
-        $commentaireRealisationTaches_data =  $itemApprenant->commentaireRealisationTaches()->paginate(10);
-        $commentaireRealisationTaches_stats = $commentaireRealisationTacheService->getcommentaireRealisationTacheStats();
-        $this->viewState->set('stats.commentaireRealisationTache.stats'  , $commentaireRealisationTaches_stats);
-        $commentaireRealisationTaches_filters = $commentaireRealisationTacheService->getFieldsFilterable();
-        $commentaireRealisationTache_instance =  $commentaireRealisationTacheService->createInstance();
-
         if (request()->ajax()) {
-            return view('PkgApprenants::apprenant._edit', compact('itemApprenant', 'groupes', 'nationalites', 'niveauxScolaires', 'users', 'commentaireRealisationTaches_data', 'commentaireRealisationTaches_stats', 'commentaireRealisationTaches_filters', 'commentaireRealisationTache_instance'));
+            return view('PkgApprenants::apprenant._fields', compact('itemApprenant', 'groupes', 'nationalites', 'niveauxScolaires', 'users'));
         }
 
-        return view('PkgApprenants::apprenant.edit', compact('itemApprenant', 'groupes', 'nationalites', 'niveauxScolaires', 'users', 'commentaireRealisationTaches_data', 'commentaireRealisationTaches_stats', 'commentaireRealisationTaches_filters', 'commentaireRealisationTache_instance'));
+        return view('PkgApprenants::apprenant.edit', compact('itemApprenant', 'groupes', 'nationalites', 'niveauxScolaires', 'users'));
 
     }
     public function update(ApprenantRequest $request, string $id) {
