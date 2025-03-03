@@ -2,6 +2,7 @@
 
 namespace Modules\PkgGestionTaches\Services;
 
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
 use Modules\PkgApprenants\Models\Apprenant;
 use Modules\PkgApprenants\Services\ApprenantService;
@@ -99,5 +100,35 @@ class RealisationTacheService extends BaseRealisationTacheService
 
         
     }
+
+
+ /**
+ * Paginer les réalisations de tâches en les triant par la priorité de la tâche associée,
+ * tout en incluant celles qui n'ont pas de priorité.
+ *
+ * @param array $params
+ * @param int $perPage
+ * @param array $columns
+ * @return LengthAwarePaginator
+ */
+public function paginate(array $params = [], int $perPage = 0, array $columns = ['*']): LengthAwarePaginator
+{
+    $perPage = $perPage ?: $this->paginationLimit;
+
+    return $this->model::withScope(function () use ($params, $perPage, $columns) {
+        $query = $this->allQuery($params);
+
+        // Joindre les tables Tache et PrioriteTache avec LEFT JOIN pour inclure les tâches sans priorité
+        $query->leftJoin('taches', 'realisation_taches.tache_id', '=', 'taches.id')
+              ->leftJoin('priorite_taches', 'taches.priorite_tache_id', '=', 'priorite_taches.id')
+              ->orderByRaw('COALESCE(priorite_taches.ordre, 9999) ASC') // Trier par priorité (les NULL en dernier)
+              ->select('realisation_taches.*'); // Sélectionner les colonnes de la table principale
+
+        // Calcul du nombre total des résultats filtrés
+        $this->totalFilteredCount = $query->count();
+
+        return $query->paginate($perPage, $columns);
+    });
+}
 
 }
