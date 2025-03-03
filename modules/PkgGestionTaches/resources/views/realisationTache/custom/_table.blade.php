@@ -39,7 +39,18 @@
                         @endphp
                         <span class="badge {{ $classeBadge }}">@limit($realisationTache->etatRealisationTache, 50)</span>
                     </td>
-                    <td>@limit($realisationTache->livrables(), 50)</td>
+
+
+                    <td>
+                        
+                        <ul>
+                      
+                            @foreach ($realisationTache->getRealisationLivrable() as $realisationLivrable)
+                                <li><a href="{{ $realisationLivrable->lien }}" target="_blank">{{ $realisationLivrable->livrable->titre }}</a></li>
+                            @endforeach
+                        </ul>
+
+                    </td>
                     <td class="text-right">
             
                         @can('show-realisationTache')
