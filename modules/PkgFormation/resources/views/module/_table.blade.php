@@ -7,7 +7,7 @@
                 <x-sortable-column field="code" modelname="module" label="{{ ucfirst(__('PkgFormation::module.code')) }}" />
                 <x-sortable-column field="nom" modelname="module" label="{{ ucfirst(__('PkgFormation::module.nom')) }}" />
                 <x-sortable-column field="masse_horaire" modelname="module" label="{{ ucfirst(__('PkgFormation::module.masse_horaire')) }}" />
-                <x-sortable-column field="filiere_id" modelname="module" label="{{ ucfirst(__('PkgFormation::module.filiere_id')) }}" />
+                <x-sortable-column field="filiere_id" modelname="module" label="{{ ucfirst(__('PkgFormation::filiere.singular')) }}" />
                 <x-sortable-column field="Competence" modelname="module" label="{{ ucfirst(__('PkgCompetences::competence.plural')) }}" />
 
                 <th class="text-center">{{ __('Core::msg.action') }}</th>

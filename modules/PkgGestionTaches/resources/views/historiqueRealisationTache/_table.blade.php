@@ -4,7 +4,7 @@
     <table class="table table-striped text-nowrap">
         <thead>
             <tr>
-                <x-sortable-column field="realisation_tache_id" modelname="historiqueRealisationTache" label="{{ ucfirst(__('PkgGestionTaches::historiqueRealisationTache.realisation_tache_id')) }}" />
+                <x-sortable-column field="realisation_tache_id" modelname="historiqueRealisationTache" label="{{ ucfirst(__('PkgGestionTaches::realisationTache.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

@@ -5,8 +5,8 @@
         <thead>
             <tr>
                 <x-sortable-column field="nom" modelname="etatRealisationTache" label="{{ ucfirst(__('PkgGestionTaches::etatRealisationTache.nom')) }}" />
-                <x-sortable-column field="formateur_id" modelname="etatRealisationTache" label="{{ ucfirst(__('PkgGestionTaches::etatRealisationTache.formateur_id')) }}" />
-                <x-sortable-column field="sys_color_id" modelname="etatRealisationTache" label="{{ ucfirst(__('PkgGestionTaches::etatRealisationTache.sys_color_id')) }}" />
+                <x-sortable-column field="formateur_id" modelname="etatRealisationTache" label="{{ ucfirst(__('PkgFormation::formateur.singular')) }}" />
+                <x-sortable-column field="sys_color_id" modelname="etatRealisationTache" label="{{ ucfirst(__('Core::sysColor.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

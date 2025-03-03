@@ -5,7 +5,7 @@
         <thead>
             <tr>
                 <x-sortable-column field="nom" modelname="prioriteTache" label="{{ ucfirst(__('PkgGestionTaches::prioriteTache.nom')) }}" />
-                <x-sortable-column field="formateur_id" modelname="prioriteTache" label="{{ ucfirst(__('PkgGestionTaches::prioriteTache.formateur_id')) }}" />
+                <x-sortable-column field="formateur_id" modelname="prioriteTache" label="{{ ucfirst(__('PkgFormation::formateur.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
