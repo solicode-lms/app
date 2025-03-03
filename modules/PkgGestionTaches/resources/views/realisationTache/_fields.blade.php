@@ -75,12 +75,12 @@
                 {{ ucfirst(__('PkgGestionTaches::realisationTache.dateDebut')) }}
                 
                     <span class="text-danger">*</span>
-               {{$itemRealisationTache->dateDebut}}
+               
             </label>
             <input
                 name="dateDebut"
                 type="date"
-                class="form-control"
+                class="form-control datetimepicker"
                 required
                 
                 id="dateDebut"
