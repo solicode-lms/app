@@ -1,13 +1,11 @@
 # Procédure de mise à jour de SoliLMS sur le serveur
 
 
-
-
 1. Backup de la base de donnée 
 
 
 ````bash
-mysqldump -u root -p solicode_lms > sauvegarde.sql
+sudo mysqldump -u root -p solicode_lms > sauvegarde_03_03_25.sql
 ````
 
 
