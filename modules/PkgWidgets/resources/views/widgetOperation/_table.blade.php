@@ -5,6 +5,8 @@
     <table class="table table-striped text-nowrap">
         <thead>
             <tr>
+                <x-sortable-column field="operation" modelname="widgetOperation" label="{{ ucfirst(__('PkgWidgets::widgetOperation.operation')) }}" />
+                <x-sortable-column field="description" modelname="widgetOperation" label="{{ ucfirst(__('PkgWidgets::widgetOperation.description')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -12,6 +14,8 @@
             @section('widgetOperation-table-tbody')
             @foreach ($widgetOperations_data as $widgetOperation)
                 <tr id="widgetOperation-row-{{$widgetOperation->id}}">
+                    <td>@limit($widgetOperation->operation, 50)</td>
+                    <td>{!! \App\Helpers\TextHelper::formatHtmlWithLineBreaks($widgetOperation->description, 50) !!}</td>
                     <td class="text-right">
 
                         @can('show-widgetOperation')
