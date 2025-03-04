@@ -31,9 +31,14 @@
                     <!-- Afficher chaque widget -->
                     @foreach ($widgets as $widget)
                         <!-- Inclure une vue spécifique au type de widget -->
-                         @if($widget->type->type == 'card')
+                        
+                        @if($widget->error)
+                            @include('PkgWidgets::widget.types.error', ['widget' => $widget])
+                        @elseif($widget->type->type == 'card')
                          @include('PkgWidgets::widget.types.' . $widget->type->type, ['widget' => $widget])
-                         @endif
+                        @elseif($widget->type->type == 'table')
+                        @include('PkgWidgets::widget.types.' . $widget->type->type, ['widget' => $widget])
+                       @endif
                     @endforeach
 
               

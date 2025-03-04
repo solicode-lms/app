@@ -45,7 +45,8 @@ class DashboardController extends AppController
               
             } catch (\Exception $e) {
                 // Si une erreur survient, capturer l'exception
-                $widget->data = ['error' => $e->getMessage()];
+                $widget->error = $e->getMessage();
+
             }
         }
 

@@ -3,6 +3,7 @@
         <i class="{{ $widget->icon }}"></i> {{ $widget->name }}
     </div>
     <div class="card-body">
+    
         <table class="table table-bordered">
             <thead>
                 <tr>

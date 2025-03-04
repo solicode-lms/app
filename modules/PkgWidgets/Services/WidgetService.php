@@ -39,14 +39,24 @@ class WidgetService extends BaseWidgetService
             throw new Exception("Le modèle {$modelClass} n'existe pas.");
         }
 
-        $queryBuilder = $modelClass::query();
 
+        // Insertion des valeur par tag 
+        // $user_id 
         // Appliquer les conditions
         if (!empty($query['conditions'])) {
             foreach ($query['conditions'] as $column => $value) {
-                $queryBuilder->where($column, $value);
+                if($value == '#user_id') {
+                    $query['conditions'][$column] = $this->sessionState->get("user_id");
+                }
             }
         }
+
+
+        $queryBuilder = $modelClass::query();
+
+        $this->filter($queryBuilder,new $modelClass(),$query['conditions']);
+
+       
 
         // Grouper par colonne
         if (!empty($query['group_by'])) {
@@ -66,15 +76,16 @@ class WidgetService extends BaseWidgetService
             $queryBuilder->limit($query['limit']);
         }
 
-        // Exécuter l'opération
+
+        // TODO : if type == table , data doit être tableau des tables avec les colonnes dans : TableUI : json key value
         return match ($query['operation']) {
             'count' => $queryBuilder->count(),
-            'sum' => $queryBuilder->sum($query['column'] ?? '*'),
-            'average' => $queryBuilder->average($query['column'] ?? '*'),
-            'min' => $queryBuilder->min($query['column'] ?? '*'),
-            'max' => $queryBuilder->max($query['column'] ?? '*'),
+            'sum' => $queryBuilder->sum($query['column']),
+            'average' => $queryBuilder->average($query['column']),
+            'min' => $queryBuilder->min($query['column']),
+            'max' => $queryBuilder->max($query['column']),
             'getGroupedByColumn' => $queryBuilder->get(),
-            'distinct' => $queryBuilder->distinct()->count($query['column'] ?? '*'),
+            'distinct' => $queryBuilder->distinct()->count($query['column']),
             default => throw new Exception("L'opération {$query['operation']} n'est pas prise en charge."),
         };
     }
@@ -92,12 +103,35 @@ class WidgetService extends BaseWidgetService
             'operation' => $widget->operation->operation,
             'conditions' => json_decode($widget->parameters, true) ?? [],
         ];
+        
+        if (!empty($query['conditions']['TableUI'])) {
+            $query['TableUI'] = $query['conditions']['TableUI'];
+            unset($query['conditions']['TableUI']);
+        }
 
         if (!empty($query['conditions']['group_by'])) {
             $query['group_by'] = $query['conditions']['group_by'];
             unset($query['conditions']['group_by']);
         }
+        if (!empty($query['conditions']['column'])) {
+            $query['column'] = $query['conditions']['column'];
+            unset($query['conditions']['column']);
+        }
 
+
+        
+        // Vérifier si la clé 'column' est nécessaire pour l'opération et si elle est définie
+        if (!isset($query['column']) && in_array($query['operation'], ['sum', 'average', 'min', 'max', 'distinct'])) {
+            throw new Exception("Le paramètre 'column' est requise pour l'opération '{$query['operation']}', mais elle est absente.");
+        }
+
+        // Validation 
+        if( $widget->type->type == "table"){
+            // Vérifier si la clé 'column' est nécessaire pour l'opération et si elle est définie
+            if (isset($query['TableUI'])) {
+                throw new Exception("Le paramètre 'TableUI' est requise pour l'opération '{$query['operation']}', mais elle est absente.");
+            }
+        }
         return $this->execute($query);
     }
 }
