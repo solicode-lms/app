@@ -15,6 +15,7 @@ use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgApprenants\Models\Apprenant;
 use Modules\PkgFormation\Models\Formateur;
 use Modules\PkgAutorisation\Models\Profile;
+use Modules\PkgWidgets\Models\WidgetUtilisateur;
 
 /**
  * Classe BaseUser
@@ -84,6 +85,15 @@ class BaseUser extends BaseModel
     public function profiles(): HasMany
     {
         return $this->hasMany(Profile::class, 'user_id', 'id');
+    }
+    /**
+     * Relation HasMany pour Users.
+     *
+     * @return HasMany
+     */
+    public function widgetUtilisateurs(): HasMany
+    {
+        return $this->hasMany(WidgetUtilisateur::class, 'user_id', 'id');
     }
 
 

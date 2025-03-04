@@ -14,6 +14,7 @@ use Modules\Core\Models\BaseModel;
 use Modules\Core\Models\SysModel;
 use Modules\PkgWidgets\Models\WidgetType;
 use Modules\PkgWidgets\Models\WidgetOperation;
+use Modules\PkgWidgets\Models\WidgetUtilisateur;
 
 /**
  * Classe BaseWidget
@@ -68,6 +69,15 @@ class BaseWidget extends BaseModel
     }
 
 
+    /**
+     * Relation HasMany pour Widgets.
+     *
+     * @return HasMany
+     */
+    public function widgetUtilisateurs(): HasMany
+    {
+        return $this->hasMany(WidgetUtilisateur::class, 'widget_id', 'id');
+    }
 
 
 

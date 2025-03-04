@@ -8,6 +8,7 @@ use Modules\PkgAutorisation\Services\RoleService;
 use Modules\PkgApprenants\Services\ApprenantService;
 use Modules\PkgFormation\Services\FormateurService;
 use Modules\PkgAutorisation\Services\ProfileService;
+use Modules\PkgWidgets\Services\WidgetUtilisateurService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
@@ -131,11 +132,20 @@ class BaseUserController extends AdminController
         $profiles_filters = $profileService->getFieldsFilterable();
         $profile_instance =  $profileService->createInstance();
 
+        $this->viewState->set('scope.widgetUtilisateur.user_id', $id);
+
+
+        $widgetUtilisateurService =  new WidgetUtilisateurService();
+        $widgetUtilisateurs_data =  $itemUser->widgetUtilisateurs()->paginate(10);
+        $widgetUtilisateurs_stats = $widgetUtilisateurService->getwidgetUtilisateurStats();
+        $widgetUtilisateurs_filters = $widgetUtilisateurService->getFieldsFilterable();
+        $widgetUtilisateur_instance =  $widgetUtilisateurService->createInstance();
+
         if (request()->ajax()) {
-            return view('PkgAutorisation::user._edit', compact('itemUser', 'roles', 'apprenants_data', 'formateurs_data', 'profiles_data', 'apprenants_stats', 'formateurs_stats', 'profiles_stats', 'apprenants_filters', 'formateurs_filters', 'profiles_filters', 'apprenant_instance', 'formateur_instance', 'profile_instance'));
+            return view('PkgAutorisation::user._edit', compact('itemUser', 'roles', 'apprenants_data', 'formateurs_data', 'profiles_data', 'widgetUtilisateurs_data', 'apprenants_stats', 'formateurs_stats', 'profiles_stats', 'widgetUtilisateurs_stats', 'apprenants_filters', 'formateurs_filters', 'profiles_filters', 'widgetUtilisateurs_filters', 'apprenant_instance', 'formateur_instance', 'profile_instance', 'widgetUtilisateur_instance'));
         }
 
-        return view('PkgAutorisation::user.edit', compact('itemUser', 'roles', 'apprenants_data', 'formateurs_data', 'profiles_data', 'apprenants_stats', 'formateurs_stats', 'profiles_stats', 'apprenants_filters', 'formateurs_filters', 'profiles_filters', 'apprenant_instance', 'formateur_instance', 'profile_instance'));
+        return view('PkgAutorisation::user.edit', compact('itemUser', 'roles', 'apprenants_data', 'formateurs_data', 'profiles_data', 'widgetUtilisateurs_data', 'apprenants_stats', 'formateurs_stats', 'profiles_stats', 'widgetUtilisateurs_stats', 'apprenants_filters', 'formateurs_filters', 'profiles_filters', 'widgetUtilisateurs_filters', 'apprenant_instance', 'formateur_instance', 'profile_instance', 'widgetUtilisateur_instance'));
 
     }
     public function edit(string $id) {
@@ -179,11 +189,21 @@ class BaseUserController extends AdminController
         $profiles_filters = $profileService->getFieldsFilterable();
         $profile_instance =  $profileService->createInstance();
 
+        $this->viewState->set('scope.widgetUtilisateur.user_id', $id);
+        
+
+        $widgetUtilisateurService =  new WidgetUtilisateurService();
+        $widgetUtilisateurs_data =  $itemUser->widgetUtilisateurs()->paginate(10);
+        $widgetUtilisateurs_stats = $widgetUtilisateurService->getwidgetUtilisateurStats();
+        $this->viewState->set('stats.widgetUtilisateur.stats'  , $widgetUtilisateurs_stats);
+        $widgetUtilisateurs_filters = $widgetUtilisateurService->getFieldsFilterable();
+        $widgetUtilisateur_instance =  $widgetUtilisateurService->createInstance();
+
         if (request()->ajax()) {
-            return view('PkgAutorisation::user._edit', compact('itemUser', 'roles', 'apprenants_data', 'formateurs_data', 'profiles_data', 'apprenants_stats', 'formateurs_stats', 'profiles_stats', 'apprenants_filters', 'formateurs_filters', 'profiles_filters', 'apprenant_instance', 'formateur_instance', 'profile_instance'));
+            return view('PkgAutorisation::user._edit', compact('itemUser', 'roles', 'apprenants_data', 'formateurs_data', 'profiles_data', 'widgetUtilisateurs_data', 'apprenants_stats', 'formateurs_stats', 'profiles_stats', 'widgetUtilisateurs_stats', 'apprenants_filters', 'formateurs_filters', 'profiles_filters', 'widgetUtilisateurs_filters', 'apprenant_instance', 'formateur_instance', 'profile_instance', 'widgetUtilisateur_instance'));
         }
 
-        return view('PkgAutorisation::user.edit', compact('itemUser', 'roles', 'apprenants_data', 'formateurs_data', 'profiles_data', 'apprenants_stats', 'formateurs_stats', 'profiles_stats', 'apprenants_filters', 'formateurs_filters', 'profiles_filters', 'apprenant_instance', 'formateur_instance', 'profile_instance'));
+        return view('PkgAutorisation::user.edit', compact('itemUser', 'roles', 'apprenants_data', 'formateurs_data', 'profiles_data', 'widgetUtilisateurs_data', 'apprenants_stats', 'formateurs_stats', 'profiles_stats', 'widgetUtilisateurs_stats', 'apprenants_filters', 'formateurs_filters', 'profiles_filters', 'widgetUtilisateurs_filters', 'apprenant_instance', 'formateur_instance', 'profile_instance', 'widgetUtilisateur_instance'));
 
     }
     public function update(UserRequest $request, string $id) {

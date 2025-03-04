@@ -203,6 +203,10 @@
 
 
 
+        
+
+        <!--   WidgetUtilisateur HasMany --> 
+
     </div>
 
     <div class="card-footer">
