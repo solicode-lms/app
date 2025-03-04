@@ -133,7 +133,7 @@ class BaseSysControllerController extends AdminController
         
 
         $permissionService =  new PermissionService();
-        $permissions_data =  $itemSysController->permissions()->paginate(10);
+        $permissions_data =  $itemSysController->controllerIdPermissions()->paginate(10);
         $permissions_stats = $permissionService->getpermissionStats();
         $this->viewState->set('stats.permission.stats'  , $permissions_stats);
         $permissions_filters = $permissionService->getFieldsFilterable();

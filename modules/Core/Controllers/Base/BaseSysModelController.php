@@ -139,7 +139,7 @@ class BaseSysModelController extends AdminController
         
 
         $widgetService =  new WidgetService();
-        $widgets_data =  $itemSysModel->widgets()->paginate(10);
+        $widgets_data =  $itemSysModel->modelIdWidgets()->paginate(10);
         $widgets_stats = $widgetService->getwidgetStats();
         $this->viewState->set('stats.widget.stats'  , $widgets_stats);
         $widgets_filters = $widgetService->getFieldsFilterable();
