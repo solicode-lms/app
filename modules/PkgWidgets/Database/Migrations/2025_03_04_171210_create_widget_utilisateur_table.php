@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('widget_utilisateur', function (Blueprint $table) {
+        Schema::create('widget_utilisateurs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade'); // Clé étrangère vers les utilisateurs
             $table->foreignId('widget_id')->constrained('widgets')->onDelete('cascade'); // Clé étrangère vers les widgets

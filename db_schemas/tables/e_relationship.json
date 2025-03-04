@@ -1502,8 +1502,8 @@
     },
     {
         "id": 81,
-        "reference": "widget_utilisateur_users_user_id_m2o",
-        "name": "ManyToOne between widget_utilisateur and users",
+        "reference": "widget_utilisateurs_users_user_id_m2o",
+        "name": "ManyToOne between widget_utilisateurs and users",
         "type": "ManyToOne",
         "source_e_model_id": 63,
         "target_e_model_id": 58,
@@ -1521,8 +1521,8 @@
     },
     {
         "id": 82,
-        "reference": "widget_utilisateur_widgets_widget_id_m2o",
-        "name": "ManyToOne between widget_utilisateur and widgets",
+        "reference": "widget_utilisateurs_widgets_widget_id_m2o",
+        "name": "ManyToOne between widget_utilisateurs and widgets",
         "type": "ManyToOne",
         "source_e_model_id": 63,
         "target_e_model_id": 64,

@@ -1,23 +1,5 @@
 [
     {
-        "reference": "widget_utilisateur_creationOrder",
-        "value_integer": 68,
-        "e_model_reference": "widget_utilisateur",
-        "e_metadata_definition_reference": "creationOrder"
-    },
-    {
-        "reference": "widget_utilisateur_displayInSideBar",
-        "value_boolean": 1,
-        "e_model_reference": "widget_utilisateur",
-        "e_metadata_definition_reference": "displayInSideBar"
-    },
-    {
-        "reference": "widget_utilisateur_iconModel",
-        "value_string": "fa-table",
-        "e_model_reference": "widget_utilisateur",
-        "e_metadata_definition_reference": "iconModel"
-    },
-    {
         "reference": "WidgetUtilisateur_id_required",
         "value_boolean": 1,
         "e_data_field_reference": "WidgetUtilisateur_id",
@@ -268,5 +250,17 @@
         "value_integer": 6,
         "e_data_field_reference": "WidgetUtilisateur_updated_at",
         "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "widget_utilisateurs_displayInSideBar",
+        "value_boolean": 1,
+        "e_model_reference": "widget_utilisateurs",
+        "e_metadata_definition_reference": "displayInSideBar"
+    },
+    {
+        "reference": "widget_utilisateurs_iconModel",
+        "value_string": "fa-table",
+        "e_model_reference": "widget_utilisateurs",
+        "e_metadata_definition_reference": "iconModel"
     }
 ]
