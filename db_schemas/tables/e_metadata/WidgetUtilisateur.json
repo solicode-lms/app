@@ -262,5 +262,26 @@
         "value_string": "fa-table",
         "e_model_reference": "widget_utilisateurs",
         "e_metadata_definition_reference": "iconModel"
+    },
+    {
+        "reference": "widget_utilisateurs_ownedByUser",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": [
+            {
+                "role": "formateur",
+                "dataScope": "scope",
+                "userModelName": "User",
+                "ownerRelationPath": "user"
+            },
+            {
+                "role": "apprenant",
+                "dataScope": "scope",
+                "userModelName": "User",
+                "ownerRelationPath": "user"
+            }
+        ],
+        "e_model_reference": "widget_utilisateurs",
+        "e_metadata_definition_reference": "ownedByUser"
     }
 ]

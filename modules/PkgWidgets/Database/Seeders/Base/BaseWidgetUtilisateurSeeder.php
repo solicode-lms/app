@@ -22,7 +22,7 @@ use Modules\PkgWidgets\Services\WidgetUtilisateurService;
 
 class BaseWidgetUtilisateurSeeder extends Seeder
 {
-    public static int $order = 68;
+    public static int $order = ;
 
     public function run(): void
     {

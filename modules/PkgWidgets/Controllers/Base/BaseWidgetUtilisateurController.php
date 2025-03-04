@@ -33,6 +33,13 @@ class BaseWidgetUtilisateurController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('widgetUtilisateur.index');
+        // ownedByUser
+        if(Auth::user()->hasRole('formateur') && $this->viewState->get('scope.widgetUtilisateur.user_id') == null){
+           $this->viewState->init('scope.widgetUtilisateur.user_id'  , $this->sessionState->get('user_id'));
+        }
+        if(Auth::user()->hasRole('apprenant') && $this->viewState->get('scope.widgetUtilisateur.user_id') == null){
+           $this->viewState->init('scope.widgetUtilisateur.user_id'  , $this->sessionState->get('user_id'));
+        }
 
 
         // Extraire les paramètres de recherche, page, et filtres
@@ -58,6 +65,13 @@ class BaseWidgetUtilisateurController extends AdminController
         return view('PkgWidgets::widgetUtilisateur.index', compact('widgetUtilisateurs_data', 'widgetUtilisateurs_stats', 'widgetUtilisateurs_filters','widgetUtilisateur_instance'));
     }
     public function create() {
+        // ownedByUser
+        if(Auth::user()->hasRole('formateur')){
+           $this->viewState->set('scope_form.widgetUtilisateur.user_id'  , $this->sessionState->get('user_id'));
+        }
+        if(Auth::user()->hasRole('apprenant')){
+           $this->viewState->set('scope_form.widgetUtilisateur.user_id'  , $this->sessionState->get('user_id'));
+        }
 
 
         $itemWidgetUtilisateur = $this->widgetUtilisateurService->createInstance();
@@ -100,6 +114,7 @@ class BaseWidgetUtilisateurController extends AdminController
 
 
         $itemWidgetUtilisateur = $this->widgetUtilisateurService->find($id);
+        $this->authorize('view', $itemWidgetUtilisateur);
 
 
         $users = $this->userService->all();
@@ -119,6 +134,7 @@ class BaseWidgetUtilisateurController extends AdminController
 
 
         $itemWidgetUtilisateur = $this->widgetUtilisateurService->find($id);
+        $this->authorize('edit', $itemWidgetUtilisateur);
 
 
         $users = $this->userService->all();
@@ -133,6 +149,9 @@ class BaseWidgetUtilisateurController extends AdminController
 
     }
     public function update(WidgetUtilisateurRequest $request, string $id) {
+        // Vérifie si l'utilisateur peut mettre à jour l'objet 
+        $widgetUtilisateur = $this->widgetUtilisateurService->find($id);
+        $this->authorize('update', $widgetUtilisateur);
 
         $validatedData = $request->validated();
         $widgetUtilisateur = $this->widgetUtilisateurService->update($id, $validatedData);
@@ -158,6 +177,9 @@ class BaseWidgetUtilisateurController extends AdminController
 
     }
     public function destroy(Request $request, string $id) {
+        // Vérifie si l'utilisateur peut mettre à jour l'objet 
+        $widgetUtilisateur = $this->widgetUtilisateurService->find($id);
+        $this->authorize('delete', $widgetUtilisateur);
 
         $widgetUtilisateur = $this->widgetUtilisateurService->destroy($id);
 
