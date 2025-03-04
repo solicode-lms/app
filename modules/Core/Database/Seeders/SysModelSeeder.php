@@ -6,6 +6,7 @@ namespace Modules\Core\Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
+use Modules\Core\Database\Seeders\Base\BaseSysModelSeeder;
 use Modules\Core\Database\Seeders\SysModuleSeeder;
 use Modules\Core\Models\Feature;
 use Modules\Core\Models\FeatureDomain;
@@ -18,10 +19,9 @@ use Modules\PkgAutorisation\Models\User;
 use RecursiveIteratorIterator;
 use RecursiveDirectoryIterator;
 
-class SysModelSeeder extends Seeder
+class SysModelSeeder extends BaseSysModelSeeder
 {
-    public static int $order = 29;
-
+ 
     public function run(): void
     {
         $AdminRole = User::ADMIN;
@@ -32,7 +32,7 @@ class SysModelSeeder extends Seeder
         $this->seedFromModels();
 
         // Ajouter le contrôleur, le domaine, les fonctionnalités et leurs permissions
-        $this->addDefaultControllerDomainFeatures();
+        parent::addDefaultControllerDomainFeatures();
 
     }
 

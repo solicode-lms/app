@@ -3,7 +3,7 @@
 
 @section('title', __('Core::dashboard.title'))
 
-@section('content_temp')
+@section('content')
 
             <!-- Content Header (Page header) -->
             <div class="content-header">
