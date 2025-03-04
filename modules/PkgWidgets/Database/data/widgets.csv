@@ -1,5 +1,6 @@
-name,type_id,model_id,operation_id,color,icon,label,parameters
-Formateurs,1,18,1,primary,fa-newspaper,Nombre total des formateur,"{}"
-Apprenants,1,16,1,primary,fa-newspaper,Nombre total des apprenants,"{}"
-Groupes,1,19,1,primary,fa-newspaper,Nombre total des groupes,"{}"
-Exemple,1,1,1,success,fa-check-circle,Exemple,"{""published"":true}"
+"name","type_id","model_id","operation_id","color","icon","label","parameters","reference"
+"Apprenants","1","11","1","info","fa-user","Nombre total des apprenants","{}","e077990b-b35e-4bf0-ba03-2fdf13f2537a"
+"Projets","1","10","1","success","fa-user","Nombre des projets","{}","28046585-e62b-4eb3-8742-3b1afac64b58"
+"Réalisation de projet","1","92","1","success","fa-check-circle","Nombre des projets en réalisation","{}","ff008db1-ad9a-4409-a5d5-42b89629217c"
+"Tache","1","108","1","info","fa-user","Réalisation des tâches","{""realisationProjet.affectationProjet.projet.formateur.user_id"": ""#user_id""}","93241903-fe21-42c9-a8e9-6d69b4f2722d"
+"Tâche en Cours","6","108","3","success","fa-user","En Validation","{""limit"": ""10"", ""roles"": {""apprenant"": {""etatRealisationTache.nom"": ""En cours"", ""realisationProjet.apprenant.user_id"": ""#user_id""}, ""formateur"": {""etatRealisationTache.nom"": ""En cours"", ""realisationProjet.affectationProjet.projet.formateur.user_id"": ""#user_id""}}, ""TableUI"": {""Id"": ""id"", ""titre"": ""tache.titre""}}","5e5225ca-8a32-4316-949a-7aede93818cc"

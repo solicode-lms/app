@@ -1,9 +1,8 @@
-<div class="card">
+<div class="card col-6">
     <div class="card-header bg-{{ $widget->color }} text-white">
-        <i class="{{ $widget->icon }}"></i> {{ $widget->name }}
+        <h3 class="card-title"> <i class="fas {{ $widget->icon }}"></i> {{ $widget->name }}</h3>
     </div>
     <div class="card-body">
-    
         <table class="table table-bordered">
             <thead>
                 <tr>

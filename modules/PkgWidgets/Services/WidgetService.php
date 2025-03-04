@@ -1,30 +1,78 @@
 <?php
-// add execute()
-
-
 
 namespace Modules\PkgWidgets\Services;
 
 use Exception;
-use Modules\PkgWidgets\Models\Widget;
 use Modules\Core\Services\BaseService;
 use Modules\PkgWidgets\Services\Base\BaseWidgetService;
 
 /**
- * Classe WidgetService pour gérer la persistance de l'entité Widget.
+ * Service pour la gestion des widgets et l'exécution de requêtes DSL.
  */
 class WidgetService extends BaseWidgetService
 {
 
+    /**
+     * Charge et exécute la requête DSL associée à un widget.
+     *
+     * @param \Modules\PkgWidgets\Models\Widget $widget Instance du widget.
+     * @return mixed Résultat de l'exécution de la requête.
+     * @throws Exception Si des paramètres requis sont absents.
+     */
+    public function executeWidget($widget)
+    {
+        $query = [
+            'model' => $widget->model->model,
+            'operation' => $widget->operation->operation,
+            'conditions' => json_decode($widget->parameters, true) ?? [],
+        ];
 
+        $this->extractSpecialConditions($query);
+
+        $this->validateOperation($query, $widget->type->type);
+
+        $result = $this->execute($query,$widget);
+      
+
+        // Si le type est "table", formater les données en utilisant TableUI
+        if ($widget->type->type === "table" && isset($query['TableUI'])) {
+            $result = $this->formatTableData($result, $query['TableUI']);
+        }
+        $widget->data = $result;
+        return $widget;
+    }
     /**
      * Exécute une requête DSL pour un widget donné.
      *
-     * @param array $query
-     * @return mixed
-     * @throws Exception
+     * @param array $query Données de la requête, incluant le modèle, l'opération et les conditions.
+     * @return mixed Résultat de l'exécution de la requête.
+     * @throws Exception Si des paramètres requis sont absents ou invalides.
      */
-    public function execute(array $query)
+    public function execute(array $query,$widget)
+    {
+        $this->validateQuery($query);
+
+        $modelClass = $query['model'];
+
+        // Gestion des valeurs dynamiques
+        if (!empty($query['conditions'])) {
+            $query['conditions'] = $this->replaceDynamicValues($query['conditions']);
+        }
+
+        $queryBuilder = $modelClass::query();
+        $this->filter($queryBuilder, new $modelClass(), $query['conditions']);
+
+        $this->applyQueryModifiers($queryBuilder, $query,$widget);
+
+        return $this->performOperation($queryBuilder, $query);
+    }
+    /**
+     * Valide la structure de la requête.
+     *
+     * @param array $query Requête à valider.
+     * @throws Exception Si un paramètre essentiel est manquant ou incorrect.
+     */
+    private function validateQuery(array $query)
     {
         if (empty($query['model'])) {
             throw new Exception('Le modèle est requis pour exécuter la requête.');
@@ -34,50 +82,60 @@ class WidgetService extends BaseWidgetService
             throw new Exception('L\'opération est requise pour exécuter la requête.');
         }
 
-        $modelClass = $query['model'];
-        if (!class_exists($modelClass)) {
-            throw new Exception("Le modèle {$modelClass} n'existe pas.");
+        if (!class_exists($query['model'])) {
+            throw new Exception("Le modèle {$query['model']} n'existe pas.");
         }
+    }
 
-
-        // Insertion des valeur par tag 
-        // $user_id 
-        // Appliquer les conditions
-        if (!empty($query['conditions'])) {
-            foreach ($query['conditions'] as $column => $value) {
-                if($value == '#user_id') {
-                    $query['conditions'][$column] = $this->sessionState->get("user_id");
-                }
+    /**
+     * Remplace les valeurs dynamiques dans les conditions.
+     *
+     * @param array $conditions Conditions de la requête.
+     * @return array Conditions mises à jour.
+     */
+    private function replaceDynamicValues(array $conditions)
+    {
+        foreach ($conditions as $column => $value) {
+            if ($value === '#user_id') {
+                $conditions[$column] = $this->sessionState->get("user_id");
             }
         }
+        return $conditions;
+    }
 
-
-        $queryBuilder = $modelClass::query();
-
-        $this->filter($queryBuilder,new $modelClass(),$query['conditions']);
-
-       
-
-        // Grouper par colonne
+    /**
+     * Applique les filtres et options de la requête.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $queryBuilder Constructeur de requête.
+     * @param array $query Données de la requête.
+     */
+    private function applyQueryModifiers($queryBuilder, array $query,$widget)
+    {
         if (!empty($query['group_by'])) {
             $queryBuilder->groupBy($query['group_by']);
         }
 
-        // Appliquer l'ordre
         if (!empty($query['order_by'])) {
-            $queryBuilder->orderBy(
-                $query['order_by']['column'],
-                $query['order_by']['direction']
-            );
+            $queryBuilder->orderBy($query['order_by']['column'], $query['order_by']['direction']);
         }
 
-        // Limiter les résultats
+        $widget->count= $queryBuilder->count();
+
         if (!empty($query['limit'])) {
             $queryBuilder->limit($query['limit']);
         }
+    }
 
-
-        // TODO : if type == table , data doit être tableau des tables avec les colonnes dans : TableUI : json key value
+    /**
+     * Exécute l'opération demandée sur la requête.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $queryBuilder Constructeur de requête.
+     * @param array $query Données de la requête.
+     * @return mixed Résultat de l'opération.
+     * @throws Exception Si l'opération demandée n'est pas supportée.
+     */
+    private function performOperation($queryBuilder, array $query)
+    {
         return match ($query['operation']) {
             'count' => $queryBuilder->count(),
             'sum' => $queryBuilder->sum($query['column']),
@@ -91,48 +149,68 @@ class WidgetService extends BaseWidgetService
     }
 
     /**
-     * Charge et exécute la requête DSL d'un widget.
+     * Extrait les conditions spécifiques de la requête en fonction du contexte et du rôle de l'utilisateur.
      *
-     * @param \App\Models\Widget $widget
-     * @return mixed
+     * @param array &$query Référence à la requête modifiée.
      */
-    public function executeWidget($widget)
+    private function extractSpecialConditions(array &$query)
     {
-        $query = [
-            'model' => $widget->model->model,
-            'operation' => $widget->operation->operation,
-            'conditions' => json_decode($widget->parameters, true) ?? [],
-        ];
-        
-        if (!empty($query['conditions']['TableUI'])) {
-            $query['TableUI'] = $query['conditions']['TableUI'];
-            unset($query['conditions']['TableUI']);
-        }
-
-        if (!empty($query['conditions']['group_by'])) {
-            $query['group_by'] = $query['conditions']['group_by'];
-            unset($query['conditions']['group_by']);
-        }
-        if (!empty($query['conditions']['column'])) {
-            $query['column'] = $query['conditions']['column'];
-            unset($query['conditions']['column']);
-        }
-
-
-        
-        // Vérifier si la clé 'column' est nécessaire pour l'opération et si elle est définie
-        if (!isset($query['column']) && in_array($query['operation'], ['sum', 'average', 'min', 'max', 'distinct'])) {
-            throw new Exception("Le paramètre 'column' est requise pour l'opération '{$query['operation']}', mais elle est absente.");
-        }
-
-        // Validation 
-        if( $widget->type->type == "table"){
-            // Vérifier si la clé 'column' est nécessaire pour l'opération et si elle est définie
-            if (isset($query['TableUI'])) {
-                throw new Exception("Le paramètre 'TableUI' est requise pour l'opération '{$query['operation']}', mais elle est absente.");
+        foreach (['TableUI', 'group_by', 'column','limit'] as $key) {
+            if (!empty($query['conditions'][$key])) {
+                $query[$key] = $query['conditions'][$key];
+                unset($query['conditions'][$key]);
             }
         }
-        return $this->execute($query);
+
+        // Gestion des conditions selon le rôle de l'utilisateur
+        if (!empty($query['conditions']['roles'])) {
+            $userRole = $this->sessionState->get("user_role"); // Récupération du rôle utilisateur
+
+            if (!empty($query['conditions']['roles'][$userRole])) {
+                foreach ($query['conditions']['roles'][$userRole] as $key => $value) {
+                    $query['conditions'][$key] = $value;
+                }
+            }
+
+            unset($query['conditions']['roles']); // Suppression après traitement
+        }
+    }
+
+    /**
+     * Vérifie si les paramètres requis sont bien fournis pour l'opération demandée.
+     *
+     * @param array $query Requête en cours de validation.
+     * @param string $widgetType Type du widget (ex. table).
+     * @throws Exception Si un paramètre obligatoire est absent.
+     */
+    private function validateOperation(array $query, string $widgetType)
+    {
+        $columnRequiredOperations = ['sum', 'average', 'min', 'max', 'distinct'];
+
+        if (in_array($query['operation'], $columnRequiredOperations) && !isset($query['column'])) {
+            throw new Exception("Le paramètre 'column' est requis pour l'opération '{$query['operation']}'.");
+        }
+
+        if ($widgetType === "table" && !isset($query['TableUI'])) {
+            throw new Exception("Le paramètre 'TableUI' est requis pour un widget de type table.");
+        }
+    }
+
+     /**
+     * Formate les résultats en fonction de la configuration `TableUI`.
+     *
+     * @param \Illuminate\Support\Collection $result Résultats bruts de la requête.
+     * @param array $tableUI Configuration des colonnes à afficher.
+     * @return array Données formatées sous forme de table.
+     */
+    private function formatTableData($result, array $tableUI)
+    {
+        return $result->map(function ($item) use ($tableUI) {
+            $formattedRow = [];
+            foreach ($tableUI as $alias => $column) {
+                $formattedRow[$alias] = data_get($item, $column, '');
+            }
+            return $formattedRow;
+        })->toArray();
     }
 }
-

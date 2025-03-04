@@ -7,5 +7,11 @@ use Modules\PkgWidgets\Models\Base\BaseWidget;
 
 class Widget extends BaseWidget
 {
+    /**
+     * Ajoute des attributs non enregistrés en base de données.
+     *
+     * @var array
+     */
+    protected $appends = ['count', 'data'];
 
 }
