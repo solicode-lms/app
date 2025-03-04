@@ -97,7 +97,8 @@
     },
     {
         "reference": "WidgetUtilisateur_ordre_required",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "WidgetUtilisateur_ordre",
         "e_metadata_definition_reference": "required"
     },
@@ -133,7 +134,8 @@
     },
     {
         "reference": "WidgetUtilisateur_titre_required",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "WidgetUtilisateur_titre",
         "e_metadata_definition_reference": "required"
     },
@@ -175,7 +177,8 @@
     },
     {
         "reference": "WidgetUtilisateur_visible_required",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "WidgetUtilisateur_visible",
         "e_metadata_definition_reference": "required"
     },

@@ -22,7 +22,7 @@ use Modules\PkgWidgets\Services\WidgetUtilisateurService;
 
 class BaseWidgetUtilisateurSeeder extends Seeder
 {
-    public static int $order = ;
+    public static int $order = 68;
 
     public function run(): void
     {
@@ -69,7 +69,6 @@ class BaseWidgetUtilisateurSeeder extends Seeder
                     "ordre" => $row["ordre"] ?? null,
                     "titre" => $row["titre"] ?? null,
                     "sous_titre" => $row["sous_titre"] ?? null,
-                    "config" => $row["config"] ?? null,
                     "visible" => $row["visible"] ?? null,
                     "reference" => $row["reference"] ?? null ,
                 ];

@@ -33,7 +33,6 @@ class BaseWidgetUtilisateurExport implements FromCollection, WithHeadings, Shoul
             'ordre' => 'ordre',
             'titre' => 'titre',
             'sous_titre' => 'sous_titre',
-            'config' => 'config',
             'visible' => 'visible',
         ];
         }else{
@@ -43,7 +42,6 @@ class BaseWidgetUtilisateurExport implements FromCollection, WithHeadings, Shoul
             'ordre' => __('PkgWidgets::widgetUtilisateur.ordre'),
             'titre' => __('PkgWidgets::widgetUtilisateur.titre'),
             'sous_titre' => __('PkgWidgets::widgetUtilisateur.sous_titre'),
-            'config' => __('PkgWidgets::widgetUtilisateur.config'),
             'visible' => __('PkgWidgets::widgetUtilisateur.visible'),
         ];
 
@@ -60,7 +58,6 @@ class BaseWidgetUtilisateurExport implements FromCollection, WithHeadings, Shoul
                 'ordre' => $widgetUtilisateur->ordre,
                 'titre' => $widgetUtilisateur->titre,
                 'sous_titre' => $widgetUtilisateur->sous_titre,
-                'config' => $widgetUtilisateur->config,
                 'visible' => $widgetUtilisateur->visible,
             ];
         });

@@ -36,7 +36,7 @@ class BaseWidgetUtilisateur extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'user_id', 'widget_id', 'ordre', 'titre', 'sous_titre', 'config', 'visible'
+        'user_id', 'widget_id', 'ordre', 'titre', 'sous_titre', 'visible'
     ];
 
     /**

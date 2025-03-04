@@ -70,14 +70,12 @@
             <label for="ordre">
                 {{ ucfirst(__('PkgWidgets::widgetUtilisateur.ordre')) }}
                 
-                    <span class="text-danger">*</span>
-                
             </label>
             <input
                 name="ordre"
                 type="number"
                 class="form-control"
-                required
+                
                 
                 id="ordre"
                 placeholder="{{ __('PkgWidgets::widgetUtilisateur.ordre') }}"
@@ -92,14 +90,12 @@
             <label for="titre">
                 {{ ucfirst(__('PkgWidgets::widgetUtilisateur.titre')) }}
                 
-                    <span class="text-danger">*</span>
-                
             </label>
             <input
                 name="titre"
                 type="input"
                 class="form-control"
-                required
+                
                 
                 id="titre"
                 placeholder="{{ __('PkgWidgets::widgetUtilisateur.titre') }}"
@@ -131,38 +127,8 @@
 
         
         <div class="form-group col-12 col-md-6">
-    <label for="config">
-        {{ ucfirst(__('PkgWidgets::widgetUtilisateur.config')) }}
-        
-    </label>
-    
-    <div class="form-control editeur_json code-editor"
-        contenteditable="true">{{ $itemWidgetUtilisateur ? $itemWidgetUtilisateur->config : old('config') }}</div>
-    
-    <input
-        type="hidden"
-        name="config"
-        class="form-control"
-        id="config"
-         
-        
-        value = "{{ $itemWidgetUtilisateur ? $itemWidgetUtilisateur->config : old('config') }}"
-    >
-
-
-    @error('config')
-        <div class="text-danger">{{ $message }}</div>
-    @enderror
-</div>
-
-
-
-        
-        <div class="form-group col-12 col-md-6">
             <label for="visible">
                 {{ ucfirst(__('PkgWidgets::widgetUtilisateur.visible')) }}
-                
-                    <span class="text-danger">*</span>
                 
             </label>
             <input type="hidden" name="visible" value="0">
@@ -170,7 +136,7 @@
                 name="visible"
                 type="checkbox"
                 class="form-control"
-                required
+                
                 
                 id="visible"
                 value="1"

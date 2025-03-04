@@ -10,6 +10,5 @@ return [
     'ordre' => 'ordre',
     'titre' => 'titre',
     'sous_titre' => 'sous_titre',
-    'config' => 'config',
     'visible' => 'visible',
 ];

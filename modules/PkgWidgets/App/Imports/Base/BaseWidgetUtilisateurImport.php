@@ -61,8 +61,7 @@ class BaseWidgetUtilisateurImport implements ToModel, WithHeadingRow
              'ordre' => $values[2] ?? null,
              'titre' => $values[3] ?? null,
              'sous_titre' => $values[4] ?? null,
-             'config' => $values[5] ?? null,
-             'visible' => $values[6] ?? null,
+             'visible' => $values[5] ?? null,
         ]);
 
 

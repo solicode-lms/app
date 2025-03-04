@@ -45,10 +45,6 @@
                                 <p>{{ $itemWidgetUtilisateur->sous_titre }}</p>
                             </div>
                             <div class="col-sm-12">
-                                <label for="config">{{ ucfirst(__('PkgWidgets::widgetUtilisateur.config')) }}:</label>
-                                <p>{{ $itemWidgetUtilisateur->config }}</p>
-                            </div>
-                            <div class="col-sm-12">
                                 <label for="visible">{{ ucfirst(__('PkgWidgets::widgetUtilisateur.visible')) }}:</label>
                                 <p>{{ $itemWidgetUtilisateur->visible }}</p>
                             </div>

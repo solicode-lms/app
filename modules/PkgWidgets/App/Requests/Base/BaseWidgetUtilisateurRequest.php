@@ -32,9 +32,8 @@ class BaseWidgetUtilisateurRequest extends FormRequest
             'user_id' => 'required',
             'widget_id' => 'required',
             'ordre' => 'required|integer',
-            'titre' => 'required|string|max:255',
+            'titre' => 'nullable|string|max:255',
             'sous_titre' => 'nullable|string|max:255',
-            'config' => 'nullable',
             'visible' => 'required|boolean'
         ];
     }
@@ -54,7 +53,6 @@ class BaseWidgetUtilisateurRequest extends FormRequest
             'titre.max' => __('validation.titreMax'),
             'sous_titre.required' => __('validation.required', ['attribute' => __('PkgWidgets::WidgetUtilisateur.sous_titre')]),
             'sous_titre.max' => __('validation.sous_titreMax'),
-            'config.required' => __('validation.required', ['attribute' => __('PkgWidgets::WidgetUtilisateur.config')]),
             'visible.required' => __('validation.required', ['attribute' => __('PkgWidgets::WidgetUtilisateur.visible')])
         ];
     }

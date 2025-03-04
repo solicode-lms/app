@@ -24,7 +24,6 @@ class BaseWidgetUtilisateurService extends BaseService
         'ordre',
         'titre',
         'sous_titre',
-        'config',
         'visible'
     ];
 
