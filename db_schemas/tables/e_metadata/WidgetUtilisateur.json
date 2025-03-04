@@ -174,24 +174,6 @@
         "e_metadata_definition_reference": "inputMdWidth"
     },
     {
-        "reference": "WidgetUtilisateur_config_displayOrder",
-        "value_integer": 7,
-        "e_data_field_reference": "WidgetUtilisateur_config",
-        "e_metadata_definition_reference": "displayOrder"
-    },
-    {
-        "reference": "WidgetUtilisateur_config_displayInForm",
-        "value_boolean": 1,
-        "e_data_field_reference": "WidgetUtilisateur_config",
-        "e_metadata_definition_reference": "displayInForm"
-    },
-    {
-        "reference": "WidgetUtilisateur_config_inputMdWidth",
-        "value_integer": 6,
-        "e_data_field_reference": "WidgetUtilisateur_config",
-        "e_metadata_definition_reference": "inputMdWidth"
-    },
-    {
         "reference": "WidgetUtilisateur_visible_required",
         "value_boolean": 1,
         "e_data_field_reference": "WidgetUtilisateur_visible",
@@ -283,5 +265,11 @@
         ],
         "e_model_reference": "widget_utilisateurs",
         "e_metadata_definition_reference": "ownedByUser"
+    },
+    {
+        "reference": "widget_utilisateurs_creationOrder",
+        "value_integer": 68,
+        "e_model_reference": "widget_utilisateurs",
+        "e_metadata_definition_reference": "creationOrder"
     }
 ]
