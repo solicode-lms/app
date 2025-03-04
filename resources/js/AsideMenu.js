@@ -2,9 +2,14 @@
 export default class AsideMenu {
     static init(){
 
-        let activeMenuPackageItems = JSON.parse(localStorage.getItem('activeMenuPackageItems')) || [];
-        let activeMenuItem = localStorage.getItem('activeMenuItem') || '';
+        // Récupération des valeurs depuis localStorage
         let sidebarState = localStorage.getItem('sidebarState') || 'collapsed';
+        let activeMenuPackageItems = JSON.parse(localStorage.getItem('activeMenuPackageItems')) || [];
+        // let activeMenuItem = localStorage.getItem('activeMenuItem') || '';
+   
+        let activeMenuItem =$('.nav-sidebar .nav-item:not(.has-treeview) .nav-link.active').parent().attr('id');
+        localStorage.setItem('activeMenuItem', activeMenuItem || '');
+
     
         // Appliquer l'état initial de la sidebar et restaurer l'état des menus actifs
         if (sidebarState === 'collapsed') {
@@ -51,7 +56,7 @@ export default class AsideMenu {
 
             // Menu Package
             if(menuItem.hasClass('has-treeview')){
-                closeAllMenus() ;
+                closeOtherMenu(itemId);
                 if (menuItem.hasClass('menu-open')) {
                   
                     activeMenuPackageItems = activeMenuPackageItems.filter(item => item !== itemId);
@@ -60,7 +65,7 @@ export default class AsideMenu {
                 } 
                 localStorage.setItem('activeMenuPackageItems', JSON.stringify(activeMenuPackageItems));
             }
-            // // Package MenuItem
+            // Enregistrer activeMenuItem
             // if(menuItem.hasClass('nav-treeview')){
             //     localStorage.setItem('activeMenuItem', itemId);                 
             // }
@@ -74,7 +79,16 @@ export default class AsideMenu {
             $('.nav-sidebar .nav-item .nav-link').removeClass('active');
             $('.nav-sidebar .nav-item .nav-treeview').slideUp();
         }
-    
+        function closeOtherMenu(itemId) {
+            $('.nav-sidebar .nav-item').each(function () {
+                let menuItem = $(this);
+                if (menuItem.attr('id') !== itemId) {
+                    menuItem.removeClass('menu-open');
+                    menuItem.children('.nav-link').removeClass('active');
+                    menuItem.children('.nav-treeview').slideUp();
+                }
+            });
+        }
         // Fonction pour restaurer l'état des menus actifs
         function restoreMenuState() {
             $('.nav-sidebar .nav-item').each(function () {
