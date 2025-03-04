@@ -127,7 +127,7 @@ class BaseWidgetOperationController extends AdminController
         
 
         $widgetService =  new WidgetService();
-        $widgets_data =  $itemWidgetOperation->widgets()->paginate(10);
+        $widgets_data =  $itemWidgetOperation->operationIdWidgets()->paginate(10);
         $widgets_stats = $widgetService->getwidgetStats();
         $this->viewState->set('stats.widget.stats'  , $widgets_stats);
         $widgets_filters = $widgetService->getFieldsFilterable();
