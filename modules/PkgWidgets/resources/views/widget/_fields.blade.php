@@ -33,31 +33,23 @@
 
         
         <div class="form-group col-12 col-md-6">
-            <label for="type_id">
-                {{ ucfirst(__('PkgWidgets::widgetType.singular')) }}
-                
-                    <span class="text-danger">*</span>
+            <label for="label">
+                {{ ucfirst(__('PkgWidgets::widget.label')) }}
                 
             </label>
-            <select 
-            id="type_id" 
-            required
-            
-            name="type_id" 
-            class="form-control select2">
-             <option value="">Sélectionnez une option</option>
-                @foreach ($widgetTypes as $widgetType)
-                    <option value="{{ $widgetType->id }}"
-                        {{ (isset($itemWidget) && $itemWidget->type_id == $widgetType->id) || (old('type_id>') == $widgetType->id) ? 'selected' : '' }}>
-                        {{ $widgetType }}
-                    </option>
-                @endforeach
-            </select>
-            @error('type_id')
+            <input
+                name="label"
+                type="input"
+                class="form-control"
+                
+                
+                id="label"
+                placeholder="{{ __('PkgWidgets::widget.label') }}"
+                value="{{ $itemWidget ? $itemWidget->label : old('label') }}">
+            @error('label')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-    </div>
-
+</div>
 
         
         <div class="form-group col-12 col-md-6">
@@ -89,6 +81,34 @@
 
         
         <div class="form-group col-12 col-md-6">
+            <label for="type_id">
+                {{ ucfirst(__('PkgWidgets::widgetType.singular')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <select 
+            id="type_id" 
+            required
+            
+            name="type_id" 
+            class="form-control select2">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($widgetTypes as $widgetType)
+                    <option value="{{ $widgetType->id }}"
+                        {{ (isset($itemWidget) && $itemWidget->type_id == $widgetType->id) || (old('type_id>') == $widgetType->id) ? 'selected' : '' }}>
+                        {{ $widgetType }}
+                    </option>
+                @endforeach
+            </select>
+            @error('type_id')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+    </div>
+
+
+        
+        <div class="form-group col-12 col-md-4">
             <label for="operation_id">
                 {{ ucfirst(__('PkgWidgets::widgetOperation.singular')) }}
                 
@@ -116,7 +136,7 @@
 
 
         
-        <div class="form-group col-12 col-md-6">
+        <div class="form-group col-12 col-md-4">
             <label for="color">
                 {{ ucfirst(__('PkgWidgets::widget.color')) }}
                 
@@ -136,7 +156,7 @@
 </div>
 
         
-        <div class="form-group col-12 col-md-6">
+        <div class="form-group col-12 col-md-4">
             <label for="icon">
                 {{ ucfirst(__('PkgWidgets::widget.icon')) }}
                 
@@ -156,27 +176,7 @@
 </div>
 
         
-        <div class="form-group col-12 col-md-6">
-            <label for="label">
-                {{ ucfirst(__('PkgWidgets::widget.label')) }}
-                
-            </label>
-            <input
-                name="label"
-                type="input"
-                class="form-control"
-                
-                
-                id="label"
-                placeholder="{{ __('PkgWidgets::widget.label') }}"
-                value="{{ $itemWidget ? $itemWidget->label : old('label') }}">
-            @error('label')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
-
-        
-        <div class="form-group col-12 col-md-6">
+        <div class="form-group col-12 col-md-12">
     <label for="parameters">
         {{ ucfirst(__('PkgWidgets::widget.parameters')) }}
         

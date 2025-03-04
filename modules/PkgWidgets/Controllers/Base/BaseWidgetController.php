@@ -66,8 +66,8 @@ class BaseWidgetController extends AdminController
         $itemWidget = $this->widgetService->createInstance();
         
 
-        $widgetTypes = $this->widgetTypeService->all();
         $sysModels = $this->sysModelService->all();
+        $widgetTypes = $this->widgetTypeService->all();
         $widgetOperations = $this->widgetOperationService->all();
 
         if (request()->ajax()) {
@@ -106,8 +106,8 @@ class BaseWidgetController extends AdminController
         $itemWidget = $this->widgetService->find($id);
 
 
-        $widgetTypes = $this->widgetTypeService->all();
         $sysModels = $this->sysModelService->all();
+        $widgetTypes = $this->widgetTypeService->all();
         $widgetOperations = $this->widgetOperationService->all();
 
 
@@ -126,8 +126,8 @@ class BaseWidgetController extends AdminController
         $itemWidget = $this->widgetService->find($id);
 
 
-        $widgetTypes = $this->widgetTypeService->all();
         $sysModels = $this->sysModelService->all();
+        $widgetTypes = $this->widgetTypeService->all();
         $widgetOperations = $this->widgetOperationService->all();
 
 

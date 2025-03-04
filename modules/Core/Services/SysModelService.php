@@ -4,6 +4,7 @@
 
 namespace Modules\Core\Services;
 use Modules\Core\Services\Base\BaseSysModelService;
+use Illuminate\Database\Eloquent\Collection;
 
 /**
  * Classe SysModelService pour gérer la persistance de l'entité SysModel.
@@ -19,5 +20,14 @@ class SysModelService extends BaseSysModelService
       
         return $sysModel;
     }
+
+
+    public function all(array $columns = ['*']): Collection
+    {
+        return $this->model->withScope(fn() => 
+            $this->model::where('name', 'NOT LIKE', 'Base%')->get($columns)
+        );
+    }
+    
    
 }

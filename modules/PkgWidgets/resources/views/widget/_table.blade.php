@@ -6,11 +6,9 @@
         <thead>
             <tr>
                 <x-sortable-column field="name" modelname="widget" label="{{ ucfirst(__('PkgWidgets::widget.name')) }}" />
-                <x-sortable-column field="type_id" modelname="widget" label="{{ ucfirst(__('PkgWidgets::widgetType.singular')) }}" />
-                <x-sortable-column field="model_id" modelname="widget" label="{{ ucfirst(__('Core::sysModel.singular')) }}" />
-                <x-sortable-column field="operation_id" modelname="widget" label="{{ ucfirst(__('PkgWidgets::widgetOperation.singular')) }}" />
-                <x-sortable-column field="icon" modelname="widget" label="{{ ucfirst(__('PkgWidgets::widget.icon')) }}" />
                 <x-sortable-column field="label" modelname="widget" label="{{ ucfirst(__('PkgWidgets::widget.label')) }}" />
+                <x-sortable-column field="model_id" modelname="widget" label="{{ ucfirst(__('Core::sysModel.singular')) }}" />
+                <x-sortable-column field="type_id" modelname="widget" label="{{ ucfirst(__('PkgWidgets::widgetType.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -19,11 +17,9 @@
             @foreach ($widgets_data as $widget)
                 <tr id="widget-row-{{$widget->id}}">
                     <td>@limit($widget->name, 50)</td>
-                    <td>@limit($widget->type, 50)</td>
-                    <td>@limit($widget->model, 50)</td>
-                    <td>@limit($widget->operation, 50)</td>
-                    <td>@limit($widget->icon, 50)</td>
                     <td>@limit($widget->label, 50)</td>
+                    <td>@limit($widget->model, 50)</td>
+                    <td>@limit($widget->type, 50)</td>
                     <td class="text-right">
 
                         @can('show-widget')

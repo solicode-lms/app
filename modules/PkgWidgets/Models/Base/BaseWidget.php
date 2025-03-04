@@ -11,8 +11,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
-use Modules\PkgWidgets\Models\WidgetType;
 use Modules\Core\Models\SysModel;
+use Modules\PkgWidgets\Models\WidgetType;
 use Modules\PkgWidgets\Models\WidgetOperation;
 
 /**
@@ -36,18 +36,9 @@ class BaseWidget extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'name', 'type_id', 'model_id', 'operation_id', 'color', 'icon', 'label', 'parameters'
+        'name', 'label', 'model_id', 'type_id', 'operation_id', 'color', 'icon', 'parameters'
     ];
 
-    /**
-     * Relation BelongsTo pour WidgetType.
-     *
-     * @return BelongsTo
-     */
-    public function type(): BelongsTo
-    {
-        return $this->belongsTo(WidgetType::class, 'type_id', 'id');
-    }
     /**
      * Relation BelongsTo pour SysModel.
      *
@@ -56,6 +47,15 @@ class BaseWidget extends BaseModel
     public function model(): BelongsTo
     {
         return $this->belongsTo(SysModel::class, 'model_id', 'id');
+    }
+    /**
+     * Relation BelongsTo pour WidgetType.
+     *
+     * @return BelongsTo
+     */
+    public function type(): BelongsTo
+    {
+        return $this->belongsTo(WidgetType::class, 'type_id', 'id');
     }
     /**
      * Relation BelongsTo pour WidgetOperation.

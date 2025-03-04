@@ -29,24 +29,24 @@ class BaseWidgetExport implements FromCollection, WithHeadings, ShouldAutoSize, 
      if($this->format == 'csv'){
         return [
             'name' => 'name',
-            'type_id' => 'type_id',
+            'label' => 'label',
             'model_id' => 'model_id',
+            'type_id' => 'type_id',
             'operation_id' => 'operation_id',
             'color' => 'color',
             'icon' => 'icon',
-            'label' => 'label',
             'parameters' => 'parameters',
             'reference' => 'reference',
         ];
         }else{
         return [
             'name' => __('PkgWidgets::widget.name'),
-            'type_id' => __('PkgWidgets::widget.type_id'),
+            'label' => __('PkgWidgets::widget.label'),
             'model_id' => __('PkgWidgets::widget.model_id'),
+            'type_id' => __('PkgWidgets::widget.type_id'),
             'operation_id' => __('PkgWidgets::widget.operation_id'),
             'color' => __('PkgWidgets::widget.color'),
             'icon' => __('PkgWidgets::widget.icon'),
-            'label' => __('PkgWidgets::widget.label'),
             'parameters' => __('PkgWidgets::widget.parameters'),
             'reference' => __('Core::msg.reference'),
         ];
@@ -60,12 +60,12 @@ class BaseWidgetExport implements FromCollection, WithHeadings, ShouldAutoSize, 
         return $this->data->map(function ($widget) {
             return [
                 'name' => $widget->name,
-                'type_id' => $widget->type_id,
+                'label' => $widget->label,
                 'model_id' => $widget->model_id,
+                'type_id' => $widget->type_id,
                 'operation_id' => $widget->operation_id,
                 'color' => $widget->color,
                 'icon' => $widget->icon,
-                'label' => $widget->label,
                 'parameters' => $widget->parameters,
                 'reference' => $widget->reference,
             ];

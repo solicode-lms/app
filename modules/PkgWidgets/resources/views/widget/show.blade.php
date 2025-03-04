@@ -29,12 +29,16 @@
                                 <p>{{ $itemWidget->name }}</p>
                             </div>
                             <div class="col-sm-12">
-                                <label for="type_id">{{ ucfirst(__('PkgWidgets::widget.type_id')) }}:</label>
-                                <p>{{ $itemWidget->type_id }}</p>
+                                <label for="label">{{ ucfirst(__('PkgWidgets::widget.label')) }}:</label>
+                                <p>{{ $itemWidget->label }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="model_id">{{ ucfirst(__('PkgWidgets::widget.model_id')) }}:</label>
                                 <p>{{ $itemWidget->model_id }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="type_id">{{ ucfirst(__('PkgWidgets::widget.type_id')) }}:</label>
+                                <p>{{ $itemWidget->type_id }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="operation_id">{{ ucfirst(__('PkgWidgets::widget.operation_id')) }}:</label>
@@ -47,10 +51,6 @@
                             <div class="col-sm-12">
                                 <label for="icon">{{ ucfirst(__('PkgWidgets::widget.icon')) }}:</label>
                                 <p>{{ $itemWidget->icon }}</p>
-                            </div>
-                            <div class="col-sm-12">
-                                <label for="label">{{ ucfirst(__('PkgWidgets::widget.label')) }}:</label>
-                                <p>{{ $itemWidget->label }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="parameters">{{ ucfirst(__('PkgWidgets::widget.parameters')) }}:</label>

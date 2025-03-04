@@ -3,6 +3,7 @@
 namespace Modules\PkgWidgets\Services;
 
 use Exception;
+use Illuminate\Database\Eloquent\Collection;
 use Modules\Core\Services\BaseService;
 use Modules\PkgWidgets\Services\Base\BaseWidgetService;
 
@@ -31,13 +32,46 @@ class WidgetService extends BaseWidgetService
 
         $this->validateOperation($query, $widget->type->type);
 
-        $result = $this->execute($query,$widget);
+        if (!empty($query['dataSource'])) {
+            $methode = $query['dataSource'];
+            $class = "Modules\\" . $widget->model->sysModule->name . "\\Services\\" . $widget->model->name . "Service";
+        
+            if (class_exists($class)) {
+                $service = new $class();
+        
+                if (method_exists($service, $methode)) {
+                    $result = $service->$methode();
+                    $widget->count = is_countable($result) ? count($result) : (method_exists($result, 'count') ? $result->count() : 0);
+
+                    if (!empty($query['limit']) && is_numeric($query['limit'])) {
+                        $limit = (int) $query['limit'];
+
+                        if ($result instanceof Collection) {
+                            $result = $result->take($limit); // Utilisation de `take()` pour une Collection Laravel
+                        } elseif (is_array($result)) {
+                            $result = array_slice($result, 0, $limit); // Utilisation de `array_slice()` pour un tableau
+                        }
+                    }
+
+                } else {
+                    throw new Exception("Méthode '$methode' introuvable dans la classe '$class'.");
+                }
+            } else {
+                throw new Exception("Classe '$class' introuvable.");
+            }
+        } else {
+            $result = $this->execute($query, $widget);
+        
+            // Si le type est "table", formater les données en utilisant tableUI
+            if ($widget->type->type === "table" && isset($query['tableUI'])) {
+                $result = $this->formatTableData($result, $query['tableUI']);
+            }
+        }
+        
+       
       
 
-        // Si le type est "table", formater les données en utilisant TableUI
-        if ($widget->type->type === "table" && isset($query['TableUI'])) {
-            $result = $this->formatTableData($result, $query['TableUI']);
-        }
+       
         $widget->data = $result;
         return $widget;
     }
@@ -155,7 +189,7 @@ class WidgetService extends BaseWidgetService
      */
     private function extractSpecialConditions(array &$query)
     {
-        foreach (['TableUI', 'group_by', 'column','limit'] as $key) {
+        foreach (['tableUI', 'group_by', 'column','limit','dataSource'] as $key) {
             if (!empty($query['conditions'][$key])) {
                 $query[$key] = $query['conditions'][$key];
                 unset($query['conditions'][$key]);
@@ -191,13 +225,13 @@ class WidgetService extends BaseWidgetService
             throw new Exception("Le paramètre 'column' est requis pour l'opération '{$query['operation']}'.");
         }
 
-        if ($widgetType === "table" && !isset($query['TableUI'])) {
-            throw new Exception("Le paramètre 'TableUI' est requis pour un widget de type table.");
+        if ($widgetType === "table" && !isset($query['tableUI'])) {
+            throw new Exception("Le paramètre 'tableUI' est requis pour un widget de type table.");
         }
     }
 
      /**
-     * Formate les résultats en fonction de la configuration `TableUI`.
+     * Formate les résultats en fonction de la configuration `tableUI`.
      *
      * @param \Illuminate\Support\Collection $result Résultats bruts de la requête.
      * @param array $tableUI Configuration des colonnes à afficher.

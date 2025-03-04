@@ -20,12 +20,12 @@ class BaseWidgetService extends BaseService
      */
     protected $fieldsSearchable = [
         'name',
-        'type_id',
+        'label',
         'model_id',
+        'type_id',
         'operation_id',
         'color',
         'icon',
-        'label',
         'parameters'
     ];
 
@@ -55,11 +55,11 @@ class BaseWidgetService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('widget');
         $this->fieldsFilterable = [];
     
-        if (!array_key_exists('type_id', $scopeVariables)) {
-        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgWidgets::widgetType.plural"), 'type_id', \Modules\PkgWidgets\Models\WidgetType::class, 'type');
-        }
         if (!array_key_exists('model_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("Core::sysModel.plural"), 'model_id', \Modules\Core\Models\SysModel::class, 'name');
+        }
+        if (!array_key_exists('type_id', $scopeVariables)) {
+        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgWidgets::widgetType.plural"), 'type_id', \Modules\PkgWidgets\Models\WidgetType::class, 'type');
         }
         if (!array_key_exists('operation_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgWidgets::widgetOperation.plural"), 'operation_id', \Modules\PkgWidgets\Models\WidgetOperation::class, 'id');
