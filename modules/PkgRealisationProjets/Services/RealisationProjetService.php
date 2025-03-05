@@ -145,7 +145,7 @@ class RealisationProjetService extends BaseRealisationProjetService
                 && !Auth::user()->hasRole(Role::FORMATEUR_ROLE)) {
               
                 throw ValidationException::withMessages([
-                    'etats_realisation_projet_id' => "L'état de réalisation du projet spécifié est invalide."
+                    'etats_realisation_projet_id' => "Cet état de projet doit être modifié par le formateur."
                 ]);
 
 
