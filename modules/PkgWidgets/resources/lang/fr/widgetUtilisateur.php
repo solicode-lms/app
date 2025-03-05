@@ -1,14 +1,13 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 return [
-    'singular' => 'WidgetUtilisateur',
-    'plural' => 'WidgetUtilisateurs',
-    'user_id' => 'user_id',
-    'widget_id' => 'widget_id',
-    'ordre' => 'ordre',
-    'titre' => 'titre',
-    'sous_titre' => 'sous_titre',
-    'visible' => 'visible',
+    'singular' => 'Widget Utilisateur',
+    'plural' => 'Widgets Utilisateurs',
+    'user_id' => 'Utilisateur',
+    'widget_id' => 'Widget',
+    'ordre' => 'Ordre',
+    'titre' => 'Titre',
+    'sous_titre' => 'Sous-titre',
+    'visible' => 'Visible',
 ];
