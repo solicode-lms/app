@@ -55,7 +55,8 @@
     },
     {
         "reference": "Widget_operation_id_displayInTable",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "Widget_operation_id",
         "e_metadata_definition_reference": "displayInTable"
     },
@@ -67,7 +68,8 @@
     },
     {
         "reference": "Widget_icon_displayInTable",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "Widget_icon",
         "e_metadata_definition_reference": "displayInTable"
     },
@@ -115,13 +117,17 @@
     },
     {
         "reference": "Widget_type_id_displayOrder",
-        "value_integer": 3,
+        "value_boolean": 0,
+        "value_integer": 4,
+        "value_float": 0,
         "e_data_field_reference": "Widget_type_id",
         "e_metadata_definition_reference": "displayOrder"
     },
     {
         "reference": "Widget_model_id_displayOrder",
-        "value_integer": 4,
+        "value_boolean": 0,
+        "value_integer": 3,
+        "value_float": 0,
         "e_data_field_reference": "Widget_model_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -145,7 +151,9 @@
     },
     {
         "reference": "Widget_label_displayOrder",
-        "value_integer": 8,
+        "value_boolean": 0,
+        "value_integer": 2,
+        "value_float": 0,
         "e_data_field_reference": "Widget_label",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -283,19 +291,25 @@
     },
     {
         "reference": "Widget_operation_id_inputMdWidth",
-        "value_integer": 6,
+        "value_boolean": 0,
+        "value_integer": 4,
+        "value_float": 0,
         "e_data_field_reference": "Widget_operation_id",
         "e_metadata_definition_reference": "inputMdWidth"
     },
     {
         "reference": "Widget_color_inputMdWidth",
-        "value_integer": 6,
+        "value_boolean": 0,
+        "value_integer": 4,
+        "value_float": 0,
         "e_data_field_reference": "Widget_color",
         "e_metadata_definition_reference": "inputMdWidth"
     },
     {
         "reference": "Widget_icon_inputMdWidth",
-        "value_integer": 6,
+        "value_boolean": 0,
+        "value_integer": 4,
+        "value_float": 0,
         "e_data_field_reference": "Widget_icon",
         "e_metadata_definition_reference": "inputMdWidth"
     },
@@ -307,7 +321,9 @@
     },
     {
         "reference": "Widget_parameters_inputMdWidth",
-        "value_integer": 6,
+        "value_boolean": 0,
+        "value_integer": 12,
+        "value_float": 0,
         "e_data_field_reference": "Widget_parameters",
         "e_metadata_definition_reference": "inputMdWidth"
     },
@@ -327,6 +343,30 @@
         "reference": "Widget_updated_at_inputMdWidth",
         "value_integer": 6,
         "e_data_field_reference": "Widget_updated_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "widgets_hasMany_widget_utilisateurs_widget_id_editHasMany",
+        "value_boolean": 1,
+        "e_data_field_reference": "widgets_hasMany_widget_utilisateurs_widget_id",
+        "e_metadata_definition_reference": "editHasMany"
+    },
+    {
+        "reference": "widgets_hasMany_widget_utilisateurs_widget_id_displayOrder",
+        "value_integer": 13,
+        "e_data_field_reference": "widgets_hasMany_widget_utilisateurs_widget_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "widgets_hasMany_widget_utilisateurs_widget_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "widgets_hasMany_widget_utilisateurs_widget_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "widgets_hasMany_widget_utilisateurs_widget_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "widgets_hasMany_widget_utilisateurs_widget_id",
         "e_metadata_definition_reference": "inputMdWidth"
     }
 ]

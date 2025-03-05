@@ -5,6 +5,8 @@
     <table class="table table-striped text-nowrap">
         <thead>
             <tr>
+                <x-sortable-column field="type" modelname="widgetType" label="{{ ucfirst(__('PkgWidgets::widgetType.type')) }}" />
+                <x-sortable-column field="description" modelname="widgetType" label="{{ ucfirst(__('PkgWidgets::widgetType.description')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -12,6 +14,8 @@
             @section('widgetType-table-tbody')
             @foreach ($widgetTypes_data as $widgetType)
                 <tr id="widgetType-row-{{$widgetType->id}}">
+                    <td>@limit($widgetType->type, 50)</td>
+                    <td>{!! \App\Helpers\TextHelper::formatHtmlWithLineBreaks($widgetType->description, 50) !!}</td>
                     <td class="text-right">
 
                         @can('show-widgetType')

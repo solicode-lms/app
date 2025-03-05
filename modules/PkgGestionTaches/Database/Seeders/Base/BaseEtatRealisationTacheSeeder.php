@@ -83,7 +83,7 @@ class BaseEtatRealisationTacheSeeder extends Seeder
     }
 
 
-    private function addDefaultControllerDomainFeatures(): void
+    public function addDefaultControllerDomainFeatures(): void
     {
         // Trouver dynamiquement le module SysModule par son slug
         $moduleSlug = 'PkgGestionTaches'; // Slug du module

@@ -29,4 +29,9 @@ public function getRealisationLivrable()
         ->get();
 }
 
+    public function __toString()
+    {
+        return ($this->tache?->titre ?? "") .  " - ". $this->realisationProjet?->apprenant ?? "";
+    }
+
 }

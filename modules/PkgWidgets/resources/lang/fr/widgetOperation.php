@@ -1,10 +1,9 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
+ 
 
-
-return [
-    'singular' => 'WidgetOperation',
-    'plural' => 'WidgetOperations',
-    'operation' => 'operation',
-    'description' => 'description',
+ return [
+    'singular' => 'Opération de Widget',
+    'plural' => 'Opérations de Widgets',
+    'operation' => 'Opération',
+    'description' => 'Description',
 ];

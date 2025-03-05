@@ -166,5 +166,19 @@
         "value_integer": 6,
         "e_data_field_reference": "widget_operations_hasMany_widgets_operation_id",
         "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "WidgetOperation_operation_displayInTable",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "WidgetOperation_operation",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "WidgetOperation_description_displayInTable",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "WidgetOperation_description",
+        "e_metadata_definition_reference": "displayInTable"
     }
 ]

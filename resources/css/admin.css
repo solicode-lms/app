@@ -31,6 +31,12 @@
 }
 
 
+/* Menu Aside */
+
+[class*="sidebar-dark-"] .nav-treeview > .nav-item > .nav-link {
+    color: #aaa;
+}
+
 /* Card - HasMany Edition */
 .btn-card-header{
     margin-right: 5px;

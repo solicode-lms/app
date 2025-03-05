@@ -5,6 +5,7 @@ namespace Modules\Core\Controllers;
 use Modules\Core\Controllers\Base\AppController;
 use Modules\PkgWidgets\Models\Widget;
 use Modules\PkgWidgets\Services\WidgetService;
+use Modules\PkgWidgets\Services\WidgetUtilisateurService;
 
 /**
  * DashboardController est responsable de la gestion de la logique et des affichages liés au tableau de bord de l'application.
@@ -34,19 +35,28 @@ class DashboardController extends AppController
      */
     public function index()
     {
+        $widgetUtilisateurService = new WidgetUtilisateurService();
+
+        $widgetUitlisateurs = $widgetUtilisateurService->getWidgetUtilisateurOfCurrentUser();
         // Charger tous les widgets configurés avec leurs relations
-        $widgets = Widget::with(['type', 'model', 'operation'])->get();
+        // $widgets = Widget::with(['type', 'model', 'operation'])->get();
+
+        $widgets = []; // Initialisation d'un tableau pour stocker les widgets
 
         // Exécuter la requête de chaque widget et récupérer les données
-        foreach ($widgets as $widget) {
+        foreach ($widgetUitlisateurs as $widgetUtilisateur) {
             try {
                
-                $widget->data = $this->widgetService->executeWidget($widget);
+                $widget = $this->widgetService->executeWidget($widgetUtilisateur->widget);
               
             } catch (\Exception $e) {
                 // Si une erreur survient, capturer l'exception
-                $widget->data = ['error' => $e->getMessage()];
+                $widget->error = $e->getMessage();
+
             }
+
+                // Ajouter le widget à la collection
+    $widgets[] = $widget;
         }
 
         // Retourner la vue avec les widgets

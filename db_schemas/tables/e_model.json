@@ -745,6 +745,18 @@
     },
     {
         "id": 63,
+        "reference": "widget_utilisateurs",
+        "name": "WidgetUtilisateur",
+        "table_name": "widget_utilisateurs",
+        "icon": "fa-table",
+        "description": "Automatically generated model for widget_utilisateurs",
+        "e_package_id": 4,
+        "is_pivot_table": 0,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 64,
         "reference": "widgets",
         "name": "Widget",
         "table_name": "widgets",
