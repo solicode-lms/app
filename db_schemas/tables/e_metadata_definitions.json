@@ -595,7 +595,7 @@
         "scope": "field",
         "default_value": "[   {     \"key\": \"scope.projet.formateur_id\",     \"role\": \"formateur\",     \"value\": \"formateur_id\"   } ]",
         "groupe": "form",
-        "description": "Il permet de restreindre les relations d’un modèle aux entités qui lui sont explicitement assignées. Par exemple, il peut être utilisé pour filtrer uniquement les groupes, projets ou ressources affectés à un utilisateur spécifique.",
+        "description": "<p>                Il permet de restreindre les relations d’un modèle aux entités qui lui sont explicitement assignées. Par exemple, il peut être utilisé pour filtrer uniquement les groupes, projets ou ressources affectés à un utilisateur spécifique.</p><p>Il peut être aussi utiliser pour scope data pour Model in Index méthode, il peut être utilisé avec type Model</p><p>\r\n            </p>",
         "created_at": null,
         "updated_at": null
     },

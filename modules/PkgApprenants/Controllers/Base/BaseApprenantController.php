@@ -40,6 +40,10 @@ class BaseApprenantController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('apprenant.index');
 
+        // scopeDataByRole pour Model
+        if(Auth::user()->hasRole('formateur')){
+            $this->viewState->init('scope.apprenant.groupes.formateurs.id'  , $this->sessionState->get('formateur_id'));
+        }
 
 
         // Extraire les paramètres de recherche, page, et filtres
