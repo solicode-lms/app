@@ -4,11 +4,13 @@ namespace Modules\PkgGestionTaches\Services;
 
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 use Modules\PkgApprenants\Models\Apprenant;
 use Modules\PkgApprenants\Services\ApprenantService;
 use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgFormation\Services\FormateurService;
 use Modules\PkgGestionTaches\Database\Seeders\EtatRealisationTacheSeeder;
+use Modules\PkgGestionTaches\Models\EtatRealisationTache;
 use Modules\PkgGestionTaches\Models\Tache;
 use Modules\PkgGestionTaches\Services\Base\BaseRealisationTacheService;
 use Modules\PkgRealisationProjets\Models\AffectationProjet;
@@ -19,6 +21,7 @@ use Modules\PkgRealisationProjets\Services\AffectationProjetService;
  */
 class RealisationTacheService extends BaseRealisationTacheService
 {
+   
     public function dataCalcul($realisationTache)
     {
         // En Cas d'édit
@@ -133,33 +136,42 @@ public function paginate(array $params = [], int $perPage = 0, array $columns = 
 
 
 
-    public function update($id, array $data)
-    {
-        $record =  $this->find($id);
+public function update($id, array $data)
+{
+    $record = $this->find($id);
 
+    if (!empty($data["etat_realisation_tache_id"])) {
+        $etat_realisation_tache_id = $data["etat_realisation_tache_id"];
+        $nouvelEtat = EtatRealisationTache::find($etat_realisation_tache_id);
 
-        if (!empty($data["etat_realisation_tache_id"])) {
-            
-            $etat_realisation_tache_id = $data["etat_realisation_tache_id"];
-
-            // Vérifier si l'état est éditable uniquement par le formateur
-            if ($record->etatRealisationTache 
-                && $record->etatRealisationTache->is_editable_only_by_formateur 
-                && $record->etatRealisationTache->id  != $etat_realisation_tache_id
-                && !Auth::user()->hasRole(Role::FORMATEUR_ROLE)) {
-            
+        // Vérifier si le nouvel état existe
+        if ($nouvelEtat) {
+            // Empêcher un apprenant d'affecter un état réservé aux formateurs
+            if ($nouvelEtat->is_editable_only_by_formateur && !Auth::user()->hasRole(Role::FORMATEUR_ROLE)) {
                 throw ValidationException::withMessages([
-                    'etat_realisation_tache_id' => "Cet état de projet doit être modifié par le formateur."
+                    'etat_realisation_tache_id' => "Seul un formateur peut affecter cet état de tâche."
                 ]);
-
-
-                return $record;
             }
         }
 
-        // Mise à jour standard du projet
-        return parent::update($id, $data);
+        // Vérification si l'état actuel existe et est modifiable uniquement par un formateur
+        if ($record->etatRealisationTache) {
+            if (
+                $record->etatRealisationTache->is_editable_only_by_formateur
+                && $record->etatRealisationTache->id != $etat_realisation_tache_id
+                && !Auth::user()->hasRole(Role::FORMATEUR_ROLE)
+            ) {
+                throw ValidationException::withMessages([
+                    'etat_realisation_tache_id' => "Cet état de projet doit être modifié par le formateur."
+                ]);
+            }
+        }
     }
+
+    // Mise à jour standard du projet
+    return parent::update($id, $data);
+}
+
 
 
 }

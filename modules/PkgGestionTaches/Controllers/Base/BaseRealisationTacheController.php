@@ -47,6 +47,7 @@ class BaseRealisationTacheController extends AdminController
         }
 
 
+
         // Extraire les paramètres de recherche, page, et filtres
         $realisationTaches_params = array_merge(
             $request->only(['page','sort']),
@@ -81,6 +82,10 @@ class BaseRealisationTacheController extends AdminController
 
         $itemRealisationTache = $this->realisationTacheService->createInstance();
         
+        // scopeDataInEditContext
+        $value = $itemRealisationTache->getNestedValue('tache.projet.formateur_id');
+        $key = 'scope.etatRealisationTache.formateur_id';
+        $this->viewState->set($key, $value);
 
         $taches = $this->tacheService->all();
         $realisationProjets = $this->realisationProjetService->all();
@@ -122,6 +127,10 @@ class BaseRealisationTacheController extends AdminController
         $itemRealisationTache = $this->realisationTacheService->find($id);
         $this->authorize('view', $itemRealisationTache);
 
+        // scopeDataInEditContext
+        $value = $itemRealisationTache->getNestedValue('tache.projet.formateur_id');
+        $key = 'scope.etatRealisationTache.formateur_id';
+        $this->viewState->set($key, $value);
 
         $taches = $this->tacheService->all();
         $realisationProjets = $this->realisationProjetService->all();
@@ -161,6 +170,10 @@ class BaseRealisationTacheController extends AdminController
         $itemRealisationTache = $this->realisationTacheService->find($id);
         $this->authorize('edit', $itemRealisationTache);
 
+        // scopeDataInEditContext
+        $value = $itemRealisationTache->getNestedValue('tache.projet.formateur_id');
+        $key = 'scope.etatRealisationTache.formateur_id';
+        $this->viewState->set($key, $value);
 
         $taches = $this->tacheService->all();
         $realisationProjets = $this->realisationProjetService->all();

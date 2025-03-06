@@ -366,5 +366,19 @@
         ],
         "e_model_reference": "realisation_taches",
         "e_metadata_definition_reference": "computableFields"
+    },
+    {
+        "reference": "RealisationTache_etat_realisation_tache_id_scopeDataInEditContext",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": [
+            {
+                "key": "scope.etatRealisationTache.formateur_id",
+                "value": "tache.projet.formateur_id",
+                "modelName": "RealisationTache"
+            }
+        ],
+        "e_data_field_reference": "RealisationTache_etat_realisation_tache_id",
+        "e_metadata_definition_reference": "scopeDataInEditContext"
     }
 ]
