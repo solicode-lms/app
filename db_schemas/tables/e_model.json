@@ -766,5 +766,17 @@
         "is_pivot_table": 0,
         "created_at": null,
         "updated_at": null
+    },
+    {
+        "id": 65,
+        "reference": "workflow_taches",
+        "name": "WorkflowTache",
+        "table_name": "workflow_taches",
+        "icon": "fa-table",
+        "description": "Automatically generated model for workflow_taches",
+        "e_package_id": 10,
+        "is_pivot_table": 0,
+        "created_at": null,
+        "updated_at": null
     }
 ]

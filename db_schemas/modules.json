@@ -120,7 +120,8 @@
         "realisation_taches",
         "historique_realisation_taches",
         "commentaire_realisation_taches",
-        "livrable_tache"
+        "livrable_tache",
+        "workflow_taches"
     ]
 }
 
