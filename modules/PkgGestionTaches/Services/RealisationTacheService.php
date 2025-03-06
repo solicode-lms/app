@@ -131,4 +131,35 @@ public function paginate(array $params = [], int $perPage = 0, array $columns = 
     });
 }
 
+
+
+    public function update($id, array $data)
+    {
+        $record =  $this->find($id);
+
+
+        if (!empty($data["etat_realisation_tache_id"])) {
+            
+            $etat_realisation_tache_id = $data["etat_realisation_tache_id"];
+
+            // Vérifier si l'état est éditable uniquement par le formateur
+            if ($record->etatRealisationTache 
+                && $record->etatRealisationTache->is_editable_only_by_formateur 
+                && $record->etatRealisationTache->id  != $etat_realisation_tache_id
+                && !Auth::user()->hasRole(Role::FORMATEUR_ROLE)) {
+            
+                throw ValidationException::withMessages([
+                    'etat_realisation_tache_id' => "Cet état de projet doit être modifié par le formateur."
+                ]);
+
+
+                return $record;
+            }
+        }
+
+        // Mise à jour standard du projet
+        return parent::update($id, $data);
+    }
+
+
 }
