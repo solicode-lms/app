@@ -153,7 +153,9 @@
     },
     {
         "reference": "Apprenant_nom_displayOrder",
+        "value_boolean": 0,
         "value_integer": 2,
+        "value_float": 0,
         "e_data_field_reference": "Apprenant_nom",
         "e_metadata_definition_reference": "displayOrder"
     },
