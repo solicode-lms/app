@@ -104,7 +104,7 @@ class BaseSysColorController extends AdminController
 
 
         $etatRealisationTacheService =  new EtatRealisationTacheService();
-        $etatRealisationTaches_data =  $itemSysColor->etatRealisationTaches()->paginate(10);
+        $etatRealisationTaches_data =  $etatRealisationTacheService->paginate();
         $etatRealisationTaches_stats = $etatRealisationTacheService->getetatRealisationTacheStats();
         $etatRealisationTaches_filters = $etatRealisationTacheService->getFieldsFilterable();
         $etatRealisationTache_instance =  $etatRealisationTacheService->createInstance();
@@ -113,7 +113,7 @@ class BaseSysColorController extends AdminController
 
 
         $sysModelService =  new SysModelService();
-        $sysModels_data =  $itemSysColor->sysModels()->paginate(10);
+        $sysModels_data =  $sysModelService->paginate();
         $sysModels_stats = $sysModelService->getsysModelStats();
         $sysModels_filters = $sysModelService->getFieldsFilterable();
         $sysModel_instance =  $sysModelService->createInstance();
@@ -122,7 +122,7 @@ class BaseSysColorController extends AdminController
 
 
         $labelRealisationTacheService =  new LabelRealisationTacheService();
-        $labelRealisationTaches_data =  $itemSysColor->labelRealisationTaches()->paginate(10);
+        $labelRealisationTaches_data =  $labelRealisationTacheService->paginate();
         $labelRealisationTaches_stats = $labelRealisationTacheService->getlabelRealisationTacheStats();
         $labelRealisationTaches_filters = $labelRealisationTacheService->getFieldsFilterable();
         $labelRealisationTache_instance =  $labelRealisationTacheService->createInstance();
@@ -131,7 +131,7 @@ class BaseSysColorController extends AdminController
 
 
         $sysModuleService =  new SysModuleService();
-        $sysModules_data =  $itemSysColor->sysModules()->paginate(10);
+        $sysModules_data =  $sysModuleService->paginate();
         $sysModules_stats = $sysModuleService->getsysModuleStats();
         $sysModules_filters = $sysModuleService->getFieldsFilterable();
         $sysModule_instance =  $sysModuleService->createInstance();
@@ -157,7 +157,7 @@ class BaseSysColorController extends AdminController
         
 
         $etatRealisationTacheService =  new EtatRealisationTacheService();
-        $etatRealisationTaches_data =  $itemSysColor->etatRealisationTaches()->paginate(10);
+        $etatRealisationTaches_data =  $etatRealisationTacheService->paginate();
         $etatRealisationTaches_stats = $etatRealisationTacheService->getetatRealisationTacheStats();
         $this->viewState->set('stats.etatRealisationTache.stats'  , $etatRealisationTaches_stats);
         $etatRealisationTaches_filters = $etatRealisationTacheService->getFieldsFilterable();
@@ -167,7 +167,7 @@ class BaseSysColorController extends AdminController
         
 
         $sysModelService =  new SysModelService();
-        $sysModels_data =  $itemSysColor->sysModels()->paginate(10);
+        $sysModels_data =  $sysModelService->paginate();
         $sysModels_stats = $sysModelService->getsysModelStats();
         $this->viewState->set('stats.sysModel.stats'  , $sysModels_stats);
         $sysModels_filters = $sysModelService->getFieldsFilterable();
@@ -177,7 +177,7 @@ class BaseSysColorController extends AdminController
         
 
         $labelRealisationTacheService =  new LabelRealisationTacheService();
-        $labelRealisationTaches_data =  $itemSysColor->labelRealisationTaches()->paginate(10);
+        $labelRealisationTaches_data =  $labelRealisationTacheService->paginate();
         $labelRealisationTaches_stats = $labelRealisationTacheService->getlabelRealisationTacheStats();
         $this->viewState->set('stats.labelRealisationTache.stats'  , $labelRealisationTaches_stats);
         $labelRealisationTaches_filters = $labelRealisationTacheService->getFieldsFilterable();
@@ -187,7 +187,7 @@ class BaseSysColorController extends AdminController
         
 
         $sysModuleService =  new SysModuleService();
-        $sysModules_data =  $itemSysColor->sysModules()->paginate(10);
+        $sysModules_data =  $sysModuleService->paginate();
         $sysModules_stats = $sysModuleService->getsysModuleStats();
         $this->viewState->set('stats.sysModule.stats'  , $sysModules_stats);
         $sysModules_filters = $sysModuleService->getFieldsFilterable();

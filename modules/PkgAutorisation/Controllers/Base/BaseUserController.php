@@ -109,7 +109,7 @@ class BaseUserController extends AdminController
 
 
         $apprenantService =  new ApprenantService();
-        $apprenants_data =  $itemUser->apprenants()->paginate(10);
+        $apprenants_data =  $apprenantService->paginate();
         $apprenants_stats = $apprenantService->getapprenantStats();
         $apprenants_filters = $apprenantService->getFieldsFilterable();
         $apprenant_instance =  $apprenantService->createInstance();
@@ -118,7 +118,7 @@ class BaseUserController extends AdminController
 
 
         $formateurService =  new FormateurService();
-        $formateurs_data =  $itemUser->formateurs()->paginate(10);
+        $formateurs_data =  $formateurService->paginate();
         $formateurs_stats = $formateurService->getformateurStats();
         $formateurs_filters = $formateurService->getFieldsFilterable();
         $formateur_instance =  $formateurService->createInstance();
@@ -127,7 +127,7 @@ class BaseUserController extends AdminController
 
 
         $profileService =  new ProfileService();
-        $profiles_data =  $itemUser->profiles()->paginate(10);
+        $profiles_data =  $profileService->paginate();
         $profiles_stats = $profileService->getprofileStats();
         $profiles_filters = $profileService->getFieldsFilterable();
         $profile_instance =  $profileService->createInstance();
@@ -136,7 +136,7 @@ class BaseUserController extends AdminController
 
 
         $widgetUtilisateurService =  new WidgetUtilisateurService();
-        $widgetUtilisateurs_data =  $itemUser->widgetUtilisateurs()->paginate(10);
+        $widgetUtilisateurs_data =  $widgetUtilisateurService->paginate();
         $widgetUtilisateurs_stats = $widgetUtilisateurService->getwidgetUtilisateurStats();
         $widgetUtilisateurs_filters = $widgetUtilisateurService->getFieldsFilterable();
         $widgetUtilisateur_instance =  $widgetUtilisateurService->createInstance();
@@ -163,7 +163,7 @@ class BaseUserController extends AdminController
         
 
         $apprenantService =  new ApprenantService();
-        $apprenants_data =  $itemUser->apprenants()->paginate(10);
+        $apprenants_data =  $apprenantService->paginate();
         $apprenants_stats = $apprenantService->getapprenantStats();
         $this->viewState->set('stats.apprenant.stats'  , $apprenants_stats);
         $apprenants_filters = $apprenantService->getFieldsFilterable();
@@ -173,7 +173,7 @@ class BaseUserController extends AdminController
         
 
         $formateurService =  new FormateurService();
-        $formateurs_data =  $itemUser->formateurs()->paginate(10);
+        $formateurs_data =  $formateurService->paginate();
         $formateurs_stats = $formateurService->getformateurStats();
         $this->viewState->set('stats.formateur.stats'  , $formateurs_stats);
         $formateurs_filters = $formateurService->getFieldsFilterable();
@@ -183,7 +183,7 @@ class BaseUserController extends AdminController
         
 
         $profileService =  new ProfileService();
-        $profiles_data =  $itemUser->profiles()->paginate(10);
+        $profiles_data =  $profileService->paginate();
         $profiles_stats = $profileService->getprofileStats();
         $this->viewState->set('stats.profile.stats'  , $profiles_stats);
         $profiles_filters = $profileService->getFieldsFilterable();
@@ -193,7 +193,7 @@ class BaseUserController extends AdminController
         
 
         $widgetUtilisateurService =  new WidgetUtilisateurService();
-        $widgetUtilisateurs_data =  $itemUser->widgetUtilisateurs()->paginate(10);
+        $widgetUtilisateurs_data =  $widgetUtilisateurService->paginate();
         $widgetUtilisateurs_stats = $widgetUtilisateurService->getwidgetUtilisateurStats();
         $this->viewState->set('stats.widgetUtilisateur.stats'  , $widgetUtilisateurs_stats);
         $widgetUtilisateurs_filters = $widgetUtilisateurService->getFieldsFilterable();

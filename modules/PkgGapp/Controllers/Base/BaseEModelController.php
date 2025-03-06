@@ -107,7 +107,7 @@ class BaseEModelController extends AdminController
 
 
         $eDataFieldService =  new EDataFieldService();
-        $eDataFields_data =  $itemEModel->eDataFields()->paginate(10);
+        $eDataFields_data =  $eDataFieldService->paginate();
         $eDataFields_stats = $eDataFieldService->geteDataFieldStats();
         $eDataFields_filters = $eDataFieldService->getFieldsFilterable();
         $eDataField_instance =  $eDataFieldService->createInstance();
@@ -116,7 +116,7 @@ class BaseEModelController extends AdminController
 
 
         $eMetadatumService =  new EMetadatumService();
-        $eMetadata_data =  $itemEModel->eMetadata()->paginate(10);
+        $eMetadata_data =  $eMetadatumService->paginate();
         $eMetadata_stats = $eMetadatumService->geteMetadatumStats();
         $eMetadata_filters = $eMetadatumService->getFieldsFilterable();
         $eMetadatum_instance =  $eMetadatumService->createInstance();
@@ -143,7 +143,7 @@ class BaseEModelController extends AdminController
         
 
         $eDataFieldService =  new EDataFieldService();
-        $eDataFields_data =  $itemEModel->eDataFields()->paginate(10);
+        $eDataFields_data =  $eDataFieldService->paginate();
         $eDataFields_stats = $eDataFieldService->geteDataFieldStats();
         $this->viewState->set('stats.eDataField.stats'  , $eDataFields_stats);
         $eDataFields_filters = $eDataFieldService->getFieldsFilterable();
@@ -153,7 +153,7 @@ class BaseEModelController extends AdminController
         
 
         $eMetadatumService =  new EMetadatumService();
-        $eMetadata_data =  $itemEModel->eMetadata()->paginate(10);
+        $eMetadata_data =  $eMetadatumService->paginate();
         $eMetadata_stats = $eMetadatumService->geteMetadatumStats();
         $this->viewState->set('stats.eMetadatum.stats'  , $eMetadata_stats);
         $eMetadata_filters = $eMetadatumService->getFieldsFilterable();

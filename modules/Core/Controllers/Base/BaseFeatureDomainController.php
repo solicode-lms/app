@@ -106,7 +106,7 @@ class BaseFeatureDomainController extends AdminController
 
 
         $featureService =  new FeatureService();
-        $features_data =  $itemFeatureDomain->features()->paginate(10);
+        $features_data =  $featureService->paginate();
         $features_stats = $featureService->getfeatureStats();
         $features_filters = $featureService->getFieldsFilterable();
         $feature_instance =  $featureService->createInstance();
@@ -133,7 +133,7 @@ class BaseFeatureDomainController extends AdminController
         
 
         $featureService =  new FeatureService();
-        $features_data =  $itemFeatureDomain->features()->paginate(10);
+        $features_data =  $featureService->paginate();
         $features_stats = $featureService->getfeatureStats();
         $this->viewState->set('stats.feature.stats'  , $features_stats);
         $features_filters = $featureService->getFieldsFilterable();

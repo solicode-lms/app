@@ -101,7 +101,7 @@ class BaseNationaliteController extends AdminController
 
 
         $apprenantService =  new ApprenantService();
-        $apprenants_data =  $itemNationalite->apprenants()->paginate(10);
+        $apprenants_data =  $apprenantService->paginate();
         $apprenants_stats = $apprenantService->getapprenantStats();
         $apprenants_filters = $apprenantService->getFieldsFilterable();
         $apprenant_instance =  $apprenantService->createInstance();
@@ -127,7 +127,7 @@ class BaseNationaliteController extends AdminController
         
 
         $apprenantService =  new ApprenantService();
-        $apprenants_data =  $itemNationalite->apprenants()->paginate(10);
+        $apprenants_data =  $apprenantService->paginate();
         $apprenants_stats = $apprenantService->getapprenantStats();
         $this->viewState->set('stats.apprenant.stats'  , $apprenants_stats);
         $apprenants_filters = $apprenantService->getFieldsFilterable();

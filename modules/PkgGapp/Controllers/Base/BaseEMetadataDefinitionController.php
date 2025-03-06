@@ -101,7 +101,7 @@ class BaseEMetadataDefinitionController extends AdminController
 
 
         $eMetadatumService =  new EMetadatumService();
-        $eMetadata_data =  $itemEMetadataDefinition->eMetadata()->paginate(10);
+        $eMetadata_data =  $eMetadatumService->paginate();
         $eMetadata_stats = $eMetadatumService->geteMetadatumStats();
         $eMetadata_filters = $eMetadatumService->getFieldsFilterable();
         $eMetadatum_instance =  $eMetadatumService->createInstance();
@@ -127,7 +127,7 @@ class BaseEMetadataDefinitionController extends AdminController
         
 
         $eMetadatumService =  new EMetadatumService();
-        $eMetadata_data =  $itemEMetadataDefinition->eMetadata()->paginate(10);
+        $eMetadata_data =  $eMetadatumService->paginate();
         $eMetadata_stats = $eMetadatumService->geteMetadatumStats();
         $this->viewState->set('stats.eMetadatum.stats'  , $eMetadata_stats);
         $eMetadata_filters = $eMetadatumService->getFieldsFilterable();

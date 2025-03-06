@@ -145,7 +145,7 @@ class BaseRealisationProjetController extends AdminController
         $this->viewState->set($key, $value);
 
         $livrablesRealisationService =  new LivrablesRealisationService();
-        $livrablesRealisations_data =  $itemRealisationProjet->livrablesRealisations()->paginate(10);
+        $livrablesRealisations_data =  $livrablesRealisationService->paginate();
         $livrablesRealisations_stats = $livrablesRealisationService->getlivrablesRealisationStats();
         $livrablesRealisations_filters = $livrablesRealisationService->getFieldsFilterable();
         $livrablesRealisation_instance =  $livrablesRealisationService->createInstance();
@@ -158,7 +158,7 @@ class BaseRealisationProjetController extends AdminController
         $this->viewState->set($key, $value);
 
         $validationService =  new ValidationService();
-        $validations_data =  $itemRealisationProjet->validations()->paginate(10);
+        $validations_data =  $validationService->paginate();
         $validations_stats = $validationService->getvalidationStats();
         $validations_filters = $validationService->getFieldsFilterable();
         $validation_instance =  $validationService->createInstance();
@@ -167,7 +167,7 @@ class BaseRealisationProjetController extends AdminController
 
 
         $realisationTacheService =  new RealisationTacheService();
-        $realisationTaches_data =  $itemRealisationProjet->realisationTaches()->paginate(10);
+        $realisationTaches_data =  $realisationTacheService->paginate();
         $realisationTaches_stats = $realisationTacheService->getrealisationTacheStats();
         $realisationTaches_filters = $realisationTacheService->getFieldsFilterable();
         $realisationTache_instance =  $realisationTacheService->createInstance();
@@ -205,7 +205,7 @@ class BaseRealisationProjetController extends AdminController
         $this->viewState->set($key, $value);
 
         $livrablesRealisationService =  new LivrablesRealisationService();
-        $livrablesRealisations_data =  $itemRealisationProjet->livrablesRealisations()->paginate(10);
+        $livrablesRealisations_data =  $livrablesRealisationService->paginate();
         $livrablesRealisations_stats = $livrablesRealisationService->getlivrablesRealisationStats();
         $this->viewState->set('stats.livrablesRealisation.stats'  , $livrablesRealisations_stats);
         $livrablesRealisations_filters = $livrablesRealisationService->getFieldsFilterable();
@@ -219,7 +219,7 @@ class BaseRealisationProjetController extends AdminController
         $this->viewState->set($key, $value);
 
         $validationService =  new ValidationService();
-        $validations_data =  $itemRealisationProjet->validations()->paginate(10);
+        $validations_data =  $validationService->paginate();
         $validations_stats = $validationService->getvalidationStats();
         $this->viewState->set('stats.validation.stats'  , $validations_stats);
         $validations_filters = $validationService->getFieldsFilterable();
@@ -229,7 +229,7 @@ class BaseRealisationProjetController extends AdminController
         
 
         $realisationTacheService =  new RealisationTacheService();
-        $realisationTaches_data =  $itemRealisationProjet->realisationTaches()->paginate(10);
+        $realisationTaches_data =  $realisationTacheService->paginate();
         $realisationTaches_stats = $realisationTacheService->getrealisationTacheStats();
         $this->viewState->set('stats.realisationTache.stats'  , $realisationTaches_stats);
         $realisationTaches_filters = $realisationTacheService->getFieldsFilterable();

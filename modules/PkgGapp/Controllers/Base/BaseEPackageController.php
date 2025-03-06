@@ -101,7 +101,7 @@ class BaseEPackageController extends AdminController
 
 
         $eModelService =  new EModelService();
-        $eModels_data =  $itemEPackage->eModels()->paginate(10);
+        $eModels_data =  $eModelService->paginate();
         $eModels_stats = $eModelService->geteModelStats();
         $eModels_filters = $eModelService->getFieldsFilterable();
         $eModel_instance =  $eModelService->createInstance();
@@ -127,7 +127,7 @@ class BaseEPackageController extends AdminController
         
 
         $eModelService =  new EModelService();
-        $eModels_data =  $itemEPackage->eModels()->paginate(10);
+        $eModels_data =  $eModelService->paginate();
         $eModels_stats = $eModelService->geteModelStats();
         $this->viewState->set('stats.eModel.stats'  , $eModels_stats);
         $eModels_filters = $eModelService->getFieldsFilterable();

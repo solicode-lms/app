@@ -101,7 +101,7 @@ class BaseNatureLivrableController extends AdminController
 
 
         $livrableService =  new LivrableService();
-        $livrables_data =  $itemNatureLivrable->livrables()->paginate(10);
+        $livrables_data =  $livrableService->paginate();
         $livrables_stats = $livrableService->getlivrableStats();
         $livrables_filters = $livrableService->getFieldsFilterable();
         $livrable_instance =  $livrableService->createInstance();
@@ -127,7 +127,7 @@ class BaseNatureLivrableController extends AdminController
         
 
         $livrableService =  new LivrableService();
-        $livrables_data =  $itemNatureLivrable->livrables()->paginate(10);
+        $livrables_data =  $livrableService->paginate();
         $livrables_stats = $livrableService->getlivrableStats();
         $this->viewState->set('stats.livrable.stats'  , $livrables_stats);
         $livrables_filters = $livrableService->getFieldsFilterable();

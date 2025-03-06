@@ -111,7 +111,7 @@ class BaseCompetenceController extends AdminController
 
 
         $niveauCompetenceService =  new NiveauCompetenceService();
-        $niveauCompetences_data =  $itemCompetence->niveauCompetences()->paginate(10);
+        $niveauCompetences_data =  $niveauCompetenceService->paginate();
         $niveauCompetences_stats = $niveauCompetenceService->getniveauCompetenceStats();
         $niveauCompetences_filters = $niveauCompetenceService->getFieldsFilterable();
         $niveauCompetence_instance =  $niveauCompetenceService->createInstance();
@@ -139,7 +139,7 @@ class BaseCompetenceController extends AdminController
         
 
         $niveauCompetenceService =  new NiveauCompetenceService();
-        $niveauCompetences_data =  $itemCompetence->niveauCompetences()->paginate(10);
+        $niveauCompetences_data =  $niveauCompetenceService->paginate();
         $niveauCompetences_stats = $niveauCompetenceService->getniveauCompetenceStats();
         $this->viewState->set('stats.niveauCompetence.stats'  , $niveauCompetences_stats);
         $niveauCompetences_filters = $niveauCompetenceService->getFieldsFilterable();

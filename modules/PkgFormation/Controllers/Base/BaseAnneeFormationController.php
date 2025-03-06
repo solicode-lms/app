@@ -102,7 +102,7 @@ class BaseAnneeFormationController extends AdminController
 
 
         $affectationProjetService =  new AffectationProjetService();
-        $affectationProjets_data =  $itemAnneeFormation->affectationProjets()->paginate(10);
+        $affectationProjets_data =  $affectationProjetService->paginate();
         $affectationProjets_stats = $affectationProjetService->getaffectationProjetStats();
         $affectationProjets_filters = $affectationProjetService->getFieldsFilterable();
         $affectationProjet_instance =  $affectationProjetService->createInstance();
@@ -111,7 +111,7 @@ class BaseAnneeFormationController extends AdminController
 
 
         $groupeService =  new GroupeService();
-        $groupes_data =  $itemAnneeFormation->groupes()->paginate(10);
+        $groupes_data =  $groupeService->paginate();
         $groupes_stats = $groupeService->getgroupeStats();
         $groupes_filters = $groupeService->getFieldsFilterable();
         $groupe_instance =  $groupeService->createInstance();
@@ -137,7 +137,7 @@ class BaseAnneeFormationController extends AdminController
         
 
         $affectationProjetService =  new AffectationProjetService();
-        $affectationProjets_data =  $itemAnneeFormation->affectationProjets()->paginate(10);
+        $affectationProjets_data =  $affectationProjetService->paginate();
         $affectationProjets_stats = $affectationProjetService->getaffectationProjetStats();
         $this->viewState->set('stats.affectationProjet.stats'  , $affectationProjets_stats);
         $affectationProjets_filters = $affectationProjetService->getFieldsFilterable();
@@ -147,7 +147,7 @@ class BaseAnneeFormationController extends AdminController
         
 
         $groupeService =  new GroupeService();
-        $groupes_data =  $itemAnneeFormation->groupes()->paginate(10);
+        $groupes_data =  $groupeService->paginate();
         $groupes_stats = $groupeService->getgroupeStats();
         $this->viewState->set('stats.groupe.stats'  , $groupes_stats);
         $groupes_filters = $groupeService->getFieldsFilterable();

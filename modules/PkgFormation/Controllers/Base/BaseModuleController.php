@@ -106,7 +106,7 @@ class BaseModuleController extends AdminController
 
 
         $competenceService =  new CompetenceService();
-        $competences_data =  $itemModule->competences()->paginate(10);
+        $competences_data =  $competenceService->paginate();
         $competences_stats = $competenceService->getcompetenceStats();
         $competences_filters = $competenceService->getFieldsFilterable();
         $competence_instance =  $competenceService->createInstance();
@@ -133,7 +133,7 @@ class BaseModuleController extends AdminController
         
 
         $competenceService =  new CompetenceService();
-        $competences_data =  $itemModule->competences()->paginate(10);
+        $competences_data =  $competenceService->paginate();
         $competences_stats = $competenceService->getcompetenceStats();
         $this->viewState->set('stats.competence.stats'  , $competences_stats);
         $competences_filters = $competenceService->getFieldsFilterable();

@@ -101,7 +101,7 @@ class BaseWorkflowTacheController extends AdminController
 
 
         $etatRealisationTacheService =  new EtatRealisationTacheService();
-        $etatRealisationTaches_data =  $itemWorkflowTache->etatRealisationTaches()->paginate(10);
+        $etatRealisationTaches_data =  $etatRealisationTacheService->paginate();
         $etatRealisationTaches_stats = $etatRealisationTacheService->getetatRealisationTacheStats();
         $etatRealisationTaches_filters = $etatRealisationTacheService->getFieldsFilterable();
         $etatRealisationTache_instance =  $etatRealisationTacheService->createInstance();
@@ -127,7 +127,7 @@ class BaseWorkflowTacheController extends AdminController
         
 
         $etatRealisationTacheService =  new EtatRealisationTacheService();
-        $etatRealisationTaches_data =  $itemWorkflowTache->etatRealisationTaches()->paginate(10);
+        $etatRealisationTaches_data =  $etatRealisationTacheService->paginate();
         $etatRealisationTaches_stats = $etatRealisationTacheService->getetatRealisationTacheStats();
         $this->viewState->set('stats.etatRealisationTache.stats'  , $etatRealisationTaches_stats);
         $etatRealisationTaches_filters = $etatRealisationTacheService->getFieldsFilterable();

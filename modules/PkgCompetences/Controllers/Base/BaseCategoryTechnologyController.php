@@ -101,7 +101,7 @@ class BaseCategoryTechnologyController extends AdminController
 
 
         $technologyService =  new TechnologyService();
-        $technologies_data =  $itemCategoryTechnology->technologies()->paginate(10);
+        $technologies_data =  $technologyService->paginate();
         $technologies_stats = $technologyService->gettechnologyStats();
         $technologies_filters = $technologyService->getFieldsFilterable();
         $technology_instance =  $technologyService->createInstance();
@@ -127,7 +127,7 @@ class BaseCategoryTechnologyController extends AdminController
         
 
         $technologyService =  new TechnologyService();
-        $technologies_data =  $itemCategoryTechnology->technologies()->paginate(10);
+        $technologies_data =  $technologyService->paginate();
         $technologies_stats = $technologyService->gettechnologyStats();
         $this->viewState->set('stats.technology.stats'  , $technologies_stats);
         $technologies_filters = $technologyService->getFieldsFilterable();

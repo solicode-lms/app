@@ -138,7 +138,7 @@ class BaseProjetController extends AdminController
         $this->viewState->set($key, $value);
 
         $transfertCompetenceService =  new TransfertCompetenceService();
-        $transfertCompetences_data =  $itemProjet->transfertCompetences()->paginate(10);
+        $transfertCompetences_data =  $transfertCompetenceService->paginate();
         $transfertCompetences_stats = $transfertCompetenceService->gettransfertCompetenceStats();
         $transfertCompetences_filters = $transfertCompetenceService->getFieldsFilterable();
         $transfertCompetence_instance =  $transfertCompetenceService->createInstance();
@@ -151,7 +151,7 @@ class BaseProjetController extends AdminController
         $this->viewState->set($key, $value);
 
         $affectationProjetService =  new AffectationProjetService();
-        $affectationProjets_data =  $itemProjet->affectationProjets()->paginate(10);
+        $affectationProjets_data =  $affectationProjetService->paginate();
         $affectationProjets_stats = $affectationProjetService->getaffectationProjetStats();
         $affectationProjets_filters = $affectationProjetService->getFieldsFilterable();
         $affectationProjet_instance =  $affectationProjetService->createInstance();
@@ -160,7 +160,7 @@ class BaseProjetController extends AdminController
 
 
         $livrableService =  new LivrableService();
-        $livrables_data =  $itemProjet->livrables()->paginate(10);
+        $livrables_data =  $livrableService->paginate();
         $livrables_stats = $livrableService->getlivrableStats();
         $livrables_filters = $livrableService->getFieldsFilterable();
         $livrable_instance =  $livrableService->createInstance();
@@ -169,7 +169,7 @@ class BaseProjetController extends AdminController
 
 
         $tacheService =  new TacheService();
-        $taches_data =  $itemProjet->taches()->paginate(10);
+        $taches_data =  $tacheService->paginate();
         $taches_stats = $tacheService->gettacheStats();
         $taches_filters = $tacheService->getFieldsFilterable();
         $tache_instance =  $tacheService->createInstance();
@@ -178,7 +178,7 @@ class BaseProjetController extends AdminController
 
 
         $resourceService =  new ResourceService();
-        $resources_data =  $itemProjet->resources()->paginate(10);
+        $resources_data =  $resourceService->paginate();
         $resources_stats = $resourceService->getresourceStats();
         $resources_filters = $resourceService->getFieldsFilterable();
         $resource_instance =  $resourceService->createInstance();
@@ -229,7 +229,7 @@ class BaseProjetController extends AdminController
         $this->viewState->set($key, $value);
 
         $affectationProjetService =  new AffectationProjetService();
-        $affectationProjets_data =  $itemProjet->affectationProjets()->paginate(10);
+        $affectationProjets_data =  $affectationProjetService->paginate();
         $affectationProjets_stats = $affectationProjetService->getaffectationProjetStats();
         $this->viewState->set('stats.affectationProjet.stats'  , $affectationProjets_stats);
         $affectationProjets_filters = $affectationProjetService->getFieldsFilterable();
@@ -239,7 +239,7 @@ class BaseProjetController extends AdminController
         
 
         $livrableService =  new LivrableService();
-        $livrables_data =  $itemProjet->livrables()->paginate(10);
+        $livrables_data =  $livrableService->paginate();
         $livrables_stats = $livrableService->getlivrableStats();
         $this->viewState->set('stats.livrable.stats'  , $livrables_stats);
         $livrables_filters = $livrableService->getFieldsFilterable();
@@ -259,7 +259,7 @@ class BaseProjetController extends AdminController
         
 
         $resourceService =  new ResourceService();
-        $resources_data =  $itemProjet->resources()->paginate(10);
+        $resources_data =  $resourceService->paginate();
         $resources_stats = $resourceService->getresourceStats();
         $this->viewState->set('stats.resource.stats'  , $resources_stats);
         $resources_filters = $resourceService->getFieldsFilterable();

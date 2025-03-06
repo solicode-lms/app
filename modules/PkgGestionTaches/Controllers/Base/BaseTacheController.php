@@ -133,7 +133,7 @@ class BaseTacheController extends AdminController
 
 
         $dependanceTacheService =  new DependanceTacheService();
-        $dependanceTaches_data =  $itemTache->dependanceTaches()->paginate(10);
+        $dependanceTaches_data =  $dependanceTacheService->paginate();
         $dependanceTaches_stats = $dependanceTacheService->getdependanceTacheStats();
         $dependanceTaches_filters = $dependanceTacheService->getFieldsFilterable();
         $dependanceTache_instance =  $dependanceTacheService->createInstance();
@@ -142,7 +142,7 @@ class BaseTacheController extends AdminController
 
 
         $realisationTacheService =  new RealisationTacheService();
-        $realisationTaches_data =  $itemTache->realisationTaches()->paginate(10);
+        $realisationTaches_data =  $realisationTacheService->paginate();
         $realisationTaches_stats = $realisationTacheService->getrealisationTacheStats();
         $realisationTaches_filters = $realisationTacheService->getFieldsFilterable();
         $realisationTache_instance =  $realisationTacheService->createInstance();
@@ -179,7 +179,7 @@ class BaseTacheController extends AdminController
         
 
         $dependanceTacheService =  new DependanceTacheService();
-        $dependanceTaches_data =  $itemTache->dependanceTaches()->paginate(10);
+        $dependanceTaches_data =  $dependanceTacheService->paginate();
         $dependanceTaches_stats = $dependanceTacheService->getdependanceTacheStats();
         $this->viewState->set('stats.dependanceTache.stats'  , $dependanceTaches_stats);
         $dependanceTaches_filters = $dependanceTacheService->getFieldsFilterable();
@@ -189,7 +189,7 @@ class BaseTacheController extends AdminController
         
 
         $realisationTacheService =  new RealisationTacheService();
-        $realisationTaches_data =  $itemTache->realisationTaches()->paginate(10);
+        $realisationTaches_data =  $realisationTacheService->paginate();
         $realisationTaches_stats = $realisationTacheService->getrealisationTacheStats();
         $this->viewState->set('stats.realisationTache.stats'  , $realisationTaches_stats);
         $realisationTaches_filters = $realisationTacheService->getFieldsFilterable();

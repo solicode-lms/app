@@ -101,7 +101,7 @@ class BaseTypeDependanceTacheController extends AdminController
 
 
         $dependanceTacheService =  new DependanceTacheService();
-        $dependanceTaches_data =  $itemTypeDependanceTache->dependanceTaches()->paginate(10);
+        $dependanceTaches_data =  $dependanceTacheService->paginate();
         $dependanceTaches_stats = $dependanceTacheService->getdependanceTacheStats();
         $dependanceTaches_filters = $dependanceTacheService->getFieldsFilterable();
         $dependanceTache_instance =  $dependanceTacheService->createInstance();
@@ -127,7 +127,7 @@ class BaseTypeDependanceTacheController extends AdminController
         
 
         $dependanceTacheService =  new DependanceTacheService();
-        $dependanceTaches_data =  $itemTypeDependanceTache->dependanceTaches()->paginate(10);
+        $dependanceTaches_data =  $dependanceTacheService->paginate();
         $dependanceTaches_stats = $dependanceTacheService->getdependanceTacheStats();
         $this->viewState->set('stats.dependanceTache.stats'  , $dependanceTaches_stats);
         $dependanceTaches_filters = $dependanceTacheService->getFieldsFilterable();

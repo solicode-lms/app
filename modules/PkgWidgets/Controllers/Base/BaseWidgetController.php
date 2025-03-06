@@ -116,7 +116,7 @@ class BaseWidgetController extends AdminController
 
 
         $widgetUtilisateurService =  new WidgetUtilisateurService();
-        $widgetUtilisateurs_data =  $itemWidget->widgetUtilisateurs()->paginate(10);
+        $widgetUtilisateurs_data =  $widgetUtilisateurService->paginate();
         $widgetUtilisateurs_stats = $widgetUtilisateurService->getwidgetUtilisateurStats();
         $widgetUtilisateurs_filters = $widgetUtilisateurService->getFieldsFilterable();
         $widgetUtilisateur_instance =  $widgetUtilisateurService->createInstance();
@@ -145,7 +145,7 @@ class BaseWidgetController extends AdminController
         
 
         $widgetUtilisateurService =  new WidgetUtilisateurService();
-        $widgetUtilisateurs_data =  $itemWidget->widgetUtilisateurs()->paginate(10);
+        $widgetUtilisateurs_data =  $widgetUtilisateurService->paginate();
         $widgetUtilisateurs_stats = $widgetUtilisateurService->getwidgetUtilisateurStats();
         $this->viewState->set('stats.widgetUtilisateur.stats'  , $widgetUtilisateurs_stats);
         $widgetUtilisateurs_filters = $widgetUtilisateurService->getFieldsFilterable();

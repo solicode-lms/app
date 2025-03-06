@@ -121,7 +121,7 @@ class BaseGroupeController extends AdminController
 
 
         $affectationProjetService =  new AffectationProjetService();
-        $affectationProjets_data =  $itemGroupe->affectationProjets()->paginate(10);
+        $affectationProjets_data =  $affectationProjetService->paginate();
         $affectationProjets_stats = $affectationProjetService->getaffectationProjetStats();
         $affectationProjets_filters = $affectationProjetService->getFieldsFilterable();
         $affectationProjet_instance =  $affectationProjetService->createInstance();
@@ -151,7 +151,7 @@ class BaseGroupeController extends AdminController
         
 
         $affectationProjetService =  new AffectationProjetService();
-        $affectationProjets_data =  $itemGroupe->affectationProjets()->paginate(10);
+        $affectationProjets_data =  $affectationProjetService->paginate();
         $affectationProjets_stats = $affectationProjetService->getaffectationProjetStats();
         $this->viewState->set('stats.affectationProjet.stats'  , $affectationProjets_stats);
         $affectationProjets_filters = $affectationProjetService->getFieldsFilterable();

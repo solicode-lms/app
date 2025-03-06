@@ -148,7 +148,7 @@ class BaseAffectationProjetController extends AdminController
         $this->viewState->set($key, $value);
 
         $realisationProjetService =  new RealisationProjetService();
-        $realisationProjets_data =  $itemAffectationProjet->realisationProjets()->paginate(10);
+        $realisationProjets_data =  $realisationProjetService->paginate();
         $realisationProjets_stats = $realisationProjetService->getrealisationProjetStats();
         $realisationProjets_filters = $realisationProjetService->getFieldsFilterable();
         $realisationProjet_instance =  $realisationProjetService->createInstance();
@@ -188,7 +188,7 @@ class BaseAffectationProjetController extends AdminController
         $this->viewState->set($key, $value);
 
         $realisationProjetService =  new RealisationProjetService();
-        $realisationProjets_data =  $itemAffectationProjet->realisationProjets()->paginate(10);
+        $realisationProjets_data =  $realisationProjetService->paginate();
         $realisationProjets_stats = $realisationProjetService->getrealisationProjetStats();
         $this->viewState->set('stats.realisationProjet.stats'  , $realisationProjets_stats);
         $realisationProjets_filters = $realisationProjetService->getFieldsFilterable();

@@ -132,7 +132,7 @@ class BaseRealisationTacheController extends AdminController
 
 
         $commentaireRealisationTacheService =  new CommentaireRealisationTacheService();
-        $commentaireRealisationTaches_data =  $itemRealisationTache->commentaireRealisationTaches()->paginate(10);
+        $commentaireRealisationTaches_data =  $commentaireRealisationTacheService->paginate();
         $commentaireRealisationTaches_stats = $commentaireRealisationTacheService->getcommentaireRealisationTacheStats();
         $commentaireRealisationTaches_filters = $commentaireRealisationTacheService->getFieldsFilterable();
         $commentaireRealisationTache_instance =  $commentaireRealisationTacheService->createInstance();
@@ -141,7 +141,7 @@ class BaseRealisationTacheController extends AdminController
 
 
         $historiqueRealisationTacheService =  new HistoriqueRealisationTacheService();
-        $historiqueRealisationTaches_data =  $itemRealisationTache->historiqueRealisationTaches()->paginate(10);
+        $historiqueRealisationTaches_data =  $historiqueRealisationTacheService->paginate();
         $historiqueRealisationTaches_stats = $historiqueRealisationTacheService->gethistoriqueRealisationTacheStats();
         $historiqueRealisationTaches_filters = $historiqueRealisationTacheService->getFieldsFilterable();
         $historiqueRealisationTache_instance =  $historiqueRealisationTacheService->createInstance();
@@ -171,7 +171,7 @@ class BaseRealisationTacheController extends AdminController
         
 
         $commentaireRealisationTacheService =  new CommentaireRealisationTacheService();
-        $commentaireRealisationTaches_data =  $itemRealisationTache->commentaireRealisationTaches()->paginate(10);
+        $commentaireRealisationTaches_data =  $commentaireRealisationTacheService->paginate();
         $commentaireRealisationTaches_stats = $commentaireRealisationTacheService->getcommentaireRealisationTacheStats();
         $this->viewState->set('stats.commentaireRealisationTache.stats'  , $commentaireRealisationTaches_stats);
         $commentaireRealisationTaches_filters = $commentaireRealisationTacheService->getFieldsFilterable();
@@ -181,7 +181,7 @@ class BaseRealisationTacheController extends AdminController
         
 
         $historiqueRealisationTacheService =  new HistoriqueRealisationTacheService();
-        $historiqueRealisationTaches_data =  $itemRealisationTache->historiqueRealisationTaches()->paginate(10);
+        $historiqueRealisationTaches_data =  $historiqueRealisationTacheService->paginate();
         $historiqueRealisationTaches_stats = $historiqueRealisationTacheService->gethistoriqueRealisationTacheStats();
         $this->viewState->set('stats.historiqueRealisationTache.stats'  , $historiqueRealisationTaches_stats);
         $historiqueRealisationTaches_filters = $historiqueRealisationTacheService->getFieldsFilterable();

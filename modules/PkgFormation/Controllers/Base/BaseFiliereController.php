@@ -103,7 +103,7 @@ class BaseFiliereController extends AdminController
 
 
         $groupeService =  new GroupeService();
-        $groupes_data =  $itemFiliere->groupes()->paginate(10);
+        $groupes_data =  $groupeService->paginate();
         $groupes_stats = $groupeService->getgroupeStats();
         $groupes_filters = $groupeService->getFieldsFilterable();
         $groupe_instance =  $groupeService->createInstance();
@@ -112,7 +112,7 @@ class BaseFiliereController extends AdminController
 
 
         $moduleService =  new ModuleService();
-        $modules_data =  $itemFiliere->modules()->paginate(10);
+        $modules_data =  $moduleService->paginate();
         $modules_stats = $moduleService->getmoduleStats();
         $modules_filters = $moduleService->getFieldsFilterable();
         $module_instance =  $moduleService->createInstance();
@@ -121,7 +121,7 @@ class BaseFiliereController extends AdminController
 
 
         $projetService =  new ProjetService();
-        $projets_data =  $itemFiliere->projets()->paginate(10);
+        $projets_data =  $projetService->paginate();
         $projets_stats = $projetService->getprojetStats();
         $projets_filters = $projetService->getFieldsFilterable();
         $projet_instance =  $projetService->createInstance();
@@ -147,7 +147,7 @@ class BaseFiliereController extends AdminController
         
 
         $groupeService =  new GroupeService();
-        $groupes_data =  $itemFiliere->groupes()->paginate(10);
+        $groupes_data =  $groupeService->paginate();
         $groupes_stats = $groupeService->getgroupeStats();
         $this->viewState->set('stats.groupe.stats'  , $groupes_stats);
         $groupes_filters = $groupeService->getFieldsFilterable();
@@ -157,7 +157,7 @@ class BaseFiliereController extends AdminController
         
 
         $moduleService =  new ModuleService();
-        $modules_data =  $itemFiliere->modules()->paginate(10);
+        $modules_data =  $moduleService->paginate();
         $modules_stats = $moduleService->getmoduleStats();
         $this->viewState->set('stats.module.stats'  , $modules_stats);
         $modules_filters = $moduleService->getFieldsFilterable();
@@ -167,7 +167,7 @@ class BaseFiliereController extends AdminController
         
 
         $projetService =  new ProjetService();
-        $projets_data =  $itemFiliere->projets()->paginate(10);
+        $projets_data =  $projetService->paginate();
         $projets_stats = $projetService->getprojetStats();
         $this->viewState->set('stats.projet.stats'  , $projets_stats);
         $projets_filters = $projetService->getFieldsFilterable();

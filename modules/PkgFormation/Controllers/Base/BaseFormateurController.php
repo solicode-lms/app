@@ -119,7 +119,7 @@ class BaseFormateurController extends AdminController
 
 
         $commentaireRealisationTacheService =  new CommentaireRealisationTacheService();
-        $commentaireRealisationTaches_data =  $itemFormateur->commentaireRealisationTaches()->paginate(10);
+        $commentaireRealisationTaches_data =  $commentaireRealisationTacheService->paginate();
         $commentaireRealisationTaches_stats = $commentaireRealisationTacheService->getcommentaireRealisationTacheStats();
         $commentaireRealisationTaches_filters = $commentaireRealisationTacheService->getFieldsFilterable();
         $commentaireRealisationTache_instance =  $commentaireRealisationTacheService->createInstance();
@@ -128,7 +128,7 @@ class BaseFormateurController extends AdminController
 
 
         $etatRealisationTacheService =  new EtatRealisationTacheService();
-        $etatRealisationTaches_data =  $itemFormateur->etatRealisationTaches()->paginate(10);
+        $etatRealisationTaches_data =  $etatRealisationTacheService->paginate();
         $etatRealisationTaches_stats = $etatRealisationTacheService->getetatRealisationTacheStats();
         $etatRealisationTaches_filters = $etatRealisationTacheService->getFieldsFilterable();
         $etatRealisationTache_instance =  $etatRealisationTacheService->createInstance();
@@ -137,7 +137,7 @@ class BaseFormateurController extends AdminController
 
 
         $labelRealisationTacheService =  new LabelRealisationTacheService();
-        $labelRealisationTaches_data =  $itemFormateur->labelRealisationTaches()->paginate(10);
+        $labelRealisationTaches_data =  $labelRealisationTacheService->paginate();
         $labelRealisationTaches_stats = $labelRealisationTacheService->getlabelRealisationTacheStats();
         $labelRealisationTaches_filters = $labelRealisationTacheService->getFieldsFilterable();
         $labelRealisationTache_instance =  $labelRealisationTacheService->createInstance();
@@ -146,7 +146,7 @@ class BaseFormateurController extends AdminController
 
 
         $prioriteTacheService =  new PrioriteTacheService();
-        $prioriteTaches_data =  $itemFormateur->prioriteTaches()->paginate(10);
+        $prioriteTaches_data =  $prioriteTacheService->paginate();
         $prioriteTaches_stats = $prioriteTacheService->getprioriteTacheStats();
         $prioriteTaches_filters = $prioriteTacheService->getFieldsFilterable();
         $prioriteTache_instance =  $prioriteTacheService->createInstance();
@@ -175,7 +175,7 @@ class BaseFormateurController extends AdminController
         
 
         $commentaireRealisationTacheService =  new CommentaireRealisationTacheService();
-        $commentaireRealisationTaches_data =  $itemFormateur->commentaireRealisationTaches()->paginate(10);
+        $commentaireRealisationTaches_data =  $commentaireRealisationTacheService->paginate();
         $commentaireRealisationTaches_stats = $commentaireRealisationTacheService->getcommentaireRealisationTacheStats();
         $this->viewState->set('stats.commentaireRealisationTache.stats'  , $commentaireRealisationTaches_stats);
         $commentaireRealisationTaches_filters = $commentaireRealisationTacheService->getFieldsFilterable();
@@ -185,7 +185,7 @@ class BaseFormateurController extends AdminController
         
 
         $etatRealisationTacheService =  new EtatRealisationTacheService();
-        $etatRealisationTaches_data =  $itemFormateur->etatRealisationTaches()->paginate(10);
+        $etatRealisationTaches_data =  $etatRealisationTacheService->paginate();
         $etatRealisationTaches_stats = $etatRealisationTacheService->getetatRealisationTacheStats();
         $this->viewState->set('stats.etatRealisationTache.stats'  , $etatRealisationTaches_stats);
         $etatRealisationTaches_filters = $etatRealisationTacheService->getFieldsFilterable();
@@ -195,7 +195,7 @@ class BaseFormateurController extends AdminController
         
 
         $labelRealisationTacheService =  new LabelRealisationTacheService();
-        $labelRealisationTaches_data =  $itemFormateur->labelRealisationTaches()->paginate(10);
+        $labelRealisationTaches_data =  $labelRealisationTacheService->paginate();
         $labelRealisationTaches_stats = $labelRealisationTacheService->getlabelRealisationTacheStats();
         $this->viewState->set('stats.labelRealisationTache.stats'  , $labelRealisationTaches_stats);
         $labelRealisationTaches_filters = $labelRealisationTacheService->getFieldsFilterable();
@@ -205,7 +205,7 @@ class BaseFormateurController extends AdminController
         
 
         $prioriteTacheService =  new PrioriteTacheService();
-        $prioriteTaches_data =  $itemFormateur->prioriteTaches()->paginate(10);
+        $prioriteTaches_data =  $prioriteTacheService->paginate();
         $prioriteTaches_stats = $prioriteTacheService->getprioriteTacheStats();
         $this->viewState->set('stats.prioriteTache.stats'  , $prioriteTaches_stats);
         $prioriteTaches_filters = $prioriteTacheService->getFieldsFilterable();

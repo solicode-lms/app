@@ -101,7 +101,7 @@ class BaseWidgetTypeController extends AdminController
 
 
         $widgetService =  new WidgetService();
-        $widgets_data =  $itemWidgetType->widgets()->paginate(10);
+        $widgets_data =  $widgetService->paginate();
         $widgets_stats = $widgetService->getwidgetStats();
         $widgets_filters = $widgetService->getFieldsFilterable();
         $widget_instance =  $widgetService->createInstance();
@@ -127,7 +127,7 @@ class BaseWidgetTypeController extends AdminController
         
 
         $widgetService =  new WidgetService();
-        $widgets_data =  $itemWidgetType->typeIdWidgets()->paginate(10);
+        $widgets_data =  $widgetService->paginate();
         $widgets_stats = $widgetService->getwidgetStats();
         $this->viewState->set('stats.widget.stats'  , $widgets_stats);
         $widgets_filters = $widgetService->getFieldsFilterable();
