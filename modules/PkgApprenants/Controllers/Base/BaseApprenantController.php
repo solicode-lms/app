@@ -41,6 +41,7 @@ class BaseApprenantController extends AdminController
         $this->viewState->setContextKeyIfEmpty('apprenant.index');
 
 
+
         // Extraire les paramètres de recherche, page, et filtres
         $apprenants_params = array_merge(
             $request->only(['page','sort']),

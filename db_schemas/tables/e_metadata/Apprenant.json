@@ -718,5 +718,19 @@
         "value_integer": 6,
         "e_data_field_reference": "apprenants_hasMany_commentaire_realisation_taches_apprenant_id",
         "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "apprenants_scopeDataByRole",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": [
+            {
+                "key": "scope.apprenant.groupes.formateurs.id",
+                "role": "formateur",
+                "value": "formateur_id"
+            }
+        ],
+        "e_model_reference": "apprenants",
+        "e_metadata_definition_reference": "scopeDataByRole"
     }
 ]
