@@ -5,30 +5,30 @@
 
 namespace Modules\PkgGestionTaches\App\Imports\Base;
 
-use Modules\PkgGestionTaches\Models\EtatRealisationTache;
+use Modules\PkgGestionTaches\Models\WorkflowTache;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Illuminate\Support\Facades\Log;
 
-class BaseEtatRealisationTacheImport implements ToModel, WithHeadingRow
+class BaseWorkflowTacheImport implements ToModel, WithHeadingRow
 {
     /**
      * Vérifie si un enregistrement avec la même référence existe.
      *
      * @param string $reference Référence unique de l'enregistrement.
-     * @return EtatRealisationTache|null
+     * @return WorkflowTache|null
      */
-    private function findExistingRecord($reference): ?EtatRealisationTache
+    private function findExistingRecord($reference): ?WorkflowTache
     {
         if($reference == null) return null;
-        return EtatRealisationTache::where('reference', $reference)->first();
+        return WorkflowTache::where('reference', $reference)->first();
     }
 
     /**
      * Crée ou met à jour un enregistrement à partir des données importées.
      *
      * @param array $row Ligne de données importée.
-     * @return EtatRealisationTache|null
+     * @return WorkflowTache|null
      */
     public function model(array $row)
     {
@@ -55,14 +55,11 @@ class BaseEtatRealisationTacheImport implements ToModel, WithHeadingRow
         }
 
         // Création d'un nouvel enregistrement
-        return new EtatRealisationTache([
-             'nom' => $values[0] ?? null,
-             'description' => $values[1] ?? null,
-             'is_editable_only_by_formateur' => $values[2] ?? null,
+        return new WorkflowTache([
+             'code' => $values[0] ?? null,
+             'titre' => $values[1] ?? null,
+             'description' => $values[2] ?? null,
              'reference' => $reference,
-             'formateur_id' => $values[4] ?? null,
-             'sys_color_id' => $values[5] ?? null,
-             'workflow_tache_id' => $values[6] ?? null,
         ]);
 
 

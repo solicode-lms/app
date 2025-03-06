@@ -44,6 +44,10 @@
                                 <label for="sys_color_id">{{ ucfirst(__('PkgGestionTaches::etatRealisationTache.sys_color_id')) }}:</label>
                                 <p>{{ $itemEtatRealisationTache->sys_color_id }}</p>
                             </div>
+                            <div class="col-sm-12">
+                                <label for="workflow_tache_id">{{ ucfirst(__('PkgGestionTaches::etatRealisationTache.workflow_tache_id')) }}:</label>
+                                <p>{{ $itemEtatRealisationTache->workflow_tache_id }}</p>
+                            </div>
                         </div>
                     </div>
                 </div>

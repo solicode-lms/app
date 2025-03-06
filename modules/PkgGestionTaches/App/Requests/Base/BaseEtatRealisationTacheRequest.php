@@ -33,7 +33,8 @@ class BaseEtatRealisationTacheRequest extends FormRequest
             'description' => 'nullable|string',
             'is_editable_only_by_formateur' => 'nullable|boolean',
             'formateur_id' => 'required',
-            'sys_color_id' => 'required'
+            'sys_color_id' => 'required',
+            'workflow_tache_id' => 'nullable'
         ];
     }
 
@@ -50,7 +51,8 @@ class BaseEtatRealisationTacheRequest extends FormRequest
             'description.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::EtatRealisationTache.description')]),
             'is_editable_only_by_formateur.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::EtatRealisationTache.is_editable_only_by_formateur')]),
             'formateur_id.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::EtatRealisationTache.formateur_id')]),
-            'sys_color_id.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::EtatRealisationTache.sys_color_id')])
+            'sys_color_id.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::EtatRealisationTache.sys_color_id')]),
+            'workflow_tache_id.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::EtatRealisationTache.workflow_tache_id')])
         ];
     }
 

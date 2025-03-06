@@ -1,7 +1,7 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 
-@accessiblePermissions(['index-widgetOperation', 'index-widgetType', 'index-widgetUtilisateur', 'index-widget'])
+@accessiblePermissions(['index-widgetType', 'index-widgetOperation', 'index-widget', 'index-widgetUtilisateur'])
 @if($accessiblePermissions->isNotEmpty())
 <li id="menu-PkgWidgets" class="nav-item has-treeview  {{ Request::is('admin/PkgWidgets*') ? 'menu-open' : '' }}">
     <a href="#" class="nav-link nav-link {{ Request::is('admin/PkgWidgets*') ? 'active' : '' }}">
@@ -12,14 +12,6 @@
         </p>
     </a>
     <ul class="nav nav-treeview">
-        @can('index-widgetOperation') 
-        <li class="nav-item" id="menu-widgetOperations">
-            <a href="{{ route('widgetOperations.index') }}" class="nav-link {{ Request::is('admin/PkgWidgets/widgetOperations') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-table"></i>
-                {{__('PkgWidgets::widgetOperation.plural')}}
-            </a>
-        </li>
-        @endcan
         @can('index-widgetType') 
         <li class="nav-item" id="menu-widgetTypes">
             <a href="{{ route('widgetTypes.index') }}" class="nav-link {{ Request::is('admin/PkgWidgets/widgetTypes') ? 'active' : '' }}">
@@ -28,11 +20,11 @@
             </a>
         </li>
         @endcan
-        @can('index-widgetUtilisateur') 
-        <li class="nav-item" id="menu-widgetUtilisateurs">
-            <a href="{{ route('widgetUtilisateurs.index') }}" class="nav-link {{ Request::is('admin/PkgWidgets/widgetUtilisateurs') ? 'active' : '' }}">
+        @can('index-widgetOperation') 
+        <li class="nav-item" id="menu-widgetOperations">
+            <a href="{{ route('widgetOperations.index') }}" class="nav-link {{ Request::is('admin/PkgWidgets/widgetOperations') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-table"></i>
-                {{__('PkgWidgets::widgetUtilisateur.plural')}}
+                {{__('PkgWidgets::widgetOperation.plural')}}
             </a>
         </li>
         @endcan
@@ -41,6 +33,14 @@
             <a href="{{ route('widgets.index') }}" class="nav-link {{ Request::is('admin/PkgWidgets/widgets') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-table"></i>
                 {{__('PkgWidgets::widget.plural')}}
+            </a>
+        </li>
+        @endcan
+        @can('index-widgetUtilisateur') 
+        <li class="nav-item" id="menu-widgetUtilisateurs">
+            <a href="{{ route('widgetUtilisateurs.index') }}" class="nav-link {{ Request::is('admin/PkgWidgets/widgetUtilisateurs') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-table"></i>
+                {{__('PkgWidgets::widgetUtilisateur.plural')}}
             </a>
         </li>
         @endcan

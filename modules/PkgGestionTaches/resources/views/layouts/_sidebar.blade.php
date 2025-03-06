@@ -1,7 +1,7 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 
-@accessiblePermissions(['index-etatRealisationTache', 'index-labelRealisationTache', 'index-prioriteTache', 'index-typeDependanceTache', 'index-realisationTache'])
+@accessiblePermissions(['index-etatRealisationTache', 'index-labelRealisationTache', 'index-prioriteTache', 'index-typeDependanceTache', 'index-realisationTache', 'index-workflowTache'])
 @if($accessiblePermissions->isNotEmpty())
 <li id="menu-PkgGestionTaches" class="nav-item has-treeview  {{ Request::is('admin/PkgGestionTaches*') ? 'menu-open' : '' }}">
     <a href="#" class="nav-link nav-link {{ Request::is('admin/PkgGestionTaches*') ? 'active' : '' }}">
@@ -49,6 +49,14 @@
             <a href="{{ route('realisationTaches.index') }}" class="nav-link {{ Request::is('admin/PkgGestionTaches/realisationTaches') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-tasks"></i>
                 {{__('PkgGestionTaches::realisationTache.plural')}}
+            </a>
+        </li>
+        @endcan
+        @can('index-workflowTache') 
+        <li class="nav-item" id="menu-workflowTaches">
+            <a href="{{ route('workflowTaches.index') }}" class="nav-link {{ Request::is('admin/PkgGestionTaches/workflowTaches') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-table"></i>
+                {{__('PkgGestionTaches::workflowTache.plural')}}
             </a>
         </li>
         @endcan

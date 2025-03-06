@@ -5,7 +5,7 @@
 
 namespace Modules\PkgGestionTaches\App\Exports\Base;
 
-use Modules\PkgGestionTaches\Models\EtatRealisationTache;
+use Modules\PkgGestionTaches\Models\WorkflowTache;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
@@ -14,7 +14,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 
-class BaseEtatRealisationTacheExport implements FromCollection, WithHeadings, ShouldAutoSize, WithStyles
+class BaseWorkflowTacheExport implements FromCollection, WithHeadings, ShouldAutoSize, WithStyles
 {
     protected $data;
 
@@ -28,23 +28,17 @@ class BaseEtatRealisationTacheExport implements FromCollection, WithHeadings, Sh
     {
      if($this->format == 'csv'){
         return [
-            'nom' => 'nom',
+            'code' => 'code',
+            'titre' => 'titre',
             'description' => 'description',
-            'is_editable_only_by_formateur' => 'is_editable_only_by_formateur',
             'reference' => 'reference',
-            'formateur_id' => 'formateur_id',
-            'sys_color_id' => 'sys_color_id',
-            'workflow_tache_id' => 'workflow_tache_id',
         ];
         }else{
         return [
-            'nom' => __('PkgGestionTaches::etatRealisationTache.nom'),
-            'description' => __('PkgGestionTaches::etatRealisationTache.description'),
-            'is_editable_only_by_formateur' => __('PkgGestionTaches::etatRealisationTache.is_editable_only_by_formateur'),
+            'code' => __('PkgGestionTaches::workflowTache.code'),
+            'titre' => __('PkgGestionTaches::workflowTache.titre'),
+            'description' => __('PkgGestionTaches::workflowTache.description'),
             'reference' => __('Core::msg.reference'),
-            'formateur_id' => __('PkgGestionTaches::etatRealisationTache.formateur_id'),
-            'sys_color_id' => __('PkgGestionTaches::etatRealisationTache.sys_color_id'),
-            'workflow_tache_id' => __('PkgGestionTaches::etatRealisationTache.workflow_tache_id'),
         ];
 
         }
@@ -53,15 +47,12 @@ class BaseEtatRealisationTacheExport implements FromCollection, WithHeadings, Sh
 
     public function collection()
     {
-        return $this->data->map(function ($etatRealisationTache) {
+        return $this->data->map(function ($workflowTache) {
             return [
-                'nom' => $etatRealisationTache->nom,
-                'description' => $etatRealisationTache->description,
-                'is_editable_only_by_formateur' => $etatRealisationTache->is_editable_only_by_formateur,
-                'reference' => $etatRealisationTache->reference,
-                'formateur_id' => $etatRealisationTache->formateur_id,
-                'sys_color_id' => $etatRealisationTache->sys_color_id,
-                'workflow_tache_id' => $etatRealisationTache->workflow_tache_id,
+                'code' => $workflowTache->code,
+                'titre' => $workflowTache->titre,
+                'description' => $workflowTache->description,
+                'reference' => $workflowTache->reference,
             ];
         });
     }

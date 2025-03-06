@@ -6,6 +6,7 @@ namespace Modules\PkgGestionTaches\Controllers\Base;
 use Modules\PkgGestionTaches\Services\EtatRealisationTacheService;
 use Modules\PkgFormation\Services\FormateurService;
 use Modules\Core\Services\SysColorService;
+use Modules\PkgGestionTaches\Services\WorkflowTacheService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
@@ -22,12 +23,14 @@ class BaseEtatRealisationTacheController extends AdminController
     protected $etatRealisationTacheService;
     protected $formateurService;
     protected $sysColorService;
+    protected $workflowTacheService;
 
-    public function __construct(EtatRealisationTacheService $etatRealisationTacheService, FormateurService $formateurService, SysColorService $sysColorService) {
+    public function __construct(EtatRealisationTacheService $etatRealisationTacheService, FormateurService $formateurService, SysColorService $sysColorService, WorkflowTacheService $workflowTacheService) {
         parent::__construct();
         $this->etatRealisationTacheService = $etatRealisationTacheService;
         $this->formateurService = $formateurService;
         $this->sysColorService = $sysColorService;
+        $this->workflowTacheService = $workflowTacheService;
     }
 
     public function index(Request $request) {
@@ -73,11 +76,12 @@ class BaseEtatRealisationTacheController extends AdminController
 
         $formateurs = $this->formateurService->all();
         $sysColors = $this->sysColorService->all();
+        $workflowTaches = $this->workflowTacheService->all();
 
         if (request()->ajax()) {
-            return view('PkgGestionTaches::etatRealisationTache._fields', compact('itemEtatRealisationTache', 'formateurs', 'sysColors'));
+            return view('PkgGestionTaches::etatRealisationTache._fields', compact('itemEtatRealisationTache', 'formateurs', 'sysColors', 'workflowTaches'));
         }
-        return view('PkgGestionTaches::etatRealisationTache.create', compact('itemEtatRealisationTache', 'formateurs', 'sysColors'));
+        return view('PkgGestionTaches::etatRealisationTache.create', compact('itemEtatRealisationTache', 'formateurs', 'sysColors', 'workflowTaches'));
     }
     public function store(EtatRealisationTacheRequest $request) {
         $validatedData = $request->validated();
@@ -113,13 +117,14 @@ class BaseEtatRealisationTacheController extends AdminController
 
         $formateurs = $this->formateurService->all();
         $sysColors = $this->sysColorService->all();
+        $workflowTaches = $this->workflowTacheService->all();
 
 
         if (request()->ajax()) {
-            return view('PkgGestionTaches::etatRealisationTache._fields', compact('itemEtatRealisationTache', 'formateurs', 'sysColors'));
+            return view('PkgGestionTaches::etatRealisationTache._fields', compact('itemEtatRealisationTache', 'formateurs', 'sysColors', 'workflowTaches'));
         }
 
-        return view('PkgGestionTaches::etatRealisationTache.edit', compact('itemEtatRealisationTache', 'formateurs', 'sysColors'));
+        return view('PkgGestionTaches::etatRealisationTache.edit', compact('itemEtatRealisationTache', 'formateurs', 'sysColors', 'workflowTaches'));
 
     }
     public function edit(string $id) {
@@ -133,13 +138,14 @@ class BaseEtatRealisationTacheController extends AdminController
 
         $formateurs = $this->formateurService->all();
         $sysColors = $this->sysColorService->all();
+        $workflowTaches = $this->workflowTacheService->all();
 
 
         if (request()->ajax()) {
-            return view('PkgGestionTaches::etatRealisationTache._fields', compact('itemEtatRealisationTache', 'formateurs', 'sysColors'));
+            return view('PkgGestionTaches::etatRealisationTache._fields', compact('itemEtatRealisationTache', 'formateurs', 'sysColors', 'workflowTaches'));
         }
 
-        return view('PkgGestionTaches::etatRealisationTache.edit', compact('itemEtatRealisationTache', 'formateurs', 'sysColors'));
+        return view('PkgGestionTaches::etatRealisationTache.edit', compact('itemEtatRealisationTache', 'formateurs', 'sysColors', 'workflowTaches'));
 
     }
     public function update(EtatRealisationTacheRequest $request, string $id) {

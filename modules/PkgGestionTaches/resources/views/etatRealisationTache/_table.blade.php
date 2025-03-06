@@ -8,6 +8,7 @@
                 <x-sortable-column field="nom" modelname="etatRealisationTache" label="{{ ucfirst(__('PkgGestionTaches::etatRealisationTache.nom')) }}" />
                 <x-sortable-column field="formateur_id" modelname="etatRealisationTache" label="{{ ucfirst(__('PkgFormation::formateur.singular')) }}" />
                 <x-sortable-column field="sys_color_id" modelname="etatRealisationTache" label="{{ ucfirst(__('Core::sysColor.singular')) }}" />
+                <x-sortable-column field="workflow_tache_id" modelname="etatRealisationTache" label="{{ ucfirst(__('PkgGestionTaches::workflowTache.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -18,6 +19,7 @@
                     <td>@limit($etatRealisationTache->nom, 50)</td>
                     <td>@limit($etatRealisationTache->formateur, 50)</td>
                     <td>@limit($etatRealisationTache->sysColor, 50)</td>
+                    <td>@limit($etatRealisationTache->workflowTache, 50)</td>
                     <td class="text-right">
 
                         @can('show-etatRealisationTache')

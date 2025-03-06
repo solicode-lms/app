@@ -13,6 +13,7 @@ use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
 use Modules\PkgFormation\Models\Formateur;
 use Modules\Core\Models\SysColor;
+use Modules\PkgGestionTaches\Models\WorkflowTache;
 use Modules\PkgGestionTaches\Models\RealisationTache;
 
 /**
@@ -37,7 +38,7 @@ class BaseEtatRealisationTache extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'nom', 'description', 'is_editable_only_by_formateur', 'formateur_id', 'sys_color_id'
+        'nom', 'description', 'is_editable_only_by_formateur', 'formateur_id', 'sys_color_id', 'workflow_tache_id'
     ];
 
     /**
@@ -57,6 +58,15 @@ class BaseEtatRealisationTache extends BaseModel
     public function sysColor(): BelongsTo
     {
         return $this->belongsTo(SysColor::class, 'sys_color_id', 'id');
+    }
+    /**
+     * Relation BelongsTo pour WorkflowTache.
+     *
+     * @return BelongsTo
+     */
+    public function workflowTache(): BelongsTo
+    {
+        return $this->belongsTo(WorkflowTache::class, 'workflow_tache_id', 'id');
     }
 
 

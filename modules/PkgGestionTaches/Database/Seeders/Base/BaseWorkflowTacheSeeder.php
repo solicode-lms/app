@@ -16,13 +16,13 @@ use Modules\Core\Models\SysModule;
 use Modules\PkgAutorisation\Models\Permission;
 use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgAutorisation\Models\User;
-use Modules\PkgGestionTaches\Models\EtatRealisationTache;
-use Modules\PkgGestionTaches\Services\EtatRealisationTacheService;
+use Modules\PkgGestionTaches\Models\WorkflowTache;
+use Modules\PkgGestionTaches\Services\WorkflowTacheService;
 
 
-class BaseEtatRealisationTacheSeeder extends Seeder
+class BaseWorkflowTacheSeeder extends Seeder
 {
-    public static int $order = 57;
+    public static int $order = 69;
 
     public function run(): void
     {
@@ -39,7 +39,7 @@ class BaseEtatRealisationTacheSeeder extends Seeder
 
     public function seedFromCsv(): void
     {
-        $filePath = base_path("modules/PkgGestionTaches/Database/data/etatRealisationTaches.csv");
+        $filePath = base_path("modules/PkgGestionTaches/Database/data/workflowTaches.csv");
         
         if (!file_exists($filePath) || filesize($filePath) === 0) {
             return;
@@ -57,25 +57,22 @@ class BaseEtatRealisationTacheSeeder extends Seeder
             return;
         }
 
-        $etatRealisationTacheService = new EtatRealisationTacheService();
+        $workflowTacheService = new WorkflowTacheService();
 
         // Lire les données restantes en associant chaque valeur à son nom de colonne
         while (($data = fgetcsv($csvFile)) !== false) {
             $row = array_combine($headers, $data);
             if ($row) {
-                $etatRealisationTacheData =[
-                    "nom" => $row["nom"] ?? null,
+                $workflowTacheData =[
+                    "code" => $row["code"] ?? null,
+                    "titre" => $row["titre"] ?? null,
                     "description" => $row["description"] ?? null,
-                    "is_editable_only_by_formateur" => $row["is_editable_only_by_formateur"] ?? null,
-                    "formateur_id" => $row["formateur_id"] ?? null,
-                    "sys_color_id" => $row["sys_color_id"] ?? null,
-                    "workflow_tache_id" => $row["workflow_tache_id"] ?? null,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {
-                    $etatRealisationTacheService->updateOrCreate(["reference" => $row["reference"]], $etatRealisationTacheData);
+                    $workflowTacheService->updateOrCreate(["reference" => $row["reference"]], $workflowTacheData);
                 } else {
-                    $etatRealisationTacheService->create($etatRealisationTacheData);
+                    $workflowTacheService->create($workflowTacheData);
                 }
             }
         }
@@ -98,9 +95,9 @@ class BaseEtatRealisationTacheSeeder extends Seeder
         }
 
         // Configuration unique pour ce contrôleur et domaine
-        $controllerName = 'EtatRealisationTacheController';
-        $controllerBaseName = 'etatRealisationTache';
-        $domainName = 'EtatRealisationTache';
+        $controllerName = 'WorkflowTacheController';
+        $controllerBaseName = 'workflowTache';
+        $domainName = 'WorkflowTache';
 
         // Permissions spécifiques pour chaque type de fonctionnalité
         $featurePermissions = [

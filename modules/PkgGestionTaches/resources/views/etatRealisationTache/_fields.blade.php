@@ -129,6 +129,32 @@
 
 
         
+        <div class="form-group col-12 col-md-6">
+            <label for="workflow_tache_id">
+                {{ ucfirst(__('PkgGestionTaches::workflowTache.singular')) }}
+                
+            </label>
+            <select 
+            id="workflow_tache_id" 
+            
+            
+            name="workflow_tache_id" 
+            class="form-control select2">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($workflowTaches as $workflowTache)
+                    <option value="{{ $workflowTache->id }}"
+                        {{ (isset($itemEtatRealisationTache) && $itemEtatRealisationTache->workflow_tache_id == $workflowTache->id) || (old('workflow_tache_id>') == $workflowTache->id) ? 'selected' : '' }}>
+                        {{ $workflowTache }}
+                    </option>
+                @endforeach
+            </select>
+            @error('workflow_tache_id')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+    </div>
+
+
+        
 
         <!--   RealisationTache HasMany --> 
 

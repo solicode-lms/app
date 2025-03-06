@@ -23,7 +23,8 @@ class BaseEtatRealisationTacheService extends BaseService
         'description',
         'is_editable_only_by_formateur',
         'formateur_id',
-        'sys_color_id'
+        'sys_color_id',
+        'workflow_tache_id'
     ];
 
     /**
@@ -57,6 +58,9 @@ class BaseEtatRealisationTacheService extends BaseService
         }
         if (!array_key_exists('sys_color_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("Core::sysColor.plural"), 'sys_color_id', \Modules\Core\Models\SysColor::class, 'name');
+        }
+        if (!array_key_exists('workflow_tache_id', $scopeVariables)) {
+        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgGestionTaches::workflowTache.plural"), 'workflow_tache_id', \Modules\PkgGestionTaches\Models\WorkflowTache::class, 'code');
         }
     }
 
