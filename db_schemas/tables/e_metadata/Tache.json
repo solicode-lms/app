@@ -364,5 +364,19 @@
         ],
         "e_data_field_reference": "taches_livrables_livrable_tache_m2m_m2m",
         "e_metadata_definition_reference": "scopeDataInEditContext"
+    },
+    {
+        "reference": "Tache_priorite_tache_id_scopeDataInEditContext",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": [
+            {
+                "key": "scope.prioriteTache.formateur_id",
+                "value": "projet.formateur_id",
+                "modelName": "Tache"
+            }
+        ],
+        "e_data_field_reference": "Tache_priorite_tache_id",
+        "e_metadata_definition_reference": "scopeDataInEditContext"
     }
 ]

@@ -3,7 +3,7 @@
 [System.Text.Encoding]::Default
 $OutputEncoding = [System.Text.Encoding]::UTF8
 
-Get-Content .\sauvegarde_05_03_25.sql -Raw -Encoding UTF8 | mysql -u root -p solicode_lms
+Get-Content .\sauvegarde_06_03_25.sql -Raw -Encoding UTF8 | mysql -u root -p solicode_lms
 ```
 
 Pour supprimer tous les tables 

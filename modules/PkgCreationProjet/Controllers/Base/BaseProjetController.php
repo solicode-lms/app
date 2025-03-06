@@ -215,7 +215,7 @@ class BaseProjetController extends AdminController
         $this->viewState->set($key, $value);
 
         $transfertCompetenceService =  new TransfertCompetenceService();
-        $transfertCompetences_data =  $itemProjet->transfertCompetences()->paginate(10);
+        $transfertCompetences_data =  $transfertCompetenceService->paginate();
         $transfertCompetences_stats = $transfertCompetenceService->gettransfertCompetenceStats();
         $this->viewState->set('stats.transfertCompetence.stats'  , $transfertCompetences_stats);
         $transfertCompetences_filters = $transfertCompetenceService->getFieldsFilterable();
@@ -249,7 +249,7 @@ class BaseProjetController extends AdminController
         
 
         $tacheService =  new TacheService();
-        $taches_data =  $itemProjet->taches()->paginate(10);
+        $taches_data =  $tacheService->paginate();
         $taches_stats = $tacheService->gettacheStats();
         $this->viewState->set('stats.tache.stats'  , $taches_stats);
         $taches_filters = $tacheService->getFieldsFilterable();
