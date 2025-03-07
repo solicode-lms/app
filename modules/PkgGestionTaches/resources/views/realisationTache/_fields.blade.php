@@ -70,7 +70,7 @@
 
 
         
-        <div class="form-group col-12 col-md-6">
+        <div class="form-group col-12 col-md-3">
             <label for="dateDebut">
                 {{ ucfirst(__('PkgGestionTaches::realisationTache.dateDebut')) }}
                 
@@ -96,7 +96,7 @@
 
 
         
-        <div class="form-group col-12 col-md-6">
+        <div class="form-group col-12 col-md-3">
             <label for="dateFin">
                 {{ ucfirst(__('PkgGestionTaches::realisationTache.dateFin')) }}
                 
@@ -146,7 +146,8 @@
 
 
         
-        <div class="form-group col-12 col-md-12">
+        @php $canEditremarques_formateur = Auth::user()->hasAnyRole(explode(',', 'formateur')); @endphp
+<div class="form-group col-12 col-md-6">
             <label for="remarques_formateur">
                 {{ ucfirst(__('PkgGestionTaches::realisationTache.remarques_formateur')) }}
                 
@@ -154,6 +155,7 @@
             <textarea rows="" cols=""
                 name="remarques_formateur"
                 class="form-control richText"
+                {{ $canEditremarques_formateur ? '' : 'disabled' }}
                 
                 
                 id="remarques_formateur"
@@ -166,7 +168,7 @@
 </div>
 
         
-        <div class="form-group col-12 col-md-12">
+        <div class="form-group col-12 col-md-6">
             <label for="remarques_apprenant">
                 {{ ucfirst(__('PkgGestionTaches::realisationTache.remarques_apprenant')) }}
                 

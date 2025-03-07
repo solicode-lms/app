@@ -71,6 +71,8 @@ class BaseRealisationTacheRequest extends FormRequest
             
             'realisation_projet_id' => "formateur,admin",
             
+            'remarques_formateur' => "formateur",
+            
         ];
 
         // Charger l'instance actuelle du modèle (optionnel, selon ton contexte)

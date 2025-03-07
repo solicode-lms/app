@@ -9,4 +9,6 @@ return [
     'tache_id' => 'Tâche',
     'realisation_projet_id' => 'Réalisation du projet',
     'etat_realisation_tache_id' => 'État de réalisation de la tâche',
+    'remarques_formateur' => 'Remarques - formateur',
+    'remarques_apprenant' => 'Remarques - apprenant',
 ];

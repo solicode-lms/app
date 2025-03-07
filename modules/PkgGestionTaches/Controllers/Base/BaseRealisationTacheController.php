@@ -7,7 +7,6 @@ use Modules\PkgGestionTaches\Services\RealisationTacheService;
 use Modules\PkgGestionTaches\Services\EtatRealisationTacheService;
 use Modules\PkgRealisationProjets\Services\RealisationProjetService;
 use Modules\PkgGestionTaches\Services\TacheService;
-use Modules\PkgGestionTaches\Services\CommentaireRealisationTacheService;
 use Modules\PkgGestionTaches\Services\HistoriqueRealisationTacheService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -137,15 +136,6 @@ class BaseRealisationTacheController extends AdminController
         $etatRealisationTaches = $this->etatRealisationTacheService->all();
 
 
-        $this->viewState->set('scope.commentaireRealisationTache.realisation_tache_id', $id);
-
-
-        $commentaireRealisationTacheService =  new CommentaireRealisationTacheService();
-        $commentaireRealisationTaches_data =  $commentaireRealisationTacheService->paginate();
-        $commentaireRealisationTaches_stats = $commentaireRealisationTacheService->getcommentaireRealisationTacheStats();
-        $commentaireRealisationTaches_filters = $commentaireRealisationTacheService->getFieldsFilterable();
-        $commentaireRealisationTache_instance =  $commentaireRealisationTacheService->createInstance();
-
         $this->viewState->set('scope.historiqueRealisationTache.realisation_tache_id', $id);
 
 
@@ -156,10 +146,10 @@ class BaseRealisationTacheController extends AdminController
         $historiqueRealisationTache_instance =  $historiqueRealisationTacheService->createInstance();
 
         if (request()->ajax()) {
-            return view('PkgGestionTaches::realisationTache._edit', compact('itemRealisationTache', 'etatRealisationTaches', 'realisationProjets', 'taches', 'commentaireRealisationTaches_data', 'historiqueRealisationTaches_data', 'commentaireRealisationTaches_stats', 'historiqueRealisationTaches_stats', 'commentaireRealisationTaches_filters', 'historiqueRealisationTaches_filters', 'commentaireRealisationTache_instance', 'historiqueRealisationTache_instance'));
+            return view('PkgGestionTaches::realisationTache._edit', compact('itemRealisationTache', 'etatRealisationTaches', 'realisationProjets', 'taches', 'historiqueRealisationTaches_data', 'historiqueRealisationTaches_stats', 'historiqueRealisationTaches_filters', 'historiqueRealisationTache_instance'));
         }
 
-        return view('PkgGestionTaches::realisationTache.edit', compact('itemRealisationTache', 'etatRealisationTaches', 'realisationProjets', 'taches', 'commentaireRealisationTaches_data', 'historiqueRealisationTaches_data', 'commentaireRealisationTaches_stats', 'historiqueRealisationTaches_stats', 'commentaireRealisationTaches_filters', 'historiqueRealisationTaches_filters', 'commentaireRealisationTache_instance', 'historiqueRealisationTache_instance'));
+        return view('PkgGestionTaches::realisationTache.edit', compact('itemRealisationTache', 'etatRealisationTaches', 'realisationProjets', 'taches', 'historiqueRealisationTaches_data', 'historiqueRealisationTaches_stats', 'historiqueRealisationTaches_filters', 'historiqueRealisationTache_instance'));
 
     }
     public function edit(string $id) {
@@ -180,16 +170,6 @@ class BaseRealisationTacheController extends AdminController
         $etatRealisationTaches = $this->etatRealisationTacheService->all();
 
 
-        $this->viewState->set('scope.commentaireRealisationTache.realisation_tache_id', $id);
-        
-
-        $commentaireRealisationTacheService =  new CommentaireRealisationTacheService();
-        $commentaireRealisationTaches_data =  $commentaireRealisationTacheService->paginate();
-        $commentaireRealisationTaches_stats = $commentaireRealisationTacheService->getcommentaireRealisationTacheStats();
-        $this->viewState->set('stats.commentaireRealisationTache.stats'  , $commentaireRealisationTaches_stats);
-        $commentaireRealisationTaches_filters = $commentaireRealisationTacheService->getFieldsFilterable();
-        $commentaireRealisationTache_instance =  $commentaireRealisationTacheService->createInstance();
-
         $this->viewState->set('scope.historiqueRealisationTache.realisation_tache_id', $id);
         
 
@@ -201,10 +181,10 @@ class BaseRealisationTacheController extends AdminController
         $historiqueRealisationTache_instance =  $historiqueRealisationTacheService->createInstance();
 
         if (request()->ajax()) {
-            return view('PkgGestionTaches::realisationTache._edit', compact('itemRealisationTache', 'etatRealisationTaches', 'realisationProjets', 'taches', 'commentaireRealisationTaches_data', 'historiqueRealisationTaches_data', 'commentaireRealisationTaches_stats', 'historiqueRealisationTaches_stats', 'commentaireRealisationTaches_filters', 'historiqueRealisationTaches_filters', 'commentaireRealisationTache_instance', 'historiqueRealisationTache_instance'));
+            return view('PkgGestionTaches::realisationTache._edit', compact('itemRealisationTache', 'etatRealisationTaches', 'realisationProjets', 'taches', 'historiqueRealisationTaches_data', 'historiqueRealisationTaches_stats', 'historiqueRealisationTaches_filters', 'historiqueRealisationTache_instance'));
         }
 
-        return view('PkgGestionTaches::realisationTache.edit', compact('itemRealisationTache', 'etatRealisationTaches', 'realisationProjets', 'taches', 'commentaireRealisationTaches_data', 'historiqueRealisationTaches_data', 'commentaireRealisationTaches_stats', 'historiqueRealisationTaches_stats', 'commentaireRealisationTaches_filters', 'historiqueRealisationTaches_filters', 'commentaireRealisationTache_instance', 'historiqueRealisationTache_instance'));
+        return view('PkgGestionTaches::realisationTache.edit', compact('itemRealisationTache', 'etatRealisationTaches', 'realisationProjets', 'taches', 'historiqueRealisationTaches_data', 'historiqueRealisationTaches_stats', 'historiqueRealisationTaches_filters', 'historiqueRealisationTache_instance'));
 
     }
     public function update(RealisationTacheRequest $request, string $id) {
