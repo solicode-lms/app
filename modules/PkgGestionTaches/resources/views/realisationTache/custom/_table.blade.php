@@ -25,17 +25,12 @@
                     <td>@limit($realisationTache->realisationProjet, 50)</td>
                     <td>
                         @php
-                        $etat = $realisationTache->etatRealisationTache?->nom ?? '';
-                        $couleurs = [
-                            "En cours" => "badge-success",
-                            "Terminé" => "badge-primary",
-                            "Terminée" => "badge-primary",
-                            "Annulé" => "badge-secondary",
-                            "En validation" => "badge-warning",
-                            "En pause" => "badge-danger",
-                            "En présentation" => "badge-info"
-                        ];
-                        $classeBadge = $couleurs[$etat] ?? "badge-secondary";
+                        if($realisationTache->etatRealisationTache && $realisationTache->etatRealisationTache->sysColor){
+                            $sysColorName = $realisationTache->etatRealisationTache->sysColor->name;
+                            $classeBadge = "badge-" . $sysColorName;
+                        }else{
+                            $classeBadge = "badge-secondary";
+                        }
                         @endphp
                         <span class="badge {{ $classeBadge }}">@limit($realisationTache->etatRealisationTache, 50)</span>
                     </td>
