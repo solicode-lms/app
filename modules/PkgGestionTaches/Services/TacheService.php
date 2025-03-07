@@ -111,4 +111,20 @@ class TacheService extends BaseTacheService
         })->get();
     }
 
+
+    /**
+     * Récupérer les tâches associées à une affectation de projet donnée.
+     *
+     * @param int $affectationProjetId
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function getTacheByAffectationProjetId(int $affectationProjetId)
+    {
+        return $this->model->whereHas('projet', function ($query) use ($affectationProjetId) {
+            $query->whereHas('affectationsProjets', function ($q) use ($affectationProjetId) {
+                $q->where('id', $affectationProjetId);
+            });
+        })->get();
+    }
+
 }
