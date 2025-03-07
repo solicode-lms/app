@@ -4,17 +4,17 @@
 
 namespace Modules\PkgGestionTaches\Controllers;
 
-use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request;
 use Modules\PkgGestionTaches\Controllers\Base\BaseTacheController;
 use Modules\PkgGestionTaches\Services\TacheService;
 
 class TacheController extends BaseTacheController
 {
-    public function getTachesByAffectationProjet(Request $request)
+    public function getTacheByAffectationProjetId($affectationProjetId)
     {
-        $affectation_projet_id = $request->query('affectation_projet_id');
+        //$affectationProjetId = $request->query('affectation_projet_id');
 
-        $taches = (new TacheService())->getTacheByAffectationProjetId($affectation_projet_id);
+        $taches = (new TacheService())->getTacheByAffectationProjetId($affectationProjetId);
 
         return response()->json($taches);
     }

@@ -44,6 +44,29 @@ document.addEventListener("DOMContentLoaded", function () {
     TableUI.initTooltip();
 
     AsideMenu.init();
+
+
+
+    // Le chargeent de LoadData déclanche change 
+    document.getElementById('filter_realisationProjet.affectation_projet_id').addEventListener('change', function () {
+        
+    let affectation_projet_id = this.value;
+    let getTachesByAffectationProjet_url = "http://localhost/admin/PkgGestionTaches/taches/getTacheByAffectationProjetId/__ID__";
+    getTachesByAffectationProjet_url = getTachesByAffectationProjet_url.replace("__ID__",affectation_projet_id);
+    fetch(getTachesByAffectationProjet_url)
+        .then(response => response.json())
+        .then(data => {
+            let selectTaches = document.getElementById('filter_tache_id');
+            selectTaches.innerHTML = ''; // Vider les anciennes options
+
+            data.forEach(tache => {
+                let option = document.createElement('option');
+                option.value = tache.id;
+                option.textContent = tache.titre;
+                selectTaches.appendChild(option);
+            });
+        });
+    });
    
 
 });

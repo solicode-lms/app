@@ -1,5 +1,5 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
+// TODO : add methode to Controller 
 
 
 
@@ -23,6 +23,10 @@ Route::middleware('auth')->group(function () {
         });
 
         Route::post('taches/data-calcul', [TacheController::class, 'dataCalcul'])->name('taches.dataCalcul');
-
+        
+        // Méthode utilisé pour adapter le filtre tache dans RéalisationTaches
+        Route::get('taches/getTacheByAffectationProjetId/{affectation_projet_id}', [TacheController::class, 'getTacheByAffectationProjetId'])
+        ->name('taches.getTacheByAffectationProjetId');
+        
     });
 });

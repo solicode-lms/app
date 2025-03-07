@@ -121,7 +121,7 @@ class TacheService extends BaseTacheService
     public function getTacheByAffectationProjetId(int $affectationProjetId)
     {
         return $this->model->whereHas('projet', function ($query) use ($affectationProjetId) {
-            $query->whereHas('affectationsProjets', function ($q) use ($affectationProjetId) {
+            $query->whereHas('affectationProjets', function ($q) use ($affectationProjetId) {
                 $q->where('id', $affectationProjetId);
             });
         })->get();
