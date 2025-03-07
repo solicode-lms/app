@@ -336,6 +336,34 @@ export class FormUI  {
             height: 80, //set editable area's height
         });
 
+
+      
+        // $('.richText').each(function () {
+        //     var $textarea = $(this);
+            
+        //     // Vérifier si la textarea est désactivée
+        //     if ($textarea.prop('disabled')) {
+        //         $textarea.summernote({
+        //             height: 80,
+        //             toolbar: false,  // Désactive la barre d'outils
+        //             airMode: false,  // Mode édition désactivé
+        //             callbacks: {
+        //                 onInit: function () {
+        //                     // Désactiver le contenu pour éviter l'édition
+        //                     $('.note-editable').attr('contenteditable', false);
+        //                 }
+        //             }
+        //         });
+        //     } else {
+        //         $textarea.summernote({
+        //             height: 80
+        //         });
+        //     }
+        // });
+       
+
+        
+
         // Utiliser EventUtil pour gérer l'événement `summernote.change`
         EventUtil.bindEvent('summernote.change', '.richText', function() {
             $(this).trigger('change'); // Déclenche le `change` sur le textarea caché
