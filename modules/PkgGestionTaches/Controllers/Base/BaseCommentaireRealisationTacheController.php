@@ -38,6 +38,7 @@ class BaseCommentaireRealisationTacheController extends AdminController
         $this->viewState->setContextKeyIfEmpty('commentaireRealisationTache.index');
 
 
+
         // Extraire les paramètres de recherche, page, et filtres
         $commentaireRealisationTaches_params = array_merge(
             $request->only(['page','sort']),

@@ -30,6 +30,7 @@ class BaseTypeDependanceTacheController extends AdminController
         $this->viewState->setContextKeyIfEmpty('typeDependanceTache.index');
 
 
+
         // Extraire les paramètres de recherche, page, et filtres
         $typeDependanceTaches_params = array_merge(
             $request->only(['page','sort']),

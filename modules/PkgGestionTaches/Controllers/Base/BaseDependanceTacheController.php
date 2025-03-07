@@ -35,6 +35,7 @@ class BaseDependanceTacheController extends AdminController
         $this->viewState->setContextKeyIfEmpty('dependanceTache.index');
 
 
+
         // Extraire les paramètres de recherche, page, et filtres
         $dependanceTaches_params = array_merge(
             $request->only(['page','sort']),

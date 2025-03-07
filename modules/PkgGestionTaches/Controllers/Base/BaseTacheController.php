@@ -40,6 +40,7 @@ class BaseTacheController extends AdminController
         $this->viewState->setContextKeyIfEmpty('tache.index');
 
 
+
         // Extraire les paramètres de recherche, page, et filtres
         $taches_params = array_merge(
             $request->only(['page','sort']),

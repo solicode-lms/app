@@ -39,6 +39,7 @@ class BaseLabelRealisationTacheController extends AdminController
         }
 
 
+
         // Extraire les paramètres de recherche, page, et filtres
         $labelRealisationTaches_params = array_merge(
             $request->only(['page','sort']),

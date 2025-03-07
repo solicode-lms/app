@@ -380,5 +380,41 @@
         ],
         "e_data_field_reference": "RealisationTache_etat_realisation_tache_id",
         "e_metadata_definition_reference": "scopeDataInEditContext"
+    },
+    {
+        "reference": "RealisationTache_remarques_formateur_displayOrder",
+        "value_integer": 8,
+        "e_data_field_reference": "RealisationTache_remarques_formateur",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "RealisationTache_remarques_formateur_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_remarques_formateur",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "RealisationTache_remarques_formateur_inputMdWidth",
+        "value_integer": 12,
+        "e_data_field_reference": "RealisationTache_remarques_formateur",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "RealisationTache_remarques_apprenant_displayOrder",
+        "value_integer": 9,
+        "e_data_field_reference": "RealisationTache_remarques_apprenant",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "RealisationTache_remarques_apprenant_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_remarques_apprenant",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "RealisationTache_remarques_apprenant_inputMdWidth",
+        "value_integer": 12,
+        "e_data_field_reference": "RealisationTache_remarques_apprenant",
+        "e_metadata_definition_reference": "inputMdWidth"
     }
 ]

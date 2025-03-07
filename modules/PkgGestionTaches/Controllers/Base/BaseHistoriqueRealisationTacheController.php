@@ -32,6 +32,7 @@ class BaseHistoriqueRealisationTacheController extends AdminController
         $this->viewState->setContextKeyIfEmpty('historiqueRealisationTache.index');
 
 
+
         // Extraire les paramètres de recherche, page, et filtres
         $historiqueRealisationTaches_params = array_merge(
             $request->only(['page','sort']),

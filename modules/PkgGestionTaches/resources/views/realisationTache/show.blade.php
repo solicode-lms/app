@@ -48,6 +48,14 @@
                                 <label for="etat_realisation_tache_id">{{ ucfirst(__('PkgGestionTaches::realisationTache.etat_realisation_tache_id')) }}:</label>
                                 <p>{{ $itemRealisationTache->etat_realisation_tache_id }}</p>
                             </div>
+                            <div class="col-sm-12">
+                                <label for="remarques_formateur">{{ ucfirst(__('PkgGestionTaches::realisationTache.remarques_formateur')) }}:</label>
+                                <p>{{ $itemRealisationTache->remarques_formateur }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="remarques_apprenant">{{ ucfirst(__('PkgGestionTaches::realisationTache.remarques_apprenant')) }}:</label>
+                                <p>{{ $itemRealisationTache->remarques_apprenant }}</p>
+                            </div>
                         </div>
                     </div>
                 </div>

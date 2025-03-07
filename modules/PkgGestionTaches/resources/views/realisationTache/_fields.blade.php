@@ -146,6 +146,46 @@
 
 
         
+        <div class="form-group col-12 col-md-12">
+            <label for="remarques_formateur">
+                {{ ucfirst(__('PkgGestionTaches::realisationTache.remarques_formateur')) }}
+                
+            </label>
+            <textarea rows="" cols=""
+                name="remarques_formateur"
+                class="form-control richText"
+                
+                
+                id="remarques_formateur"
+                placeholder="{{ __('PkgGestionTaches::realisationTache.remarques_formateur') }}">
+                {{ $itemRealisationTache ? $itemRealisationTache->remarques_formateur : old('remarques_formateur') }}
+            </textarea>
+            @error('remarques_formateur')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
+
+        
+        <div class="form-group col-12 col-md-12">
+            <label for="remarques_apprenant">
+                {{ ucfirst(__('PkgGestionTaches::realisationTache.remarques_apprenant')) }}
+                
+            </label>
+            <textarea rows="" cols=""
+                name="remarques_apprenant"
+                class="form-control richText"
+                
+                
+                id="remarques_apprenant"
+                placeholder="{{ __('PkgGestionTaches::realisationTache.remarques_apprenant') }}">
+                {{ $itemRealisationTache ? $itemRealisationTache->remarques_apprenant : old('remarques_apprenant') }}
+            </textarea>
+            @error('remarques_apprenant')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
+
+        
 
         <!--   CommentaireRealisationTache HasMany --> 
 

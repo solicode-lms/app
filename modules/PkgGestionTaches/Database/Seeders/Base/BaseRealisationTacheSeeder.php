@@ -70,6 +70,8 @@ class BaseRealisationTacheSeeder extends Seeder
                     "dateDebut" => $row["dateDebut"] ?? null,
                     "dateFin" => $row["dateFin"] ?? null,
                     "etat_realisation_tache_id" => $row["etat_realisation_tache_id"] ?? null,
+                    "remarques_formateur" => $row["remarques_formateur"] ?? null,
+                    "remarques_apprenant" => $row["remarques_apprenant"] ?? null,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

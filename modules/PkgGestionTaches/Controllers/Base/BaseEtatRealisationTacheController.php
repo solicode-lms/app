@@ -42,6 +42,7 @@ class BaseEtatRealisationTacheController extends AdminController
         }
 
 
+
         // Extraire les paramètres de recherche, page, et filtres
         $etatRealisationTaches_params = array_merge(
             $request->only(['page','sort']),

@@ -30,6 +30,7 @@ class BaseWorkflowTacheController extends AdminController
         $this->viewState->setContextKeyIfEmpty('workflowTache.index');
 
 
+
         // Extraire les paramètres de recherche, page, et filtres
         $workflowTaches_params = array_merge(
             $request->only(['page','sort']),

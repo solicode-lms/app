@@ -36,6 +36,7 @@ class BasePrioriteTacheController extends AdminController
         }
 
 
+
         // Extraire les paramètres de recherche, page, et filtres
         $prioriteTaches_params = array_merge(
             $request->only(['page','sort']),

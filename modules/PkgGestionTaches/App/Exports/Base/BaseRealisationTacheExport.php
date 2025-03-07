@@ -35,6 +35,8 @@ class BaseRealisationTacheExport implements FromCollection, WithHeadings, Should
             'dateFin' => 'dateFin',
             'reference' => 'reference',
             'etat_realisation_tache_id' => 'etat_realisation_tache_id',
+            'remarques_formateur' => 'remarques_formateur',
+            'remarques_apprenant' => 'remarques_apprenant',
         ];
         }else{
         return [
@@ -45,6 +47,8 @@ class BaseRealisationTacheExport implements FromCollection, WithHeadings, Should
             'dateFin' => __('PkgGestionTaches::realisationTache.dateFin'),
             'reference' => __('Core::msg.reference'),
             'etat_realisation_tache_id' => __('PkgGestionTaches::realisationTache.etat_realisation_tache_id'),
+            'remarques_formateur' => __('PkgGestionTaches::realisationTache.remarques_formateur'),
+            'remarques_apprenant' => __('PkgGestionTaches::realisationTache.remarques_apprenant'),
         ];
 
         }
@@ -62,6 +66,8 @@ class BaseRealisationTacheExport implements FromCollection, WithHeadings, Should
                 'dateFin' => $realisationTache->dateFin,
                 'reference' => $realisationTache->reference,
                 'etat_realisation_tache_id' => $realisationTache->etat_realisation_tache_id,
+                'remarques_formateur' => $realisationTache->remarques_formateur,
+                'remarques_apprenant' => $realisationTache->remarques_apprenant,
             ];
         });
     }
