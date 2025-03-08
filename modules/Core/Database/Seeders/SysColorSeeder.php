@@ -56,7 +56,7 @@ class SysColorSeeder extends Seeder
         fclose($csvFile);
     }
 
-    private function addDefaultControllerDomainFeatures(): void
+    public function addDefaultControllerDomainFeatures(): void
     {
         // Trouver dynamiquement le module SysModule par son slug
         $moduleSlug = 'Core'; // Slug du module

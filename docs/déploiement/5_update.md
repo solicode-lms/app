@@ -1,16 +1,19 @@
 
+# Mise à jour et add tous les permission manquante 
+
 ## Sur Linux
 
 ````bash
-sudo php artisan db:seed --class=Modules\\PkgGestionTaches\\Database\\Seeders\\TacheSeeder
+sudo php artisan db:seed --class=Database\\Seeders\\AddAllPermissions
 ````
 
 ## Sur Windows 
 
 ````bash
-php artisan db:seed --class=Modules\PkgGestionTaches\Database\Seeders\TacheSeeder
-````
+php artisan db:seed --class=Database\Seeders\AddAllPermissions
+php artisan db:seed --class=Database\Seeders\AddRoleToGetDataPermissionsSeeder
 
+````
 
 
 

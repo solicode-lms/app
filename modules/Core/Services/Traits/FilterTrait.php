@@ -19,7 +19,16 @@ trait FilterTrait
      * @param string $display_field Le champ affiché dans la liste déroulante.
      * @return array Le filtre formaté.
      */
-    protected function generateManyToOneFilter(string $label, string $field, string $model, string $display_field,$data = null): array
+    protected function generateManyToOneFilter(
+        string $label, 
+        string $field, 
+        string $model, 
+        string $display_field,
+        $data = null,
+        $targetDynamicDropdown = null,
+        $targetDynamicDropdownApiUrl = null,
+        $targetDynamicDropdownFilter = null
+        ): array
     {
         $modelInstance = new $model();
        
@@ -34,6 +43,9 @@ trait FilterTrait
                 ->map(fn($item) => ['id' => $item['id'], 'label' => $item])
                 ->toArray(),
             'sortable' => "{$modelInstance->getTable()}.{$display_field}",
+            'targetDynamicDropdown' => $targetDynamicDropdown,
+            'targetDynamicDropdownApiUrl' => $targetDynamicDropdownApiUrl,
+            'targetDynamicDropdownFilter' => $targetDynamicDropdownFilter
         ];
     }
 
@@ -46,7 +58,15 @@ trait FilterTrait
      * @param string $display_field Le champ affiché dans la liste déroulante.
      * @return array Le filtre formaté.
      */
-    protected function generateManyToManyFilter(string $label, string $field, string $relatedModel, string $display_field): array
+    protected function generateManyToManyFilter(
+        string $label, 
+        string $field, 
+        string $relatedModel, 
+        string $display_field,
+        $targetDynamicDropdown = null,
+        $targetDynamicDropdownApiUrl = null,
+        $targetDynamicDropdownFilter = null
+        ): array
     {
         $relatedInstance = new $relatedModel();
 
@@ -58,6 +78,9 @@ trait FilterTrait
                 ->map(fn($item) => ['id' => $item['id'], 'label' => $item[$display_field]])
                 ->toArray(),
             'sortable' => "{$relatedInstance->getTable()}.{$display_field}",
+            'targetDynamicDropdown' => $targetDynamicDropdown,
+            'targetDynamicDropdownApiUrl' => $targetDynamicDropdownApiUrl,
+            'targetDynamicDropdownFilter' => $targetDynamicDropdownFilter
         ];
     }
 
@@ -70,7 +93,15 @@ trait FilterTrait
      * @param string $display_field Le champ affiché dans la liste déroulante.
      * @return array Le filtre formaté.
      */
-    protected function generatePolymorphicFilter(string $label, string $field, string $model, string $display_field): array
+    protected function generatePolymorphicFilter(
+        string $label, 
+        string $field, 
+        string $model, 
+        string $display_field,
+        $targetDynamicDropdown = null,
+        $targetDynamicDropdownApiUrl = null,
+        $targetDynamicDropdownFilter = null
+        ): array
     {
         $modelInstance = new $model();
 
@@ -82,6 +113,9 @@ trait FilterTrait
                 ->map(fn($item) => ['id' => $item['id'], 'label' => $item[$display_field]])
                 ->toArray(),
             'sortable' => "{$modelInstance->getTable()}.{$display_field}",
+            'targetDynamicDropdown' => $targetDynamicDropdown,
+            'targetDynamicDropdownApiUrl' => $targetDynamicDropdownApiUrl,
+            'targetDynamicDropdownFilter' => $targetDynamicDropdownFilter
         ];
     }
 
