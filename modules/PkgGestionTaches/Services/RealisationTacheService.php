@@ -55,7 +55,9 @@ class RealisationTacheService extends BaseRealisationTacheService
             'realisationProjet.affectation_projet_id', 
             AffectationProjet::class, 
             "id",
-            $affectationProjets);
+            $affectationProjets, 
+            "[name='tache_id']",
+            route('taches.getTacheByAffectationProjetId',  ['affectation_projet_id' => '__ID__']));
        
         // Etat
         $etatRealisationTacheService = new EtatRealisationTacheService();

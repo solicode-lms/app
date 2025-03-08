@@ -19,7 +19,11 @@
 
         @case('ManyToOne')
             
-            <select id="filter_{{ $field }}" data-label="{{$label}}"  name="{{ $field }}" class="form-select form-control form-control-sm select2">
+            <select id="filter_{{ $field }}" name="{{ $field }}" class="form-select form-control form-control-sm select2"
+                data-label="{{$label}}" 
+                data-target-dynamic-dropdown='{{$targetDynamicDropdown}}'
+                data-target-dynamic-dropdown-api-url='{{$targetDynamicDropdownApiUrl}}' 
+                >
                 <option value="">{{ $label }}</option>
                 @foreach ($options as $option)
                     <option value="{{ $option['id'] }}" 
@@ -31,7 +35,11 @@
             @break
         @case('Relation')
         
-        <select id="filter_{{ $field }}" data-label="{{$label}}"  name="{{ $field }}" class="form-select form-control form-control-sm select2">
+        <select id="filter_{{ $field }}" 
+        data-label="{{$label}}" 
+        data-target-dynamic-dropdown='{{$targetDynamicDropdown}}'
+        data-target-dynamic-dropdown-api-url='{{$targetDynamicDropdownApiUrl}}' 
+        name="{{ $field }}" class="form-select form-control form-control-sm select2">
             <option value="">{{ $label }}</option>
             @foreach ($options as $option)
                 <option value="{{ $option['id'] }}" 
@@ -42,7 +50,11 @@
         </select>
         @break
         @case('ManyToMany')
-            <select id="filter_{{ $field }}"  name="{{ $field }}" class="form-select form-control form-control-sm select2">
+            <select id="filter_{{ $field }}"  
+            name="{{ $field }}" 
+            data-target-dynamic-dropdown='{{$targetDynamicDropdown}}'
+            data-target-dynamic-dropdown-api-url='{{$targetDynamicDropdownApiUrl}}' 
+            class="form-select form-control form-control-sm select2">
                 <option value="">{{ $label }}</option>
                 @foreach ($options as $option)
                     <option value="{{ $option['id'] }}" 
@@ -53,7 +65,11 @@
             </select>
             @break
         @case('Polymorphic')
-            <select id="{{ $field }}"  name="{{ $field }}" class="form-select form-control form-control-sm select2">
+            <select id="{{ $field }}"  
+            name="{{ $field }}" 
+            data-target-dynamic-dropdown='{{$targetDynamicDropdown}}'
+            data-target-dynamic-dropdown-api-url='{{$targetDynamicDropdownApiUrl}}' 
+            class="form-select form-control form-control-sm select2">
                 <option value="">{{ $label }}</option>
                 @foreach ($options as $option)
                     <option value="{{ $option['id'] }}" 

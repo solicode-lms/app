@@ -95,7 +95,15 @@ trait FilterTrait
      * @param string|null $displayField Le champ affiché dans la liste déroulante (optionnel, par défaut 'id').
      * @return array Le filtre formaté.
      */
-    protected function generateRelationFilter(string $label, string $relation, string $relatedModel, string $displayField = 'id', $data = null): array
+    protected function generateRelationFilter(
+        string $label, 
+        string $relation, 
+        string $relatedModel, 
+        string $displayField = 'id', 
+        $data = null,
+        $targetDynamicDropdown = null,
+        $targetDynamicDropdownApiUrl = null
+        ): array
     {
         $relatedInstance = new $relatedModel();
 
@@ -111,6 +119,8 @@ trait FilterTrait
             'type' => 'Relation',
             'options' => $data,
             'sortable' => "{$relatedInstance->getTable()}.{$displayField}",
+            'targetDynamicDropdown' => $targetDynamicDropdown,
+            'targetDynamicDropdownApiUrl' => $targetDynamicDropdownApiUrl
         ];
     }
 
