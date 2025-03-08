@@ -1,5 +1,5 @@
 <?php
-// TODO : add methode to Controller 
+// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 
@@ -11,7 +11,6 @@ Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgGestionTaches')->group(function () {
 
         Route::get('taches/getData', [TacheController::class, 'getData'])->name('taches.getData');
-
         Route::resource('taches', TacheController::class)
             ->parameters(['taches' => 'tache']);
         // Routes supplémentaires avec préfixe
