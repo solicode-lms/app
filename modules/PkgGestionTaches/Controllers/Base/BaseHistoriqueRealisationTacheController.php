@@ -23,6 +23,7 @@ class BaseHistoriqueRealisationTacheController extends AdminController
 
     public function __construct(HistoriqueRealisationTacheService $historiqueRealisationTacheService, RealisationTacheService $realisationTacheService) {
         parent::__construct();
+        $this->service  =  $historiqueRealisationTacheService;
         $this->historiqueRealisationTacheService = $historiqueRealisationTacheService;
         $this->realisationTacheService = $realisationTacheService;
     }

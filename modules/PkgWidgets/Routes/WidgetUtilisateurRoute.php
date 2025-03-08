@@ -10,7 +10,7 @@ use Modules\PkgWidgets\Controllers\WidgetUtilisateurController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgWidgets')->group(function () {
 
-        Route::get('widgetUtilisateurs/getWidgetUtilisateurs', [WidgetUtilisateurController::class, 'getWidgetUtilisateurs'])->name('widgetUtilisateurs.all');
+        Route::get('widgetUtilisateurs/getData', [WidgetUtilisateurController::class, 'getData'])->name('widgetUtilisateurs.getData');
         Route::resource('widgetUtilisateurs', WidgetUtilisateurController::class)
             ->parameters(['widgetUtilisateurs' => 'widgetUtilisateur']);
         // Routes supplémentaires avec préfixe

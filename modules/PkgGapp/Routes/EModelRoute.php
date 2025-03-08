@@ -10,7 +10,7 @@ use Modules\PkgGapp\Controllers\EModelController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgGapp')->group(function () {
 
-        Route::get('eModels/getEModels', [EModelController::class, 'getEModels'])->name('eModels.all');
+        Route::get('eModels/getData', [EModelController::class, 'getData'])->name('eModels.getData');
         Route::resource('eModels', EModelController::class)
             ->parameters(['eModels' => 'eModel']);
         // Routes supplémentaires avec préfixe

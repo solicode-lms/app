@@ -10,7 +10,7 @@ use Modules\PkgGapp\Controllers\EMetadataDefinitionController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgGapp')->group(function () {
 
-        Route::get('eMetadataDefinitions/getEMetadataDefinitions', [EMetadataDefinitionController::class, 'getEMetadataDefinitions'])->name('eMetadataDefinitions.all');
+        Route::get('eMetadataDefinitions/getData', [EMetadataDefinitionController::class, 'getData'])->name('eMetadataDefinitions.getData');
         Route::resource('eMetadataDefinitions', EMetadataDefinitionController::class)
             ->parameters(['eMetadataDefinitions' => 'eMetadataDefinition']);
         // Routes supplémentaires avec préfixe

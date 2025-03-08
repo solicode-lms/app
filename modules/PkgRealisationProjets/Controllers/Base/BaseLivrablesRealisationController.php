@@ -25,6 +25,7 @@ class BaseLivrablesRealisationController extends AdminController
 
     public function __construct(LivrablesRealisationService $livrablesRealisationService, LivrableService $livrableService, RealisationProjetService $realisationProjetService) {
         parent::__construct();
+        $this->service  =  $livrablesRealisationService;
         $this->livrablesRealisationService = $livrablesRealisationService;
         $this->livrableService = $livrableService;
         $this->realisationProjetService = $realisationProjetService;
@@ -37,6 +38,7 @@ class BaseLivrablesRealisationController extends AdminController
         if(Auth::user()->hasRole('apprenant') && $this->viewState->get('filter.livrablesRealisation.realisationProjet.apprenant_id') == null){
            $this->viewState->init('filter.livrablesRealisation.realisationProjet.apprenant_id'  , $this->sessionState->get('apprenant_id'));
         }
+
 
 
         // Extraire les paramètres de recherche, page, et filtres

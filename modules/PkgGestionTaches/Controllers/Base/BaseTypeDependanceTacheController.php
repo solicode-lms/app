@@ -22,6 +22,7 @@ class BaseTypeDependanceTacheController extends AdminController
 
     public function __construct(TypeDependanceTacheService $typeDependanceTacheService) {
         parent::__construct();
+        $this->service  =  $typeDependanceTacheService;
         $this->typeDependanceTacheService = $typeDependanceTacheService;
     }
 

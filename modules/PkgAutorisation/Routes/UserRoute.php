@@ -10,7 +10,7 @@ use Modules\PkgAutorisation\Controllers\UserController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgAutorisation')->group(function () {
 
-        Route::get('users/getUsers', [UserController::class, 'getUsers'])->name('users.all');
+        Route::get('users/getData', [UserController::class, 'getData'])->name('users.getData');
         Route::resource('users', UserController::class)
             ->parameters(['users' => 'user']);
         // Routes supplémentaires avec préfixe

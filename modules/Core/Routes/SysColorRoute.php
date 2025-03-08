@@ -10,7 +10,7 @@ use Modules\Core\Controllers\SysColorController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/Core')->group(function () {
 
-        Route::get('sysColors/getSysColors', [SysColorController::class, 'getSysColors'])->name('sysColors.all');
+        Route::get('sysColors/getData', [SysColorController::class, 'getData'])->name('sysColors.getData');
         Route::resource('sysColors', SysColorController::class)
             ->parameters(['sysColors' => 'sysColor']);
         // Routes supplémentaires avec préfixe

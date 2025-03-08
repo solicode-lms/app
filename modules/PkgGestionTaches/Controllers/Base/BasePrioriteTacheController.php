@@ -23,6 +23,7 @@ class BasePrioriteTacheController extends AdminController
 
     public function __construct(PrioriteTacheService $prioriteTacheService, FormateurService $formateurService) {
         parent::__construct();
+        $this->service  =  $prioriteTacheService;
         $this->prioriteTacheService = $prioriteTacheService;
         $this->formateurService = $formateurService;
     }

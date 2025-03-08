@@ -10,7 +10,7 @@ use Modules\PkgApprenants\Controllers\GroupeController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgApprenants')->group(function () {
 
-        Route::get('groupes/getGroupes', [GroupeController::class, 'getGroupes'])->name('groupes.all');
+        Route::get('groupes/getData', [GroupeController::class, 'getData'])->name('groupes.getData');
         Route::resource('groupes', GroupeController::class)
             ->parameters(['groupes' => 'groupe']);
         // Routes supplémentaires avec préfixe

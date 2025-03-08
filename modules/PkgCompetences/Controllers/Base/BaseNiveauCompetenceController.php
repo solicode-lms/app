@@ -23,6 +23,7 @@ class BaseNiveauCompetenceController extends AdminController
 
     public function __construct(NiveauCompetenceService $niveauCompetenceService, CompetenceService $competenceService) {
         parent::__construct();
+        $this->service  =  $niveauCompetenceService;
         $this->niveauCompetenceService = $niveauCompetenceService;
         $this->competenceService = $competenceService;
     }
@@ -30,6 +31,7 @@ class BaseNiveauCompetenceController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('niveauCompetence.index');
+
 
 
         // Extraire les paramètres de recherche, page, et filtres

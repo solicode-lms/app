@@ -10,7 +10,7 @@ use Modules\PkgWidgets\Controllers\WidgetController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgWidgets')->group(function () {
 
-        Route::get('widgets/getWidgets', [WidgetController::class, 'getWidgets'])->name('widgets.all');
+        Route::get('widgets/getData', [WidgetController::class, 'getData'])->name('widgets.getData');
         Route::resource('widgets', WidgetController::class)
             ->parameters(['widgets' => 'widget']);
         // Routes supplémentaires avec préfixe

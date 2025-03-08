@@ -10,7 +10,7 @@ use Modules\PkgGestionTaches\Controllers\LabelRealisationTacheController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgGestionTaches')->group(function () {
 
-        Route::get('labelRealisationTaches/getLabelRealisationTaches', [LabelRealisationTacheController::class, 'getLabelRealisationTaches'])->name('labelRealisationTaches.all');
+        Route::get('labelRealisationTaches/getData', [LabelRealisationTacheController::class, 'getData'])->name('labelRealisationTaches.getData');
         Route::resource('labelRealisationTaches', LabelRealisationTacheController::class)
             ->parameters(['labelRealisationTaches' => 'labelRealisationTache']);
         // Routes supplémentaires avec préfixe

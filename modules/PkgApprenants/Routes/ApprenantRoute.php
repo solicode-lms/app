@@ -10,7 +10,7 @@ use Modules\PkgApprenants\Controllers\ApprenantController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgApprenants')->group(function () {
 
-        Route::get('apprenants/getApprenants', [ApprenantController::class, 'getApprenants'])->name('apprenants.all');
+        Route::get('apprenants/getData', [ApprenantController::class, 'getData'])->name('apprenants.getData');
         Route::resource('apprenants', ApprenantController::class)
             ->parameters(['apprenants' => 'apprenant']);
         // Routes supplémentaires avec préfixe

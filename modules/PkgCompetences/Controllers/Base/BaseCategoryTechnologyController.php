@@ -22,12 +22,14 @@ class BaseCategoryTechnologyController extends AdminController
 
     public function __construct(CategoryTechnologyService $categoryTechnologyService) {
         parent::__construct();
+        $this->service  =  $categoryTechnologyService;
         $this->categoryTechnologyService = $categoryTechnologyService;
     }
 
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('categoryTechnology.index');
+
 
 
         // Extraire les paramètres de recherche, page, et filtres

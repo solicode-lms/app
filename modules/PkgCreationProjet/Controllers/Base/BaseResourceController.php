@@ -23,6 +23,7 @@ class BaseResourceController extends AdminController
 
     public function __construct(ResourceService $resourceService, ProjetService $projetService) {
         parent::__construct();
+        $this->service  =  $resourceService;
         $this->resourceService = $resourceService;
         $this->projetService = $projetService;
     }
@@ -34,6 +35,7 @@ class BaseResourceController extends AdminController
         if(Auth::user()->hasRole('formateur') && $this->viewState->get('filter.resource.projet.formateur_id') == null){
            $this->viewState->init('filter.resource.projet.formateur_id'  , $this->sessionState->get('formateur_id'));
         }
+
 
 
         // Extraire les paramètres de recherche, page, et filtres

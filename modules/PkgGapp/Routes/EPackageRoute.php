@@ -10,7 +10,7 @@ use Modules\PkgGapp\Controllers\EPackageController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgGapp')->group(function () {
 
-        Route::get('ePackages/getEPackages', [EPackageController::class, 'getEPackages'])->name('ePackages.all');
+        Route::get('ePackages/getData', [EPackageController::class, 'getData'])->name('ePackages.getData');
         Route::resource('ePackages', EPackageController::class)
             ->parameters(['ePackages' => 'ePackage']);
         // Routes supplémentaires avec préfixe

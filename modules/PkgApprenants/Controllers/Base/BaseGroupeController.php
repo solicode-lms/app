@@ -30,6 +30,7 @@ class BaseGroupeController extends AdminController
 
     public function __construct(GroupeService $groupeService, ApprenantService $apprenantService, FormateurService $formateurService, AnneeFormationService $anneeFormationService, FiliereService $filiereService) {
         parent::__construct();
+        $this->service  =  $groupeService;
         $this->groupeService = $groupeService;
         $this->apprenantService = $apprenantService;
         $this->formateurService = $formateurService;
@@ -40,6 +41,7 @@ class BaseGroupeController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('groupe.index');
+
 
 
         // Extraire les paramètres de recherche, page, et filtres

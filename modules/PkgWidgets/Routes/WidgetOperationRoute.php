@@ -10,7 +10,7 @@ use Modules\PkgWidgets\Controllers\WidgetOperationController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgWidgets')->group(function () {
 
-        Route::get('widgetOperations/getWidgetOperations', [WidgetOperationController::class, 'getWidgetOperations'])->name('widgetOperations.all');
+        Route::get('widgetOperations/getData', [WidgetOperationController::class, 'getData'])->name('widgetOperations.getData');
         Route::resource('widgetOperations', WidgetOperationController::class)
             ->parameters(['widgetOperations' => 'widgetOperation']);
         // Routes supplémentaires avec préfixe

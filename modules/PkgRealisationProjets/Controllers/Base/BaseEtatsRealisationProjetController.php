@@ -23,6 +23,7 @@ class BaseEtatsRealisationProjetController extends AdminController
 
     public function __construct(EtatsRealisationProjetService $etatsRealisationProjetService, FormateurService $formateurService) {
         parent::__construct();
+        $this->service  =  $etatsRealisationProjetService;
         $this->etatsRealisationProjetService = $etatsRealisationProjetService;
         $this->formateurService = $formateurService;
     }
@@ -34,6 +35,7 @@ class BaseEtatsRealisationProjetController extends AdminController
         if(Auth::user()->hasRole('formateur') && $this->viewState->get('scope.etatsRealisationProjet.formateur_id') == null){
            $this->viewState->init('scope.etatsRealisationProjet.formateur_id'  , $this->sessionState->get('formateur_id'));
         }
+
 
 
         // Extraire les paramètres de recherche, page, et filtres

@@ -10,7 +10,7 @@ use Modules\PkgAutorisation\Controllers\ProfileController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgAutorisation')->group(function () {
 
-        Route::get('profiles/getProfiles', [ProfileController::class, 'getProfiles'])->name('profiles.all');
+        Route::get('profiles/getData', [ProfileController::class, 'getData'])->name('profiles.getData');
         Route::resource('profiles', ProfileController::class)
             ->parameters(['profiles' => 'profile']);
         // Routes supplémentaires avec préfixe

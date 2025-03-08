@@ -22,12 +22,14 @@ class BaseWidgetTypeController extends AdminController
 
     public function __construct(WidgetTypeService $widgetTypeService) {
         parent::__construct();
+        $this->service  =  $widgetTypeService;
         $this->widgetTypeService = $widgetTypeService;
     }
 
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('widgetType.index');
+
 
 
         // Extraire les paramètres de recherche, page, et filtres

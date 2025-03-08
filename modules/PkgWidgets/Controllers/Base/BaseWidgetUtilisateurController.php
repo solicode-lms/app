@@ -25,6 +25,7 @@ class BaseWidgetUtilisateurController extends AdminController
 
     public function __construct(WidgetUtilisateurService $widgetUtilisateurService, UserService $userService, WidgetService $widgetService) {
         parent::__construct();
+        $this->service  =  $widgetUtilisateurService;
         $this->widgetUtilisateurService = $widgetUtilisateurService;
         $this->userService = $userService;
         $this->widgetService = $widgetService;
@@ -40,6 +41,7 @@ class BaseWidgetUtilisateurController extends AdminController
         if(Auth::user()->hasRole('apprenant') && $this->viewState->get('scope.widgetUtilisateur.user_id') == null){
            $this->viewState->init('scope.widgetUtilisateur.user_id'  , $this->sessionState->get('user_id'));
         }
+
 
 
         // Extraire les paramètres de recherche, page, et filtres

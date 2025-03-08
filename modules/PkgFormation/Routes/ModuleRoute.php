@@ -10,7 +10,7 @@ use Modules\PkgFormation\Controllers\ModuleController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgFormation')->group(function () {
 
-        Route::get('modules/getModules', [ModuleController::class, 'getModules'])->name('modules.all');
+        Route::get('modules/getData', [ModuleController::class, 'getData'])->name('modules.getData');
         Route::resource('modules', ModuleController::class)
             ->parameters(['modules' => 'module']);
         // Routes supplémentaires avec préfixe

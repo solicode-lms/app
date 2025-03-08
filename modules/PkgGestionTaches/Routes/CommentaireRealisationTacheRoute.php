@@ -10,7 +10,7 @@ use Modules\PkgGestionTaches\Controllers\CommentaireRealisationTacheController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgGestionTaches')->group(function () {
 
-        Route::get('commentaireRealisationTaches/getCommentaireRealisationTaches', [CommentaireRealisationTacheController::class, 'getCommentaireRealisationTaches'])->name('commentaireRealisationTaches.all');
+        Route::get('commentaireRealisationTaches/getData', [CommentaireRealisationTacheController::class, 'getData'])->name('commentaireRealisationTaches.getData');
         Route::resource('commentaireRealisationTaches', CommentaireRealisationTacheController::class)
             ->parameters(['commentaireRealisationTaches' => 'commentaireRealisationTache']);
         // Routes supplémentaires avec préfixe

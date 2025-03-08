@@ -22,6 +22,7 @@ class BaseWorkflowTacheController extends AdminController
 
     public function __construct(WorkflowTacheService $workflowTacheService) {
         parent::__construct();
+        $this->service  =  $workflowTacheService;
         $this->workflowTacheService = $workflowTacheService;
     }
 

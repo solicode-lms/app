@@ -22,12 +22,14 @@ class BaseEMetadataDefinitionController extends AdminController
 
     public function __construct(EMetadataDefinitionService $eMetadataDefinitionService) {
         parent::__construct();
+        $this->service  =  $eMetadataDefinitionService;
         $this->eMetadataDefinitionService = $eMetadataDefinitionService;
     }
 
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('eMetadataDefinition.index');
+
 
 
         // Extraire les paramètres de recherche, page, et filtres

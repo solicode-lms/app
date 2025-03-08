@@ -10,7 +10,7 @@ use Modules\PkgCompetences\Controllers\NiveauDifficulteController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgCompetences')->group(function () {
 
-        Route::get('niveauDifficultes/getNiveauDifficultes', [NiveauDifficulteController::class, 'getNiveauDifficultes'])->name('niveauDifficultes.all');
+        Route::get('niveauDifficultes/getData', [NiveauDifficulteController::class, 'getData'])->name('niveauDifficultes.getData');
         Route::resource('niveauDifficultes', NiveauDifficulteController::class)
             ->parameters(['niveauDifficultes' => 'niveauDifficulte']);
         // Routes supplémentaires avec préfixe

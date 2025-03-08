@@ -10,7 +10,7 @@ use Modules\PkgApprenants\Controllers\NationaliteController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgApprenants')->group(function () {
 
-        Route::get('nationalites/getNationalites', [NationaliteController::class, 'getNationalites'])->name('nationalites.all');
+        Route::get('nationalites/getData', [NationaliteController::class, 'getData'])->name('nationalites.getData');
         Route::resource('nationalites', NationaliteController::class)
             ->parameters(['nationalites' => 'nationalite']);
         // Routes supplémentaires avec préfixe

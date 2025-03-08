@@ -25,6 +25,7 @@ class BaseValidationController extends AdminController
 
     public function __construct(ValidationService $validationService, RealisationProjetService $realisationProjetService, TransfertCompetenceService $transfertCompetenceService) {
         parent::__construct();
+        $this->service  =  $validationService;
         $this->validationService = $validationService;
         $this->realisationProjetService = $realisationProjetService;
         $this->transfertCompetenceService = $transfertCompetenceService;
@@ -40,6 +41,7 @@ class BaseValidationController extends AdminController
         if(Auth::user()->hasRole('apprenant') && $this->viewState->get('filter.validation.realisationProjet.apprenant_id') == null){
            $this->viewState->init('filter.validation.realisationProjet.apprenant_id'  , $this->sessionState->get('apprenant_id'));
         }
+
 
 
         // Extraire les paramètres de recherche, page, et filtres

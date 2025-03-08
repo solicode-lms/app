@@ -10,7 +10,7 @@ use Modules\PkgRealisationProjets\Controllers\RealisationProjetController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgRealisationProjets')->group(function () {
 
-        Route::get('realisationProjets/getRealisationProjets', [RealisationProjetController::class, 'getRealisationProjets'])->name('realisationProjets.all');
+        Route::get('realisationProjets/getData', [RealisationProjetController::class, 'getData'])->name('realisationProjets.getData');
         Route::resource('realisationProjets', RealisationProjetController::class)
             ->parameters(['realisationProjets' => 'realisationProjet']);
         // Routes supplémentaires avec préfixe

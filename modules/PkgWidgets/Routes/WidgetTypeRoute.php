@@ -10,7 +10,7 @@ use Modules\PkgWidgets\Controllers\WidgetTypeController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgWidgets')->group(function () {
 
-        Route::get('widgetTypes/getWidgetTypes', [WidgetTypeController::class, 'getWidgetTypes'])->name('widgetTypes.all');
+        Route::get('widgetTypes/getData', [WidgetTypeController::class, 'getData'])->name('widgetTypes.getData');
         Route::resource('widgetTypes', WidgetTypeController::class)
             ->parameters(['widgetTypes' => 'widgetType']);
         // Routes supplémentaires avec préfixe

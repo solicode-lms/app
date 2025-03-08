@@ -21,12 +21,14 @@ class BaseVilleController extends AdminController
 
     public function __construct(VilleService $villeService) {
         parent::__construct();
+        $this->service  =  $villeService;
         $this->villeService = $villeService;
     }
 
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('ville.index');
+
 
 
         // Extraire les paramètres de recherche, page, et filtres

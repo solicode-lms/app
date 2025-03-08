@@ -10,7 +10,7 @@ use Modules\PkgCreationProjet\Controllers\ResourceController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgCreationProjet')->group(function () {
 
-        Route::get('resources/getResources', [ResourceController::class, 'getResources'])->name('resources.all');
+        Route::get('resources/getData', [ResourceController::class, 'getData'])->name('resources.getData');
         Route::resource('resources', ResourceController::class)
             ->parameters(['resources' => 'resource']);
         // Routes supplémentaires avec préfixe

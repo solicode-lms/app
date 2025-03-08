@@ -25,6 +25,7 @@ class BaseFeatureController extends AdminController
 
     public function __construct(FeatureService $featureService, PermissionService $permissionService, FeatureDomainService $featureDomainService) {
         parent::__construct();
+        $this->service  =  $featureService;
         $this->featureService = $featureService;
         $this->permissionService = $permissionService;
         $this->featureDomainService = $featureDomainService;
@@ -33,6 +34,7 @@ class BaseFeatureController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('feature.index');
+
 
 
         // Extraire les paramètres de recherche, page, et filtres

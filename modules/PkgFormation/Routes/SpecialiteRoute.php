@@ -10,7 +10,7 @@ use Modules\PkgFormation\Controllers\SpecialiteController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgFormation')->group(function () {
 
-        Route::get('specialites/getSpecialites', [SpecialiteController::class, 'getSpecialites'])->name('specialites.all');
+        Route::get('specialites/getData', [SpecialiteController::class, 'getData'])->name('specialites.getData');
         Route::resource('specialites', SpecialiteController::class)
             ->parameters(['specialites' => 'specialite']);
         // Routes supplémentaires avec préfixe

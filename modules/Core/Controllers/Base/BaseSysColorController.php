@@ -25,12 +25,14 @@ class BaseSysColorController extends AdminController
 
     public function __construct(SysColorService $sysColorService) {
         parent::__construct();
+        $this->service  =  $sysColorService;
         $this->sysColorService = $sysColorService;
     }
 
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('sysColor.index');
+
 
 
         // Extraire les paramètres de recherche, page, et filtres

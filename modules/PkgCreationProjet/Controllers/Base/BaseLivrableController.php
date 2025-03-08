@@ -27,6 +27,7 @@ class BaseLivrableController extends AdminController
 
     public function __construct(LivrableService $livrableService, TacheService $tacheService, NatureLivrableService $natureLivrableService, ProjetService $projetService) {
         parent::__construct();
+        $this->service  =  $livrableService;
         $this->livrableService = $livrableService;
         $this->tacheService = $tacheService;
         $this->natureLivrableService = $natureLivrableService;
@@ -40,6 +41,7 @@ class BaseLivrableController extends AdminController
         if(Auth::user()->hasRole('formateur') && $this->viewState->get('filter.livrable.projet.formateur_id') == null){
            $this->viewState->init('filter.livrable.projet.formateur_id'  , $this->sessionState->get('formateur_id'));
         }
+
 
 
         // Extraire les paramètres de recherche, page, et filtres

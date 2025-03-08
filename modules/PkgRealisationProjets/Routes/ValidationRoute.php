@@ -10,7 +10,7 @@ use Modules\PkgRealisationProjets\Controllers\ValidationController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgRealisationProjets')->group(function () {
 
-        Route::get('validations/getValidations', [ValidationController::class, 'getValidations'])->name('validations.all');
+        Route::get('validations/getData', [ValidationController::class, 'getData'])->name('validations.getData');
         Route::resource('validations', ValidationController::class)
             ->parameters(['validations' => 'validation']);
         // Routes supplémentaires avec préfixe

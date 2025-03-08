@@ -10,7 +10,7 @@ use Modules\PkgCreationProjet\Controllers\NatureLivrableController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgCreationProjet')->group(function () {
 
-        Route::get('natureLivrables/getNatureLivrables', [NatureLivrableController::class, 'getNatureLivrables'])->name('natureLivrables.all');
+        Route::get('natureLivrables/getData', [NatureLivrableController::class, 'getData'])->name('natureLivrables.getData');
         Route::resource('natureLivrables', NatureLivrableController::class)
             ->parameters(['natureLivrables' => 'natureLivrable']);
         // Routes supplémentaires avec préfixe

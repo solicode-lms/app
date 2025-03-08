@@ -10,7 +10,7 @@ use Modules\PkgCompetences\Controllers\NiveauCompetenceController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgCompetences')->group(function () {
 
-        Route::get('niveauCompetences/getNiveauCompetences', [NiveauCompetenceController::class, 'getNiveauCompetences'])->name('niveauCompetences.all');
+        Route::get('niveauCompetences/getData', [NiveauCompetenceController::class, 'getData'])->name('niveauCompetences.getData');
         Route::resource('niveauCompetences', NiveauCompetenceController::class)
             ->parameters(['niveauCompetences' => 'niveauCompetence']);
         // Routes supplémentaires avec préfixe

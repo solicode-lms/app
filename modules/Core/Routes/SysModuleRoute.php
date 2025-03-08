@@ -10,7 +10,7 @@ use Modules\Core\Controllers\SysModuleController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/Core')->group(function () {
 
-        Route::get('sysModules/getSysModules', [SysModuleController::class, 'getSysModules'])->name('sysModules.all');
+        Route::get('sysModules/getData', [SysModuleController::class, 'getData'])->name('sysModules.getData');
         Route::resource('sysModules', SysModuleController::class)
             ->parameters(['sysModules' => 'sysModule']);
         // Routes supplémentaires avec préfixe

@@ -10,7 +10,7 @@ use Modules\PkgGestionTaches\Controllers\TypeDependanceTacheController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgGestionTaches')->group(function () {
 
-        Route::get('typeDependanceTaches/getTypeDependanceTaches', [TypeDependanceTacheController::class, 'getTypeDependanceTaches'])->name('typeDependanceTaches.all');
+        Route::get('typeDependanceTaches/getData', [TypeDependanceTacheController::class, 'getData'])->name('typeDependanceTaches.getData');
         Route::resource('typeDependanceTaches', TypeDependanceTacheController::class)
             ->parameters(['typeDependanceTaches' => 'typeDependanceTache']);
         // Routes supplémentaires avec préfixe

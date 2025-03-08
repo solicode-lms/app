@@ -29,6 +29,7 @@ class BaseApprenantController extends AdminController
 
     public function __construct(ApprenantService $apprenantService, GroupeService $groupeService, NationaliteService $nationaliteService, NiveauxScolaireService $niveauxScolaireService, UserService $userService) {
         parent::__construct();
+        $this->service  =  $apprenantService;
         $this->apprenantService = $apprenantService;
         $this->groupeService = $groupeService;
         $this->nationaliteService = $nationaliteService;

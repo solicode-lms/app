@@ -25,6 +25,7 @@ class BaseRoleController extends AdminController
 
     public function __construct(RoleService $roleService, PermissionService $permissionService, UserService $userService) {
         parent::__construct();
+        $this->service  =  $roleService;
         $this->roleService = $roleService;
         $this->permissionService = $permissionService;
         $this->userService = $userService;
@@ -33,6 +34,7 @@ class BaseRoleController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('role.index');
+
 
 
         // Extraire les paramètres de recherche, page, et filtres

@@ -23,6 +23,7 @@ class BaseNiveauDifficulteController extends AdminController
 
     public function __construct(NiveauDifficulteService $niveauDifficulteService, FormateurService $formateurService) {
         parent::__construct();
+        $this->service  =  $niveauDifficulteService;
         $this->niveauDifficulteService = $niveauDifficulteService;
         $this->formateurService = $formateurService;
     }
@@ -34,6 +35,7 @@ class BaseNiveauDifficulteController extends AdminController
         if(Auth::user()->hasRole('formateur') && $this->viewState->get('filter.niveauDifficulte.formateur_id') == null){
            $this->viewState->init('filter.niveauDifficulte.formateur_id'  , $this->sessionState->get('formateur_id'));
         }
+
 
 
         // Extraire les paramètres de recherche, page, et filtres

@@ -10,7 +10,7 @@ use Modules\PkgGapp\Controllers\EDataFieldController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgGapp')->group(function () {
 
-        Route::get('eDataFields/getEDataFields', [EDataFieldController::class, 'getEDataFields'])->name('eDataFields.all');
+        Route::get('eDataFields/getData', [EDataFieldController::class, 'getData'])->name('eDataFields.getData');
         Route::resource('eDataFields', EDataFieldController::class)
             ->parameters(['eDataFields' => 'eDataField']);
         // Routes supplémentaires avec préfixe

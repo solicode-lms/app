@@ -10,7 +10,7 @@ use Modules\PkgCreationProjet\Controllers\TransfertCompetenceController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgCreationProjet')->group(function () {
 
-        Route::get('transfertCompetences/getTransfertCompetences', [TransfertCompetenceController::class, 'getTransfertCompetences'])->name('transfertCompetences.all');
+        Route::get('transfertCompetences/getData', [TransfertCompetenceController::class, 'getData'])->name('transfertCompetences.getData');
         Route::resource('transfertCompetences', TransfertCompetenceController::class)
             ->parameters(['transfertCompetences' => 'transfertCompetence']);
         // Routes supplémentaires avec préfixe

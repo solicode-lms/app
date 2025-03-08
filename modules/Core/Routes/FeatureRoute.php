@@ -10,7 +10,7 @@ use Modules\Core\Controllers\FeatureController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/Core')->group(function () {
 
-        Route::get('features/getFeatures', [FeatureController::class, 'getFeatures'])->name('features.all');
+        Route::get('features/getData', [FeatureController::class, 'getData'])->name('features.getData');
         Route::resource('features', FeatureController::class)
             ->parameters(['features' => 'feature']);
         // Routes supplémentaires avec préfixe

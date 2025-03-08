@@ -10,7 +10,7 @@ use Modules\PkgGestionTaches\Controllers\EtatRealisationTacheController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgGestionTaches')->group(function () {
 
-        Route::get('etatRealisationTaches/getEtatRealisationTaches', [EtatRealisationTacheController::class, 'getEtatRealisationTaches'])->name('etatRealisationTaches.all');
+        Route::get('etatRealisationTaches/getData', [EtatRealisationTacheController::class, 'getData'])->name('etatRealisationTaches.getData');
         Route::resource('etatRealisationTaches', EtatRealisationTacheController::class)
             ->parameters(['etatRealisationTaches' => 'etatRealisationTache']);
         // Routes supplémentaires avec préfixe

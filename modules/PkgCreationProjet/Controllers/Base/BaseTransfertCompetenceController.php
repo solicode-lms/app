@@ -29,6 +29,7 @@ class BaseTransfertCompetenceController extends AdminController
 
     public function __construct(TransfertCompetenceService $transfertCompetenceService, TechnologyService $technologyService, CompetenceService $competenceService, NiveauDifficulteService $niveauDifficulteService, ProjetService $projetService) {
         parent::__construct();
+        $this->service  =  $transfertCompetenceService;
         $this->transfertCompetenceService = $transfertCompetenceService;
         $this->technologyService = $technologyService;
         $this->competenceService = $competenceService;
@@ -43,6 +44,7 @@ class BaseTransfertCompetenceController extends AdminController
         if(Auth::user()->hasRole('formateur') && $this->viewState->get('scope.transfertCompetence.projet.formateur_id') == null){
            $this->viewState->init('scope.transfertCompetence.projet.formateur_id'  , $this->sessionState->get('formateur_id'));
         }
+
 
 
         // Extraire les paramètres de recherche, page, et filtres

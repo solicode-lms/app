@@ -10,7 +10,7 @@ use Modules\PkgGapp\Controllers\EMetadatumController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgGapp')->group(function () {
 
-        Route::get('eMetadata/getEMetadata', [EMetadatumController::class, 'getEMetadata'])->name('eMetadata.all');
+        Route::get('eMetadata/getData', [EMetadatumController::class, 'getData'])->name('eMetadata.getData');
         Route::resource('eMetadata', EMetadatumController::class)
             ->parameters(['eMetadata' => 'eMetadatum']);
         // Routes supplémentaires avec préfixe

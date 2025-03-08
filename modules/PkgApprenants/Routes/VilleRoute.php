@@ -10,7 +10,7 @@ use Modules\PkgApprenants\Controllers\VilleController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgApprenants')->group(function () {
 
-        Route::get('villes/getVilles', [VilleController::class, 'getVilles'])->name('villes.all');
+        Route::get('villes/getData', [VilleController::class, 'getData'])->name('villes.getData');
         Route::resource('villes', VilleController::class)
             ->parameters(['villes' => 'ville']);
         // Routes supplémentaires avec préfixe

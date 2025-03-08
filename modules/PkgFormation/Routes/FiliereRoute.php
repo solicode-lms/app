@@ -10,7 +10,7 @@ use Modules\PkgFormation\Controllers\FiliereController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgFormation')->group(function () {
 
-        Route::get('filieres/getFilieres', [FiliereController::class, 'getFilieres'])->name('filieres.all');
+        Route::get('filieres/getData', [FiliereController::class, 'getData'])->name('filieres.getData');
         Route::resource('filieres', FiliereController::class)
             ->parameters(['filieres' => 'filiere']);
         // Routes supplémentaires avec préfixe

@@ -10,7 +10,7 @@ use Modules\PkgAutorisation\Controllers\PermissionController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgAutorisation')->group(function () {
 
-        Route::get('permissions/getPermissions', [PermissionController::class, 'getPermissions'])->name('permissions.all');
+        Route::get('permissions/getData', [PermissionController::class, 'getData'])->name('permissions.getData');
         Route::resource('permissions', PermissionController::class)
             ->parameters(['permissions' => 'permission']);
         // Routes supplémentaires avec préfixe

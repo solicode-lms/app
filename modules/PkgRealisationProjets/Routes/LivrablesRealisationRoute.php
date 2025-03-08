@@ -10,7 +10,7 @@ use Modules\PkgRealisationProjets\Controllers\LivrablesRealisationController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgRealisationProjets')->group(function () {
 
-        Route::get('livrablesRealisations/getLivrablesRealisations', [LivrablesRealisationController::class, 'getLivrablesRealisations'])->name('livrablesRealisations.all');
+        Route::get('livrablesRealisations/getData', [LivrablesRealisationController::class, 'getData'])->name('livrablesRealisations.getData');
         Route::resource('livrablesRealisations', LivrablesRealisationController::class)
             ->parameters(['livrablesRealisations' => 'livrablesRealisation']);
         // Routes supplémentaires avec préfixe

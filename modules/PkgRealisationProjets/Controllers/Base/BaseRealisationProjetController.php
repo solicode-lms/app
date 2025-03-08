@@ -30,6 +30,7 @@ class BaseRealisationProjetController extends AdminController
 
     public function __construct(RealisationProjetService $realisationProjetService, AffectationProjetService $affectationProjetService, ApprenantService $apprenantService, EtatsRealisationProjetService $etatsRealisationProjetService) {
         parent::__construct();
+        $this->service  =  $realisationProjetService;
         $this->realisationProjetService = $realisationProjetService;
         $this->affectationProjetService = $affectationProjetService;
         $this->apprenantService = $apprenantService;
@@ -46,6 +47,7 @@ class BaseRealisationProjetController extends AdminController
         if(Auth::user()->hasRole('apprenant') && $this->viewState->get('filter.realisationProjet.apprenant_id') == null){
            $this->viewState->init('filter.realisationProjet.apprenant_id'  , $this->sessionState->get('apprenant_id'));
         }
+
 
 
         // Extraire les paramètres de recherche, page, et filtres

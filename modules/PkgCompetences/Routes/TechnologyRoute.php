@@ -10,7 +10,7 @@ use Modules\PkgCompetences\Controllers\TechnologyController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgCompetences')->group(function () {
 
-        Route::get('technologies/getTechnologies', [TechnologyController::class, 'getTechnologies'])->name('technologies.all');
+        Route::get('technologies/getData', [TechnologyController::class, 'getData'])->name('technologies.getData');
         Route::resource('technologies', TechnologyController::class)
             ->parameters(['technologies' => 'technology']);
         // Routes supplémentaires avec préfixe

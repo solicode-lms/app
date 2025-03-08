@@ -23,6 +23,7 @@ class BaseProfileController extends AdminController
 
     public function __construct(ProfileService $profileService, UserService $userService) {
         parent::__construct();
+        $this->service  =  $profileService;
         $this->profileService = $profileService;
         $this->userService = $userService;
     }
@@ -37,6 +38,7 @@ class BaseProfileController extends AdminController
         if(Auth::user()->hasRole('apprenant') && $this->viewState->get('scope.profile.user_id') == null){
            $this->viewState->init('scope.profile.user_id'  , $this->sessionState->get('user_id'));
         }
+
 
         // scopeDataByRole
         if(Auth::user()->hasRole('formateur')){

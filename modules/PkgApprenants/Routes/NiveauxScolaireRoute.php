@@ -10,7 +10,7 @@ use Modules\PkgApprenants\Controllers\NiveauxScolaireController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgApprenants')->group(function () {
 
-        Route::get('niveauxScolaires/getNiveauxScolaires', [NiveauxScolaireController::class, 'getNiveauxScolaires'])->name('niveauxScolaires.all');
+        Route::get('niveauxScolaires/getData', [NiveauxScolaireController::class, 'getData'])->name('niveauxScolaires.getData');
         Route::resource('niveauxScolaires', NiveauxScolaireController::class)
             ->parameters(['niveauxScolaires' => 'niveauxScolaire']);
         // Routes supplémentaires avec préfixe

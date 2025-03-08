@@ -27,6 +27,7 @@ class BaseEMetadatumController extends AdminController
 
     public function __construct(EMetadatumService $eMetadatumService, EDataFieldService $eDataFieldService, EMetadataDefinitionService $eMetadataDefinitionService, EModelService $eModelService) {
         parent::__construct();
+        $this->service  =  $eMetadatumService;
         $this->eMetadatumService = $eMetadatumService;
         $this->eDataFieldService = $eDataFieldService;
         $this->eMetadataDefinitionService = $eMetadataDefinitionService;
@@ -36,6 +37,7 @@ class BaseEMetadatumController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('eMetadatum.index');
+
 
 
         // Extraire les paramètres de recherche, page, et filtres

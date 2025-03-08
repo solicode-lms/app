@@ -10,7 +10,7 @@ use Modules\PkgApprenants\Controllers\ApprenantKonosyController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgApprenants')->group(function () {
 
-        Route::get('apprenantKonosies/getApprenantKonosies', [ApprenantKonosyController::class, 'getApprenantKonosies'])->name('apprenantKonosies.all');
+        Route::get('apprenantKonosies/getData', [ApprenantKonosyController::class, 'getData'])->name('apprenantKonosies.getData');
         Route::resource('apprenantKonosies', ApprenantKonosyController::class)
             ->parameters(['apprenantKonosies' => 'apprenantKonosy']);
         // Routes supplémentaires avec préfixe

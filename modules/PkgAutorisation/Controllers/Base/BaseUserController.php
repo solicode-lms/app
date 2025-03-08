@@ -27,6 +27,7 @@ class BaseUserController extends AdminController
 
     public function __construct(UserService $userService, RoleService $roleService) {
         parent::__construct();
+        $this->service  =  $userService;
         $this->userService = $userService;
         $this->roleService = $roleService;
     }
@@ -34,6 +35,7 @@ class BaseUserController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('user.index');
+
 
 
         // Extraire les paramètres de recherche, page, et filtres

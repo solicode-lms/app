@@ -22,12 +22,14 @@ class BaseEPackageController extends AdminController
 
     public function __construct(EPackageService $ePackageService) {
         parent::__construct();
+        $this->service  =  $ePackageService;
         $this->ePackageService = $ePackageService;
     }
 
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('ePackage.index');
+
 
 
         // Extraire les paramètres de recherche, page, et filtres

@@ -23,12 +23,14 @@ class BaseAnneeFormationController extends AdminController
 
     public function __construct(AnneeFormationService $anneeFormationService) {
         parent::__construct();
+        $this->service  =  $anneeFormationService;
         $this->anneeFormationService = $anneeFormationService;
     }
 
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('anneeFormation.index');
+
 
 
         // Extraire les paramètres de recherche, page, et filtres

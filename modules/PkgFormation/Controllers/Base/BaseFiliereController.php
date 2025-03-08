@@ -24,12 +24,14 @@ class BaseFiliereController extends AdminController
 
     public function __construct(FiliereService $filiereService) {
         parent::__construct();
+        $this->service  =  $filiereService;
         $this->filiereService = $filiereService;
     }
 
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('filiere.index');
+
 
 
         // Extraire les paramètres de recherche, page, et filtres

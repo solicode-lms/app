@@ -28,6 +28,7 @@ class BaseAffectationProjetController extends AdminController
 
     public function __construct(AffectationProjetService $affectationProjetService, AnneeFormationService $anneeFormationService, GroupeService $groupeService, ProjetService $projetService) {
         parent::__construct();
+        $this->service  =  $affectationProjetService;
         $this->affectationProjetService = $affectationProjetService;
         $this->anneeFormationService = $anneeFormationService;
         $this->groupeService = $groupeService;
@@ -41,6 +42,7 @@ class BaseAffectationProjetController extends AdminController
         if(Auth::user()->hasRole('formateur') && $this->viewState->get('scope.affectationProjet.projet.formateur_id') == null){
            $this->viewState->init('scope.affectationProjet.projet.formateur_id'  , $this->sessionState->get('formateur_id'));
         }
+
 
         // scopeDataByRole
         if(Auth::user()->hasRole('formateur')){

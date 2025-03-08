@@ -27,6 +27,7 @@ class BaseTechnologyController extends AdminController
 
     public function __construct(TechnologyService $technologyService, CompetenceService $competenceService, CategoryTechnologyService $categoryTechnologyService, TransfertCompetenceService $transfertCompetenceService) {
         parent::__construct();
+        $this->service  =  $technologyService;
         $this->technologyService = $technologyService;
         $this->competenceService = $competenceService;
         $this->categoryTechnologyService = $categoryTechnologyService;
@@ -36,6 +37,7 @@ class BaseTechnologyController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('technology.index');
+
 
 
         // Extraire les paramètres de recherche, page, et filtres

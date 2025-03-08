@@ -10,7 +10,7 @@ use Modules\PkgAutorisation\Controllers\RoleController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgAutorisation')->group(function () {
 
-        Route::get('roles/getRoles', [RoleController::class, 'getRoles'])->name('roles.all');
+        Route::get('roles/getData', [RoleController::class, 'getData'])->name('roles.getData');
         Route::resource('roles', RoleController::class)
             ->parameters(['roles' => 'role']);
         // Routes supplémentaires avec préfixe

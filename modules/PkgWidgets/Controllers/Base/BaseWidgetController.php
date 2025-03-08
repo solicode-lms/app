@@ -28,6 +28,7 @@ class BaseWidgetController extends AdminController
 
     public function __construct(WidgetService $widgetService, SysModelService $sysModelService, WidgetOperationService $widgetOperationService, WidgetTypeService $widgetTypeService) {
         parent::__construct();
+        $this->service  =  $widgetService;
         $this->widgetService = $widgetService;
         $this->sysModelService = $sysModelService;
         $this->widgetOperationService = $widgetOperationService;
@@ -37,6 +38,7 @@ class BaseWidgetController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('widget.index');
+
 
 
         // Extraire les paramètres de recherche, page, et filtres

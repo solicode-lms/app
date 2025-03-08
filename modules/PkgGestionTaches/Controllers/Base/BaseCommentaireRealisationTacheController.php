@@ -27,6 +27,7 @@ class BaseCommentaireRealisationTacheController extends AdminController
 
     public function __construct(CommentaireRealisationTacheService $commentaireRealisationTacheService, ApprenantService $apprenantService, FormateurService $formateurService, RealisationTacheService $realisationTacheService) {
         parent::__construct();
+        $this->service  =  $commentaireRealisationTacheService;
         $this->commentaireRealisationTacheService = $commentaireRealisationTacheService;
         $this->apprenantService = $apprenantService;
         $this->formateurService = $formateurService;

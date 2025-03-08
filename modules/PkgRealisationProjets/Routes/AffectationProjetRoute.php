@@ -10,7 +10,7 @@ use Modules\PkgRealisationProjets\Controllers\AffectationProjetController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgRealisationProjets')->group(function () {
 
-        Route::get('affectationProjets/getAffectationProjets', [AffectationProjetController::class, 'getAffectationProjets'])->name('affectationProjets.all');
+        Route::get('affectationProjets/getData', [AffectationProjetController::class, 'getData'])->name('affectationProjets.getData');
         Route::resource('affectationProjets', AffectationProjetController::class)
             ->parameters(['affectationProjets' => 'affectationProjet']);
         // Routes supplémentaires avec préfixe

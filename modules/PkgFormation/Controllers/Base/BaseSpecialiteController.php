@@ -23,6 +23,7 @@ class BaseSpecialiteController extends AdminController
 
     public function __construct(SpecialiteService $specialiteService, FormateurService $formateurService) {
         parent::__construct();
+        $this->service  =  $specialiteService;
         $this->specialiteService = $specialiteService;
         $this->formateurService = $formateurService;
     }
@@ -30,6 +31,7 @@ class BaseSpecialiteController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('specialite.index');
+
 
 
         // Extraire les paramètres de recherche, page, et filtres

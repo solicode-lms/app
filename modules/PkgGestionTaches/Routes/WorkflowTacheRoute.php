@@ -10,7 +10,7 @@ use Modules\PkgGestionTaches\Controllers\WorkflowTacheController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgGestionTaches')->group(function () {
 
-        Route::get('workflowTaches/getWorkflowTaches', [WorkflowTacheController::class, 'getWorkflowTaches'])->name('workflowTaches.all');
+        Route::get('workflowTaches/getData', [WorkflowTacheController::class, 'getData'])->name('workflowTaches.getData');
         Route::resource('workflowTaches', WorkflowTacheController::class)
             ->parameters(['workflowTaches' => 'workflowTache']);
         // Routes supplémentaires avec préfixe

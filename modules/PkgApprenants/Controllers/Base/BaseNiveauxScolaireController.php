@@ -22,12 +22,14 @@ class BaseNiveauxScolaireController extends AdminController
 
     public function __construct(NiveauxScolaireService $niveauxScolaireService) {
         parent::__construct();
+        $this->service  =  $niveauxScolaireService;
         $this->niveauxScolaireService = $niveauxScolaireService;
     }
 
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('niveauxScolaire.index');
+
 
 
         // Extraire les paramètres de recherche, page, et filtres

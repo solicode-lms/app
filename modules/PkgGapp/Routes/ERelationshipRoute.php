@@ -10,7 +10,7 @@ use Modules\PkgGapp\Controllers\ERelationshipController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgGapp')->group(function () {
 
-        Route::get('eRelationships/getERelationships', [ERelationshipController::class, 'getERelationships'])->name('eRelationships.all');
+        Route::get('eRelationships/getData', [ERelationshipController::class, 'getData'])->name('eRelationships.getData');
         Route::resource('eRelationships', ERelationshipController::class)
             ->parameters(['eRelationships' => 'eRelationship']);
         // Routes supplémentaires avec préfixe

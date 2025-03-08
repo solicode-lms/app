@@ -10,7 +10,7 @@ use Modules\PkgFormation\Controllers\AnneeFormationController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgFormation')->group(function () {
 
-        Route::get('anneeFormations/getAnneeFormations', [AnneeFormationController::class, 'getAnneeFormations'])->name('anneeFormations.all');
+        Route::get('anneeFormations/getData', [AnneeFormationController::class, 'getData'])->name('anneeFormations.getData');
         Route::resource('anneeFormations', AnneeFormationController::class)
             ->parameters(['anneeFormations' => 'anneeFormation']);
         // Routes supplémentaires avec préfixe

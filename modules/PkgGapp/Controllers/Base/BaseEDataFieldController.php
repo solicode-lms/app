@@ -26,6 +26,7 @@ class BaseEDataFieldController extends AdminController
 
     public function __construct(EDataFieldService $eDataFieldService, EModelService $eModelService, ERelationshipService $eRelationshipService) {
         parent::__construct();
+        $this->service  =  $eDataFieldService;
         $this->eDataFieldService = $eDataFieldService;
         $this->eModelService = $eModelService;
         $this->eRelationshipService = $eRelationshipService;
@@ -34,6 +35,7 @@ class BaseEDataFieldController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('eDataField.index');
+
 
 
         // Extraire les paramètres de recherche, page, et filtres

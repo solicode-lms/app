@@ -22,12 +22,14 @@ class BaseWidgetOperationController extends AdminController
 
     public function __construct(WidgetOperationService $widgetOperationService) {
         parent::__construct();
+        $this->service  =  $widgetOperationService;
         $this->widgetOperationService = $widgetOperationService;
     }
 
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('widgetOperation.index');
+
 
 
         // Extraire les paramètres de recherche, page, et filtres

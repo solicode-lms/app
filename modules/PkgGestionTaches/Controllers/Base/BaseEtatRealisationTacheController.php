@@ -27,6 +27,7 @@ class BaseEtatRealisationTacheController extends AdminController
 
     public function __construct(EtatRealisationTacheService $etatRealisationTacheService, FormateurService $formateurService, SysColorService $sysColorService, WorkflowTacheService $workflowTacheService) {
         parent::__construct();
+        $this->service  =  $etatRealisationTacheService;
         $this->etatRealisationTacheService = $etatRealisationTacheService;
         $this->formateurService = $formateurService;
         $this->sysColorService = $sysColorService;

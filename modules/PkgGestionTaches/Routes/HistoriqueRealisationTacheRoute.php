@@ -10,7 +10,7 @@ use Modules\PkgGestionTaches\Controllers\HistoriqueRealisationTacheController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgGestionTaches')->group(function () {
 
-        Route::get('historiqueRealisationTaches/getHistoriqueRealisationTaches', [HistoriqueRealisationTacheController::class, 'getHistoriqueRealisationTaches'])->name('historiqueRealisationTaches.all');
+        Route::get('historiqueRealisationTaches/getData', [HistoriqueRealisationTacheController::class, 'getData'])->name('historiqueRealisationTaches.getData');
         Route::resource('historiqueRealisationTaches', HistoriqueRealisationTacheController::class)
             ->parameters(['historiqueRealisationTaches' => 'historiqueRealisationTache']);
         // Routes supplémentaires avec préfixe

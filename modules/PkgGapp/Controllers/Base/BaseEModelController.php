@@ -25,6 +25,7 @@ class BaseEModelController extends AdminController
 
     public function __construct(EModelService $eModelService, EPackageService $ePackageService) {
         parent::__construct();
+        $this->service  =  $eModelService;
         $this->eModelService = $eModelService;
         $this->ePackageService = $ePackageService;
     }
@@ -32,6 +33,7 @@ class BaseEModelController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('eModel.index');
+
 
 
         // Extraire les paramètres de recherche, page, et filtres

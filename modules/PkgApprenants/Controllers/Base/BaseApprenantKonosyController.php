@@ -21,12 +21,14 @@ class BaseApprenantKonosyController extends AdminController
 
     public function __construct(ApprenantKonosyService $apprenantKonosyService) {
         parent::__construct();
+        $this->service  =  $apprenantKonosyService;
         $this->apprenantKonosyService = $apprenantKonosyService;
     }
 
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('apprenantKonosy.index');
+
 
 
         // Extraire les paramètres de recherche, page, et filtres

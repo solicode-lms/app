@@ -24,6 +24,7 @@ class BaseSysControllerController extends AdminController
 
     public function __construct(SysControllerService $sysControllerService, SysModuleService $sysModuleService) {
         parent::__construct();
+        $this->service  =  $sysControllerService;
         $this->sysControllerService = $sysControllerService;
         $this->sysModuleService = $sysModuleService;
     }
@@ -31,6 +32,7 @@ class BaseSysControllerController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('sysController.index');
+
 
 
         // Extraire les paramètres de recherche, page, et filtres

@@ -27,6 +27,7 @@ class BasePermissionController extends AdminController
 
     public function __construct(PermissionService $permissionService, FeatureService $featureService, SysControllerService $sysControllerService, RoleService $roleService) {
         parent::__construct();
+        $this->service  =  $permissionService;
         $this->permissionService = $permissionService;
         $this->featureService = $featureService;
         $this->sysControllerService = $sysControllerService;
@@ -36,6 +37,7 @@ class BasePermissionController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('permission.index');
+
 
 
         // Extraire les paramètres de recherche, page, et filtres

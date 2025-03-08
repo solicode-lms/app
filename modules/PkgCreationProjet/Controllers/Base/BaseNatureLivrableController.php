@@ -22,12 +22,14 @@ class BaseNatureLivrableController extends AdminController
 
     public function __construct(NatureLivrableService $natureLivrableService) {
         parent::__construct();
+        $this->service  =  $natureLivrableService;
         $this->natureLivrableService = $natureLivrableService;
     }
 
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('natureLivrable.index');
+
 
 
         // Extraire les paramètres de recherche, page, et filtres

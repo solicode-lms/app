@@ -10,7 +10,7 @@ use Modules\PkgGestionTaches\Controllers\PrioriteTacheController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgGestionTaches')->group(function () {
 
-        Route::get('prioriteTaches/getPrioriteTaches', [PrioriteTacheController::class, 'getPrioriteTaches'])->name('prioriteTaches.all');
+        Route::get('prioriteTaches/getData', [PrioriteTacheController::class, 'getData'])->name('prioriteTaches.getData');
         Route::resource('prioriteTaches', PrioriteTacheController::class)
             ->parameters(['prioriteTaches' => 'prioriteTache']);
         // Routes supplémentaires avec préfixe

@@ -24,6 +24,16 @@ class BaseProjetSeeder extends Seeder
 {
     public static int $order = 38;
 
+    // Permissions spécifiques pour chaque type de fonctionnalité
+    protected array  $featurePermissions = [
+            'Afficher' => ['show'],
+            'Lecture' => ['index', 'show','getData'],
+            'Édition sans Ajouter' => ['index', 'show','edit','update','dataCalcul','getData'],
+            'Édition ' => [ 'index', 'show','create','store','edit','update','destroy','dataCalcul','getData'],
+            'Extraction' => ['import', 'export'],
+
+        ];
+
     public function run(): void
     {
         $AdminRole = User::ADMIN;
@@ -103,16 +113,6 @@ class BaseProjetSeeder extends Seeder
         $controllerBaseName = 'projet';
         $domainName = 'Projet';
 
-        // Permissions spécifiques pour chaque type de fonctionnalité
-        $featurePermissions = [
-            'Afficher' => ['show'],
-            'Lecture' => ['index', 'show'],
-            'Édition sans Ajouter' => ['index', 'show','edit','update','dataCalcul'],
-            'Édition ' => [ 'index', 'show','create','store','edit','update','destroy','dataCalcul'],
-            'Extraction' => ['import', 'export'],
-
-        ];
-
         // Ajouter le contrôleur
         $sysController = SysController::firstOrCreate(
             ['name' => $controllerName],
@@ -135,7 +135,7 @@ class BaseProjetSeeder extends Seeder
         );
 
         // Ajouter les fonctionnalités principales
-        foreach ($featurePermissions as $featureName => $actions) {
+        foreach ($this->featurePermissions as $featureName => $actions) {
             $feature = Feature::firstOrCreate(
                 ['name' => "$domainName - $featureName"],
                 [

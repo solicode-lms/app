@@ -31,6 +31,7 @@ class BaseFormateurController extends AdminController
 
     public function __construct(FormateurService $formateurService, GroupeService $groupeService, SpecialiteService $specialiteService, UserService $userService) {
         parent::__construct();
+        $this->service  =  $formateurService;
         $this->formateurService = $formateurService;
         $this->groupeService = $groupeService;
         $this->specialiteService = $specialiteService;
@@ -40,6 +41,7 @@ class BaseFormateurController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('formateur.index');
+
 
 
         // Extraire les paramètres de recherche, page, et filtres

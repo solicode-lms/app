@@ -25,6 +25,7 @@ class BaseLabelRealisationTacheController extends AdminController
 
     public function __construct(LabelRealisationTacheService $labelRealisationTacheService, FormateurService $formateurService, SysColorService $sysColorService) {
         parent::__construct();
+        $this->service  =  $labelRealisationTacheService;
         $this->labelRealisationTacheService = $labelRealisationTacheService;
         $this->formateurService = $formateurService;
         $this->sysColorService = $sysColorService;

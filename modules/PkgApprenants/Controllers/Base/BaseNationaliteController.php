@@ -22,12 +22,14 @@ class BaseNationaliteController extends AdminController
 
     public function __construct(NationaliteService $nationaliteService) {
         parent::__construct();
+        $this->service  =  $nationaliteService;
         $this->nationaliteService = $nationaliteService;
     }
 
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('nationalite.index');
+
 
 
         // Extraire les paramètres de recherche, page, et filtres

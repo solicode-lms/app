@@ -24,6 +24,7 @@ class BaseModuleController extends AdminController
 
     public function __construct(ModuleService $moduleService, FiliereService $filiereService) {
         parent::__construct();
+        $this->service  =  $moduleService;
         $this->moduleService = $moduleService;
         $this->filiereService = $filiereService;
     }
@@ -31,6 +32,7 @@ class BaseModuleController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('module.index');
+
 
 
         // Extraire les paramètres de recherche, page, et filtres
