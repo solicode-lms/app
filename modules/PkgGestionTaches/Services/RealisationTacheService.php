@@ -50,15 +50,17 @@ class RealisationTacheService extends BaseRealisationTacheService
             Auth::user()->hasRole(Role::APPRENANT_ROLE) => $affectationProjetService->getAffectationProjetsByApprenantId($sessionState->get("apprenant_id")),
             default => AffectationProjet::all(),
         };
+
+        // TODO Gapp :  ajouter les params de DynamicDromdonw depuis metaData DynamicDropdonw
         $this->fieldsFilterable[] = $this->generateRelationFilter(
             __("PkgRealisationProjets::affectationProjet.plural"), 
             'realisationProjet.affectation_projet_id', 
             AffectationProjet::class, 
             "id",
             $affectationProjets, 
-            "[name='tache_id']",
+             "[name='tache_id']",
             route('taches.getData'),
-            targetDynamicDropdownFilter : "projet.affectationProjets.id"
+             "projet.affectationProjets.id"
         );
        
         // Etat

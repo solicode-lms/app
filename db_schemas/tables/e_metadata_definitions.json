@@ -682,5 +682,17 @@
         "description": "<p>Problème : autorisation d'édition des champs par rôle</p><p>Exemple : Apprenant a l'autorisation de modifier l'état de réalisation de projet mais n'a pas le droit de modifier l'apprenant et l'affectation de projet.</p>",
         "created_at": null,
         "updated_at": null
+    },
+    {
+        "id": 58,
+        "reference": "dynamicDropdown",
+        "name": "dynamicDropdown",
+        "type": "Json",
+        "scope": "field",
+        "default_value": null,
+        "groupe": "form",
+        "description": "Il perme de filter un select par un autre select\r\n            <br>voir l'exemple dans RealisationTacheServide : filter les tâches selon Affectation de projet",
+        "created_at": null,
+        "updated_at": null
     }
 ]
