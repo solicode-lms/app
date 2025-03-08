@@ -22,7 +22,11 @@
             <select id="filter_{{ $field }}" name="{{ $field }}" class="form-select form-control form-control-sm select2"
                 data-label="{{$label}}" 
                 @if(!empty($targetDynamicDropdown)) data-target-dynamic-dropdown="{{ $targetDynamicDropdown }}" @endif
-                @if(!empty($targetDynamicDropdownApiUrl)) data-target-dynamic-dropdown-api-url='{{$targetDynamicDropdownApiUrl}}' @endif >
+                @if(!empty($targetDynamicDropdownApiUrl)) data-target-dynamic-dropdown-api-url='{{$targetDynamicDropdownApiUrl}}' @endif
+                @if(!empty($targetDynamicDropdownFilter)) data-target-dynamic-dropdown-filter='{{$targetDynamicDropdownFilter}}' @endif >
+                
+
+
                 <option value="">{{ $label }}</option>
                 @foreach ($options as $option)
                     <option value="{{ $option['id'] }}" 
@@ -38,6 +42,7 @@
         data-label="{{$label}}" 
         @if(!empty($targetDynamicDropdown)) data-target-dynamic-dropdown="{{ $targetDynamicDropdown }}" @endif
         @if(!empty($targetDynamicDropdownApiUrl)) data-target-dynamic-dropdown-api-url='{{$targetDynamicDropdownApiUrl}}' @endif
+        @if(!empty($targetDynamicDropdownFilter)) data-target-dynamic-dropdown-filter='{{$targetDynamicDropdownFilter}}' @endif
         name="{{ $field }}" class="form-select form-control form-control-sm select2">
             <option value="">{{ $label }}</option>
             @foreach ($options as $option)
@@ -53,6 +58,7 @@
             name="{{ $field }}" 
             @if(!empty($targetDynamicDropdown)) data-target-dynamic-dropdown="{{ $targetDynamicDropdown }}" @endif
             @if(!empty($targetDynamicDropdownApiUrl)) data-target-dynamic-dropdown-api-url='{{$targetDynamicDropdownApiUrl}}' @endif
+            @if(!empty($targetDynamicDropdownFilter)) data-target-dynamic-dropdown-filter='{{$targetDynamicDropdownFilter}}' @endif
             class="form-select form-control form-control-sm select2">
                 <option value="">{{ $label }}</option>
                 @foreach ($options as $option)
@@ -68,6 +74,7 @@
             name="{{ $field }}" 
             @if(!empty($targetDynamicDropdown)) data-target-dynamic-dropdown="{{ $targetDynamicDropdown }}" @endif
             @if(!empty($targetDynamicDropdownApiUrl)) data-target-dynamic-dropdown-api-url='{{$targetDynamicDropdownApiUrl}}' @endif
+            @if(!empty($targetDynamicDropdownFilter)) data-target-dynamic-dropdown-filter='{{$targetDynamicDropdownFilter}}' @endif
             class="form-select form-control form-control-sm select2">
                 <option value="">{{ $label }}</option>
                 @foreach ($options as $option)

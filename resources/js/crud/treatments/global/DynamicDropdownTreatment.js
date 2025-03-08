@@ -10,6 +10,7 @@ export default class DynamicDropdownTreatment {
         this.triggerElement = triggerElement;
         this.targetSelector = triggerElement.dataset.targetDynamicDropdown;
         this.apiUrlTemplate = triggerElement.dataset.targetDynamicDropdownApiUrl;
+        this.targetDynamicDropdownFilter = triggerElement.dataset.targetDynamicDropdownFilter;
 
         if (!this.targetSelector || !this.apiUrlTemplate) {
             console.warn("Attributs data-target ou data-api-url manquants pour DynamicDropdownTreatment.");
@@ -43,7 +44,7 @@ export default class DynamicDropdownTreatment {
      * @param {string} selectedValue - Valeur sélectionnée dans le champ déclencheur.
      */
     async updateTargetDropdown(selectedValue) {
-        const apiUrl = this.apiUrlTemplate.replace("__ID__", selectedValue);
+        const apiUrl = `${this.apiUrlTemplate}?filter=${this.targetDynamicDropdownFilter}&value=${selectedValue}`;
         const previousSelection = this.targetElement.value;
         this.targetElement.value = "";
 
@@ -84,7 +85,7 @@ export default class DynamicDropdownTreatment {
         data.forEach((item) => {
             const option = document.createElement("option");
             option.value = item.id;
-            option.textContent = item.titre;
+            option.textContent = item.toString;
             this.targetElement.appendChild(option);
         });
     

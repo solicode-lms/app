@@ -10,7 +10,8 @@ use Modules\PkgGestionTaches\Controllers\TacheController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgGestionTaches')->group(function () {
 
-        Route::get('taches/getTaches', [TacheController::class, 'getTaches'])->name('taches.all');
+        Route::get('taches/getData', [TacheController::class, 'getData'])->name('taches.getData');
+
         Route::resource('taches', TacheController::class)
             ->parameters(['taches' => 'tache']);
         // Routes supplémentaires avec préfixe
@@ -23,10 +24,6 @@ Route::middleware('auth')->group(function () {
         });
 
         Route::post('taches/data-calcul', [TacheController::class, 'dataCalcul'])->name('taches.dataCalcul');
-        
-        // Méthode utilisé pour adapter le filtre tache dans RéalisationTaches
-        Route::get('taches/getTacheByAffectationProjetId/{affectation_projet_id}', [TacheController::class, 'getTacheByAffectationProjetId'])
-        ->name('taches.getTacheByAffectationProjetId');
-        
+
     });
 });

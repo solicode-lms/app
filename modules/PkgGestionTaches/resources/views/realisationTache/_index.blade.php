@@ -87,7 +87,8 @@
                                     :options="$filter['options'] ?? []"
                                     :placeholder="ucfirst(str_replace('_', ' ', $filter['field']))" 
                                     :targetDynamicDropdown="isset($filter['targetDynamicDropdown']) ? $filter['targetDynamicDropdown'] : null"
-                                    :targetDynamicDropdownApiUrl="isset($filter['targetDynamicDropdownApiUrl']) ? $filter['targetDynamicDropdownApiUrl'] : null"  />
+                                    :targetDynamicDropdownApiUrl="isset($filter['targetDynamicDropdownApiUrl']) ? $filter['targetDynamicDropdownApiUrl'] : null" 
+                                    :targetDynamicDropdownFilter="isset($filter['targetDynamicDropdownFilter']) ? $filter['targetDynamicDropdownFilter'] : null" />
                             @endforeach
                         </x-filter-group>
                         @section('realisationTache-crud-search-bar')

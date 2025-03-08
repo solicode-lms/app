@@ -29,6 +29,7 @@ class BaseTacheController extends AdminController
 
     public function __construct(TacheService $tacheService, LivrableService $livrableService, PrioriteTacheService $prioriteTacheService, ProjetService $projetService) {
         parent::__construct();
+        $this->service  =  $tacheService;
         $this->tacheService = $tacheService;
         $this->livrableService = $livrableService;
         $this->prioriteTacheService = $prioriteTacheService;

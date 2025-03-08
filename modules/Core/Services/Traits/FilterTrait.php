@@ -102,7 +102,8 @@ trait FilterTrait
         string $displayField = 'id', 
         $data = null,
         $targetDynamicDropdown = null,
-        $targetDynamicDropdownApiUrl = null
+        $targetDynamicDropdownApiUrl = null,
+        $targetDynamicDropdownFilter = null
         ): array
     {
         $relatedInstance = new $relatedModel();
@@ -120,7 +121,8 @@ trait FilterTrait
             'options' => $data,
             'sortable' => "{$relatedInstance->getTable()}.{$displayField}",
             'targetDynamicDropdown' => $targetDynamicDropdown,
-            'targetDynamicDropdownApiUrl' => $targetDynamicDropdownApiUrl
+            'targetDynamicDropdownApiUrl' => $targetDynamicDropdownApiUrl,
+            'targetDynamicDropdownFilter' => $targetDynamicDropdownFilter
         ];
     }
 

@@ -57,7 +57,9 @@ class RealisationTacheService extends BaseRealisationTacheService
             "id",
             $affectationProjets, 
             "[name='tache_id']",
-            route('taches.getTacheByAffectationProjetId',  ['affectation_projet_id' => '__ID__']));
+            route('taches.getData'),
+            targetDynamicDropdownFilter : "projet.affectationProjets.id"
+        );
        
         // Etat
         $etatRealisationTacheService = new EtatRealisationTacheService();

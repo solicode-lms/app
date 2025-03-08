@@ -6,6 +6,7 @@ use App\Http\Middleware\CheckDynamicPermission;
 use App\Http\Middleware\ContextStateMiddleware;
 use App\Http\Middleware\SessionStateMiddleware;
 use App\Http\Middleware\SetViewStateMiddleware;
+use Illuminate\Http\Request;
 use Modules\Core\Services\ContextState;
 use Modules\Core\Services\SessionState;
 use Modules\Core\Services\ViewStateService;
@@ -19,6 +20,8 @@ class AdminController extends AppController
     protected $sessionState;
 
     protected $viewState ;
+
+    protected $service ;
     
     /**
      * Constructeur du contrôleur.
@@ -93,4 +96,25 @@ class AdminController extends AppController
     //     // Appelle la méthode parente pour continuer le traitement.
     //     return parent::callAction($method, $parameters);
     // }
+
+
+    public function getData(Request $request)
+    {
+        $filter = $request->query('filter');
+        $value = $request->query('value');
+    
+        if (!$filter || !$value) {
+            return response()->json(['error' => 'Les paramètres "filter" et "value" sont requis'], 400);
+        }
+    
+        // Récupération des tâches filtrées
+        $taches = $this->service->getData($filter, $value);
+    
+        // Retourner tous les champs avec un champ `toString`
+        return response()->json($taches->map(fn($tache) => array_merge(
+            $tache->toArray(), // Convertir l'objet en tableau avec tous les champs
+            ['toString' => $tache->__toString()] // Ajouter le champ `toString`
+        )));
+    }
+    
 }
