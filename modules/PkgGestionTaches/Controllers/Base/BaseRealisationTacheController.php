@@ -28,6 +28,7 @@ class BaseRealisationTacheController extends AdminController
 
     public function __construct(RealisationTacheService $realisationTacheService, EtatRealisationTacheService $etatRealisationTacheService, RealisationProjetService $realisationProjetService, TacheService $tacheService) {
         parent::__construct();
+        $this->service  =  $realisationTacheService;
         $this->realisationTacheService = $realisationTacheService;
         $this->etatRealisationTacheService = $etatRealisationTacheService;
         $this->realisationProjetService = $realisationProjetService;

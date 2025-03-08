@@ -10,7 +10,7 @@ use Modules\PkgGestionTaches\Controllers\RealisationTacheController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgGestionTaches')->group(function () {
 
-        Route::get('realisationTaches/getRealisationTaches', [RealisationTacheController::class, 'getRealisationTaches'])->name('realisationTaches.all');
+        Route::get('realisationTaches/getData', [RealisationTacheController::class, 'getData'])->name('realisationTaches.getData');
         Route::resource('realisationTaches', RealisationTacheController::class)
             ->parameters(['realisationTaches' => 'realisationTache']);
         // Routes supplémentaires avec préfixe
