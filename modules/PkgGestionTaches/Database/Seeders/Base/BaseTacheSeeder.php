@@ -1,5 +1,5 @@
 <?php
-// TODO : protected array $featurePermissions
+// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 
@@ -25,14 +25,14 @@ class BaseTacheSeeder extends Seeder
     public static int $order = 60;
 
     // Permissions spécifiques pour chaque type de fonctionnalité
-    protected array $featurePermissions = [
-        'Afficher' => ['show'],
-        'Lecture' => ['index', 'show'],
-        'Édition sans Ajouter' => ['index', 'show', 'edit', 'update', 'dataCalcul'],
-        'Édition' => ['index', 'show', 'create', 'store', 'edit', 'update', 'destroy', 'dataCalcul'],
-        'Extraction' => ['import', 'export'],
-    ];
-    
+    protected array  $featurePermissions = [
+            'Afficher' => ['show'],
+            'Lecture' => ['index', 'show','getData'],
+            'Édition sans Ajouter' => ['index', 'show','edit','update','dataCalcul','getData'],
+            'Édition ' => [ 'index', 'show','create','store','edit','update','destroy','dataCalcul','getData'],
+            'Extraction' => ['import', 'export'],
+
+        ];
 
     public function run(): void
     {
@@ -112,7 +112,6 @@ class BaseTacheSeeder extends Seeder
         $controllerBaseName = 'tache';
         $domainName = 'Tache';
 
- 
         // Ajouter le contrôleur
         $sysController = SysController::firstOrCreate(
             ['name' => $controllerName],
