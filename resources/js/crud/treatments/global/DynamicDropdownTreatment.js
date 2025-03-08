@@ -17,7 +17,8 @@ export default class DynamicDropdownTreatment {
         }
 
         this.targetElement = document.querySelector(this.targetSelector);
-        this.loader = new LoadingIndicator(this.targetSelector);
+
+     
 
         if (!this.targetElement) {
             console.warn(`Élément cible "${this.targetSelector}" introuvable.`);
@@ -44,9 +45,10 @@ export default class DynamicDropdownTreatment {
     async updateTargetDropdown(selectedValue) {
         const apiUrl = this.apiUrlTemplate.replace("__ID__", selectedValue);
         const previousSelection = this.targetElement.value;
+        this.targetElement.value = "";
 
         try {
-            this.loader.show(); // Affichage du loader
+        
             const response = await fetch(apiUrl);
 
             if (!response.ok) {
@@ -58,7 +60,7 @@ export default class DynamicDropdownTreatment {
         } catch (error) {
             AjaxErrorHandler.handleError(error, "Impossible de charger les options.");
         } finally {
-            this.loader.hide();
+        
         }
     }
 
@@ -68,18 +70,30 @@ export default class DynamicDropdownTreatment {
      * @param {string} previousSelection - Ancienne valeur sélectionnée.
      */
     populateDropdown(data, previousSelection) {
+        // Conserver l'option vide existante s'il y en a une
+        let emptyOption = this.targetElement.querySelector('option[value=""]');
+        if (!emptyOption) {
+            emptyOption = document.createElement("option");
+            emptyOption.value = "";
+            emptyOption.textContent = this.targetElement.options.length > 0 ? this.targetElement.options[0].textContent : ""; // Utilise le label existant
+        }
+    
         this.targetElement.innerHTML = ""; // Vider les options existantes
-
+        this.targetElement.appendChild(emptyOption); // Ajouter l'option vide en premier
+    
         data.forEach((item) => {
             const option = document.createElement("option");
             option.value = item.id;
             option.textContent = item.titre;
             this.targetElement.appendChild(option);
         });
-
-        // Restaurer la sélection précédente si encore valide
+    
+        // Restaurer la sélection précédente si encore valide, sinon sélectionner l'option vide
         if ([...this.targetElement.options].some((opt) => opt.value == previousSelection)) {
             this.targetElement.value = previousSelection;
+        } else {
+            this.targetElement.value = "";
         }
     }
+    
 }

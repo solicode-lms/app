@@ -12,11 +12,13 @@ class TacheController extends BaseTacheController
 {
     public function getTacheByAffectationProjetId($affectationProjetId)
     {
-        //$affectationProjetId = $request->query('affectation_projet_id');
-
         $taches = (new TacheService())->getTacheByAffectationProjetId($affectationProjetId);
 
-        return response()->json($taches);
+        // Convertir chaque objet en tableau JSON-friendly
+        return response()->json($taches->map(fn($tache) => [
+            'id' => $tache->id,
+            'titre' => $tache->__toString(), // Assurez-vous que le champ `titre` existe
+        ]));
     }
 
 }

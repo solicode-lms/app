@@ -21,9 +21,8 @@
             
             <select id="filter_{{ $field }}" name="{{ $field }}" class="form-select form-control form-control-sm select2"
                 data-label="{{$label}}" 
-                data-target-dynamic-dropdown='{{$targetDynamicDropdown}}'
-                data-target-dynamic-dropdown-api-url='{{$targetDynamicDropdownApiUrl}}' 
-                >
+                @if(!empty($targetDynamicDropdown)) data-target-dynamic-dropdown="{{ $targetDynamicDropdown }}" @endif
+                @if(!empty($targetDynamicDropdownApiUrl)) data-target-dynamic-dropdown-api-url='{{$targetDynamicDropdownApiUrl}}' @endif >
                 <option value="">{{ $label }}</option>
                 @foreach ($options as $option)
                     <option value="{{ $option['id'] }}" 
@@ -37,8 +36,8 @@
         
         <select id="filter_{{ $field }}" 
         data-label="{{$label}}" 
-        data-target-dynamic-dropdown='{{$targetDynamicDropdown}}'
-        data-target-dynamic-dropdown-api-url='{{$targetDynamicDropdownApiUrl}}' 
+        @if(!empty($targetDynamicDropdown)) data-target-dynamic-dropdown="{{ $targetDynamicDropdown }}" @endif
+        @if(!empty($targetDynamicDropdownApiUrl)) data-target-dynamic-dropdown-api-url='{{$targetDynamicDropdownApiUrl}}' @endif
         name="{{ $field }}" class="form-select form-control form-control-sm select2">
             <option value="">{{ $label }}</option>
             @foreach ($options as $option)
@@ -52,8 +51,8 @@
         @case('ManyToMany')
             <select id="filter_{{ $field }}"  
             name="{{ $field }}" 
-            data-target-dynamic-dropdown='{{$targetDynamicDropdown}}'
-            data-target-dynamic-dropdown-api-url='{{$targetDynamicDropdownApiUrl}}' 
+            @if(!empty($targetDynamicDropdown)) data-target-dynamic-dropdown="{{ $targetDynamicDropdown }}" @endif
+            @if(!empty($targetDynamicDropdownApiUrl)) data-target-dynamic-dropdown-api-url='{{$targetDynamicDropdownApiUrl}}' @endif
             class="form-select form-control form-control-sm select2">
                 <option value="">{{ $label }}</option>
                 @foreach ($options as $option)
@@ -67,8 +66,8 @@
         @case('Polymorphic')
             <select id="{{ $field }}"  
             name="{{ $field }}" 
-            data-target-dynamic-dropdown='{{$targetDynamicDropdown}}'
-            data-target-dynamic-dropdown-api-url='{{$targetDynamicDropdownApiUrl}}' 
+            @if(!empty($targetDynamicDropdown)) data-target-dynamic-dropdown="{{ $targetDynamicDropdown }}" @endif
+            @if(!empty($targetDynamicDropdownApiUrl)) data-target-dynamic-dropdown-api-url='{{$targetDynamicDropdownApiUrl}}' @endif
             class="form-select form-control form-control-sm select2">
                 <option value="">{{ $label }}</option>
                 @foreach ($options as $option)

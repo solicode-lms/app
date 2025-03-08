@@ -36,6 +36,7 @@ export class FilterUI {
         const form = $(this.config.filterFormSelector);
         const formData = {};
 
+        const dataArray = form.serializeArray();
         // Parcourir les champs du formulaire
         form.serializeArray().forEach((field) => {
             const value = field.value.trim(); // Supprimer les espaces inutiles
