@@ -33,36 +33,12 @@
                                 <p>{{ $itemEDataField->name }}</p>
                             </div>
                             <div class="col-sm-12">
+                                <label for="data_type">{{ ucfirst(__('PkgGapp::eDataField.data_type')) }}:</label>
+                                <p>{{ $itemEDataField->data_type }}</p>
+                            </div>
+                            <div class="col-sm-12">
                                 <label for="column_name">{{ ucfirst(__('PkgGapp::eDataField.column_name')) }}:</label>
                                 <p>{{ $itemEDataField->column_name }}</p>
-                            </div>
-                            <div class="col-sm-12">
-                                <label for="field_order">{{ ucfirst(__('PkgGapp::eDataField.field_order')) }}:</label>
-                                <p>{{ $itemEDataField->field_order }}</p>
-                            </div>
-                            <div class="col-sm-12">
-                                <label for="db_nullable">{{ ucfirst(__('PkgGapp::eDataField.db_nullable')) }}:</label>
-                                <p>{{ $itemEDataField->db_nullable }}</p>
-                            </div>
-                            <div class="col-sm-12">
-                                <label for="db_primaryKey">{{ ucfirst(__('PkgGapp::eDataField.db_primaryKey')) }}:</label>
-                                <p>{{ $itemEDataField->db_primaryKey }}</p>
-                            </div>
-                            <div class="col-sm-12">
-                                <label for="db_unique">{{ ucfirst(__('PkgGapp::eDataField.db_unique')) }}:</label>
-                                <p>{{ $itemEDataField->db_unique }}</p>
-                            </div>
-                            <div class="col-sm-12">
-                                <label for="calculable">{{ ucfirst(__('PkgGapp::eDataField.calculable')) }}:</label>
-                                <p>{{ $itemEDataField->calculable }}</p>
-                            </div>
-                            <div class="col-sm-12">
-                                <label for="default_value">{{ ucfirst(__('PkgGapp::eDataField.default_value')) }}:</label>
-                                <p>{{ $itemEDataField->default_value }}</p>
-                            </div>
-                            <div class="col-sm-12">
-                                <label for="description">{{ ucfirst(__('PkgGapp::eDataField.description')) }}:</label>
-                                <p>{{ $itemEDataField->description }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="e_model_id">{{ ucfirst(__('PkgGapp::eDataField.e_model_id')) }}:</label>
@@ -73,8 +49,32 @@
                                 <p>{{ $itemEDataField->e_relationship_id }}</p>
                             </div>
                             <div class="col-sm-12">
-                                <label for="data_type">{{ ucfirst(__('PkgGapp::eDataField.data_type')) }}:</label>
-                                <p>{{ $itemEDataField->data_type }}</p>
+                                <label for="field_order">{{ ucfirst(__('PkgGapp::eDataField.field_order')) }}:</label>
+                                <p>{{ $itemEDataField->field_order }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="default_value">{{ ucfirst(__('PkgGapp::eDataField.default_value')) }}:</label>
+                                <p>{{ $itemEDataField->default_value }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="db_primaryKey">{{ ucfirst(__('PkgGapp::eDataField.db_primaryKey')) }}:</label>
+                                <p>{{ $itemEDataField->db_primaryKey }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="db_nullable">{{ ucfirst(__('PkgGapp::eDataField.db_nullable')) }}:</label>
+                                <p>{{ $itemEDataField->db_nullable }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="db_unique">{{ ucfirst(__('PkgGapp::eDataField.db_unique')) }}:</label>
+                                <p>{{ $itemEDataField->db_unique }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="calculable">{{ ucfirst(__('PkgGapp::eDataField.calculable')) }}:</label>
+                                <p>{{ $itemEDataField->calculable }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="description">{{ ucfirst(__('PkgGapp::eDataField.description')) }}:</label>
+                                <p>{{ $itemEDataField->description }}</p>
                             </div>
                         </div>
                     </div>

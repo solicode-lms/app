@@ -19,29 +19,17 @@ trait QueryBuilderTrait
     public function allQuery(array $params = []): Builder
     {
         $query = $this->model->newQuery();
+        $table = $this->model->getTable();
 
         // Appliquer la recherche globale
         if (!empty($params['search'])) {
-            $query->where(function ($q) use ($params) {
+            $query->where(function ($q) use ($params,$table) {
                 foreach ($this->getFieldsSearchable() as $field) {
-                    $q->orWhere($field, 'LIKE', "%{$params['search']}%");
+                    $q->orWhere("{$table}.{$field}", 'LIKE', "%{$params['search']}%");
                 }
             });
         }
 
-        // Les filtre sopnt appliquer dans DynamiqueContextScope
-        // Appliquer les filtres spécifiques (URL aplatie)
-        // foreach ($params as $field => $value) {
-        //     if (in_array($field, $this->getFieldsSearchable()) && !empty($value)) {
-        //         if (is_numeric($value)) {
-        //             // Utiliser "=" pour les valeurs numériques
-        //             $query->where($field, '=', $value);
-        //         } else {
-        //             // Utiliser "LIKE" pour les chaînes
-        //             $query->where($field, 'LIKE', "%{$value}%");
-        //         }
-        //     }
-        // }
         $filterVariables = $this->viewState->getFilterVariables($this->modelName);
         $this->filter($query,$this->model,$filterVariables);
       
@@ -50,18 +38,6 @@ trait QueryBuilderTrait
         $sortVariables = $this->viewState->getSortVariables($this->modelName);
         if (!empty($sortVariables)) {
             $this->applySort($query,$sortVariables);
-
-            // $sortFields = explode(',', $params['sort']);
-            // foreach ($sortFields as $sortField) {
-
-            //     $fieldParts = explode('_', $sortField); // Divise en segments
-            //     $direction = end($fieldParts);         // Récupère la direction (dernier élément)
-            //     $field = implode('_', array_slice($fieldParts, 0, -1)); // Combine le reste pour former le champ
-
-            //     if (in_array($field, $this->getFieldsSearchable())) {
-            //         $query->orderBy($field, $direction);
-            //     }
-            // }
          }
 
         return $query;
@@ -110,6 +86,7 @@ trait QueryBuilderTrait
    
         // Obtenir les colonnes disponibles dans le modèle
         $modelAttributes = $model->getFillable();
+        $table = $model->getTable(); // Récupérer dynamiquement le nom de la table
 
         // Charger automatiquement les relations nécessaires
         $relationsToLoad = [];
@@ -136,8 +113,8 @@ trait QueryBuilderTrait
                     });
                 }
             } elseif (in_array($key, $modelAttributes)) {
-                // Appliquer un filtre simple si c'est une colonne du modèle
-                $builder->where($key, $value);
+                // Correction : Ajout dynamique du préfixe de la table pour éviter les ambiguïtés SQL
+                $builder->where("{$table}.{$key}", $value);
             }
         }
 
