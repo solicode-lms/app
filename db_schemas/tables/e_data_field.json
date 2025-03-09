@@ -10844,5 +10844,22 @@
         "e_relationship_id": 88,
         "created_at": null,
         "updated_at": null
+    },
+    {
+        "id": 639,
+        "reference": "5ee979d8-9239-4aa0-8f90-2b227f13dedf",
+        "name": "Apprenant",
+        "column_name": "realisationProjet.affectationProjet.realisationProjets.apprenant_id",
+        "data_type": "Integer",
+        "field_order": 3,
+        "db_nullable": 0,
+        "db_primaryKey": 0,
+        "db_unique": 0,
+        "default_value": null,
+        "description": "<div style=\"color: rgb(0, 0, 0); font-family: Consolas, &quot;Courier New&quot;, monospace; font-size: 14px; line-height: 19px; white-space: pre;\">Champs calculable : Apprenant dans Réalisation tâche</div>",
+        "e_model_id": 11,
+        "e_relationship_id": null,
+        "created_at": null,
+        "updated_at": null
     }
 ]
