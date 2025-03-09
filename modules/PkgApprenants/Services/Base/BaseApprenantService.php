@@ -1,5 +1,5 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
+// add nombre_realisation_taches_en_cours to fieldsSearchable
 
 
 
@@ -36,7 +36,8 @@ class BaseApprenantService extends BaseService
         'user_id',
         'matricule',
         'date_inscription',
-        'actif'
+        'actif',
+        'nombre_realisation_taches_en_cours'
     ];
 
     /**

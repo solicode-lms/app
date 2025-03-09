@@ -34,4 +34,19 @@ class Apprenant extends BaseApprenant
             ->count();
     }
 
+    /**
+     * Construire la requête pour récupérer les tâches en cours
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function queryRealisationTachesEnCours()
+    {
+        return RealisationTache::whereHas('realisationProjet', function ($query) {
+                $query->where('apprenant_id', $this->id);
+            })
+            ->whereHas('etatRealisationTache', function ($q) {
+                $q->where('nom', 'En cours'); // Filtrer uniquement les tâches en cours
+            });
+    }
+
 }

@@ -16,9 +16,12 @@ trait QueryBuilderTrait
      * @param array $params Critères de recherche.
      * @return Builder
      */
-    public function allQuery(array $params = []): Builder
+    public function allQuery(array $params = [],$query = null): Builder
     {
-        $query = $this->model->newQuery();
+        if($query == null) {
+            $query = $this->model->newQuery();
+        }
+     
         $table = $this->model->getTable();
 
         // Appliquer la recherche globale
