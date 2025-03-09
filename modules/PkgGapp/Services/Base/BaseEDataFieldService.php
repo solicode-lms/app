@@ -26,6 +26,7 @@ class BaseEDataFieldService extends BaseService
         'db_nullable',
         'db_primaryKey',
         'db_unique',
+        'calculable',
         'default_value',
         'description',
         'e_model_id',

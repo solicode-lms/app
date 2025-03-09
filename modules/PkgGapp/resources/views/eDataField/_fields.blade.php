@@ -146,6 +146,29 @@
 
         
         <div class="form-group col-12 col-md-6">
+            <label for="calculable">
+                {{ ucfirst(__('PkgGapp::eDataField.calculable')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <input type="hidden" name="calculable" value="0">
+            <input
+                name="calculable"
+                type="checkbox"
+                class="form-control"
+                required
+                
+                id="calculable"
+                value="1"
+                {{ old('calculable', $itemEDataField ? $itemEDataField->calculable : 0) ? 'checked' : '' }}>
+            @error('calculable')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
+
+        
+        <div class="form-group col-12 col-md-6">
             <label for="default_value">
                 {{ ucfirst(__('PkgGapp::eDataField.default_value')) }}
                 

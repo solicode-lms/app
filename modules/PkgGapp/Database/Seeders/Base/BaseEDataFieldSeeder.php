@@ -81,6 +81,7 @@ class BaseEDataFieldSeeder extends Seeder
                     "db_nullable" => $row["db_nullable"] ?? null,
                     "db_primaryKey" => $row["db_primaryKey"] ?? null,
                     "db_unique" => $row["db_unique"] ?? null,
+                    "calculable" => $row["calculable"] ?? null,
                     "default_value" => $row["default_value"] ?? null,
                     "description" => $row["description"] ?? null,
                     "e_model_id" => $row["e_model_id"] ?? null,

@@ -64,11 +64,12 @@ class BaseEDataFieldImport implements ToModel, WithHeadingRow
              'db_nullable' => $values[5] ?? null,
              'db_primaryKey' => $values[6] ?? null,
              'db_unique' => $values[7] ?? null,
-             'default_value' => $values[8] ?? null,
-             'description' => $values[9] ?? null,
-             'e_model_id' => $values[10] ?? null,
-             'e_relationship_id' => $values[11] ?? null,
-             'data_type' => $values[12] ?? null,
+             'calculable' => $values[8] ?? null,
+             'default_value' => $values[9] ?? null,
+             'description' => $values[10] ?? null,
+             'e_model_id' => $values[11] ?? null,
+             'e_relationship_id' => $values[12] ?? null,
+             'data_type' => $values[13] ?? null,
         ]);
 
 

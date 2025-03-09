@@ -53,6 +53,10 @@
                                 <p>{{ $itemEDataField->db_unique }}</p>
                             </div>
                             <div class="col-sm-12">
+                                <label for="calculable">{{ ucfirst(__('PkgGapp::eDataField.calculable')) }}:</label>
+                                <p>{{ $itemEDataField->calculable }}</p>
+                            </div>
+                            <div class="col-sm-12">
                                 <label for="default_value">{{ ucfirst(__('PkgGapp::eDataField.default_value')) }}:</label>
                                 <p>{{ $itemEDataField->default_value }}</p>
                             </div>
