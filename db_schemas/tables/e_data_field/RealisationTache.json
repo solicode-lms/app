@@ -1,8 +1,8 @@
 [
     {
         "reference": "RealisationTache-Nom",
-        "name": "Nom",
-        "column_name": "apprenant_id",
+        "name": "Nom apprenant",
+        "column_name": "realisationProjet.affectationProjet.realisationProjets.apprenant.nom",
         "data_type": "String",
         "field_order": 2,
         "db_nullable": 0,

@@ -444,39 +444,9 @@
         "e_metadata_definition_reference": "editOnFullScreen"
     },
     {
-        "reference": "RealisationTache-Nom_displayInTable",
-        "value_boolean": 1,
-        "e_data_field_reference": "RealisationTache-Nom",
-        "e_metadata_definition_reference": "displayInTable"
-    },
-    {
-        "reference": "RealisationTache-Nom_displayField",
-        "value_boolean": 1,
-        "e_data_field_reference": "RealisationTache-Nom",
-        "e_metadata_definition_reference": "displayField"
-    },
-    {
-        "reference": "RealisationTache-Nom_required",
-        "value_boolean": 1,
-        "e_data_field_reference": "RealisationTache-Nom",
-        "e_metadata_definition_reference": "required"
-    },
-    {
         "reference": "RealisationTache-Nom_displayOrder",
         "value_integer": 2,
         "e_data_field_reference": "RealisationTache-Nom",
         "e_metadata_definition_reference": "displayOrder"
-    },
-    {
-        "reference": "RealisationTache-Nom_displayInForm",
-        "value_boolean": 1,
-        "e_data_field_reference": "RealisationTache-Nom",
-        "e_metadata_definition_reference": "displayInForm"
-    },
-    {
-        "reference": "RealisationTache-Nom_inputMdWidth",
-        "value_integer": 6,
-        "e_data_field_reference": "RealisationTache-Nom",
-        "e_metadata_definition_reference": "inputMdWidth"
     }
 ]
