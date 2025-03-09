@@ -5,12 +5,15 @@
 namespace Modules\PkgGapp\Services;
 use Modules\PkgGapp\Services\Base\BaseEDataFieldService;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Modules\Core\App\Traits\GappCommands;
 
 /**
  * Classe EDataFieldService pour gérer la persistance de l'entité EDataField.
  */
 class EDataFieldService extends BaseEDataFieldService
 {
+    use GappCommands;
+    
     public function dataCalcul($eDataField)
     {
         // En Cas d'édit
@@ -21,8 +24,28 @@ class EDataFieldService extends BaseEDataFieldService
         return $eDataField;
     }
    
+    public function create($data)
+    {
+        $entity = parent::create($data);
+        $this->metaSeed(true);
+        $this->metaExport();
+        return $entity;
+    }
 
+    public function update($id, array $data)
+    {
+        $entity = parent::update($id, $data);
+        $this->metaSeed(true);
+        $this->metaExport();
+        return $entity;
+    }
    
+    public function destroy($id){
+        $record = parent::destroy($id);
+        $this->metaExport();
+        return  $record;
+    }
+    
   /**
  * Paginer les EDataField en les triant par leur ordre (`displayOrder`).
  *

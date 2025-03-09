@@ -20,6 +20,22 @@ trait GappCommands
         // Exécution ASYNCHRONE de l'export des métadonnées
         $this->executeCommandAsync($metaExportCommand);
     }
+    private function metaSeed($sync = false)
+    {
+    
+        $message = "Seed metaData en cours ..";
+        $metaExportCommand = "gapp meta:seed ../";
+
+        $this->pushServiceMessage("info","Gapp", $message);
+
+        // Exécution ASYNCHRONE de l'export des métadonnées
+        if($sync){
+            $this->executeCommandSync($metaExportCommand);
+        }else{
+            $this->executeCommandAsync($metaExportCommand);
+        }
+       
+    }
 
 
     private function updateGappCrud($model)
