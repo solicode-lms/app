@@ -16,4 +16,9 @@ class EDataField extends BaseEDataField
         ->value('value_integer');
     }
 
+    public function generateReference(): string
+    {
+        return $this->eModel->name . "-" .  $this->name;
+    }
+
 }

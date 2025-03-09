@@ -1,0 +1,15 @@
+[
+    {
+        "reference": "RealisationTache-Apprenant",
+        "name": "Nom",
+        "column_name": "realisationProjet.affectationProjet.realisationProjets.apprenant.nom",
+        "data_type": "String",
+        "field_order": 1,
+        "db_nullable": 0,
+        "db_primaryKey": 0,
+        "db_unique": 0,
+        "calculable": 1,
+        "description": "",
+        "e_model_reference": "realisation_taches"
+    }
+]
