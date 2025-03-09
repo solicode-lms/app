@@ -44,6 +44,14 @@ class ApprenantService extends BaseApprenantService
                 }
             ]);
 
+            // $query->withCount([
+            //     'realisationProjets as nombre_realisation_taches_en_cours' => function ($subQuery) {
+            //         $apprenant = new Apprenant(); // Instancier un objet pour appeler la méthode
+            //         $subQuery->mergeConstraintsFrom($apprenant->queryRealisationTachesEnCours());
+            //     }
+            // ]);
+
+
             $query = $this->allQuery($params, $query);
 
             // $query->orderBy('nombre_realisation_taches_en_cours', 'asc');

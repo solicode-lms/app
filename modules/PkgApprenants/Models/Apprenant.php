@@ -25,13 +25,7 @@ class Apprenant extends BaseApprenant
      */
     public function getNombreRealisationTachesEnCoursAttribute(): int
     {
-        return RealisationTache::whereHas('realisationProjet', function ($query) {
-                $query->where('apprenant_id', $this->id);
-            })
-            ->whereHas('etatRealisationTache', function ($q) {
-                $q->where('nom', 'En cours'); // Filtrer uniquement les tâches en cours
-            })
-            ->count();
+        return $this->queryRealisationTachesEnCours()->count();
     }
 
     /**
@@ -47,6 +41,13 @@ class Apprenant extends BaseApprenant
             ->whereHas('etatRealisationTache', function ($q) {
                 $q->where('nom', 'En cours'); // Filtrer uniquement les tâches en cours
             });
+
+
+            // $subQuery->whereHas('realisationTaches', function ($q) {
+            //     $q->whereHas('etatRealisationTache', function ($etat) {
+            //         $etat->where('nom', 'En cours'); // Filtrer uniquement les tâches en cours
+            //     });
+            // });
     }
 
 }
