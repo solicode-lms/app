@@ -1,0 +1,15 @@
+[
+    {
+        "reference": "Apprenant-NombreTacheEnCours",
+        "name": "nombre_realisation_taches_en_cours",
+        "column_name": "nombre_realisation_taches_en_cours",
+        "data_type": "Integer",
+        "field_order": 20,
+        "db_nullable": 1,
+        "db_primaryKey": 0,
+        "db_unique": 0,
+        "calculable": 1,
+        "description": "",
+        "e_model_reference": "apprenants"
+    }
+]

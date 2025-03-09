@@ -20,5 +20,6 @@ return [
     'date_naissance' => 'Date de naissance',
     'date_inscription' => 'Date d\'inscription',
     'lieu_naissance' => 'lieu de naissance',
-    'cin' => 'cin'
+    'cin' => 'cin',
+    'nombre_realisation_taches_en_cours' => 'Tâches en cours'
 ];
