@@ -8303,5 +8303,18 @@
         "db_unique": 0,
         "calculable": 0,
         "description": "Field for ManyToMany relation with Role"
+    },
+    {
+        "id": 641,
+        "reference": "RealisationTache-Nom",
+        "name": "Nom",
+        "column_name": "apprenant_id",
+        "data_type": "String",
+        "field_order": 2,
+        "db_nullable": 0,
+        "db_primaryKey": 0,
+        "db_unique": 0,
+        "calculable": 1,
+        "description": ""
     }
 ]
