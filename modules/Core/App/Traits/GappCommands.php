@@ -15,7 +15,7 @@ trait GappCommands
         $message = "Export metaData en cours ..";
         $metaExportCommand = "gapp meta:export ../";
 
-        $this->pushServiceMessage("info","Gapp", $message);
+        $this->pushServiceMessage("success","Gapp", $message);
 
         // Exécution ASYNCHRONE de l'export des métadonnées
         $this->executeCommandAsync($metaExportCommand);
@@ -26,7 +26,7 @@ trait GappCommands
         $message = "Seed metaData en cours ..";
         $metaExportCommand = "gapp meta:seed ../";
 
-        $this->pushServiceMessage("info","Gapp", $message);
+        $this->pushServiceMessage("success","Gapp", $message);
 
         // Exécution ASYNCHRONE de l'export des métadonnées
         if($sync){
