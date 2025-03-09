@@ -13,7 +13,9 @@ trait GappCommands
     {
     
         $message = "Export metaData en cours ..";
-        $metaExportCommand = "gapp meta:export ../";
+
+        $npxPath = "C:\\Program Files\\nodejs\\npx.cmd";
+        $metaExportCommand = "\"$npxPath\" gapp meta:export ../";
 
         $this->pushServiceMessage("success","Gapp", $message);
 
@@ -24,7 +26,9 @@ trait GappCommands
     {
     
         $message = "Seed metaData en cours ..";
-        $metaExportCommand = "gapp meta:seed ../";
+
+        $npxPath = "C:\\Program Files\\nodejs\\npx.cmd";
+        $metaExportCommand = "\"$npxPath\" gapp meta:seed ../";
 
         $this->pushServiceMessage("success","Gapp", $message);
 
@@ -73,7 +77,7 @@ trait GappCommands
      */
     private function executeCommandSync($command, $logMessage = "")
     {
-        Log::info("Exécution SYNCHRONE : " . $logMessage);
+        Log::info("Exécution SYNCHRONE de la commande : " . $command);
 
         $output = (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') 
             ? shell_exec($command . " 2>&1") 
