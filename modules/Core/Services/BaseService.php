@@ -62,4 +62,17 @@ abstract class BaseService implements ServiceInterface
         $this->viewState = app(ViewStateService::class);
         $this->sessionState = app(SessionState::class);
     }
+
+    public function getData(string $filter, $value)
+    {
+        $query = $this->model->newQuery(); // Créer une nouvelle requête
+
+        // Construire le tableau de filtres pour la méthode `filter()`
+        $filters = [$filter => $value];
+
+        // Appliquer le filtre existant du service
+        $this->filter($query, $this->model, $filters);
+
+        return $query->get();
+    }
 }
