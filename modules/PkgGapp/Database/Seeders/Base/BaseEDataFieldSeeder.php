@@ -74,7 +74,6 @@ class BaseEDataFieldSeeder extends Seeder
             $row = array_combine($headers, $data);
             if ($row) {
                 $eDataFieldData =[
-                    "order" => $row["order"] ?? null,
                     "name" => $row["name"] ?? null,
                     "data_type" => $row["data_type"] ?? null,
                     "column_name" => $row["column_name"] ?? null,
@@ -84,6 +83,7 @@ class BaseEDataFieldSeeder extends Seeder
                     "default_value" => $row["default_value"] ?? null,
                     "db_primaryKey" => $row["db_primaryKey"] ?? null,
                     "db_nullable" => $row["db_nullable"] ?? null,
+                    "calculable_sql" => $row["calculable_sql"] ?? null,
                     "db_unique" => $row["db_unique"] ?? null,
                     "calculable" => $row["calculable"] ?? null,
                     "description" => $row["description"] ?? null,

@@ -37,7 +37,7 @@ class BaseEModel extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'icon', 'name', 'table_name', 'icon', 'is_pivot_table', 'description', 'e_package_id'
+        'name', 'table_name', 'icon', 'is_pivot_table', 'description', 'e_package_id'
     ];
 
     /**

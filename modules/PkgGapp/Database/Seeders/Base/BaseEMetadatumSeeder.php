@@ -74,7 +74,6 @@ class BaseEMetadatumSeeder extends Seeder
             $row = array_combine($headers, $data);
             if ($row) {
                 $eMetadatumData =[
-                    "Value" => $row["Value"] ?? null,
                     "value_boolean" => $row["value_boolean"] ?? null,
                     "value_string" => $row["value_string"] ?? null,
                     "value_integer" => $row["value_integer"] ?? null,

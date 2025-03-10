@@ -25,10 +25,6 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="col-sm-12">
-                                <label for="order">{{ ucfirst(__('PkgGapp::eDataField.order')) }}:</label>
-                                <p>{{ $itemEDataField->order }}</p>
-                            </div>
-                            <div class="col-sm-12">
                                 <label for="name">{{ ucfirst(__('PkgGapp::eDataField.name')) }}:</label>
                                 <p>{{ $itemEDataField->name }}</p>
                             </div>
@@ -63,6 +59,10 @@
                             <div class="col-sm-12">
                                 <label for="db_nullable">{{ ucfirst(__('PkgGapp::eDataField.db_nullable')) }}:</label>
                                 <p>{{ $itemEDataField->db_nullable }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="calculable_sql">{{ ucfirst(__('PkgGapp::eDataField.calculable_sql')) }}:</label>
+                                <p>{{ $itemEDataField->calculable_sql }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="db_unique">{{ ucfirst(__('PkgGapp::eDataField.db_unique')) }}:</label>

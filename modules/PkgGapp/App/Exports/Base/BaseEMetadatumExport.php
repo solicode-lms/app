@@ -28,7 +28,6 @@ class BaseEMetadatumExport implements FromCollection, WithHeadings, ShouldAutoSi
     {
      if($this->format == 'csv'){
         return [
-            'Value' => 'Value',
             'reference' => 'reference',
             'value_boolean' => 'value_boolean',
             'value_string' => 'value_string',
@@ -45,7 +44,6 @@ class BaseEMetadatumExport implements FromCollection, WithHeadings, ShouldAutoSi
         ];
         }else{
         return [
-            'Value' => __('PkgGapp::eMetadatum.Value'),
             'reference' => __('Core::msg.reference'),
             'value_boolean' => __('PkgGapp::eMetadatum.value_boolean'),
             'value_string' => __('PkgGapp::eMetadatum.value_string'),
@@ -69,7 +67,6 @@ class BaseEMetadatumExport implements FromCollection, WithHeadings, ShouldAutoSi
     {
         return $this->data->map(function ($eMetadatum) {
             return [
-                'Value' => $eMetadatum->Value,
                 'reference' => $eMetadatum->reference,
                 'value_boolean' => $eMetadatum->value_boolean,
                 'value_string' => $eMetadatum->value_string,

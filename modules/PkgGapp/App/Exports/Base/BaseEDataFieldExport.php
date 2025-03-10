@@ -28,7 +28,6 @@ class BaseEDataFieldExport implements FromCollection, WithHeadings, ShouldAutoSi
     {
      if($this->format == 'csv'){
         return [
-            'order' => 'order',
             'reference' => 'reference',
             'name' => 'name',
             'data_type' => 'data_type',
@@ -39,13 +38,13 @@ class BaseEDataFieldExport implements FromCollection, WithHeadings, ShouldAutoSi
             'default_value' => 'default_value',
             'db_primaryKey' => 'db_primaryKey',
             'db_nullable' => 'db_nullable',
+            'calculable_sql' => 'calculable_sql',
             'db_unique' => 'db_unique',
             'calculable' => 'calculable',
             'description' => 'description',
         ];
         }else{
         return [
-            'order' => __('PkgGapp::eDataField.order'),
             'reference' => __('Core::msg.reference'),
             'name' => __('PkgGapp::eDataField.name'),
             'data_type' => __('PkgGapp::eDataField.data_type'),
@@ -56,6 +55,7 @@ class BaseEDataFieldExport implements FromCollection, WithHeadings, ShouldAutoSi
             'default_value' => __('PkgGapp::eDataField.default_value'),
             'db_primaryKey' => __('PkgGapp::eDataField.db_primaryKey'),
             'db_nullable' => __('PkgGapp::eDataField.db_nullable'),
+            'calculable_sql' => __('PkgGapp::eDataField.calculable_sql'),
             'db_unique' => __('PkgGapp::eDataField.db_unique'),
             'calculable' => __('PkgGapp::eDataField.calculable'),
             'description' => __('PkgGapp::eDataField.description'),
@@ -69,7 +69,6 @@ class BaseEDataFieldExport implements FromCollection, WithHeadings, ShouldAutoSi
     {
         return $this->data->map(function ($eDataField) {
             return [
-                'order' => $eDataField->order,
                 'reference' => $eDataField->reference,
                 'name' => $eDataField->name,
                 'data_type' => $eDataField->data_type,
@@ -80,6 +79,7 @@ class BaseEDataFieldExport implements FromCollection, WithHeadings, ShouldAutoSi
                 'default_value' => $eDataField->default_value,
                 'db_primaryKey' => $eDataField->db_primaryKey,
                 'db_nullable' => $eDataField->db_nullable,
+                'calculable_sql' => $eDataField->calculable_sql,
                 'db_unique' => $eDataField->db_unique,
                 'calculable' => $eDataField->calculable,
                 'description' => $eDataField->description,

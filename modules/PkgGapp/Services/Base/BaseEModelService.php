@@ -19,7 +19,6 @@ class BaseEModelService extends BaseService
      * @var array
      */
     protected $fieldsSearchable = [
-        'icon',
         'name',
         'table_name',
         'icon',

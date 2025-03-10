@@ -56,20 +56,19 @@ class BaseEMetadatumImport implements ToModel, WithHeadingRow
 
         // Création d'un nouvel enregistrement
         return new EMetadatum([
-             'Value' => $values[0] ?? null,
              'reference' => $reference,
-             'value_boolean' => $values[2] ?? null,
-             'value_string' => $values[3] ?? null,
-             'value_integer' => $values[4] ?? null,
-             'value_float' => $values[5] ?? null,
-             'value_date' => $values[6] ?? null,
-             'value_datetime' => $values[7] ?? null,
-             'value_enum' => $values[8] ?? null,
-             'value_json' => $values[9] ?? null,
-             'value_text' => $values[10] ?? null,
-             'e_model_id' => $values[11] ?? null,
-             'e_data_field_id' => $values[12] ?? null,
-             'e_metadata_definition_id' => $values[13] ?? null,
+             'value_boolean' => $values[1] ?? null,
+             'value_string' => $values[2] ?? null,
+             'value_integer' => $values[3] ?? null,
+             'value_float' => $values[4] ?? null,
+             'value_date' => $values[5] ?? null,
+             'value_datetime' => $values[6] ?? null,
+             'value_enum' => $values[7] ?? null,
+             'value_json' => $values[8] ?? null,
+             'value_text' => $values[9] ?? null,
+             'e_model_id' => $values[10] ?? null,
+             'e_data_field_id' => $values[11] ?? null,
+             'e_metadata_definition_id' => $values[12] ?? null,
         ]);
 
 

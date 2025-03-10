@@ -28,7 +28,6 @@ class BaseEModelExport implements FromCollection, WithHeadings, ShouldAutoSize, 
     {
      if($this->format == 'csv'){
         return [
-            'icon' => 'icon',
             'reference' => 'reference',
             'name' => 'name',
             'table_name' => 'table_name',
@@ -39,7 +38,6 @@ class BaseEModelExport implements FromCollection, WithHeadings, ShouldAutoSize, 
         ];
         }else{
         return [
-            'icon' => __('PkgGapp::eModel.icon'),
             'reference' => __('Core::msg.reference'),
             'name' => __('PkgGapp::eModel.name'),
             'table_name' => __('PkgGapp::eModel.table_name'),
@@ -57,7 +55,6 @@ class BaseEModelExport implements FromCollection, WithHeadings, ShouldAutoSize, 
     {
         return $this->data->map(function ($eModel) {
             return [
-                'icon' => $eModel->icon,
                 'reference' => $eModel->reference,
                 'name' => $eModel->name,
                 'table_name' => $eModel->table_name,

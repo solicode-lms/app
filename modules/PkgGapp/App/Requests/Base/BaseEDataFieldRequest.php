@@ -29,7 +29,6 @@ class BaseEDataFieldRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'order' => 'nullable',
             'name' => 'required|string|max:255',
             'data_type' => 'required|string|max:255',
             'column_name' => 'required|string|max:255',
@@ -39,6 +38,7 @@ class BaseEDataFieldRequest extends FormRequest
             'default_value' => 'nullable|string|max:255',
             'db_primaryKey' => 'required|boolean',
             'db_nullable' => 'required|boolean',
+            'calculable_sql' => 'nullable|string',
             'db_unique' => 'required|boolean',
             'calculable' => 'required|boolean',
             'description' => 'nullable|string'
@@ -53,7 +53,6 @@ class BaseEDataFieldRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'order.required' => __('validation.required', ['attribute' => __('PkgGapp::EDataField.order')]),
             'name.required' => __('validation.required', ['attribute' => __('PkgGapp::EDataField.name')]),
             'name.max' => __('validation.nameMax'),
             'data_type.required' => __('validation.required', ['attribute' => __('PkgGapp::EDataField.data_type')]),
@@ -67,6 +66,7 @@ class BaseEDataFieldRequest extends FormRequest
             'default_value.max' => __('validation.default_valueMax'),
             'db_primaryKey.required' => __('validation.required', ['attribute' => __('PkgGapp::EDataField.db_primaryKey')]),
             'db_nullable.required' => __('validation.required', ['attribute' => __('PkgGapp::EDataField.db_nullable')]),
+            'calculable_sql.required' => __('validation.required', ['attribute' => __('PkgGapp::EDataField.calculable_sql')]),
             'db_unique.required' => __('validation.required', ['attribute' => __('PkgGapp::EDataField.db_unique')]),
             'calculable.required' => __('validation.required', ['attribute' => __('PkgGapp::EDataField.calculable')]),
             'description.required' => __('validation.required', ['attribute' => __('PkgGapp::EDataField.description')])

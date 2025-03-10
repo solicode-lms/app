@@ -74,7 +74,6 @@ class BaseEModelSeeder extends Seeder
             $row = array_combine($headers, $data);
             if ($row) {
                 $eModelData =[
-                    "icon" => $row["icon"] ?? null,
                     "name" => $row["name"] ?? null,
                     "table_name" => $row["table_name"] ?? null,
                     "icon" => $row["icon"] ?? null,
