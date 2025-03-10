@@ -694,5 +694,17 @@
         "description": "Il perme de filter un select par un autre select\r\n            <br>voir l'exemple dans RealisationTacheServide : filter les tâches selon Affectation de projet",
         "created_at": null,
         "updated_at": null
+    },
+    {
+        "id": 59,
+        "reference": "isRichText",
+        "name": "isRichText",
+        "type": "Boolean",
+        "scope": "field",
+        "default_value": "1",
+        "groupe": "form",
+        "description": "indique est ce que le champs de Text un richeText",
+        "created_at": null,
+        "updated_at": null
     }
 ]

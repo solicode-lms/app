@@ -38,9 +38,9 @@ class BaseEDataFieldRequest extends FormRequest
             'default_value' => 'nullable|string|max:255',
             'db_primaryKey' => 'required|boolean',
             'db_nullable' => 'required|boolean',
-            'calculable_sql' => 'nullable|string',
             'db_unique' => 'required|boolean',
             'calculable' => 'required|boolean',
+            'calculable_sql' => 'nullable|string',
             'description' => 'nullable|string'
         ];
     }
@@ -66,9 +66,9 @@ class BaseEDataFieldRequest extends FormRequest
             'default_value.max' => __('validation.default_valueMax'),
             'db_primaryKey.required' => __('validation.required', ['attribute' => __('PkgGapp::EDataField.db_primaryKey')]),
             'db_nullable.required' => __('validation.required', ['attribute' => __('PkgGapp::EDataField.db_nullable')]),
-            'calculable_sql.required' => __('validation.required', ['attribute' => __('PkgGapp::EDataField.calculable_sql')]),
             'db_unique.required' => __('validation.required', ['attribute' => __('PkgGapp::EDataField.db_unique')]),
             'calculable.required' => __('validation.required', ['attribute' => __('PkgGapp::EDataField.calculable')]),
+            'calculable_sql.required' => __('validation.required', ['attribute' => __('PkgGapp::EDataField.calculable_sql')]),
             'description.required' => __('validation.required', ['attribute' => __('PkgGapp::EDataField.description')])
         ];
     }

@@ -66,9 +66,9 @@ class BaseEDataFieldImport implements ToModel, WithHeadingRow
              'default_value' => $values[7] ?? null,
              'db_primaryKey' => $values[8] ?? null,
              'db_nullable' => $values[9] ?? null,
-             'calculable_sql' => $values[10] ?? null,
-             'db_unique' => $values[11] ?? null,
-             'calculable' => $values[12] ?? null,
+             'db_unique' => $values[10] ?? null,
+             'calculable' => $values[11] ?? null,
+             'calculable_sql' => $values[12] ?? null,
              'description' => $values[13] ?? null,
         ]);
 

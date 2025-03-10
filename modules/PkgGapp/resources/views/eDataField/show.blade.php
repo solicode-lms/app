@@ -61,16 +61,16 @@
                                 <p>{{ $itemEDataField->db_nullable }}</p>
                             </div>
                             <div class="col-sm-12">
-                                <label for="calculable_sql">{{ ucfirst(__('PkgGapp::eDataField.calculable_sql')) }}:</label>
-                                <p>{{ $itemEDataField->calculable_sql }}</p>
-                            </div>
-                            <div class="col-sm-12">
                                 <label for="db_unique">{{ ucfirst(__('PkgGapp::eDataField.db_unique')) }}:</label>
                                 <p>{{ $itemEDataField->db_unique }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="calculable">{{ ucfirst(__('PkgGapp::eDataField.calculable')) }}:</label>
                                 <p>{{ $itemEDataField->calculable }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="calculable_sql">{{ ucfirst(__('PkgGapp::eDataField.calculable_sql')) }}:</label>
+                                <p>{{ $itemEDataField->calculable_sql }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="description">{{ ucfirst(__('PkgGapp::eDataField.description')) }}:</label>

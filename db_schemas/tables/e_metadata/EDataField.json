@@ -510,7 +510,9 @@
     },
     {
         "reference": "EDataField_calculable_sql_displayOrder",
-        "value_integer": 11,
+        "value_boolean": 0,
+        "value_integer": 20,
+        "value_float": 0,
         "e_data_field_reference": "EDataField_calculable_sql",
         "e_metadata_definition_reference": "displayOrder"
     },

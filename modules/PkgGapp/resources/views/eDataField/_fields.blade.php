@@ -214,26 +214,6 @@
 </div>
 
         
-        <div class="form-group col-12 col-md-12">
-            <label for="calculable_sql">
-                {{ ucfirst(__('PkgGapp::eDataField.calculable_sql')) }}
-                
-            </label>
-            <textarea rows="" cols=""
-                name="calculable_sql"
-                class="form-control richText"
-                
-                
-                id="calculable_sql"
-                placeholder="{{ __('PkgGapp::eDataField.calculable_sql') }}">
-                {{ $itemEDataField ? $itemEDataField->calculable_sql : old('calculable_sql') }}
-            </textarea>
-            @error('calculable_sql')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
-
-        
         <div class="form-group col-12 col-md-2">
             <label for="db_unique">
                 {{ ucfirst(__('PkgGapp::eDataField.db_unique')) }}
@@ -278,6 +258,26 @@
         
 
         <!--   EMetadatum HasMany --> 
+
+        
+        <div class="form-group col-12 col-md-12">
+            <label for="calculable_sql">
+                {{ ucfirst(__('PkgGapp::eDataField.calculable_sql')) }}
+                
+            </label>
+            <textarea rows="" cols=""
+                name="calculable_sql"
+                class="form-control richText"
+                
+                
+                id="calculable_sql"
+                placeholder="{{ __('PkgGapp::eDataField.calculable_sql') }}">
+                {{ $itemEDataField ? $itemEDataField->calculable_sql : old('calculable_sql') }}
+            </textarea>
+            @error('calculable_sql')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
 
         
         <div class="form-group col-12 col-md-12">

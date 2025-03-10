@@ -38,9 +38,9 @@ class BaseEDataFieldExport implements FromCollection, WithHeadings, ShouldAutoSi
             'default_value' => 'default_value',
             'db_primaryKey' => 'db_primaryKey',
             'db_nullable' => 'db_nullable',
-            'calculable_sql' => 'calculable_sql',
             'db_unique' => 'db_unique',
             'calculable' => 'calculable',
+            'calculable_sql' => 'calculable_sql',
             'description' => 'description',
         ];
         }else{
@@ -55,9 +55,9 @@ class BaseEDataFieldExport implements FromCollection, WithHeadings, ShouldAutoSi
             'default_value' => __('PkgGapp::eDataField.default_value'),
             'db_primaryKey' => __('PkgGapp::eDataField.db_primaryKey'),
             'db_nullable' => __('PkgGapp::eDataField.db_nullable'),
-            'calculable_sql' => __('PkgGapp::eDataField.calculable_sql'),
             'db_unique' => __('PkgGapp::eDataField.db_unique'),
             'calculable' => __('PkgGapp::eDataField.calculable'),
+            'calculable_sql' => __('PkgGapp::eDataField.calculable_sql'),
             'description' => __('PkgGapp::eDataField.description'),
         ];
 
@@ -79,9 +79,9 @@ class BaseEDataFieldExport implements FromCollection, WithHeadings, ShouldAutoSi
                 'default_value' => $eDataField->default_value,
                 'db_primaryKey' => $eDataField->db_primaryKey,
                 'db_nullable' => $eDataField->db_nullable,
-                'calculable_sql' => $eDataField->calculable_sql,
                 'db_unique' => $eDataField->db_unique,
                 'calculable' => $eDataField->calculable,
+                'calculable_sql' => $eDataField->calculable_sql,
                 'description' => $eDataField->description,
             ];
         });
