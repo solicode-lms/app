@@ -27,7 +27,6 @@ class BaseSysModule extends BaseModel
     public function __construct(array $attributes = []) {
         parent::__construct($attributes); 
         $this->isOwnedByUser =  false;
-
     }
 
     
@@ -39,6 +38,7 @@ class BaseSysModule extends BaseModel
     protected $fillable = [
         'name', 'slug', 'description', 'is_active', 'order', 'version', 'sys_color_id'
     ];
+
 
     /**
      * Relation BelongsTo pour SysColor.

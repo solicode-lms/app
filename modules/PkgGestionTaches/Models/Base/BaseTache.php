@@ -28,7 +28,6 @@ class BaseTache extends BaseModel
     public function __construct(array $attributes = []) {
         parent::__construct($attributes); 
         $this->isOwnedByUser =  false;
-
     }
 
     
@@ -43,9 +42,6 @@ class BaseTache extends BaseModel
     public $manyToMany = [
         'Livrable' => ['relation' => 'livrables' , "foreign_key" => "livrable_id" ]
     ];
-
-       
-
 
 
     /**

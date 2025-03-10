@@ -147,9 +147,7 @@
                 
                 
                 id="description"
-                placeholder="{{ __('PkgCompetences::competence.description') }}">
-                {{ $itemCompetence ? $itemCompetence->description : old('description') }}
-            </textarea>
+                placeholder="{{ __('PkgCompetences::competence.description') }}">{{ $itemCompetence ? $itemCompetence->description : old('description') }}</textarea>
             @error('description')
                 <div class="text-danger">{{ $message }}</div>
             @enderror

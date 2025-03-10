@@ -159,9 +159,7 @@
                 
                 
                 id="remarques_formateur"
-                placeholder="{{ __('PkgGestionTaches::realisationTache.remarques_formateur') }}">
-                {{ $itemRealisationTache ? $itemRealisationTache->remarques_formateur : old('remarques_formateur') }}
-            </textarea>
+                placeholder="{{ __('PkgGestionTaches::realisationTache.remarques_formateur') }}">{{ $itemRealisationTache ? $itemRealisationTache->remarques_formateur : old('remarques_formateur') }}</textarea>
             @error('remarques_formateur')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -179,9 +177,7 @@
                 
                 
                 id="remarques_apprenant"
-                placeholder="{{ __('PkgGestionTaches::realisationTache.remarques_apprenant') }}">
-                {{ $itemRealisationTache ? $itemRealisationTache->remarques_apprenant : old('remarques_apprenant') }}
-            </textarea>
+                placeholder="{{ __('PkgGestionTaches::realisationTache.remarques_apprenant') }}">{{ $itemRealisationTache ? $itemRealisationTache->remarques_apprenant : old('remarques_apprenant') }}</textarea>
             @error('remarques_apprenant')
                 <div class="text-danger">{{ $message }}</div>
             @enderror

@@ -26,7 +26,6 @@ class BaseSysModel extends BaseModel
     public function __construct(array $attributes = []) {
         parent::__construct($attributes); 
         $this->isOwnedByUser =  false;
-
     }
 
     
@@ -38,6 +37,7 @@ class BaseSysModel extends BaseModel
     protected $fillable = [
         'name', 'model', 'description', 'sys_module_id', 'sys_color_id'
     ];
+
 
     /**
      * Relation BelongsTo pour SysModule.

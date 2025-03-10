@@ -28,7 +28,6 @@ class BaseEtatRealisationTache extends BaseModel
         parent::__construct($attributes); 
         $this->isOwnedByUser =  true;
         $this->ownerRelationPath = "formateur.user";
-        
     }
 
     
@@ -40,6 +39,7 @@ class BaseEtatRealisationTache extends BaseModel
     protected $fillable = [
         'nom', 'description', 'is_editable_only_by_formateur', 'formateur_id', 'sys_color_id', 'workflow_tache_id'
     ];
+
 
     /**
      * Relation BelongsTo pour Formateur.

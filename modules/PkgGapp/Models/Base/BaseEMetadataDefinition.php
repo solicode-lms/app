@@ -24,7 +24,6 @@ class BaseEMetadataDefinition extends BaseModel
     public function __construct(array $attributes = []) {
         parent::__construct($attributes); 
         $this->isOwnedByUser =  false;
-
     }
 
     
@@ -36,6 +35,7 @@ class BaseEMetadataDefinition extends BaseModel
     protected $fillable = [
         'name', 'groupe', 'type', 'scope', 'description', 'default_value'
     ];
+
 
 
 

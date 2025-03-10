@@ -43,9 +43,7 @@
                 
                 
                 id="description"
-                placeholder="{{ __('PkgWidgets::widgetOperation.description') }}">
-                {{ $itemWidgetOperation ? $itemWidgetOperation->description : old('description') }}
-            </textarea>
+                placeholder="{{ __('PkgWidgets::widgetOperation.description') }}">{{ $itemWidgetOperation ? $itemWidgetOperation->description : old('description') }}</textarea>
             @error('description')
                 <div class="text-danger">{{ $message }}</div>
             @enderror

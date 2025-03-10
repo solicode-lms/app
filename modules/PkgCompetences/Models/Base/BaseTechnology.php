@@ -26,7 +26,6 @@ class BaseTechnology extends BaseModel
     public function __construct(array $attributes = []) {
         parent::__construct($attributes); 
         $this->isOwnedByUser =  false;
-
     }
 
     
@@ -42,9 +41,6 @@ class BaseTechnology extends BaseModel
         'Competence' => ['relation' => 'competences' , "foreign_key" => "competence_id" ],
         'TransfertCompetence' => ['relation' => 'transfertCompetences' , "foreign_key" => "transfert_competence_id" ]
     ];
-
-       
-
 
 
     /**

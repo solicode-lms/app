@@ -65,9 +65,7 @@
                 
                 
                 id="description"
-                placeholder="{{ __('PkgGestionTaches::prioriteTache.description') }}">
-                {{ $itemPrioriteTache ? $itemPrioriteTache->description : old('description') }}
-            </textarea>
+                placeholder="{{ __('PkgGestionTaches::prioriteTache.description') }}">{{ $itemPrioriteTache ? $itemPrioriteTache->description : old('description') }}</textarea>
             @error('description')
                 <div class="text-danger">{{ $message }}</div>
             @enderror

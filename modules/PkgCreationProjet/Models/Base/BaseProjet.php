@@ -31,7 +31,6 @@ class BaseProjet extends BaseModel
         parent::__construct($attributes); 
         $this->isOwnedByUser =  true;
         $this->ownerRelationPath = "formateur.user,affectationProjets.realisationProjets.apprenant.user";
-        
     }
 
     
@@ -43,6 +42,7 @@ class BaseProjet extends BaseModel
     protected $fillable = [
         'titre', 'travail_a_faire', 'critere_de_travail', 'nombre_jour', 'description', 'formateur_id', 'filiere_id'
     ];
+
 
     /**
      * Relation BelongsTo pour Formateur.

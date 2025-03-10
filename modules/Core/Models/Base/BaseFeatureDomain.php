@@ -25,7 +25,6 @@ class BaseFeatureDomain extends BaseModel
     public function __construct(array $attributes = []) {
         parent::__construct($attributes); 
         $this->isOwnedByUser =  false;
-
     }
 
     
@@ -37,6 +36,7 @@ class BaseFeatureDomain extends BaseModel
     protected $fillable = [
         'name', 'slug', 'description', 'sys_module_id'
     ];
+
 
     /**
      * Relation BelongsTo pour SysModule.

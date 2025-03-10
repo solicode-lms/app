@@ -63,9 +63,7 @@
                 
                 
                 id="description"
-                placeholder="{{ __('PkgFormation::filiere.description') }}">
-                {{ $itemFiliere ? $itemFiliere->description : old('description') }}
-            </textarea>
+                placeholder="{{ __('PkgFormation::filiere.description') }}">{{ $itemFiliere ? $itemFiliere->description : old('description') }}</textarea>
             @error('description')
                 <div class="text-danger">{{ $message }}</div>
             @enderror

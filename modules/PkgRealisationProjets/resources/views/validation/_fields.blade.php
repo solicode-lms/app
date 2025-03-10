@@ -71,9 +71,7 @@
                 
                 
                 id="message"
-                placeholder="{{ __('PkgRealisationProjets::validation.message') }}">
-                {{ $itemValidation ? $itemValidation->message : old('message') }}
-            </textarea>
+                placeholder="{{ __('PkgRealisationProjets::validation.message') }}">{{ $itemValidation ? $itemValidation->message : old('message') }}</textarea>
             @error('message')
                 <div class="text-danger">{{ $message }}</div>
             @enderror

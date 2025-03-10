@@ -49,9 +49,7 @@
                 required
                 
                 id="changement"
-                placeholder="{{ __('PkgGestionTaches::historiqueRealisationTache.changement') }}">
-                {{ $itemHistoriqueRealisationTache ? $itemHistoriqueRealisationTache->changement : old('changement') }}
-            </textarea>
+                placeholder="{{ __('PkgGestionTaches::historiqueRealisationTache.changement') }}">{{ $itemHistoriqueRealisationTache ? $itemHistoriqueRealisationTache->changement : old('changement') }}</textarea>
             @error('changement')
                 <div class="text-danger">{{ $message }}</div>
             @enderror

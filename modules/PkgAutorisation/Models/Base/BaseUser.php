@@ -28,7 +28,6 @@ class BaseUser extends BaseModel
     public function __construct(array $attributes = []) {
         parent::__construct($attributes); 
         $this->isOwnedByUser =  false;
-
     }
 
     
@@ -43,9 +42,6 @@ class BaseUser extends BaseModel
     public $manyToMany = [
         'Role' => ['relation' => 'roles' , "foreign_key" => "role_id" ]
     ];
-
-       
-
 
 
 

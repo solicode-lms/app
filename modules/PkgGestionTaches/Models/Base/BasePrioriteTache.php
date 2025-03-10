@@ -26,7 +26,6 @@ class BasePrioriteTache extends BaseModel
         parent::__construct($attributes); 
         $this->isOwnedByUser =  true;
         $this->ownerRelationPath = "formateur.user";
-        
     }
 
     
@@ -38,6 +37,7 @@ class BasePrioriteTache extends BaseModel
     protected $fillable = [
         'nom', 'ordre', 'description', 'formateur_id'
     ];
+
 
     /**
      * Relation BelongsTo pour Formateur.

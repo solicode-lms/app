@@ -26,7 +26,6 @@ class BaseEtatsRealisationProjet extends BaseModel
         parent::__construct($attributes); 
         $this->isOwnedByUser =  true;
         $this->ownerRelationPath = "formateur.user";
-        
     }
 
     
@@ -38,6 +37,7 @@ class BaseEtatsRealisationProjet extends BaseModel
     protected $fillable = [
         'formateur_id', 'titre', 'description', 'is_editable_by_formateur'
     ];
+
 
     /**
      * Relation BelongsTo pour Formateur.

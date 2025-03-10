@@ -24,7 +24,6 @@ class BaseSpecialite extends BaseModel
     public function __construct(array $attributes = []) {
         parent::__construct($attributes); 
         $this->isOwnedByUser =  false;
-
     }
 
     
@@ -39,9 +38,6 @@ class BaseSpecialite extends BaseModel
     public $manyToMany = [
         'Formateur' => ['relation' => 'formateurs' , "foreign_key" => "formateur_id" ]
     ];
-
-       
-
 
 
 

@@ -24,7 +24,6 @@ class BaseHistoriqueRealisationTache extends BaseModel
     public function __construct(array $attributes = []) {
         parent::__construct($attributes); 
         $this->isOwnedByUser =  false;
-
     }
 
     
@@ -36,6 +35,7 @@ class BaseHistoriqueRealisationTache extends BaseModel
     protected $fillable = [
         'dateModification', 'changement', 'realisation_tache_id'
     ];
+
 
     /**
      * Relation BelongsTo pour RealisationTache.

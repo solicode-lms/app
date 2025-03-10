@@ -27,7 +27,6 @@ class BaseEModel extends BaseModel
     public function __construct(array $attributes = []) {
         parent::__construct($attributes); 
         $this->isOwnedByUser =  false;
-
     }
 
     
@@ -39,6 +38,7 @@ class BaseEModel extends BaseModel
     protected $fillable = [
         'name', 'table_name', 'icon', 'is_pivot_table', 'description', 'e_package_id'
     ];
+
 
     /**
      * Relation BelongsTo pour EPackage.

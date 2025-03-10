@@ -45,9 +45,7 @@
                 required
                 
                 id="travail_a_faire"
-                placeholder="{{ __('PkgCreationProjet::projet.travail_a_faire') }}">
-                {{ $itemProjet ? $itemProjet->travail_a_faire : old('travail_a_faire') }}
-            </textarea>
+                placeholder="{{ __('PkgCreationProjet::projet.travail_a_faire') }}">{{ $itemProjet ? $itemProjet->travail_a_faire : old('travail_a_faire') }}</textarea>
             @error('travail_a_faire')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -67,9 +65,7 @@
                 required
                 
                 id="critere_de_travail"
-                placeholder="{{ __('PkgCreationProjet::projet.critere_de_travail') }}">
-                {{ $itemProjet ? $itemProjet->critere_de_travail : old('critere_de_travail') }}
-            </textarea>
+                placeholder="{{ __('PkgCreationProjet::projet.critere_de_travail') }}">{{ $itemProjet ? $itemProjet->critere_de_travail : old('critere_de_travail') }}</textarea>
             @error('critere_de_travail')
                 <div class="text-danger">{{ $message }}</div>
             @enderror

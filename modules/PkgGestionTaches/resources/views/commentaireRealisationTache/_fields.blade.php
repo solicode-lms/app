@@ -23,9 +23,7 @@
                 required
                 
                 id="commentaire"
-                placeholder="{{ __('PkgGestionTaches::commentaireRealisationTache.commentaire') }}">
-                {{ $itemCommentaireRealisationTache ? $itemCommentaireRealisationTache->commentaire : old('commentaire') }}
-            </textarea>
+                placeholder="{{ __('PkgGestionTaches::commentaireRealisationTache.commentaire') }}">{{ $itemCommentaireRealisationTache ? $itemCommentaireRealisationTache->commentaire : old('commentaire') }}</textarea>
             @error('commentaire')
                 <div class="text-danger">{{ $message }}</div>
             @enderror

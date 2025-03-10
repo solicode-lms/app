@@ -65,9 +65,7 @@
                 
                 
                 id="description"
-                placeholder="{{ __('PkgCreationProjet::resource.description') }}">
-                {{ $itemResource ? $itemResource->description : old('description') }}
-            </textarea>
+                placeholder="{{ __('PkgCreationProjet::resource.description') }}">{{ $itemResource ? $itemResource->description : old('description') }}</textarea>
             @error('description')
                 <div class="text-danger">{{ $message }}</div>
             @enderror

@@ -28,7 +28,6 @@ class BaseAffectationProjet extends BaseModel
         parent::__construct($attributes); 
         $this->isOwnedByUser =  true;
         $this->ownerRelationPath = "projet.formateur.user";
-        
     }
 
     
@@ -40,6 +39,7 @@ class BaseAffectationProjet extends BaseModel
     protected $fillable = [
         'projet_id', 'groupe_id', 'date_debut', 'date_fin', 'description', 'annee_formation_id'
     ];
+
 
     /**
      * Relation BelongsTo pour Projet.

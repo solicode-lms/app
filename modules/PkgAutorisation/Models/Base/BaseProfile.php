@@ -25,7 +25,6 @@ class BaseProfile extends BaseModel
         parent::__construct($attributes); 
         $this->isOwnedByUser =  true;
         $this->ownerRelationPath = "user,user";
-        
     }
 
     
@@ -37,6 +36,7 @@ class BaseProfile extends BaseModel
     protected $fillable = [
         'user_id', 'phone', 'address', 'profile_picture', 'bio'
     ];
+
 
     /**
      * Relation BelongsTo pour User.

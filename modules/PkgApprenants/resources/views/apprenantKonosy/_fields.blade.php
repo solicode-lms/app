@@ -311,9 +311,7 @@
                 
                 
                 id="Adresse"
-                placeholder="{{ __('PkgApprenants::apprenantKonosy.Adresse') }}">
-                {{ $itemApprenantKonosy ? $itemApprenantKonosy->Adresse : old('Adresse') }}
-            </textarea>
+                placeholder="{{ __('PkgApprenants::apprenantKonosy.Adresse') }}">{{ $itemApprenantKonosy ? $itemApprenantKonosy->Adresse : old('Adresse') }}</textarea>
             @error('Adresse')
                 <div class="text-danger">{{ $message }}</div>
             @enderror

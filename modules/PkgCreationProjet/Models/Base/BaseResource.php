@@ -25,7 +25,6 @@ class BaseResource extends BaseModel
         parent::__construct($attributes); 
         $this->isOwnedByUser =  true;
         $this->ownerRelationPath = "projet.formateur.user";
-        
     }
 
     
@@ -37,6 +36,7 @@ class BaseResource extends BaseModel
     protected $fillable = [
         'nom', 'lien', 'description', 'projet_id'
     ];
+
 
     /**
      * Relation BelongsTo pour Projet.

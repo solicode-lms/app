@@ -43,9 +43,7 @@
                 
                 
                 id="description"
-                placeholder="{{ __('PkgGestionTaches::etatRealisationTache.description') }}">
-                {{ $itemEtatRealisationTache ? $itemEtatRealisationTache->description : old('description') }}
-            </textarea>
+                placeholder="{{ __('PkgGestionTaches::etatRealisationTache.description') }}">{{ $itemEtatRealisationTache ? $itemEtatRealisationTache->description : old('description') }}</textarea>
             @error('description')
                 <div class="text-danger">{{ $message }}</div>
             @enderror

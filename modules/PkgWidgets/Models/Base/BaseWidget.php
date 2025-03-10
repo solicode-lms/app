@@ -27,7 +27,6 @@ class BaseWidget extends BaseModel
     public function __construct(array $attributes = []) {
         parent::__construct($attributes); 
         $this->isOwnedByUser =  false;
-
     }
 
     
@@ -39,6 +38,7 @@ class BaseWidget extends BaseModel
     protected $fillable = [
         'name', 'label', 'model_id', 'type_id', 'operation_id', 'color', 'icon', 'parameters'
     ];
+
 
     /**
      * Relation BelongsTo pour SysModel.

@@ -119,9 +119,7 @@
                 
                 
                 id="description"
-                placeholder="{{ __('PkgCompetences::niveauDifficulte.description') }}">
-                {{ $itemNiveauDifficulte ? $itemNiveauDifficulte->description : old('description') }}
-            </textarea>
+                placeholder="{{ __('PkgCompetences::niveauDifficulte.description') }}">{{ $itemNiveauDifficulte ? $itemNiveauDifficulte->description : old('description') }}</textarea>
             @error('description')
                 <div class="text-danger">{{ $message }}</div>
             @enderror

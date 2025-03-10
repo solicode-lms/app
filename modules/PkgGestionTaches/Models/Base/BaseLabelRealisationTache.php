@@ -26,7 +26,6 @@ class BaseLabelRealisationTache extends BaseModel
         parent::__construct($attributes); 
         $this->isOwnedByUser =  true;
         $this->ownerRelationPath = "formateur.user";
-        
     }
 
     
@@ -38,6 +37,7 @@ class BaseLabelRealisationTache extends BaseModel
     protected $fillable = [
         'nom', 'description', 'formateur_id', 'sys_color_id'
     ];
+
 
     /**
      * Relation BelongsTo pour Formateur.

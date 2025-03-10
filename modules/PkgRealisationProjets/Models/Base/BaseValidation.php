@@ -26,7 +26,6 @@ class BaseValidation extends BaseModel
         parent::__construct($attributes); 
         $this->isOwnedByUser =  true;
         $this->ownerRelationPath = "realisationProjet.affectationProjet.projet.formateur.user,realisationProjet.apprenant.user";
-        
     }
 
     
@@ -38,6 +37,7 @@ class BaseValidation extends BaseModel
     protected $fillable = [
         'transfert_competence_id', 'note', 'message', 'is_valide', 'realisation_projet_id'
     ];
+
 
     /**
      * Relation BelongsTo pour TransfertCompetence.

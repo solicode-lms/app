@@ -28,7 +28,6 @@ class BaseGroupe extends BaseModel
     public function __construct(array $attributes = []) {
         parent::__construct($attributes); 
         $this->isOwnedByUser =  false;
-
     }
 
     
@@ -44,9 +43,6 @@ class BaseGroupe extends BaseModel
         'Apprenant' => ['relation' => 'apprenants' , "foreign_key" => "apprenant_id" ],
         'Formateur' => ['relation' => 'formateurs' , "foreign_key" => "formateur_id" ]
     ];
-
-       
-
 
 
     /**

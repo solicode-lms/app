@@ -109,9 +109,7 @@
                 
                 
                 id="description"
-                placeholder="{{ __('PkgGapp::eMetadataDefinition.description') }}">
-                {{ $itemEMetadataDefinition ? $itemEMetadataDefinition->description : old('description') }}
-            </textarea>
+                placeholder="{{ __('PkgGapp::eMetadataDefinition.description') }}">{{ $itemEMetadataDefinition ? $itemEMetadataDefinition->description : old('description') }}</textarea>
             @error('description')
                 <div class="text-danger">{{ $message }}</div>
             @enderror

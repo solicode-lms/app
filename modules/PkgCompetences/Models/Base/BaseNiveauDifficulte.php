@@ -26,7 +26,6 @@ class BaseNiveauDifficulte extends BaseModel
         parent::__construct($attributes); 
         $this->isOwnedByUser =  true;
         $this->ownerRelationPath = "formateur.user";
-        
     }
 
     
@@ -38,6 +37,7 @@ class BaseNiveauDifficulte extends BaseModel
     protected $fillable = [
         'nom', 'noteMin', 'noteMax', 'formateur_id', 'description'
     ];
+
 
     /**
      * Relation BelongsTo pour Formateur.

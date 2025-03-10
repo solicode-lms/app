@@ -88,9 +88,7 @@
                 
                 
                 id="description"
-                placeholder="{{ __('PkgGapp::eModel.description') }}">
-                {{ $itemEModel ? $itemEModel->description : old('description') }}
-            </textarea>
+                placeholder="{{ __('PkgGapp::eModel.description') }}">{{ $itemEModel ? $itemEModel->description : old('description') }}</textarea>
             @error('description')
                 <div class="text-danger">{{ $message }}</div>
             @enderror

@@ -29,7 +29,6 @@ class BaseTransfertCompetence extends BaseModel
         parent::__construct($attributes); 
         $this->isOwnedByUser =  true;
         $this->ownerRelationPath = "projet.formateur.user";
-        
     }
 
     
@@ -44,9 +43,6 @@ class BaseTransfertCompetence extends BaseModel
     public $manyToMany = [
         'Technology' => ['relation' => 'technologies' , "foreign_key" => "technology_id" ]
     ];
-
-       
-
 
 
     /**

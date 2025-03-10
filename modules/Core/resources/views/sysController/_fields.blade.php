@@ -93,9 +93,7 @@
                 
                 
                 id="description"
-                placeholder="{{ __('Core::sysController.description') }}">
-                {{ $itemSysController ? $itemSysController->description : old('description') }}
-            </textarea>
+                placeholder="{{ __('Core::sysController.description') }}">{{ $itemSysController ? $itemSysController->description : old('description') }}</textarea>
             @error('description')
                 <div class="text-danger">{{ $message }}</div>
             @enderror

@@ -63,9 +63,7 @@
                 
                 
                 id="description"
-                placeholder="{{ __('PkgApprenants::groupe.description') }}">
-                {{ $itemGroupe ? $itemGroupe->description : old('description') }}
-            </textarea>
+                placeholder="{{ __('PkgApprenants::groupe.description') }}">{{ $itemGroupe ? $itemGroupe->description : old('description') }}</textarea>
             @error('description')
                 <div class="text-danger">{{ $message }}</div>
             @enderror

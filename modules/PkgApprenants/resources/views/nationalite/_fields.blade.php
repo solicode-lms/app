@@ -63,9 +63,7 @@
                 
                 
                 id="description"
-                placeholder="{{ __('PkgApprenants::nationalite.description') }}">
-                {{ $itemNationalite ? $itemNationalite->description : old('description') }}
-            </textarea>
+                placeholder="{{ __('PkgApprenants::nationalite.description') }}">{{ $itemNationalite ? $itemNationalite->description : old('description') }}</textarea>
             @error('description')
                 <div class="text-danger">{{ $message }}</div>
             @enderror

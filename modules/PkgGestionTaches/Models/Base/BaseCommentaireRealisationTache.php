@@ -26,7 +26,6 @@ class BaseCommentaireRealisationTache extends BaseModel
     public function __construct(array $attributes = []) {
         parent::__construct($attributes); 
         $this->isOwnedByUser =  false;
-
     }
 
     
@@ -38,6 +37,7 @@ class BaseCommentaireRealisationTache extends BaseModel
     protected $fillable = [
         'commentaire', 'dateCommentaire', 'realisation_tache_id', 'formateur_id', 'apprenant_id'
     ];
+
 
     /**
      * Relation BelongsTo pour RealisationTache.

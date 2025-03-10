@@ -25,7 +25,6 @@ class BaseAnneeFormation extends BaseModel
     public function __construct(array $attributes = []) {
         parent::__construct($attributes); 
         $this->isOwnedByUser =  false;
-
     }
 
     
@@ -37,6 +36,7 @@ class BaseAnneeFormation extends BaseModel
     protected $fillable = [
         'titre', 'date_debut', 'date_fin'
     ];
+
 
 
 

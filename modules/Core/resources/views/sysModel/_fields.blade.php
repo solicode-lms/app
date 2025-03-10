@@ -65,9 +65,7 @@
                 
                 
                 id="description"
-                placeholder="{{ __('Core::sysModel.description') }}">
-                {{ $itemSysModel ? $itemSysModel->description : old('description') }}
-            </textarea>
+                placeholder="{{ __('Core::sysModel.description') }}">{{ $itemSysModel ? $itemSysModel->description : old('description') }}</textarea>
             @error('description')
                 <div class="text-danger">{{ $message }}</div>
             @enderror

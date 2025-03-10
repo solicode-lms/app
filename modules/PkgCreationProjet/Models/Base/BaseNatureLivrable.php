@@ -24,7 +24,6 @@ class BaseNatureLivrable extends BaseModel
     public function __construct(array $attributes = []) {
         parent::__construct($attributes); 
         $this->isOwnedByUser =  false;
-
     }
 
     
@@ -36,6 +35,7 @@ class BaseNatureLivrable extends BaseModel
     protected $fillable = [
         'nom', 'description'
     ];
+
 
 
 

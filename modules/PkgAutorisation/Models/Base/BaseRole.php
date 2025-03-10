@@ -25,7 +25,6 @@ class BaseRole extends BaseModel
     public function __construct(array $attributes = []) {
         parent::__construct($attributes); 
         $this->isOwnedByUser =  false;
-
     }
 
     
@@ -41,9 +40,6 @@ class BaseRole extends BaseModel
         'Permission' => ['relation' => 'permissions' , "foreign_key" => "permission_id" ],
         'User' => ['relation' => 'users' , "foreign_key" => "user_id" ]
     ];
-
-       
-
 
 
 

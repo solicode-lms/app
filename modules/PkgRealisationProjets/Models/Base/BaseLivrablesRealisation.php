@@ -26,7 +26,6 @@ class BaseLivrablesRealisation extends BaseModel
         parent::__construct($attributes); 
         $this->isOwnedByUser =  true;
         $this->ownerRelationPath = "realisationProjet.apprenant.user";
-        
     }
 
     
@@ -38,6 +37,7 @@ class BaseLivrablesRealisation extends BaseModel
     protected $fillable = [
         'livrable_id', 'lien', 'titre', 'description', 'realisation_projet_id'
     ];
+
 
     /**
      * Relation BelongsTo pour Livrable.

@@ -24,7 +24,6 @@ class BaseWidgetType extends BaseModel
     public function __construct(array $attributes = []) {
         parent::__construct($attributes); 
         $this->isOwnedByUser =  false;
-
     }
 
     
@@ -36,6 +35,7 @@ class BaseWidgetType extends BaseModel
     protected $fillable = [
         'type', 'description'
     ];
+
 
 
 

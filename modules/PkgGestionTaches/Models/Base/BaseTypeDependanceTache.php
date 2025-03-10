@@ -24,7 +24,6 @@ class BaseTypeDependanceTache extends BaseModel
     public function __construct(array $attributes = []) {
         parent::__construct($attributes); 
         $this->isOwnedByUser =  false;
-
     }
 
     
@@ -36,6 +35,7 @@ class BaseTypeDependanceTache extends BaseModel
     protected $fillable = [
         'titre', 'description'
     ];
+
 
 
 

@@ -71,9 +71,7 @@
                 
                 
                 id="description"
-                placeholder="{{ __('PkgRealisationProjets::etatsRealisationProjet.description') }}">
-                {{ $itemEtatsRealisationProjet ? $itemEtatsRealisationProjet->description : old('description') }}
-            </textarea>
+                placeholder="{{ __('PkgRealisationProjets::etatsRealisationProjet.description') }}">{{ $itemEtatsRealisationProjet ? $itemEtatsRealisationProjet->description : old('description') }}</textarea>
             @error('description')
                 <div class="text-danger">{{ $message }}</div>
             @enderror

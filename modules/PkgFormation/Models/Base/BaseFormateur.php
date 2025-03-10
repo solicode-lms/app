@@ -33,7 +33,6 @@ class BaseFormateur extends BaseModel
     public function __construct(array $attributes = []) {
         parent::__construct($attributes); 
         $this->isOwnedByUser =  false;
-
     }
 
     
@@ -49,9 +48,6 @@ class BaseFormateur extends BaseModel
         'Specialite' => ['relation' => 'specialites' , "foreign_key" => "specialite_id" ],
         'Groupe' => ['relation' => 'groupes' , "foreign_key" => "groupe_id" ]
     ];
-
-       
-
 
 
     /**

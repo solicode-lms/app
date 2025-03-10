@@ -25,7 +25,6 @@ class BaseFeature extends BaseModel
     public function __construct(array $attributes = []) {
         parent::__construct($attributes); 
         $this->isOwnedByUser =  false;
-
     }
 
     
@@ -40,9 +39,6 @@ class BaseFeature extends BaseModel
     public $manyToMany = [
         'Permission' => ['relation' => 'permissions' , "foreign_key" => "permission_id" ]
     ];
-
-       
-
 
 
     /**

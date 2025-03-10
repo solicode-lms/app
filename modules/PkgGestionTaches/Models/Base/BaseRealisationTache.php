@@ -29,7 +29,6 @@ class BaseRealisationTache extends BaseModel
         parent::__construct($attributes); 
         $this->isOwnedByUser =  true;
         $this->ownerRelationPath = "realisationProjet.affectationProjet.projet.formateur.user,realisationProjet.apprenant.user";
-        
     }
 
     
@@ -41,6 +40,7 @@ class BaseRealisationTache extends BaseModel
     protected $fillable = [
         'tache_id', 'realisation_projet_id', 'dateDebut', 'dateFin', 'etat_realisation_tache_id', 'remarques_formateur', 'remarques_apprenant'
     ];
+
 
     /**
      * Relation BelongsTo pour Tache.

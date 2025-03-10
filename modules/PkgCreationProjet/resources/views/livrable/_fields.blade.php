@@ -99,9 +99,7 @@
                 
                 
                 id="description"
-                placeholder="{{ __('PkgCreationProjet::livrable.description') }}">
-                {{ $itemLivrable ? $itemLivrable->description : old('description') }}
-            </textarea>
+                placeholder="{{ __('PkgCreationProjet::livrable.description') }}">{{ $itemLivrable ? $itemLivrable->description : old('description') }}</textarea>
             @error('description')
                 <div class="text-danger">{{ $message }}</div>
             @enderror

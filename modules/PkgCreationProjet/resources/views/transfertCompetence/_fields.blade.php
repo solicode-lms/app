@@ -49,9 +49,7 @@
                 
                 data-calcul='true'
                 id="question"
-                placeholder="{{ __('PkgCreationProjet::transfertCompetence.question') }}">
-                {{ $itemTransfertCompetence ? $itemTransfertCompetence->question : old('question') }}
-            </textarea>
+                placeholder="{{ __('PkgCreationProjet::transfertCompetence.question') }}">{{ $itemTransfertCompetence ? $itemTransfertCompetence->question : old('question') }}</textarea>
             @error('question')
                 <div class="text-danger">{{ $message }}</div>
             @enderror

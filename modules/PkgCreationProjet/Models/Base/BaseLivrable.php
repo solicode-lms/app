@@ -28,7 +28,6 @@ class BaseLivrable extends BaseModel
         parent::__construct($attributes); 
         $this->isOwnedByUser =  true;
         $this->ownerRelationPath = "projet.formateur.user";
-        
     }
 
     
@@ -43,9 +42,6 @@ class BaseLivrable extends BaseModel
     public $manyToMany = [
         'Tache' => ['relation' => 'taches' , "foreign_key" => "tache_id" ]
     ];
-
-       
-
 
 
     /**

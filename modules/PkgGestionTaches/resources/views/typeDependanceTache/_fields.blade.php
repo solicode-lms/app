@@ -43,9 +43,7 @@
                 
                 
                 id="description"
-                placeholder="{{ __('PkgGestionTaches::typeDependanceTache.description') }}">
-                {{ $itemTypeDependanceTache ? $itemTypeDependanceTache->description : old('description') }}
-            </textarea>
+                placeholder="{{ __('PkgGestionTaches::typeDependanceTache.description') }}">{{ $itemTypeDependanceTache ? $itemTypeDependanceTache->description : old('description') }}</textarea>
             @error('description')
                 <div class="text-danger">{{ $message }}</div>
             @enderror

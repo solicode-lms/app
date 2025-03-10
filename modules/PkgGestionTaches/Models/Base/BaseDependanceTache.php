@@ -25,7 +25,6 @@ class BaseDependanceTache extends BaseModel
     public function __construct(array $attributes = []) {
         parent::__construct($attributes); 
         $this->isOwnedByUser =  false;
-
     }
 
     
@@ -37,6 +36,7 @@ class BaseDependanceTache extends BaseModel
     protected $fillable = [
         'tache_id', 'type_dependance_tache_id', 'tache_cible_id'
     ];
+
 
     /**
      * Relation BelongsTo pour Tache.

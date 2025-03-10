@@ -200,9 +200,7 @@
                 
                 
                 id="value_text"
-                placeholder="{{ __('PkgGapp::eMetadatum.value_text') }}">
-                {{ $itemEMetadatum ? $itemEMetadatum->value_text : old('value_text') }}
-            </textarea>
+                placeholder="{{ __('PkgGapp::eMetadatum.value_text') }}">{{ $itemEMetadatum ? $itemEMetadatum->value_text : old('value_text') }}</textarea>
             @error('value_text')
                 <div class="text-danger">{{ $message }}</div>
             @enderror

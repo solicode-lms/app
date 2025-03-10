@@ -26,7 +26,6 @@ class BaseWidgetUtilisateur extends BaseModel
         parent::__construct($attributes); 
         $this->isOwnedByUser =  true;
         $this->ownerRelationPath = "user,user";
-        
     }
 
     
@@ -38,6 +37,7 @@ class BaseWidgetUtilisateur extends BaseModel
     protected $fillable = [
         'user_id', 'widget_id', 'ordre', 'titre', 'sous_titre', 'visible'
     ];
+
 
     /**
      * Relation BelongsTo pour User.

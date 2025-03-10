@@ -25,7 +25,6 @@ class BaseERelationship extends BaseModel
     public function __construct(array $attributes = []) {
         parent::__construct($attributes); 
         $this->isOwnedByUser =  false;
-
     }
 
     
@@ -37,6 +36,7 @@ class BaseERelationship extends BaseModel
     protected $fillable = [
         'name', 'type', 'source_e_model_id', 'target_e_model_id', 'cascade_on_delete', 'is_cascade', 'description', 'column_name', 'referenced_table', 'referenced_column', 'through', 'with_column', 'morph_name'
     ];
+
 
     /**
      * Relation BelongsTo pour EModel.
