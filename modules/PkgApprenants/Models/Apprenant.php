@@ -2,20 +2,13 @@
 
 
 namespace Modules\PkgApprenants\Models;
+
+use Modules\Core\App\Traits\HasDynamicAttributes;
 use Modules\PkgApprenants\Models\Base\BaseApprenant;
 use Modules\PkgGestionTaches\Models\RealisationTache;
 
 class Apprenant extends BaseApprenant
 {
-
-    protected static function boot()
-    {
-        parent::boot();
-
-        // Colonne dynamique : nombre_realisation_taches_en_cours
-        $sql = "SELECT count(*) FROM realisation_taches rt JOIN realisation_projets rp ON rt.realisation_projet_id = rp.id JOIN etat_realisation_taches ert ON rt.etat_realisation_tache_id = ert.id WHERE rp.apprenant_id = apprenants.id AND ert.nom = 'En cours'";
-        static::addDynamicAttribute('nombre_realisation_taches_en_cours', $sql);
-    }
 
     public function getFormateurId()
     {
@@ -26,5 +19,37 @@ class Apprenant extends BaseApprenant
     {
         return ($this->nom ?? "") . " " . $this->prenom ?? "";
     }
+
+    /**
+     * Obtenir le nombre de réalisations de tâches en cours pour cet apprenant.
+     *
+     * @return int
+     */
+    // public function getNombreRealisationTachesEnCoursAttribute(): int
+    // {
+    //     return $this->queryRealisationTachesEnCours()->count();
+    // }
+
+    /**
+     * Construire la requête pour récupérer les tâches en cours
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    // public function queryRealisationTachesEnCours()
+    // {
+    //     return RealisationTache::whereHas('realisationProjet', function ($query) {
+    //             $query->where('apprenant_id', $this->id);
+    //         })
+    //         ->whereHas('etatRealisationTache', function ($q) {
+    //             $q->where('nom', 'En cours'); // Filtrer uniquement les tâches en cours
+    //         });
+
+
+    //         // $subQuery->whereHas('realisationTaches', function ($q) {
+    //         //     $q->whereHas('etatRealisationTache', function ($etat) {
+    //         //         $etat->where('nom', 'En cours'); // Filtrer uniquement les tâches en cours
+    //         //     });
+    //         // });
+    // }
 
 }
