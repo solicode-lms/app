@@ -25,47 +25,6 @@ class ApprenantService extends BaseApprenantService
     }
 
 
-    public function paginate(array $params = [], int $perPage = 0, array $columns = ['*']): LengthAwarePaginator
-    {
-        $perPage = $perPage ?: $this->paginationLimit;
-
-        return $this->model::withScope(function () use ($params, $perPage, $columns) {
-           
-            $query = $this->model->newQuery();
-
-            // Ajouter le champ dynamique nombre_realisation_taches_en_cours
-            $query->withCount([
-                'realisationProjets as nombre_realisation_taches_en_cours' => function ($subQuery) {
-                    $subQuery->whereHas('realisationTaches', function ($q) {
-                        $q->whereHas('etatRealisationTache', function ($etat) {
-                            $etat->where('nom', 'En cours'); // Filtrer uniquement les tâches en cours
-                        });
-                    });
-                }
-            ]);
-
-            // $query->withCount([
-            //     'realisationProjets as nombre_realisation_taches_en_cours' => function ($subQuery) {
-            //         $apprenant = new Apprenant(); // Instancier un objet pour appeler la méthode
-            //         $subQuery->mergeConstraintsFrom($apprenant->queryRealisationTachesEnCours());
-            //     }
-            // ]);
-
-
-            $query = $this->allQuery($params, $query);
-
-            // $query->orderBy('nombre_realisation_taches_en_cours', 'asc');
-          
-
-            // Calcul du nombre total des résultats filtrés
-            $this->totalFilteredCount = $query->count();
-
-            return $query->paginate($perPage, $columns);
-        });
-    }
-
-
-
     public function initPassword(int $apprenantId)
     {
         $apprenant = $this->find($apprenantId);

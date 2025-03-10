@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
+use Modules\Core\App\Traits\HasDynamicAttributes;
 use Modules\Core\Models\BaseModel;
 use Modules\PkgApprenants\Models\Nationalite;
 use Modules\PkgApprenants\Models\NiveauxScolaire;
@@ -24,7 +25,7 @@ use Modules\PkgRealisationProjets\Models\RealisationProjet;
  */
 class BaseApprenant extends BaseModel
 {
-    use HasFactory, HasDynamicContext;
+    use HasFactory, HasDynamicContext, HasDynamicAttributes;
 
     public function __construct(array $attributes = []) {
         parent::__construct($attributes); 
@@ -45,9 +46,19 @@ class BaseApprenant extends BaseModel
         'Groupe' => ['relation' => 'groupes' , "foreign_key" => "groupe_id" ]
     ];
 
-       
+    protected static function boot()
+    {
+        parent::boot();
 
-
+        // Colonne dynamique : nombre_realisation_taches_en_cours
+        $sql = "SELECT count(*)
+                FROM realisation_taches rt
+                JOIN realisation_projets rp ON rt.realisation_projet_id = rp.id
+                JOIN etat_realisation_taches ert ON rt.etat_realisation_tache_id = ert.id
+                WHERE rp.apprenant_id = apprenants.id
+                AND ert.nom = 'En cours'";
+        static::addDynamicAttribute('nombre_realisation_taches_en_cours', $sql);
+    }
 
     /**
      * Relation BelongsTo pour Nationalite.

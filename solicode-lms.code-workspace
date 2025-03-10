@@ -4,7 +4,7 @@
 			"path": "./modules"
 		},
 		{
-			"path": "../docs"
+			"path": "E:/solicode-lms/docs"
 		},
 		{
 			"path": "./db_schemas/"
