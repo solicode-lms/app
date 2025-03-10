@@ -29,6 +29,14 @@ class BaseApprenant extends BaseModel
     public function __construct(array $attributes = []) {
         parent::__construct($attributes); 
         $this->isOwnedByUser =  false;
+        // Colonne dynamique : nom_filiere
+        $sql = "SELECT f.nom AS filiere_nom
+        FROM apprenants a
+        JOIN apprenant_groupe ag ON a.id = ag.apprenant_id
+        JOIN groupes g ON ag.groupe_id = g.id
+        JOIN filieres f ON g.filiere_id = f.id
+        WHERE a.id = apprenants.id";
+        static::addDynamicAttribute('nom_filiere', $sql);
         // Colonne dynamique : nombre_realisation_taches_en_cours
         $sql = "SELECT count(*) FROM realisation_taches rt 
         JOIN realisation_projets rp ON rt.realisation_projet_id = rp.id 

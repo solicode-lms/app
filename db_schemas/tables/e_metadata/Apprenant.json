@@ -753,5 +753,11 @@
         "value_boolean": 1,
         "e_data_field_reference": "Apprenant_adresse",
         "e_metadata_definition_reference": "isRichText"
+    },
+    {
+        "reference": "Apprenant-nom_filiere_displayOrder",
+        "value_integer": 5,
+        "e_data_field_reference": "Apprenant-nom_filiere",
+        "e_metadata_definition_reference": "displayOrder"
     }
 ]

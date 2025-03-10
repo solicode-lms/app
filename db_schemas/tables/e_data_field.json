@@ -8330,5 +8330,19 @@
         "calculable": 1,
         "calculable_sql": "SELECT count(*) FROM realisation_taches rt \r\nJOIN realisation_projets rp ON rt.realisation_projet_id = rp.id \r\nJOIN etat_realisation_taches ert ON rt.etat_realisation_tache_id = ert.id \r\nWHERE rp.apprenant_id = apprenants.id AND ert.nom = 'En cours'",
         "description": ""
+    },
+    {
+        "id": 641,
+        "reference": "Apprenant-nom_filiere",
+        "name": "nom_filiere",
+        "column_name": "nom_filiere",
+        "data_type": "String",
+        "field_order": 5,
+        "db_nullable": 1,
+        "db_primaryKey": 0,
+        "db_unique": 0,
+        "calculable": 1,
+        "calculable_sql": "SELECT f.nom AS filiere_nom\r\nFROM apprenants a\r\nJOIN apprenant_groupe ag ON a.id = ag.apprenant_id\r\nJOIN groupes g ON ag.groupe_id = g.id\r\nJOIN filieres f ON g.filiere_id = f.id\r\nWHERE a.id = apprenants.id;",
+        "description": ""
     }
 ]

@@ -28,7 +28,7 @@ class EDataFieldService extends BaseEDataFieldService
     {
         $entity = parent::create($data);
         $this->metaSeedByDataFieldReference(true, $entity->reference);
-        $this->metaExport();
+        $this->updateGappCrud($entity->eModel);
         return $entity;
     }
 
@@ -36,10 +36,14 @@ class EDataFieldService extends BaseEDataFieldService
     {
         $entity = parent::update($id, $data);
         $this->metaSeedByDataFieldReference(true, $entity->reference);
-        $this->metaExport();
+        
+        $this->updateGappCrud($entity->eModel);
         return $entity;
     }
    
+
+    
+
     public function destroy($id){
         $record = parent::destroy($id);
         $this->metaExport();
