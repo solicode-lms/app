@@ -359,5 +359,11 @@
         ],
         "e_data_field_reference": "TransfertCompetence_competence_id",
         "e_metadata_definition_reference": "scopeDataInEditContext"
+    },
+    {
+        "reference": "TransfertCompetence_question_isRichText",
+        "value_boolean": 1,
+        "e_data_field_reference": "TransfertCompetence_question",
+        "e_metadata_definition_reference": "isRichText"
     }
 ]

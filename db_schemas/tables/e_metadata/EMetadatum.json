@@ -431,5 +431,11 @@
         "value_integer": 6,
         "e_data_field_reference": "EMetadatum_updated_at",
         "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "EMetadatum_value_text_isRichText",
+        "value_boolean": 1,
+        "e_data_field_reference": "EMetadatum_value_text",
+        "e_metadata_definition_reference": "isRichText"
     }
 ]

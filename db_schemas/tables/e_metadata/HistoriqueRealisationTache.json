@@ -187,5 +187,11 @@
         "value_integer": 6,
         "e_data_field_reference": "HistoriqueRealisationTache_updated_at",
         "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "HistoriqueRealisationTache_changement_isRichText",
+        "value_boolean": 1,
+        "e_data_field_reference": "HistoriqueRealisationTache_changement",
+        "e_metadata_definition_reference": "isRichText"
     }
 ]

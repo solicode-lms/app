@@ -478,5 +478,23 @@
         "value_integer": 6,
         "e_data_field_reference": "projets_hasMany_taches_projet_id",
         "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Projet_travail_a_faire_isRichText",
+        "value_boolean": 1,
+        "e_data_field_reference": "Projet_travail_a_faire",
+        "e_metadata_definition_reference": "isRichText"
+    },
+    {
+        "reference": "Projet_critere_de_travail_isRichText",
+        "value_boolean": 1,
+        "e_data_field_reference": "Projet_critere_de_travail",
+        "e_metadata_definition_reference": "isRichText"
+    },
+    {
+        "reference": "Projet_description_isRichText",
+        "value_boolean": 1,
+        "e_data_field_reference": "Projet_description",
+        "e_metadata_definition_reference": "isRichText"
     }
 ]

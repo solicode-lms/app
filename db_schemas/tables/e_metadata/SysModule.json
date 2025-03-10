@@ -365,5 +365,11 @@
         "value_integer": 6,
         "e_data_field_reference": "sys_modules_hasMany_sys_models_sys_module_id",
         "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "SysModule_description_isRichText",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModule_description",
+        "e_metadata_definition_reference": "isRichText"
     }
 ]

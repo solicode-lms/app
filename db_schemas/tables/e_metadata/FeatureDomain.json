@@ -239,5 +239,11 @@
         "value_integer": 6,
         "e_data_field_reference": "feature_domains_hasMany_features_feature_domain_id",
         "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "FeatureDomain_description_isRichText",
+        "value_boolean": 1,
+        "e_data_field_reference": "FeatureDomain_description",
+        "e_metadata_definition_reference": "isRichText"
     }
 ]

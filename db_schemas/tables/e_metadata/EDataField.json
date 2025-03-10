@@ -527,5 +527,17 @@
         "value_integer": 12,
         "e_data_field_reference": "EDataField_calculable_sql",
         "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "EDataField_calculable_sql_isRichText",
+        "value_boolean": 1,
+        "e_data_field_reference": "EDataField_calculable_sql",
+        "e_metadata_definition_reference": "isRichText"
+    },
+    {
+        "reference": "EDataField_description_isRichText",
+        "value_boolean": 1,
+        "e_data_field_reference": "EDataField_description",
+        "e_metadata_definition_reference": "isRichText"
     }
 ]

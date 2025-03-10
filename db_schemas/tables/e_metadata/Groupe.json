@@ -321,5 +321,11 @@
         "value_integer": 6,
         "e_data_field_reference": "groupes_formateurs_formateur_groupe_m2m_m2m",
         "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Groupe_description_isRichText",
+        "value_boolean": 1,
+        "e_data_field_reference": "Groupe_description",
+        "e_metadata_definition_reference": "isRichText"
     }
 ]

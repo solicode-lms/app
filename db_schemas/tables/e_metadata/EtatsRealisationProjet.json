@@ -257,5 +257,11 @@
         "value_integer": 6,
         "e_data_field_reference": "EtatsRealisationProjet_is_editable_by_formateur",
         "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "EtatsRealisationProjet_description_isRichText",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatsRealisationProjet_description",
+        "e_metadata_definition_reference": "isRichText"
     }
 ]

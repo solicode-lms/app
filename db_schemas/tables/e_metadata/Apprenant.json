@@ -747,5 +747,11 @@
         "value_float": 0,
         "e_data_field_reference": "Apprenant-NombreTacheEnCours",
         "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "Apprenant_adresse_isRichText",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_adresse",
+        "e_metadata_definition_reference": "isRichText"
     }
 ]

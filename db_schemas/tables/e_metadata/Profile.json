@@ -273,5 +273,11 @@
         },
         "e_data_field_reference": "Profile_user_id",
         "e_metadata_definition_reference": "editableByRoles"
+    },
+    {
+        "reference": "Profile_bio_isRichText",
+        "value_boolean": 1,
+        "e_data_field_reference": "Profile_bio",
+        "e_metadata_definition_reference": "isRichText"
     }
 ]

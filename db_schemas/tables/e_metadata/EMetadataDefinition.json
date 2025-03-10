@@ -292,5 +292,11 @@
         "value_float": 0,
         "e_data_field_reference": "EMetadataDefinition_groupe",
         "e_metadata_definition_reference": "filterable"
+    },
+    {
+        "reference": "EMetadataDefinition_description_isRichText",
+        "value_boolean": 1,
+        "e_data_field_reference": "EMetadataDefinition_description",
+        "e_metadata_definition_reference": "isRichText"
     }
 ]

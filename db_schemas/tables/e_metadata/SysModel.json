@@ -269,5 +269,11 @@
         "value_integer": 6,
         "e_data_field_reference": "sys_models_hasMany_widgets_model_id",
         "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "SysModel_description_isRichText",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModel_description",
+        "e_metadata_definition_reference": "isRichText"
     }
 ]

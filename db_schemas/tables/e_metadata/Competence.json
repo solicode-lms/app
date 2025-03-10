@@ -337,5 +337,11 @@
         "value_integer": 6,
         "e_data_field_reference": "competences_hasMany_transfert_competences_competence_id",
         "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Competence_description_isRichText",
+        "value_boolean": 1,
+        "e_data_field_reference": "Competence_description",
+        "e_metadata_definition_reference": "isRichText"
     }
 ]

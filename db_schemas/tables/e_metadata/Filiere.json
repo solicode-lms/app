@@ -252,5 +252,11 @@
         "value_integer": 6,
         "e_data_field_reference": "filieres_hasMany_projets_filiere_id",
         "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Filiere_description_isRichText",
+        "value_boolean": 1,
+        "e_data_field_reference": "Filiere_description",
+        "e_metadata_definition_reference": "isRichText"
     }
 ]

@@ -243,5 +243,11 @@
         ],
         "e_model_reference": "label_realisation_taches",
         "e_metadata_definition_reference": "ownedByUser"
+    },
+    {
+        "reference": "LabelRealisationTache_description_isRichText",
+        "value_boolean": 1,
+        "e_data_field_reference": "LabelRealisationTache_description",
+        "e_metadata_definition_reference": "isRichText"
     }
 ]

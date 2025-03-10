@@ -203,5 +203,11 @@
         "value_integer": 6,
         "e_data_field_reference": "nationalites_hasMany_apprenants_nationalite_id",
         "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Nationalite_description_isRichText",
+        "value_boolean": 1,
+        "e_data_field_reference": "Nationalite_description",
+        "e_metadata_definition_reference": "isRichText"
     }
 ]

@@ -179,5 +179,11 @@
         "value_integer": 6,
         "e_data_field_reference": "category_technologies_hasMany_technologies_category_technology_id",
         "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "CategoryTechnology_description_isRichText",
+        "value_boolean": 1,
+        "e_data_field_reference": "CategoryTechnology_description",
+        "e_metadata_definition_reference": "isRichText"
     }
 ]

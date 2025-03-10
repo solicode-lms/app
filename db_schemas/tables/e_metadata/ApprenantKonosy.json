@@ -484,5 +484,11 @@
         "value_integer": 6,
         "e_data_field_reference": "ApprenantKonosy_updated_at",
         "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "ApprenantKonosy_Adresse_isRichText",
+        "value_boolean": 1,
+        "e_data_field_reference": "ApprenantKonosy_Adresse",
+        "e_metadata_definition_reference": "isRichText"
     }
 ]

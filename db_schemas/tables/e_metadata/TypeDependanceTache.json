@@ -180,5 +180,11 @@
         "value_integer": 6,
         "e_data_field_reference": "type_dependance_taches_hasMany_dependance_taches_type_dependance_tache_id",
         "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "TypeDependanceTache_description_isRichText",
+        "value_boolean": 1,
+        "e_data_field_reference": "TypeDependanceTache_description",
+        "e_metadata_definition_reference": "isRichText"
     }
 ]

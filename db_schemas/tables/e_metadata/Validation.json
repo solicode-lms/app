@@ -284,5 +284,11 @@
         ],
         "e_data_field_reference": "Validation_transfert_competence_id",
         "e_metadata_definition_reference": "scopeDataInEditContext"
+    },
+    {
+        "reference": "Validation_message_isRichText",
+        "value_boolean": 1,
+        "e_data_field_reference": "Validation_message",
+        "e_metadata_definition_reference": "isRichText"
     }
 ]

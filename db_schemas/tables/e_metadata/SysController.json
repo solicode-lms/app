@@ -275,5 +275,11 @@
         "value_integer": 6,
         "e_data_field_reference": "sys_controllers_hasMany_permissions_controller_id",
         "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "SysController_description_isRichText",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysController_description",
+        "e_metadata_definition_reference": "isRichText"
     }
 ]

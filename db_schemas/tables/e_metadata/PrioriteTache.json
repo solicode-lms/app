@@ -256,5 +256,11 @@
         ],
         "e_model_reference": "priorite_taches",
         "e_metadata_definition_reference": "ownedByUser"
+    },
+    {
+        "reference": "PrioriteTache_description_isRichText",
+        "value_boolean": 1,
+        "e_data_field_reference": "PrioriteTache_description",
+        "e_metadata_definition_reference": "isRichText"
     }
 ]

@@ -281,5 +281,11 @@
         "value_integer": 6,
         "e_data_field_reference": "niveau_difficultes_hasMany_transfert_competences_niveau_difficulte_id",
         "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "NiveauDifficulte_description_isRichText",
+        "value_boolean": 1,
+        "e_data_field_reference": "NiveauDifficulte_description",
+        "e_metadata_definition_reference": "isRichText"
     }
 ]

@@ -215,5 +215,11 @@
         "value_integer": 6,
         "e_data_field_reference": "features_permissions_feature_permission_m2m_m2m",
         "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Feature_description_isRichText",
+        "value_boolean": 1,
+        "e_data_field_reference": "Feature_description",
+        "e_metadata_definition_reference": "isRichText"
     }
 ]

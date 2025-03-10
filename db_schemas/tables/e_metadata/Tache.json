@@ -378,5 +378,11 @@
         ],
         "e_data_field_reference": "Tache_priorite_tache_id",
         "e_metadata_definition_reference": "scopeDataInEditContext"
+    },
+    {
+        "reference": "Tache_description_isRichText",
+        "value_boolean": 1,
+        "e_data_field_reference": "Tache_description",
+        "e_metadata_definition_reference": "isRichText"
     }
 ]

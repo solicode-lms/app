@@ -253,5 +253,11 @@
         "value_integer": 6,
         "e_data_field_reference": "CommentaireRealisationTache_updated_at",
         "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "CommentaireRealisationTache_commentaire_isRichText",
+        "value_boolean": 1,
+        "e_data_field_reference": "CommentaireRealisationTache_commentaire",
+        "e_metadata_definition_reference": "isRichText"
     }
 ]
