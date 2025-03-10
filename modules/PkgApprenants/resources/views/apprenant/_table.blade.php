@@ -7,7 +7,7 @@
             <tr>
                 <x-sortable-column field="nom" modelname="apprenant" label="{{ ucfirst(__('PkgApprenants::apprenant.nom')) }}" />
                 <x-sortable-column field="prenom" modelname="apprenant" label="{{ ucfirst(__('PkgApprenants::apprenant.prenom')) }}" />
-                <x-sortable-column field="nombre_realisation_taches_en_cours" modelname="apprenant" label="{{ ucfirst(__('PkgApprenants::apprenant.nombre_realisation_taches_en_cours')) }}" />
+                <x-sortable-column field="nom_filiere" modelname="apprenant" label="{{ ucfirst(__('PkgApprenants::apprenant.nom_filiere')) }}" />
                 <x-sortable-column field="groupes" modelname="apprenant" label="{{ ucfirst(__('PkgApprenants::groupe.plural')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
@@ -18,7 +18,7 @@
                 <tr id="apprenant-row-{{$apprenant->id}}">
                     <td>@limit($apprenant->nom, 50)</td>
                     <td>@limit($apprenant->prenom, 50)</td>
-                    <td>@limit($apprenant->nombre_realisation_taches_en_cours, 50)</td>
+                    <td>@limit($apprenant->nom_filiere, 50)</td>
                     <td>
                         <ul>
                             @foreach ($apprenant->groupes as $groupe)
