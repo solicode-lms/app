@@ -8,6 +8,7 @@ use Modules\PkgApprenants\Models\Apprenant;
 use Modules\PkgApprenants\Services\Base\BaseApprenantService;
 use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgAutorisation\Services\UserService;
+use Modules\PkgFormation\Models\Filiere;
 
 /**
  * Classe ApprenantService pour gérer la persistance de l'entité Apprenant.
@@ -24,6 +25,20 @@ class ApprenantService extends BaseApprenantService
         return $apprenant;
     }
 
+    public function initFieldsFilterable(){
+        parent::initFieldsFilterable();
+
+        $this->fieldsFilterable[] = $this->generateRelationFilter(
+            __("PkgFormation::Filiere.plural"), 
+            'groupes.filiere_id', 
+            Filiere::class, 
+            "id",
+            null,
+            "[name='groupe_id']",
+            route('groupes.getData'),
+            "filiere_id"
+        );
+    }
 
     public function initPassword(int $apprenantId)
     {

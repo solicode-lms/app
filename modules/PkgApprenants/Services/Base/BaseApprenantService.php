@@ -72,6 +72,8 @@ class BaseApprenantService extends BaseService
         if (!array_key_exists('groupes', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToManyFilter(__("PkgApprenants::groupe.plural"), 'groupe_id', \Modules\PkgApprenants\Models\Groupe::class, 'code');
         }
+
+      
     }
 
     /**

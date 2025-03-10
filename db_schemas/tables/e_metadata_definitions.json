@@ -706,5 +706,17 @@
         "description": "indique est ce que le champs de Text un richeText",
         "created_at": null,
         "updated_at": null
+    },
+    {
+        "id": 60,
+        "reference": "relationFilter",
+        "name": "relationFilter",
+        "type": "Json",
+        "scope": "field",
+        "default_value": "{}",
+        "groupe": "filter",
+        "description": "<p>Il permet de créer un fichier dynamique en se basant sur une relation(path)</p>",
+        "created_at": null,
+        "updated_at": null
     }
 ]
