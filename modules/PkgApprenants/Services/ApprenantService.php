@@ -26,8 +26,14 @@ class ApprenantService extends BaseApprenantService
     }
 
     public function initFieldsFilterable(){
-        parent::initFieldsFilterable();
 
+        // Initialiser les filtres configurables dynamiquement
+        $scopeVariables = $this->viewState->getScopeVariables('apprenant');
+        $this->fieldsFilterable = [];
+    
+     
+
+        // TODO Gapp : à générer depuis metaData : relationFilter
         $this->fieldsFilterable[] = $this->generateRelationFilter(
             __("PkgFormation::Filiere.plural"), 
             'groupes.filiere_id', 
@@ -38,6 +44,16 @@ class ApprenantService extends BaseApprenantService
             route('groupes.getData'),
             "filiere_id"
         );
+
+        if (!array_key_exists('groupes', $scopeVariables)) {
+            $this->fieldsFilterable[] = $this->generateManyToManyFilter(__("PkgApprenants::groupe.plural"), 'groupe_id', \Modules\PkgApprenants\Models\Groupe::class, 'code');
+            }
+
+
+            if (!array_key_exists('niveaux_scolaire_id', $scopeVariables)) {
+                $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgApprenants::niveauxScolaire.plural"), 'niveaux_scolaire_id', \Modules\PkgApprenants\Models\NiveauxScolaire::class, 'code');
+                }
+              
     }
 
     public function initPassword(int $apprenantId)
