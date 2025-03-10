@@ -267,7 +267,7 @@
             </label>
             <textarea rows="" cols=""
                 name="calculable_sql"
-                class="form-control richText"
+                class="form-control "
                 
                 
                 id="calculable_sql"

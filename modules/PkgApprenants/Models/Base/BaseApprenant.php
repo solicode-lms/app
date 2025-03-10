@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
+use Modules\Core\App\Traits\HasDynamicAttributes;
 use Modules\Core\Models\BaseModel;
 use Modules\PkgApprenants\Models\Nationalite;
 use Modules\PkgApprenants\Models\NiveauxScolaire;
@@ -24,7 +25,7 @@ use Modules\PkgRealisationProjets\Models\RealisationProjet;
  */
 class BaseApprenant extends BaseModel
 {
-    use HasFactory, HasDynamicContext;
+    use HasFactory, HasDynamicContext, HasDynamicAttributes;
 
     public function __construct(array $attributes = []) {
         parent::__construct($attributes); 
