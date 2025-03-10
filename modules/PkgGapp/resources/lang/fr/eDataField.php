@@ -16,5 +16,6 @@ return [
     'description' => 'description',
     'e_model_id' => 'entité',
     'calculable' => 'calculable',
+    'calculable_sql' => 'Requête SQL de champs calculable',
     'field_order' => 'ordre'
 ];
