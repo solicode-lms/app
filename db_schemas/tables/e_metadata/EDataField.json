@@ -507,5 +507,23 @@
         "value_float": 0,
         "e_data_field_reference": "EDataField_calculable",
         "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "EDataField_calculable_sql_displayOrder",
+        "value_integer": 11,
+        "e_data_field_reference": "EDataField_calculable_sql",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "EDataField_calculable_sql_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "EDataField_calculable_sql",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "EDataField_calculable_sql_inputMdWidth",
+        "value_integer": 12,
+        "e_data_field_reference": "EDataField_calculable_sql",
+        "e_metadata_definition_reference": "inputMdWidth"
     }
 ]
