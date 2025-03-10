@@ -8328,6 +8328,7 @@
         "db_primaryKey": 0,
         "db_unique": 0,
         "calculable": 1,
+        "calculable_sql": "SELECT count(*) FROM realisation_taches rt \r\nJOIN realisation_projets rp ON rt.realisation_projet_id = rp.id \r\nJOIN etat_realisation_taches ert ON rt.etat_realisation_tache_id = ert.id \r\nWHERE rp.apprenant_id = apprenants.id AND ert.nom = 'En cours'",
         "description": ""
     }
 ]
