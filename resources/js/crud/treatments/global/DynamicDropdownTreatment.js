@@ -48,21 +48,35 @@ export default class DynamicDropdownTreatment {
         const previousSelection = this.targetElement.value;
         this.targetElement.value = "";
 
-        try {
-        
-            const response = await fetch(apiUrl);
 
-            if (!response.ok) {
-                throw new Error("Erreur lors du chargement des données.");
-            }
 
-            const data = await response.json();
+        $.get(apiUrl)
+        .done((html) => {
+            // Injecter le contenu du formulaire dans le modal
+          
+            const data =  html;
             this.populateDropdown(data, previousSelection);
-        } catch (error) {
-            AjaxErrorHandler.handleError(error, "Impossible de charger les options.");
-        } finally {
+        })
+        .fail((xhr) => {
+            AjaxErrorHandler.handleError(xhr, 'Impossible de charger les options.');
+        });
+
+
+        // try {
         
-        }
+        //     const response = await fetch(apiUrl);
+
+        //     if (!response.ok) {
+        //         throw new Error("Erreur lors du chargement des données.");
+        //     }
+
+        //     const data = await response.json();
+        //     this.populateDropdown(data, previousSelection);
+        // } catch (error) {
+        //     AjaxErrorHandler.handleError(error, "Impossible de charger les options.");
+        // } finally {
+        
+        // }
     }
 
     /**

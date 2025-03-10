@@ -26,7 +26,7 @@ class BaseValidationSeeder extends Seeder
 
     // Permissions spécifiques pour chaque type de fonctionnalité
     protected array  $featurePermissions = [
-            'Afficher' => ['show'],
+            'Afficher' => ['show','getData'],
             'Lecture' => ['index', 'show','getData'],
             'Édition sans Ajouter' => ['index', 'show','edit','update','dataCalcul','getData'],
             'Édition ' => [ 'index', 'show','create','store','edit','update','destroy','dataCalcul','getData'],

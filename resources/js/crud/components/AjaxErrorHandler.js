@@ -31,6 +31,6 @@ export class AjaxErrorHandler {
             message = xhr.responseText || "Une erreur inattendue s'est produite.";
         }
 
-        NotificationHandler.showError(xhr.message);
+        NotificationHandler.showError(message);
     }
 }
