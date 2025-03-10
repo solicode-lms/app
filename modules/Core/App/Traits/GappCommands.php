@@ -40,7 +40,24 @@ trait GappCommands
         }
        
     }
+    private function metaSeedByDataFieldReference($sync = false, $dataFieldReference)
+    {
+    
+        $message = "Seed metaData en cours ..";
 
+        $npxPath = "C:\\Program Files\\nodejs\\npx.cmd";
+        $metaExportCommand = "\"$npxPath\" gapp meta:seedDataField ../ $dataFieldReference";
+
+        $this->pushServiceMessage("success","Gapp", $message);
+
+        // Exécution ASYNCHRONE de l'export des métadonnées
+        if($sync){
+            $this->executeCommandSync($metaExportCommand);
+        }else{
+            $this->executeCommandAsync($metaExportCommand);
+        }
+       
+    }
 
     private function updateGappCrud($model)
     {

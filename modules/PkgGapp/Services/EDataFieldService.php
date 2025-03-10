@@ -27,7 +27,7 @@ class EDataFieldService extends BaseEDataFieldService
     public function create($data)
     {
         $entity = parent::create($data);
-        $this->metaSeed(true);
+        $this->metaSeedByDataFieldReference(true, $entity->reference);
         $this->metaExport();
         return $entity;
     }
@@ -35,7 +35,7 @@ class EDataFieldService extends BaseEDataFieldService
     public function update($id, array $data)
     {
         $entity = parent::update($id, $data);
-        $this->metaSeed(true);
+        $this->metaSeedByDataFieldReference(true, $entity->reference);
         $this->metaExport();
         return $entity;
     }
