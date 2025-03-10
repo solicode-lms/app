@@ -74,7 +74,6 @@ class BaseRealisationTacheSeeder extends Seeder
             $row = array_combine($headers, $data);
             if ($row) {
                 $realisationTacheData =[
-                    "Livrables" => $row["Livrables"] ?? null,
                     "tache_id" => $row["tache_id"] ?? null,
                     "realisation_projet_id" => $row["realisation_projet_id"] ?? null,
                     "dateDebut" => $row["dateDebut"] ?? null,

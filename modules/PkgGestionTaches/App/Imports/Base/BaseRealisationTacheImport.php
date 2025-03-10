@@ -56,15 +56,14 @@ class BaseRealisationTacheImport implements ToModel, WithHeadingRow
 
         // Création d'un nouvel enregistrement
         return new RealisationTache([
-             'Livrables' => $values[0] ?? null,
-             'tache_id' => $values[1] ?? null,
-             'realisation_projet_id' => $values[2] ?? null,
-             'dateDebut' => $values[3] ?? null,
-             'dateFin' => $values[4] ?? null,
+             'tache_id' => $values[0] ?? null,
+             'realisation_projet_id' => $values[1] ?? null,
+             'dateDebut' => $values[2] ?? null,
+             'dateFin' => $values[3] ?? null,
              'reference' => $reference,
-             'etat_realisation_tache_id' => $values[6] ?? null,
-             'remarques_formateur' => $values[7] ?? null,
-             'remarques_apprenant' => $values[8] ?? null,
+             'etat_realisation_tache_id' => $values[5] ?? null,
+             'remarques_formateur' => $values[6] ?? null,
+             'remarques_apprenant' => $values[7] ?? null,
         ]);
 
 

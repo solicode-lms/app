@@ -25,10 +25,6 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="col-sm-12">
-                                <label for="Livrables">{{ ucfirst(__('PkgGestionTaches::realisationTache.Livrables')) }}:</label>
-                                <p>{{ $itemRealisationTache->Livrables }}</p>
-                            </div>
-                            <div class="col-sm-12">
                                 <label for="tache_id">{{ ucfirst(__('PkgGestionTaches::realisationTache.tache_id')) }}:</label>
                                 <p>{{ $itemRealisationTache->tache_id }}</p>
                             </div>

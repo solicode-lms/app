@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
-use Modules\Core\App\Traits\HasDynamicAttributes;
 use Modules\Core\Models\BaseModel;
 use Modules\PkgApprenants\Models\Nationalite;
 use Modules\PkgApprenants\Models\NiveauxScolaire;
@@ -25,7 +24,7 @@ use Modules\PkgRealisationProjets\Models\RealisationProjet;
  */
 class BaseApprenant extends BaseModel
 {
-    use HasFactory, HasDynamicContext, HasDynamicAttributes;
+    use HasFactory, HasDynamicContext;
 
     public function __construct(array $attributes = []) {
         parent::__construct($attributes); 
@@ -45,6 +44,8 @@ class BaseApprenant extends BaseModel
     public $manyToMany = [
         'Groupe' => ['relation' => 'groupes' , "foreign_key" => "groupe_id" ]
     ];
+
+       
 
 
 

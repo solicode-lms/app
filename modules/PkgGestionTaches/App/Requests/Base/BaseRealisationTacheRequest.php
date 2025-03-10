@@ -29,7 +29,6 @@ class BaseRealisationTacheRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'Livrables' => 'nullable',
             'tache_id' => 'required',
             'realisation_projet_id' => 'required',
             'dateDebut' => 'nullable',
@@ -48,7 +47,6 @@ class BaseRealisationTacheRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'Livrables.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::RealisationTache.Livrables')]),
             'tache_id.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::RealisationTache.tache_id')]),
             'realisation_projet_id.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::RealisationTache.realisation_projet_id')]),
             'dateDebut.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::RealisationTache.dateDebut')]),
