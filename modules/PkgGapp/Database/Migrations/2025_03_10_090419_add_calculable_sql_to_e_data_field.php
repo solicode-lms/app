@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('e_data_fields', function (Blueprint $table) {
-            $table->text('calculable_sql')->default(false)->after('calculable'); 
+            $table->text('calculable_sql')->nullable()->after('calculable'); 
         });
     }
 
