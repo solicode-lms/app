@@ -38,24 +38,6 @@
 
 
         
-        <div class="form-group col-12 col-md-12">
-            <label for="question">
-                {{ ucfirst(__('PkgCreationProjet::transfertCompetence.question')) }}
-                
-            </label>
-            <textarea rows="" cols=""
-                name="question"
-                class="form-control richText"
-                
-                data-calcul='true'
-                id="question"
-                placeholder="{{ __('PkgCreationProjet::transfertCompetence.question') }}">{{ $itemTransfertCompetence ? $itemTransfertCompetence->question : old('question') }}</textarea>
-            @error('question')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
-
-        
         <div class="form-group col-12 col-md-6">
             <label for="niveau_difficulte_id">
                 {{ ucfirst(__('PkgCompetences::niveauDifficulte.singular')) }}
@@ -162,6 +144,24 @@
             @enderror
     </div>
 
+
+        
+        <div class="form-group col-12 col-md-12">
+            <label for="question">
+                {{ ucfirst(__('PkgCreationProjet::transfertCompetence.question')) }}
+                
+            </label>
+            <textarea rows="" cols=""
+                name="question"
+                class="form-control richText"
+                
+                data-calcul='true'
+                id="question"
+                placeholder="{{ __('PkgCreationProjet::transfertCompetence.question') }}">{{ $itemTransfertCompetence ? $itemTransfertCompetence->question : old('question') }}</textarea>
+            @error('question')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
 
     </div>
 

@@ -29,10 +29,6 @@
                                 <p>{{ $itemTransfertCompetence->competence_id }}</p>
                             </div>
                             <div class="col-sm-12">
-                                <label for="question">{{ ucfirst(__('PkgCreationProjet::transfertCompetence.question')) }}:</label>
-                                <p>{{ $itemTransfertCompetence->question }}</p>
-                            </div>
-                            <div class="col-sm-12">
                                 <label for="niveau_difficulte_id">{{ ucfirst(__('PkgCreationProjet::transfertCompetence.niveau_difficulte_id')) }}:</label>
                                 <p>{{ $itemTransfertCompetence->niveau_difficulte_id }}</p>
                             </div>
@@ -43,6 +39,10 @@
                             <div class="col-sm-12">
                                 <label for="projet_id">{{ ucfirst(__('PkgCreationProjet::transfertCompetence.projet_id')) }}:</label>
                                 <p>{{ $itemTransfertCompetence->projet_id }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="question">{{ ucfirst(__('PkgCreationProjet::transfertCompetence.question')) }}:</label>
+                                <p>{{ $itemTransfertCompetence->question }}</p>
                             </div>
                         </div>
                     </div>

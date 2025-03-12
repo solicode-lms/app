@@ -100,7 +100,8 @@
     },
     {
         "reference": "TransfertCompetence_question_displayOrder",
-        "value_integer": 3,
+        "value_boolean": 0,
+        "value_integer": 15,
         "value_float": 0,
         "e_data_field_reference": "TransfertCompetence_question",
         "e_metadata_definition_reference": "displayOrder"

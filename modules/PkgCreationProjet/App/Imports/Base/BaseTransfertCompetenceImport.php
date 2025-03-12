@@ -57,11 +57,11 @@ class BaseTransfertCompetenceImport implements ToModel, WithHeadingRow
         // Création d'un nouvel enregistrement
         return new TransfertCompetence([
              'competence_id' => $values[0] ?? null,
-             'question' => $values[1] ?? null,
-             'niveau_difficulte_id' => $values[2] ?? null,
-             'note' => $values[3] ?? null,
+             'niveau_difficulte_id' => $values[1] ?? null,
+             'note' => $values[2] ?? null,
              'reference' => $reference,
-             'projet_id' => $values[5] ?? null,
+             'projet_id' => $values[4] ?? null,
+             'question' => $values[5] ?? null,
         ]);
 
 

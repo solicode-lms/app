@@ -29,20 +29,20 @@ class BaseTransfertCompetenceExport implements FromCollection, WithHeadings, Sho
      if($this->format == 'csv'){
         return [
             'competence_id' => 'competence_id',
-            'question' => 'question',
             'niveau_difficulte_id' => 'niveau_difficulte_id',
             'note' => 'note',
             'reference' => 'reference',
             'projet_id' => 'projet_id',
+            'question' => 'question',
         ];
         }else{
         return [
             'competence_id' => __('PkgCreationProjet::transfertCompetence.competence_id'),
-            'question' => __('PkgCreationProjet::transfertCompetence.question'),
             'niveau_difficulte_id' => __('PkgCreationProjet::transfertCompetence.niveau_difficulte_id'),
             'note' => __('PkgCreationProjet::transfertCompetence.note'),
             'reference' => __('Core::msg.reference'),
             'projet_id' => __('PkgCreationProjet::transfertCompetence.projet_id'),
+            'question' => __('PkgCreationProjet::transfertCompetence.question'),
         ];
 
         }
@@ -54,11 +54,11 @@ class BaseTransfertCompetenceExport implements FromCollection, WithHeadings, Sho
         return $this->data->map(function ($transfertCompetence) {
             return [
                 'competence_id' => $transfertCompetence->competence_id,
-                'question' => $transfertCompetence->question,
                 'niveau_difficulte_id' => $transfertCompetence->niveau_difficulte_id,
                 'note' => $transfertCompetence->note,
                 'reference' => $transfertCompetence->reference,
                 'projet_id' => $transfertCompetence->projet_id,
+                'question' => $transfertCompetence->question,
             ];
         });
     }

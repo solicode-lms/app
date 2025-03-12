@@ -38,7 +38,7 @@ class BaseTransfertCompetence extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'competence_id', 'question', 'niveau_difficulte_id', 'note', 'projet_id'
+        'competence_id', 'niveau_difficulte_id', 'note', 'projet_id', 'question'
     ];
     public $manyToMany = [
         'Technology' => ['relation' => 'technologies' , "foreign_key" => "technology_id" ]
