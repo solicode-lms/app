@@ -150,10 +150,10 @@
             required
             
             name="sys_color_id" 
-            class="form-control select2">
+            class="form-control select2Color">
              <option value="">Sélectionnez une option</option>
                 @foreach ($sysColors as $sysColor)
-                    <option value="{{ $sysColor->id }}"
+                    <option value="{{ $sysColor->id }}" data-color="{{ $sysColor->hex }}" 
                         {{ (isset($itemSysModule) && $itemSysModule->sys_color_id == $sysColor->id) || (old('sys_color_id>') == $sysColor->id) ? 'selected' : '' }}>
                         {{ $sysColor }}
                     </option>
