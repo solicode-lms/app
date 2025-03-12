@@ -383,5 +383,13 @@
         "value_boolean": 1,
         "e_data_field_reference": "EModel_description",
         "e_metadata_definition_reference": "isRichText"
+    },
+    {
+        "reference": "EModel_icon_nature",
+        "value_json": {
+            "nature": "icone"
+        },
+        "e_data_field_reference": "EModel_icon",
+        "e_metadata_definition_reference": "nature"
     }
 ]

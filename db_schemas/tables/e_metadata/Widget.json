@@ -368,5 +368,21 @@
         "value_integer": 6,
         "e_data_field_reference": "widgets_hasMany_widget_utilisateurs_widget_id",
         "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Widget_color_nature",
+        "value_json": {
+            "nature": "couleur"
+        },
+        "e_data_field_reference": "Widget_color",
+        "e_metadata_definition_reference": "nature"
+    },
+    {
+        "reference": "Widget_icon_nature",
+        "value_json": {
+            "nature": "icone"
+        },
+        "e_data_field_reference": "Widget_icon",
+        "e_metadata_definition_reference": "nature"
     }
 ]

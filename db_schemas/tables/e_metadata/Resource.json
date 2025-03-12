@@ -244,5 +244,13 @@
         "value_boolean": 1,
         "e_data_field_reference": "Resource_description",
         "e_metadata_definition_reference": "isRichText"
+    },
+    {
+        "reference": "Resource_lien_nature",
+        "value_json": {
+            "nature": "lien"
+        },
+        "e_data_field_reference": "Resource_lien",
+        "e_metadata_definition_reference": "nature"
     }
 ]

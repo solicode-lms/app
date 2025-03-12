@@ -249,5 +249,13 @@
         "value_boolean": 1,
         "e_data_field_reference": "LabelRealisationTache_description",
         "e_metadata_definition_reference": "isRichText"
+    },
+    {
+        "reference": "LabelRealisationTache_sys_color_id_nature",
+        "value_json": {
+            "nature": "couleur"
+        },
+        "e_data_field_reference": "LabelRealisationTache_sys_color_id",
+        "e_metadata_definition_reference": "nature"
     }
 ]

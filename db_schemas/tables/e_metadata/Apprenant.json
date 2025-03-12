@@ -774,5 +774,13 @@
         "value_json": {},
         "e_data_field_reference": "Apprenant-nom_filiere",
         "e_metadata_definition_reference": "relationFilter"
+    },
+    {
+        "reference": "Apprenant_profile_image_nature",
+        "value_json": {
+            "nature": "image"
+        },
+        "e_data_field_reference": "Apprenant_profile_image",
+        "e_metadata_definition_reference": "nature"
     }
 ]
