@@ -24,15 +24,10 @@
                     <td>@limit($realisationTache->tache, 50)</td>
                     <td>@limit($realisationTache->realisationProjet, 50)</td>
                     <td>
-                        @php
-                        if($realisationTache->etatRealisationTache && $realisationTache->etatRealisationTache->sysColor){
-                            $sysColorName = $realisationTache->etatRealisationTache->sysColor->name;
-                            $classeBadge = "badge-" . $sysColorName;
-                        }else{
-                            $classeBadge = "badge-secondary";
-                        }
-                        @endphp
-                        <span class="badge {{ $classeBadge }}">@limit($realisationTache->etatRealisationTache, 50)</span>
+                        <x-badge 
+                        :text="Str::limit($realisationTache->etatRealisationTache->nom ?? '', 20)" 
+                        :background="$realisationTache->etatRealisationTache->sysColor->hex ?? '#6c757d'" 
+                        />                    
                     </td>
 
 
