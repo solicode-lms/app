@@ -75,6 +75,10 @@ class BaseLivrableController extends AdminController
 
         $itemLivrable = $this->livrableService->createInstance();
         
+        // scopeDataInEditContext
+        $value = $itemLivrable->getNestedValue('projet_id');
+        $key = 'scope.tache.projet_id';
+        $this->viewState->set($key, $value);
 
         $natureLivrables = $this->natureLivrableService->all();
         $projets = $this->projetService->all();
@@ -116,6 +120,10 @@ class BaseLivrableController extends AdminController
         $itemLivrable = $this->livrableService->find($id);
         $this->authorize('view', $itemLivrable);
 
+        // scopeDataInEditContext
+        $value = $itemLivrable->getNestedValue('projet_id');
+        $key = 'scope.tache.projet_id';
+        $this->viewState->set($key, $value);
 
         $natureLivrables = $this->natureLivrableService->all();
         $projets = $this->projetService->all();
@@ -137,6 +145,10 @@ class BaseLivrableController extends AdminController
         $itemLivrable = $this->livrableService->find($id);
         $this->authorize('edit', $itemLivrable);
 
+        // scopeDataInEditContext
+        $value = $itemLivrable->getNestedValue('projet_id');
+        $key = 'scope.tache.projet_id';
+        $this->viewState->set($key, $value);
 
         $natureLivrables = $this->natureLivrableService->all();
         $projets = $this->projetService->all();

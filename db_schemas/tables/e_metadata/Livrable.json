@@ -295,5 +295,19 @@
         "value_boolean": 1,
         "e_data_field_reference": "Livrable_description",
         "e_metadata_definition_reference": "isRichText"
+    },
+    {
+        "reference": "livrables_taches_livrable_tache_m2m_m2m_scopeDataInEditContext",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": [
+            {
+                "key": "scope.tache.projet_id",
+                "value": "projet_id",
+                "modelName": "Livrable"
+            }
+        ],
+        "e_data_field_reference": "livrables_taches_livrable_tache_m2m_m2m",
+        "e_metadata_definition_reference": "scopeDataInEditContext"
     }
 ]
