@@ -22,7 +22,7 @@
                     <td>
                         <ul>
                             @foreach ($apprenant->groupes as $groupe)
-                                <li>{{ $groupe }}</li>
+                                <li @if(strlen($groupe) > 40) data-toggle="tooltip" title="{{$groupe}}"  @endif>@limit($groupe, 40)</li>
                             @endforeach
                         </ul>
                     </td>

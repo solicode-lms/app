@@ -25,7 +25,7 @@
                     <td>
                         <ul>
                             @foreach ($module->competences as $competence)
-                                <li>{{ $competence }}</li>
+                                <li @if(strlen($competence) > 40) data-toggle="tooltip" title="{{$competence}}" @endif>@limit($competence, 40)</li>
                             @endforeach
                         </ul>
                     </td>

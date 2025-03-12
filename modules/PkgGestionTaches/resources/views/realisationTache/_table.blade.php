@@ -18,7 +18,7 @@
             @section('realisationTache-table-tbody')
             @foreach ($realisationTaches_data as $realisationTache)
                 <tr id="realisationTache-row-{{$realisationTache->id}}">
-                    <td>@limit($realisationTache->getRealisationLivrable(), 50)</td>
+                    <td>@limit($realisationTache->livrables(), 50)</td>
                     <td>@limit($realisationTache->tache, 50)</td>
                     <td>@limit($realisationTache->realisationProjet, 50)</td>
                     <td>@limit($realisationTache->etatRealisationTache, 50)</td>

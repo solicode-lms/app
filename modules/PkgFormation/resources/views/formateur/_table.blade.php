@@ -21,14 +21,14 @@
                     <td>
                         <ul>
                             @foreach ($formateur->specialites as $specialite)
-                                <li>{{ $specialite }}</li>
+                                <li @if(strlen($specialite) > 40) data-toggle="tooltip" title="{{$specialite}}"  @endif>@limit($specialite, 40)</li>
                             @endforeach
                         </ul>
                     </td>
                     <td>
                         <ul>
                             @foreach ($formateur->groupes as $groupe)
-                                <li>{{ $groupe }}</li>
+                                <li @if(strlen($groupe) > 40) data-toggle="tooltip" title="{{$groupe}}"  @endif>@limit($groupe, 40)</li>
                             @endforeach
                         </ul>
                     </td>

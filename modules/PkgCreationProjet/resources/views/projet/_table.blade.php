@@ -22,14 +22,14 @@
                     <td>
                         <ul>
                             @foreach ($projet->transfertCompetences as $transfertCompetence)
-                                <li data-toggle="tooltip" title="{{$transfertCompetence}}">@limit($transfertCompetence, 50)</li>
+                                <li @if(strlen($transfertCompetence) > 40) data-toggle="tooltip" title="{{$transfertCompetence}}" @endif>@limit($transfertCompetence, 40)</li>
                             @endforeach
                         </ul>
                     </td>
                     <td>
                         <ul>
                             @foreach ($projet->affectationProjets as $affectationProjet)
-                                <li>{{ $affectationProjet }}</li>
+                                <li @if(strlen($affectationProjet) > 40) data-toggle="tooltip" title="{{$affectationProjet}}" @endif>@limit($affectationProjet, 40)</li>
                             @endforeach
                         </ul>
                     </td>

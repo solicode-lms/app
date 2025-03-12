@@ -20,7 +20,7 @@
                     <td>
                         <ul>
                             @foreach ($feature->permissions as $permission)
-                                <li>{{ $permission }}</li>
+                                <li @if(strlen($permission) > 40) data-toggle="tooltip" title="{{$permission}}"  @endif>@limit($permission, 40)</li>
                             @endforeach
                         </ul>
                     </td>

@@ -20,7 +20,7 @@
                     <td>
                         <ul>
                             @foreach ($user->roles as $role)
-                                <li>{{ $role }}</li>
+                                <li @if(strlen($role) > 40) data-toggle="tooltip" title="{{$role}}"  @endif>@limit($role, 40)</li>
                             @endforeach
                         </ul>
                     </td>

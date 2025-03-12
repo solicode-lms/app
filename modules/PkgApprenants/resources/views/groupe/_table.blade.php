@@ -20,7 +20,7 @@
                     <td>
                         <ul>
                             @foreach ($groupe->formateurs as $formateur)
-                                <li>{{ $formateur }}</li>
+                                <li @if(strlen($formateur) > 40) data-toggle="tooltip" title="{{$formateur}}"  @endif>@limit($formateur, 40)</li>
                             @endforeach
                         </ul>
                     </td>
