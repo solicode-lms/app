@@ -16,10 +16,38 @@
             @section('widget-table-tbody')
             @foreach ($widgets_data as $widget)
                 <tr id="widget-row-{{$widget->id}}">
-                    <td>@limit($widget->name, 50)</td>
-                    <td>@limit($widget->label, 50)</td>
-                    <td>@limit($widget->model, 50)</td>
-                    <td>@limit($widget->type, 50)</td>
+                    <td>
+                     <span @if(strlen($widget->name) > 40) 
+                            data-toggle="tooltip" 
+                            title="{{ $widget->name }}" 
+                        @endif>
+                        {{ Str::limit($widget->name, 40) }}
+                    </span>
+                    </td>
+                    <td>
+                     <span @if(strlen($widget->label) > 40) 
+                            data-toggle="tooltip" 
+                            title="{{ $widget->label }}" 
+                        @endif>
+                        {{ Str::limit($widget->label, 40) }}
+                    </span>
+                    </td>
+                    <td>
+                     <span @if(strlen($widget->model) > 50) 
+                            data-toggle="tooltip" 
+                            title="{{ $widget->model }}" 
+                        @endif>
+                        {{ Str::limit($widget->model, 50) }}
+                    </span>
+                    </td>
+                    <td>
+                     <span @if(strlen($widget->type) > 50) 
+                            data-toggle="tooltip" 
+                            title="{{ $widget->type }}" 
+                        @endif>
+                        {{ Str::limit($widget->type, 50) }}
+                    </span>
+                    </td>
                     <td class="text-right">
 
                         @can('show-widget')

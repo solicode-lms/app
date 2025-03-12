@@ -6,7 +6,6 @@
         <thead>
             <tr>
                 <x-sortable-column field="competence_id" modelname="transfertCompetence" label="{{ ucfirst(__('PkgCompetences::competence.singular')) }}" />
-                <x-sortable-column field="question" modelname="transfertCompetence" label="{{ ucfirst(__('PkgCreationProjet::transfertCompetence.question')) }}" />
                 <x-sortable-column field="niveau_difficulte_id" modelname="transfertCompetence" label="{{ ucfirst(__('PkgCompetences::niveauDifficulte.singular')) }}" />
                 <x-sortable-column field="note" modelname="transfertCompetence" label="{{ ucfirst(__('PkgCreationProjet::transfertCompetence.note')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
@@ -16,10 +15,30 @@
             @section('transfertCompetence-table-tbody')
             @foreach ($transfertCompetences_data as $transfertCompetence)
                 <tr id="transfertCompetence-row-{{$transfertCompetence->id}}">
-                    <td>@limit($transfertCompetence->competence, 50)</td>
-                    <td>{!! \App\Helpers\TextHelper::formatHtmlWithLineBreaks($transfertCompetence->question, 50) !!}</td>
-                    <td>@limit($transfertCompetence->niveauDifficulte, 50)</td>
-                    <td>@limit($transfertCompetence->note, 50)</td>
+                    <td>
+                     <span @if(strlen($transfertCompetence->competence) > 50) 
+                            data-toggle="tooltip" 
+                            title="{{ $transfertCompetence->competence }}" 
+                        @endif>
+                        {{ Str::limit($transfertCompetence->competence, 50) }}
+                    </span>
+                    </td>
+                    <td>
+                     <span @if(strlen($transfertCompetence->niveauDifficulte) > 50) 
+                            data-toggle="tooltip" 
+                            title="{{ $transfertCompetence->niveauDifficulte }}" 
+                        @endif>
+                        {{ Str::limit($transfertCompetence->niveauDifficulte, 50) }}
+                    </span>
+                    </td>
+                    <td>
+                     <span @if(strlen($transfertCompetence->note) > 40) 
+                            data-toggle="tooltip" 
+                            title="{{ $transfertCompetence->note }}" 
+                        @endif>
+                        {{ Str::limit($transfertCompetence->note, 40) }}
+                    </span>
+                    </td>
                     <td class="text-right">
 
                         @can('show-transfertCompetence')

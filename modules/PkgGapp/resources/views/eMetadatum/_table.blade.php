@@ -19,9 +19,30 @@
             @foreach ($eMetadata_data as $eMetadatum)
                 <tr id="eMetadatum-row-{{$eMetadatum->id}}">
                     <td>@limit($eMetadatum->getValue(), 50)</td>
-                    <td>@limit($eMetadatum->eModel, 50)</td>
-                    <td>@limit($eMetadatum->eDataField, 50)</td>
-                    <td>@limit($eMetadatum->eMetadataDefinition, 50)</td>
+                    <td>
+                     <span @if(strlen($eMetadatum->eModel) > 50) 
+                            data-toggle="tooltip" 
+                            title="{{ $eMetadatum->eModel }}" 
+                        @endif>
+                        {{ Str::limit($eMetadatum->eModel, 50) }}
+                    </span>
+                    </td>
+                    <td>
+                     <span @if(strlen($eMetadatum->eDataField) > 50) 
+                            data-toggle="tooltip" 
+                            title="{{ $eMetadatum->eDataField }}" 
+                        @endif>
+                        {{ Str::limit($eMetadatum->eDataField, 50) }}
+                    </span>
+                    </td>
+                    <td>
+                     <span @if(strlen($eMetadatum->eMetadataDefinition) > 50) 
+                            data-toggle="tooltip" 
+                            title="{{ $eMetadatum->eMetadataDefinition }}" 
+                        @endif>
+                        {{ Str::limit($eMetadatum->eMetadataDefinition, 50) }}
+                    </span>
+                    </td>
                     <td class="text-right">
 
                         @can('show-eMetadatum')

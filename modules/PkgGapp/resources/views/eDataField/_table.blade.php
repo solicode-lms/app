@@ -18,8 +18,22 @@
             @foreach ($eDataFields_data as $eDataField)
                 <tr id="eDataField-row-{{$eDataField->id}}">
                     <td>@limit($eDataField->getOrder(), 50)</td>
-                    <td>@limit($eDataField->name, 50)</td>
-                    <td>@limit($eDataField->data_type, 50)</td>
+                    <td>
+                     <span @if(strlen($eDataField->name) > 40) 
+                            data-toggle="tooltip" 
+                            title="{{ $eDataField->name }}" 
+                        @endif>
+                        {{ Str::limit($eDataField->name, 40) }}
+                    </span>
+                    </td>
+                    <td>
+                     <span @if(strlen($eDataField->data_type) > 40) 
+                            data-toggle="tooltip" 
+                            title="{{ $eDataField->data_type }}" 
+                        @endif>
+                        {{ Str::limit($eDataField->data_type, 40) }}
+                    </span>
+                    </td>
                     <td class="text-right">
 
                         @can('show-eDataField')

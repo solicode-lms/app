@@ -16,8 +16,22 @@
             @section('formateur-table-tbody')
             @foreach ($formateurs_data as $formateur)
                 <tr id="formateur-row-{{$formateur->id}}">
-                    <td>@limit($formateur->nom, 50)</td>
-                    <td>@limit($formateur->prenom, 50)</td>
+                    <td>
+                     <span @if(strlen($formateur->nom) > 40) 
+                            data-toggle="tooltip" 
+                            title="{{ $formateur->nom }}" 
+                        @endif>
+                        {{ Str::limit($formateur->nom, 40) }}
+                    </span>
+                    </td>
+                    <td>
+                     <span @if(strlen($formateur->prenom) > 40) 
+                            data-toggle="tooltip" 
+                            title="{{ $formateur->prenom }}" 
+                        @endif>
+                        {{ Str::limit($formateur->prenom, 40) }}
+                    </span>
+                    </td>
                     <td>
                         <ul>
                             @foreach ($formateur->specialites as $specialite)

@@ -15,9 +15,30 @@
             @section('dependanceTache-table-tbody')
             @foreach ($dependanceTaches_data as $dependanceTache)
                 <tr id="dependanceTache-row-{{$dependanceTache->id}}">
-                    <td>@limit($dependanceTache->tache, 50)</td>
-                    <td>@limit($dependanceTache->typeDependanceTache, 50)</td>
-                    <td>@limit($dependanceTache->tacheCible, 50)</td>
+                    <td>
+                     <span @if(strlen($dependanceTache->tache) > 50) 
+                            data-toggle="tooltip" 
+                            title="{{ $dependanceTache->tache }}" 
+                        @endif>
+                        {{ Str::limit($dependanceTache->tache, 50) }}
+                    </span>
+                    </td>
+                    <td>
+                     <span @if(strlen($dependanceTache->typeDependanceTache) > 50) 
+                            data-toggle="tooltip" 
+                            title="{{ $dependanceTache->typeDependanceTache }}" 
+                        @endif>
+                        {{ Str::limit($dependanceTache->typeDependanceTache, 50) }}
+                    </span>
+                    </td>
+                    <td>
+                     <span @if(strlen($dependanceTache->tacheCible) > 50) 
+                            data-toggle="tooltip" 
+                            title="{{ $dependanceTache->tacheCible }}" 
+                        @endif>
+                        {{ Str::limit($dependanceTache->tacheCible, 50) }}
+                    </span>
+                    </td>
                     <td class="text-right">
 
                         @can('show-dependanceTache')

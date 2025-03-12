@@ -14,7 +14,14 @@
             @section('widgetType-table-tbody')
             @foreach ($widgetTypes_data as $widgetType)
                 <tr id="widgetType-row-{{$widgetType->id}}">
-                    <td>@limit($widgetType->type, 50)</td>
+                    <td>
+                     <span @if(strlen($widgetType->type) > 40) 
+                            data-toggle="tooltip" 
+                            title="{{ $widgetType->type }}" 
+                        @endif>
+                        {{ Str::limit($widgetType->type, 40) }}
+                    </span>
+                    </td>
                     <td>{!! \App\Helpers\TextHelper::formatHtmlWithLineBreaks($widgetType->description, 50) !!}</td>
                     <td class="text-right">
 

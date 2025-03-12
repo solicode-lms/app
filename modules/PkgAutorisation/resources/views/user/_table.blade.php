@@ -15,8 +15,22 @@
             @section('user-table-tbody')
             @foreach ($users_data as $user)
                 <tr id="user-row-{{$user->id}}">
-                    <td>@limit($user->name, 50)</td>
-                    <td>@limit($user->email, 50)</td>
+                    <td>
+                     <span @if(strlen($user->name) > 40) 
+                            data-toggle="tooltip" 
+                            title="{{ $user->name }}" 
+                        @endif>
+                        {{ Str::limit($user->name, 40) }}
+                    </span>
+                    </td>
+                    <td>
+                     <span @if(strlen($user->email) > 40) 
+                            data-toggle="tooltip" 
+                            title="{{ $user->email }}" 
+                        @endif>
+                        {{ Str::limit($user->email, 40) }}
+                    </span>
+                    </td>
                     <td>
                         <ul>
                             @foreach ($user->roles as $role)

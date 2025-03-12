@@ -17,9 +17,30 @@
             @foreach ($commentaireRealisationTaches_data as $commentaireRealisationTache)
                 <tr id="commentaireRealisationTache-row-{{$commentaireRealisationTache->id}}">
                     <td>{!! \App\Helpers\TextHelper::formatHtmlWithLineBreaks($commentaireRealisationTache->commentaire, 50) !!}</td>
-                    <td>@limit($commentaireRealisationTache->realisationTache, 50)</td>
-                    <td>@limit($commentaireRealisationTache->formateur, 50)</td>
-                    <td>@limit($commentaireRealisationTache->apprenant, 50)</td>
+                    <td>
+                     <span @if(strlen($commentaireRealisationTache->realisationTache) > 50) 
+                            data-toggle="tooltip" 
+                            title="{{ $commentaireRealisationTache->realisationTache }}" 
+                        @endif>
+                        {{ Str::limit($commentaireRealisationTache->realisationTache, 50) }}
+                    </span>
+                    </td>
+                    <td>
+                     <span @if(strlen($commentaireRealisationTache->formateur) > 50) 
+                            data-toggle="tooltip" 
+                            title="{{ $commentaireRealisationTache->formateur }}" 
+                        @endif>
+                        {{ Str::limit($commentaireRealisationTache->formateur, 50) }}
+                    </span>
+                    </td>
+                    <td>
+                     <span @if(strlen($commentaireRealisationTache->apprenant) > 50) 
+                            data-toggle="tooltip" 
+                            title="{{ $commentaireRealisationTache->apprenant }}" 
+                        @endif>
+                        {{ Str::limit($commentaireRealisationTache->apprenant, 50) }}
+                    </span>
+                    </td>
                     <td class="text-right">
 
                         @can('show-commentaireRealisationTache')

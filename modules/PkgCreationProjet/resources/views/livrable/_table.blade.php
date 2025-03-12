@@ -14,8 +14,22 @@
             @section('livrable-table-tbody')
             @foreach ($livrables_data as $livrable)
                 <tr id="livrable-row-{{$livrable->id}}">
-                    <td>@limit($livrable->natureLivrable, 50)</td>
-                    <td>@limit($livrable->titre, 50)</td>
+                    <td>
+                     <span @if(strlen($livrable->natureLivrable) > 50) 
+                            data-toggle="tooltip" 
+                            title="{{ $livrable->natureLivrable }}" 
+                        @endif>
+                        {{ Str::limit($livrable->natureLivrable, 50) }}
+                    </span>
+                    </td>
+                    <td>
+                     <span @if(strlen($livrable->titre) > 40) 
+                            data-toggle="tooltip" 
+                            title="{{ $livrable->titre }}" 
+                        @endif>
+                        {{ Str::limit($livrable->titre, 40) }}
+                    </span>
+                    </td>
                     <td class="text-right">
 
                         @can('show-livrable')

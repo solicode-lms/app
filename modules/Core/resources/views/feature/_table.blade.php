@@ -15,8 +15,22 @@
             @section('feature-table-tbody')
             @foreach ($features_data as $feature)
                 <tr id="feature-row-{{$feature->id}}">
-                    <td>@limit($feature->name, 50)</td>
-                    <td>@limit($feature->featureDomain, 50)</td>
+                    <td>
+                     <span @if(strlen($feature->name) > 40) 
+                            data-toggle="tooltip" 
+                            title="{{ $feature->name }}" 
+                        @endif>
+                        {{ Str::limit($feature->name, 40) }}
+                    </span>
+                    </td>
+                    <td>
+                     <span @if(strlen($feature->featureDomain) > 50) 
+                            data-toggle="tooltip" 
+                            title="{{ $feature->featureDomain }}" 
+                        @endif>
+                        {{ Str::limit($feature->featureDomain, 50) }}
+                    </span>
+                    </td>
                     <td>
                         <ul>
                             @foreach ($feature->permissions as $permission)

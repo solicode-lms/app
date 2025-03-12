@@ -14,8 +14,22 @@
             @section('featureDomain-table-tbody')
             @foreach ($featureDomains_data as $featureDomain)
                 <tr id="featureDomain-row-{{$featureDomain->id}}">
-                    <td>@limit($featureDomain->name, 50)</td>
-                    <td>@limit($featureDomain->sysModule, 50)</td>
+                    <td>
+                     <span @if(strlen($featureDomain->name) > 40) 
+                            data-toggle="tooltip" 
+                            title="{{ $featureDomain->name }}" 
+                        @endif>
+                        {{ Str::limit($featureDomain->name, 40) }}
+                    </span>
+                    </td>
+                    <td>
+                     <span @if(strlen($featureDomain->sysModule) > 50) 
+                            data-toggle="tooltip" 
+                            title="{{ $featureDomain->sysModule }}" 
+                        @endif>
+                        {{ Str::limit($featureDomain->sysModule, 50) }}
+                    </span>
+                    </td>
                     <td class="text-right">
 
                         @can('show-featureDomain')

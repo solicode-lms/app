@@ -15,8 +15,22 @@
             @section('groupe-table-tbody')
             @foreach ($groupes_data as $groupe)
                 <tr id="groupe-row-{{$groupe->id}}">
-                    <td>@limit($groupe->code, 50)</td>
-                    <td>@limit($groupe->filiere, 50)</td>
+                    <td>
+                     <span @if(strlen($groupe->code) > 40) 
+                            data-toggle="tooltip" 
+                            title="{{ $groupe->code }}" 
+                        @endif>
+                        {{ Str::limit($groupe->code, 40) }}
+                    </span>
+                    </td>
+                    <td>
+                     <span @if(strlen($groupe->filiere) > 50) 
+                            data-toggle="tooltip" 
+                            title="{{ $groupe->filiere }}" 
+                        @endif>
+                        {{ Str::limit($groupe->filiere, 50) }}
+                    </span>
+                    </td>
                     <td>
                         <ul>
                             @foreach ($groupe->formateurs as $formateur)

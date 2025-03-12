@@ -15,9 +15,30 @@
             @section('widgetUtilisateur-table-tbody')
             @foreach ($widgetUtilisateurs_data as $widgetUtilisateur)
                 <tr id="widgetUtilisateur-row-{{$widgetUtilisateur->id}}">
-                    <td>@limit($widgetUtilisateur->user, 50)</td>
-                    <td>@limit($widgetUtilisateur->widget, 50)</td>
-                    <td>@limit($widgetUtilisateur->titre, 50)</td>
+                    <td>
+                     <span @if(strlen($widgetUtilisateur->user) > 50) 
+                            data-toggle="tooltip" 
+                            title="{{ $widgetUtilisateur->user }}" 
+                        @endif>
+                        {{ Str::limit($widgetUtilisateur->user, 50) }}
+                    </span>
+                    </td>
+                    <td>
+                     <span @if(strlen($widgetUtilisateur->widget) > 50) 
+                            data-toggle="tooltip" 
+                            title="{{ $widgetUtilisateur->widget }}" 
+                        @endif>
+                        {{ Str::limit($widgetUtilisateur->widget, 50) }}
+                    </span>
+                    </td>
+                    <td>
+                     <span @if(strlen($widgetUtilisateur->titre) > 40) 
+                            data-toggle="tooltip" 
+                            title="{{ $widgetUtilisateur->titre }}" 
+                        @endif>
+                        {{ Str::limit($widgetUtilisateur->titre, 40) }}
+                    </span>
+                    </td>
                     <td class="text-right">
 
                         @can('show-widgetUtilisateur')

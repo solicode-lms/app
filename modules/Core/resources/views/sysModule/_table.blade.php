@@ -15,9 +15,30 @@
             @section('sysModule-table-tbody')
             @foreach ($sysModules_data as $sysModule)
                 <tr id="sysModule-row-{{$sysModule->id}}">
-                    <td>@limit($sysModule->name, 50)</td>
-                    <td>@limit($sysModule->is_active, 50)</td>
-                    <td>@limit($sysModule->sysColor, 50)</td>
+                    <td>
+                     <span @if(strlen($sysModule->name) > 40) 
+                            data-toggle="tooltip" 
+                            title="{{ $sysModule->name }}" 
+                        @endif>
+                        {{ Str::limit($sysModule->name, 40) }}
+                    </span>
+                    </td>
+                    <td>
+                     <span @if(strlen($sysModule->is_active) > 40) 
+                            data-toggle="tooltip" 
+                            title="{{ $sysModule->is_active }}" 
+                        @endif>
+                        {{ Str::limit($sysModule->is_active, 40) }}
+                    </span>
+                    </td>
+                    <td>
+                     <span @if(strlen($sysModule->sysColor) > 50) 
+                            data-toggle="tooltip" 
+                            title="{{ $sysModule->sysColor }}" 
+                        @endif>
+                        {{ Str::limit($sysModule->sysColor, 50) }}
+                    </span>
+                    </td>
                     <td class="text-right">
 
                         @can('show-sysModule')

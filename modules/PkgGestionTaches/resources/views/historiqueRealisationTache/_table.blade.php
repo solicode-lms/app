@@ -13,7 +13,14 @@
             @section('historiqueRealisationTache-table-tbody')
             @foreach ($historiqueRealisationTaches_data as $historiqueRealisationTache)
                 <tr id="historiqueRealisationTache-row-{{$historiqueRealisationTache->id}}">
-                    <td>@limit($historiqueRealisationTache->realisationTache, 50)</td>
+                    <td>
+                     <span @if(strlen($historiqueRealisationTache->realisationTache) > 50) 
+                            data-toggle="tooltip" 
+                            title="{{ $historiqueRealisationTache->realisationTache }}" 
+                        @endif>
+                        {{ Str::limit($historiqueRealisationTache->realisationTache, 50) }}
+                    </span>
+                    </td>
                     <td class="text-right">
 
                         @can('show-historiqueRealisationTache')

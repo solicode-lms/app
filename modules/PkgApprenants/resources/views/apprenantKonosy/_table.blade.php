@@ -13,7 +13,14 @@
             @section('apprenantKonosy-table-tbody')
             @foreach ($apprenantKonosies_data as $apprenantKonosy)
                 <tr id="apprenantKonosy-row-{{$apprenantKonosy->id}}">
-                    <td>@limit($apprenantKonosy->Nom, 50)</td>
+                    <td>
+                     <span @if(strlen($apprenantKonosy->Nom) > 40) 
+                            data-toggle="tooltip" 
+                            title="{{ $apprenantKonosy->Nom }}" 
+                        @endif>
+                        {{ Str::limit($apprenantKonosy->Nom, 40) }}
+                    </span>
+                    </td>
                     <td class="text-right">
 
                         @can('show-apprenantKonosy')

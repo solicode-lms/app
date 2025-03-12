@@ -15,9 +15,30 @@
             @section('sysModel-table-tbody')
             @foreach ($sysModels_data as $sysModel)
                 <tr id="sysModel-row-{{$sysModel->id}}">
-                    <td>@limit($sysModel->name, 50)</td>
-                    <td>@limit($sysModel->sysModule, 50)</td>
-                    <td>@limit($sysModel->sysColor, 50)</td>
+                    <td>
+                     <span @if(strlen($sysModel->name) > 40) 
+                            data-toggle="tooltip" 
+                            title="{{ $sysModel->name }}" 
+                        @endif>
+                        {{ Str::limit($sysModel->name, 40) }}
+                    </span>
+                    </td>
+                    <td>
+                     <span @if(strlen($sysModel->sysModule) > 50) 
+                            data-toggle="tooltip" 
+                            title="{{ $sysModel->sysModule }}" 
+                        @endif>
+                        {{ Str::limit($sysModel->sysModule, 50) }}
+                    </span>
+                    </td>
+                    <td>
+                     <span @if(strlen($sysModel->sysColor) > 50) 
+                            data-toggle="tooltip" 
+                            title="{{ $sysModel->sysColor }}" 
+                        @endif>
+                        {{ Str::limit($sysModel->sysColor, 50) }}
+                    </span>
+                    </td>
                     <td class="text-right">
 
                         @can('show-sysModel')

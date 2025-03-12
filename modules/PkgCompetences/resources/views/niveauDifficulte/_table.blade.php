@@ -14,8 +14,22 @@
             @section('niveauDifficulte-table-tbody')
             @foreach ($niveauDifficultes_data as $niveauDifficulte)
                 <tr id="niveauDifficulte-row-{{$niveauDifficulte->id}}">
-                    <td>@limit($niveauDifficulte->nom, 50)</td>
-                    <td>@limit($niveauDifficulte->formateur, 50)</td>
+                    <td>
+                     <span @if(strlen($niveauDifficulte->nom) > 40) 
+                            data-toggle="tooltip" 
+                            title="{{ $niveauDifficulte->nom }}" 
+                        @endif>
+                        {{ Str::limit($niveauDifficulte->nom, 40) }}
+                    </span>
+                    </td>
+                    <td>
+                     <span @if(strlen($niveauDifficulte->formateur) > 50) 
+                            data-toggle="tooltip" 
+                            title="{{ $niveauDifficulte->formateur }}" 
+                        @endif>
+                        {{ Str::limit($niveauDifficulte->formateur, 50) }}
+                    </span>
+                    </td>
                     <td class="text-right">
 
                         @can('show-niveauDifficulte')

@@ -18,10 +18,38 @@
             @section('module-table-tbody')
             @foreach ($modules_data as $module)
                 <tr id="module-row-{{$module->id}}">
-                    <td>@limit($module->code, 50)</td>
-                    <td>@limit($module->nom, 50)</td>
-                    <td>@limit($module->masse_horaire, 50)</td>
-                    <td>@limit($module->filiere, 50)</td>
+                    <td>
+                     <span @if(strlen($module->code) > 40) 
+                            data-toggle="tooltip" 
+                            title="{{ $module->code }}" 
+                        @endif>
+                        {{ Str::limit($module->code, 40) }}
+                    </span>
+                    </td>
+                    <td>
+                     <span @if(strlen($module->nom) > 40) 
+                            data-toggle="tooltip" 
+                            title="{{ $module->nom }}" 
+                        @endif>
+                        {{ Str::limit($module->nom, 40) }}
+                    </span>
+                    </td>
+                    <td>
+                     <span @if(strlen($module->masse_horaire) > 40) 
+                            data-toggle="tooltip" 
+                            title="{{ $module->masse_horaire }}" 
+                        @endif>
+                        {{ Str::limit($module->masse_horaire, 40) }}
+                    </span>
+                    </td>
+                    <td>
+                     <span @if(strlen($module->filiere) > 50) 
+                            data-toggle="tooltip" 
+                            title="{{ $module->filiere }}" 
+                        @endif>
+                        {{ Str::limit($module->filiere, 50) }}
+                    </span>
+                    </td>
                     <td>
                         <ul>
                             @foreach ($module->competences as $competence)

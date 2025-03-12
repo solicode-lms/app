@@ -14,8 +14,22 @@
             @section('niveauCompetence-table-tbody')
             @foreach ($niveauCompetences_data as $niveauCompetence)
                 <tr id="niveauCompetence-row-{{$niveauCompetence->id}}">
-                    <td>@limit($niveauCompetence->nom, 50)</td>
-                    <td>@limit($niveauCompetence->competence, 50)</td>
+                    <td>
+                     <span @if(strlen($niveauCompetence->nom) > 40) 
+                            data-toggle="tooltip" 
+                            title="{{ $niveauCompetence->nom }}" 
+                        @endif>
+                        {{ Str::limit($niveauCompetence->nom, 40) }}
+                    </span>
+                    </td>
+                    <td>
+                     <span @if(strlen($niveauCompetence->competence) > 50) 
+                            data-toggle="tooltip" 
+                            title="{{ $niveauCompetence->competence }}" 
+                        @endif>
+                        {{ Str::limit($niveauCompetence->competence, 50) }}
+                    </span>
+                    </td>
                     <td class="text-right">
 
                         @can('show-niveauCompetence')

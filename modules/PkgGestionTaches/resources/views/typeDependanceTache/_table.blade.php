@@ -13,7 +13,14 @@
             @section('typeDependanceTache-table-tbody')
             @foreach ($typeDependanceTaches_data as $typeDependanceTache)
                 <tr id="typeDependanceTache-row-{{$typeDependanceTache->id}}">
-                    <td>@limit($typeDependanceTache->titre, 50)</td>
+                    <td>
+                     <span @if(strlen($typeDependanceTache->titre) > 40) 
+                            data-toggle="tooltip" 
+                            title="{{ $typeDependanceTache->titre }}" 
+                        @endif>
+                        {{ Str::limit($typeDependanceTache->titre, 40) }}
+                    </span>
+                    </td>
                     <td class="text-right">
 
                         @can('show-typeDependanceTache')

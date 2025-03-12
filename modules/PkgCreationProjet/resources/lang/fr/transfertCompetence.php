@@ -9,5 +9,5 @@ return [
     'competence_id' => 'ID de la Compétence',
     'appreciation_id' => 'ID de l\'Appréciation',
     'note' => 'Barème(note)',
-    'question' => 'Tâche à Réaliser'
+    'question' => 'Remarques'
 ];

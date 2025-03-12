@@ -13,7 +13,14 @@
             @section('nationalite-table-tbody')
             @foreach ($nationalites_data as $nationalite)
                 <tr id="nationalite-row-{{$nationalite->id}}">
-                    <td>@limit($nationalite->code, 50)</td>
+                    <td>
+                     <span @if(strlen($nationalite->code) > 40) 
+                            data-toggle="tooltip" 
+                            title="{{ $nationalite->code }}" 
+                        @endif>
+                        {{ Str::limit($nationalite->code, 40) }}
+                    </span>
+                    </td>
                     <td class="text-right">
 
                         @can('show-nationalite')

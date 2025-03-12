@@ -15,8 +15,22 @@
             @section('validation-table-tbody')
             @foreach ($validations_data as $validation)
                 <tr id="validation-row-{{$validation->id}}">
-                    <td>@limit($validation->transfertCompetence, 50)</td>
-                    <td>@limit($validation->note, 50)</td>
+                    <td>
+                     <span @if(strlen($validation->transfertCompetence) > 50) 
+                            data-toggle="tooltip" 
+                            title="{{ $validation->transfertCompetence }}" 
+                        @endif>
+                        {{ Str::limit($validation->transfertCompetence, 50) }}
+                    </span>
+                    </td>
+                    <td>
+                     <span @if(strlen($validation->note) > 40) 
+                            data-toggle="tooltip" 
+                            title="{{ $validation->note }}" 
+                        @endif>
+                        {{ Str::limit($validation->note, 40) }}
+                    </span>
+                    </td>
                     <td>{!! \App\Helpers\TextHelper::formatHtmlWithLineBreaks($validation->message, 50) !!}</td>
                     <td class="text-right">
 

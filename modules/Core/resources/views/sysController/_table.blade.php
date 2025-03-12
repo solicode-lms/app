@@ -17,9 +17,30 @@
             @section('sysController-table-tbody')
             @foreach ($sysControllers_data as $sysController)
                 <tr id="sysController-row-{{$sysController->id}}">
-                    <td>@limit($sysController->sysModule, 50)</td>
-                    <td>@limit($sysController->name, 50)</td>
-                    <td>@limit($sysController->is_active, 50)</td>
+                    <td>
+                     <span @if(strlen($sysController->sysModule) > 50) 
+                            data-toggle="tooltip" 
+                            title="{{ $sysController->sysModule }}" 
+                        @endif>
+                        {{ Str::limit($sysController->sysModule, 50) }}
+                    </span>
+                    </td>
+                    <td>
+                     <span @if(strlen($sysController->name) > 40) 
+                            data-toggle="tooltip" 
+                            title="{{ $sysController->name }}" 
+                        @endif>
+                        {{ Str::limit($sysController->name, 40) }}
+                    </span>
+                    </td>
+                    <td>
+                     <span @if(strlen($sysController->is_active) > 40) 
+                            data-toggle="tooltip" 
+                            title="{{ $sysController->is_active }}" 
+                        @endif>
+                        {{ Str::limit($sysController->is_active, 40) }}
+                    </span>
+                    </td>
                     <td>
                         <ul>
                             @foreach ($sysController->controllerIdPermissions as $permission)

@@ -15,9 +15,30 @@
             @section('tache-table-tbody')
             @foreach ($taches_data as $tache)
                 <tr id="tache-row-{{$tache->id}}">
-                    <td>@limit($tache->titre, 50)</td>
-                    <td>@limit($tache->projet, 50)</td>
-                    <td>@limit($tache->prioriteTache, 50)</td>
+                    <td>
+                     <span @if(strlen($tache->titre) > 40) 
+                            data-toggle="tooltip" 
+                            title="{{ $tache->titre }}" 
+                        @endif>
+                        {{ Str::limit($tache->titre, 40) }}
+                    </span>
+                    </td>
+                    <td>
+                     <span @if(strlen($tache->projet) > 50) 
+                            data-toggle="tooltip" 
+                            title="{{ $tache->projet }}" 
+                        @endif>
+                        {{ Str::limit($tache->projet, 50) }}
+                    </span>
+                    </td>
+                    <td>
+                     <span @if(strlen($tache->prioriteTache) > 50) 
+                            data-toggle="tooltip" 
+                            title="{{ $tache->prioriteTache }}" 
+                        @endif>
+                        {{ Str::limit($tache->prioriteTache, 50) }}
+                    </span>
+                    </td>
                     <td class="text-right">
 
                         @can('show-tache')

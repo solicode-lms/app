@@ -15,9 +15,30 @@
             @section('livrablesRealisation-table-tbody')
             @foreach ($livrablesRealisations_data as $livrablesRealisation)
                 <tr id="livrablesRealisation-row-{{$livrablesRealisation->id}}">
-                    <td>@limit($livrablesRealisation->livrable, 50)</td>
-                    <td>@limit($livrablesRealisation->lien, 50)</td>
-                    <td>@limit($livrablesRealisation->titre, 50)</td>
+                    <td>
+                     <span @if(strlen($livrablesRealisation->livrable) > 50) 
+                            data-toggle="tooltip" 
+                            title="{{ $livrablesRealisation->livrable }}" 
+                        @endif>
+                        {{ Str::limit($livrablesRealisation->livrable, 50) }}
+                    </span>
+                    </td>
+                    <td>
+                     <span @if(strlen($livrablesRealisation->lien) > 40) 
+                            data-toggle="tooltip" 
+                            title="{{ $livrablesRealisation->lien }}" 
+                        @endif>
+                        {{ Str::limit($livrablesRealisation->lien, 40) }}
+                    </span>
+                    </td>
+                    <td>
+                     <span @if(strlen($livrablesRealisation->titre) > 40) 
+                            data-toggle="tooltip" 
+                            title="{{ $livrablesRealisation->titre }}" 
+                        @endif>
+                        {{ Str::limit($livrablesRealisation->titre, 40) }}
+                    </span>
+                    </td>
                     <td class="text-right">
 
                         @can('show-livrablesRealisation')

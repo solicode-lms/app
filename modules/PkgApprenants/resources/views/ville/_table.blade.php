@@ -13,7 +13,14 @@
             @section('ville-table-tbody')
             @foreach ($villes_data as $ville)
                 <tr id="ville-row-{{$ville->id}}">
-                    <td>@limit($ville->nom, 50)</td>
+                    <td>
+                     <span @if(strlen($ville->nom) > 40) 
+                            data-toggle="tooltip" 
+                            title="{{ $ville->nom }}" 
+                        @endif>
+                        {{ Str::limit($ville->nom, 40) }}
+                    </span>
+                    </td>
                     <td class="text-right">
 
                         @can('show-ville')

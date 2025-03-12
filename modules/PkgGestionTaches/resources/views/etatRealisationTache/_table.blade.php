@@ -16,10 +16,38 @@
             @section('etatRealisationTache-table-tbody')
             @foreach ($etatRealisationTaches_data as $etatRealisationTache)
                 <tr id="etatRealisationTache-row-{{$etatRealisationTache->id}}">
-                    <td>@limit($etatRealisationTache->nom, 50)</td>
-                    <td>@limit($etatRealisationTache->formateur, 50)</td>
-                    <td>@limit($etatRealisationTache->sysColor, 50)</td>
-                    <td>@limit($etatRealisationTache->workflowTache, 50)</td>
+                    <td>
+                     <span @if(strlen($etatRealisationTache->nom) > 40) 
+                            data-toggle="tooltip" 
+                            title="{{ $etatRealisationTache->nom }}" 
+                        @endif>
+                        {{ Str::limit($etatRealisationTache->nom, 40) }}
+                    </span>
+                    </td>
+                    <td>
+                     <span @if(strlen($etatRealisationTache->formateur) > 50) 
+                            data-toggle="tooltip" 
+                            title="{{ $etatRealisationTache->formateur }}" 
+                        @endif>
+                        {{ Str::limit($etatRealisationTache->formateur, 50) }}
+                    </span>
+                    </td>
+                    <td>
+                     <span @if(strlen($etatRealisationTache->sysColor) > 50) 
+                            data-toggle="tooltip" 
+                            title="{{ $etatRealisationTache->sysColor }}" 
+                        @endif>
+                        {{ Str::limit($etatRealisationTache->sysColor, 50) }}
+                    </span>
+                    </td>
+                    <td>
+                     <span @if(strlen($etatRealisationTache->workflowTache) > 50) 
+                            data-toggle="tooltip" 
+                            title="{{ $etatRealisationTache->workflowTache }}" 
+                        @endif>
+                        {{ Str::limit($etatRealisationTache->workflowTache, 50) }}
+                    </span>
+                    </td>
                     <td class="text-right">
 
                         @can('show-etatRealisationTache')

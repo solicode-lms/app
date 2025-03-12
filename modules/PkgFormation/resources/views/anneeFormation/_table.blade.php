@@ -15,9 +15,30 @@
             @section('anneeFormation-table-tbody')
             @foreach ($anneeFormations_data as $anneeFormation)
                 <tr id="anneeFormation-row-{{$anneeFormation->id}}">
-                    <td>@limit($anneeFormation->titre, 50)</td>
-                    <td>@limit($anneeFormation->date_debut, 50)</td>
-                    <td>@limit($anneeFormation->date_fin, 50)</td>
+                    <td>
+                     <span @if(strlen($anneeFormation->titre) > 40) 
+                            data-toggle="tooltip" 
+                            title="{{ $anneeFormation->titre }}" 
+                        @endif>
+                        {{ Str::limit($anneeFormation->titre, 40) }}
+                    </span>
+                    </td>
+                    <td>
+                     <span @if(strlen($anneeFormation->date_debut) > 40) 
+                            data-toggle="tooltip" 
+                            title="{{ $anneeFormation->date_debut }}" 
+                        @endif>
+                        {{ Str::limit($anneeFormation->date_debut, 40) }}
+                    </span>
+                    </td>
+                    <td>
+                     <span @if(strlen($anneeFormation->date_fin) > 40) 
+                            data-toggle="tooltip" 
+                            title="{{ $anneeFormation->date_fin }}" 
+                        @endif>
+                        {{ Str::limit($anneeFormation->date_fin, 40) }}
+                    </span>
+                    </td>
                     <td class="text-right">
 
                         @can('show-anneeFormation')

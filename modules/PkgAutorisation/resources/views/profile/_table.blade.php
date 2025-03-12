@@ -13,7 +13,14 @@
             @section('profile-table-tbody')
             @foreach ($profiles_data as $profile)
                 <tr id="profile-row-{{$profile->id}}">
-                    <td>@limit($profile->user, 50)</td>
+                    <td>
+                     <span @if(strlen($profile->user) > 50) 
+                            data-toggle="tooltip" 
+                            title="{{ $profile->user }}" 
+                        @endif>
+                        {{ Str::limit($profile->user, 50) }}
+                    </span>
+                    </td>
                     <td class="text-right">
 
                         @can('show-profile')

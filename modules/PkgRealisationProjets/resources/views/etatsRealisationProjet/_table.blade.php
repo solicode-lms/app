@@ -14,8 +14,22 @@
             @section('etatsRealisationProjet-table-tbody')
             @foreach ($etatsRealisationProjets_data as $etatsRealisationProjet)
                 <tr id="etatsRealisationProjet-row-{{$etatsRealisationProjet->id}}">
-                    <td>@limit($etatsRealisationProjet->formateur, 50)</td>
-                    <td>@limit($etatsRealisationProjet->titre, 50)</td>
+                    <td>
+                     <span @if(strlen($etatsRealisationProjet->formateur) > 50) 
+                            data-toggle="tooltip" 
+                            title="{{ $etatsRealisationProjet->formateur }}" 
+                        @endif>
+                        {{ Str::limit($etatsRealisationProjet->formateur, 50) }}
+                    </span>
+                    </td>
+                    <td>
+                     <span @if(strlen($etatsRealisationProjet->titre) > 40) 
+                            data-toggle="tooltip" 
+                            title="{{ $etatsRealisationProjet->titre }}" 
+                        @endif>
+                        {{ Str::limit($etatsRealisationProjet->titre, 40) }}
+                    </span>
+                    </td>
                     <td class="text-right">
 
                         @can('show-etatsRealisationProjet')

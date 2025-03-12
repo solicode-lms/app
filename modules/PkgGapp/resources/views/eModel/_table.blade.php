@@ -18,8 +18,22 @@
             @foreach ($eModels_data as $eModel)
                 <tr id="eModel-row-{{$eModel->id}}">
                     <td>@limit($eModel->getIcone(), 50)</td>
-                    <td>@limit($eModel->name, 50)</td>
-                    <td>@limit($eModel->ePackage, 50)</td>
+                    <td>
+                     <span @if(strlen($eModel->name) > 40) 
+                            data-toggle="tooltip" 
+                            title="{{ $eModel->name }}" 
+                        @endif>
+                        {{ Str::limit($eModel->name, 40) }}
+                    </span>
+                    </td>
+                    <td>
+                     <span @if(strlen($eModel->ePackage) > 50) 
+                            data-toggle="tooltip" 
+                            title="{{ $eModel->ePackage }}" 
+                        @endif>
+                        {{ Str::limit($eModel->ePackage, 50) }}
+                    </span>
+                    </td>
                     <td class="text-right">
 
                         @can('show-eModel')

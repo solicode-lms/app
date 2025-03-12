@@ -18,7 +18,14 @@
             @section('projet-table-tbody')
             @foreach ($projets_data as $projet)
                 <tr id="projet-row-{{$projet->id}}">
-                    <td>@limit($projet->titre, 50)</td>
+                    <td>
+                     <span @if(strlen($projet->titre) > 40) 
+                            data-toggle="tooltip" 
+                            title="{{ $projet->titre }}" 
+                        @endif>
+                        {{ Str::limit($projet->titre, 40) }}
+                    </span>
+                    </td>
                     <td>
                         <ul>
                             @foreach ($projet->transfertCompetences as $transfertCompetence)
@@ -33,7 +40,14 @@
                             @endforeach
                         </ul>
                     </td>
-                    <td>@limit($projet->formateur, 50)</td>
+                    <td>
+                     <span @if(strlen($projet->formateur) > 50) 
+                            data-toggle="tooltip" 
+                            title="{{ $projet->formateur }}" 
+                        @endif>
+                        {{ Str::limit($projet->formateur, 50) }}
+                    </span>
+                    </td>
                     <td class="text-right">
 
                         @can('show-projet')

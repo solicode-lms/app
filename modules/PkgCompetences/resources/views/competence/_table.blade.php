@@ -16,10 +16,38 @@
             @section('competence-table-tbody')
             @foreach ($competences_data as $competence)
                 <tr id="competence-row-{{$competence->id}}">
-                    <td>@limit($competence->code, 50)</td>
-                    <td>@limit($competence->mini_code, 50)</td>
-                    <td>@limit($competence->nom, 50)</td>
-                    <td>@limit($competence->module, 50)</td>
+                    <td>
+                     <span @if(strlen($competence->code) > 40) 
+                            data-toggle="tooltip" 
+                            title="{{ $competence->code }}" 
+                        @endif>
+                        {{ Str::limit($competence->code, 40) }}
+                    </span>
+                    </td>
+                    <td>
+                     <span @if(strlen($competence->mini_code) > 40) 
+                            data-toggle="tooltip" 
+                            title="{{ $competence->mini_code }}" 
+                        @endif>
+                        {{ Str::limit($competence->mini_code, 40) }}
+                    </span>
+                    </td>
+                    <td>
+                     <span @if(strlen($competence->nom) > 40) 
+                            data-toggle="tooltip" 
+                            title="{{ $competence->nom }}" 
+                        @endif>
+                        {{ Str::limit($competence->nom, 40) }}
+                    </span>
+                    </td>
+                    <td>
+                     <span @if(strlen($competence->module) > 50) 
+                            data-toggle="tooltip" 
+                            title="{{ $competence->module }}" 
+                        @endif>
+                        {{ Str::limit($competence->module, 50) }}
+                    </span>
+                    </td>
                     <td class="text-right">
 
                         @can('show-competence')

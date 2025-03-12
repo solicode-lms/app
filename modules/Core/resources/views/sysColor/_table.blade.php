@@ -13,7 +13,14 @@
             @section('sysColor-table-tbody')
             @foreach ($sysColors_data as $sysColor)
                 <tr id="sysColor-row-{{$sysColor->id}}">
-                    <td>@limit($sysColor->name, 50)</td>
+                    <td>
+                     <span @if(strlen($sysColor->name) > 40) 
+                            data-toggle="tooltip" 
+                            title="{{ $sysColor->name }}" 
+                        @endif>
+                        {{ Str::limit($sysColor->name, 40) }}
+                    </span>
+                    </td>
                     <td class="text-right">
 
                         @can('show-sysColor')

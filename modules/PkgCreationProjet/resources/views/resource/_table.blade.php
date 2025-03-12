@@ -14,8 +14,22 @@
             @section('resource-table-tbody')
             @foreach ($resources_data as $resource)
                 <tr id="resource-row-{{$resource->id}}">
-                    <td>@limit($resource->nom, 50)</td>
-                    <td>@limit($resource->lien, 50)</td>
+                    <td>
+                     <span @if(strlen($resource->nom) > 40) 
+                            data-toggle="tooltip" 
+                            title="{{ $resource->nom }}" 
+                        @endif>
+                        {{ Str::limit($resource->nom, 40) }}
+                    </span>
+                    </td>
+                    <td>
+                     <span @if(strlen($resource->lien) > 40) 
+                            data-toggle="tooltip" 
+                            title="{{ $resource->lien }}" 
+                        @endif>
+                        {{ Str::limit($resource->lien, 40) }}
+                    </span>
+                    </td>
                     <td class="text-right">
 
                         @can('show-resource')

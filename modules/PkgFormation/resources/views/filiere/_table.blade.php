@@ -14,8 +14,22 @@
             @section('filiere-table-tbody')
             @foreach ($filieres_data as $filiere)
                 <tr id="filiere-row-{{$filiere->id}}">
-                    <td>@limit($filiere->code, 50)</td>
-                    <td>@limit($filiere->nom, 50)</td>
+                    <td>
+                     <span @if(strlen($filiere->code) > 40) 
+                            data-toggle="tooltip" 
+                            title="{{ $filiere->code }}" 
+                        @endif>
+                        {{ Str::limit($filiere->code, 40) }}
+                    </span>
+                    </td>
+                    <td>
+                     <span @if(strlen($filiere->nom) > 40) 
+                            data-toggle="tooltip" 
+                            title="{{ $filiere->nom }}" 
+                        @endif>
+                        {{ Str::limit($filiere->nom, 40) }}
+                    </span>
+                    </td>
                     <td class="text-right">
 
                         @can('show-filiere')

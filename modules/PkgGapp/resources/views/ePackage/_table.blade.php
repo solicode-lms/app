@@ -13,7 +13,14 @@
             @section('ePackage-table-tbody')
             @foreach ($ePackages_data as $ePackage)
                 <tr id="ePackage-row-{{$ePackage->id}}">
-                    <td>@limit($ePackage->name, 50)</td>
+                    <td>
+                     <span @if(strlen($ePackage->name) > 40) 
+                            data-toggle="tooltip" 
+                            title="{{ $ePackage->name }}" 
+                        @endif>
+                        {{ Str::limit($ePackage->name, 40) }}
+                    </span>
+                    </td>
                     <td class="text-right">
 
                         @can('show-ePackage')

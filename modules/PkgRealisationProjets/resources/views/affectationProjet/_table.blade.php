@@ -16,10 +16,38 @@
             @section('affectationProjet-table-tbody')
             @foreach ($affectationProjets_data as $affectationProjet)
                 <tr id="affectationProjet-row-{{$affectationProjet->id}}">
-                    <td>@limit($affectationProjet->projet, 50)</td>
-                    <td>@limit($affectationProjet->groupe, 50)</td>
-                    <td>@limit($affectationProjet->date_debut, 50)</td>
-                    <td>@limit($affectationProjet->date_fin, 50)</td>
+                    <td>
+                     <span @if(strlen($affectationProjet->projet) > 50) 
+                            data-toggle="tooltip" 
+                            title="{{ $affectationProjet->projet }}" 
+                        @endif>
+                        {{ Str::limit($affectationProjet->projet, 50) }}
+                    </span>
+                    </td>
+                    <td>
+                     <span @if(strlen($affectationProjet->groupe) > 50) 
+                            data-toggle="tooltip" 
+                            title="{{ $affectationProjet->groupe }}" 
+                        @endif>
+                        {{ Str::limit($affectationProjet->groupe, 50) }}
+                    </span>
+                    </td>
+                    <td>
+                     <span @if(strlen($affectationProjet->date_debut) > 40) 
+                            data-toggle="tooltip" 
+                            title="{{ $affectationProjet->date_debut }}" 
+                        @endif>
+                        {{ Str::limit($affectationProjet->date_debut, 40) }}
+                    </span>
+                    </td>
+                    <td>
+                     <span @if(strlen($affectationProjet->date_fin) > 40) 
+                            data-toggle="tooltip" 
+                            title="{{ $affectationProjet->date_fin }}" 
+                        @endif>
+                        {{ Str::limit($affectationProjet->date_fin, 40) }}
+                    </span>
+                    </td>
                     <td class="text-right">
 
                         @can('show-affectationProjet')

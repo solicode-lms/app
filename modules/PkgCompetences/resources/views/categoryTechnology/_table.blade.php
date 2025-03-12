@@ -13,7 +13,14 @@
             @section('categoryTechnology-table-tbody')
             @foreach ($categoryTechnologies_data as $categoryTechnology)
                 <tr id="categoryTechnology-row-{{$categoryTechnology->id}}">
-                    <td>@limit($categoryTechnology->nom, 50)</td>
+                    <td>
+                     <span @if(strlen($categoryTechnology->nom) > 40) 
+                            data-toggle="tooltip" 
+                            title="{{ $categoryTechnology->nom }}" 
+                        @endif>
+                        {{ Str::limit($categoryTechnology->nom, 40) }}
+                    </span>
+                    </td>
                     <td class="text-right">
 
                         @can('show-categoryTechnology')

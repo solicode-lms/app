@@ -14,8 +14,22 @@
             @section('workflowTache-table-tbody')
             @foreach ($workflowTaches_data as $workflowTache)
                 <tr id="workflowTache-row-{{$workflowTache->id}}">
-                    <td>@limit($workflowTache->code, 50)</td>
-                    <td>@limit($workflowTache->titre, 50)</td>
+                    <td>
+                     <span @if(strlen($workflowTache->code) > 40) 
+                            data-toggle="tooltip" 
+                            title="{{ $workflowTache->code }}" 
+                        @endif>
+                        {{ Str::limit($workflowTache->code, 40) }}
+                    </span>
+                    </td>
+                    <td>
+                     <span @if(strlen($workflowTache->titre) > 40) 
+                            data-toggle="tooltip" 
+                            title="{{ $workflowTache->titre }}" 
+                        @endif>
+                        {{ Str::limit($workflowTache->titre, 40) }}
+                    </span>
+                    </td>
                     <td class="text-right">
 
                         @can('show-workflowTache')

@@ -15,9 +15,30 @@
             @section('labelRealisationTache-table-tbody')
             @foreach ($labelRealisationTaches_data as $labelRealisationTache)
                 <tr id="labelRealisationTache-row-{{$labelRealisationTache->id}}">
-                    <td>@limit($labelRealisationTache->nom, 50)</td>
-                    <td>@limit($labelRealisationTache->formateur, 50)</td>
-                    <td>@limit($labelRealisationTache->sysColor, 50)</td>
+                    <td>
+                     <span @if(strlen($labelRealisationTache->nom) > 40) 
+                            data-toggle="tooltip" 
+                            title="{{ $labelRealisationTache->nom }}" 
+                        @endif>
+                        {{ Str::limit($labelRealisationTache->nom, 40) }}
+                    </span>
+                    </td>
+                    <td>
+                     <span @if(strlen($labelRealisationTache->formateur) > 50) 
+                            data-toggle="tooltip" 
+                            title="{{ $labelRealisationTache->formateur }}" 
+                        @endif>
+                        {{ Str::limit($labelRealisationTache->formateur, 50) }}
+                    </span>
+                    </td>
+                    <td>
+                     <span @if(strlen($labelRealisationTache->sysColor) > 50) 
+                            data-toggle="tooltip" 
+                            title="{{ $labelRealisationTache->sysColor }}" 
+                        @endif>
+                        {{ Str::limit($labelRealisationTache->sysColor, 50) }}
+                    </span>
+                    </td>
                     <td class="text-right">
 
                         @can('show-labelRealisationTache')

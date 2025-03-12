@@ -16,10 +16,38 @@
             @section('eRelationship-table-tbody')
             @foreach ($eRelationships_data as $eRelationship)
                 <tr id="eRelationship-row-{{$eRelationship->id}}">
-                    <td>@limit($eRelationship->name, 50)</td>
-                    <td>@limit($eRelationship->type, 50)</td>
-                    <td>@limit($eRelationship->sourceEModel, 50)</td>
-                    <td>@limit($eRelationship->targetEModel, 50)</td>
+                    <td>
+                     <span @if(strlen($eRelationship->name) > 40) 
+                            data-toggle="tooltip" 
+                            title="{{ $eRelationship->name }}" 
+                        @endif>
+                        {{ Str::limit($eRelationship->name, 40) }}
+                    </span>
+                    </td>
+                    <td>
+                     <span @if(strlen($eRelationship->type) > 40) 
+                            data-toggle="tooltip" 
+                            title="{{ $eRelationship->type }}" 
+                        @endif>
+                        {{ Str::limit($eRelationship->type, 40) }}
+                    </span>
+                    </td>
+                    <td>
+                     <span @if(strlen($eRelationship->sourceEModel) > 50) 
+                            data-toggle="tooltip" 
+                            title="{{ $eRelationship->sourceEModel }}" 
+                        @endif>
+                        {{ Str::limit($eRelationship->sourceEModel, 50) }}
+                    </span>
+                    </td>
+                    <td>
+                     <span @if(strlen($eRelationship->targetEModel) > 50) 
+                            data-toggle="tooltip" 
+                            title="{{ $eRelationship->targetEModel }}" 
+                        @endif>
+                        {{ Str::limit($eRelationship->targetEModel, 50) }}
+                    </span>
+                    </td>
                     <td class="text-right">
 
                         @can('show-eRelationship')

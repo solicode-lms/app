@@ -14,8 +14,22 @@
             @section('prioriteTache-table-tbody')
             @foreach ($prioriteTaches_data as $prioriteTache)
                 <tr id="prioriteTache-row-{{$prioriteTache->id}}">
-                    <td>@limit($prioriteTache->nom, 50)</td>
-                    <td>@limit($prioriteTache->formateur, 50)</td>
+                    <td>
+                     <span @if(strlen($prioriteTache->nom) > 40) 
+                            data-toggle="tooltip" 
+                            title="{{ $prioriteTache->nom }}" 
+                        @endif>
+                        {{ Str::limit($prioriteTache->nom, 40) }}
+                    </span>
+                    </td>
+                    <td>
+                     <span @if(strlen($prioriteTache->formateur) > 50) 
+                            data-toggle="tooltip" 
+                            title="{{ $prioriteTache->formateur }}" 
+                        @endif>
+                        {{ Str::limit($prioriteTache->formateur, 50) }}
+                    </span>
+                    </td>
                     <td class="text-right">
 
                         @can('show-prioriteTache')

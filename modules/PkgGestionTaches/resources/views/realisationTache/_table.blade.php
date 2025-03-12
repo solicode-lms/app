@@ -19,9 +19,30 @@
             @foreach ($realisationTaches_data as $realisationTache)
                 <tr id="realisationTache-row-{{$realisationTache->id}}">
                     <td>@limit($realisationTache->livrables(), 50)</td>
-                    <td>@limit($realisationTache->tache, 50)</td>
-                    <td>@limit($realisationTache->realisationProjet, 50)</td>
-                    <td>@limit($realisationTache->etatRealisationTache, 50)</td>
+                    <td>
+                     <span @if(strlen($realisationTache->tache) > 50) 
+                            data-toggle="tooltip" 
+                            title="{{ $realisationTache->tache }}" 
+                        @endif>
+                        {{ Str::limit($realisationTache->tache, 50) }}
+                    </span>
+                    </td>
+                    <td>
+                     <span @if(strlen($realisationTache->realisationProjet) > 50) 
+                            data-toggle="tooltip" 
+                            title="{{ $realisationTache->realisationProjet }}" 
+                        @endif>
+                        {{ Str::limit($realisationTache->realisationProjet, 50) }}
+                    </span>
+                    </td>
+                    <td>
+                     <span @if(strlen($realisationTache->etatRealisationTache) > 50) 
+                            data-toggle="tooltip" 
+                            title="{{ $realisationTache->etatRealisationTache }}" 
+                        @endif>
+                        {{ Str::limit($realisationTache->etatRealisationTache, 50) }}
+                    </span>
+                    </td>
                     <td class="text-right">
 
                         @can('show-realisationTache')

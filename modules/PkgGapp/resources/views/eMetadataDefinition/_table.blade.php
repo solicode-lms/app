@@ -15,8 +15,22 @@
             @section('eMetadataDefinition-table-tbody')
             @foreach ($eMetadataDefinitions_data as $eMetadataDefinition)
                 <tr id="eMetadataDefinition-row-{{$eMetadataDefinition->id}}">
-                    <td>@limit($eMetadataDefinition->name, 50)</td>
-                    <td>@limit($eMetadataDefinition->groupe, 50)</td>
+                    <td>
+                     <span @if(strlen($eMetadataDefinition->name) > 40) 
+                            data-toggle="tooltip" 
+                            title="{{ $eMetadataDefinition->name }}" 
+                        @endif>
+                        {{ Str::limit($eMetadataDefinition->name, 40) }}
+                    </span>
+                    </td>
+                    <td>
+                     <span @if(strlen($eMetadataDefinition->groupe) > 40) 
+                            data-toggle="tooltip" 
+                            title="{{ $eMetadataDefinition->groupe }}" 
+                        @endif>
+                        {{ Str::limit($eMetadataDefinition->groupe, 40) }}
+                    </span>
+                    </td>
                     <td>{!! \App\Helpers\TextHelper::formatHtmlWithLineBreaks($eMetadataDefinition->description, 50) !!}</td>
                     <td class="text-right">
 

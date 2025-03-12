@@ -14,7 +14,14 @@
             @section('widgetOperation-table-tbody')
             @foreach ($widgetOperations_data as $widgetOperation)
                 <tr id="widgetOperation-row-{{$widgetOperation->id}}">
-                    <td>@limit($widgetOperation->operation, 50)</td>
+                    <td>
+                     <span @if(strlen($widgetOperation->operation) > 40) 
+                            data-toggle="tooltip" 
+                            title="{{ $widgetOperation->operation }}" 
+                        @endif>
+                        {{ Str::limit($widgetOperation->operation, 40) }}
+                    </span>
+                    </td>
                     <td>{!! \App\Helpers\TextHelper::formatHtmlWithLineBreaks($widgetOperation->description, 50) !!}</td>
                     <td class="text-right">
 

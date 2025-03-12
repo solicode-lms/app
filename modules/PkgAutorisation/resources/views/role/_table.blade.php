@@ -13,7 +13,14 @@
             @section('role-table-tbody')
             @foreach ($roles_data as $role)
                 <tr id="role-row-{{$role->id}}">
-                    <td>@limit($role->name, 50)</td>
+                    <td>
+                     <span @if(strlen($role->name) > 40) 
+                            data-toggle="tooltip" 
+                            title="{{ $role->name }}" 
+                        @endif>
+                        {{ Str::limit($role->name, 40) }}
+                    </span>
+                    </td>
                     <td class="text-right">
 
                         @can('show-role')

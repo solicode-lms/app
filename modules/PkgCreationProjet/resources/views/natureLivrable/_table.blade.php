@@ -13,7 +13,14 @@
             @section('natureLivrable-table-tbody')
             @foreach ($natureLivrables_data as $natureLivrable)
                 <tr id="natureLivrable-row-{{$natureLivrable->id}}">
-                    <td>@limit($natureLivrable->nom, 50)</td>
+                    <td>
+                     <span @if(strlen($natureLivrable->nom) > 40) 
+                            data-toggle="tooltip" 
+                            title="{{ $natureLivrable->nom }}" 
+                        @endif>
+                        {{ Str::limit($natureLivrable->nom, 40) }}
+                    </span>
+                    </td>
                     <td class="text-right">
 
                         @can('show-natureLivrable')

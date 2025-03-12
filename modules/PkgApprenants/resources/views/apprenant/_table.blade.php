@@ -16,9 +16,30 @@
             @section('apprenant-table-tbody')
             @foreach ($apprenants_data as $apprenant)
                 <tr id="apprenant-row-{{$apprenant->id}}">
-                    <td>@limit($apprenant->nom, 50)</td>
-                    <td>@limit($apprenant->prenom, 50)</td>
-                    <td>@limit($apprenant->nom_filiere, 50)</td>
+                    <td>
+                     <span @if(strlen($apprenant->nom) > 40) 
+                            data-toggle="tooltip" 
+                            title="{{ $apprenant->nom }}" 
+                        @endif>
+                        {{ Str::limit($apprenant->nom, 40) }}
+                    </span>
+                    </td>
+                    <td>
+                     <span @if(strlen($apprenant->prenom) > 40) 
+                            data-toggle="tooltip" 
+                            title="{{ $apprenant->prenom }}" 
+                        @endif>
+                        {{ Str::limit($apprenant->prenom, 40) }}
+                    </span>
+                    </td>
+                    <td>
+                     <span @if(strlen($apprenant->nom_filiere) > 40) 
+                            data-toggle="tooltip" 
+                            title="{{ $apprenant->nom_filiere }}" 
+                        @endif>
+                        {{ Str::limit($apprenant->nom_filiere, 40) }}
+                    </span>
+                    </td>
                     <td>
                         <ul>
                             @foreach ($apprenant->groupes as $groupe)

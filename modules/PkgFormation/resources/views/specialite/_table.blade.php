@@ -14,7 +14,14 @@
             @section('specialite-table-tbody')
             @foreach ($specialites_data as $specialite)
                 <tr id="specialite-row-{{$specialite->id}}">
-                    <td>@limit($specialite->nom, 50)</td>
+                    <td>
+                     <span @if(strlen($specialite->nom) > 40) 
+                            data-toggle="tooltip" 
+                            title="{{ $specialite->nom }}" 
+                        @endif>
+                        {{ Str::limit($specialite->nom, 40) }}
+                    </span>
+                    </td>
                     <td>
                         <ul>
                             @foreach ($specialite->formateurs as $formateur)
