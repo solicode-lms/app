@@ -322,5 +322,15 @@
         "value_boolean": 1,
         "e_data_field_reference": "EtatRealisationTache_description",
         "e_metadata_definition_reference": "isRichText"
+    },
+    {
+        "reference": "EtatRealisationTache_sys_color_id_nature",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "nature": "couleur"
+        },
+        "e_data_field_reference": "EtatRealisationTache_sys_color_id",
+        "e_metadata_definition_reference": "nature"
     }
 ]

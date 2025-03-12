@@ -718,5 +718,17 @@
         "description": "<p>Il permet de créer un fichier dynamique en se basant sur une relation(path)</p>",
         "created_at": null,
         "updated_at": null
+    },
+    {
+        "id": 61,
+        "reference": "nature",
+        "name": "nature",
+        "type": "Json",
+        "scope": "field",
+        "default_value": "{\"nature\":\"couleur\"}",
+        "groupe": "general",
+        "description": "<p>Détermine la nature de champs. exemple : icone, couleur, image,lien</p>",
+        "created_at": null,
+        "updated_at": null
     }
 ]
