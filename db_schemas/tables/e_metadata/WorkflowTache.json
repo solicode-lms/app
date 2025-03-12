@@ -214,5 +214,13 @@
         "value_boolean": 1,
         "e_data_field_reference": "WorkflowTache_description",
         "e_metadata_definition_reference": "isRichText"
+    },
+    {
+        "reference": "workflow_taches_hasMany_etat_realisation_taches_workflow_tache_id_nature",
+        "value_json": {
+            "nature": "badge"
+        },
+        "e_data_field_reference": "workflow_taches_hasMany_etat_realisation_taches_workflow_tache_id",
+        "e_metadata_definition_reference": "nature"
     }
 ]

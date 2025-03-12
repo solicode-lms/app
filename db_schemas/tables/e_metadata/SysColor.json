@@ -257,5 +257,13 @@
         "value_integer": 6,
         "e_data_field_reference": "sys_colors_hasMany_label_realisation_taches_sys_color_id",
         "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "sys_colors_hasMany_etat_realisation_taches_sys_color_id_nature",
+        "value_json": {
+            "nature": "badge"
+        },
+        "e_data_field_reference": "sys_colors_hasMany_etat_realisation_taches_sys_color_id",
+        "e_metadata_definition_reference": "nature"
     }
 ]

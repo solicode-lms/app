@@ -454,5 +454,13 @@
         "value_boolean": 1,
         "e_data_field_reference": "RealisationTache_remarques_apprenant",
         "e_metadata_definition_reference": "isRichText"
+    },
+    {
+        "reference": "RealisationTache_etat_realisation_tache_id_nature",
+        "value_json": {
+            "nature": "badge"
+        },
+        "e_data_field_reference": "RealisationTache_etat_realisation_tache_id",
+        "e_metadata_definition_reference": "nature"
     }
 ]
