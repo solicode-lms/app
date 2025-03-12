@@ -38,6 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
     
     // TODO : il faut ajouter une condition pour gérer une page PageUIManager
     FormUI.initializeSelect2();
+    FormUI.initSelect2Color();
     FormUI.initializeRichText();
     FormUI.initializeDate();
     FormUI.initCodeJar();

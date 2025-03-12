@@ -48,6 +48,7 @@ export class FormUI  {
         this.adapterPourContext();
         this.initializeSelect2_in_modal();
         FormUI.initializeRichText();
+        FormUI.initSelect2Color()
         FormUI.initializeDate();
         FormUI.initCodeJar();
         FormUI.initTooltip();
@@ -307,6 +308,21 @@ export class FormUI  {
         // });
     }
 
+    static initSelect2Color(){
+
+        function formatColor(option) {
+            if (!option.id) {
+                return option.text;
+            }
+            let color = $(option.element).data('color');
+            return $('<span class="color-option"><span class="color-box" style="background-color:' + color + ';"></span>' + option.text + '</span>');
+        }
+
+        $('.select2Color').select2({
+            templateResult: formatColor,
+            templateSelection: formatColor
+        });
+    }
     static initializeSelect2() {
         // Initialise les éléments Select2
         $('.select2').each(function() {
