@@ -1,4 +1,4 @@
-{{--   <td>@limit($realisationTache->livrables(), 50)</td> problème --}}
+{{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @section('realisationTache-table')
 <div class="card-body table-responsive p-0 crud-card-body" id="realisationTaches-crud-card-body">
@@ -18,7 +18,7 @@
             @section('realisationTache-table-tbody')
             @foreach ($realisationTaches_data as $realisationTache)
                 <tr id="realisationTache-row-{{$realisationTache->id}}">
-                    <td>$realisationTache->livrables</td>
+                    <td>@limit($realisationTache->getRealisationLivrable(), 50)</td>
                     <td>@limit($realisationTache->tache, 50)</td>
                     <td>@limit($realisationTache->realisationProjet, 50)</td>
                     <td>@limit($realisationTache->etatRealisationTache, 50)</td>

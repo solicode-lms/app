@@ -22,7 +22,7 @@
                     <td>
                         <ul>
                             @foreach ($projet->transfertCompetences as $transfertCompetence)
-                                <li>{{ $transfertCompetence }}</li>
+                                <li data-toggle="tooltip" title="{{$transfertCompetence}}">@limit($transfertCompetence, 50)</li>
                             @endforeach
                         </ul>
                     </td>
