@@ -1,4 +1,4 @@
-{{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
+{{--  <td>@limit($realisationTache->livrables(), 50)</td> --}}
 
 @section('realisationTache-table')
 <div class="card-body table-responsive p-0 crud-card-body" id="realisationTaches-crud-card-body">
@@ -18,7 +18,7 @@
             @section('realisationTache-table-tbody')
             @foreach ($realisationTaches_data as $realisationTache)
                 <tr id="realisationTache-row-{{$realisationTache->id}}">
-                    <td>@limit($realisationTache->livrables(), 50)</td>
+                   
                     <td>
                      <span @if(strlen($realisationTache->tache) > 50) 
                             data-toggle="tooltip" 
