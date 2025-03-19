@@ -123,6 +123,19 @@
         "livrable_tache",
         "workflow_taches"
     ]
+},
+"PkgAutoformation": {
+    "name": "PkgAutoformation",
+    "tables": [
+        "parcour_formations",
+        "chapitres",
+        "realisation_parcour_formations",
+        "realisation_chapitres",
+        "etat_realisation_chapitres",
+        "workflow_realisation_chapitres",
+        "etat_realisation_parcour_formations",
+        "workflow_realisation_parcour_formations"
+    ]
 }
 
         
