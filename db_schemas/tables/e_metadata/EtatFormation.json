@@ -344,5 +344,20 @@
         },
         "e_data_field_reference": "EtatFormation_sys_color_id",
         "e_metadata_definition_reference": "nature"
+    },
+    {
+        "reference": "etat_formations_ownedByUser",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": [
+            {
+                "role": "formateur",
+                "dataScope": "filter",
+                "userModelName": "Formateur",
+                "ownerRelationPath": "formateur.user"
+            }
+        ],
+        "e_model_reference": "etat_formations",
+        "e_metadata_definition_reference": "ownedByUser"
     }
 ]

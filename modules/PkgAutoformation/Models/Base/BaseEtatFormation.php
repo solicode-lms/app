@@ -22,11 +22,12 @@ use Modules\PkgAutoformation\Models\RealisationFormation;
  */
 class BaseEtatFormation extends BaseModel
 {
-    use HasFactory, HasDynamicContext;
+    use HasFactory, HasDynamicContext, OwnedByUser;
 
     public function __construct(array $attributes = []) {
         parent::__construct($attributes); 
-        $this->isOwnedByUser =  false;
+        $this->isOwnedByUser =  true;
+        $this->ownerRelationPath = "formateur.user";
     }
 
     

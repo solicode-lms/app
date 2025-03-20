@@ -38,6 +38,10 @@ class BaseEtatFormationController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('etatFormation.index');
+        // ownedByUser
+        if(Auth::user()->hasRole('formateur') && $this->viewState->get('filter.etatFormation.formateur_id') == null){
+           $this->viewState->init('filter.etatFormation.formateur_id'  , $this->sessionState->get('formateur_id'));
+        }
 
 
 
@@ -64,6 +68,10 @@ class BaseEtatFormationController extends AdminController
         return view('PkgAutoformation::etatFormation.index', compact('etatFormations_data', 'etatFormations_stats', 'etatFormations_filters','etatFormation_instance'));
     }
     public function create() {
+        // ownedByUser
+        if(Auth::user()->hasRole('formateur')){
+           $this->viewState->set('scope_form.etatFormation.formateur_id'  , $this->sessionState->get('formateur_id'));
+        }
 
 
         $itemEtatFormation = $this->etatFormationService->createInstance();
@@ -107,6 +115,7 @@ class BaseEtatFormationController extends AdminController
 
 
         $itemEtatFormation = $this->etatFormationService->find($id);
+        $this->authorize('view', $itemEtatFormation);
 
 
         $workflowFormations = $this->workflowFormationService->all();
@@ -136,6 +145,7 @@ class BaseEtatFormationController extends AdminController
 
 
         $itemEtatFormation = $this->etatFormationService->find($id);
+        $this->authorize('edit', $itemEtatFormation);
 
 
         $workflowFormations = $this->workflowFormationService->all();
@@ -161,6 +171,9 @@ class BaseEtatFormationController extends AdminController
 
     }
     public function update(EtatFormationRequest $request, string $id) {
+        // Vérifie si l'utilisateur peut mettre à jour l'objet 
+        $etatFormation = $this->etatFormationService->find($id);
+        $this->authorize('update', $etatFormation);
 
         $validatedData = $request->validated();
         $etatFormation = $this->etatFormationService->update($id, $validatedData);
@@ -186,6 +199,9 @@ class BaseEtatFormationController extends AdminController
 
     }
     public function destroy(Request $request, string $id) {
+        // Vérifie si l'utilisateur peut mettre à jour l'objet 
+        $etatFormation = $this->etatFormationService->find($id);
+        $this->authorize('delete', $etatFormation);
 
         $etatFormation = $this->etatFormationService->destroy($id);
 

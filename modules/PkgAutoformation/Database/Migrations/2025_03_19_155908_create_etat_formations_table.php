@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::create('etat_formations', function (Blueprint $table) {
             $table->id(); // Identifiant unique
-            $table->string('code')->unique(); // Code unique de l'état
             $table->string('nom')->unique(); // Nom de l'état
             $table->boolean('is_editable_only_by_formateur')->nullable()->default(false); // Restriction d'édition, nullable
             $table->longText('description')->nullable(); // Description détaillée

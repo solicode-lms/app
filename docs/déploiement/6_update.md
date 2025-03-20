@@ -31,3 +31,25 @@ php artisan db:seed --class=Modules\PkgAutoformation\Database\Seeders\Realisatio
 php artisan db:seed --class=Modules\PkgAutoformation\Database\Seeders\WorkflowChapitreSeeder
 php artisan db:seed --class=Modules\PkgAutoformation\Database\Seeders\WorkflowFormationSeeder
 ````
+
+## Affectation des droits d'accès 
+
+### Role formateur 
+- Etat des chapitre
+- Etat des formation
+- Formation
+- Chapitre
+- Realisation chapitre
+- Realisation formation
+
+### Rôle apprenant 
+
+- Lecture : Formation
+- Realisation formation 
+- Realisatio chapitre
+
+### Rôle : Admin foramteur
+
+- Création des formations officiel
+- Créatiopn des chapitre offciel
+- Gestion des technologie
