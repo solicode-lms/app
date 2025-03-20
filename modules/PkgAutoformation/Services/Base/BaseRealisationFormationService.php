@@ -59,7 +59,7 @@ class BaseRealisationFormationService extends BaseService
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgApprenants::apprenant.plural"), 'apprenant_id', \Modules\PkgApprenants\Models\Apprenant::class, 'nom');
         }
         if (!array_key_exists('etat_formation_id', $scopeVariables)) {
-        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgAutoformation::etatFormation.plural"), 'etat_formation_id', \Modules\PkgAutoformation\Models\EtatFormation::class, 'code');
+        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgAutoformation::etatFormation.plural"), 'etat_formation_id', \Modules\PkgAutoformation\Models\EtatFormation::class, 'nom');
         }
     }
 

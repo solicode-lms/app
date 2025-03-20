@@ -29,7 +29,6 @@ class BaseEtatChapitreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'code' => 'required|string|max:255',
             'nom' => 'required|string|max:255',
             'is_editable_only_by_formateur' => 'nullable|boolean',
             'workflow_chapitre_id' => 'nullable',
@@ -47,8 +46,6 @@ class BaseEtatChapitreRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'code.required' => __('validation.required', ['attribute' => __('PkgAutoformation::EtatChapitre.code')]),
-            'code.max' => __('validation.codeMax'),
             'nom.required' => __('validation.required', ['attribute' => __('PkgAutoformation::EtatChapitre.nom')]),
             'nom.max' => __('validation.nomMax'),
             'is_editable_only_by_formateur.required' => __('validation.required', ['attribute' => __('PkgAutoformation::EtatChapitre.is_editable_only_by_formateur')]),

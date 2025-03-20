@@ -44,42 +44,6 @@
         "e_metadata_definition_reference": "inputMdWidth"
     },
     {
-        "reference": "EtatFormation_code_displayInTable",
-        "value_boolean": 1,
-        "e_data_field_reference": "EtatFormation_code",
-        "e_metadata_definition_reference": "displayInTable"
-    },
-    {
-        "reference": "EtatFormation_code_displayField",
-        "value_boolean": 1,
-        "e_data_field_reference": "EtatFormation_code",
-        "e_metadata_definition_reference": "displayField"
-    },
-    {
-        "reference": "EtatFormation_code_required",
-        "value_boolean": 1,
-        "e_data_field_reference": "EtatFormation_code",
-        "e_metadata_definition_reference": "required"
-    },
-    {
-        "reference": "EtatFormation_code_displayOrder",
-        "value_integer": 2,
-        "e_data_field_reference": "EtatFormation_code",
-        "e_metadata_definition_reference": "displayOrder"
-    },
-    {
-        "reference": "EtatFormation_code_displayInForm",
-        "value_boolean": 1,
-        "e_data_field_reference": "EtatFormation_code",
-        "e_metadata_definition_reference": "displayInForm"
-    },
-    {
-        "reference": "EtatFormation_code_inputMdWidth",
-        "value_integer": 6,
-        "e_data_field_reference": "EtatFormation_code",
-        "e_metadata_definition_reference": "inputMdWidth"
-    },
-    {
         "reference": "EtatFormation_nom_displayInTable",
         "value_boolean": 1,
         "e_data_field_reference": "EtatFormation_nom",
@@ -111,7 +75,9 @@
     },
     {
         "reference": "EtatFormation_description_displayOrder",
-        "value_integer": 4,
+        "value_boolean": 0,
+        "value_integer": 10,
+        "value_float": 0,
         "e_data_field_reference": "EtatFormation_description",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -171,7 +137,9 @@
     },
     {
         "reference": "EtatFormation_workflow_formation_id_displayOrder",
-        "value_integer": 6,
+        "value_boolean": 0,
+        "value_integer": 4,
+        "value_float": 0,
         "e_data_field_reference": "EtatFormation_workflow_formation_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -225,7 +193,8 @@
     },
     {
         "reference": "etat_formations_hasMany_realisation_formations_etat_formation_id_editHasMany",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "etat_formations_hasMany_realisation_formations_etat_formation_id",
         "e_metadata_definition_reference": "editHasMany"
     },
@@ -249,7 +218,9 @@
     },
     {
         "reference": "EtatFormation_is_editable_only_by_formateur_displayOrder",
-        "value_integer": 4,
+        "value_boolean": 0,
+        "value_integer": 6,
+        "value_float": 0,
         "e_data_field_reference": "EtatFormation_is_editable_only_by_formateur",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -321,7 +292,9 @@
     },
     {
         "reference": "EtatFormation_sys_color_id_displayOrder",
-        "value_integer": 9,
+        "value_boolean": 0,
+        "value_integer": 5,
+        "value_float": 0,
         "e_data_field_reference": "EtatFormation_sys_color_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -359,5 +332,11 @@
         ],
         "e_model_reference": "etat_formations",
         "e_metadata_definition_reference": "ownedByUser"
+    },
+    {
+        "reference": "EtatFormation_nom_displayField",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatFormation_nom",
+        "e_metadata_definition_reference": "displayField"
     }
 ]

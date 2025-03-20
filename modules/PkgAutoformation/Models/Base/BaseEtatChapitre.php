@@ -36,7 +36,7 @@ class BaseEtatChapitre extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'code', 'nom', 'is_editable_only_by_formateur', 'workflow_chapitre_id', 'description', 'formateur_id', 'sys_color_id'
+        'nom', 'is_editable_only_by_formateur', 'workflow_chapitre_id', 'description', 'formateur_id', 'sys_color_id'
     ];
 
 
@@ -88,6 +88,6 @@ class BaseEtatChapitre extends BaseModel
      */
     public function __toString()
     {
-        return $this->code ?? "";
+        return $this->nom ?? "";
     }
 }

@@ -5,7 +5,6 @@
     <table class="table table-striped text-nowrap">
         <thead>
             <tr>
-                <x-sortable-column field="code" modelname="etatChapitre" label="{{ ucfirst(__('PkgAutoformation::etatChapitre.code')) }}" />
                 <x-sortable-column field="nom" modelname="etatChapitre" label="{{ ucfirst(__('PkgAutoformation::etatChapitre.nom')) }}" />
                 <x-sortable-column field="workflow_chapitre_id" modelname="etatChapitre" label="{{ ucfirst(__('PkgAutoformation::workflowChapitre.singular')) }}" />
                 <x-sortable-column field="formateur_id" modelname="etatChapitre" label="{{ ucfirst(__('PkgFormation::formateur.singular')) }}" />
@@ -17,14 +16,6 @@
             @section('etatChapitre-table-tbody')
             @foreach ($etatChapitres_data as $etatChapitre)
                 <tr id="etatChapitre-row-{{$etatChapitre->id}}">
-                    <td>
-                     <span @if(strlen($etatChapitre->code) > 40) 
-                            data-toggle="tooltip" 
-                            title="{{ $etatChapitre->code }}" 
-                        @endif>
-                        {{ Str::limit($etatChapitre->code, 40) }}
-                    </span>
-                    </td>
                     <td>
                      <span @if(strlen($etatChapitre->nom) > 40) 
                             data-toggle="tooltip" 

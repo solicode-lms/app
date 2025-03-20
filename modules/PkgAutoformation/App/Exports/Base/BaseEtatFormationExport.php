@@ -28,25 +28,23 @@ class BaseEtatFormationExport implements FromCollection, WithHeadings, ShouldAut
     {
      if($this->format == 'csv'){
         return [
-            'code' => 'code',
             'nom' => 'nom',
-            'is_editable_only_by_formateur' => 'is_editable_only_by_formateur',
-            'description' => 'description',
-            'reference' => 'reference',
             'workflow_formation_id' => 'workflow_formation_id',
-            'formateur_id' => 'formateur_id',
+            'reference' => 'reference',
             'sys_color_id' => 'sys_color_id',
+            'is_editable_only_by_formateur' => 'is_editable_only_by_formateur',
+            'formateur_id' => 'formateur_id',
+            'description' => 'description',
         ];
         }else{
         return [
-            'code' => __('PkgAutoformation::etatFormation.code'),
             'nom' => __('PkgAutoformation::etatFormation.nom'),
-            'is_editable_only_by_formateur' => __('PkgAutoformation::etatFormation.is_editable_only_by_formateur'),
-            'description' => __('PkgAutoformation::etatFormation.description'),
-            'reference' => __('Core::msg.reference'),
             'workflow_formation_id' => __('PkgAutoformation::etatFormation.workflow_formation_id'),
-            'formateur_id' => __('PkgAutoformation::etatFormation.formateur_id'),
+            'reference' => __('Core::msg.reference'),
             'sys_color_id' => __('PkgAutoformation::etatFormation.sys_color_id'),
+            'is_editable_only_by_formateur' => __('PkgAutoformation::etatFormation.is_editable_only_by_formateur'),
+            'formateur_id' => __('PkgAutoformation::etatFormation.formateur_id'),
+            'description' => __('PkgAutoformation::etatFormation.description'),
         ];
 
         }
@@ -57,14 +55,13 @@ class BaseEtatFormationExport implements FromCollection, WithHeadings, ShouldAut
     {
         return $this->data->map(function ($etatFormation) {
             return [
-                'code' => $etatFormation->code,
                 'nom' => $etatFormation->nom,
-                'is_editable_only_by_formateur' => $etatFormation->is_editable_only_by_formateur,
-                'description' => $etatFormation->description,
-                'reference' => $etatFormation->reference,
                 'workflow_formation_id' => $etatFormation->workflow_formation_id,
-                'formateur_id' => $etatFormation->formateur_id,
+                'reference' => $etatFormation->reference,
                 'sys_color_id' => $etatFormation->sys_color_id,
+                'is_editable_only_by_formateur' => $etatFormation->is_editable_only_by_formateur,
+                'formateur_id' => $etatFormation->formateur_id,
+                'description' => $etatFormation->description,
             ];
         });
     }

@@ -5,11 +5,10 @@
     <table class="table table-striped text-nowrap">
         <thead>
             <tr>
-                <x-sortable-column field="code" modelname="etatFormation" label="{{ ucfirst(__('PkgAutoformation::etatFormation.code')) }}" />
                 <x-sortable-column field="nom" modelname="etatFormation" label="{{ ucfirst(__('PkgAutoformation::etatFormation.nom')) }}" />
                 <x-sortable-column field="workflow_formation_id" modelname="etatFormation" label="{{ ucfirst(__('PkgAutoformation::workflowFormation.singular')) }}" />
-                <x-sortable-column field="formateur_id" modelname="etatFormation" label="{{ ucfirst(__('PkgFormation::formateur.singular')) }}" />
                 <x-sortable-column field="sys_color_id" modelname="etatFormation" label="{{ ucfirst(__('Core::sysColor.singular')) }}" />
+                <x-sortable-column field="formateur_id" modelname="etatFormation" label="{{ ucfirst(__('PkgFormation::formateur.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -17,14 +16,6 @@
             @section('etatFormation-table-tbody')
             @foreach ($etatFormations_data as $etatFormation)
                 <tr id="etatFormation-row-{{$etatFormation->id}}">
-                    <td>
-                     <span @if(strlen($etatFormation->code) > 40) 
-                            data-toggle="tooltip" 
-                            title="{{ $etatFormation->code }}" 
-                        @endif>
-                        {{ Str::limit($etatFormation->code, 40) }}
-                    </span>
-                    </td>
                     <td>
                      <span @if(strlen($etatFormation->nom) > 40) 
                             data-toggle="tooltip" 
@@ -42,19 +33,19 @@
                     </span>
                     </td>
                     <td>
-                     <span @if(strlen($etatFormation->formateur) > 50) 
-                            data-toggle="tooltip" 
-                            title="{{ $etatFormation->formateur }}" 
-                        @endif>
-                        {{ Str::limit($etatFormation->formateur, 50) }}
-                    </span>
-                    </td>
-                    <td>
                      <span @if(strlen($etatFormation->sysColor) > 50) 
                             data-toggle="tooltip" 
                             title="{{ $etatFormation->sysColor }}" 
                         @endif>
                         {{ Str::limit($etatFormation->sysColor, 50) }}
+                    </span>
+                    </td>
+                    <td>
+                     <span @if(strlen($etatFormation->formateur) > 50) 
+                            data-toggle="tooltip" 
+                            title="{{ $etatFormation->formateur }}" 
+                        @endif>
+                        {{ Str::limit($etatFormation->formateur, 50) }}
                     </span>
                     </td>
                     <td class="text-right">

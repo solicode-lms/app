@@ -56,14 +56,13 @@ class BaseEtatFormationImport implements ToModel, WithHeadingRow
 
         // Création d'un nouvel enregistrement
         return new EtatFormation([
-             'code' => $values[0] ?? null,
-             'nom' => $values[1] ?? null,
-             'is_editable_only_by_formateur' => $values[2] ?? null,
-             'description' => $values[3] ?? null,
+             'nom' => $values[0] ?? null,
+             'workflow_formation_id' => $values[1] ?? null,
              'reference' => $reference,
-             'workflow_formation_id' => $values[5] ?? null,
-             'formateur_id' => $values[6] ?? null,
-             'sys_color_id' => $values[7] ?? null,
+             'sys_color_id' => $values[3] ?? null,
+             'is_editable_only_by_formateur' => $values[4] ?? null,
+             'formateur_id' => $values[5] ?? null,
+             'description' => $values[6] ?? null,
         ]);
 
 

@@ -29,13 +29,12 @@ class BaseEtatFormationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'code' => 'required|string|max:255',
             'nom' => 'required|string|max:255',
-            'is_editable_only_by_formateur' => 'nullable|boolean',
-            'description' => 'nullable|string',
             'workflow_formation_id' => 'nullable',
+            'sys_color_id' => 'required',
+            'is_editable_only_by_formateur' => 'nullable|boolean',
             'formateur_id' => 'required',
-            'sys_color_id' => 'required'
+            'description' => 'nullable|string'
         ];
     }
 
@@ -47,15 +46,13 @@ class BaseEtatFormationRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'code.required' => __('validation.required', ['attribute' => __('PkgAutoformation::EtatFormation.code')]),
-            'code.max' => __('validation.codeMax'),
             'nom.required' => __('validation.required', ['attribute' => __('PkgAutoformation::EtatFormation.nom')]),
             'nom.max' => __('validation.nomMax'),
-            'is_editable_only_by_formateur.required' => __('validation.required', ['attribute' => __('PkgAutoformation::EtatFormation.is_editable_only_by_formateur')]),
-            'description.required' => __('validation.required', ['attribute' => __('PkgAutoformation::EtatFormation.description')]),
             'workflow_formation_id.required' => __('validation.required', ['attribute' => __('PkgAutoformation::EtatFormation.workflow_formation_id')]),
+            'sys_color_id.required' => __('validation.required', ['attribute' => __('PkgAutoformation::EtatFormation.sys_color_id')]),
+            'is_editable_only_by_formateur.required' => __('validation.required', ['attribute' => __('PkgAutoformation::EtatFormation.is_editable_only_by_formateur')]),
             'formateur_id.required' => __('validation.required', ['attribute' => __('PkgAutoformation::EtatFormation.formateur_id')]),
-            'sys_color_id.required' => __('validation.required', ['attribute' => __('PkgAutoformation::EtatFormation.sys_color_id')])
+            'description.required' => __('validation.required', ['attribute' => __('PkgAutoformation::EtatFormation.description')])
         ];
     }
 

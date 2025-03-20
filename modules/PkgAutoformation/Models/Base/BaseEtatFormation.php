@@ -12,8 +12,8 @@ use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
 use Modules\PkgAutoformation\Models\WorkflowFormation;
-use Modules\PkgFormation\Models\Formateur;
 use Modules\Core\Models\SysColor;
+use Modules\PkgFormation\Models\Formateur;
 use Modules\PkgAutoformation\Models\RealisationFormation;
 
 /**
@@ -37,7 +37,7 @@ class BaseEtatFormation extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'code', 'nom', 'is_editable_only_by_formateur', 'description', 'workflow_formation_id', 'formateur_id', 'sys_color_id'
+        'nom', 'workflow_formation_id', 'sys_color_id', 'is_editable_only_by_formateur', 'formateur_id', 'description'
     ];
 
 
@@ -51,15 +51,6 @@ class BaseEtatFormation extends BaseModel
         return $this->belongsTo(WorkflowFormation::class, 'workflow_formation_id', 'id');
     }
     /**
-     * Relation BelongsTo pour Formateur.
-     *
-     * @return BelongsTo
-     */
-    public function formateur(): BelongsTo
-    {
-        return $this->belongsTo(Formateur::class, 'formateur_id', 'id');
-    }
-    /**
      * Relation BelongsTo pour SysColor.
      *
      * @return BelongsTo
@@ -67,6 +58,15 @@ class BaseEtatFormation extends BaseModel
     public function sysColor(): BelongsTo
     {
         return $this->belongsTo(SysColor::class, 'sys_color_id', 'id');
+    }
+    /**
+     * Relation BelongsTo pour Formateur.
+     *
+     * @return BelongsTo
+     */
+    public function formateur(): BelongsTo
+    {
+        return $this->belongsTo(Formateur::class, 'formateur_id', 'id');
     }
 
 
@@ -89,6 +89,6 @@ class BaseEtatFormation extends BaseModel
      */
     public function __toString()
     {
-        return $this->code ?? "";
+        return $this->nom ?? "";
     }
 }

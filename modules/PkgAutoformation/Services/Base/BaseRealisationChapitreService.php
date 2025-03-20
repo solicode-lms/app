@@ -59,7 +59,7 @@ class BaseRealisationChapitreService extends BaseService
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgAutoformation::realisationFormation.plural"), 'realisation_formation_id', \Modules\PkgAutoformation\Models\RealisationFormation::class, 'id');
         }
         if (!array_key_exists('etat_chapitre_id', $scopeVariables)) {
-        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgAutoformation::etatChapitre.plural"), 'etat_chapitre_id', \Modules\PkgAutoformation\Models\EtatChapitre::class, 'code');
+        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgAutoformation::etatChapitre.plural"), 'etat_chapitre_id', \Modules\PkgAutoformation\Models\EtatChapitre::class, 'nom');
         }
     }
 

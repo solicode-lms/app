@@ -25,10 +25,6 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="col-sm-12">
-                                <label for="code">{{ ucfirst(__('PkgAutoformation::etatChapitre.code')) }}:</label>
-                                <p>{{ $itemEtatChapitre->code }}</p>
-                            </div>
-                            <div class="col-sm-12">
                                 <label for="nom">{{ ucfirst(__('PkgAutoformation::etatChapitre.nom')) }}:</label>
                                 <p>{{ $itemEtatChapitre->nom }}</p>
                             </div>

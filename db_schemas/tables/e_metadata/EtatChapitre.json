@@ -44,42 +44,6 @@
         "e_metadata_definition_reference": "inputMdWidth"
     },
     {
-        "reference": "EtatChapitre_code_displayInTable",
-        "value_boolean": 1,
-        "e_data_field_reference": "EtatChapitre_code",
-        "e_metadata_definition_reference": "displayInTable"
-    },
-    {
-        "reference": "EtatChapitre_code_displayField",
-        "value_boolean": 1,
-        "e_data_field_reference": "EtatChapitre_code",
-        "e_metadata_definition_reference": "displayField"
-    },
-    {
-        "reference": "EtatChapitre_code_required",
-        "value_boolean": 1,
-        "e_data_field_reference": "EtatChapitre_code",
-        "e_metadata_definition_reference": "required"
-    },
-    {
-        "reference": "EtatChapitre_code_displayOrder",
-        "value_integer": 2,
-        "e_data_field_reference": "EtatChapitre_code",
-        "e_metadata_definition_reference": "displayOrder"
-    },
-    {
-        "reference": "EtatChapitre_code_displayInForm",
-        "value_boolean": 1,
-        "e_data_field_reference": "EtatChapitre_code",
-        "e_metadata_definition_reference": "displayInForm"
-    },
-    {
-        "reference": "EtatChapitre_code_inputMdWidth",
-        "value_integer": 6,
-        "e_data_field_reference": "EtatChapitre_code",
-        "e_metadata_definition_reference": "inputMdWidth"
-    },
-    {
         "reference": "EtatChapitre_nom_displayInTable",
         "value_boolean": 1,
         "e_data_field_reference": "EtatChapitre_nom",
@@ -344,5 +308,11 @@
         },
         "e_data_field_reference": "EtatChapitre_sys_color_id",
         "e_metadata_definition_reference": "nature"
+    },
+    {
+        "reference": "EtatChapitre_nom_displayField",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatChapitre_nom",
+        "e_metadata_definition_reference": "displayField"
     }
 ]

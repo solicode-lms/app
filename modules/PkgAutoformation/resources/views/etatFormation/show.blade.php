@@ -25,32 +25,28 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="col-sm-12">
-                                <label for="code">{{ ucfirst(__('PkgAutoformation::etatFormation.code')) }}:</label>
-                                <p>{{ $itemEtatFormation->code }}</p>
-                            </div>
-                            <div class="col-sm-12">
                                 <label for="nom">{{ ucfirst(__('PkgAutoformation::etatFormation.nom')) }}:</label>
                                 <p>{{ $itemEtatFormation->nom }}</p>
-                            </div>
-                            <div class="col-sm-12">
-                                <label for="is_editable_only_by_formateur">{{ ucfirst(__('PkgAutoformation::etatFormation.is_editable_only_by_formateur')) }}:</label>
-                                <p>{{ $itemEtatFormation->is_editable_only_by_formateur }}</p>
-                            </div>
-                            <div class="col-sm-12">
-                                <label for="description">{{ ucfirst(__('PkgAutoformation::etatFormation.description')) }}:</label>
-                                <p>{{ $itemEtatFormation->description }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="workflow_formation_id">{{ ucfirst(__('PkgAutoformation::etatFormation.workflow_formation_id')) }}:</label>
                                 <p>{{ $itemEtatFormation->workflow_formation_id }}</p>
                             </div>
                             <div class="col-sm-12">
+                                <label for="sys_color_id">{{ ucfirst(__('PkgAutoformation::etatFormation.sys_color_id')) }}:</label>
+                                <p>{{ $itemEtatFormation->sys_color_id }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="is_editable_only_by_formateur">{{ ucfirst(__('PkgAutoformation::etatFormation.is_editable_only_by_formateur')) }}:</label>
+                                <p>{{ $itemEtatFormation->is_editable_only_by_formateur }}</p>
+                            </div>
+                            <div class="col-sm-12">
                                 <label for="formateur_id">{{ ucfirst(__('PkgAutoformation::etatFormation.formateur_id')) }}:</label>
                                 <p>{{ $itemEtatFormation->formateur_id }}</p>
                             </div>
                             <div class="col-sm-12">
-                                <label for="sys_color_id">{{ ucfirst(__('PkgAutoformation::etatFormation.sys_color_id')) }}:</label>
-                                <p>{{ $itemEtatFormation->sys_color_id }}</p>
+                                <label for="description">{{ ucfirst(__('PkgAutoformation::etatFormation.description')) }}:</label>
+                                <p>{{ $itemEtatFormation->description }}</p>
                             </div>
                         </div>
                     </div>

@@ -19,7 +19,6 @@ class BaseEtatChapitreService extends BaseService
      * @var array
      */
     protected $fieldsSearchable = [
-        'code',
         'nom',
         'is_editable_only_by_formateur',
         'workflow_chapitre_id',

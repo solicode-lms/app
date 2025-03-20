@@ -11,28 +11,6 @@
     <div class="card-body row">
         
         <div class="form-group col-12 col-md-6">
-            <label for="code">
-                {{ ucfirst(__('PkgAutoformation::etatChapitre.code')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
-                name="code"
-                type="input"
-                class="form-control"
-                required
-                
-                id="code"
-                placeholder="{{ __('PkgAutoformation::etatChapitre.code') }}"
-                value="{{ $itemEtatChapitre ? $itemEtatChapitre->code : old('code') }}">
-            @error('code')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
-
-        
-        <div class="form-group col-12 col-md-6">
             <label for="nom">
                 {{ ucfirst(__('PkgAutoformation::etatChapitre.nom')) }}
                 

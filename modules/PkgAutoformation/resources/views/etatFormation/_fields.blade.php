@@ -11,28 +11,6 @@
     <div class="card-body row">
         
         <div class="form-group col-12 col-md-6">
-            <label for="code">
-                {{ ucfirst(__('PkgAutoformation::etatFormation.code')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
-                name="code"
-                type="input"
-                class="form-control"
-                required
-                
-                id="code"
-                placeholder="{{ __('PkgAutoformation::etatFormation.code') }}"
-                value="{{ $itemEtatFormation ? $itemEtatFormation->code : old('code') }}">
-            @error('code')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
-
-        
-        <div class="form-group col-12 col-md-6">
             <label for="nom">
                 {{ ucfirst(__('PkgAutoformation::etatFormation.nom')) }}
                 
@@ -49,45 +27,6 @@
                 placeholder="{{ __('PkgAutoformation::etatFormation.nom') }}"
                 value="{{ $itemEtatFormation ? $itemEtatFormation->nom : old('nom') }}">
             @error('nom')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
-
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="is_editable_only_by_formateur">
-                {{ ucfirst(__('PkgAutoformation::etatFormation.is_editable_only_by_formateur')) }}
-                
-            </label>
-            <input type="hidden" name="is_editable_only_by_formateur" value="0">
-            <input
-                name="is_editable_only_by_formateur"
-                type="checkbox"
-                class="form-control"
-                
-                
-                id="is_editable_only_by_formateur"
-                value="1"
-                {{ old('is_editable_only_by_formateur', $itemEtatFormation ? $itemEtatFormation->is_editable_only_by_formateur : 0) ? 'checked' : '' }}>
-            @error('is_editable_only_by_formateur')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
-
-        
-        <div class="form-group col-12 col-md-12">
-            <label for="description">
-                {{ ucfirst(__('PkgAutoformation::etatFormation.description')) }}
-                
-            </label>
-            <textarea rows="" cols=""
-                name="description"
-                class="form-control richText"
-                
-                
-                id="description"
-                placeholder="{{ __('PkgAutoformation::etatFormation.description') }}">{{ $itemEtatFormation ? $itemEtatFormation->description : old('description') }}</textarea>
-            @error('description')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
@@ -113,34 +52,6 @@
                 @endforeach
             </select>
             @error('workflow_formation_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
-
-
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="formateur_id">
-                {{ ucfirst(__('PkgFormation::formateur.singular')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <select 
-            id="formateur_id" 
-            required
-            
-            name="formateur_id" 
-            class="form-control select2">
-             <option value="">Sélectionnez une option</option>
-                @foreach ($formateurs as $formateur)
-                    <option value="{{ $formateur->id }}"
-                        {{ (isset($itemEtatFormation) && $itemEtatFormation->formateur_id == $formateur->id) || (old('formateur_id>') == $formateur->id) ? 'selected' : '' }}>
-                        {{ $formateur }}
-                    </option>
-                @endforeach
-            </select>
-            @error('formateur_id')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
     </div>
@@ -175,8 +86,75 @@
 
 
         
+        <div class="form-group col-12 col-md-6">
+            <label for="is_editable_only_by_formateur">
+                {{ ucfirst(__('PkgAutoformation::etatFormation.is_editable_only_by_formateur')) }}
+                
+            </label>
+            <input type="hidden" name="is_editable_only_by_formateur" value="0">
+            <input
+                name="is_editable_only_by_formateur"
+                type="checkbox"
+                class="form-control"
+                
+                
+                id="is_editable_only_by_formateur"
+                value="1"
+                {{ old('is_editable_only_by_formateur', $itemEtatFormation ? $itemEtatFormation->is_editable_only_by_formateur : 0) ? 'checked' : '' }}>
+            @error('is_editable_only_by_formateur')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
+
+        
+        <div class="form-group col-12 col-md-6">
+            <label for="formateur_id">
+                {{ ucfirst(__('PkgFormation::formateur.singular')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <select 
+            id="formateur_id" 
+            required
+            
+            name="formateur_id" 
+            class="form-control select2">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($formateurs as $formateur)
+                    <option value="{{ $formateur->id }}"
+                        {{ (isset($itemEtatFormation) && $itemEtatFormation->formateur_id == $formateur->id) || (old('formateur_id>') == $formateur->id) ? 'selected' : '' }}>
+                        {{ $formateur }}
+                    </option>
+                @endforeach
+            </select>
+            @error('formateur_id')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+    </div>
+
+
+        
 
         <!--   RealisationFormation HasMany --> 
+
+        
+        <div class="form-group col-12 col-md-12">
+            <label for="description">
+                {{ ucfirst(__('PkgAutoformation::etatFormation.description')) }}
+                
+            </label>
+            <textarea rows="" cols=""
+                name="description"
+                class="form-control richText"
+                
+                
+                id="description"
+                placeholder="{{ __('PkgAutoformation::etatFormation.description') }}">{{ $itemEtatFormation ? $itemEtatFormation->description : old('description') }}</textarea>
+            @error('description')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
 
     </div>
 

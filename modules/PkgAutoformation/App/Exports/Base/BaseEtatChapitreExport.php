@@ -28,7 +28,6 @@ class BaseEtatChapitreExport implements FromCollection, WithHeadings, ShouldAuto
     {
      if($this->format == 'csv'){
         return [
-            'code' => 'code',
             'nom' => 'nom',
             'is_editable_only_by_formateur' => 'is_editable_only_by_formateur',
             'reference' => 'reference',
@@ -39,7 +38,6 @@ class BaseEtatChapitreExport implements FromCollection, WithHeadings, ShouldAuto
         ];
         }else{
         return [
-            'code' => __('PkgAutoformation::etatChapitre.code'),
             'nom' => __('PkgAutoformation::etatChapitre.nom'),
             'is_editable_only_by_formateur' => __('PkgAutoformation::etatChapitre.is_editable_only_by_formateur'),
             'reference' => __('Core::msg.reference'),
@@ -57,7 +55,6 @@ class BaseEtatChapitreExport implements FromCollection, WithHeadings, ShouldAuto
     {
         return $this->data->map(function ($etatChapitre) {
             return [
-                'code' => $etatChapitre->code,
                 'nom' => $etatChapitre->nom,
                 'is_editable_only_by_formateur' => $etatChapitre->is_editable_only_by_formateur,
                 'reference' => $etatChapitre->reference,

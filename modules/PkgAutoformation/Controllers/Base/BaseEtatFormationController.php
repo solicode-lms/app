@@ -7,7 +7,6 @@ use Modules\PkgAutoformation\Services\EtatFormationService;
 use Modules\PkgFormation\Services\FormateurService;
 use Modules\Core\Services\SysColorService;
 use Modules\PkgAutoformation\Services\WorkflowFormationService;
-use Modules\PkgAutoformation\Services\RealisationFormationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
@@ -78,8 +77,8 @@ class BaseEtatFormationController extends AdminController
         
 
         $workflowFormations = $this->workflowFormationService->all();
-        $formateurs = $this->formateurService->all();
         $sysColors = $this->sysColorService->all();
+        $formateurs = $this->formateurService->all();
 
         if (request()->ajax()) {
             return view('PkgAutoformation::etatFormation._fields', compact('itemEtatFormation', 'formateurs', 'sysColors', 'workflowFormations'));
@@ -101,7 +100,7 @@ class BaseEtatFormationController extends AdminController
             );
         }
 
-        return redirect()->route('etatFormations.edit',['etatFormation' => $etatFormation->id])->with(
+        return redirect()->route('etatFormations.index')->with(
             'success',
             __('Core::msg.addSuccess', [
                 'entityToString' => $etatFormation,
@@ -119,24 +118,15 @@ class BaseEtatFormationController extends AdminController
 
 
         $workflowFormations = $this->workflowFormationService->all();
-        $formateurs = $this->formateurService->all();
         $sysColors = $this->sysColorService->all();
+        $formateurs = $this->formateurService->all();
 
-
-        $this->viewState->set('scope.realisationFormation.etat_formation_id', $id);
-
-
-        $realisationFormationService =  new RealisationFormationService();
-        $realisationFormations_data =  $realisationFormationService->paginate();
-        $realisationFormations_stats = $realisationFormationService->getrealisationFormationStats();
-        $realisationFormations_filters = $realisationFormationService->getFieldsFilterable();
-        $realisationFormation_instance =  $realisationFormationService->createInstance();
 
         if (request()->ajax()) {
-            return view('PkgAutoformation::etatFormation._edit', compact('itemEtatFormation', 'formateurs', 'sysColors', 'workflowFormations', 'realisationFormations_data', 'realisationFormations_stats', 'realisationFormations_filters', 'realisationFormation_instance'));
+            return view('PkgAutoformation::etatFormation._fields', compact('itemEtatFormation', 'formateurs', 'sysColors', 'workflowFormations'));
         }
 
-        return view('PkgAutoformation::etatFormation.edit', compact('itemEtatFormation', 'formateurs', 'sysColors', 'workflowFormations', 'realisationFormations_data', 'realisationFormations_stats', 'realisationFormations_filters', 'realisationFormation_instance'));
+        return view('PkgAutoformation::etatFormation.edit', compact('itemEtatFormation', 'formateurs', 'sysColors', 'workflowFormations'));
 
     }
     public function edit(string $id) {
@@ -149,25 +139,15 @@ class BaseEtatFormationController extends AdminController
 
 
         $workflowFormations = $this->workflowFormationService->all();
-        $formateurs = $this->formateurService->all();
         $sysColors = $this->sysColorService->all();
+        $formateurs = $this->formateurService->all();
 
-
-        $this->viewState->set('scope.realisationFormation.etat_formation_id', $id);
-        
-
-        $realisationFormationService =  new RealisationFormationService();
-        $realisationFormations_data =  $realisationFormationService->paginate();
-        $realisationFormations_stats = $realisationFormationService->getrealisationFormationStats();
-        $this->viewState->set('stats.realisationFormation.stats'  , $realisationFormations_stats);
-        $realisationFormations_filters = $realisationFormationService->getFieldsFilterable();
-        $realisationFormation_instance =  $realisationFormationService->createInstance();
 
         if (request()->ajax()) {
-            return view('PkgAutoformation::etatFormation._edit', compact('itemEtatFormation', 'formateurs', 'sysColors', 'workflowFormations', 'realisationFormations_data', 'realisationFormations_stats', 'realisationFormations_filters', 'realisationFormation_instance'));
+            return view('PkgAutoformation::etatFormation._fields', compact('itemEtatFormation', 'formateurs', 'sysColors', 'workflowFormations'));
         }
 
-        return view('PkgAutoformation::etatFormation.edit', compact('itemEtatFormation', 'formateurs', 'sysColors', 'workflowFormations', 'realisationFormations_data', 'realisationFormations_stats', 'realisationFormations_filters', 'realisationFormation_instance'));
+        return view('PkgAutoformation::etatFormation.edit', compact('itemEtatFormation', 'formateurs', 'sysColors', 'workflowFormations'));
 
     }
     public function update(EtatFormationRequest $request, string $id) {

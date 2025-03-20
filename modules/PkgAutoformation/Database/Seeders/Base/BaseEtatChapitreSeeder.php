@@ -74,7 +74,6 @@ class BaseEtatChapitreSeeder extends Seeder
             $row = array_combine($headers, $data);
             if ($row) {
                 $etatChapitreData =[
-                    "code" => $row["code"] ?? null,
                     "nom" => $row["nom"] ?? null,
                     "is_editable_only_by_formateur" => $row["is_editable_only_by_formateur"] ?? null,
                     "workflow_chapitre_id" => $row["workflow_chapitre_id"] ?? null,
