@@ -3,5 +3,5 @@
 
 return [
     'name' => 'Autoformation',
-    'icon' => 'fa-table'
+    'icon' => 'fa-award'
 ];

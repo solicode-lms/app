@@ -13,7 +13,9 @@
     },
     {
         "reference": "etat_chapitres_iconModel",
-        "value_string": "fa-table",
+        "value_boolean": 0,
+        "value_string": "fa-hourglass-half",
+        "value_float": 0,
         "e_model_reference": "etat_chapitres",
         "e_metadata_definition_reference": "iconModel"
     },

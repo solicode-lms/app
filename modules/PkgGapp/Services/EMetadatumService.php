@@ -45,7 +45,6 @@ class EMetadatumService extends BaseEMetadatumService
         // Appeler la méthode parente pour exécuter l'opération de création
         $metadatum = parent::create($data);
 
-        // Afficher la version de Node.js dans la console
         $this->updateGappCrud($metadatum->eDataField? $metadatum->eDataField->eModel : $metadatum->eModel);
 
         return $metadatum;

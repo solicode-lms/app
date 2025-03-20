@@ -13,7 +13,9 @@
     },
     {
         "reference": "chapitres_iconModel",
-        "value_string": "fa-table",
+        "value_boolean": 0,
+        "value_string": "fa-chalkboard",
+        "value_float": 0,
         "e_model_reference": "chapitres",
         "e_metadata_definition_reference": "iconModel"
     },

@@ -29,6 +29,7 @@ trait GappCommands
 
         $npxPath = "C:\\Program Files\\nodejs\\npx.cmd";
         $metaExportCommand = "\"$npxPath\" gapp meta:seed ../";
+        $metaExportCommand = "gapp meta:seed ../";
 
         $this->pushServiceMessage("success","Gapp", $message);
 
@@ -47,6 +48,7 @@ trait GappCommands
 
         $npxPath = "C:\\Program Files\\nodejs\\npx.cmd";
         $metaExportCommand = "\"$npxPath\" gapp meta:seedDataField ../ $dataFieldReference";
+        $metaExportCommand = "gapp meta:seedDataField ../ $dataFieldReference";
 
         $this->pushServiceMessage("success","Gapp", $message);
 
@@ -73,7 +75,8 @@ trait GappCommands
         $npxPath = "C:\\Program Files\\nodejs\\npx.cmd";
         $makeCrudCommand = "\"$npxPath\" gapp make:crud {$modelName} ../";
         $metaExportCommand = "\"$npxPath\" gapp meta:export ../";
-
+        $makeCrudCommand = "gapp make:crud {$modelName} ../";
+        $metaExportCommand = "gapp meta:export ../";
 
 
         // $makeCrudCommand = "npx gapp make:crud {$modelName} ../";
