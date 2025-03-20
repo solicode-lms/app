@@ -33,7 +33,7 @@
        $titre = __("PkgFormation::formateur.singular");
     @endphp
     <x-crud-header 
-        id="formateur-crud-header" icon="fas fa-chalkboard-teacher"  
+        id="formateur-crud-header" icon="fas fa-user-tie"  
         iconColor="text-info"
         title="{{ __('PkgFormation::formateur.plural') }}"
         :breadcrumbs="[

@@ -23,7 +23,7 @@
         @can('index-etatChapitre') 
         <li class="nav-item" id="menu-etatChapitres">
             <a href="{{ route('etatChapitres.index') }}" class="nav-link {{ Request::is('admin/PkgAutoformation/etatChapitres') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-hourglass-half"></i>
+                <i class="nav-icon fas fa-check"></i>
                 {{__('PkgAutoformation::etatChapitre.plural')}}
             </a>
         </li>
@@ -31,7 +31,7 @@
         @can('index-etatFormation') 
         <li class="nav-item" id="menu-etatFormations">
             <a href="{{ route('etatFormations.index') }}" class="nav-link {{ Request::is('admin/PkgAutoformation/etatFormations') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-hourglass-half"></i>
+                <i class="nav-icon fas fa-check"></i>
                 {{__('PkgAutoformation::etatFormation.plural')}}
             </a>
         </li>
@@ -47,7 +47,7 @@
         @can('index-realisationChapitre') 
         <li class="nav-item" id="menu-realisationChapitres">
             <a href="{{ route('realisationChapitres.index') }}" class="nav-link {{ Request::is('admin/PkgAutoformation/realisationChapitres') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-book-reader"></i>
+                <i class="nav-icon fas fa-code"></i>
                 {{__('PkgAutoformation::realisationChapitre.plural')}}
             </a>
         </li>
@@ -55,7 +55,7 @@
         @can('index-realisationFormation') 
         <li class="nav-item" id="menu-realisationFormations">
             <a href="{{ route('realisationFormations.index') }}" class="nav-link {{ Request::is('admin/PkgAutoformation/realisationFormations') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-book-open"></i>
+                <i class="nav-icon fas fa-coffee"></i>
                 {{__('PkgAutoformation::realisationFormation.plural')}}
             </a>
         </li>
@@ -63,7 +63,7 @@
         @can('index-workflowChapitre') 
         <li class="nav-item" id="menu-workflowChapitres">
             <a href="{{ route('workflowChapitres.index') }}" class="nav-link {{ Request::is('admin/PkgAutoformation/workflowChapitres') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-table"></i>
+                <i class="nav-icon fas fa-check-square"></i>
                 {{__('PkgAutoformation::workflowChapitre.plural')}}
             </a>
         </li>
@@ -71,7 +71,7 @@
         @can('index-workflowFormation') 
         <li class="nav-item" id="menu-workflowFormations">
             <a href="{{ route('workflowFormations.index') }}" class="nav-link {{ Request::is('admin/PkgAutoformation/workflowFormations') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-table"></i>
+                <i class="nav-icon fas fa-check-square"></i>
                 {{__('PkgAutoformation::workflowFormation.plural')}}
             </a>
         </li>

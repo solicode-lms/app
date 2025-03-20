@@ -4,7 +4,7 @@
 <script>
     window.crudModalManagersConfig = window.crudModalManagersConfig || [];
     window.crudModalManagersConfig.push({
-        edit_has_many: {{ !isset($edit_has_many)? 'true' :  ($edit_has_many ? "true": "false") }},
+        edit_has_many: {{ !isset($edit_has_many)? 'false' :  ($edit_has_many ? "true": "false") }},
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
         editOnFullScreen : false,
         entity_name: 'apprenant',
@@ -33,7 +33,7 @@
        $titre = __("PkgApprenants::apprenant.singular");
     @endphp
     <x-crud-header 
-        id="apprenant-crud-header" icon="fas fa-user-graduate"  
+        id="apprenant-crud-header" icon="fas fa-id-card"  
         iconColor="text-info"
         title="{{ __('PkgApprenants::apprenant.plural') }}"
         :breadcrumbs="[

@@ -1,7 +1,7 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 
-@accessiblePermissions(['index-etatRealisationTache', 'index-labelRealisationTache', 'index-prioriteTache', 'index-typeDependanceTache', 'index-realisationTache', 'index-workflowTache'])
+@accessiblePermissions(['index-etatRealisationTache', 'index-labelRealisationTache', 'index-prioriteTache', 'index-realisationTache', 'index-typeDependanceTache', 'index-workflowTache'])
 @if($accessiblePermissions->isNotEmpty())
 <li id="menu-PkgGestionTaches" class="nav-item has-treeview  {{ Request::is('admin/PkgGestionTaches*') ? 'menu-open' : '' }}">
     <a href="#" class="nav-link nav-link {{ Request::is('admin/PkgGestionTaches*') ? 'active' : '' }}">
@@ -15,7 +15,7 @@
         @can('index-etatRealisationTache') 
         <li class="nav-item" id="menu-etatRealisationTaches">
             <a href="{{ route('etatRealisationTaches.index') }}" class="nav-link {{ Request::is('admin/PkgGestionTaches/etatRealisationTaches') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-hourglass-half"></i>
+                <i class="nav-icon fas fa-check"></i>
                 {{__('PkgGestionTaches::etatRealisationTache.plural')}}
             </a>
         </li>
@@ -31,8 +31,16 @@
         @can('index-prioriteTache') 
         <li class="nav-item" id="menu-prioriteTaches">
             <a href="{{ route('prioriteTaches.index') }}" class="nav-link {{ Request::is('admin/PkgGestionTaches/prioriteTaches') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-exclamation-circle"></i>
+                <i class="nav-icon fas fa-list-ol"></i>
                 {{__('PkgGestionTaches::prioriteTache.plural')}}
+            </a>
+        </li>
+        @endcan
+        @can('index-realisationTache') 
+        <li class="nav-item" id="menu-realisationTaches">
+            <a href="{{ route('realisationTaches.index') }}" class="nav-link {{ Request::is('admin/PkgGestionTaches/realisationTaches') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-laptop-code"></i>
+                {{__('PkgGestionTaches::realisationTache.plural')}}
             </a>
         </li>
         @endcan
@@ -44,18 +52,10 @@
             </a>
         </li>
         @endcan
-        @can('index-realisationTache') 
-        <li class="nav-item" id="menu-realisationTaches">
-            <a href="{{ route('realisationTaches.index') }}" class="nav-link {{ Request::is('admin/PkgGestionTaches/realisationTaches') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-tasks"></i>
-                {{__('PkgGestionTaches::realisationTache.plural')}}
-            </a>
-        </li>
-        @endcan
         @can('index-workflowTache') 
         <li class="nav-item" id="menu-workflowTaches">
             <a href="{{ route('workflowTaches.index') }}" class="nav-link {{ Request::is('admin/PkgGestionTaches/workflowTaches') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-table"></i>
+                <i class="nav-icon fas fa-check-square"></i>
                 {{__('PkgGestionTaches::workflowTache.plural')}}
             </a>
         </li>

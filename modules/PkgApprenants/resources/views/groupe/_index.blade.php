@@ -33,7 +33,7 @@
        $titre = __("PkgApprenants::groupe.singular");
     @endphp
     <x-crud-header 
-        id="groupe-crud-header" icon="fas fa-cubes"  
+        id="groupe-crud-header" icon="fas fa-users"  
         iconColor="text-info"
         title="{{ __('PkgApprenants::groupe.plural') }}"
         :breadcrumbs="[

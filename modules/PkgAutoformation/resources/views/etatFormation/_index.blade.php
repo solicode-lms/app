@@ -33,7 +33,7 @@
        $titre = __("PkgAutoformation::etatFormation.singular");
     @endphp
     <x-crud-header 
-        id="etatFormation-crud-header" icon="fas fa-hourglass-half"  
+        id="etatFormation-crud-header" icon="fas fa-check"  
         iconColor="text-info"
         title="{{ __('PkgAutoformation::etatFormation.plural') }}"
         :breadcrumbs="[

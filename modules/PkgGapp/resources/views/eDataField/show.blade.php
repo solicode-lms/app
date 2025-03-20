@@ -29,8 +29,8 @@
                                 <p>{{ $itemEDataField->name }}</p>
                             </div>
                             <div class="col-sm-12">
-                                <label for="data_type">{{ ucfirst(__('PkgGapp::eDataField.data_type')) }}:</label>
-                                <p>{{ $itemEDataField->data_type }}</p>
+                                <label for="default_value">{{ ucfirst(__('PkgGapp::eDataField.default_value')) }}:</label>
+                                <p>{{ $itemEDataField->default_value }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="column_name">{{ ucfirst(__('PkgGapp::eDataField.column_name')) }}:</label>
@@ -49,8 +49,8 @@
                                 <p>{{ $itemEDataField->field_order }}</p>
                             </div>
                             <div class="col-sm-12">
-                                <label for="default_value">{{ ucfirst(__('PkgGapp::eDataField.default_value')) }}:</label>
-                                <p>{{ $itemEDataField->default_value }}</p>
+                                <label for="data_type">{{ ucfirst(__('PkgGapp::eDataField.data_type')) }}:</label>
+                                <p>{{ $itemEDataField->data_type }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="db_primaryKey">{{ ucfirst(__('PkgGapp::eDataField.db_primaryKey')) }}:</label>

@@ -17,7 +17,7 @@
 		}
 	],
 	"settings": {
-		"liveServer.settings.multiRootWorkspaceName": "app",
+		"liveServer.settings.multiRootWorkspaceName": "solicode-lms",
 		"git.autofetch": true,
 		"sqltools.connections": [
 			{

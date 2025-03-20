@@ -2,6 +2,6 @@
 
 
 return [
-    'name' => 'PkgWidgets',
-    'icon' => 'fa-table'
+    'name' => 'Widgets',
+    'icon' => 'fa-chart-pie'
 ];

@@ -33,7 +33,7 @@
        $titre = __("PkgWidgets::widget.singular");
     @endphp
     <x-crud-header 
-        id="widget-crud-header" icon="fas fa-table"  
+        id="widget-crud-header" icon="fas fa-chart-bar"  
         iconColor="text-info"
         title="{{ __('PkgWidgets::widget.plural') }}"
         :breadcrumbs="[

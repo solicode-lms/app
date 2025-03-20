@@ -86,32 +86,6 @@
 
 
         
-                    <div class="form-group col-12 col-md-6">
-            <label for="formations">
-                {{ ucfirst(__('PkgAutoformation::Formation.plural')) }}
-            </label>
-            <select
-                id="formations"
-                name="formations[]"
-                class="form-control select2"
-                
-                multiple="multiple">
-               
-                @foreach ($formations as $formation)
-                    <option value="{{ $formation->id }}"
-                        {{ (isset($itemTechnology) && $itemTechnology->formations && $itemTechnology->formations->contains('id', $formation->id)) || (is_array(old('formations')) && in_array($formation->id, old('formations'))) ? 'selected' : '' }}>
-                        {{ $formation }}
-                    </option>
-                @endforeach
-            </select>
-            @error('formations')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-
-        </div>
-
-
-        
         <div class="form-group col-12 col-md-12">
             <label for="description">
                 {{ ucfirst(__('PkgCompetences::technology.description')) }}

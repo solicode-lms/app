@@ -75,12 +75,12 @@ class BaseEDataFieldSeeder extends Seeder
             if ($row) {
                 $eDataFieldData =[
                     "name" => $row["name"] ?? null,
-                    "data_type" => $row["data_type"] ?? null,
+                    "default_value" => $row["default_value"] ?? null,
                     "column_name" => $row["column_name"] ?? null,
                     "e_model_id" => $row["e_model_id"] ?? null,
                     "e_relationship_id" => $row["e_relationship_id"] ?? null,
                     "field_order" => $row["field_order"] ?? null,
-                    "default_value" => $row["default_value"] ?? null,
+                    "data_type" => $row["data_type"] ?? null,
                     "db_primaryKey" => $row["db_primaryKey"] ?? null,
                     "db_nullable" => $row["db_nullable"] ?? null,
                     "db_unique" => $row["db_unique"] ?? null,

@@ -33,7 +33,7 @@
        $titre = __("PkgFormation::anneeFormation.singular");
     @endphp
     <x-crud-header 
-        id="anneeFormation-crud-header" icon="fas fa-table"  
+        id="anneeFormation-crud-header" icon="fas fa-calendar-plus"  
         iconColor="text-info"
         title="{{ __('PkgFormation::anneeFormation.plural') }}"
         :breadcrumbs="[

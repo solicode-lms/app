@@ -33,7 +33,7 @@
        $titre = __("PkgAutoformation::workflowChapitre.singular");
     @endphp
     <x-crud-header 
-        id="workflowChapitre-crud-header" icon="fas fa-table"  
+        id="workflowChapitre-crud-header" icon="fas fa-check-square"  
         iconColor="text-info"
         title="{{ __('PkgAutoformation::workflowChapitre.plural') }}"
         :breadcrumbs="[

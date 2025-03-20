@@ -70,7 +70,9 @@
     },
     {
         "reference": "formateurs_iconModel",
-        "value_string": "fa-chalkboard-teacher",
+        "value_boolean": 0,
+        "value_string": "fa-user-tie",
+        "value_float": 0,
         "e_model_reference": "formateurs",
         "e_metadata_definition_reference": "iconModel"
     },

@@ -33,7 +33,7 @@
        $titre = __("PkgGestionTaches::realisationTache.singular");
     @endphp
     <x-crud-header 
-        id="realisationTache-crud-header" icon="fas fa-tasks"  
+        id="realisationTache-crud-header" icon="fas fa-laptop-code"  
         iconColor="text-info"
         title="{{ __('PkgGestionTaches::realisationTache.plural') }}"
         :breadcrumbs="[

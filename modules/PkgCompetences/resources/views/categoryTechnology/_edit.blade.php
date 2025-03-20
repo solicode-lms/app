@@ -28,7 +28,7 @@
                         <ul class="nav nav-tabs mr-auto" id="edit-categoryTechnology-tab" role="tablist">
                         <li class="pt-2 px-3">
                             <h3 class="card-title">
-                                <i class="nav-icon fas fa-bolt"></i>
+                                <i class="nav-icon fas fa-tags"></i>
                             </h3>
                         </li>
                         <li class="nav-item">

@@ -13,7 +13,7 @@
                     <div class="card card-info">
                         <div class="card-header">
                             <h3 class="card-title">
-                                <i class="nav-icon fas fa-exclamation-circle"></i>
+                                <i class="nav-icon fas fa-list-ol"></i>
                                 {{ curd_index_add_label('PkgGestionTaches::prioriteTache') }}
                             </h3>
                         </div>

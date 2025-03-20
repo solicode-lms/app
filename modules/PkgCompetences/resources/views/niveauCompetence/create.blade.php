@@ -13,7 +13,7 @@
                     <div class="card card-info">
                         <div class="card-header">
                             <h3 class="card-title">
-                                <i class="nav-icon fas fa-bars"></i>
+                                <i class="nav-icon fas fa-battery-three-quarters"></i>
                                 {{ curd_index_add_label('PkgCompetences::niveauCompetence') }}
                             </h3>
                         </div>

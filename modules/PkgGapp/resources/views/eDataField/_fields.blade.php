@@ -33,22 +33,20 @@
 
         
         <div class="form-group col-12 col-md-3">
-            <label for="data_type">
-                {{ ucfirst(__('PkgGapp::eDataField.data_type')) }}
-                
-                    <span class="text-danger">*</span>
+            <label for="default_value">
+                {{ ucfirst(__('PkgGapp::eDataField.default_value')) }}
                 
             </label>
             <input
-                name="data_type"
+                name="default_value"
                 type="input"
                 class="form-control"
-                required
                 
-                id="data_type"
-                placeholder="{{ __('PkgGapp::eDataField.data_type') }}"
-                value="{{ $itemEDataField ? $itemEDataField->data_type : old('data_type') }}">
-            @error('data_type')
+                
+                id="default_value"
+                placeholder="{{ __('PkgGapp::eDataField.default_value') }}"
+                value="{{ $itemEDataField ? $itemEDataField->default_value : old('default_value') }}">
+            @error('default_value')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>
@@ -153,20 +151,22 @@
 
         
         <div class="form-group col-12 col-md-3">
-            <label for="default_value">
-                {{ ucfirst(__('PkgGapp::eDataField.default_value')) }}
+            <label for="data_type">
+                {{ ucfirst(__('PkgGapp::eDataField.data_type')) }}
+                
+                    <span class="text-danger">*</span>
                 
             </label>
             <input
-                name="default_value"
+                name="data_type"
                 type="input"
                 class="form-control"
+                required
                 
-                
-                id="default_value"
-                placeholder="{{ __('PkgGapp::eDataField.default_value') }}"
-                value="{{ $itemEDataField ? $itemEDataField->default_value : old('default_value') }}">
-            @error('default_value')
+                id="data_type"
+                placeholder="{{ __('PkgGapp::eDataField.data_type') }}"
+                value="{{ $itemEDataField ? $itemEDataField->data_type : old('data_type') }}">
+            @error('data_type')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
 </div>

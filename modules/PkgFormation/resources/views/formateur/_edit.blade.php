@@ -28,7 +28,7 @@
                         <ul class="nav nav-tabs mr-auto" id="edit-formateur-tab" role="tablist">
                         <li class="pt-2 px-3">
                             <h3 class="card-title">
-                                <i class="nav-icon fas fa-chalkboard-teacher"></i>
+                                <i class="nav-icon fas fa-user-tie"></i>
                             </h3>
                         </li>
                         <li class="nav-item">

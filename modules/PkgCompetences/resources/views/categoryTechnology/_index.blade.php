@@ -33,7 +33,7 @@
        $titre = __("PkgCompetences::categoryTechnology.singular");
     @endphp
     <x-crud-header 
-        id="categoryTechnology-crud-header" icon="fas fa-bolt"  
+        id="categoryTechnology-crud-header" icon="fas fa-tags"  
         iconColor="text-info"
         title="{{ __('PkgCompetences::categoryTechnology.plural') }}"
         :breadcrumbs="[

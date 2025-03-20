@@ -55,7 +55,8 @@
     },
     {
         "reference": "technologies_iconModel",
-        "value_string": "fa-bolt",
+        "value_boolean": 0,
+        "value_string": "fa-tag",
         "value_float": 0,
         "e_model_reference": "technologies",
         "e_metadata_definition_reference": "iconModel"
@@ -172,7 +173,7 @@
     },
     {
         "reference": "technologies_displayInSideBar",
-        "value_boolean": 0,
+        "value_boolean": 1,
         "value_float": 0,
         "e_model_reference": "technologies",
         "e_metadata_definition_reference": "displayInSideBar"
@@ -245,7 +246,8 @@
     },
     {
         "reference": "technologies_formations_formation_technology_m2m_m2m_displayInForm",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "technologies_formations_formation_technology_m2m_m2m",
         "e_metadata_definition_reference": "displayInForm"
     },

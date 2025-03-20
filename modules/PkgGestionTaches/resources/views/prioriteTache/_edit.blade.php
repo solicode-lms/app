@@ -10,7 +10,7 @@
                     <div class="card card-info">
                         <div class="card-header">
                             <h3 class="card-title">
-                                <i class="nav-icon fas fa-exclamation-circle"></i>
+                                <i class="nav-icon fas fa-list-ol"></i>
                                 {{ __('Core::msg.edit') }}
                             </h3>
                         </div>

@@ -33,7 +33,7 @@
        $titre = __("PkgGestionTaches::workflowTache.singular");
     @endphp
     <x-crud-header 
-        id="workflowTache-crud-header" icon="fas fa-table"  
+        id="workflowTache-crud-header" icon="fas fa-check-square"  
         iconColor="text-info"
         title="{{ __('PkgGestionTaches::workflowTache.plural') }}"
         :breadcrumbs="[

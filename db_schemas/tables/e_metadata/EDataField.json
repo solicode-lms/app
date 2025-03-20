@@ -117,7 +117,8 @@
     },
     {
         "reference": "EDataField_e_relationship_id_filterable",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "EDataField_e_relationship_id",
         "e_metadata_definition_reference": "filterable"
     },
@@ -156,7 +157,7 @@
     {
         "reference": "EDataField_data_type_displayOrder",
         "value_boolean": 0,
-        "value_integer": 4,
+        "value_integer": 9,
         "value_float": 0,
         "e_data_field_reference": "EDataField_data_type",
         "e_metadata_definition_reference": "displayOrder"
@@ -196,7 +197,7 @@
     {
         "reference": "EDataField_default_value_displayOrder",
         "value_boolean": 0,
-        "value_integer": 9,
+        "value_integer": 4,
         "value_float": 0,
         "e_data_field_reference": "EDataField_default_value",
         "e_metadata_definition_reference": "displayOrder"

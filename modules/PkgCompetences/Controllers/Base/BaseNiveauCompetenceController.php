@@ -5,7 +5,6 @@
 namespace Modules\PkgCompetences\Controllers\Base;
 use Modules\PkgCompetences\Services\NiveauCompetenceService;
 use Modules\PkgCompetences\Services\CompetenceService;
-use Modules\PkgAutoformation\Services\ChapitreService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
@@ -85,7 +84,7 @@ class BaseNiveauCompetenceController extends AdminController
             );
         }
 
-        return redirect()->route('niveauCompetences.edit',['niveauCompetence' => $niveauCompetence->id])->with(
+        return redirect()->route('niveauCompetences.index')->with(
             'success',
             __('Core::msg.addSuccess', [
                 'entityToString' => $niveauCompetence,
@@ -104,20 +103,11 @@ class BaseNiveauCompetenceController extends AdminController
         $competences = $this->competenceService->all();
 
 
-        $this->viewState->set('scope.chapitre.niveau_competence_id', $id);
-
-
-        $chapitreService =  new ChapitreService();
-        $chapitres_data =  $chapitreService->paginate();
-        $chapitres_stats = $chapitreService->getchapitreStats();
-        $chapitres_filters = $chapitreService->getFieldsFilterable();
-        $chapitre_instance =  $chapitreService->createInstance();
-
         if (request()->ajax()) {
-            return view('PkgCompetences::niveauCompetence._edit', compact('itemNiveauCompetence', 'competences', 'chapitres_data', 'chapitres_stats', 'chapitres_filters', 'chapitre_instance'));
+            return view('PkgCompetences::niveauCompetence._fields', compact('itemNiveauCompetence', 'competences'));
         }
 
-        return view('PkgCompetences::niveauCompetence.edit', compact('itemNiveauCompetence', 'competences', 'chapitres_data', 'chapitres_stats', 'chapitres_filters', 'chapitre_instance'));
+        return view('PkgCompetences::niveauCompetence.edit', compact('itemNiveauCompetence', 'competences'));
 
     }
     public function edit(string $id) {
@@ -131,21 +121,11 @@ class BaseNiveauCompetenceController extends AdminController
         $competences = $this->competenceService->all();
 
 
-        $this->viewState->set('scope.chapitre.niveau_competence_id', $id);
-        
-
-        $chapitreService =  new ChapitreService();
-        $chapitres_data =  $chapitreService->paginate();
-        $chapitres_stats = $chapitreService->getchapitreStats();
-        $this->viewState->set('stats.chapitre.stats'  , $chapitres_stats);
-        $chapitres_filters = $chapitreService->getFieldsFilterable();
-        $chapitre_instance =  $chapitreService->createInstance();
-
         if (request()->ajax()) {
-            return view('PkgCompetences::niveauCompetence._edit', compact('itemNiveauCompetence', 'competences', 'chapitres_data', 'chapitres_stats', 'chapitres_filters', 'chapitre_instance'));
+            return view('PkgCompetences::niveauCompetence._fields', compact('itemNiveauCompetence', 'competences'));
         }
 
-        return view('PkgCompetences::niveauCompetence.edit', compact('itemNiveauCompetence', 'competences', 'chapitres_data', 'chapitres_stats', 'chapitres_filters', 'chapitre_instance'));
+        return view('PkgCompetences::niveauCompetence.edit', compact('itemNiveauCompetence', 'competences'));
 
     }
     public function update(NiveauCompetenceRequest $request, string $id) {

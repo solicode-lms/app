@@ -20,12 +20,12 @@ class BaseEDataFieldService extends BaseService
      */
     protected $fieldsSearchable = [
         'name',
-        'data_type',
+        'default_value',
         'column_name',
         'e_model_id',
         'e_relationship_id',
         'field_order',
-        'default_value',
+        'data_type',
         'db_primaryKey',
         'db_nullable',
         'db_unique',
@@ -60,14 +60,11 @@ class BaseEDataFieldService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('eDataField');
         $this->fieldsFilterable = [];
     
-        if (!array_key_exists('data_type', $scopeVariables)) {
-        $this->fieldsFilterable[] = ['field' => 'data_type', 'type' => 'String', 'label' => 'data_type'];
-        }
         if (!array_key_exists('e_model_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgGapp::eModel.plural"), 'e_model_id', \Modules\PkgGapp\Models\EModel::class, 'name');
         }
-        if (!array_key_exists('e_relationship_id', $scopeVariables)) {
-        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgGapp::eRelationship.plural"), 'e_relationship_id', \Modules\PkgGapp\Models\ERelationship::class, 'name');
+        if (!array_key_exists('data_type', $scopeVariables)) {
+        $this->fieldsFilterable[] = ['field' => 'data_type', 'type' => 'String', 'label' => 'data_type'];
         }
     }
 
