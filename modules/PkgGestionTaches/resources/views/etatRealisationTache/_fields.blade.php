@@ -32,22 +32,58 @@
 </div>
 
         
-        <div class="form-group col-12 col-md-12">
-            <label for="description">
-                {{ ucfirst(__('PkgGestionTaches::etatRealisationTache.description')) }}
+        <div class="form-group col-12 col-md-6">
+            <label for="workflow_tache_id">
+                {{ ucfirst(__('PkgGestionTaches::workflowTache.singular')) }}
                 
             </label>
-            <textarea rows="" cols=""
-                name="description"
-                class="form-control richText"
-                
-                
-                id="description"
-                placeholder="{{ __('PkgGestionTaches::etatRealisationTache.description') }}">{{ $itemEtatRealisationTache ? $itemEtatRealisationTache->description : old('description') }}</textarea>
-            @error('description')
+            <select 
+            id="workflow_tache_id" 
+            
+            
+            name="workflow_tache_id" 
+            class="form-control select2">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($workflowTaches as $workflowTache)
+                    <option value="{{ $workflowTache->id }}"
+                        {{ (isset($itemEtatRealisationTache) && $itemEtatRealisationTache->workflow_tache_id == $workflowTache->id) || (old('workflow_tache_id>') == $workflowTache->id) ? 'selected' : '' }}>
+                        {{ $workflowTache }}
+                    </option>
+                @endforeach
+            </select>
+            @error('workflow_tache_id')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-</div>
+    </div>
+
+
+        
+        <div class="form-group col-12 col-md-6">
+            <label for="sys_color_id">
+                {{ ucfirst(__('Core::sysColor.singular')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <select 
+            id="sys_color_id" 
+            required
+            
+            name="sys_color_id" 
+            class="form-control select2Color">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($sysColors as $sysColor)
+                    <option value="{{ $sysColor->id }}" data-color="{{ $sysColor->hex }}" 
+                        {{ (isset($itemEtatRealisationTache) && $itemEtatRealisationTache->sys_color_id == $sysColor->id) || (old('sys_color_id>') == $sysColor->id) ? 'selected' : '' }}>
+                        {{ $sysColor }}
+                    </option>
+                @endforeach
+            </select>
+            @error('sys_color_id')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+    </div>
+
 
         
         <div class="form-group col-12 col-md-6">
@@ -99,58 +135,22 @@
 
 
         
-        <div class="form-group col-12 col-md-6">
-            <label for="sys_color_id">
-                {{ ucfirst(__('Core::sysColor.singular')) }}
-                
-                    <span class="text-danger">*</span>
+        <div class="form-group col-12 col-md-12">
+            <label for="description">
+                {{ ucfirst(__('PkgGestionTaches::etatRealisationTache.description')) }}
                 
             </label>
-            <select 
-            id="sys_color_id" 
-            required
-            
-            name="sys_color_id" 
-            class="form-control select2Color">
-             <option value="">Sélectionnez une option</option>
-                @foreach ($sysColors as $sysColor)
-                    <option value="{{ $sysColor->id }}" data-color="{{ $sysColor->hex }}" 
-                        {{ (isset($itemEtatRealisationTache) && $itemEtatRealisationTache->sys_color_id == $sysColor->id) || (old('sys_color_id>') == $sysColor->id) ? 'selected' : '' }}>
-                        {{ $sysColor }}
-                    </option>
-                @endforeach
-            </select>
-            @error('sys_color_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
-
-
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="workflow_tache_id">
-                {{ ucfirst(__('PkgGestionTaches::workflowTache.singular')) }}
+            <textarea rows="" cols=""
+                name="description"
+                class="form-control richText"
                 
-            </label>
-            <select 
-            id="workflow_tache_id" 
-            
-            
-            name="workflow_tache_id" 
-            class="form-control select2">
-             <option value="">Sélectionnez une option</option>
-                @foreach ($workflowTaches as $workflowTache)
-                    <option value="{{ $workflowTache->id }}"
-                        {{ (isset($itemEtatRealisationTache) && $itemEtatRealisationTache->workflow_tache_id == $workflowTache->id) || (old('workflow_tache_id>') == $workflowTache->id) ? 'selected' : '' }}>
-                        {{ $workflowTache }}
-                    </option>
-                @endforeach
-            </select>
-            @error('workflow_tache_id')
+                
+                id="description"
+                placeholder="{{ __('PkgGestionTaches::etatRealisationTache.description') }}">{{ $itemEtatRealisationTache ? $itemEtatRealisationTache->description : old('description') }}</textarea>
+            @error('description')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-    </div>
-
+</div>
 
         
 

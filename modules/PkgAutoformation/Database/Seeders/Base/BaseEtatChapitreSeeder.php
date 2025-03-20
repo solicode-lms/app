@@ -75,11 +75,11 @@ class BaseEtatChapitreSeeder extends Seeder
             if ($row) {
                 $etatChapitreData =[
                     "nom" => $row["nom"] ?? null,
-                    "is_editable_only_by_formateur" => $row["is_editable_only_by_formateur"] ?? null,
                     "workflow_chapitre_id" => $row["workflow_chapitre_id"] ?? null,
+                    "sys_color_id" => $row["sys_color_id"] ?? null,
+                    "is_editable_only_by_formateur" => $row["is_editable_only_by_formateur"] ?? null,
                     "description" => $row["description"] ?? null,
                     "formateur_id" => $row["formateur_id"] ?? null,
-                    "sys_color_id" => $row["sys_color_id"] ?? null,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

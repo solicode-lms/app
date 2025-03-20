@@ -29,12 +29,16 @@
                                 <p>{{ $itemEtatChapitre->nom }}</p>
                             </div>
                             <div class="col-sm-12">
-                                <label for="is_editable_only_by_formateur">{{ ucfirst(__('PkgAutoformation::etatChapitre.is_editable_only_by_formateur')) }}:</label>
-                                <p>{{ $itemEtatChapitre->is_editable_only_by_formateur }}</p>
-                            </div>
-                            <div class="col-sm-12">
                                 <label for="workflow_chapitre_id">{{ ucfirst(__('PkgAutoformation::etatChapitre.workflow_chapitre_id')) }}:</label>
                                 <p>{{ $itemEtatChapitre->workflow_chapitre_id }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="sys_color_id">{{ ucfirst(__('PkgAutoformation::etatChapitre.sys_color_id')) }}:</label>
+                                <p>{{ $itemEtatChapitre->sys_color_id }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="is_editable_only_by_formateur">{{ ucfirst(__('PkgAutoformation::etatChapitre.is_editable_only_by_formateur')) }}:</label>
+                                <p>{{ $itemEtatChapitre->is_editable_only_by_formateur }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="description">{{ ucfirst(__('PkgAutoformation::etatChapitre.description')) }}:</label>
@@ -43,10 +47,6 @@
                             <div class="col-sm-12">
                                 <label for="formateur_id">{{ ucfirst(__('PkgAutoformation::etatChapitre.formateur_id')) }}:</label>
                                 <p>{{ $itemEtatChapitre->formateur_id }}</p>
-                            </div>
-                            <div class="col-sm-12">
-                                <label for="sys_color_id">{{ ucfirst(__('PkgAutoformation::etatChapitre.sys_color_id')) }}:</label>
-                                <p>{{ $itemEtatChapitre->sys_color_id }}</p>
                             </div>
                         </div>
                     </div>

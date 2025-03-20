@@ -11,9 +11,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
-use Modules\PkgFormation\Models\Formateur;
-use Modules\Core\Models\SysColor;
 use Modules\PkgGestionTaches\Models\WorkflowTache;
+use Modules\Core\Models\SysColor;
+use Modules\PkgFormation\Models\Formateur;
 use Modules\PkgGestionTaches\Models\RealisationTache;
 
 /**
@@ -37,18 +37,18 @@ class BaseEtatRealisationTache extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'nom', 'description', 'is_editable_only_by_formateur', 'formateur_id', 'sys_color_id', 'workflow_tache_id'
+        'nom', 'workflow_tache_id', 'sys_color_id', 'is_editable_only_by_formateur', 'formateur_id', 'description'
     ];
 
 
     /**
-     * Relation BelongsTo pour Formateur.
+     * Relation BelongsTo pour WorkflowTache.
      *
      * @return BelongsTo
      */
-    public function formateur(): BelongsTo
+    public function workflowTache(): BelongsTo
     {
-        return $this->belongsTo(Formateur::class, 'formateur_id', 'id');
+        return $this->belongsTo(WorkflowTache::class, 'workflow_tache_id', 'id');
     }
     /**
      * Relation BelongsTo pour SysColor.
@@ -60,13 +60,13 @@ class BaseEtatRealisationTache extends BaseModel
         return $this->belongsTo(SysColor::class, 'sys_color_id', 'id');
     }
     /**
-     * Relation BelongsTo pour WorkflowTache.
+     * Relation BelongsTo pour Formateur.
      *
      * @return BelongsTo
      */
-    public function workflowTache(): BelongsTo
+    public function formateur(): BelongsTo
     {
-        return $this->belongsTo(WorkflowTache::class, 'workflow_tache_id', 'id');
+        return $this->belongsTo(Formateur::class, 'formateur_id', 'id');
     }
 
 

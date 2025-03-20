@@ -6,7 +6,6 @@
         <thead>
             <tr>
                 <x-sortable-column field="nom" modelname="etatFormation" label="{{ ucfirst(__('PkgAutoformation::etatFormation.nom')) }}" />
-                <x-sortable-column field="workflow_formation_id" modelname="etatFormation" label="{{ ucfirst(__('PkgAutoformation::workflowFormation.singular')) }}" />
                 <x-sortable-column field="sys_color_id" modelname="etatFormation" label="{{ ucfirst(__('Core::sysColor.singular')) }}" />
                 <x-sortable-column field="formateur_id" modelname="etatFormation" label="{{ ucfirst(__('PkgFormation::formateur.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
@@ -22,14 +21,6 @@
                             title="{{ $etatFormation->nom }}" 
                         @endif>
                         {{ Str::limit($etatFormation->nom, 40) }}
-                    </span>
-                    </td>
-                    <td>
-                     <span @if(strlen($etatFormation->workflowFormation) > 50) 
-                            data-toggle="tooltip" 
-                            title="{{ $etatFormation->workflowFormation }}" 
-                        @endif>
-                        {{ Str::limit($etatFormation->workflowFormation, 50) }}
                     </span>
                     </td>
                     <td>

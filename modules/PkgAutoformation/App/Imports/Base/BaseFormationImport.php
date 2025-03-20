@@ -57,13 +57,13 @@ class BaseFormationImport implements ToModel, WithHeadingRow
         // Création d'un nouvel enregistrement
         return new Formation([
              'nom' => $values[0] ?? null,
-             'lien' => $values[1] ?? null,
-             'description' => $values[2] ?? null,
+             'competence_id' => $values[1] ?? null,
+             'lien' => $values[2] ?? null,
              'is_officiel' => $values[3] ?? null,
              'reference' => $reference,
              'formateur_id' => $values[5] ?? null,
              'formation_officiel_id' => $values[6] ?? null,
-             'competence_id' => $values[7] ?? null,
+             'description' => $values[7] ?? null,
         ]);
 
 

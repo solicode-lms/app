@@ -6,9 +6,8 @@
         <thead>
             <tr>
                 <x-sortable-column field="nom" modelname="etatChapitre" label="{{ ucfirst(__('PkgAutoformation::etatChapitre.nom')) }}" />
-                <x-sortable-column field="workflow_chapitre_id" modelname="etatChapitre" label="{{ ucfirst(__('PkgAutoformation::workflowChapitre.singular')) }}" />
-                <x-sortable-column field="formateur_id" modelname="etatChapitre" label="{{ ucfirst(__('PkgFormation::formateur.singular')) }}" />
                 <x-sortable-column field="sys_color_id" modelname="etatChapitre" label="{{ ucfirst(__('Core::sysColor.singular')) }}" />
+                <x-sortable-column field="formateur_id" modelname="etatChapitre" label="{{ ucfirst(__('PkgFormation::formateur.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -25,11 +24,11 @@
                     </span>
                     </td>
                     <td>
-                     <span @if(strlen($etatChapitre->workflowChapitre) > 50) 
+                     <span @if(strlen($etatChapitre->sysColor) > 50) 
                             data-toggle="tooltip" 
-                            title="{{ $etatChapitre->workflowChapitre }}" 
+                            title="{{ $etatChapitre->sysColor }}" 
                         @endif>
-                        {{ Str::limit($etatChapitre->workflowChapitre, 50) }}
+                        {{ Str::limit($etatChapitre->sysColor, 50) }}
                     </span>
                     </td>
                     <td>
@@ -38,14 +37,6 @@
                             title="{{ $etatChapitre->formateur }}" 
                         @endif>
                         {{ Str::limit($etatChapitre->formateur, 50) }}
-                    </span>
-                    </td>
-                    <td>
-                     <span @if(strlen($etatChapitre->sysColor) > 50) 
-                            data-toggle="tooltip" 
-                            title="{{ $etatChapitre->sysColor }}" 
-                        @endif>
-                        {{ Str::limit($etatChapitre->sysColor, 50) }}
                     </span>
                     </td>
                     <td class="text-right">

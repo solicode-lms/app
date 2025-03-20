@@ -30,11 +30,11 @@ class BaseEtatChapitreRequest extends FormRequest
     {
         return [
             'nom' => 'required|string|max:255',
-            'is_editable_only_by_formateur' => 'nullable|boolean',
             'workflow_chapitre_id' => 'nullable',
+            'sys_color_id' => 'required',
+            'is_editable_only_by_formateur' => 'nullable|boolean',
             'description' => 'nullable|string',
-            'formateur_id' => 'required',
-            'sys_color_id' => 'required'
+            'formateur_id' => 'required'
         ];
     }
 
@@ -48,11 +48,11 @@ class BaseEtatChapitreRequest extends FormRequest
         return [
             'nom.required' => __('validation.required', ['attribute' => __('PkgAutoformation::EtatChapitre.nom')]),
             'nom.max' => __('validation.nomMax'),
-            'is_editable_only_by_formateur.required' => __('validation.required', ['attribute' => __('PkgAutoformation::EtatChapitre.is_editable_only_by_formateur')]),
             'workflow_chapitre_id.required' => __('validation.required', ['attribute' => __('PkgAutoformation::EtatChapitre.workflow_chapitre_id')]),
+            'sys_color_id.required' => __('validation.required', ['attribute' => __('PkgAutoformation::EtatChapitre.sys_color_id')]),
+            'is_editable_only_by_formateur.required' => __('validation.required', ['attribute' => __('PkgAutoformation::EtatChapitre.is_editable_only_by_formateur')]),
             'description.required' => __('validation.required', ['attribute' => __('PkgAutoformation::EtatChapitre.description')]),
-            'formateur_id.required' => __('validation.required', ['attribute' => __('PkgAutoformation::EtatChapitre.formateur_id')]),
-            'sys_color_id.required' => __('validation.required', ['attribute' => __('PkgAutoformation::EtatChapitre.sys_color_id')])
+            'formateur_id.required' => __('validation.required', ['attribute' => __('PkgAutoformation::EtatChapitre.formateur_id')])
         ];
     }
 

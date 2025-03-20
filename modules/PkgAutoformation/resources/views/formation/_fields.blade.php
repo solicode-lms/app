@@ -33,6 +33,34 @@
 
         
         <div class="form-group col-12 col-md-6">
+            <label for="competence_id">
+                {{ ucfirst(__('PkgCompetences::competence.singular')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <select 
+            id="competence_id" 
+            required
+            
+            name="competence_id" 
+            class="form-control select2">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($competences as $competence)
+                    <option value="{{ $competence->id }}"
+                        {{ (isset($itemFormation) && $itemFormation->competence_id == $competence->id) || (old('competence_id>') == $competence->id) ? 'selected' : '' }}>
+                        {{ $competence }}
+                    </option>
+                @endforeach
+            </select>
+            @error('competence_id')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+    </div>
+
+
+        
+        <div class="form-group col-12 col-md-6">
             <label for="lien">
                 {{ ucfirst(__('PkgAutoformation::formation.lien')) }}
                 
@@ -52,29 +80,36 @@
 </div>
 
         
-        <div class="form-group col-12 col-md-12">
-            <label for="description">
-                {{ ucfirst(__('PkgAutoformation::formation.description')) }}
-                
+                    <div class="form-group col-12 col-md-6">
+            <label for="technologies">
+                {{ ucfirst(__('PkgCompetences::Technology.plural')) }}
             </label>
-            <textarea rows="" cols=""
-                name="description"
-                class="form-control richText"
+            <select
+                id="technologies"
+                name="technologies[]"
+                class="form-control select2"
                 
-                
-                id="description"
-                placeholder="{{ __('PkgAutoformation::formation.description') }}">{{ $itemFormation ? $itemFormation->description : old('description') }}</textarea>
-            @error('description')
+                multiple="multiple">
+               
+                @foreach ($technologies as $technology)
+                    <option value="{{ $technology->id }}"
+                        {{ (isset($itemFormation) && $itemFormation->technologies && $itemFormation->technologies->contains('id', $technology->id)) || (is_array(old('technologies')) && in_array($technology->id, old('technologies'))) ? 'selected' : '' }}>
+                        {{ $technology }}
+                    </option>
+                @endforeach
+            </select>
+            @error('technologies')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-</div>
+
+        </div>
+
 
         
-        <div class="form-group col-12 col-md-6">
+        @php $canEditis_officiel = Auth::user()->hasAnyRole(explode(',', 'admin')); @endphp
+<div class="form-group col-12 col-md-6">
             <label for="is_officiel">
                 {{ ucfirst(__('PkgAutoformation::formation.is_officiel')) }}
-                
-                    <span class="text-danger">*</span>
                 
             </label>
             <input type="hidden" name="is_officiel" value="0">
@@ -82,9 +117,10 @@
                 name="is_officiel"
                 type="checkbox"
                 class="form-control"
-                required
+                
                 
                 id="is_officiel"
+                {{ $canEditis_officiel ? '' : 'disabled' }}
                 value="1"
                 {{ old('is_officiel', $itemFormation ? $itemFormation->is_officiel : 0) ? 'checked' : '' }}>
             @error('is_officiel')
@@ -119,6 +155,10 @@
 
 
         
+
+        <!--   Formation HasMany --> 
+
+        
         <div class="form-group col-12 col-md-6">
             <label for="formation_officiel_id">
                 {{ ucfirst(__('PkgAutoformation::formation.singular')) }}
@@ -145,68 +185,30 @@
 
 
         
-        <div class="form-group col-12 col-md-6">
-            <label for="competence_id">
-                {{ ucfirst(__('PkgCompetences::competence.singular')) }}
-                
-            </label>
-            <select 
-            id="competence_id" 
-            
-            
-            name="competence_id" 
-            class="form-control select2">
-             <option value="">Sélectionnez une option</option>
-                @foreach ($competences as $competence)
-                    <option value="{{ $competence->id }}"
-                        {{ (isset($itemFormation) && $itemFormation->competence_id == $competence->id) || (old('competence_id>') == $competence->id) ? 'selected' : '' }}>
-                        {{ $competence }}
-                    </option>
-                @endforeach
-            </select>
-            @error('competence_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
-
-
-        
 
         <!--   Chapitre HasMany --> 
 
         
-                    <div class="form-group col-12 col-md-6">
-            <label for="technologies">
-                {{ ucfirst(__('PkgCompetences::Technology.plural')) }}
-            </label>
-            <select
-                id="technologies"
-                name="technologies[]"
-                class="form-control select2"
-                
-                multiple="multiple">
-               
-                @foreach ($technologies as $technology)
-                    <option value="{{ $technology->id }}"
-                        {{ (isset($itemFormation) && $itemFormation->technologies && $itemFormation->technologies->contains('id', $technology->id)) || (is_array(old('technologies')) && in_array($technology->id, old('technologies'))) ? 'selected' : '' }}>
-                        {{ $technology }}
-                    </option>
-                @endforeach
-            </select>
-            @error('technologies')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-
-        </div>
-
-
-        
-
-        <!--   Formation HasMany --> 
-
-        
 
         <!--   RealisationFormation HasMany --> 
+
+        
+        <div class="form-group col-12 col-md-12">
+            <label for="description">
+                {{ ucfirst(__('PkgAutoformation::formation.description')) }}
+                
+            </label>
+            <textarea rows="" cols=""
+                name="description"
+                class="form-control richText"
+                
+                
+                id="description"
+                placeholder="{{ __('PkgAutoformation::formation.description') }}">{{ $itemFormation ? $itemFormation->description : old('description') }}</textarea>
+            @error('description')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
 
     </div>
 

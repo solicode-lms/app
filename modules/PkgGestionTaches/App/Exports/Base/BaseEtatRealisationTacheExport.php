@@ -29,22 +29,22 @@ class BaseEtatRealisationTacheExport implements FromCollection, WithHeadings, Sh
      if($this->format == 'csv'){
         return [
             'nom' => 'nom',
-            'description' => 'description',
+            'workflow_tache_id' => 'workflow_tache_id',
+            'sys_color_id' => 'sys_color_id',
             'is_editable_only_by_formateur' => 'is_editable_only_by_formateur',
             'reference' => 'reference',
             'formateur_id' => 'formateur_id',
-            'sys_color_id' => 'sys_color_id',
-            'workflow_tache_id' => 'workflow_tache_id',
+            'description' => 'description',
         ];
         }else{
         return [
             'nom' => __('PkgGestionTaches::etatRealisationTache.nom'),
-            'description' => __('PkgGestionTaches::etatRealisationTache.description'),
+            'workflow_tache_id' => __('PkgGestionTaches::etatRealisationTache.workflow_tache_id'),
+            'sys_color_id' => __('PkgGestionTaches::etatRealisationTache.sys_color_id'),
             'is_editable_only_by_formateur' => __('PkgGestionTaches::etatRealisationTache.is_editable_only_by_formateur'),
             'reference' => __('Core::msg.reference'),
             'formateur_id' => __('PkgGestionTaches::etatRealisationTache.formateur_id'),
-            'sys_color_id' => __('PkgGestionTaches::etatRealisationTache.sys_color_id'),
-            'workflow_tache_id' => __('PkgGestionTaches::etatRealisationTache.workflow_tache_id'),
+            'description' => __('PkgGestionTaches::etatRealisationTache.description'),
         ];
 
         }
@@ -56,12 +56,12 @@ class BaseEtatRealisationTacheExport implements FromCollection, WithHeadings, Sh
         return $this->data->map(function ($etatRealisationTache) {
             return [
                 'nom' => $etatRealisationTache->nom,
-                'description' => $etatRealisationTache->description,
+                'workflow_tache_id' => $etatRealisationTache->workflow_tache_id,
+                'sys_color_id' => $etatRealisationTache->sys_color_id,
                 'is_editable_only_by_formateur' => $etatRealisationTache->is_editable_only_by_formateur,
                 'reference' => $etatRealisationTache->reference,
                 'formateur_id' => $etatRealisationTache->formateur_id,
-                'sys_color_id' => $etatRealisationTache->sys_color_id,
-                'workflow_tache_id' => $etatRealisationTache->workflow_tache_id,
+                'description' => $etatRealisationTache->description,
             ];
         });
     }

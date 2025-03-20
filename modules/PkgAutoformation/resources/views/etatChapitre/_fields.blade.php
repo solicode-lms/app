@@ -33,27 +33,6 @@
 
         
         <div class="form-group col-12 col-md-6">
-            <label for="is_editable_only_by_formateur">
-                {{ ucfirst(__('PkgAutoformation::etatChapitre.is_editable_only_by_formateur')) }}
-                
-            </label>
-            <input type="hidden" name="is_editable_only_by_formateur" value="0">
-            <input
-                name="is_editable_only_by_formateur"
-                type="checkbox"
-                class="form-control"
-                
-                
-                id="is_editable_only_by_formateur"
-                value="1"
-                {{ old('is_editable_only_by_formateur', $itemEtatChapitre ? $itemEtatChapitre->is_editable_only_by_formateur : 0) ? 'checked' : '' }}>
-            @error('is_editable_only_by_formateur')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
-
-        
-        <div class="form-group col-12 col-md-6">
             <label for="workflow_chapitre_id">
                 {{ ucfirst(__('PkgAutoformation::workflowChapitre.singular')) }}
                 
@@ -77,6 +56,55 @@
             @enderror
     </div>
 
+
+        
+        <div class="form-group col-12 col-md-6">
+            <label for="sys_color_id">
+                {{ ucfirst(__('Core::sysColor.singular')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <select 
+            id="sys_color_id" 
+            required
+            
+            name="sys_color_id" 
+            class="form-control select2Color">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($sysColors as $sysColor)
+                    <option value="{{ $sysColor->id }}" data-color="{{ $sysColor->hex }}" 
+                        {{ (isset($itemEtatChapitre) && $itemEtatChapitre->sys_color_id == $sysColor->id) || (old('sys_color_id>') == $sysColor->id) ? 'selected' : '' }}>
+                        {{ $sysColor }}
+                    </option>
+                @endforeach
+            </select>
+            @error('sys_color_id')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+    </div>
+
+
+        
+        <div class="form-group col-12 col-md-6">
+            <label for="is_editable_only_by_formateur">
+                {{ ucfirst(__('PkgAutoformation::etatChapitre.is_editable_only_by_formateur')) }}
+                
+            </label>
+            <input type="hidden" name="is_editable_only_by_formateur" value="0">
+            <input
+                name="is_editable_only_by_formateur"
+                type="checkbox"
+                class="form-control"
+                
+                
+                id="is_editable_only_by_formateur"
+                value="1"
+                {{ old('is_editable_only_by_formateur', $itemEtatChapitre ? $itemEtatChapitre->is_editable_only_by_formateur : 0) ? 'checked' : '' }}>
+            @error('is_editable_only_by_formateur')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
 
         
         <div class="form-group col-12 col-md-12">
@@ -119,34 +147,6 @@
                 @endforeach
             </select>
             @error('formateur_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
-
-
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="sys_color_id">
-                {{ ucfirst(__('Core::sysColor.singular')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <select 
-            id="sys_color_id" 
-            required
-            
-            name="sys_color_id" 
-            class="form-control select2Color">
-             <option value="">Sélectionnez une option</option>
-                @foreach ($sysColors as $sysColor)
-                    <option value="{{ $sysColor->id }}" data-color="{{ $sysColor->hex }}" 
-                        {{ (isset($itemEtatChapitre) && $itemEtatChapitre->sys_color_id == $sysColor->id) || (old('sys_color_id>') == $sysColor->id) ? 'selected' : '' }}>
-                        {{ $sysColor }}
-                    </option>
-                @endforeach
-            </select>
-            @error('sys_color_id')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
     </div>

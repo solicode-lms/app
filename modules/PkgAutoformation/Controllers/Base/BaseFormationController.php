@@ -39,6 +39,10 @@ class BaseFormationController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('formation.index');
+        // ownedByUser
+        if(Auth::user()->hasRole('formateur') && $this->viewState->get('filter.formation.formateur_id') == null){
+           $this->viewState->init('filter.formation.formateur_id'  , $this->sessionState->get('formateur_id'));
+        }
 
 
 
@@ -65,15 +69,19 @@ class BaseFormationController extends AdminController
         return view('PkgAutoformation::formation.index', compact('formations_data', 'formations_stats', 'formations_filters','formation_instance'));
     }
     public function create() {
+        // ownedByUser
+        if(Auth::user()->hasRole('formateur')){
+           $this->viewState->set('scope_form.formation.formateur_id'  , $this->sessionState->get('formateur_id'));
+        }
 
 
         $itemFormation = $this->formationService->createInstance();
         
 
-        $formateurs = $this->formateurService->all();
-        $formations = $this->formationService->all();
         $competences = $this->competenceService->all();
         $technologies = $this->technologyService->all();
+        $formateurs = $this->formateurService->all();
+        $formations = $this->formationService->all();
 
         if (request()->ajax()) {
             return view('PkgAutoformation::formation._fields', compact('itemFormation', 'technologies', 'competences', 'formateurs', 'formations'));
@@ -109,22 +117,14 @@ class BaseFormationController extends AdminController
 
 
         $itemFormation = $this->formationService->find($id);
+        $this->authorize('view', $itemFormation);
 
 
-        $formateurs = $this->formateurService->all();
-        $formations = $this->formationService->all();
         $competences = $this->competenceService->all();
         $technologies = $this->technologyService->all();
+        $formateurs = $this->formateurService->all();
+        $formations = $this->formationService->all();
 
-
-        $this->viewState->set('scope.chapitre.formation_id', $id);
-
-
-        $chapitreService =  new ChapitreService();
-        $chapitres_data =  $chapitreService->paginate();
-        $chapitres_stats = $chapitreService->getchapitreStats();
-        $chapitres_filters = $chapitreService->getFieldsFilterable();
-        $chapitre_instance =  $chapitreService->createInstance();
 
         $this->viewState->set('scope.formation.formation_officiel_id', $id);
 
@@ -134,6 +134,15 @@ class BaseFormationController extends AdminController
         $formations_stats = $formationService->getformationStats();
         $formations_filters = $formationService->getFieldsFilterable();
         $formation_instance =  $formationService->createInstance();
+
+        $this->viewState->set('scope.chapitre.formation_id', $id);
+
+
+        $chapitreService =  new ChapitreService();
+        $chapitres_data =  $chapitreService->paginate();
+        $chapitres_stats = $chapitreService->getchapitreStats();
+        $chapitres_filters = $chapitreService->getFieldsFilterable();
+        $chapitre_instance =  $chapitreService->createInstance();
 
         $this->viewState->set('scope.realisationFormation.formation_id', $id);
 
@@ -145,10 +154,10 @@ class BaseFormationController extends AdminController
         $realisationFormation_instance =  $realisationFormationService->createInstance();
 
         if (request()->ajax()) {
-            return view('PkgAutoformation::formation._edit', compact('itemFormation', 'technologies', 'competences', 'formateurs', 'formations', 'chapitres_data', 'formations_data', 'realisationFormations_data', 'chapitres_stats', 'formations_stats', 'realisationFormations_stats', 'chapitres_filters', 'formations_filters', 'realisationFormations_filters', 'chapitre_instance', 'formation_instance', 'realisationFormation_instance'));
+            return view('PkgAutoformation::formation._edit', compact('itemFormation', 'technologies', 'competences', 'formateurs', 'formations', 'formations_data', 'chapitres_data', 'realisationFormations_data', 'formations_stats', 'chapitres_stats', 'realisationFormations_stats', 'formations_filters', 'chapitres_filters', 'realisationFormations_filters', 'formation_instance', 'chapitre_instance', 'realisationFormation_instance'));
         }
 
-        return view('PkgAutoformation::formation.edit', compact('itemFormation', 'technologies', 'competences', 'formateurs', 'formations', 'chapitres_data', 'formations_data', 'realisationFormations_data', 'chapitres_stats', 'formations_stats', 'realisationFormations_stats', 'chapitres_filters', 'formations_filters', 'realisationFormations_filters', 'chapitre_instance', 'formation_instance', 'realisationFormation_instance'));
+        return view('PkgAutoformation::formation.edit', compact('itemFormation', 'technologies', 'competences', 'formateurs', 'formations', 'formations_data', 'chapitres_data', 'realisationFormations_data', 'formations_stats', 'chapitres_stats', 'realisationFormations_stats', 'formations_filters', 'chapitres_filters', 'realisationFormations_filters', 'formation_instance', 'chapitre_instance', 'realisationFormation_instance'));
 
     }
     public function edit(string $id) {
@@ -157,23 +166,14 @@ class BaseFormationController extends AdminController
 
 
         $itemFormation = $this->formationService->find($id);
+        $this->authorize('edit', $itemFormation);
 
 
-        $formateurs = $this->formateurService->all();
-        $formations = $this->formationService->all();
         $competences = $this->competenceService->all();
         $technologies = $this->technologyService->all();
+        $formateurs = $this->formateurService->all();
+        $formations = $this->formationService->all();
 
-
-        $this->viewState->set('scope.chapitre.formation_id', $id);
-        
-
-        $chapitreService =  new ChapitreService();
-        $chapitres_data =  $chapitreService->paginate();
-        $chapitres_stats = $chapitreService->getchapitreStats();
-        $this->viewState->set('stats.chapitre.stats'  , $chapitres_stats);
-        $chapitres_filters = $chapitreService->getFieldsFilterable();
-        $chapitre_instance =  $chapitreService->createInstance();
 
         $this->viewState->set('scope.formation.formation_officiel_id', $id);
         
@@ -184,6 +184,16 @@ class BaseFormationController extends AdminController
         $this->viewState->set('stats.formation.stats'  , $formations_stats);
         $formations_filters = $formationService->getFieldsFilterable();
         $formation_instance =  $formationService->createInstance();
+
+        $this->viewState->set('scope.chapitre.formation_id', $id);
+        
+
+        $chapitreService =  new ChapitreService();
+        $chapitres_data =  $chapitreService->paginate();
+        $chapitres_stats = $chapitreService->getchapitreStats();
+        $this->viewState->set('stats.chapitre.stats'  , $chapitres_stats);
+        $chapitres_filters = $chapitreService->getFieldsFilterable();
+        $chapitre_instance =  $chapitreService->createInstance();
 
         $this->viewState->set('scope.realisationFormation.formation_id', $id);
         
@@ -196,13 +206,16 @@ class BaseFormationController extends AdminController
         $realisationFormation_instance =  $realisationFormationService->createInstance();
 
         if (request()->ajax()) {
-            return view('PkgAutoformation::formation._edit', compact('itemFormation', 'technologies', 'competences', 'formateurs', 'formations', 'chapitres_data', 'formations_data', 'realisationFormations_data', 'chapitres_stats', 'formations_stats', 'realisationFormations_stats', 'chapitres_filters', 'formations_filters', 'realisationFormations_filters', 'chapitre_instance', 'formation_instance', 'realisationFormation_instance'));
+            return view('PkgAutoformation::formation._edit', compact('itemFormation', 'technologies', 'competences', 'formateurs', 'formations', 'formations_data', 'chapitres_data', 'realisationFormations_data', 'formations_stats', 'chapitres_stats', 'realisationFormations_stats', 'formations_filters', 'chapitres_filters', 'realisationFormations_filters', 'formation_instance', 'chapitre_instance', 'realisationFormation_instance'));
         }
 
-        return view('PkgAutoformation::formation.edit', compact('itemFormation', 'technologies', 'competences', 'formateurs', 'formations', 'chapitres_data', 'formations_data', 'realisationFormations_data', 'chapitres_stats', 'formations_stats', 'realisationFormations_stats', 'chapitres_filters', 'formations_filters', 'realisationFormations_filters', 'chapitre_instance', 'formation_instance', 'realisationFormation_instance'));
+        return view('PkgAutoformation::formation.edit', compact('itemFormation', 'technologies', 'competences', 'formateurs', 'formations', 'formations_data', 'chapitres_data', 'realisationFormations_data', 'formations_stats', 'chapitres_stats', 'realisationFormations_stats', 'formations_filters', 'chapitres_filters', 'realisationFormations_filters', 'formation_instance', 'chapitre_instance', 'realisationFormation_instance'));
 
     }
     public function update(FormationRequest $request, string $id) {
+        // Vérifie si l'utilisateur peut mettre à jour l'objet 
+        $formation = $this->formationService->find($id);
+        $this->authorize('update', $formation);
 
         $validatedData = $request->validated();
         $formation = $this->formationService->update($id, $validatedData);
@@ -228,6 +241,9 @@ class BaseFormationController extends AdminController
 
     }
     public function destroy(Request $request, string $id) {
+        // Vérifie si l'utilisateur peut mettre à jour l'objet 
+        $formation = $this->formationService->find($id);
+        $this->authorize('delete', $formation);
 
         $formation = $this->formationService->destroy($id);
 

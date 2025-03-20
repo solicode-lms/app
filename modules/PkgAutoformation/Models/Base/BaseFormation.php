@@ -11,9 +11,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
+use Modules\PkgCompetences\Models\Competence;
 use Modules\PkgFormation\Models\Formateur;
 use Modules\PkgAutoformation\Models\Formation;
-use Modules\PkgCompetences\Models\Competence;
 use Modules\PkgCompetences\Models\Technology;
 use Modules\PkgAutoformation\Models\Chapitre;
 use Modules\PkgAutoformation\Models\RealisationFormation;
@@ -24,11 +24,12 @@ use Modules\PkgAutoformation\Models\RealisationFormation;
  */
 class BaseFormation extends BaseModel
 {
-    use HasFactory, HasDynamicContext;
+    use HasFactory, HasDynamicContext, OwnedByUser;
 
     public function __construct(array $attributes = []) {
         parent::__construct($attributes); 
-        $this->isOwnedByUser =  false;
+        $this->isOwnedByUser =  true;
+        $this->ownerRelationPath = "formateur.user";
     }
 
     
@@ -38,13 +39,22 @@ class BaseFormation extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'nom', 'lien', 'description', 'is_officiel', 'formateur_id', 'formation_officiel_id', 'competence_id'
+        'nom', 'competence_id', 'lien', 'is_officiel', 'formateur_id', 'formation_officiel_id', 'description'
     ];
     public $manyToMany = [
         'Technology' => ['relation' => 'technologies' , "foreign_key" => "technology_id" ]
     ];
 
 
+    /**
+     * Relation BelongsTo pour Competence.
+     *
+     * @return BelongsTo
+     */
+    public function competence(): BelongsTo
+    {
+        return $this->belongsTo(Competence::class, 'competence_id', 'id');
+    }
     /**
      * Relation BelongsTo pour Formateur.
      *
@@ -63,15 +73,6 @@ class BaseFormation extends BaseModel
     {
         return $this->belongsTo(Formation::class, 'formation_officiel_id', 'id');
     }
-    /**
-     * Relation BelongsTo pour Competence.
-     *
-     * @return BelongsTo
-     */
-    public function competence(): BelongsTo
-    {
-        return $this->belongsTo(Competence::class, 'competence_id', 'id');
-    }
 
     /**
      * Relation ManyToMany pour Technologies.
@@ -88,18 +89,18 @@ class BaseFormation extends BaseModel
      *
      * @return HasMany
      */
-    public function chapitres(): HasMany
+    public function formationOfficielIdFormations(): HasMany
     {
-        return $this->hasMany(Chapitre::class, 'formation_id', 'id');
+        return $this->hasMany(Formation::class, 'formation_officiel_id', 'id');
     }
     /**
      * Relation HasMany pour Formations.
      *
      * @return HasMany
      */
-    public function formationOfficielIdFormations(): HasMany
+    public function chapitres(): HasMany
     {
-        return $this->hasMany(Formation::class, 'formation_officiel_id', 'id');
+        return $this->hasMany(Chapitre::class, 'formation_id', 'id');
     }
     /**
      * Relation HasMany pour Formations.

@@ -3,28 +3,26 @@
 namespace Modules\PkgAutoformation\Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Modules\PkgAutoformation\Models\WorkflowFormation;
+use Modules\PkgAutoformation\Models\WorkflowChapitre;
 use Modules\PkgFormation\Models\Formateur;
-use Modules\PkgAutoformation\Models\EtatFormation;
+use Modules\PkgAutoformation\Models\EtatChapitre;
 use Illuminate\Support\Facades\DB;
 
-class AddDefaultEtatSeeder extends Seeder
+class AddDefaultEtatChapitreSeeder extends Seeder
 {
-
-    public static int $order = 79;
     /**
-     * Exécute les ajouts d'états de formation par défaut pour chaque formateur existant.
+     * Exécute les ajouts d'états de chapitre par défaut pour chaque formateur existant.
      *
      * @return void
      */
     public function run()
     {
         DB::transaction(function () {
-            // Récupérer tous les workflows de formation existants
-            $workflows = WorkflowFormation::with('sysColor')->get();
+            // Récupérer tous les workflows de chapitre existants avec leur couleur associée
+            $workflows = WorkflowChapitre::with('sysColor')->get();
 
             if ($workflows->isEmpty()) {
-                $this->command->info("Aucun workflow de formation trouvé.");
+                $this->command->info("Aucun workflow de chapitre trouvé.");
                 return;
             }
 
@@ -36,19 +34,19 @@ class AddDefaultEtatSeeder extends Seeder
                 return;
             }
 
-            // Assigner chaque état de workflow à chaque formateur
+            // Assigner chaque état de workflow de chapitre à chaque formateur
             foreach ($formateurs as $formateur) {
                 foreach ($workflows as $workflow) {
                     // Vérifier si l'état existe déjà pour éviter les doublons
-                    $exists = EtatFormation::where('formateur_id', $formateur->id)
-                        ->where('workflow_formation_id', $workflow->id)
+                    $exists = EtatChapitre::where('formateur_id', $formateur->id)
+                        ->where('workflow_chapitre_id', $workflow->id)
                         ->exists();
 
                     if (!$exists) {
-                        EtatFormation::create([
+                        EtatChapitre::create([
                             'nom' => $workflow->titre,
-                            'workflow_formation_id' => $workflow->id,
-                            'sys_color_id' => $workflow->sys_color_id ?? null, // Récupération de la couleur associée au workflow
+                            'workflow_chapitre_id' => $workflow->id,
+                            'sys_color_id' => $workflow->sys_color_id ?? null, // Héritage de la couleur du workflow
                             'is_editable_only_by_formateur' => false,
                             'formateur_id' => $formateur->id,
                             'description' => $workflow->description,
@@ -57,7 +55,7 @@ class AddDefaultEtatSeeder extends Seeder
                 }
             }
 
-            $this->command->info("Les états de formation par défaut ont été ajoutés pour tous les formateurs.");
+            $this->command->info("Les états de chapitre par défaut ont été ajoutés pour tous les formateurs.");
         });
     }
 }

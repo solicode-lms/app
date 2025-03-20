@@ -57,12 +57,12 @@ class BaseEtatRealisationTacheImport implements ToModel, WithHeadingRow
         // Création d'un nouvel enregistrement
         return new EtatRealisationTache([
              'nom' => $values[0] ?? null,
-             'description' => $values[1] ?? null,
-             'is_editable_only_by_formateur' => $values[2] ?? null,
+             'workflow_tache_id' => $values[1] ?? null,
+             'sys_color_id' => $values[2] ?? null,
+             'is_editable_only_by_formateur' => $values[3] ?? null,
              'reference' => $reference,
-             'formateur_id' => $values[4] ?? null,
-             'sys_color_id' => $values[5] ?? null,
-             'workflow_tache_id' => $values[6] ?? null,
+             'formateur_id' => $values[5] ?? null,
+             'description' => $values[6] ?? null,
         ]);
 
 

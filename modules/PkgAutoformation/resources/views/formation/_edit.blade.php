@@ -36,10 +36,10 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" id="formation-hasmany-tabs-chapitre-tab" data-toggle="pill" href="#formation-hasmany-tabs-chapitre" role="tab" aria-controls="formation-hasmany-tabs-chapitre" aria-selected="false">{{__('PkgAutoformation::chapitre.plural')}}</a>
+                            <a class="nav-link" id="formation-hasmany-tabs-formation-tab" data-toggle="pill" href="#formation-hasmany-tabs-formation" role="tab" aria-controls="formation-hasmany-tabs-formation" aria-selected="false">{{__('PkgAutoformation::formation.plural')}}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="formation-hasmany-tabs-formation-tab" data-toggle="pill" href="#formation-hasmany-tabs-formation" role="tab" aria-controls="formation-hasmany-tabs-formation" aria-selected="false">{{__('PkgAutoformation::formation.plural')}}</a>
+                            <a class="nav-link" id="formation-hasmany-tabs-chapitre-tab" data-toggle="pill" href="#formation-hasmany-tabs-chapitre" role="tab" aria-controls="formation-hasmany-tabs-chapitre" aria-selected="false">{{__('PkgAutoformation::chapitre.plural')}}</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="formation-hasmany-tabs-realisationFormation-tab" data-toggle="pill" href="#formation-hasmany-tabs-realisationFormation" role="tab" aria-controls="formation-hasmany-tabs-realisationFormation" aria-selected="false">{{__('PkgAutoformation::realisationFormation.plural')}}</a>
@@ -54,11 +54,11 @@
                                 @include('PkgAutoformation::formation._fields')
                             </div>
 
-                            <div class="tab-pane fade" id="formation-hasmany-tabs-chapitre" role="tabpanel" aria-labelledby="formation-hasmany-tabs-chapitre-tab">
-                                @include('PkgAutoformation::chapitre._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'formation.edit_' . $itemFormation->id])
-                            </div>
                             <div class="tab-pane fade" id="formation-hasmany-tabs-formation" role="tabpanel" aria-labelledby="formation-hasmany-tabs-formation-tab">
                                 @include('PkgAutoformation::formation._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'formation.edit_' . $itemFormation->id])
+                            </div>
+                            <div class="tab-pane fade" id="formation-hasmany-tabs-chapitre" role="tabpanel" aria-labelledby="formation-hasmany-tabs-chapitre-tab">
+                                @include('PkgAutoformation::chapitre._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'formation.edit_' . $itemFormation->id])
                             </div>
                             <div class="tab-pane fade" id="formation-hasmany-tabs-realisationFormation" role="tabpanel" aria-labelledby="formation-hasmany-tabs-realisationFormation-tab">
                                 @include('PkgAutoformation::realisationFormation._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'formation.edit_' . $itemFormation->id])

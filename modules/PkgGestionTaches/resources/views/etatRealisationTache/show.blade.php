@@ -29,8 +29,12 @@
                                 <p>{{ $itemEtatRealisationTache->nom }}</p>
                             </div>
                             <div class="col-sm-12">
-                                <label for="description">{{ ucfirst(__('PkgGestionTaches::etatRealisationTache.description')) }}:</label>
-                                <p>{{ $itemEtatRealisationTache->description }}</p>
+                                <label for="workflow_tache_id">{{ ucfirst(__('PkgGestionTaches::etatRealisationTache.workflow_tache_id')) }}:</label>
+                                <p>{{ $itemEtatRealisationTache->workflow_tache_id }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="sys_color_id">{{ ucfirst(__('PkgGestionTaches::etatRealisationTache.sys_color_id')) }}:</label>
+                                <p>{{ $itemEtatRealisationTache->sys_color_id }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="is_editable_only_by_formateur">{{ ucfirst(__('PkgGestionTaches::etatRealisationTache.is_editable_only_by_formateur')) }}:</label>
@@ -41,12 +45,8 @@
                                 <p>{{ $itemEtatRealisationTache->formateur_id }}</p>
                             </div>
                             <div class="col-sm-12">
-                                <label for="sys_color_id">{{ ucfirst(__('PkgGestionTaches::etatRealisationTache.sys_color_id')) }}:</label>
-                                <p>{{ $itemEtatRealisationTache->sys_color_id }}</p>
-                            </div>
-                            <div class="col-sm-12">
-                                <label for="workflow_tache_id">{{ ucfirst(__('PkgGestionTaches::etatRealisationTache.workflow_tache_id')) }}:</label>
-                                <p>{{ $itemEtatRealisationTache->workflow_tache_id }}</p>
+                                <label for="description">{{ ucfirst(__('PkgGestionTaches::etatRealisationTache.description')) }}:</label>
+                                <p>{{ $itemEtatRealisationTache->description }}</p>
                             </div>
                         </div>
                     </div>

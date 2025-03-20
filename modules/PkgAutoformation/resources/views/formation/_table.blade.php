@@ -6,10 +6,9 @@
         <thead>
             <tr>
                 <x-sortable-column field="nom" modelname="formation" label="{{ ucfirst(__('PkgAutoformation::formation.nom')) }}" />
-                <x-sortable-column field="lien" modelname="formation" label="{{ ucfirst(__('PkgAutoformation::formation.lien')) }}" />
-                <x-sortable-column field="formateur_id" modelname="formation" label="{{ ucfirst(__('PkgFormation::formateur.singular')) }}" />
-                <x-sortable-column field="formation_officiel_id" modelname="formation" label="{{ ucfirst(__('PkgAutoformation::formation.singular')) }}" />
                 <x-sortable-column field="competence_id" modelname="formation" label="{{ ucfirst(__('PkgCompetences::competence.singular')) }}" />
+                <x-sortable-column field="is_officiel" modelname="formation" label="{{ ucfirst(__('PkgAutoformation::formation.is_officiel')) }}" />
+                <x-sortable-column field="formateur_id" modelname="formation" label="{{ ucfirst(__('PkgFormation::formateur.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -26,11 +25,19 @@
                     </span>
                     </td>
                     <td>
-                     <span @if(strlen($formation->lien) > 40) 
+                     <span @if(strlen($formation->competence) > 50) 
                             data-toggle="tooltip" 
-                            title="{{ $formation->lien }}" 
+                            title="{{ $formation->competence }}" 
                         @endif>
-                        {{ Str::limit($formation->lien, 40) }}
+                        {{ Str::limit($formation->competence, 50) }}
+                    </span>
+                    </td>
+                    <td>
+                     <span @if(strlen($formation->is_officiel) > 40) 
+                            data-toggle="tooltip" 
+                            title="{{ $formation->is_officiel }}" 
+                        @endif>
+                        {{ Str::limit($formation->is_officiel, 40) }}
                     </span>
                     </td>
                     <td>
@@ -39,22 +46,6 @@
                             title="{{ $formation->formateur }}" 
                         @endif>
                         {{ Str::limit($formation->formateur, 50) }}
-                    </span>
-                    </td>
-                    <td>
-                     <span @if(strlen($formation->formationOfficiel) > 50) 
-                            data-toggle="tooltip" 
-                            title="{{ $formation->formationOfficiel }}" 
-                        @endif>
-                        {{ Str::limit($formation->formationOfficiel, 50) }}
-                    </span>
-                    </td>
-                    <td>
-                     <span @if(strlen($formation->competence) > 50) 
-                            data-toggle="tooltip" 
-                            title="{{ $formation->competence }}" 
-                        @endif>
-                        {{ Str::limit($formation->competence, 50) }}
                     </span>
                     </td>
                     <td class="text-right">

@@ -99,7 +99,8 @@
     },
     {
         "reference": "EtatChapitre_workflow_chapitre_id_displayInTable",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "EtatChapitre_workflow_chapitre_id",
         "e_metadata_definition_reference": "displayInTable"
     },
@@ -111,7 +112,9 @@
     },
     {
         "reference": "EtatChapitre_workflow_chapitre_id_displayOrder",
-        "value_integer": 5,
+        "value_boolean": 0,
+        "value_integer": 4,
+        "value_float": 0,
         "e_data_field_reference": "EtatChapitre_workflow_chapitre_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -189,7 +192,8 @@
     },
     {
         "reference": "etat_chapitres_hasMany_realisation_chapitres_etat_chapitre_id_editHasMany",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "etat_chapitres_hasMany_realisation_chapitres_etat_chapitre_id",
         "e_metadata_definition_reference": "editHasMany"
     },
@@ -213,7 +217,9 @@
     },
     {
         "reference": "EtatChapitre_is_editable_only_by_formateur_displayOrder",
-        "value_integer": 4,
+        "value_boolean": 0,
+        "value_integer": 6,
+        "value_float": 0,
         "e_data_field_reference": "EtatChapitre_is_editable_only_by_formateur",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -285,7 +291,9 @@
     },
     {
         "reference": "EtatChapitre_sys_color_id_displayOrder",
-        "value_integer": 9,
+        "value_boolean": 0,
+        "value_integer": 5,
+        "value_float": 0,
         "e_data_field_reference": "EtatChapitre_sys_color_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -314,5 +322,20 @@
         "value_boolean": 1,
         "e_data_field_reference": "EtatChapitre_nom",
         "e_metadata_definition_reference": "displayField"
+    },
+    {
+        "reference": "etat_chapitres_ownedByUser",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": [
+            {
+                "role": "formateur",
+                "dataScope": "scope",
+                "userModelName": "Formateur",
+                "ownerRelationPath": "formateur.user"
+            }
+        ],
+        "e_model_reference": "etat_chapitres",
+        "e_metadata_definition_reference": "ownedByUser"
     }
 ]

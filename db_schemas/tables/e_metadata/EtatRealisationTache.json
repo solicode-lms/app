@@ -81,7 +81,9 @@
     },
     {
         "reference": "EtatRealisationTache_description_displayOrder",
-        "value_integer": 3,
+        "value_boolean": 0,
+        "value_integer": 10,
+        "value_float": 0,
         "e_data_field_reference": "EtatRealisationTache_description",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -99,7 +101,9 @@
     },
     {
         "reference": "EtatRealisationTache_is_editable_only_by_formateur_displayOrder",
-        "value_integer": 4,
+        "value_boolean": 0,
+        "value_integer": 5,
+        "value_float": 0,
         "e_data_field_reference": "EtatRealisationTache_is_editable_only_by_formateur",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -195,7 +199,9 @@
     },
     {
         "reference": "EtatRealisationTache_sys_color_id_displayOrder",
-        "value_integer": 7,
+        "value_boolean": 0,
+        "value_integer": 4,
+        "value_float": 0,
         "e_data_field_reference": "EtatRealisationTache_sys_color_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -301,7 +307,9 @@
     },
     {
         "reference": "EtatRealisationTache_workflow_tache_id_displayOrder",
-        "value_integer": 10,
+        "value_boolean": 0,
+        "value_integer": 3,
+        "value_float": 0,
         "e_data_field_reference": "EtatRealisationTache_workflow_tache_id",
         "e_metadata_definition_reference": "displayOrder"
     },

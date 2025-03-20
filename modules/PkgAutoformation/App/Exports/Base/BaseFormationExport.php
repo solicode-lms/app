@@ -29,24 +29,24 @@ class BaseFormationExport implements FromCollection, WithHeadings, ShouldAutoSiz
      if($this->format == 'csv'){
         return [
             'nom' => 'nom',
+            'competence_id' => 'competence_id',
             'lien' => 'lien',
-            'description' => 'description',
             'is_officiel' => 'is_officiel',
             'reference' => 'reference',
             'formateur_id' => 'formateur_id',
             'formation_officiel_id' => 'formation_officiel_id',
-            'competence_id' => 'competence_id',
+            'description' => 'description',
         ];
         }else{
         return [
             'nom' => __('PkgAutoformation::formation.nom'),
+            'competence_id' => __('PkgAutoformation::formation.competence_id'),
             'lien' => __('PkgAutoformation::formation.lien'),
-            'description' => __('PkgAutoformation::formation.description'),
             'is_officiel' => __('PkgAutoformation::formation.is_officiel'),
             'reference' => __('Core::msg.reference'),
             'formateur_id' => __('PkgAutoformation::formation.formateur_id'),
             'formation_officiel_id' => __('PkgAutoformation::formation.formation_officiel_id'),
-            'competence_id' => __('PkgAutoformation::formation.competence_id'),
+            'description' => __('PkgAutoformation::formation.description'),
         ];
 
         }
@@ -58,13 +58,13 @@ class BaseFormationExport implements FromCollection, WithHeadings, ShouldAutoSiz
         return $this->data->map(function ($formation) {
             return [
                 'nom' => $formation->nom,
+                'competence_id' => $formation->competence_id,
                 'lien' => $formation->lien,
-                'description' => $formation->description,
                 'is_officiel' => $formation->is_officiel,
                 'reference' => $formation->reference,
                 'formateur_id' => $formation->formateur_id,
                 'formation_officiel_id' => $formation->formation_officiel_id,
-                'competence_id' => $formation->competence_id,
+                'description' => $formation->description,
             ];
         });
     }

@@ -30,13 +30,13 @@ class BaseFormationRequest extends FormRequest
     {
         return [
             'nom' => 'required|string|max:255',
+            'competence_id' => 'nullable',
             'lien' => 'nullable|string|max:255',
-            'description' => 'nullable|string',
+            'technologies' => 'nullable|array',
             'is_officiel' => 'required|boolean',
             'formateur_id' => 'nullable',
             'formation_officiel_id' => 'nullable',
-            'competence_id' => 'nullable',
-            'technologies' => 'nullable|array'
+            'description' => 'nullable|string'
         ];
     }
 
@@ -50,17 +50,48 @@ class BaseFormationRequest extends FormRequest
         return [
             'nom.required' => __('validation.required', ['attribute' => __('PkgAutoformation::Formation.nom')]),
             'nom.max' => __('validation.nomMax'),
+            'competence_id.required' => __('validation.required', ['attribute' => __('PkgAutoformation::Formation.competence_id')]),
             'lien.required' => __('validation.required', ['attribute' => __('PkgAutoformation::Formation.lien')]),
             'lien.max' => __('validation.lienMax'),
-            'description.required' => __('validation.required', ['attribute' => __('PkgAutoformation::Formation.description')]),
+            'technologies.required' => __('validation.required', ['attribute' => __('PkgAutoformation::Formation.technologies')]),
+            'technologies.array' => __('validation.array', ['attribute' => __('PkgAutoformation::Formation.technologies')]),
             'is_officiel.required' => __('validation.required', ['attribute' => __('PkgAutoformation::Formation.is_officiel')]),
             'formateur_id.required' => __('validation.required', ['attribute' => __('PkgAutoformation::Formation.formateur_id')]),
             'formation_officiel_id.required' => __('validation.required', ['attribute' => __('PkgAutoformation::Formation.formation_officiel_id')]),
-            'competence_id.required' => __('validation.required', ['attribute' => __('PkgAutoformation::Formation.competence_id')]),
-            'technologies.required' => __('validation.required', ['attribute' => __('PkgAutoformation::Formation.technologies')]),
-            'technologies.array' => __('validation.array', ['attribute' => __('PkgAutoformation::Formation.technologies')])
+            'description.required' => __('validation.required', ['attribute' => __('PkgAutoformation::Formation.description')])
         ];
     }
 
+    
+    protected function prepareForValidation()
+    {
+        $user = Auth::user();
+
+        // Définition des rôles autorisés pour chaque champ
+        $editableFieldsByRoles = [
+            
+            'is_officiel' => "admin",
+            
+        ];
+
+        // Charger l'instance actuelle du modèle (optionnel, selon ton contexte)
+        $formation_id = $this->route('formation'); // Remplace 'model' par le bon paramètre de route
+        $model = Formation::find($formation_id);
+
+        
+        // Vérification et suppression des champs non autorisés
+        foreach ($editableFieldsByRoles as $field => $roles) {
+            if (!$user->hasAnyRole(explode(',', $roles))) {
+                
+
+                // Supprimer le champ pour éviter l'écrasement
+                $this->request->remove($field);
+
+                // Si le champ est absent dans la requête, on garde la valeur actuelle
+                $this->merge([$field => $model->$field]);
+                
+            }
+        }
+    }
     
 }

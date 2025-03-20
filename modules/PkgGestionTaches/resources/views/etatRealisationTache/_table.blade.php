@@ -6,9 +6,9 @@
         <thead>
             <tr>
                 <x-sortable-column field="nom" modelname="etatRealisationTache" label="{{ ucfirst(__('PkgGestionTaches::etatRealisationTache.nom')) }}" />
-                <x-sortable-column field="formateur_id" modelname="etatRealisationTache" label="{{ ucfirst(__('PkgFormation::formateur.singular')) }}" />
-                <x-sortable-column field="sys_color_id" modelname="etatRealisationTache" label="{{ ucfirst(__('Core::sysColor.singular')) }}" />
                 <x-sortable-column field="workflow_tache_id" modelname="etatRealisationTache" label="{{ ucfirst(__('PkgGestionTaches::workflowTache.singular')) }}" />
+                <x-sortable-column field="sys_color_id" modelname="etatRealisationTache" label="{{ ucfirst(__('Core::sysColor.singular')) }}" />
+                <x-sortable-column field="formateur_id" modelname="etatRealisationTache" label="{{ ucfirst(__('PkgFormation::formateur.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -25,11 +25,11 @@
                     </span>
                     </td>
                     <td>
-                     <span @if(strlen($etatRealisationTache->formateur) > 50) 
+                     <span @if(strlen($etatRealisationTache->workflowTache) > 50) 
                             data-toggle="tooltip" 
-                            title="{{ $etatRealisationTache->formateur }}" 
+                            title="{{ $etatRealisationTache->workflowTache }}" 
                         @endif>
-                        {{ Str::limit($etatRealisationTache->formateur, 50) }}
+                        {{ Str::limit($etatRealisationTache->workflowTache, 50) }}
                     </span>
                     </td>
                     <td>
@@ -41,11 +41,11 @@
                     </span>
                     </td>
                     <td>
-                     <span @if(strlen($etatRealisationTache->workflowTache) > 50) 
+                     <span @if(strlen($etatRealisationTache->formateur) > 50) 
                             data-toggle="tooltip" 
-                            title="{{ $etatRealisationTache->workflowTache }}" 
+                            title="{{ $etatRealisationTache->formateur }}" 
                         @endif>
-                        {{ Str::limit($etatRealisationTache->workflowTache, 50) }}
+                        {{ Str::limit($etatRealisationTache->formateur, 50) }}
                     </span>
                     </td>
                     <td class="text-right">

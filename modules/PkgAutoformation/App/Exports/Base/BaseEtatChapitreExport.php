@@ -29,22 +29,22 @@ class BaseEtatChapitreExport implements FromCollection, WithHeadings, ShouldAuto
      if($this->format == 'csv'){
         return [
             'nom' => 'nom',
-            'is_editable_only_by_formateur' => 'is_editable_only_by_formateur',
             'reference' => 'reference',
             'workflow_chapitre_id' => 'workflow_chapitre_id',
+            'sys_color_id' => 'sys_color_id',
+            'is_editable_only_by_formateur' => 'is_editable_only_by_formateur',
             'description' => 'description',
             'formateur_id' => 'formateur_id',
-            'sys_color_id' => 'sys_color_id',
         ];
         }else{
         return [
             'nom' => __('PkgAutoformation::etatChapitre.nom'),
-            'is_editable_only_by_formateur' => __('PkgAutoformation::etatChapitre.is_editable_only_by_formateur'),
             'reference' => __('Core::msg.reference'),
             'workflow_chapitre_id' => __('PkgAutoformation::etatChapitre.workflow_chapitre_id'),
+            'sys_color_id' => __('PkgAutoformation::etatChapitre.sys_color_id'),
+            'is_editable_only_by_formateur' => __('PkgAutoformation::etatChapitre.is_editable_only_by_formateur'),
             'description' => __('PkgAutoformation::etatChapitre.description'),
             'formateur_id' => __('PkgAutoformation::etatChapitre.formateur_id'),
-            'sys_color_id' => __('PkgAutoformation::etatChapitre.sys_color_id'),
         ];
 
         }
@@ -56,12 +56,12 @@ class BaseEtatChapitreExport implements FromCollection, WithHeadings, ShouldAuto
         return $this->data->map(function ($etatChapitre) {
             return [
                 'nom' => $etatChapitre->nom,
-                'is_editable_only_by_formateur' => $etatChapitre->is_editable_only_by_formateur,
                 'reference' => $etatChapitre->reference,
                 'workflow_chapitre_id' => $etatChapitre->workflow_chapitre_id,
+                'sys_color_id' => $etatChapitre->sys_color_id,
+                'is_editable_only_by_formateur' => $etatChapitre->is_editable_only_by_formateur,
                 'description' => $etatChapitre->description,
                 'formateur_id' => $etatChapitre->formateur_id,
-                'sys_color_id' => $etatChapitre->sys_color_id,
             ];
         });
     }

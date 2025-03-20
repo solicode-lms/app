@@ -76,9 +76,9 @@ class BaseEtatRealisationTacheController extends AdminController
         $itemEtatRealisationTache = $this->etatRealisationTacheService->createInstance();
         
 
-        $formateurs = $this->formateurService->all();
-        $sysColors = $this->sysColorService->all();
         $workflowTaches = $this->workflowTacheService->all();
+        $sysColors = $this->sysColorService->all();
+        $formateurs = $this->formateurService->all();
 
         if (request()->ajax()) {
             return view('PkgGestionTaches::etatRealisationTache._fields', compact('itemEtatRealisationTache', 'formateurs', 'sysColors', 'workflowTaches'));
@@ -117,9 +117,9 @@ class BaseEtatRealisationTacheController extends AdminController
         $this->authorize('view', $itemEtatRealisationTache);
 
 
-        $formateurs = $this->formateurService->all();
-        $sysColors = $this->sysColorService->all();
         $workflowTaches = $this->workflowTacheService->all();
+        $sysColors = $this->sysColorService->all();
+        $formateurs = $this->formateurService->all();
 
 
         if (request()->ajax()) {
@@ -138,9 +138,9 @@ class BaseEtatRealisationTacheController extends AdminController
         $this->authorize('edit', $itemEtatRealisationTache);
 
 
-        $formateurs = $this->formateurService->all();
-        $sysColors = $this->sysColorService->all();
         $workflowTaches = $this->workflowTacheService->all();
+        $sysColors = $this->sysColorService->all();
+        $formateurs = $this->formateurService->all();
 
 
         if (request()->ajax()) {

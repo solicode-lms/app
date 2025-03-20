@@ -75,12 +75,12 @@ class BaseFormationSeeder extends Seeder
             if ($row) {
                 $formationData =[
                     "nom" => $row["nom"] ?? null,
+                    "competence_id" => $row["competence_id"] ?? null,
                     "lien" => $row["lien"] ?? null,
-                    "description" => $row["description"] ?? null,
                     "is_officiel" => $row["is_officiel"] ?? null,
                     "formateur_id" => $row["formateur_id"] ?? null,
                     "formation_officiel_id" => $row["formation_officiel_id"] ?? null,
-                    "competence_id" => $row["competence_id"] ?? null,
+                    "description" => $row["description"] ?? null,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

@@ -20,12 +20,12 @@ class BaseFormationService extends BaseService
      */
     protected $fieldsSearchable = [
         'nom',
+        'competence_id',
         'lien',
-        'description',
         'is_officiel',
         'formateur_id',
         'formation_officiel_id',
-        'competence_id'
+        'description'
     ];
 
     /**
@@ -54,14 +54,14 @@ class BaseFormationService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('formation');
         $this->fieldsFilterable = [];
     
+        if (!array_key_exists('competence_id', $scopeVariables)) {
+        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgCompetences::competence.plural"), 'competence_id', \Modules\PkgCompetences\Models\Competence::class, 'code');
+        }
         if (!array_key_exists('formateur_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgFormation::formateur.plural"), 'formateur_id', \Modules\PkgFormation\Models\Formateur::class, 'nom');
         }
         if (!array_key_exists('formation_officiel_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgAutoformation::formation.plural"), 'formation_officiel_id', \Modules\PkgAutoformation\Models\Formation::class, 'nom');
-        }
-        if (!array_key_exists('competence_id', $scopeVariables)) {
-        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgCompetences::competence.plural"), 'competence_id', \Modules\PkgCompetences\Models\Competence::class, 'code');
         }
     }
 
@@ -86,11 +86,25 @@ class BaseFormationService extends BaseService
 
         $stats = $this->initStats();
 
+        // Ajouter les statistiques du propriétaire
+        //$contexteState = $this->getContextState();
+        // if ($contexteState !== null) {
+        //     $stats[] = $contexteState;
+        // }
         
 
         return $stats;
     }
 
+    public function getContextState()
+    {
+        $value = $this->viewState->generateTitleFromVariables();
+        return [
+                "icon" => "fas fa-filter",
+                "label" => "Filtre",
+                "value" =>  $value
+        ];
+    }
 
 
 }
