@@ -16,6 +16,9 @@ sudo php artisan db:seed --class=Modules\\PkgAutoformation\\Database\\Seeders\\R
 sudo php artisan db:seed --class=Modules\\PkgAutoformation\\Database\\Seeders\\RealisationFormationSeeder
 sudo php artisan db:seed --class=Modules\\PkgAutoformation\\Database\\Seeders\\WorkflowChapitreSeeder
 sudo php artisan db:seed --class=Modules\\PkgAutoformation\\Database\\Seeders\\WorkflowFormationSeeder
+
+# ajoute les état par défaut pour tous les formateurs 
+sudo php artisan db:seed --class=Modules\\PkgAutoformation\\Database\\Seeders\\AddDefaultEtatSeeder
 ````
 
 ### Sur Windows 
@@ -30,6 +33,10 @@ php artisan db:seed --class=Modules\PkgAutoformation\Database\Seeders\Realisatio
 php artisan db:seed --class=Modules\PkgAutoformation\Database\Seeders\RealisationFormationSeeder
 php artisan db:seed --class=Modules\PkgAutoformation\Database\Seeders\WorkflowChapitreSeeder
 php artisan db:seed --class=Modules\PkgAutoformation\Database\Seeders\WorkflowFormationSeeder
+
+# ajoute les état par défaut pour tous les formateurs 
+php artisan db:seed --class=Modules\PkgAutoformation\Database\Seeders\AddDefaultEtatSeeder
+
 ````
 
 ## Affectation des droits d'accès 

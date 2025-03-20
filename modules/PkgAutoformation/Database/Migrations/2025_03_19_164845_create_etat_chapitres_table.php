@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('etat_chapitres', function (Blueprint $table) {
             $table->id(); // Identifiant unique
-            $table->string('nom')->unique(); // Nom de l'état
+            $table->string('nom'); // Nom de l'état
             $table->boolean('is_editable_only_by_formateur')->nullable()->default(false); // Restriction d'édition, nullable
             $table->string('reference')->unique(); // Référence unique
             $table->foreignId('workflow_chapitre_id') // Clé étrangère vers workflow_chapitres
