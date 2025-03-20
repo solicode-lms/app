@@ -36,6 +36,9 @@
                         </li>
 
                         <li class="nav-item">
+                            <a class="nav-link" id="formateur-hasmany-tabs-chapitre-tab" data-toggle="pill" href="#formateur-hasmany-tabs-chapitre" role="tab" aria-controls="formateur-hasmany-tabs-chapitre" aria-selected="false">{{__('PkgAutoformation::chapitre.plural')}}</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" id="formateur-hasmany-tabs-commentaireRealisationTache-tab" data-toggle="pill" href="#formateur-hasmany-tabs-commentaireRealisationTache" role="tab" aria-controls="formateur-hasmany-tabs-commentaireRealisationTache" aria-selected="false">{{__('PkgGestionTaches::commentaireRealisationTache.plural')}}</a>
                         </li>
                         <li class="nav-item">
@@ -43,6 +46,9 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="formateur-hasmany-tabs-labelRealisationTache-tab" data-toggle="pill" href="#formateur-hasmany-tabs-labelRealisationTache" role="tab" aria-controls="formateur-hasmany-tabs-labelRealisationTache" aria-selected="false">{{__('PkgGestionTaches::labelRealisationTache.plural')}}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="formateur-hasmany-tabs-formation-tab" data-toggle="pill" href="#formateur-hasmany-tabs-formation" role="tab" aria-controls="formateur-hasmany-tabs-formation" aria-selected="false">{{__('PkgAutoformation::formation.plural')}}</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="formateur-hasmany-tabs-prioriteTache-tab" data-toggle="pill" href="#formateur-hasmany-tabs-prioriteTache" role="tab" aria-controls="formateur-hasmany-tabs-prioriteTache" aria-selected="false">{{__('PkgGestionTaches::prioriteTache.plural')}}</a>
@@ -57,6 +63,9 @@
                                 @include('PkgFormation::formateur._fields')
                             </div>
 
+                            <div class="tab-pane fade" id="formateur-hasmany-tabs-chapitre" role="tabpanel" aria-labelledby="formateur-hasmany-tabs-chapitre-tab">
+                                @include('PkgAutoformation::chapitre._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'formateur.edit_' . $itemFormateur->id])
+                            </div>
                             <div class="tab-pane fade" id="formateur-hasmany-tabs-commentaireRealisationTache" role="tabpanel" aria-labelledby="formateur-hasmany-tabs-commentaireRealisationTache-tab">
                                 @include('PkgGestionTaches::commentaireRealisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'formateur.edit_' . $itemFormateur->id])
                             </div>
@@ -65,6 +74,9 @@
                             </div>
                             <div class="tab-pane fade" id="formateur-hasmany-tabs-labelRealisationTache" role="tabpanel" aria-labelledby="formateur-hasmany-tabs-labelRealisationTache-tab">
                                 @include('PkgGestionTaches::labelRealisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'formateur.edit_' . $itemFormateur->id])
+                            </div>
+                            <div class="tab-pane fade" id="formateur-hasmany-tabs-formation" role="tabpanel" aria-labelledby="formateur-hasmany-tabs-formation-tab">
+                                @include('PkgAutoformation::formation._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'formateur.edit_' . $itemFormateur->id])
                             </div>
                             <div class="tab-pane fade" id="formateur-hasmany-tabs-prioriteTache" role="tabpanel" aria-labelledby="formateur-hasmany-tabs-prioriteTache-tab">
                                 @include('PkgGestionTaches::prioriteTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'formateur.edit_' . $itemFormateur->id])

@@ -7,6 +7,7 @@ use Modules\PkgCompetences\Services\CompetenceService;
 use Modules\PkgCompetences\Services\TechnologyService;
 use Modules\PkgFormation\Services\ModuleService;
 use Modules\PkgCompetences\Services\NiveauCompetenceService;
+use Modules\PkgAutoformation\Services\FormationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
@@ -118,11 +119,20 @@ class BaseCompetenceController extends AdminController
         $niveauCompetences_filters = $niveauCompetenceService->getFieldsFilterable();
         $niveauCompetence_instance =  $niveauCompetenceService->createInstance();
 
+        $this->viewState->set('scope.formation.competence_id', $id);
+
+
+        $formationService =  new FormationService();
+        $formations_data =  $formationService->paginate();
+        $formations_stats = $formationService->getformationStats();
+        $formations_filters = $formationService->getFieldsFilterable();
+        $formation_instance =  $formationService->createInstance();
+
         if (request()->ajax()) {
-            return view('PkgCompetences::competence._edit', compact('itemCompetence', 'technologies', 'modules', 'niveauCompetences_data', 'niveauCompetences_stats', 'niveauCompetences_filters', 'niveauCompetence_instance'));
+            return view('PkgCompetences::competence._edit', compact('itemCompetence', 'technologies', 'modules', 'niveauCompetences_data', 'formations_data', 'niveauCompetences_stats', 'formations_stats', 'niveauCompetences_filters', 'formations_filters', 'niveauCompetence_instance', 'formation_instance'));
         }
 
-        return view('PkgCompetences::competence.edit', compact('itemCompetence', 'technologies', 'modules', 'niveauCompetences_data', 'niveauCompetences_stats', 'niveauCompetences_filters', 'niveauCompetence_instance'));
+        return view('PkgCompetences::competence.edit', compact('itemCompetence', 'technologies', 'modules', 'niveauCompetences_data', 'formations_data', 'niveauCompetences_stats', 'formations_stats', 'niveauCompetences_filters', 'formations_filters', 'niveauCompetence_instance', 'formation_instance'));
 
     }
     public function edit(string $id) {
@@ -147,11 +157,21 @@ class BaseCompetenceController extends AdminController
         $niveauCompetences_filters = $niveauCompetenceService->getFieldsFilterable();
         $niveauCompetence_instance =  $niveauCompetenceService->createInstance();
 
+        $this->viewState->set('scope.formation.competence_id', $id);
+        
+
+        $formationService =  new FormationService();
+        $formations_data =  $formationService->paginate();
+        $formations_stats = $formationService->getformationStats();
+        $this->viewState->set('stats.formation.stats'  , $formations_stats);
+        $formations_filters = $formationService->getFieldsFilterable();
+        $formation_instance =  $formationService->createInstance();
+
         if (request()->ajax()) {
-            return view('PkgCompetences::competence._edit', compact('itemCompetence', 'technologies', 'modules', 'niveauCompetences_data', 'niveauCompetences_stats', 'niveauCompetences_filters', 'niveauCompetence_instance'));
+            return view('PkgCompetences::competence._edit', compact('itemCompetence', 'technologies', 'modules', 'niveauCompetences_data', 'formations_data', 'niveauCompetences_stats', 'formations_stats', 'niveauCompetences_filters', 'formations_filters', 'niveauCompetence_instance', 'formation_instance'));
         }
 
-        return view('PkgCompetences::competence.edit', compact('itemCompetence', 'technologies', 'modules', 'niveauCompetences_data', 'niveauCompetences_stats', 'niveauCompetences_filters', 'niveauCompetence_instance'));
+        return view('PkgCompetences::competence.edit', compact('itemCompetence', 'technologies', 'modules', 'niveauCompetences_data', 'formations_data', 'niveauCompetences_stats', 'formations_stats', 'niveauCompetences_filters', 'formations_filters', 'niveauCompetence_instance', 'formation_instance'));
 
     }
     public function update(CompetenceRequest $request, string $id) {

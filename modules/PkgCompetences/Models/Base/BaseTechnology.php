@@ -13,6 +13,7 @@ use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
 use Modules\PkgCompetences\Models\CategoryTechnology;
 use Modules\PkgCompetences\Models\Competence;
+use Modules\PkgAutoformation\Models\Formation;
 use Modules\PkgCreationProjet\Models\TransfertCompetence;
 
 /**
@@ -39,6 +40,7 @@ class BaseTechnology extends BaseModel
     ];
     public $manyToMany = [
         'Competence' => ['relation' => 'competences' , "foreign_key" => "competence_id" ],
+        'Formation' => ['relation' => 'formations' , "foreign_key" => "formation_id" ],
         'TransfertCompetence' => ['relation' => 'transfertCompetences' , "foreign_key" => "transfert_competence_id" ]
     ];
 
@@ -61,6 +63,15 @@ class BaseTechnology extends BaseModel
     public function competences()
     {
         return $this->belongsToMany(Competence::class, 'competence_technology');
+    }
+    /**
+     * Relation ManyToMany pour Formations.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function formations()
+    {
+        return $this->belongsToMany(Formation::class, 'formation_technology');
     }
     /**
      * Relation ManyToMany pour TransfertCompetences.

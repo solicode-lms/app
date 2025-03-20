@@ -1,0 +1,262 @@
+<?php
+// Ce fichier est maintenu par ESSARRAJ Fouad
+
+
+namespace Modules\PkgAutoformation\Controllers\Base;
+use Modules\PkgAutoformation\Services\EtatChapitreService;
+use Modules\PkgAutoformation\Services\WorkflowChapitreService;
+use Modules\PkgAutoformation\Services\RealisationChapitreService;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Modules\Core\Controllers\Base\AdminController;
+use Modules\Core\App\Helpers\JsonResponseHelper;
+use Modules\PkgAutoformation\App\Requests\EtatChapitreRequest;
+use Modules\PkgAutoformation\Models\EtatChapitre;
+use Maatwebsite\Excel\Facades\Excel;
+use Modules\PkgAutoformation\App\Exports\EtatChapitreExport;
+use Modules\PkgAutoformation\App\Imports\EtatChapitreImport;
+use Modules\Core\Services\ContextState;
+
+class BaseEtatChapitreController extends AdminController
+{
+    protected $etatChapitreService;
+    protected $workflowChapitreService;
+
+    public function __construct(EtatChapitreService $etatChapitreService, WorkflowChapitreService $workflowChapitreService) {
+        parent::__construct();
+        $this->service  =  $etatChapitreService;
+        $this->etatChapitreService = $etatChapitreService;
+        $this->workflowChapitreService = $workflowChapitreService;
+    }
+
+    public function index(Request $request) {
+        
+        $this->viewState->setContextKeyIfEmpty('etatChapitre.index');
+
+
+
+        // Extraire les paramètres de recherche, page, et filtres
+        $etatChapitres_params = array_merge(
+            $request->only(['page','sort']),
+            ['search' => $request->get('etatChapitres_search', $this->viewState->get("filter.etatChapitre.etatChapitres_search"))],
+            $request->except(['etatChapitres_search', 'page', 'sort'])
+        );
+
+        // Paginer les etatChapitres
+        $etatChapitres_data = $this->etatChapitreService->paginate($etatChapitres_params);
+
+        // Récupérer les statistiques et les champs filtrables
+        $etatChapitres_stats = $this->etatChapitreService->getetatChapitreStats();
+        $this->viewState->set('stats.etatChapitre.stats'  , $etatChapitres_stats);
+        $etatChapitres_filters = $this->etatChapitreService->getFieldsFilterable();
+        $etatChapitre_instance =  $this->etatChapitreService->createInstance();
+        // Retourner la vue ou les données pour une requête AJAX
+        if ($request->ajax()) {
+            return view('PkgAutoformation::etatChapitre._table', compact('etatChapitres_data', 'etatChapitres_stats', 'etatChapitres_filters','etatChapitre_instance'))->render();
+        }
+
+        return view('PkgAutoformation::etatChapitre.index', compact('etatChapitres_data', 'etatChapitres_stats', 'etatChapitres_filters','etatChapitre_instance'));
+    }
+    public function create() {
+
+
+        $itemEtatChapitre = $this->etatChapitreService->createInstance();
+        
+
+        $workflowChapitres = $this->workflowChapitreService->all();
+
+        if (request()->ajax()) {
+            return view('PkgAutoformation::etatChapitre._fields', compact('itemEtatChapitre', 'workflowChapitres'));
+        }
+        return view('PkgAutoformation::etatChapitre.create', compact('itemEtatChapitre', 'workflowChapitres'));
+    }
+    public function store(EtatChapitreRequest $request) {
+        $validatedData = $request->validated();
+        $etatChapitre = $this->etatChapitreService->create($validatedData);
+
+        if ($request->ajax()) {
+             $message = __('Core::msg.addSuccess', [
+                'entityToString' => $etatChapitre,
+                'modelName' => __('PkgAutoformation::etatChapitre.singular')]);
+        
+            return JsonResponseHelper::success(
+             $message,
+             ['entity_id' => $etatChapitre->id]
+            );
+        }
+
+        return redirect()->route('etatChapitres.edit',['etatChapitre' => $etatChapitre->id])->with(
+            'success',
+            __('Core::msg.addSuccess', [
+                'entityToString' => $etatChapitre,
+                'modelName' => __('PkgAutoformation::etatChapitre.singular')
+            ])
+        );
+    }
+    public function show(string $id) {
+
+        $this->viewState->setContextKey('etatChapitre.edit_' . $id);
+
+
+        $itemEtatChapitre = $this->etatChapitreService->find($id);
+
+
+        $workflowChapitres = $this->workflowChapitreService->all();
+
+
+        $this->viewState->set('scope.realisationChapitre.etat_chapitre_id', $id);
+
+
+        $realisationChapitreService =  new RealisationChapitreService();
+        $realisationChapitres_data =  $realisationChapitreService->paginate();
+        $realisationChapitres_stats = $realisationChapitreService->getrealisationChapitreStats();
+        $realisationChapitres_filters = $realisationChapitreService->getFieldsFilterable();
+        $realisationChapitre_instance =  $realisationChapitreService->createInstance();
+
+        if (request()->ajax()) {
+            return view('PkgAutoformation::etatChapitre._edit', compact('itemEtatChapitre', 'workflowChapitres', 'realisationChapitres_data', 'realisationChapitres_stats', 'realisationChapitres_filters', 'realisationChapitre_instance'));
+        }
+
+        return view('PkgAutoformation::etatChapitre.edit', compact('itemEtatChapitre', 'workflowChapitres', 'realisationChapitres_data', 'realisationChapitres_stats', 'realisationChapitres_filters', 'realisationChapitre_instance'));
+
+    }
+    public function edit(string $id) {
+
+        $this->viewState->setContextKey('etatChapitre.edit_' . $id);
+
+
+        $itemEtatChapitre = $this->etatChapitreService->find($id);
+
+
+        $workflowChapitres = $this->workflowChapitreService->all();
+
+
+        $this->viewState->set('scope.realisationChapitre.etat_chapitre_id', $id);
+        
+
+        $realisationChapitreService =  new RealisationChapitreService();
+        $realisationChapitres_data =  $realisationChapitreService->paginate();
+        $realisationChapitres_stats = $realisationChapitreService->getrealisationChapitreStats();
+        $this->viewState->set('stats.realisationChapitre.stats'  , $realisationChapitres_stats);
+        $realisationChapitres_filters = $realisationChapitreService->getFieldsFilterable();
+        $realisationChapitre_instance =  $realisationChapitreService->createInstance();
+
+        if (request()->ajax()) {
+            return view('PkgAutoformation::etatChapitre._edit', compact('itemEtatChapitre', 'workflowChapitres', 'realisationChapitres_data', 'realisationChapitres_stats', 'realisationChapitres_filters', 'realisationChapitre_instance'));
+        }
+
+        return view('PkgAutoformation::etatChapitre.edit', compact('itemEtatChapitre', 'workflowChapitres', 'realisationChapitres_data', 'realisationChapitres_stats', 'realisationChapitres_filters', 'realisationChapitre_instance'));
+
+    }
+    public function update(EtatChapitreRequest $request, string $id) {
+
+        $validatedData = $request->validated();
+        $etatChapitre = $this->etatChapitreService->update($id, $validatedData);
+
+        if ($request->ajax()) {
+             $message = __('Core::msg.updateSuccess', [
+                'entityToString' => $etatChapitre,
+                'modelName' =>  __('PkgAutoformation::etatChapitre.singular')]);
+            
+            return JsonResponseHelper::success(
+                $message,
+                ['entity_id' => $etatChapitre->id]
+            );
+        }
+
+        return redirect()->route('etatChapitres.index')->with(
+            'success',
+            __('Core::msg.updateSuccess', [
+                'entityToString' => $etatChapitre,
+                'modelName' =>  __('PkgAutoformation::etatChapitre.singular')
+                ])
+        );
+
+    }
+    public function destroy(Request $request, string $id) {
+
+        $etatChapitre = $this->etatChapitreService->destroy($id);
+
+        if ($request->ajax()) {
+            $message = __('Core::msg.deleteSuccess', [
+                'entityToString' => $etatChapitre,
+                'modelName' =>  __('PkgAutoformation::etatChapitre.singular')]);
+            
+
+            return JsonResponseHelper::success(
+                $message
+            );
+        }
+
+        return redirect()->route('etatChapitres.index')->with(
+            'success',
+            __('Core::msg.deleteSuccess', [
+                'entityToString' => $etatChapitre,
+                'modelName' =>  __('PkgAutoformation::etatChapitre.singular')
+                ])
+        );
+
+    }
+
+    public function export($format)
+    {
+        $etatChapitres_data = $this->etatChapitreService->all();
+        
+        // Vérifier le format et exporter en conséquence
+        if ($format === 'csv') {
+            return Excel::download(new EtatChapitreExport($etatChapitres_data,'csv'), 'etatChapitre_export.csv', \Maatwebsite\Excel\Excel::CSV, ['Content-Type' => 'text/csv']);
+        } elseif ($format === 'xlsx') {
+            return Excel::download(new EtatChapitreExport($etatChapitres_data,'xlsx'), 'etatChapitre_export.xlsx', \Maatwebsite\Excel\Excel::XLSX);
+        } else {
+            return response()->json(['error' => 'Format non supporté'], 400);
+        }
+    }
+
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls,csv',
+        ]);
+
+        try {
+            Excel::import(new EtatChapitreImport, $request->file('file'));
+        } catch (\InvalidArgumentException $e) {
+            return redirect()->route('etatChapitres.index')->withError('Invalid format or missing data.');
+        }
+
+        return redirect()->route('etatChapitres.index')->with(
+            'success', __('Core::msg.importSuccess', [
+            'modelNames' =>  __('PkgAutoformation::etatChapitre.plural')
+            ]));
+
+
+
+    }
+
+    // Il permet d'afficher les information en format JSON pour une utilisation avec Ajax
+    public function getEtatChapitres()
+    {
+        $etatChapitres = $this->etatChapitreService->all();
+        return response()->json($etatChapitres);
+    }
+
+
+    public function dataCalcul(Request $request)
+    {
+
+        // Extraire les données de la requête
+        $data = $request->all();
+
+        $etatChapitre = $this->etatChapitreService->createInstance($data);
+    
+        // Mise à jour des attributs via le service
+        $updatedEtatChapitre = $this->etatChapitreService->dataCalcul($etatChapitre);
+    
+        return response()->json([
+            'success' => true,
+            'entity' => $updatedEtatChapitre
+        ]);
+    }
+    
+
+}

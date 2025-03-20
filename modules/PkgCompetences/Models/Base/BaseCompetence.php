@@ -14,6 +14,7 @@ use Modules\Core\Models\BaseModel;
 use Modules\PkgFormation\Models\Module;
 use Modules\PkgCompetences\Models\Technology;
 use Modules\PkgCompetences\Models\NiveauCompetence;
+use Modules\PkgAutoformation\Models\Formation;
 use Modules\PkgCreationProjet\Models\TransfertCompetence;
 
 /**
@@ -71,6 +72,15 @@ class BaseCompetence extends BaseModel
     public function niveauCompetences(): HasMany
     {
         return $this->hasMany(NiveauCompetence::class, 'competence_id', 'id');
+    }
+    /**
+     * Relation HasMany pour Competences.
+     *
+     * @return HasMany
+     */
+    public function formations(): HasMany
+    {
+        return $this->hasMany(Formation::class, 'competence_id', 'id');
     }
     /**
      * Relation HasMany pour Competences.

@@ -32,6 +32,7 @@ class BaseTechnologyRequest extends FormRequest
             'nom' => 'required|string|max:255',
             'category_technology_id' => 'required',
             'competences' => 'nullable|array',
+            'formations' => 'nullable|array',
             'transfertCompetences' => 'nullable|array',
             'description' => 'nullable|string'
         ];
@@ -50,6 +51,8 @@ class BaseTechnologyRequest extends FormRequest
             'category_technology_id.required' => __('validation.required', ['attribute' => __('PkgCompetences::Technology.category_technology_id')]),
             'competences.required' => __('validation.required', ['attribute' => __('PkgCompetences::Technology.competences')]),
             'competences.array' => __('validation.array', ['attribute' => __('PkgCompetences::Technology.competences')]),
+            'formations.required' => __('validation.required', ['attribute' => __('PkgCompetences::Technology.formations')]),
+            'formations.array' => __('validation.array', ['attribute' => __('PkgCompetences::Technology.formations')]),
             'transfertCompetences.required' => __('validation.required', ['attribute' => __('PkgCompetences::Technology.transfertCompetences')]),
             'transfertCompetences.array' => __('validation.array', ['attribute' => __('PkgCompetences::Technology.transfertCompetences')]),
             'description.required' => __('validation.required', ['attribute' => __('PkgCompetences::Technology.description')])

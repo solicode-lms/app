@@ -77,6 +77,10 @@
     </div>
 
 
+        
+
+        <!--   Chapitre HasMany --> 
+
     </div>
 
     <div class="card-footer">

@@ -15,11 +15,13 @@ use Modules\PkgAutorisation\Models\User;
 use Modules\PkgFormation\Models\Specialite;
 use Modules\PkgApprenants\Models\Groupe;
 use Modules\PkgRealisationProjets\Models\EtatsRealisationProjet;
+use Modules\PkgAutoformation\Models\Chapitre;
 use Modules\PkgGestionTaches\Models\CommentaireRealisationTache;
 use Modules\PkgGestionTaches\Models\EtatRealisationTache;
 use Modules\PkgCompetences\Models\NiveauDifficulte;
 use Modules\PkgCreationProjet\Models\Projet;
 use Modules\PkgGestionTaches\Models\LabelRealisationTache;
+use Modules\PkgAutoformation\Models\Formation;
 use Modules\PkgGestionTaches\Models\PrioriteTache;
 
 /**
@@ -93,6 +95,15 @@ class BaseFormateur extends BaseModel
      *
      * @return HasMany
      */
+    public function chapitres(): HasMany
+    {
+        return $this->hasMany(Chapitre::class, 'formateur_id', 'id');
+    }
+    /**
+     * Relation HasMany pour Formateurs.
+     *
+     * @return HasMany
+     */
     public function commentaireRealisationTaches(): HasMany
     {
         return $this->hasMany(CommentaireRealisationTache::class, 'formateur_id', 'id');
@@ -132,6 +143,15 @@ class BaseFormateur extends BaseModel
     public function labelRealisationTaches(): HasMany
     {
         return $this->hasMany(LabelRealisationTache::class, 'formateur_id', 'id');
+    }
+    /**
+     * Relation HasMany pour Formateurs.
+     *
+     * @return HasMany
+     */
+    public function formations(): HasMany
+    {
+        return $this->hasMany(Formation::class, 'formateur_id', 'id');
     }
     /**
      * Relation HasMany pour Formateurs.

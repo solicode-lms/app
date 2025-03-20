@@ -199,6 +199,10 @@
 
         
 
+        <!--   Chapitre HasMany --> 
+
+        
+
         <!--   CommentaireRealisationTache HasMany --> 
 
         
@@ -216,6 +220,10 @@
         
 
         <!--   LabelRealisationTache HasMany --> 
+
+        
+
+        <!--   Formation HasMany --> 
 
         
 

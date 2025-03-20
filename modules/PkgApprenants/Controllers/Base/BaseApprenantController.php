@@ -8,6 +8,7 @@ use Modules\PkgApprenants\Services\GroupeService;
 use Modules\PkgApprenants\Services\NationaliteService;
 use Modules\PkgApprenants\Services\NiveauxScolaireService;
 use Modules\PkgAutorisation\Services\UserService;
+use Modules\PkgAutoformation\Services\RealisationFormationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
@@ -100,7 +101,7 @@ class BaseApprenantController extends AdminController
             );
         }
 
-        return redirect()->route('apprenants.index')->with(
+        return redirect()->route('apprenants.edit',['apprenant' => $apprenant->id])->with(
             'success',
             __('Core::msg.addSuccess', [
                 'entityToString' => $apprenant,
@@ -122,11 +123,20 @@ class BaseApprenantController extends AdminController
         $groupes = $this->groupeService->all();
 
 
+        $this->viewState->set('scope.realisationFormation.apprenant_id', $id);
+
+
+        $realisationFormationService =  new RealisationFormationService();
+        $realisationFormations_data =  $realisationFormationService->paginate();
+        $realisationFormations_stats = $realisationFormationService->getrealisationFormationStats();
+        $realisationFormations_filters = $realisationFormationService->getFieldsFilterable();
+        $realisationFormation_instance =  $realisationFormationService->createInstance();
+
         if (request()->ajax()) {
-            return view('PkgApprenants::apprenant._fields', compact('itemApprenant', 'groupes', 'nationalites', 'niveauxScolaires', 'users'));
+            return view('PkgApprenants::apprenant._edit', compact('itemApprenant', 'groupes', 'nationalites', 'niveauxScolaires', 'users', 'realisationFormations_data', 'realisationFormations_stats', 'realisationFormations_filters', 'realisationFormation_instance'));
         }
 
-        return view('PkgApprenants::apprenant.edit', compact('itemApprenant', 'groupes', 'nationalites', 'niveauxScolaires', 'users'));
+        return view('PkgApprenants::apprenant.edit', compact('itemApprenant', 'groupes', 'nationalites', 'niveauxScolaires', 'users', 'realisationFormations_data', 'realisationFormations_stats', 'realisationFormations_filters', 'realisationFormation_instance'));
 
     }
     public function edit(string $id) {
@@ -143,11 +153,21 @@ class BaseApprenantController extends AdminController
         $groupes = $this->groupeService->all();
 
 
+        $this->viewState->set('scope.realisationFormation.apprenant_id', $id);
+        
+
+        $realisationFormationService =  new RealisationFormationService();
+        $realisationFormations_data =  $realisationFormationService->paginate();
+        $realisationFormations_stats = $realisationFormationService->getrealisationFormationStats();
+        $this->viewState->set('stats.realisationFormation.stats'  , $realisationFormations_stats);
+        $realisationFormations_filters = $realisationFormationService->getFieldsFilterable();
+        $realisationFormation_instance =  $realisationFormationService->createInstance();
+
         if (request()->ajax()) {
-            return view('PkgApprenants::apprenant._fields', compact('itemApprenant', 'groupes', 'nationalites', 'niveauxScolaires', 'users'));
+            return view('PkgApprenants::apprenant._edit', compact('itemApprenant', 'groupes', 'nationalites', 'niveauxScolaires', 'users', 'realisationFormations_data', 'realisationFormations_stats', 'realisationFormations_filters', 'realisationFormation_instance'));
         }
 
-        return view('PkgApprenants::apprenant.edit', compact('itemApprenant', 'groupes', 'nationalites', 'niveauxScolaires', 'users'));
+        return view('PkgApprenants::apprenant.edit', compact('itemApprenant', 'groupes', 'nationalites', 'niveauxScolaires', 'users', 'realisationFormations_data', 'realisationFormations_stats', 'realisationFormations_filters', 'realisationFormation_instance'));
 
     }
     public function update(ApprenantRequest $request, string $id) {

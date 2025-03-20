@@ -1,0 +1,96 @@
+{{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
+
+@section('workflowFormation-form')
+<form class="crud-form custom-form context-state container" id="workflowFormationForm" action="{{ $itemWorkflowFormation->id ? route('workflowFormations.update', $itemWorkflowFormation->id) : route('workflowFormations.store') }}" method="POST" novalidate>
+    @csrf
+
+    @if ($itemWorkflowFormation->id)
+        @method('PUT')
+    @endif
+
+    <div class="card-body row">
+        
+        <div class="form-group col-12 col-md-6">
+            <label for="code">
+                {{ ucfirst(__('PkgAutoformation::workflowFormation.code')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <input
+                name="code"
+                type="input"
+                class="form-control"
+                required
+                
+                id="code"
+                placeholder="{{ __('PkgAutoformation::workflowFormation.code') }}"
+                value="{{ $itemWorkflowFormation ? $itemWorkflowFormation->code : old('code') }}">
+            @error('code')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
+
+        
+        <div class="form-group col-12 col-md-6">
+            <label for="titre">
+                {{ ucfirst(__('PkgAutoformation::workflowFormation.titre')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <input
+                name="titre"
+                type="input"
+                class="form-control"
+                required
+                
+                id="titre"
+                placeholder="{{ __('PkgAutoformation::workflowFormation.titre') }}"
+                value="{{ $itemWorkflowFormation ? $itemWorkflowFormation->titre : old('titre') }}">
+            @error('titre')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
+
+        
+        <div class="form-group col-12 col-md-12">
+            <label for="description">
+                {{ ucfirst(__('PkgAutoformation::workflowFormation.description')) }}
+                
+            </label>
+            <textarea rows="" cols=""
+                name="description"
+                class="form-control richText"
+                
+                
+                id="description"
+                placeholder="{{ __('PkgAutoformation::workflowFormation.description') }}">{{ $itemWorkflowFormation ? $itemWorkflowFormation->description : old('description') }}</textarea>
+            @error('description')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
+
+        
+
+        <!--   EtatFormation HasMany --> 
+
+    </div>
+
+    <div class="card-footer">
+        <a href="{{ route('workflowFormations.index') }}" class="btn btn-default form-cancel-button">{{ __('Core::msg.cancel') }}</a>
+        <button type="submit" class="btn btn-info ml-2">{{ $itemWorkflowFormation->id ? __('Core::msg.edit') : __('Core::msg.add') }}</button>
+    </div>
+</form>
+@show
+
+
+<script>
+
+</script>
+<script>
+     window.modalTitle = '{{__("PkgAutoformation::workflowFormation.singular") }} : {{$itemWorkflowFormation}}'
+     window.contextState = @json($contextState);
+     window.sessionState = @json($sessionState);
+     window.viewState = @json($viewState);
+</script>
