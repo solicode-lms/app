@@ -7,6 +7,7 @@
             <tr>
                 <x-sortable-column field="code" modelname="workflowFormation" label="{{ ucfirst(__('PkgAutoformation::workflowFormation.code')) }}" />
                 <x-sortable-column field="titre" modelname="workflowFormation" label="{{ ucfirst(__('PkgAutoformation::workflowFormation.titre')) }}" />
+                <x-sortable-column field="sys_color_id" modelname="workflowFormation" label="{{ ucfirst(__('Core::sysColor.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -28,6 +29,14 @@
                             title="{{ $workflowFormation->titre }}" 
                         @endif>
                         {{ Str::limit($workflowFormation->titre, 40) }}
+                    </span>
+                    </td>
+                    <td>
+                     <span @if(strlen($workflowFormation->sysColor) > 50) 
+                            data-toggle="tooltip" 
+                            title="{{ $workflowFormation->sysColor }}" 
+                        @endif>
+                        {{ Str::limit($workflowFormation->sysColor, 50) }}
                     </span>
                     </td>
                     <td class="text-right">

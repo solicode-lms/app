@@ -76,6 +76,7 @@ class BaseWorkflowChapitreSeeder extends Seeder
                 $workflowChapitreData =[
                     "code" => $row["code"] ?? null,
                     "titre" => $row["titre"] ?? null,
+                    "sys_color_id" => $row["sys_color_id"] ?? null,
                     "description" => $row["description"] ?? null,
                     "reference" => $row["reference"] ?? null ,
                 ];

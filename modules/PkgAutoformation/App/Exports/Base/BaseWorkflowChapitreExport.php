@@ -30,6 +30,7 @@ class BaseWorkflowChapitreExport implements FromCollection, WithHeadings, Should
         return [
             'code' => 'code',
             'titre' => 'titre',
+            'sys_color_id' => 'sys_color_id',
             'description' => 'description',
             'reference' => 'reference',
         ];
@@ -37,6 +38,7 @@ class BaseWorkflowChapitreExport implements FromCollection, WithHeadings, Should
         return [
             'code' => __('PkgAutoformation::workflowChapitre.code'),
             'titre' => __('PkgAutoformation::workflowChapitre.titre'),
+            'sys_color_id' => __('PkgAutoformation::workflowChapitre.sys_color_id'),
             'description' => __('PkgAutoformation::workflowChapitre.description'),
             'reference' => __('Core::msg.reference'),
         ];
@@ -51,6 +53,7 @@ class BaseWorkflowChapitreExport implements FromCollection, WithHeadings, Should
             return [
                 'code' => $workflowChapitre->code,
                 'titre' => $workflowChapitre->titre,
+                'sys_color_id' => $workflowChapitre->sys_color_id,
                 'description' => $workflowChapitre->description,
                 'reference' => $workflowChapitre->reference,
             ];

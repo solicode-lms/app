@@ -30,6 +30,7 @@ class BaseWorkflowFormationExport implements FromCollection, WithHeadings, Shoul
         return [
             'code' => 'code',
             'titre' => 'titre',
+            'sys_color_id' => 'sys_color_id',
             'description' => 'description',
             'reference' => 'reference',
         ];
@@ -37,6 +38,7 @@ class BaseWorkflowFormationExport implements FromCollection, WithHeadings, Shoul
         return [
             'code' => __('PkgAutoformation::workflowFormation.code'),
             'titre' => __('PkgAutoformation::workflowFormation.titre'),
+            'sys_color_id' => __('PkgAutoformation::workflowFormation.sys_color_id'),
             'description' => __('PkgAutoformation::workflowFormation.description'),
             'reference' => __('Core::msg.reference'),
         ];
@@ -51,6 +53,7 @@ class BaseWorkflowFormationExport implements FromCollection, WithHeadings, Shoul
             return [
                 'code' => $workflowFormation->code,
                 'titre' => $workflowFormation->titre,
+                'sys_color_id' => $workflowFormation->sys_color_id,
                 'description' => $workflowFormation->description,
                 'reference' => $workflowFormation->reference,
             ];

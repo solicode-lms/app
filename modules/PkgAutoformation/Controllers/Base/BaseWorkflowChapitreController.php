@@ -4,6 +4,7 @@
 
 namespace Modules\PkgAutoformation\Controllers\Base;
 use Modules\PkgAutoformation\Services\WorkflowChapitreService;
+use Modules\Core\Services\SysColorService;
 use Modules\PkgAutoformation\Services\EtatChapitreService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -19,11 +20,13 @@ use Modules\Core\Services\ContextState;
 class BaseWorkflowChapitreController extends AdminController
 {
     protected $workflowChapitreService;
+    protected $sysColorService;
 
-    public function __construct(WorkflowChapitreService $workflowChapitreService) {
+    public function __construct(WorkflowChapitreService $workflowChapitreService, SysColorService $sysColorService) {
         parent::__construct();
         $this->service  =  $workflowChapitreService;
         $this->workflowChapitreService = $workflowChapitreService;
+        $this->sysColorService = $sysColorService;
     }
 
     public function index(Request $request) {
@@ -60,11 +63,12 @@ class BaseWorkflowChapitreController extends AdminController
         $itemWorkflowChapitre = $this->workflowChapitreService->createInstance();
         
 
+        $sysColors = $this->sysColorService->all();
 
         if (request()->ajax()) {
-            return view('PkgAutoformation::workflowChapitre._fields', compact('itemWorkflowChapitre'));
+            return view('PkgAutoformation::workflowChapitre._fields', compact('itemWorkflowChapitre', 'sysColors'));
         }
-        return view('PkgAutoformation::workflowChapitre.create', compact('itemWorkflowChapitre'));
+        return view('PkgAutoformation::workflowChapitre.create', compact('itemWorkflowChapitre', 'sysColors'));
     }
     public function store(WorkflowChapitreRequest $request) {
         $validatedData = $request->validated();
@@ -97,6 +101,7 @@ class BaseWorkflowChapitreController extends AdminController
         $itemWorkflowChapitre = $this->workflowChapitreService->find($id);
 
 
+        $sysColors = $this->sysColorService->all();
 
 
         $this->viewState->set('scope.etatChapitre.workflow_chapitre_id', $id);
@@ -109,10 +114,10 @@ class BaseWorkflowChapitreController extends AdminController
         $etatChapitre_instance =  $etatChapitreService->createInstance();
 
         if (request()->ajax()) {
-            return view('PkgAutoformation::workflowChapitre._edit', compact('itemWorkflowChapitre', 'etatChapitres_data', 'etatChapitres_stats', 'etatChapitres_filters', 'etatChapitre_instance'));
+            return view('PkgAutoformation::workflowChapitre._edit', compact('itemWorkflowChapitre', 'sysColors', 'etatChapitres_data', 'etatChapitres_stats', 'etatChapitres_filters', 'etatChapitre_instance'));
         }
 
-        return view('PkgAutoformation::workflowChapitre.edit', compact('itemWorkflowChapitre', 'etatChapitres_data', 'etatChapitres_stats', 'etatChapitres_filters', 'etatChapitre_instance'));
+        return view('PkgAutoformation::workflowChapitre.edit', compact('itemWorkflowChapitre', 'sysColors', 'etatChapitres_data', 'etatChapitres_stats', 'etatChapitres_filters', 'etatChapitre_instance'));
 
     }
     public function edit(string $id) {
@@ -123,6 +128,7 @@ class BaseWorkflowChapitreController extends AdminController
         $itemWorkflowChapitre = $this->workflowChapitreService->find($id);
 
 
+        $sysColors = $this->sysColorService->all();
 
 
         $this->viewState->set('scope.etatChapitre.workflow_chapitre_id', $id);
@@ -136,10 +142,10 @@ class BaseWorkflowChapitreController extends AdminController
         $etatChapitre_instance =  $etatChapitreService->createInstance();
 
         if (request()->ajax()) {
-            return view('PkgAutoformation::workflowChapitre._edit', compact('itemWorkflowChapitre', 'etatChapitres_data', 'etatChapitres_stats', 'etatChapitres_filters', 'etatChapitre_instance'));
+            return view('PkgAutoformation::workflowChapitre._edit', compact('itemWorkflowChapitre', 'sysColors', 'etatChapitres_data', 'etatChapitres_stats', 'etatChapitres_filters', 'etatChapitre_instance'));
         }
 
-        return view('PkgAutoformation::workflowChapitre.edit', compact('itemWorkflowChapitre', 'etatChapitres_data', 'etatChapitres_stats', 'etatChapitres_filters', 'etatChapitre_instance'));
+        return view('PkgAutoformation::workflowChapitre.edit', compact('itemWorkflowChapitre', 'sysColors', 'etatChapitres_data', 'etatChapitres_stats', 'etatChapitres_filters', 'etatChapitre_instance'));
 
     }
     public function update(WorkflowChapitreRequest $request, string $id) {

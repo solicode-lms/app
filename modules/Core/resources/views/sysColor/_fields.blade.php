@@ -77,6 +77,14 @@
 
         <!--   SysModule HasMany --> 
 
+        
+
+        <!--   WorkflowChapitre HasMany --> 
+
+        
+
+        <!--   WorkflowFormation HasMany --> 
+
     </div>
 
     <div class="card-footer">

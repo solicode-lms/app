@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
+use Modules\Core\Models\SysColor;
 use Modules\PkgAutoformation\Models\EtatFormation;
 
 /**
@@ -33,10 +34,19 @@ class BaseWorkflowFormation extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'code', 'titre', 'description'
+        'code', 'titre', 'sys_color_id', 'description'
     ];
 
 
+    /**
+     * Relation BelongsTo pour SysColor.
+     *
+     * @return BelongsTo
+     */
+    public function sysColor(): BelongsTo
+    {
+        return $this->belongsTo(SysColor::class, 'sys_color_id', 'id');
+    }
 
 
     /**

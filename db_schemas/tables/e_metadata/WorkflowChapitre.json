@@ -224,5 +224,49 @@
         },
         "e_data_field_reference": "workflow_chapitres_hasMany_etat_chapitres_workflow_chapitre_id",
         "e_metadata_definition_reference": "nature"
+    },
+    {
+        "reference": "WorkflowChapitre_sys_color_id_displayInTable",
+        "value_boolean": 1,
+        "e_data_field_reference": "WorkflowChapitre_sys_color_id",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "WorkflowChapitre_sys_color_id_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "WorkflowChapitre_sys_color_id",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "WorkflowChapitre_sys_color_id_filterable",
+        "value_boolean": 1,
+        "e_data_field_reference": "WorkflowChapitre_sys_color_id",
+        "e_metadata_definition_reference": "filterable"
+    },
+    {
+        "reference": "WorkflowChapitre_sys_color_id_displayOrder",
+        "value_integer": 4,
+        "e_data_field_reference": "WorkflowChapitre_sys_color_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "WorkflowChapitre_sys_color_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "WorkflowChapitre_sys_color_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "WorkflowChapitre_sys_color_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "WorkflowChapitre_sys_color_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "WorkflowChapitre_sys_color_id_nature",
+        "value_json": {
+            "nature": "couleur"
+        },
+        "e_data_field_reference": "WorkflowChapitre_sys_color_id",
+        "e_metadata_definition_reference": "nature"
     }
 ]

@@ -31,6 +31,7 @@ class BaseWorkflowFormationRequest extends FormRequest
         return [
             'code' => 'required|string|max:255',
             'titre' => 'required|string|max:255',
+            'sys_color_id' => 'required',
             'description' => 'nullable|string'
         ];
     }
@@ -47,6 +48,7 @@ class BaseWorkflowFormationRequest extends FormRequest
             'code.max' => __('validation.codeMax'),
             'titre.required' => __('validation.required', ['attribute' => __('PkgAutoformation::WorkflowFormation.titre')]),
             'titre.max' => __('validation.titreMax'),
+            'sys_color_id.required' => __('validation.required', ['attribute' => __('PkgAutoformation::WorkflowFormation.sys_color_id')]),
             'description.required' => __('validation.required', ['attribute' => __('PkgAutoformation::WorkflowFormation.description')])
         ];
     }

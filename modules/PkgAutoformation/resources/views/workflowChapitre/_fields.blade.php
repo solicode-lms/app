@@ -54,6 +54,34 @@
 </div>
 
         
+        <div class="form-group col-12 col-md-6">
+            <label for="sys_color_id">
+                {{ ucfirst(__('Core::sysColor.singular')) }}
+                
+                    <span class="text-danger">*</span>
+                
+            </label>
+            <select 
+            id="sys_color_id" 
+            required
+            
+            name="sys_color_id" 
+            class="form-control select2Color">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($sysColors as $sysColor)
+                    <option value="{{ $sysColor->id }}" data-color="{{ $sysColor->hex }}" 
+                        {{ (isset($itemWorkflowChapitre) && $itemWorkflowChapitre->sys_color_id == $sysColor->id) || (old('sys_color_id>') == $sysColor->id) ? 'selected' : '' }}>
+                        {{ $sysColor }}
+                    </option>
+                @endforeach
+            </select>
+            @error('sys_color_id')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+    </div>
+
+
+        
         <div class="form-group col-12 col-md-12">
             <label for="description">
                 {{ ucfirst(__('PkgAutoformation::workflowChapitre.description')) }}

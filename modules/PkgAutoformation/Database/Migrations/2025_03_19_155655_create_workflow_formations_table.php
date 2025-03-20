@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id(); // Identifiant unique
             $table->string('code')->unique(); 
             $table->string('titre')->unique(); 
+            $table->foreignId('sys_color_id')->constrained('sys_colors'); // Clé étrangère vers sys_colors
             $table->longText('description')->nullable(); 
             $table->string('reference')->unique(); // Référence unique du workflow
             $table->timestamps(); // Champs created_at et updated_at

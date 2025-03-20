@@ -33,6 +33,10 @@
                                 <p>{{ $itemWorkflowFormation->titre }}</p>
                             </div>
                             <div class="col-sm-12">
+                                <label for="sys_color_id">{{ ucfirst(__('PkgAutoformation::workflowFormation.sys_color_id')) }}:</label>
+                                <p>{{ $itemWorkflowFormation->sys_color_id }}</p>
+                            </div>
+                            <div class="col-sm-12">
                                 <label for="description">{{ ucfirst(__('PkgAutoformation::workflowFormation.description')) }}:</label>
                                 <p>{{ $itemWorkflowFormation->description }}</p>
                             </div>

@@ -53,6 +53,12 @@
                         <li class="nav-item">
                             <a class="nav-link" id="sysColor-hasmany-tabs-sysModule-tab" data-toggle="pill" href="#sysColor-hasmany-tabs-sysModule" role="tab" aria-controls="sysColor-hasmany-tabs-sysModule" aria-selected="false">{{__('Core::sysModule.plural')}}</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="sysColor-hasmany-tabs-workflowChapitre-tab" data-toggle="pill" href="#sysColor-hasmany-tabs-workflowChapitre" role="tab" aria-controls="sysColor-hasmany-tabs-workflowChapitre" aria-selected="false">{{__('PkgAutoformation::workflowChapitre.plural')}}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="sysColor-hasmany-tabs-workflowFormation-tab" data-toggle="pill" href="#sysColor-hasmany-tabs-workflowFormation" role="tab" aria-controls="sysColor-hasmany-tabs-workflowFormation" aria-selected="false">{{__('PkgAutoformation::workflowFormation.plural')}}</a>
+                        </li>
 
                        
                         </ul>
@@ -80,6 +86,12 @@
                             </div>
                             <div class="tab-pane fade" id="sysColor-hasmany-tabs-sysModule" role="tabpanel" aria-labelledby="sysColor-hasmany-tabs-sysModule-tab">
                                 @include('Core::sysModule._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sysColor.edit_' . $itemSysColor->id])
+                            </div>
+                            <div class="tab-pane fade" id="sysColor-hasmany-tabs-workflowChapitre" role="tabpanel" aria-labelledby="sysColor-hasmany-tabs-workflowChapitre-tab">
+                                @include('PkgAutoformation::workflowChapitre._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sysColor.edit_' . $itemSysColor->id])
+                            </div>
+                            <div class="tab-pane fade" id="sysColor-hasmany-tabs-workflowFormation" role="tabpanel" aria-labelledby="sysColor-hasmany-tabs-workflowFormation-tab">
+                                @include('PkgAutoformation::workflowFormation._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sysColor.edit_' . $itemSysColor->id])
                             </div>
 
                            

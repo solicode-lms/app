@@ -4,6 +4,7 @@
 
 namespace Modules\PkgAutoformation\Controllers\Base;
 use Modules\PkgAutoformation\Services\WorkflowFormationService;
+use Modules\Core\Services\SysColorService;
 use Modules\PkgAutoformation\Services\EtatFormationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -19,11 +20,13 @@ use Modules\Core\Services\ContextState;
 class BaseWorkflowFormationController extends AdminController
 {
     protected $workflowFormationService;
+    protected $sysColorService;
 
-    public function __construct(WorkflowFormationService $workflowFormationService) {
+    public function __construct(WorkflowFormationService $workflowFormationService, SysColorService $sysColorService) {
         parent::__construct();
         $this->service  =  $workflowFormationService;
         $this->workflowFormationService = $workflowFormationService;
+        $this->sysColorService = $sysColorService;
     }
 
     public function index(Request $request) {
@@ -60,11 +63,12 @@ class BaseWorkflowFormationController extends AdminController
         $itemWorkflowFormation = $this->workflowFormationService->createInstance();
         
 
+        $sysColors = $this->sysColorService->all();
 
         if (request()->ajax()) {
-            return view('PkgAutoformation::workflowFormation._fields', compact('itemWorkflowFormation'));
+            return view('PkgAutoformation::workflowFormation._fields', compact('itemWorkflowFormation', 'sysColors'));
         }
-        return view('PkgAutoformation::workflowFormation.create', compact('itemWorkflowFormation'));
+        return view('PkgAutoformation::workflowFormation.create', compact('itemWorkflowFormation', 'sysColors'));
     }
     public function store(WorkflowFormationRequest $request) {
         $validatedData = $request->validated();
@@ -97,6 +101,7 @@ class BaseWorkflowFormationController extends AdminController
         $itemWorkflowFormation = $this->workflowFormationService->find($id);
 
 
+        $sysColors = $this->sysColorService->all();
 
 
         $this->viewState->set('scope.etatFormation.workflow_formation_id', $id);
@@ -109,10 +114,10 @@ class BaseWorkflowFormationController extends AdminController
         $etatFormation_instance =  $etatFormationService->createInstance();
 
         if (request()->ajax()) {
-            return view('PkgAutoformation::workflowFormation._edit', compact('itemWorkflowFormation', 'etatFormations_data', 'etatFormations_stats', 'etatFormations_filters', 'etatFormation_instance'));
+            return view('PkgAutoformation::workflowFormation._edit', compact('itemWorkflowFormation', 'sysColors', 'etatFormations_data', 'etatFormations_stats', 'etatFormations_filters', 'etatFormation_instance'));
         }
 
-        return view('PkgAutoformation::workflowFormation.edit', compact('itemWorkflowFormation', 'etatFormations_data', 'etatFormations_stats', 'etatFormations_filters', 'etatFormation_instance'));
+        return view('PkgAutoformation::workflowFormation.edit', compact('itemWorkflowFormation', 'sysColors', 'etatFormations_data', 'etatFormations_stats', 'etatFormations_filters', 'etatFormation_instance'));
 
     }
     public function edit(string $id) {
@@ -123,6 +128,7 @@ class BaseWorkflowFormationController extends AdminController
         $itemWorkflowFormation = $this->workflowFormationService->find($id);
 
 
+        $sysColors = $this->sysColorService->all();
 
 
         $this->viewState->set('scope.etatFormation.workflow_formation_id', $id);
@@ -136,10 +142,10 @@ class BaseWorkflowFormationController extends AdminController
         $etatFormation_instance =  $etatFormationService->createInstance();
 
         if (request()->ajax()) {
-            return view('PkgAutoformation::workflowFormation._edit', compact('itemWorkflowFormation', 'etatFormations_data', 'etatFormations_stats', 'etatFormations_filters', 'etatFormation_instance'));
+            return view('PkgAutoformation::workflowFormation._edit', compact('itemWorkflowFormation', 'sysColors', 'etatFormations_data', 'etatFormations_stats', 'etatFormations_filters', 'etatFormation_instance'));
         }
 
-        return view('PkgAutoformation::workflowFormation.edit', compact('itemWorkflowFormation', 'etatFormations_data', 'etatFormations_stats', 'etatFormations_filters', 'etatFormation_instance'));
+        return view('PkgAutoformation::workflowFormation.edit', compact('itemWorkflowFormation', 'sysColors', 'etatFormations_data', 'etatFormations_stats', 'etatFormations_filters', 'etatFormation_instance'));
 
     }
     public function update(WorkflowFormationRequest $request, string $id) {

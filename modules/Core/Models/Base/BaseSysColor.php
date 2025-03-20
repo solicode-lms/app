@@ -17,6 +17,8 @@ use Modules\Core\Models\SysModel;
 use Modules\PkgAutoformation\Models\EtatFormation;
 use Modules\PkgGestionTaches\Models\LabelRealisationTache;
 use Modules\Core\Models\SysModule;
+use Modules\PkgAutoformation\Models\WorkflowChapitre;
+use Modules\PkgAutoformation\Models\WorkflowFormation;
 
 /**
  * Classe BaseSysColor
@@ -97,6 +99,24 @@ class BaseSysColor extends BaseModel
     public function sysModules(): HasMany
     {
         return $this->hasMany(SysModule::class, 'sys_color_id', 'id');
+    }
+    /**
+     * Relation HasMany pour SysColors.
+     *
+     * @return HasMany
+     */
+    public function workflowChapitres(): HasMany
+    {
+        return $this->hasMany(WorkflowChapitre::class, 'sys_color_id', 'id');
+    }
+    /**
+     * Relation HasMany pour SysColors.
+     *
+     * @return HasMany
+     */
+    public function workflowFormations(): HasMany
+    {
+        return $this->hasMany(WorkflowFormation::class, 'sys_color_id', 'id');
     }
 
 

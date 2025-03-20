@@ -58,7 +58,8 @@ class BaseWorkflowFormationImport implements ToModel, WithHeadingRow
         return new WorkflowFormation([
              'code' => $values[0] ?? null,
              'titre' => $values[1] ?? null,
-             'description' => $values[2] ?? null,
+             'sys_color_id' => $values[2] ?? null,
+             'description' => $values[3] ?? null,
              'reference' => $reference,
         ]);
 
