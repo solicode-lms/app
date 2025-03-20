@@ -17,12 +17,15 @@ return new class extends Migration
             $table->id(); // Identifiant unique
             $table->string('code')->unique(); // Code unique de l'état
             $table->string('nom')->unique(); // Nom de l'état
+            $table->boolean('is_editable_only_by_formateur')->nullable()->default(false); // Restriction d'édition, nullable
             $table->string('reference')->unique(); // Référence unique
             $table->foreignId('workflow_chapitre_id') // Clé étrangère vers workflow_chapitres
                   ->nullable()
                   ->constrained('workflow_chapitres')
                   ->nullOnDelete();
             $table->longText('description')->nullable(); // Description détaillée
+            $table->foreignId('formateur_id')->constrained('formateurs')->onDelete('cascade'); // Clé étrangère vers formateurs
+            $table->foreignId('sys_color_id')->constrained('sys_colors'); // Clé étrangère vers sys_colors
             $table->timestamps(); // Champs created_at et updated_at
         });
     }
