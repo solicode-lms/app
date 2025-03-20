@@ -1,15 +1,14 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 return [
     'singular' => 'Formation',
     'plural' => 'Formations',
-    'nom' => 'nom',
-    'lien' => 'lien',
-    'description' => 'description',
-    'is_officiel' => 'is_officiel',
-    'formateur_id' => 'formateur_id',
-    'formation_officiel_id' => 'formation_officiel_id',
-    'competence_id' => 'competence_id',
+    'nom' => 'Nom',
+    'lien' => 'Lien',
+    'description' => 'Description',
+    'is_officiel' => 'Est officiel',
+    'formateur_id' => 'ID du formateur',
+    'formation_officiel_id' => 'ID de la formation officielle',
+    'competence_id' => 'ID de la compétence',
 ];

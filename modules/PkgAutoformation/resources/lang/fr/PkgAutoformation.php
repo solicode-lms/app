@@ -1,8 +1,7 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 return [
-    'name' => 'PkgAutoformation',
+    'name' => 'Autoformation',
     'icon' => 'fa-table'
 ];

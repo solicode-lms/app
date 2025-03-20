@@ -1,15 +1,14 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 return [
-    'singular' => 'EtatFormation',
-    'plural' => 'EtatFormations',
-    'code' => 'code',
-    'nom' => 'nom',
-    'is_editable_only_by_formateur' => 'is_editable_only_by_formateur',
-    'description' => 'description',
-    'workflow_formation_id' => 'workflow_formation_id',
-    'formateur_id' => 'formateur_id',
-    'sys_color_id' => 'sys_color_id',
+    'singular' => 'État de la Formation',
+    'plural' => 'États des Formations',
+    'code' => 'Code',
+    'nom' => 'Nom',
+    'is_editable_only_by_formateur' => 'Modifiable uniquement par le formateur',
+    'description' => 'Description',
+    'workflow_formation_id' => 'ID du workflow de la formation',
+    'formateur_id' => 'ID du formateur',
+    'sys_color_id' => 'ID de la couleur système',
 ];

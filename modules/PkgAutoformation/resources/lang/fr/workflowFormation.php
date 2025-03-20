@@ -1,11 +1,10 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 return [
-    'singular' => 'WorkflowFormation',
-    'plural' => 'WorkflowFormations',
-    'code' => 'code',
-    'titre' => 'titre',
-    'description' => 'description',
+    'singular' => 'Workflow de la Formation',
+    'plural' => 'Workflows des Formations',
+    'code' => 'Code',
+    'titre' => 'Titre',
+    'description' => 'Description',
 ];

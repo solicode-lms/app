@@ -1,18 +1,17 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 return [
     'singular' => 'Chapitre',
     'plural' => 'Chapitres',
-    'nom' => 'nom',
-    'lien' => 'lien',
-    'coefficient' => 'coefficient',
-    'description' => 'description',
-    'ordre' => 'ordre',
-    'is_officiel' => 'is_officiel',
-    'formation_id' => 'formation_id',
-    'niveau_competence_id' => 'niveau_competence_id',
-    'formateur_id' => 'formateur_id',
-    'chapitre_officiel_id' => 'chapitre_officiel_id',
+    'nom' => 'Nom',
+    'lien' => 'Lien',
+    'coefficient' => 'Coefficient',
+    'description' => 'Description',
+    'ordre' => 'Ordre',
+    'is_officiel' => 'Est officiel',
+    'formation_id' => 'ID de la formation',
+    'niveau_competence_id' => 'ID du niveau de compétence',
+    'formateur_id' => 'ID du formateur',
+    'chapitre_officiel_id' => 'ID du chapitre officiel',
 ];
