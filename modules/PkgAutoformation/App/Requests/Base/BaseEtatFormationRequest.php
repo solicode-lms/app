@@ -31,8 +31,11 @@ class BaseEtatFormationRequest extends FormRequest
         return [
             'code' => 'required|string|max:255',
             'nom' => 'required|string|max:255',
+            'is_editable_only_by_formateur' => 'nullable|boolean',
             'description' => 'nullable|string',
-            'workflow_formation_id' => 'nullable'
+            'workflow_formation_id' => 'nullable',
+            'formateur_id' => 'required',
+            'sys_color_id' => 'required'
         ];
     }
 
@@ -48,8 +51,11 @@ class BaseEtatFormationRequest extends FormRequest
             'code.max' => __('validation.codeMax'),
             'nom.required' => __('validation.required', ['attribute' => __('PkgAutoformation::EtatFormation.nom')]),
             'nom.max' => __('validation.nomMax'),
+            'is_editable_only_by_formateur.required' => __('validation.required', ['attribute' => __('PkgAutoformation::EtatFormation.is_editable_only_by_formateur')]),
             'description.required' => __('validation.required', ['attribute' => __('PkgAutoformation::EtatFormation.description')]),
-            'workflow_formation_id.required' => __('validation.required', ['attribute' => __('PkgAutoformation::EtatFormation.workflow_formation_id')])
+            'workflow_formation_id.required' => __('validation.required', ['attribute' => __('PkgAutoformation::EtatFormation.workflow_formation_id')]),
+            'formateur_id.required' => __('validation.required', ['attribute' => __('PkgAutoformation::EtatFormation.formateur_id')]),
+            'sys_color_id.required' => __('validation.required', ['attribute' => __('PkgAutoformation::EtatFormation.sys_color_id')])
         ];
     }
 

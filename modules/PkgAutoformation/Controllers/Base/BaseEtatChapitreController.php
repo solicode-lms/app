@@ -4,6 +4,8 @@
 
 namespace Modules\PkgAutoformation\Controllers\Base;
 use Modules\PkgAutoformation\Services\EtatChapitreService;
+use Modules\PkgFormation\Services\FormateurService;
+use Modules\Core\Services\SysColorService;
 use Modules\PkgAutoformation\Services\WorkflowChapitreService;
 use Modules\PkgAutoformation\Services\RealisationChapitreService;
 use Illuminate\Http\Request;
@@ -20,12 +22,16 @@ use Modules\Core\Services\ContextState;
 class BaseEtatChapitreController extends AdminController
 {
     protected $etatChapitreService;
+    protected $formateurService;
+    protected $sysColorService;
     protected $workflowChapitreService;
 
-    public function __construct(EtatChapitreService $etatChapitreService, WorkflowChapitreService $workflowChapitreService) {
+    public function __construct(EtatChapitreService $etatChapitreService, FormateurService $formateurService, SysColorService $sysColorService, WorkflowChapitreService $workflowChapitreService) {
         parent::__construct();
         $this->service  =  $etatChapitreService;
         $this->etatChapitreService = $etatChapitreService;
+        $this->formateurService = $formateurService;
+        $this->sysColorService = $sysColorService;
         $this->workflowChapitreService = $workflowChapitreService;
     }
 
@@ -64,11 +70,13 @@ class BaseEtatChapitreController extends AdminController
         
 
         $workflowChapitres = $this->workflowChapitreService->all();
+        $formateurs = $this->formateurService->all();
+        $sysColors = $this->sysColorService->all();
 
         if (request()->ajax()) {
-            return view('PkgAutoformation::etatChapitre._fields', compact('itemEtatChapitre', 'workflowChapitres'));
+            return view('PkgAutoformation::etatChapitre._fields', compact('itemEtatChapitre', 'formateurs', 'sysColors', 'workflowChapitres'));
         }
-        return view('PkgAutoformation::etatChapitre.create', compact('itemEtatChapitre', 'workflowChapitres'));
+        return view('PkgAutoformation::etatChapitre.create', compact('itemEtatChapitre', 'formateurs', 'sysColors', 'workflowChapitres'));
     }
     public function store(EtatChapitreRequest $request) {
         $validatedData = $request->validated();
@@ -102,6 +110,8 @@ class BaseEtatChapitreController extends AdminController
 
 
         $workflowChapitres = $this->workflowChapitreService->all();
+        $formateurs = $this->formateurService->all();
+        $sysColors = $this->sysColorService->all();
 
 
         $this->viewState->set('scope.realisationChapitre.etat_chapitre_id', $id);
@@ -114,10 +124,10 @@ class BaseEtatChapitreController extends AdminController
         $realisationChapitre_instance =  $realisationChapitreService->createInstance();
 
         if (request()->ajax()) {
-            return view('PkgAutoformation::etatChapitre._edit', compact('itemEtatChapitre', 'workflowChapitres', 'realisationChapitres_data', 'realisationChapitres_stats', 'realisationChapitres_filters', 'realisationChapitre_instance'));
+            return view('PkgAutoformation::etatChapitre._edit', compact('itemEtatChapitre', 'formateurs', 'sysColors', 'workflowChapitres', 'realisationChapitres_data', 'realisationChapitres_stats', 'realisationChapitres_filters', 'realisationChapitre_instance'));
         }
 
-        return view('PkgAutoformation::etatChapitre.edit', compact('itemEtatChapitre', 'workflowChapitres', 'realisationChapitres_data', 'realisationChapitres_stats', 'realisationChapitres_filters', 'realisationChapitre_instance'));
+        return view('PkgAutoformation::etatChapitre.edit', compact('itemEtatChapitre', 'formateurs', 'sysColors', 'workflowChapitres', 'realisationChapitres_data', 'realisationChapitres_stats', 'realisationChapitres_filters', 'realisationChapitre_instance'));
 
     }
     public function edit(string $id) {
@@ -129,6 +139,8 @@ class BaseEtatChapitreController extends AdminController
 
 
         $workflowChapitres = $this->workflowChapitreService->all();
+        $formateurs = $this->formateurService->all();
+        $sysColors = $this->sysColorService->all();
 
 
         $this->viewState->set('scope.realisationChapitre.etat_chapitre_id', $id);
@@ -142,10 +154,10 @@ class BaseEtatChapitreController extends AdminController
         $realisationChapitre_instance =  $realisationChapitreService->createInstance();
 
         if (request()->ajax()) {
-            return view('PkgAutoformation::etatChapitre._edit', compact('itemEtatChapitre', 'workflowChapitres', 'realisationChapitres_data', 'realisationChapitres_stats', 'realisationChapitres_filters', 'realisationChapitre_instance'));
+            return view('PkgAutoformation::etatChapitre._edit', compact('itemEtatChapitre', 'formateurs', 'sysColors', 'workflowChapitres', 'realisationChapitres_data', 'realisationChapitres_stats', 'realisationChapitres_filters', 'realisationChapitre_instance'));
         }
 
-        return view('PkgAutoformation::etatChapitre.edit', compact('itemEtatChapitre', 'workflowChapitres', 'realisationChapitres_data', 'realisationChapitres_stats', 'realisationChapitres_filters', 'realisationChapitre_instance'));
+        return view('PkgAutoformation::etatChapitre.edit', compact('itemEtatChapitre', 'formateurs', 'sysColors', 'workflowChapitres', 'realisationChapitres_data', 'realisationChapitres_stats', 'realisationChapitres_filters', 'realisationChapitre_instance'));
 
     }
     public function update(EtatChapitreRequest $request, string $id) {

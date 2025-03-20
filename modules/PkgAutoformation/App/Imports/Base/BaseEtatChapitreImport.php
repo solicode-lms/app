@@ -58,9 +58,12 @@ class BaseEtatChapitreImport implements ToModel, WithHeadingRow
         return new EtatChapitre([
              'code' => $values[0] ?? null,
              'nom' => $values[1] ?? null,
+             'is_editable_only_by_formateur' => $values[2] ?? null,
              'reference' => $reference,
-             'workflow_chapitre_id' => $values[3] ?? null,
-             'description' => $values[4] ?? null,
+             'workflow_chapitre_id' => $values[4] ?? null,
+             'description' => $values[5] ?? null,
+             'formateur_id' => $values[6] ?? null,
+             'sys_color_id' => $values[7] ?? null,
         ]);
 
 

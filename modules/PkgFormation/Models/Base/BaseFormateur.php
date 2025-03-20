@@ -18,7 +18,9 @@ use Modules\PkgRealisationProjets\Models\EtatsRealisationProjet;
 use Modules\PkgAutoformation\Models\Chapitre;
 use Modules\PkgGestionTaches\Models\CommentaireRealisationTache;
 use Modules\PkgGestionTaches\Models\EtatRealisationTache;
+use Modules\PkgAutoformation\Models\EtatChapitre;
 use Modules\PkgCompetences\Models\NiveauDifficulte;
+use Modules\PkgAutoformation\Models\EtatFormation;
 use Modules\PkgCreationProjet\Models\Projet;
 use Modules\PkgGestionTaches\Models\LabelRealisationTache;
 use Modules\PkgAutoformation\Models\Formation;
@@ -122,9 +124,27 @@ class BaseFormateur extends BaseModel
      *
      * @return HasMany
      */
+    public function etatChapitres(): HasMany
+    {
+        return $this->hasMany(EtatChapitre::class, 'formateur_id', 'id');
+    }
+    /**
+     * Relation HasMany pour Formateurs.
+     *
+     * @return HasMany
+     */
     public function niveauDifficultes(): HasMany
     {
         return $this->hasMany(NiveauDifficulte::class, 'formateur_id', 'id');
+    }
+    /**
+     * Relation HasMany pour Formateurs.
+     *
+     * @return HasMany
+     */
+    public function etatFormations(): HasMany
+    {
+        return $this->hasMany(EtatFormation::class, 'formateur_id', 'id');
     }
     /**
      * Relation HasMany pour Formateurs.

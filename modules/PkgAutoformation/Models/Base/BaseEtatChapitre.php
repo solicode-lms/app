@@ -12,6 +12,8 @@ use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
 use Modules\PkgAutoformation\Models\WorkflowChapitre;
+use Modules\PkgFormation\Models\Formateur;
+use Modules\Core\Models\SysColor;
 use Modules\PkgAutoformation\Models\RealisationChapitre;
 
 /**
@@ -34,7 +36,7 @@ class BaseEtatChapitre extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'code', 'nom', 'workflow_chapitre_id', 'description'
+        'code', 'nom', 'is_editable_only_by_formateur', 'workflow_chapitre_id', 'description', 'formateur_id', 'sys_color_id'
     ];
 
 
@@ -46,6 +48,24 @@ class BaseEtatChapitre extends BaseModel
     public function workflowChapitre(): BelongsTo
     {
         return $this->belongsTo(WorkflowChapitre::class, 'workflow_chapitre_id', 'id');
+    }
+    /**
+     * Relation BelongsTo pour Formateur.
+     *
+     * @return BelongsTo
+     */
+    public function formateur(): BelongsTo
+    {
+        return $this->belongsTo(Formateur::class, 'formateur_id', 'id');
+    }
+    /**
+     * Relation BelongsTo pour SysColor.
+     *
+     * @return BelongsTo
+     */
+    public function sysColor(): BelongsTo
+    {
+        return $this->belongsTo(SysColor::class, 'sys_color_id', 'id');
     }
 
 

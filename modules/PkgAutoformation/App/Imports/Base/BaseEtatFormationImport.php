@@ -58,9 +58,12 @@ class BaseEtatFormationImport implements ToModel, WithHeadingRow
         return new EtatFormation([
              'code' => $values[0] ?? null,
              'nom' => $values[1] ?? null,
-             'description' => $values[2] ?? null,
+             'is_editable_only_by_formateur' => $values[2] ?? null,
+             'description' => $values[3] ?? null,
              'reference' => $reference,
-             'workflow_formation_id' => $values[4] ?? null,
+             'workflow_formation_id' => $values[5] ?? null,
+             'formateur_id' => $values[6] ?? null,
+             'sys_color_id' => $values[7] ?? null,
         ]);
 
 

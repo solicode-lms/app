@@ -21,8 +21,11 @@ class BaseEtatFormationService extends BaseService
     protected $fieldsSearchable = [
         'code',
         'nom',
+        'is_editable_only_by_formateur',
         'description',
-        'workflow_formation_id'
+        'workflow_formation_id',
+        'formateur_id',
+        'sys_color_id'
     ];
 
     /**
@@ -53,6 +56,12 @@ class BaseEtatFormationService extends BaseService
     
         if (!array_key_exists('workflow_formation_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgAutoformation::workflowFormation.plural"), 'workflow_formation_id', \Modules\PkgAutoformation\Models\WorkflowFormation::class, 'code');
+        }
+        if (!array_key_exists('formateur_id', $scopeVariables)) {
+        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgFormation::formateur.plural"), 'formateur_id', \Modules\PkgFormation\Models\Formateur::class, 'nom');
+        }
+        if (!array_key_exists('sys_color_id', $scopeVariables)) {
+        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("Core::sysColor.plural"), 'sys_color_id', \Modules\Core\Models\SysColor::class, 'name');
         }
     }
 

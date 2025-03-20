@@ -55,11 +55,19 @@
 
         
 
+        <!--   EtatChapitre HasMany --> 
+
+        
+
         <!--   EtatRealisationTache HasMany --> 
 
         
 
         <!--   SysModel HasMany --> 
+
+        
+
+        <!--   EtatFormation HasMany --> 
 
         
 

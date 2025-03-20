@@ -76,8 +76,11 @@ class BaseEtatFormationSeeder extends Seeder
                 $etatFormationData =[
                     "code" => $row["code"] ?? null,
                     "nom" => $row["nom"] ?? null,
+                    "is_editable_only_by_formateur" => $row["is_editable_only_by_formateur"] ?? null,
                     "description" => $row["description"] ?? null,
                     "workflow_formation_id" => $row["workflow_formation_id"] ?? null,
+                    "formateur_id" => $row["formateur_id"] ?? null,
+                    "sys_color_id" => $row["sys_color_id"] ?? null,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

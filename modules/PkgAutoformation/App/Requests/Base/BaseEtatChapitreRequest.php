@@ -31,8 +31,11 @@ class BaseEtatChapitreRequest extends FormRequest
         return [
             'code' => 'required|string|max:255',
             'nom' => 'required|string|max:255',
+            'is_editable_only_by_formateur' => 'nullable|boolean',
             'workflow_chapitre_id' => 'nullable',
-            'description' => 'nullable|string'
+            'description' => 'nullable|string',
+            'formateur_id' => 'required',
+            'sys_color_id' => 'required'
         ];
     }
 
@@ -48,8 +51,11 @@ class BaseEtatChapitreRequest extends FormRequest
             'code.max' => __('validation.codeMax'),
             'nom.required' => __('validation.required', ['attribute' => __('PkgAutoformation::EtatChapitre.nom')]),
             'nom.max' => __('validation.nomMax'),
+            'is_editable_only_by_formateur.required' => __('validation.required', ['attribute' => __('PkgAutoformation::EtatChapitre.is_editable_only_by_formateur')]),
             'workflow_chapitre_id.required' => __('validation.required', ['attribute' => __('PkgAutoformation::EtatChapitre.workflow_chapitre_id')]),
-            'description.required' => __('validation.required', ['attribute' => __('PkgAutoformation::EtatChapitre.description')])
+            'description.required' => __('validation.required', ['attribute' => __('PkgAutoformation::EtatChapitre.description')]),
+            'formateur_id.required' => __('validation.required', ['attribute' => __('PkgAutoformation::EtatChapitre.formateur_id')]),
+            'sys_color_id.required' => __('validation.required', ['attribute' => __('PkgAutoformation::EtatChapitre.sys_color_id')])
         ];
     }
 

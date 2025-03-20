@@ -211,7 +211,15 @@
 
         
 
+        <!--   EtatChapitre HasMany --> 
+
+        
+
         <!--   NiveauDifficulte HasMany --> 
+
+        
+
+        <!--   EtatFormation HasMany --> 
 
         
 

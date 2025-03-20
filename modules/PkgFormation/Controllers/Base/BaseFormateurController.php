@@ -10,6 +10,8 @@ use Modules\PkgAutorisation\Services\UserService;
 use Modules\PkgAutoformation\Services\ChapitreService;
 use Modules\PkgGestionTaches\Services\CommentaireRealisationTacheService;
 use Modules\PkgGestionTaches\Services\EtatRealisationTacheService;
+use Modules\PkgAutoformation\Services\EtatChapitreService;
+use Modules\PkgAutoformation\Services\EtatFormationService;
 use Modules\PkgGestionTaches\Services\LabelRealisationTacheService;
 use Modules\PkgAutoformation\Services\FormationService;
 use Modules\PkgGestionTaches\Services\PrioriteTacheService;
@@ -146,6 +148,24 @@ class BaseFormateurController extends AdminController
         $etatRealisationTaches_filters = $etatRealisationTacheService->getFieldsFilterable();
         $etatRealisationTache_instance =  $etatRealisationTacheService->createInstance();
 
+        $this->viewState->set('scope.etatChapitre.formateur_id', $id);
+
+
+        $etatChapitreService =  new EtatChapitreService();
+        $etatChapitres_data =  $etatChapitreService->paginate();
+        $etatChapitres_stats = $etatChapitreService->getetatChapitreStats();
+        $etatChapitres_filters = $etatChapitreService->getFieldsFilterable();
+        $etatChapitre_instance =  $etatChapitreService->createInstance();
+
+        $this->viewState->set('scope.etatFormation.formateur_id', $id);
+
+
+        $etatFormationService =  new EtatFormationService();
+        $etatFormations_data =  $etatFormationService->paginate();
+        $etatFormations_stats = $etatFormationService->getetatFormationStats();
+        $etatFormations_filters = $etatFormationService->getFieldsFilterable();
+        $etatFormation_instance =  $etatFormationService->createInstance();
+
         $this->viewState->set('scope.labelRealisationTache.formateur_id', $id);
 
 
@@ -174,10 +194,10 @@ class BaseFormateurController extends AdminController
         $prioriteTache_instance =  $prioriteTacheService->createInstance();
 
         if (request()->ajax()) {
-            return view('PkgFormation::formateur._edit', compact('itemFormateur', 'groupes', 'specialites', 'users', 'chapitres_data', 'commentaireRealisationTaches_data', 'etatRealisationTaches_data', 'labelRealisationTaches_data', 'formations_data', 'prioriteTaches_data', 'chapitres_stats', 'commentaireRealisationTaches_stats', 'etatRealisationTaches_stats', 'labelRealisationTaches_stats', 'formations_stats', 'prioriteTaches_stats', 'chapitres_filters', 'commentaireRealisationTaches_filters', 'etatRealisationTaches_filters', 'labelRealisationTaches_filters', 'formations_filters', 'prioriteTaches_filters', 'chapitre_instance', 'commentaireRealisationTache_instance', 'etatRealisationTache_instance', 'labelRealisationTache_instance', 'formation_instance', 'prioriteTache_instance'));
+            return view('PkgFormation::formateur._edit', compact('itemFormateur', 'groupes', 'specialites', 'users', 'chapitres_data', 'commentaireRealisationTaches_data', 'etatRealisationTaches_data', 'etatChapitres_data', 'etatFormations_data', 'labelRealisationTaches_data', 'formations_data', 'prioriteTaches_data', 'chapitres_stats', 'commentaireRealisationTaches_stats', 'etatRealisationTaches_stats', 'etatChapitres_stats', 'etatFormations_stats', 'labelRealisationTaches_stats', 'formations_stats', 'prioriteTaches_stats', 'chapitres_filters', 'commentaireRealisationTaches_filters', 'etatRealisationTaches_filters', 'etatChapitres_filters', 'etatFormations_filters', 'labelRealisationTaches_filters', 'formations_filters', 'prioriteTaches_filters', 'chapitre_instance', 'commentaireRealisationTache_instance', 'etatRealisationTache_instance', 'etatChapitre_instance', 'etatFormation_instance', 'labelRealisationTache_instance', 'formation_instance', 'prioriteTache_instance'));
         }
 
-        return view('PkgFormation::formateur.edit', compact('itemFormateur', 'groupes', 'specialites', 'users', 'chapitres_data', 'commentaireRealisationTaches_data', 'etatRealisationTaches_data', 'labelRealisationTaches_data', 'formations_data', 'prioriteTaches_data', 'chapitres_stats', 'commentaireRealisationTaches_stats', 'etatRealisationTaches_stats', 'labelRealisationTaches_stats', 'formations_stats', 'prioriteTaches_stats', 'chapitres_filters', 'commentaireRealisationTaches_filters', 'etatRealisationTaches_filters', 'labelRealisationTaches_filters', 'formations_filters', 'prioriteTaches_filters', 'chapitre_instance', 'commentaireRealisationTache_instance', 'etatRealisationTache_instance', 'labelRealisationTache_instance', 'formation_instance', 'prioriteTache_instance'));
+        return view('PkgFormation::formateur.edit', compact('itemFormateur', 'groupes', 'specialites', 'users', 'chapitres_data', 'commentaireRealisationTaches_data', 'etatRealisationTaches_data', 'etatChapitres_data', 'etatFormations_data', 'labelRealisationTaches_data', 'formations_data', 'prioriteTaches_data', 'chapitres_stats', 'commentaireRealisationTaches_stats', 'etatRealisationTaches_stats', 'etatChapitres_stats', 'etatFormations_stats', 'labelRealisationTaches_stats', 'formations_stats', 'prioriteTaches_stats', 'chapitres_filters', 'commentaireRealisationTaches_filters', 'etatRealisationTaches_filters', 'etatChapitres_filters', 'etatFormations_filters', 'labelRealisationTaches_filters', 'formations_filters', 'prioriteTaches_filters', 'chapitre_instance', 'commentaireRealisationTache_instance', 'etatRealisationTache_instance', 'etatChapitre_instance', 'etatFormation_instance', 'labelRealisationTache_instance', 'formation_instance', 'prioriteTache_instance'));
 
     }
     public function edit(string $id) {
@@ -223,6 +243,26 @@ class BaseFormateurController extends AdminController
         $etatRealisationTaches_filters = $etatRealisationTacheService->getFieldsFilterable();
         $etatRealisationTache_instance =  $etatRealisationTacheService->createInstance();
 
+        $this->viewState->set('scope.etatChapitre.formateur_id', $id);
+        
+
+        $etatChapitreService =  new EtatChapitreService();
+        $etatChapitres_data =  $etatChapitreService->paginate();
+        $etatChapitres_stats = $etatChapitreService->getetatChapitreStats();
+        $this->viewState->set('stats.etatChapitre.stats'  , $etatChapitres_stats);
+        $etatChapitres_filters = $etatChapitreService->getFieldsFilterable();
+        $etatChapitre_instance =  $etatChapitreService->createInstance();
+
+        $this->viewState->set('scope.etatFormation.formateur_id', $id);
+        
+
+        $etatFormationService =  new EtatFormationService();
+        $etatFormations_data =  $etatFormationService->paginate();
+        $etatFormations_stats = $etatFormationService->getetatFormationStats();
+        $this->viewState->set('stats.etatFormation.stats'  , $etatFormations_stats);
+        $etatFormations_filters = $etatFormationService->getFieldsFilterable();
+        $etatFormation_instance =  $etatFormationService->createInstance();
+
         $this->viewState->set('scope.labelRealisationTache.formateur_id', $id);
         
 
@@ -254,10 +294,10 @@ class BaseFormateurController extends AdminController
         $prioriteTache_instance =  $prioriteTacheService->createInstance();
 
         if (request()->ajax()) {
-            return view('PkgFormation::formateur._edit', compact('itemFormateur', 'groupes', 'specialites', 'users', 'chapitres_data', 'commentaireRealisationTaches_data', 'etatRealisationTaches_data', 'labelRealisationTaches_data', 'formations_data', 'prioriteTaches_data', 'chapitres_stats', 'commentaireRealisationTaches_stats', 'etatRealisationTaches_stats', 'labelRealisationTaches_stats', 'formations_stats', 'prioriteTaches_stats', 'chapitres_filters', 'commentaireRealisationTaches_filters', 'etatRealisationTaches_filters', 'labelRealisationTaches_filters', 'formations_filters', 'prioriteTaches_filters', 'chapitre_instance', 'commentaireRealisationTache_instance', 'etatRealisationTache_instance', 'labelRealisationTache_instance', 'formation_instance', 'prioriteTache_instance'));
+            return view('PkgFormation::formateur._edit', compact('itemFormateur', 'groupes', 'specialites', 'users', 'chapitres_data', 'commentaireRealisationTaches_data', 'etatRealisationTaches_data', 'etatChapitres_data', 'etatFormations_data', 'labelRealisationTaches_data', 'formations_data', 'prioriteTaches_data', 'chapitres_stats', 'commentaireRealisationTaches_stats', 'etatRealisationTaches_stats', 'etatChapitres_stats', 'etatFormations_stats', 'labelRealisationTaches_stats', 'formations_stats', 'prioriteTaches_stats', 'chapitres_filters', 'commentaireRealisationTaches_filters', 'etatRealisationTaches_filters', 'etatChapitres_filters', 'etatFormations_filters', 'labelRealisationTaches_filters', 'formations_filters', 'prioriteTaches_filters', 'chapitre_instance', 'commentaireRealisationTache_instance', 'etatRealisationTache_instance', 'etatChapitre_instance', 'etatFormation_instance', 'labelRealisationTache_instance', 'formation_instance', 'prioriteTache_instance'));
         }
 
-        return view('PkgFormation::formateur.edit', compact('itemFormateur', 'groupes', 'specialites', 'users', 'chapitres_data', 'commentaireRealisationTaches_data', 'etatRealisationTaches_data', 'labelRealisationTaches_data', 'formations_data', 'prioriteTaches_data', 'chapitres_stats', 'commentaireRealisationTaches_stats', 'etatRealisationTaches_stats', 'labelRealisationTaches_stats', 'formations_stats', 'prioriteTaches_stats', 'chapitres_filters', 'commentaireRealisationTaches_filters', 'etatRealisationTaches_filters', 'labelRealisationTaches_filters', 'formations_filters', 'prioriteTaches_filters', 'chapitre_instance', 'commentaireRealisationTache_instance', 'etatRealisationTache_instance', 'labelRealisationTache_instance', 'formation_instance', 'prioriteTache_instance'));
+        return view('PkgFormation::formateur.edit', compact('itemFormateur', 'groupes', 'specialites', 'users', 'chapitres_data', 'commentaireRealisationTaches_data', 'etatRealisationTaches_data', 'etatChapitres_data', 'etatFormations_data', 'labelRealisationTaches_data', 'formations_data', 'prioriteTaches_data', 'chapitres_stats', 'commentaireRealisationTaches_stats', 'etatRealisationTaches_stats', 'etatChapitres_stats', 'etatFormations_stats', 'labelRealisationTaches_stats', 'formations_stats', 'prioriteTaches_stats', 'chapitres_filters', 'commentaireRealisationTaches_filters', 'etatRealisationTaches_filters', 'etatChapitres_filters', 'etatFormations_filters', 'labelRealisationTaches_filters', 'formations_filters', 'prioriteTaches_filters', 'chapitre_instance', 'commentaireRealisationTache_instance', 'etatRealisationTache_instance', 'etatChapitre_instance', 'etatFormation_instance', 'labelRealisationTache_instance', 'formation_instance', 'prioriteTache_instance'));
 
     }
     public function update(FormateurRequest $request, string $id) {
