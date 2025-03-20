@@ -78,5 +78,13 @@
         "description": "Automatically generated package for PkgGestionTaches",
         "created_at": null,
         "updated_at": null
+    },
+    {
+        "id": 11,
+        "reference": "PkgAutoformation",
+        "name": "PkgAutoformation",
+        "description": "Automatically generated package for PkgAutoformation",
+        "created_at": null,
+        "updated_at": null
     }
 ]

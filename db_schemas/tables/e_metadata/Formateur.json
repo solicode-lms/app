@@ -682,5 +682,53 @@
         },
         "e_data_field_reference": "formateurs_hasMany_etats_realisation_projets_formateur_id",
         "e_metadata_definition_reference": "nature"
+    },
+    {
+        "reference": "formateurs_hasMany_chapitres_formateur_id_editHasMany",
+        "value_boolean": 1,
+        "e_data_field_reference": "formateurs_hasMany_chapitres_formateur_id",
+        "e_metadata_definition_reference": "editHasMany"
+    },
+    {
+        "reference": "formateurs_hasMany_chapitres_formateur_id_displayOrder",
+        "value_integer": 18,
+        "e_data_field_reference": "formateurs_hasMany_chapitres_formateur_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "formateurs_hasMany_chapitres_formateur_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "formateurs_hasMany_chapitres_formateur_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "formateurs_hasMany_chapitres_formateur_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "formateurs_hasMany_chapitres_formateur_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "formateurs_hasMany_formations_formateur_id_editHasMany",
+        "value_boolean": 1,
+        "e_data_field_reference": "formateurs_hasMany_formations_formateur_id",
+        "e_metadata_definition_reference": "editHasMany"
+    },
+    {
+        "reference": "formateurs_hasMany_formations_formateur_id_displayOrder",
+        "value_integer": 24,
+        "e_data_field_reference": "formateurs_hasMany_formations_formateur_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "formateurs_hasMany_formations_formateur_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "formateurs_hasMany_formations_formateur_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "formateurs_hasMany_formations_formateur_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "formateurs_hasMany_formations_formateur_id",
+        "e_metadata_definition_reference": "inputMdWidth"
     }
 ]

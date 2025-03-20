@@ -1,0 +1,248 @@
+[
+    {
+        "reference": "etat_formations_creationOrder",
+        "value_integer": 72,
+        "e_model_reference": "etat_formations",
+        "e_metadata_definition_reference": "creationOrder"
+    },
+    {
+        "reference": "etat_formations_displayInSideBar",
+        "value_boolean": 1,
+        "e_model_reference": "etat_formations",
+        "e_metadata_definition_reference": "displayInSideBar"
+    },
+    {
+        "reference": "etat_formations_iconModel",
+        "value_string": "fa-table",
+        "e_model_reference": "etat_formations",
+        "e_metadata_definition_reference": "iconModel"
+    },
+    {
+        "reference": "EtatFormation_id_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatFormation_id",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "EtatFormation_id_displayOrder",
+        "value_integer": 1,
+        "e_data_field_reference": "EtatFormation_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "EtatFormation_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatFormation_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "EtatFormation_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "EtatFormation_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "EtatFormation_code_displayInTable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatFormation_code",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "EtatFormation_code_displayField",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatFormation_code",
+        "e_metadata_definition_reference": "displayField"
+    },
+    {
+        "reference": "EtatFormation_code_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatFormation_code",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "EtatFormation_code_displayOrder",
+        "value_integer": 2,
+        "e_data_field_reference": "EtatFormation_code",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "EtatFormation_code_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatFormation_code",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "EtatFormation_code_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "EtatFormation_code",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "EtatFormation_nom_displayInTable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatFormation_nom",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "EtatFormation_nom_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatFormation_nom",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "EtatFormation_nom_displayOrder",
+        "value_integer": 3,
+        "e_data_field_reference": "EtatFormation_nom",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "EtatFormation_nom_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatFormation_nom",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "EtatFormation_nom_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "EtatFormation_nom",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "EtatFormation_description_displayOrder",
+        "value_integer": 4,
+        "e_data_field_reference": "EtatFormation_description",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "EtatFormation_description_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatFormation_description",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "EtatFormation_description_inputMdWidth",
+        "value_integer": 12,
+        "e_data_field_reference": "EtatFormation_description",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "EtatFormation_description_isRichText",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatFormation_description",
+        "e_metadata_definition_reference": "isRichText"
+    },
+    {
+        "reference": "EtatFormation_reference_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatFormation_reference",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "EtatFormation_reference_displayOrder",
+        "value_integer": 5,
+        "e_data_field_reference": "EtatFormation_reference",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "EtatFormation_reference_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatFormation_reference",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "EtatFormation_reference_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "EtatFormation_reference",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "EtatFormation_workflow_formation_id_displayInTable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatFormation_workflow_formation_id",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "EtatFormation_workflow_formation_id_filterable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatFormation_workflow_formation_id",
+        "e_metadata_definition_reference": "filterable"
+    },
+    {
+        "reference": "EtatFormation_workflow_formation_id_displayOrder",
+        "value_integer": 6,
+        "e_data_field_reference": "EtatFormation_workflow_formation_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "EtatFormation_workflow_formation_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatFormation_workflow_formation_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "EtatFormation_workflow_formation_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "EtatFormation_workflow_formation_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "EtatFormation_created_at_displayOrder",
+        "value_integer": 7,
+        "e_data_field_reference": "EtatFormation_created_at",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "EtatFormation_created_at_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatFormation_created_at",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "EtatFormation_created_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "EtatFormation_created_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "EtatFormation_updated_at_displayOrder",
+        "value_integer": 8,
+        "e_data_field_reference": "EtatFormation_updated_at",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "EtatFormation_updated_at_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatFormation_updated_at",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "EtatFormation_updated_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "EtatFormation_updated_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "etat_formations_hasMany_realisation_formations_etat_formation_id_editHasMany",
+        "value_boolean": 1,
+        "e_data_field_reference": "etat_formations_hasMany_realisation_formations_etat_formation_id",
+        "e_metadata_definition_reference": "editHasMany"
+    },
+    {
+        "reference": "etat_formations_hasMany_realisation_formations_etat_formation_id_displayOrder",
+        "value_integer": 9,
+        "e_data_field_reference": "etat_formations_hasMany_realisation_formations_etat_formation_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "etat_formations_hasMany_realisation_formations_etat_formation_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "etat_formations_hasMany_realisation_formations_etat_formation_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "etat_formations_hasMany_realisation_formations_etat_formation_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "etat_formations_hasMany_realisation_formations_etat_formation_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    }
+]

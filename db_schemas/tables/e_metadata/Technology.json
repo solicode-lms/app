@@ -236,5 +236,23 @@
         "value_boolean": 1,
         "e_data_field_reference": "Technology_description",
         "e_metadata_definition_reference": "isRichText"
+    },
+    {
+        "reference": "technologies_formations_formation_technology_m2m_m2m_displayOrder",
+        "value_integer": 9,
+        "e_data_field_reference": "technologies_formations_formation_technology_m2m_m2m",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "technologies_formations_formation_technology_m2m_m2m_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "technologies_formations_formation_technology_m2m_m2m",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "technologies_formations_formation_technology_m2m_m2m_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "technologies_formations_formation_technology_m2m_m2m",
+        "e_metadata_definition_reference": "inputMdWidth"
     }
 ]
