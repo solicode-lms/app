@@ -453,5 +453,19 @@
         },
         "e_data_field_reference": "Formation_is_officiel",
         "e_metadata_definition_reference": "editableByRoles"
+    },
+    {
+        "reference": "Formation_formation_officiel_id_scopeDataInEditContext",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": [
+            {
+                "key": "scope.formationOfficiel.is_officiel",
+                "value": "1",
+                "modelName": "Formation"
+            }
+        ],
+        "e_data_field_reference": "Formation_formation_officiel_id",
+        "e_metadata_definition_reference": "scopeDataInEditContext"
     }
 ]

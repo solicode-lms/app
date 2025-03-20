@@ -77,6 +77,10 @@ class BaseFormationController extends AdminController
 
         $itemFormation = $this->formationService->createInstance();
         
+        // scopeDataInEditContext
+        $value = $itemFormation->getNestedValue(1);
+        $key = 'scope.formation.is_officiel';
+        $this->viewState->set($key, $value);
 
         $competences = $this->competenceService->all();
         $technologies = $this->technologyService->all();
@@ -119,6 +123,10 @@ class BaseFormationController extends AdminController
         $itemFormation = $this->formationService->find($id);
         $this->authorize('view', $itemFormation);
 
+        // scopeDataInEditContext
+        $value = $itemFormation->getNestedValue('1');
+        $key = 'scope.formationOfficiel.is_officiel';
+        $this->viewState->set($key, $value);
 
         $competences = $this->competenceService->all();
         $technologies = $this->technologyService->all();
@@ -128,6 +136,10 @@ class BaseFormationController extends AdminController
 
         $this->viewState->set('scope.formation.formation_officiel_id', $id);
 
+        // scopeDataInEditContext
+        $value = $itemFormation->getNestedValue('1');
+        $key = 'scope.formationOfficiel.is_officiel';
+        $this->viewState->set($key, $value);
 
         $formationService =  new FormationService();
         $formations_data =  $formationService->paginate();
@@ -168,6 +180,10 @@ class BaseFormationController extends AdminController
         $itemFormation = $this->formationService->find($id);
         $this->authorize('edit', $itemFormation);
 
+        // scopeDataInEditContext
+        $value = $itemFormation->getNestedValue('1');
+        $key = 'scope.formationOfficiel.is_officiel';
+        $this->viewState->set($key, $value);
 
         $competences = $this->competenceService->all();
         $technologies = $this->technologyService->all();
@@ -177,6 +193,10 @@ class BaseFormationController extends AdminController
 
         $this->viewState->set('scope.formation.formation_officiel_id', $id);
         
+        // scopeDataInEditContext
+        $value = $itemFormation->getNestedValue('1');
+        $key = 'scope.formationOfficiel.is_officiel';
+        $this->viewState->set($key, $value);
 
         $formationService =  new FormationService();
         $formations_data =  $formationService->paginate();
