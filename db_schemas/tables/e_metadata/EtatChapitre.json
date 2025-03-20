@@ -244,5 +244,103 @@
         "value_integer": 6,
         "e_data_field_reference": "etat_chapitres_hasMany_realisation_chapitres_etat_chapitre_id",
         "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "EtatChapitre_is_editable_only_by_formateur_displayOrder",
+        "value_integer": 4,
+        "e_data_field_reference": "EtatChapitre_is_editable_only_by_formateur",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "EtatChapitre_is_editable_only_by_formateur_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatChapitre_is_editable_only_by_formateur",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "EtatChapitre_is_editable_only_by_formateur_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "EtatChapitre_is_editable_only_by_formateur",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "EtatChapitre_formateur_id_displayInTable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatChapitre_formateur_id",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "EtatChapitre_formateur_id_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatChapitre_formateur_id",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "EtatChapitre_formateur_id_filterable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatChapitre_formateur_id",
+        "e_metadata_definition_reference": "filterable"
+    },
+    {
+        "reference": "EtatChapitre_formateur_id_displayOrder",
+        "value_integer": 8,
+        "e_data_field_reference": "EtatChapitre_formateur_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "EtatChapitre_formateur_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatChapitre_formateur_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "EtatChapitre_formateur_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "EtatChapitre_formateur_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "EtatChapitre_sys_color_id_displayInTable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatChapitre_sys_color_id",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "EtatChapitre_sys_color_id_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatChapitre_sys_color_id",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "EtatChapitre_sys_color_id_filterable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatChapitre_sys_color_id",
+        "e_metadata_definition_reference": "filterable"
+    },
+    {
+        "reference": "EtatChapitre_sys_color_id_displayOrder",
+        "value_integer": 9,
+        "e_data_field_reference": "EtatChapitre_sys_color_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "EtatChapitre_sys_color_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatChapitre_sys_color_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "EtatChapitre_sys_color_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "EtatChapitre_sys_color_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "EtatChapitre_sys_color_id_nature",
+        "value_json": {
+            "nature": "couleur"
+        },
+        "e_data_field_reference": "EtatChapitre_sys_color_id",
+        "e_metadata_definition_reference": "nature"
     }
 ]
