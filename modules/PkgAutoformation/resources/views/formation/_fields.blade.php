@@ -106,7 +106,7 @@
 
 
         
-        @php $canEditis_officiel = Auth::user()->hasAnyRole(explode(',', 'admin')); @endphp
+        @php $canEditis_officiel = Auth::user()->hasAnyRole(explode(',', 'admin,admin-formateur')); @endphp
 <div class="form-group col-12 col-md-6">
             <label for="is_officiel">
                 {{ ucfirst(__('PkgAutoformation::formation.is_officiel')) }}

@@ -124,9 +124,9 @@ class BaseFormationController extends AdminController
         $this->authorize('view', $itemFormation);
 
         // scopeDataInEditContext
-        $value = $itemFormation->getNestedValue('1');
-        $key = 'scope.formationOfficiel.is_officiel';
-        $this->viewState->set($key, $value);
+        // $value = $itemFormation->getNestedValue('1');
+        // $key = 'scope.formationOfficiel.is_officiel';
+        // $this->viewState->set($key, $value);
 
         $competences = $this->competenceService->all();
         $technologies = $this->technologyService->all();

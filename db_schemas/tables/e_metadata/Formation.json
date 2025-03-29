@@ -450,7 +450,7 @@
         "value_boolean": 1,
         "value_float": 0,
         "value_json": {
-            "roles": "admin"
+            "roles": "admin,admin-formateur"
         },
         "e_data_field_reference": "Formation_is_officiel",
         "e_metadata_definition_reference": "editableByRoles"

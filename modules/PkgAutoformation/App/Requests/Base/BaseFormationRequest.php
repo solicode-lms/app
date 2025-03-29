@@ -70,7 +70,7 @@ class BaseFormationRequest extends FormRequest
         // Définition des rôles autorisés pour chaque champ
         $editableFieldsByRoles = [
             
-            'is_officiel' => "admin",
+            'is_officiel' => "admin,admin-formateur",
             
         ];
 

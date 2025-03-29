@@ -59,6 +59,8 @@ php artisan db:seed --class=Modules\PkgAutoformation\Database\Seeders\AddDefault
 
 ### Rôle : Admin foramteur
 
+- Ajouter le rôle : admin-formateur 
+- 
 - Création des formations officiel
 - Créatiopn des chapitre offciel
 - Gestion des technologie
