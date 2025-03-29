@@ -78,8 +78,8 @@ class BaseFormationController extends AdminController
         $itemFormation = $this->formationService->createInstance();
         
         // scopeDataInEditContext
-        $value = $itemFormation->getNestedValue(1);
-        $key = 'scope.formation.is_officiel';
+        $value = $itemFormation->getNestedValue('1');
+        $key = 'scope.formationOfficiel.is_officiel';
         $this->viewState->set($key, $value);
 
         $competences = $this->competenceService->all();
