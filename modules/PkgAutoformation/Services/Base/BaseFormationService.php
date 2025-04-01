@@ -20,8 +20,8 @@ class BaseFormationService extends BaseService
      */
     protected $fieldsSearchable = [
         'nom',
-        'competence_id',
         'lien',
+        'competence_id',
         'is_officiel',
         'formateur_id',
         'formation_officiel_id',

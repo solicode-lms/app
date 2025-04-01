@@ -30,8 +30,8 @@ class BaseFormationRequest extends FormRequest
     {
         return [
             'nom' => 'required|string|max:255',
-            'competence_id' => 'nullable',
             'lien' => 'nullable|string|max:255',
+            'competence_id' => 'nullable',
             'technologies' => 'nullable|array',
             'is_officiel' => 'required|boolean',
             'formateur_id' => 'nullable',
@@ -50,9 +50,9 @@ class BaseFormationRequest extends FormRequest
         return [
             'nom.required' => __('validation.required', ['attribute' => __('PkgAutoformation::Formation.nom')]),
             'nom.max' => __('validation.nomMax'),
-            'competence_id.required' => __('validation.required', ['attribute' => __('PkgAutoformation::Formation.competence_id')]),
             'lien.required' => __('validation.required', ['attribute' => __('PkgAutoformation::Formation.lien')]),
             'lien.max' => __('validation.lienMax'),
+            'competence_id.required' => __('validation.required', ['attribute' => __('PkgAutoformation::Formation.competence_id')]),
             'technologies.required' => __('validation.required', ['attribute' => __('PkgAutoformation::Formation.technologies')]),
             'technologies.array' => __('validation.array', ['attribute' => __('PkgAutoformation::Formation.technologies')]),
             'is_officiel.required' => __('validation.required', ['attribute' => __('PkgAutoformation::Formation.is_officiel')]),

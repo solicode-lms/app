@@ -89,7 +89,7 @@
     {
         "reference": "Formation_lien_displayOrder",
         "value_boolean": 0,
-        "value_integer": 4,
+        "value_integer": 3,
         "value_float": 0,
         "e_data_field_reference": "Formation_lien",
         "e_metadata_definition_reference": "displayOrder"
@@ -269,7 +269,7 @@
     {
         "reference": "Formation_competence_id_displayOrder",
         "value_boolean": 0,
-        "value_integer": 3,
+        "value_integer": 5,
         "value_float": 0,
         "e_data_field_reference": "Formation_competence_id",
         "e_metadata_definition_reference": "displayOrder"
@@ -478,7 +478,9 @@
     },
     {
         "reference": "Formation-Filière_displayOrder",
-        "value_integer": 3,
+        "value_boolean": 0,
+        "value_integer": 4,
+        "value_float": 0,
         "e_data_field_reference": "Formation-Filière",
         "e_metadata_definition_reference": "displayOrder"
     },

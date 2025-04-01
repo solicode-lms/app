@@ -29,12 +29,12 @@
                                 <p>{{ $itemFormation->nom }}</p>
                             </div>
                             <div class="col-sm-12">
-                                <label for="competence_id">{{ ucfirst(__('PkgAutoformation::formation.competence_id')) }}:</label>
-                                <p>{{ $itemFormation->competence_id }}</p>
-                            </div>
-                            <div class="col-sm-12">
                                 <label for="lien">{{ ucfirst(__('PkgAutoformation::formation.lien')) }}:</label>
                                 <p>{{ $itemFormation->lien }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="competence_id">{{ ucfirst(__('PkgAutoformation::formation.competence_id')) }}:</label>
+                                <p>{{ $itemFormation->competence_id }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="is_officiel">{{ ucfirst(__('PkgAutoformation::formation.is_officiel')) }}:</label>

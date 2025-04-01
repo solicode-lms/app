@@ -46,7 +46,7 @@ class BaseFormation extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'nom', 'competence_id', 'lien', 'is_officiel', 'formateur_id', 'formation_officiel_id', 'description'
+        'nom', 'lien', 'competence_id', 'is_officiel', 'formateur_id', 'formation_officiel_id', 'description'
     ];
     public $manyToMany = [
         'Technology' => ['relation' => 'technologies' , "foreign_key" => "technology_id" ]

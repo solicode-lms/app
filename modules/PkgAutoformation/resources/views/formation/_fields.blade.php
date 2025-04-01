@@ -33,31 +33,23 @@
 
         
         <div class="form-group col-12 col-md-6">
-            <label for="competence_id">
-                {{ ucfirst(__('PkgCompetences::competence.singular')) }}
-                
-                    <span class="text-danger">*</span>
+            <label for="lien">
+                {{ ucfirst(__('PkgAutoformation::formation.lien')) }}
                 
             </label>
-            <select 
-            id="competence_id" 
-            required
-            
-            name="competence_id" 
-            class="form-control select2">
-             <option value="">Sélectionnez une option</option>
-                @foreach ($competences as $competence)
-                    <option value="{{ $competence->id }}"
-                        {{ (isset($itemFormation) && $itemFormation->competence_id == $competence->id) || (old('competence_id>') == $competence->id) ? 'selected' : '' }}>
-                        {{ $competence }}
-                    </option>
-                @endforeach
-            </select>
-            @error('competence_id')
+            <input
+                name="lien"
+                type="input"
+                class="form-control"
+                
+                
+                id="lien"
+                placeholder="{{ __('PkgAutoformation::formation.lien') }}"
+                value="{{ $itemFormation ? $itemFormation->lien : old('lien') }}">
+            @error('lien')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-    </div>
-
+</div>
 
         
         <div class="form-group col-12 col-md-6">
@@ -86,23 +78,31 @@
 
         
         <div class="form-group col-12 col-md-6">
-            <label for="lien">
-                {{ ucfirst(__('PkgAutoformation::formation.lien')) }}
+            <label for="competence_id">
+                {{ ucfirst(__('PkgCompetences::competence.singular')) }}
+                
+                    <span class="text-danger">*</span>
                 
             </label>
-            <input
-                name="lien"
-                type="input"
-                class="form-control"
-                
-                
-                id="lien"
-                placeholder="{{ __('PkgAutoformation::formation.lien') }}"
-                value="{{ $itemFormation ? $itemFormation->lien : old('lien') }}">
-            @error('lien')
+            <select 
+            id="competence_id" 
+            required
+            
+            name="competence_id" 
+            class="form-control select2">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($competences as $competence)
+                    <option value="{{ $competence->id }}"
+                        {{ (isset($itemFormation) && $itemFormation->competence_id == $competence->id) || (old('competence_id>') == $competence->id) ? 'selected' : '' }}>
+                        {{ $competence }}
+                    </option>
+                @endforeach
+            </select>
+            @error('competence_id')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-</div>
+    </div>
+
 
         
                     <div class="form-group col-12 col-md-6">

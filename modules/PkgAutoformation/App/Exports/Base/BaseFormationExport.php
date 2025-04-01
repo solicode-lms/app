@@ -29,8 +29,8 @@ class BaseFormationExport implements FromCollection, WithHeadings, ShouldAutoSiz
      if($this->format == 'csv'){
         return [
             'nom' => 'nom',
-            'competence_id' => 'competence_id',
             'lien' => 'lien',
+            'competence_id' => 'competence_id',
             'is_officiel' => 'is_officiel',
             'reference' => 'reference',
             'formateur_id' => 'formateur_id',
@@ -40,8 +40,8 @@ class BaseFormationExport implements FromCollection, WithHeadings, ShouldAutoSiz
         }else{
         return [
             'nom' => __('PkgAutoformation::formation.nom'),
-            'competence_id' => __('PkgAutoformation::formation.competence_id'),
             'lien' => __('PkgAutoformation::formation.lien'),
+            'competence_id' => __('PkgAutoformation::formation.competence_id'),
             'is_officiel' => __('PkgAutoformation::formation.is_officiel'),
             'reference' => __('Core::msg.reference'),
             'formateur_id' => __('PkgAutoformation::formation.formateur_id'),
@@ -58,8 +58,8 @@ class BaseFormationExport implements FromCollection, WithHeadings, ShouldAutoSiz
         return $this->data->map(function ($formation) {
             return [
                 'nom' => $formation->nom,
-                'competence_id' => $formation->competence_id,
                 'lien' => $formation->lien,
+                'competence_id' => $formation->competence_id,
                 'is_officiel' => $formation->is_officiel,
                 'reference' => $formation->reference,
                 'formateur_id' => $formation->formateur_id,

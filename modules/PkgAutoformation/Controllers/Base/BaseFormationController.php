@@ -89,11 +89,12 @@ class BaseFormationController extends AdminController
         $technologies = $this->technologyService->all();
         $formateurs = $this->formateurService->all();
         $formations = $this->formationService->all();
+        $filieres = $this->filiereService->all();
 
         if (request()->ajax()) {
-            return view('PkgAutoformation::formation._fields', compact('itemFormation', 'technologies', 'competences', 'formateurs', 'formations'));
+            return view('PkgAutoformation::formation._fields', compact('itemFormation', 'technologies', 'competences', 'formateurs', 'formations', 'filieres'));
         }
-        return view('PkgAutoformation::formation.create', compact('itemFormation', 'technologies', 'competences', 'formateurs', 'formations'));
+        return view('PkgAutoformation::formation.create', compact('itemFormation', 'technologies', 'competences', 'formateurs', 'formations', 'filieres'));
     }
     public function store(FormationRequest $request) {
         $validatedData = $request->validated();
@@ -135,7 +136,8 @@ class BaseFormationController extends AdminController
         $technologies = $this->technologyService->all();
         $formateurs = $this->formateurService->all();
         $formations = $this->formationService->all();
-
+        $filieres = $this->filiereService->all();
+        
 
         $this->viewState->set('scope.formation.formation_officiel_id', $id);
 
