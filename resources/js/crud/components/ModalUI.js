@@ -166,11 +166,17 @@ export class ModalUI {
     }
 
     destroy() {
+
+        // const competence_id = $("#competence_id");
+        // console.log(competence_id);
+        
         if ($(`#${this.currentModalId}`).length > 0) {
             $(`#${this.currentModalId}`).iziModal('destroy');
+            // $(`#${this.currentModalId}`).empty();
             $(`#${this.currentModalId}`).remove();
         }
     
+       
         // 🔹 Réactiver le défilement du body
         // if ($(".dynamic-modal:visible").length === 0) {
         //     $("body").css({

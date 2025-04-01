@@ -2,16 +2,19 @@ import { AjaxErrorHandler } from "../../components/AjaxErrorHandler";
 import { LoadingIndicator } from "../../components/LoadingIndicator";
 import EventUtil from "../../utils/EventUtil";
 
+// TODO : Le cas de update : tiggerElementpeut avoir une valeur
 export default class DynamicDropdownTreatment {
     /**
      * Initialise la gestion du dropdown dynamique.
      */
-    constructor(triggerElement) {
+    constructor(triggerElement, config) {
+        this.config = config;
         this.triggerElement = triggerElement;
         this.targetSelector = triggerElement.dataset.targetDynamicDropdown;
         this.apiUrlTemplate = triggerElement.dataset.targetDynamicDropdownApiUrl;
         this.targetDynamicDropdownFilter = triggerElement.dataset.targetDynamicDropdownFilter;
 
+        this.loader = new LoadingIndicator(this.config.formSelector);
         if (!this.targetSelector || !this.apiUrlTemplate) {
             console.warn("Attributs data-target ou data-api-url manquants pour DynamicDropdownTreatment.");
             return;
@@ -37,6 +40,12 @@ export default class DynamicDropdownTreatment {
         EventUtil.bindEvent("change", selector, async (event) => {
             await this.updateTargetDropdown(event.target.value);
         });
+
+        // Cas de mise à jour : si le champ déclencheur a une valeur initiale, charger les options
+        if (this.triggerElement.value) {
+             this.updateTargetDropdown(this.triggerElement.value);
+        }
+
     }
 
     /**
@@ -49,7 +58,7 @@ export default class DynamicDropdownTreatment {
         this.targetElement.value = "";
 
 
-
+        this.loader.showNomBloquante();
         $.get(apiUrl)
         .done((html) => {
             // Injecter le contenu du formulaire dans le modal
@@ -59,8 +68,10 @@ export default class DynamicDropdownTreatment {
         })
         .fail((xhr) => {
             AjaxErrorHandler.handleError(xhr, 'Impossible de charger les options.');
+        })
+        .always(() => {
+            this.loader.hide();
         });
-
 
         // try {
         
@@ -93,8 +104,8 @@ export default class DynamicDropdownTreatment {
             emptyOption.textContent = this.targetElement.options.length > 0 ? this.targetElement.options[0].textContent : ""; // Utilise le label existant
         }
     
-        this.targetElement.innerHTML = ""; // Vider les options existantes
-        this.targetElement.appendChild(emptyOption); // Ajouter l'option vide en premier
+       this.targetElement.innerHTML = ""; // Vider les options existantes
+       this.targetElement.appendChild(emptyOption); // Ajouter l'option vide en premier
     
         data.forEach((item) => {
             const option = document.createElement("option");

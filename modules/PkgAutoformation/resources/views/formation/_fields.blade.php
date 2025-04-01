@@ -59,6 +59,9 @@
           </label>
                       <select 
             id="filiere_id" 
+            data-target-dynamic-dropdown='#competence_id'
+            data-target-dynamic-dropdown-api-url='{{route('competences.getData')}}'
+            data-target-dynamic-dropdown-filter='module.filiere_id'
             
             
             name="filiere_id" 

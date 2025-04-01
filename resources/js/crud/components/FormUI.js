@@ -16,6 +16,7 @@ import flatpickr from 'flatpickr';
 import { French } from 'flatpickr/dist/l10n/fr.js';
 import { DataCalculTreatment } from "../treatments/form/DataCalculTreatment";
 import { NotificationHandler } from "./NotificationHandler";
+import DynamicDropdownTreatment from "../treatments/global/DynamicDropdownTreatment";
 
 
 export class FormUI  {
@@ -31,6 +32,8 @@ export class FormUI  {
         this.viewStateService = this.config.viewStateService;
         this.loader = new LoadingIndicator(this.formSelector);
         this.dynamicCalculationTreatment = new DataCalculTreatment(config,this);
+
+        
     }
 
     /**
@@ -59,6 +62,11 @@ export class FormUI  {
             new DynamicFieldVisibilityTreatment(window.dynamicFieldVisibilityTreatments)
             .initialize();
         }
+
+         // DynamicDropdownTreatment
+         document.querySelectorAll(this.config.formSelector +  " [data-target-dynamic-dropdown]").forEach((element) => {
+            new DynamicDropdownTreatment(element,this.config);
+        });
 
     }
 

@@ -22,8 +22,8 @@ export class FilterUI {
         this.initStats();
 
         // DynamicDropdownTreatment
-        document.querySelectorAll("[data-target-dynamic-dropdown]").forEach((element) => {
-            new DynamicDropdownTreatment(element);
+        document.querySelectorAll(this.config.filterFormSelector + " [data-target-dynamic-dropdown]").forEach((element) => {
+            new DynamicDropdownTreatment(element,this.config);
         });
     }
 

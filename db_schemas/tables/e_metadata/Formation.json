@@ -510,5 +510,17 @@
         },
         "e_data_field_reference": "Formation-Filière",
         "e_metadata_definition_reference": "selectOne"
+    },
+    {
+        "reference": "Formation-Filière_dynamicDropdown",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "targetDynamicDropdown": "#competence_id",
+            "targetDynamicDropdownApiUrl": "route('competences.getData')",
+            "targetDynamicDropdownFilter": "module.filiere_id"
+        },
+        "e_data_field_reference": "Formation-Filière",
+        "e_metadata_definition_reference": "dynamicDropdown"
     }
 ]
