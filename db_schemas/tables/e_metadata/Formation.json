@@ -468,5 +468,17 @@
         ],
         "e_data_field_reference": "Formation_formation_officiel_id",
         "e_metadata_definition_reference": "scopeDataInEditContext"
+    },
+    {
+        "reference": "Formation-Filière_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formation-Filière",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "Formation-Filière_displayOrder",
+        "value_integer": 3,
+        "e_data_field_reference": "Formation-Filière",
+        "e_metadata_definition_reference": "displayOrder"
     }
 ]

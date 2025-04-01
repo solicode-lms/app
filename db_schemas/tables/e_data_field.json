@@ -9727,5 +9727,18 @@
         "calculable": 1,
         "calculable_sql": "SELECT f.nom AS filiere_nom\r\nFROM apprenants a\r\nJOIN apprenant_groupe ag ON a.id = ag.apprenant_id\r\nJOIN groupes g ON ag.groupe_id = g.id\r\nJOIN filieres f ON g.filiere_id = f.id\r\nWHERE a.id = apprenants.id",
         "description": ""
+    },
+    {
+        "id": 748,
+        "reference": "Formation-Filière",
+        "name": "Filière",
+        "column_name": "filiere_id",
+        "data_type": "Integer",
+        "field_order": 3,
+        "db_nullable": 0,
+        "db_primaryKey": 0,
+        "db_unique": 0,
+        "calculable": 1,
+        "description": ""
     }
 ]
