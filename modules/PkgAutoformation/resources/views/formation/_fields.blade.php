@@ -65,15 +65,20 @@
                 {{ ucfirst(__('PkgAutoformation::formation.filiere_id')) }}
                 
             </label>
-            <input
-                name="filiere_id"
-                type="number"
-                class="form-control"
-                
-                
-                id="filiere_id"
-                placeholder="{{ __('PkgAutoformation::formation.filiere_id') }}"
-                value="{{ $itemFormation ? $itemFormation->filiere_id : old('filiere_id') }}">
+            <select 
+            id="filiere_id" 
+            
+            
+            name="filiere_id" 
+            class="form-control select2">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($filieres as $filiere)
+                    <option value="{{ $filiere->id }}"
+                        {{ (isset($itemFormation) && $itemFormation->filiere_id == $filiere->id) || (old('filiere_id>') == $filiere->id) ? 'selected' : '' }}>
+                        {{ $filiere }}
+                    </option>
+                @endforeach
+            </select>
             @error('filiere_id')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
