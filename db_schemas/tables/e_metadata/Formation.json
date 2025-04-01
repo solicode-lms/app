@@ -496,5 +496,17 @@
         "value_float": 0,
         "e_data_field_reference": "Formation-Filière",
         "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Formation-Filière_selectOne",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "type": "Function",
+            "namespace": "Modules\\PkgFormation\\Services\\FiliereService",
+            "functionName": "all"
+        },
+        "e_data_field_reference": "Formation-Filière",
+        "e_metadata_definition_reference": "selectOne"
     }
 ]

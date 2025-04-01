@@ -730,5 +730,17 @@
         "description": "<p>Détermine la nature de champs. exemple : icone, couleur, image,lien</p>",
         "created_at": null,
         "updated_at": null
+    },
+    {
+        "id": 62,
+        "reference": "selectOne",
+        "name": "selectOne",
+        "type": "Json",
+        "scope": "field",
+        "default_value": "{   type: \"Entity\",   namespace: \"Filiere\" }",
+        "groupe": "form",
+        "description": "<div style=\"color: rgb(0, 0, 0); font-family: Consolas, &quot;Courier New&quot;, monospace; font-size: 14px; line-height: 19px; white-space: pre;\"><div>La metadata <span style=\"color: #800000;\">`SelectOne`</span> permet d’ajouter un champ de type <span style=\"color: #000080;font-weight: bold;\">sélection unique (menu déroulant)</span></div><div>basé sur une <span style=\"color: #000080;font-weight: bold;\">source de données externe</span> appelée <span style=\"color: #800000;\">`dataSource`</span>.</div><br></div>",
+        "created_at": null,
+        "updated_at": null
     }
 ]
