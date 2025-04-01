@@ -11,4 +11,5 @@ return [
     'formateur_id' => 'ID du formateur',
     'formation_officiel_id' => 'ID de la formation officielle',
     'competence_id' => 'ID de la compétence',
+    'filiere_id' => "Filière"
 ];

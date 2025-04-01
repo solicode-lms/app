@@ -30,6 +30,13 @@ class BaseFormation extends BaseModel
         parent::__construct($attributes); 
         $this->isOwnedByUser =  true;
         $this->ownerRelationPath = "formateur.user";
+        // Colonne dynamique : filiere_id
+        $sql = "SELECT m.filiere_id
+        FROM formations f
+        JOIN competences c ON f.competence_id = c.id
+        JOIN modules m ON c.module_id = m.id
+        WHERE f.id = formations.id";
+        static::addDynamicAttribute('filiere_id', $sql);
     }
 
     
