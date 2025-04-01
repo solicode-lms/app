@@ -61,6 +61,26 @@
 
         
         <div class="form-group col-12 col-md-6">
+            <label for="filiere_id">
+                {{ ucfirst(__('PkgAutoformation::formation.filiere_id')) }}
+                
+            </label>
+            <input
+                name="filiere_id"
+                type="number"
+                class="form-control"
+                
+                
+                id="filiere_id"
+                placeholder="{{ __('PkgAutoformation::formation.filiere_id') }}"
+                value="{{ $itemFormation ? $itemFormation->filiere_id : old('filiere_id') }}">
+            @error('filiere_id')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+</div>
+
+        
+        <div class="form-group col-12 col-md-6">
             <label for="lien">
                 {{ ucfirst(__('PkgAutoformation::formation.lien')) }}
                 

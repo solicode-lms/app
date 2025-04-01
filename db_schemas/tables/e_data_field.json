@@ -9731,8 +9731,8 @@
     {
         "id": 748,
         "reference": "Formation-Filière",
-        "name": "Filière",
-        "column_name": "filiere_id",
+        "name": "filiere_id",
+        "column_name": "competence.module.filiere_id",
         "data_type": "Integer",
         "field_order": 3,
         "db_nullable": 0,

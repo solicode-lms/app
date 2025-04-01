@@ -471,7 +471,8 @@
     },
     {
         "reference": "Formation-Filière_required",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "Formation-Filière",
         "e_metadata_definition_reference": "required"
     },
@@ -480,5 +481,20 @@
         "value_integer": 3,
         "e_data_field_reference": "Formation-Filière",
         "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "Formation-Filière_displayInForm",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "Formation-Filière",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "Formation-Filière_inputMdWidth",
+        "value_boolean": 1,
+        "value_integer": 6,
+        "value_float": 0,
+        "e_data_field_reference": "Formation-Filière",
+        "e_metadata_definition_reference": "inputMdWidth"
     }
 ]
