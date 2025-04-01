@@ -502,8 +502,8 @@
         "value_boolean": 1,
         "value_float": 0,
         "value_json": {
-            "type": "Function",
-            "namespace": "Modules\\PkgFormation\\Services\\FiliereService",
+            "type": "Entity",
+            "iModelName": "Filiere",
             "functionName": "all"
         },
         "e_data_field_reference": "Formation-Filière",
