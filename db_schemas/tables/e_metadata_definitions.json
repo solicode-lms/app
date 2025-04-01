@@ -689,7 +689,7 @@
         "name": "dynamicDropdown",
         "type": "Json",
         "scope": "field",
-        "default_value": null,
+        "default_value": "{      \"targetDynamicDropdown\" : \"competence_id\",      \"targetDynamicDropdownApiUrl\" : \"route('competences.getData')\",      \"targetDynamicDropdownFilter\" : \"module.filiere_id\" }",
         "groupe": "form",
         "description": "Il perme de filter un select par un autre select\r\n            <br>voir l'exemple dans RealisationTacheServide : filter les tâches selon Affectation de projet",
         "created_at": null,
