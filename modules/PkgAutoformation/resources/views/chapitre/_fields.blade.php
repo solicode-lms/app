@@ -9,15 +9,13 @@
     @endif
 
     <div class="card-body row">
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="nom">
-                {{ ucfirst(__('PkgAutoformation::chapitre.nom')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
+
+      <div class="form-group col-12 col-md-6">
+          <label for="nom">
+            {{ ucfirst(__('PkgAutoformation::chapitre.nom')) }}
+            <span class="text-danger">*</span>
+          </label>
+           <input
                 name="nom"
                 type="input"
                 class="form-control"
@@ -26,18 +24,19 @@
                 id="nom"
                 placeholder="{{ __('PkgAutoformation::chapitre.nom') }}"
                 value="{{ $itemChapitre ? $itemChapitre->nom : old('nom') }}">
-            @error('nom')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('nom')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="lien">
-                {{ ucfirst(__('PkgAutoformation::chapitre.lien')) }}
-                
-            </label>
-            <input
+
+      <div class="form-group col-12 col-md-6">
+          <label for="lien">
+            {{ ucfirst(__('PkgAutoformation::chapitre.lien')) }}
+            
+          </label>
+           <input
                 name="lien"
                 type="input"
                 class="form-control"
@@ -46,20 +45,19 @@
                 id="lien"
                 placeholder="{{ __('PkgAutoformation::chapitre.lien') }}"
                 value="{{ $itemChapitre ? $itemChapitre->lien : old('lien') }}">
-            @error('lien')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('lien')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="coefficient">
-                {{ ucfirst(__('PkgAutoformation::chapitre.coefficient')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
+
+      <div class="form-group col-12 col-md-6">
+          <label for="coefficient">
+            {{ ucfirst(__('PkgAutoformation::chapitre.coefficient')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <input
                 name="coefficient"
                 type="number"
                 class="form-control"
@@ -68,38 +66,38 @@
                 id="coefficient"
                 placeholder="{{ __('PkgAutoformation::chapitre.coefficient') }}"
                 value="{{ $itemChapitre ? $itemChapitre->coefficient : old('coefficient') }}">
-            @error('coefficient')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('coefficient')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-12">
-            <label for="description">
-                {{ ucfirst(__('PkgAutoformation::chapitre.description')) }}
-                
-            </label>
-            <textarea rows="" cols=""
+
+      <div class="form-group col-12 col-md-12">
+          <label for="description">
+            {{ ucfirst(__('PkgAutoformation::chapitre.description')) }}
+            
+          </label>
+                      <textarea rows="" cols=""
                 name="description"
                 class="form-control richText"
                 
                 
                 id="description"
                 placeholder="{{ __('PkgAutoformation::chapitre.description') }}">{{ $itemChapitre ? $itemChapitre->description : old('description') }}</textarea>
-            @error('description')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('description')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="ordre">
-                {{ ucfirst(__('PkgAutoformation::chapitre.ordre')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
+
+      <div class="form-group col-12 col-md-6">
+          <label for="ordre">
+            {{ ucfirst(__('PkgAutoformation::chapitre.ordre')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <input
                 name="ordre"
                 type="number"
                 class="form-control"
@@ -108,20 +106,19 @@
                 id="ordre"
                 placeholder="{{ __('PkgAutoformation::chapitre.ordre') }}"
                 value="{{ $itemChapitre ? $itemChapitre->ordre : old('ordre') }}">
-            @error('ordre')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('ordre')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="is_officiel">
-                {{ ucfirst(__('PkgAutoformation::chapitre.is_officiel')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input type="hidden" name="is_officiel" value="0">
+
+      <div class="form-group col-12 col-md-6">
+          <label for="is_officiel">
+            {{ ucfirst(__('PkgAutoformation::chapitre.is_officiel')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <input type="hidden" name="is_officiel" value="0">
             <input
                 name="is_officiel"
                 type="checkbox"
@@ -131,20 +128,19 @@
                 id="is_officiel"
                 value="1"
                 {{ old('is_officiel', $itemChapitre ? $itemChapitre->is_officiel : 0) ? 'checked' : '' }}>
-            @error('is_officiel')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('is_officiel')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="formation_id">
-                {{ ucfirst(__('PkgAutoformation::formation.singular')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <select 
+
+      <div class="form-group col-12 col-md-6">
+          <label for="formation_id">
+            {{ ucfirst(__('PkgAutoformation::formation.singular')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <select 
             id="formation_id" 
             required
             
@@ -158,19 +154,19 @@
                     </option>
                 @endforeach
             </select>
-            @error('formation_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
+          @error('formation_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="niveau_competence_id">
-                {{ ucfirst(__('PkgCompetences::niveauCompetence.singular')) }}
-                
-            </label>
-            <select 
+      <div class="form-group col-12 col-md-6">
+          <label for="niveau_competence_id">
+            {{ ucfirst(__('PkgCompetences::niveauCompetence.singular')) }}
+            
+          </label>
+                      <select 
             id="niveau_competence_id" 
             
             
@@ -184,19 +180,19 @@
                     </option>
                 @endforeach
             </select>
-            @error('niveau_competence_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
+          @error('niveau_competence_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="formateur_id">
-                {{ ucfirst(__('PkgFormation::formateur.singular')) }}
-                
-            </label>
-            <select 
+      <div class="form-group col-12 col-md-6">
+          <label for="formateur_id">
+            {{ ucfirst(__('PkgFormation::formateur.singular')) }}
+            
+          </label>
+                      <select 
             id="formateur_id" 
             
             
@@ -210,19 +206,19 @@
                     </option>
                 @endforeach
             </select>
-            @error('formateur_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
+          @error('formateur_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="chapitre_officiel_id">
-                {{ ucfirst(__('PkgAutoformation::chapitre.singular')) }}
-                
-            </label>
-            <select 
+      <div class="form-group col-12 col-md-6">
+          <label for="chapitre_officiel_id">
+            {{ ucfirst(__('PkgAutoformation::chapitre.singular')) }}
+            
+          </label>
+                      <select 
             id="chapitre_officiel_id" 
             
             
@@ -236,19 +232,17 @@
                     </option>
                 @endforeach
             </select>
-            @error('chapitre_officiel_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
+          @error('chapitre_officiel_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
 
-        
+<!--   Chapitre HasMany --> 
 
-        <!--   Chapitre HasMany --> 
 
-        
-
-        <!--   RealisationChapitre HasMany --> 
+<!--   RealisationChapitre HasMany --> 
 
     </div>
 

@@ -102,7 +102,7 @@ class BaseWorkflowFormationController extends AdminController
 
 
         $sysColors = $this->sysColorService->all();
-
+        
 
         $this->viewState->set('scope.etatFormation.workflow_formation_id', $id);
 

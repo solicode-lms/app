@@ -102,7 +102,7 @@ class BaseWorkflowChapitreController extends AdminController
 
 
         $sysColors = $this->sysColorService->all();
-
+        
 
         $this->viewState->set('scope.etatChapitre.workflow_chapitre_id', $id);
 

@@ -9,15 +9,13 @@
     @endif
 
     <div class="card-body row">
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="date_debut">
-                {{ ucfirst(__('PkgAutoformation::realisationFormation.date_debut')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
+
+      <div class="form-group col-12 col-md-6">
+          <label for="date_debut">
+            {{ ucfirst(__('PkgAutoformation::realisationFormation.date_debut')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <input
                 name="date_debut"
                 type="date"
                 class="form-control datetimepicker"
@@ -26,22 +24,20 @@
                 id="date_debut"
                 placeholder="{{ __('PkgAutoformation::realisationFormation.date_debut') }}"
                 value="{{ $itemRealisationFormation ? $itemRealisationFormation->date_debut : old('date_debut') }}">
-            @error('date_debut')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+
+          @error('date_debut')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
 
-
-
-
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="date_fin">
-                {{ ucfirst(__('PkgAutoformation::realisationFormation.date_fin')) }}
-                
-            </label>
-            <input
+      <div class="form-group col-12 col-md-6">
+          <label for="date_fin">
+            {{ ucfirst(__('PkgAutoformation::realisationFormation.date_fin')) }}
+            
+          </label>
+                      <input
                 name="date_fin"
                 type="date"
                 class="form-control datetimepicker"
@@ -50,24 +46,20 @@
                 id="date_fin"
                 placeholder="{{ __('PkgAutoformation::realisationFormation.date_fin') }}"
                 value="{{ $itemRealisationFormation ? $itemRealisationFormation->date_fin : old('date_fin') }}">
-            @error('date_fin')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+
+          @error('date_fin')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
 
-
-
-
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="formation_id">
-                {{ ucfirst(__('PkgAutoformation::formation.singular')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <select 
+      <div class="form-group col-12 col-md-6">
+          <label for="formation_id">
+            {{ ucfirst(__('PkgAutoformation::formation.singular')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <select 
             id="formation_id" 
             required
             
@@ -81,21 +73,19 @@
                     </option>
                 @endforeach
             </select>
-            @error('formation_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
+          @error('formation_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="apprenant_id">
-                {{ ucfirst(__('PkgApprenants::apprenant.singular')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <select 
+      <div class="form-group col-12 col-md-6">
+          <label for="apprenant_id">
+            {{ ucfirst(__('PkgApprenants::apprenant.singular')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <select 
             id="apprenant_id" 
             required
             
@@ -109,19 +99,19 @@
                     </option>
                 @endforeach
             </select>
-            @error('apprenant_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
+          @error('apprenant_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="etat_formation_id">
-                {{ ucfirst(__('PkgAutoformation::etatFormation.singular')) }}
-                
-            </label>
-            <select 
+      <div class="form-group col-12 col-md-6">
+          <label for="etat_formation_id">
+            {{ ucfirst(__('PkgAutoformation::etatFormation.singular')) }}
+            
+          </label>
+                      <select 
             id="etat_formation_id" 
             
             
@@ -135,15 +125,14 @@
                     </option>
                 @endforeach
             </select>
-            @error('etat_formation_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
+          @error('etat_formation_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
 
-        
-
-        <!--   RealisationChapitre HasMany --> 
+<!--   RealisationChapitre HasMany --> 
 
     </div>
 

@@ -114,7 +114,7 @@ class BaseChapitreController extends AdminController
         $niveauCompetences = $this->niveauCompetenceService->all();
         $formateurs = $this->formateurService->all();
         $chapitres = $this->chapitreService->all();
-
+        
 
         $this->viewState->set('scope.chapitre.chapitre_officiel_id', $id);
 

@@ -9,15 +9,13 @@
     @endif
 
     <div class="card-body row">
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="code">
-                {{ ucfirst(__('PkgAutoformation::workflowChapitre.code')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
+
+      <div class="form-group col-12 col-md-6">
+          <label for="code">
+            {{ ucfirst(__('PkgAutoformation::workflowChapitre.code')) }}
+            <span class="text-danger">*</span>
+          </label>
+           <input
                 name="code"
                 type="input"
                 class="form-control"
@@ -26,20 +24,19 @@
                 id="code"
                 placeholder="{{ __('PkgAutoformation::workflowChapitre.code') }}"
                 value="{{ $itemWorkflowChapitre ? $itemWorkflowChapitre->code : old('code') }}">
-            @error('code')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('code')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="titre">
-                {{ ucfirst(__('PkgAutoformation::workflowChapitre.titre')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
+
+      <div class="form-group col-12 col-md-6">
+          <label for="titre">
+            {{ ucfirst(__('PkgAutoformation::workflowChapitre.titre')) }}
+            <span class="text-danger">*</span>
+          </label>
+           <input
                 name="titre"
                 type="input"
                 class="form-control"
@@ -48,20 +45,19 @@
                 id="titre"
                 placeholder="{{ __('PkgAutoformation::workflowChapitre.titre') }}"
                 value="{{ $itemWorkflowChapitre ? $itemWorkflowChapitre->titre : old('titre') }}">
-            @error('titre')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('titre')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="sys_color_id">
-                {{ ucfirst(__('Core::sysColor.singular')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <select 
+
+      <div class="form-group col-12 col-md-6">
+          <label for="sys_color_id">
+            {{ ucfirst(__('Core::sysColor.singular')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <select 
             id="sys_color_id" 
             required
             
@@ -75,33 +71,33 @@
                     </option>
                 @endforeach
             </select>
-            @error('sys_color_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
+          @error('sys_color_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
 
-        
-        <div class="form-group col-12 col-md-12">
-            <label for="description">
-                {{ ucfirst(__('PkgAutoformation::workflowChapitre.description')) }}
-                
-            </label>
-            <textarea rows="" cols=""
+      <div class="form-group col-12 col-md-12">
+          <label for="description">
+            {{ ucfirst(__('PkgAutoformation::workflowChapitre.description')) }}
+            
+          </label>
+                      <textarea rows="" cols=""
                 name="description"
                 class="form-control richText"
                 
                 
                 id="description"
                 placeholder="{{ __('PkgAutoformation::workflowChapitre.description') }}">{{ $itemWorkflowChapitre ? $itemWorkflowChapitre->description : old('description') }}</textarea>
-            @error('description')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('description')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
 
-        <!--   EtatChapitre HasMany --> 
+<!--   EtatChapitre HasMany --> 
 
     </div>
 

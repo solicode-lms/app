@@ -112,7 +112,7 @@ class BaseRealisationFormationController extends AdminController
         $formations = $this->formationService->all();
         $apprenants = $this->apprenantService->all();
         $etatFormations = $this->etatFormationService->all();
-
+        
 
         $this->viewState->set('scope.realisationChapitre.realisation_formation_id', $id);
 

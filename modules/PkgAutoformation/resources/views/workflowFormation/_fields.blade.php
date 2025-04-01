@@ -9,15 +9,13 @@
     @endif
 
     <div class="card-body row">
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="code">
-                {{ ucfirst(__('PkgAutoformation::workflowFormation.code')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
+
+      <div class="form-group col-12 col-md-6">
+          <label for="code">
+            {{ ucfirst(__('PkgAutoformation::workflowFormation.code')) }}
+            <span class="text-danger">*</span>
+          </label>
+           <input
                 name="code"
                 type="input"
                 class="form-control"
@@ -26,20 +24,19 @@
                 id="code"
                 placeholder="{{ __('PkgAutoformation::workflowFormation.code') }}"
                 value="{{ $itemWorkflowFormation ? $itemWorkflowFormation->code : old('code') }}">
-            @error('code')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('code')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="titre">
-                {{ ucfirst(__('PkgAutoformation::workflowFormation.titre')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
+
+      <div class="form-group col-12 col-md-6">
+          <label for="titre">
+            {{ ucfirst(__('PkgAutoformation::workflowFormation.titre')) }}
+            <span class="text-danger">*</span>
+          </label>
+           <input
                 name="titre"
                 type="input"
                 class="form-control"
@@ -48,20 +45,19 @@
                 id="titre"
                 placeholder="{{ __('PkgAutoformation::workflowFormation.titre') }}"
                 value="{{ $itemWorkflowFormation ? $itemWorkflowFormation->titre : old('titre') }}">
-            @error('titre')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('titre')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="sys_color_id">
-                {{ ucfirst(__('Core::sysColor.singular')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <select 
+
+      <div class="form-group col-12 col-md-6">
+          <label for="sys_color_id">
+            {{ ucfirst(__('Core::sysColor.singular')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <select 
             id="sys_color_id" 
             required
             
@@ -75,33 +71,33 @@
                     </option>
                 @endforeach
             </select>
-            @error('sys_color_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
+          @error('sys_color_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
 
-        
-        <div class="form-group col-12 col-md-12">
-            <label for="description">
-                {{ ucfirst(__('PkgAutoformation::workflowFormation.description')) }}
-                
-            </label>
-            <textarea rows="" cols=""
+      <div class="form-group col-12 col-md-12">
+          <label for="description">
+            {{ ucfirst(__('PkgAutoformation::workflowFormation.description')) }}
+            
+          </label>
+                      <textarea rows="" cols=""
                 name="description"
                 class="form-control richText"
                 
                 
                 id="description"
                 placeholder="{{ __('PkgAutoformation::workflowFormation.description') }}">{{ $itemWorkflowFormation ? $itemWorkflowFormation->description : old('description') }}</textarea>
-            @error('description')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('description')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
 
-        <!--   EtatFormation HasMany --> 
+<!--   EtatFormation HasMany --> 
 
     </div>
 

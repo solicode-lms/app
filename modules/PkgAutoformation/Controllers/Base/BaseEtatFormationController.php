@@ -120,7 +120,7 @@ class BaseEtatFormationController extends AdminController
         $workflowFormations = $this->workflowFormationService->all();
         $sysColors = $this->sysColorService->all();
         $formateurs = $this->formateurService->all();
-
+        
 
         if (request()->ajax()) {
             return view('PkgAutoformation::etatFormation._fields', compact('itemEtatFormation', 'formateurs', 'sysColors', 'workflowFormations'));

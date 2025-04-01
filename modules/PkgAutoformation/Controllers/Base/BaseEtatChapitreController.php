@@ -120,7 +120,7 @@ class BaseEtatChapitreController extends AdminController
         $workflowChapitres = $this->workflowChapitreService->all();
         $sysColors = $this->sysColorService->all();
         $formateurs = $this->formateurService->all();
-
+        
 
         if (request()->ajax()) {
             return view('PkgAutoformation::etatChapitre._fields', compact('itemEtatChapitre', 'formateurs', 'sysColors', 'workflowChapitres'));
