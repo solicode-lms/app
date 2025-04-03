@@ -47,7 +47,7 @@ class DashboardController extends AppController
         foreach ($widgetUitlisateurs as $widgetUtilisateur) {
             try {
                
-                $widget = $this->widgetService->executeWidget($widgetUtilisateur->widget);
+                $widget = $this->widgetService->executeWidget($widgetUtilisateur->widget,$widgetUtilisateur);
               
             } catch (\Exception $e) {
                 // Si une erreur survient, capturer l'exception

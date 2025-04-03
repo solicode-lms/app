@@ -12,5 +12,33 @@
         "calculable_sql": "SELECT sm.id\r\nFROM widget_utilisateurs wu\r\nJOIN widgets w ON wu.widget_id = w.id\r\nJOIN sys_models m ON w.model_id = m.id\r\nJOIN sys_modules sm ON m.sys_module_id = sm.id\r\nWHERE wu.id = widget_utilisateurs.id",
         "description": "",
         "e_model_reference": "widget_utilisateurs"
+    },
+    {
+        "reference": "WidgetUtilisateur-package",
+        "name": "package",
+        "column_name": "package",
+        "data_type": "String",
+        "field_order": 3,
+        "db_nullable": 0,
+        "db_primaryKey": 0,
+        "db_unique": 0,
+        "calculable": 1,
+        "calculable_sql": "SELECT sm.name\r\nFROM widget_utilisateurs wu\r\nJOIN widgets w ON wu.widget_id = w.id\r\nJOIN sys_models m ON w.model_id = m.id\r\nJOIN sys_modules sm ON m.sys_module_id = sm.id\r\nWHERE wu.id = widget_utilisateurs.id",
+        "description": "",
+        "e_model_reference": "widget_utilisateurs"
+    },
+    {
+        "reference": "WidgetUtilisateur-type",
+        "name": "type",
+        "column_name": "type",
+        "data_type": "String",
+        "field_order": 4,
+        "db_nullable": 0,
+        "db_primaryKey": 0,
+        "db_unique": 0,
+        "calculable": 1,
+        "calculable_sql": "SELECT wt.type\r\nFROM widgets w\r\nJOIN widget_types wt ON w.type_id = wt.id\r\nWHERE w.id = widget_utilisateurs.widget_id",
+        "description": "",
+        "e_model_reference": "widget_utilisateurs"
     }
 ]

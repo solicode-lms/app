@@ -20,7 +20,7 @@ class WidgetService extends BaseWidgetService
      * @return mixed Résultat de l'exécution de la requête.
      * @throws Exception Si des paramètres requis sont absents.
      */
-    public function executeWidget($widget)
+    public function executeWidget($widget, $widget_utilisateur = null)
     {
         $query = [
             'model' => $widget->model->model,
@@ -69,7 +69,14 @@ class WidgetService extends BaseWidgetService
         }
         
        
-      
+        if ($widget_utilisateur !== null) {
+            if (!empty($widget_utilisateur->titre)) {
+                $widget->name = $widget_utilisateur->titre;
+            }
+            if (!empty($widget_utilisateur->sous_titre)) {
+                $widget->label = $widget_utilisateur->sous_titre;
+            }
+        }
 
        
         $widget->data = $result;

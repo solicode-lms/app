@@ -34,6 +34,20 @@ class BaseWidgetUtilisateur extends BaseModel
         JOIN sys_modules sm ON m.sys_module_id = sm.id
         WHERE wu.id = widget_utilisateurs.id";
         static::addDynamicAttribute('sys_module_id', $sql);
+        // Colonne dynamique : package
+        $sql = "SELECT sm.name
+        FROM widget_utilisateurs wu
+        JOIN widgets w ON wu.widget_id = w.id
+        JOIN sys_models m ON w.model_id = m.id
+        JOIN sys_modules sm ON m.sys_module_id = sm.id
+        WHERE wu.id = widget_utilisateurs.id";
+        static::addDynamicAttribute('package', $sql);
+        // Colonne dynamique : type
+        $sql = "SELECT wt.type
+        FROM widgets w
+        JOIN widget_types wt ON w.type_id = wt.id
+        WHERE w.id = widget_utilisateurs.widget_id";
+        static::addDynamicAttribute('type', $sql);
     }
 
     

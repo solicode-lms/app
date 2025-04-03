@@ -10,5 +10,7 @@ return [
     'titre' => 'Titre',
     'sous_titre' => 'Sous-titre',
     'visible' => 'Visible',
-    'sys_module_id' => 'Package'
+    'sys_module_id' => 'Package',
+    'package' => 'Package',
+    'type' => 'Type'
 ];

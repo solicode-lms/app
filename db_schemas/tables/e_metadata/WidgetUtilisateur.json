@@ -123,7 +123,8 @@
     },
     {
         "reference": "WidgetUtilisateur_titre_displayInTable",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "WidgetUtilisateur_titre",
         "e_metadata_definition_reference": "displayInTable"
     },
@@ -287,7 +288,7 @@
     },
     {
         "reference": "WidgetUtilisateur_sous_titre_displayInTable",
-        "value_boolean": 1,
+        "value_boolean": 0,
         "value_float": 0,
         "e_data_field_reference": "WidgetUtilisateur_sous_titre",
         "e_metadata_definition_reference": "displayInTable"
@@ -342,5 +343,50 @@
         },
         "e_data_field_reference": "WidgetUtilisateur-sys_module_id",
         "e_metadata_definition_reference": "dynamicDropdown"
+    },
+    {
+        "reference": "WidgetUtilisateur-package_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "WidgetUtilisateur-package",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "WidgetUtilisateur-package_displayOrder",
+        "value_integer": 3,
+        "e_data_field_reference": "WidgetUtilisateur-package",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "WidgetUtilisateur-package_displayInTable",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "WidgetUtilisateur-package",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "WidgetUtilisateur-type_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "WidgetUtilisateur-type",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "WidgetUtilisateur-type_displayOrder",
+        "value_integer": 4,
+        "e_data_field_reference": "WidgetUtilisateur-type",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "WidgetUtilisateur-type_displayInTable",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "WidgetUtilisateur-type",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "WidgetUtilisateur_visible_displayInTable",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "WidgetUtilisateur_visible",
+        "e_metadata_definition_reference": "displayInTable"
     }
 ]

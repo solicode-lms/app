@@ -6,8 +6,9 @@
         <thead>
             <tr>
                 <x-sortable-column field="widget_id" modelname="widgetUtilisateur" label="{{ ucfirst(__('PkgWidgets::widget.singular')) }}" />
-                <x-sortable-column field="titre" modelname="widgetUtilisateur" label="{{ ucfirst(__('PkgWidgets::widgetUtilisateur.titre')) }}" />
-                <x-sortable-column field="sous_titre" modelname="widgetUtilisateur" label="{{ ucfirst(__('PkgWidgets::widgetUtilisateur.sous_titre')) }}" />
+                <x-sortable-column field="package" modelname="widgetUtilisateur" label="{{ ucfirst(__('PkgWidgets::widgetUtilisateur.package')) }}" />
+                <x-sortable-column field="type" modelname="widgetUtilisateur" label="{{ ucfirst(__('PkgWidgets::widgetUtilisateur.type')) }}" />
+                <x-sortable-column field="visible" modelname="widgetUtilisateur" label="{{ ucfirst(__('PkgWidgets::widgetUtilisateur.visible')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -24,19 +25,27 @@
                     </span>
                     </td>
                     <td>
-                     <span @if(strlen($widgetUtilisateur->titre) > 40) 
+                     <span @if(strlen($widgetUtilisateur->package) > 40) 
                             data-toggle="tooltip" 
-                            title="{{ $widgetUtilisateur->titre }}" 
+                            title="{{ $widgetUtilisateur->package }}" 
                         @endif>
-                        {{ Str::limit($widgetUtilisateur->titre, 40) }}
+                        {{ Str::limit($widgetUtilisateur->package, 40) }}
                     </span>
                     </td>
                     <td>
-                     <span @if(strlen($widgetUtilisateur->sous_titre) > 40) 
+                     <span @if(strlen($widgetUtilisateur->type) > 40) 
                             data-toggle="tooltip" 
-                            title="{{ $widgetUtilisateur->sous_titre }}" 
+                            title="{{ $widgetUtilisateur->type }}" 
                         @endif>
-                        {{ Str::limit($widgetUtilisateur->sous_titre, 40) }}
+                        {{ Str::limit($widgetUtilisateur->type, 40) }}
+                    </span>
+                    </td>
+                    <td>
+                     <span @if(strlen($widgetUtilisateur->visible) > 40) 
+                            data-toggle="tooltip" 
+                            title="{{ $widgetUtilisateur->visible }}" 
+                        @endif>
+                        {{ Str::limit($widgetUtilisateur->visible, 40) }}
                     </span>
                     </td>
                     <td class="text-right">
