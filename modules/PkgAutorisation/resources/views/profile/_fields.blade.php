@@ -9,13 +9,13 @@
     @endif
 
     <div class="card-body row">
-        
-        <div class="form-group col-12 col-md-12">
-            <label for="old_password">
-                {{ ucfirst(__('PkgAutorisation::profile.old_password')) }}
-                
-            </label>
-            <input
+
+      <div class="form-group col-12 col-md-12">
+          <label for="old_password">
+            {{ ucfirst(__('PkgAutorisation::profile.old_password')) }}
+            
+          </label>
+                      <input
                 name="old_password"
                 type="password"
                 class="form-control"
@@ -24,13 +24,14 @@
                 id="old_password"
                 placeholder="{{ __('PkgAutorisation::profile.old_password') }}"
                 value="{{ $itemProfile ? $itemProfile->old_password : old('old_password') }}">
-            @error('old_password')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('old_password')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-12">
+
+<div class="form-group col-12 col-md-12">
             <label for="password">
                 {{ ucfirst(__('PkgAutorisation::profile.password')) }}
                 
@@ -67,16 +68,14 @@
             @enderror
 </div>
 
-        
-        @php $canEdituser_id = Auth::user()->hasAnyRole(explode(',', 'admin')); @endphp
-<div class="form-group col-12 col-md-6">
-            <label for="user_id">
-                {{ ucfirst(__('PkgAutorisation::user.singular')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <select 
+      @php $canEdituser_id = Auth::user()->hasAnyRole(explode(',', 'admin')); @endphp
+
+      <div class="form-group col-12 col-md-6">
+          <label for="user_id">
+            {{ ucfirst(__('PkgAutorisation::user.singular')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <select 
             id="user_id" 
             {{ $canEdituser_id ? '' : 'disabled' }}
             required
@@ -91,21 +90,19 @@
                     </option>
                 @endforeach
             </select>
-            @error('user_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
+          @error('user_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
 
-        
-        <div class="form-group col-12 col-md-12">
-            <label for="phone">
-                {{ ucfirst(__('PkgAutorisation::profile.phone')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
+      <div class="form-group col-12 col-md-12">
+          <label for="phone">
+            {{ ucfirst(__('PkgAutorisation::profile.phone')) }}
+            <span class="text-danger">*</span>
+          </label>
+           <input
                 name="phone"
                 type="input"
                 class="form-control"
@@ -114,10 +111,11 @@
                 id="phone"
                 placeholder="{{ __('PkgAutorisation::profile.phone') }}"
                 value="{{ $itemProfile ? $itemProfile->phone : old('phone') }}">
-            @error('phone')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('phone')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
     </div>
 
