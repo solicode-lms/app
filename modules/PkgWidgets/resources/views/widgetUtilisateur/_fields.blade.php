@@ -9,15 +9,13 @@
     @endif
 
     <div class="card-body row">
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="user_id">
-                {{ ucfirst(__('PkgAutorisation::user.singular')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <select 
+
+      <div class="form-group col-12 col-md-6">
+          <label for="user_id">
+            {{ ucfirst(__('PkgAutorisation::user.singular')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <select 
             id="user_id" 
             required
             
@@ -31,24 +29,22 @@
                     </option>
                 @endforeach
             </select>
-            @error('user_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
+          @error('user_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="widget_id">
-                {{ ucfirst(__('PkgWidgets::widget.singular')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <select 
+      <div class="form-group col-12 col-md-6">
+          <label for="widget_id">
+            {{ ucfirst(__('PkgWidgets::widget.singular')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <select 
             id="widget_id" 
             required
-            
+            data-calcul='true'
             name="widget_id" 
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
@@ -59,19 +55,19 @@
                     </option>
                 @endforeach
             </select>
-            @error('widget_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
+          @error('widget_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="ordre">
-                {{ ucfirst(__('PkgWidgets::widgetUtilisateur.ordre')) }}
-                
-            </label>
-            <input
+      <div class="form-group col-12 col-md-6">
+          <label for="ordre">
+            {{ ucfirst(__('PkgWidgets::widgetUtilisateur.ordre')) }}
+            
+          </label>
+                      <input
                 name="ordre"
                 type="number"
                 class="form-control"
@@ -80,18 +76,19 @@
                 id="ordre"
                 placeholder="{{ __('PkgWidgets::widgetUtilisateur.ordre') }}"
                 value="{{ $itemWidgetUtilisateur ? $itemWidgetUtilisateur->ordre : old('ordre') }}">
-            @error('ordre')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('ordre')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="titre">
-                {{ ucfirst(__('PkgWidgets::widgetUtilisateur.titre')) }}
-                
-            </label>
-            <input
+
+      <div class="form-group col-12 col-md-6">
+          <label for="titre">
+            {{ ucfirst(__('PkgWidgets::widgetUtilisateur.titre')) }}
+            
+          </label>
+           <input
                 name="titre"
                 type="input"
                 class="form-control"
@@ -100,18 +97,19 @@
                 id="titre"
                 placeholder="{{ __('PkgWidgets::widgetUtilisateur.titre') }}"
                 value="{{ $itemWidgetUtilisateur ? $itemWidgetUtilisateur->titre : old('titre') }}">
-            @error('titre')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('titre')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="sous_titre">
-                {{ ucfirst(__('PkgWidgets::widgetUtilisateur.sous_titre')) }}
-                
-            </label>
-            <input
+
+      <div class="form-group col-12 col-md-6">
+          <label for="sous_titre">
+            {{ ucfirst(__('PkgWidgets::widgetUtilisateur.sous_titre')) }}
+            
+          </label>
+           <input
                 name="sous_titre"
                 type="input"
                 class="form-control"
@@ -120,18 +118,19 @@
                 id="sous_titre"
                 placeholder="{{ __('PkgWidgets::widgetUtilisateur.sous_titre') }}"
                 value="{{ $itemWidgetUtilisateur ? $itemWidgetUtilisateur->sous_titre : old('sous_titre') }}">
-            @error('sous_titre')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('sous_titre')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="visible">
-                {{ ucfirst(__('PkgWidgets::widgetUtilisateur.visible')) }}
-                
-            </label>
-            <input type="hidden" name="visible" value="0">
+
+      <div class="form-group col-12 col-md-6">
+          <label for="visible">
+            {{ ucfirst(__('PkgWidgets::widgetUtilisateur.visible')) }}
+            
+          </label>
+                      <input type="hidden" name="visible" value="0">
             <input
                 name="visible"
                 type="checkbox"
@@ -141,10 +140,11 @@
                 id="visible"
                 value="1"
                 {{ old('visible', $itemWidgetUtilisateur ? $itemWidgetUtilisateur->visible : 0) ? 'checked' : '' }}>
-            @error('visible')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('visible')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
     </div>
 

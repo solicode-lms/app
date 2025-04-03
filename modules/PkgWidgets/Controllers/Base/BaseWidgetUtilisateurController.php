@@ -121,7 +121,7 @@ class BaseWidgetUtilisateurController extends AdminController
 
         $users = $this->userService->all();
         $widgets = $this->widgetService->all();
-
+        
 
         if (request()->ajax()) {
             return view('PkgWidgets::widgetUtilisateur._fields', compact('itemWidgetUtilisateur', 'users', 'widgets'));

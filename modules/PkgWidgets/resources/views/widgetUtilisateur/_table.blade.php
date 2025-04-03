@@ -5,9 +5,9 @@
     <table class="table table-striped text-nowrap">
         <thead>
             <tr>
-                <x-sortable-column field="user_id" modelname="widgetUtilisateur" label="{{ ucfirst(__('PkgAutorisation::user.singular')) }}" />
                 <x-sortable-column field="widget_id" modelname="widgetUtilisateur" label="{{ ucfirst(__('PkgWidgets::widget.singular')) }}" />
                 <x-sortable-column field="titre" modelname="widgetUtilisateur" label="{{ ucfirst(__('PkgWidgets::widgetUtilisateur.titre')) }}" />
+                <x-sortable-column field="sous_titre" modelname="widgetUtilisateur" label="{{ ucfirst(__('PkgWidgets::widgetUtilisateur.sous_titre')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -15,14 +15,6 @@
             @section('widgetUtilisateur-table-tbody')
             @foreach ($widgetUtilisateurs_data as $widgetUtilisateur)
                 <tr id="widgetUtilisateur-row-{{$widgetUtilisateur->id}}">
-                    <td>
-                     <span @if(strlen($widgetUtilisateur->user) > 50) 
-                            data-toggle="tooltip" 
-                            title="{{ $widgetUtilisateur->user }}" 
-                        @endif>
-                        {{ Str::limit($widgetUtilisateur->user, 50) }}
-                    </span>
-                    </td>
                     <td>
                      <span @if(strlen($widgetUtilisateur->widget) > 50) 
                             data-toggle="tooltip" 
@@ -37,6 +29,14 @@
                             title="{{ $widgetUtilisateur->titre }}" 
                         @endif>
                         {{ Str::limit($widgetUtilisateur->titre, 40) }}
+                    </span>
+                    </td>
+                    <td>
+                     <span @if(strlen($widgetUtilisateur->sous_titre) > 40) 
+                            data-toggle="tooltip" 
+                            title="{{ $widgetUtilisateur->sous_titre }}" 
+                        @endif>
+                        {{ Str::limit($widgetUtilisateur->sous_titre, 40) }}
                     </span>
                     </td>
                     <td class="text-right">
