@@ -9,7 +9,7 @@ class MakeModuleMigration extends GeneratorCommand
 {
     /**
      * exemple : php artisan make:module-migration create_projets_table PkgGestionTaches
-     *
+     * php artisan make:module-migration create_role_widget_table PkgWidgets
      * @var string
      */
     protected $name = 'make:module-migration';

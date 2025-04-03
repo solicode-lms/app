@@ -1,4 +1,10 @@
 
+## Migration 
+
+````bash
+ php artisan migrate
+````
+
 ## Mettre à jour les données de sysModules 
 
 
