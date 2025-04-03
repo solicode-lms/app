@@ -203,5 +203,23 @@
         "value_integer": 6,
         "e_data_field_reference": "roles_ManyToManyPolymorphic_users_model_has_roles_m2m",
         "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "roles_widgets_role_widget_m2m_m2m_displayOrder",
+        "value_integer": 8,
+        "e_data_field_reference": "roles_widgets_role_widget_m2m_m2m",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "roles_widgets_role_widget_m2m_m2m_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "roles_widgets_role_widget_m2m_m2m",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "roles_widgets_role_widget_m2m_m2m_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "roles_widgets_role_widget_m2m_m2m",
+        "e_metadata_definition_reference": "inputMdWidth"
     }
 ]

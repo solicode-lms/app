@@ -39,7 +39,8 @@
         "widgets",
         "widget_operations",
         "widget_types",
-        "widget_utilisateurs"
+        "widget_utilisateurs",
+        "role_widget"
 ]
 },
 

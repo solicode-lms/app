@@ -637,6 +637,18 @@
     },
     {
         "id": 54,
+        "reference": "role_widget",
+        "name": "RoleWidget",
+        "table_name": "role_widget",
+        "icon": "fa-table",
+        "description": "Automatically generated model for role_widget",
+        "e_package_id": 4,
+        "is_pivot_table": 1,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 55,
         "reference": "roles",
         "name": "Role",
         "table_name": "roles",
@@ -648,7 +660,7 @@
         "updated_at": null
     },
     {
-        "id": 55,
+        "id": 56,
         "reference": "specialites",
         "name": "Specialite",
         "table_name": "specialites",
@@ -660,7 +672,7 @@
         "updated_at": null
     },
     {
-        "id": 56,
+        "id": 57,
         "reference": "sys_colors",
         "name": "SysColor",
         "table_name": "sys_colors",
@@ -672,7 +684,7 @@
         "updated_at": null
     },
     {
-        "id": 57,
+        "id": 58,
         "reference": "sys_controllers",
         "name": "SysController",
         "table_name": "sys_controllers",
@@ -684,7 +696,7 @@
         "updated_at": null
     },
     {
-        "id": 58,
+        "id": 59,
         "reference": "sys_models",
         "name": "SysModel",
         "table_name": "sys_models",
@@ -696,7 +708,7 @@
         "updated_at": null
     },
     {
-        "id": 59,
+        "id": 60,
         "reference": "sys_modules",
         "name": "SysModule",
         "table_name": "sys_modules",
@@ -708,7 +720,7 @@
         "updated_at": null
     },
     {
-        "id": 60,
+        "id": 61,
         "reference": "taches",
         "name": "Tache",
         "table_name": "taches",
@@ -720,7 +732,7 @@
         "updated_at": null
     },
     {
-        "id": 61,
+        "id": 62,
         "reference": "technologies",
         "name": "Technology",
         "table_name": "technologies",
@@ -732,7 +744,7 @@
         "updated_at": null
     },
     {
-        "id": 62,
+        "id": 63,
         "reference": "technology_transfert_competence",
         "name": "TechnologyTransfertCompetence",
         "table_name": "technology_transfert_competence",
@@ -744,7 +756,7 @@
         "updated_at": null
     },
     {
-        "id": 63,
+        "id": 64,
         "reference": "transfert_competences",
         "name": "TransfertCompetence",
         "table_name": "transfert_competences",
@@ -756,7 +768,7 @@
         "updated_at": null
     },
     {
-        "id": 64,
+        "id": 65,
         "reference": "type_dependance_taches",
         "name": "TypeDependanceTache",
         "table_name": "type_dependance_taches",
@@ -768,7 +780,7 @@
         "updated_at": null
     },
     {
-        "id": 65,
+        "id": 66,
         "reference": "users",
         "name": "User",
         "table_name": "users",
@@ -780,7 +792,7 @@
         "updated_at": null
     },
     {
-        "id": 66,
+        "id": 67,
         "reference": "validations",
         "name": "Validation",
         "table_name": "validations",
@@ -792,7 +804,7 @@
         "updated_at": null
     },
     {
-        "id": 67,
+        "id": 68,
         "reference": "villes",
         "name": "Ville",
         "table_name": "villes",
@@ -804,7 +816,7 @@
         "updated_at": null
     },
     {
-        "id": 68,
+        "id": 69,
         "reference": "widget_operations",
         "name": "WidgetOperation",
         "table_name": "widget_operations",
@@ -816,7 +828,7 @@
         "updated_at": null
     },
     {
-        "id": 69,
+        "id": 70,
         "reference": "widget_types",
         "name": "WidgetType",
         "table_name": "widget_types",
@@ -828,7 +840,7 @@
         "updated_at": null
     },
     {
-        "id": 70,
+        "id": 71,
         "reference": "widget_utilisateurs",
         "name": "WidgetUtilisateur",
         "table_name": "widget_utilisateurs",
@@ -840,7 +852,7 @@
         "updated_at": null
     },
     {
-        "id": 71,
+        "id": 72,
         "reference": "widgets",
         "name": "Widget",
         "table_name": "widgets",
@@ -852,7 +864,7 @@
         "updated_at": null
     },
     {
-        "id": 72,
+        "id": 73,
         "reference": "workflow_chapitres",
         "name": "WorkflowChapitre",
         "table_name": "workflow_chapitres",
@@ -864,7 +876,7 @@
         "updated_at": null
     },
     {
-        "id": 73,
+        "id": 74,
         "reference": "workflow_formations",
         "name": "WorkflowFormation",
         "table_name": "workflow_formations",
@@ -876,7 +888,7 @@
         "updated_at": null
     },
     {
-        "id": 74,
+        "id": 75,
         "reference": "workflow_taches",
         "name": "WorkflowTache",
         "table_name": "workflow_taches",
