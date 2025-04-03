@@ -9,15 +9,13 @@
     @endif
 
     <div class="card-body row">
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="matricule">
-                {{ ucfirst(__('PkgFormation::formateur.matricule')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
+
+      <div class="form-group col-12 col-md-6">
+          <label for="matricule">
+            {{ ucfirst(__('PkgFormation::formateur.matricule')) }}
+            <span class="text-danger">*</span>
+          </label>
+           <input
                 name="matricule"
                 type="input"
                 class="form-control"
@@ -26,20 +24,19 @@
                 id="matricule"
                 placeholder="{{ __('PkgFormation::formateur.matricule') }}"
                 value="{{ $itemFormateur ? $itemFormateur->matricule : old('matricule') }}">
-            @error('matricule')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('matricule')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="nom">
-                {{ ucfirst(__('PkgFormation::formateur.nom')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
+
+      <div class="form-group col-12 col-md-6">
+          <label for="nom">
+            {{ ucfirst(__('PkgFormation::formateur.nom')) }}
+            <span class="text-danger">*</span>
+          </label>
+           <input
                 name="nom"
                 type="input"
                 class="form-control"
@@ -48,20 +45,19 @@
                 id="nom"
                 placeholder="{{ __('PkgFormation::formateur.nom') }}"
                 value="{{ $itemFormateur ? $itemFormateur->nom : old('nom') }}">
-            @error('nom')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('nom')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="prenom">
-                {{ ucfirst(__('PkgFormation::formateur.prenom')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
+
+      <div class="form-group col-12 col-md-6">
+          <label for="prenom">
+            {{ ucfirst(__('PkgFormation::formateur.prenom')) }}
+            <span class="text-danger">*</span>
+          </label>
+           <input
                 name="prenom"
                 type="input"
                 class="form-control"
@@ -70,17 +66,19 @@
                 id="prenom"
                 placeholder="{{ __('PkgFormation::formateur.prenom') }}"
                 value="{{ $itemFormateur ? $itemFormateur->prenom : old('prenom') }}">
-            @error('prenom')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('prenom')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-                    <div class="form-group col-12 col-md-6">
-            <label for="specialites">
-                {{ ucfirst(__('PkgFormation::Specialite.plural')) }}
-            </label>
-            <select
+
+      <div class="form-group col-12 col-md-6">
+          <label for="specialites">
+            {{ ucfirst(__('PkgFormation::Specialite.plural')) }}
+            
+          </label>
+                      <select
                 id="specialites"
                 name="specialites[]"
                 class="form-control select2"
@@ -94,19 +92,19 @@
                     </option>
                 @endforeach
             </select>
-            @error('specialites')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
+          @error('specialites')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        </div>
 
-
-        
-                    <div class="form-group col-12 col-md-6">
-            <label for="groupes">
-                {{ ucfirst(__('PkgApprenants::Groupe.plural')) }}
-            </label>
-            <select
+      <div class="form-group col-12 col-md-6">
+          <label for="groupes">
+            {{ ucfirst(__('PkgApprenants::Groupe.plural')) }}
+            
+          </label>
+                      <select
                 id="groupes"
                 name="groupes[]"
                 class="form-control select2"
@@ -120,20 +118,19 @@
                     </option>
                 @endforeach
             </select>
-            @error('groupes')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
+          @error('groupes')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        </div>
 
-
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="email">
-                {{ ucfirst(__('PkgFormation::formateur.email')) }}
-                
-            </label>
-            <input
+      <div class="form-group col-12 col-md-6">
+          <label for="email">
+            {{ ucfirst(__('PkgFormation::formateur.email')) }}
+            
+          </label>
+           <input
                 name="email"
                 type="input"
                 class="form-control"
@@ -142,18 +139,19 @@
                 id="email"
                 placeholder="{{ __('PkgFormation::formateur.email') }}"
                 value="{{ $itemFormateur ? $itemFormateur->email : old('email') }}">
-            @error('email')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('email')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="tele_num">
-                {{ ucfirst(__('PkgFormation::formateur.tele_num')) }}
-                
-            </label>
-            <input
+
+      <div class="form-group col-12 col-md-6">
+          <label for="tele_num">
+            {{ ucfirst(__('PkgFormation::formateur.tele_num')) }}
+            
+          </label>
+           <input
                 name="tele_num"
                 type="input"
                 class="form-control"
@@ -162,18 +160,19 @@
                 id="tele_num"
                 placeholder="{{ __('PkgFormation::formateur.tele_num') }}"
                 value="{{ $itemFormateur ? $itemFormateur->tele_num : old('tele_num') }}">
-            @error('tele_num')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('tele_num')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="user_id">
-                {{ ucfirst(__('PkgAutorisation::user.singular')) }}
-                
-            </label>
-            <select 
+
+      <div class="form-group col-12 col-md-6">
+          <label for="user_id">
+            {{ ucfirst(__('PkgAutorisation::user.singular')) }}
+            
+          </label>
+                      <select 
             id="user_id" 
             
             
@@ -187,55 +186,44 @@
                     </option>
                 @endforeach
             </select>
-            @error('user_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
+          @error('user_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
 
-        
+<!--   EtatsRealisationProjet HasMany --> 
 
-        <!--   EtatsRealisationProjet HasMany --> 
 
-        
+<!--   Chapitre HasMany --> 
 
-        <!--   Chapitre HasMany --> 
 
-        
+<!--   CommentaireRealisationTache HasMany --> 
 
-        <!--   CommentaireRealisationTache HasMany --> 
 
-        
+<!--   EtatRealisationTache HasMany --> 
 
-        <!--   EtatRealisationTache HasMany --> 
 
-        
+<!--   EtatChapitre HasMany --> 
 
-        <!--   EtatChapitre HasMany --> 
 
-        
+<!--   NiveauDifficulte HasMany --> 
 
-        <!--   NiveauDifficulte HasMany --> 
 
-        
+<!--   EtatFormation HasMany --> 
 
-        <!--   EtatFormation HasMany --> 
 
-        
+<!--   Projet HasMany --> 
 
-        <!--   Projet HasMany --> 
 
-        
+<!--   LabelRealisationTache HasMany --> 
 
-        <!--   LabelRealisationTache HasMany --> 
 
-        
+<!--   Formation HasMany --> 
 
-        <!--   Formation HasMany --> 
 
-        
-
-        <!--   PrioriteTache HasMany --> 
+<!--   PrioriteTache HasMany --> 
 
     </div>
 

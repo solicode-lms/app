@@ -41,12 +41,9 @@
                     </span>
                     </td>
                     <td>
-                     <span @if(strlen($widgetUtilisateur->visible) > 40) 
-                            data-toggle="tooltip" 
-                            title="{{ $widgetUtilisateur->visible }}" 
-                        @endif>
-                        {{ Str::limit($widgetUtilisateur->visible, 40) }}
-                    </span>
+                        <span class="{{ $widgetUtilisateur->visible ? 'text-success' : 'text-danger' }}">
+                            {{ $widgetUtilisateur->visible ? 'Oui' : 'Non' }}
+                        </span>
                     </td>
                     <td class="text-right">
 

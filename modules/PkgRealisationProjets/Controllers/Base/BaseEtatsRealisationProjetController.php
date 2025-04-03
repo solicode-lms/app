@@ -110,7 +110,7 @@ class BaseEtatsRealisationProjetController extends AdminController
 
 
         $formateurs = $this->formateurService->all();
-
+        
 
         if (request()->ajax()) {
             return view('PkgRealisationProjets::etatsRealisationProjet._fields', compact('itemEtatsRealisationProjet', 'formateurs'));

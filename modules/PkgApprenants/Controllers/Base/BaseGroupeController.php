@@ -117,7 +117,7 @@ class BaseGroupeController extends AdminController
         $anneeFormations = $this->anneeFormationService->all();
         $apprenants = $this->apprenantService->all();
         $formateurs = $this->formateurService->all();
-
+        
 
         $this->viewState->set('scope.affectationProjet.groupe_id', $id);
 

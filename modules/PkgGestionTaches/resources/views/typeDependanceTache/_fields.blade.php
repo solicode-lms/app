@@ -9,15 +9,13 @@
     @endif
 
     <div class="card-body row">
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="titre">
-                {{ ucfirst(__('PkgGestionTaches::typeDependanceTache.titre')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
+
+      <div class="form-group col-12 col-md-6">
+          <label for="titre">
+            {{ ucfirst(__('PkgGestionTaches::typeDependanceTache.titre')) }}
+            <span class="text-danger">*</span>
+          </label>
+           <input
                 name="titre"
                 type="input"
                 class="form-control"
@@ -26,32 +24,33 @@
                 id="titre"
                 placeholder="{{ __('PkgGestionTaches::typeDependanceTache.titre') }}"
                 value="{{ $itemTypeDependanceTache ? $itemTypeDependanceTache->titre : old('titre') }}">
-            @error('titre')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('titre')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-12">
-            <label for="description">
-                {{ ucfirst(__('PkgGestionTaches::typeDependanceTache.description')) }}
-                
-            </label>
-            <textarea rows="" cols=""
+
+      <div class="form-group col-12 col-md-12">
+          <label for="description">
+            {{ ucfirst(__('PkgGestionTaches::typeDependanceTache.description')) }}
+            
+          </label>
+                      <textarea rows="" cols=""
                 name="description"
                 class="form-control richText"
                 
                 
                 id="description"
                 placeholder="{{ __('PkgGestionTaches::typeDependanceTache.description') }}">{{ $itemTypeDependanceTache ? $itemTypeDependanceTache->description : old('description') }}</textarea>
-            @error('description')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('description')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
 
-        <!--   DependanceTache HasMany --> 
+<!--   DependanceTache HasMany --> 
 
     </div>
 

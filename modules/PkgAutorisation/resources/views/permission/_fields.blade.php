@@ -9,15 +9,13 @@
     @endif
 
     <div class="card-body row">
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="name">
-                {{ ucfirst(__('PkgAutorisation::permission.name')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
+
+      <div class="form-group col-12 col-md-6">
+          <label for="name">
+            {{ ucfirst(__('PkgAutorisation::permission.name')) }}
+            <span class="text-danger">*</span>
+          </label>
+           <input
                 name="name"
                 type="input"
                 class="form-control"
@@ -26,20 +24,19 @@
                 id="name"
                 placeholder="{{ __('PkgAutorisation::permission.name') }}"
                 value="{{ $itemPermission ? $itemPermission->name : old('name') }}">
-            @error('name')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('name')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="guard_name">
-                {{ ucfirst(__('PkgAutorisation::permission.guard_name')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
+
+      <div class="form-group col-12 col-md-6">
+          <label for="guard_name">
+            {{ ucfirst(__('PkgAutorisation::permission.guard_name')) }}
+            <span class="text-danger">*</span>
+          </label>
+           <input
                 name="guard_name"
                 type="input"
                 class="form-control"
@@ -48,18 +45,19 @@
                 id="guard_name"
                 placeholder="{{ __('PkgAutorisation::permission.guard_name') }}"
                 value="{{ $itemPermission ? $itemPermission->guard_name : old('guard_name') }}">
-            @error('guard_name')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('guard_name')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="controller_id">
-                {{ ucfirst(__('Core::sysController.singular')) }}
-                
-            </label>
-            <select 
+
+      <div class="form-group col-12 col-md-6">
+          <label for="controller_id">
+            {{ ucfirst(__('Core::sysController.singular')) }}
+            
+          </label>
+                      <select 
             id="controller_id" 
             
             
@@ -73,18 +71,19 @@
                     </option>
                 @endforeach
             </select>
-            @error('controller_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
+          @error('controller_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
 
-        
-                    <div class="form-group col-12 col-md-6">
-            <label for="features">
-                {{ ucfirst(__('Core::Feature.plural')) }}
-            </label>
-            <select
+      <div class="form-group col-12 col-md-6">
+          <label for="features">
+            {{ ucfirst(__('Core::Feature.plural')) }}
+            
+          </label>
+                      <select
                 id="features"
                 name="features[]"
                 class="form-control select2"
@@ -98,19 +97,19 @@
                     </option>
                 @endforeach
             </select>
-            @error('features')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
+          @error('features')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        </div>
 
-
-        
-                    <div class="form-group col-12 col-md-6">
-            <label for="roles">
-                {{ ucfirst(__('PkgAutorisation::Role.plural')) }}
-            </label>
-            <select
+      <div class="form-group col-12 col-md-6">
+          <label for="roles">
+            {{ ucfirst(__('PkgAutorisation::Role.plural')) }}
+            
+          </label>
+                      <select
                 id="roles"
                 name="roles[]"
                 class="form-control select2"
@@ -124,12 +123,11 @@
                     </option>
                 @endforeach
             </select>
-            @error('roles')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-
-        </div>
-
+          @error('roles')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
     </div>
 

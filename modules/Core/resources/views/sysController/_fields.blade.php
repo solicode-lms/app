@@ -9,15 +9,13 @@
     @endif
 
     <div class="card-body row">
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="sys_module_id">
-                {{ ucfirst(__('Core::sysModule.singular')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <select 
+
+      <div class="form-group col-12 col-md-6">
+          <label for="sys_module_id">
+            {{ ucfirst(__('Core::sysModule.singular')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <select 
             id="sys_module_id" 
             required
             
@@ -31,21 +29,19 @@
                     </option>
                 @endforeach
             </select>
-            @error('sys_module_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
+          @error('sys_module_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="name">
-                {{ ucfirst(__('Core::sysController.name')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
+      <div class="form-group col-12 col-md-6">
+          <label for="name">
+            {{ ucfirst(__('Core::sysController.name')) }}
+            <span class="text-danger">*</span>
+          </label>
+           <input
                 name="name"
                 type="input"
                 class="form-control"
@@ -54,20 +50,19 @@
                 id="name"
                 placeholder="{{ __('Core::sysController.name') }}"
                 value="{{ $itemSysController ? $itemSysController->name : old('name') }}">
-            @error('name')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('name')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="slug">
-                {{ ucfirst(__('Core::sysController.slug')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
+
+      <div class="form-group col-12 col-md-6">
+          <label for="slug">
+            {{ ucfirst(__('Core::sysController.slug')) }}
+            <span class="text-danger">*</span>
+          </label>
+           <input
                 name="slug"
                 type="input"
                 class="form-control"
@@ -76,38 +71,38 @@
                 id="slug"
                 placeholder="{{ __('Core::sysController.slug') }}"
                 value="{{ $itemSysController ? $itemSysController->slug : old('slug') }}">
-            @error('slug')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('slug')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-12">
-            <label for="description">
-                {{ ucfirst(__('Core::sysController.description')) }}
-                
-            </label>
-            <textarea rows="" cols=""
+
+      <div class="form-group col-12 col-md-12">
+          <label for="description">
+            {{ ucfirst(__('Core::sysController.description')) }}
+            
+          </label>
+                      <textarea rows="" cols=""
                 name="description"
                 class="form-control richText"
                 
                 
                 id="description"
                 placeholder="{{ __('Core::sysController.description') }}">{{ $itemSysController ? $itemSysController->description : old('description') }}</textarea>
-            @error('description')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('description')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="is_active">
-                {{ ucfirst(__('Core::sysController.is_active')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input type="hidden" name="is_active" value="0">
+
+      <div class="form-group col-12 col-md-6">
+          <label for="is_active">
+            {{ ucfirst(__('Core::sysController.is_active')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <input type="hidden" name="is_active" value="0">
             <input
                 name="is_active"
                 type="checkbox"
@@ -117,14 +112,14 @@
                 id="is_active"
                 value="1"
                 {{ old('is_active', $itemSysController ? $itemSysController->is_active : 0) ? 'checked' : '' }}>
-            @error('is_active')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('is_active')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
 
-        <!--   Permission HasMany --> 
+<!--   Permission HasMany --> 
 
     </div>
 

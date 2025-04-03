@@ -102,7 +102,7 @@ class BaseModuleController extends AdminController
 
 
         $filieres = $this->filiereService->all();
-
+        
 
         $this->viewState->set('scope.competence.module_id', $id);
 

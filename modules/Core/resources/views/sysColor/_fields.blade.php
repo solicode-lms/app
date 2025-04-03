@@ -9,15 +9,13 @@
     @endif
 
     <div class="card-body row">
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="name">
-                {{ ucfirst(__('Core::sysColor.name')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
+
+      <div class="form-group col-12 col-md-6">
+          <label for="name">
+            {{ ucfirst(__('Core::sysColor.name')) }}
+            <span class="text-danger">*</span>
+          </label>
+           <input
                 name="name"
                 type="input"
                 class="form-control"
@@ -26,20 +24,19 @@
                 id="name"
                 placeholder="{{ __('Core::sysColor.name') }}"
                 value="{{ $itemSysColor ? $itemSysColor->name : old('name') }}">
-            @error('name')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('name')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="hex">
-                {{ ucfirst(__('Core::sysColor.hex')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
+
+      <div class="form-group col-12 col-md-6">
+          <label for="hex">
+            {{ ucfirst(__('Core::sysColor.hex')) }}
+            <span class="text-danger">*</span>
+          </label>
+           <input
                 name="hex"
                 type="input"
                 class="form-control"
@@ -48,42 +45,35 @@
                 id="hex"
                 placeholder="{{ __('Core::sysColor.hex') }}"
                 value="{{ $itemSysColor ? $itemSysColor->hex : old('hex') }}">
-            @error('hex')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('hex')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
 
-        <!--   EtatChapitre HasMany --> 
+<!--   EtatChapitre HasMany --> 
 
-        
 
-        <!--   EtatRealisationTache HasMany --> 
+<!--   EtatRealisationTache HasMany --> 
 
-        
 
-        <!--   SysModel HasMany --> 
+<!--   SysModel HasMany --> 
 
-        
 
-        <!--   EtatFormation HasMany --> 
+<!--   EtatFormation HasMany --> 
 
-        
 
-        <!--   LabelRealisationTache HasMany --> 
+<!--   LabelRealisationTache HasMany --> 
 
-        
 
-        <!--   SysModule HasMany --> 
+<!--   SysModule HasMany --> 
 
-        
 
-        <!--   WorkflowChapitre HasMany --> 
+<!--   WorkflowChapitre HasMany --> 
 
-        
 
-        <!--   WorkflowFormation HasMany --> 
+<!--   WorkflowFormation HasMany --> 
 
     </div>
 

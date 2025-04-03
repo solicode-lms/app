@@ -9,15 +9,13 @@
     @endif
 
     <div class="card-body row">
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="nom">
-                {{ ucfirst(__('PkgCreationProjet::natureLivrable.nom')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
+
+      <div class="form-group col-12 col-md-6">
+          <label for="nom">
+            {{ ucfirst(__('PkgCreationProjet::natureLivrable.nom')) }}
+            <span class="text-danger">*</span>
+          </label>
+           <input
                 name="nom"
                 type="input"
                 class="form-control"
@@ -26,32 +24,33 @@
                 id="nom"
                 placeholder="{{ __('PkgCreationProjet::natureLivrable.nom') }}"
                 value="{{ $itemNatureLivrable ? $itemNatureLivrable->nom : old('nom') }}">
-            @error('nom')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('nom')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-12">
-            <label for="description">
-                {{ ucfirst(__('PkgCreationProjet::natureLivrable.description')) }}
-                
-            </label>
-            <textarea rows="" cols=""
+
+      <div class="form-group col-12 col-md-12">
+          <label for="description">
+            {{ ucfirst(__('PkgCreationProjet::natureLivrable.description')) }}
+            
+          </label>
+                      <textarea rows="" cols=""
                 name="description"
                 class="form-control richText"
                 
                 
                 id="description"
                 placeholder="{{ __('PkgCreationProjet::natureLivrable.description') }}">{{ $itemNatureLivrable ? $itemNatureLivrable->description : old('description') }}</textarea>
-            @error('description')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('description')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
 
-        <!--   Livrable HasMany --> 
+<!--   Livrable HasMany --> 
 
     </div>
 

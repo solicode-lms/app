@@ -34,12 +34,9 @@
                     </span>
                     </td>
                     <td>
-                     <span @if(strlen($sysController->is_active) > 40) 
-                            data-toggle="tooltip" 
-                            title="{{ $sysController->is_active }}" 
-                        @endif>
-                        {{ Str::limit($sysController->is_active, 40) }}
-                    </span>
+                        <span class="{{ $sysController->is_active ? 'text-success' : 'text-danger' }}">
+                            {{ $sysController->is_active ? 'Oui' : 'Non' }}
+                        </span>
                     </td>
                     <td>
                         <ul>

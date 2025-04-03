@@ -106,7 +106,7 @@ class BaseRoleController extends AdminController
 
         $permissions = $this->permissionService->all();
         $users = $this->userService->all();
-
+        
 
         if (request()->ajax()) {
             return view('PkgAutorisation::role._fields', compact('itemRole', 'permissions', 'users'));

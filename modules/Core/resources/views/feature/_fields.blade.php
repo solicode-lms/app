@@ -9,15 +9,13 @@
     @endif
 
     <div class="card-body row">
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="name">
-                {{ ucfirst(__('Core::feature.name')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
+
+      <div class="form-group col-12 col-md-6">
+          <label for="name">
+            {{ ucfirst(__('Core::feature.name')) }}
+            <span class="text-danger">*</span>
+          </label>
+           <input
                 name="name"
                 type="input"
                 class="form-control"
@@ -26,38 +24,38 @@
                 id="name"
                 placeholder="{{ __('Core::feature.name') }}"
                 value="{{ $itemFeature ? $itemFeature->name : old('name') }}">
-            @error('name')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('name')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-12">
-            <label for="description">
-                {{ ucfirst(__('Core::feature.description')) }}
-                
-            </label>
-            <textarea rows="" cols=""
+
+      <div class="form-group col-12 col-md-12">
+          <label for="description">
+            {{ ucfirst(__('Core::feature.description')) }}
+            
+          </label>
+                      <textarea rows="" cols=""
                 name="description"
                 class="form-control richText"
                 
                 
                 id="description"
                 placeholder="{{ __('Core::feature.description') }}">{{ $itemFeature ? $itemFeature->description : old('description') }}</textarea>
-            @error('description')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('description')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="feature_domain_id">
-                {{ ucfirst(__('Core::featureDomain.singular')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <select 
+
+      <div class="form-group col-12 col-md-6">
+          <label for="feature_domain_id">
+            {{ ucfirst(__('Core::featureDomain.singular')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <select 
             id="feature_domain_id" 
             required
             
@@ -71,18 +69,19 @@
                     </option>
                 @endforeach
             </select>
-            @error('feature_domain_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
+          @error('feature_domain_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
 
-        
-                    <div class="form-group col-12 col-md-6">
-            <label for="permissions">
-                {{ ucfirst(__('PkgAutorisation::Permission.plural')) }}
-            </label>
-            <select
+      <div class="form-group col-12 col-md-6">
+          <label for="permissions">
+            {{ ucfirst(__('PkgAutorisation::Permission.plural')) }}
+            
+          </label>
+                      <select
                 id="permissions"
                 name="permissions[]"
                 class="form-control select2"
@@ -96,12 +95,11 @@
                     </option>
                 @endforeach
             </select>
-            @error('permissions')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-
-        </div>
-
+          @error('permissions')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
     </div>
 

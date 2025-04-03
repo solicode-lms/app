@@ -9,15 +9,13 @@
     @endif
 
     <div class="card-body row">
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="nom">
-                {{ ucfirst(__('PkgApprenants::ville.nom')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
+
+      <div class="form-group col-12 col-md-6">
+          <label for="nom">
+            {{ ucfirst(__('PkgApprenants::ville.nom')) }}
+            <span class="text-danger">*</span>
+          </label>
+           <input
                 name="nom"
                 type="input"
                 class="form-control"
@@ -26,10 +24,11 @@
                 id="nom"
                 placeholder="{{ __('PkgApprenants::ville.nom') }}"
                 value="{{ $itemVille ? $itemVille->nom : old('nom') }}">
-            @error('nom')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('nom')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
     </div>
 

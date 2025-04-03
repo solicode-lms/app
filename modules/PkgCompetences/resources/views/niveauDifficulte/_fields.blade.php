@@ -9,15 +9,13 @@
     @endif
 
     <div class="card-body row">
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="nom">
-                {{ ucfirst(__('PkgCompetences::niveauDifficulte.nom')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
+
+      <div class="form-group col-12 col-md-6">
+          <label for="nom">
+            {{ ucfirst(__('PkgCompetences::niveauDifficulte.nom')) }}
+            <span class="text-danger">*</span>
+          </label>
+           <input
                 name="nom"
                 type="input"
                 class="form-control"
@@ -26,20 +24,19 @@
                 id="nom"
                 placeholder="{{ __('PkgCompetences::niveauDifficulte.nom') }}"
                 value="{{ $itemNiveauDifficulte ? $itemNiveauDifficulte->nom : old('nom') }}">
-            @error('nom')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('nom')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-6">
-    <label for="noteMin">
-        {{ ucfirst(__('PkgCompetences::niveauDifficulte.noteMin')) }}
-        
+
+      <div class="form-group col-12 col-md-6">
+          <label for="noteMin">
+            {{ ucfirst(__('PkgCompetences::niveauDifficulte.noteMin')) }}
             <span class="text-danger">*</span>
-        
-    </label>
-    <input
+          </label>
+              <input
         name="noteMin"
         type="number"
         class="form-control"
@@ -49,21 +46,19 @@
         step="0.01"
         placeholder="{{ __('PkgCompetences::niveauDifficulte.noteMin') }}"
         value="{{ $itemNiveauDifficulte ? number_format($itemNiveauDifficulte->noteMin, 2, '.', '') : old('noteMin') }}">
-    @error('noteMin')
-        <div class="text-danger">{{ $message }}</div>
-    @enderror
-</div>
+          @error('noteMin')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
 
-        
-        <div class="form-group col-12 col-md-6">
-    <label for="noteMax">
-        {{ ucfirst(__('PkgCompetences::niveauDifficulte.noteMax')) }}
-        
+      <div class="form-group col-12 col-md-6">
+          <label for="noteMax">
+            {{ ucfirst(__('PkgCompetences::niveauDifficulte.noteMax')) }}
             <span class="text-danger">*</span>
-        
-    </label>
-    <input
+          </label>
+              <input
         name="noteMax"
         type="number"
         class="form-control"
@@ -73,21 +68,19 @@
         step="0.01"
         placeholder="{{ __('PkgCompetences::niveauDifficulte.noteMax') }}"
         value="{{ $itemNiveauDifficulte ? number_format($itemNiveauDifficulte->noteMax, 2, '.', '') : old('noteMax') }}">
-    @error('noteMax')
-        <div class="text-danger">{{ $message }}</div>
-    @enderror
-</div>
+          @error('noteMax')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="formateur_id">
-                {{ ucfirst(__('PkgFormation::formateur.singular')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <select 
+      <div class="form-group col-12 col-md-6">
+          <label for="formateur_id">
+            {{ ucfirst(__('PkgFormation::formateur.singular')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <select 
             id="formateur_id" 
             required
             
@@ -101,29 +94,30 @@
                     </option>
                 @endforeach
             </select>
-            @error('formateur_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
+          @error('formateur_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
 
-        
-        <div class="form-group col-12 col-md-12">
-            <label for="description">
-                {{ ucfirst(__('PkgCompetences::niveauDifficulte.description')) }}
-                
-            </label>
-            <textarea rows="" cols=""
+      <div class="form-group col-12 col-md-12">
+          <label for="description">
+            {{ ucfirst(__('PkgCompetences::niveauDifficulte.description')) }}
+            
+          </label>
+                      <textarea rows="" cols=""
                 name="description"
                 class="form-control richText"
                 
                 
                 id="description"
                 placeholder="{{ __('PkgCompetences::niveauDifficulte.description') }}">{{ $itemNiveauDifficulte ? $itemNiveauDifficulte->description : old('description') }}</textarea>
-            @error('description')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('description')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
     </div>
 

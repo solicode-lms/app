@@ -111,7 +111,7 @@ class BaseEMetadatumController extends AdminController
         $eModels = $this->eModelService->all();
         $eDataFields = $this->eDataFieldService->all();
         $eMetadataDefinitions = $this->eMetadataDefinitionService->all();
-
+        
 
         if (request()->ajax()) {
             return view('PkgGapp::eMetadatum._fields', compact('itemEMetadatum', 'eDataFields', 'eMetadataDefinitions', 'eModels'));

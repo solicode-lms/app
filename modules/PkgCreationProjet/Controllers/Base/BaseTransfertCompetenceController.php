@@ -125,7 +125,7 @@ class BaseTransfertCompetenceController extends AdminController
         $niveauDifficultes = $this->niveauDifficulteService->all();
         $technologies = $this->technologyService->all();
         $projets = $this->projetService->all();
-
+        
 
         if (request()->ajax()) {
             return view('PkgCreationProjet::transfertCompetence._fields', compact('itemTransfertCompetence', 'technologies', 'competences', 'niveauDifficultes', 'projets'));

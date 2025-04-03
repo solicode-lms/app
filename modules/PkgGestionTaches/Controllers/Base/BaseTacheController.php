@@ -129,7 +129,7 @@ class BaseTacheController extends AdminController
         $projets = $this->projetService->all();
         $prioriteTaches = $this->prioriteTacheService->all();
         $livrables = $this->livrableService->all();
-
+        
 
         $this->viewState->set('scope.dependanceTache.tache_id', $id);
 

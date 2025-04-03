@@ -135,7 +135,7 @@ class BaseRealisationTacheController extends AdminController
         $taches = $this->tacheService->all();
         $realisationProjets = $this->realisationProjetService->all();
         $etatRealisationTaches = $this->etatRealisationTacheService->all();
-
+        
 
         $this->viewState->set('scope.historiqueRealisationTache.realisation_tache_id', $id);
 

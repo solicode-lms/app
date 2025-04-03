@@ -101,7 +101,7 @@ class BaseHistoriqueRealisationTacheController extends AdminController
 
 
         $realisationTaches = $this->realisationTacheService->all();
-
+        
 
         if (request()->ajax()) {
             return view('PkgGestionTaches::historiqueRealisationTache._fields', compact('itemHistoriqueRealisationTache', 'realisationTaches'));

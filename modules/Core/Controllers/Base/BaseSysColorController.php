@@ -104,7 +104,7 @@ class BaseSysColorController extends AdminController
         $itemSysColor = $this->sysColorService->find($id);
 
 
-
+        
 
         $this->viewState->set('scope.etatChapitre.sys_color_id', $id);
 

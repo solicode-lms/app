@@ -9,15 +9,13 @@
     @endif
 
     <div class="card-body row">
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="name">
-                {{ ucfirst(__('PkgGapp::eRelationship.name')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
+
+      <div class="form-group col-12 col-md-6">
+          <label for="name">
+            {{ ucfirst(__('PkgGapp::eRelationship.name')) }}
+            <span class="text-danger">*</span>
+          </label>
+           <input
                 name="name"
                 type="input"
                 class="form-control"
@@ -26,20 +24,19 @@
                 id="name"
                 placeholder="{{ __('PkgGapp::eRelationship.name') }}"
                 value="{{ $itemERelationship ? $itemERelationship->name : old('name') }}">
-            @error('name')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('name')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="type">
-                {{ ucfirst(__('PkgGapp::eRelationship.type')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
+
+      <div class="form-group col-12 col-md-6">
+          <label for="type">
+            {{ ucfirst(__('PkgGapp::eRelationship.type')) }}
+            <span class="text-danger">*</span>
+          </label>
+           <input
                 name="type"
                 type="input"
                 class="form-control"
@@ -48,20 +45,19 @@
                 id="type"
                 placeholder="{{ __('PkgGapp::eRelationship.type') }}"
                 value="{{ $itemERelationship ? $itemERelationship->type : old('type') }}">
-            @error('type')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('type')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="source_e_model_id">
-                {{ ucfirst(__('PkgGapp::eModel.singular')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <select 
+
+      <div class="form-group col-12 col-md-6">
+          <label for="source_e_model_id">
+            {{ ucfirst(__('PkgGapp::eModel.singular')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <select 
             id="source_e_model_id" 
             required
             
@@ -75,21 +71,19 @@
                     </option>
                 @endforeach
             </select>
-            @error('source_e_model_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
+          @error('source_e_model_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="target_e_model_id">
-                {{ ucfirst(__('PkgGapp::eModel.singular')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <select 
+      <div class="form-group col-12 col-md-6">
+          <label for="target_e_model_id">
+            {{ ucfirst(__('PkgGapp::eModel.singular')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <select 
             id="target_e_model_id" 
             required
             
@@ -103,21 +97,19 @@
                     </option>
                 @endforeach
             </select>
-            @error('target_e_model_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
+          @error('target_e_model_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="cascade_on_delete">
-                {{ ucfirst(__('PkgGapp::eRelationship.cascade_on_delete')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input type="hidden" name="cascade_on_delete" value="0">
+      <div class="form-group col-12 col-md-6">
+          <label for="cascade_on_delete">
+            {{ ucfirst(__('PkgGapp::eRelationship.cascade_on_delete')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <input type="hidden" name="cascade_on_delete" value="0">
             <input
                 name="cascade_on_delete"
                 type="checkbox"
@@ -127,20 +119,19 @@
                 id="cascade_on_delete"
                 value="1"
                 {{ old('cascade_on_delete', $itemERelationship ? $itemERelationship->cascade_on_delete : 0) ? 'checked' : '' }}>
-            @error('cascade_on_delete')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('cascade_on_delete')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="is_cascade">
-                {{ ucfirst(__('PkgGapp::eRelationship.is_cascade')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input type="hidden" name="is_cascade" value="0">
+
+      <div class="form-group col-12 col-md-6">
+          <label for="is_cascade">
+            {{ ucfirst(__('PkgGapp::eRelationship.is_cascade')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <input type="hidden" name="is_cascade" value="0">
             <input
                 name="is_cascade"
                 type="checkbox"
@@ -150,36 +141,38 @@
                 id="is_cascade"
                 value="1"
                 {{ old('is_cascade', $itemERelationship ? $itemERelationship->is_cascade : 0) ? 'checked' : '' }}>
-            @error('is_cascade')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('is_cascade')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-12">
-            <label for="description">
-                {{ ucfirst(__('PkgGapp::eRelationship.description')) }}
-                
-            </label>
-            <textarea rows="" cols=""
+
+      <div class="form-group col-12 col-md-12">
+          <label for="description">
+            {{ ucfirst(__('PkgGapp::eRelationship.description')) }}
+            
+          </label>
+                      <textarea rows="" cols=""
                 name="description"
                 class="form-control richText"
                 
                 
                 id="description"
                 placeholder="{{ __('PkgGapp::eRelationship.description') }}">{{ $itemERelationship ? $itemERelationship->description : old('description') }}</textarea>
-            @error('description')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('description')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="column_name">
-                {{ ucfirst(__('PkgGapp::eRelationship.column_name')) }}
-                
-            </label>
-            <input
+
+      <div class="form-group col-12 col-md-6">
+          <label for="column_name">
+            {{ ucfirst(__('PkgGapp::eRelationship.column_name')) }}
+            
+          </label>
+           <input
                 name="column_name"
                 type="input"
                 class="form-control"
@@ -188,18 +181,19 @@
                 id="column_name"
                 placeholder="{{ __('PkgGapp::eRelationship.column_name') }}"
                 value="{{ $itemERelationship ? $itemERelationship->column_name : old('column_name') }}">
-            @error('column_name')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('column_name')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="referenced_table">
-                {{ ucfirst(__('PkgGapp::eRelationship.referenced_table')) }}
-                
-            </label>
-            <input
+
+      <div class="form-group col-12 col-md-6">
+          <label for="referenced_table">
+            {{ ucfirst(__('PkgGapp::eRelationship.referenced_table')) }}
+            
+          </label>
+           <input
                 name="referenced_table"
                 type="input"
                 class="form-control"
@@ -208,18 +202,19 @@
                 id="referenced_table"
                 placeholder="{{ __('PkgGapp::eRelationship.referenced_table') }}"
                 value="{{ $itemERelationship ? $itemERelationship->referenced_table : old('referenced_table') }}">
-            @error('referenced_table')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('referenced_table')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="referenced_column">
-                {{ ucfirst(__('PkgGapp::eRelationship.referenced_column')) }}
-                
-            </label>
-            <input
+
+      <div class="form-group col-12 col-md-6">
+          <label for="referenced_column">
+            {{ ucfirst(__('PkgGapp::eRelationship.referenced_column')) }}
+            
+          </label>
+           <input
                 name="referenced_column"
                 type="input"
                 class="form-control"
@@ -228,18 +223,19 @@
                 id="referenced_column"
                 placeholder="{{ __('PkgGapp::eRelationship.referenced_column') }}"
                 value="{{ $itemERelationship ? $itemERelationship->referenced_column : old('referenced_column') }}">
-            @error('referenced_column')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('referenced_column')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="through">
-                {{ ucfirst(__('PkgGapp::eRelationship.through')) }}
-                
-            </label>
-            <input
+
+      <div class="form-group col-12 col-md-6">
+          <label for="through">
+            {{ ucfirst(__('PkgGapp::eRelationship.through')) }}
+            
+          </label>
+           <input
                 name="through"
                 type="input"
                 class="form-control"
@@ -248,18 +244,19 @@
                 id="through"
                 placeholder="{{ __('PkgGapp::eRelationship.through') }}"
                 value="{{ $itemERelationship ? $itemERelationship->through : old('through') }}">
-            @error('through')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('through')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="with_column">
-                {{ ucfirst(__('PkgGapp::eRelationship.with_column')) }}
-                
-            </label>
-            <input
+
+      <div class="form-group col-12 col-md-6">
+          <label for="with_column">
+            {{ ucfirst(__('PkgGapp::eRelationship.with_column')) }}
+            
+          </label>
+           <input
                 name="with_column"
                 type="input"
                 class="form-control"
@@ -268,18 +265,19 @@
                 id="with_column"
                 placeholder="{{ __('PkgGapp::eRelationship.with_column') }}"
                 value="{{ $itemERelationship ? $itemERelationship->with_column : old('with_column') }}">
-            @error('with_column')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('with_column')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="morph_name">
-                {{ ucfirst(__('PkgGapp::eRelationship.morph_name')) }}
-                
-            </label>
-            <input
+
+      <div class="form-group col-12 col-md-6">
+          <label for="morph_name">
+            {{ ucfirst(__('PkgGapp::eRelationship.morph_name')) }}
+            
+          </label>
+           <input
                 name="morph_name"
                 type="input"
                 class="form-control"
@@ -288,14 +286,14 @@
                 id="morph_name"
                 placeholder="{{ __('PkgGapp::eRelationship.morph_name') }}"
                 value="{{ $itemERelationship ? $itemERelationship->morph_name : old('morph_name') }}">
-            @error('morph_name')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('morph_name')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
 
-        <!--   EDataField HasMany --> 
+<!--   EDataField HasMany --> 
 
     </div>
 

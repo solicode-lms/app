@@ -9,13 +9,13 @@
     @endif
 
     <div class="card-body row">
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="value_boolean">
-                {{ ucfirst(__('PkgGapp::eMetadatum.value_boolean')) }}
-                
-            </label>
-            <input type="hidden" name="value_boolean" value="0">
+
+      <div class="form-group col-12 col-md-6">
+          <label for="value_boolean">
+            {{ ucfirst(__('PkgGapp::eMetadatum.value_boolean')) }}
+            
+          </label>
+                      <input type="hidden" name="value_boolean" value="0">
             <input
                 name="value_boolean"
                 type="checkbox"
@@ -25,18 +25,19 @@
                 id="value_boolean"
                 value="1"
                 {{ old('value_boolean', $itemEMetadatum ? $itemEMetadatum->value_boolean : 0) ? 'checked' : '' }}>
-            @error('value_boolean')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('value_boolean')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="value_string">
-                {{ ucfirst(__('PkgGapp::eMetadatum.value_string')) }}
-                
-            </label>
-            <input
+
+      <div class="form-group col-12 col-md-6">
+          <label for="value_string">
+            {{ ucfirst(__('PkgGapp::eMetadatum.value_string')) }}
+            
+          </label>
+           <input
                 name="value_string"
                 type="input"
                 class="form-control"
@@ -45,18 +46,19 @@
                 id="value_string"
                 placeholder="{{ __('PkgGapp::eMetadatum.value_string') }}"
                 value="{{ $itemEMetadatum ? $itemEMetadatum->value_string : old('value_string') }}">
-            @error('value_string')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('value_string')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="value_integer">
-                {{ ucfirst(__('PkgGapp::eMetadatum.value_integer')) }}
-                
-            </label>
-            <input
+
+      <div class="form-group col-12 col-md-6">
+          <label for="value_integer">
+            {{ ucfirst(__('PkgGapp::eMetadatum.value_integer')) }}
+            
+          </label>
+                      <input
                 name="value_integer"
                 type="number"
                 class="form-control"
@@ -65,18 +67,19 @@
                 id="value_integer"
                 placeholder="{{ __('PkgGapp::eMetadatum.value_integer') }}"
                 value="{{ $itemEMetadatum ? $itemEMetadatum->value_integer : old('value_integer') }}">
-            @error('value_integer')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('value_integer')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-6">
-    <label for="value_float">
-        {{ ucfirst(__('PkgGapp::eMetadatum.value_float')) }}
-        
-    </label>
-    <input
+
+      <div class="form-group col-12 col-md-6">
+          <label for="value_float">
+            {{ ucfirst(__('PkgGapp::eMetadatum.value_float')) }}
+            
+          </label>
+              <input
         name="value_float"
         type="number"
         class="form-control"
@@ -86,19 +89,19 @@
         step="0.01"
         placeholder="{{ __('PkgGapp::eMetadatum.value_float') }}"
         value="{{ $itemEMetadatum ? number_format($itemEMetadatum->value_float, 2, '.', '') : old('value_float') }}">
-    @error('value_float')
-        <div class="text-danger">{{ $message }}</div>
-    @enderror
-</div>
+          @error('value_float')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="value_date">
-                {{ ucfirst(__('PkgGapp::eMetadatum.value_date')) }}
-                
-            </label>
-            <input
+      <div class="form-group col-12 col-md-6">
+          <label for="value_date">
+            {{ ucfirst(__('PkgGapp::eMetadatum.value_date')) }}
+            
+          </label>
+                      <input
                 name="value_date"
                 type="date"
                 class="form-control datetimepicker"
@@ -107,22 +110,20 @@
                 id="value_date"
                 placeholder="{{ __('PkgGapp::eMetadatum.value_date') }}"
                 value="{{ $itemEMetadatum ? $itemEMetadatum->value_date : old('value_date') }}">
-            @error('value_date')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+
+          @error('value_date')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
 
-
-
-
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="value_datetime">
-                {{ ucfirst(__('PkgGapp::eMetadatum.value_datetime')) }}
-                
-            </label>
-            <input
+      <div class="form-group col-12 col-md-6">
+          <label for="value_datetime">
+            {{ ucfirst(__('PkgGapp::eMetadatum.value_datetime')) }}
+            
+          </label>
+                      <input
                 name="value_datetime"
                 type="date"
                 class="form-control datetimepicker"
@@ -131,22 +132,20 @@
                 id="value_datetime"
                 placeholder="{{ __('PkgGapp::eMetadatum.value_datetime') }}"
                 value="{{ $itemEMetadatum ? $itemEMetadatum->value_datetime : old('value_datetime') }}">
-            @error('value_datetime')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+
+          @error('value_datetime')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
 
-
-
-
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="value_enum">
-                {{ ucfirst(__('PkgGapp::eMetadatum.value_enum')) }}
-                
-            </label>
-            <input
+      <div class="form-group col-12 col-md-6">
+          <label for="value_enum">
+            {{ ucfirst(__('PkgGapp::eMetadatum.value_enum')) }}
+            
+          </label>
+           <input
                 name="value_enum"
                 type="input"
                 class="form-control"
@@ -155,21 +154,20 @@
                 id="value_enum"
                 placeholder="{{ __('PkgGapp::eMetadatum.value_enum') }}"
                 value="{{ $itemEMetadatum ? $itemEMetadatum->value_enum : old('value_enum') }}">
-            @error('value_enum')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('value_enum')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-6">
-    <label for="value_json">
-        {{ ucfirst(__('PkgGapp::eMetadatum.value_json')) }}
-        
-    </label>
-    
-    <div class="form-control editeur_json code-editor"
+
+      <div class="form-group col-12 col-md-6">
+          <label for="value_json">
+            {{ ucfirst(__('PkgGapp::eMetadatum.value_json')) }}
+            
+          </label>
+              <div class="form-control editeur_json code-editor"
         contenteditable="true">{{ $itemEMetadatum ? $itemEMetadatum->value_json : old('value_json') }}</div>
-    
     <input
         type="hidden"
         name="value_json"
@@ -179,40 +177,38 @@
         
         value = "{{ $itemEMetadatum ? $itemEMetadatum->value_json : old('value_json') }}"
     >
+          @error('value_json')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
 
-    @error('value_json')
-        <div class="text-danger">{{ $message }}</div>
-    @enderror
-</div>
-
-
-
-        
-        <div class="form-group col-12 col-md-12">
-            <label for="value_text">
-                {{ ucfirst(__('PkgGapp::eMetadatum.value_text')) }}
-                
-            </label>
-            <textarea rows="" cols=""
+      <div class="form-group col-12 col-md-12">
+          <label for="value_text">
+            {{ ucfirst(__('PkgGapp::eMetadatum.value_text')) }}
+            
+          </label>
+                      <textarea rows="" cols=""
                 name="value_text"
                 class="form-control richText"
                 
                 
                 id="value_text"
                 placeholder="{{ __('PkgGapp::eMetadatum.value_text') }}">{{ $itemEMetadatum ? $itemEMetadatum->value_text : old('value_text') }}</textarea>
-            @error('value_text')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('value_text')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="e_model_id">
-                {{ ucfirst(__('PkgGapp::eModel.singular')) }}
-                
-            </label>
-            <select 
+
+      <div class="form-group col-12 col-md-6">
+          <label for="e_model_id">
+            {{ ucfirst(__('PkgGapp::eModel.singular')) }}
+            
+          </label>
+                      <select 
             id="e_model_id" 
             
             
@@ -226,19 +222,19 @@
                     </option>
                 @endforeach
             </select>
-            @error('e_model_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
+          @error('e_model_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="e_data_field_id">
-                {{ ucfirst(__('PkgGapp::eDataField.singular')) }}
-                
-            </label>
-            <select 
+      <div class="form-group col-12 col-md-6">
+          <label for="e_data_field_id">
+            {{ ucfirst(__('PkgGapp::eDataField.singular')) }}
+            
+          </label>
+                      <select 
             id="e_data_field_id" 
             
             
@@ -252,21 +248,19 @@
                     </option>
                 @endforeach
             </select>
-            @error('e_data_field_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
+          @error('e_data_field_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="e_metadata_definition_id">
-                {{ ucfirst(__('PkgGapp::eMetadataDefinition.singular')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <select 
+      <div class="form-group col-12 col-md-6">
+          <label for="e_metadata_definition_id">
+            {{ ucfirst(__('PkgGapp::eMetadataDefinition.singular')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <select 
             id="e_metadata_definition_id" 
             required
             data-calcul='true'
@@ -280,11 +274,11 @@
                     </option>
                 @endforeach
             </select>
-            @error('e_metadata_definition_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
-
+          @error('e_metadata_definition_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
     </div>
 

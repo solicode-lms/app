@@ -9,15 +9,13 @@
     @endif
 
     <div class="card-body row">
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="name">
-                {{ ucfirst(__('Core::featureDomain.name')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
+
+      <div class="form-group col-12 col-md-6">
+          <label for="name">
+            {{ ucfirst(__('Core::featureDomain.name')) }}
+            <span class="text-danger">*</span>
+          </label>
+           <input
                 name="name"
                 type="input"
                 class="form-control"
@@ -26,20 +24,19 @@
                 id="name"
                 placeholder="{{ __('Core::featureDomain.name') }}"
                 value="{{ $itemFeatureDomain ? $itemFeatureDomain->name : old('name') }}">
-            @error('name')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('name')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="slug">
-                {{ ucfirst(__('Core::featureDomain.slug')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
+
+      <div class="form-group col-12 col-md-6">
+          <label for="slug">
+            {{ ucfirst(__('Core::featureDomain.slug')) }}
+            <span class="text-danger">*</span>
+          </label>
+           <input
                 name="slug"
                 type="input"
                 class="form-control"
@@ -48,38 +45,38 @@
                 id="slug"
                 placeholder="{{ __('Core::featureDomain.slug') }}"
                 value="{{ $itemFeatureDomain ? $itemFeatureDomain->slug : old('slug') }}">
-            @error('slug')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('slug')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-12">
-            <label for="description">
-                {{ ucfirst(__('Core::featureDomain.description')) }}
-                
-            </label>
-            <textarea rows="" cols=""
+
+      <div class="form-group col-12 col-md-12">
+          <label for="description">
+            {{ ucfirst(__('Core::featureDomain.description')) }}
+            
+          </label>
+                      <textarea rows="" cols=""
                 name="description"
                 class="form-control richText"
                 
                 
                 id="description"
                 placeholder="{{ __('Core::featureDomain.description') }}">{{ $itemFeatureDomain ? $itemFeatureDomain->description : old('description') }}</textarea>
-            @error('description')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('description')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="sys_module_id">
-                {{ ucfirst(__('Core::sysModule.singular')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <select 
+
+      <div class="form-group col-12 col-md-6">
+          <label for="sys_module_id">
+            {{ ucfirst(__('Core::sysModule.singular')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <select 
             id="sys_module_id" 
             required
             
@@ -93,15 +90,14 @@
                     </option>
                 @endforeach
             </select>
-            @error('sys_module_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
+          @error('sys_module_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
 
-        
-
-        <!--   Feature HasMany --> 
+<!--   Feature HasMany --> 
 
     </div>
 

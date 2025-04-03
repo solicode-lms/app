@@ -105,7 +105,7 @@ class BaseUserController extends AdminController
 
 
         $roles = $this->roleService->all();
-
+        
 
         $this->viewState->set('scope.apprenant.user_id', $id);
 

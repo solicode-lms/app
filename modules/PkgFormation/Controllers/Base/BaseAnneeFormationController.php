@@ -98,7 +98,7 @@ class BaseAnneeFormationController extends AdminController
         $itemAnneeFormation = $this->anneeFormationService->find($id);
 
 
-
+        
 
         $this->viewState->set('scope.affectationProjet.annee_formation_id', $id);
 

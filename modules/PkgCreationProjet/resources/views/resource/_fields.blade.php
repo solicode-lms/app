@@ -9,15 +9,13 @@
     @endif
 
     <div class="card-body row">
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="nom">
-                {{ ucfirst(__('PkgCreationProjet::resource.nom')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
+
+      <div class="form-group col-12 col-md-6">
+          <label for="nom">
+            {{ ucfirst(__('PkgCreationProjet::resource.nom')) }}
+            <span class="text-danger">*</span>
+          </label>
+           <input
                 name="nom"
                 type="input"
                 class="form-control"
@@ -26,20 +24,19 @@
                 id="nom"
                 placeholder="{{ __('PkgCreationProjet::resource.nom') }}"
                 value="{{ $itemResource ? $itemResource->nom : old('nom') }}">
-            @error('nom')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('nom')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="lien">
-                {{ ucfirst(__('PkgCreationProjet::resource.lien')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
+
+      <div class="form-group col-12 col-md-6">
+          <label for="lien">
+            {{ ucfirst(__('PkgCreationProjet::resource.lien')) }}
+            <span class="text-danger">*</span>
+          </label>
+           <input
                 name="lien"
                 type="input"
                 class="form-control"
@@ -48,38 +45,38 @@
                 id="lien"
                 placeholder="{{ __('PkgCreationProjet::resource.lien') }}"
                 value="{{ $itemResource ? $itemResource->lien : old('lien') }}">
-            @error('lien')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('lien')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-12">
-            <label for="description">
-                {{ ucfirst(__('PkgCreationProjet::resource.description')) }}
-                
-            </label>
-            <textarea rows="" cols=""
+
+      <div class="form-group col-12 col-md-12">
+          <label for="description">
+            {{ ucfirst(__('PkgCreationProjet::resource.description')) }}
+            
+          </label>
+                      <textarea rows="" cols=""
                 name="description"
                 class="form-control richText"
                 
                 
                 id="description"
                 placeholder="{{ __('PkgCreationProjet::resource.description') }}">{{ $itemResource ? $itemResource->description : old('description') }}</textarea>
-            @error('description')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('description')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="projet_id">
-                {{ ucfirst(__('PkgCreationProjet::projet.singular')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <select 
+
+      <div class="form-group col-12 col-md-6">
+          <label for="projet_id">
+            {{ ucfirst(__('PkgCreationProjet::projet.singular')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <select 
             id="projet_id" 
             required
             
@@ -93,11 +90,11 @@
                     </option>
                 @endforeach
             </select>
-            @error('projet_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
-
+          @error('projet_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
     </div>
 

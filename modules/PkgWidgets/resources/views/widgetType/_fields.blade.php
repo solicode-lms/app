@@ -9,15 +9,13 @@
     @endif
 
     <div class="card-body row">
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="type">
-                {{ ucfirst(__('PkgWidgets::widgetType.type')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
+
+      <div class="form-group col-12 col-md-6">
+          <label for="type">
+            {{ ucfirst(__('PkgWidgets::widgetType.type')) }}
+            <span class="text-danger">*</span>
+          </label>
+           <input
                 name="type"
                 type="input"
                 class="form-control"
@@ -26,32 +24,33 @@
                 id="type"
                 placeholder="{{ __('PkgWidgets::widgetType.type') }}"
                 value="{{ $itemWidgetType ? $itemWidgetType->type : old('type') }}">
-            @error('type')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('type')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-12">
-            <label for="description">
-                {{ ucfirst(__('PkgWidgets::widgetType.description')) }}
-                
-            </label>
-            <textarea rows="" cols=""
+
+      <div class="form-group col-12 col-md-12">
+          <label for="description">
+            {{ ucfirst(__('PkgWidgets::widgetType.description')) }}
+            
+          </label>
+                      <textarea rows="" cols=""
                 name="description"
                 class="form-control richText"
                 
                 
                 id="description"
                 placeholder="{{ __('PkgWidgets::widgetType.description') }}">{{ $itemWidgetType ? $itemWidgetType->description : old('description') }}</textarea>
-            @error('description')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('description')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
 
-        <!--   Widget HasMany --> 
+<!--   Widget HasMany --> 
 
     </div>
 

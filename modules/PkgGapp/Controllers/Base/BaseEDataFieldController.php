@@ -107,7 +107,7 @@ class BaseEDataFieldController extends AdminController
 
         $eModels = $this->eModelService->all();
         $eRelationships = $this->eRelationshipService->all();
-
+        
 
         $this->viewState->set('scope.eMetadatum.e_data_field_id', $id);
 

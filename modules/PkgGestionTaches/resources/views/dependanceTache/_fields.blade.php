@@ -9,15 +9,13 @@
     @endif
 
     <div class="card-body row">
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="tache_id">
-                {{ ucfirst(__('PkgGestionTaches::tache.singular')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <select 
+
+      <div class="form-group col-12 col-md-6">
+          <label for="tache_id">
+            {{ ucfirst(__('PkgGestionTaches::tache.singular')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <select 
             id="tache_id" 
             required
             
@@ -31,19 +29,19 @@
                     </option>
                 @endforeach
             </select>
-            @error('tache_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
+          @error('tache_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="type_dependance_tache_id">
-                {{ ucfirst(__('PkgGestionTaches::typeDependanceTache.singular')) }}
-                
-            </label>
-            <select 
+      <div class="form-group col-12 col-md-6">
+          <label for="type_dependance_tache_id">
+            {{ ucfirst(__('PkgGestionTaches::typeDependanceTache.singular')) }}
+            
+          </label>
+                      <select 
             id="type_dependance_tache_id" 
             
             
@@ -57,21 +55,19 @@
                     </option>
                 @endforeach
             </select>
-            @error('type_dependance_tache_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
+          @error('type_dependance_tache_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="tache_cible_id">
-                {{ ucfirst(__('PkgGestionTaches::tache.singular')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <select 
+      <div class="form-group col-12 col-md-6">
+          <label for="tache_cible_id">
+            {{ ucfirst(__('PkgGestionTaches::tache.singular')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <select 
             id="tache_cible_id" 
             required
             
@@ -85,11 +81,11 @@
                     </option>
                 @endforeach
             </select>
-            @error('tache_cible_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
-
+          @error('tache_cible_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
     </div>
 

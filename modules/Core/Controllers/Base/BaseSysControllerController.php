@@ -102,7 +102,7 @@ class BaseSysControllerController extends AdminController
 
 
         $sysModules = $this->sysModuleService->all();
-
+        
 
         $this->viewState->set('scope.permission.controller_id', $id);
 

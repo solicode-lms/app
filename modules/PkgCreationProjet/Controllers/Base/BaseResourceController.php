@@ -110,7 +110,7 @@ class BaseResourceController extends AdminController
 
 
         $projets = $this->projetService->all();
-
+        
 
         if (request()->ajax()) {
             return view('PkgCreationProjet::resource._fields', compact('itemResource', 'projets'));

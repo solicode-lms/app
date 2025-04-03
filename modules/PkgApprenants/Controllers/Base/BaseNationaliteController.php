@@ -97,7 +97,7 @@ class BaseNationaliteController extends AdminController
         $itemNationalite = $this->nationaliteService->find($id);
 
 
-
+        
 
         $this->viewState->set('scope.apprenant.nationalite_id', $id);
 

@@ -115,7 +115,7 @@ class BaseLabelRealisationTacheController extends AdminController
 
         $formateurs = $this->formateurService->all();
         $sysColors = $this->sysColorService->all();
-
+        
 
         if (request()->ajax()) {
             return view('PkgGestionTaches::labelRealisationTache._fields', compact('itemLabelRealisationTache', 'formateurs', 'sysColors'));

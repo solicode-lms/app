@@ -116,7 +116,7 @@ class BaseTechnologyController extends AdminController
         $competences = $this->competenceService->all();
         $formations = $this->formationService->all();
         $transfertCompetences = $this->transfertCompetenceService->all();
-
+        
 
         if (request()->ajax()) {
             return view('PkgCompetences::technology._fields', compact('itemTechnology', 'competences', 'formations', 'transfertCompetences', 'categoryTechnologies'));

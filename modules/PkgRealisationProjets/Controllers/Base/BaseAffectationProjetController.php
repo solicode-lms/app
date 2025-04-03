@@ -140,7 +140,7 @@ class BaseAffectationProjetController extends AdminController
         $projets = $this->projetService->all();
         $groupes = $this->groupeService->all();
         $anneeFormations = $this->anneeFormationService->all();
-
+        
 
         $this->viewState->set('scope.realisationProjet.affectation_projet_id', $id);
 

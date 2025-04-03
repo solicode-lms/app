@@ -9,15 +9,13 @@
     @endif
 
     <div class="card-body row">
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="titre">
-                {{ ucfirst(__('PkgGestionTaches::tache.titre')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
+
+      <div class="form-group col-12 col-md-6">
+          <label for="titre">
+            {{ ucfirst(__('PkgGestionTaches::tache.titre')) }}
+            <span class="text-danger">*</span>
+          </label>
+           <input
                 name="titre"
                 type="input"
                 class="form-control"
@@ -26,36 +24,38 @@
                 id="titre"
                 placeholder="{{ __('PkgGestionTaches::tache.titre') }}"
                 value="{{ $itemTache ? $itemTache->titre : old('titre') }}">
-            @error('titre')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('titre')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-12">
-            <label for="description">
-                {{ ucfirst(__('PkgGestionTaches::tache.description')) }}
-                
-            </label>
-            <textarea rows="" cols=""
+
+      <div class="form-group col-12 col-md-12">
+          <label for="description">
+            {{ ucfirst(__('PkgGestionTaches::tache.description')) }}
+            
+          </label>
+                      <textarea rows="" cols=""
                 name="description"
                 class="form-control richText"
                 
                 
                 id="description"
                 placeholder="{{ __('PkgGestionTaches::tache.description') }}">{{ $itemTache ? $itemTache->description : old('description') }}</textarea>
-            @error('description')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('description')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="dateDebut">
-                {{ ucfirst(__('PkgGestionTaches::tache.dateDebut')) }}
-                
-            </label>
-            <input
+
+      <div class="form-group col-12 col-md-6">
+          <label for="dateDebut">
+            {{ ucfirst(__('PkgGestionTaches::tache.dateDebut')) }}
+            
+          </label>
+                      <input
                 name="dateDebut"
                 type="date"
                 class="form-control datetimepicker"
@@ -64,22 +64,20 @@
                 id="dateDebut"
                 placeholder="{{ __('PkgGestionTaches::tache.dateDebut') }}"
                 value="{{ $itemTache ? $itemTache->dateDebut : old('dateDebut') }}">
-            @error('dateDebut')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+
+          @error('dateDebut')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
 
-
-
-
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="dateFin">
-                {{ ucfirst(__('PkgGestionTaches::tache.dateFin')) }}
-                
-            </label>
-            <input
+      <div class="form-group col-12 col-md-6">
+          <label for="dateFin">
+            {{ ucfirst(__('PkgGestionTaches::tache.dateFin')) }}
+            
+          </label>
+                      <input
                 name="dateFin"
                 type="date"
                 class="form-control datetimepicker"
@@ -88,24 +86,20 @@
                 id="dateFin"
                 placeholder="{{ __('PkgGestionTaches::tache.dateFin') }}"
                 value="{{ $itemTache ? $itemTache->dateFin : old('dateFin') }}">
-            @error('dateFin')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+
+          @error('dateFin')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
 
-
-
-
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="projet_id">
-                {{ ucfirst(__('PkgCreationProjet::projet.singular')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <select 
+      <div class="form-group col-12 col-md-6">
+          <label for="projet_id">
+            {{ ucfirst(__('PkgCreationProjet::projet.singular')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <select 
             id="projet_id" 
             required
             
@@ -119,19 +113,19 @@
                     </option>
                 @endforeach
             </select>
-            @error('projet_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
+          @error('projet_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="priorite_tache_id">
-                {{ ucfirst(__('PkgGestionTaches::prioriteTache.singular')) }}
-                
-            </label>
-            <select 
+      <div class="form-group col-12 col-md-6">
+          <label for="priorite_tache_id">
+            {{ ucfirst(__('PkgGestionTaches::prioriteTache.singular')) }}
+            
+          </label>
+                      <select 
             id="priorite_tache_id" 
             
             
@@ -145,26 +139,25 @@
                     </option>
                 @endforeach
             </select>
-            @error('priorite_tache_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
+          @error('priorite_tache_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
 
-        
+<!--   DependanceTache HasMany --> 
 
-        <!--   DependanceTache HasMany --> 
 
-        
+<!--   DependanceTache HasMany --> 
 
-        <!--   DependanceTache HasMany --> 
 
-        
-                    <div class="form-group col-12 col-md-6">
-            <label for="livrables">
-                {{ ucfirst(__('PkgCreationProjet::Livrable.plural')) }}
-            </label>
-            <select
+      <div class="form-group col-12 col-md-6">
+          <label for="livrables">
+            {{ ucfirst(__('PkgCreationProjet::Livrable.plural')) }}
+            
+          </label>
+                      <select
                 id="livrables"
                 name="livrables[]"
                 class="form-control select2"
@@ -178,16 +171,14 @@
                     </option>
                 @endforeach
             </select>
-            @error('livrables')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
+          @error('livrables')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        </div>
 
-
-        
-
-        <!--   RealisationTache HasMany --> 
+<!--   RealisationTache HasMany --> 
 
     </div>
 

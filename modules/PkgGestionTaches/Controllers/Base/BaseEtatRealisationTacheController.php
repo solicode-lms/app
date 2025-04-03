@@ -120,7 +120,7 @@ class BaseEtatRealisationTacheController extends AdminController
         $workflowTaches = $this->workflowTacheService->all();
         $sysColors = $this->sysColorService->all();
         $formateurs = $this->formateurService->all();
-
+        
 
         if (request()->ajax()) {
             return view('PkgGestionTaches::etatRealisationTache._fields', compact('itemEtatRealisationTache', 'formateurs', 'sysColors', 'workflowTaches'));

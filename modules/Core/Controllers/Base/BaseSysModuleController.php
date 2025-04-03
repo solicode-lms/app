@@ -104,7 +104,7 @@ class BaseSysModuleController extends AdminController
 
 
         $sysColors = $this->sysColorService->all();
-
+        
 
         $this->viewState->set('scope.featureDomain.sys_module_id', $id);
 

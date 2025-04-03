@@ -9,15 +9,13 @@
     @endif
 
     <div class="card-body row">
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="competence_id">
-                {{ ucfirst(__('PkgCompetences::competence.singular')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <select 
+
+      <div class="form-group col-12 col-md-6">
+          <label for="competence_id">
+            {{ ucfirst(__('PkgCompetences::competence.singular')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <select 
             id="competence_id" 
             required
             
@@ -31,21 +29,19 @@
                     </option>
                 @endforeach
             </select>
-            @error('competence_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
+          @error('competence_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="niveau_difficulte_id">
-                {{ ucfirst(__('PkgCompetences::niveauDifficulte.singular')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <select 
+      <div class="form-group col-12 col-md-6">
+          <label for="niveau_difficulte_id">
+            {{ ucfirst(__('PkgCompetences::niveauDifficulte.singular')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <select 
             id="niveau_difficulte_id" 
             required
             
@@ -59,18 +55,19 @@
                     </option>
                 @endforeach
             </select>
-            @error('niveau_difficulte_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
+          @error('niveau_difficulte_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
 
-        
-                    <div class="form-group col-12 col-md-6">
-            <label for="technologies">
-                {{ ucfirst(__('PkgCompetences::Technology.plural')) }}
-            </label>
-            <select
+      <div class="form-group col-12 col-md-6">
+          <label for="technologies">
+            {{ ucfirst(__('PkgCompetences::Technology.plural')) }}
+            
+          </label>
+                      <select
                 id="technologies"
                 name="technologies[]"
                 class="form-control select2"
@@ -84,20 +81,19 @@
                     </option>
                 @endforeach
             </select>
-            @error('technologies')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
+          @error('technologies')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        </div>
 
-
-        
-        <div class="form-group col-12 col-md-6">
-    <label for="note">
-        {{ ucfirst(__('PkgCreationProjet::transfertCompetence.note')) }}
-        
-    </label>
-    <input
+      <div class="form-group col-12 col-md-6">
+          <label for="note">
+            {{ ucfirst(__('PkgCreationProjet::transfertCompetence.note')) }}
+            
+          </label>
+              <input
         name="note"
         type="number"
         class="form-control"
@@ -107,25 +103,22 @@
         step="0.01"
         placeholder="{{ __('PkgCreationProjet::transfertCompetence.note') }}"
         value="{{ $itemTransfertCompetence ? number_format($itemTransfertCompetence->note, 2, '.', '') : old('note') }}">
-    @error('note')
-        <div class="text-danger">{{ $message }}</div>
-    @enderror
-</div>
+          @error('note')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
 
-        
+<!--   Validation HasMany --> 
 
-        <!--   Validation HasMany --> 
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="projet_id">
-                {{ ucfirst(__('PkgCreationProjet::projet.singular')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <select 
+      <div class="form-group col-12 col-md-6">
+          <label for="projet_id">
+            {{ ucfirst(__('PkgCreationProjet::projet.singular')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <select 
             id="projet_id" 
             required
             
@@ -139,29 +132,30 @@
                     </option>
                 @endforeach
             </select>
-            @error('projet_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
+          @error('projet_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
 
-        
-        <div class="form-group col-12 col-md-12">
-            <label for="question">
-                {{ ucfirst(__('PkgCreationProjet::transfertCompetence.question')) }}
-                
-            </label>
-            <textarea rows="" cols=""
+      <div class="form-group col-12 col-md-12">
+          <label for="question">
+            {{ ucfirst(__('PkgCreationProjet::transfertCompetence.question')) }}
+            
+          </label>
+                      <textarea rows="" cols=""
                 name="question"
                 class="form-control richText"
                 
                 data-calcul='true'
                 id="question"
                 placeholder="{{ __('PkgCreationProjet::transfertCompetence.question') }}">{{ $itemTransfertCompetence ? $itemTransfertCompetence->question : old('question') }}</textarea>
-            @error('question')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('question')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
     </div>
 

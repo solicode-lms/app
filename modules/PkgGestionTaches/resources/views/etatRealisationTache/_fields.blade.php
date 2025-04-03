@@ -9,15 +9,13 @@
     @endif
 
     <div class="card-body row">
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="nom">
-                {{ ucfirst(__('PkgGestionTaches::etatRealisationTache.nom')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
+
+      <div class="form-group col-12 col-md-6">
+          <label for="nom">
+            {{ ucfirst(__('PkgGestionTaches::etatRealisationTache.nom')) }}
+            <span class="text-danger">*</span>
+          </label>
+           <input
                 name="nom"
                 type="input"
                 class="form-control"
@@ -26,18 +24,19 @@
                 id="nom"
                 placeholder="{{ __('PkgGestionTaches::etatRealisationTache.nom') }}"
                 value="{{ $itemEtatRealisationTache ? $itemEtatRealisationTache->nom : old('nom') }}">
-            @error('nom')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('nom')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="workflow_tache_id">
-                {{ ucfirst(__('PkgGestionTaches::workflowTache.singular')) }}
-                
-            </label>
-            <select 
+
+      <div class="form-group col-12 col-md-6">
+          <label for="workflow_tache_id">
+            {{ ucfirst(__('PkgGestionTaches::workflowTache.singular')) }}
+            
+          </label>
+                      <select 
             id="workflow_tache_id" 
             
             
@@ -51,21 +50,19 @@
                     </option>
                 @endforeach
             </select>
-            @error('workflow_tache_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
+          @error('workflow_tache_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="sys_color_id">
-                {{ ucfirst(__('Core::sysColor.singular')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <select 
+      <div class="form-group col-12 col-md-6">
+          <label for="sys_color_id">
+            {{ ucfirst(__('Core::sysColor.singular')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <select 
             id="sys_color_id" 
             required
             
@@ -79,19 +76,19 @@
                     </option>
                 @endforeach
             </select>
-            @error('sys_color_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
+          @error('sys_color_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="is_editable_only_by_formateur">
-                {{ ucfirst(__('PkgGestionTaches::etatRealisationTache.is_editable_only_by_formateur')) }}
-                
-            </label>
-            <input type="hidden" name="is_editable_only_by_formateur" value="0">
+      <div class="form-group col-12 col-md-6">
+          <label for="is_editable_only_by_formateur">
+            {{ ucfirst(__('PkgGestionTaches::etatRealisationTache.is_editable_only_by_formateur')) }}
+            
+          </label>
+                      <input type="hidden" name="is_editable_only_by_formateur" value="0">
             <input
                 name="is_editable_only_by_formateur"
                 type="checkbox"
@@ -101,20 +98,19 @@
                 id="is_editable_only_by_formateur"
                 value="1"
                 {{ old('is_editable_only_by_formateur', $itemEtatRealisationTache ? $itemEtatRealisationTache->is_editable_only_by_formateur : 0) ? 'checked' : '' }}>
-            @error('is_editable_only_by_formateur')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('is_editable_only_by_formateur')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="formateur_id">
-                {{ ucfirst(__('PkgFormation::formateur.singular')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <select 
+
+      <div class="form-group col-12 col-md-6">
+          <label for="formateur_id">
+            {{ ucfirst(__('PkgFormation::formateur.singular')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <select 
             id="formateur_id" 
             required
             
@@ -128,33 +124,33 @@
                     </option>
                 @endforeach
             </select>
-            @error('formateur_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
+          @error('formateur_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
 
-        
-        <div class="form-group col-12 col-md-12">
-            <label for="description">
-                {{ ucfirst(__('PkgGestionTaches::etatRealisationTache.description')) }}
-                
-            </label>
-            <textarea rows="" cols=""
+      <div class="form-group col-12 col-md-12">
+          <label for="description">
+            {{ ucfirst(__('PkgGestionTaches::etatRealisationTache.description')) }}
+            
+          </label>
+                      <textarea rows="" cols=""
                 name="description"
                 class="form-control richText"
                 
                 
                 id="description"
                 placeholder="{{ __('PkgGestionTaches::etatRealisationTache.description') }}">{{ $itemEtatRealisationTache ? $itemEtatRealisationTache->description : old('description') }}</textarea>
-            @error('description')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('description')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
 
-        <!--   RealisationTache HasMany --> 
+<!--   RealisationTache HasMany --> 
 
     </div>
 

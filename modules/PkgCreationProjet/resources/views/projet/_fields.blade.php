@@ -9,15 +9,13 @@
     @endif
 
     <div class="card-body row">
-        
-        <div class="form-group col-12 col-md-12">
-            <label for="titre">
-                {{ ucfirst(__('PkgCreationProjet::projet.titre')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
+
+      <div class="form-group col-12 col-md-12">
+          <label for="titre">
+            {{ ucfirst(__('PkgCreationProjet::projet.titre')) }}
+            <span class="text-danger">*</span>
+          </label>
+           <input
                 name="titre"
                 type="input"
                 class="form-control"
@@ -26,60 +24,57 @@
                 id="titre"
                 placeholder="{{ __('PkgCreationProjet::projet.titre') }}"
                 value="{{ $itemProjet ? $itemProjet->titre : old('titre') }}">
-            @error('titre')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('titre')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-12">
-            <label for="travail_a_faire">
-                {{ ucfirst(__('PkgCreationProjet::projet.travail_a_faire')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <textarea rows="" cols=""
+
+      <div class="form-group col-12 col-md-12">
+          <label for="travail_a_faire">
+            {{ ucfirst(__('PkgCreationProjet::projet.travail_a_faire')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <textarea rows="" cols=""
                 name="travail_a_faire"
                 class="form-control richText"
                 required
                 
                 id="travail_a_faire"
                 placeholder="{{ __('PkgCreationProjet::projet.travail_a_faire') }}">{{ $itemProjet ? $itemProjet->travail_a_faire : old('travail_a_faire') }}</textarea>
-            @error('travail_a_faire')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('travail_a_faire')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-12">
-            <label for="critere_de_travail">
-                {{ ucfirst(__('PkgCreationProjet::projet.critere_de_travail')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <textarea rows="" cols=""
+
+      <div class="form-group col-12 col-md-12">
+          <label for="critere_de_travail">
+            {{ ucfirst(__('PkgCreationProjet::projet.critere_de_travail')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <textarea rows="" cols=""
                 name="critere_de_travail"
                 class="form-control richText"
                 required
                 
                 id="critere_de_travail"
                 placeholder="{{ __('PkgCreationProjet::projet.critere_de_travail') }}">{{ $itemProjet ? $itemProjet->critere_de_travail : old('critere_de_travail') }}</textarea>
-            @error('critere_de_travail')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('critere_de_travail')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="nombre_jour">
-                {{ ucfirst(__('PkgCreationProjet::projet.nombre_jour')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
+
+      <div class="form-group col-12 col-md-6">
+          <label for="nombre_jour">
+            {{ ucfirst(__('PkgCreationProjet::projet.nombre_jour')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <input
                 name="nombre_jour"
                 type="number"
                 class="form-control"
@@ -88,28 +83,25 @@
                 id="nombre_jour"
                 placeholder="{{ __('PkgCreationProjet::projet.nombre_jour') }}"
                 value="{{ $itemProjet ? $itemProjet->nombre_jour : old('nombre_jour') }}">
-            @error('nombre_jour')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('nombre_jour')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
 
-        <!--   TransfertCompetence HasMany --> 
+<!--   TransfertCompetence HasMany --> 
 
-        
 
-        <!--   AffectationProjet HasMany --> 
+<!--   AffectationProjet HasMany --> 
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="formateur_id">
-                {{ ucfirst(__('PkgFormation::formateur.singular')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <select 
+
+      <div class="form-group col-12 col-md-6">
+          <label for="formateur_id">
+            {{ ucfirst(__('PkgFormation::formateur.singular')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <select 
             id="formateur_id" 
             required
             
@@ -123,29 +115,25 @@
                     </option>
                 @endforeach
             </select>
-            @error('formateur_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
+          @error('formateur_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
 
-        
+<!--   Livrable HasMany --> 
 
-        <!--   Livrable HasMany --> 
 
-        
+<!--   Tache HasMany --> 
 
-        <!--   Tache HasMany --> 
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="filiere_id">
-                {{ ucfirst(__('PkgFormation::filiere.singular')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <select 
+      <div class="form-group col-12 col-md-6">
+          <label for="filiere_id">
+            {{ ucfirst(__('PkgFormation::filiere.singular')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <select 
             id="filiere_id" 
             required
             
@@ -159,15 +147,14 @@
                     </option>
                 @endforeach
             </select>
-            @error('filiere_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
+          @error('filiere_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
 
-        
-
-        <!--   Resource HasMany --> 
+<!--   Resource HasMany --> 
 
     </div>
 

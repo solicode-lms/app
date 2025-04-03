@@ -119,7 +119,7 @@ class BaseFormateurController extends AdminController
         $specialites = $this->specialiteService->all();
         $groupes = $this->groupeService->all();
         $users = $this->userService->all();
-
+        
 
         $this->viewState->set('scope.chapitre.formateur_id', $id);
 

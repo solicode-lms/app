@@ -9,35 +9,32 @@
     @endif
 
     <div class="card-body row">
-        
-        <div class="form-group col-12 col-md-12">
-            <label for="commentaire">
-                {{ ucfirst(__('PkgGestionTaches::commentaireRealisationTache.commentaire')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <textarea rows="" cols=""
+
+      <div class="form-group col-12 col-md-12">
+          <label for="commentaire">
+            {{ ucfirst(__('PkgGestionTaches::commentaireRealisationTache.commentaire')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <textarea rows="" cols=""
                 name="commentaire"
                 class="form-control richText"
                 required
                 
                 id="commentaire"
                 placeholder="{{ __('PkgGestionTaches::commentaireRealisationTache.commentaire') }}">{{ $itemCommentaireRealisationTache ? $itemCommentaireRealisationTache->commentaire : old('commentaire') }}</textarea>
-            @error('commentaire')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('commentaire')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="dateCommentaire">
-                {{ ucfirst(__('PkgGestionTaches::commentaireRealisationTache.dateCommentaire')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
+
+      <div class="form-group col-12 col-md-6">
+          <label for="dateCommentaire">
+            {{ ucfirst(__('PkgGestionTaches::commentaireRealisationTache.dateCommentaire')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <input
                 name="dateCommentaire"
                 type="date"
                 class="form-control datetimepicker"
@@ -46,24 +43,20 @@
                 id="dateCommentaire"
                 placeholder="{{ __('PkgGestionTaches::commentaireRealisationTache.dateCommentaire') }}"
                 value="{{ $itemCommentaireRealisationTache ? $itemCommentaireRealisationTache->dateCommentaire : old('dateCommentaire') }}">
-            @error('dateCommentaire')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+
+          @error('dateCommentaire')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
 
-
-
-
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="realisation_tache_id">
-                {{ ucfirst(__('PkgGestionTaches::realisationTache.singular')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <select 
+      <div class="form-group col-12 col-md-6">
+          <label for="realisation_tache_id">
+            {{ ucfirst(__('PkgGestionTaches::realisationTache.singular')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <select 
             id="realisation_tache_id" 
             required
             
@@ -77,19 +70,19 @@
                     </option>
                 @endforeach
             </select>
-            @error('realisation_tache_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
+          @error('realisation_tache_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="formateur_id">
-                {{ ucfirst(__('PkgFormation::formateur.singular')) }}
-                
-            </label>
-            <select 
+      <div class="form-group col-12 col-md-6">
+          <label for="formateur_id">
+            {{ ucfirst(__('PkgFormation::formateur.singular')) }}
+            
+          </label>
+                      <select 
             id="formateur_id" 
             
             
@@ -103,19 +96,19 @@
                     </option>
                 @endforeach
             </select>
-            @error('formateur_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
+          @error('formateur_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="apprenant_id">
-                {{ ucfirst(__('PkgApprenants::apprenant.singular')) }}
-                
-            </label>
-            <select 
+      <div class="form-group col-12 col-md-6">
+          <label for="apprenant_id">
+            {{ ucfirst(__('PkgApprenants::apprenant.singular')) }}
+            
+          </label>
+                      <select 
             id="apprenant_id" 
             
             
@@ -129,11 +122,11 @@
                     </option>
                 @endforeach
             </select>
-            @error('apprenant_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
-
+          @error('apprenant_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
     </div>
 

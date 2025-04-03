@@ -97,7 +97,7 @@ class BaseTypeDependanceTacheController extends AdminController
         $itemTypeDependanceTache = $this->typeDependanceTacheService->find($id);
 
 
-
+        
 
         $this->viewState->set('scope.dependanceTache.type_dependance_tache_id', $id);
 

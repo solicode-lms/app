@@ -9,15 +9,13 @@
     @endif
 
     <div class="card-body row">
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="name">
-                {{ ucfirst(__('Core::sysModule.name')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
+
+      <div class="form-group col-12 col-md-6">
+          <label for="name">
+            {{ ucfirst(__('Core::sysModule.name')) }}
+            <span class="text-danger">*</span>
+          </label>
+           <input
                 name="name"
                 type="input"
                 class="form-control"
@@ -26,20 +24,19 @@
                 id="name"
                 placeholder="{{ __('Core::sysModule.name') }}"
                 value="{{ $itemSysModule ? $itemSysModule->name : old('name') }}">
-            @error('name')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('name')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="slug">
-                {{ ucfirst(__('Core::sysModule.slug')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
+
+      <div class="form-group col-12 col-md-6">
+          <label for="slug">
+            {{ ucfirst(__('Core::sysModule.slug')) }}
+            <span class="text-danger">*</span>
+          </label>
+           <input
                 name="slug"
                 type="input"
                 class="form-control"
@@ -48,38 +45,38 @@
                 id="slug"
                 placeholder="{{ __('Core::sysModule.slug') }}"
                 value="{{ $itemSysModule ? $itemSysModule->slug : old('slug') }}">
-            @error('slug')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('slug')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-12">
-            <label for="description">
-                {{ ucfirst(__('Core::sysModule.description')) }}
-                
-            </label>
-            <textarea rows="" cols=""
+
+      <div class="form-group col-12 col-md-12">
+          <label for="description">
+            {{ ucfirst(__('Core::sysModule.description')) }}
+            
+          </label>
+                      <textarea rows="" cols=""
                 name="description"
                 class="form-control richText"
                 
                 
                 id="description"
                 placeholder="{{ __('Core::sysModule.description') }}">{{ $itemSysModule ? $itemSysModule->description : old('description') }}</textarea>
-            @error('description')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('description')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="is_active">
-                {{ ucfirst(__('Core::sysModule.is_active')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
+
+      <div class="form-group col-12 col-md-6">
+          <label for="is_active">
+            {{ ucfirst(__('Core::sysModule.is_active')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <input
                 name="is_active"
                 type="number"
                 class="form-control"
@@ -88,20 +85,19 @@
                 id="is_active"
                 placeholder="{{ __('Core::sysModule.is_active') }}"
                 value="{{ $itemSysModule ? $itemSysModule->is_active : old('is_active') }}">
-            @error('is_active')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('is_active')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="order">
-                {{ ucfirst(__('Core::sysModule.order')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
+
+      <div class="form-group col-12 col-md-6">
+          <label for="order">
+            {{ ucfirst(__('Core::sysModule.order')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <input
                 name="order"
                 type="number"
                 class="form-control"
@@ -110,20 +106,19 @@
                 id="order"
                 placeholder="{{ __('Core::sysModule.order') }}"
                 value="{{ $itemSysModule ? $itemSysModule->order : old('order') }}">
-            @error('order')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('order')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="version">
-                {{ ucfirst(__('Core::sysModule.version')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
+
+      <div class="form-group col-12 col-md-6">
+          <label for="version">
+            {{ ucfirst(__('Core::sysModule.version')) }}
+            <span class="text-danger">*</span>
+          </label>
+           <input
                 name="version"
                 type="input"
                 class="form-control"
@@ -132,20 +127,19 @@
                 id="version"
                 placeholder="{{ __('Core::sysModule.version') }}"
                 value="{{ $itemSysModule ? $itemSysModule->version : old('version') }}">
-            @error('version')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('version')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="sys_color_id">
-                {{ ucfirst(__('Core::sysColor.singular')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <select 
+
+      <div class="form-group col-12 col-md-6">
+          <label for="sys_color_id">
+            {{ ucfirst(__('Core::sysColor.singular')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <select 
             id="sys_color_id" 
             required
             
@@ -159,23 +153,20 @@
                     </option>
                 @endforeach
             </select>
-            @error('sys_color_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
+          @error('sys_color_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
 
-        
+<!--   FeatureDomain HasMany --> 
 
-        <!--   FeatureDomain HasMany --> 
 
-        
+<!--   SysController HasMany --> 
 
-        <!--   SysController HasMany --> 
 
-        
-
-        <!--   SysModel HasMany --> 
+<!--   SysModel HasMany --> 
 
     </div>
 

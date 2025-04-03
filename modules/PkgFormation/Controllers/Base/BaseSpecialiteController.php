@@ -101,7 +101,7 @@ class BaseSpecialiteController extends AdminController
 
 
         $formateurs = $this->formateurService->all();
-
+        
 
         if (request()->ajax()) {
             return view('PkgFormation::specialite._fields', compact('itemSpecialite', 'formateurs'));

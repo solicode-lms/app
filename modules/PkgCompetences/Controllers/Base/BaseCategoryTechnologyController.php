@@ -97,7 +97,7 @@ class BaseCategoryTechnologyController extends AdminController
         $itemCategoryTechnology = $this->categoryTechnologyService->find($id);
 
 
-
+        
 
         $this->viewState->set('scope.technology.category_technology_id', $id);
 

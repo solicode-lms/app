@@ -9,15 +9,13 @@
     @endif
 
     <div class="card-body row">
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="code">
-                {{ ucfirst(__('PkgFormation::filiere.code')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
+
+      <div class="form-group col-12 col-md-6">
+          <label for="code">
+            {{ ucfirst(__('PkgFormation::filiere.code')) }}
+            <span class="text-danger">*</span>
+          </label>
+           <input
                 name="code"
                 type="input"
                 class="form-control"
@@ -26,18 +24,19 @@
                 id="code"
                 placeholder="{{ __('PkgFormation::filiere.code') }}"
                 value="{{ $itemFiliere ? $itemFiliere->code : old('code') }}">
-            @error('code')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('code')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="nom">
-                {{ ucfirst(__('PkgFormation::filiere.nom')) }}
-                
-            </label>
-            <input
+
+      <div class="form-group col-12 col-md-6">
+          <label for="nom">
+            {{ ucfirst(__('PkgFormation::filiere.nom')) }}
+            
+          </label>
+           <input
                 name="nom"
                 type="input"
                 class="form-control"
@@ -46,40 +45,39 @@
                 id="nom"
                 placeholder="{{ __('PkgFormation::filiere.nom') }}"
                 value="{{ $itemFiliere ? $itemFiliere->nom : old('nom') }}">
-            @error('nom')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('nom')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-12">
-            <label for="description">
-                {{ ucfirst(__('PkgFormation::filiere.description')) }}
-                
-            </label>
-            <textarea rows="" cols=""
+
+      <div class="form-group col-12 col-md-12">
+          <label for="description">
+            {{ ucfirst(__('PkgFormation::filiere.description')) }}
+            
+          </label>
+                      <textarea rows="" cols=""
                 name="description"
                 class="form-control richText"
                 
                 
                 id="description"
                 placeholder="{{ __('PkgFormation::filiere.description') }}">{{ $itemFiliere ? $itemFiliere->description : old('description') }}</textarea>
-            @error('description')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('description')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
 
-        <!--   Groupe HasMany --> 
+<!--   Groupe HasMany --> 
 
-        
 
-        <!--   Module HasMany --> 
+<!--   Module HasMany --> 
 
-        
 
-        <!--   Projet HasMany --> 
+<!--   Projet HasMany --> 
 
     </div>
 

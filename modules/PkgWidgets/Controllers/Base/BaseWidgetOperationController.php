@@ -97,7 +97,7 @@ class BaseWidgetOperationController extends AdminController
         $itemWidgetOperation = $this->widgetOperationService->find($id);
 
 
-
+        
 
         $this->viewState->set('scope.widget.operation_id', $id);
 

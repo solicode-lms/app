@@ -9,15 +9,13 @@
     @endif
 
     <div class="card-body row">
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="titre">
-                {{ ucfirst(__('PkgFormation::anneeFormation.titre')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
+
+      <div class="form-group col-12 col-md-6">
+          <label for="titre">
+            {{ ucfirst(__('PkgFormation::anneeFormation.titre')) }}
+            <span class="text-danger">*</span>
+          </label>
+           <input
                 name="titre"
                 type="input"
                 class="form-control"
@@ -26,20 +24,19 @@
                 id="titre"
                 placeholder="{{ __('PkgFormation::anneeFormation.titre') }}"
                 value="{{ $itemAnneeFormation ? $itemAnneeFormation->titre : old('titre') }}">
-            @error('titre')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('titre')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="date_debut">
-                {{ ucfirst(__('PkgFormation::anneeFormation.date_debut')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
+
+      <div class="form-group col-12 col-md-6">
+          <label for="date_debut">
+            {{ ucfirst(__('PkgFormation::anneeFormation.date_debut')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <input
                 name="date_debut"
                 type="date"
                 class="form-control datetimepicker"
@@ -48,24 +45,20 @@
                 id="date_debut"
                 placeholder="{{ __('PkgFormation::anneeFormation.date_debut') }}"
                 value="{{ $itemAnneeFormation ? $itemAnneeFormation->date_debut : old('date_debut') }}">
-            @error('date_debut')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+
+          @error('date_debut')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
 
-
-
-
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="date_fin">
-                {{ ucfirst(__('PkgFormation::anneeFormation.date_fin')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
+      <div class="form-group col-12 col-md-6">
+          <label for="date_fin">
+            {{ ucfirst(__('PkgFormation::anneeFormation.date_fin')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <input
                 name="date_fin"
                 type="date"
                 class="form-control datetimepicker"
@@ -74,22 +67,18 @@
                 id="date_fin"
                 placeholder="{{ __('PkgFormation::anneeFormation.date_fin') }}"
                 value="{{ $itemAnneeFormation ? $itemAnneeFormation->date_fin : old('date_fin') }}">
-            @error('date_fin')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+
+          @error('date_fin')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
 
+<!--   AffectationProjet HasMany --> 
 
 
-
-        
-
-        <!--   AffectationProjet HasMany --> 
-
-        
-
-        <!--   Groupe HasMany --> 
+<!--   Groupe HasMany --> 
 
     </div>
 

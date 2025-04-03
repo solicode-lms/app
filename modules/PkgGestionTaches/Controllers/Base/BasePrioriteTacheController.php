@@ -110,7 +110,7 @@ class BasePrioriteTacheController extends AdminController
 
 
         $formateurs = $this->formateurService->all();
-
+        
 
         if (request()->ajax()) {
             return view('PkgGestionTaches::prioriteTache._fields', compact('itemPrioriteTache', 'formateurs'));

@@ -9,15 +9,13 @@
     @endif
 
     <div class="card-body row">
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="name">
-                {{ ucfirst(__('PkgWidgets::widget.name')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
+
+      <div class="form-group col-12 col-md-6">
+          <label for="name">
+            {{ ucfirst(__('PkgWidgets::widget.name')) }}
+            <span class="text-danger">*</span>
+          </label>
+           <input
                 name="name"
                 type="input"
                 class="form-control"
@@ -26,18 +24,19 @@
                 id="name"
                 placeholder="{{ __('PkgWidgets::widget.name') }}"
                 value="{{ $itemWidget ? $itemWidget->name : old('name') }}">
-            @error('name')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('name')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="label">
-                {{ ucfirst(__('PkgWidgets::widget.label')) }}
-                
-            </label>
-            <input
+
+      <div class="form-group col-12 col-md-6">
+          <label for="label">
+            {{ ucfirst(__('PkgWidgets::widget.label')) }}
+            
+          </label>
+           <input
                 name="label"
                 type="input"
                 class="form-control"
@@ -46,20 +45,19 @@
                 id="label"
                 placeholder="{{ __('PkgWidgets::widget.label') }}"
                 value="{{ $itemWidget ? $itemWidget->label : old('label') }}">
-            @error('label')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('label')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="model_id">
-                {{ ucfirst(__('Core::sysModel.singular')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <select 
+
+      <div class="form-group col-12 col-md-6">
+          <label for="model_id">
+            {{ ucfirst(__('Core::sysModel.singular')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <select 
             id="model_id" 
             required
             
@@ -73,21 +71,19 @@
                     </option>
                 @endforeach
             </select>
-            @error('model_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
+          @error('model_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="type_id">
-                {{ ucfirst(__('PkgWidgets::widgetType.singular')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <select 
+      <div class="form-group col-12 col-md-6">
+          <label for="type_id">
+            {{ ucfirst(__('PkgWidgets::widgetType.singular')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <select 
             id="type_id" 
             required
             
@@ -101,21 +97,19 @@
                     </option>
                 @endforeach
             </select>
-            @error('type_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
+          @error('type_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
 
-        
-        <div class="form-group col-12 col-md-4">
-            <label for="operation_id">
-                {{ ucfirst(__('PkgWidgets::widgetOperation.singular')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <select 
+      <div class="form-group col-12 col-md-4">
+          <label for="operation_id">
+            {{ ucfirst(__('PkgWidgets::widgetOperation.singular')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <select 
             id="operation_id" 
             required
             
@@ -129,19 +123,19 @@
                     </option>
                 @endforeach
             </select>
-            @error('operation_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
+          @error('operation_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
 
-        
-        <div class="form-group col-12 col-md-4">
-            <label for="color">
-                {{ ucfirst(__('PkgWidgets::widget.color')) }}
-                
-            </label>
-            <input
+      <div class="form-group col-12 col-md-4">
+          <label for="color">
+            {{ ucfirst(__('PkgWidgets::widget.color')) }}
+            
+          </label>
+           <input
                 name="color"
                 type="input"
                 class="form-control"
@@ -150,18 +144,19 @@
                 id="color"
                 placeholder="{{ __('PkgWidgets::widget.color') }}"
                 value="{{ $itemWidget ? $itemWidget->color : old('color') }}">
-            @error('color')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('color')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-4">
-            <label for="icon">
-                {{ ucfirst(__('PkgWidgets::widget.icon')) }}
-                
-            </label>
-            <input
+
+      <div class="form-group col-12 col-md-4">
+          <label for="icon">
+            {{ ucfirst(__('PkgWidgets::widget.icon')) }}
+            
+          </label>
+           <input
                 name="icon"
                 type="input"
                 class="form-control"
@@ -170,21 +165,20 @@
                 id="icon"
                 placeholder="{{ __('PkgWidgets::widget.icon') }}"
                 value="{{ $itemWidget ? $itemWidget->icon : old('icon') }}">
-            @error('icon')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('icon')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-12">
-    <label for="parameters">
-        {{ ucfirst(__('PkgWidgets::widget.parameters')) }}
-        
-    </label>
-    
-    <div class="form-control editeur_json code-editor"
+
+      <div class="form-group col-12 col-md-12">
+          <label for="parameters">
+            {{ ucfirst(__('PkgWidgets::widget.parameters')) }}
+            
+          </label>
+              <div class="form-control editeur_json code-editor"
         contenteditable="true">{{ $itemWidget ? $itemWidget->parameters : old('parameters') }}</div>
-    
     <input
         type="hidden"
         name="parameters"
@@ -194,18 +188,14 @@
         
         value = "{{ $itemWidget ? $itemWidget->parameters : old('parameters') }}"
     >
+          @error('parameters')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
 
-    @error('parameters')
-        <div class="text-danger">{{ $message }}</div>
-    @enderror
-</div>
-
-
-
-        
-
-        <!--   WidgetUtilisateur HasMany --> 
+<!--   WidgetUtilisateur HasMany --> 
 
     </div>
 

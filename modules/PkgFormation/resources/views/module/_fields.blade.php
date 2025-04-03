@@ -9,15 +9,13 @@
     @endif
 
     <div class="card-body row">
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="code">
-                {{ ucfirst(__('PkgFormation::module.code')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
+
+      <div class="form-group col-12 col-md-6">
+          <label for="code">
+            {{ ucfirst(__('PkgFormation::module.code')) }}
+            <span class="text-danger">*</span>
+          </label>
+           <input
                 name="code"
                 type="input"
                 class="form-control"
@@ -26,20 +24,19 @@
                 id="code"
                 placeholder="{{ __('PkgFormation::module.code') }}"
                 value="{{ $itemModule ? $itemModule->code : old('code') }}">
-            @error('code')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('code')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="nom">
-                {{ ucfirst(__('PkgFormation::module.nom')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
+
+      <div class="form-group col-12 col-md-6">
+          <label for="nom">
+            {{ ucfirst(__('PkgFormation::module.nom')) }}
+            <span class="text-danger">*</span>
+          </label>
+           <input
                 name="nom"
                 type="input"
                 class="form-control"
@@ -48,38 +45,38 @@
                 id="nom"
                 placeholder="{{ __('PkgFormation::module.nom') }}"
                 value="{{ $itemModule ? $itemModule->nom : old('nom') }}">
-            @error('nom')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('nom')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-12">
-            <label for="description">
-                {{ ucfirst(__('PkgFormation::module.description')) }}
-                
-            </label>
-            <textarea rows="" cols=""
+
+      <div class="form-group col-12 col-md-12">
+          <label for="description">
+            {{ ucfirst(__('PkgFormation::module.description')) }}
+            
+          </label>
+                      <textarea rows="" cols=""
                 name="description"
                 class="form-control richText"
                 
                 
                 id="description"
                 placeholder="{{ __('PkgFormation::module.description') }}">{{ $itemModule ? $itemModule->description : old('description') }}</textarea>
-            @error('description')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('description')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="masse_horaire">
-                {{ ucfirst(__('PkgFormation::module.masse_horaire')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
+
+      <div class="form-group col-12 col-md-6">
+          <label for="masse_horaire">
+            {{ ucfirst(__('PkgFormation::module.masse_horaire')) }}
+            <span class="text-danger">*</span>
+          </label>
+           <input
                 name="masse_horaire"
                 type="input"
                 class="form-control"
@@ -88,20 +85,19 @@
                 id="masse_horaire"
                 placeholder="{{ __('PkgFormation::module.masse_horaire') }}"
                 value="{{ $itemModule ? $itemModule->masse_horaire : old('masse_horaire') }}">
-            @error('masse_horaire')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('masse_horaire')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="filiere_id">
-                {{ ucfirst(__('PkgFormation::filiere.singular')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <select 
+
+      <div class="form-group col-12 col-md-6">
+          <label for="filiere_id">
+            {{ ucfirst(__('PkgFormation::filiere.singular')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <select 
             id="filiere_id" 
             required
             
@@ -115,15 +111,14 @@
                     </option>
                 @endforeach
             </select>
-            @error('filiere_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
+          @error('filiere_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
 
-        
-
-        <!--   Competence HasMany --> 
+<!--   Competence HasMany --> 
 
     </div>
 

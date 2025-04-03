@@ -112,7 +112,7 @@ class BaseWidgetController extends AdminController
         $sysModels = $this->sysModelService->all();
         $widgetTypes = $this->widgetTypeService->all();
         $widgetOperations = $this->widgetOperationService->all();
-
+        
 
         $this->viewState->set('scope.widgetUtilisateur.widget_id', $id);
 

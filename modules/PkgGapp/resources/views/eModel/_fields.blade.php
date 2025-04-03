@@ -9,15 +9,13 @@
     @endif
 
     <div class="card-body row">
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="name">
-                {{ ucfirst(__('PkgGapp::eModel.name')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
+
+      <div class="form-group col-12 col-md-6">
+          <label for="name">
+            {{ ucfirst(__('PkgGapp::eModel.name')) }}
+            <span class="text-danger">*</span>
+          </label>
+           <input
                 name="name"
                 type="input"
                 class="form-control"
@@ -26,20 +24,19 @@
                 id="name"
                 placeholder="{{ __('PkgGapp::eModel.name') }}"
                 value="{{ $itemEModel ? $itemEModel->name : old('name') }}">
-            @error('name')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('name')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="table_name">
-                {{ ucfirst(__('PkgGapp::eModel.table_name')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
+
+      <div class="form-group col-12 col-md-6">
+          <label for="table_name">
+            {{ ucfirst(__('PkgGapp::eModel.table_name')) }}
+            <span class="text-danger">*</span>
+          </label>
+           <input
                 name="table_name"
                 type="input"
                 class="form-control"
@@ -48,20 +45,19 @@
                 id="table_name"
                 placeholder="{{ __('PkgGapp::eModel.table_name') }}"
                 value="{{ $itemEModel ? $itemEModel->table_name : old('table_name') }}">
-            @error('table_name')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('table_name')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="is_pivot_table">
-                {{ ucfirst(__('PkgGapp::eModel.is_pivot_table')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input type="hidden" name="is_pivot_table" value="0">
+
+      <div class="form-group col-12 col-md-6">
+          <label for="is_pivot_table">
+            {{ ucfirst(__('PkgGapp::eModel.is_pivot_table')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <input type="hidden" name="is_pivot_table" value="0">
             <input
                 name="is_pivot_table"
                 type="checkbox"
@@ -71,38 +67,38 @@
                 id="is_pivot_table"
                 value="1"
                 {{ old('is_pivot_table', $itemEModel ? $itemEModel->is_pivot_table : 0) ? 'checked' : '' }}>
-            @error('is_pivot_table')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('is_pivot_table')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-12">
-            <label for="description">
-                {{ ucfirst(__('PkgGapp::eModel.description')) }}
-                
-            </label>
-            <textarea rows="" cols=""
+
+      <div class="form-group col-12 col-md-12">
+          <label for="description">
+            {{ ucfirst(__('PkgGapp::eModel.description')) }}
+            
+          </label>
+                      <textarea rows="" cols=""
                 name="description"
                 class="form-control richText"
                 
                 
                 id="description"
                 placeholder="{{ __('PkgGapp::eModel.description') }}">{{ $itemEModel ? $itemEModel->description : old('description') }}</textarea>
-            @error('description')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('description')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="e_package_id">
-                {{ ucfirst(__('PkgGapp::ePackage.singular')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <select 
+
+      <div class="form-group col-12 col-md-6">
+          <label for="e_package_id">
+            {{ ucfirst(__('PkgGapp::ePackage.singular')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <select 
             id="e_package_id" 
             required
             
@@ -116,27 +112,23 @@
                     </option>
                 @endforeach
             </select>
-            @error('e_package_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
+          @error('e_package_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
 
-        
+<!--   EDataField HasMany --> 
 
-        <!--   EDataField HasMany --> 
 
-        
+<!--   EMetadatum HasMany --> 
 
-        <!--   EMetadatum HasMany --> 
 
-        
+<!--   ERelationship HasMany --> 
 
-        <!--   ERelationship HasMany --> 
 
-        
-
-        <!--   ERelationship HasMany --> 
+<!--   ERelationship HasMany --> 
 
     </div>
 

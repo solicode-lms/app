@@ -128,7 +128,7 @@ class BaseLivrableController extends AdminController
         $natureLivrables = $this->natureLivrableService->all();
         $projets = $this->projetService->all();
         $taches = $this->tacheService->all();
-
+        
 
         if (request()->ajax()) {
             return view('PkgCreationProjet::livrable._fields', compact('itemLivrable', 'taches', 'natureLivrables', 'projets'));

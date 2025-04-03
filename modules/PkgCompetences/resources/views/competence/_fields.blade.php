@@ -9,15 +9,13 @@
     @endif
 
     <div class="card-body row">
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="code">
-                {{ ucfirst(__('PkgCompetences::competence.code')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
+
+      <div class="form-group col-12 col-md-6">
+          <label for="code">
+            {{ ucfirst(__('PkgCompetences::competence.code')) }}
+            <span class="text-danger">*</span>
+          </label>
+           <input
                 name="code"
                 type="input"
                 class="form-control"
@@ -26,18 +24,19 @@
                 id="code"
                 placeholder="{{ __('PkgCompetences::competence.code') }}"
                 value="{{ $itemCompetence ? $itemCompetence->code : old('code') }}">
-            @error('code')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('code')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="mini_code">
-                {{ ucfirst(__('PkgCompetences::competence.mini_code')) }}
-                
-            </label>
-            <input
+
+      <div class="form-group col-12 col-md-6">
+          <label for="mini_code">
+            {{ ucfirst(__('PkgCompetences::competence.mini_code')) }}
+            
+          </label>
+           <input
                 name="mini_code"
                 type="input"
                 class="form-control"
@@ -46,20 +45,19 @@
                 id="mini_code"
                 placeholder="{{ __('PkgCompetences::competence.mini_code') }}"
                 value="{{ $itemCompetence ? $itemCompetence->mini_code : old('mini_code') }}">
-            @error('mini_code')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('mini_code')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="nom">
-                {{ ucfirst(__('PkgCompetences::competence.nom')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
+
+      <div class="form-group col-12 col-md-6">
+          <label for="nom">
+            {{ ucfirst(__('PkgCompetences::competence.nom')) }}
+            <span class="text-danger">*</span>
+          </label>
+           <input
                 name="nom"
                 type="input"
                 class="form-control"
@@ -68,20 +66,19 @@
                 id="nom"
                 placeholder="{{ __('PkgCompetences::competence.nom') }}"
                 value="{{ $itemCompetence ? $itemCompetence->nom : old('nom') }}">
-            @error('nom')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('nom')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="module_id">
-                {{ ucfirst(__('PkgFormation::module.singular')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <select 
+
+      <div class="form-group col-12 col-md-6">
+          <label for="module_id">
+            {{ ucfirst(__('PkgFormation::module.singular')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <select 
             id="module_id" 
             required
             
@@ -95,18 +92,19 @@
                     </option>
                 @endforeach
             </select>
-            @error('module_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
+          @error('module_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
 
-        
-                    <div class="form-group col-12 col-md-6">
-            <label for="technologies">
-                {{ ucfirst(__('PkgCompetences::Technology.plural')) }}
-            </label>
-            <select
+      <div class="form-group col-12 col-md-6">
+          <label for="technologies">
+            {{ ucfirst(__('PkgCompetences::Technology.plural')) }}
+            
+          </label>
+                      <select
                 id="technologies"
                 name="technologies[]"
                 class="form-control select2"
@@ -120,42 +118,39 @@
                     </option>
                 @endforeach
             </select>
-            @error('technologies')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
+          @error('technologies')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        </div>
+
+<!--   NiveauCompetence HasMany --> 
 
 
-        
+<!--   Formation HasMany --> 
 
-        <!--   NiveauCompetence HasMany --> 
 
-        
+<!--   TransfertCompetence HasMany --> 
 
-        <!--   Formation HasMany --> 
 
-        
-
-        <!--   TransfertCompetence HasMany --> 
-
-        
-        <div class="form-group col-12 col-md-12">
-            <label for="description">
-                {{ ucfirst(__('PkgCompetences::competence.description')) }}
-                
-            </label>
-            <textarea rows="" cols=""
+      <div class="form-group col-12 col-md-12">
+          <label for="description">
+            {{ ucfirst(__('PkgCompetences::competence.description')) }}
+            
+          </label>
+                      <textarea rows="" cols=""
                 name="description"
                 class="form-control richText"
                 
                 
                 id="description"
                 placeholder="{{ __('PkgCompetences::competence.description') }}">{{ $itemCompetence ? $itemCompetence->description : old('description') }}</textarea>
-            @error('description')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('description')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
     </div>
 

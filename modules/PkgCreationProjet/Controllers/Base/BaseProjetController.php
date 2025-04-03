@@ -126,7 +126,7 @@ class BaseProjetController extends AdminController
 
         $formateurs = $this->formateurService->all();
         $filieres = $this->filiereService->all();
-
+        
 
         $this->viewState->set('scope.transfertCompetence.projet_id', $id);
 

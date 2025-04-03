@@ -9,15 +9,13 @@
     @endif
 
     <div class="card-body row">
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="name">
-                {{ ucfirst(__('PkgGapp::eMetadataDefinition.name')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
+
+      <div class="form-group col-12 col-md-6">
+          <label for="name">
+            {{ ucfirst(__('PkgGapp::eMetadataDefinition.name')) }}
+            <span class="text-danger">*</span>
+          </label>
+           <input
                 name="name"
                 type="input"
                 class="form-control"
@@ -26,20 +24,19 @@
                 id="name"
                 placeholder="{{ __('PkgGapp::eMetadataDefinition.name') }}"
                 value="{{ $itemEMetadataDefinition ? $itemEMetadataDefinition->name : old('name') }}">
-            @error('name')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('name')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="groupe">
-                {{ ucfirst(__('PkgGapp::eMetadataDefinition.groupe')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
+
+      <div class="form-group col-12 col-md-6">
+          <label for="groupe">
+            {{ ucfirst(__('PkgGapp::eMetadataDefinition.groupe')) }}
+            <span class="text-danger">*</span>
+          </label>
+           <input
                 name="groupe"
                 type="input"
                 class="form-control"
@@ -48,20 +45,19 @@
                 id="groupe"
                 placeholder="{{ __('PkgGapp::eMetadataDefinition.groupe') }}"
                 value="{{ $itemEMetadataDefinition ? $itemEMetadataDefinition->groupe : old('groupe') }}">
-            @error('groupe')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('groupe')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="type">
-                {{ ucfirst(__('PkgGapp::eMetadataDefinition.type')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
+
+      <div class="form-group col-12 col-md-6">
+          <label for="type">
+            {{ ucfirst(__('PkgGapp::eMetadataDefinition.type')) }}
+            <span class="text-danger">*</span>
+          </label>
+           <input
                 name="type"
                 type="input"
                 class="form-control"
@@ -70,20 +66,19 @@
                 id="type"
                 placeholder="{{ __('PkgGapp::eMetadataDefinition.type') }}"
                 value="{{ $itemEMetadataDefinition ? $itemEMetadataDefinition->type : old('type') }}">
-            @error('type')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('type')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="scope">
-                {{ ucfirst(__('PkgGapp::eMetadataDefinition.scope')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
+
+      <div class="form-group col-12 col-md-6">
+          <label for="scope">
+            {{ ucfirst(__('PkgGapp::eMetadataDefinition.scope')) }}
+            <span class="text-danger">*</span>
+          </label>
+           <input
                 name="scope"
                 type="input"
                 class="form-control"
@@ -92,36 +87,38 @@
                 id="scope"
                 placeholder="{{ __('PkgGapp::eMetadataDefinition.scope') }}"
                 value="{{ $itemEMetadataDefinition ? $itemEMetadataDefinition->scope : old('scope') }}">
-            @error('scope')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('scope')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-12">
-            <label for="description">
-                {{ ucfirst(__('PkgGapp::eMetadataDefinition.description')) }}
-                
-            </label>
-            <textarea rows="" cols=""
+
+      <div class="form-group col-12 col-md-12">
+          <label for="description">
+            {{ ucfirst(__('PkgGapp::eMetadataDefinition.description')) }}
+            
+          </label>
+                      <textarea rows="" cols=""
                 name="description"
                 class="form-control richText"
                 
                 
                 id="description"
                 placeholder="{{ __('PkgGapp::eMetadataDefinition.description') }}">{{ $itemEMetadataDefinition ? $itemEMetadataDefinition->description : old('description') }}</textarea>
-            @error('description')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('description')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="default_value">
-                {{ ucfirst(__('PkgGapp::eMetadataDefinition.default_value')) }}
-                
-            </label>
-            <input
+
+      <div class="form-group col-12 col-md-6">
+          <label for="default_value">
+            {{ ucfirst(__('PkgGapp::eMetadataDefinition.default_value')) }}
+            
+          </label>
+           <input
                 name="default_value"
                 type="input"
                 class="form-control"
@@ -130,14 +127,14 @@
                 id="default_value"
                 placeholder="{{ __('PkgGapp::eMetadataDefinition.default_value') }}"
                 value="{{ $itemEMetadataDefinition ? $itemEMetadataDefinition->default_value : old('default_value') }}">
-            @error('default_value')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('default_value')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
 
-        <!--   EMetadatum HasMany --> 
+<!--   EMetadatum HasMany --> 
 
     </div>
 

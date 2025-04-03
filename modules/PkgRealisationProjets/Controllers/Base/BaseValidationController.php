@@ -121,7 +121,7 @@ class BaseValidationController extends AdminController
 
         $transfertCompetences = $this->transfertCompetenceService->all();
         $realisationProjets = $this->realisationProjetService->all();
-
+        
 
         if (request()->ajax()) {
             return view('PkgRealisationProjets::validation._fields', compact('itemValidation', 'realisationProjets', 'transfertCompetences'));

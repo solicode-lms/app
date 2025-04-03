@@ -97,7 +97,7 @@ class BaseEMetadataDefinitionController extends AdminController
         $itemEMetadataDefinition = $this->eMetadataDefinitionService->find($id);
 
 
-
+        
 
         $this->viewState->set('scope.eMetadatum.e_metadata_definition_id', $id);
 

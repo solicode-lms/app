@@ -111,7 +111,7 @@ class BasePermissionController extends AdminController
         $sysControllers = $this->sysControllerService->all();
         $features = $this->featureService->all();
         $roles = $this->roleService->all();
-
+        
 
         if (request()->ajax()) {
             return view('PkgAutorisation::permission._fields', compact('itemPermission', 'features', 'roles', 'sysControllers'));

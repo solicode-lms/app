@@ -106,7 +106,7 @@ class BaseFeatureController extends AdminController
 
         $featureDomains = $this->featureDomainService->all();
         $permissions = $this->permissionService->all();
-
+        
 
         if (request()->ajax()) {
             return view('Core::feature._fields', compact('itemFeature', 'permissions', 'featureDomains'));

@@ -135,7 +135,7 @@ class BaseProfileController extends AdminController
 
 
         $users = $this->userService->all();
-
+        
 
         if (request()->ajax()) {
             return view('PkgAutorisation::profile._fields', compact('itemProfile', 'users'));

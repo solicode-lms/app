@@ -9,15 +9,13 @@
     @endif
 
     <div class="card-body row">
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="nature_livrable_id">
-                {{ ucfirst(__('PkgCreationProjet::natureLivrable.singular')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <select 
+
+      <div class="form-group col-12 col-md-6">
+          <label for="nature_livrable_id">
+            {{ ucfirst(__('PkgCreationProjet::natureLivrable.singular')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <select 
             id="nature_livrable_id" 
             required
             
@@ -31,21 +29,19 @@
                     </option>
                 @endforeach
             </select>
-            @error('nature_livrable_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
+          @error('nature_livrable_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="titre">
-                {{ ucfirst(__('PkgCreationProjet::livrable.titre')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
+      <div class="form-group col-12 col-md-6">
+          <label for="titre">
+            {{ ucfirst(__('PkgCreationProjet::livrable.titre')) }}
+            <span class="text-danger">*</span>
+          </label>
+           <input
                 name="titre"
                 type="input"
                 class="form-control"
@@ -54,20 +50,19 @@
                 id="titre"
                 placeholder="{{ __('PkgCreationProjet::livrable.titre') }}"
                 value="{{ $itemLivrable ? $itemLivrable->titre : old('titre') }}">
-            @error('titre')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('titre')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="projet_id">
-                {{ ucfirst(__('PkgCreationProjet::projet.singular')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <select 
+
+      <div class="form-group col-12 col-md-6">
+          <label for="projet_id">
+            {{ ucfirst(__('PkgCreationProjet::projet.singular')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <select 
             id="projet_id" 
             required
             
@@ -81,36 +76,38 @@
                     </option>
                 @endforeach
             </select>
-            @error('projet_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
+          @error('projet_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
 
-        
-        <div class="form-group col-12 col-md-12">
-            <label for="description">
-                {{ ucfirst(__('PkgCreationProjet::livrable.description')) }}
-                
-            </label>
-            <textarea rows="" cols=""
+      <div class="form-group col-12 col-md-12">
+          <label for="description">
+            {{ ucfirst(__('PkgCreationProjet::livrable.description')) }}
+            
+          </label>
+                      <textarea rows="" cols=""
                 name="description"
                 class="form-control richText"
                 
                 
                 id="description"
                 placeholder="{{ __('PkgCreationProjet::livrable.description') }}">{{ $itemLivrable ? $itemLivrable->description : old('description') }}</textarea>
-            @error('description')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('description')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-                    <div class="form-group col-12 col-md-6">
-            <label for="taches">
-                {{ ucfirst(__('PkgGestionTaches::Tache.plural')) }}
-            </label>
-            <select
+
+      <div class="form-group col-12 col-md-6">
+          <label for="taches">
+            {{ ucfirst(__('PkgGestionTaches::Tache.plural')) }}
+            
+          </label>
+                      <select
                 id="taches"
                 name="taches[]"
                 class="form-control select2"
@@ -124,16 +121,14 @@
                     </option>
                 @endforeach
             </select>
-            @error('taches')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
+          @error('taches')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        </div>
 
-
-        
-
-        <!--   LivrablesRealisation HasMany --> 
+<!--   LivrablesRealisation HasMany --> 
 
     </div>
 

@@ -9,15 +9,13 @@
     @endif
 
     <div class="card-body row">
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="transfert_competence_id">
-                {{ ucfirst(__('PkgCreationProjet::transfertCompetence.singular')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <select 
+
+      <div class="form-group col-12 col-md-6">
+          <label for="transfert_competence_id">
+            {{ ucfirst(__('PkgCreationProjet::transfertCompetence.singular')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <select 
             id="transfert_competence_id" 
             required
             
@@ -31,19 +29,19 @@
                     </option>
                 @endforeach
             </select>
-            @error('transfert_competence_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
+          @error('transfert_competence_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
 
-        
-        <div class="form-group col-12 col-md-6">
-    <label for="note">
-        {{ ucfirst(__('PkgRealisationProjets::validation.note')) }}
-        
-    </label>
-    <input
+      <div class="form-group col-12 col-md-6">
+          <label for="note">
+            {{ ucfirst(__('PkgRealisationProjets::validation.note')) }}
+            
+          </label>
+              <input
         name="note"
         type="number"
         class="form-control"
@@ -53,39 +51,38 @@
         step="0.01"
         placeholder="{{ __('PkgRealisationProjets::validation.note') }}"
         value="{{ $itemValidation ? number_format($itemValidation->note, 2, '.', '') : old('note') }}">
-    @error('note')
-        <div class="text-danger">{{ $message }}</div>
-    @enderror
-</div>
+          @error('note')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
 
-        
-        <div class="form-group col-12 col-md-12">
-            <label for="message">
-                {{ ucfirst(__('PkgRealisationProjets::validation.message')) }}
-                
-            </label>
-            <textarea rows="" cols=""
+      <div class="form-group col-12 col-md-12">
+          <label for="message">
+            {{ ucfirst(__('PkgRealisationProjets::validation.message')) }}
+            
+          </label>
+                      <textarea rows="" cols=""
                 name="message"
                 class="form-control richText"
                 
                 
                 id="message"
                 placeholder="{{ __('PkgRealisationProjets::validation.message') }}">{{ $itemValidation ? $itemValidation->message : old('message') }}</textarea>
-            @error('message')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('message')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="is_valide">
-                {{ ucfirst(__('PkgRealisationProjets::validation.is_valide')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input type="hidden" name="is_valide" value="0">
+
+      <div class="form-group col-12 col-md-6">
+          <label for="is_valide">
+            {{ ucfirst(__('PkgRealisationProjets::validation.is_valide')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <input type="hidden" name="is_valide" value="0">
             <input
                 name="is_valide"
                 type="checkbox"
@@ -95,20 +92,19 @@
                 id="is_valide"
                 value="1"
                 {{ old('is_valide', $itemValidation ? $itemValidation->is_valide : 0) ? 'checked' : '' }}>
-            @error('is_valide')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('is_valide')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="realisation_projet_id">
-                {{ ucfirst(__('PkgRealisationProjets::realisationProjet.singular')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <select 
+
+      <div class="form-group col-12 col-md-6">
+          <label for="realisation_projet_id">
+            {{ ucfirst(__('PkgRealisationProjets::realisationProjet.singular')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <select 
             id="realisation_projet_id" 
             required
             
@@ -122,11 +118,11 @@
                     </option>
                 @endforeach
             </select>
-            @error('realisation_projet_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
-
+          @error('realisation_projet_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
     </div>
 

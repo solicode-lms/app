@@ -9,15 +9,13 @@
     @endif
 
     <div class="card-body row">
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="name">
-                {{ ucfirst(__('Core::sysModel.name')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
+
+      <div class="form-group col-12 col-md-6">
+          <label for="name">
+            {{ ucfirst(__('Core::sysModel.name')) }}
+            <span class="text-danger">*</span>
+          </label>
+           <input
                 name="name"
                 type="input"
                 class="form-control"
@@ -26,20 +24,19 @@
                 id="name"
                 placeholder="{{ __('Core::sysModel.name') }}"
                 value="{{ $itemSysModel ? $itemSysModel->name : old('name') }}">
-            @error('name')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('name')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="model">
-                {{ ucfirst(__('Core::sysModel.model')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
+
+      <div class="form-group col-12 col-md-6">
+          <label for="model">
+            {{ ucfirst(__('Core::sysModel.model')) }}
+            <span class="text-danger">*</span>
+          </label>
+           <input
                 name="model"
                 type="input"
                 class="form-control"
@@ -48,38 +45,38 @@
                 id="model"
                 placeholder="{{ __('Core::sysModel.model') }}"
                 value="{{ $itemSysModel ? $itemSysModel->model : old('model') }}">
-            @error('model')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('model')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-12">
-            <label for="description">
-                {{ ucfirst(__('Core::sysModel.description')) }}
-                
-            </label>
-            <textarea rows="" cols=""
+
+      <div class="form-group col-12 col-md-12">
+          <label for="description">
+            {{ ucfirst(__('Core::sysModel.description')) }}
+            
+          </label>
+                      <textarea rows="" cols=""
                 name="description"
                 class="form-control richText"
                 
                 
                 id="description"
                 placeholder="{{ __('Core::sysModel.description') }}">{{ $itemSysModel ? $itemSysModel->description : old('description') }}</textarea>
-            @error('description')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+          @error('description')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="sys_module_id">
-                {{ ucfirst(__('Core::sysModule.singular')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <select 
+
+      <div class="form-group col-12 col-md-6">
+          <label for="sys_module_id">
+            {{ ucfirst(__('Core::sysModule.singular')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <select 
             id="sys_module_id" 
             required
             
@@ -93,19 +90,19 @@
                     </option>
                 @endforeach
             </select>
-            @error('sys_module_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
+          @error('sys_module_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="sys_color_id">
-                {{ ucfirst(__('Core::sysColor.singular')) }}
-                
-            </label>
-            <select 
+      <div class="form-group col-12 col-md-6">
+          <label for="sys_color_id">
+            {{ ucfirst(__('Core::sysColor.singular')) }}
+            
+          </label>
+                      <select 
             id="sys_color_id" 
             
             
@@ -119,15 +116,14 @@
                     </option>
                 @endforeach
             </select>
-            @error('sys_color_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
+          @error('sys_color_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
 
-        
-
-        <!--   Widget HasMany --> 
+<!--   Widget HasMany --> 
 
     </div>
 

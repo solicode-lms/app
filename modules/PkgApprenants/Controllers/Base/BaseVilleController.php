@@ -96,7 +96,7 @@ class BaseVilleController extends AdminController
         $itemVille = $this->villeService->find($id);
 
 
-
+        
 
         if (request()->ajax()) {
             return view('PkgApprenants::ville._fields', compact('itemVille'));

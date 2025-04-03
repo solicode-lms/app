@@ -33,12 +33,9 @@
                     </span>
                     </td>
                     <td>
-                     <span @if(strlen($formation->is_officiel) > 40) 
-                            data-toggle="tooltip" 
-                            title="{{ $formation->is_officiel }}" 
-                        @endif>
-                        {{ Str::limit($formation->is_officiel, 40) }}
-                    </span>
+                        <span class="{{ $formation->is_officiel ? 'text-success' : 'text-danger' }}">
+                            {{ $formation->is_officiel ? 'Oui' : 'Non' }}
+                        </span>
                     </td>
                     <td>
                      <span @if(strlen($formation->formateur) > 50) 

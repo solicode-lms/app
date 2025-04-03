@@ -99,7 +99,7 @@ class BaseFiliereController extends AdminController
         $itemFiliere = $this->filiereService->find($id);
 
 
-
+        
 
         $this->viewState->set('scope.groupe.filiere_id', $id);
 
