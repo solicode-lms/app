@@ -291,5 +291,17 @@
         "value_float": 0,
         "e_data_field_reference": "WidgetUtilisateur_sous_titre",
         "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "WidgetUtilisateur-sys_module_id_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "WidgetUtilisateur-sys_module_id",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "WidgetUtilisateur-sys_module_id_displayOrder",
+        "value_integer": 1,
+        "e_data_field_reference": "WidgetUtilisateur-sys_module_id",
+        "e_metadata_definition_reference": "displayOrder"
     }
 ]

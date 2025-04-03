@@ -26,6 +26,14 @@ class BaseWidgetUtilisateur extends BaseModel
         parent::__construct($attributes); 
         $this->isOwnedByUser =  true;
         $this->ownerRelationPath = "user,user";
+        // Colonne dynamique : sys_module_id
+        $sql = "SELECT sm.id
+        FROM widget_utilisateurs wu
+        JOIN widgets w ON wu.widget_id = w.id
+        JOIN sys_models m ON w.model_id = m.id
+        JOIN sys_modules sm ON m.sys_module_id = sm.id
+        WHERE wu.id = widget_utilisateurs.id";
+        static::addDynamicAttribute('sys_module_id', $sql);
     }
 
     

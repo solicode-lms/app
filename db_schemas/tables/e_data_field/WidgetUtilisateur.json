@@ -1,0 +1,16 @@
+[
+    {
+        "reference": "WidgetUtilisateur-sys_module_id",
+        "name": "sys_module_id",
+        "column_name": "sys_module_id",
+        "data_type": "Integer",
+        "field_order": 1,
+        "db_nullable": 0,
+        "db_primaryKey": 0,
+        "db_unique": 0,
+        "calculable": 1,
+        "calculable_sql": "SELECT sm.id\r\nFROM widget_utilisateurs wu\r\nJOIN widgets w ON wu.widget_id = w.id\r\nJOIN sys_models m ON w.model_id = m.id\r\nJOIN sys_modules sm ON m.sys_module_id = sm.id\r\nWHERE wu.id = widget_utilisateurs.id",
+        "description": "",
+        "e_model_reference": "widget_utilisateurs"
+    }
+]
