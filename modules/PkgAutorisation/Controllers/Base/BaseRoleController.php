@@ -5,6 +5,7 @@
 namespace Modules\PkgAutorisation\Controllers\Base;
 use Modules\PkgAutorisation\Services\RoleService;
 use Modules\PkgAutorisation\Services\PermissionService;
+use Modules\PkgWidgets\Services\WidgetService;
 use Modules\PkgAutorisation\Services\UserService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -21,13 +22,15 @@ class BaseRoleController extends AdminController
 {
     protected $roleService;
     protected $permissionService;
+    protected $widgetService;
     protected $userService;
 
-    public function __construct(RoleService $roleService, PermissionService $permissionService, UserService $userService) {
+    public function __construct(RoleService $roleService, PermissionService $permissionService, WidgetService $widgetService, UserService $userService) {
         parent::__construct();
         $this->service  =  $roleService;
         $this->roleService = $roleService;
         $this->permissionService = $permissionService;
+        $this->widgetService = $widgetService;
         $this->userService = $userService;
     }
 
@@ -66,12 +69,13 @@ class BaseRoleController extends AdminController
         
 
         $permissions = $this->permissionService->all();
+        $widgets = $this->widgetService->all();
         $users = $this->userService->all();
 
         if (request()->ajax()) {
-            return view('PkgAutorisation::role._fields', compact('itemRole', 'permissions', 'users'));
+            return view('PkgAutorisation::role._fields', compact('itemRole', 'permissions', 'widgets', 'users'));
         }
-        return view('PkgAutorisation::role.create', compact('itemRole', 'permissions', 'users'));
+        return view('PkgAutorisation::role.create', compact('itemRole', 'permissions', 'widgets', 'users'));
     }
     public function store(RoleRequest $request) {
         $validatedData = $request->validated();
@@ -105,14 +109,15 @@ class BaseRoleController extends AdminController
 
 
         $permissions = $this->permissionService->all();
+        $widgets = $this->widgetService->all();
         $users = $this->userService->all();
         
 
         if (request()->ajax()) {
-            return view('PkgAutorisation::role._fields', compact('itemRole', 'permissions', 'users'));
+            return view('PkgAutorisation::role._fields', compact('itemRole', 'permissions', 'widgets', 'users'));
         }
 
-        return view('PkgAutorisation::role.edit', compact('itemRole', 'permissions', 'users'));
+        return view('PkgAutorisation::role.edit', compact('itemRole', 'permissions', 'widgets', 'users'));
 
     }
     public function edit(string $id) {
@@ -124,14 +129,15 @@ class BaseRoleController extends AdminController
 
 
         $permissions = $this->permissionService->all();
+        $widgets = $this->widgetService->all();
         $users = $this->userService->all();
 
 
         if (request()->ajax()) {
-            return view('PkgAutorisation::role._fields', compact('itemRole', 'permissions', 'users'));
+            return view('PkgAutorisation::role._fields', compact('itemRole', 'permissions', 'widgets', 'users'));
         }
 
-        return view('PkgAutorisation::role.edit', compact('itemRole', 'permissions', 'users'));
+        return view('PkgAutorisation::role.edit', compact('itemRole', 'permissions', 'widgets', 'users'));
 
     }
     public function update(RoleRequest $request, string $id) {

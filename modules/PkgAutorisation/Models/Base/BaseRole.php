@@ -12,6 +12,7 @@ use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
 use Modules\PkgAutorisation\Models\Permission;
+use Modules\PkgWidgets\Models\Widget;
 use Modules\PkgAutorisation\Models\User;
 
 /**
@@ -38,6 +39,7 @@ class BaseRole extends BaseModel
     ];
     public $manyToMany = [
         'Permission' => ['relation' => 'permissions' , "foreign_key" => "permission_id" ],
+        'Widget' => ['relation' => 'widgets' , "foreign_key" => "widget_id" ],
         'User' => ['relation' => 'users' , "foreign_key" => "user_id" ]
     ];
 
@@ -51,6 +53,15 @@ class BaseRole extends BaseModel
     public function permissions()
     {
         return $this->belongsToMany(Permission::class, 'role_has_permissions');
+    }
+    /**
+     * Relation ManyToMany pour Widgets.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function widgets()
+    {
+        return $this->belongsToMany(Widget::class, 'role_widget');
     }
     /**
      * Relation ManyToMany pour Users.

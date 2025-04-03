@@ -4,6 +4,7 @@
 
 namespace Modules\PkgWidgets\Controllers\Base;
 use Modules\PkgWidgets\Services\WidgetService;
+use Modules\PkgAutorisation\Services\RoleService;
 use Modules\Core\Services\SysModelService;
 use Modules\PkgWidgets\Services\WidgetOperationService;
 use Modules\PkgWidgets\Services\WidgetTypeService;
@@ -22,14 +23,16 @@ use Modules\Core\Services\ContextState;
 class BaseWidgetController extends AdminController
 {
     protected $widgetService;
+    protected $roleService;
     protected $sysModelService;
     protected $widgetOperationService;
     protected $widgetTypeService;
 
-    public function __construct(WidgetService $widgetService, SysModelService $sysModelService, WidgetOperationService $widgetOperationService, WidgetTypeService $widgetTypeService) {
+    public function __construct(WidgetService $widgetService, RoleService $roleService, SysModelService $sysModelService, WidgetOperationService $widgetOperationService, WidgetTypeService $widgetTypeService) {
         parent::__construct();
         $this->service  =  $widgetService;
         $this->widgetService = $widgetService;
+        $this->roleService = $roleService;
         $this->sysModelService = $sysModelService;
         $this->widgetOperationService = $widgetOperationService;
         $this->widgetTypeService = $widgetTypeService;
@@ -72,11 +75,12 @@ class BaseWidgetController extends AdminController
         $sysModels = $this->sysModelService->all();
         $widgetTypes = $this->widgetTypeService->all();
         $widgetOperations = $this->widgetOperationService->all();
+        $roles = $this->roleService->all();
 
         if (request()->ajax()) {
-            return view('PkgWidgets::widget._fields', compact('itemWidget', 'sysModels', 'widgetOperations', 'widgetTypes'));
+            return view('PkgWidgets::widget._fields', compact('itemWidget', 'roles', 'sysModels', 'widgetOperations', 'widgetTypes'));
         }
-        return view('PkgWidgets::widget.create', compact('itemWidget', 'sysModels', 'widgetOperations', 'widgetTypes'));
+        return view('PkgWidgets::widget.create', compact('itemWidget', 'roles', 'sysModels', 'widgetOperations', 'widgetTypes'));
     }
     public function store(WidgetRequest $request) {
         $validatedData = $request->validated();
@@ -112,6 +116,7 @@ class BaseWidgetController extends AdminController
         $sysModels = $this->sysModelService->all();
         $widgetTypes = $this->widgetTypeService->all();
         $widgetOperations = $this->widgetOperationService->all();
+        $roles = $this->roleService->all();
         
 
         $this->viewState->set('scope.widgetUtilisateur.widget_id', $id);
@@ -124,10 +129,10 @@ class BaseWidgetController extends AdminController
         $widgetUtilisateur_instance =  $widgetUtilisateurService->createInstance();
 
         if (request()->ajax()) {
-            return view('PkgWidgets::widget._edit', compact('itemWidget', 'sysModels', 'widgetOperations', 'widgetTypes', 'widgetUtilisateurs_data', 'widgetUtilisateurs_stats', 'widgetUtilisateurs_filters', 'widgetUtilisateur_instance'));
+            return view('PkgWidgets::widget._edit', compact('itemWidget', 'roles', 'sysModels', 'widgetOperations', 'widgetTypes', 'widgetUtilisateurs_data', 'widgetUtilisateurs_stats', 'widgetUtilisateurs_filters', 'widgetUtilisateur_instance'));
         }
 
-        return view('PkgWidgets::widget.edit', compact('itemWidget', 'sysModels', 'widgetOperations', 'widgetTypes', 'widgetUtilisateurs_data', 'widgetUtilisateurs_stats', 'widgetUtilisateurs_filters', 'widgetUtilisateur_instance'));
+        return view('PkgWidgets::widget.edit', compact('itemWidget', 'roles', 'sysModels', 'widgetOperations', 'widgetTypes', 'widgetUtilisateurs_data', 'widgetUtilisateurs_stats', 'widgetUtilisateurs_filters', 'widgetUtilisateur_instance'));
 
     }
     public function edit(string $id) {
@@ -141,6 +146,7 @@ class BaseWidgetController extends AdminController
         $sysModels = $this->sysModelService->all();
         $widgetTypes = $this->widgetTypeService->all();
         $widgetOperations = $this->widgetOperationService->all();
+        $roles = $this->roleService->all();
 
 
         $this->viewState->set('scope.widgetUtilisateur.widget_id', $id);
@@ -154,10 +160,10 @@ class BaseWidgetController extends AdminController
         $widgetUtilisateur_instance =  $widgetUtilisateurService->createInstance();
 
         if (request()->ajax()) {
-            return view('PkgWidgets::widget._edit', compact('itemWidget', 'sysModels', 'widgetOperations', 'widgetTypes', 'widgetUtilisateurs_data', 'widgetUtilisateurs_stats', 'widgetUtilisateurs_filters', 'widgetUtilisateur_instance'));
+            return view('PkgWidgets::widget._edit', compact('itemWidget', 'roles', 'sysModels', 'widgetOperations', 'widgetTypes', 'widgetUtilisateurs_data', 'widgetUtilisateurs_stats', 'widgetUtilisateurs_filters', 'widgetUtilisateur_instance'));
         }
 
-        return view('PkgWidgets::widget.edit', compact('itemWidget', 'sysModels', 'widgetOperations', 'widgetTypes', 'widgetUtilisateurs_data', 'widgetUtilisateurs_stats', 'widgetUtilisateurs_filters', 'widgetUtilisateur_instance'));
+        return view('PkgWidgets::widget.edit', compact('itemWidget', 'roles', 'sysModels', 'widgetOperations', 'widgetTypes', 'widgetUtilisateurs_data', 'widgetUtilisateurs_stats', 'widgetUtilisateurs_filters', 'widgetUtilisateur_instance'));
 
     }
     public function update(WidgetRequest $request, string $id) {

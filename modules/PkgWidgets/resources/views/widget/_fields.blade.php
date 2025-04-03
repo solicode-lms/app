@@ -195,6 +195,32 @@
   
 
 
+      <div class="form-group col-12 col-md-6">
+          <label for="roles">
+            {{ ucfirst(__('PkgAutorisation::Role.plural')) }}
+            
+          </label>
+                      <select
+                id="roles"
+                name="roles[]"
+                class="form-control select2"
+                
+                multiple="multiple">
+               
+                @foreach ($roles as $role)
+                    <option value="{{ $role->id }}"
+                        {{ (isset($itemWidget) && $itemWidget->roles && $itemWidget->roles->contains('id', $role->id)) || (is_array(old('roles')) && in_array($role->id, old('roles'))) ? 'selected' : '' }}>
+                        {{ $role }}
+                    </option>
+                @endforeach
+            </select>
+          @error('roles')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+
+
 <!--   WidgetUtilisateur HasMany --> 
 
     </div>

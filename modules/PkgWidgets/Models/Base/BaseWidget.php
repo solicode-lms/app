@@ -14,6 +14,7 @@ use Modules\Core\Models\BaseModel;
 use Modules\Core\Models\SysModel;
 use Modules\PkgWidgets\Models\WidgetType;
 use Modules\PkgWidgets\Models\WidgetOperation;
+use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgWidgets\Models\WidgetUtilisateur;
 
 /**
@@ -37,6 +38,9 @@ class BaseWidget extends BaseModel
      */
     protected $fillable = [
         'name', 'label', 'model_id', 'type_id', 'operation_id', 'color', 'icon', 'parameters'
+    ];
+    public $manyToMany = [
+        'Role' => ['relation' => 'roles' , "foreign_key" => "role_id" ]
     ];
 
 
@@ -68,6 +72,15 @@ class BaseWidget extends BaseModel
         return $this->belongsTo(WidgetOperation::class, 'operation_id', 'id');
     }
 
+    /**
+     * Relation ManyToMany pour Roles.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class, 'role_widget');
+    }
 
     /**
      * Relation HasMany pour Widgets.

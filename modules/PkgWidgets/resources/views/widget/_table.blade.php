@@ -7,8 +7,8 @@
             <tr>
                 <x-sortable-column field="name" modelname="widget" label="{{ ucfirst(__('PkgWidgets::widget.name')) }}" />
                 <x-sortable-column field="label" modelname="widget" label="{{ ucfirst(__('PkgWidgets::widget.label')) }}" />
-                <x-sortable-column field="model_id" modelname="widget" label="{{ ucfirst(__('Core::sysModel.singular')) }}" />
                 <x-sortable-column field="type_id" modelname="widget" label="{{ ucfirst(__('PkgWidgets::widgetType.singular')) }}" />
+                <x-sortable-column field="roles" modelname="widget" label="{{ ucfirst(__('PkgAutorisation::role.plural')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -33,20 +33,19 @@
                     </span>
                     </td>
                     <td>
-                     <span @if(strlen($widget->model) > 50) 
-                            data-toggle="tooltip" 
-                            title="{{ $widget->model }}" 
-                        @endif>
-                        {{ Str::limit($widget->model, 50) }}
-                    </span>
-                    </td>
-                    <td>
                      <span @if(strlen($widget->type) > 50) 
                             data-toggle="tooltip" 
                             title="{{ $widget->type }}" 
                         @endif>
                         {{ Str::limit($widget->type, 50) }}
                     </span>
+                    </td>
+                    <td>
+                        <ul>
+                            @foreach ($widget->roles as $role)
+                                <li @if(strlen($role) > 40) data-toggle="tooltip" title="{{$role}}"  @endif>@limit($role, 40)</li>
+                            @endforeach
+                        </ul>
                     </td>
                     <td class="text-right">
 
