@@ -6,6 +6,7 @@ namespace Modules\PkgWidgets\Controllers\Base;
 use Modules\PkgWidgets\Services\WidgetUtilisateurService;
 use Modules\PkgAutorisation\Services\UserService;
 use Modules\PkgWidgets\Services\WidgetService;
+use Modules\Core\Services\SysModuleService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
@@ -22,13 +23,15 @@ class BaseWidgetUtilisateurController extends AdminController
     protected $widgetUtilisateurService;
     protected $userService;
     protected $widgetService;
+    protected $sysModuleService;
 
-    public function __construct(WidgetUtilisateurService $widgetUtilisateurService, UserService $userService, WidgetService $widgetService) {
+    public function __construct(WidgetUtilisateurService $widgetUtilisateurService, UserService $userService, WidgetService $widgetService, SysModuleService $sysModuleService) {
         parent::__construct();
         $this->service  =  $widgetUtilisateurService;
         $this->widgetUtilisateurService = $widgetUtilisateurService;
         $this->userService = $userService;
         $this->widgetService = $widgetService;
+        $this->sysModuleService = $sysModuleService;
     }
 
     public function index(Request $request) {
@@ -81,11 +84,12 @@ class BaseWidgetUtilisateurController extends AdminController
 
         $users = $this->userService->all();
         $widgets = $this->widgetService->all();
+        $sysModules = $this->sysModuleService->all();
 
         if (request()->ajax()) {
-            return view('PkgWidgets::widgetUtilisateur._fields', compact('itemWidgetUtilisateur', 'users', 'widgets'));
+            return view('PkgWidgets::widgetUtilisateur._fields', compact('itemWidgetUtilisateur', 'users', 'widgets', 'sysModules'));
         }
-        return view('PkgWidgets::widgetUtilisateur.create', compact('itemWidgetUtilisateur', 'users', 'widgets'));
+        return view('PkgWidgets::widgetUtilisateur.create', compact('itemWidgetUtilisateur', 'users', 'widgets', 'sysModules'));
     }
     public function store(WidgetUtilisateurRequest $request) {
         $validatedData = $request->validated();
@@ -121,13 +125,14 @@ class BaseWidgetUtilisateurController extends AdminController
 
         $users = $this->userService->all();
         $widgets = $this->widgetService->all();
+        $sysModules = $this->sysModuleService->all();
         
 
         if (request()->ajax()) {
-            return view('PkgWidgets::widgetUtilisateur._fields', compact('itemWidgetUtilisateur', 'users', 'widgets'));
+            return view('PkgWidgets::widgetUtilisateur._fields', compact('itemWidgetUtilisateur', 'users', 'widgets', 'sysModules'));
         }
 
-        return view('PkgWidgets::widgetUtilisateur.edit', compact('itemWidgetUtilisateur', 'users', 'widgets'));
+        return view('PkgWidgets::widgetUtilisateur.edit', compact('itemWidgetUtilisateur', 'users', 'widgets', 'sysModules'));
 
     }
     public function edit(string $id) {
@@ -141,13 +146,14 @@ class BaseWidgetUtilisateurController extends AdminController
 
         $users = $this->userService->all();
         $widgets = $this->widgetService->all();
+        $sysModules = $this->sysModuleService->all();
 
 
         if (request()->ajax()) {
-            return view('PkgWidgets::widgetUtilisateur._fields', compact('itemWidgetUtilisateur', 'users', 'widgets'));
+            return view('PkgWidgets::widgetUtilisateur._fields', compact('itemWidgetUtilisateur', 'users', 'widgets', 'sysModules'));
         }
 
-        return view('PkgWidgets::widgetUtilisateur.edit', compact('itemWidgetUtilisateur', 'users', 'widgets'));
+        return view('PkgWidgets::widgetUtilisateur.edit', compact('itemWidgetUtilisateur', 'users', 'widgets', 'sysModules'));
 
     }
     public function update(WidgetUtilisateurRequest $request, string $id) {

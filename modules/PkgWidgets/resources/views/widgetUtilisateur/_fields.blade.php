@@ -11,6 +11,35 @@
     <div class="card-body row">
 
       <div class="form-group col-12 col-md-6">
+          <label for="sys_module_id">
+            {{ ucfirst(__('PkgWidgets::widgetUtilisateur.sys_module_id')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <select 
+            id="sys_module_id" 
+            data-target-dynamic-dropdown='#widget_id'
+            data-target-dynamic-dropdown-api-url='{{route('widgets.getData')}}'
+            data-target-dynamic-dropdown-filter='model.sys_module_id'
+            required
+            
+            name="sys_module_id" 
+            class="form-control select2">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($sysModules as $sysModule)
+                    <option value="{{ $sysModule->id }}"
+                        {{ (isset($itemWidgetUtilisateur) && $itemWidgetUtilisateur->sys_module_id == $sysModule->id) || (old('sys_module_id>') == $sysModule->id) ? 'selected' : '' }}>
+                        {{ $sysModule }}
+                    </option>
+                @endforeach
+            </select>
+          @error('sys_module_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+
+
+      <div class="form-group col-12 col-md-6">
           <label for="user_id">
             {{ ucfirst(__('PkgAutorisation::user.singular')) }}
             <span class="text-danger">*</span>
