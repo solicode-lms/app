@@ -34,7 +34,7 @@ class WidgetService extends BaseWidgetService
 
         if (!empty($query['dataSource'])) {
             $methode = $query['dataSource'];
-            $class = "Modules\\" . $widget->model->sysModule->name . "\\Services\\" . $widget->model->name . "Service";
+            $class = "Modules\\" . $widget->model->sysModule->slug . "\\Services\\" . $widget->model->name . "Service";
         
             if (class_exists($class)) {
                 $service = new $class();
