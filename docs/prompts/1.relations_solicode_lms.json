@@ -1,0 +1,276 @@
+{
+  "ManyToOne": [
+    {
+      "from": "realisation_projets",
+      "foreign_key": "affectation_projet_id",
+      "to": "affectation_projets"
+    },
+    {
+      "from": "realisation_projets",
+      "foreign_key": "apprenant_id",
+      "to": "apprenants"
+    },
+    {
+      "from": "realisation_projets",
+      "foreign_key": "etats_realisation_projet_id",
+      "to": "etats_realisation_projets"
+    },
+    {
+      "from": "realisation_taches",
+      "foreign_key": "etat_realisation_tache_id",
+      "to": "etat_realisation_taches"
+    },
+    {
+      "from": "realisation_taches",
+      "foreign_key": "realisation_projet_id",
+      "to": "realisation_projets"
+    },
+    {
+      "from": "realisation_taches",
+      "foreign_key": "tache_id",
+      "to": "taches"
+    },
+    {
+      "from": "chapitres",
+      "foreign_key": "formateur_id",
+      "to": "formateurs"
+    },
+    {
+      "from": "chapitres",
+      "foreign_key": "formation_id",
+      "to": "formations"
+    },
+    {
+      "from": "chapitres",
+      "foreign_key": "niveau_competence_id",
+      "to": "niveau_competences"
+    },
+    {
+      "from": "etat_realisation_taches",
+      "foreign_key": "formateur_id",
+      "to": "formateurs"
+    },
+    {
+      "from": "etat_realisation_taches",
+      "foreign_key": "sys_color_id",
+      "to": "sys_colors"
+    },
+    {
+      "from": "apprenants",
+      "foreign_key": "user_id",
+      "to": "users"
+    },
+    {
+      "from": "commentaire_realisation_taches",
+      "foreign_key": "apprenant_id",
+      "to": "apprenants"
+    },
+    {
+      "from": "commentaire_realisation_taches",
+      "foreign_key": "formateur_id",
+      "to": "formateurs"
+    },
+    {
+      "from": "commentaire_realisation_taches",
+      "foreign_key": "realisation_tache_id",
+      "to": "realisation_taches"
+    },
+    {
+      "from": "groupes",
+      "foreign_key": "annee_formation_id",
+      "to": "annee_formations"
+    },
+    {
+      "from": "groupes",
+      "foreign_key": "filiere_id",
+      "to": "filieres"
+    },
+    {
+      "from": "modules",
+      "foreign_key": "filiere_id",
+      "to": "filieres"
+    },
+    {
+      "from": "transfert_competences",
+      "foreign_key": "niveau_difficulte_id",
+      "to": "niveau_difficultes"
+    },
+    {
+      "from": "transfert_competences",
+      "foreign_key": "projet_id",
+      "to": "projets"
+    },
+    {
+      "from": "validations",
+      "foreign_key": "realisation_projet_id",
+      "to": "realisation_projets"
+    },
+    {
+      "from": "validations",
+      "foreign_key": "transfert_competence_id",
+      "to": "transfert_competences"
+    },
+    {
+      "from": "resources",
+      "foreign_key": "projet_id",
+      "to": "projets"
+    },
+    {
+      "from": "livrables_realisations",
+      "foreign_key": "realisation_projet_id",
+      "to": "realisation_projets"
+    },
+    {
+      "from": "niveau_competences",
+      "foreign_key": "competence_id",
+      "to": "competences"
+    },
+    {
+      "from": "niveau_difficultes",
+      "foreign_key": "formateur_id",
+      "to": "formateurs"
+    },
+    {
+      "from": "taches",
+      "foreign_key": "priorite_tache_id",
+      "to": "priorite_taches"
+    },
+    {
+      "from": "taches",
+      "foreign_key": "projet_id",
+      "to": "projets"
+    },
+    {
+      "from": "technologies",
+      "foreign_key": "category_technology_id",
+      "to": "category_technologies"
+    },
+    {
+      "from": "widget_utilisateurs",
+      "foreign_key": "user_id",
+      "to": "users"
+    },
+    {
+      "from": "widget_utilisateurs",
+      "foreign_key": "widget_id",
+      "to": "widgets"
+    },
+    {
+      "from": "etat_formations",
+      "foreign_key": "formateur_id",
+      "to": "formateurs"
+    },
+    {
+      "from": "etat_formations",
+      "foreign_key": "sys_color_id",
+      "to": "sys_colors"
+    },
+    {
+      "from": "etat_formations",
+      "foreign_key": "workflow_formation_id",
+      "to": "workflow_formations"
+    },
+    {
+      "from": "realisation_formations",
+      "foreign_key": "apprenant_id",
+      "to": "apprenants"
+    },
+    {
+      "from": "realisation_formations",
+      "foreign_key": "etat_formation_id",
+      "to": "etat_formations"
+    },
+    {
+      "from": "realisation_formations",
+      "foreign_key": "formation_id",
+      "to": "formations"
+    },
+    {
+      "from": "realisation_chapitres",
+      "foreign_key": "realisation_formation_id",
+      "to": "realisation_formations"
+    },
+    {
+      "from": "realisation_chapitres",
+      "foreign_key": "etat_chapitre_id",
+      "to": "etat_chapitres"
+    },
+    {
+      "from": "etat_chapitres",
+      "foreign_key": "formateur_id",
+      "to": "formateurs"
+    },
+    {
+      "from": "etat_chapitres",
+      "foreign_key": "sys_color_id",
+      "to": "sys_colors"
+    },
+    {
+      "from": "etat_chapitres",
+      "foreign_key": "workflow_chapitre_id",
+      "to": "workflow_chapitres"
+    },
+    {
+      "from": "features",
+      "foreign_key": "feature_domain_id",
+      "to": "feature_domains"
+    },
+    {
+      "from": "feature_domains",
+      "foreign_key": "sys_module_id",
+      "to": "sys_modules"
+    },
+    {
+      "from": "permissions",
+      "foreign_key": "controller_id",
+      "to": "sys_controllers"
+    },
+    {
+      "from": "sys_controllers",
+      "foreign_key": "sys_module_id",
+      "to": "sys_modules"
+    }
+  ],
+  "ManyToMany": [
+    {
+      "pivot_table": "feature_permission",
+      "from": "features",
+      "to": "permissions"
+    },
+    {
+      "pivot_table": "feature_permission",
+      "from": "permissions",
+      "to": "features"
+    },
+    {
+      "pivot_table": "formateur_groupe",
+      "from": "formateurs",
+      "to": "groupes"
+    },
+    {
+      "pivot_table": "formateur_specialite",
+      "from": "formateurs",
+      "to": "specialites"
+    },
+    {
+      "pivot_table": "role_has_permissions",
+      "from": "roles",
+      "to": "permissions"
+    },
+    {
+      "pivot_table": "role_has_permissions",
+      "from": "permissions",
+      "to": "roles"
+    },
+    {
+      "pivot_table": "technology_transfert_competence",
+      "from": "technologies",
+      "to": "transfert_competences"
+    },
+    {
+      "pivot_table": "technology_transfert_competence",
+      "from": "transfert_competences",
+      "to": "technologies"
+    }
+  ]
+}

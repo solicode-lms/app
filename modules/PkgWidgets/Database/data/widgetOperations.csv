@@ -1,7 +1,7 @@
 "operation","description","reference"
 "count","Compter les enregistrements","2cdc0623-db64-4efc-8ce8-ba6424601196"
 "sum","Calculer la somme d'une colonne","796eac10-f75d-4b5d-9b4d-ef4fba3cc576"
-"dataSource","Utilisation une méthode pour getData, Il utilise la méthode de la classe service de Model en relation avec Widget","85cf9950-f97e-472d-9c4b-161765bffe52"
+"parameters","Utilisation des paramètres","85cf9950-f97e-472d-9c4b-161765bffe52"
 "average","Calculer la moyenne d'une colonne","c934b68a-0be1-4b79-b9a8-09479f2810ae"
 "min","Trouver la valeur minimale d'une colonne","b97a901b-5719-4718-bc83-dba87d35ad9e"
 "max","Trouver la valeur maximale d'une colonne","56788d46-6d56-484f-9799-b44e2e6f94ef"

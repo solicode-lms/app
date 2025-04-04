@@ -485,5 +485,23 @@
         "value_float": 0,
         "e_data_field_reference": "Widget-package",
         "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "Widget_ordre_displayOrder",
+        "value_integer": 11,
+        "e_data_field_reference": "Widget_ordre",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "Widget_ordre_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "Widget_ordre",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "Widget_ordre_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Widget_ordre",
+        "e_metadata_definition_reference": "inputMdWidth"
     }
 ]

@@ -183,7 +183,7 @@ class WidgetService extends BaseWidgetService
             'average' => $queryBuilder->average($query['column']),
             'min' => $queryBuilder->min($query['column']),
             'max' => $queryBuilder->max($query['column']),
-            'getGroupedByColumn' => $queryBuilder->get(),
+            'parameters' => $queryBuilder->get(),
             'distinct' => $queryBuilder->distinct()->count($query['column']),
             default => throw new Exception("L'opération {$query['operation']} n'est pas prise en charge."),
         };

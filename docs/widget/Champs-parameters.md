@@ -1,7 +1,3 @@
-Voici une documentation détaillée expliquant comment structurer le champ `parameters` d'un **widget**.
-
----
-
 # **Documentation : Champ `parameters` d'un Widget**
 
 Le champ **`parameters`** d'un widget est une **configuration JSON** qui permet de définir les critères de filtrage, la mise en page et le comportement d'affichage des données. Il permet d'adapter dynamiquement le widget en fonction des rôles des utilisateurs, des restrictions de données et des préférences d'affichage.
