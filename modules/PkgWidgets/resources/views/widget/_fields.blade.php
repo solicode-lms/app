@@ -172,29 +172,6 @@
   
 
 
-      <div class="form-group col-12 col-md-12">
-          <label for="parameters">
-            {{ ucfirst(__('PkgWidgets::widget.parameters')) }}
-            
-          </label>
-              <div class="form-control editeur_json code-editor"
-        contenteditable="true">{{ $itemWidget ? $itemWidget->parameters : old('parameters') }}</div>
-    <input
-        type="hidden"
-        name="parameters"
-        class="form-control"
-        id="parameters"
-         
-        
-        value = "{{ $itemWidget ? $itemWidget->parameters : old('parameters') }}"
-    >
-          @error('parameters')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-
-
       <div class="form-group col-12 col-md-6">
           <label for="roles">
             {{ ucfirst(__('PkgAutorisation::Role.plural')) }}
@@ -222,6 +199,29 @@
 
 
 <!--   WidgetUtilisateur HasMany --> 
+
+
+      <div class="form-group col-12 col-md-12">
+          <label for="parameters">
+            {{ ucfirst(__('PkgWidgets::widget.parameters')) }}
+            
+          </label>
+              <div class="form-control editeur_json code-editor"
+        contenteditable="true">{{ $itemWidget ? $itemWidget->parameters : old('parameters') }}</div>
+    <input
+        type="hidden"
+        name="parameters"
+        class="form-control"
+        id="parameters"
+         
+        
+        value = "{{ $itemWidget ? $itemWidget->parameters : old('parameters') }}"
+    >
+          @error('parameters')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
     </div>
 

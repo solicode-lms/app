@@ -36,8 +36,8 @@ class BaseWidgetRequest extends FormRequest
             'operation_id' => 'required',
             'color' => 'nullable|string|max:255',
             'icon' => 'nullable|string|max:255',
-            'parameters' => 'nullable',
-            'roles' => 'nullable|array'
+            'roles' => 'nullable|array',
+            'parameters' => 'nullable'
         ];
     }
 
@@ -60,9 +60,9 @@ class BaseWidgetRequest extends FormRequest
             'color.max' => __('validation.colorMax'),
             'icon.required' => __('validation.required', ['attribute' => __('PkgWidgets::Widget.icon')]),
             'icon.max' => __('validation.iconMax'),
-            'parameters.required' => __('validation.required', ['attribute' => __('PkgWidgets::Widget.parameters')]),
             'roles.required' => __('validation.required', ['attribute' => __('PkgWidgets::Widget.roles')]),
-            'roles.array' => __('validation.array', ['attribute' => __('PkgWidgets::Widget.roles')])
+            'roles.array' => __('validation.array', ['attribute' => __('PkgWidgets::Widget.roles')]),
+            'parameters.required' => __('validation.required', ['attribute' => __('PkgWidgets::Widget.parameters')])
         ];
     }
 

@@ -35,8 +35,8 @@ class BaseWidgetExport implements FromCollection, WithHeadings, ShouldAutoSize, 
             'operation_id' => 'operation_id',
             'color' => 'color',
             'icon' => 'icon',
-            'parameters' => 'parameters',
             'reference' => 'reference',
+            'parameters' => 'parameters',
         ];
         }else{
         return [
@@ -47,8 +47,8 @@ class BaseWidgetExport implements FromCollection, WithHeadings, ShouldAutoSize, 
             'operation_id' => __('PkgWidgets::widget.operation_id'),
             'color' => __('PkgWidgets::widget.color'),
             'icon' => __('PkgWidgets::widget.icon'),
-            'parameters' => __('PkgWidgets::widget.parameters'),
             'reference' => __('Core::msg.reference'),
+            'parameters' => __('PkgWidgets::widget.parameters'),
         ];
 
         }
@@ -66,8 +66,8 @@ class BaseWidgetExport implements FromCollection, WithHeadings, ShouldAutoSize, 
                 'operation_id' => $widget->operation_id,
                 'color' => $widget->color,
                 'icon' => $widget->icon,
-                'parameters' => $widget->parameters,
                 'reference' => $widget->reference,
+                'parameters' => $widget->parameters,
             ];
         });
     }

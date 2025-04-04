@@ -25,7 +25,7 @@ class BaseWidgetUtilisateur extends BaseModel
     public function __construct(array $attributes = []) {
         parent::__construct($attributes); 
         $this->isOwnedByUser =  true;
-        $this->ownerRelationPath = "user,user";
+        $this->ownerRelationPath = "user,user,user";
         // Colonne dynamique : sys_module_id
         $sql = "SELECT sm.id
         FROM widget_utilisateurs wu

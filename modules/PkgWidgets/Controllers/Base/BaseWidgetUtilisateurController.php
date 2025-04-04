@@ -44,6 +44,9 @@ class BaseWidgetUtilisateurController extends AdminController
         if(Auth::user()->hasRole('apprenant') && $this->viewState->get('scope.widgetUtilisateur.user_id') == null){
            $this->viewState->init('scope.widgetUtilisateur.user_id'  , $this->sessionState->get('user_id'));
         }
+        if(Auth::user()->hasRole('admin') && $this->viewState->get('scope.widgetUtilisateur.user_id') == null){
+           $this->viewState->init('scope.widgetUtilisateur.user_id'  , $this->sessionState->get('user_id'));
+        }
 
 
 
@@ -75,6 +78,9 @@ class BaseWidgetUtilisateurController extends AdminController
            $this->viewState->set('scope_form.widgetUtilisateur.user_id'  , $this->sessionState->get('user_id'));
         }
         if(Auth::user()->hasRole('apprenant')){
+           $this->viewState->set('scope_form.widgetUtilisateur.user_id'  , $this->sessionState->get('user_id'));
+        }
+        if(Auth::user()->hasRole('admin')){
            $this->viewState->set('scope_form.widgetUtilisateur.user_id'  , $this->sessionState->get('user_id'));
         }
 
