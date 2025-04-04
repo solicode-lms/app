@@ -2034,6 +2034,25 @@
     },
     {
         "id": 109,
+        "reference": "widgets_sys_colors_sys_color_id_m2o",
+        "name": "ManyToOne between widgets and sys_colors",
+        "type": "ManyToOne",
+        "source_e_model_id": 72,
+        "target_e_model_id": 57,
+        "column_name": "sys_color_id",
+        "referenced_table": "sys_colors",
+        "referenced_column": "id",
+        "through": null,
+        "with_column": null,
+        "is_cascade": 0,
+        "morph_name": null,
+        "description": "Automatically generated many-to-one relationship",
+        "cascade_on_delete": 0,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 110,
         "reference": "widgets_widget_types_type_id_m2o",
         "name": "ManyToOne between widgets and widget_types",
         "type": "ManyToOne",
@@ -2052,7 +2071,7 @@
         "updated_at": null
     },
     {
-        "id": 110,
+        "id": 111,
         "reference": "workflow_chapitres_sys_colors_sys_color_id_m2o",
         "name": "ManyToOne between workflow_chapitres and sys_colors",
         "type": "ManyToOne",
@@ -2071,7 +2090,7 @@
         "updated_at": null
     },
     {
-        "id": 111,
+        "id": 112,
         "reference": "workflow_formations_sys_colors_sys_color_id_m2o",
         "name": "ManyToOne between workflow_formations and sys_colors",
         "type": "ManyToOne",
@@ -2090,7 +2109,7 @@
         "updated_at": null
     },
     {
-        "id": 112,
+        "id": 113,
         "reference": "roles_ManyToManyPolymorphic_users_model_has_roles",
         "name": "User",
         "type": "ManyToManyPolymorphic",
@@ -2109,7 +2128,7 @@
         "updated_at": null
     },
     {
-        "id": 113,
+        "id": 114,
         "reference": "users_PolymorphicManyToMany_roles_model_has_roles",
         "name": "Role",
         "type": "PolymorphicManyToMany",

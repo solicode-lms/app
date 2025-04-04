@@ -283,5 +283,37 @@
         },
         "e_data_field_reference": "SysModel_sys_color_id",
         "e_metadata_definition_reference": "nature"
+    },
+    {
+        "reference": "SysModel_icone_displayInTable",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModel_icone",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "SysModel_icone_displayOrder",
+        "value_integer": 8,
+        "e_data_field_reference": "SysModel_icone",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "SysModel_icone_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModel_icone",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "SysModel_icone_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "SysModel_icone",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "SysModel_icone_nature",
+        "value_json": {
+            "nature": "icone"
+        },
+        "e_data_field_reference": "SysModel_icone",
+        "e_metadata_definition_reference": "nature"
     }
 ]
