@@ -28,6 +28,7 @@ class BaseWidgetExport implements FromCollection, WithHeadings, ShouldAutoSize, 
     {
      if($this->format == 'csv'){
         return [
+            'ordre' => 'ordre',
             'name' => 'name',
             'label' => 'label',
             'model_id' => 'model_id',
@@ -41,6 +42,7 @@ class BaseWidgetExport implements FromCollection, WithHeadings, ShouldAutoSize, 
         ];
         }else{
         return [
+            'ordre' => __('PkgWidgets::widget.ordre'),
             'name' => __('PkgWidgets::widget.name'),
             'label' => __('PkgWidgets::widget.label'),
             'model_id' => __('PkgWidgets::widget.model_id'),
@@ -61,6 +63,7 @@ class BaseWidgetExport implements FromCollection, WithHeadings, ShouldAutoSize, 
     {
         return $this->data->map(function ($widget) {
             return [
+                'ordre' => $widget->ordre,
                 'name' => $widget->name,
                 'label' => $widget->label,
                 'model_id' => $widget->model_id,

@@ -75,4 +75,29 @@ abstract class BaseService implements ServiceInterface
 
         return $query->get();
     }
+
+    protected function reorderOrdreColumn(?int $ancienOrdre, int $nouvelOrdre, int $idEnCours = null): void
+    {
+        if ($ancienOrdre === null || $nouvelOrdre === $ancienOrdre) {
+            return;
+        }
+
+        $query = $this->model->newQuery();
+
+        if ($idEnCours !== null) {
+            $query->where('id', '!=', $idEnCours);
+        }
+
+        // Cas où l'élément descend → les autres montent
+        if ($nouvelOrdre > $ancienOrdre) {
+            $query->whereBetween('ordre', [$ancienOrdre + 1, $nouvelOrdre])
+                ->decrement('ordre');
+        }
+        // Cas où l'élément monte → les autres descendent
+        else {
+            $query->whereBetween('ordre', [$nouvelOrdre, $ancienOrdre - 1])
+                ->increment('ordre');
+        }
+    }
+
 }

@@ -13,4 +13,5 @@ return [
     'icon' => 'Icône',
     'parameters' => 'Paramètres',
     'package' => 'Package',
+    'ordre' => 'ordre',
 ];

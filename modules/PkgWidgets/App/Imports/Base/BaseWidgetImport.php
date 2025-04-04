@@ -56,16 +56,17 @@ class BaseWidgetImport implements ToModel, WithHeadingRow
 
         // Création d'un nouvel enregistrement
         return new Widget([
-             'name' => $values[0] ?? null,
-             'label' => $values[1] ?? null,
-             'model_id' => $values[2] ?? null,
-             'type_id' => $values[3] ?? null,
-             'operation_id' => $values[4] ?? null,
-             'color' => $values[5] ?? null,
-             'icon' => $values[6] ?? null,
+             'ordre' => $values[0] ?? null,
+             'name' => $values[1] ?? null,
+             'label' => $values[2] ?? null,
+             'model_id' => $values[3] ?? null,
+             'type_id' => $values[4] ?? null,
+             'operation_id' => $values[5] ?? null,
+             'color' => $values[6] ?? null,
+             'icon' => $values[7] ?? null,
              'reference' => $reference,
-             'sys_color_id' => $values[8] ?? null,
-             'parameters' => $values[9] ?? null,
+             'sys_color_id' => $values[9] ?? null,
+             'parameters' => $values[10] ?? null,
         ]);
 
 

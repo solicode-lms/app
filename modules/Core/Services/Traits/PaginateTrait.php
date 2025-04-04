@@ -16,6 +16,12 @@ trait PaginateTrait
         return $this->model::withScope(function () use ($params, $perPage, $columns) {
             $query = $this->allQuery($params);
             
+            if ($this->hasOrdreColumn()) {
+                // Tri par défaut par "ordre" si non défini explicitement
+                if (!isset($params['order_by'])) {
+                    $query->orderBy('ordre');
+                }
+            }
             // TODO : Gapp : EagerLoading Charger les relations nécessaires : DataFields de type ManyToOne, ManyToMany ayant DisplayInTable
             // $relationsToLoad = ["projet", "groupe"];
             // $query->with(array_unique($relationsToLoad));

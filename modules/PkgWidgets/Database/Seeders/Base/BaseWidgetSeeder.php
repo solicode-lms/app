@@ -74,6 +74,7 @@ class BaseWidgetSeeder extends Seeder
             $row = array_combine($headers, $data);
             if ($row) {
                 $widgetData =[
+                    "ordre" => $row["ordre"] ?? null,
                     "name" => $row["name"] ?? null,
                     "label" => $row["label"] ?? null,
                     "model_id" => $row["model_id"] ?? null,

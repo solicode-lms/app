@@ -8,8 +8,6 @@ use Illuminate\Database\Eloquent\Collection;
 trait CrudTrait
 {
 
-    
-
     /**
      * Renvoie tous les éléments correspondants aux critères donnés.
      *
@@ -35,6 +33,14 @@ trait CrudTrait
         return $this->model->find($id, $columns);
     }
 
+    protected function getNextOrdre(): int
+    {
+        return ($this->model->max('ordre') ?? 0) + 1;
+    }
+    protected function hasOrdreColumn(): bool
+    {
+        return \Illuminate\Support\Facades\Schema::hasColumn($this->createInstance()->getTable(), 'ordre');
+    }
     /**
      * Crée un nouvel élément.
      *
@@ -48,6 +54,18 @@ trait CrudTrait
         }
         if (!is_array($data)) {
             throw new \InvalidArgumentException('Les données doivent être un tableau ou un objet Eloquent.');
+        }
+
+        // Si le modèle a une colonne "ordre"
+        if ($this->hasOrdreColumn()) {
+            $ordre = $data['ordre'] ?? $this->getNextOrdre();
+
+            // Réorganiser les autres si l’ordre est explicitement fourni
+            if (isset($data['ordre'])) {
+                $this->reorderOrdreColumn(null, $ordre);
+            }
+
+            $data['ordre'] = $ordre;
         }
         
         $entity = $this->model->create($data);
@@ -69,6 +87,22 @@ trait CrudTrait
         if (!$record) {
             return false;
         }
+
+        if ($this->hasOrdreColumn()) {
+            $ancienOrdre = $record->ordre;
+    
+            if (!isset($data['ordre']) || $data['ordre'] === null) {
+                $data['ordre'] = $ancienOrdre ?? $this->getNextOrdre();
+            }
+    
+            $nouvelOrdre = $data['ordre'];
+    
+            if ($nouvelOrdre !== $ancienOrdre) {
+                $this->reorderOrdreColumn($ancienOrdre, $nouvelOrdre, $record->id);
+            }
+        }
+
+
         $record->update($data);
 
         $this->syncManyToManyRelations($record, $data);

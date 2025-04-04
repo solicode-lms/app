@@ -25,6 +25,10 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="col-sm-12">
+                                <label for="ordre">{{ ucfirst(__('PkgWidgets::widget.ordre')) }}:</label>
+                                <p>{{ $itemWidget->ordre }}</p>
+                            </div>
+                            <div class="col-sm-12">
                                 <label for="name">{{ ucfirst(__('PkgWidgets::widget.name')) }}:</label>
                                 <p>{{ $itemWidget->name }}</p>
                             </div>

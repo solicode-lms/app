@@ -19,6 +19,7 @@ class BaseWidgetService extends BaseService
      * @var array
      */
     protected $fieldsSearchable = [
+        'ordre',
         'name',
         'label',
         'model_id',

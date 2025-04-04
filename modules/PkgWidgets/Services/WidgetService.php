@@ -4,6 +4,7 @@ namespace Modules\PkgWidgets\Services;
 
 use Exception;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Modules\Core\Services\BaseService;
 use Modules\PkgWidgets\Services\Base\BaseWidgetService;
 
@@ -254,4 +255,72 @@ class WidgetService extends BaseWidgetService
             return $formattedRow;
         })->toArray();
     }
+
+    // CRUD 
+
+    // public function paginate(array $params = [], int $perPage = 0, array $columns = ['*']): LengthAwarePaginator
+    // {
+    //     $perPage = $perPage ?: $this->paginationLimit;
+
+    //     return $this->model::withScope(function () use ($params, $perPage, $columns) {
+    //         $query = $this->allQuery($params);
+
+           
+         
+    //         // Calcul du nombre total filtré
+    //         $this->totalFilteredCount = $query->count();
+
+    //         return $query->paginate($perPage, $columns);
+    //     });
+    // }
+
+    // public function create(array|object $data)
+    // {
+    //     if (is_object($data) && $data instanceof \Illuminate\Database\Eloquent\Model) {
+    //         $data = $data->getAttributes();
+    //     }
+
+    //     if (!is_array($data)) {
+    //         throw new \InvalidArgumentException('Les données doivent être un tableau ou un objet Eloquent.');
+    //     }
+
+    //     // Déterminer la position cible
+    //     $ordre = $data['ordre'] ?? $this->getNextOrdre();
+
+    //     // Réorganiser les autres si un ordre est explicitement défini
+    //     if (isset($data['ordre'])) {
+    //         $this->reorderOrdreColumn(null, $ordre);
+    //     }
+
+    //     $data['ordre'] = $ordre;
+
+    //     return parent::create($data);
+    // }
+
+    // public function update($id, array $data)
+    // {
+    //     $record = $this->model->find($id);
+    
+    //     if (!$record) {
+    //         return false;
+    //     }
+    
+    //     $ancienOrdre = $record->ordre;
+    
+    //     if (!isset($data['ordre']) || $data['ordre'] === null) {
+    //         $data['ordre'] = $ancienOrdre ?? $this->getNextOrdre();
+    //     }
+    
+    //     $nouvelOrdre = $data['ordre'];
+    
+    //     // Réorganisation si l’ordre change
+    //     if ($nouvelOrdre !== $ancienOrdre) {
+    //         $this->reorderOrdreColumn($ancienOrdre, $nouvelOrdre, $record->id);
+    //     }
+    
+    //     return parent::update($id, $data);
+    // }
+    
+  
+
 }

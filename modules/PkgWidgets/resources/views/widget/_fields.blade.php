@@ -11,6 +11,27 @@
     <div class="card-body row">
 
       <div class="form-group col-12 col-md-6">
+          <label for="ordre">
+            {{ ucfirst(__('PkgWidgets::widget.ordre')) }}
+            
+          </label>
+                      <input
+                name="ordre"
+                type="number"
+                class="form-control"
+                
+                
+                id="ordre"
+                placeholder="{{ __('PkgWidgets::widget.ordre') }}"
+                value="{{ $itemWidget ? $itemWidget->ordre : old('ordre') }}">
+          @error('ordre')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+
+
+      <div class="form-group col-12 col-md-4">
           <label for="name">
             {{ ucfirst(__('PkgWidgets::widget.name')) }}
             <span class="text-danger">*</span>

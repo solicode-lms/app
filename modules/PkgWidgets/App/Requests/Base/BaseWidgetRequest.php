@@ -29,6 +29,7 @@ class BaseWidgetRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'ordre' => 'nullable|integer',
             'name' => 'required|string|max:255',
             'label' => 'nullable|string|max:255',
             'model_id' => 'required',
@@ -50,6 +51,7 @@ class BaseWidgetRequest extends FormRequest
     public function messages(): array
     {
         return [
+            'ordre.required' => __('validation.required', ['attribute' => __('PkgWidgets::Widget.ordre')]),
             'name.required' => __('validation.required', ['attribute' => __('PkgWidgets::Widget.name')]),
             'name.max' => __('validation.nameMax'),
             'label.required' => __('validation.required', ['attribute' => __('PkgWidgets::Widget.label')]),
