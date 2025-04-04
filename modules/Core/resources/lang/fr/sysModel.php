@@ -8,4 +8,6 @@ return [
     'description' => 'Description',
     'sys_module_id' => 'Module',
     'sys_color_id' => 'Couleur',
+
+    'icone' => 'icône'
 ];

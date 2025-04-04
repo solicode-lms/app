@@ -1,0 +1,16 @@
+[
+    {
+        "reference": "Widget-package",
+        "name": "package",
+        "column_name": "package",
+        "data_type": "String",
+        "field_order": 3,
+        "db_nullable": 0,
+        "db_primaryKey": 0,
+        "db_unique": 0,
+        "calculable": 1,
+        "calculable_sql": "SELECT sm.name\r\n        FROM sys_models s\r\n        JOIN sys_modules sm ON s.sys_module_id = sm.id\r\n        WHERE s.id = widgets.model_id",
+        "description": "",
+        "e_model_reference": "widgets"
+    }
+]

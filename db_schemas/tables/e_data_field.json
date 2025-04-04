@@ -9900,5 +9900,19 @@
         "calculable": 1,
         "calculable_sql": "SELECT wt.type\r\nFROM widgets w\r\nJOIN widget_types wt ON w.type_id = wt.id\r\nWHERE w.id = widget_utilisateurs.widget_id",
         "description": ""
+    },
+    {
+        "id": 761,
+        "reference": "Widget-package",
+        "name": "package",
+        "column_name": "package",
+        "data_type": "String",
+        "field_order": 3,
+        "db_nullable": 0,
+        "db_primaryKey": 0,
+        "db_unique": 0,
+        "calculable": 1,
+        "calculable_sql": "SELECT sm.name\r\n        FROM sys_models s\r\n        JOIN sys_modules sm ON s.sys_module_id = sm.id\r\n        WHERE s.id = widgets.model_id",
+        "description": ""
     }
 ]

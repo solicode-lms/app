@@ -10,6 +10,7 @@ use Modules\Core\Services\SysModelService;
 use Modules\PkgAutoformation\Services\EtatFormationService;
 use Modules\PkgGestionTaches\Services\LabelRealisationTacheService;
 use Modules\Core\Services\SysModuleService;
+use Modules\PkgWidgets\Services\WidgetService;
 use Modules\PkgAutoformation\Services\WorkflowChapitreService;
 use Modules\PkgAutoformation\Services\WorkflowFormationService;
 use Illuminate\Http\Request;
@@ -160,6 +161,15 @@ class BaseSysColorController extends AdminController
         $sysModules_filters = $sysModuleService->getFieldsFilterable();
         $sysModule_instance =  $sysModuleService->createInstance();
 
+        $this->viewState->set('scope.widget.sys_color_id', $id);
+
+
+        $widgetService =  new WidgetService();
+        $widgets_data =  $widgetService->paginate();
+        $widgets_stats = $widgetService->getwidgetStats();
+        $widgets_filters = $widgetService->getFieldsFilterable();
+        $widget_instance =  $widgetService->createInstance();
+
         $this->viewState->set('scope.workflowChapitre.sys_color_id', $id);
 
 
@@ -179,10 +189,10 @@ class BaseSysColorController extends AdminController
         $workflowFormation_instance =  $workflowFormationService->createInstance();
 
         if (request()->ajax()) {
-            return view('Core::sysColor._edit', compact('itemSysColor', 'etatChapitres_data', 'etatRealisationTaches_data', 'sysModels_data', 'etatFormations_data', 'labelRealisationTaches_data', 'sysModules_data', 'workflowChapitres_data', 'workflowFormations_data', 'etatChapitres_stats', 'etatRealisationTaches_stats', 'sysModels_stats', 'etatFormations_stats', 'labelRealisationTaches_stats', 'sysModules_stats', 'workflowChapitres_stats', 'workflowFormations_stats', 'etatChapitres_filters', 'etatRealisationTaches_filters', 'sysModels_filters', 'etatFormations_filters', 'labelRealisationTaches_filters', 'sysModules_filters', 'workflowChapitres_filters', 'workflowFormations_filters', 'etatChapitre_instance', 'etatRealisationTache_instance', 'sysModel_instance', 'etatFormation_instance', 'labelRealisationTache_instance', 'sysModule_instance', 'workflowChapitre_instance', 'workflowFormation_instance'));
+            return view('Core::sysColor._edit', compact('itemSysColor', 'etatChapitres_data', 'etatRealisationTaches_data', 'sysModels_data', 'etatFormations_data', 'labelRealisationTaches_data', 'sysModules_data', 'widgets_data', 'workflowChapitres_data', 'workflowFormations_data', 'etatChapitres_stats', 'etatRealisationTaches_stats', 'sysModels_stats', 'etatFormations_stats', 'labelRealisationTaches_stats', 'sysModules_stats', 'widgets_stats', 'workflowChapitres_stats', 'workflowFormations_stats', 'etatChapitres_filters', 'etatRealisationTaches_filters', 'sysModels_filters', 'etatFormations_filters', 'labelRealisationTaches_filters', 'sysModules_filters', 'widgets_filters', 'workflowChapitres_filters', 'workflowFormations_filters', 'etatChapitre_instance', 'etatRealisationTache_instance', 'sysModel_instance', 'etatFormation_instance', 'labelRealisationTache_instance', 'sysModule_instance', 'widget_instance', 'workflowChapitre_instance', 'workflowFormation_instance'));
         }
 
-        return view('Core::sysColor.edit', compact('itemSysColor', 'etatChapitres_data', 'etatRealisationTaches_data', 'sysModels_data', 'etatFormations_data', 'labelRealisationTaches_data', 'sysModules_data', 'workflowChapitres_data', 'workflowFormations_data', 'etatChapitres_stats', 'etatRealisationTaches_stats', 'sysModels_stats', 'etatFormations_stats', 'labelRealisationTaches_stats', 'sysModules_stats', 'workflowChapitres_stats', 'workflowFormations_stats', 'etatChapitres_filters', 'etatRealisationTaches_filters', 'sysModels_filters', 'etatFormations_filters', 'labelRealisationTaches_filters', 'sysModules_filters', 'workflowChapitres_filters', 'workflowFormations_filters', 'etatChapitre_instance', 'etatRealisationTache_instance', 'sysModel_instance', 'etatFormation_instance', 'labelRealisationTache_instance', 'sysModule_instance', 'workflowChapitre_instance', 'workflowFormation_instance'));
+        return view('Core::sysColor.edit', compact('itemSysColor', 'etatChapitres_data', 'etatRealisationTaches_data', 'sysModels_data', 'etatFormations_data', 'labelRealisationTaches_data', 'sysModules_data', 'widgets_data', 'workflowChapitres_data', 'workflowFormations_data', 'etatChapitres_stats', 'etatRealisationTaches_stats', 'sysModels_stats', 'etatFormations_stats', 'labelRealisationTaches_stats', 'sysModules_stats', 'widgets_stats', 'workflowChapitres_stats', 'workflowFormations_stats', 'etatChapitres_filters', 'etatRealisationTaches_filters', 'sysModels_filters', 'etatFormations_filters', 'labelRealisationTaches_filters', 'sysModules_filters', 'widgets_filters', 'workflowChapitres_filters', 'workflowFormations_filters', 'etatChapitre_instance', 'etatRealisationTache_instance', 'sysModel_instance', 'etatFormation_instance', 'labelRealisationTache_instance', 'sysModule_instance', 'widget_instance', 'workflowChapitre_instance', 'workflowFormation_instance'));
 
     }
     public function edit(string $id) {
@@ -255,6 +265,16 @@ class BaseSysColorController extends AdminController
         $sysModules_filters = $sysModuleService->getFieldsFilterable();
         $sysModule_instance =  $sysModuleService->createInstance();
 
+        $this->viewState->set('scope.widget.sys_color_id', $id);
+        
+
+        $widgetService =  new WidgetService();
+        $widgets_data =  $widgetService->paginate();
+        $widgets_stats = $widgetService->getwidgetStats();
+        $this->viewState->set('stats.widget.stats'  , $widgets_stats);
+        $widgets_filters = $widgetService->getFieldsFilterable();
+        $widget_instance =  $widgetService->createInstance();
+
         $this->viewState->set('scope.workflowChapitre.sys_color_id', $id);
         
 
@@ -276,10 +296,10 @@ class BaseSysColorController extends AdminController
         $workflowFormation_instance =  $workflowFormationService->createInstance();
 
         if (request()->ajax()) {
-            return view('Core::sysColor._edit', compact('itemSysColor', 'etatChapitres_data', 'etatRealisationTaches_data', 'sysModels_data', 'etatFormations_data', 'labelRealisationTaches_data', 'sysModules_data', 'workflowChapitres_data', 'workflowFormations_data', 'etatChapitres_stats', 'etatRealisationTaches_stats', 'sysModels_stats', 'etatFormations_stats', 'labelRealisationTaches_stats', 'sysModules_stats', 'workflowChapitres_stats', 'workflowFormations_stats', 'etatChapitres_filters', 'etatRealisationTaches_filters', 'sysModels_filters', 'etatFormations_filters', 'labelRealisationTaches_filters', 'sysModules_filters', 'workflowChapitres_filters', 'workflowFormations_filters', 'etatChapitre_instance', 'etatRealisationTache_instance', 'sysModel_instance', 'etatFormation_instance', 'labelRealisationTache_instance', 'sysModule_instance', 'workflowChapitre_instance', 'workflowFormation_instance'));
+            return view('Core::sysColor._edit', compact('itemSysColor', 'etatChapitres_data', 'etatRealisationTaches_data', 'sysModels_data', 'etatFormations_data', 'labelRealisationTaches_data', 'sysModules_data', 'widgets_data', 'workflowChapitres_data', 'workflowFormations_data', 'etatChapitres_stats', 'etatRealisationTaches_stats', 'sysModels_stats', 'etatFormations_stats', 'labelRealisationTaches_stats', 'sysModules_stats', 'widgets_stats', 'workflowChapitres_stats', 'workflowFormations_stats', 'etatChapitres_filters', 'etatRealisationTaches_filters', 'sysModels_filters', 'etatFormations_filters', 'labelRealisationTaches_filters', 'sysModules_filters', 'widgets_filters', 'workflowChapitres_filters', 'workflowFormations_filters', 'etatChapitre_instance', 'etatRealisationTache_instance', 'sysModel_instance', 'etatFormation_instance', 'labelRealisationTache_instance', 'sysModule_instance', 'widget_instance', 'workflowChapitre_instance', 'workflowFormation_instance'));
         }
 
-        return view('Core::sysColor.edit', compact('itemSysColor', 'etatChapitres_data', 'etatRealisationTaches_data', 'sysModels_data', 'etatFormations_data', 'labelRealisationTaches_data', 'sysModules_data', 'workflowChapitres_data', 'workflowFormations_data', 'etatChapitres_stats', 'etatRealisationTaches_stats', 'sysModels_stats', 'etatFormations_stats', 'labelRealisationTaches_stats', 'sysModules_stats', 'workflowChapitres_stats', 'workflowFormations_stats', 'etatChapitres_filters', 'etatRealisationTaches_filters', 'sysModels_filters', 'etatFormations_filters', 'labelRealisationTaches_filters', 'sysModules_filters', 'workflowChapitres_filters', 'workflowFormations_filters', 'etatChapitre_instance', 'etatRealisationTache_instance', 'sysModel_instance', 'etatFormation_instance', 'labelRealisationTache_instance', 'sysModule_instance', 'workflowChapitre_instance', 'workflowFormation_instance'));
+        return view('Core::sysColor.edit', compact('itemSysColor', 'etatChapitres_data', 'etatRealisationTaches_data', 'sysModels_data', 'etatFormations_data', 'labelRealisationTaches_data', 'sysModules_data', 'widgets_data', 'workflowChapitres_data', 'workflowFormations_data', 'etatChapitres_stats', 'etatRealisationTaches_stats', 'sysModels_stats', 'etatFormations_stats', 'labelRealisationTaches_stats', 'sysModules_stats', 'widgets_stats', 'workflowChapitres_stats', 'workflowFormations_stats', 'etatChapitres_filters', 'etatRealisationTaches_filters', 'sysModels_filters', 'etatFormations_filters', 'labelRealisationTaches_filters', 'sysModules_filters', 'widgets_filters', 'workflowChapitres_filters', 'workflowFormations_filters', 'etatChapitre_instance', 'etatRealisationTache_instance', 'sysModel_instance', 'etatFormation_instance', 'labelRealisationTache_instance', 'sysModule_instance', 'widget_instance', 'workflowChapitre_instance', 'workflowFormation_instance'));
 
     }
     public function update(SysColorRequest $request, string $id) {

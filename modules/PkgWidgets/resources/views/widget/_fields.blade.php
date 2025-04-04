@@ -131,27 +131,6 @@
 
 
       <div class="form-group col-12 col-md-4">
-          <label for="color">
-            {{ ucfirst(__('PkgWidgets::widget.color')) }}
-            
-          </label>
-           <input
-                name="color"
-                type="input"
-                class="form-control"
-                
-                
-                id="color"
-                placeholder="{{ __('PkgWidgets::widget.color') }}"
-                value="{{ $itemWidget ? $itemWidget->color : old('color') }}">
-          @error('color')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-
-
-      <div class="form-group col-12 col-md-4">
           <label for="icon">
             {{ ucfirst(__('PkgWidgets::widget.icon')) }}
             
@@ -166,6 +145,32 @@
                 placeholder="{{ __('PkgWidgets::widget.icon') }}"
                 value="{{ $itemWidget ? $itemWidget->icon : old('icon') }}">
           @error('icon')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+
+
+      <div class="form-group col-12 col-md-6">
+          <label for="sys_color_id">
+            {{ ucfirst(__('Core::sysColor.singular')) }}
+            
+          </label>
+                      <select 
+            id="sys_color_id" 
+            
+            
+            name="sys_color_id" 
+            class="form-control select2Color">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($sysColors as $sysColor)
+                    <option value="{{ $sysColor->id }}" data-color="{{ $sysColor->hex }}" 
+                        {{ (isset($itemWidget) && $itemWidget->sys_color_id == $sysColor->id) || (old('sys_color_id>') == $sysColor->id) ? 'selected' : '' }}>
+                        {{ $sysColor }}
+                    </option>
+                @endforeach
+            </select>
+          @error('sys_color_id')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>

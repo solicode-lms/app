@@ -97,7 +97,9 @@
     },
     {
         "reference": "SysModel_description_displayOrder",
-        "value_integer": 4,
+        "value_boolean": 0,
+        "value_integer": 100,
+        "value_float": 0,
         "e_data_field_reference": "SysModel_description",
         "e_metadata_definition_reference": "displayOrder"
     },

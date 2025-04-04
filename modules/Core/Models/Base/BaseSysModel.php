@@ -35,7 +35,7 @@ class BaseSysModel extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'name', 'model', 'description', 'sys_module_id', 'sys_color_id'
+        'name', 'model', 'sys_module_id', 'sys_color_id', 'icone', 'description'
     ];
 
 

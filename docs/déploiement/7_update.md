@@ -13,6 +13,7 @@
 ````bash
 sudo php artisan db:seed --class=Modules\\Core\\Database\\Seeders\\Base\\BaseSysModuleSeeder
 sudo php artisan db:seed --class=Modules\\PkgWidgets\\Database\\Seeders\\WidgetSeeder
+sudo php artisan db:seed --class=Modules\\PkgWidgets\\Database\\Seeders\\WidgetOperationSeeder
 ````
 
 ### Sur Windows 
@@ -20,4 +21,5 @@ sudo php artisan db:seed --class=Modules\\PkgWidgets\\Database\\Seeders\\WidgetS
 ````bash
 php artisan db:seed --class=Modules\Core\Database\Seeders\Base\BaseSysModuleSeeder
 php artisan db:seed --class=Modules\PkgWidgets\Database\Seeders\WidgetSeeder
+php artisan db:seed --class=Modules\PkgWidgets\Database\Seeders\WidgetOperationSeeder
 ````

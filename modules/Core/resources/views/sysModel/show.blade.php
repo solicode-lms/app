@@ -33,16 +33,20 @@
                                 <p>{{ $itemSysModel->model }}</p>
                             </div>
                             <div class="col-sm-12">
-                                <label for="description">{{ ucfirst(__('Core::sysModel.description')) }}:</label>
-                                <p>{{ $itemSysModel->description }}</p>
-                            </div>
-                            <div class="col-sm-12">
                                 <label for="sys_module_id">{{ ucfirst(__('Core::sysModel.sys_module_id')) }}:</label>
                                 <p>{{ $itemSysModel->sys_module_id }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="sys_color_id">{{ ucfirst(__('Core::sysModel.sys_color_id')) }}:</label>
                                 <p>{{ $itemSysModel->sys_color_id }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="icone">{{ ucfirst(__('Core::sysModel.icone')) }}:</label>
+                                <p>{{ $itemSysModel->icone }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="description">{{ ucfirst(__('Core::sysModel.description')) }}:</label>
+                                <p>{{ $itemSysModel->description }}</p>
                             </div>
                         </div>
                     </div>

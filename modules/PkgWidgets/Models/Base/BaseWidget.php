@@ -14,6 +14,7 @@ use Modules\Core\Models\BaseModel;
 use Modules\Core\Models\SysModel;
 use Modules\PkgWidgets\Models\WidgetType;
 use Modules\PkgWidgets\Models\WidgetOperation;
+use Modules\Core\Models\SysColor;
 use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgWidgets\Models\WidgetUtilisateur;
 
@@ -28,6 +29,12 @@ class BaseWidget extends BaseModel
     public function __construct(array $attributes = []) {
         parent::__construct($attributes); 
         $this->isOwnedByUser =  false;
+        // Colonne dynamique : package
+        $sql = "SELECT sm.name
+                FROM sys_models s
+                JOIN sys_modules sm ON s.sys_module_id = sm.id
+                WHERE s.id = widgets.model_id";
+        static::addDynamicAttribute('package', $sql);
     }
 
     
@@ -37,7 +44,7 @@ class BaseWidget extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'name', 'label', 'model_id', 'type_id', 'operation_id', 'color', 'icon', 'parameters'
+        'name', 'label', 'model_id', 'type_id', 'operation_id', 'color', 'icon', 'sys_color_id', 'parameters'
     ];
     public $manyToMany = [
         'Role' => ['relation' => 'roles' , "foreign_key" => "role_id" ]
@@ -70,6 +77,15 @@ class BaseWidget extends BaseModel
     public function operation(): BelongsTo
     {
         return $this->belongsTo(WidgetOperation::class, 'operation_id', 'id');
+    }
+    /**
+     * Relation BelongsTo pour SysColor.
+     *
+     * @return BelongsTo
+     */
+    public function sysColor(): BelongsTo
+    {
+        return $this->belongsTo(SysColor::class, 'sys_color_id', 'id');
     }
 
     /**

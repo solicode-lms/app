@@ -30,19 +30,21 @@ class BaseSysModelExport implements FromCollection, WithHeadings, ShouldAutoSize
         return [
             'name' => 'name',
             'model' => 'model',
-            'description' => 'description',
             'sys_module_id' => 'sys_module_id',
             'sys_color_id' => 'sys_color_id',
             'reference' => 'reference',
+            'icone' => 'icone',
+            'description' => 'description',
         ];
         }else{
         return [
             'name' => __('Core::sysModel.name'),
             'model' => __('Core::sysModel.model'),
-            'description' => __('Core::sysModel.description'),
             'sys_module_id' => __('Core::sysModel.sys_module_id'),
             'sys_color_id' => __('Core::sysModel.sys_color_id'),
             'reference' => __('Core::msg.reference'),
+            'icone' => __('Core::sysModel.icone'),
+            'description' => __('Core::sysModel.description'),
         ];
 
         }
@@ -55,10 +57,11 @@ class BaseSysModelExport implements FromCollection, WithHeadings, ShouldAutoSize
             return [
                 'name' => $sysModel->name,
                 'model' => $sysModel->model,
-                'description' => $sysModel->description,
                 'sys_module_id' => $sysModel->sys_module_id,
                 'sys_color_id' => $sysModel->sys_color_id,
                 'reference' => $sysModel->reference,
+                'icone' => $sysModel->icone,
+                'description' => $sysModel->description,
             ];
         });
     }

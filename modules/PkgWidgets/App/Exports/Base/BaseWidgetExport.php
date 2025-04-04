@@ -36,6 +36,7 @@ class BaseWidgetExport implements FromCollection, WithHeadings, ShouldAutoSize, 
             'color' => 'color',
             'icon' => 'icon',
             'reference' => 'reference',
+            'sys_color_id' => 'sys_color_id',
             'parameters' => 'parameters',
         ];
         }else{
@@ -48,6 +49,7 @@ class BaseWidgetExport implements FromCollection, WithHeadings, ShouldAutoSize, 
             'color' => __('PkgWidgets::widget.color'),
             'icon' => __('PkgWidgets::widget.icon'),
             'reference' => __('Core::msg.reference'),
+            'sys_color_id' => __('PkgWidgets::widget.sys_color_id'),
             'parameters' => __('PkgWidgets::widget.parameters'),
         ];
 
@@ -67,6 +69,7 @@ class BaseWidgetExport implements FromCollection, WithHeadings, ShouldAutoSize, 
                 'color' => $widget->color,
                 'icon' => $widget->icon,
                 'reference' => $widget->reference,
+                'sys_color_id' => $widget->sys_color_id,
                 'parameters' => $widget->parameters,
             ];
         });

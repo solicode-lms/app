@@ -5,8 +5,8 @@
     <table class="table table-striped text-nowrap">
         <thead>
             <tr>
-                <x-sortable-column field="name" modelname="widget" label="{{ ucfirst(__('PkgWidgets::widget.name')) }}" />
                 <x-sortable-column field="label" modelname="widget" label="{{ ucfirst(__('PkgWidgets::widget.label')) }}" />
+                <x-sortable-column field="package" modelname="widget" label="{{ ucfirst(__('PkgWidgets::widget.package')) }}" />
                 <x-sortable-column field="type_id" modelname="widget" label="{{ ucfirst(__('PkgWidgets::widgetType.singular')) }}" />
                 <x-sortable-column field="roles" modelname="widget" label="{{ ucfirst(__('PkgAutorisation::role.plural')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
@@ -17,19 +17,19 @@
             @foreach ($widgets_data as $widget)
                 <tr id="widget-row-{{$widget->id}}">
                     <td>
-                     <span @if(strlen($widget->name) > 40) 
-                            data-toggle="tooltip" 
-                            title="{{ $widget->name }}" 
-                        @endif>
-                        {{ Str::limit($widget->name, 40) }}
-                    </span>
-                    </td>
-                    <td>
                      <span @if(strlen($widget->label) > 40) 
                             data-toggle="tooltip" 
                             title="{{ $widget->label }}" 
                         @endif>
                         {{ Str::limit($widget->label, 40) }}
+                    </span>
+                    </td>
+                    <td>
+                     <span @if(strlen($widget->package) > 40) 
+                            data-toggle="tooltip" 
+                            title="{{ $widget->package }}" 
+                        @endif>
+                        {{ Str::limit($widget->package, 40) }}
                     </span>
                     </td>
                     <td>

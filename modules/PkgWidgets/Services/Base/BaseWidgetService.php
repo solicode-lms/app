@@ -26,6 +26,7 @@ class BaseWidgetService extends BaseService
         'operation_id',
         'color',
         'icon',
+        'sys_color_id',
         'parameters'
     ];
 

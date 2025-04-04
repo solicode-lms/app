@@ -53,6 +53,10 @@
                                 <p>{{ $itemWidget->icon }}</p>
                             </div>
                             <div class="col-sm-12">
+                                <label for="sys_color_id">{{ ucfirst(__('PkgWidgets::widget.sys_color_id')) }}:</label>
+                                <p>{{ $itemWidget->sys_color_id }}</p>
+                            </div>
+                            <div class="col-sm-12">
                                 <label for="parameters">{{ ucfirst(__('PkgWidgets::widget.parameters')) }}:</label>
                                 <p>{{ $itemWidget->parameters }}</p>
                             </div>

@@ -12,4 +12,5 @@ return [
     'color' => 'Couleur',
     'icon' => 'Icône',
     'parameters' => 'Paramètres',
+    'package' => 'Package',
 ];

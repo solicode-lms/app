@@ -70,6 +70,9 @@
 <!--   SysModule HasMany --> 
 
 
+<!--   Widget HasMany --> 
+
+
 <!--   WorkflowChapitre HasMany --> 
 
 

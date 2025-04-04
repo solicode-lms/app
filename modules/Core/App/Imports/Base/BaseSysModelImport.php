@@ -58,10 +58,11 @@ class BaseSysModelImport implements ToModel, WithHeadingRow
         return new SysModel([
              'name' => $values[0] ?? null,
              'model' => $values[1] ?? null,
-             'description' => $values[2] ?? null,
-             'sys_module_id' => $values[3] ?? null,
-             'sys_color_id' => $values[4] ?? null,
+             'sys_module_id' => $values[2] ?? null,
+             'sys_color_id' => $values[3] ?? null,
              'reference' => $reference,
+             'icone' => $values[5] ?? null,
+             'description' => $values[6] ?? null,
         ]);
 
 

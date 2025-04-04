@@ -52,25 +52,6 @@
   
 
 
-      <div class="form-group col-12 col-md-12">
-          <label for="description">
-            {{ ucfirst(__('Core::sysModel.description')) }}
-            
-          </label>
-                      <textarea rows="" cols=""
-                name="description"
-                class="form-control richText"
-                
-                
-                id="description"
-                placeholder="{{ __('Core::sysModel.description') }}">{{ $itemSysModel ? $itemSysModel->description : old('description') }}</textarea>
-          @error('description')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-
-
       <div class="form-group col-12 col-md-6">
           <label for="sys_module_id">
             {{ ucfirst(__('Core::sysModule.singular')) }}
@@ -123,7 +104,47 @@
   
 
 
+      <div class="form-group col-12 col-md-6">
+          <label for="icone">
+            {{ ucfirst(__('Core::sysModel.icone')) }}
+            
+          </label>
+           <input
+                name="icone"
+                type="input"
+                class="form-control"
+                
+                
+                id="icone"
+                placeholder="{{ __('Core::sysModel.icone') }}"
+                value="{{ $itemSysModel ? $itemSysModel->icone : old('icone') }}">
+          @error('icone')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+
+
 <!--   Widget HasMany --> 
+
+
+      <div class="form-group col-12 col-md-12">
+          <label for="description">
+            {{ ucfirst(__('Core::sysModel.description')) }}
+            
+          </label>
+                      <textarea rows="" cols=""
+                name="description"
+                class="form-control richText"
+                
+                
+                id="description"
+                placeholder="{{ __('Core::sysModel.description') }}">{{ $itemSysModel ? $itemSysModel->description : old('description') }}</textarea>
+          @error('description')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
     </div>
 

@@ -8,6 +8,7 @@
                 <x-sortable-column field="name" modelname="sysModel" label="{{ ucfirst(__('Core::sysModel.name')) }}" />
                 <x-sortable-column field="sys_module_id" modelname="sysModel" label="{{ ucfirst(__('Core::sysModule.singular')) }}" />
                 <x-sortable-column field="sys_color_id" modelname="sysModel" label="{{ ucfirst(__('Core::sysColor.singular')) }}" />
+                <x-sortable-column field="icone" modelname="sysModel" label="{{ ucfirst(__('Core::sysModel.icone')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -37,6 +38,14 @@
                             title="{{ $sysModel->sysColor }}" 
                         @endif>
                         {{ Str::limit($sysModel->sysColor, 50) }}
+                    </span>
+                    </td>
+                    <td>
+                     <span @if(strlen($sysModel->icone) > 40) 
+                            data-toggle="tooltip" 
+                            title="{{ $sysModel->icone }}" 
+                        @endif>
+                        {{ Str::limit($sysModel->icone, 40) }}
                     </span>
                     </td>
                     <td class="text-right">

@@ -13,7 +13,8 @@
     },
     {
         "reference": "Widget_name_displayInTable",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "Widget_name",
         "e_metadata_definition_reference": "displayInTable"
     },
@@ -83,6 +84,7 @@
     {
         "reference": "Widget_type_id_filterable",
         "value_boolean": 1,
+        "value_float": 0,
         "e_data_field_reference": "Widget_type_id",
         "e_metadata_definition_reference": "filterable"
     },
@@ -218,7 +220,8 @@
     },
     {
         "reference": "Widget_color_displayInForm",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "Widget_color",
         "e_metadata_definition_reference": "displayInForm"
     },
@@ -426,13 +429,15 @@
     },
     {
         "reference": "Widget_sys_color_id_displayInTable",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "Widget_sys_color_id",
         "e_metadata_definition_reference": "displayInTable"
     },
     {
         "reference": "Widget_sys_color_id_filterable",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "Widget_sys_color_id",
         "e_metadata_definition_reference": "filterable"
     },
@@ -461,5 +466,24 @@
         },
         "e_data_field_reference": "Widget_sys_color_id",
         "e_metadata_definition_reference": "nature"
+    },
+    {
+        "reference": "Widget-package_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "Widget-package",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "Widget-package_displayOrder",
+        "value_integer": 3,
+        "e_data_field_reference": "Widget-package",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "Widget-package_displayInTable",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "Widget-package",
+        "e_metadata_definition_reference": "displayInTable"
     }
 ]

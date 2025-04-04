@@ -7,6 +7,7 @@ use Modules\PkgWidgets\Services\WidgetService;
 use Modules\PkgAutorisation\Services\RoleService;
 use Modules\Core\Services\SysModelService;
 use Modules\PkgWidgets\Services\WidgetOperationService;
+use Modules\Core\Services\SysColorService;
 use Modules\PkgWidgets\Services\WidgetTypeService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -25,15 +26,17 @@ class BaseWidgetController extends AdminController
     protected $roleService;
     protected $sysModelService;
     protected $widgetOperationService;
+    protected $sysColorService;
     protected $widgetTypeService;
 
-    public function __construct(WidgetService $widgetService, RoleService $roleService, SysModelService $sysModelService, WidgetOperationService $widgetOperationService, WidgetTypeService $widgetTypeService) {
+    public function __construct(WidgetService $widgetService, RoleService $roleService, SysModelService $sysModelService, WidgetOperationService $widgetOperationService, SysColorService $sysColorService, WidgetTypeService $widgetTypeService) {
         parent::__construct();
         $this->service  =  $widgetService;
         $this->widgetService = $widgetService;
         $this->roleService = $roleService;
         $this->sysModelService = $sysModelService;
         $this->widgetOperationService = $widgetOperationService;
+        $this->sysColorService = $sysColorService;
         $this->widgetTypeService = $widgetTypeService;
     }
 
@@ -74,12 +77,13 @@ class BaseWidgetController extends AdminController
         $sysModels = $this->sysModelService->all();
         $widgetTypes = $this->widgetTypeService->all();
         $widgetOperations = $this->widgetOperationService->all();
+        $sysColors = $this->sysColorService->all();
         $roles = $this->roleService->all();
 
         if (request()->ajax()) {
-            return view('PkgWidgets::widget._fields', compact('itemWidget', 'roles', 'sysModels', 'widgetOperations', 'widgetTypes'));
+            return view('PkgWidgets::widget._fields', compact('itemWidget', 'roles', 'sysModels', 'widgetOperations', 'sysColors', 'widgetTypes'));
         }
-        return view('PkgWidgets::widget.create', compact('itemWidget', 'roles', 'sysModels', 'widgetOperations', 'widgetTypes'));
+        return view('PkgWidgets::widget.create', compact('itemWidget', 'roles', 'sysModels', 'widgetOperations', 'sysColors', 'widgetTypes'));
     }
     public function store(WidgetRequest $request) {
         $validatedData = $request->validated();
@@ -115,14 +119,15 @@ class BaseWidgetController extends AdminController
         $sysModels = $this->sysModelService->all();
         $widgetTypes = $this->widgetTypeService->all();
         $widgetOperations = $this->widgetOperationService->all();
+        $sysColors = $this->sysColorService->all();
         $roles = $this->roleService->all();
         
 
         if (request()->ajax()) {
-            return view('PkgWidgets::widget._fields', compact('itemWidget', 'roles', 'sysModels', 'widgetOperations', 'widgetTypes'));
+            return view('PkgWidgets::widget._fields', compact('itemWidget', 'roles', 'sysModels', 'widgetOperations', 'sysColors', 'widgetTypes'));
         }
 
-        return view('PkgWidgets::widget.edit', compact('itemWidget', 'roles', 'sysModels', 'widgetOperations', 'widgetTypes'));
+        return view('PkgWidgets::widget.edit', compact('itemWidget', 'roles', 'sysModels', 'widgetOperations', 'sysColors', 'widgetTypes'));
 
     }
     public function edit(string $id) {
@@ -136,14 +141,15 @@ class BaseWidgetController extends AdminController
         $sysModels = $this->sysModelService->all();
         $widgetTypes = $this->widgetTypeService->all();
         $widgetOperations = $this->widgetOperationService->all();
+        $sysColors = $this->sysColorService->all();
         $roles = $this->roleService->all();
 
 
         if (request()->ajax()) {
-            return view('PkgWidgets::widget._fields', compact('itemWidget', 'roles', 'sysModels', 'widgetOperations', 'widgetTypes'));
+            return view('PkgWidgets::widget._fields', compact('itemWidget', 'roles', 'sysModels', 'widgetOperations', 'sysColors', 'widgetTypes'));
         }
 
-        return view('PkgWidgets::widget.edit', compact('itemWidget', 'roles', 'sysModels', 'widgetOperations', 'widgetTypes'));
+        return view('PkgWidgets::widget.edit', compact('itemWidget', 'roles', 'sysModels', 'widgetOperations', 'sysColors', 'widgetTypes'));
 
     }
     public function update(WidgetRequest $request, string $id) {
