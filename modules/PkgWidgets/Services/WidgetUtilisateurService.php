@@ -47,7 +47,7 @@ class WidgetUtilisateurService extends BaseWidgetUtilisateurService
                 'widget_id' => $widget->id
             ], [
                 'visible' => true,
-                'ordre' => 1,
+                'ordre' => $widget->ordre,
                 'titre' => $widget->name,
                 'sous_titre' => $widget->label
             ]);

@@ -56,9 +56,9 @@ class BaseWidgetUtilisateurImport implements ToModel, WithHeadingRow
 
         // Création d'un nouvel enregistrement
         return new WidgetUtilisateur([
-             'user_id' => $values[0] ?? null,
-             'widget_id' => $values[1] ?? null,
-             'ordre' => $values[2] ?? null,
+             'ordre' => $values[0] ?? null,
+             'user_id' => $values[1] ?? null,
+             'widget_id' => $values[2] ?? null,
              'titre' => $values[3] ?? null,
              'sous_titre' => $values[4] ?? null,
              'visible' => $values[5] ?? null,

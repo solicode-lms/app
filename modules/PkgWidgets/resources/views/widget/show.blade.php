@@ -37,12 +37,12 @@
                                 <p>{{ $itemWidget->label }}</p>
                             </div>
                             <div class="col-sm-12">
-                                <label for="model_id">{{ ucfirst(__('PkgWidgets::widget.model_id')) }}:</label>
-                                <p>{{ $itemWidget->model_id }}</p>
-                            </div>
-                            <div class="col-sm-12">
                                 <label for="type_id">{{ ucfirst(__('PkgWidgets::widget.type_id')) }}:</label>
                                 <p>{{ $itemWidget->type_id }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="model_id">{{ ucfirst(__('PkgWidgets::widget.model_id')) }}:</label>
+                                <p>{{ $itemWidget->model_id }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="operation_id">{{ ucfirst(__('PkgWidgets::widget.operation_id')) }}:</label>

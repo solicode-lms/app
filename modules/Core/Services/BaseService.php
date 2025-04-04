@@ -78,30 +78,45 @@ abstract class BaseService implements ServiceInterface
 
     protected function reorderOrdreColumn(?int $ancienOrdre, int $nouvelOrdre, int $idEnCours = null): void
     {
+        // Si ancien et nouvel ordre sont égaux, pas de traitement
+        if ($ancienOrdre !== null && $nouvelOrdre === $ancienOrdre) {
+            return;
+        }
+    
         $query = $this->model->newQuery();
     
         if ($idEnCours !== null) {
             $query->where('id', '!=', $idEnCours);
         }
     
-        // 🆕 Cas de création avec un ordre spécifique
         if ($ancienOrdre === null) {
+            // ✅ Création dans une position spécifique → décaler tout vers le bas
             $query->where('ordre', '>=', $nouvelOrdre)
-                  ->increment('ordre');
-            return;
-        }
-    
-        // 🔁 Cas de modification d’ordre (déplacement)
-        if ($nouvelOrdre === $ancienOrdre) {
-            return;
-        }
-    
-        if ($nouvelOrdre > $ancienOrdre) {
-            $query->whereBetween('ordre', [$ancienOrdre + 1, $nouvelOrdre])
-                  ->decrement('ordre');
+                  ->orderBy('ordre', 'desc') // ⚠️ Important pour éviter écrasement
+                  ->get()
+                  ->each(function ($item) {
+                      $item->ordre += 1;
+                      $item->save();
+                  });
         } else {
-            $query->whereBetween('ordre', [$nouvelOrdre, $ancienOrdre - 1])
-                  ->increment('ordre');
+            // ✅ Modification d’ordre existant
+            if ($nouvelOrdre > $ancienOrdre) {
+                $query->whereBetween('ordre', [$ancienOrdre + 1, $nouvelOrdre])
+                      ->orderBy('ordre') // ordre croissant
+                      ->get()
+                      ->each(function ($item) {
+                          $item->ordre -= 1;
+                          $item->save();
+                      });
+            } else {
+                $query->whereBetween('ordre', [$nouvelOrdre, $ancienOrdre - 1])
+                      ->orderBy('ordre', 'desc') // ordre décroissant
+                      ->get()
+                      ->each(function ($item) {
+                          $item->ordre += 1;
+                          $item->save();
+                      });
+            }
         }
     }
     

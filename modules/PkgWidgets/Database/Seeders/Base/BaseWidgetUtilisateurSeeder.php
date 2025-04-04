@@ -74,9 +74,9 @@ class BaseWidgetUtilisateurSeeder extends Seeder
             $row = array_combine($headers, $data);
             if ($row) {
                 $widgetUtilisateurData =[
+                    "ordre" => $row["ordre"] ?? null,
                     "user_id" => $row["user_id"] ?? null,
                     "widget_id" => $row["widget_id"] ?? null,
-                    "ordre" => $row["ordre"] ?? null,
                     "titre" => $row["titre"] ?? null,
                     "sous_titre" => $row["sous_titre"] ?? null,
                     "visible" => $row["visible"] ?? null,

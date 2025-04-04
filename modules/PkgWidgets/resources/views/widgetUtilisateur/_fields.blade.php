@@ -11,6 +11,27 @@
     <div class="card-body row">
 
       <div class="form-group col-12 col-md-6">
+          <label for="ordre">
+            {{ ucfirst(__('PkgWidgets::widgetUtilisateur.ordre')) }}
+            
+          </label>
+                      <input
+                name="ordre"
+                type="number"
+                class="form-control"
+                
+                
+                id="ordre"
+                placeholder="{{ __('PkgWidgets::widgetUtilisateur.ordre') }}"
+                value="{{ $itemWidgetUtilisateur ? $itemWidgetUtilisateur->ordre : old('ordre') }}">
+          @error('ordre')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+
+
+      <div class="form-group col-12 col-md-6">
           <label for="sys_module_id">
             {{ ucfirst(__('PkgWidgets::widgetUtilisateur.sys_module_id')) }}
             <span class="text-danger">*</span>
@@ -85,69 +106,6 @@
                 @endforeach
             </select>
           @error('widget_id')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-
-
-      <div class="form-group col-12 col-md-6">
-          <label for="ordre">
-            {{ ucfirst(__('PkgWidgets::widgetUtilisateur.ordre')) }}
-            
-          </label>
-                      <input
-                name="ordre"
-                type="number"
-                class="form-control"
-                
-                
-                id="ordre"
-                placeholder="{{ __('PkgWidgets::widgetUtilisateur.ordre') }}"
-                value="{{ $itemWidgetUtilisateur ? $itemWidgetUtilisateur->ordre : old('ordre') }}">
-          @error('ordre')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-
-
-      <div class="form-group col-12 col-md-6">
-          <label for="titre">
-            {{ ucfirst(__('PkgWidgets::widgetUtilisateur.titre')) }}
-            
-          </label>
-           <input
-                name="titre"
-                type="input"
-                class="form-control"
-                
-                
-                id="titre"
-                placeholder="{{ __('PkgWidgets::widgetUtilisateur.titre') }}"
-                value="{{ $itemWidgetUtilisateur ? $itemWidgetUtilisateur->titre : old('titre') }}">
-          @error('titre')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-
-
-      <div class="form-group col-12 col-md-6">
-          <label for="sous_titre">
-            {{ ucfirst(__('PkgWidgets::widgetUtilisateur.sous_titre')) }}
-            
-          </label>
-           <input
-                name="sous_titre"
-                type="input"
-                class="form-control"
-                
-                
-                id="sous_titre"
-                placeholder="{{ __('PkgWidgets::widgetUtilisateur.sous_titre') }}"
-                value="{{ $itemWidgetUtilisateur ? $itemWidgetUtilisateur->sous_titre : old('sous_titre') }}">
-          @error('sous_titre')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>

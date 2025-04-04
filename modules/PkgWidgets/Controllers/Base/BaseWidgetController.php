@@ -74,8 +74,8 @@ class BaseWidgetController extends AdminController
         $itemWidget = $this->widgetService->createInstance();
         
 
-        $sysModels = $this->sysModelService->all();
         $widgetTypes = $this->widgetTypeService->all();
+        $sysModels = $this->sysModelService->all();
         $widgetOperations = $this->widgetOperationService->all();
         $sysColors = $this->sysColorService->all();
         $roles = $this->roleService->all();
@@ -116,8 +116,8 @@ class BaseWidgetController extends AdminController
         $itemWidget = $this->widgetService->find($id);
 
 
-        $sysModels = $this->sysModelService->all();
         $widgetTypes = $this->widgetTypeService->all();
+        $sysModels = $this->sysModelService->all();
         $widgetOperations = $this->widgetOperationService->all();
         $sysColors = $this->sysColorService->all();
         $roles = $this->roleService->all();
@@ -138,8 +138,8 @@ class BaseWidgetController extends AdminController
         $itemWidget = $this->widgetService->find($id);
 
 
-        $sysModels = $this->sysModelService->all();
         $widgetTypes = $this->widgetTypeService->all();
+        $sysModels = $this->sysModelService->all();
         $widgetOperations = $this->widgetOperationService->all();
         $sysColors = $this->sysColorService->all();
         $roles = $this->roleService->all();

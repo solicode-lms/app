@@ -5,6 +5,7 @@
     <table class="table table-striped text-nowrap">
         <thead>
             <tr>
+                <x-sortable-column field="ordre" modelname="widgetUtilisateur" label="{{ ucfirst(__('PkgWidgets::widgetUtilisateur.ordre')) }}" />
                 <x-sortable-column field="widget_id" modelname="widgetUtilisateur" label="{{ ucfirst(__('PkgWidgets::widget.singular')) }}" />
                 <x-sortable-column field="package" modelname="widgetUtilisateur" label="{{ ucfirst(__('PkgWidgets::widgetUtilisateur.package')) }}" />
                 <x-sortable-column field="type" modelname="widgetUtilisateur" label="{{ ucfirst(__('PkgWidgets::widgetUtilisateur.type')) }}" />
@@ -16,6 +17,14 @@
             @section('widgetUtilisateur-table-tbody')
             @foreach ($widgetUtilisateurs_data as $widgetUtilisateur)
                 <tr id="widgetUtilisateur-row-{{$widgetUtilisateur->id}}">
+                    <td>
+                     <span @if(strlen($widgetUtilisateur->ordre) > 40) 
+                            data-toggle="tooltip" 
+                            title="{{ $widgetUtilisateur->ordre }}" 
+                        @endif>
+                        {{ Str::limit($widgetUtilisateur->ordre, 40) }}
+                    </span>
+                    </td>
                     <td>
                      <span @if(strlen($widgetUtilisateur->widget) > 50) 
                             data-toggle="tooltip" 

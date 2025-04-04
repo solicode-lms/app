@@ -19,9 +19,9 @@ class BaseWidgetUtilisateurService extends BaseService
      * @var array
      */
     protected $fieldsSearchable = [
+        'ordre',
         'user_id',
         'widget_id',
-        'ordre',
         'titre',
         'sous_titre',
         'visible'

@@ -29,9 +29,9 @@ class BaseWidgetUtilisateurRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'ordre' => 'required|integer',
             'user_id' => 'required',
             'widget_id' => 'required',
-            'ordre' => 'required|integer',
             'titre' => 'nullable|string|max:255',
             'sous_titre' => 'nullable|string|max:255',
             'visible' => 'required|boolean'
@@ -46,9 +46,9 @@ class BaseWidgetUtilisateurRequest extends FormRequest
     public function messages(): array
     {
         return [
+            'ordre.required' => __('validation.required', ['attribute' => __('PkgWidgets::WidgetUtilisateur.ordre')]),
             'user_id.required' => __('validation.required', ['attribute' => __('PkgWidgets::WidgetUtilisateur.user_id')]),
             'widget_id.required' => __('validation.required', ['attribute' => __('PkgWidgets::WidgetUtilisateur.widget_id')]),
-            'ordre.required' => __('validation.required', ['attribute' => __('PkgWidgets::WidgetUtilisateur.ordre')]),
             'titre.required' => __('validation.required', ['attribute' => __('PkgWidgets::WidgetUtilisateur.titre')]),
             'titre.max' => __('validation.titreMax'),
             'sous_titre.required' => __('validation.required', ['attribute' => __('PkgWidgets::WidgetUtilisateur.sous_titre')]),

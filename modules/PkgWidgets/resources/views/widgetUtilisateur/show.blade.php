@@ -25,16 +25,16 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="col-sm-12">
+                                <label for="ordre">{{ ucfirst(__('PkgWidgets::widgetUtilisateur.ordre')) }}:</label>
+                                <p>{{ $itemWidgetUtilisateur->ordre }}</p>
+                            </div>
+                            <div class="col-sm-12">
                                 <label for="user_id">{{ ucfirst(__('PkgWidgets::widgetUtilisateur.user_id')) }}:</label>
                                 <p>{{ $itemWidgetUtilisateur->user_id }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="widget_id">{{ ucfirst(__('PkgWidgets::widgetUtilisateur.widget_id')) }}:</label>
                                 <p>{{ $itemWidgetUtilisateur->widget_id }}</p>
-                            </div>
-                            <div class="col-sm-12">
-                                <label for="ordre">{{ ucfirst(__('PkgWidgets::widgetUtilisateur.ordre')) }}:</label>
-                                <p>{{ $itemWidgetUtilisateur->ordre }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="titre">{{ ucfirst(__('PkgWidgets::widgetUtilisateur.titre')) }}:</label>

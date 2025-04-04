@@ -28,18 +28,18 @@ class BaseWidgetUtilisateurExport implements FromCollection, WithHeadings, Shoul
     {
      if($this->format == 'csv'){
         return [
+            'ordre' => 'ordre',
             'user_id' => 'user_id',
             'widget_id' => 'widget_id',
-            'ordre' => 'ordre',
             'titre' => 'titre',
             'sous_titre' => 'sous_titre',
             'visible' => 'visible',
         ];
         }else{
         return [
+            'ordre' => __('PkgWidgets::widgetUtilisateur.ordre'),
             'user_id' => __('PkgWidgets::widgetUtilisateur.user_id'),
             'widget_id' => __('PkgWidgets::widgetUtilisateur.widget_id'),
-            'ordre' => __('PkgWidgets::widgetUtilisateur.ordre'),
             'titre' => __('PkgWidgets::widgetUtilisateur.titre'),
             'sous_titre' => __('PkgWidgets::widgetUtilisateur.sous_titre'),
             'visible' => __('PkgWidgets::widgetUtilisateur.visible'),
@@ -53,9 +53,9 @@ class BaseWidgetUtilisateurExport implements FromCollection, WithHeadings, Shoul
     {
         return $this->data->map(function ($widgetUtilisateur) {
             return [
+                'ordre' => $widgetUtilisateur->ordre,
                 'user_id' => $widgetUtilisateur->user_id,
                 'widget_id' => $widgetUtilisateur->widget_id,
-                'ordre' => $widgetUtilisateur->ordre,
                 'titre' => $widgetUtilisateur->titre,
                 'sous_titre' => $widgetUtilisateur->sous_titre,
                 'visible' => $widgetUtilisateur->visible,

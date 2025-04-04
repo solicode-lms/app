@@ -105,7 +105,9 @@
     },
     {
         "reference": "WidgetUtilisateur_ordre_displayOrder",
-        "value_integer": 4,
+        "value_boolean": 0,
+        "value_integer": 1,
+        "value_float": 0,
         "e_data_field_reference": "WidgetUtilisateur_ordre",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -149,7 +151,8 @@
     },
     {
         "reference": "WidgetUtilisateur_titre_displayInForm",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "WidgetUtilisateur_titre",
         "e_metadata_definition_reference": "displayInForm"
     },
@@ -167,7 +170,8 @@
     },
     {
         "reference": "WidgetUtilisateur_sous_titre_displayInForm",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "WidgetUtilisateur_sous_titre",
         "e_metadata_definition_reference": "displayInForm"
     },
@@ -393,6 +397,13 @@
         "value_boolean": 1,
         "value_float": 0,
         "e_data_field_reference": "WidgetUtilisateur_visible",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "WidgetUtilisateur_ordre_displayInTable",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "WidgetUtilisateur_ordre",
         "e_metadata_definition_reference": "displayInTable"
     }
 ]
