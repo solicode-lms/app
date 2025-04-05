@@ -2,8 +2,8 @@
 
 
 return [
-    'singular' => 'Widget Utilisateur',
-    'plural' => 'Widgets Utilisateurs',
+    'singular' => 'Widget',
+    'plural' => 'Tableau de bord',
     'user_id' => 'Utilisateur',
     'widget_id' => 'Widget',
     'ordre' => 'Ordre',

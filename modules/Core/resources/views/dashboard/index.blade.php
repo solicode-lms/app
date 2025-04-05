@@ -22,25 +22,11 @@
                 <div class="container-fluid">
                     <!-- Overview boxes -->
                     <div class="row">
-                    @foreach ($widgets as $widget)
-                        <!-- Inclure une vue spécifique au type de widget -->
-                        @if($widget->error)
-                            @include('PkgWidgets::widget.types.error', ['widget' => $widget])
-                        @elseif ($widget->type->type == "card")
-                         @include('PkgWidgets::widget.types.' . $widget->type->type, ['widget' => $widget])
-                       @endif
-                    @endforeach
+                  
                     </div>
 
                     <div class="row">
-                        @foreach ($widgets as $widget)
-                            <!-- Inclure une vue spécifique au type de widget -->
-                            @if($widget->error)
-                                @include('PkgWidgets::widget.types.error', ['widget' => $widget])
-                            @elseif ($widget->type->type != "card")
-                             @include('PkgWidgets::widget.types.' . $widget->type->type, ['widget' => $widget])
-                           @endif
-                        @endforeach
+                      
                     </div>
 
                 </div><!-- /.container-fluid -->

@@ -35,33 +35,33 @@ class DashboardController extends AppController
      */
     public function index()
     {
-        $widgetUtilisateurService = new WidgetUtilisateurService();
+    //     $widgetUtilisateurService = new WidgetUtilisateurService();
 
-        $widgetUitlisateurs = $widgetUtilisateurService->getWidgetUtilisateurOfCurrentUser();
-        // Charger tous les widgets configurés avec leurs relations
-        // $widgets = Widget::with(['type', 'model', 'operation'])->get();
+    //     $widgetUitlisateurs = $widgetUtilisateurService->getWidgetUtilisateurOfCurrentUser();
+    //     // Charger tous les widgets configurés avec leurs relations
+    //     // $widgets = Widget::with(['type', 'model', 'operation'])->get();
 
-        $widgets = []; // Initialisation d'un tableau pour stocker les widgets
+    //     $widgets = []; // Initialisation d'un tableau pour stocker les widgets
 
-        // Exécuter la requête de chaque widget et récupérer les données
-        foreach ($widgetUitlisateurs as $widgetUtilisateur) {
-            try {
+    //     // Exécuter la requête de chaque widget et récupérer les données
+    //     foreach ($widgetUitlisateurs as $widgetUtilisateur) {
+    //         try {
                
-                $widget = $this->widgetService->executeWidget($widgetUtilisateur->widget,$widgetUtilisateur);
+    //             $widget = $this->widgetService->executeWidget($widgetUtilisateur->widget,$widgetUtilisateur);
               
-            } catch (\Exception $e) {
-                // Si une erreur survient, capturer l'exception
-                $widget->error = $e->getMessage();
+    //         } catch (\Exception $e) {
+    //             // Si une erreur survient, capturer l'exception
+    //             $widget->error = $e->getMessage();
 
-            }
+    //         }
 
-                // Ajouter le widget à la collection
-    $widgets[] = $widget;
-        }
+    //             // Ajouter le widget à la collection
+    // $widgets[] = $widget;
+    //     }
 
-        // Retourner la vue avec les widgets
+    //     // Retourner la vue avec les widgets
        
-        return view('Core::dashboard.index', compact('widgets')); // Charge la vue `dashboard/index.blade.php`.
+        return view('Core::dashboard.index'); // Charge la vue `dashboard/index.blade.php`.
     }
 
 

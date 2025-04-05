@@ -18,6 +18,8 @@ export default class ConfigCrudManagerHelper extends ConfigHelper {
         this.createUrl = config.createUrl;
         this.showUrl = config.showUrl;
         this.storeUrl = config.storeUrl;
+        this.updateAttributesUrl = config.updateAttributesUrl
+        
         this.deleteUrl = config.deleteUrl;
         this.createTitle = config.create_title;
         this.calculationUrl = config.calculationUrl;

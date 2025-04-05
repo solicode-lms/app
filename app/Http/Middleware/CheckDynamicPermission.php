@@ -5,9 +5,11 @@ use Closure;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Modules\PkgAutorisation\Models\Permission;
+use ReflectionMethod;
 
 class CheckDynamicPermission
 {
+  
     /**
      * Handle an incoming request.
      *
@@ -20,7 +22,13 @@ class CheckDynamicPermission
 
         // Récupérer l'action actuelle (Contrôleur@Méthode)
         $action = $request->route()->getActionName();
+        [$controllerClass, $method] = explode('@', $action);
         [$controller, $method] = explode('@', class_basename($action));
+
+        // 🔍 Vérifier si la méthode a une annotation @DynamicPermissionIgnore
+        if ($this->hasDynamicPermissionIgnoreAnnotation($controllerClass, $method)) {
+            return $next($request);
+        }
 
         // Supprimer "Controller" du nom du contrôleur
         $controller = lcfirst(preg_replace('/Controller$/', '', $controller));
@@ -75,5 +83,19 @@ class CheckDynamicPermission
         }
 
         return false;
+    }
+
+     /**
+     * Vérifie si la méthode du contrôleur possède l'annotation @DynamicPermissionIgnore
+     */
+    protected function hasDynamicPermissionIgnoreAnnotation($controllerClass, $method)
+    {
+        try {
+            $reflection = new ReflectionMethod($controllerClass, $method);
+            $docComment = $reflection->getDocComment();
+            return $docComment && str_contains($docComment, '@DynamicPermissionIgnore');
+        } catch (\ReflectionException $e) {
+            return false;
+        }
     }
 }

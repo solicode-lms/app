@@ -130,5 +130,37 @@ export class EditAction extends Action {
     }
 
  
+
+    /**
+     * Envoie une requête POST pour mettre à jour un champ spécifique (ex: l'ordre d'un widget).
+     * @param {Object} data - Données à envoyer (ex: { id: 5, ordre: 2 }).
+     * @param {Function} onSuccess - Callback appelé après succès.
+     */
+    update_attributes(data, onSuccess) {
+        const url = this.config.updateAttributesUrl 
+        const finalUrl = this.appendParamsToUrl(
+            url,
+            this.viewStateService?.getContextParams?.() || ''
+        );
+
+        $.ajax({
+            url: finalUrl,
+            method: 'POST',
+            data: {
+                ...data,
+                _token: this.config.csrfToken
+            },
+        })
+            .done((response) => {
+                NotificationHandler.show(response.type, response.title, response.message);
+                if (typeof onSuccess === 'function') {
+                    onSuccess(response);
+                }
+            })
+            .fail((xhr) => {
+                AjaxErrorHandler.handleError(xhr, 'Erreur lors de la mise à jour.');
+            });
+    }
+
     
 }

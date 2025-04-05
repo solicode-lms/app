@@ -33,6 +33,8 @@ export class TableUI {
         this.entityAction.init();
         this.handleSorting();
         TableUI.initTooltip();
+        this.initWidgets();
+
     }
 
     
@@ -99,6 +101,51 @@ export class TableUI {
 
         // $('[data-toggle="tooltip"]').tooltip();
       
+    }
+
+    initWidgets(){
+
+        const self = this; // pour conserver `this` dans update
+
+          // Make the dashboard widgets sortable Using jquery UI
+        $('.widgets_container').sortable({
+            placeholder: 'sort-highlight',
+            handle: '.card-header, .nav-tabs, .icon',
+            forcePlaceholderSize: true,
+            zIndex: 999999 ,
+            tolerance: "pointer",
+            update: function (event, ui) {
+                const widgetElement = ui.item;
+                const id = widgetElement.data("id");
+                const newPosition = widgetElement.index() + 1;
+            
+                self.entityEditor.update_attributes(
+                        { id: id, ordre: newPosition },
+                        () => NotificationHandler.showSuccess('Ordre mis à jour.')
+                );
+            }
+        })
+        $('.widgets_container .card-header').css('cursor', 'move')
+
+
+        const widget_remove_buton_selector = `${this.config.dataContainerOutSelector} [data-card-widget="remove"]`
+        EventUtil.bindEvent('click', widget_remove_buton_selector, (e) => {
+            e.preventDefault();
+
+            const $button = $(e.currentTarget); // 🔥 Le vrai bouton cliqué
+            const $widget = $button.closest('.widget');
+            const id = $widget.data('id');
+
+            if (!id) return;
+
+            self.entityEditor.update_attributes(
+                { id: id, visible: 0 },
+                () => {
+                    $widget.fadeOut();
+                    NotificationHandler.showSuccess('Widget masqué avec succès.');
+                }
+            );
+        });
     }
 
 }

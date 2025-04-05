@@ -6,7 +6,7 @@
 <div class="content">
     <div class="container-fluid">
         <!-- Overview boxes -->
-        <div class="row widgets_mini_contrainer">
+        <div class="row widgets_container">
         @foreach ($widgetUtilisateurs_data as $widgetUtilisateur)
             <!-- Inclure une vue spécifique au type de widget -->
             @if($widgetUtilisateur->widget->error)
@@ -17,7 +17,7 @@
         @endforeach
         </div>
 
-        <div class="row widgets_contrainer">
+        <div class="row widgets_container">
             @foreach ($widgetUtilisateurs_data as $widgetUtilisateur)
                 <!-- Inclure une vue spécifique au type de widget -->
                 @if($widgetUtilisateur->widget->error)
@@ -42,37 +42,4 @@
 </div>
 <script>
     window.viewState = @json($viewState);
-</script>
-
-
-<script>
-$(function () {
-
-  // Make the dashboard widgets sortable Using jquery UI
-  $('.widgets_contrainer').sortable({
-    placeholder: 'sort-highlight',
-    handle: '.card-header, .nav-tabs',
-    forcePlaceholderSize: true,
-    zIndex: 999999 ,
-    tolerance: "pointer",
-    update: function () {
-        console.log("modification de widgets position");
-    }
-  })
-  $('.widgets_contrainer .card-header').css('cursor', 'move')
-
-    // Make the dashboard widgets sortable Using jquery UI
-    $('.widgets_mini_contrainer').sortable({
-    placeholder: 'sort-highlight',
-    handle: '.icon',
-    forcePlaceholderSize: true,
-    zIndex: 999999 ,
-    tolerance: "pointer",
-    update: function () {
-        console.log("modification de widgets position");
-    }
-  })
-  $('.widgets_mini_contrainer .icon').css('cursor', 'move')
-
-});
 </script>

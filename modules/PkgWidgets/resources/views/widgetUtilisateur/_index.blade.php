@@ -18,6 +18,7 @@
         editUrl: '{{ route('widgetUtilisateurs.edit',  ['widgetUtilisateur' => ':id']) }}',
         showUrl: '{{ route('widgetUtilisateurs.show',  ['widgetUtilisateur' => ':id']) }}',
         storeUrl: '{{ route('widgetUtilisateurs.store') }}', 
+        updateAttributesUrl: '{{ route('widgetUtilisateurs.updateAttributes') }}', 
         deleteUrl: '{{ route('widgetUtilisateurs.destroy',  ['widgetUtilisateur' => ':id']) }}', 
         calculationUrl:  '{{ route('widgetUtilisateurs.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
