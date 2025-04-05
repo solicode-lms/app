@@ -1,79 +1,35 @@
 
 @section('widgetUtilisateur-widgets')
 
-<h2>Widgets</h2>
-
 @section('widgetUtilisateur-table-tbody')
-@foreach ($widgetUtilisateurs_data as $widgetUtilisateur)
+<!-- Main content -->
+<div class="content">
+    <div class="container-fluid">
+        <!-- Overview boxes -->
+        <div class="row widgets_mini_contrainer">
+        @foreach ($widgetUtilisateurs_data as $widgetUtilisateur)
+            <!-- Inclure une vue spécifique au type de widget -->
+            @if($widgetUtilisateur->widget->error)
+                @include('PkgWidgets::widget.types.error', ['widget' => $widgetUtilisateur->widget])
+            @elseif ($widgetUtilisateur->widget->type->type == "card")
+             @include('PkgWidgets::widget.types.' . $widgetUtilisateur->widget->type->type, ['widget' => $widgetUtilisateur->widget])
+           @endif
+        @endforeach
+        </div>
 
-    <div id="widgetUtilisateur-row-{{$widgetUtilisateur->id}}">
-        <div>
-            <span @if(strlen($widgetUtilisateur->ordre) > 40) 
-                data-toggle="tooltip" 
-                title="{{ $widgetUtilisateur->ordre }}" 
-            @endif>
-            {{ Str::limit($widgetUtilisateur->ordre, 40) }}
-        </span>
+        <div class="row widgets_contrainer">
+            @foreach ($widgetUtilisateurs_data as $widgetUtilisateur)
+                <!-- Inclure une vue spécifique au type de widget -->
+                @if($widgetUtilisateur->widget->error)
+                    @include('PkgWidgets::widget.types.error', ['widget' => $widgetUtilisateur->widget])
+                @elseif ($widgetUtilisateur->widget->type->type != "card")
+                 @include('PkgWidgets::widget.types.' . $widgetUtilisateur->widget->type->type, ['widget' => $widgetUtilisateur->widget])
+               @endif
+            @endforeach
         </div>
-        <div>
-            <span @if(strlen($widgetUtilisateur->widget) > 50) 
-                data-toggle="tooltip" 
-                title="{{ $widgetUtilisateur->widget }}" 
-            @endif>
-            {{ Str::limit($widgetUtilisateur->widget, 50) }}
-        </span>
-        </div>
-        <div>
-            <span @if(strlen($widgetUtilisateur->package) > 40) 
-                data-toggle="tooltip" 
-                title="{{ $widgetUtilisateur->package }}" 
-            @endif>
-            {{ Str::limit($widgetUtilisateur->package, 40) }}
-        </span>
-        </div>
-        <div>
-            <span @if(strlen($widgetUtilisateur->type) > 40) 
-                data-toggle="tooltip" 
-                title="{{ $widgetUtilisateur->type }}" 
-            @endif>
-            {{ Str::limit($widgetUtilisateur->type, 40) }}
-        </span>
-        </div>
-        <div>
-            <span class="{{ $widgetUtilisateur->visible ? 'text-success' : 'text-danger' }}">
-                {{ $widgetUtilisateur->visible ? 'Oui' : 'Non' }}
-            </span>
-        </div>
-        <div class="text-right">
 
-            @can('show-widgetUtilisateur')
-            @can('view', $widgetUtilisateur)
-                <a href="{{ route('widgetUtilisateurs.show', ['widgetUtilisateur' => $widgetUtilisateur->id]) }}" data-id="{{$widgetUtilisateur->id}}" class="btn btn-default btn-sm context-state showEntity">
-                    <i class="far fa-eye"></i>
-                </a>
-            @endcan
-            @endcan
-            @can('edit-widgetUtilisateur')
-            @can('update', $widgetUtilisateur)
-                <a href="{{ route('widgetUtilisateurs.edit', ['widgetUtilisateur' => $widgetUtilisateur->id]) }}" data-id="{{$widgetUtilisateur->id}}" class="btn btn-sm btn-default context-state editEntity">
-                    <i class="fas fa-pen-square"></i>
-                </a>
-            @endcan
-            @endcan
-            @can('destroy-widgetUtilisateur')
-            @can('delete', $widgetUtilisateur)
-                <form class="context-state" action="{{ route('widgetUtilisateurs.destroy',['widgetUtilisateur' => $widgetUtilisateur->id]) }}" method="POST" style="display: inline;">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$widgetUtilisateur->id}}">
-                        <i class="fas fa-trash"></i>
-                    </button>
-                </form>
-            @endcan
-            @endcan
-        </div>
-    </div>
-@endforeach
+    </div><!-- /.container-fluid -->
+</div>
 @show
 @show
 
@@ -86,4 +42,37 @@
 </div>
 <script>
     window.viewState = @json($viewState);
+</script>
+
+
+<script>
+$(function () {
+
+  // Make the dashboard widgets sortable Using jquery UI
+  $('.widgets_contrainer').sortable({
+    placeholder: 'sort-highlight',
+    handle: '.card-header, .nav-tabs',
+    forcePlaceholderSize: true,
+    zIndex: 999999 ,
+    tolerance: "pointer",
+    update: function () {
+        console.log("modification de widgets position");
+    }
+  })
+  $('.widgets_contrainer .card-header').css('cursor', 'move')
+
+    // Make the dashboard widgets sortable Using jquery UI
+    $('.widgets_mini_contrainer').sortable({
+    placeholder: 'sort-highlight',
+    handle: '.icon',
+    forcePlaceholderSize: true,
+    zIndex: 999999 ,
+    tolerance: "pointer",
+    update: function () {
+        console.log("modification de widgets position");
+    }
+  })
+  $('.widgets_mini_contrainer .icon').css('cursor', 'move')
+
+});
 </script>

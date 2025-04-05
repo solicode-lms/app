@@ -106,14 +106,18 @@
                 </div>
                 @show
                 <div id="widgetUtilisateur-data-container" class="data-container">
-                    @if(View::exists("PkgWidgets::widgetUtilisateur._$viewType"))
+                    @if($viewType == "table")
                     @include("PkgWidgets::widgetUtilisateur._$viewType")
-                    @else
-                        <div class="alert alert-warning">Vue non disponible pour le type : {{ $viewType }}</div>
                     @endif
                 </div>
             </div>
         </div>
+    </section>
+    
+    <section id="widgetUtilisateur-data-container-out" >
+        @if($viewType == "widgets")
+        @include("PkgWidgets::widgetUtilisateur._$viewType")
+        @endif
     </section>
     @show
 </div>

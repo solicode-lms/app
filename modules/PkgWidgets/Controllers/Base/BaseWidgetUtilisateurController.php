@@ -37,9 +37,16 @@ class BaseWidgetUtilisateurController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('widgetUtilisateur.index');
-        $viewType = $this->viewState->get('view_type', 'table');
 
+        // TODO: ajouter MetaData pour détermine le type view par défaut
+        $this->viewState->init('view_type', 'widgets');
+
+        $viewType = $this->viewState->get('view_type', 'table');
+        if($viewType == "widgets"){
+            $this->viewState->set("filter.widgetUtilisateur.visible",1);
+        }
         
+
      
 
 
@@ -63,9 +70,7 @@ class BaseWidgetUtilisateurController extends AdminController
             $request->except(['widgetUtilisateurs_search', 'page', 'sort'])
         );
 
-        if($viewType == "widgets"){
-            $widgetUtilisateurs_params["visible"] = true;
-        }
+       
 
         // Paginer les widgetUtilisateurs
         $widgetUtilisateurs_data = $this->widgetUtilisateurService->paginate($widgetUtilisateurs_params);

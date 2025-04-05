@@ -27,6 +27,7 @@ export class IndexViewSwitcherAction extends Action {
             this.viewState.setVariable("view_type",selectedType)
             this.highlightActiveView(selectedType);
             this.tableUI.entityLoader.loadEntities(1); // Recharge la liste
+            this.tableUI.indexUI.filterUI.init();
         });
     }
 

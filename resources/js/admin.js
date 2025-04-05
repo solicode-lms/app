@@ -101,3 +101,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 
+
+$('.widget').sortable({
+    placeholder: 'sort-highlight',
+    handle: '.handle',
+    forcePlaceholderSize: true,
+    zIndex: 999999
+})
+

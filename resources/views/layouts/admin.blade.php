@@ -6,11 +6,16 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title')</title>
     <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('vendor/jquery-ui/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('vendor/admin-lte/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('vendor/select2/js/select2.full.min.js') }}"></script>
     <script src="{{ asset('vendor/summernote/summernote-bs4.min.js') }}"></script>
     <script src="{{ asset('vendor/admin-lte/js/adminlte.min.js') }}"></script>
+
+    <link rel="stylesheet" href="{{ asset('vendor/jquery-ui/jquery-ui.min.css') }}">
+
     <!-- iziModal CSS -->
+    {{-- //TODO télécharger iziModal dans vendor --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izimodal/1.6.1/css/iziModal.min.css">
     <!-- iziModal JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/izimodal/1.6.1/js/iziModal.min.js"></script>

@@ -59,10 +59,31 @@ class WidgetUtilisateurService extends BaseWidgetUtilisateurService
     public function paginate(array $params = [], int $perPage = 0, array $columns = ['*']): LengthAwarePaginator
     {
         $user = Auth::user();
+    
+        // Instancier le service une seule fois
+        $widgetService = new WidgetService();
+    
+        // Synchroniser les widgets de l’utilisateur
         $this->syncWidgetsFromRoles($user->id);
-
-        return parent::paginate($params,$perPage,$columns);
+    
+        // Paginer normalement
+        $results = parent::paginate($params, $perPage, $columns);
+    
+        // Appliquer executeWidget sur chaque widgetUtilisateur
+        $results->getCollection()->transform(function ($widgetUtilisateur) use ($widgetService) {
+            if ($widgetUtilisateur->widget) {
+                $widgetUtilisateur->widget = $widgetService->executeWidget(
+                    $widgetUtilisateur->widget,
+                    $widgetUtilisateur
+                );
+            }
+            return $widgetUtilisateur;
+        });
+    
+        return $results;
     }
+    
+    
 
     /**
      * Synchronise les widgets utilisateur à partir des rôles de l'utilisateur.

@@ -49,8 +49,16 @@ export class LoadListAction extends BaseAction {
         // Requête AJAX pour charger les données
         $.get(indexUrl)
             .done((html) => {
-                // Mettre à jour le conteneur avec les nouvelles données
-                $(this.config.tableSelector).html(html);
+                // TODO : à mettre dans this.config
+                const view_type = this.config.viewStateService.getVariable("view_type") || "table";
+                if(view_type == "widgets"){
+                    $(this.config.dataContainerSelector).html("");
+                    $(this.config.dataContainerOutSelector).html(html);
+                }else{
+                    $(this.config.dataContainerSelector).html(html);
+                    $(this.config.dataContainerOutSelector).html("");
+                }
+               
                 this.executeScripts(html);
                 this.tableUI.init();
                 this.tableUI.indexUI.filterUI.init();

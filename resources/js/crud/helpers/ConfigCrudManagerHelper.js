@@ -25,6 +25,7 @@ export default class ConfigCrudManagerHelper extends ConfigHelper {
         this.searchInputSelector = `${this.crudSelector} .crud-search-input`;
         this.paginationSelector = `${this.crudSelector} .pagination`;
         this.dataContainerSelector = `${this.tableSelector}`;
+        this.dataContainerOutSelector = `${this.tableSelector}-out`;
         this.filterIconSelector = `${this.filterFormSelector} .filter-icon`;
         this.sortableColumnSelector = `${this.tableSelector} .sortable-column`;
     }
