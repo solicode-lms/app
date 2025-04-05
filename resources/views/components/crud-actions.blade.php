@@ -8,10 +8,15 @@
     @endcan
     @endcan
 
+
+    
+
+      
     <div class="dropdown">
         <button class="btn btn-default btn-sm dropdown-toggle" type="button" id="exportDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-download"></i>
         </button>
+
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="exportDropdown">
           
             @can($importPermission ?? '')
@@ -48,4 +53,23 @@
             @endcan
         </div>
     </div>
+
+
+    <div class="dropdown">
+        <button class="btn btn-default btn-sm dropdown-toggle" type="button" id="exportDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-eye"></i> Vue
+        </button>
+    
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="exportDropdown">
+            <button class="dropdown-item view-switch-option" data-view-type="table">
+                🗂️ Vue Tableau
+            </button>
+            <button class="dropdown-item view-switch-option" data-view-type="widgets">
+                📊 Vue Widgets
+            </button>
+        </div>
+    </div>
+    
+
+
 </div>

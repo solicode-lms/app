@@ -6,6 +6,7 @@ import { EditAction } from '../actions/EditAction';
 import { DeleteAction } from '../actions/DeleteAction';
 import EventUtil from './../utils/EventUtil';
 import { EntityAction } from './../actions/EntityAction';
+import { IndexViewSwitcherAction } from "../actions/IndexViewSwitcherAction";
 
 export class TableUI {
     constructor(config, indexUI) {
@@ -20,10 +21,11 @@ export class TableUI {
         this.entityDeleter = new DeleteAction(config,this);
         this.entityLoader = new LoadListAction(config,this);
         this.entityAction = new EntityAction(config,this);
+        this.viewSwitcherAction = new IndexViewSwitcherAction(config, this);
     }
 
     init(){
-
+        this.viewSwitcherAction.init();
         this.entityEditor.init();
         this.entityCreator.init(); 
         this.entityDeleter.init();

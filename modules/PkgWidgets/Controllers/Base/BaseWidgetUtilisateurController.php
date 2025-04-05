@@ -65,9 +65,16 @@ class BaseWidgetUtilisateurController extends AdminController
         $this->viewState->set('stats.widgetUtilisateur.stats'  , $widgetUtilisateurs_stats);
         $widgetUtilisateurs_filters = $this->widgetUtilisateurService->getFieldsFilterable();
         $widgetUtilisateur_instance =  $this->widgetUtilisateurService->createInstance();
+        
+        $viewType = $this->viewState->get('view_type', 'table');
+        $partialViewName = match($viewType) {
+            'widgets' => 'PkgWidgets::widgetUtilisateur._widgets',
+            default   => 'PkgWidgets::widgetUtilisateur._table',
+        };
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgWidgets::widgetUtilisateur._table', compact('widgetUtilisateurs_data', 'widgetUtilisateurs_stats', 'widgetUtilisateurs_filters','widgetUtilisateur_instance'))->render();
+            return view($partialViewName, compact('widgetUtilisateurs_data', 'widgetUtilisateurs_stats', 'widgetUtilisateurs_filters','widgetUtilisateur_instance'))->render();
         }
 
         return view('PkgWidgets::widgetUtilisateur.index', compact('widgetUtilisateurs_data', 'widgetUtilisateurs_stats', 'widgetUtilisateurs_filters','widgetUtilisateur_instance'));
