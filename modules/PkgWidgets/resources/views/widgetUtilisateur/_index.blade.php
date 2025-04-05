@@ -27,6 +27,7 @@
     });
 </script>
 
+
 <div id="widgetUtilisateur-crud" class="crud">
     @section('widgetUtilisateur-crud-header')
     @php
@@ -42,9 +43,11 @@
             ['label' => $titre]
         ]"
     />
+
     @show
     @section('widgetUtilisateur-crud-table')
     <section id="widgetUtilisateur-crud-table" class="content crud-table">
+      
         <div class="container-fluid">
             <div class="card card-outline card-info " id="card_crud">
                 @section('widgetUtilisateur-crud-stats-bar')
@@ -73,6 +76,7 @@
                         />
                         @endcan
                     </div>
+                 
                 </div>
                 @show
                 @section('widgetUtilisateur-crud-filters')
@@ -101,6 +105,7 @@
                                 id="widgetUtilisateurs_search"
                                 placeholder="Recherche ..."
                             />
+                           
                         </div>
                         @show
                     </form>
@@ -122,3 +127,33 @@
     </section>
     @show
 </div>
+
+<script>
+    $(document).ready(function () {
+        const $btn = $('#toggle-card-crud');
+        const $card = $('#card_crud');
+
+        // Cacher par défaut uniquement le contenu du header secondaire (filtres, stats, etc.)
+        const $contentToToggle = $card.find('.card-header:not(:first)');
+
+        // Cacher au chargement
+        $contentToToggle.hide();
+        $btn.attr('data-visible', '0');
+        $btn.html('<i class="fas fa-filter"></i>');
+
+        // Toggle au clic
+        $btn.on('click', function () {
+            const isVisible = $btn.attr('data-visible') === '1';
+
+            if (isVisible) {
+                $contentToToggle.slideUp();
+                $btn.attr('data-visible', '0');
+                $btn.html('<i class="fas fa-filter"></i>');
+            } else {
+                $contentToToggle.slideDown();
+                $btn.attr('data-visible', '1');
+                $btn.html('<i class="fas fa-filter"></i>');
+            }
+        });
+    });
+</script>

@@ -12,7 +12,7 @@
     
 
       
-    <div class="dropdown">
+    <div class="dropdown mr-2">
         <button class="btn btn-default btn-sm dropdown-toggle" type="button" id="exportDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-download"></i>
         </button>
@@ -55,21 +55,24 @@
     </div>
 
 
-    <div class="dropdown">
+    <div class="dropdown mr-2">
         <button class="btn btn-default btn-sm dropdown-toggle" type="button" id="exportDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-eye"></i> Vue
         </button>
     
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="exportDropdown">
             <button class="dropdown-item view-switch-option" data-view-type="table">
-                🗂️ Vue Tableau
+                <i class="fas fa-table"></i> Vue Tableau
             </button>
             <button class="dropdown-item view-switch-option" data-view-type="widgets">
-                📊 Vue Widgets
+                <i class="fas fa-chart-pie"></i> Vue Widgets
             </button>
         </div>
     </div>
     
+    <button id="toggle-card-crud" class="btn btn-sm btn-outline-info ml-2" data-visible="1">
+        <i class="fas fa-filter"></i> 
+    </button>
 
 
 </div>
