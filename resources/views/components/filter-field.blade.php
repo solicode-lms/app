@@ -1,4 +1,4 @@
-<div class="col-md-3 mb-3">
+<div class="filter-field col-md-3 mb-3">
     @switch($type)
         @case('String')
             <input type="text" 
@@ -8,7 +8,13 @@
                    value="{{ request($field) }}" 
                    placeholder="{{ $placeholder ?? ucfirst(str_replace('_', ' ', $field)) }}">
             @break
-
+            @case('Boolean')
+            <select id="{{ $field }}" name="{{ $field }}"  data-label="{{$label}}"   class="form-select form-control form-control-sm select2" >
+                <option value="">-- Tous --</option>
+                <option value="1" {{ request($field) === '1' ? 'selected' : '' }}>Oui</option>
+                <option value="0" {{ request($field) === '0' ? 'selected' : '' }}>Non</option>
+            </select>
+        @break
         @case('Date')
             <input type="date" 
                    id="{{ $field }}" 

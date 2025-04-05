@@ -59,6 +59,9 @@ class BaseWidgetUtilisateurService extends BaseService
         if (!array_key_exists('widget_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgWidgets::widget.plural"), 'widget_id', \Modules\PkgWidgets\Models\Widget::class, 'name');
         }
+        if (!array_key_exists('visible', $scopeVariables)) {
+        $this->fieldsFilterable[] = ['field' => 'visible', 'type' => 'Boolean', 'label' => 'visible'];
+        }
     }
 
     /**

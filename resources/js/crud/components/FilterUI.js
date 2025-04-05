@@ -33,10 +33,19 @@ export class FilterUI {
      * @returns {Object} - Un objet contenant les données du formulaire.
      */
     getFormData(withEmpty = false) {
+
         const form = $(this.config.filterFormSelector);
         const formData = {};
-
+        
+        // serializeArray() récupère tous les champs du formulaire sous forme [{ name, value }]
         const dataArray = form.serializeArray();
+        
+        // ✅ On construit formData : si un champ a plusieurs entrées (ex: hidden + checkbox), seule la dernière est conservée
+        dataArray.forEach(({ name, value }) => {
+            formData[name] = value;
+        });
+       
+        
         // Parcourir les champs du formulaire
         form.serializeArray().forEach((field) => {
             const value = field.value.trim(); // Supprimer les espaces inutiles
@@ -140,9 +149,12 @@ export class FilterUI {
     
         // Appliquer les valeurs des filtres et masquer si nécessaire
         Object.keys(filterData).forEach((key) => {
-            const filterElement = document.querySelector(`${this.config.filterFormSelector} [name="${key}"]`);
+            const filterElement = document.querySelector(`${this.config.filterFormSelector} [name="${key}"]:not([data-filter-ignore])`);
             if (filterElement) {
-                    if (filterElement.tagName === "INPUT" || filterElement.tagName === "TEXTAREA") {
+                    if (filterElement.type === "checkbox") {
+                    // Si la valeur est "1", on coche la case, sinon on décoche
+                    filterElement.checked = filterData[key] === "1" || filterData[key] === 1 || filterData[key] === true;
+                    } else if (filterElement.tagName === "INPUT" || filterElement.tagName === "TEXTAREA") {
                         filterElement.value = filterData[key];
                     } else if (filterElement.tagName === "SELECT") {
                         filterElement.value = filterData[key];

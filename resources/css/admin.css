@@ -240,3 +240,22 @@
     border: 1px solid #000;
     margin-right: 10px;
 }
+
+/* Filter  */
+
+
+.filter-field input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    margin-right: 8px;
+    cursor: pointer;
+    vertical-align: middle;
+    display: inline-block;
+}
+
+.filter-field .check-label {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 14px;
+    margin-bottom: 0;
+}

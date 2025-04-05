@@ -405,5 +405,12 @@
         "value_float": 0,
         "e_data_field_reference": "WidgetUtilisateur_ordre",
         "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "WidgetUtilisateur_visible_filterable",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "WidgetUtilisateur_visible",
+        "e_metadata_definition_reference": "filterable"
     }
 ]
