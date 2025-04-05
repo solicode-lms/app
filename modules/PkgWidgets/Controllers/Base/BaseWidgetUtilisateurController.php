@@ -1,5 +1,5 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
+// view_type
 
 
 namespace Modules\PkgWidgets\Controllers\Base;
@@ -37,6 +37,12 @@ class BaseWidgetUtilisateurController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('widgetUtilisateur.index');
+        $viewType = $this->viewState->get('view_type', 'table');
+
+        
+     
+
+
         // ownedByUser
         if(Auth::user()->hasRole('formateur') && $this->viewState->get('scope.widgetUtilisateur.user_id') == null){
            $this->viewState->init('scope.widgetUtilisateur.user_id'  , $this->sessionState->get('user_id'));
@@ -57,6 +63,10 @@ class BaseWidgetUtilisateurController extends AdminController
             $request->except(['widgetUtilisateurs_search', 'page', 'sort'])
         );
 
+        if($viewType == "widgets"){
+            $widgetUtilisateurs_params["visible"] = true;
+        }
+
         // Paginer les widgetUtilisateurs
         $widgetUtilisateurs_data = $this->widgetUtilisateurService->paginate($widgetUtilisateurs_params);
 
@@ -66,7 +76,7 @@ class BaseWidgetUtilisateurController extends AdminController
         $widgetUtilisateurs_filters = $this->widgetUtilisateurService->getFieldsFilterable();
         $widgetUtilisateur_instance =  $this->widgetUtilisateurService->createInstance();
         
-        $viewType = $this->viewState->get('view_type', 'table');
+       
         $partialViewName = match($viewType) {
             'widgets' => 'PkgWidgets::widgetUtilisateur._widgets',
             default   => 'PkgWidgets::widgetUtilisateur._table',
@@ -77,7 +87,7 @@ class BaseWidgetUtilisateurController extends AdminController
             return view($partialViewName, compact('widgetUtilisateurs_data', 'widgetUtilisateurs_stats', 'widgetUtilisateurs_filters','widgetUtilisateur_instance'))->render();
         }
 
-        return view('PkgWidgets::widgetUtilisateur.index', compact('widgetUtilisateurs_data', 'widgetUtilisateurs_stats', 'widgetUtilisateurs_filters','widgetUtilisateur_instance'));
+        return view('PkgWidgets::widgetUtilisateur.index', compact('viewType','widgetUtilisateurs_data', 'widgetUtilisateurs_stats', 'widgetUtilisateurs_filters','widgetUtilisateur_instance'));
     }
     public function create() {
         // ownedByUser

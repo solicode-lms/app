@@ -1,4 +1,4 @@
-{{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
+{{-- view_type --}}
 
 
 <script>
@@ -106,7 +106,11 @@
                 </div>
                 @show
                 <div id="widgetUtilisateur-data-container" class="data-container">
-                    @include('PkgWidgets::widgetUtilisateur._table')
+                    @if(View::exists("PkgWidgets::widgetUtilisateur._$viewType"))
+                    @include("PkgWidgets::widgetUtilisateur._$viewType")
+                    @else
+                        <div class="alert alert-warning">Vue non disponible pour le type : {{ $viewType }}</div>
+                    @endif
                 </div>
             </div>
         </div>
