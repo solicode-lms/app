@@ -1,5 +1,5 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
+// Ce fichier est maintenu par ESSARRAJ
 
 
 
@@ -105,5 +105,20 @@ class BaseWidgetUtilisateurService extends BaseService
         ];
     }
 
+    public function getViewTypes(){
+        $viewTypes = [
+            [
+                'type' => 'table',
+                'label' => 'Vue Tableau',
+                'icon'  => 'fas fa-table',
+            ],
+            [
+                'type' => 'widgets',
+                'label' => 'Vue Widgets',
+                'icon'  => 'fas fa-th-large',
+            ],
+        ];
+        return $viewTypes;
+    }
 
 }

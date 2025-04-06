@@ -58,12 +58,11 @@
         </button>
     
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="exportDropdown">
-            <button class="dropdown-item view-switch-option" data-view-type="table">
-                <i class="fas fa-table"></i> Vue Tableau
-            </button>
-            <button class="dropdown-item view-switch-option" data-view-type="widgets">
-                <i class="fas fa-chart-pie"></i> Vue Widgets
-            </button>
+            @foreach ($viewTypes as $type)
+                <button class="dropdown-item view-switch-option" data-view-type="{{ $type['type'] }}">
+                    <i class="{{ $type['icon'] }} mr-2"></i> {{ $type['label'] }}
+                </button>
+            @endforeach
         </div>
     </div>
     

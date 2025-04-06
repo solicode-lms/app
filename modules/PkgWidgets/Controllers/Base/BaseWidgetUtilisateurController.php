@@ -1,5 +1,5 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
+// Ce fichier est maintenu par ESSARRAJ
 
 
 namespace Modules\PkgWidgets\Controllers\Base;
@@ -41,6 +41,8 @@ class BaseWidgetUtilisateurController extends AdminController
         // Ajouter le view_type par défaut 
         $this->viewState->init('view_type', 'widgets');
         $viewType = $this->viewState->get('view_type', 'table');
+        $viewTypes = $this->getService()->getViewTypes();
+
         // If view_type = widget : ajouter le filtre : visible = true
         if($viewType == "widgets"){
             $this->viewState->set("filter.widgetUtilisateur.visible",1);
@@ -82,10 +84,10 @@ class BaseWidgetUtilisateurController extends AdminController
         
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($partialViewName, compact('widgetUtilisateurs_data', 'widgetUtilisateurs_stats', 'widgetUtilisateurs_filters','widgetUtilisateur_instance'))->render();
+            return view($partialViewName, compact('viewTypes','widgetUtilisateurs_data', 'widgetUtilisateurs_stats', 'widgetUtilisateurs_filters','widgetUtilisateur_instance'))->render();
         }
 
-        return view('PkgWidgets::widgetUtilisateur.index', compact('viewType','widgetUtilisateurs_data', 'widgetUtilisateurs_stats', 'widgetUtilisateurs_filters','widgetUtilisateur_instance'));
+        return view('PkgWidgets::widgetUtilisateur.index', compact('viewTypes','viewType','widgetUtilisateurs_data', 'widgetUtilisateurs_stats', 'widgetUtilisateurs_filters','widgetUtilisateur_instance'));
     }
     public function create() {
         // ownedByUser

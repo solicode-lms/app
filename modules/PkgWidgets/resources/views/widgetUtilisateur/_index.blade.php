@@ -59,10 +59,8 @@
                             :stats="$widgetUtilisateurs_stats"
                         />
                     </div>
+
                     <div class="col-sm-4">
-                        @php
-                            $view_types = ["table","widgets"];
-                        @endphp
                         @canany(['create-widgetUtilisateur','import-widgetUtilisateur','export-widgetUtilisateur'])
                         <x-crud-actions
                             :instanceItem="$widgetUtilisateur_instance"
@@ -76,7 +74,7 @@
                             :exportXlsxRoute="route('widgetUtilisateurs.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('widgetUtilisateurs.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
-                            :view_types="$view_types"
+                            :viewTypes="$viewTypes"
                         />
                         @endcan
                     </div>
