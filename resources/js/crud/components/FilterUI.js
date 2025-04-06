@@ -16,6 +16,7 @@ export class FilterUI {
 
     init() {
         this.config.init();
+        this.initFilterToogle();
         this.handleFormInput(); // Gérer les entrées dans le formulaire (recherche + filtres)
         this.adapterPourContext(); // Masquer les filtres dynamiquement selon le contexte
         this.initializeFilterResetHandler();
@@ -244,6 +245,36 @@ initStats() {
         .join("");
 }
 
+
+initFilterToogle(){
+
+    // TODO : Généralisation , 
+    const $btn = $('#toggle-card-crud');
+    const $card = $('#card_crud');
+
+    // Cacher par défaut uniquement le contenu du header secondaire (filtres, stats, etc.)
+    const $contentToToggle = $card.find('.card-header:not(:first)');
+
+    // Cacher au chargement
+    $contentToToggle.hide();
+    $btn.attr('data-visible', '0');
+    $btn.html('<i class="fas fa-filter"></i>');
+
+    // Toggle au clic
+    $btn.on('click', function () {
+        const isVisible = $btn.attr('data-visible') === '1';
+
+        if (isVisible) {
+            $contentToToggle.slideUp();
+            $btn.attr('data-visible', '0');
+            $btn.html('<i class="fas fa-filter"></i>');
+        } else {
+            $contentToToggle.slideDown();
+            $btn.attr('data-visible', '1');
+            $btn.html('<i class="fas fa-filter"></i>');
+        }
+    });
+}
 
 
 
