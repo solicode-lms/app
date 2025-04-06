@@ -47,8 +47,4 @@ class WidgetUtilisateurController extends BaseWidgetUtilisateurController
         );
     }
 
-    
-    
-
-
 }
