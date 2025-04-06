@@ -45,7 +45,6 @@ class BaseWidgetController extends AdminController
         $this->viewState->setContextKeyIfEmpty('widget.index');
         
         $viewType = $this->viewState->get('view_type', 'table');
-        $viewTypes = $this->getService()->getViewTypes();
         
 
 
@@ -57,16 +56,9 @@ class BaseWidgetController extends AdminController
             $request->except(['widgets_search', 'page', 'sort'])
         );
 
-        // Paginer les widgets
-        $widgets_data = $this->widgetService->paginate($widgets_params);
-
-        // Récupérer les statistiques et les champs filtrables
-        $widgets_stats = $this->widgetService->getwidgetStats();
-        $this->viewState->set('stats.widget.stats'  , $widgets_stats);
-        $widgets_filters = $this->widgetService->getFieldsFilterable();
-        $widget_instance =  $this->widgetService->createInstance();
-        
-        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
+        // prepareDataForIndexView
+        $tcView = $this->widgetService->prepareDataForIndexView($widgets_params, $viewType);
+        extract($tcView); // Toutes les variables sont injectées automatiquement
 
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {

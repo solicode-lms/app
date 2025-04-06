@@ -31,7 +31,6 @@ class BaseWidgetTypeController extends AdminController
         $this->viewState->setContextKeyIfEmpty('widgetType.index');
         
         $viewType = $this->viewState->get('view_type', 'table');
-        $viewTypes = $this->getService()->getViewTypes();
         
 
 
@@ -43,16 +42,9 @@ class BaseWidgetTypeController extends AdminController
             $request->except(['widgetTypes_search', 'page', 'sort'])
         );
 
-        // Paginer les widgetTypes
-        $widgetTypes_data = $this->widgetTypeService->paginate($widgetTypes_params);
-
-        // Récupérer les statistiques et les champs filtrables
-        $widgetTypes_stats = $this->widgetTypeService->getwidgetTypeStats();
-        $this->viewState->set('stats.widgetType.stats'  , $widgetTypes_stats);
-        $widgetTypes_filters = $this->widgetTypeService->getFieldsFilterable();
-        $widgetType_instance =  $this->widgetTypeService->createInstance();
-        
-        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
+        // prepareDataForIndexView
+        $tcView = $this->widgetTypeService->prepareDataForIndexView($widgetTypes_params, $viewType);
+        extract($tcView); // Toutes les variables sont injectées automatiquement
 
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
@@ -134,13 +126,9 @@ class BaseWidgetTypeController extends AdminController
 
         $this->viewState->set('scope.widget.type_id', $id);
         
-
         $widgetService =  new WidgetService();
-        $widgets_data =  $widgetService->paginate();
-        $widgets_stats = $widgetService->getwidgetStats();
-        $this->viewState->set('stats.widget.stats'  , $widgets_stats);
-        $widgets_filters = $widgetService->getFieldsFilterable();
-        $widget_instance =  $widgetService->createInstance();
+        $widgets_view_data = $widgetService->prepareDataForIndexView();
+        extract( $widgets_view_data); 
 
         if (request()->ajax()) {
             return view('PkgWidgets::widgetType._edit', compact('itemWidgetType', 'widgets_data', 'widgets_stats', 'widgets_filters', 'widget_instance'));

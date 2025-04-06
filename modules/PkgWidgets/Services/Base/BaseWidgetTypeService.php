@@ -105,4 +105,21 @@ class BaseWidgetTypeService extends BaseService
         };
     }
 
+    public function prepareDataForIndexView(array $params = [], ?string $viewType = null): array
+    {
+        $data = $this->paginate($params);
+        $stats = $this->getwidgetTypeStats();
+        $this->viewState->set('stats.widgetType.stats'  , $stats);
+
+        return [
+            'widgetTypes_data' =>$data,
+            'widgetTypes_stats' => $stats,
+            'widgetTypes_filters' => $this->getFieldsFilterable(),
+            'widgetType_instance' => $this->createInstance(),
+            'viewType' => $viewType ?? 'table',
+            'partialViewName' => $this->getPartialViewName($viewType ?? 'table'),
+            'viewTypes' => $this->getViewTypes(),
+        ];
+    }
+
 }

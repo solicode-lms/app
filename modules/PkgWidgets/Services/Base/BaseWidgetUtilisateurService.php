@@ -1,5 +1,5 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
+// Ce fichier est maintenu par ESSARRAJ
 
 
 
@@ -138,20 +138,37 @@ class BaseWidgetUtilisateurService extends BaseService
         };
     }
 
-    public function prepareDataForIndexView(array $params = [], ?string $viewType = null): array
+    public function prepareDataForIndexView(array $params = []): array
     {
-        $data = $this->paginate($params);
-        $stats = $this->getwidgetUtilisateurStats();
-        $this->viewState->set('stats.widgetUtilisateur.stats'  , $stats);
-
+        // Définir le type de vue par défaut
+        $default_view_type = 'widgets';
+        $this->viewState->init('view_type', $default_view_type);
+        $viewType = $this->viewState->get('view_type', $default_view_type);
+    
+        // Récupération des données
+        $widgetUtilisateurs_data = $this->paginate($params);
+        $widgetUtilisateurs_stats = $this->getwidgetUtilisateurStats();
+        $widgetUtilisateurs_filters = $this->getFieldsFilterable();
+        $widgetUtilisateur_instance = $this->createInstance();
+        $viewTypes = $this->getViewTypes();
+        $partialViewName = $this->getPartialViewName($viewType);
+    
+        // Enregistrer les stats dans le ViewState
+        $this->viewState->set('stats.widgetUtilisateur.stats', $widgetUtilisateurs_stats);
+    
+        // Préparer les variables à injecter dans compact()
+        $compact_value = compact(
+            'viewTypes',
+            'viewType',
+            'widgetUtilisateurs_data',
+            'widgetUtilisateurs_stats',
+            'widgetUtilisateurs_filters',
+            'widgetUtilisateur_instance'
+        );
+    
         return [
-            'widgetUtilisateurs_data' =>$data,
-            'widgetUtilisateurs_stats' => $stats,
-            'widgetUtilisateurs_filters' => $this->getFieldsFilterable(),
-            'widgetUtilisateur_instance' => $this->createInstance(),
-            'viewType' => $viewType ?? 'table',
-            'partialViewName' => $this->getPartialViewName($viewType ?? 'table'),
-            'viewTypes' => $this->getViewTypes(),
+            'partialViewName' => $partialViewName,
+            '$compact_value' => $compact_value,
         ];
     }
 

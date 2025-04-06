@@ -31,7 +31,6 @@ class BaseWidgetOperationController extends AdminController
         $this->viewState->setContextKeyIfEmpty('widgetOperation.index');
         
         $viewType = $this->viewState->get('view_type', 'table');
-        $viewTypes = $this->getService()->getViewTypes();
         
 
 
@@ -43,16 +42,9 @@ class BaseWidgetOperationController extends AdminController
             $request->except(['widgetOperations_search', 'page', 'sort'])
         );
 
-        // Paginer les widgetOperations
-        $widgetOperations_data = $this->widgetOperationService->paginate($widgetOperations_params);
-
-        // Récupérer les statistiques et les champs filtrables
-        $widgetOperations_stats = $this->widgetOperationService->getwidgetOperationStats();
-        $this->viewState->set('stats.widgetOperation.stats'  , $widgetOperations_stats);
-        $widgetOperations_filters = $this->widgetOperationService->getFieldsFilterable();
-        $widgetOperation_instance =  $this->widgetOperationService->createInstance();
-        
-        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
+        // prepareDataForIndexView
+        $tcView = $this->widgetOperationService->prepareDataForIndexView($widgetOperations_params, $viewType);
+        extract($tcView); // Toutes les variables sont injectées automatiquement
 
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
