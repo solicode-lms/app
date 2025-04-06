@@ -67,10 +67,10 @@ class BaseWidgetUtilisateurController extends AdminController
         
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($partialViewName, $compact_value)->render();
+            return view($widgetUtilisateur_partialViewName, $widgetUtilisateur_compact_value)->render();
         }
 
-        return view('PkgWidgets::widgetUtilisateur.index', $compact_value);
+        return view('PkgWidgets::widgetUtilisateur.index', $widgetUtilisateur_compact_value);
     }
     public function create() {
         // ownedByUser

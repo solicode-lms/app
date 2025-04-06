@@ -144,7 +144,7 @@ class BaseWidgetUtilisateurService extends BaseService
         // Définir le type de vue par défaut
         $default_view_type = 'widgets';
         $this->viewState->init('widgetUtilisateur_view_type', $default_view_type);
-        $viewType = $this->viewState->get('widgetUtilisateur_view_type', $default_view_type);
+        $widgetUtilisateur_viewType = $this->viewState->get('widgetUtilisateur_view_type', $default_view_type);
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('widgetUtilisateur_view_type') === 'widgets') {
@@ -156,16 +156,16 @@ class BaseWidgetUtilisateurService extends BaseService
         $widgetUtilisateurs_stats = $this->getwidgetUtilisateurStats();
         $widgetUtilisateurs_filters = $this->getFieldsFilterable();
         $widgetUtilisateur_instance = $this->createInstance();
-        $viewTypes = $this->getViewTypes();
-        $partialViewName = $this->getPartialViewName($viewType);
+        $widgetUtilisateur_viewTypes = $this->getViewTypes();
+        $widgetUtilisateur_partialViewName = $this->getPartialViewName($widgetUtilisateur_viewType);
     
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.widgetUtilisateur.stats', $widgetUtilisateurs_stats);
     
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
-            'viewTypes',
-            'viewType',
+            'widgetUtilisateur_viewTypes',
+            'widgetUtilisateur_viewType',
             'widgetUtilisateurs_data',
             'widgetUtilisateurs_stats',
             'widgetUtilisateurs_filters',
@@ -177,10 +177,10 @@ class BaseWidgetUtilisateurService extends BaseService
             'widgetUtilisateurs_stats' => $widgetUtilisateurs_stats,
             'widgetUtilisateurs_filters' => $widgetUtilisateurs_filters,
             'widgetUtilisateur_instance' => $widgetUtilisateur_instance,
-            'viewType' => $viewType,
-            'viewTypes' => $viewTypes,
-            'partialViewName' => $partialViewName,
-            'compact_value' => $compact_value
+            'widgetUtilisateur_viewType' => $widgetUtilisateur_viewType,
+            'widgetUtilisateur_viewTypes' => $widgetUtilisateur_viewTypes,
+            'widgetUtilisateur_partialViewName' => $widgetUtilisateur_partialViewName,
+            'widgetUtilisateur_compact_value' => $compact_value
         ];
     }
 
