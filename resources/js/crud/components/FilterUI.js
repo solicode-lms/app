@@ -245,36 +245,40 @@ initStats() {
         .join("");
 }
 
+//   
 
-initFilterToogle(){
-
-    // TODO : Généralisation , 
-    const $btn = $('#toggle-card-crud');
-    const $card = $('#card_crud');
-
-    // Cacher par défaut uniquement le contenu du header secondaire (filtres, stats, etc.)
+initFilterToogle() {
+    const toggleButtonSelector = `${this.config.crudSelector} #toggle-filter`;
+    const $btn = $(toggleButtonSelector);
+    const $card = $(`${this.config.crudSelector} #card_crud`);
+    const storageKey = `toggle_filter_state_${this.config.crudSelector}`;
     const $contentToToggle = $card.find('.card-header:not(:first)');
 
-    // Cacher au chargement
-    $contentToToggle.hide();
-    $btn.attr('data-visible', '0');
-    $btn.html('<i class="fas fa-filter"></i>');
-
-    // Toggle au clic
-    $btn.on('click', function () {
-        const isVisible = $btn.attr('data-visible') === '1';
-
-        if (isVisible) {
-            $contentToToggle.slideUp();
-            $btn.attr('data-visible', '0');
-            $btn.html('<i class="fas fa-filter"></i>');
-        } else {
-            $contentToToggle.slideDown();
+    // Fonction pour cacher/montrer les filtres
+    const setFilterVisibility = (visible) => {
+        if (visible) {
+            $contentToToggle.show();
             $btn.attr('data-visible', '1');
-            $btn.html('<i class="fas fa-filter"></i>');
+        } else {
+            $contentToToggle.hide();
+            $btn.attr('data-visible', '0');
         }
+        $btn.html('<i class="fas fa-filter"></i>');
+        localStorage.setItem(storageKey, visible ? '1' : '0');
+    };
+
+    // 🔹 Rétablir l'état au chargement
+    const savedState = localStorage.getItem(storageKey);
+    setFilterVisibility(savedState === '1');
+
+    // 🔸 Gérer le clic sur le bouton
+    EventUtil.bindEvent('click', toggleButtonSelector, (e) => {
+        const self = $(e.currentTarget);
+        const isVisible = self.attr('data-visible') === '1';
+        setFilterVisibility(!isVisible);
     });
 }
+
 
 
 

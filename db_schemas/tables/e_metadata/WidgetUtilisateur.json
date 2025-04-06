@@ -419,8 +419,16 @@
         "value_float": 0,
         "value_json": {
             "types": [
-                "table",
-                "widgets"
+                {
+                    "icon": "fas fa-table",
+                    "type": "table",
+                    "label": "Vue Tableau"
+                },
+                {
+                    "icon": "fas fa-th-large",
+                    "type": "widgets",
+                    "label": "Vue Widgets"
+                }
             ],
             "default": "widgets"
         },

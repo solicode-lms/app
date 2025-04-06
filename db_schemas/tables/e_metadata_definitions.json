@@ -749,7 +749,7 @@
         "name": "viewType",
         "type": "Json",
         "scope": "model",
-        "default_value": "{   \"types\": [\"table\", \"widgets\"],   \"default\": \"widgets\" }",
+        "default_value": "{   \"types\": [     {       \"type\": \"table\",       \"label\": \"Vue Tableau\",       \"icon\": \"fas fa-table\"     },     {       \"type\": \"widgets\",       \"label\": \"Vue Widgets\",       \"icon\": \"fas fa-th-large\"     }   ],   \"default\": \"widgets\" }",
         "groupe": "general",
         "description": "<div style=\"color: rgb(0, 0, 0); font-family: Consolas, &quot;Courier New&quot;, monospace; font-size: 14px; line-height: 19px; white-space: pre;\"><div>Cette métadonnée permet de configurer les types de vues disponibles pour la <span style=\"color: #000080;font-weight: bold;\">**page index**</span> d’un modèle Laravel généré par Gapp.</div><br><div>Par défaut, la vue utilisée est <span style=\"color: #800000;\">`table`</span>.</div></div>",
         "created_at": null,

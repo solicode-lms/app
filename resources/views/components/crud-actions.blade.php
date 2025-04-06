@@ -1,4 +1,4 @@
-<div class="actions d-flex align-items-center justify-content-end">
+<div class="actions d-flex align-items-center justify-content-end crud-action">
     @can($createPermission ?? '')
     @can('create', $instanceItem)
         <a href="{{ $createRoute ?? '#' }}" data-target="#entityModal" class="btn btn-success btn-sm mr-2 context-state addEntityButton">
@@ -11,14 +11,12 @@
 
     
 
-      
+    @canany([$importPermission,$exportPermission])
     <div class="dropdown mr-2">
         <button class="btn btn-default btn-sm dropdown-toggle" type="button" id="exportDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-download"></i>
         </button>
-
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="exportDropdown">
-          
             @can($importPermission ?? '')
                 <form class="dropdown-item" action="{{ $importRoute ?? '#' }}" method="post" enctype="multipart/form-data" id="importForm">
                     @csrf
@@ -36,7 +34,6 @@
                     }
                 </script>
             @endcan
-
             @can($exportPermission ?? '')
                 <form class="dropdown-item">
                     <a href="{{ $exportXlsxRoute ?? '#' }}">
@@ -53,7 +50,7 @@
             @endcan
         </div>
     </div>
-
+    @endcan
 
     <div class="dropdown mr-2">
         <button class="btn btn-default btn-sm dropdown-toggle" type="button" id="exportDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -70,7 +67,7 @@
         </div>
     </div>
     
-    <button id="toggle-card-crud" class="btn btn-sm btn-outline-info ml-2" data-visible="1">
+    <button id="toggle-filter" class="btn btn-sm btn-outline-info ml-2" data-visible="1">
         <i class="fas fa-filter"></i> 
     </button>
 

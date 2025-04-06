@@ -53,13 +53,16 @@
                 @section('widgetUtilisateur-crud-stats-bar')
                 <div class="card-header row">
                     <!-- Statistiques et Actions -->
-                    <div class="col-sm-9">
+                    <div class="col-sm-8">
                         <x-crud-stats-summary
                             icon="fas fa-chart-bar text-info"
                             :stats="$widgetUtilisateurs_stats"
                         />
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
+                        @php
+                            $view_types = ["table","widgets"];
+                        @endphp
                         @canany(['create-widgetUtilisateur','import-widgetUtilisateur','export-widgetUtilisateur'])
                         <x-crud-actions
                             :instanceItem="$widgetUtilisateur_instance"
@@ -73,6 +76,7 @@
                             :exportXlsxRoute="route('widgetUtilisateurs.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('widgetUtilisateurs.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
+                            :view_types="$view_types"
                         />
                         @endcan
                     </div>
