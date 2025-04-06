@@ -42,7 +42,6 @@ class BaseWidgetUtilisateurController extends AdminController
         $this->viewState->init('view_type', 'widgets');
         $viewType = $this->viewState->get('view_type', 'table');
         $viewTypes = $this->getService()->getViewTypes();
-
         // If view_type = widget : ajouter le filtre : visible = true
         if($viewType == "widgets"){
             $this->viewState->set("filter.widgetUtilisateur.visible",1);

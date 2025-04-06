@@ -105,20 +105,24 @@ class BaseWidgetUtilisateurService extends BaseService
         ];
     }
 
-    public function getViewTypes(){
-        $viewTypes = [
+
+
+    /**
+     * Retourne les types de vues disponibles pour l'index (ex: table, widgets...)
+     */
+    public function getViewTypes(): array
+    {
+        return [
             [
-                'type' => 'table',
+                'type'  => 'table',
                 'label' => 'Vue Tableau',
                 'icon'  => 'fas fa-table',
             ],
             [
-                'type' => 'widgets',
+                'type'  => 'widgets',
                 'label' => 'Vue Widgets',
                 'icon'  => 'fas fa-th-large',
             ],
         ];
-        return $viewTypes;
     }
-
 }

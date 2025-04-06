@@ -1,5 +1,6 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
+
 <script>
     window.crudModalManagersConfig = window.crudModalManagersConfig || [];
     window.crudModalManagersConfig.push({
@@ -26,7 +27,6 @@
     });
 </script>
 
-
 <div id="widgetUtilisateur-crud" class="crud">
     @section('widgetUtilisateur-crud-header')
     @php
@@ -42,11 +42,9 @@
             ['label' => $titre]
         ]"
     />
-
     @show
     @section('widgetUtilisateur-crud-table')
     <section id="widgetUtilisateur-crud-table" class="content crud-table">
-      
         <div class="container-fluid">
             <div class="card card-outline card-info " id="card_crud">
                 @section('widgetUtilisateur-crud-stats-bar')
@@ -58,7 +56,6 @@
                             :stats="$widgetUtilisateurs_stats"
                         />
                     </div>
-
                     <div class="col-sm-4">
                         @canany(['create-widgetUtilisateur','import-widgetUtilisateur','export-widgetUtilisateur'])
                         <x-crud-actions
@@ -77,7 +74,6 @@
                         />
                         @endcan
                     </div>
-                 
                 </div>
                 @show
                 @section('widgetUtilisateur-crud-filters')
@@ -106,7 +102,6 @@
                                 id="widgetUtilisateurs_search"
                                 placeholder="Recherche ..."
                             />
-                           
                         </div>
                         @show
                     </form>
@@ -120,8 +115,7 @@
             </div>
         </div>
     </section>
-    
-    <section id="widgetUtilisateur-data-container-out" >
+     <section id="widgetUtilisateur-data-container-out" >
         @if($viewType == "widgets")
         @include("PkgWidgets::widgetUtilisateur._$viewType")
         @endif
