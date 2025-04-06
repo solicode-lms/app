@@ -1,5 +1,5 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ
+// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 namespace Modules\PkgWidgets\Controllers\Base;
@@ -103,14 +103,16 @@ class BaseWidgetTypeController extends AdminController
 
 
         $widgetService =  new WidgetService();
-        $widgets_view_data = $widgetService->prepareDataForIndexView();
-        extract($widgets_view_data); // Toutes les variables sont injectées automatiquement
+        $widgets_data =  $widgetService->paginate();
+        $widgets_stats = $widgetService->getwidgetStats();
+        $widgets_filters = $widgetService->getFieldsFilterable();
+        $widget_instance =  $widgetService->createInstance();
 
         if (request()->ajax()) {
-            return view('PkgWidgets::widgetType._edit', $widget_compact_value);
+            return view('PkgWidgets::widgetType._edit', compact('widget_compact_value'));
         }
 
-        return view('PkgWidgets::widgetType.edit', array_merge(compact('itemWidgetType'),$widget_compact_value));
+        return view('PkgWidgets::widgetType.edit', compact('widget_compact_value'));
 
     }
     public function edit(string $id) {
@@ -129,7 +131,6 @@ class BaseWidgetTypeController extends AdminController
         $widgetService =  new WidgetService();
         $widgets_view_data = $widgetService->prepareDataForIndexView();
         extract($widgets_view_data);
-
 
         if (request()->ajax()) {
             return view('PkgWidgets::widgetType._edit', array_merge(compact('itemWidgetType'),$widget_compact_value));
