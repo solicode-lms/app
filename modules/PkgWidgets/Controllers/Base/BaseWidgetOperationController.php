@@ -29,6 +29,10 @@ class BaseWidgetOperationController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('widgetOperation.index');
+        
+        $viewType = $this->viewState->get('view_type', 'table');
+        $viewTypes = $this->getService()->getViewTypes();
+        
 
 
 
@@ -47,12 +51,15 @@ class BaseWidgetOperationController extends AdminController
         $this->viewState->set('stats.widgetOperation.stats'  , $widgetOperations_stats);
         $widgetOperations_filters = $this->widgetOperationService->getFieldsFilterable();
         $widgetOperation_instance =  $this->widgetOperationService->createInstance();
+        
+        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgWidgets::widgetOperation._table', compact('widgetOperations_data', 'widgetOperations_stats', 'widgetOperations_filters','widgetOperation_instance'))->render();
+            return view($partialViewName, compact('viewTypes','widgetOperations_data', 'widgetOperations_stats', 'widgetOperations_filters','widgetOperation_instance'))->render();
         }
 
-        return view('PkgWidgets::widgetOperation.index', compact('widgetOperations_data', 'widgetOperations_stats', 'widgetOperations_filters','widgetOperation_instance'));
+        return view('PkgWidgets::widgetOperation.index', compact('viewTypes','viewType','widgetOperations_data', 'widgetOperations_stats', 'widgetOperations_filters','widgetOperation_instance'));
     }
     public function create() {
 

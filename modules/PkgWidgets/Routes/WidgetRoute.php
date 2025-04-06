@@ -23,6 +23,9 @@ Route::middleware('auth')->group(function () {
         });
 
         Route::post('widgets/data-calcul', [WidgetController::class, 'dataCalcul'])->name('widgets.dataCalcul');
+        Route::post('widgets/update-attributes', [WidgetController::class, 'updateAttributes'])->name('widgets.updateAttributes');
+
+    
 
     });
 });

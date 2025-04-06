@@ -29,6 +29,10 @@ class BaseWidgetTypeController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('widgetType.index');
+        
+        $viewType = $this->viewState->get('view_type', 'table');
+        $viewTypes = $this->getService()->getViewTypes();
+        
 
 
 
@@ -47,12 +51,15 @@ class BaseWidgetTypeController extends AdminController
         $this->viewState->set('stats.widgetType.stats'  , $widgetTypes_stats);
         $widgetTypes_filters = $this->widgetTypeService->getFieldsFilterable();
         $widgetType_instance =  $this->widgetTypeService->createInstance();
+        
+        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgWidgets::widgetType._table', compact('widgetTypes_data', 'widgetTypes_stats', 'widgetTypes_filters','widgetType_instance'))->render();
+            return view($partialViewName, compact('viewTypes','widgetTypes_data', 'widgetTypes_stats', 'widgetTypes_filters','widgetType_instance'))->render();
         }
 
-        return view('PkgWidgets::widgetType.index', compact('widgetTypes_data', 'widgetTypes_stats', 'widgetTypes_filters','widgetType_instance'));
+        return view('PkgWidgets::widgetType.index', compact('viewTypes','viewType','widgetTypes_data', 'widgetTypes_stats', 'widgetTypes_filters','widgetType_instance'));
     }
     public function create() {
 

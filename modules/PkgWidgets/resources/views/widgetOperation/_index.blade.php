@@ -18,6 +18,7 @@
         editUrl: '{{ route('widgetOperations.edit',  ['widgetOperation' => ':id']) }}',
         showUrl: '{{ route('widgetOperations.show',  ['widgetOperation' => ':id']) }}',
         storeUrl: '{{ route('widgetOperations.store') }}', 
+        updateAttributesUrl: '{{ route('widgetOperations.updateAttributes') }}', 
         deleteUrl: '{{ route('widgetOperations.destroy',  ['widgetOperation' => ':id']) }}', 
         calculationUrl:  '{{ route('widgetOperations.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
@@ -49,13 +50,13 @@
                 @section('widgetOperation-crud-stats-bar')
                 <div class="card-header row">
                     <!-- Statistiques et Actions -->
-                    <div class="col-sm-9">
+                    <div class="col-sm-8">
                         <x-crud-stats-summary
                             icon="fas fa-chart-bar text-info"
                             :stats="$widgetOperations_stats"
                         />
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
                         @canany(['create-widgetOperation','import-widgetOperation','export-widgetOperation'])
                         <x-crud-actions
                             :instanceItem="$widgetOperation_instance"
@@ -69,6 +70,7 @@
                             :exportXlsxRoute="route('widgetOperations.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('widgetOperations.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
+                            :viewTypes="$viewTypes"
                         />
                         @endcan
                     </div>
@@ -106,10 +108,17 @@
                 </div>
                 @show
                 <div id="widgetOperation-data-container" class="data-container">
-                    @include('PkgWidgets::widgetOperation._table')
+                    @if($viewType == "table")
+                    @include("PkgWidgets::widgetOperation._$viewType")
+                    @endif
                 </div>
             </div>
         </div>
+    </section>
+     <section id="widgetUtilisateur-data-container-out" >
+        @if($viewType == "widgets")
+        @include("PkgWidgets::widgetOperation._$viewType")
+        @endif
     </section>
     @show
 </div>

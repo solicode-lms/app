@@ -76,11 +76,8 @@ class BaseWidgetUtilisateurController extends AdminController
         $widgetUtilisateurs_filters = $this->widgetUtilisateurService->getFieldsFilterable();
         $widgetUtilisateur_instance =  $this->widgetUtilisateurService->createInstance();
         
-        $partialViewName = match($viewType) {
-            'widgets' => 'PkgWidgets::widgetUtilisateur._widgets',
-            default   => 'PkgWidgets::widgetUtilisateur._table',
-        };
-        
+        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
             return view($partialViewName, compact('viewTypes','widgetUtilisateurs_data', 'widgetUtilisateurs_stats', 'widgetUtilisateurs_filters','widgetUtilisateur_instance'))->render();

@@ -52,19 +52,29 @@
     </div>
     @endcan
 
+@php
+    $hasAlternativeViews = collect($viewTypes)->pluck('type')->contains(function ($type) {
+        return $type !== 'table';
+    });
+@endphp
+@if ($hasAlternativeViews)
     <div class="dropdown mr-2">
         <button class="btn btn-default btn-sm dropdown-toggle" type="button" id="exportDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-eye"></i> Vue
         </button>
-    
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="exportDropdown">
             @foreach ($viewTypes as $type)
-                <button class="dropdown-item view-switch-option" data-view-type="{{ $type['type'] }}">
+                <button class="dropdown-item view-switch-option {{ $viewType === $type['type'] ? 'active' : '' }}"
+                        data-view-type="{{ $type['type'] }}">
                     <i class="{{ $type['icon'] }} mr-2"></i> {{ $type['label'] }}
                 </button>
             @endforeach
         </div>
     </div>
+@endif
+
+
+
     
     <button id="toggle-filter" class="btn btn-sm btn-outline-info ml-2" data-visible="1">
         <i class="fas fa-filter"></i> 

@@ -70,6 +70,7 @@
                             :exportXlsxRoute="route('widgetUtilisateurs.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('widgetUtilisateurs.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
+                            :viewType="$viewType"
                             :viewTypes="$viewTypes"
                         />
                         @endcan

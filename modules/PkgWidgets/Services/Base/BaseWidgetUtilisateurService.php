@@ -125,4 +125,17 @@ class BaseWidgetUtilisateurService extends BaseService
             ],
         ];
     }
+
+    /**
+     * Retourne le nom de la vue partielle selon le type de vue sélectionné
+     */
+    public function getPartialViewName(string $viewType): string
+    {
+        return match ($viewType) {
+            'table' => 'PkgWidgets::widgetUtilisateur._table',
+            'widgets' => 'PkgWidgets::widgetUtilisateur._widgets',
+            default => 'PkgWidgets::widgetUtilisateur._table',
+        };
+    }
+
 }

@@ -18,6 +18,7 @@
         editUrl: '{{ route('widgets.edit',  ['widget' => ':id']) }}',
         showUrl: '{{ route('widgets.show',  ['widget' => ':id']) }}',
         storeUrl: '{{ route('widgets.store') }}', 
+        updateAttributesUrl: '{{ route('widgets.updateAttributes') }}', 
         deleteUrl: '{{ route('widgets.destroy',  ['widget' => ':id']) }}', 
         calculationUrl:  '{{ route('widgets.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
@@ -49,13 +50,13 @@
                 @section('widget-crud-stats-bar')
                 <div class="card-header row">
                     <!-- Statistiques et Actions -->
-                    <div class="col-sm-9">
+                    <div class="col-sm-8">
                         <x-crud-stats-summary
                             icon="fas fa-chart-bar text-info"
                             :stats="$widgets_stats"
                         />
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
                         @canany(['create-widget','import-widget','export-widget'])
                         <x-crud-actions
                             :instanceItem="$widget_instance"
@@ -69,6 +70,7 @@
                             :exportXlsxRoute="route('widgets.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('widgets.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
+                            :viewTypes="$viewTypes"
                         />
                         @endcan
                     </div>
@@ -106,10 +108,17 @@
                 </div>
                 @show
                 <div id="widget-data-container" class="data-container">
-                    @include('PkgWidgets::widget._table')
+                    @if($viewType == "table")
+                    @include("PkgWidgets::widget._$viewType")
+                    @endif
                 </div>
             </div>
         </div>
+    </section>
+     <section id="widgetUtilisateur-data-container-out" >
+        @if($viewType == "widgets")
+        @include("PkgWidgets::widget._$viewType")
+        @endif
     </section>
     @show
 </div>

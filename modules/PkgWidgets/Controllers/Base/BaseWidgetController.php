@@ -43,6 +43,10 @@ class BaseWidgetController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('widget.index');
+        
+        $viewType = $this->viewState->get('view_type', 'table');
+        $viewTypes = $this->getService()->getViewTypes();
+        
 
 
 
@@ -61,12 +65,15 @@ class BaseWidgetController extends AdminController
         $this->viewState->set('stats.widget.stats'  , $widgets_stats);
         $widgets_filters = $this->widgetService->getFieldsFilterable();
         $widget_instance =  $this->widgetService->createInstance();
+        
+        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgWidgets::widget._table', compact('widgets_data', 'widgets_stats', 'widgets_filters','widget_instance'))->render();
+            return view($partialViewName, compact('viewTypes','widgets_data', 'widgets_stats', 'widgets_filters','widget_instance'))->render();
         }
 
-        return view('PkgWidgets::widget.index', compact('widgets_data', 'widgets_stats', 'widgets_filters','widget_instance'));
+        return view('PkgWidgets::widget.index', compact('viewTypes','viewType','widgets_data', 'widgets_stats', 'widgets_filters','widget_instance'));
     }
     public function create() {
 
