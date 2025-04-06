@@ -23,6 +23,9 @@ Route::middleware('auth')->group(function () {
         });
 
         Route::post('eDataFields/data-calcul', [EDataFieldController::class, 'dataCalcul'])->name('eDataFields.dataCalcul');
+        Route::post('eDataFields/update-attributes', [EDataFieldController::class, 'updateAttributes'])->name('eDataFields.updateAttributes');
+
+    
 
     });
 });

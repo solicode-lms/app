@@ -39,6 +39,10 @@ class BaseProjetController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('projet.index');
+        
+        $viewType = $this->viewState->get('view_type', 'table');
+        $viewTypes = $this->getService()->getViewTypes();
+        
         // ownedByUser
         if(Auth::user()->hasRole('formateur') && $this->viewState->get('filter.projet.formateur_id') == null){
            $this->viewState->init('filter.projet.formateur_id'  , $this->sessionState->get('formateur_id'));
@@ -64,12 +68,15 @@ class BaseProjetController extends AdminController
         $this->viewState->set('stats.projet.stats'  , $projets_stats);
         $projets_filters = $this->projetService->getFieldsFilterable();
         $projet_instance =  $this->projetService->createInstance();
+        
+        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgCreationProjet::projet._table', compact('projets_data', 'projets_stats', 'projets_filters','projet_instance'))->render();
+            return view($partialViewName, compact('viewTypes','projets_data', 'projets_stats', 'projets_filters','projet_instance'))->render();
         }
 
-        return view('PkgCreationProjet::projet.index', compact('projets_data', 'projets_stats', 'projets_filters','projet_instance'));
+        return view('PkgCreationProjet::projet.index', compact('viewTypes','viewType','projets_data', 'projets_stats', 'projets_filters','projet_instance'));
     }
     public function create() {
         // ownedByUser

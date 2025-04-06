@@ -35,6 +35,10 @@ class BaseEDataFieldController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('eDataField.index');
+        
+        $viewType = $this->viewState->get('view_type', 'table');
+        $viewTypes = $this->getService()->getViewTypes();
+        
 
 
 
@@ -53,12 +57,15 @@ class BaseEDataFieldController extends AdminController
         $this->viewState->set('stats.eDataField.stats'  , $eDataFields_stats);
         $eDataFields_filters = $this->eDataFieldService->getFieldsFilterable();
         $eDataField_instance =  $this->eDataFieldService->createInstance();
+        
+        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgGapp::eDataField._table', compact('eDataFields_data', 'eDataFields_stats', 'eDataFields_filters','eDataField_instance'))->render();
+            return view($partialViewName, compact('viewTypes','eDataFields_data', 'eDataFields_stats', 'eDataFields_filters','eDataField_instance'))->render();
         }
 
-        return view('PkgGapp::eDataField.index', compact('eDataFields_data', 'eDataFields_stats', 'eDataFields_filters','eDataField_instance'));
+        return view('PkgGapp::eDataField.index', compact('viewTypes','viewType','eDataFields_data', 'eDataFields_stats', 'eDataFields_filters','eDataField_instance'));
     }
     public function create() {
 

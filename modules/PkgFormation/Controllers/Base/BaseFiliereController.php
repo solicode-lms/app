@@ -31,6 +31,10 @@ class BaseFiliereController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('filiere.index');
+        
+        $viewType = $this->viewState->get('view_type', 'table');
+        $viewTypes = $this->getService()->getViewTypes();
+        
 
 
 
@@ -49,12 +53,15 @@ class BaseFiliereController extends AdminController
         $this->viewState->set('stats.filiere.stats'  , $filieres_stats);
         $filieres_filters = $this->filiereService->getFieldsFilterable();
         $filiere_instance =  $this->filiereService->createInstance();
+        
+        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgFormation::filiere._table', compact('filieres_data', 'filieres_stats', 'filieres_filters','filiere_instance'))->render();
+            return view($partialViewName, compact('viewTypes','filieres_data', 'filieres_stats', 'filieres_filters','filiere_instance'))->render();
         }
 
-        return view('PkgFormation::filiere.index', compact('filieres_data', 'filieres_stats', 'filieres_filters','filiere_instance'));
+        return view('PkgFormation::filiere.index', compact('viewTypes','viewType','filieres_data', 'filieres_stats', 'filieres_filters','filiere_instance'));
     }
     public function create() {
 

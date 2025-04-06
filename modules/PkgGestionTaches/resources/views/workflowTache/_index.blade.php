@@ -18,6 +18,7 @@
         editUrl: '{{ route('workflowTaches.edit',  ['workflowTache' => ':id']) }}',
         showUrl: '{{ route('workflowTaches.show',  ['workflowTache' => ':id']) }}',
         storeUrl: '{{ route('workflowTaches.store') }}', 
+        updateAttributesUrl: '{{ route('workflowTaches.updateAttributes') }}', 
         deleteUrl: '{{ route('workflowTaches.destroy',  ['workflowTache' => ':id']) }}', 
         calculationUrl:  '{{ route('workflowTaches.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
@@ -49,13 +50,13 @@
                 @section('workflowTache-crud-stats-bar')
                 <div class="card-header row">
                     <!-- Statistiques et Actions -->
-                    <div class="col-sm-9">
+                    <div class="col-sm-8">
                         <x-crud-stats-summary
                             icon="fas fa-chart-bar text-info"
                             :stats="$workflowTaches_stats"
                         />
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
                         @canany(['create-workflowTache','import-workflowTache','export-workflowTache'])
                         <x-crud-actions
                             :instanceItem="$workflowTache_instance"
@@ -69,6 +70,8 @@
                             :exportXlsxRoute="route('workflowTaches.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('workflowTaches.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
+                            :viewTypes="$viewTypes"
+                            :viewType="$viewType"
                         />
                         @endcan
                     </div>
@@ -106,10 +109,17 @@
                 </div>
                 @show
                 <div id="workflowTache-data-container" class="data-container">
-                    @include('PkgGestionTaches::workflowTache._table')
+                    @if($viewType == "table")
+                    @include("PkgGestionTaches::workflowTache._$viewType")
+                    @endif
                 </div>
             </div>
         </div>
+    </section>
+     <section id="widgetUtilisateur-data-container-out" >
+        @if($viewType == "widgets")
+        @include("PkgGestionTaches::workflowTache._$viewType")
+        @endif
     </section>
     @show
 </div>

@@ -23,6 +23,9 @@ Route::middleware('auth')->group(function () {
         });
 
         Route::post('formations/data-calcul', [FormationController::class, 'dataCalcul'])->name('formations.dataCalcul');
+        Route::post('formations/update-attributes', [FormationController::class, 'updateAttributes'])->name('formations.updateAttributes');
+
+    
 
     });
 });

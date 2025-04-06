@@ -18,6 +18,7 @@
         editUrl: '{{ route('formateurs.edit',  ['formateur' => ':id']) }}',
         showUrl: '{{ route('formateurs.show',  ['formateur' => ':id']) }}',
         storeUrl: '{{ route('formateurs.store') }}', 
+        updateAttributesUrl: '{{ route('formateurs.updateAttributes') }}', 
         deleteUrl: '{{ route('formateurs.destroy',  ['formateur' => ':id']) }}', 
         calculationUrl:  '{{ route('formateurs.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
@@ -49,13 +50,13 @@
                 @section('formateur-crud-stats-bar')
                 <div class="card-header row">
                     <!-- Statistiques et Actions -->
-                    <div class="col-sm-9">
+                    <div class="col-sm-8">
                         <x-crud-stats-summary
                             icon="fas fa-chart-bar text-info"
                             :stats="$formateurs_stats"
                         />
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
                         @canany(['create-formateur','import-formateur','export-formateur'])
                         <x-crud-actions
                             :instanceItem="$formateur_instance"
@@ -69,6 +70,8 @@
                             :exportXlsxRoute="route('formateurs.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('formateurs.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
+                            :viewTypes="$viewTypes"
+                            :viewType="$viewType"
                         />
                         @endcan
                     </div>
@@ -106,10 +109,17 @@
                 </div>
                 @show
                 <div id="formateur-data-container" class="data-container">
-                    @include('PkgFormation::formateur._table')
+                    @if($viewType == "table")
+                    @include("PkgFormation::formateur._$viewType")
+                    @endif
                 </div>
             </div>
         </div>
+    </section>
+     <section id="widgetUtilisateur-data-container-out" >
+        @if($viewType == "widgets")
+        @include("PkgFormation::formateur._$viewType")
+        @endif
     </section>
     @show
 </div>

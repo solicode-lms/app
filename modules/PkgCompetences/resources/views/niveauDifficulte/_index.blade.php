@@ -18,6 +18,7 @@
         editUrl: '{{ route('niveauDifficultes.edit',  ['niveauDifficulte' => ':id']) }}',
         showUrl: '{{ route('niveauDifficultes.show',  ['niveauDifficulte' => ':id']) }}',
         storeUrl: '{{ route('niveauDifficultes.store') }}', 
+        updateAttributesUrl: '{{ route('niveauDifficultes.updateAttributes') }}', 
         deleteUrl: '{{ route('niveauDifficultes.destroy',  ['niveauDifficulte' => ':id']) }}', 
         calculationUrl:  '{{ route('niveauDifficultes.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
@@ -49,13 +50,13 @@
                 @section('niveauDifficulte-crud-stats-bar')
                 <div class="card-header row">
                     <!-- Statistiques et Actions -->
-                    <div class="col-sm-9">
+                    <div class="col-sm-8">
                         <x-crud-stats-summary
                             icon="fas fa-chart-bar text-info"
                             :stats="$niveauDifficultes_stats"
                         />
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
                         @canany(['create-niveauDifficulte','import-niveauDifficulte','export-niveauDifficulte'])
                         <x-crud-actions
                             :instanceItem="$niveauDifficulte_instance"
@@ -69,6 +70,8 @@
                             :exportXlsxRoute="route('niveauDifficultes.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('niveauDifficultes.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
+                            :viewTypes="$viewTypes"
+                            :viewType="$viewType"
                         />
                         @endcan
                     </div>
@@ -106,10 +109,17 @@
                 </div>
                 @show
                 <div id="niveauDifficulte-data-container" class="data-container">
-                    @include('PkgCompetences::niveauDifficulte._table')
+                    @if($viewType == "table")
+                    @include("PkgCompetences::niveauDifficulte._$viewType")
+                    @endif
                 </div>
             </div>
         </div>
+    </section>
+     <section id="widgetUtilisateur-data-container-out" >
+        @if($viewType == "widgets")
+        @include("PkgCompetences::niveauDifficulte._$viewType")
+        @endif
     </section>
     @show
 </div>

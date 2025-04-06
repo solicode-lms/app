@@ -23,6 +23,9 @@ Route::middleware('auth')->group(function () {
         });
 
         Route::post('sysControllers/data-calcul', [SysControllerController::class, 'dataCalcul'])->name('sysControllers.dataCalcul');
+        Route::post('sysControllers/update-attributes', [SysControllerController::class, 'updateAttributes'])->name('sysControllers.updateAttributes');
+
+    
 
     });
 });

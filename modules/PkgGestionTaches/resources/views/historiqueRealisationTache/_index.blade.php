@@ -18,6 +18,7 @@
         editUrl: '{{ route('historiqueRealisationTaches.edit',  ['historiqueRealisationTache' => ':id']) }}',
         showUrl: '{{ route('historiqueRealisationTaches.show',  ['historiqueRealisationTache' => ':id']) }}',
         storeUrl: '{{ route('historiqueRealisationTaches.store') }}', 
+        updateAttributesUrl: '{{ route('historiqueRealisationTaches.updateAttributes') }}', 
         deleteUrl: '{{ route('historiqueRealisationTaches.destroy',  ['historiqueRealisationTache' => ':id']) }}', 
         calculationUrl:  '{{ route('historiqueRealisationTaches.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
@@ -49,13 +50,13 @@
                 @section('historiqueRealisationTache-crud-stats-bar')
                 <div class="card-header row">
                     <!-- Statistiques et Actions -->
-                    <div class="col-sm-9">
+                    <div class="col-sm-8">
                         <x-crud-stats-summary
                             icon="fas fa-chart-bar text-info"
                             :stats="$historiqueRealisationTaches_stats"
                         />
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
                         @canany(['create-historiqueRealisationTache','import-historiqueRealisationTache','export-historiqueRealisationTache'])
                         <x-crud-actions
                             :instanceItem="$historiqueRealisationTache_instance"
@@ -69,6 +70,8 @@
                             :exportXlsxRoute="route('historiqueRealisationTaches.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('historiqueRealisationTaches.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
+                            :viewTypes="$viewTypes"
+                            :viewType="$viewType"
                         />
                         @endcan
                     </div>
@@ -106,10 +109,17 @@
                 </div>
                 @show
                 <div id="historiqueRealisationTache-data-container" class="data-container">
-                    @include('PkgGestionTaches::historiqueRealisationTache._table')
+                    @if($viewType == "table")
+                    @include("PkgGestionTaches::historiqueRealisationTache._$viewType")
+                    @endif
                 </div>
             </div>
         </div>
+    </section>
+     <section id="widgetUtilisateur-data-container-out" >
+        @if($viewType == "widgets")
+        @include("PkgGestionTaches::historiqueRealisationTache._$viewType")
+        @endif
     </section>
     @show
 </div>

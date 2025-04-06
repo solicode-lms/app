@@ -38,6 +38,10 @@ class BaseRealisationTacheController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('realisationTache.index');
+        
+        $viewType = $this->viewState->get('view_type', 'table');
+        $viewTypes = $this->getService()->getViewTypes();
+        
         // ownedByUser
         if(Auth::user()->hasRole('formateur') && $this->viewState->get('filter.realisationTache.realisationProjet.affectationProjet.projet.formateur_id') == null){
            $this->viewState->init('filter.realisationTache.realisationProjet.affectationProjet.projet.formateur_id'  , $this->sessionState->get('formateur_id'));
@@ -63,12 +67,15 @@ class BaseRealisationTacheController extends AdminController
         $this->viewState->set('stats.realisationTache.stats'  , $realisationTaches_stats);
         $realisationTaches_filters = $this->realisationTacheService->getFieldsFilterable();
         $realisationTache_instance =  $this->realisationTacheService->createInstance();
+        
+        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgGestionTaches::realisationTache._table', compact('realisationTaches_data', 'realisationTaches_stats', 'realisationTaches_filters','realisationTache_instance'))->render();
+            return view($partialViewName, compact('viewTypes','realisationTaches_data', 'realisationTaches_stats', 'realisationTaches_filters','realisationTache_instance'))->render();
         }
 
-        return view('PkgGestionTaches::realisationTache.index', compact('realisationTaches_data', 'realisationTaches_stats', 'realisationTaches_filters','realisationTache_instance'));
+        return view('PkgGestionTaches::realisationTache.index', compact('viewTypes','viewType','realisationTaches_data', 'realisationTaches_stats', 'realisationTaches_filters','realisationTache_instance'));
     }
     public function create() {
         // ownedByUser

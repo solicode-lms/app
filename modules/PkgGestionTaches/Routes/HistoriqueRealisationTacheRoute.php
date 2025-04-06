@@ -23,6 +23,9 @@ Route::middleware('auth')->group(function () {
         });
 
         Route::post('historiqueRealisationTaches/data-calcul', [HistoriqueRealisationTacheController::class, 'dataCalcul'])->name('historiqueRealisationTaches.dataCalcul');
+        Route::post('historiqueRealisationTaches/update-attributes', [HistoriqueRealisationTacheController::class, 'updateAttributes'])->name('historiqueRealisationTaches.updateAttributes');
+
+    
 
     });
 });

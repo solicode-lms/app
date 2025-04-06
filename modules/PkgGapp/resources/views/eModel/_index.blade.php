@@ -18,6 +18,7 @@
         editUrl: '{{ route('eModels.edit',  ['eModel' => ':id']) }}',
         showUrl: '{{ route('eModels.show',  ['eModel' => ':id']) }}',
         storeUrl: '{{ route('eModels.store') }}', 
+        updateAttributesUrl: '{{ route('eModels.updateAttributes') }}', 
         deleteUrl: '{{ route('eModels.destroy',  ['eModel' => ':id']) }}', 
         calculationUrl:  '{{ route('eModels.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
@@ -49,13 +50,13 @@
                 @section('eModel-crud-stats-bar')
                 <div class="card-header row">
                     <!-- Statistiques et Actions -->
-                    <div class="col-sm-9">
+                    <div class="col-sm-8">
                         <x-crud-stats-summary
                             icon="fas fa-chart-bar text-info"
                             :stats="$eModels_stats"
                         />
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
                         @canany(['create-eModel','import-eModel','export-eModel'])
                         <x-crud-actions
                             :instanceItem="$eModel_instance"
@@ -69,6 +70,8 @@
                             :exportXlsxRoute="route('eModels.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('eModels.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
+                            :viewTypes="$viewTypes"
+                            :viewType="$viewType"
                         />
                         @endcan
                     </div>
@@ -106,10 +109,17 @@
                 </div>
                 @show
                 <div id="eModel-data-container" class="data-container">
-                    @include('PkgGapp::eModel._table')
+                    @if($viewType == "table")
+                    @include("PkgGapp::eModel._$viewType")
+                    @endif
                 </div>
             </div>
         </div>
+    </section>
+     <section id="widgetUtilisateur-data-container-out" >
+        @if($viewType == "widgets")
+        @include("PkgGapp::eModel._$viewType")
+        @endif
     </section>
     @show
 </div>

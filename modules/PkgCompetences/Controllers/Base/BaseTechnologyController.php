@@ -40,6 +40,10 @@ class BaseTechnologyController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('technology.index');
+        
+        $viewType = $this->viewState->get('view_type', 'table');
+        $viewTypes = $this->getService()->getViewTypes();
+        
 
 
 
@@ -58,12 +62,15 @@ class BaseTechnologyController extends AdminController
         $this->viewState->set('stats.technology.stats'  , $technologies_stats);
         $technologies_filters = $this->technologyService->getFieldsFilterable();
         $technology_instance =  $this->technologyService->createInstance();
+        
+        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgCompetences::technology._table', compact('technologies_data', 'technologies_stats', 'technologies_filters','technology_instance'))->render();
+            return view($partialViewName, compact('viewTypes','technologies_data', 'technologies_stats', 'technologies_filters','technology_instance'))->render();
         }
 
-        return view('PkgCompetences::technology.index', compact('technologies_data', 'technologies_stats', 'technologies_filters','technology_instance'));
+        return view('PkgCompetences::technology.index', compact('viewTypes','viewType','technologies_data', 'technologies_stats', 'technologies_filters','technology_instance'));
     }
     public function create() {
 

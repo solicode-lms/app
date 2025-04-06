@@ -37,6 +37,10 @@ class BaseEMetadatumController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('eMetadatum.index');
+        
+        $viewType = $this->viewState->get('view_type', 'table');
+        $viewTypes = $this->getService()->getViewTypes();
+        
 
 
 
@@ -55,12 +59,15 @@ class BaseEMetadatumController extends AdminController
         $this->viewState->set('stats.eMetadatum.stats'  , $eMetadata_stats);
         $eMetadata_filters = $this->eMetadatumService->getFieldsFilterable();
         $eMetadatum_instance =  $this->eMetadatumService->createInstance();
+        
+        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgGapp::eMetadatum._table', compact('eMetadata_data', 'eMetadata_stats', 'eMetadata_filters','eMetadatum_instance'))->render();
+            return view($partialViewName, compact('viewTypes','eMetadata_data', 'eMetadata_stats', 'eMetadata_filters','eMetadatum_instance'))->render();
         }
 
-        return view('PkgGapp::eMetadatum.index', compact('eMetadata_data', 'eMetadata_stats', 'eMetadata_filters','eMetadatum_instance'));
+        return view('PkgGapp::eMetadatum.index', compact('viewTypes','viewType','eMetadata_data', 'eMetadata_stats', 'eMetadata_filters','eMetadatum_instance'));
     }
     public function create() {
 

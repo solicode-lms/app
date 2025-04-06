@@ -35,6 +35,10 @@ class BaseUserController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('user.index');
+        
+        $viewType = $this->viewState->get('view_type', 'table');
+        $viewTypes = $this->getService()->getViewTypes();
+        
 
 
 
@@ -53,12 +57,15 @@ class BaseUserController extends AdminController
         $this->viewState->set('stats.user.stats'  , $users_stats);
         $users_filters = $this->userService->getFieldsFilterable();
         $user_instance =  $this->userService->createInstance();
+        
+        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgAutorisation::user._table', compact('users_data', 'users_stats', 'users_filters','user_instance'))->render();
+            return view($partialViewName, compact('viewTypes','users_data', 'users_stats', 'users_filters','user_instance'))->render();
         }
 
-        return view('PkgAutorisation::user.index', compact('users_data', 'users_stats', 'users_filters','user_instance'));
+        return view('PkgAutorisation::user.index', compact('viewTypes','viewType','users_data', 'users_stats', 'users_filters','user_instance'));
     }
     public function create() {
 

@@ -18,6 +18,7 @@
         editUrl: '{{ route('commentaireRealisationTaches.edit',  ['commentaireRealisationTache' => ':id']) }}',
         showUrl: '{{ route('commentaireRealisationTaches.show',  ['commentaireRealisationTache' => ':id']) }}',
         storeUrl: '{{ route('commentaireRealisationTaches.store') }}', 
+        updateAttributesUrl: '{{ route('commentaireRealisationTaches.updateAttributes') }}', 
         deleteUrl: '{{ route('commentaireRealisationTaches.destroy',  ['commentaireRealisationTache' => ':id']) }}', 
         calculationUrl:  '{{ route('commentaireRealisationTaches.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
@@ -49,13 +50,13 @@
                 @section('commentaireRealisationTache-crud-stats-bar')
                 <div class="card-header row">
                     <!-- Statistiques et Actions -->
-                    <div class="col-sm-9">
+                    <div class="col-sm-8">
                         <x-crud-stats-summary
                             icon="fas fa-chart-bar text-info"
                             :stats="$commentaireRealisationTaches_stats"
                         />
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
                         @canany(['create-commentaireRealisationTache','import-commentaireRealisationTache','export-commentaireRealisationTache'])
                         <x-crud-actions
                             :instanceItem="$commentaireRealisationTache_instance"
@@ -69,6 +70,8 @@
                             :exportXlsxRoute="route('commentaireRealisationTaches.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('commentaireRealisationTaches.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
+                            :viewTypes="$viewTypes"
+                            :viewType="$viewType"
                         />
                         @endcan
                     </div>
@@ -106,10 +109,17 @@
                 </div>
                 @show
                 <div id="commentaireRealisationTache-data-container" class="data-container">
-                    @include('PkgGestionTaches::commentaireRealisationTache._table')
+                    @if($viewType == "table")
+                    @include("PkgGestionTaches::commentaireRealisationTache._$viewType")
+                    @endif
                 </div>
             </div>
         </div>
+    </section>
+     <section id="widgetUtilisateur-data-container-out" >
+        @if($viewType == "widgets")
+        @include("PkgGestionTaches::commentaireRealisationTache._$viewType")
+        @endif
     </section>
     @show
 </div>

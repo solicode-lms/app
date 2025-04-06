@@ -18,6 +18,7 @@
         editUrl: '{{ route('realisationChapitres.edit',  ['realisationChapitre' => ':id']) }}',
         showUrl: '{{ route('realisationChapitres.show',  ['realisationChapitre' => ':id']) }}',
         storeUrl: '{{ route('realisationChapitres.store') }}', 
+        updateAttributesUrl: '{{ route('realisationChapitres.updateAttributes') }}', 
         deleteUrl: '{{ route('realisationChapitres.destroy',  ['realisationChapitre' => ':id']) }}', 
         calculationUrl:  '{{ route('realisationChapitres.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
@@ -49,13 +50,13 @@
                 @section('realisationChapitre-crud-stats-bar')
                 <div class="card-header row">
                     <!-- Statistiques et Actions -->
-                    <div class="col-sm-9">
+                    <div class="col-sm-8">
                         <x-crud-stats-summary
                             icon="fas fa-chart-bar text-info"
                             :stats="$realisationChapitres_stats"
                         />
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
                         @canany(['create-realisationChapitre','import-realisationChapitre','export-realisationChapitre'])
                         <x-crud-actions
                             :instanceItem="$realisationChapitre_instance"
@@ -69,6 +70,8 @@
                             :exportXlsxRoute="route('realisationChapitres.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('realisationChapitres.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
+                            :viewTypes="$viewTypes"
+                            :viewType="$viewType"
                         />
                         @endcan
                     </div>
@@ -106,10 +109,17 @@
                 </div>
                 @show
                 <div id="realisationChapitre-data-container" class="data-container">
-                    @include('PkgAutoformation::realisationChapitre._table')
+                    @if($viewType == "table")
+                    @include("PkgAutoformation::realisationChapitre._$viewType")
+                    @endif
                 </div>
             </div>
         </div>
+    </section>
+     <section id="widgetUtilisateur-data-container-out" >
+        @if($viewType == "widgets")
+        @include("PkgAutoformation::realisationChapitre._$viewType")
+        @endif
     </section>
     @show
 </div>

@@ -38,6 +38,10 @@ class BaseAffectationProjetController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('affectationProjet.index');
+        
+        $viewType = $this->viewState->get('view_type', 'table');
+        $viewTypes = $this->getService()->getViewTypes();
+        
         // ownedByUser
         if(Auth::user()->hasRole('formateur') && $this->viewState->get('scope.affectationProjet.projet.formateur_id') == null){
            $this->viewState->init('scope.affectationProjet.projet.formateur_id'  , $this->sessionState->get('formateur_id'));
@@ -67,12 +71,15 @@ class BaseAffectationProjetController extends AdminController
         $this->viewState->set('stats.affectationProjet.stats'  , $affectationProjets_stats);
         $affectationProjets_filters = $this->affectationProjetService->getFieldsFilterable();
         $affectationProjet_instance =  $this->affectationProjetService->createInstance();
+        
+        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgRealisationProjets::affectationProjet._table', compact('affectationProjets_data', 'affectationProjets_stats', 'affectationProjets_filters','affectationProjet_instance'))->render();
+            return view($partialViewName, compact('viewTypes','affectationProjets_data', 'affectationProjets_stats', 'affectationProjets_filters','affectationProjet_instance'))->render();
         }
 
-        return view('PkgRealisationProjets::affectationProjet.index', compact('affectationProjets_data', 'affectationProjets_stats', 'affectationProjets_filters','affectationProjet_instance'));
+        return view('PkgRealisationProjets::affectationProjet.index', compact('viewTypes','viewType','affectationProjets_data', 'affectationProjets_stats', 'affectationProjets_filters','affectationProjet_instance'));
     }
     public function create() {
         // ownedByUser

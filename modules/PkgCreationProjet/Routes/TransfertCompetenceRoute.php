@@ -23,6 +23,9 @@ Route::middleware('auth')->group(function () {
         });
 
         Route::post('transfertCompetences/data-calcul', [TransfertCompetenceController::class, 'dataCalcul'])->name('transfertCompetences.dataCalcul');
+        Route::post('transfertCompetences/update-attributes', [TransfertCompetenceController::class, 'updateAttributes'])->name('transfertCompetences.updateAttributes');
+
+    
 
     });
 });

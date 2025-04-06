@@ -31,6 +31,10 @@ class BaseSpecialiteController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('specialite.index');
+        
+        $viewType = $this->viewState->get('view_type', 'table');
+        $viewTypes = $this->getService()->getViewTypes();
+        
 
 
 
@@ -49,12 +53,15 @@ class BaseSpecialiteController extends AdminController
         $this->viewState->set('stats.specialite.stats'  , $specialites_stats);
         $specialites_filters = $this->specialiteService->getFieldsFilterable();
         $specialite_instance =  $this->specialiteService->createInstance();
+        
+        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgFormation::specialite._table', compact('specialites_data', 'specialites_stats', 'specialites_filters','specialite_instance'))->render();
+            return view($partialViewName, compact('viewTypes','specialites_data', 'specialites_stats', 'specialites_filters','specialite_instance'))->render();
         }
 
-        return view('PkgFormation::specialite.index', compact('specialites_data', 'specialites_stats', 'specialites_filters','specialite_instance'));
+        return view('PkgFormation::specialite.index', compact('viewTypes','viewType','specialites_data', 'specialites_stats', 'specialites_filters','specialite_instance'));
     }
     public function create() {
 

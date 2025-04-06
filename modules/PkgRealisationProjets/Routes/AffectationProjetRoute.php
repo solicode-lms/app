@@ -23,6 +23,9 @@ Route::middleware('auth')->group(function () {
         });
 
         Route::post('affectationProjets/data-calcul', [AffectationProjetController::class, 'dataCalcul'])->name('affectationProjets.dataCalcul');
+        Route::post('affectationProjets/update-attributes', [AffectationProjetController::class, 'updateAttributes'])->name('affectationProjets.updateAttributes');
+
+    
 
     });
 });

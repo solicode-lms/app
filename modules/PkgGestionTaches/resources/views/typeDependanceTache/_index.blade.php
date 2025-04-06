@@ -18,6 +18,7 @@
         editUrl: '{{ route('typeDependanceTaches.edit',  ['typeDependanceTache' => ':id']) }}',
         showUrl: '{{ route('typeDependanceTaches.show',  ['typeDependanceTache' => ':id']) }}',
         storeUrl: '{{ route('typeDependanceTaches.store') }}', 
+        updateAttributesUrl: '{{ route('typeDependanceTaches.updateAttributes') }}', 
         deleteUrl: '{{ route('typeDependanceTaches.destroy',  ['typeDependanceTache' => ':id']) }}', 
         calculationUrl:  '{{ route('typeDependanceTaches.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
@@ -49,13 +50,13 @@
                 @section('typeDependanceTache-crud-stats-bar')
                 <div class="card-header row">
                     <!-- Statistiques et Actions -->
-                    <div class="col-sm-9">
+                    <div class="col-sm-8">
                         <x-crud-stats-summary
                             icon="fas fa-chart-bar text-info"
                             :stats="$typeDependanceTaches_stats"
                         />
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
                         @canany(['create-typeDependanceTache','import-typeDependanceTache','export-typeDependanceTache'])
                         <x-crud-actions
                             :instanceItem="$typeDependanceTache_instance"
@@ -69,6 +70,8 @@
                             :exportXlsxRoute="route('typeDependanceTaches.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('typeDependanceTaches.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
+                            :viewTypes="$viewTypes"
+                            :viewType="$viewType"
                         />
                         @endcan
                     </div>
@@ -106,10 +109,17 @@
                 </div>
                 @show
                 <div id="typeDependanceTache-data-container" class="data-container">
-                    @include('PkgGestionTaches::typeDependanceTache._table')
+                    @if($viewType == "table")
+                    @include("PkgGestionTaches::typeDependanceTache._$viewType")
+                    @endif
                 </div>
             </div>
         </div>
+    </section>
+     <section id="widgetUtilisateur-data-container-out" >
+        @if($viewType == "widgets")
+        @include("PkgGestionTaches::typeDependanceTache._$viewType")
+        @endif
     </section>
     @show
 </div>

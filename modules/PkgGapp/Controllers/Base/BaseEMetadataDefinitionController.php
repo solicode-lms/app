@@ -29,6 +29,10 @@ class BaseEMetadataDefinitionController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('eMetadataDefinition.index');
+        
+        $viewType = $this->viewState->get('view_type', 'table');
+        $viewTypes = $this->getService()->getViewTypes();
+        
 
 
 
@@ -47,12 +51,15 @@ class BaseEMetadataDefinitionController extends AdminController
         $this->viewState->set('stats.eMetadataDefinition.stats'  , $eMetadataDefinitions_stats);
         $eMetadataDefinitions_filters = $this->eMetadataDefinitionService->getFieldsFilterable();
         $eMetadataDefinition_instance =  $this->eMetadataDefinitionService->createInstance();
+        
+        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgGapp::eMetadataDefinition._table', compact('eMetadataDefinitions_data', 'eMetadataDefinitions_stats', 'eMetadataDefinitions_filters','eMetadataDefinition_instance'))->render();
+            return view($partialViewName, compact('viewTypes','eMetadataDefinitions_data', 'eMetadataDefinitions_stats', 'eMetadataDefinitions_filters','eMetadataDefinition_instance'))->render();
         }
 
-        return view('PkgGapp::eMetadataDefinition.index', compact('eMetadataDefinitions_data', 'eMetadataDefinitions_stats', 'eMetadataDefinitions_filters','eMetadataDefinition_instance'));
+        return view('PkgGapp::eMetadataDefinition.index', compact('viewTypes','viewType','eMetadataDefinitions_data', 'eMetadataDefinitions_stats', 'eMetadataDefinitions_filters','eMetadataDefinition_instance'));
     }
     public function create() {
 

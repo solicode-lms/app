@@ -32,6 +32,10 @@ class BaseWorkflowChapitreController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('workflowChapitre.index');
+        
+        $viewType = $this->viewState->get('view_type', 'table');
+        $viewTypes = $this->getService()->getViewTypes();
+        
 
 
 
@@ -50,12 +54,15 @@ class BaseWorkflowChapitreController extends AdminController
         $this->viewState->set('stats.workflowChapitre.stats'  , $workflowChapitres_stats);
         $workflowChapitres_filters = $this->workflowChapitreService->getFieldsFilterable();
         $workflowChapitre_instance =  $this->workflowChapitreService->createInstance();
+        
+        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgAutoformation::workflowChapitre._table', compact('workflowChapitres_data', 'workflowChapitres_stats', 'workflowChapitres_filters','workflowChapitre_instance'))->render();
+            return view($partialViewName, compact('viewTypes','workflowChapitres_data', 'workflowChapitres_stats', 'workflowChapitres_filters','workflowChapitre_instance'))->render();
         }
 
-        return view('PkgAutoformation::workflowChapitre.index', compact('workflowChapitres_data', 'workflowChapitres_stats', 'workflowChapitres_filters','workflowChapitre_instance'));
+        return view('PkgAutoformation::workflowChapitre.index', compact('viewTypes','viewType','workflowChapitres_data', 'workflowChapitres_stats', 'workflowChapitres_filters','workflowChapitre_instance'));
     }
     public function create() {
 

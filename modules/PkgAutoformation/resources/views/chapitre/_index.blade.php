@@ -18,6 +18,7 @@
         editUrl: '{{ route('chapitres.edit',  ['chapitre' => ':id']) }}',
         showUrl: '{{ route('chapitres.show',  ['chapitre' => ':id']) }}',
         storeUrl: '{{ route('chapitres.store') }}', 
+        updateAttributesUrl: '{{ route('chapitres.updateAttributes') }}', 
         deleteUrl: '{{ route('chapitres.destroy',  ['chapitre' => ':id']) }}', 
         calculationUrl:  '{{ route('chapitres.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
@@ -49,13 +50,13 @@
                 @section('chapitre-crud-stats-bar')
                 <div class="card-header row">
                     <!-- Statistiques et Actions -->
-                    <div class="col-sm-9">
+                    <div class="col-sm-8">
                         <x-crud-stats-summary
                             icon="fas fa-chart-bar text-info"
                             :stats="$chapitres_stats"
                         />
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
                         @canany(['create-chapitre','import-chapitre','export-chapitre'])
                         <x-crud-actions
                             :instanceItem="$chapitre_instance"
@@ -69,6 +70,8 @@
                             :exportXlsxRoute="route('chapitres.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('chapitres.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
+                            :viewTypes="$viewTypes"
+                            :viewType="$viewType"
                         />
                         @endcan
                     </div>
@@ -106,10 +109,17 @@
                 </div>
                 @show
                 <div id="chapitre-data-container" class="data-container">
-                    @include('PkgAutoformation::chapitre._table')
+                    @if($viewType == "table")
+                    @include("PkgAutoformation::chapitre._$viewType")
+                    @endif
                 </div>
             </div>
         </div>
+    </section>
+     <section id="widgetUtilisateur-data-container-out" >
+        @if($viewType == "widgets")
+        @include("PkgAutoformation::chapitre._$viewType")
+        @endif
     </section>
     @show
 </div>

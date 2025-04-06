@@ -23,6 +23,9 @@ Route::middleware('auth')->group(function () {
         });
 
         Route::post('resources/data-calcul', [ResourceController::class, 'dataCalcul'])->name('resources.dataCalcul');
+        Route::post('resources/update-attributes', [ResourceController::class, 'updateAttributes'])->name('resources.updateAttributes');
+
+    
 
     });
 });

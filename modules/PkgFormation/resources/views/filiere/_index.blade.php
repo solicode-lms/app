@@ -18,6 +18,7 @@
         editUrl: '{{ route('filieres.edit',  ['filiere' => ':id']) }}',
         showUrl: '{{ route('filieres.show',  ['filiere' => ':id']) }}',
         storeUrl: '{{ route('filieres.store') }}', 
+        updateAttributesUrl: '{{ route('filieres.updateAttributes') }}', 
         deleteUrl: '{{ route('filieres.destroy',  ['filiere' => ':id']) }}', 
         calculationUrl:  '{{ route('filieres.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
@@ -49,13 +50,13 @@
                 @section('filiere-crud-stats-bar')
                 <div class="card-header row">
                     <!-- Statistiques et Actions -->
-                    <div class="col-sm-9">
+                    <div class="col-sm-8">
                         <x-crud-stats-summary
                             icon="fas fa-chart-bar text-info"
                             :stats="$filieres_stats"
                         />
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
                         @canany(['create-filiere','import-filiere','export-filiere'])
                         <x-crud-actions
                             :instanceItem="$filiere_instance"
@@ -69,6 +70,8 @@
                             :exportXlsxRoute="route('filieres.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('filieres.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
+                            :viewTypes="$viewTypes"
+                            :viewType="$viewType"
                         />
                         @endcan
                     </div>
@@ -106,10 +109,17 @@
                 </div>
                 @show
                 <div id="filiere-data-container" class="data-container">
-                    @include('PkgFormation::filiere._table')
+                    @if($viewType == "table")
+                    @include("PkgFormation::filiere._$viewType")
+                    @endif
                 </div>
             </div>
         </div>
+    </section>
+     <section id="widgetUtilisateur-data-container-out" >
+        @if($viewType == "widgets")
+        @include("PkgFormation::filiere._$viewType")
+        @endif
     </section>
     @show
 </div>

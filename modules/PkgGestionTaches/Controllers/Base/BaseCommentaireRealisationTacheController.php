@@ -37,6 +37,10 @@ class BaseCommentaireRealisationTacheController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('commentaireRealisationTache.index');
+        
+        $viewType = $this->viewState->get('view_type', 'table');
+        $viewTypes = $this->getService()->getViewTypes();
+        
 
 
 
@@ -55,12 +59,15 @@ class BaseCommentaireRealisationTacheController extends AdminController
         $this->viewState->set('stats.commentaireRealisationTache.stats'  , $commentaireRealisationTaches_stats);
         $commentaireRealisationTaches_filters = $this->commentaireRealisationTacheService->getFieldsFilterable();
         $commentaireRealisationTache_instance =  $this->commentaireRealisationTacheService->createInstance();
+        
+        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgGestionTaches::commentaireRealisationTache._table', compact('commentaireRealisationTaches_data', 'commentaireRealisationTaches_stats', 'commentaireRealisationTaches_filters','commentaireRealisationTache_instance'))->render();
+            return view($partialViewName, compact('viewTypes','commentaireRealisationTaches_data', 'commentaireRealisationTaches_stats', 'commentaireRealisationTaches_filters','commentaireRealisationTache_instance'))->render();
         }
 
-        return view('PkgGestionTaches::commentaireRealisationTache.index', compact('commentaireRealisationTaches_data', 'commentaireRealisationTaches_stats', 'commentaireRealisationTaches_filters','commentaireRealisationTache_instance'));
+        return view('PkgGestionTaches::commentaireRealisationTache.index', compact('viewTypes','viewType','commentaireRealisationTaches_data', 'commentaireRealisationTaches_stats', 'commentaireRealisationTaches_filters','commentaireRealisationTache_instance'));
     }
     public function create() {
 

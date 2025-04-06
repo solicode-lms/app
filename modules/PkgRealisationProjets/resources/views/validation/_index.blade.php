@@ -18,6 +18,7 @@
         editUrl: '{{ route('validations.edit',  ['validation' => ':id']) }}',
         showUrl: '{{ route('validations.show',  ['validation' => ':id']) }}',
         storeUrl: '{{ route('validations.store') }}', 
+        updateAttributesUrl: '{{ route('validations.updateAttributes') }}', 
         deleteUrl: '{{ route('validations.destroy',  ['validation' => ':id']) }}', 
         calculationUrl:  '{{ route('validations.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
@@ -49,13 +50,13 @@
                 @section('validation-crud-stats-bar')
                 <div class="card-header row">
                     <!-- Statistiques et Actions -->
-                    <div class="col-sm-9">
+                    <div class="col-sm-8">
                         <x-crud-stats-summary
                             icon="fas fa-chart-bar text-info"
                             :stats="$validations_stats"
                         />
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
                         @canany(['create-validation','import-validation','export-validation'])
                         <x-crud-actions
                             :instanceItem="$validation_instance"
@@ -69,6 +70,8 @@
                             :exportXlsxRoute="route('validations.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('validations.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
+                            :viewTypes="$viewTypes"
+                            :viewType="$viewType"
                         />
                         @endcan
                     </div>
@@ -106,10 +109,17 @@
                 </div>
                 @show
                 <div id="validation-data-container" class="data-container">
-                    @include('PkgRealisationProjets::validation._table')
+                    @if($viewType == "table")
+                    @include("PkgRealisationProjets::validation._$viewType")
+                    @endif
                 </div>
             </div>
         </div>
+    </section>
+     <section id="widgetUtilisateur-data-container-out" >
+        @if($viewType == "widgets")
+        @include("PkgRealisationProjets::validation._$viewType")
+        @endif
     </section>
     @show
 </div>

@@ -18,6 +18,7 @@
         editUrl: '{{ route('eMetadataDefinitions.edit',  ['eMetadataDefinition' => ':id']) }}',
         showUrl: '{{ route('eMetadataDefinitions.show',  ['eMetadataDefinition' => ':id']) }}',
         storeUrl: '{{ route('eMetadataDefinitions.store') }}', 
+        updateAttributesUrl: '{{ route('eMetadataDefinitions.updateAttributes') }}', 
         deleteUrl: '{{ route('eMetadataDefinitions.destroy',  ['eMetadataDefinition' => ':id']) }}', 
         calculationUrl:  '{{ route('eMetadataDefinitions.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
@@ -49,13 +50,13 @@
                 @section('eMetadataDefinition-crud-stats-bar')
                 <div class="card-header row">
                     <!-- Statistiques et Actions -->
-                    <div class="col-sm-9">
+                    <div class="col-sm-8">
                         <x-crud-stats-summary
                             icon="fas fa-chart-bar text-info"
                             :stats="$eMetadataDefinitions_stats"
                         />
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
                         @canany(['create-eMetadataDefinition','import-eMetadataDefinition','export-eMetadataDefinition'])
                         <x-crud-actions
                             :instanceItem="$eMetadataDefinition_instance"
@@ -69,6 +70,8 @@
                             :exportXlsxRoute="route('eMetadataDefinitions.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('eMetadataDefinitions.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
+                            :viewTypes="$viewTypes"
+                            :viewType="$viewType"
                         />
                         @endcan
                     </div>
@@ -106,10 +109,17 @@
                 </div>
                 @show
                 <div id="eMetadataDefinition-data-container" class="data-container">
-                    @include('PkgGapp::eMetadataDefinition._table')
+                    @if($viewType == "table")
+                    @include("PkgGapp::eMetadataDefinition._$viewType")
+                    @endif
                 </div>
             </div>
         </div>
+    </section>
+     <section id="widgetUtilisateur-data-container-out" >
+        @if($viewType == "widgets")
+        @include("PkgGapp::eMetadataDefinition._$viewType")
+        @endif
     </section>
     @show
 </div>

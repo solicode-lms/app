@@ -34,6 +34,10 @@ class BaseLivrablesRealisationController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('livrablesRealisation.index');
+        
+        $viewType = $this->viewState->get('view_type', 'table');
+        $viewTypes = $this->getService()->getViewTypes();
+        
         // ownedByUser
         if(Auth::user()->hasRole('apprenant') && $this->viewState->get('filter.livrablesRealisation.realisationProjet.apprenant_id') == null){
            $this->viewState->init('filter.livrablesRealisation.realisationProjet.apprenant_id'  , $this->sessionState->get('apprenant_id'));
@@ -56,12 +60,15 @@ class BaseLivrablesRealisationController extends AdminController
         $this->viewState->set('stats.livrablesRealisation.stats'  , $livrablesRealisations_stats);
         $livrablesRealisations_filters = $this->livrablesRealisationService->getFieldsFilterable();
         $livrablesRealisation_instance =  $this->livrablesRealisationService->createInstance();
+        
+        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgRealisationProjets::livrablesRealisation._table', compact('livrablesRealisations_data', 'livrablesRealisations_stats', 'livrablesRealisations_filters','livrablesRealisation_instance'))->render();
+            return view($partialViewName, compact('viewTypes','livrablesRealisations_data', 'livrablesRealisations_stats', 'livrablesRealisations_filters','livrablesRealisation_instance'))->render();
         }
 
-        return view('PkgRealisationProjets::livrablesRealisation.index', compact('livrablesRealisations_data', 'livrablesRealisations_stats', 'livrablesRealisations_filters','livrablesRealisation_instance'));
+        return view('PkgRealisationProjets::livrablesRealisation.index', compact('viewTypes','viewType','livrablesRealisations_data', 'livrablesRealisations_stats', 'livrablesRealisations_filters','livrablesRealisation_instance'));
     }
     public function create() {
         // ownedByUser

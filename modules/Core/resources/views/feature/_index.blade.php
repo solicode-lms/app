@@ -18,6 +18,7 @@
         editUrl: '{{ route('features.edit',  ['feature' => ':id']) }}',
         showUrl: '{{ route('features.show',  ['feature' => ':id']) }}',
         storeUrl: '{{ route('features.store') }}', 
+        updateAttributesUrl: '{{ route('features.updateAttributes') }}', 
         deleteUrl: '{{ route('features.destroy',  ['feature' => ':id']) }}', 
         calculationUrl:  '{{ route('features.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
@@ -49,13 +50,13 @@
                 @section('feature-crud-stats-bar')
                 <div class="card-header row">
                     <!-- Statistiques et Actions -->
-                    <div class="col-sm-9">
+                    <div class="col-sm-8">
                         <x-crud-stats-summary
                             icon="fas fa-chart-bar text-info"
                             :stats="$features_stats"
                         />
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
                         @canany(['create-feature','import-feature','export-feature'])
                         <x-crud-actions
                             :instanceItem="$feature_instance"
@@ -69,6 +70,8 @@
                             :exportXlsxRoute="route('features.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('features.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
+                            :viewTypes="$viewTypes"
+                            :viewType="$viewType"
                         />
                         @endcan
                     </div>
@@ -106,10 +109,17 @@
                 </div>
                 @show
                 <div id="feature-data-container" class="data-container">
-                    @include('Core::feature._table')
+                    @if($viewType == "table")
+                    @include("Core::feature._$viewType")
+                    @endif
                 </div>
             </div>
         </div>
+    </section>
+     <section id="widgetUtilisateur-data-container-out" >
+        @if($viewType == "widgets")
+        @include("Core::feature._$viewType")
+        @endif
     </section>
     @show
 </div>

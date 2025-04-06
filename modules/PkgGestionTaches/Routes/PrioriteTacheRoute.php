@@ -23,6 +23,9 @@ Route::middleware('auth')->group(function () {
         });
 
         Route::post('prioriteTaches/data-calcul', [PrioriteTacheController::class, 'dataCalcul'])->name('prioriteTaches.dataCalcul');
+        Route::post('prioriteTaches/update-attributes', [PrioriteTacheController::class, 'updateAttributes'])->name('prioriteTaches.updateAttributes');
+
+    
 
     });
 });

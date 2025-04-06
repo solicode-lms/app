@@ -18,6 +18,7 @@
         editUrl: '{{ route('realisationProjets.edit',  ['realisationProjet' => ':id']) }}',
         showUrl: '{{ route('realisationProjets.show',  ['realisationProjet' => ':id']) }}',
         storeUrl: '{{ route('realisationProjets.store') }}', 
+        updateAttributesUrl: '{{ route('realisationProjets.updateAttributes') }}', 
         deleteUrl: '{{ route('realisationProjets.destroy',  ['realisationProjet' => ':id']) }}', 
         calculationUrl:  '{{ route('realisationProjets.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
@@ -49,13 +50,13 @@
                 @section('realisationProjet-crud-stats-bar')
                 <div class="card-header row">
                     <!-- Statistiques et Actions -->
-                    <div class="col-sm-9">
+                    <div class="col-sm-8">
                         <x-crud-stats-summary
                             icon="fas fa-chart-bar text-info"
                             :stats="$realisationProjets_stats"
                         />
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
                         @canany(['create-realisationProjet','import-realisationProjet','export-realisationProjet'])
                         <x-crud-actions
                             :instanceItem="$realisationProjet_instance"
@@ -69,6 +70,8 @@
                             :exportXlsxRoute="route('realisationProjets.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('realisationProjets.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
+                            :viewTypes="$viewTypes"
+                            :viewType="$viewType"
                         />
                         @endcan
                     </div>
@@ -106,10 +109,17 @@
                 </div>
                 @show
                 <div id="realisationProjet-data-container" class="data-container">
-                    @include('PkgRealisationProjets::realisationProjet._table')
+                    @if($viewType == "table")
+                    @include("PkgRealisationProjets::realisationProjet._$viewType")
+                    @endif
                 </div>
             </div>
         </div>
+    </section>
+     <section id="widgetUtilisateur-data-container-out" >
+        @if($viewType == "widgets")
+        @include("PkgRealisationProjets::realisationProjet._$viewType")
+        @endif
     </section>
     @show
 </div>

@@ -23,6 +23,9 @@ Route::middleware('auth')->group(function () {
         });
 
         Route::post('typeDependanceTaches/data-calcul', [TypeDependanceTacheController::class, 'dataCalcul'])->name('typeDependanceTaches.dataCalcul');
+        Route::post('typeDependanceTaches/update-attributes', [TypeDependanceTacheController::class, 'updateAttributes'])->name('typeDependanceTaches.updateAttributes');
+
+    
 
     });
 });

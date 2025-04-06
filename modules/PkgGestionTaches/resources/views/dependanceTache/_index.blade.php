@@ -18,6 +18,7 @@
         editUrl: '{{ route('dependanceTaches.edit',  ['dependanceTache' => ':id']) }}',
         showUrl: '{{ route('dependanceTaches.show',  ['dependanceTache' => ':id']) }}',
         storeUrl: '{{ route('dependanceTaches.store') }}', 
+        updateAttributesUrl: '{{ route('dependanceTaches.updateAttributes') }}', 
         deleteUrl: '{{ route('dependanceTaches.destroy',  ['dependanceTache' => ':id']) }}', 
         calculationUrl:  '{{ route('dependanceTaches.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
@@ -49,13 +50,13 @@
                 @section('dependanceTache-crud-stats-bar')
                 <div class="card-header row">
                     <!-- Statistiques et Actions -->
-                    <div class="col-sm-9">
+                    <div class="col-sm-8">
                         <x-crud-stats-summary
                             icon="fas fa-chart-bar text-info"
                             :stats="$dependanceTaches_stats"
                         />
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
                         @canany(['create-dependanceTache','import-dependanceTache','export-dependanceTache'])
                         <x-crud-actions
                             :instanceItem="$dependanceTache_instance"
@@ -69,6 +70,8 @@
                             :exportXlsxRoute="route('dependanceTaches.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('dependanceTaches.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
+                            :viewTypes="$viewTypes"
+                            :viewType="$viewType"
                         />
                         @endcan
                     </div>
@@ -106,10 +109,17 @@
                 </div>
                 @show
                 <div id="dependanceTache-data-container" class="data-container">
-                    @include('PkgGestionTaches::dependanceTache._table')
+                    @if($viewType == "table")
+                    @include("PkgGestionTaches::dependanceTache._$viewType")
+                    @endif
                 </div>
             </div>
         </div>
+    </section>
+     <section id="widgetUtilisateur-data-container-out" >
+        @if($viewType == "widgets")
+        @include("PkgGestionTaches::dependanceTache._$viewType")
+        @endif
     </section>
     @show
 </div>

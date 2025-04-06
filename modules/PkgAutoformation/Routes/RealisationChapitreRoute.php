@@ -23,6 +23,9 @@ Route::middleware('auth')->group(function () {
         });
 
         Route::post('realisationChapitres/data-calcul', [RealisationChapitreController::class, 'dataCalcul'])->name('realisationChapitres.dataCalcul');
+        Route::post('realisationChapitres/update-attributes', [RealisationChapitreController::class, 'updateAttributes'])->name('realisationChapitres.updateAttributes');
+
+    
 
     });
 });

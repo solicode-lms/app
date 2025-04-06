@@ -41,6 +41,10 @@ class BaseGroupeController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('groupe.index');
+        
+        $viewType = $this->viewState->get('view_type', 'table');
+        $viewTypes = $this->getService()->getViewTypes();
+        
 
 
 
@@ -59,12 +63,15 @@ class BaseGroupeController extends AdminController
         $this->viewState->set('stats.groupe.stats'  , $groupes_stats);
         $groupes_filters = $this->groupeService->getFieldsFilterable();
         $groupe_instance =  $this->groupeService->createInstance();
+        
+        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgApprenants::groupe._table', compact('groupes_data', 'groupes_stats', 'groupes_filters','groupe_instance'))->render();
+            return view($partialViewName, compact('viewTypes','groupes_data', 'groupes_stats', 'groupes_filters','groupe_instance'))->render();
         }
 
-        return view('PkgApprenants::groupe.index', compact('groupes_data', 'groupes_stats', 'groupes_filters','groupe_instance'));
+        return view('PkgApprenants::groupe.index', compact('viewTypes','viewType','groupes_data', 'groupes_stats', 'groupes_filters','groupe_instance'));
     }
     public function create() {
 

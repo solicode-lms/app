@@ -37,6 +37,10 @@ class BaseEtatRealisationTacheController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('etatRealisationTache.index');
+        
+        $viewType = $this->viewState->get('view_type', 'table');
+        $viewTypes = $this->getService()->getViewTypes();
+        
         // ownedByUser
         if(Auth::user()->hasRole('formateur') && $this->viewState->get('scope.etatRealisationTache.formateur_id') == null){
            $this->viewState->init('scope.etatRealisationTache.formateur_id'  , $this->sessionState->get('formateur_id'));
@@ -59,12 +63,15 @@ class BaseEtatRealisationTacheController extends AdminController
         $this->viewState->set('stats.etatRealisationTache.stats'  , $etatRealisationTaches_stats);
         $etatRealisationTaches_filters = $this->etatRealisationTacheService->getFieldsFilterable();
         $etatRealisationTache_instance =  $this->etatRealisationTacheService->createInstance();
+        
+        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgGestionTaches::etatRealisationTache._table', compact('etatRealisationTaches_data', 'etatRealisationTaches_stats', 'etatRealisationTaches_filters','etatRealisationTache_instance'))->render();
+            return view($partialViewName, compact('viewTypes','etatRealisationTaches_data', 'etatRealisationTaches_stats', 'etatRealisationTaches_filters','etatRealisationTache_instance'))->render();
         }
 
-        return view('PkgGestionTaches::etatRealisationTache.index', compact('etatRealisationTaches_data', 'etatRealisationTaches_stats', 'etatRealisationTaches_filters','etatRealisationTache_instance'));
+        return view('PkgGestionTaches::etatRealisationTache.index', compact('viewTypes','viewType','etatRealisationTaches_data', 'etatRealisationTaches_stats', 'etatRealisationTaches_filters','etatRealisationTache_instance'));
     }
     public function create() {
         // ownedByUser

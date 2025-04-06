@@ -31,6 +31,10 @@ class BasePrioriteTacheController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('prioriteTache.index');
+        
+        $viewType = $this->viewState->get('view_type', 'table');
+        $viewTypes = $this->getService()->getViewTypes();
+        
         // ownedByUser
         if(Auth::user()->hasRole('formateur') && $this->viewState->get('scope.prioriteTache.formateur_id') == null){
            $this->viewState->init('scope.prioriteTache.formateur_id'  , $this->sessionState->get('formateur_id'));
@@ -53,12 +57,15 @@ class BasePrioriteTacheController extends AdminController
         $this->viewState->set('stats.prioriteTache.stats'  , $prioriteTaches_stats);
         $prioriteTaches_filters = $this->prioriteTacheService->getFieldsFilterable();
         $prioriteTache_instance =  $this->prioriteTacheService->createInstance();
+        
+        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgGestionTaches::prioriteTache._table', compact('prioriteTaches_data', 'prioriteTaches_stats', 'prioriteTaches_filters','prioriteTache_instance'))->render();
+            return view($partialViewName, compact('viewTypes','prioriteTaches_data', 'prioriteTaches_stats', 'prioriteTaches_filters','prioriteTache_instance'))->render();
         }
 
-        return view('PkgGestionTaches::prioriteTache.index', compact('prioriteTaches_data', 'prioriteTaches_stats', 'prioriteTaches_filters','prioriteTache_instance'));
+        return view('PkgGestionTaches::prioriteTache.index', compact('viewTypes','viewType','prioriteTaches_data', 'prioriteTaches_stats', 'prioriteTaches_filters','prioriteTache_instance'));
     }
     public function create() {
         // ownedByUser

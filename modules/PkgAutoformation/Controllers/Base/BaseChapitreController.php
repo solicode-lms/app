@@ -38,6 +38,10 @@ class BaseChapitreController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('chapitre.index');
+        
+        $viewType = $this->viewState->get('view_type', 'table');
+        $viewTypes = $this->getService()->getViewTypes();
+        
 
 
 
@@ -56,12 +60,15 @@ class BaseChapitreController extends AdminController
         $this->viewState->set('stats.chapitre.stats'  , $chapitres_stats);
         $chapitres_filters = $this->chapitreService->getFieldsFilterable();
         $chapitre_instance =  $this->chapitreService->createInstance();
+        
+        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgAutoformation::chapitre._table', compact('chapitres_data', 'chapitres_stats', 'chapitres_filters','chapitre_instance'))->render();
+            return view($partialViewName, compact('viewTypes','chapitres_data', 'chapitres_stats', 'chapitres_filters','chapitre_instance'))->render();
         }
 
-        return view('PkgAutoformation::chapitre.index', compact('chapitres_data', 'chapitres_stats', 'chapitres_filters','chapitre_instance'));
+        return view('PkgAutoformation::chapitre.index', compact('viewTypes','viewType','chapitres_data', 'chapitres_stats', 'chapitres_filters','chapitre_instance'));
     }
     public function create() {
 

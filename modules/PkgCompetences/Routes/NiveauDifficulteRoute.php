@@ -23,6 +23,9 @@ Route::middleware('auth')->group(function () {
         });
 
         Route::post('niveauDifficultes/data-calcul', [NiveauDifficulteController::class, 'dataCalcul'])->name('niveauDifficultes.dataCalcul');
+        Route::post('niveauDifficultes/update-attributes', [NiveauDifficulteController::class, 'updateAttributes'])->name('niveauDifficultes.updateAttributes');
+
+    
 
     });
 });

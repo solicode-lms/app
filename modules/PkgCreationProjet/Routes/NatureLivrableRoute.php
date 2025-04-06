@@ -23,6 +23,9 @@ Route::middleware('auth')->group(function () {
         });
 
         Route::post('natureLivrables/data-calcul', [NatureLivrableController::class, 'dataCalcul'])->name('natureLivrables.dataCalcul');
+        Route::post('natureLivrables/update-attributes', [NatureLivrableController::class, 'updateAttributes'])->name('natureLivrables.updateAttributes');
+
+    
 
     });
 });

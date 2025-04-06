@@ -31,6 +31,10 @@ class BaseNiveauDifficulteController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('niveauDifficulte.index');
+        
+        $viewType = $this->viewState->get('view_type', 'table');
+        $viewTypes = $this->getService()->getViewTypes();
+        
         // ownedByUser
         if(Auth::user()->hasRole('formateur') && $this->viewState->get('filter.niveauDifficulte.formateur_id') == null){
            $this->viewState->init('filter.niveauDifficulte.formateur_id'  , $this->sessionState->get('formateur_id'));
@@ -53,12 +57,15 @@ class BaseNiveauDifficulteController extends AdminController
         $this->viewState->set('stats.niveauDifficulte.stats'  , $niveauDifficultes_stats);
         $niveauDifficultes_filters = $this->niveauDifficulteService->getFieldsFilterable();
         $niveauDifficulte_instance =  $this->niveauDifficulteService->createInstance();
+        
+        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgCompetences::niveauDifficulte._table', compact('niveauDifficultes_data', 'niveauDifficultes_stats', 'niveauDifficultes_filters','niveauDifficulte_instance'))->render();
+            return view($partialViewName, compact('viewTypes','niveauDifficultes_data', 'niveauDifficultes_stats', 'niveauDifficultes_filters','niveauDifficulte_instance'))->render();
         }
 
-        return view('PkgCompetences::niveauDifficulte.index', compact('niveauDifficultes_data', 'niveauDifficultes_stats', 'niveauDifficultes_filters','niveauDifficulte_instance'));
+        return view('PkgCompetences::niveauDifficulte.index', compact('viewTypes','viewType','niveauDifficultes_data', 'niveauDifficultes_stats', 'niveauDifficultes_filters','niveauDifficulte_instance'));
     }
     public function create() {
         // ownedByUser

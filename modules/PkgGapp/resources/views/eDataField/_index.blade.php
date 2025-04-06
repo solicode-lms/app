@@ -18,6 +18,7 @@
         editUrl: '{{ route('eDataFields.edit',  ['eDataField' => ':id']) }}',
         showUrl: '{{ route('eDataFields.show',  ['eDataField' => ':id']) }}',
         storeUrl: '{{ route('eDataFields.store') }}', 
+        updateAttributesUrl: '{{ route('eDataFields.updateAttributes') }}', 
         deleteUrl: '{{ route('eDataFields.destroy',  ['eDataField' => ':id']) }}', 
         calculationUrl:  '{{ route('eDataFields.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
@@ -49,13 +50,13 @@
                 @section('eDataField-crud-stats-bar')
                 <div class="card-header row">
                     <!-- Statistiques et Actions -->
-                    <div class="col-sm-9">
+                    <div class="col-sm-8">
                         <x-crud-stats-summary
                             icon="fas fa-chart-bar text-info"
                             :stats="$eDataFields_stats"
                         />
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
                         @canany(['create-eDataField','import-eDataField','export-eDataField'])
                         <x-crud-actions
                             :instanceItem="$eDataField_instance"
@@ -69,6 +70,8 @@
                             :exportXlsxRoute="route('eDataFields.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('eDataFields.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
+                            :viewTypes="$viewTypes"
+                            :viewType="$viewType"
                         />
                         @endcan
                     </div>
@@ -106,10 +109,17 @@
                 </div>
                 @show
                 <div id="eDataField-data-container" class="data-container">
-                    @include('PkgGapp::eDataField._table')
+                    @if($viewType == "table")
+                    @include("PkgGapp::eDataField._$viewType")
+                    @endif
                 </div>
             </div>
         </div>
+    </section>
+     <section id="widgetUtilisateur-data-container-out" >
+        @if($viewType == "widgets")
+        @include("PkgGapp::eDataField._$viewType")
+        @endif
     </section>
     @show
 </div>

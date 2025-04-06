@@ -23,7 +23,10 @@ Route::middleware('auth')->group(function () {
         });
 
         Route::post('formateurs/data-calcul', [FormateurController::class, 'dataCalcul'])->name('formateurs.dataCalcul');
+        Route::post('formateurs/update-attributes', [FormateurController::class, 'updateAttributes'])->name('formateurs.updateAttributes');
         Route::get('formateurs/initPassword/{id}', [FormateurController::class, 'initPassword'])->name('formateurs.initPassword');
     
+    
+
     });
 });

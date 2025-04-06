@@ -23,6 +23,9 @@ Route::middleware('auth')->group(function () {
         });
 
         Route::post('ePackages/data-calcul', [EPackageController::class, 'dataCalcul'])->name('ePackages.dataCalcul');
+        Route::post('ePackages/update-attributes', [EPackageController::class, 'updateAttributes'])->name('ePackages.updateAttributes');
+
+    
 
     });
 });

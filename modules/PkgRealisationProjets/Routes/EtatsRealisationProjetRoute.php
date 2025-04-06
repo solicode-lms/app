@@ -23,6 +23,9 @@ Route::middleware('auth')->group(function () {
         });
 
         Route::post('etatsRealisationProjets/data-calcul', [EtatsRealisationProjetController::class, 'dataCalcul'])->name('etatsRealisationProjets.dataCalcul');
+        Route::post('etatsRealisationProjets/update-attributes', [EtatsRealisationProjetController::class, 'updateAttributes'])->name('etatsRealisationProjets.updateAttributes');
+
+    
 
     });
 });

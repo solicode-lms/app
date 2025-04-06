@@ -23,6 +23,9 @@ Route::middleware('auth')->group(function () {
         });
 
         Route::post('niveauxScolaires/data-calcul', [NiveauxScolaireController::class, 'dataCalcul'])->name('niveauxScolaires.dataCalcul');
+        Route::post('niveauxScolaires/update-attributes', [NiveauxScolaireController::class, 'updateAttributes'])->name('niveauxScolaires.updateAttributes');
+
+    
 
     });
 });

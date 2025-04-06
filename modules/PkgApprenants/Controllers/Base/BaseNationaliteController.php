@@ -29,6 +29,10 @@ class BaseNationaliteController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('nationalite.index');
+        
+        $viewType = $this->viewState->get('view_type', 'table');
+        $viewTypes = $this->getService()->getViewTypes();
+        
 
 
 
@@ -47,12 +51,15 @@ class BaseNationaliteController extends AdminController
         $this->viewState->set('stats.nationalite.stats'  , $nationalites_stats);
         $nationalites_filters = $this->nationaliteService->getFieldsFilterable();
         $nationalite_instance =  $this->nationaliteService->createInstance();
+        
+        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgApprenants::nationalite._table', compact('nationalites_data', 'nationalites_stats', 'nationalites_filters','nationalite_instance'))->render();
+            return view($partialViewName, compact('viewTypes','nationalites_data', 'nationalites_stats', 'nationalites_filters','nationalite_instance'))->render();
         }
 
-        return view('PkgApprenants::nationalite.index', compact('nationalites_data', 'nationalites_stats', 'nationalites_filters','nationalite_instance'));
+        return view('PkgApprenants::nationalite.index', compact('viewTypes','viewType','nationalites_data', 'nationalites_stats', 'nationalites_filters','nationalite_instance'));
     }
     public function create() {
 

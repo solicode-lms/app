@@ -18,6 +18,7 @@
         editUrl: '{{ route('taches.edit',  ['tache' => ':id']) }}',
         showUrl: '{{ route('taches.show',  ['tache' => ':id']) }}',
         storeUrl: '{{ route('taches.store') }}', 
+        updateAttributesUrl: '{{ route('taches.updateAttributes') }}', 
         deleteUrl: '{{ route('taches.destroy',  ['tache' => ':id']) }}', 
         calculationUrl:  '{{ route('taches.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
@@ -49,13 +50,13 @@
                 @section('tache-crud-stats-bar')
                 <div class="card-header row">
                     <!-- Statistiques et Actions -->
-                    <div class="col-sm-9">
+                    <div class="col-sm-8">
                         <x-crud-stats-summary
                             icon="fas fa-chart-bar text-info"
                             :stats="$taches_stats"
                         />
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
                         @canany(['create-tache','import-tache','export-tache'])
                         <x-crud-actions
                             :instanceItem="$tache_instance"
@@ -69,6 +70,8 @@
                             :exportXlsxRoute="route('taches.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('taches.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
+                            :viewTypes="$viewTypes"
+                            :viewType="$viewType"
                         />
                         @endcan
                     </div>
@@ -106,10 +109,17 @@
                 </div>
                 @show
                 <div id="tache-data-container" class="data-container">
-                    @include('PkgGestionTaches::tache._table')
+                    @if($viewType == "table")
+                    @include("PkgGestionTaches::tache._$viewType")
+                    @endif
                 </div>
             </div>
         </div>
+    </section>
+     <section id="widgetUtilisateur-data-container-out" >
+        @if($viewType == "widgets")
+        @include("PkgGestionTaches::tache._$viewType")
+        @endif
     </section>
     @show
 </div>

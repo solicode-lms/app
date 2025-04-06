@@ -34,6 +34,10 @@ class BaseValidationController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('validation.index');
+        
+        $viewType = $this->viewState->get('view_type', 'table');
+        $viewTypes = $this->getService()->getViewTypes();
+        
         // ownedByUser
         if(Auth::user()->hasRole('formateur') && $this->viewState->get('filter.validation.realisationProjet.affectationProjet.projet.formateur_id') == null){
            $this->viewState->init('filter.validation.realisationProjet.affectationProjet.projet.formateur_id'  , $this->sessionState->get('formateur_id'));
@@ -59,12 +63,15 @@ class BaseValidationController extends AdminController
         $this->viewState->set('stats.validation.stats'  , $validations_stats);
         $validations_filters = $this->validationService->getFieldsFilterable();
         $validation_instance =  $this->validationService->createInstance();
+        
+        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgRealisationProjets::validation._table', compact('validations_data', 'validations_stats', 'validations_filters','validation_instance'))->render();
+            return view($partialViewName, compact('viewTypes','validations_data', 'validations_stats', 'validations_filters','validation_instance'))->render();
         }
 
-        return view('PkgRealisationProjets::validation.index', compact('validations_data', 'validations_stats', 'validations_filters','validation_instance'));
+        return view('PkgRealisationProjets::validation.index', compact('viewTypes','viewType','validations_data', 'validations_stats', 'validations_filters','validation_instance'));
     }
     public function create() {
         // ownedByUser

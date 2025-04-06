@@ -23,6 +23,9 @@ Route::middleware('auth')->group(function () {
         });
 
         Route::post('nationalites/data-calcul', [NationaliteController::class, 'dataCalcul'])->name('nationalites.dataCalcul');
+        Route::post('nationalites/update-attributes', [NationaliteController::class, 'updateAttributes'])->name('nationalites.updateAttributes');
+
+    
 
     });
 });

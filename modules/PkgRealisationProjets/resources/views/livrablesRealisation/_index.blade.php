@@ -18,6 +18,7 @@
         editUrl: '{{ route('livrablesRealisations.edit',  ['livrablesRealisation' => ':id']) }}',
         showUrl: '{{ route('livrablesRealisations.show',  ['livrablesRealisation' => ':id']) }}',
         storeUrl: '{{ route('livrablesRealisations.store') }}', 
+        updateAttributesUrl: '{{ route('livrablesRealisations.updateAttributes') }}', 
         deleteUrl: '{{ route('livrablesRealisations.destroy',  ['livrablesRealisation' => ':id']) }}', 
         calculationUrl:  '{{ route('livrablesRealisations.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
@@ -49,13 +50,13 @@
                 @section('livrablesRealisation-crud-stats-bar')
                 <div class="card-header row">
                     <!-- Statistiques et Actions -->
-                    <div class="col-sm-9">
+                    <div class="col-sm-8">
                         <x-crud-stats-summary
                             icon="fas fa-chart-bar text-info"
                             :stats="$livrablesRealisations_stats"
                         />
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
                         @canany(['create-livrablesRealisation','import-livrablesRealisation','export-livrablesRealisation'])
                         <x-crud-actions
                             :instanceItem="$livrablesRealisation_instance"
@@ -69,6 +70,8 @@
                             :exportXlsxRoute="route('livrablesRealisations.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('livrablesRealisations.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
+                            :viewTypes="$viewTypes"
+                            :viewType="$viewType"
                         />
                         @endcan
                     </div>
@@ -106,10 +109,17 @@
                 </div>
                 @show
                 <div id="livrablesRealisation-data-container" class="data-container">
-                    @include('PkgRealisationProjets::livrablesRealisation._table')
+                    @if($viewType == "table")
+                    @include("PkgRealisationProjets::livrablesRealisation._$viewType")
+                    @endif
                 </div>
             </div>
         </div>
+    </section>
+     <section id="widgetUtilisateur-data-container-out" >
+        @if($viewType == "widgets")
+        @include("PkgRealisationProjets::livrablesRealisation._$viewType")
+        @endif
     </section>
     @show
 </div>

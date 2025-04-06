@@ -18,6 +18,7 @@
         editUrl: '{{ route('nationalites.edit',  ['nationalite' => ':id']) }}',
         showUrl: '{{ route('nationalites.show',  ['nationalite' => ':id']) }}',
         storeUrl: '{{ route('nationalites.store') }}', 
+        updateAttributesUrl: '{{ route('nationalites.updateAttributes') }}', 
         deleteUrl: '{{ route('nationalites.destroy',  ['nationalite' => ':id']) }}', 
         calculationUrl:  '{{ route('nationalites.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
@@ -49,13 +50,13 @@
                 @section('nationalite-crud-stats-bar')
                 <div class="card-header row">
                     <!-- Statistiques et Actions -->
-                    <div class="col-sm-9">
+                    <div class="col-sm-8">
                         <x-crud-stats-summary
                             icon="fas fa-chart-bar text-info"
                             :stats="$nationalites_stats"
                         />
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
                         @canany(['create-nationalite','import-nationalite','export-nationalite'])
                         <x-crud-actions
                             :instanceItem="$nationalite_instance"
@@ -69,6 +70,8 @@
                             :exportXlsxRoute="route('nationalites.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('nationalites.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
+                            :viewTypes="$viewTypes"
+                            :viewType="$viewType"
                         />
                         @endcan
                     </div>
@@ -106,10 +109,17 @@
                 </div>
                 @show
                 <div id="nationalite-data-container" class="data-container">
-                    @include('PkgApprenants::nationalite._table')
+                    @if($viewType == "table")
+                    @include("PkgApprenants::nationalite._$viewType")
+                    @endif
                 </div>
             </div>
         </div>
+    </section>
+     <section id="widgetUtilisateur-data-container-out" >
+        @if($viewType == "widgets")
+        @include("PkgApprenants::nationalite._$viewType")
+        @endif
     </section>
     @show
 </div>

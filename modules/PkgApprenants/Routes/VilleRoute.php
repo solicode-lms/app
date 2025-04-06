@@ -23,6 +23,9 @@ Route::middleware('auth')->group(function () {
         });
 
         Route::post('villes/data-calcul', [VilleController::class, 'dataCalcul'])->name('villes.dataCalcul');
+        Route::post('villes/update-attributes', [VilleController::class, 'updateAttributes'])->name('villes.updateAttributes');
+
+    
 
     });
 });

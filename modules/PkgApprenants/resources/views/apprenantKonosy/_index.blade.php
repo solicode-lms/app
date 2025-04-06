@@ -18,6 +18,7 @@
         editUrl: '{{ route('apprenantKonosies.edit',  ['apprenantKonosy' => ':id']) }}',
         showUrl: '{{ route('apprenantKonosies.show',  ['apprenantKonosy' => ':id']) }}',
         storeUrl: '{{ route('apprenantKonosies.store') }}', 
+        updateAttributesUrl: '{{ route('apprenantKonosies.updateAttributes') }}', 
         deleteUrl: '{{ route('apprenantKonosies.destroy',  ['apprenantKonosy' => ':id']) }}', 
         calculationUrl:  '{{ route('apprenantKonosies.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
@@ -49,13 +50,13 @@
                 @section('apprenantKonosy-crud-stats-bar')
                 <div class="card-header row">
                     <!-- Statistiques et Actions -->
-                    <div class="col-sm-9">
+                    <div class="col-sm-8">
                         <x-crud-stats-summary
                             icon="fas fa-chart-bar text-info"
                             :stats="$apprenantKonosies_stats"
                         />
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
                         @canany(['create-apprenantKonosy','import-apprenantKonosy','export-apprenantKonosy'])
                         <x-crud-actions
                             :instanceItem="$apprenantKonosy_instance"
@@ -69,6 +70,8 @@
                             :exportXlsxRoute="route('apprenantKonosies.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('apprenantKonosies.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
+                            :viewTypes="$viewTypes"
+                            :viewType="$viewType"
                         />
                         @endcan
                     </div>
@@ -106,10 +109,17 @@
                 </div>
                 @show
                 <div id="apprenantKonosy-data-container" class="data-container">
-                    @include('PkgApprenants::apprenantKonosy._table')
+                    @if($viewType == "table")
+                    @include("PkgApprenants::apprenantKonosy._$viewType")
+                    @endif
                 </div>
             </div>
         </div>
+    </section>
+     <section id="widgetUtilisateur-data-container-out" >
+        @if($viewType == "widgets")
+        @include("PkgApprenants::apprenantKonosy._$viewType")
+        @endif
     </section>
     @show
 </div>

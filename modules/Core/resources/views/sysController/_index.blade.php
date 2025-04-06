@@ -18,6 +18,7 @@
         editUrl: '{{ route('sysControllers.edit',  ['sysController' => ':id']) }}',
         showUrl: '{{ route('sysControllers.show',  ['sysController' => ':id']) }}',
         storeUrl: '{{ route('sysControllers.store') }}', 
+        updateAttributesUrl: '{{ route('sysControllers.updateAttributes') }}', 
         deleteUrl: '{{ route('sysControllers.destroy',  ['sysController' => ':id']) }}', 
         calculationUrl:  '{{ route('sysControllers.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
@@ -49,13 +50,13 @@
                 @section('sysController-crud-stats-bar')
                 <div class="card-header row">
                     <!-- Statistiques et Actions -->
-                    <div class="col-sm-9">
+                    <div class="col-sm-8">
                         <x-crud-stats-summary
                             icon="fas fa-chart-bar text-info"
                             :stats="$sysControllers_stats"
                         />
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
                         @canany(['create-sysController','import-sysController','export-sysController'])
                         <x-crud-actions
                             :instanceItem="$sysController_instance"
@@ -69,6 +70,8 @@
                             :exportXlsxRoute="route('sysControllers.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('sysControllers.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
+                            :viewTypes="$viewTypes"
+                            :viewType="$viewType"
                         />
                         @endcan
                     </div>
@@ -106,10 +109,17 @@
                 </div>
                 @show
                 <div id="sysController-data-container" class="data-container">
-                    @include('Core::sysController._table')
+                    @if($viewType == "table")
+                    @include("Core::sysController._$viewType")
+                    @endif
                 </div>
             </div>
         </div>
+    </section>
+     <section id="widgetUtilisateur-data-container-out" >
+        @if($viewType == "widgets")
+        @include("Core::sysController._$viewType")
+        @endif
     </section>
     @show
 </div>

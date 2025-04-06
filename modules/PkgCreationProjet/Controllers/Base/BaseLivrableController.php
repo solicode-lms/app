@@ -37,6 +37,10 @@ class BaseLivrableController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('livrable.index');
+        
+        $viewType = $this->viewState->get('view_type', 'table');
+        $viewTypes = $this->getService()->getViewTypes();
+        
         // ownedByUser
         if(Auth::user()->hasRole('formateur') && $this->viewState->get('filter.livrable.projet.formateur_id') == null){
            $this->viewState->init('filter.livrable.projet.formateur_id'  , $this->sessionState->get('formateur_id'));
@@ -59,12 +63,15 @@ class BaseLivrableController extends AdminController
         $this->viewState->set('stats.livrable.stats'  , $livrables_stats);
         $livrables_filters = $this->livrableService->getFieldsFilterable();
         $livrable_instance =  $this->livrableService->createInstance();
+        
+        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgCreationProjet::livrable._table', compact('livrables_data', 'livrables_stats', 'livrables_filters','livrable_instance'))->render();
+            return view($partialViewName, compact('viewTypes','livrables_data', 'livrables_stats', 'livrables_filters','livrable_instance'))->render();
         }
 
-        return view('PkgCreationProjet::livrable.index', compact('livrables_data', 'livrables_stats', 'livrables_filters','livrable_instance'));
+        return view('PkgCreationProjet::livrable.index', compact('viewTypes','viewType','livrables_data', 'livrables_stats', 'livrables_filters','livrable_instance'));
     }
     public function create() {
         // ownedByUser

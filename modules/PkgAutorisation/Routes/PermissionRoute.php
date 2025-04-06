@@ -23,6 +23,9 @@ Route::middleware('auth')->group(function () {
         });
 
         Route::post('permissions/data-calcul', [PermissionController::class, 'dataCalcul'])->name('permissions.dataCalcul');
+        Route::post('permissions/update-attributes', [PermissionController::class, 'updateAttributes'])->name('permissions.updateAttributes');
+
+    
 
     });
 });

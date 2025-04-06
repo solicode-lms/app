@@ -31,6 +31,10 @@ class BaseNiveauCompetenceController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('niveauCompetence.index');
+        
+        $viewType = $this->viewState->get('view_type', 'table');
+        $viewTypes = $this->getService()->getViewTypes();
+        
 
 
 
@@ -49,12 +53,15 @@ class BaseNiveauCompetenceController extends AdminController
         $this->viewState->set('stats.niveauCompetence.stats'  , $niveauCompetences_stats);
         $niveauCompetences_filters = $this->niveauCompetenceService->getFieldsFilterable();
         $niveauCompetence_instance =  $this->niveauCompetenceService->createInstance();
+        
+        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgCompetences::niveauCompetence._table', compact('niveauCompetences_data', 'niveauCompetences_stats', 'niveauCompetences_filters','niveauCompetence_instance'))->render();
+            return view($partialViewName, compact('viewTypes','niveauCompetences_data', 'niveauCompetences_stats', 'niveauCompetences_filters','niveauCompetence_instance'))->render();
         }
 
-        return view('PkgCompetences::niveauCompetence.index', compact('niveauCompetences_data', 'niveauCompetences_stats', 'niveauCompetences_filters','niveauCompetence_instance'));
+        return view('PkgCompetences::niveauCompetence.index', compact('viewTypes','viewType','niveauCompetences_data', 'niveauCompetences_stats', 'niveauCompetences_filters','niveauCompetence_instance'));
     }
     public function create() {
 

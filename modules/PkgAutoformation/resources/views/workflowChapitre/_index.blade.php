@@ -18,6 +18,7 @@
         editUrl: '{{ route('workflowChapitres.edit',  ['workflowChapitre' => ':id']) }}',
         showUrl: '{{ route('workflowChapitres.show',  ['workflowChapitre' => ':id']) }}',
         storeUrl: '{{ route('workflowChapitres.store') }}', 
+        updateAttributesUrl: '{{ route('workflowChapitres.updateAttributes') }}', 
         deleteUrl: '{{ route('workflowChapitres.destroy',  ['workflowChapitre' => ':id']) }}', 
         calculationUrl:  '{{ route('workflowChapitres.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
@@ -49,13 +50,13 @@
                 @section('workflowChapitre-crud-stats-bar')
                 <div class="card-header row">
                     <!-- Statistiques et Actions -->
-                    <div class="col-sm-9">
+                    <div class="col-sm-8">
                         <x-crud-stats-summary
                             icon="fas fa-chart-bar text-info"
                             :stats="$workflowChapitres_stats"
                         />
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
                         @canany(['create-workflowChapitre','import-workflowChapitre','export-workflowChapitre'])
                         <x-crud-actions
                             :instanceItem="$workflowChapitre_instance"
@@ -69,6 +70,8 @@
                             :exportXlsxRoute="route('workflowChapitres.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('workflowChapitres.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
+                            :viewTypes="$viewTypes"
+                            :viewType="$viewType"
                         />
                         @endcan
                     </div>
@@ -106,10 +109,17 @@
                 </div>
                 @show
                 <div id="workflowChapitre-data-container" class="data-container">
-                    @include('PkgAutoformation::workflowChapitre._table')
+                    @if($viewType == "table")
+                    @include("PkgAutoformation::workflowChapitre._$viewType")
+                    @endif
                 </div>
             </div>
         </div>
+    </section>
+     <section id="widgetUtilisateur-data-container-out" >
+        @if($viewType == "widgets")
+        @include("PkgAutoformation::workflowChapitre._$viewType")
+        @endif
     </section>
     @show
 </div>

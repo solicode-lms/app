@@ -37,6 +37,10 @@ class BaseRoleController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('role.index');
+        
+        $viewType = $this->viewState->get('view_type', 'table');
+        $viewTypes = $this->getService()->getViewTypes();
+        
 
 
 
@@ -55,12 +59,15 @@ class BaseRoleController extends AdminController
         $this->viewState->set('stats.role.stats'  , $roles_stats);
         $roles_filters = $this->roleService->getFieldsFilterable();
         $role_instance =  $this->roleService->createInstance();
+        
+        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgAutorisation::role._table', compact('roles_data', 'roles_stats', 'roles_filters','role_instance'))->render();
+            return view($partialViewName, compact('viewTypes','roles_data', 'roles_stats', 'roles_filters','role_instance'))->render();
         }
 
-        return view('PkgAutorisation::role.index', compact('roles_data', 'roles_stats', 'roles_filters','role_instance'));
+        return view('PkgAutorisation::role.index', compact('viewTypes','viewType','roles_data', 'roles_stats', 'roles_filters','role_instance'));
     }
     public function create() {
 

@@ -32,6 +32,10 @@ class BaseModuleController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('module.index');
+        
+        $viewType = $this->viewState->get('view_type', 'table');
+        $viewTypes = $this->getService()->getViewTypes();
+        
 
 
 
@@ -50,12 +54,15 @@ class BaseModuleController extends AdminController
         $this->viewState->set('stats.module.stats'  , $modules_stats);
         $modules_filters = $this->moduleService->getFieldsFilterable();
         $module_instance =  $this->moduleService->createInstance();
+        
+        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgFormation::module._table', compact('modules_data', 'modules_stats', 'modules_filters','module_instance'))->render();
+            return view($partialViewName, compact('viewTypes','modules_data', 'modules_stats', 'modules_filters','module_instance'))->render();
         }
 
-        return view('PkgFormation::module.index', compact('modules_data', 'modules_stats', 'modules_filters','module_instance'));
+        return view('PkgFormation::module.index', compact('viewTypes','viewType','modules_data', 'modules_stats', 'modules_filters','module_instance'));
     }
     public function create() {
 

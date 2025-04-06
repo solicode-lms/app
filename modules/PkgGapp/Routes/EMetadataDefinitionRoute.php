@@ -23,6 +23,9 @@ Route::middleware('auth')->group(function () {
         });
 
         Route::post('eMetadataDefinitions/data-calcul', [EMetadataDefinitionController::class, 'dataCalcul'])->name('eMetadataDefinitions.dataCalcul');
+        Route::post('eMetadataDefinitions/update-attributes', [EMetadataDefinitionController::class, 'updateAttributes'])->name('eMetadataDefinitions.updateAttributes');
+
+    
 
     });
 });

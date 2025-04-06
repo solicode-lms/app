@@ -23,6 +23,9 @@ Route::middleware('auth')->group(function () {
         });
 
         Route::post('anneeFormations/data-calcul', [AnneeFormationController::class, 'dataCalcul'])->name('anneeFormations.dataCalcul');
+        Route::post('anneeFormations/update-attributes', [AnneeFormationController::class, 'updateAttributes'])->name('anneeFormations.updateAttributes');
+
+    
 
     });
 });

@@ -23,6 +23,9 @@ Route::middleware('auth')->group(function () {
         });
 
         Route::post('validations/data-calcul', [ValidationController::class, 'dataCalcul'])->name('validations.dataCalcul');
+        Route::post('validations/update-attributes', [ValidationController::class, 'updateAttributes'])->name('validations.updateAttributes');
+
+    
 
     });
 });

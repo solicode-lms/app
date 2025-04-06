@@ -23,6 +23,9 @@ Route::middleware('auth')->group(function () {
         });
 
         Route::post('labelRealisationTaches/data-calcul', [LabelRealisationTacheController::class, 'dataCalcul'])->name('labelRealisationTaches.dataCalcul');
+        Route::post('labelRealisationTaches/update-attributes', [LabelRealisationTacheController::class, 'updateAttributes'])->name('labelRealisationTaches.updateAttributes');
+
+    
 
     });
 });

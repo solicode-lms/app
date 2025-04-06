@@ -40,6 +40,10 @@ class BaseApprenantController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('apprenant.index');
+        
+        $viewType = $this->viewState->get('view_type', 'table');
+        $viewTypes = $this->getService()->getViewTypes();
+        
 
         // scopeDataByRole pour Model
         if(Auth::user()->hasRole('formateur')){
@@ -62,12 +66,15 @@ class BaseApprenantController extends AdminController
         $this->viewState->set('stats.apprenant.stats'  , $apprenants_stats);
         $apprenants_filters = $this->apprenantService->getFieldsFilterable();
         $apprenant_instance =  $this->apprenantService->createInstance();
+        
+        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgApprenants::apprenant._table', compact('apprenants_data', 'apprenants_stats', 'apprenants_filters','apprenant_instance'))->render();
+            return view($partialViewName, compact('viewTypes','apprenants_data', 'apprenants_stats', 'apprenants_filters','apprenant_instance'))->render();
         }
 
-        return view('PkgApprenants::apprenant.index', compact('apprenants_data', 'apprenants_stats', 'apprenants_filters','apprenant_instance'));
+        return view('PkgApprenants::apprenant.index', compact('viewTypes','viewType','apprenants_data', 'apprenants_stats', 'apprenants_filters','apprenant_instance'));
     }
     public function create() {
 

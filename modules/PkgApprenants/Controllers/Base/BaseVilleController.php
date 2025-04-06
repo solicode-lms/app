@@ -28,6 +28,10 @@ class BaseVilleController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('ville.index');
+        
+        $viewType = $this->viewState->get('view_type', 'table');
+        $viewTypes = $this->getService()->getViewTypes();
+        
 
 
 
@@ -46,12 +50,15 @@ class BaseVilleController extends AdminController
         $this->viewState->set('stats.ville.stats'  , $villes_stats);
         $villes_filters = $this->villeService->getFieldsFilterable();
         $ville_instance =  $this->villeService->createInstance();
+        
+        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgApprenants::ville._table', compact('villes_data', 'villes_stats', 'villes_filters','ville_instance'))->render();
+            return view($partialViewName, compact('viewTypes','villes_data', 'villes_stats', 'villes_filters','ville_instance'))->render();
         }
 
-        return view('PkgApprenants::ville.index', compact('villes_data', 'villes_stats', 'villes_filters','ville_instance'));
+        return view('PkgApprenants::ville.index', compact('viewTypes','viewType','villes_data', 'villes_stats', 'villes_filters','ville_instance'));
     }
     public function create() {
 

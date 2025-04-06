@@ -18,6 +18,7 @@
         editUrl: '{{ route('sysColors.edit',  ['sysColor' => ':id']) }}',
         showUrl: '{{ route('sysColors.show',  ['sysColor' => ':id']) }}',
         storeUrl: '{{ route('sysColors.store') }}', 
+        updateAttributesUrl: '{{ route('sysColors.updateAttributes') }}', 
         deleteUrl: '{{ route('sysColors.destroy',  ['sysColor' => ':id']) }}', 
         calculationUrl:  '{{ route('sysColors.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
@@ -49,13 +50,13 @@
                 @section('sysColor-crud-stats-bar')
                 <div class="card-header row">
                     <!-- Statistiques et Actions -->
-                    <div class="col-sm-9">
+                    <div class="col-sm-8">
                         <x-crud-stats-summary
                             icon="fas fa-chart-bar text-info"
                             :stats="$sysColors_stats"
                         />
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
                         @canany(['create-sysColor','import-sysColor','export-sysColor'])
                         <x-crud-actions
                             :instanceItem="$sysColor_instance"
@@ -69,6 +70,8 @@
                             :exportXlsxRoute="route('sysColors.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('sysColors.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
+                            :viewTypes="$viewTypes"
+                            :viewType="$viewType"
                         />
                         @endcan
                     </div>
@@ -106,10 +109,17 @@
                 </div>
                 @show
                 <div id="sysColor-data-container" class="data-container">
-                    @include('Core::sysColor._table')
+                    @if($viewType == "table")
+                    @include("Core::sysColor._$viewType")
+                    @endif
                 </div>
             </div>
         </div>
+    </section>
+     <section id="widgetUtilisateur-data-container-out" >
+        @if($viewType == "widgets")
+        @include("Core::sysColor._$viewType")
+        @endif
     </section>
     @show
 </div>

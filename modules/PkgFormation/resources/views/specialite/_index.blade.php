@@ -18,6 +18,7 @@
         editUrl: '{{ route('specialites.edit',  ['specialite' => ':id']) }}',
         showUrl: '{{ route('specialites.show',  ['specialite' => ':id']) }}',
         storeUrl: '{{ route('specialites.store') }}', 
+        updateAttributesUrl: '{{ route('specialites.updateAttributes') }}', 
         deleteUrl: '{{ route('specialites.destroy',  ['specialite' => ':id']) }}', 
         calculationUrl:  '{{ route('specialites.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
@@ -49,13 +50,13 @@
                 @section('specialite-crud-stats-bar')
                 <div class="card-header row">
                     <!-- Statistiques et Actions -->
-                    <div class="col-sm-9">
+                    <div class="col-sm-8">
                         <x-crud-stats-summary
                             icon="fas fa-chart-bar text-info"
                             :stats="$specialites_stats"
                         />
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
                         @canany(['create-specialite','import-specialite','export-specialite'])
                         <x-crud-actions
                             :instanceItem="$specialite_instance"
@@ -69,6 +70,8 @@
                             :exportXlsxRoute="route('specialites.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('specialites.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
+                            :viewTypes="$viewTypes"
+                            :viewType="$viewType"
                         />
                         @endcan
                     </div>
@@ -106,10 +109,17 @@
                 </div>
                 @show
                 <div id="specialite-data-container" class="data-container">
-                    @include('PkgFormation::specialite._table')
+                    @if($viewType == "table")
+                    @include("PkgFormation::specialite._$viewType")
+                    @endif
                 </div>
             </div>
         </div>
+    </section>
+     <section id="widgetUtilisateur-data-container-out" >
+        @if($viewType == "widgets")
+        @include("PkgFormation::specialite._$viewType")
+        @endif
     </section>
     @show
 </div>

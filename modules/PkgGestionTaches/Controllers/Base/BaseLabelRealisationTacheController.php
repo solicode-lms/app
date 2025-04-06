@@ -34,6 +34,10 @@ class BaseLabelRealisationTacheController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('labelRealisationTache.index');
+        
+        $viewType = $this->viewState->get('view_type', 'table');
+        $viewTypes = $this->getService()->getViewTypes();
+        
         // ownedByUser
         if(Auth::user()->hasRole('formateur') && $this->viewState->get('scope.labelRealisationTache.formateur_id') == null){
            $this->viewState->init('scope.labelRealisationTache.formateur_id'  , $this->sessionState->get('formateur_id'));
@@ -56,12 +60,15 @@ class BaseLabelRealisationTacheController extends AdminController
         $this->viewState->set('stats.labelRealisationTache.stats'  , $labelRealisationTaches_stats);
         $labelRealisationTaches_filters = $this->labelRealisationTacheService->getFieldsFilterable();
         $labelRealisationTache_instance =  $this->labelRealisationTacheService->createInstance();
+        
+        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgGestionTaches::labelRealisationTache._table', compact('labelRealisationTaches_data', 'labelRealisationTaches_stats', 'labelRealisationTaches_filters','labelRealisationTache_instance'))->render();
+            return view($partialViewName, compact('viewTypes','labelRealisationTaches_data', 'labelRealisationTaches_stats', 'labelRealisationTaches_filters','labelRealisationTache_instance'))->render();
         }
 
-        return view('PkgGestionTaches::labelRealisationTache.index', compact('labelRealisationTaches_data', 'labelRealisationTaches_stats', 'labelRealisationTaches_filters','labelRealisationTache_instance'));
+        return view('PkgGestionTaches::labelRealisationTache.index', compact('viewTypes','viewType','labelRealisationTaches_data', 'labelRealisationTaches_stats', 'labelRealisationTaches_filters','labelRealisationTache_instance'));
     }
     public function create() {
         // ownedByUser

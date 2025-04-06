@@ -18,6 +18,7 @@
         editUrl: '{{ route('technologies.edit',  ['technology' => ':id']) }}',
         showUrl: '{{ route('technologies.show',  ['technology' => ':id']) }}',
         storeUrl: '{{ route('technologies.store') }}', 
+        updateAttributesUrl: '{{ route('technologies.updateAttributes') }}', 
         deleteUrl: '{{ route('technologies.destroy',  ['technology' => ':id']) }}', 
         calculationUrl:  '{{ route('technologies.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
@@ -49,13 +50,13 @@
                 @section('technology-crud-stats-bar')
                 <div class="card-header row">
                     <!-- Statistiques et Actions -->
-                    <div class="col-sm-9">
+                    <div class="col-sm-8">
                         <x-crud-stats-summary
                             icon="fas fa-chart-bar text-info"
                             :stats="$technologies_stats"
                         />
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
                         @canany(['create-technology','import-technology','export-technology'])
                         <x-crud-actions
                             :instanceItem="$technology_instance"
@@ -69,6 +70,8 @@
                             :exportXlsxRoute="route('technologies.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('technologies.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
+                            :viewTypes="$viewTypes"
+                            :viewType="$viewType"
                         />
                         @endcan
                     </div>
@@ -106,10 +109,17 @@
                 </div>
                 @show
                 <div id="technology-data-container" class="data-container">
-                    @include('PkgCompetences::technology._table')
+                    @if($viewType == "table")
+                    @include("PkgCompetences::technology._$viewType")
+                    @endif
                 </div>
             </div>
         </div>
+    </section>
+     <section id="widgetUtilisateur-data-container-out" >
+        @if($viewType == "widgets")
+        @include("PkgCompetences::technology._$viewType")
+        @endif
     </section>
     @show
 </div>

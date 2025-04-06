@@ -38,6 +38,10 @@ class BaseRealisationFormationController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('realisationFormation.index');
+        
+        $viewType = $this->viewState->get('view_type', 'table');
+        $viewTypes = $this->getService()->getViewTypes();
+        
 
 
 
@@ -56,12 +60,15 @@ class BaseRealisationFormationController extends AdminController
         $this->viewState->set('stats.realisationFormation.stats'  , $realisationFormations_stats);
         $realisationFormations_filters = $this->realisationFormationService->getFieldsFilterable();
         $realisationFormation_instance =  $this->realisationFormationService->createInstance();
+        
+        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgAutoformation::realisationFormation._table', compact('realisationFormations_data', 'realisationFormations_stats', 'realisationFormations_filters','realisationFormation_instance'))->render();
+            return view($partialViewName, compact('viewTypes','realisationFormations_data', 'realisationFormations_stats', 'realisationFormations_filters','realisationFormation_instance'))->render();
         }
 
-        return view('PkgAutoformation::realisationFormation.index', compact('realisationFormations_data', 'realisationFormations_stats', 'realisationFormations_filters','realisationFormation_instance'));
+        return view('PkgAutoformation::realisationFormation.index', compact('viewTypes','viewType','realisationFormations_data', 'realisationFormations_stats', 'realisationFormations_filters','realisationFormation_instance'));
     }
     public function create() {
 

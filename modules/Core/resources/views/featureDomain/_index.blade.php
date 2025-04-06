@@ -18,6 +18,7 @@
         editUrl: '{{ route('featureDomains.edit',  ['featureDomain' => ':id']) }}',
         showUrl: '{{ route('featureDomains.show',  ['featureDomain' => ':id']) }}',
         storeUrl: '{{ route('featureDomains.store') }}', 
+        updateAttributesUrl: '{{ route('featureDomains.updateAttributes') }}', 
         deleteUrl: '{{ route('featureDomains.destroy',  ['featureDomain' => ':id']) }}', 
         calculationUrl:  '{{ route('featureDomains.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
@@ -49,13 +50,13 @@
                 @section('featureDomain-crud-stats-bar')
                 <div class="card-header row">
                     <!-- Statistiques et Actions -->
-                    <div class="col-sm-9">
+                    <div class="col-sm-8">
                         <x-crud-stats-summary
                             icon="fas fa-chart-bar text-info"
                             :stats="$featureDomains_stats"
                         />
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
                         @canany(['create-featureDomain','import-featureDomain','export-featureDomain'])
                         <x-crud-actions
                             :instanceItem="$featureDomain_instance"
@@ -69,6 +70,8 @@
                             :exportXlsxRoute="route('featureDomains.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('featureDomains.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
+                            :viewTypes="$viewTypes"
+                            :viewType="$viewType"
                         />
                         @endcan
                     </div>
@@ -106,10 +109,17 @@
                 </div>
                 @show
                 <div id="featureDomain-data-container" class="data-container">
-                    @include('Core::featureDomain._table')
+                    @if($viewType == "table")
+                    @include("Core::featureDomain._$viewType")
+                    @endif
                 </div>
             </div>
         </div>
+    </section>
+     <section id="widgetUtilisateur-data-container-out" >
+        @if($viewType == "widgets")
+        @include("Core::featureDomain._$viewType")
+        @endif
     </section>
     @show
 </div>

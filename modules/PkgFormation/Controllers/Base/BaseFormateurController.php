@@ -45,6 +45,10 @@ class BaseFormateurController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('formateur.index');
+        
+        $viewType = $this->viewState->get('view_type', 'table');
+        $viewTypes = $this->getService()->getViewTypes();
+        
 
 
 
@@ -63,12 +67,15 @@ class BaseFormateurController extends AdminController
         $this->viewState->set('stats.formateur.stats'  , $formateurs_stats);
         $formateurs_filters = $this->formateurService->getFieldsFilterable();
         $formateur_instance =  $this->formateurService->createInstance();
+        
+        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgFormation::formateur._table', compact('formateurs_data', 'formateurs_stats', 'formateurs_filters','formateur_instance'))->render();
+            return view($partialViewName, compact('viewTypes','formateurs_data', 'formateurs_stats', 'formateurs_filters','formateur_instance'))->render();
         }
 
-        return view('PkgFormation::formateur.index', compact('formateurs_data', 'formateurs_stats', 'formateurs_filters','formateur_instance'));
+        return view('PkgFormation::formateur.index', compact('viewTypes','viewType','formateurs_data', 'formateurs_stats', 'formateurs_filters','formateur_instance'));
     }
     public function create() {
 

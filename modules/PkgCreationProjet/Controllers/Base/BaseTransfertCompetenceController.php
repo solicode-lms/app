@@ -40,6 +40,10 @@ class BaseTransfertCompetenceController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('transfertCompetence.index');
+        
+        $viewType = $this->viewState->get('view_type', 'table');
+        $viewTypes = $this->getService()->getViewTypes();
+        
         // ownedByUser
         if(Auth::user()->hasRole('formateur') && $this->viewState->get('scope.transfertCompetence.projet.formateur_id') == null){
            $this->viewState->init('scope.transfertCompetence.projet.formateur_id'  , $this->sessionState->get('formateur_id'));
@@ -62,12 +66,15 @@ class BaseTransfertCompetenceController extends AdminController
         $this->viewState->set('stats.transfertCompetence.stats'  , $transfertCompetences_stats);
         $transfertCompetences_filters = $this->transfertCompetenceService->getFieldsFilterable();
         $transfertCompetence_instance =  $this->transfertCompetenceService->createInstance();
+        
+        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgCreationProjet::transfertCompetence._table', compact('transfertCompetences_data', 'transfertCompetences_stats', 'transfertCompetences_filters','transfertCompetence_instance'))->render();
+            return view($partialViewName, compact('viewTypes','transfertCompetences_data', 'transfertCompetences_stats', 'transfertCompetences_filters','transfertCompetence_instance'))->render();
         }
 
-        return view('PkgCreationProjet::transfertCompetence.index', compact('transfertCompetences_data', 'transfertCompetences_stats', 'transfertCompetences_filters','transfertCompetence_instance'));
+        return view('PkgCreationProjet::transfertCompetence.index', compact('viewTypes','viewType','transfertCompetences_data', 'transfertCompetences_stats', 'transfertCompetences_filters','transfertCompetence_instance'));
     }
     public function create() {
         // ownedByUser

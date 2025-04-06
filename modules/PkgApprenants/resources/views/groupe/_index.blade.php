@@ -18,6 +18,7 @@
         editUrl: '{{ route('groupes.edit',  ['groupe' => ':id']) }}',
         showUrl: '{{ route('groupes.show',  ['groupe' => ':id']) }}',
         storeUrl: '{{ route('groupes.store') }}', 
+        updateAttributesUrl: '{{ route('groupes.updateAttributes') }}', 
         deleteUrl: '{{ route('groupes.destroy',  ['groupe' => ':id']) }}', 
         calculationUrl:  '{{ route('groupes.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
@@ -49,13 +50,13 @@
                 @section('groupe-crud-stats-bar')
                 <div class="card-header row">
                     <!-- Statistiques et Actions -->
-                    <div class="col-sm-9">
+                    <div class="col-sm-8">
                         <x-crud-stats-summary
                             icon="fas fa-chart-bar text-info"
                             :stats="$groupes_stats"
                         />
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
                         @canany(['create-groupe','import-groupe','export-groupe'])
                         <x-crud-actions
                             :instanceItem="$groupe_instance"
@@ -69,6 +70,8 @@
                             :exportXlsxRoute="route('groupes.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('groupes.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
+                            :viewTypes="$viewTypes"
+                            :viewType="$viewType"
                         />
                         @endcan
                     </div>
@@ -106,10 +109,17 @@
                 </div>
                 @show
                 <div id="groupe-data-container" class="data-container">
-                    @include('PkgApprenants::groupe._table')
+                    @if($viewType == "table")
+                    @include("PkgApprenants::groupe._$viewType")
+                    @endif
                 </div>
             </div>
         </div>
+    </section>
+     <section id="widgetUtilisateur-data-container-out" >
+        @if($viewType == "widgets")
+        @include("PkgApprenants::groupe._$viewType")
+        @endif
     </section>
     @show
 </div>

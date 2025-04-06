@@ -28,6 +28,10 @@ class BaseApprenantKonosyController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('apprenantKonosy.index');
+        
+        $viewType = $this->viewState->get('view_type', 'table');
+        $viewTypes = $this->getService()->getViewTypes();
+        
 
 
 
@@ -46,12 +50,15 @@ class BaseApprenantKonosyController extends AdminController
         $this->viewState->set('stats.apprenantKonosy.stats'  , $apprenantKonosies_stats);
         $apprenantKonosies_filters = $this->apprenantKonosyService->getFieldsFilterable();
         $apprenantKonosy_instance =  $this->apprenantKonosyService->createInstance();
+        
+        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgApprenants::apprenantKonosy._table', compact('apprenantKonosies_data', 'apprenantKonosies_stats', 'apprenantKonosies_filters','apprenantKonosy_instance'))->render();
+            return view($partialViewName, compact('viewTypes','apprenantKonosies_data', 'apprenantKonosies_stats', 'apprenantKonosies_filters','apprenantKonosy_instance'))->render();
         }
 
-        return view('PkgApprenants::apprenantKonosy.index', compact('apprenantKonosies_data', 'apprenantKonosies_stats', 'apprenantKonosies_filters','apprenantKonosy_instance'));
+        return view('PkgApprenants::apprenantKonosy.index', compact('viewTypes','viewType','apprenantKonosies_data', 'apprenantKonosies_stats', 'apprenantKonosies_filters','apprenantKonosy_instance'));
     }
     public function create() {
 

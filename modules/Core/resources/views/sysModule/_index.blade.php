@@ -18,6 +18,7 @@
         editUrl: '{{ route('sysModules.edit',  ['sysModule' => ':id']) }}',
         showUrl: '{{ route('sysModules.show',  ['sysModule' => ':id']) }}',
         storeUrl: '{{ route('sysModules.store') }}', 
+        updateAttributesUrl: '{{ route('sysModules.updateAttributes') }}', 
         deleteUrl: '{{ route('sysModules.destroy',  ['sysModule' => ':id']) }}', 
         calculationUrl:  '{{ route('sysModules.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
@@ -49,13 +50,13 @@
                 @section('sysModule-crud-stats-bar')
                 <div class="card-header row">
                     <!-- Statistiques et Actions -->
-                    <div class="col-sm-9">
+                    <div class="col-sm-8">
                         <x-crud-stats-summary
                             icon="fas fa-chart-bar text-info"
                             :stats="$sysModules_stats"
                         />
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
                         @canany(['create-sysModule','import-sysModule','export-sysModule'])
                         <x-crud-actions
                             :instanceItem="$sysModule_instance"
@@ -69,6 +70,8 @@
                             :exportXlsxRoute="route('sysModules.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('sysModules.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
+                            :viewTypes="$viewTypes"
+                            :viewType="$viewType"
                         />
                         @endcan
                     </div>
@@ -106,10 +109,17 @@
                 </div>
                 @show
                 <div id="sysModule-data-container" class="data-container">
-                    @include('Core::sysModule._table')
+                    @if($viewType == "table")
+                    @include("Core::sysModule._$viewType")
+                    @endif
                 </div>
             </div>
         </div>
+    </section>
+     <section id="widgetUtilisateur-data-container-out" >
+        @if($viewType == "widgets")
+        @include("Core::sysModule._$viewType")
+        @endif
     </section>
     @show
 </div>

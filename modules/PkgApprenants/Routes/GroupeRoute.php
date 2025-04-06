@@ -23,6 +23,9 @@ Route::middleware('auth')->group(function () {
         });
 
         Route::post('groupes/data-calcul', [GroupeController::class, 'dataCalcul'])->name('groupes.dataCalcul');
+        Route::post('groupes/update-attributes', [GroupeController::class, 'updateAttributes'])->name('groupes.updateAttributes');
+
+    
 
     });
 });

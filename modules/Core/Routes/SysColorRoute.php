@@ -23,6 +23,9 @@ Route::middleware('auth')->group(function () {
         });
 
         Route::post('sysColors/data-calcul', [SysColorController::class, 'dataCalcul'])->name('sysColors.dataCalcul');
+        Route::post('sysColors/update-attributes', [SysColorController::class, 'updateAttributes'])->name('sysColors.updateAttributes');
+
+    
 
     });
 });

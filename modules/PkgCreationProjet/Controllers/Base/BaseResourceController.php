@@ -31,6 +31,10 @@ class BaseResourceController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('resource.index');
+        
+        $viewType = $this->viewState->get('view_type', 'table');
+        $viewTypes = $this->getService()->getViewTypes();
+        
         // ownedByUser
         if(Auth::user()->hasRole('formateur') && $this->viewState->get('filter.resource.projet.formateur_id') == null){
            $this->viewState->init('filter.resource.projet.formateur_id'  , $this->sessionState->get('formateur_id'));
@@ -53,12 +57,15 @@ class BaseResourceController extends AdminController
         $this->viewState->set('stats.resource.stats'  , $resources_stats);
         $resources_filters = $this->resourceService->getFieldsFilterable();
         $resource_instance =  $this->resourceService->createInstance();
+        
+        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgCreationProjet::resource._table', compact('resources_data', 'resources_stats', 'resources_filters','resource_instance'))->render();
+            return view($partialViewName, compact('viewTypes','resources_data', 'resources_stats', 'resources_filters','resource_instance'))->render();
         }
 
-        return view('PkgCreationProjet::resource.index', compact('resources_data', 'resources_stats', 'resources_filters','resource_instance'));
+        return view('PkgCreationProjet::resource.index', compact('viewTypes','viewType','resources_data', 'resources_stats', 'resources_filters','resource_instance'));
     }
     public function create() {
         // ownedByUser

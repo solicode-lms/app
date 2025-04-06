@@ -34,6 +34,10 @@ class BaseSysModuleController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('sysModule.index');
+        
+        $viewType = $this->viewState->get('view_type', 'table');
+        $viewTypes = $this->getService()->getViewTypes();
+        
 
 
 
@@ -52,12 +56,15 @@ class BaseSysModuleController extends AdminController
         $this->viewState->set('stats.sysModule.stats'  , $sysModules_stats);
         $sysModules_filters = $this->sysModuleService->getFieldsFilterable();
         $sysModule_instance =  $this->sysModuleService->createInstance();
+        
+        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('Core::sysModule._table', compact('sysModules_data', 'sysModules_stats', 'sysModules_filters','sysModule_instance'))->render();
+            return view($partialViewName, compact('viewTypes','sysModules_data', 'sysModules_stats', 'sysModules_filters','sysModule_instance'))->render();
         }
 
-        return view('Core::sysModule.index', compact('sysModules_data', 'sysModules_stats', 'sysModules_filters','sysModule_instance'));
+        return view('Core::sysModule.index', compact('viewTypes','viewType','sysModules_data', 'sysModules_stats', 'sysModules_filters','sysModule_instance'));
     }
     public function create() {
 

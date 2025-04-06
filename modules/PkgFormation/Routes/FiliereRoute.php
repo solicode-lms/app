@@ -23,6 +23,9 @@ Route::middleware('auth')->group(function () {
         });
 
         Route::post('filieres/data-calcul', [FiliereController::class, 'dataCalcul'])->name('filieres.dataCalcul');
+        Route::post('filieres/update-attributes', [FiliereController::class, 'updateAttributes'])->name('filieres.updateAttributes');
+
+    
 
     });
 });

@@ -39,6 +39,10 @@ class BaseTacheController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('tache.index');
+        
+        $viewType = $this->viewState->get('view_type', 'table');
+        $viewTypes = $this->getService()->getViewTypes();
+        
 
 
 
@@ -57,12 +61,15 @@ class BaseTacheController extends AdminController
         $this->viewState->set('stats.tache.stats'  , $taches_stats);
         $taches_filters = $this->tacheService->getFieldsFilterable();
         $tache_instance =  $this->tacheService->createInstance();
+        
+        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgGestionTaches::tache._table', compact('taches_data', 'taches_stats', 'taches_filters','tache_instance'))->render();
+            return view($partialViewName, compact('viewTypes','taches_data', 'taches_stats', 'taches_filters','tache_instance'))->render();
         }
 
-        return view('PkgGestionTaches::tache.index', compact('taches_data', 'taches_stats', 'taches_filters','tache_instance'));
+        return view('PkgGestionTaches::tache.index', compact('viewTypes','viewType','taches_data', 'taches_stats', 'taches_filters','tache_instance'));
     }
     public function create() {
 

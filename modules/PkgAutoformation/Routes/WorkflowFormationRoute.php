@@ -23,6 +23,9 @@ Route::middleware('auth')->group(function () {
         });
 
         Route::post('workflowFormations/data-calcul', [WorkflowFormationController::class, 'dataCalcul'])->name('workflowFormations.dataCalcul');
+        Route::post('workflowFormations/update-attributes', [WorkflowFormationController::class, 'updateAttributes'])->name('workflowFormations.updateAttributes');
+
+    
 
     });
 });

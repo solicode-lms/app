@@ -18,6 +18,7 @@
         editUrl: '{{ route('affectationProjets.edit',  ['affectationProjet' => ':id']) }}',
         showUrl: '{{ route('affectationProjets.show',  ['affectationProjet' => ':id']) }}',
         storeUrl: '{{ route('affectationProjets.store') }}', 
+        updateAttributesUrl: '{{ route('affectationProjets.updateAttributes') }}', 
         deleteUrl: '{{ route('affectationProjets.destroy',  ['affectationProjet' => ':id']) }}', 
         calculationUrl:  '{{ route('affectationProjets.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
@@ -49,13 +50,13 @@
                 @section('affectationProjet-crud-stats-bar')
                 <div class="card-header row">
                     <!-- Statistiques et Actions -->
-                    <div class="col-sm-9">
+                    <div class="col-sm-8">
                         <x-crud-stats-summary
                             icon="fas fa-chart-bar text-info"
                             :stats="$affectationProjets_stats"
                         />
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
                         @canany(['create-affectationProjet','import-affectationProjet','export-affectationProjet'])
                         <x-crud-actions
                             :instanceItem="$affectationProjet_instance"
@@ -69,6 +70,8 @@
                             :exportXlsxRoute="route('affectationProjets.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('affectationProjets.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
+                            :viewTypes="$viewTypes"
+                            :viewType="$viewType"
                         />
                         @endcan
                     </div>
@@ -106,10 +109,17 @@
                 </div>
                 @show
                 <div id="affectationProjet-data-container" class="data-container">
-                    @include('PkgRealisationProjets::affectationProjet._table')
+                    @if($viewType == "table")
+                    @include("PkgRealisationProjets::affectationProjet._$viewType")
+                    @endif
                 </div>
             </div>
         </div>
+    </section>
+     <section id="widgetUtilisateur-data-container-out" >
+        @if($viewType == "widgets")
+        @include("PkgRealisationProjets::affectationProjet._$viewType")
+        @endif
     </section>
     @show
 </div>

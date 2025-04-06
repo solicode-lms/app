@@ -71,6 +71,7 @@
                             :exportCsvRoute="route('widgetTypes.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
                             :viewTypes="$viewTypes"
+                            :viewType="$viewType"
                         />
                         @endcan
                     </div>

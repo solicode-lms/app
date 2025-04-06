@@ -29,6 +29,10 @@ class BaseWorkflowTacheController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('workflowTache.index');
+        
+        $viewType = $this->viewState->get('view_type', 'table');
+        $viewTypes = $this->getService()->getViewTypes();
+        
 
 
 
@@ -47,12 +51,15 @@ class BaseWorkflowTacheController extends AdminController
         $this->viewState->set('stats.workflowTache.stats'  , $workflowTaches_stats);
         $workflowTaches_filters = $this->workflowTacheService->getFieldsFilterable();
         $workflowTache_instance =  $this->workflowTacheService->createInstance();
+        
+        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgGestionTaches::workflowTache._table', compact('workflowTaches_data', 'workflowTaches_stats', 'workflowTaches_filters','workflowTache_instance'))->render();
+            return view($partialViewName, compact('viewTypes','workflowTaches_data', 'workflowTaches_stats', 'workflowTaches_filters','workflowTache_instance'))->render();
         }
 
-        return view('PkgGestionTaches::workflowTache.index', compact('workflowTaches_data', 'workflowTaches_stats', 'workflowTaches_filters','workflowTache_instance'));
+        return view('PkgGestionTaches::workflowTache.index', compact('viewTypes','viewType','workflowTaches_data', 'workflowTaches_stats', 'workflowTaches_filters','workflowTache_instance'));
     }
     public function create() {
 

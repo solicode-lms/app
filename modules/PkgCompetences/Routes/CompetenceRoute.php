@@ -23,6 +23,9 @@ Route::middleware('auth')->group(function () {
         });
 
         Route::post('competences/data-calcul', [CompetenceController::class, 'dataCalcul'])->name('competences.dataCalcul');
+        Route::post('competences/update-attributes', [CompetenceController::class, 'updateAttributes'])->name('competences.updateAttributes');
+
+    
 
     });
 });

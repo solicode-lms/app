@@ -29,6 +29,10 @@ class BaseEPackageController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('ePackage.index');
+        
+        $viewType = $this->viewState->get('view_type', 'table');
+        $viewTypes = $this->getService()->getViewTypes();
+        
 
 
 
@@ -47,12 +51,15 @@ class BaseEPackageController extends AdminController
         $this->viewState->set('stats.ePackage.stats'  , $ePackages_stats);
         $ePackages_filters = $this->ePackageService->getFieldsFilterable();
         $ePackage_instance =  $this->ePackageService->createInstance();
+        
+        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgGapp::ePackage._table', compact('ePackages_data', 'ePackages_stats', 'ePackages_filters','ePackage_instance'))->render();
+            return view($partialViewName, compact('viewTypes','ePackages_data', 'ePackages_stats', 'ePackages_filters','ePackage_instance'))->render();
         }
 
-        return view('PkgGapp::ePackage.index', compact('ePackages_data', 'ePackages_stats', 'ePackages_filters','ePackage_instance'));
+        return view('PkgGapp::ePackage.index', compact('viewTypes','viewType','ePackages_data', 'ePackages_stats', 'ePackages_filters','ePackage_instance'));
     }
     public function create() {
 

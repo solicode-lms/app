@@ -37,6 +37,10 @@ class BaseSysColorController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('sysColor.index');
+        
+        $viewType = $this->viewState->get('view_type', 'table');
+        $viewTypes = $this->getService()->getViewTypes();
+        
 
 
 
@@ -55,12 +59,15 @@ class BaseSysColorController extends AdminController
         $this->viewState->set('stats.sysColor.stats'  , $sysColors_stats);
         $sysColors_filters = $this->sysColorService->getFieldsFilterable();
         $sysColor_instance =  $this->sysColorService->createInstance();
+        
+        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('Core::sysColor._table', compact('sysColors_data', 'sysColors_stats', 'sysColors_filters','sysColor_instance'))->render();
+            return view($partialViewName, compact('viewTypes','sysColors_data', 'sysColors_stats', 'sysColors_filters','sysColor_instance'))->render();
         }
 
-        return view('Core::sysColor.index', compact('sysColors_data', 'sysColors_stats', 'sysColors_filters','sysColor_instance'));
+        return view('Core::sysColor.index', compact('viewTypes','viewType','sysColors_data', 'sysColors_stats', 'sysColors_filters','sysColor_instance'));
     }
     public function create() {
 

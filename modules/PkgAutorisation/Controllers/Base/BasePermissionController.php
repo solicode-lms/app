@@ -37,6 +37,10 @@ class BasePermissionController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('permission.index');
+        
+        $viewType = $this->viewState->get('view_type', 'table');
+        $viewTypes = $this->getService()->getViewTypes();
+        
 
 
 
@@ -55,12 +59,15 @@ class BasePermissionController extends AdminController
         $this->viewState->set('stats.permission.stats'  , $permissions_stats);
         $permissions_filters = $this->permissionService->getFieldsFilterable();
         $permission_instance =  $this->permissionService->createInstance();
+        
+        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgAutorisation::permission._table', compact('permissions_data', 'permissions_stats', 'permissions_filters','permission_instance'))->render();
+            return view($partialViewName, compact('viewTypes','permissions_data', 'permissions_stats', 'permissions_filters','permission_instance'))->render();
         }
 
-        return view('PkgAutorisation::permission.index', compact('permissions_data', 'permissions_stats', 'permissions_filters','permission_instance'));
+        return view('PkgAutorisation::permission.index', compact('viewTypes','viewType','permissions_data', 'permissions_stats', 'permissions_filters','permission_instance'));
     }
     public function create() {
 

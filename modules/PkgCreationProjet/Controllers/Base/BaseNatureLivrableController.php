@@ -29,6 +29,10 @@ class BaseNatureLivrableController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('natureLivrable.index');
+        
+        $viewType = $this->viewState->get('view_type', 'table');
+        $viewTypes = $this->getService()->getViewTypes();
+        
 
 
 
@@ -47,12 +51,15 @@ class BaseNatureLivrableController extends AdminController
         $this->viewState->set('stats.natureLivrable.stats'  , $natureLivrables_stats);
         $natureLivrables_filters = $this->natureLivrableService->getFieldsFilterable();
         $natureLivrable_instance =  $this->natureLivrableService->createInstance();
+        
+        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgCreationProjet::natureLivrable._table', compact('natureLivrables_data', 'natureLivrables_stats', 'natureLivrables_filters','natureLivrable_instance'))->render();
+            return view($partialViewName, compact('viewTypes','natureLivrables_data', 'natureLivrables_stats', 'natureLivrables_filters','natureLivrable_instance'))->render();
         }
 
-        return view('PkgCreationProjet::natureLivrable.index', compact('natureLivrables_data', 'natureLivrables_stats', 'natureLivrables_filters','natureLivrable_instance'));
+        return view('PkgCreationProjet::natureLivrable.index', compact('viewTypes','viewType','natureLivrables_data', 'natureLivrables_stats', 'natureLivrables_filters','natureLivrable_instance'));
     }
     public function create() {
 

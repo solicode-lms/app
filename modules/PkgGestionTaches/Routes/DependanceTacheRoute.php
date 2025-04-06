@@ -23,6 +23,9 @@ Route::middleware('auth')->group(function () {
         });
 
         Route::post('dependanceTaches/data-calcul', [DependanceTacheController::class, 'dataCalcul'])->name('dependanceTaches.dataCalcul');
+        Route::post('dependanceTaches/update-attributes', [DependanceTacheController::class, 'updateAttributes'])->name('dependanceTaches.updateAttributes');
+
+    
 
     });
 });

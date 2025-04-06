@@ -18,6 +18,7 @@
         editUrl: '{{ route('niveauxScolaires.edit',  ['niveauxScolaire' => ':id']) }}',
         showUrl: '{{ route('niveauxScolaires.show',  ['niveauxScolaire' => ':id']) }}',
         storeUrl: '{{ route('niveauxScolaires.store') }}', 
+        updateAttributesUrl: '{{ route('niveauxScolaires.updateAttributes') }}', 
         deleteUrl: '{{ route('niveauxScolaires.destroy',  ['niveauxScolaire' => ':id']) }}', 
         calculationUrl:  '{{ route('niveauxScolaires.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
@@ -49,13 +50,13 @@
                 @section('niveauxScolaire-crud-stats-bar')
                 <div class="card-header row">
                     <!-- Statistiques et Actions -->
-                    <div class="col-sm-9">
+                    <div class="col-sm-8">
                         <x-crud-stats-summary
                             icon="fas fa-chart-bar text-info"
                             :stats="$niveauxScolaires_stats"
                         />
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
                         @canany(['create-niveauxScolaire','import-niveauxScolaire','export-niveauxScolaire'])
                         <x-crud-actions
                             :instanceItem="$niveauxScolaire_instance"
@@ -69,6 +70,8 @@
                             :exportXlsxRoute="route('niveauxScolaires.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('niveauxScolaires.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
+                            :viewTypes="$viewTypes"
+                            :viewType="$viewType"
                         />
                         @endcan
                     </div>
@@ -106,10 +109,17 @@
                 </div>
                 @show
                 <div id="niveauxScolaire-data-container" class="data-container">
-                    @include('PkgApprenants::niveauxScolaire._table')
+                    @if($viewType == "table")
+                    @include("PkgApprenants::niveauxScolaire._$viewType")
+                    @endif
                 </div>
             </div>
         </div>
+    </section>
+     <section id="widgetUtilisateur-data-container-out" >
+        @if($viewType == "widgets")
+        @include("PkgApprenants::niveauxScolaire._$viewType")
+        @endif
     </section>
     @show
 </div>

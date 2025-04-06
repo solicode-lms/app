@@ -23,6 +23,9 @@ Route::middleware('auth')->group(function () {
         });
 
         Route::post('eModels/data-calcul', [EModelController::class, 'dataCalcul'])->name('eModels.dataCalcul');
+        Route::post('eModels/update-attributes', [EModelController::class, 'updateAttributes'])->name('eModels.updateAttributes');
+
+    
 
     });
 });

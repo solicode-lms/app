@@ -18,6 +18,7 @@
         editUrl: '{{ route('roles.edit',  ['role' => ':id']) }}',
         showUrl: '{{ route('roles.show',  ['role' => ':id']) }}',
         storeUrl: '{{ route('roles.store') }}', 
+        updateAttributesUrl: '{{ route('roles.updateAttributes') }}', 
         deleteUrl: '{{ route('roles.destroy',  ['role' => ':id']) }}', 
         calculationUrl:  '{{ route('roles.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
@@ -49,13 +50,13 @@
                 @section('role-crud-stats-bar')
                 <div class="card-header row">
                     <!-- Statistiques et Actions -->
-                    <div class="col-sm-9">
+                    <div class="col-sm-8">
                         <x-crud-stats-summary
                             icon="fas fa-chart-bar text-info"
                             :stats="$roles_stats"
                         />
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
                         @canany(['create-role','import-role','export-role'])
                         <x-crud-actions
                             :instanceItem="$role_instance"
@@ -69,6 +70,8 @@
                             :exportXlsxRoute="route('roles.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('roles.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
+                            :viewTypes="$viewTypes"
+                            :viewType="$viewType"
                         />
                         @endcan
                     </div>
@@ -106,10 +109,17 @@
                 </div>
                 @show
                 <div id="role-data-container" class="data-container">
-                    @include('PkgAutorisation::role._table')
+                    @if($viewType == "table")
+                    @include("PkgAutorisation::role._$viewType")
+                    @endif
                 </div>
             </div>
         </div>
+    </section>
+     <section id="widgetUtilisateur-data-container-out" >
+        @if($viewType == "widgets")
+        @include("PkgAutorisation::role._$viewType")
+        @endif
     </section>
     @show
 </div>

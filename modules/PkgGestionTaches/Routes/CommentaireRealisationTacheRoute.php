@@ -23,6 +23,9 @@ Route::middleware('auth')->group(function () {
         });
 
         Route::post('commentaireRealisationTaches/data-calcul', [CommentaireRealisationTacheController::class, 'dataCalcul'])->name('commentaireRealisationTaches.dataCalcul');
+        Route::post('commentaireRealisationTaches/update-attributes', [CommentaireRealisationTacheController::class, 'updateAttributes'])->name('commentaireRealisationTaches.updateAttributes');
+
+    
 
     });
 });

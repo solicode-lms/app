@@ -18,6 +18,7 @@
         editUrl: '{{ route('sysModels.edit',  ['sysModel' => ':id']) }}',
         showUrl: '{{ route('sysModels.show',  ['sysModel' => ':id']) }}',
         storeUrl: '{{ route('sysModels.store') }}', 
+        updateAttributesUrl: '{{ route('sysModels.updateAttributes') }}', 
         deleteUrl: '{{ route('sysModels.destroy',  ['sysModel' => ':id']) }}', 
         calculationUrl:  '{{ route('sysModels.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
@@ -49,13 +50,13 @@
                 @section('sysModel-crud-stats-bar')
                 <div class="card-header row">
                     <!-- Statistiques et Actions -->
-                    <div class="col-sm-9">
+                    <div class="col-sm-8">
                         <x-crud-stats-summary
                             icon="fas fa-chart-bar text-info"
                             :stats="$sysModels_stats"
                         />
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
                         @canany(['create-sysModel','import-sysModel','export-sysModel'])
                         <x-crud-actions
                             :instanceItem="$sysModel_instance"
@@ -69,6 +70,8 @@
                             :exportXlsxRoute="route('sysModels.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('sysModels.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
+                            :viewTypes="$viewTypes"
+                            :viewType="$viewType"
                         />
                         @endcan
                     </div>
@@ -106,10 +109,17 @@
                 </div>
                 @show
                 <div id="sysModel-data-container" class="data-container">
-                    @include('Core::sysModel._table')
+                    @if($viewType == "table")
+                    @include("Core::sysModel._$viewType")
+                    @endif
                 </div>
             </div>
         </div>
+    </section>
+     <section id="widgetUtilisateur-data-container-out" >
+        @if($viewType == "widgets")
+        @include("Core::sysModel._$viewType")
+        @endif
     </section>
     @show
 </div>

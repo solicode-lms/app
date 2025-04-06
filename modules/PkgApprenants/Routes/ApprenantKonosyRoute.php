@@ -23,6 +23,9 @@ Route::middleware('auth')->group(function () {
         });
 
         Route::post('apprenantKonosies/data-calcul', [ApprenantKonosyController::class, 'dataCalcul'])->name('apprenantKonosies.dataCalcul');
+        Route::post('apprenantKonosies/update-attributes', [ApprenantKonosyController::class, 'updateAttributes'])->name('apprenantKonosies.updateAttributes');
+
+    
 
     });
 });

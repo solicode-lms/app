@@ -36,6 +36,10 @@ class BaseCompetenceController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('competence.index');
+        
+        $viewType = $this->viewState->get('view_type', 'table');
+        $viewTypes = $this->getService()->getViewTypes();
+        
 
 
 
@@ -54,12 +58,15 @@ class BaseCompetenceController extends AdminController
         $this->viewState->set('stats.competence.stats'  , $competences_stats);
         $competences_filters = $this->competenceService->getFieldsFilterable();
         $competence_instance =  $this->competenceService->createInstance();
+        
+        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgCompetences::competence._table', compact('competences_data', 'competences_stats', 'competences_filters','competence_instance'))->render();
+            return view($partialViewName, compact('viewTypes','competences_data', 'competences_stats', 'competences_filters','competence_instance'))->render();
         }
 
-        return view('PkgCompetences::competence.index', compact('competences_data', 'competences_stats', 'competences_filters','competence_instance'));
+        return view('PkgCompetences::competence.index', compact('viewTypes','viewType','competences_data', 'competences_stats', 'competences_filters','competence_instance'));
     }
     public function create() {
 

@@ -18,6 +18,7 @@
         editUrl: '{{ route('permissions.edit',  ['permission' => ':id']) }}',
         showUrl: '{{ route('permissions.show',  ['permission' => ':id']) }}',
         storeUrl: '{{ route('permissions.store') }}', 
+        updateAttributesUrl: '{{ route('permissions.updateAttributes') }}', 
         deleteUrl: '{{ route('permissions.destroy',  ['permission' => ':id']) }}', 
         calculationUrl:  '{{ route('permissions.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
@@ -49,13 +50,13 @@
                 @section('permission-crud-stats-bar')
                 <div class="card-header row">
                     <!-- Statistiques et Actions -->
-                    <div class="col-sm-9">
+                    <div class="col-sm-8">
                         <x-crud-stats-summary
                             icon="fas fa-chart-bar text-info"
                             :stats="$permissions_stats"
                         />
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
                         @canany(['create-permission','import-permission','export-permission'])
                         <x-crud-actions
                             :instanceItem="$permission_instance"
@@ -69,6 +70,8 @@
                             :exportXlsxRoute="route('permissions.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('permissions.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
+                            :viewTypes="$viewTypes"
+                            :viewType="$viewType"
                         />
                         @endcan
                     </div>
@@ -106,10 +109,17 @@
                 </div>
                 @show
                 <div id="permission-data-container" class="data-container">
-                    @include('PkgAutorisation::permission._table')
+                    @if($viewType == "table")
+                    @include("PkgAutorisation::permission._$viewType")
+                    @endif
                 </div>
             </div>
         </div>
+    </section>
+     <section id="widgetUtilisateur-data-container-out" >
+        @if($viewType == "widgets")
+        @include("PkgAutorisation::permission._$viewType")
+        @endif
     </section>
     @show
 </div>

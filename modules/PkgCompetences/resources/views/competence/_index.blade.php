@@ -18,6 +18,7 @@
         editUrl: '{{ route('competences.edit',  ['competence' => ':id']) }}',
         showUrl: '{{ route('competences.show',  ['competence' => ':id']) }}',
         storeUrl: '{{ route('competences.store') }}', 
+        updateAttributesUrl: '{{ route('competences.updateAttributes') }}', 
         deleteUrl: '{{ route('competences.destroy',  ['competence' => ':id']) }}', 
         calculationUrl:  '{{ route('competences.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
@@ -49,13 +50,13 @@
                 @section('competence-crud-stats-bar')
                 <div class="card-header row">
                     <!-- Statistiques et Actions -->
-                    <div class="col-sm-9">
+                    <div class="col-sm-8">
                         <x-crud-stats-summary
                             icon="fas fa-chart-bar text-info"
                             :stats="$competences_stats"
                         />
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
                         @canany(['create-competence','import-competence','export-competence'])
                         <x-crud-actions
                             :instanceItem="$competence_instance"
@@ -69,6 +70,8 @@
                             :exportXlsxRoute="route('competences.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('competences.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
+                            :viewTypes="$viewTypes"
+                            :viewType="$viewType"
                         />
                         @endcan
                     </div>
@@ -106,10 +109,17 @@
                 </div>
                 @show
                 <div id="competence-data-container" class="data-container">
-                    @include('PkgCompetences::competence._table')
+                    @if($viewType == "table")
+                    @include("PkgCompetences::competence._$viewType")
+                    @endif
                 </div>
             </div>
         </div>
+    </section>
+     <section id="widgetUtilisateur-data-container-out" >
+        @if($viewType == "widgets")
+        @include("PkgCompetences::competence._$viewType")
+        @endif
     </section>
     @show
 </div>

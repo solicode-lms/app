@@ -34,6 +34,10 @@ class BaseFeatureController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('feature.index');
+        
+        $viewType = $this->viewState->get('view_type', 'table');
+        $viewTypes = $this->getService()->getViewTypes();
+        
 
 
 
@@ -52,12 +56,15 @@ class BaseFeatureController extends AdminController
         $this->viewState->set('stats.feature.stats'  , $features_stats);
         $features_filters = $this->featureService->getFieldsFilterable();
         $feature_instance =  $this->featureService->createInstance();
+        
+        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('Core::feature._table', compact('features_data', 'features_stats', 'features_filters','feature_instance'))->render();
+            return view($partialViewName, compact('viewTypes','features_data', 'features_stats', 'features_filters','feature_instance'))->render();
         }
 
-        return view('Core::feature.index', compact('features_data', 'features_stats', 'features_filters','feature_instance'));
+        return view('Core::feature.index', compact('viewTypes','viewType','features_data', 'features_stats', 'features_filters','feature_instance'));
     }
     public function create() {
 

@@ -23,6 +23,9 @@ Route::middleware('auth')->group(function () {
         });
 
         Route::post('eMetadata/data-calcul', [EMetadatumController::class, 'dataCalcul'])->name('eMetadata.dataCalcul');
+        Route::post('eMetadata/update-attributes', [EMetadatumController::class, 'updateAttributes'])->name('eMetadata.updateAttributes');
+
+    
 
     });
 });

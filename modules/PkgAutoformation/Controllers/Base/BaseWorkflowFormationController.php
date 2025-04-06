@@ -32,6 +32,10 @@ class BaseWorkflowFormationController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('workflowFormation.index');
+        
+        $viewType = $this->viewState->get('view_type', 'table');
+        $viewTypes = $this->getService()->getViewTypes();
+        
 
 
 
@@ -50,12 +54,15 @@ class BaseWorkflowFormationController extends AdminController
         $this->viewState->set('stats.workflowFormation.stats'  , $workflowFormations_stats);
         $workflowFormations_filters = $this->workflowFormationService->getFieldsFilterable();
         $workflowFormation_instance =  $this->workflowFormationService->createInstance();
+        
+        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgAutoformation::workflowFormation._table', compact('workflowFormations_data', 'workflowFormations_stats', 'workflowFormations_filters','workflowFormation_instance'))->render();
+            return view($partialViewName, compact('viewTypes','workflowFormations_data', 'workflowFormations_stats', 'workflowFormations_filters','workflowFormation_instance'))->render();
         }
 
-        return view('PkgAutoformation::workflowFormation.index', compact('workflowFormations_data', 'workflowFormations_stats', 'workflowFormations_filters','workflowFormation_instance'));
+        return view('PkgAutoformation::workflowFormation.index', compact('viewTypes','viewType','workflowFormations_data', 'workflowFormations_stats', 'workflowFormations_filters','workflowFormation_instance'));
     }
     public function create() {
 

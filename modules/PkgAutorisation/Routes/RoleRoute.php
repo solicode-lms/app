@@ -23,6 +23,9 @@ Route::middleware('auth')->group(function () {
         });
 
         Route::post('roles/data-calcul', [RoleController::class, 'dataCalcul'])->name('roles.dataCalcul');
+        Route::post('roles/update-attributes', [RoleController::class, 'updateAttributes'])->name('roles.updateAttributes');
+
+    
 
     });
 });

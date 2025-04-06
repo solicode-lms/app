@@ -32,6 +32,10 @@ class BaseFeatureDomainController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('featureDomain.index');
+        
+        $viewType = $this->viewState->get('view_type', 'table');
+        $viewTypes = $this->getService()->getViewTypes();
+        
 
 
 
@@ -50,12 +54,15 @@ class BaseFeatureDomainController extends AdminController
         $this->viewState->set('stats.featureDomain.stats'  , $featureDomains_stats);
         $featureDomains_filters = $this->featureDomainService->getFieldsFilterable();
         $featureDomain_instance =  $this->featureDomainService->createInstance();
+        
+        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('Core::featureDomain._table', compact('featureDomains_data', 'featureDomains_stats', 'featureDomains_filters','featureDomain_instance'))->render();
+            return view($partialViewName, compact('viewTypes','featureDomains_data', 'featureDomains_stats', 'featureDomains_filters','featureDomain_instance'))->render();
         }
 
-        return view('Core::featureDomain.index', compact('featureDomains_data', 'featureDomains_stats', 'featureDomains_filters','featureDomain_instance'));
+        return view('Core::featureDomain.index', compact('viewTypes','viewType','featureDomains_data', 'featureDomains_stats', 'featureDomains_filters','featureDomain_instance'));
     }
     public function create() {
 

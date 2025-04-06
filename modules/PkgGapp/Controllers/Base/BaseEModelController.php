@@ -33,6 +33,10 @@ class BaseEModelController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('eModel.index');
+        
+        $viewType = $this->viewState->get('view_type', 'table');
+        $viewTypes = $this->getService()->getViewTypes();
+        
 
 
 
@@ -51,12 +55,15 @@ class BaseEModelController extends AdminController
         $this->viewState->set('stats.eModel.stats'  , $eModels_stats);
         $eModels_filters = $this->eModelService->getFieldsFilterable();
         $eModel_instance =  $this->eModelService->createInstance();
+        
+        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgGapp::eModel._table', compact('eModels_data', 'eModels_stats', 'eModels_filters','eModel_instance'))->render();
+            return view($partialViewName, compact('viewTypes','eModels_data', 'eModels_stats', 'eModels_filters','eModel_instance'))->render();
         }
 
-        return view('PkgGapp::eModel.index', compact('eModels_data', 'eModels_stats', 'eModels_filters','eModel_instance'));
+        return view('PkgGapp::eModel.index', compact('viewTypes','viewType','eModels_data', 'eModels_stats', 'eModels_filters','eModel_instance'));
     }
     public function create() {
 

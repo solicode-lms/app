@@ -52,7 +52,9 @@
     </div>
     @endcan
 
-@php
+
+
+    @php
     $hasAlternativeViews = collect($viewTypes)->pluck('type')->contains(function ($type) {
         return $type !== 'table';
     });
@@ -72,8 +74,6 @@
         </div>
     </div>
 @endif
-
-
 
     
     <button id="toggle-filter" class="btn btn-sm btn-outline-info ml-2" data-visible="1">

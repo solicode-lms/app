@@ -23,6 +23,9 @@ Route::middleware('auth')->group(function () {
         });
 
         Route::post('specialites/data-calcul', [SpecialiteController::class, 'dataCalcul'])->name('specialites.dataCalcul');
+        Route::post('specialites/update-attributes', [SpecialiteController::class, 'updateAttributes'])->name('specialites.updateAttributes');
+
+    
 
     });
 });

@@ -23,6 +23,9 @@ Route::middleware('auth')->group(function () {
         });
 
         Route::post('chapitres/data-calcul', [ChapitreController::class, 'dataCalcul'])->name('chapitres.dataCalcul');
+        Route::post('chapitres/update-attributes', [ChapitreController::class, 'updateAttributes'])->name('chapitres.updateAttributes');
+
+    
 
     });
 });

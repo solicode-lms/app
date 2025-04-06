@@ -23,6 +23,9 @@ Route::middleware('auth')->group(function () {
         });
 
         Route::post('features/data-calcul', [FeatureController::class, 'dataCalcul'])->name('features.dataCalcul');
+        Route::post('features/update-attributes', [FeatureController::class, 'updateAttributes'])->name('features.updateAttributes');
+
+    
 
     });
 });

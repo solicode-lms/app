@@ -23,6 +23,9 @@ Route::middleware('auth')->group(function () {
         });
 
         Route::post('profiles/data-calcul', [ProfileController::class, 'dataCalcul'])->name('profiles.dataCalcul');
+        Route::post('profiles/update-attributes', [ProfileController::class, 'updateAttributes'])->name('profiles.updateAttributes');
+
+    
 
     });
 });

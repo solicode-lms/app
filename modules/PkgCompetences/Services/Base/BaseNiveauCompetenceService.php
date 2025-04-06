@@ -83,4 +83,30 @@ class BaseNiveauCompetenceService extends BaseService
 
 
 
+
+    /**
+     * Retourne les types de vues disponibles pour l'index (ex: table, widgets...)
+     */
+    public function getViewTypes(): array
+    {
+        return [
+            [
+                'type'  => 'table',
+                'label' => 'Vue Tableau',
+                'icon'  => 'fa-table',
+            ],
+        ];
+    }
+
+    /**
+     * Retourne le nom de la vue partielle selon le type de vue sélectionné
+     */
+    public function getPartialViewName(string $viewType): string
+    {
+        return match ($viewType) {
+            'table' => 'PkgCompetences::niveauCompetence._table',
+            default => 'PkgCompetences::niveauCompetence._table',
+        };
+    }
+
 }

@@ -23,6 +23,9 @@ Route::middleware('auth')->group(function () {
         });
 
         Route::post('etatFormations/data-calcul', [EtatFormationController::class, 'dataCalcul'])->name('etatFormations.dataCalcul');
+        Route::post('etatFormations/update-attributes', [EtatFormationController::class, 'updateAttributes'])->name('etatFormations.updateAttributes');
+
+    
 
     });
 });

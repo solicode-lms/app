@@ -40,6 +40,10 @@ class BaseRealisationProjetController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('realisationProjet.index');
+        
+        $viewType = $this->viewState->get('view_type', 'table');
+        $viewTypes = $this->getService()->getViewTypes();
+        
         // ownedByUser
         if(Auth::user()->hasRole('formateur') && $this->viewState->get('filter.realisationProjet.affectationProjet.projet.formateur_id') == null){
            $this->viewState->init('filter.realisationProjet.affectationProjet.projet.formateur_id'  , $this->sessionState->get('formateur_id'));
@@ -65,12 +69,15 @@ class BaseRealisationProjetController extends AdminController
         $this->viewState->set('stats.realisationProjet.stats'  , $realisationProjets_stats);
         $realisationProjets_filters = $this->realisationProjetService->getFieldsFilterable();
         $realisationProjet_instance =  $this->realisationProjetService->createInstance();
+        
+        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgRealisationProjets::realisationProjet._table', compact('realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters','realisationProjet_instance'))->render();
+            return view($partialViewName, compact('viewTypes','realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters','realisationProjet_instance'))->render();
         }
 
-        return view('PkgRealisationProjets::realisationProjet.index', compact('realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters','realisationProjet_instance'));
+        return view('PkgRealisationProjets::realisationProjet.index', compact('viewTypes','viewType','realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters','realisationProjet_instance'));
     }
     public function create() {
         // ownedByUser

@@ -30,6 +30,10 @@ class BaseAnneeFormationController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('anneeFormation.index');
+        
+        $viewType = $this->viewState->get('view_type', 'table');
+        $viewTypes = $this->getService()->getViewTypes();
+        
 
 
 
@@ -48,12 +52,15 @@ class BaseAnneeFormationController extends AdminController
         $this->viewState->set('stats.anneeFormation.stats'  , $anneeFormations_stats);
         $anneeFormations_filters = $this->anneeFormationService->getFieldsFilterable();
         $anneeFormation_instance =  $this->anneeFormationService->createInstance();
+        
+        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgFormation::anneeFormation._table', compact('anneeFormations_data', 'anneeFormations_stats', 'anneeFormations_filters','anneeFormation_instance'))->render();
+            return view($partialViewName, compact('viewTypes','anneeFormations_data', 'anneeFormations_stats', 'anneeFormations_filters','anneeFormation_instance'))->render();
         }
 
-        return view('PkgFormation::anneeFormation.index', compact('anneeFormations_data', 'anneeFormations_stats', 'anneeFormations_filters','anneeFormation_instance'));
+        return view('PkgFormation::anneeFormation.index', compact('viewTypes','viewType','anneeFormations_data', 'anneeFormations_stats', 'anneeFormations_filters','anneeFormation_instance'));
     }
     public function create() {
 

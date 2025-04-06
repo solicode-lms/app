@@ -34,6 +34,10 @@ class BaseDependanceTacheController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('dependanceTache.index');
+        
+        $viewType = $this->viewState->get('view_type', 'table');
+        $viewTypes = $this->getService()->getViewTypes();
+        
 
 
 
@@ -52,12 +56,15 @@ class BaseDependanceTacheController extends AdminController
         $this->viewState->set('stats.dependanceTache.stats'  , $dependanceTaches_stats);
         $dependanceTaches_filters = $this->dependanceTacheService->getFieldsFilterable();
         $dependanceTache_instance =  $this->dependanceTacheService->createInstance();
+        
+        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgGestionTaches::dependanceTache._table', compact('dependanceTaches_data', 'dependanceTaches_stats', 'dependanceTaches_filters','dependanceTache_instance'))->render();
+            return view($partialViewName, compact('viewTypes','dependanceTaches_data', 'dependanceTaches_stats', 'dependanceTaches_filters','dependanceTache_instance'))->render();
         }
 
-        return view('PkgGestionTaches::dependanceTache.index', compact('dependanceTaches_data', 'dependanceTaches_stats', 'dependanceTaches_filters','dependanceTache_instance'));
+        return view('PkgGestionTaches::dependanceTache.index', compact('viewTypes','viewType','dependanceTaches_data', 'dependanceTaches_stats', 'dependanceTaches_filters','dependanceTache_instance'));
     }
     public function create() {
 

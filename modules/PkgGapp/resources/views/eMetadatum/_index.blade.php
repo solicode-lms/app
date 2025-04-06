@@ -18,6 +18,7 @@
         editUrl: '{{ route('eMetadata.edit',  ['eMetadatum' => ':id']) }}',
         showUrl: '{{ route('eMetadata.show',  ['eMetadatum' => ':id']) }}',
         storeUrl: '{{ route('eMetadata.store') }}', 
+        updateAttributesUrl: '{{ route('eMetadata.updateAttributes') }}', 
         deleteUrl: '{{ route('eMetadata.destroy',  ['eMetadatum' => ':id']) }}', 
         calculationUrl:  '{{ route('eMetadata.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
@@ -49,13 +50,13 @@
                 @section('eMetadatum-crud-stats-bar')
                 <div class="card-header row">
                     <!-- Statistiques et Actions -->
-                    <div class="col-sm-9">
+                    <div class="col-sm-8">
                         <x-crud-stats-summary
                             icon="fas fa-chart-bar text-info"
                             :stats="$eMetadata_stats"
                         />
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
                         @canany(['create-eMetadatum','import-eMetadatum','export-eMetadatum'])
                         <x-crud-actions
                             :instanceItem="$eMetadatum_instance"
@@ -69,6 +70,8 @@
                             :exportXlsxRoute="route('eMetadata.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('eMetadata.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
+                            :viewTypes="$viewTypes"
+                            :viewType="$viewType"
                         />
                         @endcan
                     </div>
@@ -106,10 +109,17 @@
                 </div>
                 @show
                 <div id="eMetadatum-data-container" class="data-container">
-                    @include('PkgGapp::eMetadatum._table')
+                    @if($viewType == "table")
+                    @include("PkgGapp::eMetadatum._$viewType")
+                    @endif
                 </div>
             </div>
         </div>
+    </section>
+     <section id="widgetUtilisateur-data-container-out" >
+        @if($viewType == "widgets")
+        @include("PkgGapp::eMetadatum._$viewType")
+        @endif
     </section>
     @show
 </div>

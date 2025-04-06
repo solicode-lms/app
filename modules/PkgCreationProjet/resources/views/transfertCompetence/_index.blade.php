@@ -18,6 +18,7 @@
         editUrl: '{{ route('transfertCompetences.edit',  ['transfertCompetence' => ':id']) }}',
         showUrl: '{{ route('transfertCompetences.show',  ['transfertCompetence' => ':id']) }}',
         storeUrl: '{{ route('transfertCompetences.store') }}', 
+        updateAttributesUrl: '{{ route('transfertCompetences.updateAttributes') }}', 
         deleteUrl: '{{ route('transfertCompetences.destroy',  ['transfertCompetence' => ':id']) }}', 
         calculationUrl:  '{{ route('transfertCompetences.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
@@ -49,13 +50,13 @@
                 @section('transfertCompetence-crud-stats-bar')
                 <div class="card-header row">
                     <!-- Statistiques et Actions -->
-                    <div class="col-sm-9">
+                    <div class="col-sm-8">
                         <x-crud-stats-summary
                             icon="fas fa-chart-bar text-info"
                             :stats="$transfertCompetences_stats"
                         />
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
                         @canany(['create-transfertCompetence','import-transfertCompetence','export-transfertCompetence'])
                         <x-crud-actions
                             :instanceItem="$transfertCompetence_instance"
@@ -69,6 +70,8 @@
                             :exportXlsxRoute="route('transfertCompetences.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('transfertCompetences.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
+                            :viewTypes="$viewTypes"
+                            :viewType="$viewType"
                         />
                         @endcan
                     </div>
@@ -106,10 +109,17 @@
                 </div>
                 @show
                 <div id="transfertCompetence-data-container" class="data-container">
-                    @include('PkgCreationProjet::transfertCompetence._table')
+                    @if($viewType == "table")
+                    @include("PkgCreationProjet::transfertCompetence._$viewType")
+                    @endif
                 </div>
             </div>
         </div>
+    </section>
+     <section id="widgetUtilisateur-data-container-out" >
+        @if($viewType == "widgets")
+        @include("PkgCreationProjet::transfertCompetence._$viewType")
+        @endif
     </section>
     @show
 </div>

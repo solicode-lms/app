@@ -31,6 +31,10 @@ class BaseEtatsRealisationProjetController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('etatsRealisationProjet.index');
+        
+        $viewType = $this->viewState->get('view_type', 'table');
+        $viewTypes = $this->getService()->getViewTypes();
+        
         // ownedByUser
         if(Auth::user()->hasRole('formateur') && $this->viewState->get('scope.etatsRealisationProjet.formateur_id') == null){
            $this->viewState->init('scope.etatsRealisationProjet.formateur_id'  , $this->sessionState->get('formateur_id'));
@@ -53,12 +57,15 @@ class BaseEtatsRealisationProjetController extends AdminController
         $this->viewState->set('stats.etatsRealisationProjet.stats'  , $etatsRealisationProjets_stats);
         $etatsRealisationProjets_filters = $this->etatsRealisationProjetService->getFieldsFilterable();
         $etatsRealisationProjet_instance =  $this->etatsRealisationProjetService->createInstance();
+        
+        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgRealisationProjets::etatsRealisationProjet._table', compact('etatsRealisationProjets_data', 'etatsRealisationProjets_stats', 'etatsRealisationProjets_filters','etatsRealisationProjet_instance'))->render();
+            return view($partialViewName, compact('viewTypes','etatsRealisationProjets_data', 'etatsRealisationProjets_stats', 'etatsRealisationProjets_filters','etatsRealisationProjet_instance'))->render();
         }
 
-        return view('PkgRealisationProjets::etatsRealisationProjet.index', compact('etatsRealisationProjets_data', 'etatsRealisationProjets_stats', 'etatsRealisationProjets_filters','etatsRealisationProjet_instance'));
+        return view('PkgRealisationProjets::etatsRealisationProjet.index', compact('viewTypes','viewType','etatsRealisationProjets_data', 'etatsRealisationProjets_stats', 'etatsRealisationProjets_filters','etatsRealisationProjet_instance'));
     }
     public function create() {
         // ownedByUser

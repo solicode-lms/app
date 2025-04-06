@@ -18,6 +18,7 @@
         editUrl: '{{ route('formations.edit',  ['formation' => ':id']) }}',
         showUrl: '{{ route('formations.show',  ['formation' => ':id']) }}',
         storeUrl: '{{ route('formations.store') }}', 
+        updateAttributesUrl: '{{ route('formations.updateAttributes') }}', 
         deleteUrl: '{{ route('formations.destroy',  ['formation' => ':id']) }}', 
         calculationUrl:  '{{ route('formations.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
@@ -49,13 +50,13 @@
                 @section('formation-crud-stats-bar')
                 <div class="card-header row">
                     <!-- Statistiques et Actions -->
-                    <div class="col-sm-9">
+                    <div class="col-sm-8">
                         <x-crud-stats-summary
                             icon="fas fa-chart-bar text-info"
                             :stats="$formations_stats"
                         />
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
                         @canany(['create-formation','import-formation','export-formation'])
                         <x-crud-actions
                             :instanceItem="$formation_instance"
@@ -69,6 +70,8 @@
                             :exportXlsxRoute="route('formations.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('formations.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
+                            :viewTypes="$viewTypes"
+                            :viewType="$viewType"
                         />
                         @endcan
                     </div>
@@ -106,10 +109,17 @@
                 </div>
                 @show
                 <div id="formation-data-container" class="data-container">
-                    @include('PkgAutoformation::formation._table')
+                    @if($viewType == "table")
+                    @include("PkgAutoformation::formation._$viewType")
+                    @endif
                 </div>
             </div>
         </div>
+    </section>
+     <section id="widgetUtilisateur-data-container-out" >
+        @if($viewType == "widgets")
+        @include("PkgAutoformation::formation._$viewType")
+        @endif
     </section>
     @show
 </div>

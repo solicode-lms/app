@@ -35,6 +35,10 @@ class BaseSysModelController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('sysModel.index');
+        
+        $viewType = $this->viewState->get('view_type', 'table');
+        $viewTypes = $this->getService()->getViewTypes();
+        
 
 
 
@@ -53,12 +57,15 @@ class BaseSysModelController extends AdminController
         $this->viewState->set('stats.sysModel.stats'  , $sysModels_stats);
         $sysModels_filters = $this->sysModelService->getFieldsFilterable();
         $sysModel_instance =  $this->sysModelService->createInstance();
+        
+        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('Core::sysModel._table', compact('sysModels_data', 'sysModels_stats', 'sysModels_filters','sysModel_instance'))->render();
+            return view($partialViewName, compact('viewTypes','sysModels_data', 'sysModels_stats', 'sysModels_filters','sysModel_instance'))->render();
         }
 
-        return view('Core::sysModel.index', compact('sysModels_data', 'sysModels_stats', 'sysModels_filters','sysModel_instance'));
+        return view('Core::sysModel.index', compact('viewTypes','viewType','sysModels_data', 'sysModels_stats', 'sysModels_filters','sysModel_instance'));
     }
     public function create() {
 

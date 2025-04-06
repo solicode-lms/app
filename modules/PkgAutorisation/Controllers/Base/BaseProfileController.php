@@ -31,6 +31,10 @@ class BaseProfileController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('profile.index');
+        
+        $viewType = $this->viewState->get('view_type', 'table');
+        $viewTypes = $this->getService()->getViewTypes();
+        
         // ownedByUser
         if(Auth::user()->hasRole('formateur') && $this->viewState->get('scope.profile.user_id') == null){
            $this->viewState->init('scope.profile.user_id'  , $this->sessionState->get('user_id'));
@@ -63,12 +67,15 @@ class BaseProfileController extends AdminController
         $this->viewState->set('stats.profile.stats'  , $profiles_stats);
         $profiles_filters = $this->profileService->getFieldsFilterable();
         $profile_instance =  $this->profileService->createInstance();
+        
+        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgAutorisation::profile._table', compact('profiles_data', 'profiles_stats', 'profiles_filters','profile_instance'))->render();
+            return view($partialViewName, compact('viewTypes','profiles_data', 'profiles_stats', 'profiles_filters','profile_instance'))->render();
         }
 
-        return view('PkgAutorisation::profile.index', compact('profiles_data', 'profiles_stats', 'profiles_filters','profile_instance'));
+        return view('PkgAutorisation::profile.index', compact('viewTypes','viewType','profiles_data', 'profiles_stats', 'profiles_filters','profile_instance'));
     }
     public function create() {
         // ownedByUser

@@ -32,6 +32,10 @@ class BaseSysControllerController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('sysController.index');
+        
+        $viewType = $this->viewState->get('view_type', 'table');
+        $viewTypes = $this->getService()->getViewTypes();
+        
 
 
 
@@ -50,12 +54,15 @@ class BaseSysControllerController extends AdminController
         $this->viewState->set('stats.sysController.stats'  , $sysControllers_stats);
         $sysControllers_filters = $this->sysControllerService->getFieldsFilterable();
         $sysController_instance =  $this->sysControllerService->createInstance();
+        
+        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('Core::sysController._table', compact('sysControllers_data', 'sysControllers_stats', 'sysControllers_filters','sysController_instance'))->render();
+            return view($partialViewName, compact('viewTypes','sysControllers_data', 'sysControllers_stats', 'sysControllers_filters','sysController_instance'))->render();
         }
 
-        return view('Core::sysController.index', compact('sysControllers_data', 'sysControllers_stats', 'sysControllers_filters','sysController_instance'));
+        return view('Core::sysController.index', compact('viewTypes','viewType','sysControllers_data', 'sysControllers_stats', 'sysControllers_filters','sysController_instance'));
     }
     public function create() {
 

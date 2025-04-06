@@ -18,6 +18,7 @@
         editUrl: '{{ route('users.edit',  ['user' => ':id']) }}',
         showUrl: '{{ route('users.show',  ['user' => ':id']) }}',
         storeUrl: '{{ route('users.store') }}', 
+        updateAttributesUrl: '{{ route('users.updateAttributes') }}', 
         deleteUrl: '{{ route('users.destroy',  ['user' => ':id']) }}', 
         calculationUrl:  '{{ route('users.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
@@ -49,13 +50,13 @@
                 @section('user-crud-stats-bar')
                 <div class="card-header row">
                     <!-- Statistiques et Actions -->
-                    <div class="col-sm-9">
+                    <div class="col-sm-8">
                         <x-crud-stats-summary
                             icon="fas fa-chart-bar text-info"
                             :stats="$users_stats"
                         />
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
                         @canany(['create-user','import-user','export-user'])
                         <x-crud-actions
                             :instanceItem="$user_instance"
@@ -69,6 +70,8 @@
                             :exportXlsxRoute="route('users.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('users.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
+                            :viewTypes="$viewTypes"
+                            :viewType="$viewType"
                         />
                         @endcan
                     </div>
@@ -106,10 +109,17 @@
                 </div>
                 @show
                 <div id="user-data-container" class="data-container">
-                    @include('PkgAutorisation::user._table')
+                    @if($viewType == "table")
+                    @include("PkgAutorisation::user._$viewType")
+                    @endif
                 </div>
             </div>
         </div>
+    </section>
+     <section id="widgetUtilisateur-data-container-out" >
+        @if($viewType == "widgets")
+        @include("PkgAutorisation::user._$viewType")
+        @endif
     </section>
     @show
 </div>

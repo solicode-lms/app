@@ -18,6 +18,7 @@
         editUrl: '{{ route('categoryTechnologies.edit',  ['categoryTechnology' => ':id']) }}',
         showUrl: '{{ route('categoryTechnologies.show',  ['categoryTechnology' => ':id']) }}',
         storeUrl: '{{ route('categoryTechnologies.store') }}', 
+        updateAttributesUrl: '{{ route('categoryTechnologies.updateAttributes') }}', 
         deleteUrl: '{{ route('categoryTechnologies.destroy',  ['categoryTechnology' => ':id']) }}', 
         calculationUrl:  '{{ route('categoryTechnologies.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
@@ -49,13 +50,13 @@
                 @section('categoryTechnology-crud-stats-bar')
                 <div class="card-header row">
                     <!-- Statistiques et Actions -->
-                    <div class="col-sm-9">
+                    <div class="col-sm-8">
                         <x-crud-stats-summary
                             icon="fas fa-chart-bar text-info"
                             :stats="$categoryTechnologies_stats"
                         />
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
                         @canany(['create-categoryTechnology','import-categoryTechnology','export-categoryTechnology'])
                         <x-crud-actions
                             :instanceItem="$categoryTechnology_instance"
@@ -69,6 +70,8 @@
                             :exportXlsxRoute="route('categoryTechnologies.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('categoryTechnologies.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
+                            :viewTypes="$viewTypes"
+                            :viewType="$viewType"
                         />
                         @endcan
                     </div>
@@ -106,10 +109,17 @@
                 </div>
                 @show
                 <div id="categoryTechnology-data-container" class="data-container">
-                    @include('PkgCompetences::categoryTechnology._table')
+                    @if($viewType == "table")
+                    @include("PkgCompetences::categoryTechnology._$viewType")
+                    @endif
                 </div>
             </div>
         </div>
+    </section>
+     <section id="widgetUtilisateur-data-container-out" >
+        @if($viewType == "widgets")
+        @include("PkgCompetences::categoryTechnology._$viewType")
+        @endif
     </section>
     @show
 </div>

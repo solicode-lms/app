@@ -23,6 +23,9 @@ Route::middleware('auth')->group(function () {
         });
 
         Route::post('categoryTechnologies/data-calcul', [CategoryTechnologyController::class, 'dataCalcul'])->name('categoryTechnologies.dataCalcul');
+        Route::post('categoryTechnologies/update-attributes', [CategoryTechnologyController::class, 'updateAttributes'])->name('categoryTechnologies.updateAttributes');
+
+    
 
     });
 });

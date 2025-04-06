@@ -18,6 +18,7 @@
         editUrl: '{{ route('prioriteTaches.edit',  ['prioriteTache' => ':id']) }}',
         showUrl: '{{ route('prioriteTaches.show',  ['prioriteTache' => ':id']) }}',
         storeUrl: '{{ route('prioriteTaches.store') }}', 
+        updateAttributesUrl: '{{ route('prioriteTaches.updateAttributes') }}', 
         deleteUrl: '{{ route('prioriteTaches.destroy',  ['prioriteTache' => ':id']) }}', 
         calculationUrl:  '{{ route('prioriteTaches.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
@@ -49,13 +50,13 @@
                 @section('prioriteTache-crud-stats-bar')
                 <div class="card-header row">
                     <!-- Statistiques et Actions -->
-                    <div class="col-sm-9">
+                    <div class="col-sm-8">
                         <x-crud-stats-summary
                             icon="fas fa-chart-bar text-info"
                             :stats="$prioriteTaches_stats"
                         />
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
                         @canany(['create-prioriteTache','import-prioriteTache','export-prioriteTache'])
                         <x-crud-actions
                             :instanceItem="$prioriteTache_instance"
@@ -69,6 +70,8 @@
                             :exportXlsxRoute="route('prioriteTaches.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('prioriteTaches.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
+                            :viewTypes="$viewTypes"
+                            :viewType="$viewType"
                         />
                         @endcan
                     </div>
@@ -106,10 +109,17 @@
                 </div>
                 @show
                 <div id="prioriteTache-data-container" class="data-container">
-                    @include('PkgGestionTaches::prioriteTache._table')
+                    @if($viewType == "table")
+                    @include("PkgGestionTaches::prioriteTache._$viewType")
+                    @endif
                 </div>
             </div>
         </div>
+    </section>
+     <section id="widgetUtilisateur-data-container-out" >
+        @if($viewType == "widgets")
+        @include("PkgGestionTaches::prioriteTache._$viewType")
+        @endif
     </section>
     @show
 </div>

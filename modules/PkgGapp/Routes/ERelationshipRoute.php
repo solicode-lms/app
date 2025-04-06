@@ -23,6 +23,9 @@ Route::middleware('auth')->group(function () {
         });
 
         Route::post('eRelationships/data-calcul', [ERelationshipController::class, 'dataCalcul'])->name('eRelationships.dataCalcul');
+        Route::post('eRelationships/update-attributes', [ERelationshipController::class, 'updateAttributes'])->name('eRelationships.updateAttributes');
+
+    
 
     });
 });

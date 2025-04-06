@@ -29,6 +29,10 @@ class BaseNiveauxScolaireController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('niveauxScolaire.index');
+        
+        $viewType = $this->viewState->get('view_type', 'table');
+        $viewTypes = $this->getService()->getViewTypes();
+        
 
 
 
@@ -47,12 +51,15 @@ class BaseNiveauxScolaireController extends AdminController
         $this->viewState->set('stats.niveauxScolaire.stats'  , $niveauxScolaires_stats);
         $niveauxScolaires_filters = $this->niveauxScolaireService->getFieldsFilterable();
         $niveauxScolaire_instance =  $this->niveauxScolaireService->createInstance();
+        
+        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
+
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view('PkgApprenants::niveauxScolaire._table', compact('niveauxScolaires_data', 'niveauxScolaires_stats', 'niveauxScolaires_filters','niveauxScolaire_instance'))->render();
+            return view($partialViewName, compact('viewTypes','niveauxScolaires_data', 'niveauxScolaires_stats', 'niveauxScolaires_filters','niveauxScolaire_instance'))->render();
         }
 
-        return view('PkgApprenants::niveauxScolaire.index', compact('niveauxScolaires_data', 'niveauxScolaires_stats', 'niveauxScolaires_filters','niveauxScolaire_instance'));
+        return view('PkgApprenants::niveauxScolaire.index', compact('viewTypes','viewType','niveauxScolaires_data', 'niveauxScolaires_stats', 'niveauxScolaires_filters','niveauxScolaire_instance'));
     }
     public function create() {
 

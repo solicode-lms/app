@@ -23,6 +23,9 @@ Route::middleware('auth')->group(function () {
         });
 
         Route::post('taches/data-calcul', [TacheController::class, 'dataCalcul'])->name('taches.dataCalcul');
+        Route::post('taches/update-attributes', [TacheController::class, 'updateAttributes'])->name('taches.updateAttributes');
+
+    
 
     });
 });

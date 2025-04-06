@@ -23,6 +23,9 @@ Route::middleware('auth')->group(function () {
         });
 
         Route::post('featureDomains/data-calcul', [FeatureDomainController::class, 'dataCalcul'])->name('featureDomains.dataCalcul');
+        Route::post('featureDomains/update-attributes', [FeatureDomainController::class, 'updateAttributes'])->name('featureDomains.updateAttributes');
+
+    
 
     });
 });

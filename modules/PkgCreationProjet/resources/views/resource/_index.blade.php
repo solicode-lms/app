@@ -18,6 +18,7 @@
         editUrl: '{{ route('resources.edit',  ['resource' => ':id']) }}',
         showUrl: '{{ route('resources.show',  ['resource' => ':id']) }}',
         storeUrl: '{{ route('resources.store') }}', 
+        updateAttributesUrl: '{{ route('resources.updateAttributes') }}', 
         deleteUrl: '{{ route('resources.destroy',  ['resource' => ':id']) }}', 
         calculationUrl:  '{{ route('resources.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
@@ -49,13 +50,13 @@
                 @section('resource-crud-stats-bar')
                 <div class="card-header row">
                     <!-- Statistiques et Actions -->
-                    <div class="col-sm-9">
+                    <div class="col-sm-8">
                         <x-crud-stats-summary
                             icon="fas fa-chart-bar text-info"
                             :stats="$resources_stats"
                         />
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
                         @canany(['create-resource','import-resource','export-resource'])
                         <x-crud-actions
                             :instanceItem="$resource_instance"
@@ -69,6 +70,8 @@
                             :exportXlsxRoute="route('resources.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('resources.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
+                            :viewTypes="$viewTypes"
+                            :viewType="$viewType"
                         />
                         @endcan
                     </div>
@@ -106,10 +109,17 @@
                 </div>
                 @show
                 <div id="resource-data-container" class="data-container">
-                    @include('PkgCreationProjet::resource._table')
+                    @if($viewType == "table")
+                    @include("PkgCreationProjet::resource._$viewType")
+                    @endif
                 </div>
             </div>
         </div>
+    </section>
+     <section id="widgetUtilisateur-data-container-out" >
+        @if($viewType == "widgets")
+        @include("PkgCreationProjet::resource._$viewType")
+        @endif
     </section>
     @show
 </div>

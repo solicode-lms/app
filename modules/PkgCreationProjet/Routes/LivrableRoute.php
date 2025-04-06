@@ -23,6 +23,9 @@ Route::middleware('auth')->group(function () {
         });
 
         Route::post('livrables/data-calcul', [LivrableController::class, 'dataCalcul'])->name('livrables.dataCalcul');
+        Route::post('livrables/update-attributes', [LivrableController::class, 'updateAttributes'])->name('livrables.updateAttributes');
+
+    
 
     });
 });

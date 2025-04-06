@@ -23,6 +23,9 @@ Route::middleware('auth')->group(function () {
         });
 
         Route::post('workflowTaches/data-calcul', [WorkflowTacheController::class, 'dataCalcul'])->name('workflowTaches.dataCalcul');
+        Route::post('workflowTaches/update-attributes', [WorkflowTacheController::class, 'updateAttributes'])->name('workflowTaches.updateAttributes');
+
+    
 
     });
 });
