@@ -1,5 +1,5 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
+// Ce fichier est maintenu par ESSARRAJ
 
 
 namespace Modules\PkgWidgets\Controllers\Base;
@@ -30,28 +30,29 @@ class BaseWidgetTypeController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('widgetType.index');
         
-        $viewType = $this->viewState->get('view_type', 'table');
-        
 
 
 
-        // Extraire les paramètres de recherche, page, et filtres
+         // Extraire les paramètres de recherche, pagination, filtres
         $widgetTypes_params = array_merge(
-            $request->only(['page','sort']),
-            ['search' => $request->get('widgetTypes_search', $this->viewState->get("filter.widgetType.widgetTypes_search"))],
+            $request->only(['page', 'sort']),
+            ['search' => $request->get(
+                'widgetTypes_search',
+                $this->viewState->get("filter.widgetType.widgetTypes_search")
+            )],
             $request->except(['widgetTypes_search', 'page', 'sort'])
         );
 
         // prepareDataForIndexView
-        $tcView = $this->widgetTypeService->prepareDataForIndexView($widgetTypes_params, $viewType);
+        $tcView = $this->widgetTypeService->prepareDataForIndexView($widgetTypes_params);
         extract($tcView); // Toutes les variables sont injectées automatiquement
-
+        
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($partialViewName, compact('viewTypes','widgetTypes_data', 'widgetTypes_stats', 'widgetTypes_filters','widgetType_instance'))->render();
+            return view($partialViewName, $compact_value)->render();
         }
 
-        return view('PkgWidgets::widgetType.index', compact('viewTypes','viewType','widgetTypes_data', 'widgetTypes_stats', 'widgetTypes_filters','widgetType_instance'));
+        return view('PkgWidgets::widgetType.index', $compact_value);
     }
     public function create() {
 
@@ -126,6 +127,7 @@ class BaseWidgetTypeController extends AdminController
 
         $this->viewState->set('scope.widget.type_id', $id);
         
+
         $widgetService =  new WidgetService();
         $widgets_view_data = $widgetService->prepareDataForIndexView();
         extract( $widgets_view_data); 

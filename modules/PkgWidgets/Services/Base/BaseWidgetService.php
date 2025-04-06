@@ -158,10 +158,10 @@ class BaseWidgetService extends BaseService
             'widgets_stats' => $widgets_stats,
             'widgets_filters' => $widgets_filters,
             'widget_instance' => $widget_instance,
-            'viewType' => $viewType,
-            'viewTypes' => $viewTypes,
-            'partialViewName' => $partialViewName,
-            'compact_value' => $compact_value
+            'widget_viewType' => $viewType,
+            'widget_viewTypes' => $viewTypes,
+            'widget_partialViewName' => $partialViewName,
+            'widget_compact_value' => $compact_value
         ];
     }
 
