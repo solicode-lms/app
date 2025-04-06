@@ -105,20 +105,49 @@ class BaseWidgetTypeService extends BaseService
         };
     }
 
-    public function prepareDataForIndexView(array $params = [], ?string $viewType = null): array
-    {
-        $data = $this->paginate($params);
-        $stats = $this->getwidgetTypeStats();
-        $this->viewState->set('stats.widgetType.stats'  , $stats);
 
+    public function prepareDataForIndexView(array $params = []): array
+    {
+        // Définir le type de vue par défaut
+        $default_view_type = 'table';
+        $this->viewState->init('widgetType_view_type', $default_view_type);
+        $viewType = $this->viewState->get('widgetType_view_type', $default_view_type);
+    
+        // Si viewType = widgets, appliquer filtre visible = 1
+        if ($this->viewState->get('widgetType_view_type') === 'widgets') {
+            $this->viewState->set("filter.widgetType.visible", 1);
+        }
+        
+        // Récupération des données
+        $widgetTypes_data = $this->paginate($params);
+        $widgetTypes_stats = $this->getwidgetTypeStats();
+        $widgetTypes_filters = $this->getFieldsFilterable();
+        $widgetType_instance = $this->createInstance();
+        $viewTypes = $this->getViewTypes();
+        $partialViewName = $this->getPartialViewName($viewType);
+    
+        // Enregistrer les stats dans le ViewState
+        $this->viewState->set('stats.widgetType.stats', $widgetTypes_stats);
+    
+        // Préparer les variables à injecter dans compact()
+        $compact_value = compact(
+            'viewTypes',
+            'viewType',
+            'widgetTypes_data',
+            'widgetTypes_stats',
+            'widgetTypes_filters',
+            'widgetType_instance'
+        );
+    
         return [
-            'widgetTypes_data' =>$data,
-            'widgetTypes_stats' => $stats,
-            'widgetTypes_filters' => $this->getFieldsFilterable(),
-            'widgetType_instance' => $this->createInstance(),
-            'viewType' => $viewType ?? 'table',
-            'partialViewName' => $this->getPartialViewName($viewType ?? 'table'),
-            'viewTypes' => $this->getViewTypes(),
+            'widgetTypes_data' => $widgetTypes_data,
+            'widgetTypes_stats' => $widgetTypes_stats,
+            'widgetTypes_filters' => $widgetTypes_filters,
+            'widgetType_instance' => $widgetType_instance,
+            'viewType' => $viewType,
+            'viewTypes' => $viewTypes,
+            'partialViewName' => $partialViewName,
+            'compact_value' => $compact_value
         ];
     }
 

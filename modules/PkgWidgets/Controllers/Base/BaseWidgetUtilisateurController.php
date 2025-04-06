@@ -35,6 +35,7 @@ class BaseWidgetUtilisateurController extends AdminController
     }
 
     public function index(Request $request) {
+        
         $this->viewState->setContextKeyIfEmpty('widgetUtilisateur.index');
         
         // ownedByUser
@@ -50,7 +51,7 @@ class BaseWidgetUtilisateurController extends AdminController
 
 
 
-        // Extraire les paramètres de recherche, pagination, filtres
+         // Extraire les paramètres de recherche, pagination, filtres
         $widgetUtilisateurs_params = array_merge(
             $request->only(['page', 'sort']),
             ['search' => $request->get(
@@ -63,7 +64,7 @@ class BaseWidgetUtilisateurController extends AdminController
         // prepareDataForIndexView
         $tcView = $this->widgetUtilisateurService->prepareDataForIndexView($widgetUtilisateurs_params);
         extract($tcView); // Toutes les variables sont injectées automatiquement
-
+        
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
             return view($partialViewName, $compact_value)->render();

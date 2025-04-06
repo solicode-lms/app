@@ -30,28 +30,29 @@ class BaseWidgetOperationController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('widgetOperation.index');
         
-        $viewType = $this->viewState->get('view_type', 'table');
-        
 
 
 
-        // Extraire les paramètres de recherche, page, et filtres
+         // Extraire les paramètres de recherche, pagination, filtres
         $widgetOperations_params = array_merge(
-            $request->only(['page','sort']),
-            ['search' => $request->get('widgetOperations_search', $this->viewState->get("filter.widgetOperation.widgetOperations_search"))],
+            $request->only(['page', 'sort']),
+            ['search' => $request->get(
+                'widgetOperations_search',
+                $this->viewState->get("filter.widgetOperation.widgetOperations_search")
+            )],
             $request->except(['widgetOperations_search', 'page', 'sort'])
         );
 
         // prepareDataForIndexView
-        $tcView = $this->widgetOperationService->prepareDataForIndexView($widgetOperations_params, $viewType);
+        $tcView = $this->widgetOperationService->prepareDataForIndexView($widgetOperations_params);
         extract($tcView); // Toutes les variables sont injectées automatiquement
-
+        
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($partialViewName, compact('viewTypes','widgetOperations_data', 'widgetOperations_stats', 'widgetOperations_filters','widgetOperation_instance'))->render();
+            return view($partialViewName, $compact_value)->render();
         }
 
-        return view('PkgWidgets::widgetOperation.index', compact('viewTypes','viewType','widgetOperations_data', 'widgetOperations_stats', 'widgetOperations_filters','widgetOperation_instance'));
+        return view('PkgWidgets::widgetOperation.index', $compact_value);
     }
     public function create() {
 
