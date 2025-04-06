@@ -3,7 +3,6 @@
 
 
 
-
 use Illuminate\Support\Facades\Route;
 use Modules\PkgWidgets\Controllers\WidgetUtilisateurController;
 
@@ -25,6 +24,8 @@ Route::middleware('auth')->group(function () {
 
         Route::post('widgetUtilisateurs/data-calcul', [WidgetUtilisateurController::class, 'dataCalcul'])->name('widgetUtilisateurs.dataCalcul');
         Route::post('widgetUtilisateurs/update-attributes', [WidgetUtilisateurController::class, 'updateAttributes'])->name('widgetUtilisateurs.updateAttributes');
-        
+
+    
+
     });
 });
