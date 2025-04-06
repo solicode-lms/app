@@ -41,7 +41,7 @@ class BaseWidgetUtilisateurController extends AdminController
         // Ajouter le view_type par défaut 
         $this->viewState->init('view_type', 'widgets');
         $viewType = $this->viewState->get('view_type', 'table');
-        $viewTypes = $this->getService()->getViewTypes();
+   
         // If view_type = widget : ajouter le filtre : visible = true
         if($viewType == "widgets"){
             $this->viewState->set("filter.widgetUtilisateur.visible",1);
@@ -58,8 +58,6 @@ class BaseWidgetUtilisateurController extends AdminController
            $this->viewState->init('scope.widgetUtilisateur.user_id'  , $this->sessionState->get('user_id'));
         }
 
-
-
         // Extraire les paramètres de recherche, page, et filtres
         $widgetUtilisateurs_params = array_merge(
             $request->only(['page','sort']),
@@ -67,16 +65,9 @@ class BaseWidgetUtilisateurController extends AdminController
             $request->except(['widgetUtilisateurs_search', 'page', 'sort'])
         );
 
-        // Paginer les widgetUtilisateurs
-        $widgetUtilisateurs_data = $this->widgetUtilisateurService->paginate($widgetUtilisateurs_params);
-
-        // Récupérer les statistiques et les champs filtrables
-        $widgetUtilisateurs_stats = $this->widgetUtilisateurService->getwidgetUtilisateurStats();
-        $this->viewState->set('stats.widgetUtilisateur.stats'  , $widgetUtilisateurs_stats);
-        $widgetUtilisateurs_filters = $this->widgetUtilisateurService->getFieldsFilterable();
-        $widgetUtilisateur_instance =  $this->widgetUtilisateurService->createInstance();
-        
-        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
+        // prepareDataForIndexView
+        $tcView = $this->widgetUtilisateurService->prepareDataForIndexView($widgetUtilisateurs_params, $viewType);
+        extract($tcView); // Toutes les variables sont injectées automatiquement
 
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {

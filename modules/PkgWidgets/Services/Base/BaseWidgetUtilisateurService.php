@@ -138,4 +138,25 @@ class BaseWidgetUtilisateurService extends BaseService
         };
     }
 
+    public function prepareDataForIndexView(array $params = [], ?string $viewType = null): array
+    {
+
+        
+        $data = $this->paginate($params);
+        $stats = $this->getwidgetUtilisateurStats();
+        
+        $this->viewState->set('stats.widgetUtilisateur.stats'  , $stats);
+
+        return [
+            'widgetUtilisateurs_data' =>$data,
+            'widgetUtilisateurs_stats' => $stats,
+            'widgetUtilisateurs_filters' => $this->getFieldsFilterable(),
+            'widgetUtilisateur_instance' => $this->createInstance(),
+            'viewType' => $viewType ?? 'table',
+            'partialViewName' => $this->getPartialViewName($viewType ?? 'table'),
+            'viewTypes' => $this->getViewTypes(),
+        ];
+    }
+    
+
 }
