@@ -1,5 +1,5 @@
 <?php
-// view_type
+// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 namespace Modules\PkgWidgets\Controllers\Base;
@@ -38,18 +38,17 @@ class BaseWidgetUtilisateurController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('widgetUtilisateur.index');
 
-        // TODO: ajouter MetaData pour détermine le type view par défaut
+
+        // Ajouter le view_type par défaut 
         $this->viewState->init('view_type', 'widgets');
 
         $viewType = $this->viewState->get('view_type', 'table');
+        
+        // If view_type = widget : ajouter le filtre : visible = true
         if($viewType == "widgets"){
             $this->viewState->set("filter.widgetUtilisateur.visible",1);
         }
         
-
-     
-
-
         // ownedByUser
         if(Auth::user()->hasRole('formateur') && $this->viewState->get('scope.widgetUtilisateur.user_id') == null){
            $this->viewState->init('scope.widgetUtilisateur.user_id'  , $this->sessionState->get('user_id'));
@@ -60,8 +59,6 @@ class BaseWidgetUtilisateurController extends AdminController
         if(Auth::user()->hasRole('admin') && $this->viewState->get('scope.widgetUtilisateur.user_id') == null){
            $this->viewState->init('scope.widgetUtilisateur.user_id'  , $this->sessionState->get('user_id'));
         }
-
-
 
         // Extraire les paramètres de recherche, page, et filtres
         $widgetUtilisateurs_params = array_merge(
