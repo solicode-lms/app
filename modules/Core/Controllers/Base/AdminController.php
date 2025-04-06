@@ -7,9 +7,11 @@ use App\Http\Middleware\ContextStateMiddleware;
 use App\Http\Middleware\SessionStateMiddleware;
 use App\Http\Middleware\SetViewStateMiddleware;
 use Illuminate\Http\Request;
+use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\Core\Services\ContextState;
 use Modules\Core\Services\SessionState;
 use Modules\Core\Services\ViewStateService;
+use Str;
 /**
  * AdminController est responsable de la gestion des fonctionnalités liées aux administrateurs.
  * Il hérite de AppController, ce qui permet de centraliser les comportements communs.
@@ -55,48 +57,9 @@ class AdminController extends AppController
         $this->viewState = app(ViewStateService::class);
     }
 
-    // /**
-    //  * Surcharge de la méthode callAction.
-    //  * 
-    //  * - Cette méthode est appelée automatiquement pour exécuter une action spécifique dans le contrôleur.
-    //  * - Elle ajoute une logique supplémentaire pour vérifier les autorisations basées sur les permissions utilisateur.
-    //  * 
-    //  * @param string $method Nom de la méthode/action appelée.
-    //  * @param array $parameters Paramètres passés à la méthode.
-    //  * @return mixed Résultat de l'appel de la méthode parente.
-    //  * @throws \Illuminate\Auth\Access\AuthorizationException Si l'utilisateur n'a pas les permissions nécessaires.
-    //  */
-    // public function callAction($method, $parameters)
-    // {
-    //     // Récupère l'utilisateur authentifié.
-    //     $user = auth()->user();
-
-    //     // Récupère le nom du contrôleur sans le namespace.
-    //     $controller = class_basename(get_class($this));
-
-    //     // Récupère le nom de l'action appelée.
-    //     $action = $method;
-
-    //     // TODO : à vérifier avec GestionControllersController
-    //     // Formate le nom du contrôleur pour les permissions :
-    //     // - Si le contrôleur s'appelle "GestionControllersController", on enlève "Controller" en utilisant une regex.
-    //     // - Sinon, on remplace "Controller" et "@" par des tirets.
-    //     if ($controller === 'GestionControllersController') {
-    //         $changeName = preg_replace('/Controller$/', '', $controller);
-    //     } else {
-    //         $changeName = str_replace(['Controller', '@'], ['', '-'], $controller);
-    //     }
-
-    //     // Construit le nom de la permission sous la forme "action-nomDuControleurController".
-    //     $permissions = $action . '-' . $changeName . 'Controller';
-
-    //     // Vérifie si l'utilisateur a la permission requise.
-    //     $this->authorize($permissions);
-
-    //     // Appelle la méthode parente pour continuer le traitement.
-    //     return parent::callAction($method, $parameters);
-    // }
-
+    protected function getService() {
+        return $this->service;
+    }
 
     public function getData(Request $request)
     {
@@ -116,5 +79,76 @@ class AdminController extends AppController
             ['toString' => $tache->__toString()] // Ajouter le champ `toString`
         )));
     }
+
+
+     /**
+     * @DynamicPermissionIgnore
+     * Met à jour les attributs, il est utilisé par type View : Widgets
+     */
+    public function updateAttributes(Request $request)
+    {
+        // Autorisation dynamique basée sur le nom du contrôleur
+        $this->authorizeAction('update');
     
+        $updatableFields = $this->getUpdatableAttributes();
+    
+        // Règles de validation regroupées dans un seul tableau
+        $validationRules = [
+            'id' => ['required', 'integer', 'exists:' . Str::snake(Str::plural($this->getModelName())) . ',id'],
+            'ordre' => 'nullable|integer|min:1',
+            'visible' => 'nullable|boolean',
+        ];
+    
+        // Ne conserver que les règles liées aux champs modifiables + id
+        $validationRules = collect($validationRules)
+            ->only(array_merge(['id'], $updatableFields))
+            ->toArray();
+    
+        $validated = $request->validate($validationRules);
+    
+        $dataToUpdate = collect($validated)->only($updatableFields)->toArray();
+    
+        if (empty($dataToUpdate)) {
+            return JsonResponseHelper::error('Aucune donnée à mettre à jour.', 422);
+        }
+    
+        $this->getService()->update($validated['id'], $dataToUpdate);
+    
+        return JsonResponseHelper::success(__('Mise à jour réussie.'), [
+            'entity_id' => $validated['id']
+        ]);
+    }
+    
+    /**
+     * Autorisation d'une action dans le current Controller
+     * @param string $action
+     * @return void
+     */
+    protected function authorizeAction(string $action)
+    {
+        $controller = $this->getControllerName(); // Ex: "widgetUtilisateur"
+        $permission = $action . '-' . $controller;
+
+        if (!auth()->user()->can($permission)) {
+            abort(403, "Permission refusée : $permission");
+        }
+    }
+    protected function getControllerName(): string
+    {
+        $class = class_basename(static::class); // Ex: WidgetUtilisateurController
+        $controllerName = preg_replace('/Controller$/', '', $class); // => WidgetUtilisateur
+        return Str::camel($controllerName); // => widgetUtilisateur
+    }
+
+    protected function getModelName(): string
+    {
+        return Str::studly($this->getControllerName()); // Ex: WidgetUtilisateur
+    }
+    /**
+     * Retourne les champs qui peuvent être mis à jour dynamiquement.
+     */
+    protected function getUpdatableAttributes(): array
+    {
+        return ['ordre', 'visible']; // Par défaut dans WidgetUtilisateur
+    }
 }
