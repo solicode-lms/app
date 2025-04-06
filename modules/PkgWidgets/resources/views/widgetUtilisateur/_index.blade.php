@@ -1,5 +1,4 @@
-{{-- view_type --}}
-
+{{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 <script>
     window.crudModalManagersConfig = window.crudModalManagersConfig || [];
