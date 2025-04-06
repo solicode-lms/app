@@ -107,10 +107,10 @@ class BaseWidgetOperationController extends AdminController
         extract($widgets_view_data);
 
         if (request()->ajax()) {
-            return view('PkgWidgets::widgetOperation._edit', array_merge(compact('itemWidgetOperation'),$widget_compact_value));
+            return view('PkgWidgets::widgetOperation._edit', array_merge(compact('itemWidgetOperation'),));
         }
 
-        return view('PkgWidgets::widgetOperation.edit', array_merge(compact('itemWidgetOperation'),$widget_compact_value));
+        return view('PkgWidgets::widgetOperation.edit', array_merge(compact('itemWidgetOperation'),));
 
     }
     public function edit(string $id) {
@@ -131,10 +131,10 @@ class BaseWidgetOperationController extends AdminController
         extract($widgets_view_data);
 
         if (request()->ajax()) {
-            return view('PkgWidgets::widgetOperation._edit', array_merge(compact('itemWidgetOperation'),$widget_compact_value));
+            return view('PkgWidgets::widgetOperation._edit', array_merge(compact('itemWidgetOperation',),$widget_compact_value));
         }
 
-        return view('PkgWidgets::widgetOperation.edit', array_merge(compact('itemWidgetOperation'),$widget_compact_value));
+        return view('PkgWidgets::widgetOperation.edit', array_merge(compact('itemWidgetOperation',),$widget_compact_value));
 
     }
     public function update(WidgetOperationRequest $request, string $id) {

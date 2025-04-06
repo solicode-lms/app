@@ -131,10 +131,10 @@ class BaseWidgetTypeController extends AdminController
         extract($widgets_view_data);
 
         if (request()->ajax()) {
-            return view('PkgWidgets::widgetType._edit', array_merge(compact('itemWidgetType,'),$widget_compact_value));
+            return view('PkgWidgets::widgetType._edit', array_merge(compact('itemWidgetType',),$widget_compact_value));
         }
 
-        return view('PkgWidgets::widgetType.edit', array_merge(compact('itemWidgetType,'),$widget_compact_value'),$widget_compact_value));
+        return view('PkgWidgets::widgetType.edit', array_merge(compact('itemWidgetType',),$widget_compact_value));
 
     }
     public function update(WidgetTypeRequest $request, string $id) {
