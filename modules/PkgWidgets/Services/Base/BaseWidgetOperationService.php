@@ -110,7 +110,7 @@ class BaseWidgetOperationService extends BaseService
     public function prepareDataForIndexView(array $params = []): array
     {
         // Définir le type de vue par défaut
-        $default_view_type = 'widgets';
+        $default_view_type = 'table';
         $this->viewState->init('widgetOperation_view_type', $default_view_type);
         $widgetOperation_viewType = $this->viewState->get('widgetOperation_view_type', $default_view_type);
     

@@ -124,7 +124,7 @@ class BaseWidgetService extends BaseService
     public function prepareDataForIndexView(array $params = []): array
     {
         // Définir le type de vue par défaut
-        $default_view_type = 'widgets';
+        $default_view_type = 'table';
         $this->viewState->init('widget_view_type', $default_view_type);
         $widget_viewType = $this->viewState->get('widget_view_type', $default_view_type);
     
