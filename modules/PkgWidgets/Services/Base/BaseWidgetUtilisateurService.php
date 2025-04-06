@@ -139,6 +139,7 @@ class BaseWidgetUtilisateurService extends BaseService
     }
 
 
+
     public function prepareDataForIndexView(array $params = []): array
     {
         // Définir le type de vue par défaut

@@ -106,12 +106,13 @@ class BaseWidgetOperationService extends BaseService
     }
 
 
+
     public function prepareDataForIndexView(array $params = []): array
     {
         // Définir le type de vue par défaut
-        $default_view_type = 'table';
+        $default_view_type = 'widgets';
         $this->viewState->init('widgetOperation_view_type', $default_view_type);
-        $viewType = $this->viewState->get('widgetOperation_view_type', $default_view_type);
+        $widgetOperation_viewType = $this->viewState->get('widgetOperation_view_type', $default_view_type);
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('widgetOperation_view_type') === 'widgets') {
@@ -123,16 +124,16 @@ class BaseWidgetOperationService extends BaseService
         $widgetOperations_stats = $this->getwidgetOperationStats();
         $widgetOperations_filters = $this->getFieldsFilterable();
         $widgetOperation_instance = $this->createInstance();
-        $viewTypes = $this->getViewTypes();
-        $partialViewName = $this->getPartialViewName($viewType);
+        $widgetOperation_viewTypes = $this->getViewTypes();
+        $widgetOperation_partialViewName = $this->getPartialViewName($widgetOperation_viewType);
     
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.widgetOperation.stats', $widgetOperations_stats);
     
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
-            'viewTypes',
-            'viewType',
+            'widgetOperation_viewTypes',
+            'widgetOperation_viewType',
             'widgetOperations_data',
             'widgetOperations_stats',
             'widgetOperations_filters',
@@ -144,10 +145,10 @@ class BaseWidgetOperationService extends BaseService
             'widgetOperations_stats' => $widgetOperations_stats,
             'widgetOperations_filters' => $widgetOperations_filters,
             'widgetOperation_instance' => $widgetOperation_instance,
-            'viewType' => $viewType,
-            'viewTypes' => $viewTypes,
-            'partialViewName' => $partialViewName,
-            'compact_value' => $compact_value
+            'widgetOperation_viewType' => $widgetOperation_viewType,
+            'widgetOperation_viewTypes' => $widgetOperation_viewTypes,
+            'widgetOperation_partialViewName' => $widgetOperation_partialViewName,
+            'widgetOperation_compact_value' => $compact_value
         ];
     }
 

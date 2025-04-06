@@ -120,12 +120,13 @@ class BaseWidgetService extends BaseService
     }
 
 
+
     public function prepareDataForIndexView(array $params = []): array
     {
         // Définir le type de vue par défaut
-        $default_view_type = 'table';
+        $default_view_type = 'widgets';
         $this->viewState->init('widget_view_type', $default_view_type);
-        $viewType = $this->viewState->get('widget_view_type', $default_view_type);
+        $widget_viewType = $this->viewState->get('widget_view_type', $default_view_type);
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('widget_view_type') === 'widgets') {
@@ -137,16 +138,16 @@ class BaseWidgetService extends BaseService
         $widgets_stats = $this->getwidgetStats();
         $widgets_filters = $this->getFieldsFilterable();
         $widget_instance = $this->createInstance();
-        $viewTypes = $this->getViewTypes();
-        $partialViewName = $this->getPartialViewName($viewType);
+        $widget_viewTypes = $this->getViewTypes();
+        $widget_partialViewName = $this->getPartialViewName($widget_viewType);
     
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.widget.stats', $widgets_stats);
     
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
-            'viewTypes',
-            'viewType',
+            'widget_viewTypes',
+            'widget_viewType',
             'widgets_data',
             'widgets_stats',
             'widgets_filters',
@@ -158,9 +159,9 @@ class BaseWidgetService extends BaseService
             'widgets_stats' => $widgets_stats,
             'widgets_filters' => $widgets_filters,
             'widget_instance' => $widget_instance,
-            'widget_viewType' => $viewType,
-            'widget_viewTypes' => $viewTypes,
-            'widget_partialViewName' => $partialViewName,
+            'widget_viewType' => $widget_viewType,
+            'widget_viewTypes' => $widget_viewTypes,
+            'widget_partialViewName' => $widget_partialViewName,
             'widget_compact_value' => $compact_value
         ];
     }

@@ -1,5 +1,5 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ
+// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 namespace Modules\PkgWidgets\Controllers\Base;
@@ -49,10 +49,10 @@ class BaseWidgetTypeController extends AdminController
         
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($partialViewName, $compact_value)->render();
+            return view($widgetType_partialViewName, $widgetType_compact_value)->render();
         }
 
-        return view('PkgWidgets::widgetType.index', $compact_value);
+        return view('PkgWidgets::widgetType.index', $widgetType_compact_value);
     }
     public function create() {
 
@@ -129,8 +129,11 @@ class BaseWidgetTypeController extends AdminController
         
 
         $widgetService =  new WidgetService();
-        $widgets_view_data = $widgetService->prepareDataForIndexView();
-        extract( $widgets_view_data); 
+        $widgets_data =  $widgetService->paginate();
+        $widgets_stats = $widgetService->getwidgetStats();
+        $this->viewState->set('stats.widget.stats'  , $widgets_stats);
+        $widgets_filters = $widgetService->getFieldsFilterable();
+        $widget_instance =  $widgetService->createInstance();
 
         if (request()->ajax()) {
             return view('PkgWidgets::widgetType._edit', compact('itemWidgetType', 'widgets_data', 'widgets_stats', 'widgets_filters', 'widget_instance'));
