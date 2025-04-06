@@ -113,4 +113,51 @@ class BaseSysModuleService extends BaseService
         };
     }
 
+
+
+    public function prepareDataForIndexView(array $params = []): array
+    {
+        // Définir le type de vue par défaut
+        $default_view_type = 'table';
+        $this->viewState->init('sysModule_view_type', $default_view_type);
+        $sysModule_viewType = $this->viewState->get('sysModule_view_type', $default_view_type);
+    
+        // Si viewType = widgets, appliquer filtre visible = 1
+        if ($this->viewState->get('sysModule_view_type') === 'widgets') {
+            $this->viewState->set("filter.sysModule.visible", 1);
+        }
+        
+        // Récupération des données
+        $sysModules_data = $this->paginate($params);
+        $sysModules_stats = $this->getsysModuleStats();
+        $sysModules_filters = $this->getFieldsFilterable();
+        $sysModule_instance = $this->createInstance();
+        $sysModule_viewTypes = $this->getViewTypes();
+        $sysModule_partialViewName = $this->getPartialViewName($sysModule_viewType);
+    
+        // Enregistrer les stats dans le ViewState
+        $this->viewState->set('stats.sysModule.stats', $sysModules_stats);
+    
+        // Préparer les variables à injecter dans compact()
+        $compact_value = compact(
+            'sysModule_viewTypes',
+            'sysModule_viewType',
+            'sysModules_data',
+            'sysModules_stats',
+            'sysModules_filters',
+            'sysModule_instance'
+        );
+    
+        return [
+            'sysModules_data' => $sysModules_data,
+            'sysModules_stats' => $sysModules_stats,
+            'sysModules_filters' => $sysModules_filters,
+            'sysModule_instance' => $sysModule_instance,
+            'sysModule_viewType' => $sysModule_viewType,
+            'sysModule_viewTypes' => $sysModule_viewTypes,
+            'sysModule_partialViewName' => $sysModule_partialViewName,
+            'sysModule_compact_value' => $compact_value
+        ];
+    }
+
 }

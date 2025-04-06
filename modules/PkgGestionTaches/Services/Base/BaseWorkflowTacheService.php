@@ -106,4 +106,51 @@ class BaseWorkflowTacheService extends BaseService
         };
     }
 
+
+
+    public function prepareDataForIndexView(array $params = []): array
+    {
+        // Définir le type de vue par défaut
+        $default_view_type = 'table';
+        $this->viewState->init('workflowTache_view_type', $default_view_type);
+        $workflowTache_viewType = $this->viewState->get('workflowTache_view_type', $default_view_type);
+    
+        // Si viewType = widgets, appliquer filtre visible = 1
+        if ($this->viewState->get('workflowTache_view_type') === 'widgets') {
+            $this->viewState->set("filter.workflowTache.visible", 1);
+        }
+        
+        // Récupération des données
+        $workflowTaches_data = $this->paginate($params);
+        $workflowTaches_stats = $this->getworkflowTacheStats();
+        $workflowTaches_filters = $this->getFieldsFilterable();
+        $workflowTache_instance = $this->createInstance();
+        $workflowTache_viewTypes = $this->getViewTypes();
+        $workflowTache_partialViewName = $this->getPartialViewName($workflowTache_viewType);
+    
+        // Enregistrer les stats dans le ViewState
+        $this->viewState->set('stats.workflowTache.stats', $workflowTaches_stats);
+    
+        // Préparer les variables à injecter dans compact()
+        $compact_value = compact(
+            'workflowTache_viewTypes',
+            'workflowTache_viewType',
+            'workflowTaches_data',
+            'workflowTaches_stats',
+            'workflowTaches_filters',
+            'workflowTache_instance'
+        );
+    
+        return [
+            'workflowTaches_data' => $workflowTaches_data,
+            'workflowTaches_stats' => $workflowTaches_stats,
+            'workflowTaches_filters' => $workflowTaches_filters,
+            'workflowTache_instance' => $workflowTache_instance,
+            'workflowTache_viewType' => $workflowTache_viewType,
+            'workflowTache_viewTypes' => $workflowTache_viewTypes,
+            'workflowTache_partialViewName' => $workflowTache_partialViewName,
+            'workflowTache_compact_value' => $compact_value
+        ];
+    }
+
 }

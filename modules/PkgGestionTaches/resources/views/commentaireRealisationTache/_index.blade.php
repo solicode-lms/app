@@ -70,8 +70,8 @@
                             :exportXlsxRoute="route('commentaireRealisationTaches.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('commentaireRealisationTaches.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
-                            :viewTypes="$viewTypes"
-                            :viewType="$viewType"
+                            :viewTypes="$commentaireRealisationTache_viewTypes"
+                            :viewType="$commentaireRealisationTache_viewType"
                         />
                         @endcan
                     </div>
@@ -109,16 +109,16 @@
                 </div>
                 @show
                 <div id="commentaireRealisationTache-data-container" class="data-container">
-                    @if($viewType == "table")
-                    @include("PkgGestionTaches::commentaireRealisationTache._$viewType")
+                    @if($commentaireRealisationTache_viewType == "table")
+                    @include("PkgGestionTaches::commentaireRealisationTache._$commentaireRealisationTache_viewType")
                     @endif
                 </div>
             </div>
         </div>
     </section>
-     <section id="widgetUtilisateur-data-container-out" >
-        @if($viewType == "widgets")
-        @include("PkgGestionTaches::commentaireRealisationTache._$viewType")
+     <section id="commentaireRealisationTache-data-container-out" >
+        @if($commentaireRealisationTache_viewType == "widgets")
+        @include("PkgGestionTaches::commentaireRealisationTache._$commentaireRealisationTache_viewType")
         @endif
     </section>
     @show

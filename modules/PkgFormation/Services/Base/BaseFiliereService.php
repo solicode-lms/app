@@ -106,4 +106,51 @@ class BaseFiliereService extends BaseService
         };
     }
 
+
+
+    public function prepareDataForIndexView(array $params = []): array
+    {
+        // Définir le type de vue par défaut
+        $default_view_type = 'table';
+        $this->viewState->init('filiere_view_type', $default_view_type);
+        $filiere_viewType = $this->viewState->get('filiere_view_type', $default_view_type);
+    
+        // Si viewType = widgets, appliquer filtre visible = 1
+        if ($this->viewState->get('filiere_view_type') === 'widgets') {
+            $this->viewState->set("filter.filiere.visible", 1);
+        }
+        
+        // Récupération des données
+        $filieres_data = $this->paginate($params);
+        $filieres_stats = $this->getfiliereStats();
+        $filieres_filters = $this->getFieldsFilterable();
+        $filiere_instance = $this->createInstance();
+        $filiere_viewTypes = $this->getViewTypes();
+        $filiere_partialViewName = $this->getPartialViewName($filiere_viewType);
+    
+        // Enregistrer les stats dans le ViewState
+        $this->viewState->set('stats.filiere.stats', $filieres_stats);
+    
+        // Préparer les variables à injecter dans compact()
+        $compact_value = compact(
+            'filiere_viewTypes',
+            'filiere_viewType',
+            'filieres_data',
+            'filieres_stats',
+            'filieres_filters',
+            'filiere_instance'
+        );
+    
+        return [
+            'filieres_data' => $filieres_data,
+            'filieres_stats' => $filieres_stats,
+            'filieres_filters' => $filieres_filters,
+            'filiere_instance' => $filiere_instance,
+            'filiere_viewType' => $filiere_viewType,
+            'filiere_viewTypes' => $filiere_viewTypes,
+            'filiere_partialViewName' => $filiere_partialViewName,
+            'filiere_compact_value' => $compact_value
+        ];
+    }
+
 }

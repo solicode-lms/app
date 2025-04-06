@@ -70,8 +70,8 @@
                             :exportXlsxRoute="route('apprenantKonosies.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('apprenantKonosies.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
-                            :viewTypes="$viewTypes"
-                            :viewType="$viewType"
+                            :viewTypes="$apprenantKonosy_viewTypes"
+                            :viewType="$apprenantKonosy_viewType"
                         />
                         @endcan
                     </div>
@@ -109,16 +109,16 @@
                 </div>
                 @show
                 <div id="apprenantKonosy-data-container" class="data-container">
-                    @if($viewType == "table")
-                    @include("PkgApprenants::apprenantKonosy._$viewType")
+                    @if($apprenantKonosy_viewType == "table")
+                    @include("PkgApprenants::apprenantKonosy._$apprenantKonosy_viewType")
                     @endif
                 </div>
             </div>
         </div>
     </section>
-     <section id="widgetUtilisateur-data-container-out" >
-        @if($viewType == "widgets")
-        @include("PkgApprenants::apprenantKonosy._$viewType")
+     <section id="apprenantKonosy-data-container-out" >
+        @if($apprenantKonosy_viewType == "widgets")
+        @include("PkgApprenants::apprenantKonosy._$apprenantKonosy_viewType")
         @endif
     </section>
     @show

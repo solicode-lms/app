@@ -32,36 +32,29 @@ class BaseFiliereController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('filiere.index');
         
-        $viewType = $this->viewState->get('view_type', 'table');
-        $viewTypes = $this->getService()->getViewTypes();
-        
 
 
 
-        // Extraire les paramètres de recherche, page, et filtres
+         // Extraire les paramètres de recherche, pagination, filtres
         $filieres_params = array_merge(
-            $request->only(['page','sort']),
-            ['search' => $request->get('filieres_search', $this->viewState->get("filter.filiere.filieres_search"))],
+            $request->only(['page', 'sort']),
+            ['search' => $request->get(
+                'filieres_search',
+                $this->viewState->get("filter.filiere.filieres_search")
+            )],
             $request->except(['filieres_search', 'page', 'sort'])
         );
 
-        // Paginer les filieres
-        $filieres_data = $this->filiereService->paginate($filieres_params);
-
-        // Récupérer les statistiques et les champs filtrables
-        $filieres_stats = $this->filiereService->getfiliereStats();
-        $this->viewState->set('stats.filiere.stats'  , $filieres_stats);
-        $filieres_filters = $this->filiereService->getFieldsFilterable();
-        $filiere_instance =  $this->filiereService->createInstance();
+        // prepareDataForIndexView
+        $tcView = $this->filiereService->prepareDataForIndexView($filieres_params);
+        extract($tcView); // Toutes les variables sont injectées automatiquement
         
-        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
-
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($partialViewName, compact('viewTypes','filieres_data', 'filieres_stats', 'filieres_filters','filiere_instance'))->render();
+            return view($filiere_partialViewName, $filiere_compact_value)->render();
         }
 
-        return view('PkgFormation::filiere.index', compact('viewTypes','viewType','filieres_data', 'filieres_stats', 'filieres_filters','filiere_instance'));
+        return view('PkgFormation::filiere.index', $filiere_compact_value);
     }
     public function create() {
 
@@ -112,34 +105,28 @@ class BaseFiliereController extends AdminController
 
 
         $groupeService =  new GroupeService();
-        $groupes_data =  $groupeService->paginate();
-        $groupes_stats = $groupeService->getgroupeStats();
-        $groupes_filters = $groupeService->getFieldsFilterable();
-        $groupe_instance =  $groupeService->createInstance();
+        $groupes_view_data = $groupeService->prepareDataForIndexView();
+        extract($groupes_view_data);
 
         $this->viewState->set('scope.module.filiere_id', $id);
 
 
         $moduleService =  new ModuleService();
-        $modules_data =  $moduleService->paginate();
-        $modules_stats = $moduleService->getmoduleStats();
-        $modules_filters = $moduleService->getFieldsFilterable();
-        $module_instance =  $moduleService->createInstance();
+        $modules_view_data = $moduleService->prepareDataForIndexView();
+        extract($modules_view_data);
 
         $this->viewState->set('scope.projet.filiere_id', $id);
 
 
         $projetService =  new ProjetService();
-        $projets_data =  $projetService->paginate();
-        $projets_stats = $projetService->getprojetStats();
-        $projets_filters = $projetService->getFieldsFilterable();
-        $projet_instance =  $projetService->createInstance();
+        $projets_view_data = $projetService->prepareDataForIndexView();
+        extract($projets_view_data);
 
         if (request()->ajax()) {
-            return view('PkgFormation::filiere._edit', compact('itemFiliere', 'groupes_data', 'modules_data', 'projets_data', 'groupes_stats', 'modules_stats', 'projets_stats', 'groupes_filters', 'modules_filters', 'projets_filters', 'groupe_instance', 'module_instance', 'projet_instance'));
+            return view('PkgFormation::filiere._edit', array_merge(compact('itemFiliere'),));
         }
 
-        return view('PkgFormation::filiere.edit', compact('itemFiliere', 'groupes_data', 'modules_data', 'projets_data', 'groupes_stats', 'modules_stats', 'projets_stats', 'groupes_filters', 'modules_filters', 'projets_filters', 'groupe_instance', 'module_instance', 'projet_instance'));
+        return view('PkgFormation::filiere.edit', array_merge(compact('itemFiliere'),));
 
     }
     public function edit(string $id) {
@@ -156,37 +143,28 @@ class BaseFiliereController extends AdminController
         
 
         $groupeService =  new GroupeService();
-        $groupes_data =  $groupeService->paginate();
-        $groupes_stats = $groupeService->getgroupeStats();
-        $this->viewState->set('stats.groupe.stats'  , $groupes_stats);
-        $groupes_filters = $groupeService->getFieldsFilterable();
-        $groupe_instance =  $groupeService->createInstance();
+        $groupes_view_data = $groupeService->prepareDataForIndexView();
+        extract($groupes_view_data);
 
         $this->viewState->set('scope.module.filiere_id', $id);
         
 
         $moduleService =  new ModuleService();
-        $modules_data =  $moduleService->paginate();
-        $modules_stats = $moduleService->getmoduleStats();
-        $this->viewState->set('stats.module.stats'  , $modules_stats);
-        $modules_filters = $moduleService->getFieldsFilterable();
-        $module_instance =  $moduleService->createInstance();
+        $modules_view_data = $moduleService->prepareDataForIndexView();
+        extract($modules_view_data);
 
         $this->viewState->set('scope.projet.filiere_id', $id);
         
 
         $projetService =  new ProjetService();
-        $projets_data =  $projetService->paginate();
-        $projets_stats = $projetService->getprojetStats();
-        $this->viewState->set('stats.projet.stats'  , $projets_stats);
-        $projets_filters = $projetService->getFieldsFilterable();
-        $projet_instance =  $projetService->createInstance();
+        $projets_view_data = $projetService->prepareDataForIndexView();
+        extract($projets_view_data);
 
         if (request()->ajax()) {
-            return view('PkgFormation::filiere._edit', compact('itemFiliere', 'groupes_data', 'modules_data', 'projets_data', 'groupes_stats', 'modules_stats', 'projets_stats', 'groupes_filters', 'modules_filters', 'projets_filters', 'groupe_instance', 'module_instance', 'projet_instance'));
+            return view('PkgFormation::filiere._edit', array_merge(compact('itemFiliere',),$groupe_compact_value, $module_compact_value, $projet_compact_value));
         }
 
-        return view('PkgFormation::filiere.edit', compact('itemFiliere', 'groupes_data', 'modules_data', 'projets_data', 'groupes_stats', 'modules_stats', 'projets_stats', 'groupes_filters', 'modules_filters', 'projets_filters', 'groupe_instance', 'module_instance', 'projet_instance'));
+        return view('PkgFormation::filiere.edit', array_merge(compact('itemFiliere',),$groupe_compact_value, $module_compact_value, $projet_compact_value));
 
     }
     public function update(FiliereRequest $request, string $id) {

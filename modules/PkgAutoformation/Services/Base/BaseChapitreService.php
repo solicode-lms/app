@@ -125,4 +125,51 @@ class BaseChapitreService extends BaseService
         };
     }
 
+
+
+    public function prepareDataForIndexView(array $params = []): array
+    {
+        // Définir le type de vue par défaut
+        $default_view_type = 'table';
+        $this->viewState->init('chapitre_view_type', $default_view_type);
+        $chapitre_viewType = $this->viewState->get('chapitre_view_type', $default_view_type);
+    
+        // Si viewType = widgets, appliquer filtre visible = 1
+        if ($this->viewState->get('chapitre_view_type') === 'widgets') {
+            $this->viewState->set("filter.chapitre.visible", 1);
+        }
+        
+        // Récupération des données
+        $chapitres_data = $this->paginate($params);
+        $chapitres_stats = $this->getchapitreStats();
+        $chapitres_filters = $this->getFieldsFilterable();
+        $chapitre_instance = $this->createInstance();
+        $chapitre_viewTypes = $this->getViewTypes();
+        $chapitre_partialViewName = $this->getPartialViewName($chapitre_viewType);
+    
+        // Enregistrer les stats dans le ViewState
+        $this->viewState->set('stats.chapitre.stats', $chapitres_stats);
+    
+        // Préparer les variables à injecter dans compact()
+        $compact_value = compact(
+            'chapitre_viewTypes',
+            'chapitre_viewType',
+            'chapitres_data',
+            'chapitres_stats',
+            'chapitres_filters',
+            'chapitre_instance'
+        );
+    
+        return [
+            'chapitres_data' => $chapitres_data,
+            'chapitres_stats' => $chapitres_stats,
+            'chapitres_filters' => $chapitres_filters,
+            'chapitre_instance' => $chapitre_instance,
+            'chapitre_viewType' => $chapitre_viewType,
+            'chapitre_viewTypes' => $chapitre_viewTypes,
+            'chapitre_partialViewName' => $chapitre_partialViewName,
+            'chapitre_compact_value' => $compact_value
+        ];
+    }
+
 }

@@ -36,36 +36,29 @@ class BaseSysModelController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('sysModel.index');
         
-        $viewType = $this->viewState->get('view_type', 'table');
-        $viewTypes = $this->getService()->getViewTypes();
-        
 
 
 
-        // Extraire les paramètres de recherche, page, et filtres
+         // Extraire les paramètres de recherche, pagination, filtres
         $sysModels_params = array_merge(
-            $request->only(['page','sort']),
-            ['search' => $request->get('sysModels_search', $this->viewState->get("filter.sysModel.sysModels_search"))],
+            $request->only(['page', 'sort']),
+            ['search' => $request->get(
+                'sysModels_search',
+                $this->viewState->get("filter.sysModel.sysModels_search")
+            )],
             $request->except(['sysModels_search', 'page', 'sort'])
         );
 
-        // Paginer les sysModels
-        $sysModels_data = $this->sysModelService->paginate($sysModels_params);
-
-        // Récupérer les statistiques et les champs filtrables
-        $sysModels_stats = $this->sysModelService->getsysModelStats();
-        $this->viewState->set('stats.sysModel.stats'  , $sysModels_stats);
-        $sysModels_filters = $this->sysModelService->getFieldsFilterable();
-        $sysModel_instance =  $this->sysModelService->createInstance();
+        // prepareDataForIndexView
+        $tcView = $this->sysModelService->prepareDataForIndexView($sysModels_params);
+        extract($tcView); // Toutes les variables sont injectées automatiquement
         
-        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
-
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($partialViewName, compact('viewTypes','sysModels_data', 'sysModels_stats', 'sysModels_filters','sysModel_instance'))->render();
+            return view($sysModel_partialViewName, $sysModel_compact_value)->render();
         }
 
-        return view('Core::sysModel.index', compact('viewTypes','viewType','sysModels_data', 'sysModels_stats', 'sysModels_filters','sysModel_instance'));
+        return view('Core::sysModel.index', $sysModel_compact_value);
     }
     public function create() {
 
@@ -120,16 +113,14 @@ class BaseSysModelController extends AdminController
 
 
         $widgetService =  new WidgetService();
-        $widgets_data =  $widgetService->paginate();
-        $widgets_stats = $widgetService->getwidgetStats();
-        $widgets_filters = $widgetService->getFieldsFilterable();
-        $widget_instance =  $widgetService->createInstance();
+        $widgets_view_data = $widgetService->prepareDataForIndexView();
+        extract($widgets_view_data);
 
         if (request()->ajax()) {
-            return view('Core::sysModel._edit', compact('itemSysModel', 'sysColors', 'sysModules', 'widgets_data', 'widgets_stats', 'widgets_filters', 'widget_instance'));
+            return view('Core::sysModel._edit', array_merge(compact('itemSysModel'),$sysColors, $sysModules));
         }
 
-        return view('Core::sysModel.edit', compact('itemSysModel', 'sysColors', 'sysModules', 'widgets_data', 'widgets_stats', 'widgets_filters', 'widget_instance'));
+        return view('Core::sysModel.edit', array_merge(compact('itemSysModel'),$sysColors, $sysModules));
 
     }
     public function edit(string $id) {
@@ -148,17 +139,14 @@ class BaseSysModelController extends AdminController
         
 
         $widgetService =  new WidgetService();
-        $widgets_data =  $widgetService->paginate();
-        $widgets_stats = $widgetService->getwidgetStats();
-        $this->viewState->set('stats.widget.stats'  , $widgets_stats);
-        $widgets_filters = $widgetService->getFieldsFilterable();
-        $widget_instance =  $widgetService->createInstance();
+        $widgets_view_data = $widgetService->prepareDataForIndexView();
+        extract($widgets_view_data);
 
         if (request()->ajax()) {
-            return view('Core::sysModel._edit', compact('itemSysModel', 'sysColors', 'sysModules', 'widgets_data', 'widgets_stats', 'widgets_filters', 'widget_instance'));
+            return view('Core::sysModel._edit', array_merge(compact('itemSysModel','sysColors', 'sysModules'),$widget_compact_value));
         }
 
-        return view('Core::sysModel.edit', compact('itemSysModel', 'sysColors', 'sysModules', 'widgets_data', 'widgets_stats', 'widgets_filters', 'widget_instance'));
+        return view('Core::sysModel.edit', array_merge(compact('itemSysModel','sysColors', 'sysModules'),$widget_compact_value));
 
     }
     public function update(SysModelRequest $request, string $id) {

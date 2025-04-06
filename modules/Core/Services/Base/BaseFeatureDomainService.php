@@ -110,4 +110,51 @@ class BaseFeatureDomainService extends BaseService
         };
     }
 
+
+
+    public function prepareDataForIndexView(array $params = []): array
+    {
+        // Définir le type de vue par défaut
+        $default_view_type = 'table';
+        $this->viewState->init('featureDomain_view_type', $default_view_type);
+        $featureDomain_viewType = $this->viewState->get('featureDomain_view_type', $default_view_type);
+    
+        // Si viewType = widgets, appliquer filtre visible = 1
+        if ($this->viewState->get('featureDomain_view_type') === 'widgets') {
+            $this->viewState->set("filter.featureDomain.visible", 1);
+        }
+        
+        // Récupération des données
+        $featureDomains_data = $this->paginate($params);
+        $featureDomains_stats = $this->getfeatureDomainStats();
+        $featureDomains_filters = $this->getFieldsFilterable();
+        $featureDomain_instance = $this->createInstance();
+        $featureDomain_viewTypes = $this->getViewTypes();
+        $featureDomain_partialViewName = $this->getPartialViewName($featureDomain_viewType);
+    
+        // Enregistrer les stats dans le ViewState
+        $this->viewState->set('stats.featureDomain.stats', $featureDomains_stats);
+    
+        // Préparer les variables à injecter dans compact()
+        $compact_value = compact(
+            'featureDomain_viewTypes',
+            'featureDomain_viewType',
+            'featureDomains_data',
+            'featureDomains_stats',
+            'featureDomains_filters',
+            'featureDomain_instance'
+        );
+    
+        return [
+            'featureDomains_data' => $featureDomains_data,
+            'featureDomains_stats' => $featureDomains_stats,
+            'featureDomains_filters' => $featureDomains_filters,
+            'featureDomain_instance' => $featureDomain_instance,
+            'featureDomain_viewType' => $featureDomain_viewType,
+            'featureDomain_viewTypes' => $featureDomain_viewTypes,
+            'featureDomain_partialViewName' => $featureDomain_partialViewName,
+            'featureDomain_compact_value' => $compact_value
+        ];
+    }
+
 }

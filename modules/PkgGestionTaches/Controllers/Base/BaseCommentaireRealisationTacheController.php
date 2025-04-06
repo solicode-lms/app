@@ -38,36 +38,29 @@ class BaseCommentaireRealisationTacheController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('commentaireRealisationTache.index');
         
-        $viewType = $this->viewState->get('view_type', 'table');
-        $viewTypes = $this->getService()->getViewTypes();
-        
 
 
 
-        // Extraire les paramètres de recherche, page, et filtres
+         // Extraire les paramètres de recherche, pagination, filtres
         $commentaireRealisationTaches_params = array_merge(
-            $request->only(['page','sort']),
-            ['search' => $request->get('commentaireRealisationTaches_search', $this->viewState->get("filter.commentaireRealisationTache.commentaireRealisationTaches_search"))],
+            $request->only(['page', 'sort']),
+            ['search' => $request->get(
+                'commentaireRealisationTaches_search',
+                $this->viewState->get("filter.commentaireRealisationTache.commentaireRealisationTaches_search")
+            )],
             $request->except(['commentaireRealisationTaches_search', 'page', 'sort'])
         );
 
-        // Paginer les commentaireRealisationTaches
-        $commentaireRealisationTaches_data = $this->commentaireRealisationTacheService->paginate($commentaireRealisationTaches_params);
-
-        // Récupérer les statistiques et les champs filtrables
-        $commentaireRealisationTaches_stats = $this->commentaireRealisationTacheService->getcommentaireRealisationTacheStats();
-        $this->viewState->set('stats.commentaireRealisationTache.stats'  , $commentaireRealisationTaches_stats);
-        $commentaireRealisationTaches_filters = $this->commentaireRealisationTacheService->getFieldsFilterable();
-        $commentaireRealisationTache_instance =  $this->commentaireRealisationTacheService->createInstance();
+        // prepareDataForIndexView
+        $tcView = $this->commentaireRealisationTacheService->prepareDataForIndexView($commentaireRealisationTaches_params);
+        extract($tcView); // Toutes les variables sont injectées automatiquement
         
-        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
-
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($partialViewName, compact('viewTypes','commentaireRealisationTaches_data', 'commentaireRealisationTaches_stats', 'commentaireRealisationTaches_filters','commentaireRealisationTache_instance'))->render();
+            return view($commentaireRealisationTache_partialViewName, $commentaireRealisationTache_compact_value)->render();
         }
 
-        return view('PkgGestionTaches::commentaireRealisationTache.index', compact('viewTypes','viewType','commentaireRealisationTaches_data', 'commentaireRealisationTaches_stats', 'commentaireRealisationTaches_filters','commentaireRealisationTache_instance'));
+        return view('PkgGestionTaches::commentaireRealisationTache.index', $commentaireRealisationTache_compact_value);
     }
     public function create() {
 
@@ -121,10 +114,10 @@ class BaseCommentaireRealisationTacheController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('PkgGestionTaches::commentaireRealisationTache._fields', compact('itemCommentaireRealisationTache', 'apprenants', 'formateurs', 'realisationTaches'));
+            return view('PkgGestionTaches::commentaireRealisationTache._fields', array_merge(compact('itemCommentaireRealisationTache'),$apprenants, $formateurs, $realisationTaches));
         }
 
-        return view('PkgGestionTaches::commentaireRealisationTache.edit', compact('itemCommentaireRealisationTache', 'apprenants', 'formateurs', 'realisationTaches'));
+        return view('PkgGestionTaches::commentaireRealisationTache.edit', array_merge(compact('itemCommentaireRealisationTache'),$apprenants, $formateurs, $realisationTaches));
 
     }
     public function edit(string $id) {
@@ -141,10 +134,10 @@ class BaseCommentaireRealisationTacheController extends AdminController
 
 
         if (request()->ajax()) {
-            return view('PkgGestionTaches::commentaireRealisationTache._fields', compact('itemCommentaireRealisationTache', 'apprenants', 'formateurs', 'realisationTaches'));
+            return view('PkgGestionTaches::commentaireRealisationTache._fields', array_merge(compact('itemCommentaireRealisationTache','apprenants', 'formateurs', 'realisationTaches'),));
         }
 
-        return view('PkgGestionTaches::commentaireRealisationTache.edit', compact('itemCommentaireRealisationTache', 'apprenants', 'formateurs', 'realisationTaches'));
+        return view('PkgGestionTaches::commentaireRealisationTache.edit', array_merge(compact('itemCommentaireRealisationTache','apprenants', 'formateurs', 'realisationTaches'),));
 
     }
     public function update(CommentaireRealisationTacheRequest $request, string $id) {

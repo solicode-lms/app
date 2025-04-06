@@ -33,36 +33,29 @@ class BaseWorkflowFormationController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('workflowFormation.index');
         
-        $viewType = $this->viewState->get('view_type', 'table');
-        $viewTypes = $this->getService()->getViewTypes();
-        
 
 
 
-        // Extraire les paramètres de recherche, page, et filtres
+         // Extraire les paramètres de recherche, pagination, filtres
         $workflowFormations_params = array_merge(
-            $request->only(['page','sort']),
-            ['search' => $request->get('workflowFormations_search', $this->viewState->get("filter.workflowFormation.workflowFormations_search"))],
+            $request->only(['page', 'sort']),
+            ['search' => $request->get(
+                'workflowFormations_search',
+                $this->viewState->get("filter.workflowFormation.workflowFormations_search")
+            )],
             $request->except(['workflowFormations_search', 'page', 'sort'])
         );
 
-        // Paginer les workflowFormations
-        $workflowFormations_data = $this->workflowFormationService->paginate($workflowFormations_params);
-
-        // Récupérer les statistiques et les champs filtrables
-        $workflowFormations_stats = $this->workflowFormationService->getworkflowFormationStats();
-        $this->viewState->set('stats.workflowFormation.stats'  , $workflowFormations_stats);
-        $workflowFormations_filters = $this->workflowFormationService->getFieldsFilterable();
-        $workflowFormation_instance =  $this->workflowFormationService->createInstance();
+        // prepareDataForIndexView
+        $tcView = $this->workflowFormationService->prepareDataForIndexView($workflowFormations_params);
+        extract($tcView); // Toutes les variables sont injectées automatiquement
         
-        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
-
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($partialViewName, compact('viewTypes','workflowFormations_data', 'workflowFormations_stats', 'workflowFormations_filters','workflowFormation_instance'))->render();
+            return view($workflowFormation_partialViewName, $workflowFormation_compact_value)->render();
         }
 
-        return view('PkgAutoformation::workflowFormation.index', compact('viewTypes','viewType','workflowFormations_data', 'workflowFormations_stats', 'workflowFormations_filters','workflowFormation_instance'));
+        return view('PkgAutoformation::workflowFormation.index', $workflowFormation_compact_value);
     }
     public function create() {
 
@@ -115,16 +108,14 @@ class BaseWorkflowFormationController extends AdminController
 
 
         $etatFormationService =  new EtatFormationService();
-        $etatFormations_data =  $etatFormationService->paginate();
-        $etatFormations_stats = $etatFormationService->getetatFormationStats();
-        $etatFormations_filters = $etatFormationService->getFieldsFilterable();
-        $etatFormation_instance =  $etatFormationService->createInstance();
+        $etatFormations_view_data = $etatFormationService->prepareDataForIndexView();
+        extract($etatFormations_view_data);
 
         if (request()->ajax()) {
-            return view('PkgAutoformation::workflowFormation._edit', compact('itemWorkflowFormation', 'sysColors', 'etatFormations_data', 'etatFormations_stats', 'etatFormations_filters', 'etatFormation_instance'));
+            return view('PkgAutoformation::workflowFormation._edit', array_merge(compact('itemWorkflowFormation'),$sysColors));
         }
 
-        return view('PkgAutoformation::workflowFormation.edit', compact('itemWorkflowFormation', 'sysColors', 'etatFormations_data', 'etatFormations_stats', 'etatFormations_filters', 'etatFormation_instance'));
+        return view('PkgAutoformation::workflowFormation.edit', array_merge(compact('itemWorkflowFormation'),$sysColors));
 
     }
     public function edit(string $id) {
@@ -142,17 +133,14 @@ class BaseWorkflowFormationController extends AdminController
         
 
         $etatFormationService =  new EtatFormationService();
-        $etatFormations_data =  $etatFormationService->paginate();
-        $etatFormations_stats = $etatFormationService->getetatFormationStats();
-        $this->viewState->set('stats.etatFormation.stats'  , $etatFormations_stats);
-        $etatFormations_filters = $etatFormationService->getFieldsFilterable();
-        $etatFormation_instance =  $etatFormationService->createInstance();
+        $etatFormations_view_data = $etatFormationService->prepareDataForIndexView();
+        extract($etatFormations_view_data);
 
         if (request()->ajax()) {
-            return view('PkgAutoformation::workflowFormation._edit', compact('itemWorkflowFormation', 'sysColors', 'etatFormations_data', 'etatFormations_stats', 'etatFormations_filters', 'etatFormation_instance'));
+            return view('PkgAutoformation::workflowFormation._edit', array_merge(compact('itemWorkflowFormation','sysColors'),$etatFormation_compact_value));
         }
 
-        return view('PkgAutoformation::workflowFormation.edit', compact('itemWorkflowFormation', 'sysColors', 'etatFormations_data', 'etatFormations_stats', 'etatFormations_filters', 'etatFormation_instance'));
+        return view('PkgAutoformation::workflowFormation.edit', array_merge(compact('itemWorkflowFormation','sysColors'),$etatFormation_compact_value));
 
     }
     public function update(WorkflowFormationRequest $request, string $id) {

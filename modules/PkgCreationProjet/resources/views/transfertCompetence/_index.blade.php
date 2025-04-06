@@ -70,8 +70,8 @@
                             :exportXlsxRoute="route('transfertCompetences.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('transfertCompetences.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
-                            :viewTypes="$viewTypes"
-                            :viewType="$viewType"
+                            :viewTypes="$transfertCompetence_viewTypes"
+                            :viewType="$transfertCompetence_viewType"
                         />
                         @endcan
                     </div>
@@ -109,16 +109,16 @@
                 </div>
                 @show
                 <div id="transfertCompetence-data-container" class="data-container">
-                    @if($viewType == "table")
-                    @include("PkgCreationProjet::transfertCompetence._$viewType")
+                    @if($transfertCompetence_viewType == "table")
+                    @include("PkgCreationProjet::transfertCompetence._$transfertCompetence_viewType")
                     @endif
                 </div>
             </div>
         </div>
     </section>
-     <section id="widgetUtilisateur-data-container-out" >
-        @if($viewType == "widgets")
-        @include("PkgCreationProjet::transfertCompetence._$viewType")
+     <section id="transfertCompetence-data-container-out" >
+        @if($transfertCompetence_viewType == "widgets")
+        @include("PkgCreationProjet::transfertCompetence._$transfertCompetence_viewType")
         @endif
     </section>
     @show

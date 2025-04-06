@@ -105,4 +105,51 @@ class BaseNatureLivrableService extends BaseService
         };
     }
 
+
+
+    public function prepareDataForIndexView(array $params = []): array
+    {
+        // Définir le type de vue par défaut
+        $default_view_type = 'table';
+        $this->viewState->init('natureLivrable_view_type', $default_view_type);
+        $natureLivrable_viewType = $this->viewState->get('natureLivrable_view_type', $default_view_type);
+    
+        // Si viewType = widgets, appliquer filtre visible = 1
+        if ($this->viewState->get('natureLivrable_view_type') === 'widgets') {
+            $this->viewState->set("filter.natureLivrable.visible", 1);
+        }
+        
+        // Récupération des données
+        $natureLivrables_data = $this->paginate($params);
+        $natureLivrables_stats = $this->getnatureLivrableStats();
+        $natureLivrables_filters = $this->getFieldsFilterable();
+        $natureLivrable_instance = $this->createInstance();
+        $natureLivrable_viewTypes = $this->getViewTypes();
+        $natureLivrable_partialViewName = $this->getPartialViewName($natureLivrable_viewType);
+    
+        // Enregistrer les stats dans le ViewState
+        $this->viewState->set('stats.natureLivrable.stats', $natureLivrables_stats);
+    
+        // Préparer les variables à injecter dans compact()
+        $compact_value = compact(
+            'natureLivrable_viewTypes',
+            'natureLivrable_viewType',
+            'natureLivrables_data',
+            'natureLivrables_stats',
+            'natureLivrables_filters',
+            'natureLivrable_instance'
+        );
+    
+        return [
+            'natureLivrables_data' => $natureLivrables_data,
+            'natureLivrables_stats' => $natureLivrables_stats,
+            'natureLivrables_filters' => $natureLivrables_filters,
+            'natureLivrable_instance' => $natureLivrable_instance,
+            'natureLivrable_viewType' => $natureLivrable_viewType,
+            'natureLivrable_viewTypes' => $natureLivrable_viewTypes,
+            'natureLivrable_partialViewName' => $natureLivrable_partialViewName,
+            'natureLivrable_compact_value' => $compact_value
+        ];
+    }
+
 }

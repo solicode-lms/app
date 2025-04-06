@@ -70,8 +70,8 @@
                             :exportXlsxRoute="route('etatFormations.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('etatFormations.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
-                            :viewTypes="$viewTypes"
-                            :viewType="$viewType"
+                            :viewTypes="$etatFormation_viewTypes"
+                            :viewType="$etatFormation_viewType"
                         />
                         @endcan
                     </div>
@@ -109,16 +109,16 @@
                 </div>
                 @show
                 <div id="etatFormation-data-container" class="data-container">
-                    @if($viewType == "table")
-                    @include("PkgAutoformation::etatFormation._$viewType")
+                    @if($etatFormation_viewType == "table")
+                    @include("PkgAutoformation::etatFormation._$etatFormation_viewType")
                     @endif
                 </div>
             </div>
         </div>
     </section>
-     <section id="widgetUtilisateur-data-container-out" >
-        @if($viewType == "widgets")
-        @include("PkgAutoformation::etatFormation._$viewType")
+     <section id="etatFormation-data-container-out" >
+        @if($etatFormation_viewType == "widgets")
+        @include("PkgAutoformation::etatFormation._$etatFormation_viewType")
         @endif
     </section>
     @show

@@ -70,8 +70,8 @@
                             :exportXlsxRoute="route('workflowChapitres.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('workflowChapitres.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
-                            :viewTypes="$viewTypes"
-                            :viewType="$viewType"
+                            :viewTypes="$workflowChapitre_viewTypes"
+                            :viewType="$workflowChapitre_viewType"
                         />
                         @endcan
                     </div>
@@ -109,16 +109,16 @@
                 </div>
                 @show
                 <div id="workflowChapitre-data-container" class="data-container">
-                    @if($viewType == "table")
-                    @include("PkgAutoformation::workflowChapitre._$viewType")
+                    @if($workflowChapitre_viewType == "table")
+                    @include("PkgAutoformation::workflowChapitre._$workflowChapitre_viewType")
                     @endif
                 </div>
             </div>
         </div>
     </section>
-     <section id="widgetUtilisateur-data-container-out" >
-        @if($viewType == "widgets")
-        @include("PkgAutoformation::workflowChapitre._$viewType")
+     <section id="workflowChapitre-data-container-out" >
+        @if($workflowChapitre_viewType == "widgets")
+        @include("PkgAutoformation::workflowChapitre._$workflowChapitre_viewType")
         @endif
     </section>
     @show

@@ -70,8 +70,8 @@
                             :exportXlsxRoute="route('eModels.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('eModels.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
-                            :viewTypes="$viewTypes"
-                            :viewType="$viewType"
+                            :viewTypes="$eModel_viewTypes"
+                            :viewType="$eModel_viewType"
                         />
                         @endcan
                     </div>
@@ -109,16 +109,16 @@
                 </div>
                 @show
                 <div id="eModel-data-container" class="data-container">
-                    @if($viewType == "table")
-                    @include("PkgGapp::eModel._$viewType")
+                    @if($eModel_viewType == "table")
+                    @include("PkgGapp::eModel._$eModel_viewType")
                     @endif
                 </div>
             </div>
         </div>
     </section>
-     <section id="widgetUtilisateur-data-container-out" >
-        @if($viewType == "widgets")
-        @include("PkgGapp::eModel._$viewType")
+     <section id="eModel-data-container-out" >
+        @if($eModel_viewType == "widgets")
+        @include("PkgGapp::eModel._$eModel_viewType")
         @endif
     </section>
     @show

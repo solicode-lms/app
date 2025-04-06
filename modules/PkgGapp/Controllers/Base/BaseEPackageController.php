@@ -30,36 +30,29 @@ class BaseEPackageController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('ePackage.index');
         
-        $viewType = $this->viewState->get('view_type', 'table');
-        $viewTypes = $this->getService()->getViewTypes();
-        
 
 
 
-        // Extraire les paramètres de recherche, page, et filtres
+         // Extraire les paramètres de recherche, pagination, filtres
         $ePackages_params = array_merge(
-            $request->only(['page','sort']),
-            ['search' => $request->get('ePackages_search', $this->viewState->get("filter.ePackage.ePackages_search"))],
+            $request->only(['page', 'sort']),
+            ['search' => $request->get(
+                'ePackages_search',
+                $this->viewState->get("filter.ePackage.ePackages_search")
+            )],
             $request->except(['ePackages_search', 'page', 'sort'])
         );
 
-        // Paginer les ePackages
-        $ePackages_data = $this->ePackageService->paginate($ePackages_params);
-
-        // Récupérer les statistiques et les champs filtrables
-        $ePackages_stats = $this->ePackageService->getePackageStats();
-        $this->viewState->set('stats.ePackage.stats'  , $ePackages_stats);
-        $ePackages_filters = $this->ePackageService->getFieldsFilterable();
-        $ePackage_instance =  $this->ePackageService->createInstance();
+        // prepareDataForIndexView
+        $tcView = $this->ePackageService->prepareDataForIndexView($ePackages_params);
+        extract($tcView); // Toutes les variables sont injectées automatiquement
         
-        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
-
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($partialViewName, compact('viewTypes','ePackages_data', 'ePackages_stats', 'ePackages_filters','ePackage_instance'))->render();
+            return view($ePackage_partialViewName, $ePackage_compact_value)->render();
         }
 
-        return view('PkgGapp::ePackage.index', compact('viewTypes','viewType','ePackages_data', 'ePackages_stats', 'ePackages_filters','ePackage_instance'));
+        return view('PkgGapp::ePackage.index', $ePackage_compact_value);
     }
     public function create() {
 
@@ -110,16 +103,14 @@ class BaseEPackageController extends AdminController
 
 
         $eModelService =  new EModelService();
-        $eModels_data =  $eModelService->paginate();
-        $eModels_stats = $eModelService->geteModelStats();
-        $eModels_filters = $eModelService->getFieldsFilterable();
-        $eModel_instance =  $eModelService->createInstance();
+        $eModels_view_data = $eModelService->prepareDataForIndexView();
+        extract($eModels_view_data);
 
         if (request()->ajax()) {
-            return view('PkgGapp::ePackage._edit', compact('itemEPackage', 'eModels_data', 'eModels_stats', 'eModels_filters', 'eModel_instance'));
+            return view('PkgGapp::ePackage._edit', array_merge(compact('itemEPackage'),));
         }
 
-        return view('PkgGapp::ePackage.edit', compact('itemEPackage', 'eModels_data', 'eModels_stats', 'eModels_filters', 'eModel_instance'));
+        return view('PkgGapp::ePackage.edit', array_merge(compact('itemEPackage'),));
 
     }
     public function edit(string $id) {
@@ -136,17 +127,14 @@ class BaseEPackageController extends AdminController
         
 
         $eModelService =  new EModelService();
-        $eModels_data =  $eModelService->paginate();
-        $eModels_stats = $eModelService->geteModelStats();
-        $this->viewState->set('stats.eModel.stats'  , $eModels_stats);
-        $eModels_filters = $eModelService->getFieldsFilterable();
-        $eModel_instance =  $eModelService->createInstance();
+        $eModels_view_data = $eModelService->prepareDataForIndexView();
+        extract($eModels_view_data);
 
         if (request()->ajax()) {
-            return view('PkgGapp::ePackage._edit', compact('itemEPackage', 'eModels_data', 'eModels_stats', 'eModels_filters', 'eModel_instance'));
+            return view('PkgGapp::ePackage._edit', array_merge(compact('itemEPackage',),$eModel_compact_value));
         }
 
-        return view('PkgGapp::ePackage.edit', compact('itemEPackage', 'eModels_data', 'eModels_stats', 'eModels_filters', 'eModel_instance'));
+        return view('PkgGapp::ePackage.edit', array_merge(compact('itemEPackage',),$eModel_compact_value));
 
     }
     public function update(EPackageRequest $request, string $id) {

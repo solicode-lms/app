@@ -35,9 +35,6 @@ class BaseLabelRealisationTacheController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('labelRealisationTache.index');
         
-        $viewType = $this->viewState->get('view_type', 'table');
-        $viewTypes = $this->getService()->getViewTypes();
-        
         // ownedByUser
         if(Auth::user()->hasRole('formateur') && $this->viewState->get('scope.labelRealisationTache.formateur_id') == null){
            $this->viewState->init('scope.labelRealisationTache.formateur_id'  , $this->sessionState->get('formateur_id'));
@@ -45,30 +42,26 @@ class BaseLabelRealisationTacheController extends AdminController
 
 
 
-        // Extraire les paramètres de recherche, page, et filtres
+         // Extraire les paramètres de recherche, pagination, filtres
         $labelRealisationTaches_params = array_merge(
-            $request->only(['page','sort']),
-            ['search' => $request->get('labelRealisationTaches_search', $this->viewState->get("filter.labelRealisationTache.labelRealisationTaches_search"))],
+            $request->only(['page', 'sort']),
+            ['search' => $request->get(
+                'labelRealisationTaches_search',
+                $this->viewState->get("filter.labelRealisationTache.labelRealisationTaches_search")
+            )],
             $request->except(['labelRealisationTaches_search', 'page', 'sort'])
         );
 
-        // Paginer les labelRealisationTaches
-        $labelRealisationTaches_data = $this->labelRealisationTacheService->paginate($labelRealisationTaches_params);
-
-        // Récupérer les statistiques et les champs filtrables
-        $labelRealisationTaches_stats = $this->labelRealisationTacheService->getlabelRealisationTacheStats();
-        $this->viewState->set('stats.labelRealisationTache.stats'  , $labelRealisationTaches_stats);
-        $labelRealisationTaches_filters = $this->labelRealisationTacheService->getFieldsFilterable();
-        $labelRealisationTache_instance =  $this->labelRealisationTacheService->createInstance();
+        // prepareDataForIndexView
+        $tcView = $this->labelRealisationTacheService->prepareDataForIndexView($labelRealisationTaches_params);
+        extract($tcView); // Toutes les variables sont injectées automatiquement
         
-        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
-
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($partialViewName, compact('viewTypes','labelRealisationTaches_data', 'labelRealisationTaches_stats', 'labelRealisationTaches_filters','labelRealisationTache_instance'))->render();
+            return view($labelRealisationTache_partialViewName, $labelRealisationTache_compact_value)->render();
         }
 
-        return view('PkgGestionTaches::labelRealisationTache.index', compact('viewTypes','viewType','labelRealisationTaches_data', 'labelRealisationTaches_stats', 'labelRealisationTaches_filters','labelRealisationTache_instance'));
+        return view('PkgGestionTaches::labelRealisationTache.index', $labelRealisationTache_compact_value);
     }
     public function create() {
         // ownedByUser
@@ -125,10 +118,10 @@ class BaseLabelRealisationTacheController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('PkgGestionTaches::labelRealisationTache._fields', compact('itemLabelRealisationTache', 'formateurs', 'sysColors'));
+            return view('PkgGestionTaches::labelRealisationTache._fields', array_merge(compact('itemLabelRealisationTache'),$formateurs, $sysColors));
         }
 
-        return view('PkgGestionTaches::labelRealisationTache.edit', compact('itemLabelRealisationTache', 'formateurs', 'sysColors'));
+        return view('PkgGestionTaches::labelRealisationTache.edit', array_merge(compact('itemLabelRealisationTache'),$formateurs, $sysColors));
 
     }
     public function edit(string $id) {
@@ -145,10 +138,10 @@ class BaseLabelRealisationTacheController extends AdminController
 
 
         if (request()->ajax()) {
-            return view('PkgGestionTaches::labelRealisationTache._fields', compact('itemLabelRealisationTache', 'formateurs', 'sysColors'));
+            return view('PkgGestionTaches::labelRealisationTache._fields', array_merge(compact('itemLabelRealisationTache','formateurs', 'sysColors'),));
         }
 
-        return view('PkgGestionTaches::labelRealisationTache.edit', compact('itemLabelRealisationTache', 'formateurs', 'sysColors'));
+        return view('PkgGestionTaches::labelRealisationTache.edit', array_merge(compact('itemLabelRealisationTache','formateurs', 'sysColors'),));
 
     }
     public function update(LabelRealisationTacheRequest $request, string $id) {

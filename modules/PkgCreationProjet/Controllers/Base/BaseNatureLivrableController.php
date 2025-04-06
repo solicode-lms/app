@@ -30,36 +30,29 @@ class BaseNatureLivrableController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('natureLivrable.index');
         
-        $viewType = $this->viewState->get('view_type', 'table');
-        $viewTypes = $this->getService()->getViewTypes();
-        
 
 
 
-        // Extraire les paramètres de recherche, page, et filtres
+         // Extraire les paramètres de recherche, pagination, filtres
         $natureLivrables_params = array_merge(
-            $request->only(['page','sort']),
-            ['search' => $request->get('natureLivrables_search', $this->viewState->get("filter.natureLivrable.natureLivrables_search"))],
+            $request->only(['page', 'sort']),
+            ['search' => $request->get(
+                'natureLivrables_search',
+                $this->viewState->get("filter.natureLivrable.natureLivrables_search")
+            )],
             $request->except(['natureLivrables_search', 'page', 'sort'])
         );
 
-        // Paginer les natureLivrables
-        $natureLivrables_data = $this->natureLivrableService->paginate($natureLivrables_params);
-
-        // Récupérer les statistiques et les champs filtrables
-        $natureLivrables_stats = $this->natureLivrableService->getnatureLivrableStats();
-        $this->viewState->set('stats.natureLivrable.stats'  , $natureLivrables_stats);
-        $natureLivrables_filters = $this->natureLivrableService->getFieldsFilterable();
-        $natureLivrable_instance =  $this->natureLivrableService->createInstance();
+        // prepareDataForIndexView
+        $tcView = $this->natureLivrableService->prepareDataForIndexView($natureLivrables_params);
+        extract($tcView); // Toutes les variables sont injectées automatiquement
         
-        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
-
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($partialViewName, compact('viewTypes','natureLivrables_data', 'natureLivrables_stats', 'natureLivrables_filters','natureLivrable_instance'))->render();
+            return view($natureLivrable_partialViewName, $natureLivrable_compact_value)->render();
         }
 
-        return view('PkgCreationProjet::natureLivrable.index', compact('viewTypes','viewType','natureLivrables_data', 'natureLivrables_stats', 'natureLivrables_filters','natureLivrable_instance'));
+        return view('PkgCreationProjet::natureLivrable.index', $natureLivrable_compact_value);
     }
     public function create() {
 
@@ -110,16 +103,14 @@ class BaseNatureLivrableController extends AdminController
 
 
         $livrableService =  new LivrableService();
-        $livrables_data =  $livrableService->paginate();
-        $livrables_stats = $livrableService->getlivrableStats();
-        $livrables_filters = $livrableService->getFieldsFilterable();
-        $livrable_instance =  $livrableService->createInstance();
+        $livrables_view_data = $livrableService->prepareDataForIndexView();
+        extract($livrables_view_data);
 
         if (request()->ajax()) {
-            return view('PkgCreationProjet::natureLivrable._edit', compact('itemNatureLivrable', 'livrables_data', 'livrables_stats', 'livrables_filters', 'livrable_instance'));
+            return view('PkgCreationProjet::natureLivrable._edit', array_merge(compact('itemNatureLivrable'),));
         }
 
-        return view('PkgCreationProjet::natureLivrable.edit', compact('itemNatureLivrable', 'livrables_data', 'livrables_stats', 'livrables_filters', 'livrable_instance'));
+        return view('PkgCreationProjet::natureLivrable.edit', array_merge(compact('itemNatureLivrable'),));
 
     }
     public function edit(string $id) {
@@ -136,17 +127,14 @@ class BaseNatureLivrableController extends AdminController
         
 
         $livrableService =  new LivrableService();
-        $livrables_data =  $livrableService->paginate();
-        $livrables_stats = $livrableService->getlivrableStats();
-        $this->viewState->set('stats.livrable.stats'  , $livrables_stats);
-        $livrables_filters = $livrableService->getFieldsFilterable();
-        $livrable_instance =  $livrableService->createInstance();
+        $livrables_view_data = $livrableService->prepareDataForIndexView();
+        extract($livrables_view_data);
 
         if (request()->ajax()) {
-            return view('PkgCreationProjet::natureLivrable._edit', compact('itemNatureLivrable', 'livrables_data', 'livrables_stats', 'livrables_filters', 'livrable_instance'));
+            return view('PkgCreationProjet::natureLivrable._edit', array_merge(compact('itemNatureLivrable',),$livrable_compact_value));
         }
 
-        return view('PkgCreationProjet::natureLivrable.edit', compact('itemNatureLivrable', 'livrables_data', 'livrables_stats', 'livrables_filters', 'livrable_instance'));
+        return view('PkgCreationProjet::natureLivrable.edit', array_merge(compact('itemNatureLivrable',),$livrable_compact_value));
 
     }
     public function update(NatureLivrableRequest $request, string $id) {

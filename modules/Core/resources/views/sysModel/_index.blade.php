@@ -70,8 +70,8 @@
                             :exportXlsxRoute="route('sysModels.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('sysModels.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
-                            :viewTypes="$viewTypes"
-                            :viewType="$viewType"
+                            :viewTypes="$sysModel_viewTypes"
+                            :viewType="$sysModel_viewType"
                         />
                         @endcan
                     </div>
@@ -109,16 +109,16 @@
                 </div>
                 @show
                 <div id="sysModel-data-container" class="data-container">
-                    @if($viewType == "table")
-                    @include("Core::sysModel._$viewType")
+                    @if($sysModel_viewType == "table")
+                    @include("Core::sysModel._$sysModel_viewType")
                     @endif
                 </div>
             </div>
         </div>
     </section>
-     <section id="widgetUtilisateur-data-container-out" >
-        @if($viewType == "widgets")
-        @include("Core::sysModel._$viewType")
+     <section id="sysModel-data-container-out" >
+        @if($sysModel_viewType == "widgets")
+        @include("Core::sysModel._$sysModel_viewType")
         @endif
     </section>
     @show

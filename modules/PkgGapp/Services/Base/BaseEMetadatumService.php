@@ -124,4 +124,51 @@ class BaseEMetadatumService extends BaseService
         };
     }
 
+
+
+    public function prepareDataForIndexView(array $params = []): array
+    {
+        // Définir le type de vue par défaut
+        $default_view_type = 'table';
+        $this->viewState->init('eMetadatum_view_type', $default_view_type);
+        $eMetadatum_viewType = $this->viewState->get('eMetadatum_view_type', $default_view_type);
+    
+        // Si viewType = widgets, appliquer filtre visible = 1
+        if ($this->viewState->get('eMetadatum_view_type') === 'widgets') {
+            $this->viewState->set("filter.eMetadatum.visible", 1);
+        }
+        
+        // Récupération des données
+        $eMetadata_data = $this->paginate($params);
+        $eMetadata_stats = $this->geteMetadatumStats();
+        $eMetadata_filters = $this->getFieldsFilterable();
+        $eMetadatum_instance = $this->createInstance();
+        $eMetadatum_viewTypes = $this->getViewTypes();
+        $eMetadatum_partialViewName = $this->getPartialViewName($eMetadatum_viewType);
+    
+        // Enregistrer les stats dans le ViewState
+        $this->viewState->set('stats.eMetadatum.stats', $eMetadata_stats);
+    
+        // Préparer les variables à injecter dans compact()
+        $compact_value = compact(
+            'eMetadatum_viewTypes',
+            'eMetadatum_viewType',
+            'eMetadata_data',
+            'eMetadata_stats',
+            'eMetadata_filters',
+            'eMetadatum_instance'
+        );
+    
+        return [
+            'eMetadata_data' => $eMetadata_data,
+            'eMetadata_stats' => $eMetadata_stats,
+            'eMetadata_filters' => $eMetadata_filters,
+            'eMetadatum_instance' => $eMetadatum_instance,
+            'eMetadatum_viewType' => $eMetadatum_viewType,
+            'eMetadatum_viewTypes' => $eMetadatum_viewTypes,
+            'eMetadatum_partialViewName' => $eMetadatum_partialViewName,
+            'eMetadatum_compact_value' => $compact_value
+        ];
+    }
+
 }

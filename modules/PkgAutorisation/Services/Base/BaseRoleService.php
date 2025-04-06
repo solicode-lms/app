@@ -105,4 +105,51 @@ class BaseRoleService extends BaseService
         };
     }
 
+
+
+    public function prepareDataForIndexView(array $params = []): array
+    {
+        // Définir le type de vue par défaut
+        $default_view_type = 'table';
+        $this->viewState->init('role_view_type', $default_view_type);
+        $role_viewType = $this->viewState->get('role_view_type', $default_view_type);
+    
+        // Si viewType = widgets, appliquer filtre visible = 1
+        if ($this->viewState->get('role_view_type') === 'widgets') {
+            $this->viewState->set("filter.role.visible", 1);
+        }
+        
+        // Récupération des données
+        $roles_data = $this->paginate($params);
+        $roles_stats = $this->getroleStats();
+        $roles_filters = $this->getFieldsFilterable();
+        $role_instance = $this->createInstance();
+        $role_viewTypes = $this->getViewTypes();
+        $role_partialViewName = $this->getPartialViewName($role_viewType);
+    
+        // Enregistrer les stats dans le ViewState
+        $this->viewState->set('stats.role.stats', $roles_stats);
+    
+        // Préparer les variables à injecter dans compact()
+        $compact_value = compact(
+            'role_viewTypes',
+            'role_viewType',
+            'roles_data',
+            'roles_stats',
+            'roles_filters',
+            'role_instance'
+        );
+    
+        return [
+            'roles_data' => $roles_data,
+            'roles_stats' => $roles_stats,
+            'roles_filters' => $roles_filters,
+            'role_instance' => $role_instance,
+            'role_viewType' => $role_viewType,
+            'role_viewTypes' => $role_viewTypes,
+            'role_partialViewName' => $role_partialViewName,
+            'role_compact_value' => $compact_value
+        ];
+    }
+
 }

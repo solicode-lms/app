@@ -32,9 +32,6 @@ class BasePrioriteTacheController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('prioriteTache.index');
         
-        $viewType = $this->viewState->get('view_type', 'table');
-        $viewTypes = $this->getService()->getViewTypes();
-        
         // ownedByUser
         if(Auth::user()->hasRole('formateur') && $this->viewState->get('scope.prioriteTache.formateur_id') == null){
            $this->viewState->init('scope.prioriteTache.formateur_id'  , $this->sessionState->get('formateur_id'));
@@ -42,30 +39,26 @@ class BasePrioriteTacheController extends AdminController
 
 
 
-        // Extraire les paramètres de recherche, page, et filtres
+         // Extraire les paramètres de recherche, pagination, filtres
         $prioriteTaches_params = array_merge(
-            $request->only(['page','sort']),
-            ['search' => $request->get('prioriteTaches_search', $this->viewState->get("filter.prioriteTache.prioriteTaches_search"))],
+            $request->only(['page', 'sort']),
+            ['search' => $request->get(
+                'prioriteTaches_search',
+                $this->viewState->get("filter.prioriteTache.prioriteTaches_search")
+            )],
             $request->except(['prioriteTaches_search', 'page', 'sort'])
         );
 
-        // Paginer les prioriteTaches
-        $prioriteTaches_data = $this->prioriteTacheService->paginate($prioriteTaches_params);
-
-        // Récupérer les statistiques et les champs filtrables
-        $prioriteTaches_stats = $this->prioriteTacheService->getprioriteTacheStats();
-        $this->viewState->set('stats.prioriteTache.stats'  , $prioriteTaches_stats);
-        $prioriteTaches_filters = $this->prioriteTacheService->getFieldsFilterable();
-        $prioriteTache_instance =  $this->prioriteTacheService->createInstance();
+        // prepareDataForIndexView
+        $tcView = $this->prioriteTacheService->prepareDataForIndexView($prioriteTaches_params);
+        extract($tcView); // Toutes les variables sont injectées automatiquement
         
-        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
-
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($partialViewName, compact('viewTypes','prioriteTaches_data', 'prioriteTaches_stats', 'prioriteTaches_filters','prioriteTache_instance'))->render();
+            return view($prioriteTache_partialViewName, $prioriteTache_compact_value)->render();
         }
 
-        return view('PkgGestionTaches::prioriteTache.index', compact('viewTypes','viewType','prioriteTaches_data', 'prioriteTaches_stats', 'prioriteTaches_filters','prioriteTache_instance'));
+        return view('PkgGestionTaches::prioriteTache.index', $prioriteTache_compact_value);
     }
     public function create() {
         // ownedByUser
@@ -120,10 +113,10 @@ class BasePrioriteTacheController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('PkgGestionTaches::prioriteTache._fields', compact('itemPrioriteTache', 'formateurs'));
+            return view('PkgGestionTaches::prioriteTache._fields', array_merge(compact('itemPrioriteTache'),$formateurs));
         }
 
-        return view('PkgGestionTaches::prioriteTache.edit', compact('itemPrioriteTache', 'formateurs'));
+        return view('PkgGestionTaches::prioriteTache.edit', array_merge(compact('itemPrioriteTache'),$formateurs));
 
     }
     public function edit(string $id) {
@@ -139,10 +132,10 @@ class BasePrioriteTacheController extends AdminController
 
 
         if (request()->ajax()) {
-            return view('PkgGestionTaches::prioriteTache._fields', compact('itemPrioriteTache', 'formateurs'));
+            return view('PkgGestionTaches::prioriteTache._fields', array_merge(compact('itemPrioriteTache','formateurs'),));
         }
 
-        return view('PkgGestionTaches::prioriteTache.edit', compact('itemPrioriteTache', 'formateurs'));
+        return view('PkgGestionTaches::prioriteTache.edit', array_merge(compact('itemPrioriteTache','formateurs'),));
 
     }
     public function update(PrioriteTacheRequest $request, string $id) {

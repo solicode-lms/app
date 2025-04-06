@@ -128,4 +128,51 @@ class BaseLivrablesRealisationService extends BaseService
         };
     }
 
+
+
+    public function prepareDataForIndexView(array $params = []): array
+    {
+        // Définir le type de vue par défaut
+        $default_view_type = 'table';
+        $this->viewState->init('livrablesRealisation_view_type', $default_view_type);
+        $livrablesRealisation_viewType = $this->viewState->get('livrablesRealisation_view_type', $default_view_type);
+    
+        // Si viewType = widgets, appliquer filtre visible = 1
+        if ($this->viewState->get('livrablesRealisation_view_type') === 'widgets') {
+            $this->viewState->set("filter.livrablesRealisation.visible", 1);
+        }
+        
+        // Récupération des données
+        $livrablesRealisations_data = $this->paginate($params);
+        $livrablesRealisations_stats = $this->getlivrablesRealisationStats();
+        $livrablesRealisations_filters = $this->getFieldsFilterable();
+        $livrablesRealisation_instance = $this->createInstance();
+        $livrablesRealisation_viewTypes = $this->getViewTypes();
+        $livrablesRealisation_partialViewName = $this->getPartialViewName($livrablesRealisation_viewType);
+    
+        // Enregistrer les stats dans le ViewState
+        $this->viewState->set('stats.livrablesRealisation.stats', $livrablesRealisations_stats);
+    
+        // Préparer les variables à injecter dans compact()
+        $compact_value = compact(
+            'livrablesRealisation_viewTypes',
+            'livrablesRealisation_viewType',
+            'livrablesRealisations_data',
+            'livrablesRealisations_stats',
+            'livrablesRealisations_filters',
+            'livrablesRealisation_instance'
+        );
+    
+        return [
+            'livrablesRealisations_data' => $livrablesRealisations_data,
+            'livrablesRealisations_stats' => $livrablesRealisations_stats,
+            'livrablesRealisations_filters' => $livrablesRealisations_filters,
+            'livrablesRealisation_instance' => $livrablesRealisation_instance,
+            'livrablesRealisation_viewType' => $livrablesRealisation_viewType,
+            'livrablesRealisation_viewTypes' => $livrablesRealisation_viewTypes,
+            'livrablesRealisation_partialViewName' => $livrablesRealisation_partialViewName,
+            'livrablesRealisation_compact_value' => $compact_value
+        ];
+    }
+
 }

@@ -40,9 +40,6 @@ class BaseProjetController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('projet.index');
         
-        $viewType = $this->viewState->get('view_type', 'table');
-        $viewTypes = $this->getService()->getViewTypes();
-        
         // ownedByUser
         if(Auth::user()->hasRole('formateur') && $this->viewState->get('filter.projet.formateur_id') == null){
            $this->viewState->init('filter.projet.formateur_id'  , $this->sessionState->get('formateur_id'));
@@ -53,30 +50,26 @@ class BaseProjetController extends AdminController
 
 
 
-        // Extraire les paramètres de recherche, page, et filtres
+         // Extraire les paramètres de recherche, pagination, filtres
         $projets_params = array_merge(
-            $request->only(['page','sort']),
-            ['search' => $request->get('projets_search', $this->viewState->get("filter.projet.projets_search"))],
+            $request->only(['page', 'sort']),
+            ['search' => $request->get(
+                'projets_search',
+                $this->viewState->get("filter.projet.projets_search")
+            )],
             $request->except(['projets_search', 'page', 'sort'])
         );
 
-        // Paginer les projets
-        $projets_data = $this->projetService->paginate($projets_params);
-
-        // Récupérer les statistiques et les champs filtrables
-        $projets_stats = $this->projetService->getprojetStats();
-        $this->viewState->set('stats.projet.stats'  , $projets_stats);
-        $projets_filters = $this->projetService->getFieldsFilterable();
-        $projet_instance =  $this->projetService->createInstance();
+        // prepareDataForIndexView
+        $tcView = $this->projetService->prepareDataForIndexView($projets_params);
+        extract($tcView); // Toutes les variables sont injectées automatiquement
         
-        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
-
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($partialViewName, compact('viewTypes','projets_data', 'projets_stats', 'projets_filters','projet_instance'))->render();
+            return view($projet_partialViewName, $projet_compact_value)->render();
         }
 
-        return view('PkgCreationProjet::projet.index', compact('viewTypes','viewType','projets_data', 'projets_stats', 'projets_filters','projet_instance'));
+        return view('PkgCreationProjet::projet.index', $projet_compact_value);
     }
     public function create() {
         // ownedByUser
@@ -147,10 +140,8 @@ class BaseProjetController extends AdminController
         $this->viewState->set($key, $value);
 
         $transfertCompetenceService =  new TransfertCompetenceService();
-        $transfertCompetences_data =  $transfertCompetenceService->paginate();
-        $transfertCompetences_stats = $transfertCompetenceService->gettransfertCompetenceStats();
-        $transfertCompetences_filters = $transfertCompetenceService->getFieldsFilterable();
-        $transfertCompetence_instance =  $transfertCompetenceService->createInstance();
+        $transfertCompetences_view_data = $transfertCompetenceService->prepareDataForIndexView();
+        extract($transfertCompetences_view_data);
 
         $this->viewState->set('scope.affectationProjet.projet_id', $id);
 
@@ -160,43 +151,35 @@ class BaseProjetController extends AdminController
         $this->viewState->set($key, $value);
 
         $affectationProjetService =  new AffectationProjetService();
-        $affectationProjets_data =  $affectationProjetService->paginate();
-        $affectationProjets_stats = $affectationProjetService->getaffectationProjetStats();
-        $affectationProjets_filters = $affectationProjetService->getFieldsFilterable();
-        $affectationProjet_instance =  $affectationProjetService->createInstance();
+        $affectationProjets_view_data = $affectationProjetService->prepareDataForIndexView();
+        extract($affectationProjets_view_data);
 
         $this->viewState->set('scope.livrable.projet_id', $id);
 
 
         $livrableService =  new LivrableService();
-        $livrables_data =  $livrableService->paginate();
-        $livrables_stats = $livrableService->getlivrableStats();
-        $livrables_filters = $livrableService->getFieldsFilterable();
-        $livrable_instance =  $livrableService->createInstance();
+        $livrables_view_data = $livrableService->prepareDataForIndexView();
+        extract($livrables_view_data);
 
         $this->viewState->set('scope.tache.projet_id', $id);
 
 
         $tacheService =  new TacheService();
-        $taches_data =  $tacheService->paginate();
-        $taches_stats = $tacheService->gettacheStats();
-        $taches_filters = $tacheService->getFieldsFilterable();
-        $tache_instance =  $tacheService->createInstance();
+        $taches_view_data = $tacheService->prepareDataForIndexView();
+        extract($taches_view_data);
 
         $this->viewState->set('scope.resource.projet_id', $id);
 
 
         $resourceService =  new ResourceService();
-        $resources_data =  $resourceService->paginate();
-        $resources_stats = $resourceService->getresourceStats();
-        $resources_filters = $resourceService->getFieldsFilterable();
-        $resource_instance =  $resourceService->createInstance();
+        $resources_view_data = $resourceService->prepareDataForIndexView();
+        extract($resources_view_data);
 
         if (request()->ajax()) {
-            return view('PkgCreationProjet::projet._edit', compact('itemProjet', 'filieres', 'formateurs', 'transfertCompetences_data', 'affectationProjets_data', 'livrables_data', 'taches_data', 'resources_data', 'transfertCompetences_stats', 'affectationProjets_stats', 'livrables_stats', 'taches_stats', 'resources_stats', 'transfertCompetences_filters', 'affectationProjets_filters', 'livrables_filters', 'taches_filters', 'resources_filters', 'transfertCompetence_instance', 'affectationProjet_instance', 'livrable_instance', 'tache_instance', 'resource_instance'));
+            return view('PkgCreationProjet::projet._edit', array_merge(compact('itemProjet'),$filieres, $formateurs));
         }
 
-        return view('PkgCreationProjet::projet.edit', compact('itemProjet', 'filieres', 'formateurs', 'transfertCompetences_data', 'affectationProjets_data', 'livrables_data', 'taches_data', 'resources_data', 'transfertCompetences_stats', 'affectationProjets_stats', 'livrables_stats', 'taches_stats', 'resources_stats', 'transfertCompetences_filters', 'affectationProjets_filters', 'livrables_filters', 'taches_filters', 'resources_filters', 'transfertCompetence_instance', 'affectationProjet_instance', 'livrable_instance', 'tache_instance', 'resource_instance'));
+        return view('PkgCreationProjet::projet.edit', array_merge(compact('itemProjet'),$filieres, $formateurs));
 
     }
     public function edit(string $id) {
@@ -224,11 +207,8 @@ class BaseProjetController extends AdminController
         $this->viewState->set($key, $value);
 
         $transfertCompetenceService =  new TransfertCompetenceService();
-        $transfertCompetences_data =  $transfertCompetenceService->paginate();
-        $transfertCompetences_stats = $transfertCompetenceService->gettransfertCompetenceStats();
-        $this->viewState->set('stats.transfertCompetence.stats'  , $transfertCompetences_stats);
-        $transfertCompetences_filters = $transfertCompetenceService->getFieldsFilterable();
-        $transfertCompetence_instance =  $transfertCompetenceService->createInstance();
+        $transfertCompetences_view_data = $transfertCompetenceService->prepareDataForIndexView();
+        extract($transfertCompetences_view_data);
 
         $this->viewState->set('scope.affectationProjet.projet_id', $id);
         
@@ -238,47 +218,35 @@ class BaseProjetController extends AdminController
         $this->viewState->set($key, $value);
 
         $affectationProjetService =  new AffectationProjetService();
-        $affectationProjets_data =  $affectationProjetService->paginate();
-        $affectationProjets_stats = $affectationProjetService->getaffectationProjetStats();
-        $this->viewState->set('stats.affectationProjet.stats'  , $affectationProjets_stats);
-        $affectationProjets_filters = $affectationProjetService->getFieldsFilterable();
-        $affectationProjet_instance =  $affectationProjetService->createInstance();
+        $affectationProjets_view_data = $affectationProjetService->prepareDataForIndexView();
+        extract($affectationProjets_view_data);
 
         $this->viewState->set('scope.livrable.projet_id', $id);
         
 
         $livrableService =  new LivrableService();
-        $livrables_data =  $livrableService->paginate();
-        $livrables_stats = $livrableService->getlivrableStats();
-        $this->viewState->set('stats.livrable.stats'  , $livrables_stats);
-        $livrables_filters = $livrableService->getFieldsFilterable();
-        $livrable_instance =  $livrableService->createInstance();
+        $livrables_view_data = $livrableService->prepareDataForIndexView();
+        extract($livrables_view_data);
 
         $this->viewState->set('scope.tache.projet_id', $id);
         
 
         $tacheService =  new TacheService();
-        $taches_data =  $tacheService->paginate();
-        $taches_stats = $tacheService->gettacheStats();
-        $this->viewState->set('stats.tache.stats'  , $taches_stats);
-        $taches_filters = $tacheService->getFieldsFilterable();
-        $tache_instance =  $tacheService->createInstance();
+        $taches_view_data = $tacheService->prepareDataForIndexView();
+        extract($taches_view_data);
 
         $this->viewState->set('scope.resource.projet_id', $id);
         
 
         $resourceService =  new ResourceService();
-        $resources_data =  $resourceService->paginate();
-        $resources_stats = $resourceService->getresourceStats();
-        $this->viewState->set('stats.resource.stats'  , $resources_stats);
-        $resources_filters = $resourceService->getFieldsFilterable();
-        $resource_instance =  $resourceService->createInstance();
+        $resources_view_data = $resourceService->prepareDataForIndexView();
+        extract($resources_view_data);
 
         if (request()->ajax()) {
-            return view('PkgCreationProjet::projet._edit', compact('itemProjet', 'filieres', 'formateurs', 'transfertCompetences_data', 'affectationProjets_data', 'livrables_data', 'taches_data', 'resources_data', 'transfertCompetences_stats', 'affectationProjets_stats', 'livrables_stats', 'taches_stats', 'resources_stats', 'transfertCompetences_filters', 'affectationProjets_filters', 'livrables_filters', 'taches_filters', 'resources_filters', 'transfertCompetence_instance', 'affectationProjet_instance', 'livrable_instance', 'tache_instance', 'resource_instance'));
+            return view('PkgCreationProjet::projet._edit', array_merge(compact('itemProjet','filieres', 'formateurs'),$transfertCompetence_compact_value, $affectationProjet_compact_value, $livrable_compact_value, $tache_compact_value, $resource_compact_value));
         }
 
-        return view('PkgCreationProjet::projet.edit', compact('itemProjet', 'filieres', 'formateurs', 'transfertCompetences_data', 'affectationProjets_data', 'livrables_data', 'taches_data', 'resources_data', 'transfertCompetences_stats', 'affectationProjets_stats', 'livrables_stats', 'taches_stats', 'resources_stats', 'transfertCompetences_filters', 'affectationProjets_filters', 'livrables_filters', 'taches_filters', 'resources_filters', 'transfertCompetence_instance', 'affectationProjet_instance', 'livrable_instance', 'tache_instance', 'resource_instance'));
+        return view('PkgCreationProjet::projet.edit', array_merge(compact('itemProjet','filieres', 'formateurs'),$transfertCompetence_compact_value, $affectationProjet_compact_value, $livrable_compact_value, $tache_compact_value, $resource_compact_value));
 
     }
     public function update(ProjetRequest $request, string $id) {

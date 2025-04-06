@@ -131,4 +131,51 @@ class BaseTransfertCompetenceService extends BaseService
         };
     }
 
+
+
+    public function prepareDataForIndexView(array $params = []): array
+    {
+        // Définir le type de vue par défaut
+        $default_view_type = 'table';
+        $this->viewState->init('transfertCompetence_view_type', $default_view_type);
+        $transfertCompetence_viewType = $this->viewState->get('transfertCompetence_view_type', $default_view_type);
+    
+        // Si viewType = widgets, appliquer filtre visible = 1
+        if ($this->viewState->get('transfertCompetence_view_type') === 'widgets') {
+            $this->viewState->set("filter.transfertCompetence.visible", 1);
+        }
+        
+        // Récupération des données
+        $transfertCompetences_data = $this->paginate($params);
+        $transfertCompetences_stats = $this->gettransfertCompetenceStats();
+        $transfertCompetences_filters = $this->getFieldsFilterable();
+        $transfertCompetence_instance = $this->createInstance();
+        $transfertCompetence_viewTypes = $this->getViewTypes();
+        $transfertCompetence_partialViewName = $this->getPartialViewName($transfertCompetence_viewType);
+    
+        // Enregistrer les stats dans le ViewState
+        $this->viewState->set('stats.transfertCompetence.stats', $transfertCompetences_stats);
+    
+        // Préparer les variables à injecter dans compact()
+        $compact_value = compact(
+            'transfertCompetence_viewTypes',
+            'transfertCompetence_viewType',
+            'transfertCompetences_data',
+            'transfertCompetences_stats',
+            'transfertCompetences_filters',
+            'transfertCompetence_instance'
+        );
+    
+        return [
+            'transfertCompetences_data' => $transfertCompetences_data,
+            'transfertCompetences_stats' => $transfertCompetences_stats,
+            'transfertCompetences_filters' => $transfertCompetences_filters,
+            'transfertCompetence_instance' => $transfertCompetence_instance,
+            'transfertCompetence_viewType' => $transfertCompetence_viewType,
+            'transfertCompetence_viewTypes' => $transfertCompetence_viewTypes,
+            'transfertCompetence_partialViewName' => $transfertCompetence_partialViewName,
+            'transfertCompetence_compact_value' => $compact_value
+        ];
+    }
+
 }

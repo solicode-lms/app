@@ -105,4 +105,51 @@ class BaseTypeDependanceTacheService extends BaseService
         };
     }
 
+
+
+    public function prepareDataForIndexView(array $params = []): array
+    {
+        // Définir le type de vue par défaut
+        $default_view_type = 'table';
+        $this->viewState->init('typeDependanceTache_view_type', $default_view_type);
+        $typeDependanceTache_viewType = $this->viewState->get('typeDependanceTache_view_type', $default_view_type);
+    
+        // Si viewType = widgets, appliquer filtre visible = 1
+        if ($this->viewState->get('typeDependanceTache_view_type') === 'widgets') {
+            $this->viewState->set("filter.typeDependanceTache.visible", 1);
+        }
+        
+        // Récupération des données
+        $typeDependanceTaches_data = $this->paginate($params);
+        $typeDependanceTaches_stats = $this->gettypeDependanceTacheStats();
+        $typeDependanceTaches_filters = $this->getFieldsFilterable();
+        $typeDependanceTache_instance = $this->createInstance();
+        $typeDependanceTache_viewTypes = $this->getViewTypes();
+        $typeDependanceTache_partialViewName = $this->getPartialViewName($typeDependanceTache_viewType);
+    
+        // Enregistrer les stats dans le ViewState
+        $this->viewState->set('stats.typeDependanceTache.stats', $typeDependanceTaches_stats);
+    
+        // Préparer les variables à injecter dans compact()
+        $compact_value = compact(
+            'typeDependanceTache_viewTypes',
+            'typeDependanceTache_viewType',
+            'typeDependanceTaches_data',
+            'typeDependanceTaches_stats',
+            'typeDependanceTaches_filters',
+            'typeDependanceTache_instance'
+        );
+    
+        return [
+            'typeDependanceTaches_data' => $typeDependanceTaches_data,
+            'typeDependanceTaches_stats' => $typeDependanceTaches_stats,
+            'typeDependanceTaches_filters' => $typeDependanceTaches_filters,
+            'typeDependanceTache_instance' => $typeDependanceTache_instance,
+            'typeDependanceTache_viewType' => $typeDependanceTache_viewType,
+            'typeDependanceTache_viewTypes' => $typeDependanceTache_viewTypes,
+            'typeDependanceTache_partialViewName' => $typeDependanceTache_partialViewName,
+            'typeDependanceTache_compact_value' => $compact_value
+        ];
+    }
+
 }

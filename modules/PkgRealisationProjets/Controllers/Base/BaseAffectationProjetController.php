@@ -39,9 +39,6 @@ class BaseAffectationProjetController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('affectationProjet.index');
         
-        $viewType = $this->viewState->get('view_type', 'table');
-        $viewTypes = $this->getService()->getViewTypes();
-        
         // ownedByUser
         if(Auth::user()->hasRole('formateur') && $this->viewState->get('scope.affectationProjet.projet.formateur_id') == null){
            $this->viewState->init('scope.affectationProjet.projet.formateur_id'  , $this->sessionState->get('formateur_id'));
@@ -56,30 +53,26 @@ class BaseAffectationProjetController extends AdminController
             $this->viewState->init('scope.groupe.formateurs.formateur_id'  , $this->sessionState->get('formateur_id'));
         }
 
-        // Extraire les paramètres de recherche, page, et filtres
+         // Extraire les paramètres de recherche, pagination, filtres
         $affectationProjets_params = array_merge(
-            $request->only(['page','sort']),
-            ['search' => $request->get('affectationProjets_search', $this->viewState->get("filter.affectationProjet.affectationProjets_search"))],
+            $request->only(['page', 'sort']),
+            ['search' => $request->get(
+                'affectationProjets_search',
+                $this->viewState->get("filter.affectationProjet.affectationProjets_search")
+            )],
             $request->except(['affectationProjets_search', 'page', 'sort'])
         );
 
-        // Paginer les affectationProjets
-        $affectationProjets_data = $this->affectationProjetService->paginate($affectationProjets_params);
-
-        // Récupérer les statistiques et les champs filtrables
-        $affectationProjets_stats = $this->affectationProjetService->getaffectationProjetStats();
-        $this->viewState->set('stats.affectationProjet.stats'  , $affectationProjets_stats);
-        $affectationProjets_filters = $this->affectationProjetService->getFieldsFilterable();
-        $affectationProjet_instance =  $this->affectationProjetService->createInstance();
+        // prepareDataForIndexView
+        $tcView = $this->affectationProjetService->prepareDataForIndexView($affectationProjets_params);
+        extract($tcView); // Toutes les variables sont injectées automatiquement
         
-        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
-
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($partialViewName, compact('viewTypes','affectationProjets_data', 'affectationProjets_stats', 'affectationProjets_filters','affectationProjet_instance'))->render();
+            return view($affectationProjet_partialViewName, $affectationProjet_compact_value)->render();
         }
 
-        return view('PkgRealisationProjets::affectationProjet.index', compact('viewTypes','viewType','affectationProjets_data', 'affectationProjets_stats', 'affectationProjets_filters','affectationProjet_instance'));
+        return view('PkgRealisationProjets::affectationProjet.index', $affectationProjet_compact_value);
     }
     public function create() {
         // ownedByUser
@@ -157,16 +150,14 @@ class BaseAffectationProjetController extends AdminController
         $this->viewState->set($key, $value);
 
         $realisationProjetService =  new RealisationProjetService();
-        $realisationProjets_data =  $realisationProjetService->paginate();
-        $realisationProjets_stats = $realisationProjetService->getrealisationProjetStats();
-        $realisationProjets_filters = $realisationProjetService->getFieldsFilterable();
-        $realisationProjet_instance =  $realisationProjetService->createInstance();
+        $realisationProjets_view_data = $realisationProjetService->prepareDataForIndexView();
+        extract($realisationProjets_view_data);
 
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::affectationProjet._edit', compact('itemAffectationProjet', 'anneeFormations', 'groupes', 'projets', 'realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters', 'realisationProjet_instance'));
+            return view('PkgRealisationProjets::affectationProjet._edit', array_merge(compact('itemAffectationProjet'),$anneeFormations, $groupes, $projets));
         }
 
-        return view('PkgRealisationProjets::affectationProjet.edit', compact('itemAffectationProjet', 'anneeFormations', 'groupes', 'projets', 'realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters', 'realisationProjet_instance'));
+        return view('PkgRealisationProjets::affectationProjet.edit', array_merge(compact('itemAffectationProjet'),$anneeFormations, $groupes, $projets));
 
     }
     public function edit(string $id) {
@@ -197,17 +188,14 @@ class BaseAffectationProjetController extends AdminController
         $this->viewState->set($key, $value);
 
         $realisationProjetService =  new RealisationProjetService();
-        $realisationProjets_data =  $realisationProjetService->paginate();
-        $realisationProjets_stats = $realisationProjetService->getrealisationProjetStats();
-        $this->viewState->set('stats.realisationProjet.stats'  , $realisationProjets_stats);
-        $realisationProjets_filters = $realisationProjetService->getFieldsFilterable();
-        $realisationProjet_instance =  $realisationProjetService->createInstance();
+        $realisationProjets_view_data = $realisationProjetService->prepareDataForIndexView();
+        extract($realisationProjets_view_data);
 
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::affectationProjet._edit', compact('itemAffectationProjet', 'anneeFormations', 'groupes', 'projets', 'realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters', 'realisationProjet_instance'));
+            return view('PkgRealisationProjets::affectationProjet._edit', array_merge(compact('itemAffectationProjet','anneeFormations', 'groupes', 'projets'),$realisationProjet_compact_value));
         }
 
-        return view('PkgRealisationProjets::affectationProjet.edit', compact('itemAffectationProjet', 'anneeFormations', 'groupes', 'projets', 'realisationProjets_data', 'realisationProjets_stats', 'realisationProjets_filters', 'realisationProjet_instance'));
+        return view('PkgRealisationProjets::affectationProjet.edit', array_merge(compact('itemAffectationProjet','anneeFormations', 'groupes', 'projets'),$realisationProjet_compact_value));
 
     }
     public function update(AffectationProjetRequest $request, string $id) {

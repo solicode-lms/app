@@ -36,36 +36,29 @@ class BaseEDataFieldController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('eDataField.index');
         
-        $viewType = $this->viewState->get('view_type', 'table');
-        $viewTypes = $this->getService()->getViewTypes();
-        
 
 
 
-        // Extraire les paramètres de recherche, page, et filtres
+         // Extraire les paramètres de recherche, pagination, filtres
         $eDataFields_params = array_merge(
-            $request->only(['page','sort']),
-            ['search' => $request->get('eDataFields_search', $this->viewState->get("filter.eDataField.eDataFields_search"))],
+            $request->only(['page', 'sort']),
+            ['search' => $request->get(
+                'eDataFields_search',
+                $this->viewState->get("filter.eDataField.eDataFields_search")
+            )],
             $request->except(['eDataFields_search', 'page', 'sort'])
         );
 
-        // Paginer les eDataFields
-        $eDataFields_data = $this->eDataFieldService->paginate($eDataFields_params);
-
-        // Récupérer les statistiques et les champs filtrables
-        $eDataFields_stats = $this->eDataFieldService->geteDataFieldStats();
-        $this->viewState->set('stats.eDataField.stats'  , $eDataFields_stats);
-        $eDataFields_filters = $this->eDataFieldService->getFieldsFilterable();
-        $eDataField_instance =  $this->eDataFieldService->createInstance();
+        // prepareDataForIndexView
+        $tcView = $this->eDataFieldService->prepareDataForIndexView($eDataFields_params);
+        extract($tcView); // Toutes les variables sont injectées automatiquement
         
-        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
-
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($partialViewName, compact('viewTypes','eDataFields_data', 'eDataFields_stats', 'eDataFields_filters','eDataField_instance'))->render();
+            return view($eDataField_partialViewName, $eDataField_compact_value)->render();
         }
 
-        return view('PkgGapp::eDataField.index', compact('viewTypes','viewType','eDataFields_data', 'eDataFields_stats', 'eDataFields_filters','eDataField_instance'));
+        return view('PkgGapp::eDataField.index', $eDataField_compact_value);
     }
     public function create() {
 
@@ -120,16 +113,14 @@ class BaseEDataFieldController extends AdminController
 
 
         $eMetadatumService =  new EMetadatumService();
-        $eMetadata_data =  $eMetadatumService->paginate();
-        $eMetadata_stats = $eMetadatumService->geteMetadatumStats();
-        $eMetadata_filters = $eMetadatumService->getFieldsFilterable();
-        $eMetadatum_instance =  $eMetadatumService->createInstance();
+        $eMetadata_view_data = $eMetadatumService->prepareDataForIndexView();
+        extract($eMetadata_view_data);
 
         if (request()->ajax()) {
-            return view('PkgGapp::eDataField._edit', compact('itemEDataField', 'eModels', 'eRelationships', 'eMetadata_data', 'eMetadata_stats', 'eMetadata_filters', 'eMetadatum_instance'));
+            return view('PkgGapp::eDataField._edit', array_merge(compact('itemEDataField'),$eModels, $eRelationships));
         }
 
-        return view('PkgGapp::eDataField.edit', compact('itemEDataField', 'eModels', 'eRelationships', 'eMetadata_data', 'eMetadata_stats', 'eMetadata_filters', 'eMetadatum_instance'));
+        return view('PkgGapp::eDataField.edit', array_merge(compact('itemEDataField'),$eModels, $eRelationships));
 
     }
     public function edit(string $id) {
@@ -148,17 +139,14 @@ class BaseEDataFieldController extends AdminController
         
 
         $eMetadatumService =  new EMetadatumService();
-        $eMetadata_data =  $eMetadatumService->paginate();
-        $eMetadata_stats = $eMetadatumService->geteMetadatumStats();
-        $this->viewState->set('stats.eMetadatum.stats'  , $eMetadata_stats);
-        $eMetadata_filters = $eMetadatumService->getFieldsFilterable();
-        $eMetadatum_instance =  $eMetadatumService->createInstance();
+        $eMetadata_view_data = $eMetadatumService->prepareDataForIndexView();
+        extract($eMetadata_view_data);
 
         if (request()->ajax()) {
-            return view('PkgGapp::eDataField._edit', compact('itemEDataField', 'eModels', 'eRelationships', 'eMetadata_data', 'eMetadata_stats', 'eMetadata_filters', 'eMetadatum_instance'));
+            return view('PkgGapp::eDataField._edit', array_merge(compact('itemEDataField','eModels', 'eRelationships'),$eMetadatum_compact_value));
         }
 
-        return view('PkgGapp::eDataField.edit', compact('itemEDataField', 'eModels', 'eRelationships', 'eMetadata_data', 'eMetadata_stats', 'eMetadata_filters', 'eMetadatum_instance'));
+        return view('PkgGapp::eDataField.edit', array_merge(compact('itemEDataField','eModels', 'eRelationships'),$eMetadatum_compact_value));
 
     }
     public function update(EDataFieldRequest $request, string $id) {

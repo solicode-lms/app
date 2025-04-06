@@ -70,8 +70,8 @@
                             :exportXlsxRoute="route('livrables.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('livrables.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
-                            :viewTypes="$viewTypes"
-                            :viewType="$viewType"
+                            :viewTypes="$livrable_viewTypes"
+                            :viewType="$livrable_viewType"
                         />
                         @endcan
                     </div>
@@ -109,16 +109,16 @@
                 </div>
                 @show
                 <div id="livrable-data-container" class="data-container">
-                    @if($viewType == "table")
-                    @include("PkgCreationProjet::livrable._$viewType")
+                    @if($livrable_viewType == "table")
+                    @include("PkgCreationProjet::livrable._$livrable_viewType")
                     @endif
                 </div>
             </div>
         </div>
     </section>
-     <section id="widgetUtilisateur-data-container-out" >
-        @if($viewType == "widgets")
-        @include("PkgCreationProjet::livrable._$viewType")
+     <section id="livrable-data-container-out" >
+        @if($livrable_viewType == "widgets")
+        @include("PkgCreationProjet::livrable._$livrable_viewType")
         @endif
     </section>
     @show

@@ -41,9 +41,6 @@ class BaseTransfertCompetenceController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('transfertCompetence.index');
         
-        $viewType = $this->viewState->get('view_type', 'table');
-        $viewTypes = $this->getService()->getViewTypes();
-        
         // ownedByUser
         if(Auth::user()->hasRole('formateur') && $this->viewState->get('scope.transfertCompetence.projet.formateur_id') == null){
            $this->viewState->init('scope.transfertCompetence.projet.formateur_id'  , $this->sessionState->get('formateur_id'));
@@ -51,30 +48,26 @@ class BaseTransfertCompetenceController extends AdminController
 
 
 
-        // Extraire les paramètres de recherche, page, et filtres
+         // Extraire les paramètres de recherche, pagination, filtres
         $transfertCompetences_params = array_merge(
-            $request->only(['page','sort']),
-            ['search' => $request->get('transfertCompetences_search', $this->viewState->get("filter.transfertCompetence.transfertCompetences_search"))],
+            $request->only(['page', 'sort']),
+            ['search' => $request->get(
+                'transfertCompetences_search',
+                $this->viewState->get("filter.transfertCompetence.transfertCompetences_search")
+            )],
             $request->except(['transfertCompetences_search', 'page', 'sort'])
         );
 
-        // Paginer les transfertCompetences
-        $transfertCompetences_data = $this->transfertCompetenceService->paginate($transfertCompetences_params);
-
-        // Récupérer les statistiques et les champs filtrables
-        $transfertCompetences_stats = $this->transfertCompetenceService->gettransfertCompetenceStats();
-        $this->viewState->set('stats.transfertCompetence.stats'  , $transfertCompetences_stats);
-        $transfertCompetences_filters = $this->transfertCompetenceService->getFieldsFilterable();
-        $transfertCompetence_instance =  $this->transfertCompetenceService->createInstance();
+        // prepareDataForIndexView
+        $tcView = $this->transfertCompetenceService->prepareDataForIndexView($transfertCompetences_params);
+        extract($tcView); // Toutes les variables sont injectées automatiquement
         
-        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
-
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($partialViewName, compact('viewTypes','transfertCompetences_data', 'transfertCompetences_stats', 'transfertCompetences_filters','transfertCompetence_instance'))->render();
+            return view($transfertCompetence_partialViewName, $transfertCompetence_compact_value)->render();
         }
 
-        return view('PkgCreationProjet::transfertCompetence.index', compact('viewTypes','viewType','transfertCompetences_data', 'transfertCompetences_stats', 'transfertCompetences_filters','transfertCompetence_instance'));
+        return view('PkgCreationProjet::transfertCompetence.index', $transfertCompetence_compact_value);
     }
     public function create() {
         // ownedByUser
@@ -135,10 +128,10 @@ class BaseTransfertCompetenceController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('PkgCreationProjet::transfertCompetence._fields', compact('itemTransfertCompetence', 'technologies', 'competences', 'niveauDifficultes', 'projets'));
+            return view('PkgCreationProjet::transfertCompetence._fields', array_merge(compact('itemTransfertCompetence'),$technologies, $competences, $niveauDifficultes, $projets));
         }
 
-        return view('PkgCreationProjet::transfertCompetence.edit', compact('itemTransfertCompetence', 'technologies', 'competences', 'niveauDifficultes', 'projets'));
+        return view('PkgCreationProjet::transfertCompetence.edit', array_merge(compact('itemTransfertCompetence'),$technologies, $competences, $niveauDifficultes, $projets));
 
     }
     public function edit(string $id) {
@@ -157,10 +150,10 @@ class BaseTransfertCompetenceController extends AdminController
 
 
         if (request()->ajax()) {
-            return view('PkgCreationProjet::transfertCompetence._fields', compact('itemTransfertCompetence', 'technologies', 'competences', 'niveauDifficultes', 'projets'));
+            return view('PkgCreationProjet::transfertCompetence._fields', array_merge(compact('itemTransfertCompetence','technologies', 'competences', 'niveauDifficultes', 'projets'),));
         }
 
-        return view('PkgCreationProjet::transfertCompetence.edit', compact('itemTransfertCompetence', 'technologies', 'competences', 'niveauDifficultes', 'projets'));
+        return view('PkgCreationProjet::transfertCompetence.edit', array_merge(compact('itemTransfertCompetence','technologies', 'competences', 'niveauDifficultes', 'projets'),));
 
     }
     public function update(TransfertCompetenceRequest $request, string $id) {

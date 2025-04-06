@@ -29,36 +29,29 @@ class BaseVilleController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('ville.index');
         
-        $viewType = $this->viewState->get('view_type', 'table');
-        $viewTypes = $this->getService()->getViewTypes();
-        
 
 
 
-        // Extraire les paramètres de recherche, page, et filtres
+         // Extraire les paramètres de recherche, pagination, filtres
         $villes_params = array_merge(
-            $request->only(['page','sort']),
-            ['search' => $request->get('villes_search', $this->viewState->get("filter.ville.villes_search"))],
+            $request->only(['page', 'sort']),
+            ['search' => $request->get(
+                'villes_search',
+                $this->viewState->get("filter.ville.villes_search")
+            )],
             $request->except(['villes_search', 'page', 'sort'])
         );
 
-        // Paginer les villes
-        $villes_data = $this->villeService->paginate($villes_params);
-
-        // Récupérer les statistiques et les champs filtrables
-        $villes_stats = $this->villeService->getvilleStats();
-        $this->viewState->set('stats.ville.stats'  , $villes_stats);
-        $villes_filters = $this->villeService->getFieldsFilterable();
-        $ville_instance =  $this->villeService->createInstance();
+        // prepareDataForIndexView
+        $tcView = $this->villeService->prepareDataForIndexView($villes_params);
+        extract($tcView); // Toutes les variables sont injectées automatiquement
         
-        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
-
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($partialViewName, compact('viewTypes','villes_data', 'villes_stats', 'villes_filters','ville_instance'))->render();
+            return view($ville_partialViewName, $ville_compact_value)->render();
         }
 
-        return view('PkgApprenants::ville.index', compact('viewTypes','viewType','villes_data', 'villes_stats', 'villes_filters','ville_instance'));
+        return view('PkgApprenants::ville.index', $ville_compact_value);
     }
     public function create() {
 
@@ -106,10 +99,10 @@ class BaseVilleController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('PkgApprenants::ville._fields', compact('itemVille'));
+            return view('PkgApprenants::ville._fields', array_merge(compact('itemVille'),));
         }
 
-        return view('PkgApprenants::ville.edit', compact('itemVille'));
+        return view('PkgApprenants::ville.edit', array_merge(compact('itemVille'),));
 
     }
     public function edit(string $id) {
@@ -123,10 +116,10 @@ class BaseVilleController extends AdminController
 
 
         if (request()->ajax()) {
-            return view('PkgApprenants::ville._fields', compact('itemVille'));
+            return view('PkgApprenants::ville._fields', array_merge(compact('itemVille',),));
         }
 
-        return view('PkgApprenants::ville.edit', compact('itemVille'));
+        return view('PkgApprenants::ville.edit', array_merge(compact('itemVille',),));
 
     }
     public function update(VilleRequest $request, string $id) {

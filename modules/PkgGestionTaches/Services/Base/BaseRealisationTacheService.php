@@ -133,4 +133,51 @@ class BaseRealisationTacheService extends BaseService
         };
     }
 
+
+
+    public function prepareDataForIndexView(array $params = []): array
+    {
+        // Définir le type de vue par défaut
+        $default_view_type = 'table';
+        $this->viewState->init('realisationTache_view_type', $default_view_type);
+        $realisationTache_viewType = $this->viewState->get('realisationTache_view_type', $default_view_type);
+    
+        // Si viewType = widgets, appliquer filtre visible = 1
+        if ($this->viewState->get('realisationTache_view_type') === 'widgets') {
+            $this->viewState->set("filter.realisationTache.visible", 1);
+        }
+        
+        // Récupération des données
+        $realisationTaches_data = $this->paginate($params);
+        $realisationTaches_stats = $this->getrealisationTacheStats();
+        $realisationTaches_filters = $this->getFieldsFilterable();
+        $realisationTache_instance = $this->createInstance();
+        $realisationTache_viewTypes = $this->getViewTypes();
+        $realisationTache_partialViewName = $this->getPartialViewName($realisationTache_viewType);
+    
+        // Enregistrer les stats dans le ViewState
+        $this->viewState->set('stats.realisationTache.stats', $realisationTaches_stats);
+    
+        // Préparer les variables à injecter dans compact()
+        $compact_value = compact(
+            'realisationTache_viewTypes',
+            'realisationTache_viewType',
+            'realisationTaches_data',
+            'realisationTaches_stats',
+            'realisationTaches_filters',
+            'realisationTache_instance'
+        );
+    
+        return [
+            'realisationTaches_data' => $realisationTaches_data,
+            'realisationTaches_stats' => $realisationTaches_stats,
+            'realisationTaches_filters' => $realisationTaches_filters,
+            'realisationTache_instance' => $realisationTache_instance,
+            'realisationTache_viewType' => $realisationTache_viewType,
+            'realisationTache_viewTypes' => $realisationTache_viewTypes,
+            'realisationTache_partialViewName' => $realisationTache_partialViewName,
+            'realisationTache_compact_value' => $compact_value
+        ];
+    }
+
 }

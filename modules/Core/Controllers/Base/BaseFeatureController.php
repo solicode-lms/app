@@ -35,36 +35,29 @@ class BaseFeatureController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('feature.index');
         
-        $viewType = $this->viewState->get('view_type', 'table');
-        $viewTypes = $this->getService()->getViewTypes();
-        
 
 
 
-        // Extraire les paramètres de recherche, page, et filtres
+         // Extraire les paramètres de recherche, pagination, filtres
         $features_params = array_merge(
-            $request->only(['page','sort']),
-            ['search' => $request->get('features_search', $this->viewState->get("filter.feature.features_search"))],
+            $request->only(['page', 'sort']),
+            ['search' => $request->get(
+                'features_search',
+                $this->viewState->get("filter.feature.features_search")
+            )],
             $request->except(['features_search', 'page', 'sort'])
         );
 
-        // Paginer les features
-        $features_data = $this->featureService->paginate($features_params);
-
-        // Récupérer les statistiques et les champs filtrables
-        $features_stats = $this->featureService->getfeatureStats();
-        $this->viewState->set('stats.feature.stats'  , $features_stats);
-        $features_filters = $this->featureService->getFieldsFilterable();
-        $feature_instance =  $this->featureService->createInstance();
+        // prepareDataForIndexView
+        $tcView = $this->featureService->prepareDataForIndexView($features_params);
+        extract($tcView); // Toutes les variables sont injectées automatiquement
         
-        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
-
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($partialViewName, compact('viewTypes','features_data', 'features_stats', 'features_filters','feature_instance'))->render();
+            return view($feature_partialViewName, $feature_compact_value)->render();
         }
 
-        return view('Core::feature.index', compact('viewTypes','viewType','features_data', 'features_stats', 'features_filters','feature_instance'));
+        return view('Core::feature.index', $feature_compact_value);
     }
     public function create() {
 
@@ -116,10 +109,10 @@ class BaseFeatureController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('Core::feature._fields', compact('itemFeature', 'permissions', 'featureDomains'));
+            return view('Core::feature._fields', array_merge(compact('itemFeature'),$permissions, $featureDomains));
         }
 
-        return view('Core::feature.edit', compact('itemFeature', 'permissions', 'featureDomains'));
+        return view('Core::feature.edit', array_merge(compact('itemFeature'),$permissions, $featureDomains));
 
     }
     public function edit(string $id) {
@@ -135,10 +128,10 @@ class BaseFeatureController extends AdminController
 
 
         if (request()->ajax()) {
-            return view('Core::feature._fields', compact('itemFeature', 'permissions', 'featureDomains'));
+            return view('Core::feature._fields', array_merge(compact('itemFeature','permissions', 'featureDomains'),));
         }
 
-        return view('Core::feature.edit', compact('itemFeature', 'permissions', 'featureDomains'));
+        return view('Core::feature.edit', array_merge(compact('itemFeature','permissions', 'featureDomains'),));
 
     }
     public function update(FeatureRequest $request, string $id) {

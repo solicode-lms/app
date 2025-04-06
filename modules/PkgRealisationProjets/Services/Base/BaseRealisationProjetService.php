@@ -132,4 +132,51 @@ class BaseRealisationProjetService extends BaseService
         };
     }
 
+
+
+    public function prepareDataForIndexView(array $params = []): array
+    {
+        // Définir le type de vue par défaut
+        $default_view_type = 'table';
+        $this->viewState->init('realisationProjet_view_type', $default_view_type);
+        $realisationProjet_viewType = $this->viewState->get('realisationProjet_view_type', $default_view_type);
+    
+        // Si viewType = widgets, appliquer filtre visible = 1
+        if ($this->viewState->get('realisationProjet_view_type') === 'widgets') {
+            $this->viewState->set("filter.realisationProjet.visible", 1);
+        }
+        
+        // Récupération des données
+        $realisationProjets_data = $this->paginate($params);
+        $realisationProjets_stats = $this->getrealisationProjetStats();
+        $realisationProjets_filters = $this->getFieldsFilterable();
+        $realisationProjet_instance = $this->createInstance();
+        $realisationProjet_viewTypes = $this->getViewTypes();
+        $realisationProjet_partialViewName = $this->getPartialViewName($realisationProjet_viewType);
+    
+        // Enregistrer les stats dans le ViewState
+        $this->viewState->set('stats.realisationProjet.stats', $realisationProjets_stats);
+    
+        // Préparer les variables à injecter dans compact()
+        $compact_value = compact(
+            'realisationProjet_viewTypes',
+            'realisationProjet_viewType',
+            'realisationProjets_data',
+            'realisationProjets_stats',
+            'realisationProjets_filters',
+            'realisationProjet_instance'
+        );
+    
+        return [
+            'realisationProjets_data' => $realisationProjets_data,
+            'realisationProjets_stats' => $realisationProjets_stats,
+            'realisationProjets_filters' => $realisationProjets_filters,
+            'realisationProjet_instance' => $realisationProjet_instance,
+            'realisationProjet_viewType' => $realisationProjet_viewType,
+            'realisationProjet_viewTypes' => $realisationProjet_viewTypes,
+            'realisationProjet_partialViewName' => $realisationProjet_partialViewName,
+            'realisationProjet_compact_value' => $compact_value
+        ];
+    }
+
 }

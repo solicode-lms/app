@@ -33,36 +33,29 @@ class BaseWorkflowChapitreController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('workflowChapitre.index');
         
-        $viewType = $this->viewState->get('view_type', 'table');
-        $viewTypes = $this->getService()->getViewTypes();
-        
 
 
 
-        // Extraire les paramètres de recherche, page, et filtres
+         // Extraire les paramètres de recherche, pagination, filtres
         $workflowChapitres_params = array_merge(
-            $request->only(['page','sort']),
-            ['search' => $request->get('workflowChapitres_search', $this->viewState->get("filter.workflowChapitre.workflowChapitres_search"))],
+            $request->only(['page', 'sort']),
+            ['search' => $request->get(
+                'workflowChapitres_search',
+                $this->viewState->get("filter.workflowChapitre.workflowChapitres_search")
+            )],
             $request->except(['workflowChapitres_search', 'page', 'sort'])
         );
 
-        // Paginer les workflowChapitres
-        $workflowChapitres_data = $this->workflowChapitreService->paginate($workflowChapitres_params);
-
-        // Récupérer les statistiques et les champs filtrables
-        $workflowChapitres_stats = $this->workflowChapitreService->getworkflowChapitreStats();
-        $this->viewState->set('stats.workflowChapitre.stats'  , $workflowChapitres_stats);
-        $workflowChapitres_filters = $this->workflowChapitreService->getFieldsFilterable();
-        $workflowChapitre_instance =  $this->workflowChapitreService->createInstance();
+        // prepareDataForIndexView
+        $tcView = $this->workflowChapitreService->prepareDataForIndexView($workflowChapitres_params);
+        extract($tcView); // Toutes les variables sont injectées automatiquement
         
-        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
-
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($partialViewName, compact('viewTypes','workflowChapitres_data', 'workflowChapitres_stats', 'workflowChapitres_filters','workflowChapitre_instance'))->render();
+            return view($workflowChapitre_partialViewName, $workflowChapitre_compact_value)->render();
         }
 
-        return view('PkgAutoformation::workflowChapitre.index', compact('viewTypes','viewType','workflowChapitres_data', 'workflowChapitres_stats', 'workflowChapitres_filters','workflowChapitre_instance'));
+        return view('PkgAutoformation::workflowChapitre.index', $workflowChapitre_compact_value);
     }
     public function create() {
 
@@ -115,16 +108,14 @@ class BaseWorkflowChapitreController extends AdminController
 
 
         $etatChapitreService =  new EtatChapitreService();
-        $etatChapitres_data =  $etatChapitreService->paginate();
-        $etatChapitres_stats = $etatChapitreService->getetatChapitreStats();
-        $etatChapitres_filters = $etatChapitreService->getFieldsFilterable();
-        $etatChapitre_instance =  $etatChapitreService->createInstance();
+        $etatChapitres_view_data = $etatChapitreService->prepareDataForIndexView();
+        extract($etatChapitres_view_data);
 
         if (request()->ajax()) {
-            return view('PkgAutoformation::workflowChapitre._edit', compact('itemWorkflowChapitre', 'sysColors', 'etatChapitres_data', 'etatChapitres_stats', 'etatChapitres_filters', 'etatChapitre_instance'));
+            return view('PkgAutoformation::workflowChapitre._edit', array_merge(compact('itemWorkflowChapitre'),$sysColors));
         }
 
-        return view('PkgAutoformation::workflowChapitre.edit', compact('itemWorkflowChapitre', 'sysColors', 'etatChapitres_data', 'etatChapitres_stats', 'etatChapitres_filters', 'etatChapitre_instance'));
+        return view('PkgAutoformation::workflowChapitre.edit', array_merge(compact('itemWorkflowChapitre'),$sysColors));
 
     }
     public function edit(string $id) {
@@ -142,17 +133,14 @@ class BaseWorkflowChapitreController extends AdminController
         
 
         $etatChapitreService =  new EtatChapitreService();
-        $etatChapitres_data =  $etatChapitreService->paginate();
-        $etatChapitres_stats = $etatChapitreService->getetatChapitreStats();
-        $this->viewState->set('stats.etatChapitre.stats'  , $etatChapitres_stats);
-        $etatChapitres_filters = $etatChapitreService->getFieldsFilterable();
-        $etatChapitre_instance =  $etatChapitreService->createInstance();
+        $etatChapitres_view_data = $etatChapitreService->prepareDataForIndexView();
+        extract($etatChapitres_view_data);
 
         if (request()->ajax()) {
-            return view('PkgAutoformation::workflowChapitre._edit', compact('itemWorkflowChapitre', 'sysColors', 'etatChapitres_data', 'etatChapitres_stats', 'etatChapitres_filters', 'etatChapitre_instance'));
+            return view('PkgAutoformation::workflowChapitre._edit', array_merge(compact('itemWorkflowChapitre','sysColors'),$etatChapitre_compact_value));
         }
 
-        return view('PkgAutoformation::workflowChapitre.edit', compact('itemWorkflowChapitre', 'sysColors', 'etatChapitres_data', 'etatChapitres_stats', 'etatChapitres_filters', 'etatChapitre_instance'));
+        return view('PkgAutoformation::workflowChapitre.edit', array_merge(compact('itemWorkflowChapitre','sysColors'),$etatChapitre_compact_value));
 
     }
     public function update(WorkflowChapitreRequest $request, string $id) {

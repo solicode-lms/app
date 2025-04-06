@@ -42,36 +42,29 @@ class BaseGroupeController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('groupe.index');
         
-        $viewType = $this->viewState->get('view_type', 'table');
-        $viewTypes = $this->getService()->getViewTypes();
-        
 
 
 
-        // Extraire les paramètres de recherche, page, et filtres
+         // Extraire les paramètres de recherche, pagination, filtres
         $groupes_params = array_merge(
-            $request->only(['page','sort']),
-            ['search' => $request->get('groupes_search', $this->viewState->get("filter.groupe.groupes_search"))],
+            $request->only(['page', 'sort']),
+            ['search' => $request->get(
+                'groupes_search',
+                $this->viewState->get("filter.groupe.groupes_search")
+            )],
             $request->except(['groupes_search', 'page', 'sort'])
         );
 
-        // Paginer les groupes
-        $groupes_data = $this->groupeService->paginate($groupes_params);
-
-        // Récupérer les statistiques et les champs filtrables
-        $groupes_stats = $this->groupeService->getgroupeStats();
-        $this->viewState->set('stats.groupe.stats'  , $groupes_stats);
-        $groupes_filters = $this->groupeService->getFieldsFilterable();
-        $groupe_instance =  $this->groupeService->createInstance();
+        // prepareDataForIndexView
+        $tcView = $this->groupeService->prepareDataForIndexView($groupes_params);
+        extract($tcView); // Toutes les variables sont injectées automatiquement
         
-        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
-
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($partialViewName, compact('viewTypes','groupes_data', 'groupes_stats', 'groupes_filters','groupe_instance'))->render();
+            return view($groupe_partialViewName, $groupe_compact_value)->render();
         }
 
-        return view('PkgApprenants::groupe.index', compact('viewTypes','viewType','groupes_data', 'groupes_stats', 'groupes_filters','groupe_instance'));
+        return view('PkgApprenants::groupe.index', $groupe_compact_value);
     }
     public function create() {
 
@@ -130,16 +123,14 @@ class BaseGroupeController extends AdminController
 
 
         $affectationProjetService =  new AffectationProjetService();
-        $affectationProjets_data =  $affectationProjetService->paginate();
-        $affectationProjets_stats = $affectationProjetService->getaffectationProjetStats();
-        $affectationProjets_filters = $affectationProjetService->getFieldsFilterable();
-        $affectationProjet_instance =  $affectationProjetService->createInstance();
+        $affectationProjets_view_data = $affectationProjetService->prepareDataForIndexView();
+        extract($affectationProjets_view_data);
 
         if (request()->ajax()) {
-            return view('PkgApprenants::groupe._edit', compact('itemGroupe', 'apprenants', 'formateurs', 'anneeFormations', 'filieres', 'affectationProjets_data', 'affectationProjets_stats', 'affectationProjets_filters', 'affectationProjet_instance'));
+            return view('PkgApprenants::groupe._edit', array_merge(compact('itemGroupe'),$apprenants, $formateurs, $anneeFormations, $filieres));
         }
 
-        return view('PkgApprenants::groupe.edit', compact('itemGroupe', 'apprenants', 'formateurs', 'anneeFormations', 'filieres', 'affectationProjets_data', 'affectationProjets_stats', 'affectationProjets_filters', 'affectationProjet_instance'));
+        return view('PkgApprenants::groupe.edit', array_merge(compact('itemGroupe'),$apprenants, $formateurs, $anneeFormations, $filieres));
 
     }
     public function edit(string $id) {
@@ -160,17 +151,14 @@ class BaseGroupeController extends AdminController
         
 
         $affectationProjetService =  new AffectationProjetService();
-        $affectationProjets_data =  $affectationProjetService->paginate();
-        $affectationProjets_stats = $affectationProjetService->getaffectationProjetStats();
-        $this->viewState->set('stats.affectationProjet.stats'  , $affectationProjets_stats);
-        $affectationProjets_filters = $affectationProjetService->getFieldsFilterable();
-        $affectationProjet_instance =  $affectationProjetService->createInstance();
+        $affectationProjets_view_data = $affectationProjetService->prepareDataForIndexView();
+        extract($affectationProjets_view_data);
 
         if (request()->ajax()) {
-            return view('PkgApprenants::groupe._edit', compact('itemGroupe', 'apprenants', 'formateurs', 'anneeFormations', 'filieres', 'affectationProjets_data', 'affectationProjets_stats', 'affectationProjets_filters', 'affectationProjet_instance'));
+            return view('PkgApprenants::groupe._edit', array_merge(compact('itemGroupe','apprenants', 'formateurs', 'anneeFormations', 'filieres'),$affectationProjet_compact_value));
         }
 
-        return view('PkgApprenants::groupe.edit', compact('itemGroupe', 'apprenants', 'formateurs', 'anneeFormations', 'filieres', 'affectationProjets_data', 'affectationProjets_stats', 'affectationProjets_filters', 'affectationProjet_instance'));
+        return view('PkgApprenants::groupe.edit', array_merge(compact('itemGroupe','apprenants', 'formateurs', 'anneeFormations', 'filieres'),$affectationProjet_compact_value));
 
     }
     public function update(GroupeRequest $request, string $id) {

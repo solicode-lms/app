@@ -70,8 +70,8 @@
                             :exportXlsxRoute="route('users.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('users.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
-                            :viewTypes="$viewTypes"
-                            :viewType="$viewType"
+                            :viewTypes="$user_viewTypes"
+                            :viewType="$user_viewType"
                         />
                         @endcan
                     </div>
@@ -109,16 +109,16 @@
                 </div>
                 @show
                 <div id="user-data-container" class="data-container">
-                    @if($viewType == "table")
-                    @include("PkgAutorisation::user._$viewType")
+                    @if($user_viewType == "table")
+                    @include("PkgAutorisation::user._$user_viewType")
                     @endif
                 </div>
             </div>
         </div>
     </section>
-     <section id="widgetUtilisateur-data-container-out" >
-        @if($viewType == "widgets")
-        @include("PkgAutorisation::user._$viewType")
+     <section id="user-data-container-out" >
+        @if($user_viewType == "widgets")
+        @include("PkgAutorisation::user._$user_viewType")
         @endif
     </section>
     @show

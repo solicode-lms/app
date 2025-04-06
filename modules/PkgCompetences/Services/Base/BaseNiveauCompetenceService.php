@@ -109,4 +109,51 @@ class BaseNiveauCompetenceService extends BaseService
         };
     }
 
+
+
+    public function prepareDataForIndexView(array $params = []): array
+    {
+        // Définir le type de vue par défaut
+        $default_view_type = 'table';
+        $this->viewState->init('niveauCompetence_view_type', $default_view_type);
+        $niveauCompetence_viewType = $this->viewState->get('niveauCompetence_view_type', $default_view_type);
+    
+        // Si viewType = widgets, appliquer filtre visible = 1
+        if ($this->viewState->get('niveauCompetence_view_type') === 'widgets') {
+            $this->viewState->set("filter.niveauCompetence.visible", 1);
+        }
+        
+        // Récupération des données
+        $niveauCompetences_data = $this->paginate($params);
+        $niveauCompetences_stats = $this->getniveauCompetenceStats();
+        $niveauCompetences_filters = $this->getFieldsFilterable();
+        $niveauCompetence_instance = $this->createInstance();
+        $niveauCompetence_viewTypes = $this->getViewTypes();
+        $niveauCompetence_partialViewName = $this->getPartialViewName($niveauCompetence_viewType);
+    
+        // Enregistrer les stats dans le ViewState
+        $this->viewState->set('stats.niveauCompetence.stats', $niveauCompetences_stats);
+    
+        // Préparer les variables à injecter dans compact()
+        $compact_value = compact(
+            'niveauCompetence_viewTypes',
+            'niveauCompetence_viewType',
+            'niveauCompetences_data',
+            'niveauCompetences_stats',
+            'niveauCompetences_filters',
+            'niveauCompetence_instance'
+        );
+    
+        return [
+            'niveauCompetences_data' => $niveauCompetences_data,
+            'niveauCompetences_stats' => $niveauCompetences_stats,
+            'niveauCompetences_filters' => $niveauCompetences_filters,
+            'niveauCompetence_instance' => $niveauCompetence_instance,
+            'niveauCompetence_viewType' => $niveauCompetence_viewType,
+            'niveauCompetence_viewTypes' => $niveauCompetence_viewTypes,
+            'niveauCompetence_partialViewName' => $niveauCompetence_partialViewName,
+            'niveauCompetence_compact_value' => $compact_value
+        ];
+    }
+
 }

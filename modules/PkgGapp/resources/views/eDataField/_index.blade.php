@@ -70,8 +70,8 @@
                             :exportXlsxRoute="route('eDataFields.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('eDataFields.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
-                            :viewTypes="$viewTypes"
-                            :viewType="$viewType"
+                            :viewTypes="$eDataField_viewTypes"
+                            :viewType="$eDataField_viewType"
                         />
                         @endcan
                     </div>
@@ -109,16 +109,16 @@
                 </div>
                 @show
                 <div id="eDataField-data-container" class="data-container">
-                    @if($viewType == "table")
-                    @include("PkgGapp::eDataField._$viewType")
+                    @if($eDataField_viewType == "table")
+                    @include("PkgGapp::eDataField._$eDataField_viewType")
                     @endif
                 </div>
             </div>
         </div>
     </section>
-     <section id="widgetUtilisateur-data-container-out" >
-        @if($viewType == "widgets")
-        @include("PkgGapp::eDataField._$viewType")
+     <section id="eDataField-data-container-out" >
+        @if($eDataField_viewType == "widgets")
+        @include("PkgGapp::eDataField._$eDataField_viewType")
         @endif
     </section>
     @show

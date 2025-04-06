@@ -110,4 +110,51 @@ class BaseWorkflowChapitreService extends BaseService
         };
     }
 
+
+
+    public function prepareDataForIndexView(array $params = []): array
+    {
+        // Définir le type de vue par défaut
+        $default_view_type = 'table';
+        $this->viewState->init('workflowChapitre_view_type', $default_view_type);
+        $workflowChapitre_viewType = $this->viewState->get('workflowChapitre_view_type', $default_view_type);
+    
+        // Si viewType = widgets, appliquer filtre visible = 1
+        if ($this->viewState->get('workflowChapitre_view_type') === 'widgets') {
+            $this->viewState->set("filter.workflowChapitre.visible", 1);
+        }
+        
+        // Récupération des données
+        $workflowChapitres_data = $this->paginate($params);
+        $workflowChapitres_stats = $this->getworkflowChapitreStats();
+        $workflowChapitres_filters = $this->getFieldsFilterable();
+        $workflowChapitre_instance = $this->createInstance();
+        $workflowChapitre_viewTypes = $this->getViewTypes();
+        $workflowChapitre_partialViewName = $this->getPartialViewName($workflowChapitre_viewType);
+    
+        // Enregistrer les stats dans le ViewState
+        $this->viewState->set('stats.workflowChapitre.stats', $workflowChapitres_stats);
+    
+        // Préparer les variables à injecter dans compact()
+        $compact_value = compact(
+            'workflowChapitre_viewTypes',
+            'workflowChapitre_viewType',
+            'workflowChapitres_data',
+            'workflowChapitres_stats',
+            'workflowChapitres_filters',
+            'workflowChapitre_instance'
+        );
+    
+        return [
+            'workflowChapitres_data' => $workflowChapitres_data,
+            'workflowChapitres_stats' => $workflowChapitres_stats,
+            'workflowChapitres_filters' => $workflowChapitres_filters,
+            'workflowChapitre_instance' => $workflowChapitre_instance,
+            'workflowChapitre_viewType' => $workflowChapitre_viewType,
+            'workflowChapitre_viewTypes' => $workflowChapitre_viewTypes,
+            'workflowChapitre_partialViewName' => $workflowChapitre_partialViewName,
+            'workflowChapitre_compact_value' => $compact_value
+        ];
+    }
+
 }

@@ -125,4 +125,51 @@ class BaseProfileService extends BaseService
         };
     }
 
+
+
+    public function prepareDataForIndexView(array $params = []): array
+    {
+        // Définir le type de vue par défaut
+        $default_view_type = 'table';
+        $this->viewState->init('profile_view_type', $default_view_type);
+        $profile_viewType = $this->viewState->get('profile_view_type', $default_view_type);
+    
+        // Si viewType = widgets, appliquer filtre visible = 1
+        if ($this->viewState->get('profile_view_type') === 'widgets') {
+            $this->viewState->set("filter.profile.visible", 1);
+        }
+        
+        // Récupération des données
+        $profiles_data = $this->paginate($params);
+        $profiles_stats = $this->getprofileStats();
+        $profiles_filters = $this->getFieldsFilterable();
+        $profile_instance = $this->createInstance();
+        $profile_viewTypes = $this->getViewTypes();
+        $profile_partialViewName = $this->getPartialViewName($profile_viewType);
+    
+        // Enregistrer les stats dans le ViewState
+        $this->viewState->set('stats.profile.stats', $profiles_stats);
+    
+        // Préparer les variables à injecter dans compact()
+        $compact_value = compact(
+            'profile_viewTypes',
+            'profile_viewType',
+            'profiles_data',
+            'profiles_stats',
+            'profiles_filters',
+            'profile_instance'
+        );
+    
+        return [
+            'profiles_data' => $profiles_data,
+            'profiles_stats' => $profiles_stats,
+            'profiles_filters' => $profiles_filters,
+            'profile_instance' => $profile_instance,
+            'profile_viewType' => $profile_viewType,
+            'profile_viewTypes' => $profile_viewTypes,
+            'profile_partialViewName' => $profile_partialViewName,
+            'profile_compact_value' => $compact_value
+        ];
+    }
+
 }

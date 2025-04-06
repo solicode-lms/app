@@ -70,8 +70,8 @@
                             :exportXlsxRoute="route('features.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('features.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
-                            :viewTypes="$viewTypes"
-                            :viewType="$viewType"
+                            :viewTypes="$feature_viewTypes"
+                            :viewType="$feature_viewType"
                         />
                         @endcan
                     </div>
@@ -109,16 +109,16 @@
                 </div>
                 @show
                 <div id="feature-data-container" class="data-container">
-                    @if($viewType == "table")
-                    @include("Core::feature._$viewType")
+                    @if($feature_viewType == "table")
+                    @include("Core::feature._$feature_viewType")
                     @endif
                 </div>
             </div>
         </div>
     </section>
-     <section id="widgetUtilisateur-data-container-out" >
-        @if($viewType == "widgets")
-        @include("Core::feature._$viewType")
+     <section id="feature-data-container-out" >
+        @if($feature_viewType == "widgets")
+        @include("Core::feature._$feature_viewType")
         @endif
     </section>
     @show

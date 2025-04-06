@@ -119,4 +119,51 @@ class BaseUserService extends BaseService
         };
     }
 
+
+
+    public function prepareDataForIndexView(array $params = []): array
+    {
+        // Définir le type de vue par défaut
+        $default_view_type = 'table';
+        $this->viewState->init('user_view_type', $default_view_type);
+        $user_viewType = $this->viewState->get('user_view_type', $default_view_type);
+    
+        // Si viewType = widgets, appliquer filtre visible = 1
+        if ($this->viewState->get('user_view_type') === 'widgets') {
+            $this->viewState->set("filter.user.visible", 1);
+        }
+        
+        // Récupération des données
+        $users_data = $this->paginate($params);
+        $users_stats = $this->getuserStats();
+        $users_filters = $this->getFieldsFilterable();
+        $user_instance = $this->createInstance();
+        $user_viewTypes = $this->getViewTypes();
+        $user_partialViewName = $this->getPartialViewName($user_viewType);
+    
+        // Enregistrer les stats dans le ViewState
+        $this->viewState->set('stats.user.stats', $users_stats);
+    
+        // Préparer les variables à injecter dans compact()
+        $compact_value = compact(
+            'user_viewTypes',
+            'user_viewType',
+            'users_data',
+            'users_stats',
+            'users_filters',
+            'user_instance'
+        );
+    
+        return [
+            'users_data' => $users_data,
+            'users_stats' => $users_stats,
+            'users_filters' => $users_filters,
+            'user_instance' => $user_instance,
+            'user_viewType' => $user_viewType,
+            'user_viewTypes' => $user_viewTypes,
+            'user_partialViewName' => $user_partialViewName,
+            'user_compact_value' => $compact_value
+        ];
+    }
+
 }

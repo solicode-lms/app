@@ -32,36 +32,29 @@ class BaseNiveauCompetenceController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('niveauCompetence.index');
         
-        $viewType = $this->viewState->get('view_type', 'table');
-        $viewTypes = $this->getService()->getViewTypes();
-        
 
 
 
-        // Extraire les paramètres de recherche, page, et filtres
+         // Extraire les paramètres de recherche, pagination, filtres
         $niveauCompetences_params = array_merge(
-            $request->only(['page','sort']),
-            ['search' => $request->get('niveauCompetences_search', $this->viewState->get("filter.niveauCompetence.niveauCompetences_search"))],
+            $request->only(['page', 'sort']),
+            ['search' => $request->get(
+                'niveauCompetences_search',
+                $this->viewState->get("filter.niveauCompetence.niveauCompetences_search")
+            )],
             $request->except(['niveauCompetences_search', 'page', 'sort'])
         );
 
-        // Paginer les niveauCompetences
-        $niveauCompetences_data = $this->niveauCompetenceService->paginate($niveauCompetences_params);
-
-        // Récupérer les statistiques et les champs filtrables
-        $niveauCompetences_stats = $this->niveauCompetenceService->getniveauCompetenceStats();
-        $this->viewState->set('stats.niveauCompetence.stats'  , $niveauCompetences_stats);
-        $niveauCompetences_filters = $this->niveauCompetenceService->getFieldsFilterable();
-        $niveauCompetence_instance =  $this->niveauCompetenceService->createInstance();
+        // prepareDataForIndexView
+        $tcView = $this->niveauCompetenceService->prepareDataForIndexView($niveauCompetences_params);
+        extract($tcView); // Toutes les variables sont injectées automatiquement
         
-        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
-
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($partialViewName, compact('viewTypes','niveauCompetences_data', 'niveauCompetences_stats', 'niveauCompetences_filters','niveauCompetence_instance'))->render();
+            return view($niveauCompetence_partialViewName, $niveauCompetence_compact_value)->render();
         }
 
-        return view('PkgCompetences::niveauCompetence.index', compact('viewTypes','viewType','niveauCompetences_data', 'niveauCompetences_stats', 'niveauCompetences_filters','niveauCompetence_instance'));
+        return view('PkgCompetences::niveauCompetence.index', $niveauCompetence_compact_value);
     }
     public function create() {
 
@@ -111,10 +104,10 @@ class BaseNiveauCompetenceController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('PkgCompetences::niveauCompetence._fields', compact('itemNiveauCompetence', 'competences'));
+            return view('PkgCompetences::niveauCompetence._fields', array_merge(compact('itemNiveauCompetence'),$competences));
         }
 
-        return view('PkgCompetences::niveauCompetence.edit', compact('itemNiveauCompetence', 'competences'));
+        return view('PkgCompetences::niveauCompetence.edit', array_merge(compact('itemNiveauCompetence'),$competences));
 
     }
     public function edit(string $id) {
@@ -129,10 +122,10 @@ class BaseNiveauCompetenceController extends AdminController
 
 
         if (request()->ajax()) {
-            return view('PkgCompetences::niveauCompetence._fields', compact('itemNiveauCompetence', 'competences'));
+            return view('PkgCompetences::niveauCompetence._fields', array_merge(compact('itemNiveauCompetence','competences'),));
         }
 
-        return view('PkgCompetences::niveauCompetence.edit', compact('itemNiveauCompetence', 'competences'));
+        return view('PkgCompetences::niveauCompetence.edit', array_merge(compact('itemNiveauCompetence','competences'),));
 
     }
     public function update(NiveauCompetenceRequest $request, string $id) {

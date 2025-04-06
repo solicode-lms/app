@@ -70,8 +70,8 @@
                             :exportXlsxRoute="route('formateurs.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('formateurs.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
-                            :viewTypes="$viewTypes"
-                            :viewType="$viewType"
+                            :viewTypes="$formateur_viewTypes"
+                            :viewType="$formateur_viewType"
                         />
                         @endcan
                     </div>
@@ -109,16 +109,16 @@
                 </div>
                 @show
                 <div id="formateur-data-container" class="data-container">
-                    @if($viewType == "table")
-                    @include("PkgFormation::formateur._$viewType")
+                    @if($formateur_viewType == "table")
+                    @include("PkgFormation::formateur._$formateur_viewType")
                     @endif
                 </div>
             </div>
         </div>
     </section>
-     <section id="widgetUtilisateur-data-container-out" >
-        @if($viewType == "widgets")
-        @include("PkgFormation::formateur._$viewType")
+     <section id="formateur-data-container-out" >
+        @if($formateur_viewType == "widgets")
+        @include("PkgFormation::formateur._$formateur_viewType")
         @endif
     </section>
     @show

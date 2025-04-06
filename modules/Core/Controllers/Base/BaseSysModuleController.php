@@ -35,36 +35,29 @@ class BaseSysModuleController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('sysModule.index');
         
-        $viewType = $this->viewState->get('view_type', 'table');
-        $viewTypes = $this->getService()->getViewTypes();
-        
 
 
 
-        // Extraire les paramètres de recherche, page, et filtres
+         // Extraire les paramètres de recherche, pagination, filtres
         $sysModules_params = array_merge(
-            $request->only(['page','sort']),
-            ['search' => $request->get('sysModules_search', $this->viewState->get("filter.sysModule.sysModules_search"))],
+            $request->only(['page', 'sort']),
+            ['search' => $request->get(
+                'sysModules_search',
+                $this->viewState->get("filter.sysModule.sysModules_search")
+            )],
             $request->except(['sysModules_search', 'page', 'sort'])
         );
 
-        // Paginer les sysModules
-        $sysModules_data = $this->sysModuleService->paginate($sysModules_params);
-
-        // Récupérer les statistiques et les champs filtrables
-        $sysModules_stats = $this->sysModuleService->getsysModuleStats();
-        $this->viewState->set('stats.sysModule.stats'  , $sysModules_stats);
-        $sysModules_filters = $this->sysModuleService->getFieldsFilterable();
-        $sysModule_instance =  $this->sysModuleService->createInstance();
+        // prepareDataForIndexView
+        $tcView = $this->sysModuleService->prepareDataForIndexView($sysModules_params);
+        extract($tcView); // Toutes les variables sont injectées automatiquement
         
-        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
-
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($partialViewName, compact('viewTypes','sysModules_data', 'sysModules_stats', 'sysModules_filters','sysModule_instance'))->render();
+            return view($sysModule_partialViewName, $sysModule_compact_value)->render();
         }
 
-        return view('Core::sysModule.index', compact('viewTypes','viewType','sysModules_data', 'sysModules_stats', 'sysModules_filters','sysModule_instance'));
+        return view('Core::sysModule.index', $sysModule_compact_value);
     }
     public function create() {
 
@@ -117,34 +110,28 @@ class BaseSysModuleController extends AdminController
 
 
         $featureDomainService =  new FeatureDomainService();
-        $featureDomains_data =  $featureDomainService->paginate();
-        $featureDomains_stats = $featureDomainService->getfeatureDomainStats();
-        $featureDomains_filters = $featureDomainService->getFieldsFilterable();
-        $featureDomain_instance =  $featureDomainService->createInstance();
+        $featureDomains_view_data = $featureDomainService->prepareDataForIndexView();
+        extract($featureDomains_view_data);
 
         $this->viewState->set('scope.sysController.sys_module_id', $id);
 
 
         $sysControllerService =  new SysControllerService();
-        $sysControllers_data =  $sysControllerService->paginate();
-        $sysControllers_stats = $sysControllerService->getsysControllerStats();
-        $sysControllers_filters = $sysControllerService->getFieldsFilterable();
-        $sysController_instance =  $sysControllerService->createInstance();
+        $sysControllers_view_data = $sysControllerService->prepareDataForIndexView();
+        extract($sysControllers_view_data);
 
         $this->viewState->set('scope.sysModel.sys_module_id', $id);
 
 
         $sysModelService =  new SysModelService();
-        $sysModels_data =  $sysModelService->paginate();
-        $sysModels_stats = $sysModelService->getsysModelStats();
-        $sysModels_filters = $sysModelService->getFieldsFilterable();
-        $sysModel_instance =  $sysModelService->createInstance();
+        $sysModels_view_data = $sysModelService->prepareDataForIndexView();
+        extract($sysModels_view_data);
 
         if (request()->ajax()) {
-            return view('Core::sysModule._edit', compact('itemSysModule', 'sysColors', 'featureDomains_data', 'sysControllers_data', 'sysModels_data', 'featureDomains_stats', 'sysControllers_stats', 'sysModels_stats', 'featureDomains_filters', 'sysControllers_filters', 'sysModels_filters', 'featureDomain_instance', 'sysController_instance', 'sysModel_instance'));
+            return view('Core::sysModule._edit', array_merge(compact('itemSysModule'),$sysColors));
         }
 
-        return view('Core::sysModule.edit', compact('itemSysModule', 'sysColors', 'featureDomains_data', 'sysControllers_data', 'sysModels_data', 'featureDomains_stats', 'sysControllers_stats', 'sysModels_stats', 'featureDomains_filters', 'sysControllers_filters', 'sysModels_filters', 'featureDomain_instance', 'sysController_instance', 'sysModel_instance'));
+        return view('Core::sysModule.edit', array_merge(compact('itemSysModule'),$sysColors));
 
     }
     public function edit(string $id) {
@@ -162,37 +149,28 @@ class BaseSysModuleController extends AdminController
         
 
         $featureDomainService =  new FeatureDomainService();
-        $featureDomains_data =  $featureDomainService->paginate();
-        $featureDomains_stats = $featureDomainService->getfeatureDomainStats();
-        $this->viewState->set('stats.featureDomain.stats'  , $featureDomains_stats);
-        $featureDomains_filters = $featureDomainService->getFieldsFilterable();
-        $featureDomain_instance =  $featureDomainService->createInstance();
+        $featureDomains_view_data = $featureDomainService->prepareDataForIndexView();
+        extract($featureDomains_view_data);
 
         $this->viewState->set('scope.sysController.sys_module_id', $id);
         
 
         $sysControllerService =  new SysControllerService();
-        $sysControllers_data =  $sysControllerService->paginate();
-        $sysControllers_stats = $sysControllerService->getsysControllerStats();
-        $this->viewState->set('stats.sysController.stats'  , $sysControllers_stats);
-        $sysControllers_filters = $sysControllerService->getFieldsFilterable();
-        $sysController_instance =  $sysControllerService->createInstance();
+        $sysControllers_view_data = $sysControllerService->prepareDataForIndexView();
+        extract($sysControllers_view_data);
 
         $this->viewState->set('scope.sysModel.sys_module_id', $id);
         
 
         $sysModelService =  new SysModelService();
-        $sysModels_data =  $sysModelService->paginate();
-        $sysModels_stats = $sysModelService->getsysModelStats();
-        $this->viewState->set('stats.sysModel.stats'  , $sysModels_stats);
-        $sysModels_filters = $sysModelService->getFieldsFilterable();
-        $sysModel_instance =  $sysModelService->createInstance();
+        $sysModels_view_data = $sysModelService->prepareDataForIndexView();
+        extract($sysModels_view_data);
 
         if (request()->ajax()) {
-            return view('Core::sysModule._edit', compact('itemSysModule', 'sysColors', 'featureDomains_data', 'sysControllers_data', 'sysModels_data', 'featureDomains_stats', 'sysControllers_stats', 'sysModels_stats', 'featureDomains_filters', 'sysControllers_filters', 'sysModels_filters', 'featureDomain_instance', 'sysController_instance', 'sysModel_instance'));
+            return view('Core::sysModule._edit', array_merge(compact('itemSysModule','sysColors'),$featureDomain_compact_value, $sysController_compact_value, $sysModel_compact_value));
         }
 
-        return view('Core::sysModule.edit', compact('itemSysModule', 'sysColors', 'featureDomains_data', 'sysControllers_data', 'sysModels_data', 'featureDomains_stats', 'sysControllers_stats', 'sysModels_stats', 'featureDomains_filters', 'sysControllers_filters', 'sysModels_filters', 'featureDomain_instance', 'sysController_instance', 'sysModel_instance'));
+        return view('Core::sysModule.edit', array_merge(compact('itemSysModule','sysColors'),$featureDomain_compact_value, $sysController_compact_value, $sysModel_compact_value));
 
     }
     public function update(SysModuleRequest $request, string $id) {

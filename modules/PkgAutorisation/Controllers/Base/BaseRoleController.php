@@ -38,36 +38,29 @@ class BaseRoleController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('role.index');
         
-        $viewType = $this->viewState->get('view_type', 'table');
-        $viewTypes = $this->getService()->getViewTypes();
-        
 
 
 
-        // Extraire les paramètres de recherche, page, et filtres
+         // Extraire les paramètres de recherche, pagination, filtres
         $roles_params = array_merge(
-            $request->only(['page','sort']),
-            ['search' => $request->get('roles_search', $this->viewState->get("filter.role.roles_search"))],
+            $request->only(['page', 'sort']),
+            ['search' => $request->get(
+                'roles_search',
+                $this->viewState->get("filter.role.roles_search")
+            )],
             $request->except(['roles_search', 'page', 'sort'])
         );
 
-        // Paginer les roles
-        $roles_data = $this->roleService->paginate($roles_params);
-
-        // Récupérer les statistiques et les champs filtrables
-        $roles_stats = $this->roleService->getroleStats();
-        $this->viewState->set('stats.role.stats'  , $roles_stats);
-        $roles_filters = $this->roleService->getFieldsFilterable();
-        $role_instance =  $this->roleService->createInstance();
+        // prepareDataForIndexView
+        $tcView = $this->roleService->prepareDataForIndexView($roles_params);
+        extract($tcView); // Toutes les variables sont injectées automatiquement
         
-        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
-
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($partialViewName, compact('viewTypes','roles_data', 'roles_stats', 'roles_filters','role_instance'))->render();
+            return view($role_partialViewName, $role_compact_value)->render();
         }
 
-        return view('PkgAutorisation::role.index', compact('viewTypes','viewType','roles_data', 'roles_stats', 'roles_filters','role_instance'));
+        return view('PkgAutorisation::role.index', $role_compact_value);
     }
     public function create() {
 
@@ -121,10 +114,10 @@ class BaseRoleController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('PkgAutorisation::role._fields', compact('itemRole', 'permissions', 'widgets', 'users'));
+            return view('PkgAutorisation::role._fields', array_merge(compact('itemRole'),$permissions, $widgets, $users));
         }
 
-        return view('PkgAutorisation::role.edit', compact('itemRole', 'permissions', 'widgets', 'users'));
+        return view('PkgAutorisation::role.edit', array_merge(compact('itemRole'),$permissions, $widgets, $users));
 
     }
     public function edit(string $id) {
@@ -141,10 +134,10 @@ class BaseRoleController extends AdminController
 
 
         if (request()->ajax()) {
-            return view('PkgAutorisation::role._fields', compact('itemRole', 'permissions', 'widgets', 'users'));
+            return view('PkgAutorisation::role._fields', array_merge(compact('itemRole','permissions', 'widgets', 'users'),));
         }
 
-        return view('PkgAutorisation::role.edit', compact('itemRole', 'permissions', 'widgets', 'users'));
+        return view('PkgAutorisation::role.edit', array_merge(compact('itemRole','permissions', 'widgets', 'users'),));
 
     }
     public function update(RoleRequest $request, string $id) {

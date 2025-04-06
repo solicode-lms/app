@@ -32,9 +32,6 @@ class BaseNiveauDifficulteController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('niveauDifficulte.index');
         
-        $viewType = $this->viewState->get('view_type', 'table');
-        $viewTypes = $this->getService()->getViewTypes();
-        
         // ownedByUser
         if(Auth::user()->hasRole('formateur') && $this->viewState->get('filter.niveauDifficulte.formateur_id') == null){
            $this->viewState->init('filter.niveauDifficulte.formateur_id'  , $this->sessionState->get('formateur_id'));
@@ -42,30 +39,26 @@ class BaseNiveauDifficulteController extends AdminController
 
 
 
-        // Extraire les paramètres de recherche, page, et filtres
+         // Extraire les paramètres de recherche, pagination, filtres
         $niveauDifficultes_params = array_merge(
-            $request->only(['page','sort']),
-            ['search' => $request->get('niveauDifficultes_search', $this->viewState->get("filter.niveauDifficulte.niveauDifficultes_search"))],
+            $request->only(['page', 'sort']),
+            ['search' => $request->get(
+                'niveauDifficultes_search',
+                $this->viewState->get("filter.niveauDifficulte.niveauDifficultes_search")
+            )],
             $request->except(['niveauDifficultes_search', 'page', 'sort'])
         );
 
-        // Paginer les niveauDifficultes
-        $niveauDifficultes_data = $this->niveauDifficulteService->paginate($niveauDifficultes_params);
-
-        // Récupérer les statistiques et les champs filtrables
-        $niveauDifficultes_stats = $this->niveauDifficulteService->getniveauDifficulteStats();
-        $this->viewState->set('stats.niveauDifficulte.stats'  , $niveauDifficultes_stats);
-        $niveauDifficultes_filters = $this->niveauDifficulteService->getFieldsFilterable();
-        $niveauDifficulte_instance =  $this->niveauDifficulteService->createInstance();
+        // prepareDataForIndexView
+        $tcView = $this->niveauDifficulteService->prepareDataForIndexView($niveauDifficultes_params);
+        extract($tcView); // Toutes les variables sont injectées automatiquement
         
-        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
-
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($partialViewName, compact('viewTypes','niveauDifficultes_data', 'niveauDifficultes_stats', 'niveauDifficultes_filters','niveauDifficulte_instance'))->render();
+            return view($niveauDifficulte_partialViewName, $niveauDifficulte_compact_value)->render();
         }
 
-        return view('PkgCompetences::niveauDifficulte.index', compact('viewTypes','viewType','niveauDifficultes_data', 'niveauDifficultes_stats', 'niveauDifficultes_filters','niveauDifficulte_instance'));
+        return view('PkgCompetences::niveauDifficulte.index', $niveauDifficulte_compact_value);
     }
     public function create() {
         // ownedByUser
@@ -120,10 +113,10 @@ class BaseNiveauDifficulteController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('PkgCompetences::niveauDifficulte._fields', compact('itemNiveauDifficulte', 'formateurs'));
+            return view('PkgCompetences::niveauDifficulte._fields', array_merge(compact('itemNiveauDifficulte'),$formateurs));
         }
 
-        return view('PkgCompetences::niveauDifficulte.edit', compact('itemNiveauDifficulte', 'formateurs'));
+        return view('PkgCompetences::niveauDifficulte.edit', array_merge(compact('itemNiveauDifficulte'),$formateurs));
 
     }
     public function edit(string $id) {
@@ -139,10 +132,10 @@ class BaseNiveauDifficulteController extends AdminController
 
 
         if (request()->ajax()) {
-            return view('PkgCompetences::niveauDifficulte._fields', compact('itemNiveauDifficulte', 'formateurs'));
+            return view('PkgCompetences::niveauDifficulte._fields', array_merge(compact('itemNiveauDifficulte','formateurs'),));
         }
 
-        return view('PkgCompetences::niveauDifficulte.edit', compact('itemNiveauDifficulte', 'formateurs'));
+        return view('PkgCompetences::niveauDifficulte.edit', array_merge(compact('itemNiveauDifficulte','formateurs'),));
 
     }
     public function update(NiveauDifficulteRequest $request, string $id) {

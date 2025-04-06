@@ -117,4 +117,51 @@ class BaseRealisationChapitreService extends BaseService
         };
     }
 
+
+
+    public function prepareDataForIndexView(array $params = []): array
+    {
+        // Définir le type de vue par défaut
+        $default_view_type = 'table';
+        $this->viewState->init('realisationChapitre_view_type', $default_view_type);
+        $realisationChapitre_viewType = $this->viewState->get('realisationChapitre_view_type', $default_view_type);
+    
+        // Si viewType = widgets, appliquer filtre visible = 1
+        if ($this->viewState->get('realisationChapitre_view_type') === 'widgets') {
+            $this->viewState->set("filter.realisationChapitre.visible", 1);
+        }
+        
+        // Récupération des données
+        $realisationChapitres_data = $this->paginate($params);
+        $realisationChapitres_stats = $this->getrealisationChapitreStats();
+        $realisationChapitres_filters = $this->getFieldsFilterable();
+        $realisationChapitre_instance = $this->createInstance();
+        $realisationChapitre_viewTypes = $this->getViewTypes();
+        $realisationChapitre_partialViewName = $this->getPartialViewName($realisationChapitre_viewType);
+    
+        // Enregistrer les stats dans le ViewState
+        $this->viewState->set('stats.realisationChapitre.stats', $realisationChapitres_stats);
+    
+        // Préparer les variables à injecter dans compact()
+        $compact_value = compact(
+            'realisationChapitre_viewTypes',
+            'realisationChapitre_viewType',
+            'realisationChapitres_data',
+            'realisationChapitres_stats',
+            'realisationChapitres_filters',
+            'realisationChapitre_instance'
+        );
+    
+        return [
+            'realisationChapitres_data' => $realisationChapitres_data,
+            'realisationChapitres_stats' => $realisationChapitres_stats,
+            'realisationChapitres_filters' => $realisationChapitres_filters,
+            'realisationChapitre_instance' => $realisationChapitre_instance,
+            'realisationChapitre_viewType' => $realisationChapitre_viewType,
+            'realisationChapitre_viewTypes' => $realisationChapitre_viewTypes,
+            'realisationChapitre_partialViewName' => $realisationChapitre_partialViewName,
+            'realisationChapitre_compact_value' => $compact_value
+        ];
+    }
+
 }

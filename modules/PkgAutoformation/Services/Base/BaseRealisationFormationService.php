@@ -117,4 +117,51 @@ class BaseRealisationFormationService extends BaseService
         };
     }
 
+
+
+    public function prepareDataForIndexView(array $params = []): array
+    {
+        // Définir le type de vue par défaut
+        $default_view_type = 'table';
+        $this->viewState->init('realisationFormation_view_type', $default_view_type);
+        $realisationFormation_viewType = $this->viewState->get('realisationFormation_view_type', $default_view_type);
+    
+        // Si viewType = widgets, appliquer filtre visible = 1
+        if ($this->viewState->get('realisationFormation_view_type') === 'widgets') {
+            $this->viewState->set("filter.realisationFormation.visible", 1);
+        }
+        
+        // Récupération des données
+        $realisationFormations_data = $this->paginate($params);
+        $realisationFormations_stats = $this->getrealisationFormationStats();
+        $realisationFormations_filters = $this->getFieldsFilterable();
+        $realisationFormation_instance = $this->createInstance();
+        $realisationFormation_viewTypes = $this->getViewTypes();
+        $realisationFormation_partialViewName = $this->getPartialViewName($realisationFormation_viewType);
+    
+        // Enregistrer les stats dans le ViewState
+        $this->viewState->set('stats.realisationFormation.stats', $realisationFormations_stats);
+    
+        // Préparer les variables à injecter dans compact()
+        $compact_value = compact(
+            'realisationFormation_viewTypes',
+            'realisationFormation_viewType',
+            'realisationFormations_data',
+            'realisationFormations_stats',
+            'realisationFormations_filters',
+            'realisationFormation_instance'
+        );
+    
+        return [
+            'realisationFormations_data' => $realisationFormations_data,
+            'realisationFormations_stats' => $realisationFormations_stats,
+            'realisationFormations_filters' => $realisationFormations_filters,
+            'realisationFormation_instance' => $realisationFormation_instance,
+            'realisationFormation_viewType' => $realisationFormation_viewType,
+            'realisationFormation_viewTypes' => $realisationFormation_viewTypes,
+            'realisationFormation_partialViewName' => $realisationFormation_partialViewName,
+            'realisationFormation_compact_value' => $compact_value
+        ];
+    }
+
 }

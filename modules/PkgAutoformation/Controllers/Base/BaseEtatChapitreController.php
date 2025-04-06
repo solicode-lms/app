@@ -38,9 +38,6 @@ class BaseEtatChapitreController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('etatChapitre.index');
         
-        $viewType = $this->viewState->get('view_type', 'table');
-        $viewTypes = $this->getService()->getViewTypes();
-        
         // ownedByUser
         if(Auth::user()->hasRole('formateur') && $this->viewState->get('scope.etatChapitre.formateur_id') == null){
            $this->viewState->init('scope.etatChapitre.formateur_id'  , $this->sessionState->get('formateur_id'));
@@ -48,30 +45,26 @@ class BaseEtatChapitreController extends AdminController
 
 
 
-        // Extraire les paramètres de recherche, page, et filtres
+         // Extraire les paramètres de recherche, pagination, filtres
         $etatChapitres_params = array_merge(
-            $request->only(['page','sort']),
-            ['search' => $request->get('etatChapitres_search', $this->viewState->get("filter.etatChapitre.etatChapitres_search"))],
+            $request->only(['page', 'sort']),
+            ['search' => $request->get(
+                'etatChapitres_search',
+                $this->viewState->get("filter.etatChapitre.etatChapitres_search")
+            )],
             $request->except(['etatChapitres_search', 'page', 'sort'])
         );
 
-        // Paginer les etatChapitres
-        $etatChapitres_data = $this->etatChapitreService->paginate($etatChapitres_params);
-
-        // Récupérer les statistiques et les champs filtrables
-        $etatChapitres_stats = $this->etatChapitreService->getetatChapitreStats();
-        $this->viewState->set('stats.etatChapitre.stats'  , $etatChapitres_stats);
-        $etatChapitres_filters = $this->etatChapitreService->getFieldsFilterable();
-        $etatChapitre_instance =  $this->etatChapitreService->createInstance();
+        // prepareDataForIndexView
+        $tcView = $this->etatChapitreService->prepareDataForIndexView($etatChapitres_params);
+        extract($tcView); // Toutes les variables sont injectées automatiquement
         
-        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
-
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($partialViewName, compact('viewTypes','etatChapitres_data', 'etatChapitres_stats', 'etatChapitres_filters','etatChapitre_instance'))->render();
+            return view($etatChapitre_partialViewName, $etatChapitre_compact_value)->render();
         }
 
-        return view('PkgAutoformation::etatChapitre.index', compact('viewTypes','viewType','etatChapitres_data', 'etatChapitres_stats', 'etatChapitres_filters','etatChapitre_instance'));
+        return view('PkgAutoformation::etatChapitre.index', $etatChapitre_compact_value);
     }
     public function create() {
         // ownedByUser
@@ -130,10 +123,10 @@ class BaseEtatChapitreController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('PkgAutoformation::etatChapitre._fields', compact('itemEtatChapitre', 'formateurs', 'sysColors', 'workflowChapitres'));
+            return view('PkgAutoformation::etatChapitre._fields', array_merge(compact('itemEtatChapitre'),$formateurs, $sysColors, $workflowChapitres));
         }
 
-        return view('PkgAutoformation::etatChapitre.edit', compact('itemEtatChapitre', 'formateurs', 'sysColors', 'workflowChapitres'));
+        return view('PkgAutoformation::etatChapitre.edit', array_merge(compact('itemEtatChapitre'),$formateurs, $sysColors, $workflowChapitres));
 
     }
     public function edit(string $id) {
@@ -151,10 +144,10 @@ class BaseEtatChapitreController extends AdminController
 
 
         if (request()->ajax()) {
-            return view('PkgAutoformation::etatChapitre._fields', compact('itemEtatChapitre', 'formateurs', 'sysColors', 'workflowChapitres'));
+            return view('PkgAutoformation::etatChapitre._fields', array_merge(compact('itemEtatChapitre','formateurs', 'sysColors', 'workflowChapitres'),));
         }
 
-        return view('PkgAutoformation::etatChapitre.edit', compact('itemEtatChapitre', 'formateurs', 'sysColors', 'workflowChapitres'));
+        return view('PkgAutoformation::etatChapitre.edit', array_merge(compact('itemEtatChapitre','formateurs', 'sysColors', 'workflowChapitres'),));
 
     }
     public function update(EtatChapitreRequest $request, string $id) {

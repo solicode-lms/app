@@ -70,8 +70,8 @@
                             :exportXlsxRoute="route('anneeFormations.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('anneeFormations.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
-                            :viewTypes="$viewTypes"
-                            :viewType="$viewType"
+                            :viewTypes="$anneeFormation_viewTypes"
+                            :viewType="$anneeFormation_viewType"
                         />
                         @endcan
                     </div>
@@ -109,16 +109,16 @@
                 </div>
                 @show
                 <div id="anneeFormation-data-container" class="data-container">
-                    @if($viewType == "table")
-                    @include("PkgFormation::anneeFormation._$viewType")
+                    @if($anneeFormation_viewType == "table")
+                    @include("PkgFormation::anneeFormation._$anneeFormation_viewType")
                     @endif
                 </div>
             </div>
         </div>
     </section>
-     <section id="widgetUtilisateur-data-container-out" >
-        @if($viewType == "widgets")
-        @include("PkgFormation::anneeFormation._$viewType")
+     <section id="anneeFormation-data-container-out" >
+        @if($anneeFormation_viewType == "widgets")
+        @include("PkgFormation::anneeFormation._$anneeFormation_viewType")
         @endif
     </section>
     @show

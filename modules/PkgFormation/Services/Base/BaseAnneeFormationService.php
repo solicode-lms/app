@@ -106,4 +106,51 @@ class BaseAnneeFormationService extends BaseService
         };
     }
 
+
+
+    public function prepareDataForIndexView(array $params = []): array
+    {
+        // Définir le type de vue par défaut
+        $default_view_type = 'table';
+        $this->viewState->init('anneeFormation_view_type', $default_view_type);
+        $anneeFormation_viewType = $this->viewState->get('anneeFormation_view_type', $default_view_type);
+    
+        // Si viewType = widgets, appliquer filtre visible = 1
+        if ($this->viewState->get('anneeFormation_view_type') === 'widgets') {
+            $this->viewState->set("filter.anneeFormation.visible", 1);
+        }
+        
+        // Récupération des données
+        $anneeFormations_data = $this->paginate($params);
+        $anneeFormations_stats = $this->getanneeFormationStats();
+        $anneeFormations_filters = $this->getFieldsFilterable();
+        $anneeFormation_instance = $this->createInstance();
+        $anneeFormation_viewTypes = $this->getViewTypes();
+        $anneeFormation_partialViewName = $this->getPartialViewName($anneeFormation_viewType);
+    
+        // Enregistrer les stats dans le ViewState
+        $this->viewState->set('stats.anneeFormation.stats', $anneeFormations_stats);
+    
+        // Préparer les variables à injecter dans compact()
+        $compact_value = compact(
+            'anneeFormation_viewTypes',
+            'anneeFormation_viewType',
+            'anneeFormations_data',
+            'anneeFormations_stats',
+            'anneeFormations_filters',
+            'anneeFormation_instance'
+        );
+    
+        return [
+            'anneeFormations_data' => $anneeFormations_data,
+            'anneeFormations_stats' => $anneeFormations_stats,
+            'anneeFormations_filters' => $anneeFormations_filters,
+            'anneeFormation_instance' => $anneeFormation_instance,
+            'anneeFormation_viewType' => $anneeFormation_viewType,
+            'anneeFormation_viewTypes' => $anneeFormation_viewTypes,
+            'anneeFormation_partialViewName' => $anneeFormation_partialViewName,
+            'anneeFormation_compact_value' => $compact_value
+        ];
+    }
+
 }

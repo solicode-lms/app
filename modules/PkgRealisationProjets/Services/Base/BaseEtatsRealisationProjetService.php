@@ -124,4 +124,51 @@ class BaseEtatsRealisationProjetService extends BaseService
         };
     }
 
+
+
+    public function prepareDataForIndexView(array $params = []): array
+    {
+        // Définir le type de vue par défaut
+        $default_view_type = 'table';
+        $this->viewState->init('etatsRealisationProjet_view_type', $default_view_type);
+        $etatsRealisationProjet_viewType = $this->viewState->get('etatsRealisationProjet_view_type', $default_view_type);
+    
+        // Si viewType = widgets, appliquer filtre visible = 1
+        if ($this->viewState->get('etatsRealisationProjet_view_type') === 'widgets') {
+            $this->viewState->set("filter.etatsRealisationProjet.visible", 1);
+        }
+        
+        // Récupération des données
+        $etatsRealisationProjets_data = $this->paginate($params);
+        $etatsRealisationProjets_stats = $this->getetatsRealisationProjetStats();
+        $etatsRealisationProjets_filters = $this->getFieldsFilterable();
+        $etatsRealisationProjet_instance = $this->createInstance();
+        $etatsRealisationProjet_viewTypes = $this->getViewTypes();
+        $etatsRealisationProjet_partialViewName = $this->getPartialViewName($etatsRealisationProjet_viewType);
+    
+        // Enregistrer les stats dans le ViewState
+        $this->viewState->set('stats.etatsRealisationProjet.stats', $etatsRealisationProjets_stats);
+    
+        // Préparer les variables à injecter dans compact()
+        $compact_value = compact(
+            'etatsRealisationProjet_viewTypes',
+            'etatsRealisationProjet_viewType',
+            'etatsRealisationProjets_data',
+            'etatsRealisationProjets_stats',
+            'etatsRealisationProjets_filters',
+            'etatsRealisationProjet_instance'
+        );
+    
+        return [
+            'etatsRealisationProjets_data' => $etatsRealisationProjets_data,
+            'etatsRealisationProjets_stats' => $etatsRealisationProjets_stats,
+            'etatsRealisationProjets_filters' => $etatsRealisationProjets_filters,
+            'etatsRealisationProjet_instance' => $etatsRealisationProjet_instance,
+            'etatsRealisationProjet_viewType' => $etatsRealisationProjet_viewType,
+            'etatsRealisationProjet_viewTypes' => $etatsRealisationProjet_viewTypes,
+            'etatsRealisationProjet_partialViewName' => $etatsRealisationProjet_partialViewName,
+            'etatsRealisationProjet_compact_value' => $compact_value
+        ];
+    }
+
 }

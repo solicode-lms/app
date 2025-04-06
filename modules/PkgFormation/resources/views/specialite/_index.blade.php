@@ -70,8 +70,8 @@
                             :exportXlsxRoute="route('specialites.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('specialites.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
-                            :viewTypes="$viewTypes"
-                            :viewType="$viewType"
+                            :viewTypes="$specialite_viewTypes"
+                            :viewType="$specialite_viewType"
                         />
                         @endcan
                     </div>
@@ -109,16 +109,16 @@
                 </div>
                 @show
                 <div id="specialite-data-container" class="data-container">
-                    @if($viewType == "table")
-                    @include("PkgFormation::specialite._$viewType")
+                    @if($specialite_viewType == "table")
+                    @include("PkgFormation::specialite._$specialite_viewType")
                     @endif
                 </div>
             </div>
         </div>
     </section>
-     <section id="widgetUtilisateur-data-container-out" >
-        @if($viewType == "widgets")
-        @include("PkgFormation::specialite._$viewType")
+     <section id="specialite-data-container-out" >
+        @if($specialite_viewType == "widgets")
+        @include("PkgFormation::specialite._$specialite_viewType")
         @endif
     </section>
     @show

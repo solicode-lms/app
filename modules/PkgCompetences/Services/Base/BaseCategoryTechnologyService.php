@@ -105,4 +105,51 @@ class BaseCategoryTechnologyService extends BaseService
         };
     }
 
+
+
+    public function prepareDataForIndexView(array $params = []): array
+    {
+        // Définir le type de vue par défaut
+        $default_view_type = 'table';
+        $this->viewState->init('categoryTechnology_view_type', $default_view_type);
+        $categoryTechnology_viewType = $this->viewState->get('categoryTechnology_view_type', $default_view_type);
+    
+        // Si viewType = widgets, appliquer filtre visible = 1
+        if ($this->viewState->get('categoryTechnology_view_type') === 'widgets') {
+            $this->viewState->set("filter.categoryTechnology.visible", 1);
+        }
+        
+        // Récupération des données
+        $categoryTechnologies_data = $this->paginate($params);
+        $categoryTechnologies_stats = $this->getcategoryTechnologyStats();
+        $categoryTechnologies_filters = $this->getFieldsFilterable();
+        $categoryTechnology_instance = $this->createInstance();
+        $categoryTechnology_viewTypes = $this->getViewTypes();
+        $categoryTechnology_partialViewName = $this->getPartialViewName($categoryTechnology_viewType);
+    
+        // Enregistrer les stats dans le ViewState
+        $this->viewState->set('stats.categoryTechnology.stats', $categoryTechnologies_stats);
+    
+        // Préparer les variables à injecter dans compact()
+        $compact_value = compact(
+            'categoryTechnology_viewTypes',
+            'categoryTechnology_viewType',
+            'categoryTechnologies_data',
+            'categoryTechnologies_stats',
+            'categoryTechnologies_filters',
+            'categoryTechnology_instance'
+        );
+    
+        return [
+            'categoryTechnologies_data' => $categoryTechnologies_data,
+            'categoryTechnologies_stats' => $categoryTechnologies_stats,
+            'categoryTechnologies_filters' => $categoryTechnologies_filters,
+            'categoryTechnology_instance' => $categoryTechnology_instance,
+            'categoryTechnology_viewType' => $categoryTechnology_viewType,
+            'categoryTechnology_viewTypes' => $categoryTechnology_viewTypes,
+            'categoryTechnology_partialViewName' => $categoryTechnology_partialViewName,
+            'categoryTechnology_compact_value' => $compact_value
+        ];
+    }
+
 }

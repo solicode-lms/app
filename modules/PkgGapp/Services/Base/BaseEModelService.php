@@ -112,4 +112,51 @@ class BaseEModelService extends BaseService
         };
     }
 
+
+
+    public function prepareDataForIndexView(array $params = []): array
+    {
+        // Définir le type de vue par défaut
+        $default_view_type = 'table';
+        $this->viewState->init('eModel_view_type', $default_view_type);
+        $eModel_viewType = $this->viewState->get('eModel_view_type', $default_view_type);
+    
+        // Si viewType = widgets, appliquer filtre visible = 1
+        if ($this->viewState->get('eModel_view_type') === 'widgets') {
+            $this->viewState->set("filter.eModel.visible", 1);
+        }
+        
+        // Récupération des données
+        $eModels_data = $this->paginate($params);
+        $eModels_stats = $this->geteModelStats();
+        $eModels_filters = $this->getFieldsFilterable();
+        $eModel_instance = $this->createInstance();
+        $eModel_viewTypes = $this->getViewTypes();
+        $eModel_partialViewName = $this->getPartialViewName($eModel_viewType);
+    
+        // Enregistrer les stats dans le ViewState
+        $this->viewState->set('stats.eModel.stats', $eModels_stats);
+    
+        // Préparer les variables à injecter dans compact()
+        $compact_value = compact(
+            'eModel_viewTypes',
+            'eModel_viewType',
+            'eModels_data',
+            'eModels_stats',
+            'eModels_filters',
+            'eModel_instance'
+        );
+    
+        return [
+            'eModels_data' => $eModels_data,
+            'eModels_stats' => $eModels_stats,
+            'eModels_filters' => $eModels_filters,
+            'eModel_instance' => $eModel_instance,
+            'eModel_viewType' => $eModel_viewType,
+            'eModel_viewTypes' => $eModel_viewTypes,
+            'eModel_partialViewName' => $eModel_partialViewName,
+            'eModel_compact_value' => $compact_value
+        ];
+    }
+
 }

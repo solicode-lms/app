@@ -122,4 +122,51 @@ class BaseApprenantKonosyService extends BaseService
         };
     }
 
+
+
+    public function prepareDataForIndexView(array $params = []): array
+    {
+        // Définir le type de vue par défaut
+        $default_view_type = 'table';
+        $this->viewState->init('apprenantKonosy_view_type', $default_view_type);
+        $apprenantKonosy_viewType = $this->viewState->get('apprenantKonosy_view_type', $default_view_type);
+    
+        // Si viewType = widgets, appliquer filtre visible = 1
+        if ($this->viewState->get('apprenantKonosy_view_type') === 'widgets') {
+            $this->viewState->set("filter.apprenantKonosy.visible", 1);
+        }
+        
+        // Récupération des données
+        $apprenantKonosies_data = $this->paginate($params);
+        $apprenantKonosies_stats = $this->getapprenantKonosyStats();
+        $apprenantKonosies_filters = $this->getFieldsFilterable();
+        $apprenantKonosy_instance = $this->createInstance();
+        $apprenantKonosy_viewTypes = $this->getViewTypes();
+        $apprenantKonosy_partialViewName = $this->getPartialViewName($apprenantKonosy_viewType);
+    
+        // Enregistrer les stats dans le ViewState
+        $this->viewState->set('stats.apprenantKonosy.stats', $apprenantKonosies_stats);
+    
+        // Préparer les variables à injecter dans compact()
+        $compact_value = compact(
+            'apprenantKonosy_viewTypes',
+            'apprenantKonosy_viewType',
+            'apprenantKonosies_data',
+            'apprenantKonosies_stats',
+            'apprenantKonosies_filters',
+            'apprenantKonosy_instance'
+        );
+    
+        return [
+            'apprenantKonosies_data' => $apprenantKonosies_data,
+            'apprenantKonosies_stats' => $apprenantKonosies_stats,
+            'apprenantKonosies_filters' => $apprenantKonosies_filters,
+            'apprenantKonosy_instance' => $apprenantKonosy_instance,
+            'apprenantKonosy_viewType' => $apprenantKonosy_viewType,
+            'apprenantKonosy_viewTypes' => $apprenantKonosy_viewTypes,
+            'apprenantKonosy_partialViewName' => $apprenantKonosy_partialViewName,
+            'apprenantKonosy_compact_value' => $compact_value
+        ];
+    }
+
 }

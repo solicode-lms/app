@@ -138,4 +138,51 @@ class BaseFormateurService extends BaseService
         };
     }
 
+
+
+    public function prepareDataForIndexView(array $params = []): array
+    {
+        // Définir le type de vue par défaut
+        $default_view_type = 'table';
+        $this->viewState->init('formateur_view_type', $default_view_type);
+        $formateur_viewType = $this->viewState->get('formateur_view_type', $default_view_type);
+    
+        // Si viewType = widgets, appliquer filtre visible = 1
+        if ($this->viewState->get('formateur_view_type') === 'widgets') {
+            $this->viewState->set("filter.formateur.visible", 1);
+        }
+        
+        // Récupération des données
+        $formateurs_data = $this->paginate($params);
+        $formateurs_stats = $this->getformateurStats();
+        $formateurs_filters = $this->getFieldsFilterable();
+        $formateur_instance = $this->createInstance();
+        $formateur_viewTypes = $this->getViewTypes();
+        $formateur_partialViewName = $this->getPartialViewName($formateur_viewType);
+    
+        // Enregistrer les stats dans le ViewState
+        $this->viewState->set('stats.formateur.stats', $formateurs_stats);
+    
+        // Préparer les variables à injecter dans compact()
+        $compact_value = compact(
+            'formateur_viewTypes',
+            'formateur_viewType',
+            'formateurs_data',
+            'formateurs_stats',
+            'formateurs_filters',
+            'formateur_instance'
+        );
+    
+        return [
+            'formateurs_data' => $formateurs_data,
+            'formateurs_stats' => $formateurs_stats,
+            'formateurs_filters' => $formateurs_filters,
+            'formateur_instance' => $formateur_instance,
+            'formateur_viewType' => $formateur_viewType,
+            'formateur_viewTypes' => $formateur_viewTypes,
+            'formateur_partialViewName' => $formateur_partialViewName,
+            'formateur_compact_value' => $compact_value
+        ];
+    }
+
 }

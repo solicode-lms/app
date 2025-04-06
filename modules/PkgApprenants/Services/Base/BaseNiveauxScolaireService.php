@@ -106,4 +106,51 @@ class BaseNiveauxScolaireService extends BaseService
         };
     }
 
+
+
+    public function prepareDataForIndexView(array $params = []): array
+    {
+        // Définir le type de vue par défaut
+        $default_view_type = 'table';
+        $this->viewState->init('niveauxScolaire_view_type', $default_view_type);
+        $niveauxScolaire_viewType = $this->viewState->get('niveauxScolaire_view_type', $default_view_type);
+    
+        // Si viewType = widgets, appliquer filtre visible = 1
+        if ($this->viewState->get('niveauxScolaire_view_type') === 'widgets') {
+            $this->viewState->set("filter.niveauxScolaire.visible", 1);
+        }
+        
+        // Récupération des données
+        $niveauxScolaires_data = $this->paginate($params);
+        $niveauxScolaires_stats = $this->getniveauxScolaireStats();
+        $niveauxScolaires_filters = $this->getFieldsFilterable();
+        $niveauxScolaire_instance = $this->createInstance();
+        $niveauxScolaire_viewTypes = $this->getViewTypes();
+        $niveauxScolaire_partialViewName = $this->getPartialViewName($niveauxScolaire_viewType);
+    
+        // Enregistrer les stats dans le ViewState
+        $this->viewState->set('stats.niveauxScolaire.stats', $niveauxScolaires_stats);
+    
+        // Préparer les variables à injecter dans compact()
+        $compact_value = compact(
+            'niveauxScolaire_viewTypes',
+            'niveauxScolaire_viewType',
+            'niveauxScolaires_data',
+            'niveauxScolaires_stats',
+            'niveauxScolaires_filters',
+            'niveauxScolaire_instance'
+        );
+    
+        return [
+            'niveauxScolaires_data' => $niveauxScolaires_data,
+            'niveauxScolaires_stats' => $niveauxScolaires_stats,
+            'niveauxScolaires_filters' => $niveauxScolaires_filters,
+            'niveauxScolaire_instance' => $niveauxScolaire_instance,
+            'niveauxScolaire_viewType' => $niveauxScolaire_viewType,
+            'niveauxScolaire_viewTypes' => $niveauxScolaire_viewTypes,
+            'niveauxScolaire_partialViewName' => $niveauxScolaire_partialViewName,
+            'niveauxScolaire_compact_value' => $compact_value
+        ];
+    }
+
 }

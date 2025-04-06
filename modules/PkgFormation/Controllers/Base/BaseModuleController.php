@@ -33,36 +33,29 @@ class BaseModuleController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('module.index');
         
-        $viewType = $this->viewState->get('view_type', 'table');
-        $viewTypes = $this->getService()->getViewTypes();
-        
 
 
 
-        // Extraire les paramètres de recherche, page, et filtres
+         // Extraire les paramètres de recherche, pagination, filtres
         $modules_params = array_merge(
-            $request->only(['page','sort']),
-            ['search' => $request->get('modules_search', $this->viewState->get("filter.module.modules_search"))],
+            $request->only(['page', 'sort']),
+            ['search' => $request->get(
+                'modules_search',
+                $this->viewState->get("filter.module.modules_search")
+            )],
             $request->except(['modules_search', 'page', 'sort'])
         );
 
-        // Paginer les modules
-        $modules_data = $this->moduleService->paginate($modules_params);
-
-        // Récupérer les statistiques et les champs filtrables
-        $modules_stats = $this->moduleService->getmoduleStats();
-        $this->viewState->set('stats.module.stats'  , $modules_stats);
-        $modules_filters = $this->moduleService->getFieldsFilterable();
-        $module_instance =  $this->moduleService->createInstance();
+        // prepareDataForIndexView
+        $tcView = $this->moduleService->prepareDataForIndexView($modules_params);
+        extract($tcView); // Toutes les variables sont injectées automatiquement
         
-        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
-
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($partialViewName, compact('viewTypes','modules_data', 'modules_stats', 'modules_filters','module_instance'))->render();
+            return view($module_partialViewName, $module_compact_value)->render();
         }
 
-        return view('PkgFormation::module.index', compact('viewTypes','viewType','modules_data', 'modules_stats', 'modules_filters','module_instance'));
+        return view('PkgFormation::module.index', $module_compact_value);
     }
     public function create() {
 
@@ -115,16 +108,14 @@ class BaseModuleController extends AdminController
 
 
         $competenceService =  new CompetenceService();
-        $competences_data =  $competenceService->paginate();
-        $competences_stats = $competenceService->getcompetenceStats();
-        $competences_filters = $competenceService->getFieldsFilterable();
-        $competence_instance =  $competenceService->createInstance();
+        $competences_view_data = $competenceService->prepareDataForIndexView();
+        extract($competences_view_data);
 
         if (request()->ajax()) {
-            return view('PkgFormation::module._edit', compact('itemModule', 'filieres', 'competences_data', 'competences_stats', 'competences_filters', 'competence_instance'));
+            return view('PkgFormation::module._edit', array_merge(compact('itemModule'),$filieres));
         }
 
-        return view('PkgFormation::module.edit', compact('itemModule', 'filieres', 'competences_data', 'competences_stats', 'competences_filters', 'competence_instance'));
+        return view('PkgFormation::module.edit', array_merge(compact('itemModule'),$filieres));
 
     }
     public function edit(string $id) {
@@ -142,17 +133,14 @@ class BaseModuleController extends AdminController
         
 
         $competenceService =  new CompetenceService();
-        $competences_data =  $competenceService->paginate();
-        $competences_stats = $competenceService->getcompetenceStats();
-        $this->viewState->set('stats.competence.stats'  , $competences_stats);
-        $competences_filters = $competenceService->getFieldsFilterable();
-        $competence_instance =  $competenceService->createInstance();
+        $competences_view_data = $competenceService->prepareDataForIndexView();
+        extract($competences_view_data);
 
         if (request()->ajax()) {
-            return view('PkgFormation::module._edit', compact('itemModule', 'filieres', 'competences_data', 'competences_stats', 'competences_filters', 'competence_instance'));
+            return view('PkgFormation::module._edit', array_merge(compact('itemModule','filieres'),$competence_compact_value));
         }
 
-        return view('PkgFormation::module.edit', compact('itemModule', 'filieres', 'competences_data', 'competences_stats', 'competences_filters', 'competence_instance'));
+        return view('PkgFormation::module.edit', array_merge(compact('itemModule','filieres'),$competence_compact_value));
 
     }
     public function update(ModuleRequest $request, string $id) {

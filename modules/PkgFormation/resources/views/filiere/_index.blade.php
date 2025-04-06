@@ -70,8 +70,8 @@
                             :exportXlsxRoute="route('filieres.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('filieres.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
-                            :viewTypes="$viewTypes"
-                            :viewType="$viewType"
+                            :viewTypes="$filiere_viewTypes"
+                            :viewType="$filiere_viewType"
                         />
                         @endcan
                     </div>
@@ -109,16 +109,16 @@
                 </div>
                 @show
                 <div id="filiere-data-container" class="data-container">
-                    @if($viewType == "table")
-                    @include("PkgFormation::filiere._$viewType")
+                    @if($filiere_viewType == "table")
+                    @include("PkgFormation::filiere._$filiere_viewType")
                     @endif
                 </div>
             </div>
         </div>
     </section>
-     <section id="widgetUtilisateur-data-container-out" >
-        @if($viewType == "widgets")
-        @include("PkgFormation::filiere._$viewType")
+     <section id="filiere-data-container-out" >
+        @if($filiere_viewType == "widgets")
+        @include("PkgFormation::filiere._$filiere_viewType")
         @endif
     </section>
     @show

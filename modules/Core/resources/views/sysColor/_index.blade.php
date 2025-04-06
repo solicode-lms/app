@@ -70,8 +70,8 @@
                             :exportXlsxRoute="route('sysColors.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('sysColors.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
-                            :viewTypes="$viewTypes"
-                            :viewType="$viewType"
+                            :viewTypes="$sysColor_viewTypes"
+                            :viewType="$sysColor_viewType"
                         />
                         @endcan
                     </div>
@@ -109,16 +109,16 @@
                 </div>
                 @show
                 <div id="sysColor-data-container" class="data-container">
-                    @if($viewType == "table")
-                    @include("Core::sysColor._$viewType")
+                    @if($sysColor_viewType == "table")
+                    @include("Core::sysColor._$sysColor_viewType")
                     @endif
                 </div>
             </div>
         </div>
     </section>
-     <section id="widgetUtilisateur-data-container-out" >
-        @if($viewType == "widgets")
-        @include("Core::sysColor._$viewType")
+     <section id="sysColor-data-container-out" >
+        @if($sysColor_viewType == "widgets")
+        @include("Core::sysColor._$sysColor_viewType")
         @endif
     </section>
     @show

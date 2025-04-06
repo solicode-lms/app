@@ -70,8 +70,8 @@
                             :exportXlsxRoute="route('featureDomains.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('featureDomains.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
-                            :viewTypes="$viewTypes"
-                            :viewType="$viewType"
+                            :viewTypes="$featureDomain_viewTypes"
+                            :viewType="$featureDomain_viewType"
                         />
                         @endcan
                     </div>
@@ -109,16 +109,16 @@
                 </div>
                 @show
                 <div id="featureDomain-data-container" class="data-container">
-                    @if($viewType == "table")
-                    @include("Core::featureDomain._$viewType")
+                    @if($featureDomain_viewType == "table")
+                    @include("Core::featureDomain._$featureDomain_viewType")
                     @endif
                 </div>
             </div>
         </div>
     </section>
-     <section id="widgetUtilisateur-data-container-out" >
-        @if($viewType == "widgets")
-        @include("Core::featureDomain._$viewType")
+     <section id="featureDomain-data-container-out" >
+        @if($featureDomain_viewType == "widgets")
+        @include("Core::featureDomain._$featureDomain_viewType")
         @endif
     </section>
     @show

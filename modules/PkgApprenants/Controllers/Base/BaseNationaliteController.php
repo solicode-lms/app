@@ -30,36 +30,29 @@ class BaseNationaliteController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('nationalite.index');
         
-        $viewType = $this->viewState->get('view_type', 'table');
-        $viewTypes = $this->getService()->getViewTypes();
-        
 
 
 
-        // Extraire les paramètres de recherche, page, et filtres
+         // Extraire les paramètres de recherche, pagination, filtres
         $nationalites_params = array_merge(
-            $request->only(['page','sort']),
-            ['search' => $request->get('nationalites_search', $this->viewState->get("filter.nationalite.nationalites_search"))],
+            $request->only(['page', 'sort']),
+            ['search' => $request->get(
+                'nationalites_search',
+                $this->viewState->get("filter.nationalite.nationalites_search")
+            )],
             $request->except(['nationalites_search', 'page', 'sort'])
         );
 
-        // Paginer les nationalites
-        $nationalites_data = $this->nationaliteService->paginate($nationalites_params);
-
-        // Récupérer les statistiques et les champs filtrables
-        $nationalites_stats = $this->nationaliteService->getnationaliteStats();
-        $this->viewState->set('stats.nationalite.stats'  , $nationalites_stats);
-        $nationalites_filters = $this->nationaliteService->getFieldsFilterable();
-        $nationalite_instance =  $this->nationaliteService->createInstance();
+        // prepareDataForIndexView
+        $tcView = $this->nationaliteService->prepareDataForIndexView($nationalites_params);
+        extract($tcView); // Toutes les variables sont injectées automatiquement
         
-        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
-
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($partialViewName, compact('viewTypes','nationalites_data', 'nationalites_stats', 'nationalites_filters','nationalite_instance'))->render();
+            return view($nationalite_partialViewName, $nationalite_compact_value)->render();
         }
 
-        return view('PkgApprenants::nationalite.index', compact('viewTypes','viewType','nationalites_data', 'nationalites_stats', 'nationalites_filters','nationalite_instance'));
+        return view('PkgApprenants::nationalite.index', $nationalite_compact_value);
     }
     public function create() {
 
@@ -110,16 +103,14 @@ class BaseNationaliteController extends AdminController
 
 
         $apprenantService =  new ApprenantService();
-        $apprenants_data =  $apprenantService->paginate();
-        $apprenants_stats = $apprenantService->getapprenantStats();
-        $apprenants_filters = $apprenantService->getFieldsFilterable();
-        $apprenant_instance =  $apprenantService->createInstance();
+        $apprenants_view_data = $apprenantService->prepareDataForIndexView();
+        extract($apprenants_view_data);
 
         if (request()->ajax()) {
-            return view('PkgApprenants::nationalite._edit', compact('itemNationalite', 'apprenants_data', 'apprenants_stats', 'apprenants_filters', 'apprenant_instance'));
+            return view('PkgApprenants::nationalite._edit', array_merge(compact('itemNationalite'),));
         }
 
-        return view('PkgApprenants::nationalite.edit', compact('itemNationalite', 'apprenants_data', 'apprenants_stats', 'apprenants_filters', 'apprenant_instance'));
+        return view('PkgApprenants::nationalite.edit', array_merge(compact('itemNationalite'),));
 
     }
     public function edit(string $id) {
@@ -136,17 +127,14 @@ class BaseNationaliteController extends AdminController
         
 
         $apprenantService =  new ApprenantService();
-        $apprenants_data =  $apprenantService->paginate();
-        $apprenants_stats = $apprenantService->getapprenantStats();
-        $this->viewState->set('stats.apprenant.stats'  , $apprenants_stats);
-        $apprenants_filters = $apprenantService->getFieldsFilterable();
-        $apprenant_instance =  $apprenantService->createInstance();
+        $apprenants_view_data = $apprenantService->prepareDataForIndexView();
+        extract($apprenants_view_data);
 
         if (request()->ajax()) {
-            return view('PkgApprenants::nationalite._edit', compact('itemNationalite', 'apprenants_data', 'apprenants_stats', 'apprenants_filters', 'apprenant_instance'));
+            return view('PkgApprenants::nationalite._edit', array_merge(compact('itemNationalite',),$apprenant_compact_value));
         }
 
-        return view('PkgApprenants::nationalite.edit', compact('itemNationalite', 'apprenants_data', 'apprenants_stats', 'apprenants_filters', 'apprenant_instance'));
+        return view('PkgApprenants::nationalite.edit', array_merge(compact('itemNationalite',),$apprenant_compact_value));
 
     }
     public function update(NationaliteRequest $request, string $id) {

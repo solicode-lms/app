@@ -70,8 +70,8 @@
                             :exportXlsxRoute="route('dependanceTaches.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('dependanceTaches.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
-                            :viewTypes="$viewTypes"
-                            :viewType="$viewType"
+                            :viewTypes="$dependanceTache_viewTypes"
+                            :viewType="$dependanceTache_viewType"
                         />
                         @endcan
                     </div>
@@ -109,16 +109,16 @@
                 </div>
                 @show
                 <div id="dependanceTache-data-container" class="data-container">
-                    @if($viewType == "table")
-                    @include("PkgGestionTaches::dependanceTache._$viewType")
+                    @if($dependanceTache_viewType == "table")
+                    @include("PkgGestionTaches::dependanceTache._$dependanceTache_viewType")
                     @endif
                 </div>
             </div>
         </div>
     </section>
-     <section id="widgetUtilisateur-data-container-out" >
-        @if($viewType == "widgets")
-        @include("PkgGestionTaches::dependanceTache._$viewType")
+     <section id="dependanceTache-data-container-out" >
+        @if($dependanceTache_viewType == "widgets")
+        @include("PkgGestionTaches::dependanceTache._$dependanceTache_viewType")
         @endif
     </section>
     @show

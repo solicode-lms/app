@@ -111,4 +111,51 @@ class BaseSysControllerService extends BaseService
         };
     }
 
+
+
+    public function prepareDataForIndexView(array $params = []): array
+    {
+        // Définir le type de vue par défaut
+        $default_view_type = 'table';
+        $this->viewState->init('sysController_view_type', $default_view_type);
+        $sysController_viewType = $this->viewState->get('sysController_view_type', $default_view_type);
+    
+        // Si viewType = widgets, appliquer filtre visible = 1
+        if ($this->viewState->get('sysController_view_type') === 'widgets') {
+            $this->viewState->set("filter.sysController.visible", 1);
+        }
+        
+        // Récupération des données
+        $sysControllers_data = $this->paginate($params);
+        $sysControllers_stats = $this->getsysControllerStats();
+        $sysControllers_filters = $this->getFieldsFilterable();
+        $sysController_instance = $this->createInstance();
+        $sysController_viewTypes = $this->getViewTypes();
+        $sysController_partialViewName = $this->getPartialViewName($sysController_viewType);
+    
+        // Enregistrer les stats dans le ViewState
+        $this->viewState->set('stats.sysController.stats', $sysControllers_stats);
+    
+        // Préparer les variables à injecter dans compact()
+        $compact_value = compact(
+            'sysController_viewTypes',
+            'sysController_viewType',
+            'sysControllers_data',
+            'sysControllers_stats',
+            'sysControllers_filters',
+            'sysController_instance'
+        );
+    
+        return [
+            'sysControllers_data' => $sysControllers_data,
+            'sysControllers_stats' => $sysControllers_stats,
+            'sysControllers_filters' => $sysControllers_filters,
+            'sysController_instance' => $sysController_instance,
+            'sysController_viewType' => $sysController_viewType,
+            'sysController_viewTypes' => $sysController_viewTypes,
+            'sysController_partialViewName' => $sysController_partialViewName,
+            'sysController_compact_value' => $compact_value
+        ];
+    }
+
 }

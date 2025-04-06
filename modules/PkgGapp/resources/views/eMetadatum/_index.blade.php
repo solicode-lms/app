@@ -70,8 +70,8 @@
                             :exportXlsxRoute="route('eMetadata.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('eMetadata.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
-                            :viewTypes="$viewTypes"
-                            :viewType="$viewType"
+                            :viewTypes="$eMetadatum_viewTypes"
+                            :viewType="$eMetadatum_viewType"
                         />
                         @endcan
                     </div>
@@ -109,16 +109,16 @@
                 </div>
                 @show
                 <div id="eMetadatum-data-container" class="data-container">
-                    @if($viewType == "table")
-                    @include("PkgGapp::eMetadatum._$viewType")
+                    @if($eMetadatum_viewType == "table")
+                    @include("PkgGapp::eMetadatum._$eMetadatum_viewType")
                     @endif
                 </div>
             </div>
         </div>
     </section>
-     <section id="widgetUtilisateur-data-container-out" >
-        @if($viewType == "widgets")
-        @include("PkgGapp::eMetadatum._$viewType")
+     <section id="eMetadatum-data-container-out" >
+        @if($eMetadatum_viewType == "widgets")
+        @include("PkgGapp::eMetadatum._$eMetadatum_viewType")
         @endif
     </section>
     @show

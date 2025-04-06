@@ -32,9 +32,6 @@ class BaseEtatsRealisationProjetController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('etatsRealisationProjet.index');
         
-        $viewType = $this->viewState->get('view_type', 'table');
-        $viewTypes = $this->getService()->getViewTypes();
-        
         // ownedByUser
         if(Auth::user()->hasRole('formateur') && $this->viewState->get('scope.etatsRealisationProjet.formateur_id') == null){
            $this->viewState->init('scope.etatsRealisationProjet.formateur_id'  , $this->sessionState->get('formateur_id'));
@@ -42,30 +39,26 @@ class BaseEtatsRealisationProjetController extends AdminController
 
 
 
-        // Extraire les paramètres de recherche, page, et filtres
+         // Extraire les paramètres de recherche, pagination, filtres
         $etatsRealisationProjets_params = array_merge(
-            $request->only(['page','sort']),
-            ['search' => $request->get('etatsRealisationProjets_search', $this->viewState->get("filter.etatsRealisationProjet.etatsRealisationProjets_search"))],
+            $request->only(['page', 'sort']),
+            ['search' => $request->get(
+                'etatsRealisationProjets_search',
+                $this->viewState->get("filter.etatsRealisationProjet.etatsRealisationProjets_search")
+            )],
             $request->except(['etatsRealisationProjets_search', 'page', 'sort'])
         );
 
-        // Paginer les etatsRealisationProjets
-        $etatsRealisationProjets_data = $this->etatsRealisationProjetService->paginate($etatsRealisationProjets_params);
-
-        // Récupérer les statistiques et les champs filtrables
-        $etatsRealisationProjets_stats = $this->etatsRealisationProjetService->getetatsRealisationProjetStats();
-        $this->viewState->set('stats.etatsRealisationProjet.stats'  , $etatsRealisationProjets_stats);
-        $etatsRealisationProjets_filters = $this->etatsRealisationProjetService->getFieldsFilterable();
-        $etatsRealisationProjet_instance =  $this->etatsRealisationProjetService->createInstance();
+        // prepareDataForIndexView
+        $tcView = $this->etatsRealisationProjetService->prepareDataForIndexView($etatsRealisationProjets_params);
+        extract($tcView); // Toutes les variables sont injectées automatiquement
         
-        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
-
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($partialViewName, compact('viewTypes','etatsRealisationProjets_data', 'etatsRealisationProjets_stats', 'etatsRealisationProjets_filters','etatsRealisationProjet_instance'))->render();
+            return view($etatsRealisationProjet_partialViewName, $etatsRealisationProjet_compact_value)->render();
         }
 
-        return view('PkgRealisationProjets::etatsRealisationProjet.index', compact('viewTypes','viewType','etatsRealisationProjets_data', 'etatsRealisationProjets_stats', 'etatsRealisationProjets_filters','etatsRealisationProjet_instance'));
+        return view('PkgRealisationProjets::etatsRealisationProjet.index', $etatsRealisationProjet_compact_value);
     }
     public function create() {
         // ownedByUser
@@ -120,10 +113,10 @@ class BaseEtatsRealisationProjetController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::etatsRealisationProjet._fields', compact('itemEtatsRealisationProjet', 'formateurs'));
+            return view('PkgRealisationProjets::etatsRealisationProjet._fields', array_merge(compact('itemEtatsRealisationProjet'),$formateurs));
         }
 
-        return view('PkgRealisationProjets::etatsRealisationProjet.edit', compact('itemEtatsRealisationProjet', 'formateurs'));
+        return view('PkgRealisationProjets::etatsRealisationProjet.edit', array_merge(compact('itemEtatsRealisationProjet'),$formateurs));
 
     }
     public function edit(string $id) {
@@ -139,10 +132,10 @@ class BaseEtatsRealisationProjetController extends AdminController
 
 
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::etatsRealisationProjet._fields', compact('itemEtatsRealisationProjet', 'formateurs'));
+            return view('PkgRealisationProjets::etatsRealisationProjet._fields', array_merge(compact('itemEtatsRealisationProjet','formateurs'),));
         }
 
-        return view('PkgRealisationProjets::etatsRealisationProjet.edit', compact('itemEtatsRealisationProjet', 'formateurs'));
+        return view('PkgRealisationProjets::etatsRealisationProjet.edit', array_merge(compact('itemEtatsRealisationProjet','formateurs'),));
 
     }
     public function update(EtatsRealisationProjetRequest $request, string $id) {

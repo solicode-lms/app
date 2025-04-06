@@ -70,8 +70,8 @@
                             :exportXlsxRoute="route('historiqueRealisationTaches.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('historiqueRealisationTaches.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
-                            :viewTypes="$viewTypes"
-                            :viewType="$viewType"
+                            :viewTypes="$historiqueRealisationTache_viewTypes"
+                            :viewType="$historiqueRealisationTache_viewType"
                         />
                         @endcan
                     </div>
@@ -109,16 +109,16 @@
                 </div>
                 @show
                 <div id="historiqueRealisationTache-data-container" class="data-container">
-                    @if($viewType == "table")
-                    @include("PkgGestionTaches::historiqueRealisationTache._$viewType")
+                    @if($historiqueRealisationTache_viewType == "table")
+                    @include("PkgGestionTaches::historiqueRealisationTache._$historiqueRealisationTache_viewType")
                     @endif
                 </div>
             </div>
         </div>
     </section>
-     <section id="widgetUtilisateur-data-container-out" >
-        @if($viewType == "widgets")
-        @include("PkgGestionTaches::historiqueRealisationTache._$viewType")
+     <section id="historiqueRealisationTache-data-container-out" >
+        @if($historiqueRealisationTache_viewType == "widgets")
+        @include("PkgGestionTaches::historiqueRealisationTache._$historiqueRealisationTache_viewType")
         @endif
     </section>
     @show

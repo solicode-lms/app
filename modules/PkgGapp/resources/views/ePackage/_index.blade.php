@@ -70,8 +70,8 @@
                             :exportXlsxRoute="route('ePackages.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('ePackages.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
-                            :viewTypes="$viewTypes"
-                            :viewType="$viewType"
+                            :viewTypes="$ePackage_viewTypes"
+                            :viewType="$ePackage_viewType"
                         />
                         @endcan
                     </div>
@@ -109,16 +109,16 @@
                 </div>
                 @show
                 <div id="ePackage-data-container" class="data-container">
-                    @if($viewType == "table")
-                    @include("PkgGapp::ePackage._$viewType")
+                    @if($ePackage_viewType == "table")
+                    @include("PkgGapp::ePackage._$ePackage_viewType")
                     @endif
                 </div>
             </div>
         </div>
     </section>
-     <section id="widgetUtilisateur-data-container-out" >
-        @if($viewType == "widgets")
-        @include("PkgGapp::ePackage._$viewType")
+     <section id="ePackage-data-container-out" >
+        @if($ePackage_viewType == "widgets")
+        @include("PkgGapp::ePackage._$ePackage_viewType")
         @endif
     </section>
     @show

@@ -70,8 +70,8 @@
                             :exportXlsxRoute="route('niveauCompetences.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('niveauCompetences.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
-                            :viewTypes="$viewTypes"
-                            :viewType="$viewType"
+                            :viewTypes="$niveauCompetence_viewTypes"
+                            :viewType="$niveauCompetence_viewType"
                         />
                         @endcan
                     </div>
@@ -109,16 +109,16 @@
                 </div>
                 @show
                 <div id="niveauCompetence-data-container" class="data-container">
-                    @if($viewType == "table")
-                    @include("PkgCompetences::niveauCompetence._$viewType")
+                    @if($niveauCompetence_viewType == "table")
+                    @include("PkgCompetences::niveauCompetence._$niveauCompetence_viewType")
                     @endif
                 </div>
             </div>
         </div>
     </section>
-     <section id="widgetUtilisateur-data-container-out" >
-        @if($viewType == "widgets")
-        @include("PkgCompetences::niveauCompetence._$viewType")
+     <section id="niveauCompetence-data-container-out" >
+        @if($niveauCompetence_viewType == "widgets")
+        @include("PkgCompetences::niveauCompetence._$niveauCompetence_viewType")
         @endif
     </section>
     @show

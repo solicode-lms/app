@@ -33,36 +33,29 @@ class BaseFeatureDomainController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('featureDomain.index');
         
-        $viewType = $this->viewState->get('view_type', 'table');
-        $viewTypes = $this->getService()->getViewTypes();
-        
 
 
 
-        // Extraire les paramètres de recherche, page, et filtres
+         // Extraire les paramètres de recherche, pagination, filtres
         $featureDomains_params = array_merge(
-            $request->only(['page','sort']),
-            ['search' => $request->get('featureDomains_search', $this->viewState->get("filter.featureDomain.featureDomains_search"))],
+            $request->only(['page', 'sort']),
+            ['search' => $request->get(
+                'featureDomains_search',
+                $this->viewState->get("filter.featureDomain.featureDomains_search")
+            )],
             $request->except(['featureDomains_search', 'page', 'sort'])
         );
 
-        // Paginer les featureDomains
-        $featureDomains_data = $this->featureDomainService->paginate($featureDomains_params);
-
-        // Récupérer les statistiques et les champs filtrables
-        $featureDomains_stats = $this->featureDomainService->getfeatureDomainStats();
-        $this->viewState->set('stats.featureDomain.stats'  , $featureDomains_stats);
-        $featureDomains_filters = $this->featureDomainService->getFieldsFilterable();
-        $featureDomain_instance =  $this->featureDomainService->createInstance();
+        // prepareDataForIndexView
+        $tcView = $this->featureDomainService->prepareDataForIndexView($featureDomains_params);
+        extract($tcView); // Toutes les variables sont injectées automatiquement
         
-        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
-
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($partialViewName, compact('viewTypes','featureDomains_data', 'featureDomains_stats', 'featureDomains_filters','featureDomain_instance'))->render();
+            return view($featureDomain_partialViewName, $featureDomain_compact_value)->render();
         }
 
-        return view('Core::featureDomain.index', compact('viewTypes','viewType','featureDomains_data', 'featureDomains_stats', 'featureDomains_filters','featureDomain_instance'));
+        return view('Core::featureDomain.index', $featureDomain_compact_value);
     }
     public function create() {
 
@@ -115,16 +108,14 @@ class BaseFeatureDomainController extends AdminController
 
 
         $featureService =  new FeatureService();
-        $features_data =  $featureService->paginate();
-        $features_stats = $featureService->getfeatureStats();
-        $features_filters = $featureService->getFieldsFilterable();
-        $feature_instance =  $featureService->createInstance();
+        $features_view_data = $featureService->prepareDataForIndexView();
+        extract($features_view_data);
 
         if (request()->ajax()) {
-            return view('Core::featureDomain._edit', compact('itemFeatureDomain', 'sysModules', 'features_data', 'features_stats', 'features_filters', 'feature_instance'));
+            return view('Core::featureDomain._edit', array_merge(compact('itemFeatureDomain'),$sysModules));
         }
 
-        return view('Core::featureDomain.edit', compact('itemFeatureDomain', 'sysModules', 'features_data', 'features_stats', 'features_filters', 'feature_instance'));
+        return view('Core::featureDomain.edit', array_merge(compact('itemFeatureDomain'),$sysModules));
 
     }
     public function edit(string $id) {
@@ -142,17 +133,14 @@ class BaseFeatureDomainController extends AdminController
         
 
         $featureService =  new FeatureService();
-        $features_data =  $featureService->paginate();
-        $features_stats = $featureService->getfeatureStats();
-        $this->viewState->set('stats.feature.stats'  , $features_stats);
-        $features_filters = $featureService->getFieldsFilterable();
-        $feature_instance =  $featureService->createInstance();
+        $features_view_data = $featureService->prepareDataForIndexView();
+        extract($features_view_data);
 
         if (request()->ajax()) {
-            return view('Core::featureDomain._edit', compact('itemFeatureDomain', 'sysModules', 'features_data', 'features_stats', 'features_filters', 'feature_instance'));
+            return view('Core::featureDomain._edit', array_merge(compact('itemFeatureDomain','sysModules'),$feature_compact_value));
         }
 
-        return view('Core::featureDomain.edit', compact('itemFeatureDomain', 'sysModules', 'features_data', 'features_stats', 'features_filters', 'feature_instance'));
+        return view('Core::featureDomain.edit', array_merge(compact('itemFeatureDomain','sysModules'),$feature_compact_value));
 
     }
     public function update(FeatureDomainRequest $request, string $id) {

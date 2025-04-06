@@ -70,8 +70,8 @@
                             :exportXlsxRoute="route('validations.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('validations.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
-                            :viewTypes="$viewTypes"
-                            :viewType="$viewType"
+                            :viewTypes="$validation_viewTypes"
+                            :viewType="$validation_viewType"
                         />
                         @endcan
                     </div>
@@ -109,16 +109,16 @@
                 </div>
                 @show
                 <div id="validation-data-container" class="data-container">
-                    @if($viewType == "table")
-                    @include("PkgRealisationProjets::validation._$viewType")
+                    @if($validation_viewType == "table")
+                    @include("PkgRealisationProjets::validation._$validation_viewType")
                     @endif
                 </div>
             </div>
         </div>
     </section>
-     <section id="widgetUtilisateur-data-container-out" >
-        @if($viewType == "widgets")
-        @include("PkgRealisationProjets::validation._$viewType")
+     <section id="validation-data-container-out" >
+        @if($validation_viewType == "widgets")
+        @include("PkgRealisationProjets::validation._$validation_viewType")
         @endif
     </section>
     @show

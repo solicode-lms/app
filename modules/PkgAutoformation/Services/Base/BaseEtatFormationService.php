@@ -132,4 +132,51 @@ class BaseEtatFormationService extends BaseService
         };
     }
 
+
+
+    public function prepareDataForIndexView(array $params = []): array
+    {
+        // Définir le type de vue par défaut
+        $default_view_type = 'table';
+        $this->viewState->init('etatFormation_view_type', $default_view_type);
+        $etatFormation_viewType = $this->viewState->get('etatFormation_view_type', $default_view_type);
+    
+        // Si viewType = widgets, appliquer filtre visible = 1
+        if ($this->viewState->get('etatFormation_view_type') === 'widgets') {
+            $this->viewState->set("filter.etatFormation.visible", 1);
+        }
+        
+        // Récupération des données
+        $etatFormations_data = $this->paginate($params);
+        $etatFormations_stats = $this->getetatFormationStats();
+        $etatFormations_filters = $this->getFieldsFilterable();
+        $etatFormation_instance = $this->createInstance();
+        $etatFormation_viewTypes = $this->getViewTypes();
+        $etatFormation_partialViewName = $this->getPartialViewName($etatFormation_viewType);
+    
+        // Enregistrer les stats dans le ViewState
+        $this->viewState->set('stats.etatFormation.stats', $etatFormations_stats);
+    
+        // Préparer les variables à injecter dans compact()
+        $compact_value = compact(
+            'etatFormation_viewTypes',
+            'etatFormation_viewType',
+            'etatFormations_data',
+            'etatFormations_stats',
+            'etatFormations_filters',
+            'etatFormation_instance'
+        );
+    
+        return [
+            'etatFormations_data' => $etatFormations_data,
+            'etatFormations_stats' => $etatFormations_stats,
+            'etatFormations_filters' => $etatFormations_filters,
+            'etatFormation_instance' => $etatFormation_instance,
+            'etatFormation_viewType' => $etatFormation_viewType,
+            'etatFormation_viewTypes' => $etatFormation_viewTypes,
+            'etatFormation_partialViewName' => $etatFormation_partialViewName,
+            'etatFormation_compact_value' => $compact_value
+        ];
+    }
+
 }

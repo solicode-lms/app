@@ -32,36 +32,29 @@ class BaseSpecialiteController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('specialite.index');
         
-        $viewType = $this->viewState->get('view_type', 'table');
-        $viewTypes = $this->getService()->getViewTypes();
-        
 
 
 
-        // Extraire les paramètres de recherche, page, et filtres
+         // Extraire les paramètres de recherche, pagination, filtres
         $specialites_params = array_merge(
-            $request->only(['page','sort']),
-            ['search' => $request->get('specialites_search', $this->viewState->get("filter.specialite.specialites_search"))],
+            $request->only(['page', 'sort']),
+            ['search' => $request->get(
+                'specialites_search',
+                $this->viewState->get("filter.specialite.specialites_search")
+            )],
             $request->except(['specialites_search', 'page', 'sort'])
         );
 
-        // Paginer les specialites
-        $specialites_data = $this->specialiteService->paginate($specialites_params);
-
-        // Récupérer les statistiques et les champs filtrables
-        $specialites_stats = $this->specialiteService->getspecialiteStats();
-        $this->viewState->set('stats.specialite.stats'  , $specialites_stats);
-        $specialites_filters = $this->specialiteService->getFieldsFilterable();
-        $specialite_instance =  $this->specialiteService->createInstance();
+        // prepareDataForIndexView
+        $tcView = $this->specialiteService->prepareDataForIndexView($specialites_params);
+        extract($tcView); // Toutes les variables sont injectées automatiquement
         
-        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
-
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($partialViewName, compact('viewTypes','specialites_data', 'specialites_stats', 'specialites_filters','specialite_instance'))->render();
+            return view($specialite_partialViewName, $specialite_compact_value)->render();
         }
 
-        return view('PkgFormation::specialite.index', compact('viewTypes','viewType','specialites_data', 'specialites_stats', 'specialites_filters','specialite_instance'));
+        return view('PkgFormation::specialite.index', $specialite_compact_value);
     }
     public function create() {
 
@@ -111,10 +104,10 @@ class BaseSpecialiteController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('PkgFormation::specialite._fields', compact('itemSpecialite', 'formateurs'));
+            return view('PkgFormation::specialite._fields', array_merge(compact('itemSpecialite'),$formateurs));
         }
 
-        return view('PkgFormation::specialite.edit', compact('itemSpecialite', 'formateurs'));
+        return view('PkgFormation::specialite.edit', array_merge(compact('itemSpecialite'),$formateurs));
 
     }
     public function edit(string $id) {
@@ -129,10 +122,10 @@ class BaseSpecialiteController extends AdminController
 
 
         if (request()->ajax()) {
-            return view('PkgFormation::specialite._fields', compact('itemSpecialite', 'formateurs'));
+            return view('PkgFormation::specialite._fields', array_merge(compact('itemSpecialite','formateurs'),));
         }
 
-        return view('PkgFormation::specialite.edit', compact('itemSpecialite', 'formateurs'));
+        return view('PkgFormation::specialite.edit', array_merge(compact('itemSpecialite','formateurs'),));
 
     }
     public function update(SpecialiteRequest $request, string $id) {

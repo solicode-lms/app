@@ -39,9 +39,6 @@ class BaseRealisationTacheController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('realisationTache.index');
         
-        $viewType = $this->viewState->get('view_type', 'table');
-        $viewTypes = $this->getService()->getViewTypes();
-        
         // ownedByUser
         if(Auth::user()->hasRole('formateur') && $this->viewState->get('filter.realisationTache.realisationProjet.affectationProjet.projet.formateur_id') == null){
            $this->viewState->init('filter.realisationTache.realisationProjet.affectationProjet.projet.formateur_id'  , $this->sessionState->get('formateur_id'));
@@ -52,30 +49,26 @@ class BaseRealisationTacheController extends AdminController
 
 
 
-        // Extraire les paramètres de recherche, page, et filtres
+         // Extraire les paramètres de recherche, pagination, filtres
         $realisationTaches_params = array_merge(
-            $request->only(['page','sort']),
-            ['search' => $request->get('realisationTaches_search', $this->viewState->get("filter.realisationTache.realisationTaches_search"))],
+            $request->only(['page', 'sort']),
+            ['search' => $request->get(
+                'realisationTaches_search',
+                $this->viewState->get("filter.realisationTache.realisationTaches_search")
+            )],
             $request->except(['realisationTaches_search', 'page', 'sort'])
         );
 
-        // Paginer les realisationTaches
-        $realisationTaches_data = $this->realisationTacheService->paginate($realisationTaches_params);
-
-        // Récupérer les statistiques et les champs filtrables
-        $realisationTaches_stats = $this->realisationTacheService->getrealisationTacheStats();
-        $this->viewState->set('stats.realisationTache.stats'  , $realisationTaches_stats);
-        $realisationTaches_filters = $this->realisationTacheService->getFieldsFilterable();
-        $realisationTache_instance =  $this->realisationTacheService->createInstance();
+        // prepareDataForIndexView
+        $tcView = $this->realisationTacheService->prepareDataForIndexView($realisationTaches_params);
+        extract($tcView); // Toutes les variables sont injectées automatiquement
         
-        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
-
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($partialViewName, compact('viewTypes','realisationTaches_data', 'realisationTaches_stats', 'realisationTaches_filters','realisationTache_instance'))->render();
+            return view($realisationTache_partialViewName, $realisationTache_compact_value)->render();
         }
 
-        return view('PkgGestionTaches::realisationTache.index', compact('viewTypes','viewType','realisationTaches_data', 'realisationTaches_stats', 'realisationTaches_filters','realisationTache_instance'));
+        return view('PkgGestionTaches::realisationTache.index', $realisationTache_compact_value);
     }
     public function create() {
         // ownedByUser
@@ -148,16 +141,14 @@ class BaseRealisationTacheController extends AdminController
 
 
         $historiqueRealisationTacheService =  new HistoriqueRealisationTacheService();
-        $historiqueRealisationTaches_data =  $historiqueRealisationTacheService->paginate();
-        $historiqueRealisationTaches_stats = $historiqueRealisationTacheService->gethistoriqueRealisationTacheStats();
-        $historiqueRealisationTaches_filters = $historiqueRealisationTacheService->getFieldsFilterable();
-        $historiqueRealisationTache_instance =  $historiqueRealisationTacheService->createInstance();
+        $historiqueRealisationTaches_view_data = $historiqueRealisationTacheService->prepareDataForIndexView();
+        extract($historiqueRealisationTaches_view_data);
 
         if (request()->ajax()) {
-            return view('PkgGestionTaches::realisationTache._edit', compact('itemRealisationTache', 'etatRealisationTaches', 'realisationProjets', 'taches', 'historiqueRealisationTaches_data', 'historiqueRealisationTaches_stats', 'historiqueRealisationTaches_filters', 'historiqueRealisationTache_instance'));
+            return view('PkgGestionTaches::realisationTache._edit', array_merge(compact('itemRealisationTache'),$etatRealisationTaches, $realisationProjets, $taches));
         }
 
-        return view('PkgGestionTaches::realisationTache.edit', compact('itemRealisationTache', 'etatRealisationTaches', 'realisationProjets', 'taches', 'historiqueRealisationTaches_data', 'historiqueRealisationTaches_stats', 'historiqueRealisationTaches_filters', 'historiqueRealisationTache_instance'));
+        return view('PkgGestionTaches::realisationTache.edit', array_merge(compact('itemRealisationTache'),$etatRealisationTaches, $realisationProjets, $taches));
 
     }
     public function edit(string $id) {
@@ -182,17 +173,14 @@ class BaseRealisationTacheController extends AdminController
         
 
         $historiqueRealisationTacheService =  new HistoriqueRealisationTacheService();
-        $historiqueRealisationTaches_data =  $historiqueRealisationTacheService->paginate();
-        $historiqueRealisationTaches_stats = $historiqueRealisationTacheService->gethistoriqueRealisationTacheStats();
-        $this->viewState->set('stats.historiqueRealisationTache.stats'  , $historiqueRealisationTaches_stats);
-        $historiqueRealisationTaches_filters = $historiqueRealisationTacheService->getFieldsFilterable();
-        $historiqueRealisationTache_instance =  $historiqueRealisationTacheService->createInstance();
+        $historiqueRealisationTaches_view_data = $historiqueRealisationTacheService->prepareDataForIndexView();
+        extract($historiqueRealisationTaches_view_data);
 
         if (request()->ajax()) {
-            return view('PkgGestionTaches::realisationTache._edit', compact('itemRealisationTache', 'etatRealisationTaches', 'realisationProjets', 'taches', 'historiqueRealisationTaches_data', 'historiqueRealisationTaches_stats', 'historiqueRealisationTaches_filters', 'historiqueRealisationTache_instance'));
+            return view('PkgGestionTaches::realisationTache._edit', array_merge(compact('itemRealisationTache','etatRealisationTaches', 'realisationProjets', 'taches'),$historiqueRealisationTache_compact_value));
         }
 
-        return view('PkgGestionTaches::realisationTache.edit', compact('itemRealisationTache', 'etatRealisationTaches', 'realisationProjets', 'taches', 'historiqueRealisationTaches_data', 'historiqueRealisationTaches_stats', 'historiqueRealisationTaches_filters', 'historiqueRealisationTache_instance'));
+        return view('PkgGestionTaches::realisationTache.edit', array_merge(compact('itemRealisationTache','etatRealisationTaches', 'realisationProjets', 'taches'),$historiqueRealisationTache_compact_value));
 
     }
     public function update(RealisationTacheRequest $request, string $id) {

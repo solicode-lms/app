@@ -31,36 +31,29 @@ class BaseAnneeFormationController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('anneeFormation.index');
         
-        $viewType = $this->viewState->get('view_type', 'table');
-        $viewTypes = $this->getService()->getViewTypes();
-        
 
 
 
-        // Extraire les paramètres de recherche, page, et filtres
+         // Extraire les paramètres de recherche, pagination, filtres
         $anneeFormations_params = array_merge(
-            $request->only(['page','sort']),
-            ['search' => $request->get('anneeFormations_search', $this->viewState->get("filter.anneeFormation.anneeFormations_search"))],
+            $request->only(['page', 'sort']),
+            ['search' => $request->get(
+                'anneeFormations_search',
+                $this->viewState->get("filter.anneeFormation.anneeFormations_search")
+            )],
             $request->except(['anneeFormations_search', 'page', 'sort'])
         );
 
-        // Paginer les anneeFormations
-        $anneeFormations_data = $this->anneeFormationService->paginate($anneeFormations_params);
-
-        // Récupérer les statistiques et les champs filtrables
-        $anneeFormations_stats = $this->anneeFormationService->getanneeFormationStats();
-        $this->viewState->set('stats.anneeFormation.stats'  , $anneeFormations_stats);
-        $anneeFormations_filters = $this->anneeFormationService->getFieldsFilterable();
-        $anneeFormation_instance =  $this->anneeFormationService->createInstance();
+        // prepareDataForIndexView
+        $tcView = $this->anneeFormationService->prepareDataForIndexView($anneeFormations_params);
+        extract($tcView); // Toutes les variables sont injectées automatiquement
         
-        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
-
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($partialViewName, compact('viewTypes','anneeFormations_data', 'anneeFormations_stats', 'anneeFormations_filters','anneeFormation_instance'))->render();
+            return view($anneeFormation_partialViewName, $anneeFormation_compact_value)->render();
         }
 
-        return view('PkgFormation::anneeFormation.index', compact('viewTypes','viewType','anneeFormations_data', 'anneeFormations_stats', 'anneeFormations_filters','anneeFormation_instance'));
+        return view('PkgFormation::anneeFormation.index', $anneeFormation_compact_value);
     }
     public function create() {
 
@@ -111,25 +104,21 @@ class BaseAnneeFormationController extends AdminController
 
 
         $affectationProjetService =  new AffectationProjetService();
-        $affectationProjets_data =  $affectationProjetService->paginate();
-        $affectationProjets_stats = $affectationProjetService->getaffectationProjetStats();
-        $affectationProjets_filters = $affectationProjetService->getFieldsFilterable();
-        $affectationProjet_instance =  $affectationProjetService->createInstance();
+        $affectationProjets_view_data = $affectationProjetService->prepareDataForIndexView();
+        extract($affectationProjets_view_data);
 
         $this->viewState->set('scope.groupe.annee_formation_id', $id);
 
 
         $groupeService =  new GroupeService();
-        $groupes_data =  $groupeService->paginate();
-        $groupes_stats = $groupeService->getgroupeStats();
-        $groupes_filters = $groupeService->getFieldsFilterable();
-        $groupe_instance =  $groupeService->createInstance();
+        $groupes_view_data = $groupeService->prepareDataForIndexView();
+        extract($groupes_view_data);
 
         if (request()->ajax()) {
-            return view('PkgFormation::anneeFormation._edit', compact('itemAnneeFormation', 'affectationProjets_data', 'groupes_data', 'affectationProjets_stats', 'groupes_stats', 'affectationProjets_filters', 'groupes_filters', 'affectationProjet_instance', 'groupe_instance'));
+            return view('PkgFormation::anneeFormation._edit', array_merge(compact('itemAnneeFormation'),));
         }
 
-        return view('PkgFormation::anneeFormation.edit', compact('itemAnneeFormation', 'affectationProjets_data', 'groupes_data', 'affectationProjets_stats', 'groupes_stats', 'affectationProjets_filters', 'groupes_filters', 'affectationProjet_instance', 'groupe_instance'));
+        return view('PkgFormation::anneeFormation.edit', array_merge(compact('itemAnneeFormation'),));
 
     }
     public function edit(string $id) {
@@ -146,27 +135,21 @@ class BaseAnneeFormationController extends AdminController
         
 
         $affectationProjetService =  new AffectationProjetService();
-        $affectationProjets_data =  $affectationProjetService->paginate();
-        $affectationProjets_stats = $affectationProjetService->getaffectationProjetStats();
-        $this->viewState->set('stats.affectationProjet.stats'  , $affectationProjets_stats);
-        $affectationProjets_filters = $affectationProjetService->getFieldsFilterable();
-        $affectationProjet_instance =  $affectationProjetService->createInstance();
+        $affectationProjets_view_data = $affectationProjetService->prepareDataForIndexView();
+        extract($affectationProjets_view_data);
 
         $this->viewState->set('scope.groupe.annee_formation_id', $id);
         
 
         $groupeService =  new GroupeService();
-        $groupes_data =  $groupeService->paginate();
-        $groupes_stats = $groupeService->getgroupeStats();
-        $this->viewState->set('stats.groupe.stats'  , $groupes_stats);
-        $groupes_filters = $groupeService->getFieldsFilterable();
-        $groupe_instance =  $groupeService->createInstance();
+        $groupes_view_data = $groupeService->prepareDataForIndexView();
+        extract($groupes_view_data);
 
         if (request()->ajax()) {
-            return view('PkgFormation::anneeFormation._edit', compact('itemAnneeFormation', 'affectationProjets_data', 'groupes_data', 'affectationProjets_stats', 'groupes_stats', 'affectationProjets_filters', 'groupes_filters', 'affectationProjet_instance', 'groupe_instance'));
+            return view('PkgFormation::anneeFormation._edit', array_merge(compact('itemAnneeFormation',),$affectationProjet_compact_value, $groupe_compact_value));
         }
 
-        return view('PkgFormation::anneeFormation.edit', compact('itemAnneeFormation', 'affectationProjets_data', 'groupes_data', 'affectationProjets_stats', 'groupes_stats', 'affectationProjets_filters', 'groupes_filters', 'affectationProjet_instance', 'groupe_instance'));
+        return view('PkgFormation::anneeFormation.edit', array_merge(compact('itemAnneeFormation',),$affectationProjet_compact_value, $groupe_compact_value));
 
     }
     public function update(AnneeFormationRequest $request, string $id) {

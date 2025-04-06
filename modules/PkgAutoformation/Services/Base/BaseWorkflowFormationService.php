@@ -110,4 +110,51 @@ class BaseWorkflowFormationService extends BaseService
         };
     }
 
+
+
+    public function prepareDataForIndexView(array $params = []): array
+    {
+        // Définir le type de vue par défaut
+        $default_view_type = 'table';
+        $this->viewState->init('workflowFormation_view_type', $default_view_type);
+        $workflowFormation_viewType = $this->viewState->get('workflowFormation_view_type', $default_view_type);
+    
+        // Si viewType = widgets, appliquer filtre visible = 1
+        if ($this->viewState->get('workflowFormation_view_type') === 'widgets') {
+            $this->viewState->set("filter.workflowFormation.visible", 1);
+        }
+        
+        // Récupération des données
+        $workflowFormations_data = $this->paginate($params);
+        $workflowFormations_stats = $this->getworkflowFormationStats();
+        $workflowFormations_filters = $this->getFieldsFilterable();
+        $workflowFormation_instance = $this->createInstance();
+        $workflowFormation_viewTypes = $this->getViewTypes();
+        $workflowFormation_partialViewName = $this->getPartialViewName($workflowFormation_viewType);
+    
+        // Enregistrer les stats dans le ViewState
+        $this->viewState->set('stats.workflowFormation.stats', $workflowFormations_stats);
+    
+        // Préparer les variables à injecter dans compact()
+        $compact_value = compact(
+            'workflowFormation_viewTypes',
+            'workflowFormation_viewType',
+            'workflowFormations_data',
+            'workflowFormations_stats',
+            'workflowFormations_filters',
+            'workflowFormation_instance'
+        );
+    
+        return [
+            'workflowFormations_data' => $workflowFormations_data,
+            'workflowFormations_stats' => $workflowFormations_stats,
+            'workflowFormations_filters' => $workflowFormations_filters,
+            'workflowFormation_instance' => $workflowFormation_instance,
+            'workflowFormation_viewType' => $workflowFormation_viewType,
+            'workflowFormation_viewTypes' => $workflowFormation_viewTypes,
+            'workflowFormation_partialViewName' => $workflowFormation_partialViewName,
+            'workflowFormation_compact_value' => $compact_value
+        ];
+    }
+
 }

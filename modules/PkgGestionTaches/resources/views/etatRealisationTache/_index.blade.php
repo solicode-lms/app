@@ -70,8 +70,8 @@
                             :exportXlsxRoute="route('etatRealisationTaches.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('etatRealisationTaches.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
-                            :viewTypes="$viewTypes"
-                            :viewType="$viewType"
+                            :viewTypes="$etatRealisationTache_viewTypes"
+                            :viewType="$etatRealisationTache_viewType"
                         />
                         @endcan
                     </div>
@@ -109,16 +109,16 @@
                 </div>
                 @show
                 <div id="etatRealisationTache-data-container" class="data-container">
-                    @if($viewType == "table")
-                    @include("PkgGestionTaches::etatRealisationTache._$viewType")
+                    @if($etatRealisationTache_viewType == "table")
+                    @include("PkgGestionTaches::etatRealisationTache._$etatRealisationTache_viewType")
                     @endif
                 </div>
             </div>
         </div>
     </section>
-     <section id="widgetUtilisateur-data-container-out" >
-        @if($viewType == "widgets")
-        @include("PkgGestionTaches::etatRealisationTache._$viewType")
+     <section id="etatRealisationTache-data-container-out" >
+        @if($etatRealisationTache_viewType == "widgets")
+        @include("PkgGestionTaches::etatRealisationTache._$etatRealisationTache_viewType")
         @endif
     </section>
     @show

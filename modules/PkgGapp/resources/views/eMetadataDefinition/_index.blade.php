@@ -70,8 +70,8 @@
                             :exportXlsxRoute="route('eMetadataDefinitions.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('eMetadataDefinitions.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
-                            :viewTypes="$viewTypes"
-                            :viewType="$viewType"
+                            :viewTypes="$eMetadataDefinition_viewTypes"
+                            :viewType="$eMetadataDefinition_viewType"
                         />
                         @endcan
                     </div>
@@ -109,16 +109,16 @@
                 </div>
                 @show
                 <div id="eMetadataDefinition-data-container" class="data-container">
-                    @if($viewType == "table")
-                    @include("PkgGapp::eMetadataDefinition._$viewType")
+                    @if($eMetadataDefinition_viewType == "table")
+                    @include("PkgGapp::eMetadataDefinition._$eMetadataDefinition_viewType")
                     @endif
                 </div>
             </div>
         </div>
     </section>
-     <section id="widgetUtilisateur-data-container-out" >
-        @if($viewType == "widgets")
-        @include("PkgGapp::eMetadataDefinition._$viewType")
+     <section id="eMetadataDefinition-data-container-out" >
+        @if($eMetadataDefinition_viewType == "widgets")
+        @include("PkgGapp::eMetadataDefinition._$eMetadataDefinition_viewType")
         @endif
     </section>
     @show

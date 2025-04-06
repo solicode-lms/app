@@ -117,4 +117,51 @@ class BaseCompetenceService extends BaseService
         };
     }
 
+
+
+    public function prepareDataForIndexView(array $params = []): array
+    {
+        // Définir le type de vue par défaut
+        $default_view_type = 'table';
+        $this->viewState->init('competence_view_type', $default_view_type);
+        $competence_viewType = $this->viewState->get('competence_view_type', $default_view_type);
+    
+        // Si viewType = widgets, appliquer filtre visible = 1
+        if ($this->viewState->get('competence_view_type') === 'widgets') {
+            $this->viewState->set("filter.competence.visible", 1);
+        }
+        
+        // Récupération des données
+        $competences_data = $this->paginate($params);
+        $competences_stats = $this->getcompetenceStats();
+        $competences_filters = $this->getFieldsFilterable();
+        $competence_instance = $this->createInstance();
+        $competence_viewTypes = $this->getViewTypes();
+        $competence_partialViewName = $this->getPartialViewName($competence_viewType);
+    
+        // Enregistrer les stats dans le ViewState
+        $this->viewState->set('stats.competence.stats', $competences_stats);
+    
+        // Préparer les variables à injecter dans compact()
+        $compact_value = compact(
+            'competence_viewTypes',
+            'competence_viewType',
+            'competences_data',
+            'competences_stats',
+            'competences_filters',
+            'competence_instance'
+        );
+    
+        return [
+            'competences_data' => $competences_data,
+            'competences_stats' => $competences_stats,
+            'competences_filters' => $competences_filters,
+            'competence_instance' => $competence_instance,
+            'competence_viewType' => $competence_viewType,
+            'competence_viewTypes' => $competence_viewTypes,
+            'competence_partialViewName' => $competence_partialViewName,
+            'competence_compact_value' => $compact_value
+        ];
+    }
+
 }

@@ -70,8 +70,8 @@
                             :exportXlsxRoute="route('eRelationships.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('eRelationships.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
-                            :viewTypes="$viewTypes"
-                            :viewType="$viewType"
+                            :viewTypes="$eRelationship_viewTypes"
+                            :viewType="$eRelationship_viewType"
                         />
                         @endcan
                     </div>
@@ -109,16 +109,16 @@
                 </div>
                 @show
                 <div id="eRelationship-data-container" class="data-container">
-                    @if($viewType == "table")
-                    @include("PkgGapp::eRelationship._$viewType")
+                    @if($eRelationship_viewType == "table")
+                    @include("PkgGapp::eRelationship._$eRelationship_viewType")
                     @endif
                 </div>
             </div>
         </div>
     </section>
-     <section id="widgetUtilisateur-data-container-out" >
-        @if($viewType == "widgets")
-        @include("PkgGapp::eRelationship._$viewType")
+     <section id="eRelationship-data-container-out" >
+        @if($eRelationship_viewType == "widgets")
+        @include("PkgGapp::eRelationship._$eRelationship_viewType")
         @endif
     </section>
     @show

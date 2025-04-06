@@ -70,8 +70,8 @@
                             :exportXlsxRoute="route('labelRealisationTaches.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('labelRealisationTaches.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
-                            :viewTypes="$viewTypes"
-                            :viewType="$viewType"
+                            :viewTypes="$labelRealisationTache_viewTypes"
+                            :viewType="$labelRealisationTache_viewType"
                         />
                         @endcan
                     </div>
@@ -109,16 +109,16 @@
                 </div>
                 @show
                 <div id="labelRealisationTache-data-container" class="data-container">
-                    @if($viewType == "table")
-                    @include("PkgGestionTaches::labelRealisationTache._$viewType")
+                    @if($labelRealisationTache_viewType == "table")
+                    @include("PkgGestionTaches::labelRealisationTache._$labelRealisationTache_viewType")
                     @endif
                 </div>
             </div>
         </div>
     </section>
-     <section id="widgetUtilisateur-data-container-out" >
-        @if($viewType == "widgets")
-        @include("PkgGestionTaches::labelRealisationTache._$viewType")
+     <section id="labelRealisationTache-data-container-out" >
+        @if($labelRealisationTache_viewType == "widgets")
+        @include("PkgGestionTaches::labelRealisationTache._$labelRealisationTache_viewType")
         @endif
     </section>
     @show

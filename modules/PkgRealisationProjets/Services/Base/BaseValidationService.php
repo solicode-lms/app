@@ -128,4 +128,51 @@ class BaseValidationService extends BaseService
         };
     }
 
+
+
+    public function prepareDataForIndexView(array $params = []): array
+    {
+        // Définir le type de vue par défaut
+        $default_view_type = 'table';
+        $this->viewState->init('validation_view_type', $default_view_type);
+        $validation_viewType = $this->viewState->get('validation_view_type', $default_view_type);
+    
+        // Si viewType = widgets, appliquer filtre visible = 1
+        if ($this->viewState->get('validation_view_type') === 'widgets') {
+            $this->viewState->set("filter.validation.visible", 1);
+        }
+        
+        // Récupération des données
+        $validations_data = $this->paginate($params);
+        $validations_stats = $this->getvalidationStats();
+        $validations_filters = $this->getFieldsFilterable();
+        $validation_instance = $this->createInstance();
+        $validation_viewTypes = $this->getViewTypes();
+        $validation_partialViewName = $this->getPartialViewName($validation_viewType);
+    
+        // Enregistrer les stats dans le ViewState
+        $this->viewState->set('stats.validation.stats', $validations_stats);
+    
+        // Préparer les variables à injecter dans compact()
+        $compact_value = compact(
+            'validation_viewTypes',
+            'validation_viewType',
+            'validations_data',
+            'validations_stats',
+            'validations_filters',
+            'validation_instance'
+        );
+    
+        return [
+            'validations_data' => $validations_data,
+            'validations_stats' => $validations_stats,
+            'validations_filters' => $validations_filters,
+            'validation_instance' => $validation_instance,
+            'validation_viewType' => $validation_viewType,
+            'validation_viewTypes' => $validation_viewTypes,
+            'validation_partialViewName' => $validation_partialViewName,
+            'validation_compact_value' => $compact_value
+        ];
+    }
+
 }

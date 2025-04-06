@@ -124,4 +124,51 @@ class BaseResourceService extends BaseService
         };
     }
 
+
+
+    public function prepareDataForIndexView(array $params = []): array
+    {
+        // Définir le type de vue par défaut
+        $default_view_type = 'table';
+        $this->viewState->init('resource_view_type', $default_view_type);
+        $resource_viewType = $this->viewState->get('resource_view_type', $default_view_type);
+    
+        // Si viewType = widgets, appliquer filtre visible = 1
+        if ($this->viewState->get('resource_view_type') === 'widgets') {
+            $this->viewState->set("filter.resource.visible", 1);
+        }
+        
+        // Récupération des données
+        $resources_data = $this->paginate($params);
+        $resources_stats = $this->getresourceStats();
+        $resources_filters = $this->getFieldsFilterable();
+        $resource_instance = $this->createInstance();
+        $resource_viewTypes = $this->getViewTypes();
+        $resource_partialViewName = $this->getPartialViewName($resource_viewType);
+    
+        // Enregistrer les stats dans le ViewState
+        $this->viewState->set('stats.resource.stats', $resources_stats);
+    
+        // Préparer les variables à injecter dans compact()
+        $compact_value = compact(
+            'resource_viewTypes',
+            'resource_viewType',
+            'resources_data',
+            'resources_stats',
+            'resources_filters',
+            'resource_instance'
+        );
+    
+        return [
+            'resources_data' => $resources_data,
+            'resources_stats' => $resources_stats,
+            'resources_filters' => $resources_filters,
+            'resource_instance' => $resource_instance,
+            'resource_viewType' => $resource_viewType,
+            'resource_viewTypes' => $resource_viewTypes,
+            'resource_partialViewName' => $resource_partialViewName,
+            'resource_compact_value' => $compact_value
+        ];
+    }
+
 }

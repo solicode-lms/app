@@ -38,36 +38,29 @@ class BaseRealisationChapitreController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('realisationChapitre.index');
         
-        $viewType = $this->viewState->get('view_type', 'table');
-        $viewTypes = $this->getService()->getViewTypes();
-        
 
 
 
-        // Extraire les paramètres de recherche, page, et filtres
+         // Extraire les paramètres de recherche, pagination, filtres
         $realisationChapitres_params = array_merge(
-            $request->only(['page','sort']),
-            ['search' => $request->get('realisationChapitres_search', $this->viewState->get("filter.realisationChapitre.realisationChapitres_search"))],
+            $request->only(['page', 'sort']),
+            ['search' => $request->get(
+                'realisationChapitres_search',
+                $this->viewState->get("filter.realisationChapitre.realisationChapitres_search")
+            )],
             $request->except(['realisationChapitres_search', 'page', 'sort'])
         );
 
-        // Paginer les realisationChapitres
-        $realisationChapitres_data = $this->realisationChapitreService->paginate($realisationChapitres_params);
-
-        // Récupérer les statistiques et les champs filtrables
-        $realisationChapitres_stats = $this->realisationChapitreService->getrealisationChapitreStats();
-        $this->viewState->set('stats.realisationChapitre.stats'  , $realisationChapitres_stats);
-        $realisationChapitres_filters = $this->realisationChapitreService->getFieldsFilterable();
-        $realisationChapitre_instance =  $this->realisationChapitreService->createInstance();
+        // prepareDataForIndexView
+        $tcView = $this->realisationChapitreService->prepareDataForIndexView($realisationChapitres_params);
+        extract($tcView); // Toutes les variables sont injectées automatiquement
         
-        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
-
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($partialViewName, compact('viewTypes','realisationChapitres_data', 'realisationChapitres_stats', 'realisationChapitres_filters','realisationChapitre_instance'))->render();
+            return view($realisationChapitre_partialViewName, $realisationChapitre_compact_value)->render();
         }
 
-        return view('PkgAutoformation::realisationChapitre.index', compact('viewTypes','viewType','realisationChapitres_data', 'realisationChapitres_stats', 'realisationChapitres_filters','realisationChapitre_instance'));
+        return view('PkgAutoformation::realisationChapitre.index', $realisationChapitre_compact_value);
     }
     public function create() {
 
@@ -121,10 +114,10 @@ class BaseRealisationChapitreController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('PkgAutoformation::realisationChapitre._fields', compact('itemRealisationChapitre', 'chapitres', 'etatChapitres', 'realisationFormations'));
+            return view('PkgAutoformation::realisationChapitre._fields', array_merge(compact('itemRealisationChapitre'),$chapitres, $etatChapitres, $realisationFormations));
         }
 
-        return view('PkgAutoformation::realisationChapitre.edit', compact('itemRealisationChapitre', 'chapitres', 'etatChapitres', 'realisationFormations'));
+        return view('PkgAutoformation::realisationChapitre.edit', array_merge(compact('itemRealisationChapitre'),$chapitres, $etatChapitres, $realisationFormations));
 
     }
     public function edit(string $id) {
@@ -141,10 +134,10 @@ class BaseRealisationChapitreController extends AdminController
 
 
         if (request()->ajax()) {
-            return view('PkgAutoformation::realisationChapitre._fields', compact('itemRealisationChapitre', 'chapitres', 'etatChapitres', 'realisationFormations'));
+            return view('PkgAutoformation::realisationChapitre._fields', array_merge(compact('itemRealisationChapitre','chapitres', 'etatChapitres', 'realisationFormations'),));
         }
 
-        return view('PkgAutoformation::realisationChapitre.edit', compact('itemRealisationChapitre', 'chapitres', 'etatChapitres', 'realisationFormations'));
+        return view('PkgAutoformation::realisationChapitre.edit', array_merge(compact('itemRealisationChapitre','chapitres', 'etatChapitres', 'realisationFormations'),));
 
     }
     public function update(RealisationChapitreRequest $request, string $id) {

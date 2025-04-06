@@ -37,36 +37,29 @@ class BaseCompetenceController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('competence.index');
         
-        $viewType = $this->viewState->get('view_type', 'table');
-        $viewTypes = $this->getService()->getViewTypes();
-        
 
 
 
-        // Extraire les paramètres de recherche, page, et filtres
+         // Extraire les paramètres de recherche, pagination, filtres
         $competences_params = array_merge(
-            $request->only(['page','sort']),
-            ['search' => $request->get('competences_search', $this->viewState->get("filter.competence.competences_search"))],
+            $request->only(['page', 'sort']),
+            ['search' => $request->get(
+                'competences_search',
+                $this->viewState->get("filter.competence.competences_search")
+            )],
             $request->except(['competences_search', 'page', 'sort'])
         );
 
-        // Paginer les competences
-        $competences_data = $this->competenceService->paginate($competences_params);
-
-        // Récupérer les statistiques et les champs filtrables
-        $competences_stats = $this->competenceService->getcompetenceStats();
-        $this->viewState->set('stats.competence.stats'  , $competences_stats);
-        $competences_filters = $this->competenceService->getFieldsFilterable();
-        $competence_instance =  $this->competenceService->createInstance();
+        // prepareDataForIndexView
+        $tcView = $this->competenceService->prepareDataForIndexView($competences_params);
+        extract($tcView); // Toutes les variables sont injectées automatiquement
         
-        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
-
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($partialViewName, compact('viewTypes','competences_data', 'competences_stats', 'competences_filters','competence_instance'))->render();
+            return view($competence_partialViewName, $competence_compact_value)->render();
         }
 
-        return view('PkgCompetences::competence.index', compact('viewTypes','viewType','competences_data', 'competences_stats', 'competences_filters','competence_instance'));
+        return view('PkgCompetences::competence.index', $competence_compact_value);
     }
     public function create() {
 
@@ -121,25 +114,21 @@ class BaseCompetenceController extends AdminController
 
 
         $niveauCompetenceService =  new NiveauCompetenceService();
-        $niveauCompetences_data =  $niveauCompetenceService->paginate();
-        $niveauCompetences_stats = $niveauCompetenceService->getniveauCompetenceStats();
-        $niveauCompetences_filters = $niveauCompetenceService->getFieldsFilterable();
-        $niveauCompetence_instance =  $niveauCompetenceService->createInstance();
+        $niveauCompetences_view_data = $niveauCompetenceService->prepareDataForIndexView();
+        extract($niveauCompetences_view_data);
 
         $this->viewState->set('scope.formation.competence_id', $id);
 
 
         $formationService =  new FormationService();
-        $formations_data =  $formationService->paginate();
-        $formations_stats = $formationService->getformationStats();
-        $formations_filters = $formationService->getFieldsFilterable();
-        $formation_instance =  $formationService->createInstance();
+        $formations_view_data = $formationService->prepareDataForIndexView();
+        extract($formations_view_data);
 
         if (request()->ajax()) {
-            return view('PkgCompetences::competence._edit', compact('itemCompetence', 'technologies', 'modules', 'niveauCompetences_data', 'formations_data', 'niveauCompetences_stats', 'formations_stats', 'niveauCompetences_filters', 'formations_filters', 'niveauCompetence_instance', 'formation_instance'));
+            return view('PkgCompetences::competence._edit', array_merge(compact('itemCompetence'),$technologies, $modules));
         }
 
-        return view('PkgCompetences::competence.edit', compact('itemCompetence', 'technologies', 'modules', 'niveauCompetences_data', 'formations_data', 'niveauCompetences_stats', 'formations_stats', 'niveauCompetences_filters', 'formations_filters', 'niveauCompetence_instance', 'formation_instance'));
+        return view('PkgCompetences::competence.edit', array_merge(compact('itemCompetence'),$technologies, $modules));
 
     }
     public function edit(string $id) {
@@ -158,27 +147,21 @@ class BaseCompetenceController extends AdminController
         
 
         $niveauCompetenceService =  new NiveauCompetenceService();
-        $niveauCompetences_data =  $niveauCompetenceService->paginate();
-        $niveauCompetences_stats = $niveauCompetenceService->getniveauCompetenceStats();
-        $this->viewState->set('stats.niveauCompetence.stats'  , $niveauCompetences_stats);
-        $niveauCompetences_filters = $niveauCompetenceService->getFieldsFilterable();
-        $niveauCompetence_instance =  $niveauCompetenceService->createInstance();
+        $niveauCompetences_view_data = $niveauCompetenceService->prepareDataForIndexView();
+        extract($niveauCompetences_view_data);
 
         $this->viewState->set('scope.formation.competence_id', $id);
         
 
         $formationService =  new FormationService();
-        $formations_data =  $formationService->paginate();
-        $formations_stats = $formationService->getformationStats();
-        $this->viewState->set('stats.formation.stats'  , $formations_stats);
-        $formations_filters = $formationService->getFieldsFilterable();
-        $formation_instance =  $formationService->createInstance();
+        $formations_view_data = $formationService->prepareDataForIndexView();
+        extract($formations_view_data);
 
         if (request()->ajax()) {
-            return view('PkgCompetences::competence._edit', compact('itemCompetence', 'technologies', 'modules', 'niveauCompetences_data', 'formations_data', 'niveauCompetences_stats', 'formations_stats', 'niveauCompetences_filters', 'formations_filters', 'niveauCompetence_instance', 'formation_instance'));
+            return view('PkgCompetences::competence._edit', array_merge(compact('itemCompetence','technologies', 'modules'),$niveauCompetence_compact_value, $formation_compact_value));
         }
 
-        return view('PkgCompetences::competence.edit', compact('itemCompetence', 'technologies', 'modules', 'niveauCompetences_data', 'formations_data', 'niveauCompetences_stats', 'formations_stats', 'niveauCompetences_filters', 'formations_filters', 'niveauCompetence_instance', 'formation_instance'));
+        return view('PkgCompetences::competence.edit', array_merge(compact('itemCompetence','technologies', 'modules'),$niveauCompetence_compact_value, $formation_compact_value));
 
     }
     public function update(CompetenceRequest $request, string $id) {

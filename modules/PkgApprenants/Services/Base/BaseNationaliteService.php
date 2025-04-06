@@ -106,4 +106,51 @@ class BaseNationaliteService extends BaseService
         };
     }
 
+
+
+    public function prepareDataForIndexView(array $params = []): array
+    {
+        // Définir le type de vue par défaut
+        $default_view_type = 'table';
+        $this->viewState->init('nationalite_view_type', $default_view_type);
+        $nationalite_viewType = $this->viewState->get('nationalite_view_type', $default_view_type);
+    
+        // Si viewType = widgets, appliquer filtre visible = 1
+        if ($this->viewState->get('nationalite_view_type') === 'widgets') {
+            $this->viewState->set("filter.nationalite.visible", 1);
+        }
+        
+        // Récupération des données
+        $nationalites_data = $this->paginate($params);
+        $nationalites_stats = $this->getnationaliteStats();
+        $nationalites_filters = $this->getFieldsFilterable();
+        $nationalite_instance = $this->createInstance();
+        $nationalite_viewTypes = $this->getViewTypes();
+        $nationalite_partialViewName = $this->getPartialViewName($nationalite_viewType);
+    
+        // Enregistrer les stats dans le ViewState
+        $this->viewState->set('stats.nationalite.stats', $nationalites_stats);
+    
+        // Préparer les variables à injecter dans compact()
+        $compact_value = compact(
+            'nationalite_viewTypes',
+            'nationalite_viewType',
+            'nationalites_data',
+            'nationalites_stats',
+            'nationalites_filters',
+            'nationalite_instance'
+        );
+    
+        return [
+            'nationalites_data' => $nationalites_data,
+            'nationalites_stats' => $nationalites_stats,
+            'nationalites_filters' => $nationalites_filters,
+            'nationalite_instance' => $nationalite_instance,
+            'nationalite_viewType' => $nationalite_viewType,
+            'nationalite_viewTypes' => $nationalite_viewTypes,
+            'nationalite_partialViewName' => $nationalite_partialViewName,
+            'nationalite_compact_value' => $compact_value
+        ];
+    }
+
 }

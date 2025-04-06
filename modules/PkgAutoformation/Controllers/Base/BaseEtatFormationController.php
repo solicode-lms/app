@@ -38,9 +38,6 @@ class BaseEtatFormationController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('etatFormation.index');
         
-        $viewType = $this->viewState->get('view_type', 'table');
-        $viewTypes = $this->getService()->getViewTypes();
-        
         // ownedByUser
         if(Auth::user()->hasRole('formateur') && $this->viewState->get('scope.etatFormation.formateur_id') == null){
            $this->viewState->init('scope.etatFormation.formateur_id'  , $this->sessionState->get('formateur_id'));
@@ -48,30 +45,26 @@ class BaseEtatFormationController extends AdminController
 
 
 
-        // Extraire les paramètres de recherche, page, et filtres
+         // Extraire les paramètres de recherche, pagination, filtres
         $etatFormations_params = array_merge(
-            $request->only(['page','sort']),
-            ['search' => $request->get('etatFormations_search', $this->viewState->get("filter.etatFormation.etatFormations_search"))],
+            $request->only(['page', 'sort']),
+            ['search' => $request->get(
+                'etatFormations_search',
+                $this->viewState->get("filter.etatFormation.etatFormations_search")
+            )],
             $request->except(['etatFormations_search', 'page', 'sort'])
         );
 
-        // Paginer les etatFormations
-        $etatFormations_data = $this->etatFormationService->paginate($etatFormations_params);
-
-        // Récupérer les statistiques et les champs filtrables
-        $etatFormations_stats = $this->etatFormationService->getetatFormationStats();
-        $this->viewState->set('stats.etatFormation.stats'  , $etatFormations_stats);
-        $etatFormations_filters = $this->etatFormationService->getFieldsFilterable();
-        $etatFormation_instance =  $this->etatFormationService->createInstance();
+        // prepareDataForIndexView
+        $tcView = $this->etatFormationService->prepareDataForIndexView($etatFormations_params);
+        extract($tcView); // Toutes les variables sont injectées automatiquement
         
-        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
-
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($partialViewName, compact('viewTypes','etatFormations_data', 'etatFormations_stats', 'etatFormations_filters','etatFormation_instance'))->render();
+            return view($etatFormation_partialViewName, $etatFormation_compact_value)->render();
         }
 
-        return view('PkgAutoformation::etatFormation.index', compact('viewTypes','viewType','etatFormations_data', 'etatFormations_stats', 'etatFormations_filters','etatFormation_instance'));
+        return view('PkgAutoformation::etatFormation.index', $etatFormation_compact_value);
     }
     public function create() {
         // ownedByUser
@@ -130,10 +123,10 @@ class BaseEtatFormationController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('PkgAutoformation::etatFormation._fields', compact('itemEtatFormation', 'formateurs', 'sysColors', 'workflowFormations'));
+            return view('PkgAutoformation::etatFormation._fields', array_merge(compact('itemEtatFormation'),$formateurs, $sysColors, $workflowFormations));
         }
 
-        return view('PkgAutoformation::etatFormation.edit', compact('itemEtatFormation', 'formateurs', 'sysColors', 'workflowFormations'));
+        return view('PkgAutoformation::etatFormation.edit', array_merge(compact('itemEtatFormation'),$formateurs, $sysColors, $workflowFormations));
 
     }
     public function edit(string $id) {
@@ -151,10 +144,10 @@ class BaseEtatFormationController extends AdminController
 
 
         if (request()->ajax()) {
-            return view('PkgAutoformation::etatFormation._fields', compact('itemEtatFormation', 'formateurs', 'sysColors', 'workflowFormations'));
+            return view('PkgAutoformation::etatFormation._fields', array_merge(compact('itemEtatFormation','formateurs', 'sysColors', 'workflowFormations'),));
         }
 
-        return view('PkgAutoformation::etatFormation.edit', compact('itemEtatFormation', 'formateurs', 'sysColors', 'workflowFormations'));
+        return view('PkgAutoformation::etatFormation.edit', array_merge(compact('itemEtatFormation','formateurs', 'sysColors', 'workflowFormations'),));
 
     }
     public function update(EtatFormationRequest $request, string $id) {

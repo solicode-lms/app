@@ -30,36 +30,29 @@ class BaseEMetadataDefinitionController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('eMetadataDefinition.index');
         
-        $viewType = $this->viewState->get('view_type', 'table');
-        $viewTypes = $this->getService()->getViewTypes();
-        
 
 
 
-        // Extraire les paramètres de recherche, page, et filtres
+         // Extraire les paramètres de recherche, pagination, filtres
         $eMetadataDefinitions_params = array_merge(
-            $request->only(['page','sort']),
-            ['search' => $request->get('eMetadataDefinitions_search', $this->viewState->get("filter.eMetadataDefinition.eMetadataDefinitions_search"))],
+            $request->only(['page', 'sort']),
+            ['search' => $request->get(
+                'eMetadataDefinitions_search',
+                $this->viewState->get("filter.eMetadataDefinition.eMetadataDefinitions_search")
+            )],
             $request->except(['eMetadataDefinitions_search', 'page', 'sort'])
         );
 
-        // Paginer les eMetadataDefinitions
-        $eMetadataDefinitions_data = $this->eMetadataDefinitionService->paginate($eMetadataDefinitions_params);
-
-        // Récupérer les statistiques et les champs filtrables
-        $eMetadataDefinitions_stats = $this->eMetadataDefinitionService->geteMetadataDefinitionStats();
-        $this->viewState->set('stats.eMetadataDefinition.stats'  , $eMetadataDefinitions_stats);
-        $eMetadataDefinitions_filters = $this->eMetadataDefinitionService->getFieldsFilterable();
-        $eMetadataDefinition_instance =  $this->eMetadataDefinitionService->createInstance();
+        // prepareDataForIndexView
+        $tcView = $this->eMetadataDefinitionService->prepareDataForIndexView($eMetadataDefinitions_params);
+        extract($tcView); // Toutes les variables sont injectées automatiquement
         
-        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
-
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($partialViewName, compact('viewTypes','eMetadataDefinitions_data', 'eMetadataDefinitions_stats', 'eMetadataDefinitions_filters','eMetadataDefinition_instance'))->render();
+            return view($eMetadataDefinition_partialViewName, $eMetadataDefinition_compact_value)->render();
         }
 
-        return view('PkgGapp::eMetadataDefinition.index', compact('viewTypes','viewType','eMetadataDefinitions_data', 'eMetadataDefinitions_stats', 'eMetadataDefinitions_filters','eMetadataDefinition_instance'));
+        return view('PkgGapp::eMetadataDefinition.index', $eMetadataDefinition_compact_value);
     }
     public function create() {
 
@@ -110,16 +103,14 @@ class BaseEMetadataDefinitionController extends AdminController
 
 
         $eMetadatumService =  new EMetadatumService();
-        $eMetadata_data =  $eMetadatumService->paginate();
-        $eMetadata_stats = $eMetadatumService->geteMetadatumStats();
-        $eMetadata_filters = $eMetadatumService->getFieldsFilterable();
-        $eMetadatum_instance =  $eMetadatumService->createInstance();
+        $eMetadata_view_data = $eMetadatumService->prepareDataForIndexView();
+        extract($eMetadata_view_data);
 
         if (request()->ajax()) {
-            return view('PkgGapp::eMetadataDefinition._edit', compact('itemEMetadataDefinition', 'eMetadata_data', 'eMetadata_stats', 'eMetadata_filters', 'eMetadatum_instance'));
+            return view('PkgGapp::eMetadataDefinition._edit', array_merge(compact('itemEMetadataDefinition'),));
         }
 
-        return view('PkgGapp::eMetadataDefinition.edit', compact('itemEMetadataDefinition', 'eMetadata_data', 'eMetadata_stats', 'eMetadata_filters', 'eMetadatum_instance'));
+        return view('PkgGapp::eMetadataDefinition.edit', array_merge(compact('itemEMetadataDefinition'),));
 
     }
     public function edit(string $id) {
@@ -136,17 +127,14 @@ class BaseEMetadataDefinitionController extends AdminController
         
 
         $eMetadatumService =  new EMetadatumService();
-        $eMetadata_data =  $eMetadatumService->paginate();
-        $eMetadata_stats = $eMetadatumService->geteMetadatumStats();
-        $this->viewState->set('stats.eMetadatum.stats'  , $eMetadata_stats);
-        $eMetadata_filters = $eMetadatumService->getFieldsFilterable();
-        $eMetadatum_instance =  $eMetadatumService->createInstance();
+        $eMetadata_view_data = $eMetadatumService->prepareDataForIndexView();
+        extract($eMetadata_view_data);
 
         if (request()->ajax()) {
-            return view('PkgGapp::eMetadataDefinition._edit', compact('itemEMetadataDefinition', 'eMetadata_data', 'eMetadata_stats', 'eMetadata_filters', 'eMetadatum_instance'));
+            return view('PkgGapp::eMetadataDefinition._edit', array_merge(compact('itemEMetadataDefinition',),$eMetadatum_compact_value));
         }
 
-        return view('PkgGapp::eMetadataDefinition.edit', compact('itemEMetadataDefinition', 'eMetadata_data', 'eMetadata_stats', 'eMetadata_filters', 'eMetadatum_instance'));
+        return view('PkgGapp::eMetadataDefinition.edit', array_merge(compact('itemEMetadataDefinition',),$eMetadatum_compact_value));
 
     }
     public function update(EMetadataDefinitionRequest $request, string $id) {

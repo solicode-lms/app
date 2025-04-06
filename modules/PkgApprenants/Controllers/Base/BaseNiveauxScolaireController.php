@@ -30,36 +30,29 @@ class BaseNiveauxScolaireController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('niveauxScolaire.index');
         
-        $viewType = $this->viewState->get('view_type', 'table');
-        $viewTypes = $this->getService()->getViewTypes();
-        
 
 
 
-        // Extraire les paramètres de recherche, page, et filtres
+         // Extraire les paramètres de recherche, pagination, filtres
         $niveauxScolaires_params = array_merge(
-            $request->only(['page','sort']),
-            ['search' => $request->get('niveauxScolaires_search', $this->viewState->get("filter.niveauxScolaire.niveauxScolaires_search"))],
+            $request->only(['page', 'sort']),
+            ['search' => $request->get(
+                'niveauxScolaires_search',
+                $this->viewState->get("filter.niveauxScolaire.niveauxScolaires_search")
+            )],
             $request->except(['niveauxScolaires_search', 'page', 'sort'])
         );
 
-        // Paginer les niveauxScolaires
-        $niveauxScolaires_data = $this->niveauxScolaireService->paginate($niveauxScolaires_params);
-
-        // Récupérer les statistiques et les champs filtrables
-        $niveauxScolaires_stats = $this->niveauxScolaireService->getniveauxScolaireStats();
-        $this->viewState->set('stats.niveauxScolaire.stats'  , $niveauxScolaires_stats);
-        $niveauxScolaires_filters = $this->niveauxScolaireService->getFieldsFilterable();
-        $niveauxScolaire_instance =  $this->niveauxScolaireService->createInstance();
+        // prepareDataForIndexView
+        $tcView = $this->niveauxScolaireService->prepareDataForIndexView($niveauxScolaires_params);
+        extract($tcView); // Toutes les variables sont injectées automatiquement
         
-        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
-
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($partialViewName, compact('viewTypes','niveauxScolaires_data', 'niveauxScolaires_stats', 'niveauxScolaires_filters','niveauxScolaire_instance'))->render();
+            return view($niveauxScolaire_partialViewName, $niveauxScolaire_compact_value)->render();
         }
 
-        return view('PkgApprenants::niveauxScolaire.index', compact('viewTypes','viewType','niveauxScolaires_data', 'niveauxScolaires_stats', 'niveauxScolaires_filters','niveauxScolaire_instance'));
+        return view('PkgApprenants::niveauxScolaire.index', $niveauxScolaire_compact_value);
     }
     public function create() {
 
@@ -110,16 +103,14 @@ class BaseNiveauxScolaireController extends AdminController
 
 
         $apprenantService =  new ApprenantService();
-        $apprenants_data =  $apprenantService->paginate();
-        $apprenants_stats = $apprenantService->getapprenantStats();
-        $apprenants_filters = $apprenantService->getFieldsFilterable();
-        $apprenant_instance =  $apprenantService->createInstance();
+        $apprenants_view_data = $apprenantService->prepareDataForIndexView();
+        extract($apprenants_view_data);
 
         if (request()->ajax()) {
-            return view('PkgApprenants::niveauxScolaire._edit', compact('itemNiveauxScolaire', 'apprenants_data', 'apprenants_stats', 'apprenants_filters', 'apprenant_instance'));
+            return view('PkgApprenants::niveauxScolaire._edit', array_merge(compact('itemNiveauxScolaire'),));
         }
 
-        return view('PkgApprenants::niveauxScolaire.edit', compact('itemNiveauxScolaire', 'apprenants_data', 'apprenants_stats', 'apprenants_filters', 'apprenant_instance'));
+        return view('PkgApprenants::niveauxScolaire.edit', array_merge(compact('itemNiveauxScolaire'),));
 
     }
     public function edit(string $id) {
@@ -136,17 +127,14 @@ class BaseNiveauxScolaireController extends AdminController
         
 
         $apprenantService =  new ApprenantService();
-        $apprenants_data =  $apprenantService->paginate();
-        $apprenants_stats = $apprenantService->getapprenantStats();
-        $this->viewState->set('stats.apprenant.stats'  , $apprenants_stats);
-        $apprenants_filters = $apprenantService->getFieldsFilterable();
-        $apprenant_instance =  $apprenantService->createInstance();
+        $apprenants_view_data = $apprenantService->prepareDataForIndexView();
+        extract($apprenants_view_data);
 
         if (request()->ajax()) {
-            return view('PkgApprenants::niveauxScolaire._edit', compact('itemNiveauxScolaire', 'apprenants_data', 'apprenants_stats', 'apprenants_filters', 'apprenant_instance'));
+            return view('PkgApprenants::niveauxScolaire._edit', array_merge(compact('itemNiveauxScolaire',),$apprenant_compact_value));
         }
 
-        return view('PkgApprenants::niveauxScolaire.edit', compact('itemNiveauxScolaire', 'apprenants_data', 'apprenants_stats', 'apprenants_filters', 'apprenant_instance'));
+        return view('PkgApprenants::niveauxScolaire.edit', array_merge(compact('itemNiveauxScolaire',),$apprenant_compact_value));
 
     }
     public function update(NiveauxScolaireRequest $request, string $id) {

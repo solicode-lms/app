@@ -112,4 +112,51 @@ class BaseEMetadataDefinitionService extends BaseService
         };
     }
 
+
+
+    public function prepareDataForIndexView(array $params = []): array
+    {
+        // Définir le type de vue par défaut
+        $default_view_type = 'table';
+        $this->viewState->init('eMetadataDefinition_view_type', $default_view_type);
+        $eMetadataDefinition_viewType = $this->viewState->get('eMetadataDefinition_view_type', $default_view_type);
+    
+        // Si viewType = widgets, appliquer filtre visible = 1
+        if ($this->viewState->get('eMetadataDefinition_view_type') === 'widgets') {
+            $this->viewState->set("filter.eMetadataDefinition.visible", 1);
+        }
+        
+        // Récupération des données
+        $eMetadataDefinitions_data = $this->paginate($params);
+        $eMetadataDefinitions_stats = $this->geteMetadataDefinitionStats();
+        $eMetadataDefinitions_filters = $this->getFieldsFilterable();
+        $eMetadataDefinition_instance = $this->createInstance();
+        $eMetadataDefinition_viewTypes = $this->getViewTypes();
+        $eMetadataDefinition_partialViewName = $this->getPartialViewName($eMetadataDefinition_viewType);
+    
+        // Enregistrer les stats dans le ViewState
+        $this->viewState->set('stats.eMetadataDefinition.stats', $eMetadataDefinitions_stats);
+    
+        // Préparer les variables à injecter dans compact()
+        $compact_value = compact(
+            'eMetadataDefinition_viewTypes',
+            'eMetadataDefinition_viewType',
+            'eMetadataDefinitions_data',
+            'eMetadataDefinitions_stats',
+            'eMetadataDefinitions_filters',
+            'eMetadataDefinition_instance'
+        );
+    
+        return [
+            'eMetadataDefinitions_data' => $eMetadataDefinitions_data,
+            'eMetadataDefinitions_stats' => $eMetadataDefinitions_stats,
+            'eMetadataDefinitions_filters' => $eMetadataDefinitions_filters,
+            'eMetadataDefinition_instance' => $eMetadataDefinition_instance,
+            'eMetadataDefinition_viewType' => $eMetadataDefinition_viewType,
+            'eMetadataDefinition_viewTypes' => $eMetadataDefinition_viewTypes,
+            'eMetadataDefinition_partialViewName' => $eMetadataDefinition_partialViewName,
+            'eMetadataDefinition_compact_value' => $compact_value
+        ];
+    }
+
 }

@@ -109,4 +109,51 @@ class BaseTechnologyService extends BaseService
         };
     }
 
+
+
+    public function prepareDataForIndexView(array $params = []): array
+    {
+        // Définir le type de vue par défaut
+        $default_view_type = 'table';
+        $this->viewState->init('technology_view_type', $default_view_type);
+        $technology_viewType = $this->viewState->get('technology_view_type', $default_view_type);
+    
+        // Si viewType = widgets, appliquer filtre visible = 1
+        if ($this->viewState->get('technology_view_type') === 'widgets') {
+            $this->viewState->set("filter.technology.visible", 1);
+        }
+        
+        // Récupération des données
+        $technologies_data = $this->paginate($params);
+        $technologies_stats = $this->gettechnologyStats();
+        $technologies_filters = $this->getFieldsFilterable();
+        $technology_instance = $this->createInstance();
+        $technology_viewTypes = $this->getViewTypes();
+        $technology_partialViewName = $this->getPartialViewName($technology_viewType);
+    
+        // Enregistrer les stats dans le ViewState
+        $this->viewState->set('stats.technology.stats', $technologies_stats);
+    
+        // Préparer les variables à injecter dans compact()
+        $compact_value = compact(
+            'technology_viewTypes',
+            'technology_viewType',
+            'technologies_data',
+            'technologies_stats',
+            'technologies_filters',
+            'technology_instance'
+        );
+    
+        return [
+            'technologies_data' => $technologies_data,
+            'technologies_stats' => $technologies_stats,
+            'technologies_filters' => $technologies_filters,
+            'technology_instance' => $technology_instance,
+            'technology_viewType' => $technology_viewType,
+            'technology_viewTypes' => $technology_viewTypes,
+            'technology_partialViewName' => $technology_partialViewName,
+            'technology_compact_value' => $compact_value
+        ];
+    }
+
 }

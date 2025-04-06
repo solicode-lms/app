@@ -41,9 +41,6 @@ class BaseApprenantController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('apprenant.index');
         
-        $viewType = $this->viewState->get('view_type', 'table');
-        $viewTypes = $this->getService()->getViewTypes();
-        
 
         // scopeDataByRole pour Model
         if(Auth::user()->hasRole('formateur')){
@@ -51,30 +48,26 @@ class BaseApprenantController extends AdminController
         }
 
 
-        // Extraire les paramètres de recherche, page, et filtres
+         // Extraire les paramètres de recherche, pagination, filtres
         $apprenants_params = array_merge(
-            $request->only(['page','sort']),
-            ['search' => $request->get('apprenants_search', $this->viewState->get("filter.apprenant.apprenants_search"))],
+            $request->only(['page', 'sort']),
+            ['search' => $request->get(
+                'apprenants_search',
+                $this->viewState->get("filter.apprenant.apprenants_search")
+            )],
             $request->except(['apprenants_search', 'page', 'sort'])
         );
 
-        // Paginer les apprenants
-        $apprenants_data = $this->apprenantService->paginate($apprenants_params);
-
-        // Récupérer les statistiques et les champs filtrables
-        $apprenants_stats = $this->apprenantService->getapprenantStats();
-        $this->viewState->set('stats.apprenant.stats'  , $apprenants_stats);
-        $apprenants_filters = $this->apprenantService->getFieldsFilterable();
-        $apprenant_instance =  $this->apprenantService->createInstance();
+        // prepareDataForIndexView
+        $tcView = $this->apprenantService->prepareDataForIndexView($apprenants_params);
+        extract($tcView); // Toutes les variables sont injectées automatiquement
         
-        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
-
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($partialViewName, compact('viewTypes','apprenants_data', 'apprenants_stats', 'apprenants_filters','apprenant_instance'))->render();
+            return view($apprenant_partialViewName, $apprenant_compact_value)->render();
         }
 
-        return view('PkgApprenants::apprenant.index', compact('viewTypes','viewType','apprenants_data', 'apprenants_stats', 'apprenants_filters','apprenant_instance'));
+        return view('PkgApprenants::apprenant.index', $apprenant_compact_value);
     }
     public function create() {
 
@@ -130,10 +123,10 @@ class BaseApprenantController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('PkgApprenants::apprenant._fields', compact('itemApprenant', 'groupes', 'nationalites', 'niveauxScolaires', 'users'));
+            return view('PkgApprenants::apprenant._fields', array_merge(compact('itemApprenant'),$groupes, $nationalites, $niveauxScolaires, $users));
         }
 
-        return view('PkgApprenants::apprenant.edit', compact('itemApprenant', 'groupes', 'nationalites', 'niveauxScolaires', 'users'));
+        return view('PkgApprenants::apprenant.edit', array_merge(compact('itemApprenant'),$groupes, $nationalites, $niveauxScolaires, $users));
 
     }
     public function edit(string $id) {
@@ -151,10 +144,10 @@ class BaseApprenantController extends AdminController
 
 
         if (request()->ajax()) {
-            return view('PkgApprenants::apprenant._fields', compact('itemApprenant', 'groupes', 'nationalites', 'niveauxScolaires', 'users'));
+            return view('PkgApprenants::apprenant._fields', array_merge(compact('itemApprenant','groupes', 'nationalites', 'niveauxScolaires', 'users'),));
         }
 
-        return view('PkgApprenants::apprenant.edit', compact('itemApprenant', 'groupes', 'nationalites', 'niveauxScolaires', 'users'));
+        return view('PkgApprenants::apprenant.edit', array_merge(compact('itemApprenant','groupes', 'nationalites', 'niveauxScolaires', 'users'),));
 
     }
     public function update(ApprenantRequest $request, string $id) {

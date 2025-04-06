@@ -70,8 +70,8 @@
                             :exportXlsxRoute="route('nationalites.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('nationalites.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
-                            :viewTypes="$viewTypes"
-                            :viewType="$viewType"
+                            :viewTypes="$nationalite_viewTypes"
+                            :viewType="$nationalite_viewType"
                         />
                         @endcan
                     </div>
@@ -109,16 +109,16 @@
                 </div>
                 @show
                 <div id="nationalite-data-container" class="data-container">
-                    @if($viewType == "table")
-                    @include("PkgApprenants::nationalite._$viewType")
+                    @if($nationalite_viewType == "table")
+                    @include("PkgApprenants::nationalite._$nationalite_viewType")
                     @endif
                 </div>
             </div>
         </div>
     </section>
-     <section id="widgetUtilisateur-data-container-out" >
-        @if($viewType == "widgets")
-        @include("PkgApprenants::nationalite._$viewType")
+     <section id="nationalite-data-container-out" >
+        @if($nationalite_viewType == "widgets")
+        @include("PkgApprenants::nationalite._$nationalite_viewType")
         @endif
     </section>
     @show

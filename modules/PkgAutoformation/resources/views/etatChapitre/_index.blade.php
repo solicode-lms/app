@@ -70,8 +70,8 @@
                             :exportXlsxRoute="route('etatChapitres.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('etatChapitres.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
-                            :viewTypes="$viewTypes"
-                            :viewType="$viewType"
+                            :viewTypes="$etatChapitre_viewTypes"
+                            :viewType="$etatChapitre_viewType"
                         />
                         @endcan
                     </div>
@@ -109,16 +109,16 @@
                 </div>
                 @show
                 <div id="etatChapitre-data-container" class="data-container">
-                    @if($viewType == "table")
-                    @include("PkgAutoformation::etatChapitre._$viewType")
+                    @if($etatChapitre_viewType == "table")
+                    @include("PkgAutoformation::etatChapitre._$etatChapitre_viewType")
                     @endif
                 </div>
             </div>
         </div>
     </section>
-     <section id="widgetUtilisateur-data-container-out" >
-        @if($viewType == "widgets")
-        @include("PkgAutoformation::etatChapitre._$viewType")
+     <section id="etatChapitre-data-container-out" >
+        @if($etatChapitre_viewType == "widgets")
+        @include("PkgAutoformation::etatChapitre._$etatChapitre_viewType")
         @endif
     </section>
     @show

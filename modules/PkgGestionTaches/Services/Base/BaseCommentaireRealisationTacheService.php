@@ -117,4 +117,51 @@ class BaseCommentaireRealisationTacheService extends BaseService
         };
     }
 
+
+
+    public function prepareDataForIndexView(array $params = []): array
+    {
+        // Définir le type de vue par défaut
+        $default_view_type = 'table';
+        $this->viewState->init('commentaireRealisationTache_view_type', $default_view_type);
+        $commentaireRealisationTache_viewType = $this->viewState->get('commentaireRealisationTache_view_type', $default_view_type);
+    
+        // Si viewType = widgets, appliquer filtre visible = 1
+        if ($this->viewState->get('commentaireRealisationTache_view_type') === 'widgets') {
+            $this->viewState->set("filter.commentaireRealisationTache.visible", 1);
+        }
+        
+        // Récupération des données
+        $commentaireRealisationTaches_data = $this->paginate($params);
+        $commentaireRealisationTaches_stats = $this->getcommentaireRealisationTacheStats();
+        $commentaireRealisationTaches_filters = $this->getFieldsFilterable();
+        $commentaireRealisationTache_instance = $this->createInstance();
+        $commentaireRealisationTache_viewTypes = $this->getViewTypes();
+        $commentaireRealisationTache_partialViewName = $this->getPartialViewName($commentaireRealisationTache_viewType);
+    
+        // Enregistrer les stats dans le ViewState
+        $this->viewState->set('stats.commentaireRealisationTache.stats', $commentaireRealisationTaches_stats);
+    
+        // Préparer les variables à injecter dans compact()
+        $compact_value = compact(
+            'commentaireRealisationTache_viewTypes',
+            'commentaireRealisationTache_viewType',
+            'commentaireRealisationTaches_data',
+            'commentaireRealisationTaches_stats',
+            'commentaireRealisationTaches_filters',
+            'commentaireRealisationTache_instance'
+        );
+    
+        return [
+            'commentaireRealisationTaches_data' => $commentaireRealisationTaches_data,
+            'commentaireRealisationTaches_stats' => $commentaireRealisationTaches_stats,
+            'commentaireRealisationTaches_filters' => $commentaireRealisationTaches_filters,
+            'commentaireRealisationTache_instance' => $commentaireRealisationTache_instance,
+            'commentaireRealisationTache_viewType' => $commentaireRealisationTache_viewType,
+            'commentaireRealisationTache_viewTypes' => $commentaireRealisationTache_viewTypes,
+            'commentaireRealisationTache_partialViewName' => $commentaireRealisationTache_partialViewName,
+            'commentaireRealisationTache_compact_value' => $compact_value
+        ];
+    }
+
 }

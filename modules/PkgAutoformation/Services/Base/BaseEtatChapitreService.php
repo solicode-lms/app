@@ -132,4 +132,51 @@ class BaseEtatChapitreService extends BaseService
         };
     }
 
+
+
+    public function prepareDataForIndexView(array $params = []): array
+    {
+        // Définir le type de vue par défaut
+        $default_view_type = 'table';
+        $this->viewState->init('etatChapitre_view_type', $default_view_type);
+        $etatChapitre_viewType = $this->viewState->get('etatChapitre_view_type', $default_view_type);
+    
+        // Si viewType = widgets, appliquer filtre visible = 1
+        if ($this->viewState->get('etatChapitre_view_type') === 'widgets') {
+            $this->viewState->set("filter.etatChapitre.visible", 1);
+        }
+        
+        // Récupération des données
+        $etatChapitres_data = $this->paginate($params);
+        $etatChapitres_stats = $this->getetatChapitreStats();
+        $etatChapitres_filters = $this->getFieldsFilterable();
+        $etatChapitre_instance = $this->createInstance();
+        $etatChapitre_viewTypes = $this->getViewTypes();
+        $etatChapitre_partialViewName = $this->getPartialViewName($etatChapitre_viewType);
+    
+        // Enregistrer les stats dans le ViewState
+        $this->viewState->set('stats.etatChapitre.stats', $etatChapitres_stats);
+    
+        // Préparer les variables à injecter dans compact()
+        $compact_value = compact(
+            'etatChapitre_viewTypes',
+            'etatChapitre_viewType',
+            'etatChapitres_data',
+            'etatChapitres_stats',
+            'etatChapitres_filters',
+            'etatChapitre_instance'
+        );
+    
+        return [
+            'etatChapitres_data' => $etatChapitres_data,
+            'etatChapitres_stats' => $etatChapitres_stats,
+            'etatChapitres_filters' => $etatChapitres_filters,
+            'etatChapitre_instance' => $etatChapitre_instance,
+            'etatChapitre_viewType' => $etatChapitre_viewType,
+            'etatChapitre_viewTypes' => $etatChapitre_viewTypes,
+            'etatChapitre_partialViewName' => $etatChapitre_partialViewName,
+            'etatChapitre_compact_value' => $compact_value
+        ];
+    }
+
 }

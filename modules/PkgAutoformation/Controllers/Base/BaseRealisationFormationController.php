@@ -39,36 +39,29 @@ class BaseRealisationFormationController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('realisationFormation.index');
         
-        $viewType = $this->viewState->get('view_type', 'table');
-        $viewTypes = $this->getService()->getViewTypes();
-        
 
 
 
-        // Extraire les paramètres de recherche, page, et filtres
+         // Extraire les paramètres de recherche, pagination, filtres
         $realisationFormations_params = array_merge(
-            $request->only(['page','sort']),
-            ['search' => $request->get('realisationFormations_search', $this->viewState->get("filter.realisationFormation.realisationFormations_search"))],
+            $request->only(['page', 'sort']),
+            ['search' => $request->get(
+                'realisationFormations_search',
+                $this->viewState->get("filter.realisationFormation.realisationFormations_search")
+            )],
             $request->except(['realisationFormations_search', 'page', 'sort'])
         );
 
-        // Paginer les realisationFormations
-        $realisationFormations_data = $this->realisationFormationService->paginate($realisationFormations_params);
-
-        // Récupérer les statistiques et les champs filtrables
-        $realisationFormations_stats = $this->realisationFormationService->getrealisationFormationStats();
-        $this->viewState->set('stats.realisationFormation.stats'  , $realisationFormations_stats);
-        $realisationFormations_filters = $this->realisationFormationService->getFieldsFilterable();
-        $realisationFormation_instance =  $this->realisationFormationService->createInstance();
+        // prepareDataForIndexView
+        $tcView = $this->realisationFormationService->prepareDataForIndexView($realisationFormations_params);
+        extract($tcView); // Toutes les variables sont injectées automatiquement
         
-        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
-
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($partialViewName, compact('viewTypes','realisationFormations_data', 'realisationFormations_stats', 'realisationFormations_filters','realisationFormation_instance'))->render();
+            return view($realisationFormation_partialViewName, $realisationFormation_compact_value)->render();
         }
 
-        return view('PkgAutoformation::realisationFormation.index', compact('viewTypes','viewType','realisationFormations_data', 'realisationFormations_stats', 'realisationFormations_filters','realisationFormation_instance'));
+        return view('PkgAutoformation::realisationFormation.index', $realisationFormation_compact_value);
     }
     public function create() {
 
@@ -125,16 +118,14 @@ class BaseRealisationFormationController extends AdminController
 
 
         $realisationChapitreService =  new RealisationChapitreService();
-        $realisationChapitres_data =  $realisationChapitreService->paginate();
-        $realisationChapitres_stats = $realisationChapitreService->getrealisationChapitreStats();
-        $realisationChapitres_filters = $realisationChapitreService->getFieldsFilterable();
-        $realisationChapitre_instance =  $realisationChapitreService->createInstance();
+        $realisationChapitres_view_data = $realisationChapitreService->prepareDataForIndexView();
+        extract($realisationChapitres_view_data);
 
         if (request()->ajax()) {
-            return view('PkgAutoformation::realisationFormation._edit', compact('itemRealisationFormation', 'apprenants', 'etatFormations', 'formations', 'realisationChapitres_data', 'realisationChapitres_stats', 'realisationChapitres_filters', 'realisationChapitre_instance'));
+            return view('PkgAutoformation::realisationFormation._edit', array_merge(compact('itemRealisationFormation'),$apprenants, $etatFormations, $formations));
         }
 
-        return view('PkgAutoformation::realisationFormation.edit', compact('itemRealisationFormation', 'apprenants', 'etatFormations', 'formations', 'realisationChapitres_data', 'realisationChapitres_stats', 'realisationChapitres_filters', 'realisationChapitre_instance'));
+        return view('PkgAutoformation::realisationFormation.edit', array_merge(compact('itemRealisationFormation'),$apprenants, $etatFormations, $formations));
 
     }
     public function edit(string $id) {
@@ -154,17 +145,14 @@ class BaseRealisationFormationController extends AdminController
         
 
         $realisationChapitreService =  new RealisationChapitreService();
-        $realisationChapitres_data =  $realisationChapitreService->paginate();
-        $realisationChapitres_stats = $realisationChapitreService->getrealisationChapitreStats();
-        $this->viewState->set('stats.realisationChapitre.stats'  , $realisationChapitres_stats);
-        $realisationChapitres_filters = $realisationChapitreService->getFieldsFilterable();
-        $realisationChapitre_instance =  $realisationChapitreService->createInstance();
+        $realisationChapitres_view_data = $realisationChapitreService->prepareDataForIndexView();
+        extract($realisationChapitres_view_data);
 
         if (request()->ajax()) {
-            return view('PkgAutoformation::realisationFormation._edit', compact('itemRealisationFormation', 'apprenants', 'etatFormations', 'formations', 'realisationChapitres_data', 'realisationChapitres_stats', 'realisationChapitres_filters', 'realisationChapitre_instance'));
+            return view('PkgAutoformation::realisationFormation._edit', array_merge(compact('itemRealisationFormation','apprenants', 'etatFormations', 'formations'),$realisationChapitre_compact_value));
         }
 
-        return view('PkgAutoformation::realisationFormation.edit', compact('itemRealisationFormation', 'apprenants', 'etatFormations', 'formations', 'realisationChapitres_data', 'realisationChapitres_stats', 'realisationChapitres_filters', 'realisationChapitre_instance'));
+        return view('PkgAutoformation::realisationFormation.edit', array_merge(compact('itemRealisationFormation','apprenants', 'etatFormations', 'formations'),$realisationChapitre_compact_value));
 
     }
     public function update(RealisationFormationRequest $request, string $id) {

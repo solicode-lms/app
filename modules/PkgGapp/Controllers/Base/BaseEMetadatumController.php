@@ -38,36 +38,29 @@ class BaseEMetadatumController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('eMetadatum.index');
         
-        $viewType = $this->viewState->get('view_type', 'table');
-        $viewTypes = $this->getService()->getViewTypes();
-        
 
 
 
-        // Extraire les paramètres de recherche, page, et filtres
+         // Extraire les paramètres de recherche, pagination, filtres
         $eMetadata_params = array_merge(
-            $request->only(['page','sort']),
-            ['search' => $request->get('eMetadata_search', $this->viewState->get("filter.eMetadatum.eMetadata_search"))],
+            $request->only(['page', 'sort']),
+            ['search' => $request->get(
+                'eMetadata_search',
+                $this->viewState->get("filter.eMetadatum.eMetadata_search")
+            )],
             $request->except(['eMetadata_search', 'page', 'sort'])
         );
 
-        // Paginer les eMetadata
-        $eMetadata_data = $this->eMetadatumService->paginate($eMetadata_params);
-
-        // Récupérer les statistiques et les champs filtrables
-        $eMetadata_stats = $this->eMetadatumService->geteMetadatumStats();
-        $this->viewState->set('stats.eMetadatum.stats'  , $eMetadata_stats);
-        $eMetadata_filters = $this->eMetadatumService->getFieldsFilterable();
-        $eMetadatum_instance =  $this->eMetadatumService->createInstance();
+        // prepareDataForIndexView
+        $tcView = $this->eMetadatumService->prepareDataForIndexView($eMetadata_params);
+        extract($tcView); // Toutes les variables sont injectées automatiquement
         
-        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
-
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($partialViewName, compact('viewTypes','eMetadata_data', 'eMetadata_stats', 'eMetadata_filters','eMetadatum_instance'))->render();
+            return view($eMetadatum_partialViewName, $eMetadatum_compact_value)->render();
         }
 
-        return view('PkgGapp::eMetadatum.index', compact('viewTypes','viewType','eMetadata_data', 'eMetadata_stats', 'eMetadata_filters','eMetadatum_instance'));
+        return view('PkgGapp::eMetadatum.index', $eMetadatum_compact_value);
     }
     public function create() {
 
@@ -121,10 +114,10 @@ class BaseEMetadatumController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('PkgGapp::eMetadatum._fields', compact('itemEMetadatum', 'eDataFields', 'eMetadataDefinitions', 'eModels'));
+            return view('PkgGapp::eMetadatum._fields', array_merge(compact('itemEMetadatum'),$eDataFields, $eMetadataDefinitions, $eModels));
         }
 
-        return view('PkgGapp::eMetadatum.edit', compact('itemEMetadatum', 'eDataFields', 'eMetadataDefinitions', 'eModels'));
+        return view('PkgGapp::eMetadatum.edit', array_merge(compact('itemEMetadatum'),$eDataFields, $eMetadataDefinitions, $eModels));
 
     }
     public function edit(string $id) {
@@ -141,10 +134,10 @@ class BaseEMetadatumController extends AdminController
 
 
         if (request()->ajax()) {
-            return view('PkgGapp::eMetadatum._fields', compact('itemEMetadatum', 'eDataFields', 'eMetadataDefinitions', 'eModels'));
+            return view('PkgGapp::eMetadatum._fields', array_merge(compact('itemEMetadatum','eDataFields', 'eMetadataDefinitions', 'eModels'),));
         }
 
-        return view('PkgGapp::eMetadatum.edit', compact('itemEMetadatum', 'eDataFields', 'eMetadataDefinitions', 'eModels'));
+        return view('PkgGapp::eMetadatum.edit', array_merge(compact('itemEMetadatum','eDataFields', 'eMetadataDefinitions', 'eModels'),));
 
     }
     public function update(EMetadatumRequest $request, string $id) {

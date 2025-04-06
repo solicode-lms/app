@@ -70,8 +70,8 @@
                             :exportXlsxRoute="route('natureLivrables.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('natureLivrables.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
-                            :viewTypes="$viewTypes"
-                            :viewType="$viewType"
+                            :viewTypes="$natureLivrable_viewTypes"
+                            :viewType="$natureLivrable_viewType"
                         />
                         @endcan
                     </div>
@@ -109,16 +109,16 @@
                 </div>
                 @show
                 <div id="natureLivrable-data-container" class="data-container">
-                    @if($viewType == "table")
-                    @include("PkgCreationProjet::natureLivrable._$viewType")
+                    @if($natureLivrable_viewType == "table")
+                    @include("PkgCreationProjet::natureLivrable._$natureLivrable_viewType")
                     @endif
                 </div>
             </div>
         </div>
     </section>
-     <section id="widgetUtilisateur-data-container-out" >
-        @if($viewType == "widgets")
-        @include("PkgCreationProjet::natureLivrable._$viewType")
+     <section id="natureLivrable-data-container-out" >
+        @if($natureLivrable_viewType == "widgets")
+        @include("PkgCreationProjet::natureLivrable._$natureLivrable_viewType")
         @endif
     </section>
     @show

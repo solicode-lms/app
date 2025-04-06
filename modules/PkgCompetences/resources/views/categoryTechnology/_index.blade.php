@@ -70,8 +70,8 @@
                             :exportXlsxRoute="route('categoryTechnologies.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('categoryTechnologies.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
-                            :viewTypes="$viewTypes"
-                            :viewType="$viewType"
+                            :viewTypes="$categoryTechnology_viewTypes"
+                            :viewType="$categoryTechnology_viewType"
                         />
                         @endcan
                     </div>
@@ -109,16 +109,16 @@
                 </div>
                 @show
                 <div id="categoryTechnology-data-container" class="data-container">
-                    @if($viewType == "table")
-                    @include("PkgCompetences::categoryTechnology._$viewType")
+                    @if($categoryTechnology_viewType == "table")
+                    @include("PkgCompetences::categoryTechnology._$categoryTechnology_viewType")
                     @endif
                 </div>
             </div>
         </div>
     </section>
-     <section id="widgetUtilisateur-data-container-out" >
-        @if($viewType == "widgets")
-        @include("PkgCompetences::categoryTechnology._$viewType")
+     <section id="categoryTechnology-data-container-out" >
+        @if($categoryTechnology_viewType == "widgets")
+        @include("PkgCompetences::categoryTechnology._$categoryTechnology_viewType")
         @endif
     </section>
     @show

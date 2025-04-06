@@ -33,36 +33,29 @@ class BaseSysControllerController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('sysController.index');
         
-        $viewType = $this->viewState->get('view_type', 'table');
-        $viewTypes = $this->getService()->getViewTypes();
-        
 
 
 
-        // Extraire les paramètres de recherche, page, et filtres
+         // Extraire les paramètres de recherche, pagination, filtres
         $sysControllers_params = array_merge(
-            $request->only(['page','sort']),
-            ['search' => $request->get('sysControllers_search', $this->viewState->get("filter.sysController.sysControllers_search"))],
+            $request->only(['page', 'sort']),
+            ['search' => $request->get(
+                'sysControllers_search',
+                $this->viewState->get("filter.sysController.sysControllers_search")
+            )],
             $request->except(['sysControllers_search', 'page', 'sort'])
         );
 
-        // Paginer les sysControllers
-        $sysControllers_data = $this->sysControllerService->paginate($sysControllers_params);
-
-        // Récupérer les statistiques et les champs filtrables
-        $sysControllers_stats = $this->sysControllerService->getsysControllerStats();
-        $this->viewState->set('stats.sysController.stats'  , $sysControllers_stats);
-        $sysControllers_filters = $this->sysControllerService->getFieldsFilterable();
-        $sysController_instance =  $this->sysControllerService->createInstance();
+        // prepareDataForIndexView
+        $tcView = $this->sysControllerService->prepareDataForIndexView($sysControllers_params);
+        extract($tcView); // Toutes les variables sont injectées automatiquement
         
-        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
-
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($partialViewName, compact('viewTypes','sysControllers_data', 'sysControllers_stats', 'sysControllers_filters','sysController_instance'))->render();
+            return view($sysController_partialViewName, $sysController_compact_value)->render();
         }
 
-        return view('Core::sysController.index', compact('viewTypes','viewType','sysControllers_data', 'sysControllers_stats', 'sysControllers_filters','sysController_instance'));
+        return view('Core::sysController.index', $sysController_compact_value);
     }
     public function create() {
 
@@ -115,16 +108,14 @@ class BaseSysControllerController extends AdminController
 
 
         $permissionService =  new PermissionService();
-        $permissions_data =  $permissionService->paginate();
-        $permissions_stats = $permissionService->getpermissionStats();
-        $permissions_filters = $permissionService->getFieldsFilterable();
-        $permission_instance =  $permissionService->createInstance();
+        $permissions_view_data = $permissionService->prepareDataForIndexView();
+        extract($permissions_view_data);
 
         if (request()->ajax()) {
-            return view('Core::sysController._edit', compact('itemSysController', 'sysModules', 'permissions_data', 'permissions_stats', 'permissions_filters', 'permission_instance'));
+            return view('Core::sysController._edit', array_merge(compact('itemSysController'),$sysModules));
         }
 
-        return view('Core::sysController.edit', compact('itemSysController', 'sysModules', 'permissions_data', 'permissions_stats', 'permissions_filters', 'permission_instance'));
+        return view('Core::sysController.edit', array_merge(compact('itemSysController'),$sysModules));
 
     }
     public function edit(string $id) {
@@ -142,17 +133,14 @@ class BaseSysControllerController extends AdminController
         
 
         $permissionService =  new PermissionService();
-        $permissions_data =  $permissionService->paginate();
-        $permissions_stats = $permissionService->getpermissionStats();
-        $this->viewState->set('stats.permission.stats'  , $permissions_stats);
-        $permissions_filters = $permissionService->getFieldsFilterable();
-        $permission_instance =  $permissionService->createInstance();
+        $permissions_view_data = $permissionService->prepareDataForIndexView();
+        extract($permissions_view_data);
 
         if (request()->ajax()) {
-            return view('Core::sysController._edit', compact('itemSysController', 'sysModules', 'permissions_data', 'permissions_stats', 'permissions_filters', 'permission_instance'));
+            return view('Core::sysController._edit', array_merge(compact('itemSysController','sysModules'),$permission_compact_value));
         }
 
-        return view('Core::sysController.edit', compact('itemSysController', 'sysModules', 'permissions_data', 'permissions_stats', 'permissions_filters', 'permission_instance'));
+        return view('Core::sysController.edit', array_merge(compact('itemSysController','sysModules'),$permission_compact_value));
 
     }
     public function update(SysControllerRequest $request, string $id) {

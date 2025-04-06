@@ -38,36 +38,29 @@ class BasePermissionController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('permission.index');
         
-        $viewType = $this->viewState->get('view_type', 'table');
-        $viewTypes = $this->getService()->getViewTypes();
-        
 
 
 
-        // Extraire les paramètres de recherche, page, et filtres
+         // Extraire les paramètres de recherche, pagination, filtres
         $permissions_params = array_merge(
-            $request->only(['page','sort']),
-            ['search' => $request->get('permissions_search', $this->viewState->get("filter.permission.permissions_search"))],
+            $request->only(['page', 'sort']),
+            ['search' => $request->get(
+                'permissions_search',
+                $this->viewState->get("filter.permission.permissions_search")
+            )],
             $request->except(['permissions_search', 'page', 'sort'])
         );
 
-        // Paginer les permissions
-        $permissions_data = $this->permissionService->paginate($permissions_params);
-
-        // Récupérer les statistiques et les champs filtrables
-        $permissions_stats = $this->permissionService->getpermissionStats();
-        $this->viewState->set('stats.permission.stats'  , $permissions_stats);
-        $permissions_filters = $this->permissionService->getFieldsFilterable();
-        $permission_instance =  $this->permissionService->createInstance();
+        // prepareDataForIndexView
+        $tcView = $this->permissionService->prepareDataForIndexView($permissions_params);
+        extract($tcView); // Toutes les variables sont injectées automatiquement
         
-        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
-
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($partialViewName, compact('viewTypes','permissions_data', 'permissions_stats', 'permissions_filters','permission_instance'))->render();
+            return view($permission_partialViewName, $permission_compact_value)->render();
         }
 
-        return view('PkgAutorisation::permission.index', compact('viewTypes','viewType','permissions_data', 'permissions_stats', 'permissions_filters','permission_instance'));
+        return view('PkgAutorisation::permission.index', $permission_compact_value);
     }
     public function create() {
 
@@ -121,10 +114,10 @@ class BasePermissionController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('PkgAutorisation::permission._fields', compact('itemPermission', 'features', 'roles', 'sysControllers'));
+            return view('PkgAutorisation::permission._fields', array_merge(compact('itemPermission'),$features, $roles, $sysControllers));
         }
 
-        return view('PkgAutorisation::permission.edit', compact('itemPermission', 'features', 'roles', 'sysControllers'));
+        return view('PkgAutorisation::permission.edit', array_merge(compact('itemPermission'),$features, $roles, $sysControllers));
 
     }
     public function edit(string $id) {
@@ -141,10 +134,10 @@ class BasePermissionController extends AdminController
 
 
         if (request()->ajax()) {
-            return view('PkgAutorisation::permission._fields', compact('itemPermission', 'features', 'roles', 'sysControllers'));
+            return view('PkgAutorisation::permission._fields', array_merge(compact('itemPermission','features', 'roles', 'sysControllers'),));
         }
 
-        return view('PkgAutorisation::permission.edit', compact('itemPermission', 'features', 'roles', 'sysControllers'));
+        return view('PkgAutorisation::permission.edit', array_merge(compact('itemPermission','features', 'roles', 'sysControllers'),));
 
     }
     public function update(PermissionRequest $request, string $id) {

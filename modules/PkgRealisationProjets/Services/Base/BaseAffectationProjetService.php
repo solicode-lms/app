@@ -129,4 +129,51 @@ class BaseAffectationProjetService extends BaseService
         };
     }
 
+
+
+    public function prepareDataForIndexView(array $params = []): array
+    {
+        // Définir le type de vue par défaut
+        $default_view_type = 'table';
+        $this->viewState->init('affectationProjet_view_type', $default_view_type);
+        $affectationProjet_viewType = $this->viewState->get('affectationProjet_view_type', $default_view_type);
+    
+        // Si viewType = widgets, appliquer filtre visible = 1
+        if ($this->viewState->get('affectationProjet_view_type') === 'widgets') {
+            $this->viewState->set("filter.affectationProjet.visible", 1);
+        }
+        
+        // Récupération des données
+        $affectationProjets_data = $this->paginate($params);
+        $affectationProjets_stats = $this->getaffectationProjetStats();
+        $affectationProjets_filters = $this->getFieldsFilterable();
+        $affectationProjet_instance = $this->createInstance();
+        $affectationProjet_viewTypes = $this->getViewTypes();
+        $affectationProjet_partialViewName = $this->getPartialViewName($affectationProjet_viewType);
+    
+        // Enregistrer les stats dans le ViewState
+        $this->viewState->set('stats.affectationProjet.stats', $affectationProjets_stats);
+    
+        // Préparer les variables à injecter dans compact()
+        $compact_value = compact(
+            'affectationProjet_viewTypes',
+            'affectationProjet_viewType',
+            'affectationProjets_data',
+            'affectationProjets_stats',
+            'affectationProjets_filters',
+            'affectationProjet_instance'
+        );
+    
+        return [
+            'affectationProjets_data' => $affectationProjets_data,
+            'affectationProjets_stats' => $affectationProjets_stats,
+            'affectationProjets_filters' => $affectationProjets_filters,
+            'affectationProjet_instance' => $affectationProjet_instance,
+            'affectationProjet_viewType' => $affectationProjet_viewType,
+            'affectationProjet_viewTypes' => $affectationProjet_viewTypes,
+            'affectationProjet_partialViewName' => $affectationProjet_partialViewName,
+            'affectationProjet_compact_value' => $compact_value
+        ];
+    }
+
 }

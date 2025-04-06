@@ -29,36 +29,29 @@ class BaseApprenantKonosyController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('apprenantKonosy.index');
         
-        $viewType = $this->viewState->get('view_type', 'table');
-        $viewTypes = $this->getService()->getViewTypes();
-        
 
 
 
-        // Extraire les paramètres de recherche, page, et filtres
+         // Extraire les paramètres de recherche, pagination, filtres
         $apprenantKonosies_params = array_merge(
-            $request->only(['page','sort']),
-            ['search' => $request->get('apprenantKonosies_search', $this->viewState->get("filter.apprenantKonosy.apprenantKonosies_search"))],
+            $request->only(['page', 'sort']),
+            ['search' => $request->get(
+                'apprenantKonosies_search',
+                $this->viewState->get("filter.apprenantKonosy.apprenantKonosies_search")
+            )],
             $request->except(['apprenantKonosies_search', 'page', 'sort'])
         );
 
-        // Paginer les apprenantKonosies
-        $apprenantKonosies_data = $this->apprenantKonosyService->paginate($apprenantKonosies_params);
-
-        // Récupérer les statistiques et les champs filtrables
-        $apprenantKonosies_stats = $this->apprenantKonosyService->getapprenantKonosyStats();
-        $this->viewState->set('stats.apprenantKonosy.stats'  , $apprenantKonosies_stats);
-        $apprenantKonosies_filters = $this->apprenantKonosyService->getFieldsFilterable();
-        $apprenantKonosy_instance =  $this->apprenantKonosyService->createInstance();
+        // prepareDataForIndexView
+        $tcView = $this->apprenantKonosyService->prepareDataForIndexView($apprenantKonosies_params);
+        extract($tcView); // Toutes les variables sont injectées automatiquement
         
-        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
-
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($partialViewName, compact('viewTypes','apprenantKonosies_data', 'apprenantKonosies_stats', 'apprenantKonosies_filters','apprenantKonosy_instance'))->render();
+            return view($apprenantKonosy_partialViewName, $apprenantKonosy_compact_value)->render();
         }
 
-        return view('PkgApprenants::apprenantKonosy.index', compact('viewTypes','viewType','apprenantKonosies_data', 'apprenantKonosies_stats', 'apprenantKonosies_filters','apprenantKonosy_instance'));
+        return view('PkgApprenants::apprenantKonosy.index', $apprenantKonosy_compact_value);
     }
     public function create() {
 
@@ -106,10 +99,10 @@ class BaseApprenantKonosyController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('PkgApprenants::apprenantKonosy._fields', compact('itemApprenantKonosy'));
+            return view('PkgApprenants::apprenantKonosy._fields', array_merge(compact('itemApprenantKonosy'),));
         }
 
-        return view('PkgApprenants::apprenantKonosy.edit', compact('itemApprenantKonosy'));
+        return view('PkgApprenants::apprenantKonosy.edit', array_merge(compact('itemApprenantKonosy'),));
 
     }
     public function edit(string $id) {
@@ -123,10 +116,10 @@ class BaseApprenantKonosyController extends AdminController
 
 
         if (request()->ajax()) {
-            return view('PkgApprenants::apprenantKonosy._fields', compact('itemApprenantKonosy'));
+            return view('PkgApprenants::apprenantKonosy._fields', array_merge(compact('itemApprenantKonosy',),));
         }
 
-        return view('PkgApprenants::apprenantKonosy.edit', compact('itemApprenantKonosy'));
+        return view('PkgApprenants::apprenantKonosy.edit', array_merge(compact('itemApprenantKonosy',),));
 
     }
     public function update(ApprenantKonosyRequest $request, string $id) {

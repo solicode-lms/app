@@ -36,36 +36,29 @@ class BaseUserController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('user.index');
         
-        $viewType = $this->viewState->get('view_type', 'table');
-        $viewTypes = $this->getService()->getViewTypes();
-        
 
 
 
-        // Extraire les paramètres de recherche, page, et filtres
+         // Extraire les paramètres de recherche, pagination, filtres
         $users_params = array_merge(
-            $request->only(['page','sort']),
-            ['search' => $request->get('users_search', $this->viewState->get("filter.user.users_search"))],
+            $request->only(['page', 'sort']),
+            ['search' => $request->get(
+                'users_search',
+                $this->viewState->get("filter.user.users_search")
+            )],
             $request->except(['users_search', 'page', 'sort'])
         );
 
-        // Paginer les users
-        $users_data = $this->userService->paginate($users_params);
-
-        // Récupérer les statistiques et les champs filtrables
-        $users_stats = $this->userService->getuserStats();
-        $this->viewState->set('stats.user.stats'  , $users_stats);
-        $users_filters = $this->userService->getFieldsFilterable();
-        $user_instance =  $this->userService->createInstance();
+        // prepareDataForIndexView
+        $tcView = $this->userService->prepareDataForIndexView($users_params);
+        extract($tcView); // Toutes les variables sont injectées automatiquement
         
-        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
-
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($partialViewName, compact('viewTypes','users_data', 'users_stats', 'users_filters','user_instance'))->render();
+            return view($user_partialViewName, $user_compact_value)->render();
         }
 
-        return view('PkgAutorisation::user.index', compact('viewTypes','viewType','users_data', 'users_stats', 'users_filters','user_instance'));
+        return view('PkgAutorisation::user.index', $user_compact_value);
     }
     public function create() {
 
@@ -118,43 +111,35 @@ class BaseUserController extends AdminController
 
 
         $apprenantService =  new ApprenantService();
-        $apprenants_data =  $apprenantService->paginate();
-        $apprenants_stats = $apprenantService->getapprenantStats();
-        $apprenants_filters = $apprenantService->getFieldsFilterable();
-        $apprenant_instance =  $apprenantService->createInstance();
+        $apprenants_view_data = $apprenantService->prepareDataForIndexView();
+        extract($apprenants_view_data);
 
         $this->viewState->set('scope.formateur.user_id', $id);
 
 
         $formateurService =  new FormateurService();
-        $formateurs_data =  $formateurService->paginate();
-        $formateurs_stats = $formateurService->getformateurStats();
-        $formateurs_filters = $formateurService->getFieldsFilterable();
-        $formateur_instance =  $formateurService->createInstance();
+        $formateurs_view_data = $formateurService->prepareDataForIndexView();
+        extract($formateurs_view_data);
 
         $this->viewState->set('scope.profile.user_id', $id);
 
 
         $profileService =  new ProfileService();
-        $profiles_data =  $profileService->paginate();
-        $profiles_stats = $profileService->getprofileStats();
-        $profiles_filters = $profileService->getFieldsFilterable();
-        $profile_instance =  $profileService->createInstance();
+        $profiles_view_data = $profileService->prepareDataForIndexView();
+        extract($profiles_view_data);
 
         $this->viewState->set('scope.widgetUtilisateur.user_id', $id);
 
 
         $widgetUtilisateurService =  new WidgetUtilisateurService();
-        $widgetUtilisateurs_data =  $widgetUtilisateurService->paginate();
-        $widgetUtilisateurs_stats = $widgetUtilisateurService->getwidgetUtilisateurStats();
-        $widgetUtilisateurs_filters = $widgetUtilisateurService->getFieldsFilterable();
-        $widgetUtilisateur_instance =  $widgetUtilisateurService->createInstance();
+        $widgetUtilisateurs_view_data = $widgetUtilisateurService->prepareDataForIndexView();
+        extract($widgetUtilisateurs_view_data);
 
         if (request()->ajax()) {
-            return view('PkgAutorisation::user._edit', compact('itemUser', 'roles', 'apprenants_data', 'formateurs_data', 'profiles_data', 'widgetUtilisateurs_data', 'apprenants_stats', 'formateurs_stats', 'profiles_stats', 'widgetUtilisateurs_stats', 'apprenants_filters', 'formateurs_filters', 'profiles_filters', 'widgetUtilisateurs_filters', 'apprenant_instance', 'formateur_instance', 'profile_instance', 'widgetUtilisateur_instance'));
+            return view('PkgAutorisation::user._edit', array_merge(compact('itemUser'),$roles));
         }
 
-        return view('PkgAutorisation::user.edit', compact('itemUser', 'roles', 'apprenants_data', 'formateurs_data', 'profiles_data', 'widgetUtilisateurs_data', 'apprenants_stats', 'formateurs_stats', 'profiles_stats', 'widgetUtilisateurs_stats', 'apprenants_filters', 'formateurs_filters', 'profiles_filters', 'widgetUtilisateurs_filters', 'apprenant_instance', 'formateur_instance', 'profile_instance', 'widgetUtilisateur_instance'));
+        return view('PkgAutorisation::user.edit', array_merge(compact('itemUser'),$roles));
 
     }
     public function edit(string $id) {
@@ -172,47 +157,35 @@ class BaseUserController extends AdminController
         
 
         $apprenantService =  new ApprenantService();
-        $apprenants_data =  $apprenantService->paginate();
-        $apprenants_stats = $apprenantService->getapprenantStats();
-        $this->viewState->set('stats.apprenant.stats'  , $apprenants_stats);
-        $apprenants_filters = $apprenantService->getFieldsFilterable();
-        $apprenant_instance =  $apprenantService->createInstance();
+        $apprenants_view_data = $apprenantService->prepareDataForIndexView();
+        extract($apprenants_view_data);
 
         $this->viewState->set('scope.formateur.user_id', $id);
         
 
         $formateurService =  new FormateurService();
-        $formateurs_data =  $formateurService->paginate();
-        $formateurs_stats = $formateurService->getformateurStats();
-        $this->viewState->set('stats.formateur.stats'  , $formateurs_stats);
-        $formateurs_filters = $formateurService->getFieldsFilterable();
-        $formateur_instance =  $formateurService->createInstance();
+        $formateurs_view_data = $formateurService->prepareDataForIndexView();
+        extract($formateurs_view_data);
 
         $this->viewState->set('scope.profile.user_id', $id);
         
 
         $profileService =  new ProfileService();
-        $profiles_data =  $profileService->paginate();
-        $profiles_stats = $profileService->getprofileStats();
-        $this->viewState->set('stats.profile.stats'  , $profiles_stats);
-        $profiles_filters = $profileService->getFieldsFilterable();
-        $profile_instance =  $profileService->createInstance();
+        $profiles_view_data = $profileService->prepareDataForIndexView();
+        extract($profiles_view_data);
 
         $this->viewState->set('scope.widgetUtilisateur.user_id', $id);
         
 
         $widgetUtilisateurService =  new WidgetUtilisateurService();
-        $widgetUtilisateurs_data =  $widgetUtilisateurService->paginate();
-        $widgetUtilisateurs_stats = $widgetUtilisateurService->getwidgetUtilisateurStats();
-        $this->viewState->set('stats.widgetUtilisateur.stats'  , $widgetUtilisateurs_stats);
-        $widgetUtilisateurs_filters = $widgetUtilisateurService->getFieldsFilterable();
-        $widgetUtilisateur_instance =  $widgetUtilisateurService->createInstance();
+        $widgetUtilisateurs_view_data = $widgetUtilisateurService->prepareDataForIndexView();
+        extract($widgetUtilisateurs_view_data);
 
         if (request()->ajax()) {
-            return view('PkgAutorisation::user._edit', compact('itemUser', 'roles', 'apprenants_data', 'formateurs_data', 'profiles_data', 'widgetUtilisateurs_data', 'apprenants_stats', 'formateurs_stats', 'profiles_stats', 'widgetUtilisateurs_stats', 'apprenants_filters', 'formateurs_filters', 'profiles_filters', 'widgetUtilisateurs_filters', 'apprenant_instance', 'formateur_instance', 'profile_instance', 'widgetUtilisateur_instance'));
+            return view('PkgAutorisation::user._edit', array_merge(compact('itemUser','roles'),$apprenant_compact_value, $formateur_compact_value, $profile_compact_value, $widgetUtilisateur_compact_value));
         }
 
-        return view('PkgAutorisation::user.edit', compact('itemUser', 'roles', 'apprenants_data', 'formateurs_data', 'profiles_data', 'widgetUtilisateurs_data', 'apprenants_stats', 'formateurs_stats', 'profiles_stats', 'widgetUtilisateurs_stats', 'apprenants_filters', 'formateurs_filters', 'profiles_filters', 'widgetUtilisateurs_filters', 'apprenant_instance', 'formateur_instance', 'profile_instance', 'widgetUtilisateur_instance'));
+        return view('PkgAutorisation::user.edit', array_merge(compact('itemUser','roles'),$apprenant_compact_value, $formateur_compact_value, $profile_compact_value, $widgetUtilisateur_compact_value));
 
     }
     public function update(UserRequest $request, string $id) {

@@ -70,8 +70,8 @@
                             :exportXlsxRoute="route('niveauxScolaires.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('niveauxScolaires.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
-                            :viewTypes="$viewTypes"
-                            :viewType="$viewType"
+                            :viewTypes="$niveauxScolaire_viewTypes"
+                            :viewType="$niveauxScolaire_viewType"
                         />
                         @endcan
                     </div>
@@ -109,16 +109,16 @@
                 </div>
                 @show
                 <div id="niveauxScolaire-data-container" class="data-container">
-                    @if($viewType == "table")
-                    @include("PkgApprenants::niveauxScolaire._$viewType")
+                    @if($niveauxScolaire_viewType == "table")
+                    @include("PkgApprenants::niveauxScolaire._$niveauxScolaire_viewType")
                     @endif
                 </div>
             </div>
         </div>
     </section>
-     <section id="widgetUtilisateur-data-container-out" >
-        @if($viewType == "widgets")
-        @include("PkgApprenants::niveauxScolaire._$viewType")
+     <section id="niveauxScolaire-data-container-out" >
+        @if($niveauxScolaire_viewType == "widgets")
+        @include("PkgApprenants::niveauxScolaire._$niveauxScolaire_viewType")
         @endif
     </section>
     @show

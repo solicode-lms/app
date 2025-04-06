@@ -105,4 +105,51 @@ class BaseEPackageService extends BaseService
         };
     }
 
+
+
+    public function prepareDataForIndexView(array $params = []): array
+    {
+        // Définir le type de vue par défaut
+        $default_view_type = 'table';
+        $this->viewState->init('ePackage_view_type', $default_view_type);
+        $ePackage_viewType = $this->viewState->get('ePackage_view_type', $default_view_type);
+    
+        // Si viewType = widgets, appliquer filtre visible = 1
+        if ($this->viewState->get('ePackage_view_type') === 'widgets') {
+            $this->viewState->set("filter.ePackage.visible", 1);
+        }
+        
+        // Récupération des données
+        $ePackages_data = $this->paginate($params);
+        $ePackages_stats = $this->getePackageStats();
+        $ePackages_filters = $this->getFieldsFilterable();
+        $ePackage_instance = $this->createInstance();
+        $ePackage_viewTypes = $this->getViewTypes();
+        $ePackage_partialViewName = $this->getPartialViewName($ePackage_viewType);
+    
+        // Enregistrer les stats dans le ViewState
+        $this->viewState->set('stats.ePackage.stats', $ePackages_stats);
+    
+        // Préparer les variables à injecter dans compact()
+        $compact_value = compact(
+            'ePackage_viewTypes',
+            'ePackage_viewType',
+            'ePackages_data',
+            'ePackages_stats',
+            'ePackages_filters',
+            'ePackage_instance'
+        );
+    
+        return [
+            'ePackages_data' => $ePackages_data,
+            'ePackages_stats' => $ePackages_stats,
+            'ePackages_filters' => $ePackages_filters,
+            'ePackage_instance' => $ePackage_instance,
+            'ePackage_viewType' => $ePackage_viewType,
+            'ePackage_viewTypes' => $ePackage_viewTypes,
+            'ePackage_partialViewName' => $ePackage_partialViewName,
+            'ePackage_compact_value' => $compact_value
+        ];
+    }
+
 }

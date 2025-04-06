@@ -43,9 +43,6 @@ class BaseFormationController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('formation.index');
         
-        $viewType = $this->viewState->get('view_type', 'table');
-        $viewTypes = $this->getService()->getViewTypes();
-        
         // ownedByUser
         if(Auth::user()->hasRole('formateur') && $this->viewState->get('filter.formation.formateur_id') == null){
            $this->viewState->init('filter.formation.formateur_id'  , $this->sessionState->get('formateur_id'));
@@ -53,30 +50,26 @@ class BaseFormationController extends AdminController
 
 
 
-        // Extraire les paramètres de recherche, page, et filtres
+         // Extraire les paramètres de recherche, pagination, filtres
         $formations_params = array_merge(
-            $request->only(['page','sort']),
-            ['search' => $request->get('formations_search', $this->viewState->get("filter.formation.formations_search"))],
+            $request->only(['page', 'sort']),
+            ['search' => $request->get(
+                'formations_search',
+                $this->viewState->get("filter.formation.formations_search")
+            )],
             $request->except(['formations_search', 'page', 'sort'])
         );
 
-        // Paginer les formations
-        $formations_data = $this->formationService->paginate($formations_params);
-
-        // Récupérer les statistiques et les champs filtrables
-        $formations_stats = $this->formationService->getformationStats();
-        $this->viewState->set('stats.formation.stats'  , $formations_stats);
-        $formations_filters = $this->formationService->getFieldsFilterable();
-        $formation_instance =  $this->formationService->createInstance();
+        // prepareDataForIndexView
+        $tcView = $this->formationService->prepareDataForIndexView($formations_params);
+        extract($tcView); // Toutes les variables sont injectées automatiquement
         
-        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
-
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($partialViewName, compact('viewTypes','formations_data', 'formations_stats', 'formations_filters','formation_instance'))->render();
+            return view($formation_partialViewName, $formation_compact_value)->render();
         }
 
-        return view('PkgAutoformation::formation.index', compact('viewTypes','viewType','formations_data', 'formations_stats', 'formations_filters','formation_instance'));
+        return view('PkgAutoformation::formation.index', $formation_compact_value);
     }
     public function create() {
         // ownedByUser
@@ -154,34 +147,28 @@ class BaseFormationController extends AdminController
         $this->viewState->set($key, $value);
 
         $formationService =  new FormationService();
-        $formations_data =  $formationService->paginate();
-        $formations_stats = $formationService->getformationStats();
-        $formations_filters = $formationService->getFieldsFilterable();
-        $formation_instance =  $formationService->createInstance();
+        $formations_view_data = $formationService->prepareDataForIndexView();
+        extract($formations_view_data);
 
         $this->viewState->set('scope.chapitre.formation_id', $id);
 
 
         $chapitreService =  new ChapitreService();
-        $chapitres_data =  $chapitreService->paginate();
-        $chapitres_stats = $chapitreService->getchapitreStats();
-        $chapitres_filters = $chapitreService->getFieldsFilterable();
-        $chapitre_instance =  $chapitreService->createInstance();
+        $chapitres_view_data = $chapitreService->prepareDataForIndexView();
+        extract($chapitres_view_data);
 
         $this->viewState->set('scope.realisationFormation.formation_id', $id);
 
 
         $realisationFormationService =  new RealisationFormationService();
-        $realisationFormations_data =  $realisationFormationService->paginate();
-        $realisationFormations_stats = $realisationFormationService->getrealisationFormationStats();
-        $realisationFormations_filters = $realisationFormationService->getFieldsFilterable();
-        $realisationFormation_instance =  $realisationFormationService->createInstance();
+        $realisationFormations_view_data = $realisationFormationService->prepareDataForIndexView();
+        extract($realisationFormations_view_data);
 
         if (request()->ajax()) {
-            return view('PkgAutoformation::formation._edit', compact('itemFormation', 'technologies', 'competences', 'formateurs', 'formations', 'formations_data', 'chapitres_data', 'realisationFormations_data', 'formations_stats', 'chapitres_stats', 'realisationFormations_stats', 'formations_filters', 'chapitres_filters', 'realisationFormations_filters', 'formation_instance', 'chapitre_instance', 'realisationFormation_instance', 'filieres'));
+            return view('PkgAutoformation::formation._edit', array_merge(compact('itemFormation'),$technologies, $competences, $formateurs, $formations, $filieres));
         }
 
-        return view('PkgAutoformation::formation.edit', compact('itemFormation', 'technologies', 'competences', 'formateurs', 'formations', 'formations_data', 'chapitres_data', 'realisationFormations_data', 'formations_stats', 'chapitres_stats', 'realisationFormations_stats', 'formations_filters', 'chapitres_filters', 'realisationFormations_filters', 'formation_instance', 'chapitre_instance', 'realisationFormation_instance', 'filieres'));
+        return view('PkgAutoformation::formation.edit', array_merge(compact('itemFormation'),$technologies, $competences, $formateurs, $formations, $filieres));
 
     }
     public function edit(string $id) {
@@ -212,37 +199,28 @@ class BaseFormationController extends AdminController
         $this->viewState->set($key, $value);
 
         $formationService =  new FormationService();
-        $formations_data =  $formationService->paginate();
-        $formations_stats = $formationService->getformationStats();
-        $this->viewState->set('stats.formation.stats'  , $formations_stats);
-        $formations_filters = $formationService->getFieldsFilterable();
-        $formation_instance =  $formationService->createInstance();
+        $formations_view_data = $formationService->prepareDataForIndexView();
+        extract($formations_view_data);
 
         $this->viewState->set('scope.chapitre.formation_id', $id);
         
 
         $chapitreService =  new ChapitreService();
-        $chapitres_data =  $chapitreService->paginate();
-        $chapitres_stats = $chapitreService->getchapitreStats();
-        $this->viewState->set('stats.chapitre.stats'  , $chapitres_stats);
-        $chapitres_filters = $chapitreService->getFieldsFilterable();
-        $chapitre_instance =  $chapitreService->createInstance();
+        $chapitres_view_data = $chapitreService->prepareDataForIndexView();
+        extract($chapitres_view_data);
 
         $this->viewState->set('scope.realisationFormation.formation_id', $id);
         
 
         $realisationFormationService =  new RealisationFormationService();
-        $realisationFormations_data =  $realisationFormationService->paginate();
-        $realisationFormations_stats = $realisationFormationService->getrealisationFormationStats();
-        $this->viewState->set('stats.realisationFormation.stats'  , $realisationFormations_stats);
-        $realisationFormations_filters = $realisationFormationService->getFieldsFilterable();
-        $realisationFormation_instance =  $realisationFormationService->createInstance();
+        $realisationFormations_view_data = $realisationFormationService->prepareDataForIndexView();
+        extract($realisationFormations_view_data);
 
         if (request()->ajax()) {
-            return view('PkgAutoformation::formation._edit', compact('itemFormation', 'technologies', 'competences', 'formateurs', 'formations', 'formations_data', 'chapitres_data', 'realisationFormations_data', 'formations_stats', 'chapitres_stats', 'realisationFormations_stats', 'formations_filters', 'chapitres_filters', 'realisationFormations_filters', 'formation_instance', 'chapitre_instance', 'realisationFormation_instance', 'filieres'));
+            return view('PkgAutoformation::formation._edit', array_merge(compact('itemFormation','technologies', 'competences', 'formateurs', 'formations', 'filieres'),$formation_compact_value, $chapitre_compact_value, $realisationFormation_compact_value));
         }
 
-        return view('PkgAutoformation::formation.edit', compact('itemFormation', 'technologies', 'competences', 'formateurs', 'formations', 'formations_data', 'chapitres_data', 'realisationFormations_data', 'formations_stats', 'chapitres_stats', 'realisationFormations_stats', 'formations_filters', 'chapitres_filters', 'realisationFormations_filters', 'formation_instance', 'chapitre_instance', 'realisationFormation_instance', 'filieres'));
+        return view('PkgAutoformation::formation.edit', array_merge(compact('itemFormation','technologies', 'competences', 'formateurs', 'formations', 'filieres'),$formation_compact_value, $chapitre_compact_value, $realisationFormation_compact_value));
 
     }
     public function update(FormationRequest $request, string $id) {

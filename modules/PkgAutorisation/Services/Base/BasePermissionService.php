@@ -109,4 +109,51 @@ class BasePermissionService extends BaseService
         };
     }
 
+
+
+    public function prepareDataForIndexView(array $params = []): array
+    {
+        // Définir le type de vue par défaut
+        $default_view_type = 'table';
+        $this->viewState->init('permission_view_type', $default_view_type);
+        $permission_viewType = $this->viewState->get('permission_view_type', $default_view_type);
+    
+        // Si viewType = widgets, appliquer filtre visible = 1
+        if ($this->viewState->get('permission_view_type') === 'widgets') {
+            $this->viewState->set("filter.permission.visible", 1);
+        }
+        
+        // Récupération des données
+        $permissions_data = $this->paginate($params);
+        $permissions_stats = $this->getpermissionStats();
+        $permissions_filters = $this->getFieldsFilterable();
+        $permission_instance = $this->createInstance();
+        $permission_viewTypes = $this->getViewTypes();
+        $permission_partialViewName = $this->getPartialViewName($permission_viewType);
+    
+        // Enregistrer les stats dans le ViewState
+        $this->viewState->set('stats.permission.stats', $permissions_stats);
+    
+        // Préparer les variables à injecter dans compact()
+        $compact_value = compact(
+            'permission_viewTypes',
+            'permission_viewType',
+            'permissions_data',
+            'permissions_stats',
+            'permissions_filters',
+            'permission_instance'
+        );
+    
+        return [
+            'permissions_data' => $permissions_data,
+            'permissions_stats' => $permissions_stats,
+            'permissions_filters' => $permissions_filters,
+            'permission_instance' => $permission_instance,
+            'permission_viewType' => $permission_viewType,
+            'permission_viewTypes' => $permission_viewTypes,
+            'permission_partialViewName' => $permission_partialViewName,
+            'permission_compact_value' => $compact_value
+        ];
+    }
+
 }

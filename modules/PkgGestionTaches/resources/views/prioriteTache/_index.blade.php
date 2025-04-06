@@ -70,8 +70,8 @@
                             :exportXlsxRoute="route('prioriteTaches.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('prioriteTaches.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
-                            :viewTypes="$viewTypes"
-                            :viewType="$viewType"
+                            :viewTypes="$prioriteTache_viewTypes"
+                            :viewType="$prioriteTache_viewType"
                         />
                         @endcan
                     </div>
@@ -109,16 +109,16 @@
                 </div>
                 @show
                 <div id="prioriteTache-data-container" class="data-container">
-                    @if($viewType == "table")
-                    @include("PkgGestionTaches::prioriteTache._$viewType")
+                    @if($prioriteTache_viewType == "table")
+                    @include("PkgGestionTaches::prioriteTache._$prioriteTache_viewType")
                     @endif
                 </div>
             </div>
         </div>
     </section>
-     <section id="widgetUtilisateur-data-container-out" >
-        @if($viewType == "widgets")
-        @include("PkgGestionTaches::prioriteTache._$viewType")
+     <section id="prioriteTache-data-container-out" >
+        @if($prioriteTache_viewType == "widgets")
+        @include("PkgGestionTaches::prioriteTache._$prioriteTache_viewType")
         @endif
     </section>
     @show

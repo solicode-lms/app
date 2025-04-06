@@ -132,4 +132,51 @@ class BaseEtatRealisationTacheService extends BaseService
         };
     }
 
+
+
+    public function prepareDataForIndexView(array $params = []): array
+    {
+        // Définir le type de vue par défaut
+        $default_view_type = 'table';
+        $this->viewState->init('etatRealisationTache_view_type', $default_view_type);
+        $etatRealisationTache_viewType = $this->viewState->get('etatRealisationTache_view_type', $default_view_type);
+    
+        // Si viewType = widgets, appliquer filtre visible = 1
+        if ($this->viewState->get('etatRealisationTache_view_type') === 'widgets') {
+            $this->viewState->set("filter.etatRealisationTache.visible", 1);
+        }
+        
+        // Récupération des données
+        $etatRealisationTaches_data = $this->paginate($params);
+        $etatRealisationTaches_stats = $this->getetatRealisationTacheStats();
+        $etatRealisationTaches_filters = $this->getFieldsFilterable();
+        $etatRealisationTache_instance = $this->createInstance();
+        $etatRealisationTache_viewTypes = $this->getViewTypes();
+        $etatRealisationTache_partialViewName = $this->getPartialViewName($etatRealisationTache_viewType);
+    
+        // Enregistrer les stats dans le ViewState
+        $this->viewState->set('stats.etatRealisationTache.stats', $etatRealisationTaches_stats);
+    
+        // Préparer les variables à injecter dans compact()
+        $compact_value = compact(
+            'etatRealisationTache_viewTypes',
+            'etatRealisationTache_viewType',
+            'etatRealisationTaches_data',
+            'etatRealisationTaches_stats',
+            'etatRealisationTaches_filters',
+            'etatRealisationTache_instance'
+        );
+    
+        return [
+            'etatRealisationTaches_data' => $etatRealisationTaches_data,
+            'etatRealisationTaches_stats' => $etatRealisationTaches_stats,
+            'etatRealisationTaches_filters' => $etatRealisationTaches_filters,
+            'etatRealisationTache_instance' => $etatRealisationTache_instance,
+            'etatRealisationTache_viewType' => $etatRealisationTache_viewType,
+            'etatRealisationTache_viewTypes' => $etatRealisationTache_viewTypes,
+            'etatRealisationTache_partialViewName' => $etatRealisationTache_partialViewName,
+            'etatRealisationTache_compact_value' => $compact_value
+        ];
+    }
+
 }

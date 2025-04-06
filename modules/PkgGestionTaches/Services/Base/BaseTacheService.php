@@ -115,4 +115,51 @@ class BaseTacheService extends BaseService
         };
     }
 
+
+
+    public function prepareDataForIndexView(array $params = []): array
+    {
+        // Définir le type de vue par défaut
+        $default_view_type = 'table';
+        $this->viewState->init('tache_view_type', $default_view_type);
+        $tache_viewType = $this->viewState->get('tache_view_type', $default_view_type);
+    
+        // Si viewType = widgets, appliquer filtre visible = 1
+        if ($this->viewState->get('tache_view_type') === 'widgets') {
+            $this->viewState->set("filter.tache.visible", 1);
+        }
+        
+        // Récupération des données
+        $taches_data = $this->paginate($params);
+        $taches_stats = $this->gettacheStats();
+        $taches_filters = $this->getFieldsFilterable();
+        $tache_instance = $this->createInstance();
+        $tache_viewTypes = $this->getViewTypes();
+        $tache_partialViewName = $this->getPartialViewName($tache_viewType);
+    
+        // Enregistrer les stats dans le ViewState
+        $this->viewState->set('stats.tache.stats', $taches_stats);
+    
+        // Préparer les variables à injecter dans compact()
+        $compact_value = compact(
+            'tache_viewTypes',
+            'tache_viewType',
+            'taches_data',
+            'taches_stats',
+            'taches_filters',
+            'tache_instance'
+        );
+    
+        return [
+            'taches_data' => $taches_data,
+            'taches_stats' => $taches_stats,
+            'taches_filters' => $taches_filters,
+            'tache_instance' => $tache_instance,
+            'tache_viewType' => $tache_viewType,
+            'tache_viewTypes' => $tache_viewTypes,
+            'tache_partialViewName' => $tache_partialViewName,
+            'tache_compact_value' => $compact_value
+        ];
+    }
+
 }

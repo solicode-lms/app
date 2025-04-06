@@ -70,8 +70,8 @@
                             :exportXlsxRoute="route('formations.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('formations.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
-                            :viewTypes="$viewTypes"
-                            :viewType="$viewType"
+                            :viewTypes="$formation_viewTypes"
+                            :viewType="$formation_viewType"
                         />
                         @endcan
                     </div>
@@ -109,16 +109,16 @@
                 </div>
                 @show
                 <div id="formation-data-container" class="data-container">
-                    @if($viewType == "table")
-                    @include("PkgAutoformation::formation._$viewType")
+                    @if($formation_viewType == "table")
+                    @include("PkgAutoformation::formation._$formation_viewType")
                     @endif
                 </div>
             </div>
         </div>
     </section>
-     <section id="widgetUtilisateur-data-container-out" >
-        @if($viewType == "widgets")
-        @include("PkgAutoformation::formation._$viewType")
+     <section id="formation-data-container-out" >
+        @if($formation_viewType == "widgets")
+        @include("PkgAutoformation::formation._$formation_viewType")
         @endif
     </section>
     @show

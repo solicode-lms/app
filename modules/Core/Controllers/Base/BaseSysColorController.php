@@ -38,36 +38,29 @@ class BaseSysColorController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('sysColor.index');
         
-        $viewType = $this->viewState->get('view_type', 'table');
-        $viewTypes = $this->getService()->getViewTypes();
-        
 
 
 
-        // Extraire les paramètres de recherche, page, et filtres
+         // Extraire les paramètres de recherche, pagination, filtres
         $sysColors_params = array_merge(
-            $request->only(['page','sort']),
-            ['search' => $request->get('sysColors_search', $this->viewState->get("filter.sysColor.sysColors_search"))],
+            $request->only(['page', 'sort']),
+            ['search' => $request->get(
+                'sysColors_search',
+                $this->viewState->get("filter.sysColor.sysColors_search")
+            )],
             $request->except(['sysColors_search', 'page', 'sort'])
         );
 
-        // Paginer les sysColors
-        $sysColors_data = $this->sysColorService->paginate($sysColors_params);
-
-        // Récupérer les statistiques et les champs filtrables
-        $sysColors_stats = $this->sysColorService->getsysColorStats();
-        $this->viewState->set('stats.sysColor.stats'  , $sysColors_stats);
-        $sysColors_filters = $this->sysColorService->getFieldsFilterable();
-        $sysColor_instance =  $this->sysColorService->createInstance();
+        // prepareDataForIndexView
+        $tcView = $this->sysColorService->prepareDataForIndexView($sysColors_params);
+        extract($tcView); // Toutes les variables sont injectées automatiquement
         
-        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
-
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($partialViewName, compact('viewTypes','sysColors_data', 'sysColors_stats', 'sysColors_filters','sysColor_instance'))->render();
+            return view($sysColor_partialViewName, $sysColor_compact_value)->render();
         }
 
-        return view('Core::sysColor.index', compact('viewTypes','viewType','sysColors_data', 'sysColors_stats', 'sysColors_filters','sysColor_instance'));
+        return view('Core::sysColor.index', $sysColor_compact_value);
     }
     public function create() {
 
@@ -118,88 +111,70 @@ class BaseSysColorController extends AdminController
 
 
         $etatChapitreService =  new EtatChapitreService();
-        $etatChapitres_data =  $etatChapitreService->paginate();
-        $etatChapitres_stats = $etatChapitreService->getetatChapitreStats();
-        $etatChapitres_filters = $etatChapitreService->getFieldsFilterable();
-        $etatChapitre_instance =  $etatChapitreService->createInstance();
+        $etatChapitres_view_data = $etatChapitreService->prepareDataForIndexView();
+        extract($etatChapitres_view_data);
 
         $this->viewState->set('scope.etatRealisationTache.sys_color_id', $id);
 
 
         $etatRealisationTacheService =  new EtatRealisationTacheService();
-        $etatRealisationTaches_data =  $etatRealisationTacheService->paginate();
-        $etatRealisationTaches_stats = $etatRealisationTacheService->getetatRealisationTacheStats();
-        $etatRealisationTaches_filters = $etatRealisationTacheService->getFieldsFilterable();
-        $etatRealisationTache_instance =  $etatRealisationTacheService->createInstance();
+        $etatRealisationTaches_view_data = $etatRealisationTacheService->prepareDataForIndexView();
+        extract($etatRealisationTaches_view_data);
 
         $this->viewState->set('scope.sysModel.sys_color_id', $id);
 
 
         $sysModelService =  new SysModelService();
-        $sysModels_data =  $sysModelService->paginate();
-        $sysModels_stats = $sysModelService->getsysModelStats();
-        $sysModels_filters = $sysModelService->getFieldsFilterable();
-        $sysModel_instance =  $sysModelService->createInstance();
+        $sysModels_view_data = $sysModelService->prepareDataForIndexView();
+        extract($sysModels_view_data);
 
         $this->viewState->set('scope.etatFormation.sys_color_id', $id);
 
 
         $etatFormationService =  new EtatFormationService();
-        $etatFormations_data =  $etatFormationService->paginate();
-        $etatFormations_stats = $etatFormationService->getetatFormationStats();
-        $etatFormations_filters = $etatFormationService->getFieldsFilterable();
-        $etatFormation_instance =  $etatFormationService->createInstance();
+        $etatFormations_view_data = $etatFormationService->prepareDataForIndexView();
+        extract($etatFormations_view_data);
 
         $this->viewState->set('scope.labelRealisationTache.sys_color_id', $id);
 
 
         $labelRealisationTacheService =  new LabelRealisationTacheService();
-        $labelRealisationTaches_data =  $labelRealisationTacheService->paginate();
-        $labelRealisationTaches_stats = $labelRealisationTacheService->getlabelRealisationTacheStats();
-        $labelRealisationTaches_filters = $labelRealisationTacheService->getFieldsFilterable();
-        $labelRealisationTache_instance =  $labelRealisationTacheService->createInstance();
+        $labelRealisationTaches_view_data = $labelRealisationTacheService->prepareDataForIndexView();
+        extract($labelRealisationTaches_view_data);
 
         $this->viewState->set('scope.sysModule.sys_color_id', $id);
 
 
         $sysModuleService =  new SysModuleService();
-        $sysModules_data =  $sysModuleService->paginate();
-        $sysModules_stats = $sysModuleService->getsysModuleStats();
-        $sysModules_filters = $sysModuleService->getFieldsFilterable();
-        $sysModule_instance =  $sysModuleService->createInstance();
+        $sysModules_view_data = $sysModuleService->prepareDataForIndexView();
+        extract($sysModules_view_data);
 
         $this->viewState->set('scope.widget.sys_color_id', $id);
 
 
         $widgetService =  new WidgetService();
-        $widgets_data =  $widgetService->paginate();
-        $widgets_stats = $widgetService->getwidgetStats();
-        $widgets_filters = $widgetService->getFieldsFilterable();
-        $widget_instance =  $widgetService->createInstance();
+        $widgets_view_data = $widgetService->prepareDataForIndexView();
+        extract($widgets_view_data);
 
         $this->viewState->set('scope.workflowChapitre.sys_color_id', $id);
 
 
         $workflowChapitreService =  new WorkflowChapitreService();
-        $workflowChapitres_data =  $workflowChapitreService->paginate();
-        $workflowChapitres_stats = $workflowChapitreService->getworkflowChapitreStats();
-        $workflowChapitres_filters = $workflowChapitreService->getFieldsFilterable();
-        $workflowChapitre_instance =  $workflowChapitreService->createInstance();
+        $workflowChapitres_view_data = $workflowChapitreService->prepareDataForIndexView();
+        extract($workflowChapitres_view_data);
 
         $this->viewState->set('scope.workflowFormation.sys_color_id', $id);
 
 
         $workflowFormationService =  new WorkflowFormationService();
-        $workflowFormations_data =  $workflowFormationService->paginate();
-        $workflowFormations_stats = $workflowFormationService->getworkflowFormationStats();
-        $workflowFormations_filters = $workflowFormationService->getFieldsFilterable();
-        $workflowFormation_instance =  $workflowFormationService->createInstance();
+        $workflowFormations_view_data = $workflowFormationService->prepareDataForIndexView();
+        extract($workflowFormations_view_data);
 
         if (request()->ajax()) {
-            return view('Core::sysColor._edit', compact('itemSysColor', 'etatChapitres_data', 'etatRealisationTaches_data', 'sysModels_data', 'etatFormations_data', 'labelRealisationTaches_data', 'sysModules_data', 'widgets_data', 'workflowChapitres_data', 'workflowFormations_data', 'etatChapitres_stats', 'etatRealisationTaches_stats', 'sysModels_stats', 'etatFormations_stats', 'labelRealisationTaches_stats', 'sysModules_stats', 'widgets_stats', 'workflowChapitres_stats', 'workflowFormations_stats', 'etatChapitres_filters', 'etatRealisationTaches_filters', 'sysModels_filters', 'etatFormations_filters', 'labelRealisationTaches_filters', 'sysModules_filters', 'widgets_filters', 'workflowChapitres_filters', 'workflowFormations_filters', 'etatChapitre_instance', 'etatRealisationTache_instance', 'sysModel_instance', 'etatFormation_instance', 'labelRealisationTache_instance', 'sysModule_instance', 'widget_instance', 'workflowChapitre_instance', 'workflowFormation_instance'));
+            return view('Core::sysColor._edit', array_merge(compact('itemSysColor'),));
         }
 
-        return view('Core::sysColor.edit', compact('itemSysColor', 'etatChapitres_data', 'etatRealisationTaches_data', 'sysModels_data', 'etatFormations_data', 'labelRealisationTaches_data', 'sysModules_data', 'widgets_data', 'workflowChapitres_data', 'workflowFormations_data', 'etatChapitres_stats', 'etatRealisationTaches_stats', 'sysModels_stats', 'etatFormations_stats', 'labelRealisationTaches_stats', 'sysModules_stats', 'widgets_stats', 'workflowChapitres_stats', 'workflowFormations_stats', 'etatChapitres_filters', 'etatRealisationTaches_filters', 'sysModels_filters', 'etatFormations_filters', 'labelRealisationTaches_filters', 'sysModules_filters', 'widgets_filters', 'workflowChapitres_filters', 'workflowFormations_filters', 'etatChapitre_instance', 'etatRealisationTache_instance', 'sysModel_instance', 'etatFormation_instance', 'labelRealisationTache_instance', 'sysModule_instance', 'widget_instance', 'workflowChapitre_instance', 'workflowFormation_instance'));
+        return view('Core::sysColor.edit', array_merge(compact('itemSysColor'),));
 
     }
     public function edit(string $id) {
@@ -216,97 +191,70 @@ class BaseSysColorController extends AdminController
         
 
         $etatChapitreService =  new EtatChapitreService();
-        $etatChapitres_data =  $etatChapitreService->paginate();
-        $etatChapitres_stats = $etatChapitreService->getetatChapitreStats();
-        $this->viewState->set('stats.etatChapitre.stats'  , $etatChapitres_stats);
-        $etatChapitres_filters = $etatChapitreService->getFieldsFilterable();
-        $etatChapitre_instance =  $etatChapitreService->createInstance();
+        $etatChapitres_view_data = $etatChapitreService->prepareDataForIndexView();
+        extract($etatChapitres_view_data);
 
         $this->viewState->set('scope.etatRealisationTache.sys_color_id', $id);
         
 
         $etatRealisationTacheService =  new EtatRealisationTacheService();
-        $etatRealisationTaches_data =  $etatRealisationTacheService->paginate();
-        $etatRealisationTaches_stats = $etatRealisationTacheService->getetatRealisationTacheStats();
-        $this->viewState->set('stats.etatRealisationTache.stats'  , $etatRealisationTaches_stats);
-        $etatRealisationTaches_filters = $etatRealisationTacheService->getFieldsFilterable();
-        $etatRealisationTache_instance =  $etatRealisationTacheService->createInstance();
+        $etatRealisationTaches_view_data = $etatRealisationTacheService->prepareDataForIndexView();
+        extract($etatRealisationTaches_view_data);
 
         $this->viewState->set('scope.sysModel.sys_color_id', $id);
         
 
         $sysModelService =  new SysModelService();
-        $sysModels_data =  $sysModelService->paginate();
-        $sysModels_stats = $sysModelService->getsysModelStats();
-        $this->viewState->set('stats.sysModel.stats'  , $sysModels_stats);
-        $sysModels_filters = $sysModelService->getFieldsFilterable();
-        $sysModel_instance =  $sysModelService->createInstance();
+        $sysModels_view_data = $sysModelService->prepareDataForIndexView();
+        extract($sysModels_view_data);
 
         $this->viewState->set('scope.etatFormation.sys_color_id', $id);
         
 
         $etatFormationService =  new EtatFormationService();
-        $etatFormations_data =  $etatFormationService->paginate();
-        $etatFormations_stats = $etatFormationService->getetatFormationStats();
-        $this->viewState->set('stats.etatFormation.stats'  , $etatFormations_stats);
-        $etatFormations_filters = $etatFormationService->getFieldsFilterable();
-        $etatFormation_instance =  $etatFormationService->createInstance();
+        $etatFormations_view_data = $etatFormationService->prepareDataForIndexView();
+        extract($etatFormations_view_data);
 
         $this->viewState->set('scope.labelRealisationTache.sys_color_id', $id);
         
 
         $labelRealisationTacheService =  new LabelRealisationTacheService();
-        $labelRealisationTaches_data =  $labelRealisationTacheService->paginate();
-        $labelRealisationTaches_stats = $labelRealisationTacheService->getlabelRealisationTacheStats();
-        $this->viewState->set('stats.labelRealisationTache.stats'  , $labelRealisationTaches_stats);
-        $labelRealisationTaches_filters = $labelRealisationTacheService->getFieldsFilterable();
-        $labelRealisationTache_instance =  $labelRealisationTacheService->createInstance();
+        $labelRealisationTaches_view_data = $labelRealisationTacheService->prepareDataForIndexView();
+        extract($labelRealisationTaches_view_data);
 
         $this->viewState->set('scope.sysModule.sys_color_id', $id);
         
 
         $sysModuleService =  new SysModuleService();
-        $sysModules_data =  $sysModuleService->paginate();
-        $sysModules_stats = $sysModuleService->getsysModuleStats();
-        $this->viewState->set('stats.sysModule.stats'  , $sysModules_stats);
-        $sysModules_filters = $sysModuleService->getFieldsFilterable();
-        $sysModule_instance =  $sysModuleService->createInstance();
+        $sysModules_view_data = $sysModuleService->prepareDataForIndexView();
+        extract($sysModules_view_data);
 
         $this->viewState->set('scope.widget.sys_color_id', $id);
         
 
         $widgetService =  new WidgetService();
-        $widgets_data =  $widgetService->paginate();
-        $widgets_stats = $widgetService->getwidgetStats();
-        $this->viewState->set('stats.widget.stats'  , $widgets_stats);
-        $widgets_filters = $widgetService->getFieldsFilterable();
-        $widget_instance =  $widgetService->createInstance();
+        $widgets_view_data = $widgetService->prepareDataForIndexView();
+        extract($widgets_view_data);
 
         $this->viewState->set('scope.workflowChapitre.sys_color_id', $id);
         
 
         $workflowChapitreService =  new WorkflowChapitreService();
-        $workflowChapitres_data =  $workflowChapitreService->paginate();
-        $workflowChapitres_stats = $workflowChapitreService->getworkflowChapitreStats();
-        $this->viewState->set('stats.workflowChapitre.stats'  , $workflowChapitres_stats);
-        $workflowChapitres_filters = $workflowChapitreService->getFieldsFilterable();
-        $workflowChapitre_instance =  $workflowChapitreService->createInstance();
+        $workflowChapitres_view_data = $workflowChapitreService->prepareDataForIndexView();
+        extract($workflowChapitres_view_data);
 
         $this->viewState->set('scope.workflowFormation.sys_color_id', $id);
         
 
         $workflowFormationService =  new WorkflowFormationService();
-        $workflowFormations_data =  $workflowFormationService->paginate();
-        $workflowFormations_stats = $workflowFormationService->getworkflowFormationStats();
-        $this->viewState->set('stats.workflowFormation.stats'  , $workflowFormations_stats);
-        $workflowFormations_filters = $workflowFormationService->getFieldsFilterable();
-        $workflowFormation_instance =  $workflowFormationService->createInstance();
+        $workflowFormations_view_data = $workflowFormationService->prepareDataForIndexView();
+        extract($workflowFormations_view_data);
 
         if (request()->ajax()) {
-            return view('Core::sysColor._edit', compact('itemSysColor', 'etatChapitres_data', 'etatRealisationTaches_data', 'sysModels_data', 'etatFormations_data', 'labelRealisationTaches_data', 'sysModules_data', 'widgets_data', 'workflowChapitres_data', 'workflowFormations_data', 'etatChapitres_stats', 'etatRealisationTaches_stats', 'sysModels_stats', 'etatFormations_stats', 'labelRealisationTaches_stats', 'sysModules_stats', 'widgets_stats', 'workflowChapitres_stats', 'workflowFormations_stats', 'etatChapitres_filters', 'etatRealisationTaches_filters', 'sysModels_filters', 'etatFormations_filters', 'labelRealisationTaches_filters', 'sysModules_filters', 'widgets_filters', 'workflowChapitres_filters', 'workflowFormations_filters', 'etatChapitre_instance', 'etatRealisationTache_instance', 'sysModel_instance', 'etatFormation_instance', 'labelRealisationTache_instance', 'sysModule_instance', 'widget_instance', 'workflowChapitre_instance', 'workflowFormation_instance'));
+            return view('Core::sysColor._edit', array_merge(compact('itemSysColor',),$etatChapitre_compact_value, $etatRealisationTache_compact_value, $sysModel_compact_value, $etatFormation_compact_value, $labelRealisationTache_compact_value, $sysModule_compact_value, $widget_compact_value, $workflowChapitre_compact_value, $workflowFormation_compact_value));
         }
 
-        return view('Core::sysColor.edit', compact('itemSysColor', 'etatChapitres_data', 'etatRealisationTaches_data', 'sysModels_data', 'etatFormations_data', 'labelRealisationTaches_data', 'sysModules_data', 'widgets_data', 'workflowChapitres_data', 'workflowFormations_data', 'etatChapitres_stats', 'etatRealisationTaches_stats', 'sysModels_stats', 'etatFormations_stats', 'labelRealisationTaches_stats', 'sysModules_stats', 'widgets_stats', 'workflowChapitres_stats', 'workflowFormations_stats', 'etatChapitres_filters', 'etatRealisationTaches_filters', 'sysModels_filters', 'etatFormations_filters', 'labelRealisationTaches_filters', 'sysModules_filters', 'widgets_filters', 'workflowChapitres_filters', 'workflowFormations_filters', 'etatChapitre_instance', 'etatRealisationTache_instance', 'sysModel_instance', 'etatFormation_instance', 'labelRealisationTache_instance', 'sysModule_instance', 'widget_instance', 'workflowChapitre_instance', 'workflowFormation_instance'));
+        return view('Core::sysColor.edit', array_merge(compact('itemSysColor',),$etatChapitre_compact_value, $etatRealisationTache_compact_value, $sysModel_compact_value, $etatFormation_compact_value, $labelRealisationTache_compact_value, $sysModule_compact_value, $widget_compact_value, $workflowChapitre_compact_value, $workflowFormation_compact_value));
 
     }
     public function update(SysColorRequest $request, string $id) {

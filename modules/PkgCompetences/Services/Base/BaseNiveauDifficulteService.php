@@ -125,4 +125,51 @@ class BaseNiveauDifficulteService extends BaseService
         };
     }
 
+
+
+    public function prepareDataForIndexView(array $params = []): array
+    {
+        // Définir le type de vue par défaut
+        $default_view_type = 'table';
+        $this->viewState->init('niveauDifficulte_view_type', $default_view_type);
+        $niveauDifficulte_viewType = $this->viewState->get('niveauDifficulte_view_type', $default_view_type);
+    
+        // Si viewType = widgets, appliquer filtre visible = 1
+        if ($this->viewState->get('niveauDifficulte_view_type') === 'widgets') {
+            $this->viewState->set("filter.niveauDifficulte.visible", 1);
+        }
+        
+        // Récupération des données
+        $niveauDifficultes_data = $this->paginate($params);
+        $niveauDifficultes_stats = $this->getniveauDifficulteStats();
+        $niveauDifficultes_filters = $this->getFieldsFilterable();
+        $niveauDifficulte_instance = $this->createInstance();
+        $niveauDifficulte_viewTypes = $this->getViewTypes();
+        $niveauDifficulte_partialViewName = $this->getPartialViewName($niveauDifficulte_viewType);
+    
+        // Enregistrer les stats dans le ViewState
+        $this->viewState->set('stats.niveauDifficulte.stats', $niveauDifficultes_stats);
+    
+        // Préparer les variables à injecter dans compact()
+        $compact_value = compact(
+            'niveauDifficulte_viewTypes',
+            'niveauDifficulte_viewType',
+            'niveauDifficultes_data',
+            'niveauDifficultes_stats',
+            'niveauDifficultes_filters',
+            'niveauDifficulte_instance'
+        );
+    
+        return [
+            'niveauDifficultes_data' => $niveauDifficultes_data,
+            'niveauDifficultes_stats' => $niveauDifficultes_stats,
+            'niveauDifficultes_filters' => $niveauDifficultes_filters,
+            'niveauDifficulte_instance' => $niveauDifficulte_instance,
+            'niveauDifficulte_viewType' => $niveauDifficulte_viewType,
+            'niveauDifficulte_viewTypes' => $niveauDifficulte_viewTypes,
+            'niveauDifficulte_partialViewName' => $niveauDifficulte_partialViewName,
+            'niveauDifficulte_compact_value' => $compact_value
+        ];
+    }
+
 }

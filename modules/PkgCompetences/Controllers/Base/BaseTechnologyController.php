@@ -41,36 +41,29 @@ class BaseTechnologyController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('technology.index');
         
-        $viewType = $this->viewState->get('view_type', 'table');
-        $viewTypes = $this->getService()->getViewTypes();
-        
 
 
 
-        // Extraire les paramètres de recherche, page, et filtres
+         // Extraire les paramètres de recherche, pagination, filtres
         $technologies_params = array_merge(
-            $request->only(['page','sort']),
-            ['search' => $request->get('technologies_search', $this->viewState->get("filter.technology.technologies_search"))],
+            $request->only(['page', 'sort']),
+            ['search' => $request->get(
+                'technologies_search',
+                $this->viewState->get("filter.technology.technologies_search")
+            )],
             $request->except(['technologies_search', 'page', 'sort'])
         );
 
-        // Paginer les technologies
-        $technologies_data = $this->technologyService->paginate($technologies_params);
-
-        // Récupérer les statistiques et les champs filtrables
-        $technologies_stats = $this->technologyService->gettechnologyStats();
-        $this->viewState->set('stats.technology.stats'  , $technologies_stats);
-        $technologies_filters = $this->technologyService->getFieldsFilterable();
-        $technology_instance =  $this->technologyService->createInstance();
+        // prepareDataForIndexView
+        $tcView = $this->technologyService->prepareDataForIndexView($technologies_params);
+        extract($tcView); // Toutes les variables sont injectées automatiquement
         
-        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
-
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($partialViewName, compact('viewTypes','technologies_data', 'technologies_stats', 'technologies_filters','technology_instance'))->render();
+            return view($technology_partialViewName, $technology_compact_value)->render();
         }
 
-        return view('PkgCompetences::technology.index', compact('viewTypes','viewType','technologies_data', 'technologies_stats', 'technologies_filters','technology_instance'));
+        return view('PkgCompetences::technology.index', $technology_compact_value);
     }
     public function create() {
 
@@ -126,10 +119,10 @@ class BaseTechnologyController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('PkgCompetences::technology._fields', compact('itemTechnology', 'competences', 'formations', 'transfertCompetences', 'categoryTechnologies'));
+            return view('PkgCompetences::technology._fields', array_merge(compact('itemTechnology'),$competences, $formations, $transfertCompetences, $categoryTechnologies));
         }
 
-        return view('PkgCompetences::technology.edit', compact('itemTechnology', 'competences', 'formations', 'transfertCompetences', 'categoryTechnologies'));
+        return view('PkgCompetences::technology.edit', array_merge(compact('itemTechnology'),$competences, $formations, $transfertCompetences, $categoryTechnologies));
 
     }
     public function edit(string $id) {
@@ -147,10 +140,10 @@ class BaseTechnologyController extends AdminController
 
 
         if (request()->ajax()) {
-            return view('PkgCompetences::technology._fields', compact('itemTechnology', 'competences', 'formations', 'transfertCompetences', 'categoryTechnologies'));
+            return view('PkgCompetences::technology._fields', array_merge(compact('itemTechnology','competences', 'formations', 'transfertCompetences', 'categoryTechnologies'),));
         }
 
-        return view('PkgCompetences::technology.edit', compact('itemTechnology', 'competences', 'formations', 'transfertCompetences', 'categoryTechnologies'));
+        return view('PkgCompetences::technology.edit', array_merge(compact('itemTechnology','competences', 'formations', 'transfertCompetences', 'categoryTechnologies'),));
 
     }
     public function update(TechnologyRequest $request, string $id) {

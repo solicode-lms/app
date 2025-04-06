@@ -70,8 +70,8 @@
                             :exportXlsxRoute="route('workflowTaches.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('workflowTaches.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
-                            :viewTypes="$viewTypes"
-                            :viewType="$viewType"
+                            :viewTypes="$workflowTache_viewTypes"
+                            :viewType="$workflowTache_viewType"
                         />
                         @endcan
                     </div>
@@ -109,16 +109,16 @@
                 </div>
                 @show
                 <div id="workflowTache-data-container" class="data-container">
-                    @if($viewType == "table")
-                    @include("PkgGestionTaches::workflowTache._$viewType")
+                    @if($workflowTache_viewType == "table")
+                    @include("PkgGestionTaches::workflowTache._$workflowTache_viewType")
                     @endif
                 </div>
             </div>
         </div>
     </section>
-     <section id="widgetUtilisateur-data-container-out" >
-        @if($viewType == "widgets")
-        @include("PkgGestionTaches::workflowTache._$viewType")
+     <section id="workflowTache-data-container-out" >
+        @if($workflowTache_viewType == "widgets")
+        @include("PkgGestionTaches::workflowTache._$workflowTache_viewType")
         @endif
     </section>
     @show

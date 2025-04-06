@@ -32,9 +32,6 @@ class BaseProfileController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('profile.index');
         
-        $viewType = $this->viewState->get('view_type', 'table');
-        $viewTypes = $this->getService()->getViewTypes();
-        
         // ownedByUser
         if(Auth::user()->hasRole('formateur') && $this->viewState->get('scope.profile.user_id') == null){
            $this->viewState->init('scope.profile.user_id'  , $this->sessionState->get('user_id'));
@@ -52,30 +49,26 @@ class BaseProfileController extends AdminController
             $this->viewState->init('scope.user.apprenant.id'  , $this->sessionState->get('apprenant_id'));
         }
 
-        // Extraire les paramètres de recherche, page, et filtres
+         // Extraire les paramètres de recherche, pagination, filtres
         $profiles_params = array_merge(
-            $request->only(['page','sort']),
-            ['search' => $request->get('profiles_search', $this->viewState->get("filter.profile.profiles_search"))],
+            $request->only(['page', 'sort']),
+            ['search' => $request->get(
+                'profiles_search',
+                $this->viewState->get("filter.profile.profiles_search")
+            )],
             $request->except(['profiles_search', 'page', 'sort'])
         );
 
-        // Paginer les profiles
-        $profiles_data = $this->profileService->paginate($profiles_params);
-
-        // Récupérer les statistiques et les champs filtrables
-        $profiles_stats = $this->profileService->getprofileStats();
-        $this->viewState->set('stats.profile.stats'  , $profiles_stats);
-        $profiles_filters = $this->profileService->getFieldsFilterable();
-        $profile_instance =  $this->profileService->createInstance();
+        // prepareDataForIndexView
+        $tcView = $this->profileService->prepareDataForIndexView($profiles_params);
+        extract($tcView); // Toutes les variables sont injectées automatiquement
         
-        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
-
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($partialViewName, compact('viewTypes','profiles_data', 'profiles_stats', 'profiles_filters','profile_instance'))->render();
+            return view($profile_partialViewName, $profile_compact_value)->render();
         }
 
-        return view('PkgAutorisation::profile.index', compact('viewTypes','viewType','profiles_data', 'profiles_stats', 'profiles_filters','profile_instance'));
+        return view('PkgAutorisation::profile.index', $profile_compact_value);
     }
     public function create() {
         // ownedByUser
@@ -145,10 +138,10 @@ class BaseProfileController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('PkgAutorisation::profile._fields', compact('itemProfile', 'users'));
+            return view('PkgAutorisation::profile._fields', array_merge(compact('itemProfile'),$users));
         }
 
-        return view('PkgAutorisation::profile.edit', compact('itemProfile', 'users'));
+        return view('PkgAutorisation::profile.edit', array_merge(compact('itemProfile'),$users));
 
     }
     public function edit(string $id) {
@@ -170,10 +163,10 @@ class BaseProfileController extends AdminController
 
 
         if (request()->ajax()) {
-            return view('PkgAutorisation::profile._fields', compact('itemProfile', 'users'));
+            return view('PkgAutorisation::profile._fields', array_merge(compact('itemProfile','users'),));
         }
 
-        return view('PkgAutorisation::profile.edit', compact('itemProfile', 'users'));
+        return view('PkgAutorisation::profile.edit', array_merge(compact('itemProfile','users'),));
 
     }
     public function update(ProfileRequest $request, string $id) {

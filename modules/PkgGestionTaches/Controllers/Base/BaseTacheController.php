@@ -40,36 +40,29 @@ class BaseTacheController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('tache.index');
         
-        $viewType = $this->viewState->get('view_type', 'table');
-        $viewTypes = $this->getService()->getViewTypes();
-        
 
 
 
-        // Extraire les paramètres de recherche, page, et filtres
+         // Extraire les paramètres de recherche, pagination, filtres
         $taches_params = array_merge(
-            $request->only(['page','sort']),
-            ['search' => $request->get('taches_search', $this->viewState->get("filter.tache.taches_search"))],
+            $request->only(['page', 'sort']),
+            ['search' => $request->get(
+                'taches_search',
+                $this->viewState->get("filter.tache.taches_search")
+            )],
             $request->except(['taches_search', 'page', 'sort'])
         );
 
-        // Paginer les taches
-        $taches_data = $this->tacheService->paginate($taches_params);
-
-        // Récupérer les statistiques et les champs filtrables
-        $taches_stats = $this->tacheService->gettacheStats();
-        $this->viewState->set('stats.tache.stats'  , $taches_stats);
-        $taches_filters = $this->tacheService->getFieldsFilterable();
-        $tache_instance =  $this->tacheService->createInstance();
+        // prepareDataForIndexView
+        $tcView = $this->tacheService->prepareDataForIndexView($taches_params);
+        extract($tcView); // Toutes les variables sont injectées automatiquement
         
-        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
-
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($partialViewName, compact('viewTypes','taches_data', 'taches_stats', 'taches_filters','tache_instance'))->render();
+            return view($tache_partialViewName, $tache_compact_value)->render();
         }
 
-        return view('PkgGestionTaches::tache.index', compact('viewTypes','viewType','taches_data', 'taches_stats', 'taches_filters','tache_instance'));
+        return view('PkgGestionTaches::tache.index', $tache_compact_value);
     }
     public function create() {
 
@@ -142,25 +135,21 @@ class BaseTacheController extends AdminController
 
 
         $dependanceTacheService =  new DependanceTacheService();
-        $dependanceTaches_data =  $dependanceTacheService->paginate();
-        $dependanceTaches_stats = $dependanceTacheService->getdependanceTacheStats();
-        $dependanceTaches_filters = $dependanceTacheService->getFieldsFilterable();
-        $dependanceTache_instance =  $dependanceTacheService->createInstance();
+        $dependanceTaches_view_data = $dependanceTacheService->prepareDataForIndexView();
+        extract($dependanceTaches_view_data);
 
         $this->viewState->set('scope.realisationTache.tache_id', $id);
 
 
         $realisationTacheService =  new RealisationTacheService();
-        $realisationTaches_data =  $realisationTacheService->paginate();
-        $realisationTaches_stats = $realisationTacheService->getrealisationTacheStats();
-        $realisationTaches_filters = $realisationTacheService->getFieldsFilterable();
-        $realisationTache_instance =  $realisationTacheService->createInstance();
+        $realisationTaches_view_data = $realisationTacheService->prepareDataForIndexView();
+        extract($realisationTaches_view_data);
 
         if (request()->ajax()) {
-            return view('PkgGestionTaches::tache._edit', compact('itemTache', 'livrables', 'prioriteTaches', 'projets', 'dependanceTaches_data', 'realisationTaches_data', 'dependanceTaches_stats', 'realisationTaches_stats', 'dependanceTaches_filters', 'realisationTaches_filters', 'dependanceTache_instance', 'realisationTache_instance'));
+            return view('PkgGestionTaches::tache._edit', array_merge(compact('itemTache'),$livrables, $prioriteTaches, $projets));
         }
 
-        return view('PkgGestionTaches::tache.edit', compact('itemTache', 'livrables', 'prioriteTaches', 'projets', 'dependanceTaches_data', 'realisationTaches_data', 'dependanceTaches_stats', 'realisationTaches_stats', 'dependanceTaches_filters', 'realisationTaches_filters', 'dependanceTache_instance', 'realisationTache_instance'));
+        return view('PkgGestionTaches::tache.edit', array_merge(compact('itemTache'),$livrables, $prioriteTaches, $projets));
 
     }
     public function edit(string $id) {
@@ -188,27 +177,21 @@ class BaseTacheController extends AdminController
         
 
         $dependanceTacheService =  new DependanceTacheService();
-        $dependanceTaches_data =  $dependanceTacheService->paginate();
-        $dependanceTaches_stats = $dependanceTacheService->getdependanceTacheStats();
-        $this->viewState->set('stats.dependanceTache.stats'  , $dependanceTaches_stats);
-        $dependanceTaches_filters = $dependanceTacheService->getFieldsFilterable();
-        $dependanceTache_instance =  $dependanceTacheService->createInstance();
+        $dependanceTaches_view_data = $dependanceTacheService->prepareDataForIndexView();
+        extract($dependanceTaches_view_data);
 
         $this->viewState->set('scope.realisationTache.tache_id', $id);
         
 
         $realisationTacheService =  new RealisationTacheService();
-        $realisationTaches_data =  $realisationTacheService->paginate();
-        $realisationTaches_stats = $realisationTacheService->getrealisationTacheStats();
-        $this->viewState->set('stats.realisationTache.stats'  , $realisationTaches_stats);
-        $realisationTaches_filters = $realisationTacheService->getFieldsFilterable();
-        $realisationTache_instance =  $realisationTacheService->createInstance();
+        $realisationTaches_view_data = $realisationTacheService->prepareDataForIndexView();
+        extract($realisationTaches_view_data);
 
         if (request()->ajax()) {
-            return view('PkgGestionTaches::tache._edit', compact('itemTache', 'livrables', 'prioriteTaches', 'projets', 'dependanceTaches_data', 'realisationTaches_data', 'dependanceTaches_stats', 'realisationTaches_stats', 'dependanceTaches_filters', 'realisationTaches_filters', 'dependanceTache_instance', 'realisationTache_instance'));
+            return view('PkgGestionTaches::tache._edit', array_merge(compact('itemTache','livrables', 'prioriteTaches', 'projets'),$dependanceTache_compact_value, $realisationTache_compact_value));
         }
 
-        return view('PkgGestionTaches::tache.edit', compact('itemTache', 'livrables', 'prioriteTaches', 'projets', 'dependanceTaches_data', 'realisationTaches_data', 'dependanceTaches_stats', 'realisationTaches_stats', 'dependanceTaches_filters', 'realisationTaches_filters', 'dependanceTache_instance', 'realisationTache_instance'));
+        return view('PkgGestionTaches::tache.edit', array_merge(compact('itemTache','livrables', 'prioriteTaches', 'projets'),$dependanceTache_compact_value, $realisationTache_compact_value));
 
     }
     public function update(TacheRequest $request, string $id) {

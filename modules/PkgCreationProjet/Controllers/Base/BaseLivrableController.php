@@ -38,9 +38,6 @@ class BaseLivrableController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('livrable.index');
         
-        $viewType = $this->viewState->get('view_type', 'table');
-        $viewTypes = $this->getService()->getViewTypes();
-        
         // ownedByUser
         if(Auth::user()->hasRole('formateur') && $this->viewState->get('filter.livrable.projet.formateur_id') == null){
            $this->viewState->init('filter.livrable.projet.formateur_id'  , $this->sessionState->get('formateur_id'));
@@ -48,30 +45,26 @@ class BaseLivrableController extends AdminController
 
 
 
-        // Extraire les paramètres de recherche, page, et filtres
+         // Extraire les paramètres de recherche, pagination, filtres
         $livrables_params = array_merge(
-            $request->only(['page','sort']),
-            ['search' => $request->get('livrables_search', $this->viewState->get("filter.livrable.livrables_search"))],
+            $request->only(['page', 'sort']),
+            ['search' => $request->get(
+                'livrables_search',
+                $this->viewState->get("filter.livrable.livrables_search")
+            )],
             $request->except(['livrables_search', 'page', 'sort'])
         );
 
-        // Paginer les livrables
-        $livrables_data = $this->livrableService->paginate($livrables_params);
-
-        // Récupérer les statistiques et les champs filtrables
-        $livrables_stats = $this->livrableService->getlivrableStats();
-        $this->viewState->set('stats.livrable.stats'  , $livrables_stats);
-        $livrables_filters = $this->livrableService->getFieldsFilterable();
-        $livrable_instance =  $this->livrableService->createInstance();
+        // prepareDataForIndexView
+        $tcView = $this->livrableService->prepareDataForIndexView($livrables_params);
+        extract($tcView); // Toutes les variables sont injectées automatiquement
         
-        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
-
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($partialViewName, compact('viewTypes','livrables_data', 'livrables_stats', 'livrables_filters','livrable_instance'))->render();
+            return view($livrable_partialViewName, $livrable_compact_value)->render();
         }
 
-        return view('PkgCreationProjet::livrable.index', compact('viewTypes','viewType','livrables_data', 'livrables_stats', 'livrables_filters','livrable_instance'));
+        return view('PkgCreationProjet::livrable.index', $livrable_compact_value);
     }
     public function create() {
         // ownedByUser
@@ -138,10 +131,10 @@ class BaseLivrableController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('PkgCreationProjet::livrable._fields', compact('itemLivrable', 'taches', 'natureLivrables', 'projets'));
+            return view('PkgCreationProjet::livrable._fields', array_merge(compact('itemLivrable'),$taches, $natureLivrables, $projets));
         }
 
-        return view('PkgCreationProjet::livrable.edit', compact('itemLivrable', 'taches', 'natureLivrables', 'projets'));
+        return view('PkgCreationProjet::livrable.edit', array_merge(compact('itemLivrable'),$taches, $natureLivrables, $projets));
 
     }
     public function edit(string $id) {
@@ -163,10 +156,10 @@ class BaseLivrableController extends AdminController
 
 
         if (request()->ajax()) {
-            return view('PkgCreationProjet::livrable._fields', compact('itemLivrable', 'taches', 'natureLivrables', 'projets'));
+            return view('PkgCreationProjet::livrable._fields', array_merge(compact('itemLivrable','taches', 'natureLivrables', 'projets'),));
         }
 
-        return view('PkgCreationProjet::livrable.edit', compact('itemLivrable', 'taches', 'natureLivrables', 'projets'));
+        return view('PkgCreationProjet::livrable.edit', array_merge(compact('itemLivrable','taches', 'natureLivrables', 'projets'),));
 
     }
     public function update(LivrableRequest $request, string $id) {

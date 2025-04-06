@@ -70,8 +70,8 @@
                             :exportXlsxRoute="route('niveauDifficultes.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('niveauDifficultes.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
-                            :viewTypes="$viewTypes"
-                            :viewType="$viewType"
+                            :viewTypes="$niveauDifficulte_viewTypes"
+                            :viewType="$niveauDifficulte_viewType"
                         />
                         @endcan
                     </div>
@@ -109,16 +109,16 @@
                 </div>
                 @show
                 <div id="niveauDifficulte-data-container" class="data-container">
-                    @if($viewType == "table")
-                    @include("PkgCompetences::niveauDifficulte._$viewType")
+                    @if($niveauDifficulte_viewType == "table")
+                    @include("PkgCompetences::niveauDifficulte._$niveauDifficulte_viewType")
                     @endif
                 </div>
             </div>
         </div>
     </section>
-     <section id="widgetUtilisateur-data-container-out" >
-        @if($viewType == "widgets")
-        @include("PkgCompetences::niveauDifficulte._$viewType")
+     <section id="niveauDifficulte-data-container-out" >
+        @if($niveauDifficulte_viewType == "widgets")
+        @include("PkgCompetences::niveauDifficulte._$niveauDifficulte_viewType")
         @endif
     </section>
     @show

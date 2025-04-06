@@ -38,9 +38,6 @@ class BaseEtatRealisationTacheController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('etatRealisationTache.index');
         
-        $viewType = $this->viewState->get('view_type', 'table');
-        $viewTypes = $this->getService()->getViewTypes();
-        
         // ownedByUser
         if(Auth::user()->hasRole('formateur') && $this->viewState->get('scope.etatRealisationTache.formateur_id') == null){
            $this->viewState->init('scope.etatRealisationTache.formateur_id'  , $this->sessionState->get('formateur_id'));
@@ -48,30 +45,26 @@ class BaseEtatRealisationTacheController extends AdminController
 
 
 
-        // Extraire les paramètres de recherche, page, et filtres
+         // Extraire les paramètres de recherche, pagination, filtres
         $etatRealisationTaches_params = array_merge(
-            $request->only(['page','sort']),
-            ['search' => $request->get('etatRealisationTaches_search', $this->viewState->get("filter.etatRealisationTache.etatRealisationTaches_search"))],
+            $request->only(['page', 'sort']),
+            ['search' => $request->get(
+                'etatRealisationTaches_search',
+                $this->viewState->get("filter.etatRealisationTache.etatRealisationTaches_search")
+            )],
             $request->except(['etatRealisationTaches_search', 'page', 'sort'])
         );
 
-        // Paginer les etatRealisationTaches
-        $etatRealisationTaches_data = $this->etatRealisationTacheService->paginate($etatRealisationTaches_params);
-
-        // Récupérer les statistiques et les champs filtrables
-        $etatRealisationTaches_stats = $this->etatRealisationTacheService->getetatRealisationTacheStats();
-        $this->viewState->set('stats.etatRealisationTache.stats'  , $etatRealisationTaches_stats);
-        $etatRealisationTaches_filters = $this->etatRealisationTacheService->getFieldsFilterable();
-        $etatRealisationTache_instance =  $this->etatRealisationTacheService->createInstance();
+        // prepareDataForIndexView
+        $tcView = $this->etatRealisationTacheService->prepareDataForIndexView($etatRealisationTaches_params);
+        extract($tcView); // Toutes les variables sont injectées automatiquement
         
-        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
-
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($partialViewName, compact('viewTypes','etatRealisationTaches_data', 'etatRealisationTaches_stats', 'etatRealisationTaches_filters','etatRealisationTache_instance'))->render();
+            return view($etatRealisationTache_partialViewName, $etatRealisationTache_compact_value)->render();
         }
 
-        return view('PkgGestionTaches::etatRealisationTache.index', compact('viewTypes','viewType','etatRealisationTaches_data', 'etatRealisationTaches_stats', 'etatRealisationTaches_filters','etatRealisationTache_instance'));
+        return view('PkgGestionTaches::etatRealisationTache.index', $etatRealisationTache_compact_value);
     }
     public function create() {
         // ownedByUser
@@ -130,10 +123,10 @@ class BaseEtatRealisationTacheController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('PkgGestionTaches::etatRealisationTache._fields', compact('itemEtatRealisationTache', 'formateurs', 'sysColors', 'workflowTaches'));
+            return view('PkgGestionTaches::etatRealisationTache._fields', array_merge(compact('itemEtatRealisationTache'),$formateurs, $sysColors, $workflowTaches));
         }
 
-        return view('PkgGestionTaches::etatRealisationTache.edit', compact('itemEtatRealisationTache', 'formateurs', 'sysColors', 'workflowTaches'));
+        return view('PkgGestionTaches::etatRealisationTache.edit', array_merge(compact('itemEtatRealisationTache'),$formateurs, $sysColors, $workflowTaches));
 
     }
     public function edit(string $id) {
@@ -151,10 +144,10 @@ class BaseEtatRealisationTacheController extends AdminController
 
 
         if (request()->ajax()) {
-            return view('PkgGestionTaches::etatRealisationTache._fields', compact('itemEtatRealisationTache', 'formateurs', 'sysColors', 'workflowTaches'));
+            return view('PkgGestionTaches::etatRealisationTache._fields', array_merge(compact('itemEtatRealisationTache','formateurs', 'sysColors', 'workflowTaches'),));
         }
 
-        return view('PkgGestionTaches::etatRealisationTache.edit', compact('itemEtatRealisationTache', 'formateurs', 'sysColors', 'workflowTaches'));
+        return view('PkgGestionTaches::etatRealisationTache.edit', array_merge(compact('itemEtatRealisationTache','formateurs', 'sysColors', 'workflowTaches'),));
 
     }
     public function update(EtatRealisationTacheRequest $request, string $id) {

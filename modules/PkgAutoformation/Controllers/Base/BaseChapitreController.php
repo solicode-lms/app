@@ -39,36 +39,29 @@ class BaseChapitreController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('chapitre.index');
         
-        $viewType = $this->viewState->get('view_type', 'table');
-        $viewTypes = $this->getService()->getViewTypes();
-        
 
 
 
-        // Extraire les paramètres de recherche, page, et filtres
+         // Extraire les paramètres de recherche, pagination, filtres
         $chapitres_params = array_merge(
-            $request->only(['page','sort']),
-            ['search' => $request->get('chapitres_search', $this->viewState->get("filter.chapitre.chapitres_search"))],
+            $request->only(['page', 'sort']),
+            ['search' => $request->get(
+                'chapitres_search',
+                $this->viewState->get("filter.chapitre.chapitres_search")
+            )],
             $request->except(['chapitres_search', 'page', 'sort'])
         );
 
-        // Paginer les chapitres
-        $chapitres_data = $this->chapitreService->paginate($chapitres_params);
-
-        // Récupérer les statistiques et les champs filtrables
-        $chapitres_stats = $this->chapitreService->getchapitreStats();
-        $this->viewState->set('stats.chapitre.stats'  , $chapitres_stats);
-        $chapitres_filters = $this->chapitreService->getFieldsFilterable();
-        $chapitre_instance =  $this->chapitreService->createInstance();
+        // prepareDataForIndexView
+        $tcView = $this->chapitreService->prepareDataForIndexView($chapitres_params);
+        extract($tcView); // Toutes les variables sont injectées automatiquement
         
-        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
-
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($partialViewName, compact('viewTypes','chapitres_data', 'chapitres_stats', 'chapitres_filters','chapitre_instance'))->render();
+            return view($chapitre_partialViewName, $chapitre_compact_value)->render();
         }
 
-        return view('PkgAutoformation::chapitre.index', compact('viewTypes','viewType','chapitres_data', 'chapitres_stats', 'chapitres_filters','chapitre_instance'));
+        return view('PkgAutoformation::chapitre.index', $chapitre_compact_value);
     }
     public function create() {
 
@@ -127,25 +120,21 @@ class BaseChapitreController extends AdminController
 
 
         $chapitreService =  new ChapitreService();
-        $chapitres_data =  $chapitreService->paginate();
-        $chapitres_stats = $chapitreService->getchapitreStats();
-        $chapitres_filters = $chapitreService->getFieldsFilterable();
-        $chapitre_instance =  $chapitreService->createInstance();
+        $chapitres_view_data = $chapitreService->prepareDataForIndexView();
+        extract($chapitres_view_data);
 
         $this->viewState->set('scope.realisationChapitre.chapitre_id', $id);
 
 
         $realisationChapitreService =  new RealisationChapitreService();
-        $realisationChapitres_data =  $realisationChapitreService->paginate();
-        $realisationChapitres_stats = $realisationChapitreService->getrealisationChapitreStats();
-        $realisationChapitres_filters = $realisationChapitreService->getFieldsFilterable();
-        $realisationChapitre_instance =  $realisationChapitreService->createInstance();
+        $realisationChapitres_view_data = $realisationChapitreService->prepareDataForIndexView();
+        extract($realisationChapitres_view_data);
 
         if (request()->ajax()) {
-            return view('PkgAutoformation::chapitre._edit', compact('itemChapitre', 'chapitres', 'formateurs', 'formations', 'niveauCompetences', 'chapitres_data', 'realisationChapitres_data', 'chapitres_stats', 'realisationChapitres_stats', 'chapitres_filters', 'realisationChapitres_filters', 'chapitre_instance', 'realisationChapitre_instance'));
+            return view('PkgAutoformation::chapitre._edit', array_merge(compact('itemChapitre'),$chapitres, $formateurs, $formations, $niveauCompetences));
         }
 
-        return view('PkgAutoformation::chapitre.edit', compact('itemChapitre', 'chapitres', 'formateurs', 'formations', 'niveauCompetences', 'chapitres_data', 'realisationChapitres_data', 'chapitres_stats', 'realisationChapitres_stats', 'chapitres_filters', 'realisationChapitres_filters', 'chapitre_instance', 'realisationChapitre_instance'));
+        return view('PkgAutoformation::chapitre.edit', array_merge(compact('itemChapitre'),$chapitres, $formateurs, $formations, $niveauCompetences));
 
     }
     public function edit(string $id) {
@@ -166,27 +155,21 @@ class BaseChapitreController extends AdminController
         
 
         $chapitreService =  new ChapitreService();
-        $chapitres_data =  $chapitreService->paginate();
-        $chapitres_stats = $chapitreService->getchapitreStats();
-        $this->viewState->set('stats.chapitre.stats'  , $chapitres_stats);
-        $chapitres_filters = $chapitreService->getFieldsFilterable();
-        $chapitre_instance =  $chapitreService->createInstance();
+        $chapitres_view_data = $chapitreService->prepareDataForIndexView();
+        extract($chapitres_view_data);
 
         $this->viewState->set('scope.realisationChapitre.chapitre_id', $id);
         
 
         $realisationChapitreService =  new RealisationChapitreService();
-        $realisationChapitres_data =  $realisationChapitreService->paginate();
-        $realisationChapitres_stats = $realisationChapitreService->getrealisationChapitreStats();
-        $this->viewState->set('stats.realisationChapitre.stats'  , $realisationChapitres_stats);
-        $realisationChapitres_filters = $realisationChapitreService->getFieldsFilterable();
-        $realisationChapitre_instance =  $realisationChapitreService->createInstance();
+        $realisationChapitres_view_data = $realisationChapitreService->prepareDataForIndexView();
+        extract($realisationChapitres_view_data);
 
         if (request()->ajax()) {
-            return view('PkgAutoformation::chapitre._edit', compact('itemChapitre', 'chapitres', 'formateurs', 'formations', 'niveauCompetences', 'chapitres_data', 'realisationChapitres_data', 'chapitres_stats', 'realisationChapitres_stats', 'chapitres_filters', 'realisationChapitres_filters', 'chapitre_instance', 'realisationChapitre_instance'));
+            return view('PkgAutoformation::chapitre._edit', array_merge(compact('itemChapitre','chapitres', 'formateurs', 'formations', 'niveauCompetences'),$chapitre_compact_value, $realisationChapitre_compact_value));
         }
 
-        return view('PkgAutoformation::chapitre.edit', compact('itemChapitre', 'chapitres', 'formateurs', 'formations', 'niveauCompetences', 'chapitres_data', 'realisationChapitres_data', 'chapitres_stats', 'realisationChapitres_stats', 'chapitres_filters', 'realisationChapitres_filters', 'chapitre_instance', 'realisationChapitre_instance'));
+        return view('PkgAutoformation::chapitre.edit', array_merge(compact('itemChapitre','chapitres', 'formateurs', 'formations', 'niveauCompetences'),$chapitre_compact_value, $realisationChapitre_compact_value));
 
     }
     public function update(ChapitreRequest $request, string $id) {

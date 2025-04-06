@@ -70,8 +70,8 @@
                             :exportXlsxRoute="route('profiles.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('profiles.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
-                            :viewTypes="$viewTypes"
-                            :viewType="$viewType"
+                            :viewTypes="$profile_viewTypes"
+                            :viewType="$profile_viewType"
                         />
                         @endcan
                     </div>
@@ -109,16 +109,16 @@
                 </div>
                 @show
                 <div id="profile-data-container" class="data-container">
-                    @if($viewType == "table")
-                    @include("PkgAutorisation::profile._$viewType")
+                    @if($profile_viewType == "table")
+                    @include("PkgAutorisation::profile._$profile_viewType")
                     @endif
                 </div>
             </div>
         </div>
     </section>
-     <section id="widgetUtilisateur-data-container-out" >
-        @if($viewType == "widgets")
-        @include("PkgAutorisation::profile._$viewType")
+     <section id="profile-data-container-out" >
+        @if($profile_viewType == "widgets")
+        @include("PkgAutorisation::profile._$profile_viewType")
         @endif
     </section>
     @show

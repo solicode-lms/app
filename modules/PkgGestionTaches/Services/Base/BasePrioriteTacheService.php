@@ -124,4 +124,51 @@ class BasePrioriteTacheService extends BaseService
         };
     }
 
+
+
+    public function prepareDataForIndexView(array $params = []): array
+    {
+        // Définir le type de vue par défaut
+        $default_view_type = 'table';
+        $this->viewState->init('prioriteTache_view_type', $default_view_type);
+        $prioriteTache_viewType = $this->viewState->get('prioriteTache_view_type', $default_view_type);
+    
+        // Si viewType = widgets, appliquer filtre visible = 1
+        if ($this->viewState->get('prioriteTache_view_type') === 'widgets') {
+            $this->viewState->set("filter.prioriteTache.visible", 1);
+        }
+        
+        // Récupération des données
+        $prioriteTaches_data = $this->paginate($params);
+        $prioriteTaches_stats = $this->getprioriteTacheStats();
+        $prioriteTaches_filters = $this->getFieldsFilterable();
+        $prioriteTache_instance = $this->createInstance();
+        $prioriteTache_viewTypes = $this->getViewTypes();
+        $prioriteTache_partialViewName = $this->getPartialViewName($prioriteTache_viewType);
+    
+        // Enregistrer les stats dans le ViewState
+        $this->viewState->set('stats.prioriteTache.stats', $prioriteTaches_stats);
+    
+        // Préparer les variables à injecter dans compact()
+        $compact_value = compact(
+            'prioriteTache_viewTypes',
+            'prioriteTache_viewType',
+            'prioriteTaches_data',
+            'prioriteTaches_stats',
+            'prioriteTaches_filters',
+            'prioriteTache_instance'
+        );
+    
+        return [
+            'prioriteTaches_data' => $prioriteTaches_data,
+            'prioriteTaches_stats' => $prioriteTaches_stats,
+            'prioriteTaches_filters' => $prioriteTaches_filters,
+            'prioriteTache_instance' => $prioriteTache_instance,
+            'prioriteTache_viewType' => $prioriteTache_viewType,
+            'prioriteTache_viewTypes' => $prioriteTache_viewTypes,
+            'prioriteTache_partialViewName' => $prioriteTache_partialViewName,
+            'prioriteTache_compact_value' => $compact_value
+        ];
+    }
+
 }

@@ -122,4 +122,51 @@ class BaseEDataFieldService extends BaseService
         };
     }
 
+
+
+    public function prepareDataForIndexView(array $params = []): array
+    {
+        // Définir le type de vue par défaut
+        $default_view_type = 'table';
+        $this->viewState->init('eDataField_view_type', $default_view_type);
+        $eDataField_viewType = $this->viewState->get('eDataField_view_type', $default_view_type);
+    
+        // Si viewType = widgets, appliquer filtre visible = 1
+        if ($this->viewState->get('eDataField_view_type') === 'widgets') {
+            $this->viewState->set("filter.eDataField.visible", 1);
+        }
+        
+        // Récupération des données
+        $eDataFields_data = $this->paginate($params);
+        $eDataFields_stats = $this->geteDataFieldStats();
+        $eDataFields_filters = $this->getFieldsFilterable();
+        $eDataField_instance = $this->createInstance();
+        $eDataField_viewTypes = $this->getViewTypes();
+        $eDataField_partialViewName = $this->getPartialViewName($eDataField_viewType);
+    
+        // Enregistrer les stats dans le ViewState
+        $this->viewState->set('stats.eDataField.stats', $eDataFields_stats);
+    
+        // Préparer les variables à injecter dans compact()
+        $compact_value = compact(
+            'eDataField_viewTypes',
+            'eDataField_viewType',
+            'eDataFields_data',
+            'eDataFields_stats',
+            'eDataFields_filters',
+            'eDataField_instance'
+        );
+    
+        return [
+            'eDataFields_data' => $eDataFields_data,
+            'eDataFields_stats' => $eDataFields_stats,
+            'eDataFields_filters' => $eDataFields_filters,
+            'eDataField_instance' => $eDataField_instance,
+            'eDataField_viewType' => $eDataField_viewType,
+            'eDataField_viewTypes' => $eDataField_viewTypes,
+            'eDataField_partialViewName' => $eDataField_partialViewName,
+            'eDataField_compact_value' => $compact_value
+        ];
+    }
+
 }

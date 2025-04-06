@@ -70,8 +70,8 @@
                             :exportXlsxRoute="route('projets.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('projets.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
-                            :viewTypes="$viewTypes"
-                            :viewType="$viewType"
+                            :viewTypes="$projet_viewTypes"
+                            :viewType="$projet_viewType"
                         />
                         @endcan
                     </div>
@@ -109,16 +109,16 @@
                 </div>
                 @show
                 <div id="projet-data-container" class="data-container">
-                    @if($viewType == "table")
-                    @include("PkgCreationProjet::projet._$viewType")
+                    @if($projet_viewType == "table")
+                    @include("PkgCreationProjet::projet._$projet_viewType")
                     @endif
                 </div>
             </div>
         </div>
     </section>
-     <section id="widgetUtilisateur-data-container-out" >
-        @if($viewType == "widgets")
-        @include("PkgCreationProjet::projet._$viewType")
+     <section id="projet-data-container-out" >
+        @if($projet_viewType == "widgets")
+        @include("PkgCreationProjet::projet._$projet_viewType")
         @endif
     </section>
     @show

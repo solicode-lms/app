@@ -125,4 +125,51 @@ class BaseERelationshipService extends BaseService
         };
     }
 
+
+
+    public function prepareDataForIndexView(array $params = []): array
+    {
+        // Définir le type de vue par défaut
+        $default_view_type = 'table';
+        $this->viewState->init('eRelationship_view_type', $default_view_type);
+        $eRelationship_viewType = $this->viewState->get('eRelationship_view_type', $default_view_type);
+    
+        // Si viewType = widgets, appliquer filtre visible = 1
+        if ($this->viewState->get('eRelationship_view_type') === 'widgets') {
+            $this->viewState->set("filter.eRelationship.visible", 1);
+        }
+        
+        // Récupération des données
+        $eRelationships_data = $this->paginate($params);
+        $eRelationships_stats = $this->geteRelationshipStats();
+        $eRelationships_filters = $this->getFieldsFilterable();
+        $eRelationship_instance = $this->createInstance();
+        $eRelationship_viewTypes = $this->getViewTypes();
+        $eRelationship_partialViewName = $this->getPartialViewName($eRelationship_viewType);
+    
+        // Enregistrer les stats dans le ViewState
+        $this->viewState->set('stats.eRelationship.stats', $eRelationships_stats);
+    
+        // Préparer les variables à injecter dans compact()
+        $compact_value = compact(
+            'eRelationship_viewTypes',
+            'eRelationship_viewType',
+            'eRelationships_data',
+            'eRelationships_stats',
+            'eRelationships_filters',
+            'eRelationship_instance'
+        );
+    
+        return [
+            'eRelationships_data' => $eRelationships_data,
+            'eRelationships_stats' => $eRelationships_stats,
+            'eRelationships_filters' => $eRelationships_filters,
+            'eRelationship_instance' => $eRelationship_instance,
+            'eRelationship_viewType' => $eRelationship_viewType,
+            'eRelationship_viewTypes' => $eRelationship_viewTypes,
+            'eRelationship_partialViewName' => $eRelationship_partialViewName,
+            'eRelationship_compact_value' => $compact_value
+        ];
+    }
+
 }

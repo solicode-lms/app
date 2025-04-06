@@ -70,8 +70,8 @@
                             :exportXlsxRoute="route('roles.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('roles.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
-                            :viewTypes="$viewTypes"
-                            :viewType="$viewType"
+                            :viewTypes="$role_viewTypes"
+                            :viewType="$role_viewType"
                         />
                         @endcan
                     </div>
@@ -109,16 +109,16 @@
                 </div>
                 @show
                 <div id="role-data-container" class="data-container">
-                    @if($viewType == "table")
-                    @include("PkgAutorisation::role._$viewType")
+                    @if($role_viewType == "table")
+                    @include("PkgAutorisation::role._$role_viewType")
                     @endif
                 </div>
             </div>
         </div>
     </section>
-     <section id="widgetUtilisateur-data-container-out" >
-        @if($viewType == "widgets")
-        @include("PkgAutorisation::role._$viewType")
+     <section id="role-data-container-out" >
+        @if($role_viewType == "widgets")
+        @include("PkgAutorisation::role._$role_viewType")
         @endif
     </section>
     @show

@@ -30,36 +30,29 @@ class BaseWorkflowTacheController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('workflowTache.index');
         
-        $viewType = $this->viewState->get('view_type', 'table');
-        $viewTypes = $this->getService()->getViewTypes();
-        
 
 
 
-        // Extraire les paramètres de recherche, page, et filtres
+         // Extraire les paramètres de recherche, pagination, filtres
         $workflowTaches_params = array_merge(
-            $request->only(['page','sort']),
-            ['search' => $request->get('workflowTaches_search', $this->viewState->get("filter.workflowTache.workflowTaches_search"))],
+            $request->only(['page', 'sort']),
+            ['search' => $request->get(
+                'workflowTaches_search',
+                $this->viewState->get("filter.workflowTache.workflowTaches_search")
+            )],
             $request->except(['workflowTaches_search', 'page', 'sort'])
         );
 
-        // Paginer les workflowTaches
-        $workflowTaches_data = $this->workflowTacheService->paginate($workflowTaches_params);
-
-        // Récupérer les statistiques et les champs filtrables
-        $workflowTaches_stats = $this->workflowTacheService->getworkflowTacheStats();
-        $this->viewState->set('stats.workflowTache.stats'  , $workflowTaches_stats);
-        $workflowTaches_filters = $this->workflowTacheService->getFieldsFilterable();
-        $workflowTache_instance =  $this->workflowTacheService->createInstance();
+        // prepareDataForIndexView
+        $tcView = $this->workflowTacheService->prepareDataForIndexView($workflowTaches_params);
+        extract($tcView); // Toutes les variables sont injectées automatiquement
         
-        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
-
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($partialViewName, compact('viewTypes','workflowTaches_data', 'workflowTaches_stats', 'workflowTaches_filters','workflowTache_instance'))->render();
+            return view($workflowTache_partialViewName, $workflowTache_compact_value)->render();
         }
 
-        return view('PkgGestionTaches::workflowTache.index', compact('viewTypes','viewType','workflowTaches_data', 'workflowTaches_stats', 'workflowTaches_filters','workflowTache_instance'));
+        return view('PkgGestionTaches::workflowTache.index', $workflowTache_compact_value);
     }
     public function create() {
 
@@ -110,16 +103,14 @@ class BaseWorkflowTacheController extends AdminController
 
 
         $etatRealisationTacheService =  new EtatRealisationTacheService();
-        $etatRealisationTaches_data =  $etatRealisationTacheService->paginate();
-        $etatRealisationTaches_stats = $etatRealisationTacheService->getetatRealisationTacheStats();
-        $etatRealisationTaches_filters = $etatRealisationTacheService->getFieldsFilterable();
-        $etatRealisationTache_instance =  $etatRealisationTacheService->createInstance();
+        $etatRealisationTaches_view_data = $etatRealisationTacheService->prepareDataForIndexView();
+        extract($etatRealisationTaches_view_data);
 
         if (request()->ajax()) {
-            return view('PkgGestionTaches::workflowTache._edit', compact('itemWorkflowTache', 'etatRealisationTaches_data', 'etatRealisationTaches_stats', 'etatRealisationTaches_filters', 'etatRealisationTache_instance'));
+            return view('PkgGestionTaches::workflowTache._edit', array_merge(compact('itemWorkflowTache'),));
         }
 
-        return view('PkgGestionTaches::workflowTache.edit', compact('itemWorkflowTache', 'etatRealisationTaches_data', 'etatRealisationTaches_stats', 'etatRealisationTaches_filters', 'etatRealisationTache_instance'));
+        return view('PkgGestionTaches::workflowTache.edit', array_merge(compact('itemWorkflowTache'),));
 
     }
     public function edit(string $id) {
@@ -136,17 +127,14 @@ class BaseWorkflowTacheController extends AdminController
         
 
         $etatRealisationTacheService =  new EtatRealisationTacheService();
-        $etatRealisationTaches_data =  $etatRealisationTacheService->paginate();
-        $etatRealisationTaches_stats = $etatRealisationTacheService->getetatRealisationTacheStats();
-        $this->viewState->set('stats.etatRealisationTache.stats'  , $etatRealisationTaches_stats);
-        $etatRealisationTaches_filters = $etatRealisationTacheService->getFieldsFilterable();
-        $etatRealisationTache_instance =  $etatRealisationTacheService->createInstance();
+        $etatRealisationTaches_view_data = $etatRealisationTacheService->prepareDataForIndexView();
+        extract($etatRealisationTaches_view_data);
 
         if (request()->ajax()) {
-            return view('PkgGestionTaches::workflowTache._edit', compact('itemWorkflowTache', 'etatRealisationTaches_data', 'etatRealisationTaches_stats', 'etatRealisationTaches_filters', 'etatRealisationTache_instance'));
+            return view('PkgGestionTaches::workflowTache._edit', array_merge(compact('itemWorkflowTache',),$etatRealisationTache_compact_value));
         }
 
-        return view('PkgGestionTaches::workflowTache.edit', compact('itemWorkflowTache', 'etatRealisationTaches_data', 'etatRealisationTaches_stats', 'etatRealisationTaches_filters', 'etatRealisationTache_instance'));
+        return view('PkgGestionTaches::workflowTache.edit', array_merge(compact('itemWorkflowTache',),$etatRealisationTache_compact_value));
 
     }
     public function update(WorkflowTacheRequest $request, string $id) {

@@ -127,4 +127,51 @@ class BaseLabelRealisationTacheService extends BaseService
         };
     }
 
+
+
+    public function prepareDataForIndexView(array $params = []): array
+    {
+        // Définir le type de vue par défaut
+        $default_view_type = 'table';
+        $this->viewState->init('labelRealisationTache_view_type', $default_view_type);
+        $labelRealisationTache_viewType = $this->viewState->get('labelRealisationTache_view_type', $default_view_type);
+    
+        // Si viewType = widgets, appliquer filtre visible = 1
+        if ($this->viewState->get('labelRealisationTache_view_type') === 'widgets') {
+            $this->viewState->set("filter.labelRealisationTache.visible", 1);
+        }
+        
+        // Récupération des données
+        $labelRealisationTaches_data = $this->paginate($params);
+        $labelRealisationTaches_stats = $this->getlabelRealisationTacheStats();
+        $labelRealisationTaches_filters = $this->getFieldsFilterable();
+        $labelRealisationTache_instance = $this->createInstance();
+        $labelRealisationTache_viewTypes = $this->getViewTypes();
+        $labelRealisationTache_partialViewName = $this->getPartialViewName($labelRealisationTache_viewType);
+    
+        // Enregistrer les stats dans le ViewState
+        $this->viewState->set('stats.labelRealisationTache.stats', $labelRealisationTaches_stats);
+    
+        // Préparer les variables à injecter dans compact()
+        $compact_value = compact(
+            'labelRealisationTache_viewTypes',
+            'labelRealisationTache_viewType',
+            'labelRealisationTaches_data',
+            'labelRealisationTaches_stats',
+            'labelRealisationTaches_filters',
+            'labelRealisationTache_instance'
+        );
+    
+        return [
+            'labelRealisationTaches_data' => $labelRealisationTaches_data,
+            'labelRealisationTaches_stats' => $labelRealisationTaches_stats,
+            'labelRealisationTaches_filters' => $labelRealisationTaches_filters,
+            'labelRealisationTache_instance' => $labelRealisationTache_instance,
+            'labelRealisationTache_viewType' => $labelRealisationTache_viewType,
+            'labelRealisationTache_viewTypes' => $labelRealisationTache_viewTypes,
+            'labelRealisationTache_partialViewName' => $labelRealisationTache_partialViewName,
+            'labelRealisationTache_compact_value' => $compact_value
+        ];
+    }
+
 }

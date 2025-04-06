@@ -105,4 +105,51 @@ class BaseSysColorService extends BaseService
         };
     }
 
+
+
+    public function prepareDataForIndexView(array $params = []): array
+    {
+        // Définir le type de vue par défaut
+        $default_view_type = 'table';
+        $this->viewState->init('sysColor_view_type', $default_view_type);
+        $sysColor_viewType = $this->viewState->get('sysColor_view_type', $default_view_type);
+    
+        // Si viewType = widgets, appliquer filtre visible = 1
+        if ($this->viewState->get('sysColor_view_type') === 'widgets') {
+            $this->viewState->set("filter.sysColor.visible", 1);
+        }
+        
+        // Récupération des données
+        $sysColors_data = $this->paginate($params);
+        $sysColors_stats = $this->getsysColorStats();
+        $sysColors_filters = $this->getFieldsFilterable();
+        $sysColor_instance = $this->createInstance();
+        $sysColor_viewTypes = $this->getViewTypes();
+        $sysColor_partialViewName = $this->getPartialViewName($sysColor_viewType);
+    
+        // Enregistrer les stats dans le ViewState
+        $this->viewState->set('stats.sysColor.stats', $sysColors_stats);
+    
+        // Préparer les variables à injecter dans compact()
+        $compact_value = compact(
+            'sysColor_viewTypes',
+            'sysColor_viewType',
+            'sysColors_data',
+            'sysColors_stats',
+            'sysColors_filters',
+            'sysColor_instance'
+        );
+    
+        return [
+            'sysColors_data' => $sysColors_data,
+            'sysColors_stats' => $sysColors_stats,
+            'sysColors_filters' => $sysColors_filters,
+            'sysColor_instance' => $sysColor_instance,
+            'sysColor_viewType' => $sysColor_viewType,
+            'sysColor_viewTypes' => $sysColor_viewTypes,
+            'sysColor_partialViewName' => $sysColor_partialViewName,
+            'sysColor_compact_value' => $compact_value
+        ];
+    }
+
 }

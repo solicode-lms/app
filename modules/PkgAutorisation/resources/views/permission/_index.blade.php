@@ -70,8 +70,8 @@
                             :exportXlsxRoute="route('permissions.export', ['format' => 'xlsx'])"
                             :exportCsvRoute="route('permissions.export', ['format' => 'csv']) "
                             :exportText="__('Exporter')"
-                            :viewTypes="$viewTypes"
-                            :viewType="$viewType"
+                            :viewTypes="$permission_viewTypes"
+                            :viewType="$permission_viewType"
                         />
                         @endcan
                     </div>
@@ -109,16 +109,16 @@
                 </div>
                 @show
                 <div id="permission-data-container" class="data-container">
-                    @if($viewType == "table")
-                    @include("PkgAutorisation::permission._$viewType")
+                    @if($permission_viewType == "table")
+                    @include("PkgAutorisation::permission._$permission_viewType")
                     @endif
                 </div>
             </div>
         </div>
     </section>
-     <section id="widgetUtilisateur-data-container-out" >
-        @if($viewType == "widgets")
-        @include("PkgAutorisation::permission._$viewType")
+     <section id="permission-data-container-out" >
+        @if($permission_viewType == "widgets")
+        @include("PkgAutorisation::permission._$permission_viewType")
         @endif
     </section>
     @show

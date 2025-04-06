@@ -104,4 +104,51 @@ class BaseVilleService extends BaseService
         };
     }
 
+
+
+    public function prepareDataForIndexView(array $params = []): array
+    {
+        // Définir le type de vue par défaut
+        $default_view_type = 'table';
+        $this->viewState->init('ville_view_type', $default_view_type);
+        $ville_viewType = $this->viewState->get('ville_view_type', $default_view_type);
+    
+        // Si viewType = widgets, appliquer filtre visible = 1
+        if ($this->viewState->get('ville_view_type') === 'widgets') {
+            $this->viewState->set("filter.ville.visible", 1);
+        }
+        
+        // Récupération des données
+        $villes_data = $this->paginate($params);
+        $villes_stats = $this->getvilleStats();
+        $villes_filters = $this->getFieldsFilterable();
+        $ville_instance = $this->createInstance();
+        $ville_viewTypes = $this->getViewTypes();
+        $ville_partialViewName = $this->getPartialViewName($ville_viewType);
+    
+        // Enregistrer les stats dans le ViewState
+        $this->viewState->set('stats.ville.stats', $villes_stats);
+    
+        // Préparer les variables à injecter dans compact()
+        $compact_value = compact(
+            'ville_viewTypes',
+            'ville_viewType',
+            'villes_data',
+            'villes_stats',
+            'villes_filters',
+            'ville_instance'
+        );
+    
+        return [
+            'villes_data' => $villes_data,
+            'villes_stats' => $villes_stats,
+            'villes_filters' => $villes_filters,
+            'ville_instance' => $ville_instance,
+            'ville_viewType' => $ville_viewType,
+            'ville_viewTypes' => $ville_viewTypes,
+            'ville_partialViewName' => $ville_partialViewName,
+            'ville_compact_value' => $compact_value
+        ];
+    }
+
 }

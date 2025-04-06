@@ -35,36 +35,29 @@ class BaseDependanceTacheController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('dependanceTache.index');
         
-        $viewType = $this->viewState->get('view_type', 'table');
-        $viewTypes = $this->getService()->getViewTypes();
-        
 
 
 
-        // Extraire les paramètres de recherche, page, et filtres
+         // Extraire les paramètres de recherche, pagination, filtres
         $dependanceTaches_params = array_merge(
-            $request->only(['page','sort']),
-            ['search' => $request->get('dependanceTaches_search', $this->viewState->get("filter.dependanceTache.dependanceTaches_search"))],
+            $request->only(['page', 'sort']),
+            ['search' => $request->get(
+                'dependanceTaches_search',
+                $this->viewState->get("filter.dependanceTache.dependanceTaches_search")
+            )],
             $request->except(['dependanceTaches_search', 'page', 'sort'])
         );
 
-        // Paginer les dependanceTaches
-        $dependanceTaches_data = $this->dependanceTacheService->paginate($dependanceTaches_params);
-
-        // Récupérer les statistiques et les champs filtrables
-        $dependanceTaches_stats = $this->dependanceTacheService->getdependanceTacheStats();
-        $this->viewState->set('stats.dependanceTache.stats'  , $dependanceTaches_stats);
-        $dependanceTaches_filters = $this->dependanceTacheService->getFieldsFilterable();
-        $dependanceTache_instance =  $this->dependanceTacheService->createInstance();
+        // prepareDataForIndexView
+        $tcView = $this->dependanceTacheService->prepareDataForIndexView($dependanceTaches_params);
+        extract($tcView); // Toutes les variables sont injectées automatiquement
         
-        $partialViewName =  $partialViewName = $this->getService()->getPartialViewName($viewType);
-
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($partialViewName, compact('viewTypes','dependanceTaches_data', 'dependanceTaches_stats', 'dependanceTaches_filters','dependanceTache_instance'))->render();
+            return view($dependanceTache_partialViewName, $dependanceTache_compact_value)->render();
         }
 
-        return view('PkgGestionTaches::dependanceTache.index', compact('viewTypes','viewType','dependanceTaches_data', 'dependanceTaches_stats', 'dependanceTaches_filters','dependanceTache_instance'));
+        return view('PkgGestionTaches::dependanceTache.index', $dependanceTache_compact_value);
     }
     public function create() {
 
@@ -118,10 +111,10 @@ class BaseDependanceTacheController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('PkgGestionTaches::dependanceTache._fields', compact('itemDependanceTache', 'taches', 'taches', 'typeDependanceTaches'));
+            return view('PkgGestionTaches::dependanceTache._fields', array_merge(compact('itemDependanceTache'),$taches, $taches, $typeDependanceTaches));
         }
 
-        return view('PkgGestionTaches::dependanceTache.edit', compact('itemDependanceTache', 'taches', 'taches', 'typeDependanceTaches'));
+        return view('PkgGestionTaches::dependanceTache.edit', array_merge(compact('itemDependanceTache'),$taches, $taches, $typeDependanceTaches));
 
     }
     public function edit(string $id) {
@@ -138,10 +131,10 @@ class BaseDependanceTacheController extends AdminController
 
 
         if (request()->ajax()) {
-            return view('PkgGestionTaches::dependanceTache._fields', compact('itemDependanceTache', 'taches', 'taches', 'typeDependanceTaches'));
+            return view('PkgGestionTaches::dependanceTache._fields', array_merge(compact('itemDependanceTache','taches', 'taches', 'typeDependanceTaches'),));
         }
 
-        return view('PkgGestionTaches::dependanceTache.edit', compact('itemDependanceTache', 'taches', 'taches', 'typeDependanceTaches'));
+        return view('PkgGestionTaches::dependanceTache.edit', array_merge(compact('itemDependanceTache','taches', 'taches', 'typeDependanceTaches'),));
 
     }
     public function update(DependanceTacheRequest $request, string $id) {
