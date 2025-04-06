@@ -38,7 +38,7 @@ export class IndexViewSwitcherAction extends Action {
      * @param {String} selectedType
      */
     highlightActiveView(selectedType = null) {
-        const current = selectedType || this.viewState.getVariable(this.view_type_variable) || `${this.config.this.entity_name}_table`;
+        const current = selectedType || this.viewState.getVariable(this.view_type_variable) || `${this.config.entity_name}_table`;
         $('.view-switch-option').removeClass('active');
         $(`.view-switch-option[data-view-type="${current}"]`).addClass('active');
     }

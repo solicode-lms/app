@@ -206,7 +206,7 @@ class WidgetService extends BaseWidgetService
      */
     private function extractSpecialConditions(array &$query)
     {
-        foreach (['tableUI', 'group_by', 'column','limit','dataSource'] as $key) {
+        foreach (['tableUI', 'group_by','order_by' ,'column','limit','dataSource'] as $key) {
             if (!empty($query['conditions'][$key])) {
                 $query[$key] = $query['conditions'][$key];
                 unset($query['conditions'][$key]);

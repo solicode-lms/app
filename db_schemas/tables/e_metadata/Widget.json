@@ -408,7 +408,7 @@
     },
     {
         "reference": "widgets_roles_role_widget_m2m_m2m_displayInTable",
-        "value_boolean": 0,
+        "value_boolean": 1,
         "value_float": 0,
         "e_data_field_reference": "widgets_roles_role_widget_m2m_m2m",
         "e_metadata_definition_reference": "displayInTable"
@@ -498,7 +498,7 @@
     },
     {
         "reference": "Widget-package_displayInTable",
-        "value_boolean": 1,
+        "value_boolean": 0,
         "value_float": 0,
         "e_data_field_reference": "Widget-package",
         "e_metadata_definition_reference": "displayInTable"

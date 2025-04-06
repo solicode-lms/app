@@ -57,7 +57,8 @@
                         />
                     </div>
                     <div class="col-sm-4">
-                        @canany(['create-widgetUtilisateur','import-widgetUtilisateur','export-widgetUtilisateur'])
+                       
+                       
                         <x-crud-actions
                             :instanceItem="$widgetUtilisateur_instance"
                             :createPermission="'create-widgetUtilisateur'"
@@ -73,7 +74,7 @@
                             :viewTypes="$widgetUtilisateur_viewTypes"
                             :viewType="$widgetUtilisateur_viewType"
                         />
-                        @endcan
+                      
                     </div>
                 </div>
                 @show
