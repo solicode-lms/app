@@ -103,16 +103,14 @@ class BaseWidgetTypeController extends AdminController
 
 
         $widgetService =  new WidgetService();
-        $widgets_data =  $widgetService->paginate();
-        $widgets_stats = $widgetService->getwidgetStats();
-        $widgets_filters = $widgetService->getFieldsFilterable();
-        $widget_instance =  $widgetService->createInstance();
+        $widgets_view_data = $widgetService->prepareDataForIndexView();
+        extract($widgets_view_data);
 
         if (request()->ajax()) {
-            return view('PkgWidgets::widgetType._edit', compact('widget_compact_value'));
+            return view('PkgWidgets::widgetType._edit', array_merge(compact('itemWidgetType'),));
         }
 
-        return view('PkgWidgets::widgetType.edit', compact('widget_compact_value'));
+        return view('PkgWidgets::widgetType.edit', array_merge(compact('itemWidgetType'),));
 
     }
     public function edit(string $id) {
@@ -133,10 +131,10 @@ class BaseWidgetTypeController extends AdminController
         extract($widgets_view_data);
 
         if (request()->ajax()) {
-            return view('PkgWidgets::widgetType._edit', array_merge(compact('itemWidgetType'),$widget_compact_value));
+            return view('PkgWidgets::widgetType._edit', array_merge(compact('itemWidgetType,'),$widget_compact_value));
         }
 
-        return view('PkgWidgets::widgetType.edit', array_merge(compact('itemWidgetType'),$widget_compact_value));
+        return view('PkgWidgets::widgetType.edit', array_merge(compact('itemWidgetType,'),$widget_compact_value'),$widget_compact_value));
 
     }
     public function update(WidgetTypeRequest $request, string $id) {

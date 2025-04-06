@@ -103,16 +103,14 @@ class BaseWidgetOperationController extends AdminController
 
 
         $widgetService =  new WidgetService();
-        $widgets_data =  $widgetService->paginate();
-        $widgets_stats = $widgetService->getwidgetStats();
-        $widgets_filters = $widgetService->getFieldsFilterable();
-        $widget_instance =  $widgetService->createInstance();
+        $widgets_view_data = $widgetService->prepareDataForIndexView();
+        extract($widgets_view_data);
 
         if (request()->ajax()) {
-            return view('PkgWidgets::widgetOperation._edit', compact('itemWidgetOperation', 'widgets_data', 'widgets_stats', 'widgets_filters', 'widget_instance'));
+            return view('PkgWidgets::widgetOperation._edit', array_merge(compact('itemWidgetOperation'),$widget_compact_value));
         }
 
-        return view('PkgWidgets::widgetOperation.edit', compact('itemWidgetOperation', 'widgets_data', 'widgets_stats', 'widgets_filters', 'widget_instance'));
+        return view('PkgWidgets::widgetOperation.edit', array_merge(compact('itemWidgetOperation'),$widget_compact_value));
 
     }
     public function edit(string $id) {
@@ -129,17 +127,14 @@ class BaseWidgetOperationController extends AdminController
         
 
         $widgetService =  new WidgetService();
-        $widgets_data =  $widgetService->paginate();
-        $widgets_stats = $widgetService->getwidgetStats();
-        $this->viewState->set('stats.widget.stats'  , $widgets_stats);
-        $widgets_filters = $widgetService->getFieldsFilterable();
-        $widget_instance =  $widgetService->createInstance();
+        $widgets_view_data = $widgetService->prepareDataForIndexView();
+        extract($widgets_view_data);
 
         if (request()->ajax()) {
-            return view('PkgWidgets::widgetOperation._edit', compact('itemWidgetOperation', 'widgets_data', 'widgets_stats', 'widgets_filters', 'widget_instance'));
+            return view('PkgWidgets::widgetOperation._edit', array_merge(compact('itemWidgetOperation'),$widget_compact_value));
         }
 
-        return view('PkgWidgets::widgetOperation.edit', compact('itemWidgetOperation', 'widgets_data', 'widgets_stats', 'widgets_filters', 'widget_instance'));
+        return view('PkgWidgets::widgetOperation.edit', array_merge(compact('itemWidgetOperation'),$widget_compact_value));
 
     }
     public function update(WidgetOperationRequest $request, string $id) {

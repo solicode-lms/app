@@ -124,10 +124,10 @@ class BaseWidgetController extends AdminController
         
 
         if (request()->ajax()) {
-            return view('PkgWidgets::widget._fields', compact('itemWidget', 'roles', 'sysModels', 'widgetOperations', 'sysColors', 'widgetTypes'));
+            return view('PkgWidgets::widget._fields', array_merge(compact('itemWidget'),$roles, $sysModels, $widgetOperations, $sysColors, $widgetTypes));
         }
 
-        return view('PkgWidgets::widget.edit', compact('itemWidget', 'roles', 'sysModels', 'widgetOperations', 'sysColors', 'widgetTypes'));
+        return view('PkgWidgets::widget.edit', array_merge(compact('itemWidget'),$roles, $sysModels, $widgetOperations, $sysColors, $widgetTypes));
 
     }
     public function edit(string $id) {
@@ -146,10 +146,10 @@ class BaseWidgetController extends AdminController
 
 
         if (request()->ajax()) {
-            return view('PkgWidgets::widget._fields', compact('itemWidget', 'roles', 'sysModels', 'widgetOperations', 'sysColors', 'widgetTypes'));
+            return view('PkgWidgets::widget._fields', array_merge(compact('itemWidget','roles', 'sysModels', 'widgetOperations', 'sysColors', 'widgetTypes'),));
         }
 
-        return view('PkgWidgets::widget.edit', compact('itemWidget', 'roles', 'sysModels', 'widgetOperations', 'sysColors', 'widgetTypes'));
+        return view('PkgWidgets::widget.edit', array_merge(compact('itemWidget','roles', 'sysModels', 'widgetOperations', 'sysColors', 'widgetTypes'),));
 
     }
     public function update(WidgetRequest $request, string $id) {
