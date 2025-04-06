@@ -12,6 +12,7 @@ export class IndexViewSwitcherAction extends Action {
         this.config = config;
         this.tableUI = tableUI;
         this.viewState = config.viewStateService;
+        this.view_type_variable = this.config.view_type_variable
     }
 
     init() {
@@ -24,7 +25,8 @@ export class IndexViewSwitcherAction extends Action {
             e.preventDefault();
             const selectedType = $(e.currentTarget).data('view-type');
 
-            this.viewState.setVariable("view_type",selectedType)
+            const view_type_variable = `${this.view_type_variable}`
+            this.viewState.setVariable(view_type_variable,selectedType)
             this.highlightActiveView(selectedType);
             this.tableUI.entityLoader.loadEntities(1); // Recharge la liste
             this.tableUI.indexUI.filterUI.init();
@@ -36,7 +38,7 @@ export class IndexViewSwitcherAction extends Action {
      * @param {String} selectedType
      */
     highlightActiveView(selectedType = null) {
-        const current = selectedType || this.viewState.getVariable("view_type") || "table";
+        const current = selectedType || this.viewState.getVariable(this.view_type_variable) || `${this.config.this.entity_name}_table`;
         $('.view-switch-option').removeClass('active');
         $(`.view-switch-option[data-view-type="${current}"]`).addClass('active');
     }

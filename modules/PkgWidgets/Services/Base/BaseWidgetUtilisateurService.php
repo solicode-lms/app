@@ -1,5 +1,5 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ
+// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 
@@ -142,9 +142,14 @@ class BaseWidgetUtilisateurService extends BaseService
     {
         // Définir le type de vue par défaut
         $default_view_type = 'widgets';
-        $this->viewState->init('view_type', $default_view_type);
-        $viewType = $this->viewState->get('view_type', $default_view_type);
+        $this->viewState->init('widgetUtilisateur_view_type', $default_view_type);
+        $viewType = $this->viewState->get('widgetUtilisateur_view_type', $default_view_type);
     
+        // Si viewType = widgets, appliquer filtre visible = 1
+        if ($this->viewState->get('widgetUtilisateur_view_type') === 'widgets') {
+            $this->viewState->set("filter.widgetUtilisateur.visible", 1);
+        }
+        
         // Récupération des données
         $widgetUtilisateurs_data = $this->paginate($params);
         $widgetUtilisateurs_stats = $this->getwidgetUtilisateurStats();
@@ -167,8 +172,14 @@ class BaseWidgetUtilisateurService extends BaseService
         );
     
         return [
+            'widgetUtilisateurs_data' => $widgetUtilisateurs_data,
+            'widgetUtilisateurs_stats' => $widgetUtilisateurs_stats,
+            'widgetUtilisateurs_filters' => $widgetUtilisateurs_filters,
+            'widgetUtilisateur_instance' => $widgetUtilisateur_instance,
+            'viewType' => $viewType,
+            'viewTypes' => $viewTypes,
             'partialViewName' => $partialViewName,
-            '$compact_value' => $compact_value,
+            'compact_value' => $compact_value
         ];
     }
 

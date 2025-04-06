@@ -50,7 +50,7 @@ export class LoadListAction extends BaseAction {
         $.get(indexUrl)
             .done((html) => {
                 // TODO : à mettre dans this.config
-                const view_type = this.config.viewStateService.getVariable("view_type") || "table";
+                const view_type = this.config.viewStateService.getVariable(this.config.view_type_variable) || "table";
                 if(view_type == "widgets"){
                     $(this.config.dataContainerSelector).html("");
                     $(this.config.dataContainerOutSelector).html(html);

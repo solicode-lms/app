@@ -35,16 +35,7 @@ class BaseWidgetUtilisateurController extends AdminController
     }
 
     public function index(Request $request) {
-        
         $this->viewState->setContextKeyIfEmpty('widgetUtilisateur.index');
-        
-        // Ajouter le view_type par défaut 
-        $this->viewState->init('view_type', 'widgets');
-        $viewType = $this->viewState->get('view_type', 'table');
-        // If view_type = widget : ajouter le filtre : visible = true
-        if($viewType == "widgets"){
-            $this->viewState->set("filter.widgetUtilisateur.visible",1);
-        }
         
         // ownedByUser
         if(Auth::user()->hasRole('formateur') && $this->viewState->get('scope.widgetUtilisateur.user_id') == null){
@@ -59,23 +50,26 @@ class BaseWidgetUtilisateurController extends AdminController
 
 
 
-        // Extraire les paramètres de recherche, page, et filtres
+        // Extraire les paramètres de recherche, pagination, filtres
         $widgetUtilisateurs_params = array_merge(
-            $request->only(['page','sort']),
-            ['search' => $request->get('widgetUtilisateurs_search', $this->viewState->get("filter.widgetUtilisateur.widgetUtilisateurs_search"))],
+            $request->only(['page', 'sort']),
+            ['search' => $request->get(
+                'widgetUtilisateurs_search',
+                $this->viewState->get("filter.widgetUtilisateur.widgetUtilisateurs_search")
+            )],
             $request->except(['widgetUtilisateurs_search', 'page', 'sort'])
         );
 
         // prepareDataForIndexView
-        $tcView = $this->widgetUtilisateurService->prepareDataForIndexView($widgetUtilisateurs_params, $viewType);
+        $tcView = $this->widgetUtilisateurService->prepareDataForIndexView($widgetUtilisateurs_params);
         extract($tcView); // Toutes les variables sont injectées automatiquement
 
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($partialViewName, compact('viewTypes','widgetUtilisateurs_data', 'widgetUtilisateurs_stats', 'widgetUtilisateurs_filters','widgetUtilisateur_instance'))->render();
+            return view($partialViewName, $compact_value)->render();
         }
 
-        return view('PkgWidgets::widgetUtilisateur.index', compact('viewTypes','viewType','widgetUtilisateurs_data', 'widgetUtilisateurs_stats', 'widgetUtilisateurs_filters','widgetUtilisateur_instance'));
+        return view('PkgWidgets::widgetUtilisateur.index', $compact_value);
     }
     public function create() {
         // ownedByUser

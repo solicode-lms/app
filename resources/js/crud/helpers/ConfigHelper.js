@@ -13,6 +13,7 @@ export default class ConfigHelper {
       
 
         this.entity_name = config.entity_name;
+        this.view_type_variable = `${this.entity_name}_view_type` 
         this.contextKey = config.contextKey;
         this.formSelector = config.formSelector;
 
