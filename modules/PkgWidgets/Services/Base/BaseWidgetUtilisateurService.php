@@ -140,11 +140,8 @@ class BaseWidgetUtilisateurService extends BaseService
 
     public function prepareDataForIndexView(array $params = [], ?string $viewType = null): array
     {
-
-        
         $data = $this->paginate($params);
         $stats = $this->getwidgetUtilisateurStats();
-        
         $this->viewState->set('stats.widgetUtilisateur.stats'  , $stats);
 
         return [
@@ -157,6 +154,5 @@ class BaseWidgetUtilisateurService extends BaseService
             'viewTypes' => $this->getViewTypes(),
         ];
     }
-    
 
 }
