@@ -37,13 +37,10 @@ class BaseWidgetUtilisateurController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('widgetUtilisateur.index');
-
-
+        
         // Ajouter le view_type par défaut 
         $this->viewState->init('view_type', 'widgets');
-
         $viewType = $this->viewState->get('view_type', 'table');
-        
         // If view_type = widget : ajouter le filtre : visible = true
         if($viewType == "widgets"){
             $this->viewState->set("filter.widgetUtilisateur.visible",1);
@@ -60,14 +57,14 @@ class BaseWidgetUtilisateurController extends AdminController
            $this->viewState->init('scope.widgetUtilisateur.user_id'  , $this->sessionState->get('user_id'));
         }
 
+
+
         // Extraire les paramètres de recherche, page, et filtres
         $widgetUtilisateurs_params = array_merge(
             $request->only(['page','sort']),
             ['search' => $request->get('widgetUtilisateurs_search', $this->viewState->get("filter.widgetUtilisateur.widgetUtilisateurs_search"))],
             $request->except(['widgetUtilisateurs_search', 'page', 'sort'])
         );
-
-       
 
         // Paginer les widgetUtilisateurs
         $widgetUtilisateurs_data = $this->widgetUtilisateurService->paginate($widgetUtilisateurs_params);
@@ -78,12 +75,11 @@ class BaseWidgetUtilisateurController extends AdminController
         $widgetUtilisateurs_filters = $this->widgetUtilisateurService->getFieldsFilterable();
         $widgetUtilisateur_instance =  $this->widgetUtilisateurService->createInstance();
         
-       
         $partialViewName = match($viewType) {
             'widgets' => 'PkgWidgets::widgetUtilisateur._widgets',
             default   => 'PkgWidgets::widgetUtilisateur._table',
         };
-
+        
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
             return view($partialViewName, compact('widgetUtilisateurs_data', 'widgetUtilisateurs_stats', 'widgetUtilisateurs_filters','widgetUtilisateur_instance'))->render();
