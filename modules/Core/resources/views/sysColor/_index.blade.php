@@ -57,7 +57,7 @@
                         />
                     </div>
                     <div class="col-sm-4">
-                        @canany(['create-sysColor','import-sysColor','export-sysColor'])
+                      
                         <x-crud-actions
                             :instanceItem="$sysColor_instance"
                             :createPermission="'create-sysColor'"
@@ -73,7 +73,7 @@
                             :viewTypes="$sysColor_viewTypes"
                             :viewType="$sysColor_viewType"
                         />
-                        @endcan
+                    
                     </div>
                 </div>
                 @show

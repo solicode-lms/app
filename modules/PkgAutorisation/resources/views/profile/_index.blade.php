@@ -57,7 +57,7 @@
                         />
                     </div>
                     <div class="col-sm-4">
-                        @canany(['create-profile','import-profile','export-profile'])
+                      
                         <x-crud-actions
                             :instanceItem="$profile_instance"
                             :createPermission="'create-profile'"
@@ -73,7 +73,7 @@
                             :viewTypes="$profile_viewTypes"
                             :viewType="$profile_viewType"
                         />
-                        @endcan
+                    
                     </div>
                 </div>
                 @show

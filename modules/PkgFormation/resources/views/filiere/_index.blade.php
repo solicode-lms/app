@@ -57,7 +57,7 @@
                         />
                     </div>
                     <div class="col-sm-4">
-                        @canany(['create-filiere','import-filiere','export-filiere'])
+                      
                         <x-crud-actions
                             :instanceItem="$filiere_instance"
                             :createPermission="'create-filiere'"
@@ -73,7 +73,7 @@
                             :viewTypes="$filiere_viewTypes"
                             :viewType="$filiere_viewType"
                         />
-                        @endcan
+                    
                     </div>
                 </div>
                 @show

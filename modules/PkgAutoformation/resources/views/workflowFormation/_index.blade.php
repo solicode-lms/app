@@ -57,7 +57,7 @@
                         />
                     </div>
                     <div class="col-sm-4">
-                        @canany(['create-workflowFormation','import-workflowFormation','export-workflowFormation'])
+                      
                         <x-crud-actions
                             :instanceItem="$workflowFormation_instance"
                             :createPermission="'create-workflowFormation'"
@@ -73,7 +73,7 @@
                             :viewTypes="$workflowFormation_viewTypes"
                             :viewType="$workflowFormation_viewType"
                         />
-                        @endcan
+                    
                     </div>
                 </div>
                 @show

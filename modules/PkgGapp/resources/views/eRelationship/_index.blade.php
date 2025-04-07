@@ -57,7 +57,7 @@
                         />
                     </div>
                     <div class="col-sm-4">
-                        @canany(['create-eRelationship','import-eRelationship','export-eRelationship'])
+                      
                         <x-crud-actions
                             :instanceItem="$eRelationship_instance"
                             :createPermission="'create-eRelationship'"
@@ -73,7 +73,7 @@
                             :viewTypes="$eRelationship_viewTypes"
                             :viewType="$eRelationship_viewType"
                         />
-                        @endcan
+                    
                     </div>
                 </div>
                 @show

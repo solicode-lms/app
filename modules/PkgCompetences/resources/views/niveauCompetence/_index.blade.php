@@ -57,7 +57,7 @@
                         />
                     </div>
                     <div class="col-sm-4">
-                        @canany(['create-niveauCompetence','import-niveauCompetence','export-niveauCompetence'])
+                      
                         <x-crud-actions
                             :instanceItem="$niveauCompetence_instance"
                             :createPermission="'create-niveauCompetence'"
@@ -73,7 +73,7 @@
                             :viewTypes="$niveauCompetence_viewTypes"
                             :viewType="$niveauCompetence_viewType"
                         />
-                        @endcan
+                    
                     </div>
                 </div>
                 @show

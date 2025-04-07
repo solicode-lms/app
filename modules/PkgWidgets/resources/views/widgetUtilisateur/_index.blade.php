@@ -57,8 +57,7 @@
                         />
                     </div>
                     <div class="col-sm-4">
-                       
-                       
+                      
                         <x-crud-actions
                             :instanceItem="$widgetUtilisateur_instance"
                             :createPermission="'create-widgetUtilisateur'"
@@ -74,7 +73,7 @@
                             :viewTypes="$widgetUtilisateur_viewTypes"
                             :viewType="$widgetUtilisateur_viewType"
                         />
-                      
+                    
                     </div>
                 </div>
                 @show

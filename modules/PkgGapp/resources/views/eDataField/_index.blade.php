@@ -57,7 +57,7 @@
                         />
                     </div>
                     <div class="col-sm-4">
-                        @canany(['create-eDataField','import-eDataField','export-eDataField'])
+                      
                         <x-crud-actions
                             :instanceItem="$eDataField_instance"
                             :createPermission="'create-eDataField'"
@@ -73,7 +73,7 @@
                             :viewTypes="$eDataField_viewTypes"
                             :viewType="$eDataField_viewType"
                         />
-                        @endcan
+                    
                     </div>
                 </div>
                 @show

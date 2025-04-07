@@ -57,7 +57,7 @@
                         />
                     </div>
                     <div class="col-sm-4">
-                        @canany(['create-specialite','import-specialite','export-specialite'])
+                      
                         <x-crud-actions
                             :instanceItem="$specialite_instance"
                             :createPermission="'create-specialite'"
@@ -73,7 +73,7 @@
                             :viewTypes="$specialite_viewTypes"
                             :viewType="$specialite_viewType"
                         />
-                        @endcan
+                    
                     </div>
                 </div>
                 @show

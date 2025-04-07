@@ -57,7 +57,7 @@
                         />
                     </div>
                     <div class="col-sm-4">
-                        @canany(['create-etatFormation','import-etatFormation','export-etatFormation'])
+                      
                         <x-crud-actions
                             :instanceItem="$etatFormation_instance"
                             :createPermission="'create-etatFormation'"
@@ -73,7 +73,7 @@
                             :viewTypes="$etatFormation_viewTypes"
                             :viewType="$etatFormation_viewType"
                         />
-                        @endcan
+                    
                     </div>
                 </div>
                 @show

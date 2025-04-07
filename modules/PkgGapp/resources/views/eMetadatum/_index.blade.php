@@ -57,7 +57,7 @@
                         />
                     </div>
                     <div class="col-sm-4">
-                        @canany(['create-eMetadatum','import-eMetadatum','export-eMetadatum'])
+                      
                         <x-crud-actions
                             :instanceItem="$eMetadatum_instance"
                             :createPermission="'create-eMetadatum'"
@@ -73,7 +73,7 @@
                             :viewTypes="$eMetadatum_viewTypes"
                             :viewType="$eMetadatum_viewType"
                         />
-                        @endcan
+                    
                     </div>
                 </div>
                 @show

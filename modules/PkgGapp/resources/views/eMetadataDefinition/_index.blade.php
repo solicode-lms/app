@@ -57,7 +57,7 @@
                         />
                     </div>
                     <div class="col-sm-4">
-                        @canany(['create-eMetadataDefinition','import-eMetadataDefinition','export-eMetadataDefinition'])
+                      
                         <x-crud-actions
                             :instanceItem="$eMetadataDefinition_instance"
                             :createPermission="'create-eMetadataDefinition'"
@@ -73,7 +73,7 @@
                             :viewTypes="$eMetadataDefinition_viewTypes"
                             :viewType="$eMetadataDefinition_viewType"
                         />
-                        @endcan
+                    
                     </div>
                 </div>
                 @show

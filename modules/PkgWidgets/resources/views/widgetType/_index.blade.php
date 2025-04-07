@@ -57,7 +57,7 @@
                         />
                     </div>
                     <div class="col-sm-4">
-                        @canany(['create-widgetType','import-widgetType','export-widgetType'])
+                      
                         <x-crud-actions
                             :instanceItem="$widgetType_instance"
                             :createPermission="'create-widgetType'"
@@ -73,7 +73,7 @@
                             :viewTypes="$widgetType_viewTypes"
                             :viewType="$widgetType_viewType"
                         />
-                        @endcan
+                    
                     </div>
                 </div>
                 @show

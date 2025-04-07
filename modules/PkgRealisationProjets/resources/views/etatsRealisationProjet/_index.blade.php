@@ -57,7 +57,7 @@
                         />
                     </div>
                     <div class="col-sm-4">
-                        @canany(['create-etatsRealisationProjet','import-etatsRealisationProjet','export-etatsRealisationProjet'])
+                      
                         <x-crud-actions
                             :instanceItem="$etatsRealisationProjet_instance"
                             :createPermission="'create-etatsRealisationProjet'"
@@ -73,7 +73,7 @@
                             :viewTypes="$etatsRealisationProjet_viewTypes"
                             :viewType="$etatsRealisationProjet_viewType"
                         />
-                        @endcan
+                    
                     </div>
                 </div>
                 @show

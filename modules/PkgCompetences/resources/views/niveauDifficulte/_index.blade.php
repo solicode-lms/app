@@ -57,7 +57,7 @@
                         />
                     </div>
                     <div class="col-sm-4">
-                        @canany(['create-niveauDifficulte','import-niveauDifficulte','export-niveauDifficulte'])
+                      
                         <x-crud-actions
                             :instanceItem="$niveauDifficulte_instance"
                             :createPermission="'create-niveauDifficulte'"
@@ -73,7 +73,7 @@
                             :viewTypes="$niveauDifficulte_viewTypes"
                             :viewType="$niveauDifficulte_viewType"
                         />
-                        @endcan
+                    
                     </div>
                 </div>
                 @show

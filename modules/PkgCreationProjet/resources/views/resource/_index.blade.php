@@ -57,7 +57,7 @@
                         />
                     </div>
                     <div class="col-sm-4">
-                        @canany(['create-resource','import-resource','export-resource'])
+                      
                         <x-crud-actions
                             :instanceItem="$resource_instance"
                             :createPermission="'create-resource'"
@@ -73,7 +73,7 @@
                             :viewTypes="$resource_viewTypes"
                             :viewType="$resource_viewType"
                         />
-                        @endcan
+                    
                     </div>
                 </div>
                 @show

@@ -57,7 +57,7 @@
                         />
                     </div>
                     <div class="col-sm-4">
-                        @canany(['create-ePackage','import-ePackage','export-ePackage'])
+                      
                         <x-crud-actions
                             :instanceItem="$ePackage_instance"
                             :createPermission="'create-ePackage'"
@@ -73,7 +73,7 @@
                             :viewTypes="$ePackage_viewTypes"
                             :viewType="$ePackage_viewType"
                         />
-                        @endcan
+                    
                     </div>
                 </div>
                 @show

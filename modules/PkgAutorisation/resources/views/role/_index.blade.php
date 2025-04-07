@@ -57,7 +57,7 @@
                         />
                     </div>
                     <div class="col-sm-4">
-                        @canany(['create-role','import-role','export-role'])
+                      
                         <x-crud-actions
                             :instanceItem="$role_instance"
                             :createPermission="'create-role'"
@@ -73,7 +73,7 @@
                             :viewTypes="$role_viewTypes"
                             :viewType="$role_viewType"
                         />
-                        @endcan
+                    
                     </div>
                 </div>
                 @show

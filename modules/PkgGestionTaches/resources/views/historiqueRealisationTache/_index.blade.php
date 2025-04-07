@@ -57,7 +57,7 @@
                         />
                     </div>
                     <div class="col-sm-4">
-                        @canany(['create-historiqueRealisationTache','import-historiqueRealisationTache','export-historiqueRealisationTache'])
+                      
                         <x-crud-actions
                             :instanceItem="$historiqueRealisationTache_instance"
                             :createPermission="'create-historiqueRealisationTache'"
@@ -73,7 +73,7 @@
                             :viewTypes="$historiqueRealisationTache_viewTypes"
                             :viewType="$historiqueRealisationTache_viewType"
                         />
-                        @endcan
+                    
                     </div>
                 </div>
                 @show

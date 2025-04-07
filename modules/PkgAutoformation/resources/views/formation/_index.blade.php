@@ -57,7 +57,7 @@
                         />
                     </div>
                     <div class="col-sm-4">
-                        @canany(['create-formation','import-formation','export-formation'])
+                      
                         <x-crud-actions
                             :instanceItem="$formation_instance"
                             :createPermission="'create-formation'"
@@ -73,7 +73,7 @@
                             :viewTypes="$formation_viewTypes"
                             :viewType="$formation_viewType"
                         />
-                        @endcan
+                    
                     </div>
                 </div>
                 @show

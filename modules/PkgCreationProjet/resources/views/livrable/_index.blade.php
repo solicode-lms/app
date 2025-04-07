@@ -57,7 +57,7 @@
                         />
                     </div>
                     <div class="col-sm-4">
-                        @canany(['create-livrable','import-livrable','export-livrable'])
+                      
                         <x-crud-actions
                             :instanceItem="$livrable_instance"
                             :createPermission="'create-livrable'"
@@ -73,7 +73,7 @@
                             :viewTypes="$livrable_viewTypes"
                             :viewType="$livrable_viewType"
                         />
-                        @endcan
+                    
                     </div>
                 </div>
                 @show

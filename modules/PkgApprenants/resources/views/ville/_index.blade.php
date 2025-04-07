@@ -57,7 +57,7 @@
                         />
                     </div>
                     <div class="col-sm-4">
-                        @canany(['create-ville','import-ville','export-ville'])
+                      
                         <x-crud-actions
                             :instanceItem="$ville_instance"
                             :createPermission="'create-ville'"
@@ -73,7 +73,7 @@
                             :viewTypes="$ville_viewTypes"
                             :viewType="$ville_viewType"
                         />
-                        @endcan
+                    
                     </div>
                 </div>
                 @show

@@ -57,7 +57,7 @@
                         />
                     </div>
                     <div class="col-sm-4">
-                        @canany(['create-sysController','import-sysController','export-sysController'])
+                      
                         <x-crud-actions
                             :instanceItem="$sysController_instance"
                             :createPermission="'create-sysController'"
@@ -73,7 +73,7 @@
                             :viewTypes="$sysController_viewTypes"
                             :viewType="$sysController_viewType"
                         />
-                        @endcan
+                    
                     </div>
                 </div>
                 @show

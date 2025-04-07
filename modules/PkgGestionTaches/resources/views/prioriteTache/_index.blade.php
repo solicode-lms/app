@@ -57,7 +57,7 @@
                         />
                     </div>
                     <div class="col-sm-4">
-                        @canany(['create-prioriteTache','import-prioriteTache','export-prioriteTache'])
+                      
                         <x-crud-actions
                             :instanceItem="$prioriteTache_instance"
                             :createPermission="'create-prioriteTache'"
@@ -73,7 +73,7 @@
                             :viewTypes="$prioriteTache_viewTypes"
                             :viewType="$prioriteTache_viewType"
                         />
-                        @endcan
+                    
                     </div>
                 </div>
                 @show

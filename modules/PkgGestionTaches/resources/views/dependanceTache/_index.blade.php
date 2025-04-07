@@ -57,7 +57,7 @@
                         />
                     </div>
                     <div class="col-sm-4">
-                        @canany(['create-dependanceTache','import-dependanceTache','export-dependanceTache'])
+                      
                         <x-crud-actions
                             :instanceItem="$dependanceTache_instance"
                             :createPermission="'create-dependanceTache'"
@@ -73,7 +73,7 @@
                             :viewTypes="$dependanceTache_viewTypes"
                             :viewType="$dependanceTache_viewType"
                         />
-                        @endcan
+                    
                     </div>
                 </div>
                 @show

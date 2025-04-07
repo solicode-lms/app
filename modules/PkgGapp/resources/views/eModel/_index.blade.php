@@ -57,7 +57,7 @@
                         />
                     </div>
                     <div class="col-sm-4">
-                        @canany(['create-eModel','import-eModel','export-eModel'])
+                      
                         <x-crud-actions
                             :instanceItem="$eModel_instance"
                             :createPermission="'create-eModel'"
@@ -73,7 +73,7 @@
                             :viewTypes="$eModel_viewTypes"
                             :viewType="$eModel_viewType"
                         />
-                        @endcan
+                    
                     </div>
                 </div>
                 @show

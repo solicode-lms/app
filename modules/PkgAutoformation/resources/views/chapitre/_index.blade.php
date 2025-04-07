@@ -57,7 +57,7 @@
                         />
                     </div>
                     <div class="col-sm-4">
-                        @canany(['create-chapitre','import-chapitre','export-chapitre'])
+                      
                         <x-crud-actions
                             :instanceItem="$chapitre_instance"
                             :createPermission="'create-chapitre'"
@@ -73,7 +73,7 @@
                             :viewTypes="$chapitre_viewTypes"
                             :viewType="$chapitre_viewType"
                         />
-                        @endcan
+                    
                     </div>
                 </div>
                 @show

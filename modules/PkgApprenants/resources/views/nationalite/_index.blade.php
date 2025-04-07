@@ -57,7 +57,7 @@
                         />
                     </div>
                     <div class="col-sm-4">
-                        @canany(['create-nationalite','import-nationalite','export-nationalite'])
+                      
                         <x-crud-actions
                             :instanceItem="$nationalite_instance"
                             :createPermission="'create-nationalite'"
@@ -73,7 +73,7 @@
                             :viewTypes="$nationalite_viewTypes"
                             :viewType="$nationalite_viewType"
                         />
-                        @endcan
+                    
                     </div>
                 </div>
                 @show

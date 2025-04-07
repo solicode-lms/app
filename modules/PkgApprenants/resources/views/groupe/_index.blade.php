@@ -57,7 +57,7 @@
                         />
                     </div>
                     <div class="col-sm-4">
-                        @canany(['create-groupe','import-groupe','export-groupe'])
+                      
                         <x-crud-actions
                             :instanceItem="$groupe_instance"
                             :createPermission="'create-groupe'"
@@ -73,7 +73,7 @@
                             :viewTypes="$groupe_viewTypes"
                             :viewType="$groupe_viewType"
                         />
-                        @endcan
+                    
                     </div>
                 </div>
                 @show

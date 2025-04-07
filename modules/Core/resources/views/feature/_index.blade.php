@@ -57,7 +57,7 @@
                         />
                     </div>
                     <div class="col-sm-4">
-                        @canany(['create-feature','import-feature','export-feature'])
+                      
                         <x-crud-actions
                             :instanceItem="$feature_instance"
                             :createPermission="'create-feature'"
@@ -73,7 +73,7 @@
                             :viewTypes="$feature_viewTypes"
                             :viewType="$feature_viewType"
                         />
-                        @endcan
+                    
                     </div>
                 </div>
                 @show

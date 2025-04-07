@@ -57,7 +57,7 @@
                         />
                     </div>
                     <div class="col-sm-4">
-                        @canany(['create-technology','import-technology','export-technology'])
+                      
                         <x-crud-actions
                             :instanceItem="$technology_instance"
                             :createPermission="'create-technology'"
@@ -73,7 +73,7 @@
                             :viewTypes="$technology_viewTypes"
                             :viewType="$technology_viewType"
                         />
-                        @endcan
+                    
                     </div>
                 </div>
                 @show

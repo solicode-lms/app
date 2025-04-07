@@ -57,7 +57,7 @@
                         />
                     </div>
                     <div class="col-sm-4">
-                        @canany(['create-commentaireRealisationTache','import-commentaireRealisationTache','export-commentaireRealisationTache'])
+                      
                         <x-crud-actions
                             :instanceItem="$commentaireRealisationTache_instance"
                             :createPermission="'create-commentaireRealisationTache'"
@@ -73,7 +73,7 @@
                             :viewTypes="$commentaireRealisationTache_viewTypes"
                             :viewType="$commentaireRealisationTache_viewType"
                         />
-                        @endcan
+                    
                     </div>
                 </div>
                 @show

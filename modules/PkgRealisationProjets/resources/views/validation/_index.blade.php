@@ -57,7 +57,7 @@
                         />
                     </div>
                     <div class="col-sm-4">
-                        @canany(['create-validation','import-validation','export-validation'])
+                      
                         <x-crud-actions
                             :instanceItem="$validation_instance"
                             :createPermission="'create-validation'"
@@ -73,7 +73,7 @@
                             :viewTypes="$validation_viewTypes"
                             :viewType="$validation_viewType"
                         />
-                        @endcan
+                    
                     </div>
                 </div>
                 @show

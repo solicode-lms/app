@@ -57,7 +57,7 @@
                         />
                     </div>
                     <div class="col-sm-4">
-                        @canany(['create-formateur','import-formateur','export-formateur'])
+                      
                         <x-crud-actions
                             :instanceItem="$formateur_instance"
                             :createPermission="'create-formateur'"
@@ -73,7 +73,7 @@
                             :viewTypes="$formateur_viewTypes"
                             :viewType="$formateur_viewType"
                         />
-                        @endcan
+                    
                     </div>
                 </div>
                 @show

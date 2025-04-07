@@ -57,7 +57,7 @@
                         />
                     </div>
                     <div class="col-sm-4">
-                        @canany(['create-natureLivrable','import-natureLivrable','export-natureLivrable'])
+                      
                         <x-crud-actions
                             :instanceItem="$natureLivrable_instance"
                             :createPermission="'create-natureLivrable'"
@@ -73,7 +73,7 @@
                             :viewTypes="$natureLivrable_viewTypes"
                             :viewType="$natureLivrable_viewType"
                         />
-                        @endcan
+                    
                     </div>
                 </div>
                 @show

@@ -57,7 +57,7 @@
                         />
                     </div>
                     <div class="col-sm-4">
-                        @canany(['create-transfertCompetence','import-transfertCompetence','export-transfertCompetence'])
+                      
                         <x-crud-actions
                             :instanceItem="$transfertCompetence_instance"
                             :createPermission="'create-transfertCompetence'"
@@ -73,7 +73,7 @@
                             :viewTypes="$transfertCompetence_viewTypes"
                             :viewType="$transfertCompetence_viewType"
                         />
-                        @endcan
+                    
                     </div>
                 </div>
                 @show

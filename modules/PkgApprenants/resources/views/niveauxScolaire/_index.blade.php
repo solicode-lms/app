@@ -57,7 +57,7 @@
                         />
                     </div>
                     <div class="col-sm-4">
-                        @canany(['create-niveauxScolaire','import-niveauxScolaire','export-niveauxScolaire'])
+                      
                         <x-crud-actions
                             :instanceItem="$niveauxScolaire_instance"
                             :createPermission="'create-niveauxScolaire'"
@@ -73,7 +73,7 @@
                             :viewTypes="$niveauxScolaire_viewTypes"
                             :viewType="$niveauxScolaire_viewType"
                         />
-                        @endcan
+                    
                     </div>
                 </div>
                 @show
