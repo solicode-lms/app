@@ -157,7 +157,7 @@ class BaseTacheController extends AdminController
         $this->viewState->setContextKey('tache.edit_' . $id);
 
 
-        $itemTache = $this->tacheService->find($id);
+        $itemTache = $this->tacheService->edit($id);
 
         // scopeDataInEditContext
         $value = $itemTache->getNestedValue('projet.formateur_id');

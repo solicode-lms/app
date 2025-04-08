@@ -33,6 +33,10 @@ trait CrudTrait
         return $this->model->find($id, $columns);
     }
 
+    public function edit(int $id){
+        return $this->model->find($id);
+    }
+
     protected function getNextOrdre(): int
     {
         return ($this->model->max('ordre') ?? 0) + 1;
