@@ -135,20 +135,20 @@ class BaseRealisationTacheController extends AdminController
         $taches = $this->tacheService->all();
         $realisationProjets = $this->realisationProjetService->all();
         $etatRealisationTaches = $this->etatRealisationTacheService->all();
-        
+
 
         $this->viewState->set('scope.historiqueRealisationTache.realisation_tache_id', $id);
-
+        
 
         $historiqueRealisationTacheService =  new HistoriqueRealisationTacheService();
         $historiqueRealisationTaches_view_data = $historiqueRealisationTacheService->prepareDataForIndexView();
         extract($historiqueRealisationTaches_view_data);
 
         if (request()->ajax()) {
-            return view('PkgGestionTaches::realisationTache._edit', array_merge(compact('itemRealisationTache'),$etatRealisationTaches, $realisationProjets, $taches));
+            return view('PkgGestionTaches::realisationTache._edit', array_merge(compact('itemRealisationTache','etatRealisationTaches', 'realisationProjets', 'taches'),$historiqueRealisationTache_compact_value));
         }
 
-        return view('PkgGestionTaches::realisationTache.edit', array_merge(compact('itemRealisationTache'),$etatRealisationTaches, $realisationProjets, $taches));
+        return view('PkgGestionTaches::realisationTache.edit', array_merge(compact('itemRealisationTache','etatRealisationTaches', 'realisationProjets', 'taches'),$historiqueRealisationTache_compact_value));
 
     }
     public function edit(string $id) {
