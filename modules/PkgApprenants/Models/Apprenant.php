@@ -3,12 +3,15 @@
 
 namespace Modules\PkgApprenants\Models;
 
+use Carbon\Carbon;
 use Modules\Core\App\Traits\HasDynamicAttributes;
 use Modules\PkgApprenants\Models\Base\BaseApprenant;
+use Modules\PkgFormation\Models\AnneeFormation;
 use Modules\PkgGestionTaches\Models\RealisationTache;
 
 class Apprenant extends BaseApprenant
 {
+    protected $appends = ['derniere_tache_terminee_ou_validation'];
 
     public function getFormateurId()
     {
@@ -51,5 +54,44 @@ class Apprenant extends BaseApprenant
     //         //     });
     //         // });
     // }
+
+
+       /**
+     * Récupère le groupe en cours pour l'année de formation actuelle.
+     *
+     * @return \Modules\PkgApprenants\Models\Groupe|null
+     */
+    public function groupeEnCours()
+    {
+        $anneeActuelle = AnneeFormation::query()
+            ->whereYear('date_debut', '<=', Carbon::now()->year)
+            ->whereYear('date_fin', '>=', Carbon::now()->year)
+            ->first();
+
+        if (!$anneeActuelle) return null;
+
+        return $this->groupes()
+            ->where('annee_formation_id', $anneeActuelle->id)
+            ->first();
+    }
+    public function getGroupeAttribute()
+    {
+        return $this->groupeEnCours();
+    }
+
+
+   
+
+    public function getDerniereTacheTermineeOuValidationAttribute()
+    {
+        $taches = $this->realisationProjets
+            ->flatMap->realisationTaches
+            ->filter(function ($tache) {
+                $ref = $tache->etatRealisationTache?->workflowTache?->code;
+                return in_array($ref, ['TERMINEE', 'EN_VALIDATION']);
+            });
+
+        return $taches->sortByDesc('updated_at')->first();
+    }
 
 }

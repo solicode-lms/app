@@ -14,6 +14,7 @@ use Modules\PkgGestionTaches\Models\EtatRealisationTache;
 use Modules\PkgGestionTaches\Models\RealisationTache;
 use Modules\PkgGestionTaches\Models\Tache;
 use Modules\PkgGestionTaches\Services\Base\BaseRealisationTacheService;
+use Modules\PkgGestionTaches\Services\RealisationTacheService\RealisationTacheServiceWidgets;
 use Modules\PkgRealisationProjets\Models\AffectationProjet;
 use Modules\PkgRealisationProjets\Services\AffectationProjetService;
 
@@ -22,7 +23,7 @@ use Modules\PkgRealisationProjets\Services\AffectationProjetService;
  */
 class RealisationTacheService extends BaseRealisationTacheService
 {
-   
+   use RealisationTacheServiceWidgets;
     public function dataCalcul($realisationTache)
     {
         // En Cas d'édit
@@ -32,6 +33,19 @@ class RealisationTacheService extends BaseRealisationTacheService
       
         return $realisationTache;
     }
+
+    public function edit(int $id)
+    {
+        $entity = $this->model->find($id);
+
+        if (is_null($entity->dateDebut)) {
+            $entity->dateDebut = now()->toDateString(); // format YYYY-MM-DD sans heure
+            $entity->save(); // il faut sauvegarder si tu veux que le changement soit persisté
+        }
+
+        return $entity;
+    }
+
 
     // TODO : Gapp : ajouter un metaData filterDataSource : indique la méthode à utiliser pour trouver data
     // il faut indiquer aussi, plusieurs méthode si les données sont par rôle : 
@@ -251,7 +265,6 @@ protected function verifierTachesMoinsPrioritairesTerminees(RealisationTache $re
         }
     }
 }
-
 
 
 

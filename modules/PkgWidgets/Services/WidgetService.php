@@ -50,7 +50,11 @@ class WidgetService extends BaseWidgetService
 
                         if ($result instanceof Collection) {
                             $result = $result->take($limit); // Utilisation de `take()` pour une Collection Laravel
+                            if ($widget->type->type === "table" && isset($query['tableUI'])) {
+                                $result = $this->formatCollectionToTableData($result, $query['tableUI']);
+                            }
                         } elseif (is_array($result)) {
+                            $result = $this->formatArrayToTableData($result, $query['tableUI']);
                             $result = array_slice($result, 0, $limit); // Utilisation de `array_slice()` pour un tableau
                         }
                     }
@@ -63,13 +67,14 @@ class WidgetService extends BaseWidgetService
             }
         } else {
             $result = $this->execute($query, $widget);
-        
-            // Si le type est "table", formater les données en utilisant tableUI
+          // Si le type est "table", formater les données en utilisant tableUI
             if ($widget->type->type === "table" && isset($query['tableUI'])) {
-                $result = $this->formatTableData($result, $query['tableUI']);
-            }
+                    $result = $this->formatCollectionToTableData($result, $query['tableUI']);
+                }
+            
         }
-        
+
+      
         // Utiliser les titre et sous-titre utilisateur
         // if ($widget_utilisateur !== null) {
         //     if (!empty($widget_utilisateur->titre)) {
@@ -208,12 +213,7 @@ class WidgetService extends BaseWidgetService
      */
     private function extractSpecialConditions(array &$query)
     {
-        foreach (['tableUI', 'group_by','order_by' ,'column','limit','dataSource'] as $key) {
-            if (!empty($query['conditions'][$key])) {
-                $query[$key] = $query['conditions'][$key];
-                unset($query['conditions'][$key]);
-            }
-        }
+      
 
         // Gestion des conditions selon le rôle de l'utilisateur
         if (!empty($query['conditions']['roles'])) {
@@ -226,6 +226,13 @@ class WidgetService extends BaseWidgetService
             }
 
             unset($query['conditions']['roles']); // Suppression après traitement
+        }
+
+        foreach (['tableUI', 'group_by','order_by' ,'column','limit','dataSource'] as $key) {
+            if (!empty($query['conditions'][$key])) {
+                $query[$key] = $query['conditions'][$key];
+                unset($query['conditions'][$key]);
+            }
         }
     }
 
@@ -256,15 +263,45 @@ class WidgetService extends BaseWidgetService
      * @param array $tableUI Configuration des colonnes à afficher.
      * @return array Données formatées sous forme de table.
      */
-    private function formatTableData($result, array $tableUI)
+    private function formatCollectionToTableData($result, array $tableUI)
     {
         return $result->map(function ($item) use ($tableUI) {
             $formattedRow = [];
             foreach ($tableUI as $alias => $column) {
-                $formattedRow[$alias] = data_get($item, $column, '');
+                $value = $item->getNestedValue($column);
+                $formattedRow[$alias] = $value;
+                // $formattedRow[$alias] = data_get($item, $column, '');
             }
             return $formattedRow;
         })->toArray();
+    }
+
+    /**
+     * Formate un tableau brut en fonction de la configuration `tableUI`.
+     *
+     * @param array $data Données à formater (tableau d’objets ou d’associatifs).
+     * @param array $tableUI Configuration des colonnes à afficher.
+     * @return array Données formatées sous forme de table.
+     */
+    private function formatArrayToTableData(array $data, array $tableUI): array
+    {
+        return array_map(function ($item) use ($tableUI) {
+            $formattedRow = [];
+
+            foreach ($tableUI as $alias => $column) {
+                if (is_object($item)) {
+                    $value = data_get($item, $column);
+                } elseif (is_array($item)) {
+                    $value = data_get($item, $column);
+                } else {
+                    $value = null;
+                }
+
+                $formattedRow[$alias] = $value;
+            }
+
+            return $formattedRow;
+        }, $data);
     }
 
   

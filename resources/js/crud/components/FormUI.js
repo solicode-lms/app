@@ -459,8 +459,6 @@ export class FormUI  {
                 }
             });
 
-            // Utiliser EventUtil.bindEvent pour éviter les doublons d'événements
-            // TODO : ajouter selector de crud form
             EventUtil.bindEvent('change', `#${hiddenInput.id}`, () => {
                 try {
                     editor.textContent = hiddenInput.value;

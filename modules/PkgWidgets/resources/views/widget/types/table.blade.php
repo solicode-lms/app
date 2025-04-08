@@ -29,7 +29,7 @@
                     @foreach ($widget->data ?? [] as $row)
                         <tr>
                             @foreach ((array)$row as $value)
-                                <td>{{ $value }}</td>
+                            <td>{{ is_array($value) ? json_encode($value) : $value }}</td>
                             @endforeach
                         </tr>
                     @endforeach

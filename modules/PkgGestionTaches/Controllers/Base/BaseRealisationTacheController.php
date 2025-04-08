@@ -156,7 +156,7 @@ class BaseRealisationTacheController extends AdminController
         $this->viewState->setContextKey('realisationTache.edit_' . $id);
 
 
-        $itemRealisationTache = $this->realisationTacheService->find($id);
+        $itemRealisationTache = $this->realisationTacheService->edit($id);
         $this->authorize('edit', $itemRealisationTache);
 
         // scopeDataInEditContext

@@ -103,6 +103,7 @@ export class TableUI {
       
     }
 
+    // TODO : Création d'un composant : WidgetUI pour traiter lew Widget
     initWidgets(){
 
         const self = this; // pour conserver `this` dans update
@@ -126,7 +127,7 @@ export class TableUI {
             }
         })
         $('.widgets_container .card-header').css('cursor', 'move')
-
+        $('.widgets_container .icon').css('cursor', 'move')
 
         const widget_remove_buton_selector = `${this.config.dataContainerOutSelector} [data-card-widget="remove"]`
         EventUtil.bindEvent('click', widget_remove_buton_selector, (e) => {
