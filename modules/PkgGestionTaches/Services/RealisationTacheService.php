@@ -11,6 +11,7 @@ use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgFormation\Services\FormateurService;
 use Modules\PkgGestionTaches\Database\Seeders\EtatRealisationTacheSeeder;
 use Modules\PkgGestionTaches\Models\EtatRealisationTache;
+use Modules\PkgGestionTaches\Models\RealisationTache;
 use Modules\PkgGestionTaches\Models\Tache;
 use Modules\PkgGestionTaches\Services\Base\BaseRealisationTacheService;
 use Modules\PkgRealisationProjets\Models\AffectationProjet;
@@ -158,6 +159,12 @@ public function update($id, array $data)
                     'etat_realisation_tache_id' => "Seul un formateur peut affecter cet état de tâche."
                 ]);
             }
+
+            // ✅ Vérifie le respect de la priorité selon le workflow
+            $workflowCode = optional($nouvelEtat->workflowTache)->code;
+            if ($this->workflowExigeRespectDesPriorites($workflowCode)) {
+                $this->verifierTachesMoinsPrioritairesTerminees($record);
+            }
         }
 
         // Vérification si l'état actuel existe et est modifiable uniquement par un formateur
@@ -177,6 +184,76 @@ public function update($id, array $data)
     // Mise à jour standard du projet
     return parent::update($id, $data);
 }
+
+
+protected function workflowExigeRespectDesPriorites(?string $workflowCode): bool
+{
+    if (!$workflowCode) {
+        return false;
+    }
+
+    // Liste des codes de workflows imposant une validation de priorité
+    $workflowsBloquants = [
+        'EN_COURS', // adapte selon tes besoins
+        'EN_VALIDATION',
+        'TERMINEE'
+    ];
+
+    return in_array($workflowCode, $workflowsBloquants);
+}
+
+protected function verifierTachesMoinsPrioritairesTerminees(RealisationTache $realisationTache): void
+{
+    // Charger les relations nécessaires
+    $realisationTache->loadMissing('etatRealisationTache.workflowTache', 'tache.prioriteTache');
+
+    // Accéder au code du workflow via l’état actuel
+    if($realisationTache->etatRealisationTache){
+        $workflowCode = $realisationTache->etatRealisationTache->workflowTache->code;
+    }else{
+        $workflowCode  = "BACKLOG";
+    }
+   
+
+    // Appliquer la règle seulement si le workflow le demande
+    if (!$this->workflowExigeRespectDesPriorites($workflowCode)) {
+        return;
+    }
+
+    $realisationProjetId = $realisationTache->realisation_projet_id;
+    $tache = $realisationTache->tache;
+
+    if ($tache && $tache->prioriteTache) {
+        $ordreActuel = $tache->prioriteTache->ordre;
+
+        // Les états considérés comme "terminés" ou non bloquants
+        $etatsFinaux = ['TERMINEE', 'EN_VALIDATION'];
+
+        $tachesBloquantes = RealisationTache::where('realisation_projet_id', $realisationProjetId)
+            ->whereHas('tache.prioriteTache', function ($query) use ($ordreActuel) {
+                $query->where('ordre', '<', $ordreActuel);
+            })
+            ->where(function ($query) use ($etatsFinaux) {
+                $query
+                    ->whereHas('etatRealisationTache.workflowTache', function ($q) use ($etatsFinaux) {
+                        $q->whereNotIn('code', $etatsFinaux);
+                    })
+                    ->orDoesntHave('etatRealisationTache');
+            })
+            ->with('tache') // Charger les noms des tâches
+            ->get();
+
+        if ($tachesBloquantes->isNotEmpty()) {
+            $nomsTaches = $tachesBloquantes->pluck('tache.titre')->filter()->join('</br> ');
+
+            throw ValidationException::withMessages([
+                'etat_realisation_tache_id' => "Impossible de passer à cet état : les tâches plus prioritaires suivantes ne sont pas encore terminées ou validées : $nomsTaches."
+            ]);
+        }
+    }
+}
+
+
 
 
 
