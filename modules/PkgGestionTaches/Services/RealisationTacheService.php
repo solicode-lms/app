@@ -163,7 +163,7 @@ public function update($id, array $data)
             // ✅ Vérifie le respect de la priorité selon le workflow
             $workflowCode = optional($nouvelEtat->workflowTache)->code;
             if ($this->workflowExigeRespectDesPriorites($workflowCode)) {
-                $this->verifierTachesMoinsPrioritairesTerminees($record);
+                $this->verifierTachesMoinsPrioritairesTerminees($record,$workflowCode);
             }
         }
 
@@ -202,19 +202,12 @@ protected function workflowExigeRespectDesPriorites(?string $workflowCode): bool
     return in_array($workflowCode, $workflowsBloquants);
 }
 
-protected function verifierTachesMoinsPrioritairesTerminees(RealisationTache $realisationTache): void
+protected function verifierTachesMoinsPrioritairesTerminees(RealisationTache $realisationTache,$workflowCode): void
 {
     // Charger les relations nécessaires
     $realisationTache->loadMissing('etatRealisationTache.workflowTache', 'tache.prioriteTache');
 
-    // Accéder au code du workflow via l’état actuel
-    if($realisationTache->etatRealisationTache){
-        $workflowCode = $realisationTache->etatRealisationTache->workflowTache->code;
-    }else{
-        $workflowCode  = "BACKLOG";
-    }
-   
-
+ 
     // Appliquer la règle seulement si le workflow le demande
     if (!$this->workflowExigeRespectDesPriorites($workflowCode)) {
         return;
@@ -243,11 +236,17 @@ protected function verifierTachesMoinsPrioritairesTerminees(RealisationTache $re
             ->with('tache') // Charger les noms des tâches
             ->get();
 
+    
+
         if ($tachesBloquantes->isNotEmpty()) {
-            $nomsTaches = $tachesBloquantes->pluck('tache.titre')->filter()->join('</br> ');
+            $nomsTaches = $tachesBloquantes->pluck('tache.titre')->filter()->map(function ($nom) {
+                return "<li>" . e($nom) . "</li>";
+            })->join('');
+
+            $message = "<p> Impossible de passer à cet état : les tâches plus prioritaires  <br> suivantes ne sont pas encore terminées</p><ul>$nomsTaches</ul>";
 
             throw ValidationException::withMessages([
-                'etat_realisation_tache_id' => "Impossible de passer à cet état : les tâches plus prioritaires suivantes ne sont pas encore terminées ou validées : $nomsTaches."
+                'etat_realisation_tache_id' => $message
             ]);
         }
     }
