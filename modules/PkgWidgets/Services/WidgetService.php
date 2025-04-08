@@ -6,6 +6,7 @@ use Exception;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Modules\Core\Services\BaseService;
+use Modules\Core\Services\SysColorService;
 use Modules\PkgWidgets\Services\Base\BaseWidgetService;
 
 /**
@@ -82,13 +83,14 @@ class WidgetService extends BaseWidgetService
         // 🎨 Appliquer la couleur par défaut du modèle si aucune couleur définie sur le widget
         if (empty($widget->sysColor) && !empty($widget->model?->sysColor)) {
             $widget->sysColor = $widget->model->sysColor;
+            
         }
 
         // 🖼️ Appliquer l'icône par défaut du modèle si aucune icône définie sur le widget
         if (empty($widget->icon) && !empty($widget->model?->icone)) {
             $widget->icon = $widget->model->icone;
         }
-
+        $widget->sysColor->textColor = (new SysColorService())->getTextColorForBackground($widget->sysColor->hex);
         $widget->data = $result;
         return $widget;
     }
@@ -264,5 +266,7 @@ class WidgetService extends BaseWidgetService
             return $formattedRow;
         })->toArray();
     }
+
+  
 
 }

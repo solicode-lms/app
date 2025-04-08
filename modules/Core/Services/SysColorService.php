@@ -1,5 +1,4 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 namespace Modules\Core\Services;
@@ -18,6 +17,23 @@ class SysColorService extends BaseSysColorService
         }
       
         return $sysColor;
+    }
+
+    function getTextColorForBackground($hexColor): string
+    {
+        // Supprimer le "#" si présent
+        $hexColor = ltrim($hexColor, '#');
+
+        // Convertir en RGB
+        $r = hexdec(substr($hexColor, 0, 2));
+        $g = hexdec(substr($hexColor, 2, 2));
+        $b = hexdec(substr($hexColor, 4, 2));
+
+        // Calcul de la luminance relative (selon le standard W3C)
+        $luminance = (0.299 * $r + 0.587 * $g + 0.114 * $b);
+
+        // Seuil de contraste : généralement 128
+        return $luminance > 128 ? 'black' : 'white';
     }
    
 }

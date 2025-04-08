@@ -1,6 +1,6 @@
 <div class="widget col-lg-6 col-6" data-id="{{$widgetUtilisateur->id}}">
     <div class="card">
-        <div class="card-header  text-white" style="background-color:  {{ $widget->sysColor?->hex}}">
+        <div class="card-header  text-{{$widget?->sysColor?->textColor}}" style="background-color:  {{ $widget->sysColor?->hex}}">
             <h3 class="card-title"> 
                 <i class="fas {{ $widget->icon }}"></i> {{ $widget->label }}
             </h3>
