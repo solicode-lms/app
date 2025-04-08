@@ -252,7 +252,7 @@ class WidgetService extends BaseWidgetService
         }
 
         if ($widgetType === "table" && !isset($query['tableUI'])) {
-            throw new Exception("Le paramètre 'tableUI' est requis pour un widget de type table.");
+            throw new Exception("Le paramètre 'tableUI' est requis pour un widget de type table." . json_encode($query));
         }
     }
 
@@ -265,16 +265,27 @@ class WidgetService extends BaseWidgetService
      */
     private function formatCollectionToTableData($result, array $tableUI)
     {
+        // Trier selon l'ordre défini
+        usort($tableUI, fn($a, $b) => ($a['order'] ?? 0) <=> ($b['order'] ?? 0));
+    
         return $result->map(function ($item) use ($tableUI) {
             $formattedRow = [];
-            foreach ($tableUI as $alias => $column) {
-                $value = $item->getNestedValue($column);
-                $formattedRow[$alias] = $value;
-                // $formattedRow[$alias] = data_get($item, $column, '');
+    
+            foreach ($tableUI as $columnConfig) {
+                $label = $columnConfig['label'];
+                $path = $columnConfig['key'];
+    
+                $value = method_exists($item, 'getNestedValue')
+                    ? $item->getNestedValue($path)
+                    : data_get($item, $path, '');
+    
+                $formattedRow[$label] = $value;
             }
+    
             return $formattedRow;
         })->toArray();
     }
+    
 
     /**
      * Formate un tableau brut en fonction de la configuration `tableUI`.
@@ -285,24 +296,27 @@ class WidgetService extends BaseWidgetService
      */
     private function formatArrayToTableData(array $data, array $tableUI): array
     {
+        // Trier selon l'ordre défini
+        usort($tableUI, fn($a, $b) => ($a['order'] ?? 0) <=> ($b['order'] ?? 0));
+    
         return array_map(function ($item) use ($tableUI) {
             $formattedRow = [];
-
-            foreach ($tableUI as $alias => $column) {
-                if (is_object($item)) {
-                    $value = data_get($item, $column);
-                } elseif (is_array($item)) {
-                    $value = data_get($item, $column);
-                } else {
-                    $value = null;
-                }
-
-                $formattedRow[$alias] = $value;
+    
+            foreach ($tableUI as $columnConfig) {
+                $label = $columnConfig['label'];
+                $path = $columnConfig['key'];
+    
+                $value = is_array($item) || is_object($item)
+                    ? data_get($item, $path)
+                    : null;
+    
+                $formattedRow[$label] = $value;
             }
-
+    
             return $formattedRow;
         }, $data);
     }
+    
 
   
 

@@ -15,6 +15,34 @@ use Modules\PkgFormation\Models\Filiere;
  */
 class ApprenantService extends BaseApprenantService
 {
+
+     /**
+     * Les champs de recherche disponibles pour apprenants.
+     *
+     * @var array
+     */
+    protected $fieldsSearchable = [
+        'nom',
+        'nom_arab',
+        'prenom',
+        'prenom_arab',
+        'profile_image',
+        'cin',
+        'date_naissance',
+        'sexe',
+        'nationalite_id',
+        'lieu_naissance',
+        'diplome',
+        'adresse',
+        'niveaux_scolaire_id',
+        'tele_num',
+        'user_id',
+        'matricule',
+        'date_inscription',
+        'actif',
+        'nombre_realisation_taches_en_cours'
+    ];
+    
     public function dataCalcul($apprenant)
     {
         // En Cas d'édit

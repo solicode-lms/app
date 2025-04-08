@@ -1,5 +1,5 @@
 <?php
-// add nombre_realisation_taches_en_cours to fieldsSearchable
+// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 
@@ -36,8 +36,7 @@ class BaseApprenantService extends BaseService
         'user_id',
         'matricule',
         'date_inscription',
-        'actif',
-        'nombre_realisation_taches_en_cours'
+        'actif'
     ];
 
     /**
@@ -72,8 +71,6 @@ class BaseApprenantService extends BaseService
         if (!array_key_exists('groupes', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToManyFilter(__("PkgApprenants::groupe.plural"), 'groupe_id', \Modules\PkgApprenants\Models\Groupe::class, 'code');
         }
-
-      
     }
 
     /**
@@ -114,4 +111,77 @@ class BaseApprenantService extends BaseService
         return $value;
     }
     
+
+    /**
+     * Retourne les types de vues disponibles pour l'index (ex: table, widgets...)
+     */
+    public function getViewTypes(): array
+    {
+        return [
+            [
+                'type'  => 'table',
+                'label' => 'Vue Tableau',
+                'icon'  => 'fa-table',
+            ],
+        ];
+    }
+
+    /**
+     * Retourne le nom de la vue partielle selon le type de vue sélectionné
+     */
+    public function getPartialViewName(string $viewType): string
+    {
+        return match ($viewType) {
+            'table' => 'PkgApprenants::apprenant._table',
+            default => 'PkgApprenants::apprenant._table',
+        };
+    }
+
+
+
+    public function prepareDataForIndexView(array $params = []): array
+    {
+        // Définir le type de vue par défaut
+        $default_view_type = 'table';
+        $this->viewState->init('apprenant_view_type', $default_view_type);
+        $apprenant_viewType = $this->viewState->get('apprenant_view_type', $default_view_type);
+    
+        // Si viewType = widgets, appliquer filtre visible = 1
+        if ($this->viewState->get('apprenant_view_type') === 'widgets') {
+            $this->viewState->set("filter.apprenant.visible", 1);
+        }
+        
+        // Récupération des données
+        $apprenants_data = $this->paginate($params);
+        $apprenants_stats = $this->getapprenantStats();
+        $apprenants_filters = $this->getFieldsFilterable();
+        $apprenant_instance = $this->createInstance();
+        $apprenant_viewTypes = $this->getViewTypes();
+        $apprenant_partialViewName = $this->getPartialViewName($apprenant_viewType);
+    
+        // Enregistrer les stats dans le ViewState
+        $this->viewState->set('stats.apprenant.stats', $apprenants_stats);
+    
+        // Préparer les variables à injecter dans compact()
+        $compact_value = compact(
+            'apprenant_viewTypes',
+            'apprenant_viewType',
+            'apprenants_data',
+            'apprenants_stats',
+            'apprenants_filters',
+            'apprenant_instance'
+        );
+    
+        return [
+            'apprenants_data' => $apprenants_data,
+            'apprenants_stats' => $apprenants_stats,
+            'apprenants_filters' => $apprenants_filters,
+            'apprenant_instance' => $apprenant_instance,
+            'apprenant_viewType' => $apprenant_viewType,
+            'apprenant_viewTypes' => $apprenant_viewTypes,
+            'apprenant_partialViewName' => $apprenant_partialViewName,
+            'apprenant_compact_value' => $compact_value
+        ];
+    }
+
 }
