@@ -115,13 +115,13 @@ class BaseLabelRealisationTacheController extends AdminController
 
         $formateurs = $this->formateurService->all();
         $sysColors = $this->sysColorService->all();
-        
+
 
         if (request()->ajax()) {
-            return view('PkgGestionTaches::labelRealisationTache._fields', array_merge(compact('itemLabelRealisationTache'),$formateurs, $sysColors));
+            return view('PkgGestionTaches::labelRealisationTache._fields', array_merge(compact('itemLabelRealisationTache','formateurs', 'sysColors'),));
         }
 
-        return view('PkgGestionTaches::labelRealisationTache.edit', array_merge(compact('itemLabelRealisationTache'),$formateurs, $sysColors));
+        return view('PkgGestionTaches::labelRealisationTache.edit', array_merge(compact('itemLabelRealisationTache','formateurs', 'sysColors'),));
 
     }
     public function edit(string $id) {

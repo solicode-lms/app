@@ -97,20 +97,20 @@ class BaseWidgetOperationController extends AdminController
         $itemWidgetOperation = $this->widgetOperationService->find($id);
 
 
-        
+
 
         $this->viewState->set('scope.widget.operation_id', $id);
-
+        
 
         $widgetService =  new WidgetService();
         $widgets_view_data = $widgetService->prepareDataForIndexView();
         extract($widgets_view_data);
 
         if (request()->ajax()) {
-            return view('PkgWidgets::widgetOperation._edit', array_merge(compact('itemWidgetOperation'),));
+            return view('PkgWidgets::widgetOperation._edit', array_merge(compact('itemWidgetOperation',),$widget_compact_value));
         }
 
-        return view('PkgWidgets::widgetOperation.edit', array_merge(compact('itemWidgetOperation'),));
+        return view('PkgWidgets::widgetOperation.edit', array_merge(compact('itemWidgetOperation',),$widget_compact_value));
 
     }
     public function edit(string $id) {

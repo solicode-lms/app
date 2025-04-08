@@ -137,10 +137,10 @@ class BaseRealisationProjetController extends AdminController
         $affectationProjets = $this->affectationProjetService->all();
         $apprenants = $this->apprenantService->all();
         $etatsRealisationProjets = $this->etatsRealisationProjetService->all();
-        
+
 
         $this->viewState->set('scope.livrablesRealisation.realisation_projet_id', $id);
-
+        
         // scopeDataInEditContext
         $value = $itemRealisationProjet->getNestedValue('affectationProjet.projet.id');
         $key = 'scope.livrable.projet_id';
@@ -151,7 +151,7 @@ class BaseRealisationProjetController extends AdminController
         extract($livrablesRealisations_view_data);
 
         $this->viewState->set('scope.validation.realisation_projet_id', $id);
-
+        
         // scopeDataInEditContext
         $value = $itemRealisationProjet->getNestedValue('affectationProjet.projet.id');
         $key = 'scope.transfertCompetence.projet_id';
@@ -162,17 +162,17 @@ class BaseRealisationProjetController extends AdminController
         extract($validations_view_data);
 
         $this->viewState->set('scope.realisationTache.realisation_projet_id', $id);
-
+        
 
         $realisationTacheService =  new RealisationTacheService();
         $realisationTaches_view_data = $realisationTacheService->prepareDataForIndexView();
         extract($realisationTaches_view_data);
 
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::realisationProjet._edit', array_merge(compact('itemRealisationProjet'),$affectationProjets, $apprenants, $etatsRealisationProjets));
+            return view('PkgRealisationProjets::realisationProjet._edit', array_merge(compact('itemRealisationProjet','affectationProjets', 'apprenants', 'etatsRealisationProjets'),$livrablesRealisation_compact_value, $validation_compact_value, $realisationTache_compact_value));
         }
 
-        return view('PkgRealisationProjets::realisationProjet.edit', array_merge(compact('itemRealisationProjet'),$affectationProjets, $apprenants, $etatsRealisationProjets));
+        return view('PkgRealisationProjets::realisationProjet.edit', array_merge(compact('itemRealisationProjet','affectationProjets', 'apprenants', 'etatsRealisationProjets'),$livrablesRealisation_compact_value, $validation_compact_value, $realisationTache_compact_value));
 
     }
     public function edit(string $id) {

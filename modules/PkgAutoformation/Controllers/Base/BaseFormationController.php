@@ -137,10 +137,10 @@ class BaseFormationController extends AdminController
         $formateurs = $this->formateurService->all();
         $formations = $this->formationService->all();
         $filieres = $this->filiereService->all();
-        
+
 
         $this->viewState->set('scope.formation.formation_officiel_id', $id);
-
+        
         // scopeDataInEditContext
         $value = $itemFormation->getNestedValue('1');
         $key = 'scope.formationOfficiel.is_officiel';
@@ -151,24 +151,24 @@ class BaseFormationController extends AdminController
         extract($formations_view_data);
 
         $this->viewState->set('scope.chapitre.formation_id', $id);
-
+        
 
         $chapitreService =  new ChapitreService();
         $chapitres_view_data = $chapitreService->prepareDataForIndexView();
         extract($chapitres_view_data);
 
         $this->viewState->set('scope.realisationFormation.formation_id', $id);
-
+        
 
         $realisationFormationService =  new RealisationFormationService();
         $realisationFormations_view_data = $realisationFormationService->prepareDataForIndexView();
         extract($realisationFormations_view_data);
 
         if (request()->ajax()) {
-            return view('PkgAutoformation::formation._edit', array_merge(compact('itemFormation'),$technologies, $competences, $formateurs, $formations, $filieres));
+            return view('PkgAutoformation::formation._edit', array_merge(compact('itemFormation','technologies', 'competences', 'formateurs', 'formations', 'filieres'),$formation_compact_value, $chapitre_compact_value, $realisationFormation_compact_value));
         }
 
-        return view('PkgAutoformation::formation.edit', array_merge(compact('itemFormation'),$technologies, $competences, $formateurs, $formations, $filieres));
+        return view('PkgAutoformation::formation.edit', array_merge(compact('itemFormation','technologies', 'competences', 'formateurs', 'formations', 'filieres'),$formation_compact_value, $chapitre_compact_value, $realisationFormation_compact_value));
 
     }
     public function edit(string $id) {

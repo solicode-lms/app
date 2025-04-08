@@ -120,13 +120,13 @@ class BaseEtatChapitreController extends AdminController
         $workflowChapitres = $this->workflowChapitreService->all();
         $sysColors = $this->sysColorService->all();
         $formateurs = $this->formateurService->all();
-        
+
 
         if (request()->ajax()) {
-            return view('PkgAutoformation::etatChapitre._fields', array_merge(compact('itemEtatChapitre'),$formateurs, $sysColors, $workflowChapitres));
+            return view('PkgAutoformation::etatChapitre._fields', array_merge(compact('itemEtatChapitre','formateurs', 'sysColors', 'workflowChapitres'),));
         }
 
-        return view('PkgAutoformation::etatChapitre.edit', array_merge(compact('itemEtatChapitre'),$formateurs, $sysColors, $workflowChapitres));
+        return view('PkgAutoformation::etatChapitre.edit', array_merge(compact('itemEtatChapitre','formateurs', 'sysColors', 'workflowChapitres'),));
 
     }
     public function edit(string $id) {

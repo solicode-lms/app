@@ -102,20 +102,20 @@ class BaseSysControllerController extends AdminController
 
 
         $sysModules = $this->sysModuleService->all();
-        
+
 
         $this->viewState->set('scope.permission.controller_id', $id);
-
+        
 
         $permissionService =  new PermissionService();
         $permissions_view_data = $permissionService->prepareDataForIndexView();
         extract($permissions_view_data);
 
         if (request()->ajax()) {
-            return view('Core::sysController._edit', array_merge(compact('itemSysController'),$sysModules));
+            return view('Core::sysController._edit', array_merge(compact('itemSysController','sysModules'),$permission_compact_value));
         }
 
-        return view('Core::sysController.edit', array_merge(compact('itemSysController'),$sysModules));
+        return view('Core::sysController.edit', array_merge(compact('itemSysController','sysModules'),$permission_compact_value));
 
     }
     public function edit(string $id) {

@@ -101,13 +101,13 @@ class BaseHistoriqueRealisationTacheController extends AdminController
 
 
         $realisationTaches = $this->realisationTacheService->all();
-        
+
 
         if (request()->ajax()) {
-            return view('PkgGestionTaches::historiqueRealisationTache._fields', array_merge(compact('itemHistoriqueRealisationTache'),$realisationTaches));
+            return view('PkgGestionTaches::historiqueRealisationTache._fields', array_merge(compact('itemHistoriqueRealisationTache','realisationTaches'),));
         }
 
-        return view('PkgGestionTaches::historiqueRealisationTache.edit', array_merge(compact('itemHistoriqueRealisationTache'),$realisationTaches));
+        return view('PkgGestionTaches::historiqueRealisationTache.edit', array_merge(compact('itemHistoriqueRealisationTache','realisationTaches'),));
 
     }
     public function edit(string $id) {

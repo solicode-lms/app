@@ -119,69 +119,69 @@ class BaseFormateurController extends AdminController
         $specialites = $this->specialiteService->all();
         $groupes = $this->groupeService->all();
         $users = $this->userService->all();
-        
+
 
         $this->viewState->set('scope.chapitre.formateur_id', $id);
-
+        
 
         $chapitreService =  new ChapitreService();
         $chapitres_view_data = $chapitreService->prepareDataForIndexView();
         extract($chapitres_view_data);
 
         $this->viewState->set('scope.commentaireRealisationTache.formateur_id', $id);
-
+        
 
         $commentaireRealisationTacheService =  new CommentaireRealisationTacheService();
         $commentaireRealisationTaches_view_data = $commentaireRealisationTacheService->prepareDataForIndexView();
         extract($commentaireRealisationTaches_view_data);
 
         $this->viewState->set('scope.etatRealisationTache.formateur_id', $id);
-
+        
 
         $etatRealisationTacheService =  new EtatRealisationTacheService();
         $etatRealisationTaches_view_data = $etatRealisationTacheService->prepareDataForIndexView();
         extract($etatRealisationTaches_view_data);
 
         $this->viewState->set('scope.etatChapitre.formateur_id', $id);
-
+        
 
         $etatChapitreService =  new EtatChapitreService();
         $etatChapitres_view_data = $etatChapitreService->prepareDataForIndexView();
         extract($etatChapitres_view_data);
 
         $this->viewState->set('scope.etatFormation.formateur_id', $id);
-
+        
 
         $etatFormationService =  new EtatFormationService();
         $etatFormations_view_data = $etatFormationService->prepareDataForIndexView();
         extract($etatFormations_view_data);
 
         $this->viewState->set('scope.labelRealisationTache.formateur_id', $id);
-
+        
 
         $labelRealisationTacheService =  new LabelRealisationTacheService();
         $labelRealisationTaches_view_data = $labelRealisationTacheService->prepareDataForIndexView();
         extract($labelRealisationTaches_view_data);
 
         $this->viewState->set('scope.formation.formateur_id', $id);
-
+        
 
         $formationService =  new FormationService();
         $formations_view_data = $formationService->prepareDataForIndexView();
         extract($formations_view_data);
 
         $this->viewState->set('scope.prioriteTache.formateur_id', $id);
-
+        
 
         $prioriteTacheService =  new PrioriteTacheService();
         $prioriteTaches_view_data = $prioriteTacheService->prepareDataForIndexView();
         extract($prioriteTaches_view_data);
 
         if (request()->ajax()) {
-            return view('PkgFormation::formateur._edit', array_merge(compact('itemFormateur'),$groupes, $specialites, $users));
+            return view('PkgFormation::formateur._edit', array_merge(compact('itemFormateur','groupes', 'specialites', 'users'),$chapitre_compact_value, $commentaireRealisationTache_compact_value, $etatRealisationTache_compact_value, $etatChapitre_compact_value, $etatFormation_compact_value, $labelRealisationTache_compact_value, $formation_compact_value, $prioriteTache_compact_value));
         }
 
-        return view('PkgFormation::formateur.edit', array_merge(compact('itemFormateur'),$groupes, $specialites, $users));
+        return view('PkgFormation::formateur.edit', array_merge(compact('itemFormateur','groupes', 'specialites', 'users'),$chapitre_compact_value, $commentaireRealisationTache_compact_value, $etatRealisationTache_compact_value, $etatChapitre_compact_value, $etatFormation_compact_value, $labelRealisationTache_compact_value, $formation_compact_value, $prioriteTache_compact_value));
 
     }
     public function edit(string $id) {

@@ -125,13 +125,13 @@ class BaseTransfertCompetenceController extends AdminController
         $niveauDifficultes = $this->niveauDifficulteService->all();
         $technologies = $this->technologyService->all();
         $projets = $this->projetService->all();
-        
+
 
         if (request()->ajax()) {
-            return view('PkgCreationProjet::transfertCompetence._fields', array_merge(compact('itemTransfertCompetence'),$technologies, $competences, $niveauDifficultes, $projets));
+            return view('PkgCreationProjet::transfertCompetence._fields', array_merge(compact('itemTransfertCompetence','technologies', 'competences', 'niveauDifficultes', 'projets'),));
         }
 
-        return view('PkgCreationProjet::transfertCompetence.edit', array_merge(compact('itemTransfertCompetence'),$technologies, $competences, $niveauDifficultes, $projets));
+        return view('PkgCreationProjet::transfertCompetence.edit', array_merge(compact('itemTransfertCompetence','technologies', 'competences', 'niveauDifficultes', 'projets'),));
 
     }
     public function edit(string $id) {

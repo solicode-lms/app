@@ -102,20 +102,20 @@ class BaseWorkflowFormationController extends AdminController
 
 
         $sysColors = $this->sysColorService->all();
-        
+
 
         $this->viewState->set('scope.etatFormation.workflow_formation_id', $id);
-
+        
 
         $etatFormationService =  new EtatFormationService();
         $etatFormations_view_data = $etatFormationService->prepareDataForIndexView();
         extract($etatFormations_view_data);
 
         if (request()->ajax()) {
-            return view('PkgAutoformation::workflowFormation._edit', array_merge(compact('itemWorkflowFormation'),$sysColors));
+            return view('PkgAutoformation::workflowFormation._edit', array_merge(compact('itemWorkflowFormation','sysColors'),$etatFormation_compact_value));
         }
 
-        return view('PkgAutoformation::workflowFormation.edit', array_merge(compact('itemWorkflowFormation'),$sysColors));
+        return view('PkgAutoformation::workflowFormation.edit', array_merge(compact('itemWorkflowFormation','sysColors'),$etatFormation_compact_value));
 
     }
     public function edit(string $id) {

@@ -103,27 +103,27 @@ class BaseEModelController extends AdminController
 
 
         $ePackages = $this->ePackageService->all();
-        
+
 
         $this->viewState->set('scope.eDataField.e_model_id', $id);
-
+        
 
         $eDataFieldService =  new EDataFieldService();
         $eDataFields_view_data = $eDataFieldService->prepareDataForIndexView();
         extract($eDataFields_view_data);
 
         $this->viewState->set('scope.eMetadatum.e_model_id', $id);
-
+        
 
         $eMetadatumService =  new EMetadatumService();
         $eMetadata_view_data = $eMetadatumService->prepareDataForIndexView();
         extract($eMetadata_view_data);
 
         if (request()->ajax()) {
-            return view('PkgGapp::eModel._edit', array_merge(compact('itemEModel'),$ePackages));
+            return view('PkgGapp::eModel._edit', array_merge(compact('itemEModel','ePackages'),$eDataField_compact_value, $eMetadatum_compact_value));
         }
 
-        return view('PkgGapp::eModel.edit', array_merge(compact('itemEModel'),$ePackages));
+        return view('PkgGapp::eModel.edit', array_merge(compact('itemEModel','ePackages'),$eDataField_compact_value, $eMetadatum_compact_value));
 
     }
     public function edit(string $id) {

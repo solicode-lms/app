@@ -97,20 +97,20 @@ class BaseEMetadataDefinitionController extends AdminController
         $itemEMetadataDefinition = $this->eMetadataDefinitionService->find($id);
 
 
-        
+
 
         $this->viewState->set('scope.eMetadatum.e_metadata_definition_id', $id);
-
+        
 
         $eMetadatumService =  new EMetadatumService();
         $eMetadata_view_data = $eMetadatumService->prepareDataForIndexView();
         extract($eMetadata_view_data);
 
         if (request()->ajax()) {
-            return view('PkgGapp::eMetadataDefinition._edit', array_merge(compact('itemEMetadataDefinition'),));
+            return view('PkgGapp::eMetadataDefinition._edit', array_merge(compact('itemEMetadataDefinition',),$eMetadatum_compact_value));
         }
 
-        return view('PkgGapp::eMetadataDefinition.edit', array_merge(compact('itemEMetadataDefinition'),));
+        return view('PkgGapp::eMetadataDefinition.edit', array_merge(compact('itemEMetadataDefinition',),$eMetadatum_compact_value));
 
     }
     public function edit(string $id) {

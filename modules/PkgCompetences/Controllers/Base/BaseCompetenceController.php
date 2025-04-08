@@ -108,27 +108,27 @@ class BaseCompetenceController extends AdminController
 
         $modules = $this->moduleService->all();
         $technologies = $this->technologyService->all();
-        
+
 
         $this->viewState->set('scope.niveauCompetence.competence_id', $id);
-
+        
 
         $niveauCompetenceService =  new NiveauCompetenceService();
         $niveauCompetences_view_data = $niveauCompetenceService->prepareDataForIndexView();
         extract($niveauCompetences_view_data);
 
         $this->viewState->set('scope.formation.competence_id', $id);
-
+        
 
         $formationService =  new FormationService();
         $formations_view_data = $formationService->prepareDataForIndexView();
         extract($formations_view_data);
 
         if (request()->ajax()) {
-            return view('PkgCompetences::competence._edit', array_merge(compact('itemCompetence'),$technologies, $modules));
+            return view('PkgCompetences::competence._edit', array_merge(compact('itemCompetence','technologies', 'modules'),$niveauCompetence_compact_value, $formation_compact_value));
         }
 
-        return view('PkgCompetences::competence.edit', array_merge(compact('itemCompetence'),$technologies, $modules));
+        return view('PkgCompetences::competence.edit', array_merge(compact('itemCompetence','technologies', 'modules'),$niveauCompetence_compact_value, $formation_compact_value));
 
     }
     public function edit(string $id) {

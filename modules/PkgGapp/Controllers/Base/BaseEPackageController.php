@@ -97,20 +97,20 @@ class BaseEPackageController extends AdminController
         $itemEPackage = $this->ePackageService->find($id);
 
 
-        
+
 
         $this->viewState->set('scope.eModel.e_package_id', $id);
-
+        
 
         $eModelService =  new EModelService();
         $eModels_view_data = $eModelService->prepareDataForIndexView();
         extract($eModels_view_data);
 
         if (request()->ajax()) {
-            return view('PkgGapp::ePackage._edit', array_merge(compact('itemEPackage'),));
+            return view('PkgGapp::ePackage._edit', array_merge(compact('itemEPackage',),$eModel_compact_value));
         }
 
-        return view('PkgGapp::ePackage.edit', array_merge(compact('itemEPackage'),));
+        return view('PkgGapp::ePackage.edit', array_merge(compact('itemEPackage',),$eModel_compact_value));
 
     }
     public function edit(string $id) {

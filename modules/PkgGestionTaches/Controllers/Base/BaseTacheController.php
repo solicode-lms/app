@@ -129,27 +129,27 @@ class BaseTacheController extends AdminController
         $projets = $this->projetService->all();
         $prioriteTaches = $this->prioriteTacheService->all();
         $livrables = $this->livrableService->all();
-        
+
 
         $this->viewState->set('scope.dependanceTache.tache_id', $id);
-
+        
 
         $dependanceTacheService =  new DependanceTacheService();
         $dependanceTaches_view_data = $dependanceTacheService->prepareDataForIndexView();
         extract($dependanceTaches_view_data);
 
         $this->viewState->set('scope.realisationTache.tache_id', $id);
-
+        
 
         $realisationTacheService =  new RealisationTacheService();
         $realisationTaches_view_data = $realisationTacheService->prepareDataForIndexView();
         extract($realisationTaches_view_data);
 
         if (request()->ajax()) {
-            return view('PkgGestionTaches::tache._edit', array_merge(compact('itemTache'),$livrables, $prioriteTaches, $projets));
+            return view('PkgGestionTaches::tache._edit', array_merge(compact('itemTache','livrables', 'prioriteTaches', 'projets'),$dependanceTache_compact_value, $realisationTache_compact_value));
         }
 
-        return view('PkgGestionTaches::tache.edit', array_merge(compact('itemTache'),$livrables, $prioriteTaches, $projets));
+        return view('PkgGestionTaches::tache.edit', array_merge(compact('itemTache','livrables', 'prioriteTaches', 'projets'),$dependanceTache_compact_value, $realisationTache_compact_value));
 
     }
     public function edit(string $id) {

@@ -102,20 +102,20 @@ class BaseModuleController extends AdminController
 
 
         $filieres = $this->filiereService->all();
-        
+
 
         $this->viewState->set('scope.competence.module_id', $id);
-
+        
 
         $competenceService =  new CompetenceService();
         $competences_view_data = $competenceService->prepareDataForIndexView();
         extract($competences_view_data);
 
         if (request()->ajax()) {
-            return view('PkgFormation::module._edit', array_merge(compact('itemModule'),$filieres));
+            return view('PkgFormation::module._edit', array_merge(compact('itemModule','filieres'),$competence_compact_value));
         }
 
-        return view('PkgFormation::module.edit', array_merge(compact('itemModule'),$filieres));
+        return view('PkgFormation::module.edit', array_merge(compact('itemModule','filieres'),$competence_compact_value));
 
     }
     public function edit(string $id) {

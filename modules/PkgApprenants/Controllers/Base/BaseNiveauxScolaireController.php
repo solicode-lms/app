@@ -97,20 +97,20 @@ class BaseNiveauxScolaireController extends AdminController
         $itemNiveauxScolaire = $this->niveauxScolaireService->find($id);
 
 
-        
+
 
         $this->viewState->set('scope.apprenant.niveaux_scolaire_id', $id);
-
+        
 
         $apprenantService =  new ApprenantService();
         $apprenants_view_data = $apprenantService->prepareDataForIndexView();
         extract($apprenants_view_data);
 
         if (request()->ajax()) {
-            return view('PkgApprenants::niveauxScolaire._edit', array_merge(compact('itemNiveauxScolaire'),));
+            return view('PkgApprenants::niveauxScolaire._edit', array_merge(compact('itemNiveauxScolaire',),$apprenant_compact_value));
         }
 
-        return view('PkgApprenants::niveauxScolaire.edit', array_merge(compact('itemNiveauxScolaire'),));
+        return view('PkgApprenants::niveauxScolaire.edit', array_merge(compact('itemNiveauxScolaire',),$apprenant_compact_value));
 
     }
     public function edit(string $id) {

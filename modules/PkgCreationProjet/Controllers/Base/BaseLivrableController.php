@@ -128,13 +128,13 @@ class BaseLivrableController extends AdminController
         $natureLivrables = $this->natureLivrableService->all();
         $projets = $this->projetService->all();
         $taches = $this->tacheService->all();
-        
+
 
         if (request()->ajax()) {
-            return view('PkgCreationProjet::livrable._fields', array_merge(compact('itemLivrable'),$taches, $natureLivrables, $projets));
+            return view('PkgCreationProjet::livrable._fields', array_merge(compact('itemLivrable','taches', 'natureLivrables', 'projets'),));
         }
 
-        return view('PkgCreationProjet::livrable.edit', array_merge(compact('itemLivrable'),$taches, $natureLivrables, $projets));
+        return view('PkgCreationProjet::livrable.edit', array_merge(compact('itemLivrable','taches', 'natureLivrables', 'projets'),));
 
     }
     public function edit(string $id) {

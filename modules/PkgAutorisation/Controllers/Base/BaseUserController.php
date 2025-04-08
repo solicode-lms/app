@@ -105,41 +105,41 @@ class BaseUserController extends AdminController
 
 
         $roles = $this->roleService->all();
-        
+
 
         $this->viewState->set('scope.apprenant.user_id', $id);
-
+        
 
         $apprenantService =  new ApprenantService();
         $apprenants_view_data = $apprenantService->prepareDataForIndexView();
         extract($apprenants_view_data);
 
         $this->viewState->set('scope.formateur.user_id', $id);
-
+        
 
         $formateurService =  new FormateurService();
         $formateurs_view_data = $formateurService->prepareDataForIndexView();
         extract($formateurs_view_data);
 
         $this->viewState->set('scope.profile.user_id', $id);
-
+        
 
         $profileService =  new ProfileService();
         $profiles_view_data = $profileService->prepareDataForIndexView();
         extract($profiles_view_data);
 
         $this->viewState->set('scope.widgetUtilisateur.user_id', $id);
-
+        
 
         $widgetUtilisateurService =  new WidgetUtilisateurService();
         $widgetUtilisateurs_view_data = $widgetUtilisateurService->prepareDataForIndexView();
         extract($widgetUtilisateurs_view_data);
 
         if (request()->ajax()) {
-            return view('PkgAutorisation::user._edit', array_merge(compact('itemUser'),$roles));
+            return view('PkgAutorisation::user._edit', array_merge(compact('itemUser','roles'),$apprenant_compact_value, $formateur_compact_value, $profile_compact_value, $widgetUtilisateur_compact_value));
         }
 
-        return view('PkgAutorisation::user.edit', array_merge(compact('itemUser'),$roles));
+        return view('PkgAutorisation::user.edit', array_merge(compact('itemUser','roles'),$apprenant_compact_value, $formateur_compact_value, $profile_compact_value, $widgetUtilisateur_compact_value));
 
     }
     public function edit(string $id) {

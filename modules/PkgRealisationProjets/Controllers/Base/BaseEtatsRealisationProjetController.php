@@ -110,13 +110,13 @@ class BaseEtatsRealisationProjetController extends AdminController
 
 
         $formateurs = $this->formateurService->all();
-        
+
 
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::etatsRealisationProjet._fields', array_merge(compact('itemEtatsRealisationProjet'),$formateurs));
+            return view('PkgRealisationProjets::etatsRealisationProjet._fields', array_merge(compact('itemEtatsRealisationProjet','formateurs'),));
         }
 
-        return view('PkgRealisationProjets::etatsRealisationProjet.edit', array_merge(compact('itemEtatsRealisationProjet'),$formateurs));
+        return view('PkgRealisationProjets::etatsRealisationProjet.edit', array_merge(compact('itemEtatsRealisationProjet','formateurs'),));
 
     }
     public function edit(string $id) {

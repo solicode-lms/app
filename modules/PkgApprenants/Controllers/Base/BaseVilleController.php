@@ -96,13 +96,13 @@ class BaseVilleController extends AdminController
         $itemVille = $this->villeService->find($id);
 
 
-        
+
 
         if (request()->ajax()) {
-            return view('PkgApprenants::ville._fields', array_merge(compact('itemVille'),));
+            return view('PkgApprenants::ville._fields', array_merge(compact('itemVille',),));
         }
 
-        return view('PkgApprenants::ville.edit', array_merge(compact('itemVille'),));
+        return view('PkgApprenants::ville.edit', array_merge(compact('itemVille',),));
 
     }
     public function edit(string $id) {

@@ -107,20 +107,20 @@ class BaseSysModelController extends AdminController
 
         $sysModules = $this->sysModuleService->all();
         $sysColors = $this->sysColorService->all();
-        
+
 
         $this->viewState->set('scope.widget.model_id', $id);
-
+        
 
         $widgetService =  new WidgetService();
         $widgets_view_data = $widgetService->prepareDataForIndexView();
         extract($widgets_view_data);
 
         if (request()->ajax()) {
-            return view('Core::sysModel._edit', array_merge(compact('itemSysModel'),$sysColors, $sysModules));
+            return view('Core::sysModel._edit', array_merge(compact('itemSysModel','sysColors', 'sysModules'),$widget_compact_value));
         }
 
-        return view('Core::sysModel.edit', array_merge(compact('itemSysModel'),$sysColors, $sysModules));
+        return view('Core::sysModel.edit', array_merge(compact('itemSysModel','sysColors', 'sysModules'),$widget_compact_value));
 
     }
     public function edit(string $id) {

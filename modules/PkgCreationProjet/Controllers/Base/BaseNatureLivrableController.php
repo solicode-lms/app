@@ -97,20 +97,20 @@ class BaseNatureLivrableController extends AdminController
         $itemNatureLivrable = $this->natureLivrableService->find($id);
 
 
-        
+
 
         $this->viewState->set('scope.livrable.nature_livrable_id', $id);
-
+        
 
         $livrableService =  new LivrableService();
         $livrables_view_data = $livrableService->prepareDataForIndexView();
         extract($livrables_view_data);
 
         if (request()->ajax()) {
-            return view('PkgCreationProjet::natureLivrable._edit', array_merge(compact('itemNatureLivrable'),));
+            return view('PkgCreationProjet::natureLivrable._edit', array_merge(compact('itemNatureLivrable',),$livrable_compact_value));
         }
 
-        return view('PkgCreationProjet::natureLivrable.edit', array_merge(compact('itemNatureLivrable'),));
+        return view('PkgCreationProjet::natureLivrable.edit', array_merge(compact('itemNatureLivrable',),$livrable_compact_value));
 
     }
     public function edit(string $id) {

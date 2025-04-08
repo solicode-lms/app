@@ -110,13 +110,13 @@ class BaseNiveauDifficulteController extends AdminController
 
 
         $formateurs = $this->formateurService->all();
-        
+
 
         if (request()->ajax()) {
-            return view('PkgCompetences::niveauDifficulte._fields', array_merge(compact('itemNiveauDifficulte'),$formateurs));
+            return view('PkgCompetences::niveauDifficulte._fields', array_merge(compact('itemNiveauDifficulte','formateurs'),));
         }
 
-        return view('PkgCompetences::niveauDifficulte.edit', array_merge(compact('itemNiveauDifficulte'),$formateurs));
+        return view('PkgCompetences::niveauDifficulte.edit', array_merge(compact('itemNiveauDifficulte','formateurs'),));
 
     }
     public function edit(string $id) {

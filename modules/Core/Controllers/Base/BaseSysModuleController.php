@@ -104,34 +104,34 @@ class BaseSysModuleController extends AdminController
 
 
         $sysColors = $this->sysColorService->all();
-        
+
 
         $this->viewState->set('scope.featureDomain.sys_module_id', $id);
-
+        
 
         $featureDomainService =  new FeatureDomainService();
         $featureDomains_view_data = $featureDomainService->prepareDataForIndexView();
         extract($featureDomains_view_data);
 
         $this->viewState->set('scope.sysController.sys_module_id', $id);
-
+        
 
         $sysControllerService =  new SysControllerService();
         $sysControllers_view_data = $sysControllerService->prepareDataForIndexView();
         extract($sysControllers_view_data);
 
         $this->viewState->set('scope.sysModel.sys_module_id', $id);
-
+        
 
         $sysModelService =  new SysModelService();
         $sysModels_view_data = $sysModelService->prepareDataForIndexView();
         extract($sysModels_view_data);
 
         if (request()->ajax()) {
-            return view('Core::sysModule._edit', array_merge(compact('itemSysModule'),$sysColors));
+            return view('Core::sysModule._edit', array_merge(compact('itemSysModule','sysColors'),$featureDomain_compact_value, $sysController_compact_value, $sysModel_compact_value));
         }
 
-        return view('Core::sysModule.edit', array_merge(compact('itemSysModule'),$sysColors));
+        return view('Core::sysModule.edit', array_merge(compact('itemSysModule','sysColors'),$featureDomain_compact_value, $sysController_compact_value, $sysModel_compact_value));
 
     }
     public function edit(string $id) {

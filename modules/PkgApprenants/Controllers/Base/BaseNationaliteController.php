@@ -97,20 +97,20 @@ class BaseNationaliteController extends AdminController
         $itemNationalite = $this->nationaliteService->find($id);
 
 
-        
+
 
         $this->viewState->set('scope.apprenant.nationalite_id', $id);
-
+        
 
         $apprenantService =  new ApprenantService();
         $apprenants_view_data = $apprenantService->prepareDataForIndexView();
         extract($apprenants_view_data);
 
         if (request()->ajax()) {
-            return view('PkgApprenants::nationalite._edit', array_merge(compact('itemNationalite'),));
+            return view('PkgApprenants::nationalite._edit', array_merge(compact('itemNationalite',),$apprenant_compact_value));
         }
 
-        return view('PkgApprenants::nationalite.edit', array_merge(compact('itemNationalite'),));
+        return view('PkgApprenants::nationalite.edit', array_merge(compact('itemNationalite',),$apprenant_compact_value));
 
     }
     public function edit(string $id) {

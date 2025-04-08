@@ -112,20 +112,20 @@ class BaseRealisationFormationController extends AdminController
         $formations = $this->formationService->all();
         $apprenants = $this->apprenantService->all();
         $etatFormations = $this->etatFormationService->all();
-        
+
 
         $this->viewState->set('scope.realisationChapitre.realisation_formation_id', $id);
-
+        
 
         $realisationChapitreService =  new RealisationChapitreService();
         $realisationChapitres_view_data = $realisationChapitreService->prepareDataForIndexView();
         extract($realisationChapitres_view_data);
 
         if (request()->ajax()) {
-            return view('PkgAutoformation::realisationFormation._edit', array_merge(compact('itemRealisationFormation'),$apprenants, $etatFormations, $formations));
+            return view('PkgAutoformation::realisationFormation._edit', array_merge(compact('itemRealisationFormation','apprenants', 'etatFormations', 'formations'),$realisationChapitre_compact_value));
         }
 
-        return view('PkgAutoformation::realisationFormation.edit', array_merge(compact('itemRealisationFormation'),$apprenants, $etatFormations, $formations));
+        return view('PkgAutoformation::realisationFormation.edit', array_merge(compact('itemRealisationFormation','apprenants', 'etatFormations', 'formations'),$realisationChapitre_compact_value));
 
     }
     public function edit(string $id) {

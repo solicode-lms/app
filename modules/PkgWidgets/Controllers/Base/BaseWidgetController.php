@@ -121,13 +121,13 @@ class BaseWidgetController extends AdminController
         $widgetOperations = $this->widgetOperationService->all();
         $sysColors = $this->sysColorService->all();
         $roles = $this->roleService->all();
-        
+
 
         if (request()->ajax()) {
-            return view('PkgWidgets::widget._fields', array_merge(compact('itemWidget'),$roles, $sysModels, $widgetOperations, $sysColors, $widgetTypes));
+            return view('PkgWidgets::widget._fields', array_merge(compact('itemWidget','roles', 'sysModels', 'widgetOperations', 'sysColors', 'widgetTypes'),));
         }
 
-        return view('PkgWidgets::widget.edit', array_merge(compact('itemWidget'),$roles, $sysModels, $widgetOperations, $sysColors, $widgetTypes));
+        return view('PkgWidgets::widget.edit', array_merge(compact('itemWidget','roles', 'sysModels', 'widgetOperations', 'sysColors', 'widgetTypes'),));
 
     }
     public function edit(string $id) {

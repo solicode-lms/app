@@ -97,20 +97,20 @@ class BaseTypeDependanceTacheController extends AdminController
         $itemTypeDependanceTache = $this->typeDependanceTacheService->find($id);
 
 
-        
+
 
         $this->viewState->set('scope.dependanceTache.type_dependance_tache_id', $id);
-
+        
 
         $dependanceTacheService =  new DependanceTacheService();
         $dependanceTaches_view_data = $dependanceTacheService->prepareDataForIndexView();
         extract($dependanceTaches_view_data);
 
         if (request()->ajax()) {
-            return view('PkgGestionTaches::typeDependanceTache._edit', array_merge(compact('itemTypeDependanceTache'),));
+            return view('PkgGestionTaches::typeDependanceTache._edit', array_merge(compact('itemTypeDependanceTache',),$dependanceTache_compact_value));
         }
 
-        return view('PkgGestionTaches::typeDependanceTache.edit', array_merge(compact('itemTypeDependanceTache'),));
+        return view('PkgGestionTaches::typeDependanceTache.edit', array_merge(compact('itemTypeDependanceTache',),$dependanceTache_compact_value));
 
     }
     public function edit(string $id) {

@@ -117,20 +117,20 @@ class BaseGroupeController extends AdminController
         $anneeFormations = $this->anneeFormationService->all();
         $apprenants = $this->apprenantService->all();
         $formateurs = $this->formateurService->all();
-        
+
 
         $this->viewState->set('scope.affectationProjet.groupe_id', $id);
-
+        
 
         $affectationProjetService =  new AffectationProjetService();
         $affectationProjets_view_data = $affectationProjetService->prepareDataForIndexView();
         extract($affectationProjets_view_data);
 
         if (request()->ajax()) {
-            return view('PkgApprenants::groupe._edit', array_merge(compact('itemGroupe'),$apprenants, $formateurs, $anneeFormations, $filieres));
+            return view('PkgApprenants::groupe._edit', array_merge(compact('itemGroupe','apprenants', 'formateurs', 'anneeFormations', 'filieres'),$affectationProjet_compact_value));
         }
 
-        return view('PkgApprenants::groupe.edit', array_merge(compact('itemGroupe'),$apprenants, $formateurs, $anneeFormations, $filieres));
+        return view('PkgApprenants::groupe.edit', array_merge(compact('itemGroupe','apprenants', 'formateurs', 'anneeFormations', 'filieres'),$affectationProjet_compact_value));
 
     }
     public function edit(string $id) {

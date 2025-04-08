@@ -114,27 +114,27 @@ class BaseChapitreController extends AdminController
         $niveauCompetences = $this->niveauCompetenceService->all();
         $formateurs = $this->formateurService->all();
         $chapitres = $this->chapitreService->all();
-        
+
 
         $this->viewState->set('scope.chapitre.chapitre_officiel_id', $id);
-
+        
 
         $chapitreService =  new ChapitreService();
         $chapitres_view_data = $chapitreService->prepareDataForIndexView();
         extract($chapitres_view_data);
 
         $this->viewState->set('scope.realisationChapitre.chapitre_id', $id);
-
+        
 
         $realisationChapitreService =  new RealisationChapitreService();
         $realisationChapitres_view_data = $realisationChapitreService->prepareDataForIndexView();
         extract($realisationChapitres_view_data);
 
         if (request()->ajax()) {
-            return view('PkgAutoformation::chapitre._edit', array_merge(compact('itemChapitre'),$chapitres, $formateurs, $formations, $niveauCompetences));
+            return view('PkgAutoformation::chapitre._edit', array_merge(compact('itemChapitre','chapitres', 'formateurs', 'formations', 'niveauCompetences'),$chapitre_compact_value, $realisationChapitre_compact_value));
         }
 
-        return view('PkgAutoformation::chapitre.edit', array_merge(compact('itemChapitre'),$chapitres, $formateurs, $formations, $niveauCompetences));
+        return view('PkgAutoformation::chapitre.edit', array_merge(compact('itemChapitre','chapitres', 'formateurs', 'formations', 'niveauCompetences'),$chapitre_compact_value, $realisationChapitre_compact_value));
 
     }
     public function edit(string $id) {

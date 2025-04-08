@@ -132,13 +132,13 @@ class BaseWidgetUtilisateurController extends AdminController
         $users = $this->userService->all();
         $widgets = $this->widgetService->all();
         $sysModules = $this->sysModuleService->all();
-        
+
 
         if (request()->ajax()) {
-            return view('PkgWidgets::widgetUtilisateur._fields', array_merge(compact('itemWidgetUtilisateur'),$users, $widgets, $sysModules));
+            return view('PkgWidgets::widgetUtilisateur._fields', array_merge(compact('itemWidgetUtilisateur','users', 'widgets', 'sysModules'),));
         }
 
-        return view('PkgWidgets::widgetUtilisateur.edit', array_merge(compact('itemWidgetUtilisateur'),$users, $widgets, $sysModules));
+        return view('PkgWidgets::widgetUtilisateur.edit', array_merge(compact('itemWidgetUtilisateur','users', 'widgets', 'sysModules'),));
 
     }
     public function edit(string $id) {

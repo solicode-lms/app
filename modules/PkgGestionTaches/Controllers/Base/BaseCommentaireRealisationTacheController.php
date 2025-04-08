@@ -111,13 +111,13 @@ class BaseCommentaireRealisationTacheController extends AdminController
         $realisationTaches = $this->realisationTacheService->all();
         $formateurs = $this->formateurService->all();
         $apprenants = $this->apprenantService->all();
-        
+
 
         if (request()->ajax()) {
-            return view('PkgGestionTaches::commentaireRealisationTache._fields', array_merge(compact('itemCommentaireRealisationTache'),$apprenants, $formateurs, $realisationTaches));
+            return view('PkgGestionTaches::commentaireRealisationTache._fields', array_merge(compact('itemCommentaireRealisationTache','apprenants', 'formateurs', 'realisationTaches'),));
         }
 
-        return view('PkgGestionTaches::commentaireRealisationTache.edit', array_merge(compact('itemCommentaireRealisationTache'),$apprenants, $formateurs, $realisationTaches));
+        return view('PkgGestionTaches::commentaireRealisationTache.edit', array_merge(compact('itemCommentaireRealisationTache','apprenants', 'formateurs', 'realisationTaches'),));
 
     }
     public function edit(string $id) {

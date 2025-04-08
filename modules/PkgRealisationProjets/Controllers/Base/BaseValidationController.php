@@ -121,13 +121,13 @@ class BaseValidationController extends AdminController
 
         $transfertCompetences = $this->transfertCompetenceService->all();
         $realisationProjets = $this->realisationProjetService->all();
-        
+
 
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::validation._fields', array_merge(compact('itemValidation'),$realisationProjets, $transfertCompetences));
+            return view('PkgRealisationProjets::validation._fields', array_merge(compact('itemValidation','realisationProjets', 'transfertCompetences'),));
         }
 
-        return view('PkgRealisationProjets::validation.edit', array_merge(compact('itemValidation'),$realisationProjets, $transfertCompetences));
+        return view('PkgRealisationProjets::validation.edit', array_merge(compact('itemValidation','realisationProjets', 'transfertCompetences'),));
 
     }
     public function edit(string $id) {

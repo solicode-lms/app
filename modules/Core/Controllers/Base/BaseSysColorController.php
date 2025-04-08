@@ -105,76 +105,76 @@ class BaseSysColorController extends AdminController
         $itemSysColor = $this->sysColorService->find($id);
 
 
-        
+
 
         $this->viewState->set('scope.etatChapitre.sys_color_id', $id);
-
+        
 
         $etatChapitreService =  new EtatChapitreService();
         $etatChapitres_view_data = $etatChapitreService->prepareDataForIndexView();
         extract($etatChapitres_view_data);
 
         $this->viewState->set('scope.etatRealisationTache.sys_color_id', $id);
-
+        
 
         $etatRealisationTacheService =  new EtatRealisationTacheService();
         $etatRealisationTaches_view_data = $etatRealisationTacheService->prepareDataForIndexView();
         extract($etatRealisationTaches_view_data);
 
         $this->viewState->set('scope.sysModel.sys_color_id', $id);
-
+        
 
         $sysModelService =  new SysModelService();
         $sysModels_view_data = $sysModelService->prepareDataForIndexView();
         extract($sysModels_view_data);
 
         $this->viewState->set('scope.etatFormation.sys_color_id', $id);
-
+        
 
         $etatFormationService =  new EtatFormationService();
         $etatFormations_view_data = $etatFormationService->prepareDataForIndexView();
         extract($etatFormations_view_data);
 
         $this->viewState->set('scope.labelRealisationTache.sys_color_id', $id);
-
+        
 
         $labelRealisationTacheService =  new LabelRealisationTacheService();
         $labelRealisationTaches_view_data = $labelRealisationTacheService->prepareDataForIndexView();
         extract($labelRealisationTaches_view_data);
 
         $this->viewState->set('scope.sysModule.sys_color_id', $id);
-
+        
 
         $sysModuleService =  new SysModuleService();
         $sysModules_view_data = $sysModuleService->prepareDataForIndexView();
         extract($sysModules_view_data);
 
         $this->viewState->set('scope.widget.sys_color_id', $id);
-
+        
 
         $widgetService =  new WidgetService();
         $widgets_view_data = $widgetService->prepareDataForIndexView();
         extract($widgets_view_data);
 
         $this->viewState->set('scope.workflowChapitre.sys_color_id', $id);
-
+        
 
         $workflowChapitreService =  new WorkflowChapitreService();
         $workflowChapitres_view_data = $workflowChapitreService->prepareDataForIndexView();
         extract($workflowChapitres_view_data);
 
         $this->viewState->set('scope.workflowFormation.sys_color_id', $id);
-
+        
 
         $workflowFormationService =  new WorkflowFormationService();
         $workflowFormations_view_data = $workflowFormationService->prepareDataForIndexView();
         extract($workflowFormations_view_data);
 
         if (request()->ajax()) {
-            return view('Core::sysColor._edit', array_merge(compact('itemSysColor'),));
+            return view('Core::sysColor._edit', array_merge(compact('itemSysColor',),$etatChapitre_compact_value, $etatRealisationTache_compact_value, $sysModel_compact_value, $etatFormation_compact_value, $labelRealisationTache_compact_value, $sysModule_compact_value, $widget_compact_value, $workflowChapitre_compact_value, $workflowFormation_compact_value));
         }
 
-        return view('Core::sysColor.edit', array_merge(compact('itemSysColor'),));
+        return view('Core::sysColor.edit', array_merge(compact('itemSysColor',),$etatChapitre_compact_value, $etatRealisationTache_compact_value, $sysModel_compact_value, $etatFormation_compact_value, $labelRealisationTache_compact_value, $sysModule_compact_value, $widget_compact_value, $workflowChapitre_compact_value, $workflowFormation_compact_value));
 
     }
     public function edit(string $id) {

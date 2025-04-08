@@ -135,13 +135,13 @@ class BaseProfileController extends AdminController
 
 
         $users = $this->userService->all();
-        
+
 
         if (request()->ajax()) {
-            return view('PkgAutorisation::profile._fields', array_merge(compact('itemProfile'),$users));
+            return view('PkgAutorisation::profile._fields', array_merge(compact('itemProfile','users'),));
         }
 
-        return view('PkgAutorisation::profile.edit', array_merge(compact('itemProfile'),$users));
+        return view('PkgAutorisation::profile.edit', array_merge(compact('itemProfile','users'),));
 
     }
     public function edit(string $id) {

@@ -102,20 +102,20 @@ class BaseFeatureDomainController extends AdminController
 
 
         $sysModules = $this->sysModuleService->all();
-        
+
 
         $this->viewState->set('scope.feature.feature_domain_id', $id);
-
+        
 
         $featureService =  new FeatureService();
         $features_view_data = $featureService->prepareDataForIndexView();
         extract($features_view_data);
 
         if (request()->ajax()) {
-            return view('Core::featureDomain._edit', array_merge(compact('itemFeatureDomain'),$sysModules));
+            return view('Core::featureDomain._edit', array_merge(compact('itemFeatureDomain','sysModules'),$feature_compact_value));
         }
 
-        return view('Core::featureDomain.edit', array_merge(compact('itemFeatureDomain'),$sysModules));
+        return view('Core::featureDomain.edit', array_merge(compact('itemFeatureDomain','sysModules'),$feature_compact_value));
 
     }
     public function edit(string $id) {

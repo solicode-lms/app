@@ -97,20 +97,20 @@ class BaseWidgetTypeController extends AdminController
         $itemWidgetType = $this->widgetTypeService->find($id);
 
 
-        
+
 
         $this->viewState->set('scope.widget.type_id', $id);
-
+        
 
         $widgetService =  new WidgetService();
         $widgets_view_data = $widgetService->prepareDataForIndexView();
         extract($widgets_view_data);
 
         if (request()->ajax()) {
-            return view('PkgWidgets::widgetType._edit', array_merge(compact('itemWidgetType'),));
+            return view('PkgWidgets::widgetType._edit', array_merge(compact('itemWidgetType',),$widget_compact_value));
         }
 
-        return view('PkgWidgets::widgetType.edit', array_merge(compact('itemWidgetType'),));
+        return view('PkgWidgets::widgetType.edit', array_merge(compact('itemWidgetType',),$widget_compact_value));
 
     }
     public function edit(string $id) {

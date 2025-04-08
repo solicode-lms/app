@@ -111,13 +111,13 @@ class BaseRoleController extends AdminController
         $permissions = $this->permissionService->all();
         $widgets = $this->widgetService->all();
         $users = $this->userService->all();
-        
+
 
         if (request()->ajax()) {
-            return view('PkgAutorisation::role._fields', array_merge(compact('itemRole'),$permissions, $widgets, $users));
+            return view('PkgAutorisation::role._fields', array_merge(compact('itemRole','permissions', 'widgets', 'users'),));
         }
 
-        return view('PkgAutorisation::role.edit', array_merge(compact('itemRole'),$permissions, $widgets, $users));
+        return view('PkgAutorisation::role.edit', array_merge(compact('itemRole','permissions', 'widgets', 'users'),));
 
     }
     public function edit(string $id) {

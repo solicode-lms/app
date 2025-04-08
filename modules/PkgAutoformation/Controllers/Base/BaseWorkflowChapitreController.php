@@ -102,20 +102,20 @@ class BaseWorkflowChapitreController extends AdminController
 
 
         $sysColors = $this->sysColorService->all();
-        
+
 
         $this->viewState->set('scope.etatChapitre.workflow_chapitre_id', $id);
-
+        
 
         $etatChapitreService =  new EtatChapitreService();
         $etatChapitres_view_data = $etatChapitreService->prepareDataForIndexView();
         extract($etatChapitres_view_data);
 
         if (request()->ajax()) {
-            return view('PkgAutoformation::workflowChapitre._edit', array_merge(compact('itemWorkflowChapitre'),$sysColors));
+            return view('PkgAutoformation::workflowChapitre._edit', array_merge(compact('itemWorkflowChapitre','sysColors'),$etatChapitre_compact_value));
         }
 
-        return view('PkgAutoformation::workflowChapitre.edit', array_merge(compact('itemWorkflowChapitre'),$sysColors));
+        return view('PkgAutoformation::workflowChapitre.edit', array_merge(compact('itemWorkflowChapitre','sysColors'),$etatChapitre_compact_value));
 
     }
     public function edit(string $id) {

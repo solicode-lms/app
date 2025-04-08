@@ -97,20 +97,20 @@ class BaseWorkflowTacheController extends AdminController
         $itemWorkflowTache = $this->workflowTacheService->find($id);
 
 
-        
+
 
         $this->viewState->set('scope.etatRealisationTache.workflow_tache_id', $id);
-
+        
 
         $etatRealisationTacheService =  new EtatRealisationTacheService();
         $etatRealisationTaches_view_data = $etatRealisationTacheService->prepareDataForIndexView();
         extract($etatRealisationTaches_view_data);
 
         if (request()->ajax()) {
-            return view('PkgGestionTaches::workflowTache._edit', array_merge(compact('itemWorkflowTache'),));
+            return view('PkgGestionTaches::workflowTache._edit', array_merge(compact('itemWorkflowTache',),$etatRealisationTache_compact_value));
         }
 
-        return view('PkgGestionTaches::workflowTache.edit', array_merge(compact('itemWorkflowTache'),));
+        return view('PkgGestionTaches::workflowTache.edit', array_merge(compact('itemWorkflowTache',),$etatRealisationTache_compact_value));
 
     }
     public function edit(string $id) {

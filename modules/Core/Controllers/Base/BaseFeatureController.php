@@ -106,13 +106,13 @@ class BaseFeatureController extends AdminController
 
         $featureDomains = $this->featureDomainService->all();
         $permissions = $this->permissionService->all();
-        
+
 
         if (request()->ajax()) {
-            return view('Core::feature._fields', array_merge(compact('itemFeature'),$permissions, $featureDomains));
+            return view('Core::feature._fields', array_merge(compact('itemFeature','permissions', 'featureDomains'),));
         }
 
-        return view('Core::feature.edit', array_merge(compact('itemFeature'),$permissions, $featureDomains));
+        return view('Core::feature.edit', array_merge(compact('itemFeature','permissions', 'featureDomains'),));
 
     }
     public function edit(string $id) {

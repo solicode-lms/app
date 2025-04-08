@@ -107,20 +107,20 @@ class BaseEDataFieldController extends AdminController
 
         $eModels = $this->eModelService->all();
         $eRelationships = $this->eRelationshipService->all();
-        
+
 
         $this->viewState->set('scope.eMetadatum.e_data_field_id', $id);
-
+        
 
         $eMetadatumService =  new EMetadatumService();
         $eMetadata_view_data = $eMetadatumService->prepareDataForIndexView();
         extract($eMetadata_view_data);
 
         if (request()->ajax()) {
-            return view('PkgGapp::eDataField._edit', array_merge(compact('itemEDataField'),$eModels, $eRelationships));
+            return view('PkgGapp::eDataField._edit', array_merge(compact('itemEDataField','eModels', 'eRelationships'),$eMetadatum_compact_value));
         }
 
-        return view('PkgGapp::eDataField.edit', array_merge(compact('itemEDataField'),$eModels, $eRelationships));
+        return view('PkgGapp::eDataField.edit', array_merge(compact('itemEDataField','eModels', 'eRelationships'),$eMetadatum_compact_value));
 
     }
     public function edit(string $id) {

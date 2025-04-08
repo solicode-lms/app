@@ -98,27 +98,27 @@ class BaseAnneeFormationController extends AdminController
         $itemAnneeFormation = $this->anneeFormationService->find($id);
 
 
-        
+
 
         $this->viewState->set('scope.affectationProjet.annee_formation_id', $id);
-
+        
 
         $affectationProjetService =  new AffectationProjetService();
         $affectationProjets_view_data = $affectationProjetService->prepareDataForIndexView();
         extract($affectationProjets_view_data);
 
         $this->viewState->set('scope.groupe.annee_formation_id', $id);
-
+        
 
         $groupeService =  new GroupeService();
         $groupes_view_data = $groupeService->prepareDataForIndexView();
         extract($groupes_view_data);
 
         if (request()->ajax()) {
-            return view('PkgFormation::anneeFormation._edit', array_merge(compact('itemAnneeFormation'),));
+            return view('PkgFormation::anneeFormation._edit', array_merge(compact('itemAnneeFormation',),$affectationProjet_compact_value, $groupe_compact_value));
         }
 
-        return view('PkgFormation::anneeFormation.edit', array_merge(compact('itemAnneeFormation'),));
+        return view('PkgFormation::anneeFormation.edit', array_merge(compact('itemAnneeFormation',),$affectationProjet_compact_value, $groupe_compact_value));
 
     }
     public function edit(string $id) {

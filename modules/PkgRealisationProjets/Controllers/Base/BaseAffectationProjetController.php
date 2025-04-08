@@ -140,10 +140,10 @@ class BaseAffectationProjetController extends AdminController
         $projets = $this->projetService->all();
         $groupes = $this->groupeService->all();
         $anneeFormations = $this->anneeFormationService->all();
-        
+
 
         $this->viewState->set('scope.realisationProjet.affectation_projet_id', $id);
-
+        
         // scopeDataInEditContext
         $value = $itemAffectationProjet->getNestedValue('projet.formateur.id');
         $key = 'scope.etatsRealisationProjet.formateur_id';
@@ -154,10 +154,10 @@ class BaseAffectationProjetController extends AdminController
         extract($realisationProjets_view_data);
 
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::affectationProjet._edit', array_merge(compact('itemAffectationProjet'),$anneeFormations, $groupes, $projets));
+            return view('PkgRealisationProjets::affectationProjet._edit', array_merge(compact('itemAffectationProjet','anneeFormations', 'groupes', 'projets'),$realisationProjet_compact_value));
         }
 
-        return view('PkgRealisationProjets::affectationProjet.edit', array_merge(compact('itemAffectationProjet'),$anneeFormations, $groupes, $projets));
+        return view('PkgRealisationProjets::affectationProjet.edit', array_merge(compact('itemAffectationProjet','anneeFormations', 'groupes', 'projets'),$realisationProjet_compact_value));
 
     }
     public function edit(string $id) {

@@ -97,20 +97,20 @@ class BaseCategoryTechnologyController extends AdminController
         $itemCategoryTechnology = $this->categoryTechnologyService->find($id);
 
 
-        
+
 
         $this->viewState->set('scope.technology.category_technology_id', $id);
-
+        
 
         $technologyService =  new TechnologyService();
         $technologies_view_data = $technologyService->prepareDataForIndexView();
         extract($technologies_view_data);
 
         if (request()->ajax()) {
-            return view('PkgCompetences::categoryTechnology._edit', array_merge(compact('itemCategoryTechnology'),));
+            return view('PkgCompetences::categoryTechnology._edit', array_merge(compact('itemCategoryTechnology',),$technology_compact_value));
         }
 
-        return view('PkgCompetences::categoryTechnology.edit', array_merge(compact('itemCategoryTechnology'),));
+        return view('PkgCompetences::categoryTechnology.edit', array_merge(compact('itemCategoryTechnology',),$technology_compact_value));
 
     }
     public function edit(string $id) {

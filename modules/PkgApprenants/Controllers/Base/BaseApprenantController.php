@@ -120,13 +120,13 @@ class BaseApprenantController extends AdminController
         $niveauxScolaires = $this->niveauxScolaireService->all();
         $users = $this->userService->all();
         $groupes = $this->groupeService->all();
-        
+
 
         if (request()->ajax()) {
-            return view('PkgApprenants::apprenant._fields', array_merge(compact('itemApprenant'),$groupes, $nationalites, $niveauxScolaires, $users));
+            return view('PkgApprenants::apprenant._fields', array_merge(compact('itemApprenant','groupes', 'nationalites', 'niveauxScolaires', 'users'),));
         }
 
-        return view('PkgApprenants::apprenant.edit', array_merge(compact('itemApprenant'),$groupes, $nationalites, $niveauxScolaires, $users));
+        return view('PkgApprenants::apprenant.edit', array_merge(compact('itemApprenant','groupes', 'nationalites', 'niveauxScolaires', 'users'),));
 
     }
     public function edit(string $id) {

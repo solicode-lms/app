@@ -99,34 +99,34 @@ class BaseFiliereController extends AdminController
         $itemFiliere = $this->filiereService->find($id);
 
 
-        
+
 
         $this->viewState->set('scope.groupe.filiere_id', $id);
-
+        
 
         $groupeService =  new GroupeService();
         $groupes_view_data = $groupeService->prepareDataForIndexView();
         extract($groupes_view_data);
 
         $this->viewState->set('scope.module.filiere_id', $id);
-
+        
 
         $moduleService =  new ModuleService();
         $modules_view_data = $moduleService->prepareDataForIndexView();
         extract($modules_view_data);
 
         $this->viewState->set('scope.projet.filiere_id', $id);
-
+        
 
         $projetService =  new ProjetService();
         $projets_view_data = $projetService->prepareDataForIndexView();
         extract($projets_view_data);
 
         if (request()->ajax()) {
-            return view('PkgFormation::filiere._edit', array_merge(compact('itemFiliere'),));
+            return view('PkgFormation::filiere._edit', array_merge(compact('itemFiliere',),$groupe_compact_value, $module_compact_value, $projet_compact_value));
         }
 
-        return view('PkgFormation::filiere.edit', array_merge(compact('itemFiliere'),));
+        return view('PkgFormation::filiere.edit', array_merge(compact('itemFiliere',),$groupe_compact_value, $module_compact_value, $projet_compact_value));
 
     }
     public function edit(string $id) {
