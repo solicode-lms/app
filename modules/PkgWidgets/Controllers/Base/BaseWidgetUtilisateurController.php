@@ -125,7 +125,7 @@ class BaseWidgetUtilisateurController extends AdminController
         $this->viewState->setContextKey('widgetUtilisateur.edit_' . $id);
 
 
-        $itemWidgetUtilisateur = $this->widgetUtilisateurService->find($id);
+        $itemWidgetUtilisateur = $this->widgetUtilisateurService->edit($id);
         $this->authorize('view', $itemWidgetUtilisateur);
 
 
@@ -146,7 +146,7 @@ class BaseWidgetUtilisateurController extends AdminController
         $this->viewState->setContextKey('widgetUtilisateur.edit_' . $id);
 
 
-        $itemWidgetUtilisateur = $this->widgetUtilisateurService->find($id);
+        $itemWidgetUtilisateur = $this->widgetUtilisateurService->edit($id);
         $this->authorize('edit', $itemWidgetUtilisateur);
 
 
@@ -160,6 +160,7 @@ class BaseWidgetUtilisateurController extends AdminController
         }
 
         return view('PkgWidgets::widgetUtilisateur.edit', array_merge(compact('itemWidgetUtilisateur','users', 'widgets', 'sysModules'),));
+
 
     }
     public function update(WidgetUtilisateurRequest $request, string $id) {

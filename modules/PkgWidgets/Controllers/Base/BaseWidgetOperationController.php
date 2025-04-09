@@ -94,7 +94,7 @@ class BaseWidgetOperationController extends AdminController
         $this->viewState->setContextKey('widgetOperation.edit_' . $id);
 
 
-        $itemWidgetOperation = $this->widgetOperationService->find($id);
+        $itemWidgetOperation = $this->widgetOperationService->edit($id);
 
 
 
@@ -118,7 +118,7 @@ class BaseWidgetOperationController extends AdminController
         $this->viewState->setContextKey('widgetOperation.edit_' . $id);
 
 
-        $itemWidgetOperation = $this->widgetOperationService->find($id);
+        $itemWidgetOperation = $this->widgetOperationService->edit($id);
 
 
 
@@ -135,6 +135,7 @@ class BaseWidgetOperationController extends AdminController
         }
 
         return view('PkgWidgets::widgetOperation.edit', array_merge(compact('itemWidgetOperation',),$widget_compact_value));
+
 
     }
     public function update(WidgetOperationRequest $request, string $id) {

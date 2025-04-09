@@ -94,7 +94,7 @@ class BaseWidgetTypeController extends AdminController
         $this->viewState->setContextKey('widgetType.edit_' . $id);
 
 
-        $itemWidgetType = $this->widgetTypeService->find($id);
+        $itemWidgetType = $this->widgetTypeService->edit($id);
 
 
 
@@ -118,7 +118,7 @@ class BaseWidgetTypeController extends AdminController
         $this->viewState->setContextKey('widgetType.edit_' . $id);
 
 
-        $itemWidgetType = $this->widgetTypeService->find($id);
+        $itemWidgetType = $this->widgetTypeService->edit($id);
 
 
 
@@ -135,6 +135,7 @@ class BaseWidgetTypeController extends AdminController
         }
 
         return view('PkgWidgets::widgetType.edit', array_merge(compact('itemWidgetType',),$widget_compact_value));
+
 
     }
     public function update(WidgetTypeRequest $request, string $id) {
