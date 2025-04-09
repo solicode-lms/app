@@ -17,6 +17,7 @@ import { French } from 'flatpickr/dist/l10n/fr.js';
 import { DataCalculTreatment } from "../treatments/form/DataCalculTreatment";
 import { NotificationHandler } from "./NotificationHandler";
 import DynamicDropdownTreatment from "../treatments/global/DynamicDropdownTreatment";
+import LocalStorageDefaultTreatment from "../treatments/form/LocalStorageDefaultTreatment";
 
 
 export class FormUI  {
@@ -32,6 +33,7 @@ export class FormUI  {
         this.viewStateService = this.config.viewStateService;
         this.loader = new LoadingIndicator(this.formSelector);
         this.dynamicCalculationTreatment = new DataCalculTreatment(config,this);
+        this.localStorageDefaultTreatment = new LocalStorageDefaultTreatment(config,this)
 
         
     }
@@ -57,6 +59,10 @@ export class FormUI  {
         FormUI.initTooltip();
         // Initialisation de la gestion des calculs dynamiques
         this.dynamicCalculationTreatment.init();
+        if(isCreate){
+            this.localStorageDefaultTreatment.init();
+        }
+       
 
         if(window.dynamicFieldVisibilityTreatments){
             new DynamicFieldVisibilityTreatment(window.dynamicFieldVisibilityTreatments)
