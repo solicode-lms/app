@@ -21,6 +21,7 @@
                 class="form-control"
                 required
                 
+                
                 id="code"
                 placeholder="{{ __('PkgApprenants::groupe.code') }}"
                 value="{{ $itemGroupe ? $itemGroupe->code : old('code') }}">
@@ -40,6 +41,7 @@
                 name="nom"
                 type="input"
                 class="form-control"
+                
                 
                 
                 id="nom"
@@ -62,6 +64,7 @@
                 class="form-control richText"
                 
                 
+                
                 id="description"
                 placeholder="{{ __('PkgApprenants::groupe.description') }}">{{ $itemGroupe ? $itemGroupe->description : old('description') }}</textarea>
           @error('description')
@@ -78,6 +81,7 @@
           </label>
                       <select 
             id="filiere_id" 
+            
             
             
             name="filiere_id" 
@@ -104,6 +108,7 @@
           </label>
                       <select 
             id="annee_formation_id" 
+            
             
             
             name="annee_formation_id" 
@@ -136,6 +141,7 @@
                 name="apprenants[]"
                 class="form-control select2"
                 
+                
                 multiple="multiple">
                
                 @foreach ($apprenants as $apprenant)
@@ -161,6 +167,7 @@
                 id="formateurs"
                 name="formateurs[]"
                 class="form-control select2"
+                
                 
                 multiple="multiple">
                

@@ -19,6 +19,7 @@
             id="formateur_id" 
             required
             
+            
             name="formateur_id" 
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
@@ -47,6 +48,7 @@
                 class="form-control"
                 required
                 
+                
                 id="titre"
                 placeholder="{{ __('PkgRealisationProjets::etatsRealisationProjet.titre') }}"
                 value="{{ $itemEtatsRealisationProjet ? $itemEtatsRealisationProjet->titre : old('titre') }}">
@@ -65,6 +67,7 @@
                       <textarea rows="" cols=""
                 name="description"
                 class="form-control richText"
+                
                 
                 
                 id="description"
@@ -86,6 +89,7 @@
                 name="is_editable_by_formateur"
                 type="checkbox"
                 class="form-control"
+                
                 
                 
                 id="is_editable_by_formateur"

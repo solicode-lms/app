@@ -21,6 +21,7 @@
                 class="form-control"
                 required
                 
+                
                 id="nom"
                 placeholder="{{ __('PkgGestionTaches::prioriteTache.nom') }}"
                 value="{{ $itemPrioriteTache ? $itemPrioriteTache->nom : old('nom') }}">
@@ -42,6 +43,7 @@
                 class="form-control"
                 required
                 
+                
                 id="ordre"
                 placeholder="{{ __('PkgGestionTaches::prioriteTache.ordre') }}"
                 value="{{ $itemPrioriteTache ? $itemPrioriteTache->ordre : old('ordre') }}">
@@ -62,6 +64,7 @@
                 class="form-control richText"
                 
                 
+                
                 id="description"
                 placeholder="{{ __('PkgGestionTaches::prioriteTache.description') }}">{{ $itemPrioriteTache ? $itemPrioriteTache->description : old('description') }}</textarea>
           @error('description')
@@ -79,6 +82,7 @@
                       <select 
             id="formateur_id" 
             required
+            
             
             name="formateur_id" 
             class="form-control select2">

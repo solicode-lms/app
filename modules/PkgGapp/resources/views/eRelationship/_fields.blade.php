@@ -21,6 +21,7 @@
                 class="form-control"
                 required
                 
+                
                 id="name"
                 placeholder="{{ __('PkgGapp::eRelationship.name') }}"
                 value="{{ $itemERelationship ? $itemERelationship->name : old('name') }}">
@@ -42,6 +43,7 @@
                 class="form-control"
                 required
                 
+                
                 id="type"
                 placeholder="{{ __('PkgGapp::eRelationship.type') }}"
                 value="{{ $itemERelationship ? $itemERelationship->type : old('type') }}">
@@ -60,6 +62,7 @@
                       <select 
             id="source_e_model_id" 
             required
+            
             
             name="source_e_model_id" 
             class="form-control select2">
@@ -86,6 +89,7 @@
                       <select 
             id="target_e_model_id" 
             required
+            
             
             name="target_e_model_id" 
             class="form-control select2">
@@ -116,6 +120,7 @@
                 class="form-control"
                 required
                 
+                
                 id="cascade_on_delete"
                 value="1"
                 {{ old('cascade_on_delete', $itemERelationship ? $itemERelationship->cascade_on_delete : 0) ? 'checked' : '' }}>
@@ -138,6 +143,7 @@
                 class="form-control"
                 required
                 
+                
                 id="is_cascade"
                 value="1"
                 {{ old('is_cascade', $itemERelationship ? $itemERelationship->is_cascade : 0) ? 'checked' : '' }}>
@@ -158,6 +164,7 @@
                 class="form-control richText"
                 
                 
+                
                 id="description"
                 placeholder="{{ __('PkgGapp::eRelationship.description') }}">{{ $itemERelationship ? $itemERelationship->description : old('description') }}</textarea>
           @error('description')
@@ -176,6 +183,7 @@
                 name="column_name"
                 type="input"
                 class="form-control"
+                
                 
                 
                 id="column_name"
@@ -199,6 +207,7 @@
                 class="form-control"
                 
                 
+                
                 id="referenced_table"
                 placeholder="{{ __('PkgGapp::eRelationship.referenced_table') }}"
                 value="{{ $itemERelationship ? $itemERelationship->referenced_table : old('referenced_table') }}">
@@ -218,6 +227,7 @@
                 name="referenced_column"
                 type="input"
                 class="form-control"
+                
                 
                 
                 id="referenced_column"
@@ -241,6 +251,7 @@
                 class="form-control"
                 
                 
+                
                 id="through"
                 placeholder="{{ __('PkgGapp::eRelationship.through') }}"
                 value="{{ $itemERelationship ? $itemERelationship->through : old('through') }}">
@@ -262,6 +273,7 @@
                 class="form-control"
                 
                 
+                
                 id="with_column"
                 placeholder="{{ __('PkgGapp::eRelationship.with_column') }}"
                 value="{{ $itemERelationship ? $itemERelationship->with_column : old('with_column') }}">
@@ -281,6 +293,7 @@
                 name="morph_name"
                 type="input"
                 class="form-control"
+                
                 
                 
                 id="morph_name"

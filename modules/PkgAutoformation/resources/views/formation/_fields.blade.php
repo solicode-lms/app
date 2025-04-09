@@ -21,6 +21,7 @@
                 class="form-control"
                 required
                 
+                
                 id="nom"
                 placeholder="{{ __('PkgAutoformation::formation.nom') }}"
                 value="{{ $itemFormation ? $itemFormation->nom : old('nom') }}">
@@ -40,6 +41,7 @@
                 name="lien"
                 type="input"
                 class="form-control"
+                
                 
                 
                 id="lien"
@@ -62,6 +64,7 @@
             data-target-dynamic-dropdown='#competence_id'
             data-target-dynamic-dropdown-api-url='{{route('competences.getData')}}'
             data-target-dynamic-dropdown-filter='module.filiere_id'
+            
             
             
             name="filiere_id" 
@@ -90,6 +93,7 @@
             id="competence_id" 
             required
             
+            
             name="competence_id" 
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
@@ -116,6 +120,7 @@
                 id="technologies"
                 name="technologies[]"
                 class="form-control select2"
+                
                 
                 multiple="multiple">
                
@@ -146,6 +151,7 @@
                 class="form-control"
                 
                 
+                
                 id="is_officiel"
                 {{ $canEditis_officiel ? '' : 'disabled' }}
                 value="1"
@@ -164,6 +170,7 @@
           </label>
                       <select 
             id="formateur_id" 
+            
             
             
             name="formateur_id" 
@@ -193,6 +200,7 @@
           </label>
                       <select 
             id="formation_officiel_id" 
+            
             
             
             name="formation_officiel_id" 
@@ -226,6 +234,7 @@
                       <textarea rows="" cols=""
                 name="description"
                 class="form-control richText"
+                
                 
                 
                 id="description"

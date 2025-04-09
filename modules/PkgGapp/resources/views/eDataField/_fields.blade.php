@@ -21,6 +21,7 @@
                 class="form-control"
                 required
                 
+                
                 id="name"
                 placeholder="{{ __('PkgGapp::eDataField.name') }}"
                 value="{{ $itemEDataField ? $itemEDataField->name : old('name') }}">
@@ -40,6 +41,7 @@
                 name="default_value"
                 type="input"
                 class="form-control"
+                
                 
                 
                 id="default_value"
@@ -63,6 +65,7 @@
                 class="form-control"
                 required
                 
+                
                 id="column_name"
                 placeholder="{{ __('PkgGapp::eDataField.column_name') }}"
                 value="{{ $itemEDataField ? $itemEDataField->column_name : old('column_name') }}">
@@ -81,6 +84,7 @@
                       <select 
             id="e_model_id" 
             required
+            
             
             name="e_model_id" 
             class="form-control select2">
@@ -106,6 +110,7 @@
           </label>
                       <select 
             id="e_relationship_id" 
+            
             
             
             name="e_relationship_id" 
@@ -136,6 +141,7 @@
                 class="form-control"
                 required
                 
+                
                 id="field_order"
                 placeholder="{{ __('PkgGapp::eDataField.field_order') }}"
                 value="{{ $itemEDataField ? $itemEDataField->field_order : old('field_order') }}">
@@ -157,6 +163,7 @@
                 class="form-control"
                 required
                 
+                
                 id="data_type"
                 placeholder="{{ __('PkgGapp::eDataField.data_type') }}"
                 value="{{ $itemEDataField ? $itemEDataField->data_type : old('data_type') }}">
@@ -177,6 +184,7 @@
                 name="db_primaryKey"
                 type="checkbox"
                 class="form-control"
+                
                 
                 
                 id="db_primaryKey"
@@ -201,6 +209,7 @@
                 class="form-control"
                 
                 
+                
                 id="db_nullable"
                 value="1"
                 {{ old('db_nullable', $itemEDataField ? $itemEDataField->db_nullable : 0) ? 'checked' : '' }}>
@@ -223,6 +232,7 @@
                 class="form-control"
                 
                 
+                
                 id="db_unique"
                 value="1"
                 {{ old('db_unique', $itemEDataField ? $itemEDataField->db_unique : 0) ? 'checked' : '' }}>
@@ -243,6 +253,7 @@
                 name="calculable"
                 type="checkbox"
                 class="form-control"
+                
                 
                 
                 id="calculable"
@@ -268,6 +279,7 @@
                 class="form-control "
                 
                 
+                
                 id="calculable_sql"
                 placeholder="{{ __('PkgGapp::eDataField.calculable_sql') }}">{{ $itemEDataField ? $itemEDataField->calculable_sql : old('calculable_sql') }}</textarea>
           @error('calculable_sql')
@@ -285,6 +297,7 @@
                       <textarea rows="" cols=""
                 name="description"
                 class="form-control richText"
+                
                 
                 
                 id="description"

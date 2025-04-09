@@ -21,6 +21,7 @@
                 class="form-control"
                 required
                 
+                
                 id="nom"
                 placeholder="{{ __('PkgAutoformation::chapitre.nom') }}"
                 value="{{ $itemChapitre ? $itemChapitre->nom : old('nom') }}">
@@ -40,6 +41,7 @@
                 name="lien"
                 type="input"
                 class="form-control"
+                
                 
                 
                 id="lien"
@@ -63,6 +65,7 @@
                 class="form-control"
                 required
                 
+                
                 id="coefficient"
                 placeholder="{{ __('PkgAutoformation::chapitre.coefficient') }}"
                 value="{{ $itemChapitre ? $itemChapitre->coefficient : old('coefficient') }}">
@@ -81,6 +84,7 @@
                       <textarea rows="" cols=""
                 name="description"
                 class="form-control richText"
+                
                 
                 
                 id="description"
@@ -102,6 +106,7 @@
                 type="number"
                 class="form-control"
                 required
+                
                 
                 id="ordre"
                 placeholder="{{ __('PkgAutoformation::chapitre.ordre') }}"
@@ -125,6 +130,7 @@
                 class="form-control"
                 required
                 
+                
                 id="is_officiel"
                 value="1"
                 {{ old('is_officiel', $itemChapitre ? $itemChapitre->is_officiel : 0) ? 'checked' : '' }}>
@@ -143,6 +149,7 @@
                       <select 
             id="formation_id" 
             required
+            
             
             name="formation_id" 
             class="form-control select2">
@@ -168,6 +175,7 @@
           </label>
                       <select 
             id="niveau_competence_id" 
+            
             
             
             name="niveau_competence_id" 
@@ -196,6 +204,7 @@
             id="formateur_id" 
             
             
+            
             name="formateur_id" 
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
@@ -220,6 +229,7 @@
           </label>
                       <select 
             id="chapitre_officiel_id" 
+            
             
             
             name="chapitre_officiel_id" 

@@ -21,6 +21,7 @@
                 class="form-control"
                 required
                 
+                
                 id="name"
                 placeholder="{{ __('PkgGapp::eModel.name') }}"
                 value="{{ $itemEModel ? $itemEModel->name : old('name') }}">
@@ -41,6 +42,7 @@
                 type="input"
                 class="form-control"
                 required
+                
                 
                 id="table_name"
                 placeholder="{{ __('PkgGapp::eModel.table_name') }}"
@@ -64,6 +66,7 @@
                 class="form-control"
                 required
                 
+                
                 id="is_pivot_table"
                 value="1"
                 {{ old('is_pivot_table', $itemEModel ? $itemEModel->is_pivot_table : 0) ? 'checked' : '' }}>
@@ -84,6 +87,7 @@
                 class="form-control richText"
                 
                 
+                
                 id="description"
                 placeholder="{{ __('PkgGapp::eModel.description') }}">{{ $itemEModel ? $itemEModel->description : old('description') }}</textarea>
           @error('description')
@@ -101,6 +105,7 @@
                       <select 
             id="e_package_id" 
             required
+            
             
             name="e_package_id" 
             class="form-control select2">

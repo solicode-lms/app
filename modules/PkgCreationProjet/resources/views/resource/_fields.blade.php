@@ -21,6 +21,7 @@
                 class="form-control"
                 required
                 
+                
                 id="nom"
                 placeholder="{{ __('PkgCreationProjet::resource.nom') }}"
                 value="{{ $itemResource ? $itemResource->nom : old('nom') }}">
@@ -42,6 +43,7 @@
                 class="form-control"
                 required
                 
+                
                 id="lien"
                 placeholder="{{ __('PkgCreationProjet::resource.lien') }}"
                 value="{{ $itemResource ? $itemResource->lien : old('lien') }}">
@@ -62,6 +64,7 @@
                 class="form-control richText"
                 
                 
+                
                 id="description"
                 placeholder="{{ __('PkgCreationProjet::resource.description') }}">{{ $itemResource ? $itemResource->description : old('description') }}</textarea>
           @error('description')
@@ -79,6 +82,7 @@
                       <select 
             id="projet_id" 
             required
+            
             
             name="projet_id" 
             class="form-control select2">

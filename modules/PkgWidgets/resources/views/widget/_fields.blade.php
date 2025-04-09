@@ -21,6 +21,7 @@
                 class="form-control"
                 
                 
+                
                 id="ordre"
                 placeholder="{{ __('PkgWidgets::widget.ordre') }}"
                 value="{{ $itemWidget ? $itemWidget->ordre : old('ordre') }}">
@@ -41,6 +42,7 @@
                 type="input"
                 class="form-control"
                 required
+                
                 
                 id="name"
                 placeholder="{{ __('PkgWidgets::widget.name') }}"
@@ -63,6 +65,7 @@
                 class="form-control"
                 
                 
+                
                 id="label"
                 placeholder="{{ __('PkgWidgets::widget.label') }}"
                 value="{{ $itemWidget ? $itemWidget->label : old('label') }}">
@@ -81,6 +84,7 @@
                       <select 
             id="type_id" 
             required
+            
             
             name="type_id" 
             class="form-control select2">
@@ -108,6 +112,7 @@
             id="model_id" 
             required
             
+            
             name="model_id" 
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
@@ -133,6 +138,7 @@
                       <select 
             id="operation_id" 
             required
+            
             
             name="operation_id" 
             class="form-control select2">
@@ -162,6 +168,7 @@
                 class="form-control"
                 
                 
+                
                 id="icon"
                 placeholder="{{ __('PkgWidgets::widget.icon') }}"
                 value="{{ $itemWidget ? $itemWidget->icon : old('icon') }}">
@@ -179,6 +186,7 @@
           </label>
                       <select 
             id="sys_color_id" 
+            
             
             
             name="sys_color_id" 
@@ -207,6 +215,7 @@
                 id="roles"
                 name="roles[]"
                 class="form-control select2"
+                
                 
                 multiple="multiple">
                
@@ -240,6 +249,7 @@
         class="form-control"
         id="parameters"
          
+        
         
         value = "{{ $itemWidget ? $itemWidget->parameters : old('parameters') }}"
     >

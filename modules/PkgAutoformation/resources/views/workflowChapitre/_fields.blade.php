@@ -21,6 +21,7 @@
                 class="form-control"
                 required
                 
+                
                 id="code"
                 placeholder="{{ __('PkgAutoformation::workflowChapitre.code') }}"
                 value="{{ $itemWorkflowChapitre ? $itemWorkflowChapitre->code : old('code') }}">
@@ -42,6 +43,7 @@
                 class="form-control"
                 required
                 
+                
                 id="titre"
                 placeholder="{{ __('PkgAutoformation::workflowChapitre.titre') }}"
                 value="{{ $itemWorkflowChapitre ? $itemWorkflowChapitre->titre : old('titre') }}">
@@ -60,6 +62,7 @@
                       <select 
             id="sys_color_id" 
             required
+            
             
             name="sys_color_id" 
             class="form-control select2Color">
@@ -86,6 +89,7 @@
                       <textarea rows="" cols=""
                 name="description"
                 class="form-control richText"
+                
                 
                 
                 id="description"

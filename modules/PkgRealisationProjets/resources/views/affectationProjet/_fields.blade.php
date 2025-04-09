@@ -19,6 +19,7 @@
             id="projet_id" 
             required
             
+            
             name="projet_id" 
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
@@ -44,6 +45,7 @@
                       <select 
             id="groupe_id" 
             required
+            
             
             name="groupe_id" 
             class="form-control select2">
@@ -73,6 +75,7 @@
                 class="form-control datetimepicker"
                 required
                 
+                
                 id="date_debut"
                 placeholder="{{ __('PkgRealisationProjets::affectationProjet.date_debut') }}"
                 value="{{ $itemAffectationProjet ? $itemAffectationProjet->date_debut : old('date_debut') }}">
@@ -93,6 +96,7 @@
                 name="date_fin"
                 type="date"
                 class="form-control datetimepicker"
+                
                 
                 
                 id="date_fin"
@@ -116,6 +120,7 @@
                 class="form-control richText"
                 
                 
+                
                 id="description"
                 placeholder="{{ __('PkgRealisationProjets::affectationProjet.description') }}">{{ $itemAffectationProjet ? $itemAffectationProjet->description : old('description') }}</textarea>
           @error('description')
@@ -133,6 +138,7 @@
                       <select 
             id="annee_formation_id" 
             required
+            
             
             name="annee_formation_id" 
             class="form-control select2">

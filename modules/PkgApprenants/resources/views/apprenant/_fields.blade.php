@@ -23,6 +23,7 @@
                 class="form-control"
                 required
                 
+                
                 id="nom"
                 placeholder="{{ __('PkgApprenants::apprenant.nom') }}"
                 value="{{ $itemApprenant ? $itemApprenant->nom : old('nom') }}">
@@ -43,6 +44,7 @@
                 type="input"
                 class="form-control"
                 required
+                
                 
                 id="nom_arab"
                 placeholder="{{ __('PkgApprenants::apprenant.nom_arab') }}"
@@ -65,6 +67,7 @@
                 class="form-control"
                 required
                 
+                
                 id="prenom"
                 placeholder="{{ __('PkgApprenants::apprenant.prenom') }}"
                 value="{{ $itemApprenant ? $itemApprenant->prenom : old('prenom') }}">
@@ -85,6 +88,7 @@
                 type="input"
                 class="form-control"
                 required
+                
                 
                 id="prenom_arab"
                 placeholder="{{ __('PkgApprenants::apprenant.prenom_arab') }}"
@@ -107,6 +111,7 @@
                 class="form-control"
                 
                 
+                
                 id="cin"
                 placeholder="{{ __('PkgApprenants::apprenant.cin') }}"
                 value="{{ $itemApprenant ? $itemApprenant->cin : old('cin') }}">
@@ -126,6 +131,7 @@
                 name="date_naissance"
                 type="date"
                 class="form-control datetimepicker"
+                
                 
                 
                 id="date_naissance"
@@ -150,6 +156,7 @@
                 class="form-control"
                 required
                 
+                
                 id="sexe"
                 placeholder="{{ __('PkgApprenants::apprenant.sexe') }}"
                 value="{{ $itemApprenant ? $itemApprenant->sexe : old('sexe') }}">
@@ -167,6 +174,7 @@
           </label>
                       <select 
             id="nationalite_id" 
+            
             
             
             name="nationalite_id" 
@@ -197,6 +205,7 @@
                 class="form-control"
                 
                 
+                
                 id="lieu_naissance"
                 placeholder="{{ __('PkgApprenants::apprenant.lieu_naissance') }}"
                 value="{{ $itemApprenant ? $itemApprenant->lieu_naissance : old('lieu_naissance') }}">
@@ -214,6 +223,7 @@
           </label>
                       <select 
             id="niveaux_scolaire_id" 
+            
             
             
             name="niveaux_scolaire_id" 
@@ -246,6 +256,7 @@
                 class="form-control"
                 required
                 
+                
                 id="tele_num"
                 placeholder="{{ __('PkgApprenants::apprenant.tele_num') }}"
                 value="{{ $itemApprenant ? $itemApprenant->tele_num : old('tele_num') }}">
@@ -263,6 +274,7 @@
           </label>
                       <select 
             id="user_id" 
+            
             
             
             name="user_id" 
@@ -304,6 +316,7 @@
                 class="form-control"
                 required
                 
+                
                 id="matricule"
                 placeholder="{{ __('PkgApprenants::apprenant.matricule') }}"
                 value="{{ $itemApprenant ? $itemApprenant->matricule : old('matricule') }}">
@@ -323,6 +336,7 @@
                 id="groupes"
                 name="groupes[]"
                 class="form-control select2"
+                
                 
                 multiple="multiple">
                
@@ -351,6 +365,7 @@
                 class="form-control datetimepicker"
                 
                 
+                
                 id="date_inscription"
                 placeholder="{{ __('PkgApprenants::apprenant.date_inscription') }}"
                 value="{{ $itemApprenant ? $itemApprenant->date_inscription : old('date_inscription') }}">
@@ -372,6 +387,7 @@
                 name="actif"
                 type="checkbox"
                 class="form-control"
+                
                 
                 
                 id="actif"

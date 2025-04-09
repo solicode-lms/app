@@ -21,6 +21,7 @@
                 class="form-control"
                 
                 
+                
                 id="old_password"
                 placeholder="{{ __('PkgAutorisation::profile.old_password') }}"
                 value="{{ $itemProfile ? $itemProfile->old_password : old('old_password') }}">
@@ -60,6 +61,7 @@
                 class="form-control"
                 
                 
+                
                 id="password_confirmation"
                 placeholder="{{ __('PkgAutorisation::profile.confirm_password') }}"
                 value="{{ $itemProfile ? $itemProfile->password : old('password') }}">
@@ -79,6 +81,7 @@
             id="user_id" 
             {{ $canEdituser_id ? '' : 'disabled' }}
             required
+            
             
             name="user_id" 
             class="form-control select2">
@@ -107,6 +110,7 @@
                 type="input"
                 class="form-control"
                 required
+                
                 
                 id="phone"
                 placeholder="{{ __('PkgAutorisation::profile.phone') }}"

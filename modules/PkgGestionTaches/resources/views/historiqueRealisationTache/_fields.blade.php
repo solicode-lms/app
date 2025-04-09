@@ -21,6 +21,7 @@
                 class="form-control datetimepicker"
                 required
                 
+                
                 id="dateModification"
                 placeholder="{{ __('PkgGestionTaches::historiqueRealisationTache.dateModification') }}"
                 value="{{ $itemHistoriqueRealisationTache ? $itemHistoriqueRealisationTache->dateModification : old('dateModification') }}">
@@ -42,6 +43,7 @@
                 class="form-control richText"
                 required
                 
+                
                 id="changement"
                 placeholder="{{ __('PkgGestionTaches::historiqueRealisationTache.changement') }}">{{ $itemHistoriqueRealisationTache ? $itemHistoriqueRealisationTache->changement : old('changement') }}</textarea>
           @error('changement')
@@ -59,6 +61,7 @@
                       <select 
             id="realisation_tache_id" 
             required
+            
             
             name="realisation_tache_id" 
             class="form-control select2">

@@ -21,6 +21,7 @@
                 class="form-control"
                 required
                 
+                
                 id="name"
                 placeholder="{{ __('Core::featureDomain.name') }}"
                 value="{{ $itemFeatureDomain ? $itemFeatureDomain->name : old('name') }}">
@@ -42,6 +43,7 @@
                 class="form-control"
                 required
                 
+                
                 id="slug"
                 placeholder="{{ __('Core::featureDomain.slug') }}"
                 value="{{ $itemFeatureDomain ? $itemFeatureDomain->slug : old('slug') }}">
@@ -62,6 +64,7 @@
                 class="form-control richText"
                 
                 
+                
                 id="description"
                 placeholder="{{ __('Core::featureDomain.description') }}">{{ $itemFeatureDomain ? $itemFeatureDomain->description : old('description') }}</textarea>
           @error('description')
@@ -79,6 +82,7 @@
                       <select 
             id="sys_module_id" 
             required
+            
             
             name="sys_module_id" 
             class="form-control select2">

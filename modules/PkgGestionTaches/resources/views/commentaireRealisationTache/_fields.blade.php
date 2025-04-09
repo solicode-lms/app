@@ -20,6 +20,7 @@
                 class="form-control richText"
                 required
                 
+                
                 id="commentaire"
                 placeholder="{{ __('PkgGestionTaches::commentaireRealisationTache.commentaire') }}">{{ $itemCommentaireRealisationTache ? $itemCommentaireRealisationTache->commentaire : old('commentaire') }}</textarea>
           @error('commentaire')
@@ -40,6 +41,7 @@
                 class="form-control datetimepicker"
                 required
                 
+                
                 id="dateCommentaire"
                 placeholder="{{ __('PkgGestionTaches::commentaireRealisationTache.dateCommentaire') }}"
                 value="{{ $itemCommentaireRealisationTache ? $itemCommentaireRealisationTache->dateCommentaire : old('dateCommentaire') }}">
@@ -59,6 +61,7 @@
                       <select 
             id="realisation_tache_id" 
             required
+            
             
             name="realisation_tache_id" 
             class="form-control select2">
@@ -86,6 +89,7 @@
             id="formateur_id" 
             
             
+            
             name="formateur_id" 
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
@@ -110,6 +114,7 @@
           </label>
                       <select 
             id="apprenant_id" 
+            
             
             
             name="apprenant_id" 

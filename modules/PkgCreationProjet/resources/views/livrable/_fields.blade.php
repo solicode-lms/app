@@ -19,6 +19,7 @@
             id="nature_livrable_id" 
             required
             
+            
             name="nature_livrable_id" 
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
@@ -47,6 +48,7 @@
                 class="form-control"
                 required
                 
+                
                 id="titre"
                 placeholder="{{ __('PkgCreationProjet::livrable.titre') }}"
                 value="{{ $itemLivrable ? $itemLivrable->titre : old('titre') }}">
@@ -65,6 +67,7 @@
                       <select 
             id="projet_id" 
             required
+            
             
             name="projet_id" 
             class="form-control select2">
@@ -91,6 +94,7 @@
                       <textarea rows="" cols=""
                 name="description"
                 class="form-control richText"
+                
                 
                 
                 id="description"
@@ -134,6 +138,7 @@
                 id="taches"
                 name="taches[]"
                 class="form-control select2"
+                
                 
                 multiple="multiple">
                

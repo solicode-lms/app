@@ -21,6 +21,7 @@
                 class="form-control"
                 required
                 
+                
                 id="nom"
                 placeholder="{{ __('PkgGestionTaches::labelRealisationTache.nom') }}"
                 value="{{ $itemLabelRealisationTache ? $itemLabelRealisationTache->nom : old('nom') }}">
@@ -41,6 +42,7 @@
                 class="form-control richText"
                 
                 
+                
                 id="description"
                 placeholder="{{ __('PkgGestionTaches::labelRealisationTache.description') }}">{{ $itemLabelRealisationTache ? $itemLabelRealisationTache->description : old('description') }}</textarea>
           @error('description')
@@ -58,6 +60,7 @@
                       <select 
             id="formateur_id" 
             required
+            
             
             name="formateur_id" 
             class="form-control select2">
@@ -84,6 +87,7 @@
                       <select 
             id="sys_color_id" 
             required
+            
             
             name="sys_color_id" 
             class="form-control select2Color">

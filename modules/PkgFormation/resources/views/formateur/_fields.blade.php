@@ -21,6 +21,7 @@
                 class="form-control"
                 required
                 
+                
                 id="matricule"
                 placeholder="{{ __('PkgFormation::formateur.matricule') }}"
                 value="{{ $itemFormateur ? $itemFormateur->matricule : old('matricule') }}">
@@ -41,6 +42,7 @@
                 type="input"
                 class="form-control"
                 required
+                
                 
                 id="nom"
                 placeholder="{{ __('PkgFormation::formateur.nom') }}"
@@ -63,6 +65,7 @@
                 class="form-control"
                 required
                 
+                
                 id="prenom"
                 placeholder="{{ __('PkgFormation::formateur.prenom') }}"
                 value="{{ $itemFormateur ? $itemFormateur->prenom : old('prenom') }}">
@@ -82,6 +85,7 @@
                 id="specialites"
                 name="specialites[]"
                 class="form-control select2"
+                
                 
                 multiple="multiple">
                
@@ -108,6 +112,7 @@
                 id="groupes"
                 name="groupes[]"
                 class="form-control select2"
+                
                 
                 multiple="multiple">
                
@@ -136,6 +141,7 @@
                 class="form-control"
                 
                 
+                
                 id="email"
                 placeholder="{{ __('PkgFormation::formateur.email') }}"
                 value="{{ $itemFormateur ? $itemFormateur->email : old('email') }}">
@@ -157,6 +163,7 @@
                 class="form-control"
                 
                 
+                
                 id="tele_num"
                 placeholder="{{ __('PkgFormation::formateur.tele_num') }}"
                 value="{{ $itemFormateur ? $itemFormateur->tele_num : old('tele_num') }}">
@@ -174,6 +181,7 @@
           </label>
                       <select 
             id="user_id" 
+            
             
             
             name="user_id" 

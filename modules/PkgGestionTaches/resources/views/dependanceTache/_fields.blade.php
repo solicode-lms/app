@@ -19,6 +19,7 @@
             id="tache_id" 
             required
             
+            
             name="tache_id" 
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
@@ -43,6 +44,7 @@
           </label>
                       <select 
             id="type_dependance_tache_id" 
+            
             
             
             name="type_dependance_tache_id" 
@@ -70,6 +72,7 @@
                       <select 
             id="tache_cible_id" 
             required
+            
             
             name="tache_cible_id" 
             class="form-control select2">

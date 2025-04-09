@@ -21,6 +21,7 @@
                 class="form-control"
                 required
                 
+                
                 id="code"
                 placeholder="{{ __('PkgFormation::module.code') }}"
                 value="{{ $itemModule ? $itemModule->code : old('code') }}">
@@ -42,6 +43,7 @@
                 class="form-control"
                 required
                 
+                
                 id="nom"
                 placeholder="{{ __('PkgFormation::module.nom') }}"
                 value="{{ $itemModule ? $itemModule->nom : old('nom') }}">
@@ -60,6 +62,7 @@
                       <textarea rows="" cols=""
                 name="description"
                 class="form-control richText"
+                
                 
                 
                 id="description"
@@ -82,6 +85,7 @@
                 class="form-control"
                 required
                 
+                
                 id="masse_horaire"
                 placeholder="{{ __('PkgFormation::module.masse_horaire') }}"
                 value="{{ $itemModule ? $itemModule->masse_horaire : old('masse_horaire') }}">
@@ -100,6 +104,7 @@
                       <select 
             id="filiere_id" 
             required
+            
             
             name="filiere_id" 
             class="form-control select2">

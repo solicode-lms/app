@@ -21,6 +21,7 @@
                 class="form-control datetimepicker"
                 required
                 
+                
                 id="date_debut"
                 placeholder="{{ __('PkgAutoformation::realisationFormation.date_debut') }}"
                 value="{{ $itemRealisationFormation ? $itemRealisationFormation->date_debut : old('date_debut') }}">
@@ -43,6 +44,7 @@
                 class="form-control datetimepicker"
                 
                 
+                
                 id="date_fin"
                 placeholder="{{ __('PkgAutoformation::realisationFormation.date_fin') }}"
                 value="{{ $itemRealisationFormation ? $itemRealisationFormation->date_fin : old('date_fin') }}">
@@ -62,6 +64,7 @@
                       <select 
             id="formation_id" 
             required
+            
             
             name="formation_id" 
             class="form-control select2">
@@ -89,6 +92,7 @@
             id="apprenant_id" 
             required
             
+            
             name="apprenant_id" 
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
@@ -113,6 +117,7 @@
           </label>
                       <select 
             id="etat_formation_id" 
+            
             
             
             name="etat_formation_id" 

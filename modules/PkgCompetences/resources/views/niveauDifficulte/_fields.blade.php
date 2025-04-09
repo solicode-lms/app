@@ -21,6 +21,7 @@
                 class="form-control"
                 required
                 
+                
                 id="nom"
                 placeholder="{{ __('PkgCompetences::niveauDifficulte.nom') }}"
                 value="{{ $itemNiveauDifficulte ? $itemNiveauDifficulte->nom : old('nom') }}">
@@ -41,6 +42,7 @@
         type="number"
         class="form-control"
         required
+        
         
         id="noteMin"
         step="0.01"
@@ -64,6 +66,7 @@
         class="form-control"
         required
         
+        
         id="noteMax"
         step="0.01"
         placeholder="{{ __('PkgCompetences::niveauDifficulte.noteMax') }}"
@@ -83,6 +86,7 @@
                       <select 
             id="formateur_id" 
             required
+            
             
             name="formateur_id" 
             class="form-control select2">
@@ -109,6 +113,7 @@
                       <textarea rows="" cols=""
                 name="description"
                 class="form-control richText"
+                
                 
                 
                 id="description"

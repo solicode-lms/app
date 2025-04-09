@@ -21,6 +21,7 @@
                 class="form-control"
                 required
                 
+                
                 id="name"
                 placeholder="{{ __('PkgAutorisation::user.name') }}"
                 value="{{ $itemUser ? $itemUser->name : old('name') }}">
@@ -42,6 +43,7 @@
                 class="form-control"
                 required
                 
+                
                 id="email"
                 placeholder="{{ __('PkgAutorisation::user.email') }}"
                 value="{{ $itemUser ? $itemUser->email : old('email') }}">
@@ -61,6 +63,7 @@
                 name="email_verified_at"
                 type="date"
                 class="form-control datetimepicker"
+                
                 
                 
                 id="email_verified_at"
@@ -85,6 +88,7 @@
                 class="form-control"
                 required
                 
+                
                 id="password"
                 placeholder="{{ __('PkgAutorisation::user.password') }}"
                 value="{{ $itemUser ? $itemUser->password : old('password') }}">
@@ -107,6 +111,7 @@
                 class="form-control"
                 required
                 
+                
                 id="must_change_password"
                 value="1"
                 {{ old('must_change_password', $itemUser ? $itemUser->must_change_password : 0) ? 'checked' : '' }}>
@@ -126,6 +131,7 @@
                 name="remember_token"
                 type="input"
                 class="form-control"
+                
                 
                 
                 id="remember_token"
@@ -159,6 +165,7 @@
                 id="roles"
                 name="roles[]"
                 class="form-control select2"
+                
                 
                 multiple="multiple">
                

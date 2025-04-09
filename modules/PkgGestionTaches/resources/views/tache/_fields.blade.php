@@ -21,6 +21,7 @@
                 class="form-control"
                 required
                 
+                
                 id="titre"
                 placeholder="{{ __('PkgGestionTaches::tache.titre') }}"
                 value="{{ $itemTache ? $itemTache->titre : old('titre') }}">
@@ -41,6 +42,7 @@
                 class="form-control richText"
                 
                 
+                
                 id="description"
                 placeholder="{{ __('PkgGestionTaches::tache.description') }}">{{ $itemTache ? $itemTache->description : old('description') }}</textarea>
           @error('description')
@@ -59,6 +61,7 @@
                 name="dateDebut"
                 type="date"
                 class="form-control datetimepicker"
+                
                 
                 
                 id="dateDebut"
@@ -83,6 +86,7 @@
                 class="form-control datetimepicker"
                 
                 
+                
                 id="dateFin"
                 placeholder="{{ __('PkgGestionTaches::tache.dateFin') }}"
                 value="{{ $itemTache ? $itemTache->dateFin : old('dateFin') }}">
@@ -102,6 +106,7 @@
                       <select 
             id="projet_id" 
             required
+            
             
             name="projet_id" 
             class="form-control select2">
@@ -127,6 +132,7 @@
           </label>
                       <select 
             id="priorite_tache_id" 
+            
             
             
             name="priorite_tache_id" 
@@ -161,6 +167,7 @@
                 id="livrables"
                 name="livrables[]"
                 class="form-control select2"
+                
                 
                 multiple="multiple">
                

@@ -21,6 +21,7 @@
                 class="form-control"
                 required
                 
+                
                 id="titre"
                 placeholder="{{ __('PkgGestionTaches::typeDependanceTache.titre') }}"
                 value="{{ $itemTypeDependanceTache ? $itemTypeDependanceTache->titre : old('titre') }}">
@@ -39,6 +40,7 @@
                       <textarea rows="" cols=""
                 name="description"
                 class="form-control richText"
+                
                 
                 
                 id="description"

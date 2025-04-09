@@ -19,6 +19,7 @@
             id="livrable_id" 
             required
             
+            
             name="livrable_id" 
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
@@ -47,6 +48,7 @@
                 class="form-control"
                 required
                 
+                
                 id="lien"
                 placeholder="{{ __('PkgRealisationProjets::livrablesRealisation.lien') }}"
                 value="{{ $itemLivrablesRealisation ? $itemLivrablesRealisation->lien : old('lien') }}">
@@ -68,6 +70,7 @@
                 class="form-control"
                 required
                 
+                
                 id="titre"
                 placeholder="{{ __('PkgRealisationProjets::livrablesRealisation.titre') }}"
                 value="{{ $itemLivrablesRealisation ? $itemLivrablesRealisation->titre : old('titre') }}">
@@ -88,6 +91,7 @@
                 class="form-control richText"
                 
                 
+                
                 id="description"
                 placeholder="{{ __('PkgRealisationProjets::livrablesRealisation.description') }}">{{ $itemLivrablesRealisation ? $itemLivrablesRealisation->description : old('description') }}</textarea>
           @error('description')
@@ -105,6 +109,7 @@
                       <select 
             id="realisation_projet_id" 
             required
+            
             
             name="realisation_projet_id" 
             class="form-control select2">

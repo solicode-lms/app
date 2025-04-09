@@ -22,6 +22,7 @@
                 class="form-control"
                 
                 
+                
                 id="value_boolean"
                 value="1"
                 {{ old('value_boolean', $itemEMetadatum ? $itemEMetadatum->value_boolean : 0) ? 'checked' : '' }}>
@@ -41,6 +42,7 @@
                 name="value_string"
                 type="input"
                 class="form-control"
+                
                 
                 
                 id="value_string"
@@ -64,6 +66,7 @@
                 class="form-control"
                 
                 
+                
                 id="value_integer"
                 placeholder="{{ __('PkgGapp::eMetadatum.value_integer') }}"
                 value="{{ $itemEMetadatum ? $itemEMetadatum->value_integer : old('value_integer') }}">
@@ -83,6 +86,7 @@
         name="value_float"
         type="number"
         class="form-control"
+        
         
         
         id="value_float"
@@ -107,6 +111,7 @@
                 class="form-control datetimepicker"
                 
                 
+                
                 id="value_date"
                 placeholder="{{ __('PkgGapp::eMetadatum.value_date') }}"
                 value="{{ $itemEMetadatum ? $itemEMetadatum->value_date : old('value_date') }}">
@@ -129,6 +134,7 @@
                 class="form-control datetimepicker"
                 
                 
+                
                 id="value_datetime"
                 placeholder="{{ __('PkgGapp::eMetadatum.value_datetime') }}"
                 value="{{ $itemEMetadatum ? $itemEMetadatum->value_datetime : old('value_datetime') }}">
@@ -149,6 +155,7 @@
                 name="value_enum"
                 type="input"
                 class="form-control"
+                
                 
                 
                 id="value_enum"
@@ -175,6 +182,7 @@
         id="value_json"
          
         
+        
         value = "{{ $itemEMetadatum ? $itemEMetadatum->value_json : old('value_json') }}"
     >
           @error('value_json')
@@ -194,6 +202,7 @@
                 class="form-control richText"
                 
                 
+                
                 id="value_text"
                 placeholder="{{ __('PkgGapp::eMetadatum.value_text') }}">{{ $itemEMetadatum ? $itemEMetadatum->value_text : old('value_text') }}</textarea>
           @error('value_text')
@@ -210,6 +219,7 @@
           </label>
                       <select 
             id="e_model_id" 
+            
             
             
             name="e_model_id" 
@@ -238,6 +248,7 @@
             id="e_data_field_id" 
             
             
+            
             name="e_data_field_id" 
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
@@ -264,6 +275,7 @@
             id="e_metadata_definition_id" 
             required
             data-calcul='true'
+            
             name="e_metadata_definition_id" 
             class="form-control select2">
              <option value="">Sélectionnez une option</option>

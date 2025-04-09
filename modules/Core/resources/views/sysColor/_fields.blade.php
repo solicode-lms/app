@@ -21,6 +21,7 @@
                 class="form-control"
                 required
                 
+                
                 id="name"
                 placeholder="{{ __('Core::sysColor.name') }}"
                 value="{{ $itemSysColor ? $itemSysColor->name : old('name') }}">
@@ -41,6 +42,7 @@
                 type="input"
                 class="form-control"
                 required
+                
                 
                 id="hex"
                 placeholder="{{ __('Core::sysColor.hex') }}"

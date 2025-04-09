@@ -21,6 +21,7 @@
                 class="form-control datetimepicker"
                 required
                 
+                
                 id="date_debut"
                 placeholder="{{ __('PkgAutoformation::realisationChapitre.date_debut') }}"
                 value="{{ $itemRealisationChapitre ? $itemRealisationChapitre->date_debut : old('date_debut') }}">
@@ -43,6 +44,7 @@
                 class="form-control datetimepicker"
                 
                 
+                
                 id="date_fin"
                 placeholder="{{ __('PkgAutoformation::realisationChapitre.date_fin') }}"
                 value="{{ $itemRealisationChapitre ? $itemRealisationChapitre->date_fin : old('date_fin') }}">
@@ -62,6 +64,7 @@
                       <select 
             id="chapitre_id" 
             required
+            
             
             name="chapitre_id" 
             class="form-control select2">
@@ -89,6 +92,7 @@
             id="realisation_formation_id" 
             required
             
+            
             name="realisation_formation_id" 
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
@@ -113,6 +117,7 @@
           </label>
                       <select 
             id="etat_chapitre_id" 
+            
             
             
             name="etat_chapitre_id" 

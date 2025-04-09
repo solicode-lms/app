@@ -19,6 +19,7 @@
             id="transfert_competence_id" 
             required
             
+            
             name="transfert_competence_id" 
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
@@ -47,6 +48,7 @@
         class="form-control"
         
         
+        
         id="note"
         step="0.01"
         placeholder="{{ __('PkgRealisationProjets::validation.note') }}"
@@ -66,6 +68,7 @@
                       <textarea rows="" cols=""
                 name="message"
                 class="form-control richText"
+                
                 
                 
                 id="message"
@@ -89,6 +92,7 @@
                 class="form-control"
                 required
                 
+                
                 id="is_valide"
                 value="1"
                 {{ old('is_valide', $itemValidation ? $itemValidation->is_valide : 0) ? 'checked' : '' }}>
@@ -107,6 +111,7 @@
                       <select 
             id="realisation_projet_id" 
             required
+            
             
             name="realisation_projet_id" 
             class="form-control select2">

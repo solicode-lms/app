@@ -21,6 +21,7 @@
                 class="form-control"
                 required
                 
+                
                 id="titre"
                 placeholder="{{ __('PkgCreationProjet::projet.titre') }}"
                 value="{{ $itemProjet ? $itemProjet->titre : old('titre') }}">
@@ -41,6 +42,7 @@
                 class="form-control richText"
                 required
                 
+                
                 id="travail_a_faire"
                 placeholder="{{ __('PkgCreationProjet::projet.travail_a_faire') }}">{{ $itemProjet ? $itemProjet->travail_a_faire : old('travail_a_faire') }}</textarea>
           @error('travail_a_faire')
@@ -59,6 +61,7 @@
                 name="critere_de_travail"
                 class="form-control richText"
                 required
+                
                 
                 id="critere_de_travail"
                 placeholder="{{ __('PkgCreationProjet::projet.critere_de_travail') }}">{{ $itemProjet ? $itemProjet->critere_de_travail : old('critere_de_travail') }}</textarea>
@@ -79,6 +82,7 @@
                 type="number"
                 class="form-control"
                 required
+                
                 
                 id="nombre_jour"
                 placeholder="{{ __('PkgCreationProjet::projet.nombre_jour') }}"
@@ -104,6 +108,7 @@
                       <select 
             id="formateur_id" 
             required
+            
             
             name="formateur_id" 
             class="form-control select2">
@@ -136,6 +141,7 @@
                       <select 
             id="filiere_id" 
             required
+            
             
             name="filiere_id" 
             class="form-control select2">

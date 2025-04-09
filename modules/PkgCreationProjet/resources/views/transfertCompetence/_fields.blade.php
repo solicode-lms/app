@@ -19,6 +19,7 @@
             id="competence_id" 
             required
             
+            
             name="competence_id" 
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
@@ -44,6 +45,7 @@
                       <select 
             id="niveau_difficulte_id" 
             required
+            
             
             name="niveau_difficulte_id" 
             class="form-control select2">
@@ -72,6 +74,7 @@
                 name="technologies[]"
                 class="form-control select2"
                 
+                
                 multiple="multiple">
                
                 @foreach ($technologies as $technology)
@@ -99,6 +102,7 @@
         class="form-control"
         
         
+        
         id="note"
         step="0.01"
         placeholder="{{ __('PkgCreationProjet::transfertCompetence.note') }}"
@@ -121,6 +125,7 @@
                       <select 
             id="projet_id" 
             required
+            
             
             name="projet_id" 
             class="form-control select2">
@@ -149,6 +154,7 @@
                 class="form-control richText"
                 
                 data-calcul='true'
+                
                 id="question"
                 placeholder="{{ __('PkgCreationProjet::transfertCompetence.question') }}">{{ $itemTransfertCompetence ? $itemTransfertCompetence->question : old('question') }}</textarea>
           @error('question')

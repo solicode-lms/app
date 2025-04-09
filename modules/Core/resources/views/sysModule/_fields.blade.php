@@ -21,6 +21,7 @@
                 class="form-control"
                 required
                 
+                
                 id="name"
                 placeholder="{{ __('Core::sysModule.name') }}"
                 value="{{ $itemSysModule ? $itemSysModule->name : old('name') }}">
@@ -42,6 +43,7 @@
                 class="form-control"
                 required
                 
+                
                 id="slug"
                 placeholder="{{ __('Core::sysModule.slug') }}"
                 value="{{ $itemSysModule ? $itemSysModule->slug : old('slug') }}">
@@ -60,6 +62,7 @@
                       <textarea rows="" cols=""
                 name="description"
                 class="form-control richText"
+                
                 
                 
                 id="description"
@@ -82,6 +85,7 @@
                 class="form-control"
                 required
                 
+                
                 id="is_active"
                 placeholder="{{ __('Core::sysModule.is_active') }}"
                 value="{{ $itemSysModule ? $itemSysModule->is_active : old('is_active') }}">
@@ -102,6 +106,7 @@
                 type="number"
                 class="form-control"
                 required
+                
                 
                 id="order"
                 placeholder="{{ __('Core::sysModule.order') }}"
@@ -124,6 +129,7 @@
                 class="form-control"
                 required
                 
+                
                 id="version"
                 placeholder="{{ __('Core::sysModule.version') }}"
                 value="{{ $itemSysModule ? $itemSysModule->version : old('version') }}">
@@ -142,6 +148,7 @@
                       <select 
             id="sys_color_id" 
             required
+            
             
             name="sys_color_id" 
             class="form-control select2Color">

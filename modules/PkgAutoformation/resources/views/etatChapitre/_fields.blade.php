@@ -21,6 +21,7 @@
                 class="form-control"
                 required
                 
+                
                 id="nom"
                 placeholder="{{ __('PkgAutoformation::etatChapitre.nom') }}"
                 value="{{ $itemEtatChapitre ? $itemEtatChapitre->nom : old('nom') }}">
@@ -38,6 +39,7 @@
           </label>
                       <select 
             id="workflow_chapitre_id" 
+            
             
             
             name="workflow_chapitre_id" 
@@ -65,6 +67,7 @@
                       <select 
             id="sys_color_id" 
             required
+            
             
             name="sys_color_id" 
             class="form-control select2Color">
@@ -95,6 +98,7 @@
                 class="form-control"
                 
                 
+                
                 id="is_editable_only_by_formateur"
                 value="1"
                 {{ old('is_editable_only_by_formateur', $itemEtatChapitre ? $itemEtatChapitre->is_editable_only_by_formateur : 0) ? 'checked' : '' }}>
@@ -115,6 +119,7 @@
                 class="form-control richText"
                 
                 
+                
                 id="description"
                 placeholder="{{ __('PkgAutoformation::etatChapitre.description') }}">{{ $itemEtatChapitre ? $itemEtatChapitre->description : old('description') }}</textarea>
           @error('description')
@@ -132,6 +137,7 @@
                       <select 
             id="formateur_id" 
             required
+            
             
             name="formateur_id" 
             class="form-control select2">

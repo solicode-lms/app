@@ -21,6 +21,7 @@
                 class="form-control"
                 required
                 
+                
                 id="nom"
                 placeholder="{{ __('PkgFormation::specialite.nom') }}"
                 value="{{ $itemSpecialite ? $itemSpecialite->nom : old('nom') }}">
@@ -41,6 +42,7 @@
                 class="form-control richText"
                 
                 
+                
                 id="description"
                 placeholder="{{ __('PkgFormation::specialite.description') }}">{{ $itemSpecialite ? $itemSpecialite->description : old('description') }}</textarea>
           @error('description')
@@ -59,6 +61,7 @@
                 id="formateurs"
                 name="formateurs[]"
                 class="form-control select2"
+                
                 
                 multiple="multiple">
                

@@ -21,6 +21,7 @@
                 class="form-control"
                 required
                 
+                
                 id="nom"
                 placeholder="{{ __('PkgCompetences::technology.nom') }}"
                 value="{{ $itemTechnology ? $itemTechnology->nom : old('nom') }}">
@@ -39,6 +40,7 @@
                       <select 
             id="category_technology_id" 
             required
+            
             
             name="category_technology_id" 
             class="form-control select2">
@@ -67,6 +69,7 @@
                 name="competences[]"
                 class="form-control select2"
                 
+                
                 multiple="multiple">
                
                 @foreach ($competences as $competence)
@@ -91,6 +94,7 @@
                       <textarea rows="" cols=""
                 name="description"
                 class="form-control richText"
+                
                 
                 
                 id="description"

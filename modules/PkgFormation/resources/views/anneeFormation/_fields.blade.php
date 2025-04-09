@@ -21,6 +21,7 @@
                 class="form-control"
                 required
                 
+                
                 id="titre"
                 placeholder="{{ __('PkgFormation::anneeFormation.titre') }}"
                 value="{{ $itemAnneeFormation ? $itemAnneeFormation->titre : old('titre') }}">
@@ -41,6 +42,7 @@
                 type="date"
                 class="form-control datetimepicker"
                 required
+                
                 
                 id="date_debut"
                 placeholder="{{ __('PkgFormation::anneeFormation.date_debut') }}"
@@ -63,6 +65,7 @@
                 type="date"
                 class="form-control datetimepicker"
                 required
+                
                 
                 id="date_fin"
                 placeholder="{{ __('PkgFormation::anneeFormation.date_fin') }}"

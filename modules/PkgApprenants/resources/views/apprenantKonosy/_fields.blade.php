@@ -21,6 +21,7 @@
                 class="form-control"
                 required
                 
+                
                 id="MatriculeEtudiant"
                 placeholder="{{ __('PkgApprenants::apprenantKonosy.MatriculeEtudiant') }}"
                 value="{{ $itemApprenantKonosy ? $itemApprenantKonosy->MatriculeEtudiant : old('MatriculeEtudiant') }}">
@@ -41,6 +42,7 @@
                 type="input"
                 class="form-control"
                 required
+                
                 
                 id="Nom"
                 placeholder="{{ __('PkgApprenants::apprenantKonosy.Nom') }}"
@@ -63,6 +65,7 @@
                 class="form-control"
                 required
                 
+                
                 id="Prenom"
                 placeholder="{{ __('PkgApprenants::apprenantKonosy.Prenom') }}"
                 value="{{ $itemApprenantKonosy ? $itemApprenantKonosy->Prenom : old('Prenom') }}">
@@ -83,6 +86,7 @@
                 type="input"
                 class="form-control"
                 required
+                
                 
                 id="Sexe"
                 placeholder="{{ __('PkgApprenants::apprenantKonosy.Sexe') }}"
@@ -105,6 +109,7 @@
                 class="form-control"
                 required
                 
+                
                 id="EtudiantActif"
                 placeholder="{{ __('PkgApprenants::apprenantKonosy.EtudiantActif') }}"
                 value="{{ $itemApprenantKonosy ? $itemApprenantKonosy->EtudiantActif : old('EtudiantActif') }}">
@@ -124,6 +129,7 @@
                 name="Diplome"
                 type="input"
                 class="form-control"
+                
                 
                 
                 id="Diplome"
@@ -147,6 +153,7 @@
                 class="form-control"
                 
                 
+                
                 id="Principale"
                 placeholder="{{ __('PkgApprenants::apprenantKonosy.Principale') }}"
                 value="{{ $itemApprenantKonosy ? $itemApprenantKonosy->Principale : old('Principale') }}">
@@ -166,6 +173,7 @@
                 name="LibelleLong"
                 type="input"
                 class="form-control"
+                
                 
                 
                 id="LibelleLong"
@@ -189,6 +197,7 @@
                 class="form-control"
                 
                 
+                
                 id="CodeDiplome"
                 placeholder="{{ __('PkgApprenants::apprenantKonosy.CodeDiplome') }}"
                 value="{{ $itemApprenantKonosy ? $itemApprenantKonosy->CodeDiplome : old('CodeDiplome') }}">
@@ -208,6 +217,7 @@
                 name="DateNaissance"
                 type="input"
                 class="form-control"
+                
                 
                 
                 id="DateNaissance"
@@ -231,6 +241,7 @@
                 class="form-control"
                 
                 
+                
                 id="DateInscription"
                 placeholder="{{ __('PkgApprenants::apprenantKonosy.DateInscription') }}"
                 value="{{ $itemApprenantKonosy ? $itemApprenantKonosy->DateInscription : old('DateInscription') }}">
@@ -250,6 +261,7 @@
                 name="LieuNaissance"
                 type="input"
                 class="form-control"
+                
                 
                 
                 id="LieuNaissance"
@@ -273,6 +285,7 @@
                 class="form-control"
                 
                 
+                
                 id="CIN"
                 placeholder="{{ __('PkgApprenants::apprenantKonosy.CIN') }}"
                 value="{{ $itemApprenantKonosy ? $itemApprenantKonosy->CIN : old('CIN') }}">
@@ -292,6 +305,7 @@
                 name="NTelephone"
                 type="input"
                 class="form-control"
+                
                 
                 
                 id="NTelephone"
@@ -314,6 +328,7 @@
                 class="form-control richText"
                 
                 
+                
                 id="Adresse"
                 placeholder="{{ __('PkgApprenants::apprenantKonosy.Adresse') }}">{{ $itemApprenantKonosy ? $itemApprenantKonosy->Adresse : old('Adresse') }}</textarea>
           @error('Adresse')
@@ -332,6 +347,7 @@
                 name="Nationalite"
                 type="input"
                 class="form-control"
+                
                 
                 
                 id="Nationalite"
@@ -355,6 +371,7 @@
                 class="form-control"
                 
                 
+                
                 id="Nom_Arabe"
                 placeholder="{{ __('PkgApprenants::apprenantKonosy.Nom_Arabe') }}"
                 value="{{ $itemApprenantKonosy ? $itemApprenantKonosy->Nom_Arabe : old('Nom_Arabe') }}">
@@ -376,6 +393,7 @@
                 class="form-control"
                 
                 
+                
                 id="Prenom_Arabe"
                 placeholder="{{ __('PkgApprenants::apprenantKonosy.Prenom_Arabe') }}"
                 value="{{ $itemApprenantKonosy ? $itemApprenantKonosy->Prenom_Arabe : old('Prenom_Arabe') }}">
@@ -395,6 +413,7 @@
                 name="NiveauScolaire"
                 type="input"
                 class="form-control"
+                
                 
                 
                 id="NiveauScolaire"

@@ -21,6 +21,7 @@
             {{ $canEdittache_id ? '' : 'disabled' }}
             required
             
+            
             name="tache_id" 
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
@@ -48,6 +49,7 @@
             id="realisation_projet_id" 
             {{ $canEditrealisation_projet_id ? '' : 'disabled' }}
             required
+            
             
             name="realisation_projet_id" 
             class="form-control select2">
@@ -77,6 +79,7 @@
                 class="form-control datetimepicker"
                 required
                 
+                
                 id="dateDebut"
                 placeholder="{{ __('PkgGestionTaches::realisationTache.dateDebut') }}"
                 value="{{ $itemRealisationTache ? $itemRealisationTache->dateDebut : old('dateDebut') }}">
@@ -99,6 +102,7 @@
                 class="form-control datetimepicker"
                 
                 
+                
                 id="dateFin"
                 placeholder="{{ __('PkgGestionTaches::realisationTache.dateFin') }}"
                 value="{{ $itemRealisationTache ? $itemRealisationTache->dateFin : old('dateFin') }}">
@@ -117,6 +121,7 @@
           </label>
                       <select 
             id="etat_realisation_tache_id" 
+            
             
             
             name="etat_realisation_tache_id" 
@@ -148,6 +153,7 @@
                 {{ $canEditremarques_formateur ? '' : 'disabled' }}
                 
                 
+                
                 id="remarques_formateur"
                 placeholder="{{ __('PkgGestionTaches::realisationTache.remarques_formateur') }}">{{ $itemRealisationTache ? $itemRealisationTache->remarques_formateur : old('remarques_formateur') }}</textarea>
           @error('remarques_formateur')
@@ -165,6 +171,7 @@
                       <textarea rows="" cols=""
                 name="remarques_apprenant"
                 class="form-control richText"
+                
                 
                 
                 id="remarques_apprenant"

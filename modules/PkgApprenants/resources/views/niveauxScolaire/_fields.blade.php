@@ -21,6 +21,7 @@
                 class="form-control"
                 required
                 
+                
                 id="code"
                 placeholder="{{ __('PkgApprenants::niveauxScolaire.code') }}"
                 value="{{ $itemNiveauxScolaire ? $itemNiveauxScolaire->code : old('code') }}">
@@ -42,6 +43,7 @@
                 class="form-control"
                 
                 
+                
                 id="nom"
                 placeholder="{{ __('PkgApprenants::niveauxScolaire.nom') }}"
                 value="{{ $itemNiveauxScolaire ? $itemNiveauxScolaire->nom : old('nom') }}">
@@ -60,6 +62,7 @@
                       <textarea rows="" cols=""
                 name="description"
                 class="form-control richText"
+                
                 
                 
                 id="description"

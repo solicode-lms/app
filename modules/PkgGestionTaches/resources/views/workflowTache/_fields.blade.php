@@ -21,6 +21,7 @@
                 class="form-control"
                 required
                 
+                
                 id="code"
                 placeholder="{{ __('PkgGestionTaches::workflowTache.code') }}"
                 value="{{ $itemWorkflowTache ? $itemWorkflowTache->code : old('code') }}">
@@ -42,6 +43,7 @@
                 class="form-control"
                 required
                 
+                
                 id="titre"
                 placeholder="{{ __('PkgGestionTaches::workflowTache.titre') }}"
                 value="{{ $itemWorkflowTache ? $itemWorkflowTache->titre : old('titre') }}">
@@ -60,6 +62,7 @@
                       <textarea rows="" cols=""
                 name="description"
                 class="form-control richText"
+                
                 
                 
                 id="description"

@@ -21,6 +21,7 @@
                 class="form-control"
                 
                 
+                
                 id="ordre"
                 placeholder="{{ __('PkgWidgets::widgetUtilisateur.ordre') }}"
                 value="{{ $itemWidgetUtilisateur ? $itemWidgetUtilisateur->ordre : old('ordre') }}">
@@ -42,6 +43,7 @@
             data-target-dynamic-dropdown-api-url='{{route('widgets.getData')}}'
             data-target-dynamic-dropdown-filter='model.sys_module_id'
             required
+            
             
             name="sys_module_id" 
             class="form-control select2">
@@ -69,6 +71,7 @@
             id="user_id" 
             required
             
+            
             name="user_id" 
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
@@ -95,6 +98,7 @@
             id="widget_id" 
             required
             data-calcul='true'
+            
             name="widget_id" 
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
@@ -122,6 +126,7 @@
                 name="visible"
                 type="checkbox"
                 class="form-control"
+                
                 
                 
                 id="visible"

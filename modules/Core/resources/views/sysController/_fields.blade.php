@@ -19,6 +19,7 @@
             id="sys_module_id" 
             required
             
+            
             name="sys_module_id" 
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
@@ -47,6 +48,7 @@
                 class="form-control"
                 required
                 
+                
                 id="name"
                 placeholder="{{ __('Core::sysController.name') }}"
                 value="{{ $itemSysController ? $itemSysController->name : old('name') }}">
@@ -68,6 +70,7 @@
                 class="form-control"
                 required
                 
+                
                 id="slug"
                 placeholder="{{ __('Core::sysController.slug') }}"
                 value="{{ $itemSysController ? $itemSysController->slug : old('slug') }}">
@@ -86,6 +89,7 @@
                       <textarea rows="" cols=""
                 name="description"
                 class="form-control richText"
+                
                 
                 
                 id="description"
@@ -108,6 +112,7 @@
                 type="checkbox"
                 class="form-control"
                 required
+                
                 
                 id="is_active"
                 value="1"

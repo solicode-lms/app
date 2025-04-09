@@ -21,6 +21,7 @@
                 class="form-control"
                 required
                 
+                
                 id="nom"
                 placeholder="{{ __('PkgAutoformation::etatFormation.nom') }}"
                 value="{{ $itemEtatFormation ? $itemEtatFormation->nom : old('nom') }}">
@@ -38,6 +39,7 @@
           </label>
                       <select 
             id="workflow_formation_id" 
+            
             
             
             name="workflow_formation_id" 
@@ -65,6 +67,7 @@
                       <select 
             id="sys_color_id" 
             required
+            
             
             name="sys_color_id" 
             class="form-control select2Color">
@@ -95,6 +98,7 @@
                 class="form-control"
                 
                 
+                
                 id="is_editable_only_by_formateur"
                 value="1"
                 {{ old('is_editable_only_by_formateur', $itemEtatFormation ? $itemEtatFormation->is_editable_only_by_formateur : 0) ? 'checked' : '' }}>
@@ -113,6 +117,7 @@
                       <select 
             id="formateur_id" 
             required
+            
             
             name="formateur_id" 
             class="form-control select2">
@@ -142,6 +147,7 @@
                       <textarea rows="" cols=""
                 name="description"
                 class="form-control richText"
+                
                 
                 
                 id="description"
