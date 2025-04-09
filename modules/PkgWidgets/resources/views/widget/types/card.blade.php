@@ -8,7 +8,9 @@
         <div class="icon">
             <i class="fas {{ $widget->icon }}"></i>
         </div>
-        <a href="#" class="small-box-footer">Voir les détails <i class="fas fa-arrow-circle-right"></i></a>
+        @if($widget->link )
+        <a href="{{ $widget->link }}" class="small-box-footer"> Voir les détails <i class="fas fa-arrow-circle-right"></i></a>
+        @endif
     </div>
 </div>
 

@@ -97,6 +97,12 @@ class WidgetService extends BaseWidgetService
         }
         $widget->sysColor->textColor = (new SysColorService())->getTextColorForBackground($widget->sysColor->hex);
         $widget->data = $result;
+        if (!empty($query['link']) && !empty($query['link']['route_name'])) {
+            $routeName = $query['link']['route_name'];
+            $params = $query['link']['route_params'] ?? [];
+            $widget->link = route($routeName, $params);
+        }
+       
         return $widget;
     }
     /**
@@ -228,7 +234,7 @@ class WidgetService extends BaseWidgetService
             unset($query['conditions']['roles']); // Suppression après traitement
         }
 
-        foreach (['tableUI', 'group_by','order_by' ,'column','limit','dataSource'] as $key) {
+        foreach (['link','tableUI', 'group_by','order_by' ,'column','limit','dataSource'] as $key) {
             if (!empty($query['conditions'][$key])) {
                 $query[$key] = $query['conditions'][$key];
                 unset($query['conditions'][$key]);
