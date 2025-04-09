@@ -112,8 +112,9 @@
                 name="is_affichable_seulement_par_formateur"
                 type="checkbox"
                 class="form-control"
-                data-store-key="livrable_is_affichable_seulement_par_formateur" 
                 
+                
+                 data-store-key="Livrable_is_affichable_seulement_par_formateur" 
                 id="is_affichable_seulement_par_formateur"
                 value="1"
                 {{ old('is_affichable_seulement_par_formateur', $itemLivrable ? $itemLivrable->is_affichable_seulement_par_formateur : 0) ? 'checked' : '' }}>
