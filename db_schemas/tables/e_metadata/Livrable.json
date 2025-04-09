@@ -309,5 +309,29 @@
         ],
         "e_data_field_reference": "livrables_taches_livrable_tache_m2m_m2m",
         "e_metadata_definition_reference": "scopeDataInEditContext"
+    },
+    {
+        "reference": "Livrable_is_affichable_seulement_par_formateur_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "Livrable_is_affichable_seulement_par_formateur",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "Livrable_is_affichable_seulement_par_formateur_displayOrder",
+        "value_integer": 7,
+        "e_data_field_reference": "Livrable_is_affichable_seulement_par_formateur",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "Livrable_is_affichable_seulement_par_formateur_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "Livrable_is_affichable_seulement_par_formateur",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "Livrable_is_affichable_seulement_par_formateur_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Livrable_is_affichable_seulement_par_formateur",
+        "e_metadata_definition_reference": "inputMdWidth"
     }
 ]
