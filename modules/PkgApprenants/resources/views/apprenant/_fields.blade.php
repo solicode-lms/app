@@ -365,14 +365,14 @@
       <div class="form-group col-12 col-md-6">
           <label for="actif">
             {{ ucfirst(__('PkgApprenants::apprenant.actif')) }}
-            <span class="text-danger">*</span>
+            
           </label>
                       <input type="hidden" name="actif" value="0">
             <input
                 name="actif"
                 type="checkbox"
                 class="form-control"
-                required
+                
                 
                 id="actif"
                 value="1"
