@@ -39,7 +39,7 @@ export class FormUI  {
     /**
      * Initialise le gestionnaire de formulaire.
      */
-    init(submitHandler) {
+    init(submitHandler, isCreate = true) {
 
 
         InitUIManagers.init()
@@ -48,7 +48,7 @@ export class FormUI  {
         this.handleCardFooter();
         this.handleFormSubmission(submitHandler);
         this.loader.init();
-        this.adapterPourContext();
+        this.adapterPourContext(isCreate);
         this.initializeSelect2_in_modal();
         FormUI.initializeRichText();
         FormUI.initSelect2Color()
@@ -73,7 +73,7 @@ export class FormUI  {
     /**
          * Masque les éléments <select> dont l'id correspond à une clé dans le contextState.
          */
-    adapterPourContext() {
+    adapterPourContext(isCreate) {
 
         const scopeData = this.config.viewStateService.getScopeFormVariables();
         const formData = this.config.viewStateService.getFormVariables();
@@ -90,17 +90,21 @@ export class FormUI  {
         });
        
         // Appliquer les valeurs des filtres et masquer si nécessaire
-        Object.keys(formData).forEach((key) => {
-            const filterElement = document.querySelector(`${this.config.formSelector} #${key}`);
-            if (filterElement) {
-                    if (filterElement.tagName === "INPUT" || filterElement.tagName === "TEXTAREA") {
-                        filterElement.value = formData[key];
-                    } else if (filterElement.tagName === "SELECT") {
-                        filterElement.value = formData[key];
-                        filterElement.dispatchEvent(new Event("change"));
-                    }
-            }
-        });
+        // Dans le cas de create seulement
+        if(isCreate){
+            Object.keys(formData).forEach((key) => {
+                const filterElement = document.querySelector(`${this.config.formSelector} #${key}`);
+                if (filterElement) {
+                        if (filterElement.tagName === "INPUT" || filterElement.tagName === "TEXTAREA") {
+                            filterElement.value = formData[key];
+                        } else if (filterElement.tagName === "SELECT") {
+                            filterElement.value = formData[key];
+                            filterElement.dispatchEvent(new Event("change"));
+                        }
+                }
+            });
+        }
+       
     }
 
 

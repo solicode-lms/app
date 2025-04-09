@@ -40,6 +40,10 @@
                                 <label for="description">{{ ucfirst(__('PkgCreationProjet::livrable.description')) }}:</label>
                                 <p>{{ $itemLivrable->description }}</p>
                             </div>
+                            <div class="col-sm-12">
+                                <label for="is_affichable_seulement_par_formateur">{{ ucfirst(__('PkgCreationProjet::livrable.is_affichable_seulement_par_formateur')) }}:</label>
+                                <p>{{ $itemLivrable->is_affichable_seulement_par_formateur }}</p>
+                            </div>
                         </div>
                     </div>
                 </div>

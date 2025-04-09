@@ -1,10 +1,9 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 return [
-    'singular' => 'NatureLivrable',
-    'plural' => 'NatureLivrables',
-    'nom' => 'nom',
-    'description' => 'description',
+    'singular' => 'Nature du livrable',
+    'plural' => 'Natures de livrable',
+    'nom' => 'Nom',
+    'description' => 'Description',
 ];

@@ -33,6 +33,7 @@ class BaseLivrableExport implements FromCollection, WithHeadings, ShouldAutoSize
             'projet_id' => 'projet_id',
             'description' => 'description',
             'reference' => 'reference',
+            'is_affichable_seulement_par_formateur' => 'is_affichable_seulement_par_formateur',
         ];
         }else{
         return [
@@ -41,6 +42,7 @@ class BaseLivrableExport implements FromCollection, WithHeadings, ShouldAutoSize
             'projet_id' => __('PkgCreationProjet::livrable.projet_id'),
             'description' => __('PkgCreationProjet::livrable.description'),
             'reference' => __('Core::msg.reference'),
+            'is_affichable_seulement_par_formateur' => __('PkgCreationProjet::livrable.is_affichable_seulement_par_formateur'),
         ];
 
         }
@@ -56,6 +58,7 @@ class BaseLivrableExport implements FromCollection, WithHeadings, ShouldAutoSize
                 'projet_id' => $livrable->projet_id,
                 'description' => $livrable->description,
                 'reference' => $livrable->reference,
+                'is_affichable_seulement_par_formateur' => $livrable->is_affichable_seulement_par_formateur,
             ];
         });
     }

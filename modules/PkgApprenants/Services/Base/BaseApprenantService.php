@@ -46,13 +46,8 @@ class BaseApprenantService extends BaseService
      */
     public function getFieldsSearchable(): array
     {
-        return array_filter($this->fieldsSearchable, function($field) {
-            return !in_array($field, array_keys($this->model->getDynamicAttributes()));
-        });
-
+        return $this->fieldsSearchable;
     }
-
-
 
     /**
      * Constructeur de la classe ApprenantService.

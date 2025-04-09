@@ -34,7 +34,6 @@
                     <td>
                         
                         <ul>
-                      
                             @foreach ($realisationTache->getRealisationLivrable() as $realisationLivrable)
                                 <li><a href="{{ $realisationLivrable->lien }}" target="_blank">{{ $realisationLivrable->livrable->titre }}</a></li>
                             @endforeach

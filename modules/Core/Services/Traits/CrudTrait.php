@@ -33,6 +33,19 @@ trait CrudTrait
         return $this->model->find($id, $columns);
     }
 
+    /**
+     * Méthode surchargable pour mettre à jour un enregistrement.
+     * Par défaut, elle utilise la méthode Eloquent standard.
+     *
+     * @param Model $record Enregistrement à modifier
+     * @param array $data Données de mise à jour
+     * @return void
+     */
+    protected function updateRecord(Model $record, array $data): void
+    {
+        $record->update($data);
+    }
+
     public function edit(int $id){
         return $this->model->find($id);
     }
@@ -86,7 +99,7 @@ trait CrudTrait
      */
     public function update($id, array $data)
     {
-        $record = $this->model->find($id);
+        $record = $this->find($id);
 
         if (!$record) {
             return false;
@@ -107,7 +120,7 @@ trait CrudTrait
         }
 
 
-        $record->update($data);
+       $record->update($data);
 
         $this->syncManyToManyRelations($record, $data);
         return $record;

@@ -149,6 +149,7 @@ export class FilterUI {
         });
     
         // Appliquer les valeurs des filtres et masquer si nécessaire
+        // Seulement dans le cas de insert, dans le cas de edit il faut garder les valeurs de l'objet
         Object.keys(filterData).forEach((key) => {
             const filterElement = document.querySelector(`${this.config.filterFormSelector} [name="${key}"]:not([data-filter-ignore])`);
             if (filterElement) {

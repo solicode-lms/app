@@ -22,7 +22,8 @@ class BaseLivrableService extends BaseService
         'nature_livrable_id',
         'titre',
         'projet_id',
-        'description'
+        'description',
+        'is_affichable_seulement_par_formateur'
     ];
 
     /**

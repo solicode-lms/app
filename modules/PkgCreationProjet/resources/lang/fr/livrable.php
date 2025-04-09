@@ -1,12 +1,12 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 return [
     'singular' => 'Livrable',
     'plural' => 'Livrables',
-    'nature_livrable_id' => 'nature_livrable_id',
-    'titre' => 'titre',
-    'projet_id' => 'projet_id',
-    'description' => 'description',
+    'nature_livrable_id' => 'Nature du livrable',
+    'titre' => 'Titre',
+    'projet_id' => 'Projet',
+    'description' => 'Description',
+    'is_affichable_seulement_par_formateur' => 'Affichage réservé au formateur',
 ];

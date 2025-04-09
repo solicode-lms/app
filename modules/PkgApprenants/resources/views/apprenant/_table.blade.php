@@ -8,7 +8,6 @@
                 <x-sortable-column field="nom" modelname="apprenant" label="{{ ucfirst(__('PkgApprenants::apprenant.nom')) }}" />
                 <x-sortable-column field="prenom" modelname="apprenant" label="{{ ucfirst(__('PkgApprenants::apprenant.prenom')) }}" />
                 <x-sortable-column field="nom_filiere" modelname="apprenant" label="{{ ucfirst(__('PkgApprenants::apprenant.nom_filiere')) }}" />
-                <x-sortable-column field="nombre_realisation_taches_en_cours" modelname="apprenant" label="{{ ucfirst(__('PkgApprenants::apprenant.nombre_realisation_taches_en_cours')) }}" />
                 <x-sortable-column field="groupes" modelname="apprenant" label="{{ ucfirst(__('PkgApprenants::groupe.plural')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
@@ -39,14 +38,6 @@
                             title="{{ $apprenant->nom_filiere }}" 
                         @endif>
                         {{ Str::limit($apprenant->nom_filiere, 40) }}
-                    </span>
-                    </td>
-                    <td>
-                     <span @if(strlen($apprenant->nombre_realisation_taches_en_cours) > 40) 
-                            data-toggle="tooltip" 
-                            title="{{ $apprenant->nombre_realisation_taches_en_cours }}" 
-                        @endif>
-                        {{ Str::limit($apprenant->nombre_realisation_taches_en_cours, 40) }}
                     </span>
                     </td>
                     <td>

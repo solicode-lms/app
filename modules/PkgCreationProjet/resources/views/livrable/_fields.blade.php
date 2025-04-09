@@ -103,6 +103,28 @@
 
 
       <div class="form-group col-12 col-md-6">
+          <label for="is_affichable_seulement_par_formateur">
+            {{ ucfirst(__('PkgCreationProjet::livrable.is_affichable_seulement_par_formateur')) }}
+            
+          </label>
+                      <input type="hidden" name="is_affichable_seulement_par_formateur" value="0">
+            <input
+                name="is_affichable_seulement_par_formateur"
+                type="checkbox"
+                class="form-control"
+                
+                
+                id="is_affichable_seulement_par_formateur"
+                value="1"
+                {{ old('is_affichable_seulement_par_formateur', $itemLivrable ? $itemLivrable->is_affichable_seulement_par_formateur : 0) ? 'checked' : '' }}>
+          @error('is_affichable_seulement_par_formateur')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+
+
+      <div class="form-group col-12 col-md-6">
           <label for="taches">
             {{ ucfirst(__('PkgGestionTaches::Tache.plural')) }}
             

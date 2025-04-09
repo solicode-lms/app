@@ -61,6 +61,7 @@ class BaseLivrableImport implements ToModel, WithHeadingRow
              'projet_id' => $values[2] ?? null,
              'description' => $values[3] ?? null,
              'reference' => $reference,
+             'is_affichable_seulement_par_formateur' => $values[5] ?? null,
         ]);
 
 

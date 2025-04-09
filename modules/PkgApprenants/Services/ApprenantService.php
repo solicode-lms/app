@@ -3,6 +3,7 @@
 namespace Modules\PkgApprenants\Services;
 
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Modules\PkgApprenants\Models\Apprenant;
 use Modules\PkgApprenants\Services\Base\BaseApprenantService;
@@ -16,7 +17,14 @@ use Modules\PkgFormation\Models\Filiere;
 class ApprenantService extends BaseApprenantService
 {
 
-
+    public function find(int $id, array $columns = ['*']){
+        return $this->model::withoutGlobalScope('inactif')->find($id);
+    }
+    // protected function updateRecord(Model $record, array $data): void
+    // {
+    //     $record->update($data);
+    // }
+    
     public function dataCalcul($apprenant)
     {
         // En Cas d'édit
@@ -25,6 +33,11 @@ class ApprenantService extends BaseApprenantService
         }
       
         return $apprenant;
+    }
+
+    public function edit(int $id){
+
+        return $this->model::withoutGlobalScope('inactif')->findOrFail($id);
     }
 
     // public function initFieldsFilterable(){

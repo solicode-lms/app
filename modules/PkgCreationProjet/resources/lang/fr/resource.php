@@ -1,12 +1,11 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 return [
-    'singular' => 'Resource',
-    'plural' => 'Resources',
-    'nom' => 'nom',
-    'lien' => 'lien',
-    'description' => 'description',
-    'projet_id' => 'projet_id',
+    'singular' => 'Ressource',
+    'plural' => 'Ressources',
+    'nom' => 'Nom',
+    'lien' => 'Lien',
+    'description' => 'Description',
+    'projet_id' => 'Projet',
 ];

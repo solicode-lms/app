@@ -78,6 +78,7 @@ class BaseLivrableSeeder extends Seeder
                     "titre" => $row["titre"] ?? null,
                     "projet_id" => $row["projet_id"] ?? null,
                     "description" => $row["description"] ?? null,
+                    "is_affichable_seulement_par_formateur" => $row["is_affichable_seulement_par_formateur"] ?? null,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

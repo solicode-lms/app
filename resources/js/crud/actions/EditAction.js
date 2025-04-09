@@ -49,7 +49,7 @@ export class EditAction extends Action {
                 this.tableUI.indexUI.modalUI.showContent(html);
                 this.executeScripts(html);
                 this.tableUI.indexUI.modalUI.setTitle(window.modalTitle);
-                this.tableUI.indexUI.formUI.init(() => this.submitEntity());
+                this.tableUI.indexUI.formUI.init(() => this.submitEntity(),false);
             })
             .fail((xhr) => {
                 this.tableUI.indexUI.modalUI.close();
