@@ -16,33 +16,7 @@ use Modules\PkgFormation\Models\Filiere;
 class ApprenantService extends BaseApprenantService
 {
 
-     /**
-     * Les champs de recherche disponibles pour apprenants.
-     *
-     * @var array
-     */
-    protected $fieldsSearchable = [
-        'nom',
-        'nom_arab',
-        'prenom',
-        'prenom_arab',
-        'profile_image',
-        'cin',
-        'date_naissance',
-        'sexe',
-        'nationalite_id',
-        'lieu_naissance',
-        'diplome',
-        'adresse',
-        'niveaux_scolaire_id',
-        'tele_num',
-        'user_id',
-        'matricule',
-        'date_inscription',
-        'actif',
-        'nombre_realisation_taches_en_cours'
-    ];
-    
+
     public function dataCalcul($apprenant)
     {
         // En Cas d'édit
@@ -53,36 +27,36 @@ class ApprenantService extends BaseApprenantService
         return $apprenant;
     }
 
-    public function initFieldsFilterable(){
+    // public function initFieldsFilterable(){
 
-        // Initialiser les filtres configurables dynamiquement
-        $scopeVariables = $this->viewState->getScopeVariables('apprenant');
-        $this->fieldsFilterable = [];
+    //     // Initialiser les filtres configurables dynamiquement
+    //     $scopeVariables = $this->viewState->getScopeVariables('apprenant');
+    //     $this->fieldsFilterable = [];
     
      
 
-        // TODO Gapp : à générer depuis metaData : relationFilter
-        $this->fieldsFilterable[] = $this->generateRelationFilter(
-            __("PkgFormation::Filiere.plural"), 
-            'groupes.filiere_id', 
-            Filiere::class, 
-            "id",
-            null,
-            "[name='groupe_id']",
-            route('groupes.getData'),
-            "filiere_id"
-        );
+    //     // TODO Gapp : à générer depuis metaData : relationFilter
+    //     $this->fieldsFilterable[] = $this->generateRelationFilter(
+    //         __("PkgFormation::Filiere.plural"), 
+    //         'groupes.filiere_id', 
+    //         Filiere::class, 
+    //         "id",
+    //         null,
+    //         "[name='groupe_id']",
+    //         route('groupes.getData'),
+    //         "filiere_id"
+    //     );
 
-        if (!array_key_exists('groupes', $scopeVariables)) {
-            $this->fieldsFilterable[] = $this->generateManyToManyFilter(__("PkgApprenants::groupe.plural"), 'groupe_id', \Modules\PkgApprenants\Models\Groupe::class, 'code');
-            }
+    //     if (!array_key_exists('groupes', $scopeVariables)) {
+    //         $this->fieldsFilterable[] = $this->generateManyToManyFilter(__("PkgApprenants::groupe.plural"), 'groupe_id', \Modules\PkgApprenants\Models\Groupe::class, 'code');
+    //         }
 
 
-            if (!array_key_exists('niveaux_scolaire_id', $scopeVariables)) {
-                $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgApprenants::niveauxScolaire.plural"), 'niveaux_scolaire_id', \Modules\PkgApprenants\Models\NiveauxScolaire::class, 'code');
-                }
+    //         if (!array_key_exists('niveaux_scolaire_id', $scopeVariables)) {
+    //             $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgApprenants::niveauxScolaire.plural"), 'niveaux_scolaire_id', \Modules\PkgApprenants\Models\NiveauxScolaire::class, 'code');
+    //             }
               
-    }
+    // }
 
     public function initPassword(int $apprenantId)
     {

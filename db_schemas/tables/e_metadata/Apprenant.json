@@ -95,7 +95,8 @@
     },
     {
         "reference": "Apprenant_niveaux_scolaire_id_filterable",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "Apprenant_niveaux_scolaire_id",
         "e_metadata_definition_reference": "filterable"
     },
@@ -746,7 +747,7 @@
     },
     {
         "reference": "Apprenant-NombreTacheEnCours_displayInTable",
-        "value_boolean": 0,
+        "value_boolean": 1,
         "value_float": 0,
         "e_data_field_reference": "Apprenant-NombreTacheEnCours",
         "e_metadata_definition_reference": "displayInTable"

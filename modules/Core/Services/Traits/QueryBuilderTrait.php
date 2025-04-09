@@ -69,7 +69,7 @@ trait QueryBuilderTrait
                                 "{$relationTable}.{$relationColumn} as {$field}_sortable"
                             ])
                             ->orderBy("{$relationTable}.{$relationColumn}", $direction);
-                } elseif (in_array($field, $this->getFieldsSearchable())) {
+                } elseif (in_array($field, $this->getFieldsSortable())) {
                     // Appliquer un tri normal pour les champs directs
                     $query->orderBy($field, $direction);
                 }

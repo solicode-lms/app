@@ -46,8 +46,13 @@ class BaseApprenantService extends BaseService
      */
     public function getFieldsSearchable(): array
     {
-        return $this->fieldsSearchable;
+        return array_filter($this->fieldsSearchable, function($field) {
+            return !in_array($field, array_keys($this->model->getDynamicAttributes()));
+        });
+
     }
+
+
 
     /**
      * Constructeur de la classe ApprenantService.
@@ -65,9 +70,6 @@ class BaseApprenantService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('apprenant');
         $this->fieldsFilterable = [];
     
-        if (!array_key_exists('niveaux_scolaire_id', $scopeVariables)) {
-        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgApprenants::niveauxScolaire.plural"), 'niveaux_scolaire_id', \Modules\PkgApprenants\Models\NiveauxScolaire::class, 'code');
-        }
         if (!array_key_exists('groupes', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToManyFilter(__("PkgApprenants::groupe.plural"), 'groupe_id', \Modules\PkgApprenants\Models\Groupe::class, 'code');
         }

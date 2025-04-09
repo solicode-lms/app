@@ -35,6 +35,9 @@ abstract class BaseService implements ServiceInterface
 
 
     protected array $fieldsFilterable;
+
+    protected  $fieldsSearchable;
+
     protected $viewState;
     protected $sessionState;
     protected $model;
@@ -50,6 +53,20 @@ abstract class BaseService implements ServiceInterface
      */
     abstract public function getFieldsSearchable(): array;
 
+
+    /**
+     * Méthode pour obtenir les champs sortable.
+     * Les champs dynamique sont sortable mais ne sont pas searchable
+     *
+     * @return array
+     */
+    public function getFieldsSortable(): array
+    {
+        $dynamicAttributes = array_keys($this->model->getDynamicAttributes());
+        
+        // On fusionne les champs "searchable" (en base) et les attributs dynamiques (calculés)
+        return array_merge($this->fieldsSearchable, $dynamicAttributes);
+    }
     /**
      * Constructeur de la classe BaseService.
      *
